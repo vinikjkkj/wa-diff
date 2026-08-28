@@ -1,0 +1,26 @@
+__d(
+  "AdsEffectiveStatus",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      PENDING: "PENDING",
+      ACTIVE: "ACTIVE",
+      PAUSED: "PAUSED",
+      DELETED: "DELETED",
+      PENDING_REVIEW: "PENDING_REVIEW",
+      DISAPPROVED: "DISAPPROVED",
+      PREAPPROVED: "PREAPPROVED",
+      PENDING_BILLING_INFO: "PENDING_BILLING_INFO",
+      CAMPAIGN_PAUSED: "ADSET_PAUSED",
+      ADGROUP_PAUSED: "AD_PAUSED",
+      CAMPAIGN_GROUP_PAUSED: "CAMPAIGN_PAUSED",
+      ARCHIVED: "ARCHIVED",
+      ADSET_PAUSED: "INVALID_STATUS",
+      ARCHIVED_IN_DRAFT: "ARCHIVED_IN_DRAFT",
+      IN_PROCESS: "IN_PROCESS",
+      WITH_ISSUES: "WITH_ISSUES",
+    });
+    i.default = e;
+  },
+  66,
+);

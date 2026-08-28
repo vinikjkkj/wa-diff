@@ -7,7 +7,7 @@ __d(
     "WACryptoSha256",
     "WACryptoUtils",
     "WATypedArraysConcat",
-    "WAWebMiscErrors",
+    "WAWebMediaFileErrors",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,7 +24,7 @@ __d(
             i = t.iv,
             l = t.macKey;
           if (n.byteLength < e)
-            throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "ciphertext too short: " + n.byteLength,
             );
           var s = n instanceof Uint8Array ? n : new Uint8Array(n),
@@ -36,16 +36,16 @@ __d(
             ]),
             m = yield o("WACryptoHmac").hmacSha256(l, d, e);
           if (!o("WACryptoUtils").arrayBuffersEqual(m, c))
-            throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "decryptMedia: hmac mismatch",
             );
           var p = yield o("WACryptoAesCbc").aesCbcDecrypt(r, i, u);
           if (a != null) {
             var _ = yield o("WACryptoSha256").sha256Base64(p);
             if (_ !== a)
-              throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+              throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                 "decryptMedia: " +
-                  o("WAWebMiscErrors").PLAINTEXT_HASH_MISMATCH_ERROR,
+                  o("WAWebMediaFileErrors").PLAINTEXT_HASH_MISMATCH_ERROR,
               );
           }
           return p;

@@ -65,69 +65,76 @@ __d(
       q = u(
         function (e) {
           var t = e[0];
-          return r("WAWebWid").isGroup(t);
+          return r("WAWebWid").isMetaForBusiness(t);
         },
         [_],
       ),
       U = u(
         function (e) {
           var t = e[0];
-          return r("WAWebWid").isBroadcast(t);
+          return r("WAWebWid").isGroup(t);
         },
         [_],
       ),
       V = u(
         function (e) {
           var t = e[0];
-          return r("WAWebWid").isNewsletter(t);
+          return r("WAWebWid").isBroadcast(t);
         },
         [_],
       ),
       H = u(
         function (e) {
           var t = e[0];
-          return r("WAWebWid").isBot(t);
+          return r("WAWebWid").isNewsletter(t);
         },
         [_],
       ),
       G = u(
         function (e) {
           var t = e[0];
-          return o("WAWebBotUtils").isMetaAiBot(t);
+          return r("WAWebWid").isBot(t);
         },
         [_],
       ),
       z = u(
         function (e) {
           var t = e[0];
-          return o("WAWebBotUtils").isBusinessAssistantBot(t);
+          return o("WAWebBotUtils").isMetaAiBot(t);
         },
         [_],
       ),
       j = u(
         function (e) {
           var t = e[0];
-          return o("WAWebBotUtils").isHatchBot(t);
+          return o("WAWebBotUtils").isBusinessAssistantBot(t);
         },
         [_],
       ),
       K = u(
         function (e) {
           var t = e[0];
-          return o("WAWebBotUtils").isBotChannelFBID(t);
+          return o("WAWebBotUtils").isHatchBot(t);
         },
         [_],
       ),
       Q = u(
         function (e) {
+          var t = e[0];
+          return o("WAWebBotUtils").isBotChannelFBID(t);
+        },
+        [_],
+      ),
+      X = u(
+        function (e) {
           var t = e[0],
             n = e[1];
           return !t && !n;
         },
-        [U, B],
+        [V, B],
       ),
-      X = u(o("WAWebBoolFunc").returnTrue, [U]),
-      Y = u(
+      Y = u(o("WAWebBoolFunc").returnTrue, [V]),
+      J = u(
         function (e) {
           var t = e[0];
           return t !== 0;
@@ -163,17 +170,18 @@ __d(
       (l.getIsUser = O),
       (l.getIsPSA = B),
       (l.getIsIAS = W),
-      (l.getIsGroup = q),
-      (l.getIsBroadcast = U),
-      (l.getIsNewsletter = V),
-      (l.getIsBot = H),
-      (l.getIsMetaAiBot = G),
-      (l.getIsBusinessAssistantBot = z),
-      (l.getIsHatchBot = j),
-      (l.getIsBotChannel = K),
-      (l.getIsEligibleForContactSync = Q),
-      (l.getCanUnread = X),
-      (l.getHasUnread = Y));
+      (l.getIsMetaForBusiness = q),
+      (l.getIsGroup = U),
+      (l.getIsBroadcast = V),
+      (l.getIsNewsletter = H),
+      (l.getIsBot = G),
+      (l.getIsMetaAiBot = z),
+      (l.getIsBusinessAssistantBot = j),
+      (l.getIsHatchBot = K),
+      (l.getIsBotChannel = Q),
+      (l.getIsEligibleForContactSync = X),
+      (l.getCanUnread = Y),
+      (l.getHasUnread = J));
   },
   98,
 );

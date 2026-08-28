@@ -12,9 +12,19 @@ __d(
     function u() {
       r("WAWebODS").incr("web.devtools.db_viewer.pinned_queries.query_loaded");
     }
+    function c() {
+      r("WAWebODS").incr("web.devtools.db_viewer.pinned_queries.query_removed");
+    }
+    function d() {
+      r("WAWebODS").incr(
+        "web.devtools.db_viewer.pinned_queries.query_repinned",
+      );
+    }
     ((l.logPinnedQueriesTabActivated = e),
       (l.logQueryPinned = s),
-      (l.logPinnedQueryLoaded = u));
+      (l.logPinnedQueryLoaded = u),
+      (l.logPinnedQueryRemoved = c),
+      (l.logQueryRepinned = d));
   },
   98,
 );

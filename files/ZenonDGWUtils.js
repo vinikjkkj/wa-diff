@@ -14,10 +14,9 @@ __d(
       return r("WebDriverConfig").isJestE2ETestRun ||
         o("ZenonActorHooks").ZenonActor.isWorkUser()
         ? !1
-        : r("qex")._("3376") ||
+        : o("ZenonAppProvider").isMessengerWebApp() ||
             r("qex")._("3911") ||
-            (o("ZenonActorHooks").ZenonActor.isLiveChatOnlyPerson() &&
-              r("justknobx")._("1812")) ||
+            o("ZenonActorHooks").ZenonActor.isLiveChatOnlyPerson() ||
             r("gkx")("18052") ||
             r("gkx")("7595") ||
             s() ||
@@ -26,7 +25,11 @@ __d(
             r("gkx")("5667");
     }
     function s() {
-      return o("ZenonAppProvider").isInternApp() && r("justknobx")._("453");
+      return (
+        o("ZenonAppProvider").isInternApp() &&
+        r("justknobx")._("453") &&
+        !r("gkx")("15868")
+      );
     }
     function u() {
       var e;
@@ -48,15 +51,17 @@ __d(
       var e;
       return (
         o("ZenonAppProvider").isOculusCastingSite() &&
-        ((e = r("qex")._("5839")) != null ? e : !1)
+        ((e = r("qex")._("2658")) != null ? e : !1)
       );
     }
     function m() {
       var t;
-      return (t = e() && !r("qex")._("4380") && r("justknobx")._("3779")) !=
-        null
-        ? t
-        : !1;
+      return o("ZenonAppProvider").isMessengerWebApp() &&
+        r("qex")._("3674") === !0
+        ? !1
+        : (t = e() && !r("qex")._("4380")) != null
+          ? t
+          : !1;
     }
     ((l.shouldUseDGW = e),
       (l.shouldUseUnifiedStream = c),

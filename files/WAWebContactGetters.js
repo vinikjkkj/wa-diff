@@ -135,18 +135,25 @@ __d(
       j = s(
         function (e) {
           var t = e[0];
-          return r("WAWebWid").isSupportAccount(t);
+          return r("WAWebWid").isMetaForBusiness(t);
         },
         [m],
       ),
       K = s(
         function (e) {
           var t = e[0];
-          return r("WAWebWid").isCAPISupportAccount(t);
+          return r("WAWebWid").isSupportAccount(t);
         },
         [m],
       ),
       Q = s(
+        function (e) {
+          var t = e[0];
+          return r("WAWebWid").isCAPISupportAccount(t);
+        },
+        [m],
+      ),
+      X = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -154,7 +161,7 @@ __d(
         },
         [B, L],
       ),
-      X = s(
+      Y = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -162,7 +169,7 @@ __d(
         },
         [B, m],
       ),
-      Y = s(
+      J = s(
         function (e) {
           var t = e[0];
           return (
@@ -172,7 +179,7 @@ __d(
         },
         [E],
       ),
-      J = s(
+      Z = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -188,9 +195,9 @@ __d(
               (r === a || !r || l.isBot()))
           );
         },
-        [_, C, v, b, j, m],
+        [_, C, v, b, K, m],
       ),
-      Z = s(
+      ee = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -205,7 +212,7 @@ __d(
         },
         [_, C, v, b],
       ),
-      ee = s(
+      te = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -217,7 +224,7 @@ __d(
         },
         [_, C, m],
       ),
-      te = s(
+      ne = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -229,7 +236,7 @@ __d(
         },
         [_, C],
       ),
-      ne = s(
+      re = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -244,7 +251,7 @@ __d(
         },
         [S, R, B],
       ),
-      re = s(
+      oe = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -284,17 +291,18 @@ __d(
       (l.getIsAiHub = H),
       (l.getIsPSA = G),
       (l.getIsIAS = z),
-      (l.getIsSupportAccount = j),
-      (l.getIsCAPISupportAccount = K),
-      (l.getIsWAContact = Q),
-      (l.getUserid = X),
-      (l.getCanRequestPhoneNumber = Y),
-      (l.getShowBusinessCheckmarkAsPrimary = J),
-      (l.getShowBusinessCheckmarkAsSecondary = Z),
-      (l.getShowBusinessCheckmarkInChatlist = ee),
-      (l.getIsDisplayNameApproved = te),
-      (l.getShouldForceBusinessUpdate = ne),
-      (l.getShowAsMetaVerified = re));
+      (l.getIsMetaForBusiness = j),
+      (l.getIsSupportAccount = K),
+      (l.getIsCAPISupportAccount = Q),
+      (l.getIsWAContact = X),
+      (l.getUserid = Y),
+      (l.getCanRequestPhoneNumber = J),
+      (l.getShowBusinessCheckmarkAsPrimary = Z),
+      (l.getShowBusinessCheckmarkAsSecondary = ee),
+      (l.getShowBusinessCheckmarkInChatlist = te),
+      (l.getIsDisplayNameApproved = ne),
+      (l.getShouldForceBusinessUpdate = re),
+      (l.getShowAsMetaVerified = oe));
   },
   98,
 );

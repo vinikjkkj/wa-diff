@@ -1,0 +1,36 @@
+__d(
+  "UPLEventStatus",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        ATOMIC: "atomic",
+        BACK: "back",
+        CANCEL: "cancel",
+        CHANGE: "change",
+        COMPLETED: "completed",
+        DELIVERED: "delivered",
+        DISMISS: "dismiss",
+        DISPLAY: "display",
+        ENTER: "enter",
+        EXIT: "exit",
+        EXPIRED: "expired",
+        FAIL: "fail",
+        INIT: "init",
+        OUTFORDELIVERY: "outfordelivery",
+        PENDING: "pending",
+        RESUMED: "resumed",
+        SCHEDULED: "scheduled",
+        SHIPPED: "shipped",
+        SKIPPED: "skipped",
+        STOPPED: "stopped",
+        SUBMIT: "submit",
+        SUCCESS: "success",
+        UNAVAILABLE: "unavailable",
+        UNKNOWN: "unknown",
+        WARNING: "warning",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

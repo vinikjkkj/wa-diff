@@ -1,0 +1,20 @@
+__d(
+  "SKANReadinessStatus",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CONVERSION_BIT_CONFIG_NOT_SETUP: "CONVERSION_BIT_CONFIG_NOT_SETUP",
+      FB_SDK_NOT_UPGRADED: "FB_SDK_NOT_UPGRADED",
+      MMP_NOT_CONFIRMED: "MMP_NOT_CONFIRMED",
+      MMP_SDK_NOT_UPGRADED: "MMP_SDK_NOT_UPGRADED",
+      NOT_READY: "NOT_READY",
+      OPTMIZED_EVENT_NOT_COVERED_BY_CONFIG:
+        "OPTMIZED_EVENT_NOT_COVERED_BY_CONFIG",
+      READY: "READY",
+      S2S_NOT_CONFIRMED: "S2S_NOT_CONFIRMED",
+      VO_SETUP_NOT_VALID: "VO_SETUP_NOT_VALID",
+    });
+    i.default = e;
+  },
+  66,
+);

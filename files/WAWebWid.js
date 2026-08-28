@@ -25,10 +25,18 @@ __d(
       g = "165332417282214",
       h = "1807055946647698",
       y = "16505361212@c.us",
-      C = /^1313555\d{4}$|^131655500\d{2}$/,
-      b = 99,
-      v = 4,
-      S = (function () {
+      C = new Set([
+        "12485302707",
+        "12485302708",
+        "12485302709",
+        "113074241552586",
+        "179818150817991",
+        "32101239943362",
+      ]),
+      b = /^1313555\d{4}$|^131655500\d{2}$/,
+      v = 99,
+      S = 4,
+      R = (function () {
         function t(t, n) {
           var a = n.intentionallyUsePrivateConstructor;
           if (!a)
@@ -103,7 +111,7 @@ __d(
             var f = parseInt(m, 10);
             f && (l.push(":"), l.push(f), (this.device = f));
           }
-          if (this.isHosted() && (this.device == null || this.device !== b))
+          if (this.isHosted() && (this.device == null || this.device !== v))
             throw (
               o("WALogger").LOG(
                 c ||
@@ -124,10 +132,10 @@ __d(
               if (e.length === 2) {
                 var t = e[0],
                   n = e[1];
-                return t.slice(-v) + "-" + n;
+                return t.slice(-S) + "-" + n;
               }
             }
-            return this.user.slice(-v);
+            return this.user.slice(-S);
           }),
           (n.toString = function (t) {
             if (t) {
@@ -186,7 +194,7 @@ __d(
             );
           }),
           (n.isSameAccountAndAddressingMode = function (t) {
-            if (this.device === b || t.device === b) {
+            if (this.device === v || t.device === v) {
               o("WALogger")
                 .LOG(
                   d ||
@@ -279,6 +287,9 @@ __d(
               (this.user === h && this.server === "bot")
             );
           }),
+          (n.isMetaForBusiness = function () {
+            return this.isUser() && C.has(this.user);
+          }),
           (n.isStatus = function () {
             return (
               this.user.toLowerCase() === "status" &&
@@ -304,7 +315,7 @@ __d(
           (n.isPnBot = function () {
             return (
               this.server === "c.us" &&
-              C.test(this.user) &&
+              b.test(this.user) &&
               (this.device == null || this.device === 0)
             );
           }),
@@ -321,7 +332,7 @@ __d(
             return (
               this.server === "hosted" ||
               this.server === "hosted.lid" ||
-              this.device === b
+              this.device === v
             );
           }),
           (t.isXWid = function (n, r) {
@@ -376,13 +387,13 @@ __d(
                     : r.split("@")[0]) != null
                   ? e
                   : "";
-            return t.isXWid("c.us", n) && C.test(o);
+            return t.isXWid("c.us", n) && b.test(o);
           }),
           (t.isBot = function (n) {
             return t.isFbidBot(n) || t.isPnBot(n);
           }),
           (t.isRegularUserNoImply = function (t) {
-            return R(t);
+            return L(t);
           }),
           (t.isGroupCall = function (n) {
             return t.isXWid("call", n);
@@ -419,6 +430,13 @@ __d(
               return e === g || e === h;
             } else if (n instanceof t) return n.isAiHub();
             return !1;
+          }),
+          (t.isMetaForBusiness = function (n) {
+            return o("WATypeUtils").isString(n)
+              ? t.isUser(n) && C.has(n.split("@")[0])
+              : n instanceof t
+                ? n.isMetaForBusiness()
+                : !1;
           }),
           (t.isStatus = function (n) {
             return o("WATypeUtils").isString(n)
@@ -478,10 +496,10 @@ __d(
           t
         );
       })();
-    function R(e) {
-      return S.isUser(e) && !S.isPSA(e) && !S.isBot(e);
+    function L(e) {
+      return R.isUser(e) && !R.isPSA(e) && !R.isBot(e);
     }
-    l.default = S;
+    l.default = R;
   },
   98,
 );

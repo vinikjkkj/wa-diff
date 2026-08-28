@@ -2,14 +2,15 @@ __d(
   "WebBloksAnchorIDExtensionHandler",
   [],
   function (t, n, r, o, a, i) {
-    var e = {
-        getProps: function (t) {
-          var e = t.get("anchor_id");
-          if (e != null) return { "data-anchor-id": e };
+    var e = "#",
+      l = {
+        getProps: function (n) {
+          var t = n.get(e);
+          if (t != null) return { "data-anchor-id": t };
         },
       },
-      l = e;
-    i.default = l;
+      s = l;
+    i.default = s;
   },
   66,
 );

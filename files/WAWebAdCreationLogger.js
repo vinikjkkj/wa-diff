@@ -28,8 +28,17 @@ __d(
         userHasLinkedFbPage: n,
       }).commit();
     }
+    function u(e, t) {
+      new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
+        lwiFlowId: t,
+        lwiScreenAction: e,
+        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
+          .LWI_SCREEN_REFERENCE.LWI_SCREEN_MEDIA_SELECTION_FLOW,
+      }).commit();
+    }
     ((l.getLwiAdsIdentityTypeFromActiveAccountInfo = e),
-      (l.logLwiAdCreationNuxScreen = s));
+      (l.logLwiAdCreationNuxScreen = s),
+      (l.logLwiAdCreationMediaSelectionScreen = u));
   },
   98,
 );

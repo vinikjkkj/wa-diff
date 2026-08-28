@@ -1,0 +1,125 @@
+__d(
+  "AdsSmartDefaultStoreSourceFragment.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "conversion_location",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "source",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "default_page_id",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "default_commerce_product_set_id",
+          storageKey: null,
+        },
+      ];
+      return {
+        argumentDefinitions: [],
+        kind: "Fragment",
+        metadata: null,
+        name: "AdsSmartDefaultStoreSourceFragment",
+        selections: [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "ad_account_id",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "attribution_model_default",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "XFBXAdsSmartDefaultControllerDefaultData",
+            kind: "LinkedField",
+            name: "leads",
+            plural: !0,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "XFBXAdsSmartDefaultControllerDefaultData",
+            kind: "LinkedField",
+            name: "engagement",
+            plural: !0,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "XFBXAdsSmartDefaultControllerDefaultData",
+            kind: "LinkedField",
+            name: "traffic",
+            plural: !0,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "XFBXAdsSmartDefaultControllerDefaultData",
+            kind: "LinkedField",
+            name: "sales",
+            plural: !0,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "XFBXAdsSmartDefaultControllerDefaultData",
+            kind: "LinkedField",
+            name: "lead_gen",
+            plural: !0,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "XFBXAdsSmartDefaultControllerDefaultData",
+            kind: "LinkedField",
+            name: "conversions",
+            plural: !0,
+            selections: e,
+            storageKey: null,
+          },
+        ],
+        type: "XFBXAdsSmartDefaultController",
+        abstractKey: null,
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

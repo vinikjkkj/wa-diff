@@ -1,0 +1,40 @@
+__d(
+  "AdsCopySource",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("$InternalEnum").Mirrored([
+        "COPY_ACTION_REDUCER",
+        "COPY_ACTION_STORE",
+        "DUPLICATE_CAMPAIGN_BY_TARGETING",
+        "ODAX_DUPLICATE",
+        "ODAX_EDITOR_DUPLICATE",
+        "PASTE_FROM_CLIPBOARD",
+        "COPY_PASTE_REDIRECT",
+        "COPY_PASTE_UPGRADE",
+        "QUICK_DUPLICATE_ACTION_REDUCER",
+        "QUICK_DUPLICATE_ACTION_STORE",
+        "QUICK_DUPLICATE_REDIRECT",
+        "QUICK_DUPLICATE_UPGRADE",
+        "SIMPLE_CREATE_QUICK_DUPLICATE",
+        "SAIP_1CDA",
+        "SHOPS_ADS_L3_UPGRADE_DUPLICATE",
+        "SHOPS_ADS_L2_UPGRADE_DUPLICATE_VIA_COMMERCE",
+        "BLENDED_ADS_L3_UPGRADE_DUPLICATE",
+        "SUGGESTED_ADS",
+        "UPGRADE_DUPLICATE",
+        "UPGRADE_PACKAGE_DUPLICATE",
+        "CREATION_UPGRADE",
+        "CREATION_PACKAGE_MFR_UPGRADE",
+        "ASC_FRAGMENTATION_MFR",
+        "DUPLICATE_OPTIMAL_ENTRY_POINT",
+        "OPTIMAL_START_INTERRUPTION",
+        "OPTIMAL_START_CREATION",
+        "DUPLICATE_AND_PUBLISH",
+        "PLR_PE_RECOMMENDATION",
+      ]),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

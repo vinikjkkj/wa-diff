@@ -207,34 +207,41 @@ __d(
                 : !o && e.muted && e.setMuted(!1)),
             a !== null && a !== i && e.setVolume(i));
         },
-        updateCurrentPlayingAudio: function (t, n, r) {
+        updateCurrentPlayingAudio: function (t, n, o) {
           var e = t.lastMuteReason,
-            o = t.lastPlayReason,
-            a = t.muted,
-            i = t.paused,
-            l = t.symbol;
-          !a && !i && !r.has(l)
-            ? r.size > 0
+            a = t.lastPlayReason,
+            i = t.muted,
+            l = t.paused,
+            s = t.symbol;
+          !i && !l && !o.has(s)
+            ? o.size > 0
               ? e === "user_initiated" ||
-                o === "user_initiated" ||
+                a === "user_initiated" ||
                 e === "costreaming_switch_stream_initiated" ||
                 e === "reels_transition_phase_initiated" ||
                 e === "story_transition_phase_initiated" ||
                 e === "tahoe_transition_phase_initiated" ||
                 e === "vdd_transition_phase_initiated"
-                ? (r.forEach(function (e) {
-                    var o = n.get(e);
-                    if (o) {
-                      var a = o.controller;
+                ? (o.forEach(function (e) {
+                    var r = n.get(e);
+                    if (r) {
+                      var a = r.controller;
                       a !== t.controller &&
                         a.setMuted(!0, "audio_manager_initiated");
                     }
-                    r.delete(e);
+                    o.delete(e);
                   }),
-                  r.add(l))
-                : t.controller.setMuted(!0, "audio_manager_initiated")
-              : r.add(l)
-            : r.has(l) && (a || i) && r.delete(l);
+                  o.add(s))
+                : (r("FBLogger")("comet_video_player").warn(
+                    "CometAudioManager: audio %s became unmuted (lastMuteReason=%s, lastPlayReason=%s) while %s other audio(s) were already playing; muting it to preserve single-audio playback",
+                    s,
+                    e != null ? e : "unknown",
+                    a != null ? a : "unknown",
+                    String(o.size),
+                  ),
+                  t.controller.setMuted(!0, "audio_manager_initiated"))
+              : o.add(s)
+            : o.has(s) && (i || l) && o.delete(s);
         },
         updateCurrentPlayingAudioGroup: function (t, n, r, o, a) {
           var e = t.groupID,

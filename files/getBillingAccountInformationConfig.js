@@ -3,6 +3,7 @@ __d(
   [
     "BillingConfigAccountInformationLoader",
     "BillingConfigAccountInformationUtils",
+    "Promise",
     "RelayHooks",
     "asyncToGeneratorRuntime",
     "getBillingAccountInformationConfig_paymentAccount.graphql",
@@ -11,13 +12,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s =
+      s,
+      u =
         e !== void 0
           ? e
           : (e = n(
               "getBillingAccountInformationConfig_paymentAccount.graphql",
             )),
-      u = function (t) {
+      c = function (t) {
         var e = o(
             "getBillingCountryCurrencyTimezone",
           ).getBillingCountryCurrencyTimezone(
@@ -28,13 +30,13 @@ __d(
             ),
           ),
           n = e.country,
-          r = d(t),
+          r = m(t),
           a = o("BillingConfigAccountInformationLoader").read(n),
           i = a.loadConfig,
           l = i(r);
         return l;
       },
-      c = (function () {
+      d = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
               "getBillingCountryCurrencyTimezone",
@@ -45,36 +47,53 @@ __d(
                 e,
               ),
             ),
-            n = t.country,
-            r = d(e),
-            a = yield o("BillingConfigAccountInformationLoader").load(n),
-            i = (a == null ? void 0 : a.default) != null ? a.default : a,
+            r = t.country,
+            a = m(e),
+            i = yield n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* () {
+                try {
+                  return o("BillingConfigAccountInformationLoader").read(r);
+                } catch (e) {
+                  return (
+                    yield (s || (s = n("Promise"))).resolve(e),
+                    o("BillingConfigAccountInformationLoader").read(r)
+                  );
+                }
+              },
+            )(),
             l = i.loadConfig;
-          return l(r);
+          return l(a);
         });
         return function (n) {
           return e.apply(this, arguments);
         };
       })();
-    function d(e) {
+    function m(e) {
       var t,
-        n =
+        n,
+        r =
           e == null || (t = e.billable_account) == null ? void 0 : t.__typename,
-        r = o("BillingConfigAccountInformationUtils").getProductFromAccountType(
-          n,
+        a =
+          e == null || (n = e.billable_account) == null
+            ? void 0
+            : n.application_type,
+        i = o("BillingConfigAccountInformationUtils").getProductFromAccountType(
+          r,
+          !1,
+          a,
         );
       return {
         canUpdate: null,
         countries: [],
         currencies: [],
-        product: r,
+        product: i,
         showFullForm: !1,
         timezones: [],
       };
     }
-    ((l.accountInformationConfigFragment = s),
-      (l.readBillingAccountInformationConfig = u),
-      (l.getBillingAccountInformationConfig = c));
+    ((l.accountInformationConfigFragment = u),
+      (l.readBillingAccountInformationConfig = c),
+      (l.getBillingAccountInformationConfig = d));
   },
   98,
 );

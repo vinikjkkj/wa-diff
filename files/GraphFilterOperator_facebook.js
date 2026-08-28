@@ -1,0 +1,37 @@
+__d(
+  "GraphFilterOperator.facebook",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum").Mirrored([
+        "AFTER",
+        "ALL",
+        "ANY",
+        "BEFORE",
+        "CONTAIN",
+        "CONTAINS_ALL",
+        "CONTAINS_ANY",
+        "ENDS_WITH",
+        "EQUAL",
+        "GREATER_THAN",
+        "GREATER_THAN_OR_EQUAL",
+        "IN",
+        "IN_RANGE",
+        "LESS_THAN",
+        "LESS_THAN_OR_EQUAL",
+        "NONE",
+        "NOT_CONTAIN",
+        "NOT_CONTAINS_ANY",
+        "NOT_EQUAL",
+        "NOT_IN",
+        "NOT_IN_RANGE",
+        "ON_OR_AFTER",
+        "ON_OR_BEFORE",
+        "STARTS_WITH",
+        "STEM_MATCH",
+        "TOP",
+      ]),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

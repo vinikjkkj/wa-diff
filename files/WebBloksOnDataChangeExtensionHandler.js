@@ -13,45 +13,49 @@ __d(
       c = u.useEffect,
       d = u.useRef,
       m = u.useState,
-      p = {
+      p = ")",
+      _ = "*",
+      f = "#",
+      g = "(",
+      h = {
         onMount: function (t, n, r) {
-          var e = t.getExpression("on_cleanup");
+          var e = t.getExpression(g);
           if (e != null)
             return function () {
               r.executeCatch(t, e, [r.bloksContext]);
             };
         },
         wrap: function (t, n) {
-          return s.jsx(f, { model: t, children: n });
+          return s.jsx(C, { model: t, children: n });
         },
       },
-      _ = p;
-    function f(e) {
+      y = h;
+    function C(e) {
       var t = e.children,
         n = e.model,
         r = o("WebBloksComponentContext").useWebBloksContext(),
-        a = n.get("data"),
-        i = n.get("fire_on_first_mount"),
-        l = n.getExpression("on_change"),
+        a = n.get(p),
+        i = n.get(_),
+        l = n.getExpression(f),
         u = m(o("WebBloksBooleanUtils").isFalse(i)),
-        p = u[0],
-        _ = u[1],
-        f = d(null);
+        g = u[0],
+        h = u[1],
+        y = d(null);
       return (
         c(
           function () {
-            (p
-              ? _(!1)
-              : o("WebBloksUtils").deepEquals(f.current, a) ||
-                (l != null && r.executeCatch(n, l, [r, f.current, a])),
-              (f.current = a));
+            (g
+              ? h(!1)
+              : o("WebBloksUtils").deepEquals(y.current, a) ||
+                (l != null && r.executeCatch(n, l, [r, y.current, a])),
+              (y.current = a));
           },
           [a],
         ),
         s.jsx(s.Fragment, { children: t })
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = _));
+    ((C.displayName = C.name + " [from " + i.id + "]"), (l.default = y));
   },
   98,
 );

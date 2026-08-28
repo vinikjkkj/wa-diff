@@ -1,0 +1,38 @@
+__d(
+  "SYDEventTypesEnum",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum").Mirrored([
+        "CallToAction",
+        "Cancel",
+        "ChangeMetric",
+        "ChangeObjective",
+        "Condense",
+        "Confirm",
+        "Create",
+        "Dismiss",
+        "Delete",
+        "DoLater",
+        "Duplicate",
+        "Edit",
+        "Expand",
+        "InPageNavigation",
+        "LearnMore",
+        "MarkComplete",
+        "Navigate",
+        "Next",
+        "None",
+        "OptIn",
+        "OptOut",
+        "Previous",
+        "SecondaryCallToAction",
+        "XOut",
+        "OpenCreateCampaignModal",
+        "XOutCreateCampaignModal",
+        "CreateMessageCampaign",
+      ]),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

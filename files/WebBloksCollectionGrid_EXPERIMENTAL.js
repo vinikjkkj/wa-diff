@@ -3,6 +3,7 @@ __d(
   [
     "WebBloksCollectionChildBase",
     "WebBloksCollectionHelpers",
+    "WebBloksCollectionMinificationKeys",
     "WebBloksCollectionScrollRefs",
     "WebBloksCollectionV2",
     "WebBloksStyle",
@@ -20,168 +21,191 @@ __d(
       u = e.useMemo;
     function c(e) {
       var t,
-        n = o("react-compiler-runtime").c(42),
-        a = e.layoutConfig,
-        i = e.externalStyle,
-        l = e.node,
-        u = l.getSubNodes("children"),
-        c = l.get("direction"),
-        d = l.get("item_spacing"),
-        m = l.get("spacing_after"),
-        f = l.get("spacing_before"),
-        g = o("WebBloksStyle").useStyle(l, i),
-        h = g.ref,
-        y = g.style,
-        C = g.wrapper,
-        b = g.wrapperProps,
-        v = r("useWebBloksCollectionScrollingElementStyle")(l),
-        S = v.scrollingElementClassNames,
-        R = v.scrollingElementStyle,
-        L = o(
+        n,
+        a = o("react-compiler-runtime").c(42),
+        i = e.layoutConfig,
+        l = e.externalStyle,
+        u = e.node,
+        c = u.getSubNodes(
+          (n = o("WebBloksCollectionMinificationKeys")).COLLECTION_CHILDREN,
+        ),
+        d = u.get(n.COLLECTION_DIRECTION),
+        m = u.get(n.COLLECTION_ITEM_SPACING),
+        f = u.get(n.COLLECTION_SPACING_AFTER),
+        g = u.get(n.COLLECTION_SPACING_BEFORE),
+        h = o("WebBloksStyle").useStyle(u, l),
+        y = h.ref,
+        C = h.style,
+        b = h.wrapper,
+        v = h.wrapperProps,
+        S = r("useWebBloksCollectionScrollingElementStyle")(u),
+        R = S.scrollingElementClassNames,
+        L = S.scrollingElementStyle,
+        E = o(
           "WebBloksCollectionScrollRefs",
-        ).useWebbloksCollectionScrollContainerRef(l);
-      r("useWebBloksCollectionScrollHandlers")(l);
-      var E = r("useWebBloksCollectionStopPropagation")(h),
-        k = o("WebBloksCollectionHelpers").getDirectionPropNames(c),
-        I = k.crossAxisSize,
-        T = k.mainAxisMarginEnd,
-        D = k.mainAxisMarginStart,
-        x = k.mainAxisSize,
-        $;
-      n[0] !== a
-        ? (($ = o("WebBloksUtils").toPx(a.get("main_axis_span_spacing"))),
-          (n[0] = a),
-          (n[1] = $))
-        : ($ = n[1]);
-      var P;
-      n[2] !== a
-        ? ((P = o("WebBloksUtils").toPx(a.get("cross_axis_span_spacing"))),
-          (n[2] = a),
-          (n[3] = P))
-        : (P = n[3]);
-      var N;
-      n[4] !== $ || n[5] !== P
-        ? ((N = { main: $, cross: P }), (n[4] = $), (n[5] = P), (n[6] = N))
-        : (N = n[6]);
-      var M = N,
-        w;
-      n[7] !== S
-        ? ((w = o("WebBloksStyle").classNames.apply(
-            void 0,
-            [o("WebBloksStyle").WebBloksStyles.container].concat(S),
+        ).useWebbloksCollectionScrollContainerRef(u);
+      r("useWebBloksCollectionScrollHandlers")(u);
+      var k = r("useWebBloksCollectionStopPropagation")(y),
+        I = o("WebBloksCollectionHelpers").getDirectionPropNames(d),
+        T = I.crossAxisSize,
+        D = I.mainAxisMarginEnd,
+        x = I.mainAxisMarginStart,
+        $ = I.mainAxisSize,
+        P;
+      a[0] !== i
+        ? ((P = o("WebBloksUtils").toPx(
+            i.get(
+              o("WebBloksCollectionMinificationKeys")
+                .GRID_CONFIG_MAIN_AXIS_SPAN_SPACING,
+            ),
           )),
-          (n[7] = S),
-          (n[8] = w))
-        : (w = n[8]);
-      var A;
-      n[9] !== a
-        ? ((A = o("WebBloksUtils").insetToPadding(a.get("padding"))),
-          (n[9] = a),
-          (n[10] = A))
-        : (A = n[10]);
+          (a[0] = i),
+          (a[1] = P))
+        : (P = a[1]);
+      var N;
+      a[2] !== i
+        ? ((N = o("WebBloksUtils").toPx(
+            i.get(
+              o("WebBloksCollectionMinificationKeys")
+                .GRID_CONFIG_CROSS_AXIS_SPAN_SPACING,
+            ),
+          )),
+          (a[2] = i),
+          (a[3] = N))
+        : (N = a[3]);
+      var M;
+      a[4] !== P || a[5] !== N
+        ? ((M = { main: P, cross: N }), (a[4] = P), (a[5] = N), (a[6] = M))
+        : (M = a[6]);
+      var w = M,
+        A;
+      a[7] !== R
+        ? ((A = o("WebBloksStyle").classNames.apply(
+            void 0,
+            [o("WebBloksStyle").WebBloksStyles.container].concat(R),
+          )),
+          (a[7] = R),
+          (a[8] = A))
+        : (A = a[8]);
       var F;
-      n[11] !== l
-        ? ((F = o("WebBloksCollectionHelpers").getContainerType(l)),
-          (n[11] = l),
-          (n[12] = F))
-        : (F = n[12]);
+      a[9] !== i
+        ? ((F = o("WebBloksUtils").insetToPadding(
+            i.get(o("WebBloksCollectionMinificationKeys").GRID_CONFIG_PADDING),
+          )),
+          (a[9] = i),
+          (a[10] = F))
+        : (F = a[10]);
       var O;
-      n[13] !== R || n[14] !== y || n[15] !== A || n[16] !== F
-        ? ((O = babelHelpers.extends({}, R, y, A, {
+      a[11] !== u
+        ? ((O = o("WebBloksCollectionHelpers").getContainerType(u)),
+          (a[11] = u),
+          (a[12] = O))
+        : (O = a[12]);
+      var B;
+      a[13] !== L || a[14] !== C || a[15] !== F || a[16] !== O
+        ? ((B = babelHelpers.extends({}, L, C, F, {
             display: "block",
             pointerEvents: "auto",
-            containerType: F,
+            containerType: O,
           })),
-          (n[13] = R),
-          (n[14] = y),
-          (n[15] = A),
-          (n[16] = F),
-          (n[17] = O))
-        : (O = n[17]);
-      var B = "grid",
-        W = o("WebBloksUtils").toPx(d),
-        q = p(c, (t = a.get("span_count")) != null ? t : 1, M),
-        U = x,
-        V = "max-content",
-        H = I,
-        G = "100%",
-        z = D,
-        j = f != null ? o("WebBloksUtils").toPx(f) : void 0,
-        K = T,
-        Q = m != null ? o("WebBloksUtils").toPx(m) : void 0,
-        X;
+          (a[13] = L),
+          (a[14] = C),
+          (a[15] = F),
+          (a[16] = O),
+          (a[17] = B))
+        : (B = a[17]);
+      var W = "grid",
+        q = o("WebBloksUtils").toPx(m),
+        U = p(
+          d,
+          (t = i.get(
+            o("WebBloksCollectionMinificationKeys").GRID_CONFIG_SPAN_COUNT,
+          )) != null
+            ? t
+            : 1,
+          w,
+        ),
+        V = $,
+        H = "max-content",
+        G = T,
+        z = "100%",
+        j = x,
+        K = g != null ? o("WebBloksUtils").toPx(g) : void 0,
+        Q = D,
+        X = f != null ? o("WebBloksUtils").toPx(f) : void 0,
+        Y;
       if (
-        n[18] !== c ||
-        n[19] !== q ||
-        n[20] !== U ||
-        n[21] !== H ||
-        n[22] !== z ||
-        n[23] !== j ||
-        n[24] !== K ||
-        n[25] !== Q ||
-        n[26] !== W
+        a[18] !== d ||
+        a[19] !== U ||
+        a[20] !== V ||
+        a[21] !== G ||
+        a[22] !== j ||
+        a[23] !== K ||
+        a[24] !== Q ||
+        a[25] !== X ||
+        a[26] !== q
       ) {
-        var Y;
-        ((X = babelHelpers.extends(
-          { display: B, flexDirection: c, gap: W },
-          q,
-          ((Y = {}), (Y[U] = V), (Y[H] = G), (Y[z] = j), (Y[K] = Q), Y),
+        var J;
+        ((Y = babelHelpers.extends(
+          { display: W, flexDirection: d, gap: q },
+          U,
+          ((J = {}), (J[V] = H), (J[G] = z), (J[j] = K), (J[Q] = X), J),
         )),
-          (n[18] = c),
-          (n[19] = q),
-          (n[20] = U),
-          (n[21] = H),
-          (n[22] = z),
-          (n[23] = j),
-          (n[24] = K),
-          (n[25] = Q),
-          (n[26] = W),
-          (n[27] = X));
-      } else X = n[27];
-      var J =
-          u &&
-          u.map(function (e) {
+          (a[18] = d),
+          (a[19] = U),
+          (a[20] = V),
+          (a[21] = G),
+          (a[22] = j),
+          (a[23] = K),
+          (a[24] = Q),
+          (a[25] = X),
+          (a[26] = q),
+          (a[27] = Y));
+      } else Y = a[27];
+      var Z =
+          c &&
+          c.map(function (e) {
             return s.jsx(
               _,
-              { scrollerRef: h, node: e, layoutConfig: a, collectionNode: l },
+              { scrollerRef: y, node: e, layoutConfig: i, collectionNode: u },
               e.clientId,
             );
           }),
-        Z;
-      n[28] !== L || n[29] !== X || n[30] !== J
-        ? ((Z = s.jsx("div", { ref: L, style: X, children: J })),
-          (n[28] = L),
-          (n[29] = X),
-          (n[30] = J),
-          (n[31] = Z))
-        : (Z = n[31]);
-      var ee;
-      n[32] !== h ||
-      n[33] !== E ||
-      n[34] !== Z ||
-      n[35] !== w ||
-      n[36] !== O ||
-      n[37] !== b
-        ? ((ee = s.jsx(
+        ee;
+      a[28] !== E || a[29] !== Y || a[30] !== Z
+        ? ((ee = s.jsx("div", { ref: E, style: Y, children: Z })),
+          (a[28] = E),
+          (a[29] = Y),
+          (a[30] = Z),
+          (a[31] = ee))
+        : (ee = a[31]);
+      var te;
+      a[32] !== y ||
+      a[33] !== k ||
+      a[34] !== ee ||
+      a[35] !== A ||
+      a[36] !== B ||
+      a[37] !== v
+        ? ((te = s.jsx(
             "div",
-            babelHelpers.extends({}, b, { ref: h, className: w, style: O }, E, {
-              children: Z,
+            babelHelpers.extends({}, v, { ref: y, className: A, style: B }, k, {
+              children: ee,
             }),
           )),
-          (n[32] = h),
-          (n[33] = E),
-          (n[34] = Z),
-          (n[35] = w),
-          (n[36] = O),
-          (n[37] = b),
-          (n[38] = ee))
-        : (ee = n[38]);
-      var te;
+          (a[32] = y),
+          (a[33] = k),
+          (a[34] = ee),
+          (a[35] = A),
+          (a[36] = B),
+          (a[37] = v),
+          (a[38] = te))
+        : (te = a[38]);
+      var ne;
       return (
-        n[39] !== ee || n[40] !== C
-          ? ((te = C(ee)), (n[39] = ee), (n[40] = C), (n[41] = te))
-          : (te = n[41]),
-        te
+        a[39] !== te || a[40] !== b
+          ? ((ne = b(te)), (a[39] = te), (a[40] = b), (a[41] = ne))
+          : (ne = a[41]),
+        ne
       );
     }
     function d(e) {
@@ -190,7 +214,11 @@ __d(
         a = e.node,
         i;
       t[0] !== a
-        ? ((i = a.get("layout_config")), (t[0] = a), (t[1] = i))
+        ? ((i = a.getSubNode(
+            o("WebBloksCollectionMinificationKeys").COLLECTION_LAYOUT_CONFIG,
+          )),
+          (t[0] = a),
+          (t[1] = i))
         : (i = t[1]);
       var l = i;
       if (l == null) {
@@ -223,31 +251,63 @@ __d(
     function m(e, t) {
       var n,
         r,
-        o = e.getStyle("bk.style.GridCollectionStyle"),
-        a = e.getStyle("bk.style.Base"),
-        i =
-          (n = o == null ? void 0 : o.get("is_full_span")) != null
-            ? n
-            : a == null
-              ? void 0
-              : a.get("grid_is_full_span"),
+        a = e.getStyle(
+          o("WebBloksCollectionMinificationKeys").GRID_COLLECTION_STYLE,
+        ),
+        i = e.getStyle(o("WebBloksCollectionMinificationKeys").BASE_STYLE),
         l =
-          (r = o == null ? void 0 : o.get("span_count")) != null
-            ? r
-            : a == null
+          (n =
+            a == null
               ? void 0
-              : a.get("grid_span_count");
-      if (i == null && l == null) return {};
-      var s = t.get("direction"),
-        u = t.get("layout_config"),
-        c = s === "column" ? "gridColumn" : "gridRow";
-      if (i != null && u != null) {
-        var d;
-        return ((d = {}), (d[c] = "span " + u.get("span_count")), d);
-      }
-      if (l != null) {
+              : a.get(
+                  o("WebBloksCollectionMinificationKeys")
+                    .GRID_COLLECTION_STYLE_IS_FULL_SPAN,
+                )) != null
+            ? n
+            : i == null
+              ? void 0
+              : i.get(
+                  o("WebBloksCollectionMinificationKeys")
+                    .BASE_STYLE_GRID_IS_FULL_SPAN,
+                ),
+        s =
+          (r =
+            a == null
+              ? void 0
+              : a.get(
+                  o("WebBloksCollectionMinificationKeys")
+                    .GRID_COLLECTION_STYLE_SPAN_COUNT,
+                )) != null
+            ? r
+            : i == null
+              ? void 0
+              : i.get(
+                  o("WebBloksCollectionMinificationKeys")
+                    .BASE_STYLE_GRID_SPAN_COUNT,
+                );
+      if (l == null && s == null) return {};
+      var u = t.get(
+          o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION,
+        ),
+        c = t.getSubNode(
+          o("WebBloksCollectionMinificationKeys").COLLECTION_LAYOUT_CONFIG,
+        ),
+        d = u === "column" ? "gridColumn" : "gridRow";
+      if (l != null && c != null) {
         var m;
-        return ((m = {}), (m[c] = "span " + l), m);
+        return (
+          (m = {}),
+          (m[d] =
+            "span " +
+            c.get(
+              o("WebBloksCollectionMinificationKeys").GRID_CONFIG_SPAN_COUNT,
+            )),
+          m
+        );
+      }
+      if (s != null) {
+        var p;
+        return ((p = {}), (p[d] = "span " + s), p);
       }
       return {};
     }

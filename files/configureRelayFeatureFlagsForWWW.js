@@ -21,7 +21,8 @@ __d(
         (t.RelayFeatureFlags.ENABLE_STORE_ID_COLLISION_LOGGING = e("11610")),
         (t.RelayFeatureFlags.ENABLE_UI_CONTEXT_ON_RELAY_LOGGER = !1),
         (t.RelayFeatureFlags.ENABLE_CATCH_IGNORE_HANDLED_FIELD_ERRORS =
-          e("2397")));
+          e("2397")),
+        (t.RelayFeatureFlags.ENABLE_IF_EMPTY_CANCELLATION = e("9750")));
     }
     l.default = e;
   },

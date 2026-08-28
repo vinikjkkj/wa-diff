@@ -89,6 +89,7 @@ __d(
                 ? void 0
                 : n.target.type
               : null,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -111,6 +112,7 @@ __d(
                 ? void 0
                 : n.target.type
               : null,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -132,6 +134,7 @@ __d(
                 ? void 0
                 : n.target.type
               : null,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -162,6 +165,7 @@ __d(
               : null,
           unpublished_content_type:
             e == null ? void 0 : e.unpublishedContentType,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -176,6 +180,7 @@ __d(
           creation_session_id: t,
           destination: e == null ? void 0 : e.destination,
           is_edit_composer: e == null ? void 0 : e.isEditComposer,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -196,6 +201,7 @@ __d(
             (n = e == null ? void 0 : e.retryCount) != null ? n : "0",
           unpublished_content_type:
             e == null ? void 0 : e.unpublishedContentType,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -217,6 +223,7 @@ __d(
             (n = e == null ? void 0 : e.retryCount) != null ? n : "0",
           unpublished_content_type:
             e == null ? void 0 : e.unpublishedContentType,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -281,6 +288,7 @@ __d(
           composer_type: e == null ? void 0 : e.composerType,
           creation_session_id: t,
           feature_type: e == null ? void 0 : e.featureType,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }
@@ -294,6 +302,7 @@ __d(
           composer_type: e == null ? void 0 : e.composerType,
           creation_session_id: t,
           feature_type: e == null ? void 0 : e.featureType,
+          web_composer_size: e == null ? void 0 : e.webComposerSize,
         };
       });
     }

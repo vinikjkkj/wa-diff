@@ -110,6 +110,7 @@ __d(
         EPHEMERAL_AFTER_READ: "ephemeral_after_read",
         BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
         PRIVACY_SCREEN_UPSELL_BANNER: "privacy_screen_upsell_banner",
+        WEB_CALLING_ACTIVATION_BANNER: "web_calling_activation_banner",
       }),
       g = {
         COOL_OFF_NUX: {

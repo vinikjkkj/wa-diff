@@ -11,17 +11,21 @@ __d(
       s = e || (e = o("react")),
       u = e,
       c = u.useCallback,
-      d = u.useLayoutEffect;
-    function m(e) {
+      d = u.useLayoutEffect,
+      m = "#",
+      p = "$",
+      _ = "(",
+      f = "*";
+    function g(e) {
       var t = e.children,
         n = e.elementRef,
         r = e.node;
       return o("WebBloksSSRUtils").canUseDOM
-        ? s.jsx(p, { elementRef: n, node: r, children: t })
+        ? s.jsx(h, { elementRef: n, node: r, children: t })
         : t;
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
       var t = e.children,
         n = e.elementRef,
         r = e.id,
@@ -35,19 +39,19 @@ __d(
               n = babelHelpers.extends({}, e, t);
             switch (e.state) {
               case "entered": {
-                var r = a.getExpression("on_appear");
+                var r = a.getExpression(m);
                 (r != null && s(a, r, [n, l]),
                   (a.uiMutableContainer.visibility = { hasSeenBefore: !0 }));
                 break;
               }
               case "intersecting": {
-                var o = a.getExpression("on_update");
+                var o = a.getExpression(_);
                 o != null && s(a, o, [n, l]);
                 break;
               }
               case "exited": {
                 var i,
-                  u = a.getExpression("on_disappear");
+                  u = a.getExpression(p);
                 u != null &&
                   ((i = a.uiMutableContainer.visibility) == null
                     ? void 0
@@ -60,33 +64,33 @@ __d(
           },
           [s, a, l],
         ),
-        m = a == null ? void 0 : a.get("trigger_on_first_appear_only"),
-        p = o("WebBloksViewpoint").useViewpoint({
+        g = a == null ? void 0 : a.get(f),
+        h = o("WebBloksViewpoint").useViewpoint({
           id: a.clientId.toString(),
           action: u,
-          untrackAfterFirstAppear: m != null ? m : !1,
+          untrackAfterFirstAppear: g != null ? g : !1,
         });
       return (
         d(
           function () {
-            p.current = n.current;
+            h.current = n.current;
           },
-          [n, p],
+          [n, h],
         ),
         t
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    var _ = {
+    h.displayName = h.name + " [from " + i.id + "]";
+    var y = {
         hasLayoutWrapper: function () {
           return !1;
         },
         wrap: function (t, n, r, o) {
-          return s.jsx(m, { node: t, elementRef: o, children: n });
+          return s.jsx(g, { node: t, elementRef: o, children: n });
         },
       },
-      f = _;
-    l.default = f;
+      C = y;
+    l.default = C;
   },
   98,
 );

@@ -1,0 +1,55 @@
+__d(
+  "ZenonCallsModelTypes",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e,
+      l = (e = n("$InternalEnum")).Mirrored([
+        "Disconnected",
+        "Precontacting",
+        "Contacting",
+        "Ringing",
+        "PendingApproval",
+        "Approved",
+        "FailedApproval",
+        "Connecting",
+        "Connected",
+        "Reconnecting",
+        "ProvisionalRinging",
+      ]),
+      s = e.Mirrored([
+        "Facebook",
+        "Instagram",
+        "Messenger",
+        "Guest",
+        "WhatsApp",
+        "Workplace",
+      ]),
+      u = e.Mirrored([
+        "New",
+        "Connecting",
+        "PendingApproval",
+        "Connected",
+        "Terminating",
+        "Terminated",
+      ]),
+      c = e.Mirrored(["Unknown", "CallsBlocked", "PageAdminPressedDecline"]),
+      d = e.Mirrored([
+        "None",
+        "PendingPeerFeedback",
+        "Declined",
+        "RemoteDeclined",
+        "LocalDeclined",
+        "Cancelled",
+        "TimedOut",
+        "Accepted",
+        "InitiatedFromPeer",
+      ]);
+    ((i.ZenonCallParticipantState = l),
+      (i.ZenonCallParticipantType = s),
+      (i.ZenonCallState = u),
+      (i.ZenonEndCallSubreason = c),
+      (i.ZenonVideoEscalationStatus = d));
+  },
+  66,
+);

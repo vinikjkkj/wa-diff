@@ -1,0 +1,36 @@
+__d(
+  "FrontierCardFormModuleFbt",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      BUSINESS_NAME: "business_name",
+      BUSINESS_NAME_EMPTY: "business_name_empty",
+      CARD_HOLDER_NAME: "card_holder_name",
+      CARD_HOLDER_NAME_EMPTY: "card_holder_name_empty",
+      CARD_HOLDER_NAME_INVALID: "card_holder_name_invalid",
+      CARD_NUMBER: "card_number",
+      CARD_NUMBER_EMPTY: "card_number_empty",
+      CARD_NUMBER_INVALID: "card_number_invalid",
+      CVV: "cvv",
+      EMAIL: "email_address",
+      EMAIL_EMPTY: "email_address_empty",
+      EMAIL_INVALID: "email_address_invalid",
+      ENTER_SECURITY_CODE: "enter_security_code",
+      ENTER_VALID_CODE: "enter_valid_code",
+      EXPIRY_DATE: "expiry_date",
+      EXPIRY_DATE_EMPTY: "expiry_date_empty",
+      EXPIRY_DATE_INVALID: "expiry_date_invalid",
+      EXPIRY_DATE_PASSED: "expiry_date_passed",
+      FULL_NAME: "full_name",
+      FULL_NAME_EMPTY: "full_name_empty",
+      PHONE_NUMBER: "phone_number",
+      PHONE_NUMBER_EMPTY: "phone_number_empty",
+      PHONE_NUMBER_INVALID: "phone_number_invalid",
+      ZIP_CODE: "zip_code",
+      ZIP_CODE_EMPTY: "zip_code_empty",
+      ZIP_CODE_INVALID: "zip_code_invalid",
+    });
+    i.default = e;
+  },
+  66,
+);

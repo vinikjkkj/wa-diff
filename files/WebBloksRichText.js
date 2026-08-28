@@ -16,76 +16,96 @@ __d(
       s = e || (e = o("react")),
       u = e,
       c = u.useMemo,
-      d = u.useState;
-    function m(e) {
+      d = u.useState,
+      m = ".",
+      p = "0",
+      _ = " ",
+      f = "&",
+      g = "(",
+      h = ")",
+      y = "E",
+      C = "F",
+      b = "*",
+      v = ",",
+      S = "D",
+      R = "(";
+    function L(e) {
       var t = e.externalStyle,
         n = e.node,
-        a = n.getExpression("on_click"),
-        i = n.getSubNodes("children"),
-        l = n.getSubNodes("spans"),
-        u = n.get("text_align"),
-        m = n.get("use_composable_and_extensible_spans"),
-        p = n.get("max_number_of_lines"),
-        _ = o("WebBloksStyle").useStyle(n, t, a != null),
-        f = _.style,
-        g = _.wrapper,
-        h = _.wrapperProps,
-        y = r("useClickablePropsForWebBloks")(n, a),
-        C = o("WebBloksComponentContext").useWebBloksContext(),
-        b = C.renderChildren,
-        v = i.slice(-1)[0],
-        S = r("useWebBloksRichTextDimensions")(n),
-        R = m === !0,
-        L = d(!1),
-        E = L[0],
-        k = L[1],
-        I = c(
+        a = n.getExpression(h),
+        i = n.getSubNodes(_),
+        l = n.getSubNodes(y),
+        u = n.get(b),
+        L = n.get(S),
+        E = n.get(g),
+        k = n.get(m),
+        I = n.get(p),
+        T = n.get(f),
+        D = n.getSubNodes(C),
+        x = n.getSubNodes(v),
+        $ = o("WebBloksStyle").useStyle(n, t, a != null),
+        P = $.style,
+        N = $.wrapper,
+        M = $.wrapperProps,
+        w = r("useClickablePropsForWebBloks")(n, a),
+        A = o("WebBloksComponentContext").useWebBloksContext(),
+        F = A.renderChildren,
+        O = i.slice(-1)[0],
+        B = r("useWebBloksRichTextDimensions")(i, T, l, D, x, L),
+        W = L === !0,
+        q = d(!1),
+        U = q[0],
+        V = q[1],
+        H = c(
           function () {
             return {
-              maxNumberOfLines: p != null ? p : 1,
-              isRootFontSizeEnabled: E,
-              setIsRootFontSizeEnabled: k,
+              maxNumberOfLines: E != null ? E : 1,
+              isRootFontSizeEnabled: U,
+              setIsRootFontSizeEnabled: V,
             };
           },
-          [E, p],
+          [U, E],
         ),
-        T = c(
+        G = c(
           function () {
-            return R
+            return W
               ? s.jsx(r("WebBloksRichTextContext").Provider, {
-                  value: I,
-                  children: b(l),
+                  value: H,
+                  children: F(l),
                 })
-              : b(i);
+              : F(i);
           },
-          [R, i, l, b, I],
+          [W, i, l, F, H],
         );
-      return g(
+      return N(
         s.jsx(
           "div",
           babelHelpers.extends(
             {},
-            h,
+            M,
             {
               dir: "auto",
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: babelHelpers.extends({}, f, {
-                lineHeight: S.lineHeight,
+              style: babelHelpers.extends({}, P, {
+                lineHeight: B.lineHeight,
                 display: "block",
-                color: v == null ? void 0 : v.get("text_color"),
+                color: O == null ? void 0 : O.get(R),
                 textAlign: o("WebBloksUtils").toHyphen(u),
                 overflow: "hidden",
               }),
             },
-            y,
+            w,
             {
               children: s.jsx(r("WebBloksRichTextVerticalAlign"), {
-                node: n,
-                dimensions: S,
+                baselineSpacing: k,
+                capSpacing: I,
+                dimensions: B,
                 children: s.jsx(r("WebBloksRichTextTruncation"), {
-                  node: n,
-                  dimensions: S,
-                  children: T,
+                  dimensions: B,
+                  maxNumberOfLines: E,
+                  spansForTruncation: D,
+                  truncationSpans: x,
+                  children: G,
                 }),
               }),
             },
@@ -93,7 +113,7 @@ __d(
         ),
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    ((L.displayName = L.name + " [from " + i.id + "]"), (l.default = L));
   },
   98,
 );

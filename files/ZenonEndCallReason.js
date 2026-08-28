@@ -1,0 +1,47 @@
+__d(
+  "ZenonEndCallReason",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        BREAKOUT_SESSION_SWITCH_ROOM: "BreakoutSessionSwitchRoom",
+        CALL_END_ACCEPT_AFTER_HANG_UP: "CallEndAcceptAfterHangUp",
+        CALLER_HAS_APPEALABLE_CALLING_RESTRICTION:
+          "CallerHasAppealableCallingRestriction",
+        CALLER_NOT_VISIBLE: "CallerNotVisible",
+        CAMERA_PERMISSION_DENIED: "CameraPermissionDenied",
+        CARRIER_BLOCKED: "CarrierBlocked",
+        CLIENT_ENCRYPTION_ERROR: "ClientEncryptionError",
+        CLIENT_ERROR: "ClientError",
+        CLIENT_INTERRUPTED: "ClientInterrupted",
+        CONNECTION_DROPPED: "ConnectionDropped",
+        END_TO_END_ENCRYPTION_INVARIANT_VIOLATED:
+          "EndToEndEncryptionInvariantViolated",
+        HANGUP_CALL: "HangupCall",
+        IGNORE_CALL: "IgnoreCall",
+        IN_ANOTHER_CALL: "InAnotherCall",
+        INACTIVE_TIMEOUT: "InactiveTimeout",
+        INCOMING_TIMEOUT: "IncomingTimeout",
+        MAX_ALLOWED_PARTICIPANTS_REACHED: "MaxAllowedParticipantsReached",
+        MICROPHONE_PERMISSION_DENIED: "MicrophonePermissionDenied",
+        NO_ANSWER_TIMEOUT: "NoAnswerTimeout",
+        NO_PERMISSION: "NoPermission",
+        NO_UI_SHOWN: "NoUIShown",
+        OTHER_CARRIER_BLOCKED: "OtherCarrierBlocked",
+        OTHER_INSTANCE_HANDLED: "OtherInstanceHandled",
+        OTHER_NOT_CAPABLE: "OtherNotCapable",
+        PRODUCT_SERVER_DEFINED_END_REASON: "ProductServerDefinedEndReason",
+        REMOVED_BY_PARTICIPANT: "RemovedByParticipant",
+        RING_MUTED: "RingMuted",
+        SESSION_MIGRATED: "SessionMigrated",
+        SIGNALING_MESSAGE_FAILED: "SignalingMessageFailed",
+        TX_ACK_TIMEOUT: "TxAckTimeout",
+        UNEXPECTED_END_OF_CALL: "UnexpectedEndOfCall",
+        UNKNOWN: "Unknown",
+        VERSION_UNSUPPORTED: "VersionUnsupported",
+        WEBRTC_ERROR: "WebRTCError",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

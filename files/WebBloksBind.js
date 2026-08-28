@@ -196,11 +196,13 @@ __d(
               var F = null,
                 O = void 0,
                 B = void 0;
-              if (w) ((B = g[A]), (O = g[++A]));
+              if (w)
+                ((B = o("WebBloksModel").decodeWebBloksWireIdentifier(g[A])),
+                  (O = g[++A]));
               else {
                 var W = g[A];
                 ((F = W[0] == null ? null : "" + W[0]),
-                  (B = "" + W[1]),
+                  (B = o("WebBloksModel").decodeWebBloksWireIdentifier(W[1])),
                   (O = W[2]));
               }
               var q = d.getCanonicalAttributeKey(B),
@@ -541,7 +543,10 @@ __d(
                   if (
                     (R === S && (R = S.slice()),
                     D.styleId ===
-                      o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
+                      o("WebBloksConstants")
+                        .BK_INTERNAL_MERGE_WITH_BIND_MINIFIED ||
+                      D.styleId ===
+                        o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
                   ) {
                     var x,
                       $ = D.getChildren_DEPRECATED();

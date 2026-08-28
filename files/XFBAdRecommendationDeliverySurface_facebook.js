@@ -1,0 +1,36 @@
+__d(
+  "XFBAdRecommendationDeliverySurface.facebook",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum").Mirrored([
+        "ADS_MANAGER",
+        "ADS_MANAGER_APP",
+        "AI_AGENT",
+        "AUTO_APPLY_RULE",
+        "EMAIL",
+        "EVENTS_MANAGER",
+        "FB_FEED_PROFILE",
+        "GITS_DEBUGGER",
+        "IN_PRODUCT_MESSAGE",
+        "JEWEL_NOTIFICATION",
+        "LWI",
+        "MAPI",
+        "MARKETING_CAMPAIGNS",
+        "MARKETING_PROACTIVE_CHAT",
+        "MBS",
+        "META_BUSINESS_PARTNERS",
+        "PARTNER_CENTER_MBP",
+        "PARTNER_CENTER_RESELLER",
+        "PITCH_PLANNER",
+        "PITCH_WIZARD",
+        "PROACTIVE_CHAT",
+        "SALES_GUIDANCE_PLATFORM",
+        "SHOPIFY_META_APP",
+        "SOLUTIONS_JOURNEY",
+        "TEST",
+      ]),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

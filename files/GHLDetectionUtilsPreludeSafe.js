@@ -68,26 +68,30 @@ __d(
         m = o != null && "z2ht6xqp" in o && "append" in t,
         p = o != null && "k7q3nv9d" in o,
         _ = o != null && "w6jt4rnq" in o,
-        f = l ? document.createComment("") : null,
-        g = s ? document.createRange() : null;
+        f = o != null && "w8kq3zmt" in o && "replaceChild" in t,
+        g = f ? document.createElement("span") : null,
+        h = l ? document.createComment("") : null,
+        y = s ? document.createRange() : null;
       return (
-        f != null && "replaceWith" in f
-          ? (t.appendChild(f), f.replaceWith(n))
-          : g != null
-            ? (g.setStart(t, t.childNodes.length), g.insertNode(n))
-            : c && i != null
-              ? i.after(n)
-              : u && i != null
-                ? i.before(n)
-                : d
-                  ? t.prepend(n)
-                  : m
-                    ? t.append(n)
-                    : p
-                      ? t.insertBefore(n, null)
-                      : _
-                        ? t.insertAdjacentElement("beforeend", n)
-                        : t.appendChild(n),
+        g != null
+          ? (t.appendChild(g), t.replaceChild(n, g))
+          : h != null && "replaceWith" in h
+            ? (t.appendChild(h), h.replaceWith(n))
+            : y != null
+              ? (y.setStart(t, t.childNodes.length), y.insertNode(n))
+              : c && i != null
+                ? i.after(n)
+                : u && i != null
+                  ? i.before(n)
+                  : d
+                    ? t.prepend(n)
+                    : m
+                      ? t.append(n)
+                      : p
+                        ? t.insertBefore(n, null)
+                        : _
+                          ? t.insertAdjacentElement("beforeend", n)
+                          : t.appendChild(n),
         n
       );
     }

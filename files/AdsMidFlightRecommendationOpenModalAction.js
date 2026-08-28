@@ -1,0 +1,114 @@
+__d(
+  "AdsMidFlightRecommendationOpenModalAction",
+  [
+    "AdsDeliveryFragmentationModalProvider",
+    "AdsDeliveryFragmentationOpenModalReducerPlugin",
+    "AdsDeliveryMidFlightBidLimitedModalProvider",
+    "AdsDeliveryMidFlightBidLimitedOpenModalReducerPlugin",
+    "AdsDeliveryMidFlightBudgetLimitedModalProvider",
+    "AdsDeliveryMidFlightBudgetLimitedOpenModalReducerPlugin",
+    "AdsDeliveryMidFlightBudgetLimitedResolutionFlowProvider",
+    "AdsDeliveryMidFlightBudgetLimitedResolutionFlowReducerPlugin",
+    "AdsDeliveryMidFlightCostGoalModalProvider",
+    "AdsDeliveryMidFlightCostGoalOpenModalReducerPlugin",
+    "AdsDeliveryMidFlightCostLimitedModalProvider",
+    "AdsDeliveryMidFlightCostLimitedOpenModalReducerPlugin",
+    "AdsDeliveryMidFlightScaleGoodCampaignFlowProvider",
+    "AdsDeliveryMidFlightScaleGoodCampaignFlowReducerPlugin",
+    "AdsDeliveryMidFlightScaleGoodCtxCampaignFlowProvider",
+    "AdsDeliveryMidFlightScaleGoodCtxCampaignFlowReducerPlugin",
+    "AdsDeliveryMidFlightUnusedBudgetFlowProvider",
+    "AdsDeliveryMidFlightUnusedBudgetFlowReducerPlugin",
+    "AdsMidFlightRecommendationOpenModalReducerPlugin",
+    "AdsMidFlightRecommendationResolutionFlowProvider",
+    "AdsPerformantCreativeReelsOptInSelectedCampaignsInResolutionModalProvider",
+    "AdsPerformantCreativeReelsOptInSelectedCampaignsInResolutionModalReducerPlugins",
+    "Laminar",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [
+          n("Laminar").__createReducer(
+            n("AdsDeliveryFragmentationOpenModalReducerPlugin"),
+            n("AdsDeliveryFragmentationModalProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightBidLimitedOpenModalReducerPlugin"),
+            n("AdsDeliveryMidFlightBidLimitedModalProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightBudgetLimitedOpenModalReducerPlugin"),
+            n("AdsDeliveryMidFlightBudgetLimitedModalProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightBudgetLimitedResolutionFlowReducerPlugin"),
+            n("AdsDeliveryMidFlightBudgetLimitedResolutionFlowProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightCostGoalOpenModalReducerPlugin"),
+            n("AdsDeliveryMidFlightCostGoalModalProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightCostLimitedOpenModalReducerPlugin"),
+            n("AdsDeliveryMidFlightCostLimitedModalProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightScaleGoodCampaignFlowReducerPlugin"),
+            n("AdsDeliveryMidFlightScaleGoodCampaignFlowProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightScaleGoodCtxCampaignFlowReducerPlugin"),
+            n("AdsDeliveryMidFlightScaleGoodCtxCampaignFlowProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDeliveryMidFlightUnusedBudgetFlowReducerPlugin"),
+            n("AdsDeliveryMidFlightUnusedBudgetFlowProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsMidFlightRecommendationOpenModalReducerPlugin"),
+            n("AdsMidFlightRecommendationResolutionFlowProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n(
+              "AdsPerformantCreativeReelsOptInSelectedCampaignsInResolutionModalReducerPlugins",
+            )
+              .AdsPerformantCreativeReelsOptInReselectAllCampaignsInResolutionModalActionPlugin,
+            n(
+              "AdsPerformantCreativeReelsOptInSelectedCampaignsInResolutionModalProvider",
+            ),
+            {},
+            "",
+          ),
+        ];
+      },
+      function () {
+        return [];
+      },
+      "AdsMidFlightRecommendationOpenModalActionPlugin",
+    );
+    a.exports = e;
+  },
+  null,
+);

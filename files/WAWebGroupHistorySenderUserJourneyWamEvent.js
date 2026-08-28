@@ -4,6 +4,7 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumAddMembersEntrypointType",
     "WAWebWamEnumBundleSendSource",
+    "WAWebWamEnumGroupCreateEntryPoint",
     "WAWebWamEnumGroupHistoryIneligibilityReason",
     "WAWebWamEnumGroupHistorySenderActionType",
     "WAWebWamEnumGroupHistorySystemMessageType",
@@ -16,6 +17,7 @@ __d(
           GroupHistorySenderUserJourney: [
             8378,
             {
+              appSessionId: [21, e.TYPES.STRING],
               bundleSendSource: [
                 1,
                 o("WAWebWamEnumBundleSendSource").BUNDLE_SEND_SOURCE,
@@ -24,6 +26,10 @@ __d(
                 17,
                 o("WAWebWamEnumAddMembersEntrypointType")
                   .ADD_MEMBERS_ENTRYPOINT_TYPE,
+              ],
+              groupCreateEntryPoint: [
+                20,
+                o("WAWebWamEnumGroupCreateEntryPoint").GROUP_CREATE_ENTRY_POINT,
               ],
               groupHistoryMessagesCount: [2, e.TYPES.INTEGER],
               groupHistoryOutWindowPinsCount: [3, e.TYPES.INTEGER],

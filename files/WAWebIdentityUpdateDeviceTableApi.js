@@ -110,57 +110,65 @@ __d(
               g = f.chatIds,
               h = f.encryptedNotifications,
               y = null;
-            (yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e =
-                    h.length > 0
-                      ? o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
-                          h,
-                          [],
-                          g,
-                          !1,
-                        )
-                      : (p || (p = n("Promise"))).resolve(),
-                  a = o(
-                    "WAWebAdvUpdateParticipantApi",
-                  ).updateGroupParticipantsInTransaction(t, c, d),
-                  i = {
-                    id: o("WAWebDeviceListPk").createDeviceListPK(t),
-                    deleted: !0,
-                  };
-                m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                  (i.deletedChangedToHost = !0);
-                var l = o("WAWebApiDeviceList")
-                    .createOrReplaceDeviceRecord(i)
-                    .catch(function (e) {
-                      throw (
-                        o("WALogger")
-                          .ERROR(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "remove from device list table failed",
-                              ])),
-                          )
-                          .verbose()
-                          .sendLogs(
-                            "remove from device list table failed when clearing device record",
-                          ),
-                        r("err")("remove from device list table failed")
-                      );
-                    }),
-                  u = (p || (p = n("Promise"))).resolve();
-                (m != null &&
-                  ((u = o("WAWebApiContact").updateContactAdvHostedType(t, m)),
-                  (y = {
-                    contactId: o("WAWebWidFactory").asUserWidOrThrow(t),
-                    advAccountType: m,
-                  })),
-                  yield p.all([e, a, l, u]));
-              }),
-              h.length > 0,
-              !1,
-              m != null,
-            ),
+            (yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock({
+              callback: (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    var e =
+                        h.length > 0
+                          ? o(
+                              "WAWebDBStoreEncryptedMsgs",
+                            ).storeEncryptedDBMessages(h, [], g, !1)
+                          : (p || (p = n("Promise"))).resolve(),
+                      a = o(
+                        "WAWebAdvUpdateParticipantApi",
+                      ).updateGroupParticipantsInTransaction(t, c, d),
+                      i = {
+                        id: o("WAWebDeviceListPk").createDeviceListPK(t),
+                        deleted: !0,
+                      };
+                    m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                      (i.deletedChangedToHost = !0);
+                    var l = o("WAWebApiDeviceList")
+                        .createOrReplaceDeviceRecord(i)
+                        .catch(function (e) {
+                          throw (
+                            o("WALogger")
+                              .ERROR(
+                                s ||
+                                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                                    "remove from device list table failed",
+                                  ])),
+                              )
+                              .verbose()
+                              .sendLogs(
+                                "remove from device list table failed when clearing device record",
+                              ),
+                            r("err")("remove from device list table failed")
+                          );
+                        }),
+                      u = (p || (p = n("Promise"))).resolve();
+                    (m != null &&
+                      ((u = o("WAWebApiContact").updateContactAdvHostedType(
+                        t,
+                        m,
+                      )),
+                      (y = {
+                        contactId: o("WAWebWidFactory").asUserWidOrThrow(t),
+                        advAccountType: m,
+                      })),
+                      yield p.all([e, a, l, u]));
+                  },
+                );
+                function a() {
+                  return e.apply(this, arguments);
+                }
+                return a;
+              })(),
+              hasAdvAccountTypeChange: m != null,
+              hasNewNotification: h.length > 0,
+              shouldUpdateSyncdMissingKeyDevices: !1,
+            }),
               y != null &&
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateContactAdvAccountType",
@@ -269,80 +277,87 @@ __d(
           );
           var E = (L == null ? void 0 : L.length) > 0,
             k = [];
-          yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e =
-                  L.length > 0
-                    ? o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
-                        L,
-                        [],
-                        R,
-                        !1,
+          yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock({
+            callback: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var e =
+                      L.length > 0
+                        ? o(
+                            "WAWebDBStoreEncryptedMsgs",
+                          ).storeEncryptedDBMessages(L, [], R, !1)
+                        : (p || (p = n("Promise"))).resolve(),
+                    a = o(
+                      "WAWebAdvUpdateParticipantApi",
+                    ).bulkUpdateGroupParticipantsInTransaction(m),
+                    i = o("WAWebApiDeviceList")
+                      .bulkCreateOrReplaceDeviceRecord(
+                        t.map(function (e) {
+                          return e.update;
+                        }),
                       )
-                    : (p || (p = n("Promise"))).resolve(),
-                a = o(
-                  "WAWebAdvUpdateParticipantApi",
-                ).bulkUpdateGroupParticipantsInTransaction(m),
-                i = o("WAWebApiDeviceList")
-                  .bulkCreateOrReplaceDeviceRecord(
-                    t.map(function (e) {
-                      return e.update;
-                    }),
-                  )
-                  .catch(function (e) {
-                    throw (
-                      o("WALogger")
-                        .ERROR(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "bulkCreateOrReplace into device list table failed",
-                            ])),
-                        )
-                        .verbose()
-                        .sendLogs(
-                          "bulkCreateOrReplace into device list table failed when applying device update",
+                      .catch(function (e) {
+                        throw (
+                          o("WALogger")
+                            .ERROR(
+                              c ||
+                                (c = babelHelpers.taggedTemplateLiteralLoose([
+                                  "bulkCreateOrReplace into device list table failed",
+                                ])),
+                            )
+                            .verbose()
+                            .sendLogs(
+                              "bulkCreateOrReplace into device list table failed when applying device update",
+                            ),
+                          r("err")(
+                            "bulkCreateOrReplace into device list table failed",
+                          )
+                        );
+                      }),
+                    l = g
+                      ? i.then(function () {
+                          return o("WAWebSyncdStoreMissingKeys")
+                            .updateMissingKeyDevices()
+                            .catch(function (e) {
+                              o("WALogger").WARN(
+                                d ||
+                                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                                    "syncd: updateMissingKeyDevices failed with error:\n        ",
+                                    "",
+                                  ])),
+                                String(e),
+                              );
+                            });
+                        })
+                      : (p || (p = n("Promise"))).resolve(),
+                    s = [];
+                  (E &&
+                    m.forEach(function (e) {
+                      var t = e.newAdvAccountType,
+                        n = e.wid;
+                      t != null &&
+                        (s.push(
+                          o("WAWebApiContact").updateContactAdvHostedType(n, t),
                         ),
-                      r("err")(
-                        "bulkCreateOrReplace into device list table failed",
-                      )
-                    );
-                  }),
-                l = g
-                  ? i.then(function () {
-                      return o("WAWebSyncdStoreMissingKeys")
-                        .updateMissingKeyDevices()
-                        .catch(function (e) {
-                          o("WALogger").WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "syncd: updateMissingKeyDevices failed with error:\n        ",
-                                "",
-                              ])),
-                            String(e),
-                          );
-                        });
-                    })
-                  : (p || (p = n("Promise"))).resolve(),
-                s = [];
-              (E &&
-                m.forEach(function (e) {
-                  var t = e.newAdvAccountType,
-                    n = e.wid;
-                  t != null &&
-                    (s.push(
-                      o("WAWebApiContact").updateContactAdvHostedType(n, t),
-                    ),
-                    k.push({
-                      contactId: o("WAWebWidFactory").asUserWidOrThrow(n),
-                      advAccountType: t,
-                    }));
-                }),
-                yield (p || (p = n("Promise"))).all([e, a, i, l].concat(s)));
-            }),
-            L.length > 0,
-            g,
-            E,
-          );
+                        k.push({
+                          contactId: o("WAWebWidFactory").asUserWidOrThrow(n),
+                          advAccountType: t,
+                        }));
+                    }),
+                    yield (p || (p = n("Promise"))).all(
+                      [e, a, i, l].concat(s),
+                    ));
+                },
+              );
+              function a() {
+                return e.apply(this, arguments);
+              }
+              return a;
+            })(),
+            hasAdvAccountTypeChange: E,
+            hasNewNotification: L.length > 0,
+            shouldUpdateSyncdMissingKeyDevices: g,
+          });
           for (var I of k)
             o("WAWebBackendApi").frontendFireAndForget(
               "updateContactAdvAccountType",

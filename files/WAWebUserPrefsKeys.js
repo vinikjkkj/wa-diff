@@ -61,7 +61,6 @@ __d(
         "BizBroadcastPrimaryCapability",
         "BizBroadcastProPrimaryCapability",
         "BizBroadcastPrimaryRecipientLimit",
-        "BizAiSettingsSyncPrimaryCapability",
         "GuestLastPageLoadTs",
         "IsSmb",
         "IsHostedMeAccount",

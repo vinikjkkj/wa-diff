@@ -1,0 +1,337 @@
+__d(
+  "BillingAutoReloadEditAmountScreenQuery.graphql",
+  ["BillingAutoReloadEditAmountScreenQuery_facebookRelayOperation"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+          {
+            defaultValue: null,
+            kind: "LocalArgument",
+            name: "paymentAccountID",
+          },
+        ],
+        t = [
+          {
+            kind: "Variable",
+            name: "legacy_account_id",
+            variableName: "paymentAccountID",
+          },
+        ],
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "currency",
+          storageKey: null,
+        },
+        o = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        i = [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "amount_with_offset",
+            storageKey: null,
+          },
+          r,
+        ],
+        l = {
+          alias: null,
+          args: null,
+          concreteType: "CurrencyAmount",
+          kind: "LinkedField",
+          name: "auto_reload_trigger_threshold",
+          plural: !1,
+          selections: i,
+          storageKey: null,
+        },
+        s = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "credential_id",
+          storageKey: null,
+        },
+        u = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "credential_type",
+          storageKey: null,
+        },
+        c = {
+          alias: "prepay_details_for_auto_reload",
+          args: [
+            { kind: "Literal", name: "intent", value: "AUTO_RELOAD" },
+            {
+              kind: "Variable",
+              name: "payment_legacy_account_id",
+              variableName: "paymentAccountID",
+            },
+          ],
+          concreteType: "AdAccountPrepayDetail",
+          kind: "LinkedField",
+          name: "prepay_funding_details",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              concreteType: "CurrencyAmount",
+              kind: "LinkedField",
+              name: "default_funding_amount",
+              plural: !1,
+              selections: i,
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType: "CurrencyAmount",
+              kind: "LinkedField",
+              name: "max_acceptable_amount",
+              plural: !1,
+              selections: i,
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType: "CurrencyAmount",
+              kind: "LinkedField",
+              name: "min_acceptable_amount",
+              plural: !1,
+              selections: i,
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "BillingAutoReloadEditAmountScreenQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "payment_account",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: null,
+                  kind: "LinkedField",
+                  name: "billable_account",
+                  plural: !1,
+                  selections: [r],
+                  storageKey: null,
+                },
+                {
+                  args: null,
+                  kind: "FragmentSpread",
+                  name: "useBillingAutoReloadAmounts_paymentAccount",
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "BillingAutoReloadEditAmountScreenQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "payment_account",
+              plural: !1,
+              selections: [
+                o,
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: null,
+                  kind: "LinkedField",
+                  name: "billable_account",
+                  plural: !1,
+                  selections: [
+                    o,
+                    r,
+                    a,
+                    {
+                      kind: "InlineFragment",
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: "BillingAutoReloadInfo",
+                          kind: "LinkedField",
+                          name: "auto_reload_info",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              concreteType: "CurrencyAmount",
+                              kind: "LinkedField",
+                              name: "auto_reload_amount",
+                              plural: !1,
+                              selections: i,
+                              storageKey: null,
+                            },
+                            l,
+                            {
+                              alias: null,
+                              args: null,
+                              concreteType: "XFBAutoReloadPills",
+                              kind: "LinkedField",
+                              name: "auto_reload_pill_amounts",
+                              plural: !1,
+                              selections: [
+                                {
+                                  alias: null,
+                                  args: null,
+                                  concreteType: "XFBAutoReloadPillData",
+                                  kind: "LinkedField",
+                                  name: "pill_one",
+                                  plural: !1,
+                                  selections: [
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType: "CurrencyAmount",
+                                      kind: "LinkedField",
+                                      name: "reload_amount",
+                                      plural: !1,
+                                      selections: i,
+                                      storageKey: null,
+                                    },
+                                  ],
+                                  storageKey: null,
+                                },
+                              ],
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                      ],
+                      type: "AdAccount",
+                      abstractKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                {
+                  kind: "TypeDiscriminator",
+                  abstractKey: "__isPaymentAccount",
+                },
+                {
+                  alias: "recurring_pms",
+                  args: [
+                    {
+                      kind: "Literal",
+                      name: "filter",
+                      value: "SUPPORTS_RECURRING",
+                    },
+                    {
+                      kind: "Literal",
+                      name: "usability_params",
+                      value: { intent: "AUTO_RELOAD" },
+                    },
+                  ],
+                  concreteType: "PaymentCredentialDetails",
+                  kind: "LinkedField",
+                  name: "billing_payment_methods",
+                  plural: !0,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: null,
+                      kind: "LinkedField",
+                      name: "credential",
+                      plural: !1,
+                      selections: [
+                        o,
+                        {
+                          kind: "InlineFragment",
+                          selections: [s, u, c],
+                          type: "ExternalCreditCard",
+                          abstractKey: null,
+                        },
+                        {
+                          kind: "InlineFragment",
+                          selections: [
+                            s,
+                            u,
+                            c,
+                            {
+                              alias: null,
+                              args: null,
+                              concreteType: "BillingAutoReloadCredentialInfo",
+                              kind: "LinkedField",
+                              name: "auto_reload_details",
+                              plural: !1,
+                              selections: [l],
+                              storageKey: null,
+                            },
+                          ],
+                          type: "LPMCredential",
+                          abstractKey: null,
+                        },
+                        a,
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey:
+                    'billing_payment_methods(filter:"SUPPORTS_RECURRING",usability_params:{"intent":"AUTO_RELOAD"})',
+                },
+                a,
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: n(
+            "BillingAutoReloadEditAmountScreenQuery_facebookRelayOperation",
+          ),
+          metadata: {},
+          name: "BillingAutoReloadEditAmountScreenQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

@@ -1,0 +1,268 @@
+__d(
+  "BillingMIUpsertAddressScreenQuery.graphql",
+  ["BillingMIUpsertAddressScreenQuery_facebookRelayOperation"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "addressType",
+        },
+        t = { defaultValue: null, kind: "LocalArgument", name: "aoabOrgID" },
+        r = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "paymentAccountID",
+        },
+        o = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "paymentMethodID",
+        },
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "mio_address_tax_id_countries",
+          storageKey: null,
+        },
+        i = [{ kind: "Variable", name: "id", variableName: "paymentMethodID" }],
+        l = [
+          {
+            kind: "Variable",
+            name: "address_type",
+            variableName: "addressType",
+          },
+          {
+            kind: "Variable",
+            name: "aoab_billing_org_id",
+            variableName: "aoabOrgID",
+          },
+          {
+            kind: "Variable",
+            name: "payment_account_id",
+            variableName: "paymentAccountID",
+          },
+        ],
+        s = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "can_create_address",
+          storageKey: null,
+        },
+        u = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: [e, t, r, o],
+          kind: "Fragment",
+          metadata: null,
+          name: "BillingMIUpsertAddressScreenQuery",
+          selections: [
+            a,
+            {
+              alias: null,
+              args: i,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "extended_credit",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: l,
+                  concreteType: "CRMAddressOptionsResponse",
+                  kind: "LinkedField",
+                  name: "edit_billing_info_address_options",
+                  plural: !1,
+                  selections: [
+                    s,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "CRMAddress",
+                      kind: "LinkedField",
+                      name: "crm_addresses",
+                      plural: !0,
+                      selections: [
+                        {
+                          args: null,
+                          kind: "FragmentSpread",
+                          name: "useBillingMIFormatExistingAddresses_data",
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: [e, o, t, r],
+          kind: "Operation",
+          name: "BillingMIUpsertAddressScreenQuery",
+          selections: [
+            a,
+            {
+              alias: null,
+              args: i,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "extended_credit",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "__typename",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: l,
+                  concreteType: "CRMAddressOptionsResponse",
+                  kind: "LinkedField",
+                  name: "edit_billing_info_address_options",
+                  plural: !1,
+                  selections: [
+                    s,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "CRMAddress",
+                      kind: "LinkedField",
+                      name: "crm_addresses",
+                      plural: !0,
+                      selections: [
+                        u,
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "single_line_address_full",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "street1",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "street2",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "street3",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "street4",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "crm_city",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "crm_state",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "crm_postal_code",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "crm_country",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "cnpj_tax_id",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "registration_label",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "registration_number",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "vat_tax_id",
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                u,
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: n("BillingMIUpsertAddressScreenQuery_facebookRelayOperation"),
+          metadata: {},
+          name: "BillingMIUpsertAddressScreenQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

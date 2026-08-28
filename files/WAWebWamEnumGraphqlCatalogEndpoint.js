@@ -14,6 +14,7 @@ __d(
       CREATE_COLLECTION: 9,
       GET_PUBLIC_KEY: 10,
       VERIFY_POSTCODE: 11,
+      GET_ORDER_INFO: 12,
     });
     i.GRAPHQL_CATALOG_ENDPOINT = e;
   },

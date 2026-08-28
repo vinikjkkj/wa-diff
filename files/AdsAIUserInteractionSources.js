@@ -1,0 +1,34 @@
+__d(
+  "AdsAIUserInteractionSources",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("$InternalEnum").Mirrored([
+        "OPEN_COMPACT_INBOX",
+        "OPEN_EXISTING_CHAT_THREAD",
+        "OPEN_FULL_THREAD_LIST_FROM_COMPACT_INBOX",
+        "OPEN_FULL_THREAD_LIST_FROM_GLOBAL_LEFT_NAV",
+        "SHADOW_TRAFFIC",
+        "START_CHAT_FROM_CHAT_HEADER",
+        "START_CHAT_FROM_FAB",
+        "START_CHAT_FROM_FAB_FOOTER",
+        "START_CHAT_FROM_FAB_HEADER",
+        "START_CHAT_FROM_GLOBAL_LEFT_NAV",
+        "START_CHAT_FROM_HELP_TRAY",
+        "START_CHAT_FROM_THREADS_LIST_HEADER",
+        "START_CHAT_FROM_WIDGET_WITH_MESSAGE",
+        "START_CHAT_FROM_WIDGET_WITHOUT_MESSAGE",
+        "START_CHAT_FROM_GP1_MFR_ENTRYPOINT",
+        "START_CHAT_FROM_GP1_NON_MFR_ENTRYPOINT",
+        "START_CHAT_FROM_GP2_BSH_ENTRYPOINT",
+        "START_CHAT_FROM_GP2_ADS_RISK_ENTRYPOINT",
+        "START_CHAT_FROM_GP6_PCR_ENTRYPOINT",
+        "START_CHAT_FROM_LWI_AD_CENTER",
+        "START_CHAT_FROM_XFAC_CHALLENGE",
+        "USER_SENT_MESSAGE_IN_CHAT",
+      ]),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

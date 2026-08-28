@@ -14,7 +14,12 @@ __d(
       u = e,
       c = u.useCallback,
       d = u.useLayoutEffect,
-      m = o("WebBloksStyle").createStyles({
+      m = "*",
+      p = "-",
+      _ = ")",
+      f = "+",
+      g = ",",
+      h = o("WebBloksStyle").createStyles({
         root: {
           alignSelf: "stretch",
           position: "relative",
@@ -22,7 +27,7 @@ __d(
           zIndex: 99,
         },
       });
-    function p(e) {
+    function y(e) {
       var t = o("react-compiler-runtime").c(37),
         n = e.node,
         r = o("WebBloksStyle").useStyle(n),
@@ -31,40 +36,38 @@ __d(
         l = o("WebBloksComponentContext").useWebBloksContext(),
         u = l.bloksContext,
         c = l.executeCatch,
-        p = l.renderNode,
-        _ = !!n.get("tooltip_visibility"),
-        f;
+        y = l.renderNode,
+        C = !!n.get(g),
+        b;
       t[0] !== n
-        ? ((f = n.getExpression("on_visibility_update")),
-          (t[0] = n),
-          (t[1] = f))
-        : (f = t[1]);
-      var g = f,
-        h;
+        ? ((b = n.getExpression(_)), (t[0] = n), (t[1] = b))
+        : (b = t[1]);
+      var v = b,
+        S;
       t[2] !== n
-        ? ((h = n.getExpression("on_touch_outside")), (t[2] = n), (t[3] = h))
-        : (h = t[3]);
-      var y = h,
-        C;
-      t[4] !== n || t[5] !== p
-        ? ((C = p(n.getSubNode("tooltip"))), (t[4] = n), (t[5] = p), (t[6] = C))
-        : (C = t[6]);
-      var b = C,
-        v;
-      t[7] !== n || t[8] !== p
-        ? ((v = p(n.getSubNode("child"))), (t[7] = n), (t[8] = p), (t[9] = v))
-        : (v = t[9]);
-      var S = v;
+        ? ((S = n.getExpression(p)), (t[2] = n), (t[3] = S))
+        : (S = t[3]);
+      var R = S,
+        L;
+      t[4] !== n || t[5] !== y
+        ? ((L = y(n.getSubNode(f))), (t[4] = n), (t[5] = y), (t[6] = L))
+        : (L = t[6]);
+      var E = L,
+        k;
+      t[7] !== n || t[8] !== y
+        ? ((k = y(n.getSubNode(m))), (t[7] = n), (t[8] = y), (t[9] = k))
+        : (k = t[9]);
+      var I = k;
       u.initAssociatedObject_INTERNAL(
         n,
         o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
-        { visible: _ },
+        { visible: C },
       );
-      var R;
-      t[10] !== u || t[11] !== c || t[12] !== n || t[13] !== y || t[14] !== g
-        ? ((R = function () {
-            (g != null && c(n, g, [n, !1]),
-              y != null && c(n, y, [n, !1]),
+      var T;
+      t[10] !== u || t[11] !== c || t[12] !== n || t[13] !== R || t[14] !== v
+        ? ((T = function () {
+            (v != null && c(n, v, [n, !1]),
+              R != null && c(n, R, [n, !1]),
               u.updateAssociatedObject_INTERNAL(
                 n,
                 o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
@@ -74,98 +77,98 @@ __d(
           (t[10] = u),
           (t[11] = c),
           (t[12] = n),
-          (t[13] = y),
-          (t[14] = g),
-          (t[15] = R))
-        : (R = t[15]);
-      var L = R,
-        E;
+          (t[13] = R),
+          (t[14] = v),
+          (t[15] = T))
+        : (T = t[15]);
+      var D = T,
+        x;
       t[16] !== u || t[17] !== n
-        ? ((E = u.getAssociatedObject_INTERNAL(
+        ? ((x = u.getAssociatedObject_INTERNAL(
             n,
             o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
           )),
           (t[16] = u),
           (t[17] = n),
-          (t[18] = E))
-        : (E = t[18]);
-      var k = E,
-        I,
-        T;
-      (t[19] !== L || t[20] !== k
-        ? ((I = function () {
-            if (!(!o("WebBloksSSRUtils").canUseDOM || !k)) {
+          (t[18] = x))
+        : (x = t[18]);
+      var $ = x,
+        P,
+        N;
+      (t[19] !== D || t[20] !== $
+        ? ((P = function () {
+            if (!(!o("WebBloksSSRUtils").canUseDOM || !$)) {
               var e = document.documentElement;
               return (
-                e.addEventListener("click", L, { passive: !0, once: !0 }),
+                e.addEventListener("click", D, { passive: !0, once: !0 }),
                 function () {
-                  e.removeEventListener("click", L);
+                  e.removeEventListener("click", D);
                 }
               );
             }
           }),
-          (T = [k, L]),
-          (t[19] = L),
-          (t[20] = k),
-          (t[21] = I),
-          (t[22] = T))
-        : ((I = t[21]), (T = t[22])),
-        d(I, T));
-      var D, x;
-      (t[23] !== L || t[24] !== k
-        ? ((x = function () {
-            if (!(!o("WebBloksSSRUtils").canUseDOM || !k)) {
+          (N = [$, D]),
+          (t[19] = D),
+          (t[20] = $),
+          (t[21] = P),
+          (t[22] = N))
+        : ((P = t[21]), (N = t[22])),
+        d(P, N));
+      var M, w;
+      (t[23] !== D || t[24] !== $
+        ? ((w = function () {
+            if (!(!o("WebBloksSSRUtils").canUseDOM || !$)) {
               var e = document.documentElement;
               return (
-                e.addEventListener("scroll", L, { passive: !0, once: !0 }),
+                e.addEventListener("scroll", D, { passive: !0, once: !0 }),
                 function () {
-                  e.removeEventListener("scroll", L);
+                  e.removeEventListener("scroll", D);
                 }
               );
             }
           }),
-          (D = [k, L]),
-          (t[23] = L),
-          (t[24] = k),
-          (t[25] = D),
-          (t[26] = x))
-        : ((D = t[25]), (x = t[26])),
-        d(x, D));
-      var $;
-      t[27] !== L
-        ? (($ = function (t) {
-            t.key === "Escape" && (t.stopPropagation(), L());
+          (M = [$, D]),
+          (t[23] = D),
+          (t[24] = $),
+          (t[25] = M),
+          (t[26] = w))
+        : ((M = t[25]), (w = t[26])),
+        d(w, M));
+      var A;
+      t[27] !== D
+        ? ((A = function (t) {
+            t.key === "Escape" && (t.stopPropagation(), D());
           }),
-          (t[27] = L),
-          (t[28] = $))
-        : ($ = t[28]);
-      var P = $,
-        N = k != null && k.visible ? b : null,
-        M;
-      t[29] !== S || t[30] !== P || t[31] !== N || t[32] !== i
-        ? ((M = s.jsxs(
+          (t[27] = D),
+          (t[28] = A))
+        : (A = t[28]);
+      var F = A,
+        O = $ != null && $.visible ? E : null,
+        B;
+      t[29] !== I || t[30] !== F || t[31] !== O || t[32] !== i
+        ? ((B = s.jsxs(
             "div",
             babelHelpers.extends({}, i, {
-              className: m.root,
-              onKeyPress: P,
-              children: [N, S],
+              className: h.root,
+              onKeyPress: F,
+              children: [O, I],
             }),
           )),
-          (t[29] = S),
-          (t[30] = P),
-          (t[31] = N),
+          (t[29] = I),
+          (t[30] = F),
+          (t[31] = O),
           (t[32] = i),
-          (t[33] = M))
-        : (M = t[33]);
-      var w;
+          (t[33] = B))
+        : (B = t[33]);
+      var W;
       return (
-        t[34] !== M || t[35] !== a
-          ? ((w = a(M)), (t[34] = M), (t[35] = a), (t[36] = w))
-          : (w = t[36]),
-        w
+        t[34] !== B || t[35] !== a
+          ? ((W = a(B)), (t[34] = B), (t[35] = a), (t[36] = W))
+          : (W = t[36]),
+        W
       );
     }
-    l.default = p;
+    l.default = y;
   },
   98,
 );

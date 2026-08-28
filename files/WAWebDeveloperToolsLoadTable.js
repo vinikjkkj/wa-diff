@@ -112,33 +112,35 @@ __d(
         ? '"' + t.replace(/\"/g, '""') + '"'
         : t;
     }
-    function I(e, t, n, r) {
+    function I(e) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield S(e, t, n, r),
-              a = t
-                .filter(function (e) {
-                  return e.selected;
-                })
-                .map(function (e) {
-                  return e.name;
-                }),
-              i = [];
-            (i.push(a.join(",")),
-              o.forEach(function (e) {
-                var t = a.map(function (t) {
-                  return k(e[t]);
-                });
-                i.push(t.join(","));
-              }));
-            var l = i.join("\n");
-            return new Blob([l], { type: "text/csv" });
-          },
-        )),
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.columns,
+            n = e.filters,
+            r = e.groups,
+            o = e.tableName,
+            a = yield S(o, t, n, r),
+            i = t
+              .filter(function (e) {
+                return e.selected;
+              })
+              .map(function (e) {
+                return e.name;
+              }),
+            l = [];
+          (l.push(i.join(",")),
+            a.forEach(function (e) {
+              var t = i.map(function (t) {
+                return k(e[t]);
+              });
+              l.push(t.join(","));
+            }));
+          var s = l.join("\n");
+          return new Blob([s], { type: "text/csv" });
+        })),
         T.apply(this, arguments)
       );
     }
@@ -309,9 +311,11 @@ __d(
       var t = new Map();
       return (
         e.forEach(function (e) {
-          Object.keys(e).forEach(function (n) {
+          Object.entries(e).forEach(function (e) {
+            var n = e[0],
+              r = e[1];
             (t.get(n) == null || t.get(n) === "undefined") &&
-              (f.includes(n) ? t.set(n, "date") : t.set(n, typeof e[n]));
+              (f.includes(n) ? t.set(n, "date") : t.set(n, typeof r));
           });
         }),
         Array.from(t, function (e) {

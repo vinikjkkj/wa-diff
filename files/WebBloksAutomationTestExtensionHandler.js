@@ -2,14 +2,15 @@ __d(
   "WebBloksAutomationTestExtensionHandler",
   [],
   function (t, n, r, o, a, i) {
-    var e = {
-        getProps: function (t) {
-          var e = t.get("testing_id");
-          if (e != null) return { "data-testid": e };
+    var e = "#",
+      l = {
+        getProps: function (n) {
+          var t = n.get(e);
+          if (t != null) return { "data-testid": t };
         },
       },
-      l = e;
-    i.default = l;
+      s = l;
+    i.default = s;
   },
   66,
 );

@@ -1,0 +1,47 @@
+__d(
+  "SYDComponentNamesEnum",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        ACCOUNT_INFO: "AccountInfo",
+        ACCOUNT_RECOMMENDATIONS: "AccountRecommendations",
+        AD_LIMITS: "AdLimits",
+        AD_PROPOSAL: "AdProposal",
+        AD_PROPOSAL_GUIDANCE_HUB: "AdProposalGuidanceHub",
+        AD_SLIDER: "AdSlider",
+        ADS_AI: "AdsAI",
+        ADS_EXPERIMENTS: "AdsExperiments",
+        ALERTS: "Alerts",
+        AUTO_APPLY_RECOMMENDATIONS: "AutoApplyRecommendations",
+        AUTO_APPLY_RECOMMENDATIONS_CIC_WIDGET:
+          "AutoApplyRecommendationsCICWidget",
+        CAMPAIGN_TRENDS: "CampaignTrends",
+        COUPON: "coupon",
+        CREATIVE_INSIGHTS: "creative_insights",
+        EXPIRING_CAMPAIGNS: "ExpiringCampaigns",
+        GOOD_CAMPAIGNS: "GoodCampaigns",
+        GREATER_CHINA_ADVERTISER: "GreaterChinaAdvertiser",
+        GUIDANCE_HUB: "GuidanceHub",
+        GUIDANCE_HUB_V2: "GuidanceHubV2",
+        GUIDANCE_HUB_V3: "GuidanceHubV3",
+        MARKETING_EXPERT: "MarketingExpert",
+        METRIC_SNAPSHOT: "MetricSnapshot",
+        MIDFLIGHT_RECOMMENDATIONS: "MidflightRecommendations",
+        MOBILE_UPSELL: "MobileUpsell",
+        NEW_FEATURES: "NewFeatures",
+        NEW_USER_ONBOARDING: "NewUserOnboarding",
+        NEW_USER_ONBOARDING_BELOW_GUIDANCE_HUB:
+          "NewUserOnboardingBelowGuidanceHub",
+        OPTIMIZATION_SCORE: "OptimizationScore",
+        PAGE_HEADER: "PageHeader",
+        PRECREATE_BUNDLE: "PrecreateBundle",
+        PREREQS: "Prereqs",
+        REMINDERS: "Reminders",
+        SBA_GRADUATION: "SBAGraduation",
+        VERTICAL_LEVEL_CREATIVE_PATTERNS: "VerticalLevelCreativePatterns",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

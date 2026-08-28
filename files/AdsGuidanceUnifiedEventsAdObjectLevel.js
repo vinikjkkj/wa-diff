@@ -1,0 +1,35 @@
+__d(
+  "AdsGuidanceUnifiedEventsAdObjectLevel",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        USER: 1,
+        PAGE: 2,
+        AD_L0: 3,
+        AD_L1: 4,
+        AD_L2: 5,
+        AD_L3: 6,
+        AD_L4: 7,
+        AD_L5: 8,
+        BEST_PRACTICE_MESSAGE: 9,
+        BEST_PRACTICE: 10,
+        FEATURE_STORE: 11,
+        AD_L4_5: 12,
+        PIXEL: 13,
+        CUSTOM_AUDIENCE: 14,
+        PRODUCT_CATALOG: 15,
+        APP: 16,
+        INSTAGRAM_USER: 17,
+        AD_L5_5: 18,
+        WHATSAPP_BUSINESS_ACCOUNT: 19,
+        OFFLINE_DATASET: 20,
+        NON_AD_OBJECT: 24,
+        AD_L2_L3: 21,
+        MESSAGES: 23,
+        SAVED_AUDIENCE: 22,
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

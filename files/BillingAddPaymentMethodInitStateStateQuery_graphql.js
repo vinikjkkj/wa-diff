@@ -1,0 +1,218 @@
+__d(
+  "BillingAddPaymentMethodInitStateStateQuery.graphql",
+  [
+    "BillingAddPaymentMethodInitStateStateQuery_facebookRelayOperation",
+    "relay-runtime",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+          {
+            defaultValue: null,
+            kind: "LocalArgument",
+            name: "paymentAccountID",
+          },
+        ],
+        t = [
+          {
+            kind: "Variable",
+            name: "legacy_account_id",
+            variableName: "paymentAccountID",
+          },
+        ],
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        o = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "business_country_code",
+          storageKey: null,
+        },
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "can_update_tax_country",
+          storageKey: null,
+        },
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_mi_to_mi_transition",
+          storageKey: null,
+        },
+        l = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "can_update_currency_timezone",
+          storageKey: null,
+        },
+        s = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_new_account",
+          storageKey: null,
+        },
+        u = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "payment_modes",
+          storageKey: null,
+        },
+        c = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_eligible_for_postpay_upgrade",
+          storageKey: null,
+        },
+        d = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "BillingAddPaymentMethodInitStateStateQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "payment_account",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: null,
+                  kind: "LinkedField",
+                  name: "billable_account",
+                  plural: !1,
+                  selections: [
+                    r,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: null,
+                      kind: "LinkedField",
+                      name: "billable_account_tax_info",
+                      plural: !1,
+                      selections: [o, a],
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBInvoiceBillingInfoUpdateConfig",
+                      kind: "LinkedField",
+                      name: "invoice_billing_info_update_config",
+                      plural: !1,
+                      selections: [i],
+                      storageKey: null,
+                    },
+                    l,
+                    s,
+                    u,
+                    c,
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "BillingAddPaymentMethodInitStateStateQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "payment_account",
+              plural: !1,
+              selections: [
+                r,
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: null,
+                  kind: "LinkedField",
+                  name: "billable_account",
+                  plural: !1,
+                  selections: [
+                    r,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: null,
+                      kind: "LinkedField",
+                      name: "billable_account_tax_info",
+                      plural: !1,
+                      selections: [r, o, a],
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBInvoiceBillingInfoUpdateConfig",
+                      kind: "LinkedField",
+                      name: "invoice_billing_info_update_config",
+                      plural: !1,
+                      selections: [i, d],
+                      storageKey: null,
+                    },
+                    l,
+                    s,
+                    u,
+                    c,
+                    d,
+                  ],
+                  storageKey: null,
+                },
+                d,
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: n(
+            "BillingAddPaymentMethodInitStateStateQuery_facebookRelayOperation",
+          ),
+          metadata: {},
+          name: "BillingAddPaymentMethodInitStateStateQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    (n("relay-runtime").PreloadableQueryRegistry.set(e.params.id, e),
+      (a.exports = e));
+  },
+  null,
+);

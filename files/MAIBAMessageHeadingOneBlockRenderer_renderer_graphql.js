@@ -1,0 +1,26 @@
+__d(
+  "MAIBAMessageHeadingOneBlockRenderer_renderer.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = {
+      argumentDefinitions: [],
+      kind: "Fragment",
+      metadata: null,
+      name: "MAIBAMessageHeadingOneBlockRenderer_renderer",
+      selections: [
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+      ],
+      type: "ComposedHeaderOneBlockWithEntitiesRenderer",
+      abstractKey: null,
+    };
+    a.exports = e;
+  },
+  null,
+);

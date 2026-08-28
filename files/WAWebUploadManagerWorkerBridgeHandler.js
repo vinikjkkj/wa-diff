@@ -64,6 +64,7 @@ __d(
                 encryptMediaFromBlob: r("WAWebCryptoEncryptMediaFromBlob"),
               }),
               C = babelHelpers.extends({}, d, {
+                fileOrigin: null,
                 signal: m.signal,
                 uploadQpl: _,
               });

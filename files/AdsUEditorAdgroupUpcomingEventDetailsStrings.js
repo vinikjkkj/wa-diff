@@ -1,0 +1,80 @@
+__d(
+  "AdsUEditorAdgroupUpcomingEventDetailsStrings",
+  ["fbt"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = s._(/*BTDS*/ "Add event"),
+      u = s._(/*BTDS*/ "Create a new event for your ad."),
+      c = s._(
+        /*BTDS*/ "Select a scheduled event or create a new event for your ad.",
+      ),
+      d = s._(/*BTDS*/ "Create new event"),
+      m = s._(/*BTDS*/ "Edit event"),
+      p = s._(
+        /*BTDS*/ "Edits made to this event will be visible on all ads that use this event.",
+      ),
+      _ = s._(
+        /*BTDS*/ "There was an error creating your event. Please try again.",
+      ),
+      f = s._(
+        /*BTDS*/ "You do not have permission to manage events for this Instagram account.",
+      ),
+      g = s._(
+        /*BTDS*/ "Some selected ads have warnings. Please check each ad to resolve.",
+      ),
+      h = s._(
+        /*BTDS*/ "You selected a notification time after your event\u2019s end time. A notification will be sent after the event\u2019s specified end time.",
+      ),
+      y = s._(/*BTDS*/ "Mixed values"),
+      C = s._(/*BTDS*/ "Remove event"),
+      b = s._(
+        /*BTDS*/ "Events that have already started cannot be added to ads.",
+      ),
+      v = s._(
+        /*BTDS*/ "This event has started, if you remove this event you will not be able to add it back to your ad.",
+      ),
+      S = s._(/*BTDS*/ "Save"),
+      R = s._(/*BTDS*/ "Scheduled event"),
+      L = s._(/*BTDS*/ "Scheduled events"),
+      E = s._(
+        /*BTDS*/ '_j["Set an end date","ea65f3e10d58623b822fcea338c5542c",1]',
+      ),
+      k = s._(/*BTDS*/ "We'll send notifications before the event ends."),
+      I = s._(/*BTDS*/ "Add end time"),
+      T = s._(/*BTDS*/ "We'll send notifications before and during the event."),
+      D = s._(/*BTDS*/ "Add start time"),
+      x = s._(/*BTDS*/ "Event time"),
+      $ = s._(/*BTDS*/ "Use suggested event"),
+      P = s._(/*BTDS*/ "The event date is detected from the ad creative."),
+      N = s._(/*BTDS*/ "Edit to add event name, time and reminders"),
+      M = s._(/*BTDS*/ "Edit suggested event");
+    ((l.ADD_EVENT = e),
+      (l.ADD_EVENT_DESCRIPTION_CREATE = u),
+      (l.ADD_EVENT_DESCRIPTION_SELECT_OR_CREATE = c),
+      (l.CREATE_NEW_EVENT = d),
+      (l.EDIT_EVENT_CONTENT = m),
+      (l.EDIT_EVENT_WARNING = p),
+      (l.ERROR_NOTICE_CONTENT = _),
+      (l.ERROR_NOTICE_FORBIDDEN = f),
+      (l.EVENT_MIXED_WARNINGS_CONTENT = g),
+      (l.NOTIFICATION_TIME_AFTER_END_TIME_CONTENT = h),
+      (l.MIXED_VALUES = y),
+      (l.REMOVE_EVENT_CONTENT = C),
+      (l.REMOVE_EVENT_MODAL_BODY = b),
+      (l.REMOVE_EVENT_MODAL_HEADER = v),
+      (l.SAVE_BUTTON_LABEL = S),
+      (l.SCHEDULED_EVENT = R),
+      (l.SCHEDULED_EVENTS = L),
+      (l.SET_END_DATE_LABEL = E),
+      (l.TARGET_TIME_EVENT_END_DESCRIPTION = k),
+      (l.TARGET_TIME_EVENT_END_LABEL = I),
+      (l.TARGET_TIME_EVENT_START_DESCRIPTION = T),
+      (l.TARGET_TIME_EVENT_START_LABEL = D),
+      (l.TARGET_TIME_LABEL = x),
+      (l.AUTO_DETECT_LABEL = $),
+      (l.AUTO_DETECT_TOOLTIP = P),
+      (l.AUTO_DETECT_DESCRIPTION = N),
+      (l.AUTO_DETECT_EDIT_DATE_LABEL = M));
+  },
+  226,
+);

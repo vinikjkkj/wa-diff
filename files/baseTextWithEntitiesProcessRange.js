@@ -23,7 +23,8 @@ __d(
             "c" + t + "_" + y + "_" + g,
           ),
         );
-      var C = p.pop();
+      var C = p.pop(),
+        b = h.trim().length > 0 && h.trim() === e.trim();
       return (
         p[p.length - 1].subElements.push(
           r("baseTextWithEntitiesApplyRenderers")(
@@ -36,6 +37,7 @@ __d(
             t + "_" + y + "_" + g,
             d,
             f,
+            b,
           ),
         ),
         C

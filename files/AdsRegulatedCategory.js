@@ -1,0 +1,20 @@
+__d(
+  "AdsRegulatedCategory",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      NONE: "NONE",
+      EMPLOYMENT: "EMPLOYMENT",
+      HOUSING: "HOUSING",
+      CREDIT: "CREDIT",
+      ISSUES_ELECTIONS_POLITICS: "ISSUES_ELECTIONS_POLITICS",
+      EDUCATION: "EDUCATION",
+      ONLINE_GAMBLING_AND_GAMING: "ONLINE_GAMBLING_AND_GAMING",
+      SOCIAL_ISSUES: "SOCIAL_ISSUES",
+      ELECTIONS_POLITICS: "ELECTIONS_POLITICS",
+      FINANCIAL_PRODUCTS_SERVICES: "FINANCIAL_PRODUCTS_SERVICES",
+    });
+    i.default = e;
+  },
+  66,
+);

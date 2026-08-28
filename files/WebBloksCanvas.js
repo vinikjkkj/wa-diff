@@ -2,6 +2,8 @@ __d(
   "WebBloksCanvas",
   [
     "WebBloksCanvasDrawToContext",
+    "WebBloksCanvasMinificationKeys",
+    "WebBloksConstants",
     "WebBloksStyle",
     "WebBloksTheme",
     "WebBloksUtils",
@@ -34,8 +36,12 @@ __d(
             var e = h.current,
               t = e == null ? void 0 : e.getContext("2d");
             if (!(e == null || t == null)) {
-              var n = o("WebBloksUtils").toPx(a.get("width")),
-                r = o("WebBloksUtils").toPx(a.get("height"));
+              var n = o("WebBloksUtils").toPx(
+                  a.get(o("WebBloksCanvasMinificationKeys").CANVAS_WIDTH),
+                ),
+                r = o("WebBloksUtils").toPx(
+                  a.get(o("WebBloksCanvasMinificationKeys").CANVAS_HEIGHT),
+                );
               if (!(n == null || r == null)) {
                 ((e.style.width = n), (e.style.height = r));
                 var i = window.devicePixelRatio;
@@ -57,11 +63,13 @@ __d(
             var e,
               t = (e = h.current) == null ? void 0 : e.getContext("2d");
             if (t != null) {
-              var n = a.getSubNodes("children");
+              var n = a.getSubNodes(
+                o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY,
+              );
               if (n != null)
-                for (var o of n)
+                for (var i of n)
                   (t.save(),
-                    r("WebBloksCanvasDrawToContext")(o, t, g),
+                    r("WebBloksCanvasDrawToContext")(i, t, g),
                     t.restore());
             }
           }),

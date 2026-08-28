@@ -1,0 +1,137 @@
+__d(
+  "AdsPostFields",
+  ["AdsAccountStore", "GraphAPIFieldUtils"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s,
+      u = [
+        "actions",
+        "allowed_advertising_objectives",
+        "application",
+        (s = o("GraphAPIFieldUtils")).getFieldWithParameterizedSubfields(
+          "app_installs_eligibility",
+          { ad_account_id: (e = r("AdsAccountStore")).getSelectedAccountID() },
+        ),
+        s.getFieldWithParameterizedSubfields("app_engagement_eligibility", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        "attachment_call_to_action",
+        s.getFieldWithSubfields("attachments", [
+          "description",
+          "description_tags",
+          "media",
+          "media_type",
+          "subattachments",
+          "target",
+          "title",
+          "type",
+          "unshimmed_url",
+          "url",
+        ]),
+        "call_to_action",
+        "comments.summary(true).limit(0)",
+        "coordinates",
+        "created_time",
+        "delivery_growth_optimizations",
+        "entities",
+        "expanded_height",
+        "expanded_width",
+        "feed_targeting",
+        "from",
+        "full_picture",
+        "has_sponsors_with_boost_permission",
+        "has_ad_media",
+        s.getFieldWithParameterizedSubfields("has_audio_swapped_fb_copy", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        s.getFieldWithParameterizedSubfields("has_licensed_fb_reel_music", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        "height",
+        "icon",
+        "id",
+        "instagram_eligibility",
+        "instream_eligibility",
+        "is_broadcast",
+        "is_hidden",
+        s.getFieldWithParameterizedSubfields("is_instagram_eligible", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        "is_popular",
+        "is_published",
+        "is_fb_reels",
+        "is_fb_stories",
+        "is_fb_live_videos",
+        "was_fb_live_videos",
+        "is_live_clip",
+        "is_owner_promode",
+        "is_spherical",
+        s.getFieldWithParameterizedSubfields("is_eligible_for_dark_post", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        "likes.summary(true)",
+        s.getFieldWithParameterizedSubfields("live_video_eligibility", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        "message_tags",
+        "message",
+        "parent_id",
+        "permalink_url",
+        "picture",
+        "place",
+        "post_eligibility_error_for_ads_manager",
+        "privacy",
+        s.getFieldWithParameterizedSubfields("promotable_id", {
+          ad_account_id: e.getSelectedAccountID(),
+        }),
+        "promotion_status",
+        "properties",
+        "scheduled_publish_time",
+        "shares",
+        "status_type",
+        "story_tags",
+        "story",
+        "subscribed",
+        "targeting",
+        "timeline_visibility",
+        "to",
+        "updated_time",
+        "via",
+        "video_buying_eligibility",
+        "width",
+        "will_be_autocropped_when_deliver_to_instagram",
+        "with_tags",
+        s.getFieldWithSubfields("sponsor_tags", [
+          "id",
+          "name",
+          "assigned_instagram_users",
+        ]),
+        s.getFieldWithSubfields("partnership_ads_identities", [
+          s.getFieldWithSubfields("primary_identity", [
+            s.getFieldWithSubfields("fb_page", ["id"]),
+            s.getFieldWithSubfields("ig_user", [
+              "id",
+              "legacy_instagram_user_id",
+            ]),
+          ]),
+          s.getFieldWithSubfields("secondary_identities", [
+            s.getFieldWithSubfields("fb_page", ["id"]),
+            s.getFieldWithSubfields("ig_user", ["id"]),
+            "pa_permission_capabilities",
+            "pa_permission_status",
+          ]),
+        ]),
+      ];
+    function c() {
+      return u.concat(
+        o("GraphAPIFieldUtils").getFieldWithParameterizedSubfields(
+          "post_cta_defaulting",
+          { ad_account_id: r("AdsAccountStore").getSelectedAccountID() },
+        ),
+      );
+    }
+    ((l.AdsPostFields = u), (l.getFieldsWithAdAccountId = c));
+  },
+  98,
+);

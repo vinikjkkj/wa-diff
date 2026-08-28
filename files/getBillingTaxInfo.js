@@ -194,10 +194,9 @@ __d(
               },
             },
             {
-              condition:
-                o(
-                  "BillingAccountInformationUtilsEurope",
-                ).eupopeanCountryCodes.indexOf(Z) !== -1,
+              condition: o(
+                "BillingAccountInformationUtilsEurope",
+              ).isEuropeanCountryCode(Z),
               fields: { taxIDCountry: oe === "EL" ? "GR" : oe },
             },
             {
@@ -216,7 +215,7 @@ __d(
               },
             },
           ]),
-          ie = Z === "BR" && (t == null ? void 0 : t.brazilGK) === !0,
+          ie = Z === "BR",
           le =
             (P =
               ne == null || (N = ne.intl_address) == null
@@ -306,9 +305,7 @@ __d(
       }
       return t;
     }
-    ((l.taxInfoPaymentAccountFragment = c),
-      (l.agencyInfoFragment = m),
-      (l.getBillingTaxInfo = p));
+    ((l.taxInfoPaymentAccountFragment = c), (l.getBillingTaxInfo = p));
   },
   98,
 );

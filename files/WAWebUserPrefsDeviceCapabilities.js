@@ -15,20 +15,28 @@ __d(
       },
     };
     function s(t) {
-      var n = {
-        chatLockSupportLevel:
-          t.chatLockSupportLevel != null
-            ? t.chatLockSupportLevel
-            : e.chatLockSupportLevel,
-        aiThread: {
-          supportLevel:
-            t.aiThread.supportLevel != null
-              ? t.aiThread.supportLevel
-              : o("WAWebProtobufsDeviceCapabilities.pb")
-                  .DeviceCapabilities$AiThread$SupportLevel.NONE,
-        },
-      };
-      return n;
+      var n,
+        r = babelHelpers.extends(
+          {
+            chatLockSupportLevel:
+              t.chatLockSupportLevel != null
+                ? t.chatLockSupportLevel
+                : e.chatLockSupportLevel,
+            aiThread: {
+              supportLevel:
+                t.aiThread.supportLevel != null
+                  ? t.aiThread.supportLevel
+                  : o("WAWebProtobufsDeviceCapabilities.pb")
+                      .DeviceCapabilities$AiThread$SupportLevel.NONE,
+            },
+          },
+          ((n = t.bizAiSettingsSync) == null
+            ? void 0
+            : n.handoffRemovalTimingEnabled) === !0
+            ? { bizAiSettingsSync: { handoffRemovalTimingEnabled: !0 } }
+            : null,
+        );
+      return r;
     }
     function u(t) {
       var n,
@@ -60,8 +68,17 @@ __d(
               : null) != null
             ? r
             : o("WAWebProtobufsDeviceCapabilities.pb")
-                .DeviceCapabilities$AiThread$SupportLevel.NONE;
-      return { chatLockSupportLevel: a, aiThread: { supportLevel: i } };
+                .DeviceCapabilities$AiThread$SupportLevel.NONE,
+        l =
+          typeof t == "object" &&
+          t != null &&
+          t.bizAiSettingsSync != null &&
+          typeof t.bizAiSettingsSync.handoffRemovalTimingEnabled == "boolean" &&
+          t.bizAiSettingsSync.handoffRemovalTimingEnabled;
+      return babelHelpers.extends(
+        { chatLockSupportLevel: a, aiThread: { supportLevel: i } },
+        l ? { bizAiSettingsSync: { handoffRemovalTimingEnabled: !0 } } : null,
+      );
     }
     function c(e) {
       switch (e) {
@@ -94,6 +111,7 @@ __d(
               : o("WAWebProtobufsDeviceCapabilities.pb")
                   .DeviceCapabilities$AiThread$SupportLevel.NONE,
         },
+        bizAiSettingsSync: e.bizAiSettingsSync,
       };
     }
     function _(e, t) {

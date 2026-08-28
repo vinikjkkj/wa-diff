@@ -50,7 +50,7 @@ __d(
             : !1,
         s = l
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          : o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         u =
           i == null
             ? void 0

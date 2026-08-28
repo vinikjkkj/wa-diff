@@ -1,0 +1,58 @@
+__d(
+  "convertStringToAdsPlacementPositionPluginKey",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = new Map([
+      ["audience_network/classic", "audience_network/classic"],
+      ["audience_network/instream_video", "audience_network/instream_video"],
+      ["audience_network/rewarded_video", "audience_network/rewarded_video"],
+      ["facebook/biz_disco_feed", "facebook/biz_disco_feed"],
+      ["facebook/facebook_reels_overlay", "facebook/reels_overlay"],
+      ["facebook/facebook_reels", "facebook/fb_reels"],
+      ["facebook/fb_reels", "facebook/fb_reels"],
+      ["facebook/feed", "facebook/feed"],
+      ["facebook/groups_feed", "facebook/group_tab"],
+      ["facebook/group_tab", "facebook/group_tab"],
+      ["facebook/instant_article", "facebook/instant_article"],
+      ["facebook/instream_video", "facebook/instream_video"],
+      ["facebook/marketplace", "facebook/marketplace"],
+      ["facebook/notification", "facebook/notification"],
+      ["facebook/profile_feed", "facebook/profile_feed"],
+      ["facebook/reels_overlay", "facebook/reels_overlay"],
+      ["facebook/right_column", "facebook/right_column"],
+      ["facebook/right_hand_column", "facebook/right_column"],
+      ["facebook/search", "facebook/search"],
+      ["facebook/story", "facebook/stories"],
+      ["facebook/stories", "facebook/stories"],
+      ["facebook/video_feeds", "facebook/video_feeds"],
+      ["instagram/explore", "instagram/explore"],
+      ["instagram/explore_home", "instagram/explore_home"],
+      ["instagram/ig_search", "instagram/search"],
+      ["instagram/profile_feed", "instagram/profile_feed"],
+      ["instagram/profile_reels", "instagram/profile_reels"],
+      ["instagram/reels", "instagram/reels"],
+      ["instagram/search", "instagram/search"],
+      ["instagram/shop", "instagram/shop_tab"],
+      ["instagram/shop_tab", "instagram/shop_tab"],
+      ["instagram/story", "instagram/story"],
+      ["instagram/stream", "instagram/stream"],
+      ["messenger/messenger_home", "messenger/inbox"],
+      ["messenger/inbox", "messenger/inbox"],
+      ["messenger/story", "messenger/story"],
+      ["oculus/rewarded_video", "oculus/rewarded_video"],
+      ["oculus/vr_rewarded_video", "oculus/rewarded_video"],
+      ["oculus/vr_apps", "oculus/vr_apps"],
+      ["threads/stream", "threads/stream"],
+      ["threads/threads_stream", "threads/stream"],
+      ["whatsapp/channel", "whatsapp/channel"],
+      ["whatsapp/marketing_messages", "whatsapp/marketing_messages"],
+      ["whatsapp/status", "whatsapp/status"],
+    ]);
+    function l(t) {
+      return e.has(t) ? e.get(t) : null;
+    }
+    i.default = l;
+  },
+  66,
+);

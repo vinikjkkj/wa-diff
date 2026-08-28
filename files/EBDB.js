@@ -8,8 +8,8 @@ __d(
     "WALogger",
     "WAResolvable",
     "Worm",
-    "WormEAR",
-    "WormIDbDriver",
+    "WormEarAsync",
+    "WormIDbDriverEarAsync",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,20 +62,27 @@ __d(
             }
             try {
               var g = "ebdb",
-                y = new (o("WormEAR").WormEAR)(c, g, a),
+                y = new (o("WormEarAsync").WormEarAsync)(c, g, a),
                 b = new (o("Worm").WormDatabase)(
-                  new (o("WormIDbDriver").WormIDbDriver)(t, g, c, y, l, {
-                    onTransactionError: function (t) {
-                      if (t instanceof o("WormEAR").DecryptionError) {
-                        var e = t;
-                        if (e.store === "device_state") {
-                          h();
-                          return;
-                        } else C();
-                      }
+                  new (o("WormIDbDriverEarAsync").WormIDbDriverEarAsync)(
+                    t,
+                    g,
+                    c,
+                    y,
+                    l,
+                    {
+                      onTransactionError: function (t) {
+                        if (t instanceof o("WormEarAsync").DecryptionError) {
+                          var e = t;
+                          if (e.store === "device_state") {
+                            h();
+                            return;
+                          } else C();
+                        }
+                      },
+                      safeToDeleteStores: new Set(["migration"]),
                     },
-                    safeToDeleteStores: new Set(["migration"]),
-                  }),
+                  ),
                   n,
                 );
               (yield b.init({ eventFlow: _ }), _.endSuccess(), p.resolve(b));

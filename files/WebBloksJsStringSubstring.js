@@ -1,0 +1,11 @@
+__d(
+  "WebBloksJsStringSubstring",
+  [],
+  function (t, n, r, o, a, i) {
+    function e(e, t, n, r) {
+      return t.substring(n, r);
+    }
+    i.default = e;
+  },
+  66,
+);

@@ -38,7 +38,7 @@ __d(
         }),
         r = n
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+          : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return !t.some(function (e) {
         return !e.participant.equals(r);
       });

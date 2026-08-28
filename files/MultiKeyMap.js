@@ -45,7 +45,7 @@ __d(
               else return;
             }
             var i = r("lastx")(t),
-              l = e && this.$5(e, i);
+              l = e && (e.type === "map" ? this.$5(e, i) : void 0);
             return l;
           }),
           (n.$2 = function () {

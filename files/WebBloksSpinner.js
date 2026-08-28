@@ -3,44 +3,45 @@ __d(
   ["WebBloksIconSpinner", "WebBloksStyle", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react"));
-    function u(e) {
+      s = e || (e = o("react")),
+      u = "#";
+    function c(e) {
       var t = o("react-compiler-runtime").c(13),
         n = e.externalStyle,
         a = e.node,
         i = o("WebBloksStyle").useStyle(a, n),
         l = i.style,
-        u = i.wrapper,
-        c = i.wrapperProps,
-        d;
+        c = i.wrapper,
+        d = i.wrapperProps,
+        m;
       t[0] !== l
-        ? ((d = o("WebBloksStyle").getStyleProps(l)), (t[0] = l), (t[1] = d))
-        : (d = t[1]);
-      var m;
-      t[2] !== a ? ((m = a.get("color")), (t[2] = a), (t[3] = m)) : (m = t[3]);
+        ? ((m = o("WebBloksStyle").getStyleProps(l)), (t[0] = l), (t[1] = m))
+        : (m = t[1]);
       var p;
-      t[4] !== m
-        ? ((p = s.jsx(r("WebBloksIconSpinner"), { color: m })),
-          (t[4] = m),
-          (t[5] = p))
-        : (p = t[5]);
+      t[2] !== a ? ((p = a.get(u)), (t[2] = a), (t[3] = p)) : (p = t[3]);
       var _;
-      t[6] !== d || t[7] !== p || t[8] !== c
-        ? ((_ = s.jsx("div", babelHelpers.extends({}, c, d, { children: p }))),
-          (t[6] = d),
-          (t[7] = p),
-          (t[8] = c),
-          (t[9] = _))
-        : (_ = t[9]);
+      t[4] !== p
+        ? ((_ = s.jsx(r("WebBloksIconSpinner"), { color: p })),
+          (t[4] = p),
+          (t[5] = _))
+        : (_ = t[5]);
       var f;
+      t[6] !== m || t[7] !== _ || t[8] !== d
+        ? ((f = s.jsx("div", babelHelpers.extends({}, d, m, { children: _ }))),
+          (t[6] = m),
+          (t[7] = _),
+          (t[8] = d),
+          (t[9] = f))
+        : (f = t[9]);
+      var g;
       return (
-        t[10] !== _ || t[11] !== u
-          ? ((f = u(_)), (t[10] = _), (t[11] = u), (t[12] = f))
-          : (f = t[12]),
-        f
+        t[10] !== f || t[11] !== c
+          ? ((g = c(f)), (t[10] = f), (t[11] = c), (t[12] = g))
+          : (g = t[12]),
+        g
       );
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

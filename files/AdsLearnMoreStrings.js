@@ -1,0 +1,36 @@
+__d(
+  "AdsLearnMoreStrings",
+  ["fbt"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = s._(/*BTDS*/ "Learn more"),
+      u = s._(/*BTDS*/ "Learn more"),
+      c = s._(/*BTDS*/ "About location targeting"),
+      d = s._(/*BTDS*/ "About creative options"),
+      m = s._(/*BTDS*/ "Go to Forms page"),
+      p = s._(/*BTDS*/ "About estimated audience size"),
+      _ = s._(/*BTDS*/ "About Advantage+ detailed targeting"),
+      f = s._(/*BTDS*/ "Learn more"),
+      g = s._(/*BTDS*/ "people"),
+      h = s._(/*BTDS*/ "About audience controls"),
+      y = s._(/*BTDS*/ "About audiences"),
+      C = s._(/*BTDS*/ "About Special Ad Categories"),
+      b = s._(/*BTDS*/ "About advertising to teens"),
+      v = s._(/*BTDS*/ "Get started");
+    ((l.INLINE_LEARN_MORE = e),
+      (l.STANDALONE_LEARN_MORE = u),
+      (l.ABOUT_LOCATION_TARGETING = c),
+      (l.ABOUT_CREATIVE_OPTIONS = d),
+      (l.GO_TO_FORMS_PAGE = m),
+      (l.STANDALONE_ABOUT_ESTIMATED_AUDIENCE_SIZE = p),
+      (l.STANDALONE_ABOUT_ADVANTAGE_DETAILED_TARGETING = _),
+      (l.STANDALONE_LEARN_MORE_NOT_CAPITALIZED = f),
+      (l.INLINE_PEOPLE_TEXT = g),
+      (l.INLINE_ABOUT_AUDIENCE_CONTROLS = h),
+      (l.INLINE_ABOUT_AUDIENCES = y),
+      (l.INLINE_ABOUT_SPECIAL_AD_CATEGORIES = C),
+      (l.YOUTH_ADS_LEARN_MORE = b),
+      (l.PAO_GET_STARTED = v));
+  },
+  226,
+);

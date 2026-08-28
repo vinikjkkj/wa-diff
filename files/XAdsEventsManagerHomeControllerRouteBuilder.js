@@ -1,0 +1,43 @@
+__d(
+  "XAdsEventsManagerHomeControllerRouteBuilder",
+  ["jsExtraRouteBuilder"],
+  function (t, n, r, o, a, i, l) {
+    var e = r("jsExtraRouteBuilder")(
+        "/events_manager2/",
+        Object.freeze({}),
+        [
+          "/events_manager2/app_aem_deeplink_debugger/{data_source_id}/",
+          "/events_manager2/list/{data_source_type}/{data_source_id}/settings/",
+          "/events_manager2/list/{data_source_type}/{data_source_id}/{?view}/",
+          "/events_manager2/list/{data_source_type}/{data_source_id}/overview/{event_name}/{event_view}/",
+          "/events_manager2/custom_conversion/{?conversion_ids}/",
+          "/events_manager2/conversions_api/{data_source_id}/{?view}/",
+          "/events_manager2/conversion_config/{data_source_id}/{optimization}/",
+          "/events_manager2/google_tag_manager_onboarding/",
+          "/events_manager2/zapier_onboarding/",
+          "/events_manager2/zapier_onboarding_proxy/",
+          "/events_manager2/make_onboarding/",
+          "/events_manager2/datahash_onboarding/",
+          "/events_manager2/oauth_onboarding_proxy/{partner}/",
+          "/events_manager2/implementation_instructions/{data_source_id}/",
+          "/events_manager2/lead_ads_capi_eng_checklist/{data_source_id}/",
+          "/events_manager2/lead_gen_funnel/{data_source_id}/",
+          "/events_manager2/lead_gen_funnel2/{data_source_id}/",
+          "/events_manager2/{data_source_id}/",
+          "/events_manager2/overview/prep_app_aem_v2/{ads_objective}/",
+          "/events_manager2/browser_api/",
+          "/events_manager2/list/",
+          "/events_manager2/google_analytics/",
+          "/events_manager2/gateway_onboarding/",
+          "/events_manager2/crm_implementation_guide/{data_source_id}/",
+          "/events_manager2/overview/",
+          "/events_manager2/data_use/",
+          "/events_manager2/ad_credits/",
+        ],
+        void 0,
+      ),
+      s = e;
+    l.default = s;
+  },
+  98,
+);

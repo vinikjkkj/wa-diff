@@ -26,7 +26,7 @@ __d(
         if ((s || (s = r("EmojiRendererData"))).isTagSpec(a)) return !1;
       }
       if (
-        ((t = t.charCodeAt(0)),
+        ((t = e[0].charCodeAt(0)),
         (s || (s = r("EmojiRendererData"))).isSymbol(t) && n < 2)
       )
         return !1;
@@ -57,68 +57,69 @@ __d(
     }
     function S(t, n) {
       for (var a = null, i = [], l = h, S = 0, R = t.length; S < R; ) {
-        var L = t.codePointAt(S),
-          E = (e || (e = o("UnicodeUtils"))).getUTF16Length(t, S),
-          k = t.substr(S, E);
+        var L,
+          E = (L = t.codePointAt(S)) != null ? L : 0,
+          k = (e || (e = o("UnicodeUtils"))).getUTF16Length(t, S),
+          I = t.substr(S, k);
         switch (l) {
           case y:
-            (s || (s = r("EmojiRendererData"))).isRegionalIndicator(L)
+            (s || (s = r("EmojiRendererData"))).isRegionalIndicator(E)
               ? (l = m)
               : (l = h);
             break;
           case p:
-            if ((s || (s = r("EmojiRendererData"))).isEmojiModifier(L)) {
+            if ((s || (s = r("EmojiRendererData"))).isEmojiModifier(E)) {
               l = _;
               break;
             }
           case u:
-            (s || (s = r("EmojiRendererData"))).isZWJ(L)
+            (s || (s = r("EmojiRendererData"))).isZWJ(E)
               ? (l = g)
-              : (s || (s = r("EmojiRendererData"))).isEmojiVariationSelector(L)
+              : (s || (s = r("EmojiRendererData"))).isEmojiVariationSelector(E)
                 ? (l = d)
-                : (s || (s = r("EmojiRendererData"))).isTextVariationSelector(L)
+                : (s || (s = r("EmojiRendererData"))).isTextVariationSelector(E)
                   ? (l = b)
                   : (
                         s || (s = r("EmojiRendererData"))
-                      ).isNonSpacingCombiningMark(L)
+                      ).isNonSpacingCombiningMark(E)
                     ? (l = c)
-                    : (s || (s = r("EmojiRendererData"))).isTagSpec(L)
+                    : (s || (s = r("EmojiRendererData"))).isTagSpec(E)
                       ? (l = f)
                       : (l = h);
             break;
           case c:
           case d:
             if (
-              (s || (s = r("EmojiRendererData"))).isNonSpacingCombiningMark(L)
+              (s || (s = r("EmojiRendererData"))).isNonSpacingCombiningMark(E)
             )
               break;
           case m:
           case _:
-            (s || (s = r("EmojiRendererData"))).isZWJ(L)
+            (s || (s = r("EmojiRendererData"))).isZWJ(E)
               ? (l = g)
-              : (s || (s = r("EmojiRendererData"))).isTagSpec(L)
+              : (s || (s = r("EmojiRendererData"))).isTagSpec(E)
                 ? (l = f)
                 : (l = h);
             break;
           case f:
-            (s || (s = r("EmojiRendererData"))).isTagSpec(L) ||
-            (s || (s = r("EmojiRendererData"))).isTagTerm(L)
+            (s || (s = r("EmojiRendererData"))).isTagSpec(E) ||
+            (s || (s = r("EmojiRendererData"))).isTagTerm(E)
               ? (l = f)
               : (l = h);
             break;
           case g:
-            (s || (s = r("EmojiRendererData"))).isRegionalIndicator(L)
+            (s || (s = r("EmojiRendererData"))).isRegionalIndicator(E)
               ? (l = y)
-              : (s || (s = r("EmojiRendererData"))).isEmojiModifierBase(L)
+              : (s || (s = r("EmojiRendererData"))).isEmojiModifierBase(E)
                 ? (l = p)
-                : (s || (s = r("EmojiRendererData"))).isEmoji(L)
+                : (s || (s = r("EmojiRendererData"))).isEmoji(E)
                   ? (l = u)
                   : (l = h);
             break;
           case C:
-            (s || (s = r("EmojiRendererData"))).isNonSpacingCombiningMark(L)
+            (s || (s = r("EmojiRendererData"))).isNonSpacingCombiningMark(E)
               ? (l = c)
-              : (s || (s = r("EmojiRendererData"))).isEmojiVariationSelector(L)
+              : (s || (s = r("EmojiRendererData"))).isEmojiVariationSelector(E)
                 ? (l = d)
                 : (l = h);
             break;
@@ -128,13 +129,13 @@ __d(
         }
         if (l === h) {
           if (
-            ((s || (s = r("EmojiRendererData"))).isRegionalIndicator(L)
+            ((s || (s = r("EmojiRendererData"))).isRegionalIndicator(E)
               ? (l = y)
-              : (s || (s = r("EmojiRendererData"))).isEmojiModifierBase(L)
+              : (s || (s = r("EmojiRendererData"))).isEmojiModifierBase(E)
                 ? (l = p)
-                : (s || (s = r("EmojiRendererData"))).isText(L)
+                : (s || (s = r("EmojiRendererData"))).isText(E)
                   ? (l = C)
-                  : (s || (s = r("EmojiRendererData"))).isEmoji(L) && (l = u),
+                  : (s || (s = r("EmojiRendererData"))).isEmoji(E) && (l = u),
             l !== h)
           ) {
             if (
@@ -144,10 +145,10 @@ __d(
               a = null;
               break;
             }
-            a = { emoji: [k], length: E, offset: S };
+            a = { emoji: [I], length: k, offset: S };
           }
-        } else a !== null && (a.emoji.push(k), (a.length += E));
-        S += E;
+        } else a !== null && (a.emoji.push(I), (a.length += k));
+        S += k;
       }
       return (a !== null && v(a.emoji) && i.push(a), i);
     }

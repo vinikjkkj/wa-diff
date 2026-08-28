@@ -2,6 +2,7 @@ __d(
   "WebBloksFixedWrapper",
   [
     "WebBloksComponentContext",
+    "WebBloksConstants",
     "WebBloksStyle",
     "react",
     "react-compiler-runtime",
@@ -9,92 +10,95 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react"));
-    function u(e) {
+      s = e || (e = o("react")),
+      u = "#",
+      c = "$",
+      d = "&",
+      m = "(",
+      p = ")";
+    function _(e) {
       var t = o("react-compiler-runtime").c(27),
         n = e.externalStyle,
         r = e.node,
         a = o("WebBloksComponentContext").useWebBloksContext(),
         i = a.renderChildren,
         l;
-      t[0] !== r ? ((l = r.get("bottom")), (t[0] = r), (t[1] = l)) : (l = t[1]);
-      var u = l,
-        c;
-      t[2] !== r ? ((c = r.get("left")), (t[2] = r), (t[3] = c)) : (c = t[3]);
-      var d = c,
-        m;
-      t[4] !== r ? ((m = r.get("right")), (t[4] = r), (t[5] = m)) : (m = t[5]);
-      var p = m,
-        _;
-      t[6] !== r ? ((_ = r.get("top")), (t[6] = r), (t[7] = _)) : (_ = t[7]);
-      var f = _,
-        g;
-      t[8] !== r
-        ? ((g = r.get("z_index")), (t[8] = r), (t[9] = g))
-        : (g = t[9]);
-      var h = g,
-        y = r.getSubNodes("children"),
-        C = u != null ? u : void 0,
-        b = d != null ? d : void 0,
-        v = p != null ? p : void 0,
-        S = f != null ? f : void 0,
-        R = h != null ? h : void 0,
-        L;
-      t[10] !== R || t[11] !== C || t[12] !== b || t[13] !== v || t[14] !== S
-        ? ((L = {
-            bottom: C,
-            left: b,
+      t[0] !== r ? ((l = r.get(u)), (t[0] = r), (t[1] = l)) : (l = t[1]);
+      var _ = l,
+        f;
+      t[2] !== r ? ((f = r.get(c)), (t[2] = r), (t[3] = f)) : (f = t[3]);
+      var g = f,
+        h;
+      t[4] !== r ? ((h = r.get(d)), (t[4] = r), (t[5] = h)) : (h = t[5]);
+      var y = h,
+        C;
+      t[6] !== r ? ((C = r.get(m)), (t[6] = r), (t[7] = C)) : (C = t[7]);
+      var b = C,
+        v;
+      t[8] !== r ? ((v = r.get(p)), (t[8] = r), (t[9] = v)) : (v = t[9]);
+      var S = v,
+        R = r.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY),
+        L = _ != null ? _ : void 0,
+        E = g != null ? g : void 0,
+        k = y != null ? y : void 0,
+        I = b != null ? b : void 0,
+        T = S != null ? S : void 0,
+        D;
+      t[10] !== T || t[11] !== L || t[12] !== E || t[13] !== k || t[14] !== I
+        ? ((D = {
+            bottom: L,
+            left: E,
             position: "fixed",
-            right: v,
-            top: S,
-            zIndex: R,
+            right: k,
+            top: I,
+            zIndex: T,
           }),
-          (t[10] = R),
-          (t[11] = C),
-          (t[12] = b),
-          (t[13] = v),
-          (t[14] = S),
-          (t[15] = L))
-        : (L = t[15]);
-      var E = L,
-        k;
-      t[16] !== n || t[17] !== E
-        ? ((k = babelHelpers.extends({ pointerEvents: "none" }, n, E)),
+          (t[10] = T),
+          (t[11] = L),
+          (t[12] = E),
+          (t[13] = k),
+          (t[14] = I),
+          (t[15] = D))
+        : (D = t[15]);
+      var x = D,
+        $;
+      t[16] !== n || t[17] !== x
+        ? (($ = babelHelpers.extends({ pointerEvents: "none" }, n, x)),
           (t[16] = n),
-          (t[17] = E),
-          (t[18] = k))
-        : (k = t[18]);
-      var I = o("WebBloksStyle").useStyle(r, k),
-        T = I.style,
-        D = I.wrapper,
-        x = I.wrapperProps,
-        $ = o("WebBloksStyle").WebBloksStyles,
-        P = i(y),
-        N;
-      t[19] !== T || t[20] !== $.container || t[21] !== P || t[22] !== x
-        ? ((N = s.jsx(
+          (t[17] = x),
+          (t[18] = $))
+        : ($ = t[18]);
+      var P = o("WebBloksStyle").useStyle(r, $),
+        N = P.style,
+        M = P.wrapper,
+        w = P.wrapperProps,
+        A = o("WebBloksStyle").WebBloksStyles,
+        F = i(R),
+        O;
+      t[19] !== N || t[20] !== A.container || t[21] !== F || t[22] !== w
+        ? ((O = s.jsx(
             "div",
-            babelHelpers.extends({}, x, {
-              className: $.container,
-              style: T,
-              children: P,
+            babelHelpers.extends({}, w, {
+              className: A.container,
+              style: N,
+              children: F,
             }),
           )),
-          (t[19] = T),
-          (t[20] = $.container),
-          (t[21] = P),
-          (t[22] = x),
-          (t[23] = N))
-        : (N = t[23]);
-      var M;
+          (t[19] = N),
+          (t[20] = A.container),
+          (t[21] = F),
+          (t[22] = w),
+          (t[23] = O))
+        : (O = t[23]);
+      var B;
       return (
-        t[24] !== N || t[25] !== D
-          ? ((M = D(N)), (t[24] = N), (t[25] = D), (t[26] = M))
-          : (M = t[26]),
-        M
+        t[24] !== O || t[25] !== M
+          ? ((B = M(O)), (t[24] = O), (t[25] = M), (t[26] = B))
+          : (B = t[26]),
+        B
       );
     }
-    l.default = u;
+    l.default = _;
   },
   98,
 );

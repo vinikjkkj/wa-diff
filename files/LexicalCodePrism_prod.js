@@ -135,10 +135,13 @@ __d(
         text: "plain",
         ts: "typescript",
       };
-    function s(e) {
-      return o[e] || e;
+    function s(e, t) {
+      return Object.prototype.hasOwnProperty.call(e, t) ? e[t] : void 0;
     }
     function a(e) {
+      return s(o, e) || e;
+    }
+    function g(e) {
       var t = (function (e) {
           var t = /^diff-([\w-]+)/i.exec(e);
           return t ? t[1] : null;
@@ -150,7 +153,7 @@ __d(
         return !1;
       }
     }
-    async function g(e, t, n) {}
+    async function l(e, t, n) {}
     function d(e) {
       return "string" == typeof e
         ? e
@@ -158,7 +161,7 @@ __d(
           ? e.map(d).join("")
           : d(e.content);
     }
-    function l(e, t) {
+    function u(e, t) {
       var n = /^diff-([\w-]+)/i.exec(t),
         i = e.getTextContent();
       var o = r.tokenize(i, r.languages[n ? "diff" : t]);
@@ -227,10 +230,10 @@ __d(
             }
             return o.tokens;
           })(o, n[1])),
-        u(o)
+        c(o)
       );
     }
-    function u(t, r) {
+    function c(t, r) {
       var i = [];
       for (var _o of t)
         if ("string" == typeof _o)
@@ -253,7 +256,7 @@ __d(
           "string" == typeof _e3
             ? i.push.apply(
                 i,
-                u(
+                c(
                   [_e3],
                   "prefix" === _o.type && "string" == typeof _t2
                     ? _t2
@@ -263,17 +266,17 @@ __d(
             : Array.isArray(_e3) &&
               i.push.apply(
                 i,
-                u(_e3, "unchanged" === _o.type ? void 0 : _o.type),
+                c(_e3, "unchanged" === _o.type ? void 0 : _o.type),
               );
         }
       return i;
     }
-    var c = {
+    var p = {
       $tokenize: function $tokenize(t, n) {
         var r = n || this.defaultLanguage;
         return null === r
           ? require("LexicalCodeCore").$plainifyCodeContent(t.getTextContent())
-          : l(t, r);
+          : u(t, r);
       },
       defaultLanguage: require("LexicalCodeCore").DEFAULT_CODE_LANGUAGE,
       tokenize: function tokenize(e, t) {
@@ -284,14 +287,14 @@ __d(
         );
       },
     };
-    function p(t, r, i, o) {
+    function f(t, r, i, o) {
       var s = o.getParent();
       require("LexicalCodeCore").$isCodeNode(s)
-        ? h(t, r, i, s)
+        ? y(t, r, i, s)
         : require("LexicalCodeCore").$isCodeHighlightNode(o) &&
           o.replace(require("Lexical").$createTextNode(o.__text));
     }
-    function f(e, t) {
+    function h(e, t) {
       var r = t.getElementByKey(e.getKey());
       if (null === r) return;
       var i = e.getChildren(),
@@ -304,27 +307,27 @@ __d(
         require("Lexical").$isLineBreakNode(i[_e4]) && (s += "\n" + ++a);
       r.setAttribute("data-gutter", s);
     }
-    function h(t, r, i, o) {
+    function y(t, r, i, o) {
       var s = i.nodesCurrentlyHighlighting,
-        d = o.getKey();
+        a = o.getKey();
       void 0 === o.getLanguage() &&
         null !== r.defaultLanguage &&
         o.setLanguage(r.defaultLanguage);
-      var l = o.getLanguage() || r.defaultLanguage;
-      if (l) {
-        if (!a(l))
+      var d = o.getLanguage() || r.defaultLanguage;
+      if (d) {
+        if (!g(d))
           return (
             o.getIsSyntaxHighlightSupported() &&
               o.setIsSyntaxHighlightSupported(!1),
-            void g()
+            void l()
           );
         o.getIsSyntaxHighlightSupported() ||
           o.setIsSyntaxHighlightSupported(!0);
       } else
         o.getIsSyntaxHighlightSupported() &&
           o.setIsSyntaxHighlightSupported(!1);
-      s.has(d) ||
-        (s.add(d),
+      s.has(a) ||
+        (s.add(a),
         i.didTransform ||
           ((i.didTransform = !0),
           require("Lexical").$onUpdate(function () {
@@ -337,62 +340,66 @@ __d(
           var o = require("Lexical").$getSelection();
           if (!require("Lexical").$isRangeSelection(o)) return void r();
           var s = o.anchor,
-            a = s.offset,
-            g =
+            a = s.getNode();
+          if (a !== i && !i.isParentOf(a)) return void r();
+          var g = s.offset,
+            l =
               "element" === s.type &&
               require("Lexical").$isLineBreakNode(
                 i.getChildAtIndex(s.offset - 1),
               );
           var d = 0;
-          if (!g) {
-            var _e5 = s.getNode();
-            d =
-              a +
-              _e5.getPreviousSiblings().reduce(function (e, t) {
+          l ||
+            (d =
+              g +
+              a.getPreviousSiblings().reduce(function (e, t) {
                 return e + t.getTextContentSize();
-              }, 0);
-          }
+              }, 0));
           if (!r()) return;
-          if (g) return void s.getNode().select(a, a);
-          i.getChildren().some(function (e) {
-            var t = require("Lexical").$isTextNode(e);
-            if (t || require("Lexical").$isLineBreakNode(e)) {
-              var _n3 = e.getTextContentSize();
-              if (t && _n3 >= d) return (e.select(d, d), !0);
-              d -= _n3;
+          if (l) return void s.getNode().select(g, g);
+          var u = i.getChildren();
+          for (var _e5 = 0; _e5 < u.length; _e5++) {
+            var _t3 = u[_e5];
+            if (require("Lexical").$isTextNode(_t3)) {
+              var _e6 = _t3.getTextContentSize();
+              if (_e6 >= d) return void _t3.select(d, d);
+              d -= _e6;
+            } else if (require("Lexical").$isLineBreakNode(_t3)) {
+              if (0 === d) return void i.select(_e5, _e5);
+              d -= 1;
             }
-            return !1;
-          });
-        })(d, function () {
-          var t = require("Lexical").$getNodeByKey(d);
+          }
+          i.select(u.length, u.length);
+        })(a, function () {
+          var t = require("Lexical").$getNodeByKey(a);
           if (!require("LexicalCodeCore").$isCodeNode(t) || !t.isAttached())
             return !1;
           var i = t.getLanguage() || r.defaultLanguage,
             s = r.$tokenize(t, i != null ? i : void 0),
-            a = (function (e, t) {
+            g = (function (e, t) {
               var n = 0;
-              for (; n < e.length && y(e[n], t[n]); ) n++;
+              for (; n < e.length && m(e[n], t[n]); ) n++;
               var r = e.length,
                 i = t.length,
                 o = Math.min(r, i) - n;
               var s = 0;
               for (; s < o; )
-                if ((s++, !y(e[r - s], t[i - s]))) {
+                if ((s++, !m(e[r - s], t[i - s]))) {
                   s--;
                   break;
                 }
               var a = n,
                 g = r - s,
-                d = t.slice(n, i - s);
-              return { from: a, nodesForReplacement: d, to: g };
+                l = t.slice(n, i - s);
+              return { from: a, nodesForReplacement: l, to: g };
             })(t.getChildren(), s),
-            g = a.from,
-            l = a.to,
-            u = a.nodesForReplacement;
-          return !(g === l && !u.length) && (o.splice(g, l - g, u), !0);
+            l = g.from,
+            d = g.to,
+            u = g.nodesForReplacement;
+          return !(l === d && !u.length) && (o.splice(l, d - l, u), !0);
         }));
     }
-    function y(t, r) {
+    function m(t, r) {
       return (
         (require("LexicalCodeCore").$isCodeHighlightNode(t) &&
           require("LexicalCodeCore").$isCodeHighlightNode(r) &&
@@ -404,7 +411,7 @@ __d(
           require("Lexical").$isLineBreakNode(r))
       );
     }
-    function m(t, r) {
+    function x(t, r) {
       var i = [];
       !0 !== t._headless &&
         i.push(
@@ -416,8 +423,8 @@ __d(
                   var _r2 = _ref2[0];
                   var _i = _ref2[1];
                   if ("destroyed" !== _i) {
-                    var _e6 = require("Lexical").$getNodeByKey(_r2);
-                    null !== _e6 && f(_e6, t);
+                    var _e7 = require("Lexical").$getNodeByKey(_r2);
+                    null !== _e7 && h(_e7, t);
                   }
                 }
               });
@@ -430,25 +437,25 @@ __d(
         i.push(
           t.registerNodeTransform(
             require("LexicalCodeCore").CodeNode,
-            h.bind(null, t, r, o),
+            y.bind(null, t, r, o),
           ),
           t.registerNodeTransform(
             require("Lexical").TextNode,
-            p.bind(null, t, r, o),
+            f.bind(null, t, r, o),
           ),
           t.registerNodeTransform(
             require("LexicalCodeCore").CodeHighlightNode,
-            p.bind(null, t, r, o),
+            f.bind(null, t, r, o),
           ),
         ),
         require("Lexical").mergeRegister.apply(require("Lexical"), i)
       );
     }
-    var x = require("Lexical").defineExtension({
+    var C = {
       build: function build(e, n) {
         return require("LexicalExtension").namedSignals(n);
       },
-      config: require("Lexical").safeCast({ disabled: !1, tokenizer: c }),
+      config: { disabled: !1, tokenizer: p },
       dependencies: [
         require("LexicalCodeCore").CodeExtension,
         require("LexicalCodeCore").CodeIndentExtension,
@@ -457,20 +464,20 @@ __d(
       register: function register(e, n, r) {
         var i = r.getOutput();
         return require("LexicalExtension").effect(function () {
-          if (!i.disabled.value) return m(e, i.tokenizer.value);
+          if (!i.disabled.value) return x(e, i.tokenizer.value);
         });
       },
-    });
+    };
     ((exports.CODE_LANGUAGE_FRIENDLY_NAME_MAP = i),
       (exports.CODE_LANGUAGE_MAP = o),
-      (exports.CodePrismExtension = x),
-      (exports.PrismTokenizer = c),
+      (exports.CodePrismExtension = C),
+      (exports.PrismTokenizer = p),
       (exports.getCodeLanguageOptions = function () {
         var e = [];
         for (var _ref4 of Object.entries(i)) {
-          var _t3 = _ref4[0];
-          var _n4 = _ref4[1];
-          e.push([_t3, _n4]);
+          var _t4 = _ref4[0];
+          var _n3 = _ref4[1];
+          e.push([_t4, _n3]);
         }
         return e;
       }),
@@ -485,15 +492,15 @@ __d(
         return [];
       }),
       (exports.getLanguageFriendlyName = function (e) {
-        var t = s(e);
-        return i[t] || t;
+        var t = a(e);
+        return s(i, t) || t;
       }),
-      (exports.isCodeLanguageLoaded = a),
-      (exports.loadCodeLanguage = g),
-      (exports.normalizeCodeLanguage = s),
+      (exports.isCodeLanguageLoaded = g),
+      (exports.loadCodeLanguage = l),
+      (exports.normalizeCodeLanguage = a),
       (exports.registerCodeHighlighting = function (t, r) {
         if (r === void 0) {
-          r = c;
+          r = p;
         }
         if (
           !t.hasNodes([
@@ -505,7 +512,7 @@ __d(
             "CodeHighlightPlugin: CodeNode or CodeHighlightNode not registered on editor",
           );
         return require("Lexical").mergeRegister(
-          m(t, r),
+          x(t, r),
           require("LexicalCodeCore").registerCodeIndentation(t),
         );
       }));

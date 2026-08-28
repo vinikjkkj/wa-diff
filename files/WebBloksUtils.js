@@ -27,17 +27,21 @@ __d(
     g.set = function () {
       throw new (o("WebBloksErrors").WebBloksError)("Map is immutable");
     };
-    var h = 0;
-    function y() {
-      h = 0;
+    var h = "#",
+      y = ")",
+      C = "*",
+      b = "(",
+      v = 0;
+    function S() {
+      v = 0;
     }
-    function C() {
-      return ++h;
+    function R() {
+      return ++v;
     }
-    function b(e) {
+    function L(e) {
       return typeof e == "string" ? e.replace("_", "-") : e;
     }
-    function v(e) {
+    function E(e) {
       if (typeof e == "string") {
         for (
           var t = e.replace(/-/g, "_").split(/_/), n = t[0], r = 1;
@@ -51,17 +55,17 @@ __d(
       }
       return e;
     }
-    function S(e) {
+    function k(e) {
       return e == null
         ? {}
         : {
-            paddingTop: R(e == null ? void 0 : e.get("top")),
-            paddingRight: R(e == null ? void 0 : e.get("end")),
-            paddingBottom: R(e == null ? void 0 : e.get("bottom")),
-            paddingLeft: R(e == null ? void 0 : e.get("start")),
+            paddingTop: I(e.get(b)),
+            paddingRight: I(e.get(y)),
+            paddingBottom: I(e.get(h)),
+            paddingLeft: I(e.get(C)),
           };
     }
-    function R(e) {
+    function I(e) {
       if (typeof e == "string") {
         var t = o("WebBloksDimensionUtils").parseDimension(e);
         return t == null
@@ -74,7 +78,7 @@ __d(
       }
       return e;
     }
-    function L(e) {
+    function T(e) {
       var t;
       return (
         ((t = o("WebBloksDimensionUtils").parseDimension(e)) == null
@@ -82,10 +86,12 @@ __d(
           : t.type) === "%"
       );
     }
-    function E(e) {
-      return L(e) ? parseFloat(e) / 100 : null;
+    function D(e) {
+      return T(e) ? parseFloat(e) / 100 : null;
     }
-    function k(e) {
+    var x = "#",
+      $ = "$";
+    function P(e) {
       if (e.startsWith("rgba(")) {
         var t = e.slice(5, e.indexOf(")")),
           n = t.split(",").map(function (e) {
@@ -118,7 +124,7 @@ __d(
         return [g, h, y, 1];
       }
     }
-    function I(e) {
+    function N(e) {
       var t = e[0],
         n = e[1],
         r = e[2],
@@ -126,23 +132,14 @@ __d(
         a = o === void 0 ? 1 : o;
       return "rgba(" + t + "," + n + "," + r + "," + a.toFixed(4) + ")";
     }
-    function T(e, t) {
-      var n,
-        r,
-        a =
-          t === o("WebBloksTheme").THEME.dark
-            ? (n = e.get("dark_color")) != null
-              ? n
-              : e.get("darkColor")
-            : (r = e.get("light_color")) != null
-              ? r
-              : e.get("lightColor");
-      return k(a);
+    function M(e, t) {
+      var n = t === o("WebBloksTheme").THEME.dark ? e.get(x) : e.get($);
+      return P(n);
     }
-    function D(e, t) {
-      return I(T(e, t));
+    function w(e, t) {
+      return N(M(e, t));
     }
-    function x(e) {
+    function A(e) {
       var t,
         n = {
           translate_x: "translateX",
@@ -154,25 +151,25 @@ __d(
         };
       return (t = n[e]) != null ? t : "";
     }
-    function $(e, t) {
-      return e != null && e.styleId === t;
+    function F(e, t) {
+      return e != null && (e.styleId === t || e.getWireStyleId() === t);
     }
-    function P(e, t) {
+    function O(e, t) {
       return e == null
         ? null
         : e.find(function (e) {
-            return e.styleId === t;
+            return e.styleId === t || e.getWireStyleId() === t;
           });
     }
-    function N(e) {
+    function B(e) {
       return e;
     }
-    function M(e) {
+    function W(e) {
       if (!e.length)
         throw new (o("WebBloksErrors").WebBloksError)("Empty collection");
       return e[e.length - 1];
     }
-    function w(e, t) {
+    function q(e, t) {
       if (t != null)
         for (var n of t) {
           var r = n[0],
@@ -180,10 +177,10 @@ __d(
           e.set(r, o);
         }
     }
-    function A(e) {
+    function U(e) {
       for (var t in e) return t;
     }
-    var F = (function () {
+    var V = (function () {
       function e() {
         this.listeners = new Set();
       }
@@ -208,48 +205,48 @@ __d(
         e
       );
     })();
-    function O(e) {
+    function H(e) {
       return new (s || (s = n("Promise")))(function (t) {
         window.setTimeout(t, e);
       });
     }
-    var B = { passive: !0 },
-      W = 10;
-    function q(e, t, n, r) {
+    var G = { passive: !0 },
+      z = 10;
+    function j(e, t, n, r) {
       if (!r) return !0;
       var o = e.getBoundingClientRect();
-      if (Math.abs(o.left - t) > W || Math.abs(o.top - n) > W) return !0;
+      if (Math.abs(o.left - t) > z || Math.abs(o.top - n) > z) return !0;
       var a = document.elementFromPoint(r.clientX, r.clientY);
       return a ? !e.contains(a) : !0;
     }
-    function U(e) {
+    function K(e) {
       return /^[0-9]*(\.[0-9]+)?\%$/.test(e);
     }
-    function V(e) {
+    function Q(e) {
       return /^[0-9]*(\.[0-9]+)?(dp|px)$/.test(e);
     }
-    function H(e) {
+    function X(e) {
       var t,
         n = e;
       return function () {
         return (n && ((t = n.apply(this, arguments)), (n = null)), t);
       };
     }
-    function G(e, t) {
+    function Y(e, t) {
       var n = e.indexOf(t);
       n !== -1 && e.splice(n, 1);
     }
-    function z(e, t) {
+    function J(e, t) {
       if ((t === void 0 && (t = "Got unexpected null or undefined"), e != null))
         return e;
       var n = new (o("WebBloksErrors").WebBloksError)(t);
       throw ((n.framesToPop = 1), n);
     }
-    function j(e) {
+    function Z(e) {
       for (var t in e) return !1;
       return !0;
     }
-    function K(e, t) {
+    function ee(e, t) {
       if (e === t) return !0;
       if (e == null || t == null || e.size !== t.size) return !1;
       for (var n of e) {
@@ -260,7 +257,7 @@ __d(
       }
       return !0;
     }
-    function Q(e, t) {
+    function te(e, t) {
       var n = !1;
       return function () {
         if (!n) {
@@ -274,7 +271,7 @@ __d(
         }
       };
     }
-    function X(e, t) {
+    function ne(e, t) {
       var n;
       return function () {
         for (var r = arguments.length, o = new Array(r), a = 0; a < r; a++)
@@ -286,10 +283,10 @@ __d(
           }, t)));
       };
     }
-    var Y = o("WebBloksSSRUtils").canUseDOM ? m : d,
-      J = Object.prototype.toString;
-    function Z(e) {
-      switch (J.call(e)) {
+    var re = o("WebBloksSSRUtils").canUseDOM ? m : d,
+      oe = Object.prototype.toString;
+    function ae(e) {
+      switch (oe.call(e)) {
         case "[object String]":
         case "[object Number]":
         case "[object Boolean]":
@@ -299,19 +296,19 @@ __d(
       }
       return !1;
     }
-    function ee(e, t) {
+    function ie(e, t) {
       var n = function (t) {
           return function (e, n) {
-            return ee(e, t[n]);
+            return ie(e, t[n]);
           };
         },
         r = function (t, n) {
           return function (e) {
-            return e in t && e in n && ee(t[e], n[e]);
+            return e in t && e in n && ie(t[e], n[e]);
           };
         };
-      if (J.call(e) !== J.call(t)) return !1;
-      if (Z(e)) return e === t;
+      if (oe.call(e) !== oe.call(t)) return !1;
+      if (ae(e)) return e === t;
       if (Array.isArray(e) && Array.isArray(t))
         return e.length === t.length && e.every(n(t));
       if (
@@ -327,18 +324,24 @@ __d(
       }
       return !1;
     }
-    function te(e) {
+    function le(e) {
       return (
         e !== null && Object.prototype.toString.call(e) === "[object Object]"
       );
     }
-    function ne(e) {
-      return !o("WebBloksBooleanUtils").isFalse(e.get("enabled"));
+    function se(e, t) {
+      var n = e.usesCanonicalKeys() ? t : "enabled";
+      return (
+        n == null ||
+        !o("WebBloksBooleanUtils").isFalse(
+          e.getWireValue(e.getWireAttributeKey(n)),
+        )
+      );
     }
-    function re() {
+    function ue() {
       return new (r("WebBloksURLSearchParams"))(window.location.search);
     }
-    function oe(e) {
+    function ce(e) {
       var t;
       if (e == null) return o("WebBloksConstants").WEBBLOKS_DEFAULT_FONT_FAMILY;
       var n = (t = e.__default) == null ? void 0 : t.webFontName;
@@ -348,7 +351,7 @@ __d(
           ? n
           : o("WebBloksConstants").WEBBLOKS_DEFAULT_FONT_FAMILY;
     }
-    function ae(t) {
+    function de(t) {
       var n,
         r = t == null ? void 0 : t.server_data;
       if (((n = t.layout) == null ? void 0 : n.bloks_payload) != null)
@@ -368,45 +371,45 @@ __d(
       (l.EMPTY_KEY_PATH = _),
       (l.EMPTY_OBJECT = f),
       (l.EMPTY_MAP = g),
-      (l.resetGlobalBloksClientIdForTest = y),
-      (l.getNextGlobalBloksClientId = C),
-      (l.toHyphen = b),
-      (l.toCamel = v),
-      (l.insetToPadding = S),
-      (l.toPx = R),
-      (l.isPercentage = L),
-      (l.toPercentageValue = E),
-      (l.convertRGBOrHexStringToArr = k),
-      (l.convertRGBArrToString = I),
-      (l.convertThemedColorToArr = T),
-      (l.getRGBColorWithTheme = D),
-      (l.viewTransformKeyToTransformFunction = x),
-      (l.isStyle = $),
-      (l.findExtension = P),
-      (l.cast = N),
-      (l.peek = M),
-      (l.putAll = w),
-      (l.getFirstKey = A),
-      (l.EventEmitter = F),
-      (l.sleep = O),
-      (l.passiveTouchEventOptions = B),
-      (l.shouldCancelTouchEvent = q),
-      (l.isBloksDimensionPercentage = U),
-      (l.isBloksDimensionPixel = V),
-      (l.once = H),
-      (l.removeFromArray = G),
-      (l.nullthrows = z),
-      (l.isEmptyObject = j),
-      (l.shallowMapEqual = K),
-      (l.throttle = Q),
-      (l.debounce = X),
-      (l.useLayoutEffect_SAFE_FOR_SSR = Y),
-      (l.deepEquals = ee),
-      (l.isObject = te),
-      (l.isBloksModelEnabled = ne),
-      (l.getQueryParams = re),
-      (l.getWrapperFontFamily = oe),
-      (l.normaliseBloksPayload = ae));
+      (l.resetGlobalBloksClientIdForTest = S),
+      (l.getNextGlobalBloksClientId = R),
+      (l.toHyphen = L),
+      (l.toCamel = E),
+      (l.insetToPadding = k),
+      (l.toPx = I),
+      (l.isPercentage = T),
+      (l.toPercentageValue = D),
+      (l.convertRGBOrHexStringToArr = P),
+      (l.convertRGBArrToString = N),
+      (l.convertThemedColorToArr = M),
+      (l.getRGBColorWithTheme = w),
+      (l.viewTransformKeyToTransformFunction = A),
+      (l.isStyle = F),
+      (l.findExtension = O),
+      (l.cast = B),
+      (l.peek = W),
+      (l.putAll = q),
+      (l.getFirstKey = U),
+      (l.EventEmitter = V),
+      (l.sleep = H),
+      (l.passiveTouchEventOptions = G),
+      (l.shouldCancelTouchEvent = j),
+      (l.isBloksDimensionPercentage = K),
+      (l.isBloksDimensionPixel = Q),
+      (l.once = X),
+      (l.removeFromArray = Y),
+      (l.nullthrows = J),
+      (l.isEmptyObject = Z),
+      (l.shallowMapEqual = ee),
+      (l.throttle = te),
+      (l.debounce = ne),
+      (l.useLayoutEffect_SAFE_FOR_SSR = re),
+      (l.deepEquals = ie),
+      (l.isObject = le),
+      (l.isBloksModelEnabled = se),
+      (l.getQueryParams = ue),
+      (l.getWrapperFontFamily = ce),
+      (l.normaliseBloksPayload = de));
   },
   98,
 );

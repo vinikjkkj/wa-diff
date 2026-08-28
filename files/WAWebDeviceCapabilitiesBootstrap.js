@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
-    "WAWebBizAiSettingsSyncDeviceCapability",
     "WAWebBizBroadcastsDeviceCapability",
     "WAWebBotGating",
     "WAWebDeviceCapabilitiesSync",
@@ -46,9 +45,6 @@ __d(
               (yield o(
                 "WAWebBizBroadcastsDeviceCapability",
               ).bootstrapBizBroadcastPrimaryCapability(),
-              yield o(
-                "WAWebBizAiSettingsSyncDeviceCapability",
-              ).bootstrapBizAiSettingsSyncPrimaryCapability(),
               yield m(),
               yield r("WAWebDeviceCapabilitiesSync").sendMutation(n),
               o("WAWebABProps").getABPropConfigValue(

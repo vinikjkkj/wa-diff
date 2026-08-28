@@ -7,50 +7,53 @@ __d(
     "webBloksPerformanceUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
+    var e = "#",
+      s = "$",
+      u = "(";
+    function c(t, n, r, a) {
       o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
         "--web-bloks-async-action-start",
-        { detail: { appId: t } },
+        { detail: { appId: n } },
       );
-      var a = r == null ? void 0 : r.get("on_success_with_result"),
-        i = r == null ? void 0 : r.get("on_failure"),
-        l = r == null ? void 0 : r.get("props"),
-        s;
-      (l != null &&
-        (s = o(
+      var i = a == null ? void 0 : a.get(s),
+        l = a == null ? void 0 : a.get(e),
+        c = a == null ? void 0 : a.get(u),
+        d;
+      (c != null &&
+        (d = o(
           "WebBloksScreen",
-        ).WebBloksScreen.getExternalVariablesFromBloksScript(e, l)),
+        ).WebBloksScreen.getExternalVariablesFromBloksScript(t, c)),
         o("WebBloksAsyncActions")
-          .executeAsyncAction(e, t, n, s)
-          .then(function (t) {
+          .executeAsyncAction(t, n, r, d)
+          .then(function (e) {
             (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
               "--web-bloks-async-action-success",
             ),
-              a != null && e.execute(a, [t, e.bloksContext]));
+              i != null && t.execute(i, [e, t.bloksContext]));
           })
-          .catch(function (t) {
+          .catch(function (e) {
             (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
               "--web-bloks-async-action-error",
             ),
               o("WebBloksScriptDebuggingUtils").logScriptError(
-                e.objectSet,
-                t,
-                null,
+                t.objectSet,
                 e,
+                null,
+                t,
               ),
-              i != null && e.execute(i, [e.bloksContext]));
+              l != null && t.execute(l, [t.bloksContext]));
           })
-          .catch(function (t) {
+          .catch(function (e) {
             (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
               "--web-bloks-async-action-error",
             ),
-              e.objectSet.environment.logger.mustfix(
+              t.objectSet.environment.logger.mustfix(
                 "AsyncAction: failed to run error handler",
-                t,
+                e,
               ));
           }));
     }
-    l.default = e;
+    l.default = c;
   },
   98,
 );

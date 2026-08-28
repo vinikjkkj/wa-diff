@@ -186,6 +186,7 @@ __d(
     function T(e) {
       var t = [];
       for (var n of e)
+        n.styleId === o("WebBloksConstants").BK_INTERNAL_MERGE_MINIFIED ||
         n.styleId === o("WebBloksConstants").BK_INTERNAL_MERGE
           ? t.push.apply(t, n.getChildren_DEPRECATED())
           : t.push(n);

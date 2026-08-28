@@ -1,6 +1,12 @@
 __d(
   "WormIDbUpgrade",
-  ["WATimeUtils", "WormIDbTypes", "WormIDbUtils", "asyncToGeneratorRuntime"],
+  [
+    "WATimeUtils",
+    "WormIDbEARKeychain",
+    "WormIDbTypes",
+    "WormIDbUtils",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -61,7 +67,12 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n) {
+    function c(e) {
+      return Object.keys(o("WormIDbTypes").sysSchema).some(function (t) {
+        return e.objectStoreNames.contains(t) === !1;
+      });
+    }
+    function d(e, t, n) {
       for (var r of n) {
         var o = t[r],
           a = e.createObjectStore(r, {
@@ -82,67 +93,113 @@ __d(
           }
       }
     }
-    function d(t, n, r, a, i) {
-      var l = e(t, n, r),
-        s = l.storesToCreate,
-        u = l.storesToDelete,
-        d = l.storesToModify;
-      if ((c(t, r, s), !i.onlyCreateNewStores)) {
-        for (var m of u) i.safeToDeleteStores.has(m) && t.deleteObjectStore(m);
-        var p = function () {
-            var e = f[0];
-            _ = f[1];
-            var t = _.indexesToCreate,
-              o = _.indexesToDelete;
-            for (var a of o) n.objectStore(e).deleteIndex(a);
-            var l = r[e].indexes;
-            if (l == null) return 1;
-            var s = !1;
-            for (var u of t) {
-              var c = l[u];
-              (n
-                .objectStore(e)
-                .createIndex(u, [].concat(c.fields), { unique: c.unique }),
-                (s = !0));
-            }
-            if (s && r[e].secure === !0 && i.maybeEar != null) {
-              var d = e,
-                m = i.maybeEar,
-                p = n.objectStore(d).getAll();
-              p.onsuccess = function () {
-                var t = p.result;
-                t.forEach(function (t) {
-                  t != null &&
-                    n
-                      .objectStore(e)
-                      .put(
-                        m.maybeEncrypt(
-                          m.maybeDecrypt(t, d, "dbUpgrade", void 0, {
-                            shouldNotFailIfEntityIsNotEncrypted: !0,
-                          }),
-                          d,
-                          void 0,
-                        ),
-                      );
-                });
-              };
-            }
-          },
-          _;
-        for (var f of d) p();
-        (n
-          .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
-          .put({ key: o("WormIDbTypes").SCHEMA_HASH_KEY, value: a }),
-          i.isNewDbInstance &&
-            n
-              .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
-              .put({
-                key: o("WormIDbTypes").DB_CREATION_TS,
-                value: o("WATimeUtils").performanceAbsoluteNow(),
-              }));
+    function m(e, t, n) {
+      var r = [];
+      for (var o of n) {
+        var a = o[0],
+          i = o[1],
+          l = i.indexesToCreate,
+          s = i.indexesToDelete;
+        for (var u of s) e.objectStore(a).deleteIndex(u);
+        var c = t[a].indexes;
+        if (c != null) {
+          var d = !1;
+          for (var m of l) {
+            var p = c[m];
+            (e
+              .objectStore(a)
+              .createIndex(m, [].concat(p.fields), { unique: p.unique }),
+              (d = !0));
+          }
+          d && r.push(a);
+        }
       }
+      return r;
     }
-    ((l.shouldUpgradeDb = s), (l.upgradeDb = d));
+    function p(e, t, n, r) {
+      var o = function (o) {
+        if (t[o].secure !== !0) return 1;
+        var n = o,
+          a = e.objectStore(n).getAll();
+        a.onsuccess = function () {
+          var t = a.result;
+          t.forEach(function (t) {
+            t != null &&
+              e
+                .objectStore(o)
+                .put(
+                  r.maybeEncrypt(
+                    r.maybeDecrypt(t, n, "dbUpgrade", void 0, {
+                      shouldNotFailIfEntityIsNotEncrypted: !0,
+                    }),
+                    n,
+                    void 0,
+                  ),
+                );
+          });
+        };
+      };
+      for (var a of n) o(a);
+    }
+    function _(t, n, r, o) {
+      var a = e(t, n, r),
+        i = a.storesToCreate,
+        l = a.storesToDelete,
+        s = a.storesToModify;
+      d(t, r, i);
+      for (var u of l) o.has(u) && t.deleteObjectStore(u);
+      return m(n, r, s);
+    }
+    function f(e, t, n) {
+      (e
+        .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
+        .put({ key: o("WormIDbTypes").SCHEMA_HASH_KEY, value: t }),
+        n &&
+          e
+            .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
+            .put({
+              key: o("WormIDbTypes").DB_CREATION_TS,
+              value: o("WATimeUtils").performanceAbsoluteNow(),
+            }));
+    }
+    function g(t, n, r) {
+      var o = e(t, n, r),
+        a = o.storesToCreate;
+      d(t, r, a);
+    }
+    function h(e, t, n, r, o) {
+      var a = o.ear,
+        i = _(e, t, n, o.safeToDeleteStores);
+      (a != null && p(t, n, i, a), f(t, r, o.isNewDbInstance));
+    }
+    function y(e, t, n, r, a) {
+      var i = a.ear,
+        l = _(e, t, n, a.safeToDeleteStores),
+        s = t.objectStore(o("WormIDbTypes").EAR_STORE),
+        u = s.getAll();
+      ((u.onsuccess = function () {
+        var e,
+          r = o("WormIDbEARKeychain").reconcileKeychain(
+            (e = u.result) != null ? e : [],
+          ),
+          a = r.curVersion,
+          c = r.needNewVersion,
+          d = r.versions;
+        if (c) {
+          var m = babelHelpers.extends({}, i.prepareNewKeyVersion(), {
+            version: a + 1,
+          });
+          (s.add(m), d.push(m));
+        }
+        (i.init(d), p(t, n, l, i));
+      }),
+        f(t, r, a.isNewDbInstance));
+    }
+    ((l.shouldUpgradeDb = s),
+      (l.hasMissingSysStores = c),
+      (l.createMissingStores = g),
+      (l.upgradeDb = h),
+      (l.upgradeDbAndInitEAR = y));
   },
   98,
 );

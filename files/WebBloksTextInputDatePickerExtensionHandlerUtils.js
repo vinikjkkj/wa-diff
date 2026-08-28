@@ -1,119 +1,127 @@
 __d(
   "WebBloksTextInputDatePickerExtensionHandlerUtils",
-  ["WebBloksComponentContext", "WebBloksUtils", "react-compiler-runtime"],
+  [
+    "WebBloksComponentContext",
+    "WebBloksConstants",
+    "WebBloksUtils",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = o("react-compiler-runtime").c(28),
-        n = e.get("extensions"),
-        r = o("WebBloksComponentContext").useWebBloksContext(),
-        a = r.bloksContext,
-        i = r.executeOnNextTickCatch,
-        l = o("WebBloksUtils").findExtension(
-          n,
-          "bk.components.TextInputDatePickerExtension",
-        );
-      if (!l) return null;
-      var c = l.get("initial_time_seconds"),
-        d = l.get("maximum_time_seconds"),
-        m = l.get("minimum_time_seconds"),
-        p = l.get("mode"),
-        _ = l.getExpression("on_date_change");
-      if (p === "time") {
-        var f;
-        t[0] !== c
-          ? ((f = u(c != null ? c * 1e3 : Date.now())), (t[0] = c), (t[1] = f))
-          : (f = t[1]);
-        var g;
-        t[2] !== a || t[3] !== i || t[4] !== _ || t[5] !== e
-          ? ((g = function (n) {
+    var e = "#",
+      s = "$",
+      u = "&",
+      c = "(",
+      d = "+",
+      m = "\u3F27";
+    function p(t) {
+      var n = o("react-compiler-runtime").c(28),
+        r = t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
+        a = o("WebBloksComponentContext").useWebBloksContext(),
+        i = a.bloksContext,
+        l = a.executeOnNextTickCatch,
+        p = o("WebBloksUtils").findExtension(r, m);
+      if (!p) return null;
+      var g = p.get(e),
+        h = p.get(s),
+        y = p.get(u),
+        C = p.get(c),
+        b = p.getExpression(d);
+      if (C === "time") {
+        var v;
+        n[0] !== g
+          ? ((v = f(g != null ? g * 1e3 : Date.now())), (n[0] = g), (n[1] = v))
+          : (v = n[1]);
+        var S;
+        n[2] !== i || n[3] !== l || n[4] !== b || n[5] !== t
+          ? ((S = function (n) {
               if (n) {
-                var t = n.split(":").map(Number),
-                  r = t[0],
-                  o = t[1],
-                  l = new Date();
-                (l.setUTCHours(r, o, 0, 0),
-                  _ != null &&
-                    i(e, _, [parseInt(l.getTime() / 1e3, 10), e, a]));
+                var e = n.split(":").map(Number),
+                  r = e[0],
+                  o = e[1],
+                  a = new Date();
+                (a.setUTCHours(r, o, 0, 0),
+                  b != null &&
+                    l(t, b, [parseInt(a.getTime() / 1e3, 10), t, i]));
               }
             }),
-            (t[2] = a),
-            (t[3] = i),
-            (t[4] = _),
-            (t[5] = e),
-            (t[6] = g))
-          : (g = t[6]);
-        var h;
+            (n[2] = i),
+            (n[3] = l),
+            (n[4] = b),
+            (n[5] = t),
+            (n[6] = S))
+          : (S = n[6]);
+        var R;
         return (
-          t[7] !== f || t[8] !== g
-            ? ((h = {
+          n[7] !== v || n[8] !== S
+            ? ((R = {
                 typeOverride: "time",
-                initialValue: f,
+                initialValue: v,
                 minmaxProps: null,
-                onChange: g,
+                onChange: S,
               }),
-              (t[7] = f),
-              (t[8] = g),
-              (t[9] = h))
-            : (h = t[9]),
-          h
+              (n[7] = v),
+              (n[8] = S),
+              (n[9] = R))
+            : (R = n[9]),
+          R
         );
       }
-      var y;
-      t[10] !== c
-        ? ((y = c != null ? s(c * 1e3) : ""), (t[10] = c), (t[11] = y))
-        : (y = t[11]);
-      var C;
-      t[12] !== m
-        ? ((C = m != null ? s(m * 1e3) : void 0), (t[12] = m), (t[13] = C))
-        : (C = t[13]);
-      var b;
-      t[14] !== d
-        ? ((b = d != null ? s(d * 1e3) : void 0), (t[14] = d), (t[15] = b))
-        : (b = t[15]);
-      var v;
-      t[16] !== C || t[17] !== b
-        ? ((v = { min: C, max: b }), (t[16] = C), (t[17] = b), (t[18] = v))
-        : (v = t[18]);
-      var S;
-      t[19] !== a || t[20] !== i || t[21] !== _ || t[22] !== e
-        ? ((S = function (n) {
+      var L;
+      n[10] !== g
+        ? ((L = g != null ? _(g * 1e3) : ""), (n[10] = g), (n[11] = L))
+        : (L = n[11]);
+      var E;
+      n[12] !== y
+        ? ((E = y != null ? _(y * 1e3) : void 0), (n[12] = y), (n[13] = E))
+        : (E = n[13]);
+      var k;
+      n[14] !== h
+        ? ((k = h != null ? _(h * 1e3) : void 0), (n[14] = h), (n[15] = k))
+        : (k = n[15]);
+      var I;
+      n[16] !== E || n[17] !== k
+        ? ((I = { min: E, max: k }), (n[16] = E), (n[17] = k), (n[18] = I))
+        : (I = n[18]);
+      var T;
+      n[19] !== i || n[20] !== l || n[21] !== b || n[22] !== t
+        ? ((T = function (n) {
             if (n) {
-              var t = n.split("-").map(Number),
-                r = t[0],
-                o = t[1],
-                l = t[2],
+              var e = n.split("-").map(Number),
+                r = e[0],
+                o = e[1],
+                a = e[2],
                 s = new Date();
               (s.setUTCFullYear(r),
                 s.setUTCMonth(o - 1),
-                s.setUTCDate(l),
+                s.setUTCDate(a),
                 s.setUTCHours(0, 0, 0, 0),
-                _ != null && i(e, _, [parseInt(s.getTime() / 1e3, 10), e, a]));
+                b != null && l(t, b, [parseInt(s.getTime() / 1e3, 10), t, i]));
             }
           }),
-          (t[19] = a),
-          (t[20] = i),
-          (t[21] = _),
-          (t[22] = e),
-          (t[23] = S))
-        : (S = t[23]);
-      var R;
+          (n[19] = i),
+          (n[20] = l),
+          (n[21] = b),
+          (n[22] = t),
+          (n[23] = T))
+        : (T = n[23]);
+      var D;
       return (
-        t[24] !== y || t[25] !== v || t[26] !== S
-          ? ((R = {
+        n[24] !== L || n[25] !== I || n[26] !== T
+          ? ((D = {
               typeOverride: "date",
-              initialValue: y,
-              minmaxProps: v,
-              onChange: S,
+              initialValue: L,
+              minmaxProps: I,
+              onChange: T,
             }),
-            (t[24] = y),
-            (t[25] = v),
-            (t[26] = S),
-            (t[27] = R))
-          : (R = t[27]),
-        R
+            (n[24] = L),
+            (n[25] = I),
+            (n[26] = T),
+            (n[27] = D))
+          : (D = n[27]),
+        D
       );
     }
-    var s = function (t) {
+    var _ = function (t) {
         var e = new Date(t);
         return [
           String(e.getUTCFullYear()).padStart(4, "0"),
@@ -121,14 +129,14 @@ __d(
           String(e.getUTCDate()).padStart(2, "0"),
         ].join("-");
       },
-      u = function (t) {
+      f = function (t) {
         var e = new Date(t);
         return [
           e.getUTCHours().toString().padStart(2, "0"),
           e.getUTCMinutes().toString().padStart(2, "0"),
         ].join(":");
       };
-    l.useWebBloksTextInputDateProps = e;
+    l.useWebBloksTextInputDateProps = p;
   },
   98,
 );

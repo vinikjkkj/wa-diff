@@ -1,0 +1,36 @@
+__d(
+  "AdsInsightsAttributionSetting",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        NA: "na",
+        MIXED: "multiple",
+        X1C: "1d_click",
+        X1C1V: "1d_view_1d_click",
+        X7C: "7d_click",
+        X7C1V: "1d_view_7d_click",
+        X7C7V: "7d_view_7d_click",
+        X28C: "28d_click",
+        X28C1V: "1d_view_28d_click",
+        X28C7V: "7d_view_28d_click",
+        X28C28V: "28d_view_28d_click",
+        X1C1E: "1d_click_1d_ev",
+        X1C1V1E: "1d_view_1d_click_1d_ev",
+        X7C1E: "7d_click_1d_ev",
+        X7C1V1E: "1d_view_7d_click_1d_ev",
+        SKAN: "skan",
+        INCREMENTALITY: "incrementality",
+        X1D_PASSBACK: "1d_passback",
+        X7D_PASSBACK: "7d_passback",
+        X28D_PASSBACK: "28d_passback",
+        CUSTOM: "custom",
+        X1D_A2A: "1d_sequenced",
+        X7D_A2A: "7d_sequenced",
+        X28D_A2A: "28d_sequenced",
+        SEQUENCED: "sequenced",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

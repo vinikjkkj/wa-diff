@@ -9,7 +9,6 @@ __d(
     "LSPlatformLsInitLog",
     "LSSyncGroupsUtils",
     "LSVoprfWasmPrewarmDeferred",
-    "MAWBackendReceiverFetchPrefetchExperiment",
     "MNetRankType",
     "Promise",
     "ReQL",
@@ -52,16 +51,6 @@ __d(
           syncChannel: o("LSSyncGroupsUtils").defaultSyncGroup.syncChannel,
         },
         { groupId: 198 },
-        o(
-          "MAWBackendReceiverFetchPrefetchExperiment",
-        ).isMawBackendReceiverFetchPrefetchEnabled()
-          ? null
-          : { groupId: 89 },
-        o(
-          "MAWBackendReceiverFetchPrefetchExperiment",
-        ).isMawBackendReceiverFetchPrefetchEnabled()
-          ? null
-          : { groupId: 197 },
       ],
       _ = [].concat(p, [
         {

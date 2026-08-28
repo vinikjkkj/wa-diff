@@ -1332,33 +1332,27 @@ __d(
                   .USER_JOIN_ONGOING_CALL,
               ));
             var b = (t = C.callParticipants) != null ? t : [],
-              v = [
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              ].concat(
-                b
-                  .map(function (e) {
-                    var t = o("WAWebLidMigrationUtils").toPn(e.participant);
-                    return (
-                      t == null &&
-                        o("WALogger")
-                          .ERROR(
-                            O ||
-                              (O = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: joinOngoingWAWebVoipGroupCallPN: participant dropped - toPn() returned null",
-                              ])),
-                          )
-                          .sendLogs(
-                            "voip: StartPNCall: group join participant toPn failed",
-                          ),
-                      t
-                    );
-                  })
-                  .filter(function (e) {
-                    return (
-                      e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e)
-                    );
-                  }),
-              ),
+              v = b
+                .map(function (e) {
+                  var t = o("WAWebLidMigrationUtils").toPn(e.participant);
+                  return (
+                    t == null &&
+                      o("WALogger")
+                        .ERROR(
+                          O ||
+                            (O = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: joinOngoingWAWebVoipGroupCallPN: participant dropped - toPn() returned null",
+                            ])),
+                        )
+                        .sendLogs(
+                          "voip: StartPNCall: group join participant toPn failed",
+                        ),
+                    t
+                  );
+                })
+                .filter(function (e) {
+                  return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
+                }),
               S = yield Ce({ isGroup: !0, isJoin: !0, isVideo: c });
             if (S != null) {
               var R = S.signal,

@@ -1,0 +1,110 @@
+__d(
+  "CometImageFromIXValueRelayWrapper_sprite.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = {
+      argumentDefinitions: [],
+      kind: "Fragment",
+      metadata: null,
+      name: "CometImageFromIXValueRelayWrapper_sprite",
+      selections: [
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "sprited",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "sprite_map_css_class",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "sprite_css_class",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "preloading_spi",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "w",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "h",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "p",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "sz",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "spi",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "uri",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "width",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "height",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "logging_id",
+          storageKey: null,
+        },
+      ],
+      type: "XFBIXMapEntry",
+      abstractKey: null,
+    };
+    a.exports = e;
+  },
+  null,
+);

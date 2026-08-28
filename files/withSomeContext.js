@@ -1,0 +1,25 @@
+__d(
+  "withSomeContext",
+  ["react"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = ["ref"],
+      s,
+      u = s || (s = o("react")),
+      c = s.useContext;
+    function d(t, n, r) {
+      var o = u.memo(t);
+      function a(t) {
+        "use no forget";
+        var a = t.ref,
+          i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+          l = c(n),
+          s = r(l, i);
+        return u.jsx(o, babelHelpers.extends({}, i, s, { ref: a }));
+      }
+      return ((a.displayName = a.name + " [from " + i.id + "]"), a);
+    }
+    l.default = d;
+  },
+  98,
+);

@@ -1,0 +1,61 @@
+__d(
+  "AdsUnifiedCreativeAPIFields",
+  ["AdsUnifiedCreativeAPIDisplayURLField", "AdsUnifiedCreativeAPIFieldFactory"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = {
+        additionalImageIndex: (e = o(
+          "AdsUnifiedCreativeAPIFieldFactory",
+        )).create("additionalImageIndex"),
+        brandedContentSponsorPageID: e.create("brandedContentSponsorPageID"),
+        brandedContentSponsorRelationship: e.create(
+          "brandedContentSponsorRelationship",
+        ),
+        brandedContentSharedToSponsorStatus: e.create(
+          "brandedContentSharedToSponsorStatus",
+        ),
+        callToAction: e.create("callToAction"),
+        callToActionType: e.create("callToActionType"),
+        callToActionValue: e.create("callToActionValue"),
+        captionIDs: e.create("captionIDs"),
+        catalogAssetFormatOption: e.create("catalogAssetFormatOption"),
+        childAttachments: e.create("childAttachments"),
+        collectionThumbnails: e.create("collectionThumbnails"),
+        displayURL: o("AdsUnifiedCreativeAPIDisplayURLField")
+          .AdsUnifiedCreativeAPIDisplayURLField,
+        eventID: e.create("eventID"),
+        headline: e.create("headline"),
+        imageCrops: e.create("imageCrops"),
+        imageHash: e.create("imageHash"),
+        imageURL: e.create("imageURL"),
+        instagramActorID: e.create("instagramActorID"),
+        instagramUserID: e.create("instagramUserID"),
+        interactiveComponentsSpec: e.create("interactiveComponentsSpec"),
+        linkDescription: e.create("linkDescription"),
+        linkURL: e.create("linkURL"),
+        message: e.create("message"),
+        multiShareEndCard: e.create("multiShareEndCard"),
+        multiShareOptimized: e.create("multiShareOptimized"),
+        offerID: e.create("offerID"),
+        pageID: e.create("pageID"),
+        pageWelcomeMessage: e.create("pageWelcomeMessage"),
+        phoneDataID: e.create("phoneDataID"),
+        post: e.create("post"),
+        postClickItemDescription: e.create("postClickItemDescription"),
+        postClickItemHeadline: e.create("postClickItemHeadline"),
+        productSetID: e.create("productSetID"),
+        productDiscountID: e.create("productDiscountID"),
+        retailerItemIDs: e.create("retailerItemIDs"),
+        threadsUserID: e.create("threadsUserID"),
+        videoID: e.create("videoID"),
+        videoThumbnailHash: e.create("videoThumbnailHash"),
+        videoThumbnailID: e.create("videoThumbnailID"),
+        videoThumbnailURL: e.create("videoThumbnailURL"),
+        videoThumbnailSource: e.create("videoThumbnailSource"),
+      },
+      u = s;
+    l.default = u;
+  },
+  98,
+);

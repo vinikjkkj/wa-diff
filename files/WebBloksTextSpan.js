@@ -18,165 +18,178 @@ __d(
     var e = ["preferNativeNavigation"],
       s,
       u = s || (s = o("react")),
-      c = s.useMemo;
-    function d(t) {
+      c = s.useMemo,
+      d = "B",
+      m = "C",
+      p = "#",
+      _ = ";",
+      f = "$",
+      g = "5",
+      h = "6",
+      y = "7",
+      C = "8",
+      b = "-",
+      v = "&",
+      S = "(",
+      R = ")",
+      L = "*",
+      E = "+",
+      k = ",",
+      I = "4";
+    function T(t) {
       var n = o("react-compiler-runtime").c(38),
         a = t.externalStyle,
         i = t.node,
         l;
       n[0] !== i
-        ? ((l = i.getExpression("on_click")), (n[0] = i), (n[1] = l))
+        ? ((l = i.getExpression(f)), (n[0] = i), (n[1] = l))
         : (l = n[1]);
       var s = l,
-        c = i.get("text_color"),
-        d;
-      n[2] !== i
-        ? ((d = i.getSubNode("image_component")), (n[2] = i), (n[3] = d))
-        : (d = n[3]);
-      var _ = d,
-        f = i.getSubNode("text_provider"),
-        g = i.get("shadow_color"),
-        h = i.get("shadow_offset_dx"),
-        y = i.get("shadow_offset_dy"),
-        C = i.get("shadow_radius"),
-        b = i.get("text_size"),
-        v = i.get("text_style"),
-        S = i.get("text_themed_color"),
-        R = i.get("font_family"),
-        L;
-      n[4] !== i
-        ? ((L = i.get("accessibility_label")), (n[4] = i), (n[5] = L))
-        : (L = n[5]);
-      var E = L,
-        k = i.get("accessibility_role"),
-        I = i.get("strikethrough"),
-        T = i.get("underline"),
-        D = o("WebBloksStyle").useStyle(i, a, s != null),
-        x = D.style,
-        $ = D.wrapper,
-        P = D.wrapperProps,
-        N = o(
+        c = i.get(S),
+        T;
+      n[2] !== i ? ((T = i.getSubNode(_)), (n[2] = i), (n[3] = T)) : (T = n[3]);
+      var $ = T,
+        P = i.getSubNode(R),
+        N = i.get(g),
+        M = i.get(h),
+        w = i.get(y),
+        A = i.get(C),
+        F = i.get(L),
+        O = i.get(E),
+        B = i.get(k),
+        W = i.get(p),
+        q;
+      n[4] !== i ? ((q = i.get(d)), (n[4] = i), (n[5] = q)) : (q = n[5]);
+      var U = q,
+        V = i.get(m),
+        H = i.get(b),
+        G = i.get(I),
+        z = o("WebBloksStyle").useStyle(i, a, s != null),
+        j = z.style,
+        K = z.wrapper,
+        Q = z.wrapperProps,
+        X = o(
           "WebBloksAnchorTagExtensionHandlerUtils",
         ).useWebBloksAnchorTagExtensionProps(i),
-        M = N !== null,
-        w = M ? "a" : "span",
-        A = (N == null ? void 0 : N.preferNativeNavigation) === !0,
-        F;
-      n[6] !== N
-        ? ((F = N != null ? N : {}), (n[6] = N), (n[7] = F))
-        : (F = n[7]);
-      var O;
-      if (n[8] !== F) {
-        var B = F,
-          W = B.preferNativeNavigation,
-          q = babelHelpers.objectWithoutPropertiesLoose(B, e);
-        ((O = q), (n[8] = F), (n[9] = O));
-      } else O = n[9];
-      var U = r("useClickablePropsForWebBloks")(i, s, null, M && !A, A),
-        V = o("WebBloksComponentContext").useWebBloksContext(),
-        H = V.bloksContext,
-        G = V.renderNode,
-        z = o("WebBloksTheme").useTheme().getTheme(),
-        j = H.objectSet.environment.fontFamilyMappings,
-        K = f != null ? G(f) : i.get("text"),
-        Q;
-      n[10] !== a || n[11] !== _ || n[12] !== i
-        ? ((Q =
-            _ != null
+        Y = X !== null,
+        J = Y ? "a" : "span",
+        Z = (X == null ? void 0 : X.preferNativeNavigation) === !0,
+        ee;
+      n[6] !== X
+        ? ((ee = X != null ? X : {}), (n[6] = X), (n[7] = ee))
+        : (ee = n[7]);
+      var te;
+      if (n[8] !== ee) {
+        var ne = ee,
+          re = ne.preferNativeNavigation,
+          oe = babelHelpers.objectWithoutPropertiesLoose(ne, e);
+        ((te = oe), (n[8] = ee), (n[9] = te));
+      } else te = n[9];
+      var ae = r("useClickablePropsForWebBloks")(i, s, null, Y && !Z, Z),
+        ie = o("WebBloksComponentContext").useWebBloksContext(),
+        le = ie.bloksContext,
+        se = ie.renderNode,
+        ue = o("WebBloksTheme").useTheme().getTheme(),
+        ce = le.objectSet.environment.fontFamilyMappings,
+        de = P != null ? se(P) : i.get(v),
+        me;
+      n[10] !== a || n[11] !== $ || n[12] !== i
+        ? ((me =
+            $ != null
               ? u.jsx(r("WebBloksTextSpanImage"), { node: i, externalStyle: a })
               : null),
           (n[10] = a),
-          (n[11] = _),
+          (n[11] = $),
           (n[12] = i),
-          (n[13] = Q))
-        : (Q = n[13]);
-      var X = Q,
-        Y = m(k, s, _),
-        J = Y === "button" || Y === "link" ? 0 : void 0,
-        Z;
-      n[14] !== E || n[15] !== Y || n[16] !== J
-        ? ((Z = { role: Y, label: E, tabIndex: J }),
-          (n[14] = E),
-          (n[15] = Y),
-          (n[16] = J),
-          (n[17] = Z))
-        : (Z = n[17]);
-      var ee = Z,
-        te = o("WebBloksTextStyle").getTextColor(c, S, z),
-        ne = o("WebBloksTextStyle").getTextStyle(v),
-        re = "inline",
-        oe = o("WebBloksUtils").toPx(b),
-        ae = o("WebBloksTextStyle").getFontFamily(R, j),
-        ie = p(I, T),
-        le = o("WebBloksTextStyle").getTextShadow(
+          (n[13] = me))
+        : (me = n[13]);
+      var pe = me,
+        _e = D(V, s, $),
+        fe = _e === "button" || _e === "link" ? 0 : void 0,
+        ge;
+      n[14] !== U || n[15] !== _e || n[16] !== fe
+        ? ((ge = { role: _e, label: U, tabIndex: fe }),
+          (n[14] = U),
+          (n[15] = _e),
+          (n[16] = fe),
+          (n[17] = ge))
+        : (ge = n[17]);
+      var he = ge,
+        ye = o("WebBloksTextStyle").getTextColor(c, B, ue),
+        Ce = o("WebBloksTextStyle").getTextStyle(O),
+        be = "inline",
+        ve = o("WebBloksUtils").toPx(F),
+        Se = o("WebBloksTextStyle").getFontFamily(W, ce),
+        Re = x(H, G),
+        Le = o("WebBloksTextStyle").getTextShadow(
           {
-            shadow_color: g,
-            shadow_offset_dx: h,
-            shadow_offset_dy: y,
-            shadow_radius: C,
+            shadow_color: N,
+            shadow_offset_dx: M,
+            shadow_offset_dy: w,
+            shadow_radius: A,
           },
-          z,
+          ue,
         ),
-        se;
-      n[18] !== x ||
-      n[19] !== oe ||
-      n[20] !== ae ||
-      n[21] !== ie ||
-      n[22] !== le ||
-      n[23] !== te ||
-      n[24] !== ne
-        ? ((se = babelHelpers.extends({}, x, te, ne, {
-            display: re,
-            fontSize: oe,
-            fontFamily: ae,
-            textDecoration: ie,
-            textShadow: le,
+        Ee;
+      n[18] !== j ||
+      n[19] !== ve ||
+      n[20] !== Se ||
+      n[21] !== Re ||
+      n[22] !== Le ||
+      n[23] !== ye ||
+      n[24] !== Ce
+        ? ((Ee = babelHelpers.extends({}, j, ye, Ce, {
+            display: be,
+            fontSize: ve,
+            fontFamily: Se,
+            textDecoration: Re,
+            textShadow: Le,
             whiteSpace: "pre-wrap",
             overflowWrap: "break-word",
           })),
-          (n[18] = x),
-          (n[19] = oe),
-          (n[20] = ae),
-          (n[21] = ie),
-          (n[22] = le),
-          (n[23] = te),
-          (n[24] = ne),
-          (n[25] = se))
-        : (se = n[25]);
-      var ue;
-      n[26] !== w ||
-      n[27] !== ee ||
-      n[28] !== U ||
-      n[29] !== O ||
-      n[30] !== X ||
-      n[31] !== se ||
-      n[32] !== K ||
-      n[33] !== P
-        ? ((ue = u.jsxs(
-            w,
-            babelHelpers.extends({}, P, { style: se }, U, ee, O, {
-              children: [K, X],
+          (n[18] = j),
+          (n[19] = ve),
+          (n[20] = Se),
+          (n[21] = Re),
+          (n[22] = Le),
+          (n[23] = ye),
+          (n[24] = Ce),
+          (n[25] = Ee))
+        : (Ee = n[25]);
+      var ke;
+      n[26] !== J ||
+      n[27] !== he ||
+      n[28] !== ae ||
+      n[29] !== te ||
+      n[30] !== pe ||
+      n[31] !== Ee ||
+      n[32] !== de ||
+      n[33] !== Q
+        ? ((ke = u.jsxs(
+            J,
+            babelHelpers.extends({}, Q, { style: Ee }, ae, he, te, {
+              children: [de, pe],
             }),
           )),
-          (n[26] = w),
-          (n[27] = ee),
-          (n[28] = U),
-          (n[29] = O),
-          (n[30] = X),
-          (n[31] = se),
-          (n[32] = K),
-          (n[33] = P),
-          (n[34] = ue))
-        : (ue = n[34]);
-      var ce;
+          (n[26] = J),
+          (n[27] = he),
+          (n[28] = ae),
+          (n[29] = te),
+          (n[30] = pe),
+          (n[31] = Ee),
+          (n[32] = de),
+          (n[33] = Q),
+          (n[34] = ke))
+        : (ke = n[34]);
+      var Ie;
       return (
-        n[35] !== ue || n[36] !== $
-          ? ((ce = $(ue)), (n[35] = ue), (n[36] = $), (n[37] = ce))
-          : (ce = n[37]),
-        ce
+        n[35] !== ke || n[36] !== K
+          ? ((Ie = K(ke)), (n[35] = ke), (n[36] = K), (n[37] = Ie))
+          : (Ie = n[37]),
+        Ie
       );
     }
-    function m(e, t, n) {
+    function D(e, t, n) {
       if (e != null) {
         var r;
         return (r = o("WebBloksAccessibilityUtils")
@@ -186,7 +199,7 @@ __d(
       }
       return t == null ? null : n != null ? "button" : "link";
     }
-    function p(e, t) {
+    function x(e, t) {
       var n = [];
       if (
         (o("WebBloksBooleanUtils").isTrue(e) && n.push("line-through"),
@@ -195,7 +208,7 @@ __d(
       )
         return n.join(" ");
     }
-    l.default = d;
+    l.default = T;
   },
   98,
 );

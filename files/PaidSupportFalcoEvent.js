@@ -1,0 +1,12 @@
+__d(
+  "PaidSupportFalcoEvent",
+  ["FalcoLoggerInternal", "getFalcoLogPolicy_DO_NOT_USE"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = r("getFalcoLogPolicy_DO_NOT_USE")("671"),
+      s = o("FalcoLoggerInternal").create("paid_support", e),
+      u = s;
+    l.default = u;
+  },
+  98,
+);

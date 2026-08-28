@@ -68,38 +68,37 @@ __d(
     function u(e, t, n) {
       n === void 0 && (n = 0);
       var a;
-      return (
-        e.ordered
-          ? (a = "number")
-          : e.items.some(function (e) {
-                return e.checked != null;
-              })
-            ? (a = "check")
-            : (a = "bullet"),
-        new (o(
-          "CometComposedTextV2ListNode.react",
-        ).CometComposedTextV2ListNode)(
-          {
-            key: r("cometComposedTextV2NodeKey")(),
-            listType: a,
-            start: e.start === "" ? 1 : e.start,
-            tag: e.ordered ? "ol" : "ul",
-          },
-          r("CometComposedTextV2ListNodeRenderer.react"),
-        ).appendMany(
-          e.items.map(function (e, a) {
-            return new (o(
-              "CometComposedTextV2ListItemNode.react",
-            ).CometComposedTextV2ListItemNode)(
-              {
-                checked: e.checked,
-                key: r("cometComposedTextV2NodeKey")(),
-                value: a + 1,
-              },
-              r("CometComposedTextV2ListItemNodeRenderer.react"),
-            ).appendMany(g(e.tokens, t, n));
-          }),
-        )
+      e.ordered
+        ? (a = "number")
+        : e.items.some(function (e) {
+              return e.checked != null;
+            })
+          ? (a = "check")
+          : (a = "bullet");
+      var i = e.start === "" ? 1 : Number(e.start);
+      return new (o(
+        "CometComposedTextV2ListNode.react",
+      ).CometComposedTextV2ListNode)(
+        {
+          key: r("cometComposedTextV2NodeKey")(),
+          listType: a,
+          start: i,
+          tag: e.ordered ? "ol" : "ul",
+        },
+        r("CometComposedTextV2ListNodeRenderer.react"),
+      ).appendMany(
+        e.items.map(function (e, a) {
+          return new (o(
+            "CometComposedTextV2ListItemNode.react",
+          ).CometComposedTextV2ListItemNode)(
+            {
+              checked: e.checked,
+              key: r("cometComposedTextV2NodeKey")(),
+              value: i + a,
+            },
+            r("CometComposedTextV2ListItemNodeRenderer.react"),
+          ).appendMany(g(e.tokens, t, n));
+        }),
       );
     }
     function c(e, t, n) {

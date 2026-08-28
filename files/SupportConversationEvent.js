@@ -1,0 +1,268 @@
+__d(
+  "SupportConversationEvent",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        AADS_EMPTY_ELIGIBLE_CHALLENGES: "aads_empty_eligible_challenges",
+        ACTIVITY_TRACK_FAILED: "activity_track_failed",
+        ACTIVITY_TRACKED: "activity_tracked",
+        ACTIVITY_TRACKER_DIRECTIVE_SENT: "activity_tracker_directive_sent",
+        ACTIVITY_TRACKER_DROPPED: "activity_tracker_dropped",
+        ACTIVITY_TRACKER_PROACTIVE_MESSAGE_SENT:
+          "activity_tracker_proactive_message_sent",
+        ADDITIONAL_DATA_DECODE_FAILURE: "additional_data_decode_failure",
+        AGENT_CONNECT_JOB_CREATE_CONTEXT_NOT_FOUND:
+          "agent_connect_job_create_context_not_found",
+        AGENT_CONNECT_JOB_CREATE_FAILED: "agent_connect_job_create_failed",
+        AGENT_CONNECT_JOB_CREATE_STARTED: "agent_connect_job_create_started",
+        AGENT_CONNECT_JOB_CREATED: "agent_connect_job_created",
+        AGENT_CONNECT_JOB_LINKED: "agent_connect_job_linked",
+        AGENT_RESPONSE_NEGATIVE_FEEDBACK: "agent_response_negative_feedback",
+        AGENT_RESPONSE_POSITIVE_FEEDBACK: "agent_response_positive_feedback",
+        AGENT_URL_STRIPPED: "agent_url_stripped",
+        AGENTIC_CARD_ACTION_FAILURE: "agentic_card_action_failure",
+        AGENTIC_CARD_ACTION_SUCCESS: "agentic_card_action_success",
+        AGENTIC_CARD_BUTTON_CLICK: "agentic_card_button_click",
+        AGENTIC_CARD_DEEPLINK_CLICK: "agentic_card_deeplink_click",
+        AGENTIC_CARD_IMPRESSION: "agentic_card_impression",
+        AI_PILL_RENDER: "ai_pill_render",
+        AI_RESPONSE_VPVD: "ai_response_vpvd",
+        AI_RESPONSE_VPVD_END: "ai_response_vpvd_end",
+        AI_RESPONSE_VPVD_QUALIFIED: "ai_response_vpvd_qualified",
+        ARTICLE_SUMMARY_EXPAND_CLICK: "article_summary_expand_click",
+        ATTACHMENT_UPLOAD_COMPLETED: "attachment_upload_completed",
+        ATTACHMENT_UPLOAD_FAILED: "attachment_upload_failed",
+        ATTACHMENT_UPLOAD_REJECTED: "attachment_upload_rejected",
+        ATTACHMENT_UPLOAD_STARTED: "attachment_upload_started",
+        ATTEMPT_CREATED: "attempt_created",
+        ATTEMPT_CREATION_FAILED: "attempt_creation_failed",
+        ATTEMPT_DEVICE_ID_MISMATCH: "attempt_device_id_mismatch",
+        ATTEMPT_INIT: "attempt_init",
+        ATTEMPT_INVALID: "attempt_invalid",
+        ATTEMPT_INVALID_PER_INTEGRATION: "attempt_invalid_per_integration",
+        ATTEMPT_LOADED: "attempt_loaded",
+        ATTEMPT_SESSION_RESET: "attempt_session_reset",
+        AUTO_SEND_EVALUATED: "auto_send_evaluated",
+        CHAT_COMPONENT_MOUNTED: "chat_component_mounted",
+        CHAT_COMPOSER_MOUNTED: "chat_composer_mounted",
+        CHECK_ELIGIBILITY: "check_eligibility",
+        CHECK_ELIGIBILITY_RESULT: "check_eligibility_result",
+        CLIENT_MESSAGE_RECEIVED: "client_message_received",
+        CLIENT_STORAGE_TOKEN_READ: "client_token_read",
+        CLIENT_STORAGE_TOKEN_WRITE: "client_token_write",
+        COMPOSE_MESSAGE_INPUT_FOCUS: "compose_message_input_focus",
+        COMPROMISED_CHECK_FAILED: "compromised_check_failed",
+        COMPROMISED_CHECK_SCHEDULED: "compromised_check_scheduled",
+        COMPROMISED_CHECK_VERDICT: "compromised_check_verdict",
+        CONTEXTUAL_PROMPT_ALL_CHIPS_EXHAUSTED:
+          "contextual_prompt_all_chips_exhausted",
+        CONTEXTUAL_PROMPT_BOTTOM_SHEET_OPENED:
+          "contextual_prompt_bottom_sheet_opened",
+        CONTEXTUAL_PROMPT_CHIP_CLICKED: "contextual_prompt_chip_clicked",
+        CONTEXTUAL_PROMPT_CTA_CLICKED: "contextual_prompt_cta_clicked",
+        CONTEXTUAL_PROMPT_CTA_NAVIGATION_FAILED:
+          "contextual_prompt_cta_navigation_failed",
+        CONTEXTUAL_PROMPT_DISMISSED: "contextual_prompt_dismissed",
+        CONTEXTUAL_PROMPT_ELIGIBLE: "contextual_prompt_eligible",
+        CONTEXTUAL_PROMPT_RESPONSE_COMPLETE:
+          "contextual_prompt_response_complete",
+        CONTEXTUAL_PROMPT_SHOWN: "contextual_prompt_shown",
+        CONTEXTUAL_PROMPTS_HTS_LAUNCH_CLICKED:
+          "contextual_prompts_hts_launch_clicked",
+        CONTEXTUAL_PROMPTS_HTS_LAUNCH_ERROR:
+          "contextual_prompts_hts_launch_error",
+        CONTEXTUAL_PROMPTS_HTS_LAUNCH_SUCCESS:
+          "contextual_prompts_hts_launch_success",
+        CONVERSATION_INIT_WAIT_EXHAUSTED: "conversation_init_wait_exhausted",
+        CONVERSATION_INIT_WAIT_STARTED: "conversation_init_wait_started",
+        CONVERSATION_INIT_WAIT_SUCCEEDED: "conversation_init_wait_succeeded",
+        CSAT_SURVEY_SHOWN: "csat_survey_shown",
+        CSAT_SURVEY_TOAST_SHOWN: "csat_survey_toast_shown",
+        CSU_ALLOCATION_FAILED: "csu_allocation_failed",
+        DESKTOP_NOTIFICATION_CLICKED: "desktop_notification_clicked",
+        DESKTOP_NOTIFICATION_FAILED: "desktop_notification_failed",
+        DESKTOP_NOTIFICATION_PERMISSION_DENIED:
+          "desktop_notification_permission_denied",
+        DESKTOP_NOTIFICATION_SHOWN: "desktop_notification_shown",
+        DICTATION_BUTTON_CLICK: "dictation_button_click",
+        DICTATION_BUTTON_IMPRESSION: "dictation_button_impression",
+        ELIGIBILITY_PARITY_MISMATCH: "eligibility_parity_mismatch",
+        EMBEDDABLE_CONTROLLER_ERROR_RESPONSE_PAGE_SHOWN:
+          "embeddable_controller_error_response_page_shown",
+        EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_EXCEPTION:
+          "embeddable_controller_route_availability_check_exception",
+        EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_HAS_NULL_CONVERSATION:
+          "embeddable_controller_route_availability_check_has_null_conversation",
+        EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_HAS_NULL_CONVERSATION_AND_NONNULL_CONTEXT:
+          "embeddable_controller_route_availability_check_has_null_conversation_and_nonnull_context",
+        EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_IS_ANONYMOUS:
+          "embeddable_controller_route_availability_check_is_anonymous",
+        ENTRY_POINT_LANDING: "entry_point_landing",
+        EXTRA_DATA_FALLBACK_USED: "extra_data_fallback_used",
+        FREE_MODE_CHECK: "free_mode_check",
+        FRL_EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_EXCEPTION:
+          "frl_embeddable_controller_route_availability_check_exception",
+        FRL_EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_HAS_NULL_CONVERSATION:
+          "frl_embeddable_controller_route_availability_check_has_null_conversation",
+        FRL_EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_IS_ANONYMOUS:
+          "frl_embeddable_controller_route_availability_check_is_anonymous",
+        HTS_LAZY_LOAD_ERROR: "hts_lazy_load_error",
+        IG_EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_EXCEPTION:
+          "ig_embeddable_controller_route_availability_check_exception",
+        IG_EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_HAS_NULL_CONVERSATION:
+          "ig_embeddable_controller_route_availability_check_has_null_conversation",
+        IG_EMBEDDABLE_CONTROLLER_ROUTE_AVAILABILITY_CHECK_IS_ANONYMOUS:
+          "ig_embeddable_controller_route_availability_check_is_anonymous",
+        INITIAL_COMPOSER_DRAFT_DECODE_FAILURE:
+          "initial_composer_draft_decode_failure",
+        INITIAL_MESSAGE_DECODE_FAILURE: "initial_message_decode_failure",
+        INTEGRATION_HOOK_INVOCATION: "integration_hok_invocation",
+        INTEGRITY_FLOW_ACTION_HANDLED: "integrity_flow_action_handled",
+        INTEGRITY_FLOW_ACTION_REJECTED: "integrity_flow_action_rejected",
+        INTEGRITY_FLOW_ERROR: "integrity_flow_error",
+        INTEGRITY_FLOW_EVIDENCE_SUBMITTED: "integrity_flow_evidence_submitted",
+        INTEGRITY_FLOW_SENSITIVE_ACTION_RESULT:
+          "integrity_flow_sensitive_action_result",
+        INTEGRITY_FLOW_SESSION_COMPLETED: "integrity_flow_session_completed",
+        INTEGRITY_FLOW_SESSION_STARTED: "integrity_flow_session_started",
+        LIVE_AGENT_AVAILABILITY_CHECK: "live_agent_availability_check",
+        LIVE_AGENT_ESCALATION_CHECK_FINISHED:
+          "live_agent_escalation_check_finished",
+        LIVE_AGENT_ESCALATION_CHECK_START: "live_agent_escalation_check_start",
+        LIVE_AGENT_ESCALATION_FAILED: "live_agent_escalation_failed",
+        LIVE_AGENT_ESCALATION_FINISHED: "live_agent_escalation_finished",
+        LIVE_AGENT_ESCALATION_STARTED: "live_agent_escalation_started",
+        LIVE_QUERY_FALLBACK_ACTIVATED: "live_query_fallback_activated",
+        LIVE_QUERY_MESSAGE_RECEIVED: "live_query_message_received",
+        LIVEQUERY_POLL_ERROR: "livequery_poll_error",
+        LOGGED_IN_THREAD_CLEARED_ON_LOGOUT:
+          "logged_in_thread_cleared_on_logout",
+        LOGGED_OUT_TO_LOGGED_IN_TRANSITION:
+          "logged_out_to_logged_in_transition",
+        LOGIN_BANNER_CLICK: "login_banner_click",
+        LOGIN_BANNER_DISMISSED: "login_banner_dismissed",
+        LOGIN_BANNER_IMPRESSION: "login_banner_impression",
+        MAISA_ELIGIBILITY_CHECK: "maisa_eligibility_check",
+        MESSAGE_SEND_FINISH_AGENT_INVOCATION:
+          "message_send_finish_agent_invocation",
+        MESSAGE_SEND_FIRST_TOKEN_AGENT_INVOCATION:
+          "message_send_first_token_agent_invocation",
+        MESSAGE_SEND_START_AGENT_INVOCATION:
+          "message_send_start_agent_invocation",
+        MESSENGER_THREAD_BACKFILL_COMPLETED:
+          "messenger_thread_backfill_completed",
+        MESSENGER_THREAD_BACKFILL_ERROR: "messenger_thread_backfill_error",
+        MESSENGER_THREAD_BACKFILL_STARTED: "messenger_thread_backfill_started",
+        MUTATION_RESPONSE_RECEIVED: "mutation_response_received",
+        MUTATION_RESPONSE_SENT: "mutation_response_sent",
+        OPEN_CHAT_EXCEPTION: "open_chat_exception",
+        PERSONALIZED_STARTER_PROMPTS_ELIGIBLE:
+          "personalized_starter_prompts_eligible",
+        PERSONALIZED_STARTER_PROMPTS_NO_RESULTS:
+          "personalized_starter_prompts_no_results",
+        PROJECT_SPRING_ELIGIBILITY_GK_EXCEPTION:
+          "project_spring_eligibility_gk_exception",
+        RTAI_E2E_LATENCY: "rtai_e2e_latency",
+        SEND_MESSAGE_BUTTON_CLICKED: "send_message_button_clicked",
+        SEND_MESSAGE_EXCEPTION: "send_message_exception",
+        SEND_MESSAGE_GRAPHQL_EXCEPTION: "send_message_graphql_exception",
+        SEND_MESSAGE_MUTATION_STARTED: "send_message_mutation_started",
+        SEND_MESSAGE_STARTED: "send_message_started",
+        START_CHAT_BUTTON_CLICK: "start_chat_button_click",
+        START_CHAT_BUTTON_ELIGIBLE: "start_chat_button_eligible",
+        START_CHAT_BUTTON_IMPRESSION: "start_chat_button_impression",
+        START_CLICK: "start_click",
+        START_IMPRESSION: "start_impression",
+        STARTER_PROMPT_CLICKED: "starter_prompt_clicked",
+        STARTER_PROMPT_IMPRESSION: "starter_prompt_impression",
+        STARTER_PROMPTS_RENDERED: "starter_prompts_rendered",
+        SUBSCRIPTION_ERROR: "subscription_error",
+        SUBSCRIPTION_EVENT_PUBLISH_EXCEPTION:
+          "subscription_event_publish_exception",
+        SUBSCRIPTION_EVENT_PUBLISHED: "subscription_event_published",
+        SUBSCRIPTION_EVENT_RECEIVED: "subscription_event_received",
+        SUBSCRIPTION_PING_SENT: "subscription_ping_sent",
+        SUBSCRIPTION_PONG_RECEIVED: "subscription_pong_received",
+        SUBSCRIPTION_STREAM_ATTEMPTED: "subscription_stream_attempted",
+        SUBSCRIPTION_STREAM_CALLED: "subscription_stream_called",
+        SUBSCRIPTION_STREAM_CLIENT_ATTEMPTED:
+          "subscription_stream_client_attempted",
+        SUBSCRIPTION_STREAM_CLIENT_CLOSED: "subscription_stream_client_closed",
+        SUBSCRIPTION_STREAM_CLIENT_CONNECTED:
+          "subscription_stream_client_connected",
+        SUBSCRIPTION_STREAM_CLIENT_EXCEPTION:
+          "subscription_stream_client_exception",
+        SUBSCRIPTION_STREAM_CLIENT_HEARTBEAT:
+          "subscription_stream_client_heartbeat",
+        SUBSCRIPTION_STREAM_CLIENT_MESSAGE_RECEIVED:
+          "subscription_stream_client_message_received",
+        SUBSCRIPTION_STREAM_CLIENT_REMOVED:
+          "subscription_stream_client_removed",
+        SUBSCRIPTION_STREAM_CLOSED: "subscription_stream_closed",
+        SUBSCRIPTION_STREAM_CONNECTED: "subscription_stream_connected",
+        SUBSCRIPTION_STREAM_EXCEPTION: "subscription_stream_exception",
+        SUBSCRIPTION_STREAM_HEARTBEAT: "subscription_stream_heartbeat",
+        SUBSCRIPTION_STREAM_REMOVED: "subscription_stream_removed",
+        SUBSCRIPTION_STREAM_REQUEST_PROCESSED:
+          "subscription_stream_request_processed",
+        SUBSCRIPTION_STREAM_REQUEST_RECEIVED:
+          "subscription_stream_request_received",
+        SUMMARY_QUERY_EXCEPTION: "summary_query_exception",
+        SUPPORT_BOT_NEGATIVE_FEEDBACK_OPEN:
+          "support_bot_negative_feedback_open",
+        SUPPORT_BOT_PILL_CLICK: "support_bot_pill_click",
+        SUPPORT_BOT_PILLS_TRAY_IMPRESSION: "support_bot_pills_tray_impression",
+        SUPPORT_BOT_POSITIVE_FEEDBACK: "support_bot_positive_feedback",
+        SUPPORT_BOT_SOURCES_OPEN: "support_bot_sources_open",
+        SUPPORT_HISTORY_EMPTY_STATE_DISPLAYED:
+          "support_history_empty_state_displayed",
+        SUPPORT_HISTORY_ICON_TAPPED: "support_history_icon_tapped",
+        SUPPORT_HISTORY_SCREEN_DISPLAYED: "support_history_screen_displayed",
+        SUPPORT_HISTORY_SHORT_NAME_GENERATED:
+          "support_history_short_name_generated",
+        SUPPORT_HISTORY_THREAD_SELECTED: "support_history_thread_selected",
+        SURVEY_SKIPPED_EMPTY_THREAD: "survey_skipped_empty_thread",
+        SYSTEM_CONTEXT_DECODE_FAILURE: "system_context_decode_failure",
+        TEMPORARY_CHAT_SUPPORT_USER_AUTH_EXCEPTION:
+          "temporary_chat_support_user_auth_exception",
+        TEST: "test",
+        THREAD_APPEAR_FAILED: "thread_appear_failed",
+        THREAD_APPEARED: "thread_appeared",
+        THREAD_CONTENTS_SHOWN: "thread_contents_shown",
+        THREAD_CREATE_EXCEPTION: "thread_create_exception",
+        THREAD_CREATED: "thread_created",
+        THREAD_CREATION_STARTED: "thread_creation_started",
+        THREAD_DISAPPEARED: "thread_disappeared",
+        THREAD_EXISTING_LOADED: "thread_existing_loaded",
+        THREAD_PAGE_LOADED: "thread_page_loaded",
+        THREAD_RATE_LIMIT_PARAM_MISSING: "thread_rate_limit_param_missing",
+        THREAD_RATE_LIMITED: "thread_rate_limited",
+        THREAD_READY: "thread_ready",
+        THREAD_TYPEABLE: "thread_typeable",
+        THREAD_VISIBLE: "thread_visible",
+        TOPIC_MENU_IMPRESSION: "topic_menu_impression",
+        UPSELL_MODAL_DISMISSED: "upsell_modal_dismissed",
+        UPSELL_TOOLTIP_DISMISSED: "upsell_tooltip_dismissed",
+        UPSELL_TOOLTIP_SHOWN: "upsell_tooltip_shown",
+        VOICE_CALLBACK_CARD_CLICK: "voice_callback_card_click",
+        VOICE_CALLBACK_CARD_IMPRESSION: "voice_callback_card_impression",
+        VOICE_CALLBACK_REQUEST_FAILURE: "voice_callback_request_failure",
+        VOICE_CALLBACK_REQUEST_SUBMITTED: "voice_callback_request_submitted",
+        VOICE_CALLBACK_REQUEST_SUCCESS: "voice_callback_request_success",
+        VOICE_CONNECTION_FAILED: "voice_connection_failed",
+        VOICE_CONNECTION_STARTED: "voice_connection_started",
+        VOICE_E2E_LATENCY: "voice_e2e_latency",
+        VOICE_MODE_BUTTON_IMPRESSION: "voice_mode_button_impression",
+        VOICE_MODE_OPENED: "voice_mode_opened",
+        VOICE_NEGATIVE_FEEDBACK: "voice_negative_feedback",
+        VOICE_ONBOARDING_ABANDONED: "voice_onboarding_abandoned",
+        VOICE_ONBOARDING_COMPLETED: "voice_onboarding_completed",
+        VOICE_ONBOARDING_SHOWN: "voice_onboarding_shown",
+        VOICE_POSITIVE_FEEDBACK: "voice_positive_feedback",
+        VOICE_SESSION_STARTED: "voice_session_started",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

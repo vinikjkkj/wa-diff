@@ -1,0 +1,30 @@
+__d(
+  "GeoInvertedThemeProvider",
+  ["GeoPrivateInvertThemeContext", "react", "react-compiler-runtime"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react"));
+    function u(e) {
+      var t = o("react-compiler-runtime").c(3),
+        n = e.children,
+        a = e.isEnabled,
+        i = a === void 0 ? !1 : a,
+        l;
+      return (
+        t[0] !== n || t[1] !== i
+          ? ((l = s.jsx(r("GeoPrivateInvertThemeContext").Provider, {
+              value: i,
+              children: n,
+            })),
+            (t[0] = n),
+            (t[1] = i),
+            (t[2] = l))
+          : (l = t[2]),
+        l
+      );
+    }
+    l.GeoInvertedThemeProvider = u;
+  },
+  98,
+);

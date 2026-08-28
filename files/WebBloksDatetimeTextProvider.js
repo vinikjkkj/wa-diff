@@ -2,20 +2,23 @@ __d(
   "WebBloksDatetimeTextProvider",
   ["WebBloksComponentContext", "WebBloksDateUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = e.node,
-        n = t.get("timestamp"),
-        r = t.get("type"),
-        a = t.get("format"),
-        i = o("WebBloksComponentContext").useWebBloksContext();
+    var e = "#",
+      s = "$",
+      u = "&";
+    function c(t) {
+      var n = t.node,
+        r = n.get(s),
+        a = n.get(u),
+        i = n.get(e),
+        l = o("WebBloksComponentContext").useWebBloksContext();
       return o("WebBloksDateUtils").getDateTimeText(
-        n,
-        i.bloksContext.objectSet.environment.locale,
         r,
+        l.bloksContext.objectSet.environment.locale,
         a,
+        i,
       );
     }
-    l.default = e;
+    l.default = c;
   },
   98,
 );

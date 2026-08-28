@@ -1,0 +1,29 @@
+__d(
+  "AdsUEditorCampaignCTXDestinationDefaultedAction",
+  [
+    "AdsCTXDestinationDefaultedDataProvider",
+    "AdsCTXDestinationDefaultedReducerPlugin",
+    "Laminar",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [
+          n("Laminar").__createReducer(
+            n("AdsCTXDestinationDefaultedReducerPlugin"),
+            n("AdsCTXDestinationDefaultedDataProvider"),
+            {},
+            "",
+          ),
+        ];
+      },
+      function () {
+        return [];
+      },
+      "AdsUEditorCampaignCTXDestinationDefaultedActionPlugin",
+    );
+    a.exports = e;
+  },
+  null,
+);

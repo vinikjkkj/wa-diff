@@ -1,22 +1,19 @@
 __d(
   "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
-  ["WAWebUserPrefsKeys", "WAWebUserPrefsStore"],
+  ["WAWebUserPrefsDeviceCapabilities"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").UserPrefs.BizAiSettingsSyncPrimaryCapability,
-        e,
-        { shouldWriteToIdb: !0 },
+    function e() {
+      var e;
+      return (
+        ((e = o(
+          "WAWebUserPrefsDeviceCapabilities",
+        ).getPrimaryDeviceCapabilitiesFromLocalStorage().bizAiSettingsSync) ==
+        null
+          ? void 0
+          : e.handoffRemovalTimingEnabled) === !0
       );
     }
-    function s() {
-      var e = r("WAWebUserPrefsStore").getUser(
-        o("WAWebUserPrefsKeys").UserPrefs.BizAiSettingsSyncPrimaryCapability,
-      );
-      return e === !0;
-    }
-    ((l.saveBizAiSettingsSyncCapabilityToStorage = e),
-      (l.getPrimarySupportsBizAiSettingsSync = s));
+    l.getPrimarySupportsBizAiSettingsSync = e;
   },
   98,
 );

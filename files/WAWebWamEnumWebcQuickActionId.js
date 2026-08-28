@@ -17,6 +17,9 @@ __d(
       ASK_META_AI: 12,
       START_CALL: 13,
       GO_TO_CALLS: 14,
+      NEW_CALL_LINK: 15,
+      OPEN_DIALER: 16,
+      SCHEDULE_CALL: 17,
     });
     i.WEBC_QUICK_ACTION_ID = e;
   },

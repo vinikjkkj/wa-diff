@@ -2,29 +2,35 @@ __d(
   "WebBloksOpenFullScreenV4",
   ["WebBloksScreen", "webBloksPerformanceUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, a) {
-      var i = t.get("navbar_data"),
-        l = t.get("loading_screen"),
-        s = r ? r.get("presentation_mode") === "modal" : !1,
-        u = t.get("url_relative_path"),
-        c = t.get("ttrc_marker_id"),
-        d = {
-          isModal: s,
-          loadingNavbar: i,
-          loadingScreen: l,
-          initialTreeResources: e.bloksContext.treeManager.initialTreeResources,
-          ownerContext: e,
+    var e = "#",
+      s = "&",
+      u = "3",
+      c = "4",
+      d = "A",
+      m = "#";
+    function p(t, n, r, a, i) {
+      var l = n.get(u),
+        p = n.get(s),
+        _ = a ? a.get(m) === "modal" : !1,
+        f = n.get(d),
+        g = n.get(c),
+        h = {
+          isModal: _,
+          loadingNavbar: l,
+          loadingScreen: p,
+          initialTreeResources: t.bloksContext.treeManager.initialTreeResources,
+          ownerContext: t,
         },
-        m = t.get("app_id");
+        y = n.get(e);
       (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
         "--web-bloks-ttrc-start",
-        { detail: { appId: m, markerId: c } },
+        { detail: { appId: y, markerId: g } },
       ),
-        e.objectSet.navigationManager.push(
-          o("WebBloksScreen").WebBloksScreen.fromAppId(e.objectSet, m, n, d, u),
+        t.objectSet.navigationManager.push(
+          o("WebBloksScreen").WebBloksScreen.fromAppId(t.objectSet, y, r, h, f),
         ));
     }
-    l.default = e;
+    l.default = p;
   },
   98,
 );

@@ -2,17 +2,22 @@ __d(
   "WAWebApiGetDeviceUpdateLock",
   ["WAWebModelStorageUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
-      (n === void 0 && (n = !1), r === void 0 && (r = !1));
-      var a = ["participant", "device-list"];
+    function e(e) {
+      var t = e.callback,
+        n = e.hasAdvAccountTypeChange,
+        r = n === void 0 ? !1 : n,
+        a = e.hasNewNotification,
+        i = e.shouldUpdateSyncdMissingKeyDevices,
+        l = i === void 0 ? !1 : i,
+        s = ["participant", "device-list"];
       return (
-        t && (a = [].concat(a, ["message", "message-association"])),
-        n && (a = [].concat(a, ["missing-keys"])),
-        r && (a = [].concat(a, ["contact"])),
+        a && (s = [].concat(s, ["message", "message-association"])),
+        l && (s = [].concat(s, ["missing-keys"])),
+        r && (s = [].concat(s, ["contact"])),
         o("WAWebModelStorageUtils")
           .getStorage()
-          .lock(a, function () {
-            return e();
+          .lock(s, function () {
+            return t();
           })
       );
     }

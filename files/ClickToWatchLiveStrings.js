@@ -1,0 +1,50 @@
+__d(
+  "ClickToWatchLiveStrings",
+  ["fbt"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = s._(/*BTDS*/ "Instagram live video"),
+      u = s._(/*BTDS*/ "Drive sales through your live video on Instagram."),
+      c = s._(/*BTDS*/ "Drive sales through your live video."),
+      d = s._(/*BTDS*/ "Send traffic to your live video on Instagram."),
+      m = s._(/*BTDS*/ "Generate leads through your live video."),
+      p = s._(/*BTDS*/ "Generate leads through your live video on Instagram."),
+      _ = s._(/*BTDS*/ "Send traffic to your live video."),
+      f = s._(/*BTDS*/ "Get people to watch your live video on Instagram."),
+      g = s._(/*BTDS*/ "Get people to watch your live video."),
+      h = s._(/*BTDS*/ "Facebook Page"),
+      y = s._(/*BTDS*/ "Choose a Page that this ad will be associated with."),
+      C = s._(/*BTDS*/ "Select the Instagram profile you'll go live from"),
+      b = s._(/*BTDS*/ "Live video location"),
+      v = s._(
+        /*BTDS*/ "Schedule ad to run at the same time as your live video",
+      ),
+      S = s._(
+        /*BTDS*/ "Your ad will only run when you are live. Going live later than scheduled will affect ad delivery.",
+      ),
+      R = s._(/*BTDS*/ "Select the Instagram profile you'll go live from"),
+      L = s._(/*BTDS*/ "Instagram profile"),
+      E = s._(
+        /*BTDS*/ "You need to connect an Instagram profile to select Instagram live video as your conversion location.",
+      );
+    ((l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_LABEL = e),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_SALES = u),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_SALES_GENERIC = c),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_TRAFFIC = d),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_LEADS_GENERIC = m),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_LEADS = p),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_TRAFFIC_GENERIC = _),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_ENGAGEMENT = f),
+      (l.WATCH_LIVE_VIDEO_CONVERSION_CHANNEL_DESCRIPTION_ENGAGEMEN_GENERIC = g),
+      (l.IDENTITY_HEADER_LABEL = h),
+      (l.IDENTITY_SECTION_DESCRIPTION = y),
+      (l.IDENTITY_SECTION_DESCRIPTION_INSTAGRAM = C),
+      (l.DESTINATION_SECTION_LABEL = b),
+      (l.WATCH_LIVE_VIDEO_SCHEDULE_GUIDANCE_CARD_HEADER = v),
+      (l.WATCH_LIVE_VIDEO_SCHEDULE_GUIDANCE_CARD_BODY = S),
+      (l.ACCOUNT_SELECTOR_PLACEHOLDER = R),
+      (l.INSTAGRAM_PROFILE_LABEL = L),
+      (l.CONNECT_INSTAGRAM_PROFILE_LIVE_VIDEO_WARNING = E));
+  },
+  226,
+);

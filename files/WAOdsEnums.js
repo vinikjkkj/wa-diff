@@ -28,7 +28,6 @@ __d(
       REGISTRATION_TYPE: "aramdillo_registration_type",
       CLOCK_SKEW_UPDATE: "clock_skew_update",
       STREAM_ERROR: "wajs_stream_error",
-      LOAD_MORE_NO_ORIGINAL_MSG_IN_MAW: "load_more_no_original_msg_in_maw",
       POISON_QUEUE_ENTTITY: "armadillo_poison_queue_entity",
       PQ_MIGRATION: "wajs_pq_migration",
       WORM: "wajs_worm",

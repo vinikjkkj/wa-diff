@@ -43,7 +43,7 @@ __d(
                   /*BTDS*/ "Post statuses and crosspost to Facebook or Instagram right from the app.",
                 )
               : s._(
-                  /*BTDS*/ "Post statuses and crosspost to Facebook or Instagram right from Web.",
+                  /*BTDS*/ "Post statuses and crosspost to Facebook or Instagram right from WhatsApp Web.",
                 );
           },
           Icon: r("WDSIconIcShare.react"),
@@ -107,9 +107,13 @@ __d(
       },
       h = {
         description: function () {
-          return s._(
-            /*BTDS*/ "Download customer form responses as CSV directly from Web.",
-          );
+          return r("WAWebEnvironment").isWindows
+            ? s._(
+                /*BTDS*/ "Download customer form responses as CSV directly from the app.",
+              )
+            : s._(
+                /*BTDS*/ "Download customer form responses as CSV directly from WhatsApp Web.",
+              );
         },
         Icon: r("WDSIconIcDownload.react"),
       };

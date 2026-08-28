@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
-    "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebMobilePlatforms",
     "WAWebProtobufSyncAction.pb",
@@ -143,19 +142,18 @@ __d(
                           ),
                         o("WAWebMobilePlatforms").isSMB())
                       ) {
-                        var p,
-                          _ = t.businessBroadcast,
-                          f =
-                            !!(_ != null && _.companionSupportEnabled) &&
-                            !!(_ != null && _.campaignSyncEnabled),
-                          g = o(
+                        var p = t.businessBroadcast,
+                          _ =
+                            !!(p != null && p.companionSupportEnabled) &&
+                            !!(p != null && p.campaignSyncEnabled),
+                          f = o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).getPrimarySupportsBusinessBroadcast();
-                        (f !== g &&
+                        (_ !== f &&
                           (o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
-                          ).saveBizBroadcastCapabilityToStorage(f),
-                          f &&
+                          ).saveBizBroadcastCapabilityToStorage(_),
+                          _ &&
                             o(
                               "WAWebWorkerSafeBackendApi",
                             ).workerSafeFireAndForget("loadQuickPromotions", {
@@ -164,20 +162,12 @@ __d(
                           o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).saveBizBroadcastProCapabilityToStorage(
-                            _ == null ? void 0 : _.proCompanionSupportEnabled,
+                            p == null ? void 0 : p.proCompanionSupportEnabled,
                           ),
                           o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).saveBizBroadcastRecipientLimitToStorage(
-                            _ == null ? void 0 : _.recipientLimit,
-                          ),
-                          o(
-                            "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
-                          ).saveBizAiSettingsSyncCapabilityToStorage(
-                            !!(
-                              (p = t.bizAiSettingsSync) != null &&
-                              p.handoffRemovalTimingEnabled
-                            ),
+                            p == null ? void 0 : p.recipientLimit,
                           ));
                       }
                     }

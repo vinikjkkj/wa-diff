@@ -2,21 +2,22 @@ __d(
   "WebBloksWebDataAttributesExtensionHandler",
   [],
   function (t, n, r, o, a, i) {
-    var e = /^[a-z0-9_-]+$/,
-      l = new Set(["bloks-name", "testid", "anchor-id"]),
-      s = {
+    var e = "#",
+      l = /^[a-z0-9_-]+$/,
+      s = new Set(["bloks-name", "testid", "anchor-id"]),
+      u = {
         getProps: function (n) {
-          var t = n.get("attributes");
+          var t = n.get(e);
           if (t != null) {
             var r = {};
             for (var o of Object.keys(t))
-              e.test(o) && !l.has(o) && (r["data-" + o] = t[o]);
+              l.test(o) && !s.has(o) && (r["data-" + o] = t[o]);
             return r;
           }
         },
       },
-      u = s;
-    i.default = u;
+      c = u;
+    i.default = c;
   },
   66,
 );

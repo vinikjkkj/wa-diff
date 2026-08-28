@@ -49,7 +49,7 @@ __d(
                     : !1,
                 a = r
                   ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                  : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+                  : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
               return n.some(function (e) {
                 return !e.participant.equals(a);
               });

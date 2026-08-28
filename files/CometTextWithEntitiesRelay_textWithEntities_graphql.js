@@ -18,67 +18,65 @@ __d(
           name: "offset",
           storageKey: null,
         },
-        n = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "id",
-          storageKey: null,
-        },
+        n = { kind: "Variable", name: "scale", variableName: "scale" },
         r = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "__typename",
-          storageKey: null,
-        },
-        o = [{ kind: "Literal", name: "delight_surface", value: "COMMENT" }],
-        a = [n],
-        i = { kind: "Variable", name: "scale", variableName: "scale" },
-        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "height",
           storageKey: null,
         },
-        s = {
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "uri",
           storageKey: null,
         },
-        u = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "width",
           storageKey: null,
         },
-        c = {
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        l = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        s = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "name",
           storageKey: null,
         },
-        d = [n, c],
-        m = {
+        u = [l, s],
+        c = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "username",
           storageKey: null,
         },
-        p = {
+        d = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "should_prioritize_ig_display_name",
           storageKey: null,
         },
-        _ = {
+        m = {
           alias: null,
           args: null,
           concreteType: "WorkForeignEntityInfo",
@@ -109,58 +107,7 @@ __d(
             kind: "LinkedField",
             name: "delight_ranges",
             plural: !0,
-            selections: [
-              e,
-              t,
-              {
-                alias: null,
-                args: null,
-                concreteType: "TextDelightCampaign",
-                kind: "LinkedField",
-                name: "campaign",
-                plural: !1,
-                selections: [
-                  n,
-                  r,
-                  {
-                    alias: null,
-                    args: o,
-                    concreteType: "TextDelightStylePair",
-                    kind: "LinkedField",
-                    name: "delight_styles",
-                    plural: !0,
-                    selections: [
-                      {
-                        alias: null,
-                        args: null,
-                        kind: "ScalarField",
-                        name: "style",
-                        storageKey: null,
-                      },
-                      {
-                        alias: null,
-                        args: null,
-                        kind: "ScalarField",
-                        name: "value",
-                        storageKey: null,
-                      },
-                    ],
-                    storageKey: 'delight_styles(delight_surface:"COMMENT")',
-                  },
-                  {
-                    alias: null,
-                    args: o,
-                    concreteType: "DelightsAnimation",
-                    kind: "LinkedField",
-                    name: "delight_asset",
-                    plural: !1,
-                    selections: a,
-                    storageKey: 'delight_asset(delight_surface:"COMMENT")',
-                  },
-                ],
-                storageKey: null,
-              },
-            ],
+            selections: [e, t],
             storageKey: null,
           },
           {
@@ -183,13 +130,13 @@ __d(
                 selections: [
                   {
                     alias: null,
-                    args: [i],
+                    args: [n],
                     concreteType: "Image",
                     kind: "LinkedField",
                     name: "image",
                     plural: !1,
                     selections: [
-                      l,
+                      r,
                       {
                         alias: null,
                         args: null,
@@ -197,8 +144,8 @@ __d(
                         name: "scale",
                         storageKey: null,
                       },
-                      s,
-                      u,
+                      o,
+                      a,
                     ],
                     storageKey: null,
                   },
@@ -253,22 +200,22 @@ __d(
                 name: "sample_entities",
                 plural: !0,
                 selections: [
-                  r,
+                  i,
                   {
                     kind: "InlineFragment",
-                    selections: d,
+                    selections: u,
                     type: "User",
                     abstractKey: null,
                   },
                   {
                     kind: "InlineFragment",
-                    selections: d,
+                    selections: u,
                     type: "Page",
                     abstractKey: null,
                   },
                   {
                     kind: "InlineFragment",
-                    selections: [n, c, m, p],
+                    selections: [l, s, c, d],
                     type: "InstagramUserV2",
                     abstractKey: null,
                   },
@@ -294,7 +241,7 @@ __d(
                 name: "entity",
                 plural: !1,
                 selections: [
-                  r,
+                  i,
                   {
                     alias: null,
                     args: [{ kind: "Literal", name: "site", value: "comet" }],
@@ -311,7 +258,7 @@ __d(
                   },
                   {
                     kind: "InlineFragment",
-                    selections: a,
+                    selections: [l],
                     type: "Actor",
                     abstractKey: "__isActor",
                   },
@@ -381,7 +328,7 @@ __d(
                         fragmentPropName: "user",
                         kind: "ModuleImport",
                       },
-                      _,
+                      m,
                       {
                         alias: null,
                         args: null,
@@ -407,23 +354,14 @@ __d(
                         name: "is_verified",
                         storageKey: null,
                       },
-                      n,
-                      {
-                        alias: null,
-                        args: [
-                          { kind: "Literal", name: "surface", value: "FEED" },
-                        ],
-                        kind: "ScalarField",
-                        name: "show_promode_badge",
-                        storageKey: 'show_promode_badge(surface:"FEED")',
-                      },
+                      l,
                     ],
                     type: "User",
                     abstractKey: null,
                   },
                   {
                     kind: "InlineFragment",
-                    selections: [p, m],
+                    selections: [d, c],
                     type: "InstagramUserV2",
                     abstractKey: null,
                   },
@@ -504,7 +442,7 @@ __d(
                   {
                     kind: "InlineFragment",
                     selections: [
-                      _,
+                      m,
                       {
                         alias: null,
                         args: null,
@@ -529,14 +467,14 @@ __d(
                       {
                         alias: "imageScaledForFeed",
                         args: [
-                          i,
+                          n,
                           { kind: "Literal", name: "width", value: 680 },
                         ],
                         concreteType: "Image",
                         kind: "LinkedField",
                         name: "image",
                         plural: !1,
-                        selections: [l, s, u],
+                        selections: [r, o, a],
                         storageKey: null,
                       },
                       {
@@ -553,7 +491,7 @@ __d(
                   {
                     kind: "InlineFragment",
                     selections: [
-                      c,
+                      s,
                       {
                         alias: null,
                         args: [
@@ -563,14 +501,14 @@ __d(
                             name: "media_type",
                             value: "image/png",
                           },
-                          i,
+                          n,
                           { kind: "Literal", name: "width", value: 64 },
                         ],
                         concreteType: "Image",
                         kind: "LinkedField",
                         name: "image",
                         plural: !1,
-                        selections: [s],
+                        selections: [o],
                         storageKey: null,
                       },
                     ],
@@ -590,8 +528,15 @@ __d(
                         kind: "FragmentSpread",
                         name: "VideoPlayerCometFeedThumbnail_video",
                       },
-                      u,
-                      l,
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "aspect_ratio",
+                        storageKey: null,
+                      },
+                      a,
+                      r,
                       {
                         alias: null,
                         args: null,
@@ -625,7 +570,7 @@ __d(
                   {
                     kind: "InlineFragment",
                     selections: [
-                      c,
+                      s,
                       {
                         alias: null,
                         args: null,
@@ -654,6 +599,27 @@ __d(
                       },
                     ],
                     type: "XFBProdQuartzVizirSnapshot",
+                    abstractKey: null,
+                  },
+                  {
+                    kind: "InlineFragment",
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "display_mode",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "expression",
+                        storageKey: null,
+                      },
+                    ],
+                    type: "XFBMathObject",
                     abstractKey: null,
                   },
                 ],

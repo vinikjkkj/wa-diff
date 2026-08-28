@@ -1,0 +1,33 @@
+__d(
+  "CDSWebBloksMinificationKeys",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = "#",
+      l = "&",
+      s = "3",
+      u = "4",
+      c = "A",
+      d = "&",
+      m = "(",
+      p = ",",
+      _ = "&",
+      f = "#",
+      g = "6",
+      h = "#",
+      y = "$";
+    ((i.SCREEN_APP_ID = e),
+      (i.SCREEN_LOADING_SCREEN = l),
+      (i.SCREEN_NAVBAR_DATA = s),
+      (i.SCREEN_TTRC_MARKER_ID = u),
+      (i.SCREEN_URL_RELATIVE_PATH = c),
+      (i.OPEN_SCREEN_MODE = d),
+      (i.OPEN_SCREEN_ON_DISMISS = m),
+      (i.OPEN_SCREEN_PROPS = p),
+      (i.PUSH_SCREEN_PROPS = _),
+      (i.CLOSE_SCREEN_CALLBACK = f),
+      (i.MODAL_CONFIG_BACKGROUND_OVERLAY_COLOR = g),
+      (i.MODAL_CONFIG_MODE = h),
+      (i.MODAL_CONFIG_NAVBAR = y));
+  },
+  66,
+);

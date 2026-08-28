@@ -32,7 +32,7 @@ __d(
         }),
         r = n
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+          : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return (
         ((t = e.find(function (e) {
           var t;
@@ -332,7 +332,7 @@ __d(
         }),
         l = i
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          : o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         s = o("WAWebMsgGetters").getIsSentByMe(t),
         u = s ? null : o("WAWebMsgGetters").getSender(t);
       return e
@@ -450,7 +450,7 @@ __d(
         }),
         u = s
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          : o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         c = o("WAWebMsgGetters").getIsSentByMe(t),
         d = c ? null : o("WAWebMsgGetters").getSender(t);
       return e

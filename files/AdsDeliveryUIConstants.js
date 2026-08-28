@@ -1,0 +1,66 @@
+__d(
+  "AdsDeliveryUIConstants",
+  [
+    "AdsAPIObjectives",
+    "AdsAPIOptimizationGoals",
+    "AdsPromotedObjectTypes",
+    "keyMirror",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s,
+      u,
+      c = r("keyMirror")({ CONTINUOUSLY: null, MIXED: null, SCHEDULED: null }),
+      d = Object.freeze({
+        DAILY: "daily",
+        LIFETIME: "lifetime",
+        MIXED: "mixed",
+        UNKNOWN: "unknown",
+      }),
+      m = [
+        (e = r("AdsAPIOptimizationGoals")).IMPRESSIONS,
+        e.LANDING_PAGE_VIEWS,
+        e.LINK_CLICKS,
+        e.REACH,
+        e.REPLIES,
+        e.MESSAGING_PURCHASE_CONVERSION,
+        e.CONVERSATIONS,
+        e.RETURN_ON_AD_SPEND,
+        e.ADVERTISER_SILOED_VALUE,
+      ],
+      p = [
+        (s = r("AdsPromotedObjectTypes")).PIXEL,
+        s.MESSENGER,
+        s.WHATSAPP,
+        s.WEBSITE_AND_PHONE_CALL,
+        s.WEBSITE_AND_INSTANT_FORM,
+        s.LIVE_VIDEO,
+        s.WEBSITE_AND_MESSAGES,
+      ],
+      _ = [
+        s.PIXEL,
+        s.MESSENGER,
+        s.WHATSAPP,
+        s.WEBSITE_AND_PHONE_CALL,
+        s.WEBSITE_AND_INSTANT_FORM,
+        s.LIVE_VIDEO,
+        s.INSTAGRAM,
+        s.WEBSITE_AND_MESSAGES,
+      ],
+      f = [
+        (u = r("AdsAPIObjectives")).BRAND_AWARENESS,
+        u.POST_ENGAGEMENT,
+        u.REACH,
+        u.VIDEO_VIEWS,
+        u.OUTCOME_AWARENESS,
+      ];
+    ((l.CampaignScheduleModes = c),
+      (l.BulkBudgetMode = d),
+      (l.OPTIMIZATION_GOALS_DO_NOT_NEED_CUSTOM_CONVERSION_EVENT = m),
+      (l.PROMOTED_OBJECT_TYPES_THAT_NEED_CUSTOM_CONVERSION_EVENT = p),
+      (l.PROMOTED_OBJECT_TYPES_THAT_NEED_CUSTOM_CONVERSION_EVENT_V2 = _),
+      (l.BRAND_AWARENESS_ELIGIBLE_OBJECTIVES = f));
+  },
+  98,
+);

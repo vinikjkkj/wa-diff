@@ -30,29 +30,10 @@ __d(
         _.RAVEN,
         _.DOCUMENT_FILE,
         _.RECEIVER_FETCH,
-      ]),
-      g = new Set([
-        _.TEXT,
-        _.IMAGE,
-        _.VIDEO,
-        _.PTT,
-        _.GIF,
-        _.STICKER,
-        _.DOCUMENT_FILE,
-        _.UNAVAILABLE,
-        _.EXPIRED_EPHEMERAL,
-        _.REVOKED,
-        _.XMA,
-        _.RAVEN,
-        _.RECEIVER_FETCH,
-      ]),
-      h = function (t) {
-        return g.has(t);
-      };
+      ]);
     ((l.isMAWSupportedMediaType = e),
       (l.EPHEMERAL_SCREENSHOT_ACTION = s),
-      (l.MSG_TYPE = _),
-      (l.isQuotedMsgType = h));
+      (l.MSG_TYPE = _));
   },
   98,
 );

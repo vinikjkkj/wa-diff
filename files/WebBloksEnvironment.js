@@ -80,54 +80,58 @@ __d(
           a = (n = window.navigator) == null ? void 0 : n.languages,
           i = a != null && o("WebBloksI18nUtils").isLocaleRtl(a),
           l = t.minificationMap,
-          s = babelHelpers.objectWithoutPropertiesLoose(t, e),
-          u = babelHelpers.extends({}, c, {
-            minificationMap: l,
+          s =
+            l === void 0
+              ? o("WebBloksModel").defineWebBloksMinificationMap({})
+              : l,
+          u = babelHelpers.objectWithoutPropertiesLoose(t, e),
+          d = babelHelpers.extends({}, c, {
+            minificationMap: s,
             locale: a,
             isRtl: i,
           }),
-          d = arguments.length,
-          m = new Array(d > 1 ? d - 1 : 0),
-          f = 1;
-        f < d;
-        f++
+          m = arguments.length,
+          f = new Array(m > 1 ? m - 1 : 0),
+          h = 1;
+        h < m;
+        h++
       )
-        m[f - 1] = arguments[f];
-      var h = m.reduce(
+        f[h - 1] = arguments[h];
+      var y = f.reduce(
         function (e, t) {
           return p(e, t);
         },
-        p(u, s),
+        p(d, u),
       );
-      if (h.useMinification && h.unminificationMap != null)
+      if (y.useMinification && y.unminificationMap != null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A minified WebBloks environment cannot include an unminification map.",
         );
-      if (h.useSignatureMinification && h.signatureUnminificationMap != null)
+      if (y.useSignatureMinification && y.signatureUnminificationMap != null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment cannot include a signature unminification map.",
         );
-      if (h.useSignatureMinification && h.canonicalActions == null)
+      if (y.useSignatureMinification && y.canonicalActions == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment requires canonical actions.",
         );
       o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
-        h.enableBindInstrumentation,
+        y.enableBindInstrumentation,
       );
-      var y = babelHelpers.extends({}, h, {
-        minificationMap: h.useMinification
-          ? h.minificationMap
-          : g(h.minificationMap),
+      var C = babelHelpers.extends({}, y, {
+        minificationMap: y.useMinification
+          ? y.minificationMap
+          : g(y.minificationMap),
         actions: new (r("WebBloksModuleStore"))(
-          h.useSignatureMinification
-            ? h.canonicalActions
-            : _(h.actions, h.signatureUnminificationMap),
+          y.useSignatureMinification
+            ? y.canonicalActions
+            : _(y.actions, y.signatureUnminificationMap),
         ),
-        components: new (r("WebBloksModuleStore"))(h.components),
-        extensionHandlers: new (r("WebBloksModuleStore"))(h.extensionHandlers),
-        containerConfigs: new (r("WebBloksModuleStore"))(h.containerConfigs),
+        components: new (r("WebBloksModuleStore"))(y.components),
+        extensionHandlers: new (r("WebBloksModuleStore"))(y.extensionHandlers),
+        containerConfigs: new (r("WebBloksModuleStore"))(y.containerConfigs),
       });
-      return y;
+      return C;
     }
     function m(e) {
       return u(e)[0];
@@ -161,7 +165,8 @@ __d(
         D,
         x,
         $,
-        P;
+        P,
+        N;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -171,10 +176,14 @@ __d(
               (a = t.emitDataBloksName) != null ? a : e.emitDataBloksName,
             actions: babelHelpers.extends({}, e.actions, t.actions),
             canonicalActions:
-              t.canonicalActions !== void 0
-                ? t.canonicalActions
-                : e.canonicalActions,
-            appLoader: (i = t.appLoader) != null ? i : e.appLoader,
+              t.canonicalActions == null
+                ? e.canonicalActions
+                : babelHelpers.extends(
+                    {},
+                    (i = e.canonicalActions) != null ? i : {},
+                    t.canonicalActions,
+                  ),
+            appLoader: (l = t.appLoader) != null ? l : e.appLoader,
             components: babelHelpers.extends({}, e.components, t.components),
             extensionHandlers: babelHelpers.extends(
               {},
@@ -197,67 +206,67 @@ __d(
                 ? t.unminificationMap
                 : e.unminificationMap,
             useMinification:
-              (l = t.useMinification) != null ? l : e.useMinification,
+              (s = t.useMinification) != null ? s : e.useMinification,
             signatureUnminificationMap:
               t.signatureUnminificationMap !== void 0
                 ? t.signatureUnminificationMap
                 : e.signatureUnminificationMap,
             useSignatureMinification:
-              (s = t.useSignatureMinification) != null
-                ? s
+              (u = t.useSignatureMinification) != null
+                ? u
                 : e.useSignatureMinification,
             disableHistoryStack:
-              (u = t.disableHistoryStack) != null ? u : e.disableHistoryStack,
+              (c = t.disableHistoryStack) != null ? c : e.disableHistoryStack,
             enableCometRouter:
-              (c = t.enableCometRouter) != null ? c : e.enableCometRouter,
-            embedded: (d = t.embedded) != null ? d : e.embedded,
+              (d = t.enableCometRouter) != null ? d : e.enableCometRouter,
+            embedded: (m = t.embedded) != null ? m : e.embedded,
             allowScreenOverflow:
-              (m = t.allowScreenOverflow) != null ? m : e.allowScreenOverflow,
+              (p = t.allowScreenOverflow) != null ? p : e.allowScreenOverflow,
             allowFoldingAddressBar:
-              (p = t.allowFoldingAddressBar) != null
-                ? p
+              (_ = t.allowFoldingAddressBar) != null
+                ? _
                 : e.allowFoldingAddressBar,
             enableScrollRestoration:
-              (_ = t.enableScrollRestoration) != null
-                ? _
+              (g = t.enableScrollRestoration) != null
+                ? g
                 : e.enableScrollRestoration,
             enableBindSubtreeReuse:
-              (g = t.enableBindSubtreeReuse) != null
-                ? g
+              (y = t.enableBindSubtreeReuse) != null
+                ? y
                 : e.enableBindSubtreeReuse,
             enableNoOpVariableWriteFilter:
-              (y = t.enableNoOpVariableWriteFilter) != null
-                ? y
+              (C = t.enableNoOpVariableWriteFilter) != null
+                ? C
                 : e.enableNoOpVariableWriteFilter,
             enableBindInstrumentation:
-              (C = t.enableBindInstrumentation) != null
-                ? C
+              (b = t.enableBindInstrumentation) != null
+                ? b
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (b = t.loadingFallback) != null ? b : e.loadingFallback,
+              (v = t.loadingFallback) != null ? v : e.loadingFallback,
             dataModulesStore: h(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (v = t.navigationTrackingUtils) != null
-                ? v
+              (S = t.navigationTrackingUtils) != null
+                ? S
                 : e.navigationTrackingUtils,
-            logger: (S = t.logger) != null ? S : e.logger,
+            logger: (R = t.logger) != null ? R : e.logger,
             disableErrorBoundary:
-              (R = t.disableErrorBoundary) != null ? R : e.disableErrorBoundary,
-            AssetRenderer: (L = t.AssetRenderer) != null ? L : e.AssetRenderer,
-            staticAssets: (E = t.staticAssets) != null ? E : e.staticAssets,
+              (L = t.disableErrorBoundary) != null ? L : e.disableErrorBoundary,
+            AssetRenderer: (E = t.AssetRenderer) != null ? E : e.AssetRenderer,
+            staticAssets: (k = t.staticAssets) != null ? k : e.staticAssets,
             globalStateStore:
-              (k = t.globalStateStore) != null ? k : e.globalStateStore,
+              (I = t.globalStateStore) != null ? I : e.globalStateStore,
             fontFamilyMappings:
-              (I = t.fontFamilyMappings) != null ? I : e.fontFamilyMappings,
-            timeoutIDS: (T = t.timeoutIDS) != null ? T : e.timeoutIDS,
+              (T = t.fontFamilyMappings) != null ? T : e.fontFamilyMappings,
+            timeoutIDS: (D = t.timeoutIDS) != null ? D : e.timeoutIDS,
             screenQueryTemplate:
-              (D = t.screenQueryTemplate) != null ? D : e.screenQueryTemplate,
+              (x = t.screenQueryTemplate) != null ? x : e.screenQueryTemplate,
             accessibilityModule:
-              (x = t.accessibilityModule) != null ? x : e.accessibilityModule,
-            gkx: ($ = t.gkx) != null ? $ : e.gkx,
+              ($ = t.accessibilityModule) != null ? $ : e.accessibilityModule,
+            gkx: (P = t.gkx) != null ? P : e.gkx,
             controllerNavigationLogger:
-              (P = t.controllerNavigationLogger) != null
-                ? P
+              (N = t.controllerNavigationLogger) != null
+                ? N
                 : e.controllerNavigationLogger,
           }
         : e;
@@ -270,9 +279,7 @@ __d(
           a = r[1],
           i = n[o],
           l = n[a];
-        i == null && l != null
-          ? (n[o] = l)
-          : l == null && i != null && (n[a] = i);
+        l != null ? (n[o] = l) : i != null && (n[a] = i);
       }
       return n;
     }
@@ -305,7 +312,8 @@ __d(
     ((l.WEBLOKS_DEFAULT_ENVIRONMENT = c),
       (l.createEnvironment = d),
       (l.useWebBloksEnvironmentStore = m),
-      (l.addWebBloksSignatureAliases = _));
+      (l.addWebBloksSignatureAliases = _),
+      (l.createIdentityMinificationMap = g));
   },
   98,
 );

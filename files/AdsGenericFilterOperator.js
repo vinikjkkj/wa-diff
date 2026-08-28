@@ -1,0 +1,36 @@
+__d(
+  "AdsGenericFilterOperator",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      AFTER: "AFTER",
+      ALL: "ALL",
+      ANY: "ANY",
+      BEFORE: "BEFORE",
+      CONTAIN: "CONTAIN",
+      EQUAL: "EQUAL",
+      GREATER_THAN: "GREATER_THAN",
+      GREATER_THAN_OR_EQUAL: "GREATER_THAN_OR_EQUAL",
+      IN: "IN",
+      IN_RANGE: "IN_RANGE",
+      LESS_THAN: "LESS_THAN",
+      LESS_THAN_OR_EQUAL: "LESS_THAN_OR_EQUAL",
+      NONE: "NONE",
+      NOT_CONTAIN: "NOT_CONTAIN",
+      NOT_EQUAL: "NOT_EQUAL",
+      NOT_IN: "NOT_IN",
+      NOT_IN_RANGE: "NOT_IN_RANGE",
+      ON_OR_AFTER: "ON_OR_AFTER",
+      ON_OR_BEFORE: "ON_OR_BEFORE",
+      STARTS_WITH: "STARTS_WITH",
+      MATCH: "MATCH",
+      STEM_MATCH: "STEM_MATCH",
+      TOP: "TOP",
+      CONTAINS_ANY: "CONTAINS_ANY",
+      CONTAINS_ALL: "CONTAINS_ALL",
+      NOT_CONTAINS_ANY: "NOT_CONTAINS_ANY",
+    });
+    i.default = e;
+  },
+  66,
+);

@@ -10,7 +10,6 @@ __d(
     exports,
   ) {
     "use strict";
-    var _require_Lexical;
     var _require_LexicalHtml;
     function i(e) {
       var n = new URL("https://lexical.dev/docs/error"),
@@ -41,7 +40,7 @@ __d(
       var r = e;
       for (
         var _i = require("Lexical").$getSiblingCaret(e, n);
-        _i && (y(_i.origin) || require("Lexical").$isTabNode(_i.origin));
+        _i && (R(_i.origin) || require("Lexical").$isTabNode(_i.origin));
         _i = _i.getAdjacentCaret()
       )
         r = _i.origin;
@@ -58,7 +57,7 @@ __d(
         r = l(e);
       var i = n;
       for (; null !== i; ) {
-        if (y(i)) {
+        if (R(i)) {
           var _e2 = require("Lexical").getTextDirection(i.getTextContent());
           if (null !== _e2) return _e2;
         }
@@ -86,7 +85,7 @@ __d(
             break;
           }
           if (
-            (y(_e4) ||
+            (R(_e4) ||
               require("Lexical").$isTabNode(_e4) ||
               require("Lexical").$isLineBreakNode(_e4) ||
               i(167),
@@ -100,14 +99,14 @@ __d(
             (a = s.getTextContent()));
         } else l--;
         var _e5 = a[l];
-        y(s) && " " !== _e5 && (o = { node: s, offset: l });
+        R(s) && " " !== _e5 && (o = { node: s, offset: l });
       }
       if (null !== o) return o;
       var c = null;
-      if (n < e.getTextContentSize()) y(e) && (c = e.getTextContent()[n]);
+      if (n < e.getTextContentSize()) R(e) && (c = e.getTextContent()[n]);
       else {
         var _t = e.getNextSibling();
-        y(_t) && (c = _t.getTextContent()[0]);
+        R(_t) && (c = _t.getTextContent()[0]);
       }
       if (null !== c && " " !== c) return r;
       {
@@ -117,18 +116,18 @@ __d(
             o = e.getTextContent(),
             s = e.getTextContentSize();
           for (;;) {
-            if (!y(r) || i === s) {
+            if (!R(r) || i === s) {
               if (
                 ((r = r.getNextSibling()),
                 null === r || require("Lexical").$isLineBreakNode(r))
               )
                 return null;
-              y(r) &&
+              R(r) &&
                 ((i = 0),
                 (o = r.getTextContent()),
                 (s = r.getTextContentSize()));
             }
-            if (y(r)) {
+            if (R(r)) {
               if (" " !== o[i]) return { node: r, offset: i };
               i++;
             }
@@ -299,7 +298,7 @@ __d(
           )
         ) {
           m();
-          var _t2 = E(e);
+          var _t2 = A(e);
           if (_t2) return _t2;
         }
         var i = e.anchor,
@@ -313,13 +312,13 @@ __d(
               (_n.push(require("Lexical").$createTabNode()),
                 (_e6 = _e6.getNextSibling()));
             else {
-              if (!y(_e6)) break;
+              if (!R(_e6)) break;
               {
                 var _t3 = 0;
                 var _r2 = _e6.getTextContent(),
                   _i3 = _e6.getTextContentSize();
                 for (; _t3 < _i3 && " " === _r2[_t3]; ) _t3++;
-                if ((0 !== _t3 && _n.push(A(" ".repeat(_t3))), _t3 !== _i3))
+                if ((0 !== _t3 && _n.push(y(" ".repeat(_t3))), _t3 !== _i3))
                   break;
                 _e6 = _e6.getNextSibling();
               }
@@ -381,7 +380,7 @@ __d(
         return this.getLatest().__theme;
       };
       return _;
-    })((_require_Lexical = require("Lexical")).ElementNode);
+    })(require("Lexical").ElementNode);
     function T(e, n) {
       return require("Lexical").$create(_2).setLanguage(e).setTheme(n);
     }
@@ -389,7 +388,7 @@ __d(
       return e instanceof _2;
     }
     function x(e) {
-      return { node: T(e.getAttribute(h)) };
+      return { node: T(e.getAttribute(h), e.getAttribute(N)) };
     }
     function O(e) {
       var t = e,
@@ -418,7 +417,7 @@ __d(
     function b(e) {
       return e.classList.contains("js-file-line-container");
     }
-    function E(e) {
+    function A(e) {
       var n = e.anchor;
       if (e.isCollapsed() && "element" === n.type) {
         var _e7 = n.getNode();
@@ -442,8 +441,8 @@ __d(
       }
       return null;
     }
-    var _R = (function (_t$TextNode) {
-      function R(e, t, n) {
+    var _D = (function (_t$TextNode) {
+      function D(e, t, n) {
         var _this2;
         if (e === void 0) {
           e = "";
@@ -452,8 +451,8 @@ __d(
           (_this2.__highlightType = t));
         return _this2;
       }
-      babelHelpers.inheritsLoose(R, _t$TextNode);
-      var _proto2 = R.prototype;
+      babelHelpers.inheritsLoose(D, _t$TextNode);
+      var _proto2 = D.prototype;
       _proto2.$config = function $config() {
         return this.config("code-highlight", {
           extends: require("Lexical").TextNode,
@@ -475,13 +474,13 @@ __d(
       };
       _proto2.createDOM = function createDOM(e) {
         var n = _t$TextNode.prototype.createDOM.call(this, e),
-          r = D(e.theme, this.__highlightType);
+          r = E(e.theme, this.__highlightType);
         return (require("Lexical").addClassNamesToElement(n, r), n);
       };
       _proto2.updateDOM = function updateDOM(e, n, r) {
         var i = _t$TextNode.prototype.updateDOM.call(this, e, n, r),
-          o = D(r.theme, e.__highlightType),
-          s = D(r.theme, this.__highlightType);
+          o = E(r.theme, e.__highlightType),
+          s = E(r.theme, this.__highlightType);
         return (
           o !== s &&
             (o && require("Lexical").removeClassNamesFromElement(n, o),
@@ -510,59 +509,72 @@ __d(
       _proto2.createParentElementNode = function createParentElementNode() {
         return T();
       };
-      return R;
-    })(_require_Lexical.TextNode);
-    function D(e, t) {
+      return D;
+    })(require("Lexical").TextNode);
+    function E(e, t) {
       return t && e && e.codeHighlight && e.codeHighlight[t];
     }
-    function A(e, n) {
+    function y(e, n) {
       if (e === void 0) {
         e = "";
       }
-      return require("Lexical").$applyNodeReplacement(new _R(e, n));
+      return require("Lexical").$applyNodeReplacement(new _D(e, n));
     }
-    function y(e) {
-      return e instanceof _R;
+    function R(e) {
+      return e instanceof _D;
     }
-    var L = "data-language";
-    function v(e) {
+    var L = "data-language",
+      v = "data-theme";
+    function I(e) {
       return null !== e.style.fontFamily.match("monospace");
     }
-    function I(e) {
+    function P(e) {
       var t = e.parentElement;
       for (; null !== t; ) {
-        if (v(t)) return !0;
+        if (I(t)) return !0;
         t = t.parentElement;
       }
       return !1;
     }
-    var P = (_require_LexicalHtml = require("LexicalHtml")).defineOverlayRules([
-        _require_LexicalHtml.defineImportRule({
+    var B = (_require_LexicalHtml = require("LexicalHtml")).defineOverlayRules([
+        {
           $import: function $import(e, t) {
             return e.$importChildren(t);
           },
           match: _require_LexicalHtml.sel.tag("tr", "td"),
           name: "@lexical/code/github-code-table/unwrap",
-        }),
+        },
       ]),
-      B = _require_LexicalHtml.defineImportRule({
+      W = {
         $import: function $import(e, t) {
-          return [T(t.getAttribute(L)).splice(0, 0, e.$importChildren(t))];
+          return [
+            T(t.getAttribute(L), t.getAttribute(v)).splice(
+              0,
+              0,
+              e.$importChildren(t),
+            ),
+          ];
         },
         match: _require_LexicalHtml.sel.tag("pre"),
         name: "@lexical/code/pre",
-      }),
-      W = _require_LexicalHtml.defineImportRule({
+      },
+      k = {
         $import: function $import(e, t, n) {
           var r = t.textContent || "";
           return /\r?\n/.test(r) || null !== t.querySelector("br")
-            ? [T(t.getAttribute(L)).splice(0, 0, e.$importChildren(t))]
+            ? [
+                T(t.getAttribute(L), t.getAttribute(v)).splice(
+                  0,
+                  0,
+                  e.$importChildren(t),
+                ),
+              ]
             : n();
         },
         match: _require_LexicalHtml.sel.tag("code"),
         name: "@lexical/code/code-multiline",
-      });
-    function k(e) {
+      };
+    function H(e) {
       if (!require("Lexical").isHTMLElement(e)) return !1;
       var n = e.style.fontFamily,
         r = e.style.whiteSpace;
@@ -573,7 +585,7 @@ __d(
         r.startsWith("pre")
       );
     }
-    function H(e) {
+    function w(e) {
       var n = !1;
       var r = [];
       var i = "",
@@ -594,22 +606,22 @@ __d(
         }
       return (s(), n ? r : null);
     }
-    function w(e) {
+    function F(e) {
       for (var _n5 of Array.from(e.children)) {
-        if (require("Lexical").isHTMLElement(_n5) && k(_n5)) {
-          if (null !== H(_n5)) return !0;
+        if (require("Lexical").isHTMLElement(_n5) && H(_n5)) {
+          if (null !== w(_n5)) return !0;
           var _e9 = _n5.nextElementSibling;
-          if (_e9 && k(_e9)) return !0;
+          if (_e9 && H(_e9)) return !0;
           continue;
         }
-        if (w(_n5)) return !0;
+        if (F(_n5)) return !0;
       }
       return !1;
     }
-    var F = _require_LexicalHtml.defineImportRule({
+    var Y = {
         $import: function $import(e, n, r) {
-          if (!k(n) || I(n)) return r();
-          var i = H(n);
+          if (!H(n) || P(n)) return r();
+          var i = w(n);
           return null === i || 0 === i.length
             ? r()
             : [
@@ -622,15 +634,15 @@ __d(
         },
         match: _require_LexicalHtml.sel.tag("div"),
         name: "@lexical/code/vscode-wrapper",
-      }),
-      Y = _require_LexicalHtml.defineImportRule({
+      },
+      K = {
         $import: function $import(e, n, r) {
-          if (!k(n) || I(n)) return r();
+          if (!H(n) || P(n)) return r();
           var i = n.previousElementSibling;
-          if (i && k(i)) return [];
+          if (i && H(i)) return [];
           var o = [];
           var s = n;
-          for (; s && k(s); )
+          for (; s && H(s); )
             (o.push("BR" === s.tagName ? "" : s.textContent || ""),
               (s = s.nextElementSibling));
           return o.length < 2
@@ -645,65 +657,65 @@ __d(
         },
         match: _require_LexicalHtml.sel.tag("div", "br"),
         name: "@lexical/code/vscode-line-run",
-      }),
-      K = _require_LexicalHtml.defineOverlayRules([F, Y]),
-      U = _require_LexicalHtml.defineImportRule({
+      },
+      U = _require_LexicalHtml.defineOverlayRules([Y, K]),
+      z = {
         $import: function $import(e, t, n) {
-          return v(t)
+          return I(t)
             ? [T().splice(0, 0, e.$importChildren(t))]
-            : I(t)
+            : P(t)
               ? e.$importChildren(t)
               : n();
         },
         match: _require_LexicalHtml.sel.tag("div"),
         name: "@lexical/code/div",
-      }),
-      z = [
-        _require_LexicalHtml.defineImportRule({
+      },
+      j = [
+        {
           $import: function $import(e, t) {
-            return [T().splice(0, 0, e.$importChildren(t, { rules: P }))];
+            return [T().splice(0, 0, e.$importChildren(t, { rules: B }))];
           },
           match: _require_LexicalHtml.sel
             .tag("table")
             .classAll("js-file-line-container"),
           name: "@lexical/code/github-code-table",
-        }),
-        _require_LexicalHtml.defineImportRule({
+        },
+        {
           $import: function $import(e, t) {
             return e.$importChildren(t);
           },
           match: _require_LexicalHtml.sel.tag("td").classAll("js-file-line"),
           name: "@lexical/code/github-code-cell-by-class",
-        }),
+        },
+        k,
         W,
-        B,
-        U,
+        z,
       ],
-      j = _require_Lexical.defineExtension({
+      J = {
         dependencies: [
           _require_LexicalHtml.CoreImportExtension,
-          _require_Lexical.configExtension(
+          [
             _require_LexicalHtml.DOMImportExtension,
             {
               preprocess: [
                 function (n, r, i) {
-                  (w(require("Lexical").isDOMDocumentNode(n) ? n.body : n) &&
+                  (F(require("Lexical").isDOMDocumentNode(n) ? n.body : n) &&
                     r.session.update(
                       require("LexicalHtml").ImportOverlays,
                       function (e) {
-                        return [].concat(e, [K]);
+                        return [].concat(e, [U]);
                       },
                     ),
                     i());
                 },
               ],
-              rules: z,
+              rules: j,
             },
-          ),
+          ],
         ],
         name: "LexicalCode",
         nodes: function nodes() {
-          return [_2, _R];
+          return [_2, _D];
         },
         register: function register(e) {
           var _require_Lexical;
@@ -713,7 +725,7 @@ __d(
               function (e) {
                 var n = require("Lexical").$getSelection();
                 return (
-                  !(!require("Lexical").$isRangeSelection(n) || !E(n)) &&
+                  !(!require("Lexical").$isRangeSelection(n) || !A(n)) &&
                   (null !== e && e.preventDefault(), !0)
                 );
               },
@@ -724,12 +736,9 @@ __d(
             }),
           );
         },
-      }),
-      J = _require_Lexical.defineExtension({
-        dependencies: [j],
-        name: "@lexical/code/Import",
-      });
-    function q(e) {
+      },
+      q = { dependencies: [J], name: "@lexical/code/Import" };
+    function V(e) {
       if (!require("Lexical").$isRangeSelection(e)) return !1;
       var n = e.anchor.getNode(),
         r = C(n) ? n : n.getParent(),
@@ -737,14 +746,14 @@ __d(
         o = C(i) ? i : i.getParent();
       return C(r) && r.is(o);
     }
-    function V(e) {
+    function G(e) {
       var n = e.getNodes(),
         r = [];
       if (1 === n.length && C(n[0])) return r;
       var o = [];
       for (var _e0 = 0; _e0 < n.length; _e0++) {
         var _s = n[_e0];
-        (y(_s) ||
+        (R(_s) ||
           require("Lexical").$isTabNode(_s) ||
           require("Lexical").$isLineBreakNode(_s) ||
           i(169),
@@ -759,15 +768,23 @@ __d(
       }
       return r;
     }
-    function G(e, n) {
+    function Q(e, n) {
       var r = require("Lexical").$getSelection();
-      if (!require("Lexical").$isRangeSelection(r) || !q(r)) return !1;
-      var i = V(r),
+      if (!require("Lexical").$isRangeSelection(r) || !V(r)) return !1;
+      var i = G(r),
         o = i.length;
       if (0 === o && r.isCollapsed())
         return (
-          e === require("Lexical").INDENT_CONTENT_COMMAND &&
-            r.insertNodes([require("Lexical").$createTabNode()]),
+          e === require("Lexical").INDENT_CONTENT_COMMAND
+            ? r.insertNodes([require("Lexical").$createTabNode()])
+            : (function (e, n) {
+                var r = e.anchor.getNode();
+                if (!R(r) && !require("Lexical").$isTabNode(r)) return;
+                var i = s(r);
+                require("Lexical").$isTabNode(i)
+                  ? i.remove()
+                  : void 0 !== n && R(i) && g(i, n, e);
+              })(r, n),
           !0
         );
       if (
@@ -811,12 +828,12 @@ __d(
           } else
             require("Lexical").$isTabNode(_i6)
               ? _i6.remove()
-              : void 0 !== n && y(_i6) && g(_i6, n, r);
+              : void 0 !== n && R(_i6) && g(_i6, n, r);
         }
       }
       return !0;
     }
-    function Q(e, n) {
+    function X(e, n) {
       var r = require("Lexical").$getSelection();
       if (!require("Lexical").$isRangeSelection(r)) return !1;
       var i = r.anchor,
@@ -827,9 +844,9 @@ __d(
         g = o.getNode(),
         d = e === require("Lexical").KEY_ARROW_UP_COMMAND;
       if (
-        !q(r) ||
-        (!y(u) && !require("Lexical").$isTabNode(u)) ||
-        (!y(g) && !require("Lexical").$isTabNode(g))
+        !V(r) ||
+        (!R(u) && !require("Lexical").$isTabNode(u)) ||
+        (!R(g) && !require("Lexical").$isTabNode(g))
       )
         return !1;
       if (!n.altKey) {
@@ -859,7 +876,7 @@ __d(
       for (var _e12 = 0; _e12 < p.length; _e12++) {
         var _n9 = p[_e12];
         if (
-          !y(_n9) &&
+          !R(_n9) &&
           !require("Lexical").$isTabNode(_n9) &&
           !require("Lexical").$isLineBreakNode(_n9)
         )
@@ -870,35 +887,39 @@ __d(
       if (!require("Lexical").$isLineBreakNode(N)) return !0;
       var m = d ? N.getPreviousSibling() : N.getNextSibling();
       if (null == m) return !0;
-      var _ =
-        y(m) ||
-        require("Lexical").$isTabNode(m) ||
-        require("Lexical").$isLineBreakNode(m)
-          ? d
-            ? s(m)
-            : l(m)
-          : null;
-      var T = null != _ ? _ : m;
+      var _ = require("Lexical").$isLineBreakNode(m),
+        T =
+          _ || (!R(m) && !require("Lexical").$isTabNode(m))
+            ? null
+            : d
+              ? s(m)
+              : l(m);
+      var C = null != T ? T : m;
       return (
         N.remove(),
         p.forEach(function (e) {
           return e.remove();
         }),
-        e === require("Lexical").KEY_ARROW_UP_COMMAND
+        _
           ? (p.forEach(function (e) {
-              return T.insertBefore(e);
+              (C.insertAfter(e), (C = e));
             }),
-            T.insertBefore(N))
-          : (T.insertAfter(N),
-            (T = N),
-            p.forEach(function (e) {
-              (T.insertAfter(e), (T = e));
-            })),
+            C.insertAfter(N))
+          : e === require("Lexical").KEY_ARROW_UP_COMMAND
+            ? (p.forEach(function (e) {
+                return C.insertBefore(e);
+              }),
+              C.insertBefore(N))
+            : (C.insertAfter(N),
+              (C = N),
+              p.forEach(function (e) {
+                (C.insertAfter(e), (C = e));
+              })),
         r.setTextNodeRange(u, a, g, c),
         !0
       );
     }
-    function X(e, n) {
+    function Z(e, n) {
       var r = require("Lexical").$getSelection();
       if (!require("Lexical").$isRangeSelection(r)) return !1;
       var i = r.anchor,
@@ -907,9 +928,9 @@ __d(
         l = o.getNode(),
         g = e === require("Lexical").MOVE_TO_START;
       if (
-        !q(r) ||
-        (!y(s) && !require("Lexical").$isTabNode(s)) ||
-        (!y(l) && !require("Lexical").$isTabNode(l))
+        !V(r) ||
+        (!R(s) && !require("Lexical").$isTabNode(s)) ||
+        (!R(l) && !require("Lexical").$isTabNode(l))
       )
         return !1;
       var d = l,
@@ -936,7 +957,7 @@ __d(
         !0
       );
     }
-    function Z(e, n, o) {
+    function ee(e, n, o) {
       return require("Lexical").mergeRegister.apply(
         require("Lexical"),
         (o
@@ -979,7 +1000,7 @@ __d(
             function (n) {
               var r = (function (e) {
                 var n = require("Lexical").$getSelection();
-                if (!require("Lexical").$isRangeSelection(n) || !q(n))
+                if (!require("Lexical").$isRangeSelection(n) || !V(n))
                   return null;
                 var r = e
                     ? require("Lexical").OUTDENT_CONTENT_COMMAND
@@ -990,7 +1011,7 @@ __d(
                   a = n.anchor,
                   c = n.focus;
                 if (a.is(c)) return o;
-                var u = V(n);
+                var u = G(n);
                 if (1 !== u.length) return r;
                 var g = u[0];
                 var d, f;
@@ -1020,7 +1041,7 @@ __d(
             require("Lexical").INSERT_TAB_COMMAND,
             function () {
               return (
-                !!q(require("Lexical").$getSelection()) &&
+                !!V(require("Lexical").$getSelection()) &&
                 (require("Lexical").$insertNodes([
                   require("Lexical").$createTabNode(),
                 ]),
@@ -1032,14 +1053,14 @@ __d(
           e.registerCommand(
             require("Lexical").INDENT_CONTENT_COMMAND,
             function () {
-              return G(require("Lexical").INDENT_CONTENT_COMMAND);
+              return Q(require("Lexical").INDENT_CONTENT_COMMAND);
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           ),
           e.registerCommand(
             require("Lexical").OUTDENT_CONTENT_COMMAND,
             function () {
-              return G(require("Lexical").OUTDENT_CONTENT_COMMAND, n);
+              return Q(require("Lexical").OUTDENT_CONTENT_COMMAND, n);
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           ),
@@ -1050,7 +1071,7 @@ __d(
               if (!require("Lexical").$isRangeSelection(n)) return !1;
               var r = n.anchor,
                 i = r.getNode();
-              if (!q(n)) return !1;
+              if (!V(n)) return !1;
               var o = i.getParent();
               return n.isCollapsed() &&
                 0 === r.offset &&
@@ -1058,7 +1079,7 @@ __d(
                 C(o) &&
                 null === o.getPreviousSibling()
                 ? (e.preventDefault(), !0)
-                : Q(require("Lexical").KEY_ARROW_UP_COMMAND, e);
+                : X(require("Lexical").KEY_ARROW_UP_COMMAND, e);
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           ),
@@ -1070,14 +1091,14 @@ __d(
               var r = n.anchor,
                 i = r.getNode();
               return (
-                !!q(n) &&
+                !!V(n) &&
                 (n.isCollapsed() &&
                 r.offset === i.getTextContentSize() &&
                 null === i.getNextSibling() &&
                 C(i.getParentOrThrow()) &&
                 null === i.getParentOrThrow().getNextSibling()
                   ? (e.preventDefault(), !0)
-                  : Q(require("Lexical").KEY_ARROW_DOWN_COMMAND, e))
+                  : X(require("Lexical").KEY_ARROW_DOWN_COMMAND, e))
               );
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
@@ -1085,47 +1106,43 @@ __d(
           e.registerCommand(
             require("Lexical").MOVE_TO_START,
             function (e) {
-              return X(require("Lexical").MOVE_TO_START, e);
+              return Z(require("Lexical").MOVE_TO_START, e);
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           ),
           e.registerCommand(
             require("Lexical").MOVE_TO_END,
             function (e) {
-              return X(require("Lexical").MOVE_TO_END, e);
+              return Z(require("Lexical").MOVE_TO_END, e);
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           ),
         ]),
       );
     }
-    var ee = _require_Lexical.defineExtension({
+    var te = {
       build: function build(e, t) {
         return require("LexicalExtension").namedSignals(t);
       },
-      config: _require_Lexical.safeCast({
-        disabled: !1,
-        escapeWithArrows: !1,
-        tabSize: void 0,
-      }),
-      dependencies: [j],
+      config: { disabled: !1, escapeWithArrows: !1, tabSize: void 0 },
+      dependencies: [J],
       name: "@lexical/code-indent",
       register: function register(e, t, r) {
         var i = r.getOutput();
         return require("LexicalExtension").effect(function () {
           if (!i.disabled.value)
-            return Z(e, i.tabSize.value, i.escapeWithArrows.value);
+            return ee(e, i.tabSize.value, i.escapeWithArrows.value);
         });
       },
-    });
-    ((exports.$createCodeHighlightNode = A),
+    };
+    ((exports.$createCodeHighlightNode = y),
       (exports.$createCodeNode = T),
       (exports.$getCodeLineDirection = a),
       (exports.$getEndOfCodeInLine = u),
       (exports.$getFirstCodeNodeOfLine = s),
       (exports.$getLastCodeNodeOfLine = l),
       (exports.$getStartOfCodeInLine = c),
-      (exports.$isCodeHighlightNode = y),
+      (exports.$isCodeHighlightNode = R),
       (exports.$isCodeNode = C),
       (exports.$outdentLeadingSpaces = g),
       (exports.$plainifyCodeContent = function (e) {
@@ -1139,23 +1156,23 @@ __d(
               return n.push(require("Lexical").$createTabNode());
             },
             text: function text(e) {
-              return n.push(A(e));
+              return n.push(y(e));
             },
           }),
           n
         );
       }),
-      (exports.CodeExtension = j),
-      (exports.CodeHighlightNode = _R),
-      (exports.CodeImportExtension = J),
-      (exports.CodeImportRules = z),
-      (exports.CodeIndentExtension = ee),
+      (exports.CodeExtension = J),
+      (exports.CodeHighlightNode = _D),
+      (exports.CodeImportExtension = q),
+      (exports.CodeImportRules = j),
+      (exports.CodeIndentExtension = te),
       (exports.CodeNode = _2),
       (exports.DEFAULT_CODE_LANGUAGE = d),
       (exports.getDefaultCodeLanguage = function () {
         return d;
       }),
-      (exports.registerCodeIndentation = Z));
+      (exports.registerCodeIndentation = ee));
   },
   null,
 );

@@ -6,7 +6,6 @@ __d(
     "HasteSharedWebBloksComponents",
     "StdlibWebBloksComponents",
     "WebBloksHasteEnvironmentDynamic",
-    "hasteSharedMinificationMap",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,7 +25,6 @@ __d(
               o("AcqWebBloksComponents").COMPONENTS,
               o("HasteSharedWebBloksComponents").COMPONENTS,
             ),
-            minificationMap: r("hasteSharedMinificationMap"),
           },
         ].concat(t),
       );

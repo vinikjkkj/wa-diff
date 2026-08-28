@@ -16,8 +16,12 @@ __d(
       p = u.useRef,
       _ = u.useState,
       f = 12,
-      g = 128;
-    function h(e) {
+      g = 128,
+      h = "&",
+      y = "\u41FB",
+      C = "#",
+      b = "$";
+    function v(e) {
       var t = o("react-compiler-runtime").c(29),
         n = e.children,
         a = e.node,
@@ -28,20 +32,20 @@ __d(
         f = c.maxNumberOfLines,
         g;
       if (t[0] !== a) {
-        var h = a.get("styles");
-        ((g = b(h)), (t[0] = a), (t[1] = g));
+        var y = a.get(h);
+        ((g = L(y)), (t[0] = a), (t[1] = g));
       } else g = t[1];
-      var v = g,
-        S = v.maxFontSize,
-        R = v.minFontSize,
-        L = _(y),
-        E = L[0],
-        k = L[1],
-        I;
-      t[2] !== f || t[3] !== E.max || t[4] !== E.mid || t[5] !== E.min
-        ? ((I = function () {
-            var e = E.min,
-              t = E.max,
+      var C = g,
+        b = C.maxFontSize,
+        v = C.minFontSize,
+        E = _(S),
+        k = E[0],
+        I = E[1],
+        T;
+      t[2] !== f || t[3] !== k.max || t[4] !== k.mid || t[5] !== k.min
+        ? ((T = function () {
+            var e = k.min,
+              t = k.max,
               n = function () {
                 var e,
                   t,
@@ -59,68 +63,68 @@ __d(
               },
               r = n() <= f,
               o = Math.floor((e + t) / 2);
-            (r ? (e = E.mid + 1) : (t = E.mid - 1),
-              k(function (n) {
+            (r ? (e = k.mid + 1) : (t = k.mid - 1),
+              I(function (n) {
                 return babelHelpers.extends({}, n, { mid: o, max: t, min: e });
               }));
           }),
           (t[2] = f),
-          (t[3] = E.max),
-          (t[4] = E.mid),
-          (t[5] = E.min),
-          (t[6] = I))
-        : (I = t[6]);
-      var T = I,
-        D;
-      t[7] !== T
-        ? ((D = function () {
-            return T();
+          (t[3] = k.max),
+          (t[4] = k.mid),
+          (t[5] = k.min),
+          (t[6] = T))
+        : (T = t[6]);
+      var D = T,
+        x;
+      t[7] !== D
+        ? ((x = function () {
+            return D();
           }),
-          (t[7] = T),
-          (t[8] = D))
-        : (D = t[8]);
-      var x;
-      (t[9] !== T ||
+          (t[7] = D),
+          (t[8] = x))
+        : (x = t[8]);
+      var $;
+      (t[9] !== D ||
       t[10] !== f ||
-      t[11] !== E.max ||
-      t[12] !== E.mid ||
-      t[13] !== E.min
-        ? ((x = [T, f, E.max, E.mid, E.min]),
-          (t[9] = T),
+      t[11] !== k.max ||
+      t[12] !== k.mid ||
+      t[13] !== k.min
+        ? (($ = [D, f, k.max, k.mid, k.min]),
+          (t[9] = D),
           (t[10] = f),
-          (t[11] = E.max),
-          (t[12] = E.mid),
-          (t[13] = E.min),
-          (t[14] = x))
-        : (x = t[14]),
-        m(D, x));
-      var $, P;
-      (t[15] !== S || t[16] !== f || t[17] !== R
-        ? (($ = function () {
+          (t[11] = k.max),
+          (t[12] = k.mid),
+          (t[13] = k.min),
+          (t[14] = $))
+        : ($ = t[14]),
+        m(x, $));
+      var P, N;
+      (t[15] !== b || t[16] !== f || t[17] !== v
+        ? ((P = function () {
             u.current !== f &&
               ((u.current = f),
-              k(function () {
-                return C(R - 1, S);
+              I(function () {
+                return R(v - 1, b);
               }));
           }),
-          (P = [S, f, R]),
-          (t[15] = S),
+          (N = [b, f, v]),
+          (t[15] = b),
           (t[16] = f),
-          (t[17] = R),
-          (t[18] = $),
-          (t[19] = P))
-        : (($ = t[18]), (P = t[19])),
-        m($, P));
-      var N, M;
-      (t[20] !== S || t[21] !== R
-        ? ((N = function () {
+          (t[17] = v),
+          (t[18] = P),
+          (t[19] = N))
+        : ((P = t[18]), (N = t[19])),
+        m(P, N));
+      var M, w;
+      (t[20] !== b || t[21] !== v
+        ? ((M = function () {
             var e = i.current;
             if (e != null) {
               var t = new ResizeObserver(function () {
                 (window.clearTimeout(l.current),
                   (l.current = window.setTimeout(function () {
-                    k(function () {
-                      return C(R, S);
+                    I(function () {
+                      return R(v, b);
                     });
                   }, 100)));
               });
@@ -132,53 +136,55 @@ __d(
               );
             }
           }),
-          (M = [S, R]),
-          (t[20] = S),
-          (t[21] = R),
-          (t[22] = N),
-          (t[23] = M))
-        : ((N = t[22]), (M = t[23])),
-        m(N, M));
-      var w = E.mid + "px",
-        A;
-      t[24] !== w
-        ? ((A = { fontSize: w, display: "inline-block" }),
-          (t[24] = w),
-          (t[25] = A))
-        : (A = t[25]);
-      var F;
+          (w = [b, v]),
+          (t[20] = b),
+          (t[21] = v),
+          (t[22] = M),
+          (t[23] = w))
+        : ((M = t[22]), (w = t[23])),
+        m(M, w));
+      var A = k.mid + "px",
+        F;
+      t[24] !== A
+        ? ((F = { fontSize: A, display: "inline-block" }),
+          (t[24] = A),
+          (t[25] = F))
+        : (F = t[25]);
+      var O;
       return (
-        t[26] !== n || t[27] !== A
-          ? ((F = s.jsx("span", { ref: i, style: A, children: n })),
+        t[26] !== n || t[27] !== F
+          ? ((O = s.jsx("span", { ref: i, style: F, children: n })),
             (t[26] = n),
-            (t[27] = A),
-            (t[28] = F))
-          : (F = t[28]),
-        F
+            (t[27] = F),
+            (t[28] = O))
+          : (O = t[28]),
+        O
       );
     }
-    function y() {
-      return C(f, g);
+    function S() {
+      return R(f, g);
     }
-    function C(e, t) {
+    function R(e, t) {
       return { min: e, max: t, mid: Math.floor(t / 2) };
     }
-    function b(e) {
+    function L(e) {
       var t = g,
         n = f;
       if (e != null)
         for (var r of e)
           switch (r == null ? void 0 : r.styleId) {
+            case y:
             case "bk.style.textspan.ResizeToFitStyle": {
-              var a = r.get("min_text_size");
-              a != null && (n = parseFloat(o("WebBloksUtils").toPx(a)));
-              var i = r.get("max_text_size");
-              i != null && (t = parseFloat(o("WebBloksUtils").toPx(i)));
+              var a = o("WebBloksUtils").cast(r),
+                i = a.get(b);
+              i != null && (n = parseFloat(o("WebBloksUtils").toPx(i)));
+              var l = a.get(C);
+              l != null && (t = parseFloat(o("WebBloksUtils").toPx(l)));
             }
           }
       return { maxFontSize: t, minFontSize: n };
     }
-    l.default = h;
+    l.default = v;
   },
   98,
 );

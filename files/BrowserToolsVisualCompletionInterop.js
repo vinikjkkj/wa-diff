@@ -75,12 +75,9 @@ __d(
             (n.restoreHiddenElements(), (e = null));
           }));
       }
-      ((t.onConnection = function (r) {
-        e = new t(r);
-      }),
-        (t.get = function () {
-          return e;
-        }));
+      t.get = function () {
+        return e;
+      };
       var n = t.prototype;
       return (
         (n.$2 = function (t) {
@@ -124,7 +121,10 @@ __d(
       );
     })();
     ((d.HIDE_NUB_PREFERENCE_KEY = "__fb_comet_visual_performance_hide_nub"),
-      (d.namespace = "visual_completion"));
+      (d.namespace = "visual_completion"),
+      (d.onConnection = function (t) {
+        e = new d(t);
+      }));
     function m(e) {
       ((u = e.getReactComponentStackFromDOMElement_THIS_CAN_BREAK),
         (c = e.appIdForScuba));

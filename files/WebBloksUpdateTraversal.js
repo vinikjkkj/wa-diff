@@ -5,7 +5,11 @@ __d(
     "use strict";
     function e(t, n, r) {
       var a = n.apply(t),
-        i = !!a.get(o("WebBloksConstants").ON_BIND),
+        i = !!a.get(
+          a.usesCanonicalKeys()
+            ? o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY
+            : o("WebBloksConstants").ON_BIND,
+        ),
         l = r[a.styleId];
       if (l) {
         if (l.subnodes)
