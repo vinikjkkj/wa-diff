@@ -1,6 +1,10 @@
 __d(
   "relay-runtime/network/RelayObservable",
-  ["Promise", "relay-runtime/util/isPromise"],
+  [
+    "Promise",
+    "relay-runtime/util/RelayFeatureFlags",
+    "relay-runtime/util/isPromise",
+  ],
   function (t, n, r, o, a, i) {
     "use strict";
     var e,
@@ -108,23 +112,29 @@ __d(
               };
             });
           }),
-          (r.ifEmpty = function (n) {
+          (r.ifEmpty = function (r) {
             var e = this;
             return t.create(function (t) {
-              var r = !1,
-                o;
-              return (
-                (o = e.subscribe({
+              var o = !1,
+                a,
+                i = e.subscribe({
+                  start: function (t) {
+                    n("relay-runtime/util/RelayFeatureFlags")
+                      .ENABLE_IF_EMPTY_CANCELLATION && (a = t);
+                  },
                   next: function (n) {
-                    ((r = !0), t.next(n));
+                    ((o = !0), t.next(n));
                   },
                   error: t.error,
                   complete: function () {
-                    r ? t.complete() : (o = n.subscribe(t));
+                    o ? t.complete() : (a = r.subscribe(t));
                   },
-                })),
+                });
+              return (
+                n("relay-runtime/util/RelayFeatureFlags")
+                  .ENABLE_IF_EMPTY_CANCELLATION || (a = i),
                 function () {
-                  o && o.unsubscribe();
+                  a && a.unsubscribe();
                 }
               );
             });

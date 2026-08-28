@@ -82,33 +82,39 @@ __d(
                 !r,
                 "RelayPublishQueue.run was called, but the call would have been a noop.",
               ),
-              n("relay-runtime/util/RelayFeatureFlags").DISALLOW_NESTED_UPDATES
-                ? l(
-                    this.$12 !== !0,
-                    "A store update was detected within another store update. Please make sure new store updates aren't being executed within an updater function for a different update.",
-                  )
-                : n("warning")(
-                    this.$12 !== !0,
-                    "A store update was detected within another store update. Please make sure new store updates aren't being executed within an updater function for a different update.",
-                  ),
+              this.$13(),
               (this.$12 = !0),
               r)
             )
               return ((this.$12 = !1), []);
+            var o = this.$14();
+            return ((this.$12 = !1), this.$1.notify(t, o));
+          }),
+          (t.$14 = function () {
             this.$7 && this.$6 && (this.$1.restore(), (this.$6 = !1));
-            var o = this.$13();
+            var e = this.$15();
             return (
               (this.$9.size || (this.$7 && this.$10.size)) &&
-                (this.$6 || (this.$1.snapshot(), (this.$6 = !0)), this.$14()),
+                (this.$6 || (this.$1.snapshot(), (this.$6 = !0)), this.$16()),
               (this.$7 = !1),
               this.$10.size > 0
                 ? this.$11 || (this.$11 = this.$1.holdGC())
                 : this.$11 && (this.$11.dispose(), (this.$11 = null)),
-              (this.$12 = !1),
-              this.$1.notify(t, o)
+              e
             );
           }),
-          (t.$15 = function (t) {
+          (t.$13 = function () {
+            n("relay-runtime/util/RelayFeatureFlags").DISALLOW_NESTED_UPDATES
+              ? l(
+                  this.$12 !== !0,
+                  "A store update was detected within another store update. Please make sure new store updates aren't being executed within an updater function for a different update.",
+                )
+              : n("warning")(
+                  this.$12 !== !0,
+                  "A store update was detected within another store update. Please make sure new store updates aren't being executed within an updater function for a different update.",
+                );
+          }),
+          (t.$17 = function (t) {
             var e = this,
               r = t.payload,
               o = t.operation,
@@ -146,14 +152,14 @@ __d(
             var f = c.getIDsMarkedForInvalidation();
             return (this.$1.publish(i, f), c.isStoreMarkedForInvalidation());
           }),
-          (t.$13 = function () {
+          (t.$15 = function () {
             var e = this;
             if (!this.$8.size) return !1;
             var t = !1;
             return (
               this.$8.forEach(function (r) {
                 if (r.kind === "payload") {
-                  var o = e.$15(r);
+                  var o = e.$17(r);
                   t = t || o;
                 } else if (r.kind === "source") {
                   var a = r.source;
@@ -177,7 +183,7 @@ __d(
               t
             );
           }),
-          (t.$14 = function () {
+          (t.$16 = function () {
             var e = this,
               t = n("relay-runtime/store/RelayRecordSource").create(),
               r = new (n("relay-runtime/mutations/RelayRecordSourceMutator"))(

@@ -7,12 +7,13 @@ __d(
     "WAWebBotTypes",
     "WAWebBusinessProfileGetters",
     "WAWebCreateBizBotSysMsgAction",
+    "WAWebFrontendChatGetters",
     "WAWebTos",
     "WAWebUseBusinessProfile.react",
     "react",
     "useWAWebBusinessProfileValues",
+    "useWAWebChatValues",
     "useWAWebListener",
-    "useWAWebModelValues",
     "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,24 +22,28 @@ __d(
       u = (s || (s = o("react"))).useEffect;
     function c(t) {
       var n,
-        a = o("useWAWebModelValues").useModelValues(t, ["bizBotSystemMsgType"]),
-        i = a.bizBotSystemMsgType,
+        a = o("useWAWebChatValues").useChatValues(t.id, [
+          o("WAWebFrontendChatGetters").getBizBotSystemMsgType,
+        ]),
+        i = a[0],
         l = o("WAWebBotBaseGating").isBizBot1pEnabled() ? t.id : null;
       o("WAWebUseBusinessProfile.react").useBusinessProfile(l, [
         "automatedType",
       ]);
       var s =
-          ((n = o(
+          (n = o(
             "useWAWebBusinessProfileValues",
           ).useOptionalBusinessProfileValues(l, [
             o("WAWebBusinessProfileGetters").getIsBizBot1p,
-          ])) == null
-            ? void 0
-            : n[0]) === !0,
-        c = r("useWAWebStableCallback")(function () {
+          ])) != null
+            ? n
+            : [],
+        c = s[0],
+        d = c === !0,
+        m = r("useWAWebStableCallback")(function () {
           o("WAWebBotBaseGating").isBizBot1pEnabled() &&
             o("WAWebBotTos").hasAcceptedBizBotTos() &&
-            s === !0 &&
+            d === !0 &&
             i !== o("WAWebBotTypes").BizBotType.BIZ_1P &&
             o("WAWebCreateBizBotSysMsgAction")
               .maybeCreateBizBot1pDisclosureSysMsg(t)
@@ -55,12 +60,12 @@ __d(
                   .sendLogs("biz-ai-1p-disclosure-insert-failed");
               });
         });
-      (o("useWAWebListener").useListener(o("WAWebTos").TosManager, "change", c),
+      (o("useWAWebListener").useListener(o("WAWebTos").TosManager, "change", m),
         u(
           function () {
-            return c();
+            return m();
           },
-          [t, s, i, c],
+          [t, d, i, m],
         ));
     }
     l.useMaybeInsertBizBotDisclosure = c;

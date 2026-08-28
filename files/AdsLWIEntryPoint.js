@@ -258,6 +258,7 @@ __d(
       AYMT_MBS_CTX_AD_UPSELL_COUPON_TIP: "aymt_mbs_ctx_ad_upsell_coupon_tip",
       AYMT_MBS_DUPLICATE_CTX_AD_UPSELL_TIP:
         "aymt_mbs_duplicate_ctx_ad_upsell_tip",
+      AYMT_MBS_HIGH_QUALITY_POST_BOOST: "aymt_mbs_high_quality_post_boost",
       AYMT_MBS_INSTAGRAM_POST_ENGAGEMENT_HOT_TIP:
         "aymt_mbs_instagram_post_engagement_hot_tip",
       AYMT_MBS_MESSAGING_ACTIONABILITY_INSIGHTS_TIP:

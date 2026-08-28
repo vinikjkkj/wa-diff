@@ -83,7 +83,9 @@ __d(
       var t = e.includes("F"),
         n = e.includes("I");
       return t && n
-        ? s._(/*BTDS*/ "Sharing status to your Facebook and Instagram story...")
+        ? s._(
+            /*BTDS*/ "Sharing status to your Facebook and Instagram stories...",
+          )
         : t
           ? s._(/*BTDS*/ "Sharing status to your Facebook story...")
           : s._(/*BTDS*/ "Sharing status to your Instagram story...");
@@ -104,7 +106,7 @@ __d(
         n = e.includes("I");
       return t && n
         ? s._(
-            /*BTDS*/ "Status sent and shared to your Facebook and Instagram story",
+            /*BTDS*/ "Status sent and shared to your Facebook and Instagram stories",
           )
         : t
           ? s._(/*BTDS*/ "Status sent and shared to your Facebook story")

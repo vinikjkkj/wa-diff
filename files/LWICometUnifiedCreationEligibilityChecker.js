@@ -29,19 +29,20 @@ __d(
         _ = t.isNewAdCreationFlow,
         f = t.isOSSHydrationEnabled,
         g = t.objectStoryID,
-        h = t.objectStorySpecExists;
+        h = t.objectStorySpecExists,
+        y = t.useAFS,
+        C = _ ? s && (u || o) : d || o;
       if (g == null) return null;
       if (p) {
-        var y = _ ? s && (u || o) : d || o;
-        return !y || l || a || n == null || e.includes(n)
-          ? null
-          : r || o || i || m
-            ? o
-              ? "ASSET_FEED_SPEC"
-              : null
-            : h
-              ? null
-              : "TITLE_SPEC";
+        if (!C || l || a || n == null || e.includes(n)) return null;
+        var b = y && i && !r && !m && !h;
+        return r || o || i || m
+          ? o || b
+            ? "ASSET_FEED_SPEC"
+            : null
+          : h
+            ? null
+            : "TITLE_SPEC";
       }
       return h || m ? null : f && s && u && !c ? "OSS_HYDRATION" : null;
     }

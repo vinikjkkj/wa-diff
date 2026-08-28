@@ -8,7 +8,6 @@ __d(
     "cr:19794",
     "cr:9469",
     "oz-player/configs/OzGlobalConfig",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -29,7 +28,6 @@ __d(
       f = _.releasePrefetchUsingNextgendash,
       g = (function () {
         function e() {
-          var e = this;
           ((this.$1 = new Map()),
             (this.MAX_RETRY_COUNT = 1),
             r("oz-player/configs/OzGlobalConfig").getBool(
@@ -37,10 +35,7 @@ __d(
               !1,
             ) &&
               o("RunComet").onBeforeUnload(function () {
-                (e.$1.forEach(function (e) {
-                  (r("vulture")("Mb2UJ4IqRxa1HciXM4nS__r_stE="), e.clear());
-                }),
-                  r("CometDASHPrefetchTaskQueue").clear());
+                r("CometDASHPrefetchTaskQueue").clear();
               }));
         }
         var t = e.prototype;

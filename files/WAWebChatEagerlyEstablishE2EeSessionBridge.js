@@ -8,6 +8,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMaibaWASSMigration",
     "WAWebManageE2ESessionsJob",
+    "WAWebPQGatingUtils",
     "WAWebPostPrekeysDepletionMetric",
     "WAWebSendMsgDatabaseJob",
     "WAWebSessionScope",
@@ -63,11 +64,11 @@ __d(
                 void 0,
                 !0,
               ),
-              _ = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(p, {
+              f = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(p, {
                 isFullAudience: !1,
               }),
-              f = _.skDistribList;
-            ((n = f),
+              g = f.skDistribList;
+            ((n = g),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -75,11 +76,11 @@ __d(
                     " allDevices=",
                     "",
                   ])),
-                f.length,
+                g.length,
                 p.length,
               ));
           } else {
-            var g = o(
+            var h = o(
               "WAWebMaibaWASSMigration",
             ).maybeReplaceMaibaAiHubWidWithFbid(
               o(
@@ -87,19 +88,16 @@ __d(
               ).maybeReplaceDeprecatedBotPnWithFbid(t.id),
             );
             n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([
-              g,
+              h,
               o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
             ]);
           }
           try {
-            var h = t.id.isStatus()
-                ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
-                : o("WAWebSessionScope").SessionScope.DEFAULT,
-              y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-                identityChanged: !1,
-                sessionScope: h,
-                wids: n,
-              });
+            var y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              sessionScope: _(t),
+              wids: n,
+            });
             o(
               "WAWebPostPrekeysDepletionMetric",
             ).maybePostPrekeysDepletionMetric({
@@ -136,6 +134,14 @@ __d(
         })),
         p.apply(this, arguments)
       );
+    }
+    function _(e) {
+      return e.id.isStatus()
+        ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
+        : o("WAWebChatGetters").getIsUser(e) &&
+            o("WAWebPQGatingUtils").isPq1on1MessageEnabled()
+          ? o("WAWebSessionScope").SessionScope.PQ
+          : o("WAWebSessionScope").SessionScope.DEFAULT;
     }
     l.eagerlyEstablishE2EESession = m;
   },

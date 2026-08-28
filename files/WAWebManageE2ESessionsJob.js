@@ -1,50 +1,69 @@
 __d(
   "WAWebManageE2ESessionsJob",
   [
-    "MetaConfig",
     "Promise",
     "WAJids",
     "WALogger",
     "WAResolvable",
     "WAWebAppTracker",
     "WAWebBackendErrors",
-    "WAWebBackendWorkerClient",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebFetchPrekeysJob",
     "WAWebManagePhoneNumberMappingJob",
     "WAWebProcessKeyBundle",
-    "WAWebProcessKeyBundleInWorker",
     "WAWebRunInBatches",
     "WAWebSessionScope",
     "WAWebSignal",
+    "WAWebSignalCommonUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m,
-      p,
-      _,
-      f,
-      g,
-      h,
-      y = 406,
-      C = new Map(),
-      b = { SESSION_CHECK: 50, PROCESS_KEY_BUNDLES: 1 };
-    function v(e) {
-      return S.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function S() {
+    function C() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.filter(E),
+            r = yield (h || (h = n("Promise"))).all([
+              o("WAWebSignal").Session.hasSignalSessions(
+                e,
+                o("WAWebSessionScope").SessionScope.DEFAULT,
+              ),
+              o("WAWebSignal").Session.hasSignalSessions(
+                t,
+                o("WAWebSessionScope").SessionScope.PQ,
+              ),
+            ]),
+            a = r[0],
+            i = r[1];
+          return {
+            default: e.filter(function (e, t) {
+              return a[t] === !0;
+            }),
+            pq: t.filter(function (e, t) {
+              return i[t] === !0;
+            }),
+          };
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    var b = 406,
+      v = new Map(),
+      S = { SESSION_CHECK: 50, PROCESS_KEY_BUNDLES: 1 };
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.identityChanged,
             a = r === void 0 ? !1 : r,
             i = t.options,
             l = t.sessionScope,
-            v = t.wids;
+            y = t.wids;
           ((i == null ? void 0 : i.skipOfflineDeliveryWait) !== !0 &&
             (yield o(
               "WAWebEventsWaitForOfflineDeliveryEnd",
@@ -59,8 +78,8 @@ __d(
                   " wids: ",
                   "",
                 ])),
-              v.length,
-              v
+              y.length,
+              y
                 .map(function (e) {
                   return e.toString();
                 })
@@ -69,7 +88,7 @@ __d(
           try {
             yield o(
               "WAWebManagePhoneNumberMappingJob",
-            ).ensurePhoneNumberToLidMapping(v);
+            ).ensurePhoneNumberToLidMapping(y);
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -79,63 +98,65 @@ __d(
                     " wids: ensurePhoneNumberToLidMapping failed: ",
                     "",
                   ])),
-                v.length,
+                y.length,
                 e,
               )
               .sendLogs("ensureE2ESessions", { sampling: 0.01 });
           }
-          var S = new (o("WAResolvable").Resolvable)(),
+          var C = new (o("WAResolvable").Resolvable)(),
+            R = [],
             L = [],
             E = [],
-            k = 0;
-          (v.forEach(function (e) {
-            if (!e.isUserNotPSA()) {
-              k++;
-              return;
-            }
-            var t = C.get(e);
-            t ? L.push(t) : (E.push(e), C.set(e, S.promise));
-          }),
-            k > 0 &&
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "ensureE2ESessions: ",
-                    " wids: ",
-                    " skipped (non-user)",
-                  ])),
-                v.length,
-                k,
-              ));
-          var I = 0,
-            T = 0,
-            D = [],
-            x = [];
+            I = 0,
+            D = 0,
+            x = 0,
+            $ = [],
+            P = [];
           try {
-            if (E.length > 0) {
-              var $ = [];
+            if (
+              (y.forEach(function (e) {
+                if (!e.isUserNotPSA()) {
+                  I++;
+                  return;
+                }
+                var t = o("WAWebSignalCommonUtils").createSignalAddress(e, l),
+                  n = v.get(t);
+                n ? R.push(n) : (E.push(e), L.push(t), v.set(t, C.promise));
+              }),
+              I > 0 &&
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "ensureE2ESessions: ",
+                      " wids: ",
+                      " skipped (non-user)",
+                    ])),
+                  y.length,
+                  I,
+                ),
+              E.length > 0)
+            ) {
+              var N = [];
               if (
                 (yield o("WAWebRunInBatches").runInBatches(
                   E,
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
-                        var t = yield o(
-                          "WAWebSignal",
-                        ).Session.hasSignalSessions(e, l);
-                        $.push.apply($, t);
+                        var t = yield k(e, l);
+                        N.push.apply(N, t);
                       },
                     );
                     return function (t) {
                       return e.apply(this, arguments);
                     };
                   })(),
-                  { batchSize: b.SESSION_CHECK },
+                  { batchSize: S.SESSION_CHECK },
                 ),
                 E.forEach(function (e, t) {
-                  $[t] || x.push(e);
+                  N[t] || P.push(e);
                 }),
-                x.length > 0)
+                P.length > 0)
               ) {
                 o("WALogger").LOG(
                   c ||
@@ -144,12 +165,12 @@ __d(
                       " wids: fetch prekeys for ",
                       " wids",
                     ])),
-                  v.length,
-                  x.length,
+                  y.length,
+                  P.length,
                 );
-                var P = yield o("WAWebFetchPrekeysJob").fetchPrekeys(x, a),
-                  N = P.errors,
-                  M = P.prekeyBundles;
+                var M = yield o("WAWebFetchPrekeysJob").fetchPrekeys(P, a),
+                  w = M.errors,
+                  A = M.prekeyBundles;
                 o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -159,44 +180,15 @@ __d(
                       ", err ",
                       "",
                     ])),
-                  v.length,
-                  x.length,
-                  M.length,
-                  N.length,
+                  y.length,
+                  P.length,
+                  A.length,
+                  w.length,
                 );
-                var w = 0;
-                if (R() && l !== o("WAWebSessionScope").SessionScope.PQ) {
-                  var A,
-                    F,
-                    O = yield o(
-                      "WAWebProcessKeyBundleInWorker",
-                    ).processKeyBundlesInWorker(M, l);
-                  ((T += (A = O.depletedPrekeyCount) != null ? A : 0),
-                    (w += (F = O.processedPrekeyCount) != null ? F : 0));
-                } else
-                  yield o("WAWebRunInBatches").runInBatches(
-                    M,
-                    (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          var t,
-                            n,
-                            r = yield o(
-                              "WAWebProcessKeyBundle",
-                            ).processKeyBundles([].concat(e), l);
-                          ((T += (t = r.depletedPrekeyCount) != null ? t : 0),
-                            (w +=
-                              (n = r.processedPrekeyCount) != null ? n : 0));
-                        },
-                      );
-                      return function (t) {
-                        return e.apply(this, arguments);
-                      };
-                    })(),
-                    { batchSize: b.PROCESS_KEY_BUNDLES },
-                  );
+                var F = yield T(A, l);
                 if (
-                  (o("WALogger").LOG(
+                  ((x += F.depletedPrekeyCount),
+                  o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "ensureE2ESessions: ",
@@ -204,22 +196,22 @@ __d(
                         "/",
                         " E2E sessions +",
                       ])),
-                    v.length,
-                    w,
-                    v.length,
+                    y.length,
+                    F.processedPrekeyCount,
+                    y.length,
                   ),
-                  N.length > 0)
+                  w.length > 0)
                 )
-                  throw N[0];
-                I = x.length;
+                  throw w[0];
+                D = P.length;
               }
             }
-            S.resolve();
+            C.resolve();
           } catch (e) {
             if (
               e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-              e.statusCode === y &&
-              x.every(function (e) {
+              e.statusCode === b &&
+              P.every(function (e) {
                 return (
                   e.device != null && e.device !== o("WAJids").DEFAULT_DEVICE_ID
                 );
@@ -232,15 +224,13 @@ __d(
                     " wids: failed with 406 error code for companion devices: ",
                     "",
                   ])),
-                v.length,
-                x
-                  .map(function (e) {
-                    return e.toString();
-                  })
-                  .join(),
+                y.length,
+                P.map(function (e) {
+                  return e.toString();
+                }).join(),
               ),
-                (D = x),
-                S.resolve());
+                ($ = P),
+                C.resolve());
             else
               throw (
                 o("WALogger").WARN(
@@ -250,23 +240,23 @@ __d(
                       " wids: request failed: ",
                       "",
                     ])),
-                  v.length,
+                  y.length,
                   e,
                 ),
-                S.resolve(e),
+                C.resolve(e),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.PreKeyProcessing,
                 ),
                 e
               );
           } finally {
-            E.forEach(function (e) {
-              C.delete(e);
+            L.forEach(function (e) {
+              v.delete(e);
             });
           }
           try {
-            var B = (yield (h || (h = n("Promise"))).all(L)).find(Boolean);
-            if (B) throw B;
+            var O = (yield (h || (h = n("Promise"))).all(R)).find(Boolean);
+            if (O) throw O;
           } catch (e) {
             throw (
               o("WALogger").WARN(
@@ -276,7 +266,7 @@ __d(
                     " wids: deduped requests failed: ",
                     "",
                   ])),
-                v.length,
+                y.length,
                 e,
               ),
               o("WAWebAppTracker").AppTracker.stop(
@@ -299,24 +289,116 @@ __d(
                   " req, ",
                   " deduped",
                 ])),
-              v.length,
-              E.length - I,
-              I,
-              L.length,
+              y.length,
+              E.length - D,
+              D,
+              R.length,
             ),
-            { missedPrekeyCount: I, depletedPrekeyCount: T, deletedDevices: D }
+            { missedPrekeyCount: D, depletedPrekeyCount: x, deletedDevices: $ }
           );
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R() {
+    function E(e) {
       return (
-        o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady() &&
-        r("MetaConfig")._("463") === 2
+        o("WAWebSignalCommonUtils").createSignalAddress(
+          e,
+          o("WAWebSessionScope").SessionScope.DEFAULT,
+        ) !==
+        o("WAWebSignalCommonUtils").createSignalAddress(
+          e,
+          o("WAWebSessionScope").SessionScope.PQ,
+        )
       );
     }
-    l.ensureE2ESessions = v;
+    function k(e, t) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t !== o("WAWebSessionScope").SessionScope.PQ)
+            return o("WAWebSignal").Session.hasSignalSessions(e, t);
+          var n = yield y(e),
+            r = n.default,
+            a = n.pq,
+            i = new Set([].concat(r, a));
+          return e.map(function (e) {
+            return i.has(e);
+          });
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e, t) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t !== o("WAWebSessionScope").SessionScope.PQ) return $(e, t);
+          var n = x(e),
+            r = n.defaultPrekeyBundles,
+            a = n.pqPrekeyBundles,
+            i = yield $(r, o("WAWebSessionScope").SessionScope.DEFAULT),
+            l = yield $(a, o("WAWebSessionScope").SessionScope.PQ);
+          return {
+            depletedPrekeyCount: i.depletedPrekeyCount + l.depletedPrekeyCount,
+            processedPrekeyCount:
+              i.processedPrekeyCount + l.processedPrekeyCount,
+          };
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e) {
+      var t = [],
+        n = [];
+      return (
+        e.forEach(function (e) {
+          e.kyberKey != null && E(e.wid) ? n.push(e) : t.push(e);
+        }),
+        { defaultPrekeyBundles: t, pqPrekeyBundles: n }
+      );
+    }
+    function $(e, t) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = 0,
+            a = 0;
+          return (
+            yield o("WAWebRunInBatches").runInBatches(
+              e,
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var n,
+                      i,
+                      l = yield o("WAWebProcessKeyBundle").processKeyBundles(
+                        [].concat(e),
+                        t,
+                      );
+                    ((r += (n = l.depletedPrekeyCount) != null ? n : 0),
+                      (a += (i = l.processedPrekeyCount) != null ? i : 0));
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+              { batchSize: S.PROCESS_KEY_BUNDLES },
+            ),
+            { depletedPrekeyCount: r, processedPrekeyCount: a }
+          );
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    ((l.getSignalSessionWids = y), (l.ensureE2ESessions = R));
   },
   98,
 );

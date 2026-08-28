@@ -142,27 +142,26 @@ __d(
       C = { memory: y, localstorage: g, sessionstorage: h },
       b = (function () {
         function t(e, t) {
+          var o = this;
           ((this._changeCallbacks = []), (this._key_prefix = "_cs_"));
-          var o;
+          var a;
           ((this._exception = null),
             t != null && t !== "" && (this._key_prefix = t),
-            e === "AUTO" || !e ? (o = "memory") : (o = e),
-            o &&
-              (!C[o] || !C[o].available()
+            e === "AUTO" || !e ? (a = "memory") : (a = e),
+            a &&
+              (!C[a] || !C[a].available()
                 ? ((s || (s = r("ExecutionEnvironment"))).canUseDOM,
                   (this._backend = new y()))
-                : (this._backend = new C[o]())));
-          var a = this.useBrowserStorage();
-          a &&
-            n("cr:6943").listen(
-              window,
-              "storage",
-              this._onBrowserValueChanged.bind(this),
-            );
-          var i = a
+                : (this._backend = new C[a]())));
+          var i = this.useBrowserStorage();
+          i &&
+            n("cr:6943").listen(window, "storage", function (e) {
+              return o._onBrowserValueChanged(e);
+            });
+          var l = i
             ? this._backend.getStore().getItem(p)
             : this._backend.getStore()[p];
-          i !== m && this.clearOwnKeys();
+          l !== m && this.clearOwnKeys();
         }
         var o = t.prototype;
         return (

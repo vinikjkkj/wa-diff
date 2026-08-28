@@ -1,14 +1,10 @@
 __d(
   "WAWebConversationDeprecatedLidChatUtils",
-  ["WAWebABProps", "WAWebApiContact", "WAWebLid1X1MigrationGating"],
+  ["WAWebApiContact", "WAWebLid1X1MigrationGating"],
   function (t, n, r, o, a, i, l) {
     var e = { isLidDeprecated: !1 };
     function s(e) {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_disable_compose_box_for_deprecated_chats",
-      )
-        ? u(e).isLidDeprecated
-        : !1;
+      return u(e).isLidDeprecated;
     }
     function u(t) {
       if (

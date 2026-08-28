@@ -4,33 +4,40 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      t.error || s(e, t.result);
+      if (!t.error) {
+        var n = [];
+        (s(e, t.result, n), r("CometRouteMapper").installBatch(n));
+      }
     }
-    function s(e, t) {
+    function s(e, t, n) {
       if (t != null) {
         if (t.type === "routeRedirect") {
-          (r("CometRouteMapper").installRedirect(
-            e,
-            t.routeRedirect,
-            t.routeMatchInfos,
-          ),
-            s(t.redirectUrl, t.redirectResult));
+          (n.push({
+            rawUrl: e,
+            redirectUrl: t.redirectUrl,
+            result: { routeRedirect: t.routeRedirect, type: "routeRedirect" },
+            routeMatchInfos: t.routeMatchInfos,
+          }),
+            s(t.redirectUrl, t.redirectResult, n));
           return;
         }
         if (t.type === "routeDefinition") {
-          r("CometRouteMapper").installRoute(
-            e,
-            t.routeDefinition,
-            t.routeMatchInfos,
-          );
+          n.push({
+            rawUrl: e,
+            result: {
+              routeDefinition: t.routeDefinition,
+              type: "routeDefinition",
+            },
+            routeMatchInfos: t.routeMatchInfos,
+          });
           return;
         }
         if (t.type === "routeResolver") {
-          r("CometRouteMapper").installRouteResolver(
-            e,
-            t.routeResolver,
-            t.routeMatchInfos,
-          );
+          n.push({
+            rawUrl: e,
+            result: { routeResolver: t.routeResolver, type: "routeResolver" },
+            routeMatchInfos: t.routeMatchInfos,
+          });
           return;
         }
         r("FBLogger")("comet_infra").mustfix(

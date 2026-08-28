@@ -13,7 +13,9 @@ __d(
       p = d("info"),
       _ = d("obscurity"),
       f = d("hasSynced"),
-      g = c(
+      g = d("isHardRefresh"),
+      h = d("needsUpdate"),
+      y = c(
         function (t) {
           var n = t[0],
             r = t[1],
@@ -52,7 +54,9 @@ __d(
       (l.getInfo = p),
       (l.getObscurity = _),
       (l.getHasSynced = f),
-      (l.getDisplayInfo = g));
+      (l.getIsHardRefresh = g),
+      (l.getNeedsUpdate = h),
+      (l.getDisplayInfo = y));
   },
   98,
 );

@@ -38,21 +38,24 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t, n) {
+    function u(e, t, n, r) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          for (var a = [], i = 0; i < n; i++) {
-            var l =
-                (t + i) %
-                o("WASignalPQTypes").PQ_PRE_KEY_NON_INCLUSIVE_UPPER_BORDER,
-              s = yield e(l, r);
-            a.push(s);
-          }
-          return a;
-        })),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, n, r, a) {
+            for (var i = [], l = 0; l < n; l++) {
+              yield a == null ? void 0 : a();
+              var s =
+                  (t + l) %
+                  o("WASignalPQTypes").PQ_PRE_KEY_NON_INCLUSIVE_UPPER_BORDER,
+                u = yield e(s, r);
+              i.push(u);
+            }
+            return i;
+          },
+        )),
         c.apply(this, arguments)
       );
     }

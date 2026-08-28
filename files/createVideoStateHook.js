@@ -1,6 +1,13 @@
 __d(
   "createVideoStateHook",
-  ["VideoPlayerHooks", "gkx", "react", "react-compiler-runtime", "useStable"],
+  [
+    "FBLogger",
+    "VideoPlayerHooks",
+    "gkx",
+    "react",
+    "react-compiler-runtime",
+    "useStable",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -8,11 +15,22 @@ __d(
       u = e || (e = o("react")),
       c = u.useEffect,
       d = u.useMemo,
-      m = u.useSyncExternalStore,
-      p = new Set(),
-      _ = function (t) {
+      m = u.useSyncExternalStore;
+    function p(e) {
+      if (e == null) return e;
+      switch (typeof e) {
+        case "boolean":
+        case "number":
+        case "string":
+          return e;
+        default:
+          return String(e);
+      }
+    }
+    var _ = new Set(),
+      f = function (t) {
         var e = new Map();
-        p.add(e);
+        _.add(e);
         var n = function () {};
         function a(t, n) {
           var r = e.get(t);
@@ -139,14 +157,14 @@ __d(
         }
         return { setterHook: u, stateHook: l, valueHook: c };
       };
-    function f(e) {
+    function g(e) {
       var t = o("react-compiler-runtime").c(3),
         n,
         r;
       (t[0] !== e
         ? ((n = function () {
             return function () {
-              p.forEach(function (t) {
+              _.forEach(function (t) {
                 t.delete(e);
               });
             };
@@ -158,11 +176,11 @@ __d(
         : ((n = t[1]), (r = t[2])),
         c(n, r));
     }
-    var g = _,
-      h = f;
-    ((l.createVideoStateHookImpl_SafeForConcurrentRendering = _),
-      (l.createVideoStateHook = g),
-      (l.useCleanupVideoStateHooks_INTERNAL = h));
+    var h = f,
+      y = g;
+    ((l.createVideoStateHookImpl_SafeForConcurrentRendering = f),
+      (l.createVideoStateHook = h),
+      (l.useCleanupVideoStateHooks_INTERNAL = y));
   },
   98,
 );

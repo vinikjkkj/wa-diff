@@ -10,7 +10,8 @@ __d(
       c = e.field,
       d = s,
       m = c("platform"),
-      p = u(
+      p = c("pushname"),
+      _ = u(
         function (e) {
           var t = e[0];
           return (
@@ -20,7 +21,10 @@ __d(
         },
         [m],
       );
-    ((l.clearConnGetterCacheFor = d), (l.getPlatform = m), (l.getIsSMB = p));
+    ((l.clearConnGetterCacheFor = d),
+      (l.getPlatform = m),
+      (l.getPushname = p),
+      (l.getIsSMB = _));
   },
   98,
 );

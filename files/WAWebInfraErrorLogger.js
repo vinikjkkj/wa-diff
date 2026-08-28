@@ -93,17 +93,18 @@ __d(
                 )),
                 (u.stack = p(t)),
                 (u.taalOpcodes =
-                  t.taalOpcodes == null ? void 0 : [].concat(t.taalOpcodes)),
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ErrorPubSub]",
-                      ])),
-                  )
-                  .catching(u)
-                  .sendLogs("error-pubsub", { sampling: n })
-                  .tags("ErrorPubSub"));
+                  t.taalOpcodes == null ? void 0 : [].concat(t.taalOpcodes)));
+              var c =
+                t.type === "warn" ? o("WALogger").WARN : o("WALogger").ERROR;
+              c(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[ErrorPubSub]",
+                  ])),
+              )
+                .catching(u)
+                .sendLogs("error-pubsub", { sampling: n })
+                .tags("ErrorPubSub");
             }
           }
         });

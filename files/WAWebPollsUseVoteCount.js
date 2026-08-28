@@ -7,55 +7,49 @@ __d(
     "react",
     "react-compiler-runtime",
     "useWAWebEventTargetValue",
-    "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useEffect;
     function u(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["id"]), (t[0] = n))
-        : (n = t[0]);
-      var a = o("useWAWebModelValues").useModelValues(e, n),
-        i = a.id,
-        l;
-      t[1] !== i
-        ? ((l = o(
+      var t = o("react-compiler-runtime").c(7),
+        n = e.id,
+        a;
+      t[0] !== n
+        ? ((a = o(
             "WAWebPollsPollVoteCollection",
-          ).PollVoteCollection.getForParentAddressingModeInsensitive([i])),
-          (t[1] = i),
-          (t[2] = l))
-        : (l = t[2]);
-      var u = l,
-        c = u[0],
-        d;
-      t[3] !== c
-        ? ((d = function () {
-            return c.getVoteCount();
+          ).PollVoteCollection.getForParentAddressingModeInsensitive([n])),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l = i[0],
+        u;
+      t[2] !== l
+        ? ((u = function () {
+            return l.getVoteCount();
           }),
-          (t[3] = c),
-          (t[4] = d))
-        : (d = t[4]);
-      var m = r("useWAWebEventTargetValue")(c, "add remove reset", d),
-        p,
-        _;
+          (t[2] = l),
+          (t[3] = u))
+        : (u = t[3]);
+      var c = r("useWAWebEventTargetValue")(l, "add remove reset", u),
+        d,
+        m;
       return (
-        t[5] !== i
-          ? ((p = function () {
+        t[4] !== n
+          ? ((d = function () {
               o("WAWebAddonHydrationUtils").hydrateAddons({
-                ids: [i],
+                ids: [n],
                 hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
               });
             }),
-            (_ = [i]),
-            (t[5] = i),
-            (t[6] = p),
-            (t[7] = _))
-          : ((p = t[6]), (_ = t[7])),
-        s(p, _),
-        m
+            (m = [n]),
+            (t[4] = n),
+            (t[5] = d),
+            (t[6] = m))
+          : ((d = t[5]), (m = t[6])),
+        s(d, m),
+        c
       );
     }
     l.useVoteCount = u;

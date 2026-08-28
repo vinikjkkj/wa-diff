@@ -13,7 +13,7 @@ __d(
     "VideoPlayerOzImplementationEnginePartsImplUtils",
     "VideoPlayerOzImplementationLatencyLevelManager",
     "VideoPlayerOzPlayerModuleLoaderDeferredForDisplay",
-    "cr:4154",
+    "cr:11333",
     "err",
     "gkx",
     "promiseDone",
@@ -61,7 +61,7 @@ __d(
         return (e = h.current) != null ? e : null;
       }
       var L;
-      n("cr:4154") && (L = new (n("cr:4154"))());
+      n("cr:11333") && (L = new (n("cr:11333"))());
       var E = "comet_oz",
         k = t.loggingMetaData.instanceKey,
         I = t.initiateLivePlaybackFromStart,

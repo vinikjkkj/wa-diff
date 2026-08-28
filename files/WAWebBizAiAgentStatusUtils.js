@@ -10,6 +10,7 @@ __d(
     "WAWebChatGetters",
     "WAWebCommunityGatingUtils",
     "WAWebContactGetters",
+    "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
@@ -18,7 +19,6 @@ __d(
     "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebListener",
-    "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -120,36 +120,20 @@ __d(
     }
     function v(e) {
       var t,
-        n = o("react-compiler-runtime").c(6),
-        r;
-      n[0] !== e
-        ? ((r = o("WAWebChatCollection").ChatCollection.get(e)),
-          (n[0] = e),
-          (n[1] = r))
-        : (r = n[1]);
-      var a = r,
-        i = C(e),
-        l =
-          (t = o("useWAWebModelValues").useOptionalModelValues(a, [
-            "forceDismissAiAgentBlockBar",
+        n = o("WAWebChatCollection").ChatCollection.get(e),
+        r = C(e),
+        a =
+          (t = o("useWAWebChatValues").useOptionalChatValues(e, [
+            o("WAWebFrontendChatGetters").getForceDismissAiAgentBlockBar,
           ])) != null
             ? t
-            : {},
-        s = l.forceDismissAiAgentBlockBar,
-        u;
+            : [],
+        i = a[0];
       return (
-        n[2] !== a || n[3] !== s || n[4] !== i
-          ? ((u =
-              i &&
-              a != null &&
-              s !== !0 &&
-              !o("WAWebContactGetters").getIsAiHub(a.contact)),
-            (n[2] = a),
-            (n[3] = s),
-            (n[4] = i),
-            (n[5] = u))
-          : (u = n[5]),
-        u
+        r &&
+        n != null &&
+        i !== !0 &&
+        !o("WAWebContactGetters").getIsAiHub(n.contact)
       );
     }
     function S(e) {

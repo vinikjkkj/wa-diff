@@ -7,8 +7,9 @@ __d(
       u = e,
       c = u.useLayoutEffect,
       d = u.useRef,
-      m = u.useState;
-    function p(e) {
+      m = u.useState,
+      p = '[data-wbloks-inline-truncation="true"]';
+    function _(e) {
       var t = e.children,
         n = e.dimensions,
         r = e.node,
@@ -16,59 +17,58 @@ __d(
         i = o("WebBloksComponentContext").useWebBloksContext(),
         l = i.renderChildren,
         u = d(null),
-        p = m(!1),
-        f = p[0],
-        g = p[1],
-        h = r.get("max_number_of_lines"),
-        y = n.lineHeight,
-        C = n.textSizePx,
-        b = C * y,
-        v = b * (h != null ? h : 1);
+        _ = m(!1),
+        g = _[0],
+        h = _[1],
+        y = r.get("max_number_of_lines"),
+        C = n.lineHeight,
+        b = n.textSizePx,
+        v = b * C,
+        S = v * (y != null ? y : 1);
       if (
         (c(
           function () {
             var e, t;
-            g(
+            h(
               ((e = (t = u.current) == null ? void 0 : t.clientHeight) != null
                 ? e
                 : 0) >
-                v + b / 2,
+                S + v / 2,
             );
           },
-          [v, b],
+          [S, v],
         ),
-        h == null)
+        y == null)
       )
         return null;
-      var S =
-          u.current != null
-            ? window.getComputedStyle(u.current).direction === "rtl"
-            : !1,
-        R = S ? "left" : "right",
-        L = o("WebBloksTextStyle").getMaxTextSizePx(a) * y,
-        E = {
-          fontSize: C,
-          maxHeight: v + "px",
-          wordBreak: h === 1 ? "break-all" : "break-word",
+      var R = u.current,
+        L = R != null ? window.getComputedStyle(R).direction === "rtl" : !1,
+        E = L ? "left" : "right",
+        k = y === 1 || (R == null ? void 0 : R.closest(p)) != null,
+        I = o("WebBloksTextStyle").getMaxTextSizePx(a) * C,
+        T = {
+          fontSize: b,
+          maxHeight: S + "px",
+          wordBreak: k ? "break-all" : "break-word",
         },
-        k = l(a);
+        D = l(a);
       return s.jsxs("div", {
-        style: E,
-        className: _.container,
+        style: T,
+        className: f.container,
         children: [
-          f &&
+          g &&
             s.jsxs(s.Fragment, {
               children: [
-                s.jsx("div", { style: { float: R, height: v - L + "px" } }),
+                s.jsx("div", { style: { float: E, height: S - I + "px" } }),
                 s.jsx("div", {
-                  dir: S ? "rtl" : "ltr",
-                  style: { float: R, clear: R },
-                  children: k,
+                  dir: L ? "rtl" : "ltr",
+                  style: { float: E, clear: E },
+                  children: D,
                 }),
               ],
             }),
           s.jsx("div", {
-            className: _.content,
+            className: f.content,
             dir: "auto",
             ref: u,
             children: t,
@@ -76,12 +76,12 @@ __d(
         ],
       });
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    var _ = o("WebBloksStyle").createStyles({
+    _.displayName = _.name + " [from " + i.id + "]";
+    var f = o("WebBloksStyle").createStyles({
       container: { overflow: "hidden" },
       content: { float: "none" },
     });
-    l.default = p;
+    l.default = _;
   },
   98,
 );

@@ -265,17 +265,28 @@ __d(
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSignalStorage").getKyberPreKeyTable().remove(e);
+          yield o("WAWebSignalStorage").getKyberLastResortKeyTable().remove(e);
         })),
         A.apply(this, arguments)
       );
     }
-    function F() {
+    function F(e) {
       return O.apply(this, arguments);
     }
     function O() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebSignalStorage").getKyberPreKeyTable().remove(e);
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    function B() {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebSignalStorageUtils")
             .getStorage()
             .lock(
@@ -322,30 +333,30 @@ __d(
                 ])),
             ));
         })),
-        O.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function B() {
-      return W.apply(this, arguments);
+    function q() {
+      return U.apply(this, arguments);
     }
-    function W() {
+    function U() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSignalStorage")
               .getMetaTable()
               .get(o("WAWebSignalConst").META_KEYS.PQ_MIGRATED),
             t = _(e);
           return t;
         })),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function U() {
+    function H() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebSignalStorage")
             .getMetaTable()
             .createOrReplace({
@@ -353,7 +364,7 @@ __d(
               value: e,
             });
         })),
-        U.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
     ((l.getNextKyberPreKeyId = f),
@@ -366,10 +377,11 @@ __d(
       (l.getUnsentKyberPreKeys = D),
       (l.loadKyberKeysForDigest = $),
       (l.markKyberPreKeysAsSent = N),
-      (l.removeKyberPreKey = w),
-      (l.clearKyberPreKeysAndMigrationState = F),
-      (l.isPQMigrated = B),
-      (l.setPQMigrated = q));
+      (l.removeKyberLastResortKey = w),
+      (l.removeKyberPreKey = F),
+      (l.clearKyberPreKeysAndMigrationState = B),
+      (l.isPQMigrated = q),
+      (l.setPQMigrated = V));
   },
   98,
 );

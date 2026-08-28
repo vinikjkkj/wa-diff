@@ -22,31 +22,35 @@ __d(
       m = u("id"),
       p = u("pushname"),
       _ = u("isBusiness"),
-      f = u("verifiedLevel"),
-      g = u("verifiedName"),
-      h = u("name"),
-      y = u("forcedBusinessUpdateFromServer"),
-      C = u("isContactSyncCompleted"),
-      b = u("type"),
-      v = u("requestedPnTimestamp"),
-      S = u("shortName"),
-      R = u("isEnterprise"),
-      L = u("isSmb"),
-      E = u("labels"),
-      k = u("statusMute"),
-      I = u("parentStatusMute"),
-      T = s(
+      f = u("isContactOptedOut"),
+      g = u("isEverOptedOutOfMarketingMessages"),
+      h = u("isMarketingMessageThread"),
+      y = u("profilePicThumb"),
+      C = u("verifiedLevel"),
+      b = u("verifiedName"),
+      v = u("name"),
+      S = u("forcedBusinessUpdateFromServer"),
+      R = u("isContactSyncCompleted"),
+      L = u("type"),
+      E = u("requestedPnTimestamp"),
+      k = u("shortName"),
+      I = u("isEnterprise"),
+      T = u("isSmb"),
+      D = u("labels"),
+      x = u("statusMute"),
+      $ = u("parentStatusMute"),
+      P = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [k, I],
+        [x, $],
       ),
-      D = u("privacyMode"),
-      x = u("isHosted"),
-      $ = u("businessProfile"),
-      P = s(
+      N = u("privacyMode"),
+      M = u("isHosted"),
+      w = u("businessProfile"),
+      A = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -56,109 +60,109 @@ __d(
             ? a
             : t;
         },
-        [p, _, f, g],
+        [p, _, C, b],
       ),
-      N = s(
+      F = s(
         function (e) {
           var t = e[0];
           return t || "";
         },
         [p],
       ),
-      M = s(
+      O = s(
         function (e) {
           var t = e[0];
           return o("WAWebUserPrefsMeUser").isMeAccount(t);
         },
         [m],
       ),
-      w = s(
+      B = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [m],
       ),
-      A = s(
+      W = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [m],
       ),
-      F = s(
+      q = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [m],
       ),
-      O = s(
+      U = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [m],
       ),
-      B = s(
+      V = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [m],
       ),
-      W = s(
+      H = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isAiHub(t);
         },
         [m],
       ),
-      q = s(
+      G = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [m],
       ),
-      U = s(
+      z = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [m],
       ),
-      V = s(
+      j = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isSupportAccount(t);
         },
         [m],
       ),
-      H = s(
+      K = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isCAPISupportAccount(t);
         },
         [m],
       ),
-      G = s(
+      Q = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n === "in";
         },
-        [w, b],
+        [B, L],
       ),
-      z = s(
+      X = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t ? r("WAWebWid").user(n) : null;
         },
-        [w, m],
+        [B, m],
       ),
-      j = s(
+      Y = s(
         function (e) {
           var t = e[0];
           return (
@@ -166,9 +170,9 @@ __d(
             t + o("WATimeUtils").DAY_SECONDS < o("WATimeUtils").unixTime()
           );
         },
-        [v],
+        [E],
       ),
-      K = s(
+      J = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -184,9 +188,9 @@ __d(
               (r === a || !r || l.isBot()))
           );
         },
-        [_, f, h, g, V, m],
+        [_, C, v, b, j, m],
       ),
-      Q = s(
+      Z = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -199,9 +203,9 @@ __d(
             r !== a
           );
         },
-        [_, f, h, g],
+        [_, C, v, b],
       ),
-      X = s(
+      ee = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -211,9 +215,9 @@ __d(
             (t && n === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH)
           );
         },
-        [_, f, m],
+        [_, C, m],
       ),
-      Y = s(
+      te = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -223,9 +227,9 @@ __d(
               n === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.LOW)
           );
         },
-        [_, f],
+        [_, C],
       ),
-      J = s(
+      ne = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -238,55 +242,59 @@ __d(
             ? !1
             : !t && !n;
         },
-        [y, C, w],
+        [S, R, B],
       ),
-      Z = s(
+      re = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH;
         },
-        [_, f],
+        [_, C],
       );
     ((l.getContactUnsafe = d),
       (l.getId = m),
       (l.getPushname = p),
       (l.getIsBusiness = _),
-      (l.getVerifiedLevel = f),
-      (l.getVerifiedName = g),
-      (l.getName = h),
-      (l.getRequestedPnTimestamp = v),
-      (l.getShortName = S),
-      (l.getIsEnterprise = R),
-      (l.getIsSmb = L),
-      (l.getLabels = E),
-      (l.getStatusMute = k),
-      (l.getCalculatedStatusMute = T),
-      (l.getPrivacyMode = D),
-      (l.getIsHosted = x),
-      (l.getBusinessProfile = $),
-      (l.getNotifyName = P),
-      (l.getPremiumMessageName = N),
-      (l.getIsMe = M),
-      (l.getIsUser = w),
-      (l.getIsGroup = A),
-      (l.getIsBroadcast = F),
-      (l.getIsNewsletter = O),
-      (l.getIsBot = B),
-      (l.getIsAiHub = W),
-      (l.getIsPSA = q),
-      (l.getIsIAS = U),
-      (l.getIsSupportAccount = V),
-      (l.getIsCAPISupportAccount = H),
-      (l.getIsWAContact = G),
-      (l.getUserid = z),
-      (l.getCanRequestPhoneNumber = j),
-      (l.getShowBusinessCheckmarkAsPrimary = K),
-      (l.getShowBusinessCheckmarkAsSecondary = Q),
-      (l.getShowBusinessCheckmarkInChatlist = X),
-      (l.getIsDisplayNameApproved = Y),
-      (l.getShouldForceBusinessUpdate = J),
-      (l.getShowAsMetaVerified = Z));
+      (l.getIsContactOptedOut = f),
+      (l.getIsEverOptedOutOfMarketingMessages = g),
+      (l.getIsMarketingMessageThread = h),
+      (l.getProfilePicThumb = y),
+      (l.getVerifiedLevel = C),
+      (l.getVerifiedName = b),
+      (l.getName = v),
+      (l.getRequestedPnTimestamp = E),
+      (l.getShortName = k),
+      (l.getIsEnterprise = I),
+      (l.getIsSmb = T),
+      (l.getLabels = D),
+      (l.getStatusMute = x),
+      (l.getCalculatedStatusMute = P),
+      (l.getPrivacyMode = N),
+      (l.getIsHosted = M),
+      (l.getBusinessProfile = w),
+      (l.getNotifyName = A),
+      (l.getPremiumMessageName = F),
+      (l.getIsMe = O),
+      (l.getIsUser = B),
+      (l.getIsGroup = W),
+      (l.getIsBroadcast = q),
+      (l.getIsNewsletter = U),
+      (l.getIsBot = V),
+      (l.getIsAiHub = H),
+      (l.getIsPSA = G),
+      (l.getIsIAS = z),
+      (l.getIsSupportAccount = j),
+      (l.getIsCAPISupportAccount = K),
+      (l.getIsWAContact = Q),
+      (l.getUserid = X),
+      (l.getCanRequestPhoneNumber = Y),
+      (l.getShowBusinessCheckmarkAsPrimary = J),
+      (l.getShowBusinessCheckmarkAsSecondary = Z),
+      (l.getShowBusinessCheckmarkInChatlist = ee),
+      (l.getIsDisplayNameApproved = te),
+      (l.getShouldForceBusinessUpdate = ne),
+      (l.getShowAsMetaVerified = re));
   },
   98,
 );

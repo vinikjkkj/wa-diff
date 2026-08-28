@@ -965,7 +965,14 @@ __d(
             ($ = _.sendPerfReporter) == null || $.startPrekeysFetchStage();
             var N = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 identityChanged: !1,
-                sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                sessionScope:
+                  v.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
+                  (v.sessionScope == null ||
+                    v.sessionScope ===
+                      o("WAWebSessionScope").SessionScope.DEFAULT) &&
+                  o("WAWebPQGatingUtils").isPq1on1MessageEnabled()
+                    ? o("WAWebSessionScope").SessionScope.PQ
+                    : o("WAWebSessionScope").SessionScope.DEFAULT,
                 wids: m,
               }),
               M = N == null ? void 0 : N.missedPrekeyCount;
@@ -990,17 +997,7 @@ __d(
                   o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
                     ? r("WAWebWamNumberToSizeBucket")(m.length)
                     : null,
-              }),
-              v.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
-                (v.sessionScope == null ||
-                  v.sessionScope ===
-                    o("WAWebSessionScope").SessionScope.DEFAULT) &&
-                o("WAWebPQGatingUtils").isPq1on1MessageEnabled() &&
-                (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-                  identityChanged: !1,
-                  sessionScope: o("WAWebSessionScope").SessionScope.PQ,
-                  wids: m,
-                })));
+              }));
           } catch (e) {
             o("WALogger")
               .ERROR(

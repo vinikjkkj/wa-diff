@@ -187,18 +187,15 @@ __d(
               );
             var d = I(l),
               m = d.handleNewSession,
-              p = d.loadSession,
-              _ =
-                o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-                  .isPq1on1MessageEnabled === !0;
+              p = d.loadSession;
             return T()
               .decryptContent(
                 {
-                  deleteKyberPreKey: _ ? k.deleteKyberPreKey : null,
+                  deleteKyberPreKey: k.deleteKyberPreKey,
                   handleNewSession: function (t, n, r, o, a) {
                     return m(t, n, r, o, a, i);
                   },
-                  loadKyberPreKey: _ ? k.loadKyberPreKey : null,
+                  loadKyberPreKey: k.loadKyberPreKey,
                   loadOneTimePreKey: k.loadOneTimePreKey,
                   loadSession: p,
                   loadSignedPreKey: k.loadSignedPreKey,

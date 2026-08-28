@@ -26,7 +26,8 @@ __d(
             a = t.pixDisplayName,
             i = t.pixKey,
             l = t.pixKeyType,
-            c = {
+            c = t.referral,
+            d = {
               accountDeviceId: o("WAJids").DEFAULT_DEVICE_ID.toString(),
               customPaymentMethodType: "pix_key",
               customPaymentMethodFlow: o("WAWebMobilePlatforms").isSMB()
@@ -49,11 +50,11 @@ __d(
                 ])),
             )
             .sendLogs("payment-brazil");
-          var d = yield o(
+          var m = yield o(
             "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
-          ).sendCreateCustomPaymentMethodRPC(c);
+          ).sendCreateCustomPaymentMethodRPC(d);
           e: {
-            if (d.name === "CreateCustomPaymentMethodResponseSuccess") {
+            if (m.name === "CreateCustomPaymentMethodResponseSuccess") {
               (o("WALogger")
                 .LOG(
                   s ||
@@ -62,11 +63,14 @@ __d(
                     ])),
                 )
                 .sendLogs("payment-brazil"),
-                yield L(d));
+                yield L(m, {
+                  referral: c,
+                  referralContext: r === "true" ? "update" : "add",
+                }));
               break e;
             }
             if (
-              d.name ===
+              m.name ===
               "CreateCustomPaymentMethodResponseIQErrorWithCodeAndReason"
             ) {
               return (
@@ -78,20 +82,20 @@ __d(
                         " reason=",
                         "",
                       ])),
-                    d.value.errorCode,
-                    d.value.errorText,
+                    m.value.errorCode,
+                    m.value.errorText,
                   )
                   .sendLogs("payment-brazil"),
-                d
+                m
               );
               break e;
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                d.name,
+                m.name,
             );
           }
-          return d;
+          return m;
         })),
         C.apply(this, arguments)
       );
@@ -241,89 +245,92 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e) {
+    function L(e, t) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, a, i, l;
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a, i, l, s;
           o(
             "WAWebCustomPaymentMethodsSyncLogger",
           ).logCustomPaymentMethodsSyncEvent(
             o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
               .SEND_STORE,
             o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.ATTEMPT,
+            void 0,
+            t,
           );
-          var s =
-              ((t = e.value) == null ||
-              (t = t.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
-                null ||
-              (t = t.customPaymentMethodMetaDataInfoMixin) == null ||
-              (t = t.metadata) == null ||
-              (t = t.find(function (e) {
-                return e.key === "pix_key_type";
-              })) == null
-                ? void 0
-                : t.value) || "",
-            u =
+          var u =
               ((a = e.value) == null ||
               (a = a.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
                 null ||
               (a = a.customPaymentMethodMetaDataInfoMixin) == null ||
               (a = a.metadata) == null ||
               (a = a.find(function (e) {
-                return e.key === "pix_key";
+                return e.key === "pix_key_type";
               })) == null
                 ? void 0
                 : a.value) || "",
             c =
-              ((i =
-                e.value.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
+              ((i = e.value) == null ||
+              (i = i.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
                 null ||
               (i = i.customPaymentMethodMetaDataInfoMixin) == null ||
               (i = i.metadata) == null ||
               (i = i.find(function (e) {
-                return e.key === "pix_display_name";
+                return e.key === "pix_key";
               })) == null
                 ? void 0
                 : i.value) || "",
             d =
               ((l =
                 e.value.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
+                null ||
+              (l = l.customPaymentMethodMetaDataInfoMixin) == null ||
+              (l = l.metadata) == null ||
+              (l = l.find(function (e) {
+                return e.key === "pix_display_name";
+              })) == null
+                ? void 0
+                : l.value) || "",
+            m =
+              ((s =
+                e.value.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
               null
                 ? void 0
-                : l.credentialId) || "",
-            m = {
+                : s.credentialId) || "",
+            p = {
               customPaymentMethods: [
                 {
-                  credentialId: d,
+                  credentialId: m,
                   country: "BR",
                   type: "pix_key",
                   metadata: [
-                    { key: "pix_key_type", value: s },
-                    { key: "pix_key", value: u },
-                    { key: "pix_display_name", value: c },
+                    { key: "pix_key_type", value: u },
+                    { key: "pix_key", value: c },
+                    { key: "pix_display_name", value: d },
                   ],
                 },
               ],
             };
           try {
-            var p = yield r(
+            var _ = yield r(
               "WAWebCustomPaymentMethodsSync",
-            ).getCustomPaymentMethodSetMutation(m);
-            yield o("WAWebSyncdCoreApi").lockForSync([], [p], function () {
+            ).getCustomPaymentMethodSetMutation(p);
+            yield o("WAWebSyncdCoreApi").lockForSync([], [_], function () {
               return (h || (h = n("Promise"))).resolve();
             });
           } catch (e) {
-            var _;
+            var f;
             throw (
-              (_ = o(
+              (f = o(
                 "WAWebCustomPaymentMethodsSyncLogger",
               )).logCustomPaymentMethodsSyncEvent(
-                _.SYNC_ACTION_TARGETS.SEND_STORE,
-                _.SYNC_STATUS.FAILURE,
-                _.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+                f.SYNC_ACTION_TARGETS.SEND_STORE,
+                f.SYNC_STATUS.FAILURE,
+                f.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+                t,
               ),
               e
             );
@@ -342,10 +349,12 @@ __d(
               o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
                 .SEND_STORE,
               o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.SUCCESS,
+              void 0,
+              t,
             ),
             o("WAWebBackendApi").frontendFireAndForget(
               "setCustomPaymentMethods",
-              { customPaymentMethods: m.customPaymentMethods },
+              { customPaymentMethods: p.customPaymentMethods },
             ));
         })),
         E.apply(this, arguments)

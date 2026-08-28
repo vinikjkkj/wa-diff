@@ -24,6 +24,7 @@ __d(
     "WAWebFtsClient",
     "WAWebHistorySyncProgress",
     "WAWebInitFromStorage",
+    "WAWebInitializeCryptoLibrary",
     "WAWebInvocationInterface",
     "WAWebLaunchSocketUtils",
     "WAWebLid1X1MigrationGating",
@@ -223,6 +224,11 @@ __d(
                         "WAWebEventSamplingCache",
                       ).updateEventSamplingFromStorage(),
                     ]);
+                  })
+                  .then(function () {
+                    return o(
+                      "WAWebInitializeCryptoLibrary",
+                    ).initializeCryptoLibrary();
                   })
                   .then(function () {
                     (o(

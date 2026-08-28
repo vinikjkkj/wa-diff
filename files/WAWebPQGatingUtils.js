@@ -1,20 +1,33 @@
 __d(
   "WAWebPQGatingUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebABProps"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e, s;
+    function u() {
+      return (
+        e == null &&
+          (e = o("WAWebABProps").getABPropConfigValue("pq_keys_upload") === !0),
+        e
+      );
+    }
+    function c() {
+      return (
+        s == null &&
+          (s =
+            u() &&
+            o("WAWebABProps").getABPropConfigValue(
+              "pq_1on1_message_enabled",
+            ) === !0),
+        s
+      );
+    }
+    function d() {
       return !1;
     }
-    function l() {
-      return !1;
-    }
-    function s() {
-      return !1;
-    }
-    ((i.isPqKeysUploadEnabled = e),
-      (i.isPq1on1MessageEnabled = l),
-      (i.isPqKeyRollbackEnabled = s));
+    ((l.isPqKeysUploadEnabled = u),
+      (l.isPq1on1MessageEnabled = c),
+      (l.isPqKeyRollbackEnabled = d));
   },
-  66,
+  98,
 );

@@ -5,9 +5,11 @@ __d(
     "WAComms",
     "WADeprecatedWapParser",
     "WALogger",
+    "WAWebABPropsUpdateFromStorage",
     "WAWebBackendEventBus",
     "WAWebCompanionRegUtils",
     "WAWebCoreActionsODS",
+    "WAWebInitializeCryptoLibrary",
     "WAWebJestE2ELogUtils",
     "WAWebSocketModel",
     "WAWebStartBackend",
@@ -83,6 +85,10 @@ __d(
               return (
                 o("WAComms").stopComms(),
                 yield o("WAWebCompanionRegUtils").startLogin(),
+                yield o(
+                  "WAWebABPropsUpdateFromStorage",
+                ).updateABPropsFromStorage(),
+                o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
                 o("WAWebStartBackend").startBackend(),
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );

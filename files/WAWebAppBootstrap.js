@@ -1,11 +1,9 @@
 __d(
   "WAWebAppBootstrap",
   [
-    "WACryptoLibraryConfig",
     "WAJids",
     "WALogger",
     "WAWap",
-    "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebAppSwInitializer",
     "WAWebBrokerBackendInterface",
@@ -30,7 +28,6 @@ __d(
     "WAWebLoomStuckTraceEviction",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
-    "WAWebPQGatingUtils",
     "WAWebPageLoadLoggingImpl",
     "WAWebPrefetchHatchDetailsOnLogin",
     "WAWebRunInTransaction",
@@ -175,16 +172,6 @@ __d(
             myJids: g,
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
           }),
-            o("WACryptoLibraryConfig").setCryptoLibraryConfig({
-              signalFutureMessagesMax: o("WAWebABProps").getABPropConfigValue(
-                "web_signal_future_messages_max",
-              ),
-              S508658AutoAcknowledgeStaleSessions: !0,
-              isPqKeysUploadEnabled:
-                o("WAWebPQGatingUtils").isPqKeysUploadEnabled(),
-              isPq1on1MessageEnabled:
-                o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
-            }),
             o("WAWebCacheStoreGatingUtil").initStorageOptimizationFlags(),
             o("WAWebAppSwInitializer").initializeSw({
               swScriptPath: "/sw.js",

@@ -31,6 +31,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "useWAWebAnimationFrames",
+    "useWAWebChatValues",
     "useWAWebListener",
     "useWAWebMeasure",
     "useWAWebModelValues",
@@ -726,10 +727,10 @@ __d(
       var l = i,
         s;
       t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = ["active"]), (t[3] = s))
+        ? ((s = [o("WAWebFrontendChatGetters").getActive]), (t[3] = s))
         : (s = t[3]);
-      var u = o("useWAWebModelValues").useModelValues(l, s),
-        c = u.active;
+      var u = o("useWAWebChatValues").useChatValues(l.id, s),
+        c = u[0];
       return !a && !c;
     }
     l.default = S;

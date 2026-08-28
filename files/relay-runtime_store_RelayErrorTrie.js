@@ -49,9 +49,9 @@ __d(
         if ((Array.isArray(o) ? t.push.apply(t, o) : c(o, t), r !== l))
           for (var i = t.length, s = a; s < i; s++) {
             var u = t[s];
-            u.path == null
-              ? (t[s] = babelHelpers.extends({}, u, { path: [r] }))
-              : u.path.unshift(r);
+            t[s] = babelHelpers.extends({}, u, {
+              path: u.path == null ? [r] : [r].concat(u.path),
+            });
           }
       }
     }

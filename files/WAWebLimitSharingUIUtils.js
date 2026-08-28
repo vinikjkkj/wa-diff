@@ -54,17 +54,17 @@ __d(
       o("WAWebCmd").Cmd.limitSharingDrawer(e);
     }
     function _(e) {
-      var t;
+      return f(e == null ? void 0 : e.limitSharing);
+    }
+    function f(e) {
       return o("WAWebLimitSharingGatingUtils").isOpusEnabled()
         ? !1
         : o(
             "WAWebLimitSharingGatingUtils",
           ).isLimitSharingReceiverGatingEnabledForChat() &&
-            (e == null || (t = e.limitSharing) == null
-              ? void 0
-              : t.sharingLimited) === !0;
+            (e == null ? void 0 : e.sharingLimited) === !0;
     }
-    function f(e, t) {
+    function g(e, t) {
       var n,
         r =
           (n =
@@ -77,7 +77,7 @@ __d(
             : !1;
       return r && _(e);
     }
-    function g(e) {
+    function h(e) {
       var t;
       if (
         !o(
@@ -85,7 +85,7 @@ __d(
         ).isLimitSharingReceiverGatingEnabledForChat()
       )
         return o("WAWebFormatUnknownMsg").defaultFutureproofMsgText(e);
-      var n = S();
+      var n = R();
       if (e.limitSharing != null) {
         var r,
           a = (r = e.limitSharing) == null ? void 0 : r.initiatedBy;
@@ -111,7 +111,7 @@ __d(
         ? n.byNoUserOn()
         : n.byNoUserOff();
     }
-    function h(e) {
+    function y(e) {
       return o("WAWebLimitSharingGatingUtils").isOpusEnabled()
         ? !1
         : e.hasCapi !== !0 &&
@@ -119,17 +119,17 @@ __d(
             !r("WAWebWid").isPSA(e.contact.id) &&
             !e.contact.isEnterprise;
     }
-    function y(e) {
+    function C(e) {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebLimitSharingInvokeBlockedPopup.react"), { chat: e }),
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebLimitSharingGatingUtils").isOpusEnabled()) {
             var t = _(e),
               a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
@@ -142,15 +142,15 @@ __d(
                 limitSharingSettingTimestamp: i * 1e3,
               };
             if (!r("WAWebNetworkStatus").online) {
-              R();
+              L();
               return;
             }
-            l.sharingLimited !== !0 && !k(e)
+            l.sharingLimited !== !0 && !I(e)
               ? o("WAWebModalManager").ModalManager.open(
                   c.jsx(r("WAWebLimitSharingDisableConfirmationPopup.react"), {
                     onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
-                        yield I({
+                        yield T({
                           chat: e,
                           limitSharing: l,
                           meUser: a,
@@ -160,7 +160,7 @@ __d(
                     ),
                   }),
                 )
-              : yield I({
+              : yield T({
                   chat: e,
                   limitSharing: l,
                   meUser: a,
@@ -168,10 +168,10 @@ __d(
                 });
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(t) {
+    function S(t) {
       var n;
       if (
         ((n = t.limitSharing) == null ? void 0 : n.sharingLimited) === !0 &&
@@ -195,7 +195,7 @@ __d(
           });
       }
     }
-    function S() {
+    function R() {
       return {
         byMeOn: function () {
           return s._(/*BTDS*/ "You turned on advanced chat privacy");
@@ -239,15 +239,15 @@ __d(
         },
       };
     }
-    function R() {
-      E(
+    function L() {
+      k(
         d.OFFLINE,
         s._(
           /*BTDS*/ "You can't change this setting because you're not connected to the internet. Check your internet connection and try again.",
         ),
       );
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebActionToast.react").ActionToast, {
           id: e,
@@ -256,12 +256,12 @@ __d(
         }),
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
-    function k(e) {
+    function I(e) {
       var t;
       return (t = e.limitSharing) != null && t.initiatedBy
         ? o("WAWebUserPrefsMeUser").isMeAccount(
@@ -271,71 +271,71 @@ __d(
           )
         : !1;
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.limitSharing,
             o = e.meUser,
             a = e.unixTimeSeconds;
-          (r("WAWebWid").isGroup(t.id) ? yield D(t, n) : yield $(t, n, o, a),
-            B(n));
+          (r("WAWebWid").isGroup(t.id) ? yield x(t, n) : yield P(t, n, o, a),
+            W(n));
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield o("WAWebSetPropertyGroupAction").setGroupProperty(
             e,
             o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING,
             t.sharingLimited === !0 ? 1 : 0,
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e, t, n, r) {
-      return P.apply(this, arguments);
+    function P(e, t, n, r) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = S(),
+            var a = R(),
               i = new (o("WAWebActionToast.react").ActionType)(
                 t.sharingLimited === !0
                   ? a.byMeChatProgressOn()
                   : a.byMeChatProgressOff(),
               ),
-              l = N(e, t, n, r).then(function () {
+              l = M(e, t, n, r).then(function () {
                 return new (o("WAWebActionToast.react").ActionType)(
                   t.sharingLimited === !0
                     ? a.byMeChatCompletedOn()
                     : a.byMeChatCompletedOff(),
                 );
               });
-            L(d.TOGGLE_1_ON_1, i, l);
+            E(d.TOGGLE_1_ON_1, i, l);
           },
         )),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t, n, r) {
-      return M.apply(this, arguments);
+    function M(e, t, n, r) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield w({
+            var a = yield A({
               chat: e,
               limitSharing: t,
               meUser: n,
@@ -350,15 +350,15 @@ __d(
               yield o("WAWebLimitSharingModelUtils").updateChat(e.id, t));
           },
         )),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.limitSharing,
             a = e.meUser,
@@ -381,10 +381,10 @@ __d(
             limitSharing: n,
           };
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e, t) {
+    function O(e, t) {
       var n = o("WAWebStateUtils").unproxy(t),
         a = r("WAWebFormatNotificationTemplateText")(
           o("WAWebStateUtils").unproxy(t.unsafe()),
@@ -406,14 +406,14 @@ __d(
         { text: a, ctaText: i, handleClick: l }
       );
     }
-    function O() {
-      var e = S();
+    function B() {
+      var e = R();
       return {
         on: [e.byMeChatProgressOn(), e.byMeChatCompletedOn()],
         off: [e.byMeChatProgressOff(), e.byMeChatCompletedOff()],
       };
     }
-    function B(e) {
+    function W(e) {
       new (o(
         "WAWebLimitSharingSettingUpdateWamEvent",
       ).LimitSharingSettingUpdateWamEvent)({
@@ -426,14 +426,15 @@ __d(
     ((l.getSystemMessageLearnMoreURL = m),
       (l.showLimitSharingDrawer = p),
       (l.isLimitSharingReceiverEnabled = _),
-      (l.isLimitSharingReceiverEnabledForUsers = f),
-      (l.getLimitSharingMessageSystemNotificationText = g),
-      (l.isLimitSharingSettingVisible = h),
-      (l.showLimitSharingInvokeBlockedPopup = y),
-      (l.toggleLimitSharing = C),
-      (l.maybeOpusProcessChatOnOpen = v),
-      (l.getLimitSharingMessageNotification = F),
-      (l.getLimitSharingGroupUpdateActionStrings = O));
+      (l.isLimitSharingReceiverEnabledForValue = f),
+      (l.isLimitSharingReceiverEnabledForUsers = g),
+      (l.getLimitSharingMessageSystemNotificationText = h),
+      (l.isLimitSharingSettingVisible = y),
+      (l.showLimitSharingInvokeBlockedPopup = C),
+      (l.toggleLimitSharing = b),
+      (l.maybeOpusProcessChatOnOpen = S),
+      (l.getLimitSharingMessageNotification = O),
+      (l.getLimitSharingGroupUpdateActionStrings = B));
   },
   226,
 );

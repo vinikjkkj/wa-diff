@@ -17,7 +17,6 @@ __d(
     "cr:1467370",
     "cr:17286",
     "cr:21303",
-    "cr:27596",
     "cr:534",
     "cr:5655",
     "cr:851",
@@ -31,6 +30,7 @@ __d(
     "liveQueryFetchWithWWWInitial",
     "relay-runtime",
     "relayFBGetDataID",
+    "wrapRelayFBSubscribeFunctionForKadabra",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -84,7 +84,7 @@ __d(
     }
     function c(e) {
       var t = r("createRelayFBSubscribeFunction")({ actorID: e });
-      return n("cr:27596") != null ? n("cr:27596")(t) : t;
+      return r("wrapRelayFBSubscribeFunctionForKadabra")(t);
     }
     function d() {
       var e = n("cr:1121434") != null ? n("cr:1121434")() : null,

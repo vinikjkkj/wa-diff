@@ -32,28 +32,33 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.sendChain,
-            r = yield o("WASignalWhitepaper").deriveMsgKey(
-              n.nextMsgIndex,
-              n.chainKey,
+          var n,
+            r =
+              (n = e.sessionVersion) != null
+                ? n
+                : o("WASignalSessions").FORMAT_VERSION,
+            a = e.sendChain,
+            i = yield o("WASignalWhitepaper").deriveMsgKey(
+              a.nextMsgIndex,
+              a.chainKey,
             ),
-            a = r[0],
-            i = r[1],
-            l = yield D(i),
-            s = l.cipherKey,
-            u = l.macKey,
-            d = yield o("WACryptoDependencies")
+            l = i[0],
+            s = i[1],
+            u = yield D(s),
+            d = u.cipherKey,
+            m = u.macKey,
+            p = yield o("WACryptoDependencies")
               .getCrypto()
-              .subtle.encrypt({ name: "AES-CBC", iv: i.iv }, s, t),
-            m = new (o("WABinary").Binary)();
-          (m.writeByteArray(e.local.pubKey), m.writeByteArray(e.remote.pubKey));
-          var p = m.size(),
-            _ =
+              .subtle.encrypt({ name: "AES-CBC", iv: s.iv }, d, t),
+            _ = new (o("WABinary").Binary)();
+          (_.writeByteArray(e.local.pubKey), _.writeByteArray(e.remote.pubKey));
+          var f = _.size(),
+            g =
               o("WACryptoLibraryConfig").getCryptoLibraryConfig()
                 .isPq1on1MessageEnabled === !0;
-          (_ === !0
-            ? m.writeUint8(k(e.sessionVersion, e.sessionVersion))
-            : m.writeUint8(
+          (g === !0
+            ? _.writeUint8(k(r, r))
+            : _.writeUint8(
                 k(
                   o("WASignalSessions").FORMAT_VERSION,
                   o("WASignalSessions").FORMAT_VERSION,
@@ -62,31 +67,31 @@ __d(
             o("encodeProtobuf").encodeProtobuf(
               o("WASignalWhisperTextProtocol.pb").SignalMessageSpec,
               {
-                ratchetKey: n.ratchetKey.serializedPubKey,
-                counter: i.index,
+                ratchetKey: a.ratchetKey.serializedPubKey,
+                counter: s.index,
                 previousCounter: e.prevSendChainHighestIndex,
-                ciphertext: d,
+                ciphertext: p,
               },
-              m,
+              _,
             ));
-          var f = m.readByteArrayView(),
-            g = yield T(u, f),
-            h = f.subarray(p),
-            y = o("WABinary")
-              .Binary.build(h, new Uint8Array(g, 0, c))
+          var h = _.readByteArrayView(),
+            y = yield T(m, h),
+            C = h.subarray(f),
+            b = o("WABinary")
+              .Binary.build(C, new Uint8Array(y, 0, c))
               .readByteArrayView(),
-            C,
-            b,
-            v = e.initialExchangeInfo;
-          if (v != null) {
-            var S,
-              R = new (o("WABinary").Binary)(),
-              L =
+            v,
+            S,
+            R = e.initialExchangeInfo;
+          if (R != null) {
+            var L,
+              E = new (o("WABinary").Binary)(),
+              I =
                 o("WACryptoLibraryConfig").getCryptoLibraryConfig()
                   .isPq1on1MessageEnabled === !0;
-            (L === !0
-              ? R.writeUint8(k(e.sessionVersion, e.sessionVersion))
-              : R.writeUint8(
+            (I === !0
+              ? E.writeUint8(k(r, r))
+              : E.writeUint8(
                   k(
                     o("WASignalSessions").FORMAT_VERSION,
                     o("WASignalSessions").FORMAT_VERSION,
@@ -96,28 +101,28 @@ __d(
                 o("WASignalWhisperTextProtocol.pb").PreKeySignalMessageSpec,
                 {
                   registrationId: e.local.regId,
-                  preKeyId: (S = v.remoteOneTimeId) != null ? S : void 0,
-                  signedPreKeyId: v.remoteSignedId,
-                  baseKey: v.localOneTimePubKey,
+                  preKeyId: (L = R.remoteOneTimeId) != null ? L : void 0,
+                  signedPreKeyId: R.remoteSignedId,
+                  baseKey: R.localOneTimePubKey,
                   identityKey: e.local.pubKey,
-                  message: y,
+                  message: b,
                   kyberPreKeyId:
-                    L && v.kyberPreKeyId != null ? v.kyberPreKeyId : void 0,
+                    I && R.kyberPreKeyId != null ? R.kyberPreKeyId : void 0,
                   kyberCiphertext:
-                    L && v.kemCiphertext != null ? v.kemCiphertext : void 0,
+                    I && R.kemCiphertext != null ? R.kemCiphertext : void 0,
                 },
-                R,
+                E,
               ),
-              (C = "pkmsg"),
-              (b = R.readByteArrayView()));
-          } else ((C = "msg"), (b = y));
-          var E = o("WASignalSessions").makeSendChain(
-              n.ratchetKey,
-              i.index + 1,
-              a,
+              (v = "pkmsg"),
+              (S = E.readByteArrayView()));
+          } else ((v = "msg"), (S = b));
+          var x = o("WASignalSessions").makeSendChain(
+              a.ratchetKey,
+              s.index + 1,
+              l,
             ),
-            I = o("WASignalSessions").updateChains(e, e.recvChains, E);
-          return [I, { type: C, ciphertext: b }];
+            $ = o("WASignalSessions").updateChains(e, e.recvChains, x);
+          return [$, { type: v, ciphertext: S }];
         })),
         p.apply(this, arguments)
       );
@@ -253,8 +258,6 @@ __d(
               },
               f;
             if (
-              o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-                .isPq1on1MessageEnabled === !0 &&
               n.kyberCiphertext != null &&
               n.kyberPreKeyId != null &&
               r.localKyberPreKey != null

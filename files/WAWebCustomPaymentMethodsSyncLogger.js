@@ -24,8 +24,8 @@ __d(
         TRANSPORT_FLUSH_FAILED: "transport_flush_failed",
         UNSUPPORTED_OPERATION: "unsupported_operation",
       });
-    function m(e, t, n) {
-      var r = {
+    function m(e, t, n, r) {
+      var a = {
         actionTarget: e,
         customPaymentMethodsSyncStatus: t,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
@@ -33,9 +33,12 @@ __d(
         paymentsCountryCode: u,
         screen: s,
       };
-      (n != null && (r.paymentsErrorCode = n),
+      (n != null && (a.paymentsErrorCode = n),
+        (r == null ? void 0 : r.referral) != null && (a.referral = r.referral),
+        (r == null ? void 0 : r.referralContext) != null &&
+          (a.referralContext = r.referralContext),
         new (o("WAWebPaymentsUserActionWamEvent").PaymentsUserActionWamEvent)(
-          r,
+          a,
         ).commit());
     }
     ((l.SYNC_ACTION_TARGETS = c),
