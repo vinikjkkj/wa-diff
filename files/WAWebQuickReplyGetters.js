@@ -13,7 +13,9 @@ __d(
       p = d,
       _ = c("id"),
       f = c("count"),
-      g = u(
+      g = c("message"),
+      h = c("shortcut"),
+      y = u(
         function (e) {
           var t,
             n = e[0],
@@ -43,7 +45,9 @@ __d(
     ((l.clearQuickReplyGetterCacheFor = m),
       (l.getQuickReplyUnsafe = p),
       (l.getCount = f),
-      (l.getType = g));
+      (l.getMessage = g),
+      (l.getShortcut = h),
+      (l.getType = y));
   },
   98,
 );

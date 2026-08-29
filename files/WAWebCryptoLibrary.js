@@ -41,20 +41,15 @@ __d(
       E,
       k = o("WAWebCryptoLibraryDbCallbacksApi").getCryptoDbCallbacks();
     function I(e) {
-      return e === o("WAWebSessionScope").SessionScope.PQ
-        ? {
-            handleNewSession: k.handleNewSessionPqScope,
-            loadSession: k.loadSessionPqScope,
-          }
-        : e === o("WAWebSessionScope").SessionScope.STATUS
-          ? {
-              handleNewSession: k.handleNewSessionStatusScope,
-              loadSession: k.loadSessionStatusScope,
-            }
-          : {
-              handleNewSession: k.handleNewSession,
-              loadSession: k.loadSession,
-            };
+      return {
+        handleNewSession: o(
+          "WAWebCryptoLibraryDbCallbacksApi",
+        ).selectHandleNewSession(k, e),
+        loadSession: o("WAWebCryptoLibraryDbCallbacksApi").selectLoadSession(
+          k,
+          e,
+        ),
+      };
     }
     function T() {
       var e;
@@ -324,15 +319,17 @@ __d(
           );
         });
     }
-    function M(e) {
+    function M(e, t) {
       return w.apply(this, arguments);
     }
     function w() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidToJid").widToDeviceJid(e),
-            n = yield k.loadSession(t);
-          return n == null ? void 0 : n.remote;
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebWidToJid").widToDeviceJid(e),
+            r = I(t),
+            a = r.loadSession,
+            i = yield a(n);
+          return i == null ? void 0 : i.remote;
         })),
         w.apply(this, arguments)
       );

@@ -945,6 +945,8 @@ __d(
       TOGGLE_AUTO_BOOST_STATUS: "toggle_auto_boost_status",
       UPDATE_MINISHOP_CREATIVE: "update_minishop_creative",
       ENTER_CHINA_AA_FLOW: "enter_china_aa_flow",
+      AD_ACCOUNT_CHANGE: "ad_account_change",
+      AD_ACCOUNT_SECTION_RENDERED: "ad_account_section_rendered",
       ACO_SECTION_IMPRESSION: "aco_section_impression",
       AD_PREVIEW_MODAL_IMPRESSION: "ad_preview_modal_impression",
       AD_PREVIEW_SECTION_IMPRESSION: "ad_preview_section_impression",
@@ -1197,6 +1199,9 @@ __d(
       SUBMIT_FLOW_SUMMARY_POST_CTX_MBS: "submit_flow_summary_post_ctx_mbs",
       BIZWEB_POST_CTX_UPSELL_MODULES_LOAD_FAILURE:
         "bizweb_post_ctx_upsell_modules_load_failure",
+      FBWEB_EXIT_SUMMARY_MODULE_CLICK: "fbweb_exit_summary_module_click",
+      FBWEB_SUMMARY_MODULE_GO_TO_AD_CENTER_CLICK:
+        "fbweb_summary_module_go_to_ad_center_click",
       BIZWEB_EXIT_SUMMARY_MODULE_CLICK: "bizweb_exit_summary_module_click",
       BIZWEB_SUMMARY_MODULE_GO_TO_AD_REVIEW_CLICK:
         "bizweb_summary_module_go_to_ad_review_click",
@@ -1646,6 +1651,7 @@ __d(
       MICROSITE_SPEC_STAMP: "microsite_spec_stamp",
       MICROSITE_BOOSTED_COMPONENT_PERSIST:
         "microsite_boosted_component_persist",
+      MICROSITE_CONTENT_FILTER: "microsite_content_filter",
       SHOW_IG_USER_DEFAULT_AD_ACCOUNT_LINKING_DISCLOSURE:
         "show_ig_user_default_ad_account_linking_disclosure",
       LWI_BROWSER_ADD_ONS_DEFAULTING_ML_WTM:

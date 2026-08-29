@@ -35,16 +35,15 @@ __d(
         l = t.isPollFromMe,
         s = t.links,
         u = t.name,
-        p = t.percentage,
-        g = t.trusted,
-        h = t.voteCount,
-        y = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
-        C = y.pollDetailsOptionTextSize,
-        b = o("WAWebFormatConfigurationConversation").Conversation({
+        p = t.trusted,
+        g = t.voteCount,
+        h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+        y = h.pollDetailsOptionTextSize,
+        C = o("WAWebFormatConfigurationConversation").Conversation({
           links: s != null ? s : [],
           phoneNumbers: [],
           selectable: !0,
-          trusted: g === !0,
+          trusted: p === !0,
           fromMe: l,
         });
       return c.jsxs(o("WAWebFlex.react").FlexRow, {
@@ -67,11 +66,11 @@ __d(
           c.jsx(o("WAWebEmojiText.react").EmojiText, {
             text: u,
             selectable: !0,
-            formatters: b,
+            formatters: C,
             className: (e || (e = r("stylex")))(
               m.option,
               d.marginInlineEnd6,
-              C,
+              y,
             ),
           }),
           c.jsx(
@@ -85,8 +84,8 @@ __d(
               {
                 children:
                   a == null
-                    ? c.jsx(_, { count: h, isCurrentLeader: i })
-                    : c.jsx(f, { count: h, isCorrectOption: a }),
+                    ? c.jsx(_, { count: g, isCurrentLeader: i })
+                    : c.jsx(f, { count: g, isCorrectOption: a }),
               },
             ),
           ),

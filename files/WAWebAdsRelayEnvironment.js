@@ -87,8 +87,6 @@ __d(
                 accessToken: t.accessToken,
                 actorID: t.actorID,
                 getAdditionalHeaders: function () {
-                  if (!o("WAWebDeviceIdHeader").isDeviceIdHeaderEnabled())
-                    return {};
                   var e = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
                   return e != null ? { "X-WA-Device-ID": e } : {};
                 },

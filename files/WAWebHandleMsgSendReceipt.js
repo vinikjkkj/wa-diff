@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
-    "WAWebBackendJobs.flow",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2ReceiptRecipient",
     "WAWebCreateNackFromStanza",
@@ -239,12 +238,10 @@ __d(
                     i.failedEnc != null
                       ? o(
                           "WAWebSessionScopeWamUtils",
-                        ).getIncomingStatusSkdmScope({
+                        ).getIncomingSkdmSessionScope({
                           from: y,
                           isGroupStatus: a.isGroupStatus,
-                          isSkmsg:
-                            i.failedEnc.e2eType ===
-                            o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                          isSkdm: a.isSkdm,
                           metaSessionScope: a.metaSessionScope,
                         })
                       : void 0,

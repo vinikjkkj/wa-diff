@@ -187,11 +187,7 @@ __d(
                       Accept: "application/json",
                       "Content-Type": "application/json",
                     };
-                  if (
-                    s === "facebook" &&
-                    o("WAWebMobilePlatforms").isSMB() &&
-                    o("WAWebDeviceIdHeader").isDeviceIdHeaderEnabled()
-                  ) {
+                  if (s === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
                     var _ = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
                     _ != null && (u["X-WA-Device-ID"] = _);
                   }

@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum").Mirrored([
         "ABRA_USER",
+        "ARNA_USER",
         "EXAMPLE",
         "FB_ADDITIONAL_PROFILE",
         "FB_ADDITIONAL_PROFILE_WITH_BIZ_TOOLS",

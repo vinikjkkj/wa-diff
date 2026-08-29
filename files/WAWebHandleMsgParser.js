@@ -617,6 +617,17 @@ __d(
         urlNumber: e.hasChild("url_number"),
         urlText: e.hasChild("url_text"),
         statusMentioned: _,
+        isSkdm:
+          t.some(function (e) {
+            return (
+              e.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
+            );
+          }) &&
+          t.some(function (e) {
+            return (
+              e.e2eType !== o("WAWebBackendJobs.flow").CiphertextType.Skmsg
+            );
+          }),
         appdata:
           m == null
             ? void 0

@@ -239,7 +239,8 @@ __d(
                 !o("WAWebBotUtils").isBotChannelFBID(a.id) &&
                 !o("WAWebBotGating").isMediaInputEnabledForAssistantBotChat(
                   a.id,
-                )
+                ) &&
+                t.bot3pMediaInputAuthorized !== !0
               )
             ) {
               if (o("WAWebBotUtils").isMetaAiBot(a.id)) {

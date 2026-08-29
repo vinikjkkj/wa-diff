@@ -37,20 +37,22 @@ __d(
       I = u("isEnterprise"),
       T = u("isSmb"),
       D = u("labels"),
-      x = u("statusMute"),
-      $ = u("parentStatusMute"),
-      P = s(
+      x = u("disappearingModeDuration"),
+      $ = u("disappearingModeSettingTimestamp"),
+      P = u("statusMute"),
+      N = u("parentStatusMute"),
+      M = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [x, $],
+        [P, N],
       ),
-      N = u("privacyMode"),
-      M = u("isHosted"),
-      w = u("businessProfile"),
-      A = s(
+      w = u("privacyMode"),
+      A = u("isHosted"),
+      F = u("businessProfile"),
+      O = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -62,114 +64,114 @@ __d(
         },
         [p, _, C, b],
       ),
-      F = s(
+      B = s(
         function (e) {
           var t = e[0];
           return t || "";
         },
         [p],
       ),
-      O = s(
+      W = s(
         function (e) {
           var t = e[0];
           return o("WAWebUserPrefsMeUser").isMeAccount(t);
         },
         [m],
       ),
-      B = s(
+      q = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [m],
       ),
-      W = s(
+      U = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [m],
       ),
-      q = s(
+      V = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [m],
       ),
-      U = s(
+      H = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [m],
       ),
-      V = s(
+      G = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [m],
       ),
-      H = s(
+      z = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isAiHub(t);
         },
         [m],
       ),
-      G = s(
+      j = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [m],
       ),
-      z = s(
+      K = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [m],
       ),
-      j = s(
+      Q = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isMetaForBusiness(t);
         },
         [m],
       ),
-      K = s(
+      X = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isSupportAccount(t);
         },
         [m],
       ),
-      Q = s(
+      Y = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isCAPISupportAccount(t);
         },
         [m],
       ),
-      X = s(
+      J = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n === "in";
         },
-        [B, L],
+        [q, L],
       ),
-      Y = s(
+      Z = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t ? r("WAWebWid").user(n) : null;
         },
-        [B, m],
+        [q, m],
       ),
-      J = s(
+      ee = s(
         function (e) {
           var t = e[0];
           return (
@@ -179,7 +181,7 @@ __d(
         },
         [E],
       ),
-      Z = s(
+      te = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -195,9 +197,9 @@ __d(
               (r === a || !r || l.isBot()))
           );
         },
-        [_, C, v, b, K, m],
+        [_, C, v, b, X, m],
       ),
-      ee = s(
+      ne = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -212,7 +214,7 @@ __d(
         },
         [_, C, v, b],
       ),
-      te = s(
+      re = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -224,7 +226,7 @@ __d(
         },
         [_, C, m],
       ),
-      ne = s(
+      oe = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -236,7 +238,7 @@ __d(
         },
         [_, C],
       ),
-      re = s(
+      ae = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -249,9 +251,9 @@ __d(
             ? !1
             : !t && !n;
         },
-        [S, R, B],
+        [S, R, q],
       ),
-      oe = s(
+      ie = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -275,34 +277,36 @@ __d(
       (l.getIsEnterprise = I),
       (l.getIsSmb = T),
       (l.getLabels = D),
-      (l.getStatusMute = x),
-      (l.getCalculatedStatusMute = P),
-      (l.getPrivacyMode = N),
-      (l.getIsHosted = M),
-      (l.getBusinessProfile = w),
-      (l.getNotifyName = A),
-      (l.getPremiumMessageName = F),
-      (l.getIsMe = O),
-      (l.getIsUser = B),
-      (l.getIsGroup = W),
-      (l.getIsBroadcast = q),
-      (l.getIsNewsletter = U),
-      (l.getIsBot = V),
-      (l.getIsAiHub = H),
-      (l.getIsPSA = G),
-      (l.getIsIAS = z),
-      (l.getIsMetaForBusiness = j),
-      (l.getIsSupportAccount = K),
-      (l.getIsCAPISupportAccount = Q),
-      (l.getIsWAContact = X),
-      (l.getUserid = Y),
-      (l.getCanRequestPhoneNumber = J),
-      (l.getShowBusinessCheckmarkAsPrimary = Z),
-      (l.getShowBusinessCheckmarkAsSecondary = ee),
-      (l.getShowBusinessCheckmarkInChatlist = te),
-      (l.getIsDisplayNameApproved = ne),
-      (l.getShouldForceBusinessUpdate = re),
-      (l.getShowAsMetaVerified = oe));
+      (l.getDisappearingModeDuration = x),
+      (l.getDisappearingModeSettingTimestamp = $),
+      (l.getStatusMute = P),
+      (l.getCalculatedStatusMute = M),
+      (l.getPrivacyMode = w),
+      (l.getIsHosted = A),
+      (l.getBusinessProfile = F),
+      (l.getNotifyName = O),
+      (l.getPremiumMessageName = B),
+      (l.getIsMe = W),
+      (l.getIsUser = q),
+      (l.getIsGroup = U),
+      (l.getIsBroadcast = V),
+      (l.getIsNewsletter = H),
+      (l.getIsBot = G),
+      (l.getIsAiHub = z),
+      (l.getIsPSA = j),
+      (l.getIsIAS = K),
+      (l.getIsMetaForBusiness = Q),
+      (l.getIsSupportAccount = X),
+      (l.getIsCAPISupportAccount = Y),
+      (l.getIsWAContact = J),
+      (l.getUserid = Z),
+      (l.getCanRequestPhoneNumber = ee),
+      (l.getShowBusinessCheckmarkAsPrimary = te),
+      (l.getShowBusinessCheckmarkAsSecondary = ne),
+      (l.getShowBusinessCheckmarkInChatlist = re),
+      (l.getIsDisplayNameApproved = oe),
+      (l.getShouldForceBusinessUpdate = ae),
+      (l.getShowAsMetaVerified = ie));
   },
   98,
 );

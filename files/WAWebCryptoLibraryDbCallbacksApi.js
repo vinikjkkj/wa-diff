@@ -18,7 +18,21 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
-    function m() {
+    function m(e, t) {
+      return t === o("WAWebSessionScope").SessionScope.PQ
+        ? e.loadSessionPqScope
+        : t === o("WAWebSessionScope").SessionScope.STATUS
+          ? e.loadSessionStatusScope
+          : e.loadSession;
+    }
+    function p(e, t) {
+      return t === o("WAWebSessionScope").SessionScope.PQ
+        ? e.handleNewSessionPqScope
+        : t === o("WAWebSessionScope").SessionScope.STATUS
+          ? e.handleNewSessionStatusScope
+          : e.handleNewSession;
+    }
+    function _() {
       var t = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = o("WAWebWidFactory").createDeviceWidOrThrow(e);
@@ -375,7 +389,9 @@ __d(
         })(),
       };
     }
-    l.getCryptoDbCallbacks = m;
+    ((l.selectLoadSession = m),
+      (l.selectHandleNewSession = p),
+      (l.getCryptoDbCallbacks = _));
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "WAWebCmd",
     "WAWebFileUtils",
     "WAWebMimeTypes",
+    "WAWebResolveSupportedMediaTypes",
     "WAWebSendFilesToChats",
     "WAWebWamEnumMediaPickerOriginType",
   ],
@@ -40,6 +41,9 @@ __d(
         o("WAWebCmd").Cmd.attachMediaDrawer({
           chat: n,
           attachments: d,
+          bot3pMediaInputAuthorized: o(
+            "WAWebResolveSupportedMediaTypes",
+          ).isBot3pMediaInputEnabled(n),
           fileOrigin: s,
           onCancel: u,
           onComplete: c,

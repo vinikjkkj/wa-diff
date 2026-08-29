@@ -3,7 +3,14 @@ __d(
   ["getCometEntityKey", "getEntityIDFromRoute"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e = "comet.facebookweb.MWInboxHomeRoute";
+    function s(t) {
+      var n;
+      if (t.canonicalRouteName !== e) return null;
+      var r = (n = t.rootView.props) == null ? void 0 : n.thread_key;
+      return typeof r == "string" && r !== "" ? r : null;
+    }
+    function u(e) {
       var t,
         n,
         o,
@@ -20,12 +27,13 @@ __d(
       return {
         entityID: a,
         parentContainerId: i,
+        threadIDCandidate: s(e),
         timeSpentConfig: e.timeSpentConfig,
         tracePolicy: e.tracePolicy,
         url: e.url,
       };
     }
-    l.default = e;
+    l.default = u;
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationBudgetReducer",
-  ["FBImmer", "WAWebBizAdCreationBudgetUtils", "WAWebBizNativeAdsGatingUtils"],
+  ["FBImmer", "WAWebBizAdCreationBudgetUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -8,14 +8,12 @@ __d(
         switch (t.type) {
           case "budget_reducer.update_budget":
             e.budgetData.budget = o(
-              "WAWebBizNativeAdsGatingUtils",
-            ).minMaxBudgetFixesEnabled()
-              ? o("WAWebBizAdCreationBudgetUtils").clampBudget(
-                  t.budgetData.budget,
-                  e.budgetData.minBudget,
-                  e.budgetData.maxBudget,
-                )
-              : t.budgetData.budget;
+              "WAWebBizAdCreationBudgetUtils",
+            ).clampBudget(
+              t.budgetData.budget,
+              e.budgetData.minBudget,
+              e.budgetData.maxBudget,
+            );
             break;
         }
       });

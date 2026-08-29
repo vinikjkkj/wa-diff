@@ -196,7 +196,7 @@ __d(
           n = s._(/*BTDS*/ "Status: Complete");
           break;
         case o("WAWebOrderStatus").OrderStatus.Shipped:
-          n = s._(/*BTDS*/ "Status: shipped");
+          n = s._(/*BTDS*/ "Status: Shipped");
           break;
         case o("WAWebOrderStatus").OrderStatus.Processing:
           n = s._(/*BTDS*/ "Status: Processing");

@@ -2,9 +2,9 @@ __d(
   "WAWebCryptoLibrarySessionApi",
   ["WAWebCryptoLibrary"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t) {
       return o("WAWebCryptoLibrary")
-        .getRemoteRegId(e)
+        .getRemoteRegId(e, t)
         .then(function (e) {
           return e == null ? void 0 : e.regId;
         });

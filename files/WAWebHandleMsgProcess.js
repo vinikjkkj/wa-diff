@@ -36,6 +36,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebQuarantineActionUtils",
     "WAWebRuntimeEnvironmentUtils",
+    "WAWebSessionScopeWamUtils",
     "WAWebSignal",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
@@ -648,6 +649,14 @@ __d(
                 )
                   ? c.peerRecipientUsername != null
                   : c.username != null,
+                sessionScope: o(
+                  "WAWebSessionScopeWamUtils",
+                ).getIncomingSkdmSessionScopeForMessageReceive({
+                  from: o("WAWebMsgProcessingApiUtils").getFrom(c),
+                  isGroupStatus: _ == null ? void 0 : _.isGroupStatus,
+                  isSkdm: _ == null ? void 0 : _.isSkdm,
+                  metaSessionScope: _ == null ? void 0 : _.metaSessionScope,
+                }),
               }),
               { hasInactiveMsg: he, isOrphanAddon: Ce }
             );

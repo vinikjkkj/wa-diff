@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebAiAgentAutoReplyControlMutation",
     "WAWebBizAiAgentStatusUtils",
+    "WAWebBizAiCapiThreadControl",
     "WAWebBizAiMuteUnmuteErrorDrawer.react",
     "WAWebModalManager",
     "WAWebProtobufsE2E.pb",
@@ -69,7 +70,7 @@ __d(
               : o("WAWebProtobufsE2E.pb")
                   .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                   .CONTROL_TAKEN)),
-        e.setCapiThreadControl(t.desired, d),
+        o("WAWebBizAiCapiThreadControl").setCapiThreadControl(e, t.desired, d),
         t.inFlight
           ? (s || (s = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
@@ -124,7 +125,11 @@ __d(
                 (t.unreadCount = a),
                 (t.isAiHandoff = i),
                 (t.aiHandoffStartedAt = l),
-                t.setCapiThreadControl(n.serverConfirmed, d),
+                o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
+                  t,
+                  n.serverConfirmed,
+                  d,
+                ),
                 o("WAWebModalManager").ModalManager.open(
                   c.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
                     isTurnOn:
@@ -152,24 +157,24 @@ __d(
       var t = e.chat,
         n = e.options,
         r = e.status,
-        o = e.timestampMs,
-        a = _(t);
-      if (o != null) {
-        if (o <= a.watermarkMs) return;
-        a.watermarkMs = o;
+        a = e.timestampMs,
+        i = _(t);
+      if (a != null) {
+        if (a <= i.watermarkMs) return;
+        i.watermarkMs = a;
       }
-      a.pendingMutations > 0 ||
+      i.pendingMutations > 0 ||
         (S({
           chat: t,
           suggestedRepliesEnabled:
             n == null ? void 0 : n.suggestedRepliesEnabled,
         }),
-        (a.serverConfirmed = r),
-        (a.desired = r),
+        (i.serverConfirmed = r),
+        (i.desired = r),
         t.capiThreadControl !== r &&
           ((n == null ? void 0 : n.suppressNotification) === !0
-            ? t.setCapiThreadControl(r, d)
-            : t.setCapiThreadControl(r)));
+            ? o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r, d)
+            : o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)));
     }
     function S(e) {
       var t = e.chat,

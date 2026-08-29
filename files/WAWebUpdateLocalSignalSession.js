@@ -6,6 +6,7 @@ __d(
     "WAWebBroadcastSenderKeyManager",
     "WAWebChatCollection",
     "WAWebProcessRetryKeyBundle",
+    "WAWebSessionScope",
     "WAWebSignal",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
@@ -28,7 +29,8 @@ __d(
             m = n.participant,
             p = n.regId,
             _ = n.retryCount,
-            f = m || i;
+            f = m || i,
+            g = a != null ? a : o("WAWebSessionScope").SessionScope.DEFAULT;
           if (
             (o("WALogger").LOG(
               e ||
@@ -44,10 +46,10 @@ __d(
             ),
             t.isGroup())
           ) {
-            var g = o("WAWebChatCollection").ChatCollection.get(t);
-            g &&
+            var h = o("WAWebChatCollection").ChatCollection.get(t);
+            h &&
               f &&
-              o("WAWebApiParticipantStore").markForgetSenderKey(g.id, [f]);
+              o("WAWebApiParticipantStore").markForgetSenderKey(h.id, [f]);
           }
           (t.isStatus() &&
             f &&
@@ -58,29 +60,29 @@ __d(
                 o("WAWebWidFactory").createDeviceWidFromWidOrThrow(f),
                 t.toString(),
               ));
-          var h = o("WAWebWidFactory").asUserWidOrThrow(f),
-            y = yield o("WAWebSignal").Session.getRemoteRegId(f);
-          if (o("WAWebUserPrefsMeUser").isMeAccount(h) && y !== p)
+          var y = o("WAWebWidFactory").asUserWidOrThrow(f),
+            C = yield o("WAWebSignal").Session.getRemoteRegId(f, g);
+          if (o("WAWebUserPrefsMeUser").isMeAccount(y) && C !== p)
             throw r("err")(
               "updateLocalSignalSession: detect registration Id change remote: " +
                 p +
                 ", local: " +
-                String(y) +
+                String(C) +
                 " for peer device",
             );
-          var C = t.isUser() && !o("WAWebUserPrefsMeUser").isMeAccount(h),
-            b = yield o("WAWebProcessRetryKeyBundle").processKeyBundle({
-              is1on1: C,
+          var b = t.isUser() && !o("WAWebUserPrefsMeUser").isMeAccount(y),
+            v = yield o("WAWebProcessRetryKeyBundle").processKeyBundle({
+              is1on1: b,
               keyBundle: l,
               offline: c,
               remoteRegId: p,
               requester: f,
-              savedRegId: y,
-              sessionScope: a,
+              savedRegId: C,
+              sessionScope: g,
             });
-          b ||
-            (y != null &&
-              y !== p &&
+          v ||
+            (C != null &&
+              C !== p &&
               (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -88,24 +90,26 @@ __d(
                     ", received: ",
                     "",
                   ])),
-                y,
+                C,
                 p,
               ),
               yield o("WAWebSignal").Session.deleteRemoteSession(f)));
-          var v = 2;
-          if (_ === v) return o("WAWebSignal").Session.saveSessionBaseKey(f, d);
-          if (_ > v) {
-            var S = yield o("WAWebSignal").Session.hasSameBaseKey(f, d);
-            if (S)
-              return (
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "updateLocalSignalSession: delete local session due to same base key",
-                    ])),
-                ),
-                o("WAWebSignal").Session.deleteRemoteSession(f)
+          var S = 2;
+          if (_ === S)
+            return o("WAWebSignal").Session.saveSessionBaseKey(f, d, g);
+          if (_ > S) {
+            var R = yield o("WAWebSignal").Session.hasSameBaseKey(f, d, g);
+            if (R) {
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "updateLocalSignalSession: delete local session due to same base key",
+                  ])),
               );
+              var L =
+                g === o("WAWebSessionScope").SessionScope.STATUS ? g : void 0;
+              return o("WAWebSignal").Session.deleteRemoteSession(f, L);
+            }
           }
         })),
         d.apply(this, arguments)

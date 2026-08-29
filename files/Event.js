@@ -333,12 +333,13 @@ __d(
           };
           var i = "on" + o;
           if (t[i]) {
-            var l =
+            var l = Event,
+              s =
                 t === document.documentElement
-                  ? Event.Priority._BUBBLE
-                  : Event.Priority.TRADITIONAL,
-              s = t[i];
-            ((t[i] = null), Event.listen(t, o, s, l, a));
+                  ? l.Priority._BUBBLE
+                  : l.Priority.TRADITIONAL,
+              u = t[i];
+            ((t[i] = null), Event.listen(t, o, u, s, a));
           }
         }
       };

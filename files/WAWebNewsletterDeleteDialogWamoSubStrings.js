@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebCurrencyDollarIcon.react",
+    "WAWebStringQualityGatingUtils",
     "WDSIconIcHistory.react",
     "react",
     "react-compiler-runtime",
@@ -28,9 +29,15 @@ __d(
     function d() {
       return {
         title: s._(/*BTDS*/ "Subscribers will be refunded"),
-        description: s._(
-          /*BTDS*/ "Subscriptions will be canceled and active subscribers will get a refund for this month's subscription fees.",
-        ),
+        description: o(
+          "WAWebStringQualityGatingUtils",
+        ).shouldUseStringQualityBatch2()
+          ? s._(
+              /*BTDS*/ "Subscriptions will be canceled, and active subscribers will get a refund for this month's subscription fees.",
+            )
+          : s._(
+              /*BTDS*/ "Subscriptions will be canceled and active subscribers will get a refund for this month's subscription fees.",
+            ),
         Icon: o("WAWebCurrencyDollarIcon.react").CurrencyDollarIcon,
         key: "subscribers-will-be-refunded",
       };

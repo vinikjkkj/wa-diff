@@ -21,6 +21,7 @@ __d(
       IG_PROFESSIONAL: 16,
       WA_BUSINESS_PROFILE: 17,
       MESSENGER_KID: 18,
+      NISABA: 19,
       META_ACCOUNT: 100,
       DO_NOT_USE: 1e4,
       EXAMPLE: 10001,

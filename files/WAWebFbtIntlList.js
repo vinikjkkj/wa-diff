@@ -33,10 +33,7 @@ __d(
               break e;
             }
             if (r === m.COMMA || r === null || r === void 0) {
-              i = s._(/*BTDS*/ "{previous-items}, {following-items}", [
-                s._param("previous-items", i),
-                s._param("following-items", e[u]),
-              ]);
+              i = f(i, e[u]);
               break e;
             }
             throw Error(
@@ -46,10 +43,17 @@ __d(
           }
         }
         return l > 0
-          ? f(i, l, n || d.AND, r || m.COMMA)
-          : g(i, a, n || d.AND, r || m.COMMA);
+          ? g(i, l, n || d.AND, r || m.COMMA)
+          : h(i, a, n || d.AND, r || m.COMMA);
       };
-    function f(e, t, n, r) {
+    function f(e, t) {
+      return s._(/*BTDS*/ "{previous-items}, {following-items}", [
+        s._param("previous-items", e),
+        s._param("following-items", t),
+      ]);
+    }
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e, t, n, r) {
       if (r === m.COMMA)
         switch (n) {
           case d.AND:
@@ -81,8 +85,8 @@ __d(
         s._param("previous-items", e),
       ]);
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e, t, n, o) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e, t, n, o) {
       switch (n) {
         case d.AND:
           return s._(/*BTDS*/ "{list-of-items} & {last-item}", [
@@ -107,10 +111,7 @@ __d(
                 s._param("last-item", t),
               ]);
             default:
-              return s._(/*BTDS*/ "{list-of-items}, {last-item}", [
-                s._param("list-of-items", e),
-                s._param("last-item", t),
-              ]);
+              return f(e, t);
           }
         default:
           throw r("err")(
@@ -119,9 +120,9 @@ __d(
       }
     }
     ((_.DELIMITERS = m), (_.CONJUNCTIONS = d));
-    var h = _,
-      y = h;
-    l.default = y;
+    var y = _,
+      C = y;
+    l.default = C;
   },
   226,
 );

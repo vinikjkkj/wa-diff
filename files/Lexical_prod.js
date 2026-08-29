@@ -5027,9 +5027,9 @@ __d(
             })(r, f)));
         var h = fc(l, Wl);
         (a &&
-          Os(h) &&
-          (a.canMergeWhenEmpty() || Wl(u)) &&
-          (h.append.apply(h, a.getChildren()), a.remove()),
+          (Os(h) && (a.canMergeWhenEmpty() || Wl(u))
+            ? (h.append.apply(h, a.getChildren()), a.remove())
+            : a.isEmpty() && a.remove()),
           Os(r) && r.isEmpty() && r.remove(),
           l.selectEnd());
         var g = Os(r) ? r.getLastChild() : null;
@@ -5171,7 +5171,7 @@ __d(
             }
           }
         }
-        if ((yr(s, t, e ? "backward" : "forward", n), s.rangeCount > 0)) {
+        if ((yr(s, t, e ? "backward" : "forward", n, l), s.rangeCount > 0)) {
           var _t140 = El(s, r._rootElement),
             _n69 = _t140 || s.getRangeAt(0),
             _i16 = this.anchor.getNode(),
@@ -5516,8 +5516,24 @@ __d(
         s = n.type;
       (n.set(e.key, e.offset, e.type, !0), e.set(o, r, s, !0));
     }
-    function yr(t, e, n, o) {
-      t.modify(e, n, o);
+    function yr(t, e, n, o, r) {
+      var s = "character" === o ? bl(t, r) : null,
+        i = s && s.focusNode,
+        l = s ? s.focusOffset : 0;
+      if (
+        (t.modify(e, n, o),
+        null === s ||
+          !(function (t, e, n) {
+            return (
+              null !== t &&
+              3 === t.nodeType &&
+              ("backward" === n ? e > 0 : "forward" === n && e < t.length)
+            );
+          })(i, l, n))
+      )
+        return;
+      var c = bl(t, r);
+      c.focusNode === i && c.focusOffset === l && t.modify(e, n, o);
     }
     function xr(t, e, n) {
       var o = t.getNodes(),
@@ -5560,7 +5576,7 @@ __d(
       var p = g.offset;
       if (
         ($r(r, _, p, _, p),
-        yr(r, "move", e ? "backward" : "forward", n),
+        yr(r, "move", e ? "backward" : "forward", n, i),
         0 === r.rangeCount)
       )
         return;
@@ -6290,18 +6306,22 @@ __d(
         i = "lineboundary" === o,
         l = "move" === e;
       var c = s,
-        a = "decorators-and-blocks" === r;
+        a = "decorators-and-blocks" === r,
+        u = !1;
       if (!ka(c)) {
         for (var _t177 of c) {
           a = !1;
           var _e109 = _t177.origin;
-          if (
-            !As(_e109) ||
-            _e109.isIsolated() ||
-            ((c = _t177), !i || !_e109.isInline())
-          )
-            break;
+          if (As(_e109)) {
+            if (_e109.isIsolated()) {
+              u = !0;
+              break;
+            }
+            if (((c = _t177), i && _e109.isInline())) continue;
+          }
+          break;
         }
+        if (u) return !0;
         if (a)
           for (var _t178 of ia(s).iterNodeCarets(
             "extend" === e ? "shadowRoot" : "root",

@@ -9,10 +9,18 @@ __d(
       c = e.computed,
       d = e.field,
       m = u,
-      p = d("growthChartData"),
-      _ = d("rangeStart"),
-      f = d("rangeEnd"),
-      g = c(
+      p = d("accountsReached"),
+      _ = d("followers"),
+      f = d("followersByCountry"),
+      g = d("followersDelta"),
+      h = d("followersReached"),
+      y = d("growthChartData"),
+      C = d("rangeStart"),
+      b = d("rangeEnd"),
+      v = d("nonFollowersReached"),
+      S = d("reachByCountry"),
+      R = d("reachDelta"),
+      L = c(
         function (e) {
           var t = e[0];
           return t.length === 0
@@ -32,9 +40,9 @@ __d(
                 },
               ];
         },
-        [p],
+        [y],
       ),
-      h = c(
+      E = c(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -42,14 +50,22 @@ __d(
             ? 0
             : o("WAWebClock").Clock.daysDeltaAbs(t, n) + 1;
         },
-        [_, f],
+        [C, b],
       );
     ((l.clearNewsletterAdminInsightsGetterCacheFor = m),
-      (l.getGrowthChartData = p),
-      (l.getRangeStart = _),
-      (l.getRangeEnd = f),
-      (l.getGrowthChart = g),
-      (l.getRangeInDays = h));
+      (l.getAccountsReached = p),
+      (l.getFollowers = _),
+      (l.getFollowersByCountry = f),
+      (l.getFollowersDelta = g),
+      (l.getFollowersReached = h),
+      (l.getGrowthChartData = y),
+      (l.getRangeStart = C),
+      (l.getRangeEnd = b),
+      (l.getNonFollowersReached = v),
+      (l.getReachByCountry = S),
+      (l.getReachDelta = R),
+      (l.getGrowthChart = L),
+      (l.getRangeInDays = E));
   },
   226,
 );

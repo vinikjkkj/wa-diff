@@ -22,38 +22,40 @@ __d(
           (a === void 0 && (a = null), (e = s));
           var i = n.entityID,
             l = n.parentContainerId,
-            u = n.timeSpentConfig,
-            d = n.tracePolicy,
-            m = n.url;
+            u = n.threadIDCandidate,
+            d = n.timeSpentConfig,
+            m = n.tracePolicy,
+            p = n.url;
           if (a && a.profile_session_id != null && i != null) {
-            var p, _, f;
+            var _, f, g;
             a.profile_session_id =
-              (p = o("ProfileCometSession").initOrExtend(
+              (_ = o("ProfileCometSession").initOrExtend(
                 i,
-                (_ = a) == null ? void 0 : _.profile_session_id,
-                d,
+                (f = a) == null ? void 0 : f.profile_session_id,
+                m,
               )) != null
-                ? p
-                : (f = a) == null
+                ? _
+                : (g = a) == null
                   ? void 0
-                  : f.profile_session_id;
+                  : g.profile_session_id;
           }
-          var g = babelHelpers.extends({}, r);
-          delete g.v2;
-          var h = o("CometProductAttribution").minifyProductAttributionV2(r),
-            y = { pa: JSON.stringify(g), pav2: h, uri: m };
-          y = o("CometTimeSpentUtils").addTimeSpentMetaData(n, y, a);
-          var C = o("CometVisitationManager").getCurrentVisitationId();
-          (C != null && (y.visitation_id = C),
-            y.container_id == null && i != null && (y.container_id = i),
-            y.parent_container_id == null &&
+          var h = babelHelpers.extends({}, r);
+          delete h.v2;
+          var y = o("CometProductAttribution").minifyProductAttributionV2(r),
+            C = { pa: JSON.stringify(h), pav2: y, uri: p };
+          C = o("CometTimeSpentUtils").addTimeSpentMetaData(n, C, a);
+          var b = o("CometVisitationManager").getCurrentVisitationId();
+          (b != null && (C.visitation_id = b),
+            C.container_id == null && i != null && (C.container_id = i),
+            C.parent_container_id == null &&
               l != null &&
-              (y.parent_container_id = l),
+              (C.parent_container_id = l),
+            u != null && (C.thread_id_candidate = u),
             (s = {
-              extraData: y,
-              name: d,
+              extraData: C,
+              name: m,
               should_remove_navigation:
-                (t = u == null ? void 0 : u.should_remove_navigation) != null
+                (t = d == null ? void 0 : d.should_remove_navigation) != null
                   ? t
                   : !1,
             }),

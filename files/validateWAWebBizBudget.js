@@ -1,12 +1,12 @@
 __d(
   "validateWAWebBizBudget",
-  ["fbt", "WAWebBizAdCreationCurrencyUtils", "WAWebBizNativeAdsGatingUtils"],
+  ["fbt", "WAWebBizAdCreationCurrencyUtils"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
       var t = d(e);
       if (t.length > 0) return t;
-      var n = y(e.budgetValue, e.recommendedBudget);
+      var n = g(e.budgetValue, e.recommendedBudget);
       return n != null ? [n] : [];
     }
     var u = { withDecimals: !0, withNumberDelimiters: !0, withSymbol: !0 };
@@ -17,49 +17,28 @@ __d(
       var t = e.budgetValue,
         n = e.currency,
         r = e.minDailyBudget,
-        a = e.maxDailyBudget,
-        i = e.budgetType,
-        l = i === void 0 ? "DAILY_BUDGET" : i,
-        s = e.durationInDays,
-        u = e.minTotalBudget,
-        d = e.runContinuously,
-        _ = d === void 0 ? !1 : d,
-        f = c(r, n),
-        g = c(a, n);
-      return !o("WAWebBizNativeAdsGatingUtils").minMaxBudgetFixesEnabled() &&
-        (_ || l === "DAILY_BUDGET")
-        ? m(t, r, a, f, g)
-        : l === "LIFETIME_BUDGET"
-          ? p(t, r, a, u, s, n, g)
-          : [];
+        o = e.maxDailyBudget,
+        a = e.budgetType,
+        i = a === void 0 ? "DAILY_BUDGET" : a,
+        l = e.durationInDays,
+        s = e.minTotalBudget,
+        u = c(o, n);
+      return i === "LIFETIME_BUDGET" ? m(t, r, o, s, l, n, u) : [];
     }
-    function m(e, t, n, r, o) {
-      var a = [];
-      return (e < t && a.push(f(r)), e > n && a.push(g(o)), a);
-    }
-    function p(e, t, n, r, o, a, i) {
+    function m(e, t, n, r, o, a, i) {
       return r != null && r > 0 && e < r
-        ? [h(r, a)]
+        ? [f(r, a)]
         : o != null && o > 0
-          ? _(e, t, n, o, a, i)
+          ? p(e, t, n, o, a, i)
           : [];
     }
-    function _(e, t, n, r, o, a) {
+    function p(e, t, n, r, o, a) {
       var i = [],
         l = t * r,
         s = n * r;
-      return (e < l && i.push(h(l, o)), e > s && i.push(g(a)), i);
+      return (e < l && i.push(f(l, o)), e > s && i.push(_(a)), i);
     }
-    function f(e) {
-      return {
-        description: s._(
-          /*BTDS*/ "The minimum budget is {min_budget} per day.",
-          [s._param("min_budget", e)],
-        ),
-        severity: "ERROR",
-      };
-    }
-    function g(e) {
+    function _(e) {
       return {
         description: s._(
           /*BTDS*/ "Your budget needs to be less than {max_budget}.",
@@ -68,7 +47,7 @@ __d(
         severity: "ERROR",
       };
     }
-    function h(e, t) {
+    function f(e, t) {
       return {
         description: s._(
           /*BTDS*/ "The minimum budget for this ad is {min_budget}.",
@@ -77,10 +56,10 @@ __d(
         severity: "ERROR",
       };
     }
-    function y(e, t) {
-      return t == null || t <= 0 ? null : e >= t ? C() : null;
+    function g(e, t) {
+      return t == null || t <= 0 ? null : e >= t ? h() : null;
     }
-    function C() {
+    function h() {
       return {
         description: s._(/*BTDS*/ "Your budget is in the recommended range."),
         noticeName: "WAWebBizBudgetInRange",

@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "Promise",
-    "WAAbortError",
     "WAFilteredCatch",
     "WAInOrderPromiseQueue",
     "WALogger",
@@ -83,13 +82,11 @@ __d(
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataGetters",
     "WAWebNoop",
-    "WAWebNotificationBackend",
     "WAWebOTPLoggingHelper",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPresenceChatAction",
     "WAWebPresenceCollection",
-    "WAWebProtobufsE2E.pb",
     "WAWebSendNotSpamAction",
     "WAWebStarredMsgCollection",
     "WAWebSuperChatMsgs",
@@ -118,10 +115,8 @@ __d(
       _,
       f,
       g,
-      h,
-      y,
-      C = 1e3,
-      b = (function (t) {
+      h = 1e3,
+      y = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -1595,7 +1590,7 @@ __d(
                         var a = n && e.active;
                         a &&
                           ((t.isFadingOut = !0),
-                          yield o("WAPromiseDelays").delayMs(C));
+                          yield o("WAPromiseDelays").delayMs(h));
                         try {
                           yield o(
                             "WAWebDBEphemeralMessage",
@@ -1722,7 +1717,7 @@ __d(
               this.colorSchemeId != null ||
               this.stockWallpaperImageId != null;
             if (!o("WAWebChatThemeGatingUtils").isChatThemesEnabled() || !e)
-              return (y || (y = n("Promise"))).resolve();
+              return (g || (g = n("Promise"))).resolve();
             var t = this.chatThemeValue,
               r = this.wallpaperValue;
             return (
@@ -1739,70 +1734,6 @@ __d(
                 chatThemeId: null,
                 colorSchemeId: null,
                 stockWallpaperImageId: null,
-              })
-            );
-          }),
-          (i.setCapiThreadControl = function (t, n) {
-            var e = (n == null ? void 0 : n.skipSideEffects) === !0;
-            (o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Maiba] setCapiThreadControl: ",
-                  " -> ",
-                  " for chat=",
-                  "",
-                  "",
-                ])),
-              this.capiThreadControl,
-              t,
-              this.id.toLogString(),
-              e ? " (silent)" : "",
-            ),
-              (this.capiThreadControl = t),
-              (this.forceDismissAiAgentBlockBar = !1));
-            var r =
-              !e &&
-              t ===
-                o("WAWebProtobufsE2E.pb")
-                  .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                  .CONTROL_PASSED;
-            return (
-              t ===
-              o("WAWebProtobufsE2E.pb")
-                .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                .CONTROL_PASSED
-                ? ((this.isAiHandoff = r || this.isAiHandoff === !0),
-                  o("WAWebBizAiHandoffRemoval").maybeSetHandoffRemovalExpiry(
-                    this,
-                  ))
-                : ((this.isAiHandoff = !1),
-                  (this.aiHandoffStartedAt = null),
-                  o("WAWebBizAiHandoffRemoval").clearHandoffRemovalExpiry(
-                    this,
-                  )),
-              r &&
-                ((this.aiHandoffStartedAt = o("WATimeUtils").unixTime()),
-                (this.unreadCount = 1),
-                o("WAWebNotificationBackend")
-                  .showAiHandoffNotification(this)
-                  .catch(
-                    o("WAAbortError").catchAbort(function (e) {
-                      o("WALogger").LOG(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
-                            "[Maiba] Aborted notification ",
-                            "",
-                          ])),
-                        e,
-                      );
-                    }),
-                  )),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                capiThreadControl: t,
-                unreadCount: this.unreadCount,
-                isAiHandoff: this.isAiHandoff,
-                aiHandoffRemovalExpiry: this.aiHandoffRemovalExpiry,
-                aiHandoffStartedAt: this.aiHandoffStartedAt,
               })
             );
           }),
@@ -1828,8 +1759,8 @@ __d(
               var n = !t.participants.iAmAdmin() && t.announce;
               this.isAnnounceGrpRestrict !== n &&
                 (o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "chat:_updateIsAnnounceGrpRestrict:old ",
                       ", new: ",
                       "",
@@ -1865,7 +1796,7 @@ __d(
           }),
           (i.waitForChatLoading = function () {
             var e = this,
-              t = (y || (y = n("Promise"))).resolve();
+              t = (g || (g = n("Promise"))).resolve();
             return (
               this.pendingInitialLoading &&
                 (t = r("WAWebEventsWaitForBbEvent")(
@@ -2021,8 +1952,8 @@ __d(
               ? this.accountLid == null
                 ? (o("WALogger")
                     .ERROR(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
                           "[presence] getPresenceKey: lid-migrated user no accountLid",
                         ])),
                     )
@@ -2034,9 +1965,9 @@ __d(
           a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((b.Proxy = "chat"), (b.idClass = r("WAWebWid")));
-    var v = o("WAWebBaseModel").defineModel(b);
-    l.Chat = v;
+    ((y.Proxy = "chat"), (y.idClass = r("WAWebWid")));
+    var C = o("WAWebBaseModel").defineModel(y);
+    l.Chat = C;
   },
   226,
 );

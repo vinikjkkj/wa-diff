@@ -68,6 +68,12 @@ __d(
       AYMT_BAN_RUSSIAN_AD_ACCOUNTS_ON_PAGE_TIP:
         "aymt_ban_russian_ad_accounts_on_page_tip",
       AYMT_BILLING_TRANSCATION_TIP: "aymt_billing_transcation_tip",
+      AYMT_BIZAPP_SCALE_GOOD_CAMPAIGN_INBOX_TIP:
+        "aymt_bizapp_scale_good_campaign_inbox_tip",
+      AYMT_BIZAPP_SCALE_GOOD_CAMPAIGN_JEWEL_TIP:
+        "aymt_bizapp_scale_good_campaign_jewel_tip",
+      AYMT_BIZAPP_SCALE_GOOD_CAMPAIGN_PUSH_TIP:
+        "aymt_bizapp_scale_good_campaign_push_tip",
       AYMT_BLACK_FRIDAY_SEASONAL_TIP: "aymt_black_friday_seasonal_tip",
       AYMT_BOOSTED_AUTOMATED_ADS_AUTO_BOOST_UPSELL_TIP:
         "aymt_boosted_automated_ads_auto_boost_upsell_tip",

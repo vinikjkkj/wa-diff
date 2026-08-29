@@ -3,12 +3,16 @@ __d(
   ["BillingEntryPoint"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n = (t = e == null ? void 0 : e.toUpperCase()) != null ? t : "UNKNOWN";
-      return r("BillingEntryPoint")[n] != null ? n : "UNKNOWN";
+    var e = Object.keys(r("BillingEntryPoint"));
+    function s(t) {
+      var n,
+        r = (n = t == null ? void 0 : t.toUpperCase()) != null ? n : "UNKNOWN",
+        o = e.find(function (e) {
+          return e === r;
+        });
+      return o != null ? o : "UNKNOWN";
     }
-    l.default = e;
+    l.default = s;
   },
   98,
 );

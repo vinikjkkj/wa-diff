@@ -1,11 +1,8 @@
 __d(
   "WAWebDeviceIdHeader",
-  ["WAWebUserPrefsMeUser", "justknobx"],
+  ["WAWebUserPrefsMeUser"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return r("justknobx")._("2641");
-    }
-    function s() {
       var e,
         t =
           (e = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
@@ -13,7 +10,7 @@ __d(
             : e.getDeviceId();
       return t != null ? String(t) : null;
     }
-    ((l.isDeviceIdHeaderEnabled = e), (l.getDeviceIdHeaderValue = s));
+    l.getDeviceIdHeaderValue = e;
   },
   98,
 );

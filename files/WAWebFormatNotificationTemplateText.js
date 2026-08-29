@@ -40,7 +40,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r = { text: u(e, t, n) },
-        o = Q(e);
+        o = X(e);
       return (o != null && (r.ctaText = o), r);
     }
     function u(e, t, n) {
@@ -154,11 +154,11 @@ __d(
                                           /*BTDS*/ "This chat may be with a business account. Click for more info.",
                                         )
                                       : i === "change_number"
-                                        ? d(e, a)
+                                        ? m(e, a)
                                         : i === "sender_invite"
-                                          ? m(e, a)
+                                          ? p(e, a)
                                           : i === "receiver_invite"
-                                            ? p(e)
+                                            ? _(e)
                                             : i === "masked_thread_created"
                                               ? s._(
                                                   /*BTDS*/ "Your phone number is not shared in this chat. Businesses who have your number in their contacts will be able to see it. Click to learn more",
@@ -237,19 +237,19 @@ __d(
                                                           )
                                                         : i ===
                                                             "payment_transaction_request_cancelled"
-                                                          ? _(e, a)
+                                                          ? f(e, a)
                                                           : i ===
                                                               "payment_transaction_status_receiver_pending_setup"
-                                                            ? f(a)
+                                                            ? g(a)
                                                             : i ===
                                                                 "payment_action_request_declined"
-                                                              ? g(e, a)
+                                                              ? h(e, a)
                                                               : i ===
                                                                   "payment_action_request_expired"
-                                                                ? h(a)
+                                                                ? y(a)
                                                                 : i ===
                                                                     "payment_invite_account_set_up"
-                                                                  ? y(a)
+                                                                  ? C(a)
                                                                   : i ===
                                                                       "biz_verified_transition_top_to_bottom"
                                                                     ? s._(
@@ -282,7 +282,7 @@ __d(
                                                                         )
                                                                       : i ===
                                                                           "biz_intro_top"
-                                                                        ? v(e)
+                                                                        ? S(e)
                                                                         : i ===
                                                                             "biz_intro_bottom"
                                                                           ? s._(
@@ -290,7 +290,7 @@ __d(
                                                                             )
                                                                           : i ===
                                                                               "biz_name_change"
-                                                                            ? S(
+                                                                            ? R(
                                                                                 e,
                                                                               )
                                                                             : i ===
@@ -370,12 +370,12 @@ __d(
                                                                                             )
                                                                                           : i ===
                                                                                               "blue_msg_bsp_fb_unverified_to_bsp_premise_verified"
-                                                                                            ? C(
+                                                                                            ? b(
                                                                                                 e,
                                                                                               )
                                                                                             : i ===
                                                                                                 "blue_msg_bsp_fb_unverified_to_self_fb_verified"
-                                                                                              ? b(
+                                                                                              ? v(
                                                                                                   e,
                                                                                                 )
                                                                                               : i ===
@@ -395,22 +395,22 @@ __d(
                                                                                                   )
                                                                                                 : i ===
                                                                                                     "blue_msg_bsp_fb_verified"
-                                                                                                  ? R(
+                                                                                                  ? L(
                                                                                                       e,
                                                                                                     )
                                                                                                   : i ===
                                                                                                       "blue_msg_bsp_fb_verified_to_bsp_premise_unverified"
-                                                                                                    ? L(
+                                                                                                    ? E(
                                                                                                         e,
                                                                                                       )
                                                                                                     : i ===
                                                                                                         "blue_msg_bsp_fb_verified_to_self_fb_unverified"
-                                                                                                      ? E(
+                                                                                                      ? k(
                                                                                                           e,
                                                                                                         )
                                                                                                       : i ===
                                                                                                           "blue_msg_bsp_fb_verified_to_self_premise_unverified"
-                                                                                                        ? k(
+                                                                                                        ? I(
                                                                                                             e,
                                                                                                           )
                                                                                                         : i ===
@@ -450,17 +450,17 @@ __d(
                                                                                                                 )
                                                                                                               : i ===
                                                                                                                   "blue_msg_bsp_premise_verified"
-                                                                                                                ? I(
+                                                                                                                ? T(
                                                                                                                     e,
                                                                                                                   )
                                                                                                                 : i ===
                                                                                                                     "blue_msg_bsp_premise_verified_to_self_premise_unverified"
-                                                                                                                  ? T(
+                                                                                                                  ? D(
                                                                                                                       e,
                                                                                                                     )
                                                                                                                   : i ===
                                                                                                                       "blue_msg_consumer_to_bsp_fb_unverified"
-                                                                                                                    ? D(
+                                                                                                                    ? x(
                                                                                                                         e,
                                                                                                                       )
                                                                                                                     : i ===
@@ -545,17 +545,17 @@ __d(
                                                                                                                                   )
                                                                                                                                 : i ===
                                                                                                                                     "blue_msg_self_fb_unverified_to_bsp_premise_verified"
-                                                                                                                                  ? x(
+                                                                                                                                  ? $(
                                                                                                                                       e,
                                                                                                                                     )
                                                                                                                                   : i ===
                                                                                                                                       "blue_msg_self_fb_unverified_to_self_premise_verified"
-                                                                                                                                    ? $(
+                                                                                                                                    ? P(
                                                                                                                                         e,
                                                                                                                                       )
                                                                                                                                     : i ===
                                                                                                                                         "blue_msg_self_fb_verified"
-                                                                                                                                      ? P(
+                                                                                                                                      ? N(
                                                                                                                                           e,
                                                                                                                                         )
                                                                                                                                       : i ===
@@ -670,22 +670,22 @@ __d(
                                                                                                                                                         )
                                                                                                                                                       : i ===
                                                                                                                                                           "blue_msg_unverified_to_bsp_fb_verified"
-                                                                                                                                                        ? N(
+                                                                                                                                                        ? M(
                                                                                                                                                             e,
                                                                                                                                                           )
                                                                                                                                                         : i ===
                                                                                                                                                             "blue_msg_unverified_to_bsp_premise_verified"
-                                                                                                                                                          ? M(
+                                                                                                                                                          ? w(
                                                                                                                                                               e,
                                                                                                                                                             )
                                                                                                                                                           : i ===
                                                                                                                                                               "blue_msg_unverified_to_self_fb_verified"
-                                                                                                                                                            ? w(
+                                                                                                                                                            ? A(
                                                                                                                                                                 e,
                                                                                                                                                               )
                                                                                                                                                             : i ===
                                                                                                                                                                 "blue_msg_unverified_to_verified"
-                                                                                                                                                              ? A(
+                                                                                                                                                              ? F(
                                                                                                                                                                   e,
                                                                                                                                                                 )
                                                                                                                                                               : i ===
@@ -750,15 +750,15 @@ __d(
                                                                                                                                                                         )
                                                                                                                                                                       : i ===
                                                                                                                                                                           "biz_privacy_mode_init_fb"
-                                                                                                                                                                        ? F(
+                                                                                                                                                                        ? O(
                                                                                                                                                                             e,
                                                                                                                                                                           )
                                                                                                                                                                         : i ===
                                                                                                                                                                             "support_system_message"
-                                                                                                                                                                          ? O()
+                                                                                                                                                                          ? B()
                                                                                                                                                                           : i ===
                                                                                                                                                                               "biz_privacy_mode_to_fb"
-                                                                                                                                                                            ? H(
+                                                                                                                                                                            ? G(
                                                                                                                                                                                 e,
                                                                                                                                                                               )
                                                                                                                                                                             : i ===
@@ -773,7 +773,7 @@ __d(
                                                                                                                                                                                   )
                                                                                                                                                                                 : i ===
                                                                                                                                                                                     "block_contact"
-                                                                                                                                                                                  ? B(
+                                                                                                                                                                                  ? W(
                                                                                                                                                                                       a,
                                                                                                                                                                                     )
                                                                                                                                                                                   : i ===
@@ -797,30 +797,30 @@ __d(
                                                                                                                                                                                           ).getDMUnsupportedSystemMessageText()
                                                                                                                                                                                         : i ===
                                                                                                                                                                                             "chat_assignment"
-                                                                                                                                                                                          ? q(
+                                                                                                                                                                                          ? U(
                                                                                                                                                                                               a,
                                                                                                                                                                                               t,
                                                                                                                                                                                             )
                                                                                                                                                                                           : i ===
                                                                                                                                                                                               "chat_assignment_unassign"
-                                                                                                                                                                                            ? U(
+                                                                                                                                                                                            ? V(
                                                                                                                                                                                                 t,
                                                                                                                                                                                               )
                                                                                                                                                                                             : i ===
                                                                                                                                                                                                 "order_ephemeral_exemption"
-                                                                                                                                                                                              ? V()
+                                                                                                                                                                                              ? H()
                                                                                                                                                                                               : i ===
                                                                                                                                                                                                   "bot_init"
-                                                                                                                                                                                                ? G(
+                                                                                                                                                                                                ? z(
                                                                                                                                                                                                     e,
                                                                                                                                                                                                     n,
                                                                                                                                                                                                   )
                                                                                                                                                                                                 : i ===
                                                                                                                                                                                                     "bot_invoke_disclaimer"
-                                                                                                                                                                                                  ? z()
+                                                                                                                                                                                                  ? j()
                                                                                                                                                                                                   : i ===
                                                                                                                                                                                                       "biz_bot_1p_disclosure"
-                                                                                                                                                                                                    ? W()
+                                                                                                                                                                                                    ? q()
                                                                                                                                                                                                     : i ===
                                                                                                                                                                                                         "biz_bot_3p_disclosure"
                                                                                                                                                                                                       ? s._(
@@ -899,23 +899,23 @@ __d(
                                                                                                                                                                                                                               )
                                                                                                                                                                                                                             : i ===
                                                                                                                                                                                                                                 "is_capi_hosted_group"
-                                                                                                                                                                                                                              ? j(
+                                                                                                                                                                                                                              ? K(
                                                                                                                                                                                                                                   e,
                                                                                                                                                                                                                                 )
                                                                                                                                                                                                                               : i ===
                                                                                                                                                                                                                                   "biz_automatically_labeled_chat_system_message"
-                                                                                                                                                                                                                                ? K(
+                                                                                                                                                                                                                                ? Q(
                                                                                                                                                                                                                                     e,
                                                                                                                                                                                                                                   )
                                                                                                                                                                                                                                 : i ===
                                                                                                                                                                                                                                     "biz_per_customer_3pd_data_share_opt_in"
-                                                                                                                                                                                                                                  ? s._(
-                                                                                                                                                                                                                                      /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Data sharing for customer-related activities is turned on",
+                                                                                                                                                                                                                                  ? d(
+                                                                                                                                                                                                                                      !0,
                                                                                                                                                                                                                                     )
                                                                                                                                                                                                                                   : i ===
                                                                                                                                                                                                                                       "biz_per_customer_3pd_data_share_opt_out"
-                                                                                                                                                                                                                                    ? s._(
-                                                                                                                                                                                                                                        /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Data sharing for customer-related activities is turned off",
+                                                                                                                                                                                                                                    ? d(
+                                                                                                                                                                                                                                        !1,
                                                                                                                                                                                                                                       )
                                                                                                                                                                                                                                     : i ===
                                                                                                                                                                                                                                         "ctwa_consumer_data_sharing_disclosure_system_message"
@@ -953,7 +953,24 @@ __d(
             /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Click to learn more",
           );
     }
-    function d(e, t) {
+    function d(e) {
+      return o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
+        ? e
+          ? s._(
+              /*BTDS*/ "This chat started from an ad on Meta. Data sharing for customer-related activities is turned on",
+            )
+          : s._(
+              /*BTDS*/ "This chat started from an ad on Meta. Data sharing for customer-related activities is turned off",
+            )
+        : e
+          ? s._(
+              /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Data sharing for customer-related activities is turned on",
+            )
+          : s._(
+              /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Data sharing for customer-related activities is turned off",
+            );
+    }
+    function m(e, t) {
       var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "change_number",
@@ -977,7 +994,7 @@ __d(
             [s._param("name", l)],
           );
     }
-    function m(e, t) {
+    function p(e, t) {
       var n = o("WAWebFormatParticipantNames").getFormattedName(e.from);
       return t.length > 0 && t[0] === "true"
         ? s._(
@@ -988,13 +1005,13 @@ __d(
             s._param("receiver_name", n),
           ]);
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebFormatParticipantNames").getFormattedName(e.from, !1);
       return s._(/*BTDS*/ "We let {sender_name} know you joined!", [
         s._param("sender_name", t),
       ]);
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_transaction_request_cancelled",
@@ -1026,7 +1043,7 @@ __d(
             ],
           );
     }
-    function f(e) {
+    function g(e) {
       var t = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_transaction_status_receiver_pending_setup",
@@ -1049,7 +1066,7 @@ __d(
         ],
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_action_request_declined",
@@ -1081,7 +1098,7 @@ __d(
             ],
           );
     }
-    function h(e) {
+    function y(e) {
       var t = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_action_request_expired",
@@ -1115,7 +1132,7 @@ __d(
             ],
           );
     }
-    function y(e) {
+    function C(e) {
       var t = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_invite_account_set_up",
@@ -1128,7 +1145,7 @@ __d(
         s._param("invitee", r("WAWebWidToFormattedNameOrNumber")(n)),
       ]);
     }
-    function C(e) {
+    function b(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1140,7 +1157,7 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function b(e) {
+    function v(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1153,7 +1170,7 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function v(e) {
+    function S(e) {
       var t = e.id.remote;
       return r("WAWebWid").isOfficialBizAccount(t)
         ? s._(
@@ -1164,13 +1181,13 @@ __d(
             [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
           );
     }
-    function S(e) {
+    function R(e) {
       return s._(
         /*BTDS*/ 'This business changed its name to "{businessName}". Click for more info.',
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function R(e) {
+    function L(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1183,25 +1200,25 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function L(e) {
+    function E(e) {
       return s._(
         /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function E(e) {
+    function k(e) {
       return s._(
         /*BTDS*/ "{businessName} is no longer a verified account and now only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function k(e) {
+    function I(e) {
       return s._(
         /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta or other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function I(e) {
+    function T(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1214,19 +1231,19 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function T(e) {
+    function D(e) {
       return s._(
         /*BTDS*/ "{businessName} is no longer a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function D(e) {
+    function x(e) {
       return s._(
         /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function x(e) {
+    function $(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1239,13 +1256,13 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function $(e) {
+    function P(e) {
       return s._(
         /*BTDS*/ "{businessName} is now a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function P(e) {
+    function N(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e),
         a = o("WAWebABPropsInternalNumber").getIsInternalNumber(
@@ -1271,7 +1288,7 @@ __d(
               [s._param("businessName", n)],
             );
     }
-    function N(e) {
+    function M(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1284,7 +1301,7 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function M(e) {
+    function w(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1297,7 +1314,7 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function w(e) {
+    function A(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
@@ -1310,28 +1327,28 @@ __d(
             [s._param("businessName", n)],
           );
     }
-    function A(e) {
+    function F(e) {
       return s._(
         /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
         [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
       );
     }
-    function F(e) {
+    function O(e) {
       return o("WAWebMsgGetters").getIsCAPISupport(e)
         ? o("WAWebSupportChatStrings").SupportChatSystemMessage()
         : s._(
             /*BTDS*/ "This business uses a secure service from Meta to manage this chat. Click to learn more.",
           );
     }
-    function O() {
+    function B() {
       return o("WAWebSupportChatStrings").SupportChatSystemMessage();
     }
-    function B(e) {
+    function W(e) {
       return e[0] === "true"
         ? s._(/*BTDS*/ "You blocked this person")
         : s._(/*BTDS*/ "You unblocked this person");
     }
-    function W() {
+    function q() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3
         ? s._(
             /*BTDS*/ "AI from Meta receives and generates messages for this business. Click to learn more.",
@@ -1353,7 +1370,7 @@ __d(
                 /*BTDS*/ "AI from Meta receives chats and generates messages for this business. Click to learn more.",
               );
     }
-    function q(e, t) {
+    function U(e, t) {
       var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "chat_assignment",
@@ -1370,12 +1387,12 @@ __d(
             s._param("agent_name", a),
           ]);
     }
-    function U(e) {
+    function V(e) {
       return o("WAWebChatAssignmentUtils").shouldUseChatAssignmentCTA(e)
         ? s._(/*BTDS*/ "Chat was unassigned. Click to change")
         : s._(/*BTDS*/ "Chat was unassigned");
     }
-    function V() {
+    function H() {
       return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
         ? s._(
             /*BTDS*/ "Charges and payments will not disappear from this chat. Click to learn more",
@@ -1384,7 +1401,7 @@ __d(
             /*BTDS*/ "Orders and payments will not disappear from this chat. Click to learn more",
           );
     }
-    function H(e) {
+    function G(e) {
       return o("WAWebMsgGetters").getIsIAS(e)
         ? s._(
             /*BTDS*/ "WhatsApp Surveys uses a secure service from Meta to manage this chat. Click to learn more.",
@@ -1393,7 +1410,7 @@ __d(
             /*BTDS*/ "This business is now using a secure service from Meta to manage this chat. Click to learn more.",
           );
     }
-    function G(e, t) {
+    function z(e, t) {
       var n = o("WAWebResolveBotProfile").resolveBotSupportInput(e.id.remote);
       return o("WAWebBotBaseGating").isStandardBotProfileEnabled() &&
         (o("WAWebBotExposedName").isBotProfileViewOnly(n) ||
@@ -1417,7 +1434,7 @@ __d(
                   /*BTDS*/ "Messages are generated by AI from Meta. Some may be inaccurate or inappropriate. You can improve the quality by sending feedback. Click to learn more.",
                 );
     }
-    function z() {
+    function j() {
       return o("WAWebBotBaseGating").isBotEnabled()
         ? s._(
             /*BTDS*/ "Only messages that mention or people share with \u0040Meta AI can be read by Meta. Meta can't read any other messages in this chat. Some responses may be inaccurate or inappropriate. Click to learn more.",
@@ -1426,7 +1443,7 @@ __d(
             /*BTDS*/ "Only messages that mention \u0040Meta AI are sent to Meta. Meta can't read any other messages in this chat. Some responses may be inaccurate or inappropriate. Click to learn more.",
           );
     }
-    function j(e) {
+    function K(e) {
       var t,
         n = o("WAWebFrontendMsgGetters").getChat(e),
         r = n.groupMetadata,
@@ -1437,7 +1454,7 @@ __d(
         ? o("WAWebHostedGroupUtils").getSecureServicesBannerText(a)
         : "";
     }
-    function K(e) {
+    function Q(e) {
       var t = Number(e.templateParams[0]),
         n = "";
       return (
@@ -1450,7 +1467,7 @@ __d(
         ])
       );
     }
-    function Q(e) {
+    function X(e) {
       var t = e.subtype;
       return t === "change_lid"
         ? o("WAWebFormatChangeLidTemplateText").formatChangeLidCtaTemplateText(

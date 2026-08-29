@@ -2,7 +2,6 @@ __d(
   "WAWebPostE2eMessageRecvMetric",
   [
     "WAWebBackendApi",
-    "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2WamClassification",
@@ -54,12 +53,10 @@ __d(
               sessionScope: o(
                 "WAWebSessionScopeWamUtils",
               ).sessionScopeToWamType(
-                o("WAWebSessionScopeWamUtils").getIncomingStatusSkdmScope({
+                o("WAWebSessionScopeWamUtils").getIncomingSkdmSessionScope({
                   from: r,
                   isGroupStatus: l.isGroupStatus,
-                  isSkmsg:
-                    t.e2eType ===
-                    o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                  isSkdm: l.isSkdm,
                   metaSessionScope: l.metaSessionScope,
                 }),
               ),

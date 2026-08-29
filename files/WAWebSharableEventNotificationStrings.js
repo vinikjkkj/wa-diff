@@ -65,7 +65,7 @@ __d(
     }
     function d(e) {
       return s
-        ._(/*BTDS*/ "cancelled \ud83d\uddd3 {eventName}", [
+        ._(/*BTDS*/ "canceled \ud83d\uddd3 {eventName}", [
           s._param("eventName", e),
         ])
         .toString();

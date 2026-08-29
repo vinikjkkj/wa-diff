@@ -108,12 +108,9 @@ __d(
       );
     }
     function S() {
-      return r("justknobx")._("4412");
-    }
-    function R() {
       return C() || r("justknobx")._("1666");
     }
-    function L() {
+    function R() {
       var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_native_ads_inline_notice_modules")
         .split(",");
@@ -136,9 +133,8 @@ __d(
       (l.tempSabrQABackdoor = C),
       (l.ctwaSabrEnabled = b),
       (l.ctwaBudgetRecommendationEnabled = v),
-      (l.minMaxBudgetFixesEnabled = S),
-      (l.inlineNoticePartitionEnabled = R),
-      (l.ctwaInlineNoticeModules = L));
+      (l.inlineNoticePartitionEnabled = S),
+      (l.ctwaInlineNoticeModules = R));
   },
   98,
 );

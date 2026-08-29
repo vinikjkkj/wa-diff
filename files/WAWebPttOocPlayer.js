@@ -97,25 +97,18 @@ __d(
       var l = o(
           "WAWebPttUseMsgAudioPlaybackController",
         ).useMsgAudioPlaybackController(r),
-        u = R,
-        c;
+        u;
       return (
         e[4] !== r || e[5] !== l
-          ? ((c =
-              r && l
-                ? s.jsx(L, { msg: r, playbackController: l, onPlayNext: u })
-                : null),
+          ? ((u = r && l ? s.jsx(R, { msg: r, playbackController: l }) : null),
             (e[4] = r),
             (e[5] = l),
-            (e[6] = c))
-          : (c = e[6]),
-        c
+            (e[6] = u))
+          : (u = e[6]),
+        u
       );
     }
     function R(e) {
-      o("WAWebPttPrefs").PttPrefs.outOfChatPlayerMessage = e;
-    }
-    function L(e) {
       var t = o("react-compiler-runtime").c(51),
         n = e.msg,
         a = e.playbackController,
@@ -139,19 +132,19 @@ __d(
       var f = d,
         g = a.audio,
         h = a.pttPlaybackLogger,
-        y = $(n),
+        y = x(n),
         C = _(!g.paused),
         v = C[0],
         S = C[1],
         R = p(!1),
-        L;
+        k;
       t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = function () {
+        ? ((k = function () {
             return (R.current = !1);
           }),
-          (t[3] = L))
-        : (L = t[3]);
-      var I = L,
+          (t[3] = k))
+        : (k = t[3]);
+      var I = k,
         T;
       t[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((T = function () {
@@ -159,8 +152,8 @@ __d(
           }),
           (t[4] = T))
         : (T = t[4]);
-      var D;
-      (t[5] !== n ? ((D = [n]), (t[5] = n), (t[6] = D)) : (D = t[6]), m(T, D));
+      var $;
+      (t[5] !== n ? (($ = [n]), (t[5] = n), (t[6] = $)) : ($ = t[6]), m(T, $));
       var P;
       t[7] !== g.paused
         ? ((P = function () {
@@ -331,8 +324,8 @@ __d(
                       xstyle: b.senderButton,
                       onClick: j,
                       children: [
-                        s.jsx(k, { msg: n }),
-                        s.jsx(E, { author: n.senderObj, chat: f }),
+                        s.jsx(E, { msg: n }),
+                        s.jsx(L, { author: n.senderObj, chat: f }),
                       ],
                     }),
                   }),
@@ -344,7 +337,7 @@ __d(
                       theme: "out-of-chat-playback",
                     }),
                   }),
-                  s.jsx(x, { audio: g, isPlaying: v }),
+                  s.jsx(D, { audio: g, isPlaying: v }),
                 ],
               })
             : null),
@@ -371,7 +364,7 @@ __d(
         X
       );
     }
-    function E(e) {
+    function L(e) {
       var t = o("react-compiler-runtime").c(26),
         n = e.author,
         a = e.chat,
@@ -493,7 +486,7 @@ __d(
         D
       );
     }
-    function k(e) {
+    function E(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.msg,
         r;
@@ -511,7 +504,7 @@ __d(
         var u;
         return (
           t[1] !== n
-            ? ((u = s.jsx(I, { msg: n })), (t[1] = n), (t[2] = u))
+            ? ((u = s.jsx(k, { msg: n })), (t[1] = n), (t[2] = u))
             : (u = t[2]),
           u
         );
@@ -520,7 +513,7 @@ __d(
         var c;
         return (
           t[3] === Symbol.for("react.memo_cache_sentinel")
-            ? ((c = s.jsx(T, {})), (t[3] = c))
+            ? ((c = s.jsx(I, {})), (t[3] = c))
             : (c = t[3]),
           c
         );
@@ -528,12 +521,12 @@ __d(
       var d;
       return (
         t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = s.jsx(D, {})), (t[4] = d))
+          ? ((d = s.jsx(T, {})), (t[4] = d))
           : (d = t[4]),
         d
       );
     }
-    function I(e) {
+    function k(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.msg,
         r;
@@ -606,7 +599,7 @@ __d(
         f
       );
     }
-    function T() {
+    function I() {
       return s.jsx("div", {
         className:
           "x14iifvp x100vrsf x1vqgdyp x1fns5xo x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6 xvs2etk xg3wpu6 x1jwbhkm xgg4q86 x6ikm8r x10wlt62 x1aqdfop",
@@ -623,8 +616,8 @@ __d(
         ),
       });
     }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D() {
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T() {
       return s.jsx("div", {
         className:
           "x14iifvp x100vrsf x1vqgdyp x1fns5xo x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6 xvs2etk xg3wpu6 x1jwbhkm xgg4q86 x6ikm8r x10wlt62",
@@ -634,8 +627,8 @@ __d(
         }),
       });
     }
-    D.displayName = D.name + " [from " + i.id + "]";
-    function x(e) {
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D(e) {
       var t = o("react-compiler-runtime").c(15),
         n = e.audio,
         a = e.isPlaying,
@@ -707,7 +700,7 @@ __d(
         R
       );
     }
-    function $(e) {
+    function x(e) {
       var t = o("react-compiler-runtime").c(4),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")

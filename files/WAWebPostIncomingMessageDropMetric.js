@@ -281,11 +281,10 @@ __d(
           offline: i.offline != null,
           e2eFailureReason: a == null ? void 0 : a.e2eFailureReason,
           sessionScope: o("WAWebSessionScopeWamUtils").sessionScopeToWamType(
-            o("WAWebSessionScopeWamUtils").getIncomingStatusSkdmScope({
+            o("WAWebSessionScopeWamUtils").getIncomingSkdmSessionScope({
               from: e(i),
               isGroupStatus: l.isGroupStatus,
-              isSkmsg:
-                r.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+              isSkdm: l.isSkdm,
               metaSessionScope: l.metaSessionScope,
             }),
           ),

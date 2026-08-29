@@ -8,6 +8,7 @@ __d(
     "WAWebEmojiText.react",
     "WAWebFlex.react",
     "WAWebModalManager",
+    "WAWebStringQualityGatingUtils",
     "WAWebText.react",
     "WAWebUnlinkSubgroupsAction",
     "WDSMargins.stylex",
@@ -155,26 +156,26 @@ __d(
         l = e.parentId,
         c = e.removedSubgroupTitle,
         m = e.removedSubgroupWid,
-        p = e.setLoading,
-        _ =
+        f = e.setLoading,
+        g =
           (t = o("WAWebChatCollection").ChatCollection.get(l)) == null
             ? void 0
             : t.formattedTitle,
-        f,
-        g = (function () {
+        h,
+        y = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             (e === void 0 && (e = !1),
               o("WAWebModalManager").ModalManager.close(),
-              p(!0),
+              f(!0),
               yield r("WAWebUnlinkSubgroupsAction")(l, [m], e),
-              p(!1));
+              f(!1));
           });
           return function (n) {
             return e.apply(this, arguments);
           };
         })();
       if (i) {
-        ((f = s._(
+        ((h = s._(
           /*BTDS*/ 'You can remove the "{group_title}" group from the community. You can also remove the group and its members who aren\'t part of other groups.',
           [
             s._param(
@@ -185,40 +186,67 @@ __d(
         )),
           o("WAWebModalManager").ModalManager.open(
             u.jsx(d, {
-              removeDisclaimer: f,
-              handleRemove: g,
+              removeDisclaimer: h,
+              handleRemove: y,
               removeParticipantOption: !0,
             }),
           ));
         return;
       }
-      ((f =
-        _ != null
-          ? s._(
-              /*BTDS*/ '"{group_title}" will no longer be a part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
-              [
-                s._param(
-                  "group_title",
-                  u.jsx(o("WAWebEmojiText.react").EmojiText, { text: c }),
-                ),
-                s._param(
-                  "community_title",
-                  u.jsx(o("WAWebEmojiText.react").EmojiText, { text: _ }),
-                ),
-              ],
-            )
-          : s._(
-              /*BTDS*/ '"{group_title}" will no longer be a part of this community. Anyone in this group will still be able to find it from their chats to send messages and make calls.',
-              [
-                s._param(
-                  "group_title",
-                  u.jsx(o("WAWebEmojiText.react").EmojiText, { text: c }),
-                ),
-              ],
-            )),
+      ((h = g != null ? p(c, g) : _(c)),
         o("WAWebModalManager").ModalManager.open(
-          u.jsx(d, { removeDisclaimer: f, handleRemove: g }),
+          u.jsx(d, { removeDisclaimer: h, handleRemove: y }),
         ));
+    }
+    function p(e, t) {
+      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
+        ? s._(
+            /*BTDS*/ '"{group_title}" will no longer be part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
+            [
+              s._param(
+                "group_title",
+                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
+              ),
+              s._param(
+                "community_title",
+                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: t }),
+              ),
+            ],
+          )
+        : s._(
+            /*BTDS*/ '"{group_title}" will no longer be a part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
+            [
+              s._param(
+                "group_title",
+                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
+              ),
+              s._param(
+                "community_title",
+                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: t }),
+              ),
+            ],
+          );
+    }
+    function _(e) {
+      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
+        ? s._(
+            /*BTDS*/ '"{group_title}" will no longer be part of this community. Anyone in this group will still be able to find it from their chats to send messages and make calls.',
+            [
+              s._param(
+                "group_title",
+                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
+              ),
+            ],
+          )
+        : s._(
+            /*BTDS*/ '"{group_title}" will no longer be a part of this community. Anyone in this group will still be able to find it from their chats to send messages and make calls.',
+            [
+              s._param(
+                "group_title",
+                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
+              ),
+            ],
+          );
     }
     l.handleRemoveSubgroup = m;
   },
