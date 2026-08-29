@@ -271,7 +271,7 @@ __d(
                       : null,
                 },
                 B = null,
-                W = r("justknobx")._("897") && O.pageId1 === "";
+                W = O.pageId1 === "";
               if (!W) {
                 var g;
                 (g = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(

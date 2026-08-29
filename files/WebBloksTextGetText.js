@@ -12,7 +12,7 @@ __d(
       );
       var i =
         a == null || (n = a.current) == null ? void 0 : n.dataset.bloksName;
-      if (i !== "bk.components.Text" && i !== "\u3417")
+      if (i !== "bk.components.Text")
         throw new (o("WebBloksErrors").WebBloksError)("Not bk.component.Text");
       var l = a == null || (r = a.current) == null ? void 0 : r.innerText;
       return l != null ? l : "";

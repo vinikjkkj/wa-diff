@@ -113,7 +113,7 @@ __d(
     }
     function S() {
       return o("WAWebLeadStage")
-        .LEAD_STAGE_ORDER_WITH_NONE.map(function (e) {
+        .ALL_LEAD_STAGES.map(function (e) {
           return o("WAWebLeadStageNames").getLeadStageName(e).toString();
         })
         .join(", ");

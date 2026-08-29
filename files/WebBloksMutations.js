@@ -82,7 +82,6 @@ __d(
       typeof r != "number" &&
         _(e, "addChildToContainer expected number, got %s: %s", typeof r, r);
       var a =
-        n.styleId === o("WebBloksConstants").BK_INTERNAL_MERGE_MINIFIED ||
         n.styleId === o("WebBloksConstants").BK_INTERNAL_MERGE
           ? n.getChildren_DEPRECATED()
           : [n];

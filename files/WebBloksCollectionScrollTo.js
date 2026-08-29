@@ -1,10 +1,6 @@
 __d(
   "WebBloksCollectionScrollTo",
-  [
-    "WebBloksCollectionMinificationKeys",
-    "WebBloksCollectionScrollRefs",
-    "WebDriverConfig",
-  ],
+  ["WebBloksCollectionScrollRefs", "WebDriverConfig"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function (t) {
@@ -25,7 +21,7 @@ __d(
         ),
         l = i.containerElementRef,
         u = i.scrollableElementRef,
-        c = t.get(o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION),
+        c = t.get("direction"),
         d = e(c),
         m = l == null ? void 0 : l.current,
         p = u == null ? void 0 : u.current;
@@ -43,7 +39,7 @@ __d(
           t,
         ),
         i = a.scrollableElementRef,
-        l = t.get(o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION),
+        l = t.get("direction"),
         u = e(l);
       if ((i == null ? void 0 : i.current) != null) {
         var c = u

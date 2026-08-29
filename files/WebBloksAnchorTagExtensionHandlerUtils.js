@@ -1,45 +1,42 @@
 __d(
   "WebBloksAnchorTagExtensionHandlerUtils",
-  ["WebBloksConstants", "WebBloksUtils", "react-compiler-runtime"],
+  ["WebBloksUtils", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = o("WebBloksUtils").cast("\u4244"),
-      s = "#",
-      u = "$";
-    function c(t) {
-      var n = o("react-compiler-runtime").c(7),
+    function e(e) {
+      var t = o("react-compiler-runtime").c(7),
+        n,
         r,
-        a,
-        i;
-      if (n[0] !== t) {
-        i = Symbol.for("react.early_return_sentinel");
+        a;
+      if (t[0] !== e) {
+        a = Symbol.for("react.early_return_sentinel");
         e: {
-          var l = o("WebBloksUtils").findExtension(
-            t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
-            e,
+          var i = o("WebBloksUtils").findExtension(
+            e.get("extensions"),
+            "bk.components.AnchorTagExtension",
           );
-          if (!l) {
-            i = null;
+          if (!i) {
+            a = null;
             break e;
           }
-          ((r = l.get(s)), (a = l.get(u)));
+          ((n = i.get("href")), (r = i.get("prefer_native_navigation")));
         }
-        ((n[0] = t), (n[1] = r), (n[2] = a), (n[3] = i));
-      } else ((r = n[1]), (a = n[2]), (i = n[3]));
-      if (i !== Symbol.for("react.early_return_sentinel")) return i;
-      var c = a,
-        d;
+        ((t[0] = e), (t[1] = n), (t[2] = r), (t[3] = a));
+      } else ((n = t[1]), (r = t[2]), (a = t[3]));
+      if (a !== Symbol.for("react.early_return_sentinel")) return a;
+      var l = r,
+        s;
       return (
-        n[4] !== r || n[5] !== c
-          ? ((d = { href: r, tabIndex: 0, preferNativeNavigation: c }),
-            (n[4] = r),
-            (n[5] = c),
-            (n[6] = d))
-          : (d = n[6]),
-        d
+        t[4] !== n || t[5] !== l
+          ? ((s = { href: n, tabIndex: 0, preferNativeNavigation: l }),
+            (t[4] = n),
+            (t[5] = l),
+            (t[6] = s))
+          : (s = t[6]),
+        s
       );
     }
-    l.useWebBloksAnchorTagExtensionProps = c;
+    l.useWebBloksAnchorTagExtensionProps = e;
   },
   98,
 );

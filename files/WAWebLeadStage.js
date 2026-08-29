@@ -28,8 +28,8 @@ __d(
                   : null;
     }
     ((i.LeadStage = e),
-      (i.LEAD_STAGE_ORDER = l),
-      (i.LEAD_STAGE_ORDER_WITH_NONE = s),
+      (i.LEAD_SUBSTAGE_ORDER = l),
+      (i.ALL_LEAD_STAGES = s),
       (i.getLeadStageFromNumber = u));
   },
   66,

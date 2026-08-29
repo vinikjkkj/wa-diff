@@ -8,56 +8,52 @@ __d(
     "webBloksPerformanceUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ";",
-      s = "&",
-      u = "2";
-    function c(t, n, r, a) {
-      var i = t.bloksContext.objectSet.environment,
-        l = i.minificationMap,
-        c = i.navigationTrackingUtils,
-        d = i.screenQueryTemplate,
-        m = i.traversalKeys,
-        p = i.unminificationMap,
-        _ = i.useMinification;
-      if (d == null)
+    function e(e, t, n, r) {
+      var a = e.bloksContext.objectSet.environment,
+        i = a.minificationMap,
+        l = a.navigationTrackingUtils,
+        s = a.screenQueryTemplate,
+        u = a.traversalKeys,
+        c = a.unminificationMap,
+        d = a.useMinification;
+      if (s == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "Missing screen query template when calling bk.action.screen.Open",
         );
-      var f = n.usesCanonicalKeys(),
-        g = f ? n.get(s) : n.get("props"),
-        h = g.__infra__app_id,
-        y = g.__infra__screen_id,
-        C = o("WebBloksContainerConfig").getContainerConfig(t.bloksContext, r),
-        b = {
-          initialContainer: { model: r, config: C },
-          screenId: y != null ? String(y) : void 0,
+      var m = t.get("props"),
+        p = m.__infra__app_id,
+        _ = m.__infra__screen_id,
+        f = o("WebBloksContainerConfig").getContainerConfig(e.bloksContext, n),
+        g = {
+          initialContainer: { model: n, config: f },
+          screenId: _ != null ? String(_) : void 0,
         };
       (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
         "--web-bloks-ttrc-start",
-        { detail: { appId: String(h) } },
+        { detail: { appId: String(p) } },
       ),
-        c == null || c.startNavigationCallback(String(h)));
-      var v = o("WebBloksPayloadParser").parseTree(
-          d,
-          m,
-          l,
+        l == null || l.startNavigationCallback(String(p)));
+      var h = o("WebBloksPayloadParser").parseTree(
+          s,
+          u,
+          i,
           void 0,
-          p,
-          _ || p != null,
+          c,
+          d || c != null,
         ),
-        S = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
-          t.bloksContext.objectSet,
-          v,
-          b,
+        y = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
+          e.bloksContext.objectSet,
+          h,
           g,
-          f ? n.get(u) : n.get("url_relative_path"),
+          m,
+          t.get("url_relative_path"),
         ),
-        R = f ? n.get(e) : n.get("controller_name");
-      (R != null && (S.controllerName = R),
-        t.objectSet.navigationManager.open(S, a),
-        t.objectSet.navigationManager.setScreenController(S));
+        C = t.get("controller_name");
+      (C != null && (y.controllerName = C),
+        e.objectSet.navigationManager.open(y, r),
+        e.objectSet.navigationManager.setScreenController(y));
     }
-    l.default = c;
+    l.default = e;
   },
   98,
 );

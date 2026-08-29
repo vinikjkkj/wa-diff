@@ -1,167 +1,101 @@
 __d(
   "WebBloksCanvasDrawToContext",
-  [
-    "WebBloksCanvasMinificationKeys",
-    "WebBloksCanvasUtils",
-    "WebBloksConstants",
-    "WebBloksErrors",
-    "WebBloksUtils",
-  ],
+  ["WebBloksCanvasUtils", "WebBloksErrors"],
   function (t, n, r, o, a, i, l) {
-    var e = "\u40E5",
-      s = "\u40ED",
-      u = "\u40EF",
-      c = "\u40D1",
-      d = "\u40E6",
-      m = "\u40F4",
-      p = "\u40D4",
-      _ = "\u40D8",
-      f = "\u40F5",
-      g = "\u40E0",
-      h = "\u40F6",
-      y = "\u40F7",
-      C = "\u40F8",
-      b = "\u40DB",
-      v = "\u40CC",
-      S = "\u40D6",
-      R = "\u40D5",
-      L = "\u40DC",
-      E = "\u40D9",
-      k = "\u40EA",
-      I = "\u40DE",
-      T = "\u41C2",
-      D = "\u40DF",
-      x = "\u40CE",
-      $ = "\u40CD",
-      P = "\u41BE",
-      N = "\u40D7";
-    function M(t, n, r) {
+    function e(t, n, r) {
       switch (t.styleId) {
-        case s:
         case "bk.types.CanvasGroup": {
-          var a = o("WebBloksUtils").cast(t),
-            i = a.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_GROUP_TRANSFORM,
-            );
-          i != null && B(i, n, r);
-          var l = a.get(o("WebBloksCanvasMinificationKeys").CANVAS_GROUP_CLIP);
-          l != null && (M(l, n, r), n.clip());
-          var O = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              a.get(o("WebBloksCanvasMinificationKeys").CANVAS_GROUP_WIDTH),
+          var a = t.getSubNode("transform");
+          a != null && d(a, n, r);
+          var i = t.get("clip");
+          i != null && (e(i, n, r), n.clip());
+          var l = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+              t.get("width"),
               n,
             ),
-            W = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              a.get(o("WebBloksCanvasMinificationKeys").CANVAS_GROUP_HEIGHT),
+            m = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
+              t.get("height"),
               n,
             );
-          if (O > 0 && W > 0) {
-            var q = o("WebBloksCanvasUtils").createSecondaryCanvasElement(O, W),
-              U = q.getContext("2d");
-            (B(a, U, r), n.drawImage(q, 0, 0), q.remove());
-          } else B(a, n, r);
+          if (l > 0 && m > 0) {
+            var p = o("WebBloksCanvasUtils").createSecondaryCanvasElement(l, m),
+              _ = p.getContext("2d");
+            (d(t, _, r), n.drawImage(p, 0, 0), p.remove());
+          } else d(t, n, r);
           break;
         }
-        case u:
         case "bk.types.CanvasLayer": {
-          var V = o("WebBloksUtils").cast(t),
-            H = V.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_TRANSFORM,
-            );
-          H != null && B(H, n, r);
-          var G = V.get(
-            o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_BLENDING_MODE,
-          );
-          G != null && o("WebBloksCanvasUtils").drawBlendingModeToCanvas(G, n);
-          var z = V.get(o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_CLIP);
-          z != null && (M(z, n, r), n.clip());
-          var j = V.get(o("WebBloksConstants").ALPHA_ATTRIBUTE_KEY);
-          j != null && (n.globalAlpha = parseFloat(j));
-          var K = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              V.get(o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_WIDTH),
+          var f = t.getSubNode("transform");
+          f != null && d(f, n, r);
+          var g = t.get("blending_mode");
+          g != null && o("WebBloksCanvasUtils").drawBlendingModeToCanvas(g, n);
+          var h = t.get("clip");
+          h != null && (e(h, n, r), n.clip());
+          var y = t.get("alpha");
+          y != null && (n.globalAlpha = parseFloat(y));
+          var C = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+              t.get("width"),
               n,
             ),
-            Q = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              V.get(o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_HEIGHT),
+            b = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
+              t.get("height"),
               n,
             );
-          if (K > 0 && Q > 0) {
-            var X = o("WebBloksCanvasUtils").createSecondaryCanvasElement(K, Q),
-              Y = X.getContext("2d");
-            (B(V, Y, r), n.drawImage(X, 0, 0), X.remove());
-          } else B(V, n, r);
+          if (C > 0 && b > 0) {
+            var v = o("WebBloksCanvasUtils").createSecondaryCanvasElement(C, b),
+              S = v.getContext("2d");
+            (d(t, S, r), n.drawImage(v, 0, 0), v.remove());
+          } else d(t, n, r);
           break;
         }
-        case I:
         case "bk.types.CanvasTransform": {
-          var J,
-            Z = o("WebBloksUtils").cast(t),
-            ee = Z.get(
-              (J = o("WebBloksCanvasMinificationKeys")).CANVAS_TRANSFORM_A,
-            ),
-            te = Z.get(J.CANVAS_TRANSFORM_B),
-            ne = Z.get(J.CANVAS_TRANSFORM_C),
-            re = Z.get(J.CANVAS_TRANSFORM_D),
-            oe = Z.get(J.CANVAS_TRANSFORM_TX),
-            ae = Z.get(J.CANVAS_TRANSFORM_TY);
+          var R = t.get("a"),
+            L = t.get("b"),
+            E = t.get("c"),
+            k = t.get("d"),
+            I = t.get("tx"),
+            T = t.get("ty");
           if (
-            ee != null &&
-            te != null &&
-            ne != null &&
-            re != null &&
-            oe != null &&
-            ae != null
+            R != null &&
+            L != null &&
+            E != null &&
+            k != null &&
+            I != null &&
+            T != null
           ) {
-            var ie;
+            var D;
             n.setTransform(
-              (ie = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-                ee,
+              (D = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+                R,
                 n,
               ),
-              ie.getCanvasPixelValRelativeToHeight(te, n),
-              ie.getCanvasPixelValRelativeToWidth(ne, n),
-              ie.getCanvasPixelValRelativeToHeight(re, n),
-              ie.getCanvasPixelValRelativeToWidth(oe, n),
-              ie.getCanvasPixelValRelativeToHeight(ae, n),
+              D.getCanvasPixelValRelativeToHeight(L, n),
+              D.getCanvasPixelValRelativeToWidth(E, n),
+              D.getCanvasPixelValRelativeToHeight(k, n),
+              D.getCanvasPixelValRelativeToWidth(I, n),
+              D.getCanvasPixelValRelativeToHeight(T, n),
             );
           }
-          B(Z, n, r);
+          d(t, n, r);
           break;
         }
-        case e:
         case "bk.types.CanvasFill": {
-          var J,
-            le = o("WebBloksUtils").cast(t),
-            se = le.getSubNode(
-              (J = o("WebBloksCanvasMinificationKeys")).CANVAS_FILL_SHAPE,
-            ),
-            ue = le.getSubNode(J.CANVAS_FILL_SHADING),
-            ce = le.getSubNode(J.CANVAS_FILL_SHADOW),
-            de = le.getSubNode(J.CANVAS_FILL_BLENDING_MODE);
-          (se != null && M(se, n, r),
-            ue != null &&
-              o("WebBloksCanvasUtils").drawShadingToCanvas(ue, n, r),
-            de != null &&
-              o("WebBloksCanvasUtils").drawBlendingModeToCanvas(de, n),
-            ce != null && o("WebBloksCanvasUtils").drawShadowToCanvas(ce, n, r),
+          var x = t.getSubNode("shape"),
+            $ = t.getSubNode("shading"),
+            P = t.getSubNode("shadow"),
+            N = t.getSubNode("blending_mode");
+          (x != null && e(x, n, r),
+            $ != null && o("WebBloksCanvasUtils").drawShadingToCanvas($, n, r),
+            N != null &&
+              o("WebBloksCanvasUtils").drawBlendingModeToCanvas(N, n),
+            P != null && o("WebBloksCanvasUtils").drawShadowToCanvas(P, n, r),
             n.fill());
           break;
         }
-        case c:
         case "bk.types.CanvasPath": {
-          var me = o("WebBloksUtils").cast(t);
-          (n.beginPath(), B(me, n, r));
+          (n.beginPath(), d(t, n, r));
           break;
         }
-        case d:
-        case m:
-        case p:
-        case _:
-        case f:
-        case g:
-        case h:
-        case y:
-        case C:
-        case b:
         case "bk.types.CanvasPathAdd":
         case "bk.types.CanvasPathArc":
         case "bk.types.CanvasPathCircle":
@@ -172,96 +106,50 @@ __d(
         case "bk.types.CanvasPathMoveTo":
         case "bk.types.CanvasPathQuadTo":
         case "bk.types.CanvasPathRect": {
-          A(o("WebBloksUtils").cast(t), n, r);
+          u(t, n, r);
           break;
         }
-        case S:
-        case L:
-        case v:
-        case E:
-        case R:
         case "bk.types.CanvasShapeCircle":
         case "bk.types.CanvasShapeLine":
         case "bk.types.CanvasShapeArc":
         case "bk.types.CanvasShapeRect":
         case "bk.types.CanvasShapeEllipse": {
-          w(o("WebBloksUtils").cast(t), n);
+          s(t, n);
           break;
         }
-        case T:
-        case D:
-        case x:
-        case $:
-        case P:
-        case N:
         case "bk.types.CanvasTransformInverseV2":
         case "bk.types.CanvasTransformRotate":
         case "bk.types.CanvasTransformScale":
         case "bk.types.CanvasTransformSkew":
         case "bk.types.CanvasTransformSkewV2":
         case "bk.types.CanvasTransformTranslate": {
-          F(o("WebBloksUtils").cast(t), n);
+          c(t, n);
           break;
         }
-        case k:
         case "bk.types.CanvasStroke": {
-          var pe = o("WebBloksUtils").cast(t);
           n.beginPath();
-          var _e = pe.get(
-            o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_DASH_LENGTHS,
-          );
-          if ((_e != null && n.setLineDash(_e.map(parseFloat)), n != null)) {
-            var fe, ge, he, ye;
-            ((n.lineWidth = parseFloat(
-              pe.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_LINE_WIDTH,
-              ),
-            )),
-              (n.lineCap =
-                (fe = pe.get(
-                  o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_LINE_CAP,
-                )) != null
-                  ? fe
-                  : "butt"),
-              (n.lineJoin =
-                (ge = pe.get(
-                  o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_LINE_JOIN,
-                )) != null
-                  ? ge
-                  : "miter"),
+          var M = t.get("dash_lengths");
+          if ((M != null && n.setLineDash(M.map(parseFloat)), n != null)) {
+            var w, A, F, O;
+            ((n.lineWidth = parseFloat(t.get("line_width"))),
+              (n.lineCap = (w = t.get("line_cap")) != null ? w : "butt"),
+              (n.lineJoin = (A = t.get("line_join")) != null ? A : "miter"),
               (n.miterLimit = parseFloat(
-                (he = pe.get(
-                  o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_MITER_LIMIT,
-                )) != null
-                  ? he
-                  : 0,
+                (F = t.get("miter_limit")) != null ? F : 0,
               )),
               (n.lineDashOffset = parseFloat(
-                (ye = pe.get(
-                  o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_DASH_PHASE,
-                )) != null
-                  ? ye
-                  : 0,
+                (O = t.get("dash_phase")) != null ? O : 0,
               )));
           }
-          var Ce = pe.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_SHAPE,
-            ),
-            be = pe.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_SHADING,
-            ),
-            ve = pe.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_SHADOW,
-            ),
-            Se = pe.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_BLENDING_MODE,
-            );
-          (Ce != null && M(Ce, n, r),
-            be != null &&
-              o("WebBloksCanvasUtils").drawShadingToCanvas(be, n, r),
-            Se != null &&
-              o("WebBloksCanvasUtils").drawBlendingModeToCanvas(Se, n),
-            ve != null && o("WebBloksCanvasUtils").drawShadowToCanvas(ve, n, r),
+          var B = t.getSubNode("shape"),
+            W = t.getSubNode("shading"),
+            q = t.getSubNode("shadow"),
+            U = t.getSubNode("blending_mode");
+          (B != null && e(B, n, r),
+            W != null && o("WebBloksCanvasUtils").drawShadingToCanvas(W, n, r),
+            U != null &&
+              o("WebBloksCanvasUtils").drawBlendingModeToCanvas(U, n),
+            q != null && o("WebBloksCanvasUtils").drawShadowToCanvas(q, n, r),
             n.stroke());
           break;
         }
@@ -272,188 +160,101 @@ __d(
           );
       }
     }
-    function w(e, t) {
+    function s(e, t) {
+      var n;
       switch (e.styleId) {
-        case v:
         case "bk.types.CanvasShapeArc": {
-          var n,
-            r,
-            a = o("WebBloksUtils").cast(e);
+          var r, a;
           t.beginPath();
           var i = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              a.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_SHAPE_ARC_CENTER_X,
-              ),
+              e.get("center_x"),
               t,
             ),
             l = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              a.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_SHAPE_ARC_CENTER_Y,
-              ),
+              e.get("center_y"),
               t,
             ),
             s = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              a.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_SHAPE_ARC_RADIUS,
-              ),
+              e.get("radius"),
               t,
             ),
-            u = parseFloat(
-              (n = a.get(
-                o("WebBloksCanvasMinificationKeys")
-                  .CANVAS_SHAPE_ARC_START_ANGLE,
-              )) != null
-                ? n
-                : 0,
-            ),
-            c = parseFloat(
-              (r = a.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_SHAPE_ARC_END_ANGLE,
-              )) != null
-                ? r
-                : 360,
-            ),
-            d =
-              a.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_SHAPE_ARC_CLOCKWISE,
-              ) != null
-                ? !a.get(
-                    o("WebBloksCanvasMinificationKeys")
-                      .CANVAS_SHAPE_ARC_CLOCKWISE,
-                  )
-                : !1;
+            u = parseFloat((r = e.get("start_angle")) != null ? r : 0),
+            c = parseFloat((a = e.get("end_angle")) != null ? a : 360),
+            d = e.get("clockwise") != null ? !e.get("clockwise") : !1;
           t.arc(i, l, s, (u / 180) * Math.PI, (c / 180) * Math.PI, d);
           break;
         }
-        case S:
-        case "bk.types.CanvasShapeCircle": {
-          var m = o("WebBloksUtils").cast(e);
+        case "bk.types.CanvasShapeCircle":
           (t.beginPath(),
             t.arc(
               o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-                m.get(
-                  o("WebBloksCanvasMinificationKeys")
-                    .CANVAS_SHAPE_CIRCLE_CENTER_X,
-                ),
+                e.get("center_x"),
                 t,
               ),
               o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-                m.get(
-                  o("WebBloksCanvasMinificationKeys")
-                    .CANVAS_SHAPE_CIRCLE_CENTER_Y,
-                ),
+                e.get("center_y"),
                 t,
               ),
               o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-                m.get(
-                  o("WebBloksCanvasMinificationKeys")
-                    .CANVAS_SHAPE_CIRCLE_RADIUS,
-                ),
+                e.get("radius"),
                 t,
               ),
               0,
               2 * Math.PI,
             ));
           break;
-        }
-        case L:
         case "bk.types.CanvasShapeLine": {
-          var p,
-            _,
-            f = o("WebBloksUtils").cast(e);
+          var m;
           (t.beginPath(),
             t.moveTo(
-              (p = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-                f.get(
-                  (_ = o("WebBloksCanvasMinificationKeys"))
-                    .CANVAS_SHAPE_LINE_START_X,
-                ),
+              (m = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+                e.get("start_x"),
                 t,
               ),
-              p.getCanvasPixelValRelativeToHeight(
-                f.get(_.CANVAS_SHAPE_LINE_START_Y),
-                t,
-              ),
+              m.getCanvasPixelValRelativeToHeight(e.get("start_y"), t),
             ),
             t.lineTo(
-              p.getCanvasPixelValRelativeToWidth(
-                f.get(_.CANVAS_SHAPE_LINE_END_X),
-                t,
-              ),
-              p.getCanvasPixelValRelativeToHeight(
-                f.get(_.CANVAS_SHAPE_LINE_END_Y),
-                t,
-              ),
+              m.getCanvasPixelValRelativeToWidth(e.get("end_x"), t),
+              m.getCanvasPixelValRelativeToHeight(e.get("end_y"), t),
             ));
           break;
         }
-        case E:
-        case "bk.types.CanvasShapeRect": {
-          var g,
-            p,
-            _,
-            h = o("WebBloksUtils").cast(e);
+        case "bk.types.CanvasShapeRect":
           (t.beginPath(),
             t.roundRect(
-              (p = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-                h.get(
-                  (_ = o("WebBloksCanvasMinificationKeys")).CANVAS_SHAPE_RECT_X,
-                ),
+              o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+                e.get("x"),
                 t,
               ),
-              p.getCanvasPixelValRelativeToHeight(
-                h.get(_.CANVAS_SHAPE_RECT_Y),
+              o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
+                e.get("y"),
                 t,
               ),
-              p.getCanvasPixelValRelativeToWidth(
-                h.get(_.CANVAS_SHAPE_RECT_WIDTH),
+              o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+                e.get("width"),
                 t,
               ),
-              p.getCanvasPixelValRelativeToHeight(
-                h.get(_.CANVAS_SHAPE_RECT_HEIGHT),
+              o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
+                e.get("height"),
                 t,
               ),
-              parseFloat(
-                (g = h.get(
-                  o("WebBloksCanvasMinificationKeys")
-                    .CANVAS_SHAPE_RECT_CORNER_RADIUS,
-                )) != null
-                  ? g
-                  : 0,
-              ),
+              parseFloat((n = e.get("corner_radius")) != null ? n : 0),
             ));
           break;
-        }
-        case R:
         case "bk.types.CanvasShapeEllipse": {
-          var p,
-            _,
-            y = o("WebBloksUtils").cast(e);
+          var m;
           t.beginPath();
-          var C =
-              (p = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-                y.get(
-                  (_ = o("WebBloksCanvasMinificationKeys"))
-                    .CANVAS_SHAPE_ELLIPSE_WIDTH,
-                ),
+          var p =
+              (m = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+                e.get("width"),
                 t,
               ) / 2,
-            b =
-              p.getCanvasPixelValRelativeToHeight(
-                y.get(_.CANVAS_SHAPE_ELLIPSE_HEIGHT),
-                t,
-              ) / 2;
+            _ = m.getCanvasPixelValRelativeToHeight(e.get("height"), t) / 2;
           t.ellipse(
-            p.getCanvasPixelValRelativeToWidth(
-              y.get(_.CANVAS_SHAPE_ELLIPSE_X),
-              t,
-            ) + C,
-            p.getCanvasPixelValRelativeToHeight(
-              y.get(_.CANVAS_SHAPE_ELLIPSE_Y),
-              t,
-            ) + b,
-            C,
-            b,
+            m.getCanvasPixelValRelativeToWidth(e.get("x"), t) + p,
+            m.getCanvasPixelValRelativeToHeight(e.get("y"), t) + _,
+            p,
+            _,
             0,
             0,
             2 * Math.PI,
@@ -467,262 +268,144 @@ __d(
           );
       }
     }
-    function A(e, t, n) {
-      switch (e.styleId) {
-        case d:
+    function u(t, n, r) {
+      switch (t.styleId) {
         case "bk.types.CanvasPathAdd": {
-          var r = o("WebBloksUtils").cast(e),
-            a = r.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ADD_TRANSFORM,
-            ),
-            i = r.getSubNode(
-              o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ADD_PATH,
-            );
-          (a != null && B(a, t, n), i != null && M(i, t, n));
+          var a = t.getSubNode("transform"),
+            i = t.getSubNode("path");
+          (a != null && d(a, n, r), i != null && e(i, n, r));
           break;
         }
-        case m:
         case "bk.types.CanvasPathArc": {
           var l,
             s,
-            u = o("WebBloksUtils").cast(e),
-            c = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_CENTER_X,
-              ),
-              t,
+            u = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+              t.get("center_x"),
+              n,
             ),
-            v = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_CENTER_Y,
-              ),
-              t,
+            c = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
+              t.get("center_y"),
+              n,
             ),
-            S = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              u.get(o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_RADIUS),
-              t,
+            m = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+              t.get("radius"),
+              n,
             ),
-            R = parseFloat(
-              (l = u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_START_ANGLE,
-              )) != null
-                ? l
-                : 0,
-            ),
-            L = parseFloat(
-              (s = u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_END_ANGLE,
-              )) != null
-                ? s
-                : 360,
-            ),
-            E =
-              u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_CLOCKWISE,
-              ) != null
-                ? !u.get(
-                    o("WebBloksCanvasMinificationKeys")
-                      .CANVAS_PATH_ARC_CLOCKWISE,
-                  )
-                : !1;
-          t.arc(c, v, S, (R / 180) * Math.PI, (L / 180) * Math.PI, E);
+            p = parseFloat((l = t.get("start_angle")) != null ? l : 0),
+            _ = parseFloat((s = t.get("end_angle")) != null ? s : 360),
+            f = t.get("clockwise") != null ? !t.get("clockwise") : !1;
+          n.arc(u, c, m, (p / 180) * Math.PI, (_ / 180) * Math.PI, f);
           break;
         }
-        case p:
         case "bk.types.CanvasPathCircle": {
-          var k = o("WebBloksUtils").cast(e),
-            I = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              k.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_CIRCLE_CENTER_X,
-              ),
-              t,
+          var g = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
+              t.get("center_x"),
+              n,
             ),
-            T = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              k.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_CIRCLE_CENTER_Y,
-              ),
-              t,
+            h = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
+              t.get("center_y"),
+              n,
             ),
-            D = parseFloat(
-              k.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_CIRCLE_RADIUS,
-              ),
-            );
-          (t.moveTo(I + D, T), t.arc(I, T, D, 0, 2 * Math.PI), t.restore());
+            y = parseFloat(t.get("radius"));
+          (n.moveTo(g + y, h), n.arc(g, h, y, 0, 2 * Math.PI), n.restore());
           break;
         }
-        case _:
         case "bk.types.CanvasPathClose": {
-          t.closePath();
+          n.closePath();
           break;
         }
-        case f:
         case "bk.types.CanvasPathCubicTo": {
-          var x,
-            $,
-            P = o("WebBloksUtils").cast(e);
-          t.bezierCurveTo(
-            (x = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-              P.get(
-                ($ = o("WebBloksCanvasMinificationKeys"))
-                  .CANVAS_PATH_CUBIC_TO_CONTROL_A_X,
-              ),
-              t,
+          var C;
+          n.bezierCurveTo(
+            (C = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+              t.get("control_a_x"),
+              n,
             ),
-            x.getCanvasPixelValRelativeToHeight(
-              P.get($.CANVAS_PATH_CUBIC_TO_CONTROL_A_Y),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToWidth(
-              P.get($.CANVAS_PATH_CUBIC_TO_CONTROL_B_X),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToHeight(
-              P.get($.CANVAS_PATH_CUBIC_TO_CONTROL_B_Y),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToWidth(
-              P.get($.CANVAS_PATH_CUBIC_TO_END_X),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToHeight(
-              P.get($.CANVAS_PATH_CUBIC_TO_END_Y),
-              t,
-            ),
+            C.getCanvasPixelValRelativeToHeight(t.get("control_a_y"), n),
+            C.getCanvasPixelValRelativeToWidth(t.get("control_b_x"), n),
+            C.getCanvasPixelValRelativeToHeight(t.get("control_b_y"), n),
+            C.getCanvasPixelValRelativeToWidth(t.get("end_x"), n),
+            C.getCanvasPixelValRelativeToHeight(t.get("end_y"), n),
           );
           break;
         }
-        case g:
         case "bk.types.CanvasPathEllipse": {
-          var x,
-            $,
-            N = o("WebBloksUtils").cast(e),
-            w = (x = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-              N.get(
-                ($ = o("WebBloksCanvasMinificationKeys"))
-                  .CANVAS_PATH_ELLIPSE_WIDTH,
-              ),
-              t,
+          var C,
+            b = (C = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+              t.get("width"),
+              n,
             ),
-            A = x.getCanvasPixelValRelativeToHeight(
-              N.get($.CANVAS_PATH_ELLIPSE_HEIGHT),
-              t,
-            ),
-            F = w / 2,
-            O = A / 2,
-            W = x.getCanvasPixelValRelativeToWidth(
-              N.get($.CANVAS_PATH_ELLIPSE_X),
-              t,
-            ),
-            q = x.getCanvasPixelValRelativeToHeight(
-              N.get($.CANVAS_PATH_ELLIPSE_Y),
-              t,
-            ),
-            U = W + F,
-            V = q + O;
-          (t.moveTo(W + w, q + O), t.ellipse(U, V, F, O, 0, 0, 2 * Math.PI));
+            v = C.getCanvasPixelValRelativeToHeight(t.get("height"), n),
+            S = b / 2,
+            R = v / 2,
+            L = C.getCanvasPixelValRelativeToWidth(t.get("x"), n),
+            E = C.getCanvasPixelValRelativeToHeight(t.get("y"), n),
+            k = L + S,
+            I = E + R;
+          (n.moveTo(L + b, E + R), n.ellipse(k, I, S, R, 0, 0, 2 * Math.PI));
           break;
         }
-        case h:
         case "bk.types.CanvasPathLineTo": {
-          var H = o("WebBloksUtils").cast(e);
-          t.lineTo(
+          n.lineTo(
             o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              H.get(o("WebBloksCanvasMinificationKeys").CANVAS_PATH_LINE_TO_X),
-              t,
+              t.get("x"),
+              n,
             ),
             o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              H.get(o("WebBloksCanvasMinificationKeys").CANVAS_PATH_LINE_TO_Y),
-              t,
+              t.get("y"),
+              n,
             ),
           );
           break;
         }
-        case y:
         case "bk.types.CanvasPathMoveTo": {
-          var G = o("WebBloksUtils").cast(e);
-          t.moveTo(
+          n.moveTo(
             o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              G.get(o("WebBloksCanvasMinificationKeys").CANVAS_PATH_MOVE_TO_X),
-              t,
+              t.get("x"),
+              n,
             ),
             o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              G.get(o("WebBloksCanvasMinificationKeys").CANVAS_PATH_MOVE_TO_Y),
-              t,
+              t.get("y"),
+              n,
             ),
           );
           break;
         }
-        case C:
         case "bk.types.CanvasPathQuadTo": {
-          var x,
-            $,
-            z = o("WebBloksUtils").cast(e);
-          t.quadraticCurveTo(
-            (x = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-              z.get(
-                ($ = o("WebBloksCanvasMinificationKeys"))
-                  .CANVAS_PATH_QUAD_TO_CONTROL_X,
-              ),
-              t,
+          var C;
+          n.quadraticCurveTo(
+            (C = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+              t.get("control_x"),
+              n,
             ),
-            x.getCanvasPixelValRelativeToHeight(
-              z.get($.CANVAS_PATH_QUAD_TO_CONTROL_Y),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToWidth(
-              z.get($.CANVAS_PATH_QUAD_TO_END_X),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToHeight(
-              z.get($.CANVAS_PATH_QUAD_TO_END_Y),
-              t,
-            ),
+            C.getCanvasPixelValRelativeToHeight(t.get("control_y"), n),
+            C.getCanvasPixelValRelativeToWidth(t.get("end_x"), n),
+            C.getCanvasPixelValRelativeToHeight(t.get("end_y"), n),
           );
           break;
         }
-        case b:
         case "bk.types.CanvasPathRect": {
-          var j,
-            x,
-            $,
-            K = o("WebBloksUtils").cast(e);
-          t.roundRect(
-            (x = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-              K.get(
-                ($ = o("WebBloksCanvasMinificationKeys")).CANVAS_PATH_RECT_X,
-              ),
-              t,
+          var T, C;
+          n.roundRect(
+            (C = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+              t.get("x"),
+              n,
             ),
-            x.getCanvasPixelValRelativeToHeight(K.get($.CANVAS_PATH_RECT_Y), t),
-            x.getCanvasPixelValRelativeToWidth(
-              K.get($.CANVAS_PATH_RECT_WIDTH),
-              t,
-            ),
-            x.getCanvasPixelValRelativeToHeight(
-              K.get($.CANVAS_PATH_RECT_HEIGHT),
-              t,
-            ),
-            parseFloat(
-              (j = K.get(
-                o("WebBloksCanvasMinificationKeys")
-                  .CANVAS_PATH_RECT_CORNER_RADIUS,
-              )) != null
-                ? j
-                : 0,
-            ),
+            C.getCanvasPixelValRelativeToHeight(t.get("y"), n),
+            C.getCanvasPixelValRelativeToWidth(t.get("width"), n),
+            C.getCanvasPixelValRelativeToHeight(t.get("height"), n),
+            parseFloat((T = t.get("corner_radius")) != null ? T : 0),
           );
           break;
         }
         default:
           throw new (o("WebBloksErrors").WebBloksError)(
-            e.styleId + " is not yet implemented. Please override in renderer",
+            t.styleId + " is not yet implemented. Please override in renderer",
           );
       }
     }
-    function F(e, t) {
+    function c(e, t) {
       switch (e.styleId) {
-        case T:
         case "bk.types.CanvasTransformInverseV2": {
           var n = window.devicePixelRatio;
           (t.scale(1 / n, 1 / n),
@@ -730,127 +413,73 @@ __d(
             t.scale(n, n));
           break;
         }
-        case D:
         case "bk.types.CanvasTransformRotate": {
-          var r,
-            a,
-            i = o("WebBloksUtils").cast(e);
+          var r;
           (t.translate(
             (r = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-              i.get(
-                (a = o("WebBloksCanvasMinificationKeys"))
-                  .CANVAS_TRANSFORM_ROTATE_PIVOT_X,
-              ),
+              e.get("pivot_x"),
               t,
             ),
-            r.getCanvasPixelValRelativeToHeight(
-              i.get(a.CANVAS_TRANSFORM_ROTATE_PIVOT_Y),
-              t,
-            ),
+            r.getCanvasPixelValRelativeToHeight(e.get("pivot_y"), t),
           ),
-            t.rotate(
-              (parseFloat(i.get(a.CANVAS_TRANSFORM_ROTATE_DEGREES)) * Math.PI) /
-                180,
-            ),
+            t.rotate((parseFloat(e.get("degrees")) * Math.PI) / 180),
             t.translate(
-              -r.getCanvasPixelValRelativeToWidth(
-                i.get(a.CANVAS_TRANSFORM_ROTATE_PIVOT_X),
-                t,
-              ),
-              -r.getCanvasPixelValRelativeToHeight(
-                i.get(a.CANVAS_TRANSFORM_ROTATE_PIVOT_Y),
-                t,
-              ),
+              -r.getCanvasPixelValRelativeToWidth(e.get("pivot_x"), t),
+              -r.getCanvasPixelValRelativeToHeight(e.get("pivot_y"), t),
             ));
           break;
         }
-        case x:
         case "bk.types.CanvasTransformScale": {
-          var r,
-            a,
-            l = o("WebBloksUtils").cast(e);
+          var r;
           (t.translate(
             (r = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
-              l.get(
-                (a = o("WebBloksCanvasMinificationKeys"))
-                  .CANVAS_TRANSFORM_SCALE_PIVOT_X,
-              ),
+              e.get("pivot_x"),
               t,
             ),
-            r.getCanvasPixelValRelativeToHeight(
-              l.get(a.CANVAS_TRANSFORM_SCALE_PIVOT_Y),
-              t,
-            ),
+            r.getCanvasPixelValRelativeToHeight(e.get("pivot_y"), t),
           ),
             t.scale(
-              r.getCanvasPixelValRelativeToWidth(
-                l.get(a.CANVAS_TRANSFORM_SCALE_X),
-                t,
-              ),
-              r.getCanvasPixelValRelativeToHeight(
-                l.get(a.CANVAS_TRANSFORM_SCALE_Y),
-                t,
-              ),
+              r.getCanvasPixelValRelativeToWidth(e.get("x"), t),
+              r.getCanvasPixelValRelativeToHeight(e.get("y"), t),
             ),
             t.translate(
-              -r.getCanvasPixelValRelativeToWidth(
-                l.get(a.CANVAS_TRANSFORM_SCALE_PIVOT_X),
-                t,
-              ),
-              -r.getCanvasPixelValRelativeToHeight(
-                l.get(a.CANVAS_TRANSFORM_SCALE_PIVOT_Y),
-                t,
-              ),
+              -r.getCanvasPixelValRelativeToWidth(e.get("pivot_x"), t),
+              -r.getCanvasPixelValRelativeToHeight(e.get("pivot_y"), t),
             ));
           break;
         }
-        case $:
-        case "bk.types.CanvasTransformSkew": {
-          var a,
-            s = o("WebBloksUtils").cast(e);
-          O(
-            s.get(
-              (a = o("WebBloksCanvasMinificationKeys")).CANVAS_TRANSFORM_SKEW_X,
-            ),
-            s.get(a.CANVAS_TRANSFORM_SKEW_Y),
-            s.get(a.CANVAS_TRANSFORM_SKEW_PIVOT_X),
-            s.get(a.CANVAS_TRANSFORM_SKEW_PIVOT_Y),
-            t,
-          );
-          break;
-        }
-        case P:
+        case "bk.types.CanvasTransformSkew":
         case "bk.types.CanvasTransformSkewV2": {
-          var a,
-            u = o("WebBloksUtils").cast(e);
-          O(
-            u.get(
-              (a = o("WebBloksCanvasMinificationKeys"))
-                .CANVAS_TRANSFORM_SKEW_V2_X,
+          var r;
+          (t.translate(
+            (r = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(
+              e.get("pivot_x"),
+              t,
             ),
-            u.get(a.CANVAS_TRANSFORM_SKEW_V2_Y),
-            u.get(a.CANVAS_TRANSFORM_SKEW_V2_PIVOT_X),
-            u.get(a.CANVAS_TRANSFORM_SKEW_V2_PIVOT_Y),
-            t,
-          );
+            r.getCanvasPixelValRelativeToHeight(e.get("pivot_y"), t),
+          ),
+            t.transform(
+              1,
+              r.getCanvasPixelValRelativeToWidth(e.get("x"), t),
+              r.getCanvasPixelValRelativeToHeight(e.get("y"), t),
+              1,
+              0,
+              0,
+            ),
+            t.translate(
+              -r.getCanvasPixelValRelativeToWidth(e.get("pivot_x"), t),
+              -r.getCanvasPixelValRelativeToHeight(e.get("pivot_y"), t),
+            ));
           break;
         }
-        case N:
         case "bk.types.CanvasTransformTranslate": {
-          var c = o("WebBloksUtils").cast(e);
           t.translate(
             o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
-              c.get(
-                o("WebBloksCanvasMinificationKeys")
-                  .CANVAS_TRANSFORM_TRANSLATE_X,
-              ),
+              e.get("x"),
               t,
             ),
             o("WebBloksCanvasUtils").getCanvasPixelValRelativeToHeight(
-              c.get(
-                o("WebBloksCanvasMinificationKeys")
-                  .CANVAS_TRANSFORM_TRANSLATE_Y,
-              ),
+              e.get("y"),
               t,
             ),
           );
@@ -863,30 +492,11 @@ __d(
           );
       }
     }
-    function O(e, t, n, r, a) {
-      var i;
-      (a.translate(
-        (i = o("WebBloksCanvasUtils")).getCanvasPixelValRelativeToWidth(n, a),
-        i.getCanvasPixelValRelativeToHeight(r, a),
-      ),
-        a.transform(
-          1,
-          i.getCanvasPixelValRelativeToWidth(e, a),
-          i.getCanvasPixelValRelativeToHeight(t, a),
-          1,
-          0,
-          0,
-        ),
-        a.translate(
-          -i.getCanvasPixelValRelativeToWidth(n, a),
-          -i.getCanvasPixelValRelativeToHeight(r, a),
-        ));
+    function d(t, n, r) {
+      var o = t.getSubNodes("children");
+      if (o != null) for (var a of o) e(a, n, r);
     }
-    function B(e, t, n) {
-      var r = e.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY);
-      if (r != null) for (var a of r) M(a, t, n);
-    }
-    l.default = M;
+    l.default = e;
   },
   98,
 );

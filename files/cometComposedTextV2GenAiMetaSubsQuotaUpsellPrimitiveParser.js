@@ -21,16 +21,23 @@ __d(
       );
     }
     function s(t) {
-      var n = o("cometComposedTextV2NodeBuilders").buildRootNode(),
-        r = t.buttons;
-      return n.append(
+      var n;
+      if (
+        t.meter_usage_type === "META_AI_THINK_HARD" ||
+        ((n = t.benefit_type) == null ? void 0 : n.includes("THINK_HARD")) ===
+          !0
+      )
+        return null;
+      var r = o("cometComposedTextV2NodeBuilders").buildRootNode(),
+        a = t.buttons;
+      return r.append(
         e({
           body: t.body,
           bodyLine1: t.body_line1,
           bodyLine2: t.body_line2,
           buttons:
-            r != null && r.length > 0
-              ? r.map(function (e) {
+            a != null && a.length > 0
+              ? a.map(function (e) {
                   return {
                     action: e.action,
                     deeplink: e.deeplink,

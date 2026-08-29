@@ -1,10 +1,11 @@
 __d(
   "StdlibWebBloksEnvironmentConfigDynamic",
-  ["StdlibWebBloksActions", "stdlibCanonicalTraversalKeys"],
+  ["StdlibWebBloksActions", "stdlibMinificationMap", "stdlibTraversalKeys"],
   function (t, n, r, o, a, i, l) {
     var e = {
       actions: o("StdlibWebBloksActions").ACTIONS,
-      traversalKeys: r("stdlibCanonicalTraversalKeys"),
+      minificationMap: r("stdlibMinificationMap"),
+      traversalKeys: r("stdlibTraversalKeys"),
     };
     l.STDLIB_ENVIRONMENT_CONFIG = e;
   },

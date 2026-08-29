@@ -19,7 +19,8 @@ __d(
         ).isAiRichResponseForwardingSenderEnabled(e.t) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
           t.unifiedResponse,
-        )
+        ) ||
+        o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(t.unifiedResponse)
       )
         return !1;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) return !0;

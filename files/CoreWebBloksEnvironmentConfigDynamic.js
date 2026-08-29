@@ -3,13 +3,15 @@ __d(
   [
     "CoreWebBloksActions",
     "WebBloksExtensionHandlers",
-    "coreCanonicalTraversalKeys",
+    "coreMinificationMap",
+    "coreTraversalKeys",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
       actions: o("CoreWebBloksActions").ACTIONS,
       extensionHandlers: o("WebBloksExtensionHandlers").EXTENSION_HANDLERS,
-      traversalKeys: r("coreCanonicalTraversalKeys"),
+      minificationMap: r("coreMinificationMap"),
+      traversalKeys: r("coreTraversalKeys"),
     };
     l.CORE_ENVIRONMENT_CONFIG = e;
   },

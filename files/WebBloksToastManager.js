@@ -12,18 +12,7 @@ __d(
         showAnimationInterpolator: "ease-out",
         dismissAnimationInterpolator: "ease-out",
       },
-      c = "#",
-      d = "$",
-      m = "&",
-      p = "(",
-      _ = ")",
-      f = "*",
-      g = "+",
-      h = "#",
-      y = "$",
-      C = "&",
-      b = "(",
-      v = (function () {
+      c = (function () {
         function e() {
           ((this.$1 = null), (this.$2 = []), (this.$3 = !1), (this.$4 = []));
         }
@@ -136,32 +125,38 @@ __d(
               n,
               r,
               o = this.parseToastInterpolator(
-                t.get(g),
+                t.get("show_animation_interpolator"),
                 u.showAnimationInterpolator,
               ),
               a = this.parseToastInterpolator(
-                t.get(m),
+                t.get("dismiss_animation_interpolator"),
                 u.dismissAnimationInterpolator,
               );
             return {
               autoDismissDurationMs:
-                (e = t.get(c)) != null ? e : u.autoDismissDurationMs,
+                (e = t.get("auto_dismiss_duration_ms")) != null
+                  ? e
+                  : u.autoDismissDurationMs,
               showAnimationDurationMs:
-                (n = t.get(f)) != null ? n : u.showAnimationDurationMs,
+                (n = t.get("show_animation_duration_ms")) != null
+                  ? n
+                  : u.showAnimationDurationMs,
               dismissAnimationDurationMs:
-                (r = t.get(d)) != null ? r : u.dismissAnimationDurationMs,
+                (r = t.get("dismiss_animation_duration_ms")) != null
+                  ? r
+                  : u.dismissAnimationDurationMs,
               showAnimationInterpolator: o,
               dismissAnimationInterpolator: a,
-              onShow: t.get(_),
-              onDismiss: t.get(p),
+              onShow: t.get("on_show"),
+              onDismiss: t.get("on_dismiss"),
             };
           }),
           (t.parseToastInterpolator = function (t, n) {
             if (t == null) return n;
-            var e = t.get(h),
-              r = t.get(y),
-              o = t.get(C),
-              a = t.get(b);
+            var e = t.get("x_a"),
+              r = t.get("x_b"),
+              o = t.get("y_a"),
+              a = t.get("y_b");
             return "cubic-bezier(" + e + "," + o + "," + r + "," + a + ")";
           }),
           (t.addListener = function (t) {
@@ -190,7 +185,7 @@ __d(
           e
         );
       })();
-    l.default = v;
+    l.default = c;
   },
   98,
 );

@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e === 0
-        ? s._(/*BTDS*/ "Lead")
+        ? s._(/*BTDS*/ "None")
         : e === 1
           ? s._(/*BTDS*/ "Intake")
           : e === 2
@@ -31,11 +31,11 @@ __d(
     function c(t) {
       var n = t.trim().toLowerCase();
       if (n === "") return null;
-      for (var r of o("WAWebLeadStage").LEAD_STAGE_ORDER_WITH_NONE)
+      for (var r of o("WAWebLeadStage").ALL_LEAD_STAGES)
         if (e(r).toString().toLowerCase() === n) return r;
       return n === d ? o("WAWebLeadStage").LeadStage.NONE : null;
     }
-    var d = "none";
+    var d = "lead";
     ((l.getLeadStageName = e),
       (l.getLeadSublistRowLabel = u),
       (l.getLeadStageFromName = c));

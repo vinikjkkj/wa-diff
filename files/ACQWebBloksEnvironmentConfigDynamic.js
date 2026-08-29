@@ -1,10 +1,11 @@
 __d(
   "ACQWebBloksEnvironmentConfigDynamic",
-  ["AcqWebBloksActions", "acqCanonicalTraversalKeys"],
+  ["AcqWebBloksActions", "acqMinificationMap", "acqTraversalKeys"],
   function (t, n, r, o, a, i, l) {
     var e = {
       actions: o("AcqWebBloksActions").ACTIONS,
-      traversalKeys: r("acqCanonicalTraversalKeys"),
+      minificationMap: r("acqMinificationMap"),
+      traversalKeys: r("acqTraversalKeys"),
     };
     l.ACQ_ENVIRONMENT_CONFIG = e;
   },

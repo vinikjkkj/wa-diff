@@ -5,24 +5,19 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = e.useEffect,
-      c = "#",
-      d = "$",
-      m = "&",
-      p = "#",
-      _ = "$";
-    function f(e) {
+      u = e.useEffect;
+    function c(e) {
       var t = e.node,
         n = o("WebBloksComponentContext").useWebBloksContext(),
         r = n.bloksContext,
         a = n.executeOnNextTickCatch,
         i = n.renderNode,
-        l = t.getSubNode(c),
-        f = t.getSubNode(d),
-        h = t.getSubNode(m),
-        y = i(f),
-        C = h == null ? void 0 : h.getExpression(p),
-        b = h == null ? void 0 : h.get(_);
+        l = t.get("container_config"),
+        c = t.get("content"),
+        m = t.get("navigation_callbacks"),
+        p = i(c),
+        _ = m == null ? void 0 : m.getExpression("on_enter"),
+        f = m == null ? void 0 : m.get("on_exit");
       return (
         u(
           function () {
@@ -34,24 +29,24 @@ __d(
           [r, l],
         ),
         u(function () {
-          if (!(C == null && b == null)) {
+          if (!(_ == null && f == null)) {
             var e = r.objectSet.navigationManager.getCurrentModalOrScreen();
-            if (C != null) {
+            if (_ != null) {
               var n = r.objectSet.navigationManager.getNavigationDirection();
-              a(t, C, [r, n]);
+              a(t, _, [r, n]);
             }
-            b != null && (e == null || e.setOnExitCallback(b));
+            f != null && (e == null || e.setOnExitCallback(f));
           }
         }, []),
         s.jsx("div", {
           "data-bloks-name": t.styleId,
-          className: g.root,
-          children: y,
+          className: d.root,
+          children: p,
         })
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    var g = o("WebBloksStyle").createStyles({
+    c.displayName = c.name + " [from " + i.id + "]";
+    var d = o("WebBloksStyle").createStyles({
       root: {
         height: "100%",
         width: "100%",
@@ -59,7 +54,7 @@ __d(
         flexDirection: "column",
       },
     });
-    l.default = f;
+    l.default = c;
   },
   98,
 );

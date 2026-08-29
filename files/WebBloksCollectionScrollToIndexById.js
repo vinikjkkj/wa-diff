@@ -1,28 +1,26 @@
 __d(
   "WebBloksCollectionScrollToIndexById",
-  ["WebBloksCollectionScrollTo", "WebBloksConstants"],
+  ["WebBloksCollectionScrollTo"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "&",
-      s = "$";
-    function u(t, n, r) {
-      if (n.uiMutableContainer.domNode) {
-        var a = r.get(e),
-          i = r.get(s),
-          l = n.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY);
-        if (!(l == null || l.length === 0)) {
-          for (var u = 0; u < l.length; u++)
-            if (l[u].getId() === i) {
+    function e(e, t, n) {
+      if (t.uiMutableContainer.domNode) {
+        var r = n.get("animated"),
+          a = n.get("target_id"),
+          i = t.getSubNodes("children");
+        if (!(i == null || i.length === 0)) {
+          for (var l = 0; l < i.length; l++)
+            if (i[l].getId() === a) {
               o("WebBloksCollectionScrollTo").scrollWebBloksCollectionToIndex(
-                n,
-                { index: u, isAnimated: a },
+                t,
+                { index: l, isAnimated: r },
               );
               break;
             }
         }
       }
     }
-    l.default = u;
+    l.default = e;
   },
   98,
 );

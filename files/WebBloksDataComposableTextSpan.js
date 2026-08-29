@@ -15,118 +15,105 @@ __d(
       u = e,
       c = u.useContext,
       d = u.useEffect,
-      m = u.useMemo,
-      p = "\u41FB",
-      _ = "#",
-      f = "$",
-      g = "&";
-    function h(e) {
-      var t = o("react-compiler-runtime").c(29),
+      m = u.useMemo;
+    function p(e) {
+      var t = o("react-compiler-runtime").c(27),
         n = e.externalStyle,
         a = e.node,
         i;
-      t[0] !== a ? ((i = a.get(_)), (t[0] = a), (t[1] = i)) : (i = t[1]);
+      t[0] !== a ? ((i = a.get("styles")), (t[0] = a), (t[1] = i)) : (i = t[1]);
       var l = i,
-        u;
-      t[2] !== a ? ((u = a.get(g)), (t[2] = a), (t[3] = u)) : (u = t[3]);
-      var m = u,
-        p = o("WebBloksStyle").useStyle(a, n),
-        h = p.wrapper,
-        C = o("WebBloksComponentContext").useWebBloksContext(),
-        b = C.renderNode,
-        v = c(r("WebBloksRichTextContext")),
-        S = v.isRootFontSizeEnabled,
-        R = v.setIsRootFontSizeEnabled,
-        L = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(
-          l,
-          a,
-          n,
-          m,
-        ),
-        E;
-      if (t[4] !== a || t[5] !== b) {
-        var k;
-        ((E =
-          (k = a.getSubNodes(f)) == null
+        u = o("WebBloksStyle").useStyle(a, n),
+        m = u.wrapper,
+        p = o("WebBloksComponentContext").useWebBloksContext(),
+        f = p.renderNode,
+        g = c(r("WebBloksRichTextContext")),
+        h = g.isRootFontSizeEnabled,
+        y = g.setIsRootFontSizeEnabled,
+        C = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(a, n),
+        b;
+      if (t[2] !== a || t[3] !== f) {
+        var v;
+        ((b =
+          (v = a.getSubNodes("spans")) == null
             ? void 0
-            : k.map(function (e) {
-                return b(e);
+            : v.map(function (e) {
+                return f(e);
               })),
-          (t[4] = a),
-          (t[5] = b),
-          (t[6] = E));
-      } else E = t[6];
-      var I = E,
-        T;
-      if (t[7] !== m) {
-        var D;
-        ((T = (D = m == null ? void 0 : m.some(y)) != null ? D : !1),
-          (t[7] = m),
-          (t[8] = T));
-      } else T = t[8];
-      var x = T,
-        $,
-        P;
+          (t[2] = a),
+          (t[3] = f),
+          (t[4] = b));
+      } else b = t[4];
+      var S = b,
+        R;
+      if (t[5] !== l) {
+        var L;
+        ((R = (L = l == null ? void 0 : l.some(_)) != null ? L : !1),
+          (t[5] = l),
+          (t[6] = R));
+      } else R = t[6];
+      var E = R,
+        k,
+        I;
       if (
-        (t[9] !== x || t[10] !== S || t[11] !== R
-          ? (($ = function () {
-              !S && x && R(!0);
+        (t[7] !== E || t[8] !== h || t[9] !== y
+          ? ((k = function () {
+              !h && E && y(!0);
             }),
-            (P = [x, S, R]),
-            (t[9] = x),
-            (t[10] = S),
-            (t[11] = R),
-            (t[12] = $),
-            (t[13] = P))
-          : (($ = t[12]), (P = t[13])),
-        d($, P),
-        x)
+            (I = [E, h, y]),
+            (t[7] = E),
+            (t[8] = h),
+            (t[9] = y),
+            (t[10] = k),
+            (t[11] = I))
+          : ((k = t[10]), (I = t[11])),
+        d(k, I),
+        E)
       ) {
-        var N;
-        t[14] !== L || t[15] !== I
-          ? ((N = s.jsx("span", babelHelpers.extends({}, L, { children: I }))),
-            (t[14] = L),
-            (t[15] = I),
-            (t[16] = N))
-          : (N = t[16]);
-        var M;
-        t[17] !== a || t[18] !== N
-          ? ((M = s.jsx(r("WebBloksRichTextResizeToFit"), {
+        var T;
+        t[12] !== C || t[13] !== S
+          ? ((T = s.jsx("span", babelHelpers.extends({}, C, { children: S }))),
+            (t[12] = C),
+            (t[13] = S),
+            (t[14] = T))
+          : (T = t[14]);
+        var D;
+        t[15] !== a || t[16] !== T
+          ? ((D = s.jsx(r("WebBloksRichTextResizeToFit"), {
               node: a,
-              children: N,
+              children: T,
             })),
-            (t[17] = a),
-            (t[18] = N),
-            (t[19] = M))
-          : (M = t[19]);
-        var w;
+            (t[15] = a),
+            (t[16] = T),
+            (t[17] = D))
+          : (D = t[17]);
+        var x;
         return (
-          t[20] !== M || t[21] !== h
-            ? ((w = h(M)), (t[20] = M), (t[21] = h), (t[22] = w))
-            : (w = t[22]),
-          w
+          t[18] !== D || t[19] !== m
+            ? ((x = m(D)), (t[18] = D), (t[19] = m), (t[20] = x))
+            : (x = t[20]),
+          x
         );
       }
-      var A;
-      t[23] !== L || t[24] !== I
-        ? ((A = s.jsx("span", babelHelpers.extends({}, L, { children: I }))),
-          (t[23] = L),
-          (t[24] = I),
-          (t[25] = A))
-        : (A = t[25]);
-      var F;
+      var $;
+      t[21] !== C || t[22] !== S
+        ? (($ = s.jsx("span", babelHelpers.extends({}, C, { children: S }))),
+          (t[21] = C),
+          (t[22] = S),
+          (t[23] = $))
+        : ($ = t[23]);
+      var P;
       return (
-        t[26] !== A || t[27] !== h
-          ? ((F = h(A)), (t[26] = A), (t[27] = h), (t[28] = F))
-          : (F = t[28]),
-        F
+        t[24] !== $ || t[25] !== m
+          ? ((P = m($)), (t[24] = $), (t[25] = m), (t[26] = P))
+          : (P = t[26]),
+        P
       );
     }
-    function y(e) {
-      var t = e.styleId;
-      return t === p || t === "bk.style.textspan.ResizeToFitStyle";
+    function _(e) {
+      return e.styleId === "bk.style.textspan.ResizeToFitStyle";
     }
-    l.default = h;
+    l.default = p;
   },
   98,
 );

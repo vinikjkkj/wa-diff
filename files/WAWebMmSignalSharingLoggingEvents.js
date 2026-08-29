@@ -9,7 +9,6 @@ __d(
     "WAWebMmSignalSharingModelUtils",
     "WAWebMmSignalSharingTos",
     "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
-    "WAWebSchemaChat",
     "WAWebWamEnumBlockEntryPoint",
     "WAWebWamEnumDisclosureEventType",
     "WAWebWamEnumDisclosureInteraction",
@@ -395,42 +394,36 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.contextInfo,
-            n = e.msg;
+          var t,
+            n = e.contextInfo,
+            r = e.msg,
+            a = r.id.remote.toString();
           if (
             o(
               "WAWebMmSignalSharingGatingUtils",
-            ).isMmSignalSharingCollectionEnabled()
+            ).isMmSignalSharingCollectionEnabled(a)
           ) {
-            var r = yield o("WAWebSchemaChat")
-              .getChatTable()
-              .get(n.id.remote.toString());
-            if (r != null) {
-              var a,
-                i = o(
-                  "WAWebMmSignalSharingExpirationWindowUtils",
-                ).getMmSignalSharingExpirationTokens(t);
-              o(
-                "WAWebMmSignalSharingLoggingUtils",
-              ).logMmSignalSharingCollectionWindowStateEvent({
-                chatWID: r.id,
-                msg: n,
-                signal: {
-                  mmDisclosureFlags:
-                    (a = n.mmSignalSharing) == null
-                      ? void 0
-                      : a.dataSharingFlags,
-                  mmHasDisclosedUrl: o(
-                    "WAWebMmSignalSharingModelUtils",
-                  ).existsMmSignalSharingConsentedUrl(n),
-                  mmHasShowDisclosureFlag: o(
-                    "WAWebMmSignalSharingModelUtils",
-                  ).isDisclosureEnabledForMsg(n),
-                  mmHasDisclosedToken: !!(i != null && i.disclosedToken),
-                  mmHasUndisclosedToken: !!(i != null && i.undisclosedToken),
-                },
-              });
-            }
+            var i = o(
+              "WAWebMmSignalSharingExpirationWindowUtils",
+            ).getMmSignalSharingExpirationTokens(n);
+            o(
+              "WAWebMmSignalSharingLoggingUtils",
+            ).logMmSignalSharingCollectionWindowStateEvent({
+              chatWID: a,
+              msg: r,
+              signal: {
+                mmDisclosureFlags:
+                  (t = r.mmSignalSharing) == null ? void 0 : t.dataSharingFlags,
+                mmHasDisclosedUrl: o(
+                  "WAWebMmSignalSharingModelUtils",
+                ).existsMmSignalSharingConsentedUrl(r),
+                mmHasShowDisclosureFlag: o(
+                  "WAWebMmSignalSharingModelUtils",
+                ).isDisclosureEnabledForMsg(r),
+                mmHasDisclosedToken: !!(i != null && i.disclosedToken),
+                mmHasUndisclosedToken: !!(i != null && i.undisclosedToken),
+              },
+            });
           }
         })),
         y.apply(this, arguments)

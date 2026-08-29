@@ -1,31 +1,21 @@
 __d(
   "WebBloksCanvasUtils",
-  ["WebBloksCanvasMinificationKeys", "WebBloksErrors", "WebBloksUtils"],
+  ["WebBloksErrors", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
-    var e = "\u40E2",
-      s = "\u40CF",
-      u = "\u40E8",
-      c = "\u40E7",
-      d = "\u40D3";
-    function m(e, t, n) {
+    function e(e, t, n) {
       switch (e.styleId) {
-        case d:
         case "bk.types.CanvasShadow": {
-          var r,
-            a = b(
-              e.get((r = o("WebBloksCanvasMinificationKeys")).CANVAS_SHADOW_DX),
-              t,
-            ),
-            i = v(e.get(r.CANVAS_SHADOW_DY), t),
-            l = b(e.get(r.CANVAS_SHADOW_RADIUS), t),
-            s = o("WebBloksUtils").getRGBColorWithTheme(
-              e.get(r.CANVAS_SHADOW_THEMED_COLOR),
+          var r = f(e.get("dx"), t),
+            a = g(e.get("dy"), t),
+            i = f(e.get("radius"), t),
+            l = o("WebBloksUtils").getRGBColorWithTheme(
+              e.get("themed_color"),
               n,
             );
-          ((t.shadowBlur = l * 2),
-            (t.shadowOffsetX = a * 2),
-            (t.shadowOffsetY = i * 2),
-            (t.shadowColor = s));
+          ((t.shadowBlur = i * 2),
+            (t.shadowOffsetX = r * 2),
+            (t.shadowOffsetY = a * 2),
+            (t.shadowColor = l));
           break;
         }
         default:
@@ -35,29 +25,23 @@ __d(
           );
       }
     }
-    function p(e, t, n) {
+    function s(e, t, n) {
       switch (e.styleId) {
-        case s:
         case "bk.types.CanvasShadingColor": {
           var r = o("WebBloksUtils").getRGBColorWithTheme(
-            e.get(
-              o("WebBloksCanvasMinificationKeys")
-                .CANVAS_SHADING_COLOR_THEMED_COLOR,
-            ),
+            e.get("themed_color"),
             n,
           );
           ((t.fillStyle = r), (t.strokeStyle = r));
           break;
         }
-        case u:
         case "bk.types.CanvasShadingGradientLinear": {
-          var a = g(e, t, n);
+          var a = d(e, t, n);
           ((t.fillStyle = a), (t.strokeStyle = a));
           break;
         }
-        case c:
         case "bk.types.CanvasShadingGradientRadial": {
-          var i = h(e, t, n);
+          var i = m(e, t, n);
           ((t.fillStyle = i), (t.strokeStyle = i));
           break;
         }
@@ -68,25 +52,20 @@ __d(
           );
       }
     }
-    function _(t, n) {
-      switch (t.styleId) {
-        case e:
+    function u(e, t) {
+      switch (e.styleId) {
         case "bk.types.CanvasBlendingMode": {
-          n.globalCompositeOperation = f(
-            t.get(
-              o("WebBloksCanvasMinificationKeys").CANVAS_BLENDING_MODE_MODE,
-            ),
-          );
+          t.globalCompositeOperation = c(e.get("mode"));
           break;
         }
         default:
           throw new (o("WebBloksErrors").WebBloksError)(
-            t.styleId +
+            e.styleId +
               " is not yet implemented. Add missing signature in `bk.component.Canvas`",
           );
       }
     }
-    function f(e) {
+    function c(e) {
       switch (e) {
         case "dst_atop":
           return "destination-atop";
@@ -109,49 +88,16 @@ __d(
           return e;
       }
     }
-    function g(e, t, n) {
+    function d(e, t, n) {
       for (
-        var r,
-          a = b(
-            e.get(
-              (r = o("WebBloksCanvasMinificationKeys"))
-                .CANVAS_SHADING_LINEAR_START_X,
-            ),
-            t,
-          ),
-          i = v(e.get(r.CANVAS_SHADING_LINEAR_START_Y), t),
-          l = b(e.get(r.CANVAS_SHADING_LINEAR_END_X), t),
-          s = v(e.get(r.CANVAS_SHADING_LINEAR_END_Y), t),
-          u = t.createLinearGradient(a, i, l, s),
-          c = e.get(r.CANVAS_SHADING_LINEAR_GRADIENT),
-          d = c.get(r.CANVAS_GRADIENT_POSITIONS),
-          m = c.get(r.CANVAS_GRADIENT_THEMED_COLORS),
-          p = 0;
-        p < d.length;
-        p++
-      ) {
-        var _ = d[p],
-          f = m[p];
-        u.addColorStop(_, o("WebBloksUtils").getRGBColorWithTheme(f, n));
-      }
-      return u;
-    }
-    function h(e, t, n) {
-      for (
-        var r,
-          a = b(
-            e.get(
-              (r = o("WebBloksCanvasMinificationKeys"))
-                .CANVAS_SHADING_RADIAL_CENTER_X,
-            ),
-            t,
-          ),
-          i = v(e.get(r.CANVAS_SHADING_RADIAL_CENTER_Y), t),
-          l = parseFloat(e.get(r.CANVAS_SHADING_RADIAL_RADIUS)),
-          s = t.createRadialGradient(a, i, 0, a, i, l),
-          u = e.get(r.CANVAS_SHADING_RADIAL_GRADIENT),
-          c = u.get(r.CANVAS_GRADIENT_POSITIONS),
-          d = u.get(r.CANVAS_GRADIENT_THEMED_COLORS),
+        var r = f(e.get("start_x"), t),
+          a = g(e.get("start_y"), t),
+          i = f(e.get("end_x"), t),
+          l = g(e.get("end_y"), t),
+          s = t.createLinearGradient(r, a, i, l),
+          u = e.get("gradient"),
+          c = u.get("positions"),
+          d = u.get("themed_colors"),
           m = 0;
         m < c.length;
         m++
@@ -162,7 +108,26 @@ __d(
       }
       return s;
     }
-    function y(e, t) {
+    function m(e, t, n) {
+      for (
+        var r = f(e.get("center_x"), t),
+          a = g(e.get("center_y"), t),
+          i = parseFloat(e.get("radius")),
+          l = t.createRadialGradient(r, a, 0, r, a, i),
+          s = e.get("gradient"),
+          u = s.get("positions"),
+          c = s.get("themed_colors"),
+          d = 0;
+        d < u.length;
+        d++
+      ) {
+        var m = u[d],
+          p = c[d];
+        l.addColorStop(m, o("WebBloksUtils").getRGBColorWithTheme(p, n));
+      }
+      return l;
+    }
+    function p(e, t) {
       var n,
         r = document.createElement("canvas");
       return (
@@ -175,27 +140,27 @@ __d(
         r
       );
     }
-    function C(e, t) {
+    function _(e, t) {
       return t != null && typeof e == "string" && e.includes("%")
         ? (parseFloat(e) / 100) * t
         : parseFloat(e);
     }
-    function b(e, t) {
-      return C(e, t.canvas.clientWidth);
+    function f(e, t) {
+      return _(e, t.canvas.clientWidth);
     }
-    function v(e, t) {
-      return C(e, t.canvas.clientHeight);
+    function g(e, t) {
+      return _(e, t.canvas.clientHeight);
     }
-    ((l.drawShadowToCanvas = m),
-      (l.drawShadingToCanvas = p),
-      (l.drawBlendingModeToCanvas = _),
-      (l.getCompositeOperation = f),
-      (l.createLinearGradient = g),
-      (l.createRadialGradient = h),
-      (l.createSecondaryCanvasElement = y),
-      (l.getCanvasSizePixelValue = C),
-      (l.getCanvasPixelValRelativeToWidth = b),
-      (l.getCanvasPixelValRelativeToHeight = v));
+    ((l.drawShadowToCanvas = e),
+      (l.drawShadingToCanvas = s),
+      (l.drawBlendingModeToCanvas = u),
+      (l.getCompositeOperation = c),
+      (l.createLinearGradient = d),
+      (l.createRadialGradient = m),
+      (l.createSecondaryCanvasElement = p),
+      (l.getCanvasSizePixelValue = _),
+      (l.getCanvasPixelValRelativeToWidth = f),
+      (l.getCanvasPixelValRelativeToHeight = g));
   },
   98,
 );

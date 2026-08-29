@@ -3,9 +3,7 @@ __d(
   ["WebBloksConstants", "WebBloksTooltipConstants"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n = t.getExpression(
-        o("WebBloksTooltipConstants").TOOLTIP_ON_VISIBILITY_UPDATE,
-      );
+      var n = t.getExpression("on_visibility_update");
       if (
         (e.bloksContext.updateAssociatedObject_INTERNAL(
           t,

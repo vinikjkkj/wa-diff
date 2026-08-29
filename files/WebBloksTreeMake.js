@@ -14,8 +14,7 @@ __d(
         a[i - 2] = arguments[i];
       for (var l = 0; l < a.length; l += 2) {
         var s = a[l];
-        if (typeof s == "string" || typeof s == "number")
-          n[o("WebBloksModel").decodeWebBloksWireIdentifier(s)] = a[l + 1];
+        if (typeof s == "string") n[s] = a[l + 1];
         else
           throw new (o("WebBloksErrors").WebBloksError)(
             "Invalid key type in `bk.action.tree.Make`.",
@@ -25,7 +24,7 @@ __d(
         c = u.unminificationMap,
         d = u.useMinification,
         m = o("WebBloksModel").createWebBloksModelFromWire(
-          o("WebBloksModel").decodeWebBloksWireIdentifier(t),
+          t,
           n,
           c,
           d || c != null,

@@ -101,7 +101,6 @@ __d(
       TOGGLE_FLOW_OPTION_CLICK: "toggle_flow_option_click",
       CLICK_VALIDATION_MESSAGE_CTA: "click_validation_message_cta",
       RENDER_WARNING_MESSAGE: "render_warning_message",
-      RENDER_WARNING_MESSAGE_UNIFICATION: "render_warning_message_unification",
       RESUME_CLICK: "resume_click",
       RESUME_ERROR: "resume_error",
       RESUME_SUCCESS: "resume_success",
@@ -677,8 +676,6 @@ __d(
       RENDER_VIEW_RESULTS_NOTICE: "render_view_results_notice",
       VIEW_RESULTS_CARD_HEADER_MENU_CLICK:
         "view_results_card_header_menu_click",
-      VIEW_RESULTS_CARD_HEADER_MENU_CLICK_UNIFICATION:
-        "view_results_card_header_menu_click_unification",
       VIEW_RESULTS_CLICK: "view_results_click",
       VIEW_RESULTS_CLICK_FBWEB_AD_CENTER: "view_results_click_fbweb_ad_center",
       CHANGE_PRODUCT_CATALOG: "change_product_catalog",

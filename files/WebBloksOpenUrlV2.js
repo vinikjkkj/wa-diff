@@ -2,18 +2,18 @@ __d(
   "WebBloksOpenUrlV2",
   ["WebBloksBooleanUtils", "WebBloksURLUtils"],
   function (t, n, r, o, a, i, l) {
-    var e = "#",
-      s = "$";
-    function u(t, n, r) {
-      var a = o("WebBloksURLUtils").qualify(n),
-        i = r == null ? void 0 : r.get(s);
-      (i != null && (a = o("WebBloksURLUtils").addQueryParamsToUrl(a, i)),
+    function e(e, t, n) {
+      var r = o("WebBloksURLUtils").qualify(t),
+        a = n == null ? void 0 : n.get("url_params");
+      (a != null && (r = o("WebBloksURLUtils").addQueryParamsToUrl(r, a)),
         o("WebBloksURLUtils").openURL(
-          a,
-          o("WebBloksBooleanUtils").isTrue(r == null ? void 0 : r.get(e)),
+          r,
+          o("WebBloksBooleanUtils").isTrue(
+            n == null ? void 0 : n.get("open_in_new_tab"),
+          ),
         ));
     }
-    l.default = u;
+    l.default = e;
   },
   98,
 );

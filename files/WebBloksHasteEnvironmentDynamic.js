@@ -17,6 +17,7 @@ __d(
     "WebBloksI18nUtils",
     "WebBloksUtils",
     "XWebBloksAsyncRawController",
+    "hasteSharedMinificationMap",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -56,6 +57,7 @@ __d(
               r("XWebBloksAsyncRawController"),
             ),
             actions: o("HasteSharedWebBloksActions").ACTIONS,
+            minificationMap: r("hasteSharedMinificationMap"),
             navigationTrackingUtils: null,
             logger: new (r("WebBloksHasteLogger"))(),
             AssetRenderer: o("WebBloksUtils").cast(r("WebBloksAssetRenderer")),

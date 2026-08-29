@@ -37,8 +37,7 @@ __d(
         s.jsx(c, { product: r, collectionId: t, onAddToCart: n }),
       );
     }
-    ((l.CatalogCartVariantsPopupLoadable = c),
-      (l.openCatalogCartVariantsPopup = d));
+    l.openCatalogCartVariantsPopup = d;
   },
   98,
 );

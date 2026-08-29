@@ -2,32 +2,22 @@ __d(
   "WebBloksTextStyle",
   ["WebBloksSSRUtils", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
-    var e = "\u41F7",
-      s = "\u4202",
-      u = "\u41F0",
-      c = "\u341B",
-      d = "\u41E6",
-      m = "*",
-      p = "&",
-      _ = "$",
-      f = ")",
-      g = "(",
-      h = o("WebBloksUtils").convertRGBArrToString(
+    var e = o("WebBloksUtils").convertRGBArrToString(
         o("WebBloksUtils").convertRGBOrHexStringToArr("#0000000"),
       ),
-      y = 1.3;
-    function C(e, t, n) {
-      return e != null
+      s = 1.3;
+    function u(t, n, r) {
+      return t != null
         ? {
             color: o("WebBloksUtils").convertRGBArrToString(
-              o("WebBloksUtils").convertRGBOrHexStringToArr(e),
+              o("WebBloksUtils").convertRGBOrHexStringToArr(t),
             ),
           }
-        : t && n
-          ? { color: o("WebBloksUtils").getRGBColorWithTheme(t, n) }
-          : { color: h };
+        : n && r
+          ? { color: o("WebBloksUtils").getRGBColorWithTheme(n, r) }
+          : { color: e };
     }
-    function b(e) {
+    function c(e) {
       var t, n;
       switch (e) {
         case "normal":
@@ -57,7 +47,7 @@ __d(
       }
       return { fontWeight: t, fontStyle: n };
     }
-    function v(e) {
+    function d(e) {
       var t = "";
       switch (e) {
         case "top_to_bottom":
@@ -75,17 +65,17 @@ __d(
       }
       return t;
     }
-    function S(e, t) {
+    function m(e, t) {
       return e
         .map(function (e) {
           return o("WebBloksUtils").getRGBColorWithTheme(e, t);
         })
         .join(", ");
     }
-    function R(e, t, n) {
+    function p(e, t, n) {
       if (e == null || e.length === 0 || t == null) return {};
-      var r = v(t),
-        a = S(e, n);
+      var r = d(t),
+        a = m(e, n);
       return {
         backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(e[0], n),
         background: "linear-gradient(" + r + ", " + a + ")",
@@ -95,26 +85,26 @@ __d(
         WebkitTextFillColor: "transparent",
       };
     }
-    function L(e, t, n) {
+    function _(e, t, n) {
       var r = 0,
         o = 0;
       if (n) {
         var a, i;
-        ((r = E(e, t, (a = n.cap_spacing) != null ? a : void 0)),
-          (o = E(e, t, (i = n.baseline_spacing) != null ? i : void 0)));
+        ((r = f(e, t, (a = n.cap_spacing) != null ? a : void 0)),
+          (o = f(e, t, (i = n.baseline_spacing) != null ? i : void 0)));
       }
       function l(e) {
         if (typeof e == "string")
           return "translateY(calc(calc(" + e + " - 1em) / 2)";
-        if (!(e <= y)) {
+        if (!(e <= s)) {
           var t = "calc(1em * " + e + ")",
-            n = "calc(1em * " + y + ")";
+            n = "calc(1em * " + s + ")";
           return "translateY(calc((" + t + " - " + n + ")/2))";
         }
       }
       return { paddingTop: r, paddingBottom: o, transform: l(e) };
     }
-    function E(e, t, n) {
+    function f(e, t, n) {
       if (n == null) return 0;
       if (t != null) {
         var r = t * 0.8,
@@ -125,7 +115,7 @@ __d(
       }
       return 0;
     }
-    function k(e, t) {
+    function g(e, t) {
       return (
         t === void 0 && (t = !0),
         e == null || e < 1
@@ -141,69 +131,61 @@ __d(
             }
       );
     }
-    var I = 12;
-    function T(t) {
-      if (t == null) return 0;
-      var n = I;
-      for (var r of t) {
-        var a = I;
-        switch (r.styleId) {
-          case c:
+    var h = 12;
+    function y(e) {
+      if (e == null) return 0;
+      var t = h;
+      for (var n of e) {
+        var r = h;
+        switch (n.styleId) {
           case "bk.components.TextSpan": {
-            var i = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(r).get(m));
+            var a = o("WebBloksUtils").toPx(n.get("text_size"));
             o("WebBloksSSRUtils").canUseDOM
-              ? (a = parseFloat(
-                  i != null
-                    ? i
+              ? (r = parseFloat(
+                  a != null
+                    ? a
                     : window.getComputedStyle(document.body).fontSize,
                 ))
-              : (a = parseFloat(i));
+              : (r = parseFloat(a));
             break;
           }
-          case e:
-          case u:
           case "bk.data.ComposableTextSpan":
           case "bk.data.TextSpan": {
-            var l =
-                r.styleId === e || r.styleId === "bk.data.ComposableTextSpan"
-                  ? o("WebBloksUtils").cast(r).get(p)
-                  : o("WebBloksUtils").cast(r).get(_),
-              h =
-                l == null
+            var i,
+              l =
+                (i = n.get("styles")) == null
                   ? void 0
-                  : l.find(function (e) {
-                      var t = e.styleId;
-                      return t === d || t === "bk.style.textspan.TextStyle";
+                  : i.find(function (e) {
+                      return e.styleId === "bk.style.textspan.TextStyle";
                     });
-            if (h == null) break;
-            var y = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(h).get(f));
+            if (l == null || l.styleId !== "bk.style.textspan.TextStyle") break;
+            var s = o("WebBloksUtils").toPx(l.get("text_size"));
             o("WebBloksSSRUtils").canUseDOM
-              ? (a = parseFloat(
-                  y != null
-                    ? y
+              ? (r = parseFloat(
+                  s != null
+                    ? s
                     : window.getComputedStyle(document.body).fontSize,
                 ))
-              : (a = parseFloat(y));
+              : (r = parseFloat(s));
             break;
           }
-          case s:
           case "bk.data.ImageSpan": {
-            var C,
-              b = o("WebBloksUtils").cast(r).get(g);
-            a = (C = parseFloat(b)) != null ? C : I;
+            var u,
+              c = n.get("image_height");
+            r = (u = parseFloat(c)) != null ? u : h;
             break;
           }
           default:
             continue;
         }
-        a > n && (n = a);
+        r > t && (t = r);
       }
-      return n;
+      return t;
     }
-    function D(e) {
-      return (e === void 0 && (e = 1), y * e);
+    function C(e) {
+      return (e === void 0 && (e = 1), s * e);
     }
-    function x(e, t) {
+    function b(e, t) {
       if (e === "AvenyT") return "Instagram Sans Condensed";
       if (e != null && t != null && t[e]) {
         var n = t[e].webFontName;
@@ -211,7 +193,7 @@ __d(
       }
       return e;
     }
-    function $(e, t) {
+    function v(e, t) {
       var n,
         r,
         a,
@@ -230,16 +212,16 @@ __d(
         c
       );
     }
-    ((l.getTextColor = C),
-      (l.getTextStyle = b),
-      (l.getGradientColors = S),
-      (l.getGradientTextStyle = R),
-      (l.getVerticalSpacingStyles = L),
-      (l.getLineClampStyle = k),
-      (l.getMaxTextSizePx = T),
-      (l.getLineHeight = D),
-      (l.getFontFamily = x),
-      (l.getTextShadow = $));
+    ((l.getTextColor = u),
+      (l.getTextStyle = c),
+      (l.getGradientColors = m),
+      (l.getGradientTextStyle = p),
+      (l.getVerticalSpacingStyles = _),
+      (l.getLineClampStyle = g),
+      (l.getMaxTextSizePx = y),
+      (l.getLineHeight = C),
+      (l.getFontFamily = b),
+      (l.getTextShadow = v));
   },
   98,
 );

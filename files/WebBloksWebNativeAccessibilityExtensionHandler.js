@@ -2,64 +2,52 @@ __d(
   "WebBloksWebNativeAccessibilityExtensionHandler",
   ["WebBloksAccessibilityUtils", "WebBloksBooleanUtils"],
   function (t, n, r, o, a, i, l) {
-    var e = "3",
-      s = "6",
-      u = "2",
-      c = "8",
-      d = "4",
-      m = "5",
-      p = ",",
-      _ = "1",
-      f = "+",
-      g = "0",
-      h = "7",
-      y = "-",
-      C = {
-        getProps: function (n) {
-          var t = n.get(e),
-            r = n.get(s),
-            a = n.get(u),
-            i = n.get(c),
-            l = n.get(d),
-            C = n.get(m),
-            b = n.get(p),
-            v = n.get(_),
-            S = n.get(f),
-            R = n.get(g),
-            L = n.get(h),
-            E = n.get(y),
-            k = {},
-            I = o("WebBloksAccessibilityUtils")
-              .WEBBLOKS_ACCESSIBILITY_ROLE_MAPPING[E];
+    var e = {
+        getProps: function (t) {
+          var e = t.get("aria-controls"),
+            n = t.get("aria-describedby"),
+            r = t.get("aria-expanded"),
+            a = t.get("aria-hidden"),
+            i = t.get("aria-pressed"),
+            l = t.get("aria-selected"),
+            s = t.get("checked"),
+            u = t.get("enabled"),
+            c = t.get("heading_level"),
+            d = t.get("label"),
+            m = t.get("lang"),
+            p = t.get("role"),
+            _ = {},
+            f = o("WebBloksAccessibilityUtils")
+              .WEBBLOKS_ACCESSIBILITY_ROLE_MAPPING[p];
           return (
-            I != null && (k.role = I),
-            (k = babelHelpers.extends(
+            f != null && (_.role = f),
+            (_ = babelHelpers.extends(
               {},
-              o("WebBloksAccessibilityUtils").getFocusPropsForRole(k.role),
-              k,
+              o("WebBloksAccessibilityUtils").getFocusPropsForRole(_.role),
+              _,
             )),
-            o("WebBloksBooleanUtils").isTrue(b) && (k["aria-checked"] = !0),
-            o("WebBloksBooleanUtils").isFalse(b) && (k["aria-checked"] = !1),
-            o("WebBloksBooleanUtils").isFalse(v) &&
-              ((k.disabled = !0), (k["aria-disabled"] = !0)),
+            o("WebBloksBooleanUtils").isTrue(s) && (_["aria-checked"] = !0),
+            o("WebBloksBooleanUtils").isFalse(s) && (_["aria-checked"] = !1),
+            o("WebBloksBooleanUtils").isFalse(u) &&
+              ((_.disabled = !0), (_["aria-disabled"] = !0)),
+            r != null &&
+              (_["aria-expanded"] = o("WebBloksBooleanUtils").isTrue(r)),
+            e != null && e.length > 0 && (_["aria-controls"] = e.join(" ")),
+            n != null && n.length > 0 && (_["aria-describedby"] = n.join(" ")),
             a != null &&
-              (k["aria-expanded"] = o("WebBloksBooleanUtils").isTrue(a)),
-            t != null && t.length > 0 && (k["aria-controls"] = t.join(" ")),
-            r != null && r.length > 0 && (k["aria-describedby"] = r.join(" ")),
-            i != null &&
-              (k["aria-hidden"] = o("WebBloksBooleanUtils").isTrue(i)),
-            l != null && (k["aria-pressed"] = l),
-            C != null &&
-              (k["aria-selected"] = o("WebBloksBooleanUtils").isTrue(C)),
-            R != null && (k["aria-label"] = R),
-            S != null && (k["aria-label"] = void 0),
-            L != null && (k.lang = L),
-            k
+              (_["aria-hidden"] = o("WebBloksBooleanUtils").isTrue(a)),
+            i != null && (_["aria-pressed"] = i),
+            l != null &&
+              (_["aria-selected"] = o("WebBloksBooleanUtils").isTrue(l)),
+            d != null && (_["aria-label"] = d),
+            c != null && (_["aria-label"] = void 0),
+            m != null && (_.lang = m),
+            _
           );
         },
         wrap: function (t, n) {
-          var e = t.get(f),
-            r = t.get(g);
+          var e = t.get("heading_level"),
+            r = t.get("label");
           return e != null
             ? o("WebBloksAccessibilityUtils").getHeading(e, r, n)
             : n;
@@ -68,8 +56,8 @@ __d(
           return t ? t.makeCopy(n.getValues_DO_NOT_USE()) : n;
         },
       },
-      b = C;
-    l.default = b;
+      s = e;
+    l.default = s;
   },
   98,
 );

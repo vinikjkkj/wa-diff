@@ -1,6 +1,6 @@
 __d(
   "WebBloksCollectionHelpers",
-  ["WebBloksCollectionMinificationKeys", "WebBloksUtils"],
+  ["WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e === "column",
@@ -22,65 +22,34 @@ __d(
     function s(e, t) {
       var n,
         r,
-        a = e.getStyle(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_STYLE,
-        ),
-        i = e.getStyle(o("WebBloksCollectionMinificationKeys").BASE_STYLE),
-        l =
-          t === "width"
-            ? (n =
-                a == null
-                  ? void 0
-                  : a.get(
-                      o("WebBloksCollectionMinificationKeys")
-                        .COLLECTION_STYLE_WIDTH,
-                    )) != null
-              ? n
-              : i == null
-                ? void 0
-                : i.get(
-                    o("WebBloksCollectionMinificationKeys").BASE_STYLE_WIDTH,
-                  )
-            : (r =
-                  a == null
-                    ? void 0
-                    : a.get(
-                        o("WebBloksCollectionMinificationKeys")
-                          .COLLECTION_STYLE_HEIGHT,
-                      )) != null
-              ? r
-              : i == null
-                ? void 0
-                : i.get(
-                    o("WebBloksCollectionMinificationKeys").BASE_STYLE_HEIGHT,
-                  );
-      return o("WebBloksUtils").isPercentage(l);
+        a,
+        i =
+          (n = (r = e.getStyle("collection")) == null ? void 0 : r.get(t)) !=
+          null
+            ? n
+            : (a = e.getStyle("bk.style.Base")) == null
+              ? void 0
+              : a.get(t);
+      return o("WebBloksUtils").isPercentage(i);
     }
     function u(t) {
       var n,
-        r = t.getSubNodes(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_CHILDREN,
-        ),
-        a = t.get(o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION),
-        i = e(a),
-        l = i.mainAxisSize,
-        u =
+        r = t.getSubNodes("children"),
+        o = t.get("direction"),
+        a = e(o),
+        i = a.mainAxisSize,
+        l =
           (n =
             r &&
             r.some(function (e) {
-              return s(e, l);
+              return s(e, i);
             })) != null
             ? n
             : !1;
-      return u ? (a === "column" ? "size" : "inline-size") : "normal";
+      return l ? (o === "column" ? "size" : "inline-size") : "normal";
     }
     function c(e) {
-      return (
-        e.get(
-          o("WebBloksCollectionMinificationKeys")
-            .COLLECTION_MEASUREMENT_VERSION,
-        ) === "v2"
-      );
+      return e.get("measurement_version_internal_use_only") === "v2";
     }
     ((l.getDirectionPropNames = e),
       (l.hasCollectionDimensionInPct = s),

@@ -11,15 +11,11 @@ __d(
     "webBloksGlobalAttributeKeys",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "_style";
-    function s(e) {
+    function e(e) {
       return e;
     }
-    function u(e) {
-      return typeof e == "number" ? String.fromCodePoint(e) : e;
-    }
-    var c = (function () {
-      function t(e, t, n, r, a, i) {
+    var s = (function () {
+      function e(e, t, n, r, a, i) {
         (n === void 0 && (n = o("WebBloksUtils").getNextGlobalBloksClientId()),
           i === void 0 && (i = !1),
           (this.$isBloksModel = !0),
@@ -34,9 +30,9 @@ __d(
             : (this.$3 = null),
           (this.uiMutableContainer = {}));
       }
-      var n = t.prototype;
+      var t = e.prototype;
       return (
-        (n.getId = function () {
+        (t.getId = function () {
           var e = this.get(
             this.usesCanonicalKeys()
               ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs.id
@@ -44,30 +40,30 @@ __d(
           );
           return e == null ? null : String(e);
         }),
-        (n.get = function (t) {
+        (t.get = function (t) {
           return this.$2[this.$4(t)];
         }),
-        (n.set = function (t, n) {
+        (t.set = function (t, n) {
           var e = this.$2;
           e[this.$4(t)] = n;
         }),
-        (n.getWireValue = function (t) {
+        (t.getWireValue = function (t) {
           return this.$2[t];
         }),
-        (n.setWireValue = function (t, n) {
+        (t.setWireValue = function (t, n) {
           var e = this.$2;
           e[t] = n;
         }),
-        (n.getWireStyleId = function () {
+        (t.getWireStyleId = function () {
           return typeof this.$3 == "string" ? this.$3 : String(this.styleId);
         }),
-        (n.getWireAttributeKey = function (t) {
+        (t.getWireAttributeKey = function (t) {
           return this.$4(t);
         }),
-        (n.usesCanonicalKeys = function () {
+        (t.usesCanonicalKeys = function () {
           return this.$3 !== null;
         }),
-        (n.getCanonicalAttributeKey = function (t) {
+        (t.getCanonicalAttributeKey = function (t) {
           var e,
             n,
             o = this.$1;
@@ -81,11 +77,11 @@ __d(
               ? e
               : t;
         }),
-        (n.getSubNode = function (t) {
+        (t.getSubNode = function (t) {
           var e = this.get(t);
           return e;
         }),
-        (n.getExpression = function (t) {
+        (t.getExpression = function (t) {
           var e = this.get(t),
             n = e;
           if (e == null || e instanceof o("WebBloksScript").WebBloksScript)
@@ -111,11 +107,11 @@ __d(
           }
           return null;
         }),
-        (n.getSubNodes = function (t) {
+        (t.getSubNodes = function (t) {
           var e;
           return (e = this.get(t)) != null ? e : o("WebBloksUtils").EMPTY_ARRAY;
         }),
-        (n.getChildren_DEPRECATED = function (t) {
+        (t.getChildren_DEPRECATED = function (t) {
           var e = this.getSubNodes(
             t != null
               ? t
@@ -125,23 +121,21 @@ __d(
           );
           return e;
         }),
-        (n.getStyle = function (n) {
-          var t = this.getSubNode(
+        (t.getStyle = function (t) {
+          var e = this.getSubNode(
             this.usesCanonicalKeys()
-              ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs[e]
-              : e,
+              ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs.$5
+              : "_style",
           );
-          return m(t) && (t.styleId === n || t.getWireStyleId() === n)
-            ? t
-            : null;
+          return c(e) && (e == null ? void 0 : e.styleId) === t ? e : null;
         }),
-        (n.getValues_DO_NOT_USE = function () {
+        (t.getValues_DO_NOT_USE = function () {
           return this.$2;
         }),
-        (n.entries = function () {
+        (t.entries = function () {
           return Object.entries(this.$2);
         }),
-        (n.canonicalEntries = function () {
+        (t.canonicalEntries = function () {
           var e = this.$1;
           return e == null
             ? this.entries()
@@ -162,7 +156,7 @@ __d(
                 ];
               });
         }),
-        (n.cloneValues = function () {
+        (t.cloneValues = function () {
           var e = babelHelpers.extends({}, this.$2),
             t = this.$4(
               this.usesCanonicalKeys()
@@ -176,8 +170,8 @@ __d(
           }
           return e;
         }),
-        (n.makeCopy = function (n) {
-          var e = new t(
+        (t.makeCopy = function (n) {
+          var t = new e(
             this.styleId,
             this.cloneValues(),
             this.clientId,
@@ -186,27 +180,27 @@ __d(
             this.usesCanonicalKeys(),
           );
           if (n) {
-            var r = e.$2;
+            var r = t.$2;
             for (var o of Object.entries(n)) {
               var a = o[0],
                 i = o[1];
-              r[e.$4(a)] = i;
+              r[t.$4(a)] = i;
             }
           }
           return (
-            (e.uiMutableContainer = this.uiMutableContainer),
-            (e.shadowParents = this.shadowParents),
-            (e.keyPath = this.keyPath),
-            (e.sourceModel = this.sourceModel),
-            (e.sourceMapNode = this.sourceMapNode),
-            e
+            (t.uiMutableContainer = this.uiMutableContainer),
+            (t.shadowParents = this.shadowParents),
+            (t.keyPath = this.keyPath),
+            (t.sourceModel = this.sourceModel),
+            (t.sourceMapNode = this.sourceMapNode),
+            t
           );
         }),
-        (n.makeBoundCopy = function () {
+        (t.makeBoundCopy = function () {
           var e = this.makeCopy();
           return ((e.sourceModel = this), e);
         }),
-        (n.makeCopyWithKeypath = function (t, n) {
+        (t.makeCopyWithKeypath = function (t, n) {
           var e = this.makeCopy();
           return (
             e.clientId !== t && (e.uiMutableContainer = {}),
@@ -215,20 +209,20 @@ __d(
             e
           );
         }),
-        (n.makeDeepCopyWithNewClientIds = function (n, r) {
+        (t.makeDeepCopyWithNewClientIds = function (n, r) {
           return o("WebBloksUpdateTraversal").runUpdateTraversal(
             this,
             {
               apply: function (r) {
-                return t.makeCopyWithNewClientId(r, n);
+                return e.makeCopyWithNewClientId(r, n);
               },
               onUpdatesApplied: function (t) {},
             },
             r,
           );
         }),
-        (t.makeCopyWithNewClientId = function (n, r) {
-          var e = new t(
+        (e.makeCopyWithNewClientId = function (n, r) {
+          var t = new e(
             n.styleId,
             n.cloneValues(),
             void 0,
@@ -237,13 +231,13 @@ __d(
             n.usesCanonicalKeys(),
           );
           return (
-            (e.shadowParents = n.shadowParents),
-            (e.keyPath = r),
-            (e.sourceMapNode = n.sourceMapNode),
-            e
+            (t.shadowParents = n.shadowParents),
+            (t.keyPath = r),
+            (t.sourceMapNode = n.sourceMapNode),
+            t
           );
         }),
-        (n.traverse = function (t, n) {
+        (t.traverse = function (t, n) {
           if (t(this)) return !0;
           var e = n[this.styleId];
           if (e == null) return !1;
@@ -252,18 +246,18 @@ __d(
           if (o)
             for (var a of o) {
               var i = this.getSubNode(a);
-              if (m(i) && i.traverse(t, n)) return !0;
+              if (c(i) && i.traverse(t, n)) return !0;
             }
           if (r)
             for (var l of r) {
               var s = this.getSubNodes(l);
               if (Array.isArray(s)) {
-                for (var u of s) if (m(u) && u.traverse(t, n)) return !0;
+                for (var u of s) if (c(u) && u.traverse(t, n)) return !0;
               }
             }
           return !1;
         }),
-        (n.toJSON = function () {
+        (t.toJSON = function () {
           var e,
             t = Object.entries(this.$2)
               .filter(function (e) {
@@ -273,9 +267,9 @@ __d(
               .map(function (e) {
                 var t = e[0],
                   n = e[1];
-                return m(n)
+                return c(n)
                   ? [t, n.toJSON()]
-                  : Array.isArray(n) && n[0] && m(n[0])
+                  : Array.isArray(n) && n[0] && c(n[0])
                     ? [
                         t,
                         n.map(function (e) {
@@ -290,7 +284,7 @@ __d(
             e
           );
         }),
-        (n.$4 = function (t) {
+        (t.$4 = function (t) {
           var e, n;
           return this.$1 == null
             ? t
@@ -302,17 +296,17 @@ __d(
               ? e
               : t;
         }),
-        t
+        e
       );
     })();
-    function d(e, t, n, r) {
+    function u(e, t, n, r) {
       var a,
         i = r ? (n == null ? void 0 : n[e]) : null;
       if (r && n != null && i == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "No unminification-map entry found for WebBloks style " + e + ".",
         );
-      return new c(
+      return new s(
         (a = i == null ? void 0 : i.styleId) != null ? a : e,
         t,
         void 0,
@@ -321,14 +315,13 @@ __d(
         r,
       );
     }
-    function m(e) {
+    function c(e) {
       return e != null && (e == null ? void 0 : e.$isBloksModel) === !0;
     }
-    ((l.defineWebBloksMinificationMap = s),
-      (l.decodeWebBloksWireIdentifier = u),
-      (l.WebBloksModel = c),
-      (l.createWebBloksModelFromWire = d),
-      (l.isWebBloksModel = m));
+    ((l.defineWebBloksMinificationMap = e),
+      (l.WebBloksModel = s),
+      (l.createWebBloksModelFromWire = u),
+      (l.isWebBloksModel = c));
   },
   98,
 );

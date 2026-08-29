@@ -4,15 +4,12 @@ __d(
     "WAWebBloksAppLoader",
     "WAWebBloksPrimitives",
     "WAWebUnifiedResponseLoaderTemplate",
-    "WaWebWebBloksCanonicalActions",
     "WebBloksEnvironment",
     "WebBloksHasteEnvironment",
     "WebBloksUtils",
     "react-compiler-runtime",
-    "waWebCanonicalTraversalKeys",
     "waWebMinificationMap",
-    "waWebSignatureUnminificationMap",
-    "waWebUnminificationMap",
+    "waWebTraversalKeys",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -31,7 +28,7 @@ __d(
                     appLoader: o(
                       "WAWebBloksAppLoader",
                     ).getWAWebBloksAppLoader(),
-                    actions: o("WaWebWebBloksCanonicalActions").ACTIONS,
+                    actions: o("WAWebBloksPrimitives").ACTIONS,
                     components: o("WAWebBloksPrimitives").COMPONENTS,
                     containerConfigs: {},
                     extensionHandlers: o("WAWebBloksPrimitives")
@@ -56,12 +53,7 @@ __d(
                       "Optimistic VF App Lite": { webFontName: null },
                     },
                     minificationMap: r("waWebMinificationMap"),
-                    signatureUnminificationMap: r(
-                      "waWebSignatureUnminificationMap",
-                    ),
-                    traversalKeys: r("waWebCanonicalTraversalKeys"),
-                    unminificationMap: r("waWebUnminificationMap"),
-                    useMinification: !1,
+                    traversalKeys: r("waWebTraversalKeys"),
                     screenQueryTemplate: o("WebBloksUtils").cast(
                       o("WAWebUnifiedResponseLoaderTemplate").LOADER_TEMPLATE,
                     ),

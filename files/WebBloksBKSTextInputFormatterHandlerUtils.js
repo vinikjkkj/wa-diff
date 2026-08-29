@@ -1,47 +1,40 @@
 __d(
   "WebBloksBKSTextInputFormatterHandlerUtils",
-  [
-    "WebBloksComponentContext",
-    "WebBloksConstants",
-    "WebBloksUtils",
-    "react-compiler-runtime",
-  ],
+  ["WebBloksComponentContext", "WebBloksUtils", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
-    var e = o("WebBloksUtils").cast("\u35C8"),
-      s = "$";
-    function u(t) {
-      var n = o("react-compiler-runtime").c(5),
-        r = o("WebBloksComponentContext").useWebBloksContext(),
-        a = r.executeCatch,
-        i;
-      n[0] !== t
-        ? ((i = o("WebBloksUtils").findExtension(
-            t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
-            e,
+    function e(e) {
+      var t = o("react-compiler-runtime").c(5),
+        n = o("WebBloksComponentContext").useWebBloksContext(),
+        r = n.executeCatch,
+        a;
+      t[0] !== e
+        ? ((a = o("WebBloksUtils").findExtension(
+            e.get("extensions"),
+            "bk.components.BKSTextInputFormatter",
           )),
-          (n[0] = t),
-          (n[1] = i))
-        : (i = n[1]);
-      var l = i,
-        u;
+          (t[0] = e),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
       return (
-        n[2] !== a || n[3] !== l
-          ? ((u = function (t) {
-              var e = l == null ? void 0 : l.getExpression(s);
-              if (l != null && e != null) {
-                var n = a(l, e, [t]);
+        t[2] !== r || t[3] !== i
+          ? ((l = function (t) {
+              var e = i == null ? void 0 : i.getExpression("format_text");
+              if (i != null && e != null) {
+                var n = r(i, e, [t]);
                 if (typeof n == "string") return n;
               }
               return t;
             }),
-            (n[2] = a),
-            (n[3] = l),
-            (n[4] = u))
-          : (u = n[4]),
-        u
+            (t[2] = r),
+            (t[3] = i),
+            (t[4] = l))
+          : (l = t[4]),
+        l
       );
     }
-    l.useBKSTextInputFormatter = u;
+    l.useBKSTextInputFormatter = e;
   },
   98,
 );

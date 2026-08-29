@@ -18,21 +18,7 @@ __d(
       c = u.useCallback,
       d = u.useMemo,
       m = u.useRef,
-      p = "(",
-      _ = ")",
-      f = "*",
-      g = "+",
-      h = ",",
-      y = "-",
-      C = ".",
-      b = "0",
-      v = "1",
-      S = "$",
-      R = "&",
-      L = "(",
-      E = ")",
-      k = "*",
-      I = o("WebBloksStyle").createStyles({
+      p = o("WebBloksStyle").createStyles({
         root: { position: "absolute", zIndex: 9999 },
         anchor: { position: "absolute", height: "100%", width: "100%" },
         contentWrapper: {
@@ -49,167 +35,170 @@ __d(
         },
         arrowDropShadow: { zIndex: -1, position: "absolute" },
       });
-    function T(e) {
-      var t,
-        n = e.ref,
-        a = e.externalStyle,
-        i = e.node,
-        l = o("WebBloksComponentContext").useWebBloksContext(),
-        u = l.renderNode,
-        T = u(i.getSubNode(_)),
-        D = i.getSubNode(f),
-        x = o("WebBloksStyle").useStyle(i, a),
-        $ = x.ref,
-        P = x.wrapperProps,
-        N = r("WebBloksDecoration")(D, void 0, !1, $),
-        M = N[0],
-        w = r("useWebBloksAccessibilityModule")(),
-        A = w.FocusRegion,
-        F = m(null),
-        O = i.get(p),
-        B = o("WebBloksTooltipUtils").useCalculatePosition(F, i.get(b), O),
-        W = B[0],
-        q = B[1],
-        U = o("WebBloksTooltipUtils").useCalculatePositionStyle(F, q),
-        V = (t = o("WebBloksUtils")).toPx(i.get(v)),
-        H = t.toPx(i.get(g)),
-        G = t.toPx(i.get(y)),
-        z = t.toPx(i.get(C)),
-        j = d(
+    function _(e) {
+      var t = e.ref,
+        n = e.externalStyle,
+        a = e.node,
+        i = o("WebBloksComponentContext").useWebBloksContext(),
+        l = i.renderNode,
+        u = l(a.getSubNode("child")),
+        _ = a.get("decoration"),
+        f = o("WebBloksStyle").useStyle(a, n),
+        g = f.ref,
+        h = f.wrapperProps,
+        y = r("WebBloksDecoration")(_, void 0, !1, g),
+        C = y[0],
+        b = r("useWebBloksAccessibilityModule")(),
+        v = b.FocusRegion,
+        S = m(null),
+        R = a == null ? void 0 : a.get("arrow_type"),
+        L = o("WebBloksTooltipUtils").useCalculatePosition(
+          S,
+          a.get("position"),
+          R,
+        ),
+        E = L[0],
+        k = L[1],
+        I = o("WebBloksTooltipUtils").useCalculatePositionStyle(S, k),
+        T = o("WebBloksUtils").toPx(a.get("width")),
+        D = o("WebBloksUtils").toPx(a.get("height")),
+        x = o("WebBloksUtils").toPx(a.get("offset_horizontal")),
+        $ = o("WebBloksUtils").toPx(a.get("offset_vertical")),
+        P = d(
           function () {
-            var e = babelHelpers.extends({}, U),
-              t = parseFloat(G);
-            O === "shark-fin" && t > 0
+            var e = babelHelpers.extends({}, I),
+              t = parseFloat(x);
+            R === "shark-fin" && t > 0
               ? (e.marginLeft = t + o("WebBloksTooltipUtils").ARROW_SIZE / 2)
-              : O === "shark-fin"
+              : R === "shark-fin"
                 ? (e.marginLeft = o("WebBloksTooltipUtils").ARROW_SIZE / 2)
                 : t > 0 && (e.marginLeft = t);
-            var n = parseFloat(z);
+            var n = parseFloat($);
             return (
               n > 0 &&
-                (q === "top"
+                (k === "top"
                   ? (e.marginBottom = n)
-                  : q === "bottom" && (e.marginTop = n)),
+                  : k === "bottom" && (e.marginTop = n)),
               e
             );
           },
-          [O, G, z, U, q],
+          [R, x, $, I, k],
         ),
-        K = d(
+        N = d(
           function () {
             var e = {};
-            return (q === "bottom" && (e.flexDirection = "column-reverse"), e);
+            return (k === "bottom" && (e.flexDirection = "column-reverse"), e);
           },
-          [q],
+          [k],
         ),
-        Q = t.toPx(D == null ? void 0 : D.get(L)),
-        X = parseFloat(Q),
-        Y = i.getSubNode(h),
-        J = o("WebBloksUtils").toPx(Y == null ? void 0 : Y.get(k)),
-        Z = o("WebBloksUtils").toPx(Y == null ? void 0 : Y.get(E)),
-        ee = d(
+        M = o("WebBloksUtils").toPx(_ == null ? void 0 : _.get("border_width")),
+        w = parseFloat(M),
+        A = a.get("margin"),
+        F = o("WebBloksUtils").toPx(A == null ? void 0 : A.get("start")),
+        O = o("WebBloksUtils").toPx(A == null ? void 0 : A.get("end")),
+        B = d(
           function () {
-            var e = babelHelpers.extends({}, M);
+            var e = babelHelpers.extends({}, C);
             return (
-              parseFloat(V) > 0 && (e.width = V),
-              parseFloat(H) > 0 && (e.height = H),
-              O === "none"
+              parseFloat(T) > 0 && (e.width = T),
+              parseFloat(D) > 0 && (e.height = D),
+              R === "none"
                 ? ((e.marginTop = o("WebBloksTooltipUtils").ARROW_SIZE),
                   (e.marginBottom = o("WebBloksTooltipUtils").ARROW_SIZE))
-                : ((e.marginTop = -X), (e.marginBottom = -X)),
-              J != null && (e.marginLeft = J),
-              Z != null && (e.marginRight = Z),
+                : ((e.marginTop = -w), (e.marginBottom = -w)),
+              F != null && (e.marginLeft = F),
+              O != null && (e.marginRight = O),
               e
             );
           },
-          [O, X, M, H, Z, J, V],
+          [R, w, C, D, O, F, T],
         ),
-        te = o("WebBloksTheme").useTheme().getTheme(),
-        ne = O != null && O !== "none",
-        re = d(
+        W = o("WebBloksTheme").useTheme().getTheme(),
+        q = R != null && R !== "none",
+        U = d(
           function () {
-            var e = D == null ? void 0 : D.get(S),
-              t = D == null ? void 0 : D.get(R);
+            var e = _ == null ? void 0 : _.get("border_color"),
+              t = _ == null ? void 0 : _.get("border_themed_color");
             return t != null
-              ? o("WebBloksUtils").getRGBColorWithTheme(t, te)
+              ? o("WebBloksUtils").getRGBColorWithTheme(t, W)
               : e != null
                 ? o("WebBloksUtils").convertRGBArrToString(
                     o("WebBloksUtils").convertRGBOrHexStringToArr(e),
                   )
                 : null;
           },
-          [D, te],
+          [_, W],
         ),
-        oe = d(
+        V = d(
           function () {
-            return X * (100 / 16);
+            return w * (100 / 16);
           },
-          [X],
+          [w],
         ),
-        ae = o("WebBloksTooltipUtils").getArrowPolyLinePoints(W, q, O, oe),
-        ie = M.boxShadow != null,
-        le = d(
+        H = o("WebBloksTooltipUtils").getArrowPolyLinePoints(E, k, R, V),
+        G = C.boxShadow != null,
+        z = d(
           function () {
             var e = {};
             return (
-              ie &&
-                (M.boxShadow != null &&
-                  (e.filter = "drop-shadow(" + M.boxShadow + ")"),
-                q === "top" ? (e.bottom = 0) : q === "bottom" && (e.top = 0)),
+              G &&
+                (C.boxShadow != null &&
+                  (e.filter = "drop-shadow(" + C.boxShadow + ")"),
+                k === "top" ? (e.bottom = 0) : k === "bottom" && (e.top = 0)),
               e
             );
           },
-          [M.boxShadow, ie, q],
+          [C.boxShadow, G, k],
         ),
-        se = c(function (e) {
+        j = c(function (e) {
           return e.stopPropagation();
         }, []),
-        ue = s.jsx(
+        K = s.jsx(
           "div",
-          babelHelpers.extends({}, P, {
-            className: I.root,
-            style: j,
-            onScroll: se,
+          babelHelpers.extends({}, h, {
+            className: p.root,
+            style: P,
+            onScroll: j,
             children: s.jsxs("span", {
-              className: I.contentWrapper,
-              style: K,
+              className: p.contentWrapper,
+              style: N,
               children: [
-                ne && M.boxShadow != null
+                q && C.boxShadow != null
                   ? s.jsxs("svg", {
                       label: "",
                       preserveAspectRatio: "none",
                       className: o("WebBloksStyle").classNames(
-                        I.arrow,
-                        I.arrowDropShadow,
+                        p.arrow,
+                        p.arrowDropShadow,
                       ),
-                      style: le,
+                      style: z,
                       viewBox: "0 0 100 100",
                       children: [
                         s.jsx("title", { children: "Arrow drop shadow" }),
-                        s.jsx("polygon", { points: ae }),
+                        s.jsx("polygon", { points: H }),
                       ],
                     })
                   : null,
                 s.jsx("span", {
-                  style: ee,
-                  className: I.content,
-                  children: s.jsx(A, { children: T }),
+                  style: B,
+                  className: p.content,
+                  children: s.jsx(v, { children: u }),
                 }),
-                ne
+                q
                   ? s.jsxs("svg", {
                       label: "",
                       preserveAspectRatio: "none",
-                      className: I.arrow,
+                      className: p.arrow,
                       viewBox: "0 0 100 100",
                       children: [
                         s.jsx("title", {
                           children: "Arrow pointing to tooltip",
                         }),
                         s.jsx("polyline", {
-                          points: ae,
-                          strokeWidth: oe,
-                          stroke: re,
-                          fill: ee == null ? void 0 : ee.background,
+                          points: H,
+                          strokeWidth: V,
+                          stroke: U,
+                          fill: B == null ? void 0 : B.background,
                         }),
                       ],
                     })
@@ -220,15 +209,15 @@ __d(
         );
       return s.jsxs(s.Fragment, {
         children: [
-          s.jsx("span", { ref: F, className: I.anchor }),
+          s.jsx("span", { ref: S, className: p.anchor }),
           s.jsx(r("WebBloksPortal"), {
-            target: n == null ? void 0 : n.current,
-            children: ue,
+            target: t == null ? void 0 : t.current,
+            children: K,
           }),
         ],
       });
     }
-    ((T.displayName = T.name + " [from " + i.id + "]"), (l.default = T));
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   98,
 );

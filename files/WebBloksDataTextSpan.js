@@ -9,49 +9,34 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = "#",
-      c = "$",
-      d = "&",
-      m = "(";
-    function p(e) {
-      var t = o("react-compiler-runtime").c(10),
+      s = e || (e = o("react"));
+    function u(e) {
+      var t = o("react-compiler-runtime").c(6),
         n = e.externalStyle,
         r = e.node,
-        a;
-      t[0] !== r ? ((a = r.get(u)), (t[0] = r), (t[1] = a)) : (a = t[1]);
-      var i = a,
-        l;
-      t[2] !== r ? ((l = r.get(c)), (t[2] = r), (t[3] = l)) : (l = t[3]);
-      var p = l,
-        _ = r.get(m),
-        f = o("WebBloksStyle").useStyle(r, n),
-        g = f.wrapper,
-        h = o("WebBloksComponentContext").useWebBloksContext(),
-        y = h.renderNode,
-        C = _ != null ? y(_) : r.get(d),
-        b = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(
-          i,
-          r,
-          n,
-          p,
-        ),
-        v;
-      t[4] !== C || t[5] !== b
-        ? ((v = s.jsx("span", babelHelpers.extends({}, b, { children: C }))),
-          (t[4] = C),
-          (t[5] = b),
-          (t[6] = v))
-        : (v = t[6]);
-      var S;
+        a = r.get("text_provider"),
+        i = o("WebBloksStyle").useStyle(r, n),
+        l = i.wrapper,
+        u = o("WebBloksComponentContext").useWebBloksContext(),
+        c = u.renderNode,
+        d = a != null ? c(a) : r.get("text"),
+        m = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(r, n),
+        p;
+      t[0] !== d || t[1] !== m
+        ? ((p = s.jsx("span", babelHelpers.extends({}, m, { children: d }))),
+          (t[0] = d),
+          (t[1] = m),
+          (t[2] = p))
+        : (p = t[2]);
+      var _;
       return (
-        t[7] !== v || t[8] !== g
-          ? ((S = g(v)), (t[7] = v), (t[8] = g), (t[9] = S))
-          : (S = t[9]),
-        S
+        t[3] !== p || t[4] !== l
+          ? ((_ = l(p)), (t[3] = p), (t[4] = l), (t[5] = _))
+          : (_ = t[5]),
+        _
       );
     }
-    l.default = p;
+    l.default = u;
   },
   98,
 );

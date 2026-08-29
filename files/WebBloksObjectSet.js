@@ -108,9 +108,8 @@ __d(
               new (o("WebBloksTreeResources").WebBloksTreeResources)(),
             ),
             c = new (r("WebBloksTreeManager"))(u),
-            d = new (o("WebBloksContext").WebBloksContext)(c, this);
-          c.initVariablesAndObserver(d);
-          var m = new (r("WebBloksInterpreterEnvironment"))(d);
+            d = new (o("WebBloksContext").WebBloksContext)(c, this),
+            m = new (r("WebBloksInterpreterEnvironment"))(d);
           m.executeCatch(s, []);
         }),
         (t.$2 = function (t, n) {

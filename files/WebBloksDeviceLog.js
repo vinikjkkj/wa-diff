@@ -3,12 +3,10 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = "#",
-      l = "$";
-    function s(t, n, r) {
-      var o = r == null ? void 0 : r.get(l),
-        a = o !== void 0 ? "[" + o + "] " + n : n;
-      switch (r == null ? void 0 : r.get(e)) {
+    function e(e, t, n) {
+      var r = n == null ? void 0 : n.get("tag"),
+        o = r !== void 0 ? "[" + r + "] " + t : t;
+      switch (n == null ? void 0 : n.get("priority")) {
         case "debug":
           break;
         case "error":
@@ -21,7 +19,7 @@ __d(
         default:
       }
     }
-    i.default = s;
+    i.default = e;
   },
   66,
 );

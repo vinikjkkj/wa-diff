@@ -178,10 +178,7 @@ __d(
           .actions,
       },
     ];
-    ((l.adManagementColumnWidths = o(
-      "WAWebBizAdManagementColumnWidths",
-    ).adManagementColumnWidths),
-      (l.adManagementColumns = y));
+    l.adManagementColumns = y;
   },
   226,
 );

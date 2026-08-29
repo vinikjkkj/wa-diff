@@ -3,21 +3,7 @@ __d(
   ["$InternalEnum"],
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum").Mirrored(["WEAK", "STRONG"]),
-      l = n("$InternalEnum").Mirrored([
-        "ACTIVE",
-        "CREATING",
-        "EXTENDABLE",
-        "FINISHED",
-        "LIMITED_DELIVERY",
-        "NOT_DELIVERING",
-        "PAUSED",
-        "PENDING",
-        "REJECTED",
-        "SCHEDULED",
-        "ERROR",
-        "UNKNOWN",
-      ]),
-      s = {
+      l = {
         ACTIVE: "ACTIVE",
         COMPLETED: "COMPLETED",
         CREATING: "CREATING",
@@ -36,7 +22,7 @@ __d(
         UNABLE_TO_CREATE: "ERROR",
         UNKNOWN: "UNKNOWN",
       };
-    function u(t, n, r, o) {
+    function s(t, n, r, o) {
       return (
         r === void 0 && (r = "WAA"),
         o === void 0 && (o = e.STRONG),
@@ -46,9 +32,8 @@ __d(
       );
     }
     ((i.WAAIdentityTokenStrengthEnum = e),
-      (i.BoostingStatusEnum = l),
-      (i.BoostingStatus = s),
-      (i.asAdAccountToken = u));
+      (i.BoostingStatus = l),
+      (i.asAdAccountToken = s));
   },
   66,
 );

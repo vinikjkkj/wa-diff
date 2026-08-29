@@ -13,8 +13,11 @@ __d(
       }),
       s = e.clearCacheFor,
       u = e.computed,
-      c = s,
-      d = u(
+      c = e.field,
+      d = s,
+      m = c("googlePlace"),
+      p = c("stale"),
+      _ = u(
         function (e) {
           var t = e[0];
           return o(
@@ -23,8 +26,10 @@ __d(
         },
         [o("WAWebBusinessProfileGetters").getProfileOptions],
       );
-    ((l.clearFrontendBusinessProfileGetterCacheFor = c),
-      (l.getIsCatalogDisabledDueToMetaLinking = d));
+    ((l.clearFrontendBusinessProfileGetterCacheFor = d),
+      (l.getGooglePlace = m),
+      (l.getStale = p),
+      (l.getIsCatalogDisabledDueToMetaLinking = _));
   },
   98,
 );

@@ -11,119 +11,80 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = e.useMemo,
-      c = "#",
-      d = ")",
-      m = "*",
-      p = "(";
-    function _(e) {
-      var t = o("react-compiler-runtime").c(23),
-        n = e.accessibilityLabel,
-        r = e.externalStyle,
-        a = e.imageAlign,
-        i = e.imageComponent,
-        l = e.imageHeight,
-        u = e.imageMargin,
-        _ = e.imageWidth,
-        f = e.node,
-        g = e.spanStyles,
-        h = o("WebBloksStyle").useStyle(f, r),
-        y = h.wrapper,
-        C = o("WebBloksComponentContext").useWebBloksContext(),
-        b = C.renderNode,
-        v = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(
-          n,
-          f,
-          r,
-          g,
-        ),
-        S = a === "bottom" ? "flex-end" : a,
-        R;
-      t[0] !== v.style || t[1] !== S
-        ? ((R = babelHelpers.extends({}, v.style, {
+      u = e.useMemo;
+    function c(e) {
+      var t = o("react-compiler-runtime").c(14),
+        n = e.externalStyle,
+        r = e.node,
+        a;
+      t[0] !== r
+        ? ((a = r.get("image_align")), (t[0] = r), (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l = r.get("image_margin"),
+        u = r.get("image_width"),
+        c = r.get("image_height"),
+        d = r.getSubNode("image_component"),
+        m = o("WebBloksStyle").useStyle(r, n),
+        p = m.wrapper,
+        _ = o("WebBloksComponentContext").useWebBloksContext(),
+        f = _.renderNode,
+        g = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(r, n),
+        h = i,
+        y = l,
+        C = h === "bottom" ? "flex-end" : h,
+        b;
+      t[2] !== g.style || t[3] !== C
+        ? ((b = babelHelpers.extends({}, g.style, {
             display: "inline-flex",
             height: "100%",
-            alignItems: S,
+            alignItems: C,
           })),
-          (t[0] = v.style),
-          (t[1] = S),
-          (t[2] = R))
-        : (R = t[2]);
-      var L;
-      t[3] !== v || t[4] !== R
-        ? ((L = babelHelpers.extends({}, v, { style: R })),
-          (t[3] = v),
-          (t[4] = R),
-          (t[5] = L))
-        : (L = t[5]);
-      var E = L,
-        k,
-        I,
-        T,
-        D;
-      if (
-        t[6] !== i ||
-        t[7] !== l ||
-        t[8] !== u ||
-        t[9] !== E ||
-        t[10] !== _ ||
-        t[11] !== b ||
-        t[12] !== y
-      ) {
-        D = Symbol.for("react.early_return_sentinel");
-        e: {
-          var x = o("WebBloksUtils").toPx(l),
-            $ = o("WebBloksUtils").toPx(_);
-          if (x == null || x === "0px" || $ == null || $ === "0px") {
-            D = null;
-            break e;
-          }
-          ((T = y),
-            (k = E),
-            (I = b(i, {
-              height: x,
-              width: $,
-              marginTop: o("WebBloksUtils").toPx(u == null ? void 0 : u.get(p)),
-              marginRight: o("WebBloksUtils").toPx(
-                u == null ? void 0 : u.get(d),
-              ),
-              marginBottom: o("WebBloksUtils").toPx(
-                u == null ? void 0 : u.get(c),
-              ),
-              marginLeft: o("WebBloksUtils").toPx(
-                u == null ? void 0 : u.get(m),
-              ),
-            })));
-        }
-        ((t[6] = i),
-          (t[7] = l),
-          (t[8] = u),
+          (t[2] = g.style),
+          (t[3] = C),
+          (t[4] = b))
+        : (b = t[4]);
+      var v;
+      t[5] !== g || t[6] !== b
+        ? ((v = babelHelpers.extends({}, g, { style: b })),
+          (t[5] = g),
+          (t[6] = b),
+          (t[7] = v))
+        : (v = t[7]);
+      var S = v,
+        R = o("WebBloksUtils").toPx(c),
+        L = o("WebBloksUtils").toPx(u);
+      if (R == null || R === "0px" || L == null || L === "0px") return null;
+      var E = f(d, {
+          height: R,
+          width: L,
+          marginTop: o("WebBloksUtils").toPx(y == null ? void 0 : y.get("top")),
+          marginRight: o("WebBloksUtils").toPx(
+            y == null ? void 0 : y.get("end"),
+          ),
+          marginBottom: o("WebBloksUtils").toPx(
+            y == null ? void 0 : y.get("bottom"),
+          ),
+          marginLeft: o("WebBloksUtils").toPx(
+            y == null ? void 0 : y.get("start"),
+          ),
+        }),
+        k;
+      t[8] !== S || t[9] !== E
+        ? ((k = s.jsx("span", babelHelpers.extends({}, S, { children: E }))),
+          (t[8] = S),
           (t[9] = E),
-          (t[10] = _),
-          (t[11] = b),
-          (t[12] = y),
-          (t[13] = k),
-          (t[14] = I),
-          (t[15] = T),
-          (t[16] = D));
-      } else ((k = t[13]), (I = t[14]), (T = t[15]), (D = t[16]));
-      if (D !== Symbol.for("react.early_return_sentinel")) return D;
-      var P;
-      t[17] !== k || t[18] !== I
-        ? ((P = s.jsx("span", babelHelpers.extends({}, k, { children: I }))),
-          (t[17] = k),
-          (t[18] = I),
-          (t[19] = P))
-        : (P = t[19]);
-      var N;
+          (t[10] = k))
+        : (k = t[10]);
+      var I;
       return (
-        t[20] !== T || t[21] !== P
-          ? ((N = T(P)), (t[20] = T), (t[21] = P), (t[22] = N))
-          : (N = t[22]),
-        N
+        t[11] !== k || t[12] !== p
+          ? ((I = p(k)), (t[11] = k), (t[12] = p), (t[13] = I))
+          : (I = t[13]),
+        I
       );
     }
-    l.default = _;
+    l.default = c;
   },
   98,
 );

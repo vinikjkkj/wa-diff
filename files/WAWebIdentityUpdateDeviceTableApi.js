@@ -118,7 +118,7 @@ __d(
                         h.length > 0
                           ? o(
                               "WAWebDBStoreEncryptedMsgs",
-                            ).storeEncryptedDBMessages(h, [], g, !1)
+                            ).storeEncryptedDBMessages(h, g, !1)
                           : (p || (p = n("Promise"))).resolve(),
                       a = o(
                         "WAWebAdvUpdateParticipantApi",
@@ -285,7 +285,7 @@ __d(
                       L.length > 0
                         ? o(
                             "WAWebDBStoreEncryptedMsgs",
-                          ).storeEncryptedDBMessages(L, [], R, !1)
+                          ).storeEncryptedDBMessages(L, R, !1)
                         : (p || (p = n("Promise"))).resolve(),
                     a = o(
                       "WAWebAdvUpdateParticipantApi",

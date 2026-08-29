@@ -2,35 +2,32 @@ __d(
   "WebBloksOnMountExtensionHandlerUtils",
   ["WebBloksConstants"],
   function (t, n, r, o, a, i, l) {
-    var e = ")",
-      s = "*",
-      u = "+";
-    function c(t, n, r) {
-      var a = r.bloksContext,
-        i = r.executeOnNextTickCatch,
-        l = a.initAssociatedObject_INTERNAL(
-          t,
+    function e(e, t, n) {
+      var r = n.bloksContext,
+        a = n.executeOnNextTickCatch,
+        i = r.initAssociatedObject_INTERNAL(
+          e,
           o("WebBloksConstants").CONTROLLER_ASSOCIATED_OBJECT,
           { firstMountRecorded: !1 },
         ),
-        c = t.getExpression(e),
-        d = t.getExpression(s),
-        m = t.getExpression(u);
+        l = e.getExpression("on_first_mount"),
+        s = e.getExpression("on_mount"),
+        u = e.getExpression("on_unmount");
       return (
-        l.firstMountRecorded !== !0 &&
-          (a.updateAssociatedObject_INTERNAL(
-            t,
+        i.firstMountRecorded !== !0 &&
+          (r.updateAssociatedObject_INTERNAL(
+            e,
             o("WebBloksConstants").CONTROLLER_ASSOCIATED_OBJECT,
             { firstMountRecorded: !0 },
           ),
-          c != null && i(n.current, c, [n.current, r])),
-        d != null && i(n.current, d, [n.current, r]),
+          l != null && a(t.current, l, [t.current, n])),
+        s != null && a(t.current, s, [t.current, n]),
         function () {
-          m != null && i(n.current, m, [n.current]);
+          u != null && a(t.current, u, [t.current]);
         }
       );
     }
-    l.runMountEffects = c;
+    l.runMountEffects = e;
   },
   98,
 );

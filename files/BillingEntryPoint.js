@@ -267,6 +267,7 @@ __d(
       AYMT_CAMPAIGN_DSL_RESTRICTION_TIP: "aymt_campaign_dsl_restriction_tip",
       AYMT_ACCOUNT_DSL_RESTRICTION_TIP: "aymt_account_dsl_restriction_tip",
       AYMT_PROACTIVE_CVCO_TIP: "aymt_proactive_cvco_tip",
+      AYMT_REQUIRE_TOPUP_3DS_CVCO_TIP: "aymt_require_topup_3ds_cvco_tip",
       AYMT_CREDIT_CARD_NEEDED: "aymt_credit_card_needed",
       AYMT_COLLECT_BUSINESS_LOCATION_TIP: "aymt_collect_business_location_tip",
       AYMT_COUNTRY_SPOOFING: "AYMT_COUNTRY_SPOOFING",

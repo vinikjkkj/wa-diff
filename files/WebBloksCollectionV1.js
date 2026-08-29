@@ -1,7 +1,6 @@
 __d(
   "WebBloksCollectionV1",
   [
-    "WebBloksCollectionMinificationKeys",
     "WebBloksCollectionScrollRefs",
     "WebBloksComponentContext",
     "WebBloksStyle",
@@ -20,9 +19,7 @@ __d(
       var t = o("react-compiler-runtime").c(18),
         n = e.externalStyle,
         a = e.node,
-        i = a.getSubNodes(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_CHILDREN,
-        ),
+        i = a.getSubNodes("children"),
         l = o("WebBloksStyle").useStyle(a, n),
         u = l.ref,
         d = l.style,
@@ -117,26 +114,14 @@ __d(
         u = s.renderNode,
         c;
       t[0] !== n
-        ? ((c = n.get(
-            o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION,
-          )),
-          (t[0] = n),
-          (t[1] = c))
+        ? ((c = n.get("direction")), (t[0] = n), (t[1] = c))
         : (c = t[1]);
       var m = c,
-        p = n.get(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_ITEM_SPACING,
-        ),
-        _ = n.get(o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP),
-        f = n.get(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP_STYLE,
-        ),
-        g = n.get(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_SPACING_AFTER,
-        ),
-        h = n.get(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_SPACING_BEFORE,
-        ),
+        p = n.get("item_spacing"),
+        _ = n.get("snap"),
+        f = n.get("snap_style"),
+        g = n.get("spacing_after"),
+        h = n.get("spacing_before"),
         y = m === "column",
         C = i
           ? g != null
@@ -178,19 +163,13 @@ __d(
       );
     }
     function d(e, t) {
-      var n,
-        r = e.getStyle(o("WebBloksCollectionMinificationKeys").FLEX_STYLE),
-        a =
-          t === "width"
-            ? r == null
-              ? void 0
-              : r.get(o("WebBloksCollectionMinificationKeys").FLEX_STYLE_WIDTH)
-            : r == null
-              ? void 0
-              : r.get(
-                  o("WebBloksCollectionMinificationKeys").FLEX_STYLE_HEIGHT,
-                );
-      return (n = a == null ? void 0 : a.endsWith("%")) != null ? n : !1;
+      var n, r;
+      return (n =
+        (r = e.getStyle("flex")) == null || (r = r.get(t)) == null
+          ? void 0
+          : r.endsWith("%")) != null
+        ? n
+        : !1;
     }
     l.default = u;
   },

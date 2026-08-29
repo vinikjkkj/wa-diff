@@ -38,7 +38,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

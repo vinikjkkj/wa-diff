@@ -1,11 +1,11 @@
 __d(
   "WebBloksGetAttr",
-  ["WebBloksModel"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e, t, n) {
-      return t.getWireValue(o("WebBloksModel").decodeWebBloksWireIdentifier(n));
+      return t.getWireValue(n);
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

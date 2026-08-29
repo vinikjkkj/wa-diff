@@ -3,7 +3,6 @@ __d(
   [
     "WebBloksCollectionGrid_EXPERIMENTAL",
     "WebBloksCollectionHelpers",
-    "WebBloksCollectionMinificationKeys",
     "WebBloksCollectionV1",
     "WebBloksCollectionV2",
     "react",
@@ -14,9 +13,7 @@ __d(
       s = e || (e = o("react"));
     function u(e) {
       var t = o("react-compiler-runtime").c(6),
-        n = e.node.get(
-          o("WebBloksCollectionMinificationKeys").COLLECTION_LAYOUT_CONFIG_TYPE,
-        );
+        n = e.node.get("layout_config_type");
       if (n === "grid") {
         var a;
         return (
