@@ -85,58 +85,61 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i = a.option,
-            l = a.participant,
-            s = a.to;
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgProtobuf,
+            a = e.msgRecord,
+            i = e.params,
+            l = i.option,
+            s = i.participant,
+            d = i.to;
           if (
             (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
               identityChanged: !1,
               sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-              wids: [l],
+              wids: [s],
             }),
-            i.type === c.AppStateSync)
+            l.type === c.AppStateSync)
           )
             return (u || (u = n("Promise"))).reject(
               r("err")(
                 "[messaging] createGroupDeviceMsgStanza: not expect for App State Sync message",
               ),
             );
-          var d = e.data.id.remote;
-          if (!d.isGroup())
+          var m = a.data.id.remote;
+          if (!m.isGroup())
             return (u || (u = n("Promise"))).reject(
               r("err")(
                 "[messaging] createGroupDeviceMsgStanza: function called for non group WID",
               ),
             );
-          var m = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
-              d.toString(),
+          var p = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+              m.toString(),
             ),
-            p = yield o("WAWebGroupMsgSendUtils").getGroupData(
-              d.toString(),
-              m,
-              e,
+            _ = yield o("WAWebGroupMsgSendUtils").getGroupData(
+              m.toString(),
+              p,
+              a,
             ),
-            _ = o("WAWebUserPrefsMeUser").isMeAccount(l)
+            f = o("WAWebUserPrefsMeUser").isMeAccount(s)
               ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
                   t,
-                  s,
+                  d,
                 )
               : t;
           return (
             yield o("WAWebICDCMetaApi").populateICDCMeta(
-              o("WAWebWidFactory").asUserWidOrThrow(l),
-              _,
+              o("WAWebWidFactory").asUserWidOrThrow(s),
+              f,
             ),
             g({
-              msgProtobuf: _,
-              msgRecord: e,
-              params: babelHelpers.extends({ type: "group", groupData: p }, a),
+              msgProtobuf: f,
+              msgRecord: a,
+              params: babelHelpers.extends({ type: "group", groupData: _ }, i),
             })
           );
         })),

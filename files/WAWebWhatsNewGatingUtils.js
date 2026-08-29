@@ -26,6 +26,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return !o("WAWebMobilePlatforms").isSMB() ||
+            !o("WAWebWhatsNewContent").hasBizAgentWhatsNewHighlight() ||
             o(
               "WAWebBizAiLargeScreensGateModel",
             ).isBizAiLargeScreensGateEnabled()

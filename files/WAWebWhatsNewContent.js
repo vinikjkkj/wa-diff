@@ -16,6 +16,7 @@ __d(
     "WDSIconIcVideocam.react",
     "WDSIconWdsIcAi.react",
     "WDSIconWdsIcLogoMetaAi.react",
+    "WDSIconWdsIcPencilAi.react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = {
@@ -116,32 +117,64 @@ __d(
               );
         },
         Icon: r("WDSIconIcDownload.react"),
+      },
+      y = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Export a chat as a file to save or share a copy of your conversation.",
+          );
+        },
+        Icon: r("WDSIconIcDownload.react"),
+      },
+      C = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Write and edit broadcast messages faster with AI-powered suggestions.",
+          );
+        },
+        Icon: r("WDSIconWdsIcPencilAi.react"),
       };
-    function y() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_content_version",
       );
     }
-    function C() {
-      return y() >= 2;
+    function v() {
+      return b() >= 2;
     }
-    function b() {
-      return y() >= 3;
+    function S() {
+      return b() >= 3;
     }
-    function v(e) {
-      var t = e.bizAgentEligible;
-      return y() >= 3
-        ? S(t)
-        : [].concat(u, [r("WAWebEnvironment").isWindows ? d : c]);
+    function R() {
+      return b() === 3;
     }
-    function S(e) {
+    function L(e) {
+      var t = e.bizAgentEligible,
+        n = b();
+      return n >= 4
+        ? E()
+        : n === 3
+          ? T(t)
+          : [].concat(u, [r("WAWebEnvironment").isWindows ? d : c]);
+    }
+    function E() {
+      var e = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
+      return o("WAWebMobilePlatforms").isSMB() ? I(e) : k(e);
+    }
+    function k(e) {
+      return e ? [m, y, p, f] : [y, p, f, _];
+    }
+    function I(e) {
+      return e ? [m, C, y, p] : [C, y, p, f];
+    }
+    function T(e) {
       var t = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? L(t, e) : R(t);
+      return o("WAWebMobilePlatforms").isSMB() ? x(t, e) : D(t);
     }
-    function R(t) {
+    function D(t) {
       return t ? [m, p, _, f] : [p, _, f, e];
     }
-    function L(t, n) {
+    function x(t, n) {
       var r = t ? [m, g, h, p] : [g, h, p, f];
       return n
         ? r
@@ -152,9 +185,10 @@ __d(
             [e],
           );
     }
-    ((l.hasWhatsNewContent = C),
-      (l.hasSmbWhatsNewContent = b),
-      (l.getWhatsNewFeatures = v));
+    ((l.hasWhatsNewContent = v),
+      (l.hasSmbWhatsNewContent = S),
+      (l.hasBizAgentWhatsNewHighlight = R),
+      (l.getWhatsNewFeatures = L));
   },
   226,
 );

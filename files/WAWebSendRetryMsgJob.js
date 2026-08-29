@@ -221,11 +221,14 @@ __d(
               {
                 stanza: yield o(
                   "WAWebSendMsgCreateDeviceStanza",
-                ).createGroupDeviceMsgStanza(
-                  l,
-                  g,
-                  babelHelpers.extends({}, y, { isLidBot: a, participant: u }),
-                ),
+                ).createGroupDeviceMsgStanza({
+                  msgProtobuf: g,
+                  msgRecord: l,
+                  params: babelHelpers.extends({}, y, {
+                    isLidBot: a,
+                    participant: u,
+                  }),
+                }),
                 statusStanzaClass: "message",
               });
         })),
