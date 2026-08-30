@@ -47,15 +47,19 @@ __d(
       return c !== p ? 1 : 0;
     }
     function f(e, t) {
-      var n, r;
+      var n;
       t === void 0 && (t = !1);
-      var o = (n = globalThis.screen) == null ? void 0 : n.orientation,
-        a = o != null ? ((o.angle % 360) + 360) % 360 : 0,
-        i = Math.floor(a / 90) % 4,
-        s = t ? (e - i + 4) % 4 : (e + i) % 4;
-      return s === 0 ? l.Normal : (r = l.cast(s + 1)) != null ? r : l.Normal;
+      var r = (n = globalThis.screen) == null ? void 0 : n.orientation;
+      return g(e, t, r == null ? void 0 : r.angle);
     }
-    function g(e, t) {
+    function g(e, t, n) {
+      var r,
+        o = n != null ? ((n % 360) + 360) % 360 : 0,
+        a = Math.floor(o / 90) % 4,
+        i = t ? (e - a + 4) % 4 : (e + a) % 4;
+      return i === 0 ? l.Normal : (r = l.cast(i + 1)) != null ? r : l.Normal;
+    }
+    function h(e, t) {
       var n,
         r =
           e === 90
@@ -73,7 +77,7 @@ __d(
             source: u.DeviceFallback,
           };
     }
-    function h(e) {
+    function y(e) {
       var t = e.elapsedMsSinceLastLog,
         n = e.hasLoggedSnapshot,
         r = e.orientationStateChanged;
@@ -81,7 +85,7 @@ __d(
       var o = r ? c : d;
       return t >= o;
     }
-    function y(e) {
+    function C(e) {
       return e === "NV12"
         ? m.NV12
         : e === "I420"
@@ -97,9 +101,10 @@ __d(
       (i.videoFrameFormatFromFormatEnum = p),
       (i.detectSensorOffset = _),
       (i.computeVideoOrientation = f),
-      (i.resolveVideoFrameOrientation = g),
-      (i.shouldLogOrientationDiagnostics = h),
-      (i.formatEnumFromVideoFrameFormat = y));
+      (i.computeVideoOrientationForAngle = g),
+      (i.resolveVideoFrameOrientation = h),
+      (i.shouldLogOrientationDiagnostics = y),
+      (i.formatEnumFromVideoFrameFormat = C));
   },
   66,
 );

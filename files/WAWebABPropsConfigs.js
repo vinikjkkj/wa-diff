@@ -835,6 +835,7 @@ __d(
       channels_questions_search_enabled: [24004, "bool", !1, !0],
       channels_quick_forwarding_button_mode: [7234, "int", 0, 0],
       channels_quiz_option_reshuffle_enabled: [35752, "bool", !1, !1],
+      channels_quiz_option_reshuffle_notice_enabled: [35906, "bool", !1, !1],
       channels_quiz_receiving_enabled: [19778, "bool", !1, !1],
       channels_quiz_sending_enabled: [19777, "bool", !1, !1],
       channels_reactions_bottomsheet_tap_to_react_enabled: [
@@ -2257,6 +2258,7 @@ __d(
       report_call_replayer_id: [1834, "bool", !1, !1],
       report_to_admin_enabled: [3696, "bool", !1, !0],
       report_to_admin_kill_switch: [3695, "bool", !1, !0],
+      retry_receipt_new_session_enabled: [35926, "bool", !1, !0],
       reuse_cached_certs_for_data_channel: [12913, "bool", !1, !0],
       reveal_username_non_linking_rejection_reason_enabled: [
         32910,
@@ -3000,6 +3002,7 @@ __d(
       wa_web_bot_tos_check_refiniement: [28897, "bool", !1, !0],
       wa_web_broadcast_disappearing_messages_fix: [31499, "bool", !1, !1],
       wa_web_buttons_response_prop_removal_killswitch: [33817, "bool", !1, !1],
+      wa_web_calling_call_user_journey_logging_enabled: [35896, "bool", !1, !1],
       wa_web_calling_calls_tab_empty_state_update_enabled: [
         33154,
         "bool",
@@ -3700,6 +3703,7 @@ __d(
       web_voip_adaptive_sctp_prewarm: [32804, "bool", !1, !1],
       web_voip_audio_capture_impl: [21688, "int", 0, 0],
       web_voip_audio_playback_impl: [21689, "int", 0, 0],
+      web_voip_audio_playback_use_media_element_output: [35949, "bool", !1, !1],
       web_voip_av_sync_debug_overlay: [31481, "bool", !1, !1],
       web_voip_capture_video_rotation_type: [27973, "int", 0, 0],
       web_voip_deferred_boot_early_module_prefetch: [35091, "bool", !1, !1],

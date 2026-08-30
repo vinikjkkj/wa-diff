@@ -6,7 +6,9 @@ __d(
     "WALoggerUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
+    "WAWebCommonMsgUtils",
     "WAWebCurrentUser",
+    "WAWebDBAddOnProviders",
     "WAWebDBCAPIPermissions",
     "WAWebDBChatValidation",
     "WAWebDBEncryptMultipleMsgs",
@@ -24,6 +26,8 @@ __d(
     "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
+    "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebVoipGatingUtils",
     "WAWebWamEnumWebcChatCreateCreationMethod",
     "WAWebWebcChatCreateWamEvent",
@@ -352,39 +356,39 @@ __d(
                 t: 0,
                 unreadMentionsOfMe: [],
                 broadcast: e.broadcast === !0,
-              };
-            if (
-              !o("WAWebMsgGetters").getIsStatus(e) &&
-              o("WAWebMsgGetters").getIsUnreadType(e)
-            ) {
+              },
+              i = o("WAWebMsgGetters").getIsUnreadType(e),
+              l = i || $(e);
+            if (!o("WAWebMsgGetters").getIsStatus(e) && l) {
               if (
+                i &&
                 !n.fromMe &&
                 e.read !== !0 &&
                 ((a.unread += 1), o("WAWebMsgGetters").getIsImportantMessage(e))
               ) {
-                var i = { id: e.id.toString(), timestamp: e.t };
+                var s = { id: e.id.toString(), timestamp: e.t };
                 a.unreadMentionsOfMe
-                  ? a.unreadMentionsOfMe.push(i)
-                  : (a.unreadMentionsOfMe = [i]);
+                  ? a.unreadMentionsOfMe.push(s)
+                  : (a.unreadMentionsOfMe = [s]);
               }
               (e.t != null && e.t > a.t && (a.t = Math.max(e.t, a.t)),
                 t.set(r, a));
             }
-            var l = o(
+            var u = o(
                 "WAWebDBMessageUtils",
               ).isCoexCallingPermissionsRequestMessage(e),
-              s =
-                !l &&
+              c =
+                !u &&
                 o(
                   "WAWebDBMessageUtils",
                 ).isCoexCallingPermissionsResponseMessage(e);
-            (l || s) &&
+            (u || c) &&
               o("WAWebVoipGatingUtils").isCoexCallingPermissionsEnabled() &&
-              (l
+              (u
                 ? (a.capiCallingPermissionType = o(
                     "WAWebDBCAPIPermissions",
                   ).CloudAPICallingPermissionType.PENDING)
-                : s &&
+                : c &&
                   (a.capiCallingPermissionType = o(
                     "WAWebDBMessageUtils",
                   ).getSelectedCallingPermissions(e)),
@@ -518,6 +522,20 @@ __d(
           return { chatUpdates: c, capiCallingPermissionUpdates: l };
         })),
         x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return (
+        o("WAWebCommonMsgUtils").isFutureproofMsg(
+          o("WAWebMsgGetters").getType(e),
+        ) &&
+        !e.id.remote.isBroadcast() &&
+        o("WAWebDBAddOnProviders").getAddOnProviderForFutureproofMsg(e) ==
+          null &&
+        o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+          o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+          e.viewMode,
+        )
       );
     }
     ((l.persistNewMessagesInBulk = v),
