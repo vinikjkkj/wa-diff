@@ -35,7 +35,10 @@ __d(
       (p.name = "DeviceCapabilities$BizAiSettingsSync"),
       (p.internalSpec = { handoffRemovalTimingEnabled: [1, e.TYPES.BOOL] }),
       (_.name = "DeviceCapabilities$AiFbidMigration"),
-      (_.internalSpec = { chatDbMigrationTimestamp: [1, e.TYPES.UINT64] }),
+      (_.internalSpec = {
+        chatDbMigrationTimestamp: [1, e.TYPES.UINT64],
+        supportVersion: [2, e.TYPES.UINT32],
+      }),
       (f.name = "DeviceCapabilities$AiThread"),
       (f.internalSpec = { supportLevel: [1, e.TYPES.ENUM, s] }),
       (g.name = "DeviceCapabilities$UserHasAvatar"),

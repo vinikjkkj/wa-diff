@@ -53,12 +53,13 @@ __d(
       p,
       _,
       f,
-      g = f || (f = o("react")),
-      h = [];
-    function y(e, t, n, r) {
+      g,
+      h = g || (g = o("react")),
+      y = [];
+    function C(e, t, n, r) {
       return (
-        n === void 0 && (n = h),
-        v({
+        n === void 0 && (n = y),
+        S({
           createGroupArgs: e,
           groupCreateEntryPoint: r,
           outContacts: n,
@@ -66,24 +67,26 @@ __d(
         })
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
-            !o("WAWebABProps").getABPropConfigValue("web_org_admin_ui_enabled")
+            (t === void 0 && (t = null),
+            n === void 0 && (n = null),
+            !o("WAWebABProps").getABPropConfigValue("web_org_admin_ui_enabled"))
           )
             throw r("err")("Org admin UI is disabled");
-          var t = Date.now();
+          var a = Date.now();
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[org-admin][group] create started",
               ])),
           );
-          var n = {
+          var i = {
               title: e,
               thumb: null,
               full: null,
@@ -93,11 +96,11 @@ __d(
               memberAddMode: !1,
               memberShareGroupHistoryMode: !1,
             },
-            a,
-            i;
+            l,
+            s;
           try {
-            ((a = yield o("WAWebGroupCreateJob").createGroup(n, [], [])),
-              (i = o("WAWebWidFactory").asGroupWidOrThrow(a.wid)));
+            ((l = yield o("WAWebGroupCreateJob").createGroup(i, [], [])),
+              (s = o("WAWebWidFactory").asGroupWidOrThrow(l.wid)));
           } catch (e) {
             throw (
               o("WAWebCoreActionsODS").logGroupCreateError(),
@@ -107,7 +110,7 @@ __d(
                     "[org-admin][group] create failed after ",
                     "ms",
                   ])),
-                Date.now() - t,
+                Date.now() - a,
               ),
               e
             );
@@ -119,11 +122,11 @@ __d(
                   "[org-admin][group] create succeeded after ",
                   "ms",
                 ])),
-              Date.now() - t,
+              Date.now() - a,
             ));
           try {
             yield o("WAWebFindChatAction").findOrCreateLatestChat(
-              i,
+              s,
               "createGroupAction",
             );
           } catch (e) {
@@ -137,14 +140,34 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("org-admin-group-local-hydration-failed");
           }
+          if (t != null && n != null)
+            try {
+              yield o("WAWebProfilePicThumbAction").setProfilePic(
+                o(
+                  "WAWebProfilePicThumbCollection",
+                ).ProfilePicThumbCollection.gadd(s),
+                t,
+                n,
+              );
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "createOrgAdminGroup group photo update dropped",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("org-admin-group-photo-update-failed");
+            }
           return (
             o("WAWebGroupQueryBridge")
-              .sendQueryGroup(i)
+              .sendQueryGroup(s)
               .catch(function (e) {
                 o("WALogger")
                   .WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "createOrgAdminGroup metadata hydration dropped",
                       ])),
                   )
@@ -152,16 +175,16 @@ __d(
                   .sendLogs("org-admin-group-metadata-hydration-failed");
               }),
             {
-              gid: i,
-              participants: S(a.participants),
-              invitedOutContacts: a.invitedOutContacts,
+              gid: s,
+              participants: R(l.participants),
+              invitedOutContacts: l.invitedOutContacts,
             }
           );
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(t) {
+    function S(t) {
       var a = t.createGroupArgs,
         i = t.groupCreateEntryPoint,
         l = t.outContacts,
@@ -170,8 +193,8 @@ __d(
         d = c === void 0 ? o("WAWebActionToast.react").genId() : c,
         m = a.full,
         p = a.parentGroupId,
-        f = a.thumb,
-        h = a.title,
+        _ = a.thumb,
+        g = a.title,
         y;
       try {
         y = u.map(function (e) {
@@ -182,7 +205,7 @@ __d(
       } catch (e) {
         return (
           o("WAWebCoreActionsODS").logGroupCreateError(),
-          (_ || (_ = n("Promise"))).resolve(void 0)
+          (f || (f = n("Promise"))).resolve(void 0)
         );
       }
       var C = l.map(function (e) {
@@ -198,16 +221,16 @@ __d(
                 new (o("WAWebGroupCreateWamEvent").GroupCreateWamEvent)({
                   ephemeralityDuration: a.ephemeralDuration,
                   groupCreateEntryPoint: i,
-                  hasGroupName: h.trim().length > 0,
+                  hasGroupName: g.trim().length > 0,
                 }).commit(),
               {
                 gid: t,
-                participants: S(e.participants),
+                participants: R(e.participants),
                 invitedOutContacts: e.invitedOutContacts,
               }
             );
           }),
-        L = new (o("WAWebActionToast.react").ActionType)(
+        v = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Creating group"),
         ),
         E = b
@@ -294,7 +317,7 @@ __d(
               {
                 actionText: s._(/*BTDS*/ "Try again."),
                 actionHandler: function () {
-                  return v({
+                  return S({
                     createGroupArgs: a,
                     groupCreateEntryPoint: i,
                     outContacts: l,
@@ -307,9 +330,9 @@ __d(
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          g.jsx(o("WAWebActionToast.react").ActionToast, {
+          h.jsx(o("WAWebActionToast.react").ActionToast, {
             id: d,
-            initialAction: L,
+            initialAction: v,
             pendingAction: E,
           }),
         ),
@@ -343,7 +366,7 @@ __d(
                     c = function () {
                       if (s.length > 0) {
                         o("WAWebModalManager").ModalManager.open(
-                          g.jsx(
+                          h.jsx(
                             r("WAWebOutContactSmsInviteConfirmModal.react"),
                             {
                               names: s.map(function (e) {
@@ -370,13 +393,13 @@ __d(
                         );
                         return;
                       }
-                      R(u);
+                      L(u);
                     };
                   if (
                     (a
                       ? o(
                           "WAWebSendForNeededAddRequest",
-                        ).sendForNeededAddRequest(e, h, void 0, c)
+                        ).sendForNeededAddRequest(e, g, void 0, c)
                       : c(),
                     p == null &&
                       e.gid &&
@@ -396,7 +419,7 @@ __d(
                                   "WAWebComposeBoxActions",
                                 ).ComposeBoxActions.focus(n);
                             }),
-                            (h === "" ||
+                            (g === "" ||
                               o(
                                 "WAWebGroupGatingUtils",
                               ).isAnyoneCanLinkToGroupsM2Enabled()) &&
@@ -404,13 +427,13 @@ __d(
                                 .sendQueryGroup(e.gid)
                                 .finally(r("WAWebNoop")));
                         }),
-                    f != null && m != null)
+                    _ != null && m != null)
                   ) {
                     var d = o(
                       "WAWebProfilePicThumbCollection",
                     ).ProfilePicThumbCollection.gadd(e.gid);
                     yield o("WAWebProfilePicThumbAction")
-                      .setProfilePic(d, f, m)
+                      .setProfilePic(d, _, m)
                       .then(function () {
                         return e.gid;
                       });
@@ -418,7 +441,7 @@ __d(
                   if (
                     o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
                   ) {
-                    var _ = e.participants.reduce(function (e, t) {
+                    var f = e.participants.reduce(function (e, t) {
                       return (
                         t.username != null &&
                           e.push({
@@ -432,8 +455,8 @@ __d(
                         e
                       );
                     }, []);
-                    _.length > 0 &&
-                      (yield o("WAWebSetUsernameJob").setUsernamesJob(_));
+                    f.length > 0 &&
+                      (yield o("WAWebSetUsernameJob").setUsernamesJob(f));
                   }
                   return e.gid;
                 },
@@ -465,7 +488,7 @@ __d(
           )
       );
     }
-    function S(e) {
+    function R(e) {
       return e.map(function (e) {
         return {
           userWid: e.wid,
@@ -476,17 +499,17 @@ __d(
         };
       });
     }
-    function R(e) {
+    function L(e) {
       e !== 0 &&
         o("WAWebToastManager").ToastManager.open(
-          g.jsx(o("WAWebToast.react").Toast, {
+          h.jsx(o("WAWebToast.react").Toast, {
             msg: o(
               "WAWebOutContactInviteUtils",
             ).getGroupInviteAddFailedToastText(e),
           }),
         );
     }
-    ((l.createGroup = y), (l.createOrgAdminGroup = C));
+    ((l.createGroup = C), (l.createOrgAdminGroup = b));
   },
   226,
 );

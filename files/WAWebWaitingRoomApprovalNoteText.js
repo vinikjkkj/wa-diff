@@ -7,7 +7,13 @@ __d(
         /*BTDS*/ "People who don't have WhatsApp will always need approval to join.",
       );
     }
-    l.getWaitingRoomApprovalNoteText = e;
+    function u() {
+      return s._(
+        /*BTDS*/ "Anyone can use this link to join this call, even if they're not on WhatsApp. Only share it with people you trust.",
+      );
+    }
+    ((l.getWaitingRoomApprovalNoteText = e),
+      (l.getGuestCallLinkDescriptionText = u));
   },
   226,
 );

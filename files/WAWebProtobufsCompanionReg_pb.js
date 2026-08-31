@@ -121,6 +121,7 @@ __d(
         isSyncdSnapshotRecoveryEnabled: [3, e.TYPES.BOOL],
         isHsThumbnailSyncEnabled: [4, e.TYPES.BOOL],
         subscriptionSyncPayload: [5, e.TYPES.BYTES],
+        isBotJidDbMigrated: [6, e.TYPES.BOOL],
       }),
       (l.DeviceProps$PlatformType = s),
       (l.DevicePropsSpec = u),

@@ -61,7 +61,8 @@ __d(
         "VND",
       ]),
       u = ["es-ES", "pt-BR"],
-      c = function () {
+      c = { "pt-BR": "BRL" },
+      d = function () {
         var e;
         return [
           (e = r("WAWebL10N")).getFullLocale(),
@@ -69,126 +70,127 @@ __d(
           e.normalizeLocaleToBcp47Compliant(e.getLocale()),
         ].filter(Boolean);
       };
-    function d(e) {
+    function m(e) {
       var t = e.amount,
         n = e.currency,
         r = e.localeOverride,
-        o = r === void 0 ? c() : r,
+        o = r === void 0 ? d() : r,
         a = e.options,
-        i = "symbol";
+        i = Array.isArray(o) ? o[0] : o,
+        l = "symbol";
       return (
-        u.includes(Array.isArray(o) ? o[0] : o) && (i = "code"),
+        u.includes(i) && c[i] !== n && (l = "code"),
         new Intl.NumberFormat(
           o,
           babelHelpers.extends(
-            { style: "currency", currency: n, currencyDisplay: i },
+            { style: "currency", currency: n, currencyDisplay: l },
             a,
           ),
         ).format(t)
       );
     }
-    function m(e, t, n, r) {
-      return d({ amount: t / 1e3, currency: e, localeOverride: r, options: n });
-    }
-    function p(e) {
-      return new Intl.NumberFormat(e).format(1.1).substring(1, 2);
+    function p(e, t, n, r) {
+      return m({ amount: t / 1e3, currency: e, localeOverride: r, options: n });
     }
     function _(e) {
+      return new Intl.NumberFormat(e).format(1.1).substring(1, 2);
+    }
+    function f(e) {
       return new Intl.NumberFormat(e).format(1e4).substring(2, 3);
     }
-    function f(e, t) {
-      var n = m(t, 0, {}, e);
+    function g(e, t) {
+      var n = p(t, 0, {}, e);
       return n.replace(/\d+([,.]\d+)?/g, "").trim();
     }
-    function g(e, t) {
-      var n = c(),
-        r = p(n),
-        o = f(n, e),
-        a = m(e, t),
+    function h(e, t) {
+      var n = d(),
+        r = _(n),
+        o = g(n, e),
+        a = p(e, t),
         i = a.replace(o, "").trim(),
         l = i.indexOf(r),
         s = l === -1 ? i : i.substring(0, l),
         u = l === -1 ? "" : i.substring(l);
       return { symbol: o, integer: s, decimal: u };
     }
-    function h(t) {
-      return f(e[t], t);
+    function y(t) {
+      return g(e[t], t);
     }
-    function y(e, t) {
-      var n = c(),
-        r = f(n, e),
-        o = _(n),
-        a = p(n);
-      return C(t, r, a, o);
+    function C(e, t) {
+      var n = d(),
+        r = g(n, e),
+        o = f(n),
+        a = _(n);
+      return b(t, r, a, o);
     }
-    function C(e, t, n, r) {
+    function b(e, t, n, r) {
       var o = e.replace(t, "").trim(),
         a = o.split(r).join(""),
         i = parseFloat(a.replace(n, ".") || "0");
       return Math.round(i * 1e3);
     }
-    function b(e, t) {
+    function v(e, t) {
       if (t == null || t.trim().length === 0) return !1;
-      var n = c(),
-        r = _(n),
-        o = p(n);
+      var n = d(),
+        r = f(n),
+        o = _(n);
       if (t.match("/[^0-9" + r + o + "]/")) return !1;
-      var a = f(n, e),
-        i = y(e, t),
-        l = m(e, i),
+      var a = g(n, e),
+        i = C(e, t),
+        l = p(e, i),
         s = l.replace(a, "").trim(),
         u = s.indexOf(o),
-        d = u === -1 ? s : s.substring(0, u),
-        g = s.split(r).join("");
-      u = g.indexOf(o);
-      var h = u === -1 ? g : g.substring(0, u);
-      return t === s || t === d || t === g || t === h;
+        c = u === -1 ? s : s.substring(0, u),
+        m = s.split(r).join("");
+      u = m.indexOf(o);
+      var h = u === -1 ? m : m.substring(0, u);
+      return t === s || t === c || t === m || t === h;
     }
-    function v(e, t, n, r) {
-      var a = c(),
+    function S(e, t, n, r) {
+      var a = d(),
         i =
           o("WAWebCurrencyData").CURRENCY_DIGITS[e] !== void 0
             ? o("WAWebCurrencyData").CURRENCY_DIGITS[e]
             : o("WAWebCurrencyData").DEFAULT_DIGITS,
-        l = y(e, t);
+        l = C(e, t);
       if ((n != null && l < n) || (r != null && l > r)) return !1;
       var s = t.replace(/\D+$/g, ""),
-        u = p(a),
-        d = _(a),
-        m = f(a, e),
-        g = t
+        u = _(a),
+        c = f(a),
+        m = g(a, e),
+        p = t
           .replace(m, "")
           .trim()
           .replace(/^[-+]/, "")
-          .split(d)
+          .split(c)
           .join("")
           .replace(u, "");
       return !(
         Number.isNaN(l) ||
         s !== t ||
-        /\D/.test(g) ||
+        /\D/.test(p) ||
         (t.split(u)[1] || "").length > i
       );
     }
-    function S(e) {
+    function R(e) {
       var t = o("WAWebCurrencyData").REGION_TO_CURRENCY[e.toUpperCase()];
       return (t == null ? void 0 : t.length) > 0
         ? t[0]
         : o("WAWebCurrencyData").DEFAULT_CURRENCY;
     }
-    function R(e) {
+    function L(e) {
       return s.has(e);
     }
-    ((l.formatAmount = d),
-      (l.formatAmount1000 = m),
-      (l.formatAmount1000ToParts = g),
-      (l.formatLocalSymbol = h),
-      (l.valueFromString = y),
-      (l.parseValueFromString = C),
-      (l.validateAmountString = b),
-      (l.validatePriceString = v),
-      (l.currencyForCountryShortcode = S),
-      (l.isSupportedCurrency = R));
+    ((l.formatAmount = m),
+      (l.formatAmount1000 = p),
+      (l.formatAmount1000ToParts = h),
+      (l.formatLocalSymbol = y),
+      (l.valueFromString = C),
+      (l.parseValueFromString = b),
+      (l.validateAmountString = v),
+      (l.validatePriceString = S),
+      (l.currencyForCountryShortcode = R),
+      (l.isSupportedCurrency = L));
   },
   98,
 );
