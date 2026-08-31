@@ -242,9 +242,8 @@ __d(
           (a.endTrace = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, a, i, l) {
-                var s = this,
-                  u = this.$3.get(t);
-                if (!u)
+                var s = this.$3.get(t);
+                if (!s)
                   return (
                     r("FBLogger")("web_loom").mustfix(
                       "No trace running for triggerId: %s",
@@ -252,92 +251,81 @@ __d(
                     ),
                     !1
                   );
-                var c = u.traceContext.sequenceNumber;
+                var u = s.traceContext.sequenceNumber;
                 (this.$3.delete(t),
-                  this.$4.set(c, u),
-                  this.$19(u, "END_PENDING"));
-                var d = [];
-                (u.providerInstances.forEach(function (e) {
+                  this.$4.set(u, s),
+                  this.$19(s, "END_PENDING"));
+                var c = [];
+                (s.providerInstances.forEach(function (e) {
                   var t = e.loomTraceWillEnd();
-                  t && d.push(t);
+                  t && c.push(t);
                 }),
                   this.$15 && (this.$15(), (this.$15 = null)));
-                var m = window.location.href;
+                var d = window.location.href;
                 try {
-                  yield (e || (e = n("Promise"))).all(d);
-                  var p = this.$1.perfXData,
-                    _ = u.traceContext.triggerInfo,
-                    f = {
+                  yield (e || (e = n("Promise"))).all(c);
+                  var m = this.$1.perfXData,
+                    p = s.traceContext.triggerInfo,
+                    _ = {
                       app_id: this.$1.appId,
-                      start_time_us: Math.round(u.traceContext.startTime * 1e3),
+                      start_time_us: Math.round(s.traceContext.startTime * 1e3),
                       end_time_us: Math.round(a * 1e3),
-                      trigger_id: u.traceContext.triggerId,
-                      trigger_info: _,
+                      trigger_id: s.traceContext.triggerId,
+                      trigger_info: p,
                       trigger_metadata: i,
                       trigger_metadata_sets: l,
-                      client_push_phase: p.client_push_phase,
+                      client_push_phase: m.client_push_phase,
                       device_num_cores:
-                        p.num_cores != null ? Math.floor(p.num_cores) : null,
+                        m.num_cores != null ? Math.floor(m.num_cores) : null,
                       device_ram_bytes:
-                        p.ram_gb != null ? p.ram_gb * 1073741824 : null,
-                      is_rtl: p.isRTL,
-                      locale: p.locale,
+                        m.ram_gb != null ? m.ram_gb * 1073741824 : null,
+                      is_rtl: m.isRTL,
+                      locale: m.locale,
                       network_effective_connection_type:
-                        p.effective_connection_type,
+                        m.effective_connection_type,
                       network_downlink_bps:
-                        p.downlink_megabits != null &&
-                        p.downlink_megabits * 1e6 < 1e20
-                          ? p.downlink_megabits * 1e6
+                        m.downlink_megabits != null &&
+                        m.downlink_megabits * 1e6 < 1e20
+                          ? m.downlink_megabits * 1e6
                           : null,
-                      network_rtt_ms: p.rtt_ms,
+                      network_rtt_ms: m.rtt_ms,
                       client_rev: this.$1.clientRev,
                       server_rev: this.$1.serverRev,
                       spin_mode: this.$1.spinMode,
-                      start_uri: u.startURI,
-                      end_uri: m,
+                      start_uri: s.startURI,
+                      end_uri: d,
                     },
-                    g = o("WebLoomSerializer").serialize(
+                    f = o("WebLoomSerializer").serialize(
                       this.$2,
-                      f,
-                      u.traceContext.buffer,
-                      u.traceContext.jsSelfProfilerData,
+                      _,
+                      s.traceContext.buffer,
+                      s.traceContext.jsSelfProfilerData,
                     );
-                  if (((u.traceContext.jsSelfProfilerData = null), g != null)) {
-                    var h = {
-                        trace: g,
-                        session_id: this.$13,
-                        sequence_number: u.traceContext.sequenceNumber,
-                        qpl_marker_id: _.qpl_marker_id,
-                        trace_policy: _.trace_policy,
-                        sample_rate: _.sample_rate,
-                      },
-                      y =
-                        this.$16 > 0
-                          ? setTimeout(function () {
-                              s.$4.has(c) &&
-                                (s.$19(u, "ERROR"), s.$4.delete(c));
-                            }, this.$16)
-                          : null;
-                    (this.$2.Transport.post(h, {
-                      onComplete: function () {
-                        (y != null && clearTimeout(y),
-                          s.$4.has(c) &&
-                            (s.$19(u, "COMPLETE"), s.$4.delete(c)));
-                      },
+                  if (((s.traceContext.jsSelfProfilerData = null), f != null)) {
+                    var g = {
+                      trace: f,
+                      session_id: this.$13,
+                      sequence_number: s.traceContext.sequenceNumber,
+                      qpl_marker_id: p.qpl_marker_id,
+                      trace_policy: p.trace_policy,
+                      sample_rate: p.sample_rate,
+                    };
+                    (this.$2.Transport.post(g, {
+                      onComplete: this.$16 > 0 ? this.$20(u) : this.$21(u, s),
                       isHighPri: this.$9,
                     }),
-                      this.$19(u, "UPLOAD_PENDING"));
+                      this.$19(s, "UPLOAD_PENDING"));
                   } else
-                    (this.$19(u, "COMPLETE"),
-                      this.$4.delete(c),
+                    (this.$19(s, "COMPLETE"),
+                      this.$4.delete(u),
                       r("fb-error")
                         .FBLogger("webloom")
                         .warn(
                           "[Loom Trace]Failed to serialize trace, trace will be dropped. QPL marker id: %s",
-                          _.qpl_marker_id,
+                          p.qpl_marker_id,
                         ));
                 } catch (e) {
-                  (this.$19(u, "ERROR"), this.$4.delete(c));
+                  (this.$19(s, "ERROR"), this.$4.delete(u));
                 }
                 return !0;
               },
@@ -371,6 +359,24 @@ __d(
           }),
           (a.setStuckTraceTimeoutMs = function (t) {
             this.$16 = t;
+          }),
+          (a.$20 = function (t) {
+            var e = this,
+              n = setTimeout(function () {
+                var n = e.$4.get(t);
+                n != null && (e.$19(n, "ERROR"), e.$4.delete(t));
+              }, this.$16);
+            return function () {
+              clearTimeout(n);
+              var r = e.$4.get(t);
+              r != null && (e.$19(r, "COMPLETE"), e.$4.delete(t));
+            };
+          }),
+          (a.$21 = function (t, n) {
+            var e = this;
+            return function () {
+              e.$4.has(t) && (e.$19(n, "COMPLETE"), e.$4.delete(t));
+            };
           }),
           (a.$19 = function (t, n) {
             ((t.status = n),

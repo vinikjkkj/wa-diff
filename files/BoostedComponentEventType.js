@@ -1398,7 +1398,6 @@ __d(
         "lwi_mobile_browser_add_ons_default_call",
       WTM_LWI_HOLDOUT_RESTART_TARGETING_CHECK:
         "wtm_lwi_holdout_restart_targeting_check",
-      CLICK_EXTEND_BOOST: "click_extend_boost",
       SET_BUDGET_TO_ADD: "set_budget_to_add",
       SET_DURATION_IN_DAYS_TO_ADD: "set_duration_in_days_to_add",
       CLICK_LIST_ON_MARKETPLACE_TOGGLE: "click_list_on_marketplace_toggle",

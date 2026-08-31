@@ -474,21 +474,22 @@ __d(
                   e.collection,
                   e.index,
                 );
-                o("WAWebSyncdWamReportingUtils").syncReportMutationToWam(
-                  l,
-                  m,
-                  !1,
-                  o("WABase64").encodeB64UrlSafe(e.indexMac),
-                  t,
-                  e.operation ===
+                o("WAWebSyncdWamReportingUtils").syncReportMutationToWam({
+                  action: t,
+                  collection: l,
+                  indexMac: o("WABase64").encodeB64UrlSafe(e.indexMac),
+                  isIncoming: !1,
+                  isPatch: !0,
+                  isRemove:
+                    e.operation ===
                     o("WAWebProtobufsServerSync.pb")
                       .SyncdMutation$SyncdOperation.REMOVE,
-                  !0,
-                  F,
-                  e.patchMac
+                  mdSessionId: F,
+                  patchMac: e.patchMac
                     ? o("WABase64").encodeB64UrlSafe(e.patchMac)
                     : void 0,
-                );
+                  version: m,
+                });
               }),
                 yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   l,
@@ -1429,19 +1430,20 @@ __d(
                     n.collection,
                     n.index,
                   );
-                  o("WAWebSyncdWamReportingUtils").syncReportMutationToWam(
-                    e,
-                    t.version.version,
-                    !0,
-                    o("WABase64").encodeB64UrlSafe(n.indexMac),
-                    r,
-                    n.operation ===
+                  o("WAWebSyncdWamReportingUtils").syncReportMutationToWam({
+                    action: r,
+                    collection: e,
+                    indexMac: o("WABase64").encodeB64UrlSafe(n.indexMac),
+                    isIncoming: !0,
+                    isPatch: !1,
+                    isRemove:
+                      n.operation ===
                       o("WAWebProtobufsServerSync.pb")
                         .SyncdMutation$SyncdOperation.REMOVE,
-                    !1,
-                    m,
-                    o("WABase64").encodeB64UrlSafe(t.mac),
-                  );
+                    mdSessionId: m,
+                    patchMac: o("WABase64").encodeB64UrlSafe(t.mac),
+                    version: t.version.version,
+                  });
                 }),
                 o("WAWebSyncdWamReportingUtils").reportSyncdWamAccumulator(
                   babelHelpers.extends({}, p),
@@ -1974,21 +1976,22 @@ __d(
                   n.collection,
                   n.index,
                 );
-                o("WAWebSyncdWamReportingUtils").syncReportMutationToWam(
-                  e,
-                  t.version.version,
-                  !0,
-                  o("WABase64").encodeB64UrlSafe(n.indexMac),
-                  r,
-                  n.operation ===
+                o("WAWebSyncdWamReportingUtils").syncReportMutationToWam({
+                  action: r,
+                  collection: e,
+                  indexMac: o("WABase64").encodeB64UrlSafe(n.indexMac),
+                  isIncoming: !0,
+                  isPatch: !0,
+                  isRemove:
+                    n.operation ===
                     o("WAWebProtobufsServerSync.pb")
                       .SyncdMutation$SyncdOperation.REMOVE,
-                  !0,
-                  R,
-                  t.patchMac
+                  mdSessionId: R,
+                  patchMac: t.patchMac
                     ? o("WABase64").encodeB64UrlSafe(t.patchMac)
                     : void 0,
-                );
+                  version: t.version.version,
+                });
               }),
               yield ze(e, t.version.version, E, s),
               i &&

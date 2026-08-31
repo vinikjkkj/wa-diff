@@ -311,7 +311,12 @@ __d(
               c = l.skDistribList,
               d = o(
                 "WAWebBroadcastKeyDistribution",
-              ).checkAndHandleSecurityRotation(e, a, u, i.senderKey.size);
+              ).checkAndHandleSecurityRotation({
+                allDeviceList: e,
+                extendedRecipients: a,
+                senderKeyHitCount: u,
+                storedKeyCount: i.senderKey.size,
+              });
             return d != null
               ? (yield g(n, !0), d)
               : (o("WALogger").LOG(

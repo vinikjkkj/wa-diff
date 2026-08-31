@@ -12,30 +12,43 @@ __d(
             return "" + e + u;
           }),
       );
-      return s(null, t, null, 0);
+      return s({ depth: 0, prefix: null, prevChar: null, trie: t });
     }
-    function s(e, t, n, o, a) {
-      var i = [],
-        l = !1,
-        d = a;
-      if (d == null && !r("isStringNullOrEmpty")(e))
-        if (o === 1) {
-          var m = c.has(e);
-          m && (d = !0);
-        } else !r("isStringNullOrEmpty")(n) && o === 2 && (d = c.has(n + e));
-      t.getChildren().forEach(function (t) {
-        if (t.prefix === u) {
-          l = !0;
+    function s(e) {
+      var t = e.depth,
+        n = e.fe0fIsRequiredArg,
+        o = e.prefix,
+        a = e.prevChar,
+        i = e.trie,
+        l = [],
+        d = !1,
+        m = n;
+      if (m == null && !r("isStringNullOrEmpty")(o))
+        if (t === 1) {
+          var p = c.has(o);
+          p && (m = !0);
+        } else !r("isStringNullOrEmpty")(a) && t === 2 && (m = c.has(a + o));
+      i.getChildren().forEach(function (e) {
+        if (e.prefix === u) {
+          d = !0;
           return;
         }
-        i.push(s(t.prefix, t.node, e, o + 1, d));
+        l.push(
+          s({
+            depth: t + 1,
+            fe0fIsRequiredArg: m,
+            prefix: e.prefix,
+            prevChar: o,
+            trie: e.node,
+          }),
+        );
       });
-      var p =
-          e === String.fromCodePoint(65039) && n != null && d !== !0
+      var _ =
+          o === String.fromCodePoint(65039) && a != null && m !== !0
             ? String.fromCodePoint(65039) + "?"
-            : r("escapeRegex")(e || ""),
-        _ = i.length === 0 ? "" : "(?:" + i.join("|") + ")";
-      return (_ && l && (_ += "?"), "" + p + _);
+            : r("escapeRegex")(o || ""),
+        f = l.length === 0 ? "" : "(?:" + l.join("|") + ")";
+      return (f && d && (f += "?"), "" + _ + f);
     }
     var u = "\n",
       c = new Set([

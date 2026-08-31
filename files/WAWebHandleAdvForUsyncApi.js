@@ -49,16 +49,20 @@ __d(
         l,
       );
     }
-    function u(e, t, n, r, o, a) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o, a) {
-            return s(e, t, n, r, o, a);
-          },
-        )),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.deviceResponse,
+            n = e.lastDeviceJobTs,
+            r = e.localDeviceRecord,
+            o = e.localPrimaryIdentity,
+            a = e.preDecodedKeyIndexList,
+            i = e.userWid;
+          return s(i, t, o, r, n, a);
+        })),
         c.apply(this, arguments)
       );
     }

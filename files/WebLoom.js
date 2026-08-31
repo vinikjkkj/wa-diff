@@ -23,7 +23,8 @@ __d(
     var e,
       s,
       u,
-      c = {
+      c = 12e4,
+      d = {
         QuickPerformanceLogger: e || (e = r("QuickPerformanceLogger")),
         Random: r("Random"),
         Transport: r("WebLoomBanzaiTransport"),
@@ -31,7 +32,7 @@ __d(
         isBrowser: r("UserAgent").isBrowser,
         compressStringToSnappy: r("SnappyCompressUtil").compressStringToSnappy,
       },
-      d = {
+      m = {
         appStart: r("performanceNavigationStart")(),
         appId: r("CurrentUser").getAppID(),
         sanitizeURIs: r("gkx")("20864"),
@@ -42,14 +43,15 @@ __d(
         useLiteTracing: r("gkx")("20865"),
         perfXData: r("PerfXSharedFields").getCommonData(),
         debugLogToConsole: r("gkx")("7170"),
+        stuckTraceTimeoutMs: r("gkx")("7884") ? c : 0,
       },
-      m = new (o("web-loom").WebLoomCore)(d, c);
-    (n("cr:1094133") && m.addProvider(n("cr:1094133")),
+      p = new (o("web-loom").WebLoomCore)(m, d);
+    (n("cr:1094133") && p.addProvider(n("cr:1094133")),
       n("cr:13597") &&
         (u || (u = r("Env"))).jssp_header_sent &&
-        m.addProvider(n("cr:13597")));
-    var p = m;
-    l.default = p;
+        p.addProvider(n("cr:13597")));
+    var _ = p;
+    l.default = _;
   },
   98,
 );

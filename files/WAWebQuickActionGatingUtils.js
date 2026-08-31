@@ -16,12 +16,14 @@ __d(
             ? o("WAWebABProps").getABPropConfigValue(
                 "web_configurable_quick_actions_m1_communities",
               ) === !0
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })();
+            : e === "calls"
+              ? !1
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     l.isQuickActionsEnabled = e;
   },

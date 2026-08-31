@@ -1652,6 +1652,15 @@ __d(
           }
           return t;
         })()),
+        (t.consumeAudioCaptureMetrics = function () {
+          var e, t;
+          return (e =
+            (t = this.implementation) == null || t.consumeCaptureMetrics == null
+              ? void 0
+              : t.consumeCaptureMetrics()) != null
+            ? e
+            : null;
+        }),
         (e.processCapturedAudioChunks = function (t, n, a, i, l, s) {
           var e = a * i;
           if (e === 0)

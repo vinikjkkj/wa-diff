@@ -310,19 +310,22 @@ __d(
         q.apply(this, arguments)
       );
     }
-    function U(e, t, n) {
+    function U(e) {
       return V.apply(this, arguments);
     }
     function V() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.adGroupId,
+            n = e.adId,
+            r = e.broadcastJid;
           (yield o("WAWebPendingBusinessBroadcastAPI").deletePendingBroadcast(
-            e,
+            t,
           ),
-            yield A(e, t),
+            yield A(t, n),
             yield o(
               "WAWebBizBroadcastSystemMessageManager",
-            ).updateBizBroadcastSystemMessage(n));
+            ).updateBizBroadcastSystemMessage(r));
         })),
         V.apply(this, arguments)
       );
@@ -342,11 +345,11 @@ __d(
             u = e.productId,
             c = e.recipients;
           if (l == null) return null;
-          var d = o("WAWebBizBroadcastMediaProcessor").getAttachmentType(
-            l,
-            u,
-            null,
-          );
+          var d = o("WAWebBizBroadcastMediaProcessor").getAttachmentType({
+            catalogWid: l,
+            mediaType: null,
+            productId: u,
+          });
           if (u != null) {
             o("WALogger").LOG(
               m ||
@@ -362,7 +365,7 @@ __d(
             );
             var f = yield O(l, u, c, a, t, i);
             return f == null
-              ? (yield U(n, r, a),
+              ? (yield U({ adGroupId: n, adId: r, broadcastJid: a }),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -389,7 +392,7 @@ __d(
             );
             var g = yield W(l, c, a, t, s, i);
             return g == null
-              ? (yield U(n, r, a),
+              ? (yield U({ adGroupId: n, adId: r, broadcastJid: a }),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -412,7 +415,7 @@ __d(
                 ])),
               l,
             ),
-            yield U(n, r, a),
+            yield U({ adGroupId: n, adId: r, broadcastJid: a }),
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -662,7 +665,8 @@ __d(
                       "[broadcast:campaign-notification] Message not found for broadcast",
                     ])),
                 ),
-                g != null && (yield U(t, n, g)),
+                g != null &&
+                  (yield U({ adGroupId: t, adId: n, broadcastJid: g })),
                 !1
               );
             var O = o("WAWebWidFactory").createWid(g),
@@ -737,9 +741,7 @@ __d(
                 ).BusinessBroadcastUserJourneyLogger.sendCampaignAck({
                   attachment_type:
                     (G = o("WAWebBizBroadcastMediaProcessor").getAttachmentType(
-                      h,
-                      w,
-                      V,
+                      { catalogWid: h, mediaType: V, productId: w },
                     )) != null
                       ? G
                       : void 0,
@@ -794,7 +796,8 @@ __d(
                   ])),
               )
               .catching(r("getErrorSafe")(e)),
-              s != null && (yield U(t, n, s)),
+              s != null &&
+                (yield U({ adGroupId: t, adId: n, broadcastJid: s })),
               o(
                 "WAWebBusinessBroadcastUserJourneyLogger",
               ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
@@ -811,7 +814,11 @@ __d(
                     : e,
                 ),
                 "unknown",
-                o("WAWebBizBroadcastMediaProcessor").getAttachmentType(d, m, p),
+                o("WAWebBizBroadcastMediaProcessor").getAttachmentType({
+                  catalogWid: d,
+                  mediaType: p,
+                  productId: m,
+                }),
               ));
           }
           return !1;
@@ -854,7 +861,7 @@ __d(
                   o("WAWebBizBroadcastCampaignMsgKeyUtils").extractStanzaId(d),
                 ));
             }
-            yield U(t, n, r);
+            yield U({ adGroupId: t, adId: n, broadcastJid: r });
             var p = x(c);
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
@@ -866,7 +873,11 @@ __d(
                 : null,
               "Broadcast message send failed",
               p,
-              o("WAWebBizBroadcastMediaProcessor").getAttachmentType(i, l, s),
+              o("WAWebBizBroadcastMediaProcessor").getAttachmentType({
+                catalogWid: i,
+                mediaType: s,
+                productId: l,
+              }),
             );
           },
         )),

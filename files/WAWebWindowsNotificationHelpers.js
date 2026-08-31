@@ -45,7 +45,36 @@ __d(
         a != null && a.closeMessageNotification(e, t);
       }
     }
-    function T(t) {
+    function T() {
+      if (!r("WAWebEnvironment").isWindows) return !1;
+      var e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+        r("WAWebWindowsHybridBridgeInitiator").WAWebWindowsNotificationHelpers,
+      );
+      if ((e == null ? void 0 : e.systemIntegrationsBridge) == null) return !1;
+      var t = o(
+        "WAWebWindowsUserPrefsNotifications",
+      ).getNotificationBannerSetting();
+      if (
+        t ===
+        o("WAWebWindowsShowNotificationBannerOption")
+          .ShowNotificationBannerOption.Never
+      )
+        return !1;
+      if (
+        t ===
+        o("WAWebWindowsShowNotificationBannerOption")
+          .ShowNotificationBannerOption.OnlyWhenAppIsOpen
+      ) {
+        var n;
+        return (
+          ((n = e.nativeAppStateBridge) == null
+            ? void 0
+            : n.isMinimizedToTray()) === !1
+        );
+      }
+      return !0;
+    }
+    function D(t) {
       var n;
       if (
         (o("WALogger").LOG(
@@ -168,7 +197,7 @@ __d(
             ])),
         );
         try {
-          var P = w(i, S);
+          var P = A(i, S);
           ($.showMessageNotification(
             S,
             L,
@@ -209,7 +238,7 @@ __d(
         return;
       }
     }
-    function D(e) {
+    function x(e) {
       var t;
       if (!r("WAWebEnvironment").isWindows) {
         o("WALogger").LOG(
@@ -242,7 +271,7 @@ __d(
       ),
         n.playTone(Number(e)));
     }
-    function x(e) {
+    function $(e) {
       if (
         !r("WAWebEnvironment").isWindows ||
         !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
@@ -251,7 +280,7 @@ __d(
       var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
       return t != null && t.canSend;
     }
-    function $(e) {
+    function P(e) {
       if (!r("WAWebEnvironment").isWindows) return [];
       var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
       if (t == null) return [];
@@ -281,12 +310,12 @@ __d(
         n
       );
     }
-    function P() {
-      return N.apply(this, arguments);
-    }
     function N() {
+      return M.apply(this, arguments);
+    }
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           o("WALogger").LOG(
             R ||
@@ -323,13 +352,13 @@ __d(
           }
           return !1;
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M() {
+    function w() {
       window.open("ms-settings:notifications");
     }
-    function w(e, t) {
+    function A(e, t) {
       var n = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -371,12 +400,13 @@ __d(
     }
     ((l.shouldIgnoreSquelchForGroupMention = k),
       (l.closeMessageNotification = I),
-      (l.showMessageNotification = T),
-      (l.playTone = D),
-      (l.isReplyable = x),
-      (l.getContextMenuItems = $),
-      (l.IsNotificationsEnabledInSystem = P),
-      (l.OpenSystemNotificationsSettings = M));
+      (l.canShowMessageNotificationBanner = T),
+      (l.showMessageNotification = D),
+      (l.playTone = x),
+      (l.isReplyable = $),
+      (l.getContextMenuItems = P),
+      (l.IsNotificationsEnabledInSystem = N),
+      (l.OpenSystemNotificationsSettings = w));
   },
   226,
 );

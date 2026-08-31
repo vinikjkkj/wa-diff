@@ -4,7 +4,6 @@ __d(
     "AdsInstagramUserIdMigrationUtils",
     "FBImmer",
     "LWICometACOUtils",
-    "LWICometCTAEditorNeedsOverrideType",
     "LWICometCTALinkUtils",
     "LWICometCTAUtils",
     "ads-lib-urllib",
@@ -416,151 +415,7 @@ __d(
         },
       );
     }
-    function f(e, t, n, o, a) {
-      var i,
-        l,
-        s,
-        u,
-        c,
-        d,
-        m,
-        p,
-        _,
-        f,
-        g,
-        h,
-        y,
-        C,
-        b,
-        v,
-        S,
-        R,
-        L = e.description,
-        E = e.headline,
-        k = e.imageHash,
-        I = e.imageURL,
-        T = e.linkURL,
-        D = e.messageText,
-        x = e.pageID,
-        $ = e.videoID,
-        P = e.videoThumbnailHash,
-        N = e.videoThumbnailURL;
-      if (x == null || x === "") return null;
-      var M = { node: { id: x } },
-        w = o == null ? void 0 : o.type,
-        A = w === "MESSAGE_PAGE" || w === "INSTAGRAM_MESSAGE",
-        F =
-          A &&
-          ((o == null || (i = o.value) == null ? void 0 : i.link) == null ||
-            o.value.link === "")
-            ? "https://fb.com/messenger_doc/"
-            : (l = o == null || (s = o.value) == null ? void 0 : s.link) != null
-              ? l
-              : null,
-        O =
-          A &&
-          (o == null || (u = o.value) == null ? void 0 : u.app_destination) ==
-            null
-            ? "MESSENGER"
-            : (c =
-                  o == null || (d = o.value) == null
-                    ? void 0
-                    : d.app_destination) != null
-              ? c
-              : null,
-        B =
-          w != null
-            ? {
-                call_to_action_label: null,
-                call_to_action_type: w,
-                call_to_action_value: {
-                  app_destination: O,
-                  app_link:
-                    (m =
-                      o == null || (p = o.value) == null
-                        ? void 0
-                        : p.app_link) != null
-                      ? m
-                      : null,
-                  event_id:
-                    (_ =
-                      o == null || (f = o.value) == null
-                        ? void 0
-                        : f.event_id) != null
-                      ? _
-                      : null,
-                  group_id:
-                    (g =
-                      o == null || (h = o.value) == null
-                        ? void 0
-                        : h.group_id) != null
-                      ? g
-                      : null,
-                  lead_gen_form_id:
-                    (y =
-                      o == null || (C = o.value) == null
-                        ? void 0
-                        : C.lead_gen_form_id) != null
-                      ? y
-                      : null,
-                  link: F,
-                  page_id: null,
-                  whatsapp_number:
-                    (b =
-                      o == null || (v = o.value) == null
-                        ? void 0
-                        : v.whatsapp_number) != null
-                      ? b
-                      : null,
-                },
-              }
-            : null,
-        W = r("LWICometCTAEditorNeedsOverrideType").cast(w) == null ? F : null;
-      return $ != null && $ !== ""
-        ? {
-            instagram_actor_id: t != null ? t : null,
-            instagram_user_id: n != null ? n : null,
-            link_data: null,
-            page: M,
-            photo_data: null,
-            product_data: [],
-            template_data: null,
-            video_data: {
-              call_to_action: B,
-              image_hash: P != null ? P : null,
-              image_url: P != null ? null : N != null ? N : null,
-              link_description: L != null ? L : null,
-              message: D != null ? D : null,
-              title: E != null ? E : null,
-              video_id: $,
-            },
-          }
-        : {
-            instagram_actor_id: t != null ? t : null,
-            instagram_user_id: n != null ? n : null,
-            link_data: {
-              call_to_action: B,
-              child_attachments: [],
-              description: L != null ? L : null,
-              event_id: null,
-              image_crops: null,
-              image_hash: k != null ? k : null,
-              link:
-                (S = (R = T != null ? T : W) != null ? R : a) != null ? S : "",
-              message: D != null ? D : null,
-              name: E != null ? E : null,
-              picture: I != null ? I : null,
-              retailer_item_ids: [],
-              use_flexible_image_aspect_ratio: null,
-            },
-            page: M,
-            photo_data: null,
-            product_data: [],
-            template_data: null,
-            video_data: null,
-          };
-    }
-    function g(e) {
+    function f(e) {
       return e == null
         ? 0
         : [e.link_data, e.photo_data, e.template_data, e.video_data].filter(
@@ -569,7 +424,7 @@ __d(
             },
           ).length;
     }
-    function h(e, t, n, r) {
+    function g(e, t, n, r) {
       var a,
         i,
         l,
@@ -781,9 +636,8 @@ __d(
       (l.updateAdgroupWithMedia = m),
       (l.getMediumFromAdgroup = p),
       (l.getTypedObjectStorySpecFromClientObjectStorySpec = _),
-      (l.getInitialObjectStorySpecForBoostExistingPost = f),
-      (l.countObjectStorySpecPostTypes = g),
-      (l.getTypedObjectStorySpec = h));
+      (l.countObjectStorySpecPostTypes = f),
+      (l.getTypedObjectStorySpec = g));
   },
   98,
 );

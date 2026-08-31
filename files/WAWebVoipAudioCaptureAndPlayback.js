@@ -108,7 +108,7 @@ __d(
             n,
           );
           try {
-            var a = yield re(n, r, !0);
+            var a = yield ae(n, r, !0);
             a
               ? o("WALogger").LOG(
                   s ||
@@ -177,10 +177,11 @@ __d(
                       (v = new (o(
                         "WAWebVoipAudioCaptureBase",
                       ).WAWebVoipAudioCaptureBase)());
-                    var n = v,
-                      a = o(
-                        "WAWebVoipAvDriverInitQpl",
-                      ).startVoipAvDriverInitQpl();
+                    var n = v;
+                    j = null;
+                    var a = o(
+                      "WAWebVoipAvDriverInitQpl",
+                    ).startVoipAvDriverInitQpl();
                     o("WAWebVoipAvDriverInitQpl").voipAvDriverInitQplAddPoint(
                       a,
                       o("WAWebVoipAvDriverInitQpl").VoipAvDriverInitQplPoint
@@ -283,18 +284,25 @@ __d(
         z.apply(this, arguments)
       );
     }
-    function j(e) {
-      return K.apply(this, arguments);
-    }
+    var j = null;
     function K() {
+      if (v != null) return v.consumeAudioCaptureMetrics();
+      var e = j;
+      return ((j = null), e);
+    }
+    function Q(e) {
+      return X.apply(this, arguments);
+    }
+    function X() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (e == null ? void 0 : e.device_type) !==
             o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio &&
             (O() && R(),
             w.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                if (v == null) {
+                var e = v;
+                if (e == null) {
                   o("WALogger").WARN(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -303,20 +311,22 @@ __d(
                   );
                   return;
                 }
-                (yield v.stopCapture(), (v = null));
+                ((j = e.consumeAudioCaptureMetrics()),
+                  yield e.stopCapture(),
+                  (v = null));
               }),
               "stopCapture",
             ));
         })),
-        K.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function Q(e) {
-      return X.apply(this, arguments);
+    function Y(e) {
+      return J.apply(this, arguments);
     }
-    function X() {
+    function J() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = x();
           A.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -326,7 +336,7 @@ __d(
                     "WAWebVoipAudioPlaybackBase",
                   ).WAWebVoipAudioPlaybackBase)());
                 var n = L;
-                Z = null;
+                te = null;
                 var r = o(
                   "WAWebVoipAvDriverInitQpl",
                 ).startVoipAvDriverInitQpl();
@@ -363,15 +373,15 @@ __d(
             "initPlaybackDriver",
           );
         })),
-        X.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    function Y() {
-      return J.apply(this, arguments);
+    function Z() {
+      return ee.apply(this, arguments);
     }
-    function J() {
+    function ee() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = O(),
             t = k;
           A.enqueue(
@@ -406,21 +416,21 @@ __d(
             "startPlayback",
           );
         })),
-        J.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    var Z = null;
-    function ee() {
-      if (L != null) return L.consumeAudioPlaybackMetrics();
-      var e = Z;
-      return ((Z = null), e);
-    }
-    function te() {
-      return ne.apply(this, arguments);
-    }
+    var te = null;
     function ne() {
+      if (L != null) return L.consumeAudioPlaybackMetrics();
+      var e = te;
+      return ((te = null), e);
+    }
+    function re() {
+      return oe.apply(this, arguments);
+    }
+    function oe() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = O(),
             t = e ? null : k;
           (e && x(),
@@ -437,7 +447,7 @@ __d(
                     ));
                   return;
                 }
-                Z = e.consumeAudioPlaybackMetrics();
+                te = e.consumeAudioPlaybackMetrics();
                 try {
                   yield e.stopPlayback();
                 } finally {
@@ -451,15 +461,15 @@ __d(
               "stopPlayback",
             ));
         })),
-        ne.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    function re(e, t, n) {
-      return oe.apply(this, arguments);
+    function ae(e, t, n) {
+      return ie.apply(this, arguments);
     }
-    function oe() {
+    function ie() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r) {
             var a = new (o("WAResolvable").Resolvable)();
             return (
@@ -498,15 +508,15 @@ __d(
             );
           },
         )),
-        oe.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    function ae(e) {
-      return ie.apply(this, arguments);
+    function le(e) {
+      return se.apply(this, arguments);
     }
-    function ie() {
+    function se() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o("WAResolvable").Resolvable)();
           return (
             A.enqueue(
@@ -549,7 +559,7 @@ __d(
             t.promise
           );
         })),
-        ie.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
     ((l.getPlaybackSampleRate = o(
@@ -560,13 +570,14 @@ __d(
       (l.getCaptureParams = U),
       (l.initCaptureDriverJS = V),
       (l.startCaptureJS = G),
-      (l.stopCaptureJS = j),
-      (l.initPlaybackDriverJS = Q),
-      (l.startPlaybackJS = Y),
-      (l.consumeAudioPlaybackMetrics = ee),
-      (l.stopPlaybackJS = te),
-      (l.switchAudioInputDevice = re),
-      (l.switchAudioOutputDevice = ae));
+      (l.consumeAudioCaptureMetrics = K),
+      (l.stopCaptureJS = Q),
+      (l.initPlaybackDriverJS = Y),
+      (l.startPlaybackJS = Z),
+      (l.consumeAudioPlaybackMetrics = ne),
+      (l.stopPlaybackJS = re),
+      (l.switchAudioInputDevice = ae),
+      (l.switchAudioOutputDevice = le));
   },
   98,
 );

@@ -63,7 +63,9 @@ __d(
           );
       return "WhatsApp " + r("WAUpperFirst")(e.type) + " " + n;
     }
-    l.getDefaultName = u;
+    ((l.sanitizeFileName = s),
+      (l.getDefaultName = u),
+      (l.MAX_FILENAME_LENGTH = c));
   },
   226,
 );

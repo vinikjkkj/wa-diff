@@ -53,16 +53,20 @@ __d(
       var n = o("WAWebMediaStorage").getOrCreateMediaObject(t.filehash);
       return (o("WAWebMediaStorage").associateMediaWithSticker(n, t), n);
     }
-    function g(e, t, n, a) {
-      var i = _(e);
-      if ((e.mediaData.set(i), !!t)) {
-        e.mediaObject = t;
-        var l = e.deprecatedMms3Url,
-          u = e.encFilehash;
+    function g(e) {
+      var t = e.isIcon,
+        n = e.mediaObject,
+        a = e.mediaType,
+        i = e.stickerX,
+        l = _(i);
+      if ((i.mediaData.set(l), !!n)) {
+        i.mediaObject = n;
+        var u = i.deprecatedMms3Url,
+          c = i.encFilehash;
         if (
           (!r("gkx")("26258") &&
-            !u &&
-            l &&
+            !c &&
+            u &&
             o("WALogger")
               .ERROR(
                 s ||
@@ -70,39 +74,39 @@ __d(
                     "sticker ",
                     " encFileHash missing, has mms3Url",
                   ])),
-                a ? "pack icon" : "",
+                t ? "pack icon" : "",
               )
               .sendLogs(
                 "sticker-" +
-                  (a ? "icon-" : "") +
+                  (t ? "icon-" : "") +
                   "missing-upload-hash-but-url-exists",
               ),
-          (u || l) && !t.entries.has({ encFilehash: u, deprecatedMms3Url: l }))
+          (c || u) && !n.entries.has({ encFilehash: c, deprecatedMms3Url: u }))
         ) {
-          var c = t.entries.addEntry({
-            deprecatedMms3Url: l,
-            mediaKey: e.mediaKey,
-            mediaKeyTimestamp: e.mediaKeyTimestamp,
-            encFilehash: u,
-            type: n,
-            directPath: e.directPath,
+          var d = n.entries.addEntry({
+            deprecatedMms3Url: u,
+            mediaKey: i.mediaKey,
+            mediaKeyTimestamp: i.mediaKeyTimestamp,
+            encFilehash: c,
+            type: a,
+            directPath: i.directPath,
             debugHint: "setMediaObjectValues",
           });
-          c &&
-            t.downloadStage ===
+          d &&
+            n.downloadStage ===
               o("WAWebMediaTypes").DownloadStage.ERROR_MISSING &&
-            (i.downloadStage = o("WAWebMediaTypes").DownloadStage.INIT);
+            (l.downloadStage = o("WAWebMediaTypes").DownloadStage.INIT);
         }
-        t.consolidate(i);
+        n.consolidate(l);
       }
     }
     function h(e) {
-      g(
-        e,
-        e.mediaObject || f(e),
-        o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER,
-        !1,
-      );
+      g({
+        isIcon: !1,
+        mediaObject: e.mediaObject || f(e),
+        mediaType: o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER,
+        stickerX: e,
+      });
     }
     function y(e) {
       var t = e.mediaObject;

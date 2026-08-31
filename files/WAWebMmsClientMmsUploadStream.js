@@ -128,7 +128,12 @@ __d(
             );
           } catch (e) {
             throw (
-              o("WAWebMmsClientMmsLogError").mmsLogError("mmsUpload", e, f, !1),
+              o("WAWebMmsClientMmsLogError").mmsLogError({
+                debug: f,
+                error: e,
+                hasExpectedErrors: !1,
+                source: "mmsUpload",
+              }),
               e
             );
           }

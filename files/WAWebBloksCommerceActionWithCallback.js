@@ -42,7 +42,12 @@ __d(
         return;
       }
       (o("WAWebBloksA2uiReplyMessageUtils")
-        .sendA2uiReplyMessage(i.chatJid, i.body, i.paramsJson, i.messageRowId)
+        .sendA2uiReplyMessage({
+          body: i.body,
+          chatJid: i.chatJid,
+          messageRowId: i.messageRowId,
+          paramsJson: i.paramsJson,
+        })
         .catch(function (e) {
           o("WALogger")
             .ERROR(

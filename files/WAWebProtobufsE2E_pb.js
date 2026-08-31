@@ -2434,6 +2434,7 @@ __d(
           o("WAWebProtobufsAea.pb").NonE2EEAttestationSpec,
         ],
         associatedPrimaryIdentityKey: [19, e.TYPES.BYTES],
+        teeContextAnchorMessageId: [20, e.TYPES.STRING],
       }),
       (bo.internalDefaults = {
         senderAccountType: (c = o("WAWebProtobufsAdv.pb")).ADVEncryptionType

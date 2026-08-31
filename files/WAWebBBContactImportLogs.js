@@ -35,8 +35,11 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_TEMPLATE,
       });
     }
-    function d(e, t, n) {
-      e(
+    function d(e) {
+      var t = e.entryPoint,
+        n = e.extraAttributes,
+        r = e.log;
+      r(
         babelHelpers.extends(
           {
             action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,

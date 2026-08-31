@@ -291,12 +291,12 @@ __d(
                           o("WAWebSignalCommonUtils").strToBuffer(E),
                         )
                       : null,
-                  T = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
-                    L.wid,
-                    L.devices,
-                    I,
-                    l[R],
-                  );
+                  T = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult({
+                    deviceResponse: L.devices,
+                    localDeviceRecord: l[R],
+                    localPrimaryIdentity: I,
+                    userWid: L.wid,
+                  });
                 (_(R, T), yield v());
               }
             }
@@ -445,14 +445,14 @@ __d(
                         )
                       : null,
                   B = l.has(w) ? l.get(w) : void 0,
-                  W = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
-                    A.wid,
-                    A.devices,
-                    O,
-                    y[w],
-                    void 0,
-                    B,
-                  );
+                  W = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult({
+                    deviceResponse: A.devices,
+                    lastDeviceJobTs: void 0,
+                    localDeviceRecord: y[w],
+                    localPrimaryIdentity: O,
+                    preDecodedKeyIndexList: B,
+                    userWid: A.wid,
+                  });
                 ((v = S({
                   clearRecords: C,
                   deviceADVResult: W,

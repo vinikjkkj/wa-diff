@@ -75,11 +75,11 @@ __d(
             return { complete: !1, resume: p };
           } catch (e) {
             throw (
-              o("WAWebMmsClientMmsLogError").mmsLogError(
-                "mmsCheckIfUploadExists",
-                e,
-                n,
-              ),
+              o("WAWebMmsClientMmsLogError").mmsLogError({
+                debug: n,
+                error: e,
+                source: "mmsCheckIfUploadExists",
+              }),
               e
             );
           }

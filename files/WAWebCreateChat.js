@@ -472,14 +472,15 @@ __d(
               ).genDisappearingModeUpdateSystemMsg(e, t, null))
             : (a = o(
                 "WAWebContactSystemMsg",
-              ).genDefaultDisappearingModeSystemMsg(
-                e,
-                t,
-                n ===
+              ).genDefaultDisappearingModeSystemMsg({
+                afterReadDuration: r,
+                chatId: e,
+                duration: t,
+                initiatedByMe:
+                  n ===
                   o("WAWebEphemeralityTypes").DisappearingModeInitiator
                     .InitiatedByMe,
-                r,
-              ))),
+              }))),
         a
       );
     }

@@ -108,6 +108,20 @@ __d(
           (this.workletPreloadPromise = null),
           (this.isWorkletPreloaded = !1),
           (this.$3 = null),
+          (this.$4 = 0),
+          (this.$5 = 0),
+          (this.$6 = 0),
+          (this.$7 = 0),
+          (this.consumeCaptureMetrics = function () {
+            if (e.$7 === 0 && e.$4 === 0) return null;
+            var t = e.$7 > 0,
+              n = {
+                webAudioCaptureOverrunCount: e.$4,
+                webAudioCaptureSabFillAvgMs: t ? Math.round(e.$5 / e.$7) : null,
+                webAudioCaptureSabFillMaxMs: t ? Math.round(e.$6) : null,
+              };
+            return ((e.$4 = 0), (e.$5 = 0), (e.$6 = 0), (e.$7 = 0), n);
+          }),
           (this.preloadWorkletModule = function (t) {
             var n = r("WAWebVoipSharedBufferCaptureProcessorConfig").module_url;
             if (n === "") {
@@ -141,6 +155,19 @@ __d(
       }
       var t = e.prototype;
       return (
+        (t.$8 = function (t) {
+          if (t.type === "overrunEnded") {
+            var e = t.droppedFrames;
+            typeof e == "number" && e > 0 && (this.$4 += e);
+            return;
+          }
+          if (t.type === "diagnostics") {
+            var n = t.fillMs;
+            typeof n != "number" ||
+              !Number.isFinite(n) ||
+              ((this.$5 += n), this.$7++, n > this.$6 && (this.$6 = n));
+          }
+        }),
         (t.startAudioCapture = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = this,
@@ -168,7 +195,7 @@ __d(
                     "voip: [AV:SharedBuffer:Capture] Failed to allocate ring buffer",
                   );
                 var h = d.GROWABLE_HEAP_U8();
-                (h.fill(0, g, g + f), yield this.$4(a, l), R(l));
+                (h.fill(0, g, g + f), yield this.$9(a, l), R(l));
                 var y = new AudioWorkletNode(
                   a,
                   "voip-shared-buffer-capture-processor",
@@ -184,7 +211,7 @@ __d(
                           (r = n.processorReadyResolvable) == null ||
                             r.resolve(),
                           (n.processorReadyResolvable = null));
-                      } else C(t, "Capture");
+                      } else (n.$8(t), C(t, "Capture"));
                   }),
                   yield this.waitForProcessorReady(),
                   R(l));
@@ -247,7 +274,7 @@ __d(
           }
           return a;
         })()),
-        (t.$4 = (function () {
+        (t.$9 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               if (

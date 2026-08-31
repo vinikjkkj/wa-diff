@@ -178,9 +178,8 @@ __d(
           ) {
             var a =
                 o("WALongInt").numberOrThrowIfTooLarge(r.senderTimestamp) + 1,
-              i = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
-                e,
-                {
+              i = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult({
+                deviceResponse: {
                   deviceList: [
                     { id: o("WAJids").DEFAULT_DEVICE_ID, keyIndex: 0 },
                   ],
@@ -189,9 +188,10 @@ __d(
                     signedKeyIndexBytes: null,
                   },
                 },
-                null,
-                null,
-              );
+                localDeviceRecord: null,
+                localPrimaryIdentity: null,
+                userWid: e,
+              });
             (i == null ? void 0 : i.identityUpdatePromise) != null &&
               (yield i.identityUpdatePromise);
             return;

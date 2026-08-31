@@ -432,11 +432,11 @@ __d(
             o("WAWebBBContactImportLogs").templateSaveClicked(this.$1, t);
           }),
           (t.contactImportCancelClicked = function (t, n) {
-            o("WAWebBBContactImportLogs").contactImportCancelClicked(
-              this.$1,
-              t,
-              n,
-            );
+            o("WAWebBBContactImportLogs").contactImportCancelClicked({
+              entryPoint: t,
+              extraAttributes: n,
+              log: this.$1,
+            });
           }),
           (t.fileUploadClicked = function (t) {
             o("WAWebBBContactImportLogs").fileUploadClicked(this.$1, t);

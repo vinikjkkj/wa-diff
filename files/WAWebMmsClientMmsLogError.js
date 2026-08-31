@@ -3,33 +3,37 @@ __d(
   ["WAAbortError", "WALogger", "WAWebMmsClientErrors"],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t, n, r, a) {
-      (a === void 0 && (a = !0),
-        n instanceof o("WAWebMmsClientErrors").MediaNotFoundError && a
+    function c(t) {
+      var n = t.debug,
+        r = t.error,
+        a = t.hasExpectedErrors,
+        i = a === void 0 ? !0 : a,
+        l = t.source;
+      r instanceof o("WAWebMmsClientErrors").MediaNotFoundError && i
+        ? o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                ": expected error",
+              ])),
+            l,
+          )
+        : typeof r == "object" &&
+            (r == null ? void 0 : r.name) === o("WAAbortError").ABORT_ERROR
           ? o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "",
-                  ": expected error",
+                  ": canceled",
                 ])),
-              t,
+              l,
             )
-          : typeof n == "object" &&
-              (n == null ? void 0 : n.name) === o("WAAbortError").ABORT_ERROR
-            ? o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    ": canceled",
-                  ])),
-                t,
-              )
-            : o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
-                t,
-                n,
-              ));
+          : o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
+              l,
+              r,
+            );
     }
     l.mmsLogError = c;
   },

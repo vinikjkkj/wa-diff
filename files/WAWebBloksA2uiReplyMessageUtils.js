@@ -51,37 +51,39 @@ __d(
         return null;
       }
     }
-    function _(e, t, n, r) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = o("WAWebChatCollection").ChatCollection.get(
-              o("WAWebWidFactory").createWid(t),
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.body,
+            r = t.chatJid,
+            a = t.messageRowId,
+            i = t.paramsJson,
+            l = o("WAWebChatCollection").ChatCollection.get(
+              o("WAWebWidFactory").createWid(r),
             );
-            if (i == null) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "A2uiReplyAction: chat not found for the hosting message",
-                    ])),
-                )
-                .sendLogs("a2ui-reply-action-chat-not-found");
-              return;
-            }
-            var l = g(i, a);
-            if (r == null) {
-              yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(i, n, {
-                quotedMsg: l,
-              });
-              return;
-            }
-            yield h({ body: n, chat: i, paramsJson: r, quotedMsg: l });
-          },
-        )),
+          if (l == null) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "A2uiReplyAction: chat not found for the hosting message",
+                  ])),
+              )
+              .sendLogs("a2ui-reply-action-chat-not-found");
+            return;
+          }
+          var s = g(l, a);
+          if (i == null) {
+            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(l, n, {
+              quotedMsg: s,
+            });
+            return;
+          }
+          yield h({ body: n, chat: l, paramsJson: i, quotedMsg: s });
+        })),
         f.apply(this, arguments)
       );
     }

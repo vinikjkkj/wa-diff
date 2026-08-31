@@ -96,7 +96,11 @@ __d(
           var d = yield o("WAWebBackendApi").frontendSendAndReceive(
             "consumeAudioPlaybackMetrics",
           );
-          return (d != null && (i = babelHelpers.extends({}, i, d)), i);
+          d != null && (i = babelHelpers.extends({}, i, d));
+          var m = yield o("WAWebBackendApi").frontendSendAndReceive(
+            "consumeAudioCaptureMetrics",
+          );
+          return (m != null && (i = babelHelpers.extends({}, i, m)), i);
         })),
         V.apply(this, arguments)
       );

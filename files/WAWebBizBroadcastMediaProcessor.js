@@ -33,9 +33,12 @@ __d(
         "MediaFileEmpty",
         "MediaFileTooLarge",
       ]);
-    function y(e, t, n) {
-      return e != null
-        ? t != null
+    function y(e) {
+      var t = e.catalogWid,
+        n = e.mediaType,
+        r = e.productId;
+      return t != null
+        ? r != null
           ? "product"
           : "catalog"
         : n === o("WAWebMsgType").MSG_TYPE.IMAGE

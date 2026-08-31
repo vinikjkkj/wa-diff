@@ -77,12 +77,12 @@ __d(
             } catch (e) {
               var y = r("getErrorSafe")(e);
               throw (
-                o("WAWebMmsClientMmsLogError").mmsLogError(
-                  "mmsClient.upload",
-                  y,
-                  d,
-                  !1,
-                ),
+                o("WAWebMmsClientMmsLogError").mmsLogError({
+                  debug: d,
+                  error: y,
+                  hasExpectedErrors: !1,
+                  source: "mmsClient.upload",
+                }),
                 y
               );
             }

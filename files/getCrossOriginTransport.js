@@ -18,7 +18,10 @@ __d(
           t
         );
       } catch (e) {
-        throw n("err")("getCrossOriginTransport: %s", e.message);
+        throw n("err")(
+          "getCrossOriginTransport: %s",
+          e instanceof Error ? e.message : String(e),
+        );
       }
     }
     ((s.withCredentials = function () {

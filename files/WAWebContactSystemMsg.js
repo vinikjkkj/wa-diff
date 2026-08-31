@@ -65,27 +65,31 @@ __d(
         })
       );
     }
-    function d(e, t, n, a) {
-      var i = n ? o("WAWebUserPrefsMeUser").getMeUserOrThrow() : e;
-      if (i == null)
+    function d(e) {
+      var t = e.afterReadDuration,
+        n = e.chatId,
+        a = e.duration,
+        i = e.initiatedByMe,
+        l = i ? o("WAWebUserPrefsMeUser").getMeUserOrThrow() : n;
+      if (l == null)
         throw r("err")(
           "Cannot set null initiator for DDM system message: " +
-            e.toString() +
+            n.toString() +
             " / " +
-            String(n),
+            String(i),
         );
       return f(
-        e,
+        n,
         babelHelpers.extends(
           {
             type: "notification_template",
             kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
             subtype: "disappearing_mode",
             templateParams: [],
-            ephemeralDuration: t,
-            ephemeralSettingUser: i,
+            ephemeralDuration: a,
+            ephemeralSettingUser: l,
           },
-          a != null ? { afterReadDuration: a } : {},
+          t != null ? { afterReadDuration: t } : {},
         ),
       );
     }

@@ -337,7 +337,12 @@ __d(
             }
             yield (h || (h = n("Promise"))).all(
               l.map(function (e) {
-                return Z(e, s, t, c);
+                return Z({
+                  forceFlushBuffers: t,
+                  key: e,
+                  localScopeLockedInGlobals: c,
+                  toBeExecuted: s,
+                });
               }),
             );
           } finally {
@@ -386,93 +391,94 @@ __d(
         J.apply(this, arguments)
       );
     }
-    function Z(e, t, n, r) {
+    function Z(e) {
       return ee.apply(this, arguments);
     }
     function ee() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = o("WAWebWamUtils").getChannelFromBufferKey(e),
-              l;
-            try {
-              l = yield Y(e, a);
-            } catch (e) {
-              var s,
-                u = r("getErrorSafe")(e);
-              o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[wam] executePendingForContext failed to get context ",
-                    "",
-                  ])),
-                String((s = u.stack) != null ? s : u),
-              );
-              return;
-            }
-            try {
-              for (var c = 0; c < t.length; c++) {
-                if (l.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE) {
-                  var p = yield j(e, a);
-                  if (p == null) break;
-                  l = p;
-                }
-                var _ = t[c];
-                if (Array.isArray(_)) {
-                  var g = _[0],
-                    h = _[1],
-                    y = i === "realtime" ? "regular" : i;
-                  g.channels.includes(y) &&
-                    ((a[g.name] = h), l.set(g.id, h), O(g, h));
-                } else {
-                  var f = _;
-                  (((f.wamChannel === "regular" ||
-                    f.wamChannel === "realtime") &&
-                    f.wamChannel === i) ||
-                    (f.wamChannel === "private" &&
-                      e ===
-                        o("WAWebWamPrivateStats").getPrivateStatsKeyFromInt(
-                          f.privateStatsIdInt,
-                        ))) &&
-                    l.write(f);
-                }
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.forceFlushBuffers,
+            n = e.key,
+            a = e.localScopeLockedInGlobals,
+            i = e.toBeExecuted,
+            l = o("WAWebWamUtils").getChannelFromBufferKey(n),
+            s;
+          try {
+            s = yield Y(n, a);
+          } catch (e) {
+            var u,
+              c = r("getErrorSafe")(e);
+            o("WALogger").WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[wam] executePendingForContext failed to get context ",
+                  "",
+                ])),
+              String((u = c.stack) != null ? u : c),
+            );
+            return;
+          }
+          try {
+            for (var p = 0; p < i.length; p++) {
+              if (s.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE) {
+                var _ = yield j(n, a);
+                if (_ == null) break;
+                s = _;
               }
-              var C = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
-              if (
-                l.eventsWritten > 0 &&
-                (n ||
-                  l.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE ||
-                  C >= I + o("WAWebWamUtils").getBufferRotateIntervalInSecs() ||
-                  !x)
-              ) {
-                var b = o("WAWebUserPrefsIsLoggedIn").isLoggedIn();
-                if (!b) {
-                  l.buffer.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
-                    ? (k[e] = null)
-                    : yield te(e, a);
-                  return;
-                }
-                yield re(e);
-              } else yield te(e, a);
-            } catch (t) {
-              var v,
-                S = r("getErrorSafe")(t);
-              (o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[wam] _executePending error ",
-                    "",
-                  ])),
-                String((v = S.stack) != null ? v : S),
-              ),
-                o("WAWebCrashlog").upload({ reason: "wam-error" }),
-                new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)(
-                  { wamClientBufferDropErrorCount: 1 },
-                ).commit(),
-                (k[e] = null));
+              var f = i[p];
+              if (Array.isArray(f)) {
+                var h = f[0],
+                  y = f[1],
+                  C = l === "realtime" ? "regular" : l;
+                h.channels.includes(C) &&
+                  ((a[h.name] = y), s.set(h.id, y), O(h, y));
+              } else {
+                var g = f;
+                (((g.wamChannel === "regular" || g.wamChannel === "realtime") &&
+                  g.wamChannel === l) ||
+                  (g.wamChannel === "private" &&
+                    n ===
+                      o("WAWebWamPrivateStats").getPrivateStatsKeyFromInt(
+                        g.privateStatsIdInt,
+                      ))) &&
+                  s.write(g);
+              }
             }
-          },
-        )),
+            var b = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
+            if (
+              s.eventsWritten > 0 &&
+              (t ||
+                s.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE ||
+                b >= I + o("WAWebWamUtils").getBufferRotateIntervalInSecs() ||
+                !x)
+            ) {
+              var v = o("WAWebUserPrefsIsLoggedIn").isLoggedIn();
+              if (!v) {
+                s.buffer.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
+                  ? (k[n] = null)
+                  : yield te(n, a);
+                return;
+              }
+              yield re(n);
+            } else yield te(n, a);
+          } catch (e) {
+            var S,
+              R = r("getErrorSafe")(e);
+            (o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[wam] _executePending error ",
+                  "",
+                ])),
+              String((S = R.stack) != null ? S : R),
+            ),
+              o("WAWebCrashlog").upload({ reason: "wam-error" }),
+              new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)({
+                wamClientBufferDropErrorCount: 1,
+              }).commit(),
+              (k[n] = null));
+          }
+        })),
         ee.apply(this, arguments)
       );
     }

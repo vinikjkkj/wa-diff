@@ -28,11 +28,13 @@ __d(
                 4,
                 o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS,
               ],
+              appSessionId: [50, e.TYPES.STRING],
               customPaymentMethodsSyncStatus: [
                 48,
                 o("WAWebWamEnumCustomPaymentMethodsSyncStatus")
                   .CUSTOM_PAYMENT_METHODS_SYNC_STATUS,
               ],
+              eventTsMs: [51, e.TYPES.INTEGER],
               graphqlEndpointName: [49, e.TYPES.STRING],
               merchantType: [
                 43,
@@ -115,6 +117,7 @@ __d(
               referral: [6, e.TYPES.STRING],
               referralContext: [37, e.TYPES.STRING],
               screen: [5, e.TYPES.STRING],
+              unifiedSessionId: [52, e.TYPES.STRING],
               upiPaymentsPspId: [
                 8,
                 o("WAWebWamEnumUpiPaymentsPspIdType").UPI_PAYMENTS_PSP_ID_TYPE,

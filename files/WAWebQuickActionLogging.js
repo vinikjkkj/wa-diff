@@ -16,6 +16,7 @@ __d(
         channels: e.WEBC_QUICK_ACTION_SURFACE.CHANNELS,
         community_navigation: e.WEBC_QUICK_ACTION_SURFACE.COMMUNITY_NAVIGATION,
         chats: e.WEBC_QUICK_ACTION_SURFACE.CHATS,
+        calls: e.WEBC_QUICK_ACTION_SURFACE.CALLS,
       },
       c = {
         text_status: (s = o("WAWebWamEnumWebcQuickActionId"))
@@ -33,6 +34,9 @@ __d(
         add_contact: s.WEBC_QUICK_ACTION_ID.ADD_CONTACT,
         ask_meta_ai: s.WEBC_QUICK_ACTION_ID.ASK_META_AI,
         start_call: s.WEBC_QUICK_ACTION_ID.START_CALL,
+        new_call_link: s.WEBC_QUICK_ACTION_ID.NEW_CALL_LINK,
+        open_dialer: s.WEBC_QUICK_ACTION_ID.OPEN_DIALER,
+        schedule_call: s.WEBC_QUICK_ACTION_ID.SCHEDULE_CALL,
       },
       d = !1,
       m = new Set(),

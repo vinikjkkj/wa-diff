@@ -78,7 +78,11 @@ __d(
             );
           } catch (e) {
             throw (
-              o("WAWebMmsClientMmsLogError").mmsLogError("mmsDownload", e, r),
+              o("WAWebMmsClientMmsLogError").mmsLogError({
+                debug: r,
+                error: e,
+                source: "mmsDownload",
+              }),
               e instanceof TypeError
                 ? new (o("WAWebHttpErrors").HttpNetworkError)(e.message)
                 : e

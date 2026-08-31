@@ -9,14 +9,14 @@ __d(
     };
     function s(t, n) {
       var r;
-      return o("WAWebBroadcastInsightStatus").getInsightStatus(
-        t.sentAt,
-        t.deliveredCount,
-        (r = t.recipientCount) != null ? r : 0,
-        t.readRate.count,
-        n,
-        t.statusSource === "PRO" ? e : void 0,
-      );
+      return o("WAWebBroadcastInsightStatus").getInsightStatus({
+        deliveredCount: t.deliveredCount,
+        nowMs: n,
+        readCount: t.readRate.count,
+        recipientCount: (r = t.recipientCount) != null ? r : 0,
+        sentTimestampMs: t.sentAt,
+        thresholds: t.statusSource === "PRO" ? e : void 0,
+      });
     }
     function u(e, t) {
       var n;

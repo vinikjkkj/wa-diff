@@ -8,7 +8,10 @@ __d(
           i = r("WebBloksInt64").fromString(String(n));
         return a.div(i).toString();
       } catch (t) {
-        throw new (o("WebBloksErrors").WebBloksScriptError)(t.message, e);
+        throw new (o("WebBloksErrors").WebBloksScriptError)(
+          t instanceof Error ? t.message : String(t),
+          e,
+        );
       }
     }
     l.default = e;

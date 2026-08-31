@@ -64,11 +64,11 @@ __d(
           } catch (e) {
             var f = r("getErrorSafe")(e);
             throw (
-              o("WAWebMmsClientMmsLogError").mmsLogError(
-                "mmsClient.download",
-                f,
-                u,
-              ),
+              o("WAWebMmsClientMmsLogError").mmsLogError({
+                debug: u,
+                error: f,
+                source: "mmsClient.download",
+              }),
               f
             );
           }

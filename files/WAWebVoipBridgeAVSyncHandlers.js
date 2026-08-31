@@ -30,6 +30,11 @@ __d(
           "WAWebVoipVideoRendererRegistry",
         ).videoRendererRegistry.peekPerParticipantAVSyncMetrics(e);
       },
+      consumeAudioCaptureMetrics: function () {
+        return o(
+          "WAWebVoipAudioCaptureAndPlayback",
+        ).consumeAudioCaptureMetrics();
+      },
       consumeAudioPlaybackMetrics: function () {
         return o(
           "WAWebVoipAudioCaptureAndPlayback",

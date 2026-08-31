@@ -21,30 +21,26 @@ __d(
         i = t.hasDegreesOfFreedomSpec,
         l = t.hasMultipleAdgroups,
         s = t.hasPageID,
-        u = t.hasSourcePost,
-        c = t.hasSourcePostVideo,
-        d = t.hasStoredExistingPostTitle,
-        m = t.isCTMCreative,
-        p = t.isExistingPostTitleSpecTransportEnabled,
-        _ = t.isNewAdCreationFlow,
-        f = t.isOSSHydrationEnabled,
-        g = t.objectStoryID,
-        h = t.objectStorySpecExists,
-        y = t.useAFS,
-        C = _ ? s && (u || o) : d || o;
-      if (g == null) return null;
-      if (p) {
-        if (!C || l || a || n == null || e.includes(n)) return null;
-        var b = y && i && !r && !m && !h;
-        return r || o || i || m
-          ? o || b
+        u = t.hasStoredExistingPostTitle,
+        c = t.isCTMCreative,
+        d = t.isExistingPostTitleSpecTransportEnabled,
+        m = t.objectStoryID,
+        p = t.objectStorySpecExists,
+        _ = t.useAFS,
+        f = s || u || o;
+      if (m == null) return null;
+      if (d) {
+        if (!f || l || a || n == null || e.includes(n)) return null;
+        var g = _ && i && !r && !c && !p;
+        return r || o || i || c
+          ? o || g
             ? "ASSET_FEED_SPEC"
             : null
-          : h
+          : p
             ? null
             : "TITLE_SPEC";
       }
-      return h || m ? null : f && s && u && !c ? "OSS_HYDRATION" : null;
+      return null;
     }
     function d(e) {
       return (

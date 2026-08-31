@@ -118,11 +118,11 @@ __d(
             } catch (e) {
               var h = r("getErrorSafe")(e);
               throw (
-                o("WAWebMmsClientMmsLogError").mmsLogError(
-                  "mmsClient.checkIfUploadExists",
-                  h,
-                  _,
-                ),
+                o("WAWebMmsClientMmsLogError").mmsLogError({
+                  debug: _,
+                  error: h,
+                  source: "mmsClient.checkIfUploadExists",
+                }),
                 h
               );
             }

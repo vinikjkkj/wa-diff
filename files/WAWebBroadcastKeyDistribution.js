@@ -48,10 +48,14 @@ __d(
         { participantList: r, skDistribList: o, senderKeyHitCount: a }
       );
     }
-    function d(e, t, n, r) {
-      if (n >= r) return null;
-      var o = s(e, t);
-      return { rotateKey: !0, skDistribList: o, participantList: [] };
+    function d(e) {
+      var t = e.allDeviceList,
+        n = e.extendedRecipients,
+        r = e.senderKeyHitCount,
+        o = e.storedKeyCount;
+      if (r >= o) return null;
+      var a = s(t, n);
+      return { rotateKey: !0, skDistribList: a, participantList: [] };
     }
     ((i.handleFullDistribution = u),
       (i.handlePartialDistribution = c),

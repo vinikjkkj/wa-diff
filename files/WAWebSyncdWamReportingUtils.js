@@ -88,58 +88,64 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n, r, o, a, i, l, s) {
+    function v(e) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s, c) {
-            try {
-              if (!I("syncd_mutation_and_bundle_logging").includes(e)) return;
-              new (o("WAWebMdSyncdMutationWamEvent").MdSyncdMutationWamEvent)({
-                appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
-                companionSessionIds: s,
-                contentLength: 0,
-                isInBootstrap: !1,
-                isUsingLid: !1,
-                mutationBundle: l
-                  ? o("WAWebWamEnumMutationBundleType").MUTATION_BUNDLE_TYPE
-                      .PATCH
-                  : o("WAWebWamEnumMutationBundleType").MUTATION_BUNDLE_TYPE
-                      .SNAPSHOT,
-                mutationDirection: n
-                  ? o("WAWebWamEnumMutationDirectionType")
-                      .MUTATION_DIRECTION_TYPE.INCOMING
-                  : o("WAWebWamEnumMutationDirectionType")
-                      .MUTATION_DIRECTION_TYPE.OUTGOING,
-                mutationMac: r,
-                mutationName: a != null ? a : "no-mutation-name",
-                mutationOperation: i
-                  ? o("WAWebWamEnumMutationOperationType")
-                      .MUTATION_OPERATION_TYPE.REMOVE
-                  : o("WAWebWamEnumMutationOperationType")
-                      .MUTATION_OPERATION_TYPE.SET,
-                seqNumber: t,
-                syncdCollection: h(e),
-                syncdKeyhash: "",
-                syncdKeyid: "",
-                patchMac: c != null ? c : "",
-              }).commit();
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncReportMutationToWam: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("syncReportMutationToWam failed");
-            }
-          },
-        )),
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.action,
+            n = e.collection,
+            r = e.indexMac,
+            a = e.isIncoming,
+            i = e.isPatch,
+            l = e.isRemove,
+            s = e.mdSessionId,
+            c = e.patchMac,
+            d = e.version;
+          try {
+            if (!I("syncd_mutation_and_bundle_logging").includes(n)) return;
+            new (o("WAWebMdSyncdMutationWamEvent").MdSyncdMutationWamEvent)({
+              appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
+              companionSessionIds: s,
+              contentLength: 0,
+              isInBootstrap: !1,
+              isUsingLid: !1,
+              mutationBundle: i
+                ? o("WAWebWamEnumMutationBundleType").MUTATION_BUNDLE_TYPE.PATCH
+                : o("WAWebWamEnumMutationBundleType").MUTATION_BUNDLE_TYPE
+                    .SNAPSHOT,
+              mutationDirection: a
+                ? o("WAWebWamEnumMutationDirectionType").MUTATION_DIRECTION_TYPE
+                    .INCOMING
+                : o("WAWebWamEnumMutationDirectionType").MUTATION_DIRECTION_TYPE
+                    .OUTGOING,
+              mutationMac: r,
+              mutationName: t != null ? t : "no-mutation-name",
+              mutationOperation: l
+                ? o("WAWebWamEnumMutationOperationType").MUTATION_OPERATION_TYPE
+                    .REMOVE
+                : o("WAWebWamEnumMutationOperationType").MUTATION_OPERATION_TYPE
+                    .SET,
+              seqNumber: d,
+              syncdCollection: h(n),
+              syncdKeyhash: "",
+              syncdKeyid: "",
+              patchMac: c != null ? c : "",
+            }).commit();
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncReportMutationToWam: ",
+                    "",
+                  ])),
+                e,
+              )
+              .sendLogs("syncReportMutationToWam failed");
+          }
+        })),
         S.apply(this, arguments)
       );
     }

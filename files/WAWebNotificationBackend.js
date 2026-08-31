@@ -118,12 +118,14 @@ __d(
       );
     }
     function y(e) {
-      return o(
-        "WAWebNotificationController",
-      ).WANotificationController.triggerNotification(
-        new (o("WAWebAiHandoffNotification").AiHandoffNotification)({
-          chat: e,
-        }),
+      var t = new (o("WAWebAiHandoffNotification").AiHandoffNotification)({
+        chat: e,
+      });
+      return (
+        t.logDelivered(),
+        o(
+          "WAWebNotificationController",
+        ).WANotificationController.triggerNotification(t)
       );
     }
     function C() {

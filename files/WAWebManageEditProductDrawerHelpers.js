@@ -57,11 +57,14 @@ __d(
         "WAWebBizCatalogGatingUtils",
       ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(e);
     }
-    function _(e, t, n) {
-      if (n)
-        return o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled() && t
+    function _(e) {
+      var t = e.complianceInfo,
+        n = e.importerInformationNotApplicableEnabled,
+        r = e.showComplianceFields;
+      if (r)
+        return o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled() && n
           ? {
-              countryCodeOrigin: e == null ? void 0 : e.countryCodeOrigin,
+              countryCodeOrigin: t == null ? void 0 : t.countryCodeOrigin,
               importerName: void 0,
               importerAddress: {
                 street1: "",
@@ -73,15 +76,15 @@ __d(
               },
             }
           : {
-              countryCodeOrigin: e == null ? void 0 : e.countryCodeOrigin,
-              importerName: e == null ? void 0 : e.importerName,
+              countryCodeOrigin: t == null ? void 0 : t.countryCodeOrigin,
+              importerName: t == null ? void 0 : t.importerName,
               importerAddress: {
-                street1: e == null ? void 0 : e.importerAddress.street1,
-                street2: e == null ? void 0 : e.importerAddress.street2,
-                postalCode: e == null ? void 0 : e.importerAddress.postalCode,
-                city: e == null ? void 0 : e.importerAddress.city,
-                region: e == null ? void 0 : e.importerAddress.region,
-                countryCode: e == null ? void 0 : e.importerAddress.countryCode,
+                street1: t == null ? void 0 : t.importerAddress.street1,
+                street2: t == null ? void 0 : t.importerAddress.street2,
+                postalCode: t == null ? void 0 : t.importerAddress.postalCode,
+                city: t == null ? void 0 : t.importerAddress.city,
+                region: t == null ? void 0 : t.importerAddress.region,
+                countryCode: t == null ? void 0 : t.importerAddress.countryCode,
               },
             };
     }
