@@ -1,6 +1,6 @@
 __d(
   "VideoPlayerCaptionsController",
-  ["FBLogger", "JSResourceForInteraction"],
+  ["FBLogger", "JSResourceForInteraction", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = r("JSResourceForInteraction")(
@@ -33,7 +33,7 @@ __d(
           .catch(function (e) {
             t === u &&
               r("FBLogger")("comet_video_player")
-                .catching(e)
+                .catching(r("getErrorSafe")(e))
                 .mustfix(
                   "Failed to load the VideoPlayerHTML5ApiWebVttState module",
                 );
@@ -56,7 +56,7 @@ __d(
           .catch(function (e) {
             t === c &&
               r("FBLogger")("comet_video_player")
-                .catching(e)
+                .catching(r("getErrorSafe")(e))
                 .mustfix(
                   "Failed to load the VideoPlayerHTML5ApiCea608State module",
                 );

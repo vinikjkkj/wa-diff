@@ -36,8 +36,7 @@ __d(
         e
       );
     })();
-    ((l.continueQplMediaWasmWorkeQplFlow = e),
-      (l.WAMediaWasmWorkerQplProxy = s));
+    l.continueQplMediaWasmWorkeQplFlow = e;
   },
   98,
 );

@@ -27,9 +27,7 @@ __d(
         ]),
         i = a[0],
         l = o("WAWebBotBaseGating").isBizBot1pEnabled() ? t.id : null;
-      o("WAWebUseBusinessProfile.react").useBusinessProfile(l, [
-        "automatedType",
-      ]);
+      o("WAWebUseBusinessProfile.react").useBusinessProfile(l);
       var s =
           (n = o(
             "useWAWebBusinessProfileValues",

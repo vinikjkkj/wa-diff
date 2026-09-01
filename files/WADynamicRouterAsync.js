@@ -180,7 +180,7 @@ __d(
       }
       return null;
     }
-    ((l.NOT_HANDLED = c), (l.DynamicRouter = d));
+    l.DynamicRouter = d;
   },
   98,
 );

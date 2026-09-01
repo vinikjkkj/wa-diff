@@ -138,64 +138,68 @@ __d(
           }),
           (i.findCollectionProducts = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a) {
-                var i = this.get(t),
-                  l = i ? i.afterCursor : void 0;
-                a &&
+              function* (e) {
+                var t = e.catalogWid,
+                  n = e.collectionId,
+                  a = e.forCatalogManager,
+                  i = e.markerId,
+                  l = this.get(n),
+                  m = l ? l.afterCursor : void 0;
+                i &&
                   o("WAWebQplFlowWrapper").QPL.markerPoint(
-                    a,
+                    i,
                     "datasource_start",
                   );
                 try {
-                  var m,
-                    p,
+                  var p,
                     _,
-                    f = yield o(
+                    f,
+                    g = yield o(
                       "WAWebBusinessProfileCollection",
-                    ).BusinessProfileCollection.find(e);
-                  o("WAWebCatalogVariantHelper").shouldRequestVariantInfo(f) &&
-                    ((m = o(
+                    ).BusinessProfileCollection.find(t);
+                  o("WAWebCatalogVariantHelper").shouldRequestVariantInfo(g) &&
+                    ((p = o(
                       "WAWebCatalogVariantHelper",
                     ).FULL_VARIANT_INFO_FIELDS),
-                    (p = o(
-                      "WAWebCatalogVariantHelper",
-                    ).VARIANT_THUMBNAIL_IMAGE_SIZE),
                     (_ = o(
                       "WAWebCatalogVariantHelper",
+                    ).VARIANT_THUMBNAIL_IMAGE_SIZE),
+                    (f = o(
+                      "WAWebCatalogVariantHelper",
                     ).VARIANT_THUMBNAIL_IMAGE_SIZE));
-                  var g = yield o(
+                  var h = yield o(
                     "WAWebBusinessDirectConnectionBridge",
-                  ).attemptWithDirectConnectionRetry(e, function (n) {
+                  ).attemptWithDirectConnectionRetry(t, function (e) {
                     return r("WAWebQueryProductSingleCollection")({
-                      catalogWid: e,
-                      collectionId: t,
-                      afterCursor: l,
+                      catalogWid: t,
+                      collectionId: n,
+                      afterCursor: m,
                       limit: c,
                       width: u,
                       height: u,
-                      directConnectionEncryptedInfo: n,
-                      variantInfoFields: m,
-                      variantThumbnailHeight: p,
-                      variantThumbnailWidth: _,
+                      directConnectionEncryptedInfo: e,
+                      variantInfoFields: p,
+                      variantThumbnailHeight: _,
+                      variantThumbnailWidth: f,
                     });
                   });
-                  (a &&
+                  (i &&
                     o("WAWebQplFlowWrapper").QPL.markerPoint(
-                      a,
+                      i,
                       "datasource_end",
                     ),
-                    g.collections.length === 1 &&
-                      (this.add(g.collections.map(d), { merge: !0 }),
-                      (i = this.get(t)),
-                      i &&
-                        (i.addProducts(
-                          g.collections[0].products.map(function (t) {
+                    h.collections.length === 1 &&
+                      (this.add(h.collections.map(d), { merge: !0 }),
+                      (l = this.get(n)),
+                      l &&
+                        (l.addProducts(
+                          h.collections[0].products.map(function (e) {
                             return o(
                               "WAWebBizProductCatalogBridge",
-                            ).mapProductResponseToModel(t, e);
+                            ).mapProductResponseToModel(e, t);
                           }),
                         ),
-                        (i.afterCursor = g.afterCursor))));
+                        (l.afterCursor = h.afterCursor))));
                 } catch (e) {
                   throw (
                     o("WALogger")
@@ -214,7 +218,7 @@ __d(
                 }
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

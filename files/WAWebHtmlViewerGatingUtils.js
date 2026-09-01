@@ -13,7 +13,7 @@ __d(
         o("WAWebBotUtils").isHatchBot(n)
       );
     }
-    ((l.isHtmlViewerEnabled = e), (l.isHtmlViewerEnabledForMimeType = s));
+    l.isHtmlViewerEnabledForMimeType = s;
   },
   98,
 );

@@ -142,7 +142,7 @@ __d(
     function _(e) {
       return (e.readUint8() << 16) | e.readUint16();
     }
-    ((l.SocketClosed = d), (l.FrameSocket = m));
+    l.FrameSocket = m;
   },
   98,
 );

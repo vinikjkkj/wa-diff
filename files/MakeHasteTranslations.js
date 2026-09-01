@@ -119,7 +119,7 @@ __d(
                   "binary_transparency",
                   "translation_download_error",
                 )
-                  .catching(t)
+                  .catching(r("getErrorSafe")(t))
                   .warn(
                     "Unable to download and process translation map. Url: %s",
                     a,

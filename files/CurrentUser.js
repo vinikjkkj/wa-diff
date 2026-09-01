@@ -15,7 +15,7 @@ __d(
           return (t = (e || (e = n("CurrentUserInitialData")))
             .NON_FACEBOOK_USER_ID) != null
             ? t
-            : this.getID();
+            : l.getID();
         },
         getEIMU: function () {
           var t;

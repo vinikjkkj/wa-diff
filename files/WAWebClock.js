@@ -283,6 +283,15 @@ __d(
               s._param("time", n),
             ]);
           }),
+          (a.audienceCreatedStr = function (t) {
+            var e = t + this.skew,
+              n = this.$ClockImpl$p_2(e),
+              r = this.$ClockImpl$p_6(e, !0);
+            return s._(/*BTDS*/ "Created on {date}, {time}", [
+              s._param("date", r),
+              s._param("time", n),
+            ]);
+          }),
           (a.createdStr = function (t) {
             var e = this.daysDeltaAbs(t),
               n = t + this.skew,
@@ -734,10 +743,13 @@ __d(
             }
             return r("WAWeb-moment").unix(t).format("l");
           }),
-          (a.$ClockImpl$p_6 = function (t) {
-            if (this.shouldUseIntlDateTimeFormat()) {
+          (a.$ClockImpl$p_6 = function (t, n) {
+            if (
+              (n === void 0 && (n = !1), this.shouldUseIntlDateTimeFormat())
+            ) {
               var e = { month: "short", day: "numeric" };
               return (
+                n && (e = babelHelpers.extends({}, e, { year: "numeric" })),
                 this.timeZoneHardCode != null &&
                   (e = babelHelpers.extends({}, e, {
                     timeZone: this.timeZoneHardCode,
@@ -747,7 +759,9 @@ __d(
                 )
               );
             }
-            return r("WAWeb-moment").unix(t).format("MMM D");
+            return r("WAWeb-moment")
+              .unix(t)
+              .format(n ? "ll" : "MMM D");
           }),
           (a.$ClockImpl$p_3 = function (t, n) {
             var e = r("WAWeb-moment")().startOf("day"),

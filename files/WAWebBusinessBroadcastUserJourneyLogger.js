@@ -33,6 +33,7 @@ __d(
               extraAttributes: e.extraAttributes,
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
                 .SMB_FEATURE_NAME_ENUM.BUSINESS_BROADCAST,
+              stickyEntryPoint: e.stickyEntryPoint,
               surface: e.surface,
               userActionTarget: e.userActionTarget,
               userActionType: e.action,
@@ -41,11 +42,35 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.qpBannerViewed = function (t) {
-            o("WAWebBBEntryPointLogs").qpBannerViewed(this.$1, t);
+          (t.setDeeplinkAttribution = function (t, n) {
+            (o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.setEntryPoint(
+              t,
+              o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+                .BUSINESS_BROADCAST,
+            ),
+              n != null &&
+                n !== "" &&
+                o(
+                  "WAWebSMBUserJourneyLogger",
+                ).SMBUserJourneyLogger.setEntryPointDetails(
+                  n,
+                  o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+                    .BUSINESS_BROADCAST,
+                ));
           }),
-          (t.qpBannerDismissed = function (t) {
-            o("WAWebBBEntryPointLogs").qpBannerDismissed(this.$1, t);
+          (t.getEntryPoint = function () {
+            return o(
+              "WAWebSMBUserJourneyLogger",
+            ).SMBUserJourneyLogger.getEntryPoint(
+              o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+                .BUSINESS_BROADCAST,
+            );
+          }),
+          (t.qpBannerViewed = function (t, n, r) {
+            o("WAWebBBEntryPointLogs").qpBannerViewed(this.$1, t, n, r);
+          }),
+          (t.qpBannerDismissed = function (t, n, r) {
+            o("WAWebBBEntryPointLogs").qpBannerDismissed(this.$1, t, n, r);
           }),
           (t.chatOverflowMenuEntryPointViewed = function () {
             o("WAWebBBEntryPointLogs").chatOverflowMenuEntryPointViewed(

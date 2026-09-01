@@ -16,6 +16,7 @@ __d(
     "err",
     "filterObject",
     "getCrossOriginTransport",
+    "getErrorSafe",
     "getWorkerInitScriptSPINParams",
     "gkx",
     "isSameOrigin",
@@ -172,7 +173,9 @@ __d(
                 } catch (e) {
                   throw (
                     this.terminate(),
-                    this.$16("define_error", { message: e.message }),
+                    this.$16("define_error", {
+                      message: r("getErrorSafe")(e).message,
+                    }),
                     e
                   );
                 }

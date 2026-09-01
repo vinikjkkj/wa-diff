@@ -128,8 +128,7 @@ __d(
       var e;
       ((s = !1), (e = d) == null || e.abort(), (d = null), (c = null));
     }
-    ((l.initIdentityChangeListener = m),
-      (l.syncHatchContactIdentity = p),
+    ((l.syncHatchContactIdentity = p),
       (l.__resetHatchIdentitySyncForTesting = b));
   },
   98,

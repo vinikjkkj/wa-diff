@@ -118,16 +118,17 @@ __d(
       if (!(d == null && ((o[c] = []), (d = o[c]), d == null))) {
         if (u == null) d.push(i);
         else {
-          var m = e.rawData.name;
+          var m,
+            f = e.rawData.name;
           if (
             d.findIndex(function (e) {
               return (
-                typeof e == "object" && e != null && e.id === i && e.name === m
+                typeof e == "object" && e != null && e.id === i && e.name === f
               );
             }) > -1
           )
             return;
-          d.push({ id: i, name: m });
+          (m = o[u]) == null || m.push({ id: i, name: f });
         }
         return ((t[0] = o), t);
       }

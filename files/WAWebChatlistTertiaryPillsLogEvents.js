@@ -17,39 +17,47 @@ __d(
       s = n("$InternalEnum")({
         EMPTY_AFTER_RESERVATION: "empty_after_reservation",
       }),
-      u = new Set();
-    function c(e, t, n, r) {
-      var a = e + "|" + t;
-      u.has(a) ||
-        (u.add(a),
+      u = new Set(),
+      c = new Set();
+    function d(e) {
+      var t = e.chatId,
+        n = e.chipKind,
+        r = e.overflowCount,
+        a = e.pillCount,
+        i = t + "|" + n;
+      u.has(i) ||
+        (u.add(i),
         o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
           featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
             .GEN_AI_AGENT,
           surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
           userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
             .SMB_USER_ACTION_TYPE_ENUM.VIEW,
-          userActionTarget: t,
-          extraAttributes: { pill_count: n, overflow_count: r },
+          userActionTarget: n,
+          extraAttributes: { pill_count: a, overflow_count: r },
         }));
     }
-    function d(e) {
-      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
-          .GEN_AI_AGENT,
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
-        userActionTarget: e,
-      });
+    function m(e, t) {
+      var n = e + "|" + t;
+      c.has(n) ||
+        (c.add(n),
+        o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+          featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+            .GEN_AI_AGENT,
+          surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
+          userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+            .SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
+          userActionTarget: t,
+        }));
     }
-    function m() {
-      u.clear();
+    function p() {
+      (u.clear(), c.clear());
     }
     ((l.TertiaryPillsChipKind = e),
       (l.TertiaryPillsMismatchReason = s),
-      (l.logTertiaryPillsRowImpression = c),
-      (l.logTertiaryPillsRowMismatch = d),
-      (l.resetTertiaryPillsImpressionDedupForTests = m));
+      (l.logTertiaryPillsRowImpression = d),
+      (l.logTertiaryPillsRowMismatch = m),
+      (l.resetTertiaryPillsDedupForTests = p));
   },
   98,
 );

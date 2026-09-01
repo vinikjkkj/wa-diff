@@ -1245,6 +1245,7 @@ __d(
       PHOTO_VIEWER: "photo_viewer",
       PLAY_GROUND: "play_ground",
       POST_INSIGHTS_CTX_BOOST_UPSELL: "post_insights_ctx_boost_upsell",
+      POST_PIXEL_CREATION_AD_UPSELL: "post_pixel_creation_ad_upsell",
       POST_PUBLISH_PROMPT_ON_POST_AD_CREATION:
         "post_publish_prompt_on_post_ad_creation",
       PROACTIVE_RESULTS_MESSENGER_CHAT: "proactive_results_messenger_chat",

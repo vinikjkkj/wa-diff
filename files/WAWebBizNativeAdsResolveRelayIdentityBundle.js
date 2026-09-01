@@ -18,7 +18,6 @@ __d(
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "justknobx",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -365,17 +364,13 @@ __d(
               );
     }
     function S(e, t) {
-      var n,
-        o,
-        a,
-        i,
-        l = e === "WAA" && r("justknobx")._("3154");
-      return l
-        ? (n = (o = t.waPageId) != null ? o : t.fbPageId) != null
+      var n, r, o, a;
+      return e === "WAA"
+        ? (n = (r = t.waPageId) != null ? r : t.fbPageId) != null
           ? n
           : ""
-        : (a = (i = t.fbPageId) != null ? i : t.waPageId) != null
-          ? a
+        : (o = (a = t.fbPageId) != null ? a : t.waPageId) != null
+          ? o
           : "";
     }
     ((l.prepareDeferredAdCreationEntrypoint = h),

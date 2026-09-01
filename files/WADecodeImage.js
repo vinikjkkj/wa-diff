@@ -13,14 +13,13 @@ __d(
       u = o("WATagsLogger").TAGS(["decodeImage"]),
       c =
         typeof self.createImageBitmap == "function" &&
-        typeof self.OffscreenCanvas == "function",
-      d = c ? m : _;
-    function m(e, t) {
-      return p.apply(this, arguments);
+        typeof self.OffscreenCanvas == "function";
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           u.DEV(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -39,7 +38,7 @@ __d(
             s = l.outputHeight,
             c = l.outputWidth,
             d = new self.OffscreenCanvas(c, s),
-            m = g({
+            m = f({
               canvas: d,
               inputWidth: i,
               inputHeight: a,
@@ -49,15 +48,15 @@ __d(
             });
           return m;
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           u.DEV(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -78,7 +77,7 @@ __d(
             d = c.outputHeight,
             m = c.outputWidth,
             p = document.createElement("canvas"),
-            _ = g({
+            _ = f({
               canvas: p,
               inputWidth: l,
               inputHeight: i,
@@ -88,10 +87,10 @@ __d(
             });
           return (a(), _);
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e) {
+    function f(e) {
       var t = e.canvas,
         n = e.image,
         r = e.inputHeight,
@@ -107,9 +106,8 @@ __d(
       return s;
     }
     ((l.canDecodeWithoutDOM = c),
-      (l.decodeImage = d),
-      (l.decodeImageWithoutDOM = m),
-      (l.decodeImageWithDOM = _));
+      (l.decodeImageWithoutDOM = d),
+      (l.decodeImageWithDOM = p));
   },
   98,
 );

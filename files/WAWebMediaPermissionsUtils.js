@@ -9,22 +9,15 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = { granted: !1, denied: !1 };
           if (
             !o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
               o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                 .PERMISSIONS_API_OPTIMIZATION,
             )
           )
-            return n;
-          try {
-            var r = t != null ? t : navigator;
-            if (!r.permissions) return n;
-            var a = yield r.permissions.query({ name: e });
-            ((n.granted = a.state === "granted"),
-              (n.denied = a.state === "denied"));
-          } catch (e) {}
-          return n;
+            return { granted: !1, denied: !1 };
+          var n = yield c(e, t);
+          return { granted: n === "granted", denied: n === "denied" };
         })),
         u.apply(this, arguments)
       );
@@ -34,7 +27,25 @@ __d(
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n = t != null ? t : navigator;
+            if (!n.permissions) return "unknown";
+            var r = yield n.permissions.query({ name: e });
+            return r.state;
+          } catch (e) {
+            return "unknown";
+          }
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var o = yield (e || (e = n("Promise"))).all(
             t.map(function (e) {
               return s(e, r);
@@ -44,10 +55,10 @@ __d(
             return e.denied;
           });
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function _(e, t) {
       return (function (e) {
         return ((typeof e == "object" && e !== null) ||
           typeof e == "function") &&
@@ -62,8 +73,9 @@ __d(
       })({ micGranted: e, camGranted: t });
     }
     ((l.checkMediaPermissionState = s),
-      (l.isAnyMediaPermissionDenied = c),
-      (l.getDeviceSpecificPermissionMessaging = m));
+      (l.queryMediaPermissionStateStrict = c),
+      (l.isAnyMediaPermissionDenied = m),
+      (l.getDeviceSpecificPermissionMessaging = _));
   },
   98,
 );

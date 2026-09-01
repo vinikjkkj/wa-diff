@@ -1,6 +1,7 @@
 __d(
   "WAWebPollsUseMyVote",
   [
+    "WAWebNewsletterPollVotesGetters",
     "WAWebNewsletterPollVotesModel",
     "WAWebNewsletterPollVotesModelCollection",
     "WAWebPollVoteGetters",
@@ -10,7 +11,7 @@ __d(
     "WAWebWid",
     "react-compiler-runtime",
     "useWAWebEventTargetValue",
-    "useWAWebModelValues",
+    "useWAWebNewsletterPollVotesValues",
     "useWAWebPollVoteValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,20 +51,24 @@ __d(
             ? f
             : null,
         y =
-          (t = o("useWAWebModelValues").useOptionalModelValues(h, [
-            "isUnvote",
-          ])) == null
-            ? void 0
-            : t.isUnvote,
-        C =
+          (t = o(
+            "useWAWebNewsletterPollVotesValues",
+          ).useOptionalNewsletterPollVotesValues(h == null ? void 0 : h.id, [
+            o("WAWebNewsletterPollVotesGetters").getIsUnvote,
+          ])) != null
+            ? t
+            : [],
+        C = y[0],
+        b =
           (n = o("useWAWebPollVoteValues").useOptionalPollVoteValues(
             g == null ? void 0 : g.id,
             [o("WAWebPollVoteGetters").getIsUnvote],
-          )) == null
-            ? void 0
-            : n[0],
-        b = y != null ? y : C;
-      return f == null || (b === !0 && !i) ? null : f;
+          )) != null
+            ? n
+            : [],
+        v = b[0],
+        S = C != null ? C : v;
+      return f == null || (S === !0 && !i) ? null : f;
     }
     function s(e) {
       if (e == null) return null;

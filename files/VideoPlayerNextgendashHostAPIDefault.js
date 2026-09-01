@@ -3,7 +3,9 @@ __d(
   [
     "Promise",
     "VideoPlayerNextgendashHostAPI",
+    "VideoPlayerNextgendashHostSubscribeToEventTarget",
     "VideoPlayerNextgendashHostXMLDOMParser",
+    "VideoPlayerNextgendashMSEMediaSink",
     "VideoPlayerNextgendashMediaUtils",
     "VideoPlayerNextgendashStateMachine",
     "fb-error",
@@ -31,29 +33,7 @@ __d(
     function _(e) {
       m.has(e) && (URL.revokeObjectURL(e), m.delete(e));
     }
-    function f(e, t, n) {
-      var r = o(
-        "VideoPlayerNextgendashHostAPI",
-      ).unopaqueVideoPlayerNextgendashHostMediaSource(t);
-      if (
-        e.config.guardSourceBufferOpsWithReadyStateCheck &&
-        r.readyState !== "open"
-      ) {
-        if (
-          e.config.reopenEndedMediaSourceOnRepresentationSwitch &&
-          r.readyState === "ended" &&
-          n !== "remove"
-        )
-          return;
-        throw o("nextgendasherr").nextgendasherr(
-          e,
-          "VideoPlayerNextgendashHostAPISourceBufferReadyStateNotOpen",
-          "Unable to " + n + ": mediaSource.readyState=%s (expected 'open')",
-          r.readyState,
-        );
-      }
-    }
-    var g = {
+    var f = babelHelpers.extends({}, r("VideoPlayerNextgendashMSEMediaSink"), {
       clock: function () {
         return o(
           "VideoPlayerNextgendashStateMachine",
@@ -198,7 +178,9 @@ __d(
         }
       },
       mediaElementSubscribe: function (t, n, r, a) {
-        return y(
+        return o(
+          "VideoPlayerNextgendashHostSubscribeToEventTarget",
+        ).subscribeToHostEventTarget(
           t,
           n,
           o(
@@ -207,242 +189,6 @@ __d(
           r,
           a,
         );
-      },
-      mediaSourceAddSourceBuffer: function (t, n, r, a, i) {
-        var e = r.mimeCodecsParsed,
-          l = r.representationId,
-          s = r.type,
-          u = o(
-            "VideoPlayerNextgendashHostAPI",
-          ).unopaqueVideoPlayerNextgendashHostMediaSource(n),
-          c = u.readyState;
-        if (c !== "open") {
-          if (i === !0) return null;
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPIAddSourceBufferMediaSourceNotOpen",
-            "Unable to addSourceBuffer for " +
-              s +
-              " representation %s: mediaSource.readyState='" +
-              c +
-              "'.",
-            l,
-          );
-        }
-        var d = t.host.mediaSourceIsTypeSupported(t, e.mimeCodecs);
-        if (!d)
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPIAddSourceBufferCodecNotSupported",
-            "Unable to addSourceBuffer for " +
-              s +
-              " representation %s: mimeCodecs (%s) is not supported by the browser.",
-            l,
-            e.mimeCodecs,
-          );
-        var m = u.addSourceBuffer(e.mimeCodecs),
-          p = y(
-            t,
-            o(
-              "VideoPlayerNextgendashHostAPI",
-            ).opaqueVideoPlayerNextgendashHostSourceBuffer(m),
-            m,
-            ["updateend", "abort", "error"],
-            a,
-          ),
-          _ = !1,
-          f = function () {
-            if (!_) {
-              (p(), (_ = !0));
-              try {
-                u.removeSourceBuffer(m);
-              } catch (r) {
-                if (
-                  !(
-                    typeof r == "object" &&
-                    r != null &&
-                    r.name === "NotFoundError"
-                  )
-                ) {
-                  var n = o("nextgendasherr").nextgendasherrFromCause(
-                    t,
-                    r,
-                    "VideoPlayerNextgendashHostAPIAddSourceBufferUnableToCleanup",
-                    "Unable to removeSourceBuffer originally added for " +
-                      s +
-                      " representation %s: mimeCodecs (%s)",
-                    l,
-                    e.mimeCodecs,
-                  );
-                  throw n;
-                }
-              }
-            }
-          };
-        return [
-          o(
-            "VideoPlayerNextgendashHostAPI",
-          ).opaqueVideoPlayerNextgendashHostSourceBuffer(m),
-          f,
-        ];
-      },
-      mediaSourceCanConstructInDedicatedWorker: function (t) {
-        try {
-          if (
-            t === "ManagedMediaSource" &&
-            typeof ManagedMediaSource == "function"
-          )
-            return ManagedMediaSource.canConstructInDedicatedWorker === !0;
-          if (typeof MediaSource == "function")
-            return MediaSource.canConstructInDedicatedWorker === !0;
-        } catch (e) {}
-        return !1;
-      },
-      mediaSourceCollectSnapshot: function (t, n) {
-        var e = "unknown",
-          r = "unknown",
-          a = null,
-          i = null;
-        try {
-          var l = [],
-            s = o(
-              "VideoPlayerNextgendashHostAPI",
-            ).unopaqueVideoPlayerNextgendashHostMediaSource(n);
-          ((e = s.duration), (r = s.readyState));
-          for (var u = 0; u < s.sourceBuffers.length; u++)
-            l.push(s.sourceBuffers[u].updating);
-          a = l;
-        } catch (e) {
-          i = o("nextgendasherr").nextgendasherrFromCause(
-            t,
-            e,
-            "VideoPlayerNextgendashHostAPIMediaSourceCollectSnapshotError",
-          );
-        }
-        return o(
-          "VideoPlayerNextgendashStateMachine",
-        ).skipAutoDisposeInsideThisObject({
-          duration: Number.isNaN(e) ? "NOT_A_NUMBER" : e,
-          exception: i,
-          readyState: r,
-          sourceBuffersUpdating: a,
-        });
-      },
-      mediaSourceCreate: function (t, n) {
-        var e = null,
-          r = null;
-        if (t.config.preferredMediaSourceAPIType === "ManagedMediaSource")
-          try {
-            typeof ManagedMediaSource == "function"
-              ? (e = new ManagedMediaSource())
-              : (r = o("nextgendasherr").nextgendasherr(
-                  t,
-                  "VideoPlayerNextgendashHostAPIManagedMediaSourceClassMissing",
-                ));
-          } catch (e) {
-            r = o("nextgendasherr").nextgendasherrFromCause(
-              t,
-              e,
-              "VideoPlayerNextgendashHostAPIManagedMediaSourceConstructorException",
-            );
-          }
-        if (e == null)
-          try {
-            typeof MediaSource == "function"
-              ? (e = new MediaSource())
-              : (r = o("nextgendasherr").nextgendasherr(
-                  t,
-                  "VideoPlayerNextgendashHostAPIMediaSourceClassMissing",
-                ));
-          } catch (e) {
-            r = o("nextgendasherr").nextgendasherrFromCause(
-              t,
-              e,
-              "VideoPlayerNextgendashHostAPIMediaSourceConstructorException",
-            );
-          }
-        if (e == null)
-          throw o("nextgendasherr").nextgendasherrFromCause(
-            t,
-            r,
-            "VideoPlayerNextgendashHostAPIMediaSourceCreateException",
-            "preferredMediaSourceAPIType='" +
-              t.config.preferredMediaSourceAPIType +
-              "'",
-          );
-        var a = y(
-          t,
-          o(
-            "VideoPlayerNextgendashHostAPI",
-          ).opaqueVideoPlayerNextgendashHostMediaSource(e),
-          e,
-          ["sourceopen", "sourceended", "sourceclose"],
-          n,
-        );
-        return [
-          o(
-            "VideoPlayerNextgendashHostAPI",
-          ).opaqueVideoPlayerNextgendashHostMediaSource(e),
-          a,
-        ];
-      },
-      mediaSourceEndOfStream: function (t, n, r) {
-        var e = o(
-          "VideoPlayerNextgendashHostAPI",
-        ).unopaqueVideoPlayerNextgendashHostMediaSource(n);
-        if (
-          t.host.mediaSourceEndOfStreamCallIsExpectedToBeSafeAndNotNoop(t, n, r)
-        )
-          try {
-            e.endOfStream();
-          } catch (e) {}
-      },
-      mediaSourceEndOfStreamCallIsExpectedToBeSafeAndNotNoop: function (
-        t,
-        n,
-        r,
-      ) {
-        var e,
-          a = o(
-            "VideoPlayerNextgendashHostAPI",
-          ).unopaqueVideoPlayerNextgendashHostMediaSource(n);
-        return (
-          a.readyState === "open" &&
-          ((e = r == null ? void 0 : r.readyState) != null ? e : 0) >= 1
-        );
-      },
-      mediaSourceGetDuration: function (t, n) {
-        var e = o(
-            "VideoPlayerNextgendashHostAPI",
-          ).unopaqueVideoPlayerNextgendashHostMediaSource(n),
-          r = e.duration;
-        return Number.isNaN(r) ? "NOT_A_NUMBER" : r;
-      },
-      mediaSourceGetHandleInWorker: function (t, n) {
-        var e = o(
-            "VideoPlayerNextgendashHostAPI",
-          ).unopaqueVideoPlayerNextgendashHostMediaSource(n),
-          r = e.handle;
-        if (r == null)
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPIMissingMediaSourceHandle",
-          );
-        return o(
-          "VideoPlayerNextgendashHostAPI",
-        ).opaqueVideoPlayerNextgendashHostMediaSourceHandle(r);
-      },
-      mediaSourceIsTypeSupported: function (t, n) {
-        try {
-          if (
-            t.config.preferredMediaSourceAPIType === "ManagedMediaSource" &&
-            typeof ManagedMediaSource == "function"
-          )
-            return ManagedMediaSource.isTypeSupported(n);
-          if (typeof MediaSource == "function")
-            return MediaSource.isTypeSupported(n);
-        } catch (e) {}
-        return !1;
       },
       networkDiagnosticsReadBandwidth: function (t) {
         var e = r(
@@ -494,187 +240,6 @@ __d(
             .catching(r("fb-error").getErrorSafe(e))
             .mustfix("VideoPlayerNextgendashHostAPIWorkException");
         }
-      },
-      sourceBufferAbort: function (t, n, r, a) {
-        var e = a.mimeCodecsParsed,
-          i = a.representationId,
-          l = a.type;
-        f(t, n, "abort");
-        var s = o(
-          "VideoPlayerNextgendashHostAPI",
-        ).unopaqueVideoPlayerNextgendashHostSourceBuffer(r);
-        try {
-          s.abort();
-        } catch (n) {
-          var u = o("nextgendasherr").nextgendasherrFromCause(
-            t,
-            n,
-            "VideoPlayerNextgendashHostAPISourceBufferAbortException",
-            "Unable to abort for " + l + " representation %s: mimeCodecs (%s)",
-            i,
-            e.mimeCodecs,
-          );
-          if (
-            typeof n == "object" &&
-            n != null &&
-            n.name === "InvalidStateError"
-          ) {
-            t.logging.log(t, { error: u, type: "generic_error_as_warning" });
-            return;
-          }
-          throw u;
-        }
-      },
-      sourceBufferAppendBuffer: function (t, n, r, a, i) {
-        var e = i.mimeCodecsParsed,
-          l = i.representationId,
-          s = i.type;
-        f(t, n, "appendBuffer");
-        var u = o(
-          "VideoPlayerNextgendashHostAPI",
-        ).unopaqueVideoPlayerNextgendashHostSourceBuffer(r);
-        if (u.updating)
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPISourceBufferAppendBufferIsUpdating",
-            "Unable to appendBuffer for " +
-              s +
-              " representation %s: mimeCodecs (%s) - updating is true.",
-            l,
-            e.mimeCodecs,
-          );
-        try {
-          u.appendBuffer(a);
-        } catch (r) {
-          var c = o("nextgendasherr").nextgendasherrFromCause(t, r, ""),
-            d = t.host.mediaSourceCollectSnapshot(t, n),
-            m = r instanceof Error && r.name === "QuotaExceededError";
-          throw o("nextgendasherr").nextgendasherrFromMultipleCauses(
-            t,
-            [
-              ["appendBuffer", c],
-              d.exception ? ["snapshot", d.exception] : null,
-            ].filter(Boolean),
-            m
-              ? "VideoPlayerNextgendashHostAPISourceBufferAppendBufferQuotaExceededException"
-              : "VideoPlayerNextgendashHostAPISourceBufferAppendBufferException",
-            "Unable to appendBuffer for " +
-              s +
-              " representation %s: mimeCodecs (%s) " +
-              (d.exception ? "snapshotError:partialResults:" : "") +
-              " %s %s %s %s",
-            l,
-            e.mimeCodecs,
-            "mediaSource readyState=" + d.readyState,
-            "mediaSource duration=" + d.duration,
-            "sourceBuffersUpdating=[" +
-              (d.sourceBuffersUpdating
-                ? d.sourceBuffersUpdating.join(",")
-                : "unknown") +
-              "]",
-            "target sourceBuffer updating=" + (u.updating ? "true" : "false"),
-          );
-        }
-      },
-      sourceBufferChangeType: function (t, n, r) {
-        var e = r.mimeCodecsParsed,
-          a = r.mimeCodecsParsedBeforeChangeType,
-          i = r.representationId,
-          l = r.type,
-          s = o(
-            "VideoPlayerNextgendashHostAPI",
-          ).unopaqueVideoPlayerNextgendashHostSourceBuffer(n);
-        if (s.updating)
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPISourceBufferChangeTypeIsUpdating",
-            "Unable to sourceBuffer.changeType(%s) for " +
-              l +
-              " representation %s: mimeCodecs (%s) - updating is true.",
-            e.mimeCodecs,
-            i,
-            a.mimeCodecs,
-          );
-        try {
-          s.changeType(e.mimeCodecs);
-        } catch (n) {
-          throw o("nextgendasherr").nextgendasherrFromCause(
-            t,
-            n,
-            "VideoPlayerNextgendashHostAPISourceBufferChangeTypeException",
-            "Unable to sourceBuffer.changeType(%s) for " +
-              l +
-              " representation %s: mimeCodecs (%s)",
-            e.mimeCodecs,
-            i,
-            a.mimeCodecs,
-          );
-        }
-      },
-      sourceBufferRemove: function (t, n, r, a) {
-        var e = a.mimeCodecsParsed,
-          i = a.removeRange,
-          l = a.representationId,
-          s = a.type;
-        f(t, n, "remove");
-        var u = o(
-          "VideoPlayerNextgendashHostAPI",
-        ).unopaqueVideoPlayerNextgendashHostSourceBuffer(r);
-        if (u.updating)
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPISourceBufferRemoveIsUpdating",
-            "Unable to sourceBuffer.remove() for " +
-              s +
-              " representation %s: mimeCodecs (%s) - updating is true.",
-            l,
-            e.mimeCodecs,
-          );
-        if (u.buffered.length === 0)
-          throw o("nextgendasherr").nextgendasherr(
-            t,
-            "VideoPlayerNextgendashHostAPISourceBufferRemoveNoopNothingBuffered",
-            "Unable to sourceBuffer.remove(%s,%s) for " +
-              s +
-              " representation %s: mimeCodecs (%s) - nothing is buffered.",
-            i[0],
-            i[1],
-            l,
-            e.mimeCodecs,
-          );
-        try {
-          u.remove(i[0], i[1]);
-        } catch (n) {
-          throw o("nextgendasherr").nextgendasherrFromCause(
-            t,
-            n,
-            "VideoPlayerNextgendashHostAPISourceBufferRemoveException",
-            "Unable to sourceBuffer.remove(%s,%s) for " +
-              s +
-              " representation %s: mimeCodecs (%s) - buffered: %s",
-            i[0],
-            i[1],
-            l,
-            e.mimeCodecs,
-            o("VideoPlayerNextgendashMediaUtils").debugStringifyTimeRanges(
-              o("VideoPlayerNextgendashMediaUtils").snapshotTimeRanges(
-                function () {
-                  return u.buffered;
-                },
-              ),
-            ),
-          );
-        }
-      },
-      sourceBufferSnapshotBuffered: function (t, n) {
-        var e = o(
-          "VideoPlayerNextgendashHostAPI",
-        ).unopaqueVideoPlayerNextgendashHostSourceBuffer(n);
-        return o("VideoPlayerNextgendashMediaUtils").snapshotTimeRanges(
-          function () {
-            return e.buffered;
-          },
-        );
       },
       timers: {
         clearInterval: window.clearInterval.bind(window),
@@ -732,37 +297,10 @@ __d(
           return ((f.cancel = _), f);
         },
       },
-    };
-    g.networkIsOnline();
-    var h = g;
-    function y(e, t, n, r, o) {
-      var a = [];
-      return (
-        new Set(r).forEach(function (r) {
-          var i = function (a) {
-            var n = e.host.clock(),
-              i = a.timeStamp,
-              l = n.perfMs - i,
-              s = { perfMs: i, unixMs: n.unixMs - l };
-            o({
-              domEventAdjustedClock: s,
-              domEventClock: n,
-              domEventType: r,
-              eventTarget: t,
-            });
-          };
-          (a.push([r, i]), n.addEventListener(r, i));
-        }),
-        function () {
-          a.forEach(function (e) {
-            var t = e[0],
-              r = e[1];
-            n.removeEventListener(t, r);
-          });
-        }
-      );
-    }
-    l.default = h;
+    });
+    f.networkIsOnline();
+    var g = f;
+    l.default = g;
   },
   98,
 );

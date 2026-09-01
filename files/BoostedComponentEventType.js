@@ -562,6 +562,15 @@ __d(
         "ig_connect_upsell_row_connect_click",
       IG_CONNECT_UPSELL_ROW_CONNECT_SUCCESS:
         "ig_connect_upsell_row_connect_success",
+      IG_CONNECT_UPSELL_PICKER_IMPRESSION:
+        "ig_connect_upsell_picker_impression",
+      IG_CONNECT_UPSELL_PICKER_CLICK: "ig_connect_upsell_picker_click",
+      IG_CONNECT_UPSELL_SETTINGS_IMPRESSION:
+        "ig_connect_upsell_settings_impression",
+      IG_CONNECT_UPSELL_SETTINGS_CONNECT_CLICK:
+        "ig_connect_upsell_settings_connect_click",
+      IG_CONNECT_UPSELL_SETTINGS_CONNECT_SUCCESS:
+        "ig_connect_upsell_settings_connect_success",
       IG_CONNECT_UPSELL_PAC_IMPRESSION: "ig_connect_upsell_pac_impression",
       IG_CONNECT_UPSELL_PAC_CONNECT_CLICK:
         "ig_connect_upsell_pac_connect_click",
@@ -1752,6 +1761,8 @@ __d(
       LOCAL_ADS_LOCATION_ROW_REMOVED: "local_ads_location_row_removed",
       LOCAL_ADS_LOCATIONS_SAVED: "local_ads_locations_saved",
       IG_PLACEMENT_REMOVED_STORY_INVALID: "ig_placement_removed_story_invalid",
+      IG_PLACEMENT_RECOVERED_BY_AD_ACCOUNT:
+        "ig_placement_recovered_by_ad_account",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",

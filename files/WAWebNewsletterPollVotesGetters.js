@@ -10,10 +10,12 @@ __d(
       c = e.unsafeIdentityGetter,
       d = s,
       m = c,
-      p = u("ack");
+      p = u("ack"),
+      _ = u("isUnvote");
     ((l.clearNewsletterPollVotesGetterCacheFor = d),
       (l.getNewsletterPollVotesUnsafe = m),
-      (l.getAck = p));
+      (l.getAck = p),
+      (l.getIsUnvote = _));
   },
   98,
 );

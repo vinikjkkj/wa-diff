@@ -27,6 +27,7 @@ __d(
     "WAWebWamEnumBusinessToolsEntryPointType",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSmbFeatureNameEnum",
+    "WAWebWamEnumSurfaceType",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -220,17 +221,31 @@ __d(
       if (
         !(
           n !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP &&
-          n !== o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME
+          n !== o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
+          n !== o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD
         )
       ) {
         var a = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
         if (a != null) {
           var i = o("WAWebApiParse").parseAPICmd(a);
-          if (i.resultType === "BIZ_BROADCAST_HOME")
+          if (i.resultType === "BIZ_BROADCAST_HOME") {
+            var l =
+                n === o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD,
+              s = l
+                ? o("WAWebWamEnumEntryPoint").ENTRY_POINT.BUSINESS_HOME
+                : void 0,
+              u = l
+                ? o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BUSINESS_HOME_PAGE
+                : void 0;
             return {
               type: "bizBroadcastHome",
               onPrimaryClick: function () {
-                (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
+                (r("WAWebExecApiCmd")({
+                  cmdData: i,
+                  isExternal: !1,
+                  preserveAttribution:
+                    n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME,
+                }),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
                     v(
                       n,
@@ -241,7 +256,11 @@ __d(
               onImpression: function () {
                 (o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.qpBannerViewed(),
+                ).BusinessBroadcastUserJourneyLogger.qpBannerViewed(
+                  void 0,
+                  s,
+                  u,
+                ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
                     v(
                       n,
@@ -252,7 +271,11 @@ __d(
               onDismiss: function () {
                 (o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.qpBannerDismissed(),
+                ).BusinessBroadcastUserJourneyLogger.qpBannerDismissed(
+                  void 0,
+                  s,
+                  u,
+                ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
                     v(
                       n,
@@ -262,6 +285,7 @@ __d(
                     ));
               },
             };
+          }
         }
       }
     }
@@ -295,14 +319,21 @@ __d(
               {
                 type: "bizBroadcastCreate",
                 onPrimaryClick: function () {
-                  (l != null &&
-                    o(
-                      "WAWebSMBUserJourneyLogger",
-                    ).SMBUserJourneyLogger.setEntryPointDetails(
-                      l,
-                      o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
-                        .BUSINESS_BROADCAST,
-                    ),
+                  (o(
+                    "WAWebSMBUserJourneyLogger",
+                  ).SMBUserJourneyLogger.setEntryPoint(
+                    o("WAWebWamEnumEntryPoint").ENTRY_POINT.BUSINESS_TOOLS,
+                    o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+                      .BUSINESS_BROADCAST,
+                  ),
+                    l != null &&
+                      o(
+                        "WAWebSMBUserJourneyLogger",
+                      ).SMBUserJourneyLogger.setEntryPointDetails(
+                        l,
+                        o("WAWebWamEnumSmbFeatureNameEnum")
+                          .SMB_FEATURE_NAME_ENUM.BUSINESS_BROADCAST,
+                      ),
                     o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                       u.jsx(
                         o("WAWebBizBroadcastNewBroadcastFlowLoadable")

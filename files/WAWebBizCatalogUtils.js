@@ -86,7 +86,12 @@ __d(
             else {
               var l = a === !0 ? s : void 0;
               this.loading = this.catalog.collections
-                .findCollectionProducts(this.catalog.id, i, !1, l)
+                .findCollectionProducts({
+                  forCatalogManager: !1,
+                  catalogWid: this.catalog.id,
+                  collectionId: i,
+                  markerId: l,
+                })
                 .then(function () {
                   var e;
                   ((t.canLoadMoreCollectionItems = !!(

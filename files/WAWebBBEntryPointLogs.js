@@ -57,25 +57,29 @@ __d(
         userActionTarget: t.UserActionTarget.BUSINESS_BROADCASTS_BUTTON,
       });
     }
-    function p(e, t) {
-      var n;
-      e({
-        action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        entryPoint: n.ENTRY_POINT.CHAT_BANNER,
-        entryPointDetails: t,
-        surface: n.SURFACE_TYPE.CHATLIST,
-        userActionTarget: n.UserActionTarget.QP_BANNER,
-      });
+    function p(e, t, n, r) {
+      (n === void 0 && (n = o("WAWebBBLoggerTypes").ENTRY_POINT.CHAT_BANNER),
+        r === void 0 && (r = o("WAWebBBLoggerTypes").SURFACE_TYPE.CHATLIST),
+        e({
+          action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+          entryPoint: n,
+          entryPointDetails: t,
+          stickyEntryPoint: !1,
+          surface: r,
+          userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.QP_BANNER,
+        }));
     }
-    function _(e, t) {
-      var n;
-      e({
-        action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.DISMISS,
-        entryPoint: n.ENTRY_POINT.CHAT_BANNER,
-        entryPointDetails: t,
-        surface: n.SURFACE_TYPE.CHATLIST,
-        userActionTarget: n.UserActionTarget.QP_BANNER,
-      });
+    function _(e, t, n, r) {
+      (n === void 0 && (n = o("WAWebBBLoggerTypes").ENTRY_POINT.CHAT_BANNER),
+        r === void 0 && (r = o("WAWebBBLoggerTypes").SURFACE_TYPE.CHATLIST),
+        e({
+          action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+          entryPoint: n,
+          entryPointDetails: t,
+          stickyEntryPoint: !1,
+          surface: r,
+          userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.QP_BANNER,
+        }));
     }
     function f(e, t) {
       var n;

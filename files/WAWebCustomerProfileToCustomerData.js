@@ -27,7 +27,23 @@ __d(
         })
       );
     }
-    function s(e) {
+    function s(e, t) {
+      return new (o("WAWebCustomerDataModel").CustomerData)({
+        acquisitionSource: e.acquisitionSource,
+        address: e.address,
+        altPhoneNumbers: e.altPhoneNumbers,
+        birthday: e.birthday,
+        chatJid: e.chatJid,
+        contactType: e.contactType,
+        createdAt: e.createdAt,
+        email: e.email,
+        id: String(e.id),
+        lastOrder: e.lastOrder,
+        leadStage: t,
+        modifiedAt: e.modifiedAt,
+      });
+    }
+    function u(e) {
       var t = o(
         "WAWebCustomerDataCollection",
       ).CustomerDataCollection.maybeGetCustomerDataByChatJid(e.chatJid);
@@ -48,7 +64,7 @@ __d(
             modifiedAt: e.modifiedAt,
           });
     }
-    function u(e) {
+    function c(e) {
       var t = o("WATimeUtils").castToUnixTime(0);
       return new (o("WAWebCustomerDataModel").CustomerData)({
         acquisitionSource: null,
@@ -66,8 +82,9 @@ __d(
       });
     }
     ((l.customerDataFromProfileRecord = e),
-      (l.withClientOnlyFields = s),
-      (l.emptyCustomerData = u));
+      (l.customerDataWithLeadStage = s),
+      (l.withClientOnlyFields = u),
+      (l.emptyCustomerData = c));
   },
   98,
 );

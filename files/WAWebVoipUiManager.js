@@ -69,15 +69,16 @@ __d(
       O = null,
       B = null,
       W = null,
-      q = null;
-    function U() {
+      q = null,
+      U = !1;
+    function V() {
       if (!A) {
         var e;
         (r("WAWebCallCollection").on(
           (e = o("WAWebVoipEventConstants")).getChangeEvent(
             e.VoipCallCollectionEvents.ACTIVE_CALL,
           ),
-          j,
+          X,
         ),
           r("WAWebCallCollection").on(
             e.getChangeEvent(e.VoipCallCollectionEvents.END_CALL_TONE),
@@ -86,13 +87,13 @@ __d(
           (A = !0));
       }
     }
-    function V() {
+    function H() {
       var e;
       (r("WAWebCallCollection").off(
         (e = o("WAWebVoipEventConstants")).getChangeEvent(
           e.VoipCallCollectionEvents.ACTIVE_CALL,
         ),
-        j,
+        X,
       ),
         r("WAWebCallCollection").off(
           e.getChangeEvent(e.VoipCallCollectionEvents.END_CALL_TONE),
@@ -100,13 +101,19 @@ __d(
         ),
         (A = !1));
     }
-    function H() {
+    function G() {
+      (q == null || q(), (q = null));
+    }
+    function z() {
+      return U ? !1 : ((U = !0), !0);
+    }
+    function j() {
       (F == null || F(),
         (F = o("WAWebTimeSpentLoggingExternal").beginTsExternalEvent(
           o("WAWebWamEnumTsExternalEventSource").TS_EXTERNAL_EVENT_SOURCE.CALL,
         )));
     }
-    function G(e, t) {
+    function K(e, t) {
       if (e.msg != null) return (t(), r("WAWebNoop"));
       var n = function () {
         e.msg != null &&
@@ -135,15 +142,15 @@ __d(
         }
       );
     }
-    function z(e) {
+    function Q(e) {
       return e != null
         ? o("WAWebVoipWaCallEnums").CallState.getName(e)
         : "unknown";
     }
-    function j() {
+    function X() {
       var t = r("WAWebCallCollection").activeCall;
       if (t != null && !o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-        V();
+        H();
         return;
       }
       if (t == null) {
@@ -151,6 +158,7 @@ __d(
         (o("WAWebVoipQplHelpers").endVoipUiLifecycleQplSuccess(),
           q == null || q(),
           (q = null),
+          (U = !1),
           O == null || O(),
           (O = null),
           B == null || B(),
@@ -168,7 +176,7 @@ __d(
                 "[voip] call ended, keeping windows for survey",
               ])),
           ),
-            V());
+            H());
           return;
         }
         o("WALogger").LOG(
@@ -199,14 +207,14 @@ __d(
             i.outgoing !== !0 &&
             y != null &&
             o("WAWebMuteGetters").getIsCallMuted(y);
-        oe({ callEnded: !0, surveyInteracted: g, delayPiP: !C });
+        le({ callEnded: !0, surveyInteracted: g, delayPiP: !C });
       } else {
         (W != null &&
           (window.clearTimeout(W),
           (W = null),
           r("WAWebCallCollection").pendingOutgoingCall == null &&
             r("WAWebPipController").closePiP(),
-          V()),
+          H()),
           (r("WAWebCallCollection").lastActiveCall = t),
           t.isCallLink !== !0 &&
             r("WAWebCallCollection").pendingCallLink != null &&
@@ -223,7 +231,7 @@ __d(
             o("WAWebVoipActivityTracker").trackUiActivity(
               o("WAWebVoipActivityTracker").VoipUiActivity.VOIP_WINDOW_LAUNCHED,
             ),
-            U());
+            V());
           return;
         }
         var v = t.isInCallLinkLobby();
@@ -235,7 +243,7 @@ __d(
               ])),
           ),
             r("WAWebPipController").openVoipUiPiPForCallLink(),
-            U());
+            V());
           return;
         }
         if (t.isCallLink && t.callLinkState != null) {
@@ -253,7 +261,7 @@ __d(
                   isArmed: !0,
                 })
               : (B == null || B(),
-                (B = G(t, function () {
+                (B = K(t, function () {
                   ((B = null),
                     r("WAWebCallCollection").activeCall === t &&
                       o(
@@ -263,7 +271,7 @@ __d(
                         { callLogMsg: t.msg },
                       ));
                 }))),
-            U());
+            V());
           return;
         }
         if (t.offerReceivedWhileOffline) {
@@ -273,7 +281,7 @@ __d(
                 "[voip] skipping PiP for offline-flushed call",
               ])),
           ),
-            U());
+            V());
           return;
         }
         if (t.msg) {
@@ -288,7 +296,7 @@ __d(
             L = t.getState();
           o("WAWebVoipQplHelpers").startVoipUiLifecycleQpl({
             bool: { is_incoming: R },
-            string: { initial_call_state: z(L) },
+            string: { initial_call_state: Q(L) },
           });
           var E = function () {
               o("WAWebReleaseToEventLoop")
@@ -321,7 +329,7 @@ __d(
                       o("WAWebReleaseToEventLoop")
                         .releaseToEventLoop()
                         .then(function () {
-                          ne();
+                          ae();
                         }));
                 });
             },
@@ -336,10 +344,10 @@ __d(
                 ).MuteCollection.getGlobalCallNotifications());
           if (R)
             if (o("WAWebVoipCallStateUtils").isCallActive(L))
-              (q == null || q(), (q = null), H());
+              (q == null || q(), (q = null), j());
             else {
               var I;
-              te(L);
+              ((U = !1), oe(L));
               var T = t.peerJid,
                 D =
                   T != null
@@ -364,9 +372,8 @@ __d(
                   P.toString(),
                 )),
                 O == null || O());
-              var N = function () {
-                if (o("WAWebVoipCallStateUtils").isCallActive(t.getState())) {
-                  (q == null || q(), (q = null), H());
+              var N = !1,
+                M = function () {
                   var e =
                     o(
                       "WAWebVoipGatingUtils",
@@ -374,36 +381,49 @@ __d(
                     o(
                       "WAWebVoipUiPopoutWindowPortalContainer.react",
                     ).getIsCallActiveInPopoutWindow();
-                  (k && !e && E(), O == null || O(), (O = null));
-                }
-              };
+                  N || e || !(k || U) || ((N = !0), E());
+                },
+                w = function () {
+                  var e = t.getState();
+                  if (o("WAWebVoipCallStateUtils").isCallConnecting(e)) {
+                    (q == null || q(), (q = null), M());
+                    return;
+                  }
+                  o("WAWebVoipCallStateUtils").isCallActive(e) &&
+                    (q == null || q(),
+                    (q = null),
+                    j(),
+                    M(),
+                    O == null || O(),
+                    (O = null));
+                };
               (t.on(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
                 ),
-                N,
+                w,
               ),
                 (O = function () {
                   t.off(
                     o("WAWebVoipEventConstants").getChangeEvent(
                       o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
                     ),
-                    N,
+                    w,
                   );
                 }));
             }
-          else H();
+          else j();
           k || E();
         } else {
-          var M = Date.now();
+          var A = Date.now();
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip] call changed, msg not ready, waiting for PiP",
               ])),
           );
-          var w = function () {
-            var e = Date.now() - M;
+          var G = function () {
+            var e = Date.now() - A;
             (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -416,49 +436,49 @@ __d(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
                 ),
-                w,
+                G,
               ),
-              j());
+              X());
           };
           t.on(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
             ),
-            w,
+            G,
           );
         }
-        U();
+        V();
       }
     }
-    var K = 48,
-      Q = 16,
-      X = 4 / 3,
-      Y = { left: 200, top: 200 },
-      J = 640;
-    function Z(e, t) {
+    var Y = 48,
+      J = 16,
+      Z = 4 / 3,
+      ee = { left: 200, top: 200 },
+      te = 640;
+    function ne(e, t) {
       t === void 0 && (t = !1);
       var n = o("WAWebVoipWindowConstants").getEffectiveMinWindowWidth(),
         r = t
           ? Math.max(
-              J,
+              te,
               o("WAWebVoipWindowConstants").MIN_WINDOW_WIDTH_WITH_SIDEBAR,
             )
-          : J,
+          : te,
         a = Math.max(r, n),
         i = a / e,
-        l = Math.round(i + K + Q);
+        l = Math.round(i + Y + J);
       return {
         width: Math.max(a, o("WAWebVoipWindowConstants").MIN_WINDOW_WIDTH),
         height: Math.max(l, o("WAWebVoipWindowConstants").MIN_WINDOW_HEIGHT),
       };
     }
-    function ee(e) {
+    function re(e) {
       (e.document.write(
         "<!DOCTYPE html><html><head></head><body></body></html>",
       ),
         e.document.close());
     }
-    function te(e) {
+    function oe(e) {
       !o("WAWebVoipGatingUtils").isWinHybridPlusIncomingPopoutEnabled() ||
         !o("WAWebVoipCallStateUtils").isCallIncoming(e) ||
         o(
@@ -470,7 +490,7 @@ __d(
         o("WAWebReleaseToEventLoop")
           .releaseToEventLoop()
           .then(function () {
-            ne();
+            ae();
           })
           .catch(function (e) {
             o("WALogger")
@@ -484,7 +504,7 @@ __d(
               .sendLogs("voip-hybrid-plus-ring-popout-open-fail");
           });
     }
-    function ne() {
+    function ae() {
       var e;
       if (
         o(
@@ -513,10 +533,10 @@ __d(
         );
         return;
       }
-      var a = Z(X, (t == null ? void 0 : t.isGroup) === !0),
+      var a = ne(Z, (t == null ? void 0 : t.isGroup) === !0),
         i = a.height,
         l = a.width,
-        s = babelHelpers.extends({ width: l, height: i }, Y);
+        s = babelHelpers.extends({ width: l, height: i }, ee);
       (o("WAWebFullscreenDetection").isFullscreen() &&
         o("WALogger").LOG(
           C ||
@@ -637,7 +657,7 @@ __d(
               "[voip] SW disabled/gated, using manual doc bootstrap",
             ])),
         ),
-          ee(f),
+          re(f),
           g());
         return;
       }
@@ -713,7 +733,7 @@ __d(
                     "[voip] timeout fallback: bootstrap about:blank doc",
                   ])),
               ),
-              ee(f));
+              re(f));
           }
           F();
         }, M)),
@@ -728,12 +748,12 @@ __d(
             F());
         }, 500)));
     }
-    function re(e) {
+    function ie(e) {
       o(
         "WAWebVoipUiPopoutWindowPortalContainer.react",
       ).WAWebVoipUiPopoutWindowEventEmitter.trigger("closePopoutWindow", e);
     }
-    function oe(e) {
+    function le(e) {
       var t = e.callEnded,
         n = e.delayPiP,
         a = n === void 0 ? !1 : n,
@@ -746,20 +766,22 @@ __d(
           ? 0
           : N;
         W = window.setTimeout(function () {
-          ((W = null), r("WAWebPipController").closePiP(), V());
+          ((W = null), r("WAWebPipController").closePiP(), H());
         }, s);
       } else r("WAWebPipController").closePiP();
-      (re({ callEnded: t, surveyInteracted: l }),
+      (ie({ callEnded: t, surveyInteracted: l }),
         o(
           "WAWebVoipUiDocPipPortalContainer.react",
         ).WAWebVoipUiDocPipEventEmitter.trigger("closeDocPip", {
           surveyInteracted: l,
         }));
     }
-    ((l.setupVoipActiveCallChangeListener = U),
-      (l.openVoipUiPopoutWindow = ne),
-      (l.closeVoipUiPopoutWindow = re),
-      (l.closeAllVoipWindows = oe));
+    ((l.setupVoipActiveCallChangeListener = V),
+      (l.stopIncomingCallTitleFlash = G),
+      (l.markIncomingMiniPlayerDismissed = z),
+      (l.openVoipUiPopoutWindow = ae),
+      (l.closeVoipUiPopoutWindow = ie),
+      (l.closeAllVoipWindows = le));
   },
   226,
 );

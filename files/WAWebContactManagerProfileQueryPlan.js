@@ -35,11 +35,11 @@ __d(
           lastMessageRange: e.lastMessageRange,
           leadStages: a == null ? e.leadStages : [],
         },
-        s = C(t == null ? void 0 : t.key);
+        s = b(t == null ? void 0 : t.key);
       return {
         candidateLids: n,
         filters: r,
-        requiresFullScan: f(l) || g(t, s),
+        requiresFullScan: g(l) || h(t, s),
         residual: l,
         sortColumn: s,
         sortDescending: (t == null ? void 0 : t.direction) === "desc",
@@ -56,7 +56,30 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { requiresFullScan: !0 });
     }
-    function f(e) {
+    function f(e, t, n) {
+      var r = m(e, null, t),
+        a = [].concat(
+          r.filters.filter(function (e) {
+            var t = e.fieldName;
+            return t !== "lead_stage";
+          }),
+          [
+            {
+              fieldName: "lead_stage",
+              filterText: o(
+                "WAWebContactManagerCustomerProfileDecoders",
+              ).toLeadStageFilterText(n),
+            },
+          ],
+        ),
+        i = babelHelpers.extends({}, r.residual, { leadStages: [] });
+      return babelHelpers.extends({}, r, {
+        filters: a,
+        requiresFullScan: g(i),
+        residual: i,
+      });
+    }
+    function g(e) {
       return (
         e.leadStages.length > 0 ||
         e.labelId != null ||
@@ -64,13 +87,13 @@ __d(
         e.lastMessageCustomRange != null
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       return e == null ? !1 : t == null || e.key === "customer";
     }
-    function h() {
+    function y() {
       return u;
     }
-    function y(e) {
+    function C(e) {
       return JSON.stringify([
         e.candidateLids,
         e.filters.map(function (e) {
@@ -83,7 +106,7 @@ __d(
         e.requiresFullScan,
       ]);
     }
-    function C(e) {
+    function b(e) {
       return e === "customer" ? "name" : e === "email" ? "email" : null;
     }
     ((l.MIN_SEARCH_QUERY_LENGTH = e),
@@ -91,9 +114,10 @@ __d(
       (l.buildProfileQueryPlan = m),
       (l.isSearchQueryActive = p),
       (l.withFullScan = _),
-      (l.hasResidual = f),
-      (l.emptyProfileQueryResidual = h),
-      (l.profileQueryPlanKey = y));
+      (l.buildPipelineColumnPlan = f),
+      (l.hasResidual = g),
+      (l.emptyProfileQueryResidual = y),
+      (l.profileQueryPlanKey = C));
   },
   98,
 );

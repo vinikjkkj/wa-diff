@@ -21,50 +21,44 @@ __d(
       s = (e || (e = o("react"))).useEffect;
     function u(e) {
       var t,
-        n,
-        a = o("useWAWebChatValues").useChatValues(e.id, [
+        n = o("useWAWebChatValues").useChatValues(e.id, [
           o("WAWebFrontendChatGetters").getHasRequestedWelcomeMsg,
         ]),
-        i = a[0],
-        l =
+        a = n[0],
+        i =
           o("WAWebBotBaseGating").isBizBot1pEnabled() ||
           o("WAWebBotGating").isBizBot3pAvailable()
             ? e.id
-            : null,
-        u =
-          (t = o("WAWebUseBusinessProfile.react").useBusinessProfile(l, [
-            "automatedType",
-            "welcomeMsgProtocolMode",
-          ])) != null
-            ? t
-            : {},
-        c = u.welcomeMsgProtocolMode,
-        d =
-          (n = o(
+            : null;
+      o("WAWebUseBusinessProfile.react").useBusinessProfile(i);
+      var l =
+          (t = o(
             "useWAWebBusinessProfileValues",
-          ).useOptionalBusinessProfileValues(l, [
+          ).useOptionalBusinessProfileValues(i, [
+            o("WAWebBusinessProfileGetters").getWelcomeMsgProtocolMode,
             o("WAWebBusinessProfileGetters").getIsBizBot1p,
           ])) != null
-            ? n
-            : [],
-        m = d[0],
-        p = m === !0,
-        _ = r("useWAWebStableCallback")(function () {
+            ? t
+            : [null, null],
+        u = l[0],
+        c = l[1],
+        d = c === !0,
+        m = r("useWAWebStableCallback")(function () {
           var t =
-            c != null &&
-            c !== o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE;
-          ((o("WAWebBotBaseGating").isBizBot1pEnabled() && p === !0) ||
+            u != null &&
+            u !== o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE;
+          ((o("WAWebBotBaseGating").isBizBot1pEnabled() && d === !0) ||
             (o("WAWebBotGating").isBizBot3pAvailable() && t)) &&
             o("WAWebBotTos").hasAcceptedBizBotTos() &&
-            !i &&
+            !a &&
             o("WAWebSendBotRequestWelcomeAction").sendBotRequestWelcome(e);
         });
-      (o("useWAWebListener").useListener(o("WAWebTos").TosManager, "change", _),
+      (o("useWAWebListener").useListener(o("WAWebTos").TosManager, "change", m),
         s(
           function () {
-            return _();
+            return m();
           },
-          [p, c, e],
+          [d, u, e],
         ));
     }
     l.useMaybeRequestWelcomeMessage = u;

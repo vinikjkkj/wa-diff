@@ -424,7 +424,7 @@ __d(
             });
         }),
         (r.$28 = function () {
-          (clearTimeout(this.$17), delete this.$9);
+          (window.clearTimeout(this.$17), (this.$9 = null));
         }),
         (t.disable = function () {
           m = !0;

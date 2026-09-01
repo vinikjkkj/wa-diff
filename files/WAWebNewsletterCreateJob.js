@@ -15,70 +15,79 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebURLUtils",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t) {
+    var e, s;
+    function u(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "createNewsletter",
           function () {
             return o("WAWebNewsletterCreateQueryJob")
-              .createNewsletterQuery(t)
+              .createNewsletterQuery(e)
               .then(
                 (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      if (t == null) return null;
-                      var n = o(
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      if (e == null) return null;
+                      var n =
+                          (t == null
+                            ? void 0
+                            : t.preserveServerResultOnLocalHydrationFailure) ===
+                          !0,
+                        r;
+                      if (n)
+                        try {
+                          r = o(
+                            "WAWebNewsletterModelUtils",
+                          ).mapNewsletterToModels(e);
+                        } catch (t) {
+                          return (c(t), { newsletter: e, msgs: [] });
+                        }
+                      else
+                        r = o(
                           "WAWebNewsletterModelUtils",
-                        ).mapNewsletterToModels(t),
-                        r = n.chat,
-                        a = n.metadata;
+                        ).mapNewsletterToModels(e);
+                      var a = r,
+                        i = a.chat,
+                        l = a.metadata,
+                        s = [];
                       try {
-                        var i = o(
+                        ((s = o(
                           "WAWebNewsletterSystemMessages",
                         ).genNewsletterCreationSystemMessages({
-                          id: r.id,
-                          name: r.name,
-                          t: a.creationTime,
-                          role: a.membershipType,
-                        });
-                        return (
+                          id: i.id,
+                          name: i.name,
+                          t: l.creationTime,
+                          role: l.membershipType,
+                        })),
                           yield o(
                             "WAWebNewsletterUpdateNewslettersRecordsJob",
                           ).updateNewsletterChatRecords([
                             o(
                               "WAWebCreateChat",
-                            ).createNewsletterObjectForStorage(r),
+                            ).createNewsletterObjectForStorage(i),
                           ]),
                           yield o(
                             "WAWebNewsletterUpdateMsgsRecordsJob",
-                          ).addNewsletterMsgsRecords(i),
+                          ).addNewsletterMsgsRecords(s),
                           yield o(
                             "WAWebNewsletterMetadataJob",
                           ).updateNewsletterMetadata(
                             o(
                               "WAWebNewsletterStorageUtils",
-                            ).createNewsletterMetadataObjectForStorage(a),
-                          ),
-                          { newsletter: t, msgs: i }
-                        );
-                      } catch (t) {
-                        o("WALogger")
-                          .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "[newsletter][join-notif] db update failed",
-                              ])),
-                          )
-                          .tags("newsletter")
-                          .sendLogs("newsletter-join-notification-db-fail");
+                            ).createNewsletterMetadataObjectForStorage(l),
+                          ));
+                      } catch (e) {
+                        if ((d(e), !n)) return null;
+                        s = [];
                       }
+                      return { newsletter: e, msgs: s };
                     },
                   );
-                  return function (e) {
-                    return t.apply(this, arguments);
+                  return function (t) {
+                    return e.apply(this, arguments);
                   };
                 })(),
               );
@@ -87,13 +96,37 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function u(e) {
+    function c(t) {
+      o("WALogger")
+        .ERROR(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[newsletter][create] model hydration failed",
+            ])),
+        )
+        .catching(r("getErrorSafe")(t))
+        .tags("newsletter")
+        .sendLogs("newsletter-create-model-hydration-fail");
+    }
+    function d(e) {
+      o("WALogger")
+        .ERROR(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[newsletter][create] local persistence failed",
+            ])),
+        )
+        .catching(r("getErrorSafe")(e))
+        .tags("newsletter")
+        .sendLogs("newsletter-create-local-persistence-fail");
+    }
+    function m(e) {
       if (e == null) return null;
       var t = r("WAWebURLUtils").parseDataURL(e).data,
         n = o("WABase64").decodeB64(t);
       return new Uint8Array(n);
     }
-    ((l.createNewsletter = s), (l.encodePicture = u));
+    ((l.createNewsletter = u), (l.encodePicture = m));
   },
   98,
 );

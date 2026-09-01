@@ -3,10 +3,12 @@ __d(
   [
     "WAWebBotBaseGating",
     "WAWebBotProfileGetters",
+    "WAWebBusinessProfileGetters",
     "WAWebMsgGetters",
     "WAWebUseBusinessProfile.react",
     "WAWebUserPrefsMeUser",
     "react-compiler-runtime",
+    "useWAWebBusinessProfileValues",
     "useWAWebMsgValues",
     "useWAWebOptionalBotProfileValues",
   ],
@@ -18,16 +20,20 @@ __d(
       return t || n;
     }
     function s(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      o("WAWebMsgGetters").getIsGroupMsg(e) ||
-        (n = o("WAWebUserPrefsMeUser").isMeAccount(e.from) ? e.to : e.from);
-      var r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = ["commands"]), (t[0] = r))
-        : (r = t[0]);
-      var a = o("WAWebUseBusinessProfile.react").useBusinessProfile(n, r);
-      return a == null ? void 0 : a.commands;
+      var t, n;
+      (o("WAWebMsgGetters").getIsGroupMsg(e) ||
+        (n = o("WAWebUserPrefsMeUser").isMeAccount(e.from) ? e.to : e.from),
+        o("WAWebUseBusinessProfile.react").useBusinessProfile(n));
+      var r =
+          (t = o(
+            "useWAWebBusinessProfileValues",
+          ).useOptionalBusinessProfileValues(n, [
+            o("WAWebBusinessProfileGetters").getCommands,
+          ])) != null
+            ? t
+            : [],
+        a = r[0];
+      return a;
     }
     function u(e) {
       var t = o("react-compiler-runtime").c(2),

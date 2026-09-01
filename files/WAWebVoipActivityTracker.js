@@ -69,6 +69,7 @@ __d(
         CONTROL_PANEL_END_CALL_CLICK: "control_panel_end_call_click",
         CONTROL_PANEL_ACCEPT_CALL_CLICK: "control_panel_accept_call_click",
         CONTROL_PANEL_REJECT_CALL_CLICK: "control_panel_reject_call_click",
+        CONTROL_PANEL_DISMISS_CALL_CLICK: "control_panel_dismiss_call_click",
         CONTROL_PANEL_RAISE_HAND_CLICK: "control_panel_raise_hand_click",
         CONTROL_PANEL_REACTIONS_CLICK: "control_panel_reactions_click",
         CONTROL_PANEL_MORE_OPTIONS_CLICK: "control_panel_more_options_click",

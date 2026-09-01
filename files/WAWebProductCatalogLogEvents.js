@@ -554,17 +554,21 @@ __d(
       });
       r.commit();
     }
-    function U(e, t, n, r) {
-      var a = new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({
-        catalogBizAction: o("WAWebWamEnumCatalogBizAction").CATALOG_BIZ_ACTION
-          .ACTION_PRODUCT_DELETE_FAILED,
-        catalogEntryPoint: n.entryPoint,
-        productId: e.id.toString(),
-        productCount: t,
-        errorCode: r,
-        catalogSessionId: n.session.toString(),
-      });
-      a.commit();
+    function U(e) {
+      var t = e.context,
+        n = e.errorCode,
+        r = e.product,
+        a = e.productCount,
+        i = new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({
+          catalogBizAction: o("WAWebWamEnumCatalogBizAction").CATALOG_BIZ_ACTION
+            .ACTION_PRODUCT_DELETE_FAILED,
+          catalogEntryPoint: t.entryPoint,
+          productId: r.id.toString(),
+          productCount: a,
+          errorCode: n,
+          catalogSessionId: t.session.toString(),
+        });
+      i.commit();
     }
     function V(e) {
       var t = new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({

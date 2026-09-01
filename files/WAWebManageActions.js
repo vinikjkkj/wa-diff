@@ -60,12 +60,12 @@ __d(
           } catch (e) {
             if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError)
               return (
-                o("WAWebProductCatalogLogEvents").logDeleteProductFailed(
-                  t,
-                  1,
-                  n,
-                  e.statusCode,
-                ),
+                o("WAWebProductCatalogLogEvents").logDeleteProductFailed({
+                  context: n,
+                  errorCode: e.statusCode,
+                  product: t,
+                  productCount: 1,
+                }),
                 o("WAWebToastManager").ToastManager.open(
                   m.jsx(o("WAWebToast.react").Toast, {
                     msg: s._(/*BTDS*/ "Couldn't delete product"),
@@ -215,20 +215,23 @@ __d(
         })
       );
     }
-    function S(e, t, n) {
+    function S(e) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.catalog,
+            n = e.collection,
+            r = e.context;
           (yield o("WAWebProductCollectionsJob").deleteCollection(
-            t.id.toString(),
-            n.session.sessionId.toString(),
+            n.id.toString(),
+            r.session.sessionId.toString(),
           ),
-            e.collections.remove(t.id.toString()),
+            t.collections.remove(n.id.toString()),
             o("WAWebProductCollectionLogEvents").logCollectionDeleted({
-              catalogContext: n,
-              collectionId: t.id,
+              catalogContext: r,
+              collectionId: n.id,
             }));
         })),
         R.apply(this, arguments)
@@ -243,7 +246,7 @@ __d(
           cancelText: s._(/*BTDS*/ "Cancel"),
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(),
-              S(t, n, a).catch(function (t) {
+              S({ catalog: t, collection: n, context: a }).catch(function (t) {
                 return o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
                   function (t) {

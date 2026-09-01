@@ -23,48 +23,62 @@ __d(
         var t = e.prototype;
         return (
           (t.setEntryPoint = function (t, n) {
-            this.$3.set(n, t);
+            (this.$4.delete(n), this.$3.set(n, t));
+          }),
+          (t.getEntryPoint = function (t) {
+            return this.$3.get(t);
           }),
           (t.setEntryPointDetails = function (t, n) {
             this.$4.set(n, t);
           }),
           (t.log = function (t) {
             var e,
-              n = new (o(
+              n,
+              r = new (o(
                 "WAWebSmbUserJourneyWamEvent",
               ).SmbUserJourneyWamEvent)();
-            ((n.smbFeatureName = t.featureName),
-              (n.smbUserActionType = t.userActionType),
-              (n.surface = t.surface),
-              (n.smbUserSessionId = this.$1),
-              (n.seqId = this.$2),
-              t.entryPoint != null &&
-                t.stickyEntryPoint !== !1 &&
-                this.$3.set(t.featureName, t.entryPoint));
-            var r =
+            ((r.smbFeatureName = t.featureName),
+              (r.smbUserActionType = t.userActionType),
+              (r.surface = t.surface),
+              (r.smbUserSessionId = this.$1),
+              (r.seqId = this.$2));
+            var a = t.entryPoint;
+            if (a != null && t.stickyEntryPoint !== !1) {
+              var i = this.$3.get(t.featureName);
+              (i != null &&
+                i !== a &&
+                t.entryPointDetails == null &&
+                this.$4.delete(t.featureName),
+                this.$3.set(t.featureName, a));
+            }
+            var l =
               t.stickyEntryPoint === !1
                 ? t.entryPoint
                 : (e = t.entryPoint) != null
                   ? e
                   : this.$3.get(t.featureName);
-            (r != null && (n.entryPoint = r),
+            (l != null && (r.entryPoint = l),
               t.entryPointDetails != null &&
+                t.stickyEntryPoint !== !1 &&
                 this.$4.set(t.featureName, t.entryPointDetails));
-            var a = this.$4.get(t.featureName);
-            (a != null && (n.entryPointDetails = a),
+            var s =
+              (n = t.entryPointDetails) != null
+                ? n
+                : this.$4.get(t.featureName);
+            (s != null && (r.entryPointDetails = s),
               t.userActionTarget != null &&
-                (n.userActionTarget = t.userActionTarget),
+                (r.userActionTarget = t.userActionTarget),
               t.extraAttributes != null &&
-                (n.extraAttributes = JSON.stringify(t.extraAttributes)),
-              t.bbTier != null && (n.bbTier = t.bbTier),
-              n.commit(),
+                (r.extraAttributes = JSON.stringify(t.extraAttributes)),
+              t.bbTier != null && (r.bbTier = t.bbTier),
+              r.commit(),
               (this.$2 += 1));
           }),
           e
         );
       })(),
       s = new e();
-    l.SMBUserJourneyLogger = s;
+    ((l.WAWebSMBUserJourneyLogger = e), (l.SMBUserJourneyLogger = s));
   },
   98,
 );
