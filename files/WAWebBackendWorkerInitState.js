@@ -7,6 +7,7 @@ __d(
     "WAWebBackendWorkerClient",
     "WAWebCallsOnlyGating",
     "WAWebGlobals",
+    "WAWebJobsMigrationGating",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
     "asyncToGeneratorRuntime",
@@ -87,6 +88,9 @@ __d(
               lidDeviceJid: l != null ? String(l) : null,
               displayName: i != null ? String(i) : null,
               callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),
+              jobsMigrationGates: o(
+                "WAWebJobsMigrationGating",
+              ).getJobsMigrationGates(),
             },
             dbInit: babelHelpers.extends({}, r, {
               salt: new Uint8Array(r.salt),

@@ -12,9 +12,8 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgFanoutTypes",
     "WAWebMsgGetters",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPostMdDeviceSyncAckMetric",
+    "WAWebRequestMsgResend",
     "WAWebResendUserMsg",
     "WAWebSendMsgToDeviceList",
     "WAWebSimpleSignalPNToFBIDMigration",
@@ -210,28 +209,23 @@ __d(
             a = e.metricReporter,
             i = e.msgProtobuf,
             l = e.msgRecord,
-            s = e.scheduledMsgMetadata,
-            u = yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.maybeCreateJob(
-                o("WAWebPersistedJobDefinitions").jobSerializers.resendUserMsg(
-                  l,
-                  r,
-                  t,
-                ),
-              );
-          (yield o("WAWebResendUserMsg").resendUserMsg({
-            ackTime: t,
-            chatId: n,
-            excludeList: r,
-            metricReporter: a,
-            msgProtobuf: i,
-            msgRecord: l,
-            scheduledMsgMetadata: s,
-          }),
-            yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.deletePersistedJob(u.id));
+            s = e.scheduledMsgMetadata;
+          yield o("WAWebRequestMsgResend").runUserMsgResendRecorded(
+            l,
+            r,
+            t,
+            function () {
+              return o("WAWebResendUserMsg").resendUserMsg({
+                ackTime: t,
+                chatId: n,
+                excludeList: r,
+                metricReporter: a,
+                msgProtobuf: i,
+                msgRecord: l,
+                scheduledMsgMetadata: s,
+              });
+            },
+          );
         })),
         h.apply(this, arguments)
       );

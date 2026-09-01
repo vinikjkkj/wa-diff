@@ -25,6 +25,8 @@ __d(
       "SubgroupJoin",
       "Deeplink",
       "Chatlist",
+      "ChatlistAiHandoffFilter",
+      "ChatlistAiRespondingFilter",
       "Vcard",
       "Notification",
       "NumberChangeNotificationBanner",

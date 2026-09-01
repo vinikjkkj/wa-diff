@@ -21,8 +21,7 @@ __d(
     "WAWebHandlePlaceholderWam",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRequestDeleteAddOns",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
@@ -167,17 +166,10 @@ __d(
                                   },
                                 ),
                                 yield o(
-                                  "WAWebPersistedJobManagerWorkerCompatible",
-                                )
-                                  .getJobManager()
-                                  .waitUntilPersisted(
-                                    o(
-                                      "WAWebPersistedJobDefinitions",
-                                    ).jobSerializers.deleteAddOns(
-                                      a.toString(),
-                                      [T.protocolMessageKey.toString()],
-                                    ),
-                                  ));
+                                  "WAWebRequestDeleteAddOns",
+                                ).requestDeleteAddOns(a.toString(), [
+                                  T.protocolMessageKey.toString(),
+                                ]));
                             } else
                               try {
                                 (yield o("WAWebDBProcessMessage").storeMessages(

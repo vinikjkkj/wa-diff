@@ -1,6 +1,6 @@
 __d(
   "WAWebNewsletterIncrementForwardCounterJob",
-  ["WAWebDefinePersistedJob", "WAWebWorkerSafeBackendApi"],
+  ["WAWebDefinePersistedJob", "WAWebScheduleNewsletterForwardCounter"],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebDefinePersistedJob")
       .defineWebPersistedJob()
@@ -8,10 +8,11 @@ __d(
         var t = e.newsletterId,
           n = e.retriesRemaining,
           r = e.serverId;
-        o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-          "incrementForwardCounterAPI",
-          { newsletterId: t, retriesRemaining: n, serverId: r },
-        );
+        o("WAWebScheduleNewsletterForwardCounter").sendForwardCounterIncrement({
+          newsletterId: t,
+          retriesRemaining: n,
+          serverId: r,
+        });
       })
       .end();
     l.incrementNewsletterForwardCounterJob = e;

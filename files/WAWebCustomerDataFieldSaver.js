@@ -198,11 +198,15 @@ __d(
             .sendLogs("customer_manager_deactivate_customer_failed");
         });
     }
-    function R(e, t, n, r) {
-      r !== n &&
-        (r === o("WAWebLeadStage").LeadStage.NONE &&
-        n !== o("WAWebLeadStage").LeadStage.NONE
-          ? f(e, n).catch(function (e) {
+    function R(e) {
+      var t = e.chatJid,
+        n = e.customerData,
+        r = e.newStage,
+        a = e.prevStage;
+      a !== r &&
+        (a === o("WAWebLeadStage").LeadStage.NONE &&
+        r !== o("WAWebLeadStage").LeadStage.NONE
+          ? f(t, r).catch(function (e) {
               o("WALogger")
                 .WARN(
                   u ||
@@ -214,10 +218,10 @@ __d(
                 )
                 .sendLogs("customer_manager_server_profile_upsert_failed");
             })
-          : r !== o("WAWebLeadStage").LeadStage.NONE &&
-              n === o("WAWebLeadStage").LeadStage.NONE
-            ? S(e)
-            : _(e, t, { leadStage: n }));
+          : a !== o("WAWebLeadStage").LeadStage.NONE &&
+              r === o("WAWebLeadStage").LeadStage.NONE
+            ? S(t)
+            : _(t, n, { leadStage: r }));
     }
     ((l.saveCustomerDataField = _),
       (l.upsertAsCustomer = f),

@@ -113,7 +113,7 @@ __d(
                 : o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue
                     .PROCESSING;
     }
-    ((l.deriveListItemFromModel = s), (l.deriveDisplayStatus = u));
+    l.deriveListItemFromModel = s;
   },
   98,
 );

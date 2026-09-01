@@ -3,8 +3,8 @@ __d(
   [
     "WAWebCommonQPSurfacesTypes",
     "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebQuickPromotionValidatorUtils",
+    "WAWebServicedJobs",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -17,17 +17,15 @@ __d(
           o("WAWebQuickPromotionValidatorUtils").isWhatsappGkEnabledPromotion(
             e.data,
           )) &&
-          o("WAWebPersistedJobManagerWorkerCompatible")
-            .getJobManager()
-            .fireAndForget(
-              o(
-                "WAWebPersistedJobDefinitions",
-              ).jobSerializers.userExposureToQuickPromotion(
-                e.id,
-                r != null ? r : "",
-                a,
-              ),
+          o("WAWebServicedJobs").runServicedJob(
+            o(
+              "WAWebPersistedJobDefinitions",
+            ).jobSerializers.userExposureToQuickPromotion(
+              e.id,
+              r != null ? r : "",
+              a,
             ),
+          ),
         a === "true"
           ? o("WAWebCommonQPSurfacesTypes").RESULT_FALSE_HOLDOUT_IN_HOLDOUT
           : o("WAWebCommonQPSurfacesTypes").RESULT_TRUE

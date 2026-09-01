@@ -19,10 +19,7 @@ __d(
       var n;
       return (n = e.get(t)) != null ? n : null;
     }
-    function m() {
-      return Array.from(e.keys());
-    }
-    function p(t) {
+    function m(t) {
       var n = t.trim().toLowerCase();
       if (n === "") return null;
       for (var r of e) {
@@ -35,8 +32,7 @@ __d(
     ((l.registerAcquisitionSource = u),
       (l.getUnknownAcquisitionSourceLabel = c),
       (l.getAcquisitionSourceDisplayName = d),
-      (l.getRegisteredAcquisitionSourceIds = m),
-      (l.getAcquisitionSourceIdFromName = p));
+      (l.getAcquisitionSourceIdFromName = m));
   },
   226,
 );

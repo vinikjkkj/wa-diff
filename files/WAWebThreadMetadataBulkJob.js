@@ -10,8 +10,7 @@ __d(
     "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRequestDeleteAddOns",
     "WAWebSchemaMessage",
     "WAWebSchemaThreadsMetadata",
     "WAWebThreadUtils",
@@ -179,14 +178,10 @@ __d(
             );
             for (var u of l) a.push.apply(a, u);
             return (
-              yield o("WAWebPersistedJobManagerWorkerCompatible")
-                .getJobManager()
-                .waitUntilPersisted(
-                  o("WAWebPersistedJobDefinitions").jobSerializers.deleteAddOns(
-                    e.toString(),
-                    a,
-                  ),
-                ),
+              yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                e.toString(),
+                a,
+              ),
               o("WAWebBackendApi").frontendFireAndForget(
                 "deleteModelsForLastAddOnPreview",
                 { messagesIds: a },

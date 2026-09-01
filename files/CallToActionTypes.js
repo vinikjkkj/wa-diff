@@ -161,6 +161,7 @@ __d(
       SHOP_WITH_AI: "SHOP_WITH_AI",
       TRY_ON_WITH_AI: "TRY_ON_WITH_AI",
       TRY_NOW: "TRY_NOW",
+      SHOP_ON_RETAILER: "SHOP_ON_RETAILER",
     });
     i.default = e;
   },

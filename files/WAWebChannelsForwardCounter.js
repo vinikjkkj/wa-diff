@@ -9,8 +9,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebNewsletterGatingUtils",
     "WAWebOHAIClient",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebScheduleNewsletterForwardCounter",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -44,37 +43,33 @@ __d(
               if (r instanceof o("WAWebHttpErrors").HttpNetworkError)
                 try {
                   var d =
-                      o("WATimeUtils").MINUTE_SECONDS *
-                      Math.pow(
-                        2,
-                        Math.max(
-                          0,
-                          o("WAWebNewsletterGatingUtils")
-                            .NEWSLETTER_FORWARD_COUNTER_MAX_RETRIES - n,
-                        ),
+                    o("WATimeUtils").MINUTE_SECONDS *
+                    Math.pow(
+                      2,
+                      Math.max(
+                        0,
+                        o("WAWebNewsletterGatingUtils")
+                          .NEWSLETTER_FORWARD_COUNTER_MAX_RETRIES - n,
                       ),
-                    p = o("WATimeUtils").futureUnixTime(d),
-                    _ = o(
-                      "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.incrementNewsletterForwardCounter(
-                      t,
-                      n - 1,
-                      a,
-                      p,
                     );
-                  o("WAWebPersistedJobManagerWorkerCompatible")
-                    .getJobManager()
-                    .fireAndForget(_);
+                  o(
+                    "WAWebScheduleNewsletterForwardCounter",
+                  ).scheduleForwardCounterIncrement({
+                    delaySeconds: d,
+                    newsletterId: t,
+                    retriesRemaining: n - 1,
+                    serverId: a,
+                  });
                 } catch (t) {
                   o("WALogger")
                     .WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[ForwardCounter][Increment] Failed to start persisted job",
+                          "[ForwardCounter][Increment] Failed to schedule the increment",
                         ])),
                     )
-                    .tags("newsletter-forward-counter", "job-start-error")
-                    .sendLogs("forward-counter-job-start-error");
+                    .tags("newsletter-forward-counter")
+                    .sendLogs("forward-counter-schedule-error");
                 }
               else
                 o("WALogger")

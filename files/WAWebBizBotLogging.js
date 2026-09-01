@@ -52,6 +52,9 @@ __d(
               .SHARED_BOT_BIZ_CARD;
             break;
           case o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist:
+          case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter:
+          case o("WAWebChatEntryPoint").ChatEntryPoint
+            .ChatlistAiRespondingFilter:
             r = o("WAWebWamEnumBotBizEntryPoint").BOT_BIZ_ENTRY_POINT
               .BOT_BIZ_CHAT;
             break;

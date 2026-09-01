@@ -46,7 +46,7 @@ __d(
       }
       var n = t.id.toString(),
         a = y,
-        i = { chatId: n, messageId: a, chatEntryPoint: t.chatEntryPoint },
+        i = { chatId: n, messageId: a, chatEntryPoint: L(t.chatEntryPoint) },
         l = o("WAWebTimedCache").createTimedCacheItem(i);
       (r("WAWebLocalStorage") == null ||
         r("WAWebLocalStorage").setItem(
@@ -201,6 +201,13 @@ __d(
     function R() {
       var e = v();
       e != null && S(e);
+    }
+    function L(e) {
+      return e ===
+        o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter ||
+        e === o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter
+        ? o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist
+        : e;
     }
     ((l.setCenterVisibleMsgId = C),
       (l.saveRefreshState = b),

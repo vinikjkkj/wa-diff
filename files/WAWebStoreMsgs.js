@@ -37,10 +37,9 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProcessMessageAssociationMessages",
     "WAWebQuarantineDataStore",
+    "WAWebRequestDeleteAddOns",
     "WAWebSchemaMessage",
     "WAWebStoreOrphans",
     "asyncToGeneratorRuntime",
@@ -378,16 +377,10 @@ __d(
                       var t = e.revokeMsgKey.remote.toString();
                       r.add(t);
                     }),
-                      yield o("WAWebPersistedJobManagerWorkerCompatible")
-                        .getJobManager()
-                        .waitUntilPersisted(
-                          o(
-                            "WAWebPersistedJobDefinitions",
-                          ).jobSerializers.deleteAddOns(
-                            Array.from(r.values()).join(","),
-                            n,
-                          ),
-                        ));
+                      yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                        Array.from(r.values()).join(","),
+                        n,
+                      ));
                   }
                   return e;
                 },

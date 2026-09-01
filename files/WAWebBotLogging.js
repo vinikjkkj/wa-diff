@@ -25,6 +25,12 @@ __d(
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .AgentsSettingsList ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .ChatlistAiHandoffFilter ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .ChatlistAiRespondingFilter ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||

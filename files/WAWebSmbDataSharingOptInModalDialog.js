@@ -165,7 +165,7 @@ __d(
       if (!o("WAWebCommonCTWADataSharing").shouldShowOrderDataSharingDialog(e))
         return t();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(M, { entrypoint: n, callback: t, chats: [e] }),
+        p.jsx(w, { entrypoint: n, callback: t, chats: [e] }),
       );
     }
     function I(e) {
@@ -180,7 +180,7 @@ __d(
         });
       if (!i) return t();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(M, { entrypoint: r, callback: t, chats: n }),
+        p.jsx(w, { entrypoint: r, callback: t, chats: n }),
       );
     }
     function T(e, t, n) {
@@ -189,7 +189,7 @@ __d(
       )
         return t();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(M, { entrypoint: n, callback: t, chats: [e] }),
+        p.jsx(w, { entrypoint: n, callback: t, chats: [e] }),
       );
     }
     function D(e) {
@@ -200,7 +200,7 @@ __d(
       )
         return e();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(M, {
+        p.jsx(w, {
           entrypoint: o("WAWebWamEnumSmbDataSharingConsentScreenEntryPoint")
             .SMB_DATA_SHARING_CONSENT_SCREEN_ENTRY_POINT.LISTS_MANAGEMENT,
           callback: e,
@@ -282,15 +282,7 @@ __d(
         : (C = t[8]);
       var b;
       t[9] !== n
-        ? ((b = n
-            ? s._(
-                /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as message interaction data, or when an order is created, updated, or paid for.",
-              )
-            : s._(
-                /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as when an order is created, updated, or paid for.",
-              )),
-          (t[9] = n),
-          (t[10] = b))
+        ? ((b = p.jsx($, { isEpd: n })), (t[9] = n), (t[10] = b))
         : (b = t[10]);
       var v;
       t[11] === Symbol.for("react.memo_cache_sentinel")
@@ -367,9 +359,9 @@ __d(
       t[26] === Symbol.for("react.memo_cache_sentinel")
         ? ((x = [y.marginStart24, y.paragraph, y.iconDescription]), (t[26] = x))
         : (x = t[26]);
-      var $;
+      var P;
       t[27] !== a
-        ? (($ = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+        ? ((P = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
             size: "16",
             color: "dark",
             xstyle: x,
@@ -384,22 +376,22 @@ __d(
             ),
           })),
           (t[27] = a),
-          (t[28] = $))
-        : ($ = t[28]);
-      var P;
-      t[29] !== D || t[30] !== $
-        ? ((P = p.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[28] = P))
+        : (P = t[28]);
+      var N;
+      t[29] !== D || t[30] !== P
+        ? ((N = p.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: y.marginBottom12,
-            children: [D, $],
+            children: [D, P],
           })),
           (t[29] = D),
-          (t[30] = $),
-          (t[31] = P))
-        : (P = t[31]);
-      var N;
+          (t[30] = P),
+          (t[31] = N))
+        : (N = t[31]);
+      var M;
       t[32] !== a
-        ? ((N =
+        ? ((M =
             a &&
             p.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
@@ -419,12 +411,12 @@ __d(
               ],
             })),
           (t[32] = a),
-          (t[33] = N))
-        : (N = t[33]);
-      var M = a && y.centered_text,
-        w;
+          (t[33] = M))
+        : (M = t[33]);
+      var w = a && y.centered_text,
+        A;
       t[34] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = s._(
+        ? ((A = s._(
             /*BTDS*/ "Per Meta's {=m1}, you must comply with all applicable laws. This includes informing your customers and having permission to share data with Meta.",
             [
               s._implicitParam(
@@ -436,44 +428,80 @@ __d(
               ),
             ],
           )),
-          (t[34] = w))
-        : (w = t[34]);
-      var A;
-      t[35] !== M
-        ? ((A = p.jsx(o("WAWebFlex.react").FlexRow, {
+          (t[34] = A))
+        : (A = t[34]);
+      var F;
+      t[35] !== w
+        ? ((F = p.jsx(o("WAWebFlex.react").FlexRow, {
             children: p.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDeemphasized",
-              xstyle: M,
-              children: w,
+              xstyle: w,
+              children: A,
             }),
           })),
-          (t[35] = M),
-          (t[36] = A))
-        : (A = t[36]);
-      var F;
+          (t[35] = w),
+          (t[36] = F))
+        : (F = t[36]);
+      var O;
       return (
         t[37] !== S ||
         t[38] !== I ||
-        t[39] !== P ||
-        t[40] !== N ||
-        t[41] !== A ||
+        t[39] !== N ||
+        t[40] !== M ||
+        t[41] !== F ||
         t[42] !== f
-          ? ((F = p.jsxs(o("WAWebFlex.react").FlexColumn, {
-              children: [c, f, S, I, P, N, A],
+          ? ((O = p.jsxs(o("WAWebFlex.react").FlexColumn, {
+              children: [c, f, S, I, N, M, F],
             })),
             (t[37] = S),
             (t[38] = I),
-            (t[39] = P),
-            (t[40] = N),
-            (t[41] = A),
+            (t[39] = N),
+            (t[40] = M),
+            (t[41] = F),
             (t[42] = f),
-            (t[43] = F))
-          : (F = t[43]),
-        F
+            (t[43] = O))
+          : (O = t[43]),
+        O
       );
     }
-    var $ = function () {
+    function $(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.isEpd;
+      if (o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()) {
+        var r;
+        return (
+          t[0] !== n
+            ? ((r = n
+                ? s._(
+                    /*BTDS*/ "To help your ads reach the right audience and improve Meta ads, you can share information to Meta about customer-related activities, such as message interaction data, or when an order is created, updated, or paid for.",
+                  )
+                : s._(
+                    /*BTDS*/ "To help your ads reach the right audience and improve Meta ads, you can share information to Meta about customer-related activities, such as when an order is created, updated, or paid for.",
+                  )),
+              (t[0] = n),
+              (t[1] = r))
+            : (r = t[1]),
+          r
+        );
+      }
+      var a;
+      return (
+        t[2] !== n
+          ? ((a = n
+              ? s._(
+                  /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as message interaction data, or when an order is created, updated, or paid for.",
+                )
+              : s._(
+                  /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as when an order is created, updated, or paid for.",
+                )),
+            (t[2] = n),
+            (t[3] = a))
+          : (a = t[3]),
+        a
+      );
+    }
+    var P = function () {
         return p.jsx(o("WAWebFlex.react").FlexColumn, {
           align: "center",
           justify: "center",
@@ -485,7 +513,7 @@ __d(
           }),
         });
       },
-      P = function (t, n) {
+      N = function (t, n) {
         var e = new (o(
           "WAWebSmbDataSharingConsentScreenWamEvent",
         ).SmbDataSharingConsentScreenWamEvent)();
@@ -516,7 +544,7 @@ __d(
             );
           }));
       };
-    function N(e, t, n) {
+    function M(e, t, n) {
       (L(
         o("WAWebWamEnumSmbDataSharingConsentScreenType")
           .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
@@ -530,7 +558,7 @@ __d(
         o("WAWebModalManager").ModalManager.close(),
         e());
     }
-    function M(e) {
+    function w(e) {
       var t = o("react-compiler-runtime").c(28),
         a = e.callback,
         i = e.chats,
@@ -586,7 +614,7 @@ __d(
                 "WAWebUserPrefsGeneral",
               ).setCTWADataSharingOptOutDisclosureShownCount(n + 1);
             }
-            (P(l, e), o("WAWebCommonCTWADataSharing").markV2DisclosureSeen());
+            (N(l, e), o("WAWebCommonCTWADataSharing").markV2DisclosureSeen());
           }),
           (T = [l]),
           (t[2] = l),
@@ -610,8 +638,8 @@ __d(
                       i != null &&
                       i.length > 0
                     ) {
-                      var s = r("compactMap")(i, F),
-                        u = s.filter(A),
+                      var s = r("compactMap")(i, O),
+                        u = s.filter(F),
                         m = u.map(function (e) {
                           return r(
                             "WAWebCtwaPerCustomerDataSharingSync",
@@ -626,7 +654,7 @@ __d(
                           });
                         }),
                         p = yield (d || (d = n("Promise"))).allSettled(m),
-                        _ = p.some(w);
+                        _ = p.some(A);
                       _ &&
                         (o("WALogger")
                           .ERROR(
@@ -660,29 +688,29 @@ __d(
           (t[7] = l),
           (t[8] = D))
         : (D = t[8]);
-      var M = D,
-        O;
-      t[9] !== M
-        ? ((O = function () {
-            return M(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true);
+      var $ = D,
+        w;
+      t[9] !== $
+        ? ((w = function () {
+            return $(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true);
           }),
-          (t[9] = M),
-          (t[10] = O))
-        : (O = t[10]);
-      var B = O,
+          (t[9] = $),
+          (t[10] = w))
+        : (w = t[10]);
+      var B = w,
         W;
-      t[11] !== M
+      t[11] !== $
         ? ((W = function () {
-            return M(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false);
+            return $(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false);
           }),
-          (t[11] = M),
+          (t[11] = $),
           (t[12] = W))
         : (W = t[12]);
       var q = W,
         U;
       t[13] !== a || t[14] !== l
         ? ((U = function () {
-            N(a, l, k.current);
+            M(a, l, k.current);
           }),
           (t[13] = a),
           (t[14] = l),
@@ -711,7 +739,7 @@ __d(
       var Y = X,
         J;
       t[20] !== m
-        ? ((J = m ? p.jsx($, {}) : p.jsx(x, { useNewLayout: L, isEpd: C })),
+        ? ((J = m ? p.jsx(P, {}) : p.jsx(x, { useNewLayout: L, isEpd: C })),
           (t[20] = m),
           (t[21] = J))
         : (J = t[21]);
@@ -741,25 +769,25 @@ __d(
         Z
       );
     }
-    function w(e) {
+    function A(e) {
       return e.status === "rejected";
     }
-    function A(e) {
+    function F(e) {
       return !o(
         "WAWebDataSharing3pdLidCollection",
       ).DataSharing3pdLidCollection.isDataSharingEnabled(e.toString());
     }
-    function F(e) {
+    function O(e) {
       return e.accountLid;
     }
-    var O = {
+    var B = {
       maybeShowOrderDataSharingDialog: k,
       maybeShowLabelDataSharingDialog: I,
       maybeShowChatEntryDataSharingDialog: T,
       maybeShowListsManagementDataSharingDialog: D,
-      SmbDataSharingOptInModalDialog: M,
+      SmbDataSharingOptInModalDialog: w,
     };
-    l.default = O;
+    l.default = B;
   },
   226,
 );

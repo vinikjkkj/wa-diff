@@ -40,7 +40,16 @@ __d(
       );
       return e * 1024 * 1024;
     }
-    function _() {
+    var _ = 1;
+    function f() {
+      return Math.max(
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_media_upload_count_limit",
+        ),
+        _,
+      );
+    }
+    function g() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -53,7 +62,7 @@ __d(
         }
       return "";
     }
-    function f() {
+    function h() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -73,8 +82,9 @@ __d(
       (l.isHatchVideoAvatarEnabled = d),
       (l.isHatchEncryptedMediaEnabled = m),
       (l.getHatchDocumentUploadSizeLimitBytes = p),
-      (l.getHatchBotName = _),
-      (l.getHatchBotProfileThumb = f));
+      (l.getHatchMediaUploadCountLimit = f),
+      (l.getHatchBotName = g),
+      (l.getHatchBotProfileThumb = h));
   },
   98,
 );

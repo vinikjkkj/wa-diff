@@ -451,12 +451,27 @@ __d(
               : (o = n
                   ? "unhandled-rejection: " + String(t)
                   : "Error: " + String(t)),
-            this.logImpl(T.ERROR, o, e, !0, ["uncaught"]),
+            n != null &&
+              !(t instanceof Error) &&
+              t != null &&
+              typeof t == "object")
+          ) {
+            try {
+              var a = Object.keys(t).slice(0, 3);
+              a.length > 0 && (o += "; keys: " + a.join(", "));
+            } catch (e) {}
+            try {
+              var i = Reflect.get(t, "methodName");
+              i != null && (o += "; methodName: " + String(i));
+            } catch (e) {}
+          }
+          if (
+            (this.logImpl(T.ERROR, o, e, !0, ["uncaught"]),
             r("gkx")("26258") || e != null,
             n != null)
           ) {
-            var a = String(n);
-            (this.logImpl(T.WARN, a), r("gkx")("26258"));
+            var l = String(n);
+            (this.logImpl(T.WARN, l), r("gkx")("26258"));
           }
           return o;
         }),

@@ -11,10 +11,9 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
+    "WAWebRequestDeleteAddOns",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
@@ -349,13 +348,10 @@ __d(
                     "deleteModelsForLastAddOnPreview",
                     { messagesIds: a },
                   ),
-                    yield o("WAWebPersistedJobManagerWorkerCompatible")
-                      .getJobManager()
-                      .waitUntilPersisted(
-                        o(
-                          "WAWebPersistedJobDefinitions",
-                        ).jobSerializers.deleteAddOns(R, a),
-                      ));
+                    yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                      R,
+                      a,
+                    ));
                 }
                 return (
                   o("WAWebCurrentUser").isEmployee() &&

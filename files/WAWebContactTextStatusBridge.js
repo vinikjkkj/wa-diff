@@ -6,6 +6,9 @@ __d(
     "WAWebMexFetchTextStatusListJob",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRestOperations",
+    "WAWebScheduledOperations",
+    "WAWebUpdateTextStatusJob",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -68,15 +71,23 @@ __d(
       );
     }
     function d(e, t, n) {
-      return o("WAWebPersistedJobManagerWorkerCompatible")
-        .getJobManager()
-        .waitUntilCompleted(
-          o("WAWebPersistedJobDefinitions").jobSerializers.setTextStatus(
-            e,
-            t,
-            n,
-          ),
-        );
+      return o("WAWebRestOperations").runRestOperation(
+        o("WAWebScheduledOperations").ScheduledOperation.SET_TEXT_STATUS,
+        function () {
+          return o("WAWebUpdateTextStatusJob").updateTextStatus(e, t, n);
+        },
+        function () {
+          return o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .waitUntilCompleted(
+              o("WAWebPersistedJobDefinitions").jobSerializers.setTextStatus(
+                e,
+                t,
+                n,
+              ),
+            );
+        },
+      );
     }
     ((l.getTextStatus = u), (l.setTextStatus = d));
   },

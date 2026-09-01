@@ -83,10 +83,9 @@ __d(
     "WAWebNewsletterMetadataGetters",
     "WAWebNoop",
     "WAWebOTPLoggingHelper",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPresenceChatAction",
     "WAWebPresenceCollection",
+    "WAWebRequestDeleteAddOns",
     "WAWebSendNotSpamAction",
     "WAWebStarredMsgCollection",
     "WAWebSuperChatMsgs",
@@ -1149,13 +1148,10 @@ __d(
                     (o(
                       "WAWebUpdateLastAddOnPreviewChatAction",
                     ).deleteModelsForLastAddOnPreview(t),
-                    o("WAWebPersistedJobManagerWorkerCompatible")
-                      .getJobManager()
-                      .waitUntilPersisted(
-                        o(
-                          "WAWebPersistedJobDefinitions",
-                        ).jobSerializers.deleteAddOns(e.id.toString(), t),
-                      ));
+                    o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                      e.id.toString(),
+                      t,
+                    ));
                 })
                 .catch(function (e) {
                   o("WALogger")
@@ -1617,15 +1613,11 @@ __d(
                         (o(
                           "WAWebUpdateLastAddOnPreviewChatAction",
                         ).deleteModelsForLastAddOnPreview([t.id.toString()]),
-                          yield o("WAWebPersistedJobManagerWorkerCompatible")
-                            .getJobManager()
-                            .waitUntilPersisted(
-                              o(
-                                "WAWebPersistedJobDefinitions",
-                              ).jobSerializers.deleteAddOns(e.id.toString(), [
-                                t.id.toString(),
-                              ]),
-                            ),
+                          yield o(
+                            "WAWebRequestDeleteAddOns",
+                          ).requestDeleteAddOns(e.id.toString(), [
+                            t.id.toString(),
+                          ]),
                           t.delete({
                             skipUpdatingSortTime: !0,
                             doNotResetLastReceived: !0,

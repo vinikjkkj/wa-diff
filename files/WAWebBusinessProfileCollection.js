@@ -35,7 +35,7 @@ __d(
       _ = (function (t) {
         function a() {
           var n;
-          ((n = t.call(this) || this), (n._inflightDbQueryMap = new Map()));
+          n = t.call(this) || this;
           var a = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync()
               ? o(
                   "WAWebDirectConnectionGatingUtils",
@@ -61,7 +61,7 @@ __d(
                         "[direct-connection] bit changed, marking profiles stale",
                       ])),
                   ),
-                  n._markBizProfilesAsStale(
+                  n.$BusinessProfileCollectionImpl$p_1(
                     o(
                       "WAWebDirectConnectionGatingUtils",
                     ).directConnectionBusinessNumbersFromAbprop(),
@@ -74,7 +74,7 @@ __d(
                   (o(
                     "WAWebBusinessDirectUtils",
                   ).isDirectConnectionNumbersAbPropChanged(a, l) &&
-                    n._markBizProfilesAsStale(
+                    n.$BusinessProfileCollectionImpl$p_1(
                       Array.from(new Set((a != null ? a : []).concat(l))),
                     ),
                     (a = l));
@@ -102,16 +102,18 @@ __d(
         var i = a.prototype;
         return (
           (i.findImpl = function (t) {
-            return this._findAndParse(t, { queryCatalog: !0 });
+            return this.$BusinessProfileCollectionImpl$p_2(t, {
+              queryCatalog: !0,
+            });
           }),
           (i._update = function (t, n) {
-            return this._findAndParse(t, {
+            return this.$BusinessProfileCollectionImpl$p_2(t, {
               queryCatalog: !1,
               getMerchantCompliance:
                 n == null ? void 0 : n.getMerchantCompliance,
             });
           }),
-          (i._findAndParse = (function () {
+          (i.$BusinessProfileCollectionImpl$p_2 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var r = t.getMerchantCompliance,
@@ -139,7 +141,7 @@ __d(
                     o("WALogger").LOG(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[BusinessProfile] _findAndParse: not found ",
+                          "[BusinessProfile] #findAndParse: not found ",
                           "",
                         ])),
                       String(e),
@@ -238,7 +240,7 @@ __d(
             }
             return e;
           }),
-          (i._markBizProfilesAsStale = (function () {
+          (i.$BusinessProfileCollectionImpl$p_1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = this,

@@ -13,10 +13,7 @@ __d(
     function c(t, n) {
       return t.replace(e, n);
     }
-    ((i.SPOILER_REGEX = e),
-      (i.containsSpoiler = s),
-      (i.hasSpoilerMarkup = u),
-      (i.maskSpoilers = c));
+    ((i.SPOILER_REGEX = e), (i.hasSpoilerMarkup = u), (i.maskSpoilers = c));
   },
   66,
 );

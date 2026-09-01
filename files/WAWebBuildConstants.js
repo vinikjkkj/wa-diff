@@ -1,6 +1,13 @@
 __d(
   "WAWebBuildConstants",
-  ["SiteData", "WALogger", "WAWebEnvironment", "gkx", "justknobx"],
+  [
+    "SiteData",
+    "WALogger",
+    "WAWebEnvironment",
+    "WAWebWindowsQueryParams",
+    "gkx",
+    "justknobx",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = r("gkx")("26258") || r("gkx")("26259"),
@@ -35,7 +42,7 @@ __d(
       if (r("WAWebEnvironment").isWindows) {
         var e,
           t = new URLSearchParams((e = self.location.search) != null ? e : "");
-        return t.get("windowsBuild");
+        return t.get(o("WAWebWindowsQueryParams").WindowsQueryParam.BUILD);
       }
       return null;
     }
@@ -46,7 +53,8 @@ __d(
       if (!r("justknobx")._("5257")) return !1;
       var t = new URLSearchParams(e != null ? e : "");
       return (
-        r("WAWebEnvironment").isWindows && t.get("windows_offline") === "1"
+        r("WAWebEnvironment").isWindows &&
+        t.get(o("WAWebWindowsQueryParams").WindowsQueryParam.OFFLINE) === "1"
       );
     }
     var v = "";

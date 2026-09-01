@@ -7,6 +7,7 @@ __d(
     "WAWebActionToast.react",
     "WAWebAttachMediaConstants",
     "WAWebAttachMediaGetters",
+    "WAWebBotUtils",
     "WAWebCreateAiMediaCollectionMsgData",
     "WAWebGetMetaAiImagineEventContext",
     "WAWebLogImagineAction",
@@ -124,9 +125,10 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.every(function (e) {
-            return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
-          }) &&
+          o("WAWebBotUtils").isMetaAiBot(e.id) &&
+            t.every(function (e) {
+              return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
+            }) &&
             o("WAWebLogImagineAction").logImagineAction({
               action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
                 .MEDIA_INPUT_SEND_CONFIRM,
@@ -144,7 +146,9 @@ __d(
     }
     function h(e) {
       var t = new (o("WAWebActionToast.react").ActionType)(
-        s._(/*BTDS*/ "Couldn't send to Meta AI."),
+        o("WAWebBotUtils").isMetaAiBot(e.chat.id)
+          ? s._(/*BTDS*/ "Couldn't send to Meta AI.")
+          : s._(/*BTDS*/ "Couldn't send your files."),
         {
           actionText: s._(/*BTDS*/ "Try again."),
           actionHandler: function () {

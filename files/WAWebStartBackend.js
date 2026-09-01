@@ -58,6 +58,7 @@ __d(
     "WAWebInitializeBots",
     "WAWebL10NCountryCodes",
     "WAWebL10NHelpers",
+    "WAWebLazyPersistedQueue",
     "WAWebLid1x1MigrationManager",
     "WAWebLocalStorage",
     "WAWebLogoutReason",
@@ -442,12 +443,13 @@ __d(
               yield o(
                 "WAWebDbEncryptionKey",
               ).DbEncKeyStore.waitForFinalDbMsgEncKey());
-          (o(
-            "WAWebLid1x1MigrationManager",
-          ).ThreadMigrationManager.addDependentMigrationTask(
-            o("WAWebDBFavoriteDatabaseMigrationToLid")
-              .migrateFavoritesDatabaseToLid,
-          ),
+          (o("WAWebLazyPersistedQueue").preloadPersistedQueues(),
+            o(
+              "WAWebLid1x1MigrationManager",
+            ).ThreadMigrationManager.addDependentMigrationTask(
+              o("WAWebDBFavoriteDatabaseMigrationToLid")
+                .migrateFavoritesDatabaseToLid,
+            ),
             o(
               "WAWebLid1x1MigrationManager",
             ).ThreadMigrationManager.addDependentMigrationTask(

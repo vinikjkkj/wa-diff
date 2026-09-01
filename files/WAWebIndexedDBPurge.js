@@ -25,6 +25,7 @@ __d(
         model_storage: "model-storage",
         offd_storage: "offd-storage",
         pb_detect: "pb_detect",
+        persisted_queues: "persisted_queues",
         signal_storage: "signal-storage",
         sw: "sw",
         wawc: "wawc",

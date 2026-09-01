@@ -36,7 +36,6 @@ __d(
     }
     ((l.MIN_WINDOW_WIDTH = e),
       (l.MIN_WINDOW_HEIGHT = s),
-      (l.MIN_WINDOW_HEIGHT_GROUP_AUDIO = u),
       (l.DRAWER_WIDTH = o(
         "WAWebVoipWindowConstants.stylex.const",
       ).drawerDimensions.width),

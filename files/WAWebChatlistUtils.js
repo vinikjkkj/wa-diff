@@ -36,10 +36,23 @@ __d(
       u,
       c = u || (u = o("react"));
     function d(e, t, n) {
-      return p(o("WAWebFindChatAction").findExistingChat, e, t, n);
+      return _(
+        o("WAWebFindChatAction").findExistingChat,
+        e,
+        o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist,
+        t,
+        n,
+      );
     }
-    function m(e, t) {
-      return p(
+    function m(e) {
+      var t = e.chatEntryPoint,
+        n = e.id,
+        r = e.msg,
+        a = e.msgContext;
+      return _(o("WAWebFindChatAction").findExistingChat, n, t, a, r);
+    }
+    function p(e, t) {
+      return _(
         function (e, t, n) {
           return o("WAWebFindChatAction")
             .findOrCreateLatestChat(e, t, n)
@@ -49,10 +62,11 @@ __d(
             });
         },
         e,
+        o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist,
         t,
       );
     }
-    function p(t, n, a, i) {
+    function _(t, n, a, i, l) {
       return t(n, "chatListUtils").then(function (t) {
         return (
           r("gkx")("26258") ||
@@ -65,23 +79,22 @@ __d(
             (window.chat = t)),
           o("WAWebBotUtils").isMetaAiBot(n) &&
           o("WAWebBotGating").isAiChatThreadsEnabled()
-            ? (a != null && a.msg
+            ? (i != null && i.msg
                 ? o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(t, {
                     type: "MessageSearch",
-                    msg: a.msg,
+                    msg: i.msg,
                   })
                 : o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(t, {
                     type: "MetaAiChat",
                   }),
               t)
-            : a
+            : i
               ? o("WAWebCmd")
                   .Cmd.openChatAt({
                     chat: t,
-                    msgContext: a,
-                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                      .Chatlist,
-                    onSuccess: { mediaMsgToOpenInMediaViewer: i },
+                    msgContext: i,
+                    chatEntryPoint: a,
+                    onSuccess: { mediaMsgToOpenInMediaViewer: l },
                   })
                   .then(function (e) {
                     return (
@@ -92,11 +105,7 @@ __d(
                   })
               : t !== o("WAWebChatCollection").ChatCollection.getActive()
                 ? o("WAWebCmd")
-                    .Cmd.openChatFromUnread({
-                      chat: t,
-                      chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                        .Chatlist,
-                    })
+                    .Cmd.openChatFromUnread({ chat: t, chatEntryPoint: a })
                     .then(function (e) {
                       return (
                         e &&
@@ -110,7 +119,7 @@ __d(
         );
       });
     }
-    var _ = function () {
+    var f = function () {
       var e = r("WAWebFbtCommon")("OK");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, {
@@ -120,13 +129,13 @@ __d(
         }),
       );
     };
-    function f(e) {
+    function g(e) {
       return e.sourceAdCreation === "whatsapp_smb_web_catalog" ||
         e.sourceAdCreation === "whatsapp_smb_web_catalog_product"
         ? e.productId
         : null;
     }
-    function g(e) {
+    function h(e) {
       var t = e.adCreationUrlInput,
         a = e.lwiEntryPoint,
         i = e.waCampaignId,
@@ -168,10 +177,10 @@ __d(
         }),
         m)
       ) {
-        r("WAWebOpenBizNativeAdsFlow")(s, p, f(t));
+        r("WAWebOpenBizNativeAdsFlow")(s, p, g(t));
         return;
       }
-      var g = l !== "not-linked" && l.type === "whatsapp",
+      var _ = l !== "not-linked" && l.type === "whatsapp",
         h = o(
           "WAWebAdCreationLogger",
         ).getLwiAdsIdentityTypeFromActiveAccountInfo(l);
@@ -198,7 +207,7 @@ __d(
               allowReferrer: !0,
             });
           } catch (e) {
-            _();
+            f();
           }
         });
         return function () {
@@ -224,20 +233,21 @@ __d(
               u,
             );
           },
-          isPagelessAd: g,
+          isPagelessAd: _,
         }),
       );
     }
-    function h(e) {
+    function y(e) {
       var t = e.activeAccountInfo,
         n = e.entryPoint,
         r = e.sourceManageAdsType;
       o("WAWebOpenManageAdsInLwi").openManageAdsInLwi(t, r, n);
     }
     ((l.openExistingChat = d),
-      (l.openOrCreateLatestChat = m),
-      (l.handleAdCreation = g),
-      (l.handleManageAds = h));
+      (l.openExistingChatWithEntryPoint = m),
+      (l.openOrCreateLatestChat = p),
+      (l.handleAdCreation = h),
+      (l.handleManageAds = y));
   },
   226,
 );

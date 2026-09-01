@@ -3,8 +3,7 @@ __d(
   [
     "WALogger",
     "WASyncdKeyTypes",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRequestKeyShare",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdHandleKeyRequest",
     "WAWebUserPrefsMeUser",
@@ -76,13 +75,7 @@ __d(
                     return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e);
                   }),
                 ),
-                o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .waitUntilPersisted(
-                    o(
-                      "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.sendRequestedKeyShare(d, m, n),
-                  )
+                o("WAWebRequestKeyShare").requestKeyShare(d, m, n)
               );
             }
           }

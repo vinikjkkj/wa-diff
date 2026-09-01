@@ -42,7 +42,6 @@ __d(
     "WAWebNonMessageDataRequestMediaHandlingUtils",
     "WAWebOpusMigration",
     "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebQplStorage",
     "WAWebQuarantineDataCleanupJob",
     "WAWebQuickPromotionGating",
@@ -51,6 +50,7 @@ __d(
     "WAWebScheduledMessagesGatingUtils",
     "WAWebScheduledMsgOrphanRevealKeyStore",
     "WAWebScheduledMsgRevealKeyStore",
+    "WAWebServicedJobs",
     "WAWebSyncContactsJob",
     "WAWebSyncdAntiTampering",
     "WAWebSyncdReportKeyStatsJob",
@@ -99,52 +99,53 @@ __d(
       N,
       M,
       w,
-      A = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
+      A,
+      F = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
         "WAWebTasksDefinitions",
       ),
-      F = [
-        (w = o("WAWebTasksTaskType")).TaskType.CANONICAL_ENT_TOKEN_REFRESH,
-        w.TaskType.CLEAN_TC_TOKENS,
-        w.TaskType.LOG_DAILY_STATS,
-        w.TaskType.ROTATE_KEY,
-        w.TaskType.SYNC_AB_PROPS,
-        w.TaskType.SYNC_CONTACTS,
-        w.TaskType.REPORT_SYNCD_ACTION_STAT,
-        w.TaskType.LT_HASH_CHECK,
-        w.TaskType.REQUEST_ALL_SYNCD_MISSING_KEYS,
-        w.TaskType.REPORT_SYNCD_KEY_STATS,
-        w.TaskType.SYNCD_SYNC_ALL_COLLECTIONS,
-        w.TaskType.CLEAN_ORPHAN_ADD_ONS,
-        w.TaskType.CLEAN_EXPIRED_UTM,
-        w.TaskType.SEND_NON_MESSAGE_DATA_REQUEST,
-        w.TaskType.LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING,
-        w.TaskType.DELETE_NEWSLETTER_PREVIEW_CHATS,
-        w.TaskType.REPORT_DB_VERSIONS,
-        w.TaskType.UPDATE_EXPIRED_TEXT_STATUS,
-        w.TaskType.RESTART_RECENT_SYNC,
-        w.TaskType.CLEANUP_REPORTING_TABLE,
-        w.TaskType.CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE,
-        w.TaskType.CLEANUP_SCHEDULED_MSG_REVEAL_KEYS,
-        w.TaskType.WAFFLE_SCHEDULED_TASKS,
-        w.TaskType.CLEAR_GALAXY_FLOWS_CACHE,
-        w.TaskType.CLEAR_FALCO_BUFFER,
-        w.TaskType.SEND_WAM_FINGERPRINT,
-        w.TaskType.INACTIVE_GROUP_LID_MIGRATION,
-        w.TaskType.MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD,
-        w.TaskType.CLEAN_META_AI_BOT_SESSION,
-        w.TaskType.PURGE_QPL_STORAGE,
-        w.TaskType.CLEAN_WEBTP_SHARED_SESSIONS,
-        w.TaskType.CLEAN_EXPIRED_QUARANTINE_DATA,
-        w.TaskType.OPUS_MIGRATION,
-        w.TaskType.FETCH_QUICK_PROMOTIONS,
-      ],
       O = [
-        w.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
-        w.TaskType.CLEANUP_STALE_CAMPAIGNS,
-        w.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
+        (A = o("WAWebTasksTaskType")).TaskType.CANONICAL_ENT_TOKEN_REFRESH,
+        A.TaskType.CLEAN_TC_TOKENS,
+        A.TaskType.LOG_DAILY_STATS,
+        A.TaskType.ROTATE_KEY,
+        A.TaskType.SYNC_AB_PROPS,
+        A.TaskType.SYNC_CONTACTS,
+        A.TaskType.REPORT_SYNCD_ACTION_STAT,
+        A.TaskType.LT_HASH_CHECK,
+        A.TaskType.REQUEST_ALL_SYNCD_MISSING_KEYS,
+        A.TaskType.REPORT_SYNCD_KEY_STATS,
+        A.TaskType.SYNCD_SYNC_ALL_COLLECTIONS,
+        A.TaskType.CLEAN_ORPHAN_ADD_ONS,
+        A.TaskType.CLEAN_EXPIRED_UTM,
+        A.TaskType.SEND_NON_MESSAGE_DATA_REQUEST,
+        A.TaskType.LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING,
+        A.TaskType.DELETE_NEWSLETTER_PREVIEW_CHATS,
+        A.TaskType.REPORT_DB_VERSIONS,
+        A.TaskType.UPDATE_EXPIRED_TEXT_STATUS,
+        A.TaskType.RESTART_RECENT_SYNC,
+        A.TaskType.CLEANUP_REPORTING_TABLE,
+        A.TaskType.CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE,
+        A.TaskType.CLEANUP_SCHEDULED_MSG_REVEAL_KEYS,
+        A.TaskType.WAFFLE_SCHEDULED_TASKS,
+        A.TaskType.CLEAR_GALAXY_FLOWS_CACHE,
+        A.TaskType.CLEAR_FALCO_BUFFER,
+        A.TaskType.SEND_WAM_FINGERPRINT,
+        A.TaskType.INACTIVE_GROUP_LID_MIGRATION,
+        A.TaskType.MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD,
+        A.TaskType.CLEAN_META_AI_BOT_SESSION,
+        A.TaskType.PURGE_QPL_STORAGE,
+        A.TaskType.CLEAN_WEBTP_SHARED_SESSIONS,
+        A.TaskType.CLEAN_EXPIRED_QUARANTINE_DATA,
+        A.TaskType.OPUS_MIGRATION,
+        A.TaskType.FETCH_QUICK_PROMOTIONS,
       ],
-      B = [w.TaskType.LOG_DB_ROW_COUNTS, w.TaskType.MONITOR_DB_STORAGE];
-    function W(t) {
+      B = [
+        A.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
+        A.TaskType.CLEANUP_STALE_CAMPAIGNS,
+        A.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
+      ],
+      W = [A.TaskType.LOG_DB_ROW_COUNTS, A.TaskType.MONITOR_DB_STORAGE];
+    function q(t) {
       return t === o("WAWebTasksTaskType").TaskType.MONITOR_DB_STORAGE
         ? (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -279,12 +280,12 @@ __d(
                                     .verbose();
                                 });
                           }, e * 1e3),
-                          (M || (M = n("Promise"))).resolve(t)
+                          (w || (w = n("Promise"))).resolve(t)
                         );
                       };
                     }
                     return function () {
-                      return (M || (M = n("Promise"))).resolve(
+                      return (w || (w = n("Promise"))).resolve(
                         o("WATaskScheduler").DO_NOT_RESCHEDULE,
                       );
                     };
@@ -293,26 +294,38 @@ __d(
                   ? (function () {
                       var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (e) {
-                          return (
-                            e
-                              ? o("WALogger").LOG(
-                                  p ||
-                                    (p =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "RotateKeyTask skip first run",
-                                      ])),
-                                )
-                              : yield o(
-                                  "WAWebPersistedJobManagerWorkerCompatible",
-                                )
-                                  .getJobManager()
-                                  .waitUntilCompleted(
-                                    o(
-                                      "WAWebPersistedJobDefinitions",
-                                    ).jobSerializers.rotateKey(),
-                                  ),
-                            27 * o("WATimeUtils").DAY_SECONDS
-                          );
+                          if (e)
+                            o("WALogger").LOG(
+                              p ||
+                                (p = babelHelpers.taggedTemplateLiteralLoose([
+                                  "RotateKeyTask skip first run",
+                                ])),
+                            );
+                          else
+                            try {
+                              yield o(
+                                "WAWebServicedJobs",
+                              ).runServicedJobToCompletion(
+                                o(
+                                  "WAWebPersistedJobDefinitions",
+                                ).jobSerializers.rotateKey(),
+                              );
+                            } catch (e) {
+                              return (
+                                o("WALogger")
+                                  .ERROR(
+                                    _ ||
+                                      (_ =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          ["RotateKeyTask failed: ", ""],
+                                        )),
+                                    e,
+                                  )
+                                  .sendLogs("rotate-key-task-failed"),
+                                o("WATimeUtils").HOUR_SECONDS
+                              );
+                            }
+                          return 27 * o("WATimeUtils").DAY_SECONDS;
                         },
                       );
                       return function (t) {
@@ -348,8 +361,8 @@ __d(
                                 } catch (e) {
                                   o("WALogger")
                                     .ERROR(
-                                      _ ||
-                                        (_ =
+                                      f ||
+                                        (f =
                                           babelHelpers.taggedTemplateLiteralLoose(
                                             [
                                               "Failed to sync non-address book contacts with error: ",
@@ -367,8 +380,8 @@ __d(
                                 } catch (e) {
                                   o("WALogger")
                                     .ERROR(
-                                      f ||
-                                        (f =
+                                      g ||
+                                        (g =
                                           babelHelpers.taggedTemplateLiteralLoose(
                                             [
                                               "syncContacts: contact sync failed, error: ",
@@ -487,8 +500,8 @@ __d(
                                       );
                                       return t === 0
                                         ? (o("WALogger").LOG(
-                                            g ||
-                                              (g =
+                                            h ||
+                                              (h =
                                                 babelHelpers.taggedTemplateLiteralLoose(
                                                   [
                                                     "syncd: syncdPeriodicSyncDays is 0, skipping sync",
@@ -522,8 +535,8 @@ __d(
                                         } catch (e) {
                                           o("WALogger")
                                             .ERROR(
-                                              h ||
-                                                (h =
+                                              y ||
+                                                (y =
                                                   babelHelpers.taggedTemplateLiteralLoose(
                                                     [
                                                       "Failed to delete expired orphan add-on msgs: ",
@@ -550,8 +563,8 @@ __d(
                                         } catch (e) {
                                           o("WALogger")
                                             .ERROR(
-                                              y ||
-                                                (y =
+                                              C ||
+                                                (C =
                                                   babelHelpers.taggedTemplateLiteralLoose(
                                                     [
                                                       "Failed to delete the expired orphan reactions with error: ",
@@ -576,8 +589,8 @@ __d(
                                                 .catch(function (e) {
                                                   o("WALogger")
                                                     .ERROR(
-                                                      C ||
-                                                        (C =
+                                                      b ||
+                                                        (b =
                                                           babelHelpers.taggedTemplateLiteralLoose(
                                                             [
                                                               "Failed to clean expired UTM: ",
@@ -592,7 +605,7 @@ __d(
                                                   return o("WATimeUtils")
                                                     .DAY_SECONDS;
                                                 })
-                                            : (M || (M = n("Promise"))).resolve(
+                                            : (w || (w = n("Promise"))).resolve(
                                                 o("WATaskScheduler")
                                                   .DO_NOT_RESCHEDULE,
                                               );
@@ -659,8 +672,8 @@ __d(
                                                             : 0;
                                                       return n >= 5
                                                         ? (o("WALogger").LOG(
-                                                            b ||
-                                                              (b =
+                                                            v ||
+                                                              (v =
                                                                 babelHelpers.taggedTemplateLiteralLoose(
                                                                   [
                                                                     "[history sync] skip job: logged 4+ times",
@@ -742,8 +755,8 @@ __d(
                                                         } catch (e) {
                                                           o("WALogger")
                                                             .ERROR(
-                                                              v ||
-                                                                (v =
+                                                              S ||
+                                                                (S =
                                                                   babelHelpers.taggedTemplateLiteralLoose(
                                                                     [
                                                                       "Failed to cleanup reporting token table: ",
@@ -780,8 +793,8 @@ __d(
                                                           } catch (e) {
                                                             o("WALogger")
                                                               .ERROR(
-                                                                S ||
-                                                                  (S =
+                                                                R ||
+                                                                  (R =
                                                                     babelHelpers.taggedTemplateLiteralLoose(
                                                                       [
                                                                         "Failed to cleanup GHS reporting token table: ",
@@ -830,8 +843,8 @@ __d(
                                                             } catch (e) {
                                                               o("WALogger")
                                                                 .ERROR(
-                                                                  R ||
-                                                                    (R =
+                                                                  L ||
+                                                                    (L =
                                                                       babelHelpers.taggedTemplateLiteralLoose(
                                                                         [
                                                                           "Failed to cleanup expired scheduled-message reveal keys: ",
@@ -868,8 +881,8 @@ __d(
                                                               } catch (e) {
                                                                 o("WALogger")
                                                                   .ERROR(
-                                                                    L ||
-                                                                      (L =
+                                                                    E ||
+                                                                      (E =
                                                                         babelHelpers.taggedTemplateLiteralLoose(
                                                                           [
                                                                             "Failed to cleanup 3PD Signals table: ",
@@ -904,8 +917,8 @@ __d(
                                                                   (o(
                                                                     "WALogger",
                                                                   ).LOG(
-                                                                    E ||
-                                                                      (E =
+                                                                    k ||
+                                                                      (k =
                                                                         babelHelpers.taggedTemplateLiteralLoose(
                                                                           [
                                                                             "fetchQuickPromotions: fetching quick promotions",
@@ -917,14 +930,14 @@ __d(
                                                                     ).fetchQuickPromotions());
                                                                 else {
                                                                   var e =
-                                                                      yield A.load(),
+                                                                      yield F.load(),
                                                                     t =
                                                                       e.fetchConsumerQuickPromotions;
                                                                   (o(
                                                                     "WALogger",
                                                                   ).LOG(
-                                                                    k ||
-                                                                      (k =
+                                                                    I ||
+                                                                      (I =
                                                                         babelHelpers.taggedTemplateLiteralLoose(
                                                                           [
                                                                             "fetchConsumerQuickPromotions: fetching",
@@ -1082,8 +1095,8 @@ __d(
                                                                                 "WALogger",
                                                                               )
                                                                                 .ERROR(
-                                                                                  I ||
-                                                                                    (I =
+                                                                                  T ||
+                                                                                    (T =
                                                                                       babelHelpers.taggedTemplateLiteralLoose(
                                                                                         [
                                                                                           "Failed to run LID inactive group migration: ",
@@ -1211,8 +1224,8 @@ __d(
                                                                                       "WALogger",
                                                                                     )
                                                                                       .ERROR(
-                                                                                        T ||
-                                                                                          (T =
+                                                                                        D ||
+                                                                                          (D =
                                                                                             babelHelpers.taggedTemplateLiteralLoose(
                                                                                               [
                                                                                                 "Failed to clean expired WebTP shared sessions: ",
@@ -1248,8 +1261,8 @@ __d(
                                                                                         "WALogger",
                                                                                       )
                                                                                         .ERROR(
-                                                                                          D ||
-                                                                                            (D =
+                                                                                          x ||
+                                                                                            (x =
                                                                                               babelHelpers.taggedTemplateLiteralLoose(
                                                                                                 [
                                                                                                   "Failed to purge deprecated qpl-storage: ",
@@ -1285,8 +1298,8 @@ __d(
                                                                                           "WALogger",
                                                                                         )
                                                                                           .ERROR(
-                                                                                            x ||
-                                                                                              (x =
+                                                                                            $ ||
+                                                                                              ($ =
                                                                                                 babelHelpers.taggedTemplateLiteralLoose(
                                                                                                   [
                                                                                                     "Failed to cleanup stale campaigns: ",
@@ -1328,8 +1341,8 @@ __d(
                                                                                             "WALogger",
                                                                                           )
                                                                                             .ERROR(
-                                                                                              $ ||
-                                                                                                ($ =
+                                                                                              P ||
+                                                                                                (P =
                                                                                                   babelHelpers.taggedTemplateLiteralLoose(
                                                                                                     [
                                                                                                       "Failed to cleanup expired quarantine data: ",
@@ -1433,8 +1446,8 @@ __d(
                                                                                                     "WALogger",
                                                                                                   )
                                                                                                     .ERROR(
-                                                                                                      P ||
-                                                                                                        (P =
+                                                                                                      N ||
+                                                                                                        (N =
                                                                                                           babelHelpers.taggedTemplateLiteralLoose(
                                                                                                             [
                                                                                                               "Failed to refresh audience expressions: ",
@@ -1474,7 +1487,7 @@ __d(
                                                                                           );
                                                                                         })();
     }
-    function q() {
+    function U() {
       return {
         scheduledTimeResolver: {
           get: function (t) {
@@ -1491,12 +1504,12 @@ __d(
         },
       };
     }
-    function U(e) {
-      var t = W(e);
+    function V(e) {
+      var t = q(e);
       t != null &&
         (o("WALogger").LOG(
-          N ||
-            (N = babelHelpers.taggedTemplateLiteralLoose([
+          M ||
+            (M = babelHelpers.taggedTemplateLiteralLoose([
               "maybeRegisterTask: registering task ",
               "",
             ])),
@@ -1504,13 +1517,13 @@ __d(
         ),
         o("WATaskScheduler").registerTask(e, t));
     }
-    function V() {
-      (o("WATaskScheduler").startScheduler(q()),
-        F.forEach(U),
-        o("WAWebMobilePlatforms").isSMB() && O.forEach(U),
-        r("gkx")("26258") || B.forEach(U));
+    function H() {
+      (o("WATaskScheduler").startScheduler(U()),
+        O.forEach(V),
+        o("WAWebMobilePlatforms").isSMB() && B.forEach(V),
+        r("gkx")("26258") || W.forEach(V));
     }
-    l.registerTasks = V;
+    l.registerTasks = H;
   },
   98,
 );

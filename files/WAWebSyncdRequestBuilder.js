@@ -2,9 +2,7 @@ __d(
   "WAWebSyncdRequestBuilder",
   [
     "Promise",
-    "WAWebABProps",
     "WAWebGetPendingMutation",
-    "WAWebKmpSyncdRequestBuilder",
     "WAWebSyncdRequestBuilderBuild",
     "WAWebSyncdRequestBuilderUtils",
     "asyncToGeneratorRuntime",
@@ -19,14 +17,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebABProps").getABPropConfigValue(
-            "kmp_syncd_engine_outgoing_processor_enabled",
-          )
-            ? o("WAWebKmpSyncdRequestBuilder").buildOutgoingRequestWithKmp(
-                new Set(e),
-                t,
-              )
-            : c(e, t);
+          return c(e, t);
         })),
         u.apply(this, arguments)
       );

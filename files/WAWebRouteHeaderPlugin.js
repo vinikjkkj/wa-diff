@@ -27,10 +27,7 @@ __d(
     function _() {
       return o("WAWebRoutePluginSlot").WAWebRoutePluginSlot();
     }
-    function f() {
-      return o("WAWebRoutePluginSlot").useRoutePluginSlotValue(m);
-    }
-    ((l.WAWebRouteHeaderPluginProvider = p), (l.useRouteHeaderPlugin = f));
+    l.WAWebRouteHeaderPluginProvider = p;
   },
   98,
 );

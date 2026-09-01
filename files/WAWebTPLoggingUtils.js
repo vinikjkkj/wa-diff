@@ -768,7 +768,15 @@ __d(
       );
     }
     function ee(e) {
-      J(e, JSON.stringify({ action: "edit_pdf_click" }));
+      var t = e.filehash,
+        n = e.hasSkipConfirmationPref;
+      J(
+        t,
+        JSON.stringify({
+          action: "edit_pdf_click",
+          hasSkipConfirmationPref: n,
+        }),
+      );
     }
     function te(e, t) {
       return e === t ? "select" : t === "shape" ? "draw" : t;

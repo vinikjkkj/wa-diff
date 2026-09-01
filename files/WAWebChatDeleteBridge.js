@@ -23,9 +23,8 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMuteChatSync",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPinChatSync",
+    "WAWebRequestDeleteAddOns",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaChat",
     "WAWebSchemaChatAssignment",
@@ -115,13 +114,10 @@ __d(
                       "deleteModelsForLastAddOnPreview",
                       { messagesIds: a },
                     ),
-                    yield o("WAWebPersistedJobManagerWorkerCompatible")
-                      .getJobManager()
-                      .waitUntilPersisted(
-                        o(
-                          "WAWebPersistedJobDefinitions",
-                        ).jobSerializers.deleteAddOns(t.toString(), a),
-                      ))
+                    yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                      t.toString(),
+                      a,
+                    ))
                   : o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -450,13 +446,10 @@ __d(
                 yield o(
                   "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
                 ).deleteChatFromInitialSyncBoundary(t),
-                yield o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .waitUntilPersisted(
-                    o(
-                      "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.deleteAddOns(t.toString(), n),
-                  ),
+                yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                  t.toString(),
+                  n,
+                ),
                 e
               );
             }

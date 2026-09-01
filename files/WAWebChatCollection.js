@@ -27,9 +27,9 @@ __d(
             (e = t.call(this) || this),
             (e.notSpam = {}),
             (e.promises = { sendUnstarAll: null }),
-            (e._localeChangeSubscribed = !1),
-            (e._sortEnabled = !1),
-            (e._viewOnceCleanupTaskQueue = new Set()),
+            (e.$ChatCollectionImpl$p_1 = !1),
+            (e.$ChatCollectionImpl$p_2 = !1),
+            (e.$ChatCollectionImpl$p_4 = new Set()),
             (e.setIndexes = function () {
               e.forEach(function (e, t) {
                 e.initialIndex = t;
@@ -54,7 +54,7 @@ __d(
               },
             ),
             e.listenToOnce(e, "sort", r("WAWebDebounce")(e.setIndexes, 100)),
-            e._scheduleViewOnceMediaCleanup(),
+            e.$ChatCollectionImpl$p_5(),
             e.listenTo(
               e,
               "change:isLocked",
@@ -72,30 +72,29 @@ __d(
         babelHelpers.inheritsLoose(n, t);
         var a = n.prototype;
         return (
-          (a._scheduleViewOnceMediaCleanup = function () {
+          (a.$ChatCollectionImpl$p_5 = function () {
             var e = this;
-            (self.clearTimeout(this._viewOnceCleanupTimeout),
-              (this._viewOnceCleanupTimeout = self.setTimeout(function () {
+            (self.clearTimeout(this.$ChatCollectionImpl$p_3),
+              (this.$ChatCollectionImpl$p_3 = self.setTimeout(function () {
                 o("WAWebIdleTaskRunner").IdleCallbackTasks.enqueue(function () {
-                  (e._runViewOnceMediaCleanup(),
-                    e._scheduleViewOnceMediaCleanup());
+                  (e.$ChatCollectionImpl$p_6(), e.$ChatCollectionImpl$p_5());
                 });
               }, s)));
           }),
-          (a._runViewOnceMediaCleanup = function () {
+          (a.$ChatCollectionImpl$p_6 = function () {
             var e = this;
             this.forEach(function (t) {
               var n = t.id;
-              e._viewOnceCleanupTaskQueue.has(n) ||
+              e.$ChatCollectionImpl$p_4.has(n) ||
                 (o("WAWebIdleTaskRunner").IdleCallbackTasks.enqueue(
                   function () {
-                    e._viewOnceCleanupTaskQueue.delete(n);
+                    e.$ChatCollectionImpl$p_4.delete(n);
                     var t = e.get(n);
                     (t == null ? void 0 : t.active) === !1 &&
                       t.deregisterExpiredViewOnceBulkMessages(t.msgs);
                   },
                 ),
-                e._viewOnceCleanupTaskQueue.add(n));
+                e.$ChatCollectionImpl$p_4.add(n));
             });
           }),
           (a.getUnreadCount = function () {
@@ -107,9 +106,9 @@ __d(
             var e = this,
               i = t.prototype.add.call(this, n, a);
             return (
-              !this._localeChangeSubscribed &&
+              !this.$ChatCollectionImpl$p_1 &&
                 o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3") &&
-                ((this._localeChangeSubscribed = !0),
+                ((this.$ChatCollectionImpl$p_1 = !0),
                 this.listenTo(r("WAWebL10N"), "locale_change", function () {
                   e.forEach(function (e) {
                     o("WAWebChatGroupUtils").updateTitle(e);
@@ -119,19 +118,19 @@ __d(
             );
           }),
           (a.enableSortListener = function (t) {
-            this._sortEnabled ||
+            this.$ChatCollectionImpl$p_2 ||
               (this.listenTo(
                 this,
                 "change:t change:pin change:id change:isLocked change:endOfHistoryTransferType change:isParentGroup change:msgs change:createdLocally change:msgsLength change:bbProStatus",
                 this.sort,
               ),
               t === !0 && this.sort(),
-              (this._sortEnabled = !0));
+              (this.$ChatCollectionImpl$p_2 = !0));
           }),
           (a.disableSortListener = function () {
-            this._sortEnabled &&
+            this.$ChatCollectionImpl$p_2 &&
               (this.stopListening(null, null, this.sort),
-              (this._sortEnabled = !1));
+              (this.$ChatCollectionImpl$p_2 = !1));
           }),
           (a.getActive = function () {
             var t = this.filter(function (e) {

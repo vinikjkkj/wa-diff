@@ -243,7 +243,7 @@ __d(
         .defineWebPersistedJob()
         .finalStep("sendStanza", _)
         .end();
-    l.QueryProductListCatalog = f;
+    ((l.queryProductListCatalog = _), (l.QueryProductListCatalog = f));
   },
   98,
 );

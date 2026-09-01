@@ -97,7 +97,6 @@ __d(
       (l.parseMediaDetailsMetadata = c),
       (l.parseBotMediaMetadata = d),
       (l.generateUnifiedResponseMutation = m),
-      (l.generateMediaDetailsMetadata = p),
       (l.generateBotMediaMetadata = _));
   },
   98,

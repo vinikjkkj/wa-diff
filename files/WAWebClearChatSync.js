@@ -15,10 +15,9 @@ __d(
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebMessageRangeUtils",
     "WAWebMsgKey",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
+    "WAWebRequestDeleteAddOns",
     "WAWebSchemaChat",
     "WAWebStatusCollection",
     "WAWebSyncdAction",
@@ -295,13 +294,10 @@ __d(
                       "deleteModelsForLastAddOnPreview",
                       { messagesIds: a },
                     ),
-                    yield o("WAWebPersistedJobManagerWorkerCompatible")
-                      .getJobManager()
-                      .waitUntilPersisted(
-                        o(
-                          "WAWebPersistedJobDefinitions",
-                        ).jobSerializers.deleteAddOns(e.toString(), a),
-                      )));
+                    yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                      e.toString(),
+                      a,
+                    )));
                 var i = o("WAWebChatCollection").ChatCollection.get(e);
                 (i &&
                   ((i.createdLocally = !1),

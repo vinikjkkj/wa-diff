@@ -118,6 +118,9 @@ __d(
     }
     function p(e) {
       e: return e === o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist ||
+        e === o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter ||
+        e ===
+          o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter ||
         e === o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab
         ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.CHATLIST
         : e === o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut
@@ -238,7 +241,13 @@ __d(
     }
     function f(e) {
       e: {
-        if (e === o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist)
+        if (
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter
+        )
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .CHAT_LIST;
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut)

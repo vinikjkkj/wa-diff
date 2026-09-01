@@ -34,7 +34,7 @@ __d(
     "WAWebPrivacyModeGating",
     "WAWebPrivacyModeToast",
     "WAWebProfilePicThumbCollection",
-    "WAWebScreenLockDrawer.react",
+    "WAWebScreenLockDrawerLoadable",
     "WAWebSendLogsPopupLoadable",
     "WAWebSettingGatingUtils",
     "WAWebSettingsFlowLoadable",
@@ -46,6 +46,10 @@ __d(
     "WAWebUserPrefsPrivacyMode",
     "WAWebUserPrefsScreenLock",
     "WAWebVoipCallsTabPanelManager",
+    "WAWebVoipMicrophonePermissionDeniedGuideLoadable.react",
+    "WAWebVoipMicrophoneToggle",
+    "WAWebVoipPopoutModalManager",
+    "WAWebVoipPopoutWindowState",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoStateUtils",
@@ -53,6 +57,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:13920",
     "cr:1923",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -62,65 +67,66 @@ __d(
       d,
       m,
       p,
-      _ = p || (p = o("react"));
-    function f(e) {
+      _,
+      f = _ || (_ = o("react"));
+    function g(e, t) {
       switch (e) {
         case o("WAWebActions").Action.OPEN_NTH_CHAT:
           return r("WAWebNoop");
         case o("WAWebActions").Action.CONTACT_US:
-          return P;
-        case o("WAWebActions").Action.GO_TO_NEXT_CHAT:
-          return x;
-        case o("WAWebActions").Action.GO_TO_PREV_CHAT:
-          return $;
-        case o("WAWebActions").Action.CLOSE_CHAT:
-          return v;
-        case o("WAWebActions").Action.LOGOUT:
-          return S;
-        case o("WAWebActions").Action.OPEN_NEW_CHAT:
-          return y;
-        case o("WAWebActions").Action.OPEN_NEW_GROUP:
-          return C;
-        case o("WAWebActions").Action.OPEN_PROFILE:
-          return b;
-        case o("WAWebActions").Action.OPEN_SETTINGS:
-          return h;
-        case o("WAWebActions").Action.SEARCH:
-          return R;
-        case o("WAWebActions").Action.SEARCH_IN_CHAT:
-          return D;
-        case o("WAWebActions").Action.TOGGLE_ARCHIVE:
-          return L;
-        case o("WAWebActions").Action.TOGGLE_MUTE:
-          return E;
-        case o("WAWebActions").Action.TOGGLE_PIN:
-          return k;
-        case o("WAWebActions").Action.TOGGLE_UNREAD:
-          return I;
-        case o("WAWebActions").Action.TOGGLE_THEME:
-          return T;
-        case o("WAWebActions").Action.OPEN_EMOJI_PANEL:
           return N;
+        case o("WAWebActions").Action.GO_TO_NEXT_CHAT:
+          return $;
+        case o("WAWebActions").Action.GO_TO_PREV_CHAT:
+          return P;
+        case o("WAWebActions").Action.CLOSE_CHAT:
+          return S;
+        case o("WAWebActions").Action.LOGOUT:
+          return R;
+        case o("WAWebActions").Action.OPEN_NEW_CHAT:
+          return C;
+        case o("WAWebActions").Action.OPEN_NEW_GROUP:
+          return b;
+        case o("WAWebActions").Action.OPEN_PROFILE:
+          return v;
+        case o("WAWebActions").Action.OPEN_SETTINGS:
+          return y;
+        case o("WAWebActions").Action.SEARCH:
+          return L;
+        case o("WAWebActions").Action.SEARCH_IN_CHAT:
+          return x;
+        case o("WAWebActions").Action.TOGGLE_ARCHIVE:
+          return E;
+        case o("WAWebActions").Action.TOGGLE_MUTE:
+          return k;
+        case o("WAWebActions").Action.TOGGLE_PIN:
+          return I;
+        case o("WAWebActions").Action.TOGGLE_UNREAD:
+          return T;
+        case o("WAWebActions").Action.TOGGLE_THEME:
+          return D;
+        case o("WAWebActions").Action.OPEN_EMOJI_PANEL:
+          return M;
         case o("WAWebActions").Action.OPEN_GIF_PANEL:
-          return H;
-        case o("WAWebActions").Action.OPEN_STICKER_PANEL:
           return G;
+        case o("WAWebActions").Action.OPEN_STICKER_PANEL:
+          return z;
         case o("WAWebActions").Action.TOGGLE_STICKER_MAKER:
-          return j;
-        case o("WAWebActions").Action.TOGGLE_COMMAND_PALETTE:
           return K;
-        case o("WAWebActions").Action.LOCK_SCREEN:
+        case o("WAWebActions").Action.TOGGLE_COMMAND_PALETTE:
           return Q;
-        case o("WAWebActions").Action.LABEL_CHAT:
+        case o("WAWebActions").Action.LOCK_SCREEN:
           return X;
+        case o("WAWebActions").Action.LABEL_CHAT:
+          return Y;
         case o("WAWebActions").Action.ZOOM_IN:
-          return Y();
-        case o("WAWebActions").Action.ZOOM_OUT:
           return J();
-        case o("WAWebActions").Action.ZOOM_RESET:
+        case o("WAWebActions").Action.ZOOM_OUT:
           return Z();
+        case o("WAWebActions").Action.ZOOM_RESET:
+          return ee();
         case o("WAWebActions").Action.TOGGLE_PRIVACY_MODE:
-          return ie;
+          return se;
         case o("WAWebActions").Action.INCREASE_PTT_SPEED:
         case o("WAWebActions").Action.DECREASE_PTT_SPEED:
         case o("WAWebActions").Action.TOGGLE_BOLD:
@@ -133,48 +139,48 @@ __d(
         case o("WAWebActions").Action.TOGGLE_QUOTE:
           return null;
         case o("WAWebActions").Action.OPEN_CHAT_INFO:
-          return M();
-        case o("WAWebActions").Action.BLOCK_CHAT:
           return w();
-        case o("WAWebActions").Action.REPLY:
+        case o("WAWebActions").Action.BLOCK_CHAT:
           return A();
-        case o("WAWebActions").Action.REPLY_PRIVATE:
+        case o("WAWebActions").Action.REPLY:
           return F();
-        case o("WAWebActions").Action.FORWARD:
+        case o("WAWebActions").Action.REPLY_PRIVATE:
           return O();
-        case o("WAWebActions").Action.STAR_MESSAGE:
+        case o("WAWebActions").Action.FORWARD:
           return B();
+        case o("WAWebActions").Action.STAR_MESSAGE:
+          return W();
         case o("WAWebActions").Action.OPEN:
           return r("WAWebNoop")();
         case o("WAWebActions").Action.OPEN_ATTACHMENT_DROPDOWN:
-          return z();
+          return j();
         case o("WAWebActions").Action.START_PTT_RECORDING:
-          return q();
-        case o("WAWebActions").Action.PAUSE_PTT_RECORDING:
           return U();
-        case o("WAWebActions").Action.SEND_PTT:
+        case o("WAWebActions").Action.PAUSE_PTT_RECORDING:
           return V();
+        case o("WAWebActions").Action.SEND_PTT:
+          return H();
         case o("WAWebActions").Action.EDIT_LAST_MESSAGE:
           return void 0;
         case o("WAWebActions").Action.TOGGLE_CALL_CAMERA:
-          return ee();
-        case o("WAWebActions").Action.TOGGLE_CALL_MUTE:
           return te();
+        case o("WAWebActions").Action.TOGGLE_CALL_MUTE:
+          return ne(t);
         case o("WAWebActions").Action.SHOW_CALL_REACTIONS:
-          return ne();
-        case o("WAWebActions").Action.TOGGLE_RAISE_HAND:
-          return re();
-        case o("WAWebActions").Action.START_SCREEN_SHARE:
           return oe();
-        case o("WAWebActions").Action.END_CALL:
+        case o("WAWebActions").Action.TOGGLE_RAISE_HAND:
           return ae();
+        case o("WAWebActions").Action.START_SCREEN_SHARE:
+          return ie();
+        case o("WAWebActions").Action.END_CALL:
+          return le();
       }
     }
-    function g(t) {
-      var n = f(t);
-      if (n)
+    function h(t, n) {
+      var r = g(t, n);
+      if (r)
         try {
-          (n(),
+          (r(),
             t !== o("WAWebActions").Action.TOGGLE_COMMAND_PALETTE &&
               o("WAWebCmd").Cmd.closeCommandPalette());
         } catch (n) {
@@ -188,7 +194,7 @@ __d(
           );
         }
     }
-    function h() {
+    function y() {
       var e,
         t,
         n =
@@ -205,7 +211,7 @@ __d(
           ? o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
               o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
                 ? { descriptorType: "profile" }
-                : _.jsx(o("WAWebMeTabFlowLoadable").MeTabFlowLoadable, {
+                : f.jsx(o("WAWebMeTabFlowLoadable").MeTabFlowLoadable, {
                     onEnd: o("WAWebDrawerManager").closeDrawerLeft,
                   }),
               { disableRotateFocus: !0 },
@@ -213,12 +219,12 @@ __d(
           : o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
               o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
                 ? { descriptorType: "settings" }
-                : _.jsx(o("WAWebSettingsFlowLoadable").SettingsFlowLoadable, {
+                : f.jsx(o("WAWebSettingsFlowLoadable").SettingsFlowLoadable, {
                     onEnd: o("WAWebDrawerManager").closeDrawerLeft,
                   }),
             ));
     }
-    function y() {
+    function C() {
       var e,
         t,
         n =
@@ -234,13 +240,13 @@ __d(
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "new_chat" }
-            : _.jsx(o("WAWebNewChatFlowLoadable").NewChatFlowLoadable, {
+            : f.jsx(o("WAWebNewChatFlowLoadable").NewChatFlowLoadable, {
                 onEnd: o("WAWebDrawerManager").closeDrawerLeft,
               }),
           { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
         ));
     }
-    function C() {
+    function b() {
       var e,
         t,
         r =
@@ -256,7 +262,7 @@ __d(
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "new_group", isSubFlow: !1 }
-            : _.jsx(o("WAWebNewGroupFlowLoadable").NewGroupFlowLoadable, {
+            : f.jsx(o("WAWebNewGroupFlowLoadable").NewGroupFlowLoadable, {
                 onEnd: o("WAWebDrawerManager").closeDrawerLeft,
                 onCreateGroup: (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -274,7 +280,7 @@ __d(
               }),
         ));
     }
-    function b() {
+    function v() {
       var e,
         t,
         r =
@@ -295,7 +301,7 @@ __d(
         s = o("WAWebContactCollection").ContactCollection.assertGet(a);
       (o("WAWebCmd").Cmd.closeActiveChat(),
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-          _.jsx(n("cr:1923"), {
+          f.jsx(n("cr:1923"), {
             status: i,
             profilePicThumb: l,
             contact: s,
@@ -313,7 +319,7 @@ __d(
           o("WAWebNavBarTypes").NavBarItems.Profile,
         ));
     }
-    function v() {
+    function S() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e) {
         o("WAWebCmd").Cmd.closeChat(e);
@@ -331,11 +337,11 @@ __d(
       }
       r("WAWebVoipCallsTabPanelManager").trigger("closeCallLogInfoPanel");
     }
-    function S() {
+    function R() {
       if (!o("WAWebMsgCollection").MsgCollection.hasUnsentMessages())
         return o("WAWebSocketModel").Socket.logout();
       o("WAWebModalManager").ModalManager.open(
-        _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        f.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           tsNavigationData: { surface: "unknown", viewName: "keyboard-run" },
           title: s._(/*BTDS*/ "Log out?"),
           onOK: function () {
@@ -354,17 +360,17 @@ __d(
         }),
       );
     }
-    function R() {
+    function L() {
       o("WAWebCmd").Cmd.focusChatSearch();
     }
-    function L() {
+    function E() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e) {
         var t = e.archive;
         o("WAWebCmd").Cmd.archiveChat(e, !t);
       }
     }
-    function E() {
+    function k() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e && o("WAWebMuteUtils").canMute(e.mute)) {
         var t = o("WAWebMuteGetters").getIsMuted(e.mute);
@@ -375,7 +381,7 @@ __d(
         );
       }
     }
-    function k() {
+    function I() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (
         e &&
@@ -388,105 +394,105 @@ __d(
         o("WAWebCmd").Cmd.pinChat(e, !t);
       }
     }
-    function I() {
+    function T() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e) {
         var t = e.markedUnread;
         o("WAWebCmd").Cmd.markChatUnread(e, !t);
       }
     }
-    function T() {}
-    function D() {
+    function D() {}
+    function x() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       e && o("WAWebCmd").Cmd.chatSearch(e);
     }
-    function x() {
+    function $() {
       o("WAWebCmd").Cmd.focusNextChat(!0);
     }
-    function $() {
+    function P() {
       o("WAWebCmd").Cmd.focusPrevChat(!0);
     }
-    function P() {
+    function N() {
       o("WAWebModalManager").ModalManager.open(
-        _.jsx(o("WAWebSendLogsPopupLoadable").SendLogsPopupLoadable, {}),
+        f.jsx(o("WAWebSendLogsPopupLoadable").SendLogsPopupLoadable, {}),
       );
     }
-    function N() {
+    function M() {
       o("WAWebCmd").Cmd.openComposeBoxExpressionPanel(
         o("WAWebComposeBoxPanelTypes").ComposeBoxExpressionPanel.EMOJI,
       );
     }
-    function M() {
+    function w() {
       o("WAWebCmd").Cmd.openCurrentChatInfo();
     }
-    function w() {
+    function A() {
       o("WAWebCmd").Cmd.blockCurrentChat();
     }
-    function A() {
+    function F() {
       o("WAWebCmd").Cmd.replyCurrentMessageKeyboardShortcut();
     }
-    function F() {
+    function O() {
       o("WAWebCmd").Cmd.replyCurrentMessagePrivate();
     }
-    function O() {
+    function B() {
       o("WAWebCmd").Cmd.forwardCurrentMessage();
     }
-    function B() {
+    function W() {
       o("WAWebCmd").Cmd.starCurrentMessage();
     }
-    function W() {}
-    function q() {
+    function q() {}
+    function U() {
       o("WAWebCmd").Cmd.startPttRecording();
     }
-    function U() {
+    function V() {
       o("WAWebCmd").Cmd.pausePttRecording();
     }
-    function V() {
+    function H() {
       o("WAWebCmd").Cmd.sendPttRecording();
     }
-    function H() {
+    function G() {
       o("WAWebCmd").Cmd.openComposeBoxExpressionPanel(
         o("WAWebComposeBoxPanelTypes").ComposeBoxExpressionPanel.GIF,
       );
     }
-    function G() {
+    function z() {
       o("WAWebCmd").Cmd.openComposeBoxExpressionPanel(
         o("WAWebComposeBoxPanelTypes").ComposeBoxExpressionPanel.STICKER,
       );
     }
-    function z() {
+    function j() {
       o("WAWebComposeBoxActions").ComposeBoxActions.hasText() ||
         o("WAWebCmd").Cmd.openAttachmentDropdown();
     }
-    function j() {
+    function K() {
       o("WAWebCmd").Cmd.toggleStickerMaker();
     }
-    function K() {
+    function Q() {
       o("WAWebCommandPaletteUtils").isCommandPaletteOpen()
         ? o("WAWebCmd").Cmd.closeCommandPalette()
         : o("WAWebCmd").Cmd.openCommandPalette();
     }
-    function Q() {
+    function X() {
       o("WAWebUserPrefsScreenLock").getScreenLockEnabled()
         ? o("WAWebLockScreenResolver").lockScreenAndTriggerUnlockFlow()
         : o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-            _.jsx(r("WAWebScreenLockDrawer.react"), {
+            f.jsx(o("WAWebScreenLockDrawerLoadable").ScreenLockDrawerLoadable, {
               onCancel: o("WAWebDrawerManager").closeDrawerLeft,
             }),
           );
     }
-    function X() {
+    function Y() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       e &&
         o("WAWebModalManager").ModalManager.open(
-          _.jsx(o("WAWebManageLabelFlowLoadable").ManageLabelFlowLoadable, {
+          f.jsx(o("WAWebManageLabelFlowLoadable").ManageLabelFlowLoadable, {
             modelsToUpdate: [e],
             onClose: o("WAWebModalManager").closeModalManager,
             entryPoint: null,
           }),
         );
     }
-    function Y() {
+    function J() {
       n("cr:13920") != null &&
         n("cr:13920").isHybridAppZoomingEnabled &&
         (o("WALogger").LOG(
@@ -497,7 +503,7 @@ __d(
         ),
         n("cr:13920") == null || n("cr:13920").trigger("requestZoomIn"));
     }
-    function J() {
+    function Z() {
       n("cr:13920") != null &&
         n("cr:13920").isHybridAppZoomingEnabled &&
         (o("WALogger").LOG(
@@ -508,7 +514,7 @@ __d(
         ),
         n("cr:13920") == null || n("cr:13920").trigger("requestZoomOut"));
     }
-    function Z() {
+    function ee() {
       n("cr:13920") != null &&
         n("cr:13920").isHybridAppZoomingEnabled &&
         (o("WALogger").LOG(
@@ -519,7 +525,7 @@ __d(
         ),
         n("cr:13920") == null || n("cr:13920").trigger("requestZoomReset"));
     }
-    function ee() {
+    function te() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -532,22 +538,66 @@ __d(
           }
         })();
     }
-    function te() {
-      var e = r("WAWebCallCollection").activeCall;
-      e != null &&
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if ((t == null ? void 0 : t.type) === "web") {
-            var n = e.selfMicMuted;
-            yield t.setCallMute(!n);
-          }
-        })();
+    function ne(e) {
+      r("WAWebCallCollection").activeCall != null &&
+        n("asyncToGeneratorRuntime")
+          .asyncToGenerator(function* () {
+            var t = (e == null ? void 0 : e.isDocPip) === !0,
+              n = e == null ? void 0 : e.targetWindow,
+              r = !1,
+              a = yield o(
+                "WAWebVoipMicrophoneToggle",
+              ).toggleActiveCallMicrophone({
+                onPermissionPrompt:
+                  t && n != null
+                    ? function () {
+                        r = o(
+                          "WAWebVoipPopoutWindowState",
+                        ).focusMainWindowForMediaPrompt(
+                          n,
+                          "keyboard mute toggle",
+                          "microphone",
+                        );
+                      }
+                    : void 0,
+                targetWindow: t ? null : n,
+              });
+            a === "permission_denied" && re(n, r);
+          })()
+          .catch(function (e) {
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "keyboard: microphone toggle failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("voip-keyboard-microphone-toggle-failed");
+          });
     }
-    function ne() {
+    function re(e, t) {
+      var n =
+        e == null || t
+          ? o("WAWebModalManager").ModalManager
+          : o("WAWebVoipPopoutModalManager").VoipPopoutModalManager;
+      n.open(
+        f.jsx(
+          o("WAWebVoipMicrophonePermissionDeniedGuideLoadable.react")
+            .WAWebVoipMicrophonePermissionDeniedGuideLoadable,
+          {
+            onConfirm: function () {
+              return n.close();
+            },
+          },
+        ),
+      );
+    }
+    function oe() {
       var e = r("WAWebCallCollection").activeCall;
       e != null && o("WAWebCmd").Cmd.trigger("voip_show_reactions");
     }
-    function re() {
+    function ae() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -559,7 +609,7 @@ __d(
           }
         })();
     }
-    function oe() {
+    function ie() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -570,7 +620,7 @@ __d(
           }
         })();
     }
-    function ae() {
+    function le() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -580,7 +630,7 @@ __d(
             : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0);
         })();
     }
-    function ie() {
+    function se() {
       if (o("WAWebPrivacyModeGating").isPrivacyScreenEnabled()) {
         var e = o("WAWebUserPrefsPrivacyMode").isPrivacyScreenEnabled();
         (o("WAWebCmd").Cmd.trigger("toggle_privacy_mode"),
@@ -589,7 +639,7 @@ __d(
           }));
       }
     }
-    l.default = g;
+    l.default = h;
   },
   226,
 );

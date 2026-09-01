@@ -1582,8 +1582,7 @@ __d(
       (l.handleDataChannelOpened = Ie),
       (l.handleDataChannelErrored = $e),
       (l.cleanupAllConnections = Me),
-      (l.handleRelayListUpdate = We),
-      (l.initDataChannelWorker = nt));
+      (l.handleRelayListUpdate = We));
   },
   98,
 );

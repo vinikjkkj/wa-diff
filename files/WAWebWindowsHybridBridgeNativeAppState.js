@@ -174,7 +174,7 @@ __d(
           this.$1.addEventListener("appStateChangedEvent", this.$5),
           this.$1.subscribe(null));
       };
-    ((l.AppState = d), (l.WindowsHybridBridgeNativeAppState = m));
+    l.WindowsHybridBridgeNativeAppState = m;
   },
   98,
 );

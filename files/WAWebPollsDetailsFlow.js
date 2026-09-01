@@ -5,6 +5,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebInfoFlowLoadable",
     "WAWebInfoFlowStep",
+    "WAWebMsgCollection",
     "WAWebPollsActionsMetricUtils",
     "WAWebPollsDetailsDrawer",
     "WAWebPollsViewAllVotesDrawer",
@@ -12,6 +13,7 @@ __d(
     "nullthrows",
     "react",
     "useWAWebFlow",
+    "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,8 +36,10 @@ __d(
         f = d(null),
         g = f[0],
         h = f[1],
-        y = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
-        C = function (t) {
+        y = n.unsafe(),
+        C = y.id,
+        b = o("WAWebFrontendMsgGetters").getChat(y),
+        v = function (t) {
           (h(t), l.push(m.ContactInfo));
         };
       if (
@@ -45,7 +49,7 @@ __d(
               {
                 action: o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
                   .VIEW_RESULTS_MODAL,
-                chat: y,
+                chat: b,
               },
               o(
                 "WAWebPollsActionsMetricUtils",
@@ -53,13 +57,23 @@ __d(
             ),
           );
         }, []),
+        o("useWAWebListener").useListener(y, "revoked", function () {
+          l.end();
+        }),
+        o("useWAWebListener").useListener(
+          o("WAWebMsgCollection").MsgCollection,
+          "remove",
+          function (e) {
+            e.id.equals(C) && l.end();
+          },
+        ),
         l.step == null)
       )
         return null;
-      var b;
+      var S;
       switch (l.step) {
         case m.Details:
-          b = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
+          S = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
             msg: n,
             associatedMessages: t,
             onClose: function () {
@@ -68,22 +82,22 @@ __d(
             onViewAllVotes: function (t) {
               (_(t), l.push(m.ViewAll));
             },
-            onOpenContactInfo: C,
+            onOpenContactInfo: v,
           });
           break;
         case m.ViewAll:
-          b = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
+          S = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
             msg: n,
             associatedMessages: t,
             optionLocalId: r("nullthrows")(p),
             onBack: function () {
               l.pop();
             },
-            onOpenContactInfo: C,
+            onOpenContactInfo: v,
           });
           break;
         case m.ContactInfo:
-          b = s.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
+          S = s.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
             chat: r("nullthrows")(g),
             initialStep: o("WAWebInfoFlowStep").InfoFlowStep.ContactInfo,
             onBack: l.pop,
@@ -93,7 +107,7 @@ __d(
           });
           break;
       }
-      return s.jsx(i, { flow: l, children: b });
+      return s.jsx(i, { flow: l, children: S });
     }
     ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },

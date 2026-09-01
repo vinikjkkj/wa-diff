@@ -2,12 +2,10 @@ __d(
   "WAWebScheduleIncrementNewsletterForwardCounterAction",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebABProps",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebScheduleNewsletterForwardCounter",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -40,30 +38,27 @@ __d(
         var r = o("WAWebABProps").getABPropConfigValue(
             "newsletter_forward_counter_max_send_after_random_time",
           ),
-          a = o("WATimeUtils").futureUnixTime(Math.floor(Math.random() * r));
+          a = Math.floor(Math.random() * r);
         try {
-          var i = o(
-            "WAWebPersistedJobDefinitions",
-          ).jobSerializers.incrementNewsletterForwardCounter(
-            t.toString(),
-            o("WAWebNewsletterGatingUtils")
+          o(
+            "WAWebScheduleNewsletterForwardCounter",
+          ).scheduleForwardCounterIncrement({
+            delaySeconds: a,
+            newsletterId: t.toString(),
+            retriesRemaining: o("WAWebNewsletterGatingUtils")
               .NEWSLETTER_FORWARD_COUNTER_MAX_RETRIES,
-            n,
-            a,
-          );
-          o("WAWebPersistedJobManagerWorkerCompatible")
-            .getJobManager()
-            .fireAndForget(i);
+            serverId: n,
+          });
         } catch (t) {
           o("WALogger")
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ForwardCounter][Increment] Failed to start persisted job",
+                  "[ForwardCounter][Increment] Failed to schedule the increment",
                 ])),
             )
-            .tags("newsletter-forward-counter", "job-start-error")
-            .sendLogs("forward-counter-job-start-error");
+            .tags("newsletter-forward-counter")
+            .sendLogs("forward-counter-schedule-error");
         }
       }
     }

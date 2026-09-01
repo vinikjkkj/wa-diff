@@ -13,9 +13,8 @@ __d(
     "WAWebMaybePostMdGroupSyncMetrics",
     "WAWebMsgFanoutTypes",
     "WAWebMsgUtilsBridge",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPostMdDeviceSyncAckMetric",
+    "WAWebRequestMsgResend",
     "WAWebSendDirectMsgToDeviceList",
     "WAWebSendMsgCommonApi",
     "WAWebSyncDeviceAdvDeviceListJob",
@@ -389,24 +388,21 @@ __d(
             a = e.msgRecord,
             i = e.oldList,
             l = e.phash,
-            s = e.serverAddressingMode,
-            u = yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.maybeCreateJob(
-                o("WAWebPersistedJobDefinitions").jobSerializers.resendGroupMsg(
-                  a,
-                  n,
-                  r,
-                  i,
-                  l,
-                  t,
-                  s,
-                ),
-              );
-          (yield S(e),
-            yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.deletePersistedJob(u.id));
+            s = e.serverAddressingMode;
+          yield o("WAWebRequestMsgResend").runGroupMsgResendRecorded(
+            {
+              ackTime: t,
+              groupData: n,
+              isDirect: r,
+              msgRecord: a,
+              oldList: i,
+              phash: l,
+              serverAddressingMode: s,
+            },
+            function () {
+              return S(e);
+            },
+          );
         })),
         T.apply(this, arguments)
       );

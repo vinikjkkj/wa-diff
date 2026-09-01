@@ -132,11 +132,11 @@ __d(
                 )
               : e === o("WAWebSchemaLabel").ListType.AI_HANDOFF
                 ? s._(
-                    /*BTDS*/ "This list automatically updates with chats your AI agent has handed back to you.",
+                    /*BTDS*/ "Chats are added to this list when the customer needs a response from you. You can reply to the chat to remove it from this list.",
                   )
                 : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
                   ? s._(
-                      /*BTDS*/ "This list automatically updates with chats where your AI agent is responding.",
+                      /*BTDS*/ "This list automatically updates for you with chats where AI agent is responding.",
                     )
                   : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
                     ? s._(

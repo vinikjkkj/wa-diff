@@ -389,6 +389,11 @@ __d(
       ALL_CHIP: 384,
       PILL_BUTTON: 385,
       ADD_AMOUNT_BUTTON: 386,
+      REQUEST_PAYMENT: 387,
+      SEND_PAYMENT: 388,
+      SEND_PIX_KEY: 389,
+      GO_TO_PAYMENTS: 390,
+      SPLIT_PAYMENT: 391,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

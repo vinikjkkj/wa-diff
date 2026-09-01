@@ -6,8 +6,7 @@ __d(
     "WAWebDBEphemeralMessage",
     "WAWebMsgKey",
     "WAWebPageLoadLogging",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRequestDeleteAddOns",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,14 +35,7 @@ __d(
               "deleteModelsForLastAddOnPreview",
               { messagesIds: a },
             ),
-              yield o("WAWebPersistedJobManagerWorkerCompatible")
-                .getJobManager()
-                .waitUntilPersisted(
-                  o("WAWebPersistedJobDefinitions").jobSerializers.deleteAddOns(
-                    l,
-                    a,
-                  ),
-                ),
+              yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(l, a),
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([

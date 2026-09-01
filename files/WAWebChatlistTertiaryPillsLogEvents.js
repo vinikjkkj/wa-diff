@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "WAWebSMBUserJourneyLogger",
+    "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSmbFeatureNameEnum",
     "WAWebWamEnumSmbUserActionTypeEnum",
     "WAWebWamEnumSurfaceType",
@@ -28,8 +29,10 @@ __d(
       u.has(i) ||
         (u.add(i),
         o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+          entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHATS_LIST,
           featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
             .GEN_AI_AGENT,
+          stickyEntryPoint: !1,
           surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
           userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
             .SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -42,8 +45,10 @@ __d(
       c.has(n) ||
         (c.add(n),
         o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+          entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHATS_LIST,
           featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
             .GEN_AI_AGENT,
+          stickyEntryPoint: !1,
           surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
           userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
             .SMB_USER_ACTION_TYPE_ENUM.VALIDATION,

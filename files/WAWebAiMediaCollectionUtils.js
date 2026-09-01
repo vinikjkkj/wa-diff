@@ -1,23 +1,22 @@
 __d(
   "WAWebAiMediaCollectionUtils",
-  ["WAWebBotGating", "WAWebBotUtils", "WAWebMsgType"],
+  ["WAWebBotGating", "WAWebBotUtils", "WAWebHatchGating", "WAWebMsgType"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      if (e.length === 0) return !1;
-      var t = new Set(
-        e.map(function (e) {
-          return e.media.type;
-        }),
-      );
-      return t.has(o("WAWebMsgType").MSG_TYPE.DOCUMENT) || t.size > 1;
-    }
+    var e = 2;
     function s(t, n) {
-      return (
-        o("WAWebBotUtils").isMetaAiBot(t.id) &&
-        n.length >= 2 &&
-        e(n) &&
-        o("WAWebBotGating").getMetaAiFileUploadCountLimit() >= 2
-      );
+      if (n.length < e) return !1;
+      if (o("WAWebBotUtils").isMetaAiBot(t.id))
+        return o("WAWebBotGating").getMetaAiFileUploadCountLimit() >= e && u(n);
+      if (o("WAWebBotUtils").isHatchBot(t.id)) {
+        var r = o("WAWebHatchGating").getHatchMediaUploadCountLimit();
+        return r >= e && n.length <= r && u(n);
+      }
+      return !1;
+    }
+    function u(e) {
+      return e.every(function (e) {
+        return e.media.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
+      });
     }
     l.shouldSendAsAiMediaCollection = s;
   },

@@ -259,6 +259,7 @@ __d(
       group_calling_wave_sending_enabled: [29247, "bool", !1, !1],
       group_create_add_using_lid_jids: [16192, "bool", !1, !1],
       group_history_after_join_prerequisites: [28787, "bool", !1, !1],
+      group_history_after_join_sender_prerequisites: [35987, "bool", !0, !0],
       group_history_bundle_time_limit_receiver_enforcement_secs: [
         25910,
         "int",

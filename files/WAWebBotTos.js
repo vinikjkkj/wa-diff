@@ -143,23 +143,16 @@ __d(
     function k(t) {
       r("WAWebUserPrefsStore").setUser(e, t);
     }
-    function I() {
-      return (
-        o("WAWebTos").TosManager.getState(
-          o("WAWebBotTosIds").getUgcAiStudioTosId(),
-        ) === "ACCEPTED"
-      );
-    }
-    function T(e) {
+    function I(e) {
       var t = o("WAWebBotGating").getNonBlockingBotNoticeIds();
       return t.length === 0 ? !1 : t.includes(Number(e));
     }
-    function D(e) {
+    function T(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null && e === t;
     }
-    function x(e) {
-      if (T(Number(e))) return !0;
+    function D(e) {
+      if (I(Number(e))) return !0;
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null ? !0 : o("WAWebBotTosIds").supportedTosNoticeIds.has(e);
     }
@@ -176,10 +169,9 @@ __d(
       (l.markSeenShortcutTos = b),
       (l.acceptBizBotTos = S),
       (l.setBizBotTosDismissalTime = k),
-      (l.hasSeenUgcTos = I),
-      (l.isNonBlockingBotNotice = T),
-      (l.isMasterBotTosNotice = D),
-      (l.canShowBotTos = x));
+      (l.isNonBlockingBotNotice = I),
+      (l.isMasterBotTosNotice = T),
+      (l.canShowBotTos = D));
   },
   98,
 );

@@ -10,9 +10,8 @@ __d(
     "WAWebDBQueryAndRemoveMessageHistory",
     "WAWebDBReportingTokenUtils",
     "WAWebMessageRangeUtils",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProtobufSyncAction.pb",
+    "WAWebRequestDeleteAddOns",
     "WAWebThreadMetadataJob",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -84,13 +83,10 @@ __d(
                 "deleteModelsForLastAddOnPreview",
                 { messagesIds: n },
               ),
-                yield o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .waitUntilPersisted(
-                    o(
-                      "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.deleteAddOns(e.id.toString(), n),
-                  ),
+                yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                  e.id.toString(),
+                  n,
+                ),
                 o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(n, {
                   removeWholeRow: !0,
                 }));

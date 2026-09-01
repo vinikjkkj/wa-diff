@@ -1421,6 +1421,7 @@ __d(
       group_from_group_ban_risk_mitigation_enabled: [34955, "bool", !1, !1],
       group_from_group_max_missing_privacy_tokens: [34957, "int", 32, 32],
       group_history_after_join_prerequisites: [28787, "bool", !1, !1],
+      group_history_after_join_sender_prerequisites: [35987, "bool", !0, !0],
       group_history_bump_message_id: [16346, "int", 200, 200],
       group_history_bundle_time_limit_receiver_enforcement_secs: [
         25910,
@@ -2089,6 +2090,7 @@ __d(
         !1,
         !0,
       ],
+      payments_row_upr_buyer_logging: [35965, "bool", !1, !0],
       payments_upr_algeria_enabled: [35026, "bool", !1, !0],
       payments_upr_angola_enabled: [35054, "bool", !1, !0],
       payments_upr_argentina_enabled: [33887, "bool", !1, !0],

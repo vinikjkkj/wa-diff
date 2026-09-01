@@ -74,7 +74,7 @@ __d(
           })
         : s({ chat: e, files: [t], options: o });
     }
-    ((l.openFilePreviewFlow = s), (l.openFilePreviewFlowMulticast = u));
+    l.openFilePreviewFlowMulticast = u;
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBusinessDataSharingIllustrationDarkIcon.react",
     "WAWebBusinessDataSharingIllustrationLightIcon.react",
+    "WAWebCTWAGatingUtils",
     "WAWebConfirmPopup.react",
     "WAWebCtwaPerCustomerDataSharingSync",
     "WAWebExternalLink.react",
@@ -129,9 +130,13 @@ __d(
         : (i = e[2]);
       var l;
       e[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = s._(
-            /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience on Facebook and Instagram and improve Meta ads.",
-          )),
+        ? ((l = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
+            ? s._(
+                /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience and improve Meta ads.",
+              )
+            : s._(
+                /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience on Facebook and Instagram and improve Meta ads.",
+              )),
           (e[3] = l))
         : (l = e[3]);
       var c;

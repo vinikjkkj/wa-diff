@@ -948,16 +948,16 @@ __d(
                     n,
                     "list_row",
                   ),
-                    o("WAWebCustomerDataFieldSaver").handleLeadStageTransition(
-                      t.item.chatJid,
-                      o(
+                    o("WAWebCustomerDataFieldSaver").handleLeadStageTransition({
+                      chatJid: t.item.chatJid,
+                      customerData: o(
                         "WAWebCustomerDataCollection",
                       ).CustomerDataCollection.maybeGetCustomerDataByChatJid(
                         t.item.chatJid,
                       ),
-                      n,
-                      r,
-                    ));
+                      newStage: n,
+                      prevStage: r,
+                    }));
                 },
                 showNoneOption: !0,
                 testid: "customer-manager-lead-stage-cell",

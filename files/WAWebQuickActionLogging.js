@@ -34,6 +34,7 @@ __d(
         add_contact: s.WEBC_QUICK_ACTION_ID.ADD_CONTACT,
         ask_meta_ai: s.WEBC_QUICK_ACTION_ID.ASK_META_AI,
         start_call: s.WEBC_QUICK_ACTION_ID.START_CALL,
+        go_to_calls: s.WEBC_QUICK_ACTION_ID.GO_TO_CALLS,
         new_call_link: s.WEBC_QUICK_ACTION_ID.NEW_CALL_LINK,
         open_dialer: s.WEBC_QUICK_ACTION_ID.OPEN_DIALER,
         schedule_call: s.WEBC_QUICK_ACTION_ID.SCHEDULE_CALL,
@@ -82,20 +83,27 @@ __d(
       }
     }
     function h(e, t, n, r) {
+      C(e, t, n, r);
+    }
+    function y(e, t) {
+      C(e, t, null, null);
+    }
+    function C(e, t, n, r) {
       var a = new (o("WAWebWebcQuickActionWamEvent").WebcQuickActionWamEvent)();
       ((a.webcQuickActionEventType = o(
         "WAWebWamEnumWebcQuickActionEventType",
       ).WEBC_QUICK_ACTION_EVENT_TYPE.TAP),
         (a.webcQuickActionSurface = u[e]),
         (a.webcQuickActionId = c[t]),
-        (a.webcQuickActionSlotPosition = n),
-        (a.webcQuickActionNumVisible = r),
+        n != null && (a.webcQuickActionSlotPosition = n),
+        r != null && (a.webcQuickActionNumVisible = r),
         (a.webcQuickActionIsCustomized = d),
         a.commit());
     }
     ((l.logQuickActionSurfaceView = f),
       (l.logQuickActionImpression = g),
-      (l.logQuickActionTap = h));
+      (l.logQuickActionTap = h),
+      (l.logQuickActionCtaTap = y));
   },
   98,
 );

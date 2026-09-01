@@ -80,7 +80,7 @@ __d(
         }
       );
     }
-    ((l.sendHatchChannelBootstrap = m), (l.bootstrapHatchWhenLinked = p));
+    l.bootstrapHatchWhenLinked = p;
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebVoipVideoOffThreadRendererStub",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebUA",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
@@ -28,8 +29,8 @@ __d(
             r = e.portalMode,
             a = e.rendererType,
             i = e.threadingMode;
-          ((this.$10 = !1),
-            (this.$11 = o(
+          ((this.$11 = !1),
+            (this.$10 = o(
               "WAWebVoipVideoRendererInterface",
             ).onRenderCallbackNoop));
           var l = t.rendererIdCounter++,
@@ -149,13 +150,18 @@ __d(
                   l.close();
                   return;
                 }
+                var p = m.$3;
+                if (p == null) {
+                  l.close();
+                  return;
+                }
                 try {
-                  var p = m.$3.getContext("bitmaprenderer");
-                  if (!p)
+                  var _ = p.getContext("bitmaprenderer");
+                  if (!_)
                     throw r("err")(
                       "Could not get bitmaprenderer context for " + c,
                     );
-                  p.transferFromImageBitmap(l);
+                  _.transferFromImageBitmap(l);
                 } catch (e) {
                   (o("WALogger").WARN(
                     d ||
@@ -181,9 +187,11 @@ __d(
                 try {
                   var l = a ? t.$7(i, r) : n;
                   if (!l) return;
+                  var s = l.$3;
+                  if (s == null) return;
                   o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.requestKeyFrameForCanvas(l.$3);
+                  ).videoRendererRegistry.requestKeyFrameForCanvas(s);
                 } catch (e) {
                   o("WALogger").WARN(
                     m ||
@@ -235,11 +243,16 @@ __d(
               this.$5.postMessage({
                 type: "unregisterCanvas",
                 rendererId: this.$1,
-              }));
+              }),
+              o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3") &&
+                ((this.$3 = null),
+                (this.$10 = o(
+                  "WAWebVoipVideoRendererInterface",
+                ).onRenderCallbackNoop)));
           }),
           (n.reset = function () {
             ((this.$2 += 1),
-              (this.$10 = !1),
+              (this.$11 = !1),
               this.$5.postMessage({
                 type: "reset",
                 rendererId: this.$1,
@@ -298,13 +311,13 @@ __d(
             });
           }),
           (n.setRenderCallback = function (t) {
-            this.$11 = t;
+            this.$10 = t;
           }),
           (n.$9 = function () {
-            if (!this.$10) {
-              this.$10 = !0;
+            if (!this.$11) {
+              this.$11 = !0;
               try {
-                this.$11();
+                this.$10();
               } catch (e) {
                 o("WALogger").WARN(
                   p ||

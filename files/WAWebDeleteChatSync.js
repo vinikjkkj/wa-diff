@@ -14,10 +14,9 @@ __d(
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebMessageRangeUtils",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
+    "WAWebRequestDeleteAddOns",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
@@ -202,13 +201,10 @@ __d(
                       "deleteModelsForLastAddOnPreview",
                       { messagesIds: n },
                     ),
-                    yield o("WAWebPersistedJobManagerWorkerCompatible")
-                      .getJobManager()
-                      .waitUntilPersisted(
-                        o(
-                          "WAWebPersistedJobDefinitions",
-                        ).jobSerializers.deleteAddOns(e.toString(), n),
-                      ),
+                    yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                      e.toString(),
+                      n,
+                    ),
                     yield o("WAWebBackendApi").frontendSendAndReceive(
                       "chatDeleteMessages",
                       { chatId: e.toString(), messageIds: n },

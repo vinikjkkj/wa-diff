@@ -22,7 +22,10 @@ __d(
     "WAWebQueryCatalog",
     "WAWebQueryCatalogHasCategories",
     "WAWebQueryCatalogProduct",
+    "WAWebQueryProductListCatalogJob",
     "WAWebReportProductJob",
+    "WAWebRestOperations",
+    "WAWebScheduledOperations",
     "WAWebWidFactory",
     "qpl",
   ],
@@ -119,17 +122,29 @@ __d(
       var l = o(
         "WAWebBusinessDirectConnectionBridge",
       ).attemptWithDirectConnectionRetry(e, function (n) {
-        return o("WAWebPersistedJobManagerWorkerCompatible")
-          .getJobManager()
-          .waitUntilCompleted(
-            o("WAWebPersistedJobDefinitions").jobSerializers.queryProductList(
-              e,
-              t,
-              n,
-              r,
-              a,
-            ),
-          );
+        return o("WAWebRestOperations").runRestOperation(
+          o("WAWebScheduledOperations").ScheduledOperation.QUERY_PRODUCT_LIST,
+          function () {
+            return o("WAWebQueryProductListCatalogJob").queryProductListCatalog(
+              {
+                catalogWid: e.toString(),
+                directConnectionEncryptedInfo: n,
+                height: a,
+                productIds: t,
+                width: r,
+              },
+            );
+          },
+          function () {
+            return o("WAWebPersistedJobManagerWorkerCompatible")
+              .getJobManager()
+              .waitUntilCompleted(
+                o(
+                  "WAWebPersistedJobDefinitions",
+                ).jobSerializers.queryProductList(e, t, n, r, a),
+              );
+          },
+        );
       });
       return (
         l

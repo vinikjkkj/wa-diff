@@ -4,8 +4,8 @@ __d(
     "WATimeUtils",
     "WAWebBaseModel",
     "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebQuickPromotionCustomHandlingUtils",
+    "WAWebServicedJobs",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -26,13 +26,11 @@ __d(
           var e = this.promotion.tracking;
           ((e.dismisses += 1),
             (e.lastDismissTs = o("WATimeUtils").unixTime()),
-            o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .fireAndForget(
-                o(
-                  "WAWebPersistedJobDefinitions",
-                ).jobSerializers.dismissQuickPromotion(this.promotion.id),
-              ),
+            o("WAWebServicedJobs").runServicedJob(
+              o(
+                "WAWebPersistedJobDefinitions",
+              ).jobSerializers.dismissQuickPromotion(this.promotion.id),
+            ),
             o(
               "WAWebQuickPromotionCustomHandlingUtils",
             ).maybeExecuteQuickPromotionCustomHandlingSpec(
@@ -44,15 +42,13 @@ __d(
           var e = this.promotion.tracking;
           ((e.primaryClicks += 1),
             (e.lastPrimaryClickTs = o("WATimeUtils").unixTime()),
-            o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .fireAndForget(
-                o(
-                  "WAWebPersistedJobDefinitions",
-                ).jobSerializers.primaryActionClickInQuickPromotion(
-                  this.promotion.id,
-                ),
+            o("WAWebServicedJobs").runServicedJob(
+              o(
+                "WAWebPersistedJobDefinitions",
+              ).jobSerializers.primaryActionClickInQuickPromotion(
+                this.promotion.id,
               ),
+            ),
             o(
               "WAWebQuickPromotionCustomHandlingUtils",
             ).maybeExecuteQuickPromotionCustomHandlingSpec(
@@ -74,13 +70,11 @@ __d(
           }
           ((t.impressions += 1),
             (t.lastImpressionTs = o("WATimeUtils").unixTime()),
-            o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .fireAndForget(
-                o(
-                  "WAWebPersistedJobDefinitions",
-                ).jobSerializers.impressionOnQuickPromotion(e.id),
-              ),
+            o("WAWebServicedJobs").runServicedJob(
+              o(
+                "WAWebPersistedJobDefinitions",
+              ).jobSerializers.impressionOnQuickPromotion(e.id),
+            ),
             o(
               "WAWebQuickPromotionCustomHandlingUtils",
             ).maybeExecuteQuickPromotionCustomHandlingSpec(

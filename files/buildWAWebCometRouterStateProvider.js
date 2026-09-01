@@ -3,9 +3,11 @@ __d(
   [
     "CometRouteStore",
     "CometRouterFocusRegion.react",
+    "WAWebWindowsQueryParams",
     "buildBaseCometRouterStateProvider",
     "buildCometRouter",
     "deferredLoadComponent",
+    "justknobx",
     "react",
     "requireDeferred",
     "useCometOnBeforeUnloadDialog",
@@ -23,20 +25,35 @@ __d(
         LoadingStates: {},
         RouteActorToaster: u,
         RouterFocusRegion: r("CometRouterFocusRegion.react"),
-      };
-    function d(e) {
+      },
+      d = -1,
+      m = 36e5;
+    function p() {
+      var e = r("justknobx")._("5792");
+      return !Number.isFinite(e) || e <= 0 ? d : Math.max(m, e);
+    }
+    function _(e) {
       var t,
-        n = babelHelpers.extends({}, e, {
-          uiComponents: (t = e.uiComponents) != null ? t : c,
-        }),
-        o = r("buildCometRouter")(n, r("CometRouteStore"));
-      return r("buildBaseCometRouterStateProvider")(
-        o,
-        r("useCometOnBeforeUnloadDialog"),
         n,
+        a = babelHelpers.extends({}, e, {
+          cometRouterConstantsOverride: babelHelpers.extends(
+            { NAVIGATION_COUNT_THRESHOLD: d, RELOAD_RESOURCE_THRESHOLD: p() },
+            e.cometRouterConstantsOverride,
+          ),
+          persistentParameters: [].concat(
+            o("WAWebWindowsQueryParams").WINDOWS_QUERY_PARAMS,
+            (t = e.persistentParameters) != null ? t : [],
+          ),
+          uiComponents: (n = e.uiComponents) != null ? n : c,
+        }),
+        i = r("buildCometRouter")(a, r("CometRouteStore"));
+      return r("buildBaseCometRouterStateProvider")(
+        i,
+        r("useCometOnBeforeUnloadDialog"),
+        a,
       );
     }
-    l.default = d;
+    l.default = _;
   },
   98,
 );

@@ -5,6 +5,8 @@ __d(
     function e(e) {
       switch (e) {
         case o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter:
           return o("WAWebWamEnumActionEntryPoint").ACTION_ENTRY_POINT.CHAT_LIST;
         case o("WAWebChatEntryPoint").ChatEntryPoint.Notification:
           return o("WAWebWamEnumActionEntryPoint").ACTION_ENTRY_POINT

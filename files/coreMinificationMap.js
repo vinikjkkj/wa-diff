@@ -512,6 +512,7 @@ __d(
             reposition_on_keyboard_event: "9",
             resize_based_on_content: "=",
             resize_height_based_on_content: "?",
+            retain_vertical_scroll_gesture: "q",
             return_key_type: "F",
             sensitive: "c",
             shadow: "Z",

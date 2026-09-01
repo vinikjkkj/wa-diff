@@ -7,6 +7,9 @@ __d(
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebQueryAndUpdateGroupsMetadataByJidsJob",
+    "WAWebRestOperations",
+    "WAWebScheduledOperations",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -44,10 +47,18 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = e.groupsDirtyGroup.map(function (e) {
-                return e.jid;
-              }),
-              n = yield p(t);
-            yield f(n);
+              return e.jid;
+            });
+            yield o("WAWebRestOperations").runRestOperation(
+              o("WAWebScheduledOperations").ScheduledOperation
+                .QUERY_AND_UPDATE_GROUPS_METADATA_BY_JIDS,
+              function () {
+                return p(t);
+              },
+              function () {
+                return f(t);
+              },
+            );
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -70,14 +81,13 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebPersistedJobManagerWorkerCompatible")
-            .getJobManager()
-            .accessors.maybeCreateJob(
-              o(
-                "WAWebPersistedJobDefinitions",
-              ).jobSerializers.queryAndUpdateGroupsMetadataByJids(e),
-            );
-          return t.id;
+          (yield o(
+            "WAWebEventsWaitForOfflineDeliveryEnd",
+          ).waitForOfflineDeliveryEnd(),
+            yield o("WAComms").waitForConnection(),
+            yield o(
+              "WAWebQueryAndUpdateGroupsMetadataByJidsJob",
+            ).queryAndUpdateDirtyGroupsMetadata(e));
         })),
         _.apply(this, arguments)
       );
@@ -88,6 +98,13 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .accessors.maybeCreateJob(
+              o(
+                "WAWebPersistedJobDefinitions",
+              ).jobSerializers.queryAndUpdateGroupsMetadataByJids(e),
+            );
           return (
             yield o(
               "WAWebEventsWaitForOfflineDeliveryEnd",
@@ -95,7 +112,7 @@ __d(
             yield o("WAComms").waitForConnection(),
             o("WAWebPersistedJobManagerWorkerCompatible")
               .getJobManager()
-              .loadAndRunJobFromId(e)
+              .loadAndRunJobFromId(t.id)
           );
         })),
         g.apply(this, arguments)

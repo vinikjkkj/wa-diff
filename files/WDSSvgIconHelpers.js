@@ -31,7 +31,7 @@ __d(
         _ = d.width;
       return { height: m, iconXstyle: i, otherProps: c, viewBox: p, width: _ };
     }
-    ((i.resolveSvgSizing = l), (i.resolveSvgIcon = s));
+    i.resolveSvgIcon = s;
   },
   66,
 );

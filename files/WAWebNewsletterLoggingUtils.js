@@ -68,6 +68,8 @@ __d(
             .SIMILAR_CHANNEL;
         case o("WAWebChatEntryPoint").ChatEntryPoint.Vcard:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter:
         case o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AgentsSettingsList:
         case o("WAWebChatEntryPoint").ChatEntryPoint.PrivateReply:

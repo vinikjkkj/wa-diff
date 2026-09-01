@@ -9,7 +9,10 @@ __d(
     "WAWebMexUsersGetAboutStatus",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRestOperations",
+    "WAWebScheduledOperations",
     "WAWebSendReadReceiptJob",
+    "WAWebSetAboutJob",
     "asyncToGeneratorRuntime",
     "cr:11133",
     "cr:12317",
@@ -62,11 +65,19 @@ __d(
       );
     }
     function c(e) {
-      return o("WAWebPersistedJobManagerWorkerCompatible")
-        .getJobManager()
-        .waitUntilCompleted(
-          o("WAWebPersistedJobDefinitions").jobSerializers.setAbout(e),
-        );
+      return o("WAWebRestOperations").runRestOperation(
+        o("WAWebScheduledOperations").ScheduledOperation.SET_ABOUT,
+        function () {
+          return o("WAWebSetAboutJob").sendSetAbout(e);
+        },
+        function () {
+          return o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .waitUntilCompleted(
+              o("WAWebPersistedJobDefinitions").jobSerializers.setAbout(e),
+            );
+        },
+      );
     }
     function d() {
       return o("WAWebApiStatus").getAllStatuses();

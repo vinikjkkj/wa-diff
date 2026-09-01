@@ -5,8 +5,7 @@ __d(
     "WAWebBackendApi",
     "WAWebDBMessageDelete",
     "WAWebDeleteMessageForMeSync",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRequestDeleteAddOns",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
     "err",
@@ -56,13 +55,10 @@ __d(
                           "deleteModelsForLastAddOnPreview",
                           { messagesIds: c },
                         ),
-                        yield o("WAWebPersistedJobManagerWorkerCompatible")
-                          .getJobManager()
-                          .waitUntilPersisted(
-                            o(
-                              "WAWebPersistedJobDefinitions",
-                            ).jobSerializers.deleteAddOns(i.toString(), c),
-                          )),
+                        yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                          i.toString(),
+                          c,
+                        )),
                       e
                     );
                   },

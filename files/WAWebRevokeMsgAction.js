@@ -30,8 +30,7 @@ __d(
     "WAWebNoop",
     "WAWebOpenCoexEditDeleteAlertModal",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRequestDeleteAddOns",
     "WAWebRevoke",
     "WAWebSendMsgRecordAction",
     "WAWebSendMsgResultAction",
@@ -317,19 +316,13 @@ __d(
                                   _.id.toString(),
                                 ]),
                                 yield o(
-                                  "WAWebPersistedJobManagerWorkerCompatible",
-                                )
-                                  .getJobManager()
-                                  .waitUntilPersisted(
-                                    o(
-                                      "WAWebPersistedJobDefinitions",
-                                    ).jobSerializers.deleteAddOns(
-                                      o("WAWebFrontendMsgGetters")
-                                        .getChat(_)
-                                        .id.toString(),
-                                      [_.id.toString()],
-                                    ),
-                                  ),
+                                  "WAWebRequestDeleteAddOns",
+                                ).requestDeleteAddOns(
+                                  o("WAWebFrontendMsgGetters")
+                                    .getChat(_)
+                                    .id.toString(),
+                                  [_.id.toString()],
+                                ),
                                 f(s.data, {
                                   msgKey: C,
                                   subtype: v,
@@ -547,14 +540,10 @@ __d(
         (o(
           "WAWebUpdateLastAddOnPreviewChatAction",
         ).deleteModelsForLastAddOnPreview([d.toString()]),
-          o("WAWebPersistedJobManagerWorkerCompatible")
-            .getJobManager()
-            .fireAndForget(
-              o("WAWebPersistedJobDefinitions").jobSerializers.deleteAddOns(
-                R.toString(),
-                [d.toString()],
-              ),
-            ));
+          o("WAWebRequestDeleteAddOns").requestDeleteAddOnsFireAndForget(
+            R.toString(),
+            [d.toString()],
+          ));
       }
     }
     ((l.sendRevoke = _),
