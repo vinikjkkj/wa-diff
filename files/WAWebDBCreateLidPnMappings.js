@@ -292,10 +292,13 @@ __d(
                 mode: "query",
               },
             ));
-          var C = [y];
-          (u.length > 0 && C.push($(u)),
-            yield (h || (h = n("Promise"))).all(C),
-            s.length > 0 && (yield N(s)));
+          var C = u.length > 0 ? $(u) : (h || (h = n("Promise"))).resolve([]),
+            b = yield (h || (h = n("Promise"))).all([y, C]),
+            v = b[1];
+          (s.length > 0 && (yield N(s)),
+            yield o(
+              "WAWebDBContactRemoveSoftDeletedUsernames",
+            ).applySoftDeletedUsernameClearsToFrontend(v));
         })),
         E.apply(this, arguments)
       );
@@ -338,7 +341,11 @@ __d(
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = [];
-            (x(e), yield $(e));
+            x(e);
+            var t = yield $(e);
+            yield o(
+              "WAWebDBContactRemoveSoftDeletedUsernames",
+            ).applySoftDeletedUsernameClearsToFrontend(t);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -390,36 +397,37 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = yield k(
-                e.map(function (e) {
-                  var t = e.pn;
-                  return t.toJid();
-                }),
-              ),
-              n = e.map(function (e) {
-                var n = e.lid,
-                  r = e.phoneNumberCreatedAt,
-                  a = e.pn,
-                  i = t.get(a.toJid());
-                return babelHelpers.extends(
-                  {
-                    id: n.toString(),
-                    phoneNumber: a.toString(),
-                    phoneNumberCreatedAt: r,
-                  },
-                  i
-                    ? o(
-                        "WAWebContactsDbLidMigrationUtils",
-                      ).createContactLidRowFromPnRow(n, i)
-                    : {
-                        contactHash: o("WAWebApiContact").getContactHash(
-                          n.toJid(),
-                        ),
-                      },
-                );
-              });
-            (o("WALogger").LOG(
+          if (e.length === 0) return [];
+          var t = yield k(
+              e.map(function (e) {
+                var t = e.pn;
+                return t.toJid();
+              }),
+            ),
+            n = e.map(function (e) {
+              var n = e.lid,
+                r = e.phoneNumberCreatedAt,
+                a = e.pn,
+                i = t.get(a.toJid());
+              return babelHelpers.extends(
+                {
+                  id: n.toString(),
+                  phoneNumber: a.toString(),
+                  phoneNumberCreatedAt: r,
+                },
+                i
+                  ? o(
+                      "WAWebContactsDbLidMigrationUtils",
+                    ).createContactLidRowFromPnRow(n, i)
+                  : {
+                      contactHash: o("WAWebApiContact").getContactHash(
+                        n.toJid(),
+                      ),
+                    },
+              );
+            });
+          return (
+            o("WALogger").LOG(
               g ||
                 (g = babelHelpers.taggedTemplateLiteralLoose([
                   "flushLidPnMappingsToDbImpl: ",
@@ -427,19 +435,20 @@ __d(
                 ])),
               n.length,
             ),
-              yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                .getContactTable()
-                .bulkCreateOrMerge(n),
-              o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-                (yield o(
+            yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+              .getContactTable()
+              .bulkCreateOrMerge(n),
+            o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
+              ? o(
                   "WAWebDBContactRemoveSoftDeletedUsernames",
                 ).removeSoftDeletedUsernames(
                   e.map(function (e) {
                     var t = e.lid;
                     return t;
                   }),
-                )));
-          }
+                )
+              : []
+          );
         })),
         P.apply(this, arguments)
       );

@@ -35,6 +35,12 @@ __d(
                 o("WAWebContactCollection").ContactCollection.gadd(this.id),
               ));
           }),
+          (n.delete = function () {
+            (e.prototype.delete.call(this),
+              o("WAWebMsgInfoGetters").clearMsgInfoParticipantGetterCacheFor(
+                this,
+              ));
+          }),
           t
         );
       })((e = o("WAWebBaseModel")).BaseModel);
@@ -44,7 +50,29 @@ __d(
         function t() {
           return e.apply(this, arguments) || this;
         }
-        return (babelHelpers.inheritsLoose(t, e), t);
+        babelHelpers.inheritsLoose(t, e);
+        var n = t.prototype;
+        return (
+          (n.remove = function (n, r) {
+            var t = e.prototype.remove.call(this, n, r);
+            return (
+              t.forEach(function (e) {
+                e != null &&
+                  o(
+                    "WAWebMsgInfoGetters",
+                  ).clearMsgInfoParticipantGetterCacheFor(e);
+              }),
+              t
+            );
+          }),
+          (n.reset = function () {
+            (this.forEach(
+              o("WAWebMsgInfoGetters").clearMsgInfoParticipantGetterCacheFor,
+            ),
+              e.prototype.reset.call(this));
+          }),
+          t
+        );
       })(r("WAWebCollection"));
     ((c.model = u),
       (c.comparator = function (e, t) {

@@ -32,6 +32,7 @@ __d(
     "WAWebMsgType",
     "WAWebMsmsgMsgSecretCache",
     "WAWebOfflineHandler",
+    "WAWebOfflineResumeCounters",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebOfflineResumeTypes",
     "WAWebPreProcessOrderEphemeralExemption",
@@ -348,7 +349,11 @@ __d(
                 ) {
                   (E == null || E(),
                     o("WAWebBackendEventBus").BackendEventBus
-                      .isOfflineDeliveryEnd && (yield G));
+                      .isOfflineDeliveryEnd &&
+                      (o(
+                        "WAWebOfflineResumeCounters",
+                      ).maybeLogAwaitUnflushedMsgWrite(C),
+                      yield G));
                   var z = o(
                     "WAWebMessagePostprocessRenderable",
                   ).postprocessRenderableMessages(H);

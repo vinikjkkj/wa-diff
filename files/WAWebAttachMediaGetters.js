@@ -19,18 +19,35 @@ __d(
       u = e.computed,
       c = e.field,
       d = e.unsafeIdentityGetter,
-      m = s,
-      p = d,
-      _ = c("file"),
-      f = c("filename"),
-      g = c("fullPreview"),
-      h = c("fullPreviewSize"),
-      y = c("documentPageCount"),
-      C = c("mimetype"),
-      b = c("preview"),
-      v = c("state"),
-      S = c("type"),
-      R = u(
+      m = d,
+      p = o("WAWebGetters").createGetterFactories({
+        root: m,
+        createCache: o("WAWebGettersCaches").createFrontendAttachMediaCache,
+      }),
+      _ = p.clearCacheFor,
+      f = p.field;
+    function g(e) {
+      (s(e), _(e));
+    }
+    var h = c("file"),
+      y = c("filename"),
+      C = c("fullPreview"),
+      b = c("fullPreviewSize"),
+      v = c("documentPageCount"),
+      S = c("mimetype"),
+      R = c("preview"),
+      L = c("state"),
+      E = c("type"),
+      k = f("editedFile"),
+      I = f("duration"),
+      T = f("hdEligible"),
+      D = f("isGif"),
+      x = f("mediaEditorData"),
+      $ = f("metadataByQuality"),
+      P = f("originalFilename"),
+      N = f("processingProgressPercentage"),
+      M = f("quality"),
+      w = u(
         function (e) {
           var t = e[0];
           return t instanceof r("WAWebMediaOpaqueData")
@@ -39,16 +56,16 @@ __d(
               ? t.size
               : null;
         },
-        [_],
+        [h],
       ),
-      L = u(
+      A = u(
         function (e) {
           var t = e[0];
           return t ? o("WAWebFileUtils").getFileExtension(t) : null;
         },
-        [f],
+        [y],
       ),
-      E = u(
+      F = u(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -83,9 +100,9 @@ __d(
               throw r("err")("Unsupported attach media type " + t);
           }
         },
-        [S, C, f, v, g, h, b],
+        [E, S, y, L, C, b, R],
       ),
-      k = [
+      O = [
         "change:type",
         "change:mimetype",
         "change:filename",
@@ -94,23 +111,32 @@ __d(
         "change:fullPreviewSize",
         "change:preview",
       ],
-      I = k.join(" ");
-    ((l.clearAttachMediaGetterCacheFor = m),
-      (l.getAttachMediaUnsafe = p),
-      (l.getFile = _),
-      (l.getFilename = f),
-      (l.getFullPreview = g),
-      (l.getFullPreviewSize = h),
-      (l.getDocumentPageCount = y),
-      (l.getMimetype = C),
-      (l.getPreview = b),
-      (l.getState = v),
-      (l.getType = S),
-      (l.getFilesize = R),
-      (l.getFileExt = L),
-      (l.getPreviewable = E),
-      (l.PREVIEWABLE_ROOT_EVENTS = k),
-      (l.PREVIEWABLE_ROOT_EVENTS_STR = I));
+      B = O.join(" ");
+    ((l.getAttachMediaUnsafe = m),
+      (l.clearAttachMediaGetterCacheFor = g),
+      (l.getFile = h),
+      (l.getFilename = y),
+      (l.getFullPreview = C),
+      (l.getFullPreviewSize = b),
+      (l.getDocumentPageCount = v),
+      (l.getMimetype = S),
+      (l.getPreview = R),
+      (l.getState = L),
+      (l.getType = E),
+      (l.getEditedFile = k),
+      (l.getDuration = I),
+      (l.getHdEligible = T),
+      (l.getIsGif = D),
+      (l.getMediaEditorData = x),
+      (l.getMetadataByQuality = $),
+      (l.getOriginalFilename = P),
+      (l.getProcessingProgressPercentage = N),
+      (l.getQuality = M),
+      (l.getFilesize = w),
+      (l.getFileExt = A),
+      (l.getPreviewable = F),
+      (l.PREVIEWABLE_ROOT_EVENTS = O),
+      (l.PREVIEWABLE_ROOT_EVENTS_STR = B));
   },
   98,
 );

@@ -13,7 +13,6 @@ __d(
     "WAWebGroupType",
     "WAWebMiscErrors",
     "WAWebModalManager",
-    "WAWebNoop",
     "WAWebStateUtils",
     "WAWebToastManager",
     "react",
@@ -26,34 +25,34 @@ __d(
     function m(e, t) {
       return (t === void 0 && (t = ""), p(o("WAWebStateUtils").unproxy(e), t));
     }
-    function p(t, a, i) {
-      i === void 0 && (i = o("WAWebActionToast.react").genId());
-      var l = a.trim();
-      if (!l)
+    function p(t, r, a) {
+      a === void 0 && (a = o("WAWebActionToast.react").genId());
+      var i = r.trim();
+      if (!i)
         return (u || (u = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       if (
         o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) !==
           o("WAWebGroupType").GroupType.COMMUNITY &&
-        l === t.contact.name
+        i === t.contact.name
       )
         return (u || (u = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var c = o("WAWebGroupModifyInfoJob").setGroupSubject(t.id, l),
-        m = t.contact.name,
-        _;
+      var l = o("WAWebGroupModifyInfoJob").setGroupSubject(t.id, i),
+        c = t.contact.name,
+        m;
       o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
       o("WAWebGroupType").GroupType.COMMUNITY
-        ? (_ = new (o("WAWebActionToast.react").ActionType)(
+        ? (m = new (o("WAWebActionToast.react").ActionType)(
             s._(/*BTDS*/ "Renaming community"),
           ))
-        : (_ = new (o("WAWebActionToast.react").ActionType)(
+        : (m = new (o("WAWebActionToast.react").ActionType)(
             s._(/*BTDS*/ "Renaming group"),
           ));
-      var f = s._(/*BTDS*/ "Couldn't rename community"),
-        g = c
+      var _ = s._(/*BTDS*/ "Couldn't rename community"),
+        f = l
           .then(function () {
             if (
               o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
@@ -62,20 +61,20 @@ __d(
             )
               return new (o("WAWebActionToast.react").ActionType)(
                 s._(/*BTDS*/ 'Community renamed to "{community}"', [
-                  s._param("community", l),
+                  s._param("community", i),
                 ]),
               );
-            var e = m.trim() === "";
+            var e = c.trim() === "";
             return new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Group renamed to {subject}", [
-                s._param("subject", l),
+                s._param("subject", i),
               ]),
               e
                 ? null
                 : {
                     actionText: s._(/*BTDS*/ "Undo"),
                     actionHandler: function () {
-                      return p(t, m, i);
+                      return p(t, c, a);
                     },
                   },
             );
@@ -99,7 +98,7 @@ __d(
                     );
                     return;
                   } else if (e.status >= 400)
-                    return new (o("WAWebActionToast.react").ActionType)(f);
+                    return new (o("WAWebActionToast.react").ActionType)(_);
                 }
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
@@ -119,13 +118,13 @@ __d(
               o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
                 t.groupMetadata,
               ) === o("WAWebGroupType").GroupType.COMMUNITY
-                ? new (o("WAWebActionToast.react").ActionType)(f)
+                ? new (o("WAWebActionToast.react").ActionType)(_)
                 : new (o("WAWebActionToast.react").ActionType)(
                     s._(/*BTDS*/ "Couldn't rename group."),
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return p(t, l, i);
+                        return p(t, i, a);
                       },
                     },
                   )
@@ -134,17 +133,23 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            initialAction: _,
-            pendingAction: g,
+            id: a,
+            initialAction: m,
+            pendingAction: f,
           }),
         ),
-        c.catch(
-          o("WAFilteredCatch").filteredCatch(
-            o("WAWebBackendErrors").ServerStatusCodeError,
-            r("WAWebNoop"),
-          ),
-        )
+        l
+          .then(function () {
+            return !0;
+          })
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebBackendErrors").ServerStatusCodeError,
+              function () {
+                return !1;
+              },
+            ),
+          )
       );
     }
     l.setGroupSubject = m;

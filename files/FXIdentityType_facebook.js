@@ -18,6 +18,7 @@ __d(
         "MESSENGER_KID",
         "META",
         "MP_USER",
+        "NISABA_USER",
         "SOLO_USER",
         "THREADS_USER",
         "VR_PROFILE",

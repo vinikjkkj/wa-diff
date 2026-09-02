@@ -11,6 +11,7 @@ __d(
     "WAWebEventsWaitForReadyForOffline",
     "WAWebHandleMsgCommon",
     "WAWebOfflineHandler",
+    "WAWebOfflineResumeCounters",
     "WAWebPromiseQueue",
     "WAWebWaitForInitialChatsSynced",
     "asyncToGeneratorRuntime",
@@ -87,7 +88,10 @@ __d(
                     }),
                   );
                 })
-              : (m !== !0 &&
+              : (o(
+                  "WAWebOfflineResumeCounters",
+                ).maybeLogOfflineMsgRoutedToOnlineQueue(i),
+                m !== !0 &&
                   (yield o(
                     "WAWebEventsWaitForOfflineDeliveryEnd",
                   ).waitForOfflineDeliveryEnd()),

@@ -88,10 +88,10 @@ __d(
                 t,
               )
               .sendLogs("create-lid-privacy-node-failed"),
-            f(r, i, a, n)
+            f({ dhash: n, name: r, users: a, value: i })
           );
         }
-      return f(r, i, a, n);
+      return f({ dhash: n, name: r, users: a, value: i });
     }
     function p(e, t) {
       var n;
@@ -127,9 +127,13 @@ __d(
         ),
       );
     }
-    function f(e, t, n, r) {
-      var a,
-        i = n.map(function (e) {
+    function f(e) {
+      var t,
+        n = e.dhash,
+        r = e.name,
+        a = e.users,
+        i = e.value,
+        l = a.map(function (e) {
           var t = e.action,
             n = e.wid;
           return o("WAWap").wap("user", {
@@ -137,17 +141,17 @@ __d(
             jid: o("WAWebCommsWapMd").JID(n),
           });
         });
-      return (a = o("WAWap")).wap(
+      return (t = o("WAWap")).wap(
         "privacy",
         null,
-        a.wap(
+        t.wap(
           "category",
           {
-            name: a.CUSTOM_STRING(e),
-            value: a.CUSTOM_STRING(t),
-            dhash: a.CUSTOM_STRING(r != null ? r : "none"),
+            name: t.CUSTOM_STRING(r),
+            value: t.CUSTOM_STRING(i),
+            dhash: t.CUSTOM_STRING(n != null ? n : "none"),
           },
-          i,
+          l,
         ),
       );
     }

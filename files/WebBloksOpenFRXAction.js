@@ -1,6 +1,6 @@
 __d(
   "WebBloksOpenFRXAction",
-  ["FRXURI", "JSResource"],
+  ["FRXURI", "JSResource", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, a) {
       var i = o("FRXURI").withEntReportable({
@@ -18,7 +18,7 @@ __d(
         .catch(function (t) {
           e.objectSet.environment.logger.mustfix(
             "WebBloksOpenFRXAction fetch failure",
-            t,
+            r("getErrorSafe")(t),
           );
         });
     }

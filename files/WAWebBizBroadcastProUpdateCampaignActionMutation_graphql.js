@@ -8,6 +8,15 @@ __d(
         t = [
           {
             alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "status",
+            storageKey: null,
+          },
+        ],
+        r = [
+          {
+            alias: null,
             args: [{ kind: "Variable", name: "data", variableName: "input" }],
             concreteType:
               "XFBUpdateWhatsAppBusinessMmLiteCampaignResponsePayload",
@@ -23,6 +32,26 @@ __d(
                 name: "whats_app_business_mm_lite_campaign",
                 plural: !1,
                 selections: [
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "WhatsAppBusinessMessagingBroadcastInsights",
+                    kind: "LinkedField",
+                    name: "broadcast_insights",
+                    plural: !1,
+                    selections: t,
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "XFBBMCampaignDeliveryStatusInfo",
+                    kind: "LinkedField",
+                    name: "delivery_status_info",
+                    plural: !1,
+                    selections: t,
+                    storageKey: null,
+                  },
                   {
                     alias: null,
                     args: null,
@@ -43,7 +72,7 @@ __d(
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizBroadcastProUpdateCampaignActionMutation",
-          selections: t,
+          selections: r,
           type: "Mutation",
           abstractKey: null,
         },
@@ -52,7 +81,7 @@ __d(
           argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebBizBroadcastProUpdateCampaignActionMutation",
-          selections: t,
+          selections: r,
         },
         params: {
           id: n(

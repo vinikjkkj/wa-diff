@@ -82,7 +82,12 @@ __d(
               var _ =
                 u ===
                 o("WAWebDetectedOutcomeLabelConstants").DO_LEAD_PREDEFINED_ID;
-              if (s == null) {
+              if (
+                s == null ||
+                !o(
+                  "WAWebCTWAAeDetectionGating",
+                ).isCtwaAeModelMetadataIngestionEnabled()
+              ) {
                 i.detectedOutcomeSignalEmission = { lead: _ };
                 return;
               }

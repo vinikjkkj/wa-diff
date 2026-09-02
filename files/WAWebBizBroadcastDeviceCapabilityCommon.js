@@ -1,6 +1,7 @@
 __d(
   "WAWebBizBroadcastDeviceCapabilityCommon",
   [
+    "WAWebBizBroadcastProOnboardingStatusType",
     "WAWebBusinessBroadcastsGatingUtils",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
@@ -34,6 +35,15 @@ __d(
       return e === !0;
     }
     function d(e) {
+      return (
+        o(
+          "WAWebBizBroadcastProOnboardingStatusType",
+        ).shouldUseBizBroadcastProEntrypoint(e) &&
+        c() &&
+        o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled()
+      );
+    }
+    function m(e) {
       e != null &&
         r("WAWebUserPrefsStore").setUser(
           o("WAWebUserPrefsKeys").UserPrefs.BizBroadcastPrimaryRecipientLimit,
@@ -41,13 +51,13 @@ __d(
           { shouldWriteToIdb: !0 },
         );
     }
-    function m() {
+    function p() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").UserPrefs.BizBroadcastPrimaryRecipientLimit,
       );
       return typeof e == "number" ? e : null;
     }
-    function p(e) {
+    function _(e) {
       return (
         e === void 0 && (e = !0),
         s()
@@ -65,9 +75,10 @@ __d(
       (l.getPrimarySupportsBusinessBroadcast = s),
       (l.saveBizBroadcastProCapabilityToStorage = u),
       (l.getPrimarySupportsBusinessBroadcastPro = c),
-      (l.saveBizBroadcastRecipientLimitToStorage = d),
-      (l.getBizBroadcastPrimaryRecipientLimit = m),
-      (l.isBizBroadcastEnabledAndDeviceSupported = p));
+      (l.isBizBroadcastProEntrypointEnabledForStatus = d),
+      (l.saveBizBroadcastRecipientLimitToStorage = m),
+      (l.getBizBroadcastPrimaryRecipientLimit = p),
+      (l.isBizBroadcastEnabledAndDeviceSupported = _));
   },
   98,
 );

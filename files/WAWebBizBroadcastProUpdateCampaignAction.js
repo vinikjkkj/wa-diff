@@ -27,11 +27,10 @@ __d(
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
             throw r("err")("BB Pro update: failed to fetch ad account token");
-          var a = yield o("WAWebRelayClient").commitMutation(
-              d,
-              { input: e },
-              { accessToken: n.token, environmentType: "facebook" },
-            ),
+          var a = yield o("WAWebRelayClient").commitMutation(d, e, {
+              accessToken: n.token,
+              environmentType: "facebook",
+            }),
             i =
               a == null ||
               (t = a.xfb_update_whats_app_business_mm_lite_campaign) == null ||
@@ -57,7 +56,12 @@ __d(
             e,
           )
           .sendLogs("bb-pro-update-cancel"),
-        m({ status: "PAUSED", whats_app_business_mm_lite_campaign_id: e })
+        m({
+          input: {
+            status: "PAUSED",
+            whats_app_business_mm_lite_campaign_id: e,
+          },
+        })
       );
     }
     function f(e, t) {
@@ -78,13 +82,16 @@ __d(
           )
           .sendLogs("bb-pro-update-reschedule"),
         m({
-          start_time: t,
-          stop_time: n,
-          whats_app_business_mm_lite_campaign_id: e,
+          input: {
+            start_time: t,
+            stop_time: n,
+            whats_app_business_mm_lite_campaign_id: e,
+          },
         })
       );
     }
-    ((l.cancelBizBroadcastProCampaign = _),
+    ((l.updateBizBroadcastProCampaignMutation = d),
+      (l.cancelBizBroadcastProCampaign = _),
       (l.rescheduleBizBroadcastProCampaign = f));
   },
   98,

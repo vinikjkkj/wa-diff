@@ -883,6 +883,19 @@ __d(
     function Ne(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
+        extraAttributes: { result: "canceled" },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_GDRIVE_FILE_PICKER,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function Me(e) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: e,
         extraAttributes: { result: "synced" },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -972,7 +985,8 @@ __d(
       (l.logClickGoogleDriveConnect = xe),
       (l.logViewGoogleDriveConnectResult = $e),
       (l.logViewGoogleDriveSetupCanceled = Pe),
-      (l.logViewGoogleDriveSetupSynced = Ne));
+      (l.logViewGoogleDriveSetupDismissed = Ne),
+      (l.logViewGoogleDriveSetupSynced = Me));
   },
   98,
 );

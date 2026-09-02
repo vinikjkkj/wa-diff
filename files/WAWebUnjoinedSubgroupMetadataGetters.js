@@ -15,7 +15,8 @@ __d(
       f = d("defaultSubgroup"),
       g = d("generalSubgroup"),
       h = d("desc"),
-      y = c(
+      y = d("subject"),
+      C = c(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -27,7 +28,7 @@ __d(
         },
         [f, g],
       ),
-      C = c(
+      b = c(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -41,15 +42,16 @@ __d(
                 .toString()
             : t;
         },
-        [h, y],
+        [h, C],
       );
     ((l.clearUnjoinedSubgroupMetadataGetterCacheFor = p),
       (l.getUnjoinedSubgroupMetadataUnsafe = _),
       (l.getDefaultSubgroup = f),
       (l.getGeneralSubgroup = g),
       (l.getDesc = h),
-      (l.getGroupType = y),
-      (l.getDisplayedDesc = C));
+      (l.getSubject = y),
+      (l.getGroupType = C),
+      (l.getDisplayedDesc = b));
   },
   226,
 );

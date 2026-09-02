@@ -700,7 +700,7 @@ __d(
           }
           if (z != null) {
             var ye = z();
-            if (ye.length > 0) {
+            if (ye != null) {
               var Ce = new Blob([JSON.stringify(ye)], { type: "text/plain" });
               se.append(
                 "secondary_log_files[pathfinder]",
@@ -850,7 +850,7 @@ __d(
       (l.USER_REPORT = Y),
       (l.registerCrashlogUploadInformationalLoggingFunction = de),
       (l.registerCrashlogUploadIsUserInExternalBetaFunction = me),
-      (l.registerPathfinderSnapshotCallback = pe),
+      (l.registerPathfinderTraceCallback = pe),
       (l.registerCrashlogVoipContextCallback = _e),
       (l.upload = fe),
       (l.sendLogs = Re),

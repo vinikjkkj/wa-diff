@@ -30,6 +30,8 @@ __d(
     "WAWebLid1X1MigrationGating",
     "WAWebLogoutReasonConstants",
     "WAWebModelStorage",
+    "WAWebOfflineResumeCounters",
+    "WAWebOfflineResumeODS",
     "WAWebPageLoadLogging",
     "WAWebPushNotificationsOfflineBbApi",
     "WAWebRegisterPassiveTasksForConnect",
@@ -86,6 +88,9 @@ __d(
       (o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(
         o("WAWebBackendEventBus").BackendEventBus,
       ),
+        o("WAWebOfflineResumeCounters").setOfflineResumeCounters(
+          o("WAWebOfflineResumeODS").offlineResumeODSCounters,
+        ),
         o(
           "WAWebUserPrefsWorkerCompatibleMainThread",
         ).initializeUserPrefsWorkerCompatibleMainThread(),

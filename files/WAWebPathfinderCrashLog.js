@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebLogForCrash",
     "WAWebPathfinderLogger",
+    "WAWebPathfinderTraceEnvelope",
     "getErrorSafe",
     "justknobx",
   ],
@@ -18,20 +19,23 @@ __d(
       p = 4e3,
       _ = 128,
       f = "dms,type,screen,target,dest,xN",
-      g = 1e3,
-      h = new Set(["SCREEN_CHANGED", "FOREGROUND", "BACKGROUND"]),
-      y = !1,
-      C = 0,
-      b = null;
-    function v() {
+      g = "clip_reasons",
+      h = "event_cap",
+      y = "char_budget",
+      C = 1e3,
+      b = new Set(["SCREEN_CHANGED", "FOREGROUND", "BACKGROUND"]),
+      v = !1,
+      S = 0,
+      R = null;
+    function L() {
       try {
         if (!r("justknobx")._("4997")) return;
         o("WAWebLogForCrash").onLogForCrashReady(function () {
           try {
-            ((y = !0),
-              o("WAWebPathfinderLogger").registerPathfinderEmitObserver(S));
+            ((v = !0),
+              o("WAWebPathfinderLogger").registerPathfinderEmitObserver(E));
           } catch (t) {
-            T(function () {
+            $(function () {
               return o("WALogger")
                 .ERROR(
                   e ||
@@ -45,7 +49,7 @@ __d(
           }
         });
       } catch (e) {
-        T(function () {
+        $(function () {
           return o("WALogger")
             .ERROR(
               s ||
@@ -58,17 +62,17 @@ __d(
         });
       }
     }
-    function S(e) {
+    function E(e) {
       try {
-        if (!y) return;
-        if (h.has(e)) {
-          R();
+        if (!v) return;
+        if (b.has(e)) {
+          k();
           return;
         }
-        var t = Date.now() - C;
-        t >= g ? R() : b == null && (b = self.setTimeout(R, g - t));
+        var t = Date.now() - S;
+        t >= C ? k() : R == null && (R = self.setTimeout(k, C - t));
       } catch (e) {
-        T(function () {
+        $(function () {
           return o("WALogger")
             .ERROR(
               u ||
@@ -81,14 +85,14 @@ __d(
         });
       }
     }
-    function R() {
+    function k() {
       try {
-        b != null && (self.clearTimeout(b), (b = null));
-        var e = L();
+        R != null && (self.clearTimeout(R), (R = null));
+        var e = I();
         (e != null && o("WAWebLogForCrash").logForCrash(d, e),
-          (C = Date.now()));
+          (S = Date.now()));
       } catch (e) {
-        T(function () {
+        $(function () {
           return o("WALogger")
             .ERROR(
               c ||
@@ -101,56 +105,67 @@ __d(
         });
       }
     }
-    function L() {
-      var e = o("WAWebPathfinderLogger").getPathfinderLogSnapshot();
-      if (e.length === 0) return null;
+    function I() {
+      var e = o("WAWebPathfinderLogger").getPathfinderLogSnapshotWithMeta(),
+        t = e.entries,
+        n = e.headClipped;
+      if (t.length === 0) return null;
       for (
-        var t = e[e.length - 1].timestampMs,
-          n = Math.max(0, e.length - m),
-          r = n,
-          a = [],
-          i = n > 0 ? e[n - 1].timestampMs : null,
-          l = n;
-        l < e.length;
-        l++
+        var r = t[t.length - 1].timestampMs,
+          a = Math.max(0, t.length - m),
+          i = a,
+          l = [],
+          s = a > 0 ? t[a - 1].timestampMs : null,
+          u = a;
+        u < t.length;
+        u++
       )
-        (a.push(k(e[l], i)), (i = e[l].timestampMs));
-      for (var s = E(a, r, t); s.length > p && a.length > 1; )
-        (a.shift(), r++, (s = E(a, r, t)));
-      return s;
+        (l.push(D(t[u], s)), (s = t[u].timestampMs));
+      var c = [];
+      (n && c.push(o("WAWebPathfinderTraceEnvelope").CLIP_REASON_RING_CAPACITY),
+        a > 0 && c.push(h));
+      var d = T(l, i, r, c);
+      for (
+        d.length > p && l.length > 1 && (c.push(y), (d = T(l, i, r, c)));
+        d.length > p && l.length > 1;
+      )
+        (l.shift(), i++, (d = T(l, i, r, c)));
+      return d;
     }
-    function E(e, t, n) {
-      var r = ["#pathfinder end=" + n + " cols=" + f];
+    function T(e, t, n, r) {
+      var o = "#pathfinder end=" + n + " cols=" + f;
+      r.length > 0 && (o += " " + g + "=" + r.join(","));
+      var a = [o];
       return (
-        t > 0 && r.push("#" + t + " older events dropped"),
-        r.concat(e).join("\n")
+        t > 0 && a.push("#" + t + " older events dropped"),
+        a.concat(e).join("\n")
       );
     }
-    function k(e, t) {
+    function D(e, t) {
       var n = t != null ? e.timestampMs - t : 0,
         r = [
           String(n),
           e.eventType,
-          I(e.screenName),
-          I(e.trackingId),
-          I(e.destinationName),
+          x(e.screenName),
+          x(e.trackingId),
+          x(e.destinationName),
           e.debounceCount != null && e.debounceCount > 1
             ? String(e.debounceCount)
             : "",
         ];
       return r.join(",") + "|";
     }
-    function I(e) {
+    function x(e) {
       if (e == null) return "";
       var t = e.replace(/[,|\t\r\n]/g, " ");
       return t.length > _ ? t.slice(0, _ - 1) + "\u2026" : t;
     }
-    function T(e) {
+    function $(e) {
       try {
         e();
       } catch (e) {}
     }
-    l.initPathfinderCrashLog = v;
+    l.initPathfinderCrashLog = L;
   },
   98,
 );

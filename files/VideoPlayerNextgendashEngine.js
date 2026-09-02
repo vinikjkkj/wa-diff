@@ -122,11 +122,13 @@ __d(
     function y(e) {
       return e == null && r("gkx")("16361")
         ? 540
-        : r("gkx")("2312")
-          ? { "%future added value": 0, HD: 720, SD: 0, UHD: 1080, "": 0 }[
-              e != null ? e : ""
-            ]
-          : 0;
+        : e == null && r("gkx")("21918")
+          ? 480
+          : r("gkx")("2312")
+            ? { "%future added value": 0, HD: 720, SD: 0, UHD: 1080, "": 0 }[
+                e != null ? e : ""
+              ]
+            : 0;
     }
     function C(e) {
       h().prefetch(

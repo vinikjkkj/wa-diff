@@ -13,6 +13,7 @@ __d(
     "WAWebBizBotProfileUtils",
     "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable",
     "WAWebBizBroadcastDeviceCapabilityCommon",
+    "WAWebBizBroadcastProOnboardingStatus",
     "WAWebBizBroadcastsManageAudiencePanelLoadable",
     "WAWebBizBroadcastsSmartCSVImportSetupFlowLoadable",
     "WAWebBizBroadcastsUploadModalLoadable.react",
@@ -1175,9 +1176,16 @@ __d(
               isExternal: a,
             }),
             !o("WAWebMobilePlatforms").isSMB() ||
-              !o(
+              (!o(
                 "WAWebBizBroadcastDeviceCapabilityCommon",
-              ).isBizBroadcastEnabledAndDeviceSupported(!1))
+              ).isBizBroadcastProEntrypointEnabledForStatus(
+                o(
+                  "WAWebBizBroadcastProOnboardingStatus",
+                ).getBizBroadcastProNuxOnboardingStatus(),
+              ) &&
+                !o(
+                  "WAWebBizBroadcastDeviceCapabilityCommon",
+                ).isBizBroadcastEnabledAndDeviceSupported(!1)))
           )
             return !1;
           var Be = t.data.source,

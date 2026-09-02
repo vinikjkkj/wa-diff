@@ -17,42 +17,41 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield r("WAWebLidAwareContactsDB").bulkGet(
+          var n = yield r("WAWebLidAwareContactsDB").bulkGet(
               t.map(function (e) {
                 return e.toJid();
               }),
             ),
-            i = 0,
-            l = a.reduce(function (e, n, r) {
+            a = 0,
+            i = n.reduce(function (e, n, r) {
               return n == null
-                ? (i++, e)
+                ? (a++, e)
                 : (n.username != null &&
                     n.usernameSoftDeleted === !0 &&
                     e.push({ lid: t[r], oldUsername: n.username }),
                   e);
             }, []);
-          if (
-            (i > 0 &&
+          return (
+            a > 0 &&
               o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "removeSoftDeletedUsernames: ",
                     " missing contacts",
                   ])),
-                i,
+                a,
               ),
-            l.length !== 0)
-          ) {
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeSoftDeletedUsernames: removing usernames for ",
-                  " LIDs",
-                ])),
-              l.length,
-            ),
+            i.length === 0 ||
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "removeSoftDeletedUsernames: removing usernames for ",
+                    " LIDs",
+                  ])),
+                i.length,
+              ),
               yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-                l.map(function (e) {
+                i.map(function (e) {
                   var t = e.lid;
                   return {
                     id: t.toJid(),
@@ -61,22 +60,35 @@ __d(
                   };
                 }),
                 "DBContactRemoveSoftDeletedUsernames.removeSoftDeletedUsernames",
-              ),
-              yield o("WAWebBackendApi").frontendSendAndReceive(
-                "bulkUpdateUsernames",
-                {
-                  usernameUpdates: l.map(function (e) {
-                    var t = e.lid;
-                    return {
-                      id: t.toJid(),
-                      username: void 0,
-                      usernameSoftDeleted: void 0,
-                    };
-                  }),
-                },
-              ));
-            var d = yield (c || (c = n("Promise"))).allSettled(
-              l.map(function (e) {
+              )),
+            i
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length !== 0) {
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "bulkUpdateUsernames",
+              {
+                usernameUpdates: e.map(function (e) {
+                  var t = e.lid;
+                  return {
+                    id: t.toJid(),
+                    username: void 0,
+                    usernameSoftDeleted: void 0,
+                  };
+                }),
+              },
+            );
+            var t = yield (c || (c = n("Promise"))).allSettled(
+              e.map(function (e) {
                 var t = e.lid,
                   n = e.oldUsername;
                 return o(
@@ -88,8 +100,8 @@ __d(
                 });
               }),
             );
-            for (var m of d)
-              m.status === "rejected" &&
+            for (var a of t)
+              a.status === "rejected" &&
                 o("WALogger")
                   .ERROR(
                     u ||
@@ -97,14 +109,15 @@ __d(
                         "removeSoftDeletedUsernames: failed to insert username delete system msg",
                       ])),
                   )
-                  .catching(r("getErrorSafe")(m.reason))
+                  .catching(r("getErrorSafe")(a.reason))
                   .sendLogs("username-soft-delete-system-msg-insert-failed");
           }
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.removeSoftDeletedUsernames = d;
+    ((l.removeSoftDeletedUsernames = d),
+      (l.applySoftDeletedUsernameClearsToFrontend = p));
   },
   98,
 );

@@ -91,6 +91,7 @@ __d(
             messageIsForward: !!t.isForwarded,
             messageIsRevoke: !!o("WAWebMsgGetters").getIsRevoke(t),
             isViewOnce: !!t.isViewOnce,
+            isScheduled: !!o("WAWebMsgGetters").getIsScheduledMsg(t),
             isAReply: o("WAWebMsgGetters").getIsReply(t),
             e2eBackfill: !!(n != null && n.isResend),
             messageDistributionType: o(

@@ -42,7 +42,8 @@ __d(
       return (
         (n.delete = function () {
           (e.prototype.delete.call(this),
-            o("WAWebCommentGetters").clearCommentGetterCacheFor(this));
+            o("WAWebCommentGetters").clearCommentGetterCacheFor(this),
+            o("WAWebCommentGetters").clearFrontendCommentGetterCacheFor(this));
         }),
         t
       );

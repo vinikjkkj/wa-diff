@@ -3,6 +3,7 @@ __d(
   [
     "WASmaxInBizSettingsEnums",
     "WATimeUtils",
+    "WAWebCTWAAeDetectionGating",
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
@@ -79,24 +80,36 @@ __d(
           o("WAWebWidFactory").createWid(e),
         );
       if (a != null) {
-        var i = n
-          ? o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_LEAD
-          : o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_NEW_ORDER;
+        var i = _(r),
+          l = n
+            ? o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_LEAD
+            : o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_NEW_ORDER;
         (o("WAWebSmb3pdConversionSignalAction").log3pdConversionSignal(
           {
             chat: a,
-            paidData: d(i),
-            signalMetadata: r,
+            paidData: d(l),
+            signalMetadata: i,
             subType: n ? "do_lead" : "do_new_order",
             surface: "label_chat",
             type: n ? "lead_created" : "order_created",
           },
           !0,
         ),
-          _(a, [i], !0, null, r == null ? null : { labelId: i, metadata: r }));
+          f(a, [l], !0, null, i == null ? null : { labelId: l, metadata: i }));
       }
     }
-    function _(e, t, n, a, i) {
+    function _(e) {
+      if (
+        !(
+          e == null ||
+          !o(
+            "WAWebCTWAAeDetectionGating",
+          ).isCtwaAeModelMetadataEmissionEnabled()
+        )
+      )
+        return e;
+    }
+    function f(e, t, n, a, i) {
       var l,
         s,
         u = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
@@ -184,7 +197,7 @@ __d(
         }
       }
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       var r = [];
       (t.forEach(function (e) {
         var t = o("WAWebLabelCollection").LabelCollection.get(e),
@@ -199,12 +212,12 @@ __d(
       }),
         r.length !== 0 &&
           e.forEach(function (e) {
-            e instanceof o("WAWebChatModel").Chat && _(e, r, n);
+            e instanceof o("WAWebChatModel").Chat && f(e, r, n);
           }));
     }
     ((l.emitDetectedOutcomeSignalsOnReceive = p),
-      (l.logLabelAddedToChatAction = _),
-      (l.logLabelSignalForModels = f));
+      (l.logLabelAddedToChatAction = f),
+      (l.logLabelSignalForModels = g));
   },
   98,
 );

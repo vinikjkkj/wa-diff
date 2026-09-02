@@ -25,11 +25,17 @@ __d(
     function d() {
       return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
     }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "im_a2ui_reply_quote_enabled",
+      );
+    }
     ((l.interactiveNativeFlowMessagesEnabled = e),
       (l.interactiveNativeFlowResponseMessagesEnabled = s),
       (l.shouldUseLegacyButtonsResponse = u),
       (l.shopsInteractiveMessageEnabled = c),
-      (l.isBloksWidgetEnabled = d));
+      (l.isBloksWidgetEnabled = d),
+      (l.isA2UIReplyQuoteEnabled = m));
   },
   98,
 );

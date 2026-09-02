@@ -205,7 +205,7 @@ __d(
                         generateThumbnailOnServer: i,
                       })
                       .catch(function (e) {
-                        throw (s(e), e);
+                        throw (s(r("getErrorSafe")(e)), e);
                       })
                       .then(function (r) {
                         return (r == null ? void 0 : r.complete) === !0

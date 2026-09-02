@@ -10,11 +10,20 @@ __d(
       c = s,
       d = u("playedRemaining"),
       m = u("readRemaining"),
-      p = u("deliveryRemaining");
+      p = u("deliveryRemaining"),
+      _ = o("WAWebGetters").createGetterFactories({
+        createCache: o("WAWebGettersCaches").createMsgInfosCache,
+      }),
+      f = _.clearCacheFor,
+      g = _.field,
+      h = f,
+      y = g("t");
     ((l.clearMsgInfoGetterCacheFor = c),
       (l.getPlayedRemaining = d),
       (l.getReadRemaining = m),
-      (l.getDeliveryRemaining = p));
+      (l.getDeliveryRemaining = p),
+      (l.clearMsgInfoParticipantGetterCacheFor = h),
+      (l.getParticipantT = y));
   },
   98,
 );

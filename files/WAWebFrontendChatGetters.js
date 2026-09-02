@@ -5,11 +5,9 @@ __d(
     "WAWebABProps",
     "WAWebAiThreadCreationUtils",
     "WAWebBizBroadcastDeviceCapabilityCommon",
-    "WAWebBizBroadcastProOnboardingStatusType",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotUtils",
-    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebChatConstants",
     "WAWebChatFlowTypes",
     "WAWebChatGetters",
@@ -230,15 +228,11 @@ __d(
             a = e[3];
           return n
             ? t.user === "chat" ||
-              (o(
-                "WAWebBizBroadcastProOnboardingStatusType",
-              ).shouldUseBizBroadcastProEntrypoint(r != null ? r : null) &&
-                o(
-                  "WAWebBizBroadcastDeviceCapabilityCommon",
-                ).getPrimarySupportsBusinessBroadcastPro() &&
-                o(
-                  "WAWebBusinessBroadcastsGatingUtils",
-                ).isBizBroadcastProEnabled())
+              o(
+                "WAWebBizBroadcastDeviceCapabilityCommon",
+              ).isBizBroadcastProEntrypointEnabledForStatus(
+                r != null ? r : null,
+              )
               ? !0
               : o(
                     "WAWebBizBroadcastDeviceCapabilityCommon",

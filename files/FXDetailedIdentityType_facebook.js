@@ -17,6 +17,7 @@ __d(
         "MESSENGER_SPLIT",
         "META",
         "MP_USER",
+        "NISABA_USER",
         "SOLO_USER",
         "THREADS_USER",
         "VR_PROFILE",

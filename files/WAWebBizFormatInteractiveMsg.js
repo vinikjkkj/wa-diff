@@ -3,9 +3,11 @@ __d(
   [
     "fbt",
     "WAWebBizOrderDetailsParams",
+    "WAWebBloksWidgetPayload",
     "WAWebBrazilPixKeyFormattingUtils",
     "WAWebCurrencyUtils",
     "WAWebGetInteractiveFooterText",
+    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebOrderDetails",
@@ -35,24 +37,24 @@ __d(
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       ) {
-        var u = p(e);
-        if (u != null) return u;
+        var c = _(e);
+        if (c != null) return c;
       }
       if (
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
       ) {
-        var d = m(e);
-        if (d != null) return d;
+        var m = p(e);
+        if (m != null) return m;
       }
       if (
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var _ = c(e);
-        if (_ != null) return _;
+        var f = d(e);
+        if (f != null) return f;
       }
-      var f = [
+      var g = [
         (n = e.interactiveHeader) == null ? void 0 : n.title,
         l ? ((o = e.interactiveHeader) == null ? void 0 : o.subtitle) : null,
         e.caption,
@@ -60,15 +62,22 @@ __d(
       ]
         .filter(Boolean)
         .join("\n");
-      if (f === "") {
-        var g, h;
-        return (g = (h = e.bloksWidget) == null ? void 0 : h.fallback) != null
-          ? g
-          : "";
-      }
-      return f;
+      return g === "" ? u(e.bloksWidget) : g;
     }
     function u(e) {
+      var t;
+      if (e == null) return "";
+      if (
+        o("WAWebBloksWidgetPayload").isA2UIBloksWidget(e) &&
+        o("WAWebHsmGatingUtils").isBloksWidgetEnabled() &&
+        o("WAWebHsmGatingUtils").isA2UIReplyQuoteEnabled()
+      ) {
+        var n = o("WAWebBloksWidgetPayload").readA2UITitle(e.data);
+        if (n != null) return n;
+      }
+      return (t = e.fallback) != null ? t : "";
+    }
+    function c(e) {
       switch (e) {
         case o("WAWebOrderStatus").OrderStatus.Pending:
           return s._(/*BTDS*/ "Order pending");
@@ -100,36 +109,36 @@ __d(
           return s._(/*BTDS*/ "Order refunded");
       }
     }
-    function c(e) {
+    function d(e) {
       var t = o("WAWebOrderStatus").getOrderStatusInfo(e);
       if (t == null) return null;
       var n = t.status;
       if (n == null) return null;
       var r = o("WAWebOrderStatusButton").getOrderStatusButton(e);
       if (r != null) {
-        var a = u(n).toString(),
+        var a = c(n).toString(),
           i = e.caption,
           l = o("WAWebGetInteractiveFooterText").getInteractiveFooterText(e),
-          c = s._(/*BTDS*/ "Order #{order-id}", [
+          u = s._(/*BTDS*/ "Order #{order-id}", [
             s._param("order-id", r.reference_id),
           ]);
-        return [a, c, i, l].filter(Boolean).join("\n");
+        return [a, u, i, l].filter(Boolean).join("\n");
       }
-      return d(e);
+      return m(e);
     }
-    function d(e) {
+    function m(e) {
       var t = o("WAWebOrderStatus").getOrderStatusInfo(e);
       if (t == null) return null;
       var n = t.status;
       if (n == null) return null;
       if (o("WAWebOrderStatus").hasOrderStatusButton(e)) {
-        var r = u(n).toString(),
+        var r = c(n).toString(),
           a = e.caption;
         return ["*" + r + "*", a].filter(Boolean).join("\n");
       }
-      return g(e.caption, n);
+      return h(e.caption, n);
     }
-    function m(e) {
+    function p(e) {
       var t = o("WAWebOrderDetails").getOrderInfo(e);
       if (t == null) return null;
       var n = t.currency,
@@ -138,7 +147,7 @@ __d(
         i = o("WAWebCurrencyUtils").formatAmount({ amount: a, currency: n });
       return r.length !== 0 ? r[0].name + " \xB7 " + i : i;
     }
-    function p(e) {
+    function _(e) {
       var t,
         n,
         r,
@@ -166,21 +175,21 @@ __d(
         o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(d, m)
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o(
         "WAWebOrderPaymentStatus",
       ).getOrderPaymentStatusInfoFromNativeFlow(e);
       return t == null
         ? null
-        : h(e.caption, t == null ? void 0 : t.paymentStatus).toString();
+        : y(e.caption, t == null ? void 0 : t.paymentStatus).toString();
     }
-    function f(e) {
+    function g(e) {
       var t = o(
         "WAWebOrderPaymentStatus",
       ).getOrderPaymentStatusInfoFromNativeFlow(e);
-      return t == null ? null : y(t == null ? void 0 : t.paymentMethod);
+      return t == null ? null : C(t == null ? void 0 : t.paymentMethod);
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = "";
       switch (t) {
         case o("WAWebOrderStatus").OrderStatus.Pending:
@@ -230,7 +239,7 @@ __d(
         ? e || ""
         : (n.toString() + "\n" + (e || "")).trim();
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = "";
       switch (t) {
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured:
@@ -245,7 +254,7 @@ __d(
       }
       return (n.toString() + "\n" + (e != null ? e : "")).trim();
     }
-    function y(e) {
+    function C(e) {
       var t = "";
       switch (e) {
         case o("WAWebOrderPaymentStatus").OrderPaymentMethod.PaymentInstruction:
@@ -258,15 +267,15 @@ __d(
       return t.toString();
     }
     ((l.formatInteractive = e),
-      (l.getOrderStatusButtonBodyTitle = u),
-      (l.formatOrderStatusMessagePreview = c),
-      (l.formatOrderStatusMessageBody = d),
-      (l.formatOrderDetailsMessagePreview = m),
-      (l.formatPaymentInfoMessagePreview = p),
-      (l.formatOrderPaymentStatusMessage = _),
-      (l.formatOrderPaymentMethodMessage = f),
-      (l.appendPrefilledMsg = g),
-      (l.appendPrefilledOrderPaymentMsg = h));
+      (l.getOrderStatusButtonBodyTitle = c),
+      (l.formatOrderStatusMessagePreview = d),
+      (l.formatOrderStatusMessageBody = m),
+      (l.formatOrderDetailsMessagePreview = p),
+      (l.formatPaymentInfoMessagePreview = _),
+      (l.formatOrderPaymentStatusMessage = f),
+      (l.formatOrderPaymentMethodMessage = g),
+      (l.appendPrefilledMsg = h),
+      (l.appendPrefilledOrderPaymentMsg = y));
   },
   226,
 );

@@ -156,6 +156,7 @@ __d(
         "https://www.whatsapp.com/",
       ],
       ai_hatch_media_upload_count_limit: [27897, "int", 10, 10],
+      ai_hatch_revoke_enabled: [36027, "bool", !1, !0],
       ai_hatch_secret_encrypted_message_enabled: [31040, "bool", !1, !1],
       ai_hatch_video_avatars_enabled: [31494, "bool", !1, !0],
       ai_hatch_video_upload_enabled: [27470, "bool", !1, !1],
@@ -467,6 +468,12 @@ __d(
       br_enable_payment_logos_on_bubble: [8160, "bool", !1, !1],
       br_payments_add_pix_key_deeplink_allowlist: [35683, "string", "{}", "{}"],
       br_payments_add_pix_key_deeplink_enabled: [35682, "bool", !1, !0],
+      br_payments_enhanced_text_message_cta_logging_fix: [
+        36049,
+        "bool",
+        !1,
+        !0,
+      ],
       br_payments_home_duration_rule_for_pux_banner: [
         22249,
         "int",
@@ -750,6 +757,7 @@ __d(
       channels_qpl_logging: [7677, "bool", !1, !1],
       channels_question_admin_enabled: [17426, "bool", !1, !0],
       channels_question_admin_m2_enabled: [26910, "bool", !1, !1],
+      channels_question_admin_starring_enabled: [36006, "bool", !1, !1],
       channels_question_fetch_responses_page_size: [18984, "int", 30, 30],
       channels_question_follower_m2_enabled: [26911, "bool", !1, !1],
       channels_question_forward_message_types_chat_m1_enabled: [
@@ -1609,6 +1617,7 @@ __d(
       is_expand_fmx_account_age_ui_enabled: [26548, "bool", !1, !0],
       is_expand_fmx_enabled_non_auto_expose: [26551, "bool", !1, !0],
       is_expand_fmx_mex_enabled: [26550, "bool", !1, !0],
+      is_guest_calling_eligible: [35115, "bool", !1, !1],
       is_individual_suspicious_fmx_enabled: [26191, "bool", !1, !0],
       is_internal_tester: [2945, "bool", !1, !0],
       is_meta_employee_or_internal_tester: [1777, "bool", !1, !1],
@@ -1700,6 +1709,7 @@ __d(
       ],
       media_cross_reference_download_enabled: [35111, "bool", !1, !1],
       media_cross_reference_upload_enabled: [35109, "bool", !1, !1],
+      media_elst_timing_refinement_enabled: [36067, "bool", !1, !0],
       media_force_transcode_on_elst: [30235, "bool", !1, !0],
       media_hub_history_max_days: [22518, "int", 14, 14],
       media_large_file_awareness_popup_file_size_in_MB: [
@@ -2096,6 +2106,7 @@ __d(
       payments_upr_argentina_enabled: [33887, "bool", !1, !0],
       payments_upr_bahrain_enabled: [35055, "bool", !1, !0],
       payments_upr_benin_enabled: [35056, "bool", !1, !0],
+      payments_upr_bolivia_enabled: [36028, "bool", !1, !0],
       payments_upr_bubble_countries: [
         29342,
         "string",
@@ -3003,6 +3014,7 @@ __d(
       wa_web_bot_orphan_logic_enabled: [29753, "bool", !1, !0],
       wa_web_bot_tos_check_refiniement: [28897, "bool", !1, !0],
       wa_web_broadcast_disappearing_messages_fix: [31499, "bool", !1, !1],
+      wa_web_browser_notifications_popup_guide: [36012, "bool", !1, !1],
       wa_web_buttons_response_prop_removal_killswitch: [33817, "bool", !1, !1],
       wa_web_calling_call_user_journey_logging_enabled: [35896, "bool", !1, !1],
       wa_web_calling_calls_tab_empty_state_update_enabled: [
@@ -3234,6 +3246,7 @@ __d(
       wae_metadata_integrity_timeout_minutes: [4849, "int", 5, 5],
       wam_disable_abkey_attribute: [12390, "bool", !1, !1],
       wam_disable_expokey_attribute: [12391, "bool", !1, !1],
+      wamedia_large_vsr_model_download_versions: [36056, "string", "", ""],
       wamo_agm_enabled: [15714, "bool", !1, !1],
       wamo_privacy_tos_linked_highlighted_notice_id: [
         14985,
@@ -3254,6 +3267,7 @@ __d(
       wamo_sub_messages_supported: [11062, "bool", !1, !1],
       wamo_sub_process_message_kill_switch: [12722, "bool", !0, !0],
       wavoip_enable_ml_namespace_v2: [26947, "bool", !1, !1],
+      wavoip_large_uvq_model_download_versions: [36054, "string", "", ""],
       wavoip_large_vsr_model_download_versions_v2: [34857, "string", "", ""],
       wavoip_legacy_ml_qpl_exp_tag: [30561, "string", "none", "none"],
       wavoip_ml_bwe_cong_model_download_versions: [21732, "string", "", ""],
