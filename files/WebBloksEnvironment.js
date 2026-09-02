@@ -73,61 +73,70 @@ __d(
           ],
         ]),
         controllerNavigationLogger: null,
+        versioningID: null,
       };
     function d(t) {
       for (
         var n,
-          a = (n = window.navigator) == null ? void 0 : n.languages,
-          i = a != null && o("WebBloksI18nUtils").isLocaleRtl(a),
-          l = t.minificationMap,
-          s = babelHelpers.objectWithoutPropertiesLoose(t, e),
-          u = babelHelpers.extends({}, c, {
-            minificationMap: l,
-            locale: a,
-            isRtl: i,
+          a,
+          i,
+          l = (n = window.navigator) == null ? void 0 : n.languages,
+          s = l != null && o("WebBloksI18nUtils").isLocaleRtl(l),
+          u = t.minificationMap,
+          d = babelHelpers.objectWithoutPropertiesLoose(t, e),
+          m = babelHelpers.extends({}, c, {
+            minificationMap: u,
+            locale: l,
+            isRtl: s,
           }),
-          d = arguments.length,
-          m = new Array(d > 1 ? d - 1 : 0),
-          f = 1;
-        f < d;
-        f++
+          f = arguments.length,
+          h = new Array(f > 1 ? f - 1 : 0),
+          y = 1;
+        y < f;
+        y++
       )
-        m[f - 1] = arguments[f];
-      var h = m.reduce(
+        h[y - 1] = arguments[y];
+      var C = h.reduce(
         function (e, t) {
           return p(e, t);
         },
-        p(u, s),
+        p(m, d),
       );
-      if (h.useMinification && h.unminificationMap != null)
+      if (C.useMinification && C.unminificationMap != null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A minified WebBloks environment cannot include an unminification map.",
         );
-      if (h.useSignatureMinification && h.signatureUnminificationMap != null)
+      if (C.useSignatureMinification && C.signatureUnminificationMap != null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment cannot include a signature unminification map.",
         );
-      if (h.useSignatureMinification && h.canonicalActions == null)
+      if (C.useSignatureMinification && C.canonicalActions == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment requires canonical actions.",
         );
-      o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
-        h.enableBindInstrumentation,
-      );
-      var y = babelHelpers.extends({}, h, {
-        minificationMap: h.useMinification
-          ? h.minificationMap
-          : g(h.minificationMap),
+      (o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
+        C.enableBindInstrumentation,
+      ),
+        (a = C.appLoader) == null ||
+          a.setVersioningID == null ||
+          a.setVersioningID(C.versioningID),
+        (i = C.appLoader) == null ||
+          i.setLogger == null ||
+          i.setLogger(C.logger));
+      var b = babelHelpers.extends({}, C, {
+        minificationMap: C.useMinification
+          ? C.minificationMap
+          : g(C.minificationMap),
         actions: new (r("WebBloksModuleStore"))(
-          h.useSignatureMinification
-            ? h.canonicalActions
-            : _(h.actions, h.signatureUnminificationMap),
+          C.useSignatureMinification
+            ? C.canonicalActions
+            : _(C.actions, C.signatureUnminificationMap),
         ),
-        components: new (r("WebBloksModuleStore"))(h.components),
-        extensionHandlers: new (r("WebBloksModuleStore"))(h.extensionHandlers),
-        containerConfigs: new (r("WebBloksModuleStore"))(h.containerConfigs),
+        components: new (r("WebBloksModuleStore"))(C.components),
+        extensionHandlers: new (r("WebBloksModuleStore"))(C.extensionHandlers),
+        containerConfigs: new (r("WebBloksModuleStore"))(C.containerConfigs),
       });
-      return y;
+      return b;
     }
     function m(e) {
       return u(e)[0];
@@ -161,7 +170,8 @@ __d(
         D,
         x,
         $,
-        P;
+        P,
+        N;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -259,6 +269,7 @@ __d(
               (P = t.controllerNavigationLogger) != null
                 ? P
                 : e.controllerNavigationLogger,
+            versioningID: (N = t.versioningID) != null ? N : e.versioningID,
           }
         : e;
     }

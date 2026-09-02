@@ -87,8 +87,8 @@ __d(
           ((this._sessionId = t),
             (this._offlineStartT = self.performance.now()),
             (this._resumeMode = e),
-            window.document &&
-              (this._isStartedInForeground = !document.hidden));
+            globalThis.document != null &&
+              (this._isStartedInForeground = !globalThis.document.hidden));
         }
         var t = e.prototype;
         return (
@@ -106,7 +106,8 @@ __d(
               ),
               currentOfflineStage: t,
             };
-            (window.document && (e.isResumeInForeground = !document.hidden),
+            (globalThis.document != null &&
+              (e.isResumeInForeground = !globalThis.document.hidden),
               this._isStartedInForeground != null &&
                 (e.isResumeStartedInForeground = this._isStartedInForeground));
             var n = new (o(
@@ -317,10 +318,10 @@ __d(
           (r.logOfflineStartT = function () {
             (this._logPerformanceT("pageLoadT"),
               this.offlineStage.logOfflineStart(),
-              window.document &&
+              globalThis.document != null &&
                 this.offlineResume &&
                 (this.offlineResume.isResumeStartedInForeground =
-                  !document.hidden));
+                  !globalThis.document.hidden));
           }),
           (r.logSocketConnectT = function () {
             (this.qpl.start(),
@@ -367,8 +368,8 @@ __d(
                     t,
                     t.offlineProcessingT,
                   )),
-                  window.document &&
-                    (t.isResumeInForeground = !document.hidden),
+                  globalThis.document != null &&
+                    (t.isResumeInForeground = !globalThis.document.hidden),
                   o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([

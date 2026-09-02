@@ -69,12 +69,13 @@ __d(
           return e;
         }),
         (t.readChars = function (t) {
-          for (var e = ""; t-- > 0; )
+          for (var e = "", n = t; n-- > 0; )
             e += String.fromCharCode(this.$2.getUint8(this.skip(1)));
           return e;
         }),
         (t.readBytes = function (t) {
-          for (var e = []; t-- > 0; ) e.push(this.$2.getUint8(this.skip(1)));
+          for (var e = [], n = t; n-- > 0; )
+            e.push(this.$2.getUint8(this.skip(1)));
           return e;
         }),
         (t.getDataView = function () {

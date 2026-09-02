@@ -46,53 +46,57 @@ __d(
           .sort(o("WAWebContactComparator").ContactComparator);
       return a;
     }
-    function s(t, n, r, a) {
-      var i,
+    function s(t) {
+      var n = t.CAGParticipants,
+        r = t.isLidAddressingMode,
+        a = t.joinedSubgroups,
+        i = t.parentGroupMembers,
         l,
-        s = [],
-        u = new Set(),
-        c = [],
-        d = new Set(),
-        m = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      (m && (i = o("WAWebContactCollection").ContactCollection.get(m)),
-        n == null ||
-          n.forEach(function (e) {
+        s,
+        u = [],
+        c = new Set(),
+        d = [],
+        m = new Set(),
+        p = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      (p && (l = o("WAWebContactCollection").ContactCollection.get(p)),
+        i == null ||
+          i.forEach(function (e) {
             o("WAWebContactGetters").getIsMe(e.contact) ||
               (e != null && e.isSuperAdmin
-                ? (l = e.contact)
+                ? (s = e.contact)
                 : e != null && e.isAdmin
-                  ? (s.push(e.contact), u.add(e.id.toString()))
-                  : (c.push(e.contact), d.add(e.id.toString())));
+                  ? (u.push(e.contact), c.add(e.id.toString()))
+                  : (d.push(e.contact), m.add(e.id.toString())));
           }));
-      var p = function (t) {
+      var _ = function (t) {
         var e;
         return (
-          !d.has(t.toString()) &&
-          !u.has(t.toString()) &&
-          !t.equals((e = l) == null ? void 0 : e.id) &&
+          !m.has(t.toString()) &&
+          !c.has(t.toString()) &&
+          !t.equals((e = s) == null ? void 0 : e.id) &&
           !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-          a === t.isLid()
+          r === t.isLid()
         );
       };
-      n != null &&
-        n.iAmAdmin() &&
-        (t == null ||
-          t.forEach(function (e) {
+      i != null &&
+        i.iAmAdmin() &&
+        (n == null ||
+          n.forEach(function (e) {
             var t = e.contact,
               n = o("WAWebWidFactory").asUserWidOrThrow(t.id),
               r = o("WAWebApiContact").getAlternateUserWid(n),
-              a = p(n),
-              i = r ? p(r) : !0,
+              a = _(n),
+              i = r ? _(r) : !0,
               l = a && i;
-            l && (c.push(t), d.add(n.toString()));
+            l && (d.push(t), m.add(n.toString()));
           }));
-      var _ = [];
-      r.length &&
-        (_ = e(r, function (e) {
-          return e.id.isUser() && p(e.id);
-        }));
       var f = [];
-      return (i && f.push(i), l && f.push(l), (f = f.concat(s, c, _)), f);
+      a.length &&
+        (f = e(a, function (e) {
+          return e.id.isUser() && _(e.id);
+        }));
+      var g = [];
+      return (l && g.push(l), s && g.push(s), (g = g.concat(u, d, f)), g);
     }
     function u(e, t) {
       if (e == null) return { membersInCAG: [], membersNotInCAG: t };

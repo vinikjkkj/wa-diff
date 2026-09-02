@@ -72,12 +72,10 @@ __d(
             yield o("WAWebSchemaParticipant")
               .getParticipantTable()
               .forEach(function (t) {
-                var n;
-                (n = t.participants) == null ||
-                  n.forEach(function (t) {
-                    var n = h(t);
-                    n != null && e.add(n);
-                  });
+                t.participants.forEach(function (t) {
+                  var n = h(t);
+                  n != null && e.add(n);
+                });
               }),
             yield o("WAWebSchemaChat")
               .getChatTable()

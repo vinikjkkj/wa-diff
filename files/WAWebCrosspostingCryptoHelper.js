@@ -44,15 +44,15 @@ __d(
             e.purposePublicIKEncCertificate,
           );
           (o("WAWebAccountLinkingCryptoUtils").validateCertificateChain(n),
-            yield _(
-              e.purposePublicIK,
-              e.purposePublicEK,
-              new Uint8Array(t.publicKey),
-              new Uint8Array(t.privateKey),
-              o("WAWebCrossposting.flow").SHARED_KEY_LENGTH,
-              e.purposeDummyCipherText,
-              e.purposeDummyNonce,
-            ));
+            yield _({
+              clientPrivateKey: new Uint8Array(t.privateKey),
+              clientPublicKey: new Uint8Array(t.publicKey),
+              dummyCiphertext: e.purposeDummyCipherText,
+              dummyNonce: e.purposeDummyNonce,
+              outputLength: o("WAWebCrossposting.flow").SHARED_KEY_LENGTH,
+              serverPublicEK: e.purposePublicEK,
+              serverPublicIK: e.purposePublicIK,
+            }));
         })),
         d.apply(this, arguments)
       );
@@ -94,26 +94,31 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n, r, o, a, i) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l, u) {
-            var c = yield m({
-                clientPrivateKey: a,
-                clientPublicKey: n,
-                keyType: o("WAWebCrossposting.flow").SharedKey.ServerKey,
-                outputLength: i,
-                serverPublicEK: t,
-                serverPublicIK: e,
-              }),
-              d = o("WACryptoPrimitives").secretbox.open(l, u, c),
-              p = s(o("WABase64").encodeB64UrlSafe(n));
-            return d != null && r("WATypedArraysEqual")(p, d);
-          },
-        )),
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.clientPrivateKey,
+            n = e.clientPublicKey,
+            a = e.dummyCiphertext,
+            i = e.dummyNonce,
+            l = e.outputLength,
+            u = e.serverPublicEK,
+            c = e.serverPublicIK,
+            d = yield m({
+              clientPrivateKey: t,
+              clientPublicKey: n,
+              keyType: o("WAWebCrossposting.flow").SharedKey.ServerKey,
+              outputLength: l,
+              serverPublicEK: u,
+              serverPublicIK: c,
+            }),
+            p = o("WACryptoPrimitives").secretbox.open(a, i, d),
+            _ = s(o("WABase64").encodeB64UrlSafe(n));
+          return p != null && r("WATypedArraysEqual")(_, p);
+        })),
         f.apply(this, arguments)
       );
     }

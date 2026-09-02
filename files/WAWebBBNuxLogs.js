@@ -14,11 +14,14 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_MODAL,
       });
     }
-    function s(e, t, n) {
-      e({
+    function s(e) {
+      var t = e.bbTier,
+        n = e.entryPoint,
+        r = e.log;
+      r({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        bbTier: n,
-        entryPoint: t,
+        bbTier: t,
+        entryPoint: n,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT,

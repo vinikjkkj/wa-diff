@@ -5,7 +5,7 @@ __d(
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebContactFormWrapper.react",
-    "WAWebContactsModal.react",
+    "WAWebContactsModalLoadable",
     "WAWebFindChatAction",
     "WAWebModalManager",
     "WAWebSupportAiSessionWamEvent",
@@ -52,23 +52,23 @@ __d(
                 }));
             });
         },
-        a = function (t) {
+        r = function (t) {
           (n(t.id), o("WAWebModalManager").ModalManager.close());
         },
-        i = e.participants.getAdmins();
-      if (i.length === 1) {
-        n(i[0].id);
+        a = e.participants.getAdmins();
+      if (a.length === 1) {
+        n(a[0].id);
         return;
       }
-      var l = i.map(function (e) {
+      var i = a.map(function (e) {
         return e.contact;
       });
       o("WAWebModalManager").ModalManager.open(
-        s.jsx(r("WAWebContactsModal.react"), {
+        s.jsx(o("WAWebContactsModalLoadable").WAWebContactsModalLoadable, {
           title: t,
-          contacts: l,
+          contacts: i,
           onCancel: o("WAWebModalManager").closeModalManager,
-          onSelect: a,
+          onSelect: r,
         }),
       );
     }

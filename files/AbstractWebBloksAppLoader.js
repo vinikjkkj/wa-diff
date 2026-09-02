@@ -6,21 +6,52 @@ __d(
     "WebBloksErrors",
     "WebBloksServerData",
     "WebBloksUtils",
+    "WebBloksVersioningID",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
-      function e() {}
+      function e() {
+        var e = this;
+        ((this.$1 = null),
+          (this.$2 = null),
+          (this.setLogger = function (t) {
+            e.$2 = t;
+          }),
+          (this.setVersioningID = function (t) {
+            e.$1 = t;
+          }));
+      }
       var t = e.prototype;
       return (
+        (t.getVersioningID = function () {
+          var e;
+          return (e = this.$1) != null
+            ? e
+            : o("WebBloksVersioningID").versioningID;
+        }),
+        (t.$3 = function (t) {
+          var e,
+            n,
+            r = t == null ? void 0 : t.versioning_id;
+          r == null ||
+            r === this.getVersioningID() ||
+            (e = this.$2) == null ||
+            e.mustfix(
+              "Requested versioning ID %s but the response was reduced against %s (app %s). Unless this is an intentionally stale bundle, the requested ID failed to resolve and the server fell back.",
+              this.getVersioningID(),
+              r,
+              (n = t == null ? void 0 : t.bloks_app_id) != null ? n : "unknown",
+            );
+        }),
         (t.fetchAppByUrl = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             return (
               r("WebBloksAppLoaderConsoleDebugger").onStart(e),
               o("WebBloksUtils").normaliseBloksPayload(
-                yield this.$1(e, this.makePostRequest(e, { type: "app" })),
+                yield this.$4(e, this.makePostRequest(e, { type: "app" })),
               )
             );
           });
@@ -33,7 +64,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               return o("WebBloksUtils").normaliseBloksPayload(
-                yield this.$2(e, t, "app"),
+                yield this.$5(e, t, "app"),
               );
             },
           );
@@ -46,7 +77,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               return o("WebBloksUtils").normaliseBloksPayload(
-                yield this.$2(e, t, "action"),
+                yield this.$5(e, t, "action"),
               );
             },
           );
@@ -60,7 +91,7 @@ __d(
             function* (e, t) {
               var n,
                 r,
-                o = yield this.$2(e, t, "app");
+                o = yield this.$5(e, t, "app");
               return {
                 components: o.components,
                 stacked_screens:
@@ -77,15 +108,15 @@ __d(
           }
           return t;
         })()),
-        (t.$2 = function (t, n, o) {
+        (t.$5 = function (t, n, o) {
           r("WebBloksAppLoaderConsoleDebugger").onStart(t, n);
           var e = this.getAsyncFetchData(t, n, o);
-          return this.$1(
+          return this.$4(
             t,
             this.makePostRequest(this.getAsyncFetchURI(t, n, o), e),
           );
         }),
-        (t.$1 = (function () {
+        (t.$4 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               try {
@@ -98,6 +129,7 @@ __d(
                   o("WebBloksServerData").handleWebBloksServerData(
                     i.server_data,
                   ),
+                  this.$3(i.server_data),
                   i
                 );
               } catch (t) {

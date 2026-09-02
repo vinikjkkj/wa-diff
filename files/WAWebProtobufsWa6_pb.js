@@ -113,6 +113,8 @@ __d(
         BLUE_VR: 36,
         AR_WRIST: 37,
         WAIL: 38,
+        WORK_ANDROID: 39,
+        WORK_IOS: 40,
       }),
       S = {},
       R = {},

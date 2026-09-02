@@ -116,7 +116,6 @@ __d(
       (l.isSupported = d),
       (l.getFullScreenElement = m),
       (l.isFullScreen = p),
-      (l.getFullScreenChangeEventNames = _),
       (l.subscribeToFullScreenChangeEvent = f));
   },
   98,

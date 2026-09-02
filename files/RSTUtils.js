@@ -94,9 +94,7 @@ __d(
     function k(e) {
       return e == null ? null : e.replace(/[\[\]\",\']/g, "");
     }
-    ((l.getGlobalObject = m),
-      (l.isInWorker = p),
-      (l.debugLogImportant = _),
+    ((l.debugLogImportant = _),
       (l.debugLog = f),
       (l.sanitizeURL = g),
       (l.scheduleYield = h),

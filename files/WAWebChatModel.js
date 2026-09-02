@@ -248,6 +248,8 @@ __d(
               o("WAWebChatEntryPoint").ChatEntryPoint.Initialization,
             )),
             (e.forceDismissAiAgentBlockBar = o("WAWebBaseModel").session(!1)),
+            (e.isSmartComposerHandoffCardDismissed =
+              o("WAWebBaseModel").session(!1)),
             (e.limitSharing = o("WAWebBaseModel").prop()),
             (e.mmSignalSharingExpirationWindow = o("WAWebBaseModel").prop()),
             (e.isSenderNewAccount = o("WAWebBaseModel").prop()),

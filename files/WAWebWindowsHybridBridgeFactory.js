@@ -40,6 +40,7 @@ __d(
     "WAWebWindowsHybridBridge.v2632",
     "WAWebWindowsHybridBridge.v2633",
     "WAWebWindowsHybridBridge.v2634",
+    "WAWebWindowsHybridBridge.v2635",
     "WAWebWindowsHybridBridgeCommon",
     "WAWebWindowsHybridBridgeUtils",
     "WAWebWindowsHybridFlowHelpers",
@@ -446,28 +447,42 @@ __d(
                                                                                     t,
                                                                                   ),
                                                                                 )
-                                                                              : (o(
-                                                                                  "WALogger",
-                                                                                )
-                                                                                  .ERROR(
-                                                                                    u ||
-                                                                                      (u =
-                                                                                        babelHelpers.taggedTemplateLiteralLoose(
-                                                                                          [
-                                                                                            "windows hybrid bridge: unsupported build version ",
-                                                                                            "",
-                                                                                          ],
-                                                                                        )),
-                                                                                    e,
+                                                                              : e !=
+                                                                                    null &&
+                                                                                  e.startsWith(
+                                                                                    "2635",
                                                                                   )
-                                                                                  .sendLogs(
-                                                                                    "windows hybrid bridge version missing",
-                                                                                  ),
-                                                                                new (o(
-                                                                                  "WAWebWindowsHybridBridge",
-                                                                                ).WindowsHybridBridge)(
-                                                                                  t,
-                                                                                ));
+                                                                                ? new (o(
+                                                                                    "WAWebWindowsHybridBridge.v2635",
+                                                                                  ).WindowsHybridBridge_v2635)(
+                                                                                    o(
+                                                                                      "WAWebWindowsHybridFlowHelpers",
+                                                                                    ).unsafeCastCustomWebView(
+                                                                                      t,
+                                                                                    ),
+                                                                                  )
+                                                                                : (o(
+                                                                                    "WALogger",
+                                                                                  )
+                                                                                    .ERROR(
+                                                                                      u ||
+                                                                                        (u =
+                                                                                          babelHelpers.taggedTemplateLiteralLoose(
+                                                                                            [
+                                                                                              "windows hybrid bridge: unsupported build version ",
+                                                                                              "",
+                                                                                            ],
+                                                                                          )),
+                                                                                      e,
+                                                                                    )
+                                                                                    .sendLogs(
+                                                                                      "windows hybrid bridge version missing",
+                                                                                    ),
+                                                                                  new (o(
+                                                                                    "WAWebWindowsHybridBridge",
+                                                                                  ).WindowsHybridBridge)(
+                                                                                    t,
+                                                                                  ));
       } catch (e) {
         o("WALogger").ERROR(
           c ||

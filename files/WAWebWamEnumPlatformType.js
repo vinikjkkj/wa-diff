@@ -65,6 +65,8 @@ __d(
       WASG: 68,
       BLUEVR: 69,
       WAIL: 70,
+      WORKA: 71,
+      WORKI: 72,
       TEST: 9,
       UNKNOWN: 10,
     });

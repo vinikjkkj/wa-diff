@@ -48,7 +48,7 @@ __d(
         case "multi_vcard":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.CONTACT_ARRAY;
         case "chat":
-          return m(e.matchedText);
+          return p(e.matchedText);
         case "sticker":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.STICKER;
         case "product":
@@ -79,7 +79,7 @@ __d(
         case "order":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.ORDER;
         case "interactive":
-          return c(e);
+          return d(e);
         case "reaction":
         case "reaction_enc":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.REACTION;
@@ -129,6 +129,11 @@ __d(
               : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL;
     }
     function u(e) {
+      return r("WAWebWid").isGroup(e)
+        ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
+        : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL;
+    }
+    function c(e) {
       return e === "chat"
         ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL
         : e === "group"
@@ -144,25 +149,25 @@ __d(
                   );
                 })();
     }
-    function c(e) {
+    function d(e) {
       var t = e.interactiveType;
       if (t == null) return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
       switch (t) {
         case r("WAWebInteractiveMessageType").SHOPS_STOREFRONT:
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.SHOP_STOREFRONT;
         case r("WAWebInteractiveMessageType").NATIVE_FLOW:
-          return d(e);
+          return m(e);
         case r("WAWebInteractiveMessageType").CAROUSEL:
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.INTERACTIVE_CAROUSEL;
       }
     }
-    function d(e) {
+    function m(e) {
       return e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW
         ? o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE
         : o("WAWebWamEnumMediaType").MEDIA_TYPE.INTERACTIVE_NFM;
     }
-    function m(e) {
+    function p(e) {
       return e == null
         ? o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE
         : o("WAWebApiParse").matchCatalogUrl(e)
@@ -171,7 +176,7 @@ __d(
             ? o("WAWebWamEnumMediaType").MEDIA_TYPE.PRODUCT_LINK
             : o("WAWebWamEnumMediaType").MEDIA_TYPE.URL;
     }
-    function p(e) {
+    function _(e) {
       return e instanceof r("WAWebWid")
         ? o("WAWebUserPrefsMeUser").isMeAccount(e)
           ? e.isCompanion()
@@ -188,7 +193,7 @@ __d(
             : o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE.OTHER_PRIMARY
         : null;
     }
-    function _(e) {
+    function f(e) {
       if (e.id.remote.isBot())
         return o("WAWebWamEnumAgentEngagementEnumType")
           .AGENT_ENGAGEMENT_ENUM_TYPE.DIRECT_CHAT;
@@ -199,7 +204,7 @@ __d(
             .INVOKED
         : null;
     }
-    function f(e) {
+    function g(e) {
       var t = e.automatedType,
         n = e.bizBotType,
         r = e.chatId;
@@ -220,7 +225,7 @@ __d(
       }
       return o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
     }
-    function g(e) {
+    function h(e) {
       if (e == null || e === "") return null;
       switch (e) {
         case o("WAWebHandleMsgCommon").MSG_CATEGORY.peer:
@@ -230,7 +235,7 @@ __d(
           return null;
       }
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       if (t.isGroup()) return !!n;
       if (t.isStatus()) {
         var r, o;
@@ -242,13 +247,14 @@ __d(
     }
     ((l.getWamMediaType = e),
       (l.getWamMessageType = s),
-      (l.getMessageTypeFromMsgInfoType = u),
-      (l.getInteractiveWamType = c),
-      (l.getWamE2eSenderType = p),
-      (l.getWamAgentEngagementType = _),
-      (l.getWamBotType = f),
-      (l.getWamInvisibleMessageCategoryType = g),
-      (l.msgIsLid = h));
+      (l.getWamMessageTypeForScheduledMsg = u),
+      (l.getMessageTypeFromMsgInfoType = c),
+      (l.getInteractiveWamType = d),
+      (l.getWamE2eSenderType = _),
+      (l.getWamAgentEngagementType = f),
+      (l.getWamBotType = g),
+      (l.getWamInvisibleMessageCategoryType = h),
+      (l.msgIsLid = y));
   },
   98,
 );

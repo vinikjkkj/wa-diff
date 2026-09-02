@@ -6,55 +6,36 @@ __d(
     "WAWebABProps",
     "WAWebCurrentUser",
     "WAWebLidMigrationUtils",
+    "WAWebPersistedPrefObject",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsStore",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameUnknownUserDisplayedWamEvent",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c,
-      d = 6 * o("WATimeUtils").HOUR_SECONDS;
-    function m() {
-      var t = r("WAWebUserPrefsStore").getUser(
+      u = 6 * o("WATimeUtils").HOUR_SECONDS;
+    function c() {
+      return o("WAWebPersistedPrefObject").readPersistedPrefObject(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_USER_WAM_WINDOW,
+        d,
+        "unknown-user-wam-window-malformed",
       );
-      if (t == null) return null;
-      if (typeof t != "object")
-        return (
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "WAWebUnknownUserDisplayedLogger: persisted WAM window is not an object; resetting",
-                ])),
-            )
-            .sendLogs("unknown-user-wam-window-malformed"),
-          null
-        );
-      var n = t.count,
-        a = t.start;
-      return typeof n != "number" || typeof a != "number"
-        ? (o("WALogger")
-            .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "WAWebUnknownUserDisplayedLogger: persisted WAM window missing numeric count/start; resetting",
-                ])),
-            )
-            .sendLogs("unknown-user-wam-window-malformed"),
-          null)
-        : { count: n, start: o("WATimeUtils").castToUnixTime(a) };
     }
-    function p(e) {
-      r("WAWebUserPrefsStore").setUser(
+    function d(e) {
+      var t = e.count,
+        n = e.start;
+      return typeof t != "number" || typeof n != "number"
+        ? null
+        : { count: t, start: o("WATimeUtils").castToUnixTime(n) };
+    }
+    function m(e) {
+      o("WAWebPersistedPrefObject").writePersistedPrefObject(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_USER_WAM_WINDOW,
         e,
       );
     }
-    function _() {
+    function p() {
       if (
         !o("WAWebUsernameGatingUtils").usernameUnknownUserLoggingEnabled() ||
         !o(
@@ -67,17 +48,17 @@ __d(
       );
       if (e <= 0) return !1;
       var t = o("WATimeUtils").unixTime(),
-        n = m(),
+        n = c(),
         r,
         a;
       return (
-        n != null && t - n.start < d
+        n != null && t - n.start < u
           ? ((r = n.start), (a = n.count))
           : ((r = t), (a = 0)),
-        a >= e ? !1 : (p({ count: a + 1, start: r }), !0)
+        a >= e ? !1 : (m({ count: a + 1, start: r }), !0)
       );
     }
-    function f(e) {
+    function _(e) {
       return e.isBot()
         ? "bot"
         : e.isLid()
@@ -86,7 +67,7 @@ __d(
             ? "group"
             : "pn";
     }
-    function g(e) {
+    function f(e) {
       if (
         o("WAWebUsernameGatingUtils").unknownUserTargetRidLoggingEnabled() &&
         (e.isLid() || e.isRegularUserPn())
@@ -97,47 +78,47 @@ __d(
           : t.user;
       }
     }
-    function h(e, t, n) {
-      var r, a, i, l, s, d, m;
+    function g(t, n, r) {
+      var a, i, l, u, c, d, m;
       (o("WAWebCurrentUser").isEmployee()
         ? o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[uname]: Unknown user placeholder shown on ",
                   ", wid=",
                   "",
                 ])),
-              e,
-              t.toString(),
+              t,
+              n.toString(),
             )
             .sendLogs("unknown-user-displayed")
         : o("WALogger").WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[uname]: Unknown user placeholder shown on ",
                 "",
               ])),
-            e,
+            t,
           ),
         new (o(
           "WAWebUsernameUnknownUserDisplayedWamEvent",
         ).UsernameUnknownUserDisplayedWamEvent)({
-          unknownUserDisplayContext: e,
-          clientTsMs: n.clientTsMs,
-          jidType: f(t),
-          unknownUserDisplayLid: (r = g(t)) != null ? r : void 0,
-          isFirstDisplay: (a = n.isFirstDisplay) != null ? a : void 0,
-          durationInSecs: (i = n.durationInSecs) != null ? i : void 0,
-          hasUn: (l = n.hasUn) != null ? l : void 0,
-          hasPn: (s = n.hasPn) != null ? s : void 0,
-          hasPush: (d = n.hasPush) != null ? d : void 0,
-          inDb: (m = n.inDb) != null ? m : void 0,
+          unknownUserDisplayContext: t,
+          clientTsMs: r.clientTsMs,
+          jidType: _(n),
+          unknownUserDisplayLid: (a = f(n)) != null ? a : void 0,
+          isFirstDisplay: (i = r.isFirstDisplay) != null ? i : void 0,
+          durationInSecs: (l = r.durationInSecs) != null ? l : void 0,
+          hasUn: (u = r.hasUn) != null ? u : void 0,
+          hasPn: (c = r.hasPn) != null ? c : void 0,
+          hasPush: (d = r.hasPush) != null ? d : void 0,
+          inDb: (m = r.inDb) != null ? m : void 0,
         }).commit());
     }
-    ((l.WINDOW_SECONDS = d),
-      (l.reserveUnknownUserEmission = _),
-      (l.commitUnknownUserDisplayed = h));
+    ((l.WINDOW_SECONDS = u),
+      (l.reserveUnknownUserEmission = p),
+      (l.commitUnknownUserDisplayed = g));
   },
   98,
 );

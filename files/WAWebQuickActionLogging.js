@@ -64,31 +64,37 @@ __d(
       var t = e.actionId,
         n = e.numActionsVisible,
         r = e.slotPosition,
-        a = e.surface,
-        i = _(a, t);
-      if (!p.has(i)) {
-        p.add(i);
-        var l = new (o(
+        o = e.surface;
+      b(o, t, r, n);
+    }
+    function h(e, t) {
+      b(e, t, null, null);
+    }
+    function y(e, t, n, r) {
+      v(e, t, n, r);
+    }
+    function C(e, t) {
+      v(e, t, null, null);
+    }
+    function b(e, t, n, r) {
+      var a = _(e, t);
+      if (!p.has(a)) {
+        p.add(a);
+        var i = new (o(
           "WAWebWebcQuickActionWamEvent",
         ).WebcQuickActionWamEvent)();
-        ((l.webcQuickActionEventType = o(
+        ((i.webcQuickActionEventType = o(
           "WAWebWamEnumWebcQuickActionEventType",
         ).WEBC_QUICK_ACTION_EVENT_TYPE.IMPRESSION),
-          (l.webcQuickActionSurface = u[a]),
-          (l.webcQuickActionId = c[t]),
-          (l.webcQuickActionSlotPosition = r),
-          (l.webcQuickActionNumVisible = n),
-          (l.webcQuickActionIsCustomized = d),
-          l.commit());
+          (i.webcQuickActionSurface = u[e]),
+          (i.webcQuickActionId = c[t]),
+          n != null && (i.webcQuickActionSlotPosition = n),
+          r != null && (i.webcQuickActionNumVisible = r),
+          (i.webcQuickActionIsCustomized = d),
+          i.commit());
       }
     }
-    function h(e, t, n, r) {
-      C(e, t, n, r);
-    }
-    function y(e, t) {
-      C(e, t, null, null);
-    }
-    function C(e, t, n, r) {
+    function v(e, t, n, r) {
       var a = new (o("WAWebWebcQuickActionWamEvent").WebcQuickActionWamEvent)();
       ((a.webcQuickActionEventType = o(
         "WAWebWamEnumWebcQuickActionEventType",
@@ -102,8 +108,9 @@ __d(
     }
     ((l.logQuickActionSurfaceView = f),
       (l.logQuickActionImpression = g),
-      (l.logQuickActionTap = h),
-      (l.logQuickActionCtaTap = y));
+      (l.logQuickActionCtaImpression = h),
+      (l.logQuickActionTap = y),
+      (l.logQuickActionCtaTap = C));
   },
   98,
 );

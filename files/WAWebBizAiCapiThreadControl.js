@@ -47,6 +47,7 @@ __d(
             o("WAWebBizAiHandoffRemoval").clearHandoffRemovalExpiry(t)),
         i &&
           ((t.aiHandoffStartedAt = o("WATimeUtils").unixTime()),
+          (t.isSmartComposerHandoffCardDismissed = !1),
           (t.unreadCount = 1),
           o("WAWebNotificationBackend")
             .showAiHandoffNotification(t)

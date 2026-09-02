@@ -1,31 +1,39 @@
 __d(
   "VideoPlayerBanzaiLogFlusher",
-  ["ODS", "VideoPlayerWwwLogger", "emptyFunction", "gkx"],
+  [
+    "ExecutionEnvironment",
+    "ODS",
+    "VideoPlayerWwwLogger",
+    "emptyFunction",
+    "gkx",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("emptyFunction"),
-      u = !1;
+      s,
+      u = r("emptyFunction"),
+      c = !1;
     r("gkx")("5551") &&
-      ((u = !0),
-      (s = function (t, n) {
-        try {
-          for (
-            var e,
-              r = arguments.length,
-              o = new Array(r > 2 ? r - 2 : 0),
-              a = 2;
-            a < r;
-            a++
-          )
-            o[a - 2] = arguments[a];
-          (e = window.console).info.apply(
-            e,
-            ["[" + t + "][VideoPlayerBanzaiLogFlusher]" + n].concat(o),
-          );
-        } catch (e) {}
+      ((c = !0),
+      (u = function (t, n) {
+        if ((s || (s = r("ExecutionEnvironment"))).canUseDOM)
+          try {
+            for (
+              var e,
+                o = arguments.length,
+                a = new Array(o > 2 ? o - 2 : 0),
+                i = 2;
+              i < o;
+              i++
+            )
+              a[i - 2] = arguments[i];
+            (e = window.console).info.apply(
+              e,
+              ["[" + t + "][VideoPlayerBanzaiLogFlusher]" + n].concat(a),
+            );
+          } catch (e) {}
       }));
-    var c = (function () {
+    var d = (function () {
       function t(e, t) {
         ((this.$1 = e), (this.$2 = t));
       }
@@ -43,8 +51,8 @@ __d(
                 source: n.source_VPL_LOGGING_HACK,
               };
             if (n.source_VPL_LOGGING_HACK === "animated_image_share") {
-              u &&
-                s(
+              c &&
+                u(
                   t.$1,
                   "[flushLogs] " + n.eventType + " SKIP ANIMATED_IMAGE_SHARE",
                   { videoPlayerLogData: i },
@@ -52,8 +60,8 @@ __d(
               return;
             }
             var l = (a = n.logData) == null ? void 0 : a.ad_client_token;
-            (u &&
-              s(t.$1, "[flushLogs] " + n.eventType, { videoPlayerLogData: i }),
+            (c &&
+              u(t.$1, "[flushLogs] " + n.eventType, { videoPlayerLogData: i }),
               (e || (e = o("ODS"))).bumpEntityKey(
                 2079,
                 "comet_video_player.banzai_log_flusher",
@@ -66,8 +74,8 @@ __d(
         }),
         (n.discardLogsWithoutFlushing = function () {
           var e = this.$2.consumeLoggerEvents();
-          u &&
-            s(
+          c &&
+            u(
               this.$1,
               "[discardLogsWithoutFlushing] " +
                 e
@@ -81,7 +89,7 @@ __d(
         t
       );
     })();
-    l.default = c;
+    l.default = d;
   },
   98,
 );

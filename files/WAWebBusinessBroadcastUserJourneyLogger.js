@@ -926,7 +926,11 @@ __d(
             );
           }),
           (t.tosNuxAcceptClicked = function (t, n) {
-            o("WAWebBBNuxLogs").tosNuxAcceptClicked(this.$1, t, n);
+            o("WAWebBBNuxLogs").tosNuxAcceptClicked({
+              bbTier: n,
+              entryPoint: t,
+              log: this.$1,
+            });
           }),
           (t.tosNuxAcceptSuccess = function (t, n, r) {
             var e, a;

@@ -27,7 +27,7 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebLabelOutlineIcon.react",
-    "WAWebLeaveCommunityModalUtils",
+    "WAWebLeaveCommunityModalUtilsLoadable",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
     "WAWebManageLabelFlowLoadable",
@@ -37,7 +37,7 @@ __d(
     "WAWebMuteMenuItem.react",
     "WAWebMuteUtils",
     "WAWebOpenAddParticipantModalFlow",
-    "WAWebOpenLeaveAndReportGroupModal",
+    "WAWebOpenLeaveAndReportGroupModalLoadable",
     "WAWebReachoutTimelockRestrictedModalLoadable",
     "WAWebReachoutTimelockUtils",
     "WAWebSendTextFlow.react",
@@ -85,7 +85,9 @@ __d(
     }
     function d(e) {
       if (o("WAWebChatGroupUtils").shouldShowLeaveAndReportGroupModalForChat(e))
-        o("WAWebOpenLeaveAndReportGroupModal").openLeaveAndReportGroupModal(
+        o(
+          "WAWebOpenLeaveAndReportGroupModalLoadable",
+        ).openLeaveAndReportGroupModal(
           e,
           o("WAWebSpamConstants").SpamFlow.GroupOverflowMenuLeaveReportUpsell,
         );
@@ -93,7 +95,7 @@ __d(
         var t,
           n = (t = e.groupMetadata) == null ? void 0 : t.getParentGroupChat();
         n != null && o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e)
-          ? o("WAWebLeaveCommunityModalUtils").openLeaveCommunityModal({
+          ? o("WAWebLeaveCommunityModalUtilsLoadable").openLeaveCommunityModal({
               chat: n,
             })
           : o("WAWebCmd").Cmd.deleteOrExitChat(e);

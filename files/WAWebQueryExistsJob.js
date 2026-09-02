@@ -214,7 +214,7 @@ __d(
               },
               o("WAWebContactSyncErrorCodes").QUERY_USERNAME_DEPRECATED,
             ),
-            u = l.error.all || l.error.contact;
+            u = l.error.all || l.error.contact || l.error.username;
           if (
             (o("WALogger").LOG(
               s ||
@@ -270,10 +270,18 @@ __d(
             ) {
               var a = o("WAWebWidFactory").createUserWidOrThrow(e.toString()),
                 i = yield o("WAWebMexUsersGetUsername").getMexUserUsername(a);
-              ((n = a),
-                i != null
-                  ? (t = o("WAWebUsernameTypes").serializeMaybeUsername(i))
-                  : (r = !0));
+              if (((n = a), i.error === !0))
+                return {
+                  username: void 0,
+                  usernameChanged: !1,
+                  wasPreviouslyKnown: !1,
+                  errored: !0,
+                };
+              i.username != null
+                ? (t = o("WAWebUsernameTypes").serializeMaybeUsername(
+                    i.username,
+                  ))
+                : (r = !0);
             } else {
               var l = yield g(e);
               l != null && ((t = l.username), (n = l.id), (r = l.shouldDelete));

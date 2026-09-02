@@ -36,6 +36,7 @@ __d(
                 2,
                 o("WAWebWamEnumStatusInteractionType").STATUS_INTERACTION_TYPE,
               ],
+              statusInteractorHashId: [9, e.TYPES.STRING],
               unifiedSessionId: [3, e.TYPES.STRING],
             },
             [1, 1, 1],

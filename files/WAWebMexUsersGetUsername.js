@@ -61,8 +61,11 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield e([t]);
-          return n == null ? void 0 : n[0].username;
+          var n,
+            r = yield e([t]);
+          return (n = r == null ? void 0 : r[0]) != null
+            ? n
+            : { username: null, error: !0 };
         })),
         c.apply(this, arguments)
       );

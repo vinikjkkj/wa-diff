@@ -73,89 +73,97 @@ __d(
         [i],
       );
     }
-    function g(e) {
-      var t = o("react-compiler-runtime").c(13),
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = o("WAWebABProps").getABPropConfigValue(
+    function g(e, t) {
+      var r = o("react-compiler-runtime").c(14),
+        a;
+      r[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = o("WAWebABProps").getABPropConfigValue(
             "hybrid_incremental_zooming_simple_enabled",
           )),
-          (t[0] = r))
-        : (r = t[0]);
-      var a = r,
-        i;
-      t[1] !== e
-        ? ((i = function () {
+          (r[0] = a))
+        : (a = r[0]);
+      var i = a,
+        l;
+      r[1] !== e
+        ? ((l = function () {
             return e == null ? void 0 : e.current;
           }),
-          (t[1] = e),
-          (t[2] = i))
-        : (i = t[2]);
-      var l = i,
-        s;
-      t[3] !== l
-        ? ((s = function (t) {
+          (r[1] = e),
+          (r[2] = l))
+        : (l = r[2]);
+      var s = l,
+        u;
+      r[3] !== s
+        ? ((u = function (t) {
             var e = t.key,
-              n = l();
+              n = s();
             !h(t) ||
               !o("WAWebMediaIncrementalZoom").ZOOM_KEYS.includes(e) ||
               !n ||
               t.preventDefault();
           }),
-          (t[3] = l),
-          (t[4] = s))
-        : (s = t[4]);
-      var u = s,
-        c;
-      t[5] !== l
-        ? ((c = function (t) {
-            var e = l(),
-              n = t.target;
-            !e || !(n instanceof Node) || !e.contains(n) || t.preventDefault();
+          (r[3] = s),
+          (r[4] = u))
+        : (u = r[4]);
+      var c = u,
+        m;
+      r[5] !== t || r[6] !== s
+        ? ((m = function (n) {
+            var e = s(),
+              r = n.target,
+              o = t == null ? void 0 : t.current;
+            !e ||
+              !(r instanceof Node) ||
+              !e.contains(r) ||
+              (!n.ctrlKey &&
+                !n.metaKey &&
+                (o == null ? void 0 : o.contains(r)) === !0) ||
+              n.preventDefault();
           }),
-          (t[5] = l),
-          (t[6] = c))
-        : (c = t[6]);
-      var m = c,
-        p,
-        _;
-      (t[7] !== m
-        ? ((p = function () {
-            if (a)
+          (r[5] = t),
+          (r[6] = s),
+          (r[7] = m))
+        : (m = r[7]);
+      var p = m,
+        _,
+        f;
+      (r[8] !== p
+        ? ((_ = function () {
+            if (i)
               return (
-                document.addEventListener("wheel", m, { passive: !1 }),
+                document.addEventListener("wheel", p, { passive: !1 }),
                 function () {
-                  document.removeEventListener("wheel", m);
+                  document.removeEventListener("wheel", p);
                 }
               );
           }),
-          (_ = [a, m]),
-          (t[7] = m),
-          (t[8] = p),
-          (t[9] = _))
-        : ((p = t[8]), (_ = t[9])),
-        d(p, _));
-      var f, g;
-      (t[10] !== u
-        ? ((f = function () {
-            if (a)
+          (f = [i, p]),
+          (r[8] = p),
+          (r[9] = _),
+          (r[10] = f))
+        : ((_ = r[9]), (f = r[10])),
+        d(_, f));
+      var g, y;
+      (r[11] !== c
+        ? ((g = function () {
+            if (i)
               return (
                 n("cr:13920") == null ||
                   n("cr:13920").setIsHybridAppZoomingEnabled(!1),
-                document.addEventListener("keydown", u),
+                document.addEventListener("keydown", c),
                 function () {
-                  (document.removeEventListener("keydown", u),
+                  (document.removeEventListener("keydown", c),
                     n("cr:13920") == null ||
                       n("cr:13920").setIsHybridAppZoomingEnabled(!0));
                 }
               );
           }),
-          (g = [a, u]),
-          (t[10] = u),
-          (t[11] = f),
-          (t[12] = g))
-        : ((f = t[11]), (g = t[12])),
-        d(f, g));
+          (y = [i, c]),
+          (r[11] = c),
+          (r[12] = g),
+          (r[13] = y))
+        : ((g = r[12]), (y = r[13])),
+        d(g, y));
     }
     function h(e) {
       return o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC

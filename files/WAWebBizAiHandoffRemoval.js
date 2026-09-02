@@ -6,6 +6,7 @@ __d(
     "WAWebAlarm",
     "WAWebBizAiAgentGating",
     "WAWebBizAiHandoffRemovalTimingModel",
+    "WAWebBizAiHandoffResponseUtils",
     "WAWebBotTypes",
     "WAWebDBUpdateChatTable",
     "WAWebFrontendChatGetters",
@@ -22,10 +23,10 @@ __d(
         o("WAWebBizAiHandoffRemovalTimingModel").getHandoffRemovalTiming() !==
         "AFTER_24H_REPLY"
       )
-        return !C(t);
+        return !b(t);
       var n = e.aiHandoffRemovalExpiry;
       if (n != null && n !== 0) return r("WAWeb-moment")().unix() < n;
-      if (!C(t)) return !0;
+      if (!b(t)) return !0;
       var a = t == null ? void 0 : t.t;
       return a != null && r("WAWeb-moment")().unix() < a + s;
     }
@@ -43,7 +44,7 @@ __d(
         )
           return h(e) ? null : void 0;
         var t = o("WAWebFrontendChatGetters").getPreviewMessage(e);
-        if (C(t)) {
+        if (b(t)) {
           var n = t == null ? void 0 : t.t;
           if (n != null) {
             var r = n + s;
@@ -126,6 +127,17 @@ __d(
             t + o("WAWebBizAiAgentGating").getHandoffListExpireDays() * s;
     }
     function C(e) {
+      var t = e.aiHandoffStartedAt;
+      return t == null
+        ? b(o("WAWebFrontendChatGetters").getPreviewMessage(e))
+        : e.msgs.findLast(function (e) {
+            return (
+              e.t >= t &&
+              o("WAWebBizAiHandoffResponseUtils").isHumanBusinessReply(e)
+            );
+          }) != null;
+    }
+    function b(e) {
       return (
         e != null &&
         e.bizBotType !== o("WAWebBotTypes").BizBotType.BIZ_1P &&
@@ -136,7 +148,8 @@ __d(
       (l.maybeSetHandoffRemovalExpiry = d),
       (l.computeHandoffRemovalExpiry = m),
       (l.clearHandoffRemovalExpiry = p),
-      (l.armHandoffRemovalEvictionTimer = _));
+      (l.armHandoffRemovalEvictionTimer = _),
+      (l.hasBusinessRepliedSinceHandoffStart = C));
   },
   98,
 );

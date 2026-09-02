@@ -315,6 +315,7 @@ __d(
       group_member_updates_usernames_enabled: [24617, "bool", !1, !1],
       group_member_updates_usernames_ui_enabled: [24585, "bool", !1, !1],
       group_username_updates_as_member_updates_enabled: [24477, "bool", !1, !1],
+      guest_calling_call_log_mitigation_enabled: [36069, "bool", !1, !1],
       hand_raise_receiver_enabled: [13540, "bool", !1, !1],
       heartbeat_interval_s: [1430, "int", 10, 5],
       hide_silent_system_message_enabled: [24268, "bool", !1, !1],

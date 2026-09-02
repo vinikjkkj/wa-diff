@@ -13,6 +13,25 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
     function m(t, n) {
+      if (p(t)) {
+        var a;
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "handleMsg: drop msg with username field",
+              ])),
+          )
+          .catching(n)
+          .tags("messaging", "username")
+          .sendLogs(
+            r("WAWebWid").isGroup(
+              (a = t.attrs.from) == null ? void 0 : a.toString(),
+            )
+              ? "incoming-message-drop-internal-error-username-group"
+              : "incoming-message-drop-internal-error-username",
+          );
+      }
       if (n instanceof o("WAParsableWapNode").XmppParsingFailure)
         return (
           o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t),
@@ -21,8 +40,8 @@ __d(
           ).postIncomingMessageDropInvalidStanza(t),
           o("WALogger")
             .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "handleMsg: error while parsing message: ",
                   "",
                 ])),
@@ -41,8 +60,8 @@ __d(
         ).postIncomingMessageDropDBOperationFailed(t),
           o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "handleMsg: drop msg",
                 ])),
             )
@@ -52,38 +71,17 @@ __d(
             }));
         return;
       }
-      if (
-        (o("WALogger")
+      return (
+        o("WALogger")
           .ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "handleMsg: drop msg, node: ",
                 "",
               ])),
             o("WAJids").maybeSanitizeLogLineText(t.toString()),
           )
           .verbose(),
-        p(t))
-      ) {
-        var a;
-        o("WALogger")
-          .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "handleMsg: drop msg with username field",
-              ])),
-          )
-          .catching(n)
-          .tags("messaging", "username")
-          .sendLogs(
-            r("WAWebWid").isGroup(
-              (a = t.attrs.from) == null ? void 0 : a.toString(),
-            )
-              ? "incoming-message-drop-internal-error-username-group"
-              : "incoming-message-drop-internal-error-username",
-          );
-      }
-      return (
         o("WALogger")
           .ERROR(
             d ||
