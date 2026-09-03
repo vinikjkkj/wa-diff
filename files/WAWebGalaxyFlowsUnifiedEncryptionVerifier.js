@@ -24,7 +24,11 @@ __d(
                   n = e.contactId,
                   r = e.publicKeyPem,
                   o = e.publicKeySignature,
-                  a = yield this.$1(n, r, o);
+                  a = yield this.$1({
+                    contactId: n,
+                    publicKeyPem: r,
+                    publicKeySignature: o,
+                  });
                 a ? t.onComplete(!0) : yield this.$2(n, r, o, t);
               },
             );
@@ -68,7 +72,11 @@ __d(
           (r.$3 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r) {
-                var o = yield this.$1(e, t, n);
+                var o = yield this.$1({
+                  contactId: e,
+                  publicKeyPem: t,
+                  publicKeySignature: n,
+                });
                 try {
                   r.onComplete(o);
                 } catch (e) {
@@ -83,30 +91,33 @@ __d(
           })()),
           (r.$1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                if (t == null || n == null) return !1;
+              function* (e) {
+                var t = e.contactId,
+                  n = e.publicKeyPem,
+                  r = e.publicKeySignature;
+                if (n == null || r == null) return !1;
                 try {
-                  var r = yield o("WAWebSignalProtocolStore")
+                  var a = yield o("WAWebSignalProtocolStore")
                     .getPersistSignalProtocolStore()
                     .loadIdentityKey(
                       o("WAWebSignalCommonUtils")
-                        .createSignalAddress(e)
+                        .createSignalAddress(t)
                         .toString(),
                     );
-                  if (r == null)
+                  if (a == null)
                     throw new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
                       o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                         .MISSING_IDENTITY_KEY,
                     );
-                  var a = o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                      o("WAWebSignalCommonUtils").strToBuffer(r),
+                  var i = o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                      o("WAWebSignalCommonUtils").strToBuffer(a),
                     ),
-                    i = new Uint8Array(a),
-                    l = new Uint8Array(o("WABase64").decodeB64(t)),
-                    s = new Uint8Array(o("WABase64").decodeB64(n));
+                    l = new Uint8Array(i),
+                    s = new Uint8Array(o("WABase64").decodeB64(n)),
+                    u = new Uint8Array(o("WABase64").decodeB64(r));
                   return o(
                     "WAWebCryptoCurve25519VerifySignature",
-                  ).verifySignature(i, l, s);
+                  ).verifySignature(l, s, u);
                 } catch (e) {
                   throw e instanceof
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowError &&
@@ -121,7 +132,7 @@ __d(
                 }
               },
             );
-            function t(t, n, r) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

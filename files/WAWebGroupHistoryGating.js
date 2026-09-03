@@ -131,7 +131,6 @@ __d(
       (l.isOutOfWindowPinSenderEnabled = p),
       (l.isGroupHistoryPostJoinSenderEnabled = _),
       (l.getGroupHistoryMessagesTimeLimitSecs = g),
-      (l.isGroupHistoryPostJoinInternalTesterEnabled = h),
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = y),
       (l.isGroupHistoryAfterJoinPrerequisitesEnabled = C),
       (l.isGroupHistoryReceiverDedupEnabled = b));

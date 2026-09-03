@@ -101,8 +101,8 @@ __d(
         b = C.contextInfo,
         v = C.msgData;
       return (
-        E({ contextInfo: b, message: v, msgContext: p, quotedPaymentInfo: g }),
-        $(v, y, p),
+        k({ contextInfo: b, message: v, msgContext: p, quotedPaymentInfo: g }),
+        P(v, y, p),
         v
       );
     }
@@ -155,7 +155,7 @@ __d(
           return { contextInfo: null, msgData: S };
         }
       }
-      var E = o("WAWebMessagePluginParseProtobuf").parseProtobuf({
+      var k = o("WAWebMessagePluginParseProtobuf").parseProtobuf({
         messageProtobuf: d,
         baseMessage: c,
         msgContext: p,
@@ -170,40 +170,37 @@ __d(
         messageAssociation: C,
         msgBotInfo: m,
       });
-      if (E) {
-        var k =
-          (E == null ? void 0 : E.msgData.type) ===
+      if (k) {
+        var I =
+          (k == null ? void 0 : k.msgData.type) ===
             o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-          (E == null ? void 0 : E.msgData.futureproofType) != null;
+          (k == null ? void 0 : k.msgData.futureproofType) != null;
         if (
-          !k &&
-          (o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(E) ||
-            R(E))
+          !I &&
+          (o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(k) ||
+            R(k))
         ) {
-          var $ = c,
-            P = babelHelpers.extends({}, $, {
+          var P = c,
+            N = babelHelpers.extends({}, P, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
               kind: "unknown",
               subtype: void 0,
             });
-          return { contextInfo: null, msgData: P };
+          return { contextInfo: null, msgData: N };
         }
         if (C != null) {
-          var N,
-            M = o(
-              "WAWebAssociationProtoUtils",
-            ).convertAssociationTypeFromProtoToClientSupportedAssociationType(
-              C.associationType,
-            );
+          var M = o(
+            "WAWebAssociationProtoUtils",
+          ).convertAssociationTypeFromProtoToClientSupportedAssociationType(
+            C.associationType,
+          );
           if (
-            !k &&
+            !I &&
             M !==
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .BOT_PLUGIN &&
-            (E == null ? void 0 : E.msgData.associationType) !== M &&
-            (d == null || (N = d.protocolMessage) == null ? void 0 : N.type) !==
-              o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-                .MESSAGE_EDIT
+            (k == null ? void 0 : k.msgData.associationType) !== M &&
+            !L(d)
           ) {
             var w;
             throw (
@@ -222,9 +219,9 @@ __d(
                       ", botEditType: ",
                       "",
                     ])),
-                  E == null ? void 0 : E.msgData.type,
+                  k == null ? void 0 : k.msgData.type,
                   M,
-                  E == null ? void 0 : E.msgData.associationType,
+                  k == null ? void 0 : k.msgData.associationType,
                   i,
                   d == null || (w = d.protocolMessage) == null
                     ? void 0
@@ -255,18 +252,18 @@ __d(
             d,
             p,
           ),
-          L(E.msgData),
-          E
+          E(k.msgData),
+          k
         );
       }
       var A = d.deviceSentMessage;
-      (A && I(c, A, p, a), y && D(c, y));
+      (A && T(c, A, p, a), y && x(c, y));
       var F = d.groupStatusMessageV2;
-      F != null && x(c, F, p, a);
+      F != null && $(c, F, p, a);
       var O = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(d);
       return (
         O != null &&
-          T({
+          D({
             depth: a,
             message: c,
             futureproofMessage: O,
@@ -288,6 +285,18 @@ __d(
         : !1;
     }
     function L(e) {
+      var t, n;
+      return (
+        (e == null || (t = e.protocolMessage) == null ? void 0 : t.type) ===
+          o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT ||
+        (e == null || (n = e.secretEncryptedMessage) == null
+          ? void 0
+          : n.secretEncType) ===
+          o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
+            .MESSAGE_EDIT
+      );
+    }
+    function E(e) {
       e.isViewOnce === !0 &&
         ([
           "body",
@@ -319,16 +328,16 @@ __d(
           ).isChannelVideoServerTranscodeUploadEnabled() &&
           (e.metadataUrl = void 0));
     }
-    function E(e) {
+    function k(e) {
       var t = e.contextInfo,
         n = e.message,
         r = e.msgContext,
         a = e.quotedPaymentInfo;
       t &&
-        (k(n, t, r, a),
+        (I(n, t, r, a),
         o("WAWebE2EProtoParserForCtwaContext").parseCtwaContextProto(n, t));
     }
-    function k(e, t, n, a) {
+    function I(e, t, n, a) {
       var i = t.quotedMessage,
         l = t.mentionedJid,
         s = t.groupMentions;
@@ -466,7 +475,7 @@ __d(
         (y == null ? void 0 : y.canBeReshared) != null &&
           (e.canBeReshared = y.canBeReshared));
     }
-    function I(e, t, n, a) {
+    function T(e, t, n, a) {
       if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= b)) {
         o("WALogger")
           .WARN(
@@ -494,7 +503,7 @@ __d(
           }),
         ));
     }
-    function T(e) {
+    function D(e) {
       var t = e.depth,
         n = t === void 0 ? 0 : t,
         a = e.editAttr,
@@ -537,7 +546,7 @@ __d(
         }),
       );
     }
-    function D(e, t) {
+    function x(e, t) {
       e.type = o("WAWebMsgType").MSG_TYPE.CALL_LOG;
       var n = !!t.isVideo;
       t.participants.length > 1
@@ -548,7 +557,7 @@ __d(
             ? o("WAWebCommonMsgSubtypeTypes").MsgSubtype.MissVideo
             : o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Miss);
     }
-    function x(e, t, n, a) {
+    function $(e, t, n, a) {
       if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= b)) {
         o("WALogger")
           .WARN(
@@ -583,7 +592,7 @@ __d(
             )
             .sendLogs("parse-group-status-message-skipped");
     }
-    function $(e, t, n) {
+    function P(e, t, n) {
       var a, i, l, s, u, c, d;
       if (t) {
         t.messageSecret != null &&
@@ -697,9 +706,9 @@ __d(
       }
     }
     ((l.parseMsgProto = v),
-      (l.parseContextInfo = E),
-      (l.parseContextInfoProto = k),
-      (l.parseMessageContextInfoProto = $));
+      (l.parseContextInfo = k),
+      (l.parseContextInfoProto = I),
+      (l.parseMessageContextInfoProto = P));
   },
   98,
 );

@@ -725,8 +725,6 @@ __d(
       (l.refreshAccessToken = O),
       (l.ping = V),
       (l.stateExists = G),
-      (l.forceDeleteState = j),
-      (l.forceSuspendState = Q),
       (l.fetchServiceData = Y));
   },
   98,

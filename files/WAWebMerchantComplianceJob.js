@@ -92,7 +92,7 @@ __d(
             s = e.grievanceOfficerDetails,
             u = e.isRegistered,
             c = u === void 0 ? !1 : u,
-            d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            d = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             m = {};
           if (
             ((m.is_registered = c),

@@ -537,6 +537,7 @@ __d(
       BUSINESS_SETTINGS: "business_settings",
       MBS_BIZ_AI_ONBOARDING: "mbs_biz_ai_onboarding",
       MESSENGER_CTA: "messenger_cta",
+      META_ONE_ONBOARDING: "meta_one_onboarding",
       META_PAY_WALLET: "meta_pay_wallet",
       MOBILE_SUPPORT_HOME: "mobile_support_home",
       NEXUS: "NEXUS",

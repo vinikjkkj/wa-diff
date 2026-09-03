@@ -240,18 +240,10 @@ __d(
             return this.$1.has(t);
           }),
           (t.collectTreeResource = function (t, n) {
-            this.$1.has(n) || (this.$1.add(n), this.$2.set(n, t));
-          }),
-          (t.mergeFunctionTable = function (t) {
-            var e = t.ftDeclare,
-              n = t.ftInclude,
-              r = t.functionTable;
-            (r == null && e == null && n == null) ||
-              (this.resources = this.resources.withFunctionTableUpdates(
-                r,
-                e,
-                n,
-              ));
+            this.$1.has(n) ||
+              (this.$1.add(n),
+              this.$2.set(n, t),
+              (this.resources = this.resources.withTreeResourceUpdates(t)));
           }),
           (t.getCollectedTreeResources = function () {
             return this.$2;
@@ -448,6 +440,7 @@ __d(
           expandedVariables: n.expandedVariables,
           dependencies: l,
           bindCache: n.nextCache,
+          collectedTreeResources: n.getCollectedTreeResources(),
           bindDataModuleDelegate: n.bindDataModuleDelegate,
         }
       );
@@ -636,8 +629,7 @@ __d(
           var C = g;
           if (!e.isResourceProcessed(C)) {
             var b;
-            (e.collectTreeResource(y.resources, C),
-              e.mergeFunctionTable(y.resources));
+            e.collectTreeResource(y.resources, C);
             var S = (b = y.resources.variableDefinitions) != null ? b : [];
             S.length > 0 && e.processVariableManifestsInBind(S, a);
           }

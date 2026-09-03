@@ -13,38 +13,36 @@ __d(
     var e,
       s,
       u = 60 * o("WATimeUtils").DAY_SECONDS;
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a,
-              i = o(
-                "WAWebSchemaCoexV2RelayReceipt",
-              ).getCoexV2RelayReceiptTable(),
-              l = [e, t],
-              s = r == null ? yield i.get(l) : null;
-            yield i.createOrMerge(
-              l,
-              babelHelpers.extends(
-                {
-                  msgId: e,
-                  representedLid: t,
-                  createdAt:
-                    (a = r != null ? r : s == null ? void 0 : s.createdAt) !=
-                    null
-                      ? a
-                      : o("WATimeUtils").unixTime(),
-                  botJid:
-                    o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID.toString(),
-                },
-                n,
-              ),
-            );
-          },
-        )),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.createdAt,
+            r = e.msgId,
+            a = e.props,
+            i = e.representedLid,
+            l = o("WAWebSchemaCoexV2RelayReceipt").getCoexV2RelayReceiptTable(),
+            s = [r, i],
+            u = n == null ? yield l.get(s) : null;
+          yield l.createOrMerge(
+            s,
+            babelHelpers.extends(
+              {
+                msgId: r,
+                representedLid: i,
+                createdAt:
+                  (t = n != null ? n : u == null ? void 0 : u.createdAt) != null
+                    ? t
+                    : o("WATimeUtils").unixTime(),
+                botJid: o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID.toString(),
+              },
+              a,
+            ),
+          );
+        })),
         d.apply(this, arguments)
       );
     }
@@ -59,7 +57,12 @@ __d(
               (yield (s || (s = n("Promise"))).all(
                 t.map(function (t) {
                   var n = t.toString();
-                  return c(e, n, {}, r);
+                  return c({
+                    createdAt: r,
+                    msgId: e,
+                    props: {},
+                    representedLid: n,
+                  });
                 }),
               )));
         })),
@@ -92,7 +95,7 @@ __d(
             )
             .sendLogs("coexv2-relay-receipt-unsupported-ack"),
           (s || (s = n("Promise"))).resolve())
-        : c(a, u, d);
+        : c({ msgId: a, props: d, representedLid: u });
     }
     function f(e) {
       return g.apply(this, arguments);

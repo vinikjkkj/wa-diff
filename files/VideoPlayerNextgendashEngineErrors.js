@@ -6,7 +6,7 @@ __d(
     function e(e, t, n, r, a) {
       var i;
       return {
-        createdTimestamp: Date.now(),
+        createdTimestamp: e.host.clock().unixMs,
         errorLocation: n,
         errorMessageFormat:
           (r != null && r !== ""

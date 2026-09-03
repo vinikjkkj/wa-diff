@@ -293,7 +293,6 @@ __d(
       return e > 1e3 ? Math.round(e / 100) * 100 : Math.round(e / 10) * 10;
     }
     ((l.isPerformanceMemoryApiSupported = g),
-      (l.getMemoryInfo = h),
       (l.readMemoryInfo = y),
       (l.getMemoryTableRows = b),
       (l.setCurrentMemoryScenario = D),

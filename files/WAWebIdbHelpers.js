@@ -170,8 +170,6 @@ __d(
       }
     }
     ((l.schemasToStores = d),
-      (l.formatPrimaryKey = m),
-      (l.formatIndex = p),
       (l.formatQueryIndex = _),
       (l.applyOptions = f),
       (l.columnPropFilter = g),

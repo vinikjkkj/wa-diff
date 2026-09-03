@@ -46,6 +46,9 @@ __d(
             _ = (p != null ? p : a).toString();
           return (
             l !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
+              o(
+                "WAWebWaitForInitialChatsSynced",
+              ).isWaitForInitialChatsSyncedPending() &&
               o("WAWebABProps").getABPropConfigValue(
                 "web_fix_duplicated_lids_history_sync",
               ) &&

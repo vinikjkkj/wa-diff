@@ -8,6 +8,9 @@ __d(
     "WAWap",
     "WAWebCommsWapMd",
     "WAWebJidToWid",
+    "WAWebVoipDeferredBootLogging",
+    "WAWebVoipGatingUtils",
+    "WAWebVoipInitEventEmitter",
     "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
@@ -15,7 +18,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = new (r("WADeprecatedWapParser"))("callReceiptParser", function (e) {
+      u,
+      c = new (r("WADeprecatedWapParser"))("callReceiptParser", function (e) {
         e.assertTag("receipt");
         var t =
           e.maybeChild("offer") ||
@@ -28,55 +32,71 @@ __d(
           from: o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
         };
       });
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = u.parse(t);
-          if (r.error)
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = c.parse(e);
+          if (t.error)
             return (
               o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Parsing Error: ",
                     "",
                   ])),
-                r.error.toString(),
+                t.error.toString(),
               ),
-              (s || (s = n("Promise"))).reject(r.error)
+              (u || (u = n("Promise"))).reject(t.error)
             );
-          var a = r.success,
-            i = a.from,
-            l = a.stanzaId,
-            c = a.type,
-            d = yield (s || (s = n("Promise"))).all([
-              o("WAWebVoipStackInterface").getVoipStackInterface(),
-              o("WAWebVoipPeerTcToken").fetchPeerTcToken(i),
-            ]),
-            m = d[0],
-            p = d[1];
-          return (
+          var r = t.success,
+            a = r.from,
+            i = r.stanzaId,
+            l = r.type;
+          if (p()) {
+            var d = yield (u || (u = n("Promise"))).all([
+                o("WAWebVoipStackInterface").getVoipStackInterface(),
+                o("WAWebVoipPeerTcToken").fetchPeerTcToken(a),
+              ]),
+              m = d[0],
+              _ = d[1];
             yield m == null
               ? void 0
               : m.handleIncomingSignalingReceipt(
-                  new (o("WAParsableWapNode").ParsableWapNode)("receipt", t),
-                  i.toString({ legacy: !0, formatIncludeDevice: !0 }),
-                  p,
-                ),
-            o("WAWap").wap("ack", {
-              id: o("WAWap").CUSTOM_STRING(l),
-              to: o("WAWebCommsWapMd").JID(i),
-              class: "receipt",
-              type: o("WAWap").MAYBE_CUSTOM_STRING(c),
-            })
-          );
+                  new (o("WAParsableWapNode").ParsableWapNode)("receipt", e),
+                  a.toString({ legacy: !0, formatIncludeDevice: !0 }),
+                  _,
+                );
+          }
+          return o("WAWap").wap("ack", {
+            id: o("WAWap").CUSTOM_STRING(i),
+            to: o("WAWebCommsWapMd").JID(a),
+            class: "receipt",
+            type: o("WAWap").MAYBE_CUSTOM_STRING(l),
+          });
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.handleCallReceipt = c;
+    function p() {
+      return !o("WAWebVoipGatingUtils").isDeferredVoipBootInitEnabled() ||
+        o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+        ? !0
+        : (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+            function () {
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [deferred-boot] receipt dropped reason=not_inited",
+                  ])),
+              );
+            },
+          ),
+          !1);
+    }
+    l.handleCallReceipt = d;
   },
   98,
 );

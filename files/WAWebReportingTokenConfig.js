@@ -68,9 +68,8 @@ __d(
         new u({ fieldNumber: t, isMessage: l, subfields: new c(s) })
       );
     }
-    var m = new Map(),
-      p = new Map([[35, new Set([3])]]);
-    function _(t) {
+    var m = new Map();
+    function p(t) {
       var n,
         r = m.get(t);
       if (r != null) return r;
@@ -91,8 +90,7 @@ __d(
       (l.REPORTING_TOKEN_CONFIG_BASE64 = s),
       (l.FieldToExtract = u),
       (l.ReportingTokenConfig = c),
-      (l.MESSAGE_SECRET_EXCLUSION_CONFIG = p),
-      (l.getReportingTokenConfig = _));
+      (l.getReportingTokenConfig = p));
   },
   98,
 );

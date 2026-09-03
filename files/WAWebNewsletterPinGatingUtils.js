@@ -15,8 +15,7 @@ __d(
     function u() {
       return e() || s();
     }
-    ((l.isChannelMessagePinFollowerEnabled = e),
-      (l.isChannelMessagePinAdminEnabled = s),
+    ((l.isChannelMessagePinAdminEnabled = s),
       (l.isChannelMessagePinReadEnabled = u));
   },
   98,

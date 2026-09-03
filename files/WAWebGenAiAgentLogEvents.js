@@ -184,7 +184,6 @@ __d(
       (l.logViewGenAiAgentAutoReplyErrorDialog = f),
       (l.logViewGenAiAgentAutoReplyBlockingBar = g),
       (l.logClickGenAiAgentAutoReplyBlockingBar = h),
-      (l.logViewGenAiAgentAutoReplyFab = y),
       (l.logClickGenAiAgentAutoReplyFab = C),
       (l.useLogViewGenAiAgentAutoReplyFab = b),
       (l.useLogViewGenAiAgentAutoReplyBlockingBar = S),

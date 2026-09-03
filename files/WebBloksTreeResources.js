@@ -109,6 +109,26 @@ __d(
               )
             );
           }),
+          (t.withDataManifestEntryUpdates = function (t) {
+            if (t.length === 0) return this;
+            var e = new Map(this.variableDefinitions);
+            return (
+              t.forEach(function (t) {
+                e.set(t.id, t);
+              }),
+              this.withUpdatedEntries(e, null)
+            );
+          }),
+          (t.withTreeResourceUpdates = function (t) {
+            return this.withPayloadUpdates(t.payloads)
+              .withFunctionTableUpdates(
+                t.functionTable,
+                t.ftDeclare,
+                t.ftInclude,
+              )
+              .withTemplateUpdates(t.templates)
+              .withValueUpdates(t.values);
+          }),
           (t.withPayloadUpdates = function (n) {
             if (n.size === 0) return this;
             var t = new Map(this.payloads);
@@ -159,7 +179,7 @@ __d(
           }),
           (t.withValueUpdates = function (n) {
             if (n.length === 0) return this;
-            var t = new Map();
+            var t = new Map(this.values);
             return (
               n.forEach(function (e) {
                 t.set(e.id, e);

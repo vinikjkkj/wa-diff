@@ -2,7 +2,6 @@ __d(
   "WAWebPaymentNotificationParser",
   [
     "WADeprecatedWapParser",
-    "WALogger",
     "WAWebHandlePaymentAmountUtils",
     "WAWebJidToWid",
     "WAWebMsgKey",
@@ -10,82 +9,67 @@ __d(
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return e && e.hasAttr("service")
-        ? e.attrString("service").toUpperCase() === "NOVI"
-        : !1;
-    }
-    var u = new (r("WADeprecatedWapParser"))(
+    var e = new (r("WADeprecatedWapParser"))(
       "paymentNotificationParser",
       function (e) {
-        return (
-          e.assertTag("notification"),
-          e.assertAttr("type", "pay"),
-          {
-            stanzaId: e.attrString("id"),
-            from: e.attrWapJid("from"),
-            transaction: e.hasChild("transaction")
-              ? c(e.child("transaction"))
-              : null,
-            invite: d(e),
-          }
-        );
+        (e.assertTag("notification"), e.assertAttr("type", "pay"));
+        var t = e.hasChild("transaction") ? e.child("transaction") : null;
+        return {
+          stanzaId: e.attrString("id"),
+          from: e.attrWapJid("from"),
+          transaction: t ? s(t) : null,
+          dehydratedTransaction:
+            t != null &&
+            o("WAWebHandlePaymentAmountUtils").isDehydratedPaymentNode(t),
+          invite: u(e),
+        };
       },
     );
-    function c(t) {
-      if (s(t))
-        return (
-          o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "Payment notification from Novi not supported.",
-              ])),
-          ),
-          null
-        );
-      var n = void 0,
-        a = void 0,
-        i = o("WAWebJidToWid").jidWithTypeToWid(t.attrJidWithType("sender")),
-        l = o("WAWebJidToWid").jidWithTypeToWid(t.attrJidWithType("receiver")),
-        u = o("WAWebUserPrefsMeUser").isMeAccount(i);
-      t.hasAttr("group")
-        ? ((n = o("WAWebJidToWid").jidWithTypeToWid(
-            t.attrJidWithType("group"),
+    function s(e) {
+      if (o("WAWebHandlePaymentAmountUtils").isDehydratedPaymentNode(e))
+        return null;
+      var t = void 0,
+        n = void 0,
+        a = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("sender")),
+        i = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("receiver")),
+        l = o("WAWebUserPrefsMeUser").isMeAccount(a);
+      e.hasAttr("group")
+        ? ((t = o("WAWebJidToWid").jidWithTypeToWid(
+            e.attrJidWithType("group"),
           )),
-          (a = o("WAWebJidToWid").jidWithTypeToWid(
-            t.attrJidWithType("sender"),
+          (n = o("WAWebJidToWid").jidWithTypeToWid(
+            e.attrJidWithType("sender"),
           )))
-        : u
-          ? (n = l)
-          : (n = i);
-      var c = new (r("WAWebMsgKey"))({
-          id: t.attrString("message-id"),
-          fromMe: u,
-          remote: n,
-          participant: a,
+        : l
+          ? (t = i)
+          : (t = a);
+      var s = new (r("WAWebMsgKey"))({
+          id: e.attrString("message-id"),
+          fromMe: l,
+          remote: t,
+          participant: n,
         }),
-        d = o("WAWebPaymentStatusUtils").getPaymentTransactionType(
-          t.attrString("transaction-type"),
-          c.fromMe,
+        u = o("WAWebPaymentStatusUtils").getPaymentTransactionType(
+          e.attrString("transaction-type"),
+          s.fromMe,
         ),
-        m = o("WAWebHandlePaymentAmountUtils").getAmount1000AndCurrency(t),
-        p = m.amount1000,
-        _ = m.currency;
+        c = o("WAWebHandlePaymentAmountUtils").getAmount1000AndCurrency(e),
+        d = c.amount1000,
+        m = c.currency;
       return {
-        receiver: l,
-        currency: _,
-        amount1000: p,
+        receiver: i,
+        currency: m,
+        amount1000: d,
         status: o("WAWebPaymentStatusUtils").getNotificationTransactionStatus(
-          d,
-          t.attrString("status"),
+          u,
+          e.attrString("status"),
         ),
-        ts: t.attrInt("ts"),
-        type: d,
-        msgKey: c,
+        ts: e.attrInt("ts"),
+        type: u,
+        msgKey: s,
       };
     }
-    function d(e) {
+    function u(e) {
       if (!e.hasChild("invite")) return null;
       var t = e.child("invite");
       return {
@@ -98,9 +82,7 @@ __d(
         timestamp: e.attrTime("t"),
       };
     }
-    ((l.isNoviTransaction = s),
-      (l.paymentNotificationParser = u),
-      (l.parseTransactionNode = c));
+    ((l.paymentNotificationParser = e), (l.parseTransactionNode = s));
   },
   98,
 );

@@ -32,22 +32,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(o("WACustomError").CustomError),
-      u = (function (e) {
-        function t(t, n, r) {
-          var o,
-            a = "Error " + n + " for " + t + ": " + JSON.stringify(r);
-          return (
-            (o = e.call(this, a, t, n) || this),
-            (o.name = "BingServerError"),
-            o
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e);
-    ((l.ServerStatusError = e),
-      (l.InvalidServerResponseError = s),
-      (l.BingServerError = u));
+      })(o("WACustomError").CustomError);
+    ((l.ServerStatusError = e), (l.InvalidServerResponseError = s));
   },
   98,
 );

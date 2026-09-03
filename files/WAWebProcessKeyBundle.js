@@ -104,9 +104,7 @@ __d(
         f.apply(this, arguments)
       );
     }
-    ((l.splitKeyBundles = d),
-      (l.warmUpIdentityCache = m),
-      (l.processKeyBundles = _));
+    l.processKeyBundles = _;
   },
   98,
 );

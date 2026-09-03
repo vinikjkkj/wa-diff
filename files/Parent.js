@@ -16,11 +16,12 @@ __d(
       return n instanceof Element ? n : null;
     }
     function u(e, t) {
-      var n = e;
-      if (typeof e.matches == "function") {
+      var n = e,
+        r = e;
+      if (typeof r.matches == "function") {
         for (; n && n !== document && !n.matches(t); ) n = n.parentNode;
         return n instanceof Element ? n : null;
-      } else if (typeof e.msMatchesSelector == "function") {
+      } else if (typeof r.msMatchesSelector == "function") {
         for (; n && n !== document && !n.msMatchesSelector(t); )
           n = n.parentNode;
         return n instanceof Element ? n : null;

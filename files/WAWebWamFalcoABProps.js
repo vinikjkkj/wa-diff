@@ -133,15 +133,13 @@ __d(
     function R(e) {
       return o("WAWebABPropsCache").isABPropConfigsReady() && S().has(e);
     }
-    ((l.isCanonicalWamFalcoBufferEnabled = _),
-      (l.getCanonicalWamFalcoMaxBufferSize = f),
+    ((l.getCanonicalWamFalcoMaxBufferSize = f),
       (l.getWamFalcoFlushIntervalMs = g),
       (l.shouldBufferFalcoEvent = h),
       (l.isFalcoLoggingEnabled = y),
       (l.isWamLoggingDisabled = C),
       (l.getWamFalcoMode = b),
       (l.getShadowLoggingEventIds = v),
-      (l.getCriticalLoggingEventIds = S),
       (l.isCriticalEvent = R));
   },
   98,

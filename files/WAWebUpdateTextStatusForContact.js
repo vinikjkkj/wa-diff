@@ -5,10 +5,8 @@ __d(
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebDBUpdateContactTable",
-    "WAWebLidAwareContactsDB",
     "WAWebTextStatusUtils",
     "WAWebWidFactory",
-    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,8 +27,8 @@ __d(
             l = t.source,
             u = t.textString,
             c = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
-            d = yield o("WAWebApiContact").getContactRecord(c);
-          if (!d) {
+            m = yield o("WAWebApiContact").getContactRecord(c);
+          if (!m) {
             s(l) &&
               o("WALogger")
                 .WARN(
@@ -48,89 +46,27 @@ __d(
                 });
             return;
           }
-          var m = p({
-            contact: d,
+          var p = d({
+            contact: m,
             emoji: r,
             ephemeralDuration: a,
             newUpdateTime: i,
             textString: u,
           });
-          m &&
+          p &&
             (yield o("WAWebDBUpdateContactTable").updateContactTable(
               c,
-              babelHelpers.extends({}, m),
+              babelHelpers.extends({}, p),
             ),
             o("WAWebBackendApi").frontendFireAndForget(
               "updateTextStatus",
-              babelHelpers.extends({}, m, { contactId: c }),
+              babelHelpers.extends({}, p, { contactId: c }),
             ));
         })),
         c.apply(this, arguments)
       );
     }
     function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            for (
-              var t = e.map(function (e) {
-                  return babelHelpers.extends({}, e, {
-                    contactUserWid: o("WAWebWidFactory").createUserWidOrThrow(
-                      e.contactId.user,
-                      e.contactId.server,
-                    ),
-                  });
-                }),
-                n = yield o("WAWebApiContact").bulkGetContactRecord(
-                  t.map(function (e) {
-                    return e.contactUserWid;
-                  }),
-                ),
-                a = [],
-                i = [],
-                l = 0;
-              l < t.length;
-              l++
-            ) {
-              var s = t[l],
-                u = n[l];
-              if (u) {
-                var c = p({
-                  contact: u,
-                  emoji: s.emoji,
-                  ephemeralDuration: s.ephemeralDuration,
-                  newUpdateTime: s.newUpdateTime,
-                  textString: s.textString,
-                });
-                if (c) {
-                  var d = o("WAWebWidToJid").widToUserJid(s.contactUserWid);
-                  (a.push(babelHelpers.extends({ id: d }, c)),
-                    i.push({ contactChange: c, contactId: s.contactUserWid }));
-                }
-              }
-            }
-            if (a.length !== 0) {
-              yield r("WAWebLidAwareContactsDB").bulkMergeOnly(
-                a,
-                "updateTextStatusForContactsBatch",
-              );
-              for (var m of i)
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "updateTextStatus",
-                  babelHelpers.extends({}, m.contactChange, {
-                    contactId: m.contactId,
-                  }),
-                );
-            }
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
       var t = e.contact,
         n = e.emoji,
         r = e.ephemeralDuration,
@@ -156,8 +92,7 @@ __d(
         }
       );
     }
-    ((l.updateTextStatusForContact = u),
-      (l.updateTextStatusForContactsBatch = d));
+    l.updateTextStatusForContact = u;
   },
   98,
 );

@@ -14,6 +14,7 @@ __d(
     "WAWebMsgType",
     "WAWebPaymentNotificationParser",
     "WAWebPaymentStatusUtils",
+    "WAWebPaymentsODS",
     "WAWebSchemaOrphanPaymentNotification",
     "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
@@ -45,10 +46,15 @@ __d(
               n.error
             );
           var r = n.success,
-            a = r.invite,
-            i = r.transaction;
+            a = r.dehydratedTransaction,
+            i = r.invite,
+            l = r.transaction;
           return (
-            a != null ? yield _(a) : i != null && (yield m(i)),
+            a &&
+              o(
+                "WAWebPaymentsODS",
+              ).logDehydratedTransactionNotificationSkipped(),
+            i != null ? yield _(i) : l != null && (yield m(l)),
             E(n.success)
           );
         })),

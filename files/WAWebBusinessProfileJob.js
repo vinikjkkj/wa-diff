@@ -119,20 +119,18 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (n == null)
-            throw r("err")("updateCartEnabledGraphQL: meUser is null");
-          var a = yield o(
-            "WAWebBizCatalogManagementUpdateCommerceSettings",
-          ).updateCommerceSettings({
-            biz_jid:
-              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                n,
-              )) != null
-                ? t
-                : n.toJid(),
-            cart_enabled: e,
-          });
+            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = yield o(
+              "WAWebBizCatalogManagementUpdateCommerceSettings",
+            ).updateCommerceSettings({
+              biz_jid:
+                (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  n,
+                )) != null
+                  ? t
+                  : n.toJid(),
+              cart_enabled: e,
+            });
           if (a.type === "success") return a.result;
           if (a.type === "graphql-error")
             o(

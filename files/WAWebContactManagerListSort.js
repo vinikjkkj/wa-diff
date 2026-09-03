@@ -11,30 +11,43 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      if (t == null)
-        return [].concat(e).sort(function (e, t) {
-          var n, r;
-          return (
-            ((n = t.leadData.modifiedAt) != null ? n : 0) -
-            ((r = e.leadData.modifiedAt) != null ? r : 0)
-          );
-        });
-      var n = t.direction,
-        r = t.key,
-        o = new Intl.Collator(),
+      var n = new Intl.Collator();
+      if (t == null) return s(e, n);
+      var r = t.direction,
+        o = t.key,
         a = e.map(function (e) {
-          return { contact: e, value: u(r, e.leadData) };
+          return { contact: e, value: c(o, e.leadData) };
         });
       return (
         a.sort(function (e, t) {
-          return s({ a: e.value, b: t.value, collator: o, direction: n });
+          return u({ a: e.value, b: t.value, collator: n, direction: r });
         }),
         a.map(function (e) {
           return e.contact;
         })
       );
     }
-    function s(e) {
+    function s(e, t) {
+      var n = e.map(function (e) {
+        return {
+          contact: e,
+          name: c("customer", e.leadData),
+          time: c("lastMessage", e.leadData),
+        };
+      });
+      return (
+        n.sort(function (e, n) {
+          var r = u({ a: e.time, b: n.time, collator: t, direction: "desc" });
+          return r !== 0
+            ? r
+            : u({ a: e.name, b: n.name, collator: t, direction: "asc" });
+        }),
+        n.map(function (e) {
+          return e.contact;
+        })
+      );
+    }
+    function u(e) {
       var t = e.a,
         n = e.b,
         r = e.collator,
@@ -48,12 +61,12 @@ __d(
           : Number(t) - Number(n);
       return o === "desc" ? -a : a;
     }
-    function u(e, t) {
+    function c(e, t) {
       var n, r, a, i, l;
       return e === "customer"
-        ? c(t)
+        ? d(t)
         : e === "phone"
-          ? d(t)
+          ? m(t)
           : e === "email"
             ? (n = t.email) != null
               ? n
@@ -63,9 +76,9 @@ __d(
                 ? r
                 : null
               : e === "acquisitionSource"
-                ? m(t)
+                ? p(t)
                 : e === "list"
-                  ? p(t)
+                  ? _(t)
                   : e === "lastMessage"
                     ? (a =
                         (i = o("WAWebChatCollection").ChatCollection.get(
@@ -88,20 +101,20 @@ __d(
                             );
                           })();
     }
-    function c(e) {
+    function d(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
       return t != null
         ? o("WAWebFrontendContactGetters").getDisplayName(t)
         : null;
     }
-    function d(e) {
+    function m(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
       return t != null
         ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(t)
             .displayName
         : null;
     }
-    function m(e) {
+    function p(e) {
       var t = e.acquisitionSource;
       if (t == null) return null;
       var n = o(
@@ -109,7 +122,7 @@ __d(
       ).getProfileAcquisitionSourceLabel(t);
       return n != null ? String(n) : null;
     }
-    function p(e) {
+    function _(e) {
       var t,
         n,
         r = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(

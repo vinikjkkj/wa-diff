@@ -1,63 +1,59 @@
 __d(
   "WAWebContactManagerProfileQueryPlan",
-  ["WAWebContactManagerCustomerProfileDecoders"],
+  [
+    "WAWebContactManagerCustomerProfileDecoders",
+    "WAWebContactManagerFilterRegistry",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 4,
-      s = 5e3,
-      u = {
+    var e = ["query"],
+      s = 4,
+      u = 5e3,
+      c = {
+        acquisitionSource: null,
         labelId: null,
         lastMessageCustomRange: null,
         lastMessageRange: null,
         leadStages: [],
       },
-      c = /[\s+().\-\u2010-\u2015]/g,
-      d = /^[0-9]+$/;
-    function m(e, t, n) {
-      var r = [],
-        a =
-          e.leadStages.length === 1
-            ? o(
-                "WAWebContactManagerCustomerProfileDecoders",
-              ).toLeadStageFilterText(e.leadStages[0])
-            : null;
-      a != null && r.push({ fieldName: "lead_stage", filterText: a });
-      var i =
-        e.acquisitionSource != null
-          ? o(
-              "WAWebContactManagerCustomerProfileDecoders",
-            ).toAcquisitionSourceFilterText(e.acquisitionSource)
-          : null;
-      i != null && r.push({ fieldName: "acquisition_source", filterText: i });
-      var l = {
-          labelId: e.labelId,
-          lastMessageCustomRange: e.lastMessageCustomRange,
-          lastMessageRange: e.lastMessageRange,
-          leadStages: a == null ? e.leadStages : [],
-        },
-        s = b(t == null ? void 0 : t.key);
+      d = { clientFilterKeys: [], options: c },
+      m = /[\s+().\-\u2010-\u2015]/g,
+      p = /^[0-9]+$/;
+    function _(t, n, r) {
+      var a = t.query,
+        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        l = [],
+        s = [];
+      for (var u of o("WAWebContactManagerFilterRegistry")
+        .CONTACT_MANAGER_FILTER_KEYS) {
+        var c = o("WAWebContactManagerFilterRegistry").getFilterSpec(u),
+          d = c.serverFilter(i);
+        (d != null && l.push(d), c.isClientActive(i) && s.push(u));
+      }
+      var m = { clientFilterKeys: s, options: i },
+        p = R(n == null ? void 0 : n.key);
       return {
-        candidateLids: n,
-        filters: r,
-        requiresFullScan: g(l) || h(t, s),
-        residual: l,
-        sortColumn: s,
-        sortDescending: (t == null ? void 0 : t.direction) === "desc",
+        candidateLids: r,
+        filters: l,
+        requiresFullScan: C(m) || b(n, p),
+        residual: m,
+        sortColumn: p,
+        sortDescending: (n == null ? void 0 : n.direction) === "desc",
       };
     }
-    function p(t) {
-      var n = t.trim();
-      if (n.length < e) return !1;
-      var r = n.replace(c, "");
-      return d.test(r) ? r.length >= e : !0;
+    function f(e) {
+      var t = e.trim();
+      if (t.length < s) return !1;
+      var n = t.replace(m, "");
+      return p.test(n) ? n.length >= s : !0;
     }
-    function _(e) {
+    function g(e) {
       return e.requiresFullScan
         ? e
         : babelHelpers.extends({}, e, { requiresFullScan: !0 });
     }
-    function f(e, t, n) {
-      var r = m(e, null, t),
+    function h(e, t, n) {
+      var r = _(e, null, t),
         a = [].concat(
           r.filters.filter(function (e) {
             var t = e.fieldName;
@@ -72,28 +68,50 @@ __d(
             },
           ],
         ),
-        i = babelHelpers.extends({}, r.residual, { leadStages: [] });
+        i = babelHelpers.extends({}, r.residual, {
+          clientFilterKeys: r.residual.clientFilterKeys.filter(function (e) {
+            return e !== "leadStage";
+          }),
+        });
       return babelHelpers.extends({}, r, {
         filters: a,
-        requiresFullScan: g(i),
+        requiresFullScan: C(i),
         residual: i,
       });
     }
-    function g(e) {
-      return (
-        e.leadStages.length > 0 ||
-        e.labelId != null ||
-        e.lastMessageRange != null ||
-        e.lastMessageCustomRange != null
-      );
-    }
-    function h(e, t) {
-      return e == null ? !1 : t == null || e.key === "customer";
-    }
-    function y() {
-      return u;
+    function y(e, t) {
+      return e.filters.length > 0 || C(e.residual)
+        ? !1
+        : t == null ||
+            t === "customer" ||
+            t === "phone" ||
+            t === "lastMessage" ||
+            t === "list"
+          ? !0
+          : t === "email" ||
+              t === "leadStage" ||
+              t === "acquisitionSource" ||
+              t === "lastOrder"
+            ? !1
+            : t === "select" || t === "actions" || t === "notes"
+              ? !0
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
     }
     function C(e) {
+      return e.clientFilterKeys.length > 0;
+    }
+    function b(e, t) {
+      return e == null ? !1 : t == null || e.key === "customer";
+    }
+    function v() {
+      return d;
+    }
+    function S(e) {
       return JSON.stringify([
         e.candidateLids,
         e.filters.map(function (e) {
@@ -106,18 +124,19 @@ __d(
         e.requiresFullScan,
       ]);
     }
-    function b(e) {
+    function R(e) {
       return e === "customer" ? "name" : e === "email" ? "email" : null;
     }
-    ((l.MIN_SEARCH_QUERY_LENGTH = e),
-      (l.MAX_CANDIDATE_LIDS = s),
-      (l.buildProfileQueryPlan = m),
-      (l.isSearchQueryActive = p),
-      (l.withFullScan = _),
-      (l.buildPipelineColumnPlan = f),
-      (l.hasResidual = g),
-      (l.emptyProfileQueryResidual = y),
-      (l.profileQueryPlanKey = C));
+    ((l.MIN_SEARCH_QUERY_LENGTH = s),
+      (l.MAX_CANDIDATE_LIDS = u),
+      (l.buildProfileQueryPlan = _),
+      (l.isSearchQueryActive = f),
+      (l.withFullScan = g),
+      (l.buildPipelineColumnPlan = h),
+      (l.canPageLocally = y),
+      (l.hasResidual = C),
+      (l.emptyProfileQueryResidual = v),
+      (l.profileQueryPlanKey = S));
   },
   98,
 );

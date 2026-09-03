@@ -3,8 +3,9 @@ __d(
   ["WALogger", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 1e3;
-    function u(e) {
+      s = 1e3,
+      u = 2;
+    function c(e) {
       e.assertTag("money");
       var t = parseFloat(e.attrString("value")),
         n = e.attrString("currency"),
@@ -13,10 +14,10 @@ __d(
         a = (t * s) / o;
       return { currency: n, amount1000: a };
     }
-    function c(t) {
+    function d(t) {
       if (t.hasChild("amount")) {
         var n = t.child("amount");
-        return u(n.child("money"));
+        return c(n.child("money"));
       } else if (t.hasAttr("amount")) {
         var a = parseFloat(t.attrString("amount"));
         return { amount1000: a * s, currency: t.attrString("currency") };
@@ -31,10 +32,16 @@ __d(
         r("err")("Amount missing in pay or transaction node")
       );
     }
-    function d(e) {
-      return c(e);
+    function m(e) {
+      return d(e);
     }
-    l.getAmount1000AndCurrency = d;
+    function p(e) {
+      return e.hasChild("amount") || e.hasAttr("amount");
+    }
+    function _(e) {
+      return e.maybeAttrInt("version") === u && !p(e);
+    }
+    ((l.getAmount1000AndCurrency = m), (l.isDehydratedPaymentNode = _));
   },
   98,
 );

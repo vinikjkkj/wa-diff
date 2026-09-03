@@ -82,7 +82,7 @@ __d(
             n = o(
               "WAWebBusinessProfileCollection",
             ).BusinessProfileCollection.getValid(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             ),
             r = n == null ? void 0 : n.profileOptions;
           n &&

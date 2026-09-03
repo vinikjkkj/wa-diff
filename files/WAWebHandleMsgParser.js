@@ -80,10 +80,12 @@ __d(
           c = b({ botInfo: s, encs: a, msgMeta: u, node: e }),
           d = E(e, c),
           m = I(e),
-          p = k(e),
-          _ = x(e),
-          f = $(e, a),
-          g =
+          p = m.dehydratedPaymentNode,
+          _ = m.paymentInfo,
+          f = k(e),
+          g = x(e),
+          h = $(e, a),
+          y =
             (t =
               (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
             null
@@ -94,13 +96,14 @@ __d(
           msgInfo: c,
           msgMeta: u,
           bizInfo: d,
-          hsmInfo: p,
-          paymentInfo: m,
+          hsmInfo: f,
+          paymentInfo: _,
+          dehydratedPaymentNode: p,
           deviceIdentity: l,
-          rcat: g,
+          rcat: y,
           msgBotInfo: s,
-          reportingTokenInfo: _,
-          ghsReportingTokenInfos: f,
+          reportingTokenInfo: g,
+          ghsReportingTokenInfos: h,
         };
       });
     function C(e, t) {
@@ -854,75 +857,77 @@ __d(
     }
     function I(e) {
       var t = null,
-        n = e.hasChild("pay") ? e.child("pay") : null,
-        r = e.hasChild("transaction") ? e.child("transaction") : null,
-        a = o("WAWebJidToWid")
+        n = null,
+        r = e.hasChild("pay") ? e.child("pay") : null,
+        a = e.hasChild("transaction") ? e.child("transaction") : null,
+        i = o("WAWebJidToWid")
           .jidWithTypeToWid(e.attrJidWithType("from"))
           .isGroup(),
-        i = e.hasAttr("participant")
+        l = e.hasAttr("participant")
           ? o("WAWebJidToWid").jidWithTypeToWid(
               e.attrJidWithType("participant"),
             )
           : null;
-      if (
-        o("WAWebPaymentNotificationParser").isNoviTransaction(n) ||
-        o("WAWebPaymentNotificationParser").isNoviTransaction(r)
-      )
-        t = { futureproofed: !0 };
-      else if (r) {
-        var l = o("WAWebPaymentNotificationParser").parseTransactionNode(r);
-        l &&
-          (T(a, i, o("WAWebWidFactory").createWid(l.receiver.toString()))
+      if (a) {
+        var s = o("WAWebPaymentNotificationParser").parseTransactionNode(a);
+        s
+          ? T(i, l, o("WAWebWidFactory").createWid(s.receiver.toString()))
             ? (t = {
-                receiverJid: l.receiver.toString(),
-                currency: l.currency,
-                amount1000: l.amount1000,
-                transactionTimestamp: l.ts,
+                receiverJid: s.receiver.toString(),
+                currency: s.currency,
+                amount1000: s.amount1000,
+                transactionTimestamp: s.ts,
                 txnStatus: o("WAWebPaymentStatusUtils").getPaymentTxnWebStatus(
-                  l.status,
+                  s.status,
                 ),
               })
             : (t = {
-                receiverJid: l.receiver.toString(),
-                currency: l.currency,
-                amount1000: l.amount1000,
-                transactionTimestamp: l.ts,
-              }));
-      } else if (n) {
-        var s = n.attrEnum("type", o("WAWebHandleMsgCommon").PAY_NODE_TYPES);
-        switch (s) {
+                receiverJid: s.receiver.toString(),
+                currency: s.currency,
+                amount1000: s.amount1000,
+                transactionTimestamp: s.ts,
+              })
+          : o("WAWebHandlePaymentAmountUtils").isDehydratedPaymentNode(a) &&
+            (n = "transaction");
+      } else if (r) {
+        var u = r.attrEnum("type", o("WAWebHandleMsgCommon").PAY_NODE_TYPES);
+        switch (u) {
           case o("WAWebHandleMsgCommon").PAY_NODE_TYPES.send: {
             if (
               o("WAWebABProps").getABPropConfigValue(
                 "wa_web_xb_bubble_enabled",
               ) !== !0 &&
-              n.hasAttr("transaction-type") &&
-              n.attrString("transaction-type") === "remittance"
+              r.hasAttr("transaction-type") &&
+              r.attrString("transaction-type") === "remittance"
             ) {
               t = { futureproofed: !0 };
               break;
             }
-            var u = o("WAWebHandlePaymentAmountUtils").getAmount1000AndCurrency(
-                n,
+            if (o("WAWebHandlePaymentAmountUtils").isDehydratedPaymentNode(r)) {
+              ((n = "pay"), (t = { futureproofed: !0 }));
+              break;
+            }
+            var c = o("WAWebHandlePaymentAmountUtils").getAmount1000AndCurrency(
+                r,
               ),
-              c = u.amount1000,
-              d = u.currency,
-              m = n.hasAttr("receiver")
-                ? n.attrString("receiver")
+              d = c.amount1000,
+              m = c.currency,
+              p = r.hasAttr("receiver")
+                ? r.attrString("receiver")
                 : e.attrString("recipient");
-            T(a, i, o("WAWebWidFactory").createWid(m))
+            T(i, l, o("WAWebWidFactory").createWid(p))
               ? (t = {
-                  receiverJid: m,
-                  currency: d,
-                  amount1000: c,
+                  receiverJid: p,
+                  currency: m,
+                  amount1000: d,
                   transactionTimestamp: e.attrInt("t"),
                   txnStatus: o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus
                     .INIT,
                 })
               : (t = {
-                  receiverJid: m,
-                  currency: d,
-                  amount1000: c,
+                  receiverJid: p,
+                  currency: m,
+                  amount1000: d,
                   transactionTimestamp: e.attrInt("t"),
                 });
             break;
@@ -935,7 +940,7 @@ __d(
             break;
         }
       }
-      return t;
+      return { paymentInfo: t, dehydratedPaymentNode: n };
     }
     function T(e, t, n) {
       return !(

@@ -64,7 +64,18 @@ __d(
             o("WAWebHsmGatingUtils").isBloksWidgetEnabled(),
           R = null,
           L = f.carouselMessage;
-        if (L != null && ((R = d(i, L, m, l, s)), R == null)) return _(i, f);
+        if (
+          L != null &&
+          ((R = d({
+            baseMessage: i,
+            bizInfo: l,
+            bizSource: s,
+            carouselMessage: L,
+            msgContext: m,
+          })),
+          R == null)
+        )
+          return _(i, f);
         if (g === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
           var E = r("WAWebInteractiveMessagesNativeFlowName").cast(
             o("WAWebE2EProtoUtils").getBizNativeFlowName({
@@ -221,23 +232,28 @@ __d(
         },
       };
     }
-    function d(e, t, n, a, i) {
+    function d(e) {
+      var t = e.baseMessage,
+        n = e.bizInfo,
+        a = e.bizSource,
+        i = e.carouselMessage,
+        l = e.msgContext;
       if (
-        t.cards.length >
+        i.cards.length >
         o("WAWebInteractiveMessageCarouselConstants").MAX_CAROUSEL_CARDS
       )
         return null;
-      var l = t.cards.map(function (t) {
+      var s = i.cards.map(function (e) {
           return m({
-            baseMessage: e,
-            bizInfo: a,
-            bizSource: i,
-            card: t,
-            msgContext: n,
+            baseMessage: t,
+            bizInfo: n,
+            bizSource: a,
+            card: e,
+            msgContext: l,
           });
         }),
-        s = r("filterNulls")(l);
-      return s.length === 0 ? null : s;
+        u = r("filterNulls")(s);
+      return u.length === 0 ? null : u;
     }
     function m(e) {
       var t,

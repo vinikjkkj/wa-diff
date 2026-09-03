@@ -25,6 +25,7 @@ __d(
     "WAWebMsgProcessingDecryptApi",
     "WAWebMsgType",
     "WAWebOfflineHandler",
+    "WAWebPaymentsODS",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebPostUnknownStanzaMetric",
     "WAWebProcessMsgInfoForLid",
@@ -185,7 +186,11 @@ __d(
           (C && (N.msgMeta.isGroupStatus = !0),
             o(
               "WAWebMaybePostOfflineCountTooHighMetric",
-            ).maybePostOfflineCountTooHigh(N));
+            ).maybePostOfflineCountTooHigh(N),
+            N.dehydratedPaymentNode === "pay"
+              ? o("WAWebPaymentsODS").logDehydratedPayNodeFutureproofed()
+              : N.dehydratedPaymentNode === "transaction" &&
+                o("WAWebPaymentsODS").logDehydratedTransactionNodeSkipped());
           var M = N.encs,
             w = N.ghsReportingTokenInfos,
             A = N.msgBotInfo,

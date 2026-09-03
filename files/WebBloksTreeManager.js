@@ -71,13 +71,17 @@ __d(
           (a.setCommittedBoundTree = function (t) {
             var e = this;
             ((this.bindResult = t), (this.committedVariables = t.variables));
-            var n = t.bindDataModuleDelegate;
-            if (n != null) {
-              var r = new Map(this.committedVariables);
-              (n.commitAll(this, function (t, n, o, a) {
-                (r.set(t, o), a != null && e.subscriptions.add(a));
+            for (var n of t.collectedTreeResources.values())
+              this.treeResourcesState = this.treeResourcesState
+                .withDataManifestEntryUpdates(n.variableDefinitions)
+                .withTreeResourceUpdates(n);
+            var r = t.bindDataModuleDelegate;
+            if (r != null) {
+              var o = new Map(this.committedVariables);
+              (r.commitAll(this, function (t, n, r, a) {
+                (o.set(t, r), a != null && e.subscriptions.add(a));
               }),
-                (this.committedVariables = r));
+                (this.committedVariables = o));
             }
             this.$7();
           }),

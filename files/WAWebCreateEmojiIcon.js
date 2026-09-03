@@ -1,44 +1,64 @@
 __d(
   "WAWebCreateEmojiIcon",
-  ["WAWebReactionEmoji.react", "react"],
+  ["WAWebReactionEmoji.react", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = 24,
-      c = 22,
-      d = "scale(0.8)",
-      m = "scale(0.7333)",
-      p = new Map();
-    function _(e, t) {
-      t === void 0 && (t = u);
+      s,
+      u,
+      c = u || (u = o("react")),
+      d = 24,
+      m = 22,
+      p = 20,
+      _ = "scale(0.8)",
+      f = "scale(0.7333)",
+      g = "scale(0.6667)",
+      h = {
+        scaledEmoji: {
+          transform: "x12y6twl",
+          transformOrigin: "x1g0ag68",
+          $$css: !0,
+        },
+        scaledEmojiSmall: {
+          transform: "x1stetx1",
+          transformOrigin: "x1g0ag68",
+          $$css: !0,
+        },
+        scaledEmojiExtraSmall: {
+          transform: "x11qwu0y",
+          transformOrigin: "x1g0ag68",
+          $$css: !0,
+        },
+      },
+      y =
+        ((e = {}),
+        (e[p] = h.scaledEmojiExtraSmall),
+        (e[m] = h.scaledEmojiSmall),
+        (e[d] = h.scaledEmoji),
+        e),
+      C = new Map();
+    function b(e, t) {
+      t === void 0 && (t = d);
       var n = e + ":" + t,
-        r = p.get(n);
+        a = C.get(n);
       return (
-        r == null &&
-          ((r = function () {
-            return s.jsx(
+        a == null &&
+          ((a = function () {
+            return c.jsx(
               "span",
-              babelHelpers.extends(
-                {},
-                {
-                  0: { className: "x12y6twl x1g0ag68" },
-                  1: { className: "x1stetx1 x1g0ag68" },
-                }[(t === c) << 0],
-                {
-                  children: s.jsx(o("WAWebReactionEmoji.react").ReactionEmoji, {
-                    reaction: e,
-                    size: "large",
-                    scale: "tray",
-                  }),
-                },
-              ),
+              babelHelpers.extends({}, (s || (s = r("stylex"))).props(y[t]), {
+                children: c.jsx(o("WAWebReactionEmoji.react").ReactionEmoji, {
+                  reaction: e,
+                  size: "large",
+                  scale: "tray",
+                }),
+              }),
             );
           }),
-          p.set(n, r)),
-        r
+          C.set(n, a)),
+        a
       );
     }
-    l.default = _;
+    l.default = b;
   },
   98,
 );

@@ -25,9 +25,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.productIds,
               r = o("WAWebCatalogCollection").CatalogCollection.get(
-                o("WAWebUserPrefsMeUser")
-                  .getMePnUserOrThrow_DO_NOT_USE()
-                  .toString(),
+                o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString(),
               );
             if (r) {
               var a = t.map(function (e) {
@@ -44,9 +42,7 @@ __d(
         updateCatalogCollectionReviewStatuses: function (t) {
           var e = t.notification,
             n = o("WAWebCatalogCollection").CatalogCollection.get(
-              o("WAWebUserPrefsMeUser")
-                .getMePnUserOrThrow_DO_NOT_USE()
-                .toString(),
+              o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString(),
             );
           if (n != null && n.collections)
             for (var r = 0; r < e.collectionIds.length; r++) {
