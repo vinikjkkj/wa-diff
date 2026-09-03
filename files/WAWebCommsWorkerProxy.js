@@ -249,8 +249,7 @@ __d(
     function f(e) {
       d = e;
     }
-    ((l.CommsWorkerProxy = u),
-      (l.createCommsWorkerProxy = m),
+    ((l.createCommsWorkerProxy = m),
       (l.rebuildCommsInRestartedWorker = p),
       (l.updateCommsProxySocketState = _),
       (l.setStartCommsArgs = f));

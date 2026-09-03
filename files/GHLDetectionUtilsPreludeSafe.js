@@ -153,7 +153,7 @@ __d(
       }
     }
     function k() {
-      (E(), p != null && !F() && (window.String = p));
+      (E(), p != null && !W() && (window.String = p));
     }
     function I() {
       E();
@@ -208,10 +208,10 @@ __d(
       }
       E();
       var n = _;
-      n != null && !F() && (Function.prototype.call = n);
+      n != null && !W() && (Function.prototype.call = n);
     }
     function P() {
-      if ((E(), !F())) {
+      if ((E(), !W())) {
         if (h != null)
           try {
             Object.defineProperty(t.XMLHttpRequest.prototype, "response", {
@@ -305,13 +305,27 @@ __d(
         return !1;
       }
     }
-    function F() {
-      return (E(), C);
+    function F(e, t) {
+      try {
+        var n = JSON.parse(e);
+        return n != null && !w(n[t]);
+      } catch (e) {
+        return !1;
+      }
     }
     function O() {
+      return F('{"q7z":' + m + "}", "q7z");
+    }
+    function B() {
+      return F("[" + m + "]", 0);
+    }
+    function W() {
+      return (E(), C);
+    }
+    function q() {
       return (E(), !S || C ? null : f);
     }
-    function B(e) {
+    function U(e) {
       try {
         e();
       } catch (e) {
@@ -322,10 +336,10 @@ __d(
       }
       return "";
     }
-    function W(e) {
+    function V(e) {
       return e === "" ? 0 : e.split("\n").length;
     }
-    function q() {
+    function H() {
       if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) return !1;
       var t = document.body || document.documentElement;
       if (t == null) return !1;
@@ -335,23 +349,23 @@ __d(
         t.appendChild(n);
         var o = n.contentWindow;
         if (o == null) return !1;
-        var a = W(
-            B(function () {
+        var a = V(
+            U(function () {
               JSON.parse("{ ");
             }),
           ),
-          i = W(
-            B(function () {
+          i = V(
+            U(function () {
               o.JSON.parse("{ ");
             }),
           ),
-          l = W(
-            B(function () {
+          l = V(
+            U(function () {
               new XMLHttpRequest().send();
             }),
           ),
-          s = W(
-            B(function () {
+          s = V(
+            U(function () {
               new o.XMLHttpRequest().send();
             }),
           );
@@ -373,9 +387,11 @@ __d(
       (l.isXHRResponseGetterShimmed = N),
       (l.isJSONParseShimmed = M),
       (l.isJSONParseBehaviorallyShimmed = A),
-      (l.isHarvestPoisoned = F),
-      (l.getCleanJSONParse = O),
-      (l.isNativeStackTampered = q));
+      (l.isBoxedParseEffective = O),
+      (l.isWrappedParseEffective = B),
+      (l.isHarvestPoisoned = W),
+      (l.getCleanJSONParse = q),
+      (l.isNativeStackTampered = H));
   },
   98,
 );

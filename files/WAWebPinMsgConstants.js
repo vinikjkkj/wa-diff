@@ -10,6 +10,7 @@ __d(
         "OneDay",
         "SevenDays",
         "ThirtyDays",
+        "Never",
       ]),
       u = s.SevenDays;
     function c(e) {
@@ -26,6 +27,8 @@ __d(
           return 7 * o("WATimeUtils").DAY_SECONDS;
         case s.ThirtyDays:
           return 30 * o("WATimeUtils").DAY_SECONDS;
+        case s.Never:
+          return 0;
       }
     }
     function d(e) {
@@ -42,6 +45,8 @@ __d(
           return s.SevenDays;
         case 30 * o("WATimeUtils").DAY_SECONDS:
           return s.ThirtyDays;
+        case 0:
+          return s.Never;
         default:
           throw r("err")("Unexpeded pin expiry duration");
       }

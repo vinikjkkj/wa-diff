@@ -25,9 +25,7 @@ __d(
       var t = s();
       return t === e.SOCKET_HEALTH_CHECK || t === e.BOTH;
     }
-    ((l.OutgoingSetupLatencyMode = e),
-      (l.isCacheAwareSyncEnabled = u),
-      (l.isSocketHealthCheckEnabled = c));
+    ((l.isCacheAwareSyncEnabled = u), (l.isSocketHealthCheckEnabled = c));
   },
   98,
 );

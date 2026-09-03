@@ -122,12 +122,12 @@ __d(
             } catch (e) {
               (o(
                 "WAWebGroupHistoryReceiverUserJourneyLogger",
-              ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed(
-                l,
-                0,
-                void 0,
-                "parse_failed",
-              ),
+              ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed({
+                groupHistoryMessagesCount: 0,
+                groupHistoryOutWindowPinsCount: void 0,
+                groupHistoryReceiverGroupId: l,
+                receiverFailureReason: "parse_failed",
+              }),
                 o("WALogger").ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([

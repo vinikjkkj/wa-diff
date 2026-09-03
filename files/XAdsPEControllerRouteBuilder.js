@@ -31,6 +31,7 @@ __d(
           is_split_test: !1,
           launch_quick_creation: !1,
           mdsa_eligibility: !1,
+          open_genai_modal: !1,
           recommendation_read_only: !1,
           root_level: "campaign",
           show_dfca_create_audience_modal: !1,

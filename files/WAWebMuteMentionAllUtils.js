@@ -6,7 +6,6 @@ __d(
     "WATypeUtils",
     "WAWeb-moment",
     "WAWebChatMuteBridge",
-    "WAWebMuteGetters",
     "WAWebNoop",
     "WAWebWid",
   ],
@@ -130,19 +129,7 @@ __d(
               }))
       );
     }
-    function h(e) {
-      if (!r("WAWebWid").isGroup(e.id) || !o("WAWebMuteGetters").getIsMuted(e))
-        return !1;
-      var t = e.mentionAllMuteExpiration;
-      return t == null || t === 0
-        ? !1
-        : t === _
-          ? !0
-          : t > r("WAWeb-moment")().unix();
-    }
-    ((l.muteMentionAll = f),
-      (l.unmuteMentionAll = g),
-      (l.getIsMentionAllMuted = h));
+    ((l.muteMentionAll = f), (l.unmuteMentionAll = g));
   },
   98,
 );

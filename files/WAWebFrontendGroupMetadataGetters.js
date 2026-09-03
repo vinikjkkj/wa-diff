@@ -20,7 +20,6 @@ __d(
         [p],
       );
     ((l.clearFrontendGroupMetadataGetterCacheFor = m),
-      (l.getInviteCode = p),
       (l.getGroupInviteLink = _));
   },
   98,

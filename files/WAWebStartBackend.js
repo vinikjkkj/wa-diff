@@ -321,7 +321,7 @@ __d(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.setLastPushCompleteTimestamp(),
             W(),
-            yield o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
+            o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
             o("WAWebMediaHosts").mediaHosts.maybeLoadMediaConnFromStorage());
           var c = o(
             "WAWebUserPrefsHistorySync",

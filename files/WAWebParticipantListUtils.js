@@ -301,6 +301,7 @@ __d(
     }
     ((l.calculateUnnamedGroupParticipantsList = e),
       (l.calculateUnnamedGroupFullParticipantsList = u),
+      (l.getUnnamedGroupParticipantNames = c),
       (l.getFirstNameForContact = d),
       (l.calculateParticipantsList = p),
       (l.calculateAdminsList = _),

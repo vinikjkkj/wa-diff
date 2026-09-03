@@ -394,7 +394,6 @@ __d(
       };
     ((l.WDSFontTokenStyles = e),
       (l.WDSFontTokenStylesMacRoboto = s),
-      (l.FONT_SCALE_VAR_NAME_IOS = u),
       (l.WDSFontTokenStylesiOS = y),
       (l.WDSFontTokenStylesAndroid = C));
   },

@@ -53,9 +53,7 @@ __d(
         p.apply(this, arguments)
       );
     }
-    ((l.drainMatcherSync = u),
-      (l.drainMatcherAsync = c),
-      (l.searchFuzzyAsync = m));
+    ((l.drainMatcherSync = u), (l.searchFuzzyAsync = m));
   },
   98,
 );

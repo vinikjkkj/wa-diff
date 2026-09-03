@@ -2,6 +2,7 @@ __d(
   "WAWebPinnedMessagesUserJourneyLogger",
   [
     "WAWebMessagingUserJourneyLogger",
+    "WAWebPinInChatMetricUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumActionType",
     "WAWebWamEnumTsSurface",
@@ -72,7 +73,9 @@ __d(
             messagingActionType: o("WAWebWamEnumActionType").ACTION_TYPE
               .CLICK_UNPIN,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
-            pinInChatExpirySecs: n == null ? void 0 : n.leftExpirationTime(),
+            pinInChatExpirySecs: o(
+              "WAWebPinInChatMetricUtils",
+            ).getFiniteTimeRemainingSecs(n),
             isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
               n == null ? void 0 : n.sender,
             ),
@@ -84,7 +87,9 @@ __d(
             messagingActionType: o("WAWebWamEnumActionType").ACTION_TYPE
               .CLICK_UNPIN,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
-            pinInChatExpirySecs: n == null ? void 0 : n.leftExpirationTime(),
+            pinInChatExpirySecs: o(
+              "WAWebPinInChatMetricUtils",
+            ).getFiniteTimeRemainingSecs(n),
             isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
               n == null ? void 0 : n.sender,
             ),
@@ -96,7 +101,9 @@ __d(
             messagingActionType: o("WAWebWamEnumActionType").ACTION_TYPE
               .CLICK_UNPIN,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
-            pinInChatExpirySecs: n == null ? void 0 : n.leftExpirationTime(),
+            pinInChatExpirySecs: o(
+              "WAWebPinInChatMetricUtils",
+            ).getFiniteTimeRemainingSecs(n),
             isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
               n == null ? void 0 : n.sender,
             ),

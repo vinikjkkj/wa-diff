@@ -8,18 +8,26 @@ __d(
       );
     }
     function s() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "pinned_messages_infinite_sender_enabled",
+        ) && e()
+      );
+    }
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "pinned_messages_m2_pin_max",
       );
     }
-    function u() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "pinned_message_banner_notch_animation_enabled",
       );
     }
     ((l.isPinnedMessagesInfiniteReceiverEnabled = e),
-      (l.getMaxPins = s),
-      (l.isNotchIndicatorEnabled = u));
+      (l.isPinnedMessagesInfiniteSenderEnabled = s),
+      (l.getMaxPins = u),
+      (l.isNotchIndicatorEnabled = c));
   },
   98,
 );

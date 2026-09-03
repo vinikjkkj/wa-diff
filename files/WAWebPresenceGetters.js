@@ -8,29 +8,25 @@ __d(
       s = e.clearCacheFor,
       u = e.computed,
       c = e.field,
-      d = e.unsafeIdentityGetter,
-      m = s,
-      p = d,
-      _ = c("id"),
-      f = u(
+      d = s,
+      m = c("id"),
+      p = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
-        [_],
+        [m],
       ),
-      g = u(
+      _ = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
-        [_],
+        [m],
       );
-    ((l.clearPresenceGetterCacheFor = m),
-      (l.getPresenceUnsafe = p),
-      (l.getId = _),
-      (l.getIsGroup = f),
-      (l.getIsUser = g));
+    ((l.clearPresenceGetterCacheFor = d),
+      (l.getIsGroup = p),
+      (l.getIsUser = _));
   },
   98,
 );

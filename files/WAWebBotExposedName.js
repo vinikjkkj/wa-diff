@@ -12,8 +12,11 @@ __d(
     function e() {
       return s._(/*BTDS*/ "Unknown account").toString();
     }
-    function u(e, t) {
-      return o("WAWebBotStaticProfiles").isStaticProfile(e) ? !0 : !c(t);
+    function u(e, t, n) {
+      return o("WAWebBotStaticProfiles").isStaticProfile(e) ||
+        (n != null && n !== "")
+        ? !0
+        : !c(t);
     }
     function c(e) {
       if (!o("WAWebBotBaseGating").isStandardBotProfileEnabled()) return !1;

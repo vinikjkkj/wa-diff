@@ -97,10 +97,13 @@ __d(
       }),
       D = e({
         CancelReasoning: "CANCEL_REASONING",
+        CopyLink: "COPY_LINK",
         DownloadMedia: "DOWNLOAD_MEDIA",
         GenerateImage: "GENERATE_IMAGE",
         OpenFullView: "OPEN_FULL_VIEW",
+        RemixMedia: "REMIX_MEDIA",
         UpgradeToSubs: "UPGRADE_TO_SUBS",
+        UseTemplate: "USE_TEMPLATE",
       }),
       x = e({ ClientProvided: "CLIENT_PROVIDED", Inline: "INLINE" }),
       $ = e({

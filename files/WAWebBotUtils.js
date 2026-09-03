@@ -16,72 +16,68 @@ __d(
       d = s.createUserWidOrThrow("13135550202@c.us"),
       m = s.createUserWidOrThrow("718584497008509@bot"),
       p = s.createUserWidOrThrow("1273596044787272@bot"),
-      _ = s.createUserWidOrThrow("1807055946647696@bot"),
-      f = s.createUserWidOrThrow("1807055946647697@bot"),
-      g = s.createUserWidOrThrow("1807055946647698@bot"),
-      h = s.createUserWidOrThrow("165332417282214@lid"),
-      y = s.createUserWidOrThrow("2942131436135992@bot"),
-      C = s.createUserWidOrThrow("867051314767696555@bot"),
-      b = s.createUserWidOrThrow("103242709127222@lid"),
-      v = [_, f];
-    function S(e) {
+      _ = s.createUserWidOrThrow("1807055946647697@bot"),
+      f = s.createUserWidOrThrow("1807055946647698@bot"),
+      g = s.createUserWidOrThrow("165332417282214@lid"),
+      h = s.createUserWidOrThrow("2942131436135992@bot"),
+      y = s.createUserWidOrThrow("867051314767696555@bot"),
+      C = s.createUserWidOrThrow("103242709127222@lid"),
+      b = [_];
+    function v(e) {
       return e.equals(u) || e.equals(c);
     }
-    function R(e) {
+    function S(e) {
       return e.equals(d) || e.equals(m);
     }
+    function R(e) {
+      return e.equals(h) || e.equals(y);
+    }
     function L(e) {
-      return e.equals(y) || e.equals(C);
+      return v(e) || I(e) || e.equals(p) || R(e);
     }
     function E(e) {
-      return S(e) || k(e) || I(e) || D(e) || e.equals(p) || L(e);
-    }
-    function k(e) {
       return e.equals(_);
     }
-    function I(e) {
+    function k(e) {
       return e.equals(f);
     }
-    function T(e) {
-      return e.equals(g);
-    }
-    function D(e) {
-      return v.some(function (t) {
+    function I(e) {
+      return b.some(function (t) {
         return e.equals(t);
       });
     }
-    function x(e) {
+    function T(e) {
       var t = e.botResponseTargetId;
       return t == null
         ? null
         : new (r("WAWebMsgKey"))({ fromMe: !0, remote: e.id.remote, id: t });
     }
-    function $(e) {
+    function D(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(c)
         : !1;
     }
-    function P(e) {
+    function x(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(p)
         : !1;
     }
-    function N(e) {
+    function $(e) {
       return o("WAWebDebugHiddenBotChats").isShowHiddenBotChatsEnabled()
         ? !1
         : e instanceof r("WAWebWid")
-          ? e.equals(p) || L(e) || e.equals(b)
+          ? e.equals(p) || R(e) || e.equals(C)
           : !1;
     }
-    function M(t) {
+    function P(t) {
       var n = !1;
       for (var r of t) {
-        var a = $(r.id),
-          i = P(r.id);
+        var a = D(r.id),
+          i = x(r.id);
         if (a)
           return (
             n &&
@@ -104,26 +100,24 @@ __d(
       (l.META_BOT_SMB_PN_WID = d),
       (l.META_BOT_SMB_FBID_WID = m),
       (l.META_BOT_TEE_FBID_WID = p),
-      (l.MANUS_BOT_FBID_WID = _),
-      (l.HATCH_BOT_FBID_WID = f),
-      (l.MAIBA_AI_HUB_FBID_WID = g),
-      (l.MAIBA_AI_HUB_LID_WID = h),
-      (l.META_BOT_SIDECHAT_FBID_WID = y),
-      (l.META_BOT_SIDECHAT_LEGACY_FBID_WID = C),
-      (l.META_BOT_LID_WID = b),
-      (l.isMetaAiBot = S),
-      (l.isBusinessAssistantBot = R),
-      (l.isSideChatBotWid = L),
-      (l.isAnyMetaAiBot = E),
-      (l.isManusBot = k),
-      (l.isHatchBot = I),
-      (l.isMaibaAiHubFbid = T),
-      (l.isBotChannelFBID = D),
-      (l.getBotResponseTargetMsgKey = x),
-      (l.isWidOpenGroupMetaBotFbidWid = $),
-      (l.isWidTeeGroupMetaBotFbidWid = P),
-      (l.isHiddenBotWid = N),
-      (l.participantListIncludeOpenOrTeeGroupBotWid = M));
+      (l.HATCH_BOT_FBID_WID = _),
+      (l.MAIBA_AI_HUB_FBID_WID = f),
+      (l.MAIBA_AI_HUB_LID_WID = g),
+      (l.META_BOT_SIDECHAT_FBID_WID = h),
+      (l.META_BOT_SIDECHAT_LEGACY_FBID_WID = y),
+      (l.META_BOT_LID_WID = C),
+      (l.isMetaAiBot = v),
+      (l.isBusinessAssistantBot = S),
+      (l.isSideChatBotWid = R),
+      (l.isAnyMetaAiBot = L),
+      (l.isHatchBot = E),
+      (l.isMaibaAiHubFbid = k),
+      (l.isBotChannelFBID = I),
+      (l.getBotResponseTargetMsgKey = T),
+      (l.isWidOpenGroupMetaBotFbidWid = D),
+      (l.isWidTeeGroupMetaBotFbidWid = x),
+      (l.isHiddenBotWid = $),
+      (l.participantListIncludeOpenOrTeeGroupBotWid = P));
   },
   98,
 );

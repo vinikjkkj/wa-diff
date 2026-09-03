@@ -31,42 +31,42 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a;
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n;
           if (o("WAWebChatAssignmentUtils").canAssignChats()) {
-            var i = o("WAWebUserPrefsMeUser")
+            var a = o("WAWebUserPrefsMeUser")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
                 .getDeviceId(),
-              l = t.id,
-              s =
-                (a = o("WAWebAgentCollection").AgentCollection.getByDeviceId(
-                  i,
+              i = t.id,
+              l =
+                (n = o("WAWebAgentCollection").AgentCollection.getByDeviceId(
+                  a,
                 )) == null
                   ? void 0
-                  : a.id;
-            if (s != null) {
-              var u = [{ chatId: l, agentId: s, chatOpened: n }],
-                c = u.map(function (e) {
+                  : n.id;
+            if (l != null) {
+              var s = [{ chatId: i, agentId: l }],
+                u = s.map(function (e) {
                   var t = e.chatId.toString({ legacy: !0 });
                   return {
-                    id: t + "_" + s,
+                    id: t + "_" + l,
                     chatId: t,
-                    agentId: s,
-                    chatOpenedByAgent: n,
+                    agentId: l,
+                    chatOpenedByAgent: !0,
                   };
                 });
               yield o("WAWebSyncdCoreApi").lockForSync(
                 ["chat-assignment"],
                 yield r(
                   "WAWebChatAssignmentOpenedStatusSync",
-                ).createChatOpenedMutations(c),
+                ).createChatOpenedMutations(u),
                 function () {
-                  return e(c);
+                  return e(u);
                 },
               );
             }

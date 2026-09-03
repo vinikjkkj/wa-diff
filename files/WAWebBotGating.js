@@ -20,8 +20,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t;
-      return o("WAWebBotUtils").isManusBot(e) ||
-        o("WAWebBotUtils").isHatchBot(e)
+      return o("WAWebBotUtils").isHatchBot(e)
         ? !0
         : o("WAWebBotBaseGating").isBotEnabled()
           ? o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -352,32 +351,6 @@ __d(
       );
     }
     function J() {
-      var e = o("WAWebABProps").getABPropConfigValue(
-        "ai_bot_integration_bot_profile",
-      );
-      if (e !== "")
-        try {
-          var t = JSON.parse(e);
-          if (typeof t.name == "string") return t.name;
-        } catch (e) {
-          return "";
-        }
-      return "";
-    }
-    function Z() {
-      var e = o("WAWebABProps").getABPropConfigValue(
-        "ai_bot_integration_bot_profile",
-      );
-      if (e !== "")
-        try {
-          var t = JSON.parse(e);
-          if (typeof t.profile_thumb == "string") return t.profile_thumb;
-        } catch (e) {
-          return "";
-        }
-      return "";
-    }
-    function ee() {
       return (
         T() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -385,23 +358,23 @@ __d(
         ) === !0
       );
     }
-    function te() {
+    function Z() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_pin_max_count",
       );
     }
-    function ne() {
+    function ee() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_bot_orphan_logic_enabled",
       );
     }
-    function re() {
+    function te() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function oe() {
+    function ne() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_video_upload_size_limit_mb",
       );
@@ -450,13 +423,11 @@ __d(
       (l.getImplicitThreadRoutingStrategy = Q),
       (l.isImplicitThreadRoutingEnabled = X),
       (l.isDefaultThreadRoutingEnabled = Y),
-      (l.getManusBotName = J),
-      (l.getManusBotProfileThumb = Z),
-      (l.isAiThreadPinEnabled = ee),
-      (l.getAiThreadPinMaxCount = te),
-      (l.isBotOrphanMsgEnabled = ne),
-      (l.getMetaAiDocumentUploadSizeLimitBytes = re),
-      (l.getMetaAiVideoUploadSizeLimitBytes = oe));
+      (l.isAiThreadPinEnabled = J),
+      (l.getAiThreadPinMaxCount = Z),
+      (l.isBotOrphanMsgEnabled = ee),
+      (l.getMetaAiDocumentUploadSizeLimitBytes = te),
+      (l.getMetaAiVideoUploadSizeLimitBytes = ne));
   },
   98,
 );

@@ -149,58 +149,59 @@ __d(
           return ((this.$21 = t), this);
         }),
         (r.send = function () {
-          var t = this.$15,
-            r = this.$18;
-          if (!r) return;
-          var o = r(),
-            a = this.getURI();
+          var t = this,
+            r = this.$15,
+            o = this.$18;
+          if (!o) return;
+          var a = o(),
+            i = this.getURI();
           if (
-            a.toString().includes("/../") ||
-            a.toString().includes("/..\\") ||
-            a.toString().includes("\\../") ||
-            a.toString().includes("\\..\\")
+            i.toString().includes("/../") ||
+            i.toString().includes("/..\\") ||
+            i.toString().includes("\\../") ||
+            i.toString().includes("\\..\\")
           ) {
             n("Log").error("XHRRequest.send(): path traversal is not allowed.");
             return;
           }
           if (m === !0) return;
-          var i = new (e || (e = n("URI")))(a).getQualifiedURI().toString(),
-            u = this.$12;
-          (n("ResourceTimingsStore").updateURI(n("ResourceTypes").XHR, u, i),
+          var u = new (e || (e = n("URI")))(i).getQualifiedURI().toString(),
+            c = this.$12;
+          (n("ResourceTimingsStore").updateURI(n("ResourceTypes").XHR, c, u),
             n("ResourceTimingsStore").measureRequestSent(
               n("ResourceTypes").XHR,
-              u,
+              c,
             ),
-            (this.$9 = o));
-          var c;
-          this.$7 === "POST" || !this.$11 || l(0, 2346, this.$11, a);
-          var d = (s || (s = n("Env"))).force_param;
+            (this.$9 = a));
+          var d;
+          this.$7 === "POST" || !this.$11 || l(0, 2346, this.$11, i);
+          var p = (s || (s = n("Env"))).force_param;
           if (
-            (d && (this.$2 = babelHelpers.extends({}, this.getData() || {}, d)),
-            this.$7 === "GET" && n("DTSGUtils").shouldAppendToken(a))
+            (p && (this.$2 = babelHelpers.extends({}, this.getData() || {}, p)),
+            this.$7 === "GET" && n("DTSGUtils").shouldAppendToken(i))
           ) {
-            var p = n("cr:8960").getCachedToken
+            var _ = n("cr:8960").getCachedToken
               ? n("cr:8960").getCachedToken()
               : n("cr:8960").getToken();
-            p != null &&
-              p !== "" &&
+            _ != null &&
+              _ !== "" &&
               (this.$2
-                ? (this.$2.fb_dtsg_ag = p)
-                : (this.$2 = { fb_dtsg_ag: p }),
+                ? (this.$2.fb_dtsg_ag = _)
+                : (this.$2 = { fb_dtsg_ag: _ }),
               n("SprinkleConfig").param_name &&
                 (this.$2[n("SprinkleConfig").param_name] =
-                  n("DTSGUtils").getNumericValue(p)));
+                  n("DTSGUtils").getNumericValue(_)));
           }
-          if (this.$7 === "POST" && n("DTSGUtils").shouldAppendToken(a)) {
-            var _ = n("cr:8959").getCachedToken
+          if (this.$7 === "POST" && n("DTSGUtils").shouldAppendToken(i)) {
+            var f = n("cr:8959").getCachedToken
               ? n("cr:8959").getCachedToken()
               : n("cr:8959").getToken();
-            (_ != null &&
-              _ !== "" &&
-              (this.$2 ? (this.$2.fb_dtsg = _) : (this.$2 = { fb_dtsg: _ }),
+            (f != null &&
+              f !== "" &&
+              (this.$2 ? (this.$2.fb_dtsg = f) : (this.$2 = { fb_dtsg: f }),
               n("SprinkleConfig").param_name &&
                 (this.$2[n("SprinkleConfig").param_name] =
-                  n("DTSGUtils").getNumericValue(_))),
+                  n("DTSGUtils").getNumericValue(f))),
               n("LSD").token != null &&
                 n("LSD").token !== "" &&
                 (this.$2
@@ -208,18 +209,18 @@ __d(
                   : (this.$2 = { lsd: n("LSD").token }),
                 n("SprinkleConfig").param_name != null &&
                   n("SprinkleConfig").param_name !== "" &&
-                  (_ == null || _ === "") &&
+                  (f == null || f === "") &&
                   (this.$2[n("SprinkleConfig").param_name] = n(
                     "DTSGUtils",
                   ).getNumericValue(n("LSD").token))));
           }
           this.$7 === "GET" || this.$11
-            ? (a.addQueryData(this.$2), (c = this.$11))
-            : (c = this.$3(this.$2));
-          function f(e) {
+            ? (i.addQueryData(this.$2), (d = this.$11))
+            : (d = this.$3(this.$2));
+          function g(e) {
             n("ResourceTimingsStore").measureResponseReceived(
               n("ResourceTypes").XHR,
-              u,
+              c,
             );
             for (
               var t = arguments.length, r = new Array(t > 1 ? t - 1 : 0), o = 1;
@@ -229,43 +230,52 @@ __d(
               r[o - 1] = arguments[o];
             e.apply(this, r);
           }
-          var g = n("TimeSlice").guard(f, "XHRRequest response received", {
+          var h = n("TimeSlice").guard(g, "XHRRequest response received", {
             propagationType: n("TimeSlice").PropagationType.CONTINUATION,
           });
-          ((o.onreadystatechange = this.$22(g)),
-            (o.onerror = this.$23(g)),
-            o.upload && this.$19 && (o.upload.onprogress = this.$24.bind(this)),
-            this.$4 && (o.onprogress = this.$25.bind(this)),
-            t != null &&
-              t !== 0 &&
-              (this.$17 = setTimeout(this.$26.bind(this), t)),
-            this.$21 != null && (o.withCredentials = this.$21),
-            o.open(this.$7, a.toString(), !0));
-          var h = !1;
+          ((a.onreadystatechange = this.$22(h)),
+            (a.onerror = this.$23(h)),
+            a.upload &&
+              this.$19 &&
+              (a.upload.onprogress = function (e) {
+                return t.$24(e);
+              }),
+            this.$4 &&
+              (a.onprogress = function (e) {
+                return t.$25(e);
+              }),
+            r != null &&
+              r !== 0 &&
+              (this.$17 = window.setTimeout(function () {
+                return t.$26();
+              }, r)),
+            this.$21 != null && (a.withCredentials = this.$21),
+            a.open(this.$7, i.toString(), !0));
+          var y = !1;
           if (this.$6)
-            for (var y in this.$6)
-              (y.toLowerCase() === "content-type" && (h = !0),
-                o.setRequestHeader(y, this.$6[y]));
+            for (var C in this.$6)
+              (C.toLowerCase() === "content-type" && (y = !0),
+                a.setRequestHeader(C, this.$6[C]));
           this.$7 == "POST" &&
             !this.$11 &&
-            !h &&
-            o.setRequestHeader(
+            !y &&
+            a.setRequestHeader(
               "Content-Type",
               "application/x-www-form-urlencoded",
             );
-          var C = n("getAsyncHeaders")(a);
-          (Object.keys(C).forEach(function (e) {
-            o.setRequestHeader(e, C[e]);
+          var b = n("getAsyncHeaders")(i);
+          (Object.keys(b).forEach(function (e) {
+            a.setRequestHeader(e, b[e]);
           }),
             this.$14 === "arraybuffer" &&
-              ("responseType" in o
-                ? (o.responseType = "arraybuffer")
-                : "overrideMimeType" in o
-                  ? o.overrideMimeType("text/plain; charset=x-user-defined")
-                  : "setRequestHeader" in o &&
-                    o.setRequestHeader("Accept-Charset", "x-user-defined")),
-            this.$14 === "blob" && (o.responseType = this.$14),
-            o.send(c));
+              ("responseType" in a
+                ? (a.responseType = "arraybuffer")
+                : "overrideMimeType" in a
+                  ? a.overrideMimeType("text/plain; charset=x-user-defined")
+                  : "setRequestHeader" in a &&
+                    a.setRequestHeader("Accept-Charset", "x-user-defined")),
+            this.$14 === "blob" && (a.responseType = this.$14),
+            a.send(d));
         }),
         (r.abort = function (t) {
           (this.$27(),

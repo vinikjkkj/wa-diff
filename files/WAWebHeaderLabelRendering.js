@@ -163,8 +163,7 @@ __d(
     ((f.displayName = f.name + " [from " + i.id + "]"),
       (l.createLabelsDropdownMenu = c),
       (l.isCommunityRelatedChat = d),
-      (l.WAWebHeaderLabelButton = m),
-      (l.renderLabelChatHeaderIcon = f));
+      (l.WAWebHeaderLabelButton = m));
   },
   226,
 );

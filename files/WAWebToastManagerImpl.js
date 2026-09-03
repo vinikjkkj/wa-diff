@@ -14,7 +14,6 @@ __d(
     "useLazyRef",
     "useWAWebABPropConfigValue",
     "useWAWebListener",
-    "useWAWebPrevious",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -96,7 +95,7 @@ __d(
         C = g({}),
         S = C[0],
         R = C[1],
-        L = r("useWAWebPrevious")(S);
+        L = f(null);
       function E(e, t) {
         var n = e.action,
           r = e.duration,
@@ -299,10 +298,13 @@ __d(
         ),
         _(
           function () {
-            m.current =
-              Object.keys(L != null ? L : {}).length > Object.keys(S).length;
+            var e = L.current;
+            ((L.current = S),
+              (m.current =
+                Object.keys(e != null ? e : {}).length >
+                Object.keys(S).length));
           },
-          [S, L],
+          [S],
         ));
       var D = m.current,
         x = Object.values(S)

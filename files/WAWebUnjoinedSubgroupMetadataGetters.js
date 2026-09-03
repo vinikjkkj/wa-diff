@@ -9,14 +9,12 @@ __d(
       u = e.clearCacheFor,
       c = e.computed,
       d = e.field,
-      m = e.unsafeIdentityGetter,
-      p = u,
-      _ = m,
-      f = d("defaultSubgroup"),
-      g = d("generalSubgroup"),
-      h = d("desc"),
-      y = d("subject"),
-      C = c(
+      m = u,
+      p = d("defaultSubgroup"),
+      _ = d("generalSubgroup"),
+      f = d("desc"),
+      g = d("subject"),
+      h = c(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -26,9 +24,9 @@ __d(
               ? o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
               : o("WAWebGroupType").GroupType.LINKED_SUBGROUP;
         },
-        [f, g],
+        [p, _],
       ),
-      b = c(
+      y = c(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -42,16 +40,12 @@ __d(
                 .toString()
             : t;
         },
-        [h, C],
+        [f, h],
       );
-    ((l.clearUnjoinedSubgroupMetadataGetterCacheFor = p),
-      (l.getUnjoinedSubgroupMetadataUnsafe = _),
-      (l.getDefaultSubgroup = f),
-      (l.getGeneralSubgroup = g),
-      (l.getDesc = h),
-      (l.getSubject = y),
-      (l.getGroupType = C),
-      (l.getDisplayedDesc = b));
+    ((l.clearUnjoinedSubgroupMetadataGetterCacheFor = m),
+      (l.getSubject = g),
+      (l.getGroupType = h),
+      (l.getDisplayedDesc = y));
   },
   226,
 );

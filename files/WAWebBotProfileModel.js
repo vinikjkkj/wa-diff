@@ -93,24 +93,17 @@ __d(
                     isDeprecated: this.isDeprecated,
                     isDeleted: this.isDeleted,
                   },
+                  this.name,
                 ),
                 n = this.id.toString();
               if (t) {
-                (e.has(n) ||
+                e.has(n) ||
                   e.set(n, {
                     name: this.contact.name,
                     verifiedName: this.contact.verifiedName,
                     shortName: this.contact.shortName,
                     pushname: this.contact.pushname,
-                  }),
-                  this.name != null &&
-                    this.name !== "" &&
-                    e.set(n, {
-                      name: this.name,
-                      verifiedName: this.name,
-                      shortName: this.name,
-                      pushname: this.name,
-                    }));
+                  });
                 var r = o("WAWebBotExposedName").getUnknownAccountName();
                 this.contact.set({
                   name: r,
@@ -120,16 +113,16 @@ __d(
                 });
               } else {
                 var a = e.get(n);
-                a != null
-                  ? (this.contact.set(babelHelpers.extends({}, a)), e.delete(n))
-                  : this.name != null &&
-                    this.name !== "" &&
-                    this.contact.set({
-                      name: this.name,
-                      verifiedName: this.name,
-                      shortName: this.name,
-                      pushname: this.name,
-                    });
+                (e.delete(n),
+                  this.name != null && this.name !== ""
+                    ? this.contact.set({
+                        name: this.name,
+                        verifiedName: this.name,
+                        shortName: this.name,
+                        pushname: this.name,
+                      })
+                    : a != null &&
+                      this.contact.set(babelHelpers.extends({}, a)));
               }
             }
           }),

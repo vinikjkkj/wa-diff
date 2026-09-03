@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseQueue",
     "WAPromiseTimeout",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebEventsWaitForReadyForOffline",
@@ -15,6 +14,7 @@ __d(
     "WAWebPromiseQueue",
     "WAWebWaitForInitialChatsSynced",
     "asyncToGeneratorRuntime",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,41 +34,39 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.action,
-            a = t.chatWid,
-            i = t.isOffline,
-            l = t.msgCategory,
-            m = t.skipOfflineWait,
-            p =
-              a.isRegularUser() && !a.isLid()
-                ? o("WAWebApiContact").getCurrentLid(a)
+          var a = t.action,
+            i = t.chatWid,
+            l = t.isOffline,
+            m = t.msgCategory,
+            p = t.skipOfflineWait,
+            _ =
+              i.isRegularUser() && !i.isLid()
+                ? o("WAWebApiContact").getCurrentLid(i)
                 : null,
-            _ = (p != null ? p : a).toString();
+            f = (_ != null ? _ : i).toString();
           return (
-            l !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
+            !r("gkx")("17199") &&
+              m !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
               o(
                 "WAWebWaitForInitialChatsSynced",
               ).isWaitForInitialChatsSyncedPending() &&
-              o("WAWebABProps").getABPropConfigValue(
-                "web_fix_duplicated_lids_history_sync",
-              ) &&
               (yield o(
                 "WAWebWaitForInitialChatsSynced",
               ).waitForInitialChatsSynced()),
-            i &&
+            l &&
             !o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.isResumeFromRestartComplete()
               ? d.allChatQueue.enqueue(function () {
                   return d.chatQueue.enqueue(
-                    _,
+                    f,
                     n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                       return (
                         yield o(
                           "WAWebEventsWaitForReadyForOffline",
                         ).waitForOfflineProcessReady(),
                         o("WAPromiseTimeout")
-                          .promiseTimeout(r(), u)
+                          .promiseTimeout(a(), u)
                           .catch(function (t) {
                             if (t instanceof o("WACustomError").TimeoutError)
                               return (
@@ -93,15 +91,15 @@ __d(
                 })
               : (o(
                   "WAWebOfflineResumeCounters",
-                ).maybeLogOfflineMsgRoutedToOnlineQueue(i),
-                m !== !0 &&
+                ).maybeLogOfflineMsgRoutedToOnlineQueue(l),
+                p !== !0 &&
                   (yield o(
                     "WAWebEventsWaitForOfflineDeliveryEnd",
                   ).waitForOfflineDeliveryEnd()),
                 c.allChatQueue.enqueue(function () {
-                  return c.chatQueue.enqueue(_, function () {
+                  return c.chatQueue.enqueue(f, function () {
                     return o("WAPromiseTimeout")
-                      .promiseTimeout(r(), u)
+                      .promiseTimeout(a(), u)
                       .catch(function (e) {
                         if (e instanceof o("WACustomError").TimeoutError)
                           return (

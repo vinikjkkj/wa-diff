@@ -39,7 +39,7 @@ __d(
         width: g,
       };
     }
-    ((i.resolveSvgSizing = l), (i.resolveSvgIcon = s));
+    i.resolveSvgIcon = s;
   },
   66,
 );

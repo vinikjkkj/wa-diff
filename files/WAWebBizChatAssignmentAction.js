@@ -109,10 +109,7 @@ __d(
                 .forEach(function (e) {
                   var t = o("WAWebChatCollection").ChatCollection.get(e.chatId);
                   t != null &&
-                    o("WAWebBizChatAssignmentOpenedAction").markChatAsOpened(
-                      t,
-                      !0,
-                    );
+                    o("WAWebBizChatAssignmentOpenedAction").markChatAsOpened(t);
                 }));
           }
         })),

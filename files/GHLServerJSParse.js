@@ -58,44 +58,57 @@ __d(
                 "GHLDetectionUtilsPreludeSafe",
               ).isJSONParseBehaviorallyShimmed())),
         p = n != null && "c6mw9qtk" in n,
-        _ = !1;
-      if (p && c && u != null)
+        _ = n != null && "j6dw4ztx" in n,
+        f = !1;
+      if (
+        p &&
+        c &&
+        u != null &&
+        (!_ || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
+      )
         try {
-          var f = JSON.parse('{"q7z":' + u + "}");
-          f != null && f.q7z != null && ((t = f.q7z), (_ = !0));
+          var g = JSON.parse('{"q7z":' + u + "}");
+          g != null && g.q7z != null && ((t = g.q7z), (f = !0));
         } catch (e) {
-          _ = !1;
+          f = !1;
         }
-      if (!_ && c && n != null && "x8kf2pw6" in n && u != null)
+      if (
+        !f &&
+        c &&
+        n != null &&
+        "x8kf2pw6" in n &&
+        u != null &&
+        (!_ || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
+      )
         try {
-          var g = JSON.parse("[" + u + "]");
-          Array.isArray(g) && g.length === 1 && ((t = g[0]), (_ = !0));
+          var h = JSON.parse("[" + u + "]");
+          Array.isArray(h) && h.length === 1 && ((t = h[0]), (f = !0));
         } catch (e) {
-          _ = !1;
+          f = !1;
         }
-      if (!_ && c)
+      if (!f && c)
         try {
-          var h = o(
+          var y = o(
               "GHLDetectionUtilsPreludeSafe",
             ).isStringBehaviorallyShimmed(),
-            y = n != null && "r4wt7kmj" in n;
-          y && h && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var C = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
-            b = !1;
-          if (C != null)
+            C = n != null && "r4wt7kmj" in n;
+          C && y && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
+          var b = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
+            v = !1;
+          if (b != null)
             try {
-              ((t = C(u)), (b = !0));
+              ((t = b(u)), (v = !0));
             } catch (e) {
-              b = !1;
+              v = !1;
             }
-          b || (t = r("json5").parse(u + " "));
+          v || (t = r("json5").parse(u + " "));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
             .mustfix("Failed to parse ServerJS payload using json5"),
             (t = JSON.parse(u)));
         }
-      else _ || (t = JSON.parse(u));
+      else f || (t = JSON.parse(u));
       return (
         l && t != null && m(t),
         t != null && o("GHLTypenameRestore").restoreAllTypenames(t),

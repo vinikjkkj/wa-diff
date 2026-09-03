@@ -11,7 +11,6 @@ __d(
     "WAWebNetworkStatus",
     "WAWebPonyfillsFetch",
     "WAWebUpdater",
-    "WAWebUpdaterPlatforms",
     "asyncToGeneratorRuntime",
     "cr:27423",
     "err",
@@ -191,9 +190,7 @@ __d(
         T.apply(this, arguments)
       );
     }
-    ((l.PLATFORMS = o("WAWebUpdaterPlatforms").PLATFORMS),
-      (l.updatePoll = L),
-      (l.checkForUpdates = I));
+    ((l.updatePoll = L), (l.checkForUpdates = I));
   },
   98,
 );

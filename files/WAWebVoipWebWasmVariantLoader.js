@@ -7,6 +7,7 @@ __d(
     "WAWebABPropsConfigs",
     "WAWebCoreActionsODS",
     "WAWebVoipGatingUtils",
+    "WAWebVoipWasmGlueSkewObserver",
     "WAWebVoipWebWasmMemory",
     "asyncToGeneratorRuntime",
     "cr:12201",
@@ -68,10 +69,15 @@ __d(
     function C() {
       var e = o("WAWebVoipGatingUtils").isWebKitBrowser(),
         t = y(e),
-        n = o("WAWebVoipWebWasmMemory").createVoipWasmMemoryOverride(e);
+        n = o("WAWebVoipWebWasmMemory").createVoipWasmMemoryOverride(e),
+        r = o("WAWebVoipWasmGlueSkewObserver").recordWasmGlueBuildSkewObserved;
       return n == null
-        ? { pthreadPoolSizeOverride: t }
-        : { pthreadPoolSizeOverride: t, wasmMemory: n };
+        ? { onWasmGlueBuildSkewObserved: r, pthreadPoolSizeOverride: t }
+        : {
+            onWasmGlueBuildSkewObserved: r,
+            pthreadPoolSizeOverride: t,
+            wasmMemory: n,
+          };
     }
     function b(e) {
       return v.apply(this, arguments);
@@ -96,26 +102,34 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e) {
+    function S(e, t) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o(
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (o(
             "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactContentAddressedLoadAttempt();
-          var t = yield r("JSResourceForInteraction")(
+          ).logCallVoipInitWasmArtifactContentAddressedLoadAttempt(),
+            e &&
+              o(
+                "WAWebCoreActionsODS",
+              ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadAttempt());
+          var n = yield r("JSResourceForInteraction")(
               "WAWebVoipWebWasmLoader_ContentAddressed_internal",
             )
               .__setRef("WAWebVoipWebWasmVariantLoader")
               .load(),
-            n = yield t(e != null ? e : C());
+            a = yield n(
+              babelHelpers.extends({}, t != null ? t : C(), {
+                pinWorkerGlue: e,
+              }),
+            );
           return (
             o(
               "WAWebCoreActionsODS",
             ).logCallVoipInitWasmArtifactContentAddressedLoadSuccess(),
-            n
+            a
           );
         })),
         R.apply(this, arguments)
@@ -152,37 +166,39 @@ __d(
           return null;
       }
     }
-    function k(e, t, n) {
+    function k(e, t, n, r) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return t ? S(n) : b(n);
-        })),
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            return t ? S(n, r) : b(r);
+          },
+        )),
         I.apply(this, arguments)
       );
     }
-    function T(e) {
+    function T(e, t) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = !1);
-          var t = o("WAWebABPropsConfigs").ABPropConfigs
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (e === void 0 && (e = !1), t === void 0 && (t = !1));
+          var r = o("WAWebABPropsConfigs").ABPropConfigs
             .web_voip_load_wasm_variant;
-          if (t == null) return k(_, e);
-          var r = null;
+          if (r == null) return k(_, e, t);
+          var a = null;
           try {
-            r = o("WAWebABProps").getABPropConfigValue(
+            a = o("WAWebABProps").getABPropConfigValue(
               "web_voip_load_wasm_variant",
             );
-          } catch (t) {
-            return k(_, e);
+          } catch (n) {
+            return k(_, e, t);
           }
-          if (r == null) return k(_, e);
-          var a = L(r);
+          if (a == null) return k(_, e, t);
+          var i = L(a);
           if (
             (o("WALogger").LOG(
               d ||
@@ -191,10 +207,10 @@ __d(
                   "', validated variant: '",
                   "'",
                 ])),
-              String(r),
-              a,
+              String(a),
+              i,
             ),
-            !f.has(a))
+            !f.has(i))
           )
             return (
               o("WALogger").LOG(
@@ -203,16 +219,16 @@ __d(
                     "voip: Variant '",
                     "' not available, using default loader",
                   ])),
-                a,
+                i,
               ),
-              k(_, e)
+              k(_, e, t)
             );
-          var i = C(),
-            l = E(a);
-          if (l != null && n("cr:12201") != null)
+          var l = C(),
+            s = E(i);
+          if (s != null && n("cr:12201") != null)
             try {
-              return yield n("cr:12201").tryLoadLabVariant(l, i);
-            } catch (t) {
+              return yield n("cr:12201").tryLoadLabVariant(s, l);
+            } catch (n) {
               return (
                 o("WALogger").ERROR(
                   p ||
@@ -221,13 +237,13 @@ __d(
                       "': ",
                       ", falling back to default",
                     ])),
-                  a,
-                  String(t),
+                  i,
+                  String(n),
                 ),
-                k(_, e)
+                k(_, e, t)
               );
             }
-          return k(a, e, i);
+          return k(i, e, t, l);
         })),
         D.apply(this, arguments)
       );

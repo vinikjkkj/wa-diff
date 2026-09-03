@@ -613,10 +613,7 @@ __d(
       var i = o("WAWebFrontendContactGetters").getFormattedShortName(n);
       return { name: i, accessibleName: i };
     }
-    ((l.processStagesRecursively = b),
-      (l.Presence = v),
-      (l.Chatstate = h),
-      (l.ChatstateCollection = y));
+    ((l.processStagesRecursively = b), (l.Presence = v), (l.Chatstate = h));
   },
   226,
 );

@@ -74,15 +74,19 @@ __d(
               groupHistoryReceiverGroupId: t,
             });
           }),
-          (n.parseHistoryProtoFailed = function (t, n, r, a) {
+          (n.parseHistoryProtoFailed = function (t) {
+            var e = t.groupHistoryMessagesCount,
+              n = t.groupHistoryOutWindowPinsCount,
+              r = t.groupHistoryReceiverGroupId,
+              a = t.receiverFailureReason;
             this.$1({
               groupHistoryReceiverActionType: o(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
               ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
                 .GROUP_HISTORY_PARSE_HISTORY_PROTO_FAILED,
-              groupHistoryReceiverGroupId: t,
-              groupHistoryMessagesCount: n,
-              groupHistoryOutWindowPinsCount: r,
+              groupHistoryReceiverGroupId: r,
+              groupHistoryMessagesCount: e,
+              groupHistoryOutWindowPinsCount: n,
               receiverFailureReason: a,
             });
           }),

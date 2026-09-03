@@ -1,6 +1,7 @@
 __d(
   "WAWebContactManagerFilterRegistry",
   [
+    "WAWebBoolFunc",
     "WAWebChatCollection",
     "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerDateRangeUtils",
@@ -9,6 +10,7 @@ __d(
     "WAWebLabelCollection",
     "WAWebLeadStage",
     "WAWebListItemParentType",
+    "WAWebNullFunc",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -62,13 +64,9 @@ __d(
         },
       },
       c = {
-        isClientActive: function () {
-          return !1;
-        },
+        isClientActive: o("WAWebBoolFunc").returnFalse,
         matcher: function () {
-          return function () {
-            return !0;
-          };
+          return o("WAWebBoolFunc").returnTrue;
         },
         serverFilter: function (t) {
           if (t.acquisitionSource == null) return null;
@@ -87,9 +85,7 @@ __d(
         matcher: function (t) {
           var e = t.labelId;
           return e == null
-            ? function () {
-                return !0;
-              }
+            ? o("WAWebBoolFunc").returnTrue
             : function (t) {
                 var n = o(
                   "WAWebLabelCollection",
@@ -103,9 +99,7 @@ __d(
                   : n.includes(e);
               };
         },
-        serverFilter: function () {
-          return null;
-        },
+        serverFilter: o("WAWebNullFunc").returnNull,
       },
       m = {
         isClientActive: function (t) {
@@ -113,10 +107,7 @@ __d(
         },
         matcher: function (t) {
           var e = t.lastMessageRange;
-          if (e == null)
-            return function () {
-              return !0;
-            };
+          if (e == null) return o("WAWebBoolFunc").returnTrue;
           var n = o(
             "WAWebContactManagerLastMessageCutoff",
           ).lastMessageCutoffTimestamp(e);
@@ -125,9 +116,7 @@ __d(
             return t != null && t >= n;
           };
         },
-        serverFilter: function () {
-          return null;
-        },
+        serverFilter: o("WAWebNullFunc").returnNull,
       },
       p = {
         isClientActive: function (t) {
@@ -135,10 +124,7 @@ __d(
         },
         matcher: function (t) {
           var e = t.lastMessageCustomRange;
-          if (e == null)
-            return function () {
-              return !0;
-            };
+          if (e == null) return o("WAWebBoolFunc").returnTrue;
           var n = o(
               "WAWebContactManagerDateRangeUtils",
             ).getCustomRangeSecondsBounds(e.start, e.end),
@@ -149,9 +135,7 @@ __d(
             return t != null && t >= a && t <= r;
           };
         },
-        serverFilter: function () {
-          return null;
-        },
+        serverFilter: o("WAWebNullFunc").returnNull,
       };
     function _(e) {
       var t;

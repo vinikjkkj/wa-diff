@@ -383,11 +383,7 @@ __d(
         g.apply(this, arguments)
       );
     }
-    ((l.buildMsgKey = o("WAWebParseWebMessageInfoUtils").buildMsgKey),
-      (l.parseMsgStubProto = o(
-        "WAWebParseWebMessageInfoUtils",
-      ).parseMsgStubProto),
-      (l.parseWebMessageInfo = d));
+    l.parseWebMessageInfo = d;
   },
   98,
 );

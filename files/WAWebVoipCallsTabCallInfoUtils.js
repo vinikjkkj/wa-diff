@@ -93,7 +93,6 @@ __d(
     }
     ((l.getCallLogMsgsKey = e),
       (l.getSortedUniqueCallLogMsgs = s),
-      (l.getIsSelfOnlyCallLog = u),
       (l.getShouldShowInCallsTabCallLog = c),
       (l.getUpdatedCallLogInfoPropsForWrittenMsg = d));
   },

@@ -364,7 +364,7 @@ __d(
               .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_INITIATED,
           });
           var t = yield L.getAccountLinkingData();
-          if (t == null) return (U(e, !1), !1);
+          if (t == null) return (U(e), !1);
           var n = t.fbid,
             a = t.nonce,
             i = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
@@ -423,7 +423,7 @@ __d(
                     }),
                     !0
                   );
-                U(e, !1);
+                U(e);
               } catch (t) {
                 (o("WALogger")
                   .ERROR(
@@ -433,7 +433,7 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                  U(e, !1));
+                  U(e));
               }
             } else {
               var v = m.value.errorRefreshAccessTokensErrors,
@@ -461,16 +461,16 @@ __d(
                   v.name,
                 ));
             }
-          } else U(e, !1);
+          } else U(e);
           return !1;
         })),
         q.apply(this, arguments)
       );
     }
-    function U(e, t) {
+    function U(e) {
       o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
         elapsedMs: Date.now() - e,
-        hasAccessToken: t,
+        hasAccessToken: !1,
         traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
           .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
       });

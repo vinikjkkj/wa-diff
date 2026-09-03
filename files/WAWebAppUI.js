@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebAppMutex",
     "WAWebAppScreen",
+    "WAWebBizBroadcastProDownloadProgressHost.react",
     "WAWebConflict.react",
     "WAWebConnModel",
     "WAWebContextMenuManager.react",
@@ -319,6 +320,14 @@ __d(
                   {},
                 ),
                 errorBoundaryName: "root-toast-manager",
+              },
+              {
+                ui: u.jsx(
+                  r("WAWebBizBroadcastProDownloadProgressHost.react"),
+                  {},
+                  "bb-pro-download-progress-host",
+                ),
+                errorBoundaryName: "bb-pro-download-progress-host",
               },
               {
                 ui: u.jsx(

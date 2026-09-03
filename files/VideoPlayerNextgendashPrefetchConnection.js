@@ -1,45 +1,47 @@
 __d(
   "VideoPlayerNextgendashPrefetchConnection",
   [
+    "ExecutionEnvironment",
     "VideoPlayerNextgendashConnectionMainToWorker",
     "VideoPlayerNextgendashLoggingAPI",
     "nextgendasherr",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n = e.config,
-        r = e.hostAPI,
-        a = e.instanceKey,
-        i = e.workQueue,
-        l = new Map(),
-        s = {
-          config: n,
-          host: r,
+    var e;
+    function s(t) {
+      var n,
+        a = t.config,
+        i = t.hostAPI,
+        l = t.instanceKey,
+        s = t.workQueue,
+        u = new Map(),
+        c = {
+          config: a,
+          host: i,
           logging: o(
             "VideoPlayerNextgendashLoggingAPI",
-          ).combineLoggingDestinations(e.loggingDestinations),
+          ).combineLoggingDestinations(t.loggingDestinations),
           loggingState: {
-            logstampPrefix: a,
+            logstampPrefix: l,
             logstampTint: 0.5,
             metadata: babelHelpers.extends(
               {},
-              (t = e.siteMetadata) != null ? t : {},
-              { nextgendashCreatedAt: r.clock(), playerInstanceKey: a },
+              (n = t.siteMetadata) != null ? n : {},
+              { nextgendashCreatedAt: i.clock(), playerInstanceKey: l },
             ),
           },
-          workQueue: i,
+          workQueue: s,
         },
-        u = o("VideoPlayerNextgendashConnectionMainToWorker").connectToWorker(
-          s,
-          e.workerPortFactories,
-          e.workerType,
-          a,
+        d = o("VideoPlayerNextgendashConnectionMainToWorker").connectToWorker(
+          c,
+          t.workerPortFactories,
+          t.workerType,
+          l,
           function (e) {
             if (e.type === "from_worker_to_main_prefetch_task_complete") {
-              var t = l.get(e.prefetchKey);
-              t != null && (l.delete(e.prefetchKey), t());
+              var t = u.get(e.prefetchKey);
+              t != null && (u.delete(e.prefetchKey), t());
               return;
             }
             var n =
@@ -53,7 +55,7 @@ __d(
               r = "[serialization failed]";
             }
             throw o("nextgendasherr").nextgendasherr(
-              s,
+              c,
               "VideoPlayerNextgendashUnexpectedEventFromWorkerPrefetcher",
               "Unexpected event received: type=%s, event=%s",
               n,
@@ -62,39 +64,45 @@ __d(
           },
         );
       return {
-        prefetch: function (t, o, a, i, s) {
-          var e;
-          if (t.representations.length === 0) {
-            s == null || s();
+        prefetch: function (n, o, l, s, c) {
+          if (n.representations.length === 0) {
+            c == null || c();
             return;
           }
-          if (s != null) {
-            var c = l.get(t.prefetchKey);
-            (l.set(t.prefetchKey, s), c == null || c());
+          if (c != null) {
+            var t = u.get(n.prefetchKey);
+            (u.set(n.prefetchKey, c), t == null || t());
           }
-          u.sendToWorker({
+          var m = 1,
+            p = !1;
+          if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+            var _;
+            ((m = (_ = window.devicePixelRatio) != null ? _ : 1),
+              (p = document.hidden));
+          }
+          d.sendToWorker({
             eventToWorker: {
-              groupId: i,
+              groupId: s,
               initialAbrParams: {
                 abrConfig: o,
-                bandwidthDiagnostics: r.networkDiagnosticsReadBandwidth(
-                  n.enableBandwidthDiagnosticsFallback,
+                bandwidthDiagnostics: i.networkDiagnosticsReadBandwidth(
+                  a.enableBandwidthDiagnosticsFallback,
                 ),
-                devicePixelRatio: (e = window.devicePixelRatio) != null ? e : 1,
-                isDocumentHidden: document.hidden,
-                playerDimensions: a,
-                prefetchResolutionThreshold: n.prefetchResolutionThreshold,
+                devicePixelRatio: m,
+                isDocumentHidden: p,
+                playerDimensions: l,
+                prefetchResolutionThreshold: a.prefetchResolutionThreshold,
               },
-              prefetchInfo: t,
+              prefetchInfo: n,
               type: "from_main_to_worker_prefetch",
             },
             type: "send_to_worker",
           });
         },
         releasePrefetchKey: function (t) {
-          var e = l.get(t);
-          (e != null && (l.delete(t), e()),
-            u.sendToWorker({
+          var e = u.get(t);
+          (e != null && (u.delete(t), e()),
+            d.sendToWorker({
               eventToWorker: {
                 prefetchKey: t,
                 type: "from_main_to_worker_release_prefetch_key",
@@ -103,7 +111,7 @@ __d(
             }));
         },
         sendPrefetchGroupAction: function (t) {
-          u.sendToWorker({
+          d.sendToWorker({
             eventToWorker: {
               prefetchGroupAction: t,
               type: "from_main_to_worker_prefetch_group_action",
@@ -113,7 +121,7 @@ __d(
         },
       };
     }
-    l.createVideoPlayerNextgendashPrefetchConnection = e;
+    l.createVideoPlayerNextgendashPrefetchConnection = s;
   },
   98,
 );

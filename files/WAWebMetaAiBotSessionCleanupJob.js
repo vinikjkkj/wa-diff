@@ -86,23 +86,21 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = yield o("WAWebDBDeviceListFanout").getFanOutList({
-              wids: [
-                (e = o("WAWebBotUtils")).META_BOT_PN_WID,
-                e.META_BOT_FBID_WID,
-                e.MANUS_BOT_FBID_WID,
-                e.HATCH_BOT_FBID_WID,
-              ],
-            });
-          if (t.length !== 0) {
-            var r = yield o("WAWebSignalSessionApi").hasSignalSessions(t),
-              a = t.filter(function (e, t) {
-                return r[t];
+          var e = yield o("WAWebDBDeviceListFanout").getFanOutList({
+            wids: [
+              o("WAWebBotUtils").META_BOT_PN_WID,
+              o("WAWebBotUtils").META_BOT_FBID_WID,
+              o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+            ],
+          });
+          if (e.length !== 0) {
+            var t = yield o("WAWebSignalSessionApi").hasSignalSessions(e),
+              r = e.filter(function (e, n) {
+                return t[n];
               });
-            a.length !== 0 &&
+            r.length !== 0 &&
               (yield (d || (d = n("Promise"))).all(
-                a.map(function (e) {
+                r.map(function (e) {
                   return o("WAWebSignalSessionApi").deleteRemoteSession(e);
                 }),
               ),
@@ -115,7 +113,7 @@ __d(
                     "[bot] cleaned up ",
                     " stale bot session(s)",
                   ])),
-                a.length,
+                r.length,
               ));
           }
         })),

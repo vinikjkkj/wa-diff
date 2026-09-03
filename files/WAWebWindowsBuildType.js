@@ -6,6 +6,7 @@ __d(
     "WAWebBuildType",
     "WAWebEnvironment",
     "WAWebWamEnumAppBuildType",
+    "WAWebWindowsQueryParams",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -13,7 +14,7 @@ __d(
     function s() {
       var t,
         n = new URLSearchParams((t = window.location.search) != null ? t : ""),
-        r = n.get("windowsBuildType");
+        r = n.get(o("WAWebWindowsQueryParams").WindowsQueryParam.BUILD_TYPE);
       switch (r) {
         case "DEBUG":
           return o("WAWebBuildType").BuildType.DEBUG;

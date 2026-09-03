@@ -175,9 +175,8 @@ __d(
           (!o("WAWebBotUtils").isHatchBot(e.id) ||
             o("WAWebHatchGating").isHatchVideoUploadEnabled()) &&
             a.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
-          o("WAWebBotUtils").isManusBot(e.id) ||
-            (a.add(o("WAWebMsgType").MSG_TYPE.VCARD),
-            a.add(o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)),
+          a.add(o("WAWebMsgType").MSG_TYPE.VCARD),
+          a.add(o("WAWebMsgType").MSG_TYPE.MULTI_VCARD),
           a
         );
       }

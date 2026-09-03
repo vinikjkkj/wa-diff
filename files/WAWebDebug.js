@@ -154,6 +154,7 @@ __d(
     "WAWebProtobufsWeb.pb",
     "WAWebPttMsgAudioStore",
     "WAWebPttPrefs",
+    "WAWebResetPQState",
     "WAWebSchemaChat",
     "WAWebSchemaDeviceList",
     "WAWebSchemaMessage",
@@ -1170,6 +1171,7 @@ __d(
           "WAWebInteractiveBloksWidgetDebug",
         ).injectInteractiveMessageWithBloksWidget,
         triggerPQKeyUpload: We,
+        resetPQState: o("WAWebResetPQState").resetPQState,
       },
     );
     l.default = Ve;

@@ -2,17 +2,12 @@ __d(
   "WAWebDebugAltDeviceLinking",
   ["WABase64", "WAWebCryptoCurve25519", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return Array.from(e, function (e) {
-        return ("0" + (e & 255).toString(16)).slice(-2);
-      }).join("");
+    function e() {
+      return s.apply(this, arguments);
     }
     function s() {
-      return u.apply(this, arguments);
-    }
-    function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WABase64").decodeB64("MsKm2JQ="),
             t = o("WABase64").decodeB64(
               "dVa0iwyftkpuVl0RRkbATG00utMF6HN3NQlwBlvKk7s=",
@@ -23,26 +18,25 @@ __d(
               { name: "PBKDF2" },
               !1,
               ["deriveKey"],
-            ),
-            r = yield self.crypto.subtle.deriveKey(
-              { name: "PBKDF2", hash: "SHA-256", salt: t, iterations: 2 << 16 },
-              n,
-              { name: "AES-GCM", length: 256 },
-              !0,
-              ["encrypt", "decrypt"],
-            ),
-            a = yield self.crypto.subtle.exportKey("raw", r);
+            );
+          yield self.crypto.subtle.deriveKey(
+            { name: "PBKDF2", hash: "SHA-256", salt: t, iterations: 2 << 16 },
+            n,
+            { name: "AES-GCM", length: 256 },
+            !0,
+            ["encrypt", "decrypt"],
+          );
         })),
-        u.apply(this, arguments)
+        s.apply(this, arguments)
       );
     }
-    s.doc = "checked derived key value";
-    function c() {
-      return d.apply(this, arguments);
+    e.doc = "checked derived key value";
+    function u() {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = {
               pubKey: (e = o("WABase64")).decodeB64(
@@ -59,22 +53,16 @@ __d(
               privKey: e.decodeB64(
                 "4OpA/0BlZ07ZPchtdzR1/UdDxUdlv9fCy/GQYkgZXUM=",
               ),
-            },
-            r = yield o("WAWebCryptoCurve25519").sharedSecret(
-              n.pubKey,
-              t.privKey,
-            ),
-            a = yield o("WAWebCryptoCurve25519").sharedSecret(
-              t.pubKey,
-              n.privKey,
-            );
+            };
+          (yield o("WAWebCryptoCurve25519").sharedSecret(n.pubKey, t.privKey),
+            yield o("WAWebCryptoCurve25519").sharedSecret(t.pubKey, n.privKey));
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    c.doc = "test diffie hellman";
-    var m = { checkDerived: s, testDH: c };
-    l.default = m;
+    u.doc = "test diffie hellman";
+    var d = { checkDerived: e, testDH: u };
+    l.default = d;
   },
   98,
 );

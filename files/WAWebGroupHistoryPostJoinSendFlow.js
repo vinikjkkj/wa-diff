@@ -202,7 +202,16 @@ __d(
                           T());
                         return;
                       }
-                      yield M(e, i.contact.id, g, C, n, u, c, d);
+                      yield M({
+                        bundleSendSource: u,
+                        contactName: C,
+                        groupHistorySystemMessageType: d,
+                        groupWid: e,
+                        joinTime: g,
+                        messageCount: n,
+                        receiverWid: i.contact.id,
+                        uiSurface: c,
+                      });
                     },
                   );
                   return function (t, n) {
@@ -563,89 +572,92 @@ __d(
           );
     }
     N.displayName = N.name + " [from " + i.id + "]";
-    function M(e, t, n, r, o, a, i, l) {
+    function M(e) {
       return w.apply(this, arguments);
     }
     function w() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, u) {
-            var d = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([
-                t,
-              ]),
-              m = d.historyReceivers,
-              _ = d.nonHistoryReceivers;
-            if (m.length !== 0) {
-              i != null &&
-                (o(
-                  "WAWebGroupHistorySenderUserJourneyLogger",
-                ).GroupHistorySenderUserJourneyLogger.bundleMessageSent({
-                  bundleSendSource: i,
-                  groupHistoryMessagesCount: a,
-                  groupHistorySystemMessageType: u,
-                  recipientCount: m.length,
-                  uiSurface: l,
-                }),
-                o(
-                  "WAWebGroupHistorySenderUserJourneyLogger",
-                ).GroupHistorySenderUserJourneyLogger.noticeMessageSent({
-                  bundleSendSource: i,
-                  groupHistorySystemMessageType: u,
-                  recipientCount: m.length,
-                  uiSurface: l,
-                }));
-              var f = o("WAWebWidToJid").widToGroupJid(e);
-              try {
-                var g = yield o(
-                    "WAWebSendHistoryBundleAction",
-                  ).sendHistoryBundleAction(f, m, _, a, n),
-                  h = g.bundleAcked,
-                  y = g.noticeAcked;
-                (o(
-                  "WAWebGroupHistoryShareToggleDefaultAction",
-                ).setGroupHistoryShareToggleDefault(e, !0),
-                  i != null &&
-                    (h &&
-                      o(
-                        "WAWebGroupHistorySenderUserJourneyLogger",
-                      ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
-                        bundleSendSource: i,
-                        groupHistorySystemMessageType: u,
-                        recipientCount: m.length,
-                        uiSurface: l,
-                      }),
-                    y &&
-                      o(
-                        "WAWebGroupHistorySenderUserJourneyLogger",
-                      ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
-                        bundleSendSource: i,
-                        groupHistorySystemMessageType: u,
-                        recipientCount: m.length,
-                        uiSurface: l,
-                      })),
-                  o("WAWebToastManager").ToastManager.open(
-                    p.jsx(o("WAWebToast.react").Toast, {
-                      msg: s._(
-                        /*BTDS*/ "Message history sent to {contactName}",
-                        [s._param("contactName", r)],
-                      ),
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.bundleSendSource,
+            n = e.contactName,
+            r = e.groupHistorySystemMessageType,
+            a = e.groupWid,
+            i = e.joinTime,
+            l = e.messageCount,
+            u = e.receiverWid,
+            d = e.uiSurface,
+            m = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([u]),
+            _ = m.historyReceivers,
+            f = m.nonHistoryReceivers;
+          if (_.length !== 0) {
+            t != null &&
+              (o(
+                "WAWebGroupHistorySenderUserJourneyLogger",
+              ).GroupHistorySenderUserJourneyLogger.bundleMessageSent({
+                bundleSendSource: t,
+                groupHistoryMessagesCount: l,
+                groupHistorySystemMessageType: r,
+                recipientCount: _.length,
+                uiSurface: d,
+              }),
+              o(
+                "WAWebGroupHistorySenderUserJourneyLogger",
+              ).GroupHistorySenderUserJourneyLogger.noticeMessageSent({
+                bundleSendSource: t,
+                groupHistorySystemMessageType: r,
+                recipientCount: _.length,
+                uiSurface: d,
+              }));
+            var g = o("WAWebWidToJid").widToGroupJid(a);
+            try {
+              var h = yield o(
+                  "WAWebSendHistoryBundleAction",
+                ).sendHistoryBundleAction(g, _, f, l, i),
+                y = h.bundleAcked,
+                C = h.noticeAcked;
+              (o(
+                "WAWebGroupHistoryShareToggleDefaultAction",
+              ).setGroupHistoryShareToggleDefault(a, !0),
+                t != null &&
+                  (y &&
+                    o(
+                      "WAWebGroupHistorySenderUserJourneyLogger",
+                    ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
+                      bundleSendSource: t,
+                      groupHistorySystemMessageType: r,
+                      recipientCount: _.length,
+                      uiSurface: d,
                     }),
-                  ));
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[group-history] failed to send post-join history bundle: ",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .sendLogs("group-history-post-join-send-failed");
-              }
+                  C &&
+                    o(
+                      "WAWebGroupHistorySenderUserJourneyLogger",
+                    ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
+                      bundleSendSource: t,
+                      groupHistorySystemMessageType: r,
+                      recipientCount: _.length,
+                      uiSurface: d,
+                    })),
+                o("WAWebToastManager").ToastManager.open(
+                  p.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(/*BTDS*/ "Message history sent to {contactName}", [
+                      s._param("contactName", n),
+                    ]),
+                  }),
+                ));
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history] failed to send post-join history bundle: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs("group-history-post-join-send-failed");
             }
-          },
-        )),
+          }
+        })),
         w.apply(this, arguments)
       );
     }

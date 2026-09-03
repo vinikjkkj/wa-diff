@@ -417,13 +417,11 @@ __d(
     }
     ((l.getDefaultDisappearingModeSystemMessageText = c),
       (l.buildDefaultDisappearingModeARSystemMessage = d),
-      (l.buildDefaultDisappearingModeARSystemMessageParts = m),
       (l.getDisappearingModeUpdateSystemMessageText = f),
       (l.getDefaultDisappearingModeParts = g),
       (l.getDisappearingModeUpdateParts = h),
       (l.getDisappearingMessageDurationString = R),
       (l.formatEphemeralSetting = k),
-      (l.buildEphemeralSystemMessageParts = D),
       (l.buildEphemeralSystemMessage = x),
       (l.getDMUnsupportedSystemMessageText = $));
   },

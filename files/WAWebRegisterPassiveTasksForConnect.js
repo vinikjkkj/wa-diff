@@ -274,8 +274,7 @@ __d(
         D.apply(this, arguments)
       );
     }
-    ((l.registerPassiveTasksForConnectMainThread = L),
-      (l.registerPassiveTasksForConnect = E));
+    l.registerPassiveTasksForConnectMainThread = L;
   },
   98,
 );

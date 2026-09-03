@@ -11,6 +11,7 @@ __d(
         "info_card, list_card",
       ],
       acp2_enabled: [36091, "bool", !1, !1],
+      acp2_futureproof_enabled: [36197, "bool", !1, !1],
       acp_removal: [25255, "bool", !1, !1],
       acp_removal_epoch_time: [25993, "int", 1782518400, 1782518400],
       acs_use_graphql_for_forward_counter: [29218, "bool", !1, !1],

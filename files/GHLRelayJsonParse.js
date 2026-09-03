@@ -26,50 +26,62 @@ __d(
           (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
           r("gkx")("10092") &&
           r("justknobx")._("3838"),
-        l =
+        l = r("gkx")("11953") && r("justknobx")._("5807"),
+        s =
           (a
             ? o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed()
             : o("GHLDetectionUtils").isJSONParseShimmed()) ||
           (i &&
             o("GHLDetectionUtilsPreludeSafe").isJSONParseBehaviorallyShimmed()),
-        s,
-        u = !1;
-      if (l && r("gkx")("23657") && r("justknobx")._("5765"))
+        u,
+        c = !1;
+      if (
+        s &&
+        r("gkx")("23657") &&
+        r("justknobx")._("5765") &&
+        (!l || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
+      )
         try {
-          var c = JSON.parse('{"q7z":' + t + "}");
-          c != null && c.q7z != null && ((s = c.q7z), (u = !0));
+          var d = JSON.parse('{"q7z":' + t + "}");
+          d != null && d.q7z != null && ((u = d.q7z), (c = !0));
         } catch (e) {
-          u = !1;
+          c = !1;
         }
-      if (!u && l && r("gkx")("13760") && r("justknobx")._("5738"))
+      if (
+        !c &&
+        s &&
+        r("gkx")("13760") &&
+        r("justknobx")._("5738") &&
+        (!l || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
+      )
         try {
-          var d = JSON.parse("[" + t + "]");
-          Array.isArray(d) && d.length === 1 && ((s = d[0]), (u = !0));
+          var m = JSON.parse("[" + t + "]");
+          Array.isArray(m) && m.length === 1 && ((u = m[0]), (c = !0));
         } catch (e) {
-          u = !1;
+          c = !1;
         }
-      if (!u && l) {
-        var m = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse();
-        if (m != null)
+      if (!c && s) {
+        var p = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse();
+        if (p != null)
           try {
-            ((s = m(t)), (u = !0));
+            ((u = p(t)), (c = !0));
           } catch (e) {
-            u = !1;
+            c = !1;
           }
-        if (!u && n("cr:7329"))
+        if (!c && n("cr:7329"))
           try {
-            ((s = n("cr:7329").parse(t + " ")), (u = !0));
+            ((u = n("cr:7329").parse(t + " ")), (c = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))
               .mustfix("Failed to parse Relay response using json5"),
-              (u = !1));
+              (c = !1));
           }
       }
       return (
-        u || (s = JSON.parse(t)),
-        s != null && o("GHLTypenameRestore").restoreAllTypenames(s, t),
-        s
+        c || (u = JSON.parse(t)),
+        u != null && o("GHLTypenameRestore").restoreAllTypenames(u, t),
+        u
       );
     }
     l.ghlParseRelayResponse = s;

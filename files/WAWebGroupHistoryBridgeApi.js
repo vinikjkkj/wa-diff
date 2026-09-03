@@ -36,11 +36,11 @@ __d(
           r = t.oowPinsCount;
         o(
           "WAWebGroupHistoryReceiverUserJourneyLogger",
-        ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed(
-          e,
-          n,
-          r,
-        );
+        ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed({
+          groupHistoryMessagesCount: n,
+          groupHistoryOutWindowPinsCount: r,
+          groupHistoryReceiverGroupId: e,
+        });
       },
       logGroupHistoryDbInserted: function (t) {
         var e = t.dbIgnoredOlderMessages,

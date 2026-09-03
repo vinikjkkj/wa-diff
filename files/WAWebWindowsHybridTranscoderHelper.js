@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebEnvironment",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
   ],
@@ -33,12 +34,12 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r,
-            a = t.file,
-            i = t.onProgress,
-            l = t.resetMediaPreview,
-            h = t.setMediaPreview,
-            y = t.setMimeType;
+          var a,
+            i = t.file,
+            l = t.onProgress,
+            h = t.resetMediaPreview,
+            y = t.setMediaPreview,
+            C = t.setMimeType;
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,19 +47,22 @@ __d(
                 " type=",
                 "",
               ])),
-            a.size,
-            a.type,
+            i.size,
+            i.type,
           );
-          var C =
+          var b =
             n("cr:17219") == null ||
-            (r = n("cr:17219").getWindowsBridge()) == null
+            (a = n("cr:17219").getWindowsBridge(
+              r("WAWebWindowsHybridBridgeInitiator")
+                .WAWebWindowsHybridTranscoderHelper,
+            )) == null
               ? void 0
-              : r.mediaTranscodeBridge;
-          if (C == null) return null;
-          var b,
-            v,
+              : a.mediaTranscodeBridge;
+          if (b == null) return null;
+          var v,
             S,
-            R = !1;
+            R,
+            L = !1;
           try {
             o("WALogger").LOG(
               s ||
@@ -66,42 +70,42 @@ __d(
                   "[transcodeVideo] Requesting source buffer for file size ",
                   "",
                 ])),
-              a.size,
+              i.size,
             );
-            var L = yield C.requestSharedBufferForTranscoding(g++, a.size),
-              E = L[0],
-              k = L[1];
-            ((b = E),
+            var E = yield b.requestSharedBufferForTranscoding(g++, i.size),
+              k = E[0],
+              I = E[1];
+            ((v = k),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[transcodeVideo] Received source buffer with id ",
                     "",
                   ])),
-                E,
+                k,
               ),
-              i && C.setProgressCallback(b, i));
-            var I = yield a.arrayBuffer(),
-              T = new Uint8Array(k),
-              D = new Uint8Array(I);
+              l && b.setProgressCallback(v, l));
+            var T = yield i.arrayBuffer(),
+              D = new Uint8Array(I),
+              x = new Uint8Array(T);
             if (
-              (T.set(D),
+              (D.set(x),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[transcodeVideo] File content copied to source buffer",
                   ])),
               ),
-              y != null && y("video/mp4"),
-              h != null)
+              C != null && C("video/mp4"),
+              y != null)
             )
               try {
-                var x = yield C.getVideoPreviewFrameFromSharedBuffer(b, g++),
-                  $ = x[0],
-                  P = x[1],
-                  N = x[2],
-                  M = x[3];
-                ((S = $), h(P, N, M), (R = !0));
+                var $ = yield b.getVideoPreviewFrameFromSharedBuffer(v, g++),
+                  P = $[0],
+                  N = $[1],
+                  M = $[2],
+                  w = $[3];
+                ((R = P), y(N, M, w), (L = !0));
               } catch (e) {
                 o("WALogger")
                   .ERROR(
@@ -112,7 +116,7 @@ __d(
                   )
                   .catching(e);
               }
-            var w =
+            var A =
               o("WAWebABProps").getABPropConfigValue("default_video_limit_mb") *
               1024 *
               1024;
@@ -122,12 +126,12 @@ __d(
                   "[transcodeVideo] Starting transcoding from sourceBufferId=",
                   "",
                 ])),
-              b,
+              v,
             );
-            var A = yield C.performVideoTranscodingFromSharedBuffer(b, g++, w),
-              F = A[0],
-              O = A[1];
-            ((v = F),
+            var F = yield b.performVideoTranscodingFromSharedBuffer(v, g++, A),
+              O = F[0],
+              B = F[1];
+            ((S = O),
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -135,10 +139,10 @@ __d(
                     " size=",
                     "",
                   ])),
-                F,
-                O.byteLength,
+                O,
+                B.byteLength,
               ));
-            var B = new Blob([O], { type: "video/mp4" });
+            var W = new Blob([B], { type: "video/mp4" });
             return (
               o("WALogger").LOG(
                 _ ||
@@ -146,7 +150,7 @@ __d(
                     "[transcodeVideo] Video transcoding completed successfully",
                   ])),
               ),
-              [B, R]
+              [W, L]
             );
           } catch (e) {
             throw (
@@ -158,14 +162,14 @@ __d(
                     ])),
                 )
                 .catching(e),
-              l != null && R && l(),
+              h != null && L && h(),
               e
             );
           } finally {
-            (b != null && C.releaseSharedBuffer(b),
-              v != null && C.releaseSharedBuffer(v),
-              S != null && C.releaseSharedBuffer(S),
-              i && b != null && C.clearProgressCallback(b));
+            (v != null && b.releaseSharedBuffer(v),
+              S != null && b.releaseSharedBuffer(S),
+              R != null && b.releaseSharedBuffer(R),
+              l && v != null && b.clearProgressCallback(v));
           }
         })),
         C.apply(this, arguments)

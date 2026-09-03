@@ -7,6 +7,7 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBoolFunc",
     "WAWebCommunitySubjectChangePopups.react",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupModifyInfoJob",
@@ -139,15 +140,11 @@ __d(
           }),
         ),
         l
-          .then(function () {
-            return !0;
-          })
+          .then(o("WAWebBoolFunc").returnTrue)
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
-              function () {
-                return !1;
-              },
+              o("WAWebBoolFunc").returnFalse,
             ),
           )
       );
