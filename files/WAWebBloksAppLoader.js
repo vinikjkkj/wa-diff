@@ -4,7 +4,6 @@ __d(
     "AbstractWebBloksAppLoader",
     "WAWebXControllerFetchUtils",
     "WebBloksUtils",
-    "WebBloksVersioningID",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -77,15 +76,12 @@ __d(
             }
             return t;
           })()),
-          (i.getAsyncFetchURI = function (n, r, a) {
+          (i.getAsyncFetchURI = function (n, r, o) {
             var t = new URL(e, window.location.origin);
             return (
               t.searchParams.set("appid", n),
-              t.searchParams.set("type", a),
-              t.searchParams.set(
-                "__bkv",
-                o("WebBloksVersioningID").versioningID,
-              ),
+              t.searchParams.set("type", o),
+              t.searchParams.set("__bkv", this.getVersioningID()),
               t.toString()
             );
           }),

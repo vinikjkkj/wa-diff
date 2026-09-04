@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAWebCopyToClipboard",
     "WAWebStickerUtils",
+    "WAWebStructuredClone",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -58,21 +59,21 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield c(),
-            r = document.createElement("canvas"),
-            a = r.getContext("2d");
-          ((r.width = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_WIDTH),
-            (r.height = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_HEIGHT));
+            a = document.createElement("canvas"),
+            i = a.getContext("2d");
+          ((a.width = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_WIDTH),
+            (a.height = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_HEIGHT));
           try {
-            var i = t.loadAnimation({
+            var l = t.loadAnimation({
               renderer: "canvas",
-              animationData: e,
+              animationData: r("WAWebStructuredClone")(e),
               loop: !1,
               autoplay: !1,
-              rendererSettings: { context: a },
+              rendererSettings: { context: i },
             });
             return new (u || (u = n("Promise")))(function (e) {
-              i.addEventListener("DOMLoaded", function () {
-                return e(r);
+              l.addEventListener("DOMLoaded", function () {
+                return e(a);
               });
             });
           } catch (e) {

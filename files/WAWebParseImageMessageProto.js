@@ -47,15 +47,16 @@ __d(
           _ = s.jpegThumbnail,
           f = s.mediaKeyTimestamp,
           g = s.mimetype,
-          h = s.scanLengths,
-          y = s.scansSidecar,
-          C = s.staticUrl,
-          b = s.thumbnailDirectPath,
-          v = s.thumbnailEncSha256,
-          S = s.thumbnailSha256,
-          R = s.viewOnce,
-          L = s.width,
-          E = o(
+          h = s.qrUrl,
+          y = s.scanLengths,
+          C = s.scansSidecar,
+          b = s.staticUrl,
+          v = s.thumbnailDirectPath,
+          S = s.thumbnailEncSha256,
+          R = s.thumbnailSha256,
+          L = s.viewOnce,
+          E = s.width,
+          k = o(
             "WAWebMediaMessageGetValidatedProperties",
           ).getValidatedMediaMessageProperties(
             s,
@@ -63,58 +64,59 @@ __d(
             i,
             o("WAWebMsgType").MSG_TYPE.IMAGE,
           ),
-          k = E.fileEncSha256,
-          I = E.fileLength,
-          T = E.fileSha256,
-          D = E.mediaKey,
-          x = E.url,
-          $ = babelHelpers.extends({}, n, {
+          I = k.fileEncSha256,
+          T = k.fileLength,
+          D = k.fileSha256,
+          x = k.mediaKey,
+          $ = k.url,
+          P = babelHelpers.extends({}, n, {
             type: o("WAWebMsgType").MSG_TYPE.IMAGE,
             kind: o("WAWebMsgType").MsgKind.Image,
-            deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(x),
+            deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl($),
             directPath: m || "",
             staticUrl:
-              (t = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(C)) != null
+              (t = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(b)) != null
                 ? t
                 : "",
+            qrUrl: h,
             mimetype: g || "",
             caption:
               o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(c),
-            filehash: o("WAWebE2EProtoParserApi").decodeBytes(T),
-            encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(k),
-            size: I,
+            filehash: o("WAWebE2EProtoParserApi").decodeBytes(D),
+            encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(I),
+            size: T,
             height: p || 0,
-            width: L || 0,
-            mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(D),
+            width: E || 0,
+            mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(x),
             mediaKeyTimestamp:
               f != null
                 ? o("WALongInt").numberOrThrowIfTooLarge(f)
                 : o("WATimeUtils").unixTime(),
             body: o("WAWebE2EProtoParserApi").decodeBytes(_) || "",
             interactiveAnnotations: u,
-            scanLengths: h,
-            scansSidecar: y,
-            isViewOnce: R === !0,
-            thumbnailDirectPath: b,
-            thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(S),
-            thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(v),
+            scanLengths: y,
+            scansSidecar: C,
+            isViewOnce: L === !0,
+            thumbnailDirectPath: v,
+            thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(R),
+            thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(S),
             statusMentioned: l == null ? void 0 : l.statusMentioned,
           });
         if (
-          (o("WAWebE2EProtoParserApi").validateRequiredMediaProperties($, s),
+          (o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(P, s),
           r &&
             o(
               "WAWebMessageAssociationGatingUtils",
             ).isMessageAssociationInfraEnabled())
         ) {
-          var P = o(
+          var N = o(
               "WAWebAssociationProtoUtils",
             ).getValidatedAssociationFieldsFromProto(r, n, i),
-            N = P.associationParentMsgKey,
-            M = P.associationType,
-            w = P.viewMode;
+            M = N.associationParentMsgKey,
+            w = N.associationType,
+            A = N.viewMode;
           if (
-            M ===
+            w ===
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .MEDIA_POLL &&
             !o("WAWebIsPhotoPollReceiverEnabled").isPhotoPollReceiverEnabled(n)
@@ -128,7 +130,7 @@ __d(
               contextInfo: d,
             };
           if (
-            M ===
+            w ===
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .MEDIA_ALBUM &&
             !o("WAWebIsAlbumV2ReceiverEnabled").isAlbumV2MsgReceiverEnabled(n)
@@ -142,15 +144,15 @@ __d(
               }),
               contextInfo: d,
             };
-          var A = babelHelpers.extends({}, $, {
+          var F = babelHelpers.extends({}, P, {
             kind: "associatedImage",
-            parentMsgKey: N,
-            associationType: M,
-            viewMode: w,
+            parentMsgKey: M,
+            associationType: w,
+            viewMode: A,
           });
-          return { msgData: A, contextInfo: d };
+          return { msgData: F, contextInfo: d };
         }
-        return { msgData: $, contextInfo: d };
+        return { msgData: P, contextInfo: d };
       }
     }
     l.default = e;

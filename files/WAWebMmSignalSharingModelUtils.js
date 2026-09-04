@@ -81,7 +81,13 @@ __d(
           b = C.consentedUrl,
           S = C.originalUrl,
           L = C.unconsentedUrl;
-        return v(n, b, L, S, r);
+        return v({
+          chat: n,
+          consentedUrl: b,
+          defaultUrl: r,
+          originalUrl: S,
+          unconsentedUrl: L,
+        });
       }
       return r;
     }
@@ -152,7 +158,17 @@ __d(
             k = R.consentedUsersUrl,
             I = R.originalUrl,
             T = R.unconsentedUsersUrl;
-          if (S(I) === S(n)) return { link: v(t, k, T, I, n), index: b };
+          if (S(I) === S(n))
+            return {
+              link: v({
+                chat: t,
+                consentedUrl: k,
+                defaultUrl: n,
+                originalUrl: I,
+                unconsentedUrl: T,
+              }),
+              index: b,
+            };
           b++;
         }
       }
@@ -402,8 +418,13 @@ __d(
           : n.existsUndisclosedToken) !== !0
       );
     }
-    function v(e, t, n, r, a) {
-      var i;
+    function v(e) {
+      var t,
+        n = e.chat,
+        r = e.consentedUrl,
+        a = e.defaultUrl,
+        i = e.originalUrl,
+        l = e.unconsentedUrl;
       if (
         !o(
           "WAWebMmSignalSharingGatingUtils",
@@ -414,21 +435,21 @@ __d(
         o(
           "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
         ).isMmSignalSharingUserDisclosedInCollectionWindow(
-          e.mmSignalSharingExpirationWindow,
+          n.mmSignalSharingExpirationWindow,
         )
       ) {
-        var l, s, u;
+        var s, u, c;
         if (
           o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
-          (l = e.contact) != null &&
-          l.isContactBlocked
+          (s = n.contact) != null &&
+          s.isContactBlocked
         ) {
-          var c;
-          return (c = n != null ? n : r) != null ? c : a;
+          var d;
+          return (d = l != null ? l : i) != null ? d : a;
         }
-        return (s = (u = t != null ? t : n) != null ? u : r) != null ? s : a;
+        return (u = (c = r != null ? r : l) != null ? c : i) != null ? u : a;
       }
-      return (i = n != null ? n : r) != null ? i : a;
+      return (t = l != null ? l : i) != null ? t : a;
     }
     function S(e) {
       return e == null ? "" : e.replace(/\/$/, "");

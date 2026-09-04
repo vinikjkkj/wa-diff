@@ -6,6 +6,7 @@ __d(
     "WAWebMessageLocation.react",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebUnifiedResponseHeightEstimate",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 10;
@@ -62,6 +63,13 @@ __d(
           return a + 188;
         case o("WAWebMsgType").MSG_TYPE.STICKER:
           return a + 125;
+        case o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE:
+          return (
+            a +
+            o(
+              "WAWebUnifiedResponseHeightEstimate",
+            ).estimateRichResponseMsgHeight(t)
+          );
         case o("WAWebMsgType").MSG_TYPE.UNKNOWN:
         default:
           return a;

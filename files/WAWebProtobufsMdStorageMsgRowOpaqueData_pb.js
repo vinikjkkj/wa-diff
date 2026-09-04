@@ -79,6 +79,8 @@ __d(
         sharableEventInviteIsCanceled: [58, e.TYPES.BOOL],
         sharableEventInviteJpegThumbnail: [59, e.TYPES.BYTES],
         sharableEventInviteCallLink: [60, e.TYPES.STRING],
+        mediaPngThumbnail: [61, e.TYPES.STRING],
+        qrUrl: [62, e.TYPES.STRING],
       }),
       (p.name = "MsgOpaqueData$EventLocation"),
       (p.internalSpec = {

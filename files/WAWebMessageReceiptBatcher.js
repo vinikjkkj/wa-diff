@@ -282,10 +282,7 @@ __d(
                                     return t;
                                   }),
                                 ),
-                              o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(
-                                i,
-                                !1,
-                              ),
+                              o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(i),
                             ]),
                             s = l[0],
                             u = l[1],

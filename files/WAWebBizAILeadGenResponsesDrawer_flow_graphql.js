@@ -28,6 +28,13 @@ __d(
           {
             alias: null,
             args: null,
+            kind: "ScalarField",
+            name: "num_of_lead_data",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
             concreteType:
               "XFBMetaAIBusinessAgentWhatsAppLeadGenFlowLeadDataConnection",
             kind: "LinkedField",

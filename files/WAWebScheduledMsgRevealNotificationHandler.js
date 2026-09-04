@@ -297,22 +297,24 @@ __d(
         return !1;
       }
     }
-    function G(e, t, n, r) {
+    function G(e) {
       return z.apply(this, arguments);
     }
     function z() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.encIv,
+            n = e.encPayload,
+            r = e.msgId,
+            a = e.revealKey,
+            i = yield o(
               "WAWebScheduledMsgDecryptInnerProto",
-            ).decryptAndDecodeRevealPayloadWithBytes(t, n, r);
-            return a == null
-              ? (yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(e),
-                null)
-              : { innerProto: a.proto, protoBytes: a.protoBytes };
-          },
-        )),
+            ).decryptAndDecodeRevealPayloadWithBytes(n, t, a);
+          return i == null
+            ? (yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(r),
+              null)
+            : { innerProto: i.proto, protoBytes: i.protoBytes };
+        })),
         z.apply(this, arguments)
       );
     }
@@ -433,7 +435,12 @@ __d(
           );
           var c = yield j(e);
           if (c != null) {
-            var d = yield G(i, c.encPayload, c.encIv, t);
+            var d = yield G({
+              encIv: c.encIv,
+              encPayload: c.encPayload,
+              msgId: i,
+              revealKey: t,
+            });
             if (d != null) {
               var m = d.innerProto,
                 p = d.protoBytes,

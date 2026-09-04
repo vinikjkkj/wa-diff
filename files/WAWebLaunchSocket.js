@@ -205,7 +205,7 @@ __d(
                       "[socket] launchSocket for login",
                     ])),
                 ),
-                o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(!0),
+                o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(),
                 o(
                   "WAWebBackendEventBus",
                 ).BackendEventBus.triggerInitialLoadReady(),

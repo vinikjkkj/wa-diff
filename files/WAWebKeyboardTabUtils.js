@@ -7,8 +7,10 @@ __d(
         "CUSTOM_SELECTOR",
         "TABBABLE",
       ]),
-      s = n("$InternalEnum").Mirrored(["FORWARD", "BACKWARD"]);
-    function u(t) {
+      s = n("$InternalEnum").Mirrored(["FORWARD", "BACKWARD"]),
+      u = 1,
+      c = new Set(["auto", "clip", "hidden", "overlay", "scroll"]);
+    function d(t) {
       var n = t.container,
         r = t.customSelector,
         a = t.focusType;
@@ -18,6 +20,7 @@ __d(
             isElementTabbable: function (t) {
               return !0;
             },
+            skipOccluded: !1,
           }
         : a === e.CUSTOM_SELECTOR && r != null
           ? {
@@ -25,6 +28,7 @@ __d(
               isElementTabbable: function (t) {
                 return !0;
               },
+              skipOccluded: !1,
             }
           : {
               candidateElements: Array.from(
@@ -35,52 +39,66 @@ __d(
                   (parseInt(t.getAttribute("data-tab"), 10) || 0)
                 );
               }),
-              isElementTabbable: p,
+              isElementTabbable: h,
+              skipOccluded: !0,
             };
     }
-    function c(t, n, r, o) {
+    function m(t, n, r, o) {
       (n === void 0 && (n = e.CUSTOM),
         r === void 0 &&
           (r = function () {
             return !0;
           }));
-      var a = u({ container: t, customSelector: o, focusType: n }),
+      var a = d({ container: t, customSelector: o, focusType: n }),
         i = a.candidateElements,
         l = a.isElementTabbable;
       return i.filter(function (e) {
         return l(e) && r(e);
       });
     }
-    function d(t, n, r, a, i) {
+    function p(t, n, r, a, i) {
+      var l;
       (n === void 0 && (n = s.FORWARD),
         r === void 0 && (r = e.CUSTOM),
         a === void 0 && (a = o("WAWebBoolFunc").returnTrue));
-      var l = u({ container: t, customSelector: i, focusType: r }),
-        c = l.candidateElements,
-        d = l.isElementTabbable,
-        p = n === s.FORWARD ? 1 : -1,
-        _ = 0,
-        f = t.ownerDocument.activeElement;
-      if (f) {
-        var g = c.findIndex(function (e) {
-            return e.contains(f);
-          }),
-          h = c.findIndex(function (e) {
-            return e === f;
-          });
-        (h > 0 && (g = h), (_ = g === -1 ? 0 : m(g + p, c.length)));
-      }
-      for (var y = 0; y < c.length; y++) {
-        var C = m(_ + y * p, c.length),
-          b = c[C];
-        if (d(b) && a(b)) return b;
+      var u = d({ container: t, customSelector: i, focusType: r }),
+        c = u.candidateElements,
+        m = u.isElementTabbable,
+        p = u.skipOccluded,
+        g = n === s.FORWARD ? 1 : -1,
+        h = _(t, c, g),
+        y = function (t) {
+          return m(t) && a(t);
+        };
+      return p &&
+        (l = f(c, h, g, function (e) {
+          return y(e) && !C(e);
+        })) != null
+        ? l
+        : f(c, h, g, y);
+    }
+    function _(e, t, n) {
+      var r = e.ownerDocument.activeElement;
+      if (!r) return 0;
+      var o = t.findIndex(function (e) {
+          return e.contains(r);
+        }),
+        a = t.findIndex(function (e) {
+          return e === r;
+        });
+      return (a > 0 && (o = a), o === -1 ? 0 : g(o + n, t.length));
+    }
+    function f(e, t, n, r) {
+      for (var o = 0; o < e.length; o++) {
+        var a = e[g(t + o * n, e.length)];
+        if (r(a)) return a;
       }
       return null;
     }
-    function m(e, t) {
+    function g(e, t) {
       return (e + t) % t;
     }
-    function p(e) {
+    function h(e) {
       if (e.disabled) return !1;
       var t = parseInt(e.dataset.tab, 10);
       if (typeof t != "number" || t < 0) return !1;
@@ -88,9 +106,9 @@ __d(
       return (n != null && parseInt(n, 10) === -1) ||
         e.closest("[inert]") != null
         ? !1
-        : !_(e);
+        : !y(e);
     }
-    function _(e) {
+    function y(e) {
       if (getComputedStyle(e).visibility === "hidden") return !0;
       for (var t = e; t; ) {
         if (getComputedStyle(t).display === "none") return !0;
@@ -98,10 +116,79 @@ __d(
       }
       return !1;
     }
+    function C(e) {
+      var t = e.ownerDocument;
+      if (!("elementFromPoint" in t) || e.getRootNode() !== t) return !1;
+      var n = e.getBoundingClientRect(),
+        r = n.height,
+        o = n.width,
+        a = n.x,
+        i = n.y;
+      if (o === 0 || r === 0 || !v(e, a + o / 2, i + r / 2)) return !1;
+      var l = S(e, { height: r, width: o, x: a, y: i });
+      return l == null ? !1 : b(e, l);
+    }
+    function b(e, t) {
+      var n = t.height,
+        r = t.width,
+        o = t.x,
+        a = t.y,
+        i = o + u,
+        l = o + r - u,
+        s = a + u,
+        c = a + n - u;
+      return (
+        v(e, o + r / 2, a + n / 2) &&
+        v(e, i, s) &&
+        v(e, l, s) &&
+        v(e, i, c) &&
+        v(e, l, c)
+      );
+    }
+    function v(e, t, n) {
+      var r = e.ownerDocument.elementFromPoint(t, n);
+      return r == null || r.shadowRoot != null || e.contains(r) || r.contains(e)
+        ? !1
+        : getComputedStyle(r).opacity !== "0";
+    }
+    function S(e, t) {
+      for (
+        var n = t.height,
+          r = t.width,
+          o = t.x,
+          a = t.y,
+          i = o,
+          l = a,
+          s = o + r,
+          u = a + n,
+          c = e.parentElement;
+        c != null;
+      ) {
+        if (R(c)) {
+          var d = c.getBoundingClientRect();
+          if (
+            ((i = Math.max(i, d.x)),
+            (l = Math.max(l, d.y)),
+            (s = Math.min(s, d.x + d.width)),
+            (u = Math.min(u, d.y + d.height)),
+            s <= i || u <= l)
+          )
+            return null;
+        }
+        c = c.parentElement;
+      }
+      return { height: u - l, width: s - i, x: i, y: l };
+    }
+    function R(e) {
+      var t = getComputedStyle(e),
+        n = t.overflowX,
+        r = t.overflowY;
+      return c.has(r) || c.has(n);
+    }
     ((l.FocusType = e),
       (l.TabDirection = s),
-      (l.getTabbableElements = c),
-      (l.getNextTabbableElement = d));
+      (l.getTabbableElements = m),
+      (l.getNextTabbableElement = p));
   },
   98,
 );

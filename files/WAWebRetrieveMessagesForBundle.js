@@ -1,12 +1,9 @@
 __d(
   "WAWebRetrieveMessagesForBundle",
   [
-    "Promise",
-    "WALogger",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAck",
-    "WAWebDBMessageRange",
     "WAWebDBMessageUtils",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebGroupHistoryGating",
@@ -18,10 +15,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s,
-      u = 50,
-      c = [
+    var e = 50,
+      s = [
         o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_VIDEO_DUAL_UPLOAD,
         o("WAWebMessageAssociation.flow").MessageAssociationType
@@ -29,19 +24,19 @@ __d(
         o("WAWebMessageAssociation.flow").MessageAssociationType
           .HEVC_VIDEO_DUAL_UPLOAD,
       ];
-    function d(e, t) {
+    function u(e, t) {
       var n = t != null ? t : o("WATimeUtils").unixTime(),
         r = o("WAWebGroupHistoryGating").getGroupHistoryMessagesTimeLimitSecs(
           e,
         );
       return n - r;
     }
-    function m(e, t, n) {
+    function c(e, t, n) {
       if (
         !r("WAWebGroupHistorySupportedMessageTypesUtil")(e.type) ||
         (e.t != null && e.t < t) ||
         (n != null && e.t != null && e.t > n) ||
-        (e.associationType != null && c.includes(e.associationType))
+        (e.associationType != null && s.includes(e.associationType))
       )
         return !1;
       var a =
@@ -56,88 +51,75 @@ __d(
           !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState))
       );
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function d(e, t, n) {
+      return m.apply(this, arguments);
     }
-    function _() {
+    function m() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i = o("WAWebDBMessageRange").getLastMessageTimestamp(t);
-          if (i == null)
-            return (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] no messages found in chat ",
-                    "",
-                  ])),
-                t,
-              ),
-              (s || (s = n("Promise"))).resolve([])
-            );
-          var l = Math.min(
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          var i = Math.min(
               r != null ? r : 1 / 0,
               o("WAWebABProps").getABPropConfigValue(
                 "group_history_message_count_limit",
               ),
             ),
-            c = d(t, a),
-            p = [];
+            l = u(t, a),
+            s = [];
           return (
             yield o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
                 ["message"],
                 (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
+                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (n) {
                       for (
-                        var n = e[0],
-                          r = o("WAWebDBMessageUtils").endOfChat(t),
-                          i = !0;
-                        p.length < l;
+                        var r = n[0],
+                          u = o("WAWebDBMessageUtils").endOfChat(t),
+                          d = !0;
+                        s.length < i;
                       ) {
-                        var s = yield n.between(
+                        var m = yield r.between(
                           ["internalId"],
                           o("WAWebDBMessageUtils").beginningOfChat(t),
-                          r,
+                          u,
                           {
                             lowerInclusive: !0,
-                            upperInclusive: i,
+                            upperInclusive: d,
                             reverse: !0,
-                            limit: u,
+                            limit: e,
                           },
                           function (e) {
-                            return e.t != null && e.t < c;
+                            return e.t != null && e.t < l;
                           },
                         );
-                        if (s.length === 0) break;
-                        var d = l - p.length;
-                        p.push.apply(
-                          p,
-                          s
+                        if (m.length === 0) break;
+                        var p = i - s.length;
+                        s.push.apply(
+                          s,
+                          m
                             .filter(function (e) {
-                              return m(e, c, a);
+                              return c(e, l, a);
                             })
-                            .slice(0, d),
+                            .slice(0, p),
                         );
-                        var _ = s[s.length - 1];
-                        ((r = _.internalId), (i = !1));
+                        var _ = m[m.length - 1];
+                        ((u = _.internalId), (d = !1));
                       }
                     },
                   );
-                  return function (t) {
-                    return e.apply(this, arguments);
+                  return function (e) {
+                    return r.apply(this, arguments);
                   };
                 })(),
               ),
-            p
+            s
           );
         })),
-        _.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.retrieveMessagesForBundle = p;
+    l.retrieveMessagesForBundle = d;
   },
   98,
 );

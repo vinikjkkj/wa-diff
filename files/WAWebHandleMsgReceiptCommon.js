@@ -55,7 +55,7 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = Array.from(new Set(e.map(String))),
-            n = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(t, !1),
+            n = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(t),
             r = [],
             a = [];
           return (

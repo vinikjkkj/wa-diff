@@ -14,6 +14,7 @@ __d(
         isBridgeActiveForMsg: o("WAWebBoolFunc").returnFalse,
         onMessageMenuOpen: function () {},
         onMessageMenuClose: function () {},
+        menuOwnerMsgId: null,
       },
       d = u(c),
       m = d;

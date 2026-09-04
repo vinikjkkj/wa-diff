@@ -1,6 +1,7 @@
 __d(
   "WAWebWamFalcoABProps",
   [
+    "MetaConfig",
     "WALogger",
     "WAWebABProps",
     "WAWebABPropsCache",
@@ -15,8 +16,9 @@ __d(
       s,
       u = 5e3,
       c = null,
-      d = null;
-    function m(e) {
+      d = null,
+      m = null;
+    function p(e) {
       var t = new Set();
       for (var n of e.split(",")) {
         var r = n.trim();
@@ -24,49 +26,49 @@ __d(
       }
       return t;
     }
-    function p(e) {
+    function _(e) {
       var t = new Set();
-      for (var n of m(e)) {
+      for (var n of p(e)) {
         var r = parseInt(n, 10);
         Number.isNaN(r) || t.add(r);
       }
       return t;
     }
-    function _() {
+    function f() {
       return r("justknobx")._("2716");
     }
-    function f() {
+    function g() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_canonical_wam_falco_buffer_size",
       );
       return e > 0 ? e : 2e3;
     }
-    function g() {
+    function h() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_wam_falco_flush_interval_ms",
       );
       return e > 0 ? e : u;
     }
-    function h() {
-      return !y() || !_() || !o("WAWebCanonicalGating").isCanonicalEnabled()
+    function y() {
+      return !C() || !f() || !o("WAWebCanonicalGating").isCanonicalEnabled()
         ? !1
         : !r("WAWebNetworkStatus").online;
-    }
-    function y() {
-      return (
-        o("WAWebABPropsCache").isABPropConfigsReady() &&
-        r("justknobx")._("1600") &&
-        b() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY &&
-        o("WAWebCanonicalUtils").isCanonicalPresent()
-      );
     }
     function C() {
       return (
         o("WAWebABPropsCache").isABPropConfigsReady() &&
-        b() === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
+        r("justknobx")._("1600") &&
+        v() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY &&
+        o("WAWebCanonicalUtils").isCanonicalPresent()
       );
     }
     function b() {
+      return (
+        o("WAWebABPropsCache").isABPropConfigsReady() &&
+        v() === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
+      );
+    }
+    function v() {
       var e = o("WAWebABProps").getABPropConfigValue("wa_web_wam_falco_mode");
       return e === o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
@@ -84,13 +86,15 @@ __d(
                   ? o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED
                   : e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL
                     ? o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL
-                    : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
+                    : e === o("WAWebWamFalcoModes").FALCO_MODE_WAM_OR_FALCO
+                      ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_OR_FALCO
+                      : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
     }
-    function v() {
+    function S() {
       if (c != null) return c;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
-        c = p(
+        c = _(
           o("WAWebABProps").getABPropConfigValue(
             "wa_web_wam_falco_shadow_event_ids",
           ),
@@ -108,11 +112,11 @@ __d(
       }
       return c;
     }
-    function S() {
+    function R() {
       if (d != null) return d;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
-        d = p(
+        d = _(
           o("WAWebABProps").getABPropConfigValue(
             "wa_web_wam_falco_critical_event_ids",
           ),
@@ -130,17 +134,25 @@ __d(
       }
       return d;
     }
-    function R(e) {
-      return o("WAWebABPropsCache").isABPropConfigsReady() && S().has(e);
+    function L(e) {
+      return o("WAWebABPropsCache").isABPropConfigsReady() && R().has(e);
     }
-    ((l.getCanonicalWamFalcoMaxBufferSize = f),
-      (l.getWamFalcoFlushIntervalMs = g),
-      (l.shouldBufferFalcoEvent = h),
-      (l.isFalcoLoggingEnabled = y),
-      (l.isWamLoggingDisabled = C),
-      (l.getWamFalcoMode = b),
-      (l.getShadowLoggingEventIds = v),
-      (l.isCriticalEvent = R));
+    function E() {
+      var e = r("MetaConfig")._("565", !0),
+        t = m;
+      if (t != null && t.raw === e) return t.eventNames;
+      var n = p(e);
+      return ((m = { raw: e, eventNames: n }), n);
+    }
+    ((l.getCanonicalWamFalcoMaxBufferSize = g),
+      (l.getWamFalcoFlushIntervalMs = h),
+      (l.shouldBufferFalcoEvent = y),
+      (l.isFalcoLoggingEnabled = C),
+      (l.isWamLoggingDisabled = b),
+      (l.getWamFalcoMode = v),
+      (l.getShadowLoggingEventIds = S),
+      (l.isCriticalEvent = L),
+      (l.getWamFalcoBlocklistEventNames = E));
   },
   98,
 );

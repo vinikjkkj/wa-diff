@@ -142,41 +142,39 @@ __d(
       }
       return { ids: o, reactionIdsToRemove: l, reactions: i, viewCounts: a };
     }
-    function g(e, t, n, r) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = o("WAWebStatusCollection").StatusCollection.get(e);
-            if (a != null) {
-              var i = f(a, t, n, r != null ? r : o("WATimeUtils").unixTime()),
-                l = i.ids,
-                s = i.reactionIdsToRemove,
-                u = i.reactions,
-                c = i.viewCounts;
-              l.length !== 0 &&
-                (yield o(
-                  "WAWebNewsletterBackendAddOnsUtils",
-                ).persistNewsletterStatusInteractions({
-                  ids: l,
-                  reactionIdsToRemove: s,
-                  reactions: u,
-                  timestamp: Date.now(),
-                  viewCounts: c,
-                }),
-                n != null &&
-                  (yield o(
-                    "WAWebNewsletterBridgeMsgAddOnsUtils",
-                  ).updateReactions({
-                    ids: l,
-                    reactionIdsToRemove: s,
-                    reactions: u,
-                  })));
-            }
-          },
-        )),
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = e.reactionsByServerId,
+            r = e.serverTimestamp,
+            a = e.viewsByServerId,
+            i = o("WAWebStatusCollection").StatusCollection.get(t);
+          if (i != null) {
+            var l = f(i, a, n, r != null ? r : o("WATimeUtils").unixTime()),
+              s = l.ids,
+              u = l.reactionIdsToRemove,
+              c = l.reactions,
+              d = l.viewCounts;
+            s.length !== 0 &&
+              (yield o(
+                "WAWebNewsletterBackendAddOnsUtils",
+              ).persistNewsletterStatusInteractions({
+                ids: s,
+                reactionIdsToRemove: u,
+                reactions: c,
+                timestamp: Date.now(),
+                viewCounts: d,
+              }),
+              n != null &&
+                (yield o("WAWebNewsletterBridgeMsgAddOnsUtils").updateReactions(
+                  { ids: s, reactionIdsToRemove: u, reactions: c },
+                )));
+          }
+        })),
         h.apply(this, arguments)
       );
     }

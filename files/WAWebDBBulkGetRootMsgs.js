@@ -14,90 +14,88 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e, t) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e;
           o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-            ? (n = yield h(e))
-            : (n = e.map(function (e) {
+            ? (t = yield h(e))
+            : (t = e.map(function (e) {
                 return o("WAWebLidStatusMigrationKeyUtils")
                   .matKeyConvert(r("WAWebMsgKey").fromString(e))
                   .toString();
               }));
-          var a = yield f(n, t);
+          var n = yield f(t);
           return (
-            a.some(function (e) {
+            n.some(function (e) {
               return e == null;
             }) &&
               !o(
                 "WAWebLid1X1MigrationGating",
               ).Lid1X1MigrationUtils.isLidMigrated() &&
-              (yield p(n, a, t)),
-            a
+              (yield p(t, n)),
+            n
           );
         })),
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n) {
+    function p(e, t) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           for (
-            var a = e.map(function (e) {
+            var n = e.map(function (e) {
                 return r("WAWebMsgKey").fromString(e);
               }),
-              i = [],
-              l = 0;
-            l < t.length;
-            l++
+              a = [],
+              i = 0;
+            i < t.length;
+            i++
           )
-            t[l] == null &&
-              a[l].remote.isLid() &&
-              i.push({ key: a[l], idxInOriginalMsgKeys: l });
-          if (i.length !== 0) {
-            var s = C(
-                i.map(function (e) {
+            t[i] == null &&
+              n[i].remote.isLid() &&
+              a.push({ key: n[i], idxInOriginalMsgKeys: i });
+          if (a.length !== 0) {
+            var l = C(
+                a.map(function (e) {
                   return e.key;
                 }),
               ),
-              u = (yield f(s.map(String), n)).filter(Boolean),
-              d = [];
+              s = (yield f(l.map(String))).filter(Boolean),
+              u = [];
             if (
-              (u.forEach(function (e, n) {
+              (s.forEach(function (e, n) {
                 if (e != null) {
                   var o = e.id,
-                    a = r("nullthrows")(i[n]).idxInOriginalMsgKeys;
-                  if (a == null) {
-                    d.length < 3 && d.push(o == null ? "null" : o);
+                    i = r("nullthrows")(a[n]).idxInOriginalMsgKeys;
+                  if (i == null) {
+                    u.length < 3 && u.push(o == null ? "null" : o);
                     return;
                   }
-                  t[a] = e;
+                  t[i] = e;
                 }
               }),
-              d.length > 0)
+              u.length > 0)
             ) {
-              var m = e.length;
+              var d = e.length;
               o("WALogger")
                 .ERROR(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[fillMissingLidMessages] ",
-                      " no idx, decrypt=",
-                      " ids=",
+                      " no idx, ids=",
                       " keys=",
                       "",
                     ])),
-                  d.length,
-                  n,
+                  u.length,
+                  u,
                   d,
-                  m,
                 )
                 .sendLogs("fillMissingLidMessages-no-original-idx");
             }
@@ -106,33 +104,33 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
-            var n = yield o("WAWebSchemaMessage")
+            var t = yield o("WAWebSchemaMessage")
                 .getMessageTable()
-                .bulkGet(e, t),
-              r = new Map(),
-              a = 0;
-            a < e.length;
-            a++
+                .bulkGet(e, !1),
+              n = new Map(),
+              r = 0;
+            r < e.length;
+            r++
           )
-            (n[a] == null || n[a].subtype === "message_edit") &&
-              (r.set(e[a], a), (n[a] = null));
-          if (r.size === 0) return n;
-          var i = yield o("WAWebSchemaMessage")
+            (t[r] == null || t[r].subtype === "message_edit") &&
+              (n.set(e[r], r), (t[r] = null));
+          if (n.size === 0) return t;
+          var a = yield o("WAWebSchemaMessage")
             .getMessageTable()
-            .anyOf(["latestEditMsgKey"], Array.from(r.keys()));
-          for (var l of i)
-            if (!(l.latestEditMsgKey == null || l.subtype === "message_edit")) {
-              var s = r.get(l.latestEditMsgKey);
-              s != null && (n[s] = l);
+            .anyOf(["latestEditMsgKey"], Array.from(n.keys()));
+          for (var i of a)
+            if (!(i.latestEditMsgKey == null || i.subtype === "message_edit")) {
+              var l = n.get(i.latestEditMsgKey);
+              l != null && (t[l] = i);
             }
-          return n;
+          return t;
         })),
         g.apply(this, arguments)
       );

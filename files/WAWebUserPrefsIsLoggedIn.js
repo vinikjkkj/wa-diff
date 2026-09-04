@@ -9,8 +9,8 @@ __d(
     function u() {
       return e;
     }
-    function c(t) {
-      e = t;
+    function c() {
+      e = !0;
     }
     ((l.isLoggedIn = s), (l.setIsConnectedAsRegistered = c));
   },

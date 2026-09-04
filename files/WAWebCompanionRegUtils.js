@@ -97,7 +97,7 @@ __d(
             (_ = !0),
             yield o("WAWebAdvSignatureApi").clearADVSecretKey(),
             yield o("WAWebUserPrefsGeneral").resetLoginCounter(),
-            o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(!0));
+            o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered());
         })),
         S.apply(this, arguments)
       );

@@ -244,29 +244,29 @@ __d(
           );
         }
     }
-    function Re(e, t) {
+    function Re(e) {
       return Le.apply(this, arguments);
     }
     function Le() {
       return (
-        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = "wa-web-call",
-            r = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
+        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = "wa-web-call",
+            n = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
           if (
-            r &&
-            (r.state ===
+            n &&
+            (n.state ===
               o("WAWebVoipRelayConnectionUtils").ConnectionState.Open ||
-              r.state ===
+              n.state ===
                 o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting)
           ) {
             Ne(e.id);
             return;
           }
-          (r &&
-            r.state !==
+          (n &&
+            n.state !==
               o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
             Qe(e.id),
-            yield Ge(e, n));
+            yield Ge(e, t));
         })),
         Le.apply(this, arguments)
       );
@@ -436,7 +436,7 @@ __d(
                     "reconnect_attempted",
                   ))
                 : ge.delete(i),
-                Re(e != null ? e : c, !1).catch(function (e) {
+                Re(e != null ? e : c).catch(function (e) {
                   (a && Ce(i),
                     o("WALogger").ERROR(
                       f ||
@@ -688,7 +688,7 @@ __d(
                   a.id,
                 );
                 var i = Pe(a.id);
-                if ((Re(a, !1), t < e.length - 1)) {
+                if ((Re(a), t < e.length - 1)) {
                   var l = new (oe || (oe = n("Promise")))(function (e) {
                     window.setTimeout(
                       e,
@@ -772,7 +772,7 @@ __d(
               ? yield Ae(c)
               : yield (oe || (oe = n("Promise"))).all(
                   c.map(function (e) {
-                    return Re(e, !1);
+                    return Re(e);
                   }),
                 );
           }

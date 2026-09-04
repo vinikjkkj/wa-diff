@@ -22,25 +22,27 @@ __d(
             timestampMs: n,
           }));
     }
-    function s(t, n) {
-      var r = Date.now();
+    function s(t, n, r) {
+      var a = Date.now();
       if (n === "background" || t === "background") {
-        e(t, n, r);
+        e(t, n, a);
         return;
       }
-      (o("WAWebPathfinderScreenName").updateCurrentScreenName(n),
-        o("WAWebPathfinderLogger").emitPathfinderEvent({
-          eventType: "SCREEN_CHANGED",
-          screenName: t,
-          destinationName: n,
-          timestampMs: r,
-          triggeringTestId: o(
-            "WAWebPathfinderUserTouch",
-          ).consumeLastTapTrackingId(),
-          customMetadata: o(
-            "WAWebPathfinderChatInfo",
-          ).getActiveChatInfoMetadata(),
-        }));
+      o("WAWebPathfinderScreenName").updateCurrentScreenName(n);
+      var i =
+        n === r
+          ? o("WAWebPathfinderChatInfo").getActiveChatInfoMetadata(r)
+          : void 0;
+      o("WAWebPathfinderLogger").emitPathfinderEvent({
+        eventType: "SCREEN_CHANGED",
+        screenName: t,
+        destinationName: n,
+        timestampMs: a,
+        triggeringTestId: o(
+          "WAWebPathfinderUserTouch",
+        ).consumeLastTapTrackingId(),
+        customMetadata: i,
+      });
     }
     function u() {
       return o("WAWebTimeSpentLoggingNavigation").addNavigationListener(s);

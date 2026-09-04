@@ -255,7 +255,7 @@ __d(
               }));
           })
           .catch(function (e) {
-            throw r("err")("Failed to initialize wasm module, " + e);
+            throw r("err")("Failed to initialize wasm module, " + String(e));
           });
       });
     }

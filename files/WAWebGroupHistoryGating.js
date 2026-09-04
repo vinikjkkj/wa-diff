@@ -1,6 +1,6 @@
 __d(
   "WAWebGroupHistoryGating",
-  ["WAWebABProps", "WAWebGroupABProps", "WAWebWidToJid"],
+  ["WAWebABProps", "WAWebGroupABProps", "WAWebWidToJid", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -122,6 +122,9 @@ __d(
         "group_history_receiver_dedup",
       );
     }
+    function v() {
+      return r("justknobx")._("5833");
+    }
     ((l.isGroupHistoryReceiverEnabled = e),
       (l.isGroupHistorySenderEnabled = s),
       (l.isGroupHistorySettingsToggleUIEnabled = u),
@@ -133,7 +136,8 @@ __d(
       (l.getGroupHistoryMessagesTimeLimitSecs = g),
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = y),
       (l.isGroupHistoryAfterJoinPrerequisitesEnabled = C),
-      (l.isGroupHistoryReceiverDedupEnabled = b));
+      (l.isGroupHistoryReceiverDedupEnabled = b),
+      (l.isLearnGroupHistoryToggleFromHistorySyncEnabled = v));
   },
   98,
 );

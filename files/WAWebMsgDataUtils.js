@@ -126,7 +126,8 @@ __d(
                                 .NOTEWORTHY)
                             : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                           : (t === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-                                n === "ephemeral_setting") ||
+                                (n === "ephemeral_setting" ||
+                                  n === "hatch_metadata_sync")) ||
                               t === o("WAWebMsgType").MSG_TYPE.REACTION
                             ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                             : (a = o("WAWebCommonMsgUtils").EventType.DEFAULT),

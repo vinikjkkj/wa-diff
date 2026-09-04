@@ -20,6 +20,7 @@ __d(
         a = t.showStockWallpaper;
       if (!n && !o) return {};
       var i = {
+        "--WAWeb-minimal-addon-bubble-shadow": "none",
         "--WAWeb-minimal-msg-bubble-shadow": "none",
         "--WAWeb-minimal-system-bubble-bg": r ? _ : f,
         "--WAWeb-minimal-system-bubble-shadow": "none",

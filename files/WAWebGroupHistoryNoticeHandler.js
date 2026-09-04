@@ -41,6 +41,9 @@ __d(
                 ),
                 yield c(t.id.remote, r),
                 t.id.fromMe === !0 &&
+                  o(
+                    "WAWebGroupHistoryGating",
+                  ).isLearnGroupHistoryToggleFromHistorySyncEnabled() &&
                   (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                     t.id.remote,
                     { shouldDefaultGroupHistoryShareOn: !0 },

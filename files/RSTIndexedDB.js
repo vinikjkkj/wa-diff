@@ -9,6 +9,7 @@ __d(
     "RSTEventsMessageQueue",
     "RSTUtils",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -112,7 +113,7 @@ __d(
               ),
             this.clearObjectStore().catch(function (e) {
               r("FBLogger")("responsive-tracker")
-                .catching(e)
+                .catching(r("getErrorSafe")(e))
                 .warn("Failed to clear object store after IndexedDB error");
             }));
         }),

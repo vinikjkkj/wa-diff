@@ -268,10 +268,13 @@ __d(
             ? ((t.event.navigationSource = e.event.navigationSource),
               (t.event.relativeTimestampMs = e.event.relativeTimestampMs),
               (t.sourceSurface = e.sourceSurface))
-            : (e.event.commit(), P(e.sourceSurface, e.destSurface)),
+            : (e.event.commit(),
+              P(e.sourceSurface, e.destSurface, e.destNavigationSurface)),
             (e = t));
         }
-        (e != null && (e.event.commit(), P(e.sourceSurface, e.destSurface)),
+        (e != null &&
+          (e.event.commit(),
+          P(e.sourceSurface, e.destSurface, e.destNavigationSurface)),
           (v = []));
       });
     function R(e) {
@@ -345,6 +348,7 @@ __d(
             destId: p.id,
             sourceSurface: (d = e.viewName) != null ? d : e.surface,
             destSurface: (m = p.viewName) != null ? m : p.surface,
+            destNavigationSurface: p.surface,
             event: y,
           }),
           S.onOrBefore(100),
@@ -425,10 +429,10 @@ __d(
         }
       );
     }
-    function P(e, t) {
-      for (var n of x)
+    function P(e, t, n) {
+      for (var r of x)
         try {
-          n(e, t);
+          r(e, t, n);
         } catch (e) {
           o("WALogger").ERROR(
             d ||

@@ -218,7 +218,7 @@ __d(
     function p(e) {
       return e instanceof r("WAWebMediaOpaqueData")
         ? (u || (u = n("Promise"))).resolve(e)
-        : r("WAWebMediaOpaqueData").createFromBase64Jpeg(e);
+        : r("WAWebMediaOpaqueData").createFromBase64Preview(e);
     }
     ((l.consolidateMediaUpdate = d), (l.consolidateMediaUpdateWithValues = m));
   },

@@ -10,6 +10,7 @@ __d(
     "react-compiler-runtime",
     "waWebMinificationMap",
     "waWebTraversalKeys",
+    "waWebVersioningId",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -57,6 +58,7 @@ __d(
                     screenQueryTemplate: o("WebBloksUtils").cast(
                       o("WAWebUnifiedResponseLoaderTemplate").LOADER_TEMPLATE,
                     ),
+                    versioningID: r("waWebVersioningId"),
                   },
                 ].concat(t != null ? t : [], [e]),
               );

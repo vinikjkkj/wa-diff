@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAShiftTimer",
     "WAWebFileUtils",
+    "WAWebMediaBase64ImageMimetype",
     "err",
     "nullthrows",
   ],
@@ -96,16 +97,29 @@ __d(
               );
           }),
           (a.url = function () {
+            if (
+              (this.throwIfReleased("OpaqueData:url"),
+              this.$4 != null && this.$4 !== "")
+            )
+              return this.$4;
+            if (this.$3 != null && this.$3 !== "") {
+              var e;
+              return (
+                (this.$4 =
+                  "data:" +
+                  ((e = this.$5) != null
+                    ? e
+                    : o("WAWebMediaBase64ImageMimetype").JPEG_MIMETYPE) +
+                  ";base64," +
+                  this.$3),
+                this.$4
+              );
+            }
             return (
-              this.throwIfReleased("OpaqueData:url"),
-              this.$4 != null && this.$4 !== ""
-                ? this.$4
-                : this.$3 != null && this.$3 !== ""
-                  ? ((this.$4 = "data:image/jpeg;base64," + this.$3), this.$4)
-                  : ((this.$4 = window.URL.createObjectURL(
-                      r("nullthrows")(this.blob, "unexpected empty blob"),
-                    )),
-                    this.$4)
+              (this.$4 = window.URL.createObjectURL(
+                r("nullthrows")(this.blob, "unexpected empty blob"),
+              )),
+              this.$4
             );
           }),
           (a.getBlob = function () {
@@ -191,12 +205,27 @@ __d(
           t
         );
       })();
-    ((f.createFromBase64Jpeg = function (e) {
-      return new (p || (p = n("Promise")))(function (t) {
-        var n = new f();
-        return ((n.$3 = e), (n.$5 = "image/jpeg"), t(n));
+    ((f.createFromBase64Image = function (e, t) {
+      return new (p || (p = n("Promise")))(function (n) {
+        var r = new f();
+        return ((r.$3 = e), (r.$5 = t), n(r));
       });
     }),
+      (f.createFromBase64Jpeg = function (e) {
+        return f.createFromBase64Image(
+          e,
+          o("WAWebMediaBase64ImageMimetype").JPEG_MIMETYPE,
+        );
+      }),
+      (f.createFromBase64Preview = function (e) {
+        var t = o(
+          "WAWebMediaBase64ImageMimetype",
+        ).maybeRecoverDoubleEncodedBase64Image(e);
+        return f.createFromBase64Image(
+          t,
+          o("WAWebMediaBase64ImageMimetype").getBase64ImageMimetype(t),
+        );
+      }),
       (f.createFromData = function (e, t) {
         return new (p || (p = n("Promise")))(function (n) {
           var r = new f();

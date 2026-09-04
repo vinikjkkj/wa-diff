@@ -527,6 +527,7 @@ __d(
         deprecatedMms3Url: e.deprecatedMms3Url,
         directPath: e.directPath,
         staticUrl: e.staticUrl,
+        qrUrl: e.qrUrl,
         mimetype: e.mimetype,
         caption: e.caption,
         filehash: e.filehash,
