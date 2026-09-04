@@ -15,7 +15,6 @@ __d(
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingHandler",
-    "WAWebDirectConnectionX509",
     "WAWebGraphQLServerError",
     "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebRelayClient",
@@ -24,6 +23,7 @@ __d(
     "WAWebWaffleIQErrorHandler",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleTraceActionType",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -105,7 +105,7 @@ __d(
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
-            var a = yield o("WAWebDirectConnectionX509").extractCertificates(e),
+            var a = yield o("WAWebX509Utils").extractCertificates(e),
               i = yield o(
                 "WAWebAccountLinkingCryptoUtils",
               ).validateCertificateChain(a);
@@ -165,9 +165,7 @@ __d(
                 i = (n = a.encryptionPem) == null ? void 0 : n.elementValue;
               if (i != null) {
                 var l = String.fromCharCode.apply(null, i),
-                  s = yield o("WAWebDirectConnectionX509").extractCertificates(
-                    l,
-                  ),
+                  s = yield o("WAWebX509Utils").extractCertificates(l),
                   p = yield o(
                     "WAWebAccountLinkingCryptoUtils",
                   ).validateCertificateChain(s);

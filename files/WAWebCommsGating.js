@@ -1,9 +1,10 @@
 __d(
   "WAWebCommsGating",
-  ["gkx"],
+  ["qex"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return r("gkx")("18966");
+      var e = r("qex")._("5241");
+      return e === "worker" || e === "worker_hrp" || e === "worker_hrp_bundle";
     }
     l.isCommsInWorker = e;
   },

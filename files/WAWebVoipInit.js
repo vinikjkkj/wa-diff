@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAResolvable",
+    "WAWebBackendApi",
     "WAWebCallWamEvent",
     "WAWebCoreActionsODS",
     "WAWebCountryCodeUtils",
@@ -19,6 +20,7 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipNetworkMedium",
+    "WAWebVoipPthreadGlueFailureTracker",
     "WAWebVoipQplHelpers",
     "WAWebVoipStackInterface",
     "WAWebVoipWasmArtifactRegistry",
@@ -401,8 +403,17 @@ __d(
                       ])),
                     e,
                   )
-                  .sendLogs("voip: init-failed"),
-                (P = !N || !Y()),
+                  .sendLogs("voip: init-failed"));
+              var M =
+                (N && Y()) ||
+                o(
+                  "WAWebVoipPthreadGlueFailureTracker",
+                ).hasTerminalPthreadGlueFailure();
+              ((P = !M),
+                M &&
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "markVoipWasmArtifactUnavailable",
+                  ),
                 o(
                   "WAWebVoipInitEventEmitter",
                 ).VoipInitEventEmitter.triggerVoipInitFailure(
@@ -410,8 +421,8 @@ __d(
                 ),
                 ae());
             } finally {
-              var M;
-              ((M = j) == null || M.resolve(), (j = null));
+              var w;
+              ((w = j) == null || w.resolve(), (j = null));
             }
           }
         })),
@@ -435,7 +446,7 @@ __d(
       try {
         return r("justknobx")._("5809");
       } catch (e) {
-        return !1;
+        return !0;
       }
     }
     function J(e) {

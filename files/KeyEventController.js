@@ -65,13 +65,11 @@ __d(
       m = (function () {
         function e() {
           var e = this;
-          ((this.handlers = {}),
-            ["keyup", "keydown", "keypress"].forEach(function (t) {
-              return document.addEventListener(
-                t,
-                e.onkeyevent.bind(e, "on" + t),
-              );
-            }));
+          this.handlers = {};
+          var t = ["keyup", "keydown", "keypress"];
+          t.forEach(function (t) {
+            return document.addEventListener(t, e.onkeyevent.bind(e, "on" + t));
+          });
         }
         var t = e.prototype;
         return (
@@ -185,7 +183,9 @@ __d(
               c = e.getInstance(),
               d = t == null ? [] : c.mapKey(t);
             (s || (s = r("isEmpty")))(c.handlers) &&
-              o("Run").onLeave(c.resetHandlers.bind(c));
+              o("Run").onLeave(function () {
+                return c.resetHandlers();
+              });
             for (var m = {}, p = 0; p < d.length; p++) {
               ((t = "" + d[p]), (!c.handlers[t] || l) && (c.handlers[t] = []));
               var _ = { callback: a, filter: i, preserve: u };

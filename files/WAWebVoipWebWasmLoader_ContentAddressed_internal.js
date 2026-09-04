@@ -19,7 +19,7 @@ __d(
       d = {
         "2c7542b3323833fa1951fd8f2e77dfead1d0257b87d053ae60c75922b8344014":
           function () {
-            return r("bx")("90648");
+            return r("bx")("90671");
           },
       },
       m = d["2c7542b3323833fa1951fd8f2e77dfead1d0257b87d053ae60c75922b8344014"],
@@ -100,7 +100,7 @@ __d(
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1788394152520" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1788412207199" });
     } catch (e) {
       h = e;
     }
@@ -3681,22 +3681,35 @@ __d(
                   else if (r === "cleanupThread") Lt(t.thread);
                   else if (r === "killThread") St(t.thread);
                   else if (r === "cancelThread") Rt(t.thread);
-                  else if (r === "wasmGlueBuildMismatch")
-                    try {
-                      De(
-                        "voip: worker glue build mismatch source=" +
+                  else if (
+                    r === "wasmGlueBuildMismatch" ||
+                    r === "pinnedWasmGlueLoadFailed"
+                  ) {
+                    var i =
+                      r === "wasmGlueBuildMismatch"
+                        ? "voip: worker glue build mismatch source=" +
                           t.source +
                           " expected=" +
                           t.expectedBuildSha +
                           " actual=" +
-                          t.actualBuildSha,
+                          t.actualBuildSha
+                        : "voip: pinned worker glue load failed: " + t.error;
+                    if (rc && typeof v.onPthreadGlueFailure == "function")
+                      v.onPthreadGlueFailure(
+                        r === "wasmGlueBuildMismatch"
+                          ? {
+                              kind: "build_mismatch",
+                              actualBuildSha: t.actualBuildSha,
+                              expectedBuildSha: t.expectedBuildSha,
+                              source: t.source,
+                            }
+                          : { kind: "pinned_load_failed", error: t.error },
                       );
-                    } catch (e) {}
-                  else if (r === "pinnedWasmGlueLoadFailed")
-                    try {
-                      De("voip: pinned worker glue load failed: " + t.error);
-                    } catch (e) {}
-                  else
+                    else
+                      try {
+                        De(i);
+                      } catch (e) {}
+                  } else
                     r === "wasmGlueBuildSkewObserved"
                       ? typeof v.onWasmGlueBuildSkewObserved == "function" &&
                         v.onWasmGlueBuildSkewObserved(t)
@@ -9830,7 +9843,8 @@ __d(
           define.amd &&
           define([], function () {
             return C;
-          }));
+          }),
+      (C.PINNED_WORKER_GLUE_BX_ERROR = p));
   },
   34,
 );

@@ -12,8 +12,9 @@ __d(
         "ThirtyDays",
         "Never",
       ]),
-      u = s.SevenDays;
-    function c(e) {
+      u = s.SevenDays,
+      c = "infinite";
+    function d(e) {
       switch (e) {
         case s.FiveSeconds:
           return 5;
@@ -31,7 +32,7 @@ __d(
           return 0;
       }
     }
-    function d(e) {
+    function m(e) {
       switch (e) {
         case 5:
           return s.FiveSeconds;
@@ -54,8 +55,9 @@ __d(
     ((l.PIN_STATE = e),
       (l.PinExpiryDurationOption = s),
       (l.DEFAULT_PIN_EXPIRY_DURATION_OPTION = u),
-      (l.getPinExpiryDuration = c),
-      (l.getPinExpiryOption = d));
+      (l.PIN_TIME_REMAINING_INFINITE = c),
+      (l.getPinExpiryDuration = d),
+      (l.getPinExpiryOption = m));
   },
   98,
 );

@@ -9,12 +9,12 @@ __d(
     "WAWebBizBusinessProfileAction",
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileVersioningBridge",
+    "WAWebCertificateString",
     "WAWebChatCollection",
     "WAWebDirectConnectionCypher",
     "WAWebDirectConnectionGatingUtils",
-    "WAWebDirectConnectionUtils",
-    "WAWebDirectConnectionX509",
     "WAWebServerPropConstants",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -54,10 +54,10 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDirectConnectionX509").extractCertificates(
-              o("WAWebDirectConnectionUtils").certificateStringToString(e),
+          var t = yield o("WAWebX509Utils").extractCertificates(
+              o("WAWebCertificateString").certificateStringToString(e),
             ),
-            n = yield o("WAWebDirectConnectionX509").validateCertificates(
+            n = yield o("WAWebX509Utils").validateCertificates(
               t.slice(1, -1),
               t.slice(-1),
             ),
@@ -97,7 +97,7 @@ __d(
           var a,
             i = yield (e || (e = n("Promise"))).all([
               o("WAWebBizBusinessProfileAction").queryBusinessPublicKey(t),
-              o("WAWebDirectConnectionX509").fetchFromCABundle(),
+              o("WAWebX509Utils").fetchFromCABundle(),
             ]),
             l = i[0].certificate,
             s = i[1];
@@ -105,8 +105,8 @@ __d(
             throw r("err")(
               "[direct-connection] no certificate returned from the get_public_key IQ",
             );
-          var u = yield o("WAWebDirectConnectionX509").extractCertificates(
-              o("WAWebDirectConnectionUtils").certificateStringToString(l),
+          var u = yield o("WAWebX509Utils").extractCertificates(
+              o("WAWebCertificateString").certificateStringToString(l),
             ),
             c =
               u.length > 0
@@ -116,11 +116,9 @@ __d(
                   ? void 0
                   : a.value.valueBlock.value
                 : null,
-            d = r("nullthrows")(
-              yield o("WAWebDirectConnectionX509").genRootIssuers(u, s),
-            );
+            d = r("nullthrows")(yield o("WAWebX509Utils").genRootIssuers(u, s));
           return {
-            certificateString: o("WAWebDirectConnectionX509").encodeToString(
+            certificateString: o("WAWebX509Utils").encodeToString(
               [].concat(u, d),
             ),
             leafCertificateCommonName: c,

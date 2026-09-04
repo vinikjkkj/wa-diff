@@ -12,6 +12,8 @@ __d(
         onFocusEnd: function () {},
         cancelDismiss: function () {},
         isBridgeActiveForMsg: o("WAWebBoolFunc").returnFalse,
+        onMessageMenuOpen: function () {},
+        onMessageMenuClose: function () {},
       },
       d = u(c),
       m = d;

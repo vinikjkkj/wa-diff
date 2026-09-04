@@ -51,7 +51,7 @@ __d(
           }
           return [_, m];
         } catch (n) {
-          var h = n == null ? void 0 : n.message,
+          var h = n instanceof Error ? n.message : String(n),
             y = r("FBLogger")("JSRouteBuilder")
               .blameToPreviousFrame()
               .blameToPreviousFrame();

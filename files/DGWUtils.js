@@ -111,7 +111,7 @@ __d(
                   "debug:" + v),
               s !== void 0 &&
                 (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_AUTHTOKEN] = s),
-              r("DGWWebSocketGating")(Number(i)) &&
+              o("DGWWebSocketGating").isWsCompressionEnabled(Number(i)) &&
                 (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_WS_COMPRESSION] =
                   "true"),
               Object.keys(g).forEach(function (e) {

@@ -1,6 +1,10 @@
 __d(
   "WAWebCtwaConversationDepthUtils",
-  ["WAWebConversionTupleCollection", "WAWebMsgType"],
+  [
+    "WAWebConversationCountersUtils",
+    "WAWebConversionTupleCollection",
+    "WAWebMsgType",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = new Set([
@@ -35,14 +39,11 @@ __d(
       return t;
     }
     function c(e, t) {
-      var n = e.depth,
-        r = e.lastMessageFromMe,
-        o = e.repeat;
-      return r == null
-        ? { depth: n, repeat: 0, lastMessageFromMe: t }
-        : t !== r
-          ? { depth: t ? n + 1 : n, repeat: 0, lastMessageFromMe: t }
-          : { depth: n, repeat: o + 1, lastMessageFromMe: t };
+      return o("WAWebConversationCountersUtils").nextConversationCounters(
+        e,
+        t,
+        !0,
+      );
     }
     function d(e, t) {
       var n,

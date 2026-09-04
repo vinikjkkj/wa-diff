@@ -7,21 +7,18 @@ __d(
         /*BTDS*/ "People who don't have WhatsApp will always need approval to join.",
       );
     }
-    function u() {
-      return o("WAWebVoipGatingUtils").isWaitingRoomToggleApprovalNoteEnabled()
-        ? d()
-        : s._(
-            /*BTDS*/ "Anyone with WhatsApp can use this link to join this call. Only share it with people you trust.",
-          );
+    function u(e) {
+      return o("WAWebVoipGatingUtils").isCallLinkGuestEligible(e) ? m() : d();
     }
     function c() {
-      return o("WAWebVoipGatingUtils").isWaitingRoomToggleApprovalNoteEnabled()
-        ? d()
-        : s._(
-            /*BTDS*/ "Anyone with WhatsApp can use this link to join this call. Only share it with people you trust.",
-          );
+      return o("WAWebVoipGatingUtils").canCreateGuestCallLinks() ? m() : d();
     }
     function d() {
+      return s._(
+        /*BTDS*/ "Anyone with WhatsApp can use this link to join this call. Only share it with people you trust.",
+      );
+    }
+    function m() {
       return s._(
         /*BTDS*/ "Anyone can use this link to join this call, even if they're not on WhatsApp. Only share it with people you trust.",
       );

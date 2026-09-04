@@ -6,6 +6,7 @@ __d(
     "WAWebBotBaseGating",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
+    "WAWebMessageAssociationGatingUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebSpoilerGating",
@@ -13,24 +14,33 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      var t,
-        n,
-        r,
-        o = e.editedMessage,
-        a = (t = o) == null ? void 0 : t.spoilerMessage;
-      return (
-        a != null && (o = a.message),
-        (n =
-          (r = o) == null || (r = r.groupMentionedMessage) == null
-            ? void 0
-            : r.message) != null
-          ? n
-          : o
-      );
-    }
+    var e,
+      s = 3;
     function u(e) {
+      for (var t = e.editedMessage, n = 0; n < s; n++) {
+        var r = c(t);
+        if (r == null) break;
+        t = r;
+      }
+      return t;
+    }
+    function c(e) {
+      if (e == null) return null;
+      var t = e.associatedChildMessage,
+        n = e.groupMentionedMessage,
+        r = e.spoilerMessage;
+      return t != null &&
+        o(
+          "WAWebMessageAssociationGatingUtils",
+        ).isFutureproofAssociatedChildEnabled()
+        ? t.message
+        : r != null && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+          ? r.message
+          : n == null
+            ? void 0
+            : n.message;
+    }
+    function d(e) {
       var t, n;
       if (o("WAWebSpoilerGating").isSpoilerReceiverEnabled()) return !1;
       var r =
@@ -50,7 +60,7 @@ __d(
         ((n = a.editedMessage) == null ? void 0 : n.spoilerMessage) != null
       );
     }
-    function c(e) {
+    function m(e) {
       return {
         msgData: babelHelpers.extends({}, e, {
           type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
@@ -61,11 +71,11 @@ __d(
         contextInfo: null,
       };
     }
-    function d(t) {
+    function p(t) {
       var n = t.baseMessage,
         a = t.messageProtobuf,
         i = t.msgContext;
-      if (u(a)) return c(n);
+      if (d(a)) return m(n);
       var l = a.protocolMessage;
       if (
         !(
@@ -77,16 +87,16 @@ __d(
       )
         try {
           var s,
-            d,
-            g,
-            h =
+            u,
+            c,
+            p =
               (s =
-                (d = (g = m(n, l, i)) != null ? g : f(n, l, i)) != null
-                  ? d
-                  : p(n, l)) != null
+                (u = (c = _(n, l, i)) != null ? c : h(n, l, i)) != null
+                  ? u
+                  : f(n, l)) != null
                 ? s
-                : _(n, l, i, a.messageContextInfo);
-          return h || null;
+                : g(n, l, i, a.messageContextInfo);
+          return p || null;
         } catch (t) {
           var y = r("getErrorSafe")(t);
           throw (
@@ -107,8 +117,8 @@ __d(
           );
         }
     }
-    function m(e, t, n) {
-      var a = s(t),
+    function _(e, t, n) {
+      var a = u(t),
         i =
           !!(a != null && a.conversation) ||
           !!(a != null && a.extendedTextMessage);
@@ -116,7 +126,7 @@ __d(
       var l = o(
           "WAWebE2EProtoUtils",
         ).translateRegularMessageKeyToLocalReference(t.key, e),
-        u = babelHelpers.extends(
+        s = babelHelpers.extends(
           {},
           o("WAWebE2EProtoParser").parseMsgProto({
             messageProtobuf: r("nullthrows")(a),
@@ -135,10 +145,10 @@ __d(
             protocolMessageKey: l,
           },
         );
-      return { msgData: u, contextInfo: null };
+      return { msgData: s, contextInfo: null };
     }
-    function p(e, t) {
-      var n = s(t),
+    function f(e, t) {
+      var n = u(t),
         r,
         a,
         i;
@@ -155,7 +165,7 @@ __d(
           (a = n.documentMessage.caption),
           (i = n.documentMessage.contextInfo));
       else if (n != null && n.documentWithCaptionMessage) {
-        var l, u;
+        var l, s;
         ((r = o("WAWebMsgType").MSG_TYPE.DOCUMENT),
           (a =
             (l = n.documentWithCaptionMessage) == null ||
@@ -164,11 +174,11 @@ __d(
               ? void 0
               : l.caption),
           (i =
-            (u = n.documentWithCaptionMessage) == null ||
-            (u = u.message) == null ||
-            (u = u.documentMessage) == null
+            (s = n.documentWithCaptionMessage) == null ||
+            (s = s.message) == null ||
+            (s = s.documentMessage) == null
               ? void 0
-              : u.contextInfo));
+              : s.contextInfo));
       }
       if (!r || a === "" || a == null) return null;
       var c = babelHelpers.extends({}, e, {
@@ -187,11 +197,11 @@ __d(
       });
       return { msgData: c, contextInfo: i };
     }
-    function _(e, t, n, r) {
+    function g(e, t, n, r) {
       var a,
         i = (a = t.editedMessage) == null ? void 0 : a.richResponseMessage;
       return i
-        ? g({
+        ? y({
             baseMessage: e,
             editMsgType: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
             messageContextInfo: r,
@@ -200,7 +210,7 @@ __d(
           })
         : null;
     }
-    function f(e, t, n) {
+    function h(e, t, n) {
       var r,
         a = t.editedMessage,
         i =
@@ -211,14 +221,14 @@ __d(
               : a.videoMessage;
       return !i || !o("WAWebBotBaseGating").isLoadingMediaMessagesEnabled(e)
         ? null
-        : g({
+        : y({
             baseMessage: e,
             editMsgType: o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA,
             msgContext: n,
             protocolMessage: t,
           });
     }
-    function g(e) {
+    function y(e) {
       var t = e.baseMessage,
         n = e.editMsgType,
         a = e.messageContextInfo,
@@ -253,7 +263,7 @@ __d(
         );
       return { msgData: u, contextInfo: null };
     }
-    l.default = d;
+    l.default = p;
   },
   98,
 );

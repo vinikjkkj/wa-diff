@@ -124,6 +124,7 @@ __d(
           },
           groupJid: T,
           linkToken: (g = L.LinkToken) != null ? g : null,
+          isGuestEligible: !1,
           scheduledId: r("isStringNullOrEmpty")(L.ScheduledId)
             ? null
             : L.ScheduledId,

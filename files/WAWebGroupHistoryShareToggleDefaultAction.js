@@ -26,8 +26,8 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(t, r) {
-      return o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(t)
+    function c(t, r, a) {
+      return a && o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(t)
         ? s(t, r)
         : (e || (e = n("Promise"))).resolve();
     }

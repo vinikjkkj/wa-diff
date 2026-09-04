@@ -5,10 +5,10 @@ __d(
     "WABase64",
     "WABinary",
     "WAWebDbEncryptionKey",
-    "WAWebDirectConnectionX509",
     "WAWebPermanentStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -187,7 +187,7 @@ __d(
               r.key,
               o("WABase64").decodeB64(e),
             );
-          return o("WAWebDirectConnectionX509").arrayBufferToString(a);
+          return o("WAWebX509Utils").arrayBufferToString(a);
         })),
         k.apply(this, arguments)
       );

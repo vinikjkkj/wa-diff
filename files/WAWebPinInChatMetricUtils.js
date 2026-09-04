@@ -7,6 +7,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebPinInChatInteractionWamEvent",
     "WAWebPinInChatMessageSendWamEvent",
+    "WAWebPinMsgConstants",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumGroupRoleType",
@@ -84,7 +85,9 @@ __d(
     function u(e) {
       if (e != null) {
         var t = e.leftExpirationTime();
-        return Number.isFinite(t) ? t : 0;
+        return t === o("WAWebPinMsgConstants").PIN_TIME_REMAINING_INFINITE
+          ? 0
+          : t;
       }
     }
     function c(e) {

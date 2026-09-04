@@ -176,6 +176,7 @@ __d(
               if (
                 ((y.isCallLink = !0),
                 (y.callLinkToken = s),
+                (y.isGuestEligible = a.isGuestEligible),
                 l != null && o("WAWebMsgGetters").getIsCallLink(l) === !0)
               ) {
                 var R = o("WAWebMsgGetters").getSender(l);
@@ -228,6 +229,7 @@ __d(
               (L.isCallLink ||
                 ((L.isCallLink = !0),
                 (L.callLinkToken = s),
+                (L.isGuestEligible = a.isGuestEligible),
                 L.trigger(
                   o("WAWebVoipEventConstants").getChangeEvent(
                     o("WAWebVoipEventConstants").VoipCallModelEvents
@@ -799,6 +801,7 @@ __d(
               (i = t.creatorJid) != null ? i : t.self.jid),
             (l.callLinkVideoEnabled = t.videoEnabled),
             (l.isEventLink = t.isEventLink),
+            (l.isGuestEligible = t.isGuestEligible),
             (l.isVideo = t.videoEnabled),
             (l.outgoing = !0),
             (l.selfVideoState = o(
@@ -822,7 +825,8 @@ __d(
             (a.callLinkCreatorJid =
               (s = t.creatorJid) != null ? s : t.self.jid),
             (a.callLinkVideoEnabled = t.videoEnabled),
-            (a.isEventLink = t.isEventLink));
+            (a.isEventLink = t.isEventLink),
+            (a.isGuestEligible = t.isGuestEligible));
         }
         (a.trigger(
           o("WAWebVoipEventConstants").getChangeEvent(

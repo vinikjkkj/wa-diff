@@ -17,11 +17,12 @@ __d(
       );
     }
     function p(e) {
-      if (u != null && typeof e == "object")
-        return (u.get(e) === void 0 && u.set(e, {}), u.get(e));
-      if (s && typeof e == "object") return e[l] || (e[l] = {});
-      var t = m(e);
-      return c[t] || (c[t] = {});
+      if (u != null && typeof e == "object") {
+        var t = u.get(e);
+        return (t === void 0 && ((t = {}), u.set(e, t)), t);
+      } else if (s && typeof e == "object") return e[l] || (e[l] = {});
+      var n = m(e);
+      return c[n] || (c[n] = {});
     }
     var _ = {
       set: function (t, n, r) {

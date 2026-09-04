@@ -52,6 +52,7 @@ __d(
     "getErrorSafe",
     "getSafeQplErrorMessage",
     "gkx",
+    "qex",
     "qpl",
     "supportsModuleWorker",
   ],
@@ -749,6 +750,7 @@ __d(
                         supportModule: r("supportsModuleWorker")(!1),
                       },
                       int: { retryStart: i },
+                      string: { waweb_comms_in_worker: r("qex")._("5241") },
                     },
                     timeoutInMs: 6e4,
                   });

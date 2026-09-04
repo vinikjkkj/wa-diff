@@ -134,7 +134,7 @@ __d(
     }
     function m() {
       var e = window.getSelection;
-      if (e != null) return e() + "";
+      if (e != null) return String(e());
       var t = document.selection;
       return t != null ? t.createRange().text : null;
     }

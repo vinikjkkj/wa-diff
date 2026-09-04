@@ -203,7 +203,26 @@ __d(
           )
         : !1;
     }
-    function T(e, t) {
+    function T() {
+      return c()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "mm_1pd_post_dc_new_schema_enabled",
+          )
+        : !1;
+    }
+    function D() {
+      return c()
+        ? !o("WAWebABProps").getABPropConfigValue(
+            "mm_1pd_post_dc_old_schema_disabled",
+          )
+        : !1;
+    }
+    function x() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "mm_1pd_post_dc_depth_limit",
+      );
+    }
+    function $(e, t) {
       var n = y(),
         r = n.consented_types_allowlist,
         o = n.non_consented_types_allowlist;
@@ -229,7 +248,10 @@ __d(
         E),
       (l.isMmSignalSharingReplacingShimmedLinksEnabled = k),
       (l.isMmSignalSharingAppCtaEnabled = I),
-      (l.isSignalTypeAllowlisted = T));
+      (l.isMmSignalSharingPostDcNewSchemaEnabled = T),
+      (l.isMmSignalSharingPostDcOldSchemaEnabled = D),
+      (l.getMmSignalSharingPostDcDepthLimit = x),
+      (l.isSignalTypeAllowlisted = $));
   },
   98,
 );

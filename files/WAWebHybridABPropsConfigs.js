@@ -351,10 +351,10 @@ __d(
       max_number_of_frequently_used_contacts_shared_with_device: [
         10977,
         "int",
-        15,
-        15,
+        0,
+        0,
       ],
-      max_number_of_recent_contacts_shared_with_device: [10978, "int", 15, 15],
+      max_number_of_recent_contacts_shared_with_device: [10978, "int", 30, 30],
       may_have_messages_enabled: [25303, "bool", !1, !1],
       mc_enabled: [32843, "bool", !1, !1],
       media_elst_timing_refinement_enabled: [36067, "bool", !1, !0],

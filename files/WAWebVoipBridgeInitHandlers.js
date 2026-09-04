@@ -66,6 +66,9 @@ __d(
             e,
           );
         },
+        markVoipWasmArtifactUnavailable: function () {
+          o("WAWebVoipInitReloadRecovery").markVoipWasmArtifactUnavailable();
+        },
         setRelayAllCallsToUserPrefs: function (t) {
           var e = t.disallowAllP2p;
           return o("WAWebVoipRelayAllCallsAction").setRelayAllCallsToUserPrefs(

@@ -12,8 +12,14 @@ __d(
         "futureproof_associated_child_enabled",
       );
     }
+    function u() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_wrap_associated_child_message_enabled",
+      );
+    }
     ((l.isMessageAssociationInfraEnabled = e),
-      (l.isFutureproofAssociatedChildEnabled = s));
+      (l.isFutureproofAssociatedChildEnabled = s),
+      (l.shouldWrapAssociatedChildOnSend = u));
   },
   98,
 );

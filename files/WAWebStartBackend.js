@@ -762,6 +762,10 @@ __d(
               "fetchBizAiLargeScreensGate",
               { trigger: "app-launch" },
             ),
+            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+              "fetchBizAiResponseSettingsV2Gate",
+              { trigger: "app-launch" },
+            ),
             o("WAWebGetReachoutTimelockJob").fetchReachoutTimelock());
         })),
         B.apply(this, arguments)

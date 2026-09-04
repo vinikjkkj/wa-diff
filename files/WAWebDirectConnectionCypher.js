@@ -4,7 +4,7 @@ __d(
     "$InternalEnum",
     "WAArrayBufferUtils",
     "WALogger",
-    "WAWebDirectConnectionX509",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -23,18 +23,16 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebDirectConnectionX509").getEngine(),
+          var r = yield o("WAWebX509Utils").getEngine(),
             a = r.subtle;
           return a.encrypt(
             {
               name: "AES-GCM",
-              iv: new Uint8Array(
-                o("WAWebDirectConnectionX509").base64ToArrayBuffer(t),
-              ),
+              iv: new Uint8Array(o("WAWebX509Utils").base64ToArrayBuffer(t)),
               tagLength: 128,
             },
             e,
-            o("WAWebDirectConnectionX509").stringToArrayBuffer(n),
+            o("WAWebX509Utils").stringToArrayBuffer(n),
           );
         })),
         m.apply(this, arguments)
@@ -46,7 +44,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebDirectConnectionX509").getEngine(),
+          var r = yield o("WAWebX509Utils").getEngine(),
             a = r.subtle,
             i = yield a.importKey("raw", e, { name: "AES-GCM" }, !1, [
               "decrypt",
@@ -54,13 +52,11 @@ __d(
           return a.decrypt(
             {
               name: "AES-GCM",
-              iv: new Uint8Array(
-                o("WAWebDirectConnectionX509").base64ToArrayBuffer(n),
-              ),
+              iv: new Uint8Array(o("WAWebX509Utils").base64ToArrayBuffer(n)),
               tagLength: 128,
             },
             i,
-            o("WAWebDirectConnectionX509").base64ToArrayBuffer(t),
+            o("WAWebX509Utils").base64ToArrayBuffer(t),
           );
         })),
         _.apply(this, arguments)
@@ -83,25 +79,20 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = o("WAWebDirectConnectionX509").arrayBufferToBase64(
-            yield o("WAWebDirectConnectionX509").getRandomValues(
-              new Uint8Array(16),
-            ),
+          var a = o("WAWebX509Utils").arrayBufferToBase64(
+            yield o("WAWebX509Utils").getRandomValues(new Uint8Array(16)),
           );
           try {
-            var i = yield o("WAWebDirectConnectionX509").getEngine(),
+            var i = yield o("WAWebX509Utils").getEngine(),
               l = i.subtle,
               s = yield l.generateKey({ name: "AES-GCM", length: 256 }, !0, [
                 "encrypt",
               ]),
-              u = o("WAWebDirectConnectionX509").arrayBufferToBase64(
+              u = o("WAWebX509Utils").arrayBufferToBase64(
                 yield d(s, a, JSON.stringify(n)),
               ),
               c = yield l.exportKey("raw", s),
-              m = yield o("WAWebDirectConnectionX509").encryptWithPublicKey(
-                t,
-                c,
-              );
+              m = yield o("WAWebX509Utils").encryptWithPublicKey(t, c);
             return {
               cypher: "AesKey=" + m + ";IV=" + a + ";Data=" + u,
               exportedAesKey: c,

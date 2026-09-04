@@ -7,6 +7,7 @@ __d(
     "WAWebBizAISettingsVersionCollection",
     "WAWebBizAiBulkThreadControlLogEvents",
     "WAWebBizAiLargeScreensGateModel",
+    "WAWebBizAiResponseSettingsV2GateModel",
     "WAWebChatCollection",
     "WAWebLidMigrationUtils",
     "WAWebProtobufSyncAction.pb",
@@ -192,6 +193,12 @@ __d(
       loadedBizAiLargeScreensGate: function (t) {
         var e = t.enabled;
         o("WAWebBizAiLargeScreensGateModel").applyBizAiLargeScreensGate(e);
+      },
+      loadedBizAiResponseSettingsV2Gate: function (t) {
+        var e = t.enabled;
+        o(
+          "WAWebBizAiResponseSettingsV2GateModel",
+        ).applyBizAiResponseSettingsV2Gate(e);
       },
     };
     l.BizAiBridgeApi = g;

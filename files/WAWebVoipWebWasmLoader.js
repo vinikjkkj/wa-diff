@@ -16,7 +16,7 @@ __d(
       u,
       c = "2c7542b3323833fa1951fd8f2e77dfead1d0257b87d053ae60c75922b8344014",
       d = null,
-      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1788394152520" }),
+      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1788412207199" }),
       p = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -3612,22 +3612,35 @@ __d(
                     else if (r === "cleanupThread") Rt(t.thread);
                     else if (r === "killThread") vt(t.thread);
                     else if (r === "cancelThread") St(t.thread);
-                    else if (r === "wasmGlueBuildMismatch")
-                      try {
-                        Te(
-                          "voip: worker glue build mismatch source=" +
+                    else if (
+                      r === "wasmGlueBuildMismatch" ||
+                      r === "pinnedWasmGlueLoadFailed"
+                    ) {
+                      var i =
+                        r === "wasmGlueBuildMismatch"
+                          ? "voip: worker glue build mismatch source=" +
                             t.source +
                             " expected=" +
                             t.expectedBuildSha +
                             " actual=" +
-                            t.actualBuildSha,
+                            t.actualBuildSha
+                          : "voip: pinned worker glue load failed: " + t.error;
+                      if (nc && typeof b.onPthreadGlueFailure == "function")
+                        b.onPthreadGlueFailure(
+                          r === "wasmGlueBuildMismatch"
+                            ? {
+                                kind: "build_mismatch",
+                                actualBuildSha: t.actualBuildSha,
+                                expectedBuildSha: t.expectedBuildSha,
+                                source: t.source,
+                              }
+                            : { kind: "pinned_load_failed", error: t.error },
                         );
-                      } catch (e) {}
-                    else if (r === "pinnedWasmGlueLoadFailed")
-                      try {
-                        Te("voip: pinned worker glue load failed: " + t.error);
-                      } catch (e) {}
-                    else
+                      else
+                        try {
+                          Te(i);
+                        } catch (e) {}
+                    } else
                       r === "wasmGlueBuildSkewObserved"
                         ? typeof b.onWasmGlueBuildSkewObserved == "function" &&
                           b.onWasmGlueBuildSkewObserved(t)

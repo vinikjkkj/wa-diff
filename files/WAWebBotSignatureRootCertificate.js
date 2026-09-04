@@ -1,6 +1,6 @@
 __d(
   "WAWebBotSignatureRootCertificate",
-  ["WALogger", "WAWebDirectConnectionX509", "asyncToGeneratorRuntime", "err"],
+  ["WALogger", "WAWebX509Utils", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -19,7 +19,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (d != null) return d;
           try {
-            var t = yield o("WAWebDirectConnectionX509").extractCertificates(c);
+            var t = yield o("WAWebX509Utils").extractCertificates(c);
             return t.length === 0
               ? (o("WALogger")
                   .ERROR(

@@ -8,8 +8,8 @@ __d(
     "WAWebBizBusinessProfileAction",
     "WAWebBusinessDirectConnectionModel",
     "WAWebBusinessDirectUtils",
+    "WAWebCertificateString",
     "WAWebDirectConnectionCypher",
-    "WAWebDirectConnectionUtils",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
     "asyncToGeneratorRuntime",
@@ -38,9 +38,9 @@ __d(
                 if (!t && a != null && a.certificateChain) {
                   var i = yield (d || (d = n("Promise"))).all([
                       o("WAWebBusinessDirectUtils").getValidCertificate(
-                        o(
-                          "WAWebDirectConnectionUtils",
-                        ).stringToCertificateString(a.certificateChain),
+                        o("WAWebCertificateString").stringToCertificateString(
+                          a.certificateChain,
+                        ),
                       ),
                       o("WAWebBizBusinessProfileAction").querySignedUserInfo(r),
                     ]),
@@ -228,7 +228,7 @@ __d(
                       .PhoneNumberAndPostcode
                       ? p.phoneNumberSignatureExpiration
                       : null,
-                  C = o("WAWebDirectConnectionUtils").certificateStringToString(
+                  C = o("WAWebCertificateString").certificateStringToString(
                     _.string,
                   );
                 return {
@@ -299,9 +299,9 @@ __d(
                     var C = yield o(
                         "WAWebDirectConnectionCypher",
                       ).decryptDataWithSymmetricKeyToString(p, h, _),
-                      b = o(
-                        "WAWebDirectConnectionUtils",
-                      ).certificateStringToString(u.string),
+                      b = o("WAWebCertificateString").certificateStringToString(
+                        u.string,
+                      ),
                       v = {
                         cypherExpirationTimestamp: f,
                         certificateChain: b,

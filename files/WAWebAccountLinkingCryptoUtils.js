@@ -6,9 +6,9 @@ __d(
     "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingConstants",
     "WAWebCryptoCurve25519CalculateSignature",
-    "WAWebDirectConnectionX509",
     "WAWebRSAPkcs1v15",
     "WAWebSignalProtocolStore",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -75,10 +75,7 @@ __d(
               null
             );
           var l = yield b(),
-            s = yield o("WAWebDirectConnectionX509").validateCertificates(
-              [a, i],
-              [l],
-            );
+            s = yield o("WAWebX509Utils").validateCertificates([a, i], [l]);
           return s.result ? i : null;
         })),
         h.apply(this, arguments)
@@ -90,7 +87,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDirectConnectionX509").extractCertificates(e);
+          var t = yield o("WAWebX509Utils").extractCertificates(e);
           if (t.length !== 2)
             throw r("err")(
               "[WAFFLE] Payload encryption certificate chain is invalid",
@@ -124,7 +121,7 @@ __d(
               o("WAWebAccountLinkingConstants").ProdRootCertificatePem +
               "\n" +
               t,
-            r = yield o("WAWebDirectConnectionX509").extractCertificates(n);
+            r = yield o("WAWebX509Utils").extractCertificates(n);
           return (
             r.length !== 1 &&
               o("WALogger").ERROR(

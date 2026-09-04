@@ -58,61 +58,91 @@ __d(
         windows: { fontFamily: "x18qtup9", $$css: !0 },
       },
       m = {
+        apple: { fontFamily: "xdtdgcq", $$css: !0 },
+        default: { fontFamily: "x1xzb5av", $$css: !0 },
+        windows: { fontFamily: "xd45xg9", $$css: !0 },
+      },
+      p = {
+        apple: { fontFamily: "x1dtxhp6", $$css: !0 },
+        default: { fontFamily: "x13v4dij", $$css: !0 },
+        windows: { fontFamily: "x115zmq3", $$css: !0 },
+      },
+      _ = {
         apple: { fontFamily: "x13sc5st", $$css: !0 },
         default: { fontFamily: "x15bjy8r", $$css: !0 },
         windows: { fontFamily: "x1q5ab00", $$css: !0 },
       },
-      p = {
+      f = {
         apple: { fontFamily: "x17lgo4e", $$css: !0 },
         default: { fontFamily: "xygjavf", $$css: !0 },
         windows: { fontFamily: "x1t03qr3", $$css: !0 },
       },
-      _ = {
+      g = {
         apple: { fontFamily: "xej1f7s", $$css: !0 },
         default: { fontFamily: "xfsvlko", $$css: !0 },
         windows: { fontFamily: "x188k2y4", $$css: !0 },
       },
-      f = {
+      h = {
         apple: { fontFamily: "x1gbch0d", $$css: !0 },
         default: { fontFamily: "x1orftwa", $$css: !0 },
         windows: { fontFamily: "x1215byi", $$css: !0 },
       },
-      g = {
+      y = {
         apple: { fontFamily: "x1fnpb41", $$css: !0 },
         default: { fontFamily: "x1rg2z3u", $$css: !0 },
         windows: { fontFamily: "x1ff8u0n", $$css: !0 },
       },
-      h = {
+      C = {
         apple: { fontFamily: "x1cihehr", $$css: !0 },
         default: { fontFamily: "x1shdpqr", $$css: !0 },
         windows: { fontFamily: "x11x3m1q", $$css: !0 },
       },
-      y = {
+      b = {
         apple: { fontFamily: "xcd4a2j", $$css: !0 },
         default: { fontFamily: "xzz1hku", $$css: !0 },
         windows: { fontFamily: "xhqx0jl", $$css: !0 },
       },
-      C = {
+      v = {
         apple: { fontFamily: "x7igvfm", $$css: !0 },
         default: { fontFamily: "x1fh7n3k", $$css: !0 },
         windows: { fontFamily: "x1i3kngk", $$css: !0 },
       },
-      b = {
+      S = {
         apple: { fontFamily: "x31b0c2", $$css: !0 },
         default: { fontFamily: "x1gk729v", $$css: !0 },
         windows: { fontFamily: "x1rhavg7", $$css: !0 },
       },
-      v = {
+      R = {
         apple: { fontFamily: "x1ht2ja9", $$css: !0 },
         default: { fontFamily: "x6f7imt", $$css: !0 },
         windows: { fontFamily: "x9axs75", $$css: !0 },
       },
-      S = {
+      L = {
         apple: { fontFamily: "x15smpfu", $$css: !0 },
         default: { fontFamily: "x1vv9oc4", $$css: !0 },
         windows: { fontFamily: "xghutw1", $$css: !0 },
       },
-      R = {
+      E = {
+        apple: { fontFamily: "xj08ice", $$css: !0 },
+        default: { fontFamily: "x19t0f51", $$css: !0 },
+        windows: { fontFamily: "x1qo6zfo", $$css: !0 },
+      },
+      k = {
+        apple: { fontFamily: "x1dx89dy", $$css: !0 },
+        default: { fontFamily: "x16g3gpg", $$css: !0 },
+        windows: { fontFamily: "x13uk59q", $$css: !0 },
+      },
+      I = {
+        apple: { fontFamily: "xu3wh91", $$css: !0 },
+        default: { fontFamily: "x1bn98rq", $$css: !0 },
+        windows: { fontFamily: "xho2h3t", $$css: !0 },
+      },
+      T = {
+        apple: { fontFamily: "xlodo68", $$css: !0 },
+        default: { fontFamily: "x19f79rb", $$css: !0 },
+        windows: { fontFamily: "x1bm3ag4", $$css: !0 },
+      },
+      D = {
         body: {
           fontSize: "xt4736n",
           fontStretch: "x1havqas",
@@ -123,6 +153,18 @@ __d(
           fontSize: "xpeg176",
           fontStretch: "x1b1u5bx",
           fontWeight: "x95da8x",
+          $$css: !0,
+        },
+        bodyLarge: {
+          fontSize: "x1igq22v",
+          fontStretch: "xs58mxr",
+          fontWeight: "xfgrgau",
+          $$css: !0,
+        },
+        bodyLargeEmphasized: {
+          fontSize: "x1jkyuxr",
+          fontStretch: "x1oib8xw",
+          fontWeight: "xkrix86",
           $$css: !0,
         },
         display1: {
@@ -147,6 +189,30 @@ __d(
           fontSize: "x1ejgnnb",
           fontStretch: "xza2c7i",
           fontWeight: "x1apb90u",
+          $$css: !0,
+        },
+        labelExtraSmall: {
+          fontSize: "xciowux",
+          fontStretch: "x1914xve",
+          fontWeight: "xou9jyv",
+          $$css: !0,
+        },
+        labelLarge: {
+          fontSize: "x6zqcw9",
+          fontStretch: "xb2r2dz",
+          fontWeight: "x1qj77dv",
+          $$css: !0,
+        },
+        labelMedium: {
+          fontSize: "x1czganz",
+          fontStretch: "x1pmnz54",
+          fontWeight: "x1m691o8",
+          $$css: !0,
+        },
+        labelSmall: {
+          fontSize: "x1t7suiu",
+          fontStretch: "x1y8x10v",
+          fontWeight: "x1qkkdwi",
           $$css: !0,
         },
         meta: {
@@ -192,11 +258,20 @@ __d(
           $$css: !0,
         },
       },
-      L = {
+      x = {
         default: function (t) {
           switch (t) {
             case "body":
               return [4, 5];
+            case "bodyLarge":
+            case "bodyLargeEmphasized":
+            case "labelLarge":
+            case "labelMedium":
+              return [5, 5];
+            case "labelSmall":
+              return [4, 5];
+            case "labelExtraSmall":
+              return [2, 3];
             case "bodyEmphasized":
               return [4, 5];
             case "display1":
@@ -227,6 +302,15 @@ __d(
           switch (t) {
             case "body":
               return [5, 4];
+            case "bodyLarge":
+            case "bodyLargeEmphasized":
+            case "labelLarge":
+            case "labelMedium":
+              return [5, 4];
+            case "labelSmall":
+              return [5, 4];
+            case "labelExtraSmall":
+              return [3, 2];
             case "bodyEmphasized":
               return [5, 4];
             case "display1":
@@ -257,6 +341,15 @@ __d(
           switch (t) {
             case "body":
               return [5, 4];
+            case "bodyLarge":
+            case "bodyLargeEmphasized":
+            case "labelLarge":
+            case "labelMedium":
+              return [5, 4];
+            case "labelSmall":
+              return [5, 4];
+            case "labelExtraSmall":
+              return [3, 2];
             case "bodyEmphasized":
               return [5, 4];
             case "display1":
@@ -287,6 +380,15 @@ __d(
           switch (t) {
             case "body":
               return [5, 4];
+            case "bodyLarge":
+            case "bodyLargeEmphasized":
+            case "labelLarge":
+            case "labelMedium":
+              return [5, 4];
+            case "labelSmall":
+              return [5, 4];
+            case "labelExtraSmall":
+              return [3, 3];
             case "bodyEmphasized":
               return [5, 4];
             case "display1":
@@ -314,23 +416,23 @@ __d(
           }
         },
       },
-      E = (function () {
+      $ = (function () {
         return r("UserAgent").isPlatform("Windows >= 6")
-          ? [u.segoe, L.segoe, "windows"]
+          ? [u.segoe, x.segoe, "windows"]
           : (r("UserAgent").isPlatform("Mac OS X >= 10.11") &&
                 !r("UserAgent").isBrowser("Firefox < 55")) ||
               r("UserAgent").isPlatform("iOS >= 9")
             ? [
                 u.apple,
-                r("UserAgent").isEngine("Gecko") ? L.sfGecko : L.sfWebkit,
+                r("UserAgent").isEngine("Gecko") ? x.sfGecko : x.sfWebkit,
                 "apple",
               ]
-            : [u.default, L.default, "default"];
+            : [u.default, x.default, "default"];
       })(),
-      k = E[0],
-      I = E[1],
-      T = E[2],
-      D = {
+      P = $[0],
+      N = $[1],
+      M = $[2],
+      w = {
         colors: {
           blueLink: e.blueLink,
           disabledText: e.disabledText,
@@ -359,65 +461,89 @@ __d(
           tonalPrimaryButtonText: e.tonalPrimaryButtonText,
           warning: e.warning,
         },
-        defaultFontFamily: k,
-        offsets: I,
+        defaultFontFamily: P,
+        offsets: N,
         styles: {
           body: {
             lineHeight: "var(--body-line-height)",
-            style: [R.body, c[T]],
+            style: [D.body, c[M]],
           },
           bodyEmphasized: {
             lineHeight: "var(--body-emphasized-line-height)",
-            style: [R.bodyEmphasized, d[T]],
+            style: [D.bodyEmphasized, d[M]],
+          },
+          bodyLarge: {
+            lineHeight: "var(--body-large-line-height)",
+            style: [D.bodyLarge, m[M]],
+          },
+          bodyLargeEmphasized: {
+            lineHeight: "var(--body-large-emphasized-line-height)",
+            style: [D.bodyLargeEmphasized, p[M]],
           },
           display1: {
             lineHeight: "var(--display1-line-height)",
-            style: [R.display1, m[T]],
+            style: [D.display1, _[M]],
           },
           headline1: {
             lineHeight: "var(--headline1-line-height)",
-            style: [R.headline1, p[T]],
+            style: [D.headline1, f[M]],
           },
           headline2: {
             lineHeight: "var(--headline2-line-height)",
-            style: [R.headline2, _[T]],
+            style: [D.headline2, g[M]],
           },
           headline3: {
             lineHeight: "var(--headline3-line-height)",
-            style: [R.headline3, f[T]],
+            style: [D.headline3, h[M]],
+          },
+          labelExtraSmall: {
+            lineHeight: "var(--label-extra-small-line-height)",
+            style: [D.labelExtraSmall, T[M]],
+          },
+          labelLarge: {
+            lineHeight: "var(--label-large-line-height)",
+            style: [D.labelLarge, E[M]],
+          },
+          labelMedium: {
+            lineHeight: "var(--label-medium-line-height)",
+            style: [D.labelMedium, k[M]],
+          },
+          labelSmall: {
+            lineHeight: "var(--label-small-line-height)",
+            style: [D.labelSmall, I[M]],
           },
           meta: {
             lineHeight: "var(--meta-line-height)",
-            style: [R.meta, g[T]],
+            style: [D.meta, y[M]],
           },
           metaEmphasized: {
             lineHeight: "var(--meta-emphasized-line-height)",
-            style: [R.metaEmphasized, h[T]],
+            style: [D.metaEmphasized, C[M]],
           },
           primaryLabel: {
             lineHeight: "var(--primary-label-line-height)",
-            style: [R.primaryLabel, y[T]],
+            style: [D.primaryLabel, b[M]],
           },
           primaryLabelEmphasized: {
             lineHeight: "var(--primary-label-emphasized-line-height)",
-            style: [R.primaryLabelEmphasized, C[T]],
+            style: [D.primaryLabelEmphasized, v[M]],
           },
           secondaryLabel: {
             lineHeight: "var(--secondary-label-line-height)",
-            style: [R.secondaryLabel, b[T]],
+            style: [D.secondaryLabel, S[M]],
           },
           secondaryLabelEmphasized: {
             lineHeight: "var(--secondary-label-emphasized-line-height)",
-            style: [R.secondaryLabelEmphasized, v[T]],
+            style: [D.secondaryLabelEmphasized, R[M]],
           },
           tertiaryLabel: {
             lineHeight: "var(--tertiary-label-line-height)",
-            style: [R.tertiaryLabel, S[T]],
+            style: [D.tertiaryLabel, L[M]],
           },
         },
       },
-      x = D;
-    l.default = x;
+      A = w;
+    l.default = A;
   },
   98,
 );

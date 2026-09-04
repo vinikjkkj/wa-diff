@@ -119,6 +119,19 @@ __d(
         ) === !0
       );
     }
+    function D() {
+      return (function (e) {
+        return e === "EXPERIMENT"
+          ? "EXPERIMENT"
+          : e === "ROLLOUT"
+            ? "ROLLOUT"
+            : "NONE";
+      })(
+        o("WAWebABProps")
+          .getABPropConfigValue("biz_ai_response_settings_ui_experiment")
+          .toUpperCase(),
+      );
+    }
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isAiBulkThreadControlEnabled = s),
       (l.isSmartComposerWebEnabled = u),
@@ -140,7 +153,8 @@ __d(
       (l.isMaibaWASSReceivingEnabled = E),
       (l.isMaibaWASSSendingEnabled = k),
       (l.isGoogleDriveEnabled = I),
-      (l.isIntegrationHubEnabled = T));
+      (l.isIntegrationHubEnabled = T),
+      (l.getResponseSettingsV2TriState = D));
   },
   98,
 );

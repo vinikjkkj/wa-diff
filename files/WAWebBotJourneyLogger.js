@@ -5,14 +5,28 @@ __d(
     "WAWebBotJourneyWamEvent",
     "WAWebBotLoggingUtils",
     "WAWebGetSharedSessionId",
+    "WAWebWamEnumBotEntryPointType",
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumTsSurface",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (function () {
-        function t() {}
+    var e;
+    function s(e) {
+      var t =
+        e != null
+          ? o("WAWebBotLoggingUtils").getBotMetricsEntryPointFromBotEntryPoint(
+              e,
+            )
+          : void 0;
+      return t != null
+        ? o("WAWebBotLoggingUtils").getBotOriginFromBotMetricsEntryPoint(t)
+        : void 0;
+    }
+    var u = (function () {
+        function t() {
+          this.$1 = null;
+        }
         var n = t.prototype;
         return (
           (n.setAiSessionId = function (t) {
@@ -45,35 +59,29 @@ __d(
               a = n.actionType,
               i = n.additionalCategory,
               l = n.aiSessionId,
-              s = n.entryPoint,
-              u = n.eventTsMs,
-              c = n.uiSurface,
-              d = (t = s != null ? s : this.$1) != null ? t : void 0,
-              m =
-                d != null
-                  ? o(
-                      "WAWebBotLoggingUtils",
-                    ).getBotMetricsEntryPointFromBotEntryPoint(d)
-                  : void 0,
-              p =
-                m != null
-                  ? o(
-                      "WAWebBotLoggingUtils",
-                    ).getBotOriginFromBotMetricsEntryPoint(m)
-                  : void 0,
-              _ = new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
+              u = n.conversationStarterIndex,
+              c = n.conversationStarterName,
+              d = n.entryPoint,
+              m = n.eventTsMs,
+              p = n.originEntryPoint,
+              _ = n.uiSurface,
+              f = (t = d != null ? d : this.$1) != null ? t : void 0,
+              g = s(p !== void 0 ? p : f),
+              h = new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
                 appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
                 actionType: a,
-                botEntryPoint: d,
-                rawBotEntryPoint: p != null ? p : void 0,
+                botEntryPoint: f,
+                rawBotEntryPoint: g != null ? g : void 0,
                 botPersonaId: (r = this.$4) != null ? r : void 0,
-                uiSurface: c,
+                uiSurface: _,
                 aiSessionId: l,
-                eventTsMs: u,
+                eventTsMs: m,
                 additionalCategory: i,
+                conversationStarterName: c,
+                conversationStarterIndex: u,
               }),
-              f = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(d),
-              g = o("WAWebBotLoggingUtils").getChatFilterActionTypeName(a);
+              y = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(f),
+              C = o("WAWebBotLoggingUtils").getChatFilterActionTypeName(a);
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -81,10 +89,10 @@ __d(
                   " actionType=",
                   "",
                 ])),
-              f,
-              g,
+              y,
+              C,
             ),
-              _.commit());
+              h.commit());
           }),
           (n.logAiChatClick = function () {
             this.log({
@@ -112,6 +120,30 @@ __d(
                 .CHAT_FILTER_ACTION_TYPES.AI_TOS_DISMISS_CLICK,
               entryPoint: t,
             });
+          }),
+          (n.logNullStatePromptSend = function (t, n) {
+            var e,
+              r,
+              a = Date.now();
+            (this.log({
+              actionType: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.CONVERSATION_STARTER_TAP,
+              uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT,
+              aiSessionId: (e = this.$5) != null ? e : void 0,
+              conversationStarterName: t != null ? t : void 0,
+              conversationStarterIndex: n,
+              eventTsMs: a,
+            }),
+              this.log({
+                actionType: o("WAWebWamEnumChatFilterActionTypes")
+                  .CHAT_FILTER_ACTION_TYPES.AI_NULL_STATE_PROMPT_SEND,
+                entryPoint: o("WAWebWamEnumBotEntryPointType")
+                  .BOT_ENTRY_POINT_TYPE.AI_NULL_STATE,
+                originEntryPoint: this.$1,
+                uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT,
+                aiSessionId: (r = this.$5) != null ? r : void 0,
+                eventTsMs: a,
+              }));
           }),
           (n.logModeSelectionImpression = function (t) {
             var e;
@@ -145,8 +177,8 @@ __d(
           t
         );
       })(),
-      u = new s();
-    l.BotJourneyLogger = u;
+      c = new u();
+    l.BotJourneyLogger = c;
   },
   98,
 );

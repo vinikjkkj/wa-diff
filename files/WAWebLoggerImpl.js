@@ -38,19 +38,20 @@ __d(
       S = r("gkx")("26258") ? C : b,
       R = 1024,
       L = 500,
-      E = "LTSXOo+_*-=.<^!#?".split("");
-    function k() {
-      return E[Math.round(Math.random() * (E.length - 1))];
+      E = 200,
+      k = "LTSXOo+_*-=.<^!#?".split("");
+    function I() {
+      return k[Math.round(Math.random() * (k.length - 1))];
     }
-    var I = k() + k() + k() + k(),
-      T = {};
-    ((T[(T.ALL = 0)] = "all"),
-      (T[(T.INFO = 1)] = "info"),
-      (T[(T.LOG = 2)] = "log"),
-      (T[(T.WARN = 3)] = "warn"),
-      (T[(T.ERROR = 4)] = "error"),
-      (T[(T.OFF = 5)] = "off"));
-    var D = (function () {
+    var T = I() + I() + I() + I(),
+      D = {};
+    ((D[(D.ALL = 0)] = "all"),
+      (D[(D.INFO = 1)] = "info"),
+      (D[(D.LOG = 2)] = "log"),
+      (D[(D.WARN = 3)] = "warn"),
+      (D[(D.ERROR = 4)] = "error"),
+      (D[(D.OFF = 5)] = "off"));
+    var x = (function () {
       function t(t, a, i) {
         var l = this;
         (i === void 0 && (i = void 0),
@@ -276,13 +277,13 @@ __d(
         (a.logImpl = function (t, n, a, i, l) {
           if (
             !this.$2 &&
-            !(t <= T.LOG && this.shouldSkipLoggingForProdLowEndDevice)
+            !(t <= D.LOG && this.shouldSkipLoggingForProdLowEndDevice)
           ) {
             var e = Date.now(),
-              s = $(e);
+              s = P(e);
             if (!r("gkx")("26258"))
               try {
-                t === T.ERROR && this.$10 && this.$10(n);
+                t === D.ERROR && this.$10 && this.$10(n);
               } catch (e) {}
             var u = "";
             a &&
@@ -290,7 +291,7 @@ __d(
                 ? (u = "\n" + a.stack.split("\n").slice(3).join("\n"))
                 : (u = "\n" + o("WAWebNormalizeStack").normalizeStack(a, !0)));
             var c = [
-                x(t),
+                $(t),
                 i === !0 && !o("WAWebLoggerUtils").isWaitingForUpload()
                   ? "sendlogs"
                   : null,
@@ -301,10 +302,10 @@ __d(
                   return "[" + e + "]";
                 })
                 .join(""),
-              d = I + " " + s + (c ? c + " " : "") + n + u;
+              d = T + " " + s + (c ? c + " " : "") + n + u;
             this.logs[this.localCursor] != null &&
               this.$14(this.localCursor, !0);
-            var m = t === T.ERROR;
+            var m = t === D.ERROR;
             ((this.logs[this.localCursor] = m
               ? { m: d, t: e, e: !0 }
               : { m: d, t: e }),
@@ -464,14 +465,16 @@ __d(
               var i = Reflect.get(t, "methodName");
               i != null && (o += "; methodName: " + String(i));
             } catch (e) {}
+            var l = M(t);
+            l != null && (o += "; error: " + l);
           }
           if (
-            (this.logImpl(T.ERROR, o, e, !0, ["uncaught"]),
+            (this.logImpl(D.ERROR, o, e, !0, ["uncaught"]),
             r("gkx")("26258") || e != null,
             n != null)
           ) {
-            var l = String(n);
-            (this.logImpl(T.WARN, l), r("gkx")("26258"));
+            var s = String(n);
+            (this.logImpl(D.WARN, s), r("gkx")("26258"));
           }
           return o;
         }),
@@ -484,9 +487,9 @@ __d(
         t
       );
     })();
-    function x(e) {
+    function $(e) {
       return e === 1 || e === 2 || e === 3 || e === 4
-        ? T[e]
+        ? D[e]
         : (function () {
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -494,14 +497,14 @@ __d(
             );
           })();
     }
-    function $(e) {
+    function P(e) {
       var t = new Date(e),
-        n = P(t.getMonth() + 1, 2),
-        r = P(t.getDate(), 2),
-        o = P(t.getHours(), 2),
-        a = P(t.getMinutes(), 2),
-        i = P(t.getSeconds(), 2),
-        l = P(t.getMilliseconds(), 3);
+        n = N(t.getMonth() + 1, 2),
+        r = N(t.getDate(), 2),
+        o = N(t.getHours(), 2),
+        a = N(t.getMinutes(), 2),
+        i = N(t.getSeconds(), 2),
+        l = N(t.getMilliseconds(), 3);
       return (
         t.getFullYear() +
         "-" +
@@ -519,14 +522,28 @@ __d(
         ":"
       );
     }
-    function P(e, t) {
+    function N(e, t) {
       return String(e).padStart(t, "0");
     }
-    var N = new D(function () {
+    function M(e) {
+      try {
+        if (!Object.hasOwn(e, "parameters")) return;
+        var t = Reflect.get(e, "parameters");
+        if (t == null || typeof t != "object" || !Object.hasOwn(t, "error"))
+          return;
+        var n = Reflect.get(t, "error");
+        return typeof n != "string"
+          ? void 0
+          : n.replace(/[\r\n]+/g, " ").slice(0, E);
+      } catch (e) {
+        return;
+      }
+    }
+    var w = new x(function () {
         return r("WAWebWAWCStorage").idb();
       }, v),
-      M = N.log;
-    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = D), (l.Logger = N), (l.log = M));
+      A = w.log;
+    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = x), (l.Logger = w), (l.log = A));
   },
   98,
 );

@@ -1,7 +1,7 @@
 __d(
   "WAWebGraphQLProductCatalogGetPublicKeyJob",
   [
-    "WAWebDirectConnectionUtils",
+    "WAWebCertificateString",
     "WAWebGraphQLProductCatalogGetPublicKeyJobQuery.graphql",
     "WAWebRelayClient",
   ],
@@ -23,7 +23,7 @@ __d(
           return {
             certificate:
               n != null
-                ? o("WAWebDirectConnectionUtils").stringToCertificateString(n)
+                ? o("WAWebCertificateString").stringToCertificateString(n)
                 : null,
           };
         });

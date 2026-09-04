@@ -176,12 +176,6 @@ __d(
       SELECT_ITEM: "select_item",
       CLAIM_REIMBURSEMENT_SUCCESS: "claim_reimbursement_success",
       CLAIM_REIMBURSEMENT_FAILURE: "claim_reimbursement_failure",
-      ZERO_OUTCOME_COUPON_CLAIM_SUCCESS: "zero_outcome_coupon_claim_success",
-      ZERO_OUTCOME_COUPON_CLAIM_FAILURE: "zero_outcome_coupon_claim_failure",
-      MMA_SEASONAL_COUPON_CLAIM_SUCCESS: "mma_seasonal_coupon_claim_success",
-      MMA_SEASONAL_COUPON_CLAIM_FAILURE: "mma_seasonal_coupon_claim_failure",
-      SEASONAL_COUPON_0523_CLAIM_SUCCESS: "seasonal_coupon_0523_claim_success",
-      SEASONAL_COUPON_0523_CLAIM_FAILURE: "seasonal_coupon_0523_claim_failure",
       OPEN_LWI_BOTTOM_SHEET: "open_lwi_bottom_sheet",
       ZERO_REACH_ESTIMATE: "zero_reach_estimate",
       REACH_ESTIMATE_ERROR: "reach_estimate_error",
@@ -1552,6 +1546,7 @@ __d(
       PERFORMANCE_SELECTOR_SELECT_LEAD_GENERATION:
         "performance_selector_select_lead_generation",
       MESSAGING_PERF_SELECT_DEFAULT: "messaging_perf_select_default",
+      MESSAGING_PERF_SELECT_AUTOMATIC: "messaging_perf_select_automatic",
       MESSAGING_PERF_SELECT_PO: "messaging_perf_select_po",
       MESSAGING_PERF_SELECT_LO: "messaging_perf_select_lo",
       MESSAGING_PERF_SELECT_VO: "messaging_perf_select_vo",
@@ -1834,6 +1829,10 @@ __d(
         "fblite_boost_unavailable_create_ad_impression",
       FBLITE_BOOST_UNAVAILABLE_CREATE_AD_CLICK:
         "fblite_boost_unavailable_create_ad_click",
+      AD_LIMITS_REMOVED_NOTICE_IMPRESSION:
+        "ad_limits_removed_notice_impression",
+      AD_LIMITS_REMOVED_NOTICE_DISMISS: "ad_limits_removed_notice_dismiss",
+      AD_LIMITS_REMOVED_NOTICE_OK_CLICK: "ad_limits_removed_notice_ok_click",
     });
     i.default = e;
   },

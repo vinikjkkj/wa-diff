@@ -48,17 +48,16 @@ __d(
       );
     }
     function p(e) {
-      var t,
-        n = (t = o("WAWebHatchJsonReaders")).readField(e, "avatar");
+      var t = o("WAWebHatchJsonReaders").readField(e, "avatar");
       return {
-        name: t.readString(e, "name"),
-        avatarUrl: t.readString(n, "image_url"),
-        videoVariants: f(t.readField(n, "video_variants")),
+        name: o("WAWebHatchJsonReaders").readString(e, "name"),
         secureImage: o("WAWebHatchSecureMediaDecoder").readSecureMediaField(
-          n,
+          t,
           "secure_image",
         ),
-        secureVideoVariants: _(t.readField(n, "secure_video_variants")),
+        secureVideoVariants: _(
+          o("WAWebHatchJsonReaders").readField(t, "secure_video_variants"),
+        ),
       };
     }
     function _(e) {
@@ -72,21 +71,6 @@ __d(
             "media",
           );
         a != null && a !== "" && i != null && ((t[a] = i), (n = !0));
-      }
-      return n ? t : null;
-    }
-    function f(e) {
-      if (!Array.isArray(e)) return null;
-      var t = {},
-        n = !1;
-      for (var r of e) {
-        var a = o("WAWebHatchJsonReaders").readString(r, "variant"),
-          i = o("WAWebHatchJsonReaders").readString(r, "video_url");
-        a != null &&
-          a !== "" &&
-          i != null &&
-          i !== "" &&
-          ((t[a] = i), (n = !0));
       }
       return n ? t : null;
     }

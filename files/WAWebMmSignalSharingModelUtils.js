@@ -57,7 +57,7 @@ __d(
       ) {
         var l,
           u,
-          c = (l = S(i, t)) != null ? l : {},
+          c = (l = R(i, t)) != null ? l : {},
           d = c.consentedUrl,
           m = c.originalUrl,
           p = c.unconsentedUrl;
@@ -77,11 +77,11 @@ __d(
       }
       if (s(n, i) && a) {
         var y,
-          C = (y = S(i, t)) != null ? y : {},
-          v = C.consentedUrl,
-          R = C.originalUrl,
+          C = (y = R(i, t)) != null ? y : {},
+          b = C.consentedUrl,
+          S = C.originalUrl,
           L = C.unconsentedUrl;
-        return b(n, v, L, R, r);
+        return v(n, b, L, S, r);
       }
       return r;
     }
@@ -113,7 +113,7 @@ __d(
             d = l.consentedUsersUrl,
             m = l.originalUrl,
             p = l.unconsentedUsersUrl;
-          if (v(m) === v(n)) {
+          if (S(m) === S(n)) {
             var _ = void 0;
             if (r) {
               var f;
@@ -140,7 +140,7 @@ __d(
         return { link: n, index: void 0 };
       }
       if (s(t, a) && r) {
-        var S = 0;
+        var b = 0;
         for (var R of (L =
           (E = a.mmSignalSharing) == null
             ? void 0
@@ -152,8 +152,8 @@ __d(
             k = R.consentedUsersUrl,
             I = R.originalUrl,
             T = R.unconsentedUsersUrl;
-          if (v(I) === v(n)) return { link: b(t, k, T, I, n), index: S };
-          S++;
+          if (S(I) === S(n)) return { link: v(t, k, T, I, n), index: b };
+          b++;
         }
       }
       return { link: n, index: void 0 };
@@ -167,13 +167,13 @@ __d(
         switch (e) {
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .CTA_URL_CLICK:
-            return S(t, n);
+            return R(t, n);
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .CTA_APP_CLICK:
-            return S(t, n);
+            return R(t, n);
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .BODY_URL_CLICK:
-            return R(t, n);
+            return L(t, n);
           default:
             return null;
         }
@@ -199,7 +199,7 @@ __d(
         var n,
           r,
           a,
-          i = (a = S(e, t)) != null ? a : {},
+          i = (a = R(e, t)) != null ? a : {},
           l = i.consentedUrl;
         if (l != null) return !0;
       }
@@ -218,13 +218,17 @@ __d(
         var u,
           c,
           d,
-          m = (d = R(e, s)) != null ? d : {},
+          m = (d = L(e, s)) != null ? d : {},
           p = m.consentedUrl;
         if (p != null) return !0;
       }
       return !1;
     }
-    function _(e) {
+    var _ = new Set([
+      o("WAWebMsgType").MSG_TYPE.CHAT,
+      o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
+    ]);
+    function f(e) {
       var t,
         n,
         r = e.chat,
@@ -243,10 +247,7 @@ __d(
               }),
         ),
         l = r.msgs.getModelsArray().filter(function (e) {
-          return [
-            o("WAWebMsgType").MSG_TYPE.CHAT,
-            o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
-          ].includes(e.type);
+          return _.has(e.type);
         }),
         s,
         u = !1,
@@ -255,7 +256,7 @@ __d(
       for (d = l.length - 1; d >= 0; d--) {
         var m, p;
         if (
-          (C(l[d]) && l[d].id.fromMe === a && !y(l, d) && c++,
+          (b(l[d]) && l[d].id.fromMe === a && !C(l, d) && c++,
           u || (u = l[d].id.fromMe),
           (s = i.get(l[d].id.id)),
           ((m = s) == null ? void 0 : m.disclosedToken) != null ||
@@ -270,11 +271,11 @@ __d(
         {
           mmSignalSharingExpirationWindowItem: s,
           messageOriginGroups: c,
-          isContinuation: y(l, l.length - 1),
+          isContinuation: C(l, l.length - 1),
         }
       );
     }
-    function f(e) {
+    function g(e) {
       var t = e.chat,
         n = e.deepConversationParams,
         r = e.mmSignalType,
@@ -285,7 +286,7 @@ __d(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingDisclosureEnabled()
       ) {
-        var l = g({ chat: t, deepConversationParams: n, msgId: a }),
+        var l = h({ chat: t, deepConversationParams: n, msgId: a }),
           s = o(
             "WAWebMmSignalSharingGatingUtils",
           ).getMmSignalSharingOptimizedDeliverySignalCollectionConfig(),
@@ -296,7 +297,7 @@ __d(
         if (l) {
           var p;
           return i === "disclosed"
-            ? h({
+            ? y({
                 allowlist: c,
                 expirationTimeInHours: u,
                 expirationWindowItem: l,
@@ -304,14 +305,14 @@ __d(
                 token: l.disclosedToken,
               })
             : i === "undisclosed"
-              ? h({
+              ? y({
                   allowlist: m,
                   expirationTimeInHours: d,
                   expirationWindowItem: l,
                   mmSignalType: r,
                   token: l.undisclosedToken,
                 })
-              : (p = h({
+              : (p = y({
                     allowlist: c,
                     expirationTimeInHours: u,
                     expirationWindowItem: l,
@@ -319,7 +320,7 @@ __d(
                     token: l.disclosedToken,
                   })) != null
                 ? p
-                : h({
+                : y({
                     allowlist: m,
                     expirationTimeInHours: d,
                     expirationWindowItem: l,
@@ -329,7 +330,7 @@ __d(
         }
       }
     }
-    function g(e) {
+    function h(e) {
       var t,
         n = e.chat,
         r = e.deepConversationParams,
@@ -340,7 +341,7 @@ __d(
         ).isMmSignalSharingDisclosureEnabled()
       ) {
         if (r) {
-          var i = _({ chat: n, fromMe: r.isNewMessagefromMe }),
+          var i = f({ chat: n, fromMe: r.isNewMessagefromMe }),
             l = i != null ? i : {},
             s = l.mmSignalSharingExpirationWindowItem;
           return s;
@@ -365,7 +366,7 @@ __d(
             });
       }
     }
-    function h(e) {
+    function y(e) {
       var t = e.allowlist,
         n = e.expirationTimeInHours,
         r = e.expirationWindowItem,
@@ -382,16 +383,16 @@ __d(
         ? i
         : void 0;
     }
-    function y(e, t) {
+    function C(e, t) {
       return (
         e.length > 1 &&
         t >= 1 &&
-        C(e[t]) &&
-        C(e[t - 1]) &&
+        b(e[t]) &&
+        b(e[t - 1]) &&
         e[t].id.fromMe === e[t - 1].id.fromMe
       );
     }
-    function C(e) {
+    function b(e) {
       var t, n;
       return (
         ((t = e.mmSignalSharing) == null ? void 0 : t.existsDisclosedToken) !==
@@ -401,7 +402,7 @@ __d(
           : n.existsUndisclosedToken) !== !0
       );
     }
-    function b(e, t, n, r, a) {
+    function v(e, t, n, r, a) {
       var i;
       if (
         !o(
@@ -429,10 +430,10 @@ __d(
       }
       return (i = n != null ? n : r) != null ? i : a;
     }
-    function v(e) {
+    function S(e) {
       return e == null ? "" : e.replace(/\/$/, "");
     }
-    function S(e, t) {
+    function R(e, t) {
       if (t != null) {
         var n,
           r,
@@ -453,7 +454,7 @@ __d(
         }
       }
     }
-    function R(e, t) {
+    function L(e, t) {
       if (t != null) {
         var n,
           r,
@@ -477,9 +478,11 @@ __d(
       (l.getBodyLinkForMmSignalSharing = d),
       (l.getMMSignalSharingUrls = m),
       (l.existsMmSignalSharingConsentedUrl = p),
-      (l.getMmSignalSharingNewMessageParams = _),
-      (l.getMMSignalSharingData = f),
-      (l.getMmSignalSharingExpirationWindowItem = g));
+      (l.MM_SIGNAL_SHARING_COUNTED_MSG_TYPES = _),
+      (l.getMmSignalSharingNewMessageParams = f),
+      (l.getMMSignalSharingData = g),
+      (l.getMmSignalSharingExpirationWindowItem = h),
+      (l.isMmSignalSharingNewMessageParamsEligible = b));
   },
   98,
 );

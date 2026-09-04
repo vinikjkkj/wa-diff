@@ -26,6 +26,7 @@ __d(
     "WAWebVoipMessagePortRpc",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPerfOptimizations",
+    "WAWebVoipPthreadGlueFailureTracker",
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipRelayOverrides",
@@ -159,23 +160,28 @@ __d(
         se = !1,
         ue = !1,
         ce = !1;
-      function de(e, t, a) {
-        return new (K || (K = n("Promise")))(function (n, i) {
-          var l = !1,
-            p = null,
-            _ = !1,
-            f = null,
-            g = function () {
-              var t = p;
-              t != null &&
-                (e.worker.removeMessageListener("voipRpcReady", t), (p = null));
-            },
+      function de(e, t, a, i) {
+        return new (K || (K = n("Promise")))(function (n, l) {
+          var p = !1,
+            _ = null,
+            f = !1,
+            g = null,
             h = function () {
-              f != null && (f.cancel(), (f = null));
+              var t = _;
+              t != null &&
+                (e.worker.removeMessageListener("voipRpcReady", t), (_ = null));
             },
-            y = function (n, u) {
-              if (!l) {
-                ((l = !0), g(), h(), a.close("RPC ready timeout"), re(n));
+            y = function () {
+              g != null && (g.cancel(), (g = null));
+            },
+            C = function (n, u) {
+              if (!p) {
+                ((p = !0),
+                  i.removeEventListener("abort", S),
+                  h(),
+                  y(),
+                  a.close("RPC ready timeout"),
+                  re(n));
                 var e =
                   n === "foreground"
                     ? "foreground timeout"
@@ -196,7 +202,7 @@ __d(
                   u.visibleMs.toFixed(1),
                   ne(),
                 ),
-                  i(
+                  l(
                     r("err")(
                       "voip: [WorkerProxy] timeout waiting for RPC ready (token=" +
                         t +
@@ -207,7 +213,7 @@ __d(
                   ));
               }
             },
-            C = function (n) {
+            b = function (n) {
               (o("WAWebCoreActionsODS").logCallVoipRpcReadyHiddenGraceStarted(),
                 o("WALogger").LOG(
                   u ||
@@ -221,7 +227,7 @@ __d(
                   n.wallMs.toFixed(1),
                   ne(),
                 ),
-                (f = o(
+                (g = o(
                   "WAWebVisibilityAwareTimeout",
                 ).startVisibilityAwareTimeout({
                   foregroundMs: J,
@@ -234,7 +240,7 @@ __d(
                       : o(
                           "WAWebCoreActionsODS",
                         ).logCallVoipRpcReadyHiddenGraceExhaustedAbsolute(),
-                      y("absolute", {
+                      C("absolute", {
                         wallMs: n.wallMs + r.wallMs,
                         visibleMs: n.visibleMs + r.visibleMs,
                         wasBackgroundPaused:
@@ -243,16 +249,16 @@ __d(
                   },
                 })));
             },
-            b = o("WAWebVisibilityAwareTimeout").startVisibilityAwareTimeout({
+            v = o("WAWebVisibilityAwareTimeout").startVisibilityAwareTimeout({
               foregroundMs: X,
               absoluteMs: Y,
               onTimeout: function (t, n) {
-                if (!l) {
-                  if (ae() && t === "absolute" && document.hidden && !_) {
-                    ((_ = !0), C(n));
+                if (!p) {
+                  if (ae() && t === "absolute" && document.hidden && !f) {
+                    ((f = !0), b(n));
                     return;
                   }
-                  y(t, n);
+                  C(t, n);
                 }
               },
               onPause: function (n) {
@@ -283,44 +289,56 @@ __d(
                   ne(),
                 );
               },
-            });
-          p = e.worker.addMessageListener("voipRpcReady", function (e) {
-            if (e.token === t && !l) {
-              l = !0;
-              var r = b.cancel();
-              (g(),
-                _ &&
-                  o(
-                    "WAWebCoreActionsODS",
-                  ).logCallVoipRpcReadyHiddenGraceRecovered(),
-                h(),
-                r.wasBackgroundPaused &&
-                  o(
-                    "WAWebCoreActionsODS",
-                  ).logCallVoipRpcReadyBackgroundPauseSuccess(),
-                o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [WorkerProxy] RPC ready ack token=",
-                      " wallElapsed=",
-                      "ms visibleElapsed=",
-                      "ms ",
-                      "",
-                    ])),
-                  t,
-                  r.wallMs.toFixed(1),
-                  r.visibleMs.toFixed(1),
-                  ne(),
-                ),
-                n());
-            }
-          });
+            }),
+            S = function () {
+              p || ((p = !0), v.cancel(), h(), y(), l(i.reason));
+            };
+          if (i.aborted) {
+            S();
+            return;
+          }
+          (i.addEventListener("abort", S, { once: !0 }),
+            (_ = e.worker.addMessageListener("voipRpcReady", function (e) {
+              if (e.token === t && !p) {
+                ((p = !0), i.removeEventListener("abort", S));
+                var r = v.cancel();
+                (h(),
+                  f &&
+                    o(
+                      "WAWebCoreActionsODS",
+                    ).logCallVoipRpcReadyHiddenGraceRecovered(),
+                  y(),
+                  r.wasBackgroundPaused &&
+                    o(
+                      "WAWebCoreActionsODS",
+                    ).logCallVoipRpcReadyBackgroundPauseSuccess(),
+                  o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [WorkerProxy] RPC ready ack token=",
+                        " wallElapsed=",
+                        "ms visibleElapsed=",
+                        "ms ",
+                        "",
+                      ])),
+                    t,
+                    r.wallMs.toFixed(1),
+                    r.visibleMs.toFixed(1),
+                    ne(),
+                  ),
+                  n());
+              }
+            })));
         });
       }
       function me() {
         var e = le;
         if (e != null) return e;
-        var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var a = o(
+          "WAWebVoipPthreadGlueFailureTracker",
+        ).getLatchedPthreadGlueFailure();
+        if (a != null) return (K || (K = n("Promise"))).reject(a);
+        var s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield i;
           (o("WALogger").LOG(
             p ||
@@ -353,7 +371,13 @@ __d(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.RPC_SETUP_START,
             ));
           var u = l++,
-            c = de(n, u, s);
+            c = new AbortController(),
+            d = o(
+              "WAWebVoipPthreadGlueFailureTracker",
+            ).failFastOnPthreadGlueFailure(
+              de(n, u, s, c.signal),
+              "pthread_bootstrap",
+            );
           (o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -375,13 +399,14 @@ __d(
               [a.port2],
             ));
           try {
-            yield c.finally(function () {
+            yield d.finally(function () {
               o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                 o("WAWebVoipQplHelpers").VoipInitQplPoint.RPC_SETUP_END,
               );
             });
           } catch (e) {
             throw (
+              c.abort(e),
               s.close("RPC ready failure"),
               o(
                 "WAWebCoreActionsODS",
@@ -416,9 +441,9 @@ __d(
           );
         })();
         return (
-          (le = a),
-          a.catch(function (e) {
-            le === a &&
+          (le = s),
+          s.catch(function (e) {
+            le === s &&
               ((le = null),
               (se = !0),
               o("WALogger").WARN(
@@ -432,7 +457,7 @@ __d(
                 ne(),
               ));
           }),
-          a
+          s
         );
       }
       function pe() {
@@ -735,13 +760,18 @@ __d(
                 );
                 try {
                   if (
-                    (yield be("voipInit", {
-                      selfJid: e,
-                      selfUserJid: n,
-                      selfLid: a,
-                      selfCountryCode: h,
-                      abProps: g,
-                    }),
+                    (yield o(
+                      "WAWebVoipPthreadGlueFailureTracker",
+                    ).failFastOnPthreadGlueFailure(
+                      be("voipInit", {
+                        selfJid: e,
+                        selfUserJid: n,
+                        selfLid: a,
+                        selfCountryCode: h,
+                        abProps: g,
+                      }),
+                      "module",
+                    ),
                     t)
                   ) {
                     var y = c.registerMainThreadAfterVoipInit();

@@ -6,7 +6,6 @@ __d(
     "WAWebAIHatchIdentityStore",
     "WAWebBotUtils",
     "WAWebContactCollection",
-    "WAWebHatchGating",
     "WAWebMediaInMemoryBlobCache",
     "WAWebProfilePicThumbCollection",
     "WAWebWamEnumDownloadOriginType",
@@ -43,33 +42,25 @@ __d(
     }
     function f(t, n) {
       var a,
-        i = n.avatarUrl;
+        i = n.secureImage;
       if (i != null) {
-        var l;
-        ((l = d) == null || l.abort(), (d = null), C(), h(t, i));
-        return;
-      }
-      var s = n.secureImage;
-      if (
-        !(s == null || !o("WAWebHatchGating").isHatchEncryptedMediaEnabled())
-      ) {
-        var c = s.filehash;
+        var l = i.filehash;
         (a = d) == null || a.abort();
-        var m = new AbortController();
-        ((d = m),
+        var s = new AbortController();
+        ((d = s),
           u
             .load()
             .then(function (e) {
               var t = e.downloadHatchSecureMedia;
               return t(
-                s,
-                m.signal,
+                i,
+                s.signal,
                 o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
                   .PROFILE_PICTURE,
               );
             })
             .then(function (e) {
-              e != null && d === m && (y(c), h(t, e));
+              e != null && d === s && (y(l), h(t, e));
             })
             .catch(function (t) {
               o("WALogger")
@@ -83,7 +74,7 @@ __d(
                 .sendLogs("hatch-secure-thumb-resolve-failed");
             })
             .finally(function () {
-              d === m && (d = null);
+              d === s && (d = null);
             }));
       }
     }

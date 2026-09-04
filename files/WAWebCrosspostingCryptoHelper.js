@@ -7,7 +7,7 @@ __d(
     "WATypedArraysEqual",
     "WAWebAccountLinkingCryptoUtils",
     "WAWebCrossposting.flow",
-    "WAWebDirectConnectionX509",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
     "sumBy",
@@ -40,7 +40,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebDirectConnectionX509").extractCertificates(
+          var n = yield o("WAWebX509Utils").extractCertificates(
             e.purposePublicIKEncCertificate,
           );
           (o("WAWebAccountLinkingCryptoUtils").validateCertificateChain(n),

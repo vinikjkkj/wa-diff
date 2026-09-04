@@ -11,6 +11,7 @@ __d(
     "WAWebContactCollection",
     "WAWebEphemeralityResolver",
     "WAWebFetchBizAiLargeScreensGate",
+    "WAWebFetchBizAiResponseSettingsV2Gate",
     "WAWebFetchQuickPromotions",
     "WAWebFtsClient",
     "WAWebGetNewChatMessageCappingInfoJob",
@@ -254,6 +255,12 @@ __d(
           return o(
             "WAWebFetchBizAiLargeScreensGate",
           ).fetchBizAiLargeScreensGate(e);
+        },
+        fetchBizAiResponseSettingsV2Gate: function (t) {
+          var e = t.trigger;
+          return o(
+            "WAWebFetchBizAiResponseSettingsV2Gate",
+          ).fetchBizAiResponseSettingsV2Gate(e);
         },
         restoreCTWASuggestions: function () {
           return o(

@@ -73,43 +73,21 @@ __d(
         )
           return {
             name: t.name,
-            avatarUrl: typeof t.avatarUrl == "string" ? g(t.avatarUrl) : null,
-            videoVariants: b(t.videoVariants),
-            secureImage: v(t.secureImage),
-            secureVideoVariants: S(t.secureVideoVariants),
+            secureImage: C(t.secureImage),
+            secureVideoVariants: b(t.secureVideoVariants),
             fetchedAt: t.fetchedAt,
           };
       } catch (e) {}
       return null;
     }
     function C(e) {
-      if (e == null) return null;
-      var t = {},
-        n = !1;
-      for (var r of Object.keys(e)) {
-        var o = g(e[r], "video variant");
-        o != null && ((t[r] = o), (n = !0));
-      }
-      return n ? t : null;
-    }
-    function b(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
-        n = {};
-      for (var r of Object.keys(t)) {
-        var o = t[r];
-        typeof o == "string" && (n[r] = o);
-      }
-      return C(n);
-    }
-    function v(e) {
-      if (e == null || typeof e != "object") return null;
-      var t = e,
-        n = R(t.mediaType),
-        r = L(t.directPath),
-        o = L(t.mediaKey),
-        a = L(t.encFilehash),
-        i = L(t.filehash);
+        n = v(t.mediaType),
+        r = S(t.directPath),
+        o = S(t.mediaKey),
+        a = S(t.encFilehash),
+        i = S(t.filehash);
       return n == null || r == null || o == null || a == null || i == null
         ? null
         : {
@@ -118,82 +96,75 @@ __d(
             encFilehash: a,
             filehash: i,
             mediaType: n,
-            mimeType: L(t.mimeType),
-            sidecarB64: L(t.sidecarB64),
+            mimeType: S(t.mimeType),
+            sidecarB64: S(t.sidecarB64),
             fileLength: typeof t.fileLength == "number" ? t.fileLength : null,
-            staticUrl: g(L(t.staticUrl), "secure media"),
+            staticUrl: g(S(t.staticUrl), "secure media"),
           };
     }
-    function S(e) {
+    function b(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
         n = {},
         r = !1;
       for (var o of Object.keys(t)) {
-        var a = v(t[o]);
+        var a = C(t[o]);
         a != null && ((n[o] = a), (r = !0));
       }
       return r ? n : null;
     }
-    function R(e) {
+    function v(e) {
       return e === "image" || e === "video" ? e : null;
     }
-    function L(e) {
+    function S(e) {
       return typeof e == "string" && e !== "" ? e : null;
     }
-    function E(e) {
+    function R(e) {
       var t = g(e.staticUrl, "secure media");
       return t === e.staticUrl
         ? e
         : babelHelpers.extends({}, e, { staticUrl: t });
     }
-    function k(e) {
+    function L(e) {
       if (e == null) return null;
       var t = {};
-      for (var n of Object.keys(e)) t[n] = E(e[n]);
+      for (var n of Object.keys(e)) t[n] = R(e[n]);
       return t;
     }
-    function I(e) {
+    function E(e) {
       var t,
         n,
-        r,
-        a = {
+        r = {
           name: (t = e.name) != null ? t : "",
-          avatarUrl: g(e.avatarUrl),
-          videoVariants: C((n = e.videoVariants) != null ? n : null),
-          secureImage: e.secureImage != null ? E(e.secureImage) : null,
-          secureVideoVariants: k(
-            (r = e.secureVideoVariants) != null ? r : null,
+          secureImage: e.secureImage != null ? R(e.secureImage) : null,
+          secureVideoVariants: L(
+            (n = e.secureVideoVariants) != null ? n : null,
           ),
           fetchedAt: o("WATimeUtils").unixTime(),
         };
-      ((m = a),
-        h(a),
+      ((m = r),
+        h(r),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
               "AIHatchIdentityStore: identity applied from push",
             ])),
         ),
-        f(a));
+        f(r));
     }
-    function T() {
+    function k() {
       return (m == null && (m = y()), m);
     }
-    function D() {
-      var e,
-        t = T();
+    function I() {
+      var e = k();
       return {
         name:
-          (t == null ? void 0 : t.name) ||
+          (e == null ? void 0 : e.name) ||
           o("WAWebHatchGating").getHatchBotName(),
-        profileThumb:
-          (e = t == null ? void 0 : t.avatarUrl) != null
-            ? e
-            : o("WAWebHatchGating").getHatchBotProfileThumb() || "",
+        profileThumb: o("WAWebHatchGating").getHatchBotProfileThumb(),
       };
     }
-    function x() {
+    function T() {
       ((m = null), (p = new Set()));
       try {
         r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(c);
@@ -201,10 +172,10 @@ __d(
     }
     ((l.subscribeToIdentityChanges = _),
       (l.validateWhatsAppNetUrl = g),
-      (l.applyHatchIdentity = I),
-      (l.getCachedHatchIdentity = T),
-      (l.getHatchInitialIdentity = D),
-      (l.__resetCacheForTesting = x));
+      (l.applyHatchIdentity = E),
+      (l.getCachedHatchIdentity = k),
+      (l.getHatchInitialIdentity = I),
+      (l.__resetCacheForTesting = T));
   },
   98,
 );

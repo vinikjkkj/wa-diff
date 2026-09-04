@@ -6,6 +6,7 @@ __d(
     "WAWebBaseModel",
     "WAWebFrontendPinInChatGetters",
     "WAWebPinInChatGetters",
+    "WAWebPinMsgConstants",
     "WAWebPinMsgGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -47,7 +48,7 @@ __d(
                 "WAWebPinMsgGatingUtils",
               ).isPinnedMessagesInfiniteReceiverEnabled()
             )
-              return 1 / 0;
+              return o("WAWebPinMsgConstants").PIN_TIME_REMAINING_INFINITE;
             var n =
               ((e = this.t) != null
                 ? e

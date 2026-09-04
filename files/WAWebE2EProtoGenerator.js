@@ -588,7 +588,7 @@ __d(
             ? (d = D(d))
             : o(
                 "WAWebMessageAssociationGatingUtils",
-              ).isFutureproofAssociatedChildEnabled() && (d = T(d))),
+              ).shouldWrapAssociatedChildOnSend() && (d = T(d))),
         t.isViewOnce && (d = v(d, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
           (d = o(
