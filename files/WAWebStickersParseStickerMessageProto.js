@@ -59,6 +59,7 @@ __d(
             firstFrameLength: m.firstFrameLength,
             firstFrameSidecar: m.firstFrameSidecar,
             isAnimated: m.isAnimated,
+            isAiSticker: m.isAiSticker,
             isLottie: m.isLottie,
             stickerPremiumStatus:
               (n = o("WAWebStickerPremiumStatus").StickerPremiumStatus.cast(

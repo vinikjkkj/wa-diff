@@ -32,6 +32,7 @@ __d(
       }
     }
     var s = {
+        mediaSinkType: "MSE",
         mediaSourceAddSourceBuffer: function (t, n, r, a, i) {
           var e = r.mimeCodecsParsed,
             l = r.representationId,

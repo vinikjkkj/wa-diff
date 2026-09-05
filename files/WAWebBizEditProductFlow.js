@@ -8,7 +8,6 @@ __d(
     "WAWebManageProductInfoDrawer.react",
     "WAWebProductCatalogProductLinkDrawer.react",
     "WAWebProductDetailsInfoVariants.react",
-    "WAWebStringQualityGatingUtils",
     "WAWebUtilsLogQplEvents",
     "react",
     "react-compiler-runtime",
@@ -226,15 +225,9 @@ __d(
           var q;
           t[42] === Symbol.for("react.memo_cache_sentinel")
             ? ((q = u.jsx("div", {
-                children: o(
-                  "WAWebStringQualityGatingUtils",
-                ).shouldUseStringQualityBatch2()
-                  ? s._(
-                      /*BTDS*/ "Anyone with WhatsApp can follow this link to browse your catalog",
-                    )
-                  : s._(
-                      /*BTDS*/ "Anyone with WhatsApp can follow this link to browse catalog",
-                    ),
+                children: s._(
+                  /*BTDS*/ "Anyone with WhatsApp can follow this link to browse your catalog",
+                ),
               })),
               (t[42] = q))
             : (q = t[42]);

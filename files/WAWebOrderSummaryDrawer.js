@@ -77,7 +77,10 @@ __d(
               [
                 s._param(
                   "order_min_allowed_amount",
-                  o("WAWebCurrencyUtils").formatAmount1000(r, i),
+                  o("WAWebCurrencyUtils").formatAmount1000({
+                    amount1000: i,
+                    currency: r,
+                  }),
                 ),
               ],
             )
@@ -89,7 +92,10 @@ __d(
                 [
                   s._param(
                     "order_max_allowed_amount",
-                    o("WAWebCurrencyUtils").formatAmount1000(r, l),
+                    o("WAWebCurrencyUtils").formatAmount1000({
+                      amount1000: l,
+                      currency: r,
+                    }),
                   ),
                 ],
               )

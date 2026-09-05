@@ -87,6 +87,20 @@ __d(
           v = function (t, n, r) {
             var e = f.mediaElement;
             if (e != null) {
+              if (d.config.disableBufferGapSkipping) {
+                i(
+                  o("nextgendasherr").nextgendasherr(
+                    d,
+                    "VideoPlayerNextgendashMediaElementBufferGapSkipDisabled",
+                    "Buffers: %s, playhead: %s, would have skipped to: %s, reason: %s",
+                    JSON.stringify(n.buffered),
+                    n.currentTime,
+                    t,
+                    r,
+                  ),
+                );
+                return;
+              }
               d.host.mediaElementSetPlayhead(d, e, t);
               var a = t - n.currentTime;
               a >= d.config.gapSkipMinLogThresholdSec &&

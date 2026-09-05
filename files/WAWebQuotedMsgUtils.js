@@ -82,7 +82,10 @@ __d(
         l;
       if (t != null && r != null) {
         var s = function (n) {
-          return o("WAWebCurrencyUtils").formatAmount1000(t, n);
+          return o("WAWebCurrencyUtils").formatAmount1000({
+            amount1000: n,
+            currency: t,
+          });
         };
         l = a != null ? s(a) + " ~" + s(r) + "~" : s(r);
       } else

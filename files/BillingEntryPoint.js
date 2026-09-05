@@ -589,6 +589,7 @@ __d(
       WHATSAPP_BUSINESS_JOURNEYS_SEND: "whatsapp_business_journeys_send",
       WHATSAPP_BUSINESS_DIRECT_SIGNUP: "whatsapp_business_direct_signup",
       WHATSAPP_MANAGER_INSIGHTS: "whatsapp_manager_insights",
+      WHATSAPP_MANAGER_MBA: "whatsapp_manager_mba",
       WHATSAPP_MANAGER_MESSAGE_TEMPLATES: "whatsapp_manager_message_templates",
       WHATSAPP_MANAGER_OVERVIEW: "whatsapp_manager_overview",
       WHATSAPP_MANAGER_PHONE_NUMBERS: "whatsapp_manager_phone_numbers",

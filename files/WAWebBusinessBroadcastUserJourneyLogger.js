@@ -139,6 +139,12 @@ __d(
           (t.homeOverflowMenuClicked = function (t) {
             o("WAWebBBHomeLogs").homeOverflowMenuClicked(this.$1, t);
           }),
+          (t.downloadSubscribedRecipientsClicked = function (t) {
+            o("WAWebBBHomeLogs").downloadSubscribedRecipientsClicked(
+              this.$1,
+              t,
+            );
+          }),
           (t.homeAudiencesTabClicked = function (t) {
             o("WAWebBBHomeLogs").homeAudiencesTabClicked(this.$1, t);
           }),

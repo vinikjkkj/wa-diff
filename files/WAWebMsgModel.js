@@ -201,6 +201,7 @@ __d(
             (e.firstFrameLength = o("WAWebBaseModel").prop()),
             (e.firstFrameSidecar = o("WAWebBaseModel").prop()),
             (e.isAnimated = o("WAWebBaseModel").prop()),
+            (e.isAiSticker = o("WAWebBaseModel").prop()),
             (e.isLottie = o("WAWebBaseModel").prop()),
             (e.mediaPngThumbnail = o("WAWebBaseModel").prop()),
             (e.matchedText = o("WAWebBaseModel").prop()),

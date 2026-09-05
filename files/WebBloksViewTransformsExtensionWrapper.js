@@ -60,7 +60,7 @@ __d(
           I = y + "s",
           T = S != null ? " " + S + "s" : "";
         ((L = "transform " + I + " " + k + T + ", opacity " + I + " " + k + T),
-          (E = "transform, opacity"));
+          R !== !1 && (E = "transform, opacity"));
       } else R === !0 && (E = "transform, opacity");
       var D = a.get("drop_shadow_color"),
         x;

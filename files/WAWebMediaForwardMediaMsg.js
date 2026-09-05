@@ -214,6 +214,7 @@ __d(
               multicast: F,
               productMsgOptions: K,
               isAvatar: (_ = w.isAvatar) != null ? _ : !1,
+              isAiSticker: w.isAiSticker === !0 ? !0 : void 0,
               forwardedNewsletterMessageInfo: o(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).getNewsletterContextForForwardedMsg(w),
@@ -276,25 +277,29 @@ __d(
               re,
               oe,
               ae,
-              ie = {
+              ie,
+              le = {
                 stickerSendOrigin: o("WAWebWamEnumStickerSendOriginType")
                   .STICKER_SEND_ORIGIN_TYPE.FORWARD,
+                stickerIsAi:
+                  w.isAiSticker === !0 ||
+                  ((te = w.mediaData) == null ? void 0 : te.isAiSticker) === !0,
                 stickerIsAnimated: !!(
-                  (te = w.mediaData) != null && te.isAnimated
+                  (ne = w.mediaData) != null && ne.isAnimated
                 ),
                 stickerIsFirstParty: !!(
-                  (ne = w.mediaData) != null && ne.isFirstParty
+                  (re = w.mediaData) != null && re.isFirstParty
                 ),
                 stickerIsFromStickerMaker: !!(
-                  (re = w.mediaData) != null && re.isFromStickerMaker
+                  (oe = w.mediaData) != null && oe.isFromStickerMaker
                 ),
-                stickerIsLottie: !!((oe = w.mediaData) != null && oe.isLottie),
+                stickerIsLottie: !!((ae = w.mediaData) != null && ae.isLottie),
               },
-              le = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(ie),
-              se = o("WAWebWebpMetadata").getStickerMakerSourceType(
-                (ae = w.mediaData) == null ? void 0 : ae.stickerMakerSourceType,
+              se = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(le),
+              ue = o("WAWebWebpMetadata").getStickerMakerSourceType(
+                (ie = w.mediaData) == null ? void 0 : ie.stickerMakerSourceType,
               );
-            (se != null && (le.stickerMakerSourceType = se), le.commit());
+            (ue != null && (se.stickerMakerSourceType = ue), se.commit());
           }
           return ee;
         })),

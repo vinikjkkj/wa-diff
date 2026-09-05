@@ -114,6 +114,7 @@ __d(
               .sendToChat({ chat: t, options: u }),
             d = {
               stickerSendOrigin: s,
+              stickerIsAi: !!n.mediaData.isAiSticker,
               stickerIsAnimated: !!n.mediaData.isAnimated,
               stickerIsFirstParty: !!n.mediaData.isFirstParty,
               stickerIsFromStickerMaker: !!n.mediaData.isFromStickerMaker,

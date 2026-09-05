@@ -8,7 +8,7 @@ __d(
       );
     }
     function u(e) {
-      return o("WAWebVoipGatingUtils").isCallLinkGuestEligible(e) ? m() : d();
+      return e ? m() : d();
     }
     function c() {
       return o("WAWebVoipGatingUtils").canCreateGuestCallLinks() ? m() : d();

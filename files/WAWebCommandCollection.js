@@ -3,6 +3,7 @@ __d(
   [
     "WAWebActions",
     "WAWebBaseCollection",
+    "WAWebCommandGetters",
     "WAWebCommandModel",
     "WAWebL10NAccentFold",
     "WAWebSettings",
@@ -19,6 +20,20 @@ __d(
       babelHelpers.inheritsLoose(t, e);
       var n = t.prototype;
       return (
+        (n.remove = function (n, r) {
+          var t = e.prototype.remove.call(this, n, r);
+          return (
+            t.forEach(function (e) {
+              e != null &&
+                o("WAWebCommandGetters").clearCommandGetterCacheFor(e);
+            }),
+            t
+          );
+        }),
+        (n.reset = function () {
+          (this.forEach(o("WAWebCommandGetters").clearCommandGetterCacheFor),
+            e.prototype.reset.call(this));
+        }),
         (n.initializeCommands = function () {
           (this.addCommandsFromActions(), this.addCommandsFromSettings());
         }),

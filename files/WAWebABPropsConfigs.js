@@ -3413,6 +3413,7 @@ __d(
       web_add_contact: [26892, "string", "", ""],
       web_adv_logout_on_self_device_list_expired: [11011, "bool", !1, !1],
       web_ai_group_open_support: [23530, "bool", !1, !1],
+      web_ai_sticker_emission_enabled: [36294, "bool", !1, !0],
       web_anr_async_contacts_restore_from_db_enabled: [27775, "bool", !1, !1],
       web_anr_async_media_decryption_enabled: [23200, "bool", !1, !1],
       web_anr_async_msg_send_handler: [27249, "bool", !1, !1],

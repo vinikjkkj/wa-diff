@@ -1006,6 +1006,8 @@ __d(
         "product_extension_eligible_ad_created_without_pe",
       PRODUCT_EXTENSION_SECTION_IMPRESSION:
         "product_extension_section_impression",
+      COMBINED_CATALOG_BP_CREATION_ADDRESSABILITY:
+        "combined_catalog_bp_creation_addressability",
       SPECIAL_AD_CATEGORY_SECTION_IMPRESSION:
         "special_ad_category_section_impression",
       OPEN_EMOJI_PICKER: "open_emoji_picker",

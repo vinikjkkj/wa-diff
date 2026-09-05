@@ -1,6 +1,6 @@
 __d(
   "WAWebSharableEventInviteFutureproofMsgText",
-  ["fbt", "WAWebMsgGetters", "WAWebStringQualityGatingUtils"],
+  ["fbt", "WAWebMsgGetters"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
@@ -12,13 +12,9 @@ __d(
           );
     }
     function u() {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ "You sent an event invite from your phone, but this version of WhatsApp doesn't support it.",
-          )
-        : s._(
-            /*BTDS*/ "You sent an event's invite from your phone, but this version of WhatsApp doesn't support it.",
-          );
+      return s._(
+        /*BTDS*/ "You sent an event invite from your phone, but this version of WhatsApp doesn't support it.",
+      );
     }
     l.default = e;
   },

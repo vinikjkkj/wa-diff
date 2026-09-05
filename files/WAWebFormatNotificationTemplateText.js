@@ -1024,7 +1024,10 @@ __d(
         l = n[2],
         u = r("WAWebWidToFormattedNameOrNumber")(a),
         c = parseInt(l, 10),
-        d = o("WAWebCurrencyUtils").formatAmount1000(i, c);
+        d = o("WAWebCurrencyUtils").formatAmount1000({
+          amount1000: c,
+          currency: i,
+        });
       return e.id.fromMe
         ? s._(
             /*BTDS*/ '_j{"*":"You canceled your payment request to {contactName} for {currencyAndAmount}"}',
@@ -1056,7 +1059,10 @@ __d(
         i = t[2],
         l = r("WAWebWidToFormattedNameOrNumber")(n),
         u = parseInt(i, 10),
-        c = o("WAWebCurrencyUtils").formatAmount1000(a, u);
+        c = o("WAWebCurrencyUtils").formatAmount1000({
+          amount1000: u,
+          currency: a,
+        });
       return s._(
         /*BTDS*/ '_j{"*":"{senderName} sent you {currencyAndAmount}. Use WhatsApp on your phone to accept this transaction."}',
         [
@@ -1079,7 +1085,10 @@ __d(
         l = n[2],
         u = r("WAWebWidToFormattedNameOrNumber")(a),
         c = parseInt(l, 10),
-        d = o("WAWebCurrencyUtils").formatAmount1000(i, c);
+        d = o("WAWebCurrencyUtils").formatAmount1000({
+          amount1000: c,
+          currency: i,
+        });
       return e.id.fromMe
         ? s._(
             /*BTDS*/ '_j{"*":"You declined {contactName}\'s payment request for {currencyAndAmount}."}',
@@ -1113,7 +1122,10 @@ __d(
         u = r("WAWebWidToFormattedNameOrNumber")(n),
         c = r("WAWebWidToFormattedNameOrNumber")(a),
         d = parseInt(l, 10),
-        m = o("WAWebCurrencyUtils").formatAmount1000(i, d);
+        m = o("WAWebCurrencyUtils").formatAmount1000({
+          amount1000: d,
+          currency: i,
+        });
       return o("WAWebUserPrefsMeUser").isMeAccount(n)
         ? s._(
             /*BTDS*/ '_j{"*":"Your payment request to {receiverName} for {currencyAndAmount} expired."}',

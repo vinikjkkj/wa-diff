@@ -4,6 +4,7 @@ __d(
     "invariant",
     "WALogger",
     "WATypeUtils",
+    "WAWebABProps",
     "WAWebE2EProtoUtils",
     "WAWebMsgType",
     "WAWebStickerMimeUtils",
@@ -51,6 +52,13 @@ __d(
         firstFrameLength: l.firstFrameLength,
         firstFrameSidecar: i.firstFrameSidecar || void 0,
         isAnimated: l.isAnimated,
+        isAiSticker:
+          (i.isAiSticker === !0 || l.isAiSticker === !0) &&
+          o("WAWebABProps").getABPropConfigValue(
+            "web_ai_sticker_emission_enabled",
+          )
+            ? !0
+            : void 0,
         isLottie: l.isLottie,
         premium:
           l.stickerPremiumStatus != null ? l.stickerPremiumStatus : void 0,

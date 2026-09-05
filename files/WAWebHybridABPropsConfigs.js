@@ -569,6 +569,7 @@ __d(
       wa_web_adaptive_layout_enabled: [30140, "bool", !1, !1],
       wa_win_pdf_rendering_enabled: [29548, "bool", !1, !1],
       web_add_contact: [26892, "string", "", ""],
+      web_ai_sticker_emission_enabled: [36294, "bool", !1, !0],
       web_channel_video_server_transcode_upload: [19920, "bool", !1, !1],
       web_chat_info_action_buttons_refresh: [14664, "bool", !1, !0],
       web_group_bulk_add_contact: [30417, "bool", !1, !1],

@@ -658,8 +658,12 @@ __d(
                 l.set("accessibilityLabel", t.accessibilityLabel),
                 (t[c] = l.get(o("WAWebMediaTypes").MEDIA_TO_MSG[c])));
             }
-            t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              (t.type = R(l));
+            (l.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
+              t.isAiSticker === !0 &&
+              l.isAiSticker !== !0 &&
+              l.set("isAiSticker", !0),
+              t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+                (t.type = R(l)));
           } else {
             delete t.mediaStage;
             for (

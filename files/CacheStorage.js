@@ -284,36 +284,37 @@ __d(
             for (var o = 0; o < Math.ceil(e.length / 2); o++) r.remove(e[o][0]);
           }),
           (o.get = function (o, a) {
-            var e;
+            var e = this,
+              i;
             if (this._backend)
               if (
                 ((u || (u = r("ErrorGuard"))).applyWithGuard(
                   function () {
-                    e = this._backend.get(this._key_prefix + o);
+                    i = e._backend.get(e._key_prefix + o);
                   },
                   this,
                   [],
                   {
                     onError: function () {
-                      e = null;
+                      i = null;
                     },
                     name: "CacheStorage:get",
                   },
                 ),
-                e != null)
+                i != null)
               )
-                if (t._hasMagicPrefix(e)) e = e.substr(d.length);
+                if (t._hasMagicPrefix(i)) i = i.substr(d.length);
                 else
                   try {
-                    ((e = n("cr:8958").parse(e)),
-                      e && e.__t !== void 0 && e.__v !== void 0 && (e = e.__v));
-                  } catch (t) {
-                    e = void 0;
+                    ((i = n("cr:8958").parse(i)),
+                      i && i.__t !== void 0 && i.__v !== void 0 && (i = i.__v));
+                  } catch (e) {
+                    i = void 0;
                   }
-              else e = void 0;
+              else i = void 0;
             return (
-              e === void 0 && a !== void 0 && ((e = a), this.set(o, e)),
-              e
+              i === void 0 && a !== void 0 && ((i = a), this.set(o, i)),
+              i
             );
           }),
           (o.remove = function (t) {

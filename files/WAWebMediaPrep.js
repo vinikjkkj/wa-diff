@@ -370,6 +370,7 @@ __d(
               botMetricsMetadata: s.botMetricsMetadata,
               aiThreadInfo: s.aiThreadInfo,
               isAvatar: s.isAvatar,
+              isAiSticker: s.isAiSticker,
               viewMode: s.viewMode,
               parentMsgKey: s.parentMsgKey,
               associationType: s.associationType,

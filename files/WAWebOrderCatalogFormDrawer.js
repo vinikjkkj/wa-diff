@@ -186,7 +186,10 @@ __d(
                   ],
                   visible: !0,
                   disabled: !C,
-                  totalPrice: o("WAWebCurrencyUtils").formatAmount1000(n, k),
+                  totalPrice: o("WAWebCurrencyUtils").formatAmount1000({
+                    amount1000: k,
+                    currency: n,
+                  }),
                   testid: "save-products-button",
                   onConfirm: i,
                   title: s._(/*BTDS*/ "Subtotal"),

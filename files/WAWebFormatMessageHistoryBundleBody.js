@@ -7,7 +7,6 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebGroupHistoryMsgData.flow",
-    "WAWebStringQualityGatingUtils",
     "WAWebUserPrefsMeUser",
     "err",
   ],
@@ -106,26 +105,14 @@ __d(
         }
         return b != null
           ? d(y, g.length - 1, l, b)
-          : o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-            ? s._(
-                /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}"}',
-                [
-                  s._plural(g.length - 1, "number"),
-                  s._param("name of the group history receiver", y),
-                  s._param("timestamp", l),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "You sent {name of the group history receiver} and {number of other group history receivers} others message history that starts on {timestamp}",
-                [
-                  s._param("name of the group history receiver", y),
-                  s._param(
-                    "number of other group history receivers",
-                    g.length - 1,
-                  ),
-                  s._param("timestamp", l),
-                ],
-              );
+          : s._(
+              /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}"}',
+              [
+                s._plural(g.length - 1, "number"),
+                s._param("name of the group history receiver", y),
+                s._param("timestamp", l),
+              ],
+            );
       }
       return t ===
         o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
@@ -140,65 +127,36 @@ __d(
           );
     }
     function u(e, t, n) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ "You sent {name of the group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
-            [
-              s._param("name of the group history receiver", e),
-              s._param("timestamp", t),
-              s._param("name of the non-history receiver", n),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "You sent {name of the group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
-            [
-              s._param("name of the group history receiver", e),
-              s._param("timestamp", t),
-              s._param("name of the non-history receiver", n),
-            ],
-          );
+      return s._(
+        /*BTDS*/ "You sent {name of the group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
+        [
+          s._param("name of the group history receiver", e),
+          s._param("timestamp", t),
+          s._param("name of the non-history receiver", n),
+        ],
+      );
     }
     function c(e, t, n, r) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ "You sent {name of the group history receiver} and {name of the second group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
-            [
-              s._param("name of the group history receiver", e),
-              s._param("name of the second group history receiver", t),
-              s._param("timestamp", n),
-              s._param("name of the non-history receiver", r),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "You sent {name of the group history receiver} and {name of the second group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
-            [
-              s._param("name of the group history receiver", e),
-              s._param("name of the second group history receiver", t),
-              s._param("timestamp", n),
-              s._param("name of the non-history receiver", r),
-            ],
-          );
+      return s._(
+        /*BTDS*/ "You sent {name of the group history receiver} and {name of the second group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
+        [
+          s._param("name of the group history receiver", e),
+          s._param("name of the second group history receiver", t),
+          s._param("timestamp", n),
+          s._param("name of the non-history receiver", r),
+        ],
+      );
     }
     function d(e, t, n, r) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
-            [
-              s._plural(t, "number"),
-              s._param("name of the group history receiver", e),
-              s._param("timestamp", n),
-              s._param("name of the non-history receiver", r),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "You sent {name of the group history receiver} and {number of other group history receivers} others message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
-            [
-              s._param("name of the group history receiver", e),
-              s._param("number of other group history receivers", t),
-              s._param("timestamp", n),
-              s._param("name of the non-history receiver", r),
-            ],
-          );
+      return s._(
+        /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
+        [
+          s._plural(t, "number"),
+          s._param("name of the group history receiver", e),
+          s._param("timestamp", n),
+          s._param("name of the non-history receiver", r),
+        ],
+      );
     }
     function m(e) {
       if (e.length === 0) return null;

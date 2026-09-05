@@ -94,18 +94,18 @@ __d(
                 ? (S =
                     m.description +
                     " \xB7 " +
-                    o("WAWebCurrencyUtils").formatAmount1000(
-                      m.currency,
-                      m.priceAmount1000,
-                    ))
+                    o("WAWebCurrencyUtils").formatAmount1000({
+                      amount1000: m.priceAmount1000,
+                      currency: m.currency,
+                    }))
                 : m.description != null
                   ? (S = m.description)
                   : m.priceAmount1000 != null &&
                     m.currency != null &&
-                    (S = o("WAWebCurrencyUtils").formatAmount1000(
-                      m.currency,
-                      m.priceAmount1000,
-                    )))
+                    (S = o("WAWebCurrencyUtils").formatAmount1000({
+                      amount1000: m.priceAmount1000,
+                      currency: m.currency,
+                    })))
             : ((v = r("fbs")
                 ._(/*BTDS*/ "View {catalogOwnerName}'s catalog on WhatsApp", [
                   r("fbs")._param("catalogOwnerName", h),

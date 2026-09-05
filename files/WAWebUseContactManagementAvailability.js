@@ -2,9 +2,9 @@ __d(
   "WAWebUseContactManagementAvailability",
   [
     "$InternalEnum",
-    "WAWebPrimaryFeaturesModel",
+    "WAWebPrimaryFeaturesGetters",
     "react-compiler-runtime",
-    "useWAWebModelValues",
+    "useWAWebPrimaryFeaturesValues",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -12,19 +12,17 @@ __d(
         t;
       e[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((t = [
-            "isContactsBackupOn",
-            "primaryHasAddressbookPermission",
-            "primaryHasAgreedToNativeContactsNux",
+            o("WAWebPrimaryFeaturesGetters").getIsContactsBackupOn,
+            o("WAWebPrimaryFeaturesGetters").getPrimaryHasAddressbookPermission,
+            o("WAWebPrimaryFeaturesGetters")
+              .getPrimaryHasAgreedToNativeContactsNux,
           ]),
           (e[0] = t))
         : (t = e[0]);
-      var n = o("useWAWebModelValues").useModelValues(
-          o("WAWebPrimaryFeaturesModel").PrimaryFeatures,
-          t,
-        ),
-        r = n.isContactsBackupOn,
-        a = n.primaryHasAddressbookPermission,
-        i = n.primaryHasAgreedToNativeContactsNux,
+      var n = o("useWAWebPrimaryFeaturesValues").usePrimaryFeaturesValues(t),
+        r = n[0],
+        a = n[1],
+        i = n[2],
         l = r && i,
         s;
       return (
@@ -43,17 +41,14 @@ __d(
         t;
       e[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((t = [
-            "isAccountIntegrityStatePending",
-            "isAccountIntegrityStateTimelock",
+            o("WAWebPrimaryFeaturesGetters").getIsAccountIntegrityStatePending,
+            o("WAWebPrimaryFeaturesGetters").getIsAccountIntegrityStateTimelock,
           ]),
           (e[0] = t))
         : (t = e[0]);
-      var n = o("useWAWebModelValues").useModelValues(
-          o("WAWebPrimaryFeaturesModel").PrimaryFeatures,
-          t,
-        ),
-        r = n.isAccountIntegrityStatePending,
-        a = n.isAccountIntegrityStateTimelock;
+      var n = o("useWAWebPrimaryFeaturesValues").usePrimaryFeaturesValues(t),
+        r = n[0],
+        a = n[1];
       return a ? s.TIMELOCK : r ? s.PENDING : s.PASS;
     }
     ((l.useContactManagementAvailability = e),

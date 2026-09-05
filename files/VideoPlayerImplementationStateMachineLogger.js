@@ -687,6 +687,7 @@ __d(
           return r != null && r.name === "NotAllowedError"
             ? (V(e, t, { debug_reason: "not_allowed" }), W)
             : (t.playerVersion !== "comet_nextgendash" &&
+                t.playerVersion !== "comet_nextgendash_wasm" &&
                 r != null &&
                 r.name === "AbortError" &&
                 V(e, t, { debug_reason: "aborted" }),

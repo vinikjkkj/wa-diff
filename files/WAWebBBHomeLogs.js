@@ -64,7 +64,8 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCES_TAB_BUTTON,
+          o("WAWebBBLoggerTypes").UserActionTarget
+            .DOWNLOAD_SUBSCRIBED_RECIPIENTS,
       });
     }
     function _(e, t) {
@@ -73,10 +74,19 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCES_TAB_BUTTON,
+      });
+    }
+    function f(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.BROADCASTS_TAB_BUTTON,
       });
     }
-    function f(e, t, n, r) {
+    function g(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -87,7 +97,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARDS_IMPRESSION,
       });
     }
-    function g(e, t) {
+    function h(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -97,7 +107,7 @@ __d(
         userActionTarget: n.UserActionTarget.CHAT_LIST_CONTEXT_MENU,
       });
     }
-    function h(e) {
+    function y(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -106,7 +116,7 @@ __d(
         userActionTarget: t.UserActionTarget.MESSAGE_CONTEXT_MENU,
       });
     }
-    function y(e, t) {
+    function C(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -116,7 +126,7 @@ __d(
         userActionTarget: n.UserActionTarget.CONVERSATION_HEADER_MENU,
       });
     }
-    function C(e) {
+    function b(e) {
       var t,
         n = e.broadcastChatCount,
         r = e.hasBroadcastWithNonZeroRecipients,
@@ -138,7 +148,7 @@ __d(
         userActionTarget: t.UserActionTarget.BROADCAST_CHAT_LIST_STATE,
       });
     }
-    function b(e, t) {
+    function v(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -148,7 +158,7 @@ __d(
         userActionTarget: n.UserActionTarget.PAGE,
       });
     }
-    function v(e) {
+    function S(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -157,7 +167,7 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function S(e) {
+    function R(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -166,7 +176,7 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function R(e, t) {
+    function L(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -176,7 +186,7 @@ __d(
             .BROADCAST_ITEM_OVERFLOW_BUTTON,
       });
     }
-    function L(e, t, n, r) {
+    function E(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: n,
@@ -186,7 +196,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ELIGIBILITY_GATE,
       });
     }
-    function E(e, t, n, r, a) {
+    function k(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: a,
@@ -201,7 +211,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARD_CLICK,
       });
     }
-    function k(e, t, n, r, a) {
+    function I(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
@@ -221,20 +231,21 @@ __d(
       (l.homeLearnMoreClicked = c),
       (l.homeNewAudienceDropdownClicked = d),
       (l.homeOverflowMenuClicked = m),
-      (l.homeAudiencesTabClicked = p),
-      (l.homeBroadcastsTabClicked = _),
-      (l.suggestedAudienceCardsViewed = f),
-      (l.chatListContextMenuOpened = g),
-      (l.messageContextMenuOpened = h),
-      (l.conversationHeaderMenuOpened = y),
-      (l.broadcastChatListItemViewed = C),
-      (l.broadcastThreadViewed = b),
-      (l.tosReviewBannerViewed = v),
-      (l.tosReviewBannerClicked = S),
-      (l.broadcastItemOverflowClicked = R),
-      (l.eligibilityCheckResult = L),
-      (l.suggestedAudienceCardClicked = E),
-      (l.suggestedAudienceCardError = k));
+      (l.downloadSubscribedRecipientsClicked = p),
+      (l.homeAudiencesTabClicked = _),
+      (l.homeBroadcastsTabClicked = f),
+      (l.suggestedAudienceCardsViewed = g),
+      (l.chatListContextMenuOpened = h),
+      (l.messageContextMenuOpened = y),
+      (l.conversationHeaderMenuOpened = C),
+      (l.broadcastChatListItemViewed = b),
+      (l.broadcastThreadViewed = v),
+      (l.tosReviewBannerViewed = S),
+      (l.tosReviewBannerClicked = R),
+      (l.broadcastItemOverflowClicked = L),
+      (l.eligibilityCheckResult = E),
+      (l.suggestedAudienceCardClicked = k),
+      (l.suggestedAudienceCardError = I));
   },
   98,
 );

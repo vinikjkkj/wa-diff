@@ -266,21 +266,15 @@ __d(
             ]);
           }),
           (a.broadcastCreatedStr = function (t) {
-            var e = t + this.skew,
-              n = this.$ClockImpl$p_2(e),
-              r = this.$ClockImpl$p_6(e);
-            return s._(/*BTDS*/ "Created {monthDay}, {time}", [
-              s._param("monthDay", r),
-              s._param("time", n),
+            var e = this.$ClockImpl$p_7(t + this.skew);
+            return s._(/*BTDS*/ "Created {dateTime}", [
+              s._param("dateTime", e),
             ]);
           }),
           (a.broadcastCampaignCreatedStr = function (t) {
-            var e = t + this.skew,
-              n = this.$ClockImpl$p_2(e),
-              r = this.$ClockImpl$p_6(e);
-            return s._(/*BTDS*/ "Created on {monthDay}, {time}", [
-              s._param("monthDay", r),
-              s._param("time", n),
+            var e = this.$ClockImpl$p_7(t + this.skew);
+            return s._(/*BTDS*/ "Created on {dateTime}", [
+              s._param("dateTime", e),
             ]);
           }),
           (a.audienceCreatedStr = function (t) {
@@ -390,7 +384,7 @@ __d(
                     s._param("time", a),
                   ]);
             if (e < 7) {
-              var i = this.$ClockImpl$p_7(t);
+              var i = this.$ClockImpl$p_8(t);
               return r
                 ? s._(/*BTDS*/ "Group created by you, {on_day} at {time}", [
                     s._param("on_day", i),
@@ -445,7 +439,7 @@ __d(
                     s._param("name", n),
                   ]);
             if (e < 7) {
-              var a = this.$ClockImpl$p_7(t);
+              var a = this.$ClockImpl$p_8(t);
               return r || n == null || n === ""
                 ? s._(/*BTDS*/ "Created {on_day}", [s._param("on_day", a)])
                 : s._(/*BTDS*/ "Created {on_day} by {name}", [
@@ -491,7 +485,7 @@ __d(
                     s._param("time", i),
                   ]);
             if (o < 7) {
-              var l = this.$ClockImpl$p_7(r);
+              var l = this.$ClockImpl$p_8(r);
               return e
                 ? s._(/*BTDS*/ "Created by you, {on-day} at {time}", [
                     s._param("on-day", l),
@@ -522,12 +516,12 @@ __d(
               return this.timePassedFromNowMoment(t, { omitSuffix: !1 });
             }
           }),
-          (a.$ClockImpl$p_7 = function (t) {
+          (a.$ClockImpl$p_8 = function (t) {
             var e = t + this.skew;
             return o("WAWebClockPaymentStrings").dayNameStr(e);
           }),
           (a.untilStr = function (t) {
-            return this.$ClockImpl$p_8(
+            return this.$ClockImpl$p_9(
               t,
               s._(/*BTDS*/ "Always"),
               function (e) {
@@ -554,7 +548,7 @@ __d(
               },
             );
           }),
-          (a.$ClockImpl$p_8 = function (t, n, r, o, a, i) {
+          (a.$ClockImpl$p_9 = function (t, n, r, o, a, i) {
             if (t === y) return n;
             var e = this.daysDeltaAbs(t),
               l = t + this.skew,
@@ -569,7 +563,7 @@ __d(
             return i(c, s);
           }),
           (a.mutedUntilStr = function (t) {
-            return this.$ClockImpl$p_8(
+            return this.$ClockImpl$p_9(
               t,
               s._(/*BTDS*/ "Muted always"),
               function (e) {
@@ -694,16 +688,16 @@ __d(
           (a.periodCoveredDateStr = function (t, n) {
             var e = r("WAWeb-moment").unix(n),
               o = r("WAWeb-moment").unix(t),
-              a = this.$ClockImpl$p_9();
+              a = this.$ClockImpl$p_10();
             return o.format(a) + " - " + e.format(a);
           }),
           (a.lastUpdatedDateStr = function (t) {
             var e = r("WAWeb-moment").unix(t),
-              n = this.$ClockImpl$p_9(),
+              n = this.$ClockImpl$p_10(),
               o = this.timestampStrFormat();
             return e.format(n + ", " + o);
           }),
-          (a.$ClockImpl$p_9 = function () {
+          (a.$ClockImpl$p_10 = function () {
             switch (
               o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale()
             ) {
@@ -744,9 +738,7 @@ __d(
             return r("WAWeb-moment").unix(t).format("l");
           }),
           (a.$ClockImpl$p_6 = function (t, n) {
-            if (
-              (n === void 0 && (n = !1), this.shouldUseIntlDateTimeFormat())
-            ) {
+            if ((n === void 0 && (n = !1), Intl.DateTimeFormat)) {
               var e = { month: "short", day: "numeric" };
               return (
                 n && (e = babelHelpers.extends({}, e, { year: "numeric" })),
@@ -762,6 +754,30 @@ __d(
             return r("WAWeb-moment")
               .unix(t)
               .format(n ? "ll" : "MMM D");
+          }),
+          (a.$ClockImpl$p_7 = function (t) {
+            var e = this.getIs24Hour();
+            if (Intl.DateTimeFormat) {
+              var n = {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hourCycle: e ? "h23" : "h12",
+              };
+              return (
+                this.timeZoneHardCode != null &&
+                  (n = babelHelpers.extends({}, n, {
+                    timeZone: this.timeZoneHardCode,
+                  })),
+                Intl.DateTimeFormat(r("WAWeb-moment").locale(), n).format(
+                  t * 1e3,
+                )
+              );
+            }
+            return r("WAWeb-moment")
+              .unix(t)
+              .format("MMM D, " + this.timestampStrFormat());
           }),
           (a.$ClockImpl$p_3 = function (t, n) {
             var e = r("WAWeb-moment")().startOf("day"),

@@ -250,7 +250,7 @@ __d(
             : babelHelpers.extends({}, e, { hostCallPlayIDLast: null });
         case "dom_event_play_promise_rejected":
           if (e.hostCallPlayIDLast !== n.payload.hostCallPlayID) return e;
-          if (a === "comet_nextgendash") {
+          if (a === "comet_nextgendash" || a === "comet_nextgendash_wasm") {
             var D = n.payload.playPromiseRejectionReason;
             return babelHelpers.extends(
               {},
@@ -269,7 +269,7 @@ __d(
             waitingForDomPlaying: !1,
           });
         case "dom_event_durationchange": {
-          if (a === "comet_nextgendash") {
+          if (a === "comet_nextgendash" || a === "comet_nextgendash_wasm") {
             var x =
               t.videoElementEnded === !0
                 ? "ended"

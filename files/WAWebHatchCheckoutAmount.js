@@ -25,7 +25,12 @@ __d(
     }
     function u(e, t) {
       if (!/^[A-Z]{3}$/.test(e)) return null;
-      var n = c(o("WAWebCurrencyUtils").formatAmount1000(e, 0));
+      var n = c(
+        o("WAWebCurrencyUtils").formatAmount1000({
+          amount1000: 0,
+          currency: e,
+        }),
+      );
       return n == null ||
         !/(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\xAC\xAE-\u05FF\u0606-\u061B\u061D-\u06DC\u06DE-\u070E\u0710-\u088F\u0892-\u08E1\u08E3-\u167F\u1681-\u180D\u180F-\u1FFF\u2010-\u2027\u2030-\u205E\u2065\u2070-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFF8\uFFFC-\uFFFF]|[\uD800-\uD803\uD805-\uD80C\uD80E-\uD82E\uD830-\uD833\uD835-\uDB3F\uDB41-\uDBFF][\uDC00-\uDFFF]|\uD804[\uDC00-\uDCBC\uDCBE-\uDCCC\uDCCE-\uDFFF]|\uD80D[\uDC00-\uDC2F\uDC40-\uDFFF]|\uD82F[\uDC00-\uDC9F\uDCA4-\uDFFF]|\uD834[\uDC00-\uDD72\uDD7B-\uDFFF]|\uDB40[\uDC00\uDC02-\uDC1F\uDC80-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/.test(
           n.before + n.after,
@@ -34,11 +39,11 @@ __d(
         : t === ""
           ? n
           : c(
-              o("WAWebCurrencyUtils").formatAmount1000(
-                e,
-                t === "+" ? 1e3 : -1e3,
-                { signDisplay: "always" },
-              ),
+              o("WAWebCurrencyUtils").formatAmount1000({
+                amount1000: t === "+" ? 1e3 : -1e3,
+                currency: e,
+                options: { signDisplay: "always" },
+              }),
             );
     }
     function c(e) {

@@ -62,6 +62,7 @@ __d(
         firstFrameLength: i.firstFrameLength,
         isAnimated: i.isAnimated,
         isLottie: i.isLottie,
+        isAiSticker: i.isAiSticker,
         stickerPremiumStatus: i.stickerPremiumStatus,
         thumbnailDirectPath: t.thumbnailDirectPath,
         thumbnailSha256: t.thumbnailSha256,

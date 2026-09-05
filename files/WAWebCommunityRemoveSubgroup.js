@@ -8,7 +8,6 @@ __d(
     "WAWebEmojiText.react",
     "WAWebFlex.react",
     "WAWebModalManager",
-    "WAWebStringQualityGatingUtils",
     "WAWebText.react",
     "WAWebUnlinkSubgroupsAction",
     "WDSMargins.stylex",
@@ -199,56 +198,34 @@ __d(
         ));
     }
     function p(e, t) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ '"{group_title}" will no longer be part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
-            [
-              s._param(
-                "group_title",
-                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
-              ),
-              s._param(
-                "community_title",
-                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: t }),
-              ),
-            ],
-          )
-        : s._(
-            /*BTDS*/ '"{group_title}" will no longer be a part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
-            [
-              s._param(
-                "group_title",
-                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
-              ),
-              s._param(
-                "community_title",
-                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: t }),
-              ),
-            ],
-          );
+      return s._(
+        /*BTDS*/ '"{group_title}" will no longer be part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
+        [
+          s._param(
+            "group_title",
+            u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
+          ),
+          s._param(
+            "community_title",
+            u.jsx(o("WAWebEmojiText.react").EmojiText, { text: t }),
+          ),
+        ],
+      );
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ '"{group_title}" will no longer be part of this community. Anyone in this group will still be able to find it from their chats to send messages and make calls.',
-            [
-              s._param(
-                "group_title",
-                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
-              ),
-            ],
-          )
-        : s._(
-            /*BTDS*/ '"{group_title}" will no longer be a part of this community. Anyone in this group will still be able to find it from their chats to send messages and make calls.',
-            [
-              s._param(
-                "group_title",
-                u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
-              ),
-            ],
-          );
+      return s._(
+        /*BTDS*/ '"{group_title}" will no longer be part of this community. Anyone in this group will still be able to find it from their chats to send messages and make calls.',
+        [
+          s._param(
+            "group_title",
+            u.jsx(o("WAWebEmojiText.react").EmojiText, { text: e }),
+          ),
+        ],
+      );
     }
-    l.handleRemoveSubgroup = m;
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.handleRemoveSubgroup = m));
   },
   226,
 );

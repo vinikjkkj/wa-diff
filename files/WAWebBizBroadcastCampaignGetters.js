@@ -1,0 +1,36 @@
+__d(
+  "WAWebBizBroadcastCampaignGetters",
+  ["WAWebGetters", "WAWebGettersCaches"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WAWebGetters").createGetterFactories({
+        createCache: o("WAWebGettersCaches").createBizBroadcastCampaignCache,
+      }),
+      s = e.clearCacheFor,
+      u = e.field,
+      c = s,
+      d = u("adGroupId"),
+      m = u("adId"),
+      p = u("broadcastJid"),
+      _ = u("campaignName"),
+      f = u("createdTimestamp"),
+      g = u("deviceId"),
+      h = u("msgId"),
+      y = u("pendingBroadcastMessageId"),
+      C = u("reservedQuota"),
+      b = u("scheduledTimestamp"),
+      v = u("status");
+    ((l.clearBizBroadcastCampaignGetterCacheFor = c),
+      (l.getAdGroupId = d),
+      (l.getAdId = m),
+      (l.getBroadcastJid = p),
+      (l.getCampaignName = _),
+      (l.getCreatedTimestamp = f),
+      (l.getDeviceId = g),
+      (l.getMsgId = h),
+      (l.getPendingBroadcastMessageId = y),
+      (l.getReservedQuota = C),
+      (l.getScheduledTimestamp = b),
+      (l.getStatus = v));
+  },
+  98,
+);

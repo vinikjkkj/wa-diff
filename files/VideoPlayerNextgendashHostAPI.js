@@ -1,13 +1,10 @@
 __d(
   "VideoPlayerNextgendashHostAPI",
-  [],
-  function (t, n, r, o, a, i) {
+  ["fb-error"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       return { perfMs: e.perfMs - t.perfMs, unixMs: e.unixMs - t.unixMs };
-    }
-    function l(e) {
-      return e;
     }
     function s(e) {
       return e;
@@ -15,12 +12,8 @@ __d(
     function u(e) {
       return e;
     }
-    function c(e) {
-      return e;
-    }
-    function d(e) {
-      return e;
-    }
+    var c = function () {},
+      d = function () {};
     function m(e) {
       return e;
     }
@@ -28,21 +21,66 @@ __d(
       return e;
     }
     function _(e) {
+      if (e instanceof c)
+        throw r("fb-error")
+          .FBLogger("comet_video_player_nextgendash")
+          .mustfixThrow(
+            "VideoPlayerNextgendashHostMediaSourceIsNotAMediaSource",
+          );
       return e;
     }
     function f(e) {
+      if (e instanceof c) return e;
+      throw r("fb-error")
+        .FBLogger("comet_video_player_nextgendash")
+        .mustfixThrow("VideoPlayerNextgendashHostMediaSourceIsNotASinkObject");
+    }
+    function g(e) {
       return e;
     }
-    ((i.diffVideoPlayerNextgendashClockstamp = e),
-      (i.opaqueVideoPlayerNextgendashHostMediaElement = l),
-      (i.unopaqueVideoPlayerNextgendashHostMediaElement = s),
-      (i.opaqueVideoPlayerNextgendashHostMediaSource = u),
-      (i.unopaqueVideoPlayerNextgendashHostMediaSource = c),
-      (i.opaqueVideoPlayerNextgendashHostSourceBuffer = d),
-      (i.unopaqueVideoPlayerNextgendashHostSourceBuffer = m),
-      (i.opaqueVideoPlayerNextgendashHostMediaSourceHandle = p),
-      (i.unopaqueVideoPlayerNextgendashHostMediaSourceHandle = _),
-      (i.unopaqueVideoPlayerNextgendashHostEventTarget = f));
+    function h(e) {
+      return e;
+    }
+    function y(e) {
+      if (e instanceof d)
+        throw r("fb-error")
+          .FBLogger("comet_video_player_nextgendash")
+          .mustfixThrow(
+            "VideoPlayerNextgendashHostSourceBufferIsNotASourceBuffer",
+          );
+      return e;
+    }
+    function C(e) {
+      if (e instanceof d) return e;
+      throw r("fb-error")
+        .FBLogger("comet_video_player_nextgendash")
+        .mustfixThrow("VideoPlayerNextgendashHostSourceBufferIsNotASinkObject");
+    }
+    function b(e) {
+      return e;
+    }
+    function v(e) {
+      return e;
+    }
+    function S(e) {
+      return e;
+    }
+    ((l.diffVideoPlayerNextgendashClockstamp = e),
+      (l.opaqueVideoPlayerNextgendashHostMediaElement = s),
+      (l.unopaqueVideoPlayerNextgendashHostMediaElement = u),
+      (l.VideoPlayerNextgendashHostSinkMediaSource = c),
+      (l.VideoPlayerNextgendashHostSinkSourceBuffer = d),
+      (l.opaqueVideoPlayerNextgendashHostMediaSource = m),
+      (l.opaqueVideoPlayerNextgendashHostMediaSourceFromSink = p),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSource = _),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSourceAsSink = f),
+      (l.opaqueVideoPlayerNextgendashHostSourceBuffer = g),
+      (l.opaqueVideoPlayerNextgendashHostSourceBufferFromSink = h),
+      (l.unopaqueVideoPlayerNextgendashHostSourceBuffer = y),
+      (l.unopaqueVideoPlayerNextgendashHostSourceBufferAsSink = C),
+      (l.opaqueVideoPlayerNextgendashHostMediaSourceHandle = b),
+      (l.unopaqueVideoPlayerNextgendashHostMediaSourceHandle = v),
+      (l.unopaqueVideoPlayerNextgendashHostEventTarget = S));
   },
-  66,
+  98,
 );

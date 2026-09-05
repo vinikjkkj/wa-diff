@@ -540,10 +540,10 @@ __d(
           /*BTDS*/ "Payment message. Open WhatsApp on your phone to view.",
         );
       var n,
-        a = o("WAWebCurrencyUtils").formatAmount1000(
-          e.paymentCurrency,
-          e.paymentAmount1000,
-        ),
+        a = o("WAWebCurrencyUtils").formatAmount1000({
+          amount1000: e.paymentAmount1000,
+          currency: e.paymentCurrency,
+        }),
         i = r("WAWebWidToFormattedNameOrNumber")(
           o("WAWebMsgGetters").getSender(e),
         ),

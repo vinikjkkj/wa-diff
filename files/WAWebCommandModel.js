@@ -1,6 +1,6 @@
 __d(
   "WAWebCommandModel",
-  ["WAWebBaseModel"],
+  ["WAWebBaseModel", "WAWebCommandGetters"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -16,7 +16,15 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o("WAWebCommandGetters").clearCommandGetterCacheFor(this));
+        }),
+        t
+      );
     })(o("WAWebBaseModel").BaseModel);
     e.Proxy = "command";
     var s = o("WAWebBaseModel").defineModel(e);

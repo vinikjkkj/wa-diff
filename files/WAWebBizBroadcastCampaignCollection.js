@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastCampaignCollection",
   [
     "Promise",
+    "WAWebBizBroadcastCampaignGetters",
     "WAWebBizBroadcastCampaignModel",
     "WAWebCollectionUtils",
     "WAWebStaleBaseCollection",
@@ -39,6 +40,25 @@ __d(
         babelHelpers.inheritsLoose(r, t);
         var a = r.prototype;
         return (
+          (a.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o(
+                    "WAWebBizBroadcastCampaignGetters",
+                  ).clearBizBroadcastCampaignGetterCacheFor(e);
+              }),
+              e
+            );
+          }),
+          (a.reset = function () {
+            (this.forEach(
+              o("WAWebBizBroadcastCampaignGetters")
+                .clearBizBroadcastCampaignGetterCacheFor,
+            ),
+              t.prototype.reset.call(this));
+          }),
           (a.markBootstrapped = function () {
             ((this.bootstrapped = !0), this.trigger("bootstrapped"));
           }),

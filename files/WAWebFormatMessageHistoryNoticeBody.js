@@ -8,7 +8,6 @@ __d(
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
-    "WAWebStringQualityGatingUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -60,69 +59,38 @@ __d(
             )
         : C != null
           ? d(g, h, p.length - 1, l, C)
-          : o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}"}',
-                [
-                  s._plural(p.length - 1, "number"),
-                  s._param("author name", g),
-                  s._param("receiver name", h),
-                  s._param("timestamp", l),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "{author name} sent {receiver name} and {other count} others message history that starts on {timestamp}",
-                [
-                  s._param("author name", g),
-                  s._param("receiver name", h),
-                  s._param("other count", p.length - 1),
-                  s._param("timestamp", l),
-                ],
-              );
+          : s._(
+              /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}"}',
+              [
+                s._plural(p.length - 1, "number"),
+                s._param("author name", g),
+                s._param("receiver name", h),
+                s._param("timestamp", l),
+              ],
+            );
     }
     function c(e, t, n, r) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
-            [
-              s._param("author name", e),
-              s._param("receiver name", t),
-              s._param("timestamp", n),
-              s._param("name of the non-history receiver", r),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
-            [
-              s._param("author name", e),
-              s._param("receiver name", t),
-              s._param("timestamp", n),
-              s._param("name of the non-history receiver", r),
-            ],
-          );
+      return s._(
+        /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
+        [
+          s._param("author name", e),
+          s._param("receiver name", t),
+          s._param("timestamp", n),
+          s._param("name of the non-history receiver", r),
+        ],
+      );
     }
-    function d(e, t, n, r, a) {
-      return o("WAWebStringQualityGatingUtils").shouldUseStringQualityBatch2()
-        ? s._(
-            /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
-            [
-              s._plural(n, "number"),
-              s._param("author name", e),
-              s._param("receiver name", t),
-              s._param("timestamp", r),
-              s._param("name of the non-history receiver", a),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "{author name} sent {receiver name} and {other count} others message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
-            [
-              s._param("author name", e),
-              s._param("receiver name", t),
-              s._param("other count", n),
-              s._param("timestamp", r),
-              s._param("name of the non-history receiver", a),
-            ],
-          );
+    function d(e, t, n, r, o) {
+      return s._(
+        /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
+        [
+          s._plural(n, "number"),
+          s._param("author name", e),
+          s._param("receiver name", t),
+          s._param("timestamp", r),
+          s._param("name of the non-history receiver", o),
+        ],
+      );
     }
     function m(t) {
       if (t.length === 0) return null;

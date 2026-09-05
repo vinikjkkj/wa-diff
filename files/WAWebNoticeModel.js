@@ -14,6 +14,7 @@ __d(
     "WAWebConnModel",
     "WAWebHttpErrors",
     "WAWebL10N",
+    "WAWebNoticeGetters",
     "WAWebPonyfillsFetch",
     "WAWebURLUtils",
     "WAWebUserNoticeErrorWamEvent",
@@ -91,7 +92,9 @@ __d(
               }));
           }),
           (i.delete = function () {
-            (this.resetNotice(), t.prototype.delete.call(this));
+            (this.resetNotice(),
+              t.prototype.delete.call(this),
+              o("WAWebNoticeGetters").clearNoticeGetterCacheFor(this));
           }),
           (i.sanitizeBlockingModal = function (n) {
             if (!n) return null;

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBaseModel",
     "WAWebBizBroadcastCampaignCollection",
+    "WAWebBizBroadcastCampaignGetters",
     "WAWebBizBroadcastCampaignInsightsCollection",
     "WAWebModelUtils",
   ],
@@ -44,6 +45,12 @@ __d(
         }),
         (n.getCollection = function () {
           return r("WAWebBizBroadcastCampaignCollection");
+        }),
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o(
+              "WAWebBizBroadcastCampaignGetters",
+            ).clearBizBroadcastCampaignGetterCacheFor(this));
         }),
         t
       );

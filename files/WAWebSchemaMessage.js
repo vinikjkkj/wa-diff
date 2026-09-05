@@ -84,6 +84,7 @@ __d(
             a("firstFrameLength"),
             a("firstFrameSidecar"),
             a("isAnimated"),
+            a("isAiSticker"),
             a("isLottie"),
             a("stickerPremiumStatus"),
             a("thumbnail"),

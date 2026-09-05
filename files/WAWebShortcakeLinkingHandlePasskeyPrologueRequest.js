@@ -10,6 +10,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCreateNackFromStanza",
     "WAWebShortcakeLinkingApi",
+    "WAWebShortcakeLinkingDbscRegistration",
     "WAWebShortcakeLinkingHandoffProof",
     "WAWebShortcakeLinkingRequestOptionsCache",
     "WAWebUserPrefsMultiDevice",
@@ -119,23 +120,28 @@ __d(
             a = n.makePasskeyPrologueRequestNotificationResponseAck,
             i = n.parsedRequest,
             l = i.passkeyRequestOptions;
+          l != null
+            ? (o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[shortcake] caching embedded PasskeyRequestOptions",
+                  ])),
+              ),
+              o(
+                "WAWebShortcakeLinkingRequestOptionsCache",
+              ).setCachedRequestOptions(l.elementValue))
+            : o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[shortcake] passkey_prologue_request: no embedded options",
+                  ])),
+              );
+          var s = i.dbscRegistration;
           return (
-            l != null
-              ? (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[shortcake] caching embedded PasskeyRequestOptions",
-                    ])),
-                ),
-                o(
-                  "WAWebShortcakeLinkingRequestOptionsCache",
-                ).setCachedRequestOptions(l.elementValue))
-              : o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[shortcake] passkey_prologue_request: no embedded options",
-                    ])),
-                ),
+            s != null &&
+              o("WAWebShortcakeLinkingDbscRegistration").startDbscRegistration(
+                s.elementValue,
+              ),
             o("WAWebShortcakeLinkingApi").getShortcakeLinkingStage() ===
             o("WAWebShortcakeLinkingApi").ShortcakeLinkingStage.NotStarted
               ? yield g()

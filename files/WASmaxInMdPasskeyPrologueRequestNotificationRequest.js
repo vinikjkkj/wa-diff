@@ -2,6 +2,7 @@ __d(
   "WASmaxInMdPasskeyPrologueRequestNotificationRequest",
   [
     "WAResultOrError",
+    "WASmaxInMdDbscRegistrationMixin",
     "WASmaxInMdPasskeyRequestOptionsMixin",
     "WASmaxInMdServerNotificationMixin",
     "WASmaxParseJid",
@@ -16,7 +17,15 @@ __d(
       ).parsePasskeyRequestOptionsMixin(e);
       return (n.success, n);
     }
-    function s(t) {
+    function s(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "dbsc_registration");
+      if (!t.success) return t;
+      var n = o("WASmaxInMdDbscRegistrationMixin").parseDbscRegistrationMixin(
+        e,
+      );
+      return (n.success, n);
+    }
+    function u(t) {
       var n = o("WASmaxParseUtils").assertTag(t, "notification");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optionalChildWithTag(
@@ -25,34 +34,42 @@ __d(
         e,
       );
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").literal(
+      var a = o("WASmaxParseUtils").optionalChildWithTag(
+        t,
+        "dbsc_registration",
+        s,
+      );
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         t,
         "type",
         "passkey_prologue_request",
       );
-      if (!a.success) return a;
-      var i = o("WASmaxParseJid").literalJid(
+      if (!i.success) return i;
+      var l = o("WASmaxParseJid").literalJid(
         o("WASmaxParseJid").attrDomainJid,
         t,
         "from",
         "s.whatsapp.net",
       );
-      if (!i.success) return i;
-      var l = o(
+      if (!l.success) return l;
+      var u = o(
         "WASmaxInMdServerNotificationMixin",
       ).parseServerNotificationMixin(t);
-      return l.success
+      return u.success
         ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({ type: a.value, from: i.value }, l.value, {
+            babelHelpers.extends({ type: i.value, from: l.value }, u.value, {
               passkeyRequestOptions: r.value,
+              dbscRegistration: a.value,
             }),
           )
-        : l;
+        : u;
     }
     ((l.parsePasskeyPrologueRequestNotificationRequestPasskeyRequestOptions =
       e),
-      (l.parsePasskeyPrologueRequestNotificationRequest = s));
+      (l.parsePasskeyPrologueRequestNotificationRequestDbscRegistration = s),
+      (l.parsePasskeyPrologueRequestNotificationRequest = u));
   },
   98,
 );

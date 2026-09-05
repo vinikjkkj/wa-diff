@@ -32,10 +32,10 @@ __d(
                 : "",
             r =
               e.paymentCurrency && e.paymentAmount1000
-                ? o("WAWebCurrencyUtils").formatAmount1000(
-                    e.paymentCurrency,
-                    e.paymentAmount1000,
-                  )
+                ? o("WAWebCurrencyUtils").formatAmount1000({
+                    amount1000: e.paymentAmount1000,
+                    currency: e.paymentCurrency,
+                  })
                 : s._(/*BTDS*/ "Payment").toString();
           return r + n;
         }
@@ -47,10 +47,10 @@ __d(
                 : "",
             l =
               e.paymentCurrency && e.paymentAmount1000
-                ? o("WAWebCurrencyUtils").formatAmount1000(
-                    e.paymentCurrency,
-                    e.paymentAmount1000,
-                  )
+                ? o("WAWebCurrencyUtils").formatAmount1000({
+                    amount1000: e.paymentAmount1000,
+                    currency: e.paymentCurrency,
+                  })
                 : s._(/*BTDS*/ "Payment").toString();
           return l + i;
         }

@@ -21,6 +21,7 @@ __d(
     "WAWebPttOocMarquee",
     "WAWebPttPlayPauseButton.react",
     "WAWebPttPrefs",
+    "WAWebPttPrefsGetters",
     "WAWebPttStatusIconStyleable.react",
     "WAWebPttUseMsgAudioPlaybackController",
     "WAWebTabOrder",
@@ -34,8 +35,8 @@ __d(
     "useWAWebChatValues",
     "useWAWebListener",
     "useWAWebMeasure",
-    "useWAWebModelValues",
     "useWAWebMsgValues",
+    "useWAWebPttPrefsValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -75,13 +76,11 @@ __d(
       var e = o("react-compiler-runtime").c(7),
         t;
       e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = ["outOfChatPlayerMessage"]), (e[0] = t))
+        ? ((t = [o("WAWebPttPrefsGetters").getOutOfChatPlayerMessage]),
+          (e[0] = t))
         : (t = e[0]);
-      var n = o("useWAWebModelValues").useModelValues(
-          o("WAWebPttPrefs").PttPrefs,
-          t,
-        ),
-        r = n.outOfChatPlayerMessage,
+      var n = o("useWAWebPttPrefsValues").usePttPrefsValues(t),
+        r = n[0],
         a,
         i;
       (e[1] !== r
@@ -704,13 +703,11 @@ __d(
       var t = o("react-compiler-runtime").c(4),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["isOocPlayerClosedByUser"]), (t[0] = n))
+        ? ((n = [o("WAWebPttPrefsGetters").getIsOocPlayerClosedByUser]),
+          (t[0] = n))
         : (n = t[0]);
-      var r = o("useWAWebModelValues").useModelValues(
-          o("WAWebPttPrefs").PttPrefs,
-          n,
-        ),
-        a = r.isOocPlayerClosedByUser,
+      var r = o("useWAWebPttPrefsValues").usePttPrefsValues(n),
+        a = r[0],
         i;
       t[1] !== e
         ? ((i = o("WAWebFrontendMsgGetters").getChat(e.unsafe())),
