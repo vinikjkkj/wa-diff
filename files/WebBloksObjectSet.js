@@ -114,30 +114,31 @@ __d(
         }),
         (t.$2 = function (t, n) {
           var e,
-            r = t.component_query_responses;
-          if (r != null)
-            for (var a = 0; a < r.length; a++) {
-              var i = r[a];
-              if (i.payload !== "") {
-                var l = JSON.parse(i.payload);
+            r,
+            a = t.component_query_responses;
+          if (a != null)
+            for (var i = 0; i < a.length; i++) {
+              var l = a[i];
+              if (l.payload !== "") {
+                var s = JSON.parse(l.payload);
                 this.componentQueryStore.writeInitialPayload(
-                  i.app_id,
-                  i.consumed_params,
-                  l,
+                  l.app_id,
+                  l.consumed_params,
+                  s,
                 );
               } else
-                i.component_id != null &&
+                l.component_id != null &&
                   this.componentQueryStore.writeInitialPayload(
-                    i.app_id,
-                    i.consumed_params,
+                    l.app_id,
+                    l.consumed_params,
                     {
                       components: [
-                        { id: i.component_id, payload: t.screen_content },
+                        { id: l.component_id, payload: t.screen_content },
                       ],
                     },
                   );
             }
-          var s = babelHelpers.extends(
+          var u = babelHelpers.extends(
             {},
             (e = t.root_consumed_params) != null ? e : n,
           );
@@ -146,13 +147,17 @@ __d(
               this,
               t.screen_content,
               t.container_config,
-              s,
+              u,
               window.location.href,
               t.client_params_expressions,
             ),
             !0,
           ),
-            this.pushStackedScreens(t.stacked_screens, s));
+            this.pushStackedScreens(
+              t.stacked_screens,
+              u,
+              (r = t.stacked_screens_delay_ms) != null ? r : 0,
+            ));
         }),
         (t.pushStackedScreens = function (t, n, r) {
           var e = this;

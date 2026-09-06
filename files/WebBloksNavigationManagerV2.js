@@ -298,6 +298,17 @@ __d(
               e.uri !== t && window.history.replaceState(e, null, t);
             }
           }),
+          (n.replaceStateAndSyncUri = function (t) {
+            if (!this.disableHistoryStack) {
+              var e = history.state;
+              (e == null ? void 0 : e.uri) !== t &&
+                window.history.replaceState(
+                  babelHelpers.extends({}, e != null ? e : {}, { uri: t }),
+                  null,
+                  t,
+                );
+            }
+          }),
           (n.replacePageTitle = function (t) {
             if (!this.disableHistoryStack) {
               var e = history.state;
