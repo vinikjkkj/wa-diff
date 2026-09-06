@@ -6,29 +6,47 @@ __d(
     var e = 2.5,
       s = 2,
       u = 6,
-      c = {
+      c = [
+        "actions",
+        "bid",
+        "impressions",
+        "reach",
+        "spend",
+        "predicted_errors_conversions",
+        "predicted_errors_reach",
+        "reach_lower_bound",
+        "reach_upper_bound",
+        "actions_lower_bound",
+        "actions_upper_bound",
+      ],
+      d = [].concat(c, [
+        "marketing_message_delivery",
+        "marketing_message_delivery_lower_bound",
+        "marketing_message_delivery_upper_bound",
+      ]),
+      m = {
         getReachEstimateByBudget: function (t, n, o, a, i) {
           i === void 0 && (i = !1);
-          var e = c.getEmptyPoint();
+          var e = m.getEmptyPoint();
           if (n <= 0 || !t || t.length === 0 || !t[0]) return e;
-          if (i) return c.getReachEstimateByTargetCPA(t, n, o);
+          if (i) return m.getReachEstimateByTargetCPA(t, n, o);
           var l = o == null || o === 0 || a ? Number.MAX_SAFE_INTEGER : o,
             s;
           for (s = 0; s < t.length && !(t[s].spend > n || t[s].bid > l); s++);
           if (s === 0) {
             var u = t[0],
-              d = Math.min(n / u.spend, l / u.bid),
-              m = d * u.spend;
-            return c.interpolatePoint(m, e, u, "spend");
+              c = Math.min(n / u.spend, l / u.bid),
+              d = c * u.spend;
+            return m.interpolatePoint(d, e, u, "spend");
           }
           if (s === t.length) {
             var p = t[t.length - 1];
             if (r("gkx")("9118")) {
               if (t.length >= 2) {
                 var _ = t[t.length - 2];
-                return c.interpolatePoint(n, _, p, "spend");
+                return m.interpolatePoint(n, _, p, "spend");
               }
-              return c.interpolatePoint(n, e, p, "spend");
+              return m.interpolatePoint(n, e, p, "spend");
             }
             return p;
           }
@@ -39,25 +57,25 @@ __d(
               (l - f.bid) / (g.bid - f.bid),
             ),
             y = f.spend + h * (g.spend - f.spend);
-          return c.interpolatePoint(y, f, g, "spend");
+          return m.interpolatePoint(y, f, g, "spend");
         },
         interpolateCBOCampaignGroupByBudget: function (t, n) {
-          var e = c.getEmptyPoint();
+          var e = m.getEmptyPoint();
           return t == null || t.length === 0
             ? e
             : n > t[t.length - 1].spend
               ? t[t.length - 1]
-              : ((e = c.interpolateCBOOutcome(t, null, n)), e);
+              : ((e = m.interpolateCBOOutcome(t, null, n)), e);
         },
         interpolateCBOOutcome: function (t, n, r) {
-          for (var e = c.getEmptyPoint(), o = 0, a = 0; a < t.length - 1; a++)
+          for (var e = m.getEmptyPoint(), o = 0, a = 0; a < t.length - 1; a++)
             t[a].spend > r ||
               r > t[a + 1].spend ||
               ((o =
                 t[a + 1].spend - t[a].spend == 0
                   ? 0
                   : (r - t[a].spend) / (t[a + 1].spend - t[a].spend)),
-              (e = c.interpolatedPointOnSelectedCampaignCurve(
+              (e = m.interpolatedPointOnSelectedCampaignCurve(
                 o,
                 a,
                 a + 1,
@@ -66,7 +84,7 @@ __d(
           return e;
         },
         interpolateCBOCampaignByBudget: function (t, n, o, a) {
-          var e = c.getEmptyPoint();
+          var e = m.getEmptyPoint();
           return a !== r("AdsAPIBidStrategies").LOWEST_COST_WITHOUT_CAP ||
             t == null ||
             t.length === 0 ||
@@ -75,7 +93,7 @@ __d(
             ? e
             : o > t[t.length - 1].spend
               ? n[n.length - 1]
-              : ((e = c.interpolateCBOOutcome(t, n, o)), e);
+              : ((e = m.interpolateCBOOutcome(t, n, o)), e);
         },
         interpolatedPointOnSelectedCampaignCurve: function (t, n, r, o) {
           var e = o[n],
@@ -85,12 +103,12 @@ __d(
                 o = a[r];
               return n == null || o == null ? 0 : n + t * (o - n);
             },
-            l = c.getEmptyPoint();
-          for (var s in l) l[s] = i(s);
+            l = m.getEmptyPoint();
+          for (var s of c) l[s] = i(s);
           return l;
         },
         getInterpolatedPointByTargetCPA: function (t, n) {
-          var e = c.getEmptyPoint();
+          var e = m.getEmptyPoint();
           if (n == null || n <= 0) return e;
           var r;
           for (r = 0; r < t.length; r++) {
@@ -103,33 +121,33 @@ __d(
             var l = r === 0 ? e : t[r - 1],
               s = t[r],
               u = l.spend,
-              d = s.spend,
-              m = l.actions,
+              c = s.spend,
+              d = l.actions,
               p = s.actions,
-              _ = n * m - u,
-              f = n * (m - p) - (u - d),
+              _ = n * d - u,
+              f = n * (d - p) - (u - c),
               g = f > 0 ? _ / f : 0,
-              h = u + g * (d - u);
-            i = c.interpolatePoint(h, l, s, "spend");
+              h = u + g * (c - u);
+            i = m.interpolatePoint(h, l, s, "spend");
           }
           return i;
         },
         getReachEstimateByTargetCPA: function (t, n, r) {
-          var e = c.getInterpolatedPointByTargetCPA(t, r);
-          return c.scalePointByBudgetFactor(e, n);
+          var e = m.getInterpolatedPointByTargetCPA(t, r);
+          return m.scalePointByBudgetFactor(e, n);
         },
         getReachEstimateForBidStrategy: function (t, n, o, a) {
           switch (a) {
             case r("AdsAPIBidStrategies").LOWEST_COST_WITHOUT_CAP:
-              return c.getReachEstimateByBudget(t, n, o, !0, !1);
+              return m.getReachEstimateByBudget(t, n, o, !0, !1);
             case r("AdsAPIBidStrategies").TARGET_COST:
-              return c.getReachEstimateByBudget(t, n, o, !1, !0);
+              return m.getReachEstimateByBudget(t, n, o, !1, !0);
             case r("AdsAPIBidStrategies").LOWEST_COST_WITH_BID_CAP:
-              return c.getReachEstimateByBudget(t, n, o, !1, !1);
+              return m.getReachEstimateByBudget(t, n, o, !1, !1);
             case r("AdsAPIBidStrategies").COST_CAP:
-              return c.getReachEstimateForCostCap(t, n, o);
+              return m.getReachEstimateForCostCap(t, n, o);
             default:
-              return c.getEmptyPoint();
+              return m.getEmptyPoint();
           }
         },
         getBoundsWithErrorPrediction: function (n, r, o, a, i) {
@@ -147,7 +165,7 @@ __d(
           );
         },
         getLastAcceptableConfidence: function (n, r) {
-          if (!Array.isArray(n) || n.length === 0) return c.getEmptyPoint();
+          if (!Array.isArray(n) || n.length === 0) return m.getEmptyPoint();
           var t =
               r === "reach"
                 ? "predicted_errors_reach"
@@ -171,12 +189,12 @@ __d(
           var i = s * o;
           if (n[a - 1].spend > i) return !0;
           if (n[a].spend < i) return !1;
-          var l = c.getPointFromSpend(s * o, n);
+          var l = m.getPointFromSpend(s * o, n);
           return l[t] < e;
         },
         getPointFromSpend: function (t, n) {
-          if (n.length === 0) return c.getEmptyPoint();
-          var e = c.getEmptyPoint();
+          if (n.length === 0) return m.getEmptyPoint();
+          var e = m.getEmptyPoint();
           e.spend = t;
           var r = o("BinarySearch").findBoundInArray(
             n,
@@ -187,9 +205,9 @@ __d(
             o("BinarySearch").LEAST_UPPER_BOUND,
           );
           if (r >= n.length) return n[n.length - 1];
-          var a = r === 0 ? c.getEmptyPoint() : n[r - 1],
+          var a = r === 0 ? m.getEmptyPoint() : n[r - 1],
             i = n[r];
-          return c.interpolatePoint(t, a, i, "spend");
+          return m.interpolatePoint(t, a, i, "spend");
         },
         interpolatePoint: function (t, n, r, o, a) {
           var e = n[o],
@@ -202,8 +220,8 @@ __d(
               var s = (l - o) / (i - e);
               return o + s * (t - e);
             },
-            s = c.getEmptyPoint(a);
-          for (var u in s) s[u] = l(u);
+            s = m.getEmptyPoint(a);
+          for (var u of a === !0 ? d : c) s[u] = l(u);
           return s;
         },
         scalePointByBudgetFactor: function (t, n) {
@@ -218,11 +236,11 @@ __d(
         },
         getLastPointOfEstimate: function (t, n) {
           var e = n != null ? n : t.daily_outcomes_curve;
-          return e.length === 0 ? c.getEmptyPoint() : e[e.length - 1];
+          return e.length === 0 ? m.getEmptyPoint() : e[e.length - 1];
         },
         getLastPointPredictionForCampaign: function (t) {
           var e = t.curve;
-          return !e || e.length === 0 ? c.getEmptyPoint() : e[e.length - 1];
+          return !e || e.length === 0 ? m.getEmptyPoint() : e[e.length - 1];
         },
         getEmptyPoint: function (t) {
           return t === !0
@@ -283,7 +301,7 @@ __d(
           }
         },
         getReachEstimateForCostCap: function (t, n, r) {
-          var e = c.getEmptyPoint();
+          var e = m.getEmptyPoint();
           if (n <= 0 || !t || t.length === 0 || !t[0] || r == null || r === 0)
             return e;
           var o;
@@ -291,20 +309,20 @@ __d(
           var a;
           if (o === 0) {
             var i = t[0];
-            a = c.interpolatePoint(n, e, i, "spend");
+            a = m.interpolatePoint(n, e, i, "spend");
           } else if (o === t.length) a = t[t.length - 1];
           else {
             var l = t[o - 1],
               s = t[o];
-            a = c.interpolatePoint(n, l, s, "spend");
+            a = m.interpolatePoint(n, l, s, "spend");
           }
           var u = a.spend / a.actions,
-            d = r >= u;
-          return d ? a : c.getInterpolatedPointByTargetCPA(t, r);
+            c = r >= u;
+          return c ? a : m.getInterpolatedPointByTargetCPA(t, r);
         },
       },
-      d = c;
-    l.default = d;
+      p = m;
+    l.default = p;
   },
   98,
 );
