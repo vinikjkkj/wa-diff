@@ -5,6 +5,7 @@ __d(
     "WAWebMediaPlaybackEventLoggerCache",
     "WAWebMediaPlaybackEventPersistentQueue",
     "WAWebMediaPlaybackEventUploader",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,6 +31,7 @@ __d(
                         "[MediaPlaybackEventLogger] Failed to flush logs",
                       ])),
                   )
+                  .catching(r("getErrorSafe")(t))
                   .sendLogs("media-playback-event-logger-flush-failed");
               });
           }),

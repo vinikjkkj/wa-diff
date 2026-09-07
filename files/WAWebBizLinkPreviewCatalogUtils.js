@@ -95,7 +95,7 @@ __d(
                     m.description +
                     " \xB7 " +
                     o("WAWebCurrencyUtils").formatAmount1000({
-                      amount1000: m.priceAmount1000,
+                      amount: m.priceAmount1000,
                       currency: m.currency,
                     }))
                 : m.description != null
@@ -103,7 +103,7 @@ __d(
                   : m.priceAmount1000 != null &&
                     m.currency != null &&
                     (S = o("WAWebCurrencyUtils").formatAmount1000({
-                      amount1000: m.priceAmount1000,
+                      amount: m.priceAmount1000,
                       currency: m.currency,
                     })))
             : ((v = r("fbs")

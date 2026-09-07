@@ -39,6 +39,20 @@ __d(
       );
     }
     function h() {
+      return s._(/*BTDS*/ "Wrong key entered. Try again.");
+    }
+    function y() {
+      return s._(/*BTDS*/ "Too many attempts. Try again later.");
+    }
+    function C() {
+      return s._(
+        /*BTDS*/ "This account can't be reached with their key right now. Please try again later or contact them by phone number.",
+      );
+    }
+    function b() {
+      return s._(/*BTDS*/ "Something went wrong. Please try again later.");
+    }
+    function v() {
       return s._(/*BTDS*/ "We couldn't complete your request.");
     }
     ((l.getUsernameInvalidCharacterMessage = e),
@@ -50,7 +64,11 @@ __d(
       (l.getUsernameAvailableMessage = _),
       (l.getUsernameUnavailableMessage = f),
       (l.getUsernameChangeNotAllowedMessage = g),
-      (l.getUsernameGenericErrorMessage = h));
+      (l.getUsernameKeyWrongKeyMessage = h),
+      (l.getUsernameKeyRequestorRateLimitedMessage = y),
+      (l.getUsernameKeyRequesteeRateLimitedMessage = C),
+      (l.getUsernameKeyUnexpectedErrorMessage = b),
+      (l.getUsernameGenericErrorMessage = v));
   },
   226,
 );

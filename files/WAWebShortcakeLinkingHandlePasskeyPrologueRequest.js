@@ -68,14 +68,16 @@ __d(
                   ])),
               );
           } catch (e) {
-            o("WALogger").ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "Shortcake handoff: derivation failed: ",
-                  "",
-                ])),
-              r("getErrorSafe")(e).message,
-            );
+            o("WALogger")
+              .ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "Shortcake handoff: derivation failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .tags("wa-ice", "wa_app_compromise", "shortcake")
+              .sendLogs("shortcake-handoff-derivation-failed");
           }
           yield o("WAWebAdvSignatureApi").generateADVSecretKey();
         })),
@@ -96,14 +98,16 @@ __d(
           } catch (t) {
             if (t instanceof o("WASmaxParsingFailure").SmaxParsingFailure)
               return (
-                o("WALogger").ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[shortcake] parse passkey_prologue_request - ",
-                      "",
-                    ])),
-                  r("getErrorSafe")(t).message,
-                ),
+                o("WALogger")
+                  .ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[shortcake] parse passkey_prologue_request",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .tags("wa-ice", "wa_app_compromise", "shortcake")
+                  .sendLogs("shortcake-passkey-prologue-request-parse-failed"),
                 o(
                   "WASmaxOutMessageFallbackDeliverResponseBadStanza",
                 ).makeDeliverResponseBadStanza(

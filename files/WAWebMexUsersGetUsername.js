@@ -40,17 +40,28 @@ __d(
               fetch: { username: !0 },
             }),
             a = r.response;
-          if (a != null)
-            return a.map(function (e) {
+          if (a != null) {
+            var i = new Map();
+            for (var l of a) {
+              var s;
+              i.set(
+                l.jid,
+                l.username_info == null
+                  ? { error: !0, username: null }
+                  : {
+                      username: o("WAWebUsernameTypes").asMaybeUsername(
+                        (s = l.username_info) == null ? void 0 : s.username,
+                      ),
+                    },
+              );
+            }
+            return e.map(function (e) {
               var t;
-              return e.username_info == null
-                ? { error: !0, username: null }
-                : {
-                    username: o("WAWebUsernameTypes").asMaybeUsername(
-                      (t = e.username_info) == null ? void 0 : t.username,
-                    ),
-                  };
+              return (t = i.get(e.toJid())) != null
+                ? t
+                : { error: !0, username: null };
             });
+          }
         })),
         s.apply(this, arguments)
       );
@@ -70,7 +81,7 @@ __d(
         c.apply(this, arguments)
       );
     }
-    l.getMexUserUsername = u;
+    ((l.getMexUsersUsername = e), (l.getMexUserUsername = u));
   },
   98,
 );

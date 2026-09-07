@@ -79,7 +79,7 @@ __d(
       }
     }
     function g(t, n, r) {
-      var a, i, l, u, c, d, m;
+      var a, i, l, u, c, d, m, p;
       (o("WAWebCurrentUser").isEmployee()
         ? o("WALogger")
             .ERROR(
@@ -114,6 +114,8 @@ __d(
           hasPn: (c = r.hasPn) != null ? c : void 0,
           hasPush: (d = r.hasPush) != null ? d : void 0,
           inDb: (m = r.inDb) != null ? m : void 0,
+          unknownUserRecoveryPath:
+            (p = r.unknownUserRecoveryPath) != null ? p : void 0,
         }).commit());
     }
     ((l.WINDOW_SECONDS = u),

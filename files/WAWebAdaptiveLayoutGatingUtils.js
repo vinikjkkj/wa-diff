@@ -9,12 +9,7 @@ __d(
         ) && r("justknobx")._("4510")
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "functional_chatlist_enabled",
-      );
-    }
-    ((l.shouldUseDrawerDescriptor = e), (l.shouldUseFunctionalChatlist = s));
+    l.shouldUseDrawerDescriptor = e;
   },
   98,
 );

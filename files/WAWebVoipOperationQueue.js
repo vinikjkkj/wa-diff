@@ -3,10 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebCommonTaskScheduler",
-    "WAWebReleaseToEventLoop",
-    "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,9 +12,8 @@ __d(
       s,
       u,
       c,
-      d = 100,
-      m = 3e4,
-      p = (function (e) {
+      d = 3e4,
+      m = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -30,9 +26,9 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      _ = (function () {
+      p = (function () {
         function t(e, t, n) {
-          (t === void 0 && (t = m),
+          (t === void 0 && (t = d),
             (this.$1 = []),
             (this.$2 = !1),
             (this.$3 = 0),
@@ -53,98 +49,80 @@ __d(
               if (!this.isProcessing()) {
                 this.$2 = !0;
                 for (
-                  var a = o("WAWebABProps").getABPropConfigValue(
-                      "wmi_worker_scheduler_web",
-                    ),
-                    i = self.performance.now(),
-                    l = function* () {
-                      var l = t.$1.shift();
-                      if (l == null) return 1;
-                      var m = l.name,
-                        _ = l.operation,
-                        f = null,
-                        g = new (c || (c = n("Promise")))(function (e, n) {
-                          f = self.setTimeout(function () {
-                            return n(new p(m, t.$5));
-                          }, t.$5);
-                        });
-                      try {
-                        yield (c || (c = n("Promise"))).race([_(), g]);
-                      } catch (n) {
-                        if (n instanceof p) {
-                          var h = !1;
-                          try {
-                            h = (yield t.$6 == null ? void 0 : t.$6(m)) === !0;
-                          } catch (e) {
-                            h = !1;
-                          }
-                          h
-                            ? o("WALogger")
-                                .LOG(
-                                  e ||
-                                    (e =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "voip: [",
-                                        ":Queue] op timeout ",
-                                        "ms (benign, abandoning): ",
-                                        "",
-                                      ])),
-                                  t.$4,
-                                  t.$5,
-                                  m,
-                                )
-                                .tags("non-sad")
-                                .sendLogs("voip-operation-queue-timeout-benign")
-                            : o("WALogger")
-                                .ERROR(
-                                  s ||
-                                    (s =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "voip: [",
-                                        ":Queue] op timeout ",
-                                        "ms, abandoning: ",
-                                        "",
-                                      ])),
-                                  t.$4,
-                                  t.$5,
-                                  m,
-                                )
-                                .sendLogs("voip-operation-queue-timeout");
-                        } else
-                          o("WALogger")
-                            .ERROR(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
-                                  "voip: [",
-                                  ":Queue] Operation failed: ",
-                                  ", error: ",
-                                  "",
-                                ])),
-                              t.$4,
-                              m,
-                              n,
-                            )
-                            .sendLogs("voip-operation-queue-failure");
-                      } finally {
-                        f != null && self.clearTimeout(f);
-                      }
-                      a
-                        ? yield r("WAWebCommonTaskScheduler").yield()
-                        : o(
-                            "WAWebVoipPerfOptimizations",
-                          ).isPerfOptimizationEnabled(
-                            o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                              .OPERATION_QUEUE_YIELD,
-                          ) &&
-                          self.performance.now() - i > d &&
-                          (yield o(
-                            "WAWebReleaseToEventLoop",
-                          ).releaseToEventLoop(),
-                          (i = self.performance.now()));
-                    };
+                  var a = function* () {
+                    var a = t.$1.shift();
+                    if (a == null) return 1;
+                    var i = a.name,
+                      l = a.operation,
+                      d = null,
+                      p = new (c || (c = n("Promise")))(function (e, n) {
+                        d = self.setTimeout(function () {
+                          return n(new m(i, t.$5));
+                        }, t.$5);
+                      });
+                    try {
+                      yield (c || (c = n("Promise"))).race([l(), p]);
+                    } catch (n) {
+                      if (n instanceof m) {
+                        var _ = !1;
+                        try {
+                          _ = (yield t.$6 == null ? void 0 : t.$6(i)) === !0;
+                        } catch (e) {
+                          _ = !1;
+                        }
+                        _
+                          ? o("WALogger")
+                              .LOG(
+                                e ||
+                                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                                    "voip: [",
+                                    ":Queue] op timeout ",
+                                    "ms (benign, abandoning): ",
+                                    "",
+                                  ])),
+                                t.$4,
+                                t.$5,
+                                i,
+                              )
+                              .tags("non-sad")
+                              .sendLogs("voip-operation-queue-timeout-benign")
+                          : o("WALogger")
+                              .ERROR(
+                                s ||
+                                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                                    "voip: [",
+                                    ":Queue] op timeout ",
+                                    "ms, abandoning: ",
+                                    "",
+                                  ])),
+                                t.$4,
+                                t.$5,
+                                i,
+                              )
+                              .sendLogs("voip-operation-queue-timeout");
+                      } else
+                        o("WALogger")
+                          .ERROR(
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [",
+                                ":Queue] Operation failed: ",
+                                ", error: ",
+                                "",
+                              ])),
+                            t.$4,
+                            i,
+                            n,
+                          )
+                          .sendLogs("voip-operation-queue-failure");
+                    } finally {
+                      d != null && self.clearTimeout(d);
+                    }
+                    yield r("WAWebCommonTaskScheduler").yield();
+                  };
                   this.getQueueLength() > 0;
                 )
-                  yield* l();
+                  yield* a();
                 this.$2 = !1;
               }
             });
@@ -162,7 +140,7 @@ __d(
           t
         );
       })();
-    l.WAWebVoipOperationQueue = _;
+    l.WAWebVoipOperationQueue = p;
   },
   98,
 );

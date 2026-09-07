@@ -22,6 +22,8 @@ __d(
         USERNAME_NOT_AVAILABLE: 40601,
         USERNAME_SET_OVER_LIMIT: 40602,
         USERNAME_CHANGE_BLOCKED: 40603,
+        USERNAME_KEY_REQUESTOR_RATE_LIMITED: 42901,
+        USERNAME_KEY_REQUESTEE_RATE_LIMITED: 42902,
       });
     function c(e, t) {
       switch (e.statusCode) {
@@ -51,7 +53,7 @@ __d(
         }),
       );
     };
-    l.handleErrorBasedOnErrorCode = c;
+    ((l.WAWebUsernameErrorCodes = u), (l.handleErrorBasedOnErrorCode = c));
   },
   98,
 );

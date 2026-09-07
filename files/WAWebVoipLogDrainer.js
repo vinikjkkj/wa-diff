@@ -2,9 +2,7 @@ __d(
   "WAWebVoipLogDrainer",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebCommonTaskScheduler",
-    "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -34,13 +32,11 @@ __d(
       T = 1,
       D = 2,
       x = 3,
-      $ = 10,
-      P = 16,
-      N = 50,
-      M = 200,
-      w = null;
-    function A(t) {
-      if (w != null) {
+      $ = 50,
+      P = 200,
+      N = null;
+    function M(t) {
+      if (N != null) {
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -65,7 +61,7 @@ __d(
         i = new Uint32Array(a, n, 5),
         l = new Uint8Array(a, n + C, b);
       (t.initLogRingBuffer(n, b),
-        (w = {
+        (N = {
           voipWasm: t,
           bufferPtr: n,
           headerU32: i,
@@ -73,7 +69,7 @@ __d(
           cancelDrainTimer: null,
           lastOverflowCount: 0,
         }),
-        O(),
+        A(),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -85,13 +81,13 @@ __d(
           b,
         ));
     }
-    function F() {
-      var e = w;
+    function w() {
+      var e = N;
       if (e != null) {
         (e.cancelDrainTimer != null &&
           (e.cancelDrainTimer(), (e.cancelDrainTimer = null)),
-          (w = null),
-          H(e));
+          (N = null),
+          U(e));
         try {
           e.voipWasm.shutdownLogRingBuffer();
         } catch (e) {
@@ -122,38 +118,38 @@ __d(
         }, 500);
       }
     }
-    function O(e) {
+    function A(e) {
       e === void 0 && (e = !1);
-      var t = w;
+      var t = N;
       if (t != null) {
-        var n = e ? N : M,
+        var n = e ? $ : P,
           r = self.setTimeout(function () {
-            G();
+            V();
           }, n);
         t.cancelDrainTimer = function () {
           return self.clearTimeout(r);
         };
       }
     }
-    var B = new TextDecoder(),
-      W = 8192,
-      q = new Uint8Array(W);
-    function U(e) {
+    var F = new TextDecoder(),
+      O = 8192,
+      B = new Uint8Array(O);
+    function W(e) {
       var t = e.dataSize,
         n = e.dataU8,
         r = e.length,
         o = e.readPos;
-      if (o + r <= t) q.set(n.subarray(o, o + r));
+      if (o + r <= t) B.set(n.subarray(o, o + r));
       else {
         var a = t - o;
-        (q.set(n.subarray(o, t)), q.set(n.subarray(0, r - a), a));
+        (B.set(n.subarray(o, t)), B.set(n.subarray(0, r - a), a));
       }
-      return q.subarray(0, r);
+      return B.subarray(0, r);
     }
-    function V(e, t) {
-      var n = U({ dataSize: b, dataU8: e, length: I, readPos: t }),
+    function q(e, t) {
+      var n = W({ dataSize: b, dataU8: e, length: I, readPos: t }),
         r = n[E] | (n[E + 1] << 8);
-      if (r < I + 1 || r > b || r > W || (r & 3) !== 0)
+      if (r < I + 1 || r > b || r > O || (r & 3) !== 0)
         return (
           o("WALogger").ERROR(
             m ||
@@ -168,13 +164,13 @@ __d(
           -1
         );
       for (
-        var a = U({ dataSize: b, dataU8: e, length: r, readPos: t }),
+        var a = W({ dataSize: b, dataU8: e, length: r, readPos: t }),
           i = a[k],
           l = I;
         l < r && a[l] !== 0;
       )
         l++;
-      var s = B.decode(a.subarray(I, l));
+      var s = F.decode(a.subarray(I, l));
       return (
         i === T
           ? o("WALogger").ERROR(
@@ -206,7 +202,7 @@ __d(
         (t + r) % b
       );
     }
-    function H(e) {
+    function U(e) {
       var t = e.dataU8,
         n = e.headerU32;
       try {
@@ -214,7 +210,7 @@ __d(
           var a = Atomics.load(n, L), i = Atomics.load(n, S), l = 0;
           i !== a;
         ) {
-          var s = V(t, i);
+          var s = q(t, i);
           if (s === -1) {
             ((i = a), l++);
             break;
@@ -233,57 +229,39 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function G() {
-      return z.apply(this, arguments);
+    function V() {
+      return H.apply(this, arguments);
     }
-    function z() {
+    function H() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = w;
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = N;
           if (e != null) {
             var t = e.dataU8,
               n = e.headerU32,
-              a = self.performance.now(),
-              i = o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              ),
-              l = -1,
-              s = !1;
+              a = -1,
+              i = !1;
             try {
-              var u = Atomics.load(n, L);
-              l = Atomics.load(n, S);
-              for (var c = 0; l !== u; ) {
-                if (i) {
-                  if (
-                    c > 0 &&
-                    (Atomics.store(n, S, l),
-                    yield r("WAWebCommonTaskScheduler").yield(),
-                    w !== e)
-                  )
-                    return;
-                } else if (
-                  c > 0 &&
-                  c % P === 0 &&
-                  self.performance.now() - a > $
-                ) {
-                  if (
-                    (Atomics.store(n, S, l),
-                    yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                    w !== e)
-                  )
-                    return;
-                  a = self.performance.now();
-                }
-                var d = V(t, l);
-                if (d === -1) {
-                  ((l = u), (s = !0));
+              var l = Atomics.load(n, L);
+              a = Atomics.load(n, S);
+              for (var s = 0; a !== l; ) {
+                if (
+                  s > 0 &&
+                  (Atomics.store(n, S, a),
+                  yield r("WAWebCommonTaskScheduler").yield(),
+                  N !== e)
+                )
+                  return;
+                var u = q(t, a);
+                if (u === -1) {
+                  ((a = l), (i = !0));
                   break;
                 }
-                ((l = d), (s = !0), c++);
+                ((a = u), (i = !0), s++);
               }
-              var m = Atomics.load(n, R);
-              if (m > e.lastOverflowCount) {
-                var p = m - e.lastOverflowCount;
+              var c = Atomics.load(n, R);
+              if (c > e.lastOverflowCount) {
+                var d = c - e.lastOverflowCount;
                 (o("WALogger").WARN(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -291,10 +269,10 @@ __d(
                       " messages overflowed to legacy dispatch (total: ",
                       ")",
                     ])),
-                  p,
-                  m,
+                  d,
+                  c,
                 ),
-                  (e.lastOverflowCount = m));
+                  (e.lastOverflowCount = c));
               }
             } catch (e) {
               o("WALogger")
@@ -306,18 +284,18 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e));
             } finally {
-              if (s && w === e)
+              if (i && N === e)
                 try {
-                  Atomics.store(n, S, l);
+                  Atomics.store(n, S, a);
                 } catch (e) {}
             }
-            O(s);
+            A(i);
           }
         })),
-        z.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    ((l.startLogDrainer = A), (l.stopLogDrainer = F));
+    ((l.startLogDrainer = M), (l.stopLogDrainer = w));
   },
   98,
 );

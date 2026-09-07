@@ -541,7 +541,7 @@ __d(
         );
       var n,
         a = o("WAWebCurrencyUtils").formatAmount1000({
-          amount1000: e.paymentAmount1000,
+          amount: e.paymentAmount1000,
           currency: e.paymentCurrency,
         }),
         i = r("WAWebWidToFormattedNameOrNumber")(

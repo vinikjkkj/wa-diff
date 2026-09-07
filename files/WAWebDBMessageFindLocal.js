@@ -18,11 +18,9 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebReleaseToEventLoop",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -47,7 +45,7 @@ __d(
       var t = e.anchor,
         n = e.count,
         r = e.threadId;
-      return H(t, n, r)
+      return V(t, n, r)
         .then(function (e) {
           return { messages: e, status: 200 };
         })
@@ -61,7 +59,7 @@ __d(
       var t = e.anchor,
         n = e.count,
         r = e.threadId;
-      return z({ anchor: t, count: n, threadId: r })
+      return G({ anchor: t, count: n, threadId: r })
         .then(function (e) {
           return { messages: e, status: 200 };
         })
@@ -248,7 +246,7 @@ __d(
                 reverse: !0,
                 limit: e,
               });
-          return D(i);
+          return T(i);
         })),
         E.apply(this, arguments)
       );
@@ -265,43 +263,26 @@ __d(
               ["callOutcome"],
               o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing,
             );
-          return D(e);
+          return T(e);
         })),
         I.apply(this, arguments)
       );
     }
-    var T = 100;
-    function D(e) {
-      return x.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [],
-            n = o("WAWebABProps").getABPropConfigValue(
-              "wmi_worker_scheduler_web",
-            );
-          if (n)
-            for (var a = 0; a < e.length; a++)
-              (t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[a])),
-                yield r("WAWebCommonTaskScheduler").yield());
-          else
-            for (
-              var i = r("justknobx")._("3116") || T, l = 0;
-              l < e.length;
-              l += i
-            ) {
-              for (var s = Math.min(l + i, e.length), u = l; u < s; u++)
-                t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[u]));
-              s < e.length &&
-                (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
-            }
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          for (var t = [], n = 0; n < e.length; n++)
+            (t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[n])),
+              yield r("WAWebCommonTaskScheduler").yield());
           return t;
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $() {
+    function x() {
       var e,
         t =
           (e = o("WAWebUserPrefsMultiDevice").getPairingTimestamp()) != null
@@ -313,12 +294,12 @@ __d(
           o("WAWebABProps").getABPropConfigValue("media_hub_history_max_days")
       );
     }
-    function P(e, t, n, r, o) {
-      return N.apply(this, arguments);
+    function $(e, t, n, r, o) {
+      return P.apply(this, arguments);
     }
-    function N() {
+    function P() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             n === void 0 && (n = "before");
             var i = n === "before",
@@ -350,21 +331,21 @@ __d(
             return d;
           },
         )),
-        N.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function M(e) {
+    function N(e) {
       var t = e.anchor,
         r = e.chat,
         a = e.count,
         i = e.direction,
         l = e.mediaType;
       return l === "allMedia"
-        ? w(a, t, i)
+        ? M(a, t, i)
         : l === "allLinks"
-          ? F(a, t, i)
+          ? A(a, t, i)
           : l === "allDocs"
-            ? B({ chat: r, count: a, direction: i, msgKey: t })
+            ? O({ chat: r, count: a, direction: i, msgKey: t })
             : l === "url"
               ? r != null
                 ? g(r, a, i, "hasLink", t).then(function (e) {
@@ -418,15 +399,15 @@ __d(
                       };
                     });
     }
-    function w(e, t, n, r) {
-      return A.apply(this, arguments);
+    function M(e, t, n, r) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            r === void 0 && (r = $());
-            var a = yield P(e, t, n, r, [
+            r === void 0 && (r = x());
+            var a = yield $(e, t, n, r, [
               o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG,
               o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG |
                 o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
@@ -436,18 +417,18 @@ __d(
             });
           },
         )),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(e, t, n, r) {
-      return O.apply(this, arguments);
+    function A(e, t, n, r) {
+      return F.apply(this, arguments);
     }
-    function O() {
+    function F() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a,
-              i = yield P(e, t, n, r, [
+              i = yield $(e, t, n, r, [
                 (a = o("WAWebMsgType")).MESSAGE_TYPE_FLAGS.HAS_LINK,
                 a.MESSAGE_TYPE_FLAGS.MEDIA_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
                 a.MESSAGE_TYPE_FLAGS.DOC_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
@@ -457,15 +438,15 @@ __d(
             });
           },
         )),
-        O.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function B(e) {
-      return W.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function W() {
+    function B() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.count,
             r = e.direction,
@@ -476,7 +457,7 @@ __d(
                 return o("WAWebDBMessageSerialization").messageFromDbRow(e);
               });
             });
-          var i = yield P(n, a, r, void 0, [
+          var i = yield $(n, a, r, void 0, [
             o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG,
             o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG |
               o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
@@ -485,10 +466,10 @@ __d(
             return o("WAWebDBMessageSerialization").messageFromDbRow(e);
           });
         })),
-        W.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function q(e) {
+    function W(e) {
       var t = e.anchor,
         n = e.chat,
         r = e.count,
@@ -496,14 +477,14 @@ __d(
       return n != null &&
         a.doesLocalSchemaIncludeVersion(a.versions.version(152))
         ? o("WAWebDBGetEventMessagesForChat").getEventMessagesForChat(n, r, t)
-        : U(r, t);
+        : q(r, t);
     }
-    function U(e, t) {
-      return V.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function V() {
+    function U() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield b(t, function (e) {
               return e == null ? void 0 : e.isEventMsg;
             }),
@@ -524,15 +505,15 @@ __d(
               });
             });
         })),
-        V.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function H(e, t, n) {
-      return G.apply(this, arguments);
+    function V(e, t, n) {
+      return H.apply(this, arguments);
     }
-    function G() {
+    function H() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           if ((t === void 0 && (t = d), !e.remote))
             return (c || (c = n("Promise"))).resolve([]);
           var i = e.remote.toString(),
@@ -593,10 +574,10 @@ __d(
             return o("WAWebDBMessageSerialization").messageFromDbRow(e);
           });
         })),
-        G.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function z(e) {
+    function G(e) {
       var t = e.anchor,
         a = e.count,
         i = a === void 0 ? d : a,
@@ -666,12 +647,12 @@ __d(
       (l.msgFindSearch = S),
       (l.msgFindCallLog = R),
       (l.getVoipOngoingCallLogMessages = k),
-      (l.getMediaAvailableMsgBoundary = $),
-      (l.msgFindMedia = M),
-      (l.getAllMediaMessages = w),
-      (l.getAllLinksMessages = F),
-      (l.getAllDocsMessages = B),
-      (l.msgFindEvents = q));
+      (l.getMediaAvailableMsgBoundary = x),
+      (l.msgFindMedia = N),
+      (l.getAllMediaMessages = M),
+      (l.getAllLinksMessages = A),
+      (l.getAllDocsMessages = O),
+      (l.msgFindEvents = W));
   },
   98,
 );

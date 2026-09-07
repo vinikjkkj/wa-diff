@@ -33,7 +33,7 @@ __d(
             r =
               e.paymentCurrency && e.paymentAmount1000
                 ? o("WAWebCurrencyUtils").formatAmount1000({
-                    amount1000: e.paymentAmount1000,
+                    amount: e.paymentAmount1000,
                     currency: e.paymentCurrency,
                   })
                 : s._(/*BTDS*/ "Payment").toString();
@@ -48,7 +48,7 @@ __d(
             l =
               e.paymentCurrency && e.paymentAmount1000
                 ? o("WAWebCurrencyUtils").formatAmount1000({
-                    amount1000: e.paymentAmount1000,
+                    amount: e.paymentAmount1000,
                     currency: e.paymentCurrency,
                   })
                 : s._(/*BTDS*/ "Payment").toString();

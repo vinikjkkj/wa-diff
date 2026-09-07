@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Set([
+      o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotFeedback,
       o("WAWebCommonMsgSubtypeTypes").MsgSubtype.EphemeralSyncResponse,
       o("WAWebCommonMsgSubtypeTypes").MsgSubtype.HatchMetadataSync,
     ]);

@@ -9,6 +9,7 @@ __d(
     "WAWebSettingsSyncEventEmitter",
     "WAWebWidFactory",
     "getErrorSafe",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -380,8 +381,7 @@ __d(
       return e != null ? e.value : t != null ? t : null;
     }
     function O(e, t, n) {
-      t == null ||
-        t.value == null ||
+      r("isStringNullOrEmpty")(t == null ? void 0 : t.value) ||
         n != null ||
         (e === "chatThemeId"
           ? o("WALogger")

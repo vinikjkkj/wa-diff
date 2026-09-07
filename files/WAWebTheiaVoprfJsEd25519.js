@@ -377,13 +377,26 @@ __d(
       } while (te(e));
       return e;
     }
-    function re(e, t, n, r, o, a) {
-      return Y(e, n, t, r, o, a);
+    function re(e) {
+      var t = e.base1,
+        n = e.base2,
+        r = e.element1,
+        o = e.element2,
+        a = e.rBase1,
+        i = e.rBase2;
+      return Y(t, r, n, o, a, i);
     }
     function oe(e, t, n, r, a, i) {
       var l = z(H(t, n), H(e, a)),
         s = z(H(t, r), H(e, i)),
-        u = re(n, r, a, i, l, s);
+        u = re({
+          base1: n,
+          base2: r,
+          element1: a,
+          element2: i,
+          rBase1: l,
+          rBase2: s,
+        });
       return o("WACryptoPrimitives").verify(e, u);
     }
     var ae = V,

@@ -4,7 +4,7 @@ __d(
     "WACryptoAesGcm",
     "WAWebBotMessageSecret",
     "WAWebBotUtils",
-    "WAWebHatchGating",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebWasaGenerateSecretEncryptedMessageProto",
@@ -43,14 +43,11 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s);
-    function c(e, t) {
+    function c(e, t, n) {
       return (
         o("WAWebBotUtils").isHatchBot(e) &&
         !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-        o("WAWebHatchGating").isHatchSecretEncryptedMessageEnabled() &&
-        o("WAWebWasaUserPrefs").getWasaActiveTargetId(
-          o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
-        ) != null
+        n !== o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotRequestWelcome
       );
     }
     function d(e) {

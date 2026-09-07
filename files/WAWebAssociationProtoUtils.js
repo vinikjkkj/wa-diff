@@ -78,7 +78,29 @@ __d(
             .MEDIA_POLL;
       }
     }
-    function f(e, t) {
+    function f(e) {
+      switch (e) {
+        case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .HD_IMAGE_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .HD_VIDEO_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .HEVC_VIDEO_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .POLL_ADD_OPTION:
+          return !1;
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .MEDIA_POLL:
+          return !1;
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .MEDIA_ALBUM:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .BOT_PLUGIN:
+          return !1;
+      }
+    }
+    function g(e, t) {
       if (!(e == null || t == null))
         return {
           messageAssociation: {
@@ -87,7 +109,7 @@ __d(
           },
         };
     }
-    function g(e) {
+    function h(e) {
       var t = e.baseMessage,
         n = e.msgContext,
         a = e.parentMessageKey,
@@ -99,8 +121,8 @@ __d(
             t,
           );
     }
-    function h(e, t, n) {
-      var a = g({
+    function y(e, t, n) {
+      var a = h({
           baseMessage: t,
           msgContext: n,
           parentMessageKey: e.parentMessageKey,
@@ -126,7 +148,7 @@ __d(
         viewMode: l.viewMode,
       };
     }
-    function y(t, n, a, i) {
+    function C(t, n, a, i) {
       var l = n == null ? void 0 : n.messageAssociation;
       if (
         l != null &&
@@ -331,9 +353,10 @@ __d(
     }
     ((l.convertAssociationTypeFromProtoToClientSupportedAssociationType = p),
       (l.convertAssociationTypeFromClientToProtoSupportedAssociationType = _),
-      (l.getValidatedOutgoingMessageAssociationContextInfo = f),
-      (l.getValidatedAssociationFieldsFromProto = h),
-      (l.validateMessageAssociationInMessageContextInfo = y));
+      (l.shouldWrapAssociatedChildForType = f),
+      (l.getValidatedOutgoingMessageAssociationContextInfo = g),
+      (l.getValidatedAssociationFieldsFromProto = y),
+      (l.validateMessageAssociationInMessageContextInfo = C));
   },
   98,
 );

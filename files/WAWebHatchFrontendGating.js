@@ -14,11 +14,6 @@ __d(
       });
     }
     function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "hatch_pairing_from_companion_enabled",
-      );
-    }
-    function u() {
       return (
         e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
@@ -28,8 +23,7 @@ __d(
       );
     }
     ((l.isHatchIntegrationEnabled = e),
-      (l.isHatchPairingFromCompanionEnabled = s),
-      (l.isHatchManageSubscriptionEnabled = u));
+      (l.isHatchManageSubscriptionEnabled = s));
   },
   98,
 );

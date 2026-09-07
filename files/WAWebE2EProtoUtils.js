@@ -45,8 +45,9 @@ __d(
       d,
       m,
       p,
-      _ = 3;
-    function f(t, n) {
+      _,
+      f = 3;
+    function g(t, n) {
       var a, i, l, s, u, c;
       n === void 0 && (n = 0);
       var d =
@@ -55,7 +56,7 @@ __d(
         )) != null
           ? a
           : t;
-      if (r("justknobx")._("2451") && n >= _)
+      if (r("justknobx")._("2451") && n >= f)
         return (
           o("WALogger")
             .WARN(
@@ -64,7 +65,7 @@ __d(
                   "typeAttributeFromProtobuf: nesting depth exceeded limit of ",
                   "",
                 ])),
-              _,
+              f,
             )
             .tags("messaging")
             .sendLogs("type-attr-proto-max-depth"),
@@ -73,31 +74,31 @@ __d(
       if (d.ephemeralMessage) {
         var m = d.ephemeralMessage.message;
         return m
-          ? f(m, n + 1)
+          ? g(m, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
       if (d.groupMentionedMessage) {
         var p = d.groupMentionedMessage.message;
         return p
-          ? f(p, n + 1)
+          ? g(p, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
       if (d.botInvokeMessage) {
-        var g = d.botInvokeMessage.message;
-        return g
-          ? f(g, n + 1)
+        var _ = d.botInvokeMessage.message;
+        return _
+          ? g(_, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
       if (d.botForwardedMessage) {
         var h = d.botForwardedMessage.message;
         return h
-          ? f(h, n + 1)
+          ? g(h, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
       if (d.deviceSentMessage) {
         var y = d.deviceSentMessage.message;
         return y
-          ? f(y, n + 1)
+          ? g(y, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
       return d.reactionMessage || d.encReactionMessage
@@ -161,7 +162,7 @@ __d(
                       : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text
                     : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.media;
     }
-    function g(e) {
+    function h(e) {
       if (
         o("WAWebAddonCrossWindowUtils").getAddonProcessorType(e) ===
         o("WAWebMsgType").MSG_TYPE.COMMENT
@@ -177,69 +178,68 @@ __d(
         };
       }
     }
-    function h(e) {
+    var y = new Set([
+      (_ = o("WAWebProtobufsE2E.pb"))
+        .Message$SecretEncryptedMessage$SecretEncType.EVENT_EDIT,
+      _.Message$SecretEncryptedMessage$SecretEncType.MESSAGE_EDIT,
+      _.Message$SecretEncryptedMessage$SecretEncType.POLL_ADD_OPTION,
+      _.Message$SecretEncryptedMessage$SecretEncType.POLL_EDIT,
+    ]);
+    function C(e) {
       var t,
         n,
         r,
         a,
-        i,
-        l,
-        s =
+        i =
           (t = o(
             "WAWebVerifyProtobufMsgObjectKeys",
           ).getUnwrappedProtobufMessage(e)) != null
             ? t
             : e;
       if (
-        s.reactionMessage ||
-        s.encReactionMessage ||
-        ((n = s.pollUpdateMessage) != null && n.vote) ||
-        s.keepInChatMessage ||
-        s.editedMessage ||
-        s.pinInChatMessage ||
-        ((r = s.botInvokeMessage) == null ||
+        i.reactionMessage ||
+        i.encReactionMessage ||
+        ((n = i.pollUpdateMessage) != null && n.vote) ||
+        i.keepInChatMessage ||
+        i.editedMessage ||
+        i.pinInChatMessage ||
+        ((r = i.botInvokeMessage) == null ||
         (r = r.message) == null ||
         (r = r.protocolMessage) == null
           ? void 0
           : r.type) ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
             .REQUEST_WELCOME_MESSAGE ||
-        s.encEventResponseMessage ||
-        ((a = s.secretEncryptedMessage) == null ? void 0 : a.secretEncType) ===
-          o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
-            .EVENT_EDIT ||
-        ((i = s.secretEncryptedMessage) == null ? void 0 : i.secretEncType) ===
-          o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
-            .POLL_EDIT ||
-        ((l = s.secretEncryptedMessage) == null ? void 0 : l.secretEncType) ===
-          o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
-            .POLL_ADD_OPTION ||
-        s.messageHistoryNotice ||
-        s.conditionalRevealMessage
+        i.encEventResponseMessage ||
+        (((a = i.secretEncryptedMessage) == null ? void 0 : a.secretEncType) !=
+          null &&
+          y.has(i.secretEncryptedMessage.secretEncType)) ||
+        i.messageHistoryNotice ||
+        i.conditionalRevealMessage
       )
         return o("WAWebBackendJobs.flow").DecryptFailType.Hide;
-      var u = s.protocolMessage;
-      return u &&
-        (u.type ===
+      var l = i.protocolMessage;
+      return l &&
+        (l.type ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
             .EPHEMERAL_SYNC_RESPONSE ||
-          u.type ===
+          l.type ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
               .REQUEST_WELCOME_MESSAGE ||
-          u.editedMessage ||
-          u.type ===
+          l.editedMessage ||
+          l.type ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
               .GROUP_MEMBER_LABEL_CHANGE ||
-          u.type ===
+          l.type ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
               .MESSAGE_UNSCHEDULE ||
-          u.type ===
+          l.type ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
               .AI_METADATA_OPERATION)
         ? o("WAWebBackendJobs.flow").DecryptFailType.Hide
         : o("WAWebBackendJobs.flow").DecryptFailType.Show;
     }
-    function y(e) {
+    function b(e) {
       var t,
         n = ["XUS", "XDX", "USDP"],
         r =
@@ -250,7 +250,7 @@ __d(
           ) || (e == null ? void 0 : e.currency);
       return r != null && n.includes(r.toUpperCase());
     }
-    function C(e, t) {
+    function v(e, t) {
       var n;
       return !(
         e.remote.isGroup() &&
@@ -261,15 +261,15 @@ __d(
         !t.equals(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE())
       );
     }
-    function b(e) {
+    function S(e) {
       var t = e.bizInfo,
         n = e.msgContext,
         r = e.name;
       return r != null || (t == null ? void 0 : t.nativeFlowName) != null
-        ? v({ name: r, bizInfo: t, msgContext: n })
+        ? R({ name: r, bizInfo: t, msgContext: n })
         : !0;
     }
-    function v(e) {
+    function R(e) {
       var t = e.bizInfo,
         n = e.msgContext,
         o = e.name;
@@ -286,7 +286,7 @@ __d(
                 t.nativeFlowName,
               ) === o;
     }
-    function S(e) {
+    function L(e) {
       return (
         e === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
         e === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS ||
@@ -295,7 +295,7 @@ __d(
         e === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       );
     }
-    function R(e) {
+    function E(e) {
       var t,
         n,
         a,
@@ -364,7 +364,7 @@ __d(
         !(m != null && m.shopStorefrontMessage);
       if (f) return String(r("WAWebInteractiveMessagesNativeFlowName").MIXED);
     }
-    var L = [
+    var k = [
       "novi_login",
       "novi_report_transaction",
       "novi_hub",
@@ -376,17 +376,17 @@ __d(
       "wa_payment_learn_more",
       "wa_payment_fbpin_reset",
     ];
-    function E(e) {
+    function I(e) {
       return e.some(function (e) {
         return (
           (e.nativeFlowInfo &&
             e.nativeFlowInfo.name != null &&
-            L.includes(e.nativeFlowInfo.name)) ||
-          (e.buttonId != null && L.includes(e.buttonId))
+            k.includes(e.nativeFlowInfo.name)) ||
+          (e.buttonId != null && k.includes(e.buttonId))
         );
       });
     }
-    function k(e) {
+    function T(e) {
       return e === r("WAWebInteractiveMessageType").NATIVE_FLOW
         ? o("WAWebHsmGatingUtils").interactiveNativeFlowMessagesEnabled()
         : e === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
@@ -400,7 +400,7 @@ __d(
                 );
               })();
     }
-    function I(e) {
+    function D(e) {
       switch (e) {
         case r("WAWebInteractiveMessageType").NATIVE_FLOW:
           return "nativeFlowMessage";
@@ -410,12 +410,12 @@ __d(
           return "carouselMessage";
       }
     }
-    function T(e) {
+    function x(e) {
       for (var t of r("WAWebInteractiveMessageType").members())
-        if (I(t) in e) return t;
+        if (D(t) in e) return t;
       return null;
     }
-    function D(e, t) {
+    function $(e, t) {
       var n = t == null ? void 0 : t.messageVersion;
       if (n == null || e == null) return !1;
       switch (e) {
@@ -427,18 +427,18 @@ __d(
           return n <= 1;
       }
     }
-    function x(e) {
+    function P(e) {
       switch (e) {
         case r("WAWebInteractiveResponseMessageType").NATIVE_FLOW:
           return "nativeFlowResponseMessage";
       }
     }
-    function $(e) {
+    function N(e) {
       for (var t of r("WAWebInteractiveResponseMessageType").members())
-        if (x(t) in e) return t;
+        if (P(t) in e) return t;
       return null;
     }
-    function P(e) {
+    function M(e) {
       switch (e) {
         case r("WAWebInteractiveResponseMessageType").NATIVE_FLOW:
           return o(
@@ -446,7 +446,7 @@ __d(
           ).interactiveNativeFlowResponseMessagesEnabled();
       }
     }
-    function N(e) {
+    function w(e) {
       var t = e.bizInfo,
         n = e.message,
         o = e.msgContext,
@@ -461,7 +461,7 @@ __d(
           if (
             s > 1 ||
             ((t == null ? void 0 : t.nativeFlowName) != null &&
-              !v({ name: l, bizInfo: t, msgContext: o }))
+              !R({ name: l, bizInfo: t, msgContext: o }))
           )
             throw r("err")("Invalid message");
           return {
@@ -473,21 +473,21 @@ __d(
         }
       }
     }
-    function M(e, t) {
+    function A(e, t) {
       if (e != null) {
         var n = e.id;
         if (n != null)
-          return F(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon);
+          return B(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon);
       }
     }
-    function w(e, t) {
+    function F(e, t) {
       if (e != null) {
         var n = e.id;
         if (n != null)
-          return F(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message);
+          return B(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message);
       }
     }
-    function A(e) {
+    function O(e) {
       var t = e.info,
         n = e.msgMeta,
         a = e.realType,
@@ -501,7 +501,7 @@ __d(
         participant: s,
       });
     }
-    function F(e, t, n, a) {
+    function B(e, t, n, a) {
       var i, l, c, d;
       if (n != null && (i = n.id) != null && i.fromMe)
         if (
@@ -589,7 +589,7 @@ __d(
         participant: c,
       });
     }
-    function O(e) {
+    function W(e) {
       return e == null ||
         e === "" ||
         o("WAWebMobilePlatforms").getMobilePlatform() ===
@@ -599,30 +599,30 @@ __d(
             "WAWebConvertToTextWithoutSpecialEmojis",
           ).convertToTextWithoutSpecialEmojis(e);
     }
-    function B(e) {
+    function q(e) {
       var t = { fromMe: e.fromMe, id: e.id },
-        n = W(e.remote),
-        r = W(e.participant);
+        n = U(e.remote),
+        r = U(e.participant);
       return (
         o("WATypeUtils").isString(n) && (t.remoteJid = n),
         o("WATypeUtils").isString(r) && (t.participant = r),
         t
       );
     }
-    function W(e) {
+    function U(e) {
       if (e instanceof r("WAWebWid")) return e.toString({ legacy: !0 });
       if (o("WATypeUtils").isString(e))
         return e.replace(/@c.us$/, "@s.whatsapp.net");
     }
-    function q(e) {
+    function V(e) {
       return e != null && e !== "" ? o("WABase64").decodeB64(e) : void 0;
     }
-    function U(e) {
-      var t = W(e.to),
+    function H(e) {
+      var t = U(e.to),
         n = { fromMe: !0, id: e.id.id };
       return (o("WATypeUtils").isString(t) && (n.remoteJid = t), n);
     }
-    function V(e, t, n) {
+    function G(e, t, n) {
       t.viewOnce ||
         (t.directPath == null &&
           t.staticUrl == null &&
@@ -673,7 +673,7 @@ __d(
             )
             .sendLogs("outgoing-" + e + "-message-missing-mms3-url"));
     }
-    function H(e, t, n) {
+    function z(e, t, n) {
       var r, a, i;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeInitiator
@@ -728,39 +728,39 @@ __d(
         { initiator: r, trigger: a, initiatedByMe: i }
       );
     }
-    function G(e) {
+    function j(e) {
       return e;
     }
-    ((l.typeAttributeFromProtobuf = f),
-      (l.extractCommentTargetIdAndSenderLid = g),
-      (l.decryptFailAttributeFromProtobuf = h),
-      (l.hasUnsupportedCurrency = y),
-      (l.isEitherSenderOrReceiverOfPaymentMessage = C),
-      (l.shouldParseNFM = b),
-      (l.isValidNativeFlowName = v),
-      (l.isOrderNativeFlow = S),
-      (l.getBizNativeFlowName = R),
-      (l.hasUnsupportedButtons = E),
-      (l.isInteractiveMessageTypeEnabled = k),
-      (l.getInteractiveMessageFieldNameForType = I),
-      (l.getInteractiveMessageTypeForProto = T),
-      (l.isSupportedInteractiveMessageVersion = D),
-      (l.getInteractiveResponseMessageFieldNameForType = x),
-      (l.getInteractiveResponseMessageTypeForProto = $),
-      (l.isInteractiveResponseMessageTypeEnabled = P),
-      (l.getInteractiveResponsePayload = N),
-      (l.translateAddonMessageKeyToLocalReference = M),
-      (l.translateRegularMessageKeyToLocalReference = w),
-      (l.createMsgKeyFromThreadInfo = A),
-      (l.translateKeyToLocalReference = F),
-      (l.convertToTextWithoutSpecialEmojis = O),
-      (l.encodeKey = B),
-      (l.encodeJid = W),
-      (l.encodeBytes = q),
-      (l.createMessageKey = U),
-      (l.validateOutgoingRequiredMediaProperties = V),
-      (l.disappearingModeInitiatorToProto = H),
-      (l.getMutableMessageProtobuf = G));
+    ((l.typeAttributeFromProtobuf = g),
+      (l.extractCommentTargetIdAndSenderLid = h),
+      (l.decryptFailAttributeFromProtobuf = C),
+      (l.hasUnsupportedCurrency = b),
+      (l.isEitherSenderOrReceiverOfPaymentMessage = v),
+      (l.shouldParseNFM = S),
+      (l.isValidNativeFlowName = R),
+      (l.isOrderNativeFlow = L),
+      (l.getBizNativeFlowName = E),
+      (l.hasUnsupportedButtons = I),
+      (l.isInteractiveMessageTypeEnabled = T),
+      (l.getInteractiveMessageFieldNameForType = D),
+      (l.getInteractiveMessageTypeForProto = x),
+      (l.isSupportedInteractiveMessageVersion = $),
+      (l.getInteractiveResponseMessageFieldNameForType = P),
+      (l.getInteractiveResponseMessageTypeForProto = N),
+      (l.isInteractiveResponseMessageTypeEnabled = M),
+      (l.getInteractiveResponsePayload = w),
+      (l.translateAddonMessageKeyToLocalReference = A),
+      (l.translateRegularMessageKeyToLocalReference = F),
+      (l.createMsgKeyFromThreadInfo = O),
+      (l.translateKeyToLocalReference = B),
+      (l.convertToTextWithoutSpecialEmojis = W),
+      (l.encodeKey = q),
+      (l.encodeJid = U),
+      (l.encodeBytes = V),
+      (l.createMessageKey = H),
+      (l.validateOutgoingRequiredMediaProperties = G),
+      (l.disappearingModeInitiatorToProto = z),
+      (l.getMutableMessageProtobuf = j));
   },
   98,
 );

@@ -1,6 +1,11 @@
 __d(
   "WAWebAllMsgTypeCollectionUtils",
-  ["WAWebChatFlowTypes", "WAWebFrontendChatGetters", "WAWebFrontendMsgGetters"],
+  [
+    "WAWebChatFlowTypes",
+    "WAWebFrontendChatGetters",
+    "WAWebFrontendMsgGetters",
+    "WAWebMsgGetters",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Set([
@@ -11,6 +16,7 @@ __d(
       u = 100;
     function c(t) {
       return t.filter(function (t) {
+        if (o("WAWebMsgGetters").getIsStatus(t)) return !1;
         var n = o("WAWebFrontendMsgGetters").getMaybeChat(t);
         if (n == null) return !1;
         var r = o("WAWebFrontendChatGetters").getKind(n);

@@ -6,7 +6,9 @@ __d(
     "WAWebCooldownBatcher",
     "WAWebUnknownUserDisplayStore",
     "WAWebUnknownUserDisplayedLogger",
+    "WAWebUnknownUserRecoveryManager",
     "WAWebUnknownUserSelfHealFromDb",
+    "WAWebWamEnumUnknownUserRecoveryPath",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
@@ -33,13 +35,16 @@ __d(
                     inDb: e != null,
                   };
                 });
-              return (
-                o("WAWebUnknownUserSelfHealFromDb").healUnknownUsersFromDbRows(
-                  t,
-                  n,
-                ),
-                a
+              o("WAWebUnknownUserSelfHealFromDb").healUnknownUsersFromDbRows(
+                t,
+                n,
               );
+              for (var i = 0; i < t.length; i++)
+                o("WAWebUnknownUserRecoveryManager").maybeRecoverUnknownUser(
+                  t[i],
+                  a[i],
+                );
+              return a;
             } catch (n) {
               return t.map(function () {
                 return e;
@@ -78,6 +83,11 @@ __d(
                   durationInSecs: r == null ? void 0 : r.durationInSecs,
                 },
                 a,
+                {
+                  unknownUserRecoveryPath: o(
+                    "WAWebUnknownUserRecoveryManager",
+                  ).getUnknownUserRecoveryPath(t, a),
+                },
               ),
             );
           },
@@ -88,6 +98,8 @@ __d(
               clientTsMs: n,
               isFirstDisplay: r == null ? void 0 : r.isFirstDisplay,
               durationInSecs: r == null ? void 0 : r.durationInSecs,
+              unknownUserRecoveryPath: o("WAWebWamEnumUnknownUserRecoveryPath")
+                .UNKNOWN_USER_RECOVERY_PATH.NONE,
             });
           },
         );

@@ -60,7 +60,6 @@ __d(
               d.length > 0 ||
               n === "" ||
               m !== 0 ||
-              !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
               !o(
                 "WAWebContactSearchGatingUtils",
               ).canTermsMeetFuzzySearchThreshold(l.split(/\s+/).filter(Boolean))

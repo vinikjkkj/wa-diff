@@ -22,21 +22,21 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return e.isLid()
-        ? d({ type: "lid", wid: e }, t)
-        : d({ type: "phone", phone: "+" + e.toString() }, t);
-    }
+    var e, s, u;
     function c(e, t) {
-      return d({ type: "phone", phone: e }, t);
+      return e.isLid()
+        ? m({ type: "lid", wid: e }, t)
+        : m({ type: "phone", phone: "+" + e.toString() }, t);
     }
     function d(e, t) {
-      return m.apply(this, arguments);
+      return m({ type: "phone", phone: e }, t);
     }
-    function m() {
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WAWebUsyncUser").USyncUser)(),
             r = new (o("WAWebUsync").USyncQuery)();
           (e.type === "phone"
@@ -45,7 +45,7 @@ __d(
             : n.withId(e.wid),
             o("WAWebABProps").getABPropConfigValue(
               "username_antiscraping_send_cached_un",
-            ) === !0 && (yield _(n, e)),
+            ) === !0 && (yield f(n, e)),
             r.withUser(n),
             r.withBusinessProtocol(),
             r.withDisappearingModeProtocol(),
@@ -98,7 +98,7 @@ __d(
             d = u.contact,
             m = u.id,
             p = u.lid,
-            f = u.pn,
+            _ = u.pn,
             g = u.username,
             h = s[0].disappearingMode;
           if (e.type === "phone" && (d == null ? void 0 : d.type) !== "in")
@@ -126,7 +126,7 @@ __d(
             b = null;
           return (
             m.isLid()
-              ? ((C = f), (b = m))
+              ? ((C = _), (b = m))
               : ((C = m),
                 p != null &&
                   (b = o("WAWebWidFactory").createUserWidOrThrow(p, "lid"))),
@@ -147,23 +147,23 @@ __d(
             y
           );
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
       if (e.type === "lid") return e.wid;
       var t = o("WAPhoneFindCC").extractDigits(e.phone) + "@c.us";
       return r("WAWebWid").isWid(t)
         ? o("WAWebWidFactory").createUserWidOrThrow(t)
         : null;
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(t);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = _(t);
           if (n != null) {
             var r = o("WAWebUsernameTypes").serializeMaybeUsername(
               yield o("WAWebApiContactUsernameFields").getContactUsername(n),
@@ -171,15 +171,15 @@ __d(
             r != null && e.withUsername(r);
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -254,15 +254,15 @@ __d(
             );
           o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l);
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.isLid()) {
             var t, n, r;
             if (
@@ -271,69 +271,79 @@ __d(
               var a = o("WAWebWidFactory").createUserWidOrThrow(e.toString()),
                 i = yield o("WAWebMexUsersGetUsername").getMexUserUsername(a);
               if (((n = a), i.error === !0))
-                return {
-                  username: void 0,
-                  usernameChanged: !1,
-                  wasPreviouslyKnown: !1,
-                  errored: !0,
-                };
+                return (
+                  o("WALogger")
+                    .WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[usync] username MEX lookup failed",
+                        ])),
+                    )
+                    .sendLogs("username-mex-query-failed"),
+                  {
+                    username: void 0,
+                    usernameChanged: !1,
+                    wasPreviouslyKnown: !1,
+                    errored: !0,
+                  }
+                );
               i.username != null
                 ? (t = o("WAWebUsernameTypes").serializeMaybeUsername(
                     i.username,
                   ))
                 : (r = !0);
             } else {
-              var l = yield g(e);
+              var l = yield h(e);
               l != null && ((t = l.username), (n = l.id), (r = l.shouldDelete));
             }
             if (n != null) {
               var s = !1,
-                u = !1,
                 c = !1,
-                d,
-                m = o("WAWebUsernameTypes").asMaybeUsername(t);
-              if (m != null) {
-                var p = yield o("WAWebSetUsernameJob").setUsernamesJob([
-                    { userId: n, username: m },
+                d = !1,
+                m,
+                p = o("WAWebUsernameTypes").asMaybeUsername(t);
+              if (p != null) {
+                var _ = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                    { userId: n, username: p },
                   ]),
-                  _ = p.get(n.toString());
-                ((s = (_ == null ? void 0 : _.usernameChanged) === !0),
-                  (u = (_ == null ? void 0 : _.wasPreviouslyKnown) === !0),
-                  (c = (_ == null ? void 0 : _.isPhoneNumberKnown) === !0),
-                  (d = o("WAWebUsernameTypes").serializeMaybeUsername(
-                    _ == null ? void 0 : _.oldUsername,
+                  f = _.get(n.toString());
+                ((s = (f == null ? void 0 : f.usernameChanged) === !0),
+                  (c = (f == null ? void 0 : f.wasPreviouslyKnown) === !0),
+                  (d = (f == null ? void 0 : f.isPhoneNumberKnown) === !0),
+                  (m = o("WAWebUsernameTypes").serializeMaybeUsername(
+                    f == null ? void 0 : f.oldUsername,
                   )));
               } else if (r === !0) {
-                var f = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                var g = yield o("WAWebSetUsernameJob").setUsernamesJob([
                     { userId: n, deleteUsername: !0 },
                   ]),
-                  h = f.get(n.toString());
-                ((s = (h == null ? void 0 : h.usernameChanged) === !0),
-                  (u = (h == null ? void 0 : h.wasPreviouslyKnown) === !0),
-                  (c = (h == null ? void 0 : h.isPhoneNumberKnown) === !0),
-                  (d = o("WAWebUsernameTypes").serializeMaybeUsername(
-                    h == null ? void 0 : h.oldUsername,
+                  y = g.get(n.toString());
+                ((s = (y == null ? void 0 : y.usernameChanged) === !0),
+                  (c = (y == null ? void 0 : y.wasPreviouslyKnown) === !0),
+                  (d = (y == null ? void 0 : y.isPhoneNumberKnown) === !0),
+                  (m = o("WAWebUsernameTypes").serializeMaybeUsername(
+                    y == null ? void 0 : y.oldUsername,
                   )));
               }
               return {
                 username: t,
                 usernameChanged: s,
-                wasPreviouslyKnown: u,
-                isPhoneNumberKnown: c,
-                oldUsername: d != null ? d : void 0,
+                wasPreviouslyKnown: c,
+                isPhoneNumberKnown: d,
+                oldUsername: m != null ? m : void 0,
               };
             }
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    function v(e, t, n) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             e.length < o("WAWebUsernameTypes").USERNAME_MIN_LENGTH ||
             e.length > o("WAWebUsernameTypes").USERNAME_MAX_LENGTH
@@ -445,14 +455,14 @@ __d(
             { keyRequired: !0, username: f, isUsernameSearch: !0 }
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.queryWidExists = u),
-      (l.queryPhoneExists = c),
-      (l.queryExist = d),
-      (l.queryWidUsernameExists = y),
-      (l.queryUsernameExists = b));
+    ((l.queryWidExists = c),
+      (l.queryPhoneExists = d),
+      (l.queryExist = m),
+      (l.queryWidUsernameExists = C),
+      (l.queryUsernameExists = v));
   },
   98,
 );

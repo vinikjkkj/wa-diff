@@ -18,16 +18,13 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c,
-      d = n("$InternalEnum").Mirrored(["MISSING_MUTATION_TO_REMOVE"]),
-      m = n("$InternalEnum").Mirrored(["SNAPSHOT_USED", "SNAPSHOT_NOT_USED"]),
-      p = n("$InternalEnum").Mirrored([
+      u = n("$InternalEnum").Mirrored(["SNAPSHOT_USED", "SNAPSHOT_NOT_USED"]),
+      c = n("$InternalEnum").Mirrored([
         "APP_STATE_SYNC_KEY_EXPIRY",
         "DEVICE_DEREGISTERATION",
         "NO_KEYS",
       ]);
-    function _(e) {
+    function d(e) {
       o(
         "WAWebCollectionHandlerWamSyncUtil",
       ).commitBootstrapAppStateDownloadMetric({
@@ -38,10 +35,10 @@ __d(
         isSuccess: e.isSuccess,
       });
     }
-    function f(e, t, n) {
+    function m(e, t, n) {
       o("WAWebCollectionHandlerWamMutation").logMetricsForDataApplied(e, t, n);
     }
-    function g(e) {
+    function p(e) {
       return e === o("WAWebSyncdConst").CollectionName.CriticalBlock
         ? o("WAWebWamEnumCollection").COLLECTION.CRITICAL_BLOCK
         : e === o("WAWebSyncdConst").CollectionName.CriticalUnblockLow
@@ -59,29 +56,29 @@ __d(
                     );
                   })();
     }
-    function h(e, t, n) {
+    function _(e, t, n) {
       var r = new (o("WAWebMdCriticalEventWamEvent").MdCriticalEventWamEvent)({
         mdCriticalEventCode: e,
       });
-      (t != null && (r.collection = g(t)),
+      (t != null && (r.collection = p(t)),
         n != null && (r.mutationActionName = n),
         r.commit());
     }
-    function y(e) {
+    function f(e) {
       new (o(
         "WAWebMdAppStateKeyRotationWamEvent",
       ).MdAppStateKeyRotationWamEvent)({
-        mdAppStateKeyRotationReason: C(e),
+        mdAppStateKeyRotationReason: g(e),
       }).commit();
     }
-    function C(e) {
-      return e === p.APP_STATE_SYNC_KEY_EXPIRY
+    function g(e) {
+      return e === c.APP_STATE_SYNC_KEY_EXPIRY
         ? o("WAWebWamEnumMdAppStateKeyRotationReasonCode")
             .MD_APP_STATE_KEY_ROTATION_REASON_CODE.APP_STATE_SYNC_KEY_EXPIRY
-        : e === p.DEVICE_DEREGISTERATION
+        : e === c.DEVICE_DEREGISTERATION
           ? o("WAWebWamEnumMdAppStateKeyRotationReasonCode")
               .MD_APP_STATE_KEY_ROTATION_REASON_CODE.DEVICE_DEREGISTERATION
-          : e === p.NO_KEYS
+          : e === c.NO_KEYS
             ? o("WAWebWamEnumMdAppStateKeyRotationReasonCode")
                 .MD_APP_STATE_KEY_ROTATION_REASON_CODE.NO_KEYS
             : (function () {
@@ -91,66 +88,34 @@ __d(
                 );
               })();
     }
-    function b(t) {
+    function h(t) {
       var n,
-        r,
-        a = t == null || (n = t.string) == null ? void 0 : n.criticalEventCode;
-      if (a == null)
+        r =
+          t == null || (n = t.string) == null ? void 0 : n.keyRotationEventCode;
+      if (r == null)
         return (
           o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: missing error code for critical event",
-              ])),
-          ),
-          null
-        );
-      var i = d.cast(a);
-      return i == null
-        ? (o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: unknown error code: ",
-                " for critical event",
-              ])),
-            a,
-          ),
-          null)
-        : {
-            type: i,
-            collection: o("WAWebSyncdConst").CollectionName.cast(
-              t == null || (r = t.string) == null ? void 0 : r.collection,
-            ),
-          };
-    }
-    function v(e) {
-      var t,
-        n =
-          e == null || (t = e.string) == null ? void 0 : t.keyRotationEventCode;
-      if (n == null)
-        return (
-          o("WALogger").ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "syncd: missing error code for key rotation event",
               ])),
           ),
           null
         );
-      var r = p.cast(n);
-      return r == null
+      var a = c.cast(r);
+      return a == null
         ? (o("WALogger").ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "syncd: unknown error code: ",
                 " for key rotation event",
               ])),
-            n,
+            r,
           ),
           null)
-        : { type: r };
+        : { type: a };
     }
-    function S(e) {
+    function y(e) {
       var t = {};
       return (
         Object.entries(e).forEach(function (e) {
@@ -164,7 +129,7 @@ __d(
         r("isEmptyObject")(t) ? void 0 : t
       );
     }
-    var R = (function () {
+    var C = (function () {
       function e() {
         ((this.syncdQpl = new (o("WAWebSyncdQpl").SyncdQPL)()),
           this.syncdQpl.start(),
@@ -182,23 +147,21 @@ __d(
             ));
         }),
         (t.mark = function (t, n) {
-          this.syncdQpl.markAnnotations(t, S(n));
+          this.syncdQpl.markAnnotations(t, y(n));
         }),
         e
       );
     })();
-    ((l.SyncdCriticalEventType = d),
-      (l.SyncdBootstrapDataAppliedSnapshotUsed = m),
-      (l.SyncdKeyRotationEventType = p),
-      (l.reportSyncdBootstrapAppStateDownloadMetric = _),
-      (l.reportSyncdBootstrapDataApplied = f),
-      (l.collectionNameToMetric = g),
-      (l.uploadMdCriticalEventMetric = h),
-      (l.reportSyncdKeyRotationEvent = y),
-      (l.convertSyncdCriticalEventFromAnnotations = b),
-      (l.convertSyncdKeyRotationEventFromAnnotations = v),
-      (l.constructAnnotationsFromContext = S),
-      (l.SyncdEventFlow = R));
+    ((l.SyncdBootstrapDataAppliedSnapshotUsed = u),
+      (l.SyncdKeyRotationEventType = c),
+      (l.reportSyncdBootstrapAppStateDownloadMetric = d),
+      (l.reportSyncdBootstrapDataApplied = m),
+      (l.collectionNameToMetric = p),
+      (l.uploadMdCriticalEventMetric = _),
+      (l.reportSyncdKeyRotationEvent = f),
+      (l.convertSyncdKeyRotationEventFromAnnotations = h),
+      (l.constructAnnotationsFromContext = y),
+      (l.SyncdEventFlow = C));
   },
   98,
 );

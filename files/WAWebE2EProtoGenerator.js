@@ -586,9 +586,13 @@ __d(
           (t.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
             ? (d = D(d))
-            : o(
+            : o("WAWebAssociationProtoUtils").shouldWrapAssociatedChildForType(
+                t.associationType,
+              ) &&
+              o(
                 "WAWebMessageAssociationGatingUtils",
-              ).shouldWrapAssociatedChildOnSend() && (d = T(d))),
+              ).shouldWrapAssociatedChildOnSend() &&
+              (d = T(d))),
         t.isViewOnce && (d = v(d, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
           (d = o(

@@ -692,12 +692,12 @@ __d(
         ? { resultType: o("WAWebApi").APICmd.UGC_BOT, data: { fbid: r } }
         : null;
     }
-    var bt = /^https?:\/\/wa\.me\/hatch\/link(?:\?(.*))?$/i,
+    var bt = /^https?:\/\/wa\.me\/(?:hatch|muse)\/link(?:\?(.*))?$/i,
       vt = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
-          "/hatch/link(?:\\?(.*))?$",
+          "/(?:hatch|muse)/link(?:\\?(.*))?$",
         "i",
       );
     function St(e) {

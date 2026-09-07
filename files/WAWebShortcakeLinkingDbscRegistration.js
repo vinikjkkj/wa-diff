@@ -11,14 +11,16 @@ __d(
     var e, s, u;
     function c(t) {
       d(t).catch(function (t) {
-        o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[shortcake] DBSC registration failed: ",
-              "",
-            ])),
-          r("getErrorSafe")(t).message,
-        );
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[shortcake] DBSC registration failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .tags("wa-ice", "wa_app_compromise", "shortcake")
+          .sendLogs("dbsc-registration-failed");
       });
     }
     function d(e) {
@@ -35,14 +37,17 @@ __d(
             },
           );
           if (!t.ok) {
-            o("WALogger").ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[shortcake] DBSC registration HTTP ",
-                  "",
-                ])),
-              t.status,
-            );
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[shortcake] DBSC registration HTTP ",
+                    "",
+                  ])),
+                t.status,
+              )
+              .tags("wa-ice", "wa_app_compromise", "shortcake")
+              .sendLogs("dbsc-registration-http-error");
             return;
           }
           o("WALogger").LOG(

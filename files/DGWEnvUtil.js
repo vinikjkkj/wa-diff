@@ -63,14 +63,11 @@ __d(
           endpoint: "gateway.metacareers.com",
           authType: "RECRUITINGFB",
         };
-      if (e.includes("instagram.com"))
-        return { endpoint: "gateway.instagram.com", authType: "INSTAGRAM" };
-      if (e.includes("threads.com"))
-        return { endpoint: "gateway.threads.com", authType: "INSTAGRAM" };
-      if (e.includes("threads.net"))
-        return { endpoint: "gateway.threads.net", authType: "INSTAGRAM" };
-      if (e.includes("facebook.com")) {
-        if (t === "/comet_ai/hts_chat") {
+      if (e.includes("instagram.com")) {
+        if (
+          t === "/support/chat/embed/ig/comet_ai/" &&
+          r("justknobx")._("1377")
+        ) {
           var o,
             a =
               (o = (s || (s = r("WebStorage"))).getSessionStorage()) == null
@@ -78,9 +75,29 @@ __d(
                 : o.getItem("dgw_auth_token");
           if (a != null)
             return {
-              endpoint: "gateway.facebook.com",
+              endpoint: "gateway.instagram.com",
               authType: "GUEST",
               authToken: a,
+            };
+        }
+        return { endpoint: "gateway.instagram.com", authType: "INSTAGRAM" };
+      }
+      if (e.includes("threads.com"))
+        return { endpoint: "gateway.threads.com", authType: "INSTAGRAM" };
+      if (e.includes("threads.net"))
+        return { endpoint: "gateway.threads.net", authType: "INSTAGRAM" };
+      if (e.includes("facebook.com")) {
+        if (t === "/comet_ai/hts_chat") {
+          var i,
+            l =
+              (i = (s || (s = r("WebStorage"))).getSessionStorage()) == null
+                ? void 0
+                : i.getItem("dgw_auth_token");
+          if (l != null)
+            return {
+              endpoint: "gateway.facebook.com",
+              authType: "GUEST",
+              authToken: l,
             };
         }
         return { endpoint: "gateway.facebook.com", authType: "FACEBOOK" };
@@ -119,12 +136,12 @@ __d(
       if (e.includes("developers.meta.com"))
         return { endpoint: "gateway.developers.meta.com", authType: "OCULUS" };
       if (e.includes("meta.ai")) {
-        var i = n("cr:975") == null ? void 0 : n("cr:975").accessToken,
-          l = i != null && i.length > 0;
+        var u = n("cr:975") == null ? void 0 : n("cr:975").accessToken,
+          c = u != null && u.length > 0;
         return {
-          authType: l ? "GUEST" : "ABRA",
+          authType: c ? "GUEST" : "ABRA",
           endpoint: "gateway.meta.ai",
-          authToken: l ? i : void 0,
+          authToken: c ? u : void 0,
         };
       }
       return e.includes("facebook.net")

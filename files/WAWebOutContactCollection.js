@@ -63,7 +63,6 @@ __d(
             if (
               !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
               !n.text ||
-              !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
               !o(
                 "WAWebContactSearchGatingUtils",
               ).canTermsMeetFuzzySearchThreshold(

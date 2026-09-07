@@ -90,7 +90,7 @@ __d(
       );
     }
     function p(e) {
-      var t = e.amount1000,
+      var t = e.amount,
         n = e.currency,
         r = e.localeOverride,
         o = e.options;
@@ -103,14 +103,14 @@ __d(
       return new Intl.NumberFormat(e).format(1e4).substring(2, 3);
     }
     function g(e, t) {
-      var n = p({ amount1000: 0, currency: t, localeOverride: e, options: {} });
+      var n = p({ amount: 0, currency: t, localeOverride: e, options: {} });
       return n.replace(/\d+([,.]\d+)?/g, "").trim();
     }
     function h(e, t) {
       var n = d(),
         r = _(n),
         o = g(n, e),
-        a = p({ amount1000: t, currency: e }),
+        a = p({ amount: t, currency: e }),
         i = a.replace(o, "").trim(),
         l = i.indexOf(r),
         s = l === -1 ? i : i.substring(0, l),
@@ -141,7 +141,7 @@ __d(
       if (t.match("/[^0-9" + r + o + "]/")) return !1;
       var a = g(n, e),
         i = C(e, t),
-        l = p({ amount1000: i, currency: e }),
+        l = p({ amount: i, currency: e }),
         s = l.replace(a, "").trim(),
         u = s.indexOf(o),
         c = u === -1 ? s : s.substring(0, u),

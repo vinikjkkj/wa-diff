@@ -84,13 +84,9 @@ __d(
                     delayInBetween: o("WAWebABProps").getABPropConfigValue(
                       "web_anr_media_chunk_enc_delay_enabled",
                     ),
-                    yieldFn: o("WAWebABProps").getABPropConfigValue(
-                      "wmi_worker_scheduler_web",
-                    )
-                      ? function () {
-                          return r("WAWebCommonTaskScheduler").yield();
-                        }
-                      : void 0,
+                    yieldFn: function () {
+                      return r("WAWebCommonTaskScheduler").yield();
+                    },
                   })
                 : yield o("WACryptoAesCbc").aesCbcEncrypt(u, e, p),
               h = yield i.computeHmac({

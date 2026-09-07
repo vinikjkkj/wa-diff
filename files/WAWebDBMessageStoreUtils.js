@@ -382,13 +382,6 @@ __d(
     function M(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-        (e.subtype === "biz_bot_1p_disclosure" ||
-          e.subtype === "biz_bot_3p_disclosure")
-      );
-    }
-    function w(e) {
-      return (
-        e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
         (e.subtype === "bot_init" ||
           e.subtype === "biz_bot_1p_disclosure" ||
           e.subtype === "biz_bot_3p_disclosure" ||
@@ -409,8 +402,7 @@ __d(
       (l.isSecuritySensitiveMessage = $),
       (l.getMessagesBefore = P),
       (l.isInitialEncryptionMessage = N),
-      (l.isBizBotDisclosureMessage = M),
-      (l.isBotSystemMessageToPreserveOnClear = w));
+      (l.isBotSystemMessageToPreserveOnClear = M));
   },
   98,
 );

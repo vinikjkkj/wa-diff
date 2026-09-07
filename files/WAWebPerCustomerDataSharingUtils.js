@@ -51,19 +51,6 @@ __d(
       );
     }
     function c(e) {
-      if (e == null) return !1;
-      var t = o("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
-        o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
-        o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
-      );
-      return (
-        t &&
-        o(
-          "WAWebDataSharing3pdLidCollection",
-        ).DataSharing3pdLidCollection.isDataSharingEnabled(e)
-      );
-    }
-    function d(e) {
       if (
         !o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
         e == null
@@ -82,12 +69,12 @@ __d(
           : o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
               .CUSTOMER_ADS_SHARING_SETTING_ENABLED.FALSE;
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = (yield o("WAWebSchemaMessage")
             .getMessageTable()
             .between(
@@ -108,10 +95,10 @@ __d(
           if (n.subtype === "biz_per_customer_3pd_data_share_opt_out")
             return !1;
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function _(e) {
+    function p(e) {
       var t = e.accountLid,
         n = e.chat,
         a = e.entrypoint,
@@ -161,10 +148,9 @@ __d(
       }
     }
     ((l.isPerCustomerDataSharingFeatureEnabled = u),
-      (l.getCurrentDataSharingState = c),
-      (l.getCustomerAdsDataSharingState = d),
-      (l.getLastDataSharingState = m),
-      (l.getModalForPerCustomerDataSharing = _));
+      (l.getCustomerAdsDataSharingState = c),
+      (l.getLastDataSharingState = d),
+      (l.getModalForPerCustomerDataSharing = p));
   },
   98,
 );

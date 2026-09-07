@@ -25,19 +25,8 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m,
-      p,
-      _,
-      f,
-      g,
-      h = 200,
-      y = 100;
-    function C() {
+    var e, s, u, c, d, m, p, _, f, g;
+    function h() {
       return (
         o("WAWebWamOfflineResumeReporter").OfflineResumeReporter.qpl.addPoint(
           "RestoreGroupsAndContacts_start",
@@ -97,9 +86,9 @@ __d(
                           ).OfflineResumeReporter.qpl.addPoint(
                             "WarmupAllLidMappings_end",
                           ),
-                          b(e),
+                          y(e),
                           t
-                            ? yield L(e)
+                            ? yield S(e)
                             : o("WAWebContactCollection").ContactCollection.add(
                                 o("WAWebApiHydrateWidsUtil").hydrateWids(e),
                                 { silent: !0, merge: !0 },
@@ -139,7 +128,7 @@ __d(
               if (t) {
                 yield i;
                 var m = yield l;
-                (yield S(m),
+                (yield b(m),
                   m.forEach(function (e) {
                     var t = o("WAWebWidFactory").createWidFromWidLike(e.id);
                     (e.isParentGroup === !0 &&
@@ -239,12 +228,12 @@ __d(
           })
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function v() {
+    function C() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebApiContact").armContactHashRepairWait();
           try {
             var t = [];
@@ -275,6 +264,22 @@ __d(
             o("WAWebApiContact").markContactHashRepairComplete();
           }
         })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          for (var t of e)
+            (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+              r("WAWebGroupMetadataCollection").add(t, { merge: !0 }),
+              yield r("WAWebCommonTaskScheduler").yield(
+                o("TaskSchedulerPriority").HIGH_PRIORITY,
+              ));
+        })),
         v.apply(this, arguments)
       );
     }
@@ -284,67 +289,20 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "wmi_task_scheduler_second_step",
-            )
-          ) {
-            for (var t of e)
-              (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
-                r("WAWebGroupMetadataCollection").add(t, { merge: !0 }),
-                yield r("WAWebCommonTaskScheduler").yield(
-                  o("TaskSchedulerPriority").HIGH_PRIORITY,
-                ));
-            return;
-          }
-          for (var n = 0; n < e.length; n += y) {
-            var a = e.slice(n, n + y);
-            (r("WAWebGroupMetadataCollection").add(
-              a.map(o("WAWebApiHydrateWidsUtil").hydrateWids),
-              { merge: !0 },
-            ),
-              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
-          }
+          for (var t of e)
+            (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+              o("WAWebContactCollection").ContactCollection.add(t, {
+                silent: !0,
+                merge: !0,
+              }),
+              yield r("WAWebCommonTaskScheduler").yield(
+                o("TaskSchedulerPriority").HIGH_PRIORITY,
+              ));
         })),
         R.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "wmi_task_scheduler_second_step",
-            )
-          ) {
-            for (var t of e)
-              (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
-                o("WAWebContactCollection").ContactCollection.add(t, {
-                  silent: !0,
-                  merge: !0,
-                }),
-                yield r("WAWebCommonTaskScheduler").yield(
-                  o("TaskSchedulerPriority").HIGH_PRIORITY,
-                ));
-            return;
-          }
-          for (var n = 0; n < e.length; n += h) {
-            var a = e.slice(n, n + h);
-            (o("WAWebApiHydrateWidsUtil").hydrateWids(a),
-              o("WAWebContactCollection").ContactCollection.add(a, {
-                silent: !0,
-                merge: !0,
-              }),
-              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
-          }
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    l.restoreGroupsAndContacts = C;
+    l.restoreGroupsAndContacts = h;
   },
   98,
 );

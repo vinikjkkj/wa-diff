@@ -35,12 +35,7 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      if (e.byteLength !== t.byteLength) return !1;
-      for (var n = 0, r = 0; r < e.byteLength; r++) n |= e[r] ^ t[r];
-      return n === 0;
-    }
-    var f = (function () {
+    var _ = (function () {
         function e(e, t) {
           (e === void 0 &&
             (e = function () {
@@ -79,15 +74,14 @@ __d(
           e
         );
       })(),
-      g = new f();
-    function h() {
-      return g;
+      f = new _();
+    function g() {
+      return f;
     }
     ((l.derivePairingHandoffHmacKey = c),
       (l.computePairingHandoffProof = m),
-      (l.constantTimeEquals = _),
-      (l.PairingHandoffKeyHolder = f),
-      (l.getHandoffKeyHolder = h));
+      (l.PairingHandoffKeyHolder = _),
+      (l.getHandoffKeyHolder = g));
   },
   98,
 );

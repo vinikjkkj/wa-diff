@@ -1025,7 +1025,7 @@ __d(
         u = r("WAWebWidToFormattedNameOrNumber")(a),
         c = parseInt(l, 10),
         d = o("WAWebCurrencyUtils").formatAmount1000({
-          amount1000: c,
+          amount: c,
           currency: i,
         });
       return e.id.fromMe
@@ -1060,7 +1060,7 @@ __d(
         l = r("WAWebWidToFormattedNameOrNumber")(n),
         u = parseInt(i, 10),
         c = o("WAWebCurrencyUtils").formatAmount1000({
-          amount1000: u,
+          amount: u,
           currency: a,
         });
       return s._(
@@ -1086,7 +1086,7 @@ __d(
         u = r("WAWebWidToFormattedNameOrNumber")(a),
         c = parseInt(l, 10),
         d = o("WAWebCurrencyUtils").formatAmount1000({
-          amount1000: c,
+          amount: c,
           currency: i,
         });
       return e.id.fromMe
@@ -1123,7 +1123,7 @@ __d(
         c = r("WAWebWidToFormattedNameOrNumber")(a),
         d = parseInt(l, 10),
         m = o("WAWebCurrencyUtils").formatAmount1000({
-          amount1000: d,
+          amount: d,
           currency: i,
         });
       return o("WAWebUserPrefsMeUser").isMeAccount(n)

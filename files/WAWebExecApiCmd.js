@@ -4,6 +4,7 @@ __d(
     "fbt",
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebABProps",
     "WAWebAboutWamLogger",
     "WAWebActiveAccountInfoContext.react",
     "WAWebAdaptiveLayoutGatingUtils",
@@ -961,7 +962,9 @@ __d(
           if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled())
             return !1;
           if (
-            !o("WAWebHatchFrontendGating").isHatchPairingFromCompanionEnabled()
+            !o("WAWebABProps").getABPropConfigValue(
+              "hatch_pairing_from_companion_enabled",
+            )
           )
             return (
               o("WAWebModalManager").ModalManager.open(

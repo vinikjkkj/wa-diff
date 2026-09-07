@@ -184,7 +184,7 @@ __d(
         throw r("err")(
           "getAlternateUserWid - Invalid get call using deviceWid",
         );
-      return e.isLid() ? N(e) : P(e);
+      return e.isLid() ? w(e) : M(e);
     }
     function D() {
       var e = [],
@@ -205,45 +205,52 @@ __d(
       }
     }
     function $(e) {
-      var t = N(e);
-      return t ? P(t) : e;
+      var t = w(e);
+      return t ? M(t) : e;
     }
     function P(e) {
+      var t = $(e);
+      return t != null && !e.equals(t) ? t : null;
+    }
+    function N(e) {
+      return P(e) != null;
+    }
+    function M(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return n != null && t != null && e.equals(t) ? n : g.getCurrentLid(e);
     }
-    function N(e) {
+    function w(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
         n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return n != null && t != null && e.equals(t) ? n : g.getPhoneNumber(e);
     }
-    function M(e) {
-      var t = N(e);
+    function A(e) {
+      var t = w(e);
       if (t != null) {
-        var n = P(t);
+        var n = M(t);
         if (e.equals(n)) return t;
       }
     }
-    function w() {
+    function F() {
       (g.clear(), h.clear());
     }
-    function A(e) {
+    function O(e) {
       return r("WAWebLidAwareContactsDB").get(e.toJid());
     }
-    function F(e) {
+    function B(e) {
       return r("WAWebLidAwareContactsDB").bulkGet(
         e.map(function (e) {
           return e.toJid();
         }),
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t != null) {
             t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
               (o("WALogger").LOG(
@@ -279,10 +286,10 @@ __d(
               });
           }
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    var W = n("$InternalEnum")({
+    var U = n("$InternalEnum")({
       WAWEB_SIGNAL_SESSION_HAS_SIGNAL_SESSIONS: "waweb-ss-has-signal-sessions",
       WAWEB_SIGNAL_SESSION_DELETE_REMOTE_INFO: "waweb-ss-delete-remote-info",
       WAWEB_SIGNAL_SESSION_DELETE_REMOTE_SESSION:
@@ -312,7 +319,7 @@ __d(
       WAWEB_API_DEVICE_LIST_BULK_CREATE_OR_REPLACE_DEVICE_RECORD:
         "waweb-adl-bulk-create-or-replace-device-record",
     });
-    function q(t, n) {
+    function V(t, n) {
       var r = new Set();
       t.forEach(function (e) {
         e.isBot() ||
@@ -322,7 +329,7 @@ __d(
       });
       var a = new Set();
       r.forEach(function (e) {
-        var t = P(o("WAWebWidFactory").createUserWidOrThrow(e));
+        var t = M(o("WAWebWidFactory").createUserWidOrThrow(e));
         t == null && a.add(e);
       });
       var i = n != null ? n : "unknown";
@@ -342,28 +349,14 @@ __d(
           )
           .sendLogs("lidInfraAccount-" + i, { sampling: 0 });
     }
-    var U = 1e4,
-      V = null;
-    function H() {
-      V == null && (V = new (o("WAResolvable").Resolvable)());
-    }
-    function G() {
-      var e;
-      (e = V) == null || e.resolve();
-    }
-    function z(e) {
-      return j.apply(this, arguments);
+    var H = 1e4,
+      G = null;
+    function z() {
+      G == null && (G = new (o("WAResolvable").Resolvable)());
     }
     function j() {
-      return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield K(e);
-          if (t != null) return t;
-          var n = yield X();
-          if (n) return K(e);
-        })),
-        j.apply(this, arguments)
-      );
+      var e;
+      (e = G) == null || e.resolve();
     }
     function K(e) {
       return Q.apply(this, arguments);
@@ -371,22 +364,36 @@ __d(
     function Q() {
       return (
         (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
-          if (t.length > 0) return t[0];
+          var t = yield X(e);
+          if (t != null) return t;
+          var n = yield J();
+          if (n) return X(e);
         })),
         Q.apply(this, arguments)
       );
     }
-    function X() {
+    function X(e) {
       return Y.apply(this, arguments);
     }
     function Y() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = V;
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
+          if (t.length > 0) return t[0];
+        })),
+        Y.apply(this, arguments)
+      );
+    }
+    function J() {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = G;
           if (e == null || e.resolveWasCalled()) return !1;
           try {
-            yield o("WAPromiseTimeout").promiseTimeout(e.promise, U);
+            yield o("WAPromiseTimeout").promiseTimeout(e.promise, H);
           } catch (e) {
             if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
             o("WALogger")
@@ -400,15 +407,15 @@ __d(
           }
           return !0;
         })),
-        Y.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function J(e) {
-      return Z.apply(this, arguments);
+    function ee(e) {
+      return te.apply(this, arguments);
     }
-    function Z() {
+    function te() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           for (var n of e) t.push({ id: n.id, contactHash: n.contactHash });
           yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
@@ -416,7 +423,7 @@ __d(
             "ApiContact.updateContactsHashes",
           );
         })),
-        Z.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
     ((l.lidPnCache = g),
@@ -432,19 +439,21 @@ __d(
       (l.getMeUserWids = D),
       (l.getAlternateDeviceWid = x),
       (l.getLatestLid = $),
-      (l.getCurrentLid = P),
-      (l.getPhoneNumber = N),
-      (l.getPnIfLidIsLatestMapping = M),
-      (l.clearLidPnMappingCache = w),
-      (l.getContactRecord = A),
-      (l.bulkGetContactRecord = F),
-      (l.updateContactAdvHostedType = O),
-      (l.CheckPnToLidMappingCaller = W),
-      (l.checkPnToLidMapping = q),
-      (l.armContactHashRepairWait = H),
-      (l.markContactHashRepairComplete = G),
-      (l.getContactRecordByHash = z),
-      (l.updateContactsHashes = J));
+      (l.getDeprecatedLidLatestLid = P),
+      (l.isDeprecatedLid = N),
+      (l.getCurrentLid = M),
+      (l.getPhoneNumber = w),
+      (l.getPnIfLidIsLatestMapping = A),
+      (l.clearLidPnMappingCache = F),
+      (l.getContactRecord = O),
+      (l.bulkGetContactRecord = B),
+      (l.updateContactAdvHostedType = W),
+      (l.CheckPnToLidMappingCaller = U),
+      (l.checkPnToLidMapping = V),
+      (l.armContactHashRepairWait = z),
+      (l.markContactHashRepairComplete = j),
+      (l.getContactRecordByHash = K),
+      (l.updateContactsHashes = ee));
   },
   98,
 );

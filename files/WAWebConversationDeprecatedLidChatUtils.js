@@ -13,10 +13,8 @@ __d(
         !t.accountLid
       )
         return e;
-      var n = t.accountLid,
-        r = o("WAWebApiContact").getLatestLid(n),
-        a = n.equals(r);
-      return a || r == null ? e : { isLidDeprecated: !0, latestLid: r };
+      var n = o("WAWebApiContact").getDeprecatedLidLatestLid(t.accountLid);
+      return n != null ? { isLidDeprecated: !0, latestLid: n } : e;
     }
     ((l.isDeprecatedLidChatSendBlocked = s), (l.getLidDeprecatedInfo = u));
   },

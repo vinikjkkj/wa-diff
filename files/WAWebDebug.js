@@ -48,6 +48,7 @@ __d(
     "WAWebDebugChangeNumber",
     "WAWebDebugChatAssignment",
     "WAWebDebugChatLock",
+    "WAWebDebugChatlistSkeleton",
     "WAWebDebugCollections",
     "WAWebDebugComments",
     "WAWebDebugCommunity",
@@ -1172,6 +1173,10 @@ __d(
         ).injectInteractiveMessageWithBloksWidget,
         triggerPQKeyUpload: We,
         resetPQState: o("WAWebResetPQState").resetPQState,
+        showChatlistSkeleton: o("WAWebDebugChatlistSkeleton")
+          .showChatlistSkeleton,
+        hideChatlistSkeleton: o("WAWebDebugChatlistSkeleton")
+          .hideChatlistSkeleton,
       },
     );
     l.default = Ve;

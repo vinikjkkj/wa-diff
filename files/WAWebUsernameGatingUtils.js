@@ -82,6 +82,16 @@ __d(
         "unknown_user_target_rid_logging",
       );
     }
+    function E() {
+      return !!o("WAWebABProps").getABPropConfigValue(
+        "unknown_user_recovery_enabled",
+      );
+    }
+    function k() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "unknown_user_usync_request_cool_down",
+      );
+    }
     ((l.usernameDisplayedEnabled = e),
       (l.usernameSearchEnabled = s),
       (l.usernameContactlessChatEnabled = u),
@@ -98,7 +108,9 @@ __d(
       (l.usernameKeyUpsellMaxNumbers = v),
       (l.usernameAdoptionAndEngagementMonitoringEnabled = S),
       (l.usernameUnknownUserLoggingEnabled = R),
-      (l.unknownUserTargetRidLoggingEnabled = L));
+      (l.unknownUserTargetRidLoggingEnabled = L),
+      (l.unknownUserRecoveryEnabled = E),
+      (l.unknownUserUsyncRequestCoolDownSecs = k));
   },
   98,
 );

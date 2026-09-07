@@ -187,7 +187,7 @@ __d(
                   visible: !0,
                   disabled: !C,
                   totalPrice: o("WAWebCurrencyUtils").formatAmount1000({
-                    amount1000: k,
+                    amount: k,
                     currency: n,
                   }),
                   testid: "save-products-button",

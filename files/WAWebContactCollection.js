@@ -111,7 +111,6 @@ __d(
           }),
           (i._buildFuzzyMatcher = function (n, r) {
             if (
-              !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
               !o(
                 "WAWebContactSearchGatingUtils",
               ).canTermsMeetFuzzySearchThreshold(

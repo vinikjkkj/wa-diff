@@ -4,12 +4,10 @@ __d(
     "NativeSchedulerTickStrategy",
     "TaskScheduler",
     "WALogger",
-    "WAWebABProps",
     "WAWebAdvKeyIndexSignatureVerify",
     "WAWebBackendWorkerClient",
     "WAWebCryptoCurve25519",
     "WAWebProtobufsAdv.pb",
-    "WAWebReleaseToEventLoop",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
     "asyncToGeneratorRuntime",
@@ -72,27 +70,15 @@ __d(
                 signedKeyIndexBytes: t.signedKeyIndexBytes.slice().buffer,
               });
             },
-            a = o("WAWebABProps").getABPropConfigValue(
-              "wmi_worker_scheduler_web",
-            );
-          if (a) {
-            var i = o("TaskScheduler").taskScheduler(
+            a = o("TaskScheduler").taskScheduler(
               "device-sync",
               { concurrency: 1 },
               o(
                 "NativeSchedulerTickStrategy",
               ).makeNativeSchedulerTickStrategy(),
             );
-            for (var l of e) (r(l), yield i.yield());
-          } else {
-            var s = self.performance.now();
-            for (var u of e)
-              (r(u),
-                self.performance.now() - s > g &&
-                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                  (s = self.performance.now())));
-          }
-          var c = n.flatMap(function (e) {
+          for (var i of e) (r(i), yield a.yield());
+          var l = n.flatMap(function (e) {
             return [e.localPrimaryIdentity, e.signedKeyIndexBytes];
           });
           return t.sendAndReceive(
@@ -102,7 +88,7 @@ __d(
             !1,
             void 0,
             void 0,
-            c,
+            l,
           );
         })),
         _.apply(this, arguments)
@@ -211,7 +197,6 @@ __d(
         identityUpdatePromise: h,
       };
     }
-    var g = 100;
     ((l.decodeSignedKeyIndexBytes = m),
       (l.decodeSignedKeyIndexBytesBatchInWorker = p),
       (l.verifySKeyIndexWithAccSigKey = f));

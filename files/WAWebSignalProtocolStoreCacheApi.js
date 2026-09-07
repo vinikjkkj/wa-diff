@@ -5,8 +5,6 @@ __d(
     "TaskScheduler",
     "TaskSchedulerPriority",
     "WASemaphore",
-    "WAWebABProps",
-    "WAWebReleaseToEventLoop",
     "WAWebStructuredClone",
     "asyncToGeneratorRuntime",
   ],
@@ -68,28 +66,15 @@ __d(
                         session: r("WAWebStructuredClone")(o.session),
                       }));
               },
-              i = o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              );
-            if (i) {
-              var l = o("TaskScheduler").taskScheduler(
+              i = o("TaskScheduler").taskScheduler(
                 "signal",
                 { concurrency: 1 },
                 o(
                   "NativeSchedulerTickStrategy",
                 ).makeNativeSchedulerTickStrategy(),
               );
-              for (var s of this.Dirty.session)
-                (a(s), yield l.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
-            } else {
-              var c = u,
-                d = self.performance.now();
-              for (var m of this.Dirty.session)
-                (self.performance.now() - d > c &&
-                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                  (d = self.performance.now())),
-                  a(m));
-            }
+            for (var l of this.Dirty.session)
+              (a(l), yield i.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
             return { update: t, remove: n };
           });
           function t() {
@@ -200,7 +185,6 @@ __d(
       );
     })();
     function s(e) {}
-    var u = 100;
     l.SignalStoreCache = e;
   },
   98,

@@ -1,7 +1,6 @@
 __d(
   "WAWebCryptoDecryptMedia",
   [
-    "Promise",
     "WACryptoAesCbc",
     "WACryptoHmac",
     "WACryptoUtils",
@@ -16,7 +15,6 @@ __d(
     "WAWebBackendWorkerClient",
     "WAWebCommonTaskScheduler",
     "WAWebMediaFileErrors",
-    "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -27,31 +25,23 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 10,
-      f = 3e3;
-    function g(e) {
-      return h.apply(this, arguments);
+      p = 10,
+      _ = 3e3;
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.ciphertextHmac,
             i = t.debugString,
             l = t.expectedPlaintextHash,
             c = t.mediaKeys,
             d = o("WAWebABProps").getABPropConfigValue(
               "web_anr_async_media_decryption_enabled",
-            ),
-            m = o("WAWebABProps").getABPropConfigValue(
-              "wmi_worker_scheduler_web",
             );
-          m
-            ? yield r("WAWebCommonTaskScheduler").yield()
-            : d
-              ? yield o("WAWebReleaseToEventLoop").releaseToEventLoop()
-              : yield (p || (p = n("Promise"))).resolve();
-          var f = { mediaKeys: c };
+          yield r("WAWebCommonTaskScheduler").yield();
+          var m = { mediaKeys: c };
           if (
             (o("WALogger").LOG(
               e ||
@@ -61,47 +51,42 @@ __d(
                 ])),
               i,
             ),
-            a.byteLength < _)
+            a.byteLength < p)
           )
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "ciphertext too short: " + a.byteLength,
             );
-          var g = c.encKey,
-            h = c.iv,
-            C = c.macKey,
-            v = o("WATypedArraysCast").castTypedArrays(Uint8Array, a);
+          var _ = c.encKey,
+            f = c.iv,
+            g = c.macKey,
+            y = o("WATypedArraysCast").castTypedArrays(Uint8Array, a);
           try {
-            var R = o("WAWebABProps").getABPropConfigValue(
+            var b = o("WAWebABProps").getABPropConfigValue(
                 "web_media_compute_in_worker_enabled",
               ),
-              E = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-                new Uint8Array(h),
-                v.subarray(0, 0 - _),
+              S = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+                new Uint8Array(f),
+                y.subarray(0, 0 - p),
               ]);
             return yield (
-              R
-                ? S({ macKey: C, data: E, truncateLength: _ })
-                : o("WACryptoHmac").hmacSha256(C, E, _)
+              b
+                ? v({ macKey: g, data: S, truncateLength: p })
+                : o("WACryptoHmac").hmacSha256(g, S, p)
             )
               .then(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = v.buffer.slice(0 - _);
+                      var t = y.buffer.slice(0 - p);
                       if (!o("WACryptoUtils").arrayBuffersEqual(e, t))
                         throw new (o(
                           "WAWebMediaFileErrors",
                         ).MediaDecryptionError)("decryptMedia: hmac mismatch");
-                      d &&
-                        (m
-                          ? yield r("WAWebCommonTaskScheduler").yield()
-                          : yield o(
-                              "WAWebReleaseToEventLoop",
-                            ).releaseToEventLoop());
-                      var n = v.subarray(0, 0 - _);
-                      return R
-                        ? y({ encKey: g, iv: h, ciphertext: n })
-                        : b({ encKey: g, iv: h, ciphertext: n });
+                      d && (yield r("WAWebCommonTaskScheduler").yield());
+                      var n = y.subarray(0, 0 - p);
+                      return b
+                        ? h({ encKey: _, iv: f, ciphertext: n })
+                        : C({ encKey: _, iv: f, ciphertext: n });
                     },
                   );
                   return function (t) {
@@ -114,14 +99,9 @@ __d(
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
                       if (l == null) return e;
-                      d &&
-                        (m
-                          ? yield r("WAWebCommonTaskScheduler").yield()
-                          : yield o(
-                              "WAWebReleaseToEventLoop",
-                            ).releaseToEventLoop());
-                      var t = R
-                        ? yield L(e)
+                      d && (yield r("WAWebCommonTaskScheduler").yield());
+                      var t = b
+                        ? yield R(e)
                         : yield o("WAMediaCalculateFilehash").calculateFilehash(
                             e,
                           );
@@ -164,28 +144,28 @@ __d(
               e instanceof o("WAWebMediaFileErrors").MediaDecryptionError)
             )
               throw e;
-            var k = r("getErrorSafe")(e);
+            var L = r("getErrorSafe")(e);
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
-              "decryption error: " + String(k) + "; stack: " + k.stack,
+              "decryption error: " + String(L) + "; stack: " + L.stack,
             );
           }
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ciphertext,
             n = e.encKey,
             r = e.iv,
             a = yield o("WAPromiseTimeout")
               .promiseTimeout(
                 o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-                f,
+                _,
                 "[media][crypto] backend worker bridge timed out",
               )
               .catch(function (e) {
@@ -204,7 +184,7 @@ __d(
                   ])),
                 { isABPropsReady: i, isBridgeReady: l },
               ),
-              b({ encKey: n, iv: r, ciphertext: t })
+              C({ encKey: n, iv: r, ciphertext: t })
             );
           }
           return a.sendAndReceive(
@@ -217,36 +197,36 @@ __d(
             [t.buffer],
           );
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ciphertext,
             n = e.encKey,
             r = e.iv;
           return o("WACryptoAesCbc").aesCbcDecrypt(n, r, t);
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.data,
             n = e.macKey,
             r = e.truncateLength,
             a = yield o("WAPromiseTimeout")
               .promiseTimeout(
                 o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-                f,
+                _,
                 "[media][crypto] backend worker bridge timed out (hmac)",
               )
               .catch(function (e) {
@@ -271,19 +251,19 @@ __d(
                 [t.buffer],
               );
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAPromiseTimeout")
             .promiseTimeout(
               o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-              f,
+              _,
               "[media][crypto] backend worker bridge timed out (filehash)",
             )
             .catch(function (e) {
@@ -300,10 +280,10 @@ __d(
               o("WAMediaCalculateFilehash").calculateFilehash(e))
             : t.sendAndReceive("crypto", "sha256Base64", { data: e });
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    l.default = g;
+    l.default = f;
   },
   98,
 );

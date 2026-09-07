@@ -315,7 +315,8 @@ __d(
         f =
           t != null &&
           !r("WAWebWid").isStatus(t) &&
-          !r("WAWebWid").isNewsletter(t);
+          !r("WAWebWid").isNewsletter(t) &&
+          i.isGroupStatus !== !0;
       if (f) {
         var g = h(i.type, p);
         g != null && (_.typeFlag = g);

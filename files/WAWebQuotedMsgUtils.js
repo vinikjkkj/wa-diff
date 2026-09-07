@@ -83,7 +83,7 @@ __d(
       if (t != null && r != null) {
         var s = function (n) {
           return o("WAWebCurrencyUtils").formatAmount1000({
-            amount1000: n,
+            amount: n,
             currency: t,
           });
         };
