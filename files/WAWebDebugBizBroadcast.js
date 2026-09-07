@@ -10,6 +10,7 @@ __d(
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBizBroadcastTos",
     "WAWebChatCollection",
+    "WAWebGraphQLConstants",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebTos",
@@ -47,17 +48,81 @@ __d(
     ((c.doc = "Force BB Pro onboarding status to eligible_to_onboard (E2E)"),
       (c.paramsToExecute = []));
     function d() {
+      (o(
+        "WAWebBizBroadcastDeviceCapabilityCommon",
+      ).saveBizBroadcastProCapabilityToStorage(!0),
+        o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).debugSetBizBroadcastProOnboardingStatus(
+          o("WAWebBizBroadcastProOnboardingStatus").BBProOnboardingStatus
+            .ONBOARDED,
+        ));
+    }
+    ((d.doc =
+      "Force BB Pro capability and onboarding status to onboarded (E2E)"),
+      (d.paramsToExecute = []));
+    var m = null;
+    function p() {
+      if (m == null) {
+        var t = self.fetch.bind(self),
+          r = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
+        m = function () {
+          Reflect.set(self, "fetch", t);
+        };
+        var a = 0;
+        Reflect.set(self, "fetch", function (o, i) {
+          var l = o instanceof Request ? o.url : String(o);
+          if (l !== r) return t(o, i);
+          var s = "234567890123456" + String(a);
+          return (
+            (a += 1),
+            (e || (e = n("Promise"))).resolve(
+              new Response(
+                JSON.stringify({
+                  data: {
+                    create_wa_marketing_messages_custom_audience: {
+                      custom_audience_id: s,
+                    },
+                    viewer: {
+                      backing_waba: {
+                        id: "1234567890123456",
+                        wa_bb_pro_custom_audiences: { edges: [] },
+                      },
+                    },
+                    xfb_whatsapp_bb_pro: {
+                      default_subscriber_pool: { id: "1234567890123456" },
+                    },
+                  },
+                }),
+                {
+                  headers: { "Content-Type": "application/json" },
+                  status: 200,
+                },
+              ),
+            )
+          );
+        });
+      }
+    }
+    ((p.doc = "Mock BB Pro audience GraphQL responses (E2E)"),
+      (p.paramsToExecute = []));
+    function _() {
+      (m == null || m(), (m = null));
+    }
+    ((_.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
+      (_.paramsToExecute = []));
+    function f() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e == null) throw r("err")("No active chat");
       return o("WAWebWidToJid").widToBroadcastJid(e.id);
     }
-    function m() {
-      return p.apply(this, arguments);
+    function g() {
+      return h.apply(this, arguments);
     }
-    function p() {
+    function h() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = d(),
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = f(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
             n = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
@@ -81,19 +146,19 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(e));
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((m.doc =
+    ((g.doc =
       "Create a test PROCESSING campaign for the active broadcast chat (E2E)"),
-      (m.paramsToExecute = []));
-    function _() {
-      return f.apply(this, arguments);
+      (g.paramsToExecute = []));
+    function y() {
+      return C.apply(this, arguments);
     }
-    function f() {
+    function C() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = d(),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = f(),
             r = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t);
@@ -119,36 +184,39 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(t));
         })),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((_.doc =
+    ((y.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
-      (_.paramsToExecute = []));
-    function g(e) {
+      (y.paramsToExecute = []));
+    function b(e) {
       return o(
         "WAWebBizBroadcastProUpdateCampaignAction",
       ).cancelBizBroadcastProCampaign(e);
     }
-    g.doc =
+    b.doc =
       "Cancel (pause) a BB Pro scheduled campaign by id (server mutation)";
-    function h(e, t) {
+    function v(e, t) {
       return o(
         "WAWebBizBroadcastProUpdateCampaignAction",
       ).rescheduleBizBroadcastProCampaign(e, t);
     }
-    h.doc =
+    v.doc =
       "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";
-    var y = {
+    var S = {
       acceptBizBroadcastTos: u,
-      cancelBizBroadcastProCampaign: g,
-      completeTestCampaignsForActiveChat: _,
-      createTestProcessingCampaignForActiveChat: m,
-      rescheduleBizBroadcastProCampaign: h,
+      cancelBizBroadcastProCampaign: b,
+      completeTestCampaignsForActiveChat: y,
+      createTestProcessingCampaignForActiveChat: g,
+      mockBizBroadcastProAudienceGraphQLResponses: p,
+      rescheduleBizBroadcastProCampaign: v,
+      restoreBizBroadcastProAudienceGraphQLResponses: _,
       setBizBroadcastDeviceCapability: s,
       setBizBroadcastProNuxEligible: c,
+      setBizBroadcastProOnboarded: d,
     };
-    l.default = y;
+    l.default = S;
   },
   98,
 );

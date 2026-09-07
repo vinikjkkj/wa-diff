@@ -104,7 +104,18 @@ __d(
         }),
       );
     }
-    function f(e, t, a, i) {
+    function f() {
+      o("WAWebToastManager").ToastManager.open(
+        d.jsx(o("WAWebToast.react").Toast, {
+          id: o("WAWebToast.react").genId(),
+          msg: o(
+            "WAWebBizBroadcastsCreationStrings",
+          ).getAudienceCreatedToastLabel(),
+          action: null,
+        }),
+      );
+    }
+    function g(e, t, a, i) {
       var l = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
         d.jsx(o("WAWebToast.react").Toast, {
@@ -130,7 +141,7 @@ __d(
         }),
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
         d.jsx(o("WAWebToast.react").Toast, {
@@ -142,7 +153,7 @@ __d(
         }),
       );
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
         d.jsx(o("WAWebToast.react").Toast, {
@@ -154,7 +165,7 @@ __d(
         }),
       );
     }
-    function y(e, t) {
+    function C(e, t) {
       var n = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
         d.jsx(o("WAWebToast.react").Toast, {
@@ -171,7 +182,7 @@ __d(
         }),
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       if (e == null) return "";
       var n = o("WAWebBizBroadcastsAudienceStrings").getDurationLabelForDays(t);
       return e === "inactive_chats"
@@ -184,7 +195,7 @@ __d(
               .toString()
           : "";
     }
-    function b(e) {
+    function v(e) {
       if (e == null || e.length === 0) return "";
       var t = [];
       for (var n of e) {
@@ -206,12 +217,12 @@ __d(
             .toString()
         : t.join(", ");
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = [],
             i = [];
           return (
@@ -221,7 +232,7 @@ __d(
                   function* (t, n) {
                     return (
                       yield t,
-                      R(n)
+                      L(n)
                         .then(function (e) {
                           i.push(e);
                         })
@@ -251,15 +262,15 @@ __d(
             { failedAudiences: a, savedAudiences: i }
           );
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.contacts.map(function (e) {
               var t;
               return {
@@ -281,19 +292,20 @@ __d(
             recipientCount: t.length,
           };
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
     ((l.MAX_AUDIENCE_NAME_LENGTH = m),
       (l.getBroadcastChatsAsAudiences = p),
       (l.showCreateAudienceSuccessToast = _),
-      (l.showUpdateAudienceSuccessToast = f),
-      (l.showImportAudienceEditContactSuccessToast = g),
-      (l.showImportAudienceDeleteAllContactsSuccessToast = h),
-      (l.showImportAudienceDeleteErrorSuccessToast = y),
-      (l.buildAudienceNameForCard = C),
-      (l.buildAudienceNameFromRecipients = b),
-      (l.persistAudienceDraftsSequentially = v));
+      (l.showAudienceCreatedWithoutChatToast = f),
+      (l.showUpdateAudienceSuccessToast = g),
+      (l.showImportAudienceEditContactSuccessToast = h),
+      (l.showImportAudienceDeleteAllContactsSuccessToast = y),
+      (l.showImportAudienceDeleteErrorSuccessToast = C),
+      (l.buildAudienceNameForCard = b),
+      (l.buildAudienceNameFromRecipients = v),
+      (l.persistAudienceDraftsSequentially = S));
   },
   226,
 );

@@ -711,7 +711,7 @@ __d(
               threadId: a,
             })
               .then(function () {
-                return e.scrollChatToBottom();
+                return e.scrollChatToBottom({ isChatOpen: !0 });
               })
               .then(o("WAWebBoolFunc").returnTrue)
               .catch(
@@ -739,10 +739,10 @@ __d(
               );
             });
           }),
-          (i.scrollChatToBottom = function () {
+          (i.scrollChatToBottom = function (t) {
             var e = this;
-            return new (y || (y = n("Promise")))(function (t) {
-              e.trigger("scroll_chat_to_bottom", t);
+            return new (y || (y = n("Promise")))(function (n) {
+              e.trigger("scroll_chat_to_bottom", n, t);
             }).catch(function (e) {
               o("WALogger").WARN(
                 p ||
