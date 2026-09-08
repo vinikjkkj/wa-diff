@@ -5,7 +5,6 @@ __d(
     "WAWeb-dexie",
     "WAWebDbEncryptionKey",
     "WAWebDexieCastTypes",
-    "WAWebIdbAsyncAwaitConfig",
     "WAWebIdbHelpers",
     "WAWebStorageSchema",
     "asyncToGeneratorRuntime",
@@ -107,13 +106,7 @@ __d(
                   u.key,
                   i,
                 ),
-                m =
-                  o(
-                    "WAWebIdbAsyncAwaitConfig",
-                  ).isAsyncAwaitPrepDecryptEnabled() ||
-                  r("WAWeb-dexie").currentTransaction != null
-                    ? r("WAWeb-dexie").waitFor(c)
-                    : c,
+                m = r("WAWeb-dexie").waitFor(c),
                 p = yield o("WAWebDexieCastTypes").dexieCastToPromise(m),
                 _ =
                   n === o("WAWebStorageSchema").EncryptedValueType.STRING

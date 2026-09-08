@@ -5,24 +5,21 @@ __d(
     var e = 1728e5,
       l = 7200 * 60 * 1e3,
       s = 50,
-      u = n("$InternalEnum").Mirrored(["DELIVERING", "READY", "SENT"]),
-      c = { readRateThresholdPercent: s, readyDelayMs: e, sentDelayMs: l };
-    function d(e) {
-      var t = e.deliveredCount,
-        n = e.nowMs,
-        r = e.readCount,
-        o = e.recipientCount,
-        a = e.sentTimestampMs,
-        i = e.thresholds,
-        l = i === void 0 ? c : i,
-        s = o > 0 && t >= o,
-        d = a <= n - l.sentDelayMs;
-      if (s || d) return u.SENT;
-      var m = a <= n - l.readyDelayMs,
-        p = t > 0 ? (r / t) * 100 : 0;
-      return m || p > l.readRateThresholdPercent ? u.READY : u.DELIVERING;
+      u = n("$InternalEnum").Mirrored(["DELIVERING", "READY", "SENT"]);
+    function c(t) {
+      var n = t.deliveredCount,
+        r = t.nowMs,
+        o = t.readCount,
+        a = t.recipientCount,
+        i = t.sentTimestampMs,
+        c = a > 0 && n >= a,
+        d = i <= r - l;
+      if (c || d) return u.SENT;
+      var m = i <= r - e,
+        p = n > 0 ? (o / n) * 100 : 0;
+      return m || p > s ? u.READY : u.DELIVERING;
     }
-    ((i.InsightStatus = u), (i.getInsightStatus = d));
+    ((i.InsightStatus = u), (i.getInsightStatus = c));
   },
   66,
 );

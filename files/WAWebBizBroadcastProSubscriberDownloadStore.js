@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastProSubscriberDownloadStore",
   [
     "WALogger",
+    "WAPromiseBackoffs",
     "WAWebBizBroadcastProSubscriberCSVDownload",
     "WAWebBizBroadcastProSubscriberDownloadMutation",
     "WAWebBizBroadcastProSubscriberDownloadRegistry",
@@ -20,31 +21,37 @@ __d(
       p = 5e3,
       _ = "download:",
       f = 3,
-      g = 1800 * 1e3,
-      h = new Map(),
-      y = new Map(),
-      C = new Map(),
+      g = 6e4,
+      h = { algo: { first: p * 2, type: "exponential" }, max: g },
+      y = 1800 * 1e3,
+      C = 120 * 1e3,
       b = new Map(),
-      v = null,
-      S = !1,
-      R = 0;
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+      v = new Map(),
+      S = new Map(),
+      R = new Map(),
+      L = new Map(),
+      E = new Map(),
+      k = new Map(),
+      I = null,
+      T = !1,
+      D = 0;
+    function x(e, t, n) {
+      return $.apply(this, arguments);
     }
-    function E() {
+    function $() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             !o(
               "WAWebBizBroadcastProSubscriberDownloadRegistry",
             ).hasPreparingDownload()
           ) {
-            (D(),
+            (w(),
               o(
                 "WAWebBizBroadcastProSubscriberDownloadRegistry",
               ).removeSettledDownloads(),
-              R++);
-            var a = "" + _ + R;
+              D++);
+            var a = "" + _ + D;
             o(
               "WAWebBizBroadcastProSubscriberDownloadRegistry",
             ).putSubscriberDownload({
@@ -83,23 +90,23 @@ __d(
             }
           }
         })),
-        E.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function k(e) {
-      var t = b.get(e);
+    function P(e) {
+      var t = k.get(e);
       if (t != null) return t;
-      var n = I(e).finally(function () {
-        b.get(e) === n && b.delete(e);
+      var n = N(e).finally(function () {
+        k.get(e) === n && k.delete(e);
       });
-      return (b.set(e, n), n);
+      return (k.set(e, n), n);
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function T() {
+    function M() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
               "WAWebBizBroadcastProSubscriberDownloadRegistry",
             ).getSubscriberDownload(e),
@@ -127,24 +134,24 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function D() {
-      S ||
-        ((S = !0),
+    function w() {
+      T ||
+        ((T = !0),
         o(
           "WAWebBizBroadcastProSubscriberDownloadRegistry",
         ).SubscriberDownloadEmitter.on(
           o("WAWebBizBroadcastProSubscriberDownloadRegistry")
             .SUBSCRIBER_DOWNLOADS_CHANGED,
-          x,
+          A,
         ));
     }
-    function x() {
-      ($(), P());
+    function A() {
+      (F(), O());
     }
-    function $() {
+    function F() {
       var e = new Set(
         o("WAWebBizBroadcastProSubscriberDownloadRegistry")
           .getSubscriberDownloads()
@@ -152,68 +159,78 @@ __d(
             return e.key;
           }),
       );
-      for (var t of [h, C, y, b])
+      for (var t of [R, v, b, E, L, S, k])
         for (var n of t.keys()) e.has(n) || t.delete(n);
     }
-    function P() {
+    function O() {
       var e = o("WAWebBizBroadcastProSubscriberDownloadRegistry")
         .getSubscriberDownloads()
-        .some(N);
-      if (e && v == null) {
-        v = window.setInterval(M, p);
+        .some(B);
+      if (e && I == null) {
+        I = window.setInterval(W, p);
         return;
       }
-      !e && v != null && (window.clearInterval(v), (v = null));
+      !e && I != null && (window.clearInterval(I), (I = null));
     }
-    function N(e) {
+    function B(e) {
       return e.status === "preparing" && e.exportId != null;
     }
-    function M() {
+    function W() {
       for (var e of o(
         "WAWebBizBroadcastProSubscriberDownloadRegistry",
       ).getSubscriberDownloads())
-        N(e) && w(e);
+        B(e) && !q(e.key) && U(e);
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function q(e) {
+      var t = R.get(e);
+      return t != null && Date.now() < t;
     }
-    function A() {
+    function U(e) {
+      return V.apply(this, arguments);
+    }
+    function V() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.exportId;
           if (t != null) {
-            var n = F(e.key);
-            if (n != null) {
-              var r = n.pastDeadline;
+            var n = H(e.key);
+            if (n != null)
               try {
-                var a = yield o(
+                var r = yield o(
                   "WAWebBizBroadcastProSubscriberDownloadStatusQuery",
                 ).fetchSubscriberDownloadStatus(t);
-                if (!O(e.key)) return;
-                (B(e.key, a), r && O(e.key) && W(e.key));
+                if (!j(e.key)) return;
+                (K(e.key, r), j(e.key) && z(e.key) && Q(e.key));
               } catch (t) {
-                if (!O(e.key)) return;
-                q(e.key, t);
+                if (!j(e.key) || !G(e.key, n)) return;
+                X(e.key, t);
               } finally {
-                C.delete(e.key);
+                G(e.key, n) && E.delete(e.key);
               }
-            }
           }
         })),
-        A.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function F(e) {
-      var t,
-        n = (t = y.get(e)) != null ? t : Date.now() + g;
-      y.set(e, n);
-      var r = Date.now() > n,
-        o = C.get(e);
-      return o != null
-        ? (r && Date.now() - o > p && W(e), null)
-        : (C.set(e, Date.now()), { pastDeadline: r });
+    function H(e) {
+      L.has(e) || L.set(e, Date.now() + y);
+      var t = E.get(e);
+      if (t != null)
+        return (
+          z(e) && Date.now() - t.startedAt > p && (E.delete(e), J(e) && Q(e)),
+          null
+        );
+      var n = { startedAt: Date.now() };
+      return (E.set(e, n), n);
     }
-    function O(e) {
+    function G(e, t) {
+      return E.get(e) === t;
+    }
+    function z(e) {
+      var t = L.get(e);
+      return t != null && Date.now() > t;
+    }
+    function j(e) {
       var t;
       return (
         ((t = o(
@@ -223,19 +240,21 @@ __d(
           : t.status) === "preparing"
       );
     }
-    function B(e, t) {
-      if (t.exportStatus === "FAILED") {
-        U(e, t.errorMsg);
+    function K(e, t) {
+      if (
+        (R.delete(e), b.delete(e), S.delete(e), t.exportStatus === "FAILED")
+      ) {
+        Z(e, t.errorMsg);
         return;
       }
-      h.set(e, 0);
-      var n = z(e, t);
-      (n.status != null && n.status !== "preparing" && G(e),
+      v.delete(e);
+      var n = re(e, t);
+      (n.status != null && n.status !== "preparing" && ne(e),
         o(
           "WAWebBizBroadcastProSubscriberDownloadRegistry",
         ).patchSubscriberDownload(e, n));
     }
-    function W(t) {
+    function Q(t) {
       (o("WALogger")
         .ERROR(
           e ||
@@ -244,24 +263,32 @@ __d(
             ])),
         )
         .sendLogs("bb-pro-subscriber-download-poll-timeout"),
-        H(t));
+        te(t));
     }
-    function q(e, t) {
-      var n = V(e);
-      n < f ||
+    function X(e, t) {
+      Y(e) &&
         (o("WALogger")
           .ERROR(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "Giving up on BB Pro subscriber download after repeated poll failures",
+                "Giving up on BB Pro subscriber download still unreachable past the poll deadline",
               ])),
           )
           .catching(r("getErrorSafe")(t))
           .sendLogs("bb-pro-subscriber-download-poll-failed"),
-        H(e));
+        te(e));
     }
-    function U(e, t) {
-      var n = V(e);
+    function Y(e) {
+      if (z(e) && J(e)) return !0;
+      var t = ee(b, e);
+      return (R.set(e, Date.now() + o("WAPromiseBackoffs").getDelay(t, h)), !1);
+    }
+    function J(e) {
+      var t = S.get(e);
+      return t == null ? (S.set(e, Date.now() + C), !1) : Date.now() >= t;
+    }
+    function Z(e, t) {
+      var n = ee(v, e);
       n < f ||
         (o("WALogger")
           .ERROR(
@@ -273,23 +300,29 @@ __d(
             t != null ? t : "no reason reported",
           )
           .sendLogs("bb-pro-subscriber-download-export-failed"),
-        H(e));
+        te(e));
     }
-    function V(e) {
-      var t,
-        n = ((t = h.get(e)) != null ? t : 0) + 1;
-      return (h.set(e, n), n);
+    function ee(e, t) {
+      var n,
+        r = ((n = e.get(t)) != null ? n : 0) + 1;
+      return (e.set(t, r), r);
     }
-    function H(e) {
-      (G(e),
+    function te(e) {
+      (ne(e),
         o(
           "WAWebBizBroadcastProSubscriberDownloadRegistry",
         ).patchSubscriberDownload(e, { status: "failed" }));
     }
-    function G(e) {
-      (h.delete(e), y.delete(e), C.delete(e), b.delete(e));
+    function ne(e) {
+      (b.delete(e),
+        v.delete(e),
+        S.delete(e),
+        R.delete(e),
+        L.delete(e),
+        E.delete(e),
+        k.delete(e));
     }
-    function z(e, t) {
+    function re(e, t) {
       e: {
         if (t.exportStatus === "FINISHED") {
           var n = t.cdnUrl;
@@ -319,7 +352,7 @@ __d(
         };
       }
     }
-    ((l.beginSubscriberDownload = L), (l.saveSubscriberDownload = k));
+    ((l.beginSubscriberDownload = x), (l.saveSubscriberDownload = P));
   },
   98,
 );
