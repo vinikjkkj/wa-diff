@@ -5,6 +5,7 @@ __d(
     "WAWebBizProductCatalogAction",
     "WAWebBizProductCatalogBridge",
     "WAWebCatalogCollection",
+    "WAWebCatalogGetters",
     "WAWebProductCollCollection",
     "WAWebProductCollection",
     "WAWebProductModel",
@@ -181,6 +182,10 @@ __d(
         }),
         (a.getCollection = function () {
           return o("WAWebCatalogCollection").CatalogCollection;
+        }),
+        (a.delete = function () {
+          (e.prototype.delete.call(this),
+            o("WAWebCatalogGetters").clearCatalogGetterCacheFor(this));
         }),
         (a.getMostRecentlyApprovedProduct = function () {
           return this.productCollection.findFirst(function (e) {

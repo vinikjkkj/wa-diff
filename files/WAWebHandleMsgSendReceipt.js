@@ -22,32 +22,32 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n, r) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e, t, n, r) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l) {
-            var d;
+            var m;
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose(["sendReceipt"])),
             );
-            var m = t.externalId,
-              g = a.rawTs,
-              h = a.type,
-              y = o("WAWebMsgProcessingApiUtils").getFrom(t),
-              C = null;
+            var p = t.externalId,
+              h = a.rawTs,
+              y = a.type,
+              C = o("WAWebMsgProcessingApiUtils").getFrom(t),
+              b = null;
             if (
               t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
               o("WAWebUserPrefsMeUser").isMeAccount(t.author)
             )
-              if (t.originalBotRecipient != null) C = t.originalBotRecipient;
+              if (t.originalBotRecipient != null) b = t.originalBotRecipient;
               else {
-                var b;
-                C = (b = t.preMatChat) != null ? b : t.chat;
+                var v;
+                b = (v = t.preMatChat) != null ? v : t.chat;
               }
             else if (
               t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
@@ -56,20 +56,20 @@ __d(
                 t.metaFrom,
               )
             ) {
-              var v;
-              C = (v = t.preMatChat) != null ? v : t.chat;
+              var S;
+              b = (S = t.preMatChat) != null ? S : t.chat;
             }
-            var S =
+            var R =
                 t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
                   ? null
-                  : (d = t.preMatChat) != null
-                    ? d
+                  : (m = t.preMatChat) != null
+                    ? m
                     : t.author,
-              R = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
-              L = !t.chat.isBot() && t.author.isBot(),
-              E = y.isStatus() || a.isGroupStatus === !0,
-              k =
-                E && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
+              L = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
+              E = !t.chat.isBot() && t.author.isBot(),
+              k = C.isStatus() || a.isGroupStatus === !0,
+              I =
+                k && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
                   ? "status"
                   : void 0;
             if (i.result == null)
@@ -85,24 +85,24 @@ __d(
                   )
                   .sendLogs("send-receipt-missing-e2e-process-result"),
                 o("WAWebHandleMsgSendAck").sendAck({
-                  externalId: m,
-                  from: y,
-                  participant: S,
-                  stanzaClass: k,
-                  type: h,
+                  externalId: p,
+                  from: C,
+                  participant: R,
+                  stanzaClass: I,
+                  type: y,
                 })
               );
-            var I = f(i);
-            function T(e, t, n) {
-              return D.apply(this, arguments);
+            var T = g(i);
+            function D(e, t, n) {
+              return x.apply(this, arguments);
             }
-            function D() {
+            function x() {
               return (
-                (D = n("asyncToGeneratorRuntime").asyncToGenerator(
+                (x = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, t, n) {
                     try {
                       yield e(
-                        m,
+                        p,
                         r("nullthrows")(
                           o(
                             "WAWebCoexV2ReceiptRecipient",
@@ -114,8 +114,8 @@ __d(
                     } catch (e) {
                       (o("WALogger")
                         .WARN(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "[coexv2] ",
                               " receipt failed, falling back to ack",
                             ])),
@@ -124,16 +124,16 @@ __d(
                         .catching(r("getErrorSafe")(e))
                         .sendLogs(n),
                         o("WAWebHandleMsgSendAck").sendAck({
-                          externalId: m,
-                          from: y,
-                          participant: S,
-                          stanzaClass: k,
-                          type: h,
+                          externalId: p,
+                          from: C,
+                          participant: R,
+                          stanzaClass: I,
+                          type: y,
                         }));
                     }
                   },
                 )),
-                D.apply(this, arguments)
+                x.apply(this, arguments)
               );
             }
             e: {
@@ -144,33 +144,33 @@ __d(
                   o("WAWebHandleMsgTypes.flow").E2EProcessResult
                     .SIGNAL_OLD_COUNTER_ERROR
               ) {
-                if (p(t)) {
-                  yield T(
+                if (_(t)) {
+                  yield D(
                     o("WAWebSendReceiptJobCommon").sendCoexV2SenderReceipt,
                     "sender",
                     "coexv2-sender-receipt-error",
                   );
                   return;
                 }
-                if (_(t)) {
-                  yield T(
+                if (f(t)) {
+                  yield D(
                     o("WAWebSendReceiptJobCommon").sendCoexV2DeliveryReceipt,
                     "delivery",
                     "coexv2-delivery-receipt-error",
                   );
                   return;
                 }
-                if (L) {
-                  var x, $, P;
+                if (E) {
+                  var $, P, N;
                   return (
                     t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
-                      ? ((x = t.author), ($ = t.chat))
-                      : ((x = t.chat), (P = t.author)),
+                      ? (($ = t.author), (P = t.chat))
+                      : (($ = t.chat), (N = t.author)),
                     o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks({
-                      messageIds: [m],
-                      participant: P,
-                      recipient: $,
-                      to: x,
+                      messageIds: [p],
+                      participant: N,
+                      recipient: P,
+                      to: $,
                     })
                   );
                 } else if (
@@ -178,23 +178,23 @@ __d(
                   o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.medianotify
                 )
                   return o("WAWebHandleMsgSendAck").sendAck({
-                    externalId: m,
-                    from: y,
-                    participant: S,
-                    stanzaClass: k,
-                    type: h,
+                    externalId: p,
+                    from: C,
+                    participant: R,
+                    stanzaClass: I,
+                    type: y,
                   });
                 return o(
                   "WAWebSendDeliveryReceiptJob",
                 ).sendDeliveryReceiptsAfterDecryption({
-                  isPeerMsg: R,
-                  isStatusContext: E,
-                  msgId: m,
-                  participant: S,
-                  receiptModeBitmask: I,
-                  recipient: C,
+                  isPeerMsg: L,
+                  isStatusContext: k,
+                  msgId: p,
+                  participant: R,
+                  receiptModeBitmask: T,
+                  recipient: b,
                   response: i,
-                  to: y,
+                  to: C,
                 });
               }
               if (
@@ -208,7 +208,7 @@ __d(
                         'sendReceipt: HSM mismatch, no receipt sent for "',
                         '"',
                       ])),
-                    m,
+                    p,
                   )
                   .sendLogs("send-receipt-skipping-hsm-mismatch-result");
                 return;
@@ -217,29 +217,29 @@ __d(
                 i.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY
               ) {
-                var N = i.retryCount == null ? 1 : i.retryCount + 1;
+                var M = i.retryCount == null ? 1 : i.retryCount + 1;
                 (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
-                  retryCount: N,
-                  to: y,
-                  participant: S,
-                  recipient: C,
-                  externalId: m,
-                  rawTs: g,
-                  isPeer: R,
+                  retryCount: M,
+                  to: C,
+                  participant: R,
+                  recipient: b,
+                  externalId: p,
+                  rawTs: h,
+                  isPeer: L,
                   retryReason: i.retryReason,
-                  isStateless: (y == null ? void 0 : y.isHosted()) === !0,
-                  receiptModeBitmask: I,
+                  isStateless: (C == null ? void 0 : C.isHosted()) === !0,
+                  receiptModeBitmask: T,
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",
                   ).maybePostMessageHighRetryCountMetric(
-                    N,
+                    M,
                     t,
                     i.failedEnc != null
                       ? o(
                           "WAWebSessionScopeWamUtils",
                         ).getIncomingSkdmSessionScope({
-                          from: y,
+                          from: C,
                           isGroupStatus: a.isGroupStatus,
                           isSkdm: a.isSkdm,
                           metaSessionScope: a.metaSessionScope,
@@ -253,11 +253,11 @@ __d(
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.BACKFILL
               )
                 return o("WAWebHandleMsgSendAck").sendAck({
-                  externalId: m,
-                  from: y,
-                  participant: S,
-                  stanzaClass: k,
-                  type: h,
+                  externalId: p,
+                  from: C,
+                  participant: R,
+                  stanzaClass: I,
+                  type: y,
                 });
               if (
                 i.result ===
@@ -266,53 +266,83 @@ __d(
               )
                 return (l == null ? void 0 : l.canNack) === !1
                   ? o("WAWebHandleMsgSendAck").sendAck({
-                      externalId: m,
-                      from: y,
-                      participant: S,
-                      stanzaClass: k,
-                      type: h,
+                      externalId: p,
+                      from: C,
+                      participant: R,
+                      stanzaClass: I,
+                      type: y,
                     })
                   : o("WAWebHandleMsgSendAck").sendNack(
-                      m,
+                      p,
+                      C,
                       y,
-                      h,
-                      S,
+                      R,
                       o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf,
                       i.e2eFailureReason,
-                      k,
+                      I,
                     );
+              if (
+                i.result ===
+                o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR
+              ) {
+                var w;
+                return (l == null ? void 0 : l.canNack) === !1
+                  ? o("WAWebHandleMsgSendAck").sendAck({
+                      externalId: p,
+                      from: C,
+                      participant: R,
+                      stanzaClass: I,
+                      type: y,
+                    })
+                  : o("WAWebHandleMsgSendAck").sendNack(
+                      p,
+                      C,
+                      y,
+                      R,
+                      (w = i.nackReason) != null
+                        ? w
+                        : o("WAWebCreateNackFromStanza").NackReason
+                            .ParsingError,
+                      void 0,
+                      I,
+                    );
+              }
               if (
                 i.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.DEFERRED
               )
-                return o("WAWebHandleMsgSendAck").sendAck({
-                  externalId: m,
-                  from: y,
-                  participant: S,
-                  stanzaClass: k,
-                  type: h,
-                });
-              if (
-                i.result ===
-                o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR
-              )
-                return (l == null ? void 0 : l.canNack) === !1
-                  ? o("WAWebHandleMsgSendAck").sendAck({
-                      externalId: m,
-                      from: y,
-                      participant: S,
-                      stanzaClass: k,
-                      type: h,
-                    })
-                  : o("WAWebHandleMsgSendAck").sendNack(
-                      m,
-                      y,
-                      h,
-                      S,
-                      o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-                      void 0,
-                      k,
-                    );
+                return (
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          'sendReceipt: unexpected DEFERRED result for "',
+                          '"',
+                        ])),
+                      p,
+                    )
+                    .sendLogs("send-receipt-unexpected-deferred", {
+                      sampling: 0.01,
+                    }),
+                  (l == null ? void 0 : l.canNack) === !1
+                    ? o("WAWebHandleMsgSendAck").sendAck({
+                        externalId: p,
+                        from: C,
+                        participant: R,
+                        stanzaClass: I,
+                        type: y,
+                      })
+                    : o("WAWebHandleMsgSendAck").sendNack(
+                        p,
+                        C,
+                        y,
+                        R,
+                        o("WAWebCreateNackFromStanza").NackReason
+                          .UnhandledError,
+                        void 0,
+                        I,
+                      )
+                );
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                   i.result,
@@ -320,17 +350,17 @@ __d(
             }
           },
         )),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
       return (
         e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
         o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom) &&
         o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e.author, e.metaFrom)
       );
     }
-    function _(e) {
+    function f(e) {
       return (
         e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
         o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
@@ -341,7 +371,7 @@ __d(
         !o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom)
       );
     }
-    function f(e) {
+    function g(e) {
       var t = 0;
       return (
         e.isOrphanAddon === !0 &&
@@ -362,9 +392,9 @@ __d(
         t
       );
     }
-    ((l.sendReceipt = d),
-      (l.isCoexV2SenderReceiptMessage = p),
-      (l.isCoexV2PeerDeliveryReceiptMessage = _));
+    ((l.sendReceipt = m),
+      (l.isCoexV2SenderReceiptMessage = _),
+      (l.isCoexV2PeerDeliveryReceiptMessage = f));
   },
   98,
 );

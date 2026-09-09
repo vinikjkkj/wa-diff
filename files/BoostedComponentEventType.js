@@ -1294,6 +1294,7 @@ __d(
       ERROR_DISPLAY_VIEW_ISSUE_CLICK: "error_display_view_issue_click",
       ERROR_DISPLAY_NEXT_CLICK: "error_display_next_click",
       ERROR_DISPLAY_CLOSE: "error_display_close",
+      BCP_ERROR_SUMMARY_IMPRESSION: "bcp_error_summary_impression",
       ADS_DRAFT_DOES_NOT_EXIST_DIALOG_IMPRESSION:
         "ads_draft_does_not_exist_dialog_impression",
       SET_DSA_BENEFICIARY: "set_dsa_beneficiary",
@@ -1638,8 +1639,10 @@ __d(
       WEBSITE_LINK_PREFILL: "website_link_prefill",
       MICROSITE_ELIGIBLE_IMPRESSION: "microsite_eligible_impression",
       MICROSITE_TOGGLE: "microsite_toggle",
+      MICROSITE_PREVIEW_OPEN: "microsite_preview_open",
       MICROSITE_SECTION_EDIT: "microsite_section_edit",
       MICROSITE_SECTION_DELETE: "microsite_section_delete",
+      MICROSITE_SECTION_SAVE: "microsite_section_save",
       MICROSITE_CREATE_ATTEMPT: "microsite_create_attempt",
       MICROSITE_SCHEDULE: "microsite_schedule",
       MICROSITE_GENERATION: "microsite_generation",
@@ -1654,6 +1657,8 @@ __d(
       MICROSITE_BOOSTED_COMPONENT_PERSIST:
         "microsite_boosted_component_persist",
       MICROSITE_CONTENT_FILTER: "microsite_content_filter",
+      MICROSITE_RENDER: "microsite_render",
+      MICROSITE_DELETE: "microsite_delete",
       SHOW_IG_USER_DEFAULT_AD_ACCOUNT_LINKING_DISCLOSURE:
         "show_ig_user_default_ad_account_linking_disclosure",
       LWI_BROWSER_ADD_ONS_DEFAULTING_ML_WTM:
@@ -1831,6 +1836,7 @@ __d(
         "fblite_boost_unavailable_create_ad_impression",
       FBLITE_BOOST_UNAVAILABLE_CREATE_AD_CLICK:
         "fblite_boost_unavailable_create_ad_click",
+      FBLITE_BCP_ENTER_FLOW_CLICK: "fblite_bcp_enter_flow_click",
       AD_LIMITS_REMOVED_NOTICE_IMPRESSION:
         "ad_limits_removed_notice_impression",
       AD_LIMITS_REMOVED_NOTICE_DISMISS: "ad_limits_removed_notice_dismiss",

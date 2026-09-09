@@ -13,7 +13,11 @@ __d(
       var r, o, a;
       if (s(t) == e) return t;
       if (t.getElementsByTagName) {
-        for (o = t.getElementsByTagName(n || "*"), a = 0; a < o.length; a++)
+        for (
+          o = t.getElementsByTagName(n != null && n !== "" ? n : "*"), a = 0;
+          a < o.length;
+          a++
+        )
           if (s(o[a]) == e) return o[a];
       } else
         for (o = t.childNodes, a = 0; a < o.length; a++)

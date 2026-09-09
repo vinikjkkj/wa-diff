@@ -11,7 +11,7 @@ __d(
     "WAWebVoipResolutionCap",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoCaptureBase",
-    "WAWebVoipVideoRendererInterface",
+    "WAWebVoipVideoRenderSource",
     "WAWebVoipVideoRendererRegistry",
     "asyncToGeneratorRuntime",
     "err",
@@ -77,8 +77,11 @@ __d(
       te = new ee(),
       ne = new Set(),
       re = 2e3,
-      oe = 2e3;
-    function ae(t) {
+      oe = 2e3,
+      ae = o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderSource.self(
+        o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderStream.CAMERA,
+      );
+    function ie(t) {
       var n = 0,
         r = 0;
       for (var a of ne) {
@@ -117,12 +120,12 @@ __d(
             t,
           );
     }
-    function ie(e, t) {
+    function le(e, t) {
       if (e.readyState !== "live" || e.muted) return !1;
       var n = e.getSettings().deviceId;
       return r("isStringNullOrEmpty")(n) || n === t;
     }
-    var le = (function (e) {
+    var se = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -354,9 +357,7 @@ __d(
                 T != null &&
                   (o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.resetFirstFrameReceivedForJid(
-                    o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                  ),
+                  ).videoRendererRegistry.resetFirstFrameReceivedForSource(ae),
                   this.__monitorFrameProduction(T));
                 var D = k != null ? k : v;
                 (this.currentDeviceId !== D &&
@@ -431,9 +432,7 @@ __d(
                   }),
                   o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.resetFirstFrameReceivedForJid(
-                    o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                  ),
+                  ).videoRendererRegistry.resetFirstFrameReceivedForSource(ae),
                   l)
                 ) {
                   var u = this.__lastCapturedStream;
@@ -510,16 +509,14 @@ __d(
                 : [];
             if (
               !i.some(function (e) {
-                return ie(e, a);
+                return le(e, a);
               })
             )
               return !1;
             var l =
               (n = o(
                 "WAWebVoipVideoRendererRegistry",
-              ).videoRendererRegistry.getDecodeStatsForJid(
-                o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-              )) == null
+              ).videoRendererRegistry.getDecodeStatsForSource(ae)) == null
                 ? void 0
                 : n.lastFrameTimestampMs;
             return l != null && window.performance.now() - l < oe;
@@ -835,9 +832,7 @@ __d(
                   if (
                     o(
                       "WAWebVoipVideoRendererRegistry",
-                    ).videoRendererRegistry.hasReceivedFirstFrameForJid(
-                      o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                    )
+                    ).videoRendererRegistry.hasReceivedFirstFrameForSource(ae)
                   ) {
                     (o("WALogger").LOG(
                       B ||
@@ -851,9 +846,7 @@ __d(
                   if (
                     !o(
                       "WAWebVoipVideoRendererRegistry",
-                    ).videoRendererRegistry.hasCanvasForJid(
-                      o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                    ) &&
+                    ).videoRendererRegistry.hasCanvasForSource(ae) &&
                     p < m
                   ) {
                     (p++,
@@ -1003,11 +996,11 @@ __d(
                           c,
                         ));
                   }
-                  (ae("stopCapture"),
+                  (ie("stopCapture"),
                     o(
                       "WAWebVoipVideoRendererRegistry",
-                    ).videoRendererRegistry.resetFirstFrameReceivedForJid(
-                      o("WAWebVoipVideoRendererInterface").selfPreviewJid,
+                    ).videoRendererRegistry.resetFirstFrameReceivedForSource(
+                      ae,
                     ),
                     (this.__stopping = !1));
                 }
@@ -1122,8 +1115,8 @@ __d(
           t
         );
       })(o("WAWebVoipVideoCaptureBase").WAWebVoipVideoCaptureBase),
-      se = new le();
-    ((l.VideoDeviceEvents = te), (l.WAWebVoipVideoCameraCapture = se));
+      ue = new se();
+    ((l.VideoDeviceEvents = te), (l.WAWebVoipVideoCameraCapture = ue));
   },
   98,
 );

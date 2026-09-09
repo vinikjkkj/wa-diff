@@ -27,7 +27,7 @@ __d(
     function c(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(23),
+        a = o("react-compiler-runtime").c(24),
         i = e.border,
         l = e.isRefresh,
         u = e.onSelect,
@@ -98,7 +98,8 @@ __d(
           (a[11] = L))
         : (L = a[11]);
       var E = (n = c.testid) != null ? n : "settings-search-" + c.id,
-        k;
+        k = R === "negative",
+        I;
       return (
         a[12] !== i ||
         a[13] !== R ||
@@ -109,8 +110,9 @@ __d(
         a[18] !== h ||
         a[19] !== c.id ||
         a[20] !== L ||
-        a[21] !== E
-          ? ((k = s.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+        a[21] !== E ||
+        a[22] !== k
+          ? ((I = s.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
               optionId: c.id,
               onSelect: u,
               detailLeft: g,
@@ -122,6 +124,7 @@ __d(
               isRefresh: l,
               textWrap: "wrap",
               colorScheme: R,
+              applyWrapperFocusStyles: k,
             })),
             (a[12] = i),
             (a[13] = R),
@@ -133,9 +136,10 @@ __d(
             (a[19] = c.id),
             (a[20] = L),
             (a[21] = E),
-            (a[22] = k))
-          : (k = a[22]),
-        k
+            (a[22] = k),
+            (a[23] = I))
+          : (I = a[23]),
+        I
       );
     }
     function d(e) {

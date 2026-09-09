@@ -3,99 +3,88 @@ __d(
   [
     "WAWebFrontendContactGetters",
     "WAWebTextStatusGatingUtils",
+    "WAWebTextStatusGetters",
     "WAWebTextStatusUtils",
     "react-compiler-runtime",
     "useWAWebContactValues",
-    "useWAWebModelValues",
+    "useWAWebTextStatusValues",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("react-compiler-runtime").c(24),
-        n;
-      t[0] !== e ? ((n = e.getStatus()), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = ["status"]), (t[2] = a))
-        : (a = t[2]);
-      var i = o("useWAWebModelValues").useModelValues(r, a),
-        l = i.status,
-        s;
-      if (t[3] === Symbol.for("react.memo_cache_sentinel")) {
-        var u;
-        ((s = [
-          (u = o("WAWebFrontendContactGetters")).getTextStatusString,
-          u.getTextStatusEmoji,
-          u.getTextStatusLastUpdateTime,
-          u.getTextStatusExpiryTs,
-          u.getTextStatusEphemeralDuration,
+      var t = o("react-compiler-runtime").c(16),
+        n = e.getStatus(),
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = [o("WAWebTextStatusGetters").getStatus]), (t[0] = r))
+        : (r = t[0]);
+      var a = o("useWAWebTextStatusValues").useTextStatusValues(n.id, r),
+        i = a[0],
+        l;
+      if (t[1] === Symbol.for("react.memo_cache_sentinel")) {
+        var s;
+        ((l = [
+          (s = o("WAWebFrontendContactGetters")).getTextStatusString,
+          s.getTextStatusEmoji,
+          s.getTextStatusLastUpdateTime,
+          s.getTextStatusExpiryTs,
+          s.getTextStatusEphemeralDuration,
         ]),
-          (t[3] = s));
-      } else s = t[3];
-      var c = o("useWAWebContactValues").useContactValues(e.id, s),
-        d = c[0],
-        m = c[1],
-        p = c[2],
-        _ = c[3],
-        f = c[4],
-        g;
-      t[4] !== m || t[5] !== f || t[6] !== _ || t[7] !== p || t[8] !== d
-        ? ((g = o("WAWebTextStatusUtils").shouldDisplayTextStatus(
+          (t[1] = l));
+      } else l = t[1];
+      var u = o("useWAWebContactValues").useContactValues(e.id, l),
+        c = u[0],
+        d = u[1],
+        m = u[2],
+        p = u[3],
+        _ = u[4],
+        f;
+      t[2] !== d || t[3] !== _ || t[4] !== p || t[5] !== m || t[6] !== c
+        ? ((f = o("WAWebTextStatusUtils").shouldDisplayTextStatus(
+            c,
             d,
             m,
             p,
             _,
-            f,
           )),
-          (t[4] = m),
-          (t[5] = f),
-          (t[6] = _),
-          (t[7] = p),
-          (t[8] = d),
-          (t[9] = g))
-        : (g = t[9]);
-      var h = g,
-        y;
-      t[10] !== p
-        ? ((y = o("WAWebTextStatusUtils").hasEverHadTextStatus(p)),
-          (t[10] = p),
-          (t[11] = y))
-        : (y = t[11]);
-      var C = y,
-        b;
-      t[12] !== p
-        ? ((b = o("WAWebTextStatusUtils").isTextStatusNotFetched(p)),
-          (t[12] = p),
-          (t[13] = b))
-        : (b = t[13]);
-      var v = b,
+          (t[2] = d),
+          (t[3] = _),
+          (t[4] = p),
+          (t[5] = m),
+          (t[6] = c),
+          (t[7] = f))
+        : (f = t[7]);
+      var g = f,
+        h;
+      t[8] !== m
+        ? ((h = o("WAWebTextStatusUtils").hasEverHadTextStatus(m)),
+          (t[8] = m),
+          (t[9] = h))
+        : (h = t[9]);
+      var y = h,
+        C;
+      t[10] !== m
+        ? ((C = o("WAWebTextStatusUtils").isTextStatusNotFetched(m)),
+          (t[10] = m),
+          (t[11] = C))
+        : (C = t[11]);
+      var b = C,
+        v = o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
+          ? b || g || (!y && o("WAWebTextStatusUtils").hasCustomAboutSet(n))
+          : i !== "",
         S;
-      t[14] !== C || t[15] !== h || t[16] !== r || t[17] !== l || t[18] !== v
-        ? ((S = o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
-            ? v || h || (!C && o("WAWebTextStatusUtils").hasCustomAboutSet(r))
-            : l !== ""),
-          (t[14] = C),
-          (t[15] = h),
-          (t[16] = r),
-          (t[17] = l),
-          (t[18] = v),
-          (t[19] = S))
-        : (S = t[19]);
-      var R = S,
-        L;
       return (
-        t[20] !== C || t[21] !== h || t[22] !== R
-          ? ((L = {
-              shouldRenderAboutSection: R,
-              displayTextStatus: h,
-              hasEverHadTextStatus: C,
+        t[12] !== y || t[13] !== g || t[14] !== v
+          ? ((S = {
+              shouldRenderAboutSection: v,
+              displayTextStatus: g,
+              hasEverHadTextStatus: y,
             }),
-            (t[20] = C),
-            (t[21] = h),
-            (t[22] = R),
-            (t[23] = L))
-          : (L = t[23]),
-        L
+            (t[12] = y),
+            (t[13] = g),
+            (t[14] = v),
+            (t[15] = S))
+          : (S = t[15]),
+        S
       );
     }
     l.useAboutDisplayStatus = e;

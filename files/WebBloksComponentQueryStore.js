@@ -32,17 +32,29 @@ __d(
         return (
           (t.getCachedComponentsOrSubscribeToQuery = function (t, n, r, a) {
             var e = o("WebBloksCacheUtils").generateCacheKey(t, n),
-              i = this.$1.get(e);
-            if (i != null && o("WebBloksCacheUtils").isResponseFresh(i, r)) {
-              var l = babelHelpers.extends(
-                { result: i.response, success: !0 },
-                o("WebBloksCachedStackedScreens").readCachedStackedScreens(i),
+              i = this.$8(e, r);
+            if (i != null) return { value: i, cancelToken: null };
+            var l = this.$9(a, e);
+            return {
+              value: null,
+              cancelToken: function () {
+                return l.token.run();
+              },
+            };
+          }),
+          (t.getCachedComponents = function (t, n, r) {
+            return this.$8(o("WebBloksCacheUtils").generateCacheKey(t, n), r);
+          }),
+          (t.$8 = function (t, n) {
+            var e = this.$1.get(t);
+            if (e != null && o("WebBloksCacheUtils").isResponseFresh(e, n)) {
+              var r = babelHelpers.extends(
+                { result: e.response, success: !0 },
+                o("WebBloksCachedStackedScreens").readCachedStackedScreens(e),
               );
-              return { value: l, cancelToken: null };
-            } else {
-              var s = this.$8(a, e);
-              return { value: null, cancelToken: s.token };
+              return r;
             }
+            return null;
           }),
           (t.fetch = function (t, n, r, a) {
             var e = this,
@@ -62,7 +74,7 @@ __d(
               queryPurpose: a,
             };
             this.$3.runQuery(i, u, function (t) {
-              e.$9(i, t);
+              e.$10(i, t);
             });
           }),
           (t.invalidate = function (t, n) {
@@ -93,14 +105,14 @@ __d(
               queryPurpose: "PREFETCH",
             });
           }),
-          (t.$8 = function (t, n) {
+          (t.$9 = function (t, n) {
             this.$2 = this.$2.filter(function (e) {
               return !e.token.canceled;
             });
             var e = new u(t, n);
             return (this.$2.push(e), e);
           }),
-          (t.$9 = function (t, n) {
+          (t.$10 = function (t, n) {
             var e = [],
               r = [];
             for (var o of this.$2)

@@ -21,19 +21,7 @@ __d(
             });
         });
     }
-    function u(e) {
-      return o("WAWebModelStorageInitialize")
-        .initializeWithoutGKs()
-        .then(function () {
-          return o("WAWebSchemaAbPropEventSamplingConfig")
-            .getAbpropEventSamplingConfigsTable()
-            .get(e)
-            .then(function (e) {
-              return e == null ? void 0 : e.samplingWeight;
-            });
-        });
-    }
-    function c(t) {
+    function u(t) {
       if (t == null || t.length === 0)
         return (e || (e = n("Promise"))).resolve(!1);
       var r = [];
@@ -51,9 +39,7 @@ __d(
           })
       );
     }
-    ((l.getEventSamplingConfigs = s),
-      (l.getEventSamplingWeight = u),
-      (l.updateEventSamplingConfigs = c));
+    ((l.getEventSamplingConfigs = s), (l.updateEventSamplingConfigs = u));
   },
   98,
 );

@@ -56,28 +56,28 @@ __d(
           ? 2
           : 0;
       }
-      var d = l[0],
-        u = e._nodeMap.get(d.__key);
+      var u = l[0],
+        d = e._nodeMap.get(u.__key);
       if (
-        !require("Lexical").$isTextNode(u) ||
         !require("Lexical").$isTextNode(d) ||
-        u.__mode !== d.__mode
+        !require("Lexical").$isTextNode(u) ||
+        d.__mode !== u.__mode
       )
         return 0;
-      var c = u.__text,
-        _ = d.__text;
+      var c = d.__text,
+        _ = u.__text;
       if (c === _) return 0;
       var p = a.anchor,
         f = s.anchor;
       if (p.key !== f.key || "text" !== p.type) return 0;
       var h = p.offset,
         g = f.offset,
-        O = _.length - c.length;
-      return 1 === O && g === h - 1
+        S = _.length - c.length;
+      return 1 === S && g === h - 1
         ? 2
-        : -1 === O && g === h + 1
+        : -1 === S && g === h + 1
           ? 3
-          : -1 === O && g === h
+          : -1 === S && g === h
             ? 4
             : 0;
     }
@@ -86,34 +86,34 @@ __d(
         a = 0,
         s = i,
         l = 0,
-        d = null;
-      return function (u, c, _, p, f, h) {
+        u = null;
+      return function (d, c, _, p, f, h) {
         var g = r();
         if (
           (h.has(require("Lexical").COMPOSITION_START_TAG) &&
-            ((s = i), (l = a), (d = u)),
+            ((s = i), (l = a), (u = d)),
           h.has(require("Lexical").HISTORIC_TAG))
         )
           return ((a = 0), (i = g), 2);
         h.has(require("Lexical").COMPOSITION_END_TAG) &&
-          d &&
-          ((i = s), (a = l), (u = d));
-        var O =
+          u &&
+          ((i = s), (a = l), (d = u));
+        var S =
             h.has(require("Lexical").PASTE_TAG) ||
             h.has(require("Lexical").CUT_TAG)
               ? 0
-              : n(u, c, p, f, e.isComposing()),
-          S = (function () {
+              : n(d, c, p, f, e.isComposing()),
+          O = (function () {
             var n = null === _ || _.editor === e,
               r = h.has(require("Lexical").HISTORY_PUSH_TAG);
             if (!r && n && h.has(require("Lexical").HISTORY_MERGE_TAG))
               return 0;
-            if (1 === O) return 2;
-            if (null === u) return 1;
+            if (1 === S) return 2;
+            if (null === d) return 1;
             var s = c._selection;
             if (!(p.size > 0 || f.size > 0)) return null !== s ? 0 : 2;
             var l = "number" == typeof o ? o : o.peek();
-            if (!1 === r && 0 !== O && O === a && g < i + l && n) return 0;
+            if (!1 === r && 0 !== S && S === a && g < i + l && n) return 0;
             if (1 === p.size) {
               if (
                 (function (e, n, o) {
@@ -144,61 +144,70 @@ __d(
                         }),
                       )
                   );
-                })(Array.from(p)[0], u, c)
+                })(Array.from(p)[0], d, c)
               )
                 return 0;
             }
             return 1;
           })();
-        return ((i = g), (a = O), S);
+        return ((i = g), (a = S), O);
       };
     }
     function r(e, t) {
+      if (null !== t && t.editor === e.editor) return t;
+      var n = e.editor,
+        o = n.getEditorState();
+      return o.isEmpty() ? null : { editor: n, editorState: o };
+    }
+    function i(e, t) {
       ((e.undoStack = []), (e.redoStack = []), (e.current = null), t && t(e));
     }
-    function i(e, n, i, a, s, l) {
-      if (a === void 0) {
-        a = Date.now;
+    function a(e, n, a, s, l, u) {
+      if (s === void 0) {
+        s = Date.now;
       }
-      if (l === void 0) {
-        l = null;
+      if (u === void 0) {
+        u = null;
       }
-      var d = o(e, i, a),
-        u = function u() {
-          s && s(n);
+      var d = o(e, a, s),
+        c = function c() {
+          l && l(n);
         };
       return (
-        u(),
+        c(),
         require("Lexical").mergeRegister(
           e.registerCommand(
             require("Lexical").UNDO_COMMAND,
             function () {
               return (
                 (function (e, n, o) {
-                  var r = n.redoStack,
-                    i = n.undoStack;
-                  if (0 !== i.length) {
-                    var _a = n.current,
-                      _s = i.pop();
-                    (null !== _a &&
-                      (r.push(_a),
-                      e.dispatchCommand(
-                        require("Lexical").CAN_REDO_COMMAND,
-                        !0,
-                      )),
-                      0 === i.length &&
+                  var i = n.redoStack,
+                    a = n.undoStack;
+                  if (0 !== a.length) {
+                    var _s = n.current,
+                      _l = a.pop();
+                    if (_l) {
+                      var _n2 = r(_l, _s);
+                      null !== _n2 &&
+                        (i.push(_n2),
                         e.dispatchCommand(
-                          require("Lexical").CAN_UNDO_COMMAND,
-                          !1,
-                        ),
-                      (n.current = _s || null),
+                          require("Lexical").CAN_REDO_COMMAND,
+                          !0,
+                        ));
+                    }
+                    (0 === a.length &&
+                      e.dispatchCommand(
+                        require("Lexical").CAN_UNDO_COMMAND,
+                        !1,
+                      ),
+                      (n.current = _l || null),
                       o && o(n),
-                      _s &&
-                        _s.editor.setEditorState(_s.editorState, {
+                      _l &&
+                        _l.editor.setEditorState(_l.editorState, {
                           tag: require("Lexical").HISTORIC_TAG,
                         }));
                   }
-                })(e, n, s),
+                })(e, n, l),
                 !0
               );
             },
@@ -209,30 +218,33 @@ __d(
             function () {
               return (
                 (function (e, n, o) {
-                  var r = n.redoStack,
-                    i = n.undoStack;
-                  if (0 !== r.length) {
-                    var _a2 = n.current;
-                    null !== _a2 &&
-                      (i.push(_a2),
-                      e.dispatchCommand(
-                        require("Lexical").CAN_UNDO_COMMAND,
-                        !0,
-                      ));
-                    var _s2 = r.pop();
-                    (0 === r.length &&
+                  var i = n.redoStack,
+                    a = n.undoStack;
+                  if (0 !== i.length) {
+                    var _s2 = n.current,
+                      _l2 = i.pop();
+                    if (_l2) {
+                      var _n3 = r(_l2, _s2);
+                      null !== _n3 &&
+                        (a.push(_n3),
+                        e.dispatchCommand(
+                          require("Lexical").CAN_UNDO_COMMAND,
+                          !0,
+                        ));
+                    }
+                    (0 === i.length &&
                       e.dispatchCommand(
                         require("Lexical").CAN_REDO_COMMAND,
                         !1,
                       ),
-                      (n.current = _s2 || null),
+                      (n.current = _l2 || null),
                       o && o(n),
-                      _s2 &&
-                        _s2.editor.setEditorState(_s2.editorState, {
+                      _l2 &&
+                        _l2.editor.setEditorState(_l2.editorState, {
                           tag: require("Lexical").HISTORIC_TAG,
                         }));
                   }
-                })(e, n, s),
+                })(e, n, l),
                 !0
               );
             },
@@ -241,7 +253,7 @@ __d(
           e.registerCommand(
             require("Lexical").CLEAR_EDITOR_COMMAND,
             function () {
-              return (r(n, s), !1);
+              return (i(n, l), !1);
             },
             require("Lexical").COMMAND_PRIORITY_EDITOR,
           ),
@@ -249,7 +261,7 @@ __d(
             require("Lexical").CLEAR_HISTORY_COMMAND,
             function () {
               return (
-                r(n, s),
+                i(n, l),
                 e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1),
                 e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !1),
                 !0
@@ -263,34 +275,41 @@ __d(
               i = _ref3.dirtyLeaves,
               a = _ref3.dirtyElements,
               s = _ref3.tags;
-            var c = n.current,
+            var l = n.current,
               _ = n.redoStack,
               p = n.undoStack,
-              f = null === c ? null : c.editorState;
-            if (null !== c && o === f) return;
-            var h = d(r, o, c, i, a, s);
+              f = null === l ? null : l.editorState;
+            if (null !== l && o === f) return;
+            var h = d(r, o, l, i, a, s);
             if (1 === h) {
-              if (
-                (0 !== _.length &&
-                  ((n.redoStack = []),
-                  e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1)),
-                null !== c)
-              ) {
-                p.push(babelHelpers["extends"]({}, c));
-                var _n2 = "number" == typeof l || null === l ? l : l.peek();
-                (null !== _n2 && p.length > _n2 && p.splice(0, p.length - _n2),
+              0 !== _.length &&
+                ((n.redoStack = []),
+                e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1));
+              var _o3 = (function (e, t, n) {
+                return null === n
+                  ? null
+                  : n.editor === e
+                    ? babelHelpers["extends"]({}, n)
+                    : t.isEmpty()
+                      ? null
+                      : { editor: e, editorState: t };
+              })(e, r, l);
+              if (null !== _o3) {
+                p.push(_o3);
+                var _n4 = "number" == typeof u || null === u ? u : u.peek();
+                (null !== _n4 && p.length > _n4 && p.splice(0, p.length - _n4),
                   e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !0));
               }
             } else if (2 === h) return;
-            ((n.current = { editor: e, editorState: o }), u());
+            ((n.current = { editor: e, editorState: o }), c());
           }),
         )
       );
     }
-    function a() {
+    function s() {
       return { current: null, redoStack: [], undoStack: [] };
     }
-    var s = {
+    var l = {
       build: function build(t, _ref4, s) {
         var n = _ref4.delay,
           o = _ref4.createInitialHistoryState,
@@ -310,11 +329,13 @@ __d(
         );
       },
       config: {
-        createInitialHistoryState: a,
+        createInitialHistoryState: s,
         delay: 300,
         disabled: "undefined" == typeof window,
         maxDepth: null,
-        now: Date.now,
+        now: function now() {
+          return Date.now();
+        },
       },
       init: function init() {
         return {
@@ -326,17 +347,17 @@ __d(
       register: function register(t, n, o) {
         var _o$getInitResult = o.getInitResult(),
           r = _o$getInitResult.canUndo,
-          a = _o$getInitResult.canRedo,
+          i = _o$getInitResult.canRedo,
           s = o.getOutput(),
           l = function l(t) {
             return require("LexicalExtension").batch(function () {
               ((r.value = null != t && t.undoStack.length > 0),
-                (a.value = null != t && t.redoStack.length > 0));
+                (i.value = null != t && t.redoStack.length > 0));
             });
           };
         return require("LexicalExtension").effect(function () {
           if (!s.disabled.value)
-            return i(
+            return a(
               t,
               s.historyState.value,
               s.delay,
@@ -350,7 +371,16 @@ __d(
         });
       },
     };
-    var l = {
+    function u(t) {
+      var n = t
+        ? require("LexicalExtension").getPeerDependencyFromEditor(
+            t,
+            "@lexical/extension/HMR",
+          )
+        : void 0;
+      return n ? n.output.restoreCount.value : 0;
+    }
+    var d = {
       build: function build(t, _ref5) {
         var n = _ref5.disabled,
           o = _ref5.parentEditor;
@@ -360,41 +390,42 @@ __d(
         });
       },
       config: { disabled: !1, parentEditor: null },
-      dependencies: [[s, { disabled: !0 }]],
+      dependencies: [[l, { disabled: !0 }]],
       name: "@lexical/history/SharedHistory",
       register: function register(t, n, o) {
         return require("LexicalExtension").effect(function () {
           var _o$getOutput = o.getOutput(),
-            t = _o$getOutput.disabled,
-            n = _o$getOutput.parentEditor;
-          if (!t.value) {
-            var _o$getDependency = o.getDependency(s),
-              _t2 = _o$getDependency.output,
-              _r2 = (function (t) {
-                return t
-                  ? require("LexicalExtension").getPeerDependencyFromEditor(
-                      t,
-                      s.name,
-                    )
-                  : null;
-              })(n.value);
-            if (!_r2) return;
-            var _i2 = _r2.output;
+            n = _o$getOutput.disabled,
+            r = _o$getOutput.parentEditor;
+          if (!n.value) {
+            var _o$getDependency = o.getDependency(l),
+              _n5 = _o$getDependency.output;
+            (u(t), u(r.value));
+            var _i2 = (function (t) {
+              return t
+                ? require("LexicalExtension").getPeerDependencyFromEditor(
+                    t,
+                    l.name,
+                  )
+                : null;
+            })(r.value);
+            if (!_i2) return;
+            var _a = _i2.output;
             require("LexicalExtension").batch(function () {
-              ((_t2.delay.value = _i2.delay.value),
-                (_t2.historyState.value = _i2.historyState.value),
-                (_t2.now.value = _i2.now.value),
-                (_t2.maxDepth.value = _i2.maxDepth.value),
-                (_t2.disabled.value = _i2.disabled.value));
+              ((_n5.delay.value = _a.delay.value),
+                (_n5.historyState.value = _a.historyState.value),
+                (_n5.now.value = _a.now.value),
+                (_n5.maxDepth.value = _a.maxDepth.value),
+                (_n5.disabled.value = _a.disabled.value));
             });
           }
         });
       },
     };
-    ((exports.HistoryExtension = s),
-      (exports.SharedHistoryExtension = l),
-      (exports.createEmptyHistoryState = a),
-      (exports.registerHistory = i));
+    ((exports.HistoryExtension = l),
+      (exports.SharedHistoryExtension = d),
+      (exports.createEmptyHistoryState = s),
+      (exports.registerHistory = a));
   },
   null,
 );

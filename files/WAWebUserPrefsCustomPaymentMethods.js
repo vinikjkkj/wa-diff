@@ -138,28 +138,10 @@ __d(
     function p() {
       return o("WAWebPaymentMethodPIX").isStoredPIXValid(u());
     }
-    function _(e, t) {
-      var n = o("WAWebPaymentMethodTypeRegistry").PaymentMethodTypeRegistry.get(
-        e,
-      );
-      if (n != null) {
-        var a = u();
-        a != null &&
-          (n.removeEntry(t, {
-            out: a,
-            existingMethods: babelHelpers.extends({}, a),
-          }),
-          r("WAWebUserPrefsLocalStorage").setItemToLocalStorage(
-            o("WAWebUserPrefsKeys").KEYS.CUSTOM_PAYMENT_METHODS,
-            a,
-          ));
-      }
-    }
     ((l.getPIX = c),
       (l.getAllUprStoredKeys = d),
       (l.setCustomPaymentMethods = m),
       (l.isPIXValid = p),
-      (l.removeCustomPaymentMethod = _),
       (l.isStringFieldValid = o(
         "WAWebUserPrefsValidators",
       ).isStringFieldValid));

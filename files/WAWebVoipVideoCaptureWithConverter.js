@@ -12,9 +12,8 @@ __d(
     "WAWebVoipEncodeTargetFpsState",
     "WAWebVoipMediaEnums",
     "WAWebVoipPopoutWindowState",
-    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipVideoCaptureSourceRect",
-    "WAWebVoipVideoRendererInterface",
+    "WAWebVoipVideoRenderSource",
     "WAWebVoipVideoRendererRegistry",
     "asyncToGeneratorRuntime",
     "err",
@@ -144,7 +143,11 @@ __d(
           }),
           (a.handleCaptureError = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
+              function* (e) {
+                var t = e.error,
+                  n = e.frameInterval,
+                  r = e.logPrefix,
+                  a = e.requestCallback;
                 if (
                   (o("WALogger").ERROR(
                     s ||
@@ -153,23 +156,23 @@ __d(
                         " video processing error: ",
                         "",
                       ])),
+                    r,
                     t,
-                    e,
                   ),
                   this.consecutiveErrors++,
                   this.consecutiveErrors >= K && !this.isStopped)
                 ) {
-                  var a = yield this.attemptFallbackRecovery(t);
-                  a && n(r);
+                  var i = yield this.attemptFallbackRecovery(r);
+                  i && a(n);
                   return;
                 }
                 !this.isStopped &&
                   this.mediaCaptureStream != null &&
                   this.converter != null &&
-                  n(r);
+                  a(n);
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;
@@ -826,7 +829,12 @@ __d(
                                 try {
                                   O = yield s.converter.convertVideoToNV12(f);
                                 } catch (t) {
-                                  yield s.handleCaptureError(t, $, e, i);
+                                  yield s.handleCaptureError({
+                                    error: t,
+                                    frameInterval: i,
+                                    logPrefix: $,
+                                    requestCallback: e,
+                                  });
                                   return;
                                 }
                                 s.consecutiveErrors = 0;
@@ -903,19 +911,18 @@ __d(
                                     .sendLogs(
                                       "voip: wasm: video buffer not initialized",
                                     );
-                                var z =
+                                var z = o(
+                                  "WAWebVoipVideoRenderSource",
+                                ).WAWebVoipVideoRenderSource.self(
                                   m === "onDesktopCaptureDataFromJs" &&
-                                  o(
-                                    "WAWebVoipDualStreamScreenShareState",
-                                  ).isSelfDualStreamScreenShareActive()
-                                    ? o(
-                                        "WAWebVoipScreenShareStreamKey",
-                                      ).getScreenShareStreamKey(
-                                        o("WAWebVoipVideoRendererInterface")
-                                          .selfPreviewJid,
-                                      )
-                                    : o("WAWebVoipVideoRendererInterface")
-                                        .selfPreviewJid;
+                                    o(
+                                      "WAWebVoipDualStreamScreenShareState",
+                                    ).isSelfDualStreamScreenShareActive()
+                                    ? o("WAWebVoipVideoRenderSource")
+                                        .WAWebVoipVideoRenderStream.SCREEN_SHARE
+                                    : o("WAWebVoipVideoRenderSource")
+                                        .WAWebVoipVideoRenderStream.CAMERA,
+                                );
                                 (o(
                                   "WAWebVoipVideoRendererRegistry",
                                 ).videoRendererRegistry.onVideoFrameWasmToJs(

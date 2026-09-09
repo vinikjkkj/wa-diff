@@ -596,60 +596,77 @@ __d(
             keyPathBase: a,
           })
         : (m = l);
-      var p;
-      if (typeof m.templateId == "number") {
-        var _ = m.templateId,
-          f = t.getChildren_DEPRECATED(
+      var p,
+        _ = m.parseResult,
+        f = null;
+      if (_ != null) {
+        var g;
+        p = _.unboundModel;
+        var h = e.clientIdToScopedIdMapper.getScopedClientId(p, m.scopeKey);
+        f = o("WebBloksScopedIds").extendKeyPath(m.keyPathBase, h);
+        var y = (g = m.resourceIdentifier) != null ? g : String(p.clientId);
+        if (!e.isResourceProcessed(y)) {
+          var C;
+          e.collectTreeResource(_.resources, y);
+          var b = (C = _.resources.variableDefinitions) != null ? C : [];
+          b.length > 0 && e.processVariableManifestsInBind(b, f);
+        }
+      } else if (typeof m.templateId == "number") {
+        var S = m.templateId,
+          R = t.getChildren_DEPRECATED(
             t.usesCanonicalKeys()
               ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs
                   .child_templates
               : o("WebBloksConstants").CHILD_TEMPLATES,
           );
-        if (_ < 0 || _ >= f.length)
+        if (S < 0 || S >= R.length)
           throw new (o("WebBloksErrors").WebBloksError)(
-            "Invalid child template index " + _ + " for " + m.scopeKey,
+            "Invalid child template index " + S + " for " + m.scopeKey,
           );
-        p = f[_];
+        p = R[S];
       } else {
-        var g = m.templateId,
-          h = e.resources.payloads.get(g);
-        if (h != null) {
-          var y = e.getCachedTemplatePayload(g);
-          (y == null &&
-            ((y = o("WebBloksPayloadParser").parseTree(
-              h.payload,
+        var L = m.templateId,
+          E = e.resources.payloads.get(L);
+        if (E != null) {
+          var k = e.getCachedTemplatePayload(L);
+          (k == null &&
+            ((k = o("WebBloksPayloadParser").parseTree(
+              E.payload,
               s,
               u,
               null,
               c,
               d,
             )),
-            e.cacheTemplatePayload(g, y)),
-            (p = y.unboundModel));
-          var C = g;
-          if (!e.isResourceProcessed(C)) {
-            var b;
-            e.collectTreeResource(y.resources, C);
-            var S = (b = y.resources.variableDefinitions) != null ? b : [];
-            S.length > 0 && e.processVariableManifestsInBind(S, a);
+            e.cacheTemplatePayload(L, k)),
+            (p = k.unboundModel));
+          var I = L;
+          if (!e.isResourceProcessed(I)) {
+            var T;
+            e.collectTreeResource(k.resources, I);
+            var D = (T = k.resources.variableDefinitions) != null ? T : [];
+            D.length > 0 && e.processVariableManifestsInBind(D, a);
           }
         } else {
-          var R = e.resources.templates.get(g);
-          if (R == null)
+          var x = e.resources.templates.get(L);
+          if (x == null)
             throw new (o("WebBloksErrors").WebBloksError)(
-              "No such template in tree resources: " + g,
+              "No such template in tree resources: " + L,
             );
-          p = R;
+          p = x;
         }
       }
-      var L = e.clientIdToScopedIdMapper.getScopedClientId(p, m.scopeKey),
-        E = o("WebBloksScopedIds").extendKeyPath(m.keyPathBase, L),
-        k = o("WebBloksScopedIds").buildKeypathBase(E);
-      m.expandedVariables.size > 0 && v(e, m.expandedVariables, k, i);
-      var I = e.cache.getUnboundChildTemplates(n);
-      if (I) {
-        var T = I.get(L);
-        if (T) return T;
+      var $ = e.clientIdToScopedIdMapper.getScopedClientId(p, m.scopeKey),
+        P =
+          f != null
+            ? f
+            : o("WebBloksScopedIds").extendKeyPath(m.keyPathBase, $),
+        N = o("WebBloksScopedIds").buildKeypathBase(P);
+      m.expandedVariables.size > 0 && v(e, m.expandedVariables, N, i);
+      var M = e.cache.getUnboundChildTemplates(n);
+      if (M) {
+        var w = M.get($);
+        if (w) return w;
       }
       return o("WebBloksUpdateTraversal").runUpdateTraversal(
         p,
@@ -657,7 +674,7 @@ __d(
           apply: function (n) {
             return e.clientIdToScopedIdMapper.copyModelWithKeyPath(
               n,
-              E,
+              P,
               m.scopeKey,
             );
           },

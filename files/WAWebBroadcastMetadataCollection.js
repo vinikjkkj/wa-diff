@@ -6,6 +6,7 @@ __d(
     "WAWebAudienceExpressionTypes",
     "WAWebBaseModel",
     "WAWebBroadcastDatabaseJob",
+    "WAWebBroadcastMetadataGetters",
     "WAWebBroadcastMetadataModel",
     "WAWebContactCollection",
     "WAWebDebounce",
@@ -190,6 +191,25 @@ __d(
                         );
                     });
               });
+          }),
+          (i.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o(
+                    "WAWebBroadcastMetadataGetters",
+                  ).clearBroadcastMetadataGetterCacheFor(e);
+              }),
+              e
+            );
+          }),
+          (i.reset = function () {
+            (this.forEach(
+              o("WAWebBroadcastMetadataGetters")
+                .clearBroadcastMetadataGetterCacheFor,
+            ),
+              t.prototype.reset.call(this));
           }),
           a
         );

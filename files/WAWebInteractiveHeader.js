@@ -7,6 +7,8 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetInteractiveHeaderAction",
     "WAWebInAppSignupConfirmationHeader.react",
+    "WAWebInAppSignupPrompt",
+    "WAWebInAppSignupPromptHeader.react",
     "WAWebInteractiveImageHeader",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -52,6 +54,13 @@ __d(
           marginInlineStart: "x137kccz",
           $$css: !0,
         },
+        signupPromptHeaderSpacing: {
+          marginTop: "xdj266r",
+          marginInlineEnd: "x14z9mp",
+          marginBottom: "xat24cr",
+          marginInlineStart: "x1lziwak",
+          $$css: !0,
+        },
       };
     function d(t) {
       var n = t.displayType,
@@ -65,25 +74,27 @@ __d(
         _ = r("useWAWebConversationPanelCanCompose")(p),
         f = _[0],
         g = o("WAWebOrderDetails").getOrderInfo(s),
-        h = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+        h = o("WAWebInAppSignupPrompt").getInAppSignupPromptInfo(s),
+        y = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
           p,
           g == null ? void 0 : g.referenceId,
           o("WAWebOrderStatus").isSimplifiedOrder(g),
         ),
-        y = s.interactiveHeader,
-        C,
+        C = s.interactiveHeader,
         b,
-        v = !1,
-        S = !1;
+        v,
+        S = !1,
+        R = !1,
+        L = !1;
       if (
         !o("WAWebOrderStatus").hasOrderStatusButton(s) &&
-        y != null &&
-        y.mediaType
+        C != null &&
+        C.mediaType
       )
-        switch (y.mediaType) {
+        switch (C.mediaType) {
           case o("WAWebInteractiveMessageHeaderMediaType")
             .InteractiveMessageHeaderMediaType.IMAGE:
-            b = u.jsx(r("WAWebInteractiveImageHeader"), {
+            v = u.jsx(r("WAWebInteractiveImageHeader"), {
               msg: s,
               displayType: n,
               isMsgVisible: i,
@@ -92,11 +103,11 @@ __d(
             break;
           case o("WAWebInteractiveMessageHeaderMediaType")
             .InteractiveMessageHeaderMediaType.DOCUMENT:
-            b = u.jsx(r("WAWebMediaDocumentPreview"), { msg: s });
+            v = u.jsx(r("WAWebMediaDocumentPreview"), { msg: s });
             break;
           case o("WAWebInteractiveMessageHeaderMediaType")
             .InteractiveMessageHeaderMediaType.VIDEO:
-            b = u.jsx(r("WAWebVideoPreview.react"), {
+            v = u.jsx(r("WAWebVideoPreview.react"), {
               msg: s,
               mediaData: s.mediaData,
               displayType: n,
@@ -104,7 +115,7 @@ __d(
             break;
           case o("WAWebInteractiveMessageHeaderMediaType")
             .InteractiveMessageHeaderMediaType.PRODUCT:
-            b = u.jsx(r("WAWebBizProduct"), {
+            v = u.jsx(r("WAWebBizProduct"), {
               displayAuthor: !1,
               msg: s,
               displayType: n,
@@ -123,90 +134,100 @@ __d(
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
       s.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
-        ? ((C = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+        ? ((b = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
             msg: s,
             quotedMsg: d,
             displayType: n,
           })),
-          (v =
+          (S =
             s.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
             o("WAWebOrderStatus").isPaymentRequest(p, g)))
         : s.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER
-          ? (C = u.jsx(r("WAWebPaymentReminderHeader.react"), { msg: s }))
+          ? (b = u.jsx(r("WAWebPaymentReminderHeader.react"), { msg: s }))
           : s.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
-            ? (C = u.jsx(r("WAWebBookingConfirmationHeader.react"), { msg: s }))
+            ? (b = u.jsx(r("WAWebBookingConfirmationHeader.react"), { msg: s }))
             : s.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
-              ? (C = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
+              ? (b = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
                   msg: s,
                 }))
               : s.nativeFlowName ===
-                  r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST
-                ? o(
-                    "WAWebBrPaymentRequest",
-                  ).shouldShowPaymentRequestPayWithHeader(s.isFromTemplate) &&
-                  ((C = u.jsx(r("WAWebPaymentRequestHeader.react"), {
+                    r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP &&
+                  h != null
+                ? ((b = u.jsx(r("WAWebInAppSignupPromptHeader.react"), {
+                    info: h,
                     msg: s,
                   })),
-                  (S = !0))
-                : y &&
-                  (y.title != null || y.subtitle != null) &&
-                  (C = b
-                    ? u.jsx(r("WAWebInteractiveTitleHeader"), { msg: s })
-                    : u.jsx("div", {
-                        className: "x1k70j0n",
-                        children: u.jsx(r("WAWebInteractiveTitleHeader"), {
-                          msg: s,
-                        }),
-                      }));
-      var R = y == null ? void 0 : y.mediaType;
+                  (L = !0))
+                : s.nativeFlowName ===
+                    r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST
+                  ? o(
+                      "WAWebBrPaymentRequest",
+                    ).shouldShowPaymentRequestPayWithHeader(s.isFromTemplate) &&
+                    ((b = u.jsx(r("WAWebPaymentRequestHeader.react"), {
+                      msg: s,
+                    })),
+                    (R = !0))
+                  : C &&
+                    (C.title != null || C.subtitle != null) &&
+                    (b = v
+                      ? u.jsx(r("WAWebInteractiveTitleHeader"), { msg: s })
+                      : u.jsx("div", {
+                          className: "x1k70j0n",
+                          children: u.jsx(r("WAWebInteractiveTitleHeader"), {
+                            msg: s,
+                          }),
+                        }));
+      var E = C == null ? void 0 : C.mediaType;
       if (
-        (b != null &&
+        (v != null &&
           s.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
           g != null &&
-          (R ===
+          (E ===
             o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.DOCUMENT ||
-            (R ===
+            (E ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.IMAGE &&
               o("WAWebOrderStatus").isSimplifiedOrder(g))) &&
-          (b = null),
-        C)
+          (v = null),
+        b)
       ) {
-        var L = r("WAWebGetInteractiveHeaderAction")({
+        var k = r("WAWebGetInteractiveHeaderAction")({
           canCompose: f,
           msg: s,
           uimContext: m,
         });
-        if (L) {
-          var E = h == null,
-            k = E && o("WAWebOrderStatus").isSimplifiedOrder(g);
-          C = u.jsx("div", {
+        if (k) {
+          var I = y == null,
+            T = I && o("WAWebOrderStatus").isSimplifiedOrder(g);
+          b = u.jsx("div", {
             role: "button",
-            onClick: k ? null : L.onClick,
-            children: C,
+            onClick: T ? null : k.onClick,
+            children: b,
           });
         }
       }
-      if (C == null && b == null) return null;
-      var I;
+      if (b == null && v == null) return null;
+      var D;
       return (
-        v
-          ? (I = c.paymentRequestHeaderSpacing)
-          : S
-            ? (I = c.paymentRequestCtaHeaderSpacing)
-            : (I = c.headerSpacing),
+        S
+          ? (D = c.paymentRequestHeaderSpacing)
+          : R
+            ? (D = c.paymentRequestCtaHeaderSpacing)
+            : L
+              ? (D = c.signupPromptHeaderSpacing)
+              : (D = c.headerSpacing),
         u.jsxs(
           "div",
-          babelHelpers.extends({}, (e || (e = r("stylex"))).props(I), {
+          babelHelpers.extends({}, (e || (e = r("stylex"))).props(D), {
             children: [
-              C && b ? u.jsx("div", { className: "xzueoph", children: b }) : b,
-              C,
+              b && v ? u.jsx("div", { className: "xzueoph", children: v }) : v,
+              b,
             ],
           }),
         )

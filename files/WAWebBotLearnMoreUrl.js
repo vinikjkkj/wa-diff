@@ -1,16 +1,16 @@
 __d(
   "WAWebBotLearnMoreUrl",
   [
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProduct",
     "WAWebBotSupportGating",
     "WAWebFaqUrl",
-    "WAWebPrimaryFeaturesModel",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebBotSupportGating").isSupportedThirdPartyBot(
         e,
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.aiBotIntegrationEnabled,
+        o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
       )
         ? o("WAWebFaqUrl").getThirdPartyAgentLearnMoreUrl()
         : o("WAWebFaqUrl").getStandardBotProfileLearnMoreUrl();

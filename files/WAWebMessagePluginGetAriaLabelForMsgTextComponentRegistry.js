@@ -158,6 +158,7 @@ __d(
           "WAWebMultiVcardAriaLabelForMsgText",
         ),
       },
+      { type: "music", subtype: void 0, getAriaLabelForMsgTextComponent: null },
       {
         type: "native_flow",
         subtype: void 0,

@@ -17,7 +17,6 @@ __d(
     "WAWebLexicalWAWebMenu.react",
     "WAWebNonContactPushNameSearchModel",
     "WAWebNoop",
-    "WAWebPanelRecentIcon.react",
     "WAWebSearchCollection",
     "WAWebSettingSearchModel",
     "WAWebSettings.MenuItem",
@@ -25,6 +24,7 @@ __d(
     "WAWebSparklesIcon.react",
     "WAWebStaticMenuItem.react",
     "WDSIconIcPerson.react",
+    "WDSIconIcSchedule.react",
     "WDSIconWdsIcChat.react",
     "WDSText.react",
     "react",
@@ -94,7 +94,7 @@ __d(
           m;
         e[3] === Symbol.for("react.memo_cache_sentinel")
           ? ((m = u.jsx(f, {
-              icon: u.jsx(o("WAWebPanelRecentIcon.react").PanelRecentIcon, {}),
+              icon: u.jsx(r("WDSIconIcSchedule.react"), {}),
               title: "Recent Chats",
             })),
             (e[3] = m))

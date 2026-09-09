@@ -39,6 +39,7 @@ __d(
         Product: "product",
         NativeFlowResponse: "native_flow_response",
         GroupHistory: "group_history",
+        Music: "music",
       }),
       s = n("$InternalEnum")({ Hide: "hide", Show: "show" });
     ((i.CiphertextType = e), (i.EncMediaType = l), (i.DecryptFailType = s));

@@ -227,47 +227,46 @@ __d(
           : null;
     }
     function X(t) {
-      if (o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall()) {
-        var n = t.callResult,
-          r = t.callSetupErrorType,
-          a = t.maxConnectedParticipants;
+      var n = typeof t.callId == "string" ? t.callId : null,
+        r = o("WAWebVoipWebTransportCallSummary").getWtCallSummaryForCall(n);
+      if (r != null) {
+        var a = t.callResult,
+          i = t.callSetupErrorType,
+          l = t.maxConnectedParticipants;
         if (
           !(
             t.groupCallIsLastSegment !== !0 ||
-            typeof n != "number" ||
-            typeof a != "number"
+            typeof a != "number" ||
+            typeof l != "number"
           )
         ) {
-          var i = Q(n, r);
-          if (i != null) {
-            var l = o("WAWebVoipWebTransportCallSummary").getWtCallSummary(),
-              s = typeof t.callId == "string" ? t.callId : null;
+          var s = Q(a, i);
+          s != null &&
             (o("WAWebCoreActionsODS").logCallWebtransportGroupCallAnc(),
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [WtGroupCallAnc] kind=",
-                      " callId=",
-                      " callResult=",
-                      " callSetupErrorType=",
-                      " maxConnectedParticipants=",
-                      " numRelayAttempts=",
-                      " numOpened=",
-                      " attempts=",
-                      "",
-                    ])),
-                  i,
-                  String(s),
-                  n,
-                  String(r != null ? r : "n/a"),
-                  a,
-                  l.numRelayAttempts,
-                  l.numOpened,
-                  JSON.stringify(l.attempts),
-                )
-                .sendLogs("webtransport-group-call-anc"));
-          }
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [WtGroupCallAnc] kind=",
+                    " callId=",
+                    " callResult=",
+                    " callSetupErrorType=",
+                    " maxConnectedParticipants=",
+                    " numRelayAttempts=",
+                    " numOpened=",
+                    " attempts=",
+                    "",
+                  ])),
+                s,
+                String(n),
+                a,
+                String(i != null ? i : "n/a"),
+                l,
+                r.numRelayAttempts,
+                r.numOpened,
+                JSON.stringify(r.attempts),
+              )
+              .sendLogs("webtransport-group-call-anc"));
         }
       }
     }

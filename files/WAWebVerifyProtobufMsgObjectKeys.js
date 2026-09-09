@@ -281,152 +281,159 @@ __d(
                                                                                                         .MSG_TYPE
                                                                                                         .ALBUM
                                                                                                     : e ===
-                                                                                                        "stickerPackMessage"
+                                                                                                        "musicMessage"
                                                                                                       ? o(
                                                                                                           "WAWebMsgType",
                                                                                                         )
                                                                                                           .MSG_TYPE
-                                                                                                          .STICKER_PACK
+                                                                                                          .MUSIC
                                                                                                       : e ===
-                                                                                                            "pollResultSnapshotMessage" ||
-                                                                                                          e ===
-                                                                                                            "pollResultSnapshotMessageV3"
+                                                                                                          "stickerPackMessage"
                                                                                                         ? o(
                                                                                                             "WAWebMsgType",
                                                                                                           )
                                                                                                             .MSG_TYPE
-                                                                                                            .POLL_RESULT_SNAPSHOT
+                                                                                                            .STICKER_PACK
                                                                                                         : e ===
-                                                                                                            "richResponseMessage"
+                                                                                                              "pollResultSnapshotMessage" ||
+                                                                                                            e ===
+                                                                                                              "pollResultSnapshotMessageV3"
                                                                                                           ? o(
                                                                                                               "WAWebMsgType",
                                                                                                             )
                                                                                                               .MSG_TYPE
-                                                                                                              .RICH_RESPONSE
+                                                                                                              .POLL_RESULT_SNAPSHOT
                                                                                                           : e ===
-                                                                                                              "messageHistoryBundle"
+                                                                                                              "richResponseMessage"
                                                                                                             ? o(
                                                                                                                 "WAWebMsgType",
                                                                                                               )
                                                                                                                 .MSG_TYPE
-                                                                                                                .MESSAGE_HISTORY_BUNDLE
+                                                                                                                .RICH_RESPONSE
                                                                                                             : e ===
-                                                                                                                "messageHistoryNotice"
+                                                                                                                "messageHistoryBundle"
                                                                                                               ? o(
                                                                                                                   "WAWebMsgType",
                                                                                                                 )
                                                                                                                   .MSG_TYPE
-                                                                                                                  .MESSAGE_HISTORY_NOTICE
+                                                                                                                  .MESSAGE_HISTORY_BUNDLE
                                                                                                               : e ===
-                                                                                                                    "associatedChildMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "bcallMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "botForwardedMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "botInvokeMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "botPlatformRegistrationSuccessMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "botTaskMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "call" ||
-                                                                                                                  e ===
-                                                                                                                    "chat" ||
-                                                                                                                  e ===
-                                                                                                                    "commentMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "conditionalRevealMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "deviceSentMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "documentWithCaptionMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "editedMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "ephemeralMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "eventCoverImage" ||
-                                                                                                                  e ===
-                                                                                                                    "groupMentionedMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "groupStatusMentionMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "groupStatusMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "groupStatusMessageV2" ||
-                                                                                                                  e ===
-                                                                                                                    "invoiceMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "lottieStickerMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "musicMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "newsletterAdminProfileMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "newsletterAdminProfileStatusMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "newsletterScheduledMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "placeholderMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "pollCreationMessageV4" ||
-                                                                                                                  e ===
-                                                                                                                    "pollCreationOptionImageMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "pollAddOptionMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "scheduledCallCreationMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "scheduledCallEditMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "secretEncryptedMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "spoilerMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "statusAddYours" ||
-                                                                                                                  e ===
-                                                                                                                    "statusMentionMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "statusQuotedMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "statusStickerInteractionMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "stickerSyncRmrMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "viewOnceMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "viewOnceMessageV2" ||
-                                                                                                                  e ===
-                                                                                                                    "viewOnceMessageV2Extension" ||
-                                                                                                                  e ===
-                                                                                                                    "limitSharingMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "questionMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "statusQuestionAnswerMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "questionResponseMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "questionReplyMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "groupRootKeyShare" ||
-                                                                                                                  e ===
-                                                                                                                    "paymentReminderMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "splitPaymentMessage" ||
-                                                                                                                  e ===
-                                                                                                                    "splitPaymentUpdateMessage"
-                                                                                                                ? c.UnknownMessageKey
+                                                                                                                  "messageHistoryNotice"
+                                                                                                                ? o(
+                                                                                                                    "WAWebMsgType",
+                                                                                                                  )
+                                                                                                                    .MSG_TYPE
+                                                                                                                    .MESSAGE_HISTORY_NOTICE
                                                                                                                 : e ===
-                                                                                                                    "rootSecretDistributeMessage"
-                                                                                                                  ? c.RootSecretDistribute
-                                                                                                                  : (function () {
-                                                                                                                      throw Error(
-                                                                                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                          e,
-                                                                                                                      );
-                                                                                                                    })();
+                                                                                                                      "acp2SettingMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "associatedChildMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "bcallMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "botForwardedMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "botInvokeMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "botPlatformRegistrationSuccessMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "botTaskMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "call" ||
+                                                                                                                    e ===
+                                                                                                                      "chat" ||
+                                                                                                                    e ===
+                                                                                                                      "commentMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "conditionalRevealMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "deviceSentMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "documentWithCaptionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "editedMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "ephemeralMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "eventCoverImage" ||
+                                                                                                                    e ===
+                                                                                                                      "groupMentionedMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "groupStatusMentionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "groupStatusMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "groupStatusMessageV2" ||
+                                                                                                                    e ===
+                                                                                                                      "invoiceMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "lottieStickerMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "newsletterAdminProfileMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "newsletterAdminProfileStatusMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "newsletterScheduledMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "placeholderMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "pollCreationMessageV4" ||
+                                                                                                                    e ===
+                                                                                                                      "pollCreationOptionImageMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "pollAddOptionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "scheduledCallCreationMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "scheduledCallEditMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "secretEncryptedMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "spoilerMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "statusAddYours" ||
+                                                                                                                    e ===
+                                                                                                                      "statusMentionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "statusQuotedMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "statusStickerInteractionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "stickerSyncRmrMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "viewOnceMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "viewOnceMessageV2" ||
+                                                                                                                    e ===
+                                                                                                                      "viewOnceMessageV2Extension" ||
+                                                                                                                    e ===
+                                                                                                                      "limitSharingMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "questionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "statusQuestionAnswerMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "questionResponseMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "questionReplyMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "groupRootKeyShare" ||
+                                                                                                                    e ===
+                                                                                                                      "paymentReminderMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "splitPaymentMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "splitPaymentUpdateMessage"
+                                                                                                                  ? c.UnknownMessageKey
+                                                                                                                  : e ===
+                                                                                                                      "rootSecretDistributeMessage"
+                                                                                                                    ? c.RootSecretDistribute
+                                                                                                                    : (function () {
+                                                                                                                        throw Error(
+                                                                                                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                            e,
+                                                                                                                        );
+                                                                                                                      })();
     }
     function m(e) {
       if (e != null && typeof e == "object" && "message" in e) {

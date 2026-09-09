@@ -15,8 +15,8 @@ __d(
       var n = u;
       u || s(0, 5001);
       var o = d(e),
-        a = o && r("getMarkupWrap")(o);
-      if (a) {
+        a = o != null && o !== "" ? r("getMarkupWrap")(o) : null;
+      if (a != null) {
         n.innerHTML = a[1] + e + a[2];
         for (var i = a[0]; i--; ) n = n.lastChild;
       } else n.innerHTML = e;

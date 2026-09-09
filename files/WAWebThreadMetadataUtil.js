@@ -1,13 +1,13 @@
 __d(
   "WAWebThreadMetadataUtil",
-  ["WALogger", "WAWebLidMigrationUtils"],
+  ["WALogger", "WAWebBotUtils", "WAWebLidMigrationUtils"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
       var n = t.accountLid,
         r = t.chatId,
         a = t.chatTimestamp;
-      if (a != null) {
+      if (a != null && !o("WAWebBotUtils").isHatchBot(r)) {
         if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(r))
           if (n == null)
             o("WALogger")

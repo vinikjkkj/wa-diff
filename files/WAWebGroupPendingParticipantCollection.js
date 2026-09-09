@@ -4,6 +4,7 @@ __d(
     "WAWebCollection",
     "WAWebDebounce",
     "WAWebGroupParticipantComparator",
+    "WAWebGroupParticipantGetters",
     "WAWebGroupParticipantModel",
     "WAWebL10N",
   ],
@@ -59,6 +60,25 @@ __d(
             (r.isParticipantCollectionAdd = !0),
             e.prototype.add.call(this, n, r)
           );
+        }),
+        (n.remove = function (n, r) {
+          var t = e.prototype.remove.call(this, n, r);
+          return (
+            t.forEach(function (e) {
+              e != null &&
+                o(
+                  "WAWebGroupParticipantGetters",
+                ).clearGroupParticipantGetterCacheFor(e);
+            }),
+            t
+          );
+        }),
+        (n.reset = function () {
+          (this.forEach(
+            o("WAWebGroupParticipantGetters")
+              .clearGroupParticipantGetterCacheFor,
+          ),
+            e.prototype.reset.call(this));
         }),
         t
       );

@@ -38,14 +38,9 @@ __d(
       );
     }
     function d() {
-      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
-        o("WAWebUserPrefsKeys").KEYS.WA_WEB_CACHED_DYNAMIC_AI_MODES,
-      );
-    }
-    function m() {
       return e;
     }
-    function p(e) {
+    function m(e) {
       var t,
         n = u();
       return (t =
@@ -60,9 +55,8 @@ __d(
     ((l.getCachedDynamicAIModes = s),
       (l.getStaleCachedDynamicAIModes = u),
       (l.setCachedDynamicAIModes = c),
-      (l.clearCachedDynamicAIModes = d),
-      (l.getDefaultDynamicAIMode = m),
-      (l.getCachedDynamicAIModeById = p));
+      (l.getDefaultDynamicAIMode = d),
+      (l.getCachedDynamicAIModeById = m));
   },
   98,
 );

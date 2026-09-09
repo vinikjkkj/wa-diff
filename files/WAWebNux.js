@@ -62,24 +62,21 @@ __d(
       return e.startsWith("community_admin_promote_");
     }
     function u(e) {
-      return "chat_auto_muted_" + e;
-    }
-    function c(e) {
       return e.startsWith("chat_auto_muted_");
     }
-    function d(e) {
+    function c(e) {
       return "membership_approval_requests_banner_" + e;
     }
-    function m(e) {
+    function d(e) {
       return "newsletter_alerts_" + e;
     }
-    function p(e) {
+    function m(e) {
       return "subgroup_suggestions_banner_" + e;
     }
-    function _(e) {
+    function p(e) {
       return "ai_label_nux_" + e;
     }
-    var f = n("$InternalEnum")({
+    var _ = n("$InternalEnum")({
         EPHEMERAL: "ephemeral",
         EPHEMERAL_VIEW_ONCE: "ephemeral_view_once",
         EPHEMERAL_VIEW_ONCE_RECEIVER: "ephemeral_view_once_receiver",
@@ -112,7 +109,7 @@ __d(
         PRIVACY_SCREEN_UPSELL_BANNER: "privacy_screen_upsell_banner",
         WEB_CALLING_ACTIVATION_BANNER: "web_calling_activation_banner",
       }),
-      g = {
+      f = {
         COOL_OFF_NUX: {
           INCOMPLETE_BUSINESS_PROFILE_BANNER:
             "incomplete_business_profile_banner",
@@ -173,7 +170,7 @@ __d(
           NCT_CAPPING_SUBSCRIPTION_TOAST: "nct_capping_subscription_toast",
         },
       },
-      h = {
+      g = {
         DEFAULT: "default_cool_off_banners_key",
         CATALOG: "catalog_banners_key",
         CTWA_SUGGESTION: "ctwa_suggestion_banners_key",
@@ -182,22 +179,21 @@ __d(
           "message_label_deprecation_migrated_chat_list_key",
         WHATS_NEW: "whats_new_cool_off_key",
       };
-    function y(e) {
+    function h(e) {
       return e + "_cool_off";
     }
     ((i.NUX = e),
       (i.getCommunityAdminPromotionNuxKey = l),
       (i.isCommunityAdminPromotionNuxKey = s),
-      (i.getChatAutoMutedNuxKey = u),
-      (i.isChatAutoMutedNuxKey = c),
-      (i.getMembershipApprovalRequestsBannerNuxKey = d),
-      (i.getNewsletterAlertsBannerNuxKey = m),
-      (i.getSubgroupSuggestionsBannerNuxKey = p),
-      (i.getAILabelBannerNuxKey = _),
-      (i.NuxSyncKey = f),
-      (i.NuxKeyTypes = g),
-      (i.CoolOffPeriodKeys = h),
-      (i.asCoolOffNuxType = y));
+      (i.isChatAutoMutedNuxKey = u),
+      (i.getMembershipApprovalRequestsBannerNuxKey = c),
+      (i.getNewsletterAlertsBannerNuxKey = d),
+      (i.getSubgroupSuggestionsBannerNuxKey = m),
+      (i.getAILabelBannerNuxKey = p),
+      (i.NuxSyncKey = _),
+      (i.NuxKeyTypes = f),
+      (i.CoolOffPeriodKeys = g),
+      (i.asCoolOffNuxType = h));
   },
   66,
 );

@@ -9,21 +9,34 @@ __d(
       u = s.clearCacheFor,
       c = s.computed,
       d = s.field,
-      m = u,
-      p = d("id"),
-      _ = c(
+      m = s.unsafeIdentityGetter,
+      p = o("WAWebGetters").createGetterFactories({
+        root: m,
+        createCache: o("WAWebGettersCaches").createFrontendProfilePicThumbCache,
+      }),
+      _ = p.clearCacheFor,
+      f = p.field;
+    function g(e) {
+      (u(e), _(e));
+    }
+    var h = d("id"),
+      y = f("img"),
+      C = f("imgFull"),
+      b = c(
         function (t) {
           var n = t[0];
           return r("WAWebWid").isUser(n)
             ? e.SINGLE
             : (r("WAWebWid").isGroup(n), e.GROUP);
         },
-        [p],
+        [h],
       );
     ((l.FALLBACK = e),
-      (l.clearProfilePicThumbGetterCacheFor = m),
-      (l.getId = p),
-      (l.getFallbackType = _));
+      (l.clearProfilePicThumbGetterCacheFor = g),
+      (l.getId = h),
+      (l.getImg = y),
+      (l.getImgFull = C),
+      (l.getFallbackType = b));
   },
   98,
 );

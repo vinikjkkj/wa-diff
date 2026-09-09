@@ -6,6 +6,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBotBaseGating",
     "WAWebCanonicalHatchLinkedStatusGetQuery",
+    "WAWebHatchBackendGating",
     "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "WAWebPrefetchHatchLinkedStatusOnLogin",
@@ -44,7 +45,7 @@ __d(
               ),
               o("WAWebBackendEventBus").BackendEventBus.onPrimaryFeaturesSynced(
                 function (e) {
-                  e.has("ai_bot_integration_enabled") &&
+                  e.has(o("WAWebHatchBackendGating").HATCH_PRIMARY_FEATURE) &&
                     o(
                       "WAWebPrefetchHatchLinkedStatusOnLogin",
                     ).maybePrefetchHatchLinkedStatusOnLogin();

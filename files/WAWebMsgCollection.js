@@ -11,6 +11,7 @@ __d(
     "WAWebBaseCollection",
     "WAWebBizBotProfileUtils",
     "WAWebBotGenTypingIndicatorMsg",
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotSupportGating",
     "WAWebChatCollection",
     "WAWebCollectionConstants",
@@ -33,7 +34,6 @@ __d(
     "WAWebNewsletterMsgHistoryUtils",
     "WAWebNewsletterViewModeUIUtils",
     "WAWebNoop",
-    "WAWebPrimaryFeaturesModel",
     "WAWebProcessMultipleMsgsAction",
     "WAWebProductMessageListCollection",
     "WAWebProtobufsE2E.pb",
@@ -804,8 +804,9 @@ __d(
                       )) ||
                     o("WAWebBotSupportGating").isSupportedThirdPartyBot(
                       o("WAWebResolveBotProfile").resolveBotSupportInput(e),
-                      o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-                        .aiBotIntegrationEnabled,
+                      o(
+                        "WAWebBotPrimaryFeaturesFrontend",
+                      ).getBotPrimaryFeatures(),
                     )
                   )
                 ) {

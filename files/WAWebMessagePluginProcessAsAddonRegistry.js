@@ -54,6 +54,7 @@ __d(
       },
       { type: "message_history_notice", processor: null },
       { type: "multi_vcard", processor: null },
+      { type: "music", processor: null },
       { type: "native_flow", processor: null },
       { type: "newsletter_admin_invite", processor: null },
       { type: "newsletter_follower_invite", processor: null },

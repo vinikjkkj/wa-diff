@@ -47,7 +47,7 @@ __d(
     var e = ["msgProtobuf"],
       s = ["msgProtobuf"],
       u = ["msgProtobuf"],
-      c = ["decrypted", "reparsing"],
+      c = ["decrypted", "overwriteExistingMsg", "reparsing"],
       d,
       m,
       p,
@@ -586,9 +586,10 @@ __d(
             Y = null;
           if (K && E != null) {
             var J = E.decrypted,
-              Z = E.reparsing,
-              ee = babelHelpers.objectWithoutPropertiesLoose(E, c);
-            ((T.futureproofParams = ee), (T.futureproofBuffer = J));
+              Z = E.overwriteExistingMsg,
+              ee = E.reparsing,
+              te = babelHelpers.objectWithoutPropertiesLoose(E, c);
+            ((T.futureproofParams = te), (T.futureproofBuffer = J));
           }
           if (
             (C.type ===
@@ -603,27 +604,27 @@ __d(
             C.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST)
           ) {
-            var te;
+            var ne;
             T.broadcastId = C.chat;
-            var ne = o("WAWebWidFactory").asUserWidOrThrow(
-                (te = C.preMatChat) != null ? te : C.author,
+            var re = o("WAWebWidFactory").asUserWidOrThrow(
+                (ne = C.preMatChat) != null ? ne : C.author,
               ),
-              re = C.ephSetting,
-              oe = T.ephemeralSharedSecret;
-            if (re != null && oe != null) {
-              var ae = yield o(
+              oe = C.ephSetting,
+              ae = T.ephemeralSharedSecret;
+            if (oe != null && ae != null) {
+              var ie = yield o(
                   "WAWebEphemeralDecodeBroadcastSetting",
                 ).decodeBroadcastEphemeralSetting({
                   broadcastJid: C.chat,
                   recipient: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-                  sender: ne,
-                  ephSetting: re,
-                  sharedSecret: oe,
+                  sender: re,
+                  ephSetting: oe,
+                  sharedSecret: ae,
                 }),
-                ie = ae.ephemeralDuration,
-                le = ae.ephemeralSettingTimestamp;
-              ((T.ephemeralDuration = ie),
-                (T.ephemeralSettingTimestamp = le),
+                le = ie.ephemeralDuration,
+                se = ie.ephemeralSettingTimestamp;
+              ((T.ephemeralDuration = le),
+                (T.ephemeralSettingTimestamp = se),
                 o("WALogger")
                   .LOG(
                     g ||
@@ -633,21 +634,21 @@ __d(
                         " ts=",
                         "",
                       ])),
-                    ne.toString(),
-                    ie,
+                    re.toString(),
                     le,
+                    se,
                   )
                   .tags("messaging"));
             }
           }
-          var se = [],
-            ue = T.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-            ce = Q || X || (ue && h === !0 && T.futureproofType == null);
+          var ue = [],
+            ce = T.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+            de = Q || X || (ce && h === !0 && T.futureproofType == null);
           return (
-            ce ||
+            de ||
               (C.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
-                ? (se = yield j(T, C.bclParticipants))
+                ? (ue = yield j(T, C.bclParticipants))
                 : ((T.subtype === "payment_transaction_request_cancelled" ||
                     T.subtype === "payment_action_request_declined") &&
                     T.paymentRequestMessageKey == null) ||
@@ -659,15 +660,15 @@ __d(
                   (C.author !== T.from || C.author !== T.author) &&
                     (T.senderWithDevice = C.author),
                   o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(T.ctwaContext)
-                    ? (se = yield o(
+                    ? (ue = yield o(
                         "WAWebMsgAGMProcessing",
                       ).generateAutomatedGreetingMsgs(T, C))
-                    : (se = [T]))),
+                    : (ue = [T]))),
             {
               senderKey: U,
               rootSecretDistribute: z,
               storeMsg: Y,
-              renderableMsgs: se,
+              renderableMsgs: ue,
             }
           );
         })),
@@ -760,18 +761,28 @@ __d(
                           );
                         })(),
         l = n.isReadByPeer === !0,
-        s = babelHelpers.extends({}, V(t), {
-          type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
-          kind: o("WAWebMsgType").MsgKind.Ciphertext,
-          subtype: i,
-          e2eSenderType: o("WAWebWamMsgUtils").getWamE2eSenderType(t.author),
-          placeholderAddReason: r,
-          bclParticipants:
-            t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
-              ? t.bclParticipants
-              : void 0,
-          read: l ? !0 : void 0,
-        });
+        s = babelHelpers.extends(
+          {},
+          V(t),
+          {
+            type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
+            kind: o("WAWebMsgType").MsgKind.Ciphertext,
+            subtype: i,
+          },
+          a === o("WAWebHandleMsgTypes.flow").PlaceholderType.BOT_ORPHAN
+            ? { viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN }
+            : null,
+          {
+            e2eSenderType: o("WAWebWamMsgUtils").getWamE2eSenderType(t.author),
+            placeholderAddReason: r,
+            bclParticipants:
+              t.type ===
+              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+                ? t.bclParticipants
+                : void 0,
+            read: l ? !0 : void 0,
+          },
+        );
       l && (s.ack = o("WAWebAck").ACK.READ);
       var u = o("WAWebHandleMsgMetaUtils").getMsgTypeFromMsgMeta(n);
       return u != null

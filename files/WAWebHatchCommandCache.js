@@ -8,30 +8,18 @@ __d(
       return e.get(t);
     }
     function s(t, n) {
-      var r,
-        o = e.get(t);
-      if (o == null) return null;
-      var a = n.startsWith("/") ? n : "/" + n;
-      return (r = o.find(function (e) {
-        return e.name === a;
-      })) != null
-        ? r
-        : null;
-    }
-    function u(t, n) {
       e.set(t, n);
     }
-    function c(t) {
+    function u(t) {
       e.delete(t);
     }
-    function d() {
+    function c() {
       e.clear();
     }
     ((i.getHatchCommands = l),
-      (i.findHatchCommandByName = s),
-      (i.setHatchCommands = u),
-      (i.clearHatchCommands = c),
-      (i.clearAllHatchCommands = d));
+      (i.setHatchCommands = s),
+      (i.clearHatchCommands = u),
+      (i.clearAllHatchCommands = c));
   },
   66,
 );

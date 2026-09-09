@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiChatUnreadMention",
     "WAWebApiFilterAndReplaceMessages",
     "WAWebApiGroupInviteV4Store",
@@ -122,30 +121,16 @@ __d(
                 } else v.set(t, [e]);
             }),
               S.length > 0 && (yield (m || (m = n("Promise"))).all(S)));
-            var R =
-                o("WAWebABProps").getABPropConfigValue(
-                  "web_history_sync_worker_enabled",
-                ) === !0,
-              L,
-              E;
-            if (R) {
-              var k = Array.from(v.keys());
-              ((L = yield o("WAWebBackendApi").frontendSendAndReceive(
+            var R = Array.from(v.keys()),
+              L = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "getPendingUnreadMentionCounts",
-                { chatIds: k },
-              )),
-                (E = p(v, L)));
-            } else {
-              var I = yield o("WAWebBackendApi").frontendSendAndReceive(
-                "processAndGetUnreadMentionsInfo",
-                { filteredMsgs: c },
-              );
-              ((L = I.pendingUnreadMentionsMap), (E = I.unreadMentionsToAdd));
-            }
-            var T = o(
+                { chatIds: R },
+              ),
+              E = p(v, L),
+              k = o(
                 "WAWebQuarantineDataStore",
               ).extractQuarantineDataFromMessages(c),
-              D = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
+              I = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
                 c,
                 !0,
               );
@@ -157,9 +142,9 @@ __d(
             ),
               yield g({
                 chatsWithRecentOrFullSyncMsgs: r,
-                encryptedMessages: D,
+                encryptedMessages: I,
                 pendingUnreadMentionsMap: L,
-                quarantineTableEntries: T,
+                quarantineTableEntries: k,
                 unreadMentionsToAdd: E,
               }),
               yield y(u));

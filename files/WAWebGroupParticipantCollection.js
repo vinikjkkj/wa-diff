@@ -13,6 +13,7 @@ __d(
     "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupParticipantComparator",
+    "WAWebGroupParticipantGetters",
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
     "WAWebL10N",
@@ -145,8 +146,24 @@ __d(
         }),
         (n.remove = function (n, r) {
           var t = r || {},
-            o = e.prototype.remove.call(this, n, t);
-          return (this.trigger("bulk_remove", o), o);
+            a = e.prototype.remove.call(this, n, t);
+          return (
+            a.forEach(function (e) {
+              e != null &&
+                o(
+                  "WAWebGroupParticipantGetters",
+                ).clearGroupParticipantGetterCacheFor(e);
+            }),
+            this.trigger("bulk_remove", a),
+            a
+          );
+        }),
+        (n.reset = function () {
+          (this.forEach(
+            o("WAWebGroupParticipantGetters")
+              .clearGroupParticipantGetterCacheFor,
+          ),
+            e.prototype.reset.call(this));
         }),
         (n.canAdd = function () {
           var e = this.getGroupMetadata();

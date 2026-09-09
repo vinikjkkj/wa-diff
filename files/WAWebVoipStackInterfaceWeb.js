@@ -24,7 +24,7 @@ __d(
     "WAWebVoipPerfOptimizations",
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
-    "WAWebVoipScreenShareStreamKey",
+    "WAWebVoipRelayOverrides",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStackInterfaceWebCallbacks",
     "WAWebVoipStackInterfaceWebHelpers",
@@ -875,7 +875,7 @@ __d(
                 });
               var p = e.node();
               r("justknobx")._("360") &&
-                o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(p);
+                o("WAWebVoipRelayOverrides").overrideRelayIp(p);
               var _ = o("WABase64").encodeB64(o("WAWap").encodeStanza(p)),
                 f = V(m, d),
                 g = a != null ? String(a) : "0",
@@ -934,7 +934,7 @@ __d(
               u = yield l,
               c = s.node();
             r("justknobx")._("360") &&
-              o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(c);
+              o("WAWebVoipRelayOverrides").overrideRelayIp(c);
             var d = o("WABase64").encodeB64(o("WAWap").encodeStanza(c)),
               m = V(u, i);
             try {
@@ -1301,14 +1301,15 @@ __d(
           return t;
         })(),
         requestKeyFrame: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield l,
-              n = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(e),
-              r = o("WAWebVoipScreenShareStreamKey").isScreenShareStreamKey(e),
-              a = r ? t.requestAuxiliaryKeyFrame(n) : t.requestKeyFrame(n);
-            return a;
-          });
-          function t(t) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield l,
+                r = e.toJid(),
+                o = t ? n.requestAuxiliaryKeyFrame(r) : n.requestKeyFrame(r);
+              return o;
+            },
+          );
+          function t(t, n) {
             return e.apply(this, arguments);
           }
           return t;

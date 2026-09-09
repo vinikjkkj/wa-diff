@@ -691,53 +691,63 @@ __d(
       );
     }
     function kt(e) {
-      var t, n;
-      return e == null ||
-        !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channel_status_creation",
-        ) ||
-        !e.iAmAdminOrOwner() ||
-        o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(e)
+      return e == null
         ? !1
-        : ((t =
-            (n = e.capabilities) == null
+        : It(
+            e.membershipType,
+            o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(e),
+            e.capabilities,
+          );
+    }
+    function It(e, t, n) {
+      var r;
+      return !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channel_status_creation",
+      ) ||
+        (e !== o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin &&
+          e !==
+            o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner) ||
+        t
+        ? !1
+        : ((r =
+            n == null
               ? void 0
               : n.has(
                   o("WAWebCommonNewsletterEnums").NewsletterCapability
                     .CHANNEL_STATUS_PRODUCER,
                 )) != null
-            ? t
+            ? r
             : !1) &&
             o("WAWebABProps").getABPropConfigValue(
               "channels_capabilities_enabled",
             );
     }
-    var It = n("$InternalEnum")({
+    var Tt = n("$InternalEnum")({
       Disabled: 0,
       ProfileRing: 1,
       ThreadRing: 2,
       AllEntrypoints: 3,
     });
-    function Tt(e) {
+    function Dt(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_status_consumption_entrypoints",
         ) >= e
       );
     }
-    function Dt(e) {
+    function xt(e) {
       var t = St(),
-        n = Tt(e);
+        n = Dt(e);
       return t && n;
     }
-    function xt() {
-      return Dt(It.ProfileRing);
-    }
     function $t() {
-      return Dt(It.ThreadRing);
+      return xt(Tt.ProfileRing);
     }
     function Pt() {
-      return Dt(It.AllEntrypoints);
+      return xt(Tt.ThreadRing);
+    }
+    function Nt() {
+      return xt(Tt.AllEntrypoints);
     }
     ((l.NewsletterABPropConfig = e),
       (l.getMaxSubscriberNumber = c),
@@ -864,9 +874,10 @@ __d(
       (l.isNewsletterStatusReshareEnabled = Lt),
       (l.isNewsletterStatusForwardEnabled = Et),
       (l.isNewsletterStatusCreationEnabled = kt),
-      (l.isNewsletterStatusProfileRingEnabled = xt),
-      (l.isNewsletterStatusThreadRingEnabled = $t),
-      (l.isNewsletterStatusAllEntrypointsEnabled = Pt));
+      (l.isNewsletterStatusCreationEnabledForValues = It),
+      (l.isNewsletterStatusProfileRingEnabled = $t),
+      (l.isNewsletterStatusThreadRingEnabled = Pt),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Nt));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WormIDbUtils",
-  ["Promise", "WAIDBTypes", "err"],
+  ["FBLogger", "Promise", "WAIDBTypes", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -14,7 +14,24 @@ __d(
           }));
       });
     }
-    function u(t, a, i) {
+    function u(t) {
+      var a = o("WAIDBTypes").idb().deleteDatabase(t);
+      return new (e || (e = n("Promise")))(function (e, n) {
+        ((a.onsuccess = function () {
+          return e();
+        }),
+          (a.onerror = function () {
+            return n(a.error);
+          }),
+          (a.onblocked = function () {
+            r("FBLogger")("worm").warn(
+              "Deleting IndexedDB database %s was blocked",
+              t,
+            );
+          }));
+      });
+    }
+    function c(t, a, i) {
       var l = a.onBecomeStale,
         s = a.onClose,
         u = a.onError,
@@ -40,7 +57,7 @@ __d(
           }));
       });
     }
-    ((l.promisifyIDbRequest = s), (l.openIDb = u));
+    ((l.promisifyIDbRequest = s), (l.deleteWormDatabase = u), (l.openIDb = c));
   },
   98,
 );

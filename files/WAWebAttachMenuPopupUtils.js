@@ -3,17 +3,17 @@ __d(
   [
     "WAWebAttachMenuPopupItemPhotos.react",
     "WAWebBotGating",
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotSupportGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebMsgType",
-    "WAWebPrimaryFeaturesModel",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return !o("WAWebBotSupportGating").isSupportedThirdPartyBot(
         e,
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.aiBotIntegrationEnabled,
+        o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
       );
     }
     function s(e) {

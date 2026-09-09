@@ -591,9 +591,7 @@ __d(
                     o("WAWebVoipWaCallEnums").CallParticipantState.Rejected) &&
                 (o(
                   "WAWebVoipVideoRendererRegistry",
-                ).videoRendererRegistry.removeParticipantAVSync(
-                  f.participant.toString(),
-                ),
+                ).videoRendererRegistry.removeParticipantAVSync(f.participant),
                 i.setPeerReconnectingState(
                   f.participant,
                   !1,

@@ -117,6 +117,12 @@ __d(
     function w() {
       return s._(/*BTDS*/ "We couldn't save your audiences. Try again.");
     }
+    function A() {
+      return s._(/*BTDS*/ "Processing...");
+    }
+    function F() {
+      return s._(/*BTDS*/ "Recipient count unavailable");
+    }
     ((l.getUntitledListName = e),
       (l.getRenameAudienceModalTitle = u),
       (l.getSaveButtonLabel = c),
@@ -144,7 +150,9 @@ __d(
       (l.getSavingLabel = P),
       (l.getSaveAudiencesButtonLabel = N),
       (l.getSaveAllAudiencesFailedError = M),
-      (l.getSaveAudiencesFailedError = w));
+      (l.getSaveAudiencesFailedError = w),
+      (l.getAudienceRecipientsProcessingLabel = A),
+      (l.getAudienceRecipientsUnavailableLabel = F));
   },
   226,
 );

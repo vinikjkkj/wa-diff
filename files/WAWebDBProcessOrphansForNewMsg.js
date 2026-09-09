@@ -13,65 +13,106 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = o("WAWebLidMigrationUtils").getAlternateMsgKey(t.id),
-            a = yield o(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
+            r = yield o(
               "WAWebDBGetByParentMsgKey",
-            ).bulkGetMessageOrphansByParentMsgKey([t.id, r].filter(Boolean));
-          a.length &&
+            ).bulkGetMessageOrphansByParentMsgKey([e.id, t].filter(Boolean));
+          r.length &&
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "processOrphansForNewMsg: found orphans",
                 ])),
             );
-          var i = o("WAWebAddonProcessMsgsUtils").sortAddonOrphans(a),
-            l = i.legacyReactionAddons,
-            u = i.otherOrphans,
-            c = i.unifiedAddons,
+          var a = o("WAWebAddonProcessMsgsUtils").sortAddonOrphans(r),
+            i = a.legacyReactionAddons,
+            l = a.otherOrphans,
+            c = a.unifiedAddons,
             d = yield o("WAWebDBMapOrphansToProviders").mapOrphansToProviders(
-              u,
+              l,
             ),
-            m = [
+            p = [
               o("WAWebStoreMsgs").storeMsgs(c),
-              o("WAWebDBProcessReactionsMsgs").processReactionMsgs(l),
-            ];
-          for (var p of d.entries()) {
-            var _ = p[0],
-              f = p[1];
-            m.push(_.processOrphansForNewMsg(t, f));
-          }
-          yield (s || (s = n("Promise"))).all(m);
-          var g = Array.from(d.values())
-            .flat()
-            .map(function (e) {
-              return e.msgKey;
-            });
-          ((g = g.concat(
+              o("WAWebDBProcessReactionsMsgs").processReactionMsgs(i),
+            ],
+            _ = [],
+            f = function* () {
+              var t = g[0],
+                n = g[1];
+              _.push(
+                t.processOrphansForNewMsg(e, n).then(function (e) {
+                  var t = new Set();
+                  return (
+                    m(e, t),
+                    n
+                      .map(function (e) {
+                        return e.msgKey;
+                      })
+                      .filter(function (e) {
+                        return !t.has(e);
+                      })
+                  );
+                }),
+              );
+            };
+          for (var g of d.entries()) yield* f();
+          var h = yield (u || (u = n("Promise"))).all([u.all(p), u.all(_)]),
+            y = h[1],
+            C = y.flat();
+          ((C = C.concat(
             c.map(function (e) {
               return e.id.toString();
             }),
           )),
-            l.length &&
-              (g = g.concat(
-                l.map(function (e) {
+            i.length &&
+              (C = C.concat(
+                i.map(function (e) {
                   return e.id.toString();
                 }),
               )),
             yield o("WAWebSchemaMessageOrphans")
               .getMessageOrphanTable()
-              .bulkRemove(g));
+              .bulkRemove(C));
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.processOrphansForNewMsg = u;
+    function m(e, t) {
+      if (
+        !(e == null || typeof e != "object") &&
+        "retainedOrphanMsgKeys" in e
+      ) {
+        var n = e.retainedOrphanMsgKeys;
+        if (!Array.isArray(n)) {
+          p("not an array");
+          return;
+        }
+        var r = 0;
+        for (var o of n) typeof o == "string" ? t.add(o) : (r += 1);
+        r > 0 && p(r + " non-string entries");
+      }
+    }
+    function p(t) {
+      o("WALogger")
+        .WARN(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "processOrphansForNewMsg: unusable retainedOrphanMsgKeys (",
+              ")",
+            ])),
+          t,
+        )
+        .tags("messaging")
+        .sendLogs("orphan-retention-malformed", { sampling: 0.01 });
+    }
+    l.processOrphansForNewMsg = c;
   },
   98,
 );

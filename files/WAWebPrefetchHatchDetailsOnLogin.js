@@ -23,7 +23,7 @@ __d(
             },
           ),
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures.on(
-          "change:aiBotIntegrationEnabled",
+          "change:aiHatchIntegrationEnabled",
           function () {
             d();
           },

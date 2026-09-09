@@ -10,21 +10,7 @@ __d(
         t++;
       return o("WAJids").toBroadcastJid(String(t));
     }
-    function s(e) {
-      if (
-        e.length < 1 ||
-        e.length > o("WAWebBroadcastConsts").MAX_BROADCAST_ID_LENGTH
-      )
-        return !1;
-      var t = e.charAt(0);
-      if (t < "1" || t > "9") return !1;
-      for (var n = 0; n < e.length; n++) {
-        var r = e.charAt(n);
-        if (r < "0" || r > "9") return !1;
-      }
-      return !0;
-    }
-    ((l.createBroadcastListJid = e), (l.isValidBroadcastListId = s));
+    l.createBroadcastListJid = e;
   },
   98,
 );

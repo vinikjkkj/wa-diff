@@ -82,8 +82,8 @@ __d(
         n = e.tagName.toLowerCase(),
         r = e instanceof HTMLInputElement ? e.type : null;
       return !!(
-        (e instanceof HTMLInputElement && c.has(r)) ||
-        d.has(t) ||
+        (e instanceof HTMLInputElement && r != null && c.has(r)) ||
+        (t != null && d.has(t)) ||
         m.has(n)
       );
     }

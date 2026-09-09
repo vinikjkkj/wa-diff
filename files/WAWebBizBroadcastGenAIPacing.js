@@ -40,23 +40,9 @@ __d(
       var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily();
       return p() >= e;
     }
-    function g() {
-      var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily(),
-        t = p();
-      return Math.max(0, e - t);
-    }
-    function h() {
-      var e = c();
-      if (e == null || m(e)) return 0;
-      var t = Date.now() - e.startTime,
-        n = u - t;
-      return Math.max(1, Math.ceil(n / s));
-    }
     ((l.getRequestCount = p),
       (l.incrementRequestCount = _),
-      (l.hasReachedDailyLimit = f),
-      (l.getRemainingGenerations = g),
-      (l.getHoursUntilReset = h));
+      (l.hasReachedDailyLimit = f));
   },
   98,
 );

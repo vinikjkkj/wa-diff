@@ -180,6 +180,7 @@ __d(
         case "quarantined":
         case "message_edit_encrypted":
         case "poll_add_option_decrypted":
+        case "music":
           break;
         default:
           throw r("err")("CAG - Invalid type: " + l);

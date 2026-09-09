@@ -41,6 +41,7 @@ __d(
         MESSAGE_HISTORY_BUNDLE: "group-history",
         MESSAGE_HISTORY_NOTICE: "message_history_notice",
         MULTI_VCARD: "multi_vcard",
+        MUSIC: "music",
         NATIVE_FLOW: "native_flow",
         NEWSLETTER_ADMIN_INVITE: "newsletter_admin_invite",
         NEWSLETTER_FOLLOWER_INVITE: "newsletter_follower_invite",

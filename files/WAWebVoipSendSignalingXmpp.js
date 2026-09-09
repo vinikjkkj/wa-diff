@@ -24,6 +24,7 @@ __d(
     "WAWebVoipWapNodeUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "cr:6324",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -39,30 +40,33 @@ __d(
       h,
       y,
       C,
-      b = ["offer", "enc_rekey"];
-    function v(e) {
-      return S.apply(this, arguments);
+      b,
+      v = (e = n("cr:6324")) != null ? e : {},
+      S = v.maybeOverrideJestE2ERelayEndpoints,
+      R = ["offer", "enc_rekey"];
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r, a;
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, r;
           yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
-          var i = Date.now(),
-            l = t.peerJid,
-            s = t.xmlPayload,
-            d = yield o("WAWap").decodeStanza(s, function (e) {
-              return (C || (C = n("Promise"))).resolve(e);
+          var a = Date.now(),
+            i = e.peerJid,
+            l = e.xmlPayload,
+            s = yield o("WAWap").decodeStanza(l, function (e) {
+              return (b || (b = n("Promise"))).resolve(e);
             }),
             m = Date.now(),
-            p = o("WAWebWidFactory").createWid(l),
-            _ = b.includes(d.tag),
+            p = o("WAWebWidFactory").createWid(i),
+            _ = R.includes(s.tag),
             f,
-            g = d;
+            g = s;
           if (p.isGroupCall()) f = o("WAWebCommsWapMd").GROUP_CALL_JID(p);
           else if (!_)
             ((f = o("WAWap").DEVICE_JID(
-              o("WAJids").unsafeCoerceToDeviceJid(l),
+              o("WAJids").unsafeCoerceToDeviceJid(i),
             )),
               yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 identityChanged: !1,
@@ -75,90 +79,91 @@ __d(
                 wids: [p],
               }));
           else {
-            var h = yield R(d, l);
+            var h = yield k(s, i);
             ((f = h[0]), (g = h[1]));
           }
           var y = Date.now(),
-            v = g.tag,
-            S = function (t) {
+            C = g.tag,
+            v = function (t) {
               return t.replace(/^([^@]*)([^@][^@][^@][^@])@(.*)$/, "...$2@$3");
             };
           if (
             (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "voip:sendWAWebVoipSignalingXmpp: sending stanza ",
                   " to ",
                   " callStanzaRecipient = ",
                   "",
                 ])),
-              v,
-              S(p.toJid()),
-              S(f.toString()),
+              C,
+              v(p.toJid()),
+              v(f.toString()),
             ),
-            v === "reject" && !p.isGroupCall())
+            C === "reject" && !p.isGroupCall())
           ) {
-            var L = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode(d),
+            var L = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode(s),
               E = L.maybeAttrString("call-creator");
             if (E != null)
               try {
-                var k = o("WAWebWidFactory").createWid(f.toString()),
-                  I = o("WAWebWidFactory").createWid(E);
-                k.server !== I.server &&
+                var I = o("WAWebWidFactory").createWid(f.toString()),
+                  T = o("WAWebWidFactory").createWid(E);
+                I.server !== T.server &&
                   o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: reject stanza domain mismatch: peer=",
                         " recipient=",
                         " creatorDomain=",
                         "",
                       ])),
-                    S(l),
-                    S(f.toString()),
-                    I.server,
+                    v(i),
+                    v(f.toString()),
+                    T.server,
                   );
               } catch (e) {}
           }
-          var T = o("WAWap").generateId(),
-            D = o("WAWap").wap("call", { to: f, id: T }, g),
-            x = yield o(
+          var D = o("WAWap").generateId(),
+            x = o("WAWap").wap("call", { to: f, id: D }, g),
+            $ = yield o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
-              D,
+              x,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: String(T),
+                id: String(D),
                 class: "call",
                 from: p,
                 participant: null,
               }),
             ),
-            $ = Date.now(),
-            P = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode(x),
-            N = yield (C || (C = n("Promise"))).all([
+            P = Date.now();
+          S == null || S($);
+          var N = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode($),
+            M = yield (b || (b = n("Promise"))).all([
               o("WAWebVoipPeerTcToken").fetchPeerTcToken(p),
               o("WAWebVoipStackInterface").getVoipStackInterface(),
             ]),
-            M = N[0],
-            w = N[1];
-          (d.tag === "offer" &&
+            w = M[0],
+            A = M[1];
+          (s.tag === "offer" &&
             o("WAWebVoipGatingUtils").markCurrentCallAsFna(
-              o("WAWebVoipGatingUtils").hasFnaRelay(P),
+              o("WAWebVoipGatingUtils").hasFnaRelay(N),
             ),
-            yield w == null
+            yield A == null
               ? void 0
-              : w.handleIncomingSignalingAck({
+              : A.handleIncomingSignalingAck({
                   ackInfoError:
-                    (r = P.maybeAttrString("error")) != null ? r : "0",
-                  ackInfoType: (a = P.maybeAttrString("type")) != null ? a : "",
-                  peerJid: l,
-                  tcToken: M,
-                  xmlNode: P,
+                    (t = N.maybeAttrString("error")) != null ? t : "0",
+                  ackInfoType: (r = N.maybeAttrString("type")) != null ? r : "",
+                  peerJid: i,
+                  tcToken: w,
+                  xmlNode: N,
                 }));
-          var A = Date.now() - i;
-          A > 100 &&
+          var F = Date.now() - a;
+          F > 100 &&
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SignalingPerf] ",
                   ": total=",
                   "ms, decode=",
@@ -167,27 +172,27 @@ __d(
                   "ms, postAck=",
                   "ms",
                 ])),
-              v,
-              A,
-              m - i,
+              C,
+              F,
+              m - a,
               y - m,
-              $ - y,
-              Date.now() - $,
+              P - y,
+              Date.now() - P,
             );
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function L() {
+    function I() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode(e),
             a = o("WAWebWidFactory").createWid(t);
-          if (r.hasChild("destination")) return E(e, r, a);
+          if (r.hasChild("destination")) return T(e, r, a);
           if (!r.hasChild("enc"))
             return [
               o("WAWap").DEVICE_JID(o("WAJids").unsafeCoerceToDeviceJid(t)),
@@ -215,8 +220,8 @@ __d(
               wids: i,
             }),
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [SignalingPerf] ensureE2ESessions: ",
                     "ms (",
                     " wids)",
@@ -226,20 +231,20 @@ __d(
               ));
           } catch (e) {
             o("WALogger").WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "voip:encryptAndSendSignalingMsg: Could not establish E2E session with deviceWid",
                 ])),
             );
           }
-          var u = I(r),
+          var u = x(r),
             c,
-            f;
+            d;
           try {
             var g,
               h,
               y = Date.now(),
-              C = yield T({
+              C = yield $({
                 callKeyProtobuf: u,
                 count:
                   (g =
@@ -251,22 +256,22 @@ __d(
                 deviceWid: a,
               });
             (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SignalingPerf] buildEncNode (encrypt+flush): ",
                   "ms",
                 ])),
               Date.now() - y,
             ),
               (c = C.encNode),
-              (f = C.shouldHaveIdentity));
+              (d = C.shouldHaveIdentity));
           } catch (t) {
             if (e.tag === "offer")
               ((c = null),
-                (f = !1),
+                (d = !1),
                 o("WALogger").WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "voip:encryptAndSendSignalingMsg: Sending offer without enc",
                     ])),
                 ));
@@ -274,7 +279,7 @@ __d(
           }
           return (
             o("WAWebVoipWapNodeUtils").replaceVoipWapChild(e, c),
-            f && (yield x(e)),
+            d && (yield N(e)),
             [
               o("WAWap").DEVICE_JID(
                 o("WAJids").unsafeCoerceToDeviceJid(
@@ -293,15 +298,15 @@ __d(
             ]
           );
         })),
-        L.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function k() {
+    function D() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           e.tag === "offer" || s(0, 89768);
           var a = o("WAWebVoipWapNodeUtils").getVoipWapChild(e, "destination"),
             i = t.child("destination"),
@@ -321,8 +326,8 @@ __d(
             });
           } catch (e) {
             o("WALogger").WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "voip:fanOutOffer: Could not establish E2E session with all deviceWids",
                 ])),
             );
@@ -337,12 +342,12 @@ __d(
                   function* (e, n) {
                     var r = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode(e);
                     if (r.hasChild("enc")) {
-                      var a = I(r),
+                      var a = x(r),
                         i = l[n];
                       try {
                         var s,
                           d,
-                          m = yield T({
+                          m = yield $({
                             callKeyProtobuf: a,
                             count:
                               (s =
@@ -363,8 +368,8 @@ __d(
                         );
                       } catch (e) {
                         (o("WALogger").WARN(
-                          g ||
-                            (g = babelHelpers.taggedTemplateLiteralLoose([
+                          h ||
+                            (h = babelHelpers.taggedTemplateLiteralLoose([
                               "voip:encryptMsgCallKey: Signal encryption failed for ",
                               ", ",
                               "",
@@ -384,8 +389,8 @@ __d(
             ),
             u
               ? (o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "voip:encryptMsgCallKey: Removing all enc nodes due to encryption failure",
                     ])),
                 ),
@@ -400,14 +405,14 @@ __d(
               : (yield o("WAWebSignalProtocolStore")
                   .getSignalProtocolStore()
                   .flushBufferToDiskIfNotMemOnlyMode(),
-                c && (yield x(e))),
+                c && (yield N(e))),
             [o("WAWebCommsWapMd").USER_JID(r), e]
           );
         })),
-        k.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function I(e) {
+    function x(e) {
       var t,
         n =
           (t = e.maybeChild("enc")) == null || t.contentBytes == null
@@ -415,12 +420,12 @@ __d(
             : t.contentBytes();
       return { call: { callKey: n != null ? n : null } };
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function D() {
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callKeyProtobuf,
             n = e.count,
             r = e.deviceWid,
@@ -439,8 +444,8 @@ __d(
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode()),
             o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SignalingPerf] encryptSignalProto: ",
                   "ms, flush: ",
                   "",
@@ -462,31 +467,31 @@ __d(
           return {
             encNode: m,
             shouldHaveIdentity:
-              c === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg && P(),
+              c === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg && w(),
           };
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function $() {
+    function M() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
           o("WAWebVoipWapNodeUtils").appendVoipWapChildInPlace(
             e,
             o("WAWap").wap("device-identity", null, t),
           );
         })),
-        $.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function P() {
+    function w() {
       return !o("WAWebVoipGatingUtils").isGuestViewer();
     }
-    l.sendWAWebVoipSignalingXmpp = v;
+    l.sendWAWebVoipSignalingXmpp = L;
   },
   98,
 );

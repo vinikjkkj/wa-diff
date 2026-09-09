@@ -8,10 +8,9 @@ __d(
     "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipOperationQueue",
     "WAWebVoipPerfMeasurement",
-    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipVideoCameraCapture",
     "WAWebVoipVideoDesktopCapture",
-    "WAWebVoipVideoRendererInterface",
+    "WAWebVoipVideoRenderSource",
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVirtualVideoCaptureDriver",
     "asyncToGeneratorRuntime",
@@ -150,13 +149,15 @@ __d(
       );
     }
     function v(e, t) {
-      return !t ||
-        (e === o("WAWebVoipVideoRendererInterface").selfPreviewJid &&
-          !o(
+      var n =
+        t &&
+        (e !== o("WAWebVoipVideoRenderSource").selfPreviewJid ||
+          o(
             "WAWebVoipDualStreamScreenShareState",
-          ).isSelfDualStreamScreenShareActive())
-        ? e
-        : o("WAWebVoipScreenShareStreamKey").getScreenShareStreamKey(e);
+          ).isSelfDualStreamScreenShareActive());
+      return o(
+        "WAWebVoipVideoRenderSource",
+      ).WAWebVoipVideoRenderSource.fromWire(e, n);
     }
     function S(e) {
       return R.apply(this, arguments);
@@ -175,9 +176,19 @@ __d(
             c = e.userJid,
             d = e.width,
             m = v(c, l);
-          o(
-            "WAWebVoipVideoRendererRegistry",
-          ).videoRendererRegistry.onVideoFrameWasmToJs(m, n, d, r, s, t, u, a);
+          m != null &&
+            o(
+              "WAWebVoipVideoRendererRegistry",
+            ).videoRendererRegistry.onVideoFrameWasmToJs(
+              m,
+              n,
+              d,
+              r,
+              s,
+              t,
+              u,
+              a,
+            );
         })),
         R.apply(this, arguments)
       );

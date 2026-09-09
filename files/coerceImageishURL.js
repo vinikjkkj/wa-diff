@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      return e &&
+      return e != null &&
         typeof e == "object" &&
         !e.sprited &&
         typeof e.uri == "string" &&

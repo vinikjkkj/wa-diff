@@ -4,6 +4,7 @@ __d(
     "WAWebAudienceExpressionTypes",
     "WAWebBaseModel",
     "WAWebBroadcastMetadataCollection",
+    "WAWebBroadcastMetadataGetters",
     "WAWebBroadcastRecipientCollection",
     "WAWebWid",
   ],
@@ -32,6 +33,12 @@ __d(
       return (
         (n.getCollection = function () {
           return r("WAWebBroadcastMetadataCollection");
+        }),
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o(
+              "WAWebBroadcastMetadataGetters",
+            ).clearBroadcastMetadataGetterCacheFor(this));
         }),
         t
       );

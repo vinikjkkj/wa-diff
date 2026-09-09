@@ -14,6 +14,7 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebMediaStore",
     "WAWebMediaTypes",
+    "WAWebProductImageGetters",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -190,6 +191,12 @@ __d(
             var e = f(this.mediaUrl);
             o("WAWebMediaStore").LruMediaStore.del(e);
           }
+        }),
+        (i.delete = function () {
+          (t.prototype.delete.call(this),
+            o("WAWebProductImageGetters").clearProductImageGetterCacheFor(
+              this,
+            ));
         }),
         a
       );

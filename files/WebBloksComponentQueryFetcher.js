@@ -72,14 +72,17 @@ __d(
                   );
                 (e.$3.set(t, c), e.$1.delete(t), r(d));
               })
-              .catch(function (r) {
-                throw (
-                  e.$1.delete(t),
-                  new (o("WebBloksErrors").WebBloksError)(
+              .catch(function (a) {
+                e.$1.delete(t);
+                var i = a instanceof Error ? a : null;
+                r({
+                  result: { components: new Map() },
+                  success: !1,
+                  error: new (o("WebBloksErrors").WebBloksError)(
                     "Failed to fetch async component for appId: " + n.appId,
-                    r,
-                  )
-                );
+                    i,
+                  ),
+                });
               });
           }
         }),

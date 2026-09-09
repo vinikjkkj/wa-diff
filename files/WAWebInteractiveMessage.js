@@ -22,43 +22,45 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.displayAuthor,
-        n = e.displayType,
-        a = e.msg,
-        i = e.quotedMsg,
-        l = r("useWAWebUIM")(),
-        u = o("useWAWebMsgValues").useMsgValues(a.id, [
-          o("WAWebMsgGetters").getNativeFlowName,
-          o("WAWebMsgGetters").getGalaxyFlowDisabled,
-          o("WAWebMsgGetters").getInteractivePayload,
+      var t,
+        n = e.displayAuthor,
+        a = e.displayType,
+        i = e.msg,
+        l = e.quotedMsg,
+        u = r("useWAWebUIM")(),
+        c = o("useWAWebMsgValues").useMsgValues(i.id, [
+          (t = o("WAWebMsgGetters")).getNativeFlowName,
+          t.getGalaxyFlowDisabled,
+          t.getInteractivePayload,
+          t.getSignupCtaTapped,
         ]),
-        c = u[0],
-        d = u[1],
-        m = o("WAWebFrontendMsgGetters").getChat(a.unsafe()),
-        p = r("useWAWebConversationPanelCanCompose")(m),
-        _ = p[0],
-        f = _ || o("WAWebChatGetters").getIsBroadcast(m),
-        g = o("WAWebOrderDetails").getOrderInfo(a),
-        h = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          m,
-          g == null ? void 0 : g.referenceId,
-          o("WAWebOrderStatus").isSimplifiedOrder(g),
+        d = c[0],
+        m = c[1],
+        p = o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
+        _ = r("useWAWebConversationPanelCanCompose")(p),
+        f = _[0],
+        g = f || o("WAWebChatGetters").getIsBroadcast(p),
+        h = o("WAWebOrderDetails").getOrderInfo(i),
+        y = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+          p,
+          h == null ? void 0 : h.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(h),
         ),
-        y = r("WAWebGetInteractiveActions")({
-          msg: a,
-          uimContext: l,
-          canCompose: f,
-          orderPaymentStatus: h,
+        C = r("WAWebGetInteractiveActions")({
+          msg: i,
+          uimContext: u,
+          canCompose: g,
+          orderPaymentStatus: y,
         }),
-        C =
-          y == null
+        b =
+          C == null
             ? void 0
-            : y.map(function (e) {
+            : C.map(function (e) {
                 var t,
                   n =
                     e.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW &&
-                    d === !0;
+                    m === !0;
                 return {
                   testid: e.testid,
                   label: e.label,
@@ -74,22 +76,22 @@ __d(
                   Icon: e.Icon,
                 };
               }),
-        b = c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS;
+        v = d === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS;
       return s.jsx(r("WAWebInteractiveBubble.react"), {
-        msg: a,
-        displayAuthor: t,
-        displayType: n,
-        displayFooter: !b || o("WAWebOrderStatus").hasOrderStatusButton(a),
+        msg: i,
+        displayAuthor: n,
+        displayType: a,
+        displayFooter: !v || o("WAWebOrderStatus").hasOrderStatusButton(i),
         header: s.jsx(r("WAWebInteractiveHeader"), {
-          msg: a,
-          quotedMsg: i,
-          displayType: n,
+          msg: i,
+          quotedMsg: l,
+          displayType: a,
         }),
-        actions: C,
+        actions: b,
         hideMeta:
-          (c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-            o("WAWebOrderStatus").isPaymentRequest(m, g)) ||
-          r("WAWebIsBloksOnlyMessage")(a),
+          (d === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+            o("WAWebOrderStatus").isPaymentRequest(p, h)) ||
+          r("WAWebIsBloksOnlyMessage")(i),
       });
     }
     ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));

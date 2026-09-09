@@ -123,6 +123,8 @@ __d(
               .INTERACTIVE_RESPONSE_NFM;
           case o("WAWebBackendJobs.flow").EncMediaType.GroupHistory:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.GROUP_HISTORY;
+          case o("WAWebBackendJobs.flow").EncMediaType.Music:
+            return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
         }
       return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
     }
@@ -203,6 +205,8 @@ __d(
           return o("WAWebBackendJobs.flow").EncMediaType.NativeFlowResponse;
         if (e.messageHistoryBundle)
           return o("WAWebBackendJobs.flow").EncMediaType.GroupHistory;
+        if (e.musicMessage)
+          return o("WAWebBackendJobs.flow").EncMediaType.Music;
         if (
           ((t = e.extendedTextMessage) == null ? void 0 : t.matchedText) !=
             null &&
@@ -267,6 +271,8 @@ __d(
               return "sticker_pack";
             case o("WAWebBackendJobs.flow").EncMediaType.GroupHistory:
               return "group_history";
+            case o("WAWebBackendJobs.flow").EncMediaType.Music:
+              return "music";
             default:
               return null;
           }

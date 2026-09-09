@@ -182,6 +182,9 @@ __d(
                                                     .MdHistorySync ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")
+                                                    .EncMediaType.Music ||
+                                                e ===
+                                                  o("WAWebBackendJobs.flow")
                                                     .EncMediaType
                                                     .ProductImage ||
                                                 e ===

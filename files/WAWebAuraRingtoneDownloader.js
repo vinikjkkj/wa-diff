@@ -255,7 +255,7 @@ __d(
               r = o("WAWebAuraRingtonePrefs").getStoredPackVersion();
             (r != null &&
               r !== String(L) &&
-              (z(), yield $("aura-ringtones-v" + r)),
+              (G(), yield $("aura-ringtones-v" + r)),
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -335,9 +335,6 @@ __d(
       return (t = n == null ? void 0 : n.blobUrl) != null ? t : null;
     }
     function G() {
-      return T;
-    }
-    function z() {
       for (var e of k.values()) URL.revokeObjectURL(e.blobUrl);
       (k.clear(),
         (T = !1),
@@ -354,8 +351,7 @@ __d(
       (l.downloadPremiumRingtones = q),
       (l.getDownloadedRingtones = V),
       (l.getRingtoneBlobUrl = H),
-      (l.arePremiumRingtonesDownloaded = G),
-      (l.clearRingtoneCache = z));
+      (l.clearRingtoneCache = G));
   },
   98,
 );

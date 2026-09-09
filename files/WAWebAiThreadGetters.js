@@ -11,13 +11,17 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = o("WAWebGetters").createGetterFactories({
-        createCache: o("WAWebGettersCaches").createCatalogCache,
+        createCache: o("WAWebGettersCaches").createAiThreadCache,
       }),
-      u = e.computed,
-      c = e.field,
-      d = c("id"),
-      m = c("title"),
-      p = u(
+      u = e.clearCacheFor,
+      c = e.computed,
+      d = e.field,
+      m = u,
+      p = d("id"),
+      _ = d("title"),
+      f = d("botModeSelection"),
+      g = d("botModeOverride"),
+      h = c(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -35,9 +39,12 @@ __d(
             ? n
             : s._(/*BTDS*/ "Untitled chat");
         },
-        [d, m],
+        [p, _],
       );
-    l.getDisplayTitle = p;
+    ((l.clearAiThreadGetterCacheFor = m),
+      (l.getBotModeSelection = f),
+      (l.getBotModeOverride = g),
+      (l.getDisplayTitle = h));
   },
   226,
 );

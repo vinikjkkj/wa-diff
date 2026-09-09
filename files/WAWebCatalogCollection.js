@@ -7,6 +7,7 @@ __d(
     "WAWebBizCatalogGatingUtils",
     "WAWebBizProductCatalogAction",
     "WAWebBizProductCatalogBridge",
+    "WAWebCatalogGetters",
     "WAWebCatalogModel",
     "WAWebCatalogVariantHelper",
     "WAWebMsgGetters",
@@ -47,6 +48,20 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o("WAWebCatalogGetters").clearCatalogGetterCacheFor(e);
+              }),
+              e
+            );
+          }),
+          (i.reset = function () {
+            (this.forEach(o("WAWebCatalogGetters").clearCatalogGetterCacheFor),
+              t.prototype.reset.call(this));
+          }),
           (i.addMsgAsProduct = function (n) {
             var e = o("WAWebMsgGetters").getBusinessOwnerJid(n.unsafe()),
               r = e != null ? o("WAWebWidFactory").createWid(e) : null;

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBaseCachePolicy",
     "WAWebBaseCollection",
+    "WAWebChatPreferenceGetters",
     "WAWebChatPreferenceModel",
     "WAWebChatThemeValue",
     "WAWebUserPrefsKeys",
@@ -84,6 +85,24 @@ __d(
               o("WAWebChatPreferenceModel").DEFAULT_PREFERENCE,
             ),
           );
+        }),
+        (a.remove = function (n, r) {
+          var e = t.prototype.remove.call(this, n, r);
+          return (
+            e.forEach(function (e) {
+              e != null &&
+                o(
+                  "WAWebChatPreferenceGetters",
+                ).clearChatPreferenceGetterCacheFor(e);
+            }),
+            e
+          );
+        }),
+        (a.reset = function () {
+          (this.forEach(
+            o("WAWebChatPreferenceGetters").clearChatPreferenceGetterCacheFor,
+          ),
+            t.prototype.reset.call(this));
         }),
         (a.delete = function () {
           (t.prototype.delete.call(this), this.add(e));

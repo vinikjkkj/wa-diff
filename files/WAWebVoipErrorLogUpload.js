@@ -5,7 +5,10 @@ __d(
     "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebUA",
+    "WAWebVoipSctpConnectionManager",
+    "WAWebVoipTransportFallbackTracker",
     "WAWebVoipWebTransportCallSummary",
+    "WAWebVoipWebTransportConnectionManager",
     "WAWebWamEnumCallResultType",
     "getErrorSafe",
     "gkx",
@@ -18,25 +21,37 @@ __d(
       u,
       c,
       d,
-      m = 6,
-      p = 10,
-      _ = 0.1,
-      f = 0.01,
-      g = 0.1,
-      h = 5e3,
-      y = "voip-group-call-cer",
-      C = 0.1,
-      b = 3,
-      v = 3e4,
-      S = null,
-      R = new Set();
-    function L(e) {
-      if (S == null)
+      m,
+      p,
+      _,
+      f,
+      g,
+      h,
+      y,
+      C = 6,
+      b = 10,
+      v = 0.1,
+      S = 0.01,
+      R = 0.1,
+      L = 0.001,
+      E = 8,
+      k = 5e3,
+      I = "voip-group-call-cer",
+      T = 0.1,
+      D = 3,
+      x = 3e4,
+      $ = null,
+      P = new Set(),
+      N = !1,
+      M = !1,
+      w = null;
+    function A(e) {
+      if ($ == null)
         try {
           var t,
             n,
             r = JSON.parse(e);
-          S =
+          $ =
             (t =
               r == null || (n = r.call_info) == null
                 ? void 0
@@ -44,35 +59,145 @@ __d(
               ? t
               : null;
         } catch (e) {
-          S = null;
+          $ = null;
         }
     }
-    function E(e) {
+    function F() {
+      ((N = !1), (M = !1));
+    }
+    function O() {
+      if (
+        ((N = !0),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: Web client entered reconnecting",
+            ])),
+        ),
+        !M)
+      ) {
+        M = !0;
+        var t = o(
+            "WAWebVoipWebTransportCallSummary",
+          ).getWtCallSummaryIfCurrent(),
+          n = t.attempts
+            .slice(-E)
+            .map(function (e) {
+              var t,
+                n = e.outcome == null ? "pending" : e.outcome;
+              return (
+                e.connectionId +
+                ":" +
+                n +
+                ":" +
+                ((t = e.likelyCause) != null ? t : "none")
+              );
+            })
+            .join("|");
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: reconnecting transport path previousWebTransportOpened=",
+              " fallbackToSctp=",
+              "",
+            ])),
+          String(t.numOpened > 0),
+          String(o("WAWebVoipTransportFallbackTracker").hasFallbackTriggered()),
+        ),
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: reconnecting SCTP relays ",
+                "",
+              ])),
+            o("WAWebVoipSctpConnectionManager").getSctpRelayDebugSummary(),
+          ),
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: reconnecting WebTransport relays ",
+                "",
+              ])),
+            o(
+              "WAWebVoipWebTransportConnectionManager",
+            ).getWebTransportRelayDebugSummary(),
+          ),
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: reconnecting WebTransport history attempts=",
+                " opened=",
+                " details=",
+                "",
+              ])),
+            String(t.numRelayAttempts),
+            String(t.numOpened),
+            n || "none",
+          ));
+      }
+    }
+    function B() {
+      var e = N;
+      ((N = !1),
+        !(!e || !r("WAWebEnvironment").isWeb || !r("justknobx")._("5297")) &&
+          (W(),
+          (w = window.setTimeout(function () {
+            ((w = null),
+              r("gkx")("26258")
+                ? o("WALogger")
+                    .LOG(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: uploading reconnecting logs",
+                        ])),
+                    )
+                    .sendLogs("voip-call-reconnecting", {
+                      sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                      sampling: L,
+                    })
+                : o("WALogger")
+                    .LOG(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: uploading reconnecting testing logs",
+                        ])),
+                    )
+                    .sendLogs("voip-call-reconnecting-testing", {
+                      sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                      sampling: L,
+                    }));
+          }, k))));
+    }
+    function W() {
+      w != null && (window.clearTimeout(w), (w = null));
+    }
+    function q(e) {
       if (!r("justknobx")._("5297")) return null;
-      var t = e === m || e === p;
+      var t = e === C || e === b;
       if (!t) return null;
       var n = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
         a = o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall(),
         i = a ? "webtransport-" : "",
-        l = e === m ? "setup-error" : "accepted-but-not-connected",
-        s = o("WAWebUA").UA.isChrome ? f : _,
-        u = a && e === p ? g : s;
+        l = e === C ? "setup-error" : "accepted-but-not-connected",
+        s = o("WAWebUA").UA.isChrome ? S : v,
+        u = a && e === b ? R : s;
       return { reason: "voip-call-error-" + n + "-" + i + l, sampling: u };
     }
-    function k() {
-      var t,
-        n = S;
-      if (((S = null), !!r("WAWebEnvironment").isWeb && n != null)) {
-        var a = E(n);
-        if (a != null) {
-          var i = a.reason,
-            l = a.sampling;
-          r("gkx")("26258") || (i = i + "-testing");
-          var u = (t = document.visibilityState) != null ? t : "unknown",
-            c = document.hasFocus();
+    function U() {
+      var e,
+        t = $;
+      if ((($ = null), !!r("WAWebEnvironment").isWeb && t != null)) {
+        var n = q(t);
+        if (n != null) {
+          W();
+          var a = n.reason,
+            i = n.sampling;
+          r("gkx")("26258") || (a = a + "-testing");
+          var l = (e = document.visibilityState) != null ? e : "unknown",
+            s = document.hasFocus();
           (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip] upload result=",
                 " reason=",
                 " rate=",
@@ -80,31 +205,31 @@ __d(
                 " focus=",
                 "",
               ])),
-            n,
+            t,
+            a,
             i,
             l,
-            u,
-            String(c),
+            String(s),
           ),
             window.setTimeout(function () {
               o("WALogger")
                 .LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: uploading error logs: ",
                       "",
                     ])),
-                  i,
+                  a,
                 )
-                .sendLogs(i, {
+                .sendLogs(a, {
                   sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-                  sampling: l,
+                  sampling: i,
                 });
-            }, h));
+            }, k));
         }
       }
     }
-    function I(e) {
+    function V(e) {
       var t,
         n,
         a =
@@ -119,7 +244,7 @@ __d(
             o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.CONNECTED ||
           !a ||
           e.groupCallIsLastSegment !== !0 ||
-          e.maxConnectedParticipants < b ||
+          e.maxConnectedParticipants < D ||
           !r("justknobx")._("5297")
         )
       ) {
@@ -127,14 +252,14 @@ __d(
           ((t = e.callId) != null ? t : "unknown-call") +
           ":" +
           String((n = e.groupCallSegmentIdx) != null ? n : "unknown-segment");
-        if (!R.has(i)) {
-          R.add(i);
-          var l = C,
-            s = r("gkx")("26258") ? y : y + "-testing",
-            m = T(e);
+        if (!P.has(i)) {
+          P.add(i);
+          var l = T,
+            s = r("gkx")("26258") ? I : I + "-testing",
+            u = H(e);
           (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip] scheduling group CER log upload reason=",
                 " rate=",
                 "",
@@ -144,8 +269,8 @@ __d(
           ),
             self.setTimeout(function () {
               (o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: uploading group CER logs: ",
                     "",
                   ])),
@@ -155,35 +280,38 @@ __d(
                   .upload({
                     reason: s,
                     clientSamplingRate: l,
-                    fromTimestamp: m,
+                    fromTimestamp: u,
                     hasTaggedMessage: !1,
                     sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
                   })
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        y ||
+                          (y = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: group CER log upload failed",
                           ])),
                       )
                       .catching(r("getErrorSafe")(e));
                   })
                   .finally(function () {
-                    R.delete(i);
+                    P.delete(i);
                   }));
-            }, h));
+            }, k));
         }
       }
     }
-    function T(e) {
+    function H(e) {
       var t = e.groupCallTotalCallTSinceCallStart,
         n = t != null && t >= 0 ? t : e.callT;
-      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - v);
+      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - x);
     }
-    ((l.captureWamCallResult = L),
-      (l.maybeUploadErrorLogs = k),
-      (l.maybeUploadGroupCallCerLogs = I));
+    ((l.captureWamCallResult = A),
+      (l.resetReconnectingStateForNewCall = F),
+      (l.recordCallReconnectingStateForLogs = O),
+      (l.maybeUploadReconnectingLogs = B),
+      (l.maybeUploadErrorLogs = U),
+      (l.maybeUploadGroupCallCerLogs = V));
   },
   98,
 );

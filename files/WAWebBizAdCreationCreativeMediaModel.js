@@ -30,18 +30,21 @@ __d(
       return t != null && t.startsWith("video/") ? "video" : "image";
     }
     function c(e) {
-      return e.status === "ready";
+      return !e.isUploadInFlight;
     }
     function d(e) {
-      return e.status === "pending";
+      return e.status === "ready";
     }
     function m(e) {
+      return e.status === "pending";
+    }
+    function p(e) {
       return e.length > 0;
     }
-    function p(e, t) {
-      return _(e, t).some(d);
-    }
     function _(e, t) {
+      return f(e, t).some(m);
+    }
+    function f(e, t) {
       var n = !1,
         r = e.map(function (e) {
           if (e.source !== "upload") return e;
@@ -52,7 +55,7 @@ __d(
         });
       return n ? r : e;
     }
-    function f(e, t) {
+    function g(e, t) {
       if (t.size === 0) return e;
       var n = !1,
         r = e.map(function (e) {
@@ -76,12 +79,13 @@ __d(
     ((l.creativeMediaKindFromMediaType = e),
       (l.creativeMediaKindFromMsgType = s),
       (l.creativeMediaKindFromAttachMedia = u),
-      (l.isCreativeMediaReady = c),
-      (l.isCreativeMediaPending = d),
-      (l.hasCreativeMedia = m),
-      (l.isCreativeMediaResolving = p),
-      (l.withCreativeMediaStatus = _),
-      (l.withResolvedCreativeMedia = f));
+      (l.shouldRecordCreativeMedia = c),
+      (l.isCreativeMediaReady = d),
+      (l.isCreativeMediaPending = m),
+      (l.hasCreativeMedia = p),
+      (l.isCreativeMediaResolving = _),
+      (l.withCreativeMediaStatus = f),
+      (l.withResolvedCreativeMedia = g));
   },
   98,
 );

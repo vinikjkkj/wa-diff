@@ -134,6 +134,7 @@ __d(
           subtype: void 0,
           msgDisplayClass: r("WAWebMultiVcardMsgDisplayClass"),
         },
+        { type: "music", subtype: void 0, msgDisplayClass: null },
         { type: "native_flow", subtype: void 0, msgDisplayClass: null },
         {
           type: "newsletter_admin_invite",

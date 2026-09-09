@@ -208,12 +208,15 @@ __d(
                                                                                                                                                     : e ===
                                                                                                                                                         "sharable_event_invite"
                                                                                                                                                       ? 71
-                                                                                                                                                      : (function () {
-                                                                                                                                                          throw Error(
-                                                                                                                                                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                                                              e,
-                                                                                                                                                          );
-                                                                                                                                                        })();
+                                                                                                                                                      : e ===
+                                                                                                                                                          "music"
+                                                                                                                                                        ? 72
+                                                                                                                                                        : (function () {
+                                                                                                                                                            throw Error(
+                                                                                                                                                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                                                                e,
+                                                                                                                                                            );
+                                                                                                                                                          })();
     }
     ((l.isMsgTypeSupportedForMsgLevelReporting = e),
       (l.isMsgTypeSupportedForPaidPartnershipLabel = s),

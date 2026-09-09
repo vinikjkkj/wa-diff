@@ -20,7 +20,7 @@ __d(
       s = e || (e = o("react"));
     function u(e) {
       var t,
-        n = o("react-compiler-runtime").c(31),
+        n = o("react-compiler-runtime").c(8),
         a = e.externalStyle,
         i = e.node,
         l = i.getSubNodes("children"),
@@ -57,113 +57,66 @@ __d(
         D = I.mainAxisMarginEnd,
         x = I.mainAxisMarginStart,
         $ = I.mainAxisSize,
-        P;
+        P = {};
+      ((P[$] = "max-content"),
+        (P[T] = "100%"),
+        (P[x] = _ != null ? o("WebBloksUtils").toPx(_) : void 0),
+        (P[D] = p != null ? o("WebBloksUtils").toPx(p) : void 0));
+      var N;
       n[0] !== v
-        ? ((P = o("WebBloksStyle").classNames.apply(
+        ? ((N = o("WebBloksStyle").classNames.apply(
             void 0,
             [o("WebBloksStyle").WebBloksStyles.container].concat(v),
           )),
           (n[0] = v),
-          (n[1] = P))
-        : (P = n[1]);
-      var N;
-      n[2] !== i
-        ? ((N = o("WebBloksCollectionHelpers").getContainerType(i)),
-          (n[2] = i),
-          (n[3] = N))
-        : (N = n[3]);
+          (n[1] = N))
+        : (N = n[1]);
       var M;
-      n[4] !== S || n[5] !== h || n[6] !== N
-        ? ((M = babelHelpers.extends({}, S, h, {
-            display: "block",
-            pointerEvents: "auto",
-            containerType: N,
-          })),
-          (n[4] = S),
-          (n[5] = h),
-          (n[6] = N),
-          (n[7] = M))
-        : (M = n[7]);
-      var w = o("WebBloksUtils").toPx(d),
-        A = $,
-        F = T,
-        O = x,
-        B = _ != null ? o("WebBloksUtils").toPx(_) : void 0,
-        W = D,
-        q = p != null ? o("WebBloksUtils").toPx(p) : void 0,
-        U;
-      if (
-        n[8] !== u ||
-        n[9] !== q ||
-        n[10] !== w ||
-        n[11] !== A ||
-        n[12] !== F ||
-        n[13] !== O ||
-        n[14] !== B ||
-        n[15] !== W
-      ) {
-        var V;
-        ((U =
-          ((V = { display: "flex", flexDirection: u, gap: w }),
-          (V[A] = "max-content"),
-          (V[F] = "100%"),
-          (V[O] = B),
-          (V[W] = q),
-          V)),
-          (n[8] = u),
-          (n[9] = q),
-          (n[10] = w),
-          (n[11] = A),
-          (n[12] = F),
-          (n[13] = O),
-          (n[14] = B),
-          (n[15] = W),
-          (n[16] = U));
-      } else U = n[16];
-      var H =
-          l &&
-          l.map(function (e) {
-            return s.jsx(
-              c,
-              { scrollerRef: g, node: e, collectionNode: i },
-              e.clientId,
-            );
-          }),
-        G;
-      n[17] !== R || n[18] !== U || n[19] !== H
-        ? ((G = s.jsx("div", { ref: R, style: U, children: H })),
-          (n[17] = R),
-          (n[18] = U),
-          (n[19] = H),
-          (n[20] = G))
-        : (G = n[20]);
-      var z;
-      n[21] !== g ||
-      n[22] !== k ||
-      n[23] !== P ||
-      n[24] !== G ||
-      n[25] !== M ||
-      n[26] !== C
-        ? ((z = s.jsx(
-            "div",
-            babelHelpers.extends({}, C, { ref: g, className: P, style: M }, k, {
-              children: G,
-            }),
-          )),
-          (n[21] = g),
-          (n[22] = k),
-          (n[23] = P),
-          (n[24] = G),
-          (n[25] = M),
-          (n[26] = C),
-          (n[27] = z))
-        : (z = n[27]);
-      var j;
+      n[2] !== i
+        ? ((M = o("WebBloksCollectionHelpers").getContainerType(i)),
+          (n[2] = i),
+          (n[3] = M))
+        : (M = n[3]);
+      var w;
       return (
-        n[28] !== z || n[29] !== y
-          ? ((j = y(z)), (n[28] = z), (n[29] = y), (n[30] = j))
-          : (j = n[30]),
-        j
+        n[4] !== S || n[5] !== h || n[6] !== M
+          ? ((w = babelHelpers.extends({}, S, h, {
+              display: "block",
+              pointerEvents: "auto",
+              containerType: M,
+            })),
+            (n[4] = S),
+            (n[5] = h),
+            (n[6] = M),
+            (n[7] = w))
+          : (w = n[7]),
+        y(
+          s.jsx(
+            "div",
+            babelHelpers.extends({}, C, { ref: g, className: N, style: w }, k, {
+              children: s.jsx("div", {
+                ref: R,
+                style: babelHelpers.extends(
+                  {
+                    display: "flex",
+                    flexDirection: u,
+                    gap: o("WebBloksUtils").toPx(d),
+                  },
+                  P,
+                ),
+                children:
+                  l &&
+                  l.map(function (e) {
+                    return s.jsx(
+                      c,
+                      { scrollerRef: g, node: e, collectionNode: i },
+                      e.clientId,
+                    );
+                  }),
+              }),
+            }),
+          ),
+        )
       );
     }
     function c(e) {

@@ -2,7 +2,9 @@ __d(
   "WAWebTextStatusModel",
   [
     "WAWebBaseModel",
+    "WAWebFrontendTextStatusGetters",
     "WAWebTextStatusCollection",
+    "WAWebTextStatusGetters",
     "WAWebWid",
     "isStringNotNullAndNotWhitespaceOnly",
   ],
@@ -31,6 +33,13 @@ __d(
             this.status !== void 0 &&
             r("isStringNotNullAndNotWhitespaceOnly")(this.status)
           );
+        }),
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o("WAWebTextStatusGetters").clearTextStatusGetterCacheFor(this),
+            o(
+              "WAWebFrontendTextStatusGetters",
+            ).clearFrontendTextStatusGetterCacheFor(this));
         }),
         t
       );

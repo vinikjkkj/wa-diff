@@ -73,7 +73,7 @@ __d(
           ],
         ]),
         controllerNavigationLogger: null,
-        versioningID: null,
+        versioningID: "",
       };
     function d(t) {
       for (
@@ -114,12 +114,18 @@ __d(
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment requires canonical actions.",
         );
-      (o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
-        C.enableBindInstrumentation,
-      ),
-        (a = C.appLoader) == null ||
-          a.setVersioningID == null ||
-          a.setVersioningID(C.versioningID),
+      if (
+        (o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
+          C.enableBindInstrumentation,
+        ),
+        C.versioningID === "")
+      )
+        throw new (o("WebBloksErrors").WebBloksError)(
+          "A WebBloks environment must declare a versioningID. Import the generated module for your app (e.g. `import id from 'fbWebVersioningId'`) and pass it as `versioningID`. There is no longer an ambient fallback: inheriting the id the server picked for the page means the server reduces against a capability set this bundle may not have.",
+        );
+      ((a = C.appLoader) == null ||
+        a.setVersioningID == null ||
+        a.setVersioningID(C.versioningID),
         (i = C.appLoader) == null ||
           i.setLogger == null ||
           i.setLogger(C.logger));

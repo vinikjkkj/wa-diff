@@ -683,7 +683,6 @@ __d(
                 "WAWebLastAddOnDBSerialization",
               ).lastAddOnPreviewCandidateFromVoteData(
                 babelHelpers.extends({}, n, { parentMsgKey: t }),
-                !1,
               ),
             ]);
           r.size > 0 &&

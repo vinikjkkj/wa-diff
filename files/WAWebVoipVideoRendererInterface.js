@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipVideoRendererInterface",
-  ["$InternalEnum", "WAWebNoop"],
+  ["$InternalEnum", "WAWebNoop", "WAWebVoipSelfPreviewJid"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
         DEFAULT: 0,
@@ -15,11 +15,10 @@ __d(
         SINGLE_WORKER: 2,
         WORKER_PER_CANVAS: 3,
         POOLED_WORKERS: 4,
-      }),
-      u = "selfPreviewJid";
+      });
     ((l.WAWebVoipVideoRendererType = e),
       (l.WAWebVoipVideoRendererThreadingMode = s),
-      (l.selfPreviewJid = u),
+      (l.selfPreviewJid = o("WAWebVoipSelfPreviewJid").selfPreviewJid),
       (l.onRenderCallbackNoop = r("WAWebNoop")));
   },
   98,

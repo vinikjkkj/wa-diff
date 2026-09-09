@@ -186,6 +186,7 @@ __d(
         AI_METADATA_OPERATION: 35,
         MARK_AS_VERIFIED_ACTION: 36,
         COEX_STATE_SYNC: 37,
+        ACP2_SETTING: 39,
       }),
       te = d({ UNKNOWN: 0, CONTROL_PASSED: 1, CONTROL_TAKEN: 2, INFO: 3 }),
       ne = d({ USER_VIDEO: 0, AI_GENERATED: 1 }),
@@ -697,6 +698,7 @@ __d(
         statusLinkPreviewMetadata: [130, e.TYPES.MESSAGE, We],
         botPlatformRegistrationSuccessMessage: [131, e.TYPES.MESSAGE, xt],
         newsletterScheduledMessage: [132, e.TYPES.MESSAGE, xt],
+        acp2SettingMessage: [133, e.TYPES.MESSAGE, xt],
       }),
       (We.name = "Message$StatusLinkPreviewMetadata"),
       (We.internalSpec = { style: [1, e.TYPES.ENUM, m] }),
@@ -1892,6 +1894,7 @@ __d(
           e.TYPES.MESSAGE,
           o("WAWebProtobufsServerSync.pb").CoexStateSyncSpec,
         ],
+        acp2Setting: [35, e.TYPES.MESSAGE, s.ACP2SettingSpec],
       }),
       (Ir.name = "Message$CloudAPIThreadControlNotification"),
       (Ir.internalSpec = {
@@ -2435,6 +2438,7 @@ __d(
         ],
         associatedPrimaryIdentityKey: [19, e.TYPES.BYTES],
         teeContextAnchorMessageId: [20, e.TYPES.STRING],
+        acp2Setting: [21, e.TYPES.MESSAGE, s.ACP2SettingSpec],
       }),
       (bo.internalDefaults = {
         senderAccountType: (c = o("WAWebProtobufsAdv.pb")).ADVEncryptionType

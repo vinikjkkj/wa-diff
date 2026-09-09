@@ -122,18 +122,9 @@ __d(
       }
       return t;
     }
-    function _(e) {
-      var t = p(e),
-        n = m(),
-        r = n.find(function (e) {
-          return e.value === t;
-        });
-      return r != null ? r.label() : n[0].label();
-    }
     ((l.isImperialLocale = d),
       (l.getServiceAreaRadiusOptions = m),
-      (l.radiusMetersToOptionValue = p),
-      (l.getRadiusLabel = _));
+      (l.radiusMetersToOptionValue = p));
   },
   226,
 );

@@ -77,7 +77,22 @@ __d(
         );
       return n;
     }
-    function f(e) {
+    function f(e, t, n) {
+      var r = e.content;
+      (e.tag === t && n(e),
+        Array.isArray(r) &&
+          r.forEach(function (e) {
+            f(e, t, n);
+          }));
+    }
+    function g(e) {
+      var t = e.attrs,
+        n = e.content;
+      return t == null || t.relay_name == null || !(n instanceof Uint8Array)
+        ? null
+        : { content: n, relayName: String(t.relay_name) };
+    }
+    function h(e) {
       return new (o("WAParsableWapNode").ParsableWapNode)(e.tag, e);
     }
     ((l.filterVoipWapNodeChildren = s),
@@ -86,7 +101,9 @@ __d(
       (l.mapVoipWapChildren = d),
       (l.mapVoipWapChildrenAsync = m),
       (l.getVoipWapChild = _),
-      (l.toVoipParsableWapNode = f));
+      (l.forEachVoipWapNodeWithTag = f),
+      (l.getVoipRelayTe2Endpoint = g),
+      (l.toVoipParsableWapNode = h));
   },
   98,
 );

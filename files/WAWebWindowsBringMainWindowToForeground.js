@@ -2,16 +2,10 @@ __d(
   "WAWebWindowsBringMainWindowToForeground",
   [
     "WAWebWindowsHybridBridge.v2587",
-    "WAWebWindowsHybridBridge.v2589",
-    "WAWebWindowsHybridBridge.v2590",
-    "WAWebWindowsHybridBridge.v2591",
-    "WAWebWindowsHybridBridge.v2601",
     "WAWebWindowsHybridBridge.v2604",
     "WAWebWindowsHybridBridge.v2605",
     "WAWebWindowsHybridBridge.v2606",
     "WAWebWindowsHybridBridge.v2607",
-    "WAWebWindowsHybridBridge.v2608",
-    "WAWebWindowsHybridBridge.v2609",
     "WAWebWindowsHybridBridge.v2610",
     "WAWebWindowsHybridBridge.v2611",
     "WAWebWindowsHybridBridge.v2613",
@@ -34,14 +28,6 @@ __d(
         t instanceof
           o("WAWebWindowsHybridBridge.v2587").WindowsHybridBridge_v2587 ||
         t instanceof
-          o("WAWebWindowsHybridBridge.v2589").WindowsHybridBridge_v2589 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2590").WindowsHybridBridge_v2590 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2591").WindowsHybridBridge_v2591 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2601").WindowsHybridBridge_v2601 ||
-        t instanceof
           o("WAWebWindowsHybridBridge.v2604").WindowsHybridBridge_v2604 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2605").WindowsHybridBridge_v2605 ||
@@ -49,10 +35,6 @@ __d(
           o("WAWebWindowsHybridBridge.v2606").WindowsHybridBridge_v2606 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2607").WindowsHybridBridge_v2607 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2608").WindowsHybridBridge_v2608 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2609").WindowsHybridBridge_v2609 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2610").WindowsHybridBridge_v2610 ||
         t instanceof

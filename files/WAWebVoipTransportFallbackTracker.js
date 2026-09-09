@@ -11,6 +11,9 @@ __d(
       u || ((u = !0), (c = !1));
     }
     function m() {
+      return u;
+    }
+    function p() {
       !u ||
         c ||
         ((c = !0),
@@ -24,7 +27,7 @@ __d(
             ])),
         ));
     }
-    function p() {
+    function _() {
       !u ||
         c ||
         ((c = !0),
@@ -38,13 +41,14 @@ __d(
           )
           .sendLogs("webtransport-fallback-sctp-failed"));
     }
-    function _() {
+    function f() {
       ((u = !1), (c = !1));
     }
     ((l.markFallbackTriggered = d),
-      (l.notifySctpConnectionOpened = m),
-      (l.finalizeFallbackOutcome = p),
-      (l.resetFallbackTracker = _));
+      (l.hasFallbackTriggered = m),
+      (l.notifySctpConnectionOpened = p),
+      (l.finalizeFallbackOutcome = _),
+      (l.resetFallbackTracker = f));
   },
   98,
 );

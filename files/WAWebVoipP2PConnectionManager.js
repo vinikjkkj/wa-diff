@@ -732,7 +732,13 @@ __d(
                   o("WAWebABProps").getABPropConfigValue(
                     "voip_enable_webrtc_stats_polling",
                   ) === !0,
-                _ = u.transferChannel(l, m, c, d, p);
+                _ = u.transferChannel({
+                  channel: l,
+                  connectionId: m,
+                  enableStats: p,
+                  ip: c,
+                  port: d,
+                });
               _
                 ? ((ge = !0),
                   (he = !0),

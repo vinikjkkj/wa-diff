@@ -305,14 +305,6 @@ __d(
         U.apply(this, arguments)
       );
     }
-    function V() {
-      var e =
-        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-          o("WAWebUserPrefsKeys").KEYS
-            .HISTORY_SYNC_COMPLETE_ON_DEMAND_ACCESS_GRANTED,
-        ) === !0;
-      return e;
-    }
     ((l.setLastHistorySyncedChunk = u),
       (l.getLastHistorySyncedChunk = d),
       (l.getLastHistoryRecentSyncedChunk = m),
@@ -336,8 +328,7 @@ __d(
       (l.getHistorySyncStatusAfterPairingLoggingCount = F),
       (l.setHistorySyncTotalProcessedMessageCount = O),
       (l.getHistorySyncTotalProcessedMessageCount = W),
-      (l.setHistorySyncCompleteOnDemandAccessGranted = q),
-      (l.getHistorySyncCompleteOnDemandAccessGranted = V));
+      (l.setHistorySyncCompleteOnDemandAccessGranted = q));
   },
   98,
 );

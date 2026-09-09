@@ -26,30 +26,28 @@ __d(
     var h = (function () {
       function t() {
         ((this.$1 = null),
-          (this.$2 = null),
+          (this.$2 = new Map()),
           (this.$3 = new Map()),
-          (this.$4 = new Map()),
-          (this.$5 = 0),
-          (this.$6 = null),
-          (this.$7 = new Map()),
-          (this.$8 = o("WAWebVoipWatchdogInvariants").ALL_INVARIANTS));
+          (this.$4 = 0),
+          (this.$5 = null),
+          (this.$6 = new Map()),
+          (this.$7 = o("WAWebVoipWatchdogInvariants").ALL_INVARIANTS));
       }
       var n = t.prototype;
       return (
         (n.isActive = function () {
           return this.$1 != null;
         }),
-        (n.start = function (n, r) {
+        (n.start = function (n) {
           var t = this;
           g() &&
             this.$1 !== n &&
             (this.$1 != null && this.stop(),
             (this.$1 = n),
-            (this.$2 = r),
-            (this.$5 = window.performance.now()),
+            (this.$4 = window.performance.now()),
             o("WAWebVoipVideoEncodeFpsTracker").resetEncodedFrameCounters(),
-            (this.$6 = window.setInterval(function () {
-              return t.$9();
+            (this.$5 = window.setInterval(function () {
+              return t.$8();
             }, _)),
             o("WALogger").LOG(
               e ||
@@ -64,30 +62,22 @@ __d(
           if (this.$1 != null) {
             var e = this.$1,
               t = window.performance.now();
-            for (var n of this.$7) {
-              var r = n[0],
-                a = n[1];
-              if (a.isOpen) {
-                var i = C(r),
-                  l = i[0],
-                  u = i[1];
-                this.$10({
-                  durationMs: t - a.openedAtMs,
-                  evidence: babelHelpers.extends({}, a.lastEvidence, {
+            for (var n of this.$6.values())
+              n.isOpen &&
+                this.$9({
+                  durationMs: t - n.openedAtMs,
+                  evidence: babelHelpers.extends({}, n.lastEvidence, {
                     closedReason: "watchdog_stopped",
                   }),
-                  key: u,
-                  kind: l,
+                  kind: n.kind,
+                  participantKey: n.participantKey,
                 });
-              }
-            }
-            (this.$6 != null &&
-              (window.clearInterval(this.$6), (this.$6 = null)),
+            (this.$5 != null &&
+              (window.clearInterval(this.$5), (this.$5 = null)),
+              this.$2.clear(),
               this.$3.clear(),
-              this.$4.clear(),
-              this.$7.clear(),
+              this.$6.clear(),
               (this.$1 = null),
-              (this.$2 = null),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -100,44 +90,41 @@ __d(
         }),
         (n.pushParticipantState = function (t) {
           if (!(!g() || this.$1 == null)) {
-            var e = this.$3.get(t.key);
-            (this.$3.set(t.key, t),
-              t.hasLeft && e != null && !e.hasLeft && this.$4.delete(t.key));
+            var e = this.$2.get(t.key);
+            (this.$2.set(t.key, t),
+              t.hasLeft && e != null && !e.hasLeft && this.$3.delete(t.key));
           }
         }),
         (n.pushTileDom = function (t, n) {
           !g() ||
             this.$1 == null ||
-            (n == null ? this.$4.delete(t) : this.$4.set(t, n));
+            (n == null ? this.$3.delete(t) : this.$3.set(t, n));
         }),
         (n.removeParticipantState = function (t) {
           if (!(!g() || this.$1 == null)) {
             var e = window.performance.now();
-            for (var n of this.$7) {
+            for (var n of this.$6) {
               var r = n[0],
-                o = n[1],
-                a = C(r),
-                i = a[0],
-                l = a[1];
-              l === t &&
+                o = n[1];
+              o.participantKey === t &&
                 (o.isOpen &&
-                  this.$10({
+                  this.$9({
                     durationMs: e - o.openedAtMs,
                     evidence: babelHelpers.extends({}, o.lastEvidence, {
                       closedReason: "participant_pruned",
                     }),
-                    key: l,
-                    kind: i,
+                    kind: o.kind,
+                    participantKey: t,
                   }),
-                this.$7.delete(r));
+                this.$6.delete(r));
             }
-            (this.$3.delete(t), this.$4.delete(t));
+            (this.$2.delete(t), this.$3.delete(t));
           }
         }),
         (n.noteSettlingEvent = function (t) {
           !g() ||
             this.$1 == null ||
-            ((this.$5 = window.performance.now()),
+            ((this.$4 = window.performance.now()),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -147,22 +134,20 @@ __d(
               t != null ? t : "manual",
             ));
         }),
-        (n.$9 = function () {
+        (n.$8 = function () {
           var e = this.$1;
           if (e != null) {
             var t;
             try {
-              var n,
-                a = o(
-                  "WAWebVoipVideoEncodeFpsTracker",
-                ).getEncodedFrameSnapshot();
+              var n = o(
+                "WAWebVoipVideoEncodeFpsTracker",
+              ).getEncodedFrameSnapshot();
               t = {
                 callId: e,
-                selfKey: (n = this.$2) != null ? n : "",
                 nowMs: window.performance.now(),
-                lastTransitionMs: this.$5,
-                selfEncodedFrameCount: a.frameCount,
-                selfEncodedLastFrameTimestampMs: a.lastFrameTimestampMs,
+                lastTransitionMs: this.$4,
+                selfEncodedFrameCount: n.frameCount,
+                selfEncodedLastFrameTimestampMs: n.lastFrameTimestampMs,
               };
             } catch (e) {
               o("WALogger")
@@ -176,23 +161,23 @@ __d(
                 .sendLogs("voip-watchdog-build-ctx-threw");
               return;
             }
-            for (var i of this.$8)
+            for (var a of this.$7)
               try {
-                if (i.scope === "per-participant")
-                  for (var l of this.$3) {
-                    var s,
-                      u = l[0],
-                      m = l[1],
-                      p = {
-                        state: m,
+                if (a.scope === "per-participant")
+                  for (var i of this.$2) {
+                    var l,
+                      s = i[0],
+                      u = i[1],
+                      m = {
+                        state: u,
                         decode: o(
                           "WAWebVoipVideoRendererRegistry",
-                        ).videoRendererRegistry.getDecodeStatsForJid(u),
-                        tile: (s = this.$4.get(u)) != null ? s : null,
+                        ).videoRendererRegistry.getDecodeStatsForSource(s),
+                        tile: (l = this.$3.get(s)) != null ? l : null,
                       };
-                    this.$11(i, u, p, t);
+                    this.$10(a, s, m, t);
                   }
-                else this.$11(i, null, null, t);
+                else this.$10(a, null, null, t);
               } catch (e) {
                 o("WALogger")
                   .ERROR(
@@ -201,22 +186,24 @@ __d(
                         "voip:watchdog: invariant ",
                         " threw",
                       ])),
-                    i.kind,
+                    a.kind,
                   )
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("voip-watchdog-invariant-threw");
               }
           }
         }),
-        (n.$11 = function (t, n, r, o) {
+        (n.$10 = function (t, n, r, o) {
           var e;
           if (!(o.nowMs - o.lastTransitionMs < t.settlingMs)) {
             var a = t.evaluate(r, o),
               i = y(t.kind, n),
               l =
-                (e = this.$7.get(i)) != null
+                (e = this.$6.get(i)) != null
                   ? e
                   : {
+                      kind: t.kind,
+                      participantKey: n,
                       openTicks: 0,
                       closeTicks: 0,
                       isOpen: !1,
@@ -228,11 +215,11 @@ __d(
                 l.isOpen &&
                   ((l.closeTicks += 1),
                   l.closeTicks >= t.clearTicks &&
-                    (this.$10({
+                    (this.$9({
                       durationMs: o.nowMs - l.openedAtMs,
                       evidence: l.lastEvidence,
-                      key: n,
                       kind: t.kind,
+                      participantKey: n,
                     }),
                     (l.isOpen = !1),
                     (l.closeTicks = 0),
@@ -245,11 +232,12 @@ __d(
                   l.openTicks >= t.triggerTicks &&
                     ((l.isOpen = !0),
                     (l.openedAtMs = o.nowMs),
-                    this.$12(t.kind, n, a.evidence)))),
-              this.$7.set(i, l));
+                    this.$11(t.kind, n, a.evidence)))),
+              this.$6.set(i, l));
           }
         }),
-        (n.$12 = function (t, n, r) {
+        (n.$11 = function (t, n, r) {
+          var e;
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -259,15 +247,16 @@ __d(
                 "",
               ])),
             t,
-            n != null ? n : "call-wide",
+            (e = n == null ? void 0 : n.key) != null ? e : "call-wide",
             JSON.stringify(r),
           );
         }),
-        (n.$10 = function (t) {
-          var e = t.durationMs,
-            n = t.evidence,
-            r = t.key,
-            a = t.kind;
+        (n.$9 = function (t) {
+          var e,
+            n = t.durationMs,
+            r = t.evidence,
+            a = t.kind,
+            i = t.participantKey;
           o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -278,35 +267,30 @@ __d(
                 "",
               ])),
             a,
-            r != null ? r : "call-wide",
-            e.toFixed(0),
-            JSON.stringify(n),
+            (e = i == null ? void 0 : i.key) != null ? e : "call-wide",
+            n.toFixed(0),
+            JSON.stringify(r),
           );
         }),
         (n.__isOpenForTest = function (t, n) {
           var e;
           return (
-            ((e = this.$7.get(y(t, n))) == null ? void 0 : e.isOpen) === !0
+            ((e = this.$6.get(y(t, n))) == null ? void 0 : e.isOpen) === !0
           );
         }),
         (n.__forceTickForTest = function () {
-          this.$9();
+          this.$8();
         }),
         t
       );
     })();
     function y(e, t) {
-      return e + "|" + (t != null ? t : "*");
+      var n;
+      return e + "|" + ((n = t == null ? void 0 : t.key) != null ? n : "*");
     }
-    function C(e) {
-      var t = e.indexOf("|");
-      if (t < 0) return [e, null];
-      var n = e.substring(t + 1);
-      return [e.substring(0, t), n === "*" ? null : n];
-    }
-    var b = new h();
+    var C = new h();
     ((l.isRendererInvariantWatchdogEnabled = f),
-      (l.rendererInvariantWatchdog = b));
+      (l.rendererInvariantWatchdog = C));
   },
   98,
 );

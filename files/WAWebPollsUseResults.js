@@ -2,9 +2,11 @@ __d(
   "WAWebPollsUseResults",
   [
     "WAWebAddonHydrationUtils",
+    "WAWebCastToPollCreationMsg",
     "WAWebFrontendPollVoteGetters",
     "WAWebMarkAddOnsAsReadAction",
     "WAWebMessageAddOnType",
+    "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteCollection",
@@ -14,7 +16,7 @@ __d(
     "react-compiler-runtime",
     "sumBy",
     "useWAWebEventTargetValue",
-    "useWAWebModelValues",
+    "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,72 +24,90 @@ __d(
       u = s.useEffect,
       c = s.useMemo;
     function d(e) {
-      var t = o("react-compiler-runtime").c(15),
+      var t = o("react-compiler-runtime").c(17),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["id", "pollOptions"]), (t[0] = n))
+        ? ((n = [
+            o("WAWebMsgGetters").getId,
+            o("WAWebMsgGetters").getPollOptions,
+          ]),
+          (t[0] = n))
         : (n = t[0]);
-      var a = o("useWAWebModelValues").useModelValues(e, n),
-        i = a.id,
-        l = a.pollOptions,
+      var a = o("useWAWebMsgValues").useMsgValues(
+          e.id,
+          r("WAWebCastToPollCreationMsg"),
+          n,
+        ),
+        i = a[0],
+        l = a[1],
         s;
-      t[1] !== i
-        ? ((s = o(
-            "WAWebPollsPollVoteCollection",
-          ).PollVoteCollection.getForParentAddressingModeInsensitive([i])),
-          (t[1] = i),
+      t[1] !== l
+        ? ((s = r("nullthrows")(
+            l,
+            "Poll creation message is missing poll options",
+          )),
+          (t[1] = l),
           (t[2] = s))
         : (s = t[2]);
       var c = s,
-        d = c[0],
-        f;
-      t[3] !== d
-        ? ((f = function () {
-            return d.toArray();
+        d;
+      t[3] !== i
+        ? ((d = o(
+            "WAWebPollsPollVoteCollection",
+          ).PollVoteCollection.getForParentAddressingModeInsensitive([i])),
+          (t[3] = i),
+          (t[4] = d))
+        : (d = t[4]);
+      var f = d,
+        g = f[0],
+        h;
+      t[5] !== g
+        ? ((h = function () {
+            return g.toArray();
           }),
-          (t[3] = d),
-          (t[4] = f))
-        : (f = t[4]);
-      var g = r("useWAWebEventTargetValue")(d, "add remove reset", f),
-        h = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
-        y,
-        C;
-      (t[5] !== i
-        ? ((y = function () {
+          (t[5] = g),
+          (t[6] = h))
+        : (h = t[6]);
+      var y = r("useWAWebEventTargetValue")(g, "add remove reset", h),
+        C = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
+        b,
+        v;
+      (t[7] !== i
+        ? ((b = function () {
             o("WAWebAddonHydrationUtils").hydrateAddons({
               ids: [i],
               hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             });
           }),
-          (C = [i]),
-          (t[5] = i),
-          (t[6] = y),
-          (t[7] = C))
-        : ((y = t[6]), (C = t[7])),
-        u(y, C));
-      var b, v;
-      (t[8] !== h || t[9] !== g
-        ? ((b = function () {
-            var e = g.filter(p);
+          (v = [i]),
+          (t[7] = i),
+          (t[8] = b),
+          (t[9] = v))
+        : ((b = t[8]), (v = t[9])),
+        u(b, v));
+      var S, R;
+      (t[10] !== C || t[11] !== y
+        ? ((S = function () {
+            var e = y.filter(p);
             e.length !== 0 &&
-              h({
+              C({
                 addOnType: o("WAWebMessageAddOnType").MessageAddOnType.PollVote,
                 addOns: e.map(m),
               });
           }),
-          (v = [g, h]),
-          (t[8] = h),
-          (t[9] = g),
-          (t[10] = b),
-          (t[11] = v))
-        : ((b = t[10]), (v = t[11])),
-        u(b, v));
-      var S;
+          (R = [y, C]),
+          (t[10] = C),
+          (t[11] = y),
+          (t[12] = S),
+          (t[13] = R))
+        : ((S = t[12]), (R = t[13])),
+        u(S, R));
+      var L;
       return (
-        t[12] !== l || t[13] !== g
-          ? ((S = _(g, l)), (t[12] = l), (t[13] = g), (t[14] = S))
-          : (S = t[14]),
-        S
+        t[14] !== c || t[15] !== y
+          ? ((L = _(y, c)), (t[14] = c), (t[15] = y), (t[16] = L))
+          : (L = t[16]),
+        L
       );
     }
     function m(e) {

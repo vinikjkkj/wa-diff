@@ -16,14 +16,15 @@ __d(
       var t = e.chat;
       o("WAWebABProps").getABPropConfigValue("wds_web_dialog") &&
       !o("WAWebChatCommunityUtils").isCommunitySuperAdmin(t)
-        ? o("WDSDialogBridge").openWDSDialog(
+        ? (o("WAWebModalManager").closeModalManager(),
+          o("WDSDialogBridge").openWDSDialog(
             s.jsx(r("WAWebLeaveCommunityModalV2.react"), {
               chat: t,
               onExitAndDeleteSuccess: e.onExitAndDeleteSuccess,
               onSuccess: e.onSuccess,
               spamFlow: e.spamFlow,
             }),
-          )
+          ))
         : o("WAWebModalManager").ModalManager.open(
             s.jsx(
               r("WAWebLeaveCommunityModal.react"),

@@ -60,8 +60,8 @@ __d(
                 },
                 s = o.createTreeWalker(n, NodeFilter.SHOW_TEXT);
               var c = null,
-                a = 1 / 0,
-                u = 1 / 0;
+                a = Infinity,
+                u = Infinity;
               for (var _e2 = s.nextNode(); _e2; _e2 = s.nextNode()) {
                 r.selectNodeContents(_e2);
                 for (var _t of r.getClientRects()) {
@@ -73,8 +73,8 @@ __d(
               }
               if (null === c) return null;
               var f = 0,
-                p = 1 / 0,
-                d = 1 / 0;
+                p = Infinity,
+                d = Infinity;
               for (var _t2 = 0; _t2 <= c.length; _t2++) {
                 (r.setStart(c, _t2), r.collapse(!0));
                 var _n2 = r.getBoundingClientRect(),
@@ -149,6 +149,8 @@ __d(
     var a = function a(t, n) {
         if (!require("Lexical").$isRangeSelection(n))
           return (n.insertRawText(t), !0);
+        n !== require("Lexical").$getSelection() &&
+          require("Lexical").$setSelection(n);
         var o = function o(t) {
           var n = require("Lexical").$getSelection();
           require("Lexical").$isRangeSelection(n) && t(n);
@@ -185,7 +187,7 @@ __d(
                 _r.namespace === _o5._config.namespace &&
                 Array.isArray(_r.nodes)
               ) {
-                return (S(_o5, M(_r.nodes), n), !0);
+                return (N(_o5, M(_r.nodes), n), !0);
               }
             } catch (e) {
               console.error(e);
@@ -199,7 +201,7 @@ __d(
               var _r2 = require("Lexical").$getEditor(),
                 _i2 = new DOMParser().parseFromString(c(t), "text/html");
               return (
-                S(
+                N(
                   _r2,
                   require("LexicalHtml").$generateNodesFromDOM(_r2, _i2),
                   o,
@@ -325,7 +327,7 @@ __d(
                             ],
                           },
                         );
-                    return (S(require("Lexical").$getEditor(), s, o), !0);
+                    return (N(require("Lexical").$getEditor(), s, o), !0);
                   },
                 ],
               },
@@ -369,7 +371,7 @@ __d(
       })().$insertDataTransfer(e, n);
     }
     var h = "application/x-lexical-drag";
-    function N(t, n, o) {
+    function S(t, n, o) {
       var r = t.dataTransfer;
       if (null === r) return !1;
       var l = (function (e) {
@@ -475,7 +477,7 @@ __d(
       }
       return (t.preventDefault(), !0);
     }
-    function S(t, n, o) {
+    function N(t, n, o) {
       t.dispatchCommand(
         require("Lexical").SELECTION_INSERT_CLIPBOARD_NODES_COMMAND,
         { nodes: n, selection: o },
@@ -593,20 +595,12 @@ __d(
       return s;
     }
     function D(t, n) {
-      var _n$getNodes$;
       var o = [],
         r = require("Lexical").$getRoot(),
-        i = require("Lexical").$isRangeSelection(n)
-          ? n.anchor.getNode()
-          : require("Lexical").$isNodeSelection(n)
-            ? (_n$getNodes$ = n.getNodes()[0]) != null
-              ? _n$getNodes$
-              : null
-            : null,
-        l = null !== i ? require("Lexical").$getSlotFrame(i) : null,
-        s = (require("Lexical").$isElementNode(l) ? l : r).getChildren();
-      for (var _e0 = 0; _e0 < s.length; _e0++) {
-        C(t, n, s[_e0], o);
+        i = require("Lexical").$getSelectionSlotFrame(n),
+        l = (require("Lexical").$isElementNode(i) ? i : r).getChildren();
+      for (var _e0 = 0; _e0 < l.length; _e0++) {
+        C(t, n, l[_e0], o);
       }
       return { namespace: t._config.namespace, nodes: o };
     }
@@ -654,7 +648,7 @@ __d(
           var _o11 = _ref4[0];
           var _r9 = _ref4[1];
           if (_r9) {
-            var _e1 = v(_r9, t);
+            var _e1 = I(_r9, t);
             null !== _e1 && (n[_o11] = _e1);
           }
         }
@@ -677,7 +671,7 @@ __d(
       }
       var o = require("LexicalExtension").getPeerDependencyFromEditor(
         n,
-        I.name,
+        v.name,
       );
       return o ? o.output : F;
     }
@@ -698,13 +692,13 @@ __d(
         },
       ],
     };
-    function v(e, t) {
+    function I(e, t) {
       var _n11 = function n(o) {
         return e[o] ? e[o](t, _n11.bind(null, o - 1)) : null;
       };
       return _n11(e.length - 1);
     }
-    var I = {
+    var v = {
       build: function build(e, t, n) {
         return t.$exportMimeType;
       },
@@ -731,7 +725,7 @@ __d(
       if (n === void 0) {
         n = require("Lexical").$getSelection();
       }
-      return v(w()[t] || [], n);
+      return I(w()[t] || [], n);
     }),
       (exports.$generateJSONFromSelectedNodes = D),
       (exports.$generateNodesFromSerializedNodes = M),
@@ -739,16 +733,16 @@ __d(
       (exports.$getHtmlContent = x),
       (exports.$getLexicalContent = $),
       (exports.$handlePlainTextDrop = function (e, t) {
-        return N(e, t, function (e, t) {
+        return S(e, t, function (e, t) {
           return y(e, t);
         });
       }),
       (exports.$handleRichTextDrop = function (e, t) {
-        return N(e, t, T);
+        return S(e, t, T);
       }),
       (exports.$insertDataTransferForPlainText = y),
       (exports.$insertDataTransferForRichText = T),
-      (exports.$insertGeneratedNodes = S),
+      (exports.$insertGeneratedNodes = N),
       (exports.$writeDragSourceToDataTransfer = function (e, t) {
         var n = { editorKey: t.getKey() };
         e.setData(h, JSON.stringify(n));
@@ -757,7 +751,7 @@ __d(
       (exports.ClipboardImportExtension = g),
       (exports.DEFAULT_IMPORT_MIME_TYPE = u),
       (exports.DEFAULT_IMPORT_MIME_TYPE_PRIORITY = s),
-      (exports.GetClipboardDataExtension = I),
+      (exports.GetClipboardDataExtension = v),
       (exports.caretFromPoint = i),
       (exports.copyToClipboard = async function (t, n, o) {
         if (null !== E) return !1;

@@ -1,9 +1,15 @@
 __d(
   "ACQWebBloksEnvironmentConfigDynamic",
-  ["AcqWebBloksActions", "acqMinificationMap", "acqTraversalKeys"],
+  [
+    "ACQWebBloksDataModules",
+    "AcqWebBloksActions",
+    "acqMinificationMap",
+    "acqTraversalKeys",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = {
       actions: o("AcqWebBloksActions").ACTIONS,
+      dataModulesStore: o("ACQWebBloksDataModules").DATA_MODULES,
       minificationMap: r("acqMinificationMap"),
       traversalKeys: r("acqTraversalKeys"),
     };

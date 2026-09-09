@@ -9,6 +9,7 @@ __d(
     "WAWebMemberLabelFutureproofMsgText",
     "WAWebMessageHistoryBundleFutureproofMsgText",
     "WAWebMessageHistoryNoticeFutureproofMsgText",
+    "WAWebMusicFutureproofMsgText",
     "WAWebPinMessageFutureproofText",
     "WAWebPollEditFutureproofMsgText",
     "WAWebReactionsFutureproofMessageText",
@@ -109,6 +110,11 @@ __d(
         futureproofMsgText: r("WAWebMessageHistoryNoticeFutureproofMsgText"),
       },
       { type: "multi_vcard", subtype: void 0, futureproofMsgText: null },
+      {
+        type: "music",
+        subtype: void 0,
+        futureproofMsgText: r("WAWebMusicFutureproofMsgText"),
+      },
       { type: "native_flow", subtype: void 0, futureproofMsgText: null },
       {
         type: "newsletter_admin_invite",

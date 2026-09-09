@@ -2,8 +2,10 @@ __d(
   "WAWebTextStatusCollection",
   [
     "fbt",
+    "WAWebFrontendTextStatusGetters",
     "WAWebStaleBaseCollection",
     "WAWebStatusContactAction",
+    "WAWebTextStatusGetters",
     "WAWebTextStatusModel",
     "WAWebWid",
     "WAWebWidFactory",
@@ -26,7 +28,33 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.remove = function (n, r) {
+          var t = e.prototype.remove.call(this, n, r);
+          return (
+            t.forEach(function (e) {
+              e != null &&
+                (o("WAWebTextStatusGetters").clearTextStatusGetterCacheFor(e),
+                o(
+                  "WAWebFrontendTextStatusGetters",
+                ).clearFrontendTextStatusGetterCacheFor(e));
+            }),
+            t
+          );
+        }),
+        (n.reset = function () {
+          (this.forEach(function (e) {
+            (o("WAWebTextStatusGetters").clearTextStatusGetterCacheFor(e),
+              o(
+                "WAWebFrontendTextStatusGetters",
+              ).clearFrontendTextStatusGetterCacheFor(e));
+          }),
+            e.prototype.reset.call(this));
+        }),
+        t
+      );
     })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     ((e.model = r("WAWebTextStatusModel")), (e.idClass = r("WAWebWid")));
     function u() {

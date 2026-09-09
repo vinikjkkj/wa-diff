@@ -3,10 +3,10 @@ __d(
   [
     "fbt",
     "WAWebBotBaseGating",
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
     "WAWebBotStaticProfiles",
     "WAWebBotSupportState",
-    "WAWebPrimaryFeaturesModel",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -23,8 +23,7 @@ __d(
       var t = o("WAWebBotSupportState").evaluateBotSupport(e, function (e) {
         return o("WAWebBotProductGating").isBotProductGateOn(
           e,
-          o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-            .aiBotIntegrationEnabled,
+          o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
         );
       });
       return t.kind ===

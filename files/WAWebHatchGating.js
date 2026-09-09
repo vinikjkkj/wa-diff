@@ -3,7 +3,7 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.primaryAiBotIntegrationEnabled;
+      var t = e.primaryAiHatchIntegrationEnabled;
       return (
         t &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_integration_enabled")
@@ -15,31 +15,34 @@ __d(
       );
     }
     function u() {
+      return o("WAWebABProps").getABPropConfigValue("ai_hatch_revoke_enabled");
+    }
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_video_upload_enabled",
       );
     }
-    function c() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_video_avatars_enabled",
       );
     }
-    function d() {
+    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    var m = 1;
-    function p() {
+    var p = 1;
+    function _() {
       return Math.max(
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_media_upload_count_limit",
         ),
-        m,
+        p,
       );
     }
-    function _() {
+    function f() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -52,7 +55,7 @@ __d(
         }
       return "";
     }
-    function f() {
+    function g() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -67,12 +70,13 @@ __d(
     }
     ((l.isHatchIntegrationEnabledForPrimaryFeature = e),
       (l.isHatchCommandsEnabled = s),
-      (l.isHatchVideoUploadEnabled = u),
-      (l.isHatchVideoAvatarEnabled = c),
-      (l.getHatchDocumentUploadSizeLimitBytes = d),
-      (l.getHatchMediaUploadCountLimit = p),
-      (l.getHatchBotName = _),
-      (l.getHatchBotProfileThumb = f));
+      (l.isHatchRevokeEnabled = u),
+      (l.isHatchVideoUploadEnabled = c),
+      (l.isHatchVideoAvatarEnabled = d),
+      (l.getHatchDocumentUploadSizeLimitBytes = m),
+      (l.getHatchMediaUploadCountLimit = _),
+      (l.getHatchBotName = f),
+      (l.getHatchBotProfileThumb = g));
   },
   98,
 );

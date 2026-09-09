@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebDialogEventLogger",
     "WAWebModalManager",
     "WAWebNotificationsModalVariant",
@@ -53,7 +54,9 @@ __d(
               o(
                 "WAWebNotificationsOptInModalController",
               ).requestNotificationsPermission(e, {
-                showGuidePopup: !1,
+                showGuidePopup: o("WAWebABProps").getABPropConfigValue(
+                  "wa_web_browser_notifications_popup_guide",
+                ),
                 onPermissionResult: n == null ? void 0 : n.onPermissionResult,
               }));
           },

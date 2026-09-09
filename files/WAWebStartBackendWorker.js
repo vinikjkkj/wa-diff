@@ -686,15 +686,11 @@ __d(
         ]);
       return (
         a.setNamespaceHandler("event", function (e, t, n) {
-          if (new Set(["updateChatLimitSharing", "chatCollectionAdd"]).has(e))
-            o("WAWebApiHydrateWidsUtil").hydrateWids(t);
-          else if (e === "processAndGetUnreadMentionsInfo")
-            for (var a of t.filteredMsgs)
-              (o("WAWebApiHydrateWidsUtil").hydrateWids(a),
-                (a.id = r("WAWebMsgKey").from(a.id)));
-          n
-            ? n(o("WAWebBackendApi").frontendSendAndReceive(e, t))
-            : o("WAWebBackendApi").frontendFireAndForget(e, t);
+          (new Set(["updateChatLimitSharing", "chatCollectionAdd"]).has(e) &&
+            o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+            n
+              ? n(o("WAWebBackendApi").frontendSendAndReceive(e, t))
+              : o("WAWebBackendApi").frontendFireAndForget(e, t));
         }),
         a.setNamespaceHandler("workerSafeEvent", function (e, t, n) {
           (e === "syncContactListJob" &&

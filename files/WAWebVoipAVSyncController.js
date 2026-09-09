@@ -129,7 +129,7 @@ __d(
               var e = this.$2,
                 n = this.$3,
                 r = n != null ? n() : 0,
-                o = t.userJid,
+                o = t.source,
                 a = babelHelpers.extends({}, t, {
                   arrivalAudioTimestamp: r,
                   continuityDriftMs: this.$10(o, r, t.timestamp),
@@ -146,7 +146,7 @@ __d(
                   s != null &&
                     e != null &&
                     e(
-                      s.userJid,
+                      s.source,
                       s.frameBuffer,
                       s.width,
                       s.height,
@@ -226,7 +226,7 @@ __d(
                           " delta=",
                           "",
                         ])),
-                      t,
+                      t.key,
                       d,
                       Math.round(s),
                     ),
@@ -234,7 +234,7 @@ __d(
                       (n.lastRecalibTimeMs = Date.now()),
                       this.$20({
                         audioTimestamp: r,
-                        jid: t,
+                        source: t,
                         state: n,
                         videoRtpTimestamp: l.timestamp,
                       }),
@@ -268,7 +268,7 @@ __d(
           }),
           (n.$20 = function (t) {
             var e = t.audioTimestamp,
-              n = t.jid,
+              n = t.source,
               r = t.state,
               o = t.videoRtpTimestamp,
               a = r.calibration == null,
@@ -297,14 +297,14 @@ __d(
                       ", deltaMs=",
                       "",
                     ])),
-                  t,
+                  t.key,
                   i,
                 ),
                 (n.lastRecalibTimeMs = e),
                 (n.pendingRecalibration = !1),
                 this.$20({
                   audioTimestamp: r,
-                  jid: t,
+                  source: t,
                   state: n,
                   videoRtpTimestamp: a,
                 }),
@@ -338,7 +338,7 @@ __d(
               ? r.isKeyFrame
                 ? (this.$20({
                     audioTimestamp: o,
-                    jid: t,
+                    source: t,
                     state: n,
                     videoRtpTimestamp: r.timestamp,
                   }),
@@ -394,7 +394,7 @@ __d(
                 !1)
               : (this.$20({
                   audioTimestamp: i,
-                  jid: t,
+                  source: t,
                   state: n,
                   videoRtpTimestamp: r.timestamp,
                 }),
@@ -425,7 +425,7 @@ __d(
                     " kf=",
                     "",
                   ])),
-                t,
+                t.key,
                 s,
                 u,
                 r.isKeyFrame,
@@ -439,7 +439,7 @@ __d(
             ) {
               this.$20({
                 audioTimestamp: l,
-                jid: t,
+                source: t,
                 state: n,
                 videoRtpTimestamp: r.timestamp,
               });
@@ -467,7 +467,7 @@ __d(
             var e = t[n];
             (t.splice(n, 1),
               r(
-                e.userJid,
+                e.source,
                 e.frameBuffer,
                 e.width,
                 e.height,
@@ -483,7 +483,7 @@ __d(
               if (!(n == null || n.frameQueue == null)) {
                 for (var r of n.frameQueue)
                   t(
-                    r.userJid,
+                    r.source,
                     r.frameBuffer,
                     r.width,
                     r.height,

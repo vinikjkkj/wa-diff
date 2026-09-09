@@ -944,7 +944,8 @@ __d(
       var n =
           o("WAWebMsgActionCapability").canSenderRevokeMsg(t) ||
           o("WAWebMsgActionCapability").canAdminRevokeMsg(t) ||
-          o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(t),
+          o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(t) ||
+          o("WAWebMsgActionCapability").canHatchReplyBeRevoked(t),
         r =
           t.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
           !o("WAWebMsgGetters").getIsGroupsV4InviteExpired(t)

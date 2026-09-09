@@ -333,6 +333,7 @@ __d(
             case "sharable_event_invite":
             case "sticker-pack":
             case "album":
+            case "music":
             case "rich_response":
             case "automated_greeting_message":
             case "quarantined":
@@ -732,6 +733,7 @@ __d(
             case "sharable_event_invite":
             case "sticker-pack":
             case "album":
+            case "music":
             case "rich_response":
             case "newsletter_question_response":
             case "quarantined":

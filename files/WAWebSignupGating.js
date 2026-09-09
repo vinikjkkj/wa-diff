@@ -8,9 +8,16 @@ __d(
       );
     }
     function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "inapp_signup_received_card_enabled",
+      );
+    }
+    function u() {
       return r("justknobx")._("4714");
     }
-    ((l.isSignupAGMEnabled = e), (l.isSignupAGMCleanupEnabled = s));
+    ((l.isSignupAGMEnabled = e),
+      (l.isReceivedSignupPromptEnabled = s),
+      (l.isSignupAGMCleanupEnabled = u));
   },
   98,
 );

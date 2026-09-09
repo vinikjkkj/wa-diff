@@ -147,6 +147,7 @@ __d(
           subtype: void 0,
           renderPreviewIcon: r("WAWebRenderVcardPreviewIcon"),
         },
+        { type: "music", subtype: void 0, renderPreviewIcon: null },
         {
           type: "native_flow",
           subtype: void 0,

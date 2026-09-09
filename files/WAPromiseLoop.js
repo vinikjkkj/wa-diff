@@ -10,17 +10,16 @@ __d(
       return (
         (l = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           for (
-            var n = !1,
-              r,
-              o = function (t) {
-                ((n = !0), (r = t));
+            var n = { resolved: !1 },
+              r = function (t) {
+                n = { resolved: !0, value: t };
               },
-              a = 0,
-              i = t;
-            !n;
+              o = 0,
+              a = t;
+            !n.resolved;
           )
-            ((i = yield e(o, i, a)), a++);
-          return r;
+            ((a = yield e(r, a, o)), o++);
+          return n.value;
         })),
         l.apply(this, arguments)
       );

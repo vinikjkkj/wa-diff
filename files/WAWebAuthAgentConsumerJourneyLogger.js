@@ -64,13 +64,13 @@ __d(
     function _(e, t, n) {
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
-          .CLICK,
+          .VIEW,
         o("WAWebWamEnumConsumerBizSurfaceEnum").CONSUMER_BIZ_SURFACE_ENUM
-          .CHAT_HEADER,
+          .FMX_CARD,
         o("WAWebWamEnumConsumerBizActionTargetEnum")
-          .CONSUMER_BIZ_ACTION_TARGET_ENUM.HEADER_SUBTITLE,
+          .CONSUMER_BIZ_ACTION_TARGET_ENUM.FMX_AFFILIATION_ROW,
         o("WAWebWamEnumConsumerBizEntryPointEnum").CONSUMER_BIZ_ENTRY_POINT_ENUM
-          .CHAT_LIST,
+          .CHAT_THREAD,
         e,
         {
           is_authorized_agent: !0,
@@ -82,7 +82,7 @@ __d(
     function f(e, t, n) {
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
-          .VIEW,
+          .CLICK,
         o("WAWebWamEnumConsumerBizSurfaceEnum").CONSUMER_BIZ_SURFACE_ENUM
           .FMX_CARD,
         o("WAWebWamEnumConsumerBizActionTargetEnum")
@@ -100,24 +100,6 @@ __d(
     function g(e, t, n) {
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
-          .CLICK,
-        o("WAWebWamEnumConsumerBizSurfaceEnum").CONSUMER_BIZ_SURFACE_ENUM
-          .FMX_CARD,
-        o("WAWebWamEnumConsumerBizActionTargetEnum")
-          .CONSUMER_BIZ_ACTION_TARGET_ENUM.FMX_AFFILIATION_ROW,
-        o("WAWebWamEnumConsumerBizEntryPointEnum").CONSUMER_BIZ_ENTRY_POINT_ENUM
-          .CHAT_THREAD,
-        e,
-        {
-          is_authorized_agent: !0,
-          parent_company_name: t,
-          parent_company_jid: n,
-        },
-      );
-    }
-    function h(e, t, n) {
-      d(
-        o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
           .VIEW,
         o("WAWebWamEnumConsumerBizSurfaceEnum").CONSUMER_BIZ_SURFACE_ENUM
           .BUSINESS_PROFILE,
@@ -133,7 +115,7 @@ __d(
         },
       );
     }
-    function y(e, t, n) {
+    function h(e, t, n) {
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
           .CLICK,
@@ -151,7 +133,7 @@ __d(
         },
       );
     }
-    function C(e) {
+    function y(e) {
       var t = e.businessJid,
         n = e.offboardingType,
         r = e.parentCompanyJid,
@@ -169,7 +151,7 @@ __d(
         m(a, r, n),
       );
     }
-    function b(e) {
+    function C(e) {
       var t = e.businessJid,
         n = e.offboardingType,
         r = e.parentCompanyJid,
@@ -187,7 +169,7 @@ __d(
         m(a, r, n),
       );
     }
-    function v(e, t, n, r) {
+    function b(e, t, n, r) {
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
           .VIEW,
@@ -202,14 +184,13 @@ __d(
     }
     ((l.startAuthAgentConsumerSession = u),
       (l.logChatHeaderSubtitleImpression = p),
-      (l.logChatHeaderSubtitleTap = _),
-      (l.logFmxCardAffiliationImpression = f),
-      (l.logFmxCardAffiliationTap = g),
-      (l.logProfileAffiliationImpression = h),
-      (l.logProfileAffiliationTap = y),
-      (l.logBlockedComposerImpression = C),
-      (l.logBlockedComposerLearnMoreClick = b),
-      (l.logBottomSheetImpression = v));
+      (l.logFmxCardAffiliationImpression = _),
+      (l.logFmxCardAffiliationTap = f),
+      (l.logProfileAffiliationImpression = g),
+      (l.logProfileAffiliationTap = h),
+      (l.logBlockedComposerImpression = y),
+      (l.logBlockedComposerLearnMoreClick = C),
+      (l.logBottomSheetImpression = b));
   },
   98,
 );

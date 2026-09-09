@@ -5,7 +5,6 @@ __d(
     "WAWebAiThreadRenameModal.react",
     "WAWebBotGating",
     "WAWebConfirmPopup.react",
-    "WAWebDeleteRefreshedIcon.react",
     "WAWebDropdownItem.react",
     "WAWebDropdownItemSeparator.react",
     "WAWebFbtCommon",
@@ -14,6 +13,7 @@ __d(
     "WAWebPinAiThreadAction",
     "WAWebResolveThreadForEntryPoint",
     "WAWebShowDeleteAiThreadConfirmation",
+    "WDSIconIcDelete.react",
     "WDSIconIcPushPin.react",
     "WDSIconWdsIcPushPinSlash.react",
     "react",
@@ -111,10 +111,7 @@ __d(
             {
               testid: "mi-delete-thread",
               action: c,
-              icon: u.jsx(
-                o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
-                {},
-              ),
+              icon: u.jsx(r("WDSIconIcDelete.react"), {}),
               children: s._(/*BTDS*/ "Delete"),
             },
             "delete",

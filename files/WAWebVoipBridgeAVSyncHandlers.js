@@ -1,6 +1,10 @@
 __d(
   "WAWebVoipBridgeAVSyncHandlers",
-  ["WAWebVoipAudioCaptureAndPlayback", "WAWebVoipVideoRendererRegistry"],
+  [
+    "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipVideoRenderSource",
+    "WAWebVoipVideoRendererRegistry",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -25,10 +29,16 @@ __d(
         ).videoRendererRegistry.consumeAVSyncMetrics();
       },
       peekPerParticipantAVSyncMetrics: function (t) {
-        var e = t.jid;
-        return o(
-          "WAWebVoipVideoRendererRegistry",
-        ).videoRendererRegistry.peekPerParticipantAVSyncMetrics(e);
+        var e = t.isScreenShare,
+          n = t.jid,
+          r = o(
+            "WAWebVoipVideoRenderSource",
+          ).WAWebVoipVideoRenderSource.fromWire(n, e);
+        return r == null
+          ? null
+          : o(
+              "WAWebVoipVideoRendererRegistry",
+            ).videoRendererRegistry.peekPerParticipantAVSyncMetrics(r);
       },
       consumeAudioCaptureMetrics: function () {
         return o(

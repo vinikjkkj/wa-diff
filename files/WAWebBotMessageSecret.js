@@ -7,6 +7,7 @@ __d(
     "WALogger",
     "WAWebBotGating",
     "WAWebBotGroupGatingUtils",
+    "WAWebBotMsgSecretError",
     "WAWebBotTypes",
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
@@ -272,9 +273,11 @@ __d(
               d = u != null ? u : c;
             if (d == null && o("WAWebBotGating").isBotOrphanMsgEnabled())
               throw new (r("WAWebOrphanBotMsgError"))(a);
-            var p = o("WAWebDBMessageSerialization").messageFromDbRow(
-              r("nullthrows")(d, "decryptMsmsgBotMessage: targetMsg"),
-            );
+            if (d == null)
+              throw new (r("WAWebBotMsgSecretError"))(
+                "decryptMsmsgBotMessage: no target row for the message secret",
+              );
+            var p = o("WAWebDBMessageSerialization").messageFromDbRow(d);
             if (
               ((l = p == null ? void 0 : p.messageSecret),
               o(
@@ -294,9 +297,11 @@ __d(
                 );
             }
           }
-          return m(
-            r("nullthrows")(l, "decryptMsmsgBotMessage: decryptSecretBase"),
-          );
+          if (l == null)
+            throw new (r("WAWebBotMsgSecretError"))(
+              "decryptMsmsgBotMessage: decryptSecretBase",
+            );
+          return m(l);
         })),
         v.apply(this, arguments)
       );

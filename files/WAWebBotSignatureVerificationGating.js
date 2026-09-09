@@ -18,14 +18,11 @@ __d(
       return s() !== e.NONE;
     }
     function c() {
-      return s() === e.ENFORCE_BLOCKING;
-    }
-    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_unknown_sender_preview_enabled",
       );
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_unknown_sender_verification_masking_enabled",
       );
@@ -33,9 +30,8 @@ __d(
     ((l.BotSignatureVerificationEnforcementLevel = e),
       (l.getForwardVerificationEnforcementLevel = s),
       (l.isForwardVerificationEnabled = u),
-      (l.shouldBlockOnVerificationFailure = c),
-      (l.isUnknownSenderPreviewEnabled = d),
-      (l.isVerificationMaskingEnabled = m));
+      (l.isUnknownSenderPreviewEnabled = c),
+      (l.isVerificationMaskingEnabled = d));
   },
   98,
 );

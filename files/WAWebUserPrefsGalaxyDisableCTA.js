@@ -30,12 +30,6 @@ __d(
       (n.delete(t), s(n));
     }
     function d() {
-      r("WAWebUserPrefsStore").set(
-        o("WAWebUserPrefsKeys").KEYS.WA_WEB_GALAXY_DISABLE_CTA_COLLECTION,
-        [],
-      );
-    }
-    function m() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_GALAXY_DISABLE_CTA_AGM_COLLECTION,
       );
@@ -49,16 +43,16 @@ __d(
           t.push({ agmId: n.agmId, chatId: n.chatId });
       return t;
     }
-    function p(e, t) {
-      var n = m(),
+    function m(e, t) {
+      var n = d(),
         a = [].concat(n, [{ agmId: e, chatId: t }]);
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_GALAXY_DISABLE_CTA_AGM_COLLECTION,
         a,
       );
     }
-    function _(e) {
-      var t = m(),
+    function p(e) {
+      var t = d(),
         n = t.filter(function (t) {
           return t.agmId !== e;
         });
@@ -71,10 +65,9 @@ __d(
       (l.setGalaxyDisableCTAMessageIds = s),
       (l.addGalaxyDisableCTAMessageId = u),
       (l.removeGalaxyDisableCTAMessageId = c),
-      (l.clearGalaxyDisableCTAMessageIds = d),
-      (l.getGalaxyDisableCTAAgmEntries = m),
-      (l.addGalaxyDisableCTAAgmEntry = p),
-      (l.removeGalaxyDisableCTAAgmEntry = _));
+      (l.getGalaxyDisableCTAAgmEntries = d),
+      (l.addGalaxyDisableCTAAgmEntry = m),
+      (l.removeGalaxyDisableCTAAgmEntry = p));
   },
   98,
 );

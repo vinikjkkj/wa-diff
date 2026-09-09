@@ -54,14 +54,10 @@ __d(
     function m(e) {
       return u(e) === "LOCKED";
     }
-    function p(e) {
-      return u(e) !== "ENABLED";
-    }
     ((l.getFeatureState = u),
       (l.isFeatureEnabled = c),
       (l.isFeatureDisabled = d),
-      (l.isFeatureLocked = m),
-      (l.isFeatureNotEnabled = p));
+      (l.isFeatureLocked = m));
   },
   98,
 );

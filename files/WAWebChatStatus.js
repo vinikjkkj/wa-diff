@@ -5,14 +5,15 @@ __d(
     "WAWebBotUtils",
     "WAWebContactCollection",
     "WAWebEmojiText.react",
+    "WAWebFrontendTextStatusGetters",
     "WAWebIdleComponent.react",
-    "WAWebStateUtils",
     "WAWebTextStatusCollection",
+    "WAWebTextStatusGetters",
     "WAWebWid",
     "isStringNotNullAndNotWhitespaceOnly",
     "react",
     "react-compiler-runtime",
-    "useWAWebModelValues",
+    "useWAWebTextStatusValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -30,75 +31,74 @@ __d(
         children: s._(/*BTDS*/ "Ask me anything"),
       });
     function g(e) {
-      var t = o("react-compiler-runtime").c(15),
+      var t = o("react-compiler-runtime").c(13),
         n = e.status,
         a = e.waitIdle,
         i,
         l;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = ["id", "stale", "status"]),
+        ? ((i = [
+            o("WAWebFrontendTextStatusGetters").getStale,
+            o("WAWebTextStatusGetters").getStatus,
+          ]),
           (l = { isStrong: !1 }),
           (t[0] = i),
           (t[1] = l))
         : ((i = t[0]), (l = t[1]));
-      var s = o("useWAWebModelValues").useModelValues(n, i, l),
-        c;
-      t[2] !== s.status
-        ? ((c = u.jsx(o("WAWebEmojiText.react").EmojiText, {
+      var s = o("useWAWebTextStatusValues").useTextStatusValues(n.id, i, l),
+        c = s[0],
+        d = s[1],
+        m;
+      t[2] !== d
+        ? ((m = u.jsx(o("WAWebEmojiText.react").EmojiText, {
             direction: "auto",
             selectable: !0,
             titlify: !0,
-            text: s.status,
+            text: d,
             breakWord: !0,
             ellipsify: !0,
           })),
-          (t[2] = s.status),
-          (t[3] = c))
-        : (c = t[3]);
-      var d = c,
-        m;
-      t[4] !== s || t[5] !== d
-        ? ((m = function () {
-            return s.id.isRegularUser()
-              ? (o("WAWebTextStatusCollection").TextStatusCollection.find(s.id),
-                s.status === void 0
+          (t[2] = d),
+          (t[3] = m))
+        : (m = t[3]);
+      var p = m,
+        g;
+      t[4] !== d || t[5] !== n.id || t[6] !== p
+        ? ((g = function () {
+            return n.id.isRegularUser()
+              ? (o("WAWebTextStatusCollection").TextStatusCollection.find(n.id),
+                d === void 0
                   ? _
-                  : s.isValidTextStatus()
-                    ? d
+                  : r("isStringNotNullAndNotWhitespaceOnly")(d)
+                    ? p
                     : u.jsx(u.Fragment, {}))
-              : o("WAWebBotUtils").isMetaAiBot(s.id)
+              : o("WAWebBotUtils").isMetaAiBot(n.id)
                 ? f
                 : _;
           }),
-          (t[4] = s),
-          (t[5] = d),
-          (t[6] = m))
-        : (m = t[6]);
-      var p = m,
-        g;
-      t[7] !== s || t[8] !== d
-        ? ((g = o("WAWebStateUtils").unproxy(s).stale ? _ : d),
-          (t[7] = s),
-          (t[8] = d),
-          (t[9] = g))
-        : (g = t[9]);
+          (t[4] = d),
+          (t[5] = n.id),
+          (t[6] = p),
+          (t[7] = g))
+        : (g = t[7]);
       var h = g,
-        y;
+        y = c ? _ : p,
+        C;
       return (
-        t[10] !== p || t[11] !== h || t[12] !== s.id || t[13] !== a
-          ? ((y = u.jsx(r("WAWebIdleComponent.react"), {
-              id: s.id,
-              onComplex: p,
+        t[8] !== h || t[9] !== y || t[10] !== n.id || t[11] !== a
+          ? ((C = u.jsx(r("WAWebIdleComponent.react"), {
+              id: n.id,
+              onComplex: h,
               waitIdle: a,
-              children: h,
+              children: y,
             })),
-            (t[10] = p),
-            (t[11] = h),
-            (t[12] = s.id),
-            (t[13] = a),
-            (t[14] = y))
-          : (y = t[14]),
-        y
+            (t[8] = h),
+            (t[9] = y),
+            (t[10] = n.id),
+            (t[11] = a),
+            (t[12] = C))
+          : (C = t[12]),
+        C
       );
     }
     function h(e) {

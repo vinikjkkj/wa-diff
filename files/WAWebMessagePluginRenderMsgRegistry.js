@@ -67,6 +67,7 @@ __d(
         renderMsg: null,
       },
       { type: "multi_vcard", subtype: void 0, renderMsg: null },
+      { type: "music", subtype: void 0, renderMsg: null },
       { type: "native_flow", subtype: void 0, renderMsg: null },
       { type: "newsletter_admin_invite", subtype: void 0, renderMsg: null },
       { type: "newsletter_follower_invite", subtype: void 0, renderMsg: null },

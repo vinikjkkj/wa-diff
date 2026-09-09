@@ -32,7 +32,7 @@ __d(
                   );
                   return;
                 }
-                var i = yield p(t.chatJid, t.msgServerId);
+                var i = yield m(t.chatJid, t.msgServerId);
                 (i != null && i.serverTimestampMs > t.serverTimestampMs) ||
                   (yield a.createOrReplace(t));
               },
@@ -77,34 +77,30 @@ __d(
           })(),
         );
     }
-    function d(e, t) {
-      return o("WAWebSchemaNewsletterMyVotes").getTable().remove([e, t]);
-    }
-    var m = 100;
-    function p(e, t) {
+    var d = 100;
+    function m(e, t) {
       return !Number.isSafeInteger(t) ||
-        t < m ||
+        t < d ||
         t >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND
         ? (s || (s = n("Promise"))).resolve(null)
         : o("WAWebSchemaNewsletterMyVotes").getTable().get([e, t]);
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(e.chatJid, e.msgServerId);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(e.chatJid, e.msgServerId);
           t != null && (yield u(babelHelpers.extends({}, t, e)));
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
     ((l.createOrUpdateMyVote = u),
       (l.bulkCreateOrUpdateMyVotes = c),
-      (l.deleteMyVote = d),
-      (l.getMyVote = p),
-      (l.updateMyVote = _));
+      (l.getMyVote = m),
+      (l.updateMyVote = p));
   },
   98,
 );

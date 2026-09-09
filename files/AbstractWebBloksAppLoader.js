@@ -6,7 +6,6 @@ __d(
     "WebBloksErrors",
     "WebBloksServerData",
     "WebBloksUtils",
-    "WebBloksVersioningID",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -27,10 +26,12 @@ __d(
       var t = e.prototype;
       return (
         (t.getVersioningID = function () {
-          var e;
-          return (e = this.$1) != null
-            ? e
-            : o("WebBloksVersioningID").versioningID;
+          var e = this.$1;
+          if (e == null)
+            throw new (o("WebBloksErrors").WebBloksError)(
+              "AppLoader has no versioning ID: the environment never called setVersioningID. Declare versioningID in the environment config so follow-up requests carry the bundle's schema.",
+            );
+          return e;
         }),
         (t.$3 = function (t) {
           var e,

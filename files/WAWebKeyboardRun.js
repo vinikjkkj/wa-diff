@@ -267,10 +267,13 @@ __d(
                 onCreateGroup: (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      (yield e,
-                        o(
-                          "WAWebDrawerManager",
-                        ).DrawerManager.closeDrawerLeft());
+                      try {
+                        var t = yield e;
+                        t != null &&
+                          o(
+                            "WAWebDrawerManager",
+                          ).DrawerManager.closeDrawerLeft();
+                      } catch (e) {}
                     },
                   );
                   return function (t) {

@@ -82,7 +82,12 @@ __d(
         })();
         var a = r.prototype;
         return (
-          (a.transferChannel = function (t, n, r, a, i) {
+          (a.transferChannel = function (t) {
+            var e = t.channel,
+              n = t.connectionId,
+              r = t.enableStats,
+              a = t.ip,
+              i = t.port;
             if (!this.$4)
               return (
                 o("WALogger").WARN(
@@ -100,13 +105,13 @@ __d(
                     type: "cmd",
                     cmd: "jsWorkerCmd",
                     jsWorkerCmd: "transferDataChannel",
-                    channel: t,
+                    channel: e,
                     connectionId: n,
-                    ip: r,
-                    port: a,
-                    enableStats: i,
+                    ip: a,
+                    port: i,
+                    enableStats: r,
                   },
-                  [t],
+                  [e],
                 ),
                 !0
               );

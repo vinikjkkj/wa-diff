@@ -1,6 +1,11 @@
 __d(
   "WAWebGroupParticipantModel",
-  ["WAWebBaseModel", "WAWebContactCollection", "WAWebWid"],
+  [
+    "WAWebBaseModel",
+    "WAWebContactCollection",
+    "WAWebGroupParticipantGetters",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -29,6 +34,12 @@ __d(
               "contact",
               o("WAWebContactCollection").ContactCollection.gadd(this.id),
             ));
+        }),
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o(
+              "WAWebGroupParticipantGetters",
+            ).clearGroupParticipantGetterCacheFor(this));
         }),
         t
       );

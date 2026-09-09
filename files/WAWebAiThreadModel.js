@@ -1,6 +1,11 @@
 __d(
   "WAWebAiThreadModel",
-  ["WAWebBaseModel", "WAWebThreadId", "WAWebThreadModel"],
+  [
+    "WAWebAiThreadGetters",
+    "WAWebBaseModel",
+    "WAWebThreadId",
+    "WAWebThreadModel",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -24,7 +29,15 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o("WAWebAiThreadGetters").clearAiThreadGetterCacheFor(this));
+        }),
+        t
+      );
     })(r("WAWebThreadModel"));
     ((e.Proxy = "aiThread"), (e.idClass = r("WAWebThreadId")));
     var s = o("WAWebBaseModel").defineModel(e);

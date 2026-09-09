@@ -368,7 +368,7 @@ __d(
             i = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
             l = i.privateKey,
             s = i.publicKey,
-            u = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(s, !0),
+            u = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(s),
             c = {
               version: 1,
               timestamp: Date.now(),

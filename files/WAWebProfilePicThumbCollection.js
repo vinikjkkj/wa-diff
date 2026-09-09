@@ -20,6 +20,7 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataGetters",
+    "WAWebProfilePicThumbGetters",
     "WAWebProfilePicThumbModel",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -400,6 +401,25 @@ __d(
             if ((n === void 0 && (n = !1), t == null || n)) return !0;
             var e = Date.now() - t;
             return e > o("WATimeUtils").WEEK_MILLISECONDS;
+          }),
+          (i.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o(
+                    "WAWebProfilePicThumbGetters",
+                  ).clearProfilePicThumbGetterCacheFor(e);
+              }),
+              e
+            );
+          }),
+          (i.reset = function () {
+            (this.forEach(
+              o("WAWebProfilePicThumbGetters")
+                .clearProfilePicThumbGetterCacheFor,
+            ),
+              t.prototype.reset.call(this));
           }),
           a
         );

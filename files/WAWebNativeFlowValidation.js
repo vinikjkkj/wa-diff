@@ -6,6 +6,7 @@ __d(
     "WAWebBrPaymentRequest",
     "WAWebGalaxyFlowFeatureSupport",
     "WAWebInAppSignupConfirmation",
+    "WAWebInAppSignupPrompt",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMmSignalSharingGatingUtils",
@@ -163,7 +164,10 @@ __d(
                                                 r(
                                                   "WAWebInteractiveMessagesNativeFlowName",
                                                 ).API_SIGNUP
-                                              ? !0
+                                              ? o(
+                                                  "WAWebInAppSignupPrompt",
+                                                ).getInAppSignupPromptInfo(i) !=
+                                                null
                                               : i.nativeFlowName ===
                                                   r(
                                                     "WAWebInteractiveMessagesNativeFlowName",

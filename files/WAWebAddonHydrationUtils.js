@@ -134,12 +134,7 @@ __d(
       var n;
       return !!((n = s[t]) != null && n.has(e.toString()));
     }
-    function p() {
-      for (var e of Object.keys(s)) delete s[e];
-    }
-    ((l.filterAddonsByHydratedStatus = u),
-      (l.hydrateAddons = c),
-      (l.clearHydrationCache = p));
+    ((l.filterAddonsByHydratedStatus = u), (l.hydrateAddons = c));
   },
   98,
 );

@@ -160,22 +160,13 @@ __d(
       );
     }
     function g(e) {
-      return e === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
-        ? "Website"
-        : e === r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL
-          ? "Phone Call"
-          : e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY
-            ? "Custom Reply"
-            : "Unknown";
-    }
-    function h(e) {
       return (
         e === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL ||
         e === r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL ||
         e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY
       );
     }
-    function y(e) {
+    function h(e) {
       if (e == null) return null;
       try {
         var t,
@@ -185,33 +176,33 @@ __d(
               ? void 0
               : t.name,
           a = r("WAWebInteractiveMessagesNativeFlowName").cast(o);
-        return a != null && h(a) ? a : null;
+        return a != null && g(a) ? a : null;
       } catch (e) {
         return null;
       }
     }
-    function C(e) {
+    function y(e) {
       return e === "DISPLAY_TEXT_TOO_LONG"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getDisplayTextTooLongError()
         : null;
     }
-    function b(e) {
+    function C(e) {
       return e === "INVALID_PHONE_FORMAT"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getInvalidPhoneFormatError()
         : null;
     }
-    function v(e) {
+    function b(e) {
       return e === "INVALID_URL_FORMAT"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getInvalidUrlFormatError()
         : null;
     }
-    function S(e) {
+    function v(e) {
       return e === "cta_url"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
@@ -241,13 +232,12 @@ __d(
       (l.isValidUrlFormat = p),
       (l.normalizeUrl = _),
       (l.isValidPhoneNumber = f),
-      (l.getButtonTypeDisplayName = g),
-      (l.isSupportedCTAButtonType = h),
-      (l.extractButtonTypeFromJson = y),
-      (l.getDisplayTextValidationError = C),
-      (l.getPhoneNumberValidationError = b),
-      (l.getUrlValidationError = v),
-      (l.getModalTitle = S));
+      (l.isSupportedCTAButtonType = g),
+      (l.extractButtonTypeFromJson = h),
+      (l.getDisplayTextValidationError = y),
+      (l.getPhoneNumberValidationError = C),
+      (l.getUrlValidationError = b),
+      (l.getModalTitle = v));
   },
   98,
 );

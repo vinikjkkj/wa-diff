@@ -9,8 +9,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebHatchGating").isHatchIntegrationEnabledForPrimaryFeature({
-        primaryAiBotIntegrationEnabled: o("WAWebPrimaryFeaturesModel")
-          .PrimaryFeatures.aiBotIntegrationEnabled,
+        primaryAiHatchIntegrationEnabled: o("WAWebPrimaryFeaturesModel")
+          .PrimaryFeatures.aiHatchIntegrationEnabled,
       });
     }
     function s() {

@@ -104,6 +104,7 @@ __d(
           generateWebMessageInfo: null,
         },
         { type: "multi_vcard", subtype: void 0, generateWebMessageInfo: e },
+        { type: "music", subtype: void 0, generateWebMessageInfo: null },
         { type: "native_flow", subtype: void 0, generateWebMessageInfo: null },
         {
           type: "newsletter_admin_invite",

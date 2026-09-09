@@ -2,8 +2,8 @@ __d(
   "WAWebResolveSupportedMediaTypes",
   [
     "WAWebBot3pMediaGating",
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebMediaGatingUtils",
-    "WAWebPrimaryFeaturesModel",
     "WAWebResolveBotProfile",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,7 +26,7 @@ __d(
     function c(e) {
       return o("WAWebBot3pMediaGating").getBot3pMediaSupportMode(
         o("WAWebResolveBotProfile").resolveBotSupportInput(e.id),
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.aiBotIntegrationEnabled,
+        o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
       );
     }
     ((l.resolveSupportedMediaTypesForChat = e),

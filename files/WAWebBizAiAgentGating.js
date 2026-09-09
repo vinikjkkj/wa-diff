@@ -120,6 +120,13 @@ __d(
       );
     }
     function D() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "biz_ai_web_appointments_enabled",
+        ) === !0
+      );
+    }
+    function x() {
       return (function (e) {
         return e === "EXPERIMENT"
           ? "EXPERIMENT"
@@ -154,7 +161,8 @@ __d(
       (l.isMaibaWASSSendingEnabled = k),
       (l.isGoogleDriveEnabled = I),
       (l.isIntegrationHubEnabled = T),
-      (l.getResponseSettingsV2TriState = D));
+      (l.isAppointmentsEnabled = D),
+      (l.getResponseSettingsV2TriState = x));
   },
   98,
 );

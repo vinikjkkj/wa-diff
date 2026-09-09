@@ -52,11 +52,11 @@ __d(
         type: "reaction",
       };
     }
-    function u(e, t, n) {
+    function u(e, t) {
       return {
         msgKey: e.msgKey.toString(),
-        isOrphan: t,
-        pollHideVoterNames: !!n,
+        isOrphan: !1,
+        pollHideVoterNames: !!t,
         selectedOptionsCount: e.selectedOptionLocalIds.length,
         parentMsgKey: e.parentMsgKey.toString(),
         sender: e.sender.toString(),

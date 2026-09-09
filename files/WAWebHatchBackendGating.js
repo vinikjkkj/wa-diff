@@ -3,14 +3,15 @@ __d(
   ["WAWebHatchGating", "WAWebPrimaryFeatures"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e = "ai_hatch_integration_enabled";
+    function s() {
       return o("WAWebHatchGating").isHatchIntegrationEnabledForPrimaryFeature({
-        primaryAiBotIntegrationEnabled: o(
+        primaryAiHatchIntegrationEnabled: o(
           "WAWebPrimaryFeatures",
-        ).primaryFeatureEnabled("ai_bot_integration_enabled"),
+        ).primaryFeatureEnabled(e),
       });
     }
-    l.isHatchIntegrationEnabledOnBackend = e;
+    ((l.HATCH_PRIMARY_FEATURE = e), (l.isHatchIntegrationEnabledOnBackend = s));
   },
   98,
 );

@@ -1,54 +1,27 @@
 __d(
   "WAWebResolveAccountTypeAndAdPage",
   [
-    "Promise",
     "WAWebCreateWhatsAppAdsIdentity",
     "WAWebFetchAdAccountToken",
     "WAWebGetAccountNonce",
     "WAWebGetFBAccountPages",
-    "WAWebGetWAAEligibility",
     "WAWebLinkedAccountsJob",
     "WAWebRelayClient",
     "WAWebResolveAccountTypeAndAdPageMutation.graphql",
     "WAWebResolveAccountTypeAndAdPageQuery.graphql",
     "WAWebUserPrefsCTWA",
-    "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
+    }
     function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (u || (u = n("Promise"))).all([
-              o("WAWebLinkedAccountsJob").queryLinkedPagesInfo(),
-              r("WAWebGetWAAEligibility")("dummy_flow_id"),
-            ]),
-            t = e[0],
-            a = e[1],
-            i = o("WAWebUserPrefsGeneral").getLastUsedAdAccountType();
-          return i === "FB" || t.fbPageId != null || !a
-            ? a === !0
-              ? ["FB", "WAA"]
-              : ["FB"]
-            : a === !0
-              ? ["WAA", "FB"]
-              : ["FB"];
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e === "FB") {
             var t = o("WAWebUserPrefsCTWA").getFBIdentity();
             if (t != null && t.token != null) return t;
@@ -58,15 +31,15 @@ __d(
           }
           return null;
         })),
-        p.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function f() {
+    function m() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a,
             i,
             l =
@@ -86,15 +59,15 @@ __d(
             ? i
             : !1;
         })),
-        f.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function h() {
+    function _() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             s !== void 0
               ? s
@@ -105,15 +78,15 @@ __d(
             { accessToken: e.token, environmentType: "facebook" },
           );
         })),
-        h.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function C() {
+    function g() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
             t != null
               ? t
@@ -130,22 +103,21 @@ __d(
             if (l) return { pageId: a, pageType: "linked_fb_page" };
           } else if (n.waPageId != null) {
             var s = n.waPageId,
-              u = yield _(e, s);
+              u = yield d(e, s);
             if (u) return { pageId: s, pageType: "wa_ads_identity_page" };
           }
           var c = yield o("WAWebFetchAdAccountToken").fetchToken(),
-            d = r("nullthrows")(c.token),
-            m = yield r("WAWebGetAccountNonce")(d),
-            p = yield r("WAWebCreateWhatsAppAdsIdentity")(e, m);
-          return { pageId: p, pageType: "wa_ads_identity_page" };
+            m = r("nullthrows")(c.token),
+            p = yield r("WAWebGetAccountNonce")(m),
+            _ = yield r("WAWebCreateWhatsAppAdsIdentity")(e, p);
+          return { pageId: _, pageType: "wa_ads_identity_page" };
         })),
-        C.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.resolveAccountTypes = c),
-      (l.resolveIdentityForAccountType = m),
-      (l.clearSavedOIDCLoginPreference = g),
-      (l.resolveAdsPage = y));
+    ((l.resolveIdentityForAccountType = u),
+      (l.clearSavedOIDCLoginPreference = p),
+      (l.resolveAdsPage = f));
   },
   98,
 );

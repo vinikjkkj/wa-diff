@@ -8,6 +8,7 @@ __d(
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -53,7 +54,7 @@ __d(
             } catch (e) {
               throw (
                 r("FBLogger")("wa_ctwa_web")
-                  .catching(e)
+                  .catching(r("getErrorSafe")(e))
                   .mustfix(
                     "WAWebGetWAAEligibility: eligibility query failed for flowId: " +
                       t,

@@ -3,8 +3,8 @@ __d(
   [
     "WAWebBotBaseGating",
     "WAWebBotComposerSupport",
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
-    "WAWebPrimaryFeaturesModel",
     "WAWebResolveBotProfile",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,8 +17,7 @@ __d(
             isProductGateOn: function (t) {
               return o("WAWebBotProductGating").isBotProductGateOn(
                 t,
-                o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-                  .aiBotIntegrationEnabled,
+                o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
               );
             },
           })

@@ -62,7 +62,7 @@ __d(
                       "UserPreferencesStoreBase.get(): failed: ",
                       "",
                     ])),
-                  t.toString(),
+                  String(t),
                 )
                 .sendLogs("userprefs-parse-error"),
                 a.removeItem(e));

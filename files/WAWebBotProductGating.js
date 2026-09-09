@@ -16,7 +16,7 @@ __d(
           : e === o("WAWebBotProduct").BotProduct.TEE_META_AI_GROUP
             ? o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
             : e === o("WAWebBotProduct").BotProduct.MANUS
-              ? t &&
+              ? t.aiBotIntegrationEnabled &&
                 o("WAWebABProps").getABPropConfigValue(
                   "ai_bot_integration_enabled",
                 )
@@ -24,7 +24,8 @@ __d(
                 ? o(
                     "WAWebHatchGating",
                   ).isHatchIntegrationEnabledForPrimaryFeature({
-                    primaryAiBotIntegrationEnabled: t,
+                    primaryAiHatchIntegrationEnabled:
+                      t.aiHatchIntegrationEnabled,
                   })
                 : e === o("WAWebBotProduct").BotProduct.THIRD_PARTY
                   ? o("WAWebABProps").getABPropConfigValue(

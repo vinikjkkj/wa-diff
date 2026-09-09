@@ -25,7 +25,7 @@ __d(
             t = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
             n = t.privateKey,
             a = t.publicKey,
-            i = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(a, !0),
+            i = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(a),
             l = o("WABase64").encodeB64(new TextEncoder().encode(i)),
             c = yield o("WAWebMexClient").fetchQuery(u, {
               input: {

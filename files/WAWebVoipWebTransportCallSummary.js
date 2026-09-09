@@ -51,28 +51,64 @@ __d(
         );
       })(),
       s = new l(),
-      u = !1;
-    function c(e) {
-      (u && ((s = new l()), (u = !1)), s.recordAttemptStart(e));
+      u = !1,
+      c = !1,
+      d = null,
+      m = null,
+      p = null;
+    function _(e, t) {
+      if ((t === void 0 && (t = !1), t && !u && c && d == null)) {
+        d = e;
+        return;
+      }
+      (!u && c && d != null && ((m = d), (p = s.snapshot())),
+        (s = new l()),
+        (u = !1),
+        (c = !1),
+        (d = e));
     }
-    function d(e, t, n) {
+    function f(e) {
+      d = e;
+    }
+    function g(e) {
+      (u && ((s = new l()), (u = !1), (d = null)),
+        (c = !0),
+        s.recordAttemptStart(e));
+    }
+    function h(e, t, n) {
       s.recordAttemptComplete(e, t, n);
     }
-    function m() {
-      return s.hasActivity();
+    function y() {
+      return c && s.hasActivity();
     }
-    function p() {
-      return s.snapshot();
+    function C() {
+      return c
+        ? s.snapshot()
+        : { attempts: [], numOpened: 0, numRelayAttempts: 0 };
     }
-    function _() {
-      u = !0;
+    function b(e) {
+      return e == null
+        ? c
+          ? s.snapshot()
+          : null
+        : e === m && p != null
+          ? p
+          : c && (d == null || e === d)
+            ? s.snapshot()
+            : null;
+    }
+    function v() {
+      (c && ((m = d), (p = s.snapshot())), (u = !0));
     }
     ((i.WtRelayOutcome = e),
-      (i.recordWtRelayAttemptStart = c),
-      (i.recordWtRelayAttemptComplete = d),
-      (i.hasWtActivityThisCall = m),
-      (i.getWtCallSummary = p),
-      (i.markWtCallSummaryClosed = _));
+      (i.resetWtCurrentCallActivity = _),
+      (i.updateWtCurrentCallId = f),
+      (i.recordWtRelayAttemptStart = g),
+      (i.recordWtRelayAttemptComplete = h),
+      (i.hasWtActivityThisCall = y),
+      (i.getWtCallSummaryIfCurrent = C),
+      (i.getWtCallSummaryForCall = b),
+      (i.markWtCallSummaryClosed = v));
   },
   66,
 );

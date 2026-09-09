@@ -54,111 +54,144 @@ __d(
         a
       );
     }
-    function _(e, t) {
+    var _ = new Map();
+    function f(e, t) {
+      if (e != null) {
+        var n = _.get(e);
+        n == null ? _.set(e, new Set([t])) : n.add(t);
+      }
+    }
+    function g(e, t) {
+      if (e != null) {
+        var n = _.get(e);
+        n != null && (n.delete(t), n.size === 0 && _.delete(e));
+      }
+    }
+    function h(e) {
+      if (e != null) {
+        var t = _.get(e);
+        t != null &&
+          (_.delete(e),
+          t.forEach(function (e) {
+            e.destroyOutsideReactLifecycle("never_mounted");
+          }));
+      }
+    }
+    function y(e, t) {
       var a,
-        i = o("react-compiler-runtime").c(52),
+        i = o("react-compiler-runtime").c(55),
         l = m(null),
         u = l[0],
         _ = l[1],
-        g = m(null),
-        h = g[0],
-        y = m(e.coreVideoPlayerMetaData.videoFBID),
-        C = y[0],
-        b = e.coreVideoPlayerMetaData.wrapVideoPixels_EXPERIMENTAL,
-        v = d(e),
-        S = d(t),
-        R = d(null),
-        L;
-      i[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = function () {
-            return S.current({
+        h = m(null),
+        y = h[0],
+        b = m(e.coreVideoPlayerMetaData.videoFBID),
+        v = b[0],
+        S = m(
+          e.coreVideoPlayerMetaData.reclaimNeverMountedEngine_EXPERIMENTAL ===
+            !0,
+        ),
+        R = S[0],
+        L = e.coreVideoPlayerMetaData.wrapVideoPixels_EXPERIMENTAL,
+        E = d(e),
+        k = d(t),
+        I = d(null),
+        T;
+      i[0] !== v || i[1] !== R
+        ? ((T = function () {
+            var e = k.current({
               checkInDOM: function () {
                 var e = document.body,
-                  t = R.current;
+                  t = I.current;
                 return e != null && t != null && e.contains(t);
               },
-              handleFatalError: f,
-              initialProps: v.current,
+              handleFatalError: C,
+              initialProps: E.current,
               setExposedStateInReact: _,
             });
+            return (R && f(v, e), e);
           }),
-          (i[0] = L))
-        : (L = i[0]);
-      var E = r("useStable")(L),
-        k = u != null ? u : E.initialExposedState,
-        I = (a = k.error) != null ? a : h;
-      if (I != null) {
-        var T =
+          (i[0] = v),
+          (i[1] = R),
+          (i[2] = T))
+        : (T = i[2]);
+      var D = r("useStable")(T),
+        x = u != null ? u : D.initialExposedState,
+        $ = (a = x.error) != null ? a : y;
+      if ($ != null) {
+        var P =
           e.coreVideoPlayerMetaData.VideoPlayerShakaPerformanceLoggerClass;
-        throw (T && T.flushQueuedLogs(), p(I, C));
+        throw (P && P.flushQueuedLogs(), p($, v));
       }
-      var D, x;
-      (i[1] !== E
-        ? ((D = function () {
+      var N, M;
+      (i[3] !== D || i[4] !== v
+        ? ((N = function () {
             return (
-              E.handleReactEffectInit(),
+              g(v, D),
+              D.handleReactEffectInit(),
               function () {
-                E.handleReactEffectCleanup();
+                D.handleReactEffectCleanup();
               }
             );
           }),
-          (x = [E]),
-          (i[1] = E),
-          (i[2] = D),
-          (i[3] = x))
-        : ((D = i[2]), (x = i[3])),
-        c(D, x));
-      var $, P;
-      (i[4] !== E
-        ? (($ = function () {
+          (M = [D, v]),
+          (i[3] = D),
+          (i[4] = v),
+          (i[5] = N),
+          (i[6] = M))
+        : ((N = i[5]), (M = i[6])),
+        c(N, M));
+      var w, A;
+      (i[7] !== D
+        ? ((w = function () {
             var e = o("RunComet").onBeforeUnload(function () {
-              E.handleOnBeforeUnload();
+              D.handleOnBeforeUnload();
             });
             return function () {
               e.remove();
             };
           }),
-          (P = [E]),
-          (i[4] = E),
-          (i[5] = $),
-          (i[6] = P))
-        : (($ = i[5]), (P = i[6])),
-        c($, P));
-      var N = d(null),
-        M;
-      (i[7] !== E || i[8] !== e
-        ? ((M = function () {
-            (e !== N.current && E.handleReactPropsChanged(e), (N.current = e));
+          (A = [D]),
+          (i[7] = D),
+          (i[8] = w),
+          (i[9] = A))
+        : ((w = i[8]), (A = i[9])),
+        c(w, A));
+      var F = d(null),
+        O;
+      (i[10] !== D || i[11] !== e
+        ? ((O = function () {
+            (e !== F.current && D.handleReactPropsChanged(e), (F.current = e));
           }),
-          (i[7] = E),
-          (i[8] = e),
-          (i[9] = M))
-        : (M = i[9]),
-        c(M, void 0));
-      var w = r("useSEOLoggedOutWebCrawler")(),
-        A = e.coreVideoPlayerMetaData.renderVideoPixelsFit,
-        F;
-      i[10] !== k || i[11] !== A
-        ? ((F = A ? A(k) : null), (i[10] = k), (i[11] = A), (i[12] = F))
-        : (F = i[12]);
-      var O = F,
-        B;
-      i[13] !== E.videoElementCallbacks ||
-      i[14] !== E.videoElementRefCallback ||
-      i[15] !== w ||
-      i[16] !== e.coreVideoPlayerMetaData.alt ||
-      i[17] !== e.coreVideoPlayerMetaData.audioOnly ||
-      i[18] !== e.coreVideoPlayerMetaData.isSpatial ||
-      i[19] !== e.coreVideoPlayerMetaData.poster ||
-      i[20] !== e.coreVideoPlayerMetaData.preloadForProgressiveDisabled ||
-      i[21] !== e.coreVideoPlayerMetaData.preloadForProgressiveHint ||
-      i[22] !== e.coreVideoPlayerMetaData.seoWebCrawlerLookasideUrl ||
-      i[23] !== e.coreVideoPlayerMetaData.seoWebCrawlerVideoTracks ||
-      i[24] !==
+          (i[10] = D),
+          (i[11] = e),
+          (i[12] = O))
+        : (O = i[12]),
+        c(O, void 0));
+      var B = r("useSEOLoggedOutWebCrawler")(),
+        W = e.coreVideoPlayerMetaData.renderVideoPixelsFit,
+        q;
+      i[13] !== x || i[14] !== W
+        ? ((q = W ? W(x) : null), (i[13] = x), (i[14] = W), (i[15] = q))
+        : (q = i[15]);
+      var U = q,
+        V;
+      i[16] !== D.videoElementCallbacks ||
+      i[17] !== D.videoElementRefCallback ||
+      i[18] !== B ||
+      i[19] !== e.coreVideoPlayerMetaData.alt ||
+      i[20] !== e.coreVideoPlayerMetaData.audioOnly ||
+      i[21] !== e.coreVideoPlayerMetaData.isSpatial ||
+      i[22] !== e.coreVideoPlayerMetaData.poster ||
+      i[23] !== e.coreVideoPlayerMetaData.preloadForProgressiveDisabled ||
+      i[24] !== e.coreVideoPlayerMetaData.preloadForProgressiveHint ||
+      i[25] !== e.coreVideoPlayerMetaData.seoWebCrawlerLookasideUrl ||
+      i[26] !== e.coreVideoPlayerMetaData.seoWebCrawlerVideoTracks ||
+      i[27] !==
         e.coreVideoPlayerMetaData.videoElementHDRPatchEnabled_EXPERIMENTAL ||
-      i[25] !== e.coreVideoPlayerMetaData.videoElementMountMode_EXPERIMENTAL ||
-      i[26] !== O
-        ? ((B = w
+      i[28] !== e.coreVideoPlayerMetaData.videoElementMountMode_EXPERIMENTAL ||
+      i[29] !== U
+        ? ((V = B
             ? s.jsx(r("VideoPlayerImplementationReactVideoElement.react"), {
                 alt: e.coreVideoPlayerMetaData.alt,
                 audioOnly: e.coreVideoPlayerMetaData.audioOnly,
@@ -177,14 +210,14 @@ __d(
                 videoElementPreloadHint:
                   e.coreVideoPlayerMetaData.preloadForProgressiveHint,
                 videoElementRefCallback: null,
-                videoPixelsFit: O,
+                videoPixelsFit: U,
               })
             : s.jsx(r("VideoPlayerImplementationReactVideoElement.react"), {
                 alt: e.coreVideoPlayerMetaData.alt,
                 audioOnly: e.coreVideoPlayerMetaData.audioOnly,
                 isSpatial: e.coreVideoPlayerMetaData.isSpatial,
                 poster: e.coreVideoPlayerMetaData.poster,
-                videoElementCallbacks: E.videoElementCallbacks,
+                videoElementCallbacks: D.videoElementCallbacks,
                 videoElementHDRPatchEnabled_EXPERIMENTAL:
                   e.coreVideoPlayerMetaData
                     .videoElementHDRPatchEnabled_EXPERIMENTAL,
@@ -194,111 +227,112 @@ __d(
                   e.coreVideoPlayerMetaData.preloadForProgressiveDisabled,
                 videoElementPreloadHint:
                   e.coreVideoPlayerMetaData.preloadForProgressiveHint,
-                videoElementRefCallback: E.videoElementRefCallback,
-                videoPixelsFit: O,
+                videoElementRefCallback: D.videoElementRefCallback,
+                videoPixelsFit: U,
               })),
-          (i[13] = E.videoElementCallbacks),
-          (i[14] = E.videoElementRefCallback),
-          (i[15] = w),
-          (i[16] = e.coreVideoPlayerMetaData.alt),
-          (i[17] = e.coreVideoPlayerMetaData.audioOnly),
-          (i[18] = e.coreVideoPlayerMetaData.isSpatial),
-          (i[19] = e.coreVideoPlayerMetaData.poster),
-          (i[20] = e.coreVideoPlayerMetaData.preloadForProgressiveDisabled),
-          (i[21] = e.coreVideoPlayerMetaData.preloadForProgressiveHint),
-          (i[22] = e.coreVideoPlayerMetaData.seoWebCrawlerLookasideUrl),
-          (i[23] = e.coreVideoPlayerMetaData.seoWebCrawlerVideoTracks),
-          (i[24] =
+          (i[16] = D.videoElementCallbacks),
+          (i[17] = D.videoElementRefCallback),
+          (i[18] = B),
+          (i[19] = e.coreVideoPlayerMetaData.alt),
+          (i[20] = e.coreVideoPlayerMetaData.audioOnly),
+          (i[21] = e.coreVideoPlayerMetaData.isSpatial),
+          (i[22] = e.coreVideoPlayerMetaData.poster),
+          (i[23] = e.coreVideoPlayerMetaData.preloadForProgressiveDisabled),
+          (i[24] = e.coreVideoPlayerMetaData.preloadForProgressiveHint),
+          (i[25] = e.coreVideoPlayerMetaData.seoWebCrawlerLookasideUrl),
+          (i[26] = e.coreVideoPlayerMetaData.seoWebCrawlerVideoTracks),
+          (i[27] =
             e.coreVideoPlayerMetaData.videoElementHDRPatchEnabled_EXPERIMENTAL),
-          (i[25] =
+          (i[28] =
             e.coreVideoPlayerMetaData.videoElementMountMode_EXPERIMENTAL),
-          (i[26] = O),
-          (i[27] = B))
-        : (B = i[27]);
-      var W = B,
-        q;
-      i[28] !== E.implementationController || i[29] !== k || i[30] !== e
-        ? ((q = e.renderWithExposedState({
-            implementationController: E.implementationController,
-            implementationExposedState: k,
+          (i[29] = U),
+          (i[30] = V))
+        : (V = i[30]);
+      var H = V,
+        G;
+      i[31] !== D.implementationController || i[32] !== x || i[33] !== e
+        ? ((G = e.renderWithExposedState({
+            implementationController: D.implementationController,
+            implementationExposedState: x,
           })),
-          (i[28] = E.implementationController),
-          (i[29] = k),
-          (i[30] = e),
-          (i[31] = q))
-        : (q = i[31]);
-      var U = q,
-        V;
-      i[32] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = r("gkx")("24349")
-            ? s.jsx("div", { ref: R, style: { display: "none" } })
+          (i[31] = D.implementationController),
+          (i[32] = x),
+          (i[33] = e),
+          (i[34] = G))
+        : (G = i[34]);
+      var z = G,
+        j;
+      i[35] === Symbol.for("react.memo_cache_sentinel")
+        ? ((j = r("gkx")("24349")
+            ? s.jsx("div", { ref: I, style: { display: "none" } })
             : null),
-          (i[32] = V))
-        : (V = i[32]);
-      var H;
-      i[33] !== E.implementationController || i[34] !== k.isDRM
-        ? ((H =
-            k.isDRM === !0
+          (i[35] = j))
+        : (j = i[35]);
+      var K;
+      i[36] !== D.implementationController || i[37] !== x.isDRM
+        ? ((K =
+            x.isDRM === !0
               ? n("cr:2336")
                 ? s.jsx(n("cr:2336"), {
-                    controller: E.implementationController,
+                    controller: D.implementationController,
                   })
                 : n("cr:4596")
                   ? s.jsx(n("cr:4596"), {
-                      controller: E.implementationController,
+                      controller: D.implementationController,
                     })
                   : null
               : null),
-          (i[33] = E.implementationController),
-          (i[34] = k.isDRM),
-          (i[35] = H))
-        : (H = i[35]);
-      var G;
-      i[36] !== W || i[37] !== b
-        ? ((G = b ? b(W) : W), (i[36] = W), (i[37] = b), (i[38] = G))
-        : (G = i[38]);
-      var z;
-      i[39] !== U || i[40] !== O
-        ? ((z = s.jsx(r("VideoPlayerVideoPixelsFitContext").Provider, {
-            value: O,
-            children: U,
+          (i[36] = D.implementationController),
+          (i[37] = x.isDRM),
+          (i[38] = K))
+        : (K = i[38]);
+      var Q;
+      i[39] !== H || i[40] !== L
+        ? ((Q = L ? L(H) : H), (i[39] = H), (i[40] = L), (i[41] = Q))
+        : (Q = i[41]);
+      var X;
+      i[42] !== z || i[43] !== U
+        ? ((X = s.jsx(r("VideoPlayerVideoPixelsFitContext").Provider, {
+            value: U,
+            children: z,
           })),
-          (i[39] = U),
-          (i[40] = O),
-          (i[41] = z))
-        : (z = i[41]);
-      var j;
-      i[42] !== H || i[43] !== G || i[44] !== z
-        ? ((j = s.jsxs(s.Fragment, { children: [V, H, G, z] })),
-          (i[42] = H),
-          (i[43] = G),
-          (i[44] = z),
-          (i[45] = j))
-        : (j = i[45]);
-      var K = j,
-        Q;
+          (i[42] = z),
+          (i[43] = U),
+          (i[44] = X))
+        : (X = i[44]);
+      var Y;
+      i[45] !== K || i[46] !== Q || i[47] !== X
+        ? ((Y = s.jsxs(s.Fragment, { children: [j, K, Q, X] })),
+          (i[45] = K),
+          (i[46] = Q),
+          (i[47] = X),
+          (i[48] = Y))
+        : (Y = i[48]);
+      var J = Y,
+        Z;
       return (
-        i[46] !== E || i[47] !== k || i[48] !== U || i[49] !== W || i[50] !== K
-          ? ((Q = {
-              engine: E,
-              exposedState: k,
-              reactVideoComponents: U,
-              reactVideoFrame: W,
-              reactVideoFrameAndComponents: K,
+        i[49] !== D || i[50] !== x || i[51] !== z || i[52] !== H || i[53] !== J
+          ? ((Z = {
+              engine: D,
+              exposedState: x,
+              reactVideoComponents: z,
+              reactVideoFrame: H,
+              reactVideoFrameAndComponents: J,
             }),
-            (i[46] = E),
-            (i[47] = k),
-            (i[48] = U),
-            (i[49] = W),
-            (i[50] = K),
-            (i[51] = Q))
-          : (Q = i[51]),
-        Q
+            (i[49] = D),
+            (i[50] = x),
+            (i[51] = z),
+            (i[52] = H),
+            (i[53] = J),
+            (i[54] = Z))
+          : (Z = i[54]),
+        Z
       );
     }
-    function f(e) {}
+    function C(e) {}
     ((l.makeExpandedErrorFromVideoPlayerError = p),
-      (l.useVideoPlayerImplementationEngine = _));
+      (l.reclaimNeverMountedEngines = h),
+      (l.useVideoPlayerImplementationEngine = y));
   },
   98,
 );

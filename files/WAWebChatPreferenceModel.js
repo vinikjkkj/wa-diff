@@ -1,6 +1,11 @@
 __d(
   "WAWebChatPreferenceModel",
-  ["WAWebBaseModel", "WAWebChatPreferenceCollection", "WAWebWid"],
+  [
+    "WAWebBaseModel",
+    "WAWebChatPreferenceCollection",
+    "WAWebChatPreferenceGetters",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = "defaultPreference",
       s = (function (e) {
@@ -32,6 +37,12 @@ __d(
         return (
           (n.getCollection = function () {
             return r("WAWebChatPreferenceCollection");
+          }),
+          (n.delete = function () {
+            (e.prototype.delete.call(this),
+              o("WAWebChatPreferenceGetters").clearChatPreferenceGetterCacheFor(
+                this,
+              ));
           }),
           t
         );

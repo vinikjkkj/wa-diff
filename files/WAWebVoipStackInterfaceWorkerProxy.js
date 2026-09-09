@@ -30,7 +30,6 @@ __d(
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipRelayOverrides",
-    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStorageInit",
     "WAWebVoipTransportFallbackTracker",
@@ -1661,20 +1660,15 @@ __d(
           })(),
           requestKeyFrame: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o(
-                    "WAWebVoipScreenShareStreamKey",
-                  ).getBaseJidFromStreamKey(e),
-                  n = yield ge(
-                    o("WAWebVoipScreenShareStreamKey").isScreenShareStreamKey(e)
-                      ? "requestAuxiliaryKeyFrame"
-                      : "requestKeyFrame",
-                    { userJid: t },
-                  );
+              function* (e, t) {
+                var n = yield ge(
+                  t ? "requestAuxiliaryKeyFrame" : "requestKeyFrame",
+                  { userJid: e.toJid() },
+                );
                 return Number(n);
               },
             );
-            function t(t) {
+            function t(t, n) {
               return e.apply(this, arguments);
             }
             return t;

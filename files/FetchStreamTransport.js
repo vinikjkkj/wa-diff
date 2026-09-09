@@ -28,7 +28,7 @@ __d(
             (n.$FetchStreamTransport$p_4 = !1),
             (n.$FetchStreamTransport$p_5 = !1),
             (n.$FetchStreamTransport$p_2 = ++s),
-            n || babelHelpers.assertThisInitialized(n)
+            n
           );
         }
         babelHelpers.inheritsLoose(o, t);

@@ -27,21 +27,25 @@ __d(
       return e === "BOOSTED_LEAD_GEN";
     }
     function d(e) {
-      var t = e.hasEligibleTransport,
-        n = e.hasSourcePostVideo,
-        o = e.isCarouselPost,
-        a = e.isEligibleForTextVariations,
-        i = e.isImageGenerationEnabled,
-        l = e.isSinglePost,
-        s = e.shouldShowHeadline;
+      var t = e.hasConflictingCreativeFeature,
+        n = e.hasEligibleTransport,
+        o = e.hasSourcePostVideo,
+        a = e.isCarouselPost,
+        i = e.isHeadlineTextEligible,
+        l = e.isImageGenerationEnabled,
+        s = e.isSingleAdgroup,
+        u = e.isSinglePost,
+        c = e.shouldShowHeadline;
       return (
-        t &&
-        !n &&
+        !t &&
+        n &&
         !o &&
-        a &&
-        !i &&
-        l &&
+        !a &&
+        i &&
+        !l &&
         s &&
+        u &&
+        c &&
         r("CurrentLocale").get().startsWith("en_")
       );
     }

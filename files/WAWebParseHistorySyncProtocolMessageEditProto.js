@@ -26,14 +26,17 @@ __d(
         !(i !== "history" && i !== "history_quoted")
       )
         try {
-          var s = babelHelpers.extends({}, n, {
+          var s,
+            u,
+            c,
+            d = babelHelpers.extends({}, n, {
               latestEditSenderTimestampMs: o(
                 "WALongInt",
               ).maybeNumberOrThrowIfTooLarge(l.timestampMs),
               latestEditMsgKey: n.id,
             }),
-            u = l.editedMessage;
-          if (u == null)
+            m = l.editedMessage;
+          if (m == null)
             throw new (o(
               "WAWebMessageEditValidationError",
             ).MessageEditValidationError)(
@@ -42,8 +45,8 @@ __d(
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          var c = l.key;
-          if (c == null)
+          var p = l.key;
+          if (p == null)
             throw new (o(
               "WAWebMessageEditValidationError",
             ).MessageEditValidationError)(
@@ -52,23 +55,41 @@ __d(
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
+          var _ =
+              (s = a.messageContextInfo) == null
+                ? void 0
+                : s.messageAssociation,
+            f = m.messageContextInfo,
+            g =
+              _ == null
+                ? m
+                : babelHelpers.extends({}, m, {
+                    messageContextInfo: babelHelpers.extends({}, f, {
+                      messageAssociation:
+                        (u = f == null ? void 0 : f.messageAssociation) != null
+                          ? u
+                          : _,
+                      threadId:
+                        (c = f == null ? void 0 : f.threadId) != null ? c : [],
+                    }),
+                  });
           return (
             Object.assign(
-              s,
+              d,
               o("WAWebE2EProtoParser").parseMsgProto({
-                messageProtobuf: u,
-                message: s,
+                messageProtobuf: g,
+                message: d,
                 msgContext: i,
               }),
             ),
-            (s.id = o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(
-              c,
-              s.author,
+            (d.id = o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(
+              p,
+              d.author,
             )),
-            { msgData: s, contextInfo: null }
+            { msgData: d, contextInfo: null }
           );
         } catch (t) {
-          var d = r("getErrorSafe")(t);
+          var h = r("getErrorSafe")(t);
           throw (
             o("WALogger")
               .WARN(
@@ -79,13 +100,13 @@ __d(
                     " stack=",
                     "",
                   ])),
-                d.name,
-                d.message,
-                d.stack,
+                h.name,
+                h.message,
+                h.stack,
               )
               .tags("messaging")
               .sendLogs("parseHistorySyncEditedMessageProto: EditParseError"),
-            d
+            h
           );
         }
     }

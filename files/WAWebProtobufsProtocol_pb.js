@@ -10,7 +10,8 @@ __d(
         UNKNOWN_GROUP: 3,
       }),
       u = {},
-      c = {};
+      c = {},
+      d = {};
     ((u.name = "MessageKey"),
       (u.internalSpec = {
         remoteJid: [1, (e = o("WAProtoConst")).TYPES.STRING],
@@ -26,9 +27,18 @@ __d(
         limitSharingSettingTimestamp: [3, e.TYPES.INT64],
         initiatedByMe: [4, e.TYPES.BOOL],
       }),
+      (d.internalDefaults = { trigger: s.UNKNOWN }),
+      (d.name = "ACP2Setting"),
+      (d.internalSpec = {
+        enabled: [1, e.TYPES.BOOL],
+        trigger: [2, e.TYPES.ENUM, s],
+        settingTimestamp: [3, e.TYPES.INT64],
+        initiatedByMe: [4, e.TYPES.BOOL],
+      }),
       (l.LimitSharing$Trigger = s),
       (l.MessageKeySpec = u),
-      (l.LimitSharingSpec = c));
+      (l.LimitSharingSpec = c),
+      (l.ACP2SettingSpec = d));
   },
   98,
 );

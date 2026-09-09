@@ -4,6 +4,7 @@ __d(
     "WATimeUtils",
     "WAWebCollection",
     "WAWebGroupConstants",
+    "WAWebGroupParticipantGetters",
     "WAWebGroupParticipantModel",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,6 +23,25 @@ __d(
                 o("WAWebGroupConstants").PAST_PARTICIPANT_EXPIRATION_DAYS;
             return o("WATimeUtils").happenedWithin(t, n);
           });
+        }),
+        (n.remove = function (n, r) {
+          var t = e.prototype.remove.call(this, n, r);
+          return (
+            t.forEach(function (e) {
+              e != null &&
+                o(
+                  "WAWebGroupParticipantGetters",
+                ).clearGroupParticipantGetterCacheFor(e);
+            }),
+            t
+          );
+        }),
+        (n.reset = function () {
+          (this.forEach(
+            o("WAWebGroupParticipantGetters")
+              .clearGroupParticipantGetterCacheFor,
+          ),
+            e.prototype.reset.call(this));
         }),
         t
       );

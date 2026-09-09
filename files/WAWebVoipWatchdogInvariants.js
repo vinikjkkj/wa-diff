@@ -65,7 +65,7 @@ __d(
               ? { ok: !0 }
               : o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.hasCanvasForJid(e.key)
+                  ).videoRendererRegistry.hasCanvasForSource(e.key)
                 ? { ok: !0 }
                 : {
                     ok: !1,
@@ -129,7 +129,7 @@ __d(
             ? { ok: !0 }
             : o(
                   "WAWebVoipVideoRendererRegistry",
-                ).videoRendererRegistry.hasCanvasForJid(r.key)
+                ).videoRendererRegistry.hasCanvasForSource(r.key)
               ? {
                   ok: !1,
                   evidence: {
@@ -137,7 +137,9 @@ __d(
                     msSinceLeave: Math.round(n.nowMs - a),
                     firstFrameReceived: o(
                       "WAWebVoipVideoRendererRegistry",
-                    ).videoRendererRegistry.hasReceivedFirstFrameForJid(r.key),
+                    ).videoRendererRegistry.hasReceivedFirstFrameForSource(
+                      r.key,
+                    ),
                   },
                 }
               : { ok: !0 };
@@ -175,7 +177,7 @@ __d(
                         intersectionRatio: r.intersectionRatio,
                         firstFrameReceived: o(
                           "WAWebVoipVideoRendererRegistry",
-                        ).videoRendererRegistry.hasReceivedFirstFrameForJid(
+                        ).videoRendererRegistry.hasReceivedFirstFrameForSource(
                           e.key,
                         ),
                       },

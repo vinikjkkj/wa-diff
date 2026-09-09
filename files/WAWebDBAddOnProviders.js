@@ -8,39 +8,42 @@ __d(
     "WAWebDBPollVotesAddOnProvider",
     "WAWebDBReactionsAddOnProvider",
     "WAWebDBReactionsEncAddOnProvider",
+    "cr:5281",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = [
-      o("WAWebDBPollVotesAddOnProvider").pollVotesAddOnProvider,
-      o("WAWebDBKeepInChatAddOnProvider").keepInChatAddOnProvider,
-      o("WAWebDBReactionsAddOnProvider").reactionsAddOnProvider,
-      o("WAWebDBReactionsEncAddOnProvider").reactionsEncAddOnProvider,
-      o("WAWebDBMessageEditAddOnProvider").messageEditAddOnProvider,
-      o("WAWebDBPinInChatAddOnProvider").pinInChatAddOnProvider,
-      o("WAWebDBCommentAddOnProvider").commentsAddOnProvider,
-    ];
-    function s(t) {
-      var n;
-      return (n = e.find(function (e) {
-        return e.type === t;
+    var e,
+      s = (e = n("cr:5281")) == null ? void 0 : e.botMsgOrphanProvider,
+      u = [
+        o("WAWebDBPollVotesAddOnProvider").pollVotesAddOnProvider,
+        o("WAWebDBKeepInChatAddOnProvider").keepInChatAddOnProvider,
+        o("WAWebDBReactionsAddOnProvider").reactionsAddOnProvider,
+        o("WAWebDBReactionsEncAddOnProvider").reactionsEncAddOnProvider,
+        o("WAWebDBMessageEditAddOnProvider").messageEditAddOnProvider,
+        o("WAWebDBPinInChatAddOnProvider").pinInChatAddOnProvider,
+        o("WAWebDBCommentAddOnProvider").commentsAddOnProvider,
+      ].concat(s != null ? [s] : []);
+    function c(e) {
+      var t;
+      return (t = u.find(function (t) {
+        return t.type === e;
       })) != null
-        ? n
+        ? t
         : null;
     }
-    function u(t) {
-      return e.find(function (e) {
-        return e.matches(t);
+    function d(e) {
+      return u.find(function (t) {
+        return t.matches(e);
       });
     }
-    function c(t) {
-      return e.find(function (e) {
-        return e.matchesFutureproof(t);
+    function m(e) {
+      return u.find(function (t) {
+        return t.matchesFutureproof(e);
       });
     }
-    ((l.addOnProviders = e),
-      (l.getProviderForAddOnType = s),
-      (l.getAddOnProviderForMsg = u),
-      (l.getAddOnProviderForFutureproofMsg = c));
+    ((l.addOnProviders = u),
+      (l.getProviderForAddOnType = c),
+      (l.getAddOnProviderForMsg = d),
+      (l.getAddOnProviderForFutureproofMsg = m));
   },
   98,
 );

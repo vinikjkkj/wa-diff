@@ -17,7 +17,7 @@ __d(
       );
     }
     function s() {
-      return o("WAWebWamoNewsletterGatingUtils").shouldUseWamoTos() && e();
+      return e();
     }
     function u() {
       return o("WAWebPDFNCommonUtils").hasAcceptedTos(
@@ -50,11 +50,7 @@ __d(
       );
     }
     function f() {
-      return (
-        o(
-          "WAWebWamoNewsletterGatingUtils",
-        ).shouldShowNewsletterAdminInviteNux() && e()
-      );
+      return e();
     }
     function g() {
       return s()

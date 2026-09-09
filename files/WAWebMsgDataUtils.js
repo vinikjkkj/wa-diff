@@ -12,6 +12,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebSilentProtocolMsg",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
@@ -127,7 +128,9 @@ __d(
                             : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                           : (t === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
                                 (n === "ephemeral_setting" ||
-                                  n === "hatch_metadata_sync")) ||
+                                  o(
+                                    "WAWebSilentProtocolMsg",
+                                  ).isSilentProtocolMsg(e))) ||
                               t === o("WAWebMsgType").MSG_TYPE.REACTION
                             ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                             : (a = o("WAWebCommonMsgUtils").EventType.DEFAULT),

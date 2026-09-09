@@ -34,6 +34,7 @@ __d(
           (t.paymentTosSyncSupport = o("WAWebBaseModel").prop(!1)),
           (t.companionLidContactChangeEnabled = o("WAWebBaseModel").prop(!1)),
           (t.aiBotIntegrationEnabled = o("WAWebBaseModel").prop(!1)),
+          (t.aiHatchIntegrationEnabled = o("WAWebBaseModel").prop(!1)),
           (t.isContactsBackupOn = o("WAWebBaseModel").prop(!1)),
           (t.primaryHasAddressbookPermission = o("WAWebBaseModel").prop(!1)),
           (t.primaryHasAgreedToNativeContactsNux =
@@ -108,6 +109,9 @@ __d(
             )),
             (this.aiBotIntegrationEnabled = e.has(
               "ai_bot_integration_enabled",
+            )),
+            (this.aiHatchIntegrationEnabled = e.has(
+              "ai_hatch_integration_enabled",
             )));
         }),
         t

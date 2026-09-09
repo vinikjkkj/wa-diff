@@ -10,6 +10,7 @@ __d(
     "WAWebBotFeatureNotAvailable.react",
     "WAWebBotGating",
     "WAWebBotLearnMore.react",
+    "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
     "WAWebBotProfileCollection",
     "WAWebBotProfileDebugUtils",
@@ -33,7 +34,6 @@ __d(
     "WAWebPDFNCommonUtils",
     "WAWebPDFNModal.react",
     "WAWebPersistBotProfiles",
-    "WAWebPrimaryFeaturesModel",
     "WAWebRequestBotList",
     "WAWebSchemaBotProfile",
     "WAWebTos",
@@ -354,8 +354,7 @@ __d(
         l = o("WAWebBotSupportState").evaluateBotSupport(i, function (e) {
           return o("WAWebBotProductGating").isBotProductGateOn(
             e,
-            o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-              .aiBotIntegrationEnabled,
+            o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
           );
         });
       return babelHelpers.extends(
@@ -390,8 +389,7 @@ __d(
               r = o("WAWebBotSupportState").evaluateBotSupport(n, function (e) {
                 return o("WAWebBotProductGating").isBotProductGateOn(
                   e,
-                  o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-                    .aiBotIntegrationEnabled,
+                  o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
                 );
               });
             return babelHelpers.extends(
@@ -432,8 +430,7 @@ __d(
             s = o("WAWebBotSupportState").evaluateBotSupport(l, function (e) {
               return o("WAWebBotProductGating").isBotProductGateOn(
                 e,
-                o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-                  .aiBotIntegrationEnabled,
+                o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
               );
             });
           return o("WAWebBotProfileDebugUtils").formatProfileDebug(l, s);

@@ -177,7 +177,6 @@ __d(
                     "WAWebLastAddOnDBSerialization",
                   ).lastAddOnPreviewCandidateFromVoteData(
                     o("WAWebPollsVoteDataUtils").pollVoteMsgDataToVoteData(e),
-                    !1,
                     t,
                   );
                 }),

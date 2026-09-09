@@ -89,7 +89,6 @@ __d(
                         "WAWebLastAddOnDBSerialization",
                       ).lastAddOnPreviewCandidateFromVoteData(
                         e,
-                        !1,
                         n.get(e.parentMsgKey.toString()),
                       );
                     }),

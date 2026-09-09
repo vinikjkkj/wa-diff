@@ -209,25 +209,22 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x(e, t) {
+    function x(e) {
       return $.apply(this, arguments);
     }
     function $() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = !1);
-          var n = yield self.crypto.subtle.exportKey("spki", e),
-            r = new Uint8Array(n),
-            o = btoa(
-              Array.from(r, function (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield self.crypto.subtle.exportKey("spki", e),
+            n = new Uint8Array(t),
+            r = btoa(
+              Array.from(n, function (e) {
                 return String.fromCharCode(e);
               }).join(""),
             );
-          return t
-            ? "-----BEGIN PUBLIC KEY-----\n" +
-                o +
-                "\n-----END PUBLIC KEY-----\n"
-            : "-----BEGIN PUBLIC KEY-----" + o + "-----END PUBLIC KEY-----";
+          return (
+            "-----BEGIN PUBLIC KEY-----\n" + r + "\n-----END PUBLIC KEY-----\n"
+          );
         })),
         $.apply(this, arguments)
       );

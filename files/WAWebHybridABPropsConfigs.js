@@ -227,6 +227,8 @@ __d(
       enable_pre_warm_audio_component: [15994, "bool", !1, !1],
       enable_rate_app_prompt: [19894, "bool", !1, !1],
       enable_ring_for_gc_on_offer_expire: [10103, "bool", !1, !1],
+      enable_rx_video_enhance_chat_fullscreen: [36428, "bool", !1, !1],
+      enable_rx_video_enhance_status: [36429, "bool", !1, !1],
       enable_schedule_call_from_calls_tab: [15213, "bool", !1, !1],
       enable_setup_error_result_check: [28689, "bool", !1, !1],
       enable_sharing_files_from_web_windows_hybrid: [21184, "bool", !1, !0],

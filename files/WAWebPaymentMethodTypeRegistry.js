@@ -30,43 +30,37 @@ __d(
     function R() {
       for (var e of v.values()) e();
     }
-    function L(e, t) {
-      var n,
-        r = t.out;
-      ((n = r.pix) == null ? void 0 : n.credentialId) === e && delete r.pix;
-    }
-    var E = {
+    var L = {
       type: (C = o("WAWebUserPrefsTypes")).WACustomPaymentMethodType.PIX_KEY,
       country: "BR",
       extract: o("WAWebPaymentMethodPIX").extractAndStorePix,
       flushErrors: o("WAWebPaymentMethodPIX").flushPixErrors,
       isStoredValid: o("WAWebPaymentMethodPIX").isStoredPIXValid,
-      removeEntry: L,
     };
-    function k(e, t, n, r) {
+    function E(e, t, n, r) {
       var a = o("WAWebPaymentMethodPIX").findMetadataValue(e, t);
       return a == null || !o("WAWebUserPrefsValidators").isStringFieldValid(a)
         ? (o("WAWebPaymentMethodPIX").recordError(r, n), null)
         : a;
     }
-    function I(e, t) {
+    function k(e, t) {
       var n = e.findIndex(function (e) {
         return e.credentialId === t.credentialId;
       });
       n >= 0 ? (e[n] = t) : e.push(t);
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       var r,
         o,
         a,
         i,
         l,
         s,
-        u = k(e, "key", "clabe_key_null", n);
+        u = E(e, "key", "clabe_key_null", n);
       if (u == null) return !1;
-      var c = k(e, "institution_name", "clabe_institution_name_null", n);
+      var c = E(e, "institution_name", "clabe_institution_name_null", n);
       if (c == null) return !1;
-      var d = k(
+      var d = E(
         e,
         "full_name_on_account",
         "clabe_full_name_on_account_null",
@@ -98,9 +92,9 @@ __d(
         y = (l = h.methods) != null ? l : {};
       h.methods = y;
       var C = (s = y.clabe) != null ? s : [];
-      return (I(C, g), (y.clabe = C), !0);
+      return (k(C, g), (y.clabe = C), !0);
     }
-    function D(t) {
+    function T(t) {
       var n,
         r,
         a,
@@ -142,7 +136,7 @@ __d(
           )
           .sendLogs("monitor-errors");
     }
-    function x(e) {
+    function D(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
@@ -151,30 +145,19 @@ __d(
         o("WAWebUserPrefsValidators").isStringFieldValid(e.full_name_on_account)
       );
     }
-    function $(e) {
+    function x(e) {
       var t,
         n = e == null || (t = e.methods) == null ? void 0 : t.clabe;
-      return n == null || n.length === 0 ? !1 : n.every(x);
+      return n == null || n.length === 0 ? !1 : n.every(D);
     }
-    function P(e, t) {
-      var n = t.out.methods,
-        r = n == null ? void 0 : n.clabe;
-      if (!(n == null || r == null)) {
-        var o = r.filter(function (t) {
-          return t.credentialId !== e;
-        });
-        o.length === 0 ? delete n.clabe : (n.clabe = o);
-      }
-    }
-    var N = {
+    var $ = {
       type: C.WACustomPaymentMethodType.CLABE,
       country: "MX",
-      extract: T,
-      flushErrors: D,
-      isStoredValid: $,
-      removeEntry: P,
+      extract: I,
+      flushErrors: T,
+      isStoredValid: x,
     };
-    function M(e) {
+    function P(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
@@ -187,7 +170,7 @@ __d(
         o("WAWebUserPrefsValidators").isStringFieldValid(e.full_name_on_account)
       );
     }
-    function w(e) {
+    function N(e) {
       return {
         accountType: o("WAWebPaymentMethodPIX").findMetadataValue(
           e,
@@ -199,7 +182,7 @@ __d(
         ),
       };
     }
-    function A(e) {
+    function M(e) {
       var t = o("WAWebPaymentMethodPIX").findMetadataValue(e, "currency");
       if (o("WAWebUserPrefsValidators").isStringFieldValid(t)) return t;
       var n =
@@ -207,7 +190,7 @@ __d(
         r = n == null ? void 0 : n[0];
       return o("WAWebUserPrefsValidators").isStringFieldValid(r) ? r : null;
     }
-    function F(e, t, n, r) {
+    function w(e, t, n, r) {
       var a,
         i,
         l,
@@ -232,12 +215,12 @@ __d(
             : null;
       return (l = s != null ? s : u) != null ? l : null;
     }
-    function O(e, t, n) {
+    function A(e, t, n) {
       var r,
         o,
         a,
         i,
-        l = F(e.credentialId, t, n.accountType, n.identifierType),
+        l = w(e.credentialId, t, n.accountType, n.identifierType),
         s = {
           credentialId: e.credentialId,
           country: e.country,
@@ -256,10 +239,10 @@ __d(
         c = (a = u.methods) != null ? a : {};
       u.methods = c;
       var d = (i = c.uprKeys) != null ? i : [];
-      (I(d, s), (c.uprKeys = d));
+      (k(d, s), (c.uprKeys = d));
     }
-    function B(e, t, n) {
-      var r = w(e),
+    function F(e, t, n) {
+      var r = N(e),
         a = r.accountType,
         i = r.identifierType;
       if (a == null || i == null) return !1;
@@ -276,16 +259,16 @@ __d(
                   : null;
         })(e.type.toUpperCase());
       if (l == null || s == null) return !0;
-      var u = A(e),
-        c = k(e, "key", "upr_key_null", n),
-        d = k(e, "institution_name", "upr_institution_name_null", n),
-        m = k(e, "full_name_on_account", "upr_full_name_on_account_null", n);
+      var u = M(e),
+        c = E(e, "key", "upr_key_null", n),
+        d = E(e, "institution_name", "upr_institution_name_null", n),
+        m = E(e, "full_name_on_account", "upr_full_name_on_account_null", n);
       return u == null || !o("WAWebUserPrefsValidators").isStringFieldValid(u)
         ? (o("WAWebPaymentMethodPIX").recordError(n, "upr_currency_null"), !0)
         : (c == null ||
             d == null ||
             m == null ||
-            O(e, t, {
+            A(e, t, {
               accountType: l,
               identifierType: s,
               currency: u,
@@ -295,7 +278,7 @@ __d(
             }),
           !0);
     }
-    function W(e) {
+    function O(e) {
       var t,
         n,
         r,
@@ -350,18 +333,18 @@ __d(
           )
           .sendLogs("monitor-errors");
     }
-    function q(e, t, n) {
+    function B(e, t, n) {
       var r,
         a,
         i,
         l,
         s,
         u,
-        c = k(e, "key", "id_key_null", n);
+        c = E(e, "key", "id_key_null", n);
       if (c == null) return !1;
-      var d = k(e, "institution_name", "id_institution_name_null", n);
+      var d = E(e, "institution_name", "id_institution_name_null", n);
       if (d == null) return !1;
-      var m = k(e, "full_name_on_account", "id_full_name_on_account_null", n);
+      var m = E(e, "full_name_on_account", "id_full_name_on_account_null", n);
       if (m == null) return !1;
       var p = o("WAWebPaymentMethodPIX").findMetadataValue(e, "account_type");
       if (p == null)
@@ -410,9 +393,9 @@ __d(
         v = (s = b.methods) != null ? s : {};
       b.methods = v;
       var S = (u = v.idPaymentAccount) != null ? u : [];
-      return (I(S, C), (v.idPaymentAccount = S), !0);
+      return (k(S, C), (v.idPaymentAccount = S), !0);
     }
-    function U(e) {
+    function W(e) {
       var t,
         n,
         r,
@@ -485,7 +468,7 @@ __d(
           .sendLogs("monitor-errors");
       }
     }
-    function V(e) {
+    function q(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
@@ -497,41 +480,30 @@ __d(
         b.has(e.account_type)
       );
     }
-    function H(e) {
+    function U(e) {
       var t,
         n = e == null || (t = e.methods) == null ? void 0 : t.idPaymentAccount;
-      return n == null || n.length === 0 ? !1 : n.every(V);
+      return n == null || n.length === 0 ? !1 : n.every(q);
     }
-    function G(e, t) {
-      var n = t.out.methods,
-        r = n == null ? void 0 : n.idPaymentAccount;
-      if (!(n == null || r == null)) {
-        var o = r.filter(function (t) {
-          return t.credentialId !== e;
-        });
-        o.length === 0 ? delete n.idPaymentAccount : (n.idPaymentAccount = o);
-      }
-    }
-    var z = {
+    var V = {
         type: C.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT,
         country: "ID",
-        extract: q,
-        flushErrors: U,
-        isStoredValid: H,
-        removeEntry: G,
+        extract: B,
+        flushErrors: W,
+        isStoredValid: U,
       },
-      j = new Map([
-        [C.WACustomPaymentMethodType.PIX_KEY, E],
-        [C.WACustomPaymentMethodType.CLABE, N],
-        [C.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT, z],
+      H = new Map([
+        [C.WACustomPaymentMethodType.PIX_KEY, L],
+        [C.WACustomPaymentMethodType.CLABE, $],
+        [C.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT, V],
       ]);
     ((l.registerPaymentMethodSmartDefault = S),
       (l.runAllPaymentMethodSmartDefaults = R),
-      (l.isStoredClabeEntryValid = x),
-      (l.isStoredUprKeyValid = M),
-      (l.tryExtractUprKey = B),
-      (l.flushUprKeyErrors = W),
-      (l.PaymentMethodTypeRegistry = j));
+      (l.isStoredClabeEntryValid = D),
+      (l.isStoredUprKeyValid = P),
+      (l.tryExtractUprKey = F),
+      (l.flushUprKeyErrors = O),
+      (l.PaymentMethodTypeRegistry = H));
   },
   98,
 );

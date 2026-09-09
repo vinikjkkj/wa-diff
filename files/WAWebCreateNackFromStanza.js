@@ -18,6 +18,7 @@ __d(
       p,
       _ = n("$InternalEnum")({
         UnsupportedMessage: 415,
+        MessageNotAllowed: 420,
         StaleGroupAddressingMode: 421,
         NewChatMessagesCapped: 475,
         ParsingError: 487,

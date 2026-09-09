@@ -1117,6 +1117,9 @@ __d(
               return e;
             },
         Ve = {
+          destroyOutsideReactLifecycle: function (t) {
+            Le(t);
+          },
           handleOnBeforeUnload: function () {
             $.coreVideoPlayerMetaData.loggingConfig
               .enablePauseAndFlushOnBeforeUnload === !0 &&
