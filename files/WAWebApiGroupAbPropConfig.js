@@ -23,20 +23,7 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaGroupAbPropConfig")
-            .getGroupAbpropConfigsTable()
-            .equals(["groupJid"], [e]);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(t, r) {
+    function c(t, r) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -109,9 +96,7 @@ __d(
           );
         });
     }
-    ((l.getAllGroupABPropConfigs = s),
-      (l.getGroupABPropConfigs = c),
-      (l.updateGroupABPropConfigs = m));
+    ((l.getAllGroupABPropConfigs = s), (l.updateGroupABPropConfigs = c));
   },
   98,
 );

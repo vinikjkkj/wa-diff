@@ -19,6 +19,7 @@ __d(
     "WAWebNoop",
     "WAWebRevoke",
     "WAWebSchemaMessage",
+    "WAWebViewModeUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -375,8 +376,13 @@ __d(
                                 ephemeralDuration: c.ephemeralDuration,
                                 ephemeralSettingTimestamp:
                                   c.ephemeralSettingTimestamp,
-                                viewMode:
+                                viewMode: o(
+                                  "WAWebViewModeUtils",
+                                ).getRevokedViewMode(
+                                  c.viewMode,
+                                  c.associationType,
                                   (u = e.viewMode) != null ? u : c.viewMode,
+                                ),
                               };
                             if (
                               (a.push(p),

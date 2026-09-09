@@ -39,23 +39,12 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h() {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return f();
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebSignalStorageUtils")
             .getStorage()
             .lock(
@@ -80,15 +69,15 @@ __d(
               }),
             );
         })),
-        b.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           t.length !== 0 &&
             (yield o("WAWebSignalStorageUtils")
               .getStorage()
@@ -109,15 +98,15 @@ __d(
               t.length,
             ));
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function L() {
+    function S() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (yield o("WAWebSignalStorageUtils")
             .getStorage()
             .lock(
@@ -137,16 +126,34 @@ __d(
               e.keyId,
             ));
         })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebSignalStorage").getKyberPreKeyTable().get(e);
+        })),
         L.apply(this, arguments)
       );
     }
-    function E(e) {
+    function E() {
       return k.apply(this, arguments);
     }
     function k() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSignalStorage").getKyberPreKeyTable().get(e);
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebSignalStorage")
+            .getKyberLastResortKeyTable()
+            .all();
+          return e.length === 0
+            ? null
+            : e.reduce(function (e, t) {
+                return t.keyId > e.keyId ? t : e;
+              });
         })),
         k.apply(this, arguments)
       );
@@ -157,38 +164,6 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSignalStorage")
-            .getKyberLastResortKeyTable()
-            .all();
-          return e.length === 0
-            ? null
-            : e.reduce(function (e, t) {
-                return t.keyId > e.keyId ? t : e;
-              });
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D() {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSignalStorage").getKyberPreKeyTable().all();
-          return e.filter(function (e) {
-            return e.sentToServer !== !0;
-          });
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $() {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (d || (d = n("Promise"))).all([
               o("WAWebSignalStorage").getKyberPreKeyTable().all(),
               o("WAWebSignalStorage").getKyberLastResortKeyTable().all(),
@@ -219,15 +194,15 @@ __d(
               }),
           };
         })),
-        P.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function M() {
+    function x() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebSignalStorage").getKyberPreKeyTable();
           (yield (d || (d = n("Promise"))).all(
             e.map(
@@ -256,37 +231,37 @@ __d(
               e.length,
             ));
         })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebSignalStorage").getKyberLastResortKeyTable().remove(e);
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(e) {
+      return M.apply(this, arguments);
+    }
+    function M() {
+      return (
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebSignalStorage").getKyberPreKeyTable().remove(e);
+        })),
         M.apply(this, arguments)
       );
     }
-    function w(e) {
+    function w() {
       return A.apply(this, arguments);
     }
     function A() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSignalStorage").getKyberLastResortKeyTable().remove(e);
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSignalStorage").getKyberPreKeyTable().remove(e);
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B() {
-      return W.apply(this, arguments);
-    }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebSignalStorageUtils")
             .getStorage()
             .lock(
@@ -333,30 +308,30 @@ __d(
                 ])),
             ));
         })),
-        W.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function q() {
-      return U.apply(this, arguments);
+    function F() {
+      return O.apply(this, arguments);
     }
-    function U() {
+    function O() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSignalStorage")
               .getMetaTable()
               .get(o("WAWebSignalConst").META_KEYS.PQ_MIGRATED),
             t = _(e);
           return t;
         })),
-        U.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function H() {
+    function W() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebSignalStorage")
             .getMetaTable()
             .createOrReplace({
@@ -364,24 +339,22 @@ __d(
               value: e,
             });
         })),
-        H.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
     ((l.getNextKyberPreKeyId = f),
-      (l.getNextKyberLastResortKeyId = h),
-      (l.reserveKyberPreKeyIds = C),
-      (l.saveKyberPreKeys = v),
-      (l.saveKyberLastResortKey = R),
-      (l.loadKyberPreKey = E),
-      (l.loadLatestKyberLastResortKey = I),
-      (l.getUnsentKyberPreKeys = D),
-      (l.loadKyberKeysForDigest = $),
-      (l.markKyberPreKeysAsSent = N),
-      (l.removeKyberLastResortKey = w),
-      (l.removeKyberPreKey = F),
-      (l.clearKyberPreKeysAndMigrationState = B),
-      (l.isPQMigrated = q),
-      (l.setPQMigrated = V));
+      (l.reserveKyberPreKeyIds = h),
+      (l.saveKyberPreKeys = C),
+      (l.saveKyberLastResortKey = v),
+      (l.loadKyberPreKey = R),
+      (l.loadLatestKyberLastResortKey = E),
+      (l.loadKyberKeysForDigest = I),
+      (l.markKyberPreKeysAsSent = D),
+      (l.removeKyberLastResortKey = $),
+      (l.removeKyberPreKey = N),
+      (l.clearKyberPreKeysAndMigrationState = w),
+      (l.isPQMigrated = F),
+      (l.setPQMigrated = B));
   },
   98,
 );

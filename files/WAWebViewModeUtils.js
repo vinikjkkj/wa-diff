@@ -37,7 +37,12 @@ __d(
         ? !0
         : e(o("WAWebViewMode.flow").ViewModeSurface.CHAT, t.viewMode);
     }
-    function u(e) {
+    function u(e, t, n) {
+      return e === o("WAWebViewMode.flow").ViewModeType.HIDDEN && t != null
+        ? o("WAWebViewMode.flow").ViewModeType.HIDDEN
+        : n;
+    }
+    function c(e) {
       return (
         (e === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
           e ===
@@ -50,7 +55,8 @@ __d(
     }
     ((l.isViewModeVisibleInSurface = e),
       (l.isMessageExistingInChat = s),
-      (l.isOfflineResumeCallLogPlaceholderViewMode = u));
+      (l.getRevokedViewMode = u),
+      (l.isOfflineResumeCallLogPlaceholderViewMode = c));
   },
   98,
 );

@@ -8,6 +8,7 @@ __d(
       "GroupABProps",
       "DebugCommands",
       "HatchPayloads",
+      "LabyrinthDebug",
       "NuxManager",
       "VoipUiDebug",
       "VoipWasmSamples",

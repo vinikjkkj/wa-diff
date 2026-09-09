@@ -6,7 +6,6 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebGenerateProtocolMessageEditProto",
     "WAWebMessageSecretLocationUtils",
-    "WAWebMessagingGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -52,8 +51,7 @@ __d(
         _ = o("WAWebE2EProtoGenerator").createProtobuf(e, p);
       if (e.latestEditMsgKey != null && e.latestEditSenderTimestampMs != null) {
         var f,
-          g,
-          h = {
+          g = {
             mentionedJid: [],
             groupMentions: [],
             statusAttributions: [],
@@ -61,13 +59,13 @@ __d(
           };
         (e.mentionedJidList &&
           e.mentionedJidList.length > 0 &&
-          (h.mentionedJid = r("WAWebCompactMapString")(
+          (g.mentionedJid = r("WAWebCompactMapString")(
             e.mentionedJidList,
             o("WAWebE2EProtoUtils").encodeJid,
           )),
           e.groupMentions &&
             e.groupMentions.length > 0 &&
-            (h.groupMentions = e.groupMentions.map(function (e) {
+            (g.groupMentions = e.groupMentions.map(function (e) {
               var t, n;
               return {
                 groupSubject: (t = e.groupSubject) != null ? t : "",
@@ -77,47 +75,36 @@ __d(
                     : "",
               };
             })));
-        var y = h.mentionedJid.length > 0 || h.groupMentions.length > 0,
-          C = r("WAWebGenerateProtocolMessageEditProto")({
+        var h = g.mentionedJid.length > 0 || g.groupMentions.length > 0,
+          y = r("WAWebGenerateProtocolMessageEditProto")({
             json: babelHelpers.extends({}, e, {
               protocolMessageKey: e.id,
               editMsgType: e.type,
             }),
-            contextInfo: y ? h : null,
+            contextInfo: h ? g : null,
           }),
+          C = (f = _.messageContextInfo) == null ? void 0 : f.messageSecret,
           b =
-            ((f = _.messageContextInfo) == null ? void 0 : f.messageSecret) !=
-              null &&
-            o("WAWebMessagingGatingUtils").isMoveMessageSecretTopLevelEnabled(),
-          v = b
-            ? babelHelpers.extends({}, _, {
-                messageContextInfo: babelHelpers.extends(
-                  {},
-                  _.messageContextInfo,
-                  { messageSecret: void 0 },
-                ),
-              })
-            : _;
+            C != null
+              ? babelHelpers.extends({}, _, {
+                  messageContextInfo: babelHelpers.extends(
+                    {},
+                    _.messageContextInfo,
+                    { messageSecret: void 0 },
+                  ),
+                })
+              : _;
         d.message = babelHelpers.extends(
           {
             editedMessage: {
-              message: babelHelpers.extends({}, C, {
-                protocolMessage: babelHelpers.extends({}, C.protocolMessage, {
-                  editedMessage: v,
+              message: babelHelpers.extends({}, y, {
+                protocolMessage: babelHelpers.extends({}, y.protocolMessage, {
+                  editedMessage: b,
                 }),
               }),
             },
           },
-          b
-            ? {
-                messageContextInfo: {
-                  messageSecret:
-                    (g = _.messageContextInfo) == null
-                      ? void 0
-                      : g.messageSecret,
-                },
-              }
-            : void 0,
+          C != null ? { messageContextInfo: { messageSecret: C } } : void 0,
         );
       } else d.message = _;
       return (

@@ -17,7 +17,6 @@ __d(
     "WebBloksI18nUtils",
     "WebBloksUtils",
     "XWebBloksAsyncRawController",
-    "hasteSharedMinificationMap",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -34,20 +33,21 @@ __d(
       navInfoCircle: s("1346159"),
       magnifyingGlass: s("1252910"),
     };
-    function u() {
+    function u(t) {
       for (
-        var t = o("WebBloksHasteUtils").getLocaleFromServer(),
-          n = o("WebBloksI18nUtils").isLocaleRtl(t),
-          a = arguments.length,
-          i = new Array(a),
-          l = 0;
-        l < a;
-        l++
+        var n = o("WebBloksHasteUtils").getLocaleFromServer(),
+          a = o("WebBloksI18nUtils").isLocaleRtl(n),
+          i = arguments.length,
+          l = new Array(i > 1 ? i - 1 : 0),
+          s = 1;
+        s < i;
+        s++
       )
-        i[l] = arguments[l];
+        l[s - 1] = arguments[s];
       return o("WebBloksEnvironment").createEnvironment.apply(
         void 0,
         [
+          t,
           o("CoreWebBloksEnvironmentConfigDynamic").CORE_ENVIRONMENT_CONFIG,
           o("StdlibWebBloksEnvironmentConfigDynamic").STDLIB_ENVIRONMENT_CONFIG,
           o("ACQWebBloksEnvironmentConfigDynamic").ACQ_ENVIRONMENT_CONFIG,
@@ -57,7 +57,6 @@ __d(
               r("XWebBloksAsyncRawController"),
             ),
             actions: o("HasteSharedWebBloksActions").ACTIONS,
-            minificationMap: r("hasteSharedMinificationMap"),
             navigationTrackingUtils: null,
             logger: new (r("WebBloksHasteLogger"))(),
             AssetRenderer: o("WebBloksUtils").cast(r("WebBloksAssetRenderer")),
@@ -70,11 +69,11 @@ __d(
               },
             },
             staticAssets: e,
-            locale: t,
-            isRtl: n,
+            locale: n,
+            isRtl: a,
             gkx: new (r("WebBloksHasteGKs"))(),
           },
-        ].concat(i),
+        ].concat(l),
       );
     }
     l.createWebBloksHasteEnvironment = u;

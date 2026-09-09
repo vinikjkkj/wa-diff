@@ -415,12 +415,7 @@ __d(
           l.isBot()
         ) &&
           e.messageSecret &&
-          !(
-            i === "quoted" &&
-            o(
-              "WAWebMessagingGatingUtils",
-            ).isRemoveMessageSecretFromQuotedEnabled()
-          ) &&
+          i !== "quoted" &&
           (u.messageContextInfo = babelHelpers.extends(
             {},
             u.messageContextInfo,
@@ -454,12 +449,7 @@ __d(
           o(
             "WAWebMessagePluginGenerateReportingTokenContent",
           ).isMsgTypeReportingTokenCompatible(e.type, e.subtype) &&
-          !(
-            i === "quoted" &&
-            o(
-              "WAWebMessagingGatingUtils",
-            ).isRemoveMessageSecretFromQuotedEnabled()
-          ))
+          i !== "quoted")
       ) {
         var g, h;
         u.messageContextInfo = babelHelpers.extends({}, u.messageContextInfo, {
@@ -571,53 +561,48 @@ __d(
         s,
         u,
         c =
-          e.messageContextInfo != null &&
-          o("WAWebMessagingGatingUtils").isMoveMessageSecretTopLevelEnabled()
-            ? e.messageContextInfo
-            : null,
-        d =
-          c != null
+          e.messageContextInfo != null
             ? babelHelpers.extends({}, e, { messageContextInfo: void 0 })
             : e;
       if (
-        ((n == null ? void 0 : n.isQuestion) === !0 && (d = k(d)),
-        n != null && n.questionReplyQuotedMessage && (d = I(d)),
+        ((n == null ? void 0 : n.isQuestion) === !0 && (c = k(c)),
+        n != null && n.questionReplyQuotedMessage && (c = I(c)),
         t.associationType != null &&
           (t.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
-            ? (d = D(d))
+            ? (c = D(c))
             : o("WAWebAssociationProtoUtils").shouldWrapAssociatedChildForType(
                 t.associationType,
               ) &&
               o(
                 "WAWebMessageAssociationGatingUtils",
               ).shouldWrapAssociatedChildOnSend() &&
-              (d = T(d))),
-        t.isViewOnce && (d = v(d, t)),
+              (c = T(c))),
+        t.isViewOnce && (c = v(c, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
-          (d = o(
+          (c = o(
             "WAWebButtonsMessageProtoUtils",
-          ).createDynamicReplyButtonsMessage(d, t, n)),
+          ).createDynamicReplyButtonsMessage(c, t, n)),
         t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
-          (a = d.documentMessage) != null &&
+          (a = c.documentMessage) != null &&
           a.caption &&
-          (d = S(d)),
+          (c = S(c)),
         t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
-          (i = d.stickerMessage) != null &&
+          (i = c.stickerMessage) != null &&
           i.isLottie &&
-          (d = R(d)),
-        n != null && (l = n.groupMentions) != null && l.length && (d = L(d)),
+          (c = R(c)),
+        n != null && (l = n.groupMentions) != null && l.length && (c = L(c)),
         !((s = t.invokedBotWid) != null && s.isFbidBot()) &&
           (((u = t.invokedBotWid) != null && u.isPnBot()) ||
             t.subtype === "bot_request_welcome") &&
           o("WAWebBotBaseGating").isBotEnabled())
       ) {
-        var m;
-        d.messageContextInfo = babelHelpers.extends({}, d.messageContextInfo, {
+        var d;
+        c.messageContextInfo = babelHelpers.extends({}, c.messageContextInfo, {
           messageSecret: t.messageSecret,
           botMetadata: babelHelpers.extends(
             {},
-            ((m = e.messageContextInfo) == null ? void 0 : m.botMetadata) || {},
+            ((d = e.messageContextInfo) == null ? void 0 : d.botMetadata) || {},
             t.botTargetSenderJid instanceof r("WAWebWid")
               ? { invokerJid: t.botTargetSenderJid.toJid() }
               : {},
@@ -627,20 +612,20 @@ __d(
       return (
         t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           t.isForwarded === !0 &&
-          (d = E(d)),
+          (c = E(c)),
         (n == null ? void 0 : n.isSpoiler) === !0 &&
-          (d = o(
+          (c = o(
             "WAWebSpoilerFutureproofProtoUtils",
-          ).createSpoilerFutureproofMessage(d, n)),
-        c != null &&
-          (d = babelHelpers.extends({}, d, {
+          ).createSpoilerFutureproofMessage(c, n)),
+        e.messageContextInfo != null &&
+          (c = babelHelpers.extends({}, c, {
             messageContextInfo: babelHelpers.extends(
               {},
-              c,
-              d.messageContextInfo,
+              e.messageContextInfo,
+              c.messageContextInfo,
             ),
           })),
-        d
+        c
       );
     }
     function $(e) {

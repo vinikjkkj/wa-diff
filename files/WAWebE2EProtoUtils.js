@@ -622,12 +622,7 @@ __d(
     function H(e) {
       return e != null && e !== "" ? o("WABase64").decodeB64(e) : void 0;
     }
-    function G(e) {
-      var t = V(e.to),
-        n = { fromMe: !0, id: e.id.id };
-      return (o("WATypeUtils").isString(t) && (n.remoteJid = t), n);
-    }
-    function z(e, t, n) {
+    function G(e, t, n) {
       t.viewOnce ||
         (t.directPath == null &&
           t.staticUrl == null &&
@@ -678,7 +673,7 @@ __d(
             )
             .sendLogs("outgoing-" + e + "-message-missing-mms3-url"));
     }
-    function j(e, t, n) {
+    function z(e, t, n) {
       var r, a, i;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeInitiator
@@ -733,7 +728,7 @@ __d(
         { initiator: r, trigger: a, initiatedByMe: i }
       );
     }
-    function K(e) {
+    function j(e) {
       return e;
     }
     ((l.typeAttributeFromProtobuf = g),
@@ -762,10 +757,9 @@ __d(
       (l.encodeKey = U),
       (l.encodeJid = V),
       (l.encodeBytes = H),
-      (l.createMessageKey = G),
-      (l.validateOutgoingRequiredMediaProperties = z),
-      (l.disappearingModeInitiatorToProto = j),
-      (l.getMutableMessageProtobuf = K));
+      (l.validateOutgoingRequiredMediaProperties = G),
+      (l.disappearingModeInitiatorToProto = z),
+      (l.getMutableMessageProtobuf = j));
   },
   98,
 );

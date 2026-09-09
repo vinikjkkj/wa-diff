@@ -3,18 +3,13 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
-    "WAWebDBCreateOrUpdateReactions",
     "WAWebDBProcessEditProtocolMsgs",
-    "WAWebDBUpdateLastAddOnPreviewChat",
     "WAWebGetMessageCache",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
     "WAWebHandleMsgValidate",
     "WAWebIcdcHandlerApi",
-    "WAWebLastAddOnDBSerialization",
     "WAWebOfflineDeviceCache",
-    "WAWebReactionDataUtils",
-    "WAWebShouldUpdateLastAddOnPreview",
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -151,69 +146,10 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebShouldUpdateLastAddOnPreview",
-          ).filterChatsWithAddOnPreviewUpdates(e);
-          t.size > 0 &&
-            (yield o(
-              "WAWebDBUpdateLastAddOnPreviewChat",
-            ).updateDatabaseForLastAddOnPreview(t),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateChatLastAddOnPreview",
-              { chatMap: t },
-            ));
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-              return o(
-                "WAWebReactionDataUtils",
-              ).webMsgInfoReactionTypeToReactionsRow(e);
-            }),
-            n =
-              "reaction received: " +
-              t
-                .map(function (e) {
-                  return e.msgKey.toString() + " to " + e.parentMsgKey;
-                })
-                .toString() +
-              ";",
-            r = yield o(
-              "WAWebDBCreateOrUpdateReactions",
-            ).createOrUpdateReactions(t);
-          return (
-            r &&
-              (yield h(
-                r.map(function (e) {
-                  return o(
-                    "WAWebLastAddOnDBSerialization",
-                  ).lastAddOnPreviewCandidateFromReactionRowType(e);
-                }),
-              )),
-            r
-          );
-        })),
-        b.apply(this, arguments)
-      );
-    }
     ((l.preProcessMsg = u),
       (l.processEphemeralSyncResponseMsg = d),
       (l.processKeepInChatMsg = p),
-      (l.processEditProtocolMsg = f),
-      (l.storeReactionMsgBulk = C));
+      (l.processEditProtocolMsg = f));
   },
   98,
 );

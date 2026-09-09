@@ -17,6 +17,12 @@ __d(
         !1,
         !1,
       ],
+      group_history_send_admin_set_default_on_group_level: [
+        36505,
+        "bool",
+        !1,
+        !0,
+      ],
       group_history_send_after_join_group_level: [30905, "bool", !1, !1],
       group_history_send_group_level: [23245, "bool", !1, !1],
       group_history_setting_decouple_enabled_group_level: [

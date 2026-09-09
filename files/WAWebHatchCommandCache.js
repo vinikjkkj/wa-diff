@@ -10,16 +10,12 @@ __d(
     function s(t, n) {
       e.set(t, n);
     }
-    function u(t) {
-      e.delete(t);
-    }
-    function c() {
+    function u() {
       e.clear();
     }
     ((i.getHatchCommands = l),
       (i.setHatchCommands = s),
-      (i.clearHatchCommands = u),
-      (i.clearAllHatchCommands = c));
+      (i.clearAllHatchCommands = u));
   },
   66,
 );

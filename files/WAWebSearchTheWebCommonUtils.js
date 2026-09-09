@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "$InternalEnum",
+    "WAWebBox.react",
     "WAWebCellV2.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
@@ -14,13 +15,13 @@ __d(
     "WAWebSearchTextIcon.react",
     "WAWebSearchTheWebEventLogger",
     "WAWebSpinner.react",
-    "WAWebText.react",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumStwFormat",
     "WAWebWamEnumStwInteraction",
     "WDSIconIcGoogleLensIcon.react",
     "WDSIconIcInfo.react",
+    "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -185,10 +186,13 @@ __d(
       t[6] !== i ? ((C = L(i)), (t[6] = i), (t[7] = C)) : (C = t[7]);
       var b;
       t[8] !== C
-        ? ((b = u.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
-            color: "primary",
+        ? ((b = u.jsx(r("WAWebBox.react"), {
             paddingStart: 12,
-            children: C,
+            children: u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              children: C,
+            }),
           })),
           (t[8] = C),
           (t[9] = b))

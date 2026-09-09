@@ -12,6 +12,7 @@ __d(
     "WAWebEphemeralityResolver",
     "WAWebFetchBizAiLargeScreensGate",
     "WAWebFetchBizAiResponseSettingsV2Gate",
+    "WAWebFetchBizAiWebSmartComposerAiListsGate",
     "WAWebFetchQuickPromotions",
     "WAWebFtsClient",
     "WAWebGetNewChatMessageCappingInfoJob",
@@ -255,6 +256,12 @@ __d(
           return o(
             "WAWebFetchBizAiLargeScreensGate",
           ).fetchBizAiLargeScreensGate(e);
+        },
+        fetchBizAiWebSmartComposerAiListsGate: function (t) {
+          var e = t.trigger;
+          return o(
+            "WAWebFetchBizAiWebSmartComposerAiListsGate",
+          ).fetchBizAiWebSmartComposerAiListsGate(e);
         },
         fetchBizAiResponseSettingsV2Gate: function (t) {
           var e = t.trigger;

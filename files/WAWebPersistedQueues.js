@@ -9,6 +9,7 @@ __d(
     "WAWebODS",
     "WAWebPersistedQueuesRegistry",
     "WAWebResendMsgQueue",
+    "WAWebWormCallbacks",
     "WAWormQueue",
     "asyncToGeneratorRuntime",
   ],
@@ -16,61 +17,47 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c = "persisted_queues",
-      d = 10,
-      m = null;
+      u = "persisted_queues",
+      c = 10,
+      d = null;
+    function m() {
+      return (d == null && (d = p()), d);
+    }
     function p() {
-      return (m == null && (m = _()), m);
+      return _.apply(this, arguments);
     }
     function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForWormEarKey(),
-            o("WAWormQueue").setWAWormCallbacks({
-              onEARInitError: function () {
-                (r("WAWebODS").incr("web.persisted_queues.error.ear_init"),
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[persisted-queues] at-rest keychain failed to initialise; stored rows are unreadable",
-                        ])),
-                    )
-                    .tags("messaging")
-                    .sendLogs("persisted-queues-ear-init-failed"));
-              },
-            }));
+            o("WAWebWormCallbacks").setupWAWebWormCallbacks());
           try {
             var t = yield o("WAWormQueue").openWAWormQueueDatabase({
-              blockingErrorThreshold: d,
+              blockingErrorThreshold: c,
               dbAlias: o("WAWebPersistedQueuesRegistry")
                 .PERSISTED_QUEUES_DB_ALIAS,
-              dbName: c,
+              dbName: u,
               encKey: o("WAWebDbEncryptionKey").DbEncKeyStore.getWormEarKey(),
               makeDriver: o("WAWormQueue").makeWAWormQueueEarSyncDriver,
               odsLogger: {
-                log: function (t) {
+                log: function (n) {
                   (o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[persisted-queues] ",
                         "",
                       ])),
-                    t,
+                    n,
                   ),
-                    g(t));
+                    f(n));
                 },
               },
               onBlockingError: function (t) {
                 (r("WAWebODS").incr("web.persisted_queues.error.blocking"),
                   o("WALogger")
                     .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[persisted-queues] unrecoverable: ",
                           "",
                         ])),
@@ -94,10 +81,10 @@ __d(
             o("WAWebKeyShareQueue").startKeyShareQueue(),
             o("WAWebResendMsgQueue").startResendQueues());
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e) {
+    function f(e) {
       var t = o("WAWebPersistedQueuesRegistry").PERSISTED_QUEUES_DB_ALIAS + ".",
         n = e.startsWith(t) ? e.slice(t.length) : e;
       e: {
@@ -126,7 +113,7 @@ __d(
       (l.runUserMsgResendQueued = o(
         "WAWebResendMsgQueue",
       ).runUserMsgResendQueued),
-      (l.ensurePersistedQueuesOpen = p));
+      (l.ensurePersistedQueuesOpen = m));
   },
   98,
 );

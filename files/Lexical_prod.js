@@ -8001,7 +8001,13 @@ __d(
           var _n113 = _e141;
           for (; _n113 && !Ys(_n113) && _n113.isEmpty(); ) {
             var _t227 = _n113.getParent();
-            if (_t227 && Ys(_t227) && _t227.getChildrenSize() <= 1) break;
+            if (
+              _t227 &&
+              Ys(_t227) &&
+              _t227.getChildrenSize() <= 1 &&
+              _n113.canBeEmpty()
+            )
+              break;
             var _e144 = _n113;
             ((_n113 = _t227), _e144.remove(!0));
           }

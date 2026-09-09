@@ -2,7 +2,7 @@ __d(
   "WormReadOnlyStoreAccessor",
   [
     "FBLogger",
-    "QPLFlow",
+    "WMIQplFlow",
     "Worm",
     "WormStoreFunctions",
     "asyncToGeneratorRuntime",
@@ -22,7 +22,7 @@ __d(
               var n = this.$2 + "." + t + "_inline",
                 a =
                   this.$3 != null
-                    ? o("QPLFlow").startQPLFlow(this.$3, {
+                    ? o("WMIQplFlow").startQplFlow(this.$3, {
                         annotations: { string: { operationType: n } },
                         timeoutInMs: o("Worm").OP_TIMEOUT_MS,
                       })

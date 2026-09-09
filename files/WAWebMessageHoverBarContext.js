@@ -12,6 +12,7 @@ __d(
         onFocusEnd: function () {},
         cancelDismiss: function () {},
         isBridgeActiveForMsg: o("WAWebBoolFunc").returnFalse,
+        isBarPointerRaised: o("WAWebBoolFunc").returnFalse,
         onMessageMenuOpen: function () {},
         onMessageMenuClose: function () {},
         menuOwnerMsgId: null,

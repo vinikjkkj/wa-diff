@@ -7,6 +7,7 @@ __d(
     "WAWebAudioUtility",
     "WAWebVoipAudioCaptureBase",
     "WAWebVoipAudioCaptureWorkletProcessorConfig",
+    "WAWebVoipMicrophoneLevelReporter",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -37,6 +38,7 @@ __d(
             (this.mediaStreamSource = null),
             (this.workletPreloadPromise = null),
             (this.isWorkletPreloaded = !1),
+            (this.inputLevelReporter = null),
             (this.preloadWorkletModule = function (n) {
               var a = r(
                 "WAWebVoipAudioCaptureWorkletProcessorConfig",
@@ -88,32 +90,42 @@ __d(
                   i = e.channels,
                   l = e.framesPerChunk,
                   s = e.mediaStreamSource,
-                  u = e.sampleRate;
+                  u = e.onInputLevel,
+                  _ = e.sampleRate;
                 ((this.audioBuffer = n),
                   (this.mediaStreamSource = s),
                   (this.captureParams = {
-                    sampleRate: u,
+                    sampleRate: _,
                     channels: i,
                     framesPerChunk: l,
-                  }));
-                var _ = 128;
+                  }),
+                  (this.inputLevelReporter =
+                    u != null
+                      ? new (o(
+                          "WAWebVoipMicrophoneLevelReporter",
+                        ).WAWebVoipMicrophoneLevelReporter)(
+                          u,
+                          "Worklet:Capture",
+                        )
+                      : null));
+                var f = 128;
                 this.captureRingBuffer = new (o(
                   "WAWebAudioRingBuffer",
-                ).WAWebAudioRingBuffer)(_, l, "CaptureWorklet");
+                ).WAWebAudioRingBuffer)(f, l, "CaptureWorklet");
                 try {
                   if (
                     (this.workletPreloadPromise != null &&
                       (yield this.workletPreloadPromise),
                     !this.isWorkletPreloaded)
                   ) {
-                    var f = r(
+                    var g = r(
                       "WAWebVoipAudioCaptureWorkletProcessorConfig",
                     ).module_url;
-                    if (f === "")
+                    if (g === "")
                       throw r("err")(
                         "voip: [AV:Worklet:Capture] Missing worklet module url",
                       );
-                    (yield a.audioWorklet.addModule(f),
+                    (yield a.audioWorklet.addModule(g),
                       o("WALogger").LOG(
                         c ||
                           (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -130,9 +142,9 @@ __d(
                       processorOptions: { channels: i },
                     },
                   );
-                  var g = this.audioWorkletNode;
-                  (g != null &&
-                    (g.port.onmessage = function (e) {
+                  var h = this.audioWorkletNode;
+                  (h != null &&
+                    (h.port.onmessage = function (e) {
                       var n = e.data;
                       if (!(typeof n != "object" || n == null)) {
                         var r = n,
@@ -146,11 +158,17 @@ __d(
                                 ])),
                             ));
                         else if (a === "audioData") {
-                          var i = r.audioData,
-                            l = r.sampleRate;
-                          i instanceof Float32Array &&
-                            typeof l == "number" &&
-                            t.handleAudioData(i, l);
+                          var i = r,
+                            l = i.audioData,
+                            s = i.sampleRate,
+                            u = i.channelCount;
+                          l instanceof Float32Array &&
+                            typeof s == "number" &&
+                            t.handleAudioData(
+                              l,
+                              s,
+                              typeof u == "number" && u >= 1 ? u : null,
+                            );
                         }
                       }
                     }),
@@ -201,25 +219,26 @@ __d(
             }
             return t;
           })()),
-          (a.handleAudioData = function (t, n) {
-            var e = this.captureParams,
-              r = this.audioBuffer,
-              a = this.captureRingBuffer;
-            if (!(e == null || r == null || a == null))
+          (a.handleAudioData = function (t, n, r) {
+            var e,
+              a = this.captureParams,
+              i = this.audioBuffer,
+              l = this.captureRingBuffer;
+            if (!(a == null || i == null || l == null)) {
               try {
-                var i = o("WAWebAudioUtility").maybeDownsampleBuffer(
+                var s = o("WAWebAudioUtility").maybeDownsampleBuffer(
                   t,
                   n,
-                  e.sampleRate,
+                  a.sampleRate,
                 );
-                (a.write(i),
+                (l.write(s),
                   o(
                     "WAWebVoipAudioCaptureBase",
                   ).WAWebVoipAudioCaptureBase.processCapturedAudioChunks(
-                    a,
-                    r,
-                    e.framesPerChunk,
-                    e.channels,
+                    l,
+                    i,
+                    a.framesPerChunk,
+                    a.channels,
                     t.length,
                     "Worklet:Capture",
                   ));
@@ -233,6 +252,9 @@ __d(
                   e,
                 );
               }
+              (e = this.inputLevelReporter) == null ||
+                e.report(t, r != null ? r : a.channels);
+            }
           }),
           (a.stopAudioCapture = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -263,6 +285,7 @@ __d(
                   (this.isProcessorReady = !1),
                   (this.isWorkletPreloaded = !1),
                   (this.workletPreloadPromise = null),
+                  (this.inputLevelReporter = null),
                   o("WALogger").LOG(
                     h ||
                       (h = babelHelpers.taggedTemplateLiteralLoose([

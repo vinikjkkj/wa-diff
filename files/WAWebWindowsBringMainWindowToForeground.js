@@ -2,21 +2,15 @@ __d(
   "WAWebWindowsBringMainWindowToForeground",
   [
     "WAWebWindowsHybridBridge.v2587",
-    "WAWebWindowsHybridBridge.v2604",
     "WAWebWindowsHybridBridge.v2605",
     "WAWebWindowsHybridBridge.v2606",
     "WAWebWindowsHybridBridge.v2607",
-    "WAWebWindowsHybridBridge.v2610",
     "WAWebWindowsHybridBridge.v2611",
     "WAWebWindowsHybridBridge.v2613",
     "WAWebWindowsHybridBridge.v2614",
     "WAWebWindowsHybridBridge.v2615",
     "WAWebWindowsHybridBridge.v2616",
-    "WAWebWindowsHybridBridge.v2617",
-    "WAWebWindowsHybridBridge.v2618",
-    "WAWebWindowsHybridBridge.v2619",
     "WAWebWindowsHybridBridge.v2620",
-    "WAWebWindowsHybridBridge.v2621",
     "WAWebWindowsHybridBridgeCommon",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,15 +22,11 @@ __d(
         t instanceof
           o("WAWebWindowsHybridBridge.v2587").WindowsHybridBridge_v2587 ||
         t instanceof
-          o("WAWebWindowsHybridBridge.v2604").WindowsHybridBridge_v2604 ||
-        t instanceof
           o("WAWebWindowsHybridBridge.v2605").WindowsHybridBridge_v2605 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2606").WindowsHybridBridge_v2606 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2607").WindowsHybridBridge_v2607 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2610").WindowsHybridBridge_v2610 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2611").WindowsHybridBridge_v2611 ||
         t instanceof
@@ -48,15 +38,7 @@ __d(
         t instanceof
           o("WAWebWindowsHybridBridge.v2616").WindowsHybridBridge_v2616 ||
         t instanceof
-          o("WAWebWindowsHybridBridge.v2617").WindowsHybridBridge_v2617 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2618").WindowsHybridBridge_v2618 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2619").WindowsHybridBridge_v2619 ||
-        t instanceof
           o("WAWebWindowsHybridBridge.v2620").WindowsHybridBridge_v2620 ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2621").WindowsHybridBridge_v2621 ||
         (e = t.nativeAppStateBridge) == null ||
         e.bringMainWindowToForeground();
     }

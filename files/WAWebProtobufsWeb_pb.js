@@ -243,6 +243,8 @@ __d(
         IDENTITY_TRUST_UNMARKED: 227,
         IDENTITY_TRUST_REVOKED: 228,
         CTWA_CONSUMER_DISCLOSURE: 230,
+        CHANGE_ACP2_SETTING: 240,
+        EPHEMERAL_CHANGED_FOR_COEX: 248,
       }),
       p = c({
         ERROR: 0,

@@ -68,22 +68,22 @@ __d(
       );
     }
     function S() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
     function R() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "username_unknown_user_logging_enabled",
       );
     }
     function L() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "unknown_user_target_rid_logging",
       );
     }
     function E() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "unknown_user_recovery_enabled",
       );
     }

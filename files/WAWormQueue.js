@@ -1,18 +1,16 @@
 __d(
   "WAWormQueue",
-  ["WormCallbacks", "WormQueueDatabase", "WormQueueEarSyncDriver"],
+  ["WAWormDB", "WormQueueDatabase"],
   function (t, n, r, o, a, i) {
     "use strict";
     var e = importNamespace("WormQueueDatabase").bindWormPersistedQueue,
       l = importNamespace("WormQueueDatabase").logWormQueueDbInitFailure,
       s = importNamespace("WormQueueDatabase").openWormQueueDatabase,
-      u = importNamespace("WormCallbacks").setWormCallbacks,
-      c = importNamespace("WormQueueEarSyncDriver").makeWormQueueEarSyncDriver;
+      u = importNamespace("WAWormDB").makeWAWormEarSyncDriver;
     ((i.bindWAWormQueue = e),
       (i.logWAWormQueueDbInitFailure = l),
       (i.openWAWormQueueDatabase = s),
-      (i.setWAWormCallbacks = u),
-      (i.makeWAWormQueueEarSyncDriver = c));
+      (i.makeWAWormQueueEarSyncDriver = u));
   },
   66,
 );

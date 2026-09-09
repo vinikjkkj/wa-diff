@@ -159,6 +159,11 @@ __d(
         authAgentParentCompanyName: [61, e.TYPES.STRING],
         authAgentObaPhoneNumber: [62, e.TYPES.STRING],
         identityVerification: [63, e.TYPES.MESSAGE, C],
+        acp2Setting: [
+          64,
+          e.TYPES.MESSAGE,
+          o("WAWebProtobufsProtocol.pb").ACP2SettingSpec,
+        ],
       }),
       (C.name = "IdentityVerificationState"),
       (C.internalSpec = {

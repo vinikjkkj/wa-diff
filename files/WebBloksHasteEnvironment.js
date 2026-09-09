@@ -6,18 +6,22 @@ __d(
     "HasteSharedWebBloksComponents",
     "StdlibWebBloksComponents",
     "WebBloksHasteEnvironmentDynamic",
-    "hasteSharedMinificationMap",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
-        t[n] = arguments[n];
+    function e(e) {
+      for (
+        var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
+        r < t;
+        r++
+      )
+        n[r - 1] = arguments[r];
       return o(
         "WebBloksHasteEnvironmentDynamic",
       ).createWebBloksHasteEnvironment.apply(
         void 0,
         [
+          e,
           {
             components: babelHelpers.extends(
               {},
@@ -26,9 +30,8 @@ __d(
               o("AcqWebBloksComponents").COMPONENTS,
               o("HasteSharedWebBloksComponents").COMPONENTS,
             ),
-            minificationMap: r("hasteSharedMinificationMap"),
           },
-        ].concat(t),
+        ].concat(n),
       );
     }
     l.createWebBloksHasteEnvironment = e;

@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebDocumentFlushed",
     "WAWebNoop",
     "asyncToGeneratorRuntime",
@@ -25,7 +26,7 @@ __d(
           function* (e, t, n, r) {
             var o = e.scrollHeight,
               a = yield h(t(), d, n);
-            return !a || r() ? !1 : b(e, o, c, Date.now() + m, n, r);
+            return !a || r() ? !1 : C(e, o, c, Date.now() + m, n, r);
           },
         )),
         f.apply(this, arguments)
@@ -42,39 +43,36 @@ __d(
         .catching(r("getErrorSafe")(t))
         .sendLogs("ur-scroll-settle-failed");
     }
-    function h(e, t, o) {
-      if (o.aborted)
+    function h(e, t, a) {
+      if (a.aborted)
         return (e.catch(r("WAWebNoop")), (u || (u = n("Promise"))).resolve(!1));
-      var a,
-        i = r("WAWebNoop"),
-        l = !1,
-        s = new (u || (u = n("Promise")))(function (e) {
+      var i,
+        l = r("WAWebNoop"),
+        s = !1,
+        c = new (u || (u = n("Promise")))(function (e) {
           var n = function () {
-            ((l = !0), e(!1));
+            ((s = !0), e(!1));
           };
-          ((a = self.setTimeout(n, t)),
-            (i = n),
-            o.addEventListener("abort", i));
+          ((i = self.setTimeout(n, t)),
+            (l = n),
+            a.addEventListener("abort", l));
         });
       return u
         .race([
-          e.then(y, function (e) {
-            return l || o.aborted ? !1 : C(e);
+          e.then(o("WAWebBoolFunc").returnTrue, function (e) {
+            return s || a.aborted ? !1 : y(e);
           }),
-          s,
+          c,
         ])
         .then(function (e) {
           return (
-            a != null && self.clearTimeout(a),
-            o.removeEventListener("abort", i),
-            e && !o.aborted
+            i != null && self.clearTimeout(i),
+            a.removeEventListener("abort", l),
+            e && !a.aborted
           );
         });
     }
-    function y() {
-      return !0;
-    }
-    function C(e) {
+    function y(e) {
       return (
         o("WALogger")
           .ERROR(
@@ -88,12 +86,12 @@ __d(
         !1
       );
     }
-    function b(e, t, n, r, o, a) {
-      return v.apply(this, arguments);
+    function C(e, t, n, r, o, a) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i) {
             return n === 0 ||
               (yield o("WAWebDocumentFlushed").documentFlushed({ signal: a }),
@@ -101,10 +99,10 @@ __d(
               ? !1
               : e.scrollHeight >= t + p
                 ? !0
-                : b(e, t, n - 1, r, a, i);
+                : C(e, t, n - 1, r, a, i);
           },
         )),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.shouldReapplyScrollAfterUnifiedResponseLoad = _),

@@ -79,7 +79,7 @@ __d(
             h = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
             y = h.privateKey,
             C = h.publicKey,
-            b = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(C, !0),
+            b = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(C),
             v = {
               version: 1,
               timestamp: Date.now(),
@@ -186,7 +186,7 @@ __d(
           var r = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
             a = r.privateKey,
             i = r.publicKey,
-            l = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(i, !0),
+            l = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(i),
             s = {
               version: 1,
               timestamp: Math.floor(Date.now() / 1e3),
@@ -316,7 +316,7 @@ __d(
           var s = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
             u = s.privateKey,
             c = s.publicKey,
-            d = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(c, !0),
+            d = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(c),
             m = {
               version: 1,
               timestamp: Math.floor(Date.now() / 1e3),

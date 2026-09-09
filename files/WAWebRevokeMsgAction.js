@@ -41,6 +41,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebWamMsgUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -429,23 +430,30 @@ __d(
         c.replaceId(d, m));
       var _ = (n = l == null ? void 0 : l.isUnreadMsg(e)) != null ? n : !1,
         g = (a = l == null ? void 0 : l.isActiveUnreadMsg(e)) != null ? a : !1,
-        h = e.associationType;
+        h = e.associationType,
+        y = o("WAWebViewModeUtils").getRevokedViewMode(
+          e.viewMode,
+          h,
+          (i = t.viewMode) != null
+            ? i
+            : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        );
       if (
         h != null &&
         o(
           "WAWebMessageAssociationGatingUtils",
         ).isMessageAssociationInfraEnabled()
       ) {
-        var y = o(
+        var C = o(
           "WAWebAssociationProcessor",
         ).getAssociationProcessorByAssociationType(h);
-        y &&
-          y.processorType ===
+        C &&
+          C.processorType ===
             o("WAWebAssociationProcessorConstants").AssociationProcessorType
               .WithDetachedMessages &&
           e.detachAssociatedMsg();
       }
-      var C = {
+      var b = {
         isOverwrittenByRevoke: !0,
         id: m,
         type: o("WAWebMsgType").MSG_TYPE.REVOKED,
@@ -495,18 +503,15 @@ __d(
         kicKey: void 0,
         errorCode: o("WAWebErrorType").SendFailureErrorCode.NoError,
         isSendFailure: !1,
-        viewMode:
-          (i = t.viewMode) != null
-            ? i
-            : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        viewMode: y,
         associationType: void 0,
         parentMsgKey: void 0,
       };
-      if ((e.set(C), e.trigger("change:msgKey", { newKey: m, oldKey: d }), l)) {
-        var b;
+      if ((e.set(b), e.trigger("change:msgKey", { newKey: m, oldKey: d }), l)) {
+        var v;
         (d.equals(l.lastReceivedKey) && (l.lastReceivedKey = m),
-          (b = l.composeQuotedMsg) != null &&
-            b.id.equals(d) &&
+          (v = l.composeQuotedMsg) != null &&
+            v.id.equals(d) &&
             (l.composeQuotedMsg = null),
           _ &&
             ((l.unreadCount = Math.max(l.unreadCount - 1, 0)),
@@ -515,9 +520,9 @@ __d(
           g && (l.activeUnreadCount = Math.max(l.activeUnreadCount - 1, 0)));
       }
       if (r("WAWebWid").isBroadcast(d.remote)) {
-        var v = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(d),
-          S = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(m);
-        if (!v || !S || v.length !== S.length) {
+        var S = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(d),
+          R = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(m);
+        if (!S || !R || S.length !== R.length) {
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -525,24 +530,24 @@ __d(
                 " ",
                 "",
               ])),
-            String(v),
             String(S),
+            String(R),
           );
           return;
         }
-        (v.forEach(function (e, n) {
+        (S.forEach(function (e, n) {
           var r = c.get(e);
-          r && f(r, { msgKey: S[n], subtype: t.subtype, sender: t.sender });
+          r && f(r, { msgKey: R[n], subtype: t.subtype, sender: t.sender });
         }),
           o("WAWebFtsClient")
             .ftsClient.purge([String(e.rowId)])
             .catch(r("WAWebNoop")));
-        var R = l ? l.id.toString() : e.id.remote.toString();
+        var L = l ? l.id.toString() : e.id.remote.toString();
         (o(
           "WAWebUpdateLastAddOnPreviewChatAction",
         ).deleteModelsForLastAddOnPreview([d.toString()]),
           o("WAWebRequestDeleteAddOns").requestDeleteAddOnsFireAndForget(
-            R.toString(),
+            L.toString(),
             [d.toString()],
           ));
       }

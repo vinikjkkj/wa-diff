@@ -45,6 +45,8 @@ __d(
       "block-business-popup": "BlockBusinessModalRobot",
       "confirm-popup": "ConfirmationModalRobot",
       "contacts-modal": "ContactsModalRobot",
+      "leave-community-popup": "LeaveCommunityModalRobot",
+      "report-contact-popup": "ReportContactDialogRobot",
       "settings-popup": "GroupSettingsModalRobot",
       "mute-popup": "MuteModalRobot",
       "passcode-removal-modal": "PasscodeRemovalModalRobot",

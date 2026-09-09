@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WALongInt",
     "WAWeb-moment",
-    "WAWebDeleteIcon.react",
     "WAWebDrawerButton.react",
     "WAWebGdprRequestAccountInfoSettingsDrawerConfirmPopup",
     "WAWebIcDownloadIcon.react",
@@ -13,6 +12,7 @@ __d(
     "WAWebNewsletterCommonGatingUtils",
     "WAWebText.react",
     "WAWebText_DONOTUSE.react",
+    "WDSIconIcDelete.react",
     "react",
     "react-compiler-runtime",
     "useWAWebGdprDelete",
@@ -154,7 +154,7 @@ __d(
         : (M = t[22]);
       var w;
       t[23] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = u.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {})), (t[23] = w))
+        ? ((w = u.jsx(r("WDSIconIcDelete.react"), {})), (t[23] = w))
         : (w = t[23]);
       var A;
       t[24] !== b || t[25] !== C || t[26] !== a

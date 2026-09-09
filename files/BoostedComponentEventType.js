@@ -1001,6 +1001,8 @@ __d(
       PIXEL_SETUP_TEST_TRAFFIC_CLICKED: "pixel_setup_test_traffic_clicked",
       PIXEL_SETUP_VERIFY_OUTCOME: "pixel_setup_verify_outcome",
       PIXEL_SETUP_FLOW_COMPLETE: "pixel_setup_flow_complete",
+      MDA_PIXEL_SETUP_IMPRESSION: "mda_pixel_setup_impression",
+      MDA_PIXEL_SETUP_CLICKED: "mda_pixel_setup_clicked",
       PRODUCT_EXTENSION_AD_CREATED: "product_extension_ad_created",
       PRODUCT_EXTENSION_ELIGIBLE_AD_CREATED_WITHOUT_PE:
         "product_extension_eligible_ad_created_without_pe",

@@ -3,29 +3,28 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WATimeUtils",
-    "WAWebAck",
     "WAWebBotMessageSecret",
     "WAWebBotProfileCollection",
+    "WAWebDBProcessMessage",
+    "WAWebFrontendMsgGetters",
+    "WAWebMsgDataUtils",
     "WAWebMsgGetters",
-    "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSendMsgRecordAction",
     "WAWebUserPrefsMeUser",
-    "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function u() {
+    function d() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l, s;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          var i, l;
           if (!o("WAWebMsgGetters").getIsBotResponse(t)) {
             o("WALogger")
               .ERROR(
@@ -37,68 +36,87 @@ __d(
               .sendLogs("send-bot-feedback");
             return;
           }
-          var u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            c = t.id.remote,
-            d = (l = t.id.participant) != null ? l : t.id.remote,
+          var c = o("WAWebFrontendMsgGetters").getMaybeChat(t);
+          if (c == null) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendBotFeedback: no chat for the rated response",
+                  ])),
+              )
+              .sendLogs("send-bot-feedback-no-chat");
+            return;
+          }
+          var d = (i = t.id.participant) != null ? i : t.id.remote,
             m = d.isBot() ? d : void 0,
-            p = new (r("WAWebMsgKey"))({
-              id: yield r("WAWebMsgKey").newId(),
-              remote: c,
-              fromMe: !0,
-            }),
-            _ = self.crypto.getRandomValues(new Uint8Array(32)),
-            f = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
-              _,
+            p = self.crypto.getRandomValues(new Uint8Array(32)),
+            _ = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
+              p,
             ),
-            g =
+            f =
               m != null
-                ? (s = o("WAWebBotProfileCollection").BotProfileCollection.get(
+                ? (l = o("WAWebBotProfileCollection").BotProfileCollection.get(
                     m,
                   )) == null
                   ? void 0
-                  : s.personaId
+                  : l.personaId
                 : void 0,
-            h = t == null ? void 0 : t.botTargetSenderJid,
-            y = null;
-          h != null &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(h) &&
-            (y = t == null ? void 0 : t.botTargetSenderJid);
-          var C = {
-              type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-              kind: o("WAWebMsgType").MsgKind.Protocol,
-              subtype: "bot_feedback",
-              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              ack: o("WAWebAck").ACK.CLOCK,
-              from: u,
-              to: c,
-              id: p,
-              local: !0,
-              isNewMsg: !0,
-              t: o("WATimeUtils").unixTime(),
-              protocolMessageKey: t.id,
-              bizBotType: t.bizBotType,
-              messageSecret: _,
-              botMessageSecret: new Uint8Array(f),
-              botPersonaId: g,
-              botFeedbackKind: a,
-              botFeedbackText: i,
-              botTargetSenderJid: y,
-            },
-            b = new (o("WAWebMsgModel").Msg)(C);
+            g = t == null ? void 0 : t.botTargetSenderJid,
+            h = null;
+          g != null &&
+            !o("WAWebUserPrefsMeUser").isMeAccount(g) &&
+            (h = t == null ? void 0 : t.botTargetSenderJid);
+          var y = babelHelpers.extends(
+              {},
+              yield o("WAWebMsgDataUtils").genOutgoingMsgData(
+                c,
+                o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+              ),
+              {
+                kind: o("WAWebMsgType").MsgKind.Protocol,
+                subtype: "bot_feedback",
+                protocolMessageKey: t.id,
+                bizBotType: t.bizBotType,
+                messageSecret: p,
+                botMessageSecret: new Uint8Array(_),
+                botPersonaId: f,
+                botFeedbackKind: r,
+                botFeedbackText: a,
+                botTargetSenderJid: h,
+              },
+            ),
+            C = new (o("WAWebMsgModel").Msg)(y);
           yield o("WAWebOrchestratorNonPersistedJob")
             .createNonPersistedJob(
               "sendMessage",
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                return o("WAWebSendMsgRecordAction").sendMsgRecord(b);
+                try {
+                  yield o("WAWebDBProcessMessage").storeMessages([y], c.id);
+                } catch (e) {
+                  throw (
+                    o("WALogger")
+                      .ERROR(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "sendBotFeedback: failed to storeMessages into storage",
+                          ])),
+                      )
+                      .verbose()
+                      .sendLogs("send-bot-feedback-store-failed"),
+                    e
+                  );
+                }
+                return o("WAWebSendMsgRecordAction").sendMsgRecord(C);
               }),
               { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
             )
             .waitUntilCompleted();
         })),
-        u.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.sendBotFeedback = s;
+    l.sendBotFeedback = c;
   },
   98,
 );

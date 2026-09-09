@@ -15,10 +15,9 @@ __d(
     "react",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["minificationMap"],
-      s,
-      u = (s || (s = o("react"))).useState,
-      c = {
+    var e,
+      s = (e || (e = o("react"))).useState,
+      u = {
         actions: {},
         canonicalActions: null,
         analytics: null,
@@ -74,80 +73,109 @@ __d(
         ]),
         controllerNavigationLogger: null,
         versioningID: "",
+      },
+      c = {
+        minificationMap: o("WebBloksModel").defineWebBloksMinificationMap({}),
+        signatureUnminificationMap: {},
       };
-    function d(t) {
+    function d(e) {
+      var t = {};
+      for (var n of Object.entries(e)) {
+        var r = n[0],
+          o = n[1],
+          a = {};
+        for (var i of Object.entries(o.toCanonicalAttrs)) {
+          var l = i[0],
+            s = i[1];
+          a[String(s)] = l;
+        }
+        t[r] = {
+          styleId: o.styleId,
+          toCanonicalAttrs: o.toCanonicalAttrs,
+          toLogicalAttrs: a,
+        };
+      }
+      return t;
+    }
+    function m(e) {
+      var t;
+      return babelHelpers.extends({}, e, {
+        unminificationMap:
+          (t = e.unminificationMap) != null ? t : d(e.minificationMap),
+      });
+    }
+    function p(e, t) {
       for (
         var n,
           a,
           i,
           l = (n = window.navigator) == null ? void 0 : n.languages,
           s = l != null && o("WebBloksI18nUtils").isLocaleRtl(l),
-          u = t.minificationMap,
-          d = babelHelpers.objectWithoutPropertiesLoose(t, e),
-          m = babelHelpers.extends({}, c, {
-            minificationMap: u,
+          c = babelHelpers.extends({}, u, {
+            loadedMinificationMaps: m(e),
+            minificationMap: e.minificationMap,
             locale: l,
             isRtl: s,
           }),
-          f = arguments.length,
-          h = new Array(f > 1 ? f - 1 : 0),
-          y = 1;
-        y < f;
-        y++
+          d = arguments.length,
+          p = new Array(d > 2 ? d - 2 : 0),
+          _ = 2;
+        _ < d;
+        _++
       )
-        h[y - 1] = arguments[y];
-      var C = h.reduce(
+        p[_ - 2] = arguments[_];
+      var y = p.reduce(
         function (e, t) {
-          return p(e, t);
+          return f(e, t);
         },
-        p(m, d),
+        f(c, t),
       );
-      if (C.useMinification && C.unminificationMap != null)
+      if (y.useMinification && y.unminificationMap != null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A minified WebBloks environment cannot include an unminification map.",
         );
-      if (C.useSignatureMinification && C.signatureUnminificationMap != null)
+      if (y.useSignatureMinification && y.signatureUnminificationMap != null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment cannot include a signature unminification map.",
         );
-      if (C.useSignatureMinification && C.canonicalActions == null)
+      if (y.useSignatureMinification && y.canonicalActions == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment requires canonical actions.",
         );
       if (
         (o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
-          C.enableBindInstrumentation,
+          y.enableBindInstrumentation,
         ),
-        C.versioningID === "")
+        y.versioningID === "")
       )
         throw new (o("WebBloksErrors").WebBloksError)(
           "A WebBloks environment must declare a versioningID. Import the generated module for your app (e.g. `import id from 'fbWebVersioningId'`) and pass it as `versioningID`. There is no longer an ambient fallback: inheriting the id the server picked for the page means the server reduces against a capability set this bundle may not have.",
         );
-      ((a = C.appLoader) == null ||
+      ((a = y.appLoader) == null ||
         a.setVersioningID == null ||
-        a.setVersioningID(C.versioningID),
-        (i = C.appLoader) == null ||
+        a.setVersioningID(y.versioningID),
+        (i = y.appLoader) == null ||
           i.setLogger == null ||
-          i.setLogger(C.logger));
-      var b = babelHelpers.extends({}, C, {
-        minificationMap: C.useMinification
-          ? C.minificationMap
-          : g(C.minificationMap),
+          i.setLogger(y.logger));
+      var C = babelHelpers.extends({}, y, {
+        minificationMap: y.useMinification
+          ? y.minificationMap
+          : h(y.minificationMap),
         actions: new (r("WebBloksModuleStore"))(
-          C.useSignatureMinification
-            ? C.canonicalActions
-            : _(C.actions, C.signatureUnminificationMap),
+          y.useSignatureMinification
+            ? y.canonicalActions
+            : g(y.actions, y.signatureUnminificationMap),
         ),
-        components: new (r("WebBloksModuleStore"))(C.components),
-        extensionHandlers: new (r("WebBloksModuleStore"))(C.extensionHandlers),
-        containerConfigs: new (r("WebBloksModuleStore"))(C.containerConfigs),
+        components: new (r("WebBloksModuleStore"))(y.components),
+        extensionHandlers: new (r("WebBloksModuleStore"))(y.extensionHandlers),
+        containerConfigs: new (r("WebBloksModuleStore"))(y.containerConfigs),
       });
-      return b;
+      return C;
     }
-    function m(e) {
-      return u(e)[0];
+    function _(e) {
+      return s(e)[0];
     }
-    function p(e, t) {
+    function f(e, t) {
       var n,
         r,
         o,
@@ -161,8 +189,9 @@ __d(
         m,
         p,
         _,
+        f,
         g,
-        y,
+        h,
         C,
         b,
         v,
@@ -176,8 +205,7 @@ __d(
         D,
         x,
         $,
-        P,
-        N;
+        P;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -207,7 +235,8 @@ __d(
               e.traversalKeys,
               t.traversalKeys,
             ),
-            minificationMap: f(e.minificationMap, t.minificationMap),
+            loadedMinificationMaps: e.loadedMinificationMaps,
+            minificationMap: e.minificationMap,
             unminificationMap:
               t.unminificationMap !== void 0
                 ? t.unminificationMap
@@ -238,48 +267,48 @@ __d(
                 ? _
                 : e.enableScrollRestoration,
             enableBindSubtreeReuse:
-              (g = t.enableBindSubtreeReuse) != null
-                ? g
+              (f = t.enableBindSubtreeReuse) != null
+                ? f
                 : e.enableBindSubtreeReuse,
             enableNoOpVariableWriteFilter:
-              (y = t.enableNoOpVariableWriteFilter) != null
-                ? y
+              (g = t.enableNoOpVariableWriteFilter) != null
+                ? g
                 : e.enableNoOpVariableWriteFilter,
             enableBindInstrumentation:
-              (C = t.enableBindInstrumentation) != null
-                ? C
+              (h = t.enableBindInstrumentation) != null
+                ? h
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (b = t.loadingFallback) != null ? b : e.loadingFallback,
-            dataModulesStore: h(e.dataModulesStore, t.dataModulesStore),
+              (C = t.loadingFallback) != null ? C : e.loadingFallback,
+            dataModulesStore: y(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (v = t.navigationTrackingUtils) != null
-                ? v
+              (b = t.navigationTrackingUtils) != null
+                ? b
                 : e.navigationTrackingUtils,
-            logger: (S = t.logger) != null ? S : e.logger,
+            logger: (v = t.logger) != null ? v : e.logger,
             disableErrorBoundary:
-              (R = t.disableErrorBoundary) != null ? R : e.disableErrorBoundary,
-            AssetRenderer: (L = t.AssetRenderer) != null ? L : e.AssetRenderer,
-            staticAssets: (E = t.staticAssets) != null ? E : e.staticAssets,
+              (S = t.disableErrorBoundary) != null ? S : e.disableErrorBoundary,
+            AssetRenderer: (R = t.AssetRenderer) != null ? R : e.AssetRenderer,
+            staticAssets: (L = t.staticAssets) != null ? L : e.staticAssets,
             globalStateStore:
-              (k = t.globalStateStore) != null ? k : e.globalStateStore,
+              (E = t.globalStateStore) != null ? E : e.globalStateStore,
             fontFamilyMappings:
-              (I = t.fontFamilyMappings) != null ? I : e.fontFamilyMappings,
-            timeoutIDS: (T = t.timeoutIDS) != null ? T : e.timeoutIDS,
+              (k = t.fontFamilyMappings) != null ? k : e.fontFamilyMappings,
+            timeoutIDS: (I = t.timeoutIDS) != null ? I : e.timeoutIDS,
             screenQueryTemplate:
-              (D = t.screenQueryTemplate) != null ? D : e.screenQueryTemplate,
+              (T = t.screenQueryTemplate) != null ? T : e.screenQueryTemplate,
             accessibilityModule:
-              (x = t.accessibilityModule) != null ? x : e.accessibilityModule,
-            gkx: ($ = t.gkx) != null ? $ : e.gkx,
+              (D = t.accessibilityModule) != null ? D : e.accessibilityModule,
+            gkx: (x = t.gkx) != null ? x : e.gkx,
             controllerNavigationLogger:
-              (P = t.controllerNavigationLogger) != null
-                ? P
+              ($ = t.controllerNavigationLogger) != null
+                ? $
                 : e.controllerNavigationLogger,
-            versioningID: (N = t.versioningID) != null ? N : e.versioningID,
+            versioningID: (P = t.versioningID) != null ? P : e.versioningID,
           }
         : e;
     }
-    function _(e, t) {
+    function g(e, t) {
       if (t == null) return e;
       var n = babelHelpers.extends({}, e);
       for (var r of Object.entries(t)) {
@@ -293,19 +322,18 @@ __d(
       }
       return n;
     }
-    function f(e, t) {
-      return t == null || t === e ? e : babelHelpers.extends({}, e, t);
-    }
-    function g(e) {
+    function h(e) {
       var t = {};
-      for (var n of Object.values(e)) {
-        var r = {};
-        for (var a of Object.keys(n.attrs)) r[a] = a;
-        t[n.logicalStyleId] = { logicalStyleId: n.logicalStyleId, attrs: r };
+      for (var n of Object.entries(e)) {
+        var r = n[0],
+          a = n[1],
+          i = {};
+        for (var l of Object.keys(a.toCanonicalAttrs)) i[l] = l;
+        t[r] = { styleId: r, toCanonicalAttrs: i };
       }
       return o("WebBloksModel").defineWebBloksMinificationMap(t);
     }
-    function h(e, t) {
+    function y(e, t) {
       if (!t || t.size === 0) return e;
       var n = new Map(e);
       for (var r of t) {
@@ -319,10 +347,13 @@ __d(
       }
       return n;
     }
-    ((l.WEBLOKS_DEFAULT_ENVIRONMENT = c),
-      (l.createEnvironment = d),
-      (l.useWebBloksEnvironmentStore = m),
-      (l.addWebBloksSignatureAliases = _));
+    ((l.WEBLOKS_DEFAULT_ENVIRONMENT = u),
+      (l.EMPTY_WEBLOKS_MINIFICATION_MAPS = c),
+      (l.createWebBloksUnminificationMap = d),
+      (l.createRuntimeMinificationMaps = m),
+      (l.createEnvironment = p),
+      (l.useWebBloksEnvironmentStore = _),
+      (l.addWebBloksSignatureAliases = g));
   },
   98,
 );

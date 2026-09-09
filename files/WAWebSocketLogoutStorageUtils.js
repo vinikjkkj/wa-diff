@@ -12,6 +12,7 @@ __d(
     "WAWebWorkerStorage",
     "asyncToGeneratorRuntime",
     "cr:10201",
+    "cr:10751",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -31,6 +32,7 @@ __d(
             t.push(o("WAWebQplStorage").destroy()),
             t.push(o("WAWebFtsClient").ftsClient.clearInitializationPromises()),
             t.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
+            n("cr:10751") != null && t.push(n("cr:10751").destroy()),
             t.push(o("WAWebWorkerStorage").destroy()),
             yield (e || (e = n("Promise"))).all(t));
         })),

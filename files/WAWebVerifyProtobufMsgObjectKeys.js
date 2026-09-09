@@ -536,16 +536,12 @@ __d(
       }
       return t;
     }
-    function y(e, t) {
-      return h(e).has(t);
-    }
     ((l.UndeclaredMessageType = c),
       (l.getWrappedMessage = m),
       (l.getUnwrappedProtobufMessage = p),
       (l.getProtobufMessageTypesToKeys = _),
       (l.verifyProtobufMessageObjectKeys = g),
-      (l.getProtobufMessageTypesSet = h),
-      (l.isProtobufHasMessageType = y));
+      (l.getProtobufMessageTypesSet = h));
   },
   98,
 );

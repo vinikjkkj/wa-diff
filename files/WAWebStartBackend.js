@@ -763,6 +763,10 @@ __d(
               { trigger: "app-launch" },
             ),
             o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+              "fetchBizAiWebSmartComposerAiListsGate",
+              { trigger: "app-launch" },
+            ),
+            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
               "fetchBizAiResponseSettingsV2Gate",
               { trigger: "app-launch" },
             ),

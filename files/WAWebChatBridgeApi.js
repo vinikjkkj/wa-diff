@@ -19,6 +19,7 @@ __d(
     "WAWebWamMemoryStat",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -145,11 +146,20 @@ __d(
             ));
         },
         resetChatPreviewT: function (t) {
-          var e = t.chatIds;
-          e.forEach(function (e) {
-            var t = o("WAWebChatCollection").ChatCollection.get(e);
-            t && (t.previewT = void 0);
-          });
+          var e = t.chatIds,
+            n = e.length > 0 && r("gkx")("23777");
+          (e.forEach(function (e) {
+            var t = o("WAWebWidFactory").createWid(e),
+              r = o("WAWebChatCollection").ChatCollection.get(t);
+            (r == null &&
+              n &&
+              t.isLid() &&
+              (r = o("WAWebChatCollection").ChatCollection.getChatByAccountLid(
+                t,
+              )),
+              r && (r.previewT = void 0));
+          }),
+            n && o("WAWebChatCollection").ChatCollection.sort());
         },
         updateChatPreviewT: function (t) {
           var e = t.threadMeta;

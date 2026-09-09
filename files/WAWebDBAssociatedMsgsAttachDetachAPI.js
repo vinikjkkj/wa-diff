@@ -88,15 +88,7 @@ __d(
           var r = o(
             "WAWebAssociationProcessor",
           ).getAssociationProcessorByAssociationType(e.associationType);
-          if (r) {
-            var a = !0;
-            (t === s.Detach &&
-              (a =
-                (r == null ? void 0 : r.processorType) ===
-                o("WAWebAssociationProcessorConstants").AssociationProcessorType
-                  .WithDetachedMessages),
-              r && a && n.push(e));
-          }
+          r != null && (t !== s.Detach || g(r.processorType)) && n.push(e);
         }),
         n
       );
@@ -110,7 +102,7 @@ __d(
             var n = o(
               "WAWebAssociationProcessor",
             ).getAssociationProcessorByAssociationType(e.associationType);
-            return n == null
+            return n == null || (t === s.Detach && !g(n.processorType))
               ? null
               : babelHelpers.extends({}, e, {
                   viewMode:
@@ -130,7 +122,7 @@ __d(
             var t = o(
               "WAWebAssociationProcessor",
             ).getAssociationProcessorByAssociationType(e.associationType);
-            return t == null
+            return t == null || !g(t.processorType)
               ? null
               : babelHelpers.extends({}, e, {
                   viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
@@ -139,6 +131,13 @@ __d(
                 });
           })
         : [];
+    }
+    function g(e) {
+      return (
+        e ===
+        o("WAWebAssociationProcessorConstants").AssociationProcessorType
+          .WithDetachedMessages
+      );
     }
     ((l.ViewModeUpdateType = s),
       (l.processOrphansFromAssociationsTableForNewMsg = u),

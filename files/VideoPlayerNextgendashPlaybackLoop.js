@@ -70,7 +70,12 @@ __d(
       return (e == null ? void 0 : e.code) === N && t ? P : $;
     }
     function w(e, t, n) {
-      if (e.paused || e.playbackRate === 0 || e.readyState < 3)
+      if (
+        e.paused ||
+        e.playbackRate === 0 ||
+        !Number.isFinite(e.playbackRate) ||
+        e.readyState < 3
+      )
         return e.currentTime;
       var r = (t - e.currentTimeAbsoluteMs) / 1e3,
         o = n != null ? Math.min(Math.max(0, r), n) : Math.max(0, r),

@@ -30,6 +30,8 @@ __d(
         CLOUD_API: 23,
         SMARTGLASSES: 24,
         WAIL: 25,
+        WASS: 26,
+        BUSINESS_BACK_OFFICE: 27,
       }),
       u = {},
       c = {},

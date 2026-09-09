@@ -6,6 +6,7 @@ __d(
     "WAWebAudioUtility",
     "WAWebNoop",
     "WAWebVoipAudioCaptureBase",
+    "WAWebVoipMicrophoneLevelReporter",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,7 +23,8 @@ __d(
           ((this.scriptProcessor = null),
             (this.captureRingBuffer = null),
             (this.audioBuffer = null),
-            (this.captureParams = null));
+            (this.captureParams = null),
+            (this.inputLevelReporter = null));
         }
         var a = t.prototype;
         return (
@@ -35,65 +37,82 @@ __d(
                   i = t.channels,
                   l = t.framesPerChunk,
                   u = t.mediaStreamSource,
-                  c = t.sampleRate;
+                  c = t.onInputLevel,
+                  d = t.sampleRate;
                 ((this.audioBuffer = r),
                   (this.captureParams = {
-                    sampleRate: c,
+                    sampleRate: d,
                     channels: i,
                     framesPerChunk: l,
-                  }));
-                var d = 256;
+                  }),
+                  (this.inputLevelReporter =
+                    c != null
+                      ? new (o(
+                          "WAWebVoipMicrophoneLevelReporter",
+                        ).WAWebVoipMicrophoneLevelReporter)(
+                          c,
+                          "ScriptProcessor",
+                        )
+                      : null));
+                var m = 256;
                 ((this.captureRingBuffer = new (o(
                   "WAWebAudioRingBuffer",
-                ).WAWebAudioRingBuffer)(d, l, "Capture")),
-                  (this.scriptProcessor = a.createScriptProcessor(d, i, i)),
+                ).WAWebAudioRingBuffer)(m, l, "Capture")),
+                  (this.scriptProcessor = a.createScriptProcessor(m, i, i)),
                   u.connect(this.scriptProcessor),
                   this.scriptProcessor != null &&
                     this.scriptProcessor.connect(a.destination),
                   this.scriptProcessor != null &&
                     (this.scriptProcessor.onaudioprocess = function (t) {
-                      try {
-                        var r = n.captureParams,
-                          a = n.audioBuffer,
-                          i = n.captureRingBuffer;
-                        if (!r || a == null) return;
-                        for (
-                          var l = t.inputBuffer.sampleRate, s = [], u = 0;
-                          u < r.channels;
-                          u++
-                        )
-                          s.push(t.inputBuffer.getChannelData(u));
-                        var c = o("WAWebAudioUtility").interleaveTypedArrays(
+                      var r = n.captureParams,
+                        a = n.audioBuffer,
+                        i = n.captureRingBuffer;
+                      if (!(!r || a == null)) {
+                        var l = null;
+                        try {
+                          for (
+                            var s = t.inputBuffer.sampleRate, u = [], c = 0;
+                            c < r.channels;
+                            c++
+                          )
+                            u.push(t.inputBuffer.getChannelData(c));
+                          l = o("WAWebAudioUtility").interleaveTypedArrays(
                             Float32Array,
-                            s,
-                          ),
-                          d = o("WAWebAudioUtility").maybeDownsampleBuffer(
-                            c,
+                            u,
+                          );
+                          var d = o("WAWebAudioUtility").maybeDownsampleBuffer(
                             l,
+                            s,
                             r.sampleRate,
                           );
-                        (i != null && i.write(d),
-                          i != null &&
-                            a != null &&
-                            o(
-                              "WAWebVoipAudioCaptureBase",
-                            ).WAWebVoipAudioCaptureBase.processCapturedAudioChunks(
-                              i,
-                              a,
-                              r.framesPerChunk,
-                              r.channels,
-                              c.length,
-                              "ScriptProcessor",
-                            ));
-                      } catch (t) {
-                        o("WALogger").ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:ScriptProcessor] audio processing error: ",
-                              "",
-                            ])),
-                          t,
-                        );
+                          (i != null && i.write(d),
+                            i != null &&
+                              a != null &&
+                              o(
+                                "WAWebVoipAudioCaptureBase",
+                              ).WAWebVoipAudioCaptureBase.processCapturedAudioChunks(
+                                i,
+                                a,
+                                r.framesPerChunk,
+                                r.channels,
+                                l.length,
+                                "ScriptProcessor",
+                              ));
+                        } catch (t) {
+                          o("WALogger").ERROR(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [AV:ScriptProcessor] audio processing error: ",
+                                "",
+                              ])),
+                            t,
+                          );
+                        }
+                        if (l != null) {
+                          var m;
+                          (m = n.inputLevelReporter) == null ||
+                            m.report(l, r.channels);
+                        }
                       }
                     }),
                   o("WALogger").LOG(
@@ -133,6 +152,7 @@ __d(
                   (this.captureRingBuffer = null),
                   (this.audioBuffer = null),
                   (this.captureParams = null),
+                  (this.inputLevelReporter = null),
                   o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([

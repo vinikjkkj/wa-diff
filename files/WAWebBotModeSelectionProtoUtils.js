@@ -40,15 +40,7 @@ __d(
               );
             })();
     }
-    function f(e) {
-      var t = [];
-      for (var n of e) {
-        var r = p(n);
-        t.push(r);
-      }
-      return t;
-    }
-    function g(t, n) {
+    function f(t, n) {
       var r,
         a,
         i = (r = t.id) == null ? void 0 : r.remote;
@@ -118,8 +110,7 @@ __d(
     }
     ((l.getBotSelectionModeFromProto = p),
       (l.getProtoModeFromBotSelectionMode = _),
-      (l.convertProtoModeArrayToInternal = f),
-      (l.parseBotModeSelectionMetadataProto = g));
+      (l.parseBotModeSelectionMetadataProto = f));
   },
   98,
 );

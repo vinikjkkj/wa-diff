@@ -945,6 +945,7 @@ __d(
     }
     ((l.AudioDeviceEvents = o("WAWebAudioDeviceEvents").AudioDeviceEvents),
       (l.coalescedEnumerateDevices = Z),
+      (l.isAnonymizedDeviceList = ee),
       (l.getCurrentSelectedAudioDevice = re),
       (l.getCurrentSelectedAudioOutputDevice = ie),
       (l.saveAudioOutputDevicePreference = le),

@@ -2,11 +2,9 @@ __d(
   "WAWebCryptoLibrarySenderkeySessionConversionApi",
   [
     "invariant",
-    "WAByteArray",
     "WAPromiseReduce",
     "WASignalGroupSession",
     "WASignalOther",
-    "WAWebCryptoLibrarySignalGroupUtilsApi",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -93,49 +91,7 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e) {
-      var t = [],
-        n = o(
-          "WAWebCryptoLibrarySignalGroupUtilsApi",
-        ).makeLibsignalSenderKeyChainKey(
-          e.senderKeyChainKey.nextMsgIndex,
-          o("WAByteArray").uint8ArrayToBuffer(e.senderKeyChainKey.chainKey),
-        ),
-        r = e.senderKeyId,
-        a = e.senderSigningKeyPrivate,
-        i =
-          a != null
-            ? o(
-                "WAWebCryptoLibrarySignalGroupUtilsApi",
-              ).makeLibsignalSenderKeySignatureKey(
-                o("WAByteArray").uint8ArrayToBuffer(e.senderSigningKeyPublic),
-                o("WAByteArray").uint8ArrayToBuffer(a),
-              )
-            : o(
-                "WAWebCryptoLibrarySignalGroupUtilsApi",
-              ).makeLibsignalSenderKeySignatureKey(
-                o("WAByteArray").uint8ArrayToBuffer(e.senderSigningKeyPublic),
-              ),
-        l = o(
-          "WAWebCryptoLibrarySignalGroupUtilsApi",
-        ).makeLibsignalSenderKeyState({
-          chainKey: n,
-          keyId: r,
-          messageKeys: t,
-          signatureKey: i,
-        });
-      return l;
-    }
-    function p(e) {
-      var t = e.senderKeyStates,
-        n = t.map(function (e) {
-          return m(e);
-        });
-      return o(
-        "WAWebCryptoLibrarySignalGroupUtilsApi",
-      ).makeNewLibsignalSenderKeySession(n);
-    }
-    ((l.toCryptoManagerSenderKeySession = e), (l.toSignalSenderKeySession = p));
+    l.toCryptoManagerSenderKeySession = e;
   },
   98,
 );

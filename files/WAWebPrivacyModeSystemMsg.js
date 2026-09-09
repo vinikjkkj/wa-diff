@@ -25,16 +25,7 @@ __d(
           ? e
           : t;
     }
-    function c(e, t) {
-      return e == null && t == null
-        ? 0
-        : t == null
-          ? 1
-          : e == null
-            ? -1
-            : e.privacyModeTs - t.privacyModeTs;
-    }
-    function d(e) {
+    function c(e) {
       var t,
         n = (t = e.bizInfo) == null ? void 0 : t.verifiedName;
       return n == null ? null : e.biz && n.isApi === !0 ? n.privacyMode : null;
@@ -42,8 +33,7 @@ __d(
     ((l.ReducedPrivacyMode = e),
       (l.getReducedPrivacyMode = s),
       (l.getLatestPrivacyMode = u),
-      (l.comparePrivacyMode = c),
-      (l.getPrivacyModeFromQueryExistResponse = d));
+      (l.getPrivacyModeFromQueryExistResponse = c));
   },
   98,
 );

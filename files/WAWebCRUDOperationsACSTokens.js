@@ -36,19 +36,6 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = o("WAWebSchemaACSTokens").getACSTokensTable());
-          var n = yield c(e, t);
-          return n.length > 0 ? n[0] : null;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield c(e, t);
           yield t.bulkRemove(
             n.map(function (e) {
@@ -56,15 +43,14 @@ __d(
             }),
           );
         })),
-        _.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
     ((l.upsertACSToken = e),
       (l.storeACSTokenForProject = s),
       (l.storeACSTokensForProject = u),
       (l.getACSTokensByProject = c),
-      (l.getACSTokenByProject = d),
-      (l.deleteAllACSTokensByProject = p));
+      (l.deleteAllACSTokensByProject = d));
   },
   98,
 );

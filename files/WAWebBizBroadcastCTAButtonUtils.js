@@ -3,7 +3,6 @@ __d(
   [
     "WAWebBizBroadcastCTAButtonSectionStrings",
     "WAWebContactImportValidationUtils",
-    "WAWebInteractiveMessagesNativeFlowName",
     "WAWebURLUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -160,49 +159,27 @@ __d(
       );
     }
     function g(e) {
-      return (
-        e === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL ||
-        e === r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL ||
-        e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY
-      );
-    }
-    function h(e) {
-      if (e == null) return null;
-      try {
-        var t,
-          n = JSON.parse(e),
-          o =
-            n == null || (t = n.buttons) == null || (t = t[0]) == null
-              ? void 0
-              : t.name,
-          a = r("WAWebInteractiveMessagesNativeFlowName").cast(o);
-        return a != null && g(a) ? a : null;
-      } catch (e) {
-        return null;
-      }
-    }
-    function y(e) {
       return e === "DISPLAY_TEXT_TOO_LONG"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getDisplayTextTooLongError()
         : null;
     }
-    function C(e) {
+    function h(e) {
       return e === "INVALID_PHONE_FORMAT"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getInvalidPhoneFormatError()
         : null;
     }
-    function b(e) {
+    function y(e) {
       return e === "INVALID_URL_FORMAT"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getInvalidUrlFormatError()
         : null;
     }
-    function v(e) {
+    function C(e) {
       return e === "cta_url"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
@@ -232,12 +209,10 @@ __d(
       (l.isValidUrlFormat = p),
       (l.normalizeUrl = _),
       (l.isValidPhoneNumber = f),
-      (l.isSupportedCTAButtonType = g),
-      (l.extractButtonTypeFromJson = h),
-      (l.getDisplayTextValidationError = y),
-      (l.getPhoneNumberValidationError = C),
-      (l.getUrlValidationError = b),
-      (l.getModalTitle = v));
+      (l.getDisplayTextValidationError = g),
+      (l.getPhoneNumberValidationError = h),
+      (l.getUrlValidationError = y),
+      (l.getModalTitle = C));
   },
   98,
 );

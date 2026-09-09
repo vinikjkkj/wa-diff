@@ -38,7 +38,6 @@ __d(
     "WAWebOpenBizAiHubDeeplink",
     "WAWebOrderStatus",
     "WAWebPaymentRequestWamLogger",
-    "WAWebPhoneIcon.react",
     "WAWebPremiumMessagesGatingUtils",
     "WAWebQbmMessageClickLogEvent",
     "WAWebQbmMessageLevelActionEvent",
@@ -55,6 +54,7 @@ __d(
     "WAWebWamEnumPmButtonEventType",
     "WAWebWamEnumPmButtonType",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
+    "WDSIconIcCall.react",
     "WDSIconIcContentCopy.react",
     "WDSIconIcOpenInNew.react",
     "WDSIconIcReply.react",
@@ -567,7 +567,7 @@ __d(
                 .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
         },
-        Icon: o("WAWebPhoneIcon.react").PhoneIcon,
+        Icon: r("WDSIconIcCall.react"),
       };
     }
     function R(e, t) {

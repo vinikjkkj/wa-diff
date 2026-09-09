@@ -19,10 +19,8 @@ __d(
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = ["reportingTag"],
-      u;
-    function c(e) {
+    var e, s;
+    function u(e) {
       var t,
         n,
         a = e.reportingTokenInfo;
@@ -46,12 +44,12 @@ __d(
         };
       return (s != null && (d.version = s), d);
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !(
               !o("WAWebMessagingGatingUtils").isReportingTagSyncingEnabled() ||
@@ -59,35 +57,35 @@ __d(
             )
           ) {
             var t = r("compactMap")(e, function (e) {
-              return c(e);
+              return u(e);
             });
             return o("WAWebSchemaReportingInfo")
               .getReportingInfoTable()
               .bulkCreate(t);
           }
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebSchemaReportingInfo")
             .getReportingInfoTable()
             .anyOf(["msgKey"], e);
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !(
               e == null ||
@@ -97,7 +95,7 @@ __d(
             )
           ) {
             if (e === 0) {
-              yield (u || (u = n("Promise"))).all([
+              yield (s || (s = n("Promise"))).all([
                 o("WAWebSchemaReportingToken").getReportingTokenTable().clear(),
                 o("WAWebSchemaReportingInfo").getReportingInfoTable().clear(),
               ]);
@@ -112,7 +110,7 @@ __d(
               a = yield o("WAWebSchemaReportingInfo")
                 .getReportingInfoTable()
                 .lessThan(["receivedTs"], t);
-            yield (u || (u = n("Promise"))).all([
+            yield (s || (s = n("Promise"))).all([
               o("WAWebSchemaReportingToken")
                 .getReportingTokenTable()
                 .bulkRemove(
@@ -130,15 +128,15 @@ __d(
             ]);
           }
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !(
               e <=
@@ -164,10 +162,10 @@ __d(
               .bulkCreateOrReplace(r);
           }
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e) {
+    function y(e) {
       var t = e.incomingMsgReportingTokenInfo,
         n = e.msgKey,
         r = e.msgTs,
@@ -196,61 +194,25 @@ __d(
             );
       }
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e.sort(function (e, t) {
-            var n, r;
-            return ((n = e.ts) != null ? n : 0) - ((r = t.ts) != null ? r : 0);
-          });
-          var t = e.map(function (e) {
-              return e.id;
-            }),
-            n = yield o("WAWebSchemaReportingToken")
-              .getReportingTokenTable()
-              .bulkGet(t),
-            r = new Map(),
-            a = new Set();
-          (e.forEach(function (e, t) {
-            var o = n[t];
-            if ((o == null || o.reportingTag == null) && !a.has(e.id))
-              r.set(e.id, e);
-            else {
-              var i = e.reportingTag,
-                l = babelHelpers.objectWithoutPropertiesLoose(e, s);
-              r.set(e.id, babelHelpers.extends({}, r.get(e.id), l));
-            }
-            a.add(e.id);
-          }),
-            yield o("WAWebSchemaReportingToken")
-              .getReportingTokenTable()
-              .bulkCreateOrMerge(Array.from(r.values())));
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebSchemaReportingInfo")
             .getReportingInfoTable()
             .bulkCreate(e);
         })),
-        R.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function E() {
+    function S() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
             if (t.length === 0) return;
             if (n.removeWholeRow)
@@ -280,15 +242,15 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function I() {
+    function L() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgSecret,
             n = e.remoteJid,
             r = e.reportingInfo,
@@ -340,15 +302,15 @@ __d(
             reportingTagParticipant: f,
           };
         })),
-        I.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function D() {
+    function k() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t = new Map();
             for (var n of e) {
@@ -357,7 +319,7 @@ __d(
               t.set(r.toString(), a);
             }
             var i = Array.from(t.keys()),
-              l = yield p(i);
+              l = yield m(i);
             if (l.length !== 0) {
               var s = [];
               (l.forEach(function (e) {
@@ -377,20 +339,19 @@ __d(
             }
           }
         })),
-        D.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.msgToReportingInfoRow = c),
-      (l.handleHistorySyncedReportingInfo = d),
-      (l.getReportingInfosFromMsgKeys = p),
-      (l.cleanupReportingTable = f),
-      (l.cleanupReportingTokenAndContent = h),
-      (l.maybeStoreReportingTag = C),
-      (l.handleAddReportingTokenInfos = b),
-      (l.handleAddReportingInfos = S),
-      (l.handleDeleteReportingInfos = L),
-      (l.createReportingValidationArgs = k),
-      (l.handleReportingInfosUpdateOnMessageEdit = T));
+    ((l.msgToReportingInfoRow = u),
+      (l.handleHistorySyncedReportingInfo = c),
+      (l.getReportingInfosFromMsgKeys = m),
+      (l.cleanupReportingTable = _),
+      (l.cleanupReportingTokenAndContent = g),
+      (l.maybeStoreReportingTag = y),
+      (l.handleAddReportingInfos = C),
+      (l.handleDeleteReportingInfos = v),
+      (l.createReportingValidationArgs = R),
+      (l.handleReportingInfosUpdateOnMessageEdit = E));
   },
   98,
 );

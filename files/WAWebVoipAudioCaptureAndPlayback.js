@@ -113,7 +113,7 @@ __d(
             n,
           );
           try {
-            var a = yield ce(n, r, !0);
+            var a = yield ce(n, r, !0, !0);
             a
               ? o("WALogger").LOG(
                   s ||
@@ -473,14 +473,14 @@ __d(
         ue.apply(this, arguments)
       );
     }
-    function ce(e, t, n) {
+    function ce(e, t, n, r) {
       return de.apply(this, arguments);
     }
     function de() {
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r) {
-            var a = new (o("WAResolvable").Resolvable)();
+          function* (e, t, r, a) {
+            var i = new (o("WAResolvable").Resolvable)();
             return (
               B.enqueue(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -492,11 +492,11 @@ __d(
                             "voip: [AV:switchAudioDevice] capture instance is null.",
                           ])),
                       ),
-                        a.resolve(!1));
+                        i.resolve(!1));
                       return;
                     }
-                    var n = yield L.switchDevice(e, t, r);
-                    a.resolve(n);
+                    var n = yield L.switchDevice(e, t, r, a);
+                    i.resolve(n);
                   } catch (e) {
                     (o("WALogger")
                       .ERROR(
@@ -508,12 +508,12 @@ __d(
                         e,
                       )
                       .sendLogs("voip: switchAudioInputDevice failed"),
-                      a.resolve(!1));
+                      i.resolve(!1));
                   }
                 }),
                 "switchInputDevice",
               ),
-              a.promise
+              i.promise
             );
           },
         )),

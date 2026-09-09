@@ -33,29 +33,37 @@ __d(
         return o("WAWebChatGetters").getIsBroadcast(e) && !e.id.isStatus();
       });
       return e.map(function (e) {
-        var t, n, r, a, i;
-        return {
-          audienceExpression:
-            (t =
-              (n = e.broadcastMetadata) == null
-                ? void 0
-                : n.audienceExpression) != null
-              ? t
-              : o("WAWebAudienceExpressionTypes").DEFAULT_AUDIENCE_EXPRESSION,
-          broadcastJid: o("WAWebWidToJid").widToBroadcastJid(e.id),
-          lastBroadcastTimestamp: null,
-          name:
-            (r = o("WAWebChatGroupUtils").getBroadcastChatTitle(e)) != null
-              ? r
-              : "",
-          recipientCount:
-            (a =
-              (i = e.broadcastMetadata) == null
-                ? void 0
-                : i.recipients.length) != null
-              ? a
-              : 0,
-        };
+        var t, n, r, a, i, l;
+        return babelHelpers.extends(
+          {
+            audienceExpression:
+              (t =
+                (n = e.broadcastMetadata) == null
+                  ? void 0
+                  : n.audienceExpression) != null
+                ? t
+                : o("WAWebAudienceExpressionTypes").DEFAULT_AUDIENCE_EXPRESSION,
+            broadcastJid: o("WAWebWidToJid").widToBroadcastJid(e.id),
+          },
+          ((r = e.broadcastMetadata) == null ? void 0 : r.customAudienceFbid) !=
+            null
+            ? { customAudienceFbid: e.broadcastMetadata.customAudienceFbid }
+            : {},
+          {
+            lastBroadcastTimestamp: null,
+            name:
+              (a = o("WAWebChatGroupUtils").getBroadcastChatTitle(e)) != null
+                ? a
+                : "",
+            recipientCount:
+              (i =
+                (l = e.broadcastMetadata) == null
+                  ? void 0
+                  : l.recipients.length) != null
+                ? i
+                : 0,
+          },
+        );
       });
     }
     function _(e) {

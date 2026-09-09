@@ -129,12 +129,7 @@ __d(
           }),
         );
     }
-    function p(e) {
-      return o("WAWebSchemaSubgroupSuggestionV2")
-        .getSubgroupSuggestionTable()
-        .bulkRemoveByIndex(["parentGroupId"], [e.toString()]);
-    }
-    var _ = o("WABatcher").batch(
+    var p = o("WABatcher").batch(
       { delayMs: s },
       (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -148,17 +143,16 @@ __d(
         };
       })(),
     );
-    function f(e) {
+    function _(e) {
       var t = e.isOffline,
         n = e.subgroupSuggestions;
-      return t === !0 ? _({ suggestionsRowKeys: n }) : m(n);
+      return t === !0 ? p({ suggestionsRowKeys: n }) : m(n);
     }
     ((l.getSubgroupSuggestions = u),
       (l.addSubgroupSuggestions = c),
       (l.updateOwnerInSubgroupSuggestions = d),
       (l.removeSubgroupSuggestions = m),
-      (l.removeAllSubgroupSuggestions = p),
-      (l.removeSubgroupSuggestionsWithOfflineOption = f));
+      (l.removeSubgroupSuggestionsWithOfflineOption = _));
   },
   98,
 );

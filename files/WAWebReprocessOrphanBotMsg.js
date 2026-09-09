@@ -91,11 +91,7 @@ __d(
             }));
           var _ = yield o("WAWebMsgProcessingDecryptApi").decryptE2EPayload(
               l,
-              function (e) {
-                return o("WAWebHandleMsgProcess").processDecryptedMessageProto(
-                  babelHelpers.extends({}, e, { overwriteExistingMsg: !0 }),
-                );
-              },
+              o("WAWebHandleMsgProcess").processDecryptedMessageProto,
             ),
             f = _.result;
           if (f !== o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS) {

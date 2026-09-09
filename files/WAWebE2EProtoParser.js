@@ -596,6 +596,8 @@ __d(
       var a, i, l, s, u, c, d;
       if (t) {
         t.messageSecret != null &&
+          n !== "quoted" &&
+          n !== "history_quoted" &&
           (e.messageSecret = new Uint8Array(t.messageSecret));
         var m =
           o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&

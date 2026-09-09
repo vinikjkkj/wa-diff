@@ -8,6 +8,7 @@ __d(
     "WAWebBizAiBulkThreadControlLogEvents",
     "WAWebBizAiLargeScreensGateModel",
     "WAWebBizAiResponseSettingsV2GateModel",
+    "WAWebBizAiWebSmartComposerAiListsGateModel",
     "WAWebChatCollection",
     "WAWebLidMigrationUtils",
     "WAWebProtobufSyncAction.pb",
@@ -199,6 +200,12 @@ __d(
         o(
           "WAWebBizAiResponseSettingsV2GateModel",
         ).applyBizAiResponseSettingsV2Gate(e);
+      },
+      loadedBizAiWebSmartComposerAiListsGate: function (t) {
+        var e = t.enabled;
+        o(
+          "WAWebBizAiWebSmartComposerAiListsGateModel",
+        ).applyBizAiWebSmartComposerAiListsGate(e);
       },
     };
     l.BizAiBridgeApi = g;

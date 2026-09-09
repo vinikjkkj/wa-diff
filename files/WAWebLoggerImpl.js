@@ -28,30 +28,32 @@ __d(
       m,
       p,
       _ = "trace",
-      f = 6048e5,
-      g = 864e5 * 30,
-      h = 5e3,
-      y = 15e4,
-      C = 3 * 1024 * 1024,
-      b = 60 * 1024 * 1024,
-      v = r("gkx")("26258") ? h : y,
-      S = r("gkx")("26258") ? C : b,
-      R = 1024,
-      L = 500,
-      E = 200,
-      k = "LTSXOo+_*-=.<^!#?".split("");
-    function I() {
-      return k[Math.round(Math.random() * (k.length - 1))];
+      f = "unhandled-rejection: Element not found. (0x80070490)",
+      g = "0x80070490",
+      h = 6048e5,
+      y = 864e5 * 30,
+      C = 5e3,
+      b = 15e4,
+      v = 3 * 1024 * 1024,
+      S = 60 * 1024 * 1024,
+      R = r("gkx")("26258") ? C : b,
+      L = r("gkx")("26258") ? v : S,
+      E = 1024,
+      k = 500,
+      I = 200,
+      T = "LTSXOo+_*-=.<^!#?".split("");
+    function D() {
+      return T[Math.round(Math.random() * (T.length - 1))];
     }
-    var T = I() + I() + I() + I(),
-      D = {};
-    ((D[(D.ALL = 0)] = "all"),
-      (D[(D.INFO = 1)] = "info"),
-      (D[(D.LOG = 2)] = "log"),
-      (D[(D.WARN = 3)] = "warn"),
-      (D[(D.ERROR = 4)] = "error"),
-      (D[(D.OFF = 5)] = "off"));
-    var x = (function () {
+    var x = D() + D() + D() + D(),
+      $ = {};
+    (($[($.ALL = 0)] = "all"),
+      ($[($.INFO = 1)] = "info"),
+      ($[($.LOG = 2)] = "log"),
+      ($[($.WARN = 3)] = "warn"),
+      ($[($.ERROR = 4)] = "error"),
+      ($[($.OFF = 5)] = "off"));
+    var P = (function () {
       function t(t, a, i) {
         var l = this;
         (i === void 0 && (i = void 0),
@@ -66,9 +68,9 @@ __d(
           (this.shouldSkipLoggingForProdLowEndDevice = !1),
           (this.$2 = !1),
           (this.$3 = r("gkx")("16623")),
-          (this.$4 = S),
+          (this.$4 = L),
           (this.$5 = 0),
-          (this.$6 = new Array(L)),
+          (this.$6 = new Array(k)),
           (this.$7 = 0),
           (this.$8 = 0),
           (this.$9 = !1),
@@ -83,7 +85,7 @@ __d(
                     o("WAWebABProps").getABPropConfigValue(
                       "enable_web_log_download",
                     ) &&
-                    (t = y),
+                    (t = b),
                   !(t === 0 || t == null))
                 ) {
                   if (
@@ -104,7 +106,7 @@ __d(
                         i = a.quota,
                         m = a.usage,
                         p = (i - m) / (1024 * 1024);
-                      if (p < R) {
+                      if (p < E) {
                         o("WALogger").LOG(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -135,10 +137,10 @@ __d(
                     );
                     return;
                   }
-                  var _ = Math.min(t, y);
+                  var _ = Math.min(t, b);
                   if (_ > l.logCapacityInDatabase) {
                     var f = Date.now();
-                    (l.$11(_), l.$3 && _ === y && (l.$4 = b));
+                    (l.$11(_), l.$3 && _ === b && (l.$4 = S));
                     var g = Date.now() - f;
                     o("WALogger").LOG(
                       d ||
@@ -236,8 +238,8 @@ __d(
             (e != null && this.$13(-e.m.length),
               (this.$6[this.$7] = t),
               this.$13(t.m.length),
-              (this.$7 = (this.$7 + 1) % L),
-              this.$8 < L && this.$8++);
+              (this.$7 = (this.$7 + 1) % k),
+              this.$8 < k && this.$8++);
           }
         }),
         (a.$13 = function (t) {
@@ -252,7 +254,7 @@ __d(
         }),
         (a.$15 = function () {
           if (this.$8 !== 0) {
-            var e = (this.$7 - this.$8 + L) % L,
+            var e = (this.$7 - this.$8 + k) % k,
               t = this.$6[e];
             (t != null && (this.$13(-t.m.length), (this.$6[e] = void 0)),
               this.$8--);
@@ -277,13 +279,13 @@ __d(
         (a.logImpl = function (t, n, a, i, l) {
           if (
             !this.$2 &&
-            !(t <= D.LOG && this.shouldSkipLoggingForProdLowEndDevice)
+            !(t <= $.LOG && this.shouldSkipLoggingForProdLowEndDevice)
           ) {
             var e = Date.now(),
-              s = P(e);
+              s = M(e);
             if (!r("gkx")("26258"))
               try {
-                t === D.ERROR && this.$10 && this.$10(n);
+                t === $.ERROR && this.$10 && this.$10(n);
               } catch (e) {}
             var u = "";
             a &&
@@ -291,7 +293,7 @@ __d(
                 ? (u = "\n" + a.stack.split("\n").slice(3).join("\n"))
                 : (u = "\n" + o("WAWebNormalizeStack").normalizeStack(a, !0)));
             var c = [
-                $(t),
+                N(t),
                 i === !0 && !o("WAWebLoggerUtils").isWaitingForUpload()
                   ? "sendlogs"
                   : null,
@@ -302,10 +304,10 @@ __d(
                   return "[" + e + "]";
                 })
                 .join(""),
-              d = T + " " + s + (c ? c + " " : "") + n + u;
+              d = x + " " + s + (c ? c + " " : "") + n + u;
             this.logs[this.localCursor] != null &&
               this.$14(this.localCursor, !0);
-            var m = t === D.ERROR;
+            var m = t === $.ERROR;
             ((this.logs[this.localCursor] = m
               ? { m: d, t: e, e: !0 }
               : { m: d, t: e }),
@@ -369,8 +371,8 @@ __d(
         }),
         (a.getLogs = function (t, a) {
           var e = this;
-          (t === void 0 && (t = !1), a === void 0 && (a = Date.now() - f));
-          var i = Math.max(a, Date.now() - g),
+          (t === void 0 && (t = !1), a === void 0 && (a = Date.now() - h));
+          var i = Math.max(a, Date.now() - y),
             l = [];
           return (
             this.pending && l.push(this.pending),
@@ -391,8 +393,8 @@ __d(
               .then(function (t) {
                 var n = [];
                 if (e.$8 > 0)
-                  for (var r = (e.$7 - e.$8 + L) % L, o = 0; o < e.$8; o++) {
-                    var a = e.$6[(r + o) % L];
+                  for (var r = (e.$7 - e.$8 + k) % k, o = 0; o < e.$8; o++) {
+                    var a = e.$6[(r + o) % k];
                     a != null && a.t >= i && n.push(a);
                   }
                 if (n.length === 0)
@@ -440,7 +442,7 @@ __d(
                 (e.writeFrom = 0),
                 (e.logs = new Array(e.logCapacityInDatabase)),
                 e.$3 &&
-                  ((e.$6 = new Array(L)), (e.$7 = 0), (e.$8 = 0), (e.$5 = 0)));
+                  ((e.$6 = new Array(k)), (e.$7 = 0), (e.$8 = 0), (e.$5 = 0)));
             });
         }),
         (a.logUncaughtError = function (t, n) {
@@ -465,16 +467,17 @@ __d(
               var i = Reflect.get(t, "methodName");
               i != null && (o += "; methodName: " + String(i));
             } catch (e) {}
-            var l = M(t);
-            l != null && (o += "; error: " + l);
+            var l = A(t);
+            l != null &&
+              ((o += "; error: " + l), l.endsWith(g + ")") && (o = f));
           }
           if (
-            (this.logImpl(D.ERROR, o, e, !0, ["uncaught"]),
+            (this.logImpl($.ERROR, o, e, !0, ["uncaught"]),
             r("gkx")("26258") || e != null,
             n != null)
           ) {
             var s = String(n);
-            (this.logImpl(D.WARN, s), r("gkx")("26258"));
+            (this.logImpl($.WARN, s), r("gkx")("26258"));
           }
           return o;
         }),
@@ -487,9 +490,9 @@ __d(
         t
       );
     })();
-    function $(e) {
+    function N(e) {
       return e === 1 || e === 2 || e === 3 || e === 4
-        ? D[e]
+        ? $[e]
         : (function () {
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -497,14 +500,14 @@ __d(
             );
           })();
     }
-    function P(e) {
+    function M(e) {
       var t = new Date(e),
-        n = N(t.getMonth() + 1, 2),
-        r = N(t.getDate(), 2),
-        o = N(t.getHours(), 2),
-        a = N(t.getMinutes(), 2),
-        i = N(t.getSeconds(), 2),
-        l = N(t.getMilliseconds(), 3);
+        n = w(t.getMonth() + 1, 2),
+        r = w(t.getDate(), 2),
+        o = w(t.getHours(), 2),
+        a = w(t.getMinutes(), 2),
+        i = w(t.getSeconds(), 2),
+        l = w(t.getMilliseconds(), 3);
       return (
         t.getFullYear() +
         "-" +
@@ -522,10 +525,10 @@ __d(
         ":"
       );
     }
-    function N(e, t) {
+    function w(e, t) {
       return String(e).padStart(t, "0");
     }
-    function M(e) {
+    function A(e) {
       try {
         if (!Object.hasOwn(e, "parameters")) return;
         var t = Reflect.get(e, "parameters");
@@ -534,16 +537,16 @@ __d(
         var n = Reflect.get(t, "error");
         return typeof n != "string"
           ? void 0
-          : n.replace(/[\r\n]+/g, " ").slice(0, E);
+          : n.replace(/[\r\n]+/g, " ").slice(0, I);
       } catch (e) {
         return;
       }
     }
-    var w = new x(function () {
+    var F = new P(function () {
         return r("WAWebWAWCStorage").idb();
-      }, v),
-      A = w.log;
-    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = x), (l.Logger = w), (l.log = A));
+      }, R),
+      O = F.log;
+    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = P), (l.Logger = F), (l.log = O));
   },
   98,
 );

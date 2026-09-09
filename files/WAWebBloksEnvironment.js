@@ -9,6 +9,7 @@ __d(
     "WebBloksUtils",
     "react-compiler-runtime",
     "waWebMinificationMap",
+    "waWebSignatureUnminificationMap",
     "waWebTraversalKeys",
     "waWebVersioningId",
   ],
@@ -25,6 +26,12 @@ __d(
               ).createWebBloksHasteEnvironment.apply(
                 void 0,
                 [
+                  {
+                    minificationMap: r("waWebMinificationMap"),
+                    signatureUnminificationMap: r(
+                      "waWebSignatureUnminificationMap",
+                    ),
+                  },
                   {
                     appLoader: o(
                       "WAWebBloksAppLoader",
@@ -53,7 +60,6 @@ __d(
                       "Optimistic Text Bold": { webFontName: null },
                       "Optimistic VF App Lite": { webFontName: null },
                     },
-                    minificationMap: r("waWebMinificationMap"),
                     traversalKeys: r("waWebTraversalKeys"),
                     screenQueryTemplate: o("WebBloksUtils").cast(
                       o("WAWebUnifiedResponseLoaderTemplate").LOADER_TEMPLATE,

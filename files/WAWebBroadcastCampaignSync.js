@@ -56,7 +56,7 @@ __d(
                   i = new Set(),
                   l = [],
                   u = [],
-                  c = yield (s || (s = n("Promise"))).all(
+                  m = yield (s || (s = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -74,14 +74,21 @@ __d(
                                   "value" in s &&
                                   "timestamp" in s
                                 ) {
-                                  var c = s.value,
-                                    d = s.timestamp,
-                                    m = c.businessBroadcastCampaignAction;
+                                  var m = s.value,
+                                    p = s.timestamp,
+                                    _ = m.businessBroadcastCampaignAction,
+                                    f = c(_, r.collectionName);
+                                  if (f != null)
+                                    return (
+                                      (a += f.malformedMutationCount),
+                                      d(i, f.affectedBroadcastJid),
+                                      f.result
+                                    );
                                   if (
-                                    !m ||
-                                    m.broadcastJid == null ||
-                                    m.deviceId == null ||
-                                    m.status == null
+                                    !_ ||
+                                    _.broadcastJid == null ||
+                                    _.deviceId == null ||
+                                    _.status == null
                                   )
                                     return (
                                       a++,
@@ -91,10 +98,10 @@ __d(
                                     );
                                   yield o(
                                     "WAWebBizBroadcastCampaignStorageUtils",
-                                  ).upsertCampaignStorage(n, m, d);
-                                  var p = m.broadcastJid;
+                                  ).upsertCampaignStorage(n, _, p);
+                                  var g = _.broadcastJid;
                                   return (
-                                    p != null && i.add(p),
+                                    g != null && i.add(g),
                                     l.push(n),
                                     {
                                       actionState:
@@ -109,14 +116,14 @@ __d(
                                     typeof s == "function") &&
                                   s.operation === "remove"
                                 ) {
-                                  var _ = yield o(
+                                  var h = yield o(
                                     "WAWebSchemaBusinessBroadcastCampaign",
                                   )
                                     .getBusinessBroadcastCampaignTable()
                                     .get(n);
                                   return (
-                                    (_ == null ? void 0 : _.broadcastJid) !=
-                                      null && i.add(_.broadcastJid),
+                                    (h == null ? void 0 : h.broadcastJid) !=
+                                      null && i.add(h.broadcastJid),
                                     yield o(
                                       "WAWebBizBroadcastCampaignStorageUtils",
                                     ).removeCampaignStorage(n),
@@ -168,7 +175,7 @@ __d(
                       "syncBroadcastCampaignsToCollection",
                       { upsertedCampaignIds: l, removedCampaignIds: u },
                     ),
-                  c
+                  m
                 );
               },
             );
@@ -204,9 +211,33 @@ __d(
           }),
           r
         );
-      })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      c = new u();
-    l.default = c;
+      })(o("WAWebSyncdAction").AccountSyncdActionBase);
+    function c(e, t) {
+      var n = e == null ? void 0 : e.customAudienceFbid,
+        r = n != null && n.length > 0;
+      return !r && (e == null ? void 0 : e.bbProStatus) == null
+        ? null
+        : !r ||
+            (e == null ? void 0 : e.broadcastJid) == null ||
+            e.broadcastJid.length === 0 ||
+            (e == null ? void 0 : e.deviceId) == null
+          ? {
+              malformedMutationCount: 1,
+              result: o("WAWebSyncdIndexUtils").malformedActionValue(t),
+            }
+          : {
+              affectedBroadcastJid: e.broadcastJid,
+              malformedMutationCount: 0,
+              result: {
+                actionState: o("WAWebSyncdConst").SyncActionState.Unsupported,
+              },
+            };
+    }
+    function d(e, t) {
+      t != null && e.add(t);
+    }
+    var m = new u();
+    l.default = m;
   },
   98,
 );

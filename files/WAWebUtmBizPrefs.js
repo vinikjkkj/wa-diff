@@ -42,17 +42,10 @@ __d(
         return {};
       }
     }
-    function d() {
-      r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").KEYS.CHAT_UTM,
-        JSON.stringify({}),
-      );
-    }
     ((l.persistUtmtoLocalStorage = e),
       (l.removeUtmFromLocalStorage = s),
       (l.getUtmFromLocalStorage = u),
-      (l.getAllUtmsFromLocalStorage = c),
-      (l.clearAllUtmFromLocalStorage = d));
+      (l.getAllUtmsFromLocalStorage = c));
   },
   98,
 );

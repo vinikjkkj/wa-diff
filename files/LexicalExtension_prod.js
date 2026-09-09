@@ -1184,7 +1184,7 @@ __d(
           _s.theme && J(r, _s.theme);
         }
         (Object.keys(r).length > 0 && (e.theme = r),
-          t.size && (e.nodes = [].concat(t)));
+          t.size && (e.nodes = Array.from(t)));
         var a = Object.keys(i).length > 0,
           c = o.size > 0;
         (a || c) &&
@@ -1234,7 +1234,7 @@ __d(
       var i = t.__slotHost,
         r = t.__slots;
       return (
-        null != r && (o.slots = [].concat(r)),
+        null != r && (o.slots = Array.from(r)),
         null != i && (o.slotHost = i),
         o
       );
@@ -1272,7 +1272,7 @@ __d(
                       type: "range",
                     }
                   : require("Lexical").$isNodeSelection(r)
-                    ? { keys: [].concat(r._nodes), type: "node" }
+                    ? { keys: Array.from(r._nodes), type: "node" }
                     : null),
             };
             var r;

@@ -26,7 +26,6 @@ __d(
     "WAWebHeader.react",
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-    "WAWebLabelOutlineIcon.react",
     "WAWebLeaveCommunityModalUtilsLoadable",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
@@ -55,6 +54,7 @@ __d(
     "WDSIconIcDoNotDisturbOn.react",
     "WDSIconIcFavorite.react",
     "WDSIconIcInfo.react",
+    "WDSIconIcLabel.react",
     "WDSIconIcPalette.react",
     "WDSIconIcPersonAdd.react",
     "WDSIconIcSearch.react",
@@ -318,7 +318,7 @@ __d(
           ? ((U = u.jsx(
               r("WDSMenuItem.react"),
               {
-                Icon: o("WAWebLabelOutlineIcon.react").LabelOutlineIcon,
+                Icon: r("WDSIconIcLabel.react"),
                 title: q,
                 onPress: function () {
                   o("WAWebModalManager").ModalManager.open(

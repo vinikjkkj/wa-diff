@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebAck",
     "WAWebApiChatUnreadMention",
     "WAWebApiFilterAndReplaceMessages",
     "WAWebApiGroupInviteV4Store",
@@ -15,16 +16,19 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebProcessMessageAssociationMessages",
+    "WAWebProtobufsHistorySync.pb",
     "WAWebQuarantineDataStore",
     "WAWebThreadCommonModelUtils",
     "WAWebThreadUtils",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsTypes",
+    "WAWebWid",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e, t) {
+    var e, s, u, c, d, m, p;
+    function _(e, t) {
       var n = new Map();
       return (
         e.forEach(function (e, r) {
@@ -44,61 +48,154 @@ __d(
         n
       );
     }
-    function _(e, t, n, r, o, a, i) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i, l, s, u) {
-            var c = t,
-              d,
-              _;
+    var f = 10080 * 60;
+    function g(t, n) {
+      var a = o(
+        "WAWebProtobufsHistorySync.pb",
+      ).HistorySync$HistorySyncType.cast(n);
+      if (
+        !(
+          a !==
+            o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+              .RECENT &&
+          a !==
+            o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType.FULL
+        ) &&
+        r("justknobx")._("5144")
+      )
+        try {
+          var i = o("WATimeUtils").unixTime(),
+            l = new Map(),
+            s = new Map();
+          for (var u of t) {
+            var c = u.ack,
+              d = u.id,
+              m = u.t;
             if (
-              l.length &&
+              !(
+                d.fromMe !== !0 ||
+                !r("WAWebWid").isUser(d.remote) ||
+                c == null ||
+                m == null ||
+                i - m <= f
+              )
+            ) {
+              var p = d.remote.toString();
+              if (c >= o("WAWebAck").ACK.READ) {
+                var _ = s.get(p);
+                (_ == null || m > _.t) &&
+                  s.set(p, {
+                    ack: c,
+                    fullKey: d.toString(),
+                    t: m,
+                    wireId: d.id,
+                  });
+              } else if (c >= o("WAWebAck").ACK.SENT) {
+                var g = l.get(p);
+                (g == null || m < g.t) &&
+                  l.set(p, {
+                    ack: c,
+                    fullKey: d.toString(),
+                    t: m,
+                    wireId: d.id,
+                  });
+              }
+            }
+          }
+          var h = [];
+          if (
+            (s.forEach(function (e, t) {
+              var n = l.get(t);
+              n != null &&
+                n.t < e.t &&
+                h.push({ chatId: t, read: e, unread: n });
+            }),
+            h.length === 0)
+          )
+            return;
+          var y = h[0];
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] recent/full-sync 1:1 own read-after-unread inversion in ",
+                  " chat(s); sample: readAck=",
+                  " readAgeDays=",
+                  " unreadAck=",
+                  " unreadAgeDays=",
+                  " readWireId=",
+                  " unreadWireId=",
+                  "",
+                ])),
+              h.length,
+              y.read.ack,
+              Math.floor((i - y.read.t) / 86400),
+              y.unread.ack,
+              Math.floor((i - y.unread.t) / 86400),
+              y.read.wireId,
+              y.unread.wireId,
+            )
+            .sendLogs("history-sync-1x1-own-read-after-unread", {
+              sampling: 0.01,
+            });
+        } catch (e) {}
+    }
+    function h(e, t, n, r, o, a, i) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r, a, i, l, u) {
+            g(e, r);
+            var c = e,
+              d,
+              m;
+            if (
+              i.length &&
               o(
                 "WAWebMessageAssociationGatingUtils",
               ).isMessageAssociationInfraEnabled()
             ) {
               var f;
               if (
-                ((_ = o(
+                ((m = o(
                   "WAWebProcessMessageAssociationMessages",
                 ).classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache(
+                  i,
                   l,
-                  s,
                 )),
-                (f = _) != null && f.validAssociatedMsgs)
+                (f = m) != null && f.validAssociatedMsgs)
               ) {
                 var h;
                 d = o("WAWebApiFilterAndReplaceMessages").validateMsgFn(
-                  (h = _) == null ? void 0 : h.validAssociatedMsgs,
+                  (h = m) == null ? void 0 : h.validAssociatedMsgs,
                 );
               }
             }
             try {
-              var C = yield o(
+              var y = yield o(
                   "WAWebApiFilterAndReplaceMessages",
-                ).filterAndReplaceMessages(t, d),
-                b = C.newMsgs;
+                ).filterAndReplaceMessages(e, d),
+                b = y.newMsgs;
               c = b;
-            } catch (t) {
+            } catch (e) {
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "filterAndReplaceMessages failed with error ",
                       "",
                     ])),
-                  t,
+                  e,
                 )
                 .tags("history-sync");
             }
-            var v = new Map(),
-              S = [];
+            var S = new Map(),
+              R = [];
             (c.forEach(function (e) {
               e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-                S.push(
+                R.push(
                   o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
                     e.id.toString(),
                     {
@@ -115,50 +212,50 @@ __d(
                 );
               var t = e.id.remote.toString();
               if (o("WAWebMsgGetters").getIsImportantMessage(e))
-                if (v.has(t)) {
+                if (S.has(t)) {
                   var n;
-                  (n = v.get(t)) == null || n.push(e);
-                } else v.set(t, [e]);
+                  (n = S.get(t)) == null || n.push(e);
+                } else S.set(t, [e]);
             }),
-              S.length > 0 && (yield (m || (m = n("Promise"))).all(S)));
-            var R = Array.from(v.keys()),
-              L = yield o("WAWebBackendApi").frontendSendAndReceive(
+              R.length > 0 && (yield (p || (p = n("Promise"))).all(R)));
+            var L = Array.from(S.keys()),
+              E = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "getPendingUnreadMentionCounts",
-                { chatIds: R },
+                { chatIds: L },
               ),
-              E = p(v, L),
-              k = o(
+              k = _(S, E),
+              I = o(
                 "WAWebQuarantineDataStore",
               ).extractQuarantineDataFromMessages(c),
-              I = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
+              T = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
                 c,
                 !0,
               );
             (o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
-              a,
+              r,
               o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
                 .ENCRYPTED,
-              i,
+              a,
             ),
-              yield g({
-                chatsWithRecentOrFullSyncMsgs: r,
-                encryptedMessages: I,
-                pendingUnreadMentionsMap: L,
-                quarantineTableEntries: k,
-                unreadMentionsToAdd: E,
+              yield C({
+                chatsWithRecentOrFullSyncMsgs: t,
+                encryptedMessages: T,
+                pendingUnreadMentionsMap: E,
+                quarantineTableEntries: I,
+                unreadMentionsToAdd: k,
               }),
-              yield y(u));
+              yield v(u));
           },
         )),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function h() {
+    function b() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatsWithRecentOrFullSyncMsgs,
             n = e.encryptedMessages,
             r = e.pendingUnreadMentionsMap,
@@ -167,8 +264,8 @@ __d(
           try {
             if (
               (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "storeEncryptedRecentAndFullSyncMsgs: storing ",
                     " msgs: start",
                   ])),
@@ -180,8 +277,8 @@ __d(
                 !0,
               ),
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "storeEncryptedRecentAndFullSyncMsgs: storing ",
                     " messages: done",
                   ])),
@@ -204,8 +301,8 @@ __d(
             }
           } catch (e) {
             o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync] error storing ",
                   " recent or full sync messages: ",
                   "",
@@ -215,15 +312,15 @@ __d(
             );
           }
         })),
-        h.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0)
             try {
               var t = o(
@@ -245,8 +342,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "storeThreadMetadataFromHistorySyncMessages: store failed: ",
                       "",
                     ])),
@@ -257,10 +354,10 @@ __d(
                 );
             }
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    l.storeRecentAndFullHistSyncMessages = _;
+    l.storeRecentAndFullHistSyncMessages = h;
   },
   98,
 );

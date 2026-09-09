@@ -2,7 +2,6 @@ __d(
   "WAWebSyncdMetrics",
   [
     "$InternalEnum",
-    "WALogger",
     "WAWebAppTracker",
     "WAWebCollectionHandlerWamMutation",
     "WAWebCollectionHandlerWamSyncUtil",
@@ -16,15 +15,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s,
-      u = n("$InternalEnum").Mirrored(["SNAPSHOT_USED", "SNAPSHOT_NOT_USED"]),
-      c = n("$InternalEnum").Mirrored([
+    var e = n("$InternalEnum").Mirrored(["SNAPSHOT_USED", "SNAPSHOT_NOT_USED"]),
+      s = n("$InternalEnum").Mirrored([
         "APP_STATE_SYNC_KEY_EXPIRY",
         "DEVICE_DEREGISTERATION",
         "NO_KEYS",
       ]);
-    function d(e) {
+    function u(e) {
       o(
         "WAWebCollectionHandlerWamSyncUtil",
       ).commitBootstrapAppStateDownloadMetric({
@@ -35,10 +32,10 @@ __d(
         isSuccess: e.isSuccess,
       });
     }
-    function m(e, t, n) {
+    function c(e, t, n) {
       o("WAWebCollectionHandlerWamMutation").logMetricsForDataApplied(e, t, n);
     }
-    function p(e) {
+    function d(e) {
       return e === o("WAWebSyncdConst").CollectionName.CriticalBlock
         ? o("WAWebWamEnumCollection").COLLECTION.CRITICAL_BLOCK
         : e === o("WAWebSyncdConst").CollectionName.CriticalUnblockLow
@@ -56,29 +53,29 @@ __d(
                     );
                   })();
     }
-    function _(e, t, n) {
+    function m(e, t, n) {
       var r = new (o("WAWebMdCriticalEventWamEvent").MdCriticalEventWamEvent)({
         mdCriticalEventCode: e,
       });
-      (t != null && (r.collection = p(t)),
+      (t != null && (r.collection = d(t)),
         n != null && (r.mutationActionName = n),
         r.commit());
     }
-    function f(e) {
+    function p(e) {
       new (o(
         "WAWebMdAppStateKeyRotationWamEvent",
       ).MdAppStateKeyRotationWamEvent)({
-        mdAppStateKeyRotationReason: g(e),
+        mdAppStateKeyRotationReason: _(e),
       }).commit();
     }
-    function g(e) {
-      return e === c.APP_STATE_SYNC_KEY_EXPIRY
+    function _(e) {
+      return e === s.APP_STATE_SYNC_KEY_EXPIRY
         ? o("WAWebWamEnumMdAppStateKeyRotationReasonCode")
             .MD_APP_STATE_KEY_ROTATION_REASON_CODE.APP_STATE_SYNC_KEY_EXPIRY
-        : e === c.DEVICE_DEREGISTERATION
+        : e === s.DEVICE_DEREGISTERATION
           ? o("WAWebWamEnumMdAppStateKeyRotationReasonCode")
               .MD_APP_STATE_KEY_ROTATION_REASON_CODE.DEVICE_DEREGISTERATION
-          : e === c.NO_KEYS
+          : e === s.NO_KEYS
             ? o("WAWebWamEnumMdAppStateKeyRotationReasonCode")
                 .MD_APP_STATE_KEY_ROTATION_REASON_CODE.NO_KEYS
             : (function () {
@@ -88,34 +85,7 @@ __d(
                 );
               })();
     }
-    function h(t) {
-      var n,
-        r =
-          t == null || (n = t.string) == null ? void 0 : n.keyRotationEventCode;
-      if (r == null)
-        return (
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: missing error code for key rotation event",
-              ])),
-          ),
-          null
-        );
-      var a = c.cast(r);
-      return a == null
-        ? (o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: unknown error code: ",
-                " for key rotation event",
-              ])),
-            r,
-          ),
-          null)
-        : { type: a };
-    }
-    function y(e) {
+    function f(e) {
       var t = {};
       return (
         Object.entries(e).forEach(function (e) {
@@ -129,7 +99,7 @@ __d(
         r("isEmptyObject")(t) ? void 0 : t
       );
     }
-    var C = (function () {
+    var g = (function () {
       function e() {
         ((this.syncdQpl = new (o("WAWebSyncdQpl").SyncdQPL)()),
           this.syncdQpl.start(),
@@ -147,21 +117,20 @@ __d(
             ));
         }),
         (t.mark = function (t, n) {
-          this.syncdQpl.markAnnotations(t, y(n));
+          this.syncdQpl.markAnnotations(t, f(n));
         }),
         e
       );
     })();
-    ((l.SyncdBootstrapDataAppliedSnapshotUsed = u),
-      (l.SyncdKeyRotationEventType = c),
-      (l.reportSyncdBootstrapAppStateDownloadMetric = d),
-      (l.reportSyncdBootstrapDataApplied = m),
-      (l.collectionNameToMetric = p),
-      (l.uploadMdCriticalEventMetric = _),
-      (l.reportSyncdKeyRotationEvent = f),
-      (l.convertSyncdKeyRotationEventFromAnnotations = h),
-      (l.constructAnnotationsFromContext = y),
-      (l.SyncdEventFlow = C));
+    ((l.SyncdBootstrapDataAppliedSnapshotUsed = e),
+      (l.SyncdKeyRotationEventType = s),
+      (l.reportSyncdBootstrapAppStateDownloadMetric = u),
+      (l.reportSyncdBootstrapDataApplied = c),
+      (l.collectionNameToMetric = d),
+      (l.uploadMdCriticalEventMetric = m),
+      (l.reportSyncdKeyRotationEvent = p),
+      (l.constructAnnotationsFromContext = f),
+      (l.SyncdEventFlow = g));
   },
   98,
 );

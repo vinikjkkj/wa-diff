@@ -506,6 +506,8 @@ __d(
       refresh_group_info_on_mismatch: [35119, "bool", !1, !1],
       report_call_replayer_id: [1834, "bool", !1, !1],
       reuse_cached_certs_for_data_channel: [12913, "bool", !1, !0],
+      rx_video_enhance_max_short_edge_px: [36517, "int", 0, 0],
+      rx_video_enhance_sharpen_strength_x1000: [36510, "int", 0, 0],
       saga_message_feedback_using_canonical_ent: [23328, "bool", !1, !1],
       security_fixes_bitmap: [3094, "int", 0, 0],
       sfu_secondary_remote_bwe_impl: [11472, "int", 0, 8],

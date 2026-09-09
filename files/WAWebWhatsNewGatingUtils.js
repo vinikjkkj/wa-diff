@@ -4,12 +4,19 @@ __d(
     "WAPromiseDelays",
     "WAWebABProps",
     "WAWebBizAiLargeScreensGateModel",
+    "WAWebColdLaunchDeeplink",
     "WAWebMobilePlatforms",
     "WAWebWhatsNewContent",
+    "WAWebWhatsNewNux",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    function e(e) {
+      return o("WAWebColdLaunchDeeplink").wasLaunchedFromDeeplink()
+        ? !1
+        : s() && o("WAWebWhatsNewNux").shouldShowWhatsNewNux(e);
+    }
+    function s() {
       return !(
         o("WAWebABProps").getABPropConfigValue("web_whats_new_auto_modal") !==
           !0 ||
@@ -18,39 +25,40 @@ __d(
           !o("WAWebWhatsNewContent").hasSmbWhatsNewContent())
       );
     }
-    var s = 3e3;
-    function u() {
-      return c.apply(this, arguments);
-    }
+    var u = 3e3;
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return !o("WAWebMobilePlatforms").isSMB() ||
             !o("WAWebWhatsNewContent").hasBizAgentWhatsNewHighlight() ||
             o(
               "WAWebBizAiLargeScreensGateModel",
             ).isBizAiLargeScreensGateEnabled()
             ? !0
-            : (yield o("WAPromiseDelays").delayMs(s),
+            : (yield o("WAPromiseDelays").delayMs(u),
               o(
                 "WAWebBizAiLargeScreensGateModel",
               ).isBizAiLargeScreensGateEnabled());
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    var d = 30,
-      m = 15;
-    function p() {
+    var m = 30,
+      p = 15;
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_short_cooldown",
       ) === !0
-        ? m
-        : d;
+        ? p
+        : m;
     }
-    ((l.isWhatsNewAutoModalEnabled = e),
-      (l.resolveWhatsNewBizAgentEligible = u),
-      (l.getWhatsNewAutoModalCooldownDays = p));
+    ((l.shouldShowWhatsNewAutoModalOnLaunch = e),
+      (l.isWhatsNewAutoModalEnabled = s),
+      (l.resolveWhatsNewBizAgentEligible = c),
+      (l.getWhatsNewAutoModalCooldownDays = _));
   },
   98,
 );

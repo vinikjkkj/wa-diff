@@ -1,6 +1,6 @@
 __d(
   "WAWebChevronCustomIcons",
-  ["WAWebChevronIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcChevronRight.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -15,18 +15,18 @@ __d(
       t[0] !== e.xstyle
         ? ((n = [e.xstyle, u.reversed]), (t[0] = e.xstyle), (t[1] = n))
         : (n = t[1]);
-      var r;
+      var a;
       return (
         t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebChevronIcon.react").ChevronIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
+          ? ((a = s.jsx(
+              r("WDSIconIcChevronRight.react"),
+              babelHelpers.extends({ height: 30, width: 30 }, e, { xstyle: n }),
             )),
             (t[2] = e),
             (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+            (t[4] = a))
+          : (a = t[4]),
+        a
       );
     }
     function d(e) {
@@ -35,18 +35,18 @@ __d(
       t[0] !== e.xstyle
         ? ((n = [e.xstyle, u.rotatedUp]), (t[0] = e.xstyle), (t[1] = n))
         : (n = t[1]);
-      var r;
+      var a;
       return (
         t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebChevronIcon.react").ChevronIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
+          ? ((a = s.jsx(
+              r("WDSIconIcChevronRight.react"),
+              babelHelpers.extends({ height: 30, width: 30 }, e, { xstyle: n }),
             )),
             (t[2] = e),
             (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+            (t[4] = a))
+          : (a = t[4]),
+        a
       );
     }
     function m(e) {
@@ -55,18 +55,18 @@ __d(
       t[0] !== e.xstyle
         ? ((n = [e.xstyle, u.rotatedDown]), (t[0] = e.xstyle), (t[1] = n))
         : (n = t[1]);
-      var r;
+      var a;
       return (
         t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebChevronIcon.react").ChevronIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
+          ? ((a = s.jsx(
+              r("WDSIconIcChevronRight.react"),
+              babelHelpers.extends({ height: 30, width: 30 }, e, { xstyle: n }),
             )),
             (t[2] = e),
             (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+            (t[4] = a))
+          : (a = t[4]),
+        a
       );
     }
     ((l.ChevronLeftCustomIcon = c),

@@ -14,8 +14,8 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m() {
+    var e, s, u, c;
+    function d() {
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -28,27 +28,27 @@ __d(
         o("WAWebAltDeviceLinkingBase32Encode").bytesToCrockford(t)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield e();
           } catch (e) {
             throw (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(t), e);
           }
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = !1);
           var r = new (o("WABinary").Binary)(t),
             a = yield self.crypto.subtle.deriveKey(
@@ -65,18 +65,18 @@ __d(
             );
           return a;
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "alt pairing: encrypt companion hello",
               ])),
           );
@@ -84,54 +84,54 @@ __d(
             a = yield self.crypto.subtle.encrypt(r, n, e);
           return a;
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "alt pairing: decrypt primary hello",
               ])),
           );
           var r = { name: "AES-CTR", length: 64, counter: t },
-            a = yield p(function () {
+            a = yield m(function () {
               return self.crypto.subtle.decrypt(r, n, e);
             }, "fail decrypt primary ephemeral pub");
           return a;
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = m(),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = d(),
             t = yield o("WAWebCryptoCurve25519").keyPair(),
             n = new Uint8Array(32);
           self.crypto.getRandomValues(n);
           var r = new Uint8Array(16);
           self.crypto.getRandomValues(r);
-          var a = yield R(e, t, n, r);
+          var a = yield S(e, t, n, r);
           return babelHelpers.extends({}, a, { linkCodePairingSecret: e });
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R(e, t, n, r) {
-      return L.apply(this, arguments);
+    function S(e, t, n, r) {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = yield self.crypto.subtle.importKey(
                 "raw",
@@ -140,9 +140,9 @@ __d(
                 !1,
                 ["deriveKey"],
               ),
-              i = yield f(a, n),
-              l = yield p(function () {
-                return h(t.pubKey, r, i);
+              i = yield _(a, n),
+              l = yield m(function () {
+                return g(t.pubKey, r, i);
               }, "fail encrypt companion hello"),
               s = new (o("WABinary").Binary)();
             (s.writeByteArray(n),
@@ -156,15 +156,15 @@ __d(
             };
           },
         )),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WACryptoHkdf").extractWithSaltAndExpand(
             e,
             t,
@@ -173,25 +173,25 @@ __d(
           );
           return n;
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e, t, n) {
+    function k(e, t, n) {
       return o("WAArrayBufferUtils").concatBuffers([
         e,
         t,
         o("WAByteArray").uint8ArrayToBuffer(n),
       ]);
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "alt pairing: encrypt key bundle",
               ])),
           );
@@ -203,34 +203,20 @@ __d(
               ["encrypt"],
             ),
             a = { name: "AES-GCM", iv: t },
-            i = yield p(function () {
+            i = yield m(function () {
               return self.crypto.subtle.encrypt(a, r, n);
             }, "fail encrypt wrapped key bundle");
           return i;
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
-      o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
-            "alt pairing: create adv secret material",
-          ])),
-      );
-      var r = o("WAArrayBufferUtils").concatBuffers([
-        e,
-        t,
-        o("WAByteArray").uint8ArrayToBuffer(n),
-      ]);
-      return r;
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
+    function x() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WACryptoHkdf").extractWithSaltAndExpand(
             e,
             null,
@@ -239,15 +225,15 @@ __d(
           );
           return t;
         })),
-        P.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function M() {
+    function P() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.linkCodeKey,
             n = e.linkCodePairingCompanionADVEphemeralKeyPair,
             a = e.linkCodePairingWrappedPrimaryEphemeralPub,
@@ -264,7 +250,7 @@ __d(
           var c = new Uint8Array(12);
           return (
             self.crypto.getRandomValues(c),
-            w(
+            N(
               a,
               i,
               t,
@@ -277,42 +263,42 @@ __d(
             )
           );
         })),
-        M.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function w(e, t, n, r, o, a, i, l, s) {
-      return A.apply(this, arguments);
+    function N(e, t, n, r, o, a, i, l, s) {
+      return M.apply(this, arguments);
     }
-    function A() {
+    function M() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i, l, s, u, c) {
             var d = new (o("WABinary").Binary)(e),
-              m = d.readByteArrayView(32),
-              _ = d.readByteArrayView(16),
+              p = d.readByteArrayView(32),
+              f = d.readByteArrayView(16),
               g = d.readByteArrayView(),
-              h = yield f(n, m),
-              y = yield p(function () {
-                return C(g, _, h);
+              h = yield _(n, p),
+              C = yield m(function () {
+                return y(g, f, h);
               }, "fail decrypt primary ephemeral pub");
-            if (y.byteLength === 0)
+            if (C.byteLength === 0)
               throw r("err")(
                 "alt pairing: linkCodePairingDecryptedPrimaryEphemeralPub is an empty buffer",
               );
-            var b = yield p(function () {
-                return o("WAWebCryptoCurve25519").sharedSecret(y, a.privKey);
+            var b = yield m(function () {
+                return o("WAWebCryptoCurve25519").sharedSecret(C, a.privKey);
               }, "fail generate ephemeral shared secret"),
-              v = yield E(b, u),
-              S = I(i, t, s),
-              R = yield T(v, c, S),
-              L = new (o("WABinary").Binary)();
-            (L.writeByteArray(u), L.writeByteArray(c), L.writeBuffer(R));
-            var k = yield p(function () {
+              v = yield L(b, u),
+              S = k(i, t, s),
+              R = yield I(v, c, S),
+              E = new (o("WABinary").Binary)();
+            (E.writeByteArray(u), E.writeByteArray(c), E.writeBuffer(R));
+            var T = yield m(function () {
                 return o("WAWebCryptoCurve25519").sharedSecret(t, l);
               }, "fail generate identity shared secret"),
               D = o("WAArrayBufferUtils").concatBuffers([
                 b,
-                k,
+                T,
                 o("WAByteArray").uint8ArrayToBuffer(s),
               ]),
               x = yield o("WACryptoHkdf").extractWithSaltAndExpand(
@@ -321,7 +307,7 @@ __d(
                 "adv_secret",
                 32,
               ),
-              $ = L.readBuffer();
+              $ = E.readBuffer();
             return {
               companionIdentityPublic: i,
               linkCodePairingWrappedKeyBundle: $,
@@ -329,22 +315,21 @@ __d(
             };
           },
         )),
-        A.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    ((l.generateRandomCode = m),
-      (l.deriveKey = f),
-      (l.encryptCompanionHello = h),
-      (l.decryptPrimaryHello = C),
-      (l.companionHello = v),
-      (l.companionHelloInternal = R),
-      (l.getBundleEncryptionKey = E),
-      (l.getKeyBundle = I),
-      (l.encryptKeyBundle = T),
-      (l.createAdvSecretMaterial = x),
-      (l.createAdvSecret = $),
-      (l.companionFinish = N),
-      (l.companionFinishInternal = w));
+    ((l.generateRandomCode = d),
+      (l.deriveKey = _),
+      (l.encryptCompanionHello = g),
+      (l.decryptPrimaryHello = y),
+      (l.companionHello = b),
+      (l.companionHelloInternal = S),
+      (l.getBundleEncryptionKey = L),
+      (l.getKeyBundle = k),
+      (l.encryptKeyBundle = I),
+      (l.createAdvSecret = D),
+      (l.companionFinish = $),
+      (l.companionFinishInternal = N));
   },
   98,
 );

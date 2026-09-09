@@ -1,6 +1,13 @@
 __d(
   "WASMMemoryLogger",
-  ["FBLogger", "QPLFlow", "WAHashStringToNumber", "justknobx", "qpl", "uuidv4"],
+  [
+    "FBLogger",
+    "WAHashStringToNumber",
+    "WMIQplFlow",
+    "justknobx",
+    "qpl",
+    "uuidv4",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = r("justknobx")._("168"),
@@ -64,7 +71,7 @@ __d(
             var e = r("qpl")._(994782764, "418"),
               t = o("WAHashStringToNumber").hashStringToNumber(r("uuidv4")()),
               n = u.getWasmMemoryUsagePerModuleAnnotationsObject(),
-              a = o("QPLFlow").startQPLFlow(e, {
+              a = o("WMIQplFlow").startQplFlow(e, {
                 annotations: {
                   int: babelHelpers.extends({}, n, {
                     wasm_total_memory_usage: u.getCurrentWasmMemoryUsage(),

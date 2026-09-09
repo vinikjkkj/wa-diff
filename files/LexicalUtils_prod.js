@@ -106,7 +106,7 @@ __d(
         }
         for (; g.length > p.length; ) {
           var _e4 = g.pop();
-          null != _e4 && _e4.remove();
+          null != _e4 && (_e4.remove(), (m = !0));
         }
         m && a(g);
       }

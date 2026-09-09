@@ -72,23 +72,24 @@ __d(
                                     d = s.labelIds,
                                     m = s.listName,
                                     p = s.participants,
-                                    _ = o("WAWebUserPrefsMeUser")
+                                    _ = c != null && c.length > 0 ? c : void 0,
+                                    f = o("WAWebUserPrefsMeUser")
                                       .getMeLidUserOrThrow()
                                       .toString(),
-                                    f = (p != null ? p : []).filter(
+                                    g = (p != null ? p : []).filter(
                                       function (e) {
-                                        return e.lidJid !== _;
+                                        return e.lidJid !== f;
                                       },
                                     ),
-                                    g =
+                                    h =
                                       u != null
                                         ? o(
                                             "WAWebAudienceExpressionTypes",
                                           ).parseAudienceExpressionJson(u)
                                         : null,
-                                    h =
-                                      g != null
-                                        ? g
+                                    y =
+                                      h != null
+                                        ? h
                                         : (d != null ? d : []).length > 0
                                           ? o(
                                               "WAWebAudienceExpressionTypes",
@@ -98,7 +99,7 @@ __d(
                                           : o(
                                               "WAWebAudienceExpressionTypes",
                                             ).createExplicitExpression(
-                                              f.map(function (e) {
+                                              g.map(function (e) {
                                                 return e.lidJid;
                                               }),
                                             );
@@ -106,8 +107,8 @@ __d(
                                     yield o(
                                       "WAWebBroadcastListStorageUtils",
                                     ).updateBroadcastListStorage({
-                                      audienceExpression: h,
-                                      customAudienceFbid: c,
+                                      audienceExpression: y,
+                                      customAudienceFbid: _,
                                       id: n,
                                       listName: m != null ? m : "",
                                     }),
