@@ -536,6 +536,8 @@ __d(
           "XMA_GEN_AI_SEARCH_PLUGIN_RESPONSE_SOURCES",
         XmaHorizonGamingChallengeJoin: "XMA_HORIZON_GAMING_CHALLENGE_JOIN",
         XmaHorizonGamingChallengePlay: "XMA_HORIZON_GAMING_CHALLENGE_PLAY",
+        XmaHorizonGamingChallengeSeeLeaderboard:
+          "XMA_HORIZON_GAMING_CHALLENGE_SEE_LEADERBOARD",
         XmaHorizonGamingChallengeSeeMoreGames:
           "XMA_HORIZON_GAMING_CHALLENGE_SEE_MORE_GAMES",
         XmaHorizonGamingChallengeStartNewChallenge:

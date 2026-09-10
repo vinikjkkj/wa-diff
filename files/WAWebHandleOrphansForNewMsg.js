@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAWebDBAssociatedMsgsAttachDetachAPI",
     "WAWebDBProcessOrphansForNewMsg",
-    "WAWebMessageAssociationGatingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,18 +14,12 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = [
+          yield (e || (e = n("Promise"))).all([
             o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(t),
-          ];
-          (o(
-            "WAWebMessageAssociationGatingUtils",
-          ).isMessageAssociationInfraEnabled() &&
-            r.push(
-              o(
-                "WAWebDBAssociatedMsgsAttachDetachAPI",
-              ).processOrphansFromAssociationsTableForNewMsg([t]),
-            ),
-            yield (e || (e = n("Promise"))).all(r));
+            o(
+              "WAWebDBAssociatedMsgsAttachDetachAPI",
+            ).processOrphansFromAssociationsTableForNewMsg([t]),
+          ]);
         })),
         u.apply(this, arguments)
       );

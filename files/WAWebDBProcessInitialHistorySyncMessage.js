@@ -20,7 +20,6 @@ __d(
     "WAWebFtsClient",
     "WAWebGroupUnreadMessageType",
     "WAWebLinkify",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebNoop",
@@ -165,9 +164,6 @@ __d(
                 },
               ),
               e.associationType != null &&
-                o(
-                  "WAWebMessageAssociationGatingUtils",
-                ).isMessageAssociationInfraEnabled() &&
                 g.push({
                   msgKey: e.id.toString(),
                   parentMsgKey: e.parentMsgKey.toString(),

@@ -54,7 +54,7 @@ __d(
               n.isGroup() &&
               o(
                 "WAWebGroupHistoryGating",
-              ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(n)
+              ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
             ) {
               var a = function () {
                 var t = e.msgs.msgLoadState.noEarlierMsgs;

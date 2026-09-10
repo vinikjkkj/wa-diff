@@ -242,12 +242,12 @@ __d(
         u = t.get("layout_config"),
         c = s === "column" ? "gridColumn" : "gridRow";
       if (i != null && u != null) {
-        var d;
-        return ((d = {}), (d[c] = "span " + u.get("span_count")), d);
+        var d = {};
+        return ((d[c] = "span " + u.get("span_count")), d);
       }
       if (l != null) {
-        var m;
-        return ((m = {}), (m[c] = "span " + l), m);
+        var m = {};
+        return ((m[c] = "span " + l), m);
       }
       return {};
     }
@@ -274,12 +274,12 @@ __d(
         a = e.layoutConfig,
         i = e.node,
         l = e.scrollerRef,
-        u;
+        u = r("useWebBloksCollectionGridAspectRatioProps")(a, n, l),
+        c;
       t[0] !== n || t[1] !== i
-        ? ((u = m(i, n)), (t[0] = n), (t[1] = i), (t[2] = u))
-        : (u = t[2]);
-      var c = r("useWebBloksCollectionGridAspectRatioProps")(a, n, l),
-        d;
+        ? ((c = m(i, n)), (t[0] = n), (t[1] = i), (t[2] = c))
+        : (c = t[2]);
+      var d;
       t[3] !== u || t[4] !== c
         ? ((d = babelHelpers.extends({}, u, c)),
           (t[3] = u),

@@ -38,7 +38,7 @@ __d(
       };
     function m() {
       if (!o("WAWebMobilePlatforms").isSMB()) return [];
-      if (!o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()) return [];
+      if (!o("WAWebBizAiAgentGating").isAiListsWebUIEnabled()) return [];
       if (!o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent()) return [];
       var e = [];
       return (

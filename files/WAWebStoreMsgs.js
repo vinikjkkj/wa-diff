@@ -32,7 +32,6 @@ __d(
     "WAWebHandleForMessageRange",
     "WAWebHandlePlaceholderWam",
     "WAWebLinkify",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationUIUpdateFromStorage",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
@@ -154,9 +153,6 @@ __d(
                   });
               }),
                 U.length > 0 &&
-                  o(
-                    "WAWebMessageAssociationGatingUtils",
-                  ).isMessageAssociationInfraEnabled() &&
                   q.push.apply(
                     q,
                     o(

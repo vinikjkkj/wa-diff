@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "775013c9b4164ac2b1ac22a0db4aed99aef4fa4dce7aa529e98ac979442f29fb",
+      c = "0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f",
       d = {
+        "0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f":
+          function () {
+            return r("bx")("90779");
+          },
         "775013c9b4164ac2b1ac22a0db4aed99aef4fa4dce7aa529e98ac979442f29fb":
           function () {
             return r("bx")("90766");
@@ -42,7 +46,7 @@ __d(
             return r("bx")("90671");
           },
       },
-      m = d["775013c9b4164ac2b1ac22a0db4aed99aef4fa4dce7aa529e98ac979442f29fb"],
+      m = d["0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f"],
       p = null,
       _ = null;
     try {
@@ -51,6 +55,10 @@ __d(
       p = e;
     }
     var f = {
+        "0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f":
+          function () {
+            return r("bx")("90778");
+          },
         "775013c9b4164ac2b1ac22a0db4aed99aef4fa4dce7aa529e98ac979442f29fb":
           function () {
             return r("bx")("90765");
@@ -111,16 +119,12 @@ __d(
           function () {
             return r("bx")("90548");
           },
-        "21181f6ed9527b33686394d398ef3f62002c5c243049e89284a6964fe5003d4b":
-          function () {
-            return r("bx")("90547");
-          },
       },
-      g = f["775013c9b4164ac2b1ac22a0db4aed99aef4fa4dce7aa529e98ac979442f29fb"],
+      g = f["0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f"],
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1788933338396" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1789019105188" });
     } catch (e) {
       h = e;
     }
@@ -159,7 +163,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/775013c9b4164ac2b1ac22a0db4aed99aef4fa4dce7aa529e98ac979442f29fb/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -884,10 +888,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1352607: function () {
+          1358351: function () {
             return Date.now();
           },
-          1352630: function (t, n) {
+          1358374: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7863,8 +7867,8 @@ __d(
           yl = (v.___get_exception_message = Ne("__get_exception_message")),
           Cl = Ne("__cxa_can_catch"),
           bl = Ne("__cxa_is_pointer_type"),
-          vl = (v.___start_em_js = 1346620),
-          Sl = (v.___stop_em_js = 1352607);
+          vl = (v.___start_em_js = 1352364),
+          Sl = (v.___stop_em_js = 1358351);
         function Rl(e, t, n, r) {
           var o = _l();
           try {

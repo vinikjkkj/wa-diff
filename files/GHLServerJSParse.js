@@ -5,6 +5,7 @@ __d(
     "GHLDetectionUtilsPreludeSafe",
     "GHLTypenameRestore",
     "getErrorSafe",
+    "isPlainObjectWithTypeGuard",
     "json5",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,16 +28,18 @@ __d(
           var n = t.pop();
           if (!(n == null || typeof n != "object")) {
             if (Array.isArray(n)) {
-              for (var r = 0; r < n.length; r++) {
-                var o = n[r];
-                o != null && typeof o == "object" && t.push(o);
+              for (var o = 0; o < n.length; o++) {
+                var a = n[o];
+                a != null && typeof a == "object" && t.push(a);
               }
               continue;
             }
-            n.__typename === c && (n.__typename = u);
-            for (var a = Object.keys(n), i = 0; i < a.length; i++) {
-              var l = n[a[i]];
-              l != null && typeof l == "object" && t.push(l);
+            if (r("isPlainObjectWithTypeGuard")(n)) {
+              n.__typename === c && (n.__typename = u);
+              for (var i = Object.keys(n), l = 0; l < i.length; l++) {
+                var s = n[i[l]];
+                s != null && typeof s == "object" && t.push(s);
+              }
             }
           }
         }

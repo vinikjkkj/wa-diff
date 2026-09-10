@@ -6,7 +6,6 @@ __d(
     "WAWebDBMessageRange",
     "WAWebDBMessageUtils",
     "WAWebFtsClient",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebNoop",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
@@ -81,18 +80,14 @@ __d(
                 lowerInclusive: !1,
                 upperInclusive: !1,
                 returnKeyType: "primary_key",
-              }),
-            l = [o("WAWebSchemaMessage").getMessageTable().bulkRemove(i)];
+              });
           return (
-            o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled() &&
-              l.push(
-                o(
-                  "WAWebDBDeleteAssociatedMsgsByMsgKey",
-                ).bulkDeleteMessagesByMsgKeys(i),
-              ),
-            yield (e || (e = n("Promise"))).all(l),
+            yield (e || (e = n("Promise"))).all([
+              o("WAWebSchemaMessage").getMessageTable().bulkRemove(i),
+              o(
+                "WAWebDBDeleteAssociatedMsgsByMsgKey",
+              ).bulkDeleteMessagesByMsgKeys(i),
+            ]),
             i
           );
         })),

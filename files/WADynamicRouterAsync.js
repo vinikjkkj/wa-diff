@@ -96,8 +96,8 @@ __d(
                 (this.$6 = o));
             }
           }),
-          (a.setHandlers = function (n, a) {
-            function t(t, i, l) {
+          (a.setHandlers = function (n, a, i) {
+            function t(t, l, s) {
               if (a[t] == null)
                 throw (
                   o("WALogger").ERROR(
@@ -112,8 +112,9 @@ __d(
                   ),
                   r("err")(t + " is not defined for " + n)
                 );
-              var s = a[t](i);
-              l && l(s);
+              i == null || i(t);
+              var u = a[t](l);
+              s && s(u);
             }
             this.setNamespaceHandler(n, t);
           }),

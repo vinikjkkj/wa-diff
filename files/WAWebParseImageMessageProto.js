@@ -13,7 +13,6 @@ __d(
     "WAWebMediaProtoUtils",
     "WAWebMediaUrlAllowlist",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMsgType",
     "WAWebViewMode.flow",
   ],
@@ -103,11 +102,7 @@ __d(
             statusMentioned: l == null ? void 0 : l.statusMentioned,
           });
         if (
-          (o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(P, s),
-          r &&
-            o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled())
+          (o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(P, s), r)
         ) {
           var N = o(
               "WAWebAssociationProtoUtils",

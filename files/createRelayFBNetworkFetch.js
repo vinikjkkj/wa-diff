@@ -163,10 +163,11 @@ __d(
           ae = ae.ifEmpty(ie);
         }
         var le = g(ae, ee, A);
+        o("RelayRuntime").RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY &&
+          (le = P != null ? P(le) : le);
+        var se = A.liveConfigId;
         return (
-          o("RelayRuntime").RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY &&
-            (le = P != null ? P(le) : le),
-          A.liveConfigId != null &&
+          se != null &&
             !o("RelayWWWInitialRolloutResolver").disableWWWInitial(d.name) &&
             h != null &&
             (le = h(
@@ -175,7 +176,7 @@ __d(
               babelHelpers.extends(
                 { actor_id: H },
                 E !== !0 && { access_token: G },
-                { config_id: A.liveConfigId },
+                { config_id: se },
               ),
               le,
             )),

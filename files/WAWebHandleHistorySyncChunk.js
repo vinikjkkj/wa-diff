@@ -37,7 +37,6 @@ __d(
     "WAWebHttpErrors",
     "WAWebMdSyncDownloadFailureReason",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMetricsAttributionActions",
     "WAWebMmsClient",
     "WAWebMsgKey",
@@ -795,16 +794,10 @@ __d(
                           ? void 0
                           : rt.commentParentKey) == null &&
                         (ge.has(dt.id.toString()) &&
-                          o(
-                            "WAWebMessageAssociationGatingUtils",
-                          ).isMessageAssociationInfraEnabled() &&
                           ge.delete(dt == null ? void 0 : dt.id.toString()),
                         fe.push(dt)),
                       dt != null &&
-                        o("WAWebMessageAssociation.flow").isAssociatedMsg(dt) &&
-                        o(
-                          "WAWebMessageAssociationGatingUtils",
-                        ).isMessageAssociationInfraEnabled())
+                        o("WAWebMessageAssociation.flow").isAssociatedMsg(dt))
                     ) {
                       var pt = dt.parentMsgKey.toString();
                       (ge.add(pt), he.push(dt));

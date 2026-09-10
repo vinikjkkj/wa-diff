@@ -11,7 +11,6 @@ __d(
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreRevokeMsgs",
     "WAWebLidMigrationUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -278,33 +277,26 @@ __d(
                               return e.newMsgKey;
                             }),
                           ),
-                          d = [];
-                        if (
-                          o(
-                            "WAWebMessageAssociationGatingUtils",
-                          ).isMessageAssociationInfraEnabled()
-                        ) {
-                          var m = yield o(
-                              "WAWebDBAssociatedMsgsAttachDetachAPI",
-                            ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
-                              c.filter(Boolean),
-                            ),
-                            p = o(
-                              "WAWebDBAssociatedMsgsAttachDetachAPI",
-                            ).getValidAssociatedMsgs(
-                              m,
-                              o("WAWebDBAssociatedMsgsAttachDetachAPI")
-                                .ViewModeUpdateType.Detach,
-                            );
-                          d = p.map(function (e) {
+                          d = yield o(
+                            "WAWebDBAssociatedMsgsAttachDetachAPI",
+                          ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
+                            c.filter(Boolean),
+                          ),
+                          m = o(
+                            "WAWebDBAssociatedMsgsAttachDetachAPI",
+                          ).getValidAssociatedMsgs(
+                            d,
+                            o("WAWebDBAssociatedMsgsAttachDetachAPI")
+                              .ViewModeUpdateType.Detach,
+                          ),
+                          p = m.map(function (e) {
                             return e.msgKey;
-                          });
-                        }
-                        var _ = [].concat(
+                          }),
+                          _ = [].concat(
                             c.map(function (e) {
                               return e ? e.toString() : "";
                             }),
-                            d,
+                            p,
                           ),
                           f = yield s.bulkGet(_, !1),
                           b = [],
@@ -342,10 +334,7 @@ __d(
                             }
                             (t.add(c.id),
                               i.push(String(c.rowId)),
-                              o(
-                                "WAWebMessageAssociationGatingUtils",
-                              ).isMessageAssociationInfraEnabled() &&
-                                c.associationType != null &&
+                              c.associationType != null &&
                                 M.push([c.id, c.associationType]));
                             var m = o("WAWebRevoke").getMsgKeyAfterRevoke({
                                 originalKey: r("WAWebMsgKey").from(c.id),

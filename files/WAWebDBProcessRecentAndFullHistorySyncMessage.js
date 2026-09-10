@@ -12,7 +12,6 @@ __d(
     "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBStoreEncryptedMsgs",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebProcessMessageAssociationMessages",
@@ -151,12 +150,7 @@ __d(
             var c = e,
               d,
               m;
-            if (
-              i.length &&
-              o(
-                "WAWebMessageAssociationGatingUtils",
-              ).isMessageAssociationInfraEnabled()
-            ) {
+            if (i.length) {
               var f;
               if (
                 ((m = o(

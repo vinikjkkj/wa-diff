@@ -19,7 +19,6 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebFtsClient",
     "WAWebMedia",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMsgActionCapability",
     "WAWebMsgGetters",
@@ -437,12 +436,7 @@ __d(
             ? i
             : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         );
-      if (
-        h != null &&
-        o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      ) {
+      if (h != null) {
         var C = o(
           "WAWebAssociationProcessor",
         ).getAssociationProcessorByAssociationType(h);

@@ -2362,6 +2362,7 @@ __d(
       scheduled_messages_photo_video_sender_enabled: [32553, "bool", !1, !1],
       scheduled_messages_receiver_enabled: [24610, "bool", !1, !1],
       scheduled_messages_sender_enabled: [23845, "bool", !1, !1],
+      scheduled_messages_smart_defaults: [36583, "bool", !1, !1],
       scheduled_messages_window_duration_max_seconds: [
         26347,
         "int",
@@ -2551,6 +2552,7 @@ __d(
       smb_web_ai_tos_master_notice_id: [34831, "string", "", ""],
       smb_web_bb_home_qp_surface_enabled: [32613, "bool", !1, !1],
       smb_web_category_search_via_graph_enabled: [28519, "bool", !1, !1],
+      smb_web_customer_management_custom_fields: [36576, "bool", !1, !1],
       smb_web_customer_management_enabled: [26165, "bool", !1, !1],
       smb_web_customer_management_import_export: [36497, "bool", !1, !1],
       smb_web_customer_manager_bulk_edit_enabled: [32550, "bool", !1, !0],
@@ -2808,6 +2810,7 @@ __d(
         "0123456789ABCDEFGHJKLMNPQRSTVWXYZ",
         "0123456789ABCDEFGHJKLMNPQRSTVWXYZ",
       ],
+      username_key_display_ui: [34343, "bool", !1, !1],
       username_key_entry_ui_v2: [34226, "bool", !1, !1],
       username_key_max_length: [34348, "int", 6, 6],
       username_key_min_length: [34347, "int", 4, 4],

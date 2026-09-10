@@ -6,7 +6,6 @@ __d(
     "WAWebAddonSortUtils",
     "WAWebAssociationProcessor",
     "WAWebAssociationProcessorConstants",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationValidation",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -15,17 +14,11 @@ __d(
     "use strict";
     var e;
     function s(e, t) {
-      if (
-        o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      ) {
-        var n = e,
-          r = d(n, t),
-          a = r.nonOrphansFromCache,
-          i = r.orphans;
-        return p(i, a);
-      }
+      var n = e,
+        r = d(n, t),
+        o = r.nonOrphansFromCache,
+        a = r.orphans;
+      return p(a, o);
     }
     function u(e, t) {
       return c.apply(this, arguments);
@@ -33,14 +26,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !(
-              e.length === 0 ||
-              !o(
-                "WAWebMessageAssociationGatingUtils",
-              ).isMessageAssociationInfraEnabled()
-            )
-          ) {
+          if (e.length !== 0) {
             var n = yield o("WAWebAddonProcessMsgsUtils").queryParentMsgs(e),
               r = n[0],
               a = n[1],

@@ -20,7 +20,6 @@ __d(
     "WAWebFutureproofProtoUtils",
     "WAWebLimitSharingProtoUtils",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationValidation",
     "WAWebMessagePluginParseProtobuf",
     "WAWebMsgAIProvenance",
@@ -131,12 +130,7 @@ __d(
           p,
           u,
         );
-      if (
-        C != null &&
-        o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      ) {
+      if (C != null) {
         var b = o(
           "WAWebAssociationProtoUtils",
         ).getValidatedAssociationFieldsFromProto(C, c, p);

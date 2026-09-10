@@ -135,8 +135,8 @@ __d(
             (a.delete(t), e.$6(t, i));
           });
         }),
-        (a.setHandlers = function (t, n) {
-          function e(e, a, i, l, s, c, d) {
+        (a.setHandlers = function (t, n, a) {
+          function e(e, i, l, s, c, d, m) {
             if (n[e] == null)
               throw (
                 o("WALogger").ERROR(
@@ -151,8 +151,9 @@ __d(
                 ),
                 r("err")(e + " is not defined for " + t)
               );
-            var m = n[e](a, d);
-            i && i(m);
+            a == null || a(e);
+            var p = n[e](i, m);
+            l && l(p);
           }
           this.setNamespaceHandler(t, e);
         }),

@@ -10,7 +10,6 @@ __d(
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
     "WAWebLidMigrationUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -423,21 +422,17 @@ __d(
                 var _ = yield (c || (c = n("Promise"))).all(m);
                 d = (a = d).concat.apply(a, _);
                 var f = r == null ? void 0 : r.skipMessages;
-                f &&
-                  (d = d.filter(function (e) {
-                    return !f.has(e);
-                  }));
-                var g = [u.bulkRemove(d)];
                 return (
-                  o(
-                    "WAWebMessageAssociationGatingUtils",
-                  ).isMessageAssociationInfraEnabled() &&
-                    g.push(
-                      o(
-                        "WAWebDBDeleteAssociatedMsgsByMsgKey",
-                      ).bulkDeleteMessagesByMsgKeys(d),
-                    ),
-                  yield c.all(g),
+                  f &&
+                    (d = d.filter(function (e) {
+                      return !f.has(e);
+                    })),
+                  yield c.all([
+                    u.bulkRemove(d),
+                    o(
+                      "WAWebDBDeleteAssociatedMsgsByMsgKey",
+                    ).bulkDeleteMessagesByMsgKeys(d),
+                  ]),
                   d
                 );
               },

@@ -7,7 +7,6 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebLidMigrationUtils",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationValidation",
     "WAWebNewsletterIsNewsletterMsg",
     "WAWebProtobufMsgKeyUtils",
@@ -150,12 +149,7 @@ __d(
     }
     function C(t, n, a, i) {
       var l = n == null ? void 0 : n.messageAssociation;
-      if (
-        l != null &&
-        o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      ) {
+      if (l != null) {
         if (a === "history_quoted" || a === "quoted") return null;
         var d = l.parentMessageKey,
           p = l.associationType;

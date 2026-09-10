@@ -170,7 +170,12 @@ __d(
             ).canSendPostJoinHistoryToParticipant(t, s, n, r)
           );
         });
-        return u ? p() : null;
+        return u &&
+          o(
+            "WAWebGroupHistoryPostJoinEligibility",
+          ).isPostJoinHistoryExperimentArmEnabled(i.id)
+          ? p()
+          : null;
       }
       if (e.length !== 1 || e[0] == null) return null;
       var c = e[0];
@@ -180,7 +185,7 @@ __d(
         ? null
         : o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).canSendPostJoinHistoryToParticipant(
+            ).shouldOfferPostJoinHistoryToParticipant(
               d,
               o(
                 "WAWebGroupHistoryPostJoinEligibility",

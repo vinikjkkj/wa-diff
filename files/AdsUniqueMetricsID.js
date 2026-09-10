@@ -91,7 +91,9 @@ __d(
       Fe = "723817683917948",
       Oe = "717368264947302",
       Be = "1074444721456755",
-      We = "342728904797642";
+      We = "342728904797642",
+      qe = "151999381652364",
+      Ue = "103928676365132";
     ((i.AdsUniqueMetricsHelpID = e),
       (i.ABOUT_AB_TEST = l),
       (i.ABOUT_HOLDOUT_TEST = s),
@@ -140,7 +142,9 @@ __d(
       (i.ABOUT_ADS_IN_WHATSAPP_STATUS = Fe),
       (i.ABOUT_REACHING_NEW_AUDIENCES_WITH_UNKNOWN_AGE = Oe),
       (i.ABOUT_CREATING_ADS_IN_WHATSAPP_STATUS = Be),
-      (i.ABOUT_PARTNERSHIP_ADS = We));
+      (i.ABOUT_PARTNERSHIP_ADS = We),
+      (i.ABOUT_AGE_AND_GENDER_TARGETING = qe),
+      (i.ABOUT_AGE_BASED_TARGETING = Ue));
   },
   66,
 );

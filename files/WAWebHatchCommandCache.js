@@ -10,12 +10,7 @@ __d(
     function s(t, n) {
       e.set(t, n);
     }
-    function u() {
-      e.clear();
-    }
-    ((i.getHatchCommands = l),
-      (i.setHatchCommands = s),
-      (i.clearAllHatchCommands = u));
+    ((i.getHatchCommands = l), (i.setHatchCommands = s));
   },
   66,
 );

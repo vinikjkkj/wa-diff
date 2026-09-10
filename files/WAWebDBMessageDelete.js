@@ -8,7 +8,6 @@ __d(
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreRevokeMsgs",
     "WAWebLidMigrationUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageInitialize",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
@@ -47,12 +46,7 @@ __d(
                   var t = new Set(e),
                     n = [],
                     a = [];
-                  if (
-                    i &&
-                    o(
-                      "WAWebMessageAssociationGatingUtils",
-                    ).isMessageAssociationInfraEnabled()
-                  ) {
+                  if (i) {
                     var s = yield o(
                       "WAWebDBGetAssociatedMsgsByParentMsgKey",
                     ).bulkGetMessagesByParentMsgKey(
@@ -76,19 +70,16 @@ __d(
                           var t = e == null ? void 0 : e.associationType;
                           t != null &&
                             e != null &&
-                            o(
-                              "WAWebMessageAssociationGatingUtils",
-                            ).isMessageAssociationInfraEnabled() &&
                             a.push([e.id.toString(), t]);
                           var r = e == null ? void 0 : e.botResponseTargetId,
-                            i = e == null ? void 0 : e.internalId;
+                            o = e == null ? void 0 : e.internalId;
                           (e == null ? void 0 : e.botPluginSearchProvider) !=
                             null &&
                             (e == null ? void 0 : e.botPluginSearchUrl) !=
                               null &&
                             r != null &&
-                            i != null &&
-                            l.push({ internalId: i, targetId: r });
+                            o != null &&
+                            l.push({ internalId: o, targetId: r });
                         });
                       }),
                     {
@@ -120,12 +111,7 @@ __d(
                                       .getMessageTable()
                                       .bulkRemove(i),
                                   ];
-                                if (
-                                  t.length > 0 &&
-                                  o(
-                                    "WAWebMessageAssociationGatingUtils",
-                                  ).isMessageAssociationInfraEnabled()
-                                ) {
+                                if (t.length > 0) {
                                   o("WALogger").LOG(
                                     s ||
                                       (s =

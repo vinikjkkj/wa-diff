@@ -7,8 +7,8 @@ __d(
     "WAWebNewsletterTabFlowLoadable",
     "WAWebNewsletterTabFlowStep",
     "WAWebWamEnumChannelDirectoryEntryPoint",
-    "WDSIconIcSearch.react",
-    "WDSIconWdsIcNewChannel.react",
+    "WDSIconIcAdd.react",
+    "WDSIconIcGrid.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,7 +18,7 @@ __d(
       c = [
         {
           id: "create_channel",
-          Icon: r("WDSIconWdsIcNewChannel.react"),
+          Icon: r("WDSIconIcAdd.react"),
           label: function () {
             return s._(/*BTDS*/ "Create channel");
           },
@@ -56,9 +56,9 @@ __d(
         },
         {
           id: "find_channels",
-          Icon: r("WDSIconIcSearch.react"),
+          Icon: r("WDSIconIcGrid.react"),
           label: function () {
-            return s._(/*BTDS*/ "Find channels");
+            return s._(/*BTDS*/ "Explore channels");
           },
           onClick: function () {
             r("JSResourceForInteraction")("WAWebOpenNewsletterDirectory")

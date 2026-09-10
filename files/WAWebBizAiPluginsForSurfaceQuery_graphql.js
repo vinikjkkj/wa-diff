@@ -4,36 +4,50 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [{ kind: "Literal", name: "surface", value: "WHATSAPP" }],
-        t = {
+      var e = [
+          {
+            defaultValue: null,
+            kind: "LocalArgument",
+            name: "product_category",
+          },
+        ],
+        t = [
+          {
+            kind: "Variable",
+            name: "product_category",
+            variableName: "product_category",
+          },
+          { kind: "Literal", name: "surface", value: "WHATSAPP" },
+        ],
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_connected",
           storageKey: null,
         },
-        r = {
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        o = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "apixfn_plugin",
           storageKey: null,
         },
-        a = {
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "display_name",
           storageKey: null,
         },
-        i = {
+        l = {
           alias: null,
           args: null,
           concreteType: "Image",
@@ -53,14 +67,14 @@ __d(
         };
       return {
         fragment: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAiPluginsForSurfaceQuery",
           selections: [
             {
               alias: null,
-              args: e,
+              args: t,
               concreteType: "MetaAIBizAgentWAPluginsForSurfaceResponse",
               kind: "LinkedField",
               name: "meta_ai_biz_agent_wa_plugins_for_surface",
@@ -74,7 +88,7 @@ __d(
                   name: "plugins",
                   plural: !0,
                   selections: [
-                    t,
+                    r,
                     {
                       alias: null,
                       args: null,
@@ -82,15 +96,14 @@ __d(
                       kind: "LinkedField",
                       name: "plugin",
                       plural: !1,
-                      selections: [r, o, a, i],
+                      selections: [o, a, i, l],
                       storageKey: null,
                     },
                   ],
                   storageKey: null,
                 },
               ],
-              storageKey:
-                'meta_ai_biz_agent_wa_plugins_for_surface(surface:"WHATSAPP")',
+              storageKey: null,
             },
           ],
           type: "Query",
@@ -98,13 +111,13 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebBizAiPluginsForSurfaceQuery",
           selections: [
             {
               alias: null,
-              args: e,
+              args: t,
               concreteType: "MetaAIBizAgentWAPluginsForSurfaceResponse",
               kind: "LinkedField",
               name: "meta_ai_biz_agent_wa_plugins_for_surface",
@@ -118,7 +131,7 @@ __d(
                   name: "plugins",
                   plural: !0,
                   selections: [
-                    t,
+                    r,
                     {
                       alias: null,
                       args: null,
@@ -134,10 +147,10 @@ __d(
                           name: "__typename",
                           storageKey: null,
                         },
-                        r,
                         o,
                         a,
                         i,
+                        l,
                       ],
                       storageKey: null,
                     },
@@ -145,8 +158,7 @@ __d(
                   storageKey: null,
                 },
               ],
-              storageKey:
-                'meta_ai_biz_agent_wa_plugins_for_surface(surface:"WHATSAPP")',
+              storageKey: null,
             },
           ],
         },

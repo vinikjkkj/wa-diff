@@ -50,10 +50,7 @@ __d(
           var t = e.chatJid,
             n = e.content,
             r = e.type;
-          yield f(
-            { actionType: "add", noteType: r, chatJid: t, content: n },
-            !0,
-          );
+          yield f({ actionType: "add", noteType: r, chatJid: t, content: n });
         })),
         m.apply(this, arguments)
       );
@@ -69,63 +66,58 @@ __d(
             r = e.createdAt,
             o = e.id,
             a = e.type;
-          yield f(
-            {
-              actionType: "edit",
-              id: o,
-              noteType: a,
-              chatJid: t,
-              content: n,
-              createdAt: r,
-            },
-            !0,
-          );
+          yield f({
+            actionType: "edit",
+            id: o,
+            noteType: a,
+            chatJid: t,
+            content: n,
+            createdAt: r,
+          });
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i, l;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a;
           o("WAWebMobilePlatforms").isSMB() || s(0, 79042);
-          var u = o("WATimeUtils").unixTime(),
-            c = t.id;
-          c == null &&
-            (c = yield o("WAWebNotesIdUtils").generateNoteId(t.chatJid));
-          var d = {
-            id: c,
-            type: t.noteType,
-            chatJid: t.chatJid,
-            content: t.content,
-            createdAt: (i = t.createdAt) != null ? i : u,
-            modifiedAt: (l = t.modifiedAt) != null ? l : u,
-          };
-          if (a) {
-            var m = yield r("WAWebNoteSync").getNoteMutation(d);
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Notes] addOrEditNoteAction: id ",
-                  " mutation generated",
-                ])),
-              c,
+          var i = o("WATimeUtils").unixTime(),
+            l = t.id;
+          l == null &&
+            (l = yield o("WAWebNotesIdUtils").generateNoteId(t.chatJid));
+          var u = {
+              id: l,
+              type: t.noteType,
+              chatJid: t.chatJid,
+              content: t.content,
+              createdAt: (a = t.createdAt) != null ? a : i,
+              modifiedAt: i,
+            },
+            c = yield r("WAWebNoteSync").getNoteMutation(u);
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[Notes] addOrEditNoteAction: id ",
+                " mutation generated",
+              ])),
+            l,
+          ),
+            yield o("WAWebSyncdCoreApi").lockForSync(
+              ["note"],
+              [c],
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                yield o("WAWebDBNoteDatabaseApi").addOrEditNote(u);
+              }),
             ),
-              yield o("WAWebSyncdCoreApi").lockForSync(
-                ["note"],
-                [m],
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  yield o("WAWebDBNoteDatabaseApi").addOrEditNote(d);
-                }),
-              ));
-          } else yield o("WAWebDBNoteDatabaseApi").addOrEditNote(d);
-          o("WAWebNoteCollection").NoteCollection.add(
-            babelHelpers.extends({}, d),
-            { merge: !0 },
-          );
+            o("WAWebNoteCollection").NoteCollection.add(
+              babelHelpers.extends({}, u),
+              { merge: !0 },
+            ));
         })),
         g.apply(this, arguments)
       );

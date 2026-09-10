@@ -160,7 +160,7 @@ __d(
                     createdAt: p.createdAt,
                   };
             return (
-              yield o("WAWebNoteAction").addOrEditNoteAction(h, !0),
+              yield o("WAWebNoteAction").addOrEditNoteAction(h),
               {
                 type: "success",
                 loggingInfo: {

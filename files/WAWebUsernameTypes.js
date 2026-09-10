@@ -97,6 +97,7 @@ __d(
       (l.UsernameValidationErrorType = u.UsernameValidationErrorType),
       (l.isUsernameKey = d),
       (l.asUsernameKey = m),
+      (l.isUsernameKeyLengthAllowed = _),
       (l.isUsername = f),
       (l.isPresentUsername = g),
       (l.asUsername = h),

@@ -7,7 +7,6 @@ __d(
     "WAWebAssociationProcessorConstants",
     "WAWebBackendApi",
     "WAWebDBGetAssociatedMsgsByParentMsgKey",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -58,12 +57,6 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            !o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled()
-          )
-            return [];
           var n = yield o(
             "WAWebDBGetAssociatedMsgsByParentMsgKey",
           ).bulkGetMessagesByParentMsgKey(t);
@@ -94,43 +87,35 @@ __d(
       );
     }
     function _(e, t) {
-      return o(
-        "WAWebMessageAssociationGatingUtils",
-      ).isMessageAssociationInfraEnabled()
-        ? e.map(function (e) {
-            if (!e.associationType) return null;
-            var n = o(
-              "WAWebAssociationProcessor",
-            ).getAssociationProcessorByAssociationType(e.associationType);
-            return n == null || (t === s.Detach && !g(n.processorType))
-              ? null
-              : babelHelpers.extends({}, e, {
-                  viewMode:
-                    t === s.Detach
-                      ? o("WAWebViewMode.flow").ViewModeType.VISIBLE
-                      : n.viewMode,
-                });
-          })
-        : [];
+      return e.map(function (e) {
+        if (!e.associationType) return null;
+        var n = o(
+          "WAWebAssociationProcessor",
+        ).getAssociationProcessorByAssociationType(e.associationType);
+        return n == null || (t === s.Detach && !g(n.processorType))
+          ? null
+          : babelHelpers.extends({}, e, {
+              viewMode:
+                t === s.Detach
+                  ? o("WAWebViewMode.flow").ViewModeType.VISIBLE
+                  : n.viewMode,
+            });
+      });
     }
     function f(e) {
-      return o(
-        "WAWebMessageAssociationGatingUtils",
-      ).isMessageAssociationInfraEnabled()
-        ? e.map(function (e) {
-            if (!e.associationType) return null;
-            var t = o(
-              "WAWebAssociationProcessor",
-            ).getAssociationProcessorByAssociationType(e.associationType);
-            return t == null || !g(t.processorType)
-              ? null
-              : babelHelpers.extends({}, e, {
-                  viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                  parentMsgKey: void 0,
-                  associationType: void 0,
-                });
-          })
-        : [];
+      return e.map(function (e) {
+        if (!e.associationType) return null;
+        var t = o(
+          "WAWebAssociationProcessor",
+        ).getAssociationProcessorByAssociationType(e.associationType);
+        return t == null || !g(t.processorType)
+          ? null
+          : babelHelpers.extends({}, e, {
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              parentMsgKey: void 0,
+              associationType: void 0,
+            });
+      });
     }
     function g(e) {
       return (

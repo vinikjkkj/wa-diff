@@ -36,6 +36,7 @@ __d(
         "ReadByPeer",
         "NotifyForHighlights",
         "IgnoreGroupHistoryNotice",
+        "BotResponseStreaming",
       ]),
       l = e;
     i.default = l;

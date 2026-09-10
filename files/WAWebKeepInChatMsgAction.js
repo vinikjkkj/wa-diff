@@ -29,7 +29,6 @@ __d(
     "WAWebKeepInChatPerfWamEvent",
     "WAWebKicNux.react",
     "WAWebLidMigrationUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
@@ -91,12 +90,7 @@ __d(
             ),
           );
           var i = !1;
-          if (
-            r != null &&
-            o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled()
-          ) {
+          if (r != null) {
             var l = o(
               "WAWebAssociationProcessor",
             ).getAssociationProcessorByAssociationType(r);
@@ -131,12 +125,7 @@ __d(
           kicTimestampMs: r,
           keptCount: t,
         };
-      if (
-        a != null &&
-        o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      ) {
+      if (a != null) {
         var s = o(
           "WAWebAssociationProcessor",
         ).getAssociationProcessorByAssociationType(a);

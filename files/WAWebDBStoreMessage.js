@@ -17,7 +17,6 @@ __d(
     "WAWebDBMsgUtils",
     "WAWebDBStoreMessageAssociations",
     "WAWebLinkify",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgDataUtils",
     "WAWebMsgGetters",
@@ -171,12 +170,9 @@ __d(
                 return (
                   d.addStage("messages ready for storing in db"),
                   yield h.bulkCreate(x),
-                  o(
-                    "WAWebMessageAssociationGatingUtils",
-                  ).isMessageAssociationInfraEnabled() &&
-                    (yield o(
-                      "WAWebDBStoreMessageAssociations",
-                    ).bulkStoreMessageAssociations(x)),
+                  yield o(
+                    "WAWebDBStoreMessageAssociations",
+                  ).bulkStoreMessageAssociations(x),
                   yield o(
                     "WAWebQuarantineDataStore",
                   ).bulkCreateOrReplaceQuarantineData(_, b),

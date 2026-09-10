@@ -21,6 +21,7 @@ __d(
     "WAWebFormatRevokedMsg",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
+    "WAWebGetPlainTextFromBotMsg",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebL10N",
@@ -431,6 +432,16 @@ __d(
           f = "" + ae + ie;
           break;
         }
+        case "rich_response": {
+          if (m) {
+            var le = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(
+              e,
+              { includeBodyFallback: !1 },
+            );
+            le != null && le !== "" && (f = r("WAWebUnformatMsg")(e, le));
+          }
+          break;
+        }
         case "notification_template":
         case "protocol":
         case "hsm":
@@ -441,7 +452,6 @@ __d(
         case "keep_in_chat":
         case "request_phone_number":
         case "automated_greeting_message":
-        case "rich_response":
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE:
         case "loading_media":
@@ -461,11 +471,11 @@ __d(
             ""
           );
       }
-      var le = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "",
-        se = "" + le + f.toString();
+      var se = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "",
+        ue = "" + se + f.toString();
       return e.isSpoiler === !0
-        ? o("WAWebSpoilerNotificationMask").maskSpoilersForNotification(se)
-        : se;
+        ? o("WAWebSpoilerNotificationMask").maskSpoilersForNotification(ue)
+        : ue;
     }
     function f(e) {
       var t = e.msgDir,

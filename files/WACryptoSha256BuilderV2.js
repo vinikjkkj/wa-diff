@@ -18,7 +18,8 @@ __d(
       ],
       s = 64,
       u = 4,
-      c = (function () {
+      c = Math.pow(2, u * 8),
+      d = (function () {
         function t() {
           ((this.h0 = 0),
             (this.h1 = 0),
@@ -29,7 +30,7 @@ __d(
             (this.h6 = 0),
             (this.h7 = 0),
             (this.tail = new Uint8Array(0)),
-            (this.size = BigInt(0)),
+            (this.size = 0),
             (this.$1 = new Int32Array(64)),
             this.reset());
         }
@@ -45,7 +46,7 @@ __d(
               (this.h6 = 528734635),
               (this.h7 = 1541459225),
               (this.tail = new Uint8Array(0)),
-              (this.size = BigInt(0)));
+              (this.size = 0));
           }),
           (n.update = function (t) {
             var e = 0;
@@ -57,7 +58,7 @@ __d(
                   r.set(this.tail),
                   r.set(t, this.tail.length),
                   (this.tail = r),
-                  (this.size += BigInt(t.length) * BigInt(8)),
+                  (this.size += t.length * 8),
                   this
                 );
               }
@@ -71,7 +72,7 @@ __d(
               (this.$2(t.subarray(e, e + s)), (e += s));
             return (
               (this.tail = e < t.length ? t.slice(e) : new Uint8Array(0)),
-              (this.size += BigInt(t.length) * BigInt(8)),
+              (this.size += t.length * 8),
               this
             );
           }),
@@ -83,10 +84,10 @@ __d(
               this.tail.length + 9 > s)
             ) {
               this.$2(e);
-              var t = f(new Uint8Array(0), this.size);
+              var t = g(new Uint8Array(0), this.size);
               this.$2(t);
             } else {
-              var n = f(e, this.size);
+              var n = g(e, this.size);
               this.$2(n);
             }
           }),
@@ -113,14 +114,14 @@ __d(
                 (n[o] << 24) | (n[o + 1] << 16) | (n[o + 2] << 8) | n[o + 3];
             }
             for (var a = 16; a < 64; a++) {
-              var i = d(t[a - 15]),
-                l = m(t[a - 2]);
+              var i = m(t[a - 15]),
+                l = p(t[a - 2]);
               t[a] = (t[a - 16] + (t[a - 7] + i + l)) >>> 0;
             }
             for (
               var s = this.h0,
                 c = this.h1,
-                _ = this.h2,
+                d = this.h2,
                 f = this.h3,
                 g = this.h4,
                 h = this.h5,
@@ -130,24 +131,24 @@ __d(
               b < 64;
               b++
             ) {
-              var v = p(g, 6) ^ p(g, 11) ^ p(g, 25),
+              var v = _(g, 6) ^ _(g, 11) ^ _(g, 25),
                 S = (g & h) ^ (~g & y),
-                R = p(s, 2) ^ p(s, 13) ^ p(s, 22),
-                L = (s & c) ^ (s & _) ^ (c & _),
+                R = _(s, 2) ^ _(s, 13) ^ _(s, 22),
+                L = (s & c) ^ (s & d) ^ (c & d),
                 E = C + v + S + e[b] + t[b],
                 k = R + L;
               ((C = y),
                 (y = h),
                 (h = g),
                 (g = (f + E) >>> 0),
-                (f = _),
-                (_ = c),
+                (f = d),
+                (d = c),
                 (c = s),
                 (s = (E + k) >>> 0));
             }
             ((this.h0 = (this.h0 + s) >>> 0),
               (this.h1 = (this.h1 + c) >>> 0),
-              (this.h2 = (this.h2 + _) >>> 0),
+              (this.h2 = (this.h2 + d) >>> 0),
               (this.h3 = (this.h3 + f) >>> 0),
               (this.h4 = (this.h4 + g) >>> 0),
               (this.h5 = (this.h5 + h) >>> 0),
@@ -157,31 +158,32 @@ __d(
           t
         );
       })();
-    function d(e) {
-      var t = p(e, 7),
-        n = p(e, 18),
-        r = _(e, 3);
-      return t ^ n ^ r;
-    }
     function m(e) {
-      var t = p(e, 17),
-        n = p(e, 19),
-        r = _(e, 10);
+      var t = _(e, 7),
+        n = _(e, 18),
+        r = f(e, 3);
       return t ^ n ^ r;
     }
-    function p(e, t) {
-      return (e >>> t) | (e << (32 - t));
+    function p(e) {
+      var t = _(e, 17),
+        n = _(e, 19),
+        r = f(e, 10);
+      return t ^ n ^ r;
     }
     function _(e, t) {
-      return e >>> t;
+      return (e >>> t) | (e << (32 - t));
     }
     function f(e, t) {
+      return e >>> t;
+    }
+    function g(e, t) {
       var n = new Uint8Array(s);
       n.set(e);
-      var r = new DataView(n.buffer, n.byteOffset + n.length - 8, 8);
-      return (r.setBigUint64(0, t, !1), n);
+      var r = new DataView(n.buffer, n.byteOffset + n.length - 8, 8),
+        o = Math.floor(t / c);
+      return (r.setUint32(0, o, !1), r.setUint32(4, t - o * c, !1), n);
     }
-    l.Sha256BuilderV2 = c;
+    ((l.Sha256BuilderV2 = d), (l.pad = g));
   },
   98,
 );

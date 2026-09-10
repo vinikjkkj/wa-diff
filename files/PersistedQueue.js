@@ -246,8 +246,10 @@ __d(
             var e = this.$1,
               t = [];
             if (!e) return t;
-            do t.push(e.item);
-            while ((e = e.prev));
+            do {
+              var n;
+              t.push(r("nullthrows")(e).item);
+            } while ((e = (n = e) == null ? void 0 : n.prev));
             return t.reverse();
           }),
           (t.markItemAsCompleted = function (t) {

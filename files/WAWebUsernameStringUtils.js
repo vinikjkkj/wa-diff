@@ -49,10 +49,16 @@ __d(
         /*BTDS*/ "This account can't be reached with their key right now. Please try again later or contact them by phone number.",
       );
     }
-    function b() {
-      return s._(/*BTDS*/ "Something went wrong. Please try again later.");
+    function b(e, t) {
+      return s._(/*BTDS*/ "Keys must be {min}-{max} characters.", [
+        s._param("min", e),
+        s._param("max", t),
+      ]);
     }
     function v() {
+      return s._(/*BTDS*/ "Something went wrong. Please try again later.");
+    }
+    function S() {
       return s._(/*BTDS*/ "We couldn't complete your request.");
     }
     ((l.getUsernameInvalidCharacterMessage = e),
@@ -67,8 +73,9 @@ __d(
       (l.getUsernameKeyWrongKeyMessage = h),
       (l.getUsernameKeyRequestorRateLimitedMessage = y),
       (l.getUsernameKeyRequesteeRateLimitedMessage = C),
-      (l.getUsernameKeyUnexpectedErrorMessage = b),
-      (l.getUsernameGenericErrorMessage = v));
+      (l.getUsernameKeyInvalidLengthMessage = b),
+      (l.getUsernameKeyUnexpectedErrorMessage = v),
+      (l.getUsernameGenericErrorMessage = S));
   },
   226,
 );

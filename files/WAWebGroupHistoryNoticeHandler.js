@@ -25,7 +25,7 @@ __d(
             t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE &&
             o(
               "WAWebGroupHistoryGating",
-            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(t.id.remote)
+            ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
           ) {
             var n = t.groupHistoryBundleMetadata;
             if (n != null) {

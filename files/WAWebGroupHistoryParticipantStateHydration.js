@@ -21,7 +21,7 @@ __d(
     function c(e) {
       return o(
         "WAWebGroupHistoryGating",
-      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
+      ).isGroupHistoryPostJoinSenderPrerequisitesEnabled()
         ? m(e)
         : (s || (s = n("Promise"))).resolve();
     }

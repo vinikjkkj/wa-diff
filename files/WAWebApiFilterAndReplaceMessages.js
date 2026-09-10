@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebApiOrphanRevoke",
     "WAWebLidMigrationUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
   ],
@@ -12,12 +11,7 @@ __d(
     var e;
     function s(e) {
       return function (t) {
-        return t.associationType != null &&
-          o(
-            "WAWebMessageAssociationGatingUtils",
-          ).isMessageAssociationInfraEnabled()
-          ? e.get(t.id.toString())
-          : t;
+        return t.associationType != null ? e.get(t.id.toString()) : t;
       };
     }
     function u(e, t) {

@@ -217,23 +217,6 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WACryptoHkdf").extractWithSaltAndExpand(
-            e,
-            null,
-            "adv_secret",
-            32,
-          );
-          return t;
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.linkCodeKey,
             n = e.linkCodePairingCompanionADVEphemeralKeyPair,
             a = e.linkCodePairingWrappedPrimaryEphemeralPub,
@@ -250,7 +233,7 @@ __d(
           var c = new Uint8Array(12);
           return (
             self.crypto.getRandomValues(c),
-            N(
+            $(
               a,
               i,
               t,
@@ -263,15 +246,15 @@ __d(
             )
           );
         })),
-        P.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function N(e, t, n, r, o, a, i, l, s) {
-      return M.apply(this, arguments);
+    function $(e, t, n, r, o, a, i, l, s) {
+      return P.apply(this, arguments);
     }
-    function M() {
+    function P() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i, l, s, u, c) {
             var d = new (o("WABinary").Binary)(e),
               p = d.readByteArrayView(32),
@@ -315,7 +298,7 @@ __d(
             };
           },
         )),
-        M.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     ((l.generateRandomCode = d),
@@ -327,9 +310,8 @@ __d(
       (l.getBundleEncryptionKey = L),
       (l.getKeyBundle = k),
       (l.encryptKeyBundle = I),
-      (l.createAdvSecret = D),
-      (l.companionFinish = $),
-      (l.companionFinishInternal = N));
+      (l.companionFinish = D),
+      (l.companionFinishInternal = $));
   },
   98,
 );

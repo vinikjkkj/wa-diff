@@ -27,9 +27,9 @@ __d(
           var t = e.atTimeMs,
             n = e.chainBytes,
             r = e.rootCertVersion,
-            a = yield f(n, r),
+            a = yield p(n, r),
             i = s.get(a);
-          if (i == null || !h(i.chainBytes, n)) return null;
+          if (i == null || !f(i.chainBytes, n)) return null;
           if (t < i.notBeforeMs || t > i.notAfterMs) return (s.delete(a), null);
           for (var l of i.serialNumbers)
             if (
@@ -62,11 +62,11 @@ __d(
               m = new Date(c.notBefore.value).getTime();
             if (!Number.isFinite(d) || !Number.isFinite(m)) return;
             (d < l && (l = d), m > u && (u = m));
-            var p = o("WAWebCertificateUtils").getCertificateSerialNumber(c);
-            p != null && i.push(p);
+            var _ = o("WAWebCertificateUtils").getCertificateSerialNumber(c);
+            _ != null && i.push(_);
           }
-          var _ = yield f(n, a);
-          s.put(_, {
+          var f = yield p(n, a);
+          s.put(f, {
             publicKey: r,
             chainBytes: n,
             notBeforeMs: u,
@@ -77,18 +77,12 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p() {
-      return s.getCurrentSize();
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
     function _() {
-      s.clear();
-    }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new TextEncoder().encode(t),
             r = n.length + 4;
           for (var a of e) r += 4 + a.length;
@@ -111,10 +105,10 @@ __d(
           var d = yield crypto.subtle.digest("SHA-256", i);
           return o("WAHex").toLowerCaseHex(new Uint8Array(d));
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function f(e, t) {
       if (e.length !== t.length) return !1;
       for (var n = 0; n < e.length; n++) {
         if (e[n].length !== t[n].length) return !1;
@@ -123,10 +117,7 @@ __d(
       }
       return !0;
     }
-    ((l.getCachedLeafPublicKey = u),
-      (l.cacheLeafPublicKey = d),
-      (l.getLeafCertificateCacheSize = p),
-      (l.clearLeafCertificateCache = _));
+    ((l.getCachedLeafPublicKey = u), (l.cacheLeafPublicKey = d));
   },
   98,
 );

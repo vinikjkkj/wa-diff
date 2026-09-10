@@ -9,24 +9,24 @@ __d(
         e.ListType.AI_RESPONDING,
       ]),
       c = new Set([e.ListType.CUSTOM, e.ListType.PREDEFINED]);
-    function d(e, t) {
-      var n = m(e),
-        r = p(n),
-        o = r.customLabels,
-        a = r.staticLabels,
-        i = _(a, o, t),
-        l = new Set(
-          i.map(function (e) {
+    function d(e, t, n) {
+      var r = m(e),
+        o = p(r, n),
+        a = o.customLabels,
+        i = o.staticLabels,
+        l = _(i, a, t),
+        s = new Set(
+          l.map(function (e) {
             return e.id;
           }),
         ),
-        s = [].concat(o).sort(function (e, t) {
+        u = [].concat(a).sort(function (e, t) {
           return e.orderIndex - t.orderIndex;
         }),
-        u = [].concat(a, s).filter(function (e) {
-          return !l.has(e.id);
+        c = [].concat(i, u).filter(function (e) {
+          return !s.has(e.id);
         });
-      return { overflowCount: u.length, overflowedLabels: u, visibleLabels: i };
+      return { overflowCount: c.length, overflowedLabels: c, visibleLabels: l };
     }
     function m(e) {
       var t = [];
@@ -36,14 +36,14 @@ __d(
       }
       return t;
     }
-    function p(e) {
-      var t = [],
-        n = [];
-      for (var r of e)
-        r.type != null && u.has(r.type)
-          ? t.push(r)
-          : r.type != null && c.has(r.type) && n.push(r);
-      return { customLabels: n, staticLabels: t };
+    function p(e, t) {
+      var n = [],
+        r = [];
+      for (var o of e)
+        t && o.type != null && u.has(o.type)
+          ? n.push(o)
+          : o.type != null && c.has(o.type) && r.push(o);
+      return { customLabels: r, staticLabels: n };
     }
     function _(e, t, n) {
       var r = [];

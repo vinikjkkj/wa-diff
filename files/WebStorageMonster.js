@@ -9,7 +9,6 @@ __d(
     "StringTransformations",
     "UserActivity",
     "WebStorage",
-    "WebStorageCleanupReason",
     "WebStorageMonsterLoggingURI",
     "ifRequired",
     "isEmpty",
@@ -116,9 +115,8 @@ __d(
             }
           }
         },
-        cleanOnLogout: function (n, a) {
-          (o("WebStorageCleanupReason").setLastCleanupReason(a),
-            r("CacheStorage").disablePersistentWrites(),
+        cleanOnLogout: function (n) {
+          (r("CacheStorage").disablePersistentWrites(),
             r("ifRequired")("WebAsyncStorage", function (e) {
               e.disablePersistentWrites();
             }),
@@ -131,7 +129,7 @@ __d(
         },
         registerLogoutForm: function (t, n) {
           r("Event").listen(t, "submit", function (e) {
-            h.cleanOnLogout(n, "WebStorageMonster.registerLogoutForm");
+            h.cleanOnLogout(n);
           });
         },
         schedule: function (t) {

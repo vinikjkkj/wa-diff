@@ -9,7 +9,6 @@ __d(
     "WAWebCurrentUser",
     "WAWebDBProcessMessage",
     "WAWebLid1X1MigrationGating",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebProtobufsServerSync.pb",
@@ -181,12 +180,7 @@ __d(
                                   o("WAWebMsgCollection").MsgCollection.get(E);
                                 if (k) {
                                   var I = k.associationType;
-                                  if (
-                                    I != null &&
-                                    o(
-                                      "WAWebMessageAssociationGatingUtils",
-                                    ).isMessageAssociationInfraEnabled()
-                                  ) {
+                                  if (I != null) {
                                     var T = o(
                                       "WAWebAssociationProcessor",
                                     ).getAssociationProcessorByAssociationType(

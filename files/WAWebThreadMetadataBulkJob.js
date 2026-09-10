@@ -7,7 +7,6 @@ __d(
     "WAWebBackendApi",
     "WAWebDBDeleteAssociatedMsgsByMsgKey",
     "WAWebFetchMessagesInThread",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebRequestDeleteAddOns",
@@ -207,18 +206,14 @@ __d(
                 lowerInclusive: !1,
                 upperInclusive: !1,
                 returnKeyType: "primary_key",
-              }),
-            i = [o("WAWebSchemaMessage").getMessageTable().bulkRemove(a)];
+              });
           return (
-            o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled() &&
-              i.push(
-                o(
-                  "WAWebDBDeleteAssociatedMsgsByMsgKey",
-                ).bulkDeleteMessagesByMsgKeys(a),
-              ),
-            yield (s || (s = n("Promise"))).all(i),
+            yield (s || (s = n("Promise"))).all([
+              o("WAWebSchemaMessage").getMessageTable().bulkRemove(a),
+              o(
+                "WAWebDBDeleteAssociatedMsgsByMsgKey",
+              ).bulkDeleteMessagesByMsgKeys(a),
+            ]),
             a
           );
         })),

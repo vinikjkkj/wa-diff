@@ -6,7 +6,6 @@ __d(
     "WAWebDBStoreMessage",
     "WAWebDBStoreMessageAssociations",
     "WAWebDBStoreMsgsUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebNewsletterDBUtils",
@@ -78,12 +77,9 @@ __d(
                     })(),
                   )).filter(Boolean);
                 try {
-                  (o(
-                    "WAWebMessageAssociationGatingUtils",
-                  ).isMessageAssociationInfraEnabled() &&
-                    (yield o(
-                      "WAWebDBStoreMessageAssociations",
-                    ).bulkStoreMessageAssociations(d)),
+                  (yield o(
+                    "WAWebDBStoreMessageAssociations",
+                  ).bulkStoreMessageAssociations(d),
                     yield i.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(d));
                 } catch (e) {
                   o("WALogger")

@@ -2,7 +2,6 @@ __d(
   "WAWebAssociatedMessagesRevokeUtils",
   [
     "WAWebDBAssociatedMsgsAttachDetachAPI",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMsgCollection",
     "asyncToGeneratorRuntime",
   ],
@@ -14,12 +13,6 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled()
-          )
-            return [];
           var n = yield u([e]);
           return n.map(t);
         })),

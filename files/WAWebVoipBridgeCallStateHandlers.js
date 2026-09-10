@@ -229,7 +229,14 @@ __d(
               (L.isCallLink ||
                 ((L.isCallLink = !0),
                 (L.callLinkToken = s),
-                (L.isGuestEligible = a.isGuestEligible),
+                L.trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallModelEvents
+                      .CALL_LINK_STATE,
+                  ),
+                )),
+              L.isGuestEligible !== a.isGuestEligible &&
+                ((L.isGuestEligible = a.isGuestEligible),
                 L.trigger(
                   o("WAWebVoipEventConstants").getChangeEvent(
                     o("WAWebVoipEventConstants").VoipCallModelEvents

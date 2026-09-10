@@ -71,91 +71,72 @@ __d(
             if (this.msg.read === !0)
               return r("WAWebNotificationMuteReason").ReadByPeer;
             var e = o("WAWebFrontendMsgGetters").getChat(this.msg);
-            return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
-              ? r("WAWebNotificationMuteReason").AppState
-              : o(
-                    "WAWebGroupSafetyCheckUtils",
-                  ).shouldMuteMentionWhileGroupSafetyChecked(this.msg)
-                ? r("WAWebNotificationMuteReason").GroupSafetyCheck
-                : o("WAWebNotificationHelpers").isMutedAndNotMentioned(this.msg)
-                  ? r("WAWebNotificationMuteReason").MutedChat
-                  : o("WAWebNotificationHelpers").isMentionAllMutedForMsg(
-                        this.msg,
-                      )
-                    ? r("WAWebNotificationMuteReason").MentionAllMuted
-                    : o("WAWebNotificationHelpers").isArchivedAndNotMentioned(
-                          this.msg,
-                        )
-                      ? r("WAWebNotificationMuteReason").ArchivedChat
-                      : o("WAWebNotificationHelpers").isCommunityHomeAdd(
-                            this.msg,
-                          )
-                        ? r("WAWebNotificationMuteReason")
-                            .IgnoreAddedToCommunityHome
-                        : this.msg.type ===
-                            o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE
-                          ? r("WAWebNotificationMuteReason")
-                              .IgnoreGroupHistoryNotice
-                          : !r("gkx")("26258") &&
-                              o(
-                                "WAWebNotificationHelpers",
-                              ).shouldIgnoreGroupMsg(this.msg)
-                            ? r("WAWebNotificationMuteReason").IgnoreGroupMsg
-                            : o("WAWebMsgGetters").getIsFutureproof(this.msg)
-                              ? r("WAWebNotificationMuteReason")
-                                  .IgnoreFutureProof
-                              : o(
-                                    "WAWebNotificationHelpers",
-                                  ).isOfflineResumeInProgress()
-                                ? r("WAWebNotificationMuteReason")
-                                    .OfflineResumeInProgress
-                                : o(
-                                      "WAWebMsgGetters",
-                                    ).getIsBizContentPlaceholder(this.msg)
-                                  ? r("WAWebNotificationMuteReason")
-                                      .IgnoreBizContentPlaceholder
-                                  : o("WAWebMsgGetters").getIsCallSilenced(
-                                        this.msg,
-                                      ) ||
-                                      (o(
-                                        "WAWebVoipGatingUtils",
-                                      ).isCallingEnabled() &&
-                                        this.msg.type ===
-                                          o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
-                                        this.msg.subtype == null &&
-                                        !o("WAWebMsgGetters").getIsMissedCall(
-                                          this.msg,
-                                        ))
-                                    ? r("WAWebNotificationMuteReason")
-                                        .IgnoreCallMsgs
-                                    : o("WAWebBotUtils").isHiddenBotWid(e.id) ||
-                                        (e.id.isBot() &&
-                                          (!o(
-                                            "WAWebBotBaseGating",
-                                          ).isBotEnabled() ||
-                                            this.msg.botMsgBodyType ===
-                                              o("WAWebBotTypes").BotMsgBodyType
-                                                .VOICE))
-                                      ? r("WAWebNotificationMuteReason")
-                                          .IgnoreBotMsgs
-                                      : f(this.msg)
-                                        ? r("WAWebNotificationMuteReason")
-                                            .IgnoreInternalSilentTag
-                                        : o(
-                                              "WAWebViewModeUtils",
-                                            ).isViewModeVisibleInSurface(
-                                              o("WAWebViewMode.flow")
-                                                .ViewModeSurface.NOTIFICATION,
-                                              this.msg.viewMode,
-                                            )
-                                          ? o(
-                                              "WAWebBizAiAgentStatusUtils",
-                                            ).shouldMuteNotification(e)
-                                            ? r("WAWebNotificationMuteReason")
-                                                .AIRepliesOn
-                                            : null
-                                          : r("WAWebNotificationMuteReason")
-                                              .IgnoreHiddenViewModeMsgs;
+            if (o("WAWebNotificationHelpers").shouldMuteDueToAppState(t))
+              return r("WAWebNotificationMuteReason").AppState;
+            if (
+              o(
+                "WAWebGroupSafetyCheckUtils",
+              ).shouldMuteMentionWhileGroupSafetyChecked(this.msg)
+            )
+              return r("WAWebNotificationMuteReason").GroupSafetyCheck;
+            if (o("WAWebNotificationHelpers").isMutedAndNotMentioned(this.msg))
+              return r("WAWebNotificationMuteReason").MutedChat;
+            if (o("WAWebNotificationHelpers").isMentionAllMutedForMsg(this.msg))
+              return r("WAWebNotificationMuteReason").MentionAllMuted;
+            if (
+              o("WAWebNotificationHelpers").isArchivedAndNotMentioned(this.msg)
+            )
+              return r("WAWebNotificationMuteReason").ArchivedChat;
+            if (o("WAWebNotificationHelpers").isCommunityHomeAdd(this.msg))
+              return r("WAWebNotificationMuteReason")
+                .IgnoreAddedToCommunityHome;
+            if (
+              this.msg.type ===
+              o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE
+            )
+              return r("WAWebNotificationMuteReason").IgnoreGroupHistoryNotice;
+            if (
+              !r("gkx")("26258") &&
+              o("WAWebNotificationHelpers").shouldIgnoreGroupMsg(this.msg)
+            )
+              return r("WAWebNotificationMuteReason").IgnoreGroupMsg;
+            if (o("WAWebMsgGetters").getIsFutureproof(this.msg))
+              return r("WAWebNotificationMuteReason").IgnoreFutureProof;
+            if (o("WAWebNotificationHelpers").isOfflineResumeInProgress())
+              return r("WAWebNotificationMuteReason").OfflineResumeInProgress;
+            if (o("WAWebMsgGetters").getIsBizContentPlaceholder(this.msg))
+              return r("WAWebNotificationMuteReason")
+                .IgnoreBizContentPlaceholder;
+            if (
+              o("WAWebMsgGetters").getIsCallSilenced(this.msg) ||
+              (o("WAWebVoipGatingUtils").isCallingEnabled() &&
+                this.msg.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
+                this.msg.subtype == null &&
+                !o("WAWebMsgGetters").getIsMissedCall(this.msg))
+            )
+              return r("WAWebNotificationMuteReason").IgnoreCallMsgs;
+            if (o("WAWebBotUtils").isHiddenBotWid(e.id))
+              return r("WAWebNotificationMuteReason").IgnoreBotMsgs;
+            if (e.id.isBot()) {
+              if (
+                !o("WAWebBotBaseGating").isBotEnabled() ||
+                this.msg.botMsgBodyType ===
+                  o("WAWebBotTypes").BotMsgBodyType.VOICE
+              )
+                return r("WAWebNotificationMuteReason").IgnoreBotMsgs;
+              if (this.msg.activeBotMsgStreamingInProgress === !0)
+                return r("WAWebNotificationMuteReason").BotResponseStreaming;
+            }
+            return f(this.msg)
+              ? r("WAWebNotificationMuteReason").IgnoreInternalSilentTag
+              : o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+                    o("WAWebViewMode.flow").ViewModeSurface.NOTIFICATION,
+                    this.msg.viewMode,
+                  )
+                ? o("WAWebBizAiAgentStatusUtils").shouldMuteNotification(e)
+                  ? r("WAWebNotificationMuteReason").AIRepliesOn
+                  : null
+                : r("WAWebNotificationMuteReason").IgnoreHiddenViewModeMsgs;
           }),
           (a.shouldSquelch = function () {
             var e = o(

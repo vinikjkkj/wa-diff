@@ -3,13 +3,10 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e(e) {
-      return l(e.id);
-    }
-    function l(e) {
-      var t = s(e);
+      var t = l(e);
       return [e.remote.toString({ legacy: !0 }), e.id, e.fromMe ? "1" : "0", t];
     }
-    function s(e) {
+    function l(e) {
       var t = "0";
       return (
         e.participant &&
@@ -19,9 +16,8 @@ __d(
         t
       );
     }
-    ((i.constructMsgKeySegments = e),
-      (i.constructMsgKeySegmentsFromMsgKey = l),
-      (i.extractParticipantForSync = s));
+    ((i.constructMsgKeySegmentsFromMsgKey = e),
+      (i.extractParticipantForSync = l));
   },
   66,
 );

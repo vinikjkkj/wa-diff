@@ -10,7 +10,6 @@ __d(
     "WAWebDBStoreMessage",
     "WAWebDBStoreMessageAssociations",
     "WAWebDBStoreMsgsUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebNoop",
@@ -258,12 +257,9 @@ __d(
                       w.length,
                     );
                   try {
-                    (o(
-                      "WAWebMessageAssociationGatingUtils",
-                    ).isMessageAssociationInfraEnabled() &&
-                      (yield o(
-                        "WAWebDBStoreMessageAssociations",
-                      ).bulkStoreMessageAssociations(w, !0),
+                    (yield o(
+                      "WAWebDBStoreMessageAssociations",
+                    ).bulkStoreMessageAssociations(w, !0),
                       a &&
                         o("WALogger").LOG(
                           f ||
@@ -272,7 +268,7 @@ __d(
                               " messages: associations stored",
                             ])),
                           e.length,
-                        )),
+                        ),
                       yield C.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(
                         w,
                         !!a,

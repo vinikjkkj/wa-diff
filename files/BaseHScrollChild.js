@@ -25,8 +25,7 @@ __d(
       c = u || (u = o("react")),
       d = u.useContext,
       m = { flexBasis: "x1mz2wy7", $$css: !0 },
-      p = { ":last-of-type_marginInlineEnd": "x10xlvfm", $$css: !0 },
-      _ = {
+      p = {
         card: {
           flexGrow: "x1c4vz4f",
           flexShrink: "x2lah0s",
@@ -58,25 +57,27 @@ __d(
         },
         gap: function (t) {
           return [
-            p,
-            { marginInlineEnd: t != null ? "x1c9tiao" : t, $$css: !0 },
             {
-              "--x-marginInlineEnd": (function (e) {
+              marginInlineEnd: (t != null ? "x1m6vu9m " : t) + "x10xlvfm",
+              $$css: !0,
+            },
+            {
+              "--x-1wkpfu5": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
               })(t),
             },
           ];
         },
       },
-      f = o("Locale").isRTL();
-    function g(t) {
+      _ = o("Locale").isRTL();
+    function f(t) {
       var n = o("react-compiler-runtime").c(21),
         a,
         i,
         l,
         u,
         m,
-        p,
+        f,
         g,
         h;
       n[0] !== t
@@ -85,7 +86,7 @@ __d(
           (m = t.expanding),
           (l = t.role),
           (g = t.testid),
-          (p = t.type),
+          (f = t.type),
           (h = t.xstyle),
           (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
           (n[0] = t),
@@ -94,7 +95,7 @@ __d(
           (n[3] = l),
           (n[4] = u),
           (n[5] = m),
-          (n[6] = p),
+          (n[6] = f),
           (n[7] = g),
           (n[8] = h))
         : ((a = n[1]),
@@ -102,12 +103,12 @@ __d(
           (l = n[3]),
           (u = n[4]),
           (m = n[5]),
-          (p = n[6]),
+          (f = n[6]),
           (g = n[7]),
           (h = n[8]));
       var y = u === void 0 ? !1 : u,
         C = m === void 0 ? !1 : m,
-        b = p === void 0 ? "default" : p,
+        b = f === void 0 ? "default" : f,
         v = d(r("BaseHScrollContext")),
         S = v.role,
         R = v.spacing;
@@ -135,13 +136,13 @@ __d(
             break e;
           }
           case "doubleWidth": {
-            I = _.flexBasisDoubleWidth(E, L);
+            I = p.flexBasisDoubleWidth(E, L);
             break e;
           }
           default:
-            I = _.flexBasis(E);
+            I = p.flexBasis(E);
         }
-        var T = [_.card, f && _.cardRTL, _.gap(L), C && _.cardExpanding, h, I];
+        var T = [p.card, _ && p.cardRTL, p.gap(L), C && p.cardExpanding, h, I];
         ((k =
           S === "grid"
             ? c.jsx(
@@ -180,7 +181,7 @@ __d(
       } else k = n[20];
       return k;
     }
-    l.default = g;
+    l.default = f;
   },
   98,
 );

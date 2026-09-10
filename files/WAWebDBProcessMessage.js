@@ -14,7 +14,6 @@ __d(
     "WAWebDbEncryptionKey",
     "WAWebHandlePlaceholderWam",
     "WAWebLinkify",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebNoop",
     "WAWebSchemaMessage",
@@ -261,12 +260,7 @@ __d(
                           : e.rowId,
                       },
                       r = e.associationType;
-                    if (
-                      r != null &&
-                      o(
-                        "WAWebMessageAssociationGatingUtils",
-                      ).isMessageAssociationInfraEnabled()
-                    ) {
+                    if (r != null) {
                       var a = o(
                         "WAWebAssociationProcessor",
                       ).getAssociationProcessorByAssociationType(r);
@@ -290,9 +284,6 @@ __d(
                       .bulkCreateOrMerge(r),
                   ];
                 (t.length &&
-                  o(
-                    "WAWebMessageAssociationGatingUtils",
-                  ).isMessageAssociationInfraEnabled() &&
                   a.push(
                     o(
                       "WAWebDBDeleteAssociatedMsgsByMsgKey",

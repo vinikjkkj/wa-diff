@@ -91,7 +91,7 @@ __d(
                   )
                   .sendLogs("customer_manager_label_apply_failed");
               }),
-            t != null && t !== o("WAWebLeadStage").LeadStage.NONE)
+            t != null)
           )
             try {
               yield o(

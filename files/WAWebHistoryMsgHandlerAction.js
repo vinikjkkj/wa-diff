@@ -38,7 +38,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingProtoUtils",
     "WAWebMemberLabelHistorySync",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMmSignalSharingExpirationWindowUtils",
     "WAWebMobilePlatforms",
     "WAWebMsgAGMProcessing",
@@ -362,9 +361,6 @@ __d(
                   var L;
                   (v != null &&
                     G.has(v.id.toString()) &&
-                    o(
-                      "WAWebMessageAssociationGatingUtils",
-                    ).isMessageAssociationInfraEnabled() &&
                     G.delete(v == null ? void 0 : v.id.toString()),
                     (v != null &&
                       v.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
@@ -407,13 +403,7 @@ __d(
                     H.push(P);
                   }
                 }
-                if (
-                  v != null &&
-                  R &&
-                  o(
-                    "WAWebMessageAssociationGatingUtils",
-                  ).isMessageAssociationInfraEnabled()
-                ) {
+                if (v != null && R) {
                   var N = v.parentMsgKey.toString();
                   (G.add(N), J.push(v));
                 }
@@ -459,12 +449,7 @@ __d(
                     re,
                   ));
               var oe;
-              if (
-                G.size > 0 &&
-                o(
-                  "WAWebMessageAssociationGatingUtils",
-                ).isMessageAssociationInfraEnabled()
-              ) {
+              if (G.size > 0) {
                 var ae = o(
                   "WAWebProcessMessageAssociationMessages",
                 ).classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache(

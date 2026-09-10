@@ -4,7 +4,6 @@ __d(
     "WAWebAssociationProtoUtils",
     "WAWebE2EProtoUtils",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationValidation",
     "WAWebMsgType",
     "WAWebPollsGatingUtils",
@@ -105,19 +104,14 @@ __d(
           associationType: p,
           viewMode: _,
         };
-        return !o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled() ||
-          !o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled()
+        return o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled()
           ? {
               msgData: babelHelpers.extends(
                 {},
                 t,
                 {
-                  type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-                  kind: o("WAWebMsgType").MsgKind.AssociatedUnknown,
-                  futureproofType:
-                    o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED,
+                  type: o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED,
+                  kind: o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
                 },
                 f,
               ),
@@ -128,8 +122,10 @@ __d(
                 {},
                 t,
                 {
-                  type: o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED,
-                  kind: o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
+                  type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+                  kind: o("WAWebMsgType").MsgKind.AssociatedUnknown,
+                  futureproofType:
+                    o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED,
                 },
                 f,
               ),

@@ -119,10 +119,15 @@ __d(
     }
     function b() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_receiver_dedup",
+        "group_history_after_join_sender_prerequisites",
       );
     }
     function v() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_receiver_dedup",
+      );
+    }
+    function S() {
       return r("justknobx")._("5833");
     }
     ((l.isGroupHistoryReceiverEnabled = e),
@@ -136,8 +141,9 @@ __d(
       (l.getGroupHistoryMessagesTimeLimitSecs = g),
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = y),
       (l.isGroupHistoryAfterJoinPrerequisitesEnabled = C),
-      (l.isGroupHistoryReceiverDedupEnabled = b),
-      (l.isLearnGroupHistoryToggleFromHistorySyncEnabled = v));
+      (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = b),
+      (l.isGroupHistoryReceiverDedupEnabled = v),
+      (l.isLearnGroupHistoryToggleFromHistorySyncEnabled = S));
   },
   98,
 );

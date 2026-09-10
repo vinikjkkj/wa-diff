@@ -23,7 +23,6 @@ __d(
     "WAWebGetEphemeralFieldsMsgActionsUtils",
     "WAWebGroupMetadataCollection",
     "WAWebKeepInChatMsgUtils",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgActionCapability",
     "WAWebMsgCollection",
@@ -120,12 +119,7 @@ __d(
               if (
                 (t.forEach(function (e) {
                   var t = e.associationType;
-                  if (
-                    t != null &&
-                    o(
-                      "WAWebMessageAssociationGatingUtils",
-                    ).isMessageAssociationInfraEnabled()
-                  ) {
+                  if (t != null) {
                     var r = o(
                       "WAWebAssociationProcessor",
                     ).getAssociationProcessorByAssociationType(t);
@@ -326,50 +320,46 @@ __d(
           }
           if (i.type === "message") {
             var u = i.list,
-              c = [];
-            (o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled() &&
-              (c = yield o(
+              c = yield o(
                 "WAWebAssociatedMessagesRevokeUtils",
-              ).getHydratedAssociatedChildMessageModelsFromParentMsgs(u)),
-              (l.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
-                .sendDeleteMsgs([].concat(u, c), a, l.id)
-                .then(function () {
-                  return (
-                    u.forEach(function (e) {
-                      (e.delete(),
-                        o("WAWebAllMediaCollection").AllMediaCollection.remove(
-                          e,
-                        ));
-                    }),
-                    u.length
-                  );
-                })
-                .catch(
-                  o("WAFilteredCatch").filteredCatch(
-                    o("WAWebBackendErrors").ServerStatusCodeError,
-                    function () {
-                      var e = 0;
-                      return (
-                        u.forEach(function (t) {
-                          (t.ack === o("WAWebAck").ACK.FAILED ||
-                            o("WAWebKeepInChatMsgUtils").isExpired(t)) &&
-                            (t.delete(), e++);
-                        }),
-                        c.forEach(function (e) {
-                          (e.ack === o("WAWebAck").ACK.FAILED ||
-                            o("WAWebKeepInChatMsgUtils").isExpired(e)) &&
-                            e.delete();
-                        }),
-                        e
-                      );
-                    },
-                  ),
-                )
-                .finally(function () {
-                  l.promises.sendDeleteMsgs = null;
-                })));
+              ).getHydratedAssociatedChildMessageModelsFromParentMsgs(u);
+            l.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
+              .sendDeleteMsgs([].concat(u, c), a, l.id)
+              .then(function () {
+                return (
+                  u.forEach(function (e) {
+                    (e.delete(),
+                      o("WAWebAllMediaCollection").AllMediaCollection.remove(
+                        e,
+                      ));
+                  }),
+                  u.length
+                );
+              })
+              .catch(
+                o("WAFilteredCatch").filteredCatch(
+                  o("WAWebBackendErrors").ServerStatusCodeError,
+                  function () {
+                    var e = 0;
+                    return (
+                      u.forEach(function (t) {
+                        (t.ack === o("WAWebAck").ACK.FAILED ||
+                          o("WAWebKeepInChatMsgUtils").isExpired(t)) &&
+                          (t.delete(), e++);
+                      }),
+                      c.forEach(function (e) {
+                        (e.ack === o("WAWebAck").ACK.FAILED ||
+                          o("WAWebKeepInChatMsgUtils").isExpired(e)) &&
+                          e.delete();
+                      }),
+                      e
+                    );
+                  },
+                ),
+              )
+              .finally(function () {
+                l.promises.sendDeleteMsgs = null;
+              });
           }
           return (t = l.promises.sendDeleteMsgs) != null
             ? t

@@ -101,7 +101,7 @@ __d(
             );
           try {
             var y = l.externalId,
-              C = yield S({
+              C = yield L({
                 decryptSecret: m,
                 messageSecretOriginalUserJid: p,
                 senderJid: _,
@@ -118,17 +118,17 @@ __d(
                 ])),
               t,
             );
-            var R = r("nullthrows")(
+            var S = r("nullthrows")(
                 (v = n.msgBotInfo) == null ? void 0 : v.botEditTargetId,
                 "decryptMsmsgBotMessage: botEditTargetId",
               ),
-              L = yield S({
+              R = yield L({
                 decryptSecret: m,
                 messageSecretOriginalUserJid: p,
                 senderJid: _,
-                stanzaId: R,
+                stanzaId: S,
               });
-            f = yield o("WACryptoAesGcm").gcmDecrypt(L, g, h, R + "\0" + _);
+            f = yield o("WACryptoAesGcm").gcmDecrypt(R, g, h, S + "\0" + _);
           }
           return f;
         })),
@@ -191,13 +191,13 @@ __d(
                   ),
             ),
             v = o("WAWebWidToJid").widToUserJid(m),
-            R = o("decodeProtobuf").decodeProtobuf(
+            S = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
               e,
             ),
-            L = R.encIv,
-            E = R.encPayload,
-            k = r("nullthrows")(L, "decryptMsmsgFbidBotMessage: encIv"),
+            R = S.encIv,
+            E = S.encPayload,
+            k = r("nullthrows")(R, "decryptMsmsgFbidBotMessage: encIv"),
             I = r("nullthrows")(E, "decryptMsmsgFbidBotMessage: encPayload");
           function T(e) {
             return D.apply(this, arguments);
@@ -205,7 +205,7 @@ __d(
           function D() {
             return (
               (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-                var t = yield S({
+                var t = yield L({
                   decryptSecret: f,
                   messageSecretOriginalUserJid: v,
                   senderJid: C,
@@ -254,64 +254,67 @@ __d(
               (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(n)) == null
                 ? void 0
                 : t.toString(),
-            l = o(
-              "WAWebMsmsgMsgSecretCache",
-            ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(a);
-          if (
-            (l == null &&
-              i != null &&
-              (l = o(
-                "WAWebMsmsgMsgSecretCache",
-              ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(i)),
-            l == null)
-          ) {
-            var s = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .bulkGet([a, i].filter(Boolean)),
-              u = s[0],
-              c = s[1],
-              d = u != null ? u : c;
-            if (d == null && o("WAWebBotGating").isBotOrphanMsgEnabled())
-              throw new (r("WAWebOrphanBotMsgError"))(a);
-            if (d == null)
-              throw new (r("WAWebBotMsgSecretError"))(
-                "decryptMsmsgBotMessage: no target row for the message secret",
-              );
-            var p = o("WAWebDBMessageSerialization").messageFromDbRow(d);
-            if (
-              ((l = p == null ? void 0 : p.messageSecret),
-              o(
-                "WAWebBotGroupGatingUtils",
-              ).isOpenGroupBotParticipantAddEnabled() ||
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isTEEGroupBotParticipantAddEnabled())
-            ) {
-              var _ = p == null ? void 0 : p.botGroupParticipant;
-              _ != null &&
-                o(
-                  "WAWebMsmsgMsgSecretCache",
-                ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
-                  a,
-                  _,
-                );
-            }
-          }
-          if (l == null)
+            l = S(a, i);
+          if (l != null) return m(l);
+          var s = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .bulkGet([a, i].filter(Boolean)),
+            u = s[0],
+            c = s[1],
+            d = u != null ? u : c;
+          if (d == null && o("WAWebBotGating").isBotOrphanMsgEnabled())
+            throw new (r("WAWebOrphanBotMsgError"))(a);
+          if (d == null)
+            throw new (r("WAWebBotMsgSecretError"))(
+              "decryptMsmsgBotMessage: no target row for the message secret",
+            );
+          var p = o("WAWebDBMessageSerialization").messageFromDbRow(d);
+          R(a, p);
+          var _ = p.messageSecret;
+          if (_ == null)
             throw new (r("WAWebBotMsgSecretError"))(
               "decryptMsmsgBotMessage: decryptSecretBase",
             );
-          return m(l);
+          return m(_);
         })),
         v.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function S(e, t) {
+      var n = o(
+        "WAWebMsmsgMsgSecretCache",
+      ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(e);
+      return n != null || t == null
+        ? n
+        : o(
+            "WAWebMsmsgMsgSecretCache",
+          ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(t);
     }
-    function R() {
+    function R(e, t) {
+      if (
+        !(
+          !o(
+            "WAWebBotGroupGatingUtils",
+          ).isOpenGroupBotParticipantAddEnabled() &&
+          !o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
+        )
+      ) {
+        var n = t.botGroupParticipant;
+        n != null &&
+          o(
+            "WAWebMsmsgMsgSecretCache",
+          ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
+            e,
+            n,
+          );
+      }
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.decryptSecret,
             n = e.messageSecretOriginalUserJid,
             r = e.senderJid,
@@ -324,12 +327,12 @@ __d(
             );
           return l;
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
     ((l.genBotMsgSecretFromMsgSecret = m),
       (l.decryptMsmsgBotMessage = _),
-      (l.genBotDecryptionKey = S));
+      (l.genBotDecryptionKey = L));
   },
   98,
 );

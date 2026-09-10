@@ -43,15 +43,12 @@ __d(
             ((s = e.shouldWriteNote == null ? void 0 : e.shouldWriteNote()) ==
               null ||
               s) &&
-            (yield o("WAWebNoteAction").addOrEditNoteAction(
-              {
-                actionType: "add",
-                noteType: "unstructured",
-                chatJid: e.chatJid,
-                content: c,
-              },
-              !0,
-            ));
+            (yield o("WAWebNoteAction").addOrEditNoteAction({
+              actionType: "add",
+              noteType: "unstructured",
+              chatJid: e.chatJid,
+              content: c,
+            }));
         })),
         s.apply(this, arguments)
       );

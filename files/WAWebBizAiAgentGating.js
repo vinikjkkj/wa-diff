@@ -4,6 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebBizAiLargeScreensGateModel",
     "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
+    "WAWebBizAiWebSmartComposerAiListsGateModel",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,11 +63,18 @@ __d(
     }
     function h() {
       return (
-        y() &&
+        C() &&
         o("WAWebABProps").getABPropConfigValue("biz_ai_responding_list_enabled")
       );
     }
     function y() {
+      return (
+        o(
+          "WAWebBizAiWebSmartComposerAiListsGateModel",
+        ).isBizAiWebSmartComposerAiListsGateEnabled() && h()
+      );
+    }
+    function C() {
       return (
         o(
           "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
@@ -76,57 +84,57 @@ __d(
         ) === !0
       );
     }
-    function C() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_priority_list_item_expire_days",
       );
     }
-    var b = 0,
-      v = 1,
-      S = 2;
-    function R() {
+    var v = 0,
+      S = 1,
+      R = 2;
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function L() {
-      return R() !== b;
-    }
     function E() {
+      return L() !== v;
+    }
+    function k() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function k() {
+    function I() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
         ) === !0
       );
     }
-    function I() {
+    function T() {
       return (
         o("WAWebABProps").getABPropConfigValue("biz_ai_web_gdrive_enabled") ===
         !0
       );
     }
-    function T() {
+    function D() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_integration_hub_enabled",
         ) === !0
       );
     }
-    function D() {
+    function x() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_appointments_enabled",
         ) === !0
       );
     }
-    function x() {
+    function $() {
       return (function (e) {
         return e === "EXPERIMENT"
           ? "EXPERIMENT"
@@ -150,19 +158,20 @@ __d(
       (l.isAiReplyFabConfirmModalEnabled = f),
       (l.isAiAgentMessageEditingEnabled = g),
       (l.isAiRespondingChipEnabled = h),
-      (l.isHandoffRemovalTimingSyncEnabled = y),
-      (l.getHandoffListExpireDays = C),
-      (l.MULTI_WEBSITE_DISABLED = b),
-      (l.MULTI_WEBSITE_BRAZIL = v),
-      (l.MULTI_WEBSITE_LATAM = S),
-      (l.getMultiWebsiteMode = R),
-      (l.isMultiWebsiteEnabled = L),
-      (l.isMaibaWASSReceivingEnabled = E),
-      (l.isMaibaWASSSendingEnabled = k),
-      (l.isGoogleDriveEnabled = I),
-      (l.isIntegrationHubEnabled = T),
-      (l.isAppointmentsEnabled = D),
-      (l.getResponseSettingsV2TriState = x));
+      (l.isAiListsWebUIEnabled = y),
+      (l.isHandoffRemovalTimingSyncEnabled = C),
+      (l.getHandoffListExpireDays = b),
+      (l.MULTI_WEBSITE_DISABLED = v),
+      (l.MULTI_WEBSITE_BRAZIL = S),
+      (l.MULTI_WEBSITE_LATAM = R),
+      (l.getMultiWebsiteMode = L),
+      (l.isMultiWebsiteEnabled = E),
+      (l.isMaibaWASSReceivingEnabled = k),
+      (l.isMaibaWASSSendingEnabled = I),
+      (l.isGoogleDriveEnabled = T),
+      (l.isIntegrationHubEnabled = D),
+      (l.isAppointmentsEnabled = x),
+      (l.getResponseSettingsV2TriState = $));
   },
   98,
 );

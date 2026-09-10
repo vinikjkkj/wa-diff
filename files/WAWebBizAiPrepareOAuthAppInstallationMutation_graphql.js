@@ -4,15 +4,23 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [
-          { defaultValue: null, kind: "LocalArgument", name: "plugin_id" },
-          { defaultValue: null, kind: "LocalArgument", name: "redirect_uri" },
-          { defaultValue: null, kind: "LocalArgument", name: "source" },
-        ],
-        t = [
+      var e = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "authorization_params",
+        },
+        t = { defaultValue: null, kind: "LocalArgument", name: "plugin_id" },
+        r = { defaultValue: null, kind: "LocalArgument", name: "redirect_uri" },
+        o = { defaultValue: null, kind: "LocalArgument", name: "source" },
+        a = [
           {
             alias: null,
             args: [
+              {
+                kind: "Variable",
+                name: "authorization_params",
+                variableName: "authorization_params",
+              },
               {
                 kind: "Variable",
                 name: "plugin_id",
@@ -57,20 +65,20 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, t, r, o],
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAiPrepareOAuthAppInstallationMutation",
-          selections: t,
+          selections: a,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: e,
+          argumentDefinitions: [t, r, o, e],
           kind: "Operation",
           name: "WAWebBizAiPrepareOAuthAppInstallationMutation",
-          selections: t,
+          selections: a,
         },
         params: {
           id: n(

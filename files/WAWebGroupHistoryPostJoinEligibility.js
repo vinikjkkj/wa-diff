@@ -49,18 +49,23 @@ __d(
           });
     }
     function d(e, t, n) {
-      return m(t) && p(e, n).eligible;
+      return m(t) && _(e, n).eligible;
     }
     function m(e) {
       return !o(
         "WAWebGroupHistoryGating",
-      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e.groupWid) ||
+      ).isGroupHistoryPostJoinSenderPrerequisitesEnabled() ||
         !s(e.groupType) ||
         e.hasCapi === !0
         ? !1
         : u(e.iAmAdmin, e.iAmSuperAdmin, e.memberShareGroupHistoryMode);
     }
-    function p(e, t) {
+    function p(e) {
+      return o(
+        "WAWebGroupHistoryGating",
+      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e);
+    }
+    function _(e, t) {
       var n;
       if (
         o("WAWebBotUtils").isMetaAiBot(e.id) ||
@@ -85,7 +90,7 @@ __d(
         ? { eligible: !1, reason: "window_expired" }
         : { eligible: !0 };
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       if (e == null || !e.startOfHistoryLoaded) return !1;
       var r = e.earliestShareableMsgT,
         a = e.latestShareableMsgT;
@@ -100,11 +105,14 @@ __d(
       }
       return !1;
     }
-    function f(e, t, n, r) {
+    function g(e, t, n, r) {
       var o;
-      return d(e, t, n) && !_(r, (o = e.joinTime) != null ? o : n, t.groupWid);
+      return d(e, t, n) && !f(r, (o = e.joinTime) != null ? o : n, t.groupWid);
     }
-    function g(t) {
+    function h(e, t, n, r) {
+      return g(e, t, n, r) && p(t.groupWid);
+    }
+    function y(t) {
       if (
         !o(
           "WAWebGroupHistoryGating",
@@ -121,10 +129,12 @@ __d(
       (l.hasResolvableNonSelfRecipient = c),
       (l.isEligibleForPostJoinHistory = d),
       (l.isPostJoinHistoryGroupEligible = m),
-      (l.getParticipantPostJoinEligibility = p),
-      (l.hasNoShareableHistoryBeforeJoin = _),
-      (l.canSendPostJoinHistoryToParticipant = f),
-      (l.getEligiblePostJoinParticipants = g));
+      (l.isPostJoinHistoryExperimentArmEnabled = p),
+      (l.getParticipantPostJoinEligibility = _),
+      (l.hasNoShareableHistoryBeforeJoin = f),
+      (l.canSendPostJoinHistoryToParticipant = g),
+      (l.shouldOfferPostJoinHistoryToParticipant = h),
+      (l.getEligiblePostJoinParticipants = y));
   },
   98,
 );
