@@ -12,41 +12,53 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function u() {
+    function _() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           (yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(e, t, n),
             yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, t));
         })),
-        u.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function d() {
+    function g() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
           (t != null &&
             (yield o("WAWebWasaRootSecretDb").removeWasaRootSecretForId(e, t)),
             yield o("WAWebWasaUserPrefs").clearWasaActiveTargetId(e.user));
         })),
-        d.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function p() {
+    function y() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[wasa] root secret recovery: reading sync store for ",
+                  " target ",
+                  "",
+                ])),
+              t,
+              n,
+            )
+            .sendLogs("wasa-root-secret-recovery-attempt");
           try {
-            var a = yield _(t, n);
+            var a = yield C(t, n);
             return a == null
               ? !1
               : (yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(
@@ -54,33 +66,43 @@ __d(
                   a.stanzaId,
                   a.secret,
                 ),
+                o("WALogger")
+                  .LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[wasa] root secret recovery: rebuilt hidden row for ",
+                        "",
+                      ])),
+                    n,
+                  )
+                  .sendLogs("wasa-root-secret-recovery-ok"),
                 !0);
-          } catch (t) {
+          } catch (e) {
             return (
               o("WALogger")
                 .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[wasa] maybeRecoverWasaRootSecretFromStore failed: ",
                       "",
                     ])),
-                  t,
+                  e,
                 )
-                .catching(r("getErrorSafe")(t))
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("wasa-root-secret-recovery-failed"),
               !1
             );
           }
         })),
-        p.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function f() {
+    function b() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a =
@@ -90,7 +112,20 @@ __d(
               e.toJid() +
               '"]',
             i = yield o("WAWebSyncdDb").getSyncAction(a);
-          if ((i == null ? void 0 : i.binarySyncData) == null) return null;
+          if ((i == null ? void 0 : i.binarySyncData) == null)
+            return (
+              o("WALogger")
+                .WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] root secret recovery: no stored sync action at ",
+                      "",
+                    ])),
+                  a,
+                )
+                .sendLogs("wasa-root-secret-recovery-no-action"),
+              null
+            );
           var l =
               (n = o("decodeProtobuf").decodeProtobuf(
                 o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
@@ -98,24 +133,48 @@ __d(
               ).value) == null
                 ? void 0
                 : n.wasaRootSecretAction,
-            s =
-              l == null || (r = l.secrets) == null
-                ? void 0
-                : r.find(function (e) {
-                    return e.id === t;
-                  }),
-            u = s == null ? void 0 : s.id,
-            c = s == null ? void 0 : s.rootSecret;
-          return u == null || c == null
-            ? null
-            : { stanzaId: u, secret: new Uint8Array(c) };
+            s = (r = l == null ? void 0 : l.secrets) != null ? r : [],
+            u = s.find(function (e) {
+              return e.id === t;
+            });
+          if (u == null)
+            return (
+              o("WALogger")
+                .WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] root secret recovery: ",
+                      " stored entries, none match ",
+                      "",
+                    ])),
+                  s.length,
+                  t,
+                )
+                .sendLogs("wasa-root-secret-recovery-no-match"),
+              null
+            );
+          var p = u.id,
+            _ = u.rootSecret;
+          return p == null || _ == null
+            ? (o("WALogger")
+                .WARN(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] root secret recovery: stored entry for ",
+                      " is malformed",
+                    ])),
+                  t,
+                )
+                .sendLogs("wasa-root-secret-recovery-malformed"),
+              null)
+            : { stanzaId: p, secret: new Uint8Array(_) };
         })),
-        f.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.applyWasaRootSecretForId = s),
-      (l.clearWasaRootSecret = c),
-      (l.maybeRecoverWasaRootSecretFromStore = m));
+    ((l.applyWasaRootSecretForId = p),
+      (l.clearWasaRootSecret = f),
+      (l.maybeRecoverWasaRootSecretFromStore = h));
   },
   98,
 );

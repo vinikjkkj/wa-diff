@@ -76,6 +76,8 @@ __d(
     "WAWebSchemaNonMessageDataRequest",
     "WAWebSchemaNote",
     "WAWebSchemaOptOutList",
+    "WAWebSchemaOrg",
+    "WAWebSchemaOrgContact",
     "WAWebSchemaOrphanPaymentNotification",
     "WAWebSchemaOrphanReceipt",
     "WAWebSchemaOrphanRevoke",
@@ -236,6 +238,8 @@ __d(
               o("WAWebSchemaScheduledMsgRevealKey").addTable(),
               o("WAWebSchemaScheduledMsgOrphanRevealKey").addTable(),
               o("WAWebSchemaGroupHistoryParticipant").addTable(),
+              o("WAWebSchemaOrg").addTable(),
+              o("WAWebSchemaOrgContact").addTable(),
               (s = o("WAWebModelStorageUtils")
                 .getStorage()
                 .initialize()

@@ -30,7 +30,7 @@ __d(
         key: e.key,
         kind: "image",
         resolvedHash: e.resolvedHash,
-        resolvedUrl: e.displayUrl,
+        resolvedUrl: e.resolvedUrl,
         source: "catalog",
         status: e.resolvedHash != null ? "ready" : "pending",
       };

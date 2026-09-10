@@ -4,7 +4,7 @@ __d(
     "WAWebMessageFailIcon.react",
     "WAWebMsgType",
     "WDSIconIcImage.react",
-    "WDSIconIcMusicNote.react",
+    "WDSIconMusicNoteSlash.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -25,7 +25,7 @@ __d(
                     testid: "album_futureproof_preview_icon",
                   })
                 : n.futureproofType === o("WAWebMsgType").MSG_TYPE.MUSIC
-                  ? s.jsx(r("WDSIconIcMusicNote.react"), {
+                  ? s.jsx(r("WDSIconMusicNoteSlash.react"), {
                       width: 20,
                       height: 20,
                       testid: "music_futureproof_preview_icon",

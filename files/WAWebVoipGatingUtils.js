@@ -401,42 +401,42 @@ __d(
             "enable_web_voip_webtransport",
           );
     }
-    var re = 4;
-    function oe() {
+    function re() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "enable_web_voip_webtransport_fast_setup",
+      );
+    }
+    var oe = 4;
+    function ae() {
       var e = navigator.hardwareConcurrency;
       return typeof e == "number" && e > 0 ? e : 8;
     }
-    function ae() {
+    function ie() {
       return (
-        oe() <= re &&
+        ae() <= oe &&
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_adaptive_sctp_prewarm",
         ) === !0
       );
     }
-    function ie() {
+    function le() {
       var e = o("WAWebABProps").getABPropConfigValue("enable_web_calling"),
         t = o("WAWebABProps").getABPropConfigValue("enable_web_group_calling");
       return !r("WAWebEnvironment").isWindows && e ? t : !0;
     }
-    function le() {
+    function se() {
       return o("WAWebABProps").getABPropConfigValue(
         "gc_device_switching_killswitch",
       );
     }
-    function se() {
+    function ue() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_1on1",
       );
     }
-    function ue() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "call_info_optimizations_lgc",
-      );
-    }
     function ce() {
       return o("WAWebABProps").getABPropConfigValue(
-        "call_info_optimizations_ahgc_call_link",
+        "call_info_optimizations_lgc",
       );
     }
     function de() {
@@ -444,35 +444,40 @@ __d(
         "call_info_optimizations_ahgc_call_link",
       );
     }
-    function me(e) {
+    function me() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "call_info_optimizations_ahgc_call_link",
+      );
+    }
+    function pe(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? de() : t ? ce() : r ? ue() : se();
+      return n === !0 ? me() : t ? de() : r ? ce() : ue();
     }
-    function pe() {
+    function _e() {
       return (
-        se() &&
+        ue() &&
         o("WAWebABProps").getABPropConfigValue(
           "call_info_optimizations_1on1_context_menu",
         )
       );
     }
-    function _e(e) {
+    function fe(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? de() : t ? ce() : r ? ue() : pe();
-    }
-    function fe() {
-      return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
+      return n === !0 ? me() : t ? de() : r ? ce() : _e();
     }
     function ge() {
+      return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
+    }
+    function he() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_screen_share_dual_stream_app_update_dialog_enabled",
       );
     }
-    function he() {
+    function ye() {
       return (
         "documentPictureInPicture" in window && !o("WAWebUA").UA.isBrokenDocPip
       );
@@ -514,20 +519,21 @@ __d(
       (l.resetWebTransportFallbackState = ee),
       (l.shouldUseOriginalRelayPort = te),
       (l.isWebTransportEnabled = ne),
-      (l.getVoipCpuCoreCount = oe),
-      (l.shouldSkipEagerSctpPrewarm = ae),
-      (l.isWinHybridJoinableCallsEnabled = ie),
-      (l.isDeviceSwitchingEnabled = le),
-      (l.isCallInfoOptimizationsEnabledFor1to1 = se),
-      (l.isCallInfoOptimizationsEnabledForLGC = ue),
-      (l.isCallInfoOptimizationsEnabledForAHGC = ce),
-      (l.isCallInfoOptimizationsEnabledForCallLink = de),
-      (l.isCallInfoOptimizationsEnabledForCallType = me),
-      (l.isCallInfoOptimizations1to1ContextMenuEnabled = pe),
-      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = _e),
-      (l.isPopoutReuseCaptureEnabled = fe),
-      (l.isScreenShareDualStreamAppUpdateDialogEnabled = ge),
-      (l.isDocPipEnabled = he));
+      (l.isWebTransportFastSetupEnabled = re),
+      (l.getVoipCpuCoreCount = ae),
+      (l.shouldSkipEagerSctpPrewarm = ie),
+      (l.isWinHybridJoinableCallsEnabled = le),
+      (l.isDeviceSwitchingEnabled = se),
+      (l.isCallInfoOptimizationsEnabledFor1to1 = ue),
+      (l.isCallInfoOptimizationsEnabledForLGC = ce),
+      (l.isCallInfoOptimizationsEnabledForAHGC = de),
+      (l.isCallInfoOptimizationsEnabledForCallLink = me),
+      (l.isCallInfoOptimizationsEnabledForCallType = pe),
+      (l.isCallInfoOptimizations1to1ContextMenuEnabled = _e),
+      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = fe),
+      (l.isPopoutReuseCaptureEnabled = ge),
+      (l.isScreenShareDualStreamAppUpdateDialogEnabled = he),
+      (l.isDocPipEnabled = ye));
   },
   98,
 );

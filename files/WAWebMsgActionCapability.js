@@ -842,28 +842,20 @@ __d(
       var t = e;
       e instanceof o("WAWebMsgModel").Msg &&
         (t = o("WAWebStateUtils").unproxy(e));
-      var n = o("WAWebRevokeMsgConstants").REVOKE_WINDOW,
-        r = o("WAWebMsgGetters").isMetaBotResponseToMyInvoke(t),
-        a = o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <= n;
-      return o("WAWebBotBaseGating").isBotEnabled() && K(t) && a && r;
-    }
-    function J(e) {
-      var t = e;
-      if (
-        (e instanceof o("WAWebMsgModel").Msg &&
-          (t = o("WAWebStateUtils").unproxy(e)),
-        t.id.fromMe ||
-          !o("WAWebBotUtils").isHatchBot(
-            o("WAWebFrontendMsgGetters").getCurrentChat(t).id,
-          ))
-      )
-        return !1;
       var n =
         o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <=
         o("WAWebRevokeMsgConstants").REVOKE_WINDOW;
-      return K(t) && n && o("WAWebHatchGating").isHatchRevokeEnabled();
+      return !K(t) || !n
+        ? !1
+        : (o("WAWebBotBaseGating").isBotEnabled() &&
+            o("WAWebMsgGetters").isMetaBotResponseToMyInvoke(t)) ||
+            (!t.id.fromMe &&
+              o("WAWebBotUtils").isHatchBot(
+                o("WAWebFrontendMsgGetters").getCurrentChat(t).id,
+              ) &&
+              o("WAWebHatchGating").isHatchRevokeEnabled());
     }
-    function Z(e) {
+    function J(e) {
       var t, n;
       if (
         o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
@@ -908,8 +900,7 @@ __d(
       (l.canSenderRevokeMsg = Q),
       (l.canAdminRevokeMsg = X),
       (l.canBotResponseBeRevokeByInvoker = Y),
-      (l.canHatchReplyBeRevoked = J),
-      (l.canDeleteMsg = Z));
+      (l.canDeleteMsg = J));
   },
   98,
 );

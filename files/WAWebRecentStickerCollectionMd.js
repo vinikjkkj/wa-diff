@@ -11,6 +11,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebRecentStickerModel",
     "WAWebSchemaRecentStickers",
+    "WAWebStickerGetters",
     "WAWebStickerModel",
     "asyncToGeneratorRuntime",
   ],
@@ -43,7 +44,16 @@ __d(
         var i = a.prototype;
         return (
           (i.remove = function (n, r) {
-            return t.prototype.remove.call(this, n, r);
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o("WAWebStickerGetters").clearStickerGetterCacheFor(
+                    e.sticker,
+                  );
+              }),
+              e
+            );
           }),
           (i.add = function (n, r) {
             var e = t.prototype.add.call(this, n, r),
@@ -64,7 +74,10 @@ __d(
             );
           }),
           (i.reset = function () {
-            t.prototype.reset.call(this);
+            (this.forEach(function (e) {
+              o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker);
+            }),
+              t.prototype.reset.call(this));
           }),
           (i._comparator = function (t, n) {
             return t.weight !== n.weight
@@ -324,7 +337,8 @@ __d(
           (i.updateRecentStickerWithNewSticker = function (t, n) {
             var e = this.get(t);
             e != null &&
-              ((e.sticker = new (o("WAWebStickerModel").StickerModel)(
+              (o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker),
+              (e.sticker = new (o("WAWebStickerModel").StickerModel)(
                 n.toDbData(),
               )),
               this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),

@@ -26,9 +26,12 @@ __d(
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
         g(t) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "br_consumer_payments_home_web_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "br_consumer_payments_web_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "br_consumer_payments_home_web_enabled",
+          ))
       );
     }
     function u() {
@@ -41,9 +44,12 @@ __d(
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
         g(t) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "br_consumer_pix_actions_web_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "br_consumer_payments_web_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "br_consumer_pix_actions_web_enabled",
+          ))
       );
     }
     function c() {
@@ -71,9 +77,12 @@ __d(
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
         g(t) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "br_consumer_transactions_date_filter_web_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "br_consumer_payments_web_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "br_consumer_transactions_date_filter_web_enabled",
+          ))
       );
     }
     function m() {
@@ -86,9 +95,12 @@ __d(
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
         g(t) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "br_consumer_pix_groups_web_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "br_consumer_payments_web_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "br_consumer_pix_groups_web_enabled",
+          ))
       );
     }
     function p(e) {

@@ -536,6 +536,10 @@ __d(
           "XMA_GEN_AI_SEARCH_PLUGIN_RESPONSE_SOURCES",
         XmaHorizonGamingChallengeJoin: "XMA_HORIZON_GAMING_CHALLENGE_JOIN",
         XmaHorizonGamingChallengePlay: "XMA_HORIZON_GAMING_CHALLENGE_PLAY",
+        XmaHorizonGamingChallengeSeeMoreGames:
+          "XMA_HORIZON_GAMING_CHALLENGE_SEE_MORE_GAMES",
+        XmaHorizonGamingChallengeStartNewChallenge:
+          "XMA_HORIZON_GAMING_CHALLENGE_START_NEW_CHALLENGE",
         XmaMetaAiDigestSeeSummary: "XMA_META_AI_DIGEST_SEE_SUMMARY",
         XmaMetaAiLocation: "XMA_META_AI_LOCATION",
         XmaMetaAiLookupEntity: "XMA_META_AI_LOOKUP_ENTITY",
@@ -1068,7 +1072,7 @@ __d(
         Sensitive: "SENSITIVE",
         WarningScreens: "WARNING_SCREENS",
       }),
-      Rn = e({ Accepted: "ACCEPTED", Invited: "INVITED" }),
+      Rn = e({ Accepted: "ACCEPTED", Ended: "ENDED", Invited: "INVITED" }),
       Ln = e({
         Blur: "BLUR",
         Collage: "COLLAGE",

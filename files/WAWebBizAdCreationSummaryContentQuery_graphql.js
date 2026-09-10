@@ -39,6 +39,20 @@ __d(
         },
         s = [
           {
+            alias: "amountWithOffset",
+            args: null,
+            kind: "ScalarField",
+            name: "amount_with_offset",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "currency",
+            storageKey: null,
+          },
+          {
             alias: "formattedAmount",
             args: null,
             kind: "ScalarField",

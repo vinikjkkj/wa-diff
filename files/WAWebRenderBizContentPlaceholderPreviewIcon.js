@@ -1,6 +1,6 @@
 __d(
   "WAWebRenderBizContentPlaceholderPreviewIcon",
-  ["WAWebKeyIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcKey.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -9,7 +9,7 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(o("WAWebKeyIcon.react").KeyIcon, {
+          ? ((n = s.jsx(r("WDSIconIcKey.react"), {
               width: 20,
               height: 20,
               "aria-hidden": !0,

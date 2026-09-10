@@ -8,6 +8,7 @@ __d(
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaTypes",
+    "WAWebStickerGetters",
     "getErrorSafe",
     "once",
   ],
@@ -121,6 +122,7 @@ __d(
           }),
           (a.delete = function () {
             (t.prototype.delete.call(this),
+              o("WAWebStickerGetters").clearStickerGetterCacheFor(this),
               o("WAWebMedia").deregisterSticker(this));
           }),
           n

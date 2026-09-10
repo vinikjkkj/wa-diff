@@ -12,6 +12,7 @@ __d(
     "WAWebMediaAutoDownloadQueue",
     "WAWebMediaStore",
     "WAWebSchemaFavoriteStickers",
+    "WAWebStickerGetters",
     "WAWebStickerModel",
     "WAWebStickerUtils",
     "WAWebWebpCalculateWebpFilehashWithoutMetadata",
@@ -76,10 +77,20 @@ __d(
           );
         }),
         (i.remove = function (n, r) {
-          return t.prototype.remove.call(this, n, r);
+          var e = t.prototype.remove.call(this, n, r);
+          return (
+            e.forEach(function (e) {
+              e != null &&
+                o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker);
+            }),
+            e
+          );
         }),
         (i.reset = function () {
-          t.prototype.reset.call(this);
+          (this.forEach(function (e) {
+            o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker);
+          }),
+            t.prototype.reset.call(this));
         }),
         (i._addSaveTask = function () {
           var e = this;
@@ -173,7 +184,9 @@ __d(
             id: t.id,
             timestamp: t.timestamp,
             stickerHashWithoutMeta: t.stickerHashWithoutMeta,
-            sticker: new (o("WAWebStickerModel").StickerModel)(t.sticker),
+            sticker: new (o("WAWebStickerModel").StickerModel)(
+              babelHelpers.extends({}, t.sticker, { id: t.id }),
+            ),
           });
         }),
         (i._getStickerHashWithoutMeta = (function () {
@@ -310,7 +323,8 @@ __d(
         (i.updateFavoriteStickerWithNewSticker = function (t, n) {
           var e = this.get(t);
           e != null &&
-            ((e.sticker = new (o("WAWebStickerModel").StickerModel)(
+            (o("WAWebStickerGetters").clearStickerGetterCacheFor(e.sticker),
+            (e.sticker = new (o("WAWebStickerModel").StickerModel)(
               n.toDbData(),
             )),
             this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),

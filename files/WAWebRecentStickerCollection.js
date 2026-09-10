@@ -5,6 +5,7 @@ __d(
     "WAWebBaseCollection",
     "WAWebConnModel",
     "WAWebMobilePlatforms",
+    "WAWebStickerGetters",
     "WAWebStickerModel",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -51,6 +52,16 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
+              }),
+              e
+            );
+          }),
           (i._getWeight = function (t) {
             return r("nullthrows")(this._weightMap.get(t.id));
           }),
@@ -155,6 +166,7 @@ __d(
           }),
           (i.reset = function () {
             return (
+              this.forEach(o("WAWebStickerGetters").clearStickerGetterCacheFor),
               (this._syncStatus = "NONE"),
               this._weightMap.clear(),
               t.prototype.reset.call(this)

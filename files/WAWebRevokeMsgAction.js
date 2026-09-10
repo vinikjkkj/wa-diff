@@ -108,8 +108,7 @@ __d(
           if (
             u === o("WAWebCmd").Revoke.Sender &&
             !_.id.fromMe &&
-            !o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(_) &&
-            !o("WAWebMsgActionCapability").canHatchReplyBeRevoked(_)
+            !o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(_)
           )
             return (p || (p = n("Promise"))).reject(
               r("err")("revoking received message"),

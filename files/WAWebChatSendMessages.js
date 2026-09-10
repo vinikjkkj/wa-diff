@@ -226,8 +226,7 @@ __d(
     }
     function h(e) {
       return o("WAWebMsgActionCapability").canSenderRevokeMsg(e) ||
-        o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(e) ||
-        o("WAWebMsgActionCapability").canHatchReplyBeRevoked(e)
+        o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(e)
         ? o("WAWebCmd").Revoke.Sender
         : o("WAWebCmd").Revoke.Admin;
     }

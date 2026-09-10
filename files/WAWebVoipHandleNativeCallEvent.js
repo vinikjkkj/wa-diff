@@ -1228,24 +1228,29 @@ __d(
     function ye() {
       return (
         (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-              yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+          var t,
+            n = r("nullthrows")(
+              (t = o(
+                "WAWebVoipStackInterface",
+              ).getCachedVoipStackInterface()) != null
+                ? t
+                : yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
-            n = t.parsers.parseRelayListUpdateData(e),
-            a = n.relays.some(function (e) {
+            a = n.parsers.parseRelayListUpdateData(e),
+            i = a.relays.some(function (e) {
               return e.addresses.some(function (e) {
                 return e.port === 3478 || e.port_v6 === 3478;
               });
             });
-          (a && o("WAWebCoreActionsODS").logCallRelayPort3478(),
+          (i && o("WAWebCoreActionsODS").logCallRelayPort3478(),
             o("WAWebVoipGatingUtils").isWebTransportEnabled()
               ? o(
                   "WAWebVoipWebTransportConnectionManager",
-                ).handleRelayListUpdate(n)
+                ).handleRelayListUpdate(a)
               : yield o("WAWebVoipSctpConnectionManager").handleRelayListUpdate(
-                  n,
+                  a,
                 ),
-            (K.cachedRelayListData = n),
+            (K.cachedRelayListData = a),
             (K.relayListReceived = !0),
             be().catch(function (e) {
               var t = r("getErrorSafe")(e);

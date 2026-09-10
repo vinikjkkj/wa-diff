@@ -30,7 +30,10 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (e == null ? void 0 : e.hasCreatedAd) === !0 &&
-        !o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled()
+        !o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled() &&
+        !o(
+          "WAWebBizNativeAdsGatingUtils",
+        ).nativeAdsWebCreationRolloutEnabledNoExposure()
       );
     }
     function m() {
@@ -176,7 +179,7 @@ __d(
       (l.isAdsAttributionEnabled = s),
       (l.isHideAdContextIfSoftDismissed = u),
       (l.shouldGenerateAGMMsgs = c),
-      (l.shouldShowManageAdsDropdown = d),
+      (l.shouldShowLegacyManageAdsEntry = d),
       (l.smbDataSharingConsentEnabled = m),
       (l.isCtwa3pdAggregatedConversionEnabled = p),
       (l.isCtwa3pdDataSharingOnThreadEntryEnabled = _),

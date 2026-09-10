@@ -225,13 +225,14 @@ __d(
           return s;
         },
         scalePointByBudgetFactor: function (t, n) {
-          var e = n < t.spend ? n / t.spend : 1;
-          for (var r in t)
-            t[r] == null
-              ? (t[r] = 0)
-              : r === "spend"
-                ? (t[r] = Math.min(t[r], n))
-                : r !== "bid" && (t[r] *= e);
+          var e = n < t.spend ? n / t.spend : 1,
+            r = Object.keys(t);
+          for (var o of r)
+            t[o] == null
+              ? (t[o] = 0)
+              : o === "spend"
+                ? (t[o] = Math.min(t[o], n))
+                : o !== "bid" && (t[o] *= e);
           return t;
         },
         getLastPointOfEstimate: function (t, n) {

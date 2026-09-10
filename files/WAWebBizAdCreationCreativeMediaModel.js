@@ -30,7 +30,10 @@ __d(
       return t != null && t.startsWith("video/") ? "video" : "image";
     }
     function c(e) {
-      return !e.isUploadInFlight;
+      var t = e.isUploadInFlight,
+        n = e.items,
+        r = e.storedCreativeMedia;
+      return t ? !1 : !y(r, n);
     }
     function d(e) {
       return e.status === "ready";
@@ -76,6 +79,78 @@ __d(
         });
       return n ? r : e;
     }
+    function h(e, t) {
+      if (t == null || t.length === 0) return e;
+      var n = new Map(
+          e.map(function (e) {
+            return [e.key, e];
+          }),
+        ),
+        r = [];
+      (t.forEach(function (e) {
+        var t = n.get(e.key);
+        t != null && (r.push(t), n.delete(e.key));
+      }),
+        e.forEach(function (e) {
+          n.has(e.key) && r.push(e);
+        }));
+      var o =
+        r.length === e.length &&
+        r.every(function (t, n) {
+          return t === e[n];
+        });
+      return o ? e : r;
+    }
+    function y(e, t) {
+      return e == null || e.length !== t.length
+        ? !1
+        : e.every(function (e, n) {
+            var r = t[n];
+            return (
+              e.key === r.key &&
+              e.kind === r.kind &&
+              e.status === r.status &&
+              e.resolvedHash === r.resolvedHash &&
+              e.resolvedUrl === r.resolvedUrl &&
+              e.thumbnailHash === r.thumbnailHash &&
+              e.videoId === r.videoId
+            );
+          });
+    }
+    function C(e, t, n, r) {
+      var o,
+        a = (o = t[n]) == null ? void 0 : o.attachMedia;
+      if (a == null) return null;
+      var i = e.indexOf(a);
+      if (i === -1) return null;
+      var l = [].concat(t),
+        s = l.splice(n, 1),
+        u = s[0],
+        c = S(r, l.length);
+      l.splice(c, 0, u);
+      var d = b(e, l, c, i);
+      return d === i ? null : { fromIndex: i, toIndex: d };
+    }
+    function b(e, t, n, r) {
+      for (var o = n - 1; o >= 0; o--) {
+        var a = v(e, t[o]);
+        if (a != null) return r < a ? a : a + 1;
+      }
+      for (var i = n + 1; i < t.length; i++) {
+        var l = v(e, t[i]);
+        if (l != null) return r < l ? l - 1 : l;
+      }
+      return r;
+    }
+    function v(e, t) {
+      var n = t.attachMedia;
+      if (n == null) return null;
+      var r = e.indexOf(n);
+      return r === -1 ? null : r;
+    }
+    function S(e, t) {
+      return Math.max(0, Math.min(e, t));
+    }
     ((l.creativeMediaKindFromMediaType = e),
       (l.creativeMediaKindFromMsgType = s),
       (l.creativeMediaKindFromAttachMedia = u),
@@ -85,7 +160,10 @@ __d(
       (l.hasCreativeMedia = p),
       (l.isCreativeMediaResolving = _),
       (l.withCreativeMediaStatus = f),
-      (l.withResolvedCreativeMedia = g));
+      (l.withResolvedCreativeMedia = g),
+      (l.reconcileCreativeMediaOrder = h),
+      (l.creativeMediaMatchesStore = y),
+      (l.uploadReorderForCreativeMediaDrag = C));
   },
   98,
 );

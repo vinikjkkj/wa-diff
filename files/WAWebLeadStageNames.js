@@ -28,17 +28,26 @@ __d(
         s._param("lead stage name", e(n)),
       ]);
     }
-    function c(t) {
+    function c() {
+      return s._(/*BTDS*/ "Lead");
+    }
+    function d(e) {
+      var t = c();
+      return e === o("WAWebLeadStage").LeadStage.NONE ? t : u(t.toString(), e);
+    }
+    function m(t) {
       var n = t.trim().toLowerCase();
       if (n === "") return null;
       for (var r of o("WAWebLeadStage").ALL_LEAD_STAGES)
         if (e(r).toString().toLowerCase() === n) return r;
-      return n === d ? o("WAWebLeadStage").LeadStage.NONE : null;
+      return n === p ? o("WAWebLeadStage").LeadStage.NONE : null;
     }
-    var d = "lead";
+    var p = "lead";
     ((l.getLeadStageName = e),
       (l.getLeadSublistRowLabel = u),
-      (l.getLeadStageFromName = c));
+      (l.getLeadListDisplayName = c),
+      (l.getPipelineColumnHeaderLabel = d),
+      (l.getLeadStageFromName = m));
   },
   226,
 );

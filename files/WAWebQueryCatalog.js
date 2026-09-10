@@ -194,7 +194,14 @@ __d(
                       ])),
                     JSON.stringify(g),
                   ),
-                  new (o("WAWebBackendErrors").CatalogUnknownError)())
+                  new (o("WAWebBackendErrors").CatalogUnknownError)(
+                    g.type === "auth-failure" ||
+                      g.type === "error" ||
+                      g.type === "timeout" ||
+                      g.type === "too-many-attempts"
+                      ? g.type
+                      : void 0,
+                  ))
           );
         });
         return function (n) {

@@ -25,7 +25,7 @@ __d(
     function l(e, t) {
       t === void 0 && (t = !1);
       var n = {};
-      if (e === "") return n;
+      if (e === "") return {};
       for (var r = e.split("&"), o = 0; o < r.length; o++) {
         var a = r[o].split("=", 2),
           i = decodeURIComponent(a[0]);

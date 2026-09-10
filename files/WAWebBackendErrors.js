@@ -33,12 +33,13 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
       d = (function (e) {
-        function t() {
-          var t;
+        function t(t) {
+          var n;
           return (
-            (t = e.call(this, "CatalogUnknownError") || this),
-            (t.name = "CatalogUnknownError"),
-            t
+            (n = e.call(this, "CatalogUnknownError") || this),
+            (n.name = "CatalogUnknownError"),
+            (n.reason = t),
+            n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);

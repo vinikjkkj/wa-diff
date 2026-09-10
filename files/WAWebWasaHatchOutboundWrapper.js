@@ -2,6 +2,7 @@ __d(
   "WAWebWasaHatchOutboundWrapper",
   [
     "WACryptoAesGcm",
+    "WALogger",
     "WAWebBotMessageSecret",
     "WAWebBotUtils",
     "WAWebCommonMsgSubtypeTypes",
@@ -15,8 +16,10 @@ __d(
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 12,
-      s = (function (e) {
+    var e,
+      s,
+      u = 12,
+      c = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -28,7 +31,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      u = (function (e) {
+      d = (function (e) {
         function t() {
           var t;
           return (
@@ -42,52 +45,76 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(s);
-    function c(e, t, n) {
+      })(c);
+    function m(e, t, n) {
       return (
         o("WAWebBotUtils").isHatchBot(e) &&
         !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
         n !== o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotRequestWelcome
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.currentStanzaId,
             a = t.innerMessage,
             i = o("WAWebWasaUserPrefs").getWasaActiveTargetId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
             );
-          if (i == null) throw new u();
+          if (i == null)
+            throw (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] Hatch outbound wrap: no active target id",
+                    ])),
+                )
+                .sendLogs("wasa-hatch-no-active-target"),
+              new d()
+            );
           var l = yield o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
             o("WAWebBotUtils").HATCH_BOT_FBID_WID,
             i,
           );
-          if (l == null) throw new u();
-          var s = o("WAWebWidToJid").widToUserJid(
+          if (l == null)
+            throw (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] Hatch outbound wrap: no root secret for target ",
+                      "",
+                    ])),
+                  i,
+                )
+                .sendLogs("wasa-hatch-root-secret-missing"),
+              new d()
+            );
+          var c = o("WAWebWidToJid").widToUserJid(
               o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             ),
-            c = o("WAWebWidToJid").widToUserJid(
+            m = o("WAWebWidToJid").widToUserJid(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
             ),
-            d = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
+            p = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
               l,
             ),
-            m = yield o("WAWebBotMessageSecret").genBotDecryptionKey({
-              decryptSecret: d,
-              messageSecretOriginalUserJid: s,
-              senderJid: c,
+            _ = yield o("WAWebBotMessageSecret").genBotDecryptionKey({
+              decryptSecret: p,
+              messageSecretOriginalUserJid: c,
+              senderJid: m,
               stanzaId: n,
             }),
-            p = self.crypto.getRandomValues(new Uint8Array(e)),
-            _ = o("encodeProtobuf")
+            f = self.crypto.getRandomValues(new Uint8Array(u)),
+            g = o("encodeProtobuf")
               .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, a)
               .readByteArrayView(),
-            f = n + "\0" + s,
-            g = yield o("WACryptoAesGcm").gcmEncrypt(m, p, _, f);
+            h = n + "\0" + c,
+            y = yield o("WACryptoAesGcm").gcmEncrypt(_, f, g, h);
           return r("WAWebWasaGenerateSecretEncryptedMessageProto")({
             targetMsgKey: o(
               "WAWebWasaRootSecretDb",
@@ -95,17 +122,17 @@ __d(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               i,
             ),
-            encPayload: g,
-            encIv: p,
+            encPayload: y,
+            encIv: f,
           });
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.WAWebWasaHatchWrapError = s),
-      (l.WAWebWasaHatchNotPairedError = u),
-      (l.shouldWrapHatchOutbound = c),
-      (l.wrapHatchOutboundMessage = d));
+    ((l.WAWebWasaHatchWrapError = c),
+      (l.WAWebWasaHatchNotPairedError = d),
+      (l.shouldWrapHatchOutbound = m),
+      (l.wrapHatchOutboundMessage = p));
   },
   98,
 );

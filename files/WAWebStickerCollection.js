@@ -1,6 +1,6 @@
 __d(
   "WAWebStickerCollection",
-  ["WAWebBaseCollection", "WAWebStickerModel", "err"],
+  ["WAWebBaseCollection", "WAWebStickerGetters", "WAWebStickerModel", "err"],
   function (t, n, r, o, a, i, l) {
     var e = { PENDING: "PENDING", SUCCESS: "SUCCESS", ERROR: "ERROR" },
       s = (function (e) {
@@ -12,6 +12,22 @@ __d(
         return (
           (n.fetch = function (t) {
             throw r("err")(this.constructor.name + ".fetch is not implemented");
+          }),
+          (n.remove = function (n, r) {
+            var t = e.prototype.remove.call(this, n, r);
+            return (
+              t.forEach(function (e) {
+                e != null &&
+                  o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
+              }),
+              t
+            );
+          }),
+          (n.reset = function () {
+            (this.forEach(function (e) {
+              return o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
+            }),
+              e.prototype.reset.call(this));
           }),
           t
         );

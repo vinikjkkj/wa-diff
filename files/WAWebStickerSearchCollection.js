@@ -6,6 +6,7 @@ __d(
     "WAWebEmoji",
     "WAWebEmojiKeywordToUnicode",
     "WAWebSearchFirstPartyStickersAction",
+    "WAWebStickerGetters",
     "WAWebStickerModel",
     "asyncToGeneratorRuntime",
   ],
@@ -126,6 +127,22 @@ __d(
         babelHelpers.inheritsLoose(r, t);
         var a = r.prototype;
         return (
+          (a.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null &&
+                  o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
+              }),
+              e
+            );
+          }),
+          (a.reset = function () {
+            (this.forEach(function (e) {
+              return o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
+            }),
+              t.prototype.reset.call(this));
+          }),
           (a.isFetchingData = function () {
             return this.$StickerSearchCollectionImpl$p_4;
           }),
@@ -212,7 +229,10 @@ __d(
             return this.search(t);
           }),
           (a.delete = function () {
-            (t.prototype.delete.call(this),
+            (this.$StickerSearchCollectionImpl$p_1.forEach(function (e) {
+              e.forEach(o("WAWebStickerGetters").clearStickerGetterCacheFor);
+            }),
+              t.prototype.delete.call(this),
               (this.$StickerSearchCollectionImpl$p_1 = new Map()),
               (this.$StickerSearchCollectionImpl$p_2 = !1),
               (this.$StickerSearchCollectionImpl$p_4 = !1));
