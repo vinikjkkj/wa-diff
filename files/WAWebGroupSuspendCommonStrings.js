@@ -1,13 +1,9 @@
 __d(
   "WAWebGroupSuspendCommonStrings",
-  ["fbt", "WAWebGroupGatingUtils"],
+  ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(/*BTDS*/ "This group is no longer available")
-        : s._(/*BTDS*/ "This group is suspended");
+      return s._(/*BTDS*/ "This group is suspended");
     }
     function u() {
       return s._(/*BTDS*/ "Delete group for me");
@@ -16,11 +12,7 @@ __d(
       return s._(/*BTDS*/ "Deactivate community");
     }
     function d() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(/*BTDS*/ "This community is no longer available")
-        : s._(/*BTDS*/ "This community is suspended");
+      return s._(/*BTDS*/ "This community is suspended");
     }
     function m() {
       return s._(
@@ -43,120 +35,56 @@ __d(
       );
     }
     function g() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(/*BTDS*/ "This group is now available")
-        : s._(/*BTDS*/ "This group is no longer suspended");
+      return s._(/*BTDS*/ "This group is no longer suspended");
     }
     function h() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(/*BTDS*/ "This community is now available")
-        : s._(/*BTDS*/ "This community is no longer suspended");
+      return s._(/*BTDS*/ "This community is no longer suspended");
     }
     function y() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(/*BTDS*/ "Group no longer available pending review")
-        : s._(/*BTDS*/ "Group suspended pending review");
+      return s._(/*BTDS*/ "Group suspended pending review");
     }
     function C() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(/*BTDS*/ "Community no longer available pending review")
-        : s._(/*BTDS*/ "Community suspended pending review");
+      return s._(/*BTDS*/ "Community suspended pending review");
     }
     function b() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "This group will remain unavailable until the review is completed.",
-          )
-        : s._(
-            /*BTDS*/ "This group will remain suspended until the review is completed.",
-          );
+      return s._(
+        /*BTDS*/ "This group will remain suspended until the review is completed.",
+      );
     }
     function v() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "This community will remain unavailable until the review is completed.",
-          )
-        : s._(
-            /*BTDS*/ "This community will remain suspended until the review is completed.",
-          );
+      return s._(
+        /*BTDS*/ "This community will remain suspended until the review is completed.",
+      );
     }
     function S() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may be unavailable.",
-          )
-        : s._(
-            /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may get suspended.",
-          );
+      return s._(
+        /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may get suspended.",
+      );
     }
     function R() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may be unavailable.",
-          )
-        : s._(
-            /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may get suspended.",
-          );
+      return s._(
+        /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may get suspended.",
+      );
     }
     function L() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is now available.",
-          )
-        : s._(
-            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is no longer suspended.",
-          );
+      return s._(
+        /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is no longer suspended.",
+      );
     }
     function E() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is now available.",
-          )
-        : s._(
-            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is no longer suspended.",
-          );
+      return s._(
+        /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is no longer suspended.",
+      );
     }
     function k() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains unavailable.",
-          )
-        : s._(
-            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains suspended.",
-          );
+      return s._(
+        /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains suspended.",
+      );
     }
     function I() {
-      return o(
-        "WAWebGroupGatingUtils",
-      ).isGroupSuspensionAppealsRedesignVariantEnabled()
-        ? s._(
-            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community remains unavailable.",
-          )
-        : s._(
-            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community remains suspended.",
-          );
+      return s._(
+        /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community remains suspended.",
+      );
     }
     ((l.groupSuspendedTitle = e),
       (l.deleteGroupForMeLabel = u),

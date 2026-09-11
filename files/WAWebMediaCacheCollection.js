@@ -7,13 +7,6 @@ __d(
       function t() {
         return e.apply(this, arguments) || this;
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    e.model = o("WAWebMediaCacheModel").MediaCache;
-    var s = (function (e) {
-      function t() {
-        return e.apply(this, arguments) || this;
-      }
       babelHelpers.inheritsLoose(t, e);
       var n = t.prototype;
       return (
@@ -29,10 +22,9 @@ __d(
         t
       );
     })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    ((s.model = o("WAWebMediaCacheModel").ResizeRotateMediaCache),
-      (s.maxsize = 5),
-      (l.WAWebMediaCacheCollection = e),
-      (l.WAWebMediaResizeRotateCacheCollection = s));
+    ((e.model = o("WAWebMediaCacheModel").ResizeRotateMediaCache),
+      (e.maxsize = 5),
+      (l.WAWebMediaResizeRotateCacheCollection = e));
   },
   98,
 );

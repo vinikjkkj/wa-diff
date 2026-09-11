@@ -2,31 +2,52 @@ __d(
   "WAWebStatusEphemeralBadgeUtils",
   [
     "WAWebChatCollection",
-    "WAWebChatEphemerality",
-    "WAWebEphemeralityFrontendUtils",
+    "WAWebChatGetters",
+    "WAWebFrontendChatGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebLidMigrationUtils",
+    "useWAWebChatValues",
+    "useWAWebGroupMetadataValues",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = o("WAWebChatCollection").ChatCollection.get(e);
-      if (t == null && e.isRegularUser != null && e.isRegularUser())
+    function e(e, t) {
+      var n,
+        r,
+        a,
+        i,
+        l,
+        s = o("WAWebChatCollection").ChatCollection.get(e);
+      if (s == null && e.isRegularUser != null && e.isRegularUser())
         try {
-          var n =
+          var u =
             e.isLid != null && e.isLid()
               ? o("WAWebLidMigrationUtils").toPn(e)
               : o("WAWebLidMigrationUtils").toLid(e);
-          n && (t = o("WAWebChatCollection").ChatCollection.get(n));
+          u != null && (s = o("WAWebChatCollection").ChatCollection.get(u));
         } catch (e) {}
-      if (
-        t != null &&
-        o("WAWebChatEphemerality").isEphemeralSettingOn(t) &&
-        !o("WAWebEphemeralityFrontendUtils").isEphemeralityDisabledInUIForChat(
-          t,
-        )
-      )
-        return { type: "discreet" };
+      var c =
+          (n = o("useWAWebChatValues").useOptionalChatValues(
+            (r = (a = s) == null ? void 0 : a.id) != null ? r : e,
+            [o("WAWebFrontendChatGetters").getEphemeralDuration],
+          )) != null
+            ? n
+            : [],
+        d = c[0],
+        m =
+          (i = o("useWAWebGroupMetadataValues").useOptionalGroupMetadataValues(
+            (l = s) == null || (l = l.groupMetadata) == null ? void 0 : l.id,
+            [o("WAWebGroupMetadataGetters").getEphemeralDuration],
+          )) != null
+            ? i
+            : [],
+        p = m[0],
+        _ = s != null && o("WAWebChatGetters").getIsGroup(s) ? p : d,
+        f = t && _ != null && _ > 0;
+      return f
+        ? { type: "discreet", testid: "disappearing-messages-refreshed" }
+        : void 0;
     }
-    l.getStatusRingEphemeralBadge = e;
+    l.useStatusRingEphemeralBadge = e;
   },
   98,
 );

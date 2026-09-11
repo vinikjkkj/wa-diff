@@ -30,19 +30,19 @@ __d(
         v = h.deltaWidth;
       if (l) {
         var S = u != null ? u : c / t,
-          R = o("WAWebMoveResizeLogic").calculateIndependentResize(
-            v,
-            C,
-            b,
-            y,
-            f,
-            p,
-            c,
-            S,
-            s,
-            i,
-            a,
-          );
+          R = o("WAWebMoveResizeLogic").calculateIndependentResize({
+            deltaBottom: y,
+            deltaHeight: C,
+            deltaLeft: b,
+            deltaWidth: v,
+            extraBottomContentHeight: a,
+            extraTopContentHeight: i,
+            margin: s,
+            minHeight: S,
+            minWidth: c,
+            resizeStartHeight: p,
+            resizeStartPiPStyle: f,
+          });
         return {
           resizedWidth: R.resizedWidth,
           resizedHeight: R.resizedHeight,

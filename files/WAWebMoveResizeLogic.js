@@ -51,31 +51,42 @@ __d(
         { adjustedLeft: o, needsAdjustment: o !== e }
       );
     }
-    function c(e, t, n, r, o, a, i, l, s, u, c) {
-      var d = Math.max(i, Math.min(window.innerWidth - s.x * 2, o.width + e)),
-        m = Math.max(l, Math.min(window.innerHeight - s.y * 2 - u - c, a + t)),
-        p;
-      if (n !== 0) {
-        var _ = d - o.width;
-        p = Math.max(s.x, Math.min(window.innerWidth - d - s.x, o.left - _));
-      } else p = Math.max(s.x, Math.min(window.innerWidth - d - s.x, o.left));
-      var f;
+    function c(e) {
+      var t = e.deltaBottom,
+        n = e.deltaHeight,
+        r = e.deltaLeft,
+        o = e.deltaWidth,
+        a = e.extraBottomContentHeight,
+        i = e.extraTopContentHeight,
+        l = e.margin,
+        s = e.minHeight,
+        u = e.minWidth,
+        c = e.resizeStartHeight,
+        d = e.resizeStartPiPStyle,
+        m = Math.max(u, Math.min(window.innerWidth - l.x * 2, d.width + o)),
+        p = Math.max(s, Math.min(window.innerHeight - l.y * 2 - i - a, c + n)),
+        _;
       if (r !== 0) {
-        var g = m - a;
-        f = Math.max(
-          s.y + c,
-          Math.min(window.innerHeight - m - s.y - u, o.bottom - g),
+        var f = m - d.width;
+        _ = Math.max(l.x, Math.min(window.innerWidth - m - l.x, d.left - f));
+      } else _ = Math.max(l.x, Math.min(window.innerWidth - m - l.x, d.left));
+      var g;
+      if (t !== 0) {
+        var h = p - c;
+        g = Math.max(
+          l.y + a,
+          Math.min(window.innerHeight - p - l.y - i, d.bottom - h),
         );
       } else
-        f = Math.max(
-          s.y + c,
-          Math.min(window.innerHeight - m - s.y - u, o.bottom),
+        g = Math.max(
+          l.y + a,
+          Math.min(window.innerHeight - p - l.y - i, d.bottom),
         );
       return {
-        resizedWidth: d,
-        resizedHeight: m,
-        resizedLeft: p,
-        resizedBottom: f,
+        resizedWidth: m,
+        resizedHeight: p,
+        resizedLeft: _,
+        resizedBottom: g,
       };
     }
     function d(e) {

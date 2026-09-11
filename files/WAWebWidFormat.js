@@ -3,67 +3,53 @@ __d(
   [
     "fbt",
     "WAJids",
-    "WALogger",
     "WAMemoizeCache",
     "WATypeUtils",
     "WAWebL10N",
     "WAWebPhoneUtils",
     "WAWebUsernameGatingUtils",
     "WAWebWid",
-    "WAWebWidFactory",
     "gkx",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = o("WAMemoizeCache").memoizeWithArgs(
-        function (e) {
-          return e === "Server" ? e : o("WAWebPhoneUtils").formatPhone(e);
-        },
-        function (e) {
-          return e;
-        },
-      );
-    function c(e) {
-      return r("WAWebL10N").isRTL() ? r("WAWebL10N").isolateLTR(u(e)) : u(e);
+    var e = o("WAMemoizeCache").memoizeWithArgs(
+      function (e) {
+        return e === "Server" ? e : o("WAWebPhoneUtils").formatPhone(e);
+      },
+      function (e) {
+        return e;
+      },
+    );
+    function u(t) {
+      return r("WAWebL10N").isRTL() ? r("WAWebL10N").isolateLTR(e(t)) : e(t);
     }
-    function d(t) {
-      return (
-        o("WAWebUsernameGatingUtils").shouldLogUnknownNumberError() &&
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[GetUnknownNumber] unexpected unknown num for: ",
-                "",
-              ])),
-            t == null ? void 0 : t.toLogString(),
-          ),
-        s._(/*BTDS*/ "Unknown number").toString()
-      );
+    function c() {
+      return s._(/*BTDS*/ "Unknown number").toString();
     }
-    function m() {
+    function d() {
       return s._(/*BTDS*/ "Unknown user").toString();
     }
-    function p(e) {
+    function m() {
       return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
-        ? m()
-        : d(e);
+        ? d()
+        : c();
     }
-    function _(e) {
+    function p(e) {
       return e instanceof r("WAWebWid")
         ? e.isLid()
           ? r("gkx")("26258")
-            ? p(e)
+            ? m()
             : e.toString()
-          : c(e.user)
+          : u(e.user)
         : o("WATypeUtils").isString(e)
           ? e.endsWith(o("WAJids").LID_DOMAIN)
             ? r("gkx")("26258")
-              ? p(o("WAWebWidFactory").createUserWidOrThrow(e))
+              ? m()
               : e
-            : c(e.split("@")[0])
+            : u(e.split("@")[0])
           : "";
     }
-    ((l.getUnknownUserOrNumber = p), (l.widToFormattedUser = _));
+    ((l.getUnknownUserOrNumber = m), (l.widToFormattedUser = p));
   },
   226,
 );

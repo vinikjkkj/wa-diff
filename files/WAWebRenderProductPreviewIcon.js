@@ -1,6 +1,6 @@
 __d(
   "WAWebRenderProductPreviewIcon",
-  ["WAWebStorefrontRefreshedThinIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcStore.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -16,11 +16,12 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(
-              o("WAWebStorefrontRefreshedThinIcon.react")
-                .StorefrontRefreshedThinIcon,
-              { xstyle: u.container, width: 17, height: 20, "aria-hidden": !0 },
-            )),
+          ? ((n = s.jsx(r("WDSIconIcStore.react"), {
+              xstyle: u.container,
+              width: 20,
+              height: 20,
+              "aria-hidden": !0,
+            })),
             (t[0] = n))
           : (n = t[0]),
         n

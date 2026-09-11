@@ -62,7 +62,7 @@ __d(
           e
         );
       })();
-    ((l.Metric = s), (l.GlobalMetric = u), (l.Metrics = c));
+    ((l.GlobalMetric = u), (l.Metrics = c));
   },
   98,
 );

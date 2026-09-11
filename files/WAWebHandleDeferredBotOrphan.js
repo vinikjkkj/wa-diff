@@ -4,11 +4,13 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebAddonQueryUtils",
+    "WAWebCommonMsgUtils",
     "WAWebCreateNackFromStanza",
     "WAWebDBProcessOrphansForNewMsg",
     "WAWebDBStoreMessageOrphans",
     "WAWebHandleMsgSendReceipt",
     "WAWebHandleMsgTypes.flow",
+    "WAWebLidMigrationUtils",
     "WAWebMsgKey",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgType",
@@ -31,7 +33,7 @@ __d(
             l = t.node,
             u = i.msgInfo,
             c = i.msgMeta,
-            d = yield h(i, a, l);
+            d = yield C(i, a, l);
           if (d)
             try {
               yield p(a);
@@ -98,21 +100,38 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
           if (e == null) return null;
-          var n = r("WAWebMsgKey").fromString(e),
-            a = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([n]);
-          return (t = a.get(n.toString())) != null ? t : null;
+          var t = r("WAWebMsgKey").fromString(e),
+            n = yield h(t);
+          if (n != null) return n;
+          var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(t);
+          return a == null ? null : h(a);
         })),
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([e]),
+            r = (t = n.get(e.toString())) != null ? t : null;
+          return r != null && o("WAWebCommonMsgUtils").isPlaceholderMsg(r.type)
+            ? null
+            : r;
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, n) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
           try {
             var l,
@@ -180,7 +199,7 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     l.handleDeferredBotOrphan = d;

@@ -6,13 +6,11 @@ __d(
       t.requestIdleCallback ||
       o("IdleCallbackImplementation").requestIdleCallback;
     function s(n, o) {
-      return (
-        (n = r("TimeSlice").guard(n, "requestIdleCallback", {
-          propagationType: r("TimeSlice").PropagationType.CONTINUATION,
-          registerCallStack: !0,
-        })),
-        e.call(t, n, o)
-      );
+      var a = r("TimeSlice").guard(n, "requestIdleCallback", {
+        propagationType: r("TimeSlice").PropagationType.CONTINUATION,
+        registerCallStack: !0,
+      });
+      return e.call(t, a, o);
     }
     l.default = s;
   },

@@ -4,9 +4,9 @@ __d(
     "WAWebCommandPaletteController",
     "WAWebLexicalWAWebMenu.react",
     "WAWebMenuItems.react",
-    "WAWebSettingsThemeIcon.react",
     "WAWebSystemTheme",
     "WAWebThemeContext",
+    "WDSIconIcBrightnessMedium.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -128,7 +128,7 @@ __d(
       plugin: {
         id: "ThemeCommandPalettePlugin",
         placeholder: "Choose a theme",
-        shortName: s.jsx(o("WAWebSettingsThemeIcon.react").SettingsThemeIcon, {
+        shortName: s.jsx(r("WDSIconIcBrightnessMedium.react"), {
           width: 16,
           height: 16,
         }),

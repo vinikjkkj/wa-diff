@@ -21,8 +21,8 @@ __d(
     "WAWebMessageUiUtils",
     "WAWebMsgGetters",
     "WAWebMsgModelPropUtils",
-    "WAWebMsgVideoIcon.react",
     "WAWebStateUtils",
+    "WDSIconIcVideocamFilled.react",
     "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
@@ -394,10 +394,11 @@ __d(
                     o(
                       "WAWebMediaMessageGetValidatedProperties",
                     ).isVideoMimeType(C.mimetype) &&
-                    u.jsx(o("WAWebMsgVideoIcon.react").MsgVideoIcon, {
+                    u.jsx(r("WDSIconIcVideocamFilled.react"), {
                       xstyle: _.mediaThumbVideoIcon,
-                      height: 12,
+                      height: 14,
                       width: 14,
+                      testid: "msg-video",
                     }),
                 ],
               }),

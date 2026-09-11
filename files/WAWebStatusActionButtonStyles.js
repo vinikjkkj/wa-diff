@@ -46,6 +46,7 @@ __d(
           marginInlineEnd: "xcknrev",
           $$css: !0,
         },
+        iconColourOverMedia: { color: "x17t9dm2", $$css: !0 },
         square26Svg: { height: "xd7y6wv", width: "x23j0i4", $$css: !0 },
         square26SvgCentered: {
           alignItems: "x6s0dn4",

@@ -13,21 +13,36 @@ __d(
         ["UNSUPPORTED_MESSAGE_TYPE", "retryable_error"],
         ["AI_FEATURE_DISABLED", "silent_fallback"],
       ]),
-      l = new Set(["INTERNAL_SERVER_ERROR", "MESSAGE_NOT_FOUND"]);
-    function s(t) {
+      l = {
+        AI_FEATURE_DISABLED: 9,
+        CONVERSATION_NOT_FOUND: 1,
+        INTERNAL_SERVER_ERROR: 5,
+        INVALID_RESPONSE: 6,
+        MESSAGE_NOT_FOUND: 4,
+        MESSAGE_STALE: 3,
+        SUBSCRIPTION_QUOTA_EXHAUSTED: 10,
+        UNKNOWN: 0,
+        UNSUPPORTED_MESSAGE_TYPE: 2,
+      },
+      s = new Set(["INTERNAL_SERVER_ERROR", "MESSAGE_NOT_FOUND"]);
+    function u(t) {
       var n;
       return (n = e.get(t)) != null ? n : "silent_fallback";
     }
-    function u(e) {
-      return l.has(e);
+    function c(e) {
+      return s.has(e);
     }
-    function c(t) {
+    function d(e) {
+      return l[e];
+    }
+    function m(t) {
       for (var n of e.keys()) if (n === t) return n;
       return "UNKNOWN";
     }
-    ((i.mapSuggestedReplyErrorToState = s),
-      (i.isAutoRetryableSuggestedReplyError = u),
-      (i.normalizeSuggestedReplyErrorCode = c));
+    ((i.mapSuggestedReplyErrorToState = u),
+      (i.isAutoRetryableSuggestedReplyError = c),
+      (i.getSuggestedReplyErrorWireValue = d),
+      (i.normalizeSuggestedReplyErrorCode = m));
   },
   66,
 );

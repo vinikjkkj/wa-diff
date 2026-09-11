@@ -23,9 +23,6 @@ __d(
           (a.$4 = function (t) {
             return Array.isArray(t) ? t.length : t === void 0 ? 0 : 1;
           }),
-          (a.getView_TESTONLY = function () {
-            return this.$1;
-          }),
           (a.$5 = function (a) {
             var t = this;
             if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)

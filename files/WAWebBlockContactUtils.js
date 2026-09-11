@@ -20,6 +20,7 @@ __d(
     "WAWebSendSpamChatAction",
     "WAWebSmb1pdConversionSignalAction",
     "WAWebStateUtils",
+    "WAWebUnblockContactDialogV2.react",
     "WAWebWamChatPSALogger",
     "WDSDialogBridge",
     "react",
@@ -110,18 +111,27 @@ __d(
     }
     function d(e, t) {
       var n = function () {
-          var n = o("WAWebChatCollection").ChatCollection.get(e.id);
-          if (n != null && o("WAWebChatGetters").getIsPSA(n)) {
-            var r = n.msgs.last(),
-              a = o(
-                "WAWebBlocklistUtils",
-              ).getUnblockPsaRemoveEntryPointFromBlockEntryPoint(t);
-            a != null && o("WAWebWamChatPSALogger").logChatPSARemove(r, 2, a);
-          }
-          (o("WAWebBlockContactAction").unblockContact(e, t),
-            o("WAWebModalManager").ModalManager.close());
-        },
-        a = u.jsx(o("WAWebName.react").Name, { contact: e });
+        var n = o("WAWebChatCollection").ChatCollection.get(e.id);
+        if (n != null && o("WAWebChatGetters").getIsPSA(n)) {
+          var r = n.msgs.last(),
+            a = o(
+              "WAWebBlocklistUtils",
+            ).getUnblockPsaRemoveEntryPointFromBlockEntryPoint(t);
+          a != null && o("WAWebWamChatPSALogger").logChatPSARemove(r, 2, a);
+        }
+        (o("WAWebBlockContactAction").unblockContact(e, t),
+          o("WAWebModalManager").ModalManager.close());
+      };
+      if (o("WAWebABProps").getABPropConfigValue("wds_web_dialog")) {
+        o("WDSDialogBridge").openWDSDialog(
+          u.jsx(r("WAWebUnblockContactDialogV2.react"), {
+            contact: e,
+            onUnblock: n,
+          }),
+        );
+        return;
+      }
+      var a = u.jsx(o("WAWebName.react").Name, { contact: e });
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           okText: r("WAWebFbtCommon")("Unblock"),

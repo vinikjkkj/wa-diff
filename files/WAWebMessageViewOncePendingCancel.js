@@ -4,7 +4,7 @@ __d(
     "fbt",
     "WAWebFlex.react",
     "WAWebSpinner.react",
-    "WAWebXSoftIcon.react",
+    "WDSIconIcClose.react",
     "react",
     "react-compiler-runtime",
     "useWAWebStaticButtonA11y",
@@ -48,8 +48,10 @@ __d(
         ? ((y = u.jsx(
             "div",
             babelHelpers.extends({}, g, {
-              children: u.jsx(o("WAWebXSoftIcon.react").XSoftIcon, {
+              children: u.jsx(r("WDSIconIcClose.react"), {
+                height: 14,
                 iconXstyle: h,
+                width: 14,
               }),
             }),
           )),

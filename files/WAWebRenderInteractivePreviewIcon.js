@@ -7,7 +7,7 @@ __d(
     "WAWebMessageFailIcon.react",
     "WAWebMsgGetters",
     "WAWebReceiptIcon.react",
-    "WAWebShopFilledIcon.react",
+    "WDSIconIcShoppingBagFill.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
@@ -41,9 +41,9 @@ __d(
         var d;
         return (
           t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((d = s.jsx(o("WAWebShopFilledIcon.react").ShopFilledIcon, {
+            ? ((d = s.jsx(r("WDSIconIcShoppingBagFill.react"), {
                 xstyle: [u.container, u.marginTop2],
-                width: 13,
+                width: 14,
                 height: 14,
               })),
               (t[1] = d))

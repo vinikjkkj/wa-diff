@@ -219,7 +219,7 @@ __d(
           var t = this.$26(r, !0);
           return t == null
             ? (e || (e = n("Promise"))).resolve(!1)
-            : this.$19.getPromise(t) || (e || (e = n("Promise"))).resolve(!1);
+            : t.promise || (e || (e = n("Promise"))).resolve(!1);
         }),
         (a.ping = function () {
           var t = this,
@@ -427,9 +427,9 @@ __d(
             ),
             d = Date.now();
           if (this.$27() && this.$10 != null) {
-            var m, p, _;
+            var m, p, _, h;
             return (
-              n && this.$19.add(l),
+              n && (h = this.$19.add(l)),
               this.$10
                 .send(c)
                 .then(function (e) {
@@ -470,12 +470,12 @@ __d(
                   },
                   l,
                 ),
-              l
+              { promise: h }
             );
           } else {
-            var h;
-            (h = this.$5) == null ||
-              h.logE2EEvent(
+            var y;
+            (y = this.$5) == null ||
+              y.logE2EEvent(
                 r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
                 r("RequestStreamE2EClientLoggerEvent").FAILURE,
                 { reason: "not_started" },

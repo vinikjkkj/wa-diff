@@ -706,6 +706,7 @@ __d(
     "WDSIconIosMicSlashFill.react",
     "WDSIconIosMoon.react",
     "WDSIconIosMoonFill.react",
+    "WDSIconIosMusicNoteSlash.react",
     "WDSIconIosPencil.react",
     "WDSIconIosPencilLine.react",
     "WDSIconIosPerson.react",
@@ -1073,6 +1074,7 @@ __d(
     "WDSIconIosXmark.react",
     "WDSIconIosXmarkCircle.react",
     "WDSIconIosXmarkCircleFill.react",
+    "WDSIconMusicNoteSlash.react",
     "WDSIconPin.react",
     "WDSIconPinFilled.react",
     "WDSIconPinSlash.react",
@@ -1382,6 +1384,7 @@ __d(
     "WDSIconWdsIcVoiceChatChannelsFill.react",
     "WDSIconWdsIcWand.react",
     "WDSIconWdsIcWandFilled.react",
+    "WDSIconWdsIcWeave.react",
     "WDSIconWdsIcWhatsapp.react",
     "WDSIconWdsIcWhatsappSmbLogo.react",
     "WDSIconWdsMicVoiceReplybadge.react",
@@ -3665,6 +3668,10 @@ __d(
           Component: r("WDSIconIosMoonFill.react"),
           name: "WDSIconIosMoonFill",
         },
+        {
+          Component: r("WDSIconIosMusicNoteSlash.react"),
+          name: "WDSIconIosMusicNoteSlash",
+        },
         { Component: r("WDSIconIosPencil.react"), name: "WDSIconIosPencil" },
         {
           Component: r("WDSIconIosPencilLine.react"),
@@ -5103,6 +5110,10 @@ __d(
           Component: r("WDSIconIosXmarkCircleFill.react"),
           name: "WDSIconIosXmarkCircleFill",
         },
+        {
+          Component: r("WDSIconMusicNoteSlash.react"),
+          name: "WDSIconMusicNoteSlash",
+        },
         { Component: r("WDSIconPin.react"), name: "WDSIconPin" },
         { Component: r("WDSIconPinFilled.react"), name: "WDSIconPinFilled" },
         { Component: r("WDSIconPinSlash.react"), name: "WDSIconPinSlash" },
@@ -6311,6 +6322,7 @@ __d(
           Component: r("WDSIconWdsIcWandFilled.react"),
           name: "WDSIconWdsIcWandFilled",
         },
+        { Component: r("WDSIconWdsIcWeave.react"), name: "WDSIconWdsIcWeave" },
         {
           Component: r("WDSIconWdsIcWhatsapp.react"),
           name: "WDSIconWdsIcWhatsapp",

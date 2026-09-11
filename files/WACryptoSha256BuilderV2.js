@@ -183,7 +183,12 @@ __d(
         o = Math.floor(t / c);
       return (r.setUint32(0, o, !1), r.setUint32(4, t - o * c, !1), n);
     }
-    ((l.Sha256BuilderV2 = d), (l.pad = g));
+    ((l.Sha256BuilderV2 = d),
+      (l.sigma0 = m),
+      (l.sigma1 = p),
+      (l.rotateRight = _),
+      (l.shiftRight = f),
+      (l.pad = g));
   },
   98,
 );

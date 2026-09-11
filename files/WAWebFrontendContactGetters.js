@@ -90,13 +90,12 @@ __d(
           var t = e[0],
             n = e[1],
             a = e[2],
-            i = e[3],
-            l = e[4];
-          return i ===
+            i = e[3];
+          return a ===
             o("WAWebContactExternalUserState").ExternalUserState.GuestUser &&
-            !r("isStringNullOrEmpty")(l)
+            !r("isStringNullOrEmpty")(i)
             ? {
-                displayName: l,
+                displayName: i,
                 type: o("WAWebWamEnumOppositeVisibleIdentificationType")
                   .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PUSHNAME,
               }
@@ -114,18 +113,12 @@ __d(
                       .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.MASKED_PHONE_NUMBER,
                   }
                 : {
-                    displayName: o("WAWebWidFormat").getUnknownUserOrNumber(a),
+                    displayName: o("WAWebWidFormat").getUnknownUserOrNumber(),
                     type: o("WAWebWamEnumOppositeVisibleIdentificationType")
                       .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER,
                   };
         },
-        [
-          f,
-          A,
-          o("WAWebContactGetters").getId,
-          g,
-          o("WAWebContactGetters").getPushname,
-        ],
+        [f, A, g, o("WAWebContactGetters").getPushname],
       ),
       O = m(
         function (e) {

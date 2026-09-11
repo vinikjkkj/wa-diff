@@ -79,9 +79,10 @@ __d(
         else if (u === a) {
           i = s;
           break;
-        } else
+        } else {
+          var c = self;
           return (
-            self.ERROR != null &&
+            c.ERROR != null &&
               o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -96,25 +97,26 @@ __d(
               ),
             null
           );
+        }
       }
-      for (var c = l.length / 4, d = 0, m = 0; d < c; d++, m += 4)
-        l[d] = (l[m] << 18) | (l[m + 1] << 12) | (l[m + 2] << 6) | l[m + 3];
+      for (var d = l.length / 4, m = 0, p = 0; m < d; m++, p += 4)
+        l[m] = (l[p] << 18) | (l[p + 1] << 12) | (l[p + 2] << 6) | l[p + 3];
       for (
-        var p = Math.floor((i * 3) / 4), _ = new Uint8Array(p), f = 0, g = 0;
-        g + 3 <= p;
-        f++, g += 3
+        var _ = Math.floor((i * 3) / 4), f = new Uint8Array(_), g = 0, h = 0;
+        h + 3 <= _;
+        g++, h += 3
       ) {
-        var h = l[f];
-        ((_[g] = h >> 16), (_[g + 1] = (h >> 8) & 255), (_[g + 2] = h & 255));
+        var y = l[g];
+        ((f[h] = y >> 16), (f[h + 1] = (y >> 8) & 255), (f[h + 2] = y & 255));
       }
-      switch (p - g) {
+      switch (_ - h) {
         case 2:
-          ((_[g] = l[f] >> 16), (_[g + 1] = (l[f] >> 8) & 255));
+          ((f[h] = l[g] >> 16), (f[h + 1] = (l[g] >> 8) & 255));
           break;
         case 1:
-          _[g] = l[f] >> 16;
+          f[h] = l[g] >> 16;
       }
-      return _;
+      return f;
     }
     function b(e) {
       var t = C(e, s, u, c);

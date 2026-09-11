@@ -16,6 +16,14 @@ __d(
     function s() {
       return (
         e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_approval_notification_enabled",
+        )
+      );
+    }
+    function u() {
+      return (
+        e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_manage_subscription_enabled",
@@ -23,7 +31,8 @@ __d(
       );
     }
     ((l.isHatchIntegrationEnabled = e),
-      (l.isHatchManageSubscriptionEnabled = s));
+      (l.isHatchApprovalNotificationEnabled = s),
+      (l.isHatchManageSubscriptionEnabled = u));
   },
   98,
 );

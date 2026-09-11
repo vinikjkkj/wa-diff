@@ -77,9 +77,6 @@ __d(
         });
     }
     ((l.getLocalStorageTable = o("WAWebSchemaLocalStorage").getTable),
-      (l.getDeferredMessagesTable = o(
-        "WAWebSchemaDeferredMessagesStorage",
-      ).getTable),
       (l.initialize = u),
       (l.destroy = d));
   },

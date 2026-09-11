@@ -15,20 +15,6 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })((e = o("WACustomError")).CustomError),
       u = (function (e) {
-        function t(t, n) {
-          var r;
-          return (
-            (r = e.call(this, "Image failed to load.") || this),
-            (r.name = "ImageError"),
-            (r.src = t),
-            (r.status = n),
-            (r.target = { src: t, status: n }),
-            r
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      c = (function (e) {
         function t(t) {
           var n;
           return (
@@ -39,7 +25,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      d = (function (e) {
+      c = (function (e) {
         function t(t) {
           var n;
           return (
@@ -50,7 +36,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      m = (function (e) {
+      d = (function (e) {
         function t(t) {
           var n;
           return (
@@ -62,7 +48,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      p = (function (e) {
+      m = (function (e) {
         function t() {
           var t;
           return (
@@ -73,7 +59,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      _ = (function (e) {
+      p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -86,7 +72,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      f = (function (e) {
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -96,8 +82,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(m),
-      g = (function (e) {
+      })(d),
+      f = (function (e) {
         function t(t) {
           var n;
           return (
@@ -108,8 +94,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    g.message = "Media format is unsupported";
-    var h = (function (e) {
+    f.message = "Media format is unsupported";
+    var g = (function (e) {
       function t(t) {
         var n;
         return (
@@ -120,17 +106,16 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e.CustomError);
-    ((h.message = "Failed to get media contentLength from mms"),
+    ((g.message = "Failed to get media contentLength from mms"),
       (l.CatalogImageDownloadError = s),
-      (l.ImageError = u),
-      (l.MediaNeedsReupload = c),
-      (l.FileNotReadableError = d),
-      (l.MediaLoadError = m),
-      (l.TranscodeBlobTooLargeError = p),
-      (l.UnableToPlayVideoError = _),
-      (l.MediaDragDropError = f),
-      (l.MediaUnsupportedError = g),
-      (l.UnableToGetContentLengthError = h));
+      (l.MediaNeedsReupload = u),
+      (l.FileNotReadableError = c),
+      (l.MediaLoadError = d),
+      (l.TranscodeBlobTooLargeError = m),
+      (l.UnableToPlayVideoError = p),
+      (l.MediaDragDropError = _),
+      (l.MediaUnsupportedError = f),
+      (l.UnableToGetContentLengthError = g));
   },
   98,
 );

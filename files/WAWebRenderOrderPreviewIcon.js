@@ -1,10 +1,6 @@
 __d(
   "WAWebRenderOrderPreviewIcon",
-  [
-    "WAWebShoppingCartRefreshedThinIcon.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WDSIconIcShoppingCart.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -21,17 +17,14 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(
-              o("WAWebShoppingCartRefreshedThinIcon.react")
-                .ShoppingCartRefreshedThinIcon,
-              {
-                width: 17,
-                height: 20,
-                xstyle: u.container,
-                iconXstyle: u.icon,
-                "aria-hidden": !0,
-              },
-            )),
+          ? ((n = s.jsx(r("WDSIconIcShoppingCart.react"), {
+              width: 20,
+              height: 20,
+              xstyle: u.container,
+              iconXstyle: u.icon,
+              "aria-hidden": !0,
+              testid: "ic-shopping-cart",
+            })),
             (t[0] = n))
           : (n = t[0]),
         n

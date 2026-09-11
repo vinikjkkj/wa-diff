@@ -10,13 +10,16 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            l != null ||
-              (l = (yield (e || (e = n("Promise"))).all([c(), _(), m()])).every(
-                Boolean,
-              )),
-            l
-          );
+          return l != null
+            ? l
+            : typeof WebAssembly != "object"
+              ? ((l = !1), l)
+              : ((l = (yield (e || (e = n("Promise"))).all([
+                  c(),
+                  _(),
+                  m(),
+                ])).every(Boolean)),
+                l);
         })),
         u.apply(this, arguments)
       );

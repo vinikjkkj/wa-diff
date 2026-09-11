@@ -5,6 +5,7 @@ __d(
     var e = {
         toCanonicalAttrs: {
           _style: "\x84",
+          alpha: "\x8D",
           child_templates: "\x8F",
           children: " ",
           extensions: "\x85",

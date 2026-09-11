@@ -18,13 +18,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = [],
             r = null,
             a = -1;
@@ -45,14 +45,20 @@ __d(
                 .sendLogs("wasa-root-secret-sync-malformed");
               continue;
             }
-            n.push({ stanzaId: u, secret: new Uint8Array(c) });
-            var d = (l = o("WALongInt").maybeNumber(i.epoch)) != null ? l : 0;
-            (r == null || d > a) && ((r = u), (a = d));
+            if (
+              (n.push({ stanzaId: u, secret: new Uint8Array(c) }),
+              i.status ===
+                o("WAWebProtobufSyncAction.pb")
+                  .SyncActionValue$WASARootSecretAction$RootSecretEntry$Status
+                  .ACTIVE)
+            ) {
+              var d = (l = o("WALongInt").maybeNumber(i.epoch)) != null ? l : 0;
+              (r == null || d > a) && ((r = u), (a = d));
+            }
           }
           return (
             yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretsForIds(e, n),
-            r != null &&
-              (yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, r)),
+            yield p(e, r),
             new Set(
               n.map(function (e) {
                 return e.stanzaId;
@@ -60,15 +66,44 @@ __d(
             )
           );
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t != null) {
+            yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, t);
+            return;
+          }
+          var n = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
+          n != null &&
+            (o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WASARootSecretSync] no ACTIVE entry for ",
+                    "; clearing send key ",
+                    "",
+                  ])),
+                e,
+                n,
+              )
+              .sendLogs("wasa-root-secret-sync-no-active"),
+            yield o("WAWebWasaUserPrefs").clearWasaActiveTargetId(e.user));
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t, n) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
             a = yield o("WAWebSyncdDb").getSyncAction(JSON.stringify(t)),
             i =
@@ -93,10 +128,10 @@ __d(
               (yield o("WAWebWasaUserPrefs").clearWasaActiveTargetId(e.user));
           }
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    var _ = (function (t) {
+    var h = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -122,7 +157,7 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var a = this;
-                return (u || (u = n("Promise"))).all(
+                return (c || (c = n("Promise"))).all(
                   t.map(
                     (function () {
                       var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -142,32 +177,32 @@ __d(
                                   s = n.value,
                                   u = l[1];
                                 if (!u) return a.malformedActionIndex();
-                                var d = s.wasaRootSecretAction;
-                                if (d == null)
+                                var c = s.wasaRootSecretAction;
+                                if (c == null)
                                   return o(
                                     "WAWebSyncdIndexUtils",
                                   ).malformedActionValue(a.collectionName);
-                                var p = yield o(
+                                var m = yield o(
                                   "WAWebSyncdGetChat",
                                 ).resolveChatForMutationIndex(
                                   o("WAWebWidFactory").createWid(u),
                                 );
-                                if (!p.success)
+                                if (!m.success)
                                   return {
                                     actionState:
                                       o("WAWebSyncdConst").SyncActionState
                                         .Orphan,
-                                    orphanModel: p.orphanModel,
+                                    orphanModel: m.orphanModel,
                                   };
-                                var _ = o("WAWebWidFactory").createWid(
-                                    p.chat.id,
+                                var p = o("WAWebWidFactory").createWid(
+                                    m.chat.id,
                                   ),
-                                  f = yield c(
-                                    _,
-                                    (i = d.secrets) != null ? i : [],
+                                  _ = yield d(
+                                    p,
+                                    (i = c.secrets) != null ? i : [],
                                   );
                                 return (
-                                  yield m(_, l, f),
+                                  yield f(p, l, _),
                                   {
                                     actionState:
                                       o("WAWebSyncdConst").SyncActionState
@@ -227,8 +262,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase),
-      f = new _();
-    l.default = f;
+      y = new h();
+    l.default = y;
   },
   98,
 );

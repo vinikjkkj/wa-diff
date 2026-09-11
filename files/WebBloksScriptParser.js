@@ -38,8 +38,8 @@ __d(
             ((n = []), r.push(n), a++);
             break;
           case ")": {
-            var s = r.pop();
-            if (((n = r[r.length - 1]), !n))
+            var s = n;
+            if ((r.pop(), (n = r[r.length - 1]), !n))
               throw new (o("WebBloksErrors").WebBloksScriptParseError)(
                 a,
                 "Unexpected ')'",

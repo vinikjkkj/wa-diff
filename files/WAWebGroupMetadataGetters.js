@@ -12,18 +12,19 @@ __d(
       m = s,
       p = d,
       _ = c("subject"),
-      f = u(
+      f = c("ephemeralDuration"),
+      g = u(
         function (e) {
           var t = e[0];
           return t === "";
         },
         [_],
       ),
-      g = c("parentGroup"),
-      h = c("isParentGroup"),
-      y = c("defaultSubgroup"),
-      C = c("generalSubgroup"),
-      b = u(
+      h = c("parentGroup"),
+      y = c("isParentGroup"),
+      C = c("defaultSubgroup"),
+      b = c("generalSubgroup"),
+      v = u(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -39,21 +40,22 @@ __d(
                   ? o("WAWebGroupType").GroupType.COMMUNITY
                   : o("WAWebGroupType").GroupType.DEFAULT;
         },
-        [g, h, y, C],
+        [h, y, C, b],
       ),
-      v = u(
+      S = u(
         function (e) {
           var t = e[0];
           return t === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
         },
-        [b],
+        [v],
       );
     ((l.clearGroupMetadataGetterCacheFor = m),
       (l.getGroupMetadataUnsafe = p),
       (l.getSubject = _),
-      (l.getIsUnnamed = f),
-      (l.getGroupType = b),
-      (l.getIsCag = v));
+      (l.getEphemeralDuration = f),
+      (l.getIsUnnamed = g),
+      (l.getGroupType = v),
+      (l.getIsCag = S));
   },
   98,
 );

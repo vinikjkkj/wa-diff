@@ -5,7 +5,7 @@ __d(
     "WABase64",
     "WABinary",
     "WACryptoHkdfSync",
-    "WACryptoSha256Builder",
+    "WACryptoSha256BuilderV2",
     "WATimeUtils",
     "WormCallbacks",
     "WormEar",
@@ -38,7 +38,7 @@ __d(
             (s.$WormEarSync$p_1 = new Uint8Array(i)),
             (s.$WormEarSync$p_2 = o("WABase64")
               .encodeB64(
-                new (o("WACryptoSha256Builder").Sha256Builder)()
+                new (o("WACryptoSha256BuilderV2").Sha256BuilderV2)()
                   .update(s.$WormEarSync$p_1)
                   .finish(),
               )

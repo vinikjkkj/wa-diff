@@ -424,7 +424,6 @@ __d(
         "bk.components.ViewTransformsExtension": {
           styleId: "\u3578",
           toCanonicalAttrs: {
-            alpha: "\x8D",
             css_transition_delay: "=",
             css_transition_duration: "5",
             css_transition_timing_function: "6",
@@ -901,7 +900,6 @@ __d(
         "bk.types.CanvasLayer": {
           styleId: "\u40EF",
           toCanonicalAttrs: {
-            alpha: "\x8D",
             blending_mode: "#",
             clip: "$",
             height: "&",
