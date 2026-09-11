@@ -84,20 +84,41 @@ __d(
         },
         matcher: function (t) {
           var e = t.labelId;
-          return e == null
-            ? o("WAWebBoolFunc").returnTrue
-            : function (t) {
-                var n = o(
-                  "WAWebLabelCollection",
-                ).LabelCollection.getLabelsForModel(
-                  String(t.chatJid),
-                  o("WAWebListItemParentType").LabelItemParentType.Chat,
-                );
-                return e ===
-                  o("WAWebContactManagerSearchUtils").NO_LABEL_FILTER_ID
-                  ? n.length === 0
-                  : n.includes(e);
-              };
+          if (e == null) return o("WAWebBoolFunc").returnTrue;
+          var n = new Set();
+          if (
+            e === o("WAWebContactManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
+          ) {
+            var r = function (t) {
+              var e,
+                r =
+                  (e = o("WAWebLabelCollection").LabelCollection.findFirst(
+                    function (e) {
+                      return e.predefinedId === t;
+                    },
+                  )) == null
+                    ? void 0
+                    : e.id;
+              r != null && n.add(r);
+            };
+            for (var a of o("WAWebContactManagerSearchUtils")
+              .BOARD_STRUCTURAL_PREDEFINED_IDS)
+              r(a);
+          }
+          return function (t) {
+            var r = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
+              String(t.chatJid),
+              o("WAWebListItemParentType").LabelItemParentType.Chat,
+            );
+            return e === o("WAWebContactManagerSearchUtils").NO_LABEL_FILTER_ID
+              ? r.length === 0
+              : e ===
+                  o("WAWebContactManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
+                ? r.every(function (e) {
+                    return n.has(e);
+                  })
+                : r.includes(e);
+          };
         },
         serverFilter: o("WAWebNullFunc").returnNull,
       },

@@ -12,6 +12,7 @@ __d(
     "WAWebCrosspostingParser",
     "WAWebGraphQLServerError",
     "WAWebRelayClient",
+    "WAWebWaffleEncryptionMetadataArgs",
     "WAWebWaffleXEQuery",
     "asyncToGeneratorRuntime",
     "err",
@@ -120,12 +121,10 @@ __d(
                   actionElementValue: "waffle_1",
                   fbidElementValue: _,
                   timestampElementValue: Date.now(),
-                  rSAEncryptionMetadataMixinArgs: {
-                    encryptedKeyElementValue: b.encryptedKey,
-                    nonceElementValue: b.nonce,
-                    encryptedDataElementValue: b.cipherText,
-                    authTagElementValue: b.tag,
-                  },
+                  rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
+                    o(
+                      "WAWebWaffleEncryptionMetadataArgs",
+                    ).waffleV1EncryptionMetadataArgs(b),
                 });
                 if (v.name === "EncryptedPayloadRequestResponseSuccess") {
                   var S = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(

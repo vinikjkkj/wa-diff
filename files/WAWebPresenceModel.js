@@ -11,6 +11,7 @@ __d(
     "WAWebChatCollection",
     "WAWebChatContactUtils",
     "WAWebChatGetters",
+    "WAWebChatstateGetters",
     "WAWebClock",
     "WAWebContactCollection",
     "WAWebContactGetters",
@@ -18,6 +19,7 @@ __d(
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
+    "WAWebFrontendPresenceGetters",
     "WAWebGroupGatingUtils",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupPresenceUtils",
@@ -59,7 +61,15 @@ __d(
               babelHelpers.assertThisInitialized(t)
           );
         }
-        return (babelHelpers.inheritsLoose(t, e), t);
+        babelHelpers.inheritsLoose(t, e);
+        var n = t.prototype;
+        return (
+          (n.delete = function () {
+            (e.prototype.delete.call(this),
+              o("WAWebChatstateGetters").clearChatstateGetterCacheFor(this));
+          }),
+          t
+        );
       })((m = o("WAWebBaseModel")).BaseModel);
     ((g.Proxy = "chatstate"), (g.idClass = r("WAWebWid")));
     var h = m.defineModel(g),
@@ -189,6 +199,9 @@ __d(
         (a.delete = function () {
           (t.prototype.delete.call(this),
             o("WAWebPresenceGetters").clearPresenceGetterCacheFor(this),
+            o(
+              "WAWebFrontendPresenceGetters",
+            ).clearFrontendPresenceGetterCacheFor(this),
             this.getCollection().remove(this.id),
             this.chatstate.delete(),
             this.chatstates.forEach(function (e) {

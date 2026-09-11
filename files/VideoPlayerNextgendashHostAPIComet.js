@@ -20,7 +20,10 @@ __d(
             var e = r("NetworkStatus").isOnline();
             return e && navigator.onLine;
           },
-          random: { coinflip: o("Random").coinflip },
+          random: {
+            coinflip: o("Random").coinflip,
+            random: o("Random").random,
+          },
           timers: {
             clearInterval: r("clearInterval"),
             clearTimeout: r("clearTimeout"),

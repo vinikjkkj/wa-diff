@@ -158,6 +158,14 @@ __d(
             }
             return;
           }
+          if (c.type === "notify_deliberate_detach_for_unmount") {
+            if (_.state === "__disposed__") return;
+            d(_.playbackLoop, {
+              mediaSourceIndex: c.mediaSourceIndex,
+              type: "notify_deliberate_detach_for_unmount",
+            });
+            return;
+          }
           switch (_.state) {
             case "initial":
               switch (c.type) {

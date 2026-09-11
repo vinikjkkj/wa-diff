@@ -127,6 +127,7 @@ __d(
         5800,
       ],
       calling_enable_dual_stream_receiver: [34740, "bool", !0, !0],
+      calling_exp_target_sample_ss: [36094, "bool", !1, !1],
       calling_lid_version: [3358, "int", 0, 0],
       calling_rust_migration_bitmap: [17954, "int", 0, 0],
       calling_rust_migration_incoming_ack_stanza_bitmap: [28434, "int", 0, 0],

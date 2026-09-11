@@ -195,7 +195,15 @@ __d(
                   _f$splitText2),
                 void 0 === g && o(165, "nodeToReplace"));
               var x = i(g);
-              if ((x.setFormat(g.getFormat()), g.replace(x), null == f)) return;
+              if (
+                (x
+                  .setFormat(g.getFormat())
+                  .setStyle(g.getStyle())
+                  .setDetail(g.getDetail()),
+                g.replace(x),
+                null == f)
+              )
+                return;
               ((a = 0), (c = x));
             }
           }),

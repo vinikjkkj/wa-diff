@@ -33,7 +33,7 @@ __d(
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "ttl", 1, void 0);
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").attrIntRange(e, "key_id", 1, void 0);
+      var r = o("WASmaxParseUtils").attrIntRange(e, "key_id", 0, void 0);
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").contentBytesRange(e, 1, 4092);
       return a.success

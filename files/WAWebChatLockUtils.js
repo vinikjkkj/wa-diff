@@ -70,12 +70,15 @@ __d(
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       e != null && e.isLocked && o("WAWebCmd").Cmd.closeActiveChat();
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function y() {
+      (h(), p() && g());
     }
-    function C() {
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebChatLockSettings").getChatLockSettings();
           return t.secretCode == null
             ? !1
@@ -84,17 +87,17 @@ __d(
                 t.secretCode,
               );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = r("WDSIconWdsIcChatlockUnlockedOutline.react");
-          return (yield y(e))
+          return (yield C(e))
             ? (t.unlockAppOnSuccess &&
                 ((m = !1),
                 o("WAWebChatLockWAMUtils").chatLockUnlockedWAMEvent({
@@ -133,25 +136,26 @@ __d(
               !0)
             : !1;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S() {
+    function R() {
       return o("WAWebChatCollection").ChatCollection.filter(function (e) {
         return e.isLocked;
       });
     }
-    function R() {
-      return S().length > 0;
+    function L() {
+      return R().length > 0;
     }
     ((l.lockedChatsAreAccessible = p),
       (l.hasChatlockSecretCode = _),
       (l.chatIsAccessible = f),
       (l.lockChats = g),
       (l.closeActiveChatIfLocked = h),
-      (l.validateSecretCode = b),
-      (l.getLockedChats = S),
-      (l.shouldShowChatLockEntryPoints = R));
+      (l.leaveLockedChats = y),
+      (l.validateSecretCode = v),
+      (l.getLockedChats = R),
+      (l.shouldShowChatLockEntryPoints = L));
   },
   226,
 );

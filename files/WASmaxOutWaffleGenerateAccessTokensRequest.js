@@ -3,13 +3,14 @@ __d(
   [
     "WASmaxJsx",
     "WASmaxOutWaffleBaseIQGetRequestMixin",
-    "WASmaxOutWaffleRSAEncryptionMetadataMixin",
+    "WASmaxOutWaffleRSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroup",
     "WAWap",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
-        n = e.rSAEncryptionMetadataMixinArgs,
+        n =
+          e.rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs,
         r = e.timestampElementValue,
         a = e.fbidElementValue,
         i = e.idSignElementValue,
@@ -24,8 +25,8 @@ __d(
               to: o("WAWap").S_WHATSAPP_NET,
             },
             o(
-              "WASmaxOutWaffleRSAEncryptionMetadataMixin",
-            ).mergeRSAEncryptionMetadataMixin(
+              "WASmaxOutWaffleRSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroup",
+            ).mergeRSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroup(
               t.smax("encryption_metadata", null),
               n,
             ),

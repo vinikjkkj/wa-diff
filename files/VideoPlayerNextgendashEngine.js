@@ -192,6 +192,7 @@ __d(
         enablePrefetchCacheKeyNormalization: r("gkx")("4090"),
         enableQuotaExceededRecovery: r("gkx")("25887"),
         enableQuotaExceededRecoveryForCompositeErrors: r("gkx")("15535"),
+        enableSkipRecoveryOnDeliberateDetach: r("gkx")("26845"),
         enableSplitAbrEvalSwitchIntervals: r("gkx")("18082"),
         enableStableAbrEvaluationCooldown: r("gkx")("12312"),
         enableStreamReaderFailureRecovery: r("gkx")("12428"),

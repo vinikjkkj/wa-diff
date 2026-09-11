@@ -7,6 +7,8 @@ __d(
       AD_EXTENSION_LIQUIDITY: "ad_extension_liquidity",
       AFFILIATE_OPO_V2: "affiliate_opo_v2",
       BOOKING_IOS_APPLINK: "booking_ios_applink",
+      BUY_WITH_PRIME_DESTINATION_AUTOMATION:
+        "buy_with_prime_destination_automation",
       CAG: "creative_asset_groups",
       CLO: "conversion_lead_optimization",
       COEXISTENCE_TEST_PRODUCT_A: "coexistence_test_product_a",

@@ -192,6 +192,7 @@ __d(
           s = e.sendToSelf,
           u = {
             debugPlaybackLoopRecentChanges: [],
+            expectSourceCloseForMediaSourceIndex: null,
             fetchDemands: [],
             loopState: o(
               "VideoPlayerNextgendashStateMachine",
@@ -491,30 +492,57 @@ __d(
                   ? _
                   : g;
               }
-              case "request_recovery_from_source_reset": {
+              case "notify_deliberate_detach_for_unmount": {
                 var T,
                   D = u,
                   x =
-                    "SourceResetRecoveryRequest:" +
+                    "DeliberateDetachForUnmount:" +
                     i.mediaSourceIndex +
                     ":" +
                     D.mediaSourceState.mediaSourceIndex;
-                if (i.mediaSourceIndex !== D.mediaSourceState.mediaSourceIndex)
-                  D = babelHelpers.extends({}, D, {
+                return (
+                  i.mediaSourceIndex === D.mediaSourceState.mediaSourceIndex
+                    ? (D = babelHelpers.extends({}, D, {
+                        debugPlaybackLoopRecentChanges: Re(
+                          D.debugPlaybackLoopRecentChanges,
+                          [x + "->expectSourceClose"],
+                        ),
+                        expectSourceCloseForMediaSourceIndex:
+                          i.mediaSourceIndex,
+                      }))
+                    : (D = babelHelpers.extends({}, D, {
+                        debugPlaybackLoopRecentChanges: Re(
+                          D.debugPlaybackLoopRecentChanges,
+                          [x + "->mediaSourceIndexMismatch"],
+                        ),
+                      })),
+                  (T = me(a, e, "" + i.type, 0, D)) != null ? T : D
+                );
+              }
+              case "request_recovery_from_source_reset": {
+                var P,
+                  N = u,
+                  w =
+                    "SourceResetRecoveryRequest:" +
+                    i.mediaSourceIndex +
+                    ":" +
+                    N.mediaSourceState.mediaSourceIndex;
+                if (i.mediaSourceIndex !== N.mediaSourceState.mediaSourceIndex)
+                  N = babelHelpers.extends({}, N, {
                     debugPlaybackLoopRecentChanges: Re(
-                      D.debugPlaybackLoopRecentChanges,
-                      [x + "->mediaSourceIndexMismatch"],
+                      N.debugPlaybackLoopRecentChanges,
+                      [w + "->mediaSourceIndexMismatch"],
                     ),
                   });
                 else if (
-                  !D.recoveringFromMediaError &&
-                  D.recoveringFromMediaErrorAttempt < $
+                  !N.recoveringFromMediaError &&
+                  N.recoveringFromMediaErrorAttempt < $
                 )
-                  D = d(
-                    babelHelpers.extends({}, D, {
+                  N = d(
+                    babelHelpers.extends({}, N, {
                       debugPlaybackLoopRecentChanges: Re(
-                        D.debugPlaybackLoopRecentChanges,
-                        [x + "->beginErrorRecoveryDueToElementSourceReset"],
+                        N.debugPlaybackLoopRecentChanges,
+                        [w + "->beginErrorRecoveryDueToElementSourceReset"],
                       ),
                     }),
                     o("nextgendasherr").nextgendasherr(
@@ -523,67 +551,89 @@ __d(
                     ),
                   );
                 else {
-                  var P = [];
-                  (D.recoveringFromMediaError &&
-                    P.push("StillAttemptingPreviousRecovery"),
-                    D.recoveringFromMediaErrorAttempt >= $ &&
-                      P.push("ReachedRetryCap"),
-                    (D = babelHelpers.extends({}, D, {
+                  var A = [];
+                  (N.recoveringFromMediaError &&
+                    A.push("StillAttemptingPreviousRecovery"),
+                    N.recoveringFromMediaErrorAttempt >= $ &&
+                      A.push("ReachedRetryCap"),
+                    (N = babelHelpers.extends({}, N, {
                       debugPlaybackLoopRecentChanges: Re(
-                        D.debugPlaybackLoopRecentChanges,
-                        [x + "->" + P.join(":")],
+                        N.debugPlaybackLoopRecentChanges,
+                        [w + "->" + A.join(":")],
                       ),
                     })));
                 }
-                return (T = me(a, e, "" + i.type, 0, D)) != null ? T : D;
+                return (P = me(a, e, "" + i.type, 0, N)) != null ? P : N;
               }
               case "_media_source_event": {
-                var N,
-                  w = u,
-                  A =
+                var F,
+                  O = u,
+                  q =
                     "mediaSourceEvent:" +
                     i.mediaSourceIndex +
                     ":" +
                     i.mediaSourceEventType;
                 if (
-                  i.mediaSource !== w.mediaSourceState.mediaSource ||
-                  i.mediaSourceIndex !== w.mediaSourceState.mediaSourceIndex
+                  i.mediaSource !== O.mediaSourceState.mediaSource ||
+                  i.mediaSourceIndex !== O.mediaSourceState.mediaSourceIndex
                 )
-                  w = babelHelpers.extends({}, w, {
-                    debugPlaybackLoopRecentChanges: Re(
-                      w.debugPlaybackLoopRecentChanges,
-                      [
-                        A +
-                          "->mediaSourceMismatch:" +
-                          w.mediaSourceState.mediaSourceIndex,
-                      ],
-                    ),
-                  });
+                  O = babelHelpers.extends(
+                    {},
+                    O,
+                    {
+                      debugPlaybackLoopRecentChanges: Re(
+                        O.debugPlaybackLoopRecentChanges,
+                        [
+                          q +
+                            "->mediaSourceMismatch:" +
+                            O.mediaSourceState.mediaSourceIndex,
+                        ],
+                      ),
+                    },
+                    i.mediaSourceEventType === "sourceclose" &&
+                      O.expectSourceCloseForMediaSourceIndex ===
+                        i.mediaSourceIndex
+                      ? { expectSourceCloseForMediaSourceIndex: null }
+                      : null,
+                  );
                 else if (
-                  w.mediaSourceState.waitingForFirstSourceopen &&
+                  O.mediaSourceState.waitingForFirstSourceopen &&
                   i.mediaSourceEventType === "sourceopen"
                 )
-                  w = babelHelpers.extends({}, w, {
+                  O = babelHelpers.extends({}, O, {
                     debugPlaybackLoopRecentChanges: Re(
-                      w.debugPlaybackLoopRecentChanges,
-                      [A + "->first"],
+                      O.debugPlaybackLoopRecentChanges,
+                      [q + "->first"],
                     ),
+                    expectSourceCloseForMediaSourceIndex: null,
                     mediaSourceState: babelHelpers.extends(
                       {},
-                      w.mediaSourceState,
+                      O.mediaSourceState,
                       { waitingForFirstSourceopen: !1 },
                     ),
                   });
                 else if (i.mediaSourceEventType === "sourceclose")
                   if (
-                    !w.recoveringFromMediaError &&
-                    w.recoveringFromMediaErrorAttempt < $
+                    O.expectSourceCloseForMediaSourceIndex != null &&
+                    O.expectSourceCloseForMediaSourceIndex ===
+                      i.mediaSourceIndex
                   )
-                    w = d(
-                      babelHelpers.extends({}, w, {
+                    O = babelHelpers.extends({}, O, {
+                      debugPlaybackLoopRecentChanges: Re(
+                        O.debugPlaybackLoopRecentChanges,
+                        [q + "->expectedDetachForUnmount"],
+                      ),
+                      expectSourceCloseForMediaSourceIndex: null,
+                    });
+                  else if (
+                    !O.recoveringFromMediaError &&
+                    O.recoveringFromMediaErrorAttempt < $
+                  )
+                    O = d(
+                      babelHelpers.extends({}, O, {
                         debugPlaybackLoopRecentChanges: Re(
-                          w.debugPlaybackLoopRecentChanges,
-                          [A + "->beginErrorRecoveryBeforeSeeingMediaError"],
+                          O.debugPlaybackLoopRecentChanges,
+                          [q + "->beginErrorRecoveryBeforeSeeingMediaError"],
                         ),
                       }),
                       o("nextgendasherr").nextgendasherr(
@@ -592,20 +642,20 @@ __d(
                       ),
                     );
                   else {
-                    var F = [];
+                    var U = [];
                     if (
-                      (w.recoveringFromMediaError &&
-                        F.push("StillAttemptingPreviousRecovery"),
-                      w.recoveringFromMediaErrorAttempt >= $ &&
-                        F.push("ReachedRetryCap"),
-                      (w = babelHelpers.extends({}, w, {
+                      (O.recoveringFromMediaError &&
+                        U.push("StillAttemptingPreviousRecovery"),
+                      O.recoveringFromMediaErrorAttempt >= $ &&
+                        U.push("ReachedRetryCap"),
+                      (O = babelHelpers.extends({}, O, {
                         debugPlaybackLoopRecentChanges: Re(
-                          w.debugPlaybackLoopRecentChanges,
-                          [A + "->" + F.join(":")],
+                          O.debugPlaybackLoopRecentChanges,
+                          [q + "->" + U.join(":")],
                         ),
                       })),
-                      !w.recoveringFromMediaError &&
-                        w.recoveringFromMediaErrorAttempt >= $ &&
+                      !O.recoveringFromMediaError &&
+                        O.recoveringFromMediaErrorAttempt >= $ &&
                         a.config.fatalErrorOnMediaErrorRecoveryCapReached)
                     )
                       return (
@@ -618,28 +668,35 @@ __d(
                           ),
                           type: "__exception",
                         }),
-                        w
+                        O
                       );
                   }
                 else
-                  w = babelHelpers.extends({}, w, {
-                    debugPlaybackLoopRecentChanges: Re(
-                      w.debugPlaybackLoopRecentChanges,
-                      [A],
-                    ),
-                  });
-                return (N = me(
+                  O = babelHelpers.extends(
+                    {},
+                    O,
+                    {
+                      debugPlaybackLoopRecentChanges: Re(
+                        O.debugPlaybackLoopRecentChanges,
+                        [q],
+                      ),
+                    },
+                    i.mediaSourceEventType === "sourceopen"
+                      ? { expectSourceCloseForMediaSourceIndex: null }
+                      : null,
+                  );
+                return (F = me(
                   a,
                   e,
                   i.type + ":" + i.mediaSourceEventType,
                   0,
-                  w,
+                  O,
                 )) != null
-                  ? N
-                  : w;
+                  ? F
+                  : O;
               }
               case "_source_buffer_event": {
-                var O = u.streams.find(function (e) {
+                var V = u.streams.find(function (e) {
                     var t;
                     return (
                       ((t = e.sourceBufferState) == null
@@ -647,21 +704,21 @@ __d(
                         : t.sourceBuffer) === i.sourceBuffer
                     );
                   }),
-                  q =
-                    O == null
+                  H =
+                    V == null
                       ? void 0
-                      : O.appendState.currSourceBufferOperation;
-                if (O != null && q != null) {
-                  var U = !1,
-                    V = [],
-                    H = u.streams.map(function (e) {
+                      : V.appendState.currSourceBufferOperation;
+                if (V != null && H != null) {
+                  var G = !1,
+                    z = [],
+                    j = u.streams.map(function (e) {
                       var t, n;
-                      if (e !== O) return e;
+                      if (e !== V) return e;
                       var o = pt(
                         a,
                         r,
                         e,
-                        V,
+                        z,
                         i,
                         l,
                         (t =
@@ -676,32 +733,32 @@ __d(
                         },
                       );
                       return o != null
-                        ? ((U = !0), babelHelpers.extends({}, e, o))
+                        ? ((G = !0), babelHelpers.extends({}, e, o))
                         : e;
                     }),
-                    G = babelHelpers.extends({}, u, {
+                    K = babelHelpers.extends({}, u, {
                       debugPlaybackLoopRecentChanges: Re(
                         u.debugPlaybackLoopRecentChanges,
-                        V,
+                        z,
                       ),
-                      streams: H,
+                      streams: j,
                     });
-                  if (U) {
-                    var z;
-                    return (z = me(
+                  if (G) {
+                    var Q;
+                    return (Q = me(
                       a,
                       e,
                       i.type +
                         ":" +
                         i.sourceBufferEventType +
                         ":" +
-                        q.operationState +
+                        H.operationState +
                         ":stateHasChanged",
                       0,
-                      G,
+                      K,
                     )) != null
-                      ? z
-                      : G;
+                      ? Q
+                      : K;
                   } else
                     return a.config.disablePlaybackLoopSchedulingOnTimer
                       ? u
@@ -712,7 +769,7 @@ __d(
                             ":" +
                             i.sourceBufferEventType +
                             ":" +
-                            q.operationState +
+                            H.operationState +
                             ":!stateHasChanged",
                           ue,
                           u,
@@ -732,81 +789,81 @@ __d(
                       );
               }
               case "_observe_and_act": {
-                var j =
+                var X =
                     a.config.isLivePlayback &&
                     u.recoveringFromMediaError == null
                       ? u.streams.find(function (e) {
                           return W(e.appendState.currSourceBufferOperation, l);
                         })
                       : null,
-                  K =
-                    j == null
+                  Y =
+                    X == null
                       ? void 0
-                      : j.appendState.currSourceBufferOperation;
+                      : X.appendState.currSourceBufferOperation;
                 if (
-                  j != null &&
-                  K != null &&
-                  K.operationState === "wait_updateend"
+                  X != null &&
+                  Y != null &&
+                  Y.operationState === "wait_updateend"
                 ) {
-                  var Q,
-                    X,
-                    Y,
-                    J,
-                    Z = K.operationTiming,
-                    ee = Z.started;
-                  if (ee == null) return ke(a, u, i.loopIteration, e);
-                  var te = o(
+                  var J,
+                    Z,
+                    ee,
+                    te,
+                    ne = Y.operationTiming,
+                    re = ne.started;
+                  if (re == null) return ke(a, u, i.loopIteration, e);
+                  var oe = o(
                       "VideoPlayerNextgendashHostAPI",
-                    ).diffVideoPlayerNextgendashClockstamp(l, ee).unixMs,
-                    ne = o("nextgendasherr").nextgendasherr(
+                    ).diffVideoPlayerNextgendashClockstamp(l, re).unixMs,
+                    ae = o("nextgendasherr").nextgendasherr(
                       a,
                       "VideoPlayerNextgendashPlaybackLoopLiveSourceBufferOperationTimedOut",
                       "%s:%s SourceBuffer operation stuck in wait_updateend for %sms: %s",
-                      j.type,
-                      (Q = j.targetRepresentationId) != null
-                        ? Q
+                      X.type,
+                      (J = X.targetRepresentationId) != null
+                        ? J
                         : "no_target_representation",
-                      te,
-                      B(K),
+                      oe,
+                      B(Y),
                     ),
-                    re =
+                    ie =
                       "liveSourceBufferOperationTimedOut:" +
-                      j.type +
+                      X.type +
                       ":" +
-                      ((X = j.targetRepresentationId) != null
-                        ? X
+                      ((Z = X.targetRepresentationId) != null
+                        ? Z
                         : "no_target_representation") +
                       ":" +
-                      te +
+                      oe +
                       "ms";
                   if (u.recoveringFromMediaErrorAttempt < $) {
-                    var oe,
-                      ae = babelHelpers.extends({}, u, {
+                    var le,
+                      se = babelHelpers.extends({}, u, {
                         debugPlaybackLoopRecentChanges: Re(
                           u.debugPlaybackLoopRecentChanges,
-                          [re + "->beginErrorRecovery:" + B(K)],
+                          [ie + "->beginErrorRecovery:" + B(Y)],
                         ),
                       }),
-                      ie = d(ae, ne);
-                    return (oe = me(
+                      ce = d(se, ae);
+                    return (le = me(
                       a,
                       e,
                       i.type + ":liveSourceBufferOperationTimedOut",
                       0,
-                      ie,
+                      ce,
                     )) != null
-                      ? oe
-                      : ie;
+                      ? le
+                      : ce;
                   }
-                  var le = babelHelpers.extends({}, u, {
+                  var de = babelHelpers.extends({}, u, {
                     debugPlaybackLoopRecentChanges: Re(
                       u.debugPlaybackLoopRecentChanges,
                       [
                         "liveSourceBufferOperationTimedOut:" +
-                          j.type +
+                          X.type +
                           ":" +
-                          ((Y = j.targetRepresentationId) != null
-                            ? Y
+                          ((ee = X.targetRepresentationId) != null
+                            ? ee
                             : "no_target_representation") +
                           "->ReachedRetryCap",
                       ],
@@ -816,24 +873,24 @@ __d(
                     ? (s({
                         exception: o("nextgendasherr").nextgendasherrFromCause(
                           a,
-                          ne,
+                          ae,
                           "VideoPlayerNextgendashPlaybackLoopLiveSourceBufferOperationTimeoutRecoveryAttemptsExhausted",
                           "Reached media error recovery attempt cap (%s) with SourceBuffer operation still stuck in wait_updateend",
                           $,
                         ),
                         type: "__exception",
                       }),
-                      le)
-                    : (J = me(
+                      de)
+                    : (te = me(
                           a,
                           e,
                           i.type +
                             ":liveSourceBufferOperationTimedOutReachedRetryCap",
                           ue,
-                          le,
+                          de,
                         )) != null
-                      ? J
-                      : le;
+                      ? te
+                      : de;
                 }
                 return ke(a, u, i.loopIteration, e);
               }

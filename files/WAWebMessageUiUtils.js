@@ -425,18 +425,18 @@ __d(
       var t = e.ack,
         n = e.ariaLabelMessageType,
         r = e.asRevoked,
-        a = e.isEdited,
-        i = e.isElevatedPushNamesEnabled,
-        l = e.isSentByMe,
-        s = e.messageDescription,
-        u = e.numberReactions,
-        c = e.senderContact,
-        d = e.senderWid,
+        a = e.isElevatedPushNamesEnabled,
+        i = e.isSentByMe,
+        l = e.messageDescription,
+        s = e.numberReactions,
+        u = e.senderContact,
+        c = e.senderWid,
+        d = e.shouldShowEditedIndicator,
         m = e.t,
-        p = b(n.quotedMsg, i),
+        p = b(n.quotedMsg, a),
         _ = v(n),
         f = o("WAWebClock").Clock.timestampStr(m),
-        g = l && !r,
+        g = i && !r,
         h = null,
         y = null,
         C = null;
@@ -444,19 +444,19 @@ __d(
         var R = o("WAWebStatusUtils").getMessageStatusLabel(t);
         y = R;
       }
-      a === !0 && !r && (C = o("WAWebMessageMeta.react").getEditedLabel());
+      d === !0 && !r && (C = o("WAWebMessageMeta.react").getEditedLabel());
       var L = S({
-        contact: c,
+        contact: u,
         hideYou: !!r,
-        isElevatedPushNamesEnabled: i,
-        sender: d,
+        isElevatedPushNamesEnabled: a,
+        sender: c,
       });
       return (
-        u && (h = I(u)),
+        s && (h = I(s)),
         k({
           authorName: L,
           messageTypeString: _,
-          messageTextLocal: s,
+          messageTextLocal: l,
           replyMsgSummary: p,
           time: f,
           messageStatusText: y,

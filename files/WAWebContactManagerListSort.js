@@ -62,7 +62,7 @@ __d(
       return o === "desc" ? -a : a;
     }
     function c(e, t) {
-      var n, r, a, i, l;
+      var n, r, a, i;
       return e === "customer"
         ? d(t)
         : e === "phone"
@@ -71,35 +71,31 @@ __d(
             ? (n = t.email) != null
               ? n
               : null
-            : e === "leadStage"
-              ? (r = t.leadStage) != null
-                ? r
-                : null
-              : e === "acquisitionSource"
-                ? p(t)
-                : e === "list"
-                  ? _(t)
-                  : e === "lastMessage"
-                    ? (a =
-                        (i = o("WAWebChatCollection").ChatCollection.get(
-                          t.chatJid,
-                        )) == null
-                          ? void 0
-                          : i.t) != null
-                      ? a
+            : e === "acquisitionSource"
+              ? p(t)
+              : e === "list"
+                ? _(t)
+                : e === "lastMessage"
+                  ? (r =
+                      (a = o("WAWebChatCollection").ChatCollection.get(
+                        t.chatJid,
+                      )) == null
+                        ? void 0
+                        : a.t) != null
+                    ? r
+                    : null
+                  : e === "lastOrder"
+                    ? (i = t.lastOrder) != null
+                      ? i
                       : null
-                    : e === "lastOrder"
-                      ? (l = t.lastOrder) != null
-                        ? l
-                        : null
-                      : e === "select" || e === "actions" || e === "notes"
-                        ? null
-                        : (function () {
-                            throw Error(
-                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                e,
-                            );
-                          })();
+                    : e === "select" || e === "actions" || e === "notes"
+                      ? null
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              e,
+                          );
+                        })();
     }
     function d(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);

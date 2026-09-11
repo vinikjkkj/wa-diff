@@ -227,7 +227,7 @@ __d(
     }
     function I() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_guest_calling_waiting_room_admin_xp_enabled",
+        "is_guest_calling_eligible",
       );
     }
     function T() {

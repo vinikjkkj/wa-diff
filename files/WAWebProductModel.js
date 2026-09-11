@@ -5,6 +5,7 @@ __d(
     "WAWebCreateFile",
     "WAWebMediaData",
     "WAWebMediaTypes",
+    "WAWebProductGetters",
     "WAWebProductImageCollection",
   ],
   function (t, n, r, o, a, i, l) {
@@ -191,6 +192,10 @@ __d(
           }),
           (n.setIsHidden = function (t) {
             this.isHidden = t;
+          }),
+          (n.delete = function () {
+            (e.prototype.delete.call(this),
+              o("WAWebProductGetters").clearProductGetterCacheFor(this));
           }),
           t
         );

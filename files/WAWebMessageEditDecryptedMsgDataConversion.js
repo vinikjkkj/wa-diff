@@ -96,6 +96,7 @@ __d(
             editMsgType: p.editMsgType,
             reportingTokenInfo: t.reportingTokenInfo,
             isSpoiler: p.isSpoiler === !0,
+            botEditType: t.botEditType,
           },
         )
       );

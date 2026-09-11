@@ -20,6 +20,9 @@ __d(
                 })();
     }
     function u(e) {
+      return e != null ? e : s._(/*BTDS*/ "Appointment");
+    }
+    function c(e) {
       if (e == null || e <= 0) return null;
       var t = Math.floor(e / 60),
         n = e % 60;
@@ -39,10 +42,10 @@ __d(
         s._param("minutes", o),
       ]);
     }
-    var c = new Map();
-    function d(e, t, n) {
+    var d = new Map();
+    function m(e, t, n) {
       var r = e + "\0" + t + "\0" + n,
-        o = c.get(r);
+        o = d.get(r);
       if (o !== void 0) return o;
       var a = null;
       try {
@@ -50,30 +53,30 @@ __d(
       } catch (e) {
         a = null;
       }
-      return (c.set(r, a), a);
+      return (d.set(r, a), a);
     }
-    function m(e, t, n, r) {
-      var o = d(e, t, n);
+    function p(e, t, n, r) {
+      var o = m(e, t, n);
       return o == null ? r.join(", ") : o.format(r);
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       var r = [];
       if (
         (e.durationText != null &&
           e.durationText !== "" &&
           r.push(e.durationText),
         e.locationTexts.length > 0 &&
-          r.push(m(n, "short", "unit", e.locationTexts)),
+          r.push(p(n, "short", "unit", e.locationTexts)),
         e.fieldLabels.length > 0)
       ) {
-        var o = m(n, "long", "conjunction", e.fieldLabels);
+        var o = p(n, "long", "conjunction", e.fieldLabels);
         r.push(t(o, r.length === 0));
       }
-      return r.length === 0 ? "" : m(n, "short", "unit", r);
+      return r.length === 0 ? "" : p(n, "short", "unit", r);
     }
-    function _(t, n) {
-      var r = u(t.durationMinutes);
-      return p(
+    function f(t, n) {
+      var r = c(t.durationMinutes);
+      return _(
         {
           durationText: r == null ? void 0 : r.toString(),
           fieldLabels: t.fields
@@ -100,9 +103,10 @@ __d(
       );
     }
     ((l.getAppointmentLocationLabel = e),
-      (l.formatAppointmentDuration = u),
-      (l.formatAppointmentSubtitle = p),
-      (l.getAppointmentSubtitle = _));
+      (l.getBookingTitle = u),
+      (l.formatAppointmentDuration = c),
+      (l.formatAppointmentSubtitle = _),
+      (l.getAppointmentSubtitle = f));
   },
   226,
 );

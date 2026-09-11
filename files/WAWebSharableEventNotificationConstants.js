@@ -13,26 +13,15 @@ __d(
         "Suspended",
       ]),
       s = e.Mirrored(["EventStartingSoon", "EventStarted"]),
-      u = e.Mirrored([
-        "OneMinute",
-        "FiveMinutes",
-        "FifteenMinutes",
-        "ThirtyMinutes",
-        "OneHour",
-        "OneDay",
-      ]);
+      u = e.Mirrored(["FifteenMinutes", "ThirtyMinutes", "OneHour", "OneDay"]);
     function c(e) {
-      return e <= 3
-        ? u.OneMinute
-        : e <= 10
-          ? u.FiveMinutes
-          : e <= 22
-            ? u.FifteenMinutes
-            : e <= 45
-              ? u.ThirtyMinutes
-              : e <= 720
-                ? u.OneHour
-                : u.OneDay;
+      return e <= 22
+        ? u.FifteenMinutes
+        : e <= 45
+          ? u.ThirtyMinutes
+          : e <= 720
+            ? u.OneHour
+            : u.OneDay;
     }
     var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
       m = e.Mirrored(["Active", "Canceled", "Suspended"]),

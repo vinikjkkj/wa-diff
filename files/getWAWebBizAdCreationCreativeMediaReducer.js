@@ -7,8 +7,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t, n) {
+    var e, s;
+    function u(t, n) {
       e: {
         var o = n;
         if (
@@ -17,7 +17,7 @@ __d(
           "items" in o
         ) {
           var a = o.items;
-          return u(t, a);
+          return c(t, a);
         }
         if (
           ((typeof o == "object" && o !== null) || typeof o == "function") &&
@@ -27,9 +27,9 @@ __d(
         ) {
           var i,
             l = o.fromIndex,
-            s = o.toIndex,
-            c = [].concat((i = t.creativeMedia) != null ? i : []);
-          if (l < 0 || l >= c.length || s < 0 || s >= c.length)
+            u = o.toIndex,
+            d = [].concat((i = t.creativeMedia) != null ? i : []);
+          if (l < 0 || l >= d.length || u < 0 || u >= d.length)
             return (
               r("FBLogger")("wa_ctwa_web").MUSTFIX(
                 e ||
@@ -40,14 +40,14 @@ __d(
                     "",
                   ])),
                 l,
-                s,
-                c.length,
+                u,
+                d.length,
               ),
               [t]
             );
-          var d = c.splice(l, 1),
-            m = d[0];
-          return (c.splice(s, 0, m), u(t, c));
+          var m = d.splice(l, 1),
+            p = m[0];
+          return (d.splice(u, 0, p), c(t, d));
           break e;
         }
         if (
@@ -55,19 +55,30 @@ __d(
           o.type === "creative_media_reducer.remove_creative_media" &&
           "key" in o
         ) {
-          var p,
-            _ = o.key;
-          return u(
-            t,
-            ((p = t.creativeMedia) != null ? p : []).filter(function (e) {
-              return e.key !== _;
-            }),
-          );
+          var _ = o.key,
+            f = t.creativeMedia;
+          if (f == null || f.length === 0) return [t];
+          var g = f.filter(function (e) {
+            return e.key !== _;
+          });
+          return g.length === f.length
+            ? (r("FBLogger")("wa_ctwa_web").MUSTFIX(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Creative media removal matched no key in the store: ",
+                    " (store holds ",
+                    ")",
+                  ])),
+                _,
+                f.length,
+              ),
+              [t])
+            : c(t, g);
         }
         return [t];
       }
     }
-    function u(e, t) {
+    function c(e, t) {
       var n = babelHelpers.extends({}, e, { creativeMedia: t });
       return r("getWAWebBizAdCreationCreativeCarouselReducer")(n, {
         carouselCardsData: o(
@@ -76,7 +87,7 @@ __d(
         type: "creative_carousel_reducer.set_carousel_cards",
       });
     }
-    l.default = s;
+    l.default = u;
   },
   98,
 );

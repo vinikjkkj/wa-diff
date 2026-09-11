@@ -10,13 +10,9 @@ __d(
     "WAWebContactManagerListCell.react",
     "WAWebContactManagerListViewColumnWidths",
     "WAWebContactManagerNotesCell.react",
-    "WAWebContactManagerSMBUserJourneyLogger",
-    "WAWebCustomerDataCollection",
-    "WAWebCustomerDataFieldSaver",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
     "WAWebL10N",
-    "WAWebLeadStageChip.react",
     "WAWebNoop",
     "WDSBaseCheckbox.react",
     "WDSFocusStateStyles",
@@ -780,7 +776,6 @@ __d(
       P = [
         "customer",
         "phone",
-        "leadStage",
         "list",
         "acquisitionSource",
         "email",
@@ -804,26 +799,24 @@ __d(
             ? s._(/*BTDS*/ "Phone number")
             : e === "email"
               ? s._(/*BTDS*/ "Email")
-              : e === "leadStage"
-                ? s._(/*BTDS*/ "Lead stage")
-                : e === "list"
-                  ? s._(/*BTDS*/ "List")
-                  : e === "acquisitionSource"
-                    ? s._(/*BTDS*/ "Source")
-                    : e === "lastMessage"
-                      ? s._(/*BTDS*/ "Last message")
-                      : e === "lastOrder"
-                        ? s._(/*BTDS*/ "Last order")
-                        : e === "notes"
-                          ? s._(/*BTDS*/ "Notes")
-                          : e === "actions"
-                            ? s._(/*BTDS*/ "Actions")
-                            : (function () {
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    e,
-                                );
-                              })();
+              : e === "list"
+                ? s._(/*BTDS*/ "List")
+                : e === "acquisitionSource"
+                  ? s._(/*BTDS*/ "Source")
+                  : e === "lastMessage"
+                    ? s._(/*BTDS*/ "Last message")
+                    : e === "lastOrder"
+                      ? s._(/*BTDS*/ "Last order")
+                      : e === "notes"
+                        ? s._(/*BTDS*/ "Notes")
+                        : e === "actions"
+                          ? s._(/*BTDS*/ "Actions")
+                          : (function () {
+                              throw Error(
+                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                  e,
+                              );
+                            })();
     }
     function A(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
@@ -928,48 +921,6 @@ __d(
           sortable: !0,
           width: o("WAWebContactManagerListViewColumnWidths")
             .contactManagerColumnWidths.phone,
-        },
-        {
-          cell: function (t) {
-            return c.jsx("div", {
-              className: "x14ba6vc xrw3huk",
-              children: c.jsx(r("WAWebLeadStageChip.react"), {
-                customer: t.item.leadData,
-                onPillClick: function (t) {
-                  return o(
-                    "WAWebContactManagerSMBUserJourneyLogger",
-                  ).ContactManagerUserJourneyLogger.clickRowLeadStagePill(t);
-                },
-                onStageChange: function (n, r) {
-                  (o(
-                    "WAWebContactManagerSMBUserJourneyLogger",
-                  ).ContactManagerUserJourneyLogger.editLeadStage(
-                    r,
-                    n,
-                    "list_row",
-                  ),
-                    o("WAWebCustomerDataFieldSaver").handleLeadStageTransition({
-                      chatJid: t.item.chatJid,
-                      customerData: o(
-                        "WAWebCustomerDataCollection",
-                      ).CustomerDataCollection.maybeGetCustomerDataByChatJid(
-                        t.item.chatJid,
-                      ),
-                      newStage: n,
-                      prevStage: r,
-                    }));
-                },
-                showNoneOption: !0,
-                testid: "customer-manager-lead-stage-cell",
-              }),
-            });
-          },
-          header: s._(/*BTDS*/ "Lead stage"),
-          key: "leadStage",
-          renderHeader: _(s._(/*BTDS*/ "Lead stage"), "leadStage"),
-          sortable: !0,
-          width: o("WAWebContactManagerListViewColumnWidths")
-            .contactManagerColumnWidths.leadStage,
         },
         {
           cell: function (t) {

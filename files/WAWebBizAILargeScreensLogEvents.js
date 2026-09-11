@@ -1028,6 +1028,31 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
+    function Ue() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DETAIL,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function Ve() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_LIST,
+        userActionTarget: "open_customer_chat",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
     ((l.logViewAiHubNavEntryPoint = s),
       (l.logClickAiHubNavEntryPoint = u),
       (l.logBizAiHubDeeplinkClick = c),
@@ -1115,7 +1140,9 @@ __d(
       (l.logApiAppointmentHomeFetch = Oe),
       (l.logViewCalendarBookingsList = Be),
       (l.logApiFetchCalendarEvents = We),
-      (l.logClickCalendarBookingRow = qe));
+      (l.logClickCalendarBookingRow = qe),
+      (l.logViewCalendarBookingDetail = Ue),
+      (l.logClickOpenCustomerChat = Ve));
   },
   98,
 );

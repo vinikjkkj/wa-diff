@@ -3,12 +3,12 @@ __d(
   ["VideoPlayerNextgendashStateMachine"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      var n = e.initialDelayMs * Math.pow(e.backoffMultiplier, t),
-        r = Math.min(n, e.maxDelayMs),
-        o = (Math.random() * 2 - 1) * e.jitterPercent,
-        a = r * (1 + o);
-      return Math.max(0, Math.round(a));
+    function e(e, t, n) {
+      var r = e.initialDelayMs * Math.pow(e.backoffMultiplier, t),
+        o = Math.min(r, e.maxDelayMs),
+        a = (n() * 2 - 1) * e.jitterPercent,
+        i = o * (1 + a);
+      return Math.max(0, Math.round(i));
     }
     var s = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
       null,
@@ -100,7 +100,7 @@ __d(
                           retryBehavior: "exponential",
                           retryCount: d.retryCount,
                         },
-                        v = e(b, C),
+                        v = e(b, C, l.host.random.random),
                         S = l.host.timers.setTimeout(function () {
                           c({ type: "_attempt" });
                         }, v),

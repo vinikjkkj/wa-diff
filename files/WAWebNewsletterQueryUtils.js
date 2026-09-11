@@ -160,6 +160,15 @@ __d(
         case o("WAWebCommonNewsletterEnums").NewsletterCapability
           .CHANNEL_STATUS_MUSIC:
           return "CHANNEL_STATUS_MUSIC";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .QUESTIONS_STARRING:
+          return "QUESTIONS_STARRING";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .SCHEDULED_UPDATES:
+          return "SCHEDULED_UPDATES";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .CHANNEL_STATUS_API:
+          return "CHANNEL_STATUS_API";
       }
     }
     ((l.mapMembershipTypeToViewRole = s),

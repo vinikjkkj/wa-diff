@@ -27,7 +27,10 @@ __d(
     }
     function m(t) {
       var a = t.fetchImpl,
-        i = t.timers;
+        i = t.timers,
+        l = function () {
+          return Math.random();
+        };
       return babelHelpers.extends({}, r("VideoPlayerNextgendashMSEMediaSink"), {
         clock: function () {
           return o(
@@ -224,8 +227,9 @@ __d(
           .parseXMLViaDOMParser,
         random: {
           coinflip: function (t) {
-            return t === 0 ? !1 : t <= 1 ? !0 : Math.random() * t <= 1;
+            return t === 0 ? !1 : t <= 1 ? !0 : l() * t <= 1;
           },
+          random: l,
         },
         scheduleToRun: function (t) {
           try {

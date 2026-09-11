@@ -5,11 +5,14 @@ __d(
     "WALogger",
     "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
+    "WAWebFBLogger",
     "WAWebFetchAdAccountToken",
+    "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -107,39 +110,56 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n,
-            a = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (a.type !== "success")
+            n = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (n.type !== "success")
             throw r("err")(
               "[ContactManager] fetchCustomerProfiles: no access token (" +
-                a.type +
+                n.type +
                 ")",
             );
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var i = yield o("WAWebRelayClient").fetchQuery(
-            u,
-            {
-              input: {
-                candidate_lids: (t = e.candidateLids) != null ? t : [],
-                filters: ((n = e.filters) != null ? n : []).map(function (e) {
-                  var t = e.fieldName,
-                    n = e.filterText;
-                  return { field_name: t, filter_text: n };
-                }),
-                sort_column: e.sortColumn,
-                sort_descending: e.sortDescending === !0,
-                page_size: c,
-                cursor: e.cursor,
+          var a;
+          try {
+            var i, l;
+            a = yield o("WAWebRelayClient").fetchQuery(
+              u,
+              {
+                input: {
+                  candidate_lids: (i = e.candidateLids) != null ? i : [],
+                  filters: ((l = e.filters) != null ? l : []).map(function (e) {
+                    var t = e.fieldName,
+                      n = e.filterText;
+                    return { field_name: t, filter_text: n };
+                  }),
+                  sort_column: e.sortColumn,
+                  sort_descending: e.sortDescending === !0,
+                  page_size: c,
+                  cursor: e.cursor,
+                },
               },
-            },
-            { accessToken: a.token, environmentType: "facebook" },
-          );
-          return i == null ? void 0 : i.xfb_wa_customer_profiles;
+              { accessToken: n.token, environmentType: "facebook" },
+            );
+          } catch (e) {
+            throw (v(e, "read"), e);
+          }
+          return (t = a) == null ? void 0 : t.xfb_wa_customer_profiles;
         })),
         b.apply(this, arguments)
       );
     }
-    ((l.fetchCustomerProfilePage = p), (l.fetchCustomerProfileRecords = f));
+    function v(e, t) {
+      o("WAWebGraphQLServerError").isRateLimitError(e) &&
+        o("WAWebFBLogger")
+          .WAWebFBLogger()
+          .catching(r("getErrorSafe")(e))
+          .warn(
+            "[ContactManager] customer profile %s rate limited (customer_manager_profiles_rate_limited)",
+            t,
+          );
+    }
+    ((l.fetchCustomerProfilePage = p),
+      (l.fetchCustomerProfileRecords = f),
+      (l.logIfRateLimited = v));
   },
   98,
 );

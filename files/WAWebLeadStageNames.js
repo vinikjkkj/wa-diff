@@ -31,9 +31,8 @@ __d(
     function c() {
       return s._(/*BTDS*/ "Lead");
     }
-    function d(e) {
-      var t = c();
-      return e === o("WAWebLeadStage").LeadStage.NONE ? t : u(t.toString(), e);
+    function d(t) {
+      return t === o("WAWebLeadStage").LeadStage.NONE ? c() : e(t);
     }
     function m(t) {
       var n = t.trim().toLowerCase();

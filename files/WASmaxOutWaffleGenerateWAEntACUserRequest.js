@@ -1,49 +1,59 @@
 __d(
   "WASmaxOutWaffleGenerateWAEntACUserRequest",
   [
+    "WASmaxChildren",
     "WASmaxJsx",
     "WASmaxOutWaffleBaseIQGetRequestMixin",
-    "WASmaxOutWaffleRSAEncryptionMetadataMixin",
+    "WASmaxOutWaffleRSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroup",
     "WAWap",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t,
-        n,
-        r = e.rSAEncryptionMetadataMixinArgs,
-        a = e.timestampElementValue,
-        i = e.disclosureId,
-        l = e.disclosureVersion,
-        s = e.disclosureLg,
-        u = e.disclosureLc,
-        c = o(
+      var t = e.sourceElementValue,
+        n = o("WASmaxJsx").smax("source", null, o("WAWap").INT(t));
+      return n;
+    }
+    function s(t) {
+      var n,
+        r,
+        a = t.sourceArgs,
+        i =
+          t.rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs,
+        l = t.timestampElementValue,
+        s = t.disclosureId,
+        u = t.disclosureVersion,
+        c = t.disclosureLg,
+        d = t.disclosureLc,
+        m = o(
           "WASmaxOutWaffleBaseIQGetRequestMixin",
         ).mergeBaseIQGetRequestMixin(
-          (t = o("WASmaxJsx")).smax(
+          (n = o("WASmaxJsx")).smax(
             "iq",
             {
               xmlns: "waffle",
-              smax_id: (n = o("WAWap")).INT(37),
-              to: n.S_WHATSAPP_NET,
+              smax_id: (r = o("WAWap")).INT(37),
+              to: r.S_WHATSAPP_NET,
             },
             o(
-              "WASmaxOutWaffleRSAEncryptionMetadataMixin",
-            ).mergeRSAEncryptionMetadataMixin(
-              t.smax("encryption_metadata", null),
-              r,
+              "WASmaxOutWaffleRSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroup",
+            ).mergeRSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroup(
+              n.smax("encryption_metadata", null),
+              i,
             ),
-            t.smax("timestamp", null, n.INT(a)),
-            t.smax("disclosure", {
-              id: n.INT(i),
-              version: n.CUSTOM_STRING(l),
-              lg: n.CUSTOM_STRING(s),
-              lc: n.CUSTOM_STRING(u),
+            n.smax("timestamp", null, r.INT(l)),
+            n.smax("disclosure", {
+              id: r.INT(s),
+              version: r.CUSTOM_STRING(u),
+              lg: r.CUSTOM_STRING(c),
+              lc: r.CUSTOM_STRING(d),
             }),
+            o("WASmaxChildren").OPTIONAL_CHILD(e, a),
           ),
         );
-      return c;
+      return m;
     }
-    l.makeGenerateWAEntACUserRequest = e;
+    ((l.makeGenerateWAEntACUserRequestSource = e),
+      (l.makeGenerateWAEntACUserRequest = s));
   },
   98,
 );

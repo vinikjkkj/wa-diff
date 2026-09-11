@@ -7,8 +7,7 @@ __d(
     function l(t, n) {
       return n == null ? !1 : Math.abs(t.currentTime - n) < e;
     }
-    ((i.REDUNDANT_PLAYHEAD_WRITE_EPSILON_SEC = e),
-      (i.isRedundantPlayheadWrite = l));
+    i.isRedundantPlayheadWrite = l;
   },
   66,
 );

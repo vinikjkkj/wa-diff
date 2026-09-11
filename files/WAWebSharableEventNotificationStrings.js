@@ -129,34 +129,26 @@ __d(
     function _(e) {
       return e ===
         o("WAWebSharableEventNotificationConstants")
-          .SharableEventReminderLeadTimeBucket.OneMinute
-        ? f(1)
+          .SharableEventReminderLeadTimeBucket.FifteenMinutes
+        ? f(15)
         : e ===
             o("WAWebSharableEventNotificationConstants")
-              .SharableEventReminderLeadTimeBucket.FiveMinutes
-          ? f(5)
+              .SharableEventReminderLeadTimeBucket.ThirtyMinutes
+          ? f(30)
           : e ===
               o("WAWebSharableEventNotificationConstants")
-                .SharableEventReminderLeadTimeBucket.FifteenMinutes
-            ? f(15)
+                .SharableEventReminderLeadTimeBucket.OneHour
+            ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 1 hour").toString()
             : e ===
                 o("WAWebSharableEventNotificationConstants")
-                  .SharableEventReminderLeadTimeBucket.ThirtyMinutes
-              ? f(30)
-              : e ===
-                  o("WAWebSharableEventNotificationConstants")
-                    .SharableEventReminderLeadTimeBucket.OneHour
-                ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 1 hour").toString()
-                : e ===
-                    o("WAWebSharableEventNotificationConstants")
-                      .SharableEventReminderLeadTimeBucket.OneDay
-                  ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 1 day").toString()
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })();
+                  .SharableEventReminderLeadTimeBucket.OneDay
+              ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 1 day").toString()
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     function f(e) {
       return s

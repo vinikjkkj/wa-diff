@@ -16,11 +16,6 @@ __d(
           type: "proportional",
           value: 10,
         },
-        leadStage: {
-          options: { minWidth: 160, maxWidth: 200 },
-          type: "proportional",
-          value: 8,
-        },
         list: {
           options: { minWidth: 150, maxWidth: 200 },
           type: "proportional",

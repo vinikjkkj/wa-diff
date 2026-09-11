@@ -19,6 +19,7 @@ __d(
     "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebRelayClient",
     "WAWebWaffleCertificateCache",
+    "WAWebWaffleEncryptionMetadataArgs",
     "WAWebWaffleFXServiceDataQueryV2Mutation",
     "WAWebWaffleIQErrorHandler",
     "WAWebWaffleLifecycleWamLogger",
@@ -383,12 +384,10 @@ __d(
             var m = yield o(
               "WASmaxWaffleRefreshAccessTokensRPC",
             ).sendRefreshAccessTokensRPC({
-              rSAEncryptionMetadataMixinArgs: {
-                encryptedKeyElementValue: d.encryptedKey,
-                nonceElementValue: d.nonce,
-                encryptedDataElementValue: d.cipherText,
-                authTagElementValue: d.tag,
-              },
+              rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
+                o(
+                  "WAWebWaffleEncryptionMetadataArgs",
+                ).waffleV1EncryptionMetadataArgs(d),
               timestampElementValue: Date.now(),
               fbidElementValue: n,
             });
@@ -492,12 +491,10 @@ __d(
                 ).wrapPayloadWithRSAAESEncryption(a);
               if (r != null) {
                 var l = yield o("WASmaxWaffleWFPingRPC").sendWFPingRPC({
-                  rSAEncryptionMetadataMixinArgs: {
-                    encryptedKeyElementValue: i.encryptedKey,
-                    nonceElementValue: i.nonce,
-                    encryptedDataElementValue: i.cipherText,
-                    authTagElementValue: i.tag,
-                  },
+                  rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
+                    o(
+                      "WAWebWaffleEncryptionMetadataArgs",
+                    ).waffleV1EncryptionMetadataArgs(i),
                   timestampElementValue: Date.now(),
                   fbidElementValue: r,
                 });

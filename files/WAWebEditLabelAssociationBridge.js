@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendApi",
     "WAWebContactManagerGating",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBLabelSublistDatabaseApi",
@@ -62,7 +63,7 @@ __d(
               u.length > 0
                 ? ["label-association", "chat", "label_sublist"]
                 : ["label-association", "chat"];
-          return o("WAWebSyncdCoreApi").lockForSync(
+          yield o("WAWebSyncdCoreApi").lockForSync(
             d,
             [].concat(i, u),
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -93,6 +94,18 @@ __d(
                 ));
             }),
           );
+          for (var m of s)
+            o("WAWebBackendApi").frontendFireAndForget(
+              "removeLeadSublistFromCollection",
+              {
+                chatJid: o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey(
+                  m,
+                ),
+                predefinedId: o(
+                  "WAWebSchemaLabelSublist",
+                ).getPredefinedIdFromPrimaryKey(m),
+              },
+            );
         })),
         p.apply(this, arguments)
       );

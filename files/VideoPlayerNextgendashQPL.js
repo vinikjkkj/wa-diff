@@ -318,9 +318,7 @@ __d(
       (l.qplAnnotationsMerge = m),
       (l.qplCacheKey = _),
       (l.qplStartPlayingApi = f),
-      (l.qplEventApi = y),
-      (l.qplTimestampFromClockstamp = C),
-      (l.qplTimestampFromNow = b));
+      (l.qplTimestampFromClockstamp = C));
   },
   98,
 );

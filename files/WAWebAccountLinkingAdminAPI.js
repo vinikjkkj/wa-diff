@@ -11,6 +11,7 @@ __d(
     "WAWebAccountLinkingCryptoUtils",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebMetaAiWaffleAuthTokenCache",
+    "WAWebWaffleEncryptionMetadataArgs",
     "WAWebWaffleIQErrorHandler",
     "asyncToGeneratorRuntime",
     "err",
@@ -93,12 +94,10 @@ __d(
             E = yield o(
               "WASmaxWaffleGenerateWAEntACUserRPC",
             ).sendGenerateWAEntACUserRPC({
-              rSAEncryptionMetadataMixinArgs: {
-                encryptedKeyElementValue: L.encryptedKey,
-                nonceElementValue: L.nonce,
-                encryptedDataElementValue: L.cipherText,
-                authTagElementValue: L.tag,
-              },
+              rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
+                o(
+                  "WAWebWaffleEncryptionMetadataArgs",
+                ).waffleV1EncryptionMetadataArgs(L),
               timestampElementValue: Date.now(),
               disclosureId: n,
               disclosureVersion: l,
@@ -201,12 +200,10 @@ __d(
             d = yield o(
               "WASmaxWaffleGenerateAccessTokensRPC",
             ).sendGenerateAccessTokensRPC({
-              rSAEncryptionMetadataMixinArgs: {
-                encryptedKeyElementValue: u.encryptedKey,
-                nonceElementValue: u.nonce,
-                encryptedDataElementValue: u.cipherText,
-                authTagElementValue: u.tag,
-              },
+              rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
+                o(
+                  "WAWebWaffleEncryptionMetadataArgs",
+                ).waffleV1EncryptionMetadataArgs(u),
               timestampElementValue: Math.floor(Date.now() / 1e3),
               fbidElementValue: n,
               idSignElementValue: c,
@@ -340,12 +337,10 @@ __d(
               actionElementValue: "waffle_100",
               fbidElementValue: l,
               timestampElementValue: Math.floor(Date.now() / 1e3),
-              rSAEncryptionMetadataMixinArgs: {
-                encryptedKeyElementValue: p.encryptedKey,
-                nonceElementValue: p.nonce,
-                encryptedDataElementValue: p.cipherText,
-                authTagElementValue: p.tag,
-              },
+              rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
+                o(
+                  "WAWebWaffleEncryptionMetadataArgs",
+                ).waffleV1EncryptionMetadataArgs(p),
             });
           } catch (e) {
             throw (

@@ -17,6 +17,7 @@ __d(
       "Knowledge",
       "IntegrationHub",
       "Appointments",
+      "AppointmentBookingDetail",
     ]);
     i.BizAIStep = e;
   },

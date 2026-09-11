@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebBaseCollection",
     "WAWebBizCatalogGatingUtils",
+    "WAWebProductGetters",
     "WAWebProductModel",
     "isStringNullOrEmpty",
   ],
@@ -83,6 +84,20 @@ __d(
             ? t.prototype.add.call(this, n, r)
             : t.prototype.add.call(this, n);
           return (this.sort(), e);
+        }),
+        (a.remove = function (n, r) {
+          var e = t.prototype.remove.call(this, n, r);
+          return (
+            e.forEach(function (e) {
+              e != null &&
+                o("WAWebProductGetters").clearProductGetterCacheFor(e);
+            }),
+            e
+          );
+        }),
+        (a.reset = function () {
+          (this.forEach(o("WAWebProductGetters").clearProductGetterCacheFor),
+            t.prototype.reset.call(this));
         }),
         (a.evictImagesFromCache = function (t) {
           var e = this.get(t);

@@ -236,6 +236,16 @@ __d(
                 });
                 return;
               }
+              case "from_main_to_worker_notify_deliberate_detach_for_unmount": {
+                var I = u.players,
+                  T = I.get(r.playerInstanceKey);
+                if (!T) return;
+                l(T, {
+                  mediaSourceIndex: r.mediaSourceIndex,
+                  type: "notify_deliberate_detach_for_unmount",
+                });
+                return;
+              }
               case "from_main_to_worker_prefetch": {
                 if (n.config.maxConcurrentPrefetchTasks < 1) {
                   o(
@@ -243,9 +253,9 @@ __d(
                   ).initiatePrefetch(n, r.prefetchInfo, r.initialAbrParams);
                   return;
                 }
-                var I;
+                var D;
                 try {
-                  I = o(
+                  D = o(
                     "VideoPlayerNextgendashWorkerPrefetchCache",
                   ).getPrefetchTasks(n, r.prefetchInfo, r.initialAbrParams);
                 } catch (e) {
@@ -259,11 +269,11 @@ __d(
                   });
                   return;
                 }
-                if (I.length === 0) return;
-                var T = u.prefetchTaskQueue;
+                if (D.length === 0) return;
+                var x = u.prefetchTaskQueue;
                 return (
-                  T ||
-                    (T = i(
+                  x ||
+                    (x = i(
                       "prefetch-task-queue",
                       o("VideoPlayerNextgendashWorkerPrefetchTaskQueue")
                         .VideoPlayerNextgendashWorkerPrefetchTaskQueueSM,
@@ -276,15 +286,15 @@ __d(
                         },
                       },
                     )),
-                  l(T, { groupId: r.groupId, tasks: I, type: "enqueue_tasks" }),
-                  babelHelpers.extends({}, u, { prefetchTaskQueue: T })
+                  l(x, { groupId: r.groupId, tasks: D, type: "enqueue_tasks" }),
+                  babelHelpers.extends({}, u, { prefetchTaskQueue: x })
                 );
               }
               case "from_main_to_worker_prefetch_group_action": {
-                var D = u.prefetchTaskQueue;
+                var $ = u.prefetchTaskQueue;
                 return (
-                  D == null &&
-                    (D = i(
+                  $ == null &&
+                    ($ = i(
                       "prefetch-task-queue",
                       o("VideoPlayerNextgendashWorkerPrefetchTaskQueue")
                         .VideoPlayerNextgendashWorkerPrefetchTaskQueueSM,
@@ -298,12 +308,12 @@ __d(
                       },
                     )),
                   r.prefetchGroupAction.type === "stop"
-                    ? l(D, { type: "stop_group" })
-                    : l(D, {
+                    ? l($, { type: "stop_group" })
+                    : l($, {
                         groupId: r.prefetchGroupAction.groupId,
                         type: "start_group",
                       }),
-                  babelHelpers.extends({}, u, { prefetchTaskQueue: D })
+                  babelHelpers.extends({}, u, { prefetchTaskQueue: $ })
                 );
               }
               case "from_main_to_worker_release_prefetch_key": {
@@ -319,11 +329,11 @@ __d(
           case "__disposed__":
             switch (r.type) {
               case "__enter": {
-                var x = r.prevState;
-                if (x.state === "port_to_main_ready") {
-                  var $ = x.mainConnection.disconnectFromMain;
-                  $ != null &&
-                    $(
+                var P = r.prevState;
+                if (P.state === "port_to_main_ready") {
+                  var N = P.mainConnection.disconnectFromMain;
+                  N != null &&
+                    N(
                       u.exception != null
                         ? o("nextgendasherr").nextgendasherrFromCause(
                             n,

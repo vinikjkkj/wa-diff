@@ -13,7 +13,13 @@ __d(
         s = e.reorderMsgs,
         c = e.resetMostRecentMsgs,
         d = e.threadOrChat,
-        m = u(i, l, s, d, n);
+        m = u({
+          chatMsgsCollection: n,
+          newMsgs: l,
+          payloadMsgs: i,
+          reorderMsgs: s,
+          threadOrChat: d,
+        });
       o("WAWebMsgModelUtils").addRecordsToChat({
         anchorMsgKey: t,
         chatMsgsCollection: m.collection,
@@ -24,46 +30,51 @@ __d(
         threadOrChat: d,
       });
     }
-    function u(t, n, r, a, i) {
-      var l = {},
+    function u(t) {
+      var n = t.chatMsgsCollection,
+        r = t.newMsgs,
+        a = t.payloadMsgs,
+        i = t.reorderMsgs,
+        l = t.threadOrChat,
         s = {},
-        u,
+        u = {},
         c,
         d,
-        m = r.length,
-        p = i;
-      if (m === 0) return { msgs: n, collection: p };
-      for (u = 0; u < m; u++) ((c = r[u]), (s[c.id] = c));
-      for (m = n.length, u = 0; u < m; u++) ((c = n[u]), c && (l[c.id] = c));
-      var _ = [],
-        f = [];
-      for (m = t.length, u = 0; u < m; u++)
+        m,
+        p = i.length,
+        _ = n;
+      if (p === 0) return { msgs: r, collection: _ };
+      for (c = 0; c < p; c++) ((d = i[c]), (u[d.id] = d));
+      for (p = r.length, c = 0; c < p; c++) ((d = r[c]), d && (s[d.id] = d));
+      var f = [],
+        g = [];
+      for (p = a.length, c = 0; c < p; c++)
         if (
-          ((c = t[u]), !!c && ((d = l[c.id]), d && _.push(d), (d = s[c.id]), d))
+          ((d = a[c]), !!d && ((m = s[d.id]), m && f.push(m), (m = u[d.id]), m))
         )
-          if (d.recvFresh) (_.push(d), a.removeMsg(d), d.unset("recvFresh"));
+          if (m.recvFresh) (f.push(m), l.removeMsg(m), m.unset("recvFresh"));
           else {
-            var g = a.getAllCMCs(),
-              h = g.find(function (e) {
-                return e.get(d.id);
+            var h = l.getAllCMCs(),
+              y = h.find(function (e) {
+                return e.get(m.id);
               });
-            (i && h === i) ||
-              (h
-                ? (h.forEach(function (e) {
-                    (_.push(e), delete s[e.id]);
+            (n && y === n) ||
+              (y
+                ? (y.forEach(function (e) {
+                    (f.push(e), delete u[e.id]);
                   }),
-                  h === a.msgs
-                    ? (a.replaceMsgsCollection(i), (p = a.msgs))
-                    : (a.notifyMsgCollectionMerge({
-                        cmc1: i,
-                        cmc2: h,
-                        cmcResult: i,
+                  y === l.msgs
+                    ? (l.replaceMsgsCollection(n), (_ = l.msgs))
+                    : (l.notifyMsgCollectionMerge({
+                        cmc1: n,
+                        cmc2: y,
+                        cmcResult: n,
                       }),
-                      a.removeMsgsCollection(h)))
-                : (f.push(c), _.push(s[c.id])));
+                      l.removeMsgsCollection(y)))
+                : (g.push(d), f.push(u[d.id])));
           }
-      if (f.length > 0) {
-        var y = f.slice(0, 3).map(function (e) {
+      if (g.length > 0) {
+        var C = g.slice(0, 3).map(function (e) {
           return e.id;
         });
         o("WALogger").WARN(
@@ -73,11 +84,11 @@ __d(
               " ids=",
               "",
             ])),
-          f.length,
-          y,
+          g.length,
+          C,
         );
       }
-      return { msgs: _, collection: p };
+      return { msgs: f, collection: _ };
     }
     l.default = s;
   },

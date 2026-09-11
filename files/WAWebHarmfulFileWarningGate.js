@@ -1,6 +1,6 @@
 __d(
   "WAWebHarmfulFileWarningGate",
-  ["WAWebABProps", "WAWebL10N", "WAWebMediaTypes", "WAWebSuspiciousContent"],
+  ["WAWebL10N", "WAWebMediaTypes", "WAWebSuspiciousContent"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
@@ -11,13 +11,11 @@ __d(
         : s(e);
     }
     function s(e) {
-      var t,
-        n = (t = e.mediaData) == null ? void 0 : t.suspiciousContent;
-      return n !== o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP
-        ? !1
-        : o("WAWebABProps").getABPropConfigValue(
-            "updated_harmful_document_dialog",
-          ) === !0;
+      var t;
+      return (
+        ((t = e.mediaData) == null ? void 0 : t.suspiciousContent) ===
+        o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP
+      );
     }
     function u(e) {
       var t;

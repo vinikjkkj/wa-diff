@@ -30,7 +30,7 @@ __d(
         "waffle",
       );
       if (!a.success) return a;
-      var i = o("WASmaxParseUtils").attrIntRange(n.value, "event", 1, 7);
+      var i = o("WASmaxParseUtils").attrIntRange(n.value, "event", 1, 9);
       if (!i.success) return i;
       var l = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
@@ -69,10 +69,24 @@ __d(
         o("WASmaxInWaffleEnums").ENUM_FALSE_TRUE,
       );
       if (!d.success) return d;
-      var m = o(
+      var m = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
+        n.value,
+        "wf_notif_ts",
+        15778656e5,
+        41024736e5,
+      );
+      if (!m.success) return m;
+      var p = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrString,
+        n.value,
+        "wf_notif_id",
+      );
+      if (!p.success) return p;
+      var _ = o(
         "WASmaxInWaffleServerNotificationMixin",
       ).parseServerNotificationMixin(e);
-      return m.success
+      return _.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
               {
@@ -84,11 +98,13 @@ __d(
                 notificationMetadataClientResync: u.value,
                 notificationMetadataSyncDelay: c.value,
                 notificationMetadataNpr: d.value,
+                notificationMetadataWfNotifTs: m.value,
+                notificationMetadataWfNotifId: p.value,
               },
-              m.value,
+              _.value,
             ),
           )
-        : m;
+        : _;
     }
     l.parseWFNotificationRequest = e;
   },

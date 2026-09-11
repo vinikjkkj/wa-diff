@@ -626,13 +626,17 @@ __d(
       "DFS - Flips the isOptedIn value of WAWebCTWADetectedOutcomeModel. If null, sets to true."),
       (Se.paramsToExecute = []));
     var Re = function () {
-      o("WALogger").LOG(
-        N ||
-          (N = babelHelpers.taggedTemplateLiteralLoose([
-            "debug: Current Detected Outcome onboarding status is: ",
-            "",
-          ])),
-        String(o("WAWebUserPrefsGeneral").getDetectedOutcomeOnboardingStatus()),
+      var e = o("WAWebUserPrefsGeneral").getDetectedOutcomeOnboardingStatus();
+      return (
+        o("WALogger").LOG(
+          N ||
+            (N = babelHelpers.taggedTemplateLiteralLoose([
+              "debug: Current Detected Outcome onboarding status is: ",
+              "",
+            ])),
+          String(e),
+        ),
+        e
       );
     };
     ((Re.doc = "DFS - Display the value of WAWebCTWADetectedOutcomeModel."),

@@ -36,8 +36,22 @@ __d(
               "channels_question_admin_m2_enabled",
             );
     }
+    function c(t) {
+      var n,
+        r = (n = t.newsletterMetadata) == null ? void 0 : n.membershipType;
+      return r == null || !e.includes(r)
+        ? !1
+        : o(
+              "WAWebNewsletterExtendedGatingUtils",
+            ).isNewsletterQuestionsResponsesStarringCapabilityEnabled(t)
+          ? !0
+          : o("WAWebABProps").getABPropConfigValue(
+              "channels_question_admin_starring_enabled",
+            );
+    }
     ((l.isQuestionsFeatureEnabledForAdmins = s),
-      (l.isQuestionsM2FeatureEnabledForAdmins = u));
+      (l.isQuestionsM2FeatureEnabledForAdmins = u),
+      (l.isQuestionsResponseStarringEnabled = c));
   },
   98,
 );

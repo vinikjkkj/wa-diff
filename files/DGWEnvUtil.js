@@ -10,7 +10,7 @@ __d(
           if ((e || (e = r("URI"))).isValidURI(window.location.href)) {
             var t = new (e || (e = r("URI")))(window.location.href),
               n = t.getDomain(),
-              o = c(n, t.getPath()),
+              o = m(n, t.getPath()),
               a = o.authToken,
               i = o.authType,
               l = o.endpoint,
@@ -37,8 +37,15 @@ __d(
           }),
           t
         );
-      })();
-    function c(e, t) {
+      })(),
+      c = ["vcpanel/", "roomtool_gizmo/"];
+    function d(e) {
+      var t = e.endsWith("/") ? e : e + "/";
+      return c.some(function (e) {
+        return t.startsWith("/intern/" + e) || t.startsWith("/" + e);
+      });
+    }
+    function m(e, t) {
       if (e.includes("internalfb.com"))
         return { endpoint: "gateway.internalfb.com", authType: "INTERNALFB" };
       if (e.includes("workplace.com"))
@@ -100,7 +107,9 @@ __d(
               authToken: l,
             };
         }
-        return { endpoint: "gateway.facebook.com", authType: "FACEBOOK" };
+        return d(t) && r("gkx")("26799")
+          ? { endpoint: "gateway.facebook.com", authType: "INTERNALFB" }
+          : { endpoint: "gateway.facebook.com", authType: "FACEBOOK" };
       }
       if (e.includes("messenger.com"))
         return { endpoint: "gateway.messenger.com", authType: "FACEBOOK" };
@@ -150,8 +159,8 @@ __d(
           ? { endpoint: "commercepartnerhub.com", authType: "GUEST" }
           : { endpoint: "", authType: "" };
     }
-    var d = new u();
-    l.default = d;
+    var p = new u();
+    l.default = p;
   },
   98,
 );

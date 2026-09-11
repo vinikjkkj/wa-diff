@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum")({
         INVALID_ACCESS_TOKEN: 190,
+        RATE_LIMIT_EXCEEDED: 1675004,
         BUSINESS_BANHAMMERED: 2859017,
         AD_ACCOUNT_LINKING_DISABLED: 2859050,
       }),
@@ -19,7 +20,19 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function s(e) {
+    function s(t) {
+      var n, r;
+      return t instanceof l
+        ? ((n = (r = t.source) == null ? void 0 : r.errors) != null
+            ? n
+            : []
+          ).some(function (t) {
+            var n = t.code;
+            return e.cast(n) === e.RATE_LIMIT_EXCEEDED;
+          })
+        : !1;
+    }
+    function u(e) {
       var t,
         n,
         r = (t = (n = e.source) == null ? void 0 : n.errors) != null ? t : [];
@@ -37,7 +50,8 @@ __d(
     }
     ((i.GraphQLErrorCode = e),
       (i.GraphQLServerError = l),
-      (i.formatGraphQLServerError = s));
+      (i.isRateLimitError = s),
+      (i.formatGraphQLServerError = u));
   },
   66,
 );

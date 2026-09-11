@@ -154,6 +154,12 @@ __d(
                 m({ type: "_log_player_warning", warning: t });
               },
               onBufferingChanged: l,
+              onDeliberateDetachForUnmount: function (t) {
+                m({
+                  mediaSourceIndex: t,
+                  type: "_notify_deliberate_detach_for_unmount",
+                });
+              },
               onMediaSourceAttachedChanged: s,
               onRequestRecoveryFromSourceReset: function (t) {
                 m({
@@ -633,7 +639,11 @@ __d(
                   var fe = Z.liveManifestRefreshRetryCount,
                     ge = o(
                       "VideoPlayerNextgendashRetryLogic",
-                    ).calculateExponentialDelayWithJitter(W, fe),
+                    ).calculateExponentialDelayWithJitter(
+                      W,
+                      fe,
+                      K.host.random.random,
+                    ),
                     he = K.host.timers.setTimeout(function () {
                       J({ type: "_manifest_refresh_timer_fired" });
                     }, ge);
@@ -672,7 +682,11 @@ __d(
                   var Le = Ce.liveManifestRefreshRetryCount,
                     Ee = o(
                       "VideoPlayerNextgendashRetryLogic",
-                    ).calculateExponentialDelayWithJitter(W, Le),
+                    ).calculateExponentialDelayWithJitter(
+                      W,
+                      Le,
+                      K.host.random.random,
+                    ),
                     ke = K.host.timers.setTimeout(function () {
                       J({ type: "_manifest_refresh_timer_fired" });
                     }, Ee);
@@ -955,6 +969,17 @@ __d(
                     mediaSourceIndex: Q.mediaSourceIndex,
                     playerInstanceKey: B,
                     type: "from_main_to_worker_request_recovery_from_source_reset",
+                  },
+                  type: "send_to_worker",
+                });
+                return;
+              }
+              case "_notify_deliberate_detach_for_unmount": {
+                Z.workerConnection.sendToWorker({
+                  eventToWorker: {
+                    mediaSourceIndex: Q.mediaSourceIndex,
+                    playerInstanceKey: B,
+                    type: "from_main_to_worker_notify_deliberate_detach_for_unmount",
                   },
                   type: "send_to_worker",
                 });

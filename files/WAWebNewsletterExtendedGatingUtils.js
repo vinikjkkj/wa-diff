@@ -211,6 +211,16 @@ __d(
           );
     }
     function R(e) {
+      var t = e.newsletterMetadata;
+      return t == null
+        ? !1
+        : u(
+            t,
+            o("WAWebCommonNewsletterEnums").NewsletterCapability
+              .QUESTIONS_STARRING,
+          );
+    }
+    function L(e) {
       return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -223,28 +233,28 @@ __d(
                 .ADMIN_PROFILE,
             );
     }
-    function L(e) {
-      return R(e) && e.adminProfilesSettingEnabled;
-    }
     function E(e) {
+      return L(e) && e.adminProfilesSettingEnabled;
+    }
+    function k(e) {
       return (
-        L(e) &&
+        E(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_list_enabled",
         )
       );
     }
-    function k(e) {
+    function I(e) {
       return (
-        L(e) &&
+        E(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_update_enabled",
         )
       );
     }
-    function I(e) {
+    function T(e) {
       return (
-        R(e) &&
+        L(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_settings_enabled",
         )
@@ -265,10 +275,11 @@ __d(
       (l.isNewsletterStatusCapabilityEnabled = b),
       (l.isNewsletterQuestionsCapabilityEnabled = v),
       (l.isNewsletterQuestionsM2CapabilityEnabled = S),
-      (l.isNewsletterAdminProfilesSenderEnabled = L),
-      (l.isNewsletterAdminProfilesListEnabled = E),
-      (l.isNewsletterAdminProfilesUpdateEnabled = k),
-      (l.isNewsletterAdminProfilesSettingEnabled = I));
+      (l.isNewsletterQuestionsResponsesStarringCapabilityEnabled = R),
+      (l.isNewsletterAdminProfilesSenderEnabled = E),
+      (l.isNewsletterAdminProfilesListEnabled = k),
+      (l.isNewsletterAdminProfilesUpdateEnabled = I),
+      (l.isNewsletterAdminProfilesSettingEnabled = T));
   },
   98,
 );

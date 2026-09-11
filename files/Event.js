@@ -76,12 +76,20 @@ __d(
       return e;
     }
     function _() {
-      return this.which ? this.which === 3 : this.button && this.button === 2;
+      var e =
+        this.relatedTarget ||
+        (this.fromElement === this.srcElement
+          ? this.toElement
+          : this.fromElement);
+      return e && e.nodeType ? e : null;
     }
     function f() {
-      return this.which ? this.which === 2 : this.button && this.button === 4;
+      return this.which ? this.which === 3 : this.button && this.button === 2;
     }
     function g() {
+      return this.which ? this.which === 2 : this.button && this.button === 4;
+    }
+    function h() {
       var e = {
         control: !!this.ctrlKey,
         shift: !!this.shiftKey,
@@ -94,7 +102,7 @@ __d(
         e
       );
     }
-    function h() {
+    function y() {
       return (
         this.getModifiers().any || this.isMiddleClick() || this.isRightClick()
       );
@@ -103,22 +111,15 @@ __d(
       Event.prototype,
       {
         _inherits_from_prototype: !0,
-        getRelatedTarget: function () {
-          var e =
-            this.relatedTarget ||
-            (this.fromElement === this.srcElement
-              ? this.toElement
-              : this.fromElement);
-          return e && e.nodeType ? e : null;
-        },
-        getModifiers: g,
-        isRightClick: _,
-        isMiddleClick: f,
-        isDefaultRequested: h,
+        getRelatedTarget: _,
+        getModifiers: h,
+        isRightClick: f,
+        isMiddleClick: g,
+        isDefaultRequested: y,
       },
       m.prototype,
     );
-    var y = {
+    var C = {
       listen: function (n, o, a, i, l) {
         if (
           (typeof a == "function" &&
@@ -131,7 +132,7 @@ __d(
             : (l = { passive: l.passive || !1 }),
           !(e || (e = r("ExecutionEnvironment"))).canUseDOM)
         )
-          return new T(n, a, null, o, i, null, l);
+          return new D(n, a, null, o, i, null, l);
         if (
           (typeof n == "string" && (n = r("$")(n)),
           typeof i == "undefined" && (i = Event.Priority.NORMAL),
@@ -166,16 +167,16 @@ __d(
           p !== document.documentElement && p !== document.body && (n = p);
         }
         var _ = r("DataStore").get(n, u, {}),
-          f = v[o];
-        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), L(n, _, o, l));
+          f = S[o];
+        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), E(n, _, o, l));
         var g = _[o];
         i in g || (g[i] = []);
         var h = g[i].length,
-          y = new T(n, a, _, o, i, h, l);
+          y = new D(n, a, _, o, i, h, l);
         return (
           (g[i][h] = y),
           g.numHandlers++,
-          l.passive || (g.numNonPassiveHandlers++, R(n, _[o], o)),
+          l.passive || (g.numNonPassiveHandlers++, L(n, _[o], o)),
           y
         );
       },
@@ -226,14 +227,14 @@ __d(
         return t.keyCode;
       },
       getPriorities: function () {
-        if (!C) {
+        if (!b) {
           var e = r("getObjectValues")(Event.Priority);
           (e.sort(function (e, t) {
             return e - t;
           }),
-            (C = e));
+            (b = e));
         }
-        return C;
+        return b;
       },
       fire: function (t, n, r) {
         var e = new m(t, n, r),
@@ -263,49 +264,49 @@ __d(
         c = t;
       },
     };
-    Object.assign(Event, y);
-    var C = null,
-      b = function (t) {
+    Object.assign(Event, C);
+    var b = null,
+      v = function (t) {
         return function (e) {
           if (!o("DOMQuery").contains(this, e.getRelatedTarget()))
             return t.call(this, e);
         };
       },
-      v;
+      S;
     if (
       (window.navigator.msPointerEnabled
-        ? (v = {
+        ? (S = {
             mousedown: { base: "MSPointerDown" },
             mousemove: { base: "MSPointerMove" },
             mouseup: { base: "MSPointerUp" },
             mouseover: { base: "MSPointerOver" },
             mouseout: { base: "MSPointerOut" },
-            mouseenter: { base: "MSPointerOver", wrap: b },
-            mouseleave: { base: "MSPointerOut", wrap: b },
+            mouseenter: { base: "MSPointerOver", wrap: v },
+            mouseleave: { base: "MSPointerOut", wrap: v },
           })
-        : (v = {
-            mouseenter: { base: "mouseover", wrap: b },
-            mouseleave: { base: "mouseout", wrap: b },
+        : (S = {
+            mouseenter: { base: "mouseover", wrap: v },
+            mouseleave: { base: "mouseout", wrap: v },
           }),
       r("UserAgent").isBrowser("Firefox < 52"))
     ) {
-      var S = function (t, n) {
+      var R = function (t, n) {
         n = p(n);
         for (var e = n.getTarget(); e; )
           (Event.__fire(e, t, n), (e = e.parentNode));
       };
       (document.documentElement.addEventListener(
         "focus",
-        S.bind(null, "focusin"),
+        R.bind(null, "focusin"),
         !0,
       ),
         document.documentElement.addEventListener(
           "blur",
-          S.bind(null, "focusout"),
+          R.bind(null, "focusout"),
           !0,
         ));
     }
-    var R = function (t, n, o) {
+    var L = function (t, n, o) {
         var e = n.numNonPassiveHandlers == 0;
         e != n.options.passive &&
           (n.domHandlerRemover.remove(),
@@ -314,10 +315,12 @@ __d(
             passive: e,
           })));
       },
-      L = function (t, n, o, a) {
+      E = function (t, n, o, a) {
         if (!(o in n)) {
           var e = r("TimeSlice").guard(
-            I.bind(t, o),
+            function (e) {
+              return T(t, o, e);
+            },
             r("dedupString")("Event listenHandler " + o),
           );
           n[o] = {
@@ -339,47 +342,47 @@ __d(
           }
         }
       };
-    function E(e) {
+    function k(e) {
       return e.href.endsWith("#")
         ? e.href === document.location.href ||
             e.href === document.location.href + "#"
         : !1;
     }
-    function k(e, t) {
+    function I(e, t) {
       return e.nodeName === "INPUT" && e.type === t;
     }
-    var I = function (t, n) {
-      var e = p(n);
-      if (!r("DataStore").get(this, u)) {
-        var a = new Error("Bad listenHandler context.");
-        throw (a.stack, a);
+    var T = function (t, n, a) {
+      var e = p(a);
+      if (!r("DataStore").get(t, u)) {
+        var i = new Error("Bad listenHandler context.");
+        throw (i.stack, i);
       }
-      var i = r("DataStore").get(this, u)[t];
-      if (!i) {
-        var l = new Error("No registered handlers for `" + t + "'.");
-        throw (l.stack, l);
+      var l = r("DataStore").get(t, u)[n];
+      if (!l) {
+        var s = new Error("No registered handlers for `" + n + "'.");
+        throw (s.stack, s);
       }
       if (
-        t == "click" ||
-        t == "contextmenu" ||
-        (t == "mousedown" && e.which == 2)
+        n == "click" ||
+        n == "contextmenu" ||
+        (n == "mousedown" && e.which == 2)
       ) {
-        var s = e.getTarget(),
-          c = o("Parent").byTag(s, "a");
-        c instanceof HTMLAnchorElement &&
-          c.href &&
-          E(c) &&
-          !k(s, "file") &&
-          !k(s, "submit") &&
+        var c = e.getTarget(),
+          d = o("Parent").byTag(c, "a");
+        d instanceof HTMLAnchorElement &&
+          d.href &&
+          k(d) &&
+          !I(c, "file") &&
+          !I(c, "submit") &&
           e.prevent();
       }
-      for (var d = Event.getPriorities(), m = 0; m < d.length; m++) {
-        var _ = d[m];
-        if (_ in i) {
-          for (var f = i[_], g = 0; g < f.length; g++)
-            if (f[g]) {
-              var h = f[g].fire(this, e);
-              if (h === !1) return e.kill();
+      for (var m = Event.getPriorities(), _ = 0; _ < m.length; _++) {
+        var f = m[_];
+        if (f in l) {
+          for (var g = l[f], h = 0; h < g.length; h++)
+            if (g[h]) {
+              var y = g[h].fire(t, e);
+              if (y === !1) return e.kill();
               e.cancelBubble && e.stop();
             }
         }
@@ -387,7 +390,7 @@ __d(
       return e.returnValue;
     };
     Event.Priority = { URGENT: -20, TRADITIONAL: -10, NORMAL: 0, _BUBBLE: 1e3 };
-    var T = (function () {
+    var D = (function () {
       function t(e, t, n, r, o, a, i) {
         ((this.$1 = e),
           (this.$2 = t),
@@ -417,7 +420,7 @@ __d(
                 t.numHandlers--,
                 this.$5.passive ||
                   (t.numNonPassiveHandlers--,
-                  R(this.$1, this.$3[this.$7], this.$7))),
+                  L(this.$1, this.$3[this.$7], this.$7))),
               (this.$3 = null),
               c && ((this.$1 = null), (this.$2 = null), (this.$5 = null)));
           }
@@ -437,8 +440,8 @@ __d(
       );
     })();
     t.$E = Event.$E = p;
-    var D = Event;
-    l.default = D;
+    var x = Event;
+    l.default = x;
   },
   98,
 );

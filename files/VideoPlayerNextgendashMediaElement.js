@@ -72,25 +72,26 @@ __d(
           a = n.getWorkaroundForSegmentBufferedInsufficientlyMediaTimeRanges,
           i = n.logPlayerWarning,
           l = n.onBufferingChanged,
-          u = n.onMediaSourceAttachedChanged,
-          c = n.onRequestRecoveryFromSourceReset,
-          d = t.env,
-          m = t.event,
-          p = t.eventClock,
-          _ = t.sendToSelf,
-          f = t.state,
-          y = t.thisName,
-          C = t.thisSm,
-          b = function () {
-            _({ type: "_playhead_watchdog" });
+          u = n.onDeliberateDetachForUnmount,
+          c = n.onMediaSourceAttachedChanged,
+          d = n.onRequestRecoveryFromSourceReset,
+          m = t.env,
+          p = t.event,
+          _ = t.eventClock,
+          f = t.sendToSelf,
+          y = t.state,
+          C = t.thisName,
+          b = t.thisSm,
+          v = function () {
+            f({ type: "_playhead_watchdog" });
           },
-          v = function (t, n, r) {
-            var e = f.mediaElement;
+          S = function (t, n, r) {
+            var e = y.mediaElement;
             if (e != null) {
-              if (d.config.disableBufferGapSkipping) {
+              if (m.config.disableBufferGapSkipping) {
                 i(
                   o("nextgendasherr").nextgendasherr(
-                    d,
+                    m,
                     "VideoPlayerNextgendashMediaElementBufferGapSkipDisabled",
                     "Buffers: %s, playhead: %s, would have skipped to: %s, reason: %s",
                     JSON.stringify(n.buffered),
@@ -101,12 +102,12 @@ __d(
                 );
                 return;
               }
-              d.host.mediaElementSetPlayhead(d, e, t);
+              m.host.mediaElementSetPlayhead(m, e, t);
               var a = t - n.currentTime;
-              a >= d.config.gapSkipMinLogThresholdSec &&
+              a >= m.config.gapSkipMinLogThresholdSec &&
                 i(
                   o("nextgendasherr").nextgendasherr(
-                    d,
+                    m,
                     "VideoPlayerNextgendashMediaElementSkippedBufferGap",
                     "Buffers: %s, playhead: %s, skipped to: %s, reason: %s",
                     JSON.stringify(n.buffered),
@@ -117,9 +118,9 @@ __d(
                 );
             }
           };
-        switch (f.state) {
+        switch (y.state) {
           case "idle":
-            switch (m.type) {
+            switch (p.type) {
               case "__enter":
                 return;
               case "__exception":
@@ -127,48 +128,55 @@ __d(
               case "__dispose":
                 return;
               case "update_media_element": {
-                var S,
-                  R = f.mediaElement,
-                  L = f.mediaElementUnsubscribe,
-                  E = (S = m.mediaElement) != null ? S : null;
-                if (E === R) {
-                  var k = f.mediaSourceIndex;
+                var R,
+                  L = y.mediaElement,
+                  E = y.mediaElementUnsubscribe,
+                  k = (R = p.mediaElement) != null ? R : null;
+                if (k === L) {
+                  var I = y.mediaSourceIndex;
                   if (
-                    E !== null &&
                     k !== null &&
-                    (f.mediaSourceHandle !== null || f.mediaSource !== null)
+                    I !== null &&
+                    (y.mediaSourceHandle !== null || y.mediaSource !== null)
                   ) {
-                    var I = d.host.mediaElementCollectSnapshot(d, E);
-                    if (!I.mediaSourceAttached) {
+                    var T = m.host.mediaElementCollectSnapshot(m, k);
+                    if (!T.mediaSourceAttached) {
                       (i(
                         o("nextgendasherr").nextgendasherr(
-                          d,
+                          m,
                           "VideoPlayerNextgendashMediaElementRequestingSourceRecoveryFromSourceReset",
                         ),
                       ),
-                        c(k));
+                        d(I));
                       return;
                     }
                   }
-                  d.logging.log(d, {
+                  m.logging.log(m, {
                     format:
                       "[" +
-                      y +
+                      C +
                       "] Ignored " +
-                      m.type +
+                      p.type +
                       " with the same mediaElement=%s",
-                    params: [R],
+                    params: [L],
                     type: "generic_info",
                   });
                   return;
                 } else {
-                  (L && L(),
-                    R != null && d.host.mediaElementSetSource(d, R, null));
-                  var T = null;
-                  if (E != null) {
-                    T = d.host.mediaElementSubscribe(
-                      d,
-                      E,
+                  (E && E(),
+                    L != null &&
+                      (m.config.enableSkipRecoveryOnDeliberateDetach &&
+                        k == null &&
+                        y.mediaSourceIndex != null &&
+                        (y.mediaSourceHandle !== null ||
+                          y.mediaSource !== null) &&
+                        u(y.mediaSourceIndex),
+                      m.host.mediaElementSetSource(m, L, null)));
+                  var D = null;
+                  if (k != null) {
+                    D = m.host.mediaElementSubscribe(
+                      m,
+                      k,
                       [
                         "durationchange",
                         "ended",
@@ -189,33 +197,33 @@ __d(
                           a = t.domEventType,
                           i = t.eventTarget;
                         if (
-                          d.config.playheadPredictIntervalMs > 0 &&
+                          m.config.playheadPredictIntervalMs > 0 &&
                           a === "timeupdate"
                         ) {
-                          var l = C.state.lastPlayheadSyncPerfMs;
+                          var l = b.state.lastPlayheadSyncPerfMs;
                           if (
                             l != null &&
-                            d.host.clock().perfMs - l <
-                              d.config.playheadPredictIntervalMs
+                            m.host.clock().perfMs - l <
+                              m.config.playheadPredictIntervalMs
                           )
                             return;
                         }
-                        var u = d.host.mediaElementCollectSnapshot(d, i);
+                        var u = m.host.mediaElementCollectSnapshot(m, i);
                         if (
-                          d.config
+                          m.config
                             .mediaElementSkipUpdateIfFullyBufferedAndOnlyPlayheadMoving
                         ) {
                           var c,
-                            m = u != null ? u : {},
-                            p = m.currentTime,
-                            f = m.seeking,
-                            g = babelHelpers.objectWithoutPropertiesLoose(m, e),
+                            d = u != null ? u : {},
+                            p = d.currentTime,
+                            _ = d.seeking,
+                            g = babelHelpers.objectWithoutPropertiesLoose(d, e),
                             h =
-                              (c = C.state.mediaElementSnapshot) != null
+                              (c = b.state.mediaElementSnapshot) != null
                                 ? c
                                 : {},
                             y = h.currentTime,
-                            b = h.seeking,
+                            C = h.seeking,
                             v = babelHelpers.objectWithoutPropertiesLoose(h, s);
                           if (
                             r("deepEquals")(g, v) &&
@@ -225,7 +233,7 @@ __d(
                           )
                             return;
                         }
-                        _({
+                        f({
                           domEventAdjustedClock: n,
                           domEventType: a,
                           mediaElementSnapshot: u,
@@ -233,154 +241,154 @@ __d(
                         });
                       },
                     );
-                    var D =
-                      !d.config.skipPlayheadRestoreOnMediaElementChange &&
-                      f.lastNonZeroNonErrorCurrentTimeSec != null &&
-                      f.lastNonZeroNonErrorCurrentTimeSec !== 0;
-                    f.mediaSourceHandle
-                      ? d.host.mediaElementSetSource(
-                          d,
-                          E,
-                          { mediaSourceHandle: f.mediaSourceHandle },
-                          D
+                    var x =
+                      !m.config.skipPlayheadRestoreOnMediaElementChange &&
+                      y.lastNonZeroNonErrorCurrentTimeSec != null &&
+                      y.lastNonZeroNonErrorCurrentTimeSec !== 0;
+                    y.mediaSourceHandle
+                      ? m.host.mediaElementSetSource(
+                          m,
+                          k,
+                          { mediaSourceHandle: y.mediaSourceHandle },
+                          x
                             ? {
                                 playheadMediaTimeSec:
-                                  f.lastNonZeroNonErrorCurrentTimeSec,
+                                  y.lastNonZeroNonErrorCurrentTimeSec,
                               }
                             : void 0,
                         )
-                      : f.mediaSource
-                        ? d.host.mediaElementSetSource(
-                            d,
-                            E,
-                            { mediaSource: f.mediaSource },
-                            D
+                      : y.mediaSource
+                        ? m.host.mediaElementSetSource(
+                            m,
+                            k,
+                            { mediaSource: y.mediaSource },
+                            x
                               ? {
                                   playheadMediaTimeSec:
-                                    f.lastNonZeroNonErrorCurrentTimeSec,
+                                    y.lastNonZeroNonErrorCurrentTimeSec,
                                 }
                               : void 0,
                           )
-                        : d.host.mediaElementSetSource(d, E, null);
+                        : m.host.mediaElementSetSource(m, k, null);
                   }
-                  var x =
-                      E != null
-                        ? d.host.mediaElementCollectSnapshot(d, E)
+                  var $ =
+                      k != null
+                        ? m.host.mediaElementCollectSnapshot(m, k)
                         : null,
-                    $ = p;
+                    P = _;
                   return babelHelpers.extends(
                     {},
-                    h(d.config, f, p, x, null, l),
-                    g(d, f, b, a, v, u, x, $, m.type),
-                    { mediaElement: E, mediaElementUnsubscribe: T },
+                    h(m.config, y, _, $, null, l),
+                    g(m, y, v, a, S, c, $, P, p.type),
+                    { mediaElement: k, mediaElementUnsubscribe: D },
                   );
                 }
               }
               case "update_media_source": {
-                var P,
-                  N,
+                var N,
                   M,
-                  w = f.mediaElement;
-                if (w != null) {
-                  var A =
-                    !d.config.skipPlayheadRestoreOnMediaElementChange &&
-                    f.lastNonZeroNonErrorCurrentTimeSec != null &&
-                    f.lastNonZeroNonErrorCurrentTimeSec !== 0;
-                  m.mediaSourceHandle
-                    ? d.host.mediaElementSetSource(
-                        d,
-                        w,
-                        { mediaSourceHandle: m.mediaSourceHandle },
-                        A
+                  w,
+                  A = y.mediaElement;
+                if (A != null) {
+                  var F =
+                    !m.config.skipPlayheadRestoreOnMediaElementChange &&
+                    y.lastNonZeroNonErrorCurrentTimeSec != null &&
+                    y.lastNonZeroNonErrorCurrentTimeSec !== 0;
+                  p.mediaSourceHandle
+                    ? m.host.mediaElementSetSource(
+                        m,
+                        A,
+                        { mediaSourceHandle: p.mediaSourceHandle },
+                        F
                           ? {
                               playheadMediaTimeSec:
-                                f.lastNonZeroNonErrorCurrentTimeSec,
+                                y.lastNonZeroNonErrorCurrentTimeSec,
                             }
                           : void 0,
                       )
-                    : m.mediaSource
-                      ? d.host.mediaElementSetSource(
-                          d,
-                          w,
-                          { mediaSource: m.mediaSource },
-                          A
+                    : p.mediaSource
+                      ? m.host.mediaElementSetSource(
+                          m,
+                          A,
+                          { mediaSource: p.mediaSource },
+                          F
                             ? {
                                 playheadMediaTimeSec:
-                                  f.lastNonZeroNonErrorCurrentTimeSec,
+                                  y.lastNonZeroNonErrorCurrentTimeSec,
                               }
                             : void 0,
                         )
-                      : d.host.mediaElementSetSource(d, w, null);
+                      : m.host.mediaElementSetSource(m, A, null);
                 }
-                var F =
-                    f.mediaElement != null
-                      ? d.host.mediaElementCollectSnapshot(d, f.mediaElement)
+                var O =
+                    y.mediaElement != null
+                      ? m.host.mediaElementCollectSnapshot(m, y.mediaElement)
                       : null,
-                  O = p;
+                  B = _;
                 return babelHelpers.extends(
                   {},
-                  h(d.config, f, p, F, null, l),
-                  g(d, f, b, a, v, u, F, O, m.type),
+                  h(m.config, y, _, O, null, l),
+                  g(m, y, v, a, S, c, O, B, p.type),
                   {
-                    mediaSource: (P = m.mediaSource) != null ? P : null,
+                    mediaSource: (N = p.mediaSource) != null ? N : null,
                     mediaSourceHandle:
-                      (N = m.mediaSourceHandle) != null ? N : null,
+                      (M = p.mediaSourceHandle) != null ? M : null,
                     mediaSourceIndex:
-                      (M = m.mediaSourceIndex) != null ? M : null,
+                      (w = p.mediaSourceIndex) != null ? w : null,
                   },
                 );
               }
               case "_media_element_event": {
                 if (
-                  f.mediaElementSnapshotClock != null &&
-                  m.domEventAdjustedClock.unixMs <=
-                    f.mediaElementSnapshotClock.unixMs
+                  y.mediaElementSnapshotClock != null &&
+                  p.domEventAdjustedClock.unixMs <=
+                    y.mediaElementSnapshotClock.unixMs
                 )
                   return;
-                var B = m.mediaElementSnapshot,
-                  W = m.domEventAdjustedClock;
+                var W = p.mediaElementSnapshot,
+                  q = p.domEventAdjustedClock;
                 return babelHelpers.extends(
                   {},
-                  h(d.config, f, p, B, m, l),
-                  g(d, f, b, a, v, u, B, W, m.type + ":" + m.domEventType),
-                  { lastPlayheadSyncPerfMs: p.perfMs },
+                  h(m.config, y, _, W, p, l),
+                  g(m, y, v, a, S, c, W, q, p.type + ":" + p.domEventType),
+                  { lastPlayheadSyncPerfMs: _.perfMs },
                 );
               }
               case "_playhead_watchdog": {
-                var q =
-                    f.mediaElement != null
-                      ? d.host.mediaElementCollectSnapshot(d, f.mediaElement)
+                var U =
+                    y.mediaElement != null
+                      ? m.host.mediaElementCollectSnapshot(m, y.mediaElement)
                       : null,
-                  U = p;
+                  V = _;
                 return babelHelpers.extends(
                   {},
-                  h(d.config, f, p, q, null, l),
-                  g(d, f, b, a, v, u, q, U, m.type),
+                  h(m.config, y, _, U, null, l),
+                  g(m, y, v, a, S, c, U, V, p.type),
                 );
               }
               default:
-                m.type;
+                p.type;
                 return;
             }
           case "__disposed__":
-            switch (m.type) {
+            switch (p.type) {
               case "__enter": {
-                var V = m.prevState,
-                  H = V.mediaElement,
-                  G = V.mediaElementUnsubscribe,
-                  z = V.playheadWatchdogTimer;
-                (d.config.enableDisposalResourceCleanup &&
-                  z != null &&
-                  d.host.timers.clearTimeout(z),
-                  G && G(),
-                  H != null && d.host.mediaElementSetSource(d, H, null));
+                var H = p.prevState,
+                  G = H.mediaElement,
+                  z = H.mediaElementUnsubscribe,
+                  j = H.playheadWatchdogTimer;
+                (m.config.enableDisposalResourceCleanup &&
+                  j != null &&
+                  m.host.timers.clearTimeout(j),
+                  z && z(),
+                  G != null && m.host.mediaElementSetSource(m, G, null));
                 return;
               }
               default:
                 return;
             }
           default:
-            f.state;
+            y.state;
         }
       },
     );

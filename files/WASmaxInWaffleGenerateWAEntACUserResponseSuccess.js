@@ -7,31 +7,43 @@ __d(
     "WASmaxParseUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      var n = o("WASmaxParseUtils").assertTag(e, "iq");
-      if (!n.success) return n;
-      var r = o("WASmaxParseUtils").flattenedChildWithTag(
-        e,
+    function e(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "wf_notif_id");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").contentBytesRange(e, 1, 64);
+      return n.success
+        ? o("WAResultOrError").makeResult({ elementValue: n.value })
+        : n;
+    }
+    function s(t, n) {
+      var r = o("WASmaxParseUtils").assertTag(t, "iq");
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").flattenedChildWithTag(
+        t,
         "encryption_metadata",
       );
-      if (!r.success) return r;
-      var a = o(
-        "WASmaxInWaffleRSAEncryptionMetadataMixin",
-      ).parseRSAEncryptionMetadataMixin(r.value);
       if (!a.success) return a;
-      var i = o(
+      var i = o("WASmaxParseUtils").optionalChildWithTag(t, "wf_notif_id", e);
+      if (!i.success) return i;
+      var l = o(
+        "WASmaxInWaffleRSAEncryptionMetadataMixin",
+      ).parseRSAEncryptionMetadataMixin(a.value);
+      if (!l.success) return l;
+      var s = o(
         "WASmaxInWaffleIQResultResponseMixin",
-      ).parseIQResultResponseMixin(e, t);
-      return i.success
+      ).parseIQResultResponseMixin(t, n);
+      return s.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
-              { encryptionMetadataRSAEncryptionMetadataMixin: a.value },
-              i.value,
+              { encryptionMetadataRSAEncryptionMetadataMixin: l.value },
+              s.value,
+              { wfNotifId: i.value },
             ),
           )
-        : i;
+        : s;
     }
-    l.parseGenerateWAEntACUserResponseSuccess = e;
+    ((l.parseGenerateWAEntACUserResponseSuccessWfNotifId = e),
+      (l.parseGenerateWAEntACUserResponseSuccess = s));
   },
   98,
 );

@@ -405,6 +405,15 @@ __d(
         case "CHANNEL_STATUS_MUSIC":
           return o("WAWebCommonNewsletterEnums").NewsletterCapability
             .CHANNEL_STATUS_MUSIC;
+        case "QUESTIONS_STARRING":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .QUESTIONS_STARRING;
+        case "SCHEDULED_UPDATES":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .SCHEDULED_UPDATES;
+        case "CHANNEL_STATUS_API":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .CHANNEL_STATUS_API;
         default:
           return (
             o("WALogger")

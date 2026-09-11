@@ -489,6 +489,7 @@ __d(
       }
       if (
         ((o("WAWebMsgGetters").getIsMetaBotResponse(e) ||
+          o("WAWebMsgGetters").getIsBizBot1pMessage(e) ||
           e.botEditType != null) &&
           ((l.botEditType = t.botEditType),
           (l.botEditTargetId = t.botEditTargetId)),

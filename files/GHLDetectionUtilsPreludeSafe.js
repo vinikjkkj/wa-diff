@@ -347,9 +347,8 @@ __d(
       }
       return "";
     }
-    function G(e) {
-      return e === "" ? 0 : e.split("\n").length;
-    }
+    var G =
+      /chrome-extension:\/\/|moz-extension:\/\/|safari-web-extension:\/\/|<anonymous>:\d/;
     function z() {
       if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) return !1;
       var t = document.body || document.documentElement;
@@ -360,27 +359,23 @@ __d(
         t.appendChild(n);
         var o = n.contentWindow;
         if (o == null) return !1;
-        var a = G(
-            H(function () {
-              JSON.parse("{ ");
-            }),
-          ),
-          i = G(
-            H(function () {
-              o.JSON.parse("{ ");
-            }),
-          ),
-          l = G(
-            H(function () {
-              new XMLHttpRequest().send();
-            }),
-          ),
-          s = G(
-            H(function () {
-              new o.XMLHttpRequest().send();
-            }),
-          );
-        return (i > 0 && a > i) || (s > 0 && l > s);
+        var a = [
+          H(function () {
+            JSON.parse("{ ");
+          }),
+          H(function () {
+            o.JSON.parse("{ ");
+          }),
+          H(function () {
+            new XMLHttpRequest().send();
+          }),
+          H(function () {
+            new o.XMLHttpRequest().send();
+          }),
+        ];
+        return a.some(function (e) {
+          return G.test(e);
+        });
       } catch (e) {
         return !1;
       } finally {

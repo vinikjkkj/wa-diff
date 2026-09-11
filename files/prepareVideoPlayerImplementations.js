@@ -133,29 +133,32 @@ __d(
             typename: "VideoPlayerProgressiveImplementation",
           };
     }
-    function _(e, t, n, o, a, i, l) {
-      var s;
+    function _(e) {
+      return e === void 0 ? "undefined" : e === null ? "null" : String(e);
+    }
+    function f(e, t, n, o, a, i, l, s) {
+      var u;
       if (!t && (!l || e.length === 0)) return null;
-      for (var u = new Map(), c = 0; c < e.length; ++c) {
-        var d,
-          m = e[c],
-          p = m.name + ": " + ((d = m.messageFormat) != null ? d : m.message);
-        u.has(p) || u.set(p, m);
+      for (var c = new Map(), d = 0; d < e.length; ++d) {
+        var m,
+          p = e[d],
+          _ = p.name + ": " + ((m = p.messageFormat) != null ? m : p.message);
+        c.has(_) || c.set(_, p);
       }
       for (
-        var _ = Array.from(u.values()), f = [], g = [], h = [], y = 0;
-        y < _.length;
-        ++y
+        var f = Array.from(c.values()), g = [], h = [], y = [], C = 0;
+        C < f.length;
+        ++C
       ) {
-        var C,
-          b = _[y];
-        (f.push(b.name),
-          g.push((C = b.messageFormat) != null ? C : b.message),
-          b.messageFormat != null &&
-            b.messageParams != null &&
-            h.push.apply(h, b.messageParams));
+        var b,
+          v = f[C];
+        (g.push(v.name),
+          h.push((b = v.messageFormat) != null ? b : v.message),
+          v.messageFormat != null &&
+            v.messageParams != null &&
+            y.push.apply(y, v.messageParams));
       }
-      var v = r("err").apply(
+      var S = r("err").apply(
         void 0,
         [
           (t
@@ -164,108 +167,109 @@ __d(
               : "Cannot play video: "
             : n === !0
               ? "Warning for 360 video: "
-              : "Warning: ") + g.join(" ++ "),
-        ].concat(h),
+              : "Warning: ") + h.join(" ++ "),
+        ].concat(y),
       );
-      ((v.name = f.join("++")),
-        (v.type = t ? "fatal" : "warn"),
-        (v.project = "comet_video_player"));
-      var S = (s = v.metadata) != null ? s : new (r("ErrorMetadata"))();
+      ((S.name = g.join("++")),
+        (S.type = t ? "fatal" : "warn"),
+        (S.project = "comet_video_player"));
+      var R = (u = S.metadata) != null ? u : new (r("ErrorMetadata"))();
       return (
-        (v.metadata = S),
-        o != null && S.addEntry("COMET_VIDEO", "VIDEO_ID", String(o)),
-        S.addEntry(
+        (S.metadata = R),
+        o != null && R.addEntry("COMET_VIDEO", "VIDEO_ID", String(o)),
+        R.addEntry(
           "COMET_VIDEO",
           "VIDEO_IMPLEMENTATION_DEBUG_DATA",
-          JSON.stringify({
-            isBroadcast: a,
-            isLiveStreaming: i,
-            isSpherical: n,
-          }),
+          JSON.stringify(
+            babelHelpers.extends(
+              { isBroadcast: a, isLiveStreaming: i, isSpherical: n },
+              s,
+            ),
+          ),
         ),
-        v
+        S
       );
     }
-    function f(e) {
+    function g(e) {
       var t = e.browserNativeHdSrcPreferred,
         o = e.browserNativeHdUrl,
         a = e.browserNativeSdUrl,
         i = e.canUseDash,
         l = e.dashManifestUrl,
-        f = e.dashManifestUrlOverride_DO_NOT_USE,
-        g = e.dashManifestXmlString,
-        h = e.initialAudioUserPreferredLanguage,
-        y = e.initiateLivePlaybackFromStart,
-        C = e.isBroadcast,
-        b = e.isLiveStreaming,
-        v = e.isSpherical,
-        S = e.mediaStream,
-        R = e.minQualityPreference,
-        L = e.minQualityPreferenceOverrideFromProductSurface,
-        E = e.nextgendashAvailability,
-        k = e.preferBrowserNativeImplementation,
-        I = e.skipManifestPrevalidation,
-        T = e.sphericalVideoFallbackHdUrl,
-        D = e.sphericalVideoFallbackSdUrl,
-        x = e.videoDeliveryResponseResult,
-        $ = e.videoFBID,
-        P = e.videoPlayerShakaConfig,
-        N = [],
+        g = e.dashManifestUrlOverride_DO_NOT_USE,
+        h = e.dashManifestXmlString,
+        y = e.initialAudioUserPreferredLanguage,
+        C = e.initiateLivePlaybackFromStart,
+        b = e.isBroadcast,
+        v = e.isLiveStreaming,
+        S = e.isSpherical,
+        R = e.mediaStream,
+        L = e.minQualityPreference,
+        E = e.minQualityPreferenceOverrideFromProductSurface,
+        k = e.nextgendashAvailability,
+        I = e.preferBrowserNativeImplementation,
+        T = e.skipManifestPrevalidation,
+        D = e.sphericalVideoFallbackHdUrl,
+        x = e.sphericalVideoFallbackSdUrl,
+        $ = e.videoDeliveryResponseResult,
+        P = e.videoFBID,
+        N = e.videoPlayerShakaConfig,
         M = [],
-        w = r("gkx")("8034"),
-        A = u(x, w, o, a, l, g, v, T, D),
-        F = A.browserNativeHdUrl,
-        O = A.browserNativeSdUrl,
-        B = A.dashManifestDeliveryFailures,
-        W = A.dashManifestUrl,
-        q = A.dashManifestUrlDeliveryFailures,
-        U = A.dashManifestXmlString,
-        V = A.hlsDeliveryFailures,
-        H = A.progressiveDeliveryFailures,
-        G = A.videoDeliveryResponseAPIFailures,
-        z = c(G, B, q, W, U);
-      if (k !== !0) {
-        if (!z) {
+        w = [],
+        A = r("gkx")("8034"),
+        F = u($, A, o, a, l, h, S, D, x),
+        O = F.browserNativeHdUrl,
+        B = F.browserNativeSdUrl,
+        W = F.dashManifestDeliveryFailures,
+        q = F.dashManifestUrl,
+        U = F.dashManifestUrlDeliveryFailures,
+        V = F.dashManifestXmlString,
+        H = F.hlsDeliveryFailures,
+        G = F.progressiveDeliveryFailures,
+        z = F.videoDeliveryResponseAPIFailures,
+        j = c(z, W, U, q, V);
+      if (I !== !0) {
+        if (!j) {
           if (s && n("cr:8058")) {
-            var j = d(i, W, f, U, h, R, E, I);
-            j instanceof Error
-              ? M.push(["VideoPlayerNextgendashImplementation", j])
-              : N.push(j);
+            var K = d(i, q, g, V, y, L, k, T);
+            K instanceof Error
+              ? w.push(["VideoPlayerNextgendashImplementation", K])
+              : M.push(K);
           }
           if (n("cr:1980") != null) {
-            var K = m(i, W, f, U, h, y, R, P, I);
-            K instanceof Error
-              ? M.push(["VideoPlayerOzImplementation", K])
-              : N.push(K);
+            var Q = m(i, q, g, V, y, C, L, N, T);
+            Q instanceof Error
+              ? w.push(["VideoPlayerOzImplementation", Q])
+              : M.push(Q);
           }
         }
       } else {
-        var Q = r("err")("preferBrowserNativeImplementation=" + String(k));
-        ((Q.name = "VideoImplementationsPreferBrowserNative"),
+        var X = r("err")("preferBrowserNativeImplementation=" + String(I));
+        ((X.name = "VideoImplementationsPreferBrowserNative"),
           s &&
             n("cr:8058") &&
-            M.push(["VideoPlayerNextgendashImplementation", Q]),
-          M.push(["VideoPlayerOzImplementation", Q]));
+            w.push(["VideoPlayerNextgendashImplementation", X]),
+          w.push(["VideoPlayerOzImplementation", X]));
       }
       if (
-        G.length === 0 &&
-        (H.length === 0 || F != null || O != null || S != null)
+        z.length === 0 &&
+        (G.length === 0 || O != null || B != null || R != null)
       ) {
-        var X = p(F, O, t, R, L, S);
-        X instanceof Error
-          ? M.push(["VideoPlayerProgressiveImplementation", X])
-          : N.push(X);
+        var Y = p(O, B, t, L, E, R);
+        Y instanceof Error
+          ? w.push(["VideoPlayerProgressiveImplementation", Y])
+          : M.push(Y);
       }
-      var Y = N.length === 0,
-        J = [];
-      (J.push.apply(J, G),
-        J.push.apply(J, B),
-        J.push.apply(J, q),
-        J.push.apply(J, H),
-        J.push.apply(J, V),
-        J.push.apply(
-          J,
-          M.map(function (e) {
+      var J = M.length === 0,
+        Z = [];
+      (Z.push.apply(Z, z),
+        Z.push.apply(Z, W),
+        Z.push.apply(Z, U),
+        Z.push.apply(Z, G),
+        Z.push.apply(Z, H),
+        Z.push.apply(
+          Z,
+          w.map(function (e) {
             var t,
               n,
               o = e[0],
@@ -293,15 +297,22 @@ __d(
             return ((s.name = "VideoPlayerCannotUse" + l + "/" + i.name), s);
           }),
         ));
-      var Z = _(J, Y, v, $, C, b, r("gkx")("24370"));
-      if (Y && Z != null) throw Z;
+      var ee = f(Z, J, S, P, b, v, r("gkx")("24370"), {
+        canUseDash: _(i),
+        hasBrowserNativeHdUrl: O != null,
+        hasBrowserNativeSdUrl: B != null,
+        hasDashManifestUrl: q != null,
+        hasDashManifestXmlString: V != null,
+        nextgendashAvailability: k,
+      });
+      if (J && ee != null) throw ee;
       return {
-        hasDashManifest: W != null || U != null,
-        implementations: N,
-        warning: Z,
+        hasDashManifest: q != null || V != null,
+        implementations: M,
+        warning: ee,
       };
     }
-    l.default = f;
+    l.default = g;
   },
   98,
 );

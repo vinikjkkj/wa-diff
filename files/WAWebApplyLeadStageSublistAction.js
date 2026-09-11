@@ -69,6 +69,7 @@ __d(
                 o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
                   [{ id: u.id, type: "add" }],
                   [c],
+                  { suppressSuccessToast: !0 },
                 ),
               yield r("WAWebLabelSublistSync").sendLabelSublistUpdate(
                 o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,

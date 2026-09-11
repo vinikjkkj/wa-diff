@@ -88,10 +88,7 @@ __d(
             t === "lastMessage" ||
             t === "list"
           ? !0
-          : t === "email" ||
-              t === "leadStage" ||
-              t === "acquisitionSource" ||
-              t === "lastOrder"
+          : t === "email" || t === "acquisitionSource" || t === "lastOrder"
             ? !1
             : t === "select" || t === "actions" || t === "notes"
               ? !0

@@ -130,6 +130,9 @@ __d(
     function S() {
       return r("justknobx")._("5833");
     }
+    function R() {
+      return r("justknobx")._("5870");
+    }
     ((l.isGroupHistoryReceiverEnabled = e),
       (l.isGroupHistorySenderEnabled = s),
       (l.isGroupHistorySettingsToggleUIEnabled = u),
@@ -143,7 +146,8 @@ __d(
       (l.isGroupHistoryAfterJoinPrerequisitesEnabled = C),
       (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = b),
       (l.isGroupHistoryReceiverDedupEnabled = v),
-      (l.isLearnGroupHistoryToggleFromHistorySyncEnabled = S));
+      (l.isLearnGroupHistoryToggleFromHistorySyncEnabled = S),
+      (l.shouldSkipUnsupportedMessagesFromBundle = R));
   },
   98,
 );

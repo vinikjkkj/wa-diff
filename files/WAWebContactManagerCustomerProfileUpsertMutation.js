@@ -6,6 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfileUpsertMutation.graphql",
+    "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
@@ -56,20 +57,30 @@ __d(
                 n.type +
                 ")",
             );
-          (yield r("WAWebNetworkStatus").waitIfOffline(),
+          yield r("WAWebNetworkStatus").waitIfOffline();
+          try {
             yield o("WAWebRelayClient").commitMutation(
               c,
               { input: [t] },
               { accessToken: n.token, environmentType: "facebook" },
-            ),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ContactManager] customer profile upsert: synced ",
-                  "",
-                ])),
-              e,
-            ));
+            );
+          } catch (e) {
+            throw (
+              o("WAWebContactManagerCustomerProfilesQuery").logIfRateLimited(
+                e,
+                "write",
+              ),
+              e
+            );
+          }
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[ContactManager] customer profile upsert: synced ",
+                "",
+              ])),
+            e,
+          );
         })),
         g.apply(this, arguments)
       );
@@ -115,11 +126,20 @@ __d(
         }
         if (
           ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.field === "lastOrder" &&
+          r.field === "leadStage" &&
           "value" in r
         ) {
           var c = r.value;
-          n.last_order_date = c != null ? c : null;
+          n.lead_stage = c != null ? String(c) : null;
+          break e;
+        }
+        if (
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.field === "lastOrder" &&
+          "value" in r
+        ) {
+          var d = r.value;
+          n.last_order_date = d != null ? d : null;
           break e;
         }
         if (
@@ -127,14 +147,14 @@ __d(
           r.field === "acquisitionSource" &&
           "value" in r
         ) {
-          var d = r.value,
-            m = o(
+          var m = r.value,
+            p = o(
               "WAWebContactManagerCustomerProfileDecoders",
-            ).fromProfileAcquisitionSourceId(d);
-          d == null
+            ).fromProfileAcquisitionSourceId(m);
+          m == null
             ? (n.acquisition_source = null)
-            : m != null
-              ? (n.acquisition_source = m)
+            : p != null
+              ? (n.acquisition_source = p)
               : o("WALogger")
                   .WARN(
                     s ||
@@ -142,7 +162,7 @@ __d(
                         "[ContactManager] customer profile upsert: acquisition source ",
                         " has no server enum member; leaving the stored value unchanged",
                       ])),
-                    d,
+                    m,
                   )
                   .sendLogs("customer_manager_acquisition_source_unmapped");
           break e;
