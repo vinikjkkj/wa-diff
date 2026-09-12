@@ -3,7 +3,6 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
-    "WAWebABProps",
     "WAWebUA",
     "WAWebVoipJsWorkerThread",
     "WAWebVoipMediaEnums",
@@ -155,12 +154,7 @@ __d(
                   T = S === "onDesktopCaptureDataFromJs",
                   D = I && o("WAWebUA").UA.isSafari && T,
                   x = I && !D;
-                this.$7 =
-                  x &&
-                  !T &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "web_voip_video_presentation_orientation_fix",
-                  );
+                this.$7 = x && !T;
                 var $ = (function (e) {
                     return ((typeof e == "object" && e !== null) ||
                       typeof e == "function") &&
@@ -1042,12 +1036,16 @@ __d(
       var t = e.rotation;
       return typeof t == "number" ? t : null;
     }
-    function ge(e, t) {
-      var n,
-        r = t != null ? t.frameRotation : fe(e),
-        a = (n = t == null ? void 0 : t.fallbackOrientation) != null ? n : oe,
-        i = o("WAWebVoipMediaEnums").resolveVideoFrameOrientation(r, a);
-      return (_e(e, i, a, t), i.orientation);
+    function ge(e, t, n) {
+      var r,
+        a = t != null ? t.frameRotation : fe(e),
+        i =
+          (r = n != null ? n : t == null ? void 0 : t.fallbackOrientation) !=
+          null
+            ? r
+            : oe,
+        l = o("WAWebVoipMediaEnums").resolveVideoFrameOrientation(a, i);
+      return (_e(e, l, i, t), l.orientation);
     }
     var he = null;
     function ye(e) {
@@ -1110,7 +1108,11 @@ __d(
                           ((n = e.format) != null ? n : "null"),
                       );
                     }
-                    var a = ge(e);
+                    var a = ge(
+                      e,
+                      void 0,
+                      o("WAWebVoipMediaEnums").Orientation.Normal,
+                    );
                     (f < 3 &&
                       (f++,
                       Q(

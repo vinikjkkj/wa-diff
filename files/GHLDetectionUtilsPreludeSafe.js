@@ -169,7 +169,9 @@ __d(
       }
     }
     function T() {
-      (I(), p != null && !U() && (window.String = p));
+      I();
+      var e = p;
+      e != null && !U() && (window.String = e);
     }
     function D() {
       I();
