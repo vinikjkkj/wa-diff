@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationCreativeMediaModel",
-  ["FBLogger", "WAWebMmsMediaTypes", "WAWebMsgType"],
+  ["FBLogger", "WAWebMmsMediaTypes", "WAWebMsgType", "isStringNullOrEmpty"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -33,7 +33,7 @@ __d(
       var t = e.isUploadInFlight,
         n = e.items,
         r = e.storedCreativeMedia;
-      return t ? !1 : !y(r, n);
+      return t ? !1 : !C(r, n);
     }
     function d(e) {
       return e.status === "ready";
@@ -42,12 +42,19 @@ __d(
       return e.status === "pending";
     }
     function p(e) {
+      return r("isStringNullOrEmpty")(e.resolvedUrl)
+        ? r("isStringNullOrEmpty")(e.displayUrl)
+          ? null
+          : e.displayUrl
+        : e.resolvedUrl;
+    }
+    function _(e) {
       return e.length > 0;
     }
-    function _(e, t) {
-      return f(e, t).some(m);
-    }
     function f(e, t) {
+      return g(e, t).some(m);
+    }
+    function g(e, t) {
       var n = !1,
         r = e.map(function (e) {
           if (e.source !== "upload") return e;
@@ -58,7 +65,7 @@ __d(
         });
       return n ? r : e;
     }
-    function g(e, t) {
+    function h(e, t) {
       if (t.size === 0) return e;
       var n = !1,
         r = e.map(function (e) {
@@ -79,7 +86,7 @@ __d(
         });
       return n ? r : e;
     }
-    function h(e, t) {
+    function y(e, t) {
       if (t == null || t.length === 0) return e;
       var n = new Map(
           e.map(function (e) {
@@ -101,7 +108,7 @@ __d(
         });
       return o ? e : r;
     }
-    function y(e, t) {
+    function C(e, t) {
       return e == null || e.length !== t.length
         ? !1
         : e.every(function (e, n) {
@@ -117,7 +124,7 @@ __d(
             );
           });
     }
-    function C(e, t, n, r) {
+    function b(e, t, n, r) {
       var o,
         a = (o = t[n]) == null ? void 0 : o.attachMedia;
       if (a == null) return null;
@@ -126,29 +133,29 @@ __d(
       var l = [].concat(t),
         s = l.splice(n, 1),
         u = s[0],
-        c = S(r, l.length);
+        c = R(r, l.length);
       l.splice(c, 0, u);
-      var d = b(e, l, c, i);
+      var d = v(e, l, c, i);
       return d === i ? null : { fromIndex: i, toIndex: d };
     }
-    function b(e, t, n, r) {
+    function v(e, t, n, r) {
       for (var o = n - 1; o >= 0; o--) {
-        var a = v(e, t[o]);
+        var a = S(e, t[o]);
         if (a != null) return r < a ? a : a + 1;
       }
       for (var i = n + 1; i < t.length; i++) {
-        var l = v(e, t[i]);
+        var l = S(e, t[i]);
         if (l != null) return r < l ? l - 1 : l;
       }
       return r;
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = t.attachMedia;
       if (n == null) return null;
       var r = e.indexOf(n);
       return r === -1 ? null : r;
     }
-    function S(e, t) {
+    function R(e, t) {
       return Math.max(0, Math.min(e, t));
     }
     ((l.creativeMediaKindFromMediaType = e),
@@ -157,13 +164,14 @@ __d(
       (l.shouldRecordCreativeMedia = c),
       (l.isCreativeMediaReady = d),
       (l.isCreativeMediaPending = m),
-      (l.hasCreativeMedia = p),
-      (l.isCreativeMediaResolving = _),
-      (l.withCreativeMediaStatus = f),
-      (l.withResolvedCreativeMedia = g),
-      (l.reconcileCreativeMediaOrder = h),
-      (l.creativeMediaMatchesStore = y),
-      (l.uploadReorderForCreativeMediaDrag = C));
+      (l.getCreativeMediaUrl = p),
+      (l.hasCreativeMedia = _),
+      (l.isCreativeMediaResolving = f),
+      (l.withCreativeMediaStatus = g),
+      (l.withResolvedCreativeMedia = h),
+      (l.reconcileCreativeMediaOrder = y),
+      (l.creativeMediaMatchesStore = C),
+      (l.uploadReorderForCreativeMediaDrag = b));
   },
   98,
 );

@@ -279,6 +279,9 @@ __d(
           (n.setMessageIsFirstUserMessage = function (t) {
             this.$2.messageIsFirstUserMessage = t;
           }),
+          (n.setIsPq = function (t) {
+            t === !0 && (this.$2.isPq = !0);
+          }),
           (n.setSessionScope = function (t) {
             var e = o("WAWebSessionScopeWamUtils").sessionScopeToWamType(t);
             e != null && (this.$2.sessionScope = e);

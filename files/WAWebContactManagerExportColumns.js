@@ -144,7 +144,7 @@ __d(
         return t.getValue(e);
       });
     }
-    ((l.EXPORT_COLUMNS = p), (l.getExportHeaders = _), (l.getExportRow = f));
+    ((l.getExportHeaders = _), (l.getExportRow = f));
   },
   226,
 );

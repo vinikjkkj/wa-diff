@@ -8,42 +8,52 @@ __d(
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "fetch_start" &&
-          "stanzaId" in t
+          "stanzaId" in t &&
+          "trigger" in t
         ) {
-          var n = t.stanzaId;
+          var n = t.stanzaId,
+            r = t.trigger;
           return e.status === "quota_handoff"
             ? e
-            : { status: "loading", stanzaId: n };
+            : { status: "loading", stanzaId: n, trigger: r };
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "newer_message" &&
-          "stanzaId" in t
+          "stanzaId" in t &&
+          "trigger" in t
         ) {
-          var r = t.stanzaId;
+          var o = t.stanzaId,
+            a = t.trigger;
           return e.status === "quota_handoff"
             ? e
-            : { status: "loading", stanzaId: r };
+            : { status: "loading", stanzaId: o, trigger: a };
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "fetch_success" &&
           "stanzaId" in t &&
-          "suggestion" in t
+          "suggestion" in t &&
+          "trigger" in t &&
+          "isFromCache" in t
         ) {
-          var o = t.stanzaId,
-            a = t.suggestion;
-          if (e.status === "loading" && e.stanzaId === o) return c(o, a);
+          var i = t.stanzaId,
+            l = t.suggestion,
+            s = t.trigger,
+            u = t.isFromCache;
+          if (e.status === "loading" && e.stanzaId === i) return c(i, l, s, u);
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "fetch_error" &&
           "stanzaId" in t &&
-          "code" in t
+          "code" in t &&
+          "trigger" in t
         ) {
-          var i = t.stanzaId,
-            l = t.code;
-          if (e.status === "loading" && e.stanzaId === i) return d(l);
+          var m = t.stanzaId,
+            p = t.code,
+            _ = t.trigger;
+          if (e.status === "loading" && e.stanzaId === m) return d(m, p, _);
         }
         return ((typeof t == "object" && t !== null) ||
           typeof t == "function") &&
@@ -65,23 +75,30 @@ __d(
           ? t
           : "";
     }
-    function c(e, t) {
+    function c(e, t, n, r) {
       return u(t) === ""
         ? { status: "hidden" }
-        : { status: "success", stanzaId: e, suggestion: t };
+        : {
+            status: "success",
+            stanzaId: e,
+            suggestion: t,
+            trigger: n,
+            isFromCache: r,
+          };
     }
-    function d(e) {
-      return (function (t) {
-        if (t === "quota_handoff") return { status: "quota_handoff" };
-        if (t === "retryable_error") return { status: "error", code: e };
-        if (t === "silent_fallback") return { status: "hidden" };
+    function d(e, t, n) {
+      return (function (r) {
+        if (r === "quota_handoff") return { status: "quota_handoff" };
+        if (r === "retryable_error")
+          return { status: "error", stanzaId: e, code: t, trigger: n };
+        if (r === "silent_fallback") return { status: "hidden" };
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
+            r,
         );
       })(
         o("WAWebBizAiSmartComposerErrorMapping").mapSuggestedReplyErrorToState(
-          e,
+          t,
         ),
       );
     }

@@ -11,12 +11,15 @@ __d(
               return e.localId - t.localId;
             })
             .map(function (e, t) {
-              var n = e.hash,
-                r = e.localId,
-                o = e.name;
+              var n = e.addOptionMsgKey,
+                r = e.hash,
+                o = e.localId,
+                a = e.name;
               return (
-                r === t || s(0, 59784),
-                n != null ? { name: o, hash: n } : { name: o }
+                o === t || s(0, 59784),
+                r != null
+                  ? { name: a, hash: r, addOptionMsgKey: n }
+                  : { name: a, addOptionMsgKey: n }
               );
             });
     }
@@ -45,16 +48,18 @@ __d(
       return e == null
         ? void 0
         : e.map(function (e, t) {
-            var n = e.hash,
-              a = e.name;
-            return n == null
-              ? { name: r("nullthrows")(a), localId: t }
+            var n = e.addOptionMsgKey,
+              a = e.hash,
+              i = e.name;
+            return a == null
+              ? { name: r("nullthrows")(i), localId: t, addOptionMsgKey: n }
               : {
-                  name: r("nullthrows")(a),
+                  name: r("nullthrows")(i),
                   localId: t,
                   hash: o(
                     "WAWebPollOptionHashUtils",
-                  ).createOptionHashHexFromString(n),
+                  ).createOptionHashHexFromString(a),
+                  addOptionMsgKey: n,
                 };
           });
     }

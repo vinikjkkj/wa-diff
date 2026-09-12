@@ -72,10 +72,13 @@ __d(
       return e === p || e.current.has(t) ? !1 : (e.current.add(t), !0);
     }
     function R(e, t) {
+      e !== p && e.current.delete(t);
+    }
+    function L(e, t) {
       if (e !== p)
         for (var n of e.current) n.startsWith(t) && e.current.delete(n);
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       return e === p || !e.current.delete(t) ? !1 : (e.current.add(n), !0);
     }
     ((l.WAWebBizAiSmartComposerImpressionProvider = g),
@@ -85,8 +88,9 @@ __d(
       (l.forgetSmartComposerShownCard = b),
       (l.discardSmartComposerShownCardWithoutExit = v),
       (l.markSmartComposerImpression = S),
-      (l.forgetSmartComposerImpressionsWithPrefix = R),
-      (l.moveSmartComposerImpression = L));
+      (l.forgetSmartComposerImpression = R),
+      (l.forgetSmartComposerImpressionsWithPrefix = L),
+      (l.moveSmartComposerImpression = E));
   },
   98,
 );

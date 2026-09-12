@@ -11,6 +11,7 @@ __d(
     "WAWebFetchPrekeysJob",
     "WAWebManagePhoneNumberMappingJob",
     "WAWebProcessKeyBundle",
+    "WAWebReleaseToEventLoop",
     "WAWebRunInBatches",
     "WAWebSessionScope",
     "WAWebSignal",
@@ -52,7 +53,7 @@ __d(
     }
     var b = 406,
       v = new Map(),
-      S = { SESSION_CHECK: 50, PROCESS_KEY_BUNDLES: 1 };
+      S = { SESSION_CHECK: 50 };
     function R(e) {
       return L.apply(this, arguments);
     }
@@ -337,65 +338,25 @@ __d(
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t !== o("WAWebSessionScope").SessionScope.PQ) return $(e, t);
-          var n = x(e),
-            r = n.defaultPrekeyBundles,
-            a = n.pqPrekeyBundles,
-            i = yield $(r, o("WAWebSessionScope").SessionScope.DEFAULT),
-            l = yield $(a, o("WAWebSessionScope").SessionScope.PQ);
-          return {
-            depletedPrekeyCount: i.depletedPrekeyCount + l.depletedPrekeyCount,
-            processedPrekeyCount:
-              i.processedPrekeyCount + l.processedPrekeyCount,
-          };
+          var n = 0,
+            r = 0;
+          for (var a of e) {
+            var i,
+              l,
+              s = t;
+            t === o("WAWebSessionScope").SessionScope.PQ &&
+              (s =
+                a.kyberKey != null && E(a.wid)
+                  ? o("WAWebSessionScope").SessionScope.PQ
+                  : o("WAWebSessionScope").SessionScope.DEFAULT);
+            var u = yield o("WAWebProcessKeyBundle").processKeyBundles([a], s);
+            ((n += (i = u.depletedPrekeyCount) != null ? i : 0),
+              (r += (l = u.processedPrekeyCount) != null ? l : 0),
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+          }
+          return { depletedPrekeyCount: n, processedPrekeyCount: r };
         })),
         D.apply(this, arguments)
-      );
-    }
-    function x(e) {
-      var t = [],
-        n = [];
-      return (
-        e.forEach(function (e) {
-          e.kyberKey != null && E(e.wid) ? n.push(e) : t.push(e);
-        }),
-        { defaultPrekeyBundles: t, pqPrekeyBundles: n }
-      );
-    }
-    function $(e, t) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = 0,
-            a = 0;
-          return (
-            yield o("WAWebRunInBatches").runInBatches(
-              e,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n,
-                      i,
-                      l = yield o("WAWebProcessKeyBundle").processKeyBundles(
-                        [].concat(e),
-                        t,
-                      );
-                    ((r += (n = l.depletedPrekeyCount) != null ? n : 0),
-                      (a += (i = l.processedPrekeyCount) != null ? i : 0));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              { batchSize: S.PROCESS_KEY_BUNDLES },
-            ),
-            { depletedPrekeyCount: r, processedPrekeyCount: a }
-          );
-        })),
-        P.apply(this, arguments)
       );
     }
     ((l.getSignalSessionWids = y), (l.ensureE2ESessions = R));

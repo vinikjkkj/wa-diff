@@ -39,22 +39,17 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_abprop_direct_connection_md",
-      );
-    }
-    function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "direct_connection_business_numbers",
       );
       return typeof e == "string" && e.length > 0 ? e.split(",") : [];
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           if (u() || !c(t, n) || !r) return !1;
           if (!s())
             return (
@@ -78,16 +73,16 @@ __d(
             i.isBusinessDirectConnection() || !1
           );
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield _(e, t, n);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield p(e, t, n);
           return r === !0 && !d()
             ? {
                 requiresDirectConnection: r,
@@ -96,13 +91,12 @@ __d(
               }
             : { requiresDirectConnection: r };
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
     ((l.supportsDirectConnection = d),
-      (l.enablePostcodeInCatalog = m),
-      (l.directConnectionBusinessNumbersFromAbprop = p),
-      (l.genDirectConnectionMessageModifiers = g));
+      (l.directConnectionBusinessNumbersFromAbprop = m),
+      (l.genDirectConnectionMessageModifiers = f));
   },
   98,
 );

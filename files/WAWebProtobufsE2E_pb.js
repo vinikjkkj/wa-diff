@@ -706,6 +706,7 @@ __d(
         botPlatformRegistrationSuccessMessage: [131, e.TYPES.MESSAGE, $t],
         newsletterScheduledMessage: [132, e.TYPES.MESSAGE, $t],
         acp2SettingMessage: [133, e.TYPES.MESSAGE, $t],
+        audioStickerMessage: [134, e.TYPES.MESSAGE, $t],
       }),
       (qe.name = "Message$StatusLinkPreviewMetadata"),
       (qe.internalSpec = { style: [1, e.TYPES.ENUM, m] }),
@@ -1391,6 +1392,8 @@ __d(
         accessibilityLabel: [22, e.TYPES.STRING],
         premium: [24, e.TYPES.INT32],
         emojis: [25, e.TYPES.STRING],
+        audioMessage: [26, e.TYPES.MESSAGE, Or],
+        __oneofs__: { audio: ["audioMessage"] },
       }),
       (hn.name = "Message$LiveLocationMessage"),
       (hn.internalSpec = {

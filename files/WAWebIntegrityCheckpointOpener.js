@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebIntegrityChallengeUtils",
     "WAWebIntegrityPasskeyCheckpointUtils",
-    "WAWebUserPrefsIndexedDBStorage",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -57,13 +56,7 @@ __d(
         );
       }
     }
-    function d() {
-      var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-        o("WAWebIntegrityChallengeUtils").INTEGRITY_CHALLENGE_IDB_KEY,
-      );
-      e != null && c(e);
-    }
-    ((l.openChallengeModal = c), (l.initIntegrityCheckpointOpener = d));
+    l.openChallengeModal = c;
   },
   98,
 );

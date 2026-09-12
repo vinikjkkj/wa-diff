@@ -25,21 +25,21 @@ __d(
         success: "success",
       };
     function d(e) {
-      h(
+      y(
         "smart_composer",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_chat_ai_eligible: e, variant: u },
       );
     }
     function m() {
-      h(
+      y(
         "mode_switching_bottom_sheet",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { variant: u },
       );
     }
     function p() {
-      h(
+      y(
         "standard",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_companion: !0 },
@@ -60,7 +60,7 @@ __d(
           (l.error_code = o(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(r)),
-        h(
+        y(
           "suggested_reply_card_dismissed",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .DISMISS,
@@ -68,24 +68,31 @@ __d(
         ));
     }
     function f(e) {
-      h(
+      y(
         "suggested_reply_metering_gql_response",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { success: e },
       );
     }
-    function g(e) {
+    function g(e, t, n) {
+      y(
+        "suggested_reply_card_view",
+        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        { card_state: "success", is_from_cache: t, trigger: e, card_type: n },
+      );
+    }
+    function h(e) {
       var t = e.from,
         n = e.success,
         r = e.to,
         a = e.trigger;
-      h(
+      y(
         "mode_switch_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { from: s[t], success: n, to: s[r], trigger: a, variant: u },
       );
     }
-    function h(t, n, a, i) {
+    function y(t, n, a, i) {
       i === void 0 &&
         (i = o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SMB_SMART_COMPOSER);
       try {
@@ -116,7 +123,8 @@ __d(
       (l.logViewHandoffCard = p),
       (l.logDismissSuggestionCard = _),
       (l.logMeteringResponse = f),
-      (l.logModeSwitchRequested = g));
+      (l.logViewSuggestionCard = g),
+      (l.logModeSwitchRequested = h));
   },
   98,
 );

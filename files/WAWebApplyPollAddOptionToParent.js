@@ -117,7 +117,13 @@ __d(
         var u = s.decryptedAddOption.pollAddedOption.name;
         if (!a.has(u)) {
           if (n.length >= i) break;
-          (n.push({ name: u, localId: l }), a.add(u), l++);
+          (n.push({
+            name: u,
+            localId: l,
+            addOptionMsgKey: s.decryptedAddOption.id.toString(),
+          }),
+            a.add(u),
+            l++);
         }
       }
       return n.length === r

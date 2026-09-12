@@ -5,7 +5,6 @@ __d(
     "GHLDetectionUtilsPreludeSafe",
     "GHLTypenameRestore",
     "getErrorSafe",
-    "isPlainObjectWithTypeGuard",
     "json5",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,102 +22,83 @@ __d(
       return o + t.slice(a);
     }
     function m(e) {
-      if (!(e == null || typeof e != "object"))
-        for (var t = [e]; t.length > 0; ) {
-          var n = t.pop();
-          if (!(n == null || typeof n != "object")) {
-            if (Array.isArray(n)) {
-              for (var o = 0; o < n.length; o++) {
-                var a = n[o];
-                a != null && typeof a == "object" && t.push(a);
-              }
-              continue;
-            }
-            if (r("isPlainObjectWithTypeGuard")(n)) {
-              n.__typename === c && (n.__typename = u);
-              for (var i = Object.keys(n), l = 0; l < i.length; l++) {
-                var s = n[i[l]];
-                s != null && typeof s == "object" && t.push(s);
-              }
-            }
-          }
-        }
-    }
-    function p(e) {
       var t = null,
         n = window.Env,
         a = n != null && "v9k2mt7q" in n,
         i = n != null && "d3hf9km2" in n,
         l = n != null && "k8pq2mnb" in n,
         s = n != null && "n5tq2wjb" in n,
-        u = e;
-      l && u != null && (u = d(u, s));
-      var c =
+        m = e;
+      l && m != null && (m = d(m, s));
+      var p =
           a &&
           (o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed() ||
             (i &&
               o(
                 "GHLDetectionUtilsPreludeSafe",
               ).isJSONParseBehaviorallyShimmed())),
-        p = n != null && "c6mw9qtk" in n,
-        _ = n != null && "j6dw4ztx" in n,
-        f = !1;
+        _ = n != null && "c6mw9qtk" in n,
+        f = n != null && "j6dw4ztx" in n,
+        g = !1;
       if (
+        _ &&
         p &&
-        c &&
-        u != null &&
-        (!_ || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
+        m != null &&
+        (!f || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
       )
         try {
-          var g = JSON.parse('{"q7z":' + u + "}");
-          g != null && g.q7z != null && ((t = g.q7z), (f = !0));
+          var h = JSON.parse('{"q7z":' + m + "}");
+          h != null && h.q7z != null && ((t = h.q7z), (g = !0));
         } catch (e) {
-          f = !1;
+          g = !1;
         }
       if (
-        !f &&
-        c &&
+        !g &&
+        p &&
         n != null &&
         "x8kf2pw6" in n &&
-        u != null &&
-        (!_ || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
+        m != null &&
+        (!f || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
       )
         try {
-          var h = JSON.parse("[" + u + "]");
-          Array.isArray(h) && h.length === 1 && ((t = h[0]), (f = !0));
+          var y = JSON.parse("[" + m + "]");
+          Array.isArray(y) && y.length === 1 && ((t = y[0]), (g = !0));
         } catch (e) {
-          f = !1;
+          g = !1;
         }
-      if (!f && c)
+      if (!g && p)
         try {
-          var y = o(
+          var C = o(
               "GHLDetectionUtilsPreludeSafe",
             ).isStringBehaviorallyShimmed(),
-            C = n != null && "r4wt7kmj" in n;
-          C && y && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var b = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
-            v = !1;
-          if (b != null)
+            b = n != null && "r4wt7kmj" in n;
+          b && C && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
+          var v = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
+            S = !1;
+          if (v != null)
             try {
-              ((t = b(u)), (v = !0));
+              ((t = v(m)), (S = !0));
             } catch (e) {
-              v = !1;
+              S = !1;
             }
-          v || (t = r("json5").parse(u + " "));
+          S || (t = r("json5").parse(m + " "));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
             .mustfix("Failed to parse ServerJS payload using json5"),
-            (t = JSON.parse(u)));
+            (t = JSON.parse(m)));
         }
-      else f || (t = JSON.parse(u));
+      else g || (t = JSON.parse(m));
       return (
-        l && t != null && m(t),
-        t != null && o("GHLTypenameRestore").restoreAllTypenames(t),
+        l &&
+          t != null &&
+          m.indexOf(c) !== -1 &&
+          o("GHLTypenameRestore").restoreTypenameValues(t, c, u),
+        t != null && o("GHLTypenameRestore").restoreAllTypenames(t, m),
         t
       );
     }
-    l.ghlParseServerJSPayload = p;
+    l.ghlParseServerJSPayload = m;
   },
   98,
 );

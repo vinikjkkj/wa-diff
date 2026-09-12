@@ -59,13 +59,13 @@ __d(
       return e(t).shouldShow;
     }
     function u(e) {
-      var t = e.id;
+      return !e.isBot() && !e.isAiHub() && !e.isPSA();
+    }
+    function c(e) {
       return (
         !o("WAWebContactGetters").getIsMe(e) &&
         !o("WAWebFrontendContactGetters").getIsContactBlocked(e) &&
-        !t.isBot() &&
-        !t.isAiHub() &&
-        !t.isPSA() &&
+        u(e.id) &&
         !o(
           "WAWebBizCoexGatingUtils",
         ).isCallingDisabledOnAuthAgentSoftOffboarded()
@@ -73,7 +73,8 @@ __d(
     }
     ((l.getCallButtonsState = e),
       (l.shouldShowCallButtons = s),
-      (l.canCallContact = u));
+      (l.canBeCallParticipant = u),
+      (l.canCallContact = c));
   },
   98,
 );

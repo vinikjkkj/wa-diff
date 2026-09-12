@@ -17,6 +17,7 @@ __d(
     "react-compiler-runtime",
     "useLazyRef",
     "useWAWebNewsletterPollsResults",
+    "useWAWebPollAddOptionContributors",
     "useWAWebPollAssociatedMessagesMap",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -157,7 +158,8 @@ __d(
           Array.from(m.keys()),
           n,
         ),
-        h = r("useLazyRef")(function () {
+        h = r("useWAWebPollAddOptionContributors")(i.id, Array.from(m.keys())),
+        y = r("useLazyRef")(function () {
           return new (r("WAWebFlatListController"))();
         });
       if (f == null)
@@ -172,8 +174,8 @@ __d(
             .sendLogs("null-poll-option"),
           null
         );
-      var y = r("nullthrows")(m.get(f)),
-        C = o("WAWebMsgModelPropUtils").isTrusted(i.unsafe());
+      var C = r("nullthrows")(m.get(f)),
+        b = o("WAWebMsgModelPropUtils").isTrusted(i.unsafe());
       return d.jsxs(
         r("WAWebDrawer.react"),
         {
@@ -192,19 +194,20 @@ __d(
               focusBackOrCancel: !0,
             }),
             d.jsx(r("WAWebDrawerBody.react"), {
-              flatListControllers: [h.current],
+              flatListControllers: [y.current],
               children: d.jsx(r("WAWebPollsOptionSection"), {
+                addOptionMsg: h.get(f),
                 associatedMsg: g.get(f),
                 mode: a,
                 option: f,
-                result: y,
-                links: C
+                result: C,
+                links: b
                   ? o("WAWebMsgLinks").getPollOptionLinks(i.unsafe(), f)
                   : null,
-                trusted: C,
+                trusted: b,
                 isPollFromMe: i.id.fromMe,
                 onOpenContactInfo: u,
-                flatListController: h.current,
+                flatListController: y.current,
                 withSectioning: _,
                 testid: "poll-details-option-" + f.localId,
                 isCorrectOption:

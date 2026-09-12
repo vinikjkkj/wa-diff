@@ -8,10 +8,12 @@ __d(
     "WAWebCmd",
     "WAWebDrawerManager",
     "WAWebScheduledMessagesListLoadable",
+    "WAWebScheduledMsgActionLogger",
     "WAWebShowScheduledMsgsBulkDeleteToast",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUnscheduleMsgAction",
+    "WAWebWamEnumScheduledMessageEntrypoint",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
@@ -78,7 +80,13 @@ __d(
           chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab,
         })
         .then(function (e) {
-          e && o("WAWebDrawerManager").DrawerManager.openDrawerRight(l);
+          e &&
+            (o("WAWebDrawerManager").DrawerManager.openDrawerRight(l),
+            o("WAWebScheduledMsgActionLogger").logScheduledMsgViewListForChat(
+              t,
+              o("WAWebWamEnumScheduledMessageEntrypoint")
+                .SCHEDULED_MESSAGE_ENTRYPOINT.CHAT_DELETE_DIALOG,
+            ));
         })
         .catch(function (e) {
           return o("WALogger")

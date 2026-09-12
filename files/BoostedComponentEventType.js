@@ -627,6 +627,10 @@ __d(
         "lwi_ad_center_create_ad_no_ig_option_non_admin_impression",
       LWI_AD_CENTER_CREATE_AD_NO_IG_OPTION_ADMIN_IMPRESSION:
         "lwi_ad_center_create_ad_no_ig_option_admin_impression",
+      LWI_AD_CENTER_CREATE_AD_EXIT_HATCH_IMPRESSION:
+        "lwi_ad_center_create_ad_exit_hatch_impression",
+      LWI_AD_CENTER_CREATE_AD_EXIT_HATCH_BUTTON_CLICK:
+        "lwi_ad_center_create_ad_exit_hatch_button_click",
       WHATSAPP_CONNECT_BUTTON_CLICK: "whatsapp_connect_button_click",
       WHATSAPP_CONNECT_NON_ADMIN_BUTTON_GENERATED:
         "whatsapp_connect_non_admin_button_generated",
@@ -1789,6 +1793,7 @@ __d(
       HEADLINE_SUGGESTION_DISLIKED: "headline_suggestion_disliked",
       HEADLINE_INITIAL_CLASSIFICATION_IMPRESSION:
         "headline_initial_classification_impression",
+      HEADLINE_AUTO_APPLY_STARTED: "headline_auto_apply_started",
       HEADLINE_AUTO_APPLY_SUCCEEDED: "headline_auto_apply_succeeded",
       HEADLINE_AUTO_APPLY_FAILED: "headline_auto_apply_failed",
       MULTI_POST_SECTION_IMPRESSION: "multi_post_section_impression",

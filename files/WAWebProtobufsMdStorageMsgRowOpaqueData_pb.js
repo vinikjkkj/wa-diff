@@ -104,6 +104,7 @@ __d(
       (g.internalSpec = {
         name: [1, e.TYPES.STRING],
         hash: [2, e.TYPES.STRING],
+        addOptionMsgKey: [3, e.TYPES.STRING],
       }),
       (l.MsgOpaqueData$PollType = s),
       (l.MsgOpaqueData$PollContentType = u),

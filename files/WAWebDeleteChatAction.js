@@ -13,6 +13,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
     "WAWebMaybeClearChatAiThreads",
+    "WAWebNoop",
     "WAWebStateUtils",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -28,9 +29,15 @@ __d(
         o("WAWebChatFlowTypes").ChatKindType.Community,
       ];
     function m(e, t) {
-      return (t === void 0 && (t = !0), h(o("WAWebStateUtils").unproxy(e), t));
+      return (
+        t === void 0 && (t = !0),
+        y(o("WAWebStateUtils").unproxy(e), t).then(r("WAWebNoop"))
+      );
     }
-    var p = Object.freeze({
+    function p(e, t) {
+      return (t === void 0 && (t = !0), y(o("WAWebStateUtils").unproxy(e), t));
+    }
+    var _ = Object.freeze({
       Community: function () {
         return s._(/*BTDS*/ "Deleting community");
       },
@@ -44,34 +51,34 @@ __d(
         return s._(/*BTDS*/ "Deleting chat");
       },
     });
-    function _(e) {
+    function f(e) {
       var t = "";
       if (e != null)
         switch (e) {
           case o("WAWebChatFlowTypes").ChatKindType.Community:
-            t = p.Community();
+            t = _.Community();
             break;
           case o("WAWebChatFlowTypes").ChatKindType.Group:
-            t = p.Group();
+            t = _.Group();
             break;
           case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
-            t = p.Broadcast();
+            t = _.Broadcast();
             break;
           case o("WAWebChatFlowTypes").ChatKindType.Chat:
-            t = p.Chat();
+            t = _.Chat();
             break;
           case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
             break;
         }
-      else t = p.Chat();
+      else t = _.Chat();
       return new (o("WAWebActionToast.react").ActionType)(t);
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("JSResourceForInteraction")(
               "WAWebBizRemoveDirectConnectionKeysBridge",
             )
@@ -80,17 +87,19 @@ __d(
             n = t.removeDirectConnectionKeys;
           yield n(e);
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(t, r) {
+    function y(t, r) {
       if (
         (o(
           "WAWebBizCoexUtils",
         ).deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache(t.id),
         t.promises.sendDelete)
       )
-        return t.promises.sendDelete;
+        return t.promises.sendDelete.then(function (e) {
+          return e.status === 200;
+        });
       var a = t.getLastMsgKeyForAction(),
         i = a ? t.msgs.get(a) : void 0,
         l = (t.promises.sendDelete = o(
@@ -112,7 +121,7 @@ __d(
                         "WAWebLabelCollection",
                       ).LabelCollection.removeAllLabelsMD(t),
                       u === o("WAWebChatFlowTypes").ChatKindType.Chat &&
-                        (yield f(t.id)),
+                        (yield g(t.id)),
                       u != null)
                     )
                       switch (
@@ -201,7 +210,7 @@ __d(
             return new (o("WAWebActionToast.react").ActionType)(a, {
               actionText: s._(/*BTDS*/ "Try again."),
               actionHandler: function () {
-                return h(t, r);
+                return y(t, r);
               },
             });
           });
@@ -209,28 +218,30 @@ __d(
         r &&
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebActionToast.react").ActionToast, {
-              initialAction: _(u),
+              initialAction: f(u),
               pendingAction: m,
             }),
           ),
         l
           .then(function (e) {
-            if (e.status === 200) {
-              var n = t.getLastMsgKeyForAction();
-              ((a && a.equals(n)) || a === n ? t.delete() : y(t, i),
-                o("WAWebFrontendChatGetters").getKind(t) ===
-                  o("WAWebChatFlowTypes").ChatKindType.Community &&
-                  o("WAWebContactCollection").ContactCollection.remove(
-                    t.id.toString(),
-                  ));
-            }
+            if (e.status !== 200) return !1;
+            var n = t.getLastMsgKeyForAction();
+            return (
+              (a && a.equals(n)) || a === n ? t.delete() : C(t, i),
+              o("WAWebFrontendChatGetters").getKind(t) ===
+                o("WAWebChatFlowTypes").ChatKindType.Community &&
+                o("WAWebContactCollection").ContactCollection.remove(
+                  t.id.toString(),
+                ),
+              !0
+            );
           })
           .finally(function () {
             t.promises.sendDelete = null;
           })
       );
     }
-    function y(e, t) {
+    function C(e, t) {
       var n;
       if (!t) n = e.msgs.length;
       else if (e.msgs.get(t.id)) n = e.msgs.indexOf(t);
@@ -241,8 +252,9 @@ __d(
       e.deleteMsgsPartial(r, !0);
     }
     ((l.sendDelete = m),
-      (l.deleteActionFbtMap = p),
-      (l.getDeleteChatAction = _));
+      (l.sendDeleteWithStatus = p),
+      (l.deleteActionFbtMap = _),
+      (l.getDeleteChatAction = f));
   },
   226,
 );

@@ -43,28 +43,31 @@ __d(
           "reg_wacom_confirmation_wrong_number_clicked",
       }),
       s = r("qpl")._(891430409, "3269");
-    function u(e, t) {
+    function u(e, t, n) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             if (!r("WAWebEnvironment").isWeb) return;
-            var n = o("WAWebQplFlowWrapper").QPL.markerStart(s, {
+            var a = o("WAWebQplFlowWrapper").QPL.markerStart(s, {
               annotations: {
                 int: {
                   md_link_device_experience_id: o(
                     "WAWebLinkDeviceExperience",
                   ).getWebCompanionLinkDeviceExperienceId(t),
                 },
-                string: {
-                  source_type: e,
-                  code_type: o("WAWebAltDeviceLinkingApi").getPairingType(),
-                },
+                string: babelHelpers.extends(
+                  {
+                    source_type: e,
+                    code_type: o("WAWebAltDeviceLinkingApi").getPairingType(),
+                  },
+                  n == null ? {} : { surface: n },
+                ),
               },
             });
-            n.end(2);
+            a.end(2);
           } catch (e) {
             o("WAWebQplFlowWrapper").QPL.markerEnd(s, 3);
           }

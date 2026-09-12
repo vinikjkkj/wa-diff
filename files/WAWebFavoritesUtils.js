@@ -78,7 +78,6 @@ __d(
     }
     ((l.getFavoriteChats = e),
       (l.getFavoriteItems = s),
-      (l.getCallableFavoriteItems = u),
       (l.getCallableFavoriteItemsLimited = c));
   },
   98,

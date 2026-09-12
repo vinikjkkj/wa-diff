@@ -657,6 +657,7 @@ __d(
                 clientReceivedTsMillis: c.clientReceivedTsMillis,
                 msgProcessStartTsMillis: c.msgProcessStartTsMillis,
                 serverAddressingMode: c.addressingMode,
+                isPq: s.isPq,
                 localAddressingMode: $e,
                 oppositeHasUsername: o("WAWebUserPrefsMeUser").isMeAccount(
                   c.author,

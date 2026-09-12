@@ -18,6 +18,7 @@ __d(
     "WAWebVoipFocusTracker",
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParserPayloads",
+    "WAWebVoipLabMetricsFile",
     "WAWebVoipLobbyEntryPointStore",
     "WAWebVoipPersistentFS",
     "WAWebVoipStackInterface",
@@ -549,42 +550,50 @@ __d(
                 "clearAllActivityTracking",
                 {},
               );
-            var V;
+            var V = {};
+            (N != null && (V.numAnrs = N),
+              M != null && (V.lastVoipActivity = M),
+              w != null && (V.lastVoipActivityTimestampSec = w),
+              A != null && (V.timeFirstAnrSinceCallStartSec = A),
+              F != null && (V.lastVoipUiActivity = F),
+              O != null && (V.lastVoipUiActivityTimestampSec = O));
+            var H;
             if (
               i.eventType ===
               o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
             ) {
-              var H = new (o("WAWebCallWamEvent").CallWamEvent)(u),
-                G = {};
-              (N != null && (G.numAnrs = N),
-                M != null && (G.lastVoipActivity = M),
-                w != null && (G.lastVoipActivityTimestampSec = w),
-                A != null && (G.timeFirstAnrSinceCallStartSec = A),
-                F != null && (G.lastVoipUiActivity = F),
-                O != null && (G.lastVoipUiActivityTimestampSec = O),
-                r("isEmptyObject")(G) ||
-                  (H.set(G),
-                  o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: ANR fields set n=",
-                        " act=",
-                        " actT=",
-                        "s firstT=",
-                        " uiAct=",
-                        " uiActT=",
-                        "s",
-                      ])),
-                    N != null ? N : "null",
-                    M != null ? M : "null",
-                    w != null ? w : "null",
-                    A != null ? A : "null",
-                    F != null ? F : "null",
-                    O != null ? O : "null",
-                  )),
-                (V = H));
-            } else V = Y(u);
-            (yield V.commitAndWaitForFlush(i.uploadInRealtime),
+              var G = new (o("WAWebCallWamEvent").CallWamEvent)(u);
+              (r("isEmptyObject")(V) ||
+                (G.set(V),
+                o("WALogger").LOG(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: ANR fields set n=",
+                      " act=",
+                      " actT=",
+                      "s firstT=",
+                      " uiAct=",
+                      " uiActT=",
+                      "s",
+                    ])),
+                  N != null ? N : "null",
+                  M != null ? M : "null",
+                  w != null ? w : "null",
+                  A != null ? A : "null",
+                  F != null ? F : "null",
+                  O != null ? O : "null",
+                )),
+                (H = G));
+            } else H = Y(u);
+            yield H.commitAndWaitForFlush(i.uploadInRealtime);
+            var z =
+                i.eventType ===
+                o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call,
+              j = z
+                ? babelHelpers.extends({}, u, V)
+                : babelHelpers.extends({}, u);
+            (t != null && z && (j.userRating = t),
+              yield o("WAWebVoipLabMetricsFile").patchLabMetricsSelfRow(j),
               o("WAWebVoipCallRatingStore").markPersistedFieldstatsHandedOff(n),
               B.add(e),
               re(e),

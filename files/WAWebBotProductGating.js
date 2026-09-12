@@ -15,30 +15,25 @@ __d(
           ? o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled()
           : e === o("WAWebBotProduct").BotProduct.TEE_META_AI_GROUP
             ? o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
-            : e === o("WAWebBotProduct").BotProduct.MANUS
-              ? t.aiBotIntegrationEnabled &&
-                o("WAWebABProps").getABPropConfigValue(
-                  "ai_bot_integration_enabled",
-                )
-              : e === o("WAWebBotProduct").BotProduct.HATCH
-                ? o(
-                    "WAWebHatchGating",
-                  ).isHatchIntegrationEnabledForPrimaryFeature({
-                    primaryAiHatchIntegrationEnabled:
-                      t.aiHatchIntegrationEnabled,
-                  })
-                : e === o("WAWebBotProduct").BotProduct.THIRD_PARTY
-                  ? o("WAWebABProps").getABPropConfigValue(
-                      "ai_3p_bot_product_chat_rendering_enabled",
-                    )
-                  : e === o("WAWebBotProduct").BotProduct.SIDE_CHAT
-                    ? !1
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+            : e === o("WAWebBotProduct").BotProduct.HATCH
+              ? o(
+                  "WAWebHatchGating",
+                ).isHatchIntegrationEnabledForPrimaryFeature({
+                  primaryAiHatchIntegrationEnabled: t.aiHatchIntegrationEnabled,
+                })
+              : e === o("WAWebBotProduct").BotProduct.THIRD_PARTY
+                ? o("WAWebABProps").getABPropConfigValue(
+                    "ai_3p_bot_product_chat_rendering_enabled",
+                  )
+                : e === o("WAWebBotProduct").BotProduct.MANUS ||
+                    e === o("WAWebBotProduct").BotProduct.SIDE_CHAT
+                  ? !1
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          e,
+                      );
+                    })();
     }
     l.isBotProductGateOn = e;
   },

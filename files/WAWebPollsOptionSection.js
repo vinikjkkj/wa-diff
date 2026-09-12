@@ -37,97 +37,101 @@ __d(
       p = 5,
       _ = 68;
     function f(t) {
-      var n = o("react-compiler-runtime").c(27),
-        a = t.associatedMsg,
-        i = t.flatListController,
-        l = t.hideVoterNames,
-        u = t.isCorrectOption,
-        f = t.isPollFromMe,
-        g = t.links,
-        C = t.onOpenContactInfo,
-        b = t.onViewAllVotes,
-        v = t.option,
-        S = t.result,
-        R = t.testid,
-        L = t.trusted,
-        E = t.withSectioning,
-        k = l === void 0 ? !1 : l,
-        I = S.count,
-        T = S.isCurrentLeader,
-        D = S.votes,
-        x = L === void 0 ? !1 : L,
+      var n = o("react-compiler-runtime").c(28),
+        a = t.addOptionMsg,
+        i = t.associatedMsg,
+        l = t.flatListController,
+        u = t.hideVoterNames,
+        f = t.isCorrectOption,
+        g = t.isPollFromMe,
+        C = t.links,
+        b = t.onOpenContactInfo,
+        v = t.onViewAllVotes,
+        S = t.option,
+        R = t.result,
+        L = t.testid,
+        E = t.trusted,
+        k = t.withSectioning,
+        I = u === void 0 ? !1 : u,
+        T = R.count,
+        D = R.isCurrentLeader,
+        x = R.votes,
         $ = E === void 0 ? !1 : E,
-        P = I - p,
-        N = D.length;
-      b && (N = P === 1 ? D.length : p);
-      var M;
-      n[0] !== N || n[1] !== t.result || n[2] !== $
-        ? ((M = h(t.result, $, N)),
-          (n[0] = N),
+        P = k === void 0 ? !1 : k,
+        N = T - p,
+        M = x.length;
+      v && (M = N === 1 ? x.length : p);
+      var w;
+      n[0] !== M || n[1] !== t.result || n[2] !== P
+        ? ((w = h(t.result, P, M)),
+          (n[0] = M),
           (n[1] = t.result),
-          (n[2] = $),
-          (n[3] = M))
-        : (M = n[3]);
-      var w = M,
-        A;
+          (n[2] = P),
+          (n[3] = w))
+        : (w = n[3]);
+      var A = w,
+        F;
       n[4] !== a ||
-      n[5] !== u ||
-      n[6] !== T ||
-      n[7] !== f ||
+      n[5] !== i ||
+      n[6] !== f ||
+      n[7] !== D ||
       n[8] !== g ||
-      n[9] !== v.name ||
-      n[10] !== x ||
-      n[11] !== I
-        ? ((A = c.jsx(r("WAWebPollsOptionMetadataRow"), {
-            associatedMsg: a,
-            name: v.name,
-            isCurrentLeader: T,
-            voteCount: I,
-            isPollFromMe: f,
-            links: g,
-            trusted: x,
-            isCorrectOption: u,
+      n[9] !== C ||
+      n[10] !== S.name ||
+      n[11] !== $ ||
+      n[12] !== T
+        ? ((F = c.jsx(r("WAWebPollsOptionMetadataRow"), {
+            addOptionMsg: a,
+            associatedMsg: i,
+            name: S.name,
+            isCurrentLeader: D,
+            voteCount: T,
+            isPollFromMe: g,
+            links: C,
+            trusted: $,
+            isCorrectOption: f,
           })),
           (n[4] = a),
-          (n[5] = u),
-          (n[6] = T),
-          (n[7] = f),
+          (n[5] = i),
+          (n[6] = f),
+          (n[7] = D),
           (n[8] = g),
-          (n[9] = v.name),
-          (n[10] = x),
-          (n[11] = I),
-          (n[12] = A))
-        : (A = n[12]);
-      var F;
-      n[13] !== i ||
-      n[14] !== k ||
-      n[15] !== N ||
-      n[16] !== C ||
+          (n[9] = C),
+          (n[10] = S.name),
+          (n[11] = $),
+          (n[12] = T),
+          (n[13] = F))
+        : (F = n[13]);
+      var O;
+      n[14] !== l ||
+      n[15] !== I ||
+      n[16] !== M ||
       n[17] !== b ||
-      n[18] !== t.mode ||
-      n[19] !== P ||
-      n[20] !== I ||
-      n[21] !== w
-        ? ((F =
-            !k &&
-            w.length > 0 &&
+      n[18] !== v ||
+      n[19] !== t.mode ||
+      n[20] !== N ||
+      n[21] !== T ||
+      n[22] !== A
+        ? ((O =
+            !I &&
+            A.length > 0 &&
             c.jsxs(
               "div",
               babelHelpers.extends({}, (e || (e = r("stylex"))).props(null), {
                 children: [
                   c.jsx(o("WAWebFlatList.react").FlatList, {
-                    flatListController: i,
+                    flatListController: l,
                     direction: "vertical",
-                    data: w,
+                    data: A,
                     renderItem: function (t) {
-                      return y(t, C);
+                      return y(t, b);
                     },
                     defaultItemHeight: _,
                     reorderAnimationsEnabled: !1,
                   }),
-                  I > p &&
-                    b != null &&
-                    N < I &&
+                  T > p &&
+                    v != null &&
+                    M < T &&
                     c.jsx(
                       "div",
                       babelHelpers.extends(
@@ -143,7 +147,7 @@ __d(
                             o("WAWebButton.react").WAWebButtonSimplified,
                             {
                               onClick: function (t) {
-                                b();
+                                v();
                               },
                               shadowOnHover: !1,
                               children:
@@ -152,7 +156,7 @@ __d(
                                       /*BTDS*/ '_j{"*":"See all ({leftover_votes_details_view} more)","_1":"See all (1 more)"}',
                                       [
                                         s._plural(
-                                          P,
+                                          N,
                                           "leftover_votes_details_view",
                                         ),
                                       ],
@@ -166,31 +170,31 @@ __d(
                 ],
               }),
             )),
-          (n[13] = i),
-          (n[14] = k),
-          (n[15] = N),
-          (n[16] = C),
+          (n[14] = l),
+          (n[15] = I),
+          (n[16] = M),
           (n[17] = b),
-          (n[18] = t.mode),
-          (n[19] = P),
-          (n[20] = I),
-          (n[21] = w),
-          (n[22] = F))
-        : (F = n[22]);
-      var O;
+          (n[18] = v),
+          (n[19] = t.mode),
+          (n[20] = N),
+          (n[21] = T),
+          (n[22] = A),
+          (n[23] = O))
+        : (O = n[23]);
+      var B;
       return (
-        n[23] !== A || n[24] !== F || n[25] !== R
-          ? ((O = c.jsxs(r("WAWebDrawerSection.react"), {
+        n[24] !== F || n[25] !== O || n[26] !== L
+          ? ((B = c.jsxs(r("WAWebDrawerSection.react"), {
               theme: "no-padding",
-              testid: R,
-              children: [A, F],
+              testid: L,
+              children: [F, O],
             })),
-            (n[23] = A),
             (n[24] = F),
-            (n[25] = R),
-            (n[26] = O))
-          : (O = n[26]),
-        O
+            (n[25] = O),
+            (n[26] = L),
+            (n[27] = B))
+          : (B = n[27]),
+        B
       );
     }
     function g(e) {

@@ -49,33 +49,37 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t, n) {
+      var r = t.indexOf(e);
+      return r === -1 ? null : n.at(r);
+    }
+    function h(e) {
       var t = e.getPreviewableMedias(),
         n = t.some(function (e) {
           return e.type === o("WAWebMsgType").MSG_TYPE.VIDEO;
         });
       return n ? !1 : t.length < c;
     }
-    function h(e) {
+    function y(e) {
       return e.startsWith("video/");
     }
-    function y(e) {
+    function C(e) {
       return e.startsWith("image/");
     }
-    function C(t) {
+    function b(t) {
       var n = t.getPreviewableMedias();
       return n.length === 0 ? e : o("WAWebMimeTypes").IMAGE_MIMES;
     }
-    function b(e, t) {
+    function v(e, t) {
       var n = e.getPreviewableMedias(),
         r = n.length,
         a = [];
       if (r === 0) {
         var i = t.filter(function (e) {
-            return e.file && h(e.file.type);
+            return e.file && y(e.file.type);
           }),
           l = t.filter(function (e) {
-            return e.file && y(e.file.type);
+            return e.file && C(e.file.type);
           });
         return i.length > 0
           ? (l.length > 0 && a.push("CROSS_MEDIA_VIDEO_ADDED"),
@@ -96,10 +100,10 @@ __d(
       if (s)
         return { attachments: [], pruneActions: a, shouldClearExisting: !1 };
       var u = t.filter(function (e) {
-          return e.file && h(e.file.type);
+          return e.file && y(e.file.type);
         }),
         m = t.filter(function (e) {
-          return e.file && y(e.file.type);
+          return e.file && C(e.file.type);
         });
       if (u.length > 0)
         return (
@@ -126,9 +130,10 @@ __d(
       (l.MAX_DESCRIPTION_LENGTH = m),
       (l.PRUNE_TOAST_MESSAGES = p),
       (l.deepCloneMediaCollection = _),
-      (l.canAddMoreAttachments = g),
-      (l.getAllowedMimeTypesForCollection = C),
-      (l.maybePruneNewAttachments = b));
+      (l.clonedCounterpartOf = g),
+      (l.canAddMoreAttachments = h),
+      (l.getAllowedMimeTypesForCollection = b),
+      (l.maybePruneNewAttachments = v));
   },
   226,
 );

@@ -58,17 +58,14 @@ __d(
                 l,
               );
             if (m != null) {
-              if (
-                yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(
-                  o("WAWebWidToJid").widToChatJid(d.id),
-                )
-              ) {
+              var p = o("WAWebWidToJid").widToChatJid(d.id);
+              if (yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(p)) {
                 o(
                   "WAWebScheduledMsgLimitDialog.react",
                 ).showScheduledMsgLimitReachedDialog();
                 return;
               }
-              var p = babelHelpers.extends({}, m, {
+              var _ = babelHelpers.extends({}, m, {
                 isScheduledMsg: !0,
                 scheduledTimestampS: i,
                 viewMode:
@@ -84,35 +81,35 @@ __d(
                 d.id.toLogString(),
                 String(i),
               );
-              var _ = null;
+              var f = null;
               try {
-                var f;
+                var g;
                 yield o(
                   "WAWebLidMigrationFrontendUtils",
-                ).validateMissingAccountLid(d, p, "addAndSendTextMsg");
-                var g = new (o("WAWebMsgModel").Msg)(p),
-                  h = !!(
-                    (f = d.groupMetadata) != null && f.isLidAddressingMode
+                ).validateMissingAccountLid(d, _, "addAndSendTextMsg");
+                var h = new (o("WAWebMsgModel").Msg)(_),
+                  y = !!(
+                    (g = d.groupMetadata) != null && g.isLidAddressingMode
                   ),
-                  y = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
+                  C = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
                     d.id,
-                    o("WAWebWamMsgUtils").msgIsLid(p, d.id, h),
+                    o("WAWebWamMsgUtils").msgIsLid(_, d.id, y),
                   );
-                ((g.wamMessageSendReporter = new (o(
+                ((h.wamMessageSendReporter = new (o(
                   "WAWebMessageSendReporter",
                 ).MessageSendReporter)(
-                  g,
-                  babelHelpers.extends({}, y, {
+                  h,
+                  babelHelpers.extends({}, C, {
                     frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                       .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
                   }),
                 )),
-                  (g.wamMessageSendPerfReporter = new (o(
+                  (h.wamMessageSendPerfReporter = new (o(
                     "WAWebMessageSendPerfReporter",
                   ).MessageSendPerfReporter)({
-                    chatWid: g.to,
-                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(g),
-                    messageType: o("WAWebWamMsgUtils").getWamMessageType(g),
+                    chatWid: h.to,
+                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(h),
+                    messageType: o("WAWebWamMsgUtils").getWamMessageType(h),
                   })),
                   yield o("WAWebOrchestratorNonPersistedJob")
                     .createNonPersistedJob(
@@ -120,18 +117,18 @@ __d(
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var e, t;
-                          ((e = g.wamMessageSendPerfReporter) == null ||
+                          ((e = h.wamMessageSendPerfReporter) == null ||
                             e.startSavedStage(),
                             yield o("WAWebDBProcessMessage").storeMessages(
-                              [p],
+                              [_],
                               d.id,
                             ),
-                            (t = g.wamMessageSendPerfReporter) == null ||
+                            (t = h.wamMessageSendPerfReporter) == null ||
                               t.postSavedStage());
                           var n = yield o(
                             "WAWebSendMsgRecordAction",
-                          ).sendMsgRecord(g);
-                          return ((_ = n.ackErrorCode), n);
+                          ).sendMsgRecord(h);
+                          return ((f = n.ackErrorCode), n);
                         },
                       ),
                       {
@@ -155,12 +152,12 @@ __d(
                 );
               }
               if (
-                (_ ===
+                (f ===
                   o("WAWebScheduledMsgConstants")
                     .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE &&
                   (yield o(
                     "WAWebScheduledMsgRevealKeyStore",
-                  ).updateRevealKeyStatus(p.id.toString(), "FAILED"),
+                  ).updateRevealKeyStatus(_.id.toString(), "FAILED"),
                   o(
                     "WAWebScheduledMsgLimitDialog.react",
                   ).showScheduledMsgLimitReachedDialog()),
@@ -230,12 +227,9 @@ __d(
                   ),
                 )
                 .sendLogs("scheduled-media-capped");
-            var h = o("WAWebStateUtils").unproxy(i);
-            if (
-              yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(
-                o("WAWebWidToJid").widToChatJid(h.id),
-              )
-            ) {
+            var h = o("WAWebStateUtils").unproxy(i),
+              y = o("WAWebWidToJid").widToChatJid(h.id);
+            if (yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(y)) {
               o(
                 "WAWebScheduledMsgLimitDialog.react",
               ).showScheduledMsgLimitReachedDialog();
@@ -253,25 +247,25 @@ __d(
               h.id.toLogString(),
               String(_),
             );
-            var y = h.composeQuotedMsg;
+            var C = h.composeQuotedMsg;
             h.composeQuotedMsg = null;
-            var C = !1,
-              v = [];
-            for (var S of g.entries()) {
-              var R = S[0],
-                L = S[1],
-                E = L.media,
-                k = {
-                  type: E.type,
-                  caption: E.caption,
-                  mentionedJidList: L.mentionedJidList,
-                  groupMentions: L.groupMentions,
+            var v = !1,
+              S = [];
+            for (var R of g.entries()) {
+              var L = R[0],
+                E = R[1],
+                k = E.media,
+                I = {
+                  type: k.type,
+                  caption: k.caption,
+                  mentionedJidList: E.mentionedJidList,
+                  groupMentions: E.groupMentions,
                   addEvenWhilePreparing:
-                    o("WAWebAttachMediaGetters").getPreviewable(E) &&
-                    E.state ===
+                    o("WAWebAttachMediaGetters").getPreviewable(k) &&
+                    k.state ===
                       o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                         .PROCESSING,
-                  quotedMsg: R === 0 ? y : void 0,
+                  quotedMsg: L === 0 ? C : void 0,
                   isViewOnce: u.isViewOnce,
                   threadId: u.threadId,
                   isScheduledMsg: !0,
@@ -280,13 +274,13 @@ __d(
                     o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
                 };
               try {
-                var I = yield E.sendToChat({ chat: h, options: k });
+                var T = yield k.sendToChat({ chat: h, options: I });
                 if (
-                  I.ackErrorCode ===
+                  T.ackErrorCode ===
                   o("WAWebScheduledMsgConstants")
                     .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE
                 ) {
-                  ((C = !0), I.msg != null && v.push(I.msg.id.toString()));
+                  ((v = !0), T.msg != null && S.push(T.msg.id.toString()));
                   break;
                 }
               } catch (e) {
@@ -305,9 +299,9 @@ __d(
               }
             }
             if (
-              (C &&
+              (v &&
                 (yield (f || (f = n("Promise"))).all(
-                  v.map(function (e) {
+                  S.map(function (e) {
                     return o(
                       "WAWebScheduledMsgRevealKeyStore",
                     ).updateRevealKeyStatus(e, "FAILED");

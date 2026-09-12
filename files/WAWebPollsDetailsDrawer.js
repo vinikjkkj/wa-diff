@@ -26,6 +26,7 @@ __d(
     "stylex",
     "useWAWebMsgValues",
     "useWAWebNewsletterPollsResults",
+    "useWAWebPollAddOptionContributors",
     "useWAWebPollAssociatedMessagesMap",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -142,35 +143,36 @@ __d(
           Array.from(h.keys()),
           i,
         ),
-        v = o("WAWebPollsUseVoteCount").useVoteCount(c),
-        S = o("useWAWebMsgValues").useMsgValues(c.id, [
+        v = r("useWAWebPollAddOptionContributors")(c.id, Array.from(h.keys())),
+        S = o("WAWebPollsUseVoteCount").useVoteCount(c),
+        R = o("useWAWebMsgValues").useMsgValues(c.id, [
           (a = o("WAWebMsgGetters")).getPollName,
           a.getId,
           a.getPollInvalidated,
           a.getPollHideVoterNames,
         ]),
-        R = S[0],
-        L = S[1],
-        E = S[2],
-        k = S[3],
-        I = o("WAWebFrontendMsgGetters").getChat(c.unsafe()),
-        T = o("WAWebPollsUseStickySortedResults").useStickySortedResults(h),
-        D = o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
-        x = o("WAWebFormatConfigurationConversation").Conversation({
+        L = R[0],
+        E = R[1],
+        k = R[2],
+        I = R[3],
+        T = o("WAWebFrontendMsgGetters").getChat(c.unsafe()),
+        D = o("WAWebPollsUseStickySortedResults").useStickySortedResults(h),
+        x = o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
+        $ = o("WAWebFormatConfigurationConversation").Conversation({
           links:
             (t = o("WAWebMsgLinks").getLinksFromMsg(c.unsafe())) != null
               ? t
               : [],
           phoneNumbers: [],
           selectable: !0,
-          trusted: D,
-          fromMe: L.fromMe,
+          trusted: x,
+          fromMe: E.fromMe,
         }),
-        $ = m(function () {
+        P = m(function () {
           return new (r("WAWebFlatListController"))();
         }, []),
-        P = o("WAWebChatGetters").getIsGroup(I)
-          ? (n = I.groupMetadata) == null
+        N = o("WAWebChatGetters").getIsGroup(T)
+          ? (n = T.groupMetadata) == null
             ? void 0
             : n.participants.length
           : 0;
@@ -195,12 +197,12 @@ __d(
               focusBackOrCancel: !0,
             }),
             d.jsxs(r("WAWebDrawerBody.react"), {
-              flatListControllers: [$],
+              flatListControllers: [P],
               children: [
                 d.jsxs(r("WAWebDrawerSection.react"), {
                   theme: "no-padding",
                   children: [
-                    E &&
+                    k &&
                       d.jsx("div", {
                         className: "x1380le5 xefnzgg x1uvdrpn x14mko6t",
                         children: d.jsx(r("WDSBanner.react"), {
@@ -215,20 +217,20 @@ __d(
                       className: "x1h678fw xv6tirj x1m4z3lf x1evaxtz",
                       children: [
                         d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                          text: R,
+                          text: L,
                           selectable: !0,
-                          formatters: x,
+                          formatters: $,
                           className: (u || (u = r("stylex")))(p.pollName, C),
                         }),
-                        P != null &&
-                          P > 1 &&
+                        N != null &&
+                          N > 1 &&
                           d.jsx("span", {
                             className: "x1nxh6w3 x1fc57z9 x1rg5ohu x1380le5",
                             children: s._(
                               /*BTDS*/ '_j{"*":"{vote_count} of {group_length} members voted","_1":"{vote_count} of 1 member voted"}',
                               [
-                                s._plural(P, "group_length"),
-                                s._param("vote_count", v),
+                                s._plural(N, "group_length"),
+                                s._param("vote_count", S),
                               ],
                             ),
                           }),
@@ -236,32 +238,33 @@ __d(
                     }),
                   ],
                 }),
-                T.map(function (e) {
+                D.map(function (e) {
                   var t = e[0],
                     n = e[1];
                   return d.jsx(
                     r("WAWebPollsOptionSection"),
                     {
                       associatedMsg: b.get(t),
+                      addOptionMsg: v.get(t),
                       mode: l,
                       option: t,
                       result: n,
-                      isPollFromMe: L.fromMe,
-                      links: D
+                      isPollFromMe: E.fromMe,
+                      links: x
                         ? o("WAWebMsgLinks").getPollOptionLinks(c.unsafe(), t)
                         : null,
-                      trusted: D,
+                      trusted: x,
                       onViewAllVotes: function () {
                         g(t.localId);
                       },
                       onOpenContactInfo: f,
-                      flatListController: $,
+                      flatListController: P,
                       testid: "poll-details-option-" + t.localId,
                       isCorrectOption:
                         c.correctOptionIndex == null
                           ? null
                           : t.localId === c.correctOptionIndex,
-                      hideVoterNames: k === !0,
+                      hideVoterNames: I === !0,
                     },
                     t.localId,
                   );

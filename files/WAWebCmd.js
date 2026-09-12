@@ -112,6 +112,15 @@ __d(
               n,
             );
           }),
+          (i.deleteSelectedChats = function (t, n) {
+            this.trigger(
+              "delete_selected_chats",
+              t.map(function (e) {
+                return o("WAWebStateUtils").unproxy(e);
+              }),
+              n,
+            );
+          }),
           (i.archiveChat = function (t, n, r) {
             (r === void 0 && (r = !0),
               this.trigger("archive_chat", {

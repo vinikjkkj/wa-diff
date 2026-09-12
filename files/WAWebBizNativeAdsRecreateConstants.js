@@ -18,7 +18,7 @@ __d(
           ? "blocked_by_sac"
           : "eligible";
     }
-    ((l.RECREATE_ELIGIBLE_STATUSES = s), (l.getRecreateEligibility = u));
+    l.getRecreateEligibility = u;
   },
   98,
 );

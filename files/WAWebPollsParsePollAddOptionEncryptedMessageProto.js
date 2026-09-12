@@ -6,6 +6,7 @@ __d(
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationValidation",
     "WAWebMsgType",
+    "WAWebPollAddOptionAssociationProcessor",
     "WAWebPollsGatingUtils",
     "WAWebPollsValidationError",
     "WAWebProtobufsE2E.pb",
@@ -27,12 +28,12 @@ __d(
         )
       ) {
         var l = i.encIv,
-          s = i.encPayload,
-          u = i.targetMessageKey,
-          c = o(
+          u = i.encPayload,
+          c = i.targetMessageKey,
+          d = o(
             "WAWebE2EProtoUtils",
-          ).translateRegularMessageKeyToLocalReference(u, t);
-        if (c == null)
+          ).translateRegularMessageKeyToLocalReference(c, t);
+        if (d == null)
           throw new (o(
             "WAWebPollsValidationError",
           ).PollAddOptionValidationError)(
@@ -59,7 +60,7 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        if (s == null)
+        if (u == null)
           throw new (o(
             "WAWebPollsValidationError",
           ).PollAddOptionValidationError)(
@@ -68,23 +69,17 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        if (n == null)
-          throw new (o(
-            "WAWebMessageAssociationValidation",
-          ).MessageAssociationValidationError)(
-            o("WAWebMessageAssociationValidation")
-              .MessageAssociationValidationErrorCode.MISSING_ASSOCIATION_TYPE,
-            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-              .INVALID_MESSAGE,
-          );
-        var d = o(
-            "WAWebAssociationProtoUtils",
-          ).getValidatedAssociationFieldsFromProto(n, t, a),
-          m = d.associationParentMsgKey,
-          p = d.associationType,
-          _ = d.viewMode;
+        var m = s({
+            baseMessage: t,
+            messageAssociation: n,
+            msgContext: a,
+            pollCreationMessageKey: d,
+          }),
+          p = m.associationParentMsgKey,
+          _ = m.associationType,
+          f = m.viewMode;
         if (
-          p !==
+          _ !==
           o("WAWebMessageAssociation.flow").MessageAssociationType
             .POLL_ADD_OPTION
         )
@@ -96,13 +91,13 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        var f = {
+        var g = {
           encIv: l,
-          encPayload: s,
-          targetMessageKey: c,
-          parentMsgKey: m,
-          associationType: p,
-          viewMode: _,
+          encPayload: u,
+          targetMessageKey: d,
+          parentMsgKey: p,
+          associationType: _,
+          viewMode: f,
         };
         return o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled()
           ? {
@@ -113,7 +108,7 @@ __d(
                   type: o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED,
                   kind: o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
                 },
-                f,
+                g,
               ),
               contextInfo: null,
             }
@@ -127,11 +122,27 @@ __d(
                   futureproofType:
                     o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED,
                 },
-                f,
+                g,
               ),
               contextInfo: null,
             };
       }
+    }
+    function s(e) {
+      var t = e.baseMessage,
+        n = e.messageAssociation,
+        a = e.msgContext,
+        i = e.pollCreationMessageKey;
+      return n == null
+        ? {
+            associationParentMsgKey: i,
+            associationType: o("WAWebMessageAssociation.flow")
+              .MessageAssociationType.POLL_ADD_OPTION,
+            viewMode: r("WAWebPollAddOptionAssociationProcessor").viewMode,
+          }
+        : o(
+            "WAWebAssociationProtoUtils",
+          ).getValidatedAssociationFieldsFromProto(n, t, a);
     }
     l.default = e;
   },

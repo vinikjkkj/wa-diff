@@ -1,12 +1,6 @@
 __d(
   "WAWebBotFrontendGating",
-  [
-    "WAWebABProps",
-    "WAWebBotBaseGating",
-    "WAWebBotUtils",
-    "WAWebMobilePlatforms",
-    "WAWebPrimaryFeaturesModel",
-  ],
+  ["WAWebBotBaseGating", "WAWebBotUtils", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return e.isBot()
@@ -15,18 +9,11 @@ __d(
             ? !o("WAWebBotBaseGating").isBotEnabled()
             : o("WAWebBotUtils").isMetaAiBot(e)
               ? !0
-              : !s()
-          : !o("WAWebBotBaseGating").isBotEnabled() && !s()
+              : !o("WAWebBotBaseGating").isBotEnabled()
+          : !o("WAWebBotBaseGating").isBotEnabled()
         : !1;
     }
-    function s() {
-      return (
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-          .aiBotIntegrationEnabled &&
-        o("WAWebABProps").getABPropConfigValue("ai_bot_integration_enabled")
-      );
-    }
-    ((l.isBotChatUnavailable = e), (l.isManusIntegrationEnabled = s));
+    l.isBotChatUnavailable = e;
   },
   98,
 );

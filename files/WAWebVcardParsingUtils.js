@@ -130,21 +130,7 @@ __d(
     function C(e) {
       if (o("WAWebUsernameGatingUtils").usernameContactUiVcardEnabled()) {
         var t;
-        if (
-          ((t = e == null ? void 0 : e.TEL) != null ? t : []).some(
-            function (e) {
-              var t, n;
-              return (
-                ((t =
-                  (n = e.properties) == null || (n = n.waid) == null
-                    ? void 0
-                    : n.length) != null
-                  ? t
-                  : 0) > 0
-              );
-            },
-          )
-        )
+        if (((t = e == null ? void 0 : e.TEL) != null ? t : []).length > 0)
           return null;
         var n = ((e == null ? void 0 : e.SERVICE) || []).find(function (e) {
           return e.type.toLowerCase() === "wa-lid";

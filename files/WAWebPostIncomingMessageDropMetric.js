@@ -87,6 +87,11 @@ __d(
             );
           } catch (e) {}
           try {
+            t.sessionType = l.maybeAttrString("session_type");
+          } catch (e) {
+            t.sessionType = null;
+          }
+          try {
             t.retryCount = l.attrInt("count");
           } catch (e) {}
         }
@@ -128,77 +133,82 @@ __d(
         f,
         g,
         h,
-        y = e.messageDropReason,
-        C = e.stanza,
-        b = null;
+        y,
+        C = e.messageDropReason,
+        b = e.stanza,
+        v = null;
       try {
-        b = s.parse(C).success;
+        v = s.parse(b).success;
       } catch (e) {}
-      var v = new (o(
+      var S = new (o(
         "WAWebIncomingMessageDropWamEvent",
       ).IncomingMessageDropWamEvent)({
-        messageDropReason: y,
-        offline: ((t = b) == null ? void 0 : t.offline) != null,
-        offlineCount: (n = b) == null ? void 0 : n.offline,
+        messageDropReason: C,
+        isPq:
+          ((t = v) == null ? void 0 : t.sessionType) != null
+            ? v.sessionType === "pq"
+            : void 0,
+        offline: ((n = v) == null ? void 0 : n.offline) != null,
+        offlineCount: (r = v) == null ? void 0 : r.offline,
         messageMediaType: o("WAWebBackendJobsCommon").getMetricMediaType({
-          encMediaType: (r = b) == null ? void 0 : r.encMediaType,
-          msgType: (a = b) == null ? void 0 : a.type,
-          msgPollType: (i = b) == null ? void 0 : i.pollType,
+          encMediaType: (a = v) == null ? void 0 : a.encMediaType,
+          msgType: (i = v) == null ? void 0 : i.type,
+          msgPollType: (l = v) == null ? void 0 : l.pollType,
         }),
       });
-      if (((l = b) == null ? void 0 : l.from) != null) {
-        var S = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(
-          b.from,
+      if (((u = v) == null ? void 0 : u.from) != null) {
+        var R = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(
+          v.from,
         );
-        S != null && (v.e2eDestination = S);
+        R != null && (S.e2eDestination = R);
       }
-      var R = (u = b) == null ? void 0 : u.author;
-      if (R != null) {
-        var L = o("WAWebWamMsgUtils").getWamE2eSenderType(R);
-        (L != null && (v.e2eSenderType = L),
-          R.isHosted() &&
-            (v.encryptionType = o(
+      var L = (c = v) == null ? void 0 : c.author;
+      if (L != null) {
+        var E = o("WAWebWamMsgUtils").getWamE2eSenderType(L);
+        (E != null && (S.e2eSenderType = E),
+          L.isHosted() &&
+            (S.encryptionType = o(
               "WAWebWamEnumEncryptionTypeCode",
             ).ENCRYPTION_TYPE_CODE.COEX));
       }
       if (
-        (((c = b) == null ? void 0 : c.e2eType) != null &&
-          (v.e2eCiphertextType = o(
+        (((d = v) == null ? void 0 : d.e2eType) != null &&
+          (S.e2eCiphertextType = o(
             "WAWebBackendJobsCommon",
-          ).getMetricE2eCiphertextType(b.e2eType)),
-        ((d = b) == null ? void 0 : d.retryCount) != null &&
-          (v.retryCount = b.retryCount),
-        ((m = b) == null ? void 0 : m.edit) ===
+          ).getMetricE2eCiphertextType(v.e2eType)),
+        ((m = v) == null ? void 0 : m.retryCount) != null &&
+          (S.retryCount = v.retryCount),
+        ((p = v) == null ? void 0 : p.edit) ===
         o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
-          ? (v.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
-          : ((p = b) == null ? void 0 : p.edit) ===
+          ? (S.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
+          : ((_ = v) == null ? void 0 : _.edit) ===
               o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
-            (v.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER),
-        ((_ = b) == null ? void 0 : _.from) != null &&
-          ((f = b) == null ? void 0 : f.author) != null)
+            (S.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER),
+        ((f = v) == null ? void 0 : f.from) != null &&
+          ((g = v) == null ? void 0 : g.author) != null)
       ) {
-        var E;
+        var k;
         if (
-          ((E = b) == null || (E = E.author) == null ? void 0 : E.isBot()) ===
+          ((k = v) == null || (k = k.author) == null ? void 0 : k.isBot()) ===
           !0
         ) {
-          var k;
-          ((k = b) == null || (k = k.from) == null ? void 0 : k.isBot()) === !0
-            ? (v.agentEngagementType = o(
+          var I;
+          ((I = v) == null || (I = I.from) == null ? void 0 : I.isBot()) === !0
+            ? (S.agentEngagementType = o(
                 "WAWebWamEnumAgentEngagementEnumType",
               ).AGENT_ENGAGEMENT_ENUM_TYPE.DIRECT_CHAT)
-            : (v.agentEngagementType = o(
+            : (S.agentEngagementType = o(
                 "WAWebWamEnumAgentEngagementEnumType",
               ).AGENT_ENGAGEMENT_ENUM_TYPE.INVOKED);
         }
       }
-      if (((g = b) == null ? void 0 : g.botType) != null) {
-        var I;
-        v.botType = (I = b) == null ? void 0 : I.botType;
+      if (((h = v) == null ? void 0 : h.botType) != null) {
+        var T;
+        S.botType = (T = v) == null ? void 0 : T.botType;
       }
-      (((h = b) == null ? void 0 : h.invisibleMessageCategoryType) != null &&
-        (v.invisibleMessageCategory = b.invisibleMessageCategoryType),
-        v.commit());
+      (((y = v) == null ? void 0 : y.invisibleMessageCategoryType) != null &&
+        (S.invisibleMessageCategory = v.invisibleMessageCategoryType),
+        S.commit());
     }
     function c(e) {
       u({
@@ -269,6 +279,7 @@ __d(
           "WAWebIncomingMessageDropWamEvent",
         ).IncomingMessageDropWamEvent)({
           messageDropReason: n,
+          isPq: r.sessionType != null ? r.sessionType === "pq" : void 0,
           e2eCiphertextType: o(
             "WAWebBackendJobsCommon",
           ).getMetricE2eCiphertextType(r.e2eType),

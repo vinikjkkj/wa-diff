@@ -5,6 +5,7 @@ __d(
     "WAWebEmojiText.react",
     "WAWebFlex.react",
     "WAWebFormatConfigurationConversation",
+    "WAWebPollAddedByLabel",
     "WAWebPollOptionImage.react",
     "WAWebTag.react",
     "WAWebTextSizeUtils",
@@ -17,8 +18,7 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = { marginInlineEnd6: { marginInlineEnd: "xbelrpt", $$css: !0 } },
-      m = {
+      d = {
         option: {
           fontWeight: "xo1l8bm",
           fontSize: "x1jchvi3",
@@ -28,23 +28,24 @@ __d(
         },
         voteCount: { minWidth: "x1pshirs", $$css: !0 },
       };
-    function p(t) {
-      var n = t.associatedMsg,
-        a = t.isCorrectOption,
-        i = t.isCurrentLeader,
-        l = t.isPollFromMe,
-        s = t.links,
-        u = t.name,
-        p = t.trusted,
+    function m(t) {
+      var n = t.addOptionMsg,
+        a = t.associatedMsg,
+        i = t.isCorrectOption,
+        l = t.isCurrentLeader,
+        s = t.isPollFromMe,
+        u = t.links,
+        m = t.name,
+        f = t.trusted,
         g = t.voteCount,
         h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
         y = h.pollDetailsOptionTextSize,
         C = o("WAWebFormatConfigurationConversation").Conversation({
-          links: s != null ? s : [],
+          links: u != null ? u : [],
           phoneNumbers: [],
           selectable: !0,
-          trusted: p === !0,
-          fromMe: l,
+          trusted: f === !0,
+          fromMe: s,
         });
       return c.jsxs(o("WAWebFlex.react").FlexRow, {
         align: "center",
@@ -54,46 +55,49 @@ __d(
         paddingStart: 32,
         columnGap: 12,
         children: [
-          n &&
+          a &&
             c.jsx(o("WAWebFlex.react").FlexColumn, {
               alignSelf: "start",
               shrink: 0,
               children: c.jsx(r("WAWebPollOptionImage.react"), {
-                msg: n,
+                msg: a,
                 size: "small",
               }),
             }),
-          c.jsx(o("WAWebEmojiText.react").EmojiText, {
-            text: u,
-            selectable: !0,
-            formatters: C,
-            className: (e || (e = r("stylex")))(
-              m.option,
-              d.marginInlineEnd6,
-              y,
-            ),
+          c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            className: "xbelrpt",
+            children: [
+              c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                text: m,
+                selectable: !0,
+                formatters: C,
+                className: (e || (e = r("stylex")))(d.option, y),
+              }),
+              n != null &&
+                c.jsx(r("WAWebPollAddedByLabel"), { addOptionMsg: n }),
+            ],
           }),
           c.jsx(
             "span",
             babelHelpers.extends(
               {},
               e.props(
-                m.voteCount,
+                d.voteCount,
                 o("WDSMargins.stylex").wdsMargins.marginStartAuto,
               ),
               {
                 children:
-                  a == null
-                    ? c.jsx(_, { count: g, isCurrentLeader: i })
-                    : c.jsx(f, { count: g, isCorrectOption: a }),
+                  i == null
+                    ? c.jsx(p, { count: g, isCurrentLeader: l })
+                    : c.jsx(_, { count: g, isCorrectOption: i }),
               },
             ),
           ),
         ],
       });
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e) {
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.count,
         r = e.isCurrentLeader,
@@ -135,7 +139,7 @@ __d(
         m
       );
     }
-    function f(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.count,
         r = e.isCorrectOption,
@@ -172,7 +176,7 @@ __d(
         u
       );
     }
-    l.default = p;
+    l.default = m;
   },
   226,
 );

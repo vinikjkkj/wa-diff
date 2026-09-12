@@ -26,29 +26,25 @@ __d(
           );
         }),
         s = l[0],
-        d = l[1];
-      return (
-        u(function () {
+        d = l[1],
+        m = c(i),
+        p = m[0],
+        _ = m[1];
+      if (
+        (u(function () {
           !s &&
             i.mediaStage === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
             t();
         }, []),
-        u(
-          function () {
-            if (!s) {
-              var e = i.filehash;
-              o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(e) &&
-                d(
-                  o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-                    e,
-                  ),
-                );
-            }
-          },
-          [s, i],
-        ),
-        s ? r(s) : a()
-      );
+        p !== i)
+      ) {
+        _(i);
+        var f = i.filehash;
+        !s &&
+          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(f) &&
+          d(o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(f));
+      }
+      return s ? r(s) : a();
     }
     l.default = d;
   },

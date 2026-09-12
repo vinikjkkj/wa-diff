@@ -31,11 +31,11 @@ __d(
         (d != null && l.push(d), c.isClientActive(i) && s.push(u));
       }
       var m = { clientFilterKeys: s, options: i },
-        p = R(n == null ? void 0 : n.key);
+        p = S(n == null ? void 0 : n.key);
       return {
         candidateLids: r,
         filters: l,
-        requiresFullScan: C(m) || b(n, p),
+        requiresFullScan: y(m) || C(n, p),
         residual: m,
         sortColumn: p,
         sortDescending: (n == null ? void 0 : n.direction) === "desc",
@@ -47,12 +47,7 @@ __d(
       var n = t.replace(m, "");
       return p.test(n) ? n.length >= s : !0;
     }
-    function g(e) {
-      return e.requiresFullScan
-        ? e
-        : babelHelpers.extends({}, e, { requiresFullScan: !0 });
-    }
-    function h(e, t, n) {
+    function g(e, t, n) {
       var r = _(e, null, t),
         a = [].concat(
           r.filters.filter(function (e) {
@@ -75,12 +70,12 @@ __d(
         });
       return babelHelpers.extends({}, r, {
         filters: a,
-        requiresFullScan: C(i),
+        requiresFullScan: y(i),
         residual: i,
       });
     }
-    function y(e, t) {
-      return e.filters.length > 0 || C(e.residual)
+    function h(e, t) {
+      return e.filters.length > 0 || y(e.residual)
         ? !1
         : t == null ||
             t === "customer" ||
@@ -99,16 +94,16 @@ __d(
                   );
                 })();
     }
-    function C(e) {
+    function y(e) {
       return e.clientFilterKeys.length > 0;
     }
-    function b(e, t) {
+    function C(e, t) {
       return e == null ? !1 : t == null || e.key === "customer";
     }
-    function v() {
+    function b() {
       return d;
     }
-    function S(e) {
+    function v(e) {
       return JSON.stringify([
         e.candidateLids,
         e.filters.map(function (e) {
@@ -121,19 +116,18 @@ __d(
         e.requiresFullScan,
       ]);
     }
-    function R(e) {
+    function S(e) {
       return e === "customer" ? "name" : e === "email" ? "email" : null;
     }
     ((l.MIN_SEARCH_QUERY_LENGTH = s),
       (l.MAX_CANDIDATE_LIDS = u),
       (l.buildProfileQueryPlan = _),
       (l.isSearchQueryActive = f),
-      (l.withFullScan = g),
-      (l.buildPipelineColumnPlan = h),
-      (l.canPageLocally = y),
-      (l.hasResidual = C),
-      (l.emptyProfileQueryResidual = v),
-      (l.profileQueryPlanKey = S));
+      (l.buildPipelineColumnPlan = g),
+      (l.canPageLocally = h),
+      (l.hasResidual = y),
+      (l.emptyProfileQueryResidual = b),
+      (l.profileQueryPlanKey = v));
   },
   98,
 );

@@ -109,6 +109,7 @@ __d(
                   e2eType: R.e2eType,
                   encMediaType: R.encMediaType,
                   hideFail: R.hideFail,
+                  isPq: R.sessionType === "pq",
                 },
                 I = yield t({
                   decrypted: E,

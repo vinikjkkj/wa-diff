@@ -329,6 +329,8 @@ __d(
                                                                                                                     e ===
                                                                                                                       "associatedChildMessage" ||
                                                                                                                     e ===
+                                                                                                                      "audioStickerMessage" ||
+                                                                                                                    e ===
                                                                                                                       "bcallMessage" ||
                                                                                                                     e ===
                                                                                                                       "botForwardedMessage" ||

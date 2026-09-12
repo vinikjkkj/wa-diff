@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebBizBroadcastContextualEntrypointUtils",
     "WAWebBizBroadcastCreationQPLLogger",
-    "WAWebBizBroadcastNewBroadcastFlowLoadable",
+    "WAWebBizBroadcastNewBroadcastFlowRouter.react",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
@@ -56,20 +56,16 @@ __d(
               };
             (n == null || n(),
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-                u.jsx(
-                  o("WAWebBizBroadcastNewBroadcastFlowLoadable")
-                    .WAWebBizBroadcastNewBroadcastFlowLoadable,
-                  {
-                    sourceBroadcastMessageData: s,
-                    entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
-                      .BB_FORWARD_MODAL,
-                    onBack: function () {
-                      return o(
-                        "WAWebDrawerManager",
-                      ).DrawerManager.closeDrawerFullscreen();
-                    },
+                u.jsx(r("WAWebBizBroadcastNewBroadcastFlowRouter.react"), {
+                  sourceBroadcastMessageData: s,
+                  entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+                    .BB_FORWARD_MODAL,
+                  onBack: function () {
+                    return o(
+                      "WAWebDrawerManager",
+                    ).DrawerManager.closeDrawerFullscreen();
                   },
-                ),
+                }),
                 { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
               ));
           } catch (t) {

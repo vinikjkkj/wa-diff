@@ -23,8 +23,7 @@ __d(
       y = u("hasCatalogCategories"),
       C = u("index"),
       b = _("lastUsedCountryCode");
-    ((l.getCatalogUnsafe = d),
-      (l.clearCatalogGetterCacheFor = f),
+    ((l.clearCatalogGetterCacheFor = f),
       (l.getId = g),
       (l.getAfterCursor = h),
       (l.getHasCatalogCategories = y),

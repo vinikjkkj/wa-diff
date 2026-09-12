@@ -28,7 +28,7 @@ __d(
         d +
         '],"p":"' +
         u(4095) +
-        '"}',
+        '","extensions":{}}',
       p = null,
       _ = null,
       f = null,
@@ -51,59 +51,64 @@ __d(
           ),
           null
         );
-      var t = document.body || document.documentElement;
-      if (t == null) return null;
-      var n = document.createElement("iframe");
-      n.style.display = "none";
-      var o = window.Env,
-        a = o != null && "h4npx7qw" in o;
-      ((S = a),
-        a
-          ? (n.src = "about:blank#g")
-          : o != null &&
-            "p9fk3wmn" in o &&
-            ((n.src = "about:blank"), (n.srcdoc = "")));
-      var i = t.firstElementChild,
-        l = o != null && "t5nd8vqc" in o && "createComment" in document,
-        s = o != null && "m8r3kp6w" in o && "createRange" in document,
-        u = o != null && "b3xk8fqm" in o && i != null && "before" in i,
-        c = o != null && "q4v7nx3k" in o && i != null && "after" in i,
-        d = o != null && "r7c2m9xk" in o && "prepend" in t,
-        m = o != null && "z2ht6xqp" in o && "append" in t,
-        p = o != null && "k7q3nv9d" in o,
-        _ = o != null && "w6jt4rnq" in o,
-        f = o != null && "w8kq3zmt" in o && "replaceChild" in t,
-        g = o != null && "b7xr2qnf" in o && "replaceChildren" in t,
-        h = g ? document.createElement("div") : null,
-        y = f ? document.createElement("span") : null,
-        C = l ? document.createComment("") : null,
-        b = s ? document.createRange() : null;
+      var t = window.Env,
+        n = t != null && "n4kd7pqz" in t,
+        o;
+      if (n) {
+        var a;
+        o = (a = document.body) != null ? a : document.documentElement;
+      } else o = document.body || document.documentElement;
+      if (o == null) return null;
+      var i = document.createElement("iframe");
+      i.style.display = "none";
+      var l = t != null && "h4npx7qw" in t;
+      ((S = l),
+        l
+          ? (i.src = "about:blank#g")
+          : t != null &&
+            "p9fk3wmn" in t &&
+            ((i.src = "about:blank"), (i.srcdoc = "")));
+      var s = o.firstElementChild,
+        u = t != null && "t5nd8vqc" in t && "createComment" in document,
+        c = t != null && "m8r3kp6w" in t && "createRange" in document,
+        d = t != null && "b3xk8fqm" in t && s != null && "before" in s,
+        m = t != null && "q4v7nx3k" in t && s != null && "after" in s,
+        p = t != null && "r7c2m9xk" in t && "prepend" in o,
+        _ = t != null && "z2ht6xqp" in t && "append" in o,
+        f = t != null && "k7q3nv9d" in t,
+        g = t != null && "w6jt4rnq" in t,
+        h = t != null && "w8kq3zmt" in t && "replaceChild" in o,
+        y = t != null && "b7xr2qnf" in t && "replaceChildren" in o,
+        C = y ? document.createElement("div") : null,
+        b = h ? document.createElement("span") : null,
+        v = u ? document.createComment("") : null,
+        L = c ? document.createRange() : null;
       return (
-        h != null
-          ? ((h.style.display = "none"),
-            t.appendChild(h),
-            h.replaceChildren(n),
-            (R = h))
-          : y != null
-            ? (t.appendChild(y), t.replaceChild(n, y))
-            : C != null && "replaceWith" in C
-              ? (t.appendChild(C), C.replaceWith(n))
-              : b != null
-                ? (b.setStart(t, t.childNodes.length), b.insertNode(n))
-                : c && i != null
-                  ? i.after(n)
-                  : u && i != null
-                    ? i.before(n)
-                    : d
-                      ? t.prepend(n)
-                      : m
-                        ? t.append(n)
-                        : p
-                          ? t.insertBefore(n, null)
-                          : _
-                            ? t.insertAdjacentElement("beforeend", n)
-                            : t.appendChild(n),
-        n
+        C != null
+          ? ((C.style.display = "none"),
+            o.appendChild(C),
+            C.replaceChildren(i),
+            (R = C))
+          : b != null
+            ? (o.appendChild(b), o.replaceChild(i, b))
+            : v != null && "replaceWith" in v
+              ? (o.appendChild(v), v.replaceWith(i))
+              : L != null
+                ? (L.setStart(o, o.childNodes.length), L.insertNode(i))
+                : m && s != null
+                  ? s.after(i)
+                  : d && s != null
+                    ? s.before(i)
+                    : p
+                      ? o.prepend(i)
+                      : _
+                        ? o.append(i)
+                        : f
+                          ? o.insertBefore(i, null)
+                          : g
+                            ? o.insertAdjacentElement("beforeend", i)
+                            : o.appendChild(i),
+        i
       );
     }
     function k() {

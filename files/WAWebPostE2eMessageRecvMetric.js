@@ -46,6 +46,7 @@ __d(
               }),
               retryCount: t.retryCount,
               editType: o("WAWebBackendJobsCommon").getMetricEditType(i.edit),
+              isPq: t.sessionType === "pq" ? !0 : void 0,
               botType: o("WAWebWamMsgUtils").getWamBotType({
                 chatId: u,
                 bizBotType: a == null ? void 0 : a.bizBotType,

@@ -147,12 +147,20 @@ __d(
       ),
       ce = d(
         function (e) {
+          var t = e[0],
+            n = e[1];
+          return t && n === o("WAWebGroupType").GroupType.COMMUNITY;
+        },
+        [s.getIsGroup, O],
+      ),
+      de = d(
+        function (e) {
           var t = e[0];
           return t === !0;
         },
         [B],
       ),
-      de = d(
+      me = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -171,7 +179,7 @@ __d(
         },
         [se, g],
       ),
-      me = d(
+      pe = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -181,7 +189,7 @@ __d(
         },
         [s.getUnreadCount, E],
       ),
-      pe = d(
+      _e = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -210,7 +218,7 @@ __d(
         },
         [s.getUnreadCount, k, P],
       ),
-      _e = d(
+      fe = d(
         function (e) {
           var t,
             n = e[0],
@@ -220,7 +228,7 @@ __d(
         },
         [s.getDraftMessage, U],
       ),
-      fe = d(
+      ge = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -243,7 +251,7 @@ __d(
         },
         [s.getId, s.getIsBroadcast, s.getBBProStatus, F],
       ),
-      ge = d(
+      he = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -300,11 +308,11 @@ __d(
           P,
           W,
           N,
-          _e,
           fe,
+          ge,
         ],
       ),
-      he = d(
+      ye = d(
         function (e) {
           for (
             var t = e[0],
@@ -332,7 +340,7 @@ __d(
         },
         [P, M, q, s.getId],
       ),
-      ye = d(
+      Ce = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -368,7 +376,7 @@ __d(
         },
         [P, M, w, s.getEndOfHistoryTransferType],
       ),
-      Ce = d(
+      be = d(
         function (e) {
           var t = e[0];
           return o(
@@ -377,7 +385,7 @@ __d(
         },
         [P, M],
       ),
-      be = d(
+      ve = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -396,7 +404,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      ve = d(
+      Se = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -449,18 +457,19 @@ __d(
       (l.getMmSignalSharingExpirationWindow = le),
       (l.getKind = se),
       (l.getIsCAG = ue),
-      (l.getIsCapiHostedGroup = ce),
-      (l.getIsE2ee = de),
-      (l.getOptimisticUnreadCount = me),
-      (l.getShouldShowUnreadDivider = pe),
-      (l.getHasDraftMessage = _e),
-      (l.getShouldBroadcastAppearInList = fe),
-      (l.getShouldAppearInList = ge),
-      (l.getPreviewMessage = he),
-      (l.getShareableHistoryInfo = ye),
-      (l.getLatestJoinTimeByParticipant = Ce),
-      (l.getShowChangeNumberNotification = be),
-      (l.getDerivedLastAddOnPreview = ve));
+      (l.getIsCommunity = ce),
+      (l.getIsCapiHostedGroup = de),
+      (l.getIsE2ee = me),
+      (l.getOptimisticUnreadCount = pe),
+      (l.getShouldShowUnreadDivider = _e),
+      (l.getHasDraftMessage = fe),
+      (l.getShouldBroadcastAppearInList = ge),
+      (l.getShouldAppearInList = he),
+      (l.getPreviewMessage = ye),
+      (l.getShareableHistoryInfo = Ce),
+      (l.getLatestJoinTimeByParticipant = be),
+      (l.getShowChangeNumberNotification = ve),
+      (l.getDerivedLastAddOnPreview = Se));
   },
   98,
 );

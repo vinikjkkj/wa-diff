@@ -17,44 +17,46 @@ __d(
       var t = e.to,
         n = e.retryCount,
         r = e.type,
-        a = e.msg,
-        i = e.editType,
-        l = i === void 0 ? o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED : i,
-        c = e.sessionScope,
-        d = e.coexV2SelfHosted,
-        m = new (o("WAWebE2eMessageSendWamEvent").E2eMessageSendWamEvent)({
+        a = e.isPq,
+        i = e.msg,
+        l = e.editType,
+        c = l === void 0 ? o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED : l,
+        d = e.sessionScope,
+        m = e.coexV2SelfHosted,
+        p = new (o("WAWebE2eMessageSendWamEvent").E2eMessageSendWamEvent)({
           e2eCiphertextVersion: o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION,
           isLid: t.isLid(),
           retryCount: n,
-          editType: l,
+          editType: c,
+          isPq: a,
           botType: o("WAWebWamMsgUtils").getWamBotType({
             chatId: t,
-            bizBotType: a == null ? void 0 : a.bizBotType,
+            bizBotType: i == null ? void 0 : i.bizBotType,
           }),
-          sessionScope: o("WAWebSessionScopeWamUtils").sessionScopeToWamType(c),
+          sessionScope: o("WAWebSessionScopeWamUtils").sessionScopeToWamType(d),
         }),
-        p = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(t);
-      p != null && (m.e2eDestination = p);
-      var _ = u(t, d);
-      _ != null && (m.e2eReceiverDeviceType = _);
-      var f = s(t, d);
+        _ = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(t);
+      _ != null && (p.e2eDestination = _);
+      var f = u(t, m);
+      f != null && (p.e2eReceiverDeviceType = f);
+      var g = s(t, m);
       return (
-        f != null && (m.encryptionType = f),
+        g != null && (p.encryptionType = g),
         r != null &&
-          (m.e2eCiphertextType = o(
+          (p.e2eCiphertextType = o(
             "WAWebBackendJobsCommon",
           ).getMetricE2eCiphertextType(r)),
-        a &&
-          ((m.messageMediaType = o("WAWebWamMsgUtils").getWamMediaType(a)),
+        i &&
+          ((p.messageMediaType = o("WAWebWamMsgUtils").getWamMediaType(i)),
           t.isBot() &&
-            (a.id.remote.isBot()
-              ? (m.agentEngagementType = o(
+            (i.id.remote.isBot()
+              ? (p.agentEngagementType = o(
                   "WAWebWamEnumAgentEngagementEnumType",
                 ).AGENT_ENGAGEMENT_ENUM_TYPE.DIRECT_CHAT)
-              : (m.agentEngagementType = o(
+              : (p.agentEngagementType = o(
                   "WAWebWamEnumAgentEngagementEnumType",
                 ).AGENT_ENGAGEMENT_ENUM_TYPE.INVOKED))),
-        m
+        p
       );
     }
     function s(e, t) {

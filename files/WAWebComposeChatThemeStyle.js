@@ -1,16 +1,19 @@
 __d(
   "WAWebComposeChatThemeStyle",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebChatThemeEnums", "WAWebChatThemeValue"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      return e === void 0 ? t : l(e, t);
+      return e === void 0 ? t : s(e, t);
     }
-    function l(e, t) {
-      return e == null ? null : t != null && s(t) === s(e) ? t : e;
-    }
-    function s(e) {
-      return String(e).replace(/@.*$/, "");
+    function s(e, t) {
+      return e == null
+        ? null
+        : o("WAWebChatThemeValue").isMinimalScheme(e) ||
+            t == null ||
+            t === o("WAWebChatThemeEnums").Theme.Default
+          ? e
+          : t;
     }
     function u(e) {
       var t = e.bubbleColorSchemeId,
@@ -27,9 +30,9 @@ __d(
         ? { wallpaperStyle: i, bubbleStyle: null }
         : { wallpaperStyle: i, bubbleStyle: n.getBubbleTheme(t, r) };
     }
-    ((i.resolvePreviewWallpaperThemeId = e),
-      (i.resolveWallpaperThemeId = l),
-      (i.composeChatThemeStyleSplit = u));
+    ((l.resolvePreviewWallpaperThemeId = e),
+      (l.resolveWallpaperThemeId = s),
+      (l.composeChatThemeStyleSplit = u));
   },
-  66,
+  98,
 );

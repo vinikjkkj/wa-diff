@@ -151,20 +151,11 @@ __d(
       return !!t && t.hasMaybeSentMsgToChat();
     }
     function v(e) {
-      var t, n;
-      return (
-        ((t = e.directConnection) == null ? void 0 : t.enabled) === !0 &&
-        typeof ((n = e.directConnection.defaultPostcode) == null
-          ? void 0
-          : n.code) == "string"
-      );
+      return S.apply(this, arguments);
     }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o(
               "WAWebBusinessProfileCollection",
@@ -180,17 +171,17 @@ __d(
                 n.directConnection.defaultPostcode.locationName,
             };
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    var L = 421;
-    function E(e) {
+    var R = 421;
+    function L(e) {
       return (
         e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-        e.statusCode === L
+        e.statusCode === R
       );
     }
-    function k(e, t) {
+    function E(e, t) {
       if (
         e ===
         o("WAWebServerPropConstants")
@@ -211,7 +202,7 @@ __d(
           0;
       return n !== r;
     }
-    function I(e, t) {
+    function k(e, t) {
       return e != null && !r("WAArraysShallowEqual")(e, t);
     }
     ((l.timestampFormat = s),
@@ -223,11 +214,10 @@ __d(
       (l.fetchCertificateFullChain = g),
       (l.isCypherNeeded = y),
       (l.userHasSentMessageToBusiness = b),
-      (l.businessSupportsPostcode = v),
-      (l.fetchDefaultPostcode = S),
-      (l.errorIsDirectConnectionCypherError421 = E),
-      (l.isDirectConnectionFlagChanged = k),
-      (l.isDirectConnectionNumbersAbPropChanged = I));
+      (l.fetchDefaultPostcode = v),
+      (l.errorIsDirectConnectionCypherError421 = L),
+      (l.isDirectConnectionFlagChanged = E),
+      (l.isDirectConnectionNumbersAbPropChanged = k));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebProductCollCollection",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebBizProductCatalogBridge",
     "WAWebBusinessDirectConnectionBridge",
     "WAWebBusinessProfileCollection",
@@ -10,6 +11,7 @@ __d(
     "WAWebQplFlowWrapper",
     "WAWebQueryProductCollections",
     "WAWebQueryProductSingleCollection",
+    "WAWebSocketModel",
     "WAWebStaleBaseCollection",
     "asyncToGeneratorRuntime",
   ],
@@ -37,6 +39,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.afterCursor = ""),
+            (e.$ProductCollCollection$p_1 = !1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -44,6 +47,18 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.add = function (n, r) {
+            return (
+              !this.$ProductCollCollection$p_1 &&
+                o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3") &&
+                ((this.$ProductCollCollection$p_1 = !0),
+                this.stopListening(
+                  o("WAWebSocketModel").Socket,
+                  "change:stream",
+                )),
+              t.prototype.add.call(this, n, r)
+            );
+          }),
           (i.findCollectionsList = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, n, a, i) {

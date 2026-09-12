@@ -452,10 +452,7 @@ __d(
         s._param("person-name", n),
       ]);
     }
-    ((l.EphemeralStringType = o(
-      "WAWebEphemeralFbtKicTypes",
-    ).EphemeralStringType),
-      (l.getDisappearingMessageOutOfSyncDifferentBody = m),
+    ((l.getDisappearingMessageOutOfSyncDifferentBody = m),
       (l.getDisappearingMessageOutOfSyncDifferentTitle = p),
       (l.getDisappearingMessageOutOfSyncWontDisappearTitle = _),
       (l.getDisappearingMessageOutOfSyncWontDisappearBody = f),

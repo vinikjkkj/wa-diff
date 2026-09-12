@@ -217,7 +217,8 @@ __d(
                 i.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY
               ) {
-                var M = i.retryCount == null ? 1 : i.retryCount + 1;
+                var M = i.retryCount == null ? 1 : i.retryCount + 1,
+                  w = i.failedEnc;
                 (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
                   retryCount: M,
                   to: C,
@@ -235,7 +236,7 @@ __d(
                   ).maybePostMessageHighRetryCountMetric(
                     M,
                     t,
-                    i.failedEnc != null
+                    w != null
                       ? o(
                           "WAWebSessionScopeWamUtils",
                         ).getIncomingSkdmSessionScope({
@@ -244,6 +245,9 @@ __d(
                           isSkdm: a.isSkdm,
                           metaSessionScope: a.metaSessionScope,
                         })
+                      : void 0,
+                    (w == null ? void 0 : w.sessionType) != null
+                      ? w.sessionType === "pq"
                       : void 0,
                   ));
                 return;
@@ -285,7 +289,7 @@ __d(
                 i.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR
               ) {
-                var w;
+                var A;
                 return (l == null ? void 0 : l.canNack) === !1
                   ? o("WAWebHandleMsgSendAck").sendAck({
                       externalId: p,
@@ -299,8 +303,8 @@ __d(
                       C,
                       y,
                       R,
-                      (w = i.nackReason) != null
-                        ? w
+                      (A = i.nackReason) != null
+                        ? A
                         : o("WAWebCreateNackFromStanza").NackReason
                             .ParsingError,
                       void 0,
