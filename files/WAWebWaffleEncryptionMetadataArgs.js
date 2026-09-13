@@ -12,7 +12,22 @@ __d(
         },
       };
     }
-    i.waffleV1EncryptionMetadataArgs = e;
+    function l(e) {
+      return {
+        rSAEncryptionMetadataV2: {
+          authTagElementValue: e.tag,
+          encryptedDataElementValue: e.cipherText,
+          encryptedKeyElementValue: e.encryptedKey,
+          keyIdElementValue: e.keyId,
+        },
+      };
+    }
+    function s(t) {
+      return t.version === 1 ? e(t.params) : l(t.params);
+    }
+    ((i.waffleV1EncryptionMetadataArgs = e),
+      (i.waffleV2EncryptionMetadataArgs = l),
+      (i.waffleEncryptionMetadataArgs = s));
   },
   66,
 );

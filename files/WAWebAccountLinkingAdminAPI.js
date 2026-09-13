@@ -33,26 +33,27 @@ __d(
       C,
       b,
       v,
-      S = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      S,
+      R = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       ),
-      R = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
       L = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      E = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState();
-    function k(e) {
-      return I.apply(this, arguments);
+      E = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      k = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState();
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.disclosureId,
             a = t.disclosureLc,
             i = t.disclosureLg,
             l = t.disclosureVersion,
-            m = t.rawPassword;
+            p = t.rawPassword;
           o("WAWebAccountLinkingAPI").assertModeAllowed("generateWAEntACUser");
-          var p = yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
-          if (p == null) {
+          var _ = yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
+          if (_ == null) {
             o("WALogger").ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -61,9 +62,10 @@ __d(
             );
             return;
           }
-          var _ = p.passwordKeyId,
-            f = p.passwordPublicKey;
-          if (f == null || _ == null) {
+          var f = _.passwordKeyId,
+            g = _.passwordPublicKey,
+            h = _.source;
+          if (g == null || f == null) {
             o("WALogger").ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -72,100 +74,119 @@ __d(
             );
             return;
           }
-          var g = yield o("WAWebAccountLinkingCryptoUtils").encryptPassword(
-              m,
-              f,
-              _,
-            ),
-            h = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
-            y = h.privateKey,
-            C = h.publicKey,
-            b = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(C),
-            v = {
+          var y = h === "graphql",
+            C;
+          try {
+            C = y
+              ? yield o(
+                  "WAWebAccountLinkingCryptoUtils",
+                ).encryptPasswordWithOaep(p, g, f)
+              : yield o("WAWebAccountLinkingCryptoUtils").encryptPassword(
+                  p,
+                  g,
+                  f,
+                );
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAFFLE] GenerateWAEntACUser failed: password encryption",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e));
+            return;
+          }
+          var b = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
+            v = b.privateKey,
+            S = b.publicKey,
+            E = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(S),
+            k = {
               version: 1,
               timestamp: Date.now(),
-              password: g,
-              client_pub_key: b,
+              password: C,
+              client_pub_key: E,
               client_pub_key_type: "RSA 2048",
             },
-            L = yield o(
-              "WAWebAccountLinkingCryptoUtils",
-            ).wrapPayloadWithRSAAESEncryption(v, p.encryptionKey),
-            E = yield o(
+            I = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(
+              k,
+              _,
+            ),
+            T = yield o(
               "WASmaxWaffleGenerateWAEntACUserRPC",
             ).sendGenerateWAEntACUserRPC({
               rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
                 o(
                   "WAWebWaffleEncryptionMetadataArgs",
-                ).waffleV1EncryptionMetadataArgs(L),
+                ).waffleEncryptionMetadataArgs(I),
               timestampElementValue: Date.now(),
               disclosureId: n,
               disclosureVersion: l,
               disclosureLg: i,
               disclosureLc: a,
             });
-          if (E.name === "GenerateWAEntACUserResponseSuccess") {
-            R.reset();
-            var k = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
-                E.value.encryptionMetadataRSAEncryptionMetadataMixin,
+          if (T.name === "GenerateWAEntACUserResponseSuccess") {
+            L.reset();
+            var D = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
+                T.value.encryptionMetadataRSAEncryptionMetadataMixin,
               ),
-              I = k.data,
-              T = k.key,
-              D = k.nonce,
-              x = k.tag;
+              x = D.data,
+              $ = D.key,
+              P = D.nonce,
+              N = D.tag;
             try {
-              var $ = yield o(
+              var M = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).decryptRSAEncryptedPayload(y, T, I, D, x);
-              "fbid" in $
-                ? yield S.updateEntCreationData(String($.fbid), g)
+              ).decryptRSAEncryptedPayload(v, $, x, P, N);
+              "fbid" in M
+                ? yield R.updateEntCreationData(String(M.fbid), C)
                 : o("WALogger").ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] GenerateWAEntACUser success, no fbid",
                       ])),
                   );
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Failed to process generateWAEntACUser response",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e));
             }
           } else {
-            var P = E.value.errorGenerateWaEntAcUserErrors,
-              N = yield o(
+            var w = T.value.errorGenerateWaEntAcUserErrors,
+              A = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("generateWAEntACUser", P.name);
-            (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(N, R),
+              ).handleCommonWaffleIQError("generateWAEntACUser", w.name);
+            (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(A, L),
               o("WALogger").ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] GenerateWAEntACUser RPC failed: ",
                     "",
                   ])),
-                P.name,
+                w.name,
               ));
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
-    }
     function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebAccountLinkingAPI").assertModeAllowed("generateAccessTokens");
-          var e = yield S.getAccountLinkingData();
+          var e = yield R.getAccountLinkingData();
           if (e == null) {
             o("WALogger").ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[WAFFLE] GenerateAccessTokens failed: no account linking data",
                 ])),
             );
@@ -175,8 +196,8 @@ __d(
             n = e.fbid;
           if (n == null || t == null) {
             o("WALogger").ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[WAFFLE] GenerateAccessTokens failed: missing fbid or encrypted password",
                 ])),
             );
@@ -193,9 +214,7 @@ __d(
               client_pub_key: l,
               client_pub_key_type: "RSA 2048",
             },
-            u = yield o(
-              "WAWebAccountLinkingCryptoUtils",
-            ).wrapPayloadWithRSAAESEncryption(s),
+            u = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(s),
             c = yield o("WAWebAccountLinkingCryptoUtils").computeIdSign(n),
             d = yield o(
               "WASmaxWaffleGenerateAccessTokensRPC",
@@ -203,45 +222,45 @@ __d(
               rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
                 o(
                   "WAWebWaffleEncryptionMetadataArgs",
-                ).waffleV1EncryptionMetadataArgs(u),
+                ).waffleEncryptionMetadataArgs(u),
               timestampElementValue: Math.floor(Date.now() / 1e3),
               fbidElementValue: n,
               idSignElementValue: c,
             });
           if (d.name === "GenerateAccessTokensResponseSuccess") {
-            L.reset();
-            var h = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
+            E.reset();
+            var m = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
                 d.value.encryptionMetadataRSAEncryptionMetadataMixin,
               ),
-              y = h.data,
-              C = h.key,
-              b = h.nonce,
-              v = h.tag;
+              y = m.data,
+              C = m.key,
+              b = m.nonce,
+              v = m.tag;
             try {
-              var R = yield o(
+              var S = yield o(
                 "WAWebAccountLinkingCryptoUtils",
               ).decryptRSAEncryptedPayload(a, C, y, b, v);
-              if (!("access_token" in R)) {
+              if (!("access_token" in S)) {
                 o("WALogger").ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] GenerateAccessTokens success but response missing access_token",
                     ])),
                 );
                 return;
               }
-              var E = d.value.pingIntervalElementValue;
-              yield S.updateGenerateAccessTokensData({
-                accesstoken: R.access_token,
-                fbid: "fbid" in R ? String(R.fbid) : null,
-                nonce: "nonce" in R ? R.nonce : null,
-                pingInterval: E,
+              var L = d.value.pingIntervalElementValue;
+              yield R.updateGenerateAccessTokensData({
+                accesstoken: S.access_token,
+                fbid: "fbid" in S ? String(S.fbid) : null,
+                nonce: "nonce" in S ? S.nonce : null,
+                pingInterval: L,
               });
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Failed to process generateAccessTokens response: ",
                       "",
                     ])),
@@ -257,10 +276,10 @@ __d(
               I = yield o(
                 "WAWebWaffleIQErrorHandler",
               ).handleCommonWaffleIQError("generateAccessTokens", k.name);
-            (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(I, L),
+            (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(I, E),
               o("WALogger").ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] GenerateAccessTokens RPC failed: ",
                     "",
                   ])),
@@ -268,28 +287,28 @@ __d(
               ));
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    var x = { FB: 0, IG: 1 },
-      $ = {
+    var $ = { FB: 0, IG: 1 },
+      P = {
         FB: "wa_nta_username_reservation_on_fb",
         IG: "wa_nta_username_reservation_on_ig",
       };
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    function N(e, t, n) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WAWebAccountLinkingAPI").assertModeAllowed("sendLinkingMutation");
-          var a = yield S.getAccountLinkingData();
+          var a = yield R.getAccountLinkingData();
           if (a == null)
             throw (
               o("WALogger")
                 .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Linking mutation failed: no account linking data",
                     ])),
                 )
@@ -302,8 +321,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Linking mutation failed: missing fbid or access token",
                     ])),
                 )
@@ -321,14 +340,12 @@ __d(
               client_pub_key: d,
               client_pub_key_type: "RSA 2048",
               action: "waffle_100",
-              target_account_type: x[t],
+              target_account_type: $[t],
               opaque_target_accounts_to_be_linked_strings: [e],
-              linking_entry_point: $[t],
+              linking_entry_point: P[t],
               family_device_id: n,
             },
-            p = yield o(
-              "WAWebAccountLinkingCryptoUtils",
-            ).wrapPayloadWithRSAAESEncryption(m),
+            p = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(m),
             _;
           try {
             _ = yield o(
@@ -340,14 +357,14 @@ __d(
               rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
                 o(
                   "WAWebWaffleEncryptionMetadataArgs",
-                ).waffleV1EncryptionMetadataArgs(p),
+                ).waffleEncryptionMetadataArgs(p),
             });
           } catch (e) {
             throw (
               o("WALogger")
                 .ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Linking mutation error",
                     ])),
                 )
@@ -360,18 +377,18 @@ __d(
                 _.value.encryptionMetadataRSAEncryptionMetadataMixin,
               ),
               g = f.data,
-              R = f.key,
+              h = f.key,
               L = f.nonce,
-              k = f.tag,
+              E = f.tag,
               I = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).decryptRSAEncryptedPayload(u, R, g, L, k);
+              ).decryptRSAEncryptedPayload(u, h, g, L, E);
             if (
               "link_mutation_succeeded" in I &&
               I.success === !0 &&
               I.link_mutation_succeeded === !0
             )
-              (yield S.updateAccountLinkingState(
+              (yield R.updateAccountLinkingState(
                 o("WAWebAccountLinkingConstants").AccountLinkState.Active,
               ),
                 o(
@@ -386,8 +403,8 @@ __d(
               throw (
                 o("WALogger")
                   .ERROR(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] Linking mutation failed: success=",
                         " link_mutation_succeeded=",
                         "",
@@ -400,32 +417,32 @@ __d(
               );
             }
           } else {
-            var P = _.value.errorEncryptedPayloadRequestErrors,
+            var x = _.value.errorEncryptedPayloadRequestErrors,
               N = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("linkAction", P.name);
+              ).handleCommonWaffleIQError("linkAction", x.name);
             throw (
-              yield o("WAWebAccountLinkingAPI").handleRecoveryAction(N, E),
+              yield o("WAWebAccountLinkingAPI").handleRecoveryAction(N, k),
               o("WALogger")
                 .ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Linking mutation RPC error: ",
                       "",
                     ])),
-                  P.name,
+                  x.name,
                 )
                 .sendLogs("waffle-linking-mutation-rpc-error"),
-              r("err")("Linking mutation RPC error: %s", P.name)
+              r("err")("Linking mutation RPC error: %s", x.name)
             );
           }
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    ((l.generateWAEntACUser = k),
-      (l.generateAccessTokens = T),
-      (l.sendLinkingMutation = P));
+    ((l.generateWAEntACUser = I),
+      (l.generateAccessTokens = D),
+      (l.sendLinkingMutation = N));
   },
   98,
 );

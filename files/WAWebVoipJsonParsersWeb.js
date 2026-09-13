@@ -490,6 +490,11 @@ __d(
             sharer_jid: p(e.screen_sharer_jid),
           };
         },
+        parseSelfCameraAutoOffData: function (t) {
+          var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (e == null) throw r("err")("Invalid self camera auto off data");
+          return { reason: e.reason };
+        },
         parseRxTrafficStateForPeerChangedData: function (t) {
           var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
           if (e == null)

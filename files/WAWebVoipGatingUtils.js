@@ -473,11 +473,14 @@ __d(
       return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
     }
     function he() {
+      return o("WAWebUA").UA.isSafari;
+    }
+    function ye() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_screen_share_dual_stream_app_update_dialog_enabled",
       );
     }
-    function ye() {
+    function Ce() {
       return (
         "documentPictureInPicture" in window && !o("WAWebUA").UA.isBrokenDocPip
       );
@@ -532,8 +535,9 @@ __d(
       (l.isCallInfoOptimizations1to1ContextMenuEnabled = _e),
       (l.isCallInfoOptimizationsContextMenuEnabledForCallType = fe),
       (l.isPopoutReuseCaptureEnabled = ge),
-      (l.isScreenShareDualStreamAppUpdateDialogEnabled = he),
-      (l.isDocPipEnabled = ye));
+      (l.doesPopoutEndMainWindowScreenShare = he),
+      (l.isScreenShareDualStreamAppUpdateDialogEnabled = ye),
+      (l.isDocPipEnabled = Ce));
   },
   98,
 );

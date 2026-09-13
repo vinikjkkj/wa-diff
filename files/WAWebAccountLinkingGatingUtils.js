@@ -1,6 +1,6 @@
 __d(
   "WAWebAccountLinkingGatingUtils",
-  ["WAWebEnvironment", "justknobx"],
+  ["WAWebEnvironment", "gkx", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return r("WAWebEnvironment").isGuest ? "guest" : "companion";
@@ -11,9 +11,13 @@ __d(
     function u() {
       return r("justknobx")._("715");
     }
+    function c() {
+      return r("gkx")("26959");
+    }
     ((l.getWaffleMode = e),
       (l.isGuestMode = s),
-      (l.isWaffleLifecycleEnabled = u));
+      (l.isWaffleLifecycleEnabled = u),
+      (l.isWafflePkiMigrationEnabled = c));
   },
   98,
 );

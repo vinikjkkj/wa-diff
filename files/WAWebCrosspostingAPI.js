@@ -110,9 +110,9 @@ __d(
                 encrypted_payload: n,
                 action: "waffle_1",
               },
-              b = yield o(
-                "WAWebAccountLinkingCryptoUtils",
-              ).wrapPayloadWithRSAAESEncryption(C);
+              b = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(
+                C,
+              );
             if (_ != null)
               try {
                 var v = yield o(
@@ -124,7 +124,7 @@ __d(
                   rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
                     o(
                       "WAWebWaffleEncryptionMetadataArgs",
-                    ).waffleV1EncryptionMetadataArgs(b),
+                    ).waffleEncryptionMetadataArgs(b),
                 });
                 if (v.name === "EncryptedPayloadRequestResponseSuccess") {
                   var S = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(

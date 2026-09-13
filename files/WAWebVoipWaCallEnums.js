@@ -329,7 +329,17 @@ __d(
         WaitingRoomAdmitAcked: 165,
         WaitingRoomDenyAcked: 166,
         P2PTransportUpdate: 167,
-        Max: 168,
+        CallAddExtensionReceived: 168,
+        CallAddExtensionSuccess: 169,
+        CallAddExtensionFailure: 170,
+        AiTosAcceptFailed: 171,
+        CallExtensionActive: 172,
+        ArEffectAttributionStateChanged: 173,
+        StreamNamesMapUpdate: 174,
+        MlNoiseSuppressionUiEnabled: 175,
+        SelfCameraAutoOff: 176,
+        CallScreening: 177,
+        Max: 178,
       }),
       b = s({
         Unknown: 0,
@@ -384,6 +394,12 @@ __d(
         MaxParticipantsExceeded: 3,
       }),
       I = s({
+        None: 0,
+        PoorNetwork: 1,
+        LowDataUsageSetting: 2,
+        BatterySave: 3,
+      }),
+      T = s({
         VersionInvalid: -1,
         VersionLegacy: 0,
         Version1: 1,
@@ -391,14 +407,14 @@ __d(
         Version3: 3,
         Version4: 4,
       }),
-      T = s({
+      D = s({
         Text: 0,
         NoIndicator: 1,
         SpinnerV1: 2,
         SpinnerV2: 3,
         NoSpinner: 4,
       }),
-      D = s({
+      x = s({
         Measuring: 0,
         NoNetwork: 1,
         Poor: 2,
@@ -406,16 +422,16 @@ __d(
         Good: 4,
         Max: 5,
       }),
-      x = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
-      $ = s({
+      $ = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
+      P = s({
         None: 0,
         QuerySent: 1,
         QueryAcked: 2,
         JoinSent: 3,
         JoinAcked: 4,
       }),
-      P = s({ RelayBindsFailed: "relay_binds_failed" }),
-      N = s({
+      N = s({ RelayBindsFailed: "relay_binds_failed" }),
+      M = s({
         Legacy: 0,
         CallLinkJoinedCreator: 1,
         CallLinkJoinedJoiner: 2,
@@ -424,18 +440,18 @@ __d(
         WaitingRoomJoined: 5,
         WaitingRoomMultipleJoined: 6,
       }),
-      M = s({ Unknown: 0, Guest: 1 }),
-      w = "guest";
-    function A(e) {
-      return e === w ? M.Guest : M.Unknown;
+      w = s({ Unknown: 0, Guest: 1 }),
+      A = "guest";
+    function F(e) {
+      return e === A ? w.Guest : w.Unknown;
     }
-    var F = s({ None: 0, GuestsOnly: 1 }),
-      O = "guests_only";
-    function B(e) {
-      return e === O ? F.GuestsOnly : F.None;
+    var O = s({ None: 0, GuestsOnly: 1 }),
+      B = "guests_only";
+    function W(e) {
+      return e === B ? O.GuestsOnly : O.None;
     }
-    var W = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
-      q = s({
+    var q = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
+      U = s({
         Unknown: 0,
         Android: 1,
         IPhone: 2,
@@ -471,19 +487,20 @@ __d(
       (l.ReactionState = L),
       (l.ScreenShareState = E),
       (l.ScreenShareEndReason = k),
-      (l.ScreenShareVersion = I),
-      (l.ReconnectingOption = T),
-      (l.NetHealthStatus = D),
-      (l.CallUserType = x),
-      (l.CallLinkState = $),
-      (l.CallFailedReason = P),
-      (l.ServerReminderType = N),
-      (l.AccountKind = M),
-      (l.wireStringToAccountKind = A),
-      (l.WaitingRoomFilter = F),
-      (l.wireStringToWaitingRoomFilter = B),
-      (l.UiViewMode = W),
-      (l.ClientPlatform = q));
+      (l.CameraAutoOffReason = I),
+      (l.ScreenShareVersion = T),
+      (l.ReconnectingOption = D),
+      (l.NetHealthStatus = x),
+      (l.CallUserType = $),
+      (l.CallLinkState = P),
+      (l.CallFailedReason = N),
+      (l.ServerReminderType = M),
+      (l.AccountKind = w),
+      (l.wireStringToAccountKind = F),
+      (l.WaitingRoomFilter = O),
+      (l.wireStringToWaitingRoomFilter = W),
+      (l.UiViewMode = q),
+      (l.ClientPlatform = U));
   },
   98,
 );

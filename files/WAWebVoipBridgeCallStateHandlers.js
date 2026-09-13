@@ -17,11 +17,15 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipBridgeMicSilenceToast",
     "WAWebVoipCallStateUtils",
+    "WAWebVoipCameraAutoOffModal.react",
     "WAWebVoipEventConstants",
     "WAWebVoipGatingUtils",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipPermissionCheckCaptureRegistry",
+    "WAWebVoipPopoutModalManager",
+    "WAWebVoipPopoutWindowState",
     "WAWebVoipScreenShareUpdateAppModal.react",
+    "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiManager",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "WAWebVoipVideoRendererRegistry",
@@ -746,6 +750,35 @@ __d(
               o("WAWebModalManager").ModalManager.open(
                 P.jsx(r("WAWebVoipScreenShareUpdateAppModal.react"), {}),
               ));
+        }
+      },
+      handleSelfCameraAutoOff: function (t) {
+        var e = t.cameraAutoOffData;
+        if (r("WAWebCallCollection").activeCall) {
+          var n = o(
+            "WAWebVoipCameraAutoOffModal.react",
+          ).getCameraAutoOffMessage(e.reason);
+          if (n != null) {
+            var a =
+              o("WAWebVoipPopoutWindowState").getPopoutWindow() != null ||
+              o(
+                "WAWebVoipUiDocPipPortalContainer.react",
+              ).getIsDocPipWindowOpen()
+                ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
+                : o("WAWebModalManager").ModalManager;
+            a.open(
+              P.jsx(
+                o("WAWebVoipCameraAutoOffModal.react")
+                  .WAWebVoipCameraAutoOffModal,
+                {
+                  closeModal: function () {
+                    return a.close();
+                  },
+                  message: n,
+                },
+              ),
+            );
+          }
         }
       },
       handleRxTrafficStateForPeerChanged: function (t) {

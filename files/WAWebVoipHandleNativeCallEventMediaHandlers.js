@@ -256,10 +256,10 @@ __d(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
           if (t.type === "web") {
-            var n = t.parsers.parseRaiseHandStateChangedData(e);
+            var n = t.parsers.parseSelfCameraAutoOffData(e);
             o("WAWebBackendApi").frontendFireAndForget(
-              "handleRaiseHandStateChange",
-              { raiseHandData: n },
+              "handleSelfCameraAutoOff",
+              { cameraAutoOffData: n },
             );
           }
         })),
@@ -276,9 +276,10 @@ __d(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
           if (t.type === "web") {
-            var n = t.parsers.parseEncodeTargetFpsChangedData(e);
-            o("WAWebVoipEncodeTargetFpsState").updateEncodeTargetFps(
-              n.targetFps,
+            var n = t.parsers.parseRaiseHandStateChangedData(e);
+            o("WAWebBackendApi").frontendFireAndForget(
+              "handleRaiseHandStateChange",
+              { raiseHandData: n },
             );
           }
         })),
@@ -295,11 +296,30 @@ __d(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
           if (t.type === "web") {
+            var n = t.parsers.parseEncodeTargetFpsChangedData(e);
+            o("WAWebVoipEncodeTargetFpsState").updateEncodeTargetFps(
+              n.targetFps,
+            );
+          }
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("nullthrows")(
+            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+          );
+          if (t.type === "web") {
             var n = t.parsers.parseEncodeParamsChangedData(e);
             o("WAWebVoipWebCodecsEncoderState").updateWebCodecsEncodeParams(n);
           }
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
     ((l.handleVideoStateChanged = c),
@@ -310,9 +330,10 @@ __d(
       (l.handleSpeakerStatusChanged = R),
       (l.handleReactionStateChanged = E),
       (l.handleScreenShareStateChanged = I),
-      (l.handleRaiseHandStateChanged = D),
-      (l.handleEncodeTargetFpsChanged = $),
-      (l.handleEncodeParamsChanged = N),
+      (l.handleSelfCameraAutoOff = D),
+      (l.handleRaiseHandStateChanged = $),
+      (l.handleEncodeTargetFpsChanged = N),
+      (l.handleEncodeParamsChanged = w),
       (l.resetWebCodecsEncoderState = o(
         "WAWebVoipWebCodecsEncoderState",
       ).resetWebCodecsEncoderState));

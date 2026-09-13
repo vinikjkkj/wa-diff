@@ -153,7 +153,9 @@ __d(
           (o != null && o.get && (h = o.get),
             a != null && a.get && (y = a.get));
           try {
-            C = F(e.contentWindow.JSON.parse(m));
+            var i,
+              l = e.contentWindow;
+            C = F(l == null || (i = l.JSON) == null ? void 0 : i.parse(m));
           } catch (e) {
             C = !0;
           }
