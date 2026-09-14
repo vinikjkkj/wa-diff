@@ -237,6 +237,8 @@ __d(
             enable_edgeray_dtls_active_mode: e.enable_edgeray_dtls_active_mode,
             enable_web_relay_connection_stagger:
               e.enable_web_relay_connection_stagger,
+            enable_web_group_early_packet_relay_reconnect:
+              e.enable_web_group_early_packet_relay_reconnect,
           };
         },
         parseFieldstatsData: function (n) {

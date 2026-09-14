@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
+    "WAWebODS",
     "WAWebVoipSharedBufferPlaybackProcessorConfig",
     "asyncToGeneratorRuntime",
     "err",
@@ -35,29 +36,32 @@ __d(
       k,
       I,
       T,
-      D = 8192,
-      x = 16e3,
-      $ = 8,
-      P = 7,
-      N = 200,
-      M = 10,
-      w = r("err")("Audio playback start cancelled");
-    function A() {
+      D,
+      x,
+      $,
+      P = 8192,
+      N = 16e3,
+      M = 8,
+      w = 7,
+      A = 200,
+      F = 10,
+      O = r("err")("Audio playback start cancelled");
+    function B() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_voip_audio_playback_use_media_element_output",
       );
     }
-    function F(e) {
-      if (e()) throw w;
+    function W(e) {
+      if (e()) throw O;
     }
-    function O(e, t) {
-      return e === w || t();
+    function q(e, t) {
+      return e === O || t();
     }
-    function B(e) {
+    function U(e) {
       var t = e;
       return typeof t.setSinkId == "function" ? t : null;
     }
-    function W(e) {
+    function V(e) {
       return e === "direct_audio_context"
         ? "AV:SharedBuffer:Playback:AudioContext"
         : e === "media_element"
@@ -71,17 +75,17 @@ __d(
                 );
               })();
     }
-    function q(e, t) {
-      var n = Math.ceil((e * P) / 100);
+    function H(e, t) {
+      var n = Math.ceil((e * w) / 100);
       if (t <= 0) return n;
       var r = Math.ceil(n / t) * t,
         o = e > t ? e - t : e;
       return Math.min(r, o);
     }
-    function U(e, t, n) {
+    function G(e, t, n) {
       return (e - t + n) % n;
     }
-    function V(e, t, n) {
+    function z(e, t, n) {
       var r = (n * 1e3) / t,
         o = typeof e.baseLatency == "number" ? e.baseLatency * 1e3 : 0,
         a = typeof e.outputLatency == "number" ? e.outputLatency * 1e3 : 0,
@@ -99,7 +103,7 @@ __d(
       var c = i != null ? i : o > 0 && a > 0 ? o + a : Math.max(o, a);
       return { estimatedOutputLagMs: r + c };
     }
-    var H = (function () {
+    var j = (function () {
       function t() {
         var t = this;
         ((this.audioWorkletNode = null),
@@ -108,6 +112,7 @@ __d(
           (this.playbackMediaStreamDestination = null),
           (this.playbackOutputSink = null),
           (this.playbackOutputRoute = "none"),
+          (this.isMediaElementOutputForced = !1),
           (this.playbackSampleRate = 0),
           (this.ringBufferPtr = null),
           (this.hasLoggedOutputLagEstimationFailure = !1),
@@ -160,7 +165,7 @@ __d(
               function* (e, n) {
                 var r = t.playbackOutputRoute,
                   a = t.playbackOutputSink,
-                  i = W(r),
+                  i = V(r),
                   l = yield o(
                     "WAWebAudioDeviceManager",
                   ).switchAudioOutputSinkIdInternal(e, a, i, n);
@@ -184,9 +189,9 @@ __d(
           })()),
           (this.consumePlaybackMetrics = function () {
             if (t.$5 === 0) return null;
-            var e = t.playbackSampleRate > 0 ? t.playbackSampleRate : x,
+            var e = t.playbackSampleRate > 0 ? t.playbackSampleRate : N,
               n = t.$3 / t.$5,
-              r = Math.round((t.$4 / D) * 100),
+              r = Math.round((t.$4 / P) * 100),
               o = t.$9 > 0 ? Math.round(t.$7 / t.$9) : null,
               a = t.$9 > 0 ? t.$8 : null,
               i = {
@@ -241,9 +246,9 @@ __d(
                   : null;
             i != null &&
               ((this.$7 += i), this.$9++, i > this.$8 && (this.$8 = i));
-            var l = this.playbackSampleRate > 0 ? this.playbackSampleRate : x,
+            var l = this.playbackSampleRate > 0 ? this.playbackSampleRate : N,
               s = Math.round((n / l) * 1e3),
-              u = Math.round((n / D) * 100);
+              u = Math.round((n / P) * 100);
           }
         }),
         (a.startAudioPlayback = (function () {
@@ -266,18 +271,18 @@ __d(
                   throw r("err")(
                     "voip: [AV:SharedBuffer:Playback] WASM module not initialized",
                   );
-                var h = D,
-                  y = h * Float32Array.BYTES_PER_ELEMENT + $;
+                var h = P,
+                  y = h * Float32Array.BYTES_PER_ELEMENT + M;
                 ((this.ringBufferPtr =
                   yield o("WAWebAudioUtility").mallocWasmBuffer(y)),
-                  F(s));
+                  W(s));
                 var C = this.ringBufferPtr;
                 if (C == null)
                   throw r("err")(
                     "voip: [AV:SharedBuffer:Playback] Failed to allocate ring buffer",
                   );
                 var b = g.GROWABLE_HEAP_U8();
-                (b.fill(0, C, C + y), yield this.$12(a, s), F(s));
+                (b.fill(0, C, C + y), yield this.$12(a, s), W(s));
                 var v = new AudioWorkletNode(
                   a,
                   "voip-shared-buffer-playback-processor",
@@ -310,7 +315,7 @@ __d(
                       ])),
                   ),
                   yield this.waitForProcessorReady(),
-                  F(s));
+                  W(s));
                 var S = g.GROWABLE_HEAP_F32(),
                   R = S.buffer;
                 (v.port.postMessage({
@@ -320,7 +325,7 @@ __d(
                   bufferSize: h,
                 }),
                   yield this.connectOutputRoute(a, s),
-                  F(s),
+                  W(s),
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -335,9 +340,9 @@ __d(
                 ((t.$2 = c), (this.$10 = c));
                 var E = new Uint32Array(g.GROWABLE_HEAP_U8().buffer, C, 2);
                 (yield this.waitForStartupPrebufferIfNeeded(E, h, l, s),
-                  F(s),
+                  W(s),
                   yield this.$13(v, s),
-                  F(s),
+                  W(s),
                   o("WALogger").LOG(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -346,7 +351,7 @@ __d(
                   ));
               } catch (e) {
                 if (
-                  O(e, s) ||
+                  q(e, s) ||
                   (o("WALogger").ERROR(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -385,7 +390,7 @@ __d(
                       ])),
                   ),
                   yield this.workletPreloadPromise,
-                  F(t)),
+                  W(t)),
                 !this.isWorkletPreloaded)
               ) {
                 o("WALogger").LOG(
@@ -404,7 +409,7 @@ __d(
                     "voip: [AV:SharedBuffer:Playback] Missing worklet module url",
                   );
                 (yield e.audioWorklet.addModule(n),
-                  F(t),
+                  W(t),
                   o("WALogger").LOG(
                     h ||
                       (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -426,6 +431,9 @@ __d(
               if (n != null) {
                 try {
                   (yield n.play(),
+                    r("WAWebODS").incr(
+                      "web.call.audio_playback.media_element.play_ok",
+                    ),
                     o("WALogger").LOG(
                       y ||
                         (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -441,21 +449,108 @@ __d(
                       n.readyState,
                     ));
                 } catch (e) {
-                  o("WALogger").WARN(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:SharedBuffer:Playback] Audio element play failed: ",
-                        "",
-                      ])),
-                    e,
-                  );
+                  (r("WAWebODS").incr(
+                    "web.call.audio_playback.media_element.play_failed",
+                  ),
+                    o("WALogger").WARN(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:SharedBuffer:Playback] Audio element play failed: ",
+                          "",
+                        ])),
+                      e,
+                    ),
+                    W(t));
+                  var a = yield this.$14(t);
+                  a &&
+                    r("WAWebODS").incr(
+                      "web.call.audio_playback.media_element.play_failed_fallback_direct",
+                    );
                 }
-                F(t);
+                W(t);
               }
               e.port.postMessage({ type: "start" });
             },
           );
           function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.$14 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = this.playbackAudioContext,
+              n = this.audioWorkletNode,
+              r = t != null ? U(t) : null;
+            if (t == null || n == null || r == null)
+              return (
+                o("WALogger").WARN(
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Playback] media element play rejected and no direct AudioContext route is available",
+                    ])),
+                ),
+                !1
+              );
+            this.$15(n);
+            var a = yield this.$16(t, r, n, e);
+            return (
+              a &&
+                o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Playback] media element play rejected, fell back to direct AudioContext output",
+                    ])),
+                ),
+              a
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.$15 = function (t) {
+          var e = this.playbackAudioElement;
+          e != null &&
+            (e.pause(),
+            (e.srcObject = null),
+            (this.playbackAudioElement = null));
+          var n = this.playbackMediaStreamDestination;
+          (n != null &&
+            (t.disconnect(),
+            n.disconnect(),
+            (this.playbackMediaStreamDestination = null)),
+            (this.playbackOutputSink = null),
+            (this.playbackOutputRoute = "none"),
+            (this.isMediaElementOutputForced = !1));
+        }),
+        (a.$16 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r) {
+              var a = yield o(
+                "WAWebAudioDeviceManager",
+              ).applyPreferredAudioOutputSink(
+                t,
+                "AV:SharedBuffer:Playback:AudioContext",
+              );
+              return r()
+                ? !1
+                : (n.connect(e.destination),
+                  (this.playbackOutputSink = t),
+                  (this.playbackOutputRoute = "direct_audio_context"),
+                  o("WALogger").LOG(
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:SharedBuffer:Playback] connected worklet directly to AudioContext.destination, setSinkIdApplied=",
+                        "",
+                      ])),
+                    String(a),
+                  ),
+                  !0);
+            },
+          );
+          function t(t, n, r, o) {
             return e.apply(this, arguments);
           }
           return t;
@@ -495,9 +590,9 @@ __d(
         (a.connectOutputRoute = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = B(e),
+              var n = U(e),
                 r = this.audioWorkletNode,
-                a = A(),
+                a = B(),
                 i =
                   typeof e.baseLatency == "number"
                     ? Math.round(e.baseLatency * 1e3)
@@ -508,8 +603,8 @@ __d(
                     : null;
               if (
                 (o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:SharedBuffer:Playback] selecting output route: forceMediaElement=",
                       ", audioContextSetSinkId=",
                       ", requestedSampleRate=",
@@ -529,28 +624,12 @@ __d(
                 ),
                 !a && n != null && r != null)
               ) {
-                var s = yield o(
-                  "WAWebAudioDeviceManager",
-                ).applyPreferredAudioOutputSink(
-                  n,
-                  "AV:SharedBuffer:Playback:AudioContext",
-                );
-                if (t()) return;
-                (r.connect(e.destination),
-                  (this.playbackOutputSink = n),
-                  (this.playbackOutputRoute = "direct_audio_context"),
-                  o("WALogger").LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:SharedBuffer:Playback] connected worklet directly to AudioContext.destination, setSinkIdApplied=",
-                        "",
-                      ])),
-                    String(s),
-                  ));
+                yield this.$16(e, n, r, t);
                 return;
               }
-              ((this.playbackMediaStreamDestination =
-                e.createMediaStreamDestination()),
+              ((this.isMediaElementOutputForced = a && n != null),
+                (this.playbackMediaStreamDestination =
+                  e.createMediaStreamDestination()),
                 this.audioWorkletNode != null &&
                   this.audioWorkletNode.connect(
                     this.playbackMediaStreamDestination,
@@ -559,29 +638,29 @@ __d(
                 this.playbackMediaStreamDestination != null &&
                   (this.playbackAudioElement.srcObject =
                     this.playbackMediaStreamDestination.stream));
-              var u = this.playbackAudioElement,
-                c = !1;
-              if (u != null) {
+              var s = this.playbackAudioElement,
+                u = !1;
+              if (s != null) {
                 if (
-                  ((c = yield o(
+                  ((u = yield o(
                     "WAWebAudioDeviceManager",
                   ).applyPreferredAudioOutputSink(
-                    u,
+                    s,
                     "AV:SharedBuffer:Playback:AudioElement",
                   )),
                   t())
                 )
                   return;
-                ((this.playbackOutputSink = u),
+                ((this.playbackOutputSink = s),
                   (this.playbackOutputRoute = "media_element"));
               }
               o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Playback] connected worklet through MediaStreamDestination audio element, setSinkIdApplied=",
                     "",
                   ])),
-                String(c),
+                String(u),
               );
             },
           );
@@ -595,9 +674,18 @@ __d(
             function* (e, t, n, r) {
               if (this.playbackOutputRoute === "direct_audio_context") {
                 o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:SharedBuffer:Playback] Skipping startup pre-buffer for direct AudioContext output route",
+                    ])),
+                );
+                return;
+              }
+              if (this.isMediaElementOutputForced) {
+                o("WALogger").LOG(
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Playback] Skipping startup pre-buffer for forced media element output route",
                     ])),
                 );
                 return;
@@ -613,20 +701,20 @@ __d(
         (a.waitForPrebuffer = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r) {
-              for (var a = q(t, n), i = self.performance.now(), l = 0; ; ) {
+              for (var a = H(t, n), i = self.performance.now(), l = 0; ; ) {
                 if (r()) return;
                 var s = Atomics.load(e, 0),
                   u = Atomics.load(e, 1);
-                if (((l = U(s, u, t)), l >= a)) break;
+                if (((l = G(s, u, t)), l >= a)) break;
                 var c = self.performance.now() - i;
-                if (c >= N) break;
-                var d = Math.min(M, Math.max(0, N - c));
+                if (c >= A) break;
+                var d = Math.min(F, Math.max(0, A - c));
                 if ((yield o("WAPromiseDelays").delayMs(d), r())) return;
               }
               var m = self.performance.now() - i;
               o("WALogger").LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                I ||
+                  (I = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Playback] Pre-buffer wait complete: reason=",
                     ", buffered=",
                     " samples, target=",
@@ -658,8 +746,8 @@ __d(
                     this.$10 === n && (this.$10 = null));
                 } catch (e) {
                   o("WALogger").WARN(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Playback] Error stopping writer thread: ",
                         "",
                       ])),
@@ -689,8 +777,8 @@ __d(
                   yield o("WAWebAudioUtility").freeWasmBuffer(l);
                 } catch (e) {
                   o("WALogger").WARN(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Playback] Error freeing ring buffer: ",
                         "",
                       ])),
@@ -703,6 +791,7 @@ __d(
                 (this.isWorkletPreloaded = !1),
                 (this.playbackOutputSink = null),
                 (this.playbackOutputRoute = "none"),
+                (this.isMediaElementOutputForced = !1),
                 (this.playbackAudioContext = null),
                 (this.playbackSampleRate = 0),
                 (this.hasLoggedOutputLagEstimationFailure = !1),
@@ -716,8 +805,8 @@ __d(
                 (this.$9 = 0));
             } catch (e) {
               o("WALogger").ERROR(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                x ||
+                  (x = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Playback] Cleanup error: ",
                     "",
                   ])),
@@ -744,16 +833,16 @@ __d(
             var a = new Uint32Array(r.GROWABLE_HEAP_U8().buffer, t, 2),
               i = Atomics.load(a, 0),
               l = Atomics.load(a, 1),
-              s = U(i, l, D),
-              u = V(e, n, s);
+              s = G(i, l, P),
+              u = z(e, n, s);
             return Math.max(0, Math.round((u.estimatedOutputLagMs * n) / 1e3));
           } catch (e) {
             return (
               this.hasLoggedOutputLagEstimationFailure ||
                 ((this.hasLoggedOutputLagEstimationFailure = !0),
                 o("WALogger").WARN(
-                  T ||
-                    (T = babelHelpers.taggedTemplateLiteralLoose([
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:SharedBuffer:Playback] Failed to estimate output lag: ",
                       "",
                     ])),
@@ -766,9 +855,9 @@ __d(
         t
       );
     })();
-    ((H.$1 = 0),
-      (H.$2 = null),
-      (l.WAWebVoipAudioPlaybackSharedBufferWorklet = H));
+    ((j.$1 = 0),
+      (j.$2 = null),
+      (l.WAWebVoipAudioPlaybackSharedBufferWorklet = j));
   },
   98,
 );
