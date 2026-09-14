@@ -1,6 +1,7 @@
 __d(
   "WebBloksCollectionChildBase",
   [
+    "WebBloksCollectionMinificationKeys",
     "WebBloksComponentContext",
     "react-compiler-runtime",
     "useWebBloksCollectionChildSizes",
@@ -17,11 +18,17 @@ __d(
         u = s.renderNode,
         c;
       t[0] !== n
-        ? ((c = n.get("direction")), (t[0] = n), (t[1] = c))
+        ? ((c = n.get(
+            o("WebBloksCollectionMinificationKeys").COLLECTION_DIRECTION,
+          )),
+          (t[0] = n),
+          (t[1] = c))
         : (c = t[1]);
       var d = c,
-        m = n.get("snap"),
-        p = n.get("snap_style"),
+        m = n.get(o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP),
+        p = n.get(
+          o("WebBloksCollectionMinificationKeys").COLLECTION_SNAP_STYLE,
+        ),
         _;
       t[2] !== d || t[3] !== i
         ? ((_ = { node: i, direction: d }), (t[2] = d), (t[3] = i), (t[4] = _))

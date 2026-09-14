@@ -474,8 +474,7 @@ __d(
         w.apply(this, arguments)
       );
     }
-    ((l.handleSharableEventResponse = S),
-      (l.mexHandleSharableEventInviteNotification = L),
+    ((l.mexHandleSharableEventInviteNotification = L),
       (l.mexHandleSharableEventUpdateNotification = k),
       (l.mexHandleSharableEventRsvpNotification = T),
       (l.mexHandleSharableEventDeleteNotification = x),

@@ -2,6 +2,7 @@ __d(
   "WebBloksFieldset",
   [
     "WebBloksComponentContext",
+    "WebBloksConstants",
     "WebBloksStyle",
     "react",
     "react-compiler-runtime",
@@ -16,7 +17,9 @@ __d(
         a = r.renderChildren,
         i;
       t[0] !== n || t[1] !== a
-        ? ((i = a(n.getSubNodes("children"))),
+        ? ((i = a(
+            n.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY),
+          )),
           (t[0] = n),
           (t[1] = a),
           (t[2] = i))

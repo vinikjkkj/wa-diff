@@ -261,8 +261,6 @@ __d(
     })();
     ((l.ENCRYPTED_COLUMN_NAME = e),
       (l.HKDF_SEED_LENGTH_IN_BYTES = s),
-      (l.ADDITIONAL_DATA_LENGTH_IN_BYTES = u),
-      (l.ENC_KEY_TTL = m),
       (l.EncryptionError = p),
       (l.DecryptionError = _),
       (l.WormEar = g));

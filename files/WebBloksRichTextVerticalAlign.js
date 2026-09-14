@@ -6,52 +6,43 @@ __d(
       s = e || (e = o("react")),
       u = e.useMemo;
     function c(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.children,
-        r = e.dimensions,
-        a = e.node,
-        i;
-      t[0] !== a
-        ? ((i = a.get("baseline_spacing")), (t[0] = a), (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        u;
-      t[2] !== a
-        ? ((u = a.get("cap_spacing")), (t[2] = a), (t[3] = u))
-        : (u = t[3]);
-      var c = u,
-        d;
-      t[4] !== l || t[5] !== c || t[6] !== r.lineHeight || t[7] !== r.textSizePx
-        ? ((d = o("WebBloksTextStyle").getVerticalSpacingStyles(
-            r.lineHeight,
-            r.textSizePx,
-            { baseline_spacing: l, cap_spacing: c },
+      var t = o("react-compiler-runtime").c(11),
+        n = e.baselineSpacing,
+        r = e.capSpacing,
+        a = e.children,
+        i = e.dimensions,
+        l;
+      t[0] !== n || t[1] !== r || t[2] !== i.lineHeight || t[3] !== i.textSizePx
+        ? ((l = o("WebBloksTextStyle").getVerticalSpacingStyles(
+            i.lineHeight,
+            i.textSizePx,
+            { baseline_spacing: n, cap_spacing: r },
           )),
-          (t[4] = l),
-          (t[5] = c),
-          (t[6] = r.lineHeight),
-          (t[7] = r.textSizePx),
-          (t[8] = d))
-        : (d = t[8]);
-      var m = d;
-      if (m.transform == null && m.paddingBottom === 0 && m.paddingTop === 0)
-        return n;
-      var p;
-      t[9] !== r.textSizePx || t[10] !== m
-        ? ((p = babelHelpers.extends({ fontSize: r.textSizePx }, m)),
-          (t[9] = r.textSizePx),
-          (t[10] = m),
-          (t[11] = p))
-        : (p = t[11]);
-      var _;
+          (t[0] = n),
+          (t[1] = r),
+          (t[2] = i.lineHeight),
+          (t[3] = i.textSizePx),
+          (t[4] = l))
+        : (l = t[4]);
+      var u = l;
+      if (u.transform == null && u.paddingBottom === 0 && u.paddingTop === 0)
+        return a;
+      var c;
+      t[5] !== i.textSizePx || t[6] !== u
+        ? ((c = babelHelpers.extends({ fontSize: i.textSizePx }, u)),
+          (t[5] = i.textSizePx),
+          (t[6] = u),
+          (t[7] = c))
+        : (c = t[7]);
+      var d;
       return (
-        t[12] !== n || t[13] !== p
-          ? ((_ = s.jsx("div", { style: p, children: n })),
-            (t[12] = n),
-            (t[13] = p),
-            (t[14] = _))
-          : (_ = t[14]),
-        _
+        t[8] !== a || t[9] !== c
+          ? ((d = s.jsx("div", { style: c, children: a })),
+            (t[8] = a),
+            (t[9] = c),
+            (t[10] = d))
+          : (d = t[10]),
+        d
       );
     }
     l.default = c;

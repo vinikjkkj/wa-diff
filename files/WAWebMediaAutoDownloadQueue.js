@@ -5,6 +5,7 @@ __d(
     "WAConcurrentPriorityPromiseQueue",
     "WALogger",
     "WAWebDownloadProgressiveJpegThumbnail",
+    "WAWebDualUploadsAutoDownloadPolicy",
     "WAWebMedia",
     "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaGatingUtils",
@@ -44,6 +45,12 @@ __d(
       return t || o("WAWebMsgModelPropUtils").isTrusted(e.unsafe());
     }
     function y(e) {
+      if (
+        !o(
+          "WAWebDualUploadsAutoDownloadPolicy",
+        ).shouldAutoDownloadAssociatedChild(e)
+      )
+        return !1;
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
         case o("WAWebMsgType").MSG_TYPE.PTT:
@@ -144,14 +151,18 @@ __d(
                   !0
                 );
               if (
-                e.type === o("WAWebMsgType").MSG_TYPE.IMAGE ||
-                e.type === o("WAWebMsgType").MSG_TYPE.VIDEO ||
-                e.type === o("WAWebMsgType").MSG_TYPE.PTV
+                (e.type === o("WAWebMsgType").MSG_TYPE.IMAGE ||
+                  e.type === o("WAWebMsgType").MSG_TYPE.VIDEO ||
+                  e.type === o("WAWebMsgType").MSG_TYPE.PTV) &&
+                !o("WAWebDualUploadsAutoDownloadPolicy").isDualUploadHdChildMsg(
+                  e,
+                )
               )
                 return (this.$6({ message: e, group: "mms_thumbnail" }), !0);
             }
             return n === d.PJPEG_THUMBNAIL &&
-              e.type === o("WAWebMsgType").MSG_TYPE.IMAGE
+              e.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
+              !o("WAWebDualUploadsAutoDownloadPolicy").isDualUploadHdChildMsg(e)
               ? (this.$7({ message: e, group: "mms_thumbnail" }), !0)
               : !1;
           }),

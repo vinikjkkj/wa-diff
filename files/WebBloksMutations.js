@@ -45,7 +45,7 @@ __d(
                   if ((s == null ? void 0 : s.getId()) === this.id) return !0;
               if (i)
                 for (var u of i) {
-                  var c = t.getSubNode(u);
+                  var c = t.get(u);
                   if (
                     c instanceof o("WebBloksModel").WebBloksModel &&
                     (c == null ? void 0 : c.getId()) === this.id
@@ -68,13 +68,14 @@ __d(
         },
       });
     }
-    function d(t, n, r, o) {
+    function d(t, n, r, a) {
+      var i = o("WebBloksModel").defineWebBloksAttributeKey(r);
       t.enqueueUpdateOperation(new e(n.clientId), {
         update: function (t) {
-          t.setWireValue(r, o);
+          t.set(i, a);
         },
         shouldUpdate: function (t) {
-          return t.getWireValue(r) !== o;
+          return t.getUntyped(i) !== a;
         },
       });
     }
@@ -113,7 +114,7 @@ __d(
       (l.ServerIdTarget = s),
       (l.ChildServerIdTarget = u),
       (l.updateProperty = c),
-      (l.updateWireProperty = d),
+      (l.updateMinifiedProperty = d),
       (l.addChildToContainer = m),
       (l.warn = _));
   },

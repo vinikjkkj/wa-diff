@@ -28,8 +28,9 @@ __d(
       u = 0,
       c = { isModal: !1, addToBackStack: !0, isEmbedded: !1 },
       d = "[wbloks] Missing AppLoader",
-      m = "WEBBLOKS_INFRA_SCREEN_";
-    function p(e, t, n, a) {
+      m = "WEBBLOKS_INFRA_SCREEN_",
+      p = o("WebBloksModel").defineWebBloksAttributeKey("#");
+    function _(e, t, n, a) {
       var i = o("WebBloksUtils").nullthrows(e.treeManager),
         l = new (r("WebBloksInterpreterEnvironment"))(i.bloksContext),
         s = new Map();
@@ -62,7 +63,7 @@ __d(
       s.size > 0 &&
         (i.treeResourcesState = i.treeResourcesState.withVariableUpdates(s));
     }
-    var _ = (function () {
+    var f = (function () {
       function e(e, t, n, r, a) {
         var i;
         (n === void 0 && (n = o("WebBloksUtils").EMPTY_OBJECT),
@@ -110,7 +111,7 @@ __d(
               t.parseResult.unboundModel.styleId ===
                 o("WebBloksConstants").BK_INTERNAL_ACTION)
             ) {
-              var a = t.parseResult.unboundModel.getExpression("handler");
+              var a = t.parseResult.unboundModel.getExpression(p);
               if (a != null) {
                 var i = new (o(
                   "WebBloksComponentContext",
@@ -195,8 +196,7 @@ __d(
               t.traversalKeys,
               t.minificationMap,
               void 0,
-              t.unminificationMap,
-              t.useMinification || t.unminificationMap != null,
+              t.loadedMinificationMaps.unminificationMap,
             );
           return e.fromBloksParseResult(n, s, a, i, l);
         }),
@@ -207,38 +207,30 @@ __d(
         }),
         (e.fromScreenQuerySSRPayload = function (n, a, i, l, s, u) {
           var t = n.environment,
-            c = t.minificationMap,
-            d = t.traversalKeys,
-            m = t.unminificationMap,
-            _ = t.useMinification,
-            f = o("WebBloksPayloadParser").parseTree(
-              a,
-              d,
-              c,
-              void 0,
-              m,
-              _ || m != null,
-            ),
+            c = t.loadedMinificationMaps,
+            d = t.minificationMap,
+            m = t.traversalKeys,
+            p = c.unminificationMap,
+            f = o("WebBloksPayloadParser").parseTree(a, m, d, void 0, p),
             g = o("WebBloksScopedIds").extendKeyPath(),
-            h = f.unboundModel.makeDeepCopyWithNewClientIds(g, d),
+            h = f.unboundModel.makeDeepCopyWithNewClientIds(g, m),
             y = f.resources;
           f.resources.componentQueries.length > 0 &&
             ((y = f.resources.clone()),
             (y.componentQueries = y.componentQueries.map(function (e) {
               return o(
                 "WebBloksScopedComponentQueryDefinition",
-              ).generateTreeScopedComponentQueryDefFromScopedDef(h, e, d);
+              ).generateTreeScopedComponentQueryDefFromScopedDef(h, e, m);
             })));
           var C = new (r("WebBloksParseResult"))(h, y),
             b;
           if (i != null) {
             var v = o("WebBloksModelParser").parseBloksModelFromJSON(
               o("WebBloksUtils").cast(i),
-              d,
-              c,
-              null,
               m,
-              _ || m != null,
+              d,
+              null,
+              p,
             );
             if (o("WebBloksModel").isWebBloksModel(v)) {
               var S = n.getContainerConfigModuleForName(v.styleId);
@@ -255,7 +247,7 @@ __d(
             u != null &&
               u.length > 0 &&
               R.treeManager != null &&
-              p(R, n, u, o("WebBloksScopedIds").buildKeypathBase(g)),
+              _(R, n, u, o("WebBloksScopedIds").buildKeypathBase(g)),
             R
           );
         }),
@@ -286,7 +278,7 @@ __d(
               s.startNavigationCallback(a);
           }
           return (
-            f(
+            g(
               n,
               t,
               o("WebBloksUtils")
@@ -305,7 +297,7 @@ __d(
               s.startNavigationCallback(r);
           }
           return (
-            f(
+            g(
               n,
               t,
               o("WebBloksUtils")
@@ -323,7 +315,7 @@ __d(
         e
       );
     })();
-    function f(e, t, n) {
+    function g(e, t, n) {
       n.then(function (n) {
         if (t.value.state !== "destroyed") {
           var r = babelHelpers.extends({}, n);
@@ -355,9 +347,7 @@ __d(
             e.environment.traversalKeys,
             e.environment.minificationMap,
             void 0,
-            e.environment.unminificationMap,
-            e.environment.useMinification ||
-              e.environment.unminificationMap != null,
+            e.environment.loadedMinificationMaps.unminificationMap,
           );
           (t.setState({ state: "ready", parseResult: s }),
             i != null && e.pushStackedScreens(i.stacked_screens, t.params));
@@ -383,7 +373,7 @@ __d(
         t.setState({ state: "error", error: n });
       });
     }
-    l.WebBloksScreen = _;
+    l.WebBloksScreen = f;
   },
   98,
 );

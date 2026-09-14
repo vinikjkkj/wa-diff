@@ -5,18 +5,19 @@ __d(
     "use strict";
     function e(t, n, r) {
       var a = n.apply(t),
-        i = !!a.get(o("WebBloksConstants").ON_BIND),
+        i = !!a.getUntyped(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY),
         l = r[a.styleId];
       if (l) {
         if (l.subnodes)
           for (var s of l.subnodes) {
-            var u = a.getSubNode(s);
+            var u = a.getUntyped(s);
             if (u instanceof o("WebBloksModel").WebBloksModel) {
               var c = e(u, n, r);
               (c !== u && (a === t && (a = t.makeCopy()), a.set(s, c)),
                 (i =
                   i ||
-                  c.get(o("WebBloksConstants").DESCENDANT_HAS_BIND) !== !1));
+                  c.getUntyped(o("WebBloksConstants").DESCENDANT_HAS_BIND) !==
+                    !1));
             }
           }
         if (l.plural_subnodes)
@@ -32,7 +33,8 @@ __d(
                 (g !== f && (p === m && (p = m.slice()), (p[_] = g)),
                   (i =
                     i ||
-                    g.get(o("WebBloksConstants").DESCENDANT_HAS_BIND) !== !1));
+                    g.getUntyped(o("WebBloksConstants").DESCENDANT_HAS_BIND) !==
+                      !1));
               }
             }
             p !== m && (a === t && (a = t.makeCopy()), a.set(d, p));

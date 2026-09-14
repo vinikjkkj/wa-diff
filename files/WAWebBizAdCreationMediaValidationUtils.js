@@ -25,11 +25,26 @@ __d(
         CROSS_MEDIA_VIDEO_ADDED: function () {
           return s._(/*BTDS*/ "Video added. Previous image removed.");
         },
+        IMAGES_REJECTED_WITH_EXISTING_VIDEO: function () {
+          return s._(
+            /*BTDS*/ "Photos can't be added when a video is selected.",
+          );
+        },
+        MIXED_MEDIA_VIDEO_DROPPED: function () {
+          return s._(
+            /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
+          );
+        },
         TOO_MANY_IMAGES: function () {
           return s._(/*BTDS*/ "Kept first 10 images. Limit reached.");
         },
         TOO_MANY_VIDEOS: function () {
           return s._(/*BTDS*/ "Kept first video. Limit reached.");
+        },
+        VIDEO_REJECTED_WITH_EXISTING_MEDIA: function () {
+          return s._(
+            /*BTDS*/ "Videos can't be added when images are selected.",
+          );
         },
       };
     function _(e) {

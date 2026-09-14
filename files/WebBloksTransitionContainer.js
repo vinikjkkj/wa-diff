@@ -2,7 +2,9 @@ __d(
   "WebBloksTransitionContainer",
   [
     "WebBloksComponentContext",
+    "WebBloksConstants",
     "WebBloksStyle",
+    "WebBloksTransitionContainerMinificationKeys",
     "react",
     "react-compiler-runtime",
   ],
@@ -23,17 +25,30 @@ __d(
         a = e.node,
         i;
       n[0] !== a
-        ? ((i = a.get("crossfade")), (n[0] = a), (n[1] = i))
+        ? ((i = a.get(
+            o("WebBloksTransitionContainerMinificationKeys")
+              .TRANSITION_CONTAINER_CROSSFADE,
+          )),
+          (n[0] = a),
+          (n[1] = i))
         : (i = n[1]);
       var l = i,
         u;
       n[2] !== a
-        ? ((u = a.getSubNodes("children")), (n[2] = a), (n[3] = u))
+        ? ((u = a.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY)),
+          (n[2] = a),
+          (n[3] = u))
         : (u = n[3]);
       var c = u,
         d = c[0],
         p = c[1],
-        g = (t = a.get("progress")) != null ? t : 0,
+        g =
+          (t = a.get(
+            o("WebBloksTransitionContainerMinificationKeys")
+              .TRANSITION_CONTAINER_PROGRESS,
+          )) != null
+            ? t
+            : 0,
         b = o("WebBloksStyle").useStyle(a, r),
         v = b.style,
         S = b.wrapper,

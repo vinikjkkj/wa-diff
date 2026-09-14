@@ -50,8 +50,7 @@ __d(
                   e.appLoader,
                   e.traversalKeys,
                   e.minificationMap,
-                  e.unminificationMap,
-                  e.useMinification || e.unminificationMap != null,
+                  e.loadedMinificationMaps.unminificationMap,
                 )),
           (this.mountEffectsQueue = new (r("WebBloksMountEffectsQueue"))()));
       }
@@ -104,7 +103,7 @@ __d(
               "WebBloksScreenQuery response missing both ssr_payload and open_screen_script",
             );
           var u = new (r("WebBloksParseResult"))(
-              new (o("WebBloksModel").WebBloksModel)("-2", {}),
+              o("WebBloksModel").createSyntheticWebBloksModel("-2"),
               new (o("WebBloksTreeResources").WebBloksTreeResources)(),
             ),
             c = new (r("WebBloksTreeManager"))(u),
@@ -184,7 +183,10 @@ __d(
                     e.navigationManager.push(l));
                 }
               };
-            r > 0 ? window.setTimeout(i, r) : i();
+            if (r > 0) {
+              if (!o("WebBloksSSRUtils").canUseDOM) return;
+              window.setTimeout(i, r);
+            } else i();
           }
         }),
         (t.getComponentForName = function (t) {

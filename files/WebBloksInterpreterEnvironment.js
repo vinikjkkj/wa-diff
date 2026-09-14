@@ -165,41 +165,39 @@ __d(
               var u,
                 c,
                 d = r.environment,
-                m = d.minificationMap,
-                p = d.traversalKeys,
-                _ = d.unminificationMap,
-                f = d.useMinification,
-                g = f || _ != null;
+                m = d.loadedMinificationMaps,
+                p = d.minificationMap,
+                _ = d.traversalKeys,
+                f = m.unminificationMap;
               if (i != null) {
                 u = i;
-                var h = null;
-                c = o("WebBloksPayloadParser").parseAction(s, p, m, h, _, g);
+                var g = null;
+                c = o("WebBloksPayloadParser").parseAction(s, _, p, g, f);
               } else if (l != null) {
-                var y = l[o("WebBloksConstants").BK_INTERNAL_ACTION];
-                ((u = y.handler),
+                var h = l[o("WebBloksConstants").BK_INTERNAL_ACTION];
+                ((u = h.handler),
                   (c = o("WebBloksPayloadParser").parseTree(
                     s,
-                    p,
-                    m,
-                    void 0,
                     _,
-                    g,
+                    p,
+                    void 0,
+                    f,
                   )));
               } else
                 throw new (o("WebBloksErrors").WebBloksError)(
                   "No bloks action found in response",
                 );
-              var C = o(
+              var y = o(
                   "WebBloksExternalVariables",
                 ).getProcessedDataPropEntries(c.resources),
-                b = o(
+                C = o(
                   "WebBloksExternalVariables",
-                ).getProcessedExternalVariables(n, C);
-              a.synchronouslyAddTreeResources(c, b);
-              var v = this.createBloksModelScopedContext(
+                ).getProcessedExternalVariables(n, y);
+              a.synchronouslyAddTreeResources(c, C);
+              var b = this.createBloksModelScopedContext(
                 o("WebBloksUtils").EMPTY_KEY_PATH,
               );
-              return v.execute(u, [this.bloksContext]);
+              return b.execute(u, [this.bloksContext]);
             } finally {
               a.endUpdates();
             }

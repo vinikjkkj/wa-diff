@@ -1,14 +1,17 @@
 __d(
   "WebBloksDragExtensionHandler",
-  ["WebBloksUtils"],
+  ["WebBloksModel", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 200,
       s = "ease-out",
-      u = 4,
-      c = { axis: "vertical", allowsPositive: !0, allowsNegative: !1 },
-      d = new Map([
-        ["down", c],
+      u = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      c = o("WebBloksModel").defineWebBloksAttributeKey("$"),
+      d = o("WebBloksModel").defineWebBloksAttributeKey("&"),
+      m = 4,
+      p = { axis: "vertical", allowsPositive: !0, allowsNegative: !1 },
+      _ = new Map([
+        ["down", p],
         ["up", { axis: "vertical", allowsPositive: !1, allowsNegative: !0 }],
         [
           "vertical",
@@ -28,24 +31,22 @@ __d(
         ],
         ["both", { axis: "both", allowsPositive: !0, allowsNegative: !0 }],
       ]);
-    function m(e) {
+    function f(e) {
       return e.axis === "both"
         ? "none"
         : e.axis === "vertical"
           ? "pan-x pinch-zoom"
           : "pan-y pinch-zoom";
     }
-    function p(e, t) {
+    function g(e, t) {
       for (var n = 0; n < e.length; n++) if (e[n].identifier === t) return e[n];
       return null;
     }
-    function _(e) {
+    function h(e) {
       var t, n;
-      return (t = d.get((n = e.get("direction")) != null ? n : "")) != null
-        ? t
-        : c;
+      return (t = _.get((n = e.get(u)) != null ? n : "")) != null ? t : p;
     }
-    function f(e, t) {
+    function y(e, t) {
       return e > 0
         ? t.allowsPositive
           ? e
@@ -54,11 +55,11 @@ __d(
           ? e
           : 0;
     }
-    var g = {
+    var C = {
         getStyles: function (t) {
-          if (t.get("on_drag_end") == null) return {};
-          var e = _(t);
-          return { pointerEvents: "auto", touchAction: m(e) };
+          if (t.get(d) == null) return {};
+          var e = h(t);
+          return { pointerEvents: "auto", touchAction: f(e) };
         },
         onMount: function (n, r, a) {
           var t,
@@ -67,127 +68,127 @@ __d(
                 ? void 0
                 : t.current;
           if (i != null) {
-            var l = n.getExpression("on_drag_begin"),
-              c = n.getExpression("on_drag_end");
-            if (c != null) {
-              var d = 0,
-                m = 0,
-                g = 0,
-                h = 0,
-                y = null,
-                C = !1,
-                b = 0,
-                v = 0,
-                S = null,
-                R = function (t, n) {
+            var l = n.getExpression(c),
+              u = n.getExpression(d);
+            if (u != null) {
+              var p = 0,
+                _ = 0,
+                f = 0,
+                C = 0,
+                b = null,
+                v = !1,
+                S = 0,
+                R = 0,
+                L = null,
+                E = function (t, n) {
                   return "translate(" + t + "px, " + n + "px)";
                 },
-                L = function (n, r) {
+                k = function (n, r) {
                   ((i.style.transition = r ? "transform " + e + "ms " + s : ""),
                     (i.style.transform = n));
                 },
-                E = function () {
+                I = function () {
                   ((i.style.transition = ""), (i.style.transform = ""));
                 },
-                k = function () {
-                  S != null && (window.clearTimeout(S), (S = null));
+                T = function () {
+                  L != null && (window.clearTimeout(L), (L = null));
                 },
-                I = function () {
-                  (L(R(d, m), !0),
-                    (S = window.setTimeout(function () {
-                      ((S = null), d === 0 && m === 0 && E());
+                D = function () {
+                  (k(E(p, _), !0),
+                    (L = window.setTimeout(function () {
+                      ((L = null), p === 0 && _ === 0 && I());
                     }, e)));
                 },
-                T = function () {
-                  ((d += g), (m += h), L(R(d, m), !1));
-                },
-                D = function (t) {
-                  return o("WebBloksUtils").isBloksModelEnabled(r.current)
-                    ? a.executeCatch(n, c, [g, h, t]) === !0
-                    : !1;
-                },
                 x = function () {
-                  ((y = null), C && (D(!1) ? T() : I()));
+                  ((p += f), (_ += C), k(E(p, _), !1));
                 },
                 $ = function (t) {
-                  if (y == null) {
+                  return o("WebBloksUtils").isBloksModelEnabled(r.current)
+                    ? a.executeCatch(n, u, [f, C, t]) === !0
+                    : !1;
+                },
+                P = function () {
+                  ((b = null), v && ($(!1) ? x() : D()));
+                },
+                N = function (t) {
+                  if (b == null) {
                     var e = t.changedTouches[0];
                     e != null &&
-                      ((y = e.identifier),
-                      (C = !1),
-                      (g = 0),
-                      (h = 0),
-                      (b = e.clientX),
-                      (v = e.clientY));
+                      ((b = e.identifier),
+                      (v = !1),
+                      (f = 0),
+                      (C = 0),
+                      (S = e.clientX),
+                      (R = e.clientY));
                   }
                 },
-                P = function (t) {
-                  var e = y;
+                M = function (t) {
+                  var e = b;
                   if (e != null) {
-                    var i = p(t.touches, e);
+                    var i = g(t.touches, e);
                     if (i != null) {
-                      var s = _(n),
-                        c = i.clientY - v,
-                        S = i.clientX - b;
-                      if (!C) {
-                        if (Math.abs(c) < u && Math.abs(S) < u) return;
+                      var s = h(n),
+                        u = i.clientY - R,
+                        c = i.clientX - S;
+                      if (!v) {
+                        if (Math.abs(u) < m && Math.abs(c) < m) return;
                         if (s.axis !== "both") {
-                          var E = s.axis === "vertical" ? c : S,
-                            I = s.axis === "vertical" ? S : c;
+                          var d = s.axis === "vertical" ? u : c,
+                            L = s.axis === "vertical" ? c : u;
                           if (
-                            Math.abs(E) <= Math.abs(I) ||
-                            (E > 0 && !s.allowsPositive) ||
-                            (E < 0 && !s.allowsNegative)
+                            Math.abs(d) <= Math.abs(L) ||
+                            (d > 0 && !s.allowsPositive) ||
+                            (d < 0 && !s.allowsNegative)
                           ) {
-                            y = null;
+                            b = null;
                             return;
                           }
                         }
-                        ((C = !0),
-                          k(),
+                        ((v = !0),
+                          T(),
                           l != null &&
                             o("WebBloksUtils").isBloksModelEnabled(r.current) &&
                             a.executeCatch(n, l, []));
                       }
                       (t.preventDefault(),
-                        (g = s.axis === "vertical" ? 0 : f(S, s)),
-                        (h = s.axis === "horizontal" ? 0 : f(c, s)),
-                        L(R(d + g, m + h), !1));
+                        (f = s.axis === "vertical" ? 0 : y(c, s)),
+                        (C = s.axis === "horizontal" ? 0 : y(u, s)),
+                        k(E(p + f, _ + C), !1));
                     }
                   }
                 },
-                N = function (t) {
-                  var e = y;
-                  e == null || p(t.changedTouches, e) == null || x();
+                w = function (t) {
+                  var e = b;
+                  e == null || g(t.changedTouches, e) == null || P();
                 },
-                M = function () {
-                  var e = y != null && C;
-                  ((y = null), e && (D(!0), I()));
+                A = function () {
+                  var e = b != null && v;
+                  ((b = null), e && ($(!0), D()));
                 };
               return (
                 i.addEventListener(
                   "touchstart",
-                  $,
+                  N,
                   o("WebBloksUtils").passiveTouchEventOptions,
                 ),
-                i.addEventListener("touchmove", P, { passive: !1 }),
-                i.addEventListener("touchend", N),
-                i.addEventListener("touchcancel", M),
+                i.addEventListener("touchmove", M, { passive: !1 }),
+                i.addEventListener("touchend", w),
+                i.addEventListener("touchcancel", A),
                 function () {
-                  (k(),
-                    E(),
-                    i.removeEventListener("touchstart", $),
-                    i.removeEventListener("touchmove", P),
-                    i.removeEventListener("touchend", N),
-                    i.removeEventListener("touchcancel", M));
+                  (T(),
+                    I(),
+                    i.removeEventListener("touchstart", N),
+                    i.removeEventListener("touchmove", M),
+                    i.removeEventListener("touchend", w),
+                    i.removeEventListener("touchcancel", A));
                 }
               );
             }
           }
         },
       },
-      h = g;
-    l.default = h;
+      b = C;
+    l.default = b;
   },
   98,
 );

@@ -67,7 +67,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    ((l.PostProcessingManager = s), (l.processDownloadedModel = d));
+    l.processDownloadedModel = d;
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebContactManagerFilterRegistry",
   [
+    "WAWebBizLabelUtils",
     "WAWebBoolFunc",
     "WAWebChatCollection",
     "WAWebContactManagerCustomerProfileDecoders",
@@ -106,7 +107,7 @@ __d(
               r(a);
           }
           return function (t) {
-            var r = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
+            var r = o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
               String(t.chatJid),
               o("WAWebListItemParentType").LabelItemParentType.Chat,
             );

@@ -67,8 +67,7 @@ __d(
     function m(e) {
       return o("WATimeUtils").unixTime() - e.t > d;
     }
-    ((l.NewsletterPinDisplay = e),
-      (l.EMPTY_NEWSLETTER_PIN_DISPLAY = s),
+    ((l.EMPTY_NEWSLETTER_PIN_DISPLAY = s),
       (l.filterActiveNewsletterPins = u),
       (l.getNewsletterPinsToDisplay = c),
       (l.NEWSLETTER_MAX_PINNABLE_MSG_AGE_SECONDS = d),

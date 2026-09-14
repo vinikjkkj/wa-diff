@@ -7,6 +7,7 @@ __d(
     "WebBloksDataModule",
     "WebBloksErrors",
     "WebBloksInterpreterEnvironment",
+    "WebBloksMinificationUtils",
     "WebBloksModel",
     "WebBloksNormaliseYogaDimension",
     "WebBloksPayloadParser",
@@ -15,7 +16,6 @@ __d(
     "WebBloksScriptTokens",
     "WebBloksUpdateTraversal",
     "WebBloksUtils",
-    "webBloksGlobalAttributeKeys",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -130,11 +130,7 @@ __d(
               u,
               c,
               d = n,
-              m = d.getExpression(
-                d.usesCanonicalKeys()
-                  ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs.on_bind
-                  : "on_bind",
-              );
+              m = d.getExpression(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY);
             if (m == null) return d;
             var p = r("WebBloksInterpreterEnvironment").forBind(
               this.bloksContext,
@@ -183,43 +179,51 @@ __d(
                 I = d.getId(),
                 T = (c = d.keyPath) != null ? c : [],
                 D = this.bloksContext.objectSet.environment,
-                x = D.minificationMap,
-                $ = D.traversalKeys,
-                P = D.unminificationMap,
-                N = D.useMinification,
-                M = N || P != null,
-                w = f || (g.length > 0 && !Array.isArray(g[0])),
-                A = 0;
-              A < g.length;
-              A++
+                x = D.loadedMinificationMaps,
+                $ = D.minificationMap,
+                P = D.traversalKeys,
+                N = x.unminificationMap,
+                M = f || (g.length > 0 && !Array.isArray(g[0])),
+                w = 0;
+              w < g.length;
+              w++
             ) {
-              var F = null,
-                O = void 0,
-                B = void 0;
-              if (w) ((B = g[A]), (O = g[++A]));
+              var A = null,
+                F = void 0,
+                O = void 0;
+              if (M) ((O = g[w]), (F = g[++w]));
               else {
-                var W = g[A];
-                ((F = W[0] == null ? null : "" + W[0]),
-                  (B = "" + W[1]),
-                  (O = W[2]));
+                var B = g[w];
+                ((A = B[0] == null ? null : "" + B[0]),
+                  (O = "" + B[1]),
+                  (F = B[2]));
               }
-              var q = d.getCanonicalAttributeKey(B),
-                U = void 0;
-              if (h(q, d.styleId, $)) {
-                var V = C(this, d, i, T, s, O, $, x, P, M);
-                for (var H of V) k = this.addToTemplateCache(k, H);
-                U = V;
-              } else if (y(q, d.styleId, $)) {
-                var G = b(this, d, i, T, s, O, $, x, P, M);
-                ((U = G), G != null && (k = this.addToTemplateCache(k, G)));
-              } else U = O;
-              if (w || F === I) d = e.applyOperation(d, a, B, U);
-              else
-                throw new (o("WebBloksErrors").WebBloksError)(
-                  'Encountered binding targeted for a descendant from bind script "' +
-                    B +
-                    '"',
-                );
+              var W = o(
+                "WebBloksMinificationUtils",
+              ).getOptionalMinifiedWebBloksAttributeKey(
+                String(d.styleId),
+                O,
+                N,
+              );
+              if (W != null) {
+                var q = o("WebBloksModel").defineWebBloksAttributeKey(W),
+                  U = void 0;
+                if (h(q, d.styleId, P)) {
+                  var V = C(this, d, i, T, s, F, P, $, N);
+                  for (var H of V) k = this.addToTemplateCache(k, H);
+                  U = V;
+                } else if (y(q, d.styleId, P)) {
+                  var G = b(this, d, i, T, s, F, P, $, N);
+                  ((U = G), G != null && (k = this.addToTemplateCache(k, G)));
+                } else U = F;
+                if (M || A === I) d = e.applyOperation(d, a, q, U);
+                else
+                  throw new (o("WebBloksErrors").WebBloksError)(
+                    'Encountered binding targeted for a descendant from bind script "' +
+                      O +
+                      '"',
+                  );
+              }
             }
             return (this.nextCache.cacheUnboundChildTemplates(d, k), d);
           }),
@@ -319,17 +323,17 @@ __d(
           (e.applyOperation = function (n, r, o, a) {
             return e.applyWireAttribute(n, r, o, a);
           }),
-          (e.applyWireAttribute = function (n, r, o, a) {
-            if (n !== r || r.getWireValue(o) !== a) {
+          (e.applyWireAttribute = function (n, r, a, i) {
+            if (
+              n !== r ||
+              r.getUntyped(o("WebBloksModel").defineWebBloksAttributeKey(a)) !==
+                i
+            ) {
               var t = e.ensureUnique(n, r);
-              return (t.setWireValue(o, a), t);
-            }
-            return n;
-          }),
-          (e.applyAttribute = function (n, r, o, a) {
-            if (n !== r || r.get(o) !== a) {
-              var t = e.ensureUnique(n, r);
-              return (t.set(o, a), t);
+              return (
+                t.set(o("WebBloksModel").defineWebBloksAttributeKey(a), i),
+                t
+              );
             }
             return n;
           }),
@@ -446,7 +450,8 @@ __d(
       );
     }
     function _(t, n, r, a, i) {
-      if (t.get(o("WebBloksConstants").DESCENDANT_HAS_BIND) === !1) return t;
+      if (t.getUntyped(o("WebBloksConstants").DESCENDANT_HAS_BIND) === !1)
+        return t;
       r.instrumentationEnabled &&
         o("WebBloksBindInstrumentation").bindCounters.nodesVisited++;
       var l = r.subtreeReuseEnabled;
@@ -470,8 +475,8 @@ __d(
         (d = f(d, t, n, r, m, p)),
         l
           ? r.cacheDependencies(d, m, p, r.getClockReadCount() > c)
-          : (p.size > 0 && (d = u.applyAttribute(d, t, s, p)),
-            d !== t && (d = u.applyAttribute(d, t, e, m))));
+          : (p.size > 0 && (d = u.applyWireAttribute(d, t, s, p)),
+            d !== t && (d = u.applyWireAttribute(d, t, e, m))));
       for (var _ of m) a.add(_);
       return (
         o("WebBloksUtils").putAll(i, p),
@@ -481,77 +486,66 @@ __d(
         d
       );
     }
-    function f(e, t, n, a, i, l) {
-      var s = e,
-        c = a.bloksContext.objectSet.environment.traversalKeys[s.styleId];
-      if (c == null) return s;
-      var d = a.subtreeReuseEnabled,
-        m = d
+    function f(e, t, n, r, a, i) {
+      var l = e,
+        s = r.bloksContext.objectSet.environment.traversalKeys[l.styleId];
+      if (s == null) return l;
+      var c = r.subtreeReuseEnabled,
+        d = c
           ? e !== t ||
-            t.get(
-              t.usesCanonicalKeys()
-                ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs.on_bind
-                : "on_bind",
-            ) != null
+            t.get(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY) != null
           : !0,
-        p = c.plural_subnodes,
-        f = c.subnodes;
-      if (f)
-        for (var h of f) {
-          var y = s.getSubNode(h);
-          if (y instanceof o("WebBloksModel").WebBloksModel) {
-            var C = n == null ? void 0 : n.getSubNode(h);
-            if (C instanceof o("WebBloksModel").WebBloksModel || C == null) {
-              var b = _(y, C, a, i, l);
-              ((m = m || b !== C), (s = u.applyAttribute(s, t, h, b)));
-            } else m = !0;
+        m = s.plural_subnodes,
+        p = s.subnodes;
+      if (p)
+        for (var f of p) {
+          var h = l.getSubNode(f);
+          if (h instanceof o("WebBloksModel").WebBloksModel) {
+            var y = n == null ? void 0 : n.getSubNode(f);
+            if (y instanceof o("WebBloksModel").WebBloksModel || y == null) {
+              var C = _(h, y, r, a, i);
+              ((d = d || C !== y), (l = u.applyWireAttribute(l, t, f, C)));
+            } else d = !0;
           }
         }
-      if (p) {
-        for (var v of p)
-          if (
-            !(
-              v === o("WebBloksConstants").CHILD_TEMPLATES ||
-              v ===
-                r("webBloksGlobalAttributeKeys").toCanonicalAttrs
-                  .child_templates
-            )
-          ) {
+      if (m) {
+        for (var b of m)
+          if (b !== o("WebBloksConstants").CHILD_TEMPLATES_ATTRIBUTE_KEY) {
             for (
-              var S = s.getChildren_DEPRECATED(v),
-                R = S,
-                L = n == null ? void 0 : n.getChildren_DEPRECATED(v),
-                E = 0,
-                k = 0;
-              k < S.length;
-              k++
+              var v = l.getChildren_DEPRECATED(b),
+                S = v,
+                R = n == null ? void 0 : n.getChildren_DEPRECATED(b),
+                L = 0,
+                E = 0;
+              E < v.length;
+              E++
             ) {
-              var I = S[k];
-              if (I) {
-                var T = g(I, L, k),
-                  D = _(I, T, a, i, l);
-                if (((m = m || D !== T), D !== I))
+              var k = v[E];
+              if (k) {
+                var I = g(k, R, E),
+                  T = _(k, I, r, a, i);
+                if (((d = d || T !== I), T !== k))
                   if (
-                    (R === S && (R = S.slice()),
-                    D.styleId ===
+                    (S === v && (S = v.slice()),
+                    T.styleId ===
                       o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
                   ) {
-                    var x,
-                      $ = D.getChildren_DEPRECATED();
-                    ((x = R).splice.apply(x, [k + E, 1].concat($)),
-                      (E += $.length - 1));
-                  } else R[k + E] = D;
+                    var D,
+                      x = T.getChildren_DEPRECATED();
+                    ((D = S).splice.apply(D, [E + L, 1].concat(x)),
+                      (L += x.length - 1));
+                  } else S[E + L] = T;
               }
             }
-            R !== S && (s = u.applyAttribute(s, t, v, R));
+            S !== v && (l = u.applyWireAttribute(l, t, b, S));
           }
       }
-      return d && !m && n != null && u.isValidCachedModel(t, n)
-        ? (a.instrumentationEnabled &&
+      return c && !d && n != null && u.isValidCachedModel(t, n)
+        ? (r.instrumentationEnabled &&
             o("WebBloksBindInstrumentation").bindCounters
               .subtreesReusedAtExit++,
           n)
-        : s;
+        : l;
     }
     function g(e, t, n) {
       var r;
@@ -578,109 +572,105 @@ __d(
         r.includes(e)
       );
     }
-    function C(e, t, n, r, o, a, i, l, s, u) {
+    function C(e, t, n, r, o, a, i, l, s) {
       return a
         .map(function (a) {
-          return b(e, t, n, r, o, a, i, l, s, u);
+          return b(e, t, n, r, o, a, i, l, s);
         })
         .filter(Boolean);
     }
-    function b(e, t, n, a, i, l, s, u, c, d) {
-      if (l == null) return null;
-      var m;
-      Array.isArray(l)
-        ? (m = {
-            templateId: l[0],
-            expandedVariables: new Map(Object.entries(l[1])),
-            scopeKey: l[2],
-            keyPathBase: a,
+    function b(e, t, n, r, a, i, l, s, u) {
+      if (i == null) return null;
+      var c;
+      Array.isArray(i)
+        ? (c = {
+            templateId: i[0],
+            expandedVariables: new Map(Object.entries(i[1])),
+            scopeKey: i[2],
+            keyPathBase: r,
           })
-        : (m = l);
-      var p,
-        _ = m.parseResult,
-        f = null;
-      if (_ != null) {
-        var g;
-        p = _.unboundModel;
-        var h = e.clientIdToScopedIdMapper.getScopedClientId(p, m.scopeKey);
-        f = o("WebBloksScopedIds").extendKeyPath(m.keyPathBase, h);
-        var y = (g = m.resourceIdentifier) != null ? g : String(p.clientId);
-        if (!e.isResourceProcessed(y)) {
-          var C;
-          e.collectTreeResource(_.resources, y);
-          var b = (C = _.resources.variableDefinitions) != null ? C : [];
-          b.length > 0 && e.processVariableManifestsInBind(b, f);
+        : (c = i);
+      var d,
+        m = c.parseResult,
+        p = null;
+      if (m != null) {
+        var _;
+        d = m.unboundModel;
+        var f = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey);
+        p = o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, f);
+        var g = (_ = c.resourceIdentifier) != null ? _ : String(d.clientId);
+        if (!e.isResourceProcessed(g)) {
+          var h;
+          e.collectTreeResource(m.resources, g);
+          var y = (h = m.resources.variableDefinitions) != null ? h : [];
+          y.length > 0 && e.processVariableManifestsInBind(y, p);
         }
-      } else if (typeof m.templateId == "number") {
-        var S = m.templateId,
-          R = t.getChildren_DEPRECATED(
-            t.usesCanonicalKeys()
-              ? r("webBloksGlobalAttributeKeys").toCanonicalAttrs
-                  .child_templates
-              : o("WebBloksConstants").CHILD_TEMPLATES,
+      } else if (typeof c.templateId == "number") {
+        var C = c.templateId,
+          b = t.getChildren_DEPRECATED(
+            o("WebBloksConstants").CHILD_TEMPLATES_ATTRIBUTE_KEY,
           );
-        if (S < 0 || S >= R.length)
+        if (C < 0 || C >= b.length)
           throw new (o("WebBloksErrors").WebBloksError)(
-            "Invalid child template index " + S + " for " + m.scopeKey,
+            "Invalid child template index " + C + " for " + c.scopeKey,
           );
-        p = R[S];
+        d = b[C];
       } else {
-        var L = m.templateId,
-          E = e.resources.payloads.get(L);
-        if (E != null) {
-          var k = e.getCachedTemplatePayload(L);
-          (k == null &&
-            ((k = o("WebBloksPayloadParser").parseTree(
-              E.payload,
+        var S = c.templateId,
+          R = e.resources.payloads.get(S);
+        if (R != null) {
+          var L = e.getCachedTemplatePayload(S);
+          (L == null &&
+            ((L = o("WebBloksPayloadParser").parseTree(
+              R.payload,
+              l,
               s,
-              u,
               null,
-              c,
-              d,
+              u,
             )),
-            e.cacheTemplatePayload(L, k)),
-            (p = k.unboundModel));
-          var I = L;
-          if (!e.isResourceProcessed(I)) {
-            var T;
-            e.collectTreeResource(k.resources, I);
-            var D = (T = k.resources.variableDefinitions) != null ? T : [];
-            D.length > 0 && e.processVariableManifestsInBind(D, a);
+            e.cacheTemplatePayload(S, L)),
+            (d = L.unboundModel));
+          var E = S;
+          if (!e.isResourceProcessed(E)) {
+            var k;
+            e.collectTreeResource(L.resources, E);
+            var I = (k = L.resources.variableDefinitions) != null ? k : [];
+            I.length > 0 && e.processVariableManifestsInBind(I, r);
           }
         } else {
-          var x = e.resources.templates.get(L);
-          if (x == null)
+          var T = e.resources.templates.get(S);
+          if (T == null)
             throw new (o("WebBloksErrors").WebBloksError)(
-              "No such template in tree resources: " + L,
+              "No such template in tree resources: " + S,
             );
-          p = x;
+          d = T;
         }
       }
-      var $ = e.clientIdToScopedIdMapper.getScopedClientId(p, m.scopeKey),
-        P =
-          f != null
-            ? f
-            : o("WebBloksScopedIds").extendKeyPath(m.keyPathBase, $),
-        N = o("WebBloksScopedIds").buildKeypathBase(P);
-      m.expandedVariables.size > 0 && v(e, m.expandedVariables, N, i);
-      var M = e.cache.getUnboundChildTemplates(n);
-      if (M) {
-        var w = M.get($);
-        if (w) return w;
+      var D = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey),
+        x =
+          p != null
+            ? p
+            : o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, D),
+        $ = o("WebBloksScopedIds").buildKeypathBase(x);
+      c.expandedVariables.size > 0 && v(e, c.expandedVariables, $, a);
+      var P = e.cache.getUnboundChildTemplates(n);
+      if (P) {
+        var N = P.get(D);
+        if (N) return N;
       }
       return o("WebBloksUpdateTraversal").runUpdateTraversal(
-        p,
+        d,
         {
           apply: function (n) {
             return e.clientIdToScopedIdMapper.copyModelWithKeyPath(
               n,
-              P,
-              m.scopeKey,
+              x,
+              c.scopeKey,
             );
           },
           onUpdatesApplied: function () {},
         },
-        s,
+        l,
       );
     }
     function v(e, t, n, r) {

@@ -32,7 +32,7 @@ __d(
           {
             apply: function (r) {
               if ((r.getId() === t && (i = r), d(r, t) && (i = r), i)) {
-                var e = r.get(o("WebBloksConstants").ON_REFLOW);
+                var e = r.get(o("WebBloksConstants").ON_REFLOW_ATTRIBUTE_KEY);
                 e != null && n(e, [r]);
               }
               return r;

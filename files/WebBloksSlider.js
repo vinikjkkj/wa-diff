@@ -4,7 +4,9 @@ __d(
     "WebBloksComponentContext",
     "WebBloksConstants",
     "WebBloksEnvironmentContext",
+    "WebBloksModel",
     "WebBloksMutations",
+    "WebBloksSliderMinificationKeys",
     "WebBloksStyle",
     "WebBloksTheme",
     "WebBloksUtils",
@@ -34,7 +36,16 @@ __d(
       g = d.useState,
       h = 0,
       y = 100,
-      C = o("WebBloksStyle").createStyles({
+      C = o("WebBloksModel").defineWebBloksAttributeKey("+"),
+      b = o("WebBloksModel").defineWebBloksAttributeKey("1"),
+      v = o("WebBloksModel").defineWebBloksAttributeKey("&"),
+      S = o("WebBloksModel").defineWebBloksAttributeKey(")"),
+      R = o("WebBloksModel").defineWebBloksAttributeKey("*"),
+      L = o("WebBloksModel").defineWebBloksAttributeKey(","),
+      E = o("WebBloksModel").defineWebBloksAttributeKey("-"),
+      k = o("WebBloksModel").defineWebBloksAttributeKey("."),
+      I = o("WebBloksModel").defineWebBloksAttributeKey("0"),
+      T = o("WebBloksStyle").createStyles({
         wrapper: {
           touchAction: "none",
           pointerEvents: "all",
@@ -68,186 +79,180 @@ __d(
           transform: "translate(-50%, 0)",
         },
       });
-    function b(e) {
+    function D(e) {
       var t,
         n = o("react-compiler-runtime").c(52),
         r = e.externalStyle,
         a = e.node,
         i;
-      n[0] !== a
-        ? ((i = a.get("thumb_diameter")), (n[0] = a), (n[1] = i))
-        : (i = n[1]);
+      n[0] !== a ? ((i = a.get(E)), (n[0] = a), (n[1] = i)) : (i = n[1]);
       var l = i,
         s;
-      n[2] !== a
-        ? ((s = a.get("track_height")), (n[2] = a), (n[3] = s))
-        : (s = n[3]);
+      n[2] !== a ? ((s = a.get(k)), (n[2] = a), (n[3] = s)) : (s = n[3]);
       var u = s,
-        d = a.getSubNode("thumb_color"),
-        m = a.getSubNode("unfilled_track_color"),
-        _ = a.getSubNode("filled_track_color"),
+        d = a.getSubNode(L),
+        m = a.getSubNode(I),
+        _ = a.getSubNode(C),
         f;
-      n[4] !== a
-        ? ((f = a.get("initial_value")), (n[4] = a), (n[5] = f))
-        : (f = n[5]);
+      n[4] !== a ? ((f = a.get(b)), (n[4] = a), (n[5] = f)) : (f = n[5]);
       var h = f,
-        C = a.get("progress"),
-        b;
+        T = a.get(o("WebBloksSliderMinificationKeys").SLIDER_PROGRESS),
+        D;
       n[6] !== a
-        ? ((b = a.getExpression("on_change")), (n[6] = a), (n[7] = b))
-        : (b = n[7]);
-      var S = b,
-        R;
+        ? ((D = a.getExpression(v)), (n[6] = a), (n[7] = D))
+        : (D = n[7]);
+      var $ = D,
+        P;
       n[8] !== a
-        ? ((R = a.getExpression("on_start_touch")), (n[8] = a), (n[9] = R))
-        : (R = n[9]);
-      var L = R,
-        E;
+        ? ((P = a.getExpression(R)), (n[8] = a), (n[9] = P))
+        : (P = n[9]);
+      var N = P,
+        M;
       n[10] !== a
-        ? ((E = a.getExpression("on_end_touch")), (n[10] = a), (n[11] = E))
-        : (E = n[11]);
-      var k = E,
-        I = o("WebBloksComponentContext").useWebBloksContext(),
-        T = I.bloksContext,
-        D = I.executeCatch,
-        x = o("WebBloksTheme").useTheme().getTheme(),
-        $ = o("WebBloksStyle").useStyle(a, r),
-        P = $.wrapper,
-        N = $.wrapperProps,
-        M = l != null ? parseFloat(l) : 24,
-        w = u != null ? parseFloat(u) : 4,
-        A =
+        ? ((M = a.getExpression(S)), (n[10] = a), (n[11] = M))
+        : (M = n[11]);
+      var w = M,
+        A = o("WebBloksComponentContext").useWebBloksContext(),
+        F = A.bloksContext,
+        O = A.executeCatch,
+        B = o("WebBloksTheme").useTheme().getTheme(),
+        W = o("WebBloksStyle").useStyle(a, r),
+        q = W.wrapper,
+        U = W.wrapperProps,
+        V = l != null ? parseFloat(l) : 24,
+        H = u != null ? parseFloat(u) : 4,
+        G =
           d != null
-            ? o("WebBloksUtils").getRGBColorWithTheme(d, x)
+            ? o("WebBloksUtils").getRGBColorWithTheme(d, B)
             : o("WebBloksTheme").WebBloksThemeVars["primary-bg"],
-        F =
-          m != null ? o("WebBloksUtils").getRGBColorWithTheme(m, x) : "#DBDBDB",
-        O =
+        z =
+          m != null ? o("WebBloksUtils").getRGBColorWithTheme(m, B) : "#DBDBDB",
+        j =
           _ != null
-            ? o("WebBloksUtils").getRGBColorWithTheme(_, x)
+            ? o("WebBloksUtils").getRGBColorWithTheme(_, B)
             : o("WebBloksTheme").WebBloksThemeVars["fds-gray-65"],
-        B = g(((t = h != null ? h : C) != null ? t : 0) * y),
-        W = B[0],
-        q = B[1],
-        U = g(!1),
-        V = U[0],
-        H = U[1],
-        G;
-      n[12] !== T.treeManager || n[13] !== V || n[14] !== a || n[15] !== C
-        ? ((G = function () {
-            !V &&
-              C != null &&
-              (q(C * y),
+        K = g(((t = h != null ? h : T) != null ? t : 0) * y),
+        Q = K[0],
+        X = K[1],
+        Y = g(!1),
+        J = Y[0],
+        Z = Y[1],
+        ee;
+      n[12] !== F.treeManager || n[13] !== J || n[14] !== a || n[15] !== T
+        ? ((ee = function () {
+            !J &&
+              T != null &&
+              (X(T * y),
               o("WebBloksMutations").updateProperty(
-                T.treeManager,
+                F.treeManager,
                 a,
-                "progress",
+                o("WebBloksSliderMinificationKeys").SLIDER_PROGRESS,
                 null,
               ));
           }),
-          (n[12] = T.treeManager),
-          (n[13] = V),
+          (n[12] = F.treeManager),
+          (n[13] = J),
           (n[14] = a),
-          (n[15] = C),
-          (n[16] = G))
-        : (G = n[16]);
-      var z;
-      (n[17] !== T.treeManager ||
-      n[18] !== V ||
+          (n[15] = T),
+          (n[16] = ee))
+        : (ee = n[16]);
+      var te;
+      (n[17] !== F.treeManager ||
+      n[18] !== J ||
       n[19] !== a ||
-      n[20] !== C ||
-      n[21] !== W
-        ? ((z = [T.treeManager, V, a, C, W]),
-          (n[17] = T.treeManager),
-          (n[18] = V),
+      n[20] !== T ||
+      n[21] !== Q
+        ? ((te = [F.treeManager, J, a, T, Q]),
+          (n[17] = F.treeManager),
+          (n[18] = J),
           (n[19] = a),
-          (n[20] = C),
-          (n[21] = W),
-          (n[22] = z))
-        : (z = n[22]),
-        p(G, z));
-      var j;
-      n[23] !== T || n[24] !== D || n[25] !== a || n[26] !== S
-        ? ((j = function (t) {
-            (S != null && D(a, S, [Number(t) / y, T]), q(Number(t)));
+          (n[20] = T),
+          (n[21] = Q),
+          (n[22] = te))
+        : (te = n[22]),
+        p(ee, te));
+      var ne;
+      n[23] !== F || n[24] !== O || n[25] !== a || n[26] !== $
+        ? ((ne = function (t) {
+            ($ != null && O(a, $, [Number(t) / y, F]), X(Number(t)));
           }),
-          (n[23] = T),
-          (n[24] = D),
+          (n[23] = F),
+          (n[24] = O),
           (n[25] = a),
-          (n[26] = S),
-          (n[27] = j))
-        : (j = n[27]);
-      var K = j,
-        Q;
-      n[28] !== T || n[29] !== D || n[30] !== a || n[31] !== L
-        ? ((Q = function (t) {
-            (L != null && D(a, L, [t, T]), H(!0));
+          (n[26] = $),
+          (n[27] = ne))
+        : (ne = n[27]);
+      var re = ne,
+        oe;
+      n[28] !== F || n[29] !== O || n[30] !== a || n[31] !== N
+        ? ((oe = function (t) {
+            (N != null && O(a, N, [t, F]), Z(!0));
           }),
-          (n[28] = T),
-          (n[29] = D),
+          (n[28] = F),
+          (n[29] = O),
           (n[30] = a),
-          (n[31] = L),
-          (n[32] = Q))
-        : (Q = n[32]);
-      var X = Q,
-        Y;
-      n[33] !== T || n[34] !== D || n[35] !== a || n[36] !== k
-        ? ((Y = function (t) {
-            (k != null && D(a, k, [t, T]), H(!1));
+          (n[31] = N),
+          (n[32] = oe))
+        : (oe = n[32]);
+      var ae = oe,
+        ie;
+      n[33] !== F || n[34] !== O || n[35] !== a || n[36] !== w
+        ? ((ie = function (t) {
+            (w != null && O(a, w, [t, F]), Z(!1));
           }),
-          (n[33] = T),
-          (n[34] = D),
+          (n[33] = F),
+          (n[34] = O),
           (n[35] = a),
-          (n[36] = k),
-          (n[37] = Y))
-        : (Y = n[37]);
-      var J = Y,
-        Z;
-      n[38] !== O ||
-      n[39] !== K ||
-      n[40] !== J ||
-      n[41] !== X ||
-      n[42] !== A ||
-      n[43] !== M ||
-      n[44] !== w ||
-      n[45] !== F ||
-      n[46] !== W ||
-      n[47] !== N
-        ? ((Z = c.jsx(
-            v,
-            babelHelpers.extends({}, N, {
-              onChange: K,
-              onChangeStart: X,
-              onChangeEnd: J,
-              value: W,
-              thumbSize: M,
-              railColor: F,
-              trackColor: O,
-              trackHeight: w,
-              thumbColor: A,
+          (n[36] = w),
+          (n[37] = ie))
+        : (ie = n[37]);
+      var le = ie,
+        se;
+      n[38] !== j ||
+      n[39] !== re ||
+      n[40] !== le ||
+      n[41] !== ae ||
+      n[42] !== G ||
+      n[43] !== V ||
+      n[44] !== H ||
+      n[45] !== z ||
+      n[46] !== Q ||
+      n[47] !== U
+        ? ((se = c.jsx(
+            x,
+            babelHelpers.extends({}, U, {
+              onChange: re,
+              onChangeStart: ae,
+              onChangeEnd: le,
+              value: Q,
+              thumbSize: V,
+              railColor: z,
+              trackColor: j,
+              trackHeight: H,
+              thumbColor: G,
             }),
           )),
-          (n[38] = O),
-          (n[39] = K),
-          (n[40] = J),
-          (n[41] = X),
-          (n[42] = A),
-          (n[43] = M),
-          (n[44] = w),
-          (n[45] = F),
-          (n[46] = W),
-          (n[47] = N),
-          (n[48] = Z))
-        : (Z = n[48]);
-      var ee;
+          (n[38] = j),
+          (n[39] = re),
+          (n[40] = le),
+          (n[41] = ae),
+          (n[42] = G),
+          (n[43] = V),
+          (n[44] = H),
+          (n[45] = z),
+          (n[46] = Q),
+          (n[47] = U),
+          (n[48] = se))
+        : (se = n[48]);
+      var ue;
       return (
-        n[49] !== Z || n[50] !== P
-          ? ((ee = P(Z)), (n[49] = Z), (n[50] = P), (n[51] = ee))
-          : (ee = n[51]),
-        ee
+        n[49] !== se || n[50] !== q
+          ? ((ue = q(se)), (n[49] = se), (n[50] = q), (n[51] = ue))
+          : (ue = n[51]),
+        ue
       );
     }
-    function v(t) {
+    function x(t) {
       var n = o("react-compiler-runtime").c(76),
         r,
         a,
@@ -291,61 +296,61 @@ __d(
           (p = n[8]),
           (_ = n[9]),
           (f = n[10]));
-      var b = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
-        v;
+      var C = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
+        b;
       n[11] !== i
-        ? ((v = function (t) {
+        ? ((b = function (t) {
             i == null || i(t);
           }),
           (n[11] = i),
-          (n[12] = v))
-        : (v = n[12]);
-      var L = v,
-        E;
+          (n[12] = b))
+        : (b = n[12]);
+      var v = b,
+        S;
       n[13] !== a
-        ? ((E = function (t) {
+        ? ((S = function (t) {
             a == null || a(t);
           }),
           (n[13] = a),
-          (n[14] = E))
-        : (E = n[14]);
-      var k = E,
-        I;
+          (n[14] = S))
+        : (S = n[14]);
+      var R = S,
+        L;
       n[15] !== r
-        ? ((I = function (t) {
+        ? ((L = function (t) {
             r == null || r(t);
           }),
           (n[15] = r),
-          (n[16] = I))
-        : (I = n[16]);
-      var T = I,
-        D = b ? y - f : f,
-        x;
-      n[17] !== b || n[18] !== D
-        ? ((x = S(D, b)), (n[17] = b), (n[18] = D), (n[19] = x))
-        : (x = n[19]);
-      var $ = x,
-        P = $.trackEnd,
-        N = $.trackStart,
+          (n[16] = L))
+        : (L = n[16]);
+      var E = L,
+        k = C ? y - f : f,
+        I;
+      n[17] !== C || n[18] !== k
+        ? ((I = $(k, C)), (n[17] = C), (n[18] = k), (n[19] = I))
+        : (I = n[19]);
+      var D = I,
+        x = D.trackEnd,
+        N = D.trackStart,
         M;
-      n[20] !== b || n[21] !== k || n[22] !== T || n[23] !== L || n[24] !== f
+      n[20] !== C || n[21] !== R || n[22] !== E || n[23] !== v || n[24] !== f
         ? ((M = {
-            onChange: k,
-            onChangeStart: L,
-            onChangeEnd: T,
+            onChange: R,
+            onChangeStart: v,
+            onChangeEnd: E,
             min: h,
             max: y,
-            isRTL: b,
+            isRTL: C,
             value: f,
           }),
-          (n[20] = b),
-          (n[21] = k),
-          (n[22] = T),
-          (n[23] = L),
+          (n[20] = C),
+          (n[21] = R),
+          (n[22] = E),
+          (n[23] = v),
           (n[24] = f),
           (n[25] = M))
         : (M = n[25]);
-      var w = R(M),
+      var w = P(M),
         A = w.onMouseDown,
         F = w.onPointerDown,
         O = w.onTouchStart,
@@ -355,29 +360,29 @@ __d(
         U = q[0],
         V = q[1],
         H;
-      n[26] !== U || n[27] !== k || n[28] !== L || n[29] !== f
+      n[26] !== U || n[27] !== R || n[28] !== v || n[29] !== f
         ? ((H = function (t) {
             var e = f;
             if (t.keyCode === o("WebBloksConstants").KEY_LEFT) e = e - 1;
             else if (t.keyCode === o("WebBloksConstants").KEY_RIGHT) e = e + 1;
             else return;
-            (U || (V(!0), L(e)), k(e));
+            (U || (V(!0), v(e)), R(e));
           }),
           (n[26] = U),
-          (n[27] = k),
-          (n[28] = L),
+          (n[27] = R),
+          (n[28] = v),
           (n[29] = f),
           (n[30] = H))
         : (H = n[30]);
       var G = H,
         z;
-      n[31] !== T || n[32] !== f
+      n[31] !== E || n[32] !== f
         ? ((z = function (t) {
             (t.keyCode !== o("WebBloksConstants").KEY_LEFT &&
               t.keyCode !== o("WebBloksConstants").KEY_RIGHT) ||
-              (V(!1), T(f));
+              (V(!1), E(f));
           }),
-          (n[31] = T),
+          (n[31] = E),
           (n[32] = f),
           (n[33] = z))
         : (z = n[33]);
@@ -402,7 +407,7 @@ __d(
       var Z;
       n[40] !== l || n[41] !== _
         ? ((Z = c.jsx("div", {
-            className: C.rail,
+            className: T.rail,
             style: { height: _, backgroundColor: l },
           })),
           (n[40] = l),
@@ -410,11 +415,11 @@ __d(
           (n[42] = Z))
         : (Z = n[42]);
       var ee = N + "%",
-        te = P + "%",
+        te = x + "%",
         ne;
       n[43] !== ee || n[44] !== te || n[45] !== p || n[46] !== _
         ? ((ne = c.jsx("div", {
-            className: C.track,
+            className: T.track,
             style: { left: ee, right: te, height: _, backgroundColor: p },
           })),
           (n[43] = ee),
@@ -432,7 +437,7 @@ __d(
           (n[49] = oe),
           (n[50] = ae))
         : (ae = n[50]);
-      var ie = D + "%",
+      var ie = k + "%",
         le;
       n[51] !== ie || n[52] !== d || n[53] !== m
         ? ((le = { left: ie, height: m, width: m, backgroundColor: d }),
@@ -451,7 +456,7 @@ __d(
       n[61] !== f
         ? ((se = c.jsx("div", {
             ref: B,
-            className: C.thumb,
+            className: T.thumb,
             role: "slider",
             "aria-label": K,
             "aria-valuenow": f,
@@ -475,7 +480,7 @@ __d(
       var ue;
       n[63] !== ae || n[64] !== se
         ? ((ue = c.jsx("div", {
-            className: C.thumbWrapper,
+            className: T.thumbWrapper,
             style: ae,
             children: se,
           })),
@@ -498,7 +503,7 @@ __d(
               "div",
               babelHelpers.extends({}, X, {
                 ref: W,
-                className: C.wrapper,
+                className: T.wrapper,
                 onMouseDown: A,
                 onPointerDown: F,
                 onTouchStart: O,
@@ -520,7 +525,7 @@ __d(
         ce
       );
     }
-    function S(e, t) {
+    function $(e, t) {
       var n, r;
       if (((n = h), (r = y - e), t)) {
         var o = n;
@@ -528,7 +533,7 @@ __d(
       }
       return { trackStart: n, trackEnd: r };
     }
-    function R(e) {
+    function P(e) {
       var t = o("react-compiler-runtime").c(44),
         n = e.isRTL,
         r = e.max,
@@ -546,7 +551,7 @@ __d(
             var e,
               o = t.clientX;
             if (c.current != null) {
-              var l = E(c.current, o, a, r, n);
+              var l = M(c.current, o, a, r, n);
               ((e = d.current) == null || e.focus(),
                 s == null || s(l),
                 i == null || i(l));
@@ -565,7 +570,7 @@ __d(
         ? ((g = function (t) {
             var e = t.clientX;
             if (c.current != null) {
-              var o = E(c.current, e, a, r, n);
+              var o = M(c.current, e, a, r, n);
               i == null || i(o);
             }
           }),
@@ -611,9 +616,9 @@ __d(
             (t[17] = C),
             (t[18] = R))
           : (R = t[18]);
-        var k;
+        var L;
         t[19] !== S || t[20] !== R || t[21] !== _
-          ? ((k = function (t) {
+          ? ((L = function (t) {
               t.button === 0 &&
                 (_ == null ||
                   _({ clientX: t.clientX, pageX: t.pageX, pageY: t.pageY }),
@@ -625,13 +630,13 @@ __d(
             (t[19] = S),
             (t[20] = R),
             (t[21] = _),
-            (t[22] = k))
-          : (k = t[22]);
-        var I = k,
-          T;
+            (t[22] = L))
+          : (L = t[22]);
+        var E = L,
+          k;
         t[23] !== h
-          ? ((T = function (t) {
-              var e = L(t, m);
+          ? ((k = function (t) {
+              var e = N(t, m);
               if (e != null) {
                 var n = e.clientX,
                   r = e.pageX,
@@ -640,27 +645,27 @@ __d(
               }
             }),
             (t[23] = h),
-            (t[24] = T))
-          : (T = t[24]);
-        var D = T,
-          x;
-        t[25] !== C || t[26] !== D
-          ? ((x = function (t) {
-              var e = L(t, m);
+            (t[24] = k))
+          : (k = t[24]);
+        var I = k,
+          T;
+        t[25] !== C || t[26] !== I
+          ? ((T = function (t) {
+              var e = N(t, m);
               e != null &&
                 (C == null || C(),
                 (m.current = null),
-                window.removeEventListener("touchmove", D, !1),
-                window.removeEventListener("touchend", x, !1),
-                window.removeEventListener("touchcancel", x, !1));
+                window.removeEventListener("touchmove", I, !1),
+                window.removeEventListener("touchend", T, !1),
+                window.removeEventListener("touchcancel", T, !1));
             }),
             (t[25] = C),
-            (t[26] = D),
-            (t[27] = x))
-          : (x = t[27]);
-        var $;
-        t[28] !== _ || t[29] !== x || t[30] !== D
-          ? (($ = function (t) {
+            (t[26] = I),
+            (t[27] = T))
+          : (T = t[27]);
+        var D;
+        t[28] !== _ || t[29] !== T || t[30] !== I
+          ? ((D = function (t) {
               if (!(t.changedTouches.length === 0 || m.current != null)) {
                 var e = t.changedTouches[0];
                 (t.stopPropagation(),
@@ -668,42 +673,42 @@ __d(
                   (m.current = e.identifier),
                   _ == null ||
                     _({ clientX: e.clientX, pageX: e.pageX, pageY: e.pageY }),
-                  window.addEventListener("touchmove", D, !1),
-                  window.addEventListener("touchend", x, !1),
-                  window.addEventListener("touchcancel", x, !1));
+                  window.addEventListener("touchmove", I, !1),
+                  window.addEventListener("touchend", T, !1),
+                  window.addEventListener("touchcancel", T, !1));
               }
             }),
             (t[28] = _),
-            (t[29] = x),
-            (t[30] = D),
-            (t[31] = $))
-          : ($ = t[31]);
-        var P = $,
-          N;
-        (t[32] !== I || t[33] !== P
-          ? ((N = {
-              onMouseDown: I,
-              onTouchStart: P,
+            (t[29] = T),
+            (t[30] = I),
+            (t[31] = D))
+          : (D = t[31]);
+        var x = D,
+          $;
+        (t[32] !== E || t[33] !== x
+          ? (($ = {
+              onMouseDown: E,
+              onTouchStart: x,
               wrapperRef: c,
               thumbRef: d,
             }),
-            (t[32] = I),
-            (t[33] = P),
-            (t[34] = N))
-          : (N = t[34]),
-          (b = N));
+            (t[32] = E),
+            (t[33] = x),
+            (t[34] = $))
+          : ($ = t[34]),
+          (b = $));
       } else {
-        var M;
+        var P;
         t[35] !== h
-          ? ((M = function (t) {
+          ? ((P = function (t) {
               t.pointerId === m.current &&
                 (h == null ||
                   h({ clientX: t.clientX, pageX: t.pageX, pageY: t.pageY }));
             }),
             (t[35] = h),
-            (t[36] = M))
-          : (M = t[36]);
-        var w = M,
+            (t[36] = P))
+          : (P = t[36]);
+        var w = P,
           A;
         t[37] !== C || t[38] !== w
           ? ((A = function (t) {
@@ -742,24 +747,24 @@ __d(
       }
       return b;
     }
-    function L(e, t) {
+    function N(e, t) {
       var n = Array.from(e.changedTouches).findIndex(function (e) {
         var n = e.identifier;
         return n === t.current;
       });
       return n < 0 ? null : e.changedTouches[n];
     }
-    function E(e, t, n, r, o) {
+    function M(e, t, n, r, o) {
       var a = e.getBoundingClientRect(),
         i = a.left,
         l = a.width,
         s = t - i;
-      return (o && (s = i + l - t), k((s / l) * (r - n) + n, n, r));
+      return (o && (s = i + l - t), w((s / l) * (r - n) + n, n, r));
     }
-    function k(e, t, n) {
+    function w(e, t, n) {
       return Math.min(Math.max(Math.round(e), t), n);
     }
-    l.default = b;
+    l.default = D;
   },
   98,
 );

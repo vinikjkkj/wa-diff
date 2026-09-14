@@ -12,37 +12,39 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, a, i, l) {
-      var s, u, c;
-      l === void 0 && (l = !1);
-      var d = e == null || (s = e.layout) == null ? void 0 : s.bloks_payload,
-        m = (u = d.error_attribution) == null ? void 0 : u.logging_id,
-        p = (c = d.error_attribution) == null ? void 0 : c.source_map_id;
-      if (d.action == null)
+    function e(e, t, n, a, i) {
+      var l,
+        s,
+        u,
+        c = e == null || (l = e.layout) == null ? void 0 : l.bloks_payload,
+        d = (s = c.error_attribution) == null ? void 0 : s.logging_id,
+        m = (u = c.error_attribution) == null ? void 0 : u.source_map_id;
+      if (c.action == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "Invalid Bloks payload received from server. Action is expected but is missing:\n\n" +
-            JSON.stringify(d),
+            JSON.stringify(c),
         );
-      var _ = new (o("WebBloksModel").WebBloksModel)("-1", {}),
-        f = o("WebBloksModelParser").parseBloksTreeResources(d, _, t, n, i, l);
-      return new (r("WebBloksParseResult"))(_, f, m);
+      var p = o("WebBloksModel").createSyntheticWebBloksModel("-1"),
+        _ = o("WebBloksModelParser").parseBloksTreeResources(c, p, t, n, i);
+      return new (r("WebBloksParseResult"))(p, _, d);
     }
-    function s(e, t, n, a, i, l) {
-      var s, u, c;
-      l === void 0 && (l = !1);
-      var d = e == null || (s = e.layout) == null ? void 0 : s.bloks_payload,
-        m = o("WebBloksUtils").cast(d.tree),
-        p = (u = d.error_attribution) == null ? void 0 : u.logging_id,
-        _ = (c = d.error_attribution) == null ? void 0 : c.source_map_id;
-      if (m == null)
+    function s(e, t, n, a, i) {
+      var l,
+        s,
+        u,
+        c = e == null || (l = e.layout) == null ? void 0 : l.bloks_payload,
+        d = o("WebBloksUtils").cast(c.tree),
+        m = (s = c.error_attribution) == null ? void 0 : s.logging_id,
+        p = (u = c.error_attribution) == null ? void 0 : u.source_map_id;
+      if (d == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "Invalid Bloks payload received from server. Tree is expected but is missing:\n\n" +
-            JSON.stringify(d),
+            JSON.stringify(c),
         );
-      var f = null,
-        g = o("WebBloksModelParser").parseBloksModelFromJSON(m, t, n, f, i, l),
-        h = o("WebBloksModelParser").parseBloksTreeResources(d, g, t, n, i, l);
-      return new (r("WebBloksParseResult"))(g, h, p);
+      var _ = null,
+        f = o("WebBloksModelParser").parseBloksModelFromJSON(d, t, n, _, i),
+        g = o("WebBloksModelParser").parseBloksTreeResources(c, f, t, n, i);
+      return new (r("WebBloksParseResult"))(f, g, m);
     }
     ((l.parseAction = e), (l.parseTree = s));
   },

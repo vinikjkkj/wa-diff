@@ -7,7 +7,7 @@ __d(
         indexes: {},
       }),
       s = o("WAWormQueueDef").defineWAWormQueue("addonDeletion", e);
-    ((l.ADDON_DELETION_QUEUE_STORE = e), (l.ADDON_DELETION_QUEUE = s));
+    l.ADDON_DELETION_QUEUE = s;
   },
   98,
 );

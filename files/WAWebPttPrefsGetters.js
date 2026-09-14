@@ -5,18 +5,15 @@ __d(
     var e = o("WAWebGetters").createGetterFactories({
         createCache: o("WAWebGettersCaches").createPttPrefsCache,
       }),
-      s = e.clearCacheFor,
-      u = e.field,
-      c = s,
-      d = u("playbackRate"),
-      m = u("outOfChatPlayerMessage"),
-      p = u("playbackControlMessageId"),
-      _ = u("isOocPlayerClosedByUser");
-    ((l.clearPttPrefsGetterCacheFor = c),
-      (l.getPlaybackRate = d),
-      (l.getOutOfChatPlayerMessage = m),
-      (l.getPlaybackControlMessageId = p),
-      (l.getIsOocPlayerClosedByUser = _));
+      s = e.field,
+      u = s("playbackRate"),
+      c = s("outOfChatPlayerMessage"),
+      d = s("playbackControlMessageId"),
+      m = s("isOocPlayerClosedByUser");
+    ((l.getPlaybackRate = u),
+      (l.getOutOfChatPlayerMessage = c),
+      (l.getPlaybackControlMessageId = d),
+      (l.getIsOocPlayerClosedByUser = m));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WebBloksDialog",
   [
     "WebBloksComponentContext",
+    "WebBloksDialogMinificationKeys",
     "WebBloksEnvironmentContext",
     "WebBloksStyle",
     "react",
@@ -20,14 +21,20 @@ __d(
         r = n.styleId,
         a;
       t[0] !== n
-        ? ((a = n.get("message")), (t[0] = n), (t[1] = a))
+        ? ((a = n.get(o("WebBloksDialogMinificationKeys").DIALOG_MESSAGE)),
+          (t[0] = n),
+          (t[1] = a))
         : (a = t[1]);
       var i = a,
-        l = n.get("primary_button"),
-        u = n.get("secondary_button"),
-        c = n.get("tertiary_button"),
+        l = n.get(o("WebBloksDialogMinificationKeys").DIALOG_PRIMARY_BUTTON),
+        u = n.get(o("WebBloksDialogMinificationKeys").DIALOG_SECONDARY_BUTTON),
+        c = n.get(o("WebBloksDialogMinificationKeys").DIALOG_TERTIARY_BUTTON),
         d;
-      t[2] !== n ? ((d = n.get("title")), (t[2] = n), (t[3] = d)) : (d = t[3]);
+      t[2] !== n
+        ? ((d = n.get(o("WebBloksDialogMinificationKeys").DIALOG_TITLE)),
+          (t[2] = n),
+          (t[3] = d))
+        : (d = t[3]);
       var m = d,
         p = o("WebBloksComponentContext").useWebBloksContext(),
         g = o("WebBloksEnvironmentContext").useDataBloksName(),

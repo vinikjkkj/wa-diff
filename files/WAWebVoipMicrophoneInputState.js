@@ -14,7 +14,7 @@ __d(
       f = 0.72,
       g = 20;
     function h(e, t) {
-      return Math.max(K(e), t * f);
+      return Math.max(z(e), t * f);
     }
     var y = new Set();
     function C() {
@@ -53,12 +53,9 @@ __d(
       return v.snapshot.level;
     }
     function I() {
-      return v.snapshot.status;
-    }
-    function T() {
       return v.snapshot.hasCredibleSignal;
     }
-    function D(e) {
+    function T(e) {
       return (
         y.add(e),
         function () {
@@ -66,21 +63,21 @@ __d(
         }
       );
     }
-    function x(e) {
+    function D(e) {
       var t = E(),
-        n = A(v, e, t);
+        n = M(v, e, t);
       if (n !== v) {
         var r = n.snapshot !== v.snapshot;
-        if (((v = n), P(t), !!r))
+        if (((v = n), $(t), !!r))
           for (var o of Array.from(y))
             try {
               o();
             } catch (e) {
-              $(e);
+              x(e);
             }
       }
     }
-    function $(t) {
+    function x(t) {
       var n = v.snapshot.streamGeneration;
       R !== n &&
         ((R = n),
@@ -94,30 +91,27 @@ __d(
           .catching(r("getErrorSafe")(t))
           .sendLogs("voip-mic-input-subscriber-threw"));
     }
-    function P(e) {
+    function $(e) {
       if (
         (S != null && (self.clearTimeout(S), (S = null)),
         !(v.snapshot.isLevelStale || v.lastLevelAt == null))
       ) {
         var t = Math.max(0, v.lastLevelAt + d - e);
         S = self.setTimeout(function () {
-          ((S = null), x({ type: "level-stale" }));
+          ((S = null), D({ type: "level-stale" }));
         }, t);
       }
     }
-    function N() {
+    function P() {
       (S != null && (self.clearTimeout(S), (S = null)),
         (v = b()),
         y.clear(),
         (R = null));
     }
-    function M(e) {
-      return w(v, e);
-    }
-    function w(e, t) {
+    function N(e, t) {
       return e.lastLevelAt == null || t - e.lastLevelAt >= d;
     }
-    function A(e, t, n) {
+    function M(e, t, n) {
       return (function (t) {
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -147,50 +141,50 @@ __d(
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "capture-switching"
         )
-          return q(e);
+          return B(e);
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "capture-stopped"
         )
-          return F(e);
+          return w(e);
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "level" &&
           "rmsDbfs" in t
         ) {
           var o = t.rmsDbfs;
-          return V(e, o, n);
+          return q(e, o, n);
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "level-stale"
         )
-          return B(e);
+          return F(e);
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "input-unavailable" &&
           "reason" in t
         ) {
           var a = t.reason;
-          return O(e, a);
+          return A(e, a);
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "input-recovered"
         )
-          return U(e);
+          return W(e);
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "native-silence"
         )
-          return W(e);
+          return O(e);
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             t,
         );
       })(t);
     }
-    function F(e) {
+    function w(e) {
       return e.snapshot.status === "inactive"
         ? e
         : {
@@ -203,7 +197,7 @@ __d(
             smoothedLevel: 0,
           };
     }
-    function O(e, t) {
+    function A(e, t) {
       return e.snapshot.status === "inactive" ||
         (e.snapshot.status === "unavailable" && e.snapshot.failureReason === t)
         ? e
@@ -219,7 +213,7 @@ __d(
             smoothedLevel: 0,
           };
     }
-    function B(e) {
+    function F(e) {
       return e.snapshot.isLevelStale
         ? e
         : babelHelpers.extends({}, e, {
@@ -233,7 +227,7 @@ __d(
             smoothedLevel: 0,
           });
     }
-    function W(e) {
+    function O(e) {
       return e.snapshot.status === "inactive"
         ? e
         : babelHelpers.extends({}, e, {
@@ -242,7 +236,7 @@ __d(
             }),
           });
     }
-    function q(e) {
+    function B(e) {
       return e.snapshot.status === "inactive" ||
         e.snapshot.status === "switching"
         ? e
@@ -258,7 +252,7 @@ __d(
             smoothedLevel: 0,
           };
     }
-    function U(e) {
+    function W(e) {
       return e.snapshot.status !== "unavailable"
         ? e
         : babelHelpers.extends({}, e, {
@@ -268,40 +262,40 @@ __d(
             }),
           });
     }
-    function V(e, t, n) {
+    function q(e, t, n) {
       var r = e.snapshot;
       if (r.status === "inactive" || r.status === "switching") return e;
       var o = t >= s ? e.consecutiveCredibleWindows + 1 : 0,
         a = o >= u,
         i = h(t, e.smoothedLevel),
-        l = H(r, a, i, n);
+        l = U(r, a, i, n);
       return {
         consecutiveCredibleWindows: o,
         lastLevelAt: n,
         smoothedLevel: i,
-        snapshot: j(r, l) ? r : l,
+        snapshot: G(r, l) ? r : l,
       };
     }
-    function H(e, t, n, r) {
+    function U(e, t, n, r) {
       var o = t && e.status === "unavailable",
         a = e.status === "unavailable" && !o;
       return babelHelpers.extends({}, e, {
         status: o ? "active" : e.status,
         failureReason: o ? null : e.failureReason,
-        level: a ? 0 : G(n),
+        level: a ? 0 : V(n),
         isLevelStale: !1,
         levelFreshSinceAt: e.isLevelStale ? r : e.levelFreshSinceAt,
         hasCredibleSignal: t,
-        lastCredibleSignalAt: z(e.lastCredibleSignalAt, t, r),
+        lastCredibleSignalAt: H(e.lastCredibleSignalAt, t, r),
       });
     }
-    function G(e) {
+    function V(e) {
       return Math.round(e * g) / g;
     }
-    function z(e, t, n) {
+    function H(e, t, n) {
       return t && (e == null || n - e >= m) ? n : e;
     }
-    function j(e, t) {
+    function G(e, t) {
       return (
         e.status === t.status &&
         e.failureReason === t.failureReason &&
@@ -312,7 +306,7 @@ __d(
         e.lastCredibleSignalAt === t.lastCredibleSignalAt
       );
     }
-    function K(e) {
+    function z(e) {
       return Number.isFinite(e)
         ? Math.max(0, Math.min(1, (e - p) / (_ - p)))
         : 0;
@@ -326,15 +320,13 @@ __d(
       (l.getMicrophoneInputSnapshot = L),
       (l.getMicrophoneInputNow = E),
       (l.getMicrophoneInputLevel = k),
-      (l.getMicrophoneInputStatus = I),
-      (l.getMicrophoneInputHasCredibleSignal = T),
-      (l.subscribeToMicrophoneInput = D),
-      (l.dispatchMicrophoneInputEvent = x),
-      (l.resetMicrophoneInputStateForTesting = N),
-      (l.isMicrophoneLevelStale = M),
-      (l.isReducerLevelStale = w),
-      (l.reduceMicrophoneInputState = A),
-      (l.quantizeLevel = G));
+      (l.getMicrophoneInputHasCredibleSignal = I),
+      (l.subscribeToMicrophoneInput = T),
+      (l.dispatchMicrophoneInputEvent = D),
+      (l.resetMicrophoneInputStateForTesting = P),
+      (l.isReducerLevelStale = N),
+      (l.reduceMicrophoneInputState = M),
+      (l.quantizeLevel = V));
   },
   98,
 );

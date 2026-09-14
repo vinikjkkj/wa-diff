@@ -16,36 +16,29 @@ __d(
       g = c("capabilities"),
       h = c("creationTime"),
       y = c("description"),
-      C = c("descriptionUpdateTime"),
-      b = c("followerActivityMuteExpiration"),
-      v = c("geosuspended"),
-      S = c("handle"),
-      R = c("hasProfilePictureDeletionAlerts"),
-      L = c("inviteCode"),
-      E = c("membershipType"),
-      k = c("name"),
-      I = c("nameUpdateTime"),
-      T = c("pinnedMessages"),
-      D = c("privacy"),
-      x = c("reactionCodesSetting"),
-      $ = c("size"),
-      P = c("statusMetadata"),
-      N = c("statusMute"),
-      M = c("suspended"),
-      w = c("terminated"),
-      A = c("verified"),
-      F = c("wamoSubPlanId"),
-      O = c("wamoSubStatus"),
-      B = c("website"),
-      W = u(
+      C = c("followerActivityMuteExpiration"),
+      b = c("inviteCode"),
+      v = c("membershipType"),
+      S = c("name"),
+      R = c("pinnedMessages"),
+      L = c("privacy"),
+      E = c("reactionCodesSetting"),
+      k = c("size"),
+      I = c("statusMetadata"),
+      T = c("suspended"),
+      D = c("terminated"),
+      x = c("verified"),
+      $ = c("wamoSubPlanId"),
+      P = c("wamoSubStatus"),
+      N = u(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [M, w],
+        [T, D],
       ),
-      q = u(
+      M = u(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -60,9 +53,9 @@ __d(
                 .Subscriber
           );
         },
-        [_, E],
+        [_, v],
       ),
-      U = u(
+      w = u(
         function (e) {
           var t = e[0];
           return (
@@ -75,49 +68,41 @@ __d(
                 .Subscriber
           );
         },
-        [E],
+        [v],
       ),
-      V = u(
+      A = u(
         function (e) {
           var t = e[0];
           return (
             t === o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Guest
           );
         },
-        [E],
+        [v],
       );
     ((l.clearNewsletterMetadataGetterCacheFor = m),
       (l.getNewsletterMetadataUnsafe = p),
-      (l.getAdminCount = _),
       (l.getAdminProfilesSettingEnabled = f),
       (l.getCapabilities = g),
       (l.getCreationTime = h),
       (l.getDescription = y),
-      (l.getDescriptionUpdateTime = C),
-      (l.getFollowerActivityMuteExpiration = b),
-      (l.getGeosuspended = v),
-      (l.getHandle = S),
-      (l.getHasProfilePictureDeletionAlerts = R),
-      (l.getInviteCode = L),
-      (l.getMembershipType = E),
-      (l.getName = k),
-      (l.getNameUpdateTime = I),
-      (l.getPinnedMessages = T),
-      (l.getPrivacy = D),
-      (l.getReactionCodesSetting = x),
-      (l.getSize = $),
-      (l.getStatusMetadata = P),
-      (l.getStatusMute = N),
-      (l.getSuspended = M),
-      (l.getTerminated = w),
-      (l.getVerified = A),
-      (l.getWamoSubPlanId = F),
-      (l.getWamoSubStatus = O),
-      (l.getWebsite = B),
-      (l.getIsSuspendedOrTerminated = W),
-      (l.getCanBeMuted = q),
-      (l.getIsSubscribedOrOwned = U),
-      (l.getIsPreview = V));
+      (l.getFollowerActivityMuteExpiration = C),
+      (l.getInviteCode = b),
+      (l.getMembershipType = v),
+      (l.getName = S),
+      (l.getPinnedMessages = R),
+      (l.getPrivacy = L),
+      (l.getReactionCodesSetting = E),
+      (l.getSize = k),
+      (l.getStatusMetadata = I),
+      (l.getSuspended = T),
+      (l.getTerminated = D),
+      (l.getVerified = x),
+      (l.getWamoSubPlanId = $),
+      (l.getWamoSubStatus = P),
+      (l.getIsSuspendedOrTerminated = N),
+      (l.getCanBeMuted = M),
+      (l.getIsSubscribedOrOwned = w),
+      (l.getIsPreview = A));
   },
   98,
 );

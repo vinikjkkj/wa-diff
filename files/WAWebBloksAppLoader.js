@@ -95,7 +95,7 @@ __d(
     function c() {
       return (u == null && (u = new s()), u);
     }
-    ((l.WAWebBloksAppLoader = s), (l.getWAWebBloksAppLoader = c));
+    l.getWAWebBloksAppLoader = c;
   },
   98,
 );

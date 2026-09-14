@@ -12,8 +12,7 @@ __d(
             i.traversalKeys,
             i.minificationMap,
             void 0,
-            i.unminificationMap,
-            i.useMinification || i.unminificationMap != null,
+            i.loadedMinificationMaps.unminificationMap,
           );
           (e.treeManager.synchronouslyAddTreeResources(n),
             e.execute(r, [n.unboundModel]));

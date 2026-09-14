@@ -221,9 +221,9 @@ __d(
         v(u, t, n, o, a, i, l);
       }
     }
-    function v(e, t, a, i, l, u, d) {
+    function v(e, t, a, i, l, s, u) {
       e.length &&
-        (u(!0),
+        (s(!0),
         o("WAWebBizAdCreationMediaValidationUtils")
           .deepCloneMediaCollection(t)
           .then(
@@ -231,61 +231,61 @@ __d(
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
                   var n = e,
-                    u = e.some(function (e) {
+                    s = e.some(function (e) {
                       return e.type.startsWith("image/");
                     }),
-                    m = e.some(function (e) {
+                    d = e.some(function (e) {
                       return e.type.startsWith("video/");
                     });
-                  u &&
-                    m &&
+                  s &&
+                    d &&
                     ((n = e.filter(function (e) {
                       return !e.type.startsWith("video/");
                     })),
                     o("WAWebToastManager").ToastManager.open(
                       c.jsx(o("WAWebToast.react").Toast, {
-                        msg: s._(
-                          /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
-                        ),
+                        msg: o(
+                          "WAWebBizAdCreationMediaValidationUtils",
+                        ).PRUNE_TOAST_MESSAGES.MIXED_MEDIA_VIDEO_DROPPED(),
                       }),
                     ));
-                  var p = n.map(function (e) {
+                  var m = n.map(function (e) {
                       return { file: e };
                     }),
-                    _ = o(
+                    p = o(
                       "WAWebBizAdCreationMediaValidationUtils",
-                    ).maybePruneNewAttachments(t, p),
-                    f = t.getPreviewableMedias().length > 0;
-                  if (_.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") && f) {
-                    o("WAWebToastManager").ToastManager.open(
-                      c.jsx(o("WAWebToast.react").Toast, {
-                        msg: s._(
-                          /*BTDS*/ "Videos can't be added when images are selected.",
-                        ),
-                      }),
-                    );
-                    return;
-                  }
-                  for (var h of _.pruneActions)
+                    ).maybePruneNewAttachments(t, m),
+                    _ = t.getPreviewableMedias().length > 0;
+                  if (p.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") && _) {
                     o("WAWebToastManager").ToastManager.open(
                       c.jsx(o("WAWebToast.react").Toast, {
                         msg: o(
                           "WAWebBizAdCreationMediaValidationUtils",
-                        ).PRUNE_TOAST_MESSAGES[h](),
+                        ).PRUNE_TOAST_MESSAGES.VIDEO_REJECTED_WITH_EXISTING_MEDIA(),
+                      }),
+                    );
+                    return;
+                  }
+                  for (var f of p.pruneActions)
+                    o("WAWebToastManager").ToastManager.open(
+                      c.jsx(o("WAWebToast.react").Toast, {
+                        msg: o(
+                          "WAWebBizAdCreationMediaValidationUtils",
+                        ).PRUNE_TOAST_MESSAGES[f](),
                       }),
                     );
                   if (
-                    (_.shouldClearExisting && t.reset(),
-                    _.attachments.length !== 0)
+                    (p.shouldClearExisting && t.reset(),
+                    p.attachments.length !== 0)
                   ) {
-                    var y = new Set(
+                    var h = new Set(
                       t.getPreviewableMedias().map(function (e) {
                         return e.id;
                       }),
                     );
                     try {
                       yield t.processAttachments(
-                        _.attachments,
+                        p.attachments,
                         void 0,
                         o("WAWebBizAdCreationMediaValidationUtils")
                           .SUPPORTED_MEDIA_TYPES,
@@ -293,23 +293,23 @@ __d(
                           .MAX_IMAGE_COUNT,
                       );
                     } catch (e) {
-                      ((d != null ? d : i)(),
+                      ((u != null ? u : i)(),
                         r("FBLogger")("wa_ctwa_web")
                           .catching(r("getErrorSafe")(e))
                           .mustfix("failed to process media for upload"));
                       return;
                     }
-                    var C = new Set(
+                    var y = new Set(
                       t
                         .getPreviewableMedias()
                         .filter(function (e) {
-                          return !y.has(e.id);
+                          return !h.has(e.id);
                         })
                         .map(function (e) {
                           return e.id;
                         }),
                     );
-                    (l(t, C),
+                    (l(t, y),
                       g({
                         mediaCollection: t,
                         onMediaUploadComplete: a,
@@ -329,7 +329,7 @@ __d(
               .mustfix("failed to clone media collection");
           })
           .finally(function () {
-            u(!1);
+            s(!1);
           }));
     }
     ((l.uploadAdCreativeMediaToWA = y),

@@ -1053,6 +1053,111 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
+    function He() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DETAIL,
+        userActionTarget: "delete_appointment",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function Ge() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DELETE_CONFIRM_DIALOG,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function ze() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DELETE_CONFIRM_DIALOG,
+        userActionTarget: "delete",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function je() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DELETE_CONFIRM_DIALOG,
+        userActionTarget: "cancel",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function Ke() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DELETE_CONFIRM_DIALOG,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+      });
+    }
+    function Qe(e, t) {
+      var n = e ? "success" : "fail";
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        extraAttributes: t != null ? { error: t, result: n } : { result: n },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_DETAIL,
+        userActionTarget: "cancel_calendar_event",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.API,
+      });
+    }
+    function Xe() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_ERROR_DIALOG,
+        userActionTarget: "delete_error",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function Ye(e) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.AI_HOME,
+        extraAttributes: { state: e },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_1P_CALENDAR_LIST,
+        userActionTarget: "third_party_calendar_notice",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
     ((l.logViewAiHubNavEntryPoint = s),
       (l.logClickAiHubNavEntryPoint = u),
       (l.logBizAiHubDeeplinkClick = c),
@@ -1142,7 +1247,15 @@ __d(
       (l.logApiFetchCalendarEvents = We),
       (l.logClickCalendarBookingRow = qe),
       (l.logViewCalendarBookingDetail = Ue),
-      (l.logClickOpenCustomerChat = Ve));
+      (l.logClickOpenCustomerChat = Ve),
+      (l.logClickDeleteCalendarBooking = He),
+      (l.logViewCancelCalendarBookingDialog = Ge),
+      (l.logClickConfirmCancelCalendarBooking = ze),
+      (l.logClickKeepCalendarBooking = je),
+      (l.logDismissCancelCalendarBookingDialog = Ke),
+      (l.logApiCancelCalendarEvent = Qe),
+      (l.logViewCancelCalendarBookingErrorDialog = Xe),
+      (l.logViewThirdPartyCalendarNotice = Ye));
   },
   98,
 );

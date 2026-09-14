@@ -2294,6 +2294,7 @@ __d(
         instagramThreadLink: [80, e.TYPES.MESSAGE, ao],
         aiProvenance: [81, e.TYPES.MESSAGE, u.AIProvenanceSpec],
         experienceIds: [82, e.FLAGS.REPEATED | e.FLAGS.PACKED | e.TYPES.UINT32],
+        partnerDeepLinkToken: [83, e.TYPES.STRING],
       }),
       (ao.name = "ContextInfo$InstagramThreadLink"),
       (ao.internalSpec = { url: [1, e.TYPES.STRING] }),

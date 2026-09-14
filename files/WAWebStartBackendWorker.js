@@ -910,15 +910,23 @@ __d(
                 .sendLogs("main-thread-backend-worker-init-fails"),
               A.message.includes(v))
             ) {
-              l.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t));
+              l.endFail("error", {
+                string: {
+                  error: o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t),
+                },
+              });
               return;
             }
             var F = (M = e == null ? void 0 : e.retryInit) != null ? M : 0;
             F < $ && globalThis.navigator.locks != null
               ? (l.addPoint("retry_" + F), N({ qpl: l, retryInit: F + 1 }))
-              : l.endFail(
-                  o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t),
-                );
+              : l.endFail("error", {
+                  string: {
+                    error: o("getSafeQplErrorMessage").getSafeQPLErrorMessage(
+                      t,
+                    ),
+                  },
+                });
           }
         })),
         M.apply(this, arguments)

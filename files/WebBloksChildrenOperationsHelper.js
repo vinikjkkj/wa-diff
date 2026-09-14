@@ -161,7 +161,9 @@ __d(
     function S(e, t, n) {
       e.enqueueUpdateOperation(new (o("WebBloksMutations").ServerIdTarget)(t), {
         update: function (t) {
-          for (var e of T(n)) t.getChildren_DEPRECATED().push(e);
+          var e = T(n),
+            r = t.getChildren_DEPRECATED();
+          for (var o of e) r.push(o);
         },
       });
     }

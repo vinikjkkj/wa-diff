@@ -23,10 +23,11 @@ __d(
       _,
       f,
       g,
-      h = r("requireDeferred")("WAWebReprocessOrphanBotMsg").__setRef(
+      h,
+      y = r("requireDeferred")("WAWebReprocessOrphanBotMsg").__setRef(
         "WAWebDBBotMsgOrphanProvider",
       ),
-      y = {
+      C = {
         type: o("WAWebMessageAddOnType").MessageAddOnType.BotMsmsg,
         matches: function (t) {
           return (
@@ -42,21 +43,21 @@ __d(
           return !1;
         },
         processOrphansForNewMsg: function (t, n) {
-          return C(n);
+          return b(n);
         },
       };
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebBotGating").isBotOrphanMsgEnabled())
             return (
               o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[BotMsgOrphanProvider] gate off, keeping ",
                       " orphan(s) unreplayed",
                     ])),
@@ -72,14 +73,14 @@ __d(
             );
           var t;
           try {
-            var a = yield h.load();
+            var a = yield y.load();
             t = a.reprocessOrphanBotMsg;
           } catch (t) {
             return (
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[BotMsgOrphanProvider] could not load the replay helper",
                     ])),
                 )
@@ -92,9 +93,7 @@ __d(
               }
             );
           }
-          var i = [].concat(e).sort(function (e, t) {
-              return $(e) - $(t) || k(e) - k(t);
-            }),
+          var i = [].concat(e).sort(T(I(e))),
             l = new Set(),
             s = new Map();
           return (
@@ -106,27 +105,27 @@ __d(
                     try {
                       var a = n.msgKey,
                         i = n.parsedMsgPayload,
-                        u = v(n, s);
+                        u = S(n, s);
                       if (u != null) {
                         u === "held" && l.add(a);
                         return;
                       }
-                      var c = yield S(n, t);
+                      var c = yield R(n, t);
                       (c.retain && l.add(a),
                         !c.replayed &&
                           (i == null ? void 0 : i.botEditType) ===
                             o("WAWebBotTypes").BotMsgEditType.FIRST &&
-                          L(n, c, s));
+                          E(n, c, s));
                     } catch (e) {
-                      var d, p;
+                      var d, m;
                       (o("WALogger")
                         .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
                               "[BotMsgOrphanProvider] re-processing failed for ",
                               "",
                             ])),
-                          E(n.msgKey),
+                          k(n.msgKey),
                         )
                         .catching(r("getErrorSafe")(e))
                         .sendLogs("bot-orphan-reprocess-failed"),
@@ -135,9 +134,9 @@ __d(
                         (d = n.parsedMsgPayload) == null || (d = d.id) == null
                           ? void 0
                           : d.id;
-                      ((p = n.parsedMsgPayload) == null
+                      ((m = n.parsedMsgPayload) == null
                         ? void 0
-                        : p.botEditType) ===
+                        : m.botEditType) ===
                         o("WAWebBotTypes").BotMsgEditType.FIRST &&
                         _ != null &&
                         !s.has(_) &&
@@ -149,17 +148,17 @@ __d(
                   return e.apply(this, arguments);
                 };
               })(),
-              (g || (g = n("Promise"))).resolve(),
+              (h || (h = n("Promise"))).resolve(),
             ),
             { retainedOrphanMsgKeys: Array.from(l) }
           );
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(t, n) {
+    function S(t, n) {
       var r;
-      if ($(t) === I) return null;
+      if (w(t) === $) return null;
       var a = (r = t.parsedMsgPayload) == null ? void 0 : r.botEditTargetId;
       return a == null
         ? (n.size > 0 &&
@@ -175,12 +174,12 @@ __d(
           null)
         : n.get(a);
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
             i = e.parsedMsgPayload,
@@ -188,13 +187,13 @@ __d(
             s =
               (n = i == null || (a = i.id) == null ? void 0 : a.id) != null
                 ? n
-                : E(e.msgKey);
+                : k(e.msgKey);
           if (l == null)
             return (
               o("WALogger")
                 .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[BotMsgOrphanProvider] discarding orphan with no replayable stanza ",
                       "",
                     ])),
@@ -207,8 +206,8 @@ __d(
           try {
             o("WALogger")
               .LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[BotMsgOrphanProvider] re-processing orphan stanza ",
                     "",
                   ])),
@@ -221,8 +220,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[BotMsgOrphanProvider] re-processing failed for stanza ",
                       "",
                     ])),
@@ -234,10 +233,10 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       var r,
         a,
         i,
@@ -247,7 +246,7 @@ __d(
               ? void 0
               : a.id) != null
             ? r
-            : E(e.msgKey),
+            : k(e.msgKey),
         c =
           (i = e.parsedMsgPayload) == null || (i = i.id) == null
             ? void 0
@@ -277,11 +276,59 @@ __d(
           .tags("messaging")
           .sendLogs("bot-orphan-stream-head-unreplayed", { sampling: 0.01 }));
     }
-    function E(e) {
+    function k(e) {
       var t;
       return (t = e.split("_")[2]) != null ? t : "unknown";
     }
-    function k(e) {
+    function I(e) {
+      var t = new Set(),
+        n = new Set();
+      for (var r of e) {
+        var a,
+          i = w(r);
+        ((a = r.parsedMsgPayload) == null ? void 0 : a.botSenderTimestampMs) ==
+        null
+          ? n.add(i)
+          : t.add(i);
+      }
+      var l = [];
+      for (var s of n) t.delete(s) && l.push(s);
+      return (
+        l.length > 0 &&
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BotMsgOrphanProvider] ranks ",
+                  " have a row without a sender timestamp, ordering them by arrival",
+                ])),
+              l.join(","),
+            )
+            .tags("messaging"),
+        t
+      );
+    }
+    function T(e) {
+      return function (t, n) {
+        var r = w(t),
+          o = r - w(n);
+        if (o !== 0) return o;
+        if (e.has(r)) {
+          var a = D(t) - D(n);
+          if (a !== 0) return a;
+        }
+        return x(t) - x(n);
+      };
+    }
+    function D(e) {
+      var t, n;
+      return (t =
+        (n = e.parsedMsgPayload) == null ? void 0 : n.botSenderTimestampMs) !=
+        null
+        ? t
+        : 0;
+    }
+    function x(e) {
       var t, n;
       return (t =
         (n = e.parsedMsgPayload) == null ? void 0 : n.clientReceivedTsMillis) !=
@@ -289,25 +336,25 @@ __d(
         ? t
         : Number.MAX_SAFE_INTEGER;
     }
-    var I = 0,
-      T = 1,
-      D = 2,
-      x = 3;
-    function $(e) {
+    var $ = 0,
+      P = 1,
+      N = 2,
+      M = 3;
+    function w(e) {
       var t = e.parsedMsgPayload;
-      if (t == null) return x;
+      if (t == null) return M;
       var n = t.botEditType;
-      if (n == null) return x;
+      if (n == null) return M;
       var r = o("WAWebBotTypes").BotMsgEditType.cast(n);
       return r == null
-        ? x
+        ? M
         : r === o("WAWebBotTypes").BotMsgEditType.INNER
-          ? T
+          ? P
           : r === o("WAWebBotTypes").BotMsgEditType.LAST
-            ? D
+            ? N
             : r === o("WAWebBotTypes").BotMsgEditType.FIRST ||
                 r === o("WAWebBotTypes").BotMsgEditType.FULL
-              ? I
+              ? $
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -315,7 +362,7 @@ __d(
                   );
                 })();
     }
-    ((l.botMsgOrphanProvider = y), (l.processBotMsgOrphans = C));
+    ((l.botMsgOrphanProvider = C), (l.processBotMsgOrphans = b));
   },
   98,
 );

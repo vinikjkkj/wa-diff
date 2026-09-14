@@ -3,6 +3,7 @@ __d(
   [
     "WebBloksAbstractButton",
     "WebBloksComponentContext",
+    "WebBloksDialogMinificationKeys",
     "WebBloksStyle",
     "react",
     "react-compiler-runtime",
@@ -13,18 +14,30 @@ __d(
     function u(e) {
       var t = o("react-compiler-runtime").c(20),
         n = e.node,
-        a = n.get("appearance"),
+        a = n.get(o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_APPEARANCE),
         i;
       t[0] !== n
-        ? ((i = n.get("testing_id")), (t[0] = n), (t[1] = i))
+        ? ((i = n.get(
+            o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_TESTING_ID,
+          )),
+          (t[0] = n),
+          (t[1] = i))
         : (i = t[1]);
       var l = i,
         u;
-      t[2] !== n ? ((u = n.get("text")), (t[2] = n), (t[3] = u)) : (u = t[3]);
+      t[2] !== n
+        ? ((u = n.get(o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_TEXT)),
+          (t[2] = n),
+          (t[3] = u))
+        : (u = t[3]);
       var d = u,
         m;
       t[4] !== n
-        ? ((m = n.getExpression("on_click")), (t[4] = n), (t[5] = m))
+        ? ((m = n.getExpression(
+            o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_ON_CLICK,
+          )),
+          (t[4] = n),
+          (t[5] = m))
         : (m = t[5]);
       var p = m,
         _ = o("WebBloksComponentContext").useWebBloksContext(),

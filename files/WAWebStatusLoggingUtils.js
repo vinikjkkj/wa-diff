@@ -10,10 +10,10 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new TextEncoder(),
-      s = function (n) {
-        return e.encode(n).buffer;
-      };
+    var e = new TextEncoder();
+    function s(t) {
+      return e.encode(t).buffer;
+    }
     function u(e) {
       return c.apply(this, arguments);
     }

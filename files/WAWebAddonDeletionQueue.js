@@ -134,7 +134,7 @@ __d(
         y.apply(this, arguments)
       );
     }
-    ((l.startAddonDeletionQueueDrain = m), (l.drainAddonDeletionBatch = f));
+    l.startAddonDeletionQueueDrain = m;
   },
   98,
 );

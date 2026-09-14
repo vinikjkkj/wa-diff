@@ -112,6 +112,7 @@ __d(
             AUTO_DOWNLOAD_AUDIO: "WAAutoDownloadAudio",
             AUTO_DOWNLOAD_VIDEOS: "WAAutoDownloadVideos",
             AUTO_DOWNLOAD_DOCUMENTS: "WAAutoDownloadDocuments",
+            AUTO_DOWNLOAD_MEDIA_QUALITY: "WAAutoDownloadMediaQuality",
             LANG: "WALangPref",
             LANG_FROM_USER: "WALangUserPref",
             LANG_FROM_PHONE: "WALangPhonePref",

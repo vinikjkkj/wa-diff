@@ -7,8 +7,7 @@ __d(
     function l(t) {
       return t <= e;
     }
-    ((i.MOBILE_CALL_LAYOUT_MAX_WIDTH = e),
-      (i.isWAWebVoipViewportMobileWidth = l));
+    i.isWAWebVoipViewportMobileWidth = l;
   },
   66,
 );

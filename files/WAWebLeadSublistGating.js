@@ -19,7 +19,16 @@ __d(
         o("WAWebContactManagerGating").contactManagerEnabled()
       );
     }
-    l.isChatEligibleForLeadSublist = e;
+    function s(e) {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        !r("WAWebEnvironment").isGuest &&
+        o("WAWebContactManagerGating").isEligibleForCustomerFields(e) &&
+        o("WAWebContactManagerGating").contactManagerEnabled()
+      );
+    }
+    ((l.isChatEligibleForLeadSublist = e),
+      (l.isContactEligibleForLeadSublist = s));
   },
   98,
 );

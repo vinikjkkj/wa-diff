@@ -1,6 +1,12 @@
 __d(
   "WebBloksToastManager",
-  ["WebBloksToast", "WebBloksUtils", "react"],
+  [
+    "WebBloksModel",
+    "WebBloksScriptString",
+    "WebBloksToast",
+    "WebBloksUtils",
+    "react",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -12,7 +18,18 @@ __d(
         showAnimationInterpolator: "ease-out",
         dismissAnimationInterpolator: "ease-out",
       },
-      c = (function () {
+      c = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      d = o("WebBloksModel").defineWebBloksAttributeKey("$"),
+      m = o("WebBloksModel").defineWebBloksAttributeKey("&"),
+      p = o("WebBloksModel").defineWebBloksAttributeKey("("),
+      _ = o("WebBloksModel").defineWebBloksAttributeKey(")"),
+      f = o("WebBloksModel").defineWebBloksAttributeKey("*"),
+      g = o("WebBloksModel").defineWebBloksAttributeKey("+"),
+      h = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      y = o("WebBloksModel").defineWebBloksAttributeKey("$"),
+      C = o("WebBloksModel").defineWebBloksAttributeKey("&"),
+      b = o("WebBloksModel").defineWebBloksAttributeKey("("),
+      v = (function () {
         function e() {
           ((this.$1 = null), (this.$2 = []), (this.$3 = !1), (this.$4 = []));
         }
@@ -121,42 +138,44 @@ __d(
             }
           }),
           (t.$5 = function (t) {
-            var e,
-              n,
-              r,
-              o = this.parseToastInterpolator(
-                t.get("show_animation_interpolator"),
+            var e = this.parseToastInterpolator(
+                R(t.getUntyped(g)),
                 u.showAnimationInterpolator,
               ),
-              a = this.parseToastInterpolator(
-                t.get("dismiss_animation_interpolator"),
+              n = this.parseToastInterpolator(
+                R(t.getUntyped(m)),
                 u.dismissAnimationInterpolator,
-              );
-            return {
-              autoDismissDurationMs:
-                (e = t.get("auto_dismiss_duration_ms")) != null
-                  ? e
-                  : u.autoDismissDurationMs,
-              showAnimationDurationMs:
-                (n = t.get("show_animation_duration_ms")) != null
-                  ? n
-                  : u.showAnimationDurationMs,
-              dismissAnimationDurationMs:
-                (r = t.get("dismiss_animation_duration_ms")) != null
-                  ? r
-                  : u.dismissAnimationDurationMs,
-              showAnimationInterpolator: o,
-              dismissAnimationInterpolator: a,
-              onShow: t.get("on_show"),
-              onDismiss: t.get("on_dismiss"),
-            };
+              ),
+              r = {
+                autoDismissDurationMs: S(
+                  t.getUntyped(c),
+                  u.autoDismissDurationMs,
+                ),
+                showAnimationDurationMs: S(
+                  t.getUntyped(f),
+                  u.showAnimationDurationMs,
+                ),
+                dismissAnimationDurationMs: S(
+                  t.getUntyped(d),
+                  u.dismissAnimationDurationMs,
+                ),
+                showAnimationInterpolator: e,
+                dismissAnimationInterpolator: n,
+              },
+              o = L(t.getUntyped(_)),
+              a = L(t.getUntyped(p));
+            return (
+              o != null && (r.onShow = o),
+              a != null && (r.onDismiss = a),
+              r
+            );
           }),
           (t.parseToastInterpolator = function (t, n) {
             if (t == null) return n;
-            var e = t.get("x_a"),
-              r = t.get("x_b"),
-              o = t.get("y_a"),
-              a = t.get("y_b");
+            var e = t.get(h),
+              r = t.get(y),
+              o = t.get(C),
+              a = t.get(b);
             return "cubic-bezier(" + e + "," + o + "," + r + "," + a + ")";
           }),
           (t.addListener = function (t) {
@@ -185,7 +204,16 @@ __d(
           e
         );
       })();
-    l.default = c;
+    function S(e, t) {
+      return typeof e == "number" ? e : t;
+    }
+    function R(e) {
+      return o("WebBloksModel").isWebBloksModel(e) ? e : null;
+    }
+    function L(e) {
+      return o("WebBloksScriptString").isWebBloksScriptString(e) ? e : null;
+    }
+    l.default = v;
   },
   98,
 );

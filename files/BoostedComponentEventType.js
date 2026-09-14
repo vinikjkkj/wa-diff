@@ -1778,6 +1778,8 @@ __d(
         "ig_placement_recovered_by_ad_account",
       IG_PLACEMENT_RECOVERABLE_BY_AD_ACCOUNT_AMD:
         "ig_placement_recoverable_by_ad_account_amd",
+      IG_PLACEMENT_RECOVERED_BY_AD_ACCOUNT_AMD:
+        "ig_placement_recovered_by_ad_account_amd",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",

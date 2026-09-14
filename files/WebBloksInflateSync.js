@@ -15,8 +15,7 @@ __d(
         r.traversalKeys,
         r.minificationMap,
         n,
-        r.unminificationMap,
-        r.useMinification || r.unminificationMap != null,
+        r.loadedMinificationMaps.unminificationMap,
       );
     }
     l.default = e;

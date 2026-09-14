@@ -1,257 +1,290 @@
 __d(
   "WebBloksGestureExtensionHandler",
-  ["WebBloksExtentionUtils", "WebBloksUtils"],
+  [
+    "WebBloksExtentionUtils",
+    "WebBloksMinificationUtils",
+    "WebBloksModel",
+    "WebBloksUtils",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e = 500,
-      s = 250,
-      u = {
+    var e,
+      s = 500,
+      u = 250,
+      c = (e = o("WebBloksModel")).defineWebBloksAttributeKey("$"),
+      d = e.defineWebBloksAttributeKey("-"),
+      m = e.defineWebBloksAttributeKey("A"),
+      p = e.defineWebBloksAttributeKey("#"),
+      _ = e.defineWebBloksAttributeKey("5"),
+      f = e.defineWebBloksAttributeKey("="),
+      g = e.defineWebBloksAttributeKey("+"),
+      h = e.defineWebBloksAttributeKey("6"),
+      y = e.defineWebBloksAttributeKey(">"),
+      C = e.defineWebBloksAttributeKey("1"),
+      b = e.defineWebBloksAttributeKey("2"),
+      v = {
         getStyles: function (t) {
           return { pointerEvents: "auto" };
         },
-        onMount: function (n, r, a) {
-          var t,
-            i = r.current,
-            l = (t = i.uiMutableContainer.domNode) == null ? void 0 : t.current;
-          if (l == null) return;
-          var u = n.getExpression("on_tap"),
-            c = n.getExpression("on_tap_with_touch_point"),
-            d = n.getExpression("on_tap_with_touch_point_v2"),
-            m = n.getExpression("on_long_press"),
-            p = n.getExpression("on_long_press_with_touch_point"),
-            _ = n.getExpression("on_long_press_with_touch_point_v2"),
-            f = n.getExpression("on_double_tap"),
-            g = n.getExpression("on_double_tap_with_touch_point"),
-            h = n.getExpression("on_double_tap_with_touch_point_v2"),
-            y = n.getExpression("on_touch_down");
-          function C(e, t) {
-            y != null &&
-              a.executeCatch(r.current, y, [r.current, a.bloksContext, e, t]);
+        onMount: function (t, n, r) {
+          var e,
+            a = n.current,
+            i = (e = a.uiMutableContainer.domNode) == null ? void 0 : e.current,
+            l =
+              r.bloksContext.objectSet.environment.loadedMinificationMaps
+                .unminificationMap;
+          function v() {
+            var e = n.current;
+            return o("WebBloksUtils").isBloksModelEnabled(
+              e,
+              o(
+                "WebBloksMinificationUtils",
+              ).getOptionalMinifiedWebBloksAttributeKey(
+                String(e.styleId),
+                "enabled",
+                l,
+              ),
+            );
           }
-          function b(e) {
-            C(e.clientX, e.clientY);
+          if (i == null) return;
+          var S = t.getExpression(g),
+            R = t.getExpression(h),
+            L = t.getExpression(y),
+            E = t.getExpression(p),
+            k = t.getExpression(_),
+            I = t.getExpression(f),
+            T = t.getExpression(c),
+            D = t.getExpression(d),
+            x = t.getExpression(m),
+            $ = t.getExpression(C);
+          function P(e, t) {
+            $ != null &&
+              r.executeCatch(n.current, $, [n.current, r.bloksContext, e, t]);
           }
-          function v(e) {
-            C(e.touches[0].clientX, e.touches[0].clientY);
+          function N(e) {
+            P(e.clientX, e.clientY);
           }
-          y != null &&
-            (l.addEventListener("mousedown", b),
-            l.addEventListener("touchstart", v));
-          var S = n.getExpression("on_touch_up");
-          function R(e, t) {
-            S != null &&
-              a.executeCatch(r.current, S, [r.current, a.bloksContext, e, t]);
+          function M(e) {
+            P(e.touches[0].clientX, e.touches[0].clientY);
           }
-          function L(e) {
-            R(e.clientX, e.clientY);
+          $ != null &&
+            (i.addEventListener("mousedown", N),
+            i.addEventListener("touchstart", M));
+          var w = t.getExpression(b);
+          function A(e, t) {
+            w != null &&
+              r.executeCatch(n.current, w, [n.current, r.bloksContext, e, t]);
           }
-          function E(e) {
-            R(e.touches[0].clientX, e.touches[0].clientY);
+          function F(e) {
+            A(e.clientX, e.clientY);
           }
-          S != null &&
-            (l.addEventListener("mouseup", L),
-            l.addEventListener("touchend", E));
-          var k = i.uiMutableContainer.gestures || {
+          function O(e) {
+            A(e.touches[0].clientX, e.touches[0].clientY);
+          }
+          w != null &&
+            (i.addEventListener("mouseup", F),
+            i.addEventListener("touchend", O));
+          var B = a.uiMutableContainer.gestures || {
             longPressTimeout: null,
             doublePressTimeout: null,
             startX: 0,
             startY: 0,
             preventTap: !1,
           };
-          i.uiMutableContainer.gestures = k;
-          function I() {
-            (window.clearTimeout(k.longPressTimeout),
-              (k.longPressTimeout = null),
+          a.uiMutableContainer.gestures = B;
+          function W() {
+            (window.clearTimeout(B.longPressTimeout),
+              (B.longPressTimeout = null),
               o("WebBloksExtentionUtils").enableLongPressSideEffectsInSafari());
           }
-          function T(t, n) {
+          function q(e, t) {
             if (
-              k.longPressTimeout === null &&
+              B.longPressTimeout === null &&
               (o(
                 "WebBloksExtentionUtils",
               ).disableLongPressSideEffectsInSafari(),
-              l != null)
+              i != null)
             ) {
-              var i = l.getBoundingClientRect();
-              ((k.startX = i.left),
-                (k.startY = i.top),
-                (k.preventTap = !1),
-                (k.longPressTimeout = window.setTimeout(function () {
-                  ((k.preventTap = !0),
-                    (k.longPressTimeout = null),
-                    o("WebBloksUtils").isBloksModelEnabled(r.current) &&
-                      (m != null &&
-                        a.executeCatch(r.current, m, [
-                          r.current,
-                          a.bloksContext,
+              var a = i.getBoundingClientRect();
+              ((B.startX = a.left),
+                (B.startY = a.top),
+                (B.preventTap = !1),
+                (B.longPressTimeout = window.setTimeout(function () {
+                  ((B.preventTap = !0),
+                    (B.longPressTimeout = null),
+                    v() &&
+                      (E != null &&
+                        r.executeCatch(n.current, E, [
+                          n.current,
+                          r.bloksContext,
                         ]),
-                      p != null &&
-                        a.executeCatch(r.current, p, [
-                          r.current,
-                          a.bloksContext,
+                      k != null &&
+                        r.executeCatch(n.current, k, [
+                          n.current,
+                          r.bloksContext,
+                          e,
                           t,
-                          n,
                         ]),
-                      _ != null &&
-                        a.executeCatch(r.current, _, [
-                          r.current,
-                          a.bloksContext,
-                          a,
+                      I != null &&
+                        r.executeCatch(n.current, I, [
+                          n.current,
+                          r.bloksContext,
+                          r,
                           "detected",
+                          e,
                           t,
-                          n,
                         ])),
                     o(
                       "WebBloksExtentionUtils",
                     ).enableLongPressSideEffectsInSafari());
-                }, e)));
+                }, s)));
             }
           }
-          function D(e) {
-            T(e.touches[0].clientX, e.touches[0].clientY);
+          function U(e) {
+            q(e.touches[0].clientX, e.touches[0].clientY);
           }
-          function x(e) {
-            T(e.clientX, e.clientY);
+          function V(e) {
+            q(e.clientX, e.clientY);
           }
-          function $(e) {
+          function H(e) {
             var t = e.targetTouches[0];
-            l != null &&
+            i != null &&
               o("WebBloksUtils").shouldCancelTouchEvent(
-                l,
-                k.startX,
-                k.startY,
+                i,
+                B.startX,
+                B.startY,
                 t,
               ) &&
-              I();
+              W();
           }
-          function P() {
-            I();
+          function G() {
+            W();
           }
-          function N(e) {
-            (k.preventTap && e.preventDefault(), I());
+          function z(e) {
+            (B.preventTap && e.preventDefault(), W());
           }
-          function M() {
-            I();
+          function j() {
+            W();
           }
-          (m != null || p != null || _ != null) &&
-            (l.addEventListener(
+          (E != null || k != null || I != null) &&
+            (i.addEventListener(
               "touchstart",
-              D,
+              U,
               o("WebBloksUtils").passiveTouchEventOptions,
             ),
-            l.addEventListener(
+            i.addEventListener(
               "touchmove",
-              $,
+              H,
               o("WebBloksUtils").passiveTouchEventOptions,
             ),
-            l.addEventListener("touchend", N),
-            l.addEventListener("touchcancel", N),
-            l.addEventListener("mousedown", x),
-            l.addEventListener("mouseleave", P),
-            l.addEventListener("mouseup", M));
-          function w(e) {
+            i.addEventListener("touchend", z),
+            i.addEventListener("touchcancel", z),
+            i.addEventListener("mousedown", V),
+            i.addEventListener("mouseleave", G),
+            i.addEventListener("mouseup", j));
+          function K(e) {
             var t;
             (e.stopPropagation(),
-              ((t = r.current.uiMutableContainer) == null ||
+              ((t = n.current.uiMutableContainer) == null ||
               (t = t.gestures) == null
                 ? void 0
                 : t.preventTap) !== !0 &&
-                o("WebBloksUtils").isBloksModelEnabled(r.current) &&
-                ((u != null || c != null || d != null) &&
-                  f == null &&
-                  g == null &&
-                  h == null &&
-                  (u != null &&
-                    a.executeCatch(r.current, u, [r.current, a.bloksContext]),
-                  c != null &&
-                    a.executeCatch(r.current, c, [
-                      r.current,
-                      a.bloksContext,
+                v() &&
+                ((S != null || R != null || L != null) &&
+                  T == null &&
+                  D == null &&
+                  x == null &&
+                  (S != null &&
+                    r.executeCatch(n.current, S, [n.current, r.bloksContext]),
+                  R != null &&
+                    r.executeCatch(n.current, R, [
+                      n.current,
+                      r.bloksContext,
                       e.clientX,
                       e.clientY,
                     ]),
-                  d != null &&
-                    a.executeCatch(r.current, d, [
-                      r.current,
-                      a.bloksContext,
-                      a,
+                  L != null &&
+                    r.executeCatch(n.current, L, [
+                      n.current,
+                      r.bloksContext,
+                      r,
                       e.clientX,
                       e.clientY,
                     ])),
-                (f != null || g != null || h != null) &&
-                  (u != null || c != null || d != null) &&
+                (T != null || D != null || x != null) &&
+                  (S != null || R != null || L != null) &&
                   e.detail === 1 &&
-                  (window.clearTimeout(k.doublePressTimeout),
-                  (k.doublePressTimeout = window.setTimeout(function () {
-                    (u != null &&
-                      a.executeCatch(r.current, u, [r.current, a.bloksContext]),
-                      c != null &&
-                        a.executeCatch(r.current, c, [
-                          r.current,
-                          a.bloksContext,
+                  (window.clearTimeout(B.doublePressTimeout),
+                  (B.doublePressTimeout = window.setTimeout(function () {
+                    (S != null &&
+                      r.executeCatch(n.current, S, [n.current, r.bloksContext]),
+                      R != null &&
+                        r.executeCatch(n.current, R, [
+                          n.current,
+                          r.bloksContext,
                           e.clientX,
                           e.clientY,
                         ]),
-                      d != null &&
-                        a.executeCatch(r.current, d, [
-                          r.current,
-                          a.bloksContext,
-                          a,
+                      L != null &&
+                        r.executeCatch(n.current, L, [
+                          n.current,
+                          r.bloksContext,
+                          r,
                           e.clientX,
                           e.clientY,
                         ]));
-                  }, s)))));
+                  }, u)))));
           }
-          (u != null ||
-            c != null ||
-            d != null ||
-            f != null ||
-            g != null ||
-            h == null) &&
-            l.addEventListener("click", w);
-          function A(e) {
-            (window.clearTimeout(k.doublePressTimeout),
-              (k.doublePressTimeout = null),
-              f != null &&
-                a.executeCatch(r.current, f, [r.current, a.bloksContext]),
-              g != null &&
-                a.executeCatch(r.current, g, [
-                  r.current,
-                  a.bloksContext,
+          (S != null ||
+            R != null ||
+            L != null ||
+            T != null ||
+            D != null ||
+            x == null) &&
+            i.addEventListener("click", K);
+          function Q(e) {
+            (window.clearTimeout(B.doublePressTimeout),
+              (B.doublePressTimeout = null),
+              T != null &&
+                r.executeCatch(n.current, T, [n.current, r.bloksContext]),
+              D != null &&
+                r.executeCatch(n.current, D, [
+                  n.current,
+                  r.bloksContext,
                   e.clientX,
                   e.clientY,
                 ]),
-              h != null &&
-                a.executeCatch(r.current, h, [
-                  r.current,
-                  a.bloksContext,
-                  a,
+              x != null &&
+                r.executeCatch(n.current, x, [
+                  n.current,
+                  r.bloksContext,
+                  r,
                   e.clientX,
                   e.clientY,
                 ]));
           }
           return (
-            (f != null || g != null || h != null) &&
-              l.addEventListener("dblclick", A),
+            (T != null || D != null || x != null) &&
+              i.addEventListener("dblclick", Q),
             function () {
-              (l.removeEventListener("touchstart", D),
-                l.removeEventListener("touchmove", $),
-                l.removeEventListener("touchend", N),
-                l.removeEventListener("touchcancel", N),
-                l.removeEventListener("mousedown", x),
-                l.removeEventListener("mouseleave", P),
-                l.removeEventListener("mouseup", M),
-                l.removeEventListener("click", w),
-                l.removeEventListener("dblclick", A),
-                l.removeEventListener("mousedown", b),
-                l.removeEventListener("touchstart", v),
-                l.removeEventListener("mouseup", L),
-                l.removeEventListener("touchend", E));
+              (i.removeEventListener("touchstart", U),
+                i.removeEventListener("touchmove", H),
+                i.removeEventListener("touchend", z),
+                i.removeEventListener("touchcancel", z),
+                i.removeEventListener("mousedown", V),
+                i.removeEventListener("mouseleave", G),
+                i.removeEventListener("mouseup", j),
+                i.removeEventListener("click", K),
+                i.removeEventListener("dblclick", Q),
+                i.removeEventListener("mousedown", N),
+                i.removeEventListener("touchstart", M),
+                i.removeEventListener("mouseup", F),
+                i.removeEventListener("touchend", O));
             }
           );
         },
       },
-      c = u;
-    l.default = c;
+      S = v;
+    l.default = S;
   },
   98,
 );

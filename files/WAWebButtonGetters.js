@@ -16,10 +16,7 @@ __d(
       p = s("id"),
       _ = s("displayText"),
       f = m("selected");
-    ((l.getButtonUnsafe = c),
-      (l.getId = p),
-      (l.getDisplayText = _),
-      (l.getSelected = f));
+    ((l.getId = p), (l.getDisplayText = _), (l.getSelected = f));
   },
   98,
 );

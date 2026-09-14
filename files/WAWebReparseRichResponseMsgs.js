@@ -2,6 +2,7 @@ __d(
   "WAWebReparseRichResponseMsgs",
   [
     "Promise",
+    "WAResolvable",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebDBMessageSerialization",
@@ -35,29 +36,36 @@ __d(
               ? null
               : babelHelpers.extends({}, t, { richResponse: r });
           });
-          a.length !== 0 &&
-            (yield o("WAWebMessageProcessDBPipeline").processMsgDataDBPipeline(
-              a,
-              !0,
-            ),
-            o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
-              (yield (e || (e = n("Promise"))).all(
-                a.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        return o("WAWebBackendApi").frontendSendAndReceive(
-                          "updateMessageUI",
-                          { chatId: e.id.remote, msg: e },
-                        );
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              )));
+          if (a.length !== 0) {
+            var i = new (o("WAResolvable").Resolvable)();
+            yield o("WAWebMessageProcessDBPipeline").processMsgDataDBPipeline({
+              flushImmediatly: !0,
+              msgData: a,
+              uiNotified: i,
+            });
+            try {
+              o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
+                (yield (e || (e = n("Promise"))).all(
+                  a.map(
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          return o("WAWebBackendApi").frontendSendAndReceive(
+                            "updateMessageUI",
+                            { chatId: e.id.remote, msg: e },
+                          );
+                        },
+                      );
+                      return function (t) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  ),
+                ));
+            } finally {
+              i.resolve(void 0);
+            }
+          }
         })),
         u.apply(this, arguments)
       );

@@ -128,7 +128,9 @@ __d(
       );
     }
     function S() {
-      return r("justknobx")._("5833");
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_send_once_default_on",
+      );
     }
     function R() {
       return r("justknobx")._("5870");
@@ -146,7 +148,7 @@ __d(
       (l.isGroupHistoryAfterJoinPrerequisitesEnabled = C),
       (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = b),
       (l.isGroupHistoryReceiverDedupEnabled = v),
-      (l.isLearnGroupHistoryToggleFromHistorySyncEnabled = S),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = S),
       (l.shouldSkipUnsupportedMessagesFromBundle = R));
   },
   98,

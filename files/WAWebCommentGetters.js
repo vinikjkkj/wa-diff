@@ -46,12 +46,9 @@ __d(
         [y, v, C],
       );
     ((l.clearCommentGetterCacheFor = m),
-      (l.getCommentUnsafe = p),
       (l.clearFrontendCommentGetterCacheFor = h),
-      (l.getAck = y),
       (l.getAuthor = C),
       (l.getBody = b),
-      (l.getIsSendFailure = v),
       (l.getParentMsgKey = S),
       (l.getProtocolMessageKey = R),
       (l.getRead = L),

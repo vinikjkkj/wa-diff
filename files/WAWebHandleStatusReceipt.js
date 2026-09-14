@@ -135,9 +135,12 @@ __d(
                       msgKeys: D,
                     })),
                 x ||
-                  o(
-                    "WAWebMessageReceiptBatcher",
-                  ).receiptBatcher.runActiveBatches(),
+                  (yield (u || (u = n("Promise"))).all([
+                    $,
+                    o(
+                      "WAWebMessageReceiptBatcher",
+                    ).receiptBatcher.runActiveBatches(),
+                  ])),
                 $
               );
             }

@@ -29,10 +29,7 @@ __d(
         n = t.expirationDate;
       return n != null && n <= new Date(d() * 1e3);
     }
-    ((i.DEFAULT_UNIXTIME = e),
-      (i.MAX_INT = l),
-      (i.parseCdnUrlParams = p),
-      (i.isCdnUrlExpired = _));
+    ((i.parseCdnUrlParams = p), (i.isCdnUrlExpired = _));
   },
   66,
 );

@@ -1,16 +1,34 @@
 __d(
   "WebBloksCssAnimationExtensionHandler",
-  ["WebBloksSSRUtils", "WebBloksStyle", "WebBloksUtils"],
+  ["WebBloksModel", "WebBloksSSRUtils", "WebBloksStyle", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
-    var e = "ease",
-      s = new Map(),
-      u = 128;
-    function c() {
+    var e,
+      s = "ease",
+      u = (e = o("WebBloksModel")).defineWebBloksAttributeKey("#"),
+      c = e.defineWebBloksAttributeKey("$"),
+      d = e.defineWebBloksAttributeKey("&"),
+      m = e.defineWebBloksAttributeKey("("),
+      p = e.defineWebBloksAttributeKey(")"),
+      _ = e.defineWebBloksAttributeKey("*"),
+      f = e.defineWebBloksAttributeKey("+"),
+      g = e.defineWebBloksAttributeKey(","),
+      h = e.defineWebBloksAttributeKey("-"),
+      y = e.defineWebBloksAttributeKey("."),
+      C = e.defineWebBloksAttributeKey("0"),
+      b = e.defineWebBloksAttributeKey("#"),
+      v = e.defineWebBloksAttributeKey("$"),
+      S = e.defineWebBloksAttributeKey("&"),
+      R = e.defineWebBloksAttributeKey("("),
+      L = e.defineWebBloksAttributeKey(")"),
+      E = e.defineWebBloksAttributeKey("*"),
+      k = new Map(),
+      I = 128;
+    function T() {
       return !o("WebBloksSSRUtils").canUseDOM || window.matchMedia == null
         ? !1
         : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     }
-    function d(e, t, n, r) {
+    function D(e, t, n, r) {
       return (
         "translate3d(" +
         (e != null ? e : "0px") +
@@ -24,82 +42,82 @@ __d(
           ")")
       );
     }
-    function m(e) {
+    function x(e) {
       if (e == null || e.length === 0) return null;
       var t = {};
       for (var n of e) {
         var r,
-          a = (r = n.get("offset")) != null ? r : 0,
-          i = d(
-            o("WebBloksUtils").toPx(n.get("at_translate_x")),
-            o("WebBloksUtils").toPx(n.get("at_translate_y")),
-            n.get("at_rotation"),
-            n.get("at_scale"),
+          a = (r = n.get(E)) != null ? r : 0,
+          i = D(
+            o("WebBloksUtils").toPx(n.get(R)),
+            o("WebBloksUtils").toPx(n.get(L)),
+            n.get(v),
+            n.get(S),
           ),
-          l = n.get("at_opacity"),
-          c = l != null ? String(l) : "1";
-        t[a + "%"] = { opacity: c, transform: i };
+          l = n.get(b),
+          s = l != null ? String(l) : "1";
+        t[a + "%"] = { opacity: s, transform: i };
       }
-      var m = Object.keys(t)
+      var u = Object.keys(t)
           .map(function (e) {
             return e + ":" + t[e].transform + ":" + t[e].opacity;
           })
           .join("|"),
-        p = s.get(m);
-      if (p == null) {
-        if (((p = o("WebBloksStyle").keyframes(t).trim()), s.size >= u)) {
-          var _ = s.keys().next().value;
-          _ != null && s.delete(_);
+        c = k.get(u);
+      if (c == null) {
+        if (((c = o("WebBloksStyle").keyframes(t).trim()), k.size >= I)) {
+          var d = k.keys().next().value;
+          d != null && k.delete(d);
         }
-        s.set(m, p);
+        k.set(u, c);
       }
-      return p;
+      return c;
     }
-    function p(t) {
-      var n,
+    function $(e) {
+      var t,
+        n,
         r,
-        a,
-        i = m(t.getSubNodes("keyframes")),
-        l = (n = t.get("respect_reduced_motion")) != null ? n : !0;
-      if (i == null || (l && c())) return {};
-      var s = t.get("duration_ms"),
-        u = (r = t.get("timing_function")) != null ? r : e,
-        d = (a = t.get("delay_ms")) != null ? a : 0,
-        p = t.get("iteration_count"),
-        _ = t.get("direction"),
-        f = t.get("fill_mode"),
-        g = t.get("play_state"),
-        h = t.get("transform_origin_x"),
-        y = t.get("transform_origin_y");
+        a = x(e.getSubNodes(_)),
+        i = (t = e.get(g)) != null ? t : !0;
+      if (a == null || (i && T())) return {};
+      var l = e.get(d),
+        b = (n = e.get(h)) != null ? n : s,
+        v = (r = e.get(u)) != null ? r : 0,
+        S = e.get(p),
+        R = e.get(c),
+        L = e.get(m),
+        E = e.get(f),
+        k = e.get(y),
+        I = e.get(C);
       return babelHelpers.extends(
         {
-          animationName: i,
-          animationDuration: s != null ? s + "ms" : void 0,
-          animationTimingFunction: u,
-          animationDelay: d !== 0 ? d + "ms" : void 0,
-          animationIterationCount: p != null && p >= 0 ? String(p) : "infinite",
-          animationDirection: _ != null ? _ : void 0,
-          animationFillMode: f != null ? f : void 0,
-          animationPlayState: g != null ? g : void 0,
+          animationName: a,
+          animationDuration: l != null ? l + "ms" : void 0,
+          animationTimingFunction: b,
+          animationDelay: v !== 0 ? v + "ms" : void 0,
+          animationIterationCount: S != null && S >= 0 ? String(S) : "infinite",
+          animationDirection: R != null ? R : void 0,
+          animationFillMode: L != null ? L : void 0,
+          animationPlayState: E != null ? E : void 0,
           willChange: "transform, opacity",
         },
-        h != null || y != null
+        k != null || I != null
           ? {
               transformOrigin:
-                (h != null ? o("WebBloksUtils").toPx(h) : "50%") +
+                (k != null ? o("WebBloksUtils").toPx(k) : "50%") +
                 " " +
-                ("" + (y != null ? o("WebBloksUtils").toPx(y) : "50%")),
+                ("" + (I != null ? o("WebBloksUtils").toPx(I) : "50%")),
             }
           : null,
       );
     }
-    var _ = {
+    var P = {
         getStyles: function (t) {
-          return p(t);
+          return $(t);
         },
       },
-      f = _;
-    l.default = f;
+      N = P;
+    l.default = N;
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAPromiseDelays",
+    "WATimeUtils",
     "WAWebABProps",
     "WAWebBizBot1pLearnMore.react",
     "WAWebBizBotTos.react",
@@ -24,6 +25,8 @@ __d(
     "WAWebDebugUtils",
     "WAWebFilenameManager",
     "WAWebFrontendMsgGetters",
+    "WAWebHandleMsgTypes.flow",
+    "WAWebHandlePrivacyModeUpdateMsgAction",
     "WAWebHttpExtendedFetch",
     "WAWebInitializeBots",
     "WAWebMediaInMemoryBlobCache",
@@ -57,26 +60,27 @@ __d(
       _,
       f,
       g,
-      h = g || (g = o("react")),
-      y = { injectBizBotFields: !1 };
-    function C() {
-      ((y.injectBizBotFields = !y.injectBizBotFields),
+      h,
+      y = h || (h = o("react")),
+      C = { injectBizBotFields: !1 };
+    function b() {
+      ((C.injectBizBotFields = !C.injectBizBotFields),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "Inject Biz Bot fields: ",
               "",
             ])),
-          y.injectBizBotFields ? "enabled" : "disabled",
+          C.injectBizBotFields ? "enabled" : "disabled",
         ));
     }
-    function b() {
+    function v() {
       (o("WAWebTos").TosManager.resetState(
         o("WAWebBotTosIds").getBizBotTosId(),
       ),
         o("WAWebBotTos").setBizBotTosDismissalTime(null));
     }
-    function v() {
+    function S() {
       var e,
         t = [
           (e = o("WAWebBotTosIds")).getBotAgentTosId(),
@@ -102,7 +106,7 @@ __d(
           );
         }
     }
-    function S() {
+    function R() {
       var e = o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotAgentTosId(),
         ),
@@ -124,12 +128,12 @@ __d(
         }
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (e &&
             (yield o("WAWebSchemaBotProfile").getBotProfileTable().clear(),
             o("WAWebUserPrefsBot").setUgcBotListLastBhash(null)),
@@ -137,21 +141,21 @@ __d(
             o("WAWebUserPrefsBot").setUgcBotListLastRequestedTimestamp(0),
             window.location.reload());
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
+    function k(e) {
       o("WAWebModalManager").ModalManager.open(
-        h.jsx(r("WAWebPDFNModal.react"), {
+        y.jsx(r("WAWebPDFNModal.react"), {
           pdfnId: e,
           runIfTosAccepted: o("WAWebBoolFunc").returnTrue,
           verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
         }),
       );
     }
-    function k(e) {
+    function I(e) {
       o("WAWebModalManager").ModalManager.open(
-        h.jsx(r("WAWebPDFNModal.react"), {
+        y.jsx(r("WAWebPDFNModal.react"), {
           noticeType: o("WAWebPDFNCommonUtils").PdfnNoticeType.NonBlocking,
           pdfnId: e,
           runIfTosAccepted: o("WAWebBoolFunc").returnTrue,
@@ -159,40 +163,40 @@ __d(
         }),
       );
     }
-    var I = function () {
-      o("WAWebModalManager").ModalManager.open(
-        h.jsx(r("WAWebBizBot1pLearnMore.react"), {}),
-      );
-    };
-    ((I.doc = "Opens the biz bot 1p learn more modal"),
-      (I.paramsToExecute = []));
     var T = function () {
       o("WAWebModalManager").ModalManager.open(
-        h.jsx(r("WAWebBizBotTos.react"), {
+        y.jsx(r("WAWebBizBot1pLearnMore.react"), {}),
+      );
+    };
+    ((T.doc = "Opens the biz bot 1p learn more modal"),
+      (T.paramsToExecute = []));
+    var D = function () {
+      o("WAWebModalManager").ModalManager.open(
+        y.jsx(r("WAWebBizBotTos.react"), {
           chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
         }),
       );
     };
-    ((T.doc = "Opens the biz bot consumer consent"), (T.paramsToExecute = []));
-    var D = function () {
-      o("WAWebModalManager").ModalManager.open(
-        h.jsx(r("WAWebBotFeatureNotAvailable.react"), {}),
-      );
-    };
-    ((D.doc = "Opens the bot feature not available modal"),
-      (D.paramsToExecute = []));
+    ((D.doc = "Opens the biz bot consumer consent"), (D.paramsToExecute = []));
     var x = function () {
       o("WAWebModalManager").ModalManager.open(
-        h.jsx(r("WAWebBotLearnMore.react"), { fromInvoke: !1 }),
+        y.jsx(r("WAWebBotFeatureNotAvailable.react"), {}),
       );
     };
-    ((x.doc = "Opens the bot learn more modal"), (x.paramsToExecute = []));
-    function $(e) {
+    ((x.doc = "Opens the bot feature not available modal"),
+      (x.paramsToExecute = []));
+    var $ = function () {
+      o("WAWebModalManager").ModalManager.open(
+        y.jsx(r("WAWebBotLearnMore.react"), { fromInvoke: !1 }),
+      );
+    };
+    (($.doc = "Opens the bot learn more modal"), ($.paramsToExecute = []));
+    function P(e) {
       o("WAWebUserPrefsMultiDeviceDebug").setDebugDefaultBotOverride(e);
     }
-    $.doc =
+    P.doc =
       "Adds a debug default bot for testing invoke against new bot numbers";
-    function P() {
+    function N() {
       var e = o("WAWebDebugUtils").getSelectedChat(),
         t = o("WAWebBotSystemMsg").genBotSessionTransparencyNoticeSystemMsg(
           e.id,
@@ -202,16 +206,49 @@ __d(
         n = o("WAWebMsgModelFromData").msgModelFromMsgData(t);
       e.msgs.add(n);
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebDebugUtils").getSelectedChat();
+          (yield o(
+            "WAWebHandlePrivacyModeUpdateMsgAction",
+          ).handlePrivacyModeTransition(e.id, null),
+            yield o(
+              "WAWebHandlePrivacyModeUpdateMsgAction",
+            ).handlePrivacyModeTransition(e.id, {
+              actualActors: o("WAWebHandleMsgTypes.flow").ActualActorsEnumType
+                .Self,
+              hostStorage: o("WAWebHandleMsgTypes.flow").HostStorageEnumType
+                .Facebook,
+              privacyModeTs: o("WATimeUtils").unixTime(),
+            }),
+            o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debugBot] simulateBizPrivacyTransition: ",
+                  "",
+                ])),
+              e.id.toLogString(),
+            ));
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    M.doc =
+      'Run an FB-hosted biz privacy transition on the open chat, as an incoming message or verified-name sync would. A business chat gets the "is now using a secure service from Meta" system message; a bot chat must get none.';
+    function A(e, t) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n, a;
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[debugBot] downloadImagineMedia: ",
                 "",
               ])),
@@ -233,8 +270,8 @@ __d(
             c = new Blob([u], { type: s }),
             d = yield crypto.subtle.digest("SHA-256", u),
             m = Array.from(new Uint8Array(d)),
-            g = btoa(String.fromCharCode.apply(null, m));
-          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(g, c);
+            p = btoa(String.fromCharCode.apply(null, m));
+          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(p, c);
           var h = o("WAWebFilenameManager").getDefaultName({
               t: Math.round(Date.now() / 1e3),
               type: "image",
@@ -258,8 +295,8 @@ __d(
               })
               .catch(function (e) {
                 o("WALogger").ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[debugBot] downloadImagineMedia: revokeObjectURL failed, ",
                       "",
                     ])),
@@ -267,24 +304,24 @@ __d(
                 );
               }),
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[debugBot] downloadImagineMedia: saved ",
                   " bytes, filehash=",
                   "",
                 ])),
               c.size,
-              g,
+              p,
             ),
             c
           );
         })),
-        M.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    N.doc =
+    A.doc =
       "Downloads imagine media and caches it. Usage: downloadImagineMedia(url, mimeType?)";
-    function w(e, t) {
+    function O(e, t) {
       var n = r("WAWebMsgKey").fromString(e),
         a = o("WAWebMsgCollection").MsgCollection.get(n);
       if (a == null) {
@@ -331,17 +368,17 @@ __d(
           e,
         ));
     }
-    w.doc =
+    O.doc =
       "Sets validationStatus on a forwarded bot message by msgId. Usage: updateForwardedBotValidationStatus(msgId, status)";
-    function A(e) {
+    function B(e) {
       return e != null && e !== ""
         ? o("WAWebWidFactory").createWid(e)
         : o("WAWebDebugUtils").getSelectedChat().id;
     }
-    function F(e) {
+    function W(e) {
       var t,
         n,
-        r = A(e),
+        r = B(e),
         a = o("WAWebBotProfileCollection").BotProfileCollection.get(r),
         i =
           a != null
@@ -370,14 +407,14 @@ __d(
         },
       );
     }
-    F.doc =
+    W.doc =
       "Show a bot's Standard Bot Profile fields + computed support state. Usage: showBotProfile(widStr?) \u2014 defaults to the open chat";
-    function O() {
-      return B.apply(this, arguments);
+    function q() {
+      return U.apply(this, arguments);
     }
-    function B() {
+    function U() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaBotProfile").getBotProfileTable().all();
           return e.map(function (e) {
             var t,
@@ -402,19 +439,19 @@ __d(
             );
           });
         })),
-        B.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    ((O.doc =
+    ((q.doc =
       "Show SBP fields + computed support state for all cached bot profiles"),
-      (O.paramsToExecute = []));
-    function W(e, t) {
-      return q.apply(this, arguments);
+      (q.paramsToExecute = []));
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function q() {
+    function H() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = A(e),
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = B(e),
             r = o("WAWebBotProfileCollection").BotProfileCollection.get(n),
             a =
               r != null
@@ -435,60 +472,61 @@ __d(
             });
           return o("WAWebBotProfileDebugUtils").formatProfileDebug(l, s);
         })),
-        q.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    W.doc =
+    V.doc =
       "Force SBP fields on a bot and persist to IndexedDB. Usage: overrideBotProfile(widStr, {product?, isDeprecated?, isDeleted?})";
-    function U(e) {
-      return V.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function V() {
+    function z() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = A(e);
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = B(e);
           (yield o("WAWebSchemaBotProfile")
             .getBotProfileTable()
             .remove(t.toString()),
             o("WAWebBotProfileCollection").BotProfileCollection.remove(t));
         })),
-        V.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    U.doc =
+    G.doc =
       "Remove a bot's cached profile row so it refetches on next sync. Usage: clearBotProfileOverride(widStr)";
-    var H = {
-      toggleInjectBizBotProfileFields: C,
-      resetBizBotTos: b,
-      resetBotTos: v,
-      getBotTosStates: S,
+    var j = {
+      toggleInjectBizBotProfileFields: b,
+      resetBizBotTos: v,
+      resetBotTos: S,
+      getBotTosStates: R,
       queryTosState: o("WAWebTosJob").queryTosState,
       TosManager: o("WAWebTos").TosManager,
-      fetchBotProfiles: R,
-      debugBotConfigs: y,
+      fetchBotProfiles: L,
+      debugBotConfigs: C,
       getBotAgentTosId: o("WAWebBotTosIds").getBotAgentTosId,
       getBotShortcutTosId: o("WAWebBotTosIds").getBotShortcutTosId,
       getBotInvokeTosId: o("WAWebBotTosIds").getBotInvokeTosId,
-      showPdfnModal: E,
-      showNonBlockingModal: k,
-      openBizBot1pLearnMore: I,
-      openBizBotTos: T,
-      openBotFeatureNotAvailable: D,
-      openBotLearnMore: x,
-      overrideDefaultBotForTest: $,
-      genSessionTransparencySystemMsg: P,
-      updateForwardedBotValidationStatus: w,
-      downloadImagineMedia: N,
-      showBotProfile: F,
-      showAllBotProfiles: O,
-      overrideBotProfile: W,
-      clearBotProfileOverride: U,
+      showPdfnModal: k,
+      showNonBlockingModal: I,
+      openBizBot1pLearnMore: T,
+      openBizBotTos: D,
+      openBotFeatureNotAvailable: x,
+      openBotLearnMore: $,
+      overrideDefaultBotForTest: P,
+      genSessionTransparencySystemMsg: N,
+      simulateBizPrivacyTransition: M,
+      updateForwardedBotValidationStatus: O,
+      downloadImagineMedia: A,
+      showBotProfile: W,
+      showAllBotProfiles: q,
+      overrideBotProfile: V,
+      clearBotProfileOverride: G,
       BotProfileCollection: o("WAWebBotProfileCollection").BotProfileCollection,
       requestBotList: o("WAWebRequestBotList").requestBotList,
       getBotProfilesFromServer: o("WAWebInitializeBots")
         .getBotProfilesFromServer,
     };
-    l.default = H;
+    l.default = j;
   },
   98,
 );

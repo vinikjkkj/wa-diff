@@ -70,8 +70,7 @@ __d(
           )
         : void 0;
     }
-    ((l.minifyProductAttributionV2Root = e),
-      (l.getMediaPlaybackPlayReason = s),
+    ((l.getMediaPlaybackPlayReason = s),
       (l.getMediaPlaybackDataConnectionQuality = u),
       (l.getMediaPlaybackCaptionState = c),
       (l.stringifyMediaPlaybackMetadata = d),

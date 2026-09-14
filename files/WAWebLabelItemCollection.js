@@ -1,6 +1,11 @@
 __d(
   "WAWebLabelItemCollection",
-  ["WAWebBaseCollection", "WAWebBizLabelUtils", "WAWebLabelItemModel"],
+  [
+    "WAWebBaseCollection",
+    "WAWebBizLabelUtils",
+    "WAWebContactManagerGating",
+    "WAWebLabelItemModel",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -22,17 +27,26 @@ __d(
       c(e, !1);
     }
     function c(e, t) {
-      var n = o("WAWebBizLabelUtils")
-        .getParentCollection(e.parentType)
-        .get(e.parentId);
-      if (n) {
+      var n = d(e);
+      n.forEach(function (n) {
         var r = n.labels || [];
         t
           ? r.includes(e.labelId) || (n.labels = [e.labelId].concat(r))
           : (n.labels = r.filter(function (t) {
               return t !== e.labelId;
             }));
-      }
+      });
+    }
+    function d(e) {
+      if (o("WAWebContactManagerGating").contactManagerEnabled())
+        return o("WAWebBizLabelUtils").getParentModelsAnyAddressingMode(
+          e.parentId,
+          e.parentType,
+        );
+      var t = o("WAWebBizLabelUtils")
+        .getParentCollection(e.parentType)
+        .get(e.parentId);
+      return t != null ? [t] : [];
     }
     l.LabelItemCollection = e;
   },

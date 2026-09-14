@@ -1,6 +1,7 @@
 __d(
   "WAWebContactManagerListSort",
   [
+    "WAWebBizLabelUtils",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebCustomerProfileAcquisitionSourceNames",
@@ -121,7 +122,7 @@ __d(
     function _(e) {
       var t,
         n,
-        r = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
+        r = o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
           String(e.chatJid),
           o("WAWebListItemParentType").LabelItemParentType.Chat,
         );

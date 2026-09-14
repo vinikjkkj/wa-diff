@@ -25,7 +25,7 @@ __d(
         a = n.length === 0 ? 0 : n[n.length - 1].version;
       return { curVersion: a, needNewVersion: r, versions: n };
     }
-    ((l.isEarVersionValid = e), (l.reconcileKeychain = s));
+    l.reconcileKeychain = s;
   },
   98,
 );

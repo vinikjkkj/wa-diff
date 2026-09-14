@@ -5,20 +5,17 @@ __d(
     var e = o("WAWebGetters").createGetterFactories({
         createCache: o("WAWebGettersCaches").createPrimaryFeaturesCache,
       }),
-      s = e.clearCacheFor,
-      u = e.field,
-      c = s,
-      d = u("isAccountIntegrityStatePending"),
-      m = u("isAccountIntegrityStateTimelock"),
-      p = u("isContactsBackupOn"),
-      _ = u("primaryHasAddressbookPermission"),
-      f = u("primaryHasAgreedToNativeContactsNux");
-    ((l.clearPrimaryFeaturesGetterCacheFor = c),
-      (l.getIsAccountIntegrityStatePending = d),
-      (l.getIsAccountIntegrityStateTimelock = m),
-      (l.getIsContactsBackupOn = p),
-      (l.getPrimaryHasAddressbookPermission = _),
-      (l.getPrimaryHasAgreedToNativeContactsNux = f));
+      s = e.field,
+      u = s("isAccountIntegrityStatePending"),
+      c = s("isAccountIntegrityStateTimelock"),
+      d = s("isContactsBackupOn"),
+      m = s("primaryHasAddressbookPermission"),
+      p = s("primaryHasAgreedToNativeContactsNux");
+    ((l.getIsAccountIntegrityStatePending = u),
+      (l.getIsAccountIntegrityStateTimelock = c),
+      (l.getIsContactsBackupOn = d),
+      (l.getPrimaryHasAddressbookPermission = m),
+      (l.getPrimaryHasAgreedToNativeContactsNux = p));
   },
   98,
 );

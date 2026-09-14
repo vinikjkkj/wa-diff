@@ -46,34 +46,35 @@ __d(
       var t = e.composerAnchorRef,
         n = e.editor,
         a = e.onPickerClose,
-        i = e.openedFromMenu,
-        l = n,
-        u = o("WAWebPencilRefreshedIcon.react").PencilRefreshedIcon,
-        c = o("useWAWebLexicalTypeAhead").useTypeAhead(l, h, {
+        i = e.onQuickReplySelect,
+        l = e.openedFromMenu,
+        u = n,
+        c = o("WAWebPencilRefreshedIcon.react").PencilRefreshedIcon,
+        m = o("useWAWebLexicalTypeAhead").useTypeAhead(u, h, {
           boundary: !0,
           maxQueryLength: y,
         }),
-        m = c.leadOffset,
-        b = c.omitQuery,
-        S = c.query,
-        I = c.replaceQuery,
-        T = f(),
-        D = f(!1);
+        b = m.leadOffset,
+        S = m.omitQuery,
+        I = m.query,
+        T = m.replaceQuery,
+        D = f(),
+        x = f(!1);
       p(function () {
         o(
           "WAWebQuickReplyCollection",
         ).QuickReplyCollection.addSmartDefaultsIfNeeded();
       }, []);
-      var x = S != null && i === !0,
-        $ = f(S);
+      var $ = I != null && l === !0,
+        P = f(I);
       p(
         function () {
-          var e = $.current != null;
-          (($.current = S), e && S == null && (a == null || a()));
+          var e = P.current != null;
+          ((P.current = I), e && I == null && (a == null || a()));
         },
-        [S, a],
+        [I, a],
       );
-      var P = function (t, n) {
+      var N = function (t, n) {
           if (t.itemKey === "quick-replies-header")
             return d.jsxs(
               "div",
@@ -86,7 +87,7 @@ __d(
                     variant: "borderless",
                     type: "default",
                     size: "small",
-                    Icon: u,
+                    Icon: c,
                     onPress: function () {
                       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
                         d.jsx(
@@ -113,54 +114,55 @@ __d(
             e.id.toString(),
           );
         },
-        N = function (t) {
+        M = function (t) {
           if (t.itemKey !== "quick-replies-header") {
             var e = t.quickReply;
             if (e) {
               switch (
-                ((T.current = e.message),
+                (i == null || i(),
+                (D.current = e.message),
                 o("WAWebQuickReplyGetters").getType(e))
               ) {
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .PROFILE_SMART_DEFAULT:
-                  (b(), E(e));
+                  (S(), E(e));
                   break;
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .ADDRESS_SMART_DEFAULT:
-                  (b(), L(e));
+                  (S(), L(e));
                   break;
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .HOURS_SMART_DEFAULT:
-                  (b(), R(e));
+                  (S(), R(e));
                   break;
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .PIX_KEY_SMART_DEFAULT:
-                  (b(), k(e, x));
+                  (S(), k(e, $));
                   break;
                 default:
-                  (I(e.message, { select: !0 }), e.useOnce());
+                  (T(e.message, { select: !0 }), e.useOnce());
               }
               (o("WAWebQuickReplyGetters").getType(e) ===
               o("WAWebQuickReplyEnum").QuickReplyTypes.PIX_KEY_SMART_DEFAULT
                 ? o("WAWebQuickRepliesPluginLogEvents").logPixSmartSelectEvent(
-                    x,
+                    $,
                   )
                 : e.isSmartDefault()
                   ? o(
                       "WAWebQuickRepliesPluginLogEvents",
-                    ).logSmartDefaultSelectEvent(x)
-                  : o("WAWebQuickRepliesPluginLogEvents").logSelectEvent(x),
-                (D.current = x));
+                    ).logSmartDefaultSelectEvent($)
+                  : o("WAWebQuickRepliesPluginLogEvents").logSelectEvent($),
+                (x.current = $));
             }
           }
         },
-        M = function () {
-          b();
+        w = function () {
+          S();
         },
-        w = _(
+        A = _(
           function () {
-            if (S == null) return null;
-            var e = v(S, x);
+            if (I == null) return null;
+            var e = v(I, $);
             if (e.length === 0) return null;
             var t = {
                 height: C,
@@ -175,41 +177,41 @@ __d(
                 return {
                   height: g,
                   itemKey: e.id,
-                  contentKey: S,
+                  contentKey: I,
                   index: t + 1,
                   quickReply: e,
-                  query: S,
+                  query: I,
                   selectable: !0,
                 };
               });
             return [t].concat(n);
           },
-          [S, x],
+          [I, $],
         ),
-        A = 600,
-        F = (w != null ? w : []).map(function (e) {
+        F = 600,
+        O = (A != null ? A : []).map(function (e) {
           var t;
           return {
             renderFn: function (n) {
-              return P(e, n);
+              return N(e, n);
             },
             onSelect: function () {
-              return N(e);
+              return M(e);
             },
-            width: A,
+            width: F,
             height: (t = e.height) != null ? t : g,
             skipKeyboardNav: e.itemKey === "quick-replies-header",
           };
         }),
-        O = F.findIndex(function (e) {
+        B = O.findIndex(function (e) {
           return e.skipKeyboardNav === !1;
         });
       return d.jsx(r("WAWebLexicalTypeAheadList.react"), {
-        leadOffset: m,
-        items: F,
-        onCancel: M,
-        startingIndex: O,
-        anchorElRef: x ? t : void 0,
+        leadOffset: b,
+        items: O,
+        onCancel: w,
+        startingIndex: B,
+        anchorElRef: $ ? t : void 0,
       });
     }
     b.displayName = b.name + " [from " + i.id + "]";

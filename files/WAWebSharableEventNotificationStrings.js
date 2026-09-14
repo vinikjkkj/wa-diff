@@ -158,7 +158,6 @@ __d(
         .toString();
     }
     ((l.formatSharableEventBody = e),
-      (l.suspendedNotificationBody = u),
       (l.updateNotificationBody = c),
       (l.deleteNotificationBody = d),
       (l.rsvpHostNotificationBody = m),

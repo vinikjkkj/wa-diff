@@ -17,6 +17,7 @@ __d(
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistorySendMessagesModal.react",
     "WAWebGroupHistorySenderUserJourneyLogger",
+    "WAWebGroupHistorySentOnceAction",
     "WAWebGroupHistoryShareToggleDefaultAction",
     "WAWebGroupMetadataCollection",
     "WAWebModalManager",
@@ -658,6 +659,12 @@ __d(
               (o(
                 "WAWebGroupHistoryShareToggleDefaultAction",
               ).setGroupHistoryShareToggleDefault(a, !0),
+                o(
+                  "WAWebGroupHistoryGating",
+                ).isGroupHistorySendOnceDefaultOnEnabled() &&
+                  o(
+                    "WAWebGroupHistorySentOnceAction",
+                  ).markGroupHistorySentOnce(),
                 t != null &&
                   (y &&
                     o(
@@ -752,6 +759,12 @@ __d(
                   (o(
                     "WAWebGroupHistoryShareToggleDefaultAction",
                   ).setGroupHistoryShareToggleDefault(e, !0),
+                    o(
+                      "WAWebGroupHistoryGating",
+                    ).isGroupHistorySendOnceDefaultOnEnabled() &&
+                      o(
+                        "WAWebGroupHistorySentOnceAction",
+                      ).markGroupHistorySentOnce(),
                     a != null &&
                       (C &&
                         o(

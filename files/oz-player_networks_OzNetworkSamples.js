@@ -38,18 +38,19 @@ __d(
           return e > 0 && t != null && Date.now() - t < e;
         }),
         (t.$7 = function () {
+          var e = this.$4;
           if (
             !this.$1 &&
-            this.$4 != null &&
+            e != null &&
             r("oz-player/configs/OzGlobalConfig").getNumber(
               "bandwidth_ttfb_samples_to_save",
               5,
             ) > 0
           ) {
             this.$1 = !0;
-            var e = this.$4.getCachedSamples();
-            e != null &&
-              ((this.$2 = e.bandwidth), (this.$3 = e.navigationTiming));
+            var t = e.getCachedSamples();
+            t != null &&
+              ((this.$2 = t.bandwidth), (this.$3 = t.navigationTiming));
           }
           return {
             recentBandwidthSamples: this.$2,

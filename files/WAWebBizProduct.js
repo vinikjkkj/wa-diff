@@ -86,7 +86,7 @@ __d(
           return new (o("WAWebProductCatalogSession").ProductCatalogSession)();
         }, []),
         v = o("WAWebDisplayType").isWideDisplay(i),
-        S = o("useWAWebMsgValues").useMsgValues(e.msg.id, [
+        S = o("useWAWebMsgValues").useMsgValues(c.id, [
           (t = o("WAWebMsgGetters")).getBusinessOwnerJid,
           t.getCaption,
           (n = o("WAWebFrontendMsgGetters")).getDir,
@@ -129,7 +129,7 @@ __d(
             o("WAWebStateUtils").unproxy(c.unsafe()),
           );
       }, []);
-      var W = n.getChat(e.msg.unsafe()),
+      var W = n.getChat(c.unsafe()),
         q = d(
           function (e) {
             if ((e && e.stopPropagation(), !($ == null || R == null))) {
@@ -205,7 +205,7 @@ __d(
               children: [
                 L != null
                   ? u.jsx(r("WAWebMessageSpacerText.react"), {
-                      msg: e.msg.unsafe(),
+                      msg: c.unsafe(),
                       spacer: !1,
                       children: u.jsx(
                         o("WAWebEmojiText.react").EmojiText,
@@ -236,7 +236,7 @@ __d(
                     }[!!r("WAWebL10N").isRTL() << 0],
                     {
                       children: u.jsx(o("WAWebMessageMeta.react").Meta, {
-                        msg: e.msg,
+                        msg: c,
                       }),
                     },
                   ),
@@ -268,7 +268,7 @@ __d(
             children: [
               z,
               u.jsx(o("WAWebMessagePicture.react").ImageMessage, {
-                msg: e.msg,
+                msg: c,
                 mediaData: c.mediaData,
                 hideMeta: V,
                 trusted: y,
@@ -278,7 +278,7 @@ __d(
                 captionComponent: u.jsx(r("WAWebBizProductInfo.react"), {
                   trusted: y,
                   onClick: q,
-                  msg: e.msg,
+                  msg: c,
                   displayType: i,
                 }),
                 thumbClassName:

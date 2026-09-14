@@ -43,7 +43,7 @@ __d(
                 t.id.fromMe === !0 &&
                   o(
                     "WAWebGroupHistoryGating",
-                  ).isLearnGroupHistoryToggleFromHistorySyncEnabled() &&
+                  ).isGroupHistorySendOnceDefaultOnEnabled() &&
                   (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                     t.id.remote,
                     { shouldDefaultGroupHistoryShareOn: !0 },

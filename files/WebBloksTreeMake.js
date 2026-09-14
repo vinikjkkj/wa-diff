@@ -20,16 +20,12 @@ __d(
             "Invalid key type in `bk.action.tree.Make`.",
           );
       }
-      var u = e.objectSet.environment,
-        c = u.unminificationMap,
-        d = u.useMinification,
-        m = o("WebBloksModel").createWebBloksModelFromWire(
-          t,
-          n,
-          c,
-          d || c != null,
-        );
-      return ((m.keyPath = e.scope), m);
+      var u = o("WebBloksModel").createWebBloksModelFromLogicalValues(
+        t,
+        n,
+        e.objectSet.environment.loadedMinificationMaps.unminificationMap,
+      );
+      return ((u.keyPath = e.scope), u);
     }
     l.default = e;
   },

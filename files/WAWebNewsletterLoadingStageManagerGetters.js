@@ -6,12 +6,9 @@ __d(
         createCache:
           o("WAWebGettersCaches").createNewsletterLoadingStageManagerCache,
       }),
-      s = e.clearCacheFor,
-      u = e.field,
-      c = s,
-      d = u("stage");
-    ((l.clearNewsletterLoadingStageManagerGetterCacheFor = c),
-      (l.getStage = d));
+      s = e.field,
+      u = s("stage");
+    l.getStage = u;
   },
   98,
 );

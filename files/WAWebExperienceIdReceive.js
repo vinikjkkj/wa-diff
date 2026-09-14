@@ -39,9 +39,7 @@ __d(
       ).slice(0, s);
       return t.length > 0 ? t : null;
     }
-    ((l.MAX_EXPERIENCE_IDS_PER_MSG = s),
-      (l.maybeStampExperienceIds = u),
-      (l.sanitizeExperienceIds = c));
+    ((l.MAX_EXPERIENCE_IDS_PER_MSG = s), (l.maybeStampExperienceIds = u));
   },
   98,
 );

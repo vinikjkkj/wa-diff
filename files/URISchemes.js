@@ -29,6 +29,7 @@ __d(
         "fbconnect",
         "fbinternal",
         "fbmobilehome",
+        "mobilehome",
         "fbrpc",
         "file",
         "flipper",

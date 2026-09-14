@@ -58,7 +58,6 @@ __d(
       (l.getFollowersByCountry = f),
       (l.getFollowersDelta = g),
       (l.getFollowersReached = h),
-      (l.getGrowthChartData = y),
       (l.getRangeStart = C),
       (l.getRangeEnd = b),
       (l.getNonFollowersReached = v),

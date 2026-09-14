@@ -10,14 +10,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
-        function e(e, t, n, o, a) {
-          (o === void 0 && (o = null),
-            a === void 0 && (a = !1),
-            (this.$2 = []),
+        function e(e, t, n, o) {
+          ((this.$2 = []),
             (this.$5 = t),
             (this.$4 = n),
             (this.$6 = o),
-            (this.$7 = a),
             (this.$1 = new Map()),
             (this.$3 = new (r("WebBloksComponentQueryFetcher"))(
               e,
@@ -25,16 +22,15 @@ __d(
               t,
               n,
               o,
-              a,
             )));
         }
         var t = e.prototype;
         return (
           (t.getCachedComponentsOrSubscribeToQuery = function (t, n, r, a) {
             var e = o("WebBloksCacheUtils").generateCacheKey(t, n),
-              i = this.$8(e, r);
+              i = this.$7(e, r);
             if (i != null) return { value: i, cancelToken: null };
-            var l = this.$9(a, e);
+            var l = this.$8(a, e);
             return {
               value: null,
               cancelToken: function () {
@@ -43,9 +39,9 @@ __d(
             };
           }),
           (t.getCachedComponents = function (t, n, r) {
-            return this.$8(o("WebBloksCacheUtils").generateCacheKey(t, n), r);
+            return this.$7(o("WebBloksCacheUtils").generateCacheKey(t, n), r);
           }),
-          (t.$8 = function (t, n) {
+          (t.$7 = function (t, n) {
             var e = this.$1.get(t);
             if (e != null && o("WebBloksCacheUtils").isResponseFresh(e, n)) {
               var r = babelHelpers.extends(
@@ -74,7 +70,7 @@ __d(
               queryPurpose: a,
             };
             this.$3.runQuery(i, u, function (t) {
-              e.$10(i, t);
+              e.$9(i, t);
             });
           }),
           (t.invalidate = function (t, n) {
@@ -94,7 +90,6 @@ __d(
                 this.$4,
                 void 0,
                 this.$6,
-                this.$7,
               );
               a.set(i.id, l);
             }
@@ -105,14 +100,14 @@ __d(
               queryPurpose: "PREFETCH",
             });
           }),
-          (t.$9 = function (t, n) {
+          (t.$8 = function (t, n) {
             this.$2 = this.$2.filter(function (e) {
               return !e.token.canceled;
             });
             var e = new u(t, n);
             return (this.$2.push(e), e);
           }),
-          (t.$10 = function (t, n) {
+          (t.$9 = function (t, n) {
             var e = [],
               r = [];
             for (var o of this.$2)

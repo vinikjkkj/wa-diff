@@ -1,55 +1,57 @@
 __d(
   "WebBloksWebFocusBoundaryExtensionHandler",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = {
-        onMount: function (t, n, r) {
-          var e,
-            o = t.getExpression("on_gain_focus_inside"),
-            a = t.getExpression("on_lose_focus_inside"),
-            i =
-              (e = n.current.uiMutableContainer.domNode) == null
+  ["WebBloksModel"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      s = o("WebBloksModel").defineWebBloksAttributeKey("$"),
+      u = {
+        onMount: function (n, r, o) {
+          var t,
+            a = n.getExpression(e),
+            i = n.getExpression(s),
+            l =
+              (t = r.current.uiMutableContainer.domNode) == null
                 ? void 0
-                : e.current;
-          if (!i) return;
-          var l = i.contains(document.activeElement);
-          l &&
-            o != null &&
-            r.executeCatch(n.current, o, [n.current, r.bloksContext]);
-          function s(e) {
+                : t.current;
+          if (!l) return;
+          var u = l.contains(document.activeElement);
+          u &&
+            a != null &&
+            o.executeCatch(r.current, a, [r.current, o.bloksContext]);
+          function c(e) {
             var t,
-              a = l;
-            ((l =
-              (t = i == null ? void 0 : i.contains(e.target)) != null ? t : !1),
-              l &&
-                !a &&
-                o != null &&
-                r.executeCatch(n.current, o, [n.current, r.bloksContext]));
+              n = u;
+            ((u =
+              (t = l == null ? void 0 : l.contains(e.target)) != null ? t : !1),
+              u &&
+                !n &&
+                a != null &&
+                o.executeCatch(r.current, a, [r.current, o.bloksContext]));
           }
-          function u(e) {
+          function d(e) {
             var t,
-              o = l;
-            ((l =
-              (t = i == null ? void 0 : i.contains(e.relatedTarget)) != null
+              n = u;
+            ((u =
+              (t = l == null ? void 0 : l.contains(e.relatedTarget)) != null
                 ? t
                 : !1),
-              o &&
-                !l &&
-                a != null &&
-                r.executeCatch(n.current, a, [n.current, r.bloksContext]));
+              n &&
+                !u &&
+                i != null &&
+                o.executeCatch(r.current, i, [r.current, o.bloksContext]));
           }
           return (
-            i.addEventListener("focusin", s),
-            i.addEventListener("focusout", u),
+            l.addEventListener("focusin", c),
+            l.addEventListener("focusout", d),
             function () {
-              (i.removeEventListener("focusin", s),
-                i.removeEventListener("focusout", u));
+              (l.removeEventListener("focusin", c),
+                l.removeEventListener("focusout", d));
             }
           );
         },
       },
-      l = e;
-    i.default = l;
+      c = u;
+    l.default = c;
   },
-  66,
+  98,
 );

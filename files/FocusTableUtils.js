@@ -339,9 +339,7 @@ __d(
       (l.getTotalSpan = v),
       (l.getLastRowNumInColumn = S),
       (l.getFirstRowIndexInColumn = R),
-      (l.getRowCells = E),
       (l.getRowCellsWithIndexes = k),
-      (l.getRows = I),
       (l.getRowsWithIndex = T),
       (l.hasModifierKey = D));
   },

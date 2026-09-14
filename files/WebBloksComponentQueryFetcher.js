@@ -10,16 +10,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
-      function e(e, t, n, r, o, a) {
-        (o === void 0 && (o = null),
-          a === void 0 && (a = !1),
-          (this.$1 = new Set()),
+      function e(e, t, n, r, o) {
+        ((this.$1 = new Set()),
           (this.$2 = e),
           (this.$3 = t),
           (this.$5 = n),
           (this.$4 = r),
-          (this.$6 = o),
-          (this.$7 = a));
+          (this.$6 = o));
       }
       var t = e.prototype;
       return (
@@ -34,9 +31,9 @@ __d(
               o("WebBloksCachedStackedScreens").readCachedStackedScreens(e),
             );
             r(a);
-          } else this.$8(t, n, r);
+          } else this.$7(t, n, r);
         }),
-        (t.$8 = function (t, n, r) {
+        (t.$7 = function (t, n, r) {
           var e = this;
           if (!this.$1.has(t)) {
             this.$1.add(t);
@@ -51,7 +48,6 @@ __d(
                     e.$4,
                     void 0,
                     e.$6,
-                    e.$7,
                   );
                   i.set(l.id, s);
                 }

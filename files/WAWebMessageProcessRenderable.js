@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAResolvable",
     "WAWebABProps",
     "WAWebApiChatCommon",
     "WAWebApiFilterAndReplaceMessages",
@@ -335,38 +336,55 @@ __d(
                         ? p
                         : !1,
                   },
-                  G = o(
-                    "WAWebMessageProcessDBPipeline",
-                  ).processMsgDataDBPipeline(S, !C);
-                if (
-                  (S.forEach(function (e) {
-                    return void o(
-                      "WAWebGroupHistoryNoticeHandler",
-                    ).maybeHandleGroupHistoryNotice(e);
-                  }),
-                  o("WAWebBackendEventBus").BackendEventBus
-                    .isMainStreamReadyMd || c)
-                ) {
-                  (E == null || E(),
-                    o("WAWebBackendEventBus").BackendEventBus
-                      .isOfflineDeliveryEnd &&
-                      (o(
-                        "WAWebOfflineResumeCounters",
-                      ).maybeLogAwaitUnflushedMsgWrite(C),
-                      yield G));
-                  var z = o(
-                    "WAWebMessagePostprocessRenderable",
-                  ).postprocessRenderableMessages(H);
+                  G = C ? null : new (o("WAResolvable").Resolvable)(),
+                  z =
+                    G == null
+                      ? o(
+                          "WAWebMessageProcessDBPipeline",
+                        ).processMsgDataDBPipeline({
+                          flushImmediatly: !1,
+                          msgData: S,
+                        })
+                      : o(
+                          "WAWebMessageProcessDBPipeline",
+                        ).processMsgDataDBPipeline({
+                          flushImmediatly: !0,
+                          msgData: S,
+                          uiNotified: G,
+                        });
+                try {
                   if (
-                    C &&
-                    o(
-                      "WAWebOfflineHandler",
-                    ).OfflineMessageHandler.getResumeType() ===
-                      o("WAWebOfflineResumeTypes").ResumeType.NonBlocking
-                  )
+                    (S.forEach(function (e) {
+                      return void o(
+                        "WAWebGroupHistoryNoticeHandler",
+                      ).maybeHandleGroupHistoryNotice(e);
+                    }),
+                    o("WAWebBackendEventBus").BackendEventBus
+                      .isMainStreamReadyMd || c)
+                  ) {
+                    (E == null || E(),
+                      o("WAWebBackendEventBus").BackendEventBus
+                        .isOfflineDeliveryEnd &&
+                        (o(
+                          "WAWebOfflineResumeCounters",
+                        ).maybeLogAwaitUnflushedMsgWrite(C),
+                        yield z));
+                    var j = o(
+                      "WAWebMessagePostprocessRenderable",
+                    ).postprocessRenderableMessages(H);
+                    if (
+                      C &&
+                      o(
+                        "WAWebOfflineHandler",
+                      ).OfflineMessageHandler.getResumeType() ===
+                        o("WAWebOfflineResumeTypes").ResumeType.NonBlocking
+                    )
+                      return;
+                    yield j;
                     return;
-                  yield z;
-                  return;
+                  }
+                } finally {
+                  G == null || G.resolve(void 0);
                 }
               } catch (e) {
                 o("WALogger")

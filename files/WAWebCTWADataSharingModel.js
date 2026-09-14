@@ -13,10 +13,10 @@ __d(
     function p() {
       return u;
     }
-    var _ = function () {
-        return c != null ? c : e;
-      },
-      f = function (t) {
+    function _() {
+      return c != null ? c : e;
+    }
+    var f = function (t) {
         d.on("update", t);
       },
       g = function (t) {

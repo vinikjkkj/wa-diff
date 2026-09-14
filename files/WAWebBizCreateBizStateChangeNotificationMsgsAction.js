@@ -80,7 +80,7 @@ __d(
         );
     }
     function m(e, t, n) {
-      if (t !== n)
+      if (!e.isBot() && t !== n)
         switch (n) {
           case o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE:
             return o("WAWebContactSystemMsg").genEncryptNotificationMsg(

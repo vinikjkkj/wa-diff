@@ -1,63 +1,76 @@
 __d(
   "WebBloksWebNativeAccessibilityExtensionHandler",
-  ["WebBloksAccessibilityUtils", "WebBloksBooleanUtils"],
+  ["WebBloksAccessibilityUtils", "WebBloksBooleanUtils", "WebBloksModel"],
   function (t, n, r, o, a, i, l) {
-    var e = {
+    var e,
+      s = (e = o("WebBloksModel")).defineWebBloksAttributeKey("3"),
+      u = e.defineWebBloksAttributeKey("6"),
+      c = e.defineWebBloksAttributeKey("2"),
+      d = e.defineWebBloksAttributeKey("8"),
+      m = e.defineWebBloksAttributeKey("4"),
+      p = e.defineWebBloksAttributeKey("5"),
+      _ = e.defineWebBloksAttributeKey(","),
+      f = e.defineWebBloksAttributeKey("1"),
+      g = e.defineWebBloksAttributeKey("+"),
+      h = e.defineWebBloksAttributeKey("0"),
+      y = e.defineWebBloksAttributeKey("7"),
+      C = e.defineWebBloksAttributeKey("-"),
+      b = {
         getProps: function (t) {
-          var e = t.get("aria-controls"),
-            n = t.get("aria-describedby"),
-            r = t.get("aria-expanded"),
-            a = t.get("aria-hidden"),
-            i = t.get("aria-pressed"),
-            l = t.get("aria-selected"),
-            s = t.get("checked"),
-            u = t.get("enabled"),
-            c = t.get("heading_level"),
-            d = t.get("label"),
-            m = t.get("lang"),
-            p = t.get("role"),
-            _ = {},
-            f = o("WebBloksAccessibilityUtils")
-              .WEBBLOKS_ACCESSIBILITY_ROLE_MAPPING[p];
+          var e = t.get(s),
+            n = t.get(u),
+            r = t.get(c),
+            a = t.get(d),
+            i = t.get(m),
+            l = t.get(p),
+            b = t.get(_),
+            v = t.get(f),
+            S = t.get(g),
+            R = t.get(h),
+            L = t.get(y),
+            E = t.get(C),
+            k = {},
+            I = o("WebBloksAccessibilityUtils")
+              .WEBBLOKS_ACCESSIBILITY_ROLE_MAPPING[E];
           return (
-            f != null && (_.role = f),
-            (_ = babelHelpers.extends(
+            I != null && (k.role = I),
+            (k = babelHelpers.extends(
               {},
-              o("WebBloksAccessibilityUtils").getFocusPropsForRole(_.role),
-              _,
+              o("WebBloksAccessibilityUtils").getFocusPropsForRole(k.role),
+              k,
             )),
-            o("WebBloksBooleanUtils").isTrue(s) && (_["aria-checked"] = !0),
-            o("WebBloksBooleanUtils").isFalse(s) && (_["aria-checked"] = !1),
-            o("WebBloksBooleanUtils").isFalse(u) &&
-              ((_.disabled = !0), (_["aria-disabled"] = !0)),
+            o("WebBloksBooleanUtils").isTrue(b) && (k["aria-checked"] = !0),
+            o("WebBloksBooleanUtils").isFalse(b) && (k["aria-checked"] = !1),
+            o("WebBloksBooleanUtils").isFalse(v) &&
+              ((k.disabled = !0), (k["aria-disabled"] = !0)),
             r != null &&
-              (_["aria-expanded"] = o("WebBloksBooleanUtils").isTrue(r)),
-            e != null && e.length > 0 && (_["aria-controls"] = e.join(" ")),
-            n != null && n.length > 0 && (_["aria-describedby"] = n.join(" ")),
+              (k["aria-expanded"] = o("WebBloksBooleanUtils").isTrue(r)),
+            e != null && e.length > 0 && (k["aria-controls"] = e.join(" ")),
+            n != null && n.length > 0 && (k["aria-describedby"] = n.join(" ")),
             a != null &&
-              (_["aria-hidden"] = o("WebBloksBooleanUtils").isTrue(a)),
-            i != null && (_["aria-pressed"] = i),
+              (k["aria-hidden"] = o("WebBloksBooleanUtils").isTrue(a)),
+            i != null && (k["aria-pressed"] = i),
             l != null &&
-              (_["aria-selected"] = o("WebBloksBooleanUtils").isTrue(l)),
-            d != null && (_["aria-label"] = d),
-            c != null && (_["aria-label"] = void 0),
-            m != null && (_.lang = m),
-            _
+              (k["aria-selected"] = o("WebBloksBooleanUtils").isTrue(l)),
+            R != null && (k["aria-label"] = R),
+            S != null && (k["aria-label"] = void 0),
+            L != null && (k.lang = L),
+            k
           );
         },
         wrap: function (t, n) {
-          var e = t.get("heading_level"),
-            r = t.get("label");
+          var e = t.get(g),
+            r = t.get(h);
           return e != null
             ? o("WebBloksAccessibilityUtils").getHeading(e, r, n)
             : n;
         },
         reduce: function (t, n) {
-          return t ? t.makeCopy(n.getValues_DO_NOT_USE()) : n;
+          return t ? t.makeCopy(n.getValues()) : n;
         },
       },
-      s = e;
-    l.default = s;
+      v = b;
+    l.default = v;
   },
   98,
 );
