@@ -3,7 +3,7 @@ __d(
   [
     "AnalyticsCoreData",
     "FBLogger",
-    "FalcoConsentChecker",
+    "FalcoCollectionConstraintChecker",
     "FalcoLoggerInternalState",
     "FalcoUtils",
     "Promise",
@@ -55,8 +55,9 @@ __d(
         );
       var i = t.c;
       if (i != null && (s || (s = r("AnalyticsCoreData"))).consents != null) {
-        var l = h(i, (s || (s = r("AnalyticsCoreData"))).consents, e);
-        if (!l)
+        var l = { consents: (s || (s = r("AnalyticsCoreData"))).consents },
+          u = h(i, l, e);
+        if (!u)
           return (
             o("FalcoUtils").bumpODSMetrics(n, "event.filters.consent", 1),
             !1
@@ -68,7 +69,7 @@ __d(
       var o = p[e];
       return (
         o == null && (o = p[e] = JSON.parse(e)),
-        r("FalcoConsentChecker")(t, n, o, o[0])
+        r("FalcoCollectionConstraintChecker")(t, n, o)
       );
     }
     function y() {

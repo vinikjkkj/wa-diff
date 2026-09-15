@@ -10,6 +10,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgModelPropUtils",
+    "WAWebPollOptionsRenderUtils",
     "WAWebPollsOptionSection",
     "WAWebPollsUseResults",
     "nullthrows",
@@ -17,8 +18,7 @@ __d(
     "react-compiler-runtime",
     "useLazyRef",
     "useWAWebNewsletterPollsResults",
-    "useWAWebPollAddOptionContributors",
-    "useWAWebPollAssociatedMessagesMap",
+    "useWAWebPollOptionDecorations",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -151,18 +151,17 @@ __d(
         m = t.optionsToResults,
         p = t.ref,
         _ = t.withSectioning,
-        f = Array.from(m.keys()).find(function (e) {
+        f = r("useWAWebPollOptionDecorations")(i.id, m, n),
+        g = f.addOptionMsgs,
+        h = f.options,
+        y = f.optionsMsgsMap,
+        C = h.find(function (e) {
           return e.localId === c;
         }),
-        g = o("useWAWebPollAssociatedMessagesMap").usePollAssociatedMessagesMap(
-          Array.from(m.keys()),
-          n,
-        ),
-        h = r("useWAWebPollAddOptionContributors")(i.id, Array.from(m.keys())),
-        y = r("useLazyRef")(function () {
+        b = r("useLazyRef")(function () {
           return new (r("WAWebFlatListController"))();
         });
-      if (f == null)
+      if (C == null)
         return (
           o("WALogger")
             .ERROR(
@@ -174,8 +173,8 @@ __d(
             .sendLogs("null-poll-option"),
           null
         );
-      var C = r("nullthrows")(m.get(f)),
-        b = o("WAWebMsgModelPropUtils").isTrusted(i.unsafe());
+      var v = r("nullthrows")(m.get(C)),
+        S = o("WAWebMsgModelPropUtils").isTrusted(i.unsafe());
       return d.jsxs(
         r("WAWebDrawer.react"),
         {
@@ -194,26 +193,25 @@ __d(
               focusBackOrCancel: !0,
             }),
             d.jsx(r("WAWebDrawerBody.react"), {
-              flatListControllers: [y.current],
+              flatListControllers: [b.current],
               children: d.jsx(r("WAWebPollsOptionSection"), {
-                addOptionMsg: h.get(f),
-                associatedMsg: g.get(f),
+                addOptionMsg: g.get(C),
+                associatedMsg: y.get(C),
                 mode: a,
-                option: f,
-                result: C,
-                links: b
-                  ? o("WAWebMsgLinks").getPollOptionLinks(i.unsafe(), f)
+                option: C,
+                result: v,
+                links: S
+                  ? o("WAWebMsgLinks").getPollOptionLinks(i.unsafe(), C)
                   : null,
-                trusted: b,
+                trusted: S,
                 isPollFromMe: i.id.fromMe,
                 onOpenContactInfo: u,
-                flatListController: y.current,
+                flatListController: b.current,
                 withSectioning: _,
-                testid: "poll-details-option-" + f.localId,
-                isCorrectOption:
-                  i.correctOptionIndex == null
-                    ? null
-                    : f.localId === i.correctOptionIndex,
+                testid: "poll-details-option-" + C.localId,
+                isCorrectOption: o(
+                  "WAWebPollOptionsRenderUtils",
+                ).getIsCorrectOption(i.correctOptionIndex, C),
                 hideVoterNames:
                   o("WAWebMsgGetters").getPollHideVoterNames(i) === !0,
               }),

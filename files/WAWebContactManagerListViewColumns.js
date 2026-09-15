@@ -926,6 +926,7 @@ __d(
           cell: function (t) {
             return c.jsx(r("WAWebContactManagerListCell.react"), {
               chatJid: t.item.chatJid,
+              leadStage: t.item.leadData.leadStage,
             });
           },
           header: s._(/*BTDS*/ "List"),

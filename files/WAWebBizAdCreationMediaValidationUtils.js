@@ -22,9 +22,6 @@ __d(
       d = 1,
       m = 90,
       p = {
-        CROSS_MEDIA_VIDEO_ADDED: function () {
-          return s._(/*BTDS*/ "Video added. Previous image removed.");
-        },
         IMAGES_REJECTED_WITH_EXISTING_VIDEO: function () {
           return s._(
             /*BTDS*/ "Photos can't be added when a video is selected.",
@@ -75,68 +72,8 @@ __d(
         });
       return n ? !1 : t.length < c;
     }
-    function y(e) {
-      return e.startsWith("video/");
-    }
-    function C(e) {
-      return e.startsWith("image/");
-    }
-    function b(t) {
-      var n = t.getPreviewableMedias();
-      return n.length === 0 ? e : o("WAWebMimeTypes").IMAGE_MIMES;
-    }
-    function v(e, t) {
-      var n = e.getPreviewableMedias(),
-        r = n.length,
-        a = [];
-      if (r === 0) {
-        var i = t.filter(function (e) {
-            return e.file && y(e.file.type);
-          }),
-          l = t.filter(function (e) {
-            return e.file && C(e.file.type);
-          });
-        return i.length > 0
-          ? (l.length > 0 && a.push("CROSS_MEDIA_VIDEO_ADDED"),
-            i.length > d && a.push("TOO_MANY_VIDEOS"),
-            {
-              attachments: i.slice(0, d),
-              pruneActions: a,
-              shouldClearExisting: !1,
-            })
-          : (l.length > c && a.push("TOO_MANY_IMAGES"),
-            {
-              attachments: l.slice(0, c),
-              pruneActions: a,
-              shouldClearExisting: !1,
-            });
-      }
-      var s = n[0].type === o("WAWebMsgType").MSG_TYPE.VIDEO;
-      if (s)
-        return { attachments: [], pruneActions: a, shouldClearExisting: !1 };
-      var u = t.filter(function (e) {
-          return e.file && y(e.file.type);
-        }),
-        m = t.filter(function (e) {
-          return e.file && C(e.file.type);
-        });
-      if (u.length > 0)
-        return (
-          a.push("CROSS_MEDIA_VIDEO_ADDED"),
-          u.length > d && a.push("TOO_MANY_VIDEOS"),
-          {
-            attachments: u.slice(0, d),
-            pruneActions: a,
-            shouldClearExisting: !0,
-          }
-        );
-      if (r >= c)
-        return { attachments: [], pruneActions: a, shouldClearExisting: !1 };
-      var p = c - r;
-      return (
-        m.length > p && a.push("TOO_MANY_IMAGES"),
-        { attachments: m.slice(0, p), pruneActions: a, shouldClearExisting: !1 }
-      );
+    function y(t) {
+      return t.length === 0 ? e : o("WAWebMimeTypes").IMAGE_MIMES;
     }
     ((l.ALLOWED_MIME_TYPES = e),
       (l.SUPPORTED_MEDIA_TYPES = u),
@@ -147,8 +84,7 @@ __d(
       (l.deepCloneMediaCollection = _),
       (l.clonedCounterpartOf = g),
       (l.canAddMoreAttachments = h),
-      (l.getAllowedMimeTypesForCollection = b),
-      (l.maybePruneNewAttachments = v));
+      (l.getAllowedMimeTypesForCreativeMedia = y));
   },
   226,
 );

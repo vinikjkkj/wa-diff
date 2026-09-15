@@ -51,9 +51,18 @@ __d(
         i = t.subtype,
         l = t.templateParams,
         s = n
-          ? o("WAWebFormatParticipantNames").getFormattedName(n, r, i)
+          ? o("WAWebFormatParticipantNames").getFormattedName({
+              clickable: r,
+              jid: n,
+              subtype: i,
+            })
           : null,
-        u = a ? o("WAWebFormatParticipantNames").getFormattedName(a, r) : null;
+        u = a
+          ? o("WAWebFormatParticipantNames").getFormattedName({
+              clickable: r,
+              jid: a,
+            })
+          : null;
       switch (i) {
         case "parent_group_link":
           return M(l, r, n, s);

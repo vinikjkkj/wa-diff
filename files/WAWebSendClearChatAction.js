@@ -42,7 +42,7 @@ __d(
                       d.jsx(o("WAWebActionToast.react").ActionToast, {
                         initialAction: new (o(
                           "WAWebActionToast.react",
-                        ).ActionType)(s._(/*BTDS*/ "Chat clear cancelled")),
+                        ).ActionType)(s._(/*BTDS*/ "Chat clear canceled")),
                         pendingAction: (u || (u = n("Promise"))).resolve(null),
                       }),
                     ));

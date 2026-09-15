@@ -9,7 +9,11 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r;
-      e && (r = o("WAWebFormatParticipantNames").getFormattedName(e, !1));
+      e &&
+        (r = o("WAWebFormatParticipantNames").getFormattedName({
+          clickable: !1,
+          jid: e,
+        }));
       var a =
         n[0] &&
         o("WAWebGroupType").GroupSettingChangeSystemMessageToggleEnabled.cast(

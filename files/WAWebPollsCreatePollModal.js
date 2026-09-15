@@ -24,11 +24,11 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollOptionsRenderUtils",
     "WAWebPollsActionsMetricUtils",
-    "WAWebPollsEndTimeSection",
     "WAWebPollsGatingUtils",
     "WAWebPollsOptionInput",
     "WAWebPollsOrderableList",
     "WAWebPollsSendPollCreationMsgAction",
+    "WAWebPollsSettingsSection",
     "WAWebRichTextField.react",
     "WAWebRound.react",
     "WAWebSpoilerGating",
@@ -37,7 +37,6 @@ __d(
     "WAWebWdsIcSendFilledIcon.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
-    "WDSSwitch.react",
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -132,20 +131,6 @@ __d(
       sendButtonRefreshed: {
         color: "x1pse0pq",
         backgroundColor: "xfn3atn",
-        $$css: !0,
-      },
-      singleOptionContainer: {
-        display: "x78zum5",
-        alignItems: "x6s0dn4",
-        width: "xh8yej3",
-        fontSize: "x1jchvi3",
-        lineHeight: "xdod15v",
-        $$css: !0,
-      },
-      singleOptionLabel: {
-        width: "xh8yej3",
-        display: "x1rg5ohu",
-        cursor: "x1ypdohk",
         $$css: !0,
       },
     };
@@ -610,110 +595,20 @@ __d(
                               /*BTDS*/ "You can add one more option.",
                             ),
                           }),
-                          L === o("WAWebPollCreationUtils").PollType.POLL &&
-                            o(
-                              "WAWebPollsGatingUtils",
-                            ).isSingleOptionPollsSendingEnabled(i.id) &&
-                            c.jsxs(
-                              "div",
-                              babelHelpers.extends(
-                                {},
-                                (e || (e = r("stylex"))).props(
-                                  v.singleOptionContainer,
-                                  o("WDSPaddings.stylex").wdsPaddings
-                                    .paddingBottom20,
-                                ),
-                                {
-                                  children: [
-                                    c.jsx(
-                                      "label",
-                                      babelHelpers.extends(
-                                        {
-                                          htmlFor: "polls-single-option-switch",
-                                        },
-                                        (e || (e = r("stylex"))).props(
-                                          v.singleOptionLabel,
-                                          o("WDSPaddings.stylex").wdsPaddings
-                                            .paddingVer4,
-                                        ),
-                                        {
-                                          children: s._(
-                                            /*BTDS*/ "Allow multiple answers",
-                                          ),
-                                        },
-                                      ),
-                                    ),
-                                    c.jsx(r("WDSSwitch.react"), {
-                                      id: "polls-single-option-switch",
-                                      value: !x,
-                                      onChange: function () {
-                                        $(!x);
-                                      },
-                                      testid: "polls-single-option-switch",
-                                    }),
-                                  ],
-                                },
-                              ),
-                            ),
-                          L === o("WAWebPollCreationUtils").PollType.POLL &&
-                            !oe &&
-                            o(
-                              "WAWebPollsGatingUtils",
-                            ).isPollHideVotersSendingEnabled(i.id) &&
-                            c.jsxs(
-                              "div",
-                              babelHelpers.extends(
-                                {},
-                                (e || (e = r("stylex"))).props(
-                                  v.singleOptionContainer,
-                                  o("WDSPaddings.stylex").wdsPaddings
-                                    .paddingBottom20,
-                                ),
-                                {
-                                  children: [
-                                    c.jsx(
-                                      "label",
-                                      babelHelpers.extends(
-                                        {
-                                          htmlFor:
-                                            "polls-hide-voter-names-switch",
-                                        },
-                                        (e || (e = r("stylex"))).props(
-                                          v.singleOptionLabel,
-                                          o("WDSPaddings.stylex").wdsPaddings
-                                            .paddingVer4,
-                                        ),
-                                        {
-                                          children: s._(
-                                            /*BTDS*/ "Hide voter names",
-                                          ),
-                                        },
-                                      ),
-                                    ),
-                                    c.jsx(r("WDSSwitch.react"), {
-                                      id: "polls-hide-voter-names-switch",
-                                      value: U,
-                                      onChange: function () {
-                                        V(!U);
-                                      },
-                                      testid: "polls-hide-voter-names-switch",
-                                    }),
-                                  ],
-                                },
-                              ),
-                            ),
-                          L === o("WAWebPollCreationUtils").PollType.POLL &&
-                            !oe &&
-                            o(
-                              "WAWebPollsGatingUtils",
-                            ).isPollEndTimeSendingEnabled(i.id) &&
-                            c.jsx(r("WAWebPollsEndTimeSection"), {
-                              enabled: A,
-                              maxDurationMs: ie,
-                              onToggle: F,
-                              pollEndTime: B,
-                              onEndTimeChange: W,
-                            }),
+                          c.jsx(r("WAWebPollsSettingsSection"), {
+                            chatId: i.id,
+                            hideVoterNames: U,
+                            isNewsletter: oe,
+                            isSingleOption: x,
+                            onEndTimeChange: W,
+                            onEndTimeToggle: F,
+                            onHideVoterNamesChange: V,
+                            onSingleOptionChange: $,
+                            pollEndTime: B,
+                            pollEndTimeEnabled: A,
+                            pollEndTimeMaxDurationMs: ie,
+                            pollType: L,
+                          }),
                         ],
                       },
                     ),

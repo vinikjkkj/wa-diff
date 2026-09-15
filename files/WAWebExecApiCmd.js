@@ -755,7 +755,7 @@ __d(
                     $.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                       onOK: o("WAWebModalManager").closeModalManager,
                       children: s._(
-                        /*BTDS*/ "You can set up your username from your primary phone.",
+                        /*BTDS*/ "You can set up your username from your primary device.",
                       ),
                     }),
                   ),

@@ -295,7 +295,7 @@ __d(
           (n.replaceState = function (t) {
             if (!this.disableHistoryStack) {
               var e = history.state;
-              e.uri !== t && window.history.replaceState(e, null, t);
+              e.uri !== t && window.history.replaceState(e, "", t);
             }
           }),
           (n.replaceStateAndSyncUri = function (t) {

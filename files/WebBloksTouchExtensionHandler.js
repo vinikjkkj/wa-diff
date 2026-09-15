@@ -1,11 +1,6 @@
 __d(
   "WebBloksTouchExtensionHandler",
-  [
-    "WebBloksConstants",
-    "WebBloksMinificationUtils",
-    "WebBloksModel",
-    "WebBloksUtils",
-  ],
+  ["WebBloksConstants", "WebBloksModel", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     var e = o("WebBloksModel").defineWebBloksAttributeKey("#"),
       s = o("WebBloksModel").defineWebBloksAttributeKey("$"),
@@ -14,26 +9,13 @@ __d(
         getStyles: function (t) {
           return { cursor: "pointer", pointerEvents: "auto" };
         },
-        onMount: function (n, r, a) {
+        onMount: function (n, r, a, i) {
           var t,
-            i = n.getExpression(s),
-            l = n.getExpression(u),
-            c = n.getExpression(e),
-            d =
-              a.bloksContext.objectSet.environment.loadedMinificationMaps
-                .unminificationMap;
+            l = n.getExpression(s),
+            c = n.getExpression(u),
+            d = n.getExpression(e);
           function m() {
-            var e = r.current;
-            return o("WebBloksUtils").isBloksModelEnabled(
-              e,
-              o(
-                "WebBloksMinificationUtils",
-              ).getOptionalMinifiedWebBloksAttributeKey(
-                String(e.styleId),
-                "enabled",
-                d,
-              ),
-            );
+            return o("WebBloksUtils").isBloksModelEnabled(r.current, i);
           }
           var p =
             (t = r.current.uiMutableContainer.domNode) == null
@@ -50,19 +32,19 @@ __d(
             var e = _.getBoundingClientRect();
             ((f = e.left),
               (g = e.top),
-              i != null &&
+              l != null &&
                 m() &&
-                a.executeCatch(r.current, i, [r.current, a.bloksContext]));
+                a.executeCatch(r.current, l, [r.current, a.bloksContext]));
           }
           function v() {
-            l != null &&
-              m() &&
-              a.executeCatch(r.current, l, [r.current, a.bloksContext]);
-          }
-          function S() {
             c != null &&
               m() &&
-              a.executeCatch(r.current, c, [r, a.bloksContext]);
+              a.executeCatch(r.current, c, [r.current, a.bloksContext]);
+          }
+          function S() {
+            d != null &&
+              m() &&
+              a.executeCatch(r.current, d, [r, a.bloksContext]);
           }
           function R(e) {
             if (((C = !0), h === -1)) {

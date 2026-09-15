@@ -40,6 +40,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "cr:11804",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _;
@@ -483,16 +484,16 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebMsgCollection").MsgCollection.add(e, { merge: !0 }),
-            r = 0,
-            a = t.reduce(function (e, t) {
+            a = 0,
+            i = t.reduce(function (e, t) {
               return (
-                t == null && r++,
+                t == null && a++,
                 t != null && t.subtype !== "is_hosted_group" && e.push(t),
                 e
               );
             }, []);
-          if (r > 0) {
-            var i = e
+          if (a > 0) {
+            var l = e
               .filter(function (e, n) {
                 return t[n] == null;
               })
@@ -508,42 +509,43 @@ __d(
                     " empty messages with ids => ",
                     "",
                   ])),
-                r,
-                i,
+                a,
+                l,
               )
               .sendLogs("msgPrepWork-empty-message");
           }
-          var l = null,
-            s = null;
-          return (
-            yield (_ || (_ = n("Promise"))).all(
-              a.map(function (e) {
+          var s = null,
+            u = null;
+          if (
+            (yield (_ || (_ = n("Promise"))).all(
+              i.map(function (e) {
                 return e.waitForPrep().catch(function (t) {
-                  ((l = t), (s = e));
+                  ((s = t), (u = e));
                 });
               }),
             ),
-            l != null &&
-              s != null &&
-              o("WALogger")
-                .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[msgPrepWork] id=",
-                      " type=",
-                      " subtype=",
-                      " hasMedia=",
-                      "",
-                    ])),
-                  s.id.toString(),
-                  s.type,
-                  s.subtype,
-                  s.mediaData != null,
-                )
-                .catching(l)
-                .sendLogs("bad-msg-prep"),
-            a
-          );
+            s != null && u != null)
+          ) {
+            var c = r("getErrorSafe")(s);
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[msgPrepWork] id=",
+                    " type=",
+                    " subtype=",
+                    " hasMedia=",
+                    "",
+                  ])),
+                u.id.toString(),
+                u.type,
+                u.subtype,
+                u.mediaData != null,
+              )
+              .catching(c)
+              .sendLogs("bad-msg-prep");
+          }
+          return i;
         })),
         b.apply(this, arguments)
       );

@@ -39,28 +39,29 @@ __d(
           }, "")),
             t.slice(-1) === "/" && (m += "/"),
             m === "" && (m = "/"));
-          var _ = o("ConstUriUtils").getUri(m);
-          for (var f in c) {
-            var g = c[f];
-            !d[f] &&
-              g != null &&
+          var _ = o("ConstUriUtils").getUri(m),
+            f = c;
+          for (var g in c) {
+            var h = f[g];
+            !d[g] &&
+              h != null &&
               _ != null &&
-              (a != null && a.has(f)
-                ? g !== !1 && (_ = _.addQueryParam(f, null))
-                : (_ = _.addQueryParam(f, g)));
+              (a != null && a.has(g)
+                ? h !== !1 && (_ = _.addQueryParam(g, null))
+                : (_ = _.addQueryParam(g, h)));
           }
           return [_, m];
         } catch (n) {
-          var h = n instanceof Error ? n.message : String(n),
-            y = r("FBLogger")("JSRouteBuilder")
+          var y = n instanceof Error ? n.message : String(n),
+            C = r("FBLogger")("JSRouteBuilder")
               .blameToPreviousFrame()
               .blameToPreviousFrame();
           return (
-            l && (y = y.blameToPreviousFrame()),
-            y.mustfix(
+            l && (C = C.blameToPreviousFrame()),
+            C.mustfix(
               "Failed building URI for base path: %s message: %s",
               t,
-              h,
+              y,
             ),
             [null, e]
           );

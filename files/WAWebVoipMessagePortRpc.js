@@ -7,7 +7,10 @@ __d(
       s,
       u,
       c,
-      d = (function () {
+      d,
+      m,
+      p = -1,
+      _ = (function () {
         function t(e) {
           ((this.$1 = !1), (this.$2 = 0), (this.$3 = new Map()), (this.$4 = e));
         }
@@ -18,17 +21,42 @@ __d(
             ((this.$4.onmessage = function (n) {
               var a = n.data;
               if (!(a == null || typeof a != "object")) {
-                var i = Number(a.id),
-                  l = t.$3.get(i);
+                var i = Number(a.id);
+                if (i === p) {
+                  a.error != null &&
+                    o("WALogger").ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [RPC] fire-and-forget call failed: ",
+                          "",
+                        ])),
+                      String(a.error),
+                    );
+                  return;
+                }
+                var l = t.$3.get(i);
                 if (l == null) {
-                  o("WALogger").ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [RPC] Response for unknown id=",
-                        "",
-                      ])),
-                    i,
-                  );
+                  if (i < t.$2) {
+                    var c;
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [RPC] late response for settled id=",
+                          ", error=",
+                          "",
+                        ])),
+                      i,
+                      String((c = a.error) != null ? c : "none"),
+                    );
+                  } else
+                    o("WALogger").ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [RPC] Response for unknown id=",
+                          "",
+                        ])),
+                      i,
+                    );
                   return;
                 }
                 (t.$3.delete(i),
@@ -42,7 +70,7 @@ __d(
           (a.invoke = function (t, o, a) {
             var e = this,
               i = this.$2++;
-            return new (c || (c = n("Promise")))(function (n, l) {
+            return new (m || (m = n("Promise")))(function (n, l) {
               var s = window.setTimeout(function () {
                 (e.$3.delete(i),
                   l(
@@ -67,17 +95,17 @@ __d(
           }),
           (a.invokeWithVisibilityAwareTimeout = function (t, a, i, l) {
             var e = this,
-              d = i.absoluteMs,
-              m = i.foregroundMs,
+              s = i.absoluteMs,
+              u = i.foregroundMs,
               p = i.onBackgroundPauseSuccess,
               _ = i.onTimeout,
               f = this.$2++;
-            return new (c || (c = n("Promise")))(function (n, i) {
-              var c = o(
+            return new (m || (m = n("Promise")))(function (n, i) {
+              var m = o(
                 "WAWebVisibilityAwareTimeout",
               ).startVisibilityAwareTimeout({
-                foregroundMs: m,
-                absoluteMs: d,
+                foregroundMs: u,
+                absoluteMs: s,
                 onTimeout: function (o, a) {
                   (e.$3.delete(f), _(o));
                   var n =
@@ -102,8 +130,8 @@ __d(
                 },
                 onPause: function (n) {
                   o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [RPC] wait paused for ",
                         " (id=",
                         ", visibleElapsed=",
@@ -116,8 +144,8 @@ __d(
                 },
                 onResume: function (n) {
                   o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [RPC] wait resumed for ",
                         " (id=",
                         ", visibleElapsed=",
@@ -131,11 +159,11 @@ __d(
               });
               (e.$3.set(f, {
                 resolve: function (t) {
-                  var e = c.cancel();
+                  var e = m.cancel();
                   (e.wasBackgroundPaused && p(), n(t));
                 },
                 reject: function (t) {
-                  (c.cancel(), i(t));
+                  (m.cancel(), i(t));
                 },
               }),
                 e.$4.postMessage(
@@ -149,7 +177,7 @@ __d(
               n = t.method,
               r = t.transferList;
             this.$4.postMessage(
-              { id: -1, method: n, args: e },
+              { id: p, method: n, args: e },
               r != null ? r : [],
             );
           }),
@@ -167,7 +195,7 @@ __d(
           t
         );
       })();
-    l.MessagePortRpc = d;
+    l.MessagePortRpc = _;
   },
   98,
 );

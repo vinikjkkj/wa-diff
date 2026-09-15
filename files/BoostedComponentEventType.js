@@ -808,6 +808,8 @@ __d(
         "unused_budget_reallocation_upsell_flow_entry",
       UNUSED_BUDGET_REALLOCATION_UPSELL_SHEET_DISAPPEAR:
         "unused_budget_reallocation_upsell_sheet_disappear",
+      UNUSED_BUDGET_REALLOCATION_UPSELL_SUPPRESSED:
+        "unused_budget_reallocation_upsell_suppressed",
       UPDATED_ASL_NOTICE_IMPRESSION: "updated_asl_notice_impression",
       UPDATED_ASL_RESET_CLICK: "updated_asl_reset_click",
       UPDATED_ASL_INCREASE_CLICK: "updated_asl_increase_click",

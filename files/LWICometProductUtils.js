@@ -29,23 +29,19 @@ __d(
     function d(e) {
       var t = e.hasConflictingCreativeFeature,
         n = e.hasEligibleTransport,
-        o = e.hasSourcePostVideo,
-        a = e.isCarouselPost,
-        i = e.isHeadlineTextEligible,
-        l = e.isImageGenerationEnabled,
-        s = e.isSingleAdgroup,
-        u = e.isSinglePost,
-        c = e.shouldShowHeadline;
+        o = e.isCarouselPost,
+        a = e.isHeadlineTextEligible,
+        i = e.isSingleAdgroup,
+        l = e.isSinglePost,
+        s = e.shouldShowHeadline;
       return (
         !t &&
         n &&
         !o &&
-        !a &&
+        a &&
         i &&
-        !l &&
+        l &&
         s &&
-        u &&
-        c &&
         r("CurrentLocale").get().startsWith("en_")
       );
     }

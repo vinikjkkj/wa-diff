@@ -28,6 +28,8 @@ __d(
           n("certEncryptionPem"),
           n("certPasswordPem"),
           n("certPasswordKeyId"),
+          n("certPayloadKeyId"),
+          n("certPasswordIsOaep"),
           n("certTtlSeconds"),
           n("certFetchTimestamp"),
           n("lastResyncTimestamp"),

@@ -63,9 +63,9 @@ __d(
             return;
           }
           var f = _.passwordKeyId,
-            g = _.passwordPublicKey,
-            h = _.source;
-          if (g == null || f == null) {
+            g = _.passwordKeyIsOaepSha256,
+            h = _.passwordPublicKey;
+          if (h == null || f == null) {
             o("WALogger").ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -74,16 +74,15 @@ __d(
             );
             return;
           }
-          var y = h === "graphql",
-            C;
+          var y;
           try {
-            C = y
+            y = g
               ? yield o(
                   "WAWebAccountLinkingCryptoUtils",
-                ).encryptPasswordWithOaep(p, g, f)
+                ).encryptPasswordWithOaep(p, h, f)
               : yield o("WAWebAccountLinkingCryptoUtils").encryptPassword(
                   p,
-                  g,
+                  h,
                   f,
                 );
           } catch (e) {
@@ -97,49 +96,49 @@ __d(
               .catching(r("getErrorSafe")(e));
             return;
           }
-          var b = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
-            v = b.privateKey,
-            S = b.publicKey,
-            E = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(S),
-            k = {
+          var C = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
+            b = C.privateKey,
+            v = C.publicKey,
+            S = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(v),
+            E = {
               version: 1,
               timestamp: Date.now(),
-              password: C,
-              client_pub_key: E,
+              password: y,
+              client_pub_key: S,
               client_pub_key_type: "RSA 2048",
             },
-            I = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(
-              k,
+            k = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(
+              E,
               _,
             ),
-            T = yield o(
+            I = yield o(
               "WASmaxWaffleGenerateWAEntACUserRPC",
             ).sendGenerateWAEntACUserRPC({
               rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs:
                 o(
                   "WAWebWaffleEncryptionMetadataArgs",
-                ).waffleEncryptionMetadataArgs(I),
+                ).waffleEncryptionMetadataArgs(k),
               timestampElementValue: Date.now(),
               disclosureId: n,
               disclosureVersion: l,
               disclosureLg: i,
               disclosureLc: a,
             });
-          if (T.name === "GenerateWAEntACUserResponseSuccess") {
+          if (I.name === "GenerateWAEntACUserResponseSuccess") {
             L.reset();
-            var D = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
-                T.value.encryptionMetadataRSAEncryptionMetadataMixin,
+            var T = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
+                I.value.encryptionMetadataRSAEncryptionMetadataMixin,
               ),
-              x = D.data,
-              $ = D.key,
-              P = D.nonce,
-              N = D.tag;
+              D = T.data,
+              x = T.key,
+              $ = T.nonce,
+              P = T.tag;
             try {
-              var M = yield o(
+              var N = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).decryptRSAEncryptedPayload(v, $, x, P, N);
-              "fbid" in M
-                ? yield R.updateEntCreationData(String(M.fbid), C)
+              ).decryptRSAEncryptedPayload(b, x, D, $, P);
+              "fbid" in N
+                ? yield R.updateEntCreationData(String(N.fbid), y)
                 : o("WALogger").ERROR(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -157,18 +156,18 @@ __d(
                 .catching(r("getErrorSafe")(e));
             }
           } else {
-            var w = T.value.errorGenerateWaEntAcUserErrors,
-              A = yield o(
+            var M = I.value.errorGenerateWaEntAcUserErrors,
+              w = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("generateWAEntACUser", w.name);
-            (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(A, L),
+              ).handleCommonWaffleIQError("generateWAEntACUser", M.name);
+            (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(w, L),
               o("WALogger").ERROR(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] GenerateWAEntACUser RPC failed: ",
                     "",
                   ])),
-                w.name,
+                M.name,
               ));
           }
         })),

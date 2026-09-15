@@ -56,7 +56,9 @@ __d(
             /*BTDS*/ "You changed this group's settings to allow all members to send message history to new members.",
           );
       }
-      var d = c ? o("WAWebFormatParticipantNames").getFormattedName(c) : null;
+      var d = c
+        ? o("WAWebFormatParticipantNames").getFormattedName({ jid: c })
+        : null;
       return i ===
         o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode.ADMIN_SHARE
         ? d == null

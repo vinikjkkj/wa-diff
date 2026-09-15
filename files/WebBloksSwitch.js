@@ -39,7 +39,7 @@ __d(
         i = e.node,
         l = o("WebBloksTheme").useTheme().getTheme(),
         L = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
-        k = o("WebBloksStyle").useStyle(i, a),
+        k = o("WebBloksStyle").useStyle(i, a, void 0, d),
         D = k.wrapper,
         x = k.wrapperProps,
         $ = o("WebBloksComponentContext").useWebBloksContext(),

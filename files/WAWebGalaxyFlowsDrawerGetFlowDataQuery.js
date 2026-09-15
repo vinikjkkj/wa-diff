@@ -43,14 +43,14 @@ __d(
         return (s || (s = n("Promise"))).reject(g);
       }
       var h = u.contact.id,
-        y = h.isLid()
-          ? (i =
-              (l = o("WAWebLidMigrationUtils").toPn(h)) == null
-                ? void 0
-                : l.toString()) != null
+        y =
+          h.isLid() &&
+          (i =
+            (l = o("WAWebLidMigrationUtils").toPn(h)) == null
+              ? void 0
+              : l.toString()) != null
             ? i
-            : ""
-          : h.toString(),
+            : h.toString(),
         C = d.flowId;
       return (
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataPoint(

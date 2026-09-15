@@ -57,29 +57,37 @@ __d(
         errorMessage: "",
       };
     }
-    function y(t, a, i, l, d, p, _, f) {
-      return function (y) {
-        var C = y.eventName,
-          b = y.payload;
+    function y(t) {
+      var a = t.chat,
+        i = t.flowInitData,
+        l = t.galaxyFlowData,
+        d = t.getFileDownloadRef,
+        p = t.msg,
+        _ = t.onCancel,
+        f = t.phoneNumber,
+        y = t.responseViewer;
+      return function (t) {
+        var C = t.eventName,
+          b = t.payload;
         return new (c || (c = n("Promise")))(
           (function () {
-            var c = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
                 switch (C) {
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsGetFlowData:
-                    n(
+                    t(
                       o("WAWebGalaxyFlowsDrawerUtils").getFlowInitDataPayload({
-                        chat: t,
+                        chat: a,
                         flowInitData: i,
-                        messageData: a,
-                        responseViewer: l,
+                        messageData: l,
+                        responseViewer: y,
                       }),
                     );
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsGetPublicKey:
-                    n(h(a.flowFetchedMetadata));
+                    t(h(l.flowFetchedMetadata));
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsLearnMore:
@@ -92,22 +100,22 @@ __d(
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsGetClientAbProps: {
-                    var c = b;
+                    var n = b;
                     o("WAWebGalaxyFlowsABPropsUtils")
-                      .getActualABPropData(c)
+                      .getActualABPropData(n)
                       .then(function (e) {
-                        n(e);
+                        t(e);
                       })
-                      .catch(function (t) {
+                      .catch(function (n) {
                         (o("WALogger").ERROR(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
                               "[Galaxy Flows] Failed to get ABProp data: ",
                               "",
                             ])),
-                          t,
+                          n,
                         ),
-                          n(
+                          t(
                             o(
                               "WAFlowsWebNativeBridgeClientABPropsContext.react",
                             ).abPropsFallBackDataForWeb,
@@ -117,44 +125,44 @@ __d(
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsNavigate: {
-                    var y = b;
-                    if (y != null && typeof y == "object") {
-                      var v = y.disable_cta,
-                        S = y.extension_screen_length,
-                        R = y.is_restored,
-                        L = y.is_success,
-                        E = y.is_terminal_error,
-                        k = y.is_terminal_success,
-                        I = y.layout_type,
-                        T = y.screen_progress,
-                        D = y.sequence_number;
+                    var c = b;
+                    if (c != null && typeof c == "object") {
+                      var v = c.disable_cta,
+                        S = c.extension_screen_length,
+                        R = c.is_restored,
+                        L = c.is_success,
+                        E = c.is_terminal_error,
+                        k = c.is_terminal_success,
+                        I = c.layout_type,
+                        T = c.screen_progress,
+                        D = c.sequence_number;
                       if (
-                        ((a.screenLength = S),
-                        (a.isRestoredFromCache = R),
-                        (a.layoutType = I),
-                        (a.screenProgress = T),
-                        (a.sequenceNumber = D),
-                        (a.isTerminalError = E === !0),
-                        (a.isTerminalSuccess = k === !0),
-                        (a.isSuccess = L === !0),
+                        ((l.screenLength = S),
+                        (l.isRestoredFromCache = R),
+                        (l.layoutType = I),
+                        (l.screenProgress = T),
+                        (l.sequenceNumber = D),
+                        (l.isTerminalError = E === !0),
+                        (l.isTerminalSuccess = k === !0),
+                        (l.isSuccess = L === !0),
                         v === !0)
                       ) {
                         var x;
                         o(
                           "WAWebGalaxyDisableCTACollection",
                         ).GalaxyDisableCTACollection.addMessageId(
-                          d.id.toString(),
+                          p.id.toString(),
                         );
                         var $ =
-                          d.type ===
+                          p.type ===
                           o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
-                            ? (x = d.unsafe().ctwaContext) == null
+                            ? (x = p.unsafe().ctwaContext) == null
                               ? void 0
                               : x.sourceId
                             : void 0;
                         r("WAWebInteractiveMessageSync").sendDisableCTAMutation(
-                          d.id,
-                          a.flowId,
+                          p.id,
+                          l.flowId,
                           $,
                         );
                       }
@@ -163,13 +171,13 @@ __d(
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsClose:
-                    f();
+                    _();
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsComplete:
-                    (f(),
+                    (_(),
                       o("WAWebGalaxyFlowsCompleteAction").onFlowsCompleteAction(
-                        { chat: t, messageData: a, msg: d, payload: b },
+                        { chat: a, messageData: l, msg: p, payload: b },
                       ));
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
@@ -190,7 +198,7 @@ __d(
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsSpamReport:
-                    o("WAWebGalaxyFlowsNavBarUtils.react").reportGalaxyFlow(d);
+                    o("WAWebGalaxyFlowsNavBarUtils.react").reportGalaxyFlow(p);
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsMediaSelect: {
@@ -208,24 +216,24 @@ __d(
                       m.jsx(r("WAWebGalaxyFlowsResponseDownloadFlow.react"), {
                         bizPlatform: o(
                           "WAWebGalaxyFlowWamLoggerUtils",
-                        ).getFlowsMaybeBizPlatform(t),
-                        businessOwnerJid: p != null ? p : "",
-                        flowId: a.flowId,
-                        flowName: a.flowName,
-                        flowResponseMessage: a.flowResponseMessage,
-                        flowWAMMessageId: a.flowWAMMessageId,
+                        ).getFlowsMaybeBizPlatform(a),
+                        businessOwnerJid: f != null ? f : "",
+                        flowId: l.flowId,
+                        flowName: l.flowName,
+                        flowResponseMessage: l.flowResponseMessage,
+                        flowWAMMessageId: l.flowWAMMessageId,
                         flowWAMSessionId:
-                          (P = a.flowWAMSessionId) != null ? P : "",
-                        getFileDownloadRef: _,
-                        phoneNumber: p,
-                        timestamp: d.t,
+                          (P = l.flowWAMSessionId) != null ? P : "",
+                        getFileDownloadRef: d,
+                        phoneNumber: f,
+                        timestamp: p.t,
                       }),
                     );
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsDataExchangeDuringNavigation: {
-                    var N = d.id.id.toString();
+                    var N = p.id.id.toString();
                     if (
                       b != null &&
                       typeof b == "object" &&
@@ -239,11 +247,11 @@ __d(
                           data: M,
                           messageId: N,
                           screenName: String(b.screen),
-                          sessionId: a.flowQPLMessageId,
+                          sessionId: l.flowQPLMessageId,
                         },
                       );
                     }
-                    n(null);
+                    t(null);
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
@@ -286,7 +294,7 @@ __d(
                       new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
                         w,
                       ).commit(),
-                      n(null));
+                      t(null));
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
@@ -381,13 +389,13 @@ __d(
                         ])),
                       C,
                     ),
-                      n(null));
+                      t(null));
                     break;
                 }
               },
             );
             return function (e) {
-              return c.apply(this, arguments);
+              return t.apply(this, arguments);
             };
           })(),
         );

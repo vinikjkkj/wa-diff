@@ -8,11 +8,11 @@ __d(
     o("WebBloksCSSUtils").insertCssRule(
       "@supports (height: 100dvh) {\n:root {\n--wbloks-dvh: 1dvh;\n}\n}",
     );
-    function c(e, t, n) {
-      n === void 0 && (n = !1);
-      var o = u(null);
-      e.uiMutableContainer.domNode = o;
-      var a =
+    function c(e, t, n, o) {
+      (n === void 0 && (n = !1), o === void 0 && (o = null));
+      var a = u(null);
+      e.uiMutableContainer.domNode = a;
+      var i =
           n === !0
             ? {
                 pointerEvents: "auto",
@@ -20,15 +20,15 @@ __d(
                 WebkitTapHighlightColor: "transparent",
               }
             : void 0,
-        i = babelHelpers.extends({}, r("WebBloksLayout")(e), a, t),
-        l = r("WebBloksWrapper")(e, i, o),
-        s = l.hasWrapper,
-        c = l.stylesFromExtensions,
-        m = l.wrapper,
-        p = l.wrapperProps;
+        l = babelHelpers.extends({}, r("WebBloksLayout")(e), i, t),
+        s = r("WebBloksWrapper")(e, l, a, o),
+        c = s.hasWrapper,
+        m = s.stylesFromExtensions,
+        p = s.wrapper,
+        _ = s.wrapperProps;
       return (
-        c && Object.assign(i, c),
-        { ref: o, style: s ? d : i, wrapper: m, wrapperProps: p }
+        m && Object.assign(l, m),
+        { ref: a, style: c ? d : l, wrapper: p, wrapperProps: _ }
       );
     }
     var d = { height: "100%", width: "100%", pointerEvents: "inherit" };

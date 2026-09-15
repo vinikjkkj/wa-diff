@@ -84,34 +84,39 @@ __d(
         (g = []),
         p.targetToCallbacksMap.set(t, g)),
         g.push(n));
-      var h = !1,
-        y = function () {
-          if (!h) {
-            var e = p.targetToCallbacksMap.get(t);
-            if ((e != null || s(0, 2440), e.length === 1))
-              (t instanceof Element
-                ? p.intersectionObserver.unobserve(t)
-                : t.unobserveUsing(p.intersectionObserver),
-                p.targetToCallbacksMap.delete(t),
+      var h = t,
+        y = n,
+        C = !1,
+        b = function () {
+          if (!C) {
+            var e = h,
+              t = y;
+            (e != null || s(0, 173939), t != null || s(0, 173937));
+            var n = p.targetToCallbacksMap.get(e);
+            if ((n != null || s(0, 2440), n.length === 1))
+              (e instanceof Element
+                ? p.intersectionObserver.unobserve(e)
+                : e.unobserveUsing(p.intersectionObserver),
+                p.targetToCallbacksMap.delete(e),
                 (p.referenceCount -= 1),
-                (t = null));
+                (h = null));
             else {
-              var r = e.indexOf(n);
-              (r !== -1 || s(0, 2441), e.splice(r, 1));
+              var r = n.indexOf(t);
+              (r !== -1 || s(0, 2441), n.splice(r, 1));
             }
             (p.referenceCount === 0 &&
               (l != null || s(0, 2442),
               delete l[a],
               i && Object.keys(l).length === 0 && d.delete(i)),
-              (n = null),
-              (t = null),
+              (y = null),
+              (h = null),
               (i = null),
-              (h = !0));
+              (C = !0));
           }
         };
       return {
         remove: function () {
-          y && (y(), (y = null));
+          b && (b(), (b = null));
         },
       };
     }

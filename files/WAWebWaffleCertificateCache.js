@@ -25,9 +25,11 @@ __d(
             if (t != null && n != null && r != null) {
               var a,
                 i,
-                l = o("WATimeUtils").unixTime(),
-                s = l - r;
-              return s >= n
+                l,
+                s,
+                u = o("WATimeUtils").unixTime(),
+                c = u - r;
+              return c >= n
                 ? null
                 : {
                     encryptionPem: t,
@@ -39,6 +41,14 @@ __d(
                       (i = e == null ? void 0 : e.certPasswordKeyId) != null
                         ? i
                         : null,
+                    payloadKeyId:
+                      (l = e == null ? void 0 : e.certPayloadKeyId) != null
+                        ? l
+                        : null,
+                    passwordIsOaep:
+                      (s = e == null ? void 0 : e.certPasswordIsOaep) != null
+                        ? s
+                        : !1,
                     ttlSeconds: n,
                     fetchTimestampSeconds: r,
                   };
@@ -54,14 +64,17 @@ __d(
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.encryptionPem,
-            a = t.passwordKeyId,
-            i = t.passwordPem,
-            l = t.ttlSeconds,
-            s = l != null ? l : e;
-          if (!(s <= 0)) {
-            var u = Math.floor(Date.now() / 1e3);
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.encryptionPem,
+            r = e.passwordIsOaep,
+            a = e.passwordKeyId,
+            i = e.passwordPem,
+            l = e.passwordTtlSeconds,
+            s = e.payloadKeyId,
+            u = e.ttlSeconds,
+            c = m(u, i == null ? null : l);
+          if (!(c <= 0)) {
+            var d = Math.floor(Date.now() / 1e3);
             try {
               yield o("WAWebModelStorageUtils")
                 .getStorage()
@@ -70,20 +83,22 @@ __d(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
-                        var t = e[0],
-                          n = yield t.get(
+                        var n = e[0],
+                          l = yield n.get(
                             o("WAWebAccountLinkingConstants").AccountLinkKey,
                           ),
-                          l = {
-                            certEncryptionPem: r,
+                          u = {
+                            certEncryptionPem: t,
                             certPasswordPem: i != null ? i : void 0,
                             certPasswordKeyId: a != null ? a : void 0,
-                            certTtlSeconds: s,
-                            certFetchTimestamp: u,
+                            certPayloadKeyId: s != null ? s : void 0,
+                            certPasswordIsOaep: r,
+                            certTtlSeconds: c,
+                            certFetchTimestamp: d,
                           },
-                          c =
-                            n != null
-                              ? babelHelpers.extends({}, n, l)
+                          m =
+                            l != null
+                              ? babelHelpers.extends({}, l, u)
                               : babelHelpers.extends(
                                   {
                                     accountLinkKey: o(
@@ -93,9 +108,9 @@ __d(
                                       .AccountLinkState.Unknown,
                                     linkTimestamp: 0,
                                   },
-                                  l,
+                                  u,
                                 );
-                        yield t.createOrReplace(c);
+                        yield n.createOrReplace(m);
                       },
                     );
                     return function (t) {
@@ -108,6 +123,10 @@ __d(
         })),
         d.apply(this, arguments)
       );
+    }
+    function m(t, n) {
+      var r = t != null ? t : e;
+      return n == null || n <= 0 ? r : Math.min(r, n);
     }
     ((l.loadCertFromIDB = s), (l.saveCertToIDB = c));
   },

@@ -11,13 +11,21 @@ __d(
       var t = e.author,
         n = e.clickable,
         r = e.templateParams,
-        a = t ? o("WAWebFormatParticipantNames").getFormattedName(t, n) : null,
+        a = t
+          ? o("WAWebFormatParticipantNames").getFormattedName({
+              clickable: n,
+              jid: t,
+            })
+          : null,
         i = o("WAWebChatCommunityUtils").getNewCommunityOwnerFromTemplateParams(
           r,
         ),
         l =
           i != null
-            ? o("WAWebFormatParticipantNames").getFormattedName(i, n)
+            ? o("WAWebFormatParticipantNames").getFormattedName({
+                clickable: n,
+                jid: i,
+              })
             : null;
       return t != null
         ? o("WAWebSystemMessagesUtils").isMe(t)

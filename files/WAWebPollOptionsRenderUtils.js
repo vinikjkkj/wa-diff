@@ -155,13 +155,17 @@ __d(
                 ? s._(/*BTDS*/ "Choose a future end time.")
                 : null;
     }
+    function y(e, t) {
+      return e == null ? null : t.localId === e;
+    }
     ((l.formatOptions = d),
       (l.isEmptyAfterTrimming = m),
       (l.validateOptions = p),
       (l.getNewOptions = _),
       (l.toggleOption = f),
       (l.getVotedForOptions = g),
-      (l.validatePoll = h));
+      (l.validatePoll = h),
+      (l.getIsCorrectOption = y));
   },
   226,
 );

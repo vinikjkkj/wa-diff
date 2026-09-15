@@ -1,6 +1,6 @@
 __d(
   "WAWebPollsGeneratePollCreationMessageProto",
-  ["WAWebPollCreationUtils", "WAWebPollsProtoUtils"],
+  ["WAWebPollCreationUtils", "WAWebPollsProtoUtils", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
@@ -29,13 +29,7 @@ __d(
                 pollType: o("WAWebPollCreationUtils").getPollTypeAsE2EValue(
                   r.pollType,
                 ),
-                correctAnswer:
-                  r.correctOptionIndex != null
-                    ? {
-                        optionName: r.pollOptions[r.correctOptionIndex].name,
-                        optionHash: r.pollOptions[r.correctOptionIndex].hash,
-                      }
-                    : void 0,
+                correctAnswer: s(r.pollOptions, r.correctOptionIndex),
                 endTime: (t = r.pollEndTime) != null ? t : void 0,
                 hideParticipantName: r.pollHideVoterNames === !0 ? !0 : void 0,
               };
@@ -53,6 +47,17 @@ __d(
               ? { pollCreationMessageV3: l }
               : { pollCreationMessage: l }
       );
+    }
+    function s(e, t) {
+      if (!(t == null || e == null)) {
+        var n = r("nullthrows")(
+          e.find(function (e) {
+            return e.localId === t;
+          }),
+          "Quiz correctOptionIndex " + t + " matches no poll option",
+        );
+        return { optionHash: n.hash, optionName: n.name };
+      }
     }
     l.default = e;
   },

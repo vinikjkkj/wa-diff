@@ -106,6 +106,9 @@ __d(
       return C() || r("justknobx")._("1666");
     }
     function R() {
+      return r("justknobx")._("2678");
+    }
+    function L() {
       var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_native_ads_inline_notice_modules")
         .split(",");
@@ -129,7 +132,8 @@ __d(
       (l.ctwaSabrEnabled = b),
       (l.ctwaBudgetRecommendationEnabled = v),
       (l.inlineNoticePartitionEnabled = S),
-      (l.ctwaInlineNoticeModules = R));
+      (l.catalogSharingDisclosureCopyEnabled = R),
+      (l.ctwaInlineNoticeModules = L));
   },
   98,
 );

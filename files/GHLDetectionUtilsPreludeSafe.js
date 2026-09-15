@@ -373,7 +373,8 @@ __d(
             JSON.parse("{ ");
           }),
           H(function () {
-            o.JSON.parse("{ ");
+            var e;
+            (e = o.JSON) == null || e.parse("{ ");
           }),
           H(function () {
             new XMLHttpRequest().send();

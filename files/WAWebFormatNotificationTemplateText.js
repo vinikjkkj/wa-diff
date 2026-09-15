@@ -995,7 +995,9 @@ __d(
           );
     }
     function p(e, t) {
-      var n = o("WAWebFormatParticipantNames").getFormattedName(e.from);
+      var n = o("WAWebFormatParticipantNames").getFormattedName({
+        jid: e.from,
+      });
       return t.length > 0 && t[0] === "true"
         ? s._(
             /*BTDS*/ "{receiver_name} accepted your invite to join WhatsApp",
@@ -1006,7 +1008,10 @@ __d(
           ]);
     }
     function _(e) {
-      var t = o("WAWebFormatParticipantNames").getFormattedName(e.from, !1);
+      var t = o("WAWebFormatParticipantNames").getFormattedName({
+        clickable: !1,
+        jid: e.from,
+      });
       return s._(/*BTDS*/ "We let {sender_name} know you joined!", [
         s._param("sender_name", t),
       ]);

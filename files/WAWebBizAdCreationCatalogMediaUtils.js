@@ -49,29 +49,10 @@ __d(
         n
       );
     }
-    function d(e, t, n) {
-      var r = new Set(
-          e.map(function (e) {
-            return e.key;
-          }),
-        ),
-        o = [].concat(e),
-        a = 0;
-      for (var i of t)
-        if (!r.has(i.key)) {
-          if (o.length >= n) {
-            a++;
-            continue;
-          }
-          (r.add(i.key), o.push(i));
-        }
-      return { droppedCount: a, selections: o };
-    }
     ((l.toPendingSelections = e),
       (l.applyResolvedSelections = s),
       (l.withoutSelections = u),
-      (l.toResolvedSelections = c),
-      (l.mergeCatalogSelections = d));
+      (l.toResolvedSelections = c));
   },
   98,
 );

@@ -87,21 +87,19 @@ __d(
         y = o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
         C = o("WAWebMsgModelUtils").getMsgDisplayName(i.unsafe()),
         b = c
-          ? o("WAWebFormatParticipantNames").getFormattedName(
-              c,
-              p({ chat: y, clickable: n, id: c }),
-              void 0,
-              "0",
-            )
+          ? o("WAWebFormatParticipantNames").getFormattedName({
+              clickable: p({ chat: y, clickable: n, id: c }),
+              jid: c,
+              tabIndex: "0",
+            })
           : null,
         v = g[0],
         S = v
-          ? o("WAWebFormatParticipantNames").getFormattedName(
-              v,
-              p({ chat: y, clickable: n, id: v }),
-              void 0,
-              "0",
-            )
+          ? o("WAWebFormatParticipantNames").getFormattedName({
+              clickable: p({ chat: y, clickable: n, id: v }),
+              jid: v,
+              tabIndex: "0",
+            })
           : null,
         R = o("WAWebFormatParticipantNames").getFormattedNames(
           g,

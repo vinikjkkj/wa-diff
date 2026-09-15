@@ -118,9 +118,14 @@ __d(
     }
     function _(e, t) {
       var n = new Map(),
-        a = 0;
-      for (var i of t)
-        n.set(i, {
+        a = new Map(
+          t.map(function (e) {
+            return [e.localId, e];
+          }),
+        ),
+        i = 0;
+      for (var l of t)
+        n.set(l, {
           isVotedForByMe: !1,
           isCurrentLeader: !1,
           percentageOfAll: 0,
@@ -129,7 +134,7 @@ __d(
           count: 0,
           mode: "e2ee",
         });
-      var l = Array.from(e).sort(function (e, t) {
+      var s = Array.from(e).sort(function (e, t) {
           return o("WAWebUserPrefsMeUser").isMeAccount(t.sender)
             ? 1
             : o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
@@ -137,28 +142,28 @@ __d(
               : o("WAWebPollVoteGetters").getTimestamp(t) -
                 o("WAWebPollVoteGetters").getTimestamp(e);
         }),
-        s = r("sumBy")(l, function (e) {
+        u = r("sumBy")(s, function (e) {
           return e.selectedOptionLocalIds.length;
         });
-      for (var u of l)
-        for (var c of u.selectedOptionLocalIds) {
-          var d = t[c],
-            m = r("nullthrows")(
-              n.get(d),
-              "Option with local ID " + c + " not found",
+      for (var c of s)
+        for (var d of c.selectedOptionLocalIds) {
+          var m = a.get(d),
+            p = r("nullthrows")(
+              m == null ? null : n.get(m),
+              "Option with local ID " + d + " not found",
             );
-          m.mode === "e2ee" &&
-            (m.votes.push(u),
-            (a = Math.max(a, m.votes.length)),
+          p.mode === "e2ee" &&
+            (p.votes.push(c),
+            (i = Math.max(i, p.votes.length)),
             o("WAWebUserPrefsMeUser").isMeAccount(
-              o("WAWebFrontendPollVoteGetters").getSenderObj(u).id,
-            ) && (m.isVotedForByMe = !0));
+              o("WAWebFrontendPollVoteGetters").getSenderObj(c).id,
+            ) && (p.isVotedForByMe = !0));
         }
-      for (var p of n.values())
-        ((p.percentageOfMostVotedForOption = a === 0 ? 0 : p.votes.length / a),
-          (p.percentageOfAll = s === 0 ? 0 : p.votes.length / s),
-          (p.isCurrentLeader = a > 0 && p.votes.length === a),
-          (p.count = p.votes.length));
+      for (var _ of n.values())
+        ((_.percentageOfMostVotedForOption = i === 0 ? 0 : _.votes.length / i),
+          (_.percentageOfAll = u === 0 ? 0 : _.votes.length / u),
+          (_.isCurrentLeader = i > 0 && _.votes.length === i),
+          (_.count = _.votes.length));
       return n;
     }
     function f(e) {

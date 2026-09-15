@@ -125,7 +125,13 @@ __d(
             _ = C(n);
           return (
             _ != null
-              ? b(e, n, t, _, m)
+              ? b({
+                  buttonParamsJson: m,
+                  contact: t,
+                  msg: n,
+                  ordersInfoByNfn: e,
+                  orderStatusButton: _,
+                })
               : (a === s.PAYMENTS_HOME ||
                   o("WAWebUserPrefsMeUser").isMeAccount(n.from)) &&
                 (n.nativeFlowName ===
@@ -182,17 +188,22 @@ __d(
         ? n
         : null;
     }
-    function b(e, t, n, r, a) {
-      var i = o("WAWebInboxOrderInfoBuilder").orderStatusButtonToOrderInfo(r);
-      i != null &&
-        (e.contactsAndOrdersInfo.push({
+    function b(e) {
+      var t = e.buttonParamsJson,
+        n = e.contact,
+        r = e.msg,
+        a = e.ordersInfoByNfn,
+        i = e.orderStatusButton,
+        l = o("WAWebInboxOrderInfoBuilder").orderStatusButtonToOrderInfo(i);
+      l != null &&
+        (a.contactsAndOrdersInfo.push({
           contact: n,
-          orderInfo: i,
-          timestamp: t.t,
-          interactiveMsg: R(t),
+          orderInfo: l,
+          timestamp: r.t,
+          interactiveMsg: R(r),
           isInboxOrder: !0,
         }),
-        v(e, a));
+        v(a, t));
     }
     function v(e, t) {
       var n = o("WAWebOrderStatus").paramsJsonToOrderStatusInfo(t);

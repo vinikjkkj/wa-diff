@@ -3,7 +3,10 @@ __d(
   ["fbt", "WAWebFormatParticipantNames", "WAWebSystemMessageGatingUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
-      var r = o("WAWebFormatParticipantNames").getFormattedName(e, n),
+      var r = o("WAWebFormatParticipantNames").getFormattedName({
+          clickable: n,
+          jid: e,
+        }),
         a = t[0],
         i = o(
           "WAWebSystemMessageGatingUtils",

@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WAWebFrontendMsgGetters",
     "WAWebPollCreationUtils",
+    "WAWebPollOptionsRenderUtils",
     "WAWebPollsOptionRow",
     "compactMap",
     "react",
@@ -114,7 +115,7 @@ __d(
                     (f || h === 1 || a.size < h) &&
                     (c.pollType !== o("WAWebPollCreationUtils").PollType.QUIZ ||
                       a.size === 0),
-                  v = i != null ? i === t : null;
+                  v = o("WAWebPollOptionsRenderUtils").getIsCorrectOption(i, n);
                 return s.jsx(
                   "div",
                   {

@@ -228,7 +228,7 @@ __d(
       );
     }
     function R() {
-      return s._(/*BTDS*/ "Couldn't make some members admin.");
+      return s._(/*BTDS*/ "Couldn't make some members admins.");
     }
     function L(e, t, n) {
       switch (n) {
@@ -251,7 +251,7 @@ __d(
       );
     }
     function k() {
-      return s._(/*BTDS*/ "Couldn't remove some members as an admin.");
+      return s._(/*BTDS*/ "Couldn't remove some members as admins.");
     }
     ((l.formatRemoveResult = e),
       (l.formatResult = u),

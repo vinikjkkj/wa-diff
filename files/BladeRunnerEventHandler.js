@@ -182,13 +182,14 @@ __d(
             var e = [];
             for (var n of t)
               if (n.shouldAck === !0 && n.dataId != null) {
-                var r = new (o(
-                  "BladeRunnerTypesInternal",
-                ).GatewayStreamDataAck)();
-                ((r.streamId = n.streamId),
-                  (r.dataId = n.dataId),
-                  (r.success = !0),
-                  e.push(r));
+                var r = n.dataId,
+                  a = new (o(
+                    "BladeRunnerTypesInternal",
+                  ).GatewayStreamDataAck)();
+                ((a.streamId = n.streamId),
+                  (a.dataId = r),
+                  (a.success = !0),
+                  e.push(a));
               }
             this.$3.sendDataAcks(e);
           }),

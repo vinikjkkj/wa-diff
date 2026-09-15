@@ -87,7 +87,7 @@ __d(
         me = u.getExpression(g),
         pe = o("WebBloksBooleanUtils").isTrue(J),
         _e = o("WebBloksBooleanUtils").isFalse(U),
-        fe = o("WebBloksStyle").useStyle(u, l),
+        fe = o("WebBloksStyle").useStyle(u, l, void 0, b),
         ge = fe.ref,
         he = fe.style,
         ye = fe.wrapper,

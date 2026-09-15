@@ -14,10 +14,11 @@ __d(
     "WAWebMsgMentionMap",
     "WAWebMsgPhoneNumbers",
     "WAWebMultiSelectIconFilledIcon.react",
+    "WAWebPollBubbleSettingLabel",
     "WAWebPollCreationUtils",
     "WAWebPollEndTimeLabel",
-    "WAWebPollHideVoterNamesLabel",
     "WAWebTextSizeUtils",
+    "WDSIconIcVisibilityOffFilled.react",
     "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
@@ -214,41 +215,36 @@ __d(
       );
     }
     function p(e) {
-      return c.jsx(r("WAWebPollHideVoterNamesLabel"), { trailingSeparator: e });
+      return c.jsx(f, { trailingSeparator: e });
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(15),
+      var t = o("react-compiler-runtime").c(9),
         n = e.isSingleOptionPoll,
-        r = e.pollType,
-        a = e.trailingSeparator,
-        i;
-      if (r === o("WAWebPollCreationUtils").PollType.QUIZ) {
-        var l;
-        (t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((l = s._(/*BTDS*/ "Select your answer")), (t[0] = l))
-          : (l = t[0]),
-          (i = l));
-      } else if (n) {
+        a = e.pollType,
+        i = e.trailingSeparator,
+        l;
+      if (a === o("WAWebPollCreationUtils").PollType.QUIZ) {
         var u;
-        (t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((u = s._(/*BTDS*/ "Select one")), (t[1] = u))
-          : (u = t[1]),
-          (i = u));
-      } else {
+        (t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((u = s._(/*BTDS*/ "Select your answer")), (t[0] = u))
+          : (u = t[0]),
+          (l = u));
+      } else if (n) {
         var m;
+        (t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((m = s._(/*BTDS*/ "Select one")), (t[1] = m))
+          : (m = t[1]),
+          (l = m));
+      } else {
+        var p;
         (t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((m = s._(/*BTDS*/ "Select one or more")), (t[2] = m))
-          : (m = t[2]),
-          (i = m));
+          ? ((p = s._(/*BTDS*/ "Select one or more")), (t[2] = p))
+          : (p = t[2]),
+          (l = p));
       }
-      var p;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = { className: "x78zum5 x6s0dn4 x3psx0u x1iorvi4 xjkvuk6" }),
-          (t[3] = p))
-        : (p = t[3]);
       var _;
-      t[4] !== n
+      t[3] !== n
         ? ((_ = n
             ? c.jsx(
                 o("WAWebIcCheckCircleFilledIcon.react").IcCheckCircleFilledIcon,
@@ -259,47 +255,54 @@ __d(
                   .MultiSelectIconFilledIcon,
                 { innerStyles: { background: d.selectIcon } },
               )),
-          (t[4] = n),
-          (t[5] = _))
-        : (_ = t[5]);
+          (t[3] = n),
+          (t[4] = _))
+        : (_ = t[4]);
       var f;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" }),
-          (t[6] = f))
-        : (f = t[6]);
-      var g;
-      t[7] !== a
-        ? ((g = a
-            ? c.jsx("span", {
-                className: "x135b78x x11lfxj5",
-                children: "\xB7",
-              })
-            : null),
-          (t[7] = a),
-          (t[8] = g))
-        : (g = t[8]);
-      var h;
-      t[9] !== i || t[10] !== g
-        ? ((h = c.jsxs(
-            "span",
-            babelHelpers.extends({}, f, { children: [i, g] }),
-          )),
-          (t[9] = i),
-          (t[10] = g),
-          (t[11] = h))
-        : (h = t[11]);
-      var y;
       return (
-        t[12] !== _ || t[13] !== h
-          ? ((y = c.jsxs(
-              "div",
-              babelHelpers.extends({}, p, { children: [_, h] }),
-            )),
-            (t[12] = _),
-            (t[13] = h),
-            (t[14] = y))
-          : (y = t[14]),
-        y
+        t[5] !== l || t[6] !== _ || t[7] !== i
+          ? ((f = c.jsx(r("WAWebPollBubbleSettingLabel"), {
+              icon: _,
+              label: l,
+              testid: "poll-selectable-options-hint",
+              trailingSeparator: i,
+            })),
+            (t[5] = l),
+            (t[6] = _),
+            (t[7] = i),
+            (t[8] = f))
+          : (f = t[8]),
+        f
+      );
+    }
+    function f(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.trailingSeparator,
+        a,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = c.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
+            width: 12,
+            height: 12,
+            colorName: "contentDeemphasized",
+          })),
+          (i = s._(/*BTDS*/ "Names hidden")),
+          (t[0] = a),
+          (t[1] = i))
+        : ((a = t[0]), (i = t[1]));
+      var l;
+      return (
+        t[2] !== n
+          ? ((l = c.jsx(r("WAWebPollBubbleSettingLabel"), {
+              icon: a,
+              label: i,
+              testid: "poll-hide-voter-names-label",
+              trailingSeparator: n,
+            })),
+            (t[2] = n),
+            (t[3] = l))
+          : (l = t[3]),
+        l
       );
     }
     l.default = m;

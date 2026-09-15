@@ -19,7 +19,12 @@ __d(
         ).systemMessageActionTextStylingEnabled(),
         l;
       switch (
-        (n && (l = o("WAWebFormatParticipantNames").getFormattedName(n, !1)), t)
+        (n &&
+          (l = o("WAWebFormatParticipantNames").getFormattedName({
+            clickable: !1,
+            jid: n,
+          })),
+        t)
       ) {
         case "membership_approval_mode":
           return c(n, a);
@@ -37,10 +42,10 @@ __d(
           };
         case "created_membership_requests": {
           var u = a.map(function (e) {
-              return o("WAWebFormatParticipantNames").getFormattedName(
-                o("WAWebWidFactory").createWid(e.toString()),
-                !1,
-              );
+              return o("WAWebFormatParticipantNames").getFormattedName({
+                clickable: !1,
+                jid: o("WAWebWidFactory").createWid(e.toString()),
+              });
             }),
             d = u[0],
             m = babelHelpers.arrayLikeToArray(u).slice(1),
@@ -93,7 +98,12 @@ __d(
           o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageActionTextStylingEnabled() && r,
-        i = e ? o("WAWebFormatParticipantNames").getFormattedName(e, !1) : null;
+        i = e
+          ? o("WAWebFormatParticipantNames").getFormattedName({
+              clickable: !1,
+              jid: e,
+            })
+          : null;
       return n
         ? i == null
           ? r

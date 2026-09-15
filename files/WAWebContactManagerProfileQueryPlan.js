@@ -7,7 +7,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["query"],
-      s = 4,
+      s = 2,
       u = 5e3,
       c = {
         acquisitionSource: null,

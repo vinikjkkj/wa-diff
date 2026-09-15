@@ -98,44 +98,75 @@ __d(
           P("fetchValidCertificate");
           var e = yield o("WAWebWaffleCertificateCache").loadCertFromIDB();
           if (e != null) {
-            var t = yield w(e.encryptionPem, e.passwordPem, e.passwordKeyId);
-            if (t != null) return t;
+            if (!A(e)) {
+              var t = yield F(e);
+              if (t != null) return t;
+            }
           }
-          return F();
+          return B();
         })),
         M.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    function w(e) {
+      return e.payloadKeyId == null && !e.passwordIsOaep ? 1 : 2;
     }
-    function A() {
+    function A(e) {
+      var t = w(e),
+        n = o("WAWebAccountLinkingGatingUtils").isWafflePkiMigrationEnabled()
+          ? 2
+          : 1;
+      return t !== n;
+    }
+    function F(e) {
+      return O.apply(this, arguments);
+    }
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.passwordIsOaep,
+            n = e.passwordKeyId,
+            a = e.passwordPem,
+            i = e.payloadKeyId;
           try {
-            var a = yield o("WAWebX509Utils").extractCertificates(e),
-              i = yield o(
+            var l = yield o("WAWebX509Utils").extractCertificates(
+                e.encryptionPem,
+              ),
+              s = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).validateCertificateChain(a);
-            if (i != null) {
-              var l = yield i.getPublicKey({
+              ).validateCertificateChain(l);
+            if (s != null) {
+              var c = yield s.getPublicKey({
                   algorithm: {
                     algorithm: { name: "RSA-OAEP", hash: { name: "SHA-1" } },
                     usages: ["encrypt"],
                   },
                 }),
-                s = null;
+                d =
+                  i == null
+                    ? null
+                    : yield s.getPublicKey({
+                        algorithm: {
+                          algorithm: {
+                            name: "RSA-OAEP",
+                            hash: { name: "SHA-256" },
+                          },
+                          usages: ["encrypt"],
+                        },
+                      }),
+                m = null;
               return (
-                t != null &&
-                  (s = yield o(
+                a != null &&
+                  (m = yield o(
                     "WAWebAccountLinkingCryptoUtils",
-                  ).importPasswordPublicKey(t)),
+                  ).importPasswordPublicKey(a, t ? "SHA-256" : "SHA-1")),
                 {
-                  encryptionKey: l,
-                  passwordPublicKey: s,
+                  encryptionKey: c,
+                  passwordKeyIsOaepSha256: t,
                   passwordKeyId: n != null ? n : null,
-                  payloadEncryptionKeyV2: null,
-                  payloadKeyId: null,
+                  passwordPublicKey: m,
+                  payloadEncryptionKeyV2: d,
+                  payloadKeyId: i,
                   source: "cache",
                 }
               );
@@ -152,20 +183,20 @@ __d(
           }
           return null;
         })),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F() {
-      return O.apply(this, arguments);
+    function B() {
+      return W.apply(this, arguments);
     }
-    function O() {
+    function W() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             !o("WAWebAccountLinkingGatingUtils").isWafflePkiMigrationEnabled()
           )
-            return U();
-          var e = yield W();
+            return K();
+          var e = yield U();
           return e != null
             ? e
             : (o("WALogger")
@@ -178,26 +209,26 @@ __d(
                 .sendLogs("waffle-graphql-cert-fetch-fallback", {
                   sampling: 0.1,
                 }),
-              U());
+              K());
         })),
-        O.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    var B =
+    var q =
       e !== void 0 ? e : (e = n("WAWebAccountLinkingAPIGetCertsQuery.graphql"));
-    function W() {
-      return q.apply(this, arguments);
+    function U() {
+      return V.apply(this, arguments);
     }
-    function q() {
+    function V() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e,
               t,
               n,
               a,
               i = yield o("WAWebRelayClient").fetchQuery(
-                B,
+                q,
                 {},
                 { environmentType: "whatsapp_web" },
               ),
@@ -293,17 +324,22 @@ __d(
                   (C = null),
                   (b = null));
               }
+            var T = C != null;
             return (
               yield o("WAWebWaffleCertificateCache").saveCertToIDB({
                 encryptionPem: u,
+                passwordIsOaep: T,
                 passwordKeyId: b,
                 passwordPem: v,
+                passwordTtlSeconds: S == null ? void 0 : S.ttl_seconds,
+                payloadKeyId: g,
                 ttlSeconds:
                   (a = l == null ? void 0 : l.ttl_seconds) != null ? a : null,
               }),
               {
                 encryptionKey: h,
                 passwordKeyId: b,
+                passwordKeyIsOaepSha256: T,
                 passwordPublicKey: C,
                 payloadEncryptionKeyV2: y,
                 payloadKeyId: g,
@@ -311,7 +347,7 @@ __d(
               }
             );
           } catch (e) {
-            var T =
+            var D =
               e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                 ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
                 : e;
@@ -323,22 +359,112 @@ __d(
                       "[WAFFLE] GetCerts query failed: ",
                       "",
                     ])),
-                  T,
+                  D,
                 )
                 .tags("waffle", "account-linking"),
               null
             );
           }
         })),
-        q.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function U() {
-      return V.apply(this, arguments);
+    var H = "whatsapp_web",
+      G = {
+        passwordChainLength: null,
+        passwordKeyId: null,
+        passwordTtlSeconds: null,
+        payloadChainLength: null,
+        payloadKeyId: null,
+        payloadTtlSeconds: null,
+      };
+    function z() {
+      return j.apply(this, arguments);
     }
-    function V() {
+    function j() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var e,
+              t,
+              n,
+              a,
+              i,
+              l,
+              s,
+              u,
+              c,
+              d,
+              m = yield o("WAWebRelayClient").fetchQuery(
+                q,
+                {},
+                { environmentType: H },
+              ),
+              p =
+                m == null || (e = m.waffle_get_certs) == null
+                  ? void 0
+                  : e.payload_encryption,
+              _ =
+                m == null || (t = m.waffle_get_certs) == null
+                  ? void 0
+                  : t.password_encryption;
+            return {
+              environmentType: H,
+              error: null,
+              rawError: null,
+              ok: (p == null ? void 0 : p.key_id) != null,
+              passwordChainLength:
+                (n =
+                  _ == null || (a = _.cert_chain_pem) == null
+                    ? void 0
+                    : a.length) != null
+                  ? n
+                  : null,
+              passwordKeyId:
+                (i = _ == null ? void 0 : _.key_id) != null ? i : null,
+              passwordTtlSeconds:
+                (l = _ == null ? void 0 : _.ttl_seconds) != null ? l : null,
+              payloadChainLength:
+                (s =
+                  p == null || (u = p.cert_chain_pem) == null
+                    ? void 0
+                    : u.length) != null
+                  ? s
+                  : null,
+              payloadKeyId:
+                (c = p == null ? void 0 : p.key_id) != null ? c : null,
+              payloadTtlSeconds:
+                (d = p == null ? void 0 : p.ttl_seconds) != null ? d : null,
+            };
+          } catch (e) {
+            var f, g;
+            return babelHelpers.extends({}, G, {
+              environmentType: H,
+              error:
+                e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+                  ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
+                  : r("getErrorSafe")(e).toString(),
+              ok: !1,
+              rawError:
+                e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+                  ? JSON.stringify(
+                      (f = (g = e.source) == null ? void 0 : g.errors) != null
+                        ? f
+                        : [],
+                    )
+                  : null,
+            });
+          }
+        })),
+        j.apply(this, arguments)
+      );
+    }
+    function K() {
+      return Q.apply(this, arguments);
+    }
+    function Q() {
+      return (
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Math.floor(Date.now() / 1e3);
           try {
             var t = yield o(
@@ -398,14 +524,18 @@ __d(
                   return (
                     yield o("WAWebWaffleCertificateCache").saveCertToIDB({
                       encryptionPem: l,
+                      passwordIsOaep: !1,
                       passwordKeyId: _,
                       passwordPem: C,
+                      passwordTtlSeconds: b == null ? void 0 : b.ttl,
+                      payloadKeyId: null,
                       ttlSeconds: v,
                     }),
                     {
                       encryptionKey: m,
-                      passwordPublicKey: p,
                       passwordKeyId: _,
+                      passwordKeyIsOaepSha256: !1,
+                      passwordPublicKey: p,
                       payloadEncryptionKeyV2: null,
                       payloadKeyId: null,
                       source: "iq",
@@ -447,25 +577,25 @@ __d(
               .catching(r("getErrorSafe")(e));
           }
         })),
-        V.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    var H = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      G = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      z = null;
-    function j(e, t) {
-      return K.apply(this, arguments);
+    var X = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      Y = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      J = null;
+    function Z(e, t) {
+      return ee.apply(this, arguments);
     }
-    function K() {
+    function ee() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           e: {
             if (e === "request_nonce")
               return o("WAWebWaffleIQErrorHandler").handleNonceRetry(t);
             if (e === "refresh_token") {
               var n = t.nextBackoffMs();
               if (n == null) return !1;
-              return (yield o("WAPromiseDelays").delayMs(n), Q());
+              return (yield o("WAPromiseDelays").delayMs(n), te());
               break e;
             }
             if (e === "refetch_certs") {
@@ -493,7 +623,7 @@ __d(
               break e;
             }
             if (e === "server_purge") {
-              var i = yield oe();
+              var i = yield ce();
               return (
                 i &&
                   (o(
@@ -505,7 +635,7 @@ __d(
               break e;
             }
             if (e === "server_pause") {
-              var l = yield ie();
+              var l = yield me();
               return (
                 l &&
                   (yield o("WAWebAccountLinkingHandler").handlePausedState()),
@@ -520,17 +650,17 @@ __d(
             );
           }
         })),
-        K.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    function Q() {
-      return X.apply(this, arguments);
+    function te() {
+      return ne.apply(this, arguments);
     }
-    function X() {
+    function ne() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           P("refreshAccessToken");
-          var e = z;
+          var e = J;
           return e != null
             ? (o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
                 traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
@@ -538,27 +668,27 @@ __d(
                   .REFRESH_TOKEN_DEDUPLICATED,
               }),
               e)
-            : ((z = Y().finally(function () {
-                z = null;
+            : ((J = re().finally(function () {
+                J = null;
               })),
-              z);
+              J);
         })),
-        X.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    function Y() {
-      return J.apply(this, arguments);
+    function re() {
+      return oe.apply(this, arguments);
     }
-    function J() {
+    function oe() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Date.now();
           o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
             traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
               .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_INITIATED,
           });
           var t = yield x.getAccountLinkingData();
-          if (t == null) return (Z(e), !1);
+          if (t == null) return (ae(e), !1);
           var n = t.fbid,
             a = t.nonce,
             i = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
@@ -585,7 +715,7 @@ __d(
               fbidElementValue: n,
             });
             if (m.name === "RefreshAccessTokensResponseSuccess") {
-              H.reset();
+              X.reset();
               var p = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
                   m.value.encryptionMetadataRSAEncryptionMetadataMixin,
                 ),
@@ -613,7 +743,7 @@ __d(
                     }),
                     !0
                   );
-                Z(e);
+                ae(e);
               } catch (t) {
                 (o("WALogger")
                   .ERROR(
@@ -623,7 +753,7 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                  Z(e));
+                  ae(e));
               }
             } else {
               var v = m.value.errorRefreshAccessTokensErrors,
@@ -641,7 +771,7 @@ __d(
                 traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
                   .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
               }),
-                yield j(S, H),
+                yield Z(S, X),
                 o("WALogger").ERROR(
                   b ||
                     (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -651,13 +781,13 @@ __d(
                   v.name,
                 ));
             }
-          } else Z(e);
+          } else ae(e);
           return !1;
         })),
-        J.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    function Z(e) {
+    function ae(e) {
       o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
         elapsedMs: Date.now() - e,
         hasAccessToken: !1,
@@ -665,12 +795,12 @@ __d(
           .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
       });
     }
-    function ee() {
-      return te.apply(this, arguments);
+    function ie() {
+      return le.apply(this, arguments);
     }
-    function te() {
+    function le() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           P("ping");
           var e = Date.now(),
             t = yield x.getAccountLinkingData();
@@ -692,7 +822,7 @@ __d(
                   fbidElementValue: r,
                 });
                 if (l.name === "WFPingResponseSuccess") {
-                  G.reset();
+                  Y.reset();
                   var s = l.value.pingIntervalElementValue;
                   (yield x.updatePingInterval(s),
                     o("WAWebWaffleLifecycleWamLogger").logPing({
@@ -714,7 +844,7 @@ __d(
                     ).mapIQErrorNameToWamCode(u.name),
                     hasAccessToken: !0,
                   }),
-                    yield j(c, G),
+                    yield Z(c, Y),
                     o("WALogger").ERROR(
                       v ||
                         (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -738,15 +868,15 @@ __d(
             }
           }
         })),
-        te.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function ne() {
-      return re.apply(this, arguments);
+    function se() {
+      return ue.apply(this, arguments);
     }
-    function re() {
+    function ue() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           P("stateExists");
           var e = yield o("WASmaxWaffleStateExistsRPC").sendStateExistsRPC({
             timestampElementValue: Date.now(),
@@ -778,15 +908,15 @@ __d(
               ));
           }
         })),
-        re.apply(this, arguments)
+        ue.apply(this, arguments)
       );
     }
-    function oe() {
-      return ae.apply(this, arguments);
+    function ce() {
+      return de.apply(this, arguments);
     }
-    function ae() {
+    function de() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           P("forceDeleteState");
           var e = yield o(
             "WASmaxWaffleForceDeleteStateRPC",
@@ -809,15 +939,15 @@ __d(
             !1
           );
         })),
-        ae.apply(this, arguments)
+        de.apply(this, arguments)
       );
     }
-    function ie() {
-      return le.apply(this, arguments);
+    function me() {
+      return pe.apply(this, arguments);
     }
-    function le() {
+    function pe() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           P("forceSuspendState");
           var e = yield o(
             "WASmaxWaffleForceSuspendStateRPC",
@@ -842,15 +972,15 @@ __d(
             !1
           );
         })),
-        le.apply(this, arguments)
+        pe.apply(this, arguments)
       );
     }
-    function se() {
-      return ue.apply(this, arguments);
+    function _e() {
+      return fe.apply(this, arguments);
     }
-    function ue() {
+    function fe() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           P("fetchServiceData");
           var e = yield x.getAccountLinkingData();
           if (e != null) {
@@ -904,16 +1034,17 @@ __d(
             yield x.updateServiceData(i);
           }
         })),
-        ue.apply(this, arguments)
+        fe.apply(this, arguments)
       );
     }
     ((l.assertModeAllowed = P),
       (l.fetchValidCertificate = N),
-      (l.handleRecoveryAction = j),
-      (l.refreshAccessToken = Q),
-      (l.ping = ee),
-      (l.stateExists = ne),
-      (l.fetchServiceData = se));
+      (l.runWaffleGetCertsForDebug = z),
+      (l.handleRecoveryAction = Z),
+      (l.refreshAccessToken = te),
+      (l.ping = ie),
+      (l.stateExists = se),
+      (l.fetchServiceData = _e));
   },
   98,
 );

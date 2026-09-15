@@ -31,7 +31,10 @@ __d(
         return n ? i : l;
       }
       if (e) {
-        var u = o("WAWebFormatParticipantNames").getFormattedName(e, !1),
+        var u = o("WAWebFormatParticipantNames").getFormattedName({
+            clickable: !1,
+            jid: e,
+          }),
           c = s._(
             /*BTDS*/ "{author} turned on send for admin review for this group. Click to change.",
             [s._param("author", u)],

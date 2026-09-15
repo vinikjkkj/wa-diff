@@ -71,7 +71,7 @@ __d(
           senderWid: o("WAWebMsgGetters").getSender(e),
         },
         a = v(r),
-        i = (t = n.filename) != null ? t : null,
+        i = (t = n == null ? void 0 : n.filename) != null ? t : null,
         l = o("WAWebFrontendContactGetters").getFormattedShortName(
           o("WAWebFrontendMsgGetters").getSenderObj(e),
         );
@@ -161,7 +161,7 @@ __d(
                 ? void 0
                 : n.accessibilityLabel,
             l =
-              t == null || (a = t.mediaData.emojis) == null
+              t == null || (a = t.mediaData) == null || (a = a.emojis) == null
                 ? void 0
                 : a.join(" ");
           return i != null || l != null ? f(i, l) : null;
@@ -200,8 +200,10 @@ __d(
               )
             : null;
         case o("WAWebMsgType").MSG_TYPE.VIDEO: {
+          var m;
           if (
-            (t == null ? void 0 : t.mediaData.isGif) === !0 &&
+            (t == null || (m = t.mediaData) == null ? void 0 : m.isGif) ===
+              !0 &&
             t.mediaData.accessibilityLabel != null
           )
             return t.mediaData.accessibilityLabel;

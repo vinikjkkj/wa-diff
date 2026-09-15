@@ -81,42 +81,45 @@ __d(
       return function (d, w, A, F, O, B, W) {
         var t,
           q,
-          U = m != null ? m : r("RelayAPIConfig").graphURI,
-          V = k,
-          H = a != null ? a : r("RelayAPIConfig").actorID,
-          G = n != null ? n : r("RelayAPIConfig").accessToken,
-          z = $ != null ? $ : r("RelayAPIConfig").useXController,
-          j = E != null ? E : r("RelayAPIConfig").omitAccessToken,
-          K =
+          U,
+          V = m != null ? m : r("RelayAPIConfig").graphURI,
+          H = k,
+          G = a != null ? a : r("RelayAPIConfig").actorID,
+          z = n != null ? n : r("RelayAPIConfig").accessToken,
+          j = $ != null ? $ : r("RelayAPIConfig").useXController,
+          K = E != null ? E : r("RelayAPIConfig").omitAccessToken,
+          Q =
             typeof ((t = A.metadata) == null ? void 0 : t.privacyContext) ==
             "string"
               ? A.metadata.privacyContext
               : null;
         o("RelayRuntime").RelayFeatureFlags
           .ENABLE_FRIENDLY_QUERY_NAME_GQL_URL &&
-          (U = new (e || (e = r("URI")))(U).addQueryData({ __query: d.name }));
-        var Q =
+          (V = new (e || (e = r("URI")))(V).addQueryData({ __query: d.name }));
+        var X =
             D != null
               ? D
-              : z
+              : j
                 ? r("getSameOriginTransport")
                 : r("RelayAPIConfig").withCredentials
                   ? r("getCrossOriginTransport").withCredentials
                   : r("getCrossOriginTransport"),
-          X = u
+          Y = u
             ? u()
-            : z
-              ? { av: H }
-              : babelHelpers.extends({}, E !== !0 && { access_token: G }),
-          Y = c
+            : j
+              ? { av: G }
+              : babelHelpers.extends({}, E !== !0 && { access_token: z }),
+          J = c
             ? c()
             : r("RelayGraphQLRequestUtils").getRelayAPIConfigHeaders(
                 l != null ? l : r("RelayAPIConfig").customHeaders,
                 N != null ? N : r("RelayAPIConfig").xhrEncoding,
                 x != null ? x : r("RelayAPIConfig").userAgent,
-              );
-        K != null && (Y.privacy_context = K);
-        var J = {
+              ),
+          Z = (q = r("RelayAPIConfig").customHeadersForMerge) != null ? q : {},
+          ee = babelHelpers.extends({}, Z, J);
+        Q != null && (ee.privacy_context = Q);
+        var te = {
             queryName: d.name,
             serverTimestamp: null,
             transactionId: A.transactionId,
@@ -124,65 +127,65 @@ __d(
             usedDiskCache: !1,
             usedPrefetcher: !1,
           },
-          Z = _(A == null ? void 0 : A.metadata),
-          ee = L(
-            U,
-            Q,
-            Y,
+          ne = _(A == null ? void 0 : A.metadata),
+          re = L(
+            V,
+            X,
+            ee,
             d,
             w,
             B,
             F,
-            X,
+            Y,
             M,
             I != null ? I : r("RelayAPIConfig").retryDelays,
             s != null ? s : r("RelayAPIConfig").fetchTimeout,
             T,
-            Z,
+            ne,
             i,
             p,
           );
-        W && (ee = W(ee));
-        var te = o("RelayDiskCacheConfig").getDiskCacheConfig(A);
-        (te && (ee = te.cache.withDiskCacheSave(ee, d, w, H, te)),
-          V && (ee = R(ee, d, w, V)));
-        var ne = b(d, w, H, J, V, O, te, Z),
-          re = C(d, w, J, V, A, H, O, Z);
-        te && (re = te.cache.withDiskCacheSave(re, d, w, H, te));
-        var oe = v(d, w, H, G, j, A, f, h),
-          ae;
+        W && (re = W(re));
+        var oe = o("RelayDiskCacheConfig").getDiskCacheConfig(A);
+        (oe && (re = oe.cache.withDiskCacheSave(re, d, w, G, oe)),
+          H && (re = R(re, d, w, H)));
+        var ae = b(d, w, G, te, H, O, oe, ne),
+          ie = C(d, w, te, H, A, G, O, ne);
+        oe && (ie = oe.cache.withDiskCacheSave(ie, d, w, G, oe));
+        var le = v(d, w, G, z, K, A, f, h),
+          se;
         if (
-          (((q = A.metadata) == null
+          (((U = A.metadata) == null
             ? void 0
-            : q.usePrefetchAsServerResponse) === !0
-            ? ((ae = ne.concat(oe)), (ee = re.ifEmpty(ee)))
-            : (ae = ne.concat(re).concat(oe)),
-          V)
+            : U.usePrefetchAsServerResponse) === !0
+            ? ((se = ae.concat(le)), (re = ie.ifEmpty(re)))
+            : (se = ae.concat(ie).concat(le)),
+          H)
         ) {
-          var ie = S(d, w, J, A, V, O);
-          ae = ae.ifEmpty(ie);
+          var ue = S(d, w, te, A, H, O);
+          se = se.ifEmpty(ue);
         }
-        var le = g(ae, ee, A);
+        var ce = g(se, re, A);
         o("RelayRuntime").RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY &&
-          (le = P != null ? P(le) : le);
-        var se = A.liveConfigId;
+          (ce = P != null ? P(ce) : ce);
+        var de = A.liveConfigId;
         return (
-          se != null &&
+          de != null &&
             !o("RelayWWWInitialRolloutResolver").disableWWWInitial(d.name) &&
             h != null &&
-            (le = h(
+            (ce = h(
               d,
               w,
               babelHelpers.extends(
-                { actor_id: H },
-                E !== !0 && { access_token: G },
-                { config_id: se },
+                { actor_id: G },
+                E !== !0 && { access_token: z },
+                { config_id: de },
               ),
-              le,
+              ce,
             )),
           o("RelayRuntime").RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY ||
-            (le = P != null ? P(le) : le),
-          y(J, le)
+            (ce = P != null ? P(ce) : ce),
+          y(te, ce)
         );
       };
     }

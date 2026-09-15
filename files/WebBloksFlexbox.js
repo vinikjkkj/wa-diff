@@ -70,7 +70,7 @@ __d(
         B = c.get(C),
         W = c.getExpression(v),
         q = o("WebBloksUtils").isBloksModelEnabled(c, g),
-        U = o("WebBloksStyle").useStyle(c, s, m != null && q),
+        U = o("WebBloksStyle").useStyle(c, s, m != null && q, g),
         V = U.ref,
         H = U.style,
         G = U.wrapper,

@@ -1,112 +1,94 @@
 __d(
   "WAWebProcessEncryptedPollAddOptionMsgs",
   [
-    "Promise",
     "WALogger",
-    "WAWebAddonEncryption",
     "WAWebAddonEncryptionError",
-    "WAWebAddonInfraError",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPollAddOptionDecryptedMsgDataConversion",
+    "WAWebPollAddonProcessingUtils",
     "WAWebPollsGatingUtils",
     "WAWebPollsValidationError",
-    "WAWebProtobufsE2E.pb",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "compactMap",
-    "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = new Map();
-          if (
-            (t.forEach(function (e) {
-              if (e.kind !== o("WAWebMsgType").MsgKind.PollAddOptionEncrypted)
-                throw new (o("WAWebAddonInfraError").AddonInfraError)(
-                  o("WAWebAddonInfraError").AddonInfraErrorCode
-                    .UnexpectedMsgType,
-                );
-              var t = a.getForAddon(e);
-              i.set(e, t);
-            }),
-            i.size === 0)
-          )
-            return [];
-          var l = yield (u || (u = n("Promise"))).allSettled(
-            Array.from(i.entries(), function (e) {
-              var t = e[0],
-                n = e[1];
-              return m(t, n);
-            }),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r = o("WAWebPollAddonProcessingUtils").buildAddonParentMap(
+            t,
+            n,
+            o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
           );
-          return r("compactMap")(l, function (t) {
-            switch (t.status) {
-              case "fulfilled":
-                return t.value;
-              case "rejected": {
-                var n = t.reason;
-                if (
-                  n instanceof
-                    o("WAWebPollsValidationError")
-                      .PollAddOptionValidationError ||
-                  n instanceof
-                    o("WAWebAddonEncryptionError").DualEncryptionValidationError
-                ) {
+          return r.size === 0
+            ? []
+            : o("WAWebPollAddonProcessingUtils").settleAddonResults(
+                Array.from(r.entries(), function (e) {
+                  var t = e[0],
+                    n = e[1];
+                  return d(t, n);
+                }),
+                function (t) {
+                  if (
+                    t instanceof
+                      o("WAWebPollsValidationError")
+                        .PollAddOptionValidationError ||
+                    t instanceof
+                      o("WAWebAddonEncryptionError")
+                        .DualEncryptionValidationError
+                  ) {
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "Processing encrypted poll add option failed: ",
+                            "",
+                          ])),
+                        t.code,
+                      )
+                      .sendLogs(t.code, { sampling: 0.1 });
+                    return;
+                  }
                   o("WALogger")
                     .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "Processing encrypted poll add option failed: ",
-                          "",
-                        ])),
-                      n.code,
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose(
+                          [
+                            "Processing encrypted poll add option failed: ",
+                            "\n",
+                            "",
+                          ],
+                          [
+                            "Processing encrypted poll add option failed: ",
+                            "\\n",
+                            "",
+                          ],
+                        )),
+                      t.message,
+                      t.stack,
                     )
-                    .sendLogs(n.code, { sampling: 0.1 });
-                  return;
-                }
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose(
-                        [
-                          "Processing encrypted poll add option failed: ",
-                          "\n",
-                          "",
-                        ],
-                        [
-                          "Processing encrypted poll add option failed: ",
-                          "\\n",
-                          "",
-                        ],
-                      )),
-                    n.message,
-                    n.stack,
-                  )
-                  .sendLogs("poll_add_option_unknown_error");
-              }
-            }
-          });
+                    .sendLogs("poll_add_option_unknown_error");
+                },
+              );
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = e.encIv,
             i = e.encPayload;
@@ -190,41 +172,43 @@ __d(
                 o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                   .INVALID_MESSAGE,
               );
-            var _ = t.pollEndTime;
-            if (_ != null && e.t != null && e.t * 1e3 > _)
-              throw new (o(
-                "WAWebPollsValidationError",
-              ).PollAddOptionValidationError)(
-                o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
-                  .PAST_END_TIME,
-                o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-                  .INVALID_MESSAGE,
-              );
+            o("WAWebPollAddonProcessingUtils").assertPollNotPastEndTime(
+              t.pollEndTime,
+              e.t,
+              function () {
+                return new (o(
+                  "WAWebPollsValidationError",
+                ).PollAddOptionValidationError)(
+                  o("WAWebPollsValidationError")
+                    .PollAddOptionValidationErrorCode.PAST_END_TIME,
+                  o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+                    .INVALID_MESSAGE,
+                );
+              },
+            );
           }
-          var f = {
-              type: o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
-              encryptedAddOn: i,
-            },
-            g = o("WAWebWidFactory").asUserWidOrThrow(u),
-            h = yield o("WAWebAddonEncryption").decryptAddOn(f, {
-              messageSecret: l,
-              iv: a,
-              stanzaId: t.id.id,
-              originalMessageSender: s,
-              addOnSender: g,
-            }),
-            y = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsE2E.pb").MessageSpec,
-              h,
+          var _ = yield o(
+              "WAWebPollAddonProcessingUtils",
+            ).decryptPollAddonPayload(
+              o("WAWebMsgType").MsgKind.PollAddOptionEncrypted,
+              i,
+              {
+                addOnSender: o("WAWebWidFactory").asUserWidOrThrow(u),
+                iv: a,
+                messageSecret: l,
+                originalMessageSender: s,
+                stanzaId: t.id.id,
+              },
             ),
-            C = o(
+            f = _.protobuf,
+            g = o(
               "WAWebPollAddOptionDecryptedMsgDataConversion",
             ).protobufToPollAddOptionDecryptedMsgData(
               (n = o(
                 "WAWebVerifyProtobufMsgObjectKeys",
-              ).getUnwrappedProtobufMessage(y)) != null
+              ).getUnwrappedProtobufMessage(f)) != null
                 ? n
-                : y,
+                : f,
               e,
               t,
             );
@@ -232,12 +216,12 @@ __d(
             t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
             t.pollOptions
           ) {
-            var b = new Set(
+            var h = new Set(
               t.pollOptions.map(function (e) {
                 return e.name;
               }),
             );
-            if (b.has(C.pollAddedOption.name))
+            if (h.has(g.pollAddedOption.name))
               throw new (o(
                 "WAWebPollsValidationError",
               ).PollAddOptionValidationError)(
@@ -247,12 +231,12 @@ __d(
                   .INVALID_MESSAGE,
               );
           }
-          return { parentMsg: t, decryptedAddOption: C };
+          return { parentMsg: t, decryptedAddOption: g };
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.processEncryptedPollAddOptionMsgs = c;
+    l.processEncryptedPollAddOptionMsgs = u;
   },
   98,
 );

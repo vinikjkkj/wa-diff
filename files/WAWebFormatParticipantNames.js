@@ -205,11 +205,15 @@ __d(
           });
       return r("WAWebL10NEnumeration.react")(l, n);
     }
-    function R(e, t, n, r) {
-      if ((t === void 0 && (t = !0), !e.isUser()))
-        return L(e, t ? d(e, n) : null, r);
-      var o = t ? d(e, n) : null;
-      return L(e, o, r);
+    function R(e) {
+      var t = e.clickable,
+        n = t === void 0 ? !0 : t,
+        r = e.jid,
+        o = e.subtype,
+        a = e.tabIndex;
+      if (!r.isUser()) return L(r, n ? d(r, o) : null, a);
+      var i = n ? d(r, o) : null;
+      return L(r, i, a);
     }
     function L(e, t, n) {
       if (o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)) {
@@ -238,9 +242,9 @@ __d(
       if (
         (t === void 0 && (t = !0), n === void 0 && (n = !1), !Array.isArray(e))
       )
-        return R(e, t, void 0, o);
+        return R({ clickable: t, jid: e, tabIndex: o });
       var a = e.map(function (e) {
-        return R(e, t, void 0, o);
+        return R({ clickable: t, jid: e, tabIndex: o });
       });
       return r("WAWebFbtIntlList")(
         a,

@@ -31,94 +31,95 @@ __d(
       C = o("WebBloksModel").defineWebBloksAttributeKey("#"),
       b = o("WebBloksModel").defineWebBloksAttributeKey("&"),
       v = o("WebBloksModel").defineWebBloksAttributeKey("(");
-    function S(e, t, n) {
-      var r,
-        a = o("WebBloksEnvironmentContext").useDataBloksName(),
-        i = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        l = i.extensionHandlers,
-        u = o("WebBloksComponentContext").useWebBloksContext(),
-        d = o("WebBloksTheme").useTheme().getTheme(),
-        S = e.getStyle(f),
-        R = e.getStyle(g),
-        k =
-          (r = S == null ? void 0 : S.get(y)) != null
-            ? r
-            : R == null
+    function S(e, t, n, r) {
+      var a;
+      r === void 0 && (r = null);
+      var i = o("WebBloksEnvironmentContext").useDataBloksName(),
+        l = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        u = l.extensionHandlers,
+        d = o("WebBloksComponentContext").useWebBloksContext(),
+        S = o("WebBloksTheme").useTheme().getTheme(),
+        R = e.getStyle(f),
+        k = e.getStyle(g),
+        I =
+          (a = R == null ? void 0 : R.get(y)) != null
+            ? a
+            : k == null
               ? void 0
-              : R.get(C),
-        I = null,
-        T = e.getStyle(h),
-        D =
-          (T == null ? void 0 : T.get(b)) != null ||
-          (T == null ? void 0 : T.get(v)) != null,
-        x = e.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
-        $ = m(
+              : k.get(C),
+        T = null,
+        D = e.getStyle(h),
+        x =
+          (D == null ? void 0 : D.get(b)) != null ||
+          (D == null ? void 0 : D.get(v)) != null,
+        $ = e.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
+        P = m(
           function () {
-            return o("WebBloksExtensions").processExtensions(x, l);
+            return o("WebBloksExtensions").processExtensions($, u);
           },
-          [l, x],
+          [u, $],
         ),
-        P = p(e);
-      ((P.current = e),
+        N = p(e);
+      ((N.current = e),
         c(function () {
-          if (!(!$ || $.length === 0)) {
+          if (!(!P || P.length === 0)) {
             var e = [],
               t = function (n) {
-                var t = l.get(n.styleId),
-                  r = t == null ? void 0 : t.onMount;
-                if (r != null) {
-                  var o = function () {
-                    return r(n, P, u);
+                var t = u.get(n.styleId),
+                  o = t == null ? void 0 : t.onMount;
+                if (o != null) {
+                  var a = function () {
+                    return o(n, N, d, r);
                   };
-                  e.push(o);
+                  e.push(a);
                 }
               };
-            for (var n of $) t(n);
+            for (var n of P) t(n);
             if (e.length !== 0)
               return (
-                u.bloksContext.objectSet.mountEffectsQueue.enqueue(
-                  P.current.clientId,
+                d.bloksContext.objectSet.mountEffectsQueue.enqueue(
+                  N.current.clientId,
                   e,
                 ),
                 function () {
-                  u.bloksContext.objectSet.mountEffectsQueue.dispose(
-                    P.current.clientId,
+                  d.bloksContext.objectSet.mountEffectsQueue.dispose(
+                    N.current.clientId,
                   );
                 }
               );
           }
         }, []));
-      var N = k != null || D || !!($ && $.length > 0),
-        M = babelHelpers.extends({}, a(e.styleId), {
+      var M = I != null || x || !!(P && P.length > 0),
+        w = babelHelpers.extends({}, i(e.styleId), {
           ref: n,
           id: e.get(o("WebBloksConstants").HTML_ID_ATTRIBUTE_KEY),
         });
-      if (!N)
+      if (!M)
         return {
           hasWrapper: !1,
           wrapper: _,
-          wrapperProps: M,
-          stylesFromExtensions: I,
+          wrapperProps: w,
+          stylesFromExtensions: T,
         };
-      var w = k != null;
-      if ($)
-        for (var A of $) {
-          var F = l.get(A.styleId);
-          F &&
-            (F.hasLayoutWrapper != null && F.hasLayoutWrapper(A) && (w = !0),
-            F.getStyles && (I = babelHelpers.extends({}, I, F.getStyles(A, d))),
-            (M = babelHelpers.extends(
+      var A = I != null;
+      if (P)
+        for (var F of P) {
+          var O = u.get(F.styleId);
+          O &&
+            (O.hasLayoutWrapper != null && O.hasLayoutWrapper(F) && (A = !0),
+            O.getStyles && (T = babelHelpers.extends({}, T, O.getStyles(F, S))),
+            (w = babelHelpers.extends(
               {},
-              M,
-              F.getProps == null ? void 0 : F.getProps(A, e, u),
+              w,
+              O.getProps == null ? void 0 : O.getProps(F, e, d),
             )));
         }
-      var O = function (a) {
+      var B = function (a) {
         var r = a,
           i = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
         if (
-          (k != null && (r = s.jsx(L, { aspectRatio: k, children: r })),
-          D &&
+          (I != null && (r = s.jsx(L, { aspectRatio: I, children: r })),
+          x &&
             i != null &&
             (r = s.jsx(E, {
               style: i,
@@ -126,28 +127,28 @@ __d(
               elementRef: n,
               children: r,
             })),
-          $)
+          P)
         )
-          for (var u of $) {
-            var c = l.get(u.styleId);
+          for (var l of P) {
+            var c = u.get(l.styleId);
             if (c) {
               var d = c.wrap;
-              d && (r = d(u, r, e, n));
+              d && (r = d(l, r, e, n));
             }
           }
-        return w
+        return A
           ? s.jsx("div", {
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: babelHelpers.extends({}, t, { aspectRatio: k }),
+              style: babelHelpers.extends({}, t, { aspectRatio: I }),
               children: r,
             })
           : r;
       };
       return {
-        hasWrapper: w,
-        wrapper: O,
-        wrapperProps: M,
-        stylesFromExtensions: I,
+        hasWrapper: A,
+        wrapper: B,
+        wrapperProps: w,
+        stylesFromExtensions: T,
       };
     }
     var R = o("WebBloksStyle").createStyles({
