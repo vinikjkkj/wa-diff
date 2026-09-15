@@ -9,23 +9,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = {
-        "bk.action.bloks.ClearCachedAsyncComponents": r(
-          "WebBloksClearCachedAsyncComponents",
-        ),
-        "bk.action.bloks.FetchAsyncComponents": r(
-          "WebBloksFetchAsyncComponent",
-        ),
-        "bk.action.bloks.InvalidateCachedAsyncComponents": r(
-          "WebBloksInvalidateCachedAsyncComponents",
-        ),
-        "bk.versioning.bloks.AsyncComponentAppIdExpression": (e =
-          r("WebBloksDummy")),
-        "bk.versioning.bloks.AsyncComponentCacheTtlExpression": e,
-        "bk.versioning.bloks.AsyncComponentClientParams": e,
-        "bk.versioning.bloks.AsyncComponentDependencies": e,
-        "bk.versioning.bloks.AsyncComponentReleaseV1": e,
-        "bk.versioning.bloks.AsyncComponentScoping": e,
-        "bk.versioning.bloks.ScreenQuerySSRPayload": e,
+        dmq: r("WebBloksClearCachedAsyncComponents"),
+        dn1: r("WebBloksFetchAsyncComponent"),
+        do8: r("WebBloksInvalidateCachedAsyncComponents"),
+        g1w: (e = r("WebBloksDummy")),
+        g1y: e,
+        g1z: e,
+        g20: e,
+        g22: e,
+        g24: e,
+        iyy: e,
       };
     l.ACTIONS = s;
   },

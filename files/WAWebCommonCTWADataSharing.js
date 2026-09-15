@@ -77,22 +77,22 @@ __d(
       var t = r("WAWebConversionTupleCollection").get(e.id);
       if (t) return t.ctwaSignals;
     }
-    var y = function () {
-        var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
-          t = o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp(),
-          n = t != null,
-          r = n,
-          a = o("WAWebUserPrefsGeneral").getCTWAMessageReceived(),
-          i = a;
-        return (
-          (e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true ||
-            e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false ||
-            r ||
-            i) &&
-          o("WAWebMobilePlatforms").isSMB()
-        );
-      },
-      C = function (t) {
+    function y() {
+      var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
+        t = o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp(),
+        n = t != null,
+        r = n,
+        a = o("WAWebUserPrefsGeneral").getCTWAMessageReceived(),
+        i = a;
+      return (
+        (e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true ||
+          e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false ||
+          r ||
+          i) &&
+        o("WAWebMobilePlatforms").isSMB()
+      );
+    }
+    var C = function (t) {
         return o(
           "WAWebCTWAGatingUtils",
         ).isCtwa3pdAggregatedConversionEnabled() ||

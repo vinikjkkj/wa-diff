@@ -55,17 +55,24 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i = a.quotedMsg;
           if (i == null || !d(t, i)) {
-            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(t, n, a);
-            return;
+            var l = yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+              t,
+              n,
+              a,
+            );
+            return (
+              (l == null ? void 0 : l.messageSendResult) ===
+              o("WAWebSendMsgResultAction").SendMsgResult.OK
+            );
           }
           if (i.type === o("WAWebMsgType").MSG_TYPE.CHAT) {
-            var l,
-              s = (l = i.body) != null ? l : "";
+            var s,
+              u = (s = i.body) != null ? s : "";
             try {
-              s = o(
+              u = o(
                 "WAWebBotReplaceMentionWidsWithPushnames",
               ).replaceMentionsInText(
-                s,
+                u,
                 yield o(
                   "WAWebBotReplaceMentionWidsWithPushnames",
                 ).buildMentionMap(i.mentionedJidList, i.groupMentions),
@@ -81,16 +88,27 @@ __d(
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("ask-meta-ai-quoted-mention-name-fail");
             }
-            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+            var c = yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
               t,
-              o("WAWebMetaAiForwardedText").composeMetaAiForwardedText(s, n),
+              o("WAWebMetaAiForwardedText").composeMetaAiForwardedText(u, n),
               babelHelpers.extends({}, a, { quotedMsg: void 0 }),
             );
-            return;
+            return (
+              (c == null ? void 0 : c.messageSendResult) ===
+              o("WAWebSendMsgResultAction").SendMsgResult.OK
+            );
           }
-          var u = yield f(t, i, n, a);
-          u ||
-            (yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(t, n, a));
+          var m = yield f(t, i, n, a);
+          if (m) return !0;
+          var p = yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+            t,
+            n,
+            a,
+          );
+          return (
+            (p == null ? void 0 : p.messageSendResult) ===
+            o("WAWebSendMsgResultAction").SendMsgResult.OK
+          );
         })),
         _.apply(this, arguments)
       );

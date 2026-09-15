@@ -8,10 +8,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = null,
-      s = new TextEncoder(),
-      u = function (t) {
-        return s.encode(t).buffer;
-      };
+      s = new TextEncoder();
+    function u(e) {
+      return s.encode(e).buffer;
+    }
     function c() {
       return (
         e ||

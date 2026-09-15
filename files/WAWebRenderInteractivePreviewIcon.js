@@ -4,10 +4,10 @@ __d(
     "WAWebIcChatlistEventIcon.react",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMessageFailIcon.react",
     "WAWebMsgGetters",
     "WAWebReceiptIcon.react",
     "WDSIconIcShoppingBagFill.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
@@ -76,10 +76,11 @@ __d(
                     : c ===
                         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
                       ? null
-                      : s.jsx(
-                          o("WAWebMessageFailIcon.react").MessageFailIcon,
-                          {},
-                        )),
+                      : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                          width: 20,
+                          height: 20,
+                          testid: "message-fail",
+                        })),
               (t[2] = c),
               (t[3] = m))
             : (m = t[3]),
@@ -89,7 +90,11 @@ __d(
       var p;
       return (
         t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((p = s.jsx(o("WAWebMessageFailIcon.react").MessageFailIcon, {})),
+          ? ((p = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+              width: 20,
+              height: 20,
+              testid: "message-fail",
+            })),
             (t[4] = p))
           : (p = t[4]),
         p

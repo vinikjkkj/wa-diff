@@ -25,7 +25,7 @@ __d(
             JSON.stringify(c),
         );
       var p = o("WebBloksModel").createSyntheticWebBloksModel("-1"),
-        _ = o("WebBloksModelParser").parseBloksTreeResources(c, p, t, n, i);
+        _ = o("WebBloksModelParser").parseBloksTreeResources(c, p, t, n, a);
       return new (r("WebBloksParseResult"))(p, _, d);
     }
     function s(e, t, n, a, i) {
@@ -42,8 +42,8 @@ __d(
             JSON.stringify(c),
         );
       var _ = null,
-        f = o("WebBloksModelParser").parseBloksModelFromJSON(d, t, n, _, i),
-        g = o("WebBloksModelParser").parseBloksTreeResources(c, f, t, n, i);
+        f = o("WebBloksModelParser").parseBloksModelFromJSON(d, t, n, a, _),
+        g = o("WebBloksModelParser").parseBloksTreeResources(c, f, t, n, a);
       return new (r("WebBloksParseResult"))(f, g, m);
     }
     ((l.parseAction = e), (l.parseTree = s));

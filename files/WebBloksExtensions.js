@@ -8,7 +8,7 @@ __d(
         r = {};
       for (var o of e) {
         var a = o.styleId,
-          i = t.get(a);
+          i = t.get(o.getWireStyleId());
         if (i && i.reduce) {
           var l = r[a],
             s = i.reduce(l, o);

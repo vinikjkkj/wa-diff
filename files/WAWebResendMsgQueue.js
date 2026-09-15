@@ -17,8 +17,12 @@ __d(
     function d() {
       (y().start(), C().start());
     }
-    function m(e, t, n, r) {
-      return y().runRecorded(_(e, t, n), r);
+    function m(e) {
+      var t = e.ackTime,
+        n = e.excludeList,
+        r = e.msgRecord,
+        o = e.resend;
+      return y().runRecorded(_(r, n, t), o);
     }
     function p(e, t) {
       return C().runRecorded(f(e), t);

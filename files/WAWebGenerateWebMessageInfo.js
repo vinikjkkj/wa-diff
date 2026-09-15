@@ -109,14 +109,13 @@ __d(
       } else d.message = _;
       return (
         d.message != null &&
-          o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret(
-            d.message,
-            o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
-              .Sender,
-            void 0,
-            o("WAWebMessageSecretLocationUtils")
+          o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret({
+            context: o("WAWebMessageSecretLocationUtils")
+              .MessageSecretCheckContext.Sender,
+            proto: d.message,
+            ruleId: o("WAWebMessageSecretLocationUtils")
               .MESSAGE_SECRET_RULE_ID_GROUP_HISTORY,
-          ),
+          }),
         d
       );
     }

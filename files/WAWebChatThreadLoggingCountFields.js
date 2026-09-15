@@ -20,6 +20,9 @@ __d(
         afterReadMessagesUnreadExpired: 0,
         statusReactionsSent: 0,
         statusReactionsReceived: 0,
+        bizAiSuggestedRepliesSeen: 0,
+        bizAiSuggestedRepliesSentWithEdits: 0,
+        bizAiSuggestedRepliesSentWithoutEdits: 0,
       },
       l = Object.freeze(e),
       s = Object.freeze(Object.keys(e));

@@ -276,7 +276,7 @@ __d(
                       ])),
                   )
                   .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(a))
+                new (r("WAWebOrphanBotMsgError"))(a, "no-target-row"))
               : (o("WALogger")
                   .WARN(
                     d ||
@@ -308,7 +308,7 @@ __d(
                       ])),
                   )
                   .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(a)
+                new (r("WAWebOrphanBotMsgError"))(a, "placeholder-target-row")
               );
             g = h;
           }

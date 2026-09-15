@@ -13,9 +13,9 @@ __d(
       return o("WebBloksModelParser").parseBloksModelFromJSON(
         t,
         r.traversalKeys,
-        r.minificationMap,
+        r.useMinification,
+        r.minificationMaps,
         n,
-        r.loadedMinificationMaps.unminificationMap,
       );
     }
     l.default = e;

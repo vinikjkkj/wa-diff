@@ -6,7 +6,6 @@ __d(
     "WAWebCanvasUtils",
     "WAWebFlex.react",
     "WAWebFrontendMsgGetters",
-    "WAWebImageIcon.react",
     "WAWebL10N",
     "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaLinkPreviewDescription.react",
@@ -19,6 +18,7 @@ __d(
     "WAWebStickerPackConstants",
     "WAWebStickerPackUtils",
     "WAWebWamEnumWebcRmrReasonCode",
+    "WDSIconIcImage.react",
     "WDSMargins.stylex",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -95,7 +95,13 @@ __d(
                 containerClassName: "xcbkimw x1n2onr6 x1dmp6jm",
                 thumbnailPlaceholder: c.jsx(
                   "div",
-                  { children: c.jsx(o("WAWebImageIcon.react").ImageIcon, {}) },
+                  {
+                    children: c.jsx(r("WDSIconIcImage.react"), {
+                      height: 42,
+                      testid: "image",
+                      width: 42,
+                    }),
+                  },
                   "default",
                 ),
               }),

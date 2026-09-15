@@ -1,10 +1,10 @@
 __d(
   "WAWebRenderUnknownPreviewIcon",
   [
-    "WAWebMessageFailIcon.react",
     "WAWebMsgType",
     "WDSIconIcImage.react",
     "WDSIconMusicNoteSlash.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -30,7 +30,11 @@ __d(
                       height: 20,
                       testid: "music_futureproof_preview_icon",
                     })
-                  : s.jsx(o("WAWebMessageFailIcon.react").MessageFailIcon, {})),
+                  : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                      width: 20,
+                      height: 20,
+                      testid: "message-fail",
+                    })),
             (t[0] = n.futureproofType),
             (t[1] = a))
           : (a = t[1]),

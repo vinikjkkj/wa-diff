@@ -19,27 +19,21 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
-      "bk.action.OpenFRXAction": r("WebBloksOpenFRXAction"),
-      "bk.action.logging.LogEvent": r("WebBloksLogEvent"),
-      "bk.action.logging.LogEventCritical": r("WebBloksLogEventCritical"),
-      "bk.action.logging.LogEventImmediately": r("WebBloksLogEventImmediately"),
-      "bk.action.qpl.MarkerAnnotateV2": r("WebBloksQPLMarkerAnnotateV2"),
-      "bk.action.qpl.MarkerEndV3": r("WebBloksQPLMarkerEndV3"),
-      "bk.action.qpl.MarkerPointV2": r("WebBloksQPLMarkerPointV2"),
-      "bk.action.qpl.MarkerStartV3": r("WebBloksQPLMarkerStartV3"),
-      "bk.action.qpl.userflow.AnnotateV3": r("WebBloksQPLUserFlowAnnotateV3"),
-      "bk.action.qpl.userflow.EndFlowCancelV3": r(
-        "WebBloksQPLUserFlowEndFlowCancelV3",
-      ),
-      "bk.action.qpl.userflow.EndFlowFailureV3": r(
-        "WebBloksQPLUserFlowEndFlowFailureV3",
-      ),
-      "bk.action.qpl.userflow.EndFlowSuccessV3": r(
-        "WebBloksQPLUserFlowEndFlowSuccessV3",
-      ),
-      "bk.action.qpl.userflow.MarkErrorV3": r("WebBloksQPLUserFlowMarkErrorV3"),
-      "bk.action.qpl.userflow.MarkPointV3": r("WebBloksQPLUserFlowMarkPointV3"),
-      "bk.action.qpl.userflow.StartFlowV3": r("WebBloksQPLUserFlowStartFlowV3"),
+      dfk: r("WebBloksOpenFRXAction"),
+      f43: r("WebBloksLogEvent"),
+      f44: r("WebBloksLogEventCritical"),
+      f45: r("WebBloksLogEventImmediately"),
+      fgr: r("WebBloksQPLMarkerAnnotateV2"),
+      fgv: r("WebBloksQPLMarkerEndV3"),
+      fgy: r("WebBloksQPLMarkerPointV2"),
+      fh1: r("WebBloksQPLMarkerStartV3"),
+      fh5: r("WebBloksQPLUserFlowAnnotateV3"),
+      fh8: r("WebBloksQPLUserFlowEndFlowCancelV3"),
+      fhb: r("WebBloksQPLUserFlowEndFlowFailureV3"),
+      fhe: r("WebBloksQPLUserFlowEndFlowSuccessV3"),
+      fhh: r("WebBloksQPLUserFlowMarkErrorV3"),
+      fhk: r("WebBloksQPLUserFlowMarkPointV3"),
+      fho: r("WebBloksQPLUserFlowStartFlowV3"),
     };
     l.ACTIONS = e;
   },

@@ -14,43 +14,46 @@ __d(
       s = r("webBloksGlobalAttributeKeys").toCanonicalAttrs[e];
     function u(e, t, n, a) {
       o("WebBloksUtils").nullthrows(t, "No model passed to setAttr");
-      var i = e.objectSet.environment.loadedMinificationMaps.unminificationMap,
-        l = o("WebBloksModel").defineWebBloksAttributeKey(
-          o("WebBloksMinificationUtils").getMinifiedWebBloksDynamicAttributeKey(
+      var i = e.objectSet.environment,
+        l = i.minificationMaps,
+        u = i.useMinification,
+        c = o("WebBloksModel").defineWebBloksAttributeKey(
+          o("WebBloksMinificationUtils").getWebBloksDynamicAttributeKey(
             String(t.styleId),
             n,
-            i,
+            u,
+            l.toMinifiedStyle,
           ),
         ),
-        u = a;
+        d = a;
       if (
         (n === "transform3d" ||
-          l === o("WebBloksConstants").TRANSFORM_3D_ATTRIBUTE_KEY) &&
+          c === o("WebBloksConstants").TRANSFORM_3D_ATTRIBUTE_KEY) &&
         a instanceof r("Transform3DForWebBloks")
       ) {
-        var c = t.getUntyped(s),
-          d = o("WebBloksModel").isWebBloksModel(c) ? c : null,
-          m = { transform: "matrix3d(" + a.toString() + ")" },
-          p;
-        if (d != null) {
-          var _;
-          p = d.makeCopy(
-            ((_ = {}),
-            (_[o("WebBloksConstants").TRANSFORM_ATTRIBUTE_KEY] = m.transform),
-            _),
+        var m = t.getUntyped(s),
+          p = o("WebBloksModel").isWebBloksModel(m) ? m : null,
+          _ = { transform: "matrix3d(" + a.toString() + ")" },
+          f;
+        if (p != null) {
+          var g;
+          f = p.makeCopy(
+            ((g = {}),
+            (g[o("WebBloksConstants").TRANSFORM_ATTRIBUTE_KEY] = _.transform),
+            g),
           );
         } else {
-          var f;
-          p = new (o("WebBloksModel").WebBloksModel)(
+          var h;
+          f = new (o("WebBloksModel").WebBloksModel)(
             o("WebBloksConstants").BK_FLEX,
-            ((f = {}),
-            (f[o("WebBloksConstants").TRANSFORM_ATTRIBUTE_KEY] = m.transform),
-            f),
+            ((h = {}),
+            (h[o("WebBloksConstants").TRANSFORM_ATTRIBUTE_KEY] = _.transform),
+            h),
           );
         }
-        ((l = s), (u = p));
+        ((c = s), (d = f));
       }
-      o("WebBloksMutations").updateMinifiedProperty(e.treeManager, t, l, u);
+      o("WebBloksMutations").updateMinifiedProperty(e.treeManager, t, c, d);
     }
     l.default = u;
   },

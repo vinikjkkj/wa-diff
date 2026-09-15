@@ -70,6 +70,7 @@ __d(
         n = e.statusText;
       throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
         errors: [{ code: t, message: n }],
+        httpStatus: t,
       });
     }
     function p(e) {
@@ -106,6 +107,7 @@ __d(
             if ((_ == null ? void 0 : _.error) != null)
               throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
                 errors: [_.error],
+                httpStatus: d.status,
               });
             m(d);
           }
@@ -255,7 +257,10 @@ __d(
                     if (((v = S) == null ? void 0 : v.error) != null)
                       throw new (o(
                         "WAWebGraphQLServerError",
-                      ).GraphQLServerError)({ errors: [S.error] });
+                      ).GraphQLServerError)({
+                        errors: [S.error],
+                        httpStatus: b.status,
+                      });
                     m(b);
                   }
                   var R = yield b.json();

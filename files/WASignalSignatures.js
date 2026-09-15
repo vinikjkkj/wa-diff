@@ -51,54 +51,74 @@ __d(
         var e = o("WASignalOther").makeBytes(64);
         return (
           o("WACryptoDependencies").getCrypto().getRandomValues(e),
-          d(t, r, e)
+          p(t, r, e)
         );
       });
     }
-    function c(e, t, n) {
-      var r = n[63];
-      return r & 96
-        ? !1
+    function c(e, t) {
+      var n = t[63];
+      return n & 96
+        ? null
         : o("WACryptoEd25519").runInAllocationScope(function () {
-            var a,
-              i,
-              l = (a = o("WACryptoPrimitives")).lowlevel.A,
-              s = a.lowlevel.M,
-              u = a.lowlevel.Z,
-              c = a.lowlevel.pack25519,
-              d = a.lowlevel.unpack25519,
-              m = (i = o("WACryptoEd25519")).allocate(Uint8Array, 64);
-            (m.set(n), (m[63] = r & 127));
-            var p = i.fieldElement(),
-              _ = i.fieldElement(),
-              f = i.fieldElement(),
-              g = i.fieldElement(),
-              h = i.fieldElement(),
-              y = i.allocate(Uint8Array, 32),
-              C = i.fieldElement();
+            var r,
+              a,
+              i = (r = o("WACryptoPrimitives")).lowlevel.A,
+              l = r.lowlevel.M,
+              s = r.lowlevel.Z,
+              u = r.lowlevel.pack25519,
+              c = r.lowlevel.unpack25519,
+              d = (a = o("WACryptoEd25519")).allocate(Uint8Array, 64);
+            (d.set(t), (d[63] = n & 127));
+            var m = a.fieldElement(),
+              p = a.fieldElement(),
+              _ = a.fieldElement(),
+              f = a.fieldElement(),
+              g = a.fieldElement(),
+              h = a.allocate(Uint8Array, 32),
+              y = a.fieldElement();
             return (
-              (C[0] = 1),
-              d(p, e.subarray(1)),
-              u(_, p, C),
-              l(f, p, C),
-              i.inv25519(g, f),
-              s(h, _, g),
-              c(y, h),
-              (y[31] = (y[31] & 127) | (r & 128)),
-              a.signDetachedVerify(t, m, y)
+              (y[0] = 1),
+              c(m, e.subarray(1)),
+              s(p, m, y),
+              i(_, m, y),
+              a.inv25519(f, _),
+              l(g, p, f),
+              u(h, g),
+              (h[31] = (h[31] & 127) | (n & 128)),
+              { publicKey: new Uint8Array(h), signature: new Uint8Array(d) }
             );
           });
     }
     function d(e, t, n) {
+      var r = c(e, n);
+      return r == null
+        ? !1
+        : o("WACryptoPrimitives").signDetachedVerify(
+            t,
+            r.signature,
+            r.publicKey,
+          );
+    }
+    function m(t, r, a) {
+      var i = c(t, a);
+      return i == null
+        ? (e || (e = n("Promise"))).resolve(!1)
+        : o("WACryptoPrimitives").signDetachedVerifyAsync(
+            r,
+            i.signature,
+            i.publicKey,
+          );
+    }
+    function p(e, t, n) {
       var r = s(e, t, n),
         a = o("WASignalOther").sliceBytes(r.signedMsg, 0, 64);
       return ((a[63] = (a[63] & 127) | (r.pubKeyNegative ? 128 : 0)), a);
     }
-    function m(e, t, n) {
+    function _(e, t, n) {
       var a = o("WASignalKeys").makeKeyPair(),
         i = o("WASignalOther").makeBytes(64);
       o("WACryptoDependencies").getCrypto().getRandomValues(i);
-      var l = d(n, o("WASignalKeys").serializePubKey(a), i);
+      var l = p(n, o("WASignalKeys").serializePubKey(a), i);
       if (!Number.isSafeInteger(t))
         throw r("err")(
           "Expected timestamp to be a safe integer, given " + String(t),
@@ -110,14 +130,14 @@ __d(
         signature: l,
       };
     }
-    function p(e, t) {
+    function f(e, t) {
       var n = o("WASignalOther").makeBytes(64);
       return (
         o("WACryptoDependencies").getCrypto().getRandomValues(n),
-        d(e, t, n)
+        p(e, t, n)
       );
     }
-    function _(e) {
+    function g(e) {
       var t = e.id,
         n = e.keyPair;
       return o("WASignalOther").encodeSignalProto(
@@ -131,7 +151,7 @@ __d(
         },
       );
     }
-    function f(e) {
+    function h(e) {
       try {
         var t = o("decodeProtobuf").decodeProtobuf(
             o("WASignalLocalStorageProtocol.pb")
@@ -158,31 +178,32 @@ __d(
         return null;
       }
     }
-    function g(e) {
+    function y(e) {
       return new Uint8Array(o("WAHex").parseHex(e));
     }
-    function h(e) {
+    function C(e) {
       if (e.length === 33) return o("WASignalKeys").castToSerializedPubKey(e);
       if (e.length === 32) return o("WASignalKeys").serializeIdentity(e);
       throw r("err")("verifyCertificate publicKey incorrect length");
     }
-    function y(t, r, o) {
+    function b(t, r, o) {
       return (e || (e = n("Promise"))).resolve().then(function () {
-        var e = m(t, r, o),
-          n = _(e);
+        var e = _(t, r, o),
+          n = g(e);
         return { plainObject: e, record: n };
       });
     }
     ((l.signMsg = u),
-      (l.verifyMsgSignalVariant = c),
-      (l.makeSignature = d),
-      (l.makeSignedPreKey = m),
-      (l.signSenderKeyMessage = p),
-      (l.serializeSignedPreKeyForPrivateStorage = _),
-      (l.deserializeSignedPreKey = f),
-      (l.convertPublicKeyHexToUint8Array = g),
-      (l.convertPublicKeyToSerializedPubKey = h),
-      (l.generateSignedPreKey = y));
+      (l.verifyMsgSignalVariant = d),
+      (l.verifyMsgSignalVariantAsync = m),
+      (l.makeSignature = p),
+      (l.makeSignedPreKey = _),
+      (l.signSenderKeyMessage = f),
+      (l.serializeSignedPreKeyForPrivateStorage = g),
+      (l.deserializeSignedPreKey = h),
+      (l.convertPublicKeyHexToUint8Array = y),
+      (l.convertPublicKeyToSerializedPubKey = C),
+      (l.generateSignedPreKey = b));
   },
   98,
 );

@@ -87,11 +87,11 @@ __d(
               t
             );
           }
-          o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret(
-            a,
-            o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
-              .Sender,
-          );
+          o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret({
+            context: o("WAWebMessageSecretLocationUtils")
+              .MessageSecretCheckContext.Sender,
+            proto: a,
+          });
         }
       },
       p = "https://a.whatsapp.net",

@@ -6,13 +6,13 @@ __d(
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebCmd",
     "WAWebDeleteMenuItem.react",
-    "WAWebInfoRefreshedIcon.react",
     "WAWebMuteMenuItem.react",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumMuteEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
     "WDSIconIcCancel.react",
+    "WDSIconIcInfo.react",
     "WDSMenuItem.react",
     "react",
   ],
@@ -36,7 +36,7 @@ __d(
         {
           testid: "mi-broadcast-info",
           onPress: n,
-          Icon: o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
+          Icon: r("WDSIconIcInfo.react"),
           title: o(
             "WAWebBizBroadcastsCreationStrings",
           ).getBroadcastAudienceInfoLabel(),

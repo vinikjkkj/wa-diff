@@ -83,7 +83,7 @@ __d(
           }),
           (this.renderNode = function (e, n) {
             if (!e) return null;
-            var r = t.objectSet.getComponentForName(e.styleId);
+            var r = t.objectSet.getComponentForName(e.getWireStyleId());
             return u.jsx(r, { node: e, externalStyle: n }, e.clientId);
           }),
           (this.renderChildren = function (e) {

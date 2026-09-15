@@ -2,8 +2,8 @@ __d(
   "WAWebRenderPollCreationPreviewIcon",
   [
     "WAWebPollCreationUtils",
-    "WAWebPollRefreshedThinIcon.react",
     "WDSIconIcTrophyFilled.react",
+    "WDSIconWdsIcPoll.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -26,10 +26,11 @@ __d(
       var i;
       return (
         t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((i = s.jsx(
-              o("WAWebPollRefreshedThinIcon.react").PollRefreshedThinIcon,
-              { height: 20 },
-            )),
+          ? ((i = s.jsx(r("WDSIconWdsIcPoll.react"), {
+              width: 20,
+              testid: "poll-refreshed-thin",
+              height: 20,
+            })),
             (t[1] = i))
           : (i = t[1]),
         i

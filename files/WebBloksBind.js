@@ -179,48 +179,60 @@ __d(
                 I = d.getId(),
                 T = (c = d.keyPath) != null ? c : [],
                 D = this.bloksContext.objectSet.environment,
-                x = D.loadedMinificationMaps,
-                $ = D.minificationMap,
-                P = D.traversalKeys,
-                N = x.unminificationMap,
-                M = f || (g.length > 0 && !Array.isArray(g[0])),
-                w = 0;
-              w < g.length;
-              w++
+                x = D.minificationMaps,
+                $ = D.traversalKeys,
+                P = D.useMinification,
+                N = f || (g.length > 0 && !Array.isArray(g[0])),
+                M = 0;
+              M < g.length;
+              M++
             ) {
-              var A = null,
-                F = void 0,
-                O = void 0;
-              if (M) ((O = g[w]), (F = g[++w]));
+              var w = null,
+                A = void 0,
+                F = void 0;
+              if (N) ((F = g[M]), (A = g[++M]));
               else {
-                var B = g[w];
-                ((A = B[0] == null ? null : "" + B[0]),
-                  (O = "" + B[1]),
-                  (F = B[2]));
+                var O = g[M];
+                ((w = O[0] == null ? null : "" + O[0]), (F = O[1]), (A = O[2]));
               }
-              var W = o(
-                "WebBloksMinificationUtils",
-              ).getOptionalMinifiedWebBloksAttributeKey(
-                String(d.styleId),
-                O,
-                N,
-              );
-              if (W != null) {
-                var q = o("WebBloksModel").defineWebBloksAttributeKey(W),
-                  U = void 0;
-                if (h(q, d.styleId, P)) {
-                  var V = C(this, d, i, T, s, F, P, $, N);
-                  for (var H of V) k = this.addToTemplateCache(k, H);
-                  U = V;
-                } else if (y(q, d.styleId, P)) {
-                  var G = b(this, d, i, T, s, F, P, $, N);
-                  ((U = G), G != null && (k = this.addToTemplateCache(k, G)));
-                } else U = F;
-                if (M || A === I) d = e.applyOperation(d, a, q, U);
+              if (
+                !(
+                  typeof F == "string" &&
+                  F !== "transform3d" &&
+                  !P &&
+                  o(
+                    "WebBloksMinificationUtils",
+                  ).getOptionalMinifiedWebBloksAttributeKey(
+                    String(d.styleId),
+                    F,
+                    x.toMinifiedStyle,
+                  ) == null
+                )
+              ) {
+                var B = o("WebBloksModel").defineWebBloksAttributeKey(
+                    o(
+                      "WebBloksMinificationUtils",
+                    ).getWebBloksDynamicAttributeKey(
+                      String(d.styleId),
+                      F,
+                      P,
+                      x.toMinifiedStyle,
+                    ),
+                  ),
+                  W = void 0;
+                if (h(B, d.styleId, $)) {
+                  var q = C(this, d, i, T, s, A, $, P, x);
+                  for (var U of q) k = this.addToTemplateCache(k, U);
+                  W = q;
+                } else if (y(B, d.styleId, $)) {
+                  var V = b(this, d, i, T, s, A, $, P, x);
+                  ((W = V), V != null && (k = this.addToTemplateCache(k, V)));
+                } else W = A;
+                if (N || w === I) d = e.applyOperation(d, a, B, W);
                 else
                   throw new (o("WebBloksErrors").WebBloksError)(
                     'Encountered binding targeted for a descendant from bind script "' +
-                      O +
+                      String(F) +
                       '"',
                   );
               }
@@ -625,8 +637,8 @@ __d(
               R.payload,
               l,
               s,
-              null,
               u,
+              null,
             )),
             e.cacheTemplatePayload(S, L)),
             (d = L.unboundModel));

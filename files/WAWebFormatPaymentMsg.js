@@ -12,7 +12,29 @@ __d(
             s._param("otherUser", t),
           ]);
     }
-    l.formatPaymentInviteMessageText = e;
+    function u(e) {
+      return e === "send"
+        ? s._(/*BTDS*/ "Sent to you")
+        : e === "request"
+          ? s._(/*BTDS*/ "Requested from you")
+          : null;
+    }
+    function c(e, t) {
+      return t == null || t === ""
+        ? null
+        : e === "send"
+          ? s._(/*BTDS*/ "Sent to {receiverName}", [
+              s._param("receiverName", t),
+            ])
+          : e === "request"
+            ? s._(/*BTDS*/ "Requested from {receiverName}", [
+                s._param("receiverName", t),
+              ])
+            : null;
+    }
+    ((l.formatPaymentInviteMessageText = e),
+      (l.getPaymentTypeTextForSelf = u),
+      (l.getPaymentTypeText = c));
   },
   226,
 );

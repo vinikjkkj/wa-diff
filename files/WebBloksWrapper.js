@@ -65,7 +65,7 @@ __d(
           if (!(!P || P.length === 0)) {
             var e = [],
               t = function (n) {
-                var t = u.get(n.styleId),
+                var t = u.get(n.getWireStyleId()),
                   o = t == null ? void 0 : t.onMount;
                 if (o != null) {
                   var a = function () {
@@ -104,7 +104,7 @@ __d(
       var A = I != null;
       if (P)
         for (var F of P) {
-          var O = u.get(F.styleId);
+          var O = u.get(F.getWireStyleId());
           O &&
             (O.hasLayoutWrapper != null && O.hasLayoutWrapper(F) && (A = !0),
             O.getStyles && (T = babelHelpers.extends({}, T, O.getStyles(F, S))),
@@ -130,7 +130,7 @@ __d(
           P)
         )
           for (var l of P) {
-            var c = u.get(l.styleId);
+            var c = u.get(l.getWireStyleId());
             if (c) {
               var d = c.wrap;
               d && (r = d(l, r, e, n));

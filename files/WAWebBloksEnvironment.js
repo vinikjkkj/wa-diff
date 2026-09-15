@@ -9,7 +9,8 @@ __d(
     "WebBloksUtils",
     "react-compiler-runtime",
     "waWebMinificationMap",
-    "waWebSignatureUnminificationMap",
+    "waWebSignatureMinificationMap",
+    "waWebStyleUnminificationMap",
     "waWebTraversalKeys",
     "waWebVersioningId",
   ],
@@ -27,10 +28,12 @@ __d(
                 void 0,
                 [
                   {
-                    minificationMap: r("waWebMinificationMap"),
-                    signatureUnminificationMap: r(
-                      "waWebSignatureUnminificationMap",
-                    ),
+                    minificationMaps: {
+                      toLogicalStyle: r("waWebStyleUnminificationMap"),
+                      toMinifiedSignature: r("waWebSignatureMinificationMap"),
+                      toMinifiedStyle: r("waWebMinificationMap"),
+                    },
+                    useMinification: !1,
                   },
                   {
                     appLoader: o(

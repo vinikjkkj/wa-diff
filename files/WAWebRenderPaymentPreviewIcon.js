@@ -1,9 +1,9 @@
 __d(
   "WAWebRenderPaymentPreviewIcon",
   [
-    "WAWebMessageFailIcon.react",
     "WAWebMsgGetters",
     "WAWebPaymentIcon.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
@@ -57,7 +57,11 @@ __d(
       var g;
       return (
         t[6] === Symbol.for("react.memo_cache_sentinel")
-          ? ((g = s.jsx(o("WAWebMessageFailIcon.react").MessageFailIcon, {})),
+          ? ((g = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+              width: 20,
+              height: 20,
+              testid: "message-fail",
+            })),
             (t[6] = g))
           : (g = t[6]),
         g

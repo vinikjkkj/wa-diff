@@ -19,7 +19,12 @@ __d(
               var a = yield o(
                 "WAWebLazyPersistedQueue",
               ).whenPersistedQueuesReady();
-              return a.runUserMsgResendQueued(e, t, n, r);
+              return a.runUserMsgResendQueued({
+                ackTime: n,
+                excludeList: t,
+                msgRecord: e,
+                resend: r,
+              });
             }
             var i = yield o("WAWebPersistedJobManagerWorkerCompatible")
               .getJobManager()

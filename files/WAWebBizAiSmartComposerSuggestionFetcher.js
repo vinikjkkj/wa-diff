@@ -7,6 +7,7 @@ __d(
     "WAWebBizAiSmartComposerSuggestionFetcherQuery.graphql",
     "WAWebBizAiSmartComposerSuggestionStateMachine",
     "WAWebFetchAdAccountToken",
+    "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -21,59 +22,68 @@ __d(
       c,
       d,
       m,
-      p =
+      p,
+      _ =
         e !== void 0
           ? e
           : (e = n("WAWebBizAiSmartComposerSuggestionFetcherQuery.graphql")),
-      _ = 2,
-      f = 250,
-      g = { ok: !1, code: "UNKNOWN" };
-    function h(e, t) {
-      var a = g;
+      f = 2,
+      g = 250,
+      h = { ok: !1, code: "UNKNOWN" };
+    function y(e, t, a) {
+      var i = h;
       return o("WAExponentialBackoff")
         .exponentialBackoff(
           {
-            minTimeout: f,
-            retries: _,
+            minTimeout: g,
+            retries: f,
             signal: t,
             timeoutIncludesTaskDuration: !1,
           },
           (function () {
-            var i = n("asyncToGeneratorRuntime").asyncToGenerator(
+            var l = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (n) {
-                var i = yield y(e, t);
+                var l = !1,
+                  s = yield C(e, t, function () {
+                    ((l = !0), a == null || a.onAttemptStarted());
+                  });
                 return (
-                  (a = i),
-                  !i.ok &&
+                  (i = s),
+                  l &&
+                    (t == null ? void 0 : t.aborted) !== !0 &&
+                    (a == null || a.onAttemptCompleted(s)),
+                  !s.ok &&
                   o(
                     "WAWebBizAiSmartComposerErrorMapping",
-                  ).isAutoRetryableSuggestedReplyError(i.code)
-                    ? n(r("err")("suggested-reply %s", i.code))
-                    : i
+                  ).isAutoRetryableSuggestedReplyError(s.code)
+                    ? n(r("err")("suggested-reply %s", s.code))
+                    : s
                 );
               },
             );
             return function (e) {
-              return i.apply(this, arguments);
+              return l.apply(this, arguments);
             };
           })(),
         )
         .catch(function () {
-          return a;
+          return i;
         });
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t, n) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if ((t == null ? void 0 : t.aborted) === !0) return g;
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if ((t == null ? void 0 : t.aborted) === !0) return h;
+          var a = !1,
+            i;
           try {
-            var n,
-              a,
-              i = yield o("WAWebFetchAdAccountToken").fetchToken();
-            if (i.type !== "success")
+            var l,
+              s,
+              u = yield o("WAWebFetchAdAccountToken").fetchToken();
+            if (u.type !== "success")
               return (
                 o("WALogger")
                   .ERROR(
@@ -85,18 +95,23 @@ __d(
                   .sendLogs("biz-ai-smart-composer-suggestion-token-fail"),
                 { ok: !1, code: "UNKNOWN" }
               );
-            yield r("WAWebNetworkStatus").waitIfOffline();
-            var l = yield o("WAWebRelayClient").fetchQuery(
-              p,
-              {
-                stanza_id: e.stanzaId,
-                consumer_lid: (n = e.consumerLid) != null ? n : "",
-                consumer_phone_number:
-                  (a = e.consumerPhoneNumber) != null ? a : "",
-              },
-              { environmentType: "facebook", accessToken: i.token },
-            );
-            return b(l);
+            if (
+              (yield r("WAWebNetworkStatus").waitIfOffline(),
+              (t == null ? void 0 : t.aborted) === !0)
+            )
+              return h;
+            ((a = !0),
+              n == null || n(),
+              (i = yield o("WAWebRelayClient").fetchQuery(
+                _,
+                {
+                  stanza_id: e.stanzaId,
+                  consumer_lid: (l = e.consumerLid) != null ? l : "",
+                  consumer_phone_number:
+                    (s = e.consumerPhoneNumber) != null ? s : "",
+                },
+                { environmentType: "facebook", accessToken: u.token },
+              )));
           } catch (e) {
             return (
               o("WALogger")
@@ -108,14 +123,38 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("biz-ai-smart-composer-suggestion-fetch-fail"),
-              { ok: !1, code: "UNKNOWN" }
+              { ok: !1, code: a ? v(e) : "UNKNOWN" }
+            );
+          }
+          try {
+            return S(i);
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[SmartComposer] suggested-reply response parsing failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("biz-ai-smart-composer-suggestion-parse-fail"),
+              h
             );
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
+    function v(e) {
+      if (e instanceof TypeError) return "NETWORK_ERROR";
+      if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+        var t = e.source.httpStatus;
+        if (t != null && t >= 500 && t < 600) return "NETWORK_ERROR";
+      }
+      return "UNKNOWN";
+    }
+    function S(e) {
       var t,
         n = e == null ? void 0 : e.meta_ai_biz_agent_wa_suggested_reply;
       if (n == null) return { ok: !1, code: "INVALID_RESPONSE" };
@@ -150,17 +189,20 @@ __d(
           { ok: !1, code: r }
         );
       }
-      var a = n.bot_response_id;
-      if (a == null || a === "") return { ok: !1, code: "INVALID_RESPONSE" };
-      var i = {
+      var a = n.bot_response_id,
+        i = n.type;
+      if (a == null || a === "" || i == null)
+        return { ok: !1, code: "INVALID_RESPONSE" };
+      var l = {
         botResponseId: a,
+        product: R(n.product),
+        suggestionType: i,
         text: (t = n.text) != null ? t : null,
-        product: v(n.product),
       };
       return (
         o(
           "WAWebBizAiSmartComposerSuggestionStateMachine",
-        ).getSuggestionInsertText(i) === "" &&
+        ).getSuggestionInsertText(l) === "" &&
           o("WALogger")
             .LOG(
               c ||
@@ -169,10 +211,10 @@ __d(
                 ])),
             )
             .sendLogs("biz-ai-smart-composer-suggestion-empty"),
-        { ok: !0, suggestion: i }
+        { ok: !0, suggestion: l }
       );
     }
-    function v(e) {
+    function R(e) {
       var t, n, o;
       return e == null
         ? null
@@ -184,7 +226,7 @@ __d(
             ),
           };
     }
-    l.fetchSuggestedReply = h;
+    l.fetchSuggestedReply = y;
   },
   98,
 );

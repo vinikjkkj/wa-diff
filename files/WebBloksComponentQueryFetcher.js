@@ -15,8 +15,8 @@ __d(
           (this.$2 = e),
           (this.$3 = t),
           (this.$5 = n),
-          (this.$4 = r),
-          (this.$6 = o));
+          (this.$6 = r),
+          (this.$4 = o));
       }
       var t = e.prototype;
       return (
@@ -45,9 +45,9 @@ __d(
                   var s = o("WebBloksPayloadParser").parseTree(
                     l.payload,
                     e.$5,
+                    e.$6,
                     e.$4,
                     void 0,
-                    e.$6,
                   );
                   i.set(l.id, s);
                 }

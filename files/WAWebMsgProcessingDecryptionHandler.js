@@ -246,6 +246,7 @@ __d(
                         : m === v.OrphanBotMsg
                           ? s.error instanceof r("WAWebOrphanBotMsgError")
                             ? {
+                                deferReason: s.error.reason,
                                 result: o("WAWebHandleMsgTypes.flow")
                                   .E2EProcessResult.DEFERRED,
                                 targetMsgKey: s.error.targetMsgKey,

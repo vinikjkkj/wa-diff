@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebBackendJobs.flow",
     "WAWebBotMessageSecret",
+    "WAWebBotUtils",
     "WAWebMsgProcessingApiUtils",
     "WAWebOrphanBotMsgError",
     "WAWebSignal",
@@ -84,9 +85,14 @@ __d(
           } catch (a) {
             if (!(a instanceof r("WAWebOrphanBotMsgError"))) throw a;
             var n = yield d(t);
-            if (n)
+            if (n === "recovered")
               return o("WAWebBotMessageSecret").decryptMsmsgBotMessage(e, t);
-            throw a;
+            throw n === "unrecovered"
+              ? new (r("WAWebOrphanBotMsgError"))(
+                  a.targetMsgKey,
+                  "wasa-root-secret-missing",
+                )
+              : a;
           }
         })),
         c.apply(this, arguments)
@@ -102,11 +108,15 @@ __d(
             n = e.msgInfo,
             r = e.msgMeta,
             a = r.targetId;
-          if (a == null) return !1;
+          if (a == null) return "not-wasa";
           var i = (t = r.targetChatJid) != null ? t : n.chat;
-          return o(
-            "WAWebWasaRootSecretWriter",
-          ).maybeRecoverWasaRootSecretFromStore(i, a);
+          return o("WAWebBotUtils").isHatchBot(i)
+            ? (yield o(
+                "WAWebWasaRootSecretWriter",
+              ).maybeRecoverWasaRootSecretFromStore(i, a))
+              ? "recovered"
+              : "unrecovered"
+            : "not-wasa";
         })),
         m.apply(this, arguments)
       );

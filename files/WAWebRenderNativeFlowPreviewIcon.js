@@ -2,9 +2,9 @@ __d(
   "WAWebRenderNativeFlowPreviewIcon",
   [
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMessageFailIcon.react",
     "WAWebMsgGetters",
     "WAWebReceiptIcon.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
@@ -47,7 +47,11 @@ __d(
       var d;
       return (
         t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = s.jsx(o("WAWebMessageFailIcon.react").MessageFailIcon, {})),
+          ? ((d = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+              width: 20,
+              height: 20,
+              testid: "message-fail",
+            })),
             (t[2] = d))
           : (d = t[2]),
         d

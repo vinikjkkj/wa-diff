@@ -63,10 +63,14 @@ __d(
         }
       return null;
     }
-    function b(e, t, n, r) {
-      var a = C({ proto: e });
-      if (a != null) {
-        var i =
+    function b(e) {
+      var t = e.context,
+        n = e.proto,
+        r = e.ruleId,
+        a = e.stanzaId,
+        i = C({ proto: n });
+      if (i != null) {
+        var l =
             t === c.Sender
               ? "sender"
               : t === c.Receiver
@@ -77,8 +81,8 @@ __d(
                         t,
                     );
                   })(),
-          l = "message-secret-location-violation-" + i,
-          m = n == null ? "unknown" : n.slice(0, f);
+          m = "message-secret-location-violation-" + l,
+          p = a == null ? "unknown" : a.slice(0, f);
         (t === c.Receiver
           ? o("WALogger")
               .WARN(
@@ -89,12 +93,12 @@ __d(
                     " stanzaIdPrefix:",
                     "",
                   ])),
-                i,
-                a.violationPath,
-                m,
+                l,
+                i.violationPath,
+                p,
               )
               .tags("messaging", "wa-ice", "message-secret-location")
-              .sendLogs(l, { sampling: g })
+              .sendLogs(m, { sampling: g })
           : o("WALogger")
               .WARN(
                 u ||
@@ -104,9 +108,9 @@ __d(
                     " stanzaIdPrefix:",
                     "",
                   ])),
-                i,
-                a.violationPath,
-                m,
+                l,
+                i.violationPath,
+                p,
               )
               .tags("messaging", "wa-ice", "message-secret-location"),
           t === c.Sender &&
@@ -117,7 +121,7 @@ __d(
               protobufLegacyValidationDropped: !1,
               protobufValidationFlow: o("WAWebWamEnumProtobufValidationFlow")
                 .PROTOBUF_VALIDATION_FLOW.STANZA_MESSAGE_SEND,
-              protobufValidationPath: a.violationPath,
+              protobufValidationPath: i.violationPath,
               protobufValidationRuleId: r != null ? r : d,
             }).commit());
       }

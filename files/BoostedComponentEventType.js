@@ -114,6 +114,9 @@ __d(
       PAUSE_CLICK: "pause_click",
       PAUSE_ERROR: "pause_error",
       PAUSE_SUCCESS: "pause_success",
+      PAUSE_CLICK_L1: "pause_click_l1",
+      PAUSE_ERROR_L1: "pause_error_l1",
+      PAUSE_SUCCESS_L1: "pause_success_l1",
       PAUSE_CONSOLIDATED_CAMPAIGN_ADGROUP_ERROR:
         "pause_consolidated_campaign_adgroup_error",
       PAUSE_CONSOLIDATED_CAMPAIGN_ADGROUP_SUCCESS:

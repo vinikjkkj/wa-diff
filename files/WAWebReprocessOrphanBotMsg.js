@@ -7,6 +7,7 @@ __d(
     "WAWebHandleMsgParser",
     "WAWebHandleMsgProcess",
     "WAWebHandleMsgTypes.flow",
+    "WAWebMessageInsertDeferredPlaceholder",
     "WAWebMsgProcessingDecryptApi",
     "WAWebProcessMsgInfoForLid",
     "asyncToGeneratorRuntime",
@@ -88,7 +89,10 @@ __d(
             yield o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
               msgInfo: l.msgInfo,
               msgMeta: l.msgMeta,
-            }));
+            }),
+            yield o(
+              "WAWebMessageInsertDeferredPlaceholder",
+            ).maybeRemoveDeferredPlaceholder(l.msgInfo));
           var _ = yield o("WAWebMsgProcessingDecryptApi").decryptE2EPayload(
               l,
               o("WAWebHandleMsgProcess").processDecryptedMessageProto,

@@ -1,10 +1,6 @@
 __d(
   "WAWebRenderLocationPreviewIcon",
-  [
-    "WAWebLocationRefreshedOutlineIcon.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WDSIconIcLocationOn.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -13,11 +9,11 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(
-              o("WAWebLocationRefreshedOutlineIcon.react")
-                .LocationRefreshedOutlineIcon,
-              {},
-            )),
+          ? ((n = s.jsx(r("WDSIconIcLocationOn.react"), {
+              height: 20,
+              testid: "location-refreshed-outline",
+              width: 20,
+            })),
             (t[0] = n))
           : (n = t[0]),
         n

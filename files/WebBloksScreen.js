@@ -194,9 +194,9 @@ __d(
             s = o("WebBloksPayloadParser").parseTree(
               r,
               t.traversalKeys,
-              t.minificationMap,
+              t.useMinification,
+              t.minificationMaps,
               void 0,
-              t.loadedMinificationMaps.unminificationMap,
             );
           return e.fromBloksParseResult(n, s, a, i, l);
         }),
@@ -207,48 +207,47 @@ __d(
         }),
         (e.fromScreenQuerySSRPayload = function (n, a, i, l, s, u) {
           var t = n.environment,
-            c = t.loadedMinificationMaps,
-            d = t.minificationMap,
-            m = t.traversalKeys,
-            p = c.unminificationMap,
-            f = o("WebBloksPayloadParser").parseTree(a, m, d, void 0, p),
-            g = o("WebBloksScopedIds").extendKeyPath(),
-            h = f.unboundModel.makeDeepCopyWithNewClientIds(g, m),
-            y = f.resources;
-          f.resources.componentQueries.length > 0 &&
-            ((y = f.resources.clone()),
-            (y.componentQueries = y.componentQueries.map(function (e) {
+            c = t.minificationMaps,
+            d = t.traversalKeys,
+            m = t.useMinification,
+            p = o("WebBloksPayloadParser").parseTree(a, d, m, c, void 0),
+            f = o("WebBloksScopedIds").extendKeyPath(),
+            g = p.unboundModel.makeDeepCopyWithNewClientIds(f, d),
+            h = p.resources;
+          p.resources.componentQueries.length > 0 &&
+            ((h = p.resources.clone()),
+            (h.componentQueries = h.componentQueries.map(function (e) {
               return o(
                 "WebBloksScopedComponentQueryDefinition",
-              ).generateTreeScopedComponentQueryDefFromScopedDef(h, e, m);
+              ).generateTreeScopedComponentQueryDefFromScopedDef(g, e, d);
             })));
-          var C = new (r("WebBloksParseResult"))(h, y),
-            b;
+          var y = new (r("WebBloksParseResult"))(g, h),
+            C;
           if (i != null) {
-            var v = o("WebBloksModelParser").parseBloksModelFromJSON(
+            var b = o("WebBloksModelParser").parseBloksModelFromJSON(
               o("WebBloksUtils").cast(i),
-              m,
               d,
+              m,
+              c,
               null,
-              p,
             );
-            if (o("WebBloksModel").isWebBloksModel(v)) {
-              var S = n.getContainerConfigModuleForName(v.styleId);
-              b = {
+            if (o("WebBloksModel").isWebBloksModel(b)) {
+              var v = n.getContainerConfigModuleForName(b.getWireStyleId());
+              C = {
                 initialContainer: {
-                  model: v,
-                  config: S.ContainerConfig.fromBloksModel(v),
+                  model: b,
+                  config: v.ContainerConfig.fromBloksModel(b),
                 },
               };
             }
           }
-          var R = e.fromBloksParseResult(n, C, b, l, s);
+          var S = e.fromBloksParseResult(n, y, C, l, s);
           return (
             u != null &&
               u.length > 0 &&
-              R.treeManager != null &&
-              _(R, n, u, o("WebBloksScopedIds").buildKeypathBase(g)),
-            R
+              S.treeManager != null &&
+              _(S, n, u, o("WebBloksScopedIds").buildKeypathBase(f)),
+            S
           );
         }),
         (e.fromBloksModel = function (n, a, i, l, s) {
@@ -345,9 +344,9 @@ __d(
           var s = o("WebBloksPayloadParser").parseTree(
             { layout: { bloks_payload: r } },
             e.environment.traversalKeys,
-            e.environment.minificationMap,
+            e.environment.useMinification,
+            e.environment.minificationMaps,
             void 0,
-            e.environment.loadedMinificationMaps.unminificationMap,
           );
           (t.setState({ state: "ready", parseResult: s }),
             i != null && e.pushStackedScreens(i.stacked_screens, t.params));

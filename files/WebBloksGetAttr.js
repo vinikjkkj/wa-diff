@@ -5,10 +5,11 @@ __d(
     function e(e, t, n) {
       return t.getUntyped(
         o("WebBloksModel").defineWebBloksAttributeKey(
-          o("WebBloksMinificationUtils").getMinifiedWebBloksDynamicAttributeKey(
+          o("WebBloksMinificationUtils").getWebBloksDynamicAttributeKey(
             String(t.styleId),
             n,
-            e.objectSet.environment.loadedMinificationMaps.unminificationMap,
+            e.objectSet.environment.useMinification,
+            e.objectSet.environment.minificationMaps.toMinifiedStyle,
           ),
         ),
       );

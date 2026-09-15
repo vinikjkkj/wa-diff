@@ -65,6 +65,13 @@ __d(
               {
                 alias: null,
                 args: null,
+                kind: "ScalarField",
+                name: "type",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
                 concreteType: "WhatsAppSMBSuggestedReplyProductMessage",
                 kind: "LinkedField",
                 name: "product",

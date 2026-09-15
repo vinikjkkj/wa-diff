@@ -23,6 +23,11 @@ __d(
             a = {
               threadDs: n,
               threadId: r,
+              bizAiSuggestedRepliesSeen: t.bizAiSuggestedRepliesSeen,
+              bizAiSuggestedRepliesSentWithEdits:
+                t.bizAiSuggestedRepliesSentWithEdits,
+              bizAiSuggestedRepliesSentWithoutEdits:
+                t.bizAiSuggestedRepliesSentWithoutEdits,
               bizCatalogType: s(t.bizCatalogType),
               chatOrigins: t.chatOrigins,
               commerceMsgsReceived: t.commerceMsgsReceived,

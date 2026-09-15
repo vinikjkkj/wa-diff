@@ -11,16 +11,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e = r("justknobx")._("4967")) != null ? e : 3e5,
-      u = r("qpl")._(891431698, "3260"),
-      c = function (t) {
-        return (
-          window.addEventListener("beforeunload", t),
-          function () {
-            window.removeEventListener("beforeunload", t);
-          }
-        );
-      },
-      d = (function () {
+      u = r("qpl")._(891431698, "3260");
+    function c(e) {
+      return (
+        window.addEventListener("beforeunload", e),
+        function () {
+          window.removeEventListener("beforeunload", e);
+        }
+      );
+    }
+    var d = (function () {
         function e() {}
         var t = e.prototype;
         return (

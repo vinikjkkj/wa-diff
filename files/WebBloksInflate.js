@@ -62,23 +62,22 @@ __d(
         h = k;
       }
       var D = t.objectSet.environment,
-        x = D.loadedMinificationMaps,
-        $ = D.minificationMap,
-        P = D.traversalKeys,
-        N = x.unminificationMap,
-        M = t.getBaseSourceMapNode(),
-        w = M == null ? void 0 : M.getSourceMapID(),
-        A = M == null ? void 0 : M.getLoggingID(),
-        F = null,
-        O = o("WebBloksModelParser").parseBloksModelFromJSON(
+        x = D.minificationMaps,
+        $ = D.traversalKeys,
+        P = D.useMinification,
+        N = t.getBaseSourceMapNode(),
+        M = N == null ? void 0 : N.getSourceMapID(),
+        w = N == null ? void 0 : N.getLoggingID(),
+        A = null,
+        F = o("WebBloksModelParser").parseBloksModelFromJSON(
           o("WebBloksUtils").cast(e.tree),
-          P,
           $,
-          F,
-          N,
+          P,
+          x,
+          A,
         );
-      a && (O = O.makeDeepCopyWithNewClientIds(i ? t.scope.slice() : null, P));
-      var B = o("WebBloksModelParser").parseBloksTreeResources(
+      a && (F = F.makeDeepCopyWithNewClientIds(i ? t.scope.slice() : null, $));
+      var O = o("WebBloksModelParser").parseBloksTreeResources(
         babelHelpers.extends({}, e, {
           data: [].concat((s = e.data) != null ? s : [], f),
           embedded_payloads: [].concat(
@@ -90,12 +89,12 @@ __d(
               ? babelHelpers.extends({}, h, (c = e.ft) != null ? c : {})
               : e.ft,
         }),
-        O,
-        P,
+        F,
         $,
-        N,
+        P,
+        x,
       );
-      return new (r("WebBloksParseResult"))(O, B, A);
+      return new (r("WebBloksParseResult"))(F, O, w);
     }
     l.inflateBloksDataFromBloksPayloadToBloksParseResult = e;
   },

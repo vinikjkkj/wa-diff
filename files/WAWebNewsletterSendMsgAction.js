@@ -295,7 +295,7 @@ __d(
                           "WAWebProfilePicThumbCollection",
                         ).ProfilePicThumbCollection.get(a.id)) == null
                           ? void 0
-                          : h.fullDirectPath) != null
+                          : h.imgFull) != null
                         ? f
                         : null,
                     pictureId: null,

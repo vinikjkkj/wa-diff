@@ -23,7 +23,7 @@ __d(
       );
     })();
     function s(e, t) {
-      var n = t.styleId,
+      var n = t.getWireStyleId(),
         r = e.objectSet.getContainerConfigModuleForName(n);
       return r.ContainerConfig.fromBloksModel(t);
     }

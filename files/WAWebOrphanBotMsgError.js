@@ -3,15 +3,20 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = (function (e) {
-      function t(t) {
-        var n;
+      function t(t, n) {
+        var r;
         return (
-          (n =
-            e.call(this, "decryptMsmsgBotMessage: orphan bot message") || this),
-          (n.name = "OrphanBotMsgError"),
-          (n.message = "decryptMsmsgBotMessage: orphan bot message"),
-          (n.targetMsgKey = t),
-          n
+          (r =
+            e.call(
+              this,
+              "decryptMsmsgBotMessage: orphan bot message (" + n + ")",
+            ) || this),
+          (r.name = "OrphanBotMsgError"),
+          (r.message =
+            "decryptMsmsgBotMessage: orphan bot message (" + n + ")"),
+          (r.reason = n),
+          (r.targetMsgKey = t),
+          r
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);

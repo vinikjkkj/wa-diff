@@ -49,8 +49,8 @@ __d(
               : new (r("WebBloksComponentQueryStore"))(
                   e.appLoader,
                   e.traversalKeys,
-                  e.minificationMap,
-                  e.loadedMinificationMaps.unminificationMap,
+                  e.useMinification,
+                  e.minificationMaps,
                 )),
           (this.mountEffectsQueue = new (r("WebBloksMountEffectsQueue"))()));
       }
@@ -196,12 +196,17 @@ __d(
           return e;
         }),
         (t.getNullableComponentForName = function (t) {
-          var e = this.$1.get(t);
-          if (e) return e;
-          var n = this.environment.components.get(t);
-          if (n == null) return null;
-          var r = o("WebBloksNode").createBridgedComponent(t, n);
-          return (this.$1.set(t, r), r);
+          var e,
+            n = this.$1.get(t);
+          if (n) return n;
+          var r = this.environment.components.get(t);
+          if (r == null) return null;
+          var a =
+              (e = this.environment.minificationMaps.toLogicalStyle[t]) != null
+                ? e
+                : t,
+            i = o("WebBloksNode").createBridgedComponent(a, r);
+          return (this.$1.set(t, i), i);
         }),
         (t.getContainerConfigModuleForName = function (t) {
           var e = this.environment.containerConfigs.get(t);

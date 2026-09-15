@@ -68,58 +68,26 @@ __d(
         (e[I] = r("WebBloksWebNativeAccessibilityExtensionHandler")),
         e),
       D = babelHelpers.extends({}, T, {
-        "bk.components.AnchorIdExtension": r(
-          "WebBloksAnchorIDExtensionHandler",
-        ),
-        "bk.components.AutomationTestExtension": r(
-          "WebBloksAutomationTestExtensionHandler",
-        ),
-        "bk.components.VisibilityExtension": r(
-          "WebBloksVisibilityExtensionHandler",
-        ),
-        "bk.components.AccessibilityExtension": r(
-          "WebBloksAccessibilityExtensionHandler",
-        ),
-        "bk.components.WebDataAttributesExtension": r(
-          "WebBloksWebDataAttributesExtensionHandler",
-        ),
-        "bk.components.WebNativeAccessibilityExtension": r(
-          "WebBloksWebNativeAccessibilityExtensionHandler",
-        ),
-        "bk.components.HoverExtension": r("WebBloksHoverExtensionHandler"),
-        "bk.components.OnMount": r("WebBloksOnMountExtensionHandler"),
-        "bk.components.RenderLifecycleExtension": r(
-          "WebBloksRenderLifecycleExtensionHandler",
-        ),
-        "bk.components.ViewTransformsExtension": r(
-          "WebBloksViewTransformExtensionHandler",
-        ),
-        "bk.components.WebCssAnimationExtension": r(
-          "WebBloksCssAnimationExtensionHandler",
-        ),
-        "bk.components.FoaTouchExtension": r("WebBloksTouchExtensionHandler"),
-        "bk.components.FoaGestureExtension": r(
-          "WebBloksGestureExtensionHandler",
-        ),
-        "bk.components.webbloks.DragExtension": r(
-          "WebBloksDragExtensionHandler",
-        ),
-        "bk.components.TextInputDatePickerExtension": r(
-          "WebBloksTextInputDatePickerExtensionHandler",
-        ),
-        "bk.components.TextInputMaskExtension": r(
-          "WebBloksTextInputMaskExtensionHandler",
-        ),
-        "bk.extensions.OnDataChange": r("WebBloksOnDataChangeExtensionHandler"),
-        "bk.components.AnchorTagExtension": r(
-          "WebBloksAnchorTagExtensionHandler",
-        ),
-        "bk.component.WebFocusBoundaryExtension": r(
-          "WebBloksWebFocusBoundaryExtensionHandler",
-        ),
-        "bk.components.BKSTextInputFormatter": r(
-          "WebBloksBKSTextInputFormatterHandler",
-        ),
+        㕮: r("WebBloksAnchorIDExtensionHandler"),
+        㓾: r("WebBloksAutomationTestExtensionHandler"),
+        㓢: r("WebBloksVisibilityExtensionHandler"),
+        㐁: r("WebBloksAccessibilityExtensionHandler"),
+        拰: r("WebBloksWebDataAttributesExtensionHandler"),
+        䀳: r("WebBloksWebNativeAccessibilityExtensionHandler"),
+        執: r("WebBloksHoverExtensionHandler"),
+        㙚: r("WebBloksOnMountExtensionHandler"),
+        㕘: r("WebBloksRenderLifecycleExtensionHandler"),
+        㕸: r("WebBloksViewTransformExtensionHandler"),
+        掚: r("WebBloksCssAnimationExtensionHandler"),
+        㚝: r("WebBloksTouchExtensionHandler"),
+        㷙: r("WebBloksGestureExtensionHandler"),
+        擤: r("WebBloksDragExtensionHandler"),
+        㼧: r("WebBloksTextInputDatePickerExtensionHandler"),
+        㐙: r("WebBloksTextInputMaskExtensionHandler"),
+        㾶: r("WebBloksOnDataChangeExtensionHandler"),
+        䉄: r("WebBloksAnchorTagExtensionHandler"),
+        䊃: r("WebBloksWebFocusBoundaryExtensionHandler"),
+        㗈: r("WebBloksBKSTextInputFormatterHandler"),
       });
     l.EXTENSION_HANDLERS = D;
   },

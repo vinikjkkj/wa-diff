@@ -196,7 +196,7 @@ __d(
       r[32] !== x || r[33] !== l.objectSet
         ? ((G =
             x != null
-              ? l.objectSet.getContainerConfigModuleForName(x.styleId)
+              ? l.objectSet.getContainerConfigModuleForName(x.getWireStyleId())
                   .ContainerComponent
               : null),
           (r[32] = x),

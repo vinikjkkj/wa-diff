@@ -7,8 +7,8 @@ __d(
     "WAWebStatusSetupController",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function () {},
-      s = 6e3,
+    function e() {}
+    var s = 6e3,
       u = 3,
       c = (function () {
         function t() {

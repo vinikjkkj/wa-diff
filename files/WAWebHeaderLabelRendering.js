@@ -15,11 +15,11 @@ __d(
     "WAWebLabelsDropdown.react",
     "WAWebListIcon.react",
     "WAWebListIconStacked.react",
-    "WAWebListPeopleIcon.react",
     "WAWebListsLabelGatingUtils",
     "WAWebMenuBar.react",
     "WAWebMobilePlatforms",
     "WAWebTabOrder",
+    "WDSIconIcSwitchAccount.react",
     "WDSTooltip.react",
     "react",
     "react-compiler-runtime",
@@ -123,18 +123,17 @@ __d(
                 tabOrder: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
                 testid: "labels-button",
                 icon: (function () {
-                  var a = t != null ? t : e.labels;
-                  if (!a || a.length === 0)
-                    return u.jsx(
-                      o("WAWebListPeopleIcon.react").ListPeopleIcon,
-                      {},
-                    );
-                  if (a.length === 1) {
-                    var i = n == null ? void 0 : n[0];
+                  var o = t != null ? t : e.labels;
+                  if (!o || o.length === 0)
+                    return u.jsx(r("WDSIconIcSwitchAccount.react"), {
+                      testid: "list-people",
+                    });
+                  if (o.length === 1) {
+                    var a = n == null ? void 0 : n[0];
                     return u.jsx("div", {
                       className: "x6s0dn4 x78zum5 xxk0z11 xl56j7k xvy4d1p",
                       children: u.jsx(r("WAWebListIcon.react"), {
-                        color: i,
+                        color: a,
                         size: 16,
                       }),
                     });
@@ -142,7 +141,7 @@ __d(
                   return u.jsx("div", {
                     className: "x6s0dn4 x78zum5 xxk0z11 xl56j7k xvy4d1p",
                     children: u.jsx(r("WAWebListIconStacked.react"), {
-                      labelIds: a,
+                      labelIds: o,
                       size: 16,
                     }),
                   });

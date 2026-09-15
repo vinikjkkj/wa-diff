@@ -165,39 +165,38 @@ __d(
               var u,
                 c,
                 d = r.environment,
-                m = d.loadedMinificationMaps,
-                p = d.minificationMap,
-                _ = d.traversalKeys,
-                f = m.unminificationMap;
+                m = d.minificationMaps,
+                p = d.traversalKeys,
+                _ = d.useMinification;
               if (i != null) {
                 u = i;
-                var g = null;
-                c = o("WebBloksPayloadParser").parseAction(s, _, p, g, f);
+                var f = null;
+                c = o("WebBloksPayloadParser").parseAction(s, p, _, m, f);
               } else if (l != null) {
-                var h = l[o("WebBloksConstants").BK_INTERNAL_ACTION];
-                ((u = h.handler),
+                var g = l[o("WebBloksConstants").BK_INTERNAL_ACTION];
+                ((u = g.handler),
                   (c = o("WebBloksPayloadParser").parseTree(
                     s,
-                    _,
                     p,
+                    _,
+                    m,
                     void 0,
-                    f,
                   )));
               } else
                 throw new (o("WebBloksErrors").WebBloksError)(
                   "No bloks action found in response",
                 );
-              var y = o(
+              var h = o(
                   "WebBloksExternalVariables",
                 ).getProcessedDataPropEntries(c.resources),
-                C = o(
+                y = o(
                   "WebBloksExternalVariables",
-                ).getProcessedExternalVariables(n, y);
-              a.synchronouslyAddTreeResources(c, C);
-              var b = this.createBloksModelScopedContext(
+                ).getProcessedExternalVariables(n, h);
+              a.synchronouslyAddTreeResources(c, y);
+              var C = this.createBloksModelScopedContext(
                 o("WebBloksUtils").EMPTY_KEY_PATH,
               );
-              return b.execute(u, [this.bloksContext]);
+              return C.execute(u, [this.bloksContext]);
             } finally {
               a.endUpdates();
             }

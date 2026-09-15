@@ -5,10 +5,8 @@ __d(
     "use strict";
     var e = {},
       s = {
-        "wa.action.SendFieldStat": r("WAWebBloksSendFieldStat"),
-        "wa.action.commerce.ActionWithCallback": r(
-          "WAWebBloksCommerceActionWithCallback",
-        ),
+        hb3: r("WAWebBloksSendFieldStat"),
+        hbx: r("WAWebBloksCommerceActionWithCallback"),
       },
       u = {};
     ((l.COMPONENTS = e), (l.ACTIONS = s), (l.EXTENSION_HANDLERS = u));

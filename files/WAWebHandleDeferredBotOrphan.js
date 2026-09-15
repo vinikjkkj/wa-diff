@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebAddonQueryUtils",
+    "WAWebBotTypes",
     "WAWebCommonMsgUtils",
     "WAWebCreateNackFromStanza",
     "WAWebDBProcessOrphansForNewMsg",
@@ -11,6 +12,7 @@ __d(
     "WAWebHandleMsgSendReceipt",
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
+    "WAWebMessageInsertDeferredPlaceholder",
     "WAWebMsgKey",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgType",
@@ -20,23 +22,37 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p = {
+        "no-target-row":
+          "bot reply deferred: waiting for the message it replies to",
+        "placeholder-target-row":
+          "bot reply deferred: the message it replies to has not decrypted yet",
+        "wasa-root-secret-missing":
+          "bot reply deferred: no Hatch key here and syncd had none to restore",
+      };
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.canNack,
             n = e.decryptResult,
             a = e.input,
             i = e.node,
             l = a.msgInfo,
             c = a.msgMeta,
-            d = yield b(a, n, i);
-          if (d)
+            d = yield L(a, n, i);
+          if (d) {
+            yield g(a, n.deferReason);
             try {
-              yield _(n);
+              yield y(n);
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -48,6 +64,7 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("bot-orphan-settle-failed", { sampling: 0.01 });
             }
+          }
           var m = d
             ? {
                 result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.BACKFILL,
@@ -76,36 +93,45 @@ __d(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.processMessageDecryptResult(m.result));
         })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(e.targetMsgKey);
-          t != null &&
-            (yield o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(
-              t,
-            ));
-        })),
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null) return null;
-          var t = r("WAWebMsgKey").fromString(e),
-            n = yield y(t);
-          if (n != null) return n;
-          var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(t);
-          return a == null ? null : y(a);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            a = (n = e.msgBotInfo) == null ? void 0 : n.botEditType;
+          if (
+            !(
+              a != null &&
+              a !== o("WAWebBotTypes").BotMsgEditType.FIRST &&
+              a !== o("WAWebBotTypes").BotMsgEditType.FULL
+            )
+          )
+            try {
+              yield o(
+                "WAWebMessageInsertDeferredPlaceholder",
+              ).maybeInsertDeferredPlaceholder({
+                msgInfo: e.msgInfo,
+                reason:
+                  t != null
+                    ? p[t]
+                    : "bot reply deferred, waiting for its target message",
+              });
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "showDeferredPlaceholder: the deferred placeholder could not be shown",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("bot-orphan-placeholder-failed", { sampling: 0.01 });
+            }
         })),
         h.apply(this, arguments)
       );
@@ -116,6 +142,37 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield b(e.targetMsgKey);
+          t != null &&
+            (yield o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(
+              t,
+            ));
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e == null) return null;
+          var t = r("WAWebMsgKey").fromString(e),
+            n = yield S(t);
+          if (n != null) return n;
+          var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(t);
+          return a == null ? null : S(a);
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([e]),
             r = (t = n.get(e.toString())) != null ? t : null;
@@ -123,24 +180,24 @@ __d(
             ? null
             : r;
         })),
-        C.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    function L(e, t, n) {
+      return E.apply(this, arguments);
     }
-    function v() {
+    function E() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
           try {
             var l,
               s,
               u,
-              m = e.msgInfo;
+              c = e.msgInfo;
             ((a = babelHelpers.extends(
               {},
-              o("WAWebMsgProcessingApiUtils").generateBaseMsg(m),
+              o("WAWebMsgProcessingApiUtils").generateBaseMsg(c),
               {
                 type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
                 kind: o("WAWebMsgType").MsgKind.PlaceholderMessage,
@@ -149,7 +206,7 @@ __d(
                   (l = e.msgBotInfo) == null ? void 0 : l.botEditType,
                 botEditTargetId:
                   (s = e.msgBotInfo) == null ? void 0 : s.botEditTargetId,
-                botSenderTimestampMs: S(
+                botSenderTimestampMs: k(
                   (u = e.msgBotInfo) == null ? void 0 : u.botSenderTimestampMs,
                 ),
                 botOrphanStanza: o("WAWap").encodeStanza(n),
@@ -160,8 +217,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "storeOrphanBotMsg: could not build the orphan row",
                     ])),
                 )
@@ -189,8 +246,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "storeOrphanBotMsg: failed to store orphan",
                     ])),
                 )
@@ -203,10 +260,10 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function S(t) {
+    function k(t) {
       if (t == null) return null;
       var n = Number(t);
       return Number.isFinite(n) && n > 0
@@ -222,7 +279,7 @@ __d(
             .sendLogs("bot-orphan-sender-time-unparseable", { sampling: 0.01 }),
           null);
     }
-    l.handleDeferredBotOrphan = m;
+    l.handleDeferredBotOrphan = _;
   },
   98,
 );

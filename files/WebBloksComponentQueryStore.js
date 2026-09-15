@@ -13,8 +13,8 @@ __d(
         function e(e, t, n, o) {
           ((this.$2 = []),
             (this.$5 = t),
-            (this.$4 = n),
-            (this.$6 = o),
+            (this.$6 = n),
+            (this.$4 = o),
             (this.$1 = new Map()),
             (this.$3 = new (r("WebBloksComponentQueryFetcher"))(
               e,
@@ -87,9 +87,9 @@ __d(
               var l = o("WebBloksPayloadParser").parseTree(
                 i.payload,
                 this.$5,
+                this.$6,
                 this.$4,
                 void 0,
-                this.$6,
               );
               a.set(i.id, l);
             }

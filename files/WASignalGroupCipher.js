@@ -169,7 +169,7 @@ __d(
           if (l == null)
             return o("WAResultOrError").makeError("errSignalNoSession");
           var s = l.senderSigningKeyPublic,
-            u = b(i, s);
+            u = yield b(i, s);
           if (!u) return o("WAResultOrError").makeError("errSignalInvalidKey");
           var c = yield v(l, r);
           if (!c.success) return c;
@@ -299,7 +299,7 @@ __d(
     function b(e, t) {
       var n = e.subarray(e.length - s),
         r = e.subarray(0, e.length - s);
-      return o("WASignalSignatures").verifyMsgSignalVariant(
+      return o("WASignalSignatures").verifyMsgSignalVariantAsync(
         t,
         r,
         o("WASignalOther").toBytes(o("WASignalOther").toBuffer(n), 64),

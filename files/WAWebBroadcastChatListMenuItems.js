@@ -14,12 +14,12 @@ __d(
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebDropdownItemSeparator.react",
-    "WAWebInfoRefreshedIcon.react",
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
+    "WDSIconIcInfo.react",
     "WDSMenuItem.react",
     "react",
     "react-compiler-runtime",
@@ -84,7 +84,7 @@ __d(
             {
               testid: "mi-broadcast-info",
               onPress: m,
-              Icon: o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
+              Icon: r("WDSIconIcInfo.react"),
               title: o(
                 "WAWebBizBroadcastsCreationStrings",
               ).getBroadcastAudienceInfoLabel(),

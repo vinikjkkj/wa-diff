@@ -10,9 +10,9 @@ __d(
           var n = o("WebBloksPayloadParser").parseTree(
             { layout: { bloks_payload: t } },
             i.traversalKeys,
-            i.minificationMap,
+            i.useMinification,
+            i.minificationMaps,
             void 0,
-            i.loadedMinificationMaps.unminificationMap,
           );
           (e.treeManager.synchronouslyAddTreeResources(n),
             e.execute(r, [n.unboundModel]));
