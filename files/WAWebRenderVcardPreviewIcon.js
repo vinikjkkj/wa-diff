@@ -1,10 +1,6 @@
 __d(
   "WAWebRenderVcardPreviewIcon",
-  [
-    "WAWebPersonRefreshedOutlineThinIcon.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WDSIconIcPerson.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -13,11 +9,11 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(
-              o("WAWebPersonRefreshedOutlineThinIcon.react")
-                .PersonRefreshedOutlineThinIcon,
-              {},
-            )),
+          ? ((n = s.jsx(r("WDSIconIcPerson.react"), {
+              height: 20,
+              width: 20,
+              testid: "person-refreshed-outline-thin",
+            })),
             (t[0] = n))
           : (n = t[0]),
         n

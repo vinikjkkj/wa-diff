@@ -36,6 +36,7 @@ __d(
           e.FLAGS.REPEATED | e.TYPES.MESSAGE,
           s.WebMessageInfoSpec,
         ],
+        themeMessage: [5, e.TYPES.MESSAGE, s.WebMessageInfoSpec],
       }),
       (c.name = "UnCountedAssociatedMessageList"),
       (c.internalSpec = {
@@ -79,6 +80,7 @@ __d(
         ],
         commentMessages: [3, e.FLAGS.REPEATED | e.TYPES.MESSAGE, d],
         outOfWindowPinnedMessages: [4, e.FLAGS.REPEATED | e.TYPES.MESSAGE, d],
+        themeMessage: [5, e.TYPES.MESSAGE, d],
       }),
       (l.GroupHistorySpec = u),
       (l.UnCountedAssociatedMessageListSpec = c),

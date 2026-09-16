@@ -63,155 +63,161 @@ __d(
       );
     }
     function d() {
-      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "web_channel_status_likes_sending_enabled",
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_likes_poster_counter_enabled",
       );
     }
     function m() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "web_channel_status_likes_sending_enabled_no_exposure",
+        "web_channel_status_likes_sending_enabled",
       );
     }
     function p() {
-      return o("WAWebABProps").getABPropConfigValue("status_mentions_receiver");
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "web_channel_status_likes_sending_enabled_no_exposure",
+      );
     }
     function _() {
+      return o("WAWebABProps").getABPropConfigValue("status_mentions_receiver");
+    }
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_mention_message",
       );
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_pog_id_rotation_window_days",
       );
     }
-    function g() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue("web_show_to_hide_enabled");
     }
-    function h() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_comet_video_player_enabled",
       );
     }
-    function y() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_viewer_side_poster_identifiers_enabled",
       );
     }
-    function C() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_viewer_action_psa_link_click_logging_enabled",
       );
     }
-    function b() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "waweb_status_close_friends_viewer_side_enabled",
       );
     }
-    function v() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_reshare_attribution_enabled",
       );
     }
-    function S() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_reshare_poster_side_enabled",
       );
     }
-    function R() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_resharer_flow_enabled",
       );
     }
-    function L() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_send_over_status_stanza",
       );
     }
-    function E() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_recv_over_status_stanza",
       );
     }
-    function k() {
-      return L() && I();
-    }
     function I() {
-      return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");
+      return E() && T();
     }
     function T() {
-      return E() && D();
+      return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");
     }
     function D() {
-      return o("WAWebABProps").getABPropConfigValue("web_status_recv_via_smax");
+      return k() && x();
     }
     function x() {
+      return o("WAWebABProps").getABPropConfigValue("web_status_recv_via_smax");
+    }
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_batched_status_sending_enabled",
       );
     }
-    function $() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_chat_thread_and_info_status_ring",
       );
     }
-    function P() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_player_avatar_status_creation_entrypoint",
       );
     }
-    function N() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_new_at_end",
       );
     }
-    function M() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_status_chain_unseen_min_pog",
       );
     }
-    function w() {
+    function A() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_chaining_from_my_status",
       );
     }
-    function A() {
+    function F() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_chain_from_my_interaction_limit",
       );
     }
-    function F() {
+    function O() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_from_chatlist",
       );
     }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
-      (l.isChannelStatusLikesSendEnabled = d),
-      (l.isChannelStatusLikesSendEnabledNoExposure = m),
-      (l.isStatusPrivateMentionsReceiveEnabled = p),
-      (l.isStatusMentionMessageEnabled = _),
-      (l.statusPogIdRotationWindowDays = f),
-      (l.isStatusHideStringEnabled = g),
-      (l.isStatusCometVideoPlayerEnabled = h),
-      (l.isStatusViewerSidePosterIdentifiersEnabled = y),
-      (l.isStatusViewerActionPsaLinkClickLoggingEnabled = C),
-      (l.isStatusCloseFriendsViewerSideEnabled = b),
-      (l.isStatusReshareAttributionEnabled = v),
-      (l.isStatusResharePosterSideEnabled = S),
-      (l.isStatusReshareViewerFlowEnabled = R),
-      (l.isStatusStanzaSendEnabled = L),
-      (l.isStatusStanzaReceiveEnabled = E),
-      (l.isStatusPublishViaSmaxEnabled = k),
-      (l.isStatusDeliverViaSmaxEnabled = T),
-      (l.isBatchedStatusSendingEnabled = x),
-      (l.isStatusRingOutsideChatlistEnabled = $),
-      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = P),
-      (l.isStatusAddUnseenAtEndEnabled = N),
-      (l.statusChainUnseenMinPog = M),
-      (l.isChainingFromMyStatusEnabled = w),
-      (l.getStatusChainFromMyInteractionLimit = A),
-      (l.isChainFromChatListEnabled = F));
+      (l.isStatusLikesPosterCounterEnabled = d),
+      (l.isChannelStatusLikesSendEnabled = m),
+      (l.isChannelStatusLikesSendEnabledNoExposure = p),
+      (l.isStatusPrivateMentionsReceiveEnabled = _),
+      (l.isStatusMentionMessageEnabled = f),
+      (l.statusPogIdRotationWindowDays = g),
+      (l.isStatusHideStringEnabled = h),
+      (l.isStatusCometVideoPlayerEnabled = y),
+      (l.isStatusViewerSidePosterIdentifiersEnabled = C),
+      (l.isStatusViewerActionPsaLinkClickLoggingEnabled = b),
+      (l.isStatusCloseFriendsViewerSideEnabled = v),
+      (l.isStatusReshareAttributionEnabled = S),
+      (l.isStatusResharePosterSideEnabled = R),
+      (l.isStatusReshareViewerFlowEnabled = L),
+      (l.isStatusStanzaSendEnabled = E),
+      (l.isStatusStanzaReceiveEnabled = k),
+      (l.isStatusPublishViaSmaxEnabled = I),
+      (l.isStatusDeliverViaSmaxEnabled = D),
+      (l.isBatchedStatusSendingEnabled = $),
+      (l.isStatusRingOutsideChatlistEnabled = P),
+      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = N),
+      (l.isStatusAddUnseenAtEndEnabled = M),
+      (l.statusChainUnseenMinPog = w),
+      (l.isChainingFromMyStatusEnabled = A),
+      (l.getStatusChainFromMyInteractionLimit = F),
+      (l.isChainFromChatListEnabled = O));
   },
   98,
 );

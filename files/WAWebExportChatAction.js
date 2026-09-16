@@ -14,6 +14,7 @@ __d(
     "WAWebFileSaverDownloadData",
     "WAWebFileSaverTypes",
     "WAWebLimitSharingUIUtils",
+    "WAWebMediaLocalAvailability",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebMsgType",
@@ -209,7 +210,7 @@ __d(
                   o("WAWebExportChatMarkdownFormatter").MEDIA_TYPES.has(
                     e.type,
                   ) &&
-                  o("WAWebFileSaverDownloadData").isMsgMediaAvailableLocally(e)
+                  o("WAWebMediaLocalAvailability").isMsgMediaAvailableLocally(e)
                 );
               });
               if (

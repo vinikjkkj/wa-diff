@@ -2,10 +2,10 @@ __d(
   "WAWebApiParseUtils",
   ["WAWebBuildConstants"],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-        return t.replace(/\/+$/, "");
-      },
-      s = e(o("WAWebBuildConstants").BUILD_URL).replace(/[\/\.]/g, "\\$&"),
+    function e(e) {
+      return e.replace(/\/+$/, "");
+    }
+    var s = e(o("WAWebBuildConstants").BUILD_URL).replace(/[\/\.]/g, "\\$&"),
       u = "((?:/\\w+)*)",
       c = "(?:(?:/\\w+)*)";
     function d(e) {

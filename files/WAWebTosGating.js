@@ -5,6 +5,7 @@ __d(
     "WAWebABPropsInternalNumber",
     "WAWebBotGating",
     "WAWebBotTos",
+    "WAWebBotTosIds",
     "WAWebBotUtils",
     "WAWebHandleMsgTypes.flow",
     "WAWebPDFNCommonUtils",
@@ -27,14 +28,20 @@ __d(
       return !1;
     }
     function s(e) {
-      return (!e.id.isBot() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_bot_tos_check_refiniement",
-        )) ||
+      if (
+        (!e.id.isBot() &&
+          o("WAWebABProps").getABPropConfigValue(
+            "wa_web_bot_tos_check_refiniement",
+          )) ||
         o("WAWebBotTos").hasAcceptedNonBlockingBotTos() ||
         o("WAWebPDFNCommonUtils").hasAcceptedTos(
           String(o("WAWebBotGating").getMasterBotNoticeId()),
-        ) ||
+        )
+      )
+        return !1;
+      var t = o("WAWebBotTosIds").getBusinessAssistantLegacyNoticeId();
+      return (t != null &&
+        o("WAWebPDFNCommonUtils").hasAcceptedTos(String(t))) ||
         o("WAWebBotUtils").isBotChannelFBID(e.id)
         ? !1
         : !!(

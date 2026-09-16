@@ -22,7 +22,6 @@ __d(
     "WAWebMessagePosition",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
-    "WAWebMutedIcon.react",
     "WAWebPttFindSequentialMsg",
     "WAWebPttGetDurationFromMediaOrProtobuf",
     "WAWebPtvDownloadState.react",
@@ -30,6 +29,7 @@ __d(
     "WAWebStateUtils",
     "WAWebUnstyledButton.react",
     "WAWebVideo.react",
+    "WDSIconIcVolumeOff.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "bx",
@@ -44,7 +44,6 @@ __d(
     "useWAWebModelValues",
     "useWAWebMsgDownloadMedia",
     "useWAWebMsgValues",
-    "useWAWebPrevious",
     "useWAWebSendViewCount",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -255,7 +254,7 @@ __d(
       var Z = g(!1),
         ee = Z[0],
         te = Z[1],
-        ne = r("useWAWebPrevious")(ee),
+        ne = f(null),
         re = f(null),
         oe = g(!1),
         ae = oe[0],
@@ -351,27 +350,39 @@ __d(
       var pe = r("useWAWebIntersection")({ root: null, threshold: 0 }),
         _e = pe[0],
         fe = pe[1].isIntersecting,
-        ge = r("useWAWebPrevious")(fe);
-      (!fe &&
-        ge === !0 &&
-        (self.setTimeout(function () {
-          var e;
-          (e = v.current) == null || e.pause("product_initiated");
-        }, 100),
-        (ce.current = 0)),
+        ge = f(null);
+      (_(
+        function () {
+          var e = ge.current;
+          if (((ge.current = fe), !fe && e === !0)) {
+            var t = self.setTimeout(function () {
+              var e;
+              (e = v.current) == null || e.pause("product_initiated");
+            }, 100);
+            return (
+              (ce.current = 0),
+              function () {
+                self.clearTimeout(t);
+              }
+            );
+          }
+        },
+        [fe],
+      ),
         _(
           function () {
-            if (ee && ne === !1) {
-              var e = v.current;
-              (e &&
-                (e.seek(0),
-                e.play(),
+            var e = ne.current;
+            if (((ne.current = ee), ee && e === !1)) {
+              var t = v.current;
+              (t &&
+                (t.seek(0),
+                t.play(),
                 o("WAWebMarkPlayedMsgAction").canMarkPlayed(c.unsafe()) &&
                   o("WAWebMarkPlayedMsgAction").markPlayed(c.unsafe())),
                 (ce.current = 0));
             }
           },
-          [ee, c, ne],
+          [ee, c],
         ));
       var he = r("useWAWebEventTargetValue")(
           b ? null : R,
@@ -603,7 +614,9 @@ __d(
                             className:
                               "x10l6tqk x1wa3icf xh8yej3 x1awj2ng x1pg5gke x1xlr1w8 xhtitgo",
                             children: [
-                              d.jsx(o("WAWebMutedIcon.react").MutedIcon, {
+                              d.jsx(r("WDSIconIcVolumeOff.react"), {
+                                height: 10,
+                                testid: "muted",
                                 width: 10,
                                 xstyle: [
                                   x.muteIcon,

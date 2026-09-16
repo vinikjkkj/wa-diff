@@ -18,6 +18,7 @@ __d(
     "WAWebGetUserDisclosuresAction",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMmSignalSharingTos",
+    "WAWebMobilePlatforms",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebTosGatingUtils",
@@ -87,6 +88,8 @@ __d(
                 e.add(t.getBotLegacyInvokeTosId()));
               var n = o("WAWebBotGating").getMasterBotNoticeId();
               n != null && e.add(n.toString());
+              var r = o("WAWebBotTosIds").getBusinessAssistantLegacyNoticeId();
+              r != null && e.add(r.toString());
             }
             return (
               (o("WAWebBotBaseGating").isBizBot1pEnabled() ||
@@ -484,7 +487,9 @@ __d(
       return (
         o("WAWebTosGatingUtils").tosFetchEnabled() ||
         o("WAWebBotBaseGating").isBizBot1pEnabled() ||
-        o("WAWebBotBaseGating").isBizBot3pEnabled()
+        o("WAWebBotBaseGating").isBizBot3pEnabled() ||
+        (o("WAWebMobilePlatforms").isSMB() &&
+          o("WAWebBotBaseGating").isBotEnabled())
       );
     }
     var C = new h();

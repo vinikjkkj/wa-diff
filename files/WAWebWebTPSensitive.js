@@ -5,7 +5,6 @@ __d(
     "WAWebABProps",
     "WAWebEnvironment",
     "WDSIconIcOpenInNew.react",
-    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -30,7 +29,7 @@ __d(
       );
     }
     function m() {
-      return r("WAWebEnvironment").isWindows && r("justknobx")._("5836")
+      return r("WAWebEnvironment").isWindows
         ? s._(/*BTDS*/ "Opens Acrobat in a new window.")
         : s._(/*BTDS*/ "Opens Acrobat in a new tab.");
     }

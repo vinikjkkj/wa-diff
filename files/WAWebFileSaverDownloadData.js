@@ -28,7 +28,7 @@ __d(
           try {
             var l = yield (u || (u = n("Promise"))).all(
               i.map(function (e) {
-                return p(e, a);
+                return m(e, a);
               }),
             );
             if (l.length > 1) {
@@ -66,24 +66,12 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e) {
-      if (e.mediaData == null) return !1;
-      var t = e.mediaData,
-        n = t.filehash,
-        a = t.mediaBlob;
-      return a instanceof r("WAWebMediaOpaqueData")
-        ? !0
-        : n == null
-          ? !1
-          : o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(n) !=
-            null;
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = !1);
           var a = "text/vcard";
           if (e.type === o("WAWebMsgType").MSG_TYPE.VCARD)
@@ -112,7 +100,7 @@ __d(
             if (i.length > 0) {
               var l = yield (u || (u = n("Promise"))).all(
                 i.map(function (e) {
-                  return p(e, t);
+                  return m(e, t);
                 }),
               );
               if (l.length === 1) return l[0];
@@ -141,7 +129,7 @@ __d(
               r("err")("Album message has no associated child messages")
             );
           }
-          var d = f(e);
+          var d = _(e);
           if (d) return d;
           yield e.downloadMedia({
             downloadEvenIfExpensive: !0,
@@ -150,14 +138,14 @@ __d(
             isUserInitiated: !0,
             shouldThrowAbortError: t,
           });
-          var m = f(e);
-          if (m) return m;
+          var p = _(e);
+          if (p) return p;
           throw r("err")("Unable to download because blob cannot be found");
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e) {
+    function _(e) {
       if (e.mediaData == null) return null;
       var t = e.mediaData,
         n = t.filehash,
@@ -180,9 +168,7 @@ __d(
           }
         : null;
     }
-    ((l.getMultiMsgDownloadData = c),
-      (l.isMsgMediaAvailableLocally = m),
-      (l.getMsgDownloadData = p));
+    ((l.getMultiMsgDownloadData = c), (l.getMsgDownloadData = m));
   },
   98,
 );

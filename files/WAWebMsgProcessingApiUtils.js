@@ -890,10 +890,7 @@ __d(
               ((u = o(
                 "WAWebMsmsgMsgSecretCache",
               ).msmsgBotGroupGossipDataCache.getMsmsgBotGroupGossipDataFromCache(
-                l,
-                t,
-                a,
-                n,
+                { fromMe: l, id: a, participant: n, remote: t },
               )),
                 (s.participant =
                   (i = o("WAWebLidMigrationUtils").toPn(n)) != null ? i : n));

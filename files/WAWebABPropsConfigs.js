@@ -1457,7 +1457,6 @@ __d(
       group_from_group: [24024, "bool", !1, !0],
       group_from_group_admin_max_size: [34956, "int", 128, 128],
       group_from_group_ban_risk_mitigation_enabled: [34955, "bool", !1, !1],
-      group_from_group_max_missing_privacy_tokens: [34957, "int", 32, 32],
       group_history_after_join_prerequisites: [28787, "bool", !1, !1],
       group_history_after_join_sender_prerequisites: [35987, "bool", !0, !0],
       group_history_bump_message_id: [16346, "int", 200, 200],

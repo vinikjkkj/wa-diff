@@ -2,6 +2,7 @@ __d(
   "WormQueueDatabase",
   [
     "FBLogger",
+    "QPLFlow",
     "Worm",
     "WormEar",
     "WormStoreRunner",
@@ -22,30 +23,54 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.blockingErrorThreshold,
             n = e.dbAlias,
-            r = e.dbName,
-            a = e.encKey,
-            i = e.makeDriver,
-            l = e.odsLogger,
-            s = e.onBlockingError,
-            u = e.qplEvent,
-            d = e.schema,
-            m = null,
-            p = i({
+            a = e.dbName,
+            i = e.encKey,
+            l = e.makeDriver,
+            s = e.odsLogger,
+            u = e.onBlockingError,
+            d = e.qplEvent,
+            m = e.schema,
+            p =
+              d != null
+                ? o("QPLFlow").startQPLFlow(d, {
+                    annotations: {
+                      string: {
+                        dbAlias: n,
+                        operationType: "openWormQueueDatabase",
+                      },
+                    },
+                    timeoutInMs: o("Worm").OP_TIMEOUT_MS,
+                  })
+                : null,
+            _ = null;
+          try {
+            var f = l({
               dbAlias: n,
-              dbName: r,
-              encKey: a,
-              odsLogger: l,
+              dbName: a,
+              encKey: i,
+              odsLogger: s,
               options: {
                 blockingErrorThreshold: t,
-                onBlockingError: s,
+                onBlockingError: u,
                 onTransactionError: function (t) {
-                  c(m, n, t);
+                  c(_, n, t);
                 },
               },
-              schema: d,
-            }),
-            _ = new (o("Worm").WormDatabase)(p, u);
-          return ((m = _), yield _.init(), _);
+              schema: m,
+            });
+            ((_ = new (o("Worm").WormDatabase)(f, d)),
+              yield _.init({ eventFlow: p }),
+              p == null || p.endSuccess());
+          } catch (e) {
+            throw (
+              p == null ||
+                p.endFail("error", {
+                  string: { error_name: r("getErrorSafe")(e).name },
+                }),
+              e
+            );
+          }
+          return _;
         })),
         u.apply(this, arguments)
       );

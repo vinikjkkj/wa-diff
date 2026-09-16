@@ -73,16 +73,16 @@ __d(
       }
       return null;
     }
-    var g = function (t) {
-      var e;
-      return t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        t.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        o("WAWebE2EProtoUtils").isOrderNativeFlow(t.nativeFlowName) &&
-        (e = t.interactivePayload) != null &&
-        e.buttons
-        ? t.interactivePayload.buttons[0]
+    function g(e) {
+      var t;
+      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        o("WAWebE2EProtoUtils").isOrderNativeFlow(e.nativeFlowName) &&
+        (t = e.interactivePayload) != null &&
+        t.buttons
+        ? e.interactivePayload.buttons[0]
         : null;
-    };
+    }
     function h(e) {
       var t = g(e);
       if (t == null) return null;

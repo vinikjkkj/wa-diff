@@ -162,7 +162,9 @@ __d(
     function v(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId(),
         n = [];
-      switch ((t != null && n.push(t), e)) {
+      t != null && n.push(t);
+      var r = o("WAWebBotTosIds").getBusinessAssistantLegacyNoticeId();
+      switch ((r != null && n.push(r), e)) {
         case o("WAWebBotLogging").BotEntryPointType.Shortcut:
         case o("WAWebBotLogging").BotEntryPointType.Search:
           (n.push(Number(o("WAWebBotTosIds").getBotShortcutTosId())),
@@ -174,9 +176,9 @@ __d(
           break;
       }
       if (o("WAWebBotGating").isMigrateAwayFromInlineBotTosEnabled()) {
-        var r = o("WAWebBotGating").getInlineBotNoticeIds();
+        var a = o("WAWebBotGating").getInlineBotNoticeIds();
         return n.filter(function (e) {
-          return !r.includes(Number(e));
+          return !a.includes(Number(e));
         });
       }
       return n;

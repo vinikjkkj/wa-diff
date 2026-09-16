@@ -1,6 +1,6 @@
 __d(
   "WMIQplFlow",
-  ["QPLEvent", "QPLFlow", "WMIInMemoryTokenBucketRateLimiter", "WmiOds", "qex"],
+  ["QPLEvent", "QPLFlow", "WMIInMemoryTokenBucketRateLimiter", "WmiOds"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,11 +11,10 @@ __d(
       m = { capacity: c, refillIntervalMs: d / c },
       p = null;
     function _(t, n) {
-      if (r("qex")._("2708") !== !0) return o("QPLFlow").startQPLFlow(t, n);
-      var a = (e || (e = o("QPLEvent"))).getMarkerId(t);
-      return f().check(String(a)).allowed
+      var r = (e || (e = o("QPLEvent"))).getMarkerId(t);
+      return f().check(String(r)).allowed
         ? o("QPLFlow").startQPLFlow(t, n)
-        : (o("WmiOds").wmiOdsBump(s, u + "." + a),
+        : (o("WmiOds").wmiOdsBump(s, u + "." + r),
           o("QPLFlow").startNoopQPLFlow());
     }
     function f() {

@@ -31,42 +31,51 @@ __d(
       u,
       c,
       d,
-      m = ["pending-mutations"];
-    function p() {
+      m,
+      p,
+      _ = ["pending-mutations"];
+    function f() {
       return o("WAWebSyncdDisabled").isSyncdDisabled()
-        ? (d || (d = n("Promise"))).resolve()
-        : (_(),
+        ? (p || (p = n("Promise"))).resolve()
+        : (g(),
           o("WAWebEventsWaitForOfflineDeliveryEnd")
             .waitForOfflineDeliveryEnd()
             .then(function () {
               o("WAWebSyncd").processOnAppResume();
             }),
-          f(),
+          h(),
           o("WAWebSyncd").initializeStateMachine());
     }
-    function _() {
+    function g() {
       var e = 6e4,
         t = r("WAWebDebounce")(o("WAWebSyncd").reportWam, e, {
           maxWait: e * 3,
         });
       o("WAWebBackendEventBus").BackendEventBus.onAppStateSyncCompleted(t);
     }
-    function f() {
-      return g.apply(this, arguments);
+    function h() {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[syncd] sync-actions sanitation start",
+              ])),
+          );
           var t = yield o(
             "WAWebUserPrefsAppStateSync",
           ).getMdSyncActionsActionSanitized();
-          if (!t) {
+          if (t)
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[syncd] sanitizing null action in sync-actions",
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[syncd] sync-actions sanitation completed: alreadySanitized=true",
                 ])),
             );
+          else {
             var n = yield o("WAWebSchemaSyncActions")
                 .getSyncActionsTable()
                 .all(),
@@ -101,14 +110,26 @@ __d(
               yield o("WAWebSyncdDb").updateSyncActionRows(l),
               yield o(
                 "WAWebUserPrefsAppStateSync",
-              ).setMdSyncActionsActionSanitized(!0));
+              ).setMdSyncActionsActionSanitized(!0),
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[syncd] sync-actions sanitation completed: alreadySanitized=false, rows=",
+                    ", nullActions=",
+                    ", unknownActions=",
+                    "",
+                  ])),
+                n.length,
+                r.length,
+                i,
+              ));
           }
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e, t, r) {
-      var a = [].concat(e, m);
+    function C(e, t, r) {
+      var a = [].concat(e, _);
       o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
         a.push("chat", "sync-actions");
       var i = o("WAWebModelStorageUtils")
@@ -118,8 +139,8 @@ __d(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var a = yield y(t);
-                return (d || (d = n("Promise"))).all([
+                var a = yield b(t);
+                return (p || (p = n("Promise"))).all([
                   o("WAWebSyncdDb").appendPendingMutationsRows(t.concat(a)),
                   r(e),
                 ]);
@@ -136,14 +157,14 @@ __d(
           });
           o("WAWebSyncd").markCollectionsForSync(e);
         });
-      return (d || (d = n("Promise"))).resolve(i);
+      return (p || (p = n("Promise"))).resolve(i);
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !o(
               "WAWebLid1X1MigrationGating",
@@ -155,7 +176,7 @@ __d(
             return [];
           var t = 0,
             a = 0,
-            i = (yield (d || (d = n("Promise"))).all(
+            i = (yield (p || (p = n("Promise"))).all(
               e.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -210,8 +231,8 @@ __d(
             t > 0 &&
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[syncd] getPnMutationsForLidCleanup: ",
                       " non-array indexes",
                     ])),
@@ -221,8 +242,8 @@ __d(
             a > 0 &&
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[syncd] getPnMutationsForLidCleanup: ",
                       " non-string JIDs",
                     ])),
@@ -238,12 +259,12 @@ __d(
             )
           );
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.initialize = p),
-      (l.sanitizeActionInSyncActionsRow = f),
-      (l.lockForSync = h));
+    ((l.initialize = f),
+      (l.sanitizeActionInSyncActionsRow = h),
+      (l.lockForSync = C));
   },
   98,
 );

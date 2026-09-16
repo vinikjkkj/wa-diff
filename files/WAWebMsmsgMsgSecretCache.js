@@ -37,26 +37,30 @@ __d(
           (t.addMsmsgBotGroupGossipDataToCache = function (t, n) {
             this.cache.set(t, n);
           }),
-          (t.getMsmsgBotGroupGossipDataFromCache = function (t, n, a, i) {
-            var e = new (r("WAWebMsgKey"))({
-                fromMe: t,
-                remote: n,
-                id: a,
-                participant: i,
+          (t.getMsmsgBotGroupGossipDataFromCache = function (t) {
+            var e = t.fromMe,
+              n = t.id,
+              a = t.participant,
+              i = t.remote,
+              l = new (r("WAWebMsgKey"))({
+                fromMe: e,
+                remote: i,
+                id: n,
+                participant: a,
               }).toString(),
-              l = this.cache.get(e);
-            if (l == null) {
-              var s,
-                u = new (r("WAWebMsgKey"))({
-                  fromMe: t,
-                  remote: n,
-                  id: a,
+              s = this.cache.get(l);
+            if (s == null) {
+              var u,
+                c = new (r("WAWebMsgKey"))({
+                  fromMe: e,
+                  remote: i,
+                  id: n,
                   participant:
-                    (s = o("WAWebLidMigrationUtils").toPn(i)) != null ? s : i,
+                    (u = o("WAWebLidMigrationUtils").toPn(a)) != null ? u : a,
                 }).toString();
-              l = this.cache.get(u);
+              s = this.cache.get(c);
             }
-            return l;
+            return s;
           }),
           (t.deleteMsmsgBotGroupGossipDataFromCache = function (t) {
             this.cache.delete(t);

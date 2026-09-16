@@ -65,76 +65,85 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e instanceof Blob ? e : e.getBlob();
+          if (t == null) throw r("err")("blob is null");
+          var n = yield o("WABlobToArrayBuffer").blobToArrayBuffer(t);
+          return o("fflate").unzipSync(new Uint8Array(n));
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.stickers,
-            a = t.trayIconFileName,
-            i = null;
-          if ((e instanceof Blob ? (i = e) : (i = e.getBlob()), i == null))
-            throw r("err")("blob is null");
-          var l = yield o("WABlobToArrayBuffer").blobToArrayBuffer(i),
-            s = new Uint8Array(l),
-            u = yield o("fflate").unzipSync(s),
-            c = [],
-            d = function* () {
-              var e = m[0],
-                t = m[1];
-              if (e === a) return 1;
+            r = t.trayIconFileName,
+            a = yield c(e),
+            i = [],
+            l = function* () {
+              var e = s[0],
+                t = s[1];
+              if (e === r) return 1;
               if (t instanceof Uint8Array) {
-                var r,
-                  i = t.buffer,
-                  l = yield o("WAMediaCalculateFilehash").calculateFilehash(i),
-                  s =
+                var a,
+                  l = t.buffer,
+                  u = yield o("WAMediaCalculateFilehash").calculateFilehash(l),
+                  c =
                     n == null
                       ? void 0
                       : n.find(function (t) {
                           return t.fileName === e;
                         }),
-                  u =
-                    (r = s == null ? void 0 : s.mimetype) != null
-                      ? r
+                  d =
+                    (a = c == null ? void 0 : c.mimetype) != null
+                      ? a
                       : "image/webp";
                 o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
-                  l,
-                  new Blob([i], { type: u }),
+                  u,
+                  new Blob([l], { type: d }),
                 );
-                var d = new (o("WAWebStickerModel").StickerModel)({
-                  mimetype: u,
+                var m = new (o("WAWebStickerModel").StickerModel)({
+                  mimetype: d,
                   width: 250,
                   height: 250,
-                  filehash: l,
-                  id: l,
+                  filehash: u,
+                  id: u,
                   directPath: "",
                   mediaKey: "",
                   encFilehash: "",
                   mediaKeyTimestamp: 0,
                 });
-                if (s != null) {
+                if (c != null) {
                   var p, _;
-                  d.mediaData.set({
-                    isLottie: (p = s.isLottie) != null ? p : !1,
-                    isAnimated: (_ = s.isAnimated) != null ? _ : !1,
+                  m.mediaData.set({
+                    isLottie: (p = c.isLottie) != null ? p : !1,
+                    isAnimated: (_ = c.isAnimated) != null ? _ : !1,
                   });
                 }
-                c.push(d);
+                i.push(m);
               }
             };
-          for (var m of Object.entries(u)) yield* d();
-          return c;
+          for (var s of Object.entries(a)) yield* l();
+          return i;
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = e.context,
               n = e.gap,
@@ -178,10 +187,10 @@ __d(
             }
           }
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
+    function g(e) {
       if (o("WAWebApiParse").isStickerPackURL(e)) {
         var t = new URL(e),
           n = t.pathname.split("/"),
@@ -191,12 +200,12 @@ __d(
         return i;
       }
     }
-    function f(e, t, n, r, o) {
-      return g.apply(this, arguments);
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             (t === void 0 &&
               (t = o("WAWebStickerPackConstants").THUMBNAIL_LENGTH),
@@ -224,7 +233,7 @@ __d(
                 break;
             }
             return (
-              yield m({
+              yield _({
                 context: l,
                 gap: o("WAWebStickerPackConstants").PADDING,
                 imageL: r,
@@ -240,15 +249,15 @@ __d(
             );
           },
         )),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           r === void 0 &&
             (r = o("WAWebStickerPackConstants").STICKER_GRID_COUNT);
           var a = o("WAWebCanvasUtils").createCanvas(
@@ -258,7 +267,7 @@ __d(
             i = a.getContext("2d"),
             l = t.slice(0, r);
           if (l.length < r) {
-            var s = yield C(l[0]);
+            var s = yield v(l[0]);
             return (
               s != null &&
                 i.drawImage(
@@ -276,7 +285,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, t) {
-                    var n = yield C(e);
+                    var n = yield v(e);
                     return n != null ? { image: n, index: t } : null;
                   },
                 );
@@ -312,15 +321,15 @@ __d(
             }
           return a;
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return null;
           var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
             e.mediaData.filehash,
@@ -333,14 +342,15 @@ __d(
             window.URL.revokeObjectURL(n);
           }
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.compressedRecentStickers = s),
-      (l.decompressStickerPackMedia = c),
-      (l.extractStickerPackIdFromUrl = _),
-      (l.generateStickerPackThumbnail = f),
-      (l.generateStickerGridThumbnail = h));
+      (l.unzipStickerPackMedia = c),
+      (l.decompressStickerPackMedia = m),
+      (l.extractStickerPackIdFromUrl = g),
+      (l.generateStickerPackThumbnail = h),
+      (l.generateStickerGridThumbnail = C));
   },
   98,
 );

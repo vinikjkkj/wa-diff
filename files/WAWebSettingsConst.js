@@ -28,6 +28,7 @@ __d(
         "NewsletterReports",
         "Blocked",
         "MediaAutoDownload",
+        "MediaAutoDownloadQuality",
         "MediaUploadQuality",
         "Security",
         "PrivacyVisibilityEditLastSeen",

@@ -49,14 +49,14 @@ __d(
         );
       })(d),
       _ = new Set([u.LEVEL_1, u.LEVEL_2]),
-      f = new Set([u.LEVEL_3, u.LEVEL_4]),
-      g = function (t) {
-        return _.has(t);
-      },
-      h = function (t) {
-        return f.has(t);
-      },
-      y = (function (e) {
+      f = new Set([u.LEVEL_3, u.LEVEL_4]);
+    function g(e) {
+      return _.has(e);
+    }
+    function h(e) {
+      return f.has(e);
+    }
+    var y = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }

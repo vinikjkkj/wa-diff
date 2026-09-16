@@ -2,7 +2,7 @@ __d(
   "Worm",
   [
     "FBLogger",
-    "WMIQplFlow",
+    "QPLFlow",
     "WormDump",
     "WormReadOnlyStoreAccessor",
     "asyncToGeneratorRuntime",
@@ -39,7 +39,7 @@ __d(
               function* (t, n, a, i) {
                 var l =
                   this.$1 != null
-                    ? o("WMIQplFlow").startQplFlow(this.$1, {
+                    ? o("QPLFlow").startQPLFlow(this.$1, {
                         annotations: {
                           bool: { isReadonly: n === "readonly" },
                           string: {

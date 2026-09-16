@@ -1,6 +1,6 @@
 __d(
   "WAWebBotTosIds",
-  ["WAWebABProps", "WAWebBotGating", "WAWebBotLogging"],
+  ["WAWebABProps", "WAWebBotGating", "WAWebBotLogging", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     var e = "20230901",
       s = "20230902",
@@ -52,6 +52,15 @@ __d(
     function b() {
       return d;
     }
+    function v() {
+      if (!o("WAWebMobilePlatforms").isSMB()) return null;
+      var e = o("WAWebABProps")
+        .getABPropConfigValue("smb_meta_ai_tos_notice_id")
+        .trim();
+      if (!/^\d+$/.test(e)) return null;
+      var t = Number(e);
+      return Number.isSafeInteger(t) && t > 0 ? t : null;
+    }
     ((l.supportedTosNoticeIds = m),
       (l.getBotAgentTosId = p),
       (l.getBotShortcutTosId = _),
@@ -60,7 +69,8 @@ __d(
       (l.getBotLegacyInvokeTosId = h),
       (l.getBizBotTosId = y),
       (l.getApplicableBotNoticeId = C),
-      (l.getUgcAiStudioTosId = b));
+      (l.getUgcAiStudioTosId = b),
+      (l.getBusinessAssistantLegacyNoticeId = v));
   },
   98,
 );

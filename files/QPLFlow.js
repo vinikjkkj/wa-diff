@@ -1,6 +1,6 @@
 __d(
   "QPLFlow",
-  ["QPLUserFlow", "Random", "asyncToGeneratorRuntime"],
+  ["QPLUserFlow", "Random", "asyncToGeneratorRuntime", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 0,
@@ -114,7 +114,28 @@ __d(
     function _(e, t, n) {
       return o("Random").coinflip(t) ? c(e, n) : p();
     }
-    var f = (function () {
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n = yield t();
+            return (e.endSuccess(), n);
+          } catch (t) {
+            throw (
+              e.endFail("error", {
+                string: { error_name: r("getErrorSafe")(t).name },
+              }),
+              t
+            );
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    var h = (function () {
       function e(e, t) {
         ((this.qplFlow = e), (this.subspanName = t));
       }
@@ -166,7 +187,8 @@ __d(
       (l.makeQplFlow = m),
       (l.startNoopQPLFlow = p),
       (l.startQplFlowWithCoinflip = _),
-      (l.QplSubspan = f));
+      (l.endWith = f),
+      (l.QplSubspan = h));
   },
   98,
 );

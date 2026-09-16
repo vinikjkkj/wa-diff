@@ -7,6 +7,8 @@ __d(
     "WAWebFtsMsgsChatlessCollection",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
+    "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,7 +17,11 @@ __d(
       return e.filter(function (e) {
         return (
           o("WAWebFrontendMsgGetters").getAsVisualMedia(e) != null &&
-          o("WAWebMsgGetters").getIsViewOnce(e) === !1
+          o("WAWebMsgGetters").getIsViewOnce(e) === !1 &&
+          o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+            o("WAWebViewMode.flow").ViewModeSurface.SEARCH,
+            e.viewMode,
+          )
         );
       });
     }

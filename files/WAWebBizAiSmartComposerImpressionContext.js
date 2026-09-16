@@ -1,62 +1,98 @@
 __d(
   "WAWebBizAiSmartComposerImpressionContext",
   [
+    "WALogger",
     "WAWebBizAiSmartComposerLogEvents",
+    "getErrorSafe",
     "react",
     "react-compiler-runtime",
     "useWAWebOnUnmount",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = e,
-      c = u.useCallback,
-      d = u.useContext,
-      m = u.useRef,
-      p = { current: new Set() },
-      _ = new WeakMap(),
-      f = s.createContext(p),
-      g = new WeakMap(),
+      s,
+      u = s || (s = o("react")),
+      c = s,
+      d = c.useCallback,
+      m = c.useContext,
+      p = c.useRef,
+      _ = { current: new Set() },
+      f = new WeakMap(),
+      g = u.createContext(_),
       h = new WeakMap(),
-      y = new WeakMap();
-    function C(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.children,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = new Set()), (t[0] = a))
-        : (a = t[0]);
-      var i = m(a),
-        l;
-      (t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = function () {
-            var e = _.get(i);
-            e != null && (_.delete(i), e.onExit(e.card));
+      y = new WeakMap(),
+      C = new WeakMap(),
+      b = new WeakMap();
+    function v(t) {
+      var n = o("react-compiler-runtime").c(4),
+        a = t.children,
+        i;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = new Set()), (n[0] = i))
+        : (i = n[0]);
+      var l = p(i),
+        s;
+      (n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = function () {
+            var t = C.get(l);
+            C.delete(l);
+            for (var n of t != null ? t : [])
+              try {
+                n();
+              } catch (t) {
+                var a = t;
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[SmartComposer] session-exit handler failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(a))
+                  .sendLogs(
+                    "biz-ai-smart-composer-session-exit-handler-failed",
+                  );
+              }
+            var i = f.get(l);
+            i != null && (f.delete(l), i.onExit(i.card));
           }),
-          (t[1] = l))
-        : (l = t[1]),
-        r("useWAWebOnUnmount")(l));
-      var u;
+          (n[1] = s))
+        : (s = n[1]),
+        r("useWAWebOnUnmount")(s));
+      var c;
       return (
-        t[2] !== n
-          ? ((u = s.jsx(f.Provider, { value: i, children: n })),
-            (t[2] = n),
-            (t[3] = u))
-          : (u = t[3]),
-        u
+        n[2] !== a
+          ? ((c = u.jsx(g.Provider, { value: l, children: a })),
+            (n[2] = a),
+            (n[3] = c))
+          : (c = n[3]),
+        c
       );
     }
-    function b() {
-      return d(f);
+    function S() {
+      return m(g);
     }
-    function v(e) {
+    function R(e, t) {
+      if (e === _) return function () {};
+      var n = C.get(e);
+      return (
+        n == null && ((n = new Set()), C.set(e, n)),
+        n.add(t),
+        function () {
+          var n = C.get(e);
+          (n == null || n.delete(t),
+            (n == null ? void 0 : n.size) === 0 && C.delete(e));
+        }
+      );
+    }
+    function L(e) {
       var t, n;
-      return (t = (n = _.get(e)) == null ? void 0 : n.card) != null ? t : null;
+      return (t = (n = f.get(e)) == null ? void 0 : n.card) != null ? t : null;
     }
-    function S(e, t, n) {
+    function E(e, t, n) {
       var r;
-      if (e === p) return t;
-      var o = (r = _.get(e)) == null ? void 0 : r.card,
+      if (e === _) return t;
+      var o = (r = f.get(e)) == null ? void 0 : r.card,
         a = t;
       if (
         (o == null ? void 0 : o.stanzaId) != null &&
@@ -67,26 +103,26 @@ __d(
         (t.status === "quota_handoff" && (l = null),
           (a = babelHelpers.extends({}, t, { trigger: l })));
       }
-      return (_.set(e, { card: a, onExit: n }), a);
+      return (f.set(e, { card: a, onExit: n }), a);
     }
-    function R(e, t) {
+    function k(e, t) {
       var n;
-      ((n = _.get(e)) == null ? void 0 : n.card) === t && _.delete(e);
+      ((n = f.get(e)) == null ? void 0 : n.card) === t && f.delete(e);
     }
-    function L(e) {
-      _.delete(e);
+    function I(e) {
+      f.delete(e);
     }
-    function E(e, t) {
-      if (e !== p) {
+    function T(e, t) {
+      if (e !== _) {
         var n = t.status;
-        if (!A(n)) {
-          y.delete(e);
+        if (!B(n)) {
+          b.delete(e);
           return;
         }
-        var r = y.get(e);
-        if (F(r, t)) {
-          var a = O(t, n);
-          (y.set(e, a),
+        var r = b.get(e);
+        if (W(r, t)) {
+          var a = q(t, n);
+          (b.set(e, a),
             a.actions.add("appear"),
             o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
               action: "appear",
@@ -115,11 +151,11 @@ __d(
         }
       }
     }
-    function k(e, t) {
-      if (e === p) return null;
-      var n = y.get(e);
+    function D(e, t) {
+      if (e === _) return null;
+      var n = b.get(e);
       if (n == null) return null;
-      if (t === "reply_message") return (y.delete(e), null);
+      if (t === "reply_message") return (b.delete(e), null);
       if (n.actions.has("dismiss")) return null;
       (n.actions.add("dismiss"),
         o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
@@ -147,55 +183,55 @@ __d(
               }));
           };
     }
-    function I(e) {
-      e !== p && y.delete(e);
+    function x(e) {
+      e !== _ && b.delete(e);
     }
-    function T(e, t) {
-      return e === p || e.current.has(t) ? !1 : (e.current.add(t), !0);
+    function $(e, t) {
+      return e === _ || e.current.has(t) ? !1 : (e.current.add(t), !0);
     }
-    function D(e, t) {
-      if (e !== p) {
+    function P(e, t) {
+      if (e !== _) {
         e.current.delete(t);
-        var n = g.get(e);
-        n != null && (n.delete(t), n.size === 0 && g.delete(e));
+        var n = h.get(e);
+        n != null && (n.delete(t), n.size === 0 && h.delete(e));
       }
     }
-    function x(e, t) {
-      if (e !== p)
+    function N(e, t) {
+      if (e !== _)
         for (var n of e.current) n.startsWith(t) && e.current.delete(n);
     }
-    function $(e, t, n) {
-      return e === p || !e.current.delete(t) ? !1 : (e.current.add(n), !0);
+    function M(e, t, n) {
+      return e === _ || !e.current.delete(t) ? !1 : (e.current.add(n), !0);
     }
-    function P(e, t, n) {
-      if (e === p) return n;
-      var r = g.get(e);
-      r == null && ((r = new Map()), g.set(e, r));
+    function w(e, t, n) {
+      if (e === _) return n;
+      var r = h.get(e);
+      r == null && ((r = new Map()), h.set(e, r));
       var o = r.get(t);
       return o != null ? o : (r.set(t, n), n);
     }
-    function N(e, t, n) {
-      if (e !== p) {
-        var r = h.get(e);
-        (r == null && ((r = new Map()), h.set(e, r)), r.set(t, n));
+    function A(e, t, n) {
+      if (e !== _) {
+        var r = y.get(e);
+        (r == null && ((r = new Map()), y.set(e, r)), r.set(t, n));
       }
-    }
-    function M(e, t) {
-      var n;
-      return e === p ? null : (n = h.get(e)) == null ? void 0 : n.get(t);
-    }
-    function w(e, t, n) {
-      if (e !== p) {
-        var r = h.get(e);
-        r == null ||
-          (n != null && r.get(t) !== n) ||
-          (r.delete(t), r.size === 0 && h.delete(e));
-      }
-    }
-    function A(e) {
-      return e === "error" || e === "loading" || e === "success";
     }
     function F(e, t) {
+      var n;
+      return e === _ ? null : (n = y.get(e)) == null ? void 0 : n.get(t);
+    }
+    function O(e, t, n) {
+      if (e !== _) {
+        var r = y.get(e);
+        r == null ||
+          (n != null && r.get(t) !== n) ||
+          (r.delete(t), r.size === 0 && y.delete(e));
+      }
+    }
+    function B(e) {
+      return e === "error" || e === "loading" || e === "success";
+    }
+    function W(e, t) {
       return e == null
         ? !0
         : e.actions.has("dismiss")
@@ -203,7 +239,7 @@ __d(
           : e.status !== "loading" &&
             (e.stanzaId !== t.stanzaId || t.status === "loading");
     }
-    function O(e, t) {
+    function q(e, t) {
       return {
         actions: new Set(),
         cardType: e.cardType,
@@ -215,23 +251,24 @@ __d(
         status: t,
       };
     }
-    ((l.WAWebBizAiSmartComposerImpressionProvider = C),
-      (l.useWAWebBizAiSmartComposerImpressions = b),
-      (l.getSmartComposerShownCard = v),
-      (l.registerSmartComposerShownCard = S),
-      (l.forgetSmartComposerShownCard = R),
-      (l.discardSmartComposerShownCardWithoutExit = L),
-      (l.recordSmartComposerFunnelCardState = E),
-      (l.dismissSmartComposerFunnel = k),
-      (l.resetSmartComposerFunnel = I),
-      (l.markSmartComposerImpression = T),
-      (l.forgetSmartComposerImpression = D),
-      (l.forgetSmartComposerImpressionsWithPrefix = x),
-      (l.moveSmartComposerImpression = $),
-      (l.rememberSmartComposerSuggestionAttribution = P),
-      (l.rememberSmartComposerPendingSuggestion = N),
-      (l.getSmartComposerPendingSuggestion = M),
-      (l.forgetSmartComposerPendingSuggestion = w));
+    ((l.WAWebBizAiSmartComposerImpressionProvider = v),
+      (l.useWAWebBizAiSmartComposerImpressions = S),
+      (l.registerSmartComposerSessionExitHandler = R),
+      (l.getSmartComposerShownCard = L),
+      (l.registerSmartComposerShownCard = E),
+      (l.forgetSmartComposerShownCard = k),
+      (l.discardSmartComposerShownCardWithoutExit = I),
+      (l.recordSmartComposerFunnelCardState = T),
+      (l.dismissSmartComposerFunnel = D),
+      (l.resetSmartComposerFunnel = x),
+      (l.markSmartComposerImpression = $),
+      (l.forgetSmartComposerImpression = P),
+      (l.forgetSmartComposerImpressionsWithPrefix = N),
+      (l.moveSmartComposerImpression = M),
+      (l.rememberSmartComposerSuggestionAttribution = w),
+      (l.rememberSmartComposerPendingSuggestion = A),
+      (l.getSmartComposerPendingSuggestion = F),
+      (l.forgetSmartComposerPendingSuggestion = O));
   },
   98,
 );

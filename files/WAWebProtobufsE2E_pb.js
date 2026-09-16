@@ -767,6 +767,7 @@ __d(
         messageCount: [3, e.TYPES.INT64],
         nonHistoryReceivers: [4, e.FLAGS.REPEATED | e.TYPES.STRING],
         oldestMessageTimestampInBundle: [5, e.TYPES.INT64],
+        includesChatTheme: [6, e.TYPES.BOOL],
       }),
       (Ke.name = "Message$HistoryShareMessageEntry"),
       (Ke.internalSpec = {
@@ -1993,6 +1994,7 @@ __d(
         metadataUrl: [30, e.TYPES.STRING],
         videoSourceType: [31, e.TYPES.ENUM, re],
         dashManifestUrl: [33, e.TYPES.STRING],
+        smartThumbnailTs: [34, e.TYPES.INT64],
       }),
       (Fr.name = "Message$MusicMessage"),
       (Fr.internalSpec = {

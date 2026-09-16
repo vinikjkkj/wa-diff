@@ -612,7 +612,7 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ? t : null;
         },
         [M, u.getType],
       ),
@@ -620,7 +620,7 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? t : null;
         },
         [M, u.getType],
       ),
@@ -628,11 +628,19 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1];
-          return o("WAWebMsgModelUtils").typeIsMms(t) ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ? t : null;
         },
         [M, u.getType],
       ),
       ae = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return o("WAWebMsgModelUtils").typeIsMms(t) ? t : null;
+        },
+        [M, u.getType],
+      ),
+      ie = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -641,7 +649,7 @@ __d(
         },
         [M, u.getType, u.getSubtype],
       ),
-      ie = m(
+      le = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -652,7 +660,7 @@ __d(
         },
         [M, u.getType],
       ),
-      le = m(
+      se = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -660,9 +668,9 @@ __d(
             o = e[3];
           return (n != null || r != null) && o ? (n != null ? n : r) : null;
         },
-        [u.getType, ie, Q, u.getIsViewOnce],
+        [u.getType, le, Q, u.getIsViewOnce],
       ),
-      se = m(
+      ue = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -675,13 +683,13 @@ __d(
         },
         [M, u.getType, u.getWaveform, u.getIsOpus],
       ),
-      ue = p("senderObj"),
-      ce = p("mediaData"),
-      de = p("replyButtons"),
-      me = p("pendingDeleteForMe", { default: !1 }),
-      pe = p("isFadingOut", { default: !1 }),
-      _e = p("botPluginType"),
-      fe = m(
+      ce = p("senderObj"),
+      de = p("mediaData"),
+      me = p("replyButtons"),
+      pe = p("pendingDeleteForMe", { default: !1 }),
+      _e = p("isFadingOut", { default: !1 }),
+      fe = p("botPluginType"),
+      ge = m(
         function (e) {
           var t,
             n = e[0],
@@ -699,9 +707,9 @@ __d(
             ? n
             : null;
         },
-        [M, _e, ue],
+        [M, fe, ce],
       ),
-      ge = m(
+      he = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -713,7 +721,7 @@ __d(
         },
         [M, u.getType, u.getRichResponse],
       ),
-      he = m(
+      ye = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -721,7 +729,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      ye = m(
+      Ce = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -729,7 +737,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      Ce = m(
+      be = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -737,9 +745,9 @@ __d(
             a = r != null;
           return t === o("WAWebMsgType").MSG_TYPE.CHAT && (n || a);
         },
-        [u.getType, he, ye],
+        [u.getType, ye, Ce],
       ),
-      be = m(
+      ve = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -771,14 +779,14 @@ __d(
           u.getType,
           u.getCtwaContext,
           u.getQuotedMsg,
-          Ce,
+          be,
           u.getHasOriginatedFromNewsletter,
           u.getIsForwarded,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      ve = m(
+      Se = m(
         function (e) {
           var t = e[0];
           if (t != null) {
@@ -791,7 +799,7 @@ __d(
         },
         [u.getBody],
       ),
-      Se = m(
+      Re = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -809,10 +817,10 @@ __d(
           u.getHasOriginatedFromNewsletter,
           u.getForwardedNewsletterMessageInfo,
           u.getId,
-          ue,
+          ce,
         ],
       ),
-      Re = m(
+      Le = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -820,7 +828,7 @@ __d(
         },
         [u.getIsNewsletterMsg, u.getSender],
       ),
-      Le = m(
+      Ee = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -829,7 +837,7 @@ __d(
             a;
           return (n && (a = o == null ? void 0 : o.contact), a != null ? a : r);
         },
-        [M, u.getIsNewsletterMsg, ue],
+        [M, u.getIsNewsletterMsg, ce],
       );
     ((l.clearFrontendMsgGetterCacheFor = _),
       (l.getIsMms = f),
@@ -868,28 +876,29 @@ __d(
       (l.getAsEventCreation = Z),
       (l.getAsSharableEventInvite = ee),
       (l.getAsAlbum = te),
-      (l.getAsCallLog = ne),
-      (l.getAsPollUpdate = re),
-      (l.getAsMms = oe),
-      (l.getAsUrl = ae),
-      (l.getAsVisualMedia = ie),
-      (l.getAsViewOnce = le),
-      (l.getAsPttLike = se),
-      (l.getSenderObj = ue),
-      (l.getMediaData = ce),
-      (l.getReplyButtons = de),
-      (l.getPendingDeleteForMe = me),
-      (l.getIsFadingOut = pe),
-      (l.getAsBotPluginCarouselMsg = fe),
-      (l.getAsRichResponse = ge),
-      (l.getIsAnimatedEmoji = he),
-      (l.getIsSingleEmoji = ye),
-      (l.getIsTransparentMsgEmoji = Ce),
-      (l.getIsTransparentMsg = be),
-      (l.getJSONAssetForAnimatedEmoji = ve),
-      (l.getMsgSenderId = Se),
-      (l.getShouldDisplaySelf = Re),
-      (l.getSenderForReplyMsg = Le));
+      (l.getAsStickerPack = ne),
+      (l.getAsCallLog = re),
+      (l.getAsPollUpdate = oe),
+      (l.getAsMms = ae),
+      (l.getAsUrl = ie),
+      (l.getAsVisualMedia = le),
+      (l.getAsViewOnce = se),
+      (l.getAsPttLike = ue),
+      (l.getSenderObj = ce),
+      (l.getMediaData = de),
+      (l.getReplyButtons = me),
+      (l.getPendingDeleteForMe = pe),
+      (l.getIsFadingOut = _e),
+      (l.getAsBotPluginCarouselMsg = ge),
+      (l.getAsRichResponse = he),
+      (l.getIsAnimatedEmoji = ye),
+      (l.getIsSingleEmoji = Ce),
+      (l.getIsTransparentMsgEmoji = be),
+      (l.getIsTransparentMsg = ve),
+      (l.getJSONAssetForAnimatedEmoji = Se),
+      (l.getMsgSenderId = Re),
+      (l.getShouldDisplaySelf = Le),
+      (l.getSenderForReplyMsg = Ee));
   },
   98,
 );

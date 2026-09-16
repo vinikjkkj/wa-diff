@@ -10,6 +10,7 @@ __d(
     "WAWebCommonCTWADataSharing",
     "WAWebCurrentUser",
     "WAWebListsGatingUtils",
+    "WAWebMediaGatingUtils",
     "WAWebPaymentsGatingUtils",
     "WAWebSettingGatingUtils",
     "WAWebSettingsConst",
@@ -80,6 +81,7 @@ __d(
               "wallpaper",
               "chat_theme",
               "media_upload_quality",
+              "media_auto_download_quality",
               "media_auto_download",
               "spellcheck",
               "emoji",
@@ -230,8 +232,23 @@ __d(
         ).toLowerCase(),
         title: o("WAWebSettingsFBT").mediaUploadQualityTitle,
         testid: "li-media-upload-quality",
+      },
+      N = {
+        step: o("WAWebSettingsConst").SettingsSteps.MediaAutoDownloadQuality,
+        id: "media_auto_download_quality",
+        isAvailable: o("WAWebMediaGatingUtils")
+          .isHdImageDualUploadConsumptionEnabled,
+        searchCriteria: [
+          String(o("WAWebSettingsFBT").mediaAutoDownloadQualityTitle()),
+          String(o("WAWebSettingsFBT").mediaAutoDownloadQualityStandardLabel()),
+          String(o("WAWebSettingsFBT").mediaAutoDownloadQualityHdLabel()),
+        ]
+          .join(" ")
+          .toLowerCase(),
+        title: o("WAWebSettingsFBT").mediaAutoDownloadQualityTitle,
+        testid: "li-media-auto-download-quality",
       };
-    function N(e) {
+    function M(e) {
       e === void 0 && (e = !1);
       var t = o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled(),
         n = [
@@ -567,6 +584,7 @@ __d(
           T,
           D,
           P,
+          N,
           $,
           {
             step: o("WAWebSettingsConst").SettingsSteps.Chats,
@@ -877,7 +895,7 @@ __d(
       }
       return (l(null, L(e)), i);
     }
-    function M(e) {
+    function w(e) {
       var t = {};
       return e.map(function (e) {
         var n = babelHelpers.extends({}, e);
@@ -902,8 +920,9 @@ __d(
       (l.ThemeSettingsItem = x),
       (l.MediaAutoDownloadSettingsItem = $),
       (l.MediaUploadQualitySettingsItem = P),
-      (l.getSettingsSearchHierarchy = N),
-      (l.buildSearchableHierarchy = M));
+      (l.MediaAutoDownloadQualitySettingsItem = N),
+      (l.getSettingsSearchHierarchy = M),
+      (l.buildSearchableHierarchy = w));
   },
   98,
 );

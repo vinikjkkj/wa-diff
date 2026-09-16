@@ -245,7 +245,13 @@ __d(
           (i.clearCredentialsAndStoredData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                if (r("WAWebEnvironment").isWindows) {
+                if (
+                  (o("WAWebBackendApi").frontendFireAndForget(
+                    "triggerLogoutDiagnosticFromBridge",
+                    { reason: e },
+                  ),
+                  r("WAWebEnvironment").isWindows)
+                ) {
                   var a,
                     i =
                       n("cr:17219") == null ||

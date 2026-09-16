@@ -68,13 +68,13 @@ __d(
         e.removeSticker(t),
         !e.hasAssociatedMsgsOrStickers() && (g(e.filehash), e.delete()));
     }
-    var g = function (t, n) {
-      (n === void 0 && (n = !0),
-        !r("isStringNullOrEmpty")(t) &&
-          (delete u[t],
-          n &&
+    function g(e, t) {
+      (t === void 0 && (t = !0),
+        !r("isStringNullOrEmpty")(e) &&
+          (delete u[e],
+          t &&
             o("WAWebMediaStore")
-              .LruMediaStore.del(t)
+              .LruMediaStore.del(e)
               .catch(function (e) {
                 o("WALogger").ERROR(
                   s ||
@@ -83,7 +83,7 @@ __d(
                     ])),
                 );
               })));
-    };
+    }
     ((l.associateMediaWithMsg = c),
       (l.disassociateMediaFromMsg = d),
       (l.delistAndDeleteAllMedia = m),

@@ -1,26 +1,40 @@
 __d(
   "WAWebCallLinkAutoJoinConsent",
-  ["WALogger", "WATimeUtils", "WAWebSessionStorage"],
+  ["WALogger", "WATimeUtils", "WAWebCallLinkODS", "WAWebSessionStorage"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = "wa_web_call_link_auto_join_consent",
-      m = 2 * o("WATimeUtils").MINUTE_SECONDS * 1e3,
-      p = ":";
-    function _(e) {
+      d,
+      m = "wa_web_call_link_auto_join_consent",
+      p = 2 * o("WATimeUtils").MINUTE_SECONDS * 1e3,
+      _ = ":";
+    function f(e) {
+      var t = r("WAWebSessionStorage");
+      if (t == null) {
+        o("WAWebCallLinkODS").logCallLinkAutoJoinRecordFailedODS();
+        return;
+      }
       try {
-        r("WAWebSessionStorage") == null ||
-          r("WAWebSessionStorage").setItem(d, "" + Date.now() + p + e);
-      } catch (e) {}
+        t.setItem(m, "" + Date.now() + _ + e);
+      } catch (e) {
+        o("WAWebCallLinkODS").logCallLinkAutoJoinRecordFailedODS();
+        return;
+      }
+      o("WAWebCallLinkODS").logCallLinkAutoJoinRecordedODS();
     }
-    function f(e, t) {
+    function g(e, t) {
       if (e !== !0) return !1;
-      var n = C(y(), t);
-      return (n !== "token-mismatch" && h(), n != null ? (g(n), !1) : !0);
+      var n = b(C(), t);
+      return (
+        n !== "token-mismatch" && y(),
+        n != null
+          ? (h(n), o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS(n), !1)
+          : (o("WAWebCallLinkODS").logCallLinkAutoJoinGrantedODS(), !0)
+      );
     }
-    function g(t) {
+    function h(t) {
       e: {
         if (t === "no-consent") {
           o("WALogger")
@@ -33,11 +47,22 @@ __d(
             .sendLogs("call-link-auto-join-no-consent");
           break e;
         }
-        if (t === "token-mismatch") {
+        if (t === "storage-read-failed") {
           o("WALogger")
             .ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: auto_join rejected \u2014 session storage could not be read",
+                ])),
+            )
+            .sendLogs("call-link-auto-join-storage-read-failed");
+          break e;
+        }
+        if (t === "token-mismatch") {
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: auto_join rejected \u2014 recorded Join was for another call link",
                 ])),
             )
@@ -47,8 +72,8 @@ __d(
         if (t === "expired") {
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: auto_join rejected \u2014 recorded Join expired",
                 ])),
             )
@@ -58,8 +83,8 @@ __d(
         if (t === "malformed") {
           o("WALogger")
             .ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: auto_join rejected \u2014 stored Join record unreadable",
                 ])),
             )
@@ -72,35 +97,37 @@ __d(
         );
       }
     }
-    function h() {
-      try {
-        r("WAWebSessionStorage") == null ||
-          r("WAWebSessionStorage").removeItem(d);
-      } catch (e) {}
-    }
     function y() {
       try {
-        return r("WAWebSessionStorage") == null
-          ? void 0
-          : r("WAWebSessionStorage").getItem(d);
+        r("WAWebSessionStorage") == null ||
+          r("WAWebSessionStorage").removeItem(m);
+      } catch (e) {}
+    }
+    function C() {
+      var e = r("WAWebSessionStorage");
+      if (e == null) return { available: !1, raw: null };
+      try {
+        return { available: !0, raw: e.getItem(m) };
       } catch (e) {
-        return null;
+        return { available: !1, raw: null };
       }
     }
-    function C(e, t) {
-      if (e == null) return "no-consent";
-      var n = e.indexOf(p);
-      if (n < 0) return "malformed";
-      var r = parseInt(e.slice(0, n), 10);
-      if (Number.isNaN(r)) return "malformed";
-      if (e.slice(n + 1) !== t) return "token-mismatch";
-      var o = Date.now() - r;
-      return o >= 0 && o < m ? null : "expired";
+    function b(e, t) {
+      if (!e.available) return "storage-read-failed";
+      var n = e.raw;
+      if (n == null) return "no-consent";
+      var r = n.indexOf(_);
+      if (r < 0) return "malformed";
+      var o = parseInt(n.slice(0, r), 10);
+      if (Number.isNaN(o)) return "malformed";
+      if (n.slice(r + 1) !== t) return "token-mismatch";
+      var a = Date.now() - o;
+      return a >= 0 && a < p ? null : "expired";
     }
-    ((l.AUTO_JOIN_CONSENT_TTL_MS = m),
-      (l.recordAutoJoinConsent = _),
-      (l.consumeAutoJoinConsent = f),
-      (l.clearAutoJoinConsent = h));
+    ((l.AUTO_JOIN_CONSENT_TTL_MS = p),
+      (l.recordAutoJoinConsent = f),
+      (l.consumeAutoJoinConsent = g),
+      (l.clearAutoJoinConsent = y));
   },
   98,
 );

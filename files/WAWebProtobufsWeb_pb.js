@@ -250,6 +250,7 @@ __d(
         ORDER_EPHEMERAL_EXEMPTION: 250,
         CAMEO_CHAT_CREATED: 254,
         CAMEO_TRANSITIONED: 256,
+        SENDER_SIDE_CONTACT_INFO: 255,
       }),
       p = c({
         ERROR: 0,

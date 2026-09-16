@@ -13,27 +13,27 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-        switch (t) {
-          case o("WAWebAddonConstants").AddonTableMode.Pin:
-            return o("WAWebAddonPinTableMode").pinTableMode;
-          case o("WAWebAddonConstants").AddonTableMode.PollVote:
-            return o("WAWebAddonPollVoteTableMode").pollVoteTableMode;
-          case o("WAWebAddonConstants").AddonTableMode.Comment:
-            return o("WAWebAddonCommentTableMode").commentTableMode;
-          case o("WAWebAddonConstants").AddonTableMode.Reaction:
-            return o("WAWebAddonReactionTableMode").reactionTableMode;
-          case o("WAWebAddonConstants").AddonTableMode.EventResponse:
-            return o("WAWebAddonEventResponseTableMode").eventResponseTableMode;
-          case o("WAWebAddonConstants").AddonTableMode.Unified:
-            return o("WAWebAddonUnifiedAddonsTableMode").unifiedAddonsTableMode;
-          case o("WAWebAddonConstants").AddonTableMode.None:
-            throw new (o("WAWebAddonInfraError").AddonInfraError)(
-              o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
-            );
-        }
-      },
-      s = {
+    function e(e) {
+      switch (e) {
+        case o("WAWebAddonConstants").AddonTableMode.Pin:
+          return o("WAWebAddonPinTableMode").pinTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.PollVote:
+          return o("WAWebAddonPollVoteTableMode").pollVoteTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.Comment:
+          return o("WAWebAddonCommentTableMode").commentTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.Reaction:
+          return o("WAWebAddonReactionTableMode").reactionTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.EventResponse:
+          return o("WAWebAddonEventResponseTableMode").eventResponseTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.Unified:
+          return o("WAWebAddonUnifiedAddonsTableMode").unifiedAddonsTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.None:
+          throw new (o("WAWebAddonInfraError").AddonInfraError)(
+            o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
+          );
+      }
+    }
+    var s = {
         bulkUpsert: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (t, n) {

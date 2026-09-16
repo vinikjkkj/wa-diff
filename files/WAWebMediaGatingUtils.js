@@ -6,11 +6,13 @@ __d(
     "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebHatchGating",
+    "WAWebMediaAutoDownloadQuality.flow",
     "WAWebMmsMediaTypes",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebServerPropConstants",
     "WAWebStateUtils",
+    "WAWebUserPrefsGeneral",
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWid",
     "justknobx",
@@ -230,6 +232,20 @@ __d(
     }
     function E() {
       return o("WAWebABProps").getABPropConfigValue(
+        "media_quality_auto_download_settings_enabled",
+      );
+    }
+    function k() {
+      var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
+      return e ===
+        o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
+        !E()
+        ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
+            .STANDARD
+        : e;
+    }
+    function I() {
+      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
     }
@@ -249,7 +265,9 @@ __d(
       (l.isDownloadMimeTypeCheckLogEnabled = S),
       (l.isDownloadMimeTypeCheckBlockEnabled = R),
       (l.isHdImageDualUploadConsumptionEnabled = L),
-      (l.getHQImageThumbnailInChatScans = E));
+      (l.isMediaAutoDownloadQualityAutoEnabled = E),
+      (l.resolveEffectiveAutoDownloadMediaQuality = k),
+      (l.getHQImageThumbnailInChatScans = I));
   },
   98,
 );

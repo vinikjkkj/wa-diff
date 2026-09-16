@@ -42,7 +42,6 @@ __d(
     "WAWebPremiumMessagesGatingUtils",
     "WAWebQbmMessageClickLogEvent",
     "WAWebQbmMessageLevelActionEvent",
-    "WAWebReplyChatIcon.react",
     "WAWebRichOrderStatusLogger",
     "WAWebSendNativeFlowMenuOptionsResponse",
     "WAWebSendSignupResponseAction",
@@ -485,22 +484,22 @@ __d(
       if (t.id.fromMe && o("WAWebMsgGetters").getBizBotType(t) != null)
         return null;
       var n = o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
-        r = t.unsafe(),
-        a = o(
+        a = t.unsafe(),
+        i = o(
           "WAWebSendNativeFlowMenuOptionsResponse",
         ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName);
       return {
         label: e.data.label,
-        Icon: a ? void 0 : o("WAWebReplyChatIcon.react").ReplyChatIcon,
+        Icon: i ? void 0 : r("WDSIconIcReply.react"),
         disabled: e.data.disabled,
         onClick: function () {
-          if (t.isCarouselCard) D(e, r);
-          else if (a) {
-            var i, l;
+          if (t.isCarouselCard) D(e, a);
+          else if (i) {
+            var r, l;
             o(
               "WAWebSendNativeFlowMenuOptionsResponse",
-            ).sendNativeFlowMenuOptionsResponse(n, r, {
-              label: (i = e.data) == null ? void 0 : i.label,
+            ).sendNativeFlowMenuOptionsResponse(n, a, {
+              label: (r = e.data) == null ? void 0 : r.label,
               selectionId: (l = e.data) == null ? void 0 : l.selectionId,
             });
           } else {
@@ -515,7 +514,7 @@ __d(
                 n,
                 (s = e.data) == null ? void 0 : s.label,
                 {
-                  quotedMsg: r,
+                  quotedMsg: a,
                   selectedIndex: e.index,
                   selectedId: (c = e.data) == null ? void 0 : c.selectionId,
                 },
@@ -523,7 +522,7 @@ __d(
           }
           (k(e, t),
             o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: r,
+              msg: a,
               chat: n,
               buttonClickedType: o(
                 "WAWebWamEnumQbmMessageClickButtonClickedType",
@@ -531,7 +530,7 @@ __d(
               nativeFlowName: e.name,
             }),
             o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
-              msg: r,
+              msg: a,
               chat: n,
               messageLevelAction: o("WAWebWamEnumMessageLevelAction")
                 .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,

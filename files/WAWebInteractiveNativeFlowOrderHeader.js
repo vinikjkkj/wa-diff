@@ -66,19 +66,19 @@ __d(
           paddingInlineStart: "x181vq82",
           $$css: !0,
         },
-      },
-      c = function (t) {
-        var e;
-        if (
-          t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-          ((e = t.interactiveHeader) == null ? void 0 : e.thumbnail) != null
-        )
-          return "data:image/jpeg;base64," + t.interactiveHeader.thumbnail;
-        if (t.mediaData) {
-          var n = t.mediaData.preview;
-          if (n instanceof r("WAWebMediaOpaqueData")) return n.url();
-        }
       };
+    function c(e) {
+      var t;
+      if (
+        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        ((t = e.interactiveHeader) == null ? void 0 : t.thumbnail) != null
+      )
+        return "data:image/jpeg;base64," + e.interactiveHeader.thumbnail;
+      if (e.mediaData) {
+        var n = e.mediaData.preview;
+        if (n instanceof r("WAWebMediaOpaqueData")) return n.url();
+      }
+    }
     function d(e) {
       var t = o("react-compiler-runtime").c(16),
         n = null,

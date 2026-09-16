@@ -178,46 +178,45 @@ __d(
             return n.readByteArrayView();
           }),
           (t.getReportingTokenContentByExclusion = function (t) {
-            for (
-              var e = new c(), n = 0, r = this.protobufMessage.length;
-              n < r;
-            ) {
-              var a = new s(this.protobufMessage, n);
-              n += a.getTotalSize();
-              var i = a.getFieldNumber();
-              if (!t.has(i)) {
-                e.add(a);
+            for (var e = [], n = 0, r = this.protobufMessage.length; n < r; ) {
+              var a = o(
+                "WAWebReportingTokenProtobufUtils",
+              ).parseRawProtobufField(this.protobufMessage, n, r);
+              if (((n = a.end), !t.has(a.fieldNumber))) {
+                e.push(a.bytes);
                 continue;
               }
-              var l = t.get(i);
-              if (l != null) {
-                if (a.getWireType() !== o("WAProtoConst").ENC.BINARY) {
-                  e.add(a);
+              var i = t.get(a.fieldNumber);
+              if (i != null) {
+                if (a.wireType !== o("WAProtoConst").ENC.BINARY) {
+                  e.push(a.bytes);
                   continue;
                 }
                 for (
-                  var d = new c(),
-                    m = a.getValueStartIdx(),
-                    p = a.getValueEndIdx();
-                  m < p;
+                  var l = [], s = 0, u = !1, c = a.valueStart;
+                  c < a.valueEnd;
                 ) {
-                  var _ = new s(this.protobufMessage, m);
-                  ((m += _.getTotalSize()),
-                    l.has(_.getFieldNumber()) || d.add(_));
+                  var d = o(
+                    "WAWebReportingTokenProtobufUtils",
+                  ).parseRawProtobufField(this.protobufMessage, c, a.valueEnd);
+                  ((c = d.end),
+                    i.has(d.fieldNumber)
+                      ? (u = !0)
+                      : (l.push(d.bytes), (s += d.bytes.length)));
                 }
-                (d.fields.sort(function (e, t) {
-                  return e.getFieldNumber() - t.getFieldNumber();
-                }),
-                  d.fields.length > 0 &&
-                    e.add(new u(a.tag, d.getTotalSize(), d)));
+                if (!u) {
+                  e.push(a.bytes);
+                  continue;
+                }
+                var m = new (o("WABinary").Binary)();
+                (m.writeByteArray(a.tagBytes), m.writeVarInt(s));
+                for (var p of l) m.writeByteArray(p);
+                e.push(m.readByteArrayView());
               }
             }
-            e.fields.sort(function (e, t) {
-              return e.getFieldNumber() - t.getFieldNumber();
-            });
-            var f = new (o("WABinary").Binary)();
-            for (var g of e.fields) f.writeByteArray(g.getBytes());
-            return f.readByteArrayView();
+            var _ = new (o("WABinary").Binary)();
+            for (var f of e) _.writeByteArray(f);
+            return _.readByteArrayView();
           }),
           e
         );

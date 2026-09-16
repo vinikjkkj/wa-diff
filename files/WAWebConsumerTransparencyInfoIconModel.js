@@ -9,15 +9,15 @@ __d(
     "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-        var e,
-          n = (
-            (e = r("WAWebUserPrefsStore").getMaybeMeDevicePn()) != null ? e : ""
-          ).toString(),
-          a = t.toString();
-        return o("WAMd5").md5(n + "-" + a);
-      },
-      s = (function () {
+    function e(e) {
+      var t,
+        n = (
+          (t = r("WAWebUserPrefsStore").getMaybeMeDevicePn()) != null ? t : ""
+        ).toString(),
+        a = e.toString();
+      return o("WAMd5").md5(n + "-" + a);
+    }
+    var s = (function () {
         function t() {
           this.chatIds = new Set();
           var e = r("WAWebUserPrefsStore").getUser(

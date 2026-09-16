@@ -3,16 +3,16 @@ __d(
   ["WAWebEnvironment", "WAWebQplFlowWrapper", "qpl"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("qpl")._(891426979, "2244"),
-      s = function (t) {
-        return (
-          window.addEventListener("beforeunload", t),
-          function () {
-            window.removeEventListener("beforeunload", t);
-          }
-        );
-      },
-      u = (function () {
+    var e = r("qpl")._(891426979, "2244");
+    function s(e) {
+      return (
+        window.addEventListener("beforeunload", e),
+        function () {
+          window.removeEventListener("beforeunload", e);
+        }
+      );
+    }
+    var u = (function () {
         function t() {}
         var n = t.prototype;
         return (

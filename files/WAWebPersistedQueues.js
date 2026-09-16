@@ -12,6 +12,7 @@ __d(
     "WAWebWormCallbacks",
     "WAWormQueue",
     "asyncToGeneratorRuntime",
+    "qpl",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -65,6 +66,7 @@ __d(
                     )
                     .sendLogs("persisted-queues-unrecoverable"));
               },
+              qplEvent: r("qpl")._(891432473, "3638"),
               schema: o("WAWebPersistedQueuesRegistry").persistedQueueStores,
             });
             o("WAWebPersistedQueuesRegistry").bindPersistedQueues(t);

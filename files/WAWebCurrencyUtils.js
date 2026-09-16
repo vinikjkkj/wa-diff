@@ -61,15 +61,15 @@ __d(
         "VND",
       ]),
       u = ["es-ES", "pt-BR"],
-      c = { "pt-BR": "BRL" },
-      d = function () {
-        var e;
-        return [
-          (e = r("WAWebL10N")).getFullLocale(),
-          e.normalizeLocaleToBcp47Compliant(e.getNormalizedLocale()),
-          e.normalizeLocaleToBcp47Compliant(e.getLocale()),
-        ].filter(Boolean);
-      };
+      c = { "pt-BR": "BRL" };
+    function d() {
+      var e;
+      return [
+        (e = r("WAWebL10N")).getFullLocale(),
+        e.normalizeLocaleToBcp47Compliant(e.getNormalizedLocale()),
+        e.normalizeLocaleToBcp47Compliant(e.getLocale()),
+      ].filter(Boolean);
+    }
     function m(e) {
       var t = e.amount,
         n = e.currency,
