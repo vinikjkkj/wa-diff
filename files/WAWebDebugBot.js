@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebBizBot1pLearnMore.react",
     "WAWebBizBotTos.react",
     "WAWebBoolFunc",
@@ -401,9 +400,6 @@ __d(
           name: (t = a == null ? void 0 : a.name) != null ? t : null,
           lastFetchedTimeMs:
             (n = a == null ? void 0 : a.lastFetchedTimeMs) != null ? n : null,
-          standardBotProfileAbProp: o("WAWebABProps").getABPropConfigValue(
-            "ai_standard_bot_profile_enabled",
-          ),
         },
       );
     }

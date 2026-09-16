@@ -51,17 +51,21 @@ __d(
           }),
           (a.$11 = function (t) {
             var e,
-              n = t.event === "closed" || t.event === "error";
+              n = t.event === "closed" || t.event === "error",
+              r = this.$8.get(t.connectionId);
             (n && this.$12(t.connectionId, t.attemptId),
-              !(t.event === "open" && this.$13(t)) &&
-                ((n &&
-                  (this.$14(t.connectionId, t.attemptId),
-                  t.event === "error" && this.$15(t))) ||
+              !(t.event === "open" && (this.$13(t) || r !== t.attemptId)) &&
+                ((!n && t.event !== "open" && r !== t.attemptId) ||
+                  (n &&
+                    (this.$14(t.connectionId, t.attemptId),
+                    r !== t.attemptId ||
+                      (t.event === "error" && this.$15(t)))) ||
                   (e = this.$9) == null ||
                   e.call(this, {
                     connectionId: t.connectionId,
                     attemptId: t.attemptId,
                     event: t.event,
+                    relayGeneration: t.relayGeneration,
                     error: t.error,
                     stats: t.stats,
                   })));
@@ -106,7 +110,7 @@ __d(
           (a.registerStateHandler = function (t) {
             this.$9 = t;
           }),
-          (a.connect = function (a, i, l, s) {
+          (a.connect = function (a, i, l, s, u) {
             var t = this;
             return this.$4
               ? this.$6.has(a)
@@ -115,30 +119,38 @@ __d(
                   )
                 : new (e || (e = n("Promise")))(function (e, n) {
                     var r = ++t.$5,
-                      u = t.$3
+                      c = t.$3
                         ? o(
                             "WAWebVoipWebTransportSendRingBuffer",
                           ).createWebTransportSendRing()
                         : null,
-                      c = {
+                      d = {
                         attemptId: r,
                         reject: n,
                         resolve: e,
-                        sendRing: u == null ? void 0 : u.producer,
+                        sendRing: c == null ? void 0 : c.producer,
                       };
-                    (t.$6.set(a, c), t.$8.set(a, r));
+                    (t.$6.set(a, d), t.$8.set(a, r));
                     try {
-                      t.$16(a, i, l, s, r, u == null ? void 0 : u.ringBuffer);
+                      t.$16(
+                        a,
+                        i,
+                        l,
+                        s,
+                        u,
+                        r,
+                        c == null ? void 0 : c.ringBuffer,
+                      );
                       return;
                     } catch (e) {
-                      if (u == null) {
+                      if (c == null) {
                         t.$17(a, r, n, e);
                         return;
                       }
-                      ((t.$3 = !1), (c.sendRing = null));
+                      ((t.$3 = !1), (d.sendRing = null));
                     }
                     try {
-                      t.$16(a, i, l, s, r);
+                      t.$16(a, i, l, s, u, r);
                     } catch (e) {
                       t.$17(a, r, n, e);
                     }
@@ -147,7 +159,7 @@ __d(
                   r("err")("WebTransport worker is not active"),
                 );
           }),
-          (a.$16 = function (t, n, r, o, a, i) {
+          (a.$16 = function (t, n, r, o, a, i, l) {
             this.$2.worker.postMessage({
               type: "cmd",
               cmd: "jsWorkerCmd",
@@ -156,14 +168,24 @@ __d(
               url: n,
               ip: r,
               port: o,
-              attemptId: a,
-              sendRing: i,
+              relayGeneration: a,
+              attemptId: i,
+              sendRing: l,
             });
           }),
           (a.$17 = function (t, n, o, a) {
             (this.$6.delete(t),
               this.$8.get(t) === n && this.$8.delete(t),
               o(r("err")(String(a))));
+          }),
+          (a.resetDatagramHealth = function (t) {
+            this.$4 &&
+              this.$2.worker.postMessage({
+                type: "cmd",
+                cmd: "jsWorkerCmd",
+                jsWorkerCmd: "resetWebTransportDatagramHealth",
+                relayGeneration: t,
+              });
           }),
           (a.send = function (t, n) {
             if (!this.$4 || this.$6.has(t)) return !1;

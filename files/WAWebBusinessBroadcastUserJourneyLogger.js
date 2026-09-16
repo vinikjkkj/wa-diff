@@ -11,6 +11,7 @@ __d(
     "WAWebBBNuxLogs",
     "WAWebBBPaymentLogs",
     "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumSmbFeatureNameEnum",
   ],
@@ -21,13 +22,22 @@ __d(
           this.$1 = function (e) {
             var t,
               n =
+                o(
+                  "WAWebBusinessBroadcastsGatingUtils",
+                ).isBizBroadcastProEnabled() &&
+                !o(
+                  "WAWebBizBroadcastProOnboardingStatus",
+                ).isBizBroadcastProNuxOnboardingStatusResolved(),
+              r =
                 (t = e.bbTier) != null
                   ? t
-                  : o(
-                      "WAWebBizBroadcastProOnboardingStatus",
-                    ).getBizBroadcastProductTier();
+                  : n
+                    ? null
+                    : o(
+                        "WAWebBizBroadcastProOnboardingStatus",
+                      ).getBizBroadcastProductTier();
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              bbTier: n,
+              bbTier: r,
               entryPoint: e.entryPoint,
               entryPointDetails: e.entryPointDetails,
               extraAttributes: e.extraAttributes,

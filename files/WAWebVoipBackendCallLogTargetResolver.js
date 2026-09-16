@@ -2,6 +2,8 @@ __d(
   "WAWebVoipBackendCallLogTargetResolver",
   [
     "WALogger",
+    "WAWebApiContact",
+    "WAWebContactExternalUserState",
     "WAWebFindChat",
     "WAWebLid1X1MigrationGating",
     "WAWebMsgKey",
@@ -14,72 +16,105 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.callCreatorWid,
             a = t.callId,
             i = t.groupJid,
             l = t.isCallLink,
             s = t.peerWid,
             u = t.participants,
-            d = u === void 0 ? [] : u,
+            c = u === void 0 ? [] : u,
             m,
-            p,
-            _ = o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            f = yield c({
+            _,
+            f = o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            g = yield p({
               callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(n),
             }),
-            g = o("WAWebUserPrefsMeUser").isMeAccount(f),
-            h = d.filter(function (e) {
+            h = o("WAWebUserPrefsMeUser").isMeAccount(g),
+            y = c.filter(function (e) {
               return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
             });
-          if (i != null) ((m = i), (p = f));
-          else if (!g) m = f;
-          else if (h.length === 1 && l !== !0) {
-            var y = h[0];
-            m = yield c({
-              callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(y),
-            });
-          } else
-            s != null
-              ? (m = yield c({
-                  callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(s),
+          if (i != null) ((m = i), (_ = g));
+          else if (!h) m = g;
+          else {
+            var C = y.length === 1 ? y[0] : null;
+            l !== !0 && C != null && !(yield d(C))
+              ? (m = yield p({
+                  callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(C),
                 }))
-              : (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] getCallLogTargetDetails: msg -> self chat",
-                    ])),
-                ),
-                (m = f),
-                (_ =
-                  h.length > 0
-                    ? o("WAWebViewMode.flow").ViewModeType
-                        .CALL_LOG_AD_HOC_GROUP_CALL
-                    : o("WAWebViewMode.flow").ViewModeType.HIDDEN));
+              : l !== !0 && s != null && !(yield d(s))
+                ? (m = yield p({
+                    callDestinationWid:
+                      o("WAWebWidFactory").asUserWidOrThrow(s),
+                  }))
+                : (o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[voip] getCallLogTargetDetails: msg -> self chat",
+                      ])),
+                  ),
+                  (m = g),
+                  (f =
+                    y.length > 0 || s != null
+                      ? o("WAWebViewMode.flow").ViewModeType
+                          .CALL_LOG_AD_HOC_GROUP_CALL
+                      : o("WAWebViewMode.flow").ViewModeType.HIDDEN));
+          }
           return {
             msgKeyId: a != null ? a : yield r("WAWebMsgKey").newId(),
-            fromMe: g,
-            callCreatorUserWid: f,
+            fromMe: h,
+            callCreatorUserWid: g,
             chatId: m,
-            participant: p,
-            viewMode: _,
+            participant: _,
+            viewMode: f,
           };
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!e.isUser()) return !1;
+          try {
+            var t;
+            return o("WAWebContactExternalUserState").isGuestUser(
+              (t = yield o("WAWebApiContact").getContactRecord(
+                o("WAWebWidFactory").asUserWidOrThrow(e),
+              )) == null
+                ? void 0
+                : t.externalUserState,
+            );
+          } catch (e) {
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip] isGuest: contact read failed, treating as non-guest",
+                  ])),
+              ),
+              !1
+            );
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callDestinationWid,
             n = e.groupJid,
             r = t,
@@ -103,10 +138,10 @@ __d(
           }
           return r;
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.getCallLogTargetDetails = s), (l.get1x1CallLidOrPnDestination = c));
+    ((l.getCallLogTargetDetails = u), (l.get1x1CallLidOrPnDestination = p));
   },
   98,
 );

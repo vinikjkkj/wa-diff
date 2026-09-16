@@ -30,8 +30,7 @@ __d(
         if (
           r("justknobx")._("1276") &&
           window.self !== window.top &&
-          (e = window.top) != null &&
-          e.require
+          ((e = window.top) == null ? void 0 : e.require) != null
         ) {
           var t = window.top.require("FalcoLoggerInternalState");
           if (t != null)

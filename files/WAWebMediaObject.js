@@ -714,38 +714,35 @@ __d(
         ? o("WAWebMediaTypes").MediaDataStage.INIT
         : e.downloadStage === o("WAWebMediaTypes").DownloadStage.EXISTS
           ? o("WAWebMediaTypes").MediaDataStage.EXISTS
-          : e.downloadStage === o("WAWebMediaTypes").DownloadStage.PREPARING
-            ? o("WAWebMediaTypes").MediaDataStage.PREPARING
-            : e.downloadStage === o("WAWebMediaTypes").DownloadStage.REUPLOADING
-              ? o("WAWebMediaTypes").MediaDataStage.REUPLOADING
-              : e.downloadStage === o("WAWebMediaTypes").DownloadStage.FETCHING
-                ? o("WAWebMediaTypes").MediaDataStage.FETCHING
+          : e.downloadStage === o("WAWebMediaTypes").DownloadStage.REUPLOADING
+            ? o("WAWebMediaTypes").MediaDataStage.REUPLOADING
+            : e.downloadStage === o("WAWebMediaTypes").DownloadStage.FETCHING
+              ? o("WAWebMediaTypes").MediaDataStage.FETCHING
+              : e.downloadStage ===
+                  o("WAWebMediaTypes").DownloadStage.PROCESSING
+                ? o("WAWebMediaTypes").MediaDataStage.DECRYPTING
                 : e.downloadStage ===
-                    o("WAWebMediaTypes").DownloadStage.PROCESSING
-                  ? o("WAWebMediaTypes").MediaDataStage.DECRYPTING
+                    o("WAWebMediaTypes").DownloadStage.NEED_POKE
+                  ? o("WAWebMediaTypes").MediaDataStage.NEED_POKE
                   : e.downloadStage ===
-                      o("WAWebMediaTypes").DownloadStage.NEED_POKE
-                    ? o("WAWebMediaTypes").MediaDataStage.NEED_POKE
+                      o("WAWebMediaTypes").DownloadStage.ERROR_MISSING
+                    ? o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING
                     : e.downloadStage ===
-                        o("WAWebMediaTypes").DownloadStage.ERROR_MISSING
-                      ? o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING
+                        o("WAWebMediaTypes").DownloadStage.ERROR_UNSUPPORTED
+                      ? o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED
                       : e.downloadStage ===
-                          o("WAWebMediaTypes").DownloadStage.ERROR_UNSUPPORTED
-                        ? o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED
+                          o("WAWebMediaTypes").DownloadStage.RESOLVED
+                        ? o("WAWebMediaTypes").MediaDataStage.RESOLVED
                         : e.downloadStage ===
-                            o("WAWebMediaTypes").DownloadStage.RESOLVED
-                          ? o("WAWebMediaTypes").MediaDataStage.RESOLVED
-                          : e.downloadStage ===
-                              o("WAWebMediaTypes").DownloadStage
-                                .PROGRESSIVE_READY
-                            ? o("WAWebMediaTypes").MediaDataStage
-                                .PROGRESSIVE_READY
-                            : (function () {
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    e.downloadStage,
-                                );
-                              })();
+                            o("WAWebMediaTypes").DownloadStage.PROGRESSIVE_READY
+                          ? o("WAWebMediaTypes").MediaDataStage
+                              .PROGRESSIVE_READY
+                          : (function () {
+                              throw Error(
+                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                  e.downloadStage,
+                              );
+                            })();
     }
     function T(e) {
       switch (e.uploadStage) {

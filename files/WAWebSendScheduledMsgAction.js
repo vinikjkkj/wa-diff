@@ -344,6 +344,7 @@ __d(
             subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
               .ScheduledMessageCreated,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            isNewMsg: !0,
           });
           try {
             yield o("WAWebDBProcessMessage").storeMessages([t], e.id);

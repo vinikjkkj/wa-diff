@@ -8,39 +8,41 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
-              var a = yield o(
-                "WAWebLazyPersistedQueue",
-              ).whenPersistedQueuesReady();
-              return a.runUserMsgResendQueued({
-                ackTime: n,
-                excludeList: t,
-                msgRecord: e,
-                resend: r,
-              });
-            }
-            var i = yield o("WAWebPersistedJobManagerWorkerCompatible")
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ackTime,
+            n = e.excludeList,
+            r = e.msgRecord,
+            a = e.resend;
+          if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
+            var i = yield o(
+              "WAWebLazyPersistedQueue",
+            ).whenPersistedQueuesReady();
+            return i.runUserMsgResendQueued({
+              ackTime: t,
+              excludeList: n,
+              msgRecord: r,
+              resend: a,
+            });
+          }
+          var l = yield o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .accessors.maybeCreateJob(
+              o("WAWebPersistedJobDefinitions").jobSerializers.resendUserMsg(
+                r,
+                n,
+                t,
+              ),
+            );
+          (yield a(),
+            yield o("WAWebPersistedJobManagerWorkerCompatible")
               .getJobManager()
-              .accessors.maybeCreateJob(
-                o("WAWebPersistedJobDefinitions").jobSerializers.resendUserMsg(
-                  e,
-                  t,
-                  n,
-                ),
-              );
-            (yield r(),
-              yield o("WAWebPersistedJobManagerWorkerCompatible")
-                .getJobManager()
-                .accessors.deletePersistedJob(i.id));
-          },
-        )),
+              .accessors.deletePersistedJob(l.id));
+        })),
         s.apply(this, arguments)
       );
     }

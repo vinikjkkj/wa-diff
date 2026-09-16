@@ -8,6 +8,7 @@ __d(
     "WAWebBrazilPaymentsGeoGating",
     "WAWebBrazilPixKeyFormattingUtils",
     "WAWebBuyerEventLogger",
+    "WAWebCloudApiSignalLogger",
     "WAWebContactUtils",
     "WAWebCopyTextWithToast",
     "WAWebExternalLink.react",
@@ -19,6 +20,7 @@ __d(
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebOrderDetails",
+    "WAWebOrderDetailsCloudApiSignalResolver",
     "WAWebOrderDetailsCreationActionWamEventUtil",
     "WAWebOrderPaymentStatus",
     "WAWebP2XFunnelIdGenerator",
@@ -28,6 +30,7 @@ __d(
     "WAWebToastManager",
     "WAWebUserPrefsTypes",
     "WAWebWamEnumBizPlatform",
+    "WAWebWamEnumCloudApiSignalTemplateType",
     "WAWebWamEnumInteractionType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageChatType",
@@ -512,23 +515,23 @@ __d(
           var a, i;
           if (!o("WAWebMsgGetters").getIsSentByMe(e.unsafe())) {
             var l = [];
-            k(t) &&
+            I(t) &&
               l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               );
             var s = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
             (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(s) &&
-              T(t) &&
+              D(t) &&
               l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
               ),
               o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(s) &&
-                D(t) &&
+                x(t) &&
                 l.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .PAYMENT_LINK,
                 ),
-              N(t) &&
+              M(t) &&
                 l.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .NATIVE,
@@ -567,6 +570,7 @@ __d(
                 messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
               });
             (m.commit(),
+              k(e, t, n),
               o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
                 isLoggingEnabled: o(
                   "WAWebBizFrontendGatingUtils",
@@ -610,7 +614,23 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e) {
+    function k(e, t, n) {
+      var r = o(
+        "WAWebOrderDetailsCloudApiSignalResolver",
+      ).resolveOrderDetailsCloudApiSignal(t, n);
+      if (r != null) {
+        var a = e.unsafe();
+        o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
+          chat: o("WAWebFrontendMsgGetters").getChat(a),
+          ctaAction: r.ctaAction,
+          ctaButtonIndex: r.ctaButtonIndex,
+          msg: a,
+          templateType: o("WAWebWamEnumCloudApiSignalTemplateType")
+            .CLOUD_API_SIGNAL_TEMPLATE_TYPE.ORDER_DETAILS,
+        });
+      }
+    }
+    function I(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -624,7 +644,7 @@ __d(
         ? t
         : !1;
     }
-    function I(e) {
+    function T(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -638,7 +658,7 @@ __d(
         ? t
         : !1;
     }
-    function T(e) {
+    function D(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -651,7 +671,7 @@ __d(
         ? t
         : !1;
     }
-    function D(e) {
+    function x(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -664,7 +684,7 @@ __d(
         ? t
         : !1;
     }
-    function x(e) {
+    function $(e) {
       var t,
         n,
         r = o("WAWebOrderDetails").getOrderInfo(e);
@@ -683,7 +703,7 @@ __d(
           : !1;
       return a;
     }
-    function $(e) {
+    function P(e) {
       var t;
       if (
         e.nativeFlowName ===
@@ -710,14 +730,14 @@ __d(
       }
       return !1;
     }
-    function P(e) {
+    function N(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        $(e) &&
+        P(e) &&
         o("WAWebMsgGetters").getIsSentByMe(e.unsafe())
       );
     }
-    function N(e) {
+    function M(e) {
       var t, n;
       return (
         ((t = e.paymentSettings) == null
@@ -744,13 +764,13 @@ __d(
       (l.getCopyBoletoCodeInteractiveAction = h),
       (l.getCopyPixStaticCodeInteractiveAction = y),
       (l.getCopyPixCodeInteractiveAction = v),
-      (l.hasValidDynamicPix = k),
-      (l.hasValidStaticPix = I),
-      (l.hasValidBoletoCode = T),
-      (l.hasValidPaymentLink = D),
-      (l.hasOrderOffsiteCardPay = x),
-      (l.shouldHideOffsiteCardPayConfirmation = P),
-      (l.hasValidCard = N));
+      (l.hasValidDynamicPix = I),
+      (l.hasValidStaticPix = T),
+      (l.hasValidBoletoCode = D),
+      (l.hasValidPaymentLink = x),
+      (l.hasOrderOffsiteCardPay = $),
+      (l.shouldHideOffsiteCardPayConfirmation = N),
+      (l.hasValidCard = M));
   },
   226,
 );

@@ -635,7 +635,7 @@ __d(
                       ).markFallbackTriggered(),
                       o(
                         "WAWebVoipWebTransportConnectionManager",
-                      ).closeAllConnections(),
+                      ).closeAllConnections(!1),
                       e != null
                         ? o(
                             "WAWebVoipSctpConnectionManager",

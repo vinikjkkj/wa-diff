@@ -14,6 +14,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebL10N",
     "WAWebNoop",
+    "WAWebUsernameGatingUtils",
     "WDSBaseCheckbox.react",
     "WDSFocusStateStyles",
     "WDSIconIcArrowDropDown.react",
@@ -23,6 +24,7 @@ __d(
     "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
+    "useWAWebContactValues",
     "useWAWebFocusState",
     "useWAWebHover",
   ],
@@ -94,7 +96,7 @@ __d(
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
     function y(e, t, n) {
-      return n == null || $.includes(e)
+      return n == null || P.includes(e)
         ? null
         : {
             draggable: !0,
@@ -112,7 +114,7 @@ __d(
             onDrop: function (r) {
               r.preventDefault();
               var t = r.dataTransfer.getData("text/plain"),
-                o = P.find(function (e) {
+                o = N.find(function (e) {
                   return e === t;
                 });
               o != null && o !== e && n(o, e);
@@ -761,6 +763,51 @@ __d(
       );
     }
     function x(e) {
+      var t,
+        n = o("react-compiler-runtime").c(6),
+        a = e.chatJid,
+        i;
+      n[0] !== a
+        ? ((i = o("WAWebContactCollection").ContactCollection.get(a)),
+          (n[0] = a),
+          (n[1] = i))
+        : (i = n[1]);
+      var l = i,
+        s =
+          (t = o("useWAWebContactValues").useOptionalContactValues(
+            l == null ? void 0 : l.id,
+            [o("WAWebFrontendContactGetters").getFormattedUsername],
+          )) == null
+            ? void 0
+            : t[0],
+        u;
+      n[2] !== s
+        ? ((u =
+            o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+            s != null &&
+            s !== ""
+              ? s
+              : "\u2014"),
+          (n[2] = s),
+          (n[3] = u))
+        : (u = n[3]);
+      var d = u,
+        m;
+      return (
+        n[4] !== d
+          ? ((m = c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: d,
+            })),
+            (n[4] = d),
+            (n[5] = m))
+          : (m = n[5]),
+        m
+      );
+    }
+    function $(e) {
       if (e == null || e === 0) return "\u2014";
       try {
         return new Intl.DateTimeFormat(void 0, {
@@ -772,10 +819,11 @@ __d(
         return "\u2014";
       }
     }
-    var $ = ["select", "customer", "actions"],
-      P = [
+    var P = ["select", "customer", "actions"],
+      N = [
         "customer",
         "phone",
+        "username",
         "list",
         "acquisitionSource",
         "email",
@@ -784,44 +832,46 @@ __d(
         "notes",
         "actions",
       ],
-      N = P;
-    function M(e, t) {
+      M = N;
+    function w(e, t) {
       return e.filter(function (e) {
-        return !$.includes(e) && t.includes(e);
+        return !P.includes(e) && t.includes(e);
       });
     }
-    function w(e) {
+    function A(e) {
       return e === "select"
         ? "Select"
         : e === "customer"
-          ? s._(/*BTDS*/ "Contact")
+          ? s._(/*BTDS*/ "Name")
           : e === "phone"
             ? s._(/*BTDS*/ "Phone number")
-            : e === "email"
-              ? s._(/*BTDS*/ "Email")
-              : e === "list"
-                ? s._(/*BTDS*/ "List")
-                : e === "acquisitionSource"
-                  ? s._(/*BTDS*/ "Source")
-                  : e === "lastMessage"
-                    ? s._(/*BTDS*/ "Last message")
-                    : e === "lastOrder"
-                      ? s._(/*BTDS*/ "Last order")
-                      : e === "notes"
-                        ? s._(/*BTDS*/ "Notes")
-                        : e === "actions"
-                          ? s._(/*BTDS*/ "Actions")
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  e,
-                              );
-                            })();
+            : e === "username"
+              ? s._(/*BTDS*/ "Username")
+              : e === "email"
+                ? s._(/*BTDS*/ "Email")
+                : e === "list"
+                  ? s._(/*BTDS*/ "List")
+                  : e === "acquisitionSource"
+                    ? s._(/*BTDS*/ "Source")
+                    : e === "lastMessage"
+                      ? s._(/*BTDS*/ "Last message")
+                      : e === "lastOrder"
+                        ? s._(/*BTDS*/ "Last order")
+                        : e === "notes"
+                          ? s._(/*BTDS*/ "Notes")
+                          : e === "actions"
+                            ? s._(/*BTDS*/ "Actions")
+                            : (function () {
+                                throw Error(
+                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                    e,
+                                );
+                              })();
     }
-    function A(e) {
+    function F(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
     }
-    function F(t) {
+    function O(t) {
       return {
         cell: function (a) {
           var n = o("WAWebContactCollection").ContactCollection.get(
@@ -878,7 +928,7 @@ __d(
                     return t.toggleAll();
                   },
                   testid: "customer_manager_select_all",
-                  value: A(t),
+                  value: F(t),
                 }),
               },
             ),
@@ -889,14 +939,14 @@ __d(
           .contactManagerColumnWidths.select,
       };
     }
-    function O(e, t, n, a, i, l, u, d) {
+    function B(e, t, n, a, i, l, u, d) {
       var m = u != null ? u : [],
         p = d != null ? d : r("WAWebNoop"),
         _ = function (t, r) {
           return a != null ? I(t, r, n, a, i, m, p) : void 0;
         },
-        f = s._(/*BTDS*/ "Contact"),
-        g = l != null ? F(l) : null;
+        f = s._(/*BTDS*/ "Name"),
+        g = l != null ? O(l) : null;
       return [].concat(g != null ? [g] : [], [
         {
           cell: function (t) {
@@ -921,6 +971,17 @@ __d(
           sortable: !0,
           width: o("WAWebContactManagerListViewColumnWidths")
             .contactManagerColumnWidths.phone,
+        },
+        {
+          cell: function (t) {
+            return c.jsx(x, { chatJid: t.item.chatJid });
+          },
+          header: s._(/*BTDS*/ "Username"),
+          key: "username",
+          renderHeader: _(s._(/*BTDS*/ "Username"), "username"),
+          sortable: !0,
+          width: o("WAWebContactManagerListViewColumnWidths")
+            .contactManagerColumnWidths.username,
         },
         {
           cell: function (t) {
@@ -992,7 +1053,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: x(e == null ? void 0 : e.t),
+              children: $(e == null ? void 0 : e.t),
             });
           },
           header: s._(/*BTDS*/ "Last message"),
@@ -1008,7 +1069,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: x(t.item.leadData.lastOrder),
+              children: $(t.item.leadData.lastOrder),
             });
           },
           header: s._(/*BTDS*/ "Last order"),
@@ -1046,12 +1107,12 @@ __d(
       ]);
     }
     ((l.ColumnReorderAnnouncer = v),
-      (l.ALWAYS_VISIBLE_COLUMNS = $),
-      (l.ALL_COLUMN_KEYS = P),
-      (l.DEFAULT_VISIBLE_COLUMNS = N),
-      (l.getOrderedReorderableColumnKeys = M),
-      (l.getColumnLabel = w),
-      (l.getContactManagerListColumns = O));
+      (l.ALWAYS_VISIBLE_COLUMNS = P),
+      (l.ALL_COLUMN_KEYS = N),
+      (l.DEFAULT_VISIBLE_COLUMNS = M),
+      (l.getOrderedReorderableColumnKeys = w),
+      (l.getColumnLabel = A),
+      (l.getContactManagerListColumns = B));
   },
   226,
 );

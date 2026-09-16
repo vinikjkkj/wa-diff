@@ -1,7 +1,6 @@
 __d(
   "WAWebBotComposerTreatment",
   [
-    "WAWebBotBaseGating",
     "WAWebBotComposerSupport",
     "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
@@ -12,8 +11,6 @@ __d(
       return e.isBot()
         ? o("WAWebBotComposerSupport").getBotComposerTreatment({
             input: o("WAWebResolveBotProfile").resolveBotSupportInput(e),
-            isFeatureEnabled:
-              o("WAWebBotBaseGating").isStandardBotProfileEnabled(),
             isProductGateOn: function (t) {
               return o("WAWebBotProductGating").isBotProductGateOn(
                 t,

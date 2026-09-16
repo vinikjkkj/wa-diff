@@ -5,9 +5,6 @@ __d(
     "use strict";
     function e() {
       return {
-        catalogEnabled: o(
-          "WAWebBizNativeAdsGatingUtils",
-        ).nativeAdsCatalogMediaSourceEnabled(),
         unifiedStoreEnabled: o(
           "WAWebBizNativeAdsGatingUtils",
         ).nativeAdsUnifiedCreativeMediaStoreEnabled(),

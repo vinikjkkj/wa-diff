@@ -11,10 +11,17 @@ __d(
       }),
       l = (function () {
         function t() {
-          this.$1 = [];
+          ((this.$1 = []),
+            (this.$2 = null),
+            (this.$3 = null),
+            (this.$4 = !1),
+            (this.$5 = !1));
         }
         var n = t.prototype;
         return (
+          (n.recordEligibility = function (t, n) {
+            ((this.$2 = t), (this.$3 = n));
+          }),
           (n.recordAttemptStart = function (t) {
             this.$1.push({
               connectionId: t,
@@ -35,6 +42,12 @@ __d(
               }
             }
           }),
+          (n.recordRelayTrafficSent = function () {
+            this.$4 = !0;
+          }),
+          (n.recordFallbackTriggered = function () {
+            this.$5 = !0;
+          }),
           (n.hasActivity = function () {
             return this.$1.length > 0;
           }),
@@ -42,6 +55,12 @@ __d(
             var t = 0;
             for (var n of this.$1) n.outcome === e.Opened && t++;
             return {
+              configEnabled: this.$2,
+              runtimeEligible: this.$3,
+              connectAttempted: this.$1.length > 0,
+              connectOpened: t > 0,
+              relayTrafficSent: this.$4,
+              fallbackTriggered: this.$5,
               numRelayAttempts: this.$1.length,
               numOpened: t,
               attempts: this.$1.slice(),
@@ -50,65 +69,116 @@ __d(
           t
         );
       })(),
-      s = new l(),
-      u = !1,
+      s = 4,
+      u = new l(),
       c = !1,
-      d = null,
-      m = null,
-      p = null;
-    function _(e, t) {
-      if ((t === void 0 && (t = !1), t && !u && c && d == null)) {
-        d = e;
+      d = !1,
+      m = !1,
+      p = null,
+      _ = null,
+      f = null,
+      g = new Map();
+    function h(e, t) {
+      if ((t === void 0 && (t = !1), t && !c && d && p == null)) {
+        p = e;
         return;
       }
-      (!u && c && d != null && ((m = d), (p = s.snapshot())),
-        (s = new l()),
-        (u = !1),
-        (c = !1),
-        (d = e));
+      if (!c && p != null) {
+        var n = u.snapshot();
+        (d && ((_ = p), (f = n)), m && $(p, n));
+      }
+      ((u = new l()), (c = !1), (d = !1), (m = !1), (p = e));
     }
-    function f(e) {
-      d = e;
+    function y(e, t) {
+      ((m = !0), u.recordEligibility(e, t), x());
     }
-    function g(e) {
-      (u && ((s = new l()), (u = !1), (d = null)),
-        (c = !0),
-        s.recordAttemptStart(e));
-    }
-    function h(e, t, n) {
-      s.recordAttemptComplete(e, t, n);
-    }
-    function y() {
-      return c && s.hasActivity();
-    }
-    function C() {
-      return c
-        ? s.snapshot()
-        : { attempts: [], numOpened: 0, numRelayAttempts: 0 };
+    function C(e) {
+      p = e;
     }
     function b(e) {
+      (c && ((u = new l()), (c = !1), (p = null)),
+        (d = !0),
+        (m = !0),
+        u.recordAttemptStart(e));
+    }
+    function v(e, t, n) {
+      (u.recordAttemptComplete(e, t, n), x());
+    }
+    function S() {
+      ((m = !0), u.recordRelayTrafficSent(), x());
+    }
+    function R() {
+      ((m = !0), u.recordFallbackTriggered(), x());
+    }
+    function L() {
+      return d && u.hasActivity();
+    }
+    function E() {
+      return d
+        ? u.snapshot()
+        : {
+            configEnabled: null,
+            runtimeEligible: null,
+            connectAttempted: !1,
+            connectOpened: !1,
+            relayTrafficSent: !1,
+            fallbackTriggered: !1,
+            attempts: [],
+            numOpened: 0,
+            numRelayAttempts: 0,
+          };
+    }
+    function k() {
+      return m ? u.snapshot() : null;
+    }
+    function I(e) {
+      var t;
       return e == null
-        ? c
-          ? s.snapshot()
-          : null
-        : e === m && p != null
-          ? p
-          : c && (d == null || e === d)
-            ? s.snapshot()
+        ? null
+        : m && e === p
+          ? u.snapshot()
+          : (t = g.get(e)) != null
+            ? t
             : null;
     }
-    function v() {
-      (c && ((m = d), (p = s.snapshot())), (u = !0));
+    function T(e) {
+      return e == null
+        ? d
+          ? u.snapshot()
+          : null
+        : e === _ && f != null
+          ? f
+          : d && (p == null || e === p)
+            ? u.snapshot()
+            : null;
+    }
+    function D() {
+      var e = u.snapshot();
+      (d && ((_ = p), (f = e)), m && $(p, e), (c = !0));
+    }
+    function x() {
+      c && m && $(p, u.snapshot());
+    }
+    function $(e, t) {
+      if (e != null && (g.set(e, t), !(g.size <= s))) {
+        var n = g.keys().next().value;
+        typeof n == "string" && g.delete(n);
+      }
     }
     ((i.WtRelayOutcome = e),
-      (i.resetWtCurrentCallActivity = _),
-      (i.updateWtCurrentCallId = f),
-      (i.recordWtRelayAttemptStart = g),
-      (i.recordWtRelayAttemptComplete = h),
-      (i.hasWtActivityThisCall = y),
-      (i.getWtCallSummaryIfCurrent = C),
-      (i.getWtCallSummaryForCall = b),
-      (i.markWtCallSummaryClosed = v));
+      (i.resetWtCurrentCallActivity = h),
+      (i.recordWtCallEligibility = y),
+      (i.updateWtCurrentCallId = C),
+      (i.recordWtRelayAttemptStart = b),
+      (i.recordWtRelayAttemptComplete = v),
+      (i.recordWtRelayTrafficSent = S),
+      (i.recordWtFallbackTriggered = R),
+      (i.hasWtActivityThisCall = L),
+      (i.getWtCallSummaryIfCurrent = E),
+      (i.getWtCurrentCallTelemetry = k),
+      (i.getWtCallTelemetryForCall = I),
+      (i.getWtCallSummaryForCall = T),
+      (i.markWtCallSummaryClosed = D));
   },
   66,
 );

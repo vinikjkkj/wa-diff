@@ -11,8 +11,6 @@ __d(
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebHandleSingleMsg",
-    "WAWebLidMigrationDbUtils",
-    "WAWebLidMigrationUtils",
     "WAWebMessageQueue",
     "WAWebMsgType",
     "WAWebOfflineHandler",
@@ -20,6 +18,7 @@ __d(
     "WAWebScheduledMsgDecryptInnerProto",
     "WAWebScheduledMsgExtractText",
     "WAWebScheduledMsgOutgoingMsgKey",
+    "WAWebScheduledMsgRevealChatUtils",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
@@ -29,13 +28,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b;
-    function v(e, t) {
-      return S.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v;
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (
             o(
               "WAWebScheduledMessagesGatingUtils",
@@ -125,11 +124,11 @@ __d(
                                   e.encIv,
                                   e.revealKey,
                                 );
-                          yield R(e, t);
+                          yield L(e, t);
                           break;
                         }
                         default:
-                          yield E(e.msgId, p);
+                          yield k(e.msgId, p);
                       }
                     } catch (e) {
                       o("WALogger")
@@ -153,15 +152,15 @@ __d(
             });
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.chatId,
             a = e.msgId;
           if (
@@ -196,12 +195,28 @@ __d(
           }
           var s = o("WAWebWidFactory").createWid(n),
             u = s.isGroup(),
-            c = u ? s : yield I(s),
-            d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            c;
+          try {
+            c = yield o(
+              "WAWebScheduledMsgRevealChatUtils",
+            ).resolveScheduledRevealChat(s);
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[scheduled_msg][mex][post] ensure chat failed; keep reveal-key",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("mex-scheduled-msg-post-ensure-chat-failed");
+            return;
+          }
+          var d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             m = o(
               "WAWebScheduledMsgOutgoingMsgKey",
             ).buildScheduledMsgOutgoingMsgKey(a, c, d),
-            b =
+            v =
               e.scheduledTimestampS > 0
                 ? e.scheduledTimestampS
                 : o("WATimeUtils").unixTime();
@@ -214,15 +229,15 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg][mex][post] drop in-memory model failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("mex-scheduled-msg-post-drop-model-failed");
           }
-          var v = babelHelpers.extends(
+          var S = babelHelpers.extends(
               {},
               o(
                 "WAWebExtractEphemeralFieldsFromScheduledMsg",
@@ -237,7 +252,7 @@ __d(
                 "WAWebExtractQuoteFieldsFromScheduledMsg",
               ).extractQuoteFieldsFromScheduledMsg(t, m),
             ),
-            S = babelHelpers.extends(
+            R = babelHelpers.extends(
               {
                 id: m,
                 from: d,
@@ -245,21 +260,21 @@ __d(
                 author: u ? d : void 0,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
               },
-              v,
+              S,
               {
-                t: b,
+                t: v,
                 ack: o("WAWebAck").ACK.RECEIVED,
                 isNewMsg: !0,
                 recvFresh: !0,
                 invis: !1,
                 isScheduledMsg: !1,
-                scheduledTimestampS: o("WATimeUtils").castToUnixTime(b),
+                scheduledTimestampS: o("WATimeUtils").castToUnixTime(v),
               },
             ),
-            R =
+            L =
               i != null
-                ? babelHelpers.extends({}, S, i)
-                : babelHelpers.extends({}, S, {
+                ? babelHelpers.extends({}, R, i)
+                : babelHelpers.extends({}, R, {
                     type: o("WAWebMsgType").MSG_TYPE.CHAT,
                     kind: o("WAWebMsgType").MsgKind.Chat,
                     body: l != null ? l : "",
@@ -267,14 +282,14 @@ __d(
           try {
             yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
               chatId: c,
-              newMsg: R,
+              newMsg: L,
               handleSingleMsgOrigin: "scheduledMsgReveal",
             });
           } catch (e) {
             o("WALogger")
               .ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg][mex][post] handleSingleMsgImpl -, keep key",
                   ])),
               )
@@ -287,8 +302,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg][mex][post] deleteRevealKey - post-insert",
                   ])),
               )
@@ -296,25 +311,25 @@ __d(
               .sendLogs("mex-scheduled-msg-post-delete-failed");
           }
           o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "[scheduled_msg][mex][post] posted message to chat",
               ])),
           );
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger")
             .ERROR(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "[scheduled_msg][mex][post] FAILURE for msgId status=",
                   "",
                 ])),
@@ -326,30 +341,10 @@ __d(
               "FAILED",
             ));
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (!e.isUser()) return e;
-          var n = o("WAWebLidMigrationUtils").toLid(e);
-          return n == null
-            ? e
-            : (t = yield o("WAWebLidMigrationDbUtils").getChatWidFromUserLid(
-                  n,
-                )) != null
-              ? t
-              : e;
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    l.mexHandleScheduledMsgPost = v;
+    l.mexHandleScheduledMsgPost = S;
   },
   98,
 );

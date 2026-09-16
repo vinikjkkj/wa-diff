@@ -10,27 +10,25 @@ __d(
     ]);
     function s(t) {
       var n = t.input,
-        r = t.isFeatureEnabled,
-        a = t.isProductGateOn;
-      if (!r) return e.COMPOSE;
-      var i = o("WAWebBotSupportState").evaluateBotSupport(n, a);
-      return i.kind === o("WAWebBotSupportState").BotSupportStateKind.UNRESOLVED
+        r = t.isProductGateOn,
+        a = o("WAWebBotSupportState").evaluateBotSupport(n, r);
+      return a.kind === o("WAWebBotSupportState").BotSupportStateKind.UNRESOLVED
         ? e.DEPRECATED
-        : i.kind === o("WAWebBotSupportState").BotSupportStateKind.SUPPORTED
+        : a.kind === o("WAWebBotSupportState").BotSupportStateKind.SUPPORTED
           ? e.COMPOSE
-          : i.kind === o("WAWebBotSupportState").BotSupportStateKind.UNSUPPORTED
+          : a.kind === o("WAWebBotSupportState").BotSupportStateKind.UNSUPPORTED
             ? e.UPGRADE
-            : i.kind ===
+            : a.kind ===
                 o("WAWebBotSupportState").BotSupportStateKind.DEPRECATED
               ? e.DEPRECATED
-              : i.kind === o("WAWebBotSupportState").BotSupportStateKind.DELETED
-                ? o("WAWebBotSupportState").hasCustomDeletedTombstone(i)
+              : a.kind === o("WAWebBotSupportState").BotSupportStateKind.DELETED
+                ? o("WAWebBotSupportState").hasCustomDeletedTombstone(a)
                   ? e.DELETED
                   : e.DEPRECATED
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        i.kind,
+                        a.kind,
                     );
                   })();
     }

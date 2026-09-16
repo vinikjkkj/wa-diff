@@ -83,7 +83,7 @@ __d(
           : t === o("WAWebMsgType").MSG_TYPE.BROADCAST_NOTIFICATION ||
               t === o("WAWebMsgType").MSG_TYPE.NOTIFICATION ||
               t === o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION
-            ? n === "create"
+            ? n === "create" || n === "scheduled_message_created"
               ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
               : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
             : t === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&

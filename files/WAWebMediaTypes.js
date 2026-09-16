@@ -180,7 +180,6 @@ __d(
       _ = n("$InternalEnum").Mirrored([
         "INIT",
         "EXISTS",
-        "PREPARING",
         "REUPLOADING",
         "FETCHING",
         "PROCESSING",

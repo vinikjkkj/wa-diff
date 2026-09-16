@@ -9,6 +9,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
+    "WAWebScheduledMsgActionLogger",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebScheduledMsgUnscheduleDirectSend",
     "WAWebSendMsgMetricReporter",
@@ -21,17 +22,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e, t) {
+    function d(e, t, n) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a,
-            i = yield o("WAWebScheduledMsgRevealKeyStore").getRevealKeyByMsgId(
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i,
+            l = a === void 0 ? {} : a,
+            d = l.shouldLogTap,
+            m = d === void 0 ? !0 : d,
+            p = yield o("WAWebScheduledMsgRevealKeyStore").getRevealKeyByMsgId(
               n,
             );
-          if (i == null) {
+          if (p == null) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -42,8 +46,8 @@ __d(
             );
             return;
           }
-          var l = o("WAWebChatCollection").ChatCollection.get(t);
-          if (l == null)
+          var _ = o("WAWebChatCollection").ChatCollection.get(t);
+          if (_ == null)
             throw (
               o("WALogger")
                 .ERROR(
@@ -57,42 +61,47 @@ __d(
                 .sendLogs("scheduled-msg-unschedule-no-chat"),
               r("err")("[scheduled_msg] cannot resolve chat for unschedule")
             );
-          var d = l.id;
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[scheduled_msg][unschedule][action] unscheduling ",
-                "",
-              ])),
-            n,
-          );
-          var m = r("WAWebMsgKey").fromString(i.msgId),
-            p =
-              d.isGroup() &&
-              ((a = l.groupMetadata) == null
+          var f = _.id;
+          (m &&
+            o("WAWebScheduledMsgActionLogger").logScheduledMsgTapUnschedule(
+              _,
+              1,
+            ),
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][unschedule][action] unscheduling ",
+                  "",
+                ])),
+              n,
+            ));
+          var g = r("WAWebMsgKey").fromString(p.msgId),
+            h =
+              f.isGroup() &&
+              ((i = _.groupMetadata) == null
                 ? void 0
-                : a.isLidAddressingMode) === !0,
-            _ = p
+                : i.isLidAddressingMode) === !0,
+            y = h
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
               : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-            f = d.isGroup() ? _ : void 0,
-            g = new (r("WAWebMsgKey"))({
+            C = f.isGroup() ? y : void 0,
+            b = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),
-              remote: d,
+              remote: f,
               fromMe: !0,
-              participant: f,
+              participant: C,
             }),
-            h = new (o("WAWebMsgModel").Msg)({
-              id: g,
-              from: _,
-              to: d,
-              author: f,
+            v = new (o("WAWebMsgModel").Msg)({
+              id: b,
+              from: y,
+              to: f,
+              author: C,
               t: o("WATimeUtils").unixTime(),
               type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
               kind: o("WAWebMsgType").MsgKind.ProtocolRevoke,
               subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
                 .ScheduledMessageUnschedule,
-              protocolMessageKey: m,
+              protocolMessageKey: g,
               local: !0,
               viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
               isNewMsg: !0,
@@ -101,24 +110,24 @@ __d(
             {
               msgRecord: {
                 type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-                data: h,
+                data: v,
               },
               metricReporter: o(
                 "WAWebSendMsgMetricReporter",
               ).createMsgModelMetricReporter(
-                h,
+                v,
                 o("WAWebMessageSendReporterFrontendDeps")
                   .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
               ),
-              chatWid: d,
-              originalMsgKey: m,
-              revealKeyId: i.revealKeyId,
+              chatWid: f,
+              originalMsgKey: g,
+              revealKeyId: p.revealKeyId,
             },
           );
           try {
-            yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(i.msgId);
+            yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(p.msgId);
           } catch (e) {
-            var y = r("getErrorSafe")(e);
+            var S = r("getErrorSafe")(e);
             o("WALogger")
               .ERROR(
                 c ||
@@ -128,7 +137,7 @@ __d(
                     "",
                   ])),
                 n,
-                y,
+                S,
               )
               .sendLogs("scheduled-msg-unschedule-delete-reveal-key-failed");
           }

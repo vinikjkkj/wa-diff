@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCoexPrivacySysMsgWamEvent",
+    "WAWebHandleMsgTypes.flow",
     "WAWebMsgKey",
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
@@ -62,7 +63,14 @@ __d(
       );
     }
     function h(e) {
-      C(
+      var t;
+      return (
+        ((t = e.privacyMode) == null ? void 0 : t.hostStorage) ===
+        o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook
+      );
+    }
+    function y(e) {
+      b(
         e.map(function (e) {
           var t = e[0],
             n = e[1];
@@ -70,9 +78,9 @@ __d(
         }),
       );
     }
-    function y(e) {
+    function C(e) {
       var t;
-      C([
+      b([
         {
           id: e == null || (t = e.id) == null ? void 0 : t.toString(),
           subtype: e == null ? void 0 : e.subtype,
@@ -81,7 +89,7 @@ __d(
         },
       ]);
     }
-    function C(t) {
+    function b(t) {
       try {
         var n,
           a = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
@@ -167,27 +175,27 @@ __d(
           .sendLogs("coex wam event commit failed");
       }
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (c.has(e)) return !1;
           var t = yield o("WAWebSchemaChat").getChatTable().get(e, !1);
           return (c.add(e), !t);
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       c.delete(e.toString());
     }
-    function R(e) {
+    function L(e) {
       var t = e.toString() + "_" + o("WATimeUtils").unixTime().toString();
       return d.has(t) ? !0 : (d.add(t), !1);
     }
-    function L() {
+    function E() {
       d.clear();
     }
     ((l.HOSTED_DEVICE_ID = s),
@@ -196,12 +204,13 @@ __d(
       (l.triggerUsyncForCoexUpdate = _),
       (l.isCoexSystemMsgType = f),
       (l.isMeOrCurrentContactHosted = g),
-      (l.sendWamCoexPrivacySysMsgInsertSuccess = h),
-      (l.sendWamCoexPrivacySysMsgHistorySyncInsert = y),
-      (l.shouldCreateFallbackHostedAdvSystemMsgOnPlaceholder = b),
-      (l.deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache = S),
-      (l.shouldDedupInitialHostedSystemMsg = R),
-      (l.clearDedupInitialHostedSystemMsgCache = L));
+      (l.isCloudApiContact = h),
+      (l.sendWamCoexPrivacySysMsgInsertSuccess = y),
+      (l.sendWamCoexPrivacySysMsgHistorySyncInsert = C),
+      (l.shouldCreateFallbackHostedAdvSystemMsgOnPlaceholder = v),
+      (l.deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache = R),
+      (l.shouldDedupInitialHostedSystemMsg = L),
+      (l.clearDedupInitialHostedSystemMsgCache = E));
   },
   98,
 );

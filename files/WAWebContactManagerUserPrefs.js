@@ -2,7 +2,7 @@ __d(
   "WAWebContactManagerUserPrefs",
   ["WAWebContactManagerListViewColumns", "WAWebUICustomizationStore"],
   function (t, n, r, o, a, i, l) {
-    var e = "customer_manager_visible_columns",
+    var e = "customer_manager_hidden_columns",
       s = "customer_manager_column_order",
       u = new Set(o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS);
     function c(e) {
@@ -14,17 +14,41 @@ __d(
       var n = t;
       return n;
     }
-    function d() {
-      return o("WAWebUICustomizationStore").getCustomization(
-        e,
-        c,
-        o("WAWebContactManagerListViewColumns").DEFAULT_VISIBLE_COLUMNS,
+    function d(e) {
+      if (!Array.isArray(e)) return null;
+      var t = new Set(e);
+      return o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.filter(
+        function (e) {
+          return t.has(e);
+        },
       );
     }
-    function m(t) {
-      o("WAWebUICustomizationStore").saveCustomization(e, [].concat(t));
+    function m() {
+      var t = new Set(
+        o("WAWebUICustomizationStore").getCustomization(e, d, []),
+      );
+      return o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.filter(
+        function (e) {
+          return (
+            o(
+              "WAWebContactManagerListViewColumns",
+            ).ALWAYS_VISIBLE_COLUMNS.includes(e) || !t.has(e)
+          );
+        },
+      );
     }
-    function p(e) {
+    function p(t) {
+      var n = new Set(t);
+      o("WAWebUICustomizationStore").saveCustomization(
+        e,
+        o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.filter(
+          function (e) {
+            return !n.has(e);
+          },
+        ),
+      );
+    }
+    function _(e) {
       var t = c(e);
       if (t == null) return null;
       var n = new Set(t),
@@ -35,20 +59,20 @@ __d(
         );
       return r.length === 0 ? t : [].concat(t, r);
     }
-    function _() {
+    function f() {
       return o("WAWebUICustomizationStore").getCustomization(
         s,
-        p,
+        _,
         o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS,
       );
     }
-    function f(e) {
+    function g(e) {
       o("WAWebUICustomizationStore").saveCustomization(s, [].concat(e));
     }
-    ((l.getVisibleColumns = d),
-      (l.saveVisibleColumns = m),
-      (l.getColumnOrder = _),
-      (l.saveColumnOrder = f));
+    ((l.getVisibleColumns = m),
+      (l.saveVisibleColumns = p),
+      (l.getColumnOrder = f),
+      (l.saveColumnOrder = g));
   },
   98,
 );

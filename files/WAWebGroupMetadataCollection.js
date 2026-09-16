@@ -5,6 +5,8 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebFindGroupMetadataAction",
+    "WAWebFrontendGroupMetadataGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataModel",
     "WAWebIsCagGroupCache",
     "WAWebProfilePicThumbCollection",
@@ -144,12 +146,30 @@ __d(
               ? r("WAWebIsCagGroupCache").add(t.id)
               : r("WAWebIsCagGroupCache").remove(t.id);
           }),
+          (i.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null && d(e);
+              }),
+              e
+            );
+          }),
+          (i.reset = function () {
+            (this.forEach(d), t.prototype.reset.call(this));
+          }),
           a
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     c.model = r("WAWebGroupMetadataModel");
-    var d = new c();
-    l.default = d;
+    function d(e) {
+      (o("WAWebGroupMetadataGetters").clearGroupMetadataGetterCacheFor(e),
+        o(
+          "WAWebFrontendGroupMetadataGetters",
+        ).clearFrontendGroupMetadataGetterCacheFor(e));
+    }
+    var m = new c();
+    l.default = m;
   },
   98,
 );

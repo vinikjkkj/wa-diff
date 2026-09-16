@@ -198,9 +198,6 @@ __d(
         enableStreamReaderFailureRecovery: r("gkx")("12428"),
         enableSuppressIdleTransitions: r("gkx")("7814"),
         enableTasosBwe: r("gkx")("1093"),
-        endOfStreamBufferToleranceSec: r("gkx")("5397")
-          ? 0.05
-          : e.endOfStreamBufferToleranceSec,
         fatalErrorOnMediaErrorRecoveryCapReached: r("gkx")("5957"),
         fetchHighPri: !0,
         fetchInitSidxOfAllRepresentations: r("gkx")("898"),

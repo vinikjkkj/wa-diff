@@ -2,7 +2,6 @@ __d(
   "WAWebMaybeSyncBotSupportFields",
   [
     "WALogger",
-    "WAWebBotBaseGating",
     "WAWebBotProfileCollection",
     "WAWebBotProfileFreshness",
     "WAWebBotStaticProfiles",
@@ -16,13 +15,7 @@ __d(
     function c(t, n) {
       var a = n === void 0 ? {} : n,
         i = a.ttlMs;
-      if (
-        !(
-          !o("WAWebBotBaseGating").isStandardBotProfileEnabled() ||
-          !t.isFbidBot() ||
-          o("WAWebBotStaticProfiles").isStaticProfile(t)
-        )
-      ) {
+      if (!(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t))) {
         var l = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
           s =
             l == null

@@ -16,8 +16,13 @@ __d(
           type: "proportional",
           value: 10,
         },
+        username: {
+          options: { minWidth: 160, maxWidth: 220 },
+          type: "proportional",
+          value: 10,
+        },
         list: {
-          options: { minWidth: 150, maxWidth: 200 },
+          options: { minWidth: 200, maxWidth: 260 },
           type: "proportional",
           value: 7,
         },

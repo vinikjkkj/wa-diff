@@ -162,19 +162,20 @@ __d(
               o("WAWebVoipActionWriteCallLogImpl").isCallIdAlreadyProcessed(u)
             )
           ) {
-            var v,
-              S =
+            var v = h || !r("isStringNullOrEmpty")(c),
+              S,
+              R =
                 s != null && s !== ""
                   ? o("WAWebWidFactory").createWid(s)
                   : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
             try {
-              v = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
-                callCreatorWid: S,
+              S = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
+                callCreatorWid: R,
                 callId: u,
                 groupJid: r("isStringNullOrEmpty")(m)
                   ? null
                   : o("WAWebWidFactory").createWid(m),
-                isCallLink: h || void 0,
+                isCallLink: v,
                 participants: r("compactMap")(n.participants, function (e) {
                   return e.userJid != null && e.userJid !== ""
                     ? o("WAWebWidFactory").createWid(e.userJid)
@@ -190,49 +191,53 @@ __d(
               );
               return;
             }
-            var R = v,
-              L = R.callCreatorUserWid,
-              E = R.chatId,
-              k = R.fromMe,
-              I = R.msgKeyId,
-              T = R.participant,
-              D = R.viewMode,
-              x = o("WATimeUtils").castToUnixTime(
+            var L = S,
+              E = L.callCreatorUserWid,
+              k = L.chatId,
+              I = L.fromMe,
+              T = L.msgKeyId,
+              D = L.participant,
+              x = L.viewMode,
+              $ = o("WATimeUtils").castToUnixTime(
                 (t = o("WALongInt").maybeNumber(b)) != null
                   ? t
                   : o("WATimeUtils").unixTime(),
               ),
-              $ = !1;
+              P = !1;
             if (
               !i &&
               !o("WATimeUtils").happenedWithin(
-                x,
+                $,
                 o("WATimeUtils").MINUTE_SECONDS,
               )
             ) {
-              var P,
-                N =
-                  (P = o("WAWebChatCollection").ChatCollection.get(E)) == null
+              var N,
+                M =
+                  (N = o("WAWebChatCollection").ChatCollection.get(k)) == null
                     ? void 0
-                    : P.t;
-              $ = N != null && N >= x;
+                    : N.t;
+              P = M != null && M >= $;
             }
+            var w =
+              x === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
+              x ===
+                o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL;
             try {
-              var M,
-                w = {
+              var A,
+                F = {
                   id: new (r("WAWebMsgKey"))({
-                    remote: E,
-                    participant: T,
-                    fromMe: k,
-                    id: I,
+                    remote: k,
+                    participant: D,
+                    fromMe: I,
+                    id: T,
                   }),
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
                   viewMode:
-                    $ || i || h
+                    !w && (P || i || v)
                       ? o("WAWebViewMode.flow").ViewModeType
                           .HISTORY_SYNCED_CALL_LOG
-                      : D,
+                      : x,
                   callOutcome: o(
                     "WAWebCallLogUtils",
                   ).getCallOutcomeFromCallResultSyncProto(
@@ -246,12 +251,12 @@ __d(
                       ? o("WAWebCallLogUtils").getCallSilenceReason(C)
                       : void 0,
                   isVideoCall: y != null ? y : !1,
-                  callCreator: S,
+                  callCreator: R,
                   callDuration:
                     n.duration == null
                       ? void 0
-                      : (M = o("WALongInt").maybeNumber(n.duration)) != null
-                        ? M
+                      : (A = o("WALongInt").maybeNumber(n.duration)) != null
+                        ? A
                         : void 0,
                   callParticipants: n.participants
                     .filter(function (e) {
@@ -273,15 +278,15 @@ __d(
                                 .Invalid,
                       };
                     }),
-                  from: L,
-                  t: x,
-                  to: E,
-                  isCallLink: h != null ? h : !1,
+                  from: E,
+                  t: $,
+                  to: k,
+                  isCallLink: v,
                   callLinkToken: c != null ? c : void 0,
                 };
               yield o(
                 "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(E, w, !1);
+              ).writeVoipCallLogMessageImpl(k, F, !1);
             } catch (e) {
               i
                 ? o("WALogger")

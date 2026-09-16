@@ -14,6 +14,7 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitReloadRecovery",
+    "WAWebVoipPthreadGlueFailureTracker",
     "WAWebVoipQplHelpers",
     "WAWebVoipSctpPrewarm",
     "WAWebVoipThreadPoolManager",
@@ -71,11 +72,16 @@ __d(
       );
     }
     function L(t) {
-      return !b || !t.pinWorkerGlue
+      return !t.pinWorkerGlue ||
+        !o(
+          "WAWebVoipPthreadGlueFailureTracker",
+        ).isPinnedWorkerGlueUnpinnedForPage()
         ? t
-        : (o(
-            "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactWorkerGlueUnpinnedFallback(),
+        : (b ||
+            ((b = !0),
+            o(
+              "WAWebCoreActionsODS",
+            ).logCallVoipInitWasmArtifactWorkerGlueUnpinnedFallback()),
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -142,9 +148,8 @@ __d(
               "voip: Loading VoIP WASM with AB prop-based variant selection",
             ])),
         );
-        var e = yield v(),
-          t = yield P(L(e));
-        return ((b = !1), t);
+        var e = yield v();
+        return P(L(e));
       }),
       "voipWebWasmLoader",
       {
@@ -152,10 +157,12 @@ __d(
         onAttemptFailure: function (t, n) {
           (navigator.onLine === !1 && (h = !0),
             T(t) &&
-              ((b = !0),
-              o(
+              (o(
                 "WAWebCoreActionsODS",
-              ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailed()));
+              ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailed(),
+              o(
+                "WAWebVoipPthreadGlueFailureTracker",
+              ).markPinnedWorkerGlueUnpinnedForPage()));
         },
         onFinalFailure: function (t, n) {
           var e = D(t),
@@ -164,7 +171,6 @@ __d(
             ((h = !1),
             (y = null),
             (C = !1),
-            (b = !1),
             r &&
               o(
                 "WAWebVoipInitReloadRecovery",
@@ -264,6 +270,9 @@ __d(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_END,
             ),
               o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(i, "wasm_load"),
+              o(
+                "WAWebVoipPthreadGlueFailureTracker",
+              ).attachPthreadGlueFailureModule(i),
               yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
             var l = o("WAWebABProps").getABPropConfigValue(
                 "web_voip_dynamic_thread_preallocate_count",

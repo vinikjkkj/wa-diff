@@ -2,7 +2,6 @@ __d(
   "WAWebFetchBotProfileOnChatAdd",
   [
     "WALogger",
-    "WAWebBotBaseGating",
     "WAWebBotStaticProfiles",
     "WAWebSchemaBotProfile",
     "WAWebSyncBotSupportFields",
@@ -18,11 +17,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
-            !(
-              !o("WAWebBotBaseGating").isStandardBotProfileEnabled() ||
-              !t.isFbidBot() ||
-              o("WAWebBotStaticProfiles").isStaticProfile(t)
-            )
+            !(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t))
           )
             try {
               if (

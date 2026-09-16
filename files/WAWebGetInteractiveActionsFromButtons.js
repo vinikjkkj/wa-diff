@@ -13,6 +13,7 @@ __d(
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBrPaymentRequest",
     "WAWebCarouselMsgUtils",
+    "WAWebCloudApiSignalLogger",
     "WAWebContactGetters",
     "WAWebCopyTextWithToast",
     "WAWebCouponCodeHelper",
@@ -48,6 +49,8 @@ __d(
     "WAWebSendTextMsgChatAction",
     "WAWebSignupFlowLoggerLazy",
     "WAWebSmbPaidMessagesButtonLoggerWamEvent",
+    "WAWebWamEnumCloudApiSignalCtaAction",
+    "WAWebWamEnumCloudApiSignalTemplateType",
     "WAWebWamEnumDisclosureEventType",
     "WAWebWamEnumMessageActionEntryPoint",
     "WAWebWamEnumMessageLevelAction",
@@ -834,12 +837,18 @@ __d(
                   o("WAWebCopyTextWithToast").copyTextWithToast({
                     failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
                     onSuccess: function () {
-                      o(
+                      (o(
                         "WAWebPaymentRequestWamLogger",
                       ).logPaymentRequestInteractionWAMEvent(
                         t,
                         o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO,
-                      );
+                      ),
+                        M(
+                          e,
+                          t,
+                          o("WAWebWamEnumCloudApiSignalCtaAction")
+                            .CLOUD_API_SIGNAL_CTA_ACTION.COPY_BOLETO_CODE,
+                        ));
                     },
                     successMsg: s._(/*BTDS*/ "Boleto code copied"),
                     text: a,
@@ -859,13 +868,19 @@ __d(
                   o("WAWebCopyTextWithToast").copyTextWithToast({
                     failureMsg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
                     onSuccess: function () {
-                      o(
+                      (o(
                         "WAWebPaymentRequestWamLogger",
                       ).logPaymentRequestInteractionWAMEvent(
                         t,
                         o("WAWebBrPaymentRequest").PaymentRequestCtaType
                           .PIX_DYNAMIC_CODE,
-                      );
+                      ),
+                        M(
+                          e,
+                          t,
+                          o("WAWebWamEnumCloudApiSignalCtaAction")
+                            .CLOUD_API_SIGNAL_CTA_ACTION.COPY_PIX_CODE,
+                        ));
                     },
                     successMsg: s._(/*BTDS*/ "Pix Code copied"),
                     text: i,
@@ -888,6 +903,12 @@ __d(
                       t,
                       o("WAWebBrPaymentRequest").PaymentRequestCtaType
                         .PAYMENT_LINK,
+                    ),
+                    M(
+                      e,
+                      t,
+                      o("WAWebWamEnumCloudApiSignalCtaAction")
+                        .CLOUD_API_SIGNAL_CTA_ACTION.OPEN_PAYMENT_LINK,
                     ));
                 },
                 Icon: o("WAWebLaunchIcon.react").LaunchIcon,
@@ -896,6 +917,18 @@ __d(
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.OFFSITE_CARD_PAY:
           return null;
       }
+    }
+    function M(e, t, n) {
+      var r = t.unsafe();
+      o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
+        carouselCardIndex: T(r),
+        chat: o("WAWebFrontendMsgGetters").getChat(r),
+        ctaAction: n,
+        ctaButtonIndex: e.index,
+        msg: r,
+        templateType: o("WAWebWamEnumCloudApiSignalTemplateType")
+          .CLOUD_API_SIGNAL_TEMPLATE_TYPE.PAYMENT_REQUEST,
+      });
     }
     l.default = p;
   },

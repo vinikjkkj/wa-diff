@@ -26,6 +26,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -305,16 +306,16 @@ __d(
             .tags("history-sync", "groups");
           var t = o("WAWebUserPrefsModelStorage").getInitialGroupPhashMap(),
             n = [];
-          for (var r of e) {
-            var a = yield o("WAWebApiChatCommon").getChatRecord(r.id);
-            if (!a) {
-              var i = t == null ? void 0 : t[r.id.toString()];
-              i == null &&
+          for (var a of e) {
+            var i = yield o("WAWebApiChatCommon").getChatRecord(a.id);
+            if (!i) {
+              var l = t == null ? void 0 : t[a.id.toString()];
+              l == null &&
                 n.push({
                   unreadCount: 0,
                   muteExpiration: 0,
                   isAutoMuted: !1,
-                  id: r.id,
+                  id: a.id,
                   endOfHistoryTransferType:
                     o("WAWebChatConstants")
                       .ConversationEndOfHistoryTransferModelPropType
@@ -347,11 +348,10 @@ __d(
                   .LOG(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[group-info] chat create failed for unsynced group: ",
-                        "",
+                        "[group-info] chat create failed for unsynced group",
                       ])),
-                    e.message,
                   )
+                  .catching(r("getErrorSafe")(e))
                   .tags("history-sync", "groups");
               }),
             o("WALogger")

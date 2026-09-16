@@ -53,7 +53,7 @@ __d(
         enableStreamReaderFailureRecovery: !1,
         enableSuppressIdleTransitions: !1,
         enableTasosBwe: !1,
-        endOfStreamBufferToleranceSec: 0.001,
+        endOfStreamBufferToleranceSec: 0.05,
         fatalErrorOnMediaErrorRecoveryCapReached: !1,
         fetchHighPri: !1,
         fetchInitSidxOfAllRepresentations: !1,

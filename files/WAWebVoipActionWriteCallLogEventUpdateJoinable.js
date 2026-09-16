@@ -152,7 +152,9 @@ __d(
             throw r("err")(
               "WAWebVoipActionWriteCallLogEventUpdateJoinable: Expected UpdateJoinableCallLogType to be defined",
             );
-          var _, f;
+          var _ = !r("isStringNullOrEmpty")(e.CallLinkToken),
+            f,
+            g;
           if (
             m ===
             o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Create
@@ -161,73 +163,73 @@ __d(
               throw r("err")(
                 "voip action write call log message: update joinable: Unexpected null call creator on create type event",
               );
-            var g = o(
+            var h = o(
               "WAWebVoipOngoingCallCollection",
             ).WAWebVoipOngoingCallCollection.getByCallId(n);
-            if (g != null)
-              ((_ = babelHelpers.extends({}, g.toJSON(), {
+            if (h != null)
+              ((f = babelHelpers.extends({}, h.toJSON(), {
                 callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing,
                 isVideoCall: p,
                 callParticipants: a.map(function (e) {
                   return { participant: e.jid, outcome: e.result };
                 }),
               })),
-                (f = _.to));
+                (g = f.to));
             else {
-              var h,
-                y =
+              var y,
+                C =
                   s != null
                     ? o("WAWebUserPrefsMeUser").isMeAccount(s)
                     : o("WAWebUserPrefsMeUser").isMeDevice(t) ||
                       o("WAWebUserPrefsMeUser").isMeAccount(t),
-                C = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
+                b = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                   callCreatorWid: s != null ? s : t,
                   callId: n,
                   groupJid: l,
-                  isCallLink: s != null,
+                  isCallLink: s != null || _,
                   participants: r("compactMap")(a, function (e) {
                     return e.jid;
                   }),
                 }),
-                b = C.callCreatorUserWid,
-                v = C.chatId,
-                S = C.msgKeyId,
-                R = C.participant,
-                L = C.viewMode;
-              ((f = v),
-                (_ = {
+                v = b.callCreatorUserWid,
+                S = b.chatId,
+                R = b.msgKeyId,
+                L = b.participant,
+                E = b.viewMode;
+              ((g = S),
+                (f = {
                   id: new (r("WAWebMsgKey"))({
-                    remote: f,
-                    participant: R,
-                    fromMe: y,
-                    id: S,
+                    remote: g,
+                    participant: L,
+                    fromMe: C,
+                    id: R,
                   }),
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
-                  viewMode: L,
+                  viewMode: E,
                   callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
                     .Ongoing,
                   isVideoCall: p,
-                  isCallLink: !r("isStringNullOrEmpty")(e.CallLinkToken),
-                  callLinkToken: (h = e.CallLinkToken) != null ? h : "",
+                  isCallLink: _,
+                  callLinkToken: (y = e.CallLinkToken) != null ? y : "",
                   callCreator: t,
-                  from: b,
-                  author: b,
+                  from: v,
+                  author: v,
                   t: o(
                     "WAWebVoipCallLogTimestamp",
                   ).resolveCallLogTimestampFromOfferTime(e.OfferEpochTime),
                   callParticipants: a.map(function (e) {
                     return { participant: e.jid, outcome: e.result };
                   }),
-                  to: f,
+                  to: g,
                   selfOtherDeviceConnected: e.SelfOtherDeviceConnected,
                 }));
             }
           } else {
-            var E = o(
+            var k = o(
               "WAWebVoipOngoingCallCollection",
             ).WAWebVoipOngoingCallCollection.getByCallId(n);
-            if (E == null) {
+            if (k == null) {
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -240,16 +242,16 @@ __d(
               );
               return;
             }
-            var k;
+            var I;
             if (
               m ===
               o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Delete
             ) {
-              var I;
-              ((k = (I = E.callParticipants) != null ? I : []),
+              var T;
+              ((I = (T = k.callParticipants) != null ? T : []),
                 i != null &&
                   i.Users &&
-                  (k = k.map(function (e) {
+                  (I = I.map(function (e) {
                     var t = i.Users.find(function (t) {
                       return t.Jid != null && t.Jid.equals(e.participant);
                     });
@@ -269,11 +271,11 @@ __d(
             } else
               m ===
               o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Update
-                ? (k = a.map(function (e) {
+                ? (I = a.map(function (e) {
                     return { participant: e.jid, outcome: e.result };
                   }))
-                : (k = E.callParticipants);
-            ((_ = babelHelpers.extends({}, E.toJSON(), {
+                : (I = k.callParticipants);
+            ((f = babelHelpers.extends({}, k.toJSON(), {
               callOutcome:
                 m ===
                 o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType
@@ -281,40 +283,40 @@ __d(
                   ? d(u)
                   : o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing,
               isVideoCall:
-                E.isVideoCall || (i == null ? void 0 : i.IsVideo) || p,
+                k.isVideoCall || (i == null ? void 0 : i.IsVideo) || p,
               callDuration:
                 i != null && i.CallDuration
                   ? Math.floor((i == null ? void 0 : i.CallDuration) / 1e3)
-                  : E.callDuration,
-              callParticipants: k,
+                  : k.callDuration,
+              callParticipants: I,
               viewMode:
-                E.viewMode === o("WAWebViewMode.flow").ViewModeType.HIDDEN &&
-                k &&
-                k.length > 0
+                k.viewMode === o("WAWebViewMode.flow").ViewModeType.HIDDEN &&
+                I &&
+                I.length > 0
                   ? o("WAWebViewMode.flow").ViewModeType
                       .CALL_LOG_AD_HOC_GROUP_CALL
-                  : E.viewMode,
+                  : k.viewMode,
               selfOtherDeviceConnected: e.SelfOtherDeviceConnected,
             })),
-              (f = _.to));
+              (g = f.to));
           }
-          r("isStringNullOrEmpty")(e.CallLinkToken) ||
-            (_.viewMode =
+          _ &&
+            (f.viewMode =
               o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL);
-          var T = yield o(
+          var D = yield o(
             "WAWebVoipActionWriteCallLogImpl",
-          ).writeVoipCallLogMessageImpl(f, _, !1);
+          ).writeVoipCallLogMessageImpl(g, f, !1);
           m ===
           o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Delete
             ? (o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n),
               o(
                 "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.remove(_.id))
-            : T &&
+              ).WAWebVoipOngoingCallCollection.remove(f.id))
+            : D &&
               (o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n),
               o(
                 "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.add(T, { merge: !0 }));
+              ).WAWebVoipOngoingCallCollection.add(D, { merge: !0 }));
         })),
         h.apply(this, arguments)
       );

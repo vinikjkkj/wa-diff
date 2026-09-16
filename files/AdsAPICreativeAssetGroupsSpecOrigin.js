@@ -129,6 +129,7 @@ __d(
       PCAU_UNIFIED_FORMAT: "pcau_unified_format",
       PE_DATA_MODEL: "pe_data_model",
       PLAYABLE_APP_ADS: "playable_app_ads",
+      QUALITY_PARITY_MEASUREMENT: "quality_parity_measurement",
       SA_DA_CREATIVE_FEATURE_PARITY: "sa_da_creative_feature_parity",
       SA_DA_PARITY_EXPERIMENT: "sa_da_parity_experiment",
       SA_DEMAND_EXPERIMENT: "sa_demand_experiment",

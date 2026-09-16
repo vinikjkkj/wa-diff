@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWap",
     "WAWapJid",
-    "WAWebBotBaseGating",
     "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "WAWebReconcileBotSupportFields",
@@ -58,34 +57,33 @@ __d(
       );
     }
     function S(e) {
-      if (o("WAWebBotBaseGating").isStandardBotProfileEnabled())
-        try {
-          var t = o("WAWebWidFactory").createWid(e);
-          if (!t.isFbidBot()) return;
-          o("WAWebSyncBotSupportFields")
-            .syncBotSupportFields(t)
-            .catch(function (e) {
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BotProfileNotification] bot support sync failed: ",
-                    "",
-                  ])),
-                String(e),
-              );
-            });
-        } catch (t) {
-          o("WALogger").WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[BotProfileNotification] invalid jid: ",
-                " (",
-                ")",
-              ])),
-            e,
-            String(t),
-          );
-        }
+      try {
+        var t = o("WAWebWidFactory").createWid(e);
+        if (!t.isFbidBot()) return;
+        o("WAWebSyncBotSupportFields")
+          .syncBotSupportFields(t)
+          .catch(function (e) {
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BotProfileNotification] bot support sync failed: ",
+                  "",
+                ])),
+              String(e),
+            );
+          });
+      } catch (t) {
+        o("WALogger").WARN(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[BotProfileNotification] invalid jid: ",
+              " (",
+              ")",
+            ])),
+          e,
+          String(t),
+        );
+      }
     }
     function R(e) {
       return L.apply(this, arguments);

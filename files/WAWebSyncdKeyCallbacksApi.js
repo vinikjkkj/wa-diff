@@ -5,55 +5,66 @@ __d(
     "WAWebApiDeviceList",
     "WAWebKeyManagementSendKeyRequestApi",
     "WAWebKeyManagementSendKeyShareApi",
+    "WAWebSyncDeviceAdvDeviceListJob",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
-    }
+    var e, s;
     function u() {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebApiDeviceList").getMyDeviceList(),
-            n = t.currentIndex,
-            a = t.devices,
-            i = t.rawId;
-          if (n == null)
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebApiDeviceList").getMaybeMyDeviceList();
+          t == null &&
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[syncd] own device list missing; refreshing before fingerprint",
+                ])),
+            ),
+            yield o("WAWebSyncDeviceAdvDeviceListJob").syncMyDeviceListJob(),
+            (t = yield o("WAWebApiDeviceList").getMyDeviceList()));
+          var n = t,
+            a = n.currentIndex,
+            i = n.devices,
+            l = n.rawId;
+          if (a == null)
             throw (
               o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[syncd] missing current idx for own device, len=",
                     "",
                   ])),
-                a == null ? void 0 : a.length,
+                i == null ? void 0 : i.length,
               ),
               r("err")("syncd: missing current index for own device")
             );
           return {
-            currentIndex: n,
-            deviceIndexes: a.map(function (e) {
+            currentIndex: a,
+            deviceIndexes: i.map(function (e) {
               return e.keyIndex;
             }),
-            rawId: i,
+            rawId: l,
           };
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    var c = function (t) {
+    var d = function (t) {
       return o("WAWebKeyManagementSendKeyShareApi").sendAppStateSyncKeyShare({
         type: "key_rotation",
         keys: t,
       });
     };
-    ((l.getDeviceFingerprint = s),
+    ((l.getDeviceFingerprint = u),
       (l.sendSyncdKeyRequest = o(
         "WAWebKeyManagementSendKeyRequestApi",
       ).sendAppStateSyncKeyRequest),
-      (l.sendSyncdKeyRotation = c));
+      (l.sendSyncdKeyRotation = d));
   },
   98,
 );

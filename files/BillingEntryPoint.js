@@ -97,9 +97,13 @@ __d(
         "aymt_bizapp_prepay_low_balance_wallet_tip",
       AYMT_BIZAPP_PREPAY_LOW_BALANCE_WALLET_TIP_INBOX:
         "aymt_bizapp_prepay_low_balance_wallet_tip_inbox",
+      AYMT_BIZAPP_PREPAY_LOW_BALANCE_WALLET_TIP_GLOBAL_BANNER:
+        "aymt_bizapp_prepay_low_balance_wallet_tip_global_banner",
       AYMT_BIZAPP_PREPAY_AD_ACCOUNT_TIP: "aymt_bizapp_prepay_ad_account_tip",
       AYMT_BIZAPP_PREPAY_AD_ACCOUNT_TIP_INBOX:
         "aymt_bizapp_prepay_ad_account_tip_inbox",
+      AYMT_BIZAPP_PREPAY_AD_ACCOUNT_TIP_GLOBAL_BANNER:
+        "aymt_bizapp_prepay_ad_account_tip_global_banner",
       AYMT_BILLING_TRANSACTION_UNREGISTERED_EMAIL_TIP:
         "aymt_billing_transaction_unregistered_email_tip",
       AYMT_ACCOUNT_UNSETTLED_TIP_V2: "aymt_account_unsettled_tip_v2",

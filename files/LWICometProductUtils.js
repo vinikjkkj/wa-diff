@@ -29,21 +29,13 @@ __d(
     function d(e) {
       var t = e.hasConflictingCreativeFeature,
         n = e.hasEligibleTransport,
+        r = e.isAdCopyEnglish,
         o = e.isCarouselPost,
         a = e.isHeadlineTextEligible,
         i = e.isSingleAdgroup,
         l = e.isSinglePost,
         s = e.shouldShowHeadline;
-      return (
-        !t &&
-        n &&
-        !o &&
-        a &&
-        i &&
-        l &&
-        s &&
-        r("CurrentLocale").get().startsWith("en_")
-      );
+      return !t && n && !o && a && i && l && s && r;
     }
     function m(e, t) {
       return !t || !d(e) ? !1 : r("qex")._("3932") === !0;

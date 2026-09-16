@@ -340,9 +340,7 @@ __d(
             var n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
             n != null && (t = yield f(n));
           }
-          if (t == null || t.deleted)
-            throw r("err")("syncd: cannot find my device list");
-          return t;
+          return t == null || t.deleted ? null : t;
         })),
         w.apply(this, arguments)
       );
@@ -353,6 +351,19 @@ __d(
     function F() {
       return (
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield M();
+          if (e == null) throw r("err")("syncd: cannot find my device list");
+          return e;
+        })),
+        F.apply(this, arguments)
+      );
+    }
+    function O() {
+      return B.apply(this, arguments);
+    }
+    function B() {
+      return (
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = self.performance.now(),
             t = yield o("WAWebSchemaDeviceList").getDeviceListTable().all();
           return (
@@ -369,7 +380,7 @@ __d(
             t
           );
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
     ((l.getDeviceRecord = f),
@@ -379,8 +390,9 @@ __d(
       (l.getDeviceIds = T),
       (l.hasDevice = x),
       (l.getDeviceInfoForSync = P),
-      (l.getMyDeviceList = M),
-      (l.getAllDeviceLists = A));
+      (l.getMaybeMyDeviceList = M),
+      (l.getMyDeviceList = A),
+      (l.getAllDeviceLists = O));
   },
   98,
 );

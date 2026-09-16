@@ -80,6 +80,7 @@ __d(
         : t == null ||
             t === "customer" ||
             t === "phone" ||
+            t === "username" ||
             t === "lastMessage" ||
             t === "list"
           ? !0

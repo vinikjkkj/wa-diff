@@ -11,6 +11,7 @@ __d(
     "WAWebMessageAssociation.flow",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
+    "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,6 +35,8 @@ __d(
     function c(e, t, n) {
       if (
         !r("WAWebGroupHistorySupportedMessageTypesUtil")(e.type) ||
+        e.isScheduledMsg === !0 ||
+        e.viewMode === o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE ||
         (e.t != null && e.t < t) ||
         (n != null && e.t != null && e.t > n) ||
         (e.associationType != null && s.includes(e.associationType))

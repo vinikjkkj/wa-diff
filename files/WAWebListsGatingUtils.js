@@ -17,7 +17,7 @@ __d(
     }
     function u() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled")
+        ? o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled2")
         : e() &&
             o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled");
     }

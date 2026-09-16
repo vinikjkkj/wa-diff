@@ -358,10 +358,9 @@ __d(
                       }
                     } else
                       v.mediaBlob &&
-                        (yield o("WAWebMediaDataUtils").gatherAndSetMetadata(
-                          v,
-                          v.mediaBlob,
-                        ));
+                        (yield o(
+                          "WAWebMediaDataUtils",
+                        ).attachBlobAndGatherAndSetMetadata(v, v.mediaBlob));
                   var L = v.filehash;
                   if (r("WAWebEnvironment").isWindows && L != null) {
                     var I = yield o("WAWebFileUtils").blobToArrayBuffer(t);

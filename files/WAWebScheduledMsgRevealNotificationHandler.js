@@ -21,6 +21,7 @@ __d(
     "WAWebScheduledMsgDecryptInnerProto",
     "WAWebScheduledMsgExtractText",
     "WAWebScheduledMsgOrphanRevealKeyStore",
+    "WAWebScheduledMsgRevealChatUtils",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
@@ -54,13 +55,14 @@ __d(
       D,
       x,
       $,
-      P;
-    function N(e, t) {
-      return M.apply(this, arguments);
+      P,
+      N;
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = o(
               "WAWebScheduledMessagesGatingUtils",
             ).isScheduledMessagesReceiverEnabled(),
@@ -108,9 +110,9 @@ __d(
                 "[scheduled_msg][mex][reveal] received rkid",
               ])),
           );
-          var _ = F(e);
+          var _ = O(e);
           if (_ == null) {
-            yield w({
+            yield A({
               mexScheduledTimestampS: p,
               receiverEnabled: r,
               rk: l,
@@ -131,7 +133,7 @@ __d(
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
                   return (
-                    yield w({
+                    yield A({
                       mexScheduledTimestampS: p,
                       receiverEnabled: r,
                       rk: l,
@@ -148,21 +150,21 @@ __d(
             })(),
           });
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.mexScheduledTimestampS,
             n = e.receiverEnabled,
             a = e.rk,
             i = e.rkid;
           try {
-            var l = U(a);
+            var l = V(a);
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -172,7 +174,7 @@ __d(
             var s = yield o(
               "WAWebScheduledMsgRevealKeyStore",
             ).getRevealKeyByRevealKeyId(i);
-            s != null ? yield O(s, l, t, n) : yield W(i, l, n);
+            s != null ? yield B(s, l, t, n) : yield q(i, l, n);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -185,10 +187,10 @@ __d(
               .sendLogs("mex-scheduled-msg-reveal-handler-failed");
           }
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(t) {
+    function O(t) {
       try {
         return o("WAWebWidFactory").createWid(t.from.toString());
       } catch (t) {
@@ -206,12 +208,12 @@ __d(
         );
       }
     }
-    function O(e, t, n, r) {
-      return B.apply(this, arguments);
+    function B(e, t, n, r) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (e.senderJid == null) {
               o("WALogger").LOG(
@@ -241,18 +243,18 @@ __d(
                 ])),
               e.status,
             ),
-              yield Y(e, t, n));
+              yield J(e, t, n));
           },
         )),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e, t, n) {
-      return q.apply(this, arguments);
+    function q(e, t, n) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (!n) {
             o("WALogger").LOG(
               h ||
@@ -268,26 +270,26 @@ __d(
                 "[scheduled_msg][mex][reveal] no record for rkid, storing orphan",
               ])),
           ),
-            yield ne(e, t));
+            yield re(e, t));
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
+    function V(e) {
       return new Uint8Array(
         o("WABase64").decodeB64(
           o("WABase64UrlSafe").urlSafeBase64ToStandard(e),
         ),
       );
     }
-    function V(e, t) {
+    function H(e, t) {
       return e != null && e > 0
         ? o("WATimeUtils").castToUnixTime(e)
         : t > 0
           ? t
           : o("WATimeUtils").unixTime();
     }
-    function H(e) {
+    function G(e) {
       if (e == null) return !1;
       try {
         return o("WAWebUserPrefsMeUser").isMeAccount(
@@ -297,12 +299,12 @@ __d(
         return !1;
       }
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function z() {
+    function j() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.encIv,
             n = e.encPayload,
             r = e.msgId,
@@ -315,15 +317,15 @@ __d(
               null)
             : { innerProto: i.proto, protoBytes: i.protoBytes };
         })),
-        z.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function K() {
+    function Q() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.encIv,
             r = e.encPayload,
@@ -352,15 +354,15 @@ __d(
                 null)
               : { chatId: t, encPayload: r, encIv: n };
         })),
-        K.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function Q(e, t, n) {
-      return X.apply(this, arguments);
+    function X(e, t, n) {
+      return Y.apply(this, arguments);
     }
-    function X() {
+    function Y() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
               chatId: e,
@@ -393,20 +395,20 @@ __d(
               .sendLogs("mex-scheduled-msg-reveal-delete-failed");
           }
         })),
-        X.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function Y(e, t, n) {
-      return J.apply(this, arguments);
+    function J(e, t, n) {
+      return Z.apply(this, arguments);
     }
-    function J() {
+    function Z() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
             i = e.msgId,
             l = e.scheduledTimestampS,
             s = e.senderJid,
-            u = V(n, l);
+            u = H(n, l);
           if (e.status === "REVEALED") {
             (o("WALogger").LOG(
               R ||
@@ -417,7 +419,7 @@ __d(
               yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(i));
             return;
           }
-          if (H(s)) {
+          if (G(s)) {
             (o("WALogger").LOG(
               L ||
                 (L = babelHelpers.taggedTemplateLiteralLoose([
@@ -433,9 +435,9 @@ __d(
                 "[scheduled_msg][mex][reveal] decrypting payload",
               ])),
           );
-          var c = yield j(e);
+          var c = yield K(e);
           if (c != null) {
-            var d = yield G({
+            var d = yield z({
               encIv: c.encIv,
               encPayload: c.encPayload,
               msgId: i,
@@ -474,13 +476,29 @@ __d(
                   ));
                 return;
               }
+              try {
+                f = yield o(
+                  "WAWebScheduledMsgRevealChatUtils",
+                ).resolveScheduledRevealChat(f);
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "[scheduled_msg][mex][reveal] ensure chat failed; keeping reveal-key for retry",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("mex-scheduled-msg-reveal-ensure-chat-failed");
+                return;
+              }
               var g;
               if (f.isGroup()) {
                 if (s == null) {
                   (o("WALogger")
                     .ERROR(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
                           "[scheduled_msg][mex][reveal] missing senderJid for group reveal record, deleting",
                         ])),
                     )
@@ -498,8 +516,8 @@ __d(
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(
-                      D ||
-                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
                           "[scheduled_msg][mex][reveal] invalid senderJid for group reveal record, deleting",
                         ])),
                     )
@@ -528,27 +546,27 @@ __d(
                   scheduledTimestampS: u,
                   innerProto: m,
                 };
-              var y = te(g);
-              (yield Q(f, y, i),
-                yield Z(y, e, p, m),
+              var y = ne(g);
+              (yield X(f, y, i),
+                yield ee(y, e, p, m),
                 o("WALogger").LOG(
-                  x ||
-                    (x = babelHelpers.taggedTemplateLiteralLoose([
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
                       "[scheduled_msg][mex][reveal] completed reveal for msg",
                     ])),
                 ));
             }
           }
         })),
-        J.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function Z(e, t, n, r) {
-      return ee.apply(this, arguments);
+    function ee(e, t, n, r) {
+      return te.apply(this, arguments);
     }
-    function ee() {
+    function te() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a,
               i,
@@ -577,10 +595,10 @@ __d(
             }
           },
         )),
-        ee.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function te(e) {
+    function ne(e) {
       var t = e.chatWid,
         n = e.innerProto,
         a = e.msgId,
@@ -642,15 +660,15 @@ __d(
         h,
       );
     }
-    function ne(e, t) {
-      return re.apply(this, arguments);
+    function re(e, t) {
+      return oe.apply(this, arguments);
     }
-    function re() {
+    function oe() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
-            $ ||
-              ($ = babelHelpers.taggedTemplateLiteralLoose([
+            P ||
+              (P = babelHelpers.taggedTemplateLiteralLoose([
                 "[scheduled_msg][mex][reveal] no msg for rkid, storing orphan",
               ])),
           ),
@@ -662,16 +680,16 @@ __d(
               createdAt: o("WATimeUtils").unixTime(),
             }),
             o("WALogger").LOG(
-              P ||
-                (P = babelHelpers.taggedTemplateLiteralLoose([
+              N ||
+                (N = babelHelpers.taggedTemplateLiteralLoose([
                   "[scheduled_msg][mex][reveal] orphan key stored",
                 ])),
             ));
         })),
-        re.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    l.mexHandleScheduledMsgReveal = N;
+    l.mexHandleScheduledMsgReveal = M;
   },
   98,
 );

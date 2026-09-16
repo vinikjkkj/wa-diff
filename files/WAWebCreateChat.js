@@ -13,7 +13,6 @@ __d(
     "WAWebApiOrphanTcToken",
     "WAWebApiVerifiedBusinessName",
     "WAWebBackendApi",
-    "WAWebBotBaseGating",
     "WAWebBotStaticProfiles",
     "WAWebBotTypes",
     "WAWebChatOriginTypes",
@@ -72,11 +71,7 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            !(
-              !e.isFbidBot() ||
-              !o("WAWebBotBaseGating").isStandardBotProfileEnabled() ||
-              o("WAWebBotStaticProfiles").isStaticProfile(e)
-            )
+            !(!e.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
           )
             try {
               var t = yield v.load(),

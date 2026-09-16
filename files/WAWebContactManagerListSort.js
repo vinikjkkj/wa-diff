@@ -4,10 +4,13 @@ __d(
     "WAWebBizLabelUtils",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebContactGetters",
+    "WAWebContactManagerContactName",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
     "WAWebListItemParentType",
+    "WAWebUsernameGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -32,6 +35,7 @@ __d(
       var n = e.map(function (e) {
         return {
           contact: e,
+          rowId: e.id,
           name: c("customer", e.leadData),
           time: c("lastMessage", e.leadData),
         };
@@ -39,9 +43,9 @@ __d(
       return (
         n.sort(function (e, n) {
           var r = u({ a: e.time, b: n.time, collator: t, direction: "desc" });
-          return r !== 0
-            ? r
-            : u({ a: e.name, b: n.name, collator: t, direction: "asc" });
+          if (r !== 0) return r;
+          var o = u({ a: e.name, b: n.name, collator: t, direction: "asc" });
+          return o !== 0 ? o : t.compare(e.rowId, n.rowId);
         }),
         n.map(function (e) {
           return e.contact;
@@ -68,41 +72,49 @@ __d(
         ? d(t)
         : e === "phone"
           ? m(t)
-          : e === "email"
-            ? (n = t.email) != null
-              ? n
-              : null
-            : e === "acquisitionSource"
-              ? p(t)
-              : e === "list"
+          : e === "username"
+            ? p(t)
+            : e === "email"
+              ? (n = t.email) != null
+                ? n
+                : null
+              : e === "acquisitionSource"
                 ? _(t)
-                : e === "lastMessage"
-                  ? (r =
-                      (a = o("WAWebChatCollection").ChatCollection.get(
-                        t.chatJid,
-                      )) == null
-                        ? void 0
-                        : a.t) != null
-                    ? r
-                    : null
-                  : e === "lastOrder"
-                    ? (i = t.lastOrder) != null
-                      ? i
+                : e === "list"
+                  ? f(t)
+                  : e === "lastMessage"
+                    ? (r =
+                        (a = o("WAWebChatCollection").ChatCollection.get(
+                          t.chatJid,
+                        )) == null
+                          ? void 0
+                          : a.t) != null
+                      ? r
                       : null
-                    : e === "select" || e === "actions" || e === "notes"
-                      ? null
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              e,
-                          );
-                        })();
+                    : e === "lastOrder"
+                      ? (i = t.lastOrder) != null
+                        ? i
+                        : null
+                      : e === "select" || e === "actions" || e === "notes"
+                        ? null
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                e,
+                            );
+                          })();
     }
     function d(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
-      return t != null
-        ? o("WAWebFrontendContactGetters").getDisplayName(t)
-        : null;
+      if (t == null) return null;
+      var n = o("WAWebFrontendContactGetters").getFormattedUserAndType(t),
+        r = n.displayName,
+        a = n.type;
+      return o("WAWebContactManagerContactName").resolveContactManagerName({
+        displayName: r,
+        notifyName: o("WAWebContactGetters").getNotifyName(t),
+        type: a,
+      });
     }
     function m(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
@@ -112,6 +124,14 @@ __d(
         : null;
     }
     function p(e) {
+      if (!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
+        return null;
+      var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
+      if (t == null) return null;
+      var n = o("WAWebFrontendContactGetters").getFormattedUsername(t);
+      return n != null && n !== "" ? n : null;
+    }
+    function _(e) {
       var t = e.acquisitionSource;
       if (t == null) return null;
       var n = o(
@@ -119,7 +139,7 @@ __d(
       ).getProfileAcquisitionSourceLabel(t);
       return n != null ? String(n) : null;
     }
-    function _(e) {
+    function f(e) {
       var t,
         n,
         r = o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(

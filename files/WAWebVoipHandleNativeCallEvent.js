@@ -964,7 +964,6 @@ __d(
             o(
               "WAWebVoipWebTransportConnectionManager",
             ).resetFallbackStateForNewCall()),
-            he(c, u, typeof s.callId == "string" ? s.callId : null),
             !o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
               o("WAWebVoipCallStateUtils").isCallTerminal(l) &&
               (o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
@@ -976,6 +975,7 @@ __d(
             (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
               s.isGroupCall === !0,
             ),
+            he(c, u, typeof s.callId == "string" ? s.callId : null),
             ge(c),
             d && !o("WAWebVoipGatingUtils").isWebTransportEnabled())
           ) {
@@ -985,9 +985,17 @@ __d(
                   "voip: [gating] group call detected, moving relay traffic to SCTP",
                 ])),
             ),
-              o(
-                "WAWebVoipWebTransportConnectionManager",
-              ).closeAllConnections());
+              o("WAWebVoipWebTransportCallSummary").recordWtCallEligibility(
+                o("WAWebVoipGatingUtils").isWebTransportConfigured(),
+                !1,
+              ),
+              c ||
+                o(
+                  "WAWebVoipWebTransportCallSummary",
+                ).recordWtFallbackTriggered(),
+              o("WAWebVoipWebTransportConnectionManager").closeAllConnections(
+                !1,
+              ));
             var m = K.cachedRelayListData;
             m != null &&
               o("WAWebVoipSctpConnectionManager")
@@ -1237,10 +1245,14 @@ __d(
     }
     function he(e, t, n) {
       if (e) {
-        o("WAWebVoipWebTransportCallSummary").resetWtCurrentCallActivity(
+        (o("WAWebVoipWebTransportCallSummary").resetWtCurrentCallActivity(
           n,
           t === o("WAWebVoipWaCallEnums").CallState.None,
-        );
+        ),
+          o("WAWebVoipWebTransportCallSummary").recordWtCallEligibility(
+            o("WAWebVoipGatingUtils").isWebTransportConfigured(),
+            o("WAWebVoipGatingUtils").isWebTransportEnabled(),
+          ));
         return;
       }
       n != null &&

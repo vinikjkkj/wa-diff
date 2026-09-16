@@ -159,7 +159,11 @@ __d(
                   "collection",
                   {
                     name: o("WAWap").CUSTOM_STRING(t),
-                    return_snapshot: i === void 0 ? "true" : "false",
+                    return_snapshot:
+                      i == null ||
+                      i === o("WAWebSyncdConst").DEFAULT_COLLECTION_VERSION
+                        ? "true"
+                        : "false",
                     version: o("WAWap").INT(
                       i != null
                         ? i

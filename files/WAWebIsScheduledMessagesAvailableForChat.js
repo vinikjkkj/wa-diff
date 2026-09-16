@@ -11,7 +11,9 @@ __d(
       return (
         !o("WAWebChatGetters").getIsBot(e) &&
         !o("WAWebChatGetters").getIsNewsletter(e) &&
+        !o("WAWebFrontendChatGetters").getIsCAG(e) &&
         !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(e) &&
+        !o("WAWebBizCoexUtils").isCloudApiContact(e.contact) &&
         !o("WAWebBizCoexUtils").isMeOrCurrentContactHosted(e.contact) &&
         o(
           "WAWebScheduledMessagesGatingUtils",

@@ -9,6 +9,7 @@ __d(
     "WAWebContactManagerLastMessageCutoff",
     "WAWebContactManagerSearchUtils",
     "WAWebLabelCollection",
+    "WAWebLeadListConstants",
     "WAWebLeadStage",
     "WAWebListItemParentType",
     "WAWebNullFunc",
@@ -81,11 +82,11 @@ __d(
       },
       d = {
         isClientActive: function (t) {
-          return t.labelId != null;
+          return t.labelId != null && !f(t);
         },
         matcher: function (t) {
           var e = t.labelId;
-          if (e == null) return o("WAWebBoolFunc").returnTrue;
+          if (e == null || f(t)) return o("WAWebBoolFunc").returnTrue;
           var n = new Set();
           if (
             e === o("WAWebContactManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
@@ -165,6 +166,18 @@ __d(
         null
         ? void 0
         : t.t;
+    }
+    function f(e) {
+      var t,
+        n = e.labelId;
+      return (
+        n != null &&
+        e.leadStages.length === 1 &&
+        ((t = o("WAWebLabelCollection").LabelCollection.get(n)) == null
+          ? void 0
+          : t.predefinedId) ===
+          o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
+      );
     }
     ((l.CONTACT_MANAGER_FILTER_KEYS = e), (l.getFilterSpec = s));
   },

@@ -5,7 +5,6 @@ __d(
     "FalcoLoggerInternal",
     "VultureJSGating",
     "WALogger",
-    "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebABPropsWamGlobals",
     "WAWebFBLoggerSetup",

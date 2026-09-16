@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WAWebCallCollection",
+    "WAWebCallLinkAutoJoinConsent",
     "WAWebEnsureVoipInited",
     "WAWebFrontendContactGetters",
     "WAWebPipController",
@@ -124,6 +125,10 @@ __d(
             return;
           }
           if (!$(m)) {
+            var E = o("WAWebCallLinkAutoJoinConsent").consumeAutoJoinConsent(
+              l,
+              m,
+            );
             if (
               yield o(
                 "WAWebVoipCallBlockedModals",
@@ -139,19 +144,20 @@ __d(
             }
             ((R.videoMuted = L != null ? L : !1),
               (R.audioMuted = i != null ? i : !1));
-            var E = u === "video";
-            (T({
-              audioDeviceId: a,
-              colorIndex: c,
-              speakerDeviceId: d,
-              videoDeviceId: p,
-            }),
+            var k = u === "video";
+            (E &&
+              T({
+                audioDeviceId: a,
+                colorIndex: c,
+                speakerDeviceId: d,
+                videoDeviceId: p,
+              }),
               o("WAWebVoipCallLinkBundlePreloader").preloadCallLinkBundles());
-            var k = o(
+            var D = o(
               "WAWebVoipInitEventEmitter",
             ).VoipInitEventEmitter.getIsVoipInited();
-            k ||
-              (r("WAWebCallCollection").setPendingCallLink({ isVideo: E }),
+            D ||
+              (r("WAWebCallCollection").setPendingCallLink({ isVideo: k }),
               I());
             try {
               yield o("WAWebEnsureVoipInited").ensureVoipInitialized();
@@ -171,9 +177,9 @@ __d(
                   o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
               return;
             }
-            var D = o("WAWebFrontendContactGetters").getMyUsername(),
-              x = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            if (x == null) {
+            var x = o("WAWebFrontendContactGetters").getMyUsername(),
+              P = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            if (P == null) {
               (o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -192,7 +198,7 @@ __d(
                     "voip: handleClickCallLink hasVoipStack=true isVideo=",
                     "",
                   ])),
-                E,
+                k,
               ),
               m.length !== S)
             ) {
@@ -213,19 +219,19 @@ __d(
                 ));
               return;
             }
-            var P = yield x.previewCallLink(m, E, t, D, L === !0);
-            (i === !0 && x.type === "web" && (yield x.setCallMute(!0)),
-              l === !0 &&
-                x.type === "web" &&
-                (P === 0
-                  ? yield x.joinCallLink()
+            var N = yield P.previewCallLink(m, k, t, x, L === !0);
+            (i === !0 && P.type === "web" && (yield P.setCallMute(!0)),
+              E &&
+                P.type === "web" &&
+                (N === 0
+                  ? yield P.joinCallLink()
                   : o("WALogger").LOG(
                       v ||
                         (v = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: handleClickCallLink previewCallLink failed, skip join ",
                           "",
                         ])),
-                      String(P),
+                      String(N),
                     )));
           }
         })),

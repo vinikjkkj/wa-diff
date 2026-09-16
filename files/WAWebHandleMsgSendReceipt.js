@@ -93,15 +93,18 @@ __d(
                 })
               );
             var T = g(i);
-            function D(e, t, n) {
+            function D(e) {
               return x.apply(this, arguments);
             }
             function x() {
               return (
                 (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t, n) {
+                  function* (e) {
+                    var t = e.errorReason,
+                      n = e.label,
+                      i = e.send;
                     try {
-                      yield e(
+                      yield i(
                         p,
                         r("nullthrows")(
                           o(
@@ -119,10 +122,10 @@ __d(
                               "[coexv2] ",
                               " receipt failed, falling back to ack",
                             ])),
-                          t,
+                          n,
                         )
                         .catching(r("getErrorSafe")(e))
-                        .sendLogs(n),
+                        .sendLogs(t),
                         o("WAWebHandleMsgSendAck").sendAck({
                           externalId: p,
                           from: C,
@@ -145,19 +148,21 @@ __d(
                     .SIGNAL_OLD_COUNTER_ERROR
               ) {
                 if (_(t)) {
-                  yield D(
-                    o("WAWebSendReceiptJobCommon").sendCoexV2SenderReceipt,
-                    "sender",
-                    "coexv2-sender-receipt-error",
-                  );
+                  yield D({
+                    errorReason: "coexv2-sender-receipt-error",
+                    label: "sender",
+                    send: o("WAWebSendReceiptJobCommon")
+                      .sendCoexV2SenderReceipt,
+                  });
                   return;
                 }
                 if (f(t)) {
-                  yield D(
-                    o("WAWebSendReceiptJobCommon").sendCoexV2DeliveryReceipt,
-                    "delivery",
-                    "coexv2-delivery-receipt-error",
-                  );
+                  yield D({
+                    errorReason: "coexv2-delivery-receipt-error",
+                    label: "delivery",
+                    send: o("WAWebSendReceiptJobCommon")
+                      .sendCoexV2DeliveryReceipt,
+                  });
                   return;
                 }
                 if (E) {

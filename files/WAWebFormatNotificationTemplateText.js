@@ -1429,9 +1429,8 @@ __d(
     }
     function z(e, t) {
       var n = o("WAWebResolveBotProfile").resolveBotSupportInput(e.id.remote);
-      return o("WAWebBotBaseGating").isStandardBotProfileEnabled() &&
-        (o("WAWebBotExposedName").isBotProfileViewOnly(n) ||
-          o("WAWebBotSupportGating").isThirdPartyAgent(n))
+      return o("WAWebBotExposedName").isBotProfileViewOnly(n) ||
+        o("WAWebBotSupportGating").isThirdPartyAgent(n)
         ? s._(
             /*BTDS*/ "Messages in this chat are sent through a secure Meta service. Learn more about how these chats work.",
           )

@@ -7,16 +7,16 @@ __d(
     "WAWebContactGetters",
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendContactGetters",
+    "WAWebFrontendGroupMetadataGetters",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
-    "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "nullthrows",
     "react",
     "react-compiler-runtime",
     "useWAWebContactValues",
-    "useWAWebModelValues",
+    "useWAWebGroupMetadataValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -71,27 +71,36 @@ __d(
           (n[0] = e.groupMetadata),
           (n[1] = a))
         : (a = n[1]);
-      var i;
+      var i = a,
+        l;
       n[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = ["owner", "creation", "groupAdder"]), (n[2] = i))
-        : (i = n[2]);
-      var l = o("useWAWebModelValues").useModelValues(a, i),
-        s = t != null ? t : l.groupAdder,
-        u = _(l.owner, e),
-        c;
+        ? ((l = [
+            o("WAWebFrontendGroupMetadataGetters").getOwner,
+            o("WAWebFrontendGroupMetadataGetters").getCreation,
+            o("WAWebFrontendGroupMetadataGetters").getGroupAdder,
+          ]),
+          (n[2] = l))
+        : (l = n[2]);
+      var s = o("useWAWebGroupMetadataValues").useGroupMetadataValues(i.id, l),
+        u = s[0],
+        c = s[1],
+        d = s[2],
+        m = t != null ? t : d,
+        p = _(u, e),
+        f;
       return (
-        n[3] !== u || n[4] !== s || n[5] !== l.creation
-          ? ((c = o("WAWebClock").Clock.groupCreatedStr(
-              l.creation,
-              u,
-              o("WAWebUserPrefsMeUser").isMeAccount(s),
+        n[3] !== p || n[4] !== c || n[5] !== m
+          ? ((f = o("WAWebClock").Clock.groupCreatedStr(
+              c,
+              p,
+              o("WAWebUserPrefsMeUser").isMeAccount(m),
             )),
-            (n[3] = u),
-            (n[4] = s),
-            (n[5] = l.creation),
-            (n[6] = c))
-          : (c = n[6]),
-        c
+            (n[3] = p),
+            (n[4] = c),
+            (n[5] = m),
+            (n[6] = f))
+          : (f = n[6]),
+        f
       );
     }
     function m(e) {
@@ -111,15 +120,14 @@ __d(
       return t === 0 ? n : r;
     }
     function p(e) {
-      var t = e != null ? o("WAWebStateUtils").unproxy(e) : null,
-        n = t == null ? void 0 : t.participants,
-        r = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t),
-        a = n == null ? void 0 : n.length,
-        i = t == null ? void 0 : t.size,
-        l = n != null && n.iAmAdmin() ? a : i;
+      var t = e == null ? void 0 : e.participants,
+        n = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e),
+        r = t == null ? void 0 : t.length,
+        a = e == null ? void 0 : e.size,
+        i = t != null && t.iAmAdmin() ? r : a;
       return s._(/*BTDS*/ '_j{"*":"{number} members","_1":"1 member"}', [
         s._plural(
-          r === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ? l : a,
+          n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ? i : r,
           "number",
         ),
       ]);

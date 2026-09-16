@@ -210,11 +210,11 @@ __d(
             i = e.msgProtobuf,
             l = e.msgRecord,
             s = e.scheduledMsgMetadata;
-          yield o("WAWebRequestMsgResend").runUserMsgResendRecorded(
-            l,
-            r,
-            t,
-            function () {
+          yield o("WAWebRequestMsgResend").runUserMsgResendRecorded({
+            ackTime: t,
+            excludeList: r,
+            msgRecord: l,
+            resend: function () {
               return o("WAWebResendUserMsg").resendUserMsg({
                 ackTime: t,
                 chatId: n,
@@ -225,7 +225,7 @@ __d(
                 scheduledMsgMetadata: s,
               });
             },
-          );
+          });
         })),
         h.apply(this, arguments)
       );

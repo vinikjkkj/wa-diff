@@ -18,12 +18,14 @@ __d(
           i,
           l = o == null ? void 0 : o.plugin;
         if (!((l == null ? void 0 : l.id) == null || l.display_name == null)) {
-          var s = l.apixfn_plugin;
+          var s = l.apixfn_plugin,
+            u = o.is_connected === !0,
+            c = o.connection_status;
           r.push({
             apixfnPlugin: s == null ? null : s,
             display_name: l.display_name,
             id: l.id,
-            is_connected: o.is_connected === !0,
+            is_connected: u && (c == null || c === "CONNECTED"),
             logoUri:
               (a = (i = l.logo) == null ? void 0 : i.uri) != null ? a : null,
           });

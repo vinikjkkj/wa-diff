@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebBotBaseGating",
     "WAWebBotProduct",
     "WAWebDBBulkPersistProfilePic",
     "WAWebFetchWassBotListProfilesGQL",
@@ -51,7 +50,6 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebBotBaseGating").isStandardBotProfileEnabled()) return !1;
           var e = Date.now(),
             t = yield o(
               "WAWebFetchWassBotListProfilesGQL",

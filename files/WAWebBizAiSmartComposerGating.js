@@ -51,7 +51,11 @@ __d(
       );
     }
     function _(e) {
-      return e && o("WAWebBizAiAgentGating").isSmartComposerWebEnabled();
+      return (
+        !o("WAWebBizAiAgentGating").isSmartComposerAiListsEmergencyDisabled() &&
+        e &&
+        o("WAWebBizAiAgentGating").isSmartComposerWebEnabled()
+      );
     }
     ((l.isSmartComposerShellEnabled = e),
       (l.shouldUseSmartComposerShellForChat = s),

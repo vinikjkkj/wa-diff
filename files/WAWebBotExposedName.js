@@ -2,7 +2,6 @@ __d(
   "WAWebBotExposedName",
   [
     "fbt",
-    "WAWebBotBaseGating",
     "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
     "WAWebBotStaticProfiles",
@@ -19,7 +18,6 @@ __d(
         : !c(t);
     }
     function c(e) {
-      if (!o("WAWebBotBaseGating").isStandardBotProfileEnabled()) return !1;
       var t = o("WAWebBotSupportState").evaluateBotSupport(e, function (e) {
         return o("WAWebBotProductGating").isBotProductGateOn(
           e,

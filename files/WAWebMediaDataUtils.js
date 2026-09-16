@@ -827,7 +827,7 @@ __d(
                       maxDimensions: [
                         o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
                       ],
-                      debugHint: "gatherAndSetMetadata",
+                      debugHint: "attachBlobAndGatherAndSetMetadata",
                       logContext: {
                         callsite: "GATHER_AND_SET_METADATA",
                         mediaType:
@@ -1001,7 +1001,7 @@ __d(
       (l.processRawDocument = M),
       (l.fetchMedia = F),
       (l.canPlayOgg = B),
-      (l.gatherAndSetMetadata = W),
+      (l.attachBlobAndGatherAndSetMetadata = W),
       (l.shouldUseMediaCache = U),
       (l.shouldUseLruMediaStore = V),
       (l.getResizedThumbData = H),

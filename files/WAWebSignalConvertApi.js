@@ -13,7 +13,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
     function m(e) {
-      return (e == null ? void 0 : e.sessions) != null;
+      if (
+        e == null ||
+        typeof e != "object" ||
+        e instanceof ArrayBuffer ||
+        !("sessions" in e)
+      )
+        return !1;
+      var t = e;
+      return t.sessions != null;
     }
     function p(e) {
       return _.apply(this, arguments);
