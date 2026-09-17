@@ -67,30 +67,41 @@ __d(
             };
           }),
           (a.init = function (t, n) {
+            var e;
             this.resetKeyChain();
-            var e = !0;
+            var a = !0;
+            n == null ||
+              (e = n.eventFlow) == null ||
+              e.addPoint("ear_init_keychain_start");
             try {
-              for (var a of t)
-                ((e = e && a.keyHash === this.$WormEarSync$p_2),
-                  this.setKeyVersion(a.version, this.$WormEarSync$p_3(a)));
-            } catch (t) {
-              var i, l;
+              var i;
+              for (var l of t)
+                ((a = a && l.keyHash === this.$WormEarSync$p_2),
+                  this.setKeyVersion(l.version, this.$WormEarSync$p_3(l)));
+              n == null ||
+                (i = n.eventFlow) == null ||
+                i.addPoint("ear_init_keychain_end");
+            } catch (e) {
+              var s, u, c;
               throw (
+                n == null ||
+                  (s = n.eventFlow) == null ||
+                  s.addPoint("ear_init_keychain_err"),
                 r("FBLogger")("worm")
-                  .catching(r("getErrorSafe")(t))
+                  .catching(r("getErrorSafe")(e))
                   .mustfix(
                     "Error on keychain initialisation keyHashCheck: %s",
-                    e,
+                    a,
                   ),
-                (i = (l = o("WormCallbacks").getWormCallbacks())
-                  .onEARInitError) == null || i.call(l),
-                t
+                (u = (c = o("WormCallbacks").getWormCallbacks())
+                  .onEARInitError) == null || u.call(c),
+                e
               );
             } finally {
-              var s;
+              var d;
               n == null ||
-                (s = n.eventFlow) == null ||
-                s.addAnnotations({ bool: { keyHashCheck: e } });
+                (d = n.eventFlow) == null ||
+                d.addAnnotations({ bool: { keyHashCheck: a } });
             }
           }),
           (a.$WormEarSync$p_3 = function (t) {

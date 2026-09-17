@@ -1,6 +1,7 @@
 __d(
   "WAWebWamWorkerOfflineProcessReporter",
   [
+    "Promise",
     "WALogger",
     "WARandomHex",
     "WAShiftTimer",
@@ -21,11 +22,13 @@ __d(
       u,
       c,
       d,
-      m = 1e4,
-      p = 12e4,
-      _ = (function () {
+      m,
+      p = 1e4,
+      _ = 12e4,
+      f = (function () {
         function t() {
           ((this.$8 = null),
+            (this.$9 = null),
             (this.$1 =
               "" +
               o("WARandomHex").randomHex(4) +
@@ -39,13 +42,13 @@ __d(
             (this.$5 = 0),
             (this.$6 = 0),
             (this.$7 = 0),
-            (this.$9 = 0),
             (this.$10 = 0),
-            (this.$11 = 0));
+            (this.$11 = 0),
+            (this.$12 = 0));
         }
         var r = t.prototype;
         return (
-          (r.$13 = function (t, n) {
+          (r.$14 = function (t, n) {
             var e = new (o(
               "WAWebWebcOfflineNotificationProcessWamEvent",
             ).WebcOfflineNotificationProcessWamEvent)({
@@ -64,7 +67,7 @@ __d(
               t ===
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                   .PROCESS_INTERRUPTED) &&
-              this.$14(e),
+              this.$15(e),
               t ===
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                   .PROCESS_COMPLETE ||
@@ -74,26 +77,26 @@ __d(
                 ? e.commitAndWaitForFlush(!0)
                 : e.commit());
           }),
-          (r.$14 = function (t) {
+          (r.$15 = function (t) {
             var e, n, r, a;
             ((t.offlineProcessMessageCount = o(
               "WAWebWamOfflineResumeReporter",
-            ).roundUp((e = this.$10) != null ? e : 0, 10)),
+            ).roundUp((e = this.$11) != null ? e : 0, 10)),
               (t.offlineProcessNotificationCount = o(
                 "WAWebWamOfflineResumeReporter",
-              ).roundUp((n = this.$11) != null ? n : 0, 10)),
+              ).roundUp((n = this.$12) != null ? n : 0, 10)),
               (t.offlineProcessMailboxAge = o(
                 "WAWebWamOfflineResumeReporter",
               ).countDays((r = this.$7) != null ? r : 0)),
               (t.offlineProcessDecryptErrorCount =
-                (a = this.$9) != null ? a : 0));
+                (a = this.$10) != null ? a : 0));
           }),
-          (r.$15 = function () {
+          (r.$16 = function () {
             var t = this;
             (this.$8 == null &&
               (this.$8 = new (o("WAShiftTimer").ShiftTimer)(function () {
                 if (
-                  t.$12 ===
+                  t.$13 ===
                   o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                     .PROCESSING
                 ) {
@@ -107,11 +110,11 @@ __d(
                           " procT=",
                           "",
                         ])),
-                      t.$10,
                       t.$11,
+                      t.$12,
                       n,
                     ),
-                    n > p)
+                    n > _)
                   ) {
                     o("WALogger")
                       .ERROR(
@@ -123,28 +126,28 @@ __d(
                       .sendLogs("worker-offline-process-takes-too-long");
                     return;
                   }
-                  (t.$13(
+                  (t.$14(
                     o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                       .PROCESSING,
                     n,
                   ),
-                    t.$15());
+                    t.$16());
                 }
               })),
-              this.$8.onOrAfter(m));
+              this.$8.onOrAfter(p));
           }),
-          (r.$16 = function () {
+          (r.$17 = function () {
             var e;
-            ((this.$12 = o(
+            ((this.$13 = o(
               "WAWebWamEnumOfflineProcessStages",
             ).OFFLINE_PROCESS_STAGES.PROCESSING),
               (e = this.$8) == null || e.cancel(),
-              this.$15());
+              this.$16());
           }),
-          (r.$17 = function (t) {
+          (r.$18 = function (t) {
             t === void 0 && (t = -1);
             var e =
-              this.$12 ===
+              this.$13 ===
               o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                 .PROCESS_INTERRUPTED;
             (o("WALogger").LOG(
@@ -162,8 +165,8 @@ __d(
               this.$4,
               this.$5,
               this.$6,
-              this.$10,
               this.$11,
+              this.$12,
             ),
               o("WALogger").LOG(
                 c ||
@@ -176,7 +179,7 @@ __d(
                     " int=",
                     "",
                   ])),
-                this.$9,
+                this.$10,
                 this.socketConnectT,
                 this.offlinePreviewT,
                 this.processCompleteT,
@@ -193,7 +196,7 @@ __d(
               ));
           }),
           (r.getCurrentStage = function () {
-            return this.$12;
+            return this.$13;
           }),
           (r.updateOldestStanzaTime = function (t) {
             (this.$7 == null || this.$7 > t) && (this.$7 = t);
@@ -205,74 +208,93 @@ __d(
               (this.$6 = t.call));
           }),
           (r.updateOfflineDecryptionErrorCount = function (t) {
-            this.$9 = t;
+            this.$10 = t;
           }),
           (r.updateProcessedMessageCount = function () {
-            o("WAWebRuntimeEnvironmentUtils").isWorker() && (this.$10 += 1);
-          }),
-          (r.updateProcessedNotificationCount = function () {
             o("WAWebRuntimeEnvironmentUtils").isWorker() && (this.$11 += 1);
           }),
+          (r.updateProcessedNotificationCount = function () {
+            o("WAWebRuntimeEnvironmentUtils").isWorker() && (this.$12 += 1);
+          }),
           (r.logWorkerInitialized = function (t) {
-            ((this.$12 = o(
+            ((this.$13 = o(
               "WAWebWamEnumOfflineProcessStages",
             ).OFFLINE_PROCESS_STAGES.PAGE_LOAD),
               (this.$2 = t),
-              this.$13(
+              this.$14(
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                   .PAGE_LOAD,
                 0,
               ));
           }),
           (r.logSocketConnect = function () {
-            this.$12 = o(
+            this.$13 = o(
               "WAWebWamEnumOfflineProcessStages",
             ).OFFLINE_PROCESS_STAGES.SOCKET_CONNECT;
             var e = Math.floor(self.performance.now() - this.pageLoadT);
             ((this.socketConnectT = e),
-              this.$13(
+              this.$14(
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                   .SOCKET_CONNECT,
                 e,
               ));
           }),
           (r.logOfflinePreview = function () {
-            this.$12 = o(
+            this.$13 = o(
               "WAWebWamEnumOfflineProcessStages",
             ).OFFLINE_PROCESS_STAGES.OFFLINE_PREVIEW;
             var e = Math.floor(self.performance.now() - this.pageLoadT);
             ((this.offlinePreviewT = e),
-              this.$13(
+              this.$14(
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                   .OFFLINE_PREVIEW,
                 e,
               ),
-              this.$16());
+              this.$17());
           }),
-          (r.logProcessComplete = (function () {
+          (r.logProcessComplete = function () {
+            var e = this;
+            if (this.$9 != null) return this.$9;
+            if (
+              this.$13 ===
+                o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
+                  .PROCESS_COMPLETE ||
+              this.$13 ===
+                o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
+                  .PROCESS_INTERRUPTED
+            )
+              return (m || (m = n("Promise"))).resolve();
+            var t = this.$19().finally(function () {
+              e.$9 === t && (e.$9 = null);
+            });
+            return ((this.$9 = t), t);
+          }),
+          (r.$19 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e;
+              var e,
+                t = o("WAWebWamOfflineResumeReporter").countDays(this.$7);
               if (
+                (yield o("WAWebUserPrefsMultiDevice").setRecentMailboxAgeDays(
+                  t,
+                ),
                 !(
-                  this.$12 ===
+                  this.$13 ===
                     o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                       .PROCESS_COMPLETE ||
-                  this.$12 ===
+                  this.$13 ===
                     o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                       .PROCESS_INTERRUPTED
-                )
+                ))
               ) {
-                ((this.$12 = o(
+                ((this.$13 = o(
                   "WAWebWamEnumOfflineProcessStages",
                 ).OFFLINE_PROCESS_STAGES.PROCESS_COMPLETE),
                   (e = this.$8) == null || e.cancel(),
                   (this.$8 = null));
-                var t = o("WAWebWamOfflineResumeReporter").countDays(this.$7);
-                yield o("WAWebUserPrefsMultiDevice").setRecentMailboxAgeDays(t);
                 var n = Math.floor(self.performance.now() - this.pageLoadT);
                 ((this.processCompleteT = n),
-                  this.$17(t),
-                  this.$13(
+                  this.$18(t),
+                  this.$14(
                     o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                       .PROCESS_COMPLETE,
                     n,
@@ -291,24 +313,24 @@ __d(
             var e;
             if (
               !(
-                this.$12 == null ||
-                this.$12 ===
+                this.$13 == null ||
+                this.$13 ===
                   o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                     .PROCESS_COMPLETE ||
-                this.$12 ===
+                this.$13 ===
                   o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                     .PROCESS_INTERRUPTED
               )
             ) {
-              ((this.$12 = o(
+              ((this.$13 = o(
                 "WAWebWamEnumOfflineProcessStages",
               ).OFFLINE_PROCESS_STAGES.PROCESS_INTERRUPTED),
                 (e = this.$8) == null || e.cancel(),
                 (this.$8 = null));
               var t = Math.floor(self.performance.now() - this.pageLoadT);
               ((this.processCompleteT = t),
-                this.$17(),
-                this.$13(
+                this.$18(),
+                this.$14(
                   o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                     .PROCESS_INTERRUPTED,
                   t,
@@ -318,8 +340,8 @@ __d(
           t
         );
       })(),
-      f = new _();
-    l.WorkerOfflineResumeReporter = f;
+      g = new f();
+    l.WorkerOfflineResumeReporter = g;
   },
   98,
 );

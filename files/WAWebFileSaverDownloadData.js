@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAAbortError",
     "WALogger",
+    "WAWebDualUploadsPreferredMsg",
     "WAWebFilenameManager",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaOpaqueData",
@@ -94,9 +95,11 @@ __d(
               ),
             };
           if (e.type === o("WAWebMsgType").MSG_TYPE.ALBUM) {
-            var i = o(
-              "WAWebMessageAssociationUIUtils",
-            ).getHiddenAssociatedMessages(e.id);
+            var i = o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsgs(
+              o("WAWebMessageAssociationUIUtils").getHiddenAssociatedMessages(
+                e.id,
+              ),
+            );
             if (i.length > 0) {
               var l = yield (u || (u = n("Promise"))).all(
                 i.map(function (e) {

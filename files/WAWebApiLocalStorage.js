@@ -15,9 +15,7 @@ __d(
         });
     }
     function s(e) {
-      var t = e.map(function (e) {
-        return { key: e.key, value: e.value };
-      });
+      var t = d(e);
       return o("WAWebWorkerStorageUtils")
         .getStorage()
         .lock(
@@ -35,12 +33,37 @@ __d(
           })(),
         );
     }
-    function u() {
+    function u(e, t) {
+      var r = d(e);
+      return o("WAWebWorkerStorageUtils")
+        .getStorage()
+        .lock(
+          ["local_storage"],
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var n = e[0];
+                (yield n.bulkRemove(t), yield n.bulkCreateOrReplace(r));
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        );
+    }
+    function c() {
       return o("WAWebSchemaLocalStorage").getTable().clear();
+    }
+    function d(e) {
+      return e.map(function (e) {
+        return { key: e.key, value: e.value };
+      });
     }
     ((l.getLocalStorageValue = e),
       (l.updateLocalStorage = s),
-      (l.clearLocalStorage = u));
+      (l.applyLocalStorageChanges = u),
+      (l.clearLocalStorage = c));
   },
   98,
 );

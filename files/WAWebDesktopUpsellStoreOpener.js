@@ -9,18 +9,37 @@ __d(
     "WAWebWamEnumWebcNativeUpsellCtaSourceType",
     "WAWebWebcNativeUpsellCtaWamEvent",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
+    var e, s, u;
+    function c() {
+      try {
+        o("WAWebExternalLink.react").openExternalLink(
+          o("WAWebExternalLink.react").ANDROID_STORE_URIS.touchscreen_overlay,
+          { target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB },
+        );
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[android-tablet-interstitial] Google Play open failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("android-tablet-play-store-open");
+      }
+    }
+    function d(e) {
       var t = e.ctaSource,
         n = e.isBetaUpsell,
         r = e.isBetaUser,
         a = e.qrScreenExperimentGroup,
         i = o("WAWebDesktopUpsellUtils").getUserDesktopOs();
       (i === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS
-        ? c(t)
-        : i === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS && m(t, n),
+        ? m(t)
+        : i === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS && _(t, n),
         new (o("WAWebWebcNativeUpsellCtaWamEvent").WebcNativeUpsellCtaWamEvent)(
           {
             webcNativeUpsellCtaEventType: o(
@@ -38,24 +57,24 @@ __d(
           },
         ).commitAndWaitForFlush(!0));
     }
-    function c(t) {
+    function m(e) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(d(t), {
+        o("WAWebExternalLink.react").openExternalLink(p(e), {
           target: o("WAWebExternalLink.react").ExternalLinkTarget
             .DEEPLINK_IN_CURRENT_TAB,
         });
-      } catch (t) {
+      } catch (e) {
         o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[desktop-upsell] MS Store open failed: ",
               "",
             ])),
-          t,
+          e,
         );
       }
     }
-    function d(e) {
+    function p(e) {
       switch (e) {
         case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
           .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.QR_SLIM_BANNER:
@@ -95,16 +114,16 @@ __d(
       }
       throw r("err")("Invalid CTA source: " + e);
     }
-    function m(e, t) {
+    function _(e, t) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(p(e, t), {
+        o("WAWebExternalLink.react").openExternalLink(f(e, t), {
           target: o("WAWebExternalLink.react").ExternalLinkTarget
             .DEEPLINK_IN_CURRENT_TAB,
         });
       } catch (e) {
         o("WALogger").ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "[desktop-upsell] Mac WhatsApp Desktop download failed: ",
               "",
             ])),
@@ -112,11 +131,11 @@ __d(
         );
       }
     }
-    function p(e, t) {
+    function f(e, t) {
       return t === !0
         ? o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI_BETA +
             "&src=whatsapp_beta_webclient_" +
-            _(e)
+            g(e)
         : e ===
             o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
               .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
@@ -124,9 +143,9 @@ __d(
           ? o("WAWebExternalLink.react").IOS_STORE_URIS.touchscreen_overlay
           : o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI +
             "&src=whatsapp_webclient_" +
-            _(e);
+            g(e);
     }
-    function _(e) {
+    function g(e) {
       var t = Object.entries(
         o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
           .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE,
@@ -137,7 +156,8 @@ __d(
       });
       return t ? t[0].toLowerCase() : "unknown";
     }
-    l.openExternalWhatsAppDesktopDownloadUrl = u;
+    ((l.openExternalWhatsAppAndroidTabletDownloadUrl = c),
+      (l.openExternalWhatsAppDesktopDownloadUrl = d));
   },
   98,
 );

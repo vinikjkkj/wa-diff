@@ -1,6 +1,6 @@
 __d(
   "WAWebDeviceFeatures",
-  ["WALogger", "WAMd5", "WAWebSessionStorage"],
+  ["WALogger", "WAMd5", "WAWebSessionStorage", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -40,7 +40,10 @@ __d(
     function _() {
       return "ontouchstart" in window && "TouchEvent" in window;
     }
-    function f(t) {
+    function f() {
+      return r("gkx")("15181") ? _() : b().touchPresence;
+    }
+    function g(t) {
       var n = self.performance.now(),
         r = t.getContext("webgl"),
         a = self.performance.now() - n;
@@ -57,10 +60,10 @@ __d(
         r
       );
     }
-    function g() {
+    function h() {
       try {
         var e = document.createElement("canvas"),
-          t = f(e);
+          t = g(e);
         if (t == null) return "";
         var n = t.getExtension("WEBGL_debug_renderer_info");
         if (n == null) return "";
@@ -70,11 +73,11 @@ __d(
         return "";
       }
     }
-    function h() {
+    function y() {
       try {
         var e = document.createElement("canvas");
         ((e.width = 50), (e.height = 50));
-        var t = f(e);
+        var t = g(e);
         if (t == null) return "";
         var n =
             "\n      attribute vec2 position;\n      varying vec2 vPos;\n      void main() {\n        vPos = position;\n        gl_Position = vec4(position, 0.0, 1.0);\n      }",
@@ -115,7 +118,7 @@ __d(
         return "";
       }
     }
-    function y() {
+    function C() {
       try {
         var e;
         return (e = Intl.DateTimeFormat().resolvedOptions().timeZone) != null
@@ -125,20 +128,22 @@ __d(
         return "";
       }
     }
-    function C() {
+    function b() {
       return {
         cpuPlatform: u(),
         deviceMemory: c(),
-        gpuMake: g(),
-        webglFingerprint: h(),
+        gpuMake: h(),
+        webglFingerprint: y(),
         screenResolution: d(),
         connectionRoundTripTime: m(),
         sessionStorageLength: p(),
         touchPresence: _(),
-        timezone: y(),
+        timezone: C(),
       };
     }
-    l.default = C;
+    ((l.getTouchPresence = _),
+      (l.getTouchPresenceForTouchOnlyCallers = f),
+      (l.getDeviceFeatures = b));
   },
   98,
 );

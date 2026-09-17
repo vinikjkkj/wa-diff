@@ -19,7 +19,7 @@ __d(
         "OG_INLINE_PLAYER",
         "MEDIA_VIEWER",
       ]),
-      s = n("$InternalEnum").Mirrored(["OG", "YOUTUBE", "MSG", "VOIP"]),
+      s = n("$InternalEnum").Mirrored(["YOUTUBE", "MSG", "VOIP"]),
       u = 16 / 9,
       c = {
         ONLINE_VIDEO_URL: {

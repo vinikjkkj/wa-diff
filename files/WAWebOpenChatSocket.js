@@ -397,69 +397,80 @@ __d(
           var n = t[0],
             r = t[1],
             o = t[2];
-          return G(e, n, r, o, i, l);
+          return G({
+            certificate: r,
+            handshake: e,
+            isRegistered: i,
+            options: l,
+            serverEphemeral: o,
+            serverStatic: n,
+          });
         })
       );
     }
-    function G(e, t, n, r, o, a) {
+    function G(e) {
       return z.apply(this, arguments);
     }
     function z() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s) {
-            (yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
-              certificate: a,
-              serverStatic: t,
-              isRegistered: l,
-            }),
-              yield i);
-            var u = l
-                ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(s)
-                : o(
-                    "WAWebGetClientPayloadForRegistration",
-                  ).getClientPayloadForRegistration(s),
-              c = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
-            c == null &&
-              (o("WALogger")
-                .LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket] Unable to decrypt noise data",
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.certificate,
+            a = e.handshake,
+            i = e.isRegistered,
+            l = e.options,
+            s = e.serverEphemeral,
+            u = e.serverStatic;
+          (yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
+            certificate: t,
+            serverStatic: u,
+            isRegistered: i,
+          }),
+            yield s);
+          var c = i
+              ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(l)
+              : o(
+                  "WAWebGetClientPayloadForRegistration",
+                ).getClientPayloadForRegistration(l),
+            d = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
+          d == null &&
+            (o("WALogger")
+              .LOG(
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                    "[socket] Unable to decrypt noise data",
+                  ])),
+              )
+              .tags("launch-socket-chat", "handshake"),
+            o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
+            o("WAWebCoreActionsODS").logSessionForcedLogout(),
+            yield o("WAWebSocketLogoutJob").socketLogout(),
+            r("nullthrows")(d, "Unexpected null: noiseData"));
+          var m = r("nullthrows")(d).staticKeyPair;
+          return (x || (x = n("Promise")))
+            .all([j(m, a, s), a.encrypt(x.resolve(c))])
+            .then(function (e) {
+              var t = e[0],
+                n = e[1],
+                r = { clientFinish: { static: t, payload: n } };
+              return (
+                o("WALogger").LOG(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket] continueFullHandshakeCore finish + derive secrets",
                     ])),
-                )
-                .tags("launch-socket-chat", "handshake"),
-              o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-              o("WAWebCoreActionsODS").logSessionForcedLogout(),
-              yield o("WAWebSocketLogoutJob").socketLogout(),
-              r("nullthrows")(c, "Unexpected null: noiseData"));
-            var d = r("nullthrows")(c).staticKeyPair;
-            return (x || (x = n("Promise")))
-              .all([j(d, e, i), e.encrypt(x.resolve(u))])
-              .then(function (t) {
-                var n = t[0],
-                  r = t[1],
-                  a = { clientFinish: { static: n, payload: r } };
-                return (
-                  o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "[socket] continueFullHandshakeCore finish + derive secrets",
-                      ])),
-                  ),
-                  e.send(
-                    o("encodeProtobuf")
-                      .encodeProtobuf(
-                        o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
-                        a,
-                      )
-                      .readByteArrayView(),
-                  ),
-                  e.finish()
-                );
-              });
-          },
-        )),
+                ),
+                a.send(
+                  o("encodeProtobuf")
+                    .encodeProtobuf(
+                      o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
+                      r,
+                    )
+                    .readByteArrayView(),
+                ),
+                a.finish()
+              );
+            });
+        })),
         z.apply(this, arguments)
       );
     }

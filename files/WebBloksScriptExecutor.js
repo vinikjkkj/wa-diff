@@ -161,7 +161,6 @@ __d(
       return (t = u[e]) != null ? t : u[c[e]];
     }
     function m(e, t) {
-      if (!Array.isArray(t)) return _(e, t);
       var n = t[0],
         r = babelHelpers.arrayLikeToArray(t).slice(1);
       if (

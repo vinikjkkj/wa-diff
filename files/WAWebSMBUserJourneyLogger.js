@@ -68,6 +68,7 @@ __d(
             (s != null && (r.entryPointDetails = s),
               t.userActionTarget != null &&
                 (r.userActionTarget = t.userActionTarget),
+              t.prevSurface != null && (r.prevSurface = t.prevSurface),
               t.extraAttributes != null &&
                 (r.extraAttributes = JSON.stringify(t.extraAttributes)),
               t.bbTier != null && (r.bbTier = t.bbTier),

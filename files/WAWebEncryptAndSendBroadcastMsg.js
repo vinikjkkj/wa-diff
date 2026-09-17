@@ -407,7 +407,12 @@ __d(
             ) {
               var S = yield o(
                 "WAWebGroupGetCompanionDsmPhashMsg",
-              ).getCompanionDsmPhashMsg(e, i, s, l);
+              ).getCompanionDsmPhashMsg({
+                companionDevices: i,
+                dsmPhash: s,
+                groupId: e,
+                msgProtobuf: l,
+              });
               S != null &&
                 S.length > 0 &&
                 S.forEach(function (e) {

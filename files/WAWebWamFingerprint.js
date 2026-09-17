@@ -21,7 +21,7 @@ __d(
             },
             yield r("WAWebBrowserFeatures")(),
             r("WAWebExternalInjectedSources")(),
-            r("WAWebDeviceFeatures")(),
+            o("WAWebDeviceFeatures").getDeviceFeatures(),
           );
         })),
         s.apply(this, arguments)

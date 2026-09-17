@@ -21,7 +21,7 @@ __d(
         u = f / 2;
         var g = p - r("ServerTimeData").timeOfResponseStart - u,
           h = Math.max(50, f * 0.8);
-        Math.abs(g) > h && ((s = g), (c = Date.now()));
+        Math.abs(g) > h && ((s = Math.round(g)), (c = Date.now()));
       }
     } else b(r("ServerTimeData").serverTime);
     function y() {
@@ -32,7 +32,7 @@ __d(
     }
     function b(e) {
       var t = Date.now() - e;
-      Math.abs(s - t) > 6e4 && ((s = t), (c = Date.now()));
+      Math.abs(s - t) > 6e4 && ((s = Math.round(t)), (c = Date.now()));
     }
     function v() {
       return c === null ? null : Date.now() - c;

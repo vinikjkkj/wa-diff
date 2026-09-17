@@ -336,13 +336,14 @@ __d(
             ? void 0
             : t.map(function (e) {
                 return (
-                  w(
-                    o("WAWebProtobufsE2E.pb")
+                  w({
+                    inFlightRequests: o(
+                      "WAWebNonMessageDataRequestMediaHandlingUtils",
+                    ).inFlightStickerRequests,
+                    key: e,
+                    requestType: o("WAWebProtobufsE2E.pb")
                       .Message$PeerDataOperationRequestType.UPLOAD_STICKER,
-                    o("WAWebNonMessageDataRequestMediaHandlingUtils")
-                      .inFlightStickerRequests,
-                    e,
-                  ),
+                  }),
                   { fileSha256: e }
                 );
               });
@@ -447,13 +448,15 @@ __d(
               ).inFlightPlaceholderResendRequests.has(e.id);
             })
             .map(function (e) {
-              w(
-                o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+              w({
+                inFlightRequests: o(
+                  "WAWebNonMessageDataRequestPlaceholderMessageResendUtils",
+                ).inFlightPlaceholderResendRequests,
+                key: e.id,
+                requestType: o("WAWebProtobufsE2E.pb")
+                  .Message$PeerDataOperationRequestType
                   .PLACEHOLDER_MESSAGE_RESEND,
-                o("WAWebNonMessageDataRequestPlaceholderMessageResendUtils")
-                  .inFlightPlaceholderResendRequests,
-                e.id,
-              );
+              });
               var t = e.remote.isRegularUser()
                   ? o("WAWebLidMigrationUtils").toUserLid(e.remote)
                   : null,
@@ -541,15 +544,16 @@ __d(
                     t.id.id,
                   ));
               };
-            w(
-              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-                .HISTORY_SYNC_ON_DEMAND,
-              o("WAWebNonMessageDataRequestHistorySyncOnDemandUtils")
-                .inFlightHistorySyncOnDemandRequests,
-              t.id.id,
-              d,
-              m,
-            );
+            w({
+              inFlightRequests: o(
+                "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
+              ).inFlightHistorySyncOnDemandRequests,
+              key: t.id.id,
+              requestTimeoutMs: d,
+              requestType: o("WAWebProtobufsE2E.pb")
+                .Message$PeerDataOperationRequestType.HISTORY_SYNC_ON_DEMAND,
+              timeoutHandling: m,
+            });
           }
           break;
         }
@@ -575,25 +579,30 @@ __d(
           break;
       }
     }
-    function w(e, t, n, a, i) {
-      (a === void 0 && (a = v),
-        new (o("WAShiftTimer").ShiftTimer)(function () {
-          if (t.has(n)) {
-            var a = r("gkx")("26258") ? "" : n;
-            (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] clean req key=",
-                  " type=",
-                  "",
-                ])),
-              a,
-              e,
-            ),
-              t.delete(n),
-              i == null || i());
-          }
-        }).onOrAfter(a));
+    function w(e) {
+      var t = e.inFlightRequests,
+        n = e.key,
+        a = e.requestTimeoutMs,
+        i = a === void 0 ? v : a,
+        l = e.requestType,
+        s = e.timeoutHandling;
+      new (o("WAShiftTimer").ShiftTimer)(function () {
+        if (t.has(n)) {
+          var e = r("gkx")("26258") ? "" : n;
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[rdu] clean req key=",
+                " type=",
+                "",
+              ])),
+            e,
+            l,
+          ),
+            t.delete(n),
+            s == null || s());
+        }
+      }).onOrAfter(i);
     }
     function A(e) {
       switch (e) {

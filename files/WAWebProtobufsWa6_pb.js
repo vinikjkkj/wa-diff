@@ -202,6 +202,7 @@ __d(
         processingQueueSize: [46, e.TYPES.INT32],
         pairedPeripherals: [47, e.FLAGS.REPEATED | e.TYPES.STRING],
         testIsolationId: [48, e.TYPES.BYTES],
+        messageSts: [49, e.TYPES.INT64],
       }),
       (I.name = "ClientPayload$InteropData"),
       (I.internalSpec = {

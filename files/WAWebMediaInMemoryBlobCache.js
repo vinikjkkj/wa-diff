@@ -19,6 +19,7 @@ __d(
             (this.$3 = new Map()),
             (this.$4 = new Set()),
             (this.$5 = new Set()),
+            (this.$6 = !1),
             (this.getOrCreateURL = function (e) {
               var n = t.$3.get(e);
               if (n != null) return (t.touch(e), n);
@@ -39,7 +40,7 @@ __d(
                 (t.$3.delete(e), window.URL.revokeObjectURL(n));
               }
             }),
-            (this.$8 = o("WAThrottle").throttle(
+            (this.$9 = o("WAThrottle").throttle(
               function () {
                 (t.$4.forEach(function (e) {
                   var n = t.$3.get(e);
@@ -60,18 +61,22 @@ __d(
                 return t.size;
               },
               onEvict: function (n, r) {
-                t.$3.has(n) &&
-                  t.$6(n) === 0 &&
+                (t.$3.has(n) &&
+                  t.$7(n) === 0 &&
                   (t.revokeURL(n, t.$3.get(n)),
                   o("WAWebMediaStorage")
                     .getOrCreateMediaObject(n)
                     .consolidate({
                       downloadStage: o("WAWebMediaTypes").DownloadStage.INIT,
                       progressiveStage: null,
-                    }));
+                    })),
+                  (t.$6 = !0));
+              },
+              onPurge: function () {
+                t.$6 && ((t.$6 = !1), t.$8());
               },
               shouldEvict: function (n, r) {
-                return t.$6(n) === 0;
+                return t.$7(n) === 0;
               },
             })));
         }
@@ -87,14 +92,14 @@ __d(
             this.get(t);
           }),
           (n.put = function (t, n) {
-            (this.$1.put(t, n), this.$7());
+            (this.$1.put(t, n), this.$8());
           }),
           (n.delete = function (t) {
-            (this.$1.delete(t), this.$7());
+            (this.$1.delete(t), this.$8());
           }),
           (n.clear = function () {
             var e = this;
-            (this.$8.flush(),
+            (this.$9.flush(),
               (this.$2 = {}),
               this.$3.forEach(function (t, n) {
                 e.revokeURL(n, t);
@@ -103,10 +108,10 @@ __d(
               this.$1.clear());
           }),
           (n.increaseUsageCount = function (t) {
-            ((this.$2[t] = this.$6(t) + 1), this.$4.delete(t));
+            ((this.$2[t] = this.$7(t) + 1), this.$4.delete(t));
           }),
           (n.decreaseUsageCount = function (n) {
-            var t = this.$6(n);
+            var t = this.$7(n);
             if (t <= 0) {
               o("WALogger")
                 .ERROR(
@@ -121,12 +126,12 @@ __d(
             }
             ((this.$2[n] = t - 1),
               this.$2[n] === 0 &&
-                (delete this.$2[n], this.$4.add(n), this.$8()));
+                (delete this.$2[n], this.$4.add(n), this.$9()));
           }),
-          (n.$6 = function (t) {
+          (n.$7 = function (t) {
             return this.$2[t] || 0;
           }),
-          (n.$7 = function () {
+          (n.$8 = function () {
             this.$5.forEach(function (e) {
               return e();
             });

@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WAWebAutoLogoutGating",
     "gkx",
+    "isWAWebFeatureDetectionAndroidTablet",
     "isWAWebFeatureDetectionAppleTouchscreen",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,13 +31,32 @@ __d(
     }
     function d() {
       return (
+        !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
+        r("gkx")("15775")
+      );
+    }
+    function m(e) {
+      return (
+        e === void 0 &&
+          (e = o(
+            "isWAWebFeatureDetectionAndroidTablet",
+          ).isWAWebFeatureDetectionAndroidTablet()),
+        !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
+          e &&
+          r("gkx")("15842")
+      );
+    }
+    function p() {
+      return (
         r("isWAWebFeatureDetectionAppleTouchscreen")() && r("gkx")("20339")
       );
     }
     ((l.LinkDeviceScreenVariantType = e),
       (l.getLinkDeviceScreenVariant = s),
       (l.getOptimizedRegFromWebVariant = c),
-      (l.isAppleTouchscreenOverlayEnabled = d));
+      (l.isAndroidTabletOverlayPotentiallyEnabled = d),
+      (l.isAndroidTabletOverlayEnabled = m),
+      (l.isAppleTouchscreenOverlayEnabled = p));
   },
   98,
 );

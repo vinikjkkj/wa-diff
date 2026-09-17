@@ -2,6 +2,7 @@ __d(
   "WAWebDualUploadsPreferredMsg",
   [
     "WAWebMediaGatingUtils",
+    "WAWebMediaLocalAvailability",
     "WAWebMediaTypes",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationUIUtils",
@@ -29,12 +30,14 @@ __d(
       return n;
     }
     function u(e) {
-      var t,
-        n = c(e);
-      return n != null &&
-        ((t = n.mediaData) == null ? void 0 : t.mediaStage) ===
-          o("WAWebMediaTypes").MediaDataStage.RESOLVED
-        ? n
+      var t = c(e),
+        n = t == null ? void 0 : t.mediaData;
+      return t != null &&
+        n != null &&
+        n.mediaStage === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
+        n.filehash != null &&
+        o("WAWebMediaLocalAvailability").isMsgMediaAvailableLocally(t)
+        ? t
         : e;
     }
     function c(e) {

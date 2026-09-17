@@ -85,11 +85,24 @@ __d(
         if (r.length === 1) break;
       }
       var C = n[0];
+      if (C === void 0)
+        throw new (o("WebBloksErrors").WebBloksScriptParseError)(
+          0,
+          "Expected '('",
+          !0,
+        );
+      var b;
       return (
-        (C = o(
+        Array.isArray(C)
+          ? (b = C)
+          : (b = [
+              new (o("WebBloksScriptTokens").WebBloksIdentifierToken)("e2f"),
+              C,
+            ]),
+        (b = o(
           "WebBloksScriptDebuggingUtils",
-        ).attachLispyOffsetsForWebBloksScriptNode(C)),
-        C
+        ).attachLispyOffsetsForWebBloksScriptNode(b)),
+        b
       );
     }
     function m(e, t) {

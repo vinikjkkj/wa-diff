@@ -5,6 +5,8 @@ __d(
     "Promise",
     "WALogger",
     "WAWebIdleTaskRunner",
+    "WAWebThirdPartyMigrationGatingUtils",
+    "WAWebTransitionPrimitive.react",
     "WAWebTransitions",
     "WAWebUiIdleEventBus",
     "WAWebVelocityAnimate",
@@ -55,7 +57,8 @@ __d(
         I = C(),
         T = C(),
         D = C(),
-        x = function (n) {
+        x = C(0),
+        $ = function (n) {
           if ((n === void 0 && (n = !0), c != null && c.current != null))
             return c.current;
           var t = I.current;
@@ -82,28 +85,28 @@ __d(
           );
         };
       r("useWAWebOnUnmount")(function () {
-        var e = x(!1);
+        var e = $(!1);
         r("WAWebVelocityAnimate")(e, "finish");
       });
-      var $ = C(!1),
-        P = C(),
-        N = function () {
-          ((P.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
-            P.current,
+      var P = C(!1),
+        N = C(),
+        M = function () {
+          ((N.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
+            N.current,
           )),
-            $.current ||
-              (($.current = !0),
+            P.current ||
+              ((P.current = !0),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0)));
         },
-        M = function () {
-          (P.current != null &&
-            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(P.current),
-            delete P.current),
-            $.current &&
-              (($.current = !1),
+        w = function () {
+          (N.current != null &&
+            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(N.current),
+            delete N.current),
+            P.current &&
+              ((P.current = !1),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1)));
         },
-        w = function (t, n) {
+        A = function (t, n) {
           var e = n;
           if (!e) return [];
           Array.isArray(e) || (e = [e]);
@@ -124,7 +127,7 @@ __d(
             );
           });
         },
-        A = function (t) {
+        F = function (t) {
           var e = t;
           (e === b.APPEAR && (e = b.ENTER),
             e === "enter" || e === "leave" || s(0, 66980));
@@ -132,8 +135,8 @@ __d(
             a = o[e];
           if (!o || !a) return (p || (p = n("Promise"))).resolve();
           var i = r("omit")(o, ["enter", "leave"]),
-            u = x(),
-            c = w(u, a);
+            u = $(),
+            c = A(u, a);
           return (
             e === b.LEAVE &&
               (u == null || u.setAttribute("pointerEvents", "none"),
@@ -186,7 +189,7 @@ __d(
               })
           );
         },
-        F = function (n) {
+        O = function (n) {
           var e = t.appear,
             r = e === void 0 ? !1 : e,
             o = t.enter,
@@ -206,24 +209,28 @@ __d(
                             n,
                         );
                       })();
-          s
-            ? (N(),
-              A(n)
-                .finally(function () {
-                  M();
-                })
-                .then(function () {
-                  k.aborted || D.current == null || D.current();
-                }))
-            : D.current == null || D.current();
+          if (s) {
+            (M(), (x.current += 1));
+            var u = x.current;
+            F(n)
+              .finally(function () {
+                w();
+              })
+              .then(function () {
+                k.aborted ||
+                  u !== x.current ||
+                  D.current == null ||
+                  D.current();
+              });
+          } else D.current == null || D.current();
         },
-        O = function (t, n) {
-          (g == null || g(), (T.current = t), F(n ? b.APPEAR : b.ENTER));
-        },
-        B = function (t) {
-          (v == null || v(), (T.current = t), F(b.LEAVE));
+        B = function (t, n) {
+          (g == null || g(), (T.current = t), O(n ? b.APPEAR : b.ENTER));
         },
         W = function (t) {
+          (v == null || v(), (T.current = t), O(b.LEAVE));
+        },
+        q = function (t) {
           var e,
             n =
               (e =
@@ -236,22 +243,44 @@ __d(
           var r = a == null ? void 0 : a.ref;
           r && (typeof r == "function" ? r(n) : (r.current = n));
         },
-        q = a;
+        U = a;
       if (c == null) {
-        var U = h.only(q);
-        q = y(U, { ref: W });
+        var V = h.only(U);
+        U = y(V, { ref: q });
       }
-      return f.jsx(
-        o("react-transition-group").Transition,
-        babelHelpers.extends({ nodeRef: c }, E, {
-          addEndListener: function (t, n) {
-            D.current = n;
-          },
-          onEnter: O,
-          onExit: B,
-          children: q,
-        }),
-      );
+      return o(
+        "WAWebThirdPartyMigrationGatingUtils",
+      ).isVelocityAnimateMigrationEnabled()
+        ? f.jsx(
+            r("WAWebTransitionPrimitive.react"),
+            babelHelpers.extends(
+              {
+                resolveNode: function () {
+                  return $();
+                },
+              },
+              E,
+              {
+                addEndListener: function (t, n) {
+                  D.current = n;
+                },
+                onEnter: B,
+                onExit: W,
+                children: U,
+              },
+            ),
+          )
+        : f.jsx(
+            o("react-transition-group").Transition,
+            babelHelpers.extends({ nodeRef: c }, E, {
+              addEndListener: function (t, n) {
+                D.current = n;
+              },
+              onEnter: B,
+              onExit: W,
+              children: U,
+            }),
+          );
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {

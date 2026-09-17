@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "Promise",
-    "VultureJSDeadComponent.react",
     "WALogger",
     "WAWebABProps",
     "WAWebActionToast.react",
@@ -292,17 +291,6 @@ __d(
                   },
                 );
                 switch (e.status) {
-                  case 416: {
-                    var n = s._(/*BTDS*/ "This action is not available");
-                    throw (
-                      o("WAWebModalManager").ModalManager.open(
-                        h.jsx(r("VultureJSDeadComponent.react"), {
-                          name: "WAWebCommunityRestrictedGroupActionModal",
-                        }),
-                      ),
-                      new (o("WAWebActionToast.react").ActionType)(n)
-                    );
-                  }
                   case 419:
                     throw new (o("WAWebActionToast.react").ActionType)(
                       s._(

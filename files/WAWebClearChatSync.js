@@ -173,14 +173,16 @@ __d(
                                           _.chat.accountLid,
                                         ),
                                   );
-                                return i.$ClearChatSync$p_2(
-                                  o("WAWebWidFactory").createWid(_.chat.id),
-                                  g,
-                                  u === "1",
-                                  c === "0",
-                                  h,
-                                  a,
-                                );
+                                return i.$ClearChatSync$p_2({
+                                  chatWid: o("WAWebWidFactory").createWid(
+                                    _.chat.id,
+                                  ),
+                                  deleteMediaFiles: c === "0",
+                                  deleteStarredMessages: u === "1",
+                                  incomingRange: g,
+                                  messagesToBeSkippedFromClear: h,
+                                  syncActionValue: a,
+                                });
                               }
                               return (
                                 m++,
@@ -320,30 +322,36 @@ __d(
           })()),
           (i.$ClearChatSync$p_2 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, a, i) {
-                var l = o("encodeProtobuf")
-                  .encodeProtobuf(
-                    o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                    i,
-                  )
-                  .readBuffer();
+              function* (e) {
+                var t = e.chatWid,
+                  n = e.deleteMediaFiles,
+                  r = e.deleteStarredMessages,
+                  a = e.incomingRange,
+                  i = e.messagesToBeSkippedFromClear,
+                  l = e.syncActionValue,
+                  s = o("encodeProtobuf")
+                    .encodeProtobuf(
+                      o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                      l,
+                    )
+                    .readBuffer();
                 return (
                   yield o(
                     "WAWebApiAddActiveMessageRange",
                   ).addActiveMessageRange(
-                    e.toString(),
+                    t.toString(),
                     o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                       "clearChat",
-                      { deleteMedia: r, deleteStarred: n },
+                      { deleteMedia: n, deleteStarred: r },
                     ),
-                    l,
+                    s,
                   ),
-                  yield this.clearChat(e, t, n, a),
+                  yield this.clearChat(t, a, r, i),
                   { actionState: o("WAWebSyncdConst").SyncActionState.Success }
                 );
               },
             );
-            function t(t, n, r, o, a, i) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

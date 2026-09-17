@@ -58,25 +58,28 @@ __d(
       y,
       C,
       b;
-    function v(e, t, n) {
+    function v(e) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatWid,
+            n = e.msg,
+            a = e.msgBotInfo;
           if (
             !(
-              n == null ||
+              a == null ||
               t == null ||
               !r("WAWebWid").isGroup(t) ||
-              !(e.ephemeralDuration == null || e.ephemeralDuration === 0)
+              !(n.ephemeralDuration == null || n.ephemeralDuration === 0)
             )
           )
             try {
-              var a = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
-              a != null &&
-                a.ephemeralDuration > 0 &&
-                ((e.ephemeralDuration = a.ephemeralDuration),
+              var i = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
+              i != null &&
+                i.ephemeralDuration > 0 &&
+                ((n.ephemeralDuration = i.ephemeralDuration),
                 o("WALogger")
                   .LOG(
                     p ||
@@ -84,7 +87,7 @@ __d(
                         "[bot group] Applied group ephemeral duration ",
                         " to bot message",
                       ])),
-                    String(a.ephemeralDuration),
+                    String(i.ephemeralDuration),
                   )
                   .sendLogs("bot-group-ephemeral-fallback"));
             } catch (e) {
@@ -549,7 +552,7 @@ __d(
                 )
                 .sendLogs("failed-to-process-bot-group-gossip");
             }
-          if ((yield v(T, P, R), y != null)) {
+          if ((yield v({ chatWid: P, msg: T, msgBotInfo: R }), y != null)) {
             var A = y.category,
               B = y.tag;
             ((T.hsmTag = B), (T.hsmCategory = A));

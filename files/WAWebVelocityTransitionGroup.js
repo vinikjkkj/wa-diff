@@ -2,11 +2,13 @@ __d(
   "WAWebVelocityTransitionGroup",
   [
     "WAWebClassnames",
+    "WAWebThirdPartyMigrationGatingUtils",
     "WAWebVelocityTransition",
     "react",
     "react-compiler-runtime",
     "react-transition-group",
     "stylex",
+    "useWAWebTransitionPresence",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
@@ -15,7 +17,7 @@ __d(
       c = u || (u = o("react")),
       d = u.Children;
     function m(t) {
-      var n = o("react-compiler-runtime").c(30),
+      var n = o("react-compiler-runtime").c(20),
         a,
         i;
       n[0] !== t
@@ -25,116 +27,206 @@ __d(
           (n[1] = a),
           (n[2] = i))
         : ((a = n[1]), (i = n[2]));
-      var l, u, m, p, _, f, g, h, y, C;
-      if (n[3] !== a || n[4] !== i) {
-        var b = d.toArray(a.children),
-          v = a,
-          S = v.appear,
-          R = v.component,
-          L = v.delay,
-          E = v.displayName,
-          k = v.enter,
-          I = v.exit,
-          T = v.onAnimationComplete,
-          D = v.testid,
-          x = v.transitionName,
-          $ = v.xstyle,
-          P = R === void 0 ? "span" : R,
-          N = x === void 0 ? "default" : x;
-        ((u = P),
-          (h = i),
-          n[15] !== $
-            ? ((y = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-                (s || (s = r("stylex")))($),
-              )),
-              (n[15] = $),
-              (n[16] = y))
-            : (y = n[16]),
-          (C = D),
-          (l = o("react-transition-group").TransitionGroup),
-          (m = null),
-          (p = S),
-          (_ = k),
-          (f = I),
-          (g =
-            b == null
-              ? void 0
-              : b.map(function (e) {
-                  return c.jsx(
-                    r("WAWebVelocityTransition"),
-                    {
-                      transitionName: N,
-                      delay: L,
-                      onAnimationComplete: T,
-                      displayName: E,
-                      children: e,
-                    },
-                    e.key,
-                  );
-                })),
-          (n[3] = a),
-          (n[4] = i),
-          (n[5] = l),
-          (n[6] = u),
-          (n[7] = m),
-          (n[8] = p),
-          (n[9] = _),
-          (n[10] = f),
-          (n[11] = g),
-          (n[12] = h),
-          (n[13] = y),
-          (n[14] = C));
-      } else
-        ((l = n[5]),
-          (u = n[6]),
-          (m = n[7]),
-          (p = n[8]),
-          (_ = n[9]),
-          (f = n[10]),
-          (g = n[11]),
-          (h = n[12]),
-          (y = n[13]),
-          (C = n[14]));
-      var M;
-      n[17] !== l ||
-      n[18] !== m ||
-      n[19] !== p ||
-      n[20] !== _ ||
-      n[21] !== f ||
-      n[22] !== g
-        ? ((M = c.jsx(l, {
-            component: m,
-            appear: p,
-            enter: _,
-            exit: f,
-            children: g,
-          })),
-          (n[17] = l),
-          (n[18] = m),
-          (n[19] = p),
-          (n[20] = _),
-          (n[21] = f),
-          (n[22] = g),
-          (n[23] = M))
-        : (M = n[23]);
-      var w;
-      return (
-        n[24] !== u || n[25] !== h || n[26] !== y || n[27] !== C || n[28] !== M
-          ? ((w = c.jsx(u, {
-              ref: h,
-              className: y,
-              "data-testid": C,
-              children: M,
+      var l = a,
+        u = l.appear,
+        m = l.component,
+        f = l.delay,
+        g = l.displayName,
+        h = l.enter,
+        y = l.exit,
+        C = l.onAnimationComplete,
+        b = l.testid,
+        v = l.transitionName,
+        S = l.xstyle,
+        R = m === void 0 ? "span" : m,
+        L = v === void 0 ? "default" : v,
+        E;
+      n[3] !== S
+        ? ((E = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            (s || (s = r("stylex")))(S),
+          )),
+          (n[3] = S),
+          (n[4] = E))
+        : (E = n[4]);
+      var k;
+      if (
+        n[5] !== u ||
+        n[6] !== f ||
+        n[7] !== g ||
+        n[8] !== h ||
+        n[9] !== y ||
+        n[10] !== C ||
+        n[11] !== a.children ||
+        n[12] !== L
+      ) {
+        var I;
+        ((k = o(
+          "WAWebThirdPartyMigrationGatingUtils",
+        ).isVelocityAnimateMigrationEnabled()
+          ? c.jsx(p, {
+              appear: u,
+              enter: h,
+              exit: y,
+              transitionName: L,
+              delay: f,
+              onAnimationComplete: C,
+              displayName: g,
+              children: a.children,
+            })
+          : c.jsx(o("react-transition-group").TransitionGroup, {
+              component: null,
+              appear: u,
+              enter: h,
+              exit: y,
+              children:
+                (I = d.toArray(a.children)) == null
+                  ? void 0
+                  : I.map(function (e, t) {
+                      return c.jsx(
+                        r("WAWebVelocityTransition"),
+                        {
+                          transitionName: L,
+                          delay: f,
+                          onAnimationComplete: C,
+                          displayName: g,
+                          children: e,
+                        },
+                        _(e, t),
+                      );
+                    }),
             })),
-            (n[24] = u),
-            (n[25] = h),
-            (n[26] = y),
-            (n[27] = C),
-            (n[28] = M),
-            (n[29] = w))
-          : (w = n[29]),
-        w
+          (n[5] = u),
+          (n[6] = f),
+          (n[7] = g),
+          (n[8] = h),
+          (n[9] = y),
+          (n[10] = C),
+          (n[11] = a.children),
+          (n[12] = L),
+          (n[13] = k));
+      } else k = n[13];
+      var T;
+      return (
+        n[14] !== R || n[15] !== i || n[16] !== E || n[17] !== k || n[18] !== b
+          ? ((T = c.jsx(R, {
+              ref: i,
+              className: E,
+              "data-testid": b,
+              children: k,
+            })),
+            (n[14] = R),
+            (n[15] = i),
+            (n[16] = E),
+            (n[17] = k),
+            (n[18] = b),
+            (n[19] = T))
+          : (T = n[19]),
+        T
       );
+    }
+    function p(e) {
+      var t = o("react-compiler-runtime").c(20),
+        n = e.appear,
+        a = e.delay,
+        i = e.displayName,
+        l = e.enter,
+        s = e.exit,
+        u = e.onAnimationComplete,
+        m = e.transitionName,
+        p;
+      if (
+        t[0] !== a ||
+        t[1] !== i ||
+        t[2] !== s ||
+        t[3] !== u ||
+        t[4] !== e.children ||
+        t[5] !== m
+      ) {
+        var f;
+        ((p = []),
+          (f = d.toArray(e.children)) == null ||
+            f.forEach(function (e, t) {
+              e != null &&
+                p.push({
+                  key: _(e, t),
+                  element: {
+                    child: e,
+                    delay: a,
+                    displayName: i,
+                    exit: s,
+                    onAnimationComplete: u,
+                    transitionName: m,
+                  },
+                });
+            }),
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = s),
+          (t[3] = u),
+          (t[4] = e.children),
+          (t[5] = m),
+          (t[6] = p));
+      } else p = t[6];
+      var g = r("useWAWebTransitionPresence")(p),
+        h = g.initialKeys,
+        y = g.items,
+        C = g.notifyExited,
+        b;
+      if (
+        t[7] !== n ||
+        t[8] !== l ||
+        t[9] !== h ||
+        t[10] !== y ||
+        t[11] !== C
+      ) {
+        var v;
+        (t[13] !== n || t[14] !== l || t[15] !== h || t[16] !== C
+          ? ((v = function (t) {
+              var e = t.element;
+              return c.jsx(
+                r("WAWebVelocityTransition"),
+                {
+                  in: t.isPresent,
+                  appear: h.has(t.key) ? n === !0 : l !== !1,
+                  enter: l,
+                  exit: e.exit,
+                  transitionName: e.transitionName,
+                  delay: e.delay,
+                  onAnimationComplete: e.onAnimationComplete,
+                  displayName: e.displayName,
+                  onExited: function () {
+                    return C(t.key);
+                  },
+                  children: e.child,
+                },
+                t.key,
+              );
+            }),
+            (t[13] = n),
+            (t[14] = l),
+            (t[15] = h),
+            (t[16] = C),
+            (t[17] = v))
+          : (v = t[17]),
+          (b = y.map(v)),
+          (t[7] = n),
+          (t[8] = l),
+          (t[9] = h),
+          (t[10] = y),
+          (t[11] = C),
+          (t[12] = b));
+      } else b = t[12];
+      var S;
+      return (
+        t[18] !== b
+          ? ((S = c.jsx(c.Fragment, { children: b })), (t[18] = b), (t[19] = S))
+          : (S = t[19]),
+        S
+      );
+    }
+    function _(e, t) {
+      var n = Reflect.get(e, "key");
+      return n == null ? "unkeyed-" + t : String(n);
     }
     l.default = m;
   },

@@ -91,7 +91,9 @@ __d(
           referrer: s,
           random_user_id: c != null ? c : -1,
           locale: n != null ? n : void 0,
-          touch_presence: r("WAWebDeviceFeatures")().touchPresence,
+          touch_presence: o(
+            "WAWebDeviceFeatures",
+          ).getTouchPresenceForTouchOnlyCallers(),
         }),
           x(),
           $(),

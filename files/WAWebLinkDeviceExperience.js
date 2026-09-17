@@ -139,7 +139,7 @@ __d(
         default:
           break;
       }
-      (r("WAWebDeviceFeatures")().touchPresence &&
+      (o("WAWebDeviceFeatures").getTouchPresenceForTouchOnlyCallers() &&
         t.set(s.TouchPresence.getIndex()),
         o(
           "WAWebLinkDeviceScreenGatedUtils",

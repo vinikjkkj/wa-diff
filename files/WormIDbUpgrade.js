@@ -174,24 +174,30 @@ __d(
     }
     function y(e, t, n, r, a) {
       var i = a.ear,
-        l = _(e, t, n, a.safeToDeleteStores),
-        s = t.objectStore(o("WormIDbTypes").EAR_STORE),
-        u = s.getAll();
-      ((u.onsuccess = function () {
+        l = a.eventFlow;
+      l == null || l.addPoint("apply_schema_changes_start");
+      var s = _(e, t, n, a.safeToDeleteStores);
+      (l == null || l.addPoint("apply_schema_changes_end"),
+        l == null || l.addPoint("load_keychain_start"));
+      var u = t.objectStore(o("WormIDbTypes").EAR_STORE),
+        c = u.getAll();
+      ((c.onsuccess = function () {
         var e,
           r = o("WormIDbEARKeychain").reconcileKeychain(
-            (e = u.result) != null ? e : [],
+            (e = c.result) != null ? e : [],
           ),
           a = r.curVersion,
-          c = r.needNewVersion,
-          d = r.versions;
-        if (c) {
-          var m = babelHelpers.extends({}, i.prepareNewKeyVersion(), {
+          d = r.needNewVersion,
+          m = r.versions;
+        if (d) {
+          var _ = babelHelpers.extends({}, i.prepareNewKeyVersion(), {
             version: a + 1,
           });
-          (s.add(m), d.push(m));
+          (u.add(_), m.push(_));
         }
-        (i.init(d), p(t, n, l, i));
+        (l == null || l.addPoint("load_keychain_end"),
+          i.init(m, { eventFlow: l }),
+          p(t, n, s, i));
       }),
         f(t, r, a.isNewDbInstance));
     }

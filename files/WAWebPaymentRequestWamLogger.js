@@ -120,15 +120,17 @@ __d(
             r = e.id.id + e.to.toJid(),
             a = yield $(h, r),
             i = yield $(a, y),
-            l = {
+            l = T(e),
+            s = {
               cta: _,
               p2m_flow: n ? f : g,
-              accepted_payment_method: T(e),
+              accepted_payment_method:
+                l.length > 0 ? JSON.stringify(l) : void 0,
               order_funnel_id: a,
               chat_type: D(e),
             };
           (n ||
-            (l.is_payment_cta_shown = o(
+            (s.is_payment_cta_shown = o(
               "WAWebBrPaymentRequest",
             ).isPaymentDetectionEnhancementEnabled()
               ? "1"
@@ -140,12 +142,11 @@ __d(
                 .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
               messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
                 .INTERACTIVE_NFM,
-              bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
               businessOwnerJid: x(e),
-              messageClassAttributes: JSON.stringify(l),
+              messageClassAttributes: JSON.stringify(s),
               templateId: (t = e.templateId) != null ? t : void 0,
             }).commit());
-          var s = babelHelpers.extends({}, l, { order_funnel_id: i });
+          var u = babelHelpers.extends({}, s, { order_funnel_id: i });
           new (o(
             "WAWebStructuredMessageBuyerReceiveWamEvent",
           ).StructuredMessageBuyerReceiveWamEvent)({
@@ -153,7 +154,7 @@ __d(
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
               .INTERACTIVE_NFM,
-            messageClassAttributes: JSON.stringify(s),
+            messageClassAttributes: JSON.stringify(u),
           }).commit();
         })),
         M.apply(this, arguments)
@@ -290,7 +291,7 @@ __d(
         bizPlatform: H(e),
         messageClassAttributes: JSON.stringify(
           babelHelpers.extends({}, r, {
-            accepted_payment_method: l.length > 0 ? l : void 0,
+            accepted_payment_method: l.length > 0 ? JSON.stringify(l) : void 0,
             order_funnel_id: i,
             chat_type: D(e),
             is_cta_available: !0,

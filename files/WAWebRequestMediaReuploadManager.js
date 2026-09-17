@@ -13,50 +13,73 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = (function () {
+      u,
+      c = (function () {
         function t() {
           var t = this;
           ((this.$1 = new Map()),
+            (this.$2 = new Set()),
             (this.requestMediaReupload = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var a = e.id.id;
-                  if (o("WAWebMsgGetters").getIsNewsletterMsg(e))
+              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (a) {
+                  var i = a.id.id;
+                  if (o("WAWebMsgGetters").getIsNewsletterMsg(a))
                     throw new (o(
                       "WAWebGetUserMediaErrors",
                     ).RMRNotSupportedOnNewsletterMessagesError)(
-                      o("WAWebMmsMediaTypes").getMsgMediaType(e),
+                      o("WAWebMmsMediaTypes").getMsgMediaType(a),
                     );
-                  var i = t.$1.get(a);
-                  if (i) return r("nullthrows")(i.request);
-                  var l = new (s || (s = n("Promise")))(function (n, r) {
-                    t.$1.set(a, { resolve: n, reject: r, msg: e });
+                  if (a.mediaKey == null)
+                    throw (
+                      t.$2.has(i) ||
+                        (t.$2.add(i),
+                        o("WALogger")
+                          .ERROR(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "[media][rmr] Called RMR with null mediaKey, type ",
+                                "",
+                              ])),
+                            a.type,
+                          )
+                          .tags("media", "non-sad")
+                          .sendLogs("rmr-called-with-null-media-key", {
+                            sampling: 0.01,
+                          })),
+                      new (o(
+                        "WAWebGetUserMediaErrors",
+                      ).RMRWithoutMediaKeyError)(a.type)
+                    );
+                  var l = t.$1.get(i);
+                  if (l) return r("nullthrows")(l.request);
+                  var s = new (u || (u = n("Promise")))(function (e, n) {
+                    t.$1.set(i, { resolve: e, reject: n, msg: a });
                   });
                   return (
-                    (r("nullthrows")(t.$1.get(a)).request = l),
-                    yield r("WAWebSendServerErrorReceiptJob")(e),
-                    l
+                    (r("nullthrows")(t.$1.get(i)).request = s),
+                    yield r("WAWebSendServerErrorReceiptJob")(a),
+                    s
                   );
                 },
               );
-              return function (t) {
-                return e.apply(this, arguments);
+              return function (e) {
+                return a.apply(this, arguments);
               };
             })()),
-            (this.resolveMediaReupload = function (n) {
-              var r = n.directPath,
-                a = n.msgId,
-                i = n.result,
-                l = t.$1.get(a);
-              l != null
-                ? (l.resolve({ result: i, directPath: r }), t.$1.delete(a))
+            (this.resolveMediaReupload = function (e) {
+              var n = e.directPath,
+                r = e.msgId,
+                a = e.result,
+                i = t.$1.get(r);
+              i != null
+                ? (i.resolve({ result: a, directPath: n }), t.$1.delete(r))
                 : o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "resolveMediaReupload: msgId (",
                         ") is not found in _rmrRequests",
                       ])),
-                    a,
+                    r,
                   );
             }),
             (this.getMediaKey = function (e) {
@@ -72,9 +95,9 @@ __d(
           t
         );
       })(),
-      c = new u();
-    ((l.RequestMediaReuploadManagerImpl = u),
-      (l.RequestMediaReuploadManager = c));
+      d = new c();
+    ((l.RequestMediaReuploadManagerImpl = c),
+      (l.RequestMediaReuploadManager = d));
   },
   98,
 );

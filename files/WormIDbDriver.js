@@ -148,40 +148,46 @@ __d(
                   (this.$1.close(), (this.$1 = null), (i = !0));
                 var l = !1;
                 try {
-                  var s,
-                    u = babelHelpers.extends(
+                  var s, u, c;
+                  e == null ||
+                    (s = e.eventFlow) == null ||
+                    s.addPoint("schema_hash_start");
+                  var d = babelHelpers.extends(
                       {},
                       this.$4,
                       o("WormIDbTypes").sysSchema,
                     ),
-                    c = JSON.stringify(u);
-                  if (c == null)
+                    m = JSON.stringify(d);
+                  if (m == null)
                     throw r("err")(
                       "DB schema cannot be serialized: " + this.$3,
                     );
-                  var d = yield o("WACryptoSha256").sha256Str(c),
-                    m = yield this.openAndUpgrade({
+                  var p = yield o("WACryptoSha256").sha256Str(m);
+                  e == null ||
+                    (u = e.eventFlow) == null ||
+                    u.addPoint("schema_hash_end");
+                  var _ = yield this.openAndUpgrade({
                       eventFlow: e == null ? void 0 : e.eventFlow,
                       forceUpgrade:
-                        (s = e == null ? void 0 : e.forceUpgrade) != null
-                          ? s
+                        (c = e == null ? void 0 : e.forceUpgrade) != null
+                          ? c
                           : !1,
-                      schema: u,
-                      schemaHash: d,
+                      schema: d,
+                      schemaHash: p,
                     }),
-                    p = m.db,
-                    _ = m.isNewDb,
-                    f = m.isUpgraded;
-                  ((l = f), (this.$1 = p));
-                  var g = { isNewDb: _, isUpgraded: f };
-                  return (a.resolve(g), g);
+                    f = _.db,
+                    g = _.isNewDb,
+                    h = _.isUpgraded;
+                  ((l = h), (this.$1 = f));
+                  var y = { isNewDb: g, isUpgraded: h };
+                  return (a.resolve(y), y);
                 } catch (e) {
                   throw (a.reject(e), e);
                 } finally {
-                  var h;
+                  var C;
                   (e == null ||
-                    (h = e.eventFlow) == null ||
-                    h.addAnnotations({
+                    (C = e.eventFlow) == null ||
+                    C.addAnnotations({
                       bool: {
                         isClosingDb: i,
                         isCompetingInit: !1,

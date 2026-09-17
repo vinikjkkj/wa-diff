@@ -1,6 +1,12 @@
 __d(
   "WAWebVelocityAnimate",
-  ["WAWebABProps", "asyncToGeneratorRuntime", "velocity-animate"],
+  [
+    "WAWebABProps",
+    "WAWebThirdPartyMigrationGatingUtils",
+    "WAWebWaapiAnimate",
+    "asyncToGeneratorRuntime",
+    "velocity-animate",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = { FINISH: "finish", STOP: "stop" },
       s = new Map();
@@ -10,13 +16,19 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          for (
+            var i = arguments.length, l = new Array(i > 3 ? i - 3 : 0), u = 3;
+            u < i;
+            u++
+          )
+            l[u - 3] = arguments[u];
+          if (
+            o(
+              "WAWebThirdPartyMigrationGatingUtils",
+            ).isVelocityAnimateMigrationEnabled()
+          )
+            return r("WAWebWaapiAnimate").apply(void 0, [t, n, a].concat(l));
           if (t) {
-            for (
-              var i = arguments.length, l = new Array(i > 3 ? i - 3 : 0), u = 3;
-              u < i;
-              u++
-            )
-              l[u - 3] = arguments[u];
             if (typeof n == "string" && (n === e.FINISH || n === e.STOP))
               return r("velocity-animate").apply(void 0, [t, n, a].concat(l));
             d(t, function (e) {

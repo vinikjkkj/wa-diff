@@ -7,14 +7,17 @@ __d(
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastProOnboardingStatus",
     "WAWebBizBroadcastProUpdateCampaignAction",
+    "WAWebBizBroadcastRecipientLimitCommon",
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBizBroadcastTos",
+    "WAWebBroadcastListAction",
     "WAWebChatCollection",
     "WAWebGraphQLConstants",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebTos",
     "WAWebUserPrefsMeUser",
+    "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
@@ -111,18 +114,74 @@ __d(
     }
     ((_.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
       (_.paramsToExecute = []));
-    function f() {
+    var f = 1e4;
+    function g(t) {
+      var a = o("WAWebWidFactory").createWid(t);
+      return o("WAWebChatCollection").ChatCollection.get(a) != null
+        ? (e || (e = n("Promise"))).resolve()
+        : new (e || (e = n("Promise")))(function (e, n) {
+            var i = function () {
+              o("WAWebChatCollection").ChatCollection.get(a) != null &&
+                (o("WAWebChatCollection").ChatCollection.off("add", i), e());
+            };
+            (window.setTimeout(function () {
+              (o("WAWebChatCollection").ChatCollection.off("add", i),
+                n(
+                  r("err")(
+                    "Broadcast chat " +
+                      t +
+                      " never reached ChatCollection within " +
+                      f +
+                      "ms",
+                  ),
+                ));
+            }, f),
+              o("WAWebChatCollection").ChatCollection.on("add", i));
+          });
+    }
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            t.length < o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS
+          )
+            throw r("err")(
+              'createBizBroadcastAudience("' +
+                e +
+                '") needs at least ' +
+                o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS +
+                " recipients, got " +
+                t.length,
+            );
+          var n = yield o("WAWebBroadcastListAction").createBroadcastListAction(
+            {
+              broadcastListName: e,
+              contacts: t.map(function (e) {
+                return { lid: e + "@lid", phone: e };
+              }),
+            },
+          );
+          return (yield g(n), n);
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    h.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
+    function C() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e == null) throw r("err")("No active chat");
       return o("WAWebWidToJid").widToBroadcastJid(e.id);
     }
-    function g() {
-      return h.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function h() {
+    function v() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = f(),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = C(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
             n = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
@@ -146,19 +205,19 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(e));
         })),
-        h.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((g.doc =
+    ((b.doc =
       "Create a test PROCESSING campaign for the active broadcast chat (E2E)"),
-      (g.paramsToExecute = []));
-    function y() {
-      return C.apply(this, arguments);
+      (b.paramsToExecute = []));
+    function S() {
+      return R.apply(this, arguments);
     }
-    function C() {
+    function R() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = f(),
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = C(),
             r = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t);
@@ -184,39 +243,40 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(t));
         })),
-        C.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((y.doc =
+    ((S.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
-      (y.paramsToExecute = []));
-    function b(e) {
+      (S.paramsToExecute = []));
+    function L(e) {
       return o(
         "WAWebBizBroadcastProUpdateCampaignAction",
       ).cancelBizBroadcastProCampaign(e);
     }
-    b.doc =
+    L.doc =
       "Cancel (pause) a BB Pro scheduled campaign by id (server mutation)";
-    function v(e, t) {
+    function E(e, t) {
       return o(
         "WAWebBizBroadcastProUpdateCampaignAction",
       ).rescheduleBizBroadcastProCampaign(e, t);
     }
-    v.doc =
+    E.doc =
       "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";
-    var S = {
+    var k = {
       acceptBizBroadcastTos: u,
-      cancelBizBroadcastProCampaign: b,
-      completeTestCampaignsForActiveChat: y,
-      createTestProcessingCampaignForActiveChat: g,
+      cancelBizBroadcastProCampaign: L,
+      completeTestCampaignsForActiveChat: S,
+      createBizBroadcastAudience: h,
+      createTestProcessingCampaignForActiveChat: b,
       mockBizBroadcastProAudienceGraphQLResponses: p,
-      rescheduleBizBroadcastProCampaign: v,
+      rescheduleBizBroadcastProCampaign: E,
       restoreBizBroadcastProAudienceGraphQLResponses: _,
       setBizBroadcastDeviceCapability: s,
       setBizBroadcastProNuxEligible: c,
       setBizBroadcastProOnboarded: d,
     };
-    l.default = S;
+    l.default = k;
   },
   98,
 );

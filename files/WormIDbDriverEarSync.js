@@ -23,55 +23,71 @@ __d(
               a = e.forceUpgrade,
               i = e.schema,
               l = e.schemaHash;
-            n == null || n.addPoint("ear_init_start");
+            n == null || n.addPoint("open_start");
             var s = null;
             try {
               var u = !1;
-              s = yield this.openDb(function (e, n) {
-                ((u = !0),
-                  o("WormIDbUpgrade").upgradeDbAndInitEAR(e, n, i, l, {
-                    ear: t.ear,
-                    isNewDbInstance: !0,
-                    safeToDeleteStores: new Set(),
-                  }));
-              });
+              (n == null || n.addPoint("idb_open_start"),
+                (s = yield this.openDb(function (e, r) {
+                  ((u = !0),
+                    o("WormIDbUpgrade").upgradeDbAndInitEAR(e, r, i, l, {
+                      ear: t.ear,
+                      eventFlow: n,
+                      isNewDbInstance: !0,
+                      safeToDeleteStores: new Set(),
+                    }));
+                })),
+                n == null || n.addPoint("idb_open_end"));
               var c = u;
               if (!u) {
+                n == null || n.addPoint("schema_check_start");
                 var d = yield o("WormIDbUpgrade").shouldUpgradeDb(s, l);
                 if (
                   ((c =
                     d.shouldUpgrade ||
                     o("WormIDbUpgrade").hasMissingSysStores(s) ||
                     a),
+                  n == null || n.addPoint("schema_check_end"),
                   c)
                 )
-                  s = yield this.reopenForUpgrade(s, function (e, n) {
-                    return o("WormIDbUpgrade").upgradeDbAndInitEAR(e, n, i, l, {
-                      ear: t.ear,
-                      isNewDbInstance: !1,
-                      safeToDeleteStores: t.safeToDeleteStores,
-                    });
-                  });
+                  (n == null || n.addPoint("idb_upgrade_start"),
+                    (s = yield this.reopenForUpgrade(s, function (e, r) {
+                      return o("WormIDbUpgrade").upgradeDbAndInitEAR(
+                        e,
+                        r,
+                        i,
+                        l,
+                        {
+                          ear: t.ear,
+                          eventFlow: n,
+                          isNewDbInstance: !1,
+                          safeToDeleteStores: t.safeToDeleteStores,
+                        },
+                      );
+                    })),
+                    n == null || n.addPoint("idb_upgrade_end"));
                 else {
+                  n == null || n.addPoint("load_keychain_start");
                   var m = yield this.loadKeychain(s, function () {
                       return t.ear.prepareNewKeyVersion();
                     }),
                     p = m.versions;
-                  this.ear.init(p);
+                  (n == null || n.addPoint("load_keychain_end"),
+                    this.ear.init(p, { eventFlow: n }));
                 }
               }
               return (
-                n == null || n.addPoint("ear_init_end"),
+                n == null || n.addPoint("open_end"),
                 { db: s, isNewDb: u, isUpgraded: c }
               );
             } catch (e) {
               var _;
               throw (
                 (_ = s) == null || _.close(),
-                n == null || n.addPoint("ear_init_err"),
+                n == null || n.addPoint("open_err"),
                 r("FBLogger")("worm")
                   .catching(r("getErrorSafe")(e))
-                  .mustfix("EAR initialization error"),
+                  .mustfix("openAndUpgrade error"),
                 e
               );
             }

@@ -59,6 +59,24 @@ __d(
         function t(t) {
           var n;
           return (
+            (n =
+              e.call(
+                this,
+                "RMR attempted on a " +
+                  t +
+                  " message that has no mediaKey, so no media retry receipt can be sent",
+              ) || this),
+            (n.name = "RMRWithoutMediaKeyError"),
+            (n.msgType = t),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(e),
+      m = (function (e) {
+        function t(t) {
+          var n;
+          return (
             (n = e.call(this, t != null ? t : "") || this),
             (n.name = "ConstraintNotSatisfiedError"),
             n
@@ -66,8 +84,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e);
-    d.message = "One of the mandatory Constraints could not be satisfied.";
-    var m = (function (e) {
+    m.message = "One of the mandatory Constraints could not be satisfied.";
+    var p = (function (e) {
       function t(t) {
         var n;
         return (
@@ -78,9 +96,9 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    m.message =
+    p.message =
       "Due to changes in the environment, one or more mandatory constraints can no longer be satisfied.";
-    var p = (function (e) {
+    var _ = (function (e) {
       function t(t) {
         var n;
         return (
@@ -91,8 +109,8 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    p.message = "The object can not be found here.";
-    var _ = (function (e) {
+    _.message = "The object can not be found here.";
+    var f = (function (e) {
       function t(t) {
         var n;
         return (
@@ -103,9 +121,9 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    _.message =
+    f.message =
       "The source of the MediaStream could not be accessed due to a hardware error (e.g. lock from another process).";
-    var f = (function (e) {
+    var g = (function (e) {
       function t(t) {
         var n;
         return (
@@ -116,17 +134,18 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    ((f.message =
+    ((g.message =
       "Although the user granted permission to use the matching devices, a hardware error occurred which prevented access to the device."),
       (l.GetUserMediaError = e),
       (l.NotSupportedError = s),
       (l.NotAllowedError = u),
       (l.RMRNotSupportedOnNewsletterMessagesError = c),
-      (l.ConstraintNotSatisfiedError = d),
-      (l.OverconstrainedError = m),
-      (l.NotFoundError = p),
-      (l.SourceUnavailableError = _),
-      (l.NotReadableError = f));
+      (l.RMRWithoutMediaKeyError = d),
+      (l.ConstraintNotSatisfiedError = m),
+      (l.OverconstrainedError = p),
+      (l.NotFoundError = _),
+      (l.SourceUnavailableError = f),
+      (l.NotReadableError = g));
   },
   98,
 );

@@ -1,20 +1,13 @@
 __d(
   "WAWebBizAdCreationCatalogMediaStrings",
-  ["fbt", "WAWebBizNativeAdsGatingUtils"],
+  ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
-      return o(
-        "WAWebBizNativeAdsGatingUtils",
-      ).catalogSharingDisclosureCopyEnabled()
-        ? s._(
-            /*BTDS*/ "Your business name and photo will be shared with Meta to create your ad. {learnMoreLink}",
-            [s._param("learnMoreLink", e)],
-          )
-        : s._(
-            /*BTDS*/ "Your business name and photo will be shared with Meta in order to create your ad. {learnMoreLink}",
-            [s._param("learnMoreLink", e)],
-          );
+      return s._(
+        /*BTDS*/ "Your business name and photo will be shared with Meta to create your ad. {learnMoreLink}",
+        [s._param("learnMoreLink", e)],
+      );
     }
     function u() {
       return s._(/*BTDS*/ "Choose catalog media");

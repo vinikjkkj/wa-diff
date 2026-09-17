@@ -44,6 +44,7 @@ __d(
                 : null,
             _ = null;
           try {
+            p == null || p.addPoint("making_driver_start");
             var f = l({
               dbAlias: n,
               dbName: a,
@@ -58,8 +59,11 @@ __d(
               },
               schema: m,
             });
-            ((_ = new (o("Worm").WormDatabase)(f, d)),
+            (p == null || p.addPoint("making_driver_end"),
+              p == null || p.addPoint("worm_init_start"),
+              (_ = new (o("Worm").WormDatabase)(f, d)),
               yield _.init({ eventFlow: p }),
+              p == null || p.addPoint("worm_init_end"),
               p == null || p.endSuccess());
           } catch (e) {
             throw (

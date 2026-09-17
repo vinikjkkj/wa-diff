@@ -65,17 +65,6 @@ __d(
                     });
                 });
             }),
-            (n.openOgVideoPiP = function (e, t, r, a, i) {
-              var l;
-              (l = n.manager) == null ||
-                l.openPiP(o("WAWebPipConst").PiPVideoType.OG, {
-                  videoSrc: e,
-                  preview: t,
-                  msg: r,
-                  startTime: a,
-                  zoomRect: i,
-                });
-            }),
             (n.openVoipUiPiP = function (t) {
               if (!o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
                 o("WALogger").LOG(
