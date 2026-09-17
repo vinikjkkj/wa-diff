@@ -496,14 +496,17 @@ __d(
             ).PassiveTaskManager.waitForPassiveTaskEnd(),
             yield o("WAWebSyncdCoreApi").initialize());
           var R = !(yield r("WAWebSyncBootstrap").isCriticalDataSynced());
-          (R
-            ? yield r("WAWebSyncBootstrap").syncCriticalData()
-            : o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bootstrap] need to sync critical data: false",
-                  ])),
-              ),
+          (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
+            syncd_critical_bootstrap_needed: R,
+          }),
+            R
+              ? yield r("WAWebSyncBootstrap").syncCriticalData()
+              : o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bootstrap] need to sync critical data: false",
+                    ])),
+                ),
             o("WAWebBackendApi").frontendFireAndForget(
               "handleDeferredMessages",
               {},

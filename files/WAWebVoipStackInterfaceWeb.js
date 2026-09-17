@@ -194,7 +194,11 @@ __d(
                     e != null
                       ? o(
                           "WAWebVoipSctpConnectionManager",
-                        ).handleRelayListUpdate(e)
+                        ).handleRelayListUpdate(e, {
+                          bypassConnectionStagger: o(
+                            "WAWebVoipGatingUtils",
+                          ).isWebTransportFastSetupEnabled(),
+                        })
                       : o("WALogger").WARN(
                           d ||
                             (d = babelHelpers.taggedTemplateLiteralLoose([

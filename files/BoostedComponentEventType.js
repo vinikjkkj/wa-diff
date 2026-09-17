@@ -329,6 +329,7 @@ __d(
       RESUME_ADGROUP_SUCCESS: "resume_adgroup_success",
       RESUME_ADGROUP_SUBMIT: "resume_adgroup_submit",
       CREATIVE_STEP_DUPLICATE_AD_CLICK: "creative_step_duplicate_ad_click",
+      DUPLICATION_GUIDANCE_DIAGNOSTIC: "duplication_guidance_diagnostic",
       DUPLICATE_AD_CLICK: "duplicate_ad_click",
       DUPLICATE_AD_IN_AB_TEST_CLICK: "duplicate_ad_in_ab_test_click",
       RESTART_WINNING_AD_IN_AB_TEST_CLICK:
@@ -1018,6 +1019,7 @@ __d(
       PIXEL_SETUP_FLOW_COMPLETE: "pixel_setup_flow_complete",
       MDA_PIXEL_SETUP_IMPRESSION: "mda_pixel_setup_impression",
       MDA_PIXEL_SETUP_CLICKED: "mda_pixel_setup_clicked",
+      MDA_PIXEL_SETUP_COMPLETED: "mda_pixel_setup_completed",
       PRODUCT_EXTENSION_AD_CREATED: "product_extension_ad_created",
       PRODUCT_EXTENSION_ELIGIBLE_AD_CREATED_WITHOUT_PE:
         "product_extension_eligible_ad_created_without_pe",
@@ -1654,6 +1656,7 @@ __d(
         "boosted_component_async_edit_add_budget_and_duration_success",
       LWI_ML_RANKING_OBJECTIVE: "lwi_ml_ranking_objective",
       WEBSITE_LINK_PREFILL: "website_link_prefill",
+      MICROSITE_INELIGIBLE: "microsite_ineligible",
       MICROSITE_ELIGIBLE_IMPRESSION: "microsite_eligible_impression",
       MICROSITE_TOGGLE: "microsite_toggle",
       MICROSITE_PREVIEW_OPEN: "microsite_preview_open",
@@ -1727,6 +1730,8 @@ __d(
       BULK_BOOST_SECTION_IMPRESSION: "bulk_boost_section_impression",
       BULK_BOOST_ADD_BUTTON_CLICK: "bulk_boost_add_button_click",
       BULK_BOOST_BOTTOM_SHEET_CLOSE: "bulk_boost_bottom_sheet_close",
+      BULK_BOOST_LISTING_SELECTION_CHANGED:
+        "bulk_boost_listing_selection_changed",
       PROACTIVE_CHAT_DEFAULT_OPTIN_ELIGIBILITY_CHECK_SUCCESS:
         "proactive_chat_default_optin_eligibility_check_success",
       PROACTIVE_CHAT_DEFAULT_OPTIN_ELIGIBILITY_CHECK_FAIL:

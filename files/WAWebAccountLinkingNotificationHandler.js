@@ -9,6 +9,7 @@ __d(
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingHandler",
     "WAWebMetaAiWaffleAuthTokenCache",
+    "WAWebSubscriptionAgeGating",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
@@ -97,8 +98,14 @@ __d(
                 }),
                   o(
                     "WAWebMetaAiWaffleAuthTokenCache",
-                  ).clearMetaAiWaffleAuthTokenBlobCache(),
-                  yield m.purgeWaffleData());
+                  ).clearMetaAiWaffleAuthTokenBlobCache());
+                try {
+                  yield m.purgeWaffleData();
+                } finally {
+                  yield o(
+                    "WAWebSubscriptionAgeGating",
+                  ).invalidateSubscriptionAgeVerdict();
+                }
                 break;
               case o("WAWebAccountLinkingConstants")
                 .AccountLinkingNotificationEvent.CLIENT_RESYNC:
@@ -128,8 +135,14 @@ __d(
                   traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
                     .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_LINKED,
                 }),
+                  yield o(
+                    "WAWebSubscriptionAgeGating",
+                  ).invalidateSubscriptionAgeVerdict(),
                   t.value.notificationMetadataClientResync === "true" &&
-                    (yield p()));
+                    (yield p(),
+                    yield o(
+                      "WAWebSubscriptionAgeGating",
+                    ).invalidateSubscriptionAgeVerdict()));
                 break;
               default:
                 o("WALogger").ERROR(

@@ -9,6 +9,10 @@ __d(
         uiHeight: null,
         showCenteredToast: void 0,
         showToast: void 0,
+        openMicrophoneSettings: void 0,
+        registerMicrophoneSettingsOpener: void 0,
+        isCompactLayout: !1,
+        activeMicrophoneWarning: null,
       });
     l.default = u;
   },

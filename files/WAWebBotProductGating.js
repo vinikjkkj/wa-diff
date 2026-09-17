@@ -26,6 +26,7 @@ __d(
                     "ai_3p_bot_product_chat_rendering_enabled",
                   )
                 : e === o("WAWebBotProduct").BotProduct.MANUS ||
+                    e === o("WAWebBotProduct").BotProduct.META_AI_THREAD ||
                     e === o("WAWebBotProduct").BotProduct.SIDE_CHAT
                   ? !1
                   : (function () {

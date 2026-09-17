@@ -439,6 +439,7 @@ __d(
         jn1: r("WebBloksnumMul"),
         jn2: r("WebBloksnumPow"),
         jn3: r("WebBloksnumSub"),
+        jz0: e,
       };
     l.ACTIONS = s;
   },

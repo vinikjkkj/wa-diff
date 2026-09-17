@@ -73,8 +73,10 @@ __d(
                 : this._enqueueiOS(t));
           }),
           (i.addStickerWithMediaData = function (t) {
-            var e = new (o("WAWebStickerModel").StickerModel)(t);
-            (e.id || (e.id = e.filehash), this.enqueue([e]));
+            var e = new (o("WAWebStickerModel").StickerModel)(
+              babelHelpers.extends({}, t, { id: t.filehash }),
+            );
+            this.enqueue([e]);
           }),
           (i._enqueueAndroid = function (t) {
             var e = this;

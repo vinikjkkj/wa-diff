@@ -1,6 +1,6 @@
 __d(
   "WebBloksScriptPrinter",
-  ["WebBloksScriptParser"],
+  ["WebBloksScriptParser", "WebBloksScriptString"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -12,7 +12,11 @@ __d(
     }
     function s(e) {
       if (typeof e == "function") return "<function>";
-      var t = Array.isArray(e) ? e : o("WebBloksScriptParser").parse(e);
+      var t = Array.isArray(e)
+        ? e
+        : o("WebBloksScriptString").isWebBloksScriptString(e)
+          ? o("WebBloksScriptParser").parse(e)
+          : e;
       return u(0, t);
     }
     function u(e, t) {

@@ -2,24 +2,21 @@ __d(
   "ACQWebBloksComponentQueryDataModule",
   ["WebBloksErrors", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return o("WebBloksUtils").cast(t(e));
-    }
-    function s(t, n, r) {
-      if (n == null)
+    function e(e, t, n) {
+      if (t == null)
         throw new (o("WebBloksErrors").WebBloksError)(
-          "AsyncComponentQuery data manifest entry must specify " + t + ".",
+          "AsyncComponentQuery data manifest entry must specify " + e + ".",
         );
-      var a = e(n, r);
-      if (a == null)
+      var r = o("WebBloksUtils").cast(n(t));
+      if (r == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "AsyncComponentQuery data manifest entry must specify a non-null " +
-            t +
+            e +
             ".",
         );
-      return o("WebBloksUtils").cast(a);
+      return o("WebBloksUtils").cast(r);
     }
-    var u = (function () {
+    var s = (function () {
         function e(e, t, n, r, o, a, i) {
           ((this.$5 = null),
             (this.$6 = null),
@@ -95,36 +92,41 @@ __d(
           e
         );
       })(),
-      c = (function () {
+      u = (function () {
         function t() {}
         var n = t.prototype;
         return (
           (n.setup = function (n, r, a, i) {
             var t,
               l,
-              c = o("WebBloksUtils").cast(r.data),
-              d = s("app_id", c.app_id, a),
-              m = s("cache_ttl", c.cache_ttl, a),
-              p = c.params == null ? {} : (t = e(c.params, a)) != null ? t : {},
-              _ =
-                c.client_params == null
+              u = o("WebBloksUtils").cast(r.data),
+              c = e("app_id", u.app_id, a),
+              d = e("cache_ttl", u.cache_ttl, a),
+              m =
+                u.params == null
                   ? {}
-                  : (l = e(c.client_params, a)) != null
+                  : (t = o("WebBloksUtils").cast(a(u.params))) != null
+                    ? t
+                    : {},
+              p =
+                u.client_params == null
+                  ? {}
+                  : (l = o("WebBloksUtils").cast(a(u.client_params))) != null
                     ? l
                     : {},
-              f = c.query_id;
-            if (f == null || f === "")
+              _ = u.query_id;
+            if (_ == null || _ === "")
               throw new (o("WebBloksErrors").WebBloksError)(
                 "AsyncComponentQuery data manifest entry must specify query_id.",
               );
-            var g = n.objectSet.componentQueryStore,
-              h = g.getCachedComponents(d, p, m);
-            return { initialData: new u(h, f, d, m, p, _, g), snapshot: i };
+            var f = n.objectSet.componentQueryStore,
+              g = f.getCachedComponents(c, m, d);
+            return { initialData: new s(g, _, c, d, m, p, f), snapshot: i };
           }),
           t
         );
       })();
-    l.ACQWebBloksComponentQueryDataModule = c;
+    l.ACQWebBloksComponentQueryDataModule = u;
   },
   98,
 );

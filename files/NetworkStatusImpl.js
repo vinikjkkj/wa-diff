@@ -1,6 +1,6 @@
 __d(
   "NetworkStatusImpl",
-  ["NetworkHeartbeat", "performanceNow"],
+  ["NetworkHeartbeat", "justknobx", "performanceNow"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -87,9 +87,12 @@ __d(
     function $() {
       return C;
     }
-    (c.addEventListener("online", function () {
-      L(h);
-    }),
+    (!d &&
+      r("justknobx")._("4216") &&
+      o("NetworkHeartbeat").maybeStartHeartbeat(b, v),
+      c.addEventListener("online", function () {
+        L(h);
+      }),
       c.addEventListener("offline", function () {
         L(y);
       }),

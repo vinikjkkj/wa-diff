@@ -19,6 +19,7 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebRelayClient",
+    "WAWebSubscriptionAgeGating",
     "WAWebWaffleCertificateCache",
     "WAWebWaffleEncryptionMetadataArgs",
     "WAWebWaffleFXServiceDataQueryV2Mutation",
@@ -611,6 +612,9 @@ __d(
                   "WAWebMetaAiWaffleAuthTokenCache",
                 ).clearMetaAiWaffleAuthTokenBlobCache(),
                 yield x.purgeWaffleData(),
+                yield o(
+                  "WAWebSubscriptionAgeGating",
+                ).invalidateSubscriptionAgeVerdict(),
                 !0
               );
               break e;
@@ -629,7 +633,10 @@ __d(
                   (o(
                     "WAWebMetaAiWaffleAuthTokenCache",
                   ).clearMetaAiWaffleAuthTokenBlobCache(),
-                  yield x.purgeWaffleData()),
+                  yield x.purgeWaffleData(),
+                  yield o(
+                    "WAWebSubscriptionAgeGating",
+                  ).invalidateSubscriptionAgeVerdict()),
                 i
               );
               break e;

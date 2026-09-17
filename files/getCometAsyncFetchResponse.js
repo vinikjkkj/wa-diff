@@ -101,7 +101,10 @@ __d(
               e.errorRawTransport,
               e.errorType,
             );
-            return s(n);
+            return (
+              (n.errorRawTransportStatus = e.errorRawTransportStatus),
+              s(n)
+            );
           }
         }
         function f() {

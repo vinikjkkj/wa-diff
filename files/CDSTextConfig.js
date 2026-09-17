@@ -23,7 +23,7 @@ __d(
         primaryText: { color: "xzsf02u", $$css: !0 },
         primaryTextOnMedia: { color: "x17z8epw", $$css: !0 },
         secondaryButtonText: { color: "x1dem4cn", $$css: !0 },
-        secondaryButtonTextExperimental: { color: "xyzizys", $$css: !0 },
+        secondaryButtonTextExperimental: { color: "x1i30a92", $$css: !0 },
         secondaryDestructiveButtonText: { color: "x8tsa8r", $$css: !0 },
         secondaryOnMediaButtonText: { color: "xdczh51", $$css: !0 },
         secondaryText: { color: "xi81zsa", $$css: !0 },

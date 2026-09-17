@@ -15,6 +15,7 @@ __d(
           r[a] = arguments[a];
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
+          (t.id = o("WAWebBaseModel").session(u)),
           (t.type = o("WAWebBaseModel").prop(
             o("WAWebMediaTypes").OUTWARD_TYPES.UNKNOWN,
           )),
@@ -109,7 +110,7 @@ __d(
             var i;
             t = ((i = {}), (i[n] = r), i);
           } else ((t = n), (a = r));
-          return ((t = c(t)), e.prototype.set.call(this, t, a));
+          return ((t = m(t)), e.prototype.set.call(this, t, a));
         }),
         (n.isStreamable = function () {
           return (
@@ -168,17 +169,21 @@ __d(
       );
     })(o("WAWebBaseModel").BaseModel);
     e.Proxy = "mediaData";
-    var s = o("WAWebBaseModel").defineModel(e);
-    s.TYPE = o("WAWebMediaTypes").OUTWARD_TYPES;
-    var u = s;
-    function c(e) {
-      if (e.filename && e.type === s.TYPE.DOCUMENT) {
+    var s = 1;
+    function u() {
+      return String(s++);
+    }
+    var c = o("WAWebBaseModel").defineModel(e);
+    c.TYPE = o("WAWebMediaTypes").OUTWARD_TYPES;
+    var d = c;
+    function m(e) {
+      if (e.filename && e.type === c.TYPE.DOCUMENT) {
         var t = o("WAWebMediaCleanFileName").cleanFilename(e.filename);
         return babelHelpers.extends({}, e, { filename: t, caption: t });
       }
       return e;
     }
-    l.default = u;
+    l.default = d;
   },
   98,
 );

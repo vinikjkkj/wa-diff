@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum")({
       META_AI: "meta_ai",
+      META_AI_THREAD: "meta_ai_thread",
       OPEN_META_AI_FOR_GROUP: "open_meta_ai_for_group",
       TEE_META_AI_GROUP: "tee_meta_ai_group",
       SIDE_CHAT: "side_chat",

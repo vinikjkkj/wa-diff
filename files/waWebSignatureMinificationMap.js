@@ -278,6 +278,7 @@ __d(
         "bk.versioning.bloks.ScreenQuerySSRPayload": "iyy",
         "bk.versioning.bloks.ViewportDimensionsDataModule": "idq",
         "bk.versioning.lispy.NumericLiterals": "g2s",
+        "bk.versioning.lispy.TopLevelLiterals": "jz0",
         "wa.action.SendFieldStat": "hb3",
         "wa.action.commerce.ActionWithCallback": "hbx",
       },

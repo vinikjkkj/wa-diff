@@ -10,7 +10,6 @@ __d(
     "WAWebModifyParticipantsGroupAction",
     "WAWebSelectModal.react",
     "WAWebSelectModalFooter.react",
-    "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "react",
@@ -19,9 +18,8 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e, t) {
-      var n = o("WAWebStateUtils").unproxy(t),
-        a = function () {
-          return n.participants
+      var n = function () {
+          return t.participants
             .filter(function (e) {
               return e.isAdmin;
             })
@@ -29,23 +27,23 @@ __d(
               return e.contact;
             });
         },
-        i = n.participants.map(function (e) {
+        a = t.participants.map(function (e) {
           return e.contact;
         }),
-        l = function (t) {
+        i = function (n) {
           var e = r("WAWebWid").equals.apply(
               r("WAWebWid"),
-              o("WAWebLidMigrationUtils").toCommonAddressingMode(t.id, n.owner),
+              o("WAWebLidMigrationUtils").toCommonAddressingMode(n.id, t.owner),
             ),
             a =
-              o("WAWebGroupMetadataGetters").getGroupType(n) ===
+              o("WAWebGroupMetadataGetters").getGroupType(t) ===
               o("WAWebGroupType").GroupType.COMMUNITY;
-          return e || (o("WAWebUserPrefsMeUser").isMeAccount(t.id) && !a);
+          return e || (o("WAWebUserPrefsMeUser").isMeAccount(n.id) && !a);
         },
-        c = function (r) {
-          var t = r.selectedItems,
-            a = t,
-            i = n.participants,
+        l = function (r) {
+          var n = r.selectedItems,
+            a = n,
+            i = t.participants,
             l = i.filter(function (e) {
               return e.isAdmin;
             }),
@@ -89,11 +87,11 @@ __d(
         };
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebSelectModal.react").SelectModal, {
-          onConfirm: c,
-          getInitialItems: a,
-          isDisabled: l,
-          isSelected: l,
-          contacts: i,
+          onConfirm: l,
+          getInitialItems: n,
+          isDisabled: i,
+          isSelected: i,
+          contacts: a,
           title: s._(/*BTDS*/ "Edit group admins"),
           useShortName: !0,
           listType: o("WAWebSelectModal.react").ListType.ParticipantManageModal,

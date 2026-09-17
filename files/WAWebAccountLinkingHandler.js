@@ -9,6 +9,7 @@ __d(
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebMetaAiWaffleAuthTokenCache",
+    "WAWebSubscriptionAgeGating",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
@@ -26,34 +27,52 @@ __d(
         "account_linking",
       );
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        o(
-          "WAWebMetaAiWaffleAuthTokenCache",
-        ).clearMetaAiWaffleAuthTokenBlobCache(),
-        _.updateAccountLinkingState(
-          o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
-        )
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o(
+            "WAWebMetaAiWaffleAuthTokenCache",
+          ).clearMetaAiWaffleAuthTokenBlobCache();
+          try {
+            yield _.updateAccountLinkingState(
+              o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
+            );
+          } finally {
+            yield o(
+              "WAWebSubscriptionAgeGating",
+            ).invalidateSubscriptionAgeVerdict();
+          }
+        })),
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF)
-            (o(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF) {
+            o(
               "WAWebMetaAiWaffleAuthTokenCache",
-            ).clearMetaAiWaffleAuthTokenBlobCache(),
-              yield _.purgeWaffleData(),
-              o("WAWebWaffleLifecycleWamLogger").logPurge({
-                linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
-                  .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
-                traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                  .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
-                unlinkType: 0,
-              }));
-          else
+            ).clearMetaAiWaffleAuthTokenBlobCache();
+            try {
+              yield _.purgeWaffleData();
+            } finally {
+              yield o(
+                "WAWebSubscriptionAgeGating",
+              ).invalidateSubscriptionAgeVerdict();
+            }
+            o("WAWebWaffleLifecycleWamLogger").logPurge({
+              linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
+              traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
+              unlinkType: 0,
+            });
+          } else
             try {
               (yield o("WAWebAccountLinkingAPI").ping(),
                 yield o("WAWebAccountLinkingAPI").fetchServiceData(),
@@ -78,15 +97,15 @@ __d(
                 .sendLogs("waffle-partial-unlink-failed", { sampling: 0.01 });
             }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y() {
-      return C.apply(this, arguments);
-    }
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             (yield o("WAWebAccountLinkingAPI").ping(),
               yield o("WAWebAccountLinkingAPI").fetchServiceData());
@@ -107,25 +126,31 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebAccountLinkingAPI").stateExists();
             if (e != null)
               switch (e) {
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .UNLINKED:
-                  (o(
+                  o(
                     "WAWebMetaAiWaffleAuthTokenCache",
-                  ).clearMetaAiWaffleAuthTokenBlobCache(),
-                    yield _.purgeWaffleData());
+                  ).clearMetaAiWaffleAuthTokenBlobCache();
+                  try {
+                    yield _.purgeWaffleData();
+                  } finally {
+                    yield o(
+                      "WAWebSubscriptionAgeGating",
+                    ).invalidateSubscriptionAgeVerdict();
+                  }
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .ACTIVE:
@@ -156,15 +181,15 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
     function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebAccountLinkingAPI").stateExists();
             if (e != null)
@@ -202,15 +227,15 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             if (e != null) {
               var t = yield _.getLastResyncTimestamp();
@@ -234,16 +259,16 @@ __d(
           }
           return !1;
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!(yield L(e))) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!(yield E(e))) {
             try {
               yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
             } catch (e) {
@@ -271,17 +296,17 @@ __d(
                   }),
                   t.linkState ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Active &&
-                    (yield y()),
+                    (yield C()),
                   t.linkState ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Paused &&
-                    (yield b()))
+                    (yield v()))
                 : (o("WAWebWaffleLifecycleWamLogger").logNotification({
                     linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
                       .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
                     traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
                       .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
                   }),
-                  yield S()),
+                  yield R()),
                 yield _.updateLastResyncTimestamp(o("WATimeUtils").unixTime()));
             } catch (e) {
               o("WALogger")
@@ -298,12 +323,12 @@ __d(
             }
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
     ((l.handlePausedState = f),
-      (l.handleUnlinkedState = g),
-      (l.handleResyncState = k));
+      (l.handleUnlinkedState = h),
+      (l.handleResyncState = I));
   },
   98,
 );

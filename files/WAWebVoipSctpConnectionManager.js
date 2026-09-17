@@ -794,73 +794,75 @@ __d(
           t.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None)
       );
     }
-    function Xe(e) {
+    function Xe(e, t) {
       return Ye.apply(this, arguments);
     }
     function Ye() {
       return (
-        (Ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           ((ce = r("justknobx")._("5402") || 1e4),
             (de = r("justknobx")._("5558") || ce),
             be++);
-          var t = o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
-            a = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(
+          var a = o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
+            i = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(
               e,
               {
-                portOverride: function (n) {
-                  return t
-                    ? n
+                portOverride: function (t) {
+                  return a
+                    ? t
                     : o("WAWebVoipSctpConnectionManagerConstants")
                         .SctpConnectionConfig.TRUE_WEB_CLIENT_RELAY_PORT;
                 },
               },
             ),
-            i = o("WAWebVoipGatingUtils").isCurrentCallGroup(),
-            l = i && e.enable_web_group_early_packet_relay_reconnect === !0;
-          for (var s of o("WAWebVoipSctpConnectionState").currentRelayState) {
-            var u = s[0],
-              c = s[1];
-            if (!a.has(u))
+            l = o("WAWebVoipGatingUtils").isCurrentCallGroup(),
+            s = l && e.enable_web_group_early_packet_relay_reconnect === !0;
+          for (var u of o("WAWebVoipSctpConnectionState").currentRelayState) {
+            var c = u[0],
+              d = u[1];
+            if (!i.has(c))
               if (
                 o("WAWebVoipSctpConnectionManagerConstants")
                   .SctpConnectionConfig.CLOSE_OLD_CONNECTION_BEFORE_CALL_END
               )
-                De(u);
+                De(c);
               else {
-                var d = o("WAWebVoipSctpConnectionState").sctpConnections.get(
-                  u,
+                var m = o("WAWebVoipSctpConnectionState").sctpConnections.get(
+                  c,
                 );
-                d != null &&
-                  d.state !==
+                m != null &&
+                  m.state !==
                     o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
-                  d.state !==
+                  m.state !==
                     o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
-                  ((d.relayConnectionInfo = c),
+                  ((m.relayConnectionInfo = d),
                   o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
                     "retained",
                   ));
               }
           }
-          var m = [];
-          for (var p of a) {
-            var _ = p[0],
-              f = p[1],
-              g = o("WAWebVoipSctpConnectionState").sctpConnections.get(_);
-            (Ke(_, g, i), Qe(_, g, l) && m.push(f));
+          var p = [];
+          for (var _ of i) {
+            var f = _[0],
+              g = _[1],
+              h = o("WAWebVoipSctpConnectionState").sctpConnections.get(f);
+            (Ke(f, h, l), Qe(f, h, s) && p.push(g));
           }
           o("WAWebVoipSctpConnectionState").currentRelayState.clear();
-          for (var h of a) {
-            var y = h[0],
-              C = h[1];
-            o("WAWebVoipSctpConnectionState").currentRelayState.set(y, C);
+          for (var y of i) {
+            var C = y[0],
+              b = y[1];
+            o("WAWebVoipSctpConnectionState").currentRelayState.set(C, b);
           }
-          if (m.length > 0) {
+          if (p.length > 0) {
             o("WAWebVoipRelayConnectQpl").maybeStartVoipRelayConnectQpl();
-            var b = e.enable_web_relay_connection_stagger === !0;
-            b
-              ? yield He(m)
+            var v =
+              e.enable_web_relay_connection_stagger === !0 &&
+              (t == null ? void 0 : t.bypassConnectionStagger) !== !0;
+            v
+              ? yield He(p)
               : yield (se || (se = n("Promise"))).all(
-                  m.map(function (e) {
+                  p.map(function (e) {
                     return xe(e);
                   }),
                 );

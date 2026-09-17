@@ -11,10 +11,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["Cmd", "Wap"];
-    function s(e) {
-      return e instanceof r("WAWebCollection");
-    }
-    function u() {
+    function s() {
       var t = {},
         n = {};
       return (
@@ -22,10 +19,13 @@ __d(
           var a = o[0],
             i = o[1],
             l = i instanceof r("WAWebEventEmitter");
-          !e.includes(a) && l && (s(i) ? (t[a] = i) : (n[a] = i));
+          !e.includes(a) && l && (u(i) ? (t[a] = i) : (n[a] = i));
         }),
         { collections: d(t, p), models: d(n, m) }
       );
+    }
+    function u(e) {
+      return e instanceof r("WAWebCollection");
     }
     function c(e) {
       return r("sumBy")(
@@ -64,7 +64,7 @@ __d(
         );
       return { name: t, length: n.length, listeners: a, modelListeners: i };
     }
-    l.default = u;
+    l.default = s;
   },
   98,
 );

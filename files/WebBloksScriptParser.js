@@ -71,7 +71,8 @@ __d(
               a++);
             break;
           }
-          default:
+          default: {
+            if (l === void 0) break;
             for (var h = a; ; ) {
               var y = t[++a];
               if (c(y) || y === ")" || y === "(" || y === void 0) {
@@ -79,6 +80,7 @@ __d(
                 break;
               }
             }
+          }
         }
         if (r.length === 1) break;
       }

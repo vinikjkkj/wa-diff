@@ -7,6 +7,7 @@ __d(
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebAccountLinkingUtils",
+    "WAWebSubscriptionAgeGating",
     "WAWebSyncdAction",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
@@ -172,13 +173,25 @@ __d(
             }
             return a;
           })()),
-          (i.storeLinkState = function (t, n) {
-            return u.createOrUpdateAccountLinkingState({
-              accountLinkKey: o("WAWebAccountLinkingConstants").AccountLinkKey,
-              linkState: t,
-              linkTimestamp: n,
-            });
-          }),
+          (i.storeLinkState = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                (yield u.createOrUpdateAccountLinkingState({
+                  accountLinkKey: o("WAWebAccountLinkingConstants")
+                    .AccountLinkKey,
+                  linkState: e,
+                  linkTimestamp: t,
+                }),
+                  yield o(
+                    "WAWebSubscriptionAgeGating",
+                  ).invalidateSubscriptionAgeVerdict());
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),

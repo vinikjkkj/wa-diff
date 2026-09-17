@@ -2,7 +2,8 @@ __d(
   "WAWebSearchInput",
   [
     "fbt",
-    "LexicalComposer",
+    "LexicalExtension",
+    "LexicalExtensionComposer",
     "WAWebClickable.react",
     "WAWebEditorRefPlugin",
     "WAWebEditorStatePlugin.react",
@@ -27,10 +28,9 @@ __d(
     var e,
       u = e || (e = o("react")),
       c = e,
-      d = c.useMemo,
-      m = c.useRef,
-      p = c.useState,
-      _ = {
+      d = c.useRef,
+      m = c.useState,
+      p = {
         container: {
           position: "x1n2onr6",
           width: "xh8yej3",
@@ -128,7 +128,7 @@ __d(
           $$css: !0,
         },
       },
-      f = {
+      _ = {
         inputWrapper: { backgroundColor: "x1od0jb8", $$css: !0 },
         inputWrapperRefreshed: {
           backgroundColor: "x4wrhlh x1l0ey4t",
@@ -138,7 +138,7 @@ __d(
         iconSearch: { color: "xhslqc4", $$css: !0 },
         iconCloseSearch: { color: "xhslqc4", $$css: !0 },
       },
-      g = {
+      f = {
         inputWrapper: { backgroundColor: "x1od0jb8", $$css: !0 },
         inputWrapperRefreshed: {
           backgroundColor: "x4wrhlh x1l0ey4t",
@@ -148,164 +148,164 @@ __d(
         iconSearch: { color: "xhslqc4", $$css: !0 },
         iconCloseSearch: { color: "xhslqc4", $$css: !0 },
       };
-    function h(e) {
+    function g(e) {
       var t = o("react-compiler-runtime").c(86),
         n = e.children,
         a = e.colorScheme,
         i = e.containerXStyle,
         l = e.detailLeft,
         c = e.detailRight,
-        d = e.filter,
-        h = e.focusOnMount,
-        y = e.loading,
-        C = e.onArrowDown,
-        b = e.onCancel,
-        v = e.onClearFilter,
-        S = e.onClick,
-        R = e.onSearch,
-        L = e.padding,
-        E = e.placeholder,
-        k = e.searchInputA11yLabel,
-        I = e.showBackButton,
-        T = e.showCloseButton,
-        D = e.tabOrder,
-        x = h === void 0 ? !0 : h,
-        $ = I === void 0 ? !1 : I,
+        g = e.filter,
+        y = e.focusOnMount,
+        C = e.loading,
+        b = e.onArrowDown,
+        v = e.onCancel,
+        S = e.onClearFilter,
+        R = e.onClick,
+        L = e.onSearch,
+        E = e.padding,
+        k = e.placeholder,
+        I = e.searchInputA11yLabel,
+        T = e.showBackButton,
+        D = e.showCloseButton,
+        x = e.tabOrder,
+        $ = y === void 0 ? !0 : y,
         P = T === void 0 ? !1 : T,
-        N = p(""),
-        M = N[0],
-        w = N[1],
-        A = m(),
-        F = m(),
-        O = M || d != null,
-        B = p(!1),
-        W = B[0],
-        q = B[1],
-        U;
-      t[0] !== R
-        ? ((U = function (t) {
+        N = D === void 0 ? !1 : D,
+        M = m(""),
+        w = M[0],
+        A = M[1],
+        F = d(),
+        O = d(),
+        B = w || g != null,
+        W = m(!1),
+        q = W[0],
+        U = W[1],
+        V;
+      t[0] !== L
+        ? ((V = function (t) {
             var e = t.text;
-            (w(e), R == null || R(e));
+            (A(e), L == null || L(e));
           }),
-          (t[0] = R),
-          (t[1] = U))
-        : (U = t[1]);
-      var V = U,
-        H;
-      t[2] !== V
-        ? ((H = function () {
-            A.current &&
-              (o("WAWebLexicalUtils").setTextContent(A.current, ""),
-              V({ text: "", parsableText: "", data: {} }));
+          (t[0] = L),
+          (t[1] = V))
+        : (V = t[1]);
+      var H = V,
+        G;
+      t[2] !== H
+        ? ((G = function () {
+            F.current &&
+              (o("WAWebLexicalUtils").setTextContent(F.current, ""),
+              H({ text: "", parsableText: "", data: {} }));
           }),
-          (t[2] = V),
-          (t[3] = H))
-        : (H = t[3]);
-      var G = H,
-        z;
-      t[4] !== v
-        ? ((z = function () {
-            v == null || v();
+          (t[2] = H),
+          (t[3] = G))
+        : (G = t[3]);
+      var z = G,
+        j;
+      t[4] !== S
+        ? ((j = function () {
+            S == null || S();
           }),
-          (t[4] = v),
-          (t[5] = z))
-        : (z = t[5]);
-      var j = z,
-        K;
+          (t[4] = S),
+          (t[5] = j))
+        : (j = t[5]);
+      var K = j,
+        Q;
       t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((K = function () {
+        ? ((Q = function () {
             var e;
-            ((e = F.current) == null || e.blur(),
-              r("nullthrows")(A.current).focus(),
-              q(!0));
+            ((e = O.current) == null || e.blur(),
+              r("nullthrows")(F.current).focus(),
+              U(!0));
           }),
-          (t[6] = K))
-        : (K = t[6]);
-      var Q = K,
-        X;
+          (t[6] = Q))
+        : (Q = t[6]);
+      var X = Q,
+        Y;
       t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((X = function () {
+        ? ((Y = function () {
             var e;
-            ((e = F.current) == null || e.blur(),
-              r("nullthrows")(A.current).blur(),
-              q(!1));
+            ((e = O.current) == null || e.blur(),
+              r("nullthrows")(F.current).blur(),
+              U(!1));
           }),
-          (t[7] = X))
-        : (X = t[7]);
-      var Y = X,
-        J;
-      t[8] !== j || t[9] !== G
-        ? ((J = function () {
-            (G(), j());
+          (t[7] = Y))
+        : (Y = t[7]);
+      var J = Y,
+        Z;
+      t[8] !== K || t[9] !== z
+        ? ((Z = function () {
+            (z(), K());
           }),
-          (t[8] = j),
-          (t[9] = G),
-          (t[10] = J))
-        : (J = t[10]);
-      var Z = J,
-        ee;
+          (t[8] = K),
+          (t[9] = z),
+          (t[10] = Z))
+        : (Z = t[10]);
+      var ee = Z,
+        te;
       t[11] !== e
-        ? ((ee = function (n) {
-            (Q(), e.onFocus != null && e.onFocus(n));
+        ? ((te = function (n) {
+            (X(), e.onFocus != null && e.onFocus(n));
           }),
           (t[11] = e),
-          (t[12] = ee))
-        : (ee = t[12]);
-      var te = ee,
-        ne;
-      t[13] !== Z || t[14] !== b
-        ? ((ne = function () {
-            (Z(), Q(), b == null || b());
+          (t[12] = te))
+        : (te = t[12]);
+      var ne = te,
+        re;
+      t[13] !== ee || t[14] !== v
+        ? ((re = function () {
+            (ee(), X(), v == null || v());
           }),
-          (t[13] = Z),
-          (t[14] = b),
-          (t[15] = ne))
-        : (ne = t[15]);
-      var re = ne,
-        oe;
-      t[16] !== Z
-        ? ((oe = function () {
-            (Y(), Z());
+          (t[13] = ee),
+          (t[14] = v),
+          (t[15] = re))
+        : (re = t[15]);
+      var oe = re,
+        ae;
+      t[16] !== ee
+        ? ((ae = function () {
+            (J(), ee());
           }),
-          (t[16] = Z),
-          (t[17] = oe))
-        : (oe = t[17]);
-      var ae = oe,
-        ie;
+          (t[16] = ee),
+          (t[17] = ae))
+        : (ae = t[17]);
+      var ie = ae,
+        le;
       t[18] !== e
-        ? ((ie = function (n) {
-            (Y(), e.onBlur != null && e.onBlur(n));
+        ? ((le = function (n) {
+            (J(), e.onBlur != null && e.onBlur(n));
           }),
           (t[18] = e),
-          (t[19] = ie))
-        : (ie = t[19]);
-      var le = ie,
-        se;
+          (t[19] = le))
+        : (le = t[19]);
+      var se = le,
+        ue;
       e: switch (a) {
         case "darker": {
-          se = g;
+          ue = f;
           break e;
         }
         case "default":
         default:
-          se = f;
+          ue = _;
       }
-      var ue = null,
-        ce;
+      var ce = null,
+        de;
       t[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ce = u.jsx(
+        ? ((de = u.jsx(
             o("WAWebSearchRefreshedThinIcon.react").SearchRefreshedThinIcon,
-            { xstyle: _.iconColorRefreshed },
+            { xstyle: p.iconColorRefreshed },
           )),
-          (t[20] = ce))
-        : (ce = t[20]);
-      var de = ce,
-        me;
-      t[21] !== ae || t[22] !== W || t[23] !== O || t[24] !== $
-        ? ((me = $
+          (t[20] = de))
+        : (de = t[20]);
+      var me = de,
+        pe;
+      t[21] !== ie || t[22] !== q || t[23] !== B || t[24] !== P
+        ? ((pe = P
             ? u.jsxs("button", {
                 "aria-label": s._(/*BTDS*/ "Cancel search"),
-                onClick: ae,
+                onClick: ie,
                 children: [
                   u.jsx(
                     "div",
@@ -314,16 +314,16 @@ __d(
                       {
                         0: { className: "x47corl xg01cxk x1hzlkrz x1eppysm" },
                         1: { className: "x1hc1fzr x7a90jq x1nb0u29" },
-                      }[!!(W || O) << 0],
+                      }[!!(q || B) << 0],
                       {
                         children: u.jsx(r("WDSIconIcArrowBack.react"), {
-                          iconXstyle: _.tealLighterColor,
+                          iconXstyle: p.tealLighterColor,
                           height: 24,
                           overrideDirection: r("WAWebL10N").isRTL()
                             ? "rtl"
                             : "ltr",
                           width: 24,
-                          xstyle: _.backIconRefreshed,
+                          xstyle: p.backIconRefreshed,
                         }),
                       },
                     ),
@@ -335,24 +335,24 @@ __d(
                       {
                         0: { className: "x1sazirq x165colc" },
                         1: { className: "xg01cxk x7a90jq x11t6m9b" },
-                      }[!!(W || O) << 0],
-                      { children: de },
+                      }[!!(q || B) << 0],
+                      { children: me },
                     ),
                   ),
                 ],
               })
-            : de),
-          (t[21] = ae),
-          (t[22] = W),
-          (t[23] = O),
-          (t[24] = $),
-          (t[25] = me))
-        : (me = t[25]);
-      var pe = me;
-      if (y === !0) {
-        var _e;
+            : me),
+          (t[21] = ie),
+          (t[22] = q),
+          (t[23] = B),
+          (t[24] = P),
+          (t[25] = pe))
+        : (pe = t[25]);
+      var _e = pe;
+      if (C === !0) {
+        var fe;
         (t[26] === Symbol.for("react.memo_cache_sentinel")
-          ? ((_e = u.jsx(o("WAWebFlex.react").FlexRow, {
+          ? ((fe = u.jsx(o("WAWebFlex.react").FlexRow, {
               marginEnd: 16,
               children: u.jsx(o("WAWebSpinner.react").Spinner, {
                 color: "highlight",
@@ -360,259 +360,263 @@ __d(
                 stroke: 6,
               }),
             })),
-            (t[26] = _e))
-          : (_e = t[26]),
-          (ue = _e));
-      } else if (O || P) {
-        var fe;
-        t[27] === Symbol.for("react.memo_cache_sentinel")
-          ? ((fe = s._(/*BTDS*/ "Cancel search")), (t[27] = fe))
-          : (fe = t[27]);
+            (t[26] = fe))
+          : (fe = t[26]),
+          (ce = fe));
+      } else if (B || N) {
         var ge;
-        t[28] !== se.iconCloseSearch
-          ? ((ge = [_.iconCloseSearch, se.iconCloseSearch]),
-            (t[28] = se.iconCloseSearch),
-            (t[29] = ge))
-          : (ge = t[29]);
+        t[27] === Symbol.for("react.memo_cache_sentinel")
+          ? ((ge = s._(/*BTDS*/ "Cancel search")), (t[27] = ge))
+          : (ge = t[27]);
         var he;
-        t[30] === Symbol.for("react.memo_cache_sentinel")
-          ? ((he = u.jsx(r("WDSIconIcClose.react"), {})), (t[30] = he))
-          : (he = t[30]);
+        t[28] !== ue.iconCloseSearch
+          ? ((he = [p.iconCloseSearch, ue.iconCloseSearch]),
+            (t[28] = ue.iconCloseSearch),
+            (t[29] = he))
+          : (he = t[29]);
         var ye;
-        (t[31] !== re || t[32] !== ge
-          ? ((ye = u.jsx(o("WAWebFlex.react").FlexRow, {
+        t[30] === Symbol.for("react.memo_cache_sentinel")
+          ? ((ye = u.jsx(r("WDSIconIcClose.react"), {})), (t[30] = ye))
+          : (ye = t[30]);
+        var Ce;
+        (t[31] !== oe || t[32] !== he
+          ? ((Ce = u.jsx(o("WAWebFlex.react").FlexRow, {
               paddingEnd: 20,
               children: u.jsx(
                 o("WAWebClickable.react").Clickable,
                 {
-                  ariaLabel: fe,
+                  ariaLabel: ge,
                   dataTestId: "clear-search-input",
-                  onClick: re,
-                  xstyle: ge,
-                  children: he,
+                  onClick: oe,
+                  xstyle: he,
+                  children: ye,
                 },
                 "icon-clear-search",
               ),
             })),
-            (t[31] = re),
-            (t[32] = ge),
-            (t[33] = ye))
-          : (ye = t[33]),
-          (ue = ye));
+            (t[31] = oe),
+            (t[32] = he),
+            (t[33] = Ce))
+          : (Ce = t[33]),
+          (ce = Ce));
       }
-      var Ce;
-      t[34] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ce = { namespace: "CommandPaletteInput", onError: r("WAWebNoop") }),
-          (t[34] = Ce))
-        : (Ce = t[34]);
-      var be = Ce,
-        ve;
-      t[35] !== j
-        ? ((ve = function () {
-            (j(), Q());
+      var be = m(h),
+        ve = be[0],
+        Se;
+      t[34] !== K
+        ? ((Se = function () {
+            (K(), X());
           }),
-          (t[35] = j),
-          (t[36] = ve))
-        : (ve = t[36]);
-      var Se = ve,
-        Re;
-      if (t[37] !== C || t[38] !== M.length) {
-        Re = function (t) {
+          (t[34] = K),
+          (t[35] = Se))
+        : (Se = t[35]);
+      var Re = Se,
+        Le;
+      if (t[36] !== b || t[37] !== w.length) {
+        Le = function (t) {
           e: {
             if (
               t.key ===
               o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE.BACKSPACE
             ) {
-              Le();
+              Ee();
               break e;
             }
             if (
               t.key ===
               o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE.ARROW_DOWN
             ) {
-              (t.preventDefault(), C == null || C());
+              (t.preventDefault(), b == null || b());
               break e;
             }
           }
         };
-        var Le = function () {
-          if (M.length === 0) {
+        var Ee = function () {
+          if (w.length === 0) {
             var e;
-            (e = F.current) == null || e.focus();
+            (e = O.current) == null || e.focus();
           }
         };
-        ((t[37] = C), (t[38] = M.length), (t[39] = Re));
-      } else Re = t[39];
-      var Ee;
-      t[40] !== d || t[41] !== Se
-        ? ((Ee =
-            d != null &&
+        ((t[36] = b), (t[37] = w.length), (t[38] = Le));
+      } else Le = t[38];
+      var ke;
+      t[39] !== g || t[40] !== Re
+        ? ((ke =
+            g != null &&
             u.jsx(r("WAWebSearchFilterChip.react"), {
-              onClearFilter: Se,
-              ref: F,
-              text: d,
+              onClearFilter: Re,
+              ref: O,
+              text: g,
               xstyle: o("WDSPaddings.stylex").wdsPaddings.paddingHor4,
             })),
-          (t[40] = d),
-          (t[41] = Se),
-          (t[42] = Ee))
-        : (Ee = t[42]);
-      var ke = Ee,
-        Ie;
-      t[43] !== L
-        ? ((Ie = L != null ? L : [0, 20, 12, 20]), (t[43] = L), (t[44] = Ie))
-        : (Ie = t[44]);
-      var Te;
-      t[45] !== i
-        ? ((Te = [_.container, _.containerRefreshed, i]),
-          (t[45] = i),
-          (t[46] = Te))
-        : (Te = t[46]);
+          (t[39] = g),
+          (t[40] = Re),
+          (t[41] = ke))
+        : (ke = t[41]);
+      var Ie = ke,
+        Te;
+      t[42] !== E
+        ? ((Te = E != null ? E : [0, 20, 12, 20]), (t[42] = E), (t[43] = Te))
+        : (Te = t[43]);
       var De;
-      t[47] === Symbol.for("react.memo_cache_sentinel")
-        ? ((De = [_.inputWrapperRefreshed]), (t[47] = De))
-        : (De = t[47]);
-      var xe =
-          !(M.length > 0) && o("WDSPaddings.stylex").wdsPaddings.paddingEnd0,
-        $e = W && _.inputWrapperFocusRefreshed,
-        Pe;
-      t[48] !== se.inputWrapperRefreshed || t[49] !== xe || t[50] !== $e
-        ? ((Pe = [
-            _.inputWrapper,
-            _.inputWrapperMaterial,
-            De,
+      t[44] !== i
+        ? ((De = [p.container, p.containerRefreshed, i]),
+          (t[44] = i),
+          (t[45] = De))
+        : (De = t[45]);
+      var xe;
+      t[46] === Symbol.for("react.memo_cache_sentinel")
+        ? ((xe = [p.inputWrapperRefreshed]), (t[46] = xe))
+        : (xe = t[46]);
+      var $e =
+          !(w.length > 0) && o("WDSPaddings.stylex").wdsPaddings.paddingEnd0,
+        Pe = q && p.inputWrapperFocusRefreshed,
+        Ne;
+      t[47] !== ue.inputWrapperRefreshed || t[48] !== $e || t[49] !== Pe
+        ? ((Ne = [
+            p.inputWrapper,
+            p.inputWrapperMaterial,
             xe,
-            se.inputWrapperRefreshed,
             $e,
+            ue.inputWrapperRefreshed,
+            Pe,
           ]),
-          (t[48] = se.inputWrapperRefreshed),
-          (t[49] = xe),
-          (t[50] = $e),
-          (t[51] = Pe))
-        : (Pe = t[51]);
-      var Ne;
-      t[52] !== pe
-        ? ((Ne = u.jsx(o("WAWebFlex.react").FlexRow, {
-            marginStart: 0,
-            xstyle: _.startIconRefreshed,
-            children: pe,
-          })),
-          (t[52] = pe),
-          (t[53] = Ne))
-        : (Ne = t[53]);
+          (t[47] = ue.inputWrapperRefreshed),
+          (t[48] = $e),
+          (t[49] = Pe),
+          (t[50] = Ne))
+        : (Ne = t[50]);
       var Me;
-      t[54] !== Re
-        ? ((Me = u.jsx(r("WAWebOnKeyDownPlugin"), { onKeyDown: Re })),
-          (t[54] = Re),
-          (t[55] = Me))
-        : (Me = t[55]);
-      var we;
-      t[56] !== le || t[57] !== V || t[58] !== te
-        ? ((we = u.jsx(r("WAWebEditorStatePlugin.react"), {
-            onBlur: le,
-            onChange: V,
-            onFocus: te,
+      t[51] !== _e
+        ? ((Me = u.jsx(o("WAWebFlex.react").FlexRow, {
+            marginStart: 0,
+            xstyle: p.startIconRefreshed,
+            children: _e,
           })),
-          (t[56] = le),
-          (t[57] = V),
-          (t[58] = te),
-          (t[59] = we))
-        : (we = t[59]);
+          (t[51] = _e),
+          (t[52] = Me))
+        : (Me = t[52]);
+      var we;
+      t[53] !== Le
+        ? ((we = u.jsx(r("WAWebOnKeyDownPlugin"), { onKeyDown: Le })),
+          (t[53] = Le),
+          (t[54] = we))
+        : (we = t[54]);
       var Ae;
-      t[60] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ae = u.jsx(r("WAWebEditorRefPlugin"), { editorRef: A })),
-          (t[60] = Ae))
-        : (Ae = t[60]);
+      t[55] !== se || t[56] !== H || t[57] !== ne
+        ? ((Ae = u.jsx(r("WAWebEditorStatePlugin.react"), {
+            onBlur: se,
+            onChange: H,
+            onFocus: ne,
+          })),
+          (t[55] = se),
+          (t[56] = H),
+          (t[57] = ne),
+          (t[58] = Ae))
+        : (Ae = t[58]);
       var Fe;
-      t[61] !== Me || t[62] !== we
-        ? ((Fe = u.jsxs(u.Fragment, { children: [Me, we, Ae] })),
-          (t[61] = Me),
-          (t[62] = we),
-          (t[63] = Fe))
-        : (Fe = t[63]);
+      t[59] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Fe = u.jsx(r("WAWebEditorRefPlugin"), { editorRef: F })),
+          (t[59] = Fe))
+        : (Fe = t[59]);
       var Oe;
-      t[64] !== x ||
-      t[65] !== S ||
-      t[66] !== E ||
-      t[67] !== k ||
-      t[68] !== Fe ||
-      t[69] !== D
-        ? ((Oe = u.jsx(o("WAWebFlex.react").FlexRow, {
+      t[60] !== we || t[61] !== Ae
+        ? ((Oe = u.jsxs(u.Fragment, { children: [we, Ae, Fe] })),
+          (t[60] = we),
+          (t[61] = Ae),
+          (t[62] = Oe))
+        : (Oe = t[62]);
+      var Be;
+      t[63] !== $ ||
+      t[64] !== R ||
+      t[65] !== k ||
+      t[66] !== I ||
+      t[67] !== Oe ||
+      t[68] !== x
+        ? ((Be = u.jsx(o("WAWebFlex.react").FlexRow, {
             paddingEnd: 8,
-            xstyle: _.fullWidth,
+            xstyle: p.fullWidth,
             children: u.jsx(r("WAWebRichTextInput.react"), {
-              children: Fe,
-              focusOnMount: x,
+              children: Oe,
+              focusOnMount: $,
               lineWrap: !1,
               multiline: !1,
-              onClick: S,
-              placeholder: E,
-              placeholderTextXStyle: _.placeholderTruncate,
-              tabOrder: D,
+              onClick: R,
+              placeholder: k,
+              placeholderTextXStyle: p.placeholderTruncate,
+              tabOrder: x,
               testid: "search-input",
-              title: k,
+              title: I,
               xstyle: !1,
             }),
           })),
-          (t[64] = x),
-          (t[65] = S),
-          (t[66] = E),
-          (t[67] = k),
-          (t[68] = Fe),
-          (t[69] = D),
-          (t[70] = Oe))
-        : (Oe = t[70]);
-      var Be;
-      t[71] !== ue ||
-      t[72] !== ke ||
-      t[73] !== Pe ||
-      t[74] !== Ne ||
-      t[75] !== Oe
-        ? ((Be = u.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[63] = $),
+          (t[64] = R),
+          (t[65] = k),
+          (t[66] = I),
+          (t[67] = Oe),
+          (t[68] = x),
+          (t[69] = Be))
+        : (Be = t[69]);
+      var We;
+      t[70] !== ce ||
+      t[71] !== Ie ||
+      t[72] !== Ne ||
+      t[73] !== Me ||
+      t[74] !== Be
+        ? ((We = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             grow: 1,
             padding: 0,
-            xstyle: Pe,
-            children: [Ne, ke, Oe, ue],
+            xstyle: Ne,
+            children: [Me, Ie, Be, ce],
           })),
-          (t[71] = ue),
-          (t[72] = ke),
-          (t[73] = Pe),
-          (t[74] = Ne),
-          (t[75] = Oe),
-          (t[76] = Be))
-        : (Be = t[76]);
-      var We;
-      t[77] !== l || t[78] !== c || t[79] !== Ie || t[80] !== Te || t[81] !== Be
-        ? ((We = u.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[70] = ce),
+          (t[71] = Ie),
+          (t[72] = Ne),
+          (t[73] = Me),
+          (t[74] = Be),
+          (t[75] = We))
+        : (We = t[75]);
+      var qe;
+      t[76] !== l || t[77] !== c || t[78] !== Te || t[79] !== De || t[80] !== We
+        ? ((qe = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             basis: "auto",
             grow: 0,
-            padding: Ie,
+            padding: Te,
             shrink: 0,
-            xstyle: Te,
-            children: [l, Be, c],
+            xstyle: De,
+            children: [l, We, c],
           })),
-          (t[77] = l),
-          (t[78] = c),
-          (t[79] = Ie),
-          (t[80] = Te),
-          (t[81] = Be),
-          (t[82] = We))
-        : (We = t[82]);
-      var qe;
+          (t[76] = l),
+          (t[77] = c),
+          (t[78] = Te),
+          (t[79] = De),
+          (t[80] = We),
+          (t[81] = qe))
+        : (qe = t[81]);
+      var Ue;
       return (
-        t[83] !== n || t[84] !== We
-          ? ((qe = u.jsxs(o("LexicalComposer").LexicalComposer, {
-              initialConfig: be,
-              children: [We, n],
-            })),
-            (t[83] = n),
-            (t[84] = We),
-            (t[85] = qe))
-          : (qe = t[85]),
-        qe
+        t[82] !== n || t[83] !== ve || t[84] !== qe
+          ? ((Ue = u.jsxs(
+              o("LexicalExtensionComposer").LexicalExtensionComposer,
+              { contentEditable: null, extension: ve, children: [qe, n] },
+            )),
+            (t[82] = n),
+            (t[83] = ve),
+            (t[84] = qe),
+            (t[85] = Ue))
+          : (Ue = t[85]),
+        Ue
       );
+    }
+    function h() {
+      return o("LexicalExtension").defineExtension({
+        name: "[root]",
+        namespace: "CommandPaletteInput",
+        onError: r("WAWebNoop"),
+      });
     }
     function y(e) {
       var t = o("react-compiler-runtime").c(3),
@@ -625,7 +629,7 @@ __d(
         t[1] !== e
           ? ((r = u.jsx(o("WAWebFlex.react").FlexColumn, {
               align: "stretch",
-              children: u.jsx(h, babelHelpers.extends({}, e, { padding: n })),
+              children: u.jsx(g, babelHelpers.extends({}, e, { padding: n })),
             })),
             (t[1] = e),
             (t[2] = r))
@@ -633,7 +637,7 @@ __d(
         r
       );
     }
-    ((l.SearchInput = h), (l.DrawerSearchInput = y));
+    ((l.SearchInput = g), (l.DrawerSearchInput = y));
   },
   226,
 );

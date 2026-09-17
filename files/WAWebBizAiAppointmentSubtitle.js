@@ -23,19 +23,6 @@ __d(
       return e != null ? e : s._(/*BTDS*/ "Appointment");
     }
     function c(e) {
-      return e.label !== ""
-        ? e.label
-        : e.id === "address"
-          ? s._(/*BTDS*/ "Address").toString()
-          : e.id === "email"
-            ? s._(/*BTDS*/ "Email").toString()
-            : e.id === "name"
-              ? s._(/*BTDS*/ "Name").toString()
-              : e.id === "phone-number" || e.id === "phone_number"
-                ? s._(/*BTDS*/ "Phone number").toString()
-                : "";
-    }
-    function d(e) {
       if (e == null || e <= 0) return null;
       var t = Math.floor(e / 60),
         n = e % 60;
@@ -55,10 +42,10 @@ __d(
         s._param("minutes", o),
       ]);
     }
-    var m = new Map();
-    function p(e, t, n) {
+    var d = new Map();
+    function m(e, t, n) {
       var r = e + "\0" + t + "\0" + n,
-        o = m.get(r);
+        o = d.get(r);
       if (o !== void 0) return o;
       var a = null;
       try {
@@ -66,37 +53,39 @@ __d(
       } catch (e) {
         a = null;
       }
-      return (m.set(r, a), a);
+      return (d.set(r, a), a);
     }
-    function _(e, t, n, r) {
-      var o = p(e, t, n);
+    function p(e, t, n, r) {
+      var o = m(e, t, n);
       return o == null ? r.join(", ") : o.format(r);
     }
-    function f(e, t, n) {
+    function _(e, t, n) {
       var r = [];
       if (
         (e.durationText != null &&
           e.durationText !== "" &&
           r.push(e.durationText),
         e.locationTexts.length > 0 &&
-          r.push(_(n, "short", "unit", e.locationTexts)),
+          r.push(p(n, "short", "unit", e.locationTexts)),
         e.fieldLabels.length > 0)
       ) {
-        var o = _(n, "long", "conjunction", e.fieldLabels);
+        var o = p(n, "long", "conjunction", e.fieldLabels);
         r.push(t(o, r.length === 0));
       }
-      return r.length === 0 ? "" : _(n, "short", "unit", r);
+      return r.length === 0 ? "" : p(n, "short", "unit", r);
     }
-    function g(t, n) {
-      var r = d(t.durationMinutes);
-      return f(
+    function f(t, n) {
+      var r = c(t.durationMinutes);
+      return _(
         {
           durationText: r == null ? void 0 : r.toString(),
           fieldLabels: t.fields
             .filter(function (e) {
               return e.enabled;
             })
-            .map(c)
+            .map(function (e) {
+              return e.label;
+            })
             .filter(function (e) {
               return e !== "";
             }),
@@ -118,10 +107,9 @@ __d(
     }
     ((l.getAppointmentLocationLabel = e),
       (l.getBookingTitle = u),
-      (l.getAppointmentInfoFieldLabel = c),
-      (l.formatAppointmentDuration = d),
-      (l.formatAppointmentSubtitle = f),
-      (l.getAppointmentSubtitle = g));
+      (l.formatAppointmentDuration = c),
+      (l.formatAppointmentSubtitle = _),
+      (l.getAppointmentSubtitle = f));
   },
   226,
 );

@@ -11,10 +11,11 @@ __d(
       d = "biz_broadcast_campaign_updated",
       m = "https://www.facebook.com/legal/business-broadcasts",
       p = "https://www.facebook.com/privacy/policy",
-      _ = "Campaign message unavailable on this device",
-      f =
-        "whatsapp-smb://marketingmessages?destination=bb_pro_nux&entry_point=bb_web_pro_nux",
+      _ = "https://whatsappbusiness.com/policy/",
+      f = "Campaign message unavailable on this device",
       g =
+        "whatsapp-smb://marketingmessages?destination=bb_pro_nux&entry_point=bb_web_pro_nux",
+      h =
         "whatsapp-smb://marketingmessages?destination=bb_pro_message_limit&entry_point=bb_web_message_limit";
     ((i.MIN_BROADCAST_RECIPIENTS = e),
       (i.MS_PER_SEC = l),
@@ -24,9 +25,10 @@ __d(
       (i.BIZ_BROADCAST_CAMPAIGN_UPDATED_EVENT = d),
       (i.BIZ_BROADCAST_TOS_URL = m),
       (i.META_PRIVACY_POLICY_URL = p),
-      (i.CAMPAIGN_MSG_UNAVAILABLE_ERROR = _),
-      (i.BB_PRO_ONBOARDING_DEEPLINK = f),
-      (i.BB_PRO_MESSAGE_LIMIT_DEEPLINK = g));
+      (i.WHATSAPP_BUSINESS_POLICY_URL = _),
+      (i.CAMPAIGN_MSG_UNAVAILABLE_ERROR = f),
+      (i.BB_PRO_ONBOARDING_DEEPLINK = g),
+      (i.BB_PRO_MESSAGE_LIMIT_DEEPLINK = h));
   },
   66,
 );

@@ -14,6 +14,8 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
+    "WAWebLeadStage",
+    "WAWebLeadStageStore",
     "WAWebMessageAssociation.flow",
     "WAWebMsgCollection",
     "WAWebMsgCountReporter",
@@ -255,7 +257,7 @@ __d(
       var n = o("WAWebStateUtils").unproxy(e);
       if (r("isEmptyObject")(t)) return !0;
       if (t.label != null && t.label !== "")
-        return n.labels != null && n.labels.includes(t.label);
+        return n.labels == null || !n.labels.includes(t.label) ? !1 : y(n, t);
       var a = t.kind != null ? g.get(t.kind) : null;
       if (a != null) return a(n);
       var i = o("WAWebFrontendChatGetters").getKind(n);
@@ -264,10 +266,21 @@ __d(
         t.kind === o("WAWebChatSearchFilters").SearchFilters.cast(i)
       );
     }
+    function y(e, t) {
+      var n;
+      return t.leadStage == null
+        ? !0
+        : ((n = o("WAWebLeadStageStore").getLeadStageFromStore(
+            e.id.toString(),
+          )) != null
+            ? n
+            : o("WAWebLeadStage").LeadStage.NONE) === t.leadStage;
+    }
     ((l.getSearchContext = s),
       (l.fts = u),
       (l.clearFtsCache = c),
-      (l.matchFilter = h));
+      (l.matchFilter = h),
+      (l.leadStageMatches = y));
   },
   98,
 );

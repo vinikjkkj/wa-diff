@@ -17,7 +17,8 @@ __d(
     "WAWebUsernameGatingUtils",
     "WDSBaseCheckbox.react",
     "WDSFocusStateStyles",
-    "WDSIconIcArrowDropDown.react",
+    "WDSIconIcArrowDownward.react",
+    "WDSIconIcArrowUpward.react",
     "WDSIconIcDragHandle.react",
     "WDSText.react",
     "react",
@@ -62,7 +63,7 @@ __d(
         wrapper: {
           display: "x78zum5",
           alignItems: "x6s0dn4",
-          columnGap: "x1ned7t2",
+          columnGap: "x1trrmfo",
           maxWidth: "x193iq5w",
           paddingTop: "x1tiyuxx",
           paddingBottom: "x1nbhmlj",
@@ -77,22 +78,20 @@ __d(
           cursor: "x1ypdohk",
           $$css: !0,
         },
-        draggableExpand: {
+        fullCellTarget: {
           boxSizing: "x9f619",
-          cursor: "x1jm3nie",
           height: "xn3w4p2",
           marginTop: "xe3kor7",
           marginInlineStart: "x15w1vwp",
           marginInlineEnd: "x1olz2oy",
-          marginLeft: null,
-          marginRight: null,
+          maxWidth: "x1x1rfll",
           paddingTop: "x1p57kb1",
           paddingInlineStart: "x1phvje8",
           paddingInlineEnd: "xcldk2z",
-          paddingLeft: null,
-          paddingRight: null,
+          width: "x2abaw6",
           $$css: !0,
         },
+        draggable: { cursor: "x1jm3nie", $$css: !0 },
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
     function y(e, t, n) {
@@ -390,38 +389,41 @@ __d(
       );
     }
     function L(e) {
-      var t = o("react-compiler-runtime").c(5),
+      var t = o("react-compiler-runtime").c(3),
         n = e.direction;
       if (n == null) return null;
       var a;
-      t[0] !== n
-        ? ((a = {
-            0: { className: "x78zum5" },
-            1: { className: "x78zum5 x19jd1h0" },
-          }[(n === "asc") << 0]),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = { className: "x14ug900 x78zum5 x2lah0s" }), (t[0] = a))
+        : (a = t[0]);
       var i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = c.jsx(r("WDSIconIcArrowDropDown.react"), {
-            width: 12,
-            height: 12,
-          })),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
       return (
-        t[3] !== a
-          ? ((l = c.jsx("div", babelHelpers.extends({}, a, { children: i }))),
-            (t[3] = a),
-            (t[4] = l))
-          : (l = t[4]),
-        l
+        t[1] !== n
+          ? ((i = c.jsx(
+              "div",
+              babelHelpers.extends({}, a, {
+                children:
+                  n === "asc"
+                    ? c.jsx(r("WDSIconIcArrowUpward.react"), {
+                        "aria-hidden": !0,
+                        height: 18,
+                        width: 18,
+                      })
+                    : c.jsx(r("WDSIconIcArrowDownward.react"), {
+                        "aria-hidden": !0,
+                        height: 18,
+                        width: 18,
+                      }),
+              }),
+            )),
+            (t[1] = n),
+            (t[2] = i))
+          : (i = t[2]),
+        i
       );
     }
     function E(t) {
-      var n = o("react-compiler-runtime").c(40),
+      var n = o("react-compiler-runtime").c(39),
         a = t.columnKey,
         i = t.label,
         l = t.onColumnReorder,
@@ -455,82 +457,81 @@ __d(
         M = P.handleReorderKeyDown,
         w = m != null && m.key === a ? m.direction : null,
         A;
-      n[7] !== f || n[8] !== T
+      n[7] !== f
         ? ((A = (e || (e = r("stylex"))).props(
             h.wrapper,
             h.sortable,
+            h.fullCellTarget,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            T && h.draggableExpand,
             f && h.dragging,
           )),
           (n[7] = f),
-          (n[8] = T),
-          (n[9] = A))
-        : (A = n[9]);
+          (n[8] = A))
+        : (A = n[8]);
       var F;
-      n[10] !== T
-        ? ((F = T ? b() : void 0), (n[10] = T), (n[11] = F))
-        : (F = n[11]);
+      n[9] !== T
+        ? ((F = T ? b() : void 0), (n[9] = T), (n[10] = F))
+        : (F = n[10]);
       var O;
-      n[12] !== E
-        ? ((O = E != null ? E : {}), (n[12] = E), (n[13] = O))
-        : (O = n[13]);
+      n[11] !== E
+        ? ((O = E != null ? E : {}), (n[11] = E), (n[12] = O))
+        : (O = n[12]);
       var B;
-      n[14] !== a || n[15] !== u
+      n[13] !== a || n[14] !== u
         ? ((B = function () {
             return u(a);
           }),
-          (n[14] = a),
-          (n[15] = u),
-          (n[16] = B))
-        : (B = n[16]);
+          (n[13] = a),
+          (n[14] = u),
+          (n[15] = B))
+        : (B = n[15]);
       var W;
-      n[17] !== a || n[18] !== M || n[19] !== u
+      n[16] !== a || n[17] !== M || n[18] !== u
         ? ((W = function (t) {
             M(t) ||
               ((t.key === "Enter" || t.key === " ") &&
                 (t.preventDefault(), u(a)));
           }),
-          (n[17] = a),
-          (n[18] = M),
-          (n[19] = u),
-          (n[20] = W))
-        : (W = n[20]);
+          (n[16] = a),
+          (n[17] = M),
+          (n[18] = u),
+          (n[19] = W))
+        : (W = n[19]);
       var q;
-      n[21] !== T || n[22] !== x
+      n[20] !== T || n[21] !== x
         ? ((q = T && c.jsx(R, { revealed: x })),
-          (n[21] = T),
-          (n[22] = x),
-          (n[23] = q))
-        : (q = n[23]);
+          (n[20] = T),
+          (n[21] = x),
+          (n[22] = q))
+        : (q = n[22]);
       var U;
-      n[24] !== i
+      n[23] !== i
         ? ((U = c.jsx(r("WDSText.react"), {
             maxLines: 1,
             type: "Body2Emphasized",
             colorName: "contentDeemphasized",
             children: i,
           })),
-          (n[24] = i),
-          (n[25] = U))
-        : (U = n[25]);
+          (n[23] = i),
+          (n[24] = U))
+        : (U = n[24]);
       var V;
-      n[26] !== w
-        ? ((V = c.jsx(L, { direction: w })), (n[26] = w), (n[27] = V))
-        : (V = n[27]);
+      n[25] !== w
+        ? ((V = c.jsx(L, { direction: w })), (n[25] = w), (n[26] = V))
+        : (V = n[26]);
       var H;
       return (
-        n[28] !== k ||
-        n[29] !== N ||
-        n[30] !== $ ||
-        n[31] !== V ||
-        n[32] !== A ||
-        n[33] !== F ||
-        n[34] !== O ||
-        n[35] !== B ||
-        n[36] !== W ||
-        n[37] !== q ||
-        n[38] !== U
+        n[27] !== k ||
+        n[28] !== N ||
+        n[29] !== $ ||
+        n[30] !== V ||
+        n[31] !== A ||
+        n[32] !== F ||
+        n[33] !== O ||
+        n[34] !== B ||
+        n[35] !== W ||
+        n[36] !== q ||
+        n[37] !== U
           ? ((H = c.jsxs(
               "div",
               babelHelpers.extends(
@@ -546,19 +547,19 @@ __d(
                 { onBlur: N, onClick: B, onKeyDown: W, children: [q, U, V] },
               ),
             )),
-            (n[28] = k),
-            (n[29] = N),
-            (n[30] = $),
-            (n[31] = V),
-            (n[32] = A),
-            (n[33] = F),
-            (n[34] = O),
-            (n[35] = B),
-            (n[36] = W),
-            (n[37] = q),
-            (n[38] = U),
-            (n[39] = H))
-          : (H = n[39]),
+            (n[27] = k),
+            (n[28] = N),
+            (n[29] = $),
+            (n[30] = V),
+            (n[31] = A),
+            (n[32] = F),
+            (n[33] = O),
+            (n[34] = B),
+            (n[35] = W),
+            (n[36] = q),
+            (n[37] = U),
+            (n[38] = H))
+          : (H = n[38]),
         H
       );
     }
@@ -598,7 +599,7 @@ __d(
         n[7] === Symbol.for("react.memo_cache_sentinel")
           ? ((P = {
               className:
-                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj x1n2onr6",
+                "x78zum5 x6s0dn4 x1trrmfo x193iq5w x1tiyuxx x1nbhmlj x1n2onr6",
             }),
             (n[7] = P))
           : (P = n[7]);
@@ -626,8 +627,9 @@ __d(
       n[10] !== m
         ? ((M = (e || (e = r("stylex"))).props(
             h.wrapper,
+            h.fullCellTarget,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            h.draggableExpand,
+            h.draggable,
             m && h.dragging,
           )),
           (n[10] = m),

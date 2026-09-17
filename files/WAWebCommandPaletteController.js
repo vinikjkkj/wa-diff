@@ -2,8 +2,9 @@ __d(
   "WAWebCommandPaletteController",
   [
     "Lexical",
-    "LexicalComposer",
     "LexicalComposerContext",
+    "LexicalExtension",
+    "LexicalExtensionComposer",
     "WAWebCommandPaletteInput.react",
     "WAWebFlex.react",
     "WAWebLexicalUtils",
@@ -178,44 +179,54 @@ __d(
       );
     }
     function S(e) {
-      var t = o("react-compiler-runtime").c(6),
+      var t = o("react-compiler-runtime").c(8),
         n = e.defaultPlugin,
         a = e.triggeredPlugins,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = { namespace: "CommandPaletteInput", onError: r("WAWebNoop") }),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = i,
+        i = f(R),
+        l = i[0],
         u,
         c;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
+      t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((u = s.jsx(r("WAWebCommandPaletteInput.react"), {})),
           (c = s.jsx(v, {})),
-          (t[1] = u),
-          (t[2] = c))
-        : ((u = t[1]), (c = t[2]));
+          (t[0] = u),
+          (t[1] = c))
+        : ((u = t[0]), (c = t[1]));
       var d;
+      t[2] !== n || t[3] !== a
+        ? ((d = s.jsxs(b, {
+            defaultPlugin: n,
+            triggeredPlugins: a,
+            children: [u, c],
+          })),
+          (t[2] = n),
+          (t[3] = a),
+          (t[4] = d))
+        : (d = t[4]);
+      var m;
       return (
-        t[3] !== n || t[4] !== a
-          ? ((d = s.jsx(o("WAWebFlex.react").FlexColumn, {
+        t[5] !== l || t[6] !== d
+          ? ((m = s.jsx(o("WAWebFlex.react").FlexColumn, {
               align: "stretch",
               xstyle: h.container,
-              children: s.jsx(o("LexicalComposer").LexicalComposer, {
-                initialConfig: l,
-                children: s.jsxs(b, {
-                  defaultPlugin: n,
-                  triggeredPlugins: a,
-                  children: [u, c],
-                }),
-              }),
+              children: s.jsx(
+                o("LexicalExtensionComposer").LexicalExtensionComposer,
+                { contentEditable: null, extension: l, children: d },
+              ),
             })),
-            (t[3] = n),
-            (t[4] = a),
-            (t[5] = d))
-          : (d = t[5]),
-        d
+            (t[5] = l),
+            (t[6] = d),
+            (t[7] = m))
+          : (m = t[7]),
+        m
       );
+    }
+    function R() {
+      return o("LexicalExtension").defineExtension({
+        name: "[root]",
+        namespace: "CommandPaletteInput",
+        onError: r("WAWebNoop"),
+      });
     }
     ((l.useCommandPalette = C), (l.CommandPalette = S));
   },

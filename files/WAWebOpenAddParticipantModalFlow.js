@@ -30,37 +30,36 @@ __d(
         d = e.reopenAddGroupFlowCallback,
         m = e.selectedContactsMap,
         p = e.updateSelectedContactsState,
-        _ = o("WAWebStateUtils").unproxy(a),
-        f = o("WAWebMiscGatingUtils").getGroupSizeLimit(
-          o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(_),
+        _ = o("WAWebMiscGatingUtils").getGroupSizeLimit(
+          o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(a),
         ),
-        g = o("WAWebWidFactory").asGroupWidOrThrow(t.id),
-        h = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(g)
+        f = o("WAWebWidFactory").asGroupWidOrThrow(t.id),
+        g = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(f)
           ? o("WATimeUtils").unixTime()
           : null,
-        y =
-          h != null
+        h =
+          g != null
             ? o(
                 "WAWebGetGroupHistoryBundleMessagesCount",
               ).getGroupHistoryBundleMessageCount({
-                groupWid: g,
-                targetStartMessageTime: h,
+                groupWid: f,
+                targetStartMessageTime: g,
               })
             : null;
-      if ((_ == null ? void 0 : _.participants.length) >= f) {
-        var C = s._(/*BTDS*/ "Can't add more than {max} members", [
-          s._param("max", f),
+      if ((a == null ? void 0 : a.participants.length) >= _) {
+        var y = s._(/*BTDS*/ "Can't add more than {max} members", [
+          s._param("max", _),
         ]);
         o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, { msg: C, id: c }),
+          u.jsx(o("WAWebToast.react").Toast, { msg: y, id: c }),
         );
       } else {
-        var b = u.jsx(
+        var C = u.jsx(
           r("WAWebAddGroupParticipantGroupHistoryContextProvider.react"),
           {
             chat: t,
-            enterFlowTimestamp: h,
-            messageCountPromise: y,
+            enterFlowTimestamp: g,
+            messageCountPromise: h,
             children: u.jsx(r("WAWebAddGroupParticipantFlow.react"), {
               chat: o("WAWebStateUtils").unproxy(t),
               communityName: n,
@@ -72,7 +71,7 @@ __d(
             }),
           },
         );
-        o("WAWebModalManager").ModalManager.open(b, {
+        o("WAWebModalManager").ModalManager.open(C, {
           transition: "modal-flow",
         });
       }

@@ -6,6 +6,8 @@ __d(
       FB_BANDWIDTH: "fb_bandwidth",
       VIDEO_BANDWIDTH: "video_bandwidth",
       TOTAL_FRAME_COUNT: "total_frame_count",
+      HDR_FRAME_COUNT: "hdr_frame_count",
+      INFERENCE_FRAME_COUNT: "inference_frame_count",
       DROPPED_FRAME_COUNT: "dropped_frame_count",
       LARGE_DROPPED_FRAME_COUNT: "large_dropped_frame_count",
       VERY_LARGE_DROPPED_FRAME_COUNT: "very_large_dropped_frame_count",

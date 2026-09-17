@@ -321,8 +321,7 @@ __d(
           switch (a.name) {
             case "LinkSubGroupsResponseSuccess": {
               var i = [],
-                l = [],
-                s = [];
+                l = [];
               return (
                 a.value.linksLinkGroup.forEach(function (e) {
                   var t,
@@ -333,20 +332,9 @@ __d(
                         : t.value.error,
                       10,
                     );
-                  (n ? l.push({ jid: e.jid, error: n }) : i.push(e.jid),
-                    e.participant &&
-                      s.push.apply(
-                        s,
-                        e.participant.map(function (e) {
-                          return e.jid;
-                        }),
-                      ));
+                  n ? l.push({ jid: e.jid, error: n }) : i.push(e.jid);
                 }),
-                {
-                  linkedGroupJids: i,
-                  failedGroups: l,
-                  failedParticipantJids: s,
-                }
+                { linkedGroupJids: i, failedGroups: l }
               );
             }
             case "LinkSubGroupsResponseClientError": {
@@ -358,13 +346,13 @@ __d(
                   ])),
                 a.name,
               );
-              var u = a.value.errorLinkSubGroupsClientError.value,
-                c = u.code,
-                d = u.text;
+              var s = a.value.errorLinkSubGroupsClientError.value,
+                u = s.code,
+                c = s.text;
               return (y || (y = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  Number(c),
-                  d,
+                  Number(u),
+                  c,
                 ),
               );
             }
@@ -377,13 +365,13 @@ __d(
                   ])),
                 a.name,
               );
-              var m = a.value.errorServerErrors.value,
-                p = m.code,
-                g = m.text;
+              var d = a.value.errorServerErrors.value,
+                m = d.code,
+                p = d.text;
               return (y || (y = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  Number(p),
-                  g,
+                  Number(m),
+                  p,
                 ),
               );
             }

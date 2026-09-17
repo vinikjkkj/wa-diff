@@ -18,7 +18,7 @@ __d(
           });
     }
     function c(e) {
-      if (!Array.isArray(e)) return e;
+      if (!Array.isArray(e)) return ((e.lispyOffset = 0), e);
       var t = e.slice();
       function n(e, t) {
         t === void 0 && (t = -1);

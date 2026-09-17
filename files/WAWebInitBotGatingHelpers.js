@@ -10,6 +10,7 @@ __d(
     "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "WAWebPrefetchHatchLinkedStatusOnLogin",
+    "WAWebSubscriptionAgeGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,7 +33,10 @@ __d(
                   (o("WAWebInitializeBots").initializeBots(),
                     o(
                       "WAWebPrefetchHatchLinkedStatusOnLogin",
-                    ).maybePrefetchHatchLinkedStatusOnLogin());
+                    ).maybePrefetchHatchLinkedStatusOnLogin(),
+                    o(
+                      "WAWebSubscriptionAgeGating",
+                    ).maybeWarmSubscriptionAgeVerdict());
                 },
               ),
               o("WAWebBackendEventBus").BackendEventBus.onAbPropsLoaded(
@@ -40,7 +44,10 @@ __d(
                   (o("WAWebInitializeBots").initializeBots(),
                     o(
                       "WAWebPrefetchHatchLinkedStatusOnLogin",
-                    ).maybePrefetchHatchLinkedStatusOnLogin());
+                    ).maybePrefetchHatchLinkedStatusOnLogin(),
+                    o(
+                      "WAWebSubscriptionAgeGating",
+                    ).maybeWarmSubscriptionAgeVerdict());
                 },
               ),
               o("WAWebBackendEventBus").BackendEventBus.onPrimaryFeaturesSynced(
@@ -53,7 +60,8 @@ __d(
               )),
             o(
               "WAWebPrefetchHatchLinkedStatusOnLogin",
-            ).maybePrefetchHatchLinkedStatusOnLogin());
+            ).maybePrefetchHatchLinkedStatusOnLogin(),
+            o("WAWebSubscriptionAgeGating").maybeWarmSubscriptionAgeVerdict());
           try {
             var t = yield o("WAWebBackendApi").frontendSendAndReceive(
               "getLanguage",

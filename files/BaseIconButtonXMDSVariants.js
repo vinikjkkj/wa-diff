@@ -27,7 +27,8 @@ __d(
         },
         primary: { backgroundColor: "xtvsq51", $$css: !0 },
         primaryOnMedia: { backgroundColor: "xyyilqk", $$css: !0 },
-        secondary: {
+        secondary: { backgroundColor: "xliogxu", $$css: !0 },
+        secondaryOutline: {
           backgroundColor: "x1qhmfi1",
           borderTopColor: "x1s9qjmn",
           borderInlineEndColor: "x71vvrb",
@@ -90,15 +91,21 @@ __d(
           pressable: [e.pressable, s.secondary],
         }),
       },
-      f = { xstyleConfig: { pressable: [u.dense] } },
-      g = { xstyleConfig: { pressable: [u.regular] } };
+      f = {
+        xstyleConfig: babelHelpers.extends({}, c.xstyleConfig, {
+          pressable: [e.pressable, s.secondaryOutline],
+        }),
+      },
+      g = { xstyleConfig: { pressable: [u.dense] } },
+      h = { xstyleConfig: { pressable: [u.regular] } };
     ((l.BaseIconButtonXMDSDefaultVariant = c),
       (l.BaseIconButtonXMDSContainedVariant = d),
       (l.BaseIconButtonXMDSPrimaryVariant = m),
       (l.BaseIconButtonXMDSPrimaryOnMediaVariant = p),
       (l.BaseIconButtonXMDSSecondaryVariant = _),
-      (l.BaseIconButtonXMDSDenseVariant = f),
-      (l.BaseIconButtonXMDSRegularVariant = g));
+      (l.BaseIconButtonXMDSSecondaryOutlineVariant = f),
+      (l.BaseIconButtonXMDSDenseVariant = g),
+      (l.BaseIconButtonXMDSRegularVariant = h));
   },
   98,
 );

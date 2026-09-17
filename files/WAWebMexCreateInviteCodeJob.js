@@ -7,23 +7,22 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t) {
+    function s(e, t, n) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a,
-            i = !1,
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          var i,
             l =
               e !== void 0
                 ? e
                 : (e = n("WAWebMexCreateInviteCodeJobMutation.graphql")),
-            s = { input: { receiver: t, entry_point: r, server_send_sms: i } },
+            s = { input: { receiver: t, entry_point: r, server_send_sms: a } },
             u = yield o("WAWebMexClient").fetchQuery(l, s);
-          return (a = u.xwa2_growth_create_invite_code) == null
+          return (i = u.xwa2_growth_create_invite_code) == null
             ? void 0
-            : a.code;
+            : i.code;
         })),
         u.apply(this, arguments)
       );

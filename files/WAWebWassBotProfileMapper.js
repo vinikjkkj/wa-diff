@@ -7,9 +7,11 @@ __d(
         ? null
         : e === "THIRD_PARTY"
           ? o("WAWebBotProduct").BotProduct.THIRD_PARTY.valueOf()
-          : e === "MANUS"
-            ? o("WAWebBotProduct").BotProduct.MANUS.valueOf()
-            : e;
+          : e === "META_AI_THREAD"
+            ? o("WAWebBotProduct").BotProduct.META_AI_THREAD.valueOf()
+            : e === "MANUS"
+              ? o("WAWebBotProduct").BotProduct.MANUS.valueOf()
+              : e;
     }
     function s(t) {
       var n;

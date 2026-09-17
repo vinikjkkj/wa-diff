@@ -10,6 +10,7 @@ __d(
     "WAWebAccountLinkingHandler",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebMetaAiWaffleAuthTokenCache",
+    "WAWebSubscriptionAgeGating",
     "WAWebWaffleLifecycleWamLogger",
     "asyncToGeneratorRuntime",
   ],
@@ -101,6 +102,11 @@ __d(
                         o("WAWebAccountLinkingDBOperationsAPI")
                           .getAccountLinkingDBOps("account_linking")
                           .purgeWaffleData()
+                          .then(function () {
+                            return o(
+                              "WAWebSubscriptionAgeGating",
+                            ).invalidateSubscriptionAgeVerdict();
+                          })
                           .then(function () {
                             return "handled";
                           })

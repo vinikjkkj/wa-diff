@@ -6,6 +6,7 @@ __d(
     "createCancelableFunction",
     "emptyFunction",
     "getErrorSafe",
+    "gkx",
     "setTimeout",
     "unexpectedUseInComet",
   ],
@@ -23,7 +24,7 @@ __d(
         (u.afterunload = []),
         (s || (s = r("ExecutionEnvironment"))).canUseEventListeners &&
           window.addEventListener("unload", function () {
-            (g("unload"), g("afterunload"));
+            (h("unload"), h("afterunload"));
           })),
         u[e] == null
           ? (r("FBLogger")("comet_infra").mustfix(
@@ -36,36 +37,52 @@ __d(
     function _(e) {
       return r("createCancelableFunction")(e);
     }
-    function f(e) {
+    function f(e, t) {
       return {
         remove: function () {
-          e.cancel();
+          if ((t.cancel(), !!r("gkx")("11588"))) {
+            var n = u[e];
+            if (n != null) {
+              var o = n.indexOf(t);
+              o !== -1 && n.splice(o, 1);
+            }
+          }
         },
       };
     }
-    function g(t) {
-      for (var n = u[t] || [], o = 0; o < n.length; o++) {
-        var a = n[o];
-        try {
-          a();
-        } catch (n) {
-          var i = r("getErrorSafe")(n);
-          r("FBLogger")("comet_infra")
-            .catching(i)
-            .MUSTFIX(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Hit an error while executing '",
-                  "' event listeners.",
-                ])),
-              t,
-            );
-        }
+    function g(t, n) {
+      try {
+        n();
+      } catch (n) {
+        var o = r("getErrorSafe")(n);
+        r("FBLogger")("comet_infra")
+          .catching(o)
+          .MUSTFIX(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Hit an error while executing '",
+                "' event listeners.",
+              ])),
+            t,
+          );
       }
-      u[t] = [];
     }
     function h(e) {
-      if (c) return (e(), f(_(r("emptyFunction"))));
+      var t = u[e] || [];
+      if (r("gkx")("11588"))
+        for (; t.length > 0; ) {
+          var n = t.shift();
+          n != null && g(e, n);
+        }
+      else for (var o = 0; o < t.length; o++) g(e, t[o]);
+      u[e] = [];
+    }
+    function y(e) {
+      var t, n;
+      return (t = (n = u[e]) == null ? void 0 : n.length) != null ? t : 0;
+    }
+    function C(e) {
+      if (c) return (e(), m);
       var t = _(e);
       return (
         u.domcontentloaded == null
@@ -74,85 +91,91 @@ __d(
               window.addEventListener(
                 "DOMContentLoaded",
                 function () {
-                  g("domcontentloaded");
+                  h("domcontentloaded");
                 },
                 !0,
               ))
           : u.domcontentloaded.push(t),
-        f(t)
+        f("domcontentloaded", t)
       );
     }
-    function y(e) {
+    function b(e) {
       var t = _(e);
-      return (p("afterunload", t), f(t));
+      return (p("afterunload", t), f("afterunload", t));
     }
-    function C(e) {
+    function v(e) {
       var t = _(e);
       return (
         u.load == null
           ? ((u.load = [t]),
             (s || (s = r("ExecutionEnvironment"))).canUseEventListeners &&
               window.addEventListener("load", function () {
-                (g("domcontentloaded"), g("load"));
+                (h("domcontentloaded"), h("load"));
               }))
           : u.load.push(t),
         d &&
           r("setTimeout")(function () {
-            (g("domcontentloaded"), g("load"));
+            (h("domcontentloaded"), h("load"));
           }, 0),
-        f(t)
+        f("load", t)
       );
     }
-    function b(e) {
+    function S(e) {
       var t = _(e);
-      return (p("unload", t), f(t));
+      return (p("unload", t), f("unload", t));
     }
-    function v(e) {
+    function R(e) {
       var t = _(e);
       return (
         u.beforeunload == null
           ? ((u.beforeunload = [t]),
             (s || (s = r("ExecutionEnvironment"))).canUseEventListeners &&
               window.addEventListener("beforeunload", function (e) {
-                var t = u.beforeunload || [];
-                for (var n of t) {
-                  var o = void 0;
+                var t,
+                  n,
+                  o = r("gkx")("11588")
+                    ? [].concat((t = u.beforeunload) != null ? t : [])
+                    : (n = u.beforeunload) != null
+                      ? n
+                      : [];
+                for (var a of o) {
+                  var i = void 0;
                   try {
-                    o = n();
+                    i = a();
                   } catch (e) {
-                    var a = r("getErrorSafe")(e);
+                    var l = r("getErrorSafe")(e);
                     r("FBLogger")("comet_infra")
-                      .catching(a)
+                      .catching(l)
                       .mustfix(
                         "Hit an error while executing onBeforeUnload event listeners.",
                       );
                   }
-                  if (o !== void 0) {
-                    (o != null && o.body != null && (o = o.body),
+                  if (i !== void 0) {
+                    (i != null && i.body != null && (i = i.body),
                       e.preventDefault());
-                    var i = typeof o == "string" ? o : String(o);
-                    return ((e.returnValue = i), i);
+                    var s = typeof i == "string" ? i : String(i);
+                    return ((e.returnValue = s), s);
                   }
                 }
               }))
           : u.beforeunload.push(t),
-        f(t)
+        f("beforeunload", t)
       );
     }
-    var S = v;
-    function R(e) {
+    var L = R;
+    function E(e) {
       return (r("unexpectedUseInComet")("Run.onLeave"), m);
     }
-    function L(e, t) {
+    function k(e, t) {
       return (r("unexpectedUseInComet")("Run.onCleanupOrLeave"), m);
     }
-    function E(e) {
+    function I(e) {
       r("unexpectedUseInComet")("Run.removeHook");
     }
-    function k() {
+    function T() {
       if (
         (document.readyState === "loading"
-          ? h(function () {
+          ? C(function () {
               c = !0;
             })
           : (c = !0),
@@ -166,20 +189,21 @@ __d(
         };
       }
     }
-    (s || (s = r("ExecutionEnvironment"))).canUseDOM && k();
-    var I = null,
-      T = null;
-    ((l.onLoad = h),
-      (l.onAfterUnload = y),
-      (l.onAfterLoad = C),
-      (l.onUnload = b),
-      (l.onBeforeUnload = v),
-      (l.maybeOnBeforeUnload = S),
-      (l.onLeave = R),
-      (l.onCleanupOrLeave = L),
-      (l.__removeHook = E),
-      (l.__domContentCallback = I),
-      (l.__onloadCallback = T));
+    (s || (s = r("ExecutionEnvironment"))).canUseDOM && T();
+    var D = null,
+      x = null;
+    ((l.getEventListenerCountForTesting = y),
+      (l.onLoad = C),
+      (l.onAfterUnload = b),
+      (l.onAfterLoad = v),
+      (l.onUnload = S),
+      (l.onBeforeUnload = R),
+      (l.maybeOnBeforeUnload = L),
+      (l.onLeave = E),
+      (l.onCleanupOrLeave = k),
+      (l.__removeHook = I),
+      (l.__domContentCallback = D),
+      (l.__onloadCallback = x));
   },
   98,
 );

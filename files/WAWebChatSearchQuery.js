@@ -54,7 +54,8 @@ __d(
             return (
               this.query === t &&
               this.filter.kind === (n == null ? void 0 : n.kind) &&
-              this.filter.label === (n == null ? void 0 : n.label)
+              this.filter.label === (n == null ? void 0 : n.label) &&
+              this.filter.leadStage === (n == null ? void 0 : n.leadStage)
             );
           }),
           n

@@ -2,13 +2,11 @@ __d(
   "WAWebLinkSubgroupsAction",
   [
     "fbt",
-    "VultureJSDeadComponent.react",
     "WAFilteredCatch",
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
     "WAWebGroupCommunityJob",
-    "WAWebModalManager",
     "WAWebNoop",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -49,19 +47,10 @@ __d(
                         ),
                       );
                 }
-                return (
-                  t.failedParticipantJids.length > 0 &&
-                    o("WAWebModalManager").ModalManager.open(
-                      c.jsx(r("VultureJSDeadComponent.react"), {
-                        name: "WAWebCommunityGeneralChatFailedParticipantsModal",
-                      }),
-                    ),
-                  new (o("WAWebActionToast.react").ActionType)(
-                    s._(
-                      /*BTDS*/ '_j{"*":"Groups linked","_1":"Group linked"}',
-                      [s._plural(a.length)],
-                    ),
-                  )
+                return new (o("WAWebActionToast.react").ActionType)(
+                  s._(/*BTDS*/ '_j{"*":"Groups linked","_1":"Group linked"}', [
+                    s._plural(a.length),
+                  ]),
                 );
               } catch (t) {
                 return (

@@ -192,7 +192,11 @@ __d(
               i = t.stickerSentTs;
             this.addNewSticker(
               new (o("WAWebStickerModel").StickerModel)(
-                babelHelpers.extends({}, r, { mediaKey: a, encFilehash: e }),
+                babelHelpers.extends({}, r, {
+                  mediaKey: a,
+                  encFilehash: e,
+                  id: r.filehash,
+                }),
               ),
               n.toString(),
               i,
