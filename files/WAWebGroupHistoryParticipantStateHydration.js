@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryParticipantJob",
+    "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupMetadataCollection",
     "WAWebLidMigrationUtils",
@@ -88,8 +89,12 @@ __d(
       );
     }
     function f(e, t) {
-      (h(t.groupHistorySentState) &&
-        !h(e.groupHistorySentState) &&
+      (o("WAWebGroupHistoryPostJoinEligibility").isAlreadyReceivedState(
+        t.groupHistorySentState,
+      ) &&
+        !o("WAWebGroupHistoryPostJoinEligibility").isAlreadyReceivedState(
+          e.groupHistorySentState,
+        ) &&
         e.set({ groupHistorySentState: t.groupHistorySentState }),
         e.joinTime == null &&
           t.joinTime != null &&
@@ -112,19 +117,13 @@ __d(
             )
               return e;
             var t = a.get(e.id);
-            return t != null && h(t.groupHistorySentState)
+            return t != null &&
+              o("WAWebGroupHistoryPostJoinEligibility").isAlreadyReceivedState(
+                t.groupHistorySentState,
+              )
               ? babelHelpers.extends({}, e, { groupHistorySentState: void 0 })
               : e;
           });
-    }
-    function h(e) {
-      return (
-        e ===
-          o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
-            .HISTORY_SENT ||
-        e ===
-          o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState.NOTICE_SENT
-      );
     }
     ((l.initializeGroupHistoryStateForChat = c),
       (l.prefetchGroupHistoryStateForChat = d),

@@ -145,7 +145,7 @@ __d(
             }
             return (
               I && this.sort({ silent: !0 }),
-              this.$Collection$p_5(m, I, C, a),
+              this.$Collection$p_5({ options: a, order: C, sort: I, toAdd: m }),
               n
             );
           }),
@@ -399,16 +399,20 @@ __d(
           (a.$Collection$p_8 = function (t) {
             this.get(t) && delete this._index[t];
           }),
-          (a.$Collection$p_5 = function (t, n, r, o) {
-            if (o.silent !== !0) {
-              for (var e = 0, a = t.length; e < a; e++) {
-                var i = t[e];
-                i.trigger
-                  ? i.trigger("add", i, this, o)
-                  : this.trigger("add", i, this, o);
+          (a.$Collection$p_5 = function (t) {
+            var e = t.options,
+              n = t.order,
+              r = t.sort,
+              o = t.toAdd;
+            if (e.silent !== !0) {
+              for (var a = 0, i = o.length; a < i; a++) {
+                var l = o[a];
+                l.trigger
+                  ? l.trigger("add", l, this, e)
+                  : this.trigger("add", l, this, e);
               }
-              (n === !0 || (r != null && r.length)) &&
-                this.trigger("sort", this, o);
+              (r === !0 || (n != null && n.length)) &&
+                this.trigger("sort", this, e);
             }
           }),
           (a.$Collection$p_10 = function (t, n, r, o) {

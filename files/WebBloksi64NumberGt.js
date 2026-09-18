@@ -8,7 +8,11 @@ __d(
           i = r("WebBloksInt64").fromString(String(n));
         return a.greaterThan(i);
       } catch (t) {
-        throw new (o("WebBloksErrors").WebBloksScriptError)(t.message, e);
+        var l;
+        throw new (o("WebBloksErrors").WebBloksScriptError)(
+          String((l = t == null ? void 0 : t.message) != null ? l : t),
+          e,
+        );
       }
     }
     l.default = e;

@@ -6,6 +6,7 @@ __d(
     "WAWebMessageSecretErrorsWamEvent",
     "WAWebMsgType",
     "WAWebNewsletterIsNewsletterMsg",
+    "WAWebNewsletterQuizOptionShuffler",
     "WAWebPollCreationUtils",
     "WAWebPollOptionHashUtils",
     "WAWebPollsGatingUtils",
@@ -161,7 +162,16 @@ __d(
       var w = new Set(),
         A = new Set(),
         F,
-        O = r("compactMap")(v, function (e) {
+        O = o("WAWebNewsletterQuizOptionShuffler").applyViewerQuizOptionOrder(
+          v,
+          {
+            isFromMe: l.id.fromMe,
+            isNewsletter: g,
+            isQuiz: L === o("WAWebPollCreationUtils").PollType.QUIZ,
+            stanzaId: l.id.id,
+          },
+        ),
+        B = r("compactMap")(O, function (e) {
           var t = e.optionHash,
             n = e.optionName;
           if (
@@ -226,25 +236,25 @@ __d(
           );
         });
       if (
-        O.length < 2 ||
-        O.length > o("WAWebPollsGatingUtils").getMaxPollOptionCount()
+        B.length < 2 ||
+        B.length > o("WAWebPollsGatingUtils").getMaxPollOptionCount()
       )
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .INVALID_OPTIONS_COUNT,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      if (S < 0 || S > O.length)
+      if (S < 0 || S > B.length)
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .INVALID_SELECTABLE_OPTIONS_COUNT,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var B = babelHelpers.extends({}, l, {
+      var W = babelHelpers.extends({}, l, {
         type: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
         kind: o("WAWebMsgType").MsgKind.PollCreation,
         pollName: b,
-        pollOptions: O,
+        pollOptions: B,
         pollSelectableOptionsCount: S,
         pollContentType: R,
         pollType: L,
@@ -253,7 +263,7 @@ __d(
         pollHideVoterNames: f.hideParticipantName,
         pollAllowAddOption: f.allowAddOption,
       });
-      return { msgData: B, contextInfo: y };
+      return { msgData: W, contextInfo: y };
     }
     l.default = e;
   },

@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "QPLFlow",
     "WALogger",
+    "WAWebBackendEventBus",
     "WAWebJobsMigrationGating",
     "WAWebLazyLoadedRetriable",
     "WAWebPersistedQueueQpl",
@@ -56,35 +57,46 @@ __d(
     }
     function d() {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
-        var t = o("QPLFlow").startQPLFlow(
-          o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
-          {
-            annotations: {
-              bool: { isPQ: !0 },
-              string: { operationType: "preload" },
-            },
-            timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
+        if (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
+          m("immediate");
+          return;
+        }
+        o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
+          function () {
+            return m("offline_delivery_end");
           },
         );
-        o("QPLFlow")
-          .endWith(t, function () {
-            return c(t);
-          })
-          .catch(function (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[persisted-queues] preload failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .tags("messaging")
-              .sendLogs("persisted-queues-preload-failed");
-          });
       }
     }
-    function m(e) {
+    function m(t) {
+      var n = o("QPLFlow").startQPLFlow(
+        o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
+        {
+          annotations: {
+            bool: { isPQ: !0 },
+            string: { operationType: "preload", preloadTrigger: t },
+          },
+          timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
+        },
+      );
+      o("QPLFlow")
+        .endWith(n, function () {
+          return c(n);
+        })
+        .catch(function (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[persisted-queues] preload failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .tags("messaging")
+            .sendLogs("persisted-queues-preload-failed");
+        });
+    }
+    function p(e) {
       return {
         ack: function (n, r) {
           return c(n).then(function () {
@@ -107,8 +119,8 @@ __d(
       };
     }
     ((l.whenPersistedQueuesReady = c),
-      (l.preloadPersistedQueues = d),
-      (l.lazyPersistedQueue = m));
+      (l.schedulePersistedQueuesPreload = d),
+      (l.lazyPersistedQueue = p));
   },
   98,
 );

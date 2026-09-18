@@ -19,8 +19,8 @@ __d(
     "WAWebToastManager",
     "WAWebTosUrl",
     "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
-    "WAWebWdsSmbPictoArrowsTransferIcon.react",
     "WAWebWidFactory",
+    "WDSIllustrationWdsSmbPictoArrowsTransfer.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -96,28 +96,26 @@ __d(
               .BusinessDataSharingIllustrationLightIcon,
             {},
           );
-      var n, r;
+      var n, a;
       (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = u.jsx(
-            o("WAWebWdsSmbPictoArrowsTransferIcon.react")
-              .WdsSmbPictoArrowsTransferIcon,
-            {},
-          )),
-          (e[0] = r))
-        : (r = e[0]),
-        (n = r));
-      var a;
+        ? ((a = u.jsx(r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"), {
+            testid: "wds-smb-picto-arrows-transfer",
+          })),
+          (e[0] = a))
+        : (a = e[0]),
+        (n = a));
+      var i;
       e[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = u.jsx(o("WAWebFlex.react").FlexRow, {
+        ? ((i = u.jsx(o("WAWebFlex.react").FlexRow, {
             xstyle: [h.paddingTop24, h.paddingBottom24, h.illustration],
             justify: "center",
             children: n,
           })),
-          (e[1] = a))
-        : (a = e[1]);
-      var i;
+          (e[1] = i))
+        : (i = e[1]);
+      var l;
       e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = u.jsx(o("WAWebFlex.react").FlexRow, {
+        ? ((l = u.jsx(o("WAWebFlex.react").FlexRow, {
             children: u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
               size: "20",
               color: "dark",
@@ -126,26 +124,26 @@ __d(
               children: s._(/*BTDS*/ "Stop sharing data for this customer?"),
             }),
           })),
-          (e[2] = i))
-        : (i = e[2]);
-      var l;
+          (e[2] = l))
+        : (l = e[2]);
+      var c;
       e[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
+        ? ((c = o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
             ? s._(
                 /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience and improve Meta ads.",
               )
             : s._(
                 /*BTDS*/ "Sharing information to Meta about customer-related activities can help your ads reach the right audience on Facebook and Instagram and improve Meta ads.",
               )),
-          (e[3] = l))
-        : (l = e[3]);
-      var c;
+          (e[3] = c))
+        : (c = e[3]);
+      var d;
       return (
         e[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((c = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+          ? ((d = u.jsxs(o("WAWebFlex.react").FlexColumn, {
               children: [
-                a,
                 i,
+                l,
                 u.jsx(o("WAWebFlex.react").FlexColumn, {
                   xstyle: h.marginBottom12,
                   children: u.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
@@ -154,7 +152,7 @@ __d(
                     weight: "normal",
                     xstyle: h.paragraph,
                     children: [
-                      l,
+                      c,
                       " ",
                       u.jsx(o("WAWebExternalLink.react").ExternalLink, {
                         href: o("WAWebTosUrl").getBizDataSharingHcaUrl(),
@@ -165,9 +163,9 @@ __d(
                 }),
               ],
             })),
-            (e[4] = c))
-          : (c = e[4]),
-        c
+            (e[4] = d))
+          : (d = e[4]),
+        d
       );
     }
     var C = function () {

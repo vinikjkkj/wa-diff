@@ -10,7 +10,6 @@ __d(
         "GENERAL_GROUP",
         "COVER_PHOTO",
         "NEWSLETTER",
-        "NEWSLETTER_ADMIN_PROFILE",
       ]),
       s = n("$InternalEnum").Mirrored(["COVER_PHOTO", "EMOJI_SUGGESTIONS"]),
       u;

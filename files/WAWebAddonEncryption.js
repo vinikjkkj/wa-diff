@@ -10,7 +10,6 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebReportingTokenConfig",
     "WAWebReportingTokenContent",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -119,16 +118,14 @@ __d(
                 e.type === o("WAWebMsgType").MsgKind.CommentDecrypted ||
                 e.type === o("WAWebMsgType").MsgKind.EventEditDecrypted ||
                 e.type === o("WAWebMsgType").MsgKind.MessageEditDecrypted
-                  ? new (o(
+                  ? o(
                       "WAWebReportingTokenContent",
-                    ).ReportingTokenContentCalculator)(
+                    ).calculateReportingTokenContent(
                       new Uint8Array(f),
-                      o("WAWebReportingTokenConfig").getReportingTokenConfig(
-                        o(
-                          "WAWebMessagingGatingUtils",
-                        ).getSenderReportingTokenVersion(),
-                      ),
-                    ).getReportingTokenContent()
+                      o(
+                        "WAWebMessagingGatingUtils",
+                      ).getSenderReportingTokenVersion(),
+                    )
                   : null;
             return babelHelpers.extends(
               { encPayload: g },

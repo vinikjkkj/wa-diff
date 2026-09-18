@@ -7,11 +7,11 @@ __d(
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
     "WAWebFlex.react",
-    "WAWebKeepWarningIcon.react",
     "WAWebModal.react",
     "WAWebModalManager",
     "WAWebProtobufsE2E.pb",
     "WAWebWamEnumKicErrorCodeType",
+    "WDSIllustrationWdsPictoGenericWarning.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -54,11 +54,12 @@ __d(
           align: "center",
           justify: "center",
           className: "xjkh2o x2b8uid",
-          children: u.jsx(o("WAWebKeepWarningIcon.react").KeepWarningIcon, {
+          children: u.jsx(r("WDSIllustrationWdsPictoGenericWarning.react"), {
+            testid: "keep-warning",
             xstyle: d.icon,
           }),
         }),
-        r = u.jsx("div", {
+        a = u.jsx("div", {
           className: "xk50ysn x1603h9y x1u7k74 xcytdqz",
           children: s._(/*BTDS*/ "Message cannot be kept"),
         });
@@ -78,7 +79,7 @@ __d(
             u.jsxs("div", {
               className: "x1sgpng xpwdb9g x10tge7n xefazk8",
               children: [
-                r,
+                a,
                 s._(
                   /*BTDS*/ "The author of this message has unkept it, so no one else can keep it again in the chat.",
                 ),

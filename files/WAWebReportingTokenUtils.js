@@ -13,6 +13,7 @@ __d(
     "WAWap",
     "WAWebApiContact",
     "WAWebCreateNackFromStanza",
+    "WAWebCriticalEventWamEvent",
     "WAWebDBMessageSerialization",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryReportingTokenDBUtils",
@@ -195,18 +196,46 @@ __d(
             )
           )
             return null;
-          var a =
-              (n = e.messageSecret) != null
-                ? n
-                : (r = t.messageContextInfo) == null
-                  ? void 0
-                  : r.messageSecret,
-            i = v(e),
-            l = T(e),
-            s = l.jidType,
-            u = l.remoteJid;
-          if (s === "interopUser") return null;
-          if (a == null)
+          var a = v(e),
+            i = T(e),
+            l = i.jidType,
+            s = i.remoteJid;
+          if (l === "interopUser" || a == null || s == null) return null;
+          var u = o(
+              "WAWebMessagingGatingUtils",
+            ).getSenderReportingTokenVersion(),
+            c;
+          if (e.reportingTokenContent != null) c = e.reportingTokenContent;
+          else {
+            var d = o("encodeProtobuf").encodeProtobuf(
+                o("WAWebProtobufsE2E.pb").MessageSpec,
+                t,
+              ),
+              m = d.readByteArrayView();
+            ((c = o(
+              "WAWebReportingTokenContent",
+            ).calculateReportingTokenContent(m, u)),
+              u <
+                o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3 &&
+                c.length === 0 &&
+                o(
+                  "WAWebMessagingGatingUtils",
+                ).isReportingTokenV3HybridSendingEnabled() &&
+                !b.has(e.type) &&
+                ((u = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
+                  .V3),
+                (c = o(
+                  "WAWebReportingTokenContent",
+                ).calculateReportingTokenContent(m, u))));
+          }
+          if (c == null || c.length === 0) return null;
+          var p =
+            (n = e.messageSecret) != null
+              ? n
+              : (r = t.messageContextInfo) == null
+                ? void 0
+                : r.messageSecret;
+          if (p == null)
             return (
               new (o(
                 "WAWebMessageSecretErrorsWamEvent",
@@ -218,51 +247,25 @@ __d(
                 messageSecretError: o("WAWebWamEnumMessageSecretErrorType")
                   .MESSAGE_SECRET_ERROR_TYPE.MISSING_MESSAGE_SECRET,
               }).commit(),
+              new (o("WAWebCriticalEventWamEvent").CriticalEventWamEvent)({
+                name: "reporting_token_missing_fk_at_send",
+              }).commit(),
               null
             );
-          if (i == null || u == null) return null;
-          var c = o(
-              "WAWebMessagingGatingUtils",
-            ).getSenderReportingTokenVersion(),
-            d = yield E({
-              messageSecret: a,
+          var f = yield E({
+              messageSecret: p,
               stanzaId: e.id.id,
               senderJid: o("WAWebWidToJid").widToUserJid(
-                o("WAWebWidFactory").asUserWidOrThrow(i),
+                o("WAWebWidFactory").asUserWidOrThrow(a),
               ),
-              remoteJid: u,
+              remoteJid: s,
             }),
-            m;
-          if (e.reportingTokenContent != null) m = e.reportingTokenContent;
-          else {
-            var p = o("encodeProtobuf").encodeProtobuf(
-                o("WAWebProtobufsE2E.pb").MessageSpec,
-                t,
-              ),
-              f = p.readByteArrayView();
-            ((m = o(
-              "WAWebReportingTokenContent",
-            ).calculateReportingTokenContent(f, c)),
-              c <
-                o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3 &&
-                m.length === 0 &&
-                o(
-                  "WAWebMessagingGatingUtils",
-                ).isReportingTokenV3HybridSendingEnabled() &&
-                !b.has(e.type) &&
-                ((c = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
-                  .V3),
-                (m = o(
-                  "WAWebReportingTokenContent",
-                ).calculateReportingTokenContent(f, c))));
-          }
-          if (m == null || m.length === 0) return null;
-          var g = yield o("WACryptoHmac").hmacSha256(
-            new Uint8Array(d),
-            m != null ? m : new Uint8Array(0),
-            _,
-          );
-          return { version: c, reportingToken: new Uint8Array(g) };
+            g = yield o("WACryptoHmac").hmacSha256(
+              new Uint8Array(f),
+              c != null ? c : new Uint8Array(0),
+              _,
+            );
+          return { version: u, reportingToken: new Uint8Array(g) };
         })),
         $.apply(this, arguments)
       );

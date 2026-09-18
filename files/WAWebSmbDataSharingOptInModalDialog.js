@@ -32,10 +32,10 @@ __d(
     "WAWebWamEnumSmbDataSharingConsentScreenEntryPoint",
     "WAWebWamEnumSmbDataSharingConsentScreenType",
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
-    "WAWebWdsSmbPictoArrowsTransferIcon.react",
     "WDSIconIcAccountCircle.react",
     "WDSIconIcSettings.react",
     "WDSIconIcVisibilityOff.react",
+    "WDSIllustrationWdsSmbPictoArrowsTransfer.react",
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -225,11 +225,9 @@ __d(
           );
       var l, u;
       (t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = p.jsx(
-            o("WAWebWdsSmbPictoArrowsTransferIcon.react")
-              .WdsSmbPictoArrowsTransferIcon,
-            {},
-          )),
+        ? ((u = p.jsx(r("WDSIllustrationWdsSmbPictoArrowsTransfer.react"), {
+            testid: "wds-smb-picto-arrows-transfer",
+          })),
           (t[0] = u))
         : (u = t[0]),
         (l = u));

@@ -326,6 +326,41 @@ __d(
               uiSurface: n,
             });
           }),
+          (n.footerDisplayed = function (t) {
+            var e = t.groupHistoryMessagesCount,
+              n = t.isGroupHistoryToggledOn,
+              r = t.uiSurface;
+            this.$1({
+              groupHistoryMessagesCount: e,
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_FOOTER_DISPLAYED,
+              isGroupHistoryToggledOn: n,
+              uiSurface: r,
+            });
+          }),
+          (n.groupHistoryToggleOn = function (t) {
+            var e = t.groupHistoryMessagesCount,
+              n = t.uiSurface;
+            this.$1({
+              groupHistoryMessagesCount: e,
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_TOGGLE_ON,
+              uiSurface: n,
+            });
+          }),
+          (n.groupHistoryToggleOff = function (t) {
+            var e = t.groupHistoryMessagesCount,
+              n = t.uiSurface;
+            this.$1({
+              groupHistoryMessagesCount: e,
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_TOGGLE_OFF,
+              uiSurface: n,
+            });
+          }),
           t
         );
       })(),

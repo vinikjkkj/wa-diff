@@ -16,6 +16,7 @@ __d(
       s = e || (e = o("react")),
       u = new Map([
         ["/ai-replies", o("WAWebBizAIDrawerStep").BizAIStep.ResponseSettings],
+        ["/appointments", o("WAWebBizAIDrawerStep").BizAIStep.Appointments],
         ["/business-info", o("WAWebBizAIDrawerStep").BizAIStep.BusinessInfo],
         ["/chat-history", o("WAWebBizAIDrawerStep").BizAIStep.Knowledge],
         ["/faq", o("WAWebBizAIDrawerStep").BizAIStep.Knowledge],

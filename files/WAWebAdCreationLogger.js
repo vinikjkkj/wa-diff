@@ -40,6 +40,18 @@ __d(
     }
     function c(e) {
       var t = e.hasCatalogItemsToPromote,
+        n = e.lwiFlowId;
+      new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
+        lwiFlowId: n,
+        lwiScreenAction: o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
+          .LWI_ACTION_VIEW,
+        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
+          .LWI_SCREEN_REFERENCE.LWI_DIALOG_GALLERY_MEDIA_SOURCE_SELECTOR,
+        userHasCatalogItemsToPromote: t != null ? t : void 0,
+      }).commit();
+    }
+    function d(e) {
+      var t = e.hasCatalogItemsToPromote,
         n = e.itemCount,
         r = e.lwiFlowId;
       new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
@@ -57,7 +69,8 @@ __d(
     ((l.getLwiAdsIdentityTypeFromActiveAccountInfo = e),
       (l.logLwiAdCreationNuxScreen = s),
       (l.logLwiAdCreationMediaSelectionScreen = u),
-      (l.logLwiAdCreationCatalogMediaSelected = c));
+      (l.logLwiAdCreationMediaSourceChooserViewed = c),
+      (l.logLwiAdCreationCatalogMediaSelected = d));
   },
   98,
 );

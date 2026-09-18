@@ -44,7 +44,12 @@ __d(
         }
         return l > 0
           ? g(i, l, n || d.AND, r || m.COMMA)
-          : h(i, a, n || d.AND, r || m.COMMA);
+          : h({
+              conjunction: n || d.AND,
+              delimiter: r || m.COMMA,
+              lastItem: a,
+              list: i,
+            });
       };
     function f(e, t) {
       return s._(/*BTDS*/ "{previous-items}, {following-items}", [
@@ -86,36 +91,40 @@ __d(
       ]);
     }
     g.displayName = g.name + " [from " + i.id + "]";
-    function h(e, t, n, o) {
-      switch (n) {
+    function h(e) {
+      var t = e.conjunction,
+        n = e.delimiter,
+        o = e.lastItem,
+        a = e.list;
+      switch (t) {
         case d.AND:
           return s._(/*BTDS*/ "{list-of-items} & {last-item}", [
-            s._param("list-of-items", e),
-            s._param("last-item", t),
+            s._param("list-of-items", a),
+            s._param("last-item", o),
           ]);
         case d.OR:
           return s._(/*BTDS*/ "{list-of-items} or {last-item}", [
-            s._param("list-of-items", e),
-            s._param("last-item", t),
+            s._param("list-of-items", a),
+            s._param("last-item", o),
           ]);
         case d.NONE:
-          switch (o) {
+          switch (n) {
             case m.SEMICOLON:
               return s._(/*BTDS*/ "{previous-items}; {last-item}", [
-                s._param("previous-items", e),
-                s._param("last-item", t),
+                s._param("previous-items", a),
+                s._param("last-item", o),
               ]);
             case m.BULLET:
               return s._(/*BTDS*/ "{list-of-items} \u2022 {last-item}", [
-                s._param("list-of-items", e),
-                s._param("last-item", t),
+                s._param("list-of-items", a),
+                s._param("last-item", o),
               ]);
             default:
-              return f(e, t);
+              return f(a, o);
           }
         default:
           throw r("err")(
-            "[intlList] Invalid conjunction " + n + " provided to intlList",
+            "[intlList] Invalid conjunction " + t + " provided to intlList",
           );
       }
     }

@@ -151,88 +151,91 @@ __d(
               );
             var s = l;
             return typeof a == "string"
-              ? this._set(a, i, s)
+              ? this._set({ keyOrAttrs: a, maybeOptions: s, valueOrOptions: i })
               : ((s = i),
                 (t = s) != null && t.merge
-                  ? this._set(f(a), s)
-                  : this._set(a, s));
+                  ? this._set({ keyOrAttrs: f(a), valueOrOptions: s })
+                  : this._set({ keyOrAttrs: a, valueOrOptions: s }));
           }),
           (i._markChange = function (t, n) {
             this.__initialized &&
               (this._getChanges().push({ key: t, oldValue: n }),
               this.__fired && (this.__fired[t] = !1));
           }),
-          (i._set = function (t, n, a) {
+          (i._set = function (t) {
             var e,
-              i = this;
+              n = this,
+              a = t.keyOrAttrs,
+              i = t.maybeOptions,
+              l = t.valueOrOptions;
             this.revisionNumber++;
-            var l = !!this.__changes,
-              s = o("WATypeUtils").isString(t)
-                ? [((e = {}), (e[t] = n), e), a]
-                : [t, n],
-              u = s[0],
-              c = s[1],
-              d = new Set();
+            var s = !!this.__changes,
+              u = o("WATypeUtils").isString(a)
+                ? [((e = {}), (e[a] = l), e), i]
+                : [a, l],
+              c = u[0],
+              d = u[1],
+              m = new Set();
             if (
-              (Object.keys(u).forEach(function (e) {
-                var t = i._setKV(e, u[e], c);
+              (Object.keys(c).forEach(function (e) {
+                var t = n._setKV(e, c[e], d);
                 t == null ||
                   t.forEach(function (e) {
-                    d.add(e);
+                    m.add(e);
                   });
               }),
-              d.size > 0)
+              m.size > 0)
             )
               for (
-                var m = r("nullthrows")(
+                var p = r("nullthrows")(
                     this._topo,
                     "_topo unexpectedly undefined",
                   ),
-                  p = r("nullthrows")(this._topoIndexMap),
-                  _ = function (t) {
-                    var e = m[t];
-                    if (!d.has(e)) return 1;
-                    var n = i._setD(e);
-                    n == null ||
-                      n.forEach(function (e) {
-                        var n = r("nullthrows")(p.get(e));
+                  _ = r("nullthrows")(this._topoIndexMap),
+                  f = function (t) {
+                    var e = p[t];
+                    if (!m.has(e)) return 1;
+                    var o = n._setD(e);
+                    o == null ||
+                      o.forEach(function (e) {
+                        var n = r("nullthrows")(_.get(e));
                         if (n < t)
                           throw r("err")(
                             "Circular derived properties / event listeners",
                           );
-                        d.add(e);
+                        m.add(e);
                       });
                   },
-                  f = 0;
-                f < m.length;
-                f++
+                  g = 0;
+                g < p.length;
+                g++
               )
-                _(f);
-            var g = c == null ? void 0 : c.silent;
-            if (g !== !0 && this.hasUnfiredChanges()) {
+                f(g);
+            var h = d == null ? void 0 : d.silent;
+            if (h !== !0 && this.hasUnfiredChanges()) {
               for (
-                var h = (this.__fired = {}),
-                  y = this._getChanges(),
-                  C = y.length > 0;
-                y.length;
+                var y = (this.__fired = {}),
+                  C = this._getChanges(),
+                  b = C.length > 0;
+                C.length;
               ) {
-                var b = y.shift(),
-                  v = b.key,
-                  S = b.oldValue;
-                if (!h[v]) {
-                  h[v] = !0;
-                  var R = this._definition[v].evt;
-                  if (this.isListening(R) || this.isListening("all")) {
-                    var L = this[v];
-                    this.trigger(R, this, L, S);
+                var v = C.shift(),
+                  S = v.key,
+                  R = v.oldValue;
+                if (!y[S]) {
+                  y[S] = !0;
+                  var L = this._definition[S].evt;
+                  if (this.isListening(L) || this.isListening("all")) {
+                    var E = this[S];
+                    this.trigger(L, this, E, R);
                   }
                 }
               }
-              ((C && this.isListening("change")) || this.isListening("all")) &&
+              ((b && this.isListening("change")) || this.isListening("all")) &&
                 this.trigger("change", this);
             }
             return (
-              l ||
+              s ||
                 (this.__changes && (this.__changes = null),
                 this.__fired && (this.__fired = null)),
               this

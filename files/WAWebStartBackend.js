@@ -106,6 +106,7 @@ __d(
     "WAWebTasksDefinitions",
     "WAWebTos",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
+    "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsIndexedDBStorage",
@@ -190,7 +191,7 @@ __d(
                     "[StartBackend]: start initial setup",
                   ])),
               ),
-                yield O(),
+                yield B(),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -320,7 +321,7 @@ __d(
             o(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.setLastPushCompleteTimestamp(),
-            W(),
+            q(),
             o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
             o("WAWebMediaHosts").mediaHosts.maybeLoadMediaConnFromStorage());
           var c = o(
@@ -338,8 +339,8 @@ __d(
               o(
                 "WAWebWaitForInitialChatsSynced",
               ).initWaitForInitialChatsSynced()),
-            yield U(),
-            w(),
+            yield V(),
+            A(),
             o("WAWebABPropsWamGlobals").setAbPropDependingGlobalWamAttributes(),
             o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled() &&
               (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
@@ -443,7 +444,7 @@ __d(
               yield o(
                 "WAWebDbEncryptionKey",
               ).DbEncKeyStore.waitForFinalDbMsgEncKey());
-          (o("WAWebLazyPersistedQueue").preloadPersistedQueues(),
+          (N() && o("WAWebLazyPersistedQueue").schedulePersistedQueuesPreload(),
             o(
               "WAWebLid1x1MigrationManager",
             ).ThreadMigrationManager.addDependentMigrationTask(
@@ -511,7 +512,7 @@ __d(
               "handleDeferredMessages",
               {},
             ),
-            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() || (yield A()),
+            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() || (yield F()),
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializePME",
               {},
@@ -535,12 +536,19 @@ __d(
         P.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function N() {
+      var e = o("WAWebUserPrefsHistorySync").getHistorySyncStatus(),
+        t =
+          (e == null ? void 0 : e.fullCompleted) === !0 ||
+          (e == null ? void 0 : e.recentCompleted) === !0;
+      return o("WAWebUserPrefsAppStateSync").getAllCriticalDataSynced() && t;
     }
-    function M() {
+    function M(e) {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, a;
           (e === void 0 && (e = { passive: !1, pull: !0 }),
             o("WAWebPageLoadLogging").startPageLoadQplMeasure("startWebComms"));
@@ -572,10 +580,10 @@ __d(
             l && (yield o("WAComms").waitForConnection()),
             o("WAWebPageLoadLogging").endPageLoadQplMeasure("startWebComms"));
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w() {
+    function A() {
       var e,
         t =
           (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
@@ -588,12 +596,12 @@ __d(
           ),
         });
     }
-    function A() {
-      return F.apply(this, arguments);
-    }
     function F() {
+      return O.apply(this, arguments);
+    }
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           ((e = o("WAWebBackendApi")).frontendFireAndForget(
             "applyContactBusinessProps",
@@ -611,15 +619,15 @@ __d(
             e.frontendFireAndForget("checkOrphanAssignments", {}),
             e.frontendFireAndForget("restoreChatAssignments", {}));
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O() {
-      return B.apply(this, arguments);
-    }
     function B() {
+      return W.apply(this, arguments);
+    }
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
             o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
@@ -775,15 +783,15 @@ __d(
             ),
             o("WAWebGetReachoutTimelockJob").fetchReachoutTimelock());
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W() {
-      return q.apply(this, arguments);
-    }
     function q() {
+      return U.apply(this, arguments);
+    }
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o(
               "WAWebPushNotificationsGatingUtils",
@@ -844,15 +852,15 @@ __d(
                   }));
           }
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U() {
-      return V.apply(this, arguments);
-    }
     function V() {
+      return H.apply(this, arguments);
+    }
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = { pull: !0 };
           (o("WAWebGetMessageCache").setMessageCache(
             o("WAWebMessageProcessorCache").messageProcessorCache,
@@ -887,14 +895,14 @@ __d(
             ).setInstance(
               o("WAWebOfflineResumeMsgProcessReporter").msgProcessReporter,
             ),
-            yield N(e));
+            yield M(e));
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
     ((l.setupStartBackendListeners = I),
       (l.startBackend = D),
-      (l.startWebComms = N));
+      (l.startWebComms = M));
   },
   98,
 );

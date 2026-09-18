@@ -33,62 +33,68 @@ __d(
     ((d.doc = "biz-ai-hub deeplink: open AI replies drawer (/ai-replies)"),
       (d.paramsToExecute = []));
     function m() {
-      u("business-info");
+      u("appointments");
     }
-    ((m.doc =
-      "biz-ai-hub deeplink: open Business info drawer (/business-info)"),
+    ((m.doc = "biz-ai-hub deeplink: open Appointments drawer (/appointments)"),
       (m.paramsToExecute = []));
     function p() {
-      u("chat-history");
+      u("business-info");
     }
     ((p.doc =
-      "biz-ai-hub deeplink: open Knowledge drawer via chat history (/chat-history)"),
+      "biz-ai-hub deeplink: open Business info drawer (/business-info)"),
       (p.paramsToExecute = []));
     function _() {
-      u("faq");
+      u("chat-history");
     }
-    ((_.doc = "biz-ai-hub deeplink: open Knowledge drawer via FAQ (/faq)"),
+    ((_.doc =
+      "biz-ai-hub deeplink: open Knowledge drawer via chat history (/chat-history)"),
       (_.paramsToExecute = []));
     function f() {
-      u("instructions");
+      u("faq");
     }
-    ((f.doc = "biz-ai-hub deeplink: open Instructions drawer (/instructions)"),
+    ((f.doc = "biz-ai-hub deeplink: open Knowledge drawer via FAQ (/faq)"),
       (f.paramsToExecute = []));
     function g() {
-      u("knowledge-center");
+      u("instructions");
     }
-    ((g.doc = "biz-ai-hub deeplink: open Knowledge drawer (/knowledge-center)"),
+    ((g.doc = "biz-ai-hub deeplink: open Instructions drawer (/instructions)"),
       (g.paramsToExecute = []));
     function h() {
-      u("lead-gen-collect-info");
+      u("knowledge-center");
     }
-    ((h.doc =
-      "biz-ai-hub deeplink: open Lead gen drawer (/lead-gen-collect-info)"),
+    ((h.doc = "biz-ai-hub deeplink: open Knowledge drawer (/knowledge-center)"),
       (h.paramsToExecute = []));
     function y() {
-      u("purchase-info");
+      u("lead-gen-collect-info");
     }
     ((y.doc =
-      "biz-ai-hub deeplink: open Purchase info drawer (/purchase-info)"),
+      "biz-ai-hub deeplink: open Lead gen drawer (/lead-gen-collect-info)"),
       (y.paramsToExecute = []));
     function C() {
+      u("purchase-info");
+    }
+    ((C.doc =
+      "biz-ai-hub deeplink: open Purchase info drawer (/purchase-info)"),
+      (C.paramsToExecute = []));
+    function b() {
       u("select-catalog");
     }
-    ((C.doc = "biz-ai-hub deeplink: open Bestsellers drawer (/select-catalog)"),
-      (C.paramsToExecute = []));
-    var b = {
+    ((b.doc = "biz-ai-hub deeplink: open Bestsellers drawer (/select-catalog)"),
+      (b.paramsToExecute = []));
+    var v = {
       maibaOpenAiReplies: d,
-      maibaOpenBusinessInfo: m,
-      maibaOpenChatHistory: p,
-      maibaOpenFaq: _,
-      maibaOpenInstructions: f,
-      maibaOpenKnowledgeCenter: g,
-      maibaOpenLeadGenCollectInfo: h,
-      maibaOpenPurchaseInfo: y,
+      maibaOpenAppointments: m,
+      maibaOpenBusinessInfo: p,
+      maibaOpenChatHistory: _,
+      maibaOpenFaq: f,
+      maibaOpenInstructions: g,
+      maibaOpenKnowledgeCenter: h,
+      maibaOpenLeadGenCollectInfo: y,
+      maibaOpenPurchaseInfo: C,
       maibaOpenReviewKnowledge: c,
-      maibaOpenSelectCatalog: C,
+      maibaOpenSelectCatalog: b,
     };
-    l.default = b;
+    l.default = v;
   },
   98,
 );

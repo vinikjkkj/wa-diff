@@ -2424,6 +2424,7 @@ __d(
         agmSubtitleStrategy: [31, e.TYPES.INT32],
         agmHeaderInteractionStrategy: [32, e.TYPES.INT32],
         containsCtwaFlowsAutoLabel: [33, e.TYPES.BOOL],
+        productId: [34, e.TYPES.STRING],
       }),
       (bo.name = "ContextInfo$AdReplyInfo"),
       (bo.internalSpec = {

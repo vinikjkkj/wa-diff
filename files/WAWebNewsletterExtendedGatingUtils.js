@@ -260,6 +260,13 @@ __d(
         )
       );
     }
+    function D(e) {
+      return (
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_banner_enabled",
+        ) && T(e)
+      );
+    }
     ((l.isNewsletterEnabledOnPrimary = e),
       (l.getNewsletterDeeplinkGating = s),
       (l.isNewsletterReactionEnabled = c),
@@ -279,7 +286,8 @@ __d(
       (l.isNewsletterAdminProfilesSenderEnabled = E),
       (l.isNewsletterAdminProfilesListEnabled = k),
       (l.isNewsletterAdminProfilesUpdateEnabled = I),
-      (l.isNewsletterAdminProfilesSettingEnabled = T));
+      (l.isNewsletterAdminProfilesSettingEnabled = T),
+      (l.isNewsletterAdminProfilesUpsellBannerEnabled = D));
   },
   98,
 );

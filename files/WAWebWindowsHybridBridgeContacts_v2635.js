@@ -1,6 +1,7 @@
 __d(
   "WAWebWindowsHybridBridgeContacts.v2635",
   [
+    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebBackendApi",
@@ -29,8 +30,10 @@ __d(
       d,
       m,
       p,
-      _ = r("qpl")._(891427936, "2894"),
-      f = new Set([
+      _,
+      f,
+      g = r("qpl")._(891427936, "2894"),
+      h = new Set([
         "phoneNumber",
         "name",
         "pushname",
@@ -39,21 +42,23 @@ __d(
         "usernameCountryCode",
         "isHosted",
       ]);
-    function g(e) {
+    function y(e) {
       for (var t of e)
         if (!(t == null || typeof t != "object")) {
-          for (var n of Object.keys(t)) if (f.has(n)) return !0;
+          for (var n of Object.keys(t)) if (h.has(n)) return !0;
         }
       return !1;
     }
-    var h = 262400,
-      y = 2,
-      C = (function () {
+    var C = 262400,
+      b = 2,
+      v = (function () {
         function t(t, a, i) {
           var l = this;
           ((this.$4 = "contacts"),
             (this.$5 = new Set()),
-            (this.$6 = (function () {
+            (this.$6 = new Set()),
+            (this.$7 = !1),
+            (this.$8 = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
                   var n = JSON.parse(t);
@@ -119,7 +124,7 @@ __d(
                 return t.apply(this, arguments);
               };
             })()),
-            (this.$7 = (function () {
+            (this.$9 = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
                   var t = e.count,
@@ -166,7 +171,7 @@ __d(
                 return e.apply(this, arguments);
               };
             })()),
-            (this.$8 = n("asyncToGeneratorRuntime").asyncToGenerator(
+            (this.$10 = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* () {
                 try {
                   var e = yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -218,9 +223,9 @@ __d(
             (this.$1 = t),
             (this.$2 = a),
             (this.$3 = i),
-            t.addEventListener("requestUpdateEvent", this.$6),
-            t.addEventListener("requestFrequentContactsEvent", this.$7),
-            t.addEventListener("requestFrequentChatsForSharingEvent", this.$8),
+            t.addEventListener("requestUpdateEvent", this.$8),
+            t.addEventListener("requestFrequentContactsEvent", this.$9),
+            t.addEventListener("requestFrequentChatsForSharingEvent", this.$10),
             t.subscribe(null));
         }
         var a = t.prototype;
@@ -235,8 +240,8 @@ __d(
                       "web_anr_skip_unused_contacts_db_updates_enabled",
                     ) &&
                       n != null &&
-                      !g(n)) ||
-                      e.$9(t);
+                      !y(n)) ||
+                      e.$11(t);
                   },
                 ),
                 yield r("WAWebEventsWaitForMainStreamReadyMd")(),
@@ -304,7 +309,7 @@ __d(
             }
             return t;
           })()),
-          (a.$9 = function (t) {
+          (a.$11 = function (t) {
             var e = this;
             if (this.$3) {
               var n = t.filter(function (t) {
@@ -320,7 +325,7 @@ __d(
                 var a = o("WAWebBuildConstants").getWindowsVersion();
                 if (
                   a != null &&
-                  a >= h &&
+                  a >= C &&
                   o("WAWebABProps").getABPropConfigValue(
                     "web_anr_optimized_initial_contacts_sync_enabled",
                   )
@@ -332,7 +337,7 @@ __d(
                       type: "async",
                     },
                     function () {
-                      return e.$10(n);
+                      return e.$12(n);
                     },
                   );
                   return;
@@ -346,7 +351,7 @@ __d(
                   },
                   function () {
                     if (o("WAWebWindowsConstants").WINDOWS_BUILD_IS_BETA) {
-                      var t = o("WAWebQplFlowWrapper").QPL.markerStart(_);
+                      var t = o("WAWebQplFlowWrapper").QPL.markerStart(g);
                       (e.$2.invalidateContacts(n), t.end(2));
                     } else e.$2.invalidateContacts(n);
                   },
@@ -365,74 +370,131 @@ __d(
               }
             }
           }),
-          (a.$10 = function (t, n) {
+          (a.$12 = function (t) {
             var e = this;
-            n === void 0 && (n = 0);
-            try {
-              this.$2.invalidateContactsAsync(t).then(void 0, function (a) {
-                if (n < y) {
-                  (r("WAWebODS").incr(
-                    "web.hybrid.bridge.contacts.send.invalidate.retry",
-                  ),
-                    o("WALogger")
+            (t.forEach(function (t) {
+              return e.$6.add(t);
+            }),
+              !this.$7 && ((this.$7 = !0), this.$13()));
+          }),
+          (a.$13 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this;
+              try {
+                for (; this.$6.size > 0; ) {
+                  var t = Array.from(this.$6);
+                  this.$6.clear();
+                  try {
+                    yield this.$14(t);
+                  } catch (n) {
+                    (o("WALogger")
                       .WARN(
                         d ||
                           (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[hybrid-contacts] invalidateContactsAsync rejected (attempt ",
-                            "/",
-                            "), retrying",
+                            "[hybrid-contacts] async invalidation drain failed",
                           ])),
-                        n + 1,
-                        y,
                       )
-                      .catching(r("getErrorSafe")(a)),
-                    o("WAWebReleaseToEventLoop")
-                      .releaseToEventLoop()
-                      .then(function () {
-                        return e.$10(t, n + 1);
+                      .catching(r("getErrorSafe")(n))
+                      .sendLogs(
+                        "hybrid-contacts-invalidate-async-drain-failed",
+                      ),
+                      r("WAWebODS").incr(
+                        "web.hybrid.bridge.contacts.send.invalidate.fail",
+                      ),
+                      t.forEach(function (t) {
+                        return e.$5.delete(t);
                       }));
-                  return;
+                  }
                 }
-                (o("WALogger")
+              } finally {
+                this.$7 = !1;
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$14 = function (t, a) {
+            var e = this;
+            a === void 0 && (a = 0);
+            try {
+              return this.$2.invalidateContactsAsync(t).then(
+                void 0,
+                (function () {
+                  var i = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (n) {
+                      if (a < b)
+                        return (
+                          r("WAWebODS").incr(
+                            "web.hybrid.bridge.contacts.send.invalidate.retry",
+                          ),
+                          o("WALogger")
+                            .WARN(
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[hybrid-contacts] invalidateContactsAsync rejected (attempt ",
+                                  "/",
+                                  "), retrying",
+                                ])),
+                              a + 1,
+                              b,
+                            )
+                            .catching(r("getErrorSafe")(n)),
+                          yield o(
+                            "WAWebReleaseToEventLoop",
+                          ).releaseToEventLoop(),
+                          e.$14(t, a + 1)
+                        );
+                      (o("WALogger")
+                        .WARN(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "[hybrid-contacts] invalidateContactsAsync rejected after ",
+                              " attempts, giving up",
+                            ])),
+                          a + 1,
+                        )
+                        .catching(r("getErrorSafe")(n))
+                        .sendLogs("hybrid-contacts-invalidate-async-failed"),
+                        r("WAWebODS").incr(
+                          "web.hybrid.bridge.contacts.send.invalidate.fail",
+                        ),
+                        t.forEach(function (t) {
+                          return e.$5.delete(t);
+                        }));
+                    },
+                  );
+                  return function (e) {
+                    return i.apply(this, arguments);
+                  };
+                })(),
+              );
+            } catch (a) {
+              return (
+                o("WALogger")
                   .WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[hybrid-contacts] invalidateContactsAsync rejected after ",
-                        " attempts, giving up",
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[hybrid-contacts] invalidateContactsAsync threw synchronously, clearing dirty keys",
                       ])),
-                    n + 1,
                   )
                   .catching(r("getErrorSafe")(a))
-                  .sendLogs("hybrid-contacts-invalidate-async-failed"),
-                  r("WAWebODS").incr(
-                    "web.hybrid.bridge.contacts.send.invalidate.fail",
-                  ),
-                  t.forEach(function (t) {
-                    return e.$5.delete(t);
-                  }));
-              });
-            } catch (n) {
-              (o("WALogger")
-                .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[hybrid-contacts] invalidateContactsAsync threw synchronously, clearing dirty keys",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(n))
-                .sendLogs("hybrid-contacts-invalidate-async-threw"),
+                  .sendLogs("hybrid-contacts-invalidate-async-threw"),
                 r("WAWebODS").incr(
                   "web.hybrid.bridge.contacts.send.invalidate.fail",
                 ),
                 t.forEach(function (t) {
                   return e.$5.delete(t);
-                }));
+                }),
+                (f || (f = n("Promise"))).resolve()
+              );
             }
           }),
           t
         );
       })();
-    l.WindowsHybridBridgeContacts_v2635 = C;
+    l.WindowsHybridBridgeContacts_v2635 = v;
   },
   98,
 );

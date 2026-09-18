@@ -510,17 +510,20 @@ __d(
       };
     }
     function N(e) {
-      return {
-        aiThreadInfo: e.aiThreadInfo,
-        botPluginSearchUrl: e.botPluginSearchUrl,
-        botPluginSearchProvider: e.botPluginSearchProvider,
-        botPluginReferenceIndex: e.botPluginReferenceIndex,
-        botPluginType: e.botPluginType,
-        botPluginMaybeParent: e.botPluginMaybeParent,
-        botReelPluginThumbnailCdnUrl: e.botReelPluginThumbnailCdnUrl,
-        botPluginSearchQuery: e.botPluginSearchQuery,
-        botMessageDisclaimerText: e.botMessageDisclaimerText,
-      };
+      return babelHelpers.extends(
+        { aiThreadInfo: e.aiThreadInfo },
+        e.botResponseId != null ? { botResponseId: e.botResponseId } : null,
+        {
+          botPluginSearchUrl: e.botPluginSearchUrl,
+          botPluginSearchProvider: e.botPluginSearchProvider,
+          botPluginReferenceIndex: e.botPluginReferenceIndex,
+          botPluginType: e.botPluginType,
+          botPluginMaybeParent: e.botPluginMaybeParent,
+          botReelPluginThumbnailCdnUrl: e.botReelPluginThumbnailCdnUrl,
+          botPluginSearchQuery: e.botPluginSearchQuery,
+          botMessageDisclaimerText: e.botMessageDisclaimerText,
+        },
+      );
     }
     function M(e) {
       var t;

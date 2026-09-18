@@ -279,7 +279,7 @@ __d(
         e.defaultPrevented ||
           !ee ||
           !re.current ||
-          re.current.contains(e.target) ||
+          (e.target instanceof Node && re.current.contains(e.target)) ||
           le(!1, "click-listener");
       });
       var se = p(

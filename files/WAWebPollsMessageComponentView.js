@@ -33,6 +33,7 @@ __d(
     "stylex",
     "useWAWebMsgValues",
     "useWAWebPollEndTime",
+    "useWAWebQuizOptionOrderExposure",
     "useWAWebUIM",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -83,7 +84,7 @@ __d(
         warningIcon: { color: "x1kt8ij1", $$css: !0 },
       };
     function C(t) {
-      var n = o("react-compiler-runtime").c(36),
+      var n = o("react-compiler-runtime").c(39),
         a,
         i;
       n[0] !== t
@@ -120,16 +121,17 @@ __d(
         C = y.isPollEnded,
         b = y.pollEndTime,
         S = r("useWAWebUIM")(),
-        R;
+        R = r("useWAWebQuizOptionOrderExposure")(a),
+        L;
       n[4] !== u
-        ? ((R = o("WAWebPollOptionsRenderUtils").getVotedForOptions(u)),
+        ? ((L = o("WAWebPollOptionsRenderUtils").getVotedForOptions(u)),
           (n[4] = u),
-          (n[5] = R))
-        : (R = n[5]);
-      var L = R,
-        E;
+          (n[5] = L))
+        : (L = n[5]);
+      var E = L,
+        k;
       n[6] !== g || n[7] !== a
-        ? ((E =
+        ? ((k =
             !g ||
             o(
               "WAWebNewsletterExtendedGatingUtils",
@@ -138,24 +140,24 @@ __d(
             )),
           (n[6] = g),
           (n[7] = a),
-          (n[8] = E))
-        : (E = n[8]);
-      var k = E,
-        I,
+          (n[8] = k))
+        : (k = n[8]);
+      var I = k,
         T,
-        D;
-      if (n[9] !== s || n[10] !== a || n[11] !== S || n[12] !== L) {
-        I = function (t) {
+        D,
+        x;
+      if (n[9] !== s || n[10] !== a || n[11] !== S || n[12] !== E) {
+        T = function (t) {
           o("WAWebPollOptionsRenderUtils").toggleOption({
             optionLocalId: t,
-            votedForOptions: L,
-            selectableOptionsCount: D,
+            votedForOptions: E,
+            selectableOptionsCount: x,
             msg: a,
           });
         };
-        var x;
+        var $;
         (n[16] !== s || n[17] !== a || n[18] !== S
-          ? ((x = function () {
+          ? (($ = function () {
               (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
                 self.setTimeout(function () {
                   o("WAWebDrawerManager").DrawerManager.openDrawerRight(
@@ -176,81 +178,89 @@ __d(
             (n[16] = s),
             (n[17] = a),
             (n[18] = S),
-            (n[19] = x))
-          : (x = n[19]),
-          (T = x),
-          (D =
+            (n[19] = $))
+          : ($ = n[19]),
+          (D = $),
+          (x =
             a.pollSelectableOptionsCount === 0
               ? a.pollOptions.length
               : a.pollSelectableOptionsCount),
           (n[9] = s),
           (n[10] = a),
           (n[11] = S),
-          (n[12] = L),
-          (n[13] = I),
-          (n[14] = T),
-          (n[15] = D));
-      } else ((I = n[13]), (T = n[14]), (D = n[15]));
-      var $ = C ? r("WAWebNoop") : I,
-        P = h === !0,
-        N;
+          (n[12] = E),
+          (n[13] = T),
+          (n[14] = D),
+          (n[15] = x));
+      } else ((T = n[13]), (D = n[14]), (x = n[15]));
+      var P = C ? r("WAWebNoop") : T,
+        N = h === !0,
+        M;
       n[20] !== a || n[21] !== f
-        ? ((N =
+        ? ((M =
             a.pollType !== o("WAWebPollCreationUtils").PollType.QUIZ ||
             !o("WAWebMsgGetters").getIsSentByMe(a)
               ? f
               : null),
           (n[20] = a),
           (n[21] = f),
-          (n[22] = N))
-        : (N = n[22]);
-      var M;
+          (n[22] = M))
+        : (M = n[22]);
+      var w;
+      n[23] !== C ||
+      n[24] !== a ||
+      n[25] !== D ||
+      n[26] !== b ||
+      n[27] !== _ ||
+      n[28] !== i ||
+      n[29] !== x ||
+      n[30] !== I ||
+      n[31] !== P ||
+      n[32] !== N ||
+      n[33] !== M ||
+      n[34] !== E
+        ? ((w = m.jsx(
+            v,
+            babelHelpers.extends({}, i, {
+              msg: a,
+              onOptionToggle: P,
+              onViewVotesAction: D,
+              isPollInvalid: _,
+              isPollEnded: C,
+              pollEndTime: b,
+              pollHideVoterNames: N,
+              pollSelectableOptionsCount: M,
+              votedForOptions: E,
+              showViewVotesButton: I,
+              selectableOptionsCount: x,
+              testid: "poll-bubble",
+              readonly: C,
+            }),
+          )),
+          (n[23] = C),
+          (n[24] = a),
+          (n[25] = D),
+          (n[26] = b),
+          (n[27] = _),
+          (n[28] = i),
+          (n[29] = x),
+          (n[30] = I),
+          (n[31] = P),
+          (n[32] = N),
+          (n[33] = M),
+          (n[34] = E),
+          (n[35] = w))
+        : (w = n[35]);
+      var A = w,
+        F;
       return (
-        n[23] !== C ||
-        n[24] !== a ||
-        n[25] !== T ||
-        n[26] !== b ||
-        n[27] !== _ ||
-        n[28] !== i ||
-        n[29] !== D ||
-        n[30] !== k ||
-        n[31] !== $ ||
-        n[32] !== P ||
-        n[33] !== N ||
-        n[34] !== L
-          ? ((M = m.jsx(
-              v,
-              babelHelpers.extends({}, i, {
-                msg: a,
-                onOptionToggle: $,
-                onViewVotesAction: T,
-                isPollInvalid: _,
-                isPollEnded: C,
-                pollEndTime: b,
-                pollHideVoterNames: P,
-                pollSelectableOptionsCount: N,
-                votedForOptions: L,
-                showViewVotesButton: k,
-                selectableOptionsCount: D,
-                testid: "poll-bubble",
-                readonly: C,
-              }),
-            )),
-            (n[23] = C),
-            (n[24] = a),
-            (n[25] = T),
-            (n[26] = b),
-            (n[27] = _),
-            (n[28] = i),
-            (n[29] = D),
-            (n[30] = k),
-            (n[31] = $),
-            (n[32] = P),
-            (n[33] = N),
-            (n[34] = L),
-            (n[35] = M))
-          : (M = n[35]),
-        M
+        n[36] !== A || n[37] !== R
+          ? ((F = R == null ? A : m.jsx("div", { ref: R, children: A })),
+            (n[36] = A),
+            (n[37] = R),
+            (n[38] = F))
+          : (F = n[38]),
+        F
       );
     }
     function b(e) {

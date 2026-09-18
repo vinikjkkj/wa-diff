@@ -492,6 +492,7 @@ __d(
             (e.botRespOrInvocationRevokeBotWid =
               o("WAWebBaseModel").session(null)),
             (e.botResponseTargetId = o("WAWebBaseModel").prop(null)),
+            (e.botResponseId = o("WAWebBaseModel").prop(null)),
             (e.botPluginType = o("WAWebBaseModel").prop(null)),
             (e.botPluginReferenceIndex = o("WAWebBaseModel").prop(null)),
             (e.botPluginSearchProvider = o("WAWebBaseModel").prop(null)),

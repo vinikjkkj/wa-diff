@@ -219,6 +219,7 @@ __d(
             a("disappearingModeTrigger"),
             a("disappearingModeInitiatedByMe"),
             a("botResponseTargetId"),
+            a("botResponseId"),
             a("botPluginType"),
             a("botPluginReferenceIndex"),
             a("botPluginSearchProvider"),

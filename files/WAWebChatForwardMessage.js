@@ -390,6 +390,7 @@ __d(
           "botPersonaId",
           "botRespOrInvocationRevokeBotWid",
           "botResponseTargetId",
+          "botResponseId",
           "botPluginType",
           "botPluginReferenceIndex",
           "botPluginSearchProvider",
