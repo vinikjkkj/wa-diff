@@ -12,6 +12,7 @@ __d(
           MentionPickerAction: [
             7082,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               groupSize: [1, e.TYPES.INTEGER],
               groupTypeClient: [
                 2,

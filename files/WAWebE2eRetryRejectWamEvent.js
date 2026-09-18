@@ -19,6 +19,7 @@ __d(
           E2eRetryReject: [
             3578,
             {
+              dedupKey: [14, e.TYPES.INTEGER],
               e2eSenderType: [
                 10,
                 o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE,

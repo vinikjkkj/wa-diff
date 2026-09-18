@@ -8,6 +8,7 @@ __d(
           MexEventV2: [
             4336,
             {
+              dedupKey: [14, e.TYPES.INTEGER],
               mexEventV2DurationMs: [1, e.TYPES.TIMER],
               mexEventV2EndTime: [2, e.TYPES.INTEGER],
               mexEventV2ErrorCodes: [3, e.TYPES.STRING],

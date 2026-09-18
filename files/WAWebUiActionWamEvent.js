@@ -32,6 +32,7 @@ __d(
               dbMainThreadWritesDurationT: [20, e.TYPES.TIMER],
               dbReadsCount: [14, e.TYPES.INTEGER],
               dbWritesCount: [15, e.TYPES.INTEGER],
+              dedupKey: [31, e.TYPES.INTEGER],
               deviceCount: [5, e.TYPES.INTEGER],
               hasOpenAiParticipant: [29, e.TYPES.BOOLEAN],
               hasTeeAiParticipant: [30, e.TYPES.BOOLEAN],

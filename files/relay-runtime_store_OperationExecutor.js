@@ -367,8 +367,14 @@ __d(
               t.isFinal
                 ? (this.$23 = "loading_final")
                 : this.$23 === "started" && (this.$23 = "loading_incremental"));
-            var r = this.$42(this.$10);
-            (this.$45(), this.$52(r));
+            var r = this.$10.request.identifier,
+              o = this.$11.get(r) === "active",
+              a = this.$42(this.$10);
+            (this.$45(),
+              this.$52(a),
+              o &&
+                this.$11.get(r) === "inactive" &&
+                this.$21.next({ data: null, extensions: { is_final: !0 } }));
           }
         }),
         (t.$48 = function (t) {

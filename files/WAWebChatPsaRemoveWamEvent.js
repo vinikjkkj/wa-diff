@@ -15,6 +15,7 @@ __d(
           ChatPsaRemove: [
             3582,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               lastReceivedMediaType: [2, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               lastReceivedMessageTs: [4, e.TYPES.TIMER],
               lastReceivedMsgId: [8, e.TYPES.STRING],

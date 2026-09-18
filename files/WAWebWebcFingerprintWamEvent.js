@@ -23,6 +23,7 @@ __d(
               chromeStructure: [52, e.TYPES.STRING],
               connectionRtt: [37, e.TYPES.INTEGER],
               cpuMake: [38, e.TYPES.STRING],
+              dedupKey: [55, e.TYPES.INTEGER],
               deviceMemory: [39, e.TYPES.STRING],
               extentionIds: [27, e.TYPES.STRING],
               externalSources: [36, e.TYPES.STRING],

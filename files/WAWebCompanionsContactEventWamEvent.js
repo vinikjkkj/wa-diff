@@ -50,6 +50,7 @@ __d(
                 o("WAWebWamEnumCompanionWhatsappContactStatus")
                   .COMPANION_WHATSAPP_CONTACT_STATUS,
               ],
+              dedupKey: [17, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

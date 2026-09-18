@@ -16,6 +16,7 @@ __d(
             5134,
             {
               appSessionId: [1, e.TYPES.STRING],
+              dedupKey: [11, e.TYPES.INTEGER],
               isSelfPin: [8, e.TYPES.BOOLEAN],
               mediaType: [9, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messagingActionType: [2, o("WAWebWamEnumActionType").ACTION_TYPE],

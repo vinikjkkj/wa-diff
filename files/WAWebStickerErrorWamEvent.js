@@ -11,6 +11,7 @@ __d(
         StickerError: [
           5024,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             stickerErrorType: [
               1,
               o("WAWebWamEnumStickerErrorType").STICKER_ERROR_TYPE,

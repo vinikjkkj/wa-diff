@@ -21,6 +21,7 @@ __d(
                 1,
                 o("WAWebWamEnumCtwaAdAccountType").CTWA_AD_ACCOUNT_TYPE,
               ],
+              dedupKey: [13, e.TYPES.INTEGER],
               extraAttributes: [2, e.TYPES.STRING],
               lwiActionType: [
                 3,

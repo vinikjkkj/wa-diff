@@ -8,6 +8,7 @@ __d(
           DeepLinkClick: [
             1156,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               deepLinkHasPhoneNumber: [2, e.TYPES.BOOLEAN],
               deepLinkHasText: [1, e.TYPES.BOOLEAN],
               deepLinkHasUsername: [4, e.TYPES.BOOLEAN],

@@ -14,6 +14,7 @@ __d(
           EditMessageSend: [
             3990,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               editDuration: [1, e.TYPES.INTEGER],
               editType: [2, o("WAWebWamEnumEditType").EDIT_TYPE],
               editedMessageId: [10, e.TYPES.STRING],

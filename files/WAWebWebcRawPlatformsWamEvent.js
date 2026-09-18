@@ -6,7 +6,10 @@ __d(
       {
         WebcRawPlatforms: [
           2416,
-          { webcRawPlatform: [1, o("WAWebWamCodegenUtils").TYPES.STRING] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            webcRawPlatform: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
+          },
           [1, 1, 1],
           "regular",
         ],

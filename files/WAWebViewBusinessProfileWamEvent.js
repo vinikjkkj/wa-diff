@@ -25,6 +25,7 @@ __d(
               ],
               businessProfileJid: [3, e.TYPES.STRING],
               catalogSessionId: [6, e.TYPES.STRING],
+              dedupKey: [13, e.TYPES.INTEGER],
               hasCoverPhoto: [12, e.TYPES.BOOLEAN],
               isProfileLinked: [11, e.TYPES.BOOLEAN],
               isSelfView: [7, e.TYPES.BOOLEAN],

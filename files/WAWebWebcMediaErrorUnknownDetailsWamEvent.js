@@ -8,6 +8,7 @@ __d(
           WebcMediaErrorUnknownDetails: [
             2352,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               mediaId: [1, e.TYPES.INTEGER],
               webcMediaErrorMessage: [4, e.TYPES.STRING],
               webcMediaErrorName: [3, e.TYPES.STRING],

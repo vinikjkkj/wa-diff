@@ -11,6 +11,7 @@ __d(
         StatusReportingEvents: [
           3920,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             statusPosterContactType: [
               2,
               o("WAWebWamEnumStatusPosterContactType")

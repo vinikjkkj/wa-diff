@@ -32,6 +32,7 @@ __d(
                 o("WAWebWamEnumEphemeralityTriggerActionType")
                   .EPHEMERALITY_TRIGGER_ACTION_TYPE,
               ],
+              dedupKey: [15, e.TYPES.INTEGER],
               esrDisappearingModeInitiator: [
                 6,
                 o("WAWebWamEnumDisappearingChatInitiatorType")

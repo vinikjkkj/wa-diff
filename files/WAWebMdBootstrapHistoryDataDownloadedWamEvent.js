@@ -20,6 +20,7 @@ __d(
                 17,
                 o("WAWebWamEnumApplicationState").APPLICATION_STATE,
               ],
+              dedupKey: [22, e.TYPES.INTEGER],
               historySyncChunkOrder: [15, e.TYPES.INTEGER],
               historySyncRetryRequestId: [20, e.TYPES.STRING],
               historySyncStageProgress: [14, e.TYPES.INTEGER],

@@ -59,6 +59,7 @@ __d(
                 59,
                 o("WAWebWamEnumCtwaLoginType").CTWA_LOGIN_TYPE,
               ],
+              dedupKey: [68, e.TYPES.INTEGER],
               defaultAdsContentSelected: [
                 9,
                 o("WAWebWamEnumLwiAdsContentType").LWI_ADS_CONTENT_TYPE,

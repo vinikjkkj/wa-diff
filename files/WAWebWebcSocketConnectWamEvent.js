@@ -8,6 +8,7 @@ __d(
           WebcSocketConnect: [
             5450,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               webcAuthHandshakeDuration: [1, e.TYPES.TIMER],
               webcSocketConnectDuration: [2, e.TYPES.TIMER],
               webcSocketConnectReason: [

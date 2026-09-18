@@ -11,6 +11,7 @@ __d(
         LimitSharingSettingUpdate: [
           6390,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             opusAction: [3, o("WAWebWamEnumOpusAction").OPUS_ACTION],
             threadId: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
             toggleUpdateAction: [

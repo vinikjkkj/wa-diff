@@ -13,6 +13,7 @@ __d(
           NonMessagePeerDataOperationResponse: [
             3904,
             {
+              dedupKey: [10, e.TYPES.INTEGER],
               peerDataErrorCount: [1, e.TYPES.INTEGER],
               peerDataNotFoundCount: [2, e.TYPES.INTEGER],
               peerDataRequestErrorCode: [

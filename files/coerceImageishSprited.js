@@ -4,27 +4,27 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      return e == null || typeof e != "object" || !e.sprited
-        ? null
-        : e.sprited === 1
-          ? {
-              type: "css",
-              className: e.spriteMapCssClass + " " + e.spriteCssClass,
-              identifier: e.loggingID,
-            }
-          : {
-              type: "cssless",
-              style: {
-                backgroundImage: "url('" + e.spi + "')",
-                backgroundPosition: e.p,
-                backgroundSize: e.sz,
-                width: e.w + "px",
-                height: e.h + "px",
-                backgroundRepeat: "no-repeat",
-                display: "inline-block",
-              },
-              identifier: e.loggingID,
-            };
+      if (e == null || typeof e != "object" || !e.sprited) return null;
+      var t = e;
+      return t.sprited === 1
+        ? {
+            type: "css",
+            className: t.spriteMapCssClass + " " + t.spriteCssClass,
+            identifier: t.loggingID,
+          }
+        : {
+            type: "cssless",
+            style: {
+              backgroundImage: "url('" + t.spi + "')",
+              backgroundPosition: t.p,
+              backgroundSize: t.sz,
+              width: t.w + "px",
+              height: t.h + "px",
+              backgroundRepeat: "no-repeat",
+              display: "inline-block",
+            },
+            identifier: t.loggingID,
+          };
     }
     i.default = e;
   },

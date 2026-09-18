@@ -16,6 +16,7 @@ __d(
             {
               allowAddOption: [11, e.TYPES.BOOLEAN],
               chatType: [8, o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE],
+              dedupKey: [13, e.TYPES.INTEGER],
               groupSizeBucket: [
                 1,
                 o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,

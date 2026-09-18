@@ -17,6 +17,7 @@ __d(
         MdBadDeviceSentMessage: [
           2176,
           {
+            dedupKey: [11, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             dsmError: [2, o("WAWebWamEnumDsmError").DSM_ERROR],
             editType: [3, o("WAWebWamEnumEditType").EDIT_TYPE],
             encryptionType: [

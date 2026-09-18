@@ -12,6 +12,7 @@ __d(
           MessageCapping: [
             6854,
             {
+              dedupKey: [10, e.TYPES.INTEGER],
               extraAttributes: [2, e.TYPES.STRING],
               messageCappingActionType: [
                 6,

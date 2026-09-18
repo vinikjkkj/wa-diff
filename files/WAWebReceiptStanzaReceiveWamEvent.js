@@ -16,6 +16,7 @@ __d(
             {
               dbReadsCount: [12, e.TYPES.INTEGER],
               dbWritesCount: [13, e.TYPES.INTEGER],
+              dedupKey: [17, e.TYPES.INTEGER],
               mediaType: [2, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messageType: [10, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               processingDeferred: [14, e.TYPES.BOOLEAN],

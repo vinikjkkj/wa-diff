@@ -16,6 +16,7 @@ __d(
               callsResultError: [6, e.TYPES.INTEGER],
               callsResultMissed: [7, e.TYPES.INTEGER],
               callsResultRejected: [8, e.TYPES.INTEGER],
+              dedupKey: [17, e.TYPES.INTEGER],
               threadCreationDate: [16, e.TYPES.STRING],
               threadDs: [9, e.TYPES.STRING],
               threadId: [14, e.TYPES.STRING],

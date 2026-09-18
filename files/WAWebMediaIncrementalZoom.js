@@ -5,6 +5,7 @@ __d(
     "$InternalEnum",
     "WAWebABProps",
     "WAWebIncrementalZoomUtils",
+    "WAWebMediaDataGetters",
     "WAWebMsgGetters",
     "WAWebNullFunc",
     "WDSIconIcZoomIn.react",
@@ -14,7 +15,7 @@ __d(
     "react-compiler-runtime",
     "stylex",
     "useWAWebLegacyZoom",
-    "useWAWebModelValues",
+    "useWAWebMediaDataValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -165,86 +166,90 @@ __d(
         C = h(null),
         b;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = ["type"]), (t[0] = b))
+        ? ((b = [o("WAWebMediaDataGetters").getType]), (t[0] = b))
         : (b = t[0]);
-      var v = o("useWAWebModelValues").useModelValues(e.activeMsg.mediaData, b),
-        S;
-      t[1] !== v.type
-        ? ((S =
-            v.type === "image" &&
+      var v = o("useWAWebMediaDataValues").useMediaDataValues(
+          e.activeMsg.mediaData,
+          b,
+        ),
+        S = v[0],
+        R;
+      t[1] !== S
+        ? ((R =
+            S === "image" &&
             o("WAWebABProps").getABPropConfigValue(
               "hybrid_incremental_zooming_simple_enabled",
             )),
-          (t[1] = v.type),
-          (t[2] = S))
-        : (S = t[2]);
-      var R = S,
-        L;
+          (t[1] = S),
+          (t[2] = R))
+        : (R = t[2]);
+      var L = R,
+        E;
       t[3] !== e.activeMsg
-        ? ((L = o("WAWebMsgGetters").getId(e.activeMsg).toString()),
+        ? ((E = o("WAWebMsgGetters").getId(e.activeMsg).toString()),
           (t[3] = e.activeMsg),
-          (t[4] = L))
-        : (L = t[4]);
-      var E, k, I, T;
+          (t[4] = E))
+        : (E = t[4]);
+      var k, I, T, D;
       t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = function () {
+        ? ((k = function () {
             return n.current;
           }),
-          (k = function (t) {
+          (I = function (t) {
             n.current = t;
           }),
-          (I = function () {
+          (T = function () {
             return C.current;
           }),
-          (T = function (t) {
+          (D = function (t) {
             C.current = t;
           }),
-          (t[5] = E),
-          (t[6] = k),
-          (t[7] = I),
-          (t[8] = T))
-        : ((E = t[5]), (k = t[6]), (I = t[7]), (T = t[8]));
-      var D;
+          (t[5] = k),
+          (t[6] = I),
+          (t[7] = T),
+          (t[8] = D))
+        : ((k = t[5]), (I = t[6]), (T = t[7]), (D = t[8]));
+      var x;
       t[9] !== s ||
       t[10] !== m ||
       t[11] !== f ||
-      t[12] !== R ||
+      t[12] !== L ||
       t[13] !== a ||
-      t[14] !== L
-        ? ((D = {
-            msgId: L,
+      t[14] !== E
+        ? ((x = {
+            msgId: E,
             isZoomedIn: a,
             setIsZoomedIn: i,
-            isEnabled: R,
+            isEnabled: L,
             currentImageScale: s,
             setCurrentImageScale: u,
             currentZoomLevel: m,
             setCurrentZoomLevel: p,
             hasOverflownThumbnailSection: f,
             setHasOverflownThumbnailSection: g,
-            getCaptionHeight: E,
-            setCaptionHeight: k,
-            getHandler: I,
-            setHandler: T,
+            getCaptionHeight: k,
+            setCaptionHeight: I,
+            getHandler: T,
+            setHandler: D,
           }),
           (t[9] = s),
           (t[10] = m),
           (t[11] = f),
-          (t[12] = R),
+          (t[12] = L),
           (t[13] = a),
-          (t[14] = L),
-          (t[15] = D))
-        : (D = t[15]);
-      var x = D,
-        $;
+          (t[14] = E),
+          (t[15] = x))
+        : (x = t[15]);
+      var $ = x,
+        P;
       return (
-        t[16] !== e.children || t[17] !== x
-          ? (($ = c.jsx(F.Provider, { value: x, children: e.children })),
+        t[16] !== e.children || t[17] !== $
+          ? ((P = c.jsx(F.Provider, { value: $, children: e.children })),
             (t[16] = e.children),
-            (t[17] = x),
-            (t[18] = $))
-          : ($ = t[18]),
-        $
+            (t[17] = $),
+            (t[18] = P))
+          : (P = t[18]),
+        P
       );
     }
     var F = c.createContext({

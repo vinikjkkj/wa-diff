@@ -31,6 +31,7 @@ __d(
                 o("WAWebWamEnumChannelUserType").CHANNEL_USER_TYPE,
               ],
               cid: [48, e.TYPES.STRING],
+              dedupKey: [57, e.TYPES.INTEGER],
               entryMethod: [
                 29,
                 o("WAWebWamEnumStatusViewEntryMethod").STATUS_VIEW_ENTRY_METHOD,

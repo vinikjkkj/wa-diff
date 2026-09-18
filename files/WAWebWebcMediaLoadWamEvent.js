@@ -7,6 +7,7 @@ __d(
         WebcMediaLoad: [
           1202,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcMediaLoadResult: [
               2,
               o("WAWebWamEnumWebcMediaLoadResultCode")

@@ -9,6 +9,7 @@ __d(
             2808,
             {
               activityIndicatorCount: [2, e.TYPES.INTEGER],
+              dedupKey: [4, e.TYPES.INTEGER],
               folderType: [1, e.TYPES.STRING],
               hasImportantMessages: [3, e.TYPES.BOOLEAN],
             },

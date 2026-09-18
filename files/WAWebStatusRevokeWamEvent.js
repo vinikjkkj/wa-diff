@@ -8,6 +8,7 @@ __d(
           StatusRevoke: [
             1250,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               mediaType: [2, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               statusId: [4, e.TYPES.STRING],
               statusLifeT: [3, e.TYPES.INTEGER],

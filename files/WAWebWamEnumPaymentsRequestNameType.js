@@ -71,6 +71,7 @@ __d(
       GET_P2M_CONFIG: 66,
       GET_UPI_LITE_DETAILS: 67,
       GET_SMS_CONTENT_AND_VMN: 68,
+      ENROLL_UPI_INCENTIVE: 69,
     });
     i.PAYMENTS_REQUEST_NAME_TYPE = e;
   },

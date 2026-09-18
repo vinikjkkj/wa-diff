@@ -15,6 +15,7 @@ __d(
           ScheduledMessageAction: [
             8502,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               groupRole: [1, o("WAWebWamEnumGroupRoleType").GROUP_ROLE_TYPE],
               groupTypeClient: [
                 2,

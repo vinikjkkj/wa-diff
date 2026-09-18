@@ -6,7 +6,10 @@ __d(
       {
         WebcEmojiOpen: [
           1166,
-          { webcEmojiOpenTab: [1, o("WAWebWamCodegenUtils").TYPES.STRING] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            webcEmojiOpenTab: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
+          },
           [1, 1, 1],
           "regular",
         ],

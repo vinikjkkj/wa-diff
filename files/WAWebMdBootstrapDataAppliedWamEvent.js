@@ -25,6 +25,7 @@ __d(
               chunkChatsApplied: [15, e.TYPES.INTEGER],
               chunkMsgsApplied: [16, e.TYPES.INTEGER],
               collection: [5, o("WAWebWamEnumCollection").COLLECTION],
+              dedupKey: [27, e.TYPES.INTEGER],
               gkContext: [26, e.TYPES.STRING],
               historySyncChunkOrder: [14, e.TYPES.INTEGER],
               historySyncRetryRequestId: [24, e.TYPES.STRING],

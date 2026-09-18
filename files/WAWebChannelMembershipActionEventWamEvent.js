@@ -14,6 +14,7 @@ __d(
                   .CHANNEL_MEMBERSHIP_ACTION_RESULT,
               ],
               cid: [2, e.TYPES.STRING],
+              dedupKey: [5, e.TYPES.INTEGER],
               unifiedSessionId: [3, e.TYPES.STRING],
               updatesTabSessionId: [4, e.TYPES.INTEGER],
             },

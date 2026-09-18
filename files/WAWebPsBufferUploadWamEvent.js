@@ -18,6 +18,7 @@ __d(
                 6,
                 o("WAWebWamEnumApplicationState").APPLICATION_STATE,
               ],
+              dedupKey: [16, e.TYPES.INTEGER],
               isFromWamsys: [12, e.TYPES.BOOLEAN],
               isRealtime: [15, e.TYPES.BOOLEAN],
               isUserSampled: [14, e.TYPES.BOOLEAN],

@@ -8,6 +8,7 @@ __d(
           WefrGroupClientExposure: [
             6640,
             {
+              dedupKey: [4, e.TYPES.INTEGER],
               exposureKey: [1, e.TYPES.STRING],
               groupJid: [2, e.TYPES.STRING],
               sentWithDaily: [3, e.TYPES.BOOLEAN],

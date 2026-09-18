@@ -8,6 +8,7 @@ __d(
           WebcProgressiveImage: [
             2226,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               webcFirstRenderScans: [1, e.TYPES.INTEGER],
               webcFirstRenderT: [2, e.TYPES.TIMER],
               webcFullQualityT: [4, e.TYPES.TIMER],

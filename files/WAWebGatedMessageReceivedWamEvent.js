@@ -11,6 +11,7 @@ __d(
               1,
               o("WAWebWamEnumChatGatedReason").CHAT_GATED_REASON,
             ],
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],
           "regular",

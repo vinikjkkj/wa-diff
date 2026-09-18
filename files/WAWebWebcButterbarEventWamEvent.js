@@ -11,6 +11,7 @@ __d(
         WebcButterbarEvent: [
           3932,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcButterbarAction: [
               1,
               o("WAWebWamEnumWebcButterbarActionType")

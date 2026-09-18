@@ -18,6 +18,7 @@ __d(
                 1,
                 o("WAWebWamEnumOfflineResumeStages").OFFLINE_RESUME_STAGES,
               ],
+              dedupKey: [18, e.TYPES.INTEGER],
               isResumeInForeground: [5, e.TYPES.BOOLEAN],
               isResumeStartedInForeground: [14, e.TYPES.BOOLEAN],
               lastPushTimestampMs: [12, e.TYPES.INTEGER],

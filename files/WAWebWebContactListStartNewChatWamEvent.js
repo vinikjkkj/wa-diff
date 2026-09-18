@@ -7,6 +7,7 @@ __d(
         WebContactListStartNewChat: [
           4560,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webContactListStartNewChatSearch: [
               1,
               o("WAWebWamCodegenUtils").TYPES.BOOLEAN,

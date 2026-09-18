@@ -12,6 +12,7 @@ __d(
         SettingsClick: [
           2214,
           {
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             isBookmarkAppInstalled: [
               4,
               o("WAWebWamCodegenUtils").TYPES.BOOLEAN,

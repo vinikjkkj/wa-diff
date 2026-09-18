@@ -7,6 +7,7 @@ __d(
         MdRetryFromUnknownDevice: [
           2178,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             offline: [2, o("WAWebWamCodegenUtils").TYPES.BOOLEAN],
             senderType: [1, o("WAWebWamEnumDeviceType").DEVICE_TYPE],
           },

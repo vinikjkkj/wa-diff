@@ -30,6 +30,7 @@ __d(
               collectionInquiriesSent: [6, e.TYPES.INTEGER],
               commerceMsgsReceived: [7, e.TYPES.INTEGER],
               commerceMsgsSent: [8, e.TYPES.INTEGER],
+              dedupKey: [55, e.TYPES.INTEGER],
               entryPointConversionApp: [9, e.TYPES.STRING],
               entryPointConversionSource: [10, e.TYPES.STRING],
               firstResponseTime: [11, e.TYPES.INTEGER],

@@ -12,6 +12,7 @@ __d(
               aboutChatConsumptionCount: [2, e.TYPES.INTEGER],
               aboutLocale: [3, e.TYPES.STRING],
               aboutMessageSendCount: [4, e.TYPES.INTEGER],
+              dedupKey: [5, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

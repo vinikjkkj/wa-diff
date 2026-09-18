@@ -18,6 +18,7 @@ __d(
               channelMilestoneValue: [14, e.TYPES.INTEGER],
               cid: [15, e.TYPES.STRING],
               clientMessageId: [1, e.TYPES.STRING],
+              dedupKey: [17, e.TYPES.INTEGER],
               isSilenced: [11, e.TYPES.BOOLEAN],
               notificationAction: [
                 2,

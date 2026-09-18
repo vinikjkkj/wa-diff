@@ -20,6 +20,7 @@ __d(
                 o("WAWebWamEnumBannerStatusReason").BANNER_STATUS_REASON,
               ],
               cid: [3, e.TYPES.STRING],
+              dedupKey: [13, e.TYPES.INTEGER],
               similarChannelDisplayRank: [4, e.TYPES.INTEGER],
               similarChannelEventSurface: [
                 5,

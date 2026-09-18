@@ -12,6 +12,7 @@ __d(
           PrivacyHighlightDaily: [
             3522,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               dialogAppearCount: [1, e.TYPES.INTEGER],
               dialogSelectCount: [2, e.TYPES.INTEGER],
               narrativeAppearCount: [3, e.TYPES.INTEGER],

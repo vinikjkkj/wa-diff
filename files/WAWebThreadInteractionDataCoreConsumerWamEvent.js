@@ -2,10 +2,12 @@ __d(
   "WAWebThreadInteractionDataCoreConsumerWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumAcpVersionType",
     "WAWebWamEnumChatMutedType",
     "WAWebWamEnumChatType",
     "WAWebWamEnumGaStatus",
     "WAWebWamEnumOppositeVisibleIdentificationType",
+    "WAWebWamEnumThreadType",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,6 +17,10 @@ __d(
           ThreadInteractionDataCoreConsumer: [
             6466,
             {
+              acpVersion: [
+                160,
+                o("WAWebWamEnumAcpVersionType").ACP_VERSION_TYPE,
+              ],
               afterReadDuration: [138, e.TYPES.INTEGER],
               afterReadMessagesExpired: [139, e.TYPES.INTEGER],
               afterReadMessagesReceived: [144, e.TYPES.INTEGER],
@@ -31,6 +37,7 @@ __d(
               chatOverflowClicks: [8, e.TYPES.INTEGER],
               chatTypeInd: [9, o("WAWebWamEnumChatType").CHAT_TYPE],
               commentsReceived: [10, e.TYPES.INTEGER],
+              dedupKey: [159, e.TYPES.INTEGER],
               documentMessagesReceived: [13, e.TYPES.INTEGER],
               documentMessagesSent: [14, e.TYPES.INTEGER],
               editedMsgsSent: [15, e.TYPES.INTEGER],
@@ -143,6 +150,7 @@ __d(
               threadDs: [97, e.TYPES.STRING],
               threadId: [98, e.TYPES.STRING],
               threadIdByLid: [109, e.TYPES.STRING],
+              threadType: [161, o("WAWebWamEnumThreadType").THREAD_TYPE],
               tombstoneAiFutureproofedMessagesReceived: [130, e.TYPES.INTEGER],
               tombstoneEphemeralMessagesReceived: [128, e.TYPES.INTEGER],
               tombstoneViewOnceMessagesReceived: [129, e.TYPES.INTEGER],

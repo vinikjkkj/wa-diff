@@ -31,20 +31,20 @@ __d(
         a = e.children,
         i = e.initialActorID,
         l = e.readonly,
-        u = l === void 0 ? !1 : l,
-        m = e.scope,
-        _ = m === void 0 ? (_ != null ? _ : null) : m,
+        u = e.scope,
+        m = u === void 0 ? (m != null ? m : null) : u,
+        _ = l === void 0 ? !1 : l,
         f = d(i),
         g = f[0],
         h = f[1],
-        y = r("usePrevious")(_),
+        y = r("usePrevious")(m),
         C = r("usePrevious")(i),
         b = o(
           "RelayEnvironmentFactoryProvider",
         ).useRelayEnvironmentFactoryWithFallback(t),
         v = b.getForActorID(g, n),
         S = C != null && C !== i,
-        R = y != null && y !== _;
+        R = y != null && y !== m;
       (S || R) && g !== i && h(i);
       var L = c(
         function () {
@@ -53,7 +53,7 @@ __d(
               return g;
             },
             set: function (t) {
-              if (u === !0) {
+              if (_ === !0) {
                 r("FBLogger")("groups_comet").mustfix(
                   "You tried to update the Actor ID, but the <ActorProvider /> closest to your useActor() call has a read-only Actor ID. To fix this, wrap the React tree that you want to set an Actor ID for with your own <ActorProvider />.",
                 );
@@ -63,7 +63,7 @@ __d(
             },
           };
         },
-        [g, u],
+        [g, _],
       );
       return s.jsx(p.Provider, {
         value: L,

@@ -8,6 +8,7 @@ __d(
           WebcLinkPreviewDisplay: [
             3864,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               didFallbackNonHq: [2, e.TYPES.BOOLEAN],
               didRequestHq: [3, e.TYPES.BOOLEAN],
               didRespondHqPreview: [4, e.TYPES.BOOLEAN],

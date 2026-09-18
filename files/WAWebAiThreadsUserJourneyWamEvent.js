@@ -2,6 +2,8 @@ __d(
   "WAWebAiThreadsUserJourneyWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumCreationFailureReason",
+    "WAWebWamEnumCreationStatus",
     "WAWebWamEnumMetaAiActionEntryPoint",
     "WAWebWamEnumThreadActionTypes",
   ],
@@ -16,6 +18,15 @@ __d(
               appSessionId: [2, e.TYPES.STRING],
               conversationThreadCreationTs: [3, e.TYPES.STRING],
               conversationThreadId: [4, e.TYPES.STRING],
+              creationFailureReason: [
+                12,
+                o("WAWebWamEnumCreationFailureReason").CREATION_FAILURE_REASON,
+              ],
+              creationStatus: [
+                13,
+                o("WAWebWamEnumCreationStatus").CREATION_STATUS,
+              ],
+              dedupKey: [11, e.TYPES.INTEGER],
               eventTsMs: [5, e.TYPES.INTEGER],
               isCanonicalThread: [10, e.TYPES.BOOLEAN],
               isIncognitoMode: [6, e.TYPES.BOOLEAN],
@@ -29,6 +40,7 @@ __d(
                 8,
                 o("WAWebWamEnumThreadActionTypes").THREAD_ACTION_TYPES,
               ],
+              threadInboxPosition: [14, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

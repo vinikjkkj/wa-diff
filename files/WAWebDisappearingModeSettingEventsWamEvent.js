@@ -12,6 +12,7 @@ __d(
           DisappearingModeSettingEvents: [
             3446,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               disappearingModeEntryPoint: [
                 5,
                 o("WAWebWamEnumDisappearingModeEntryPointType")

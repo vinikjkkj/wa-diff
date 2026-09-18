@@ -61,35 +61,37 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i = t.directPath,
-            l = t.fileEncSha256,
-            s = t.fileSha256,
-            u = t.mediaKey,
-            c = {
-              directPath: i,
-              encFilehash: o("WABase64").encodeB64(l),
-              filehash: o("WABase64").encodeB64(s),
-              mediaKey: o("WABase64").encodeB64(u),
+          var i = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+            entryPoint: "SyncdNetCallbacks",
+          });
+          i.addAnnotations({ string: { syncdBlobType: n } });
+          var l = t.directPath,
+            s = t.fileEncSha256,
+            u = t.fileSha256,
+            c = t.mediaKey,
+            d = {
+              directPath: l,
+              encFilehash: o("WABase64").encodeB64(s),
+              filehash: o("WABase64").encodeB64(u),
+              mediaKey: o("WABase64").encodeB64(c),
               type: "md-app-state",
               userDownloadAttemptCount: 0,
               downloadOrigin: o("WAWebWamEnumDownloadOriginType")
                 .DOWNLOAD_ORIGIN_TYPE.MESSAGE_HISTORY_SYNC,
-            },
-            d = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-              entryPoint: "SyncdNetCallbacks",
-            });
+            };
+          i.addPoint("download_options_ready");
           try {
             var m = yield o(
               "WAWebDownloadManager",
             ).downloadManager.downloadAndMaybeDecrypt(
               babelHelpers.extends(
-                { signal: new AbortController().signal, downloadQpl: d },
-                c,
+                { signal: new AbortController().signal, downloadQpl: i },
+                d,
               ),
             );
-            return (d.endSuccess(), m);
-          } catch (i) {
-            d.endFailWithError("download_failed", r("getErrorSafe")(i).message);
+            return (i.endSuccess(), m);
+          } catch (l) {
+            i.endFailWithError("download_failed", r("getErrorSafe")(l).message);
             var p = o("WABase64").encodeB64(t.fileEncSha256).length;
             throw (
               o("WALogger").LOG(
@@ -106,7 +108,7 @@ __d(
                 p,
                 a,
               ),
-              i instanceof o("WAWebMmsClientErrors").MediaNotFoundError
+              l instanceof o("WAWebMmsClientErrors").MediaNotFoundError
                 ? (o("WAWebSyncdUploadFatalErrorMetric").uploadFatalErrorMetric(
                     {
                       collection: a,
@@ -121,7 +123,7 @@ __d(
                   new (o("WAWebSyncdError").SyncdFatalError)(
                     "external patch expired",
                   ))
-                : i
+                : l
             );
           }
         })),

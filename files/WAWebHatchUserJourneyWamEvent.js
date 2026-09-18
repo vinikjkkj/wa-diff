@@ -13,6 +13,7 @@ __d(
             7806,
             {
               aiSessionId: [1, e.TYPES.STRING],
+              dedupKey: [11, e.TYPES.INTEGER],
               hatchActionType: [
                 3,
                 o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE,

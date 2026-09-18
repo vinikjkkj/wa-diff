@@ -11,6 +11,7 @@ __d(
               agentId: [1, e.TYPES.STRING],
               browserId: [2, e.TYPES.STRING],
               companionMdId: [5, e.TYPES.INTEGER],
+              dedupKey: [10, e.TYPES.INTEGER],
               isCustomAgentName: [6, e.TYPES.BOOLEAN],
               isNewAgent: [9, e.TYPES.BOOLEAN],
               loginTimestamp: [3, e.TYPES.INTEGER],

@@ -1,20 +1,22 @@
 __d(
   "WAWebMediaAnimatedStickerUrlProvider",
   [
+    "WAWebMediaDataGetters",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaTypes",
     "err",
     "react",
-    "useWAWebModelValues",
+    "useWAWebIsBlobInMemoryCache",
+    "useWAWebMediaDataValues",
     "useWAWebOnUnmount",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = e,
-      c = u.useEffect,
-      d = u.useImperativeHandle,
-      m = u.useMemo,
+      c = u.useCallback,
+      d = u.useEffect,
+      m = u.useImperativeHandle,
       p = u.useRef,
       _ = u.useState;
     function f(e) {
@@ -23,71 +25,62 @@ __d(
         a = e.mediaData,
         i = e.placeholderRenderer,
         l = e.ref,
-        s = o("useWAWebModelValues").useModelValues(a, [
-          "filehash",
-          "mediaStage",
+        s = o("useWAWebMediaDataValues").useMediaDataValues(a, [
+          o("WAWebMediaDataGetters").getFilehash,
+          o("WAWebMediaDataGetters").getMediaStage,
         ]),
-        u = p(null),
-        f = m(
-          function () {
-            return o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(
-              s.filehash,
-            );
-          },
-          [s],
-        ),
-        g = function (t) {
-          var e = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            t,
+        u = s[0],
+        f = s[1],
+        g = p(null),
+        h = r("useWAWebIsBlobInMemoryCache")(u),
+        y = c(function (e) {
+          var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+            e,
           );
-          if (!e)
+          if (!t)
             throw r("err")(
               "Cannot call createURL when the blob does not exist.",
             );
-          u.current = e;
-          var n = new Blob([e], { type: e.type }),
+          g.current = t;
+          var n = new Blob([t], { type: t.type }),
             a = window.URL.createObjectURL(n);
           return a;
-        },
-        h = _(function () {
-          return f ? g(s.filehash) : null;
+        }, []),
+        C = _(function () {
+          return h ? y(u) : null;
         }),
-        y = h[0],
-        C = h[1],
-        b = function (t) {
+        b = C[0],
+        v = C[1],
+        S = function (t) {
           window.URL.revokeObjectURL(t);
         };
-      (c(function () {
-        !f &&
-          s.mediaStage === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
-          n &&
-          n();
+      (d(function () {
+        !h && f === o("WAWebMediaTypes").MediaDataStage.RESOLVED && n && n();
       }, []),
         r("useWAWebOnUnmount")(function () {
-          y && b(y);
+          b && S(b);
         }));
-      var v = function () {
-        var e = u.current;
+      var R = function () {
+        var e = g.current;
         if (!e)
           throw r("err")(
             "Cannot call refreshBlob when the blob does not exist.",
           );
         var t = new Blob([e], { type: e.type }),
           n = window.URL.createObjectURL(t);
-        (y && window.URL.revokeObjectURL(y), C(n));
+        (b && window.URL.revokeObjectURL(b), v(n));
       };
       return (
-        c(
+        d(
           function () {
-            var e = s.filehash;
-            f && !y && C(g(e));
+            h && !b && v(y(u));
           },
-          [f, s.filehash, y],
+          [h, u, b, y],
         ),
-        d(l, function () {
-          return { refreshBlob: v };
+        m(l, function () {
+          return { refreshBlob: R };
         }),
-        y ? t(y) : i()
+        b ? t(b) : i()
       );
     }
     ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));

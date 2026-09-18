@@ -12,6 +12,7 @@ __d(
       EXTERNAL: 6,
       MESSENGER: 7,
       THREADS: 8,
+      CTWA_THREAD: 9,
     });
     i.SIGNUP_ENTRY_POINT = e;
   },

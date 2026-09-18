@@ -15,6 +15,7 @@ __d(
           MmDisclosureStateFsEvent: [
             6796,
             {
+              dedupKey: [13, e.TYPES.INTEGER],
               disclosureEventType: [
                 1,
                 o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE,

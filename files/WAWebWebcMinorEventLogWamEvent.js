@@ -9,6 +9,7 @@ __d(
             5440,
             {
               additionalDebugContext: [1, e.TYPES.STRING],
+              dedupKey: [6, e.TYPES.INTEGER],
               logContext: [2, e.TYPES.STRING],
               logCount: [3, e.TYPES.INTEGER],
               logReason: [4, e.TYPES.STRING],

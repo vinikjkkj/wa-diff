@@ -10,6 +10,7 @@ __d(
       MIMICRY_UPDATES_TAB: 5,
       AD4AD_BOOST_POPULAR_ALL_STATUSES: 6,
       CHANNEL_PROMO: 7,
+      STICKERS: 8,
     });
     i.ENGAGEMENT_CARD_VARIANT = e;
   },

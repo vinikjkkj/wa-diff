@@ -8,6 +8,7 @@ __d(
           KeepInChatNotif: [
             3484,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               kicGroupNotificationTaps: [3, e.TYPES.INTEGER],
               kicGroupNotifications: [4, e.TYPES.INTEGER],
               kicNotificationTaps: [5, e.TYPES.INTEGER],

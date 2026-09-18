@@ -17,6 +17,7 @@ __d(
             {
               audioDriverRestartCount: [52, e.TYPES.INTEGER],
               audioDriverRestartReason: [53, e.TYPES.INTEGER],
+              dedupKey: [66, e.TYPES.INTEGER],
               deviceAgcState: [
                 54,
                 o("WAWebWamEnumDeviceAgcStateType").DEVICE_AGC_STATE_TYPE,

@@ -8,6 +8,7 @@ __d(
           WebcDbOpen: [
             1940,
             {
+              dedupKey: [4, e.TYPES.INTEGER],
               webcDbName: [1, e.TYPES.STRING],
               webcDbOpenNumAttempts: [3, e.TYPES.INTEGER],
               webcDbOpenWasSuccess: [2, e.TYPES.BOOLEAN],

@@ -51,6 +51,7 @@ __d(
               contactSyncTypeIsFull: [2, e.TYPES.BOOLEAN],
               contactSyncTypeIsMetadata: [29, e.TYPES.BOOLEAN],
               contactSyncTypeIsSnapshot: [32, e.TYPES.BOOLEAN],
+              dedupKey: [41, e.TYPES.INTEGER],
             },
             [1, 20, 100],
             "regular",

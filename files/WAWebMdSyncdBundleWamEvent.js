@@ -18,6 +18,7 @@ __d(
               bundleVersion: [2, e.TYPES.INTEGER],
               companionSessionIds: [3, e.TYPES.STRING],
               computedLthash: [4, e.TYPES.STRING],
+              dedupKey: [18, e.TYPES.INTEGER],
               expectedMac: [5, e.TYPES.STRING],
               kmpSyncdFlow: [
                 17,

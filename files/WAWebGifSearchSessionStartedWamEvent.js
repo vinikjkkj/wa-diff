@@ -7,6 +7,7 @@ __d(
         GifSearchSessionStarted: [
           1134,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             gifSearchProvider: [
               1,
               o("WAWebWamEnumGifSearchProvider").GIF_SEARCH_PROVIDER,

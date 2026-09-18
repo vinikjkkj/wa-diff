@@ -1007,12 +1007,12 @@ __d(
       var n = { stanzaTs: e.attrTime("t") },
         r = t.maybeChild("reporting_token"),
         a = t.maybeChild("reporting_tag");
-      return (
-        r != null &&
-          ((n.reportingToken = r.contentBytes()), (n.version = r.attrInt("v"))),
-        a != null && (n.reportingTag = a.contentBytes()),
-        n
-      );
+      if (r != null) {
+        var i;
+        ((n.reportingToken = r.contentBytes()),
+          (n.version = (i = r.maybeAttrInt("v")) != null ? i : void 0));
+      }
+      return (a != null && (n.reportingTag = a.contentBytes()), n);
     }
     function $(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())

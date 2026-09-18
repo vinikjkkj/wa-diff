@@ -14,6 +14,7 @@ __d(
             8302,
             {
               cid: [1, e.TYPES.STRING],
+              dedupKey: [9, e.TYPES.INTEGER],
               pogIndex: [2, e.TYPES.INTEGER],
               statusCategory: [
                 3,

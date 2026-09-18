@@ -12,6 +12,7 @@ __d(
           ThreadInteractionDataNotification: [
             6412,
             {
+              dedupKey: [27, e.TYPES.INTEGER],
               groupSizeBucket: [
                 1,
                 o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,

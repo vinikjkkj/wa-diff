@@ -12,6 +12,7 @@ __d(
         MessageSecretErrors: [
           3686,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             messageMediaType: [3, o("WAWebWamEnumMediaType").MEDIA_TYPE],
             messageSecretAllowedList: [
               1,

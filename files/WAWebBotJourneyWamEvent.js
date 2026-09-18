@@ -66,6 +66,7 @@ __d(
               conversationStarterLabel: [46, e.TYPES.STRING],
               conversationStarterName: [51, e.TYPES.STRING],
               conversationStarterPromptMode: [28, e.TYPES.STRING],
+              dedupKey: [57, e.TYPES.INTEGER],
               deviceLanguage: [16, e.TYPES.STRING],
               discoveryOrigin: [
                 19,

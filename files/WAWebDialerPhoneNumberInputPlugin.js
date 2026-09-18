@@ -8,7 +8,10 @@ __d(
     function c(e) {
       return e.replace(u, "");
     }
-    function d() {
+    function d(e, t) {
+      return c(e.slice(0, t)).length;
+    }
+    function m() {
       var e = o("react-compiler-runtime").c(3),
         t = o("LexicalComposerContext").useLexicalComposerContext(),
         n = t[0],
@@ -17,7 +20,7 @@ __d(
       return (
         e[0] !== n
           ? ((r = function () {
-              return n.registerNodeTransform(o("Lexical").TextNode, m);
+              return n.registerNodeTransform(o("Lexical").TextNode, p);
             }),
             (a = [n]),
             (e[0] = n),
@@ -28,12 +31,23 @@ __d(
         null
       );
     }
-    function m(e) {
+    function p(e) {
       var t = e.getTextContent(),
         n = c(t);
-      n !== t && e.setTextContent(n);
+      if (n !== t) {
+        var r = o("Lexical").$getSelection(),
+          a =
+            o("Lexical").$isRangeSelection(r) &&
+            r.isCollapsed() &&
+            r.anchor.key === e.getKey()
+              ? d(t, r.anchor.offset)
+              : null;
+        (e.setTextContent(n), a != null && e.select(a, a));
+      }
     }
-    ((l.sanitizePhoneInput = c), (l.PhoneNumberInputPlugin = d));
+    ((l.sanitizePhoneInput = c),
+      (l.sanitizedCaretOffset = d),
+      (l.PhoneNumberInputPlugin = m));
   },
   98,
 );

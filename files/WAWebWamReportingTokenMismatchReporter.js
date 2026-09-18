@@ -34,7 +34,7 @@ __d(
         ),
         isMessageRetry: a.isRetry === !0,
         offline: a.isOffline === !0,
-        reportingTokenVersion: l,
+        reportingTokenVersion: l != null ? l : void 0,
         messageIsForward: o("WAWebMsgGetters").getIsForwarded(a),
         isSecretEncryptedMsg:
           a.kind === o("WAWebMsgType").MsgKind.CommentEncrypted,
@@ -53,7 +53,7 @@ __d(
         ),
         isMessageRetry: a.isRetry === !0,
         offline: a.isOffline === !0,
-        reportingTokenVersion: l,
+        reportingTokenVersion: l != null ? l : void 0,
         messageIsForward: o("WAWebMsgGetters").getIsForwarded(a),
         isSecretEncryptedMsg:
           a.kind === o("WAWebMsgType").MsgKind.CommentEncrypted,

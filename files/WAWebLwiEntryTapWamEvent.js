@@ -18,6 +18,7 @@ __d(
               archivedItemsCount: [15, e.TYPES.INTEGER],
               businessToolsSessionId: [4, e.TYPES.STRING],
               catalogSessionId: [2, e.TYPES.STRING],
+              dedupKey: [20, e.TYPES.INTEGER],
               itemsCount: [11, e.TYPES.INTEGER],
               lwiEntryPoint: [
                 3,

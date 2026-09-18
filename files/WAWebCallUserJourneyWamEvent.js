@@ -20,6 +20,7 @@ __d(
                 o("WAWebWamEnumCallActionType").CALL_ACTION_TYPE,
               ],
               callRandomId: [3, e.TYPES.STRING],
+              dedupKey: [15, e.TYPES.INTEGER],
               isCallConnected: [7, e.TYPES.BOOLEAN],
               isGenaiAdded: [11, e.TYPES.BOOLEAN],
               isGroupCall: [12, e.TYPES.BOOLEAN],

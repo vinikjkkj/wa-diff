@@ -14,6 +14,7 @@ __d(
       DRAFTS: 8,
       CAMPAIGN_REPLIES: 9,
       SERVER_ASSIGNED: 10,
+      TO_YOU: 11,
     });
     i.LIST_TYPE = e;
   },

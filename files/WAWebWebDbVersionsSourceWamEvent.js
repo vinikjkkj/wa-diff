@@ -11,6 +11,7 @@ __d(
         WebDbVersionsSource: [
           4784,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webDbVersionSource: [
               1,
               o("WAWebWamEnumWebDbVersionSourceType")

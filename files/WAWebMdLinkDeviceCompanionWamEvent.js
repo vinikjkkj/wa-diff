@@ -18,6 +18,7 @@ __d(
                 12,
                 o("WAWebWamEnumApplicationState").APPLICATION_STATE,
               ],
+              dedupKey: [16, e.TYPES.INTEGER],
               mdCompanionRefHash: [10, e.TYPES.STRING],
               mdDurationS: [8, e.TYPES.INTEGER],
               mdLinkDeviceCompanionErrorCode: [6, e.TYPES.INTEGER],

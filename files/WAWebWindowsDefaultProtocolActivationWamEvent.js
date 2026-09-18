@@ -12,6 +12,7 @@ __d(
         WindowsDefaultProtocolActivation: [
           8504,
           {
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             defaultProtocolResult: [
               1,
               o("WAWebWamEnumDefaultProtocolResultType")

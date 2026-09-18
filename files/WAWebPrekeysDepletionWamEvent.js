@@ -12,6 +12,7 @@ __d(
         PrekeysDepletion: [
           3014,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             deviceSizeBucket: [3, o("WAWebWamEnumSizeBucket").SIZE_BUCKET],
             messageType: [2, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
             prekeysFetchReason: [

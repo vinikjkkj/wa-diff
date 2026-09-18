@@ -47,9 +47,10 @@ __d(
             NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
             {
               acceptNode: function (n) {
+                var e;
                 return n === t ||
                   (n.nodeType === Node.TEXT_NODE &&
-                    n.textContent.trim() === "") ||
+                    ((e = n.textContent) == null ? void 0 : e.trim()) === "") ||
                   (s(n) && l.has(n.id)) ||
                   (s(n) && n.getAttribute("aria-hidden") === "true") ||
                   (n instanceof HTMLLabelElement &&

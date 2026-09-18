@@ -12,6 +12,7 @@ __d(
           WebcPageLoad: [
             642,
             {
+              dedupKey: [55, e.TYPES.INTEGER],
               webcAppcacheStatus: [
                 29,
                 o("WAWebWamEnumWebcAppcacheStatusCode")

@@ -13,6 +13,7 @@ __d(
             3698,
             {
               canEditDmSettings: [7, e.TYPES.BOOLEAN],
+              dedupKey: [8, e.TYPES.INTEGER],
               isAGroup: [2, e.TYPES.BOOLEAN],
               isAdmin: [3, e.TYPES.BOOLEAN],
               kicAction: [4, o("WAWebWamEnumKicActionType").KIC_ACTION_TYPE],

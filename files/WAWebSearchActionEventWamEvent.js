@@ -13,6 +13,7 @@ __d(
             5308,
             {
               bizSearchCount: [1, e.TYPES.INTEGER],
+              dedupKey: [12, e.TYPES.INTEGER],
               resultPageShown: [11, e.TYPES.BOOLEAN],
               searchAction: [
                 2,

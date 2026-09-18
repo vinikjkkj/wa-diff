@@ -12,6 +12,7 @@ __d(
           MdLinkedDevicesWindowsXdr: [
             7804,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               mdLinkedDevicesWindowsXdrStage: [
                 1,
                 o("WAWebWamEnumMdLinkedDevicesWindowsXdrStage")

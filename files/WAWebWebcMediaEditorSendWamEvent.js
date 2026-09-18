@@ -9,6 +9,7 @@ __d(
             2890,
             {
               blurImageCount: [7, e.TYPES.INTEGER],
+              dedupKey: [8, e.TYPES.INTEGER],
               editedImageCount: [2, e.TYPES.INTEGER],
               emojiLayerCount: [5, e.TYPES.INTEGER],
               imageCount: [1, e.TYPES.INTEGER],

@@ -99,7 +99,7 @@ __d(
           a,
           i,
           l = (n = window.navigator) == null ? void 0 : n.languages,
-          s = l != null && o("WebBloksI18nUtils").isLocaleRtl(l),
+          s = l != null && o("WebBloksI18nUtils").isLocaleRtl(l[0]),
           c = babelHelpers.extends({}, u, e, { locale: l, isRtl: s }),
           d = arguments.length,
           m = new Array(d > 2 ? d - 2 : 0),

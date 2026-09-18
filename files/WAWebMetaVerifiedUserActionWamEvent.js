@@ -21,6 +21,7 @@ __d(
           MetaVerifiedUserAction: [
             4986,
             {
+              dedupKey: [23, e.TYPES.INTEGER],
               isProfileLocked: [16, e.TYPES.BOOLEAN],
               isRetryAttempt: [22, e.TYPES.BOOLEAN],
               isVlevelHigh: [19, e.TYPES.BOOLEAN],

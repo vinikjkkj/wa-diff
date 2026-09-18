@@ -19,6 +19,7 @@ __d(
               attachmentGifCount: [7, e.TYPES.INTEGER],
               attachmentImageCount: [5, e.TYPES.INTEGER],
               attachmentVideoCount: [6, e.TYPES.INTEGER],
+              dedupKey: [21, e.TYPES.INTEGER],
               isSmartDefault: [10, e.TYPES.BOOLEAN],
               labelThreadId: [12, e.TYPES.STRING],
               lastMessageDirection: [

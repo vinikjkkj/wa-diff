@@ -31,63 +31,64 @@ __d(
         l = n
           ? o("WebBloksModel").getLogicalWebBloksStyleId(i, r.toLogicalStyle)
           : i,
-        u = babelHelpers.extends({}, e[i]);
+        u = e,
+        c = babelHelpers.extends({}, u[i]);
       if (l === o("WebBloksConstants").BK_INTERNAL_SHADOW) {
-        var c = n
-            ? u[o("WebBloksConstants").BK_INTERNAL_SHADOW_CHILD]
-            : u.child,
-          d = n ? u[o("WebBloksConstants").ID_ATTRIBUTE_KEY] : u.id,
-          m = n
-            ? u[o("WebBloksConstants").BK_INTERNAL_SHADOW_INIT_STATE]
-            : u.init_state,
+        var d = n
+            ? c[o("WebBloksConstants").BK_INTERNAL_SHADOW_CHILD]
+            : c.child,
+          m = n ? c[o("WebBloksConstants").ID_ATTRIBUTE_KEY] : c.id,
           p = n
-            ? u[o("WebBloksConstants").BK_INTERNAL_SHADOW_REDUCE]
-            : u.reduce,
-          _ = { id: String(d), init_state: m, reduce: p },
-          f = null,
-          g = s(o("WebBloksUtils").cast(c), t, n, r, f);
+            ? c[o("WebBloksConstants").BK_INTERNAL_SHADOW_INIT_STATE]
+            : c.init_state,
+          _ = n
+            ? c[o("WebBloksConstants").BK_INTERNAL_SHADOW_REDUCE]
+            : c.reduce,
+          f = { id: String(m), init_state: p, reduce: _ },
+          g = null,
+          h = s(o("WebBloksUtils").cast(d), t, n, r, g);
         return (
-          g.shadowParents
-            ? g.shadowParents.unshift(_)
-            : (g.shadowParents = [_]),
-          g
+          h.shadowParents
+            ? h.shadowParents.unshift(f)
+            : (h.shadowParents = [f]),
+          h
         );
       }
-      var h = n
+      var y = n
           ? o("WebBloksModel").createWebBloksModelFromMinifiedValues(
               i,
-              u,
+              c,
               r.toLogicalStyle,
             )
           : o("WebBloksModel").createWebBloksModelFromLogicalValues(
               l,
-              u,
+              c,
               o("WebBloksUtils").nullthrows(
                 r.toMinifiedStyle,
                 "Missing style minification map for unminified WebBloks payload.",
               ),
             ),
-        y = h.get(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY) != null,
-        C = t[l];
-      if (C != null) {
-        var b = C.plural_subnodes,
-          v = C.subnodes;
-        if (v)
-          for (var S of v) {
-            var R = h.getUntyped(S);
-            if (R != null) {
-              var L = null,
-                E = s(o("WebBloksUtils").cast(R), t, n, r, L);
-              (h.set(S, E),
-                (y =
-                  y ||
-                  E.getUntyped(o("WebBloksConstants").DESCENDANT_HAS_BIND) ===
+        C = y.get(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY) != null,
+        b = t[l];
+      if (b != null) {
+        var v = b.plural_subnodes,
+          S = b.subnodes;
+        if (S)
+          for (var R of S) {
+            var L = y.getUntyped(R);
+            if (L != null) {
+              var E = null,
+                k = s(o("WebBloksUtils").cast(L), t, n, r, E);
+              (y.set(R, k),
+                (C =
+                  C ||
+                  k.getUntyped(o("WebBloksConstants").DESCENDANT_HAS_BIND) ===
                     !0));
             }
           }
-        if (b) {
-          var k = function (a) {
-            var e = h.getUntyped(a);
+        if (v) {
+          var I = function (a) {
+            var e = y.getUntyped(a);
             if (e != null) {
               var i = o("WebBloksUtils")
                 .cast(e)
@@ -95,24 +96,24 @@ __d(
                   var i = null,
                     l = s(e, t, n, r, i);
                   return (
-                    (y =
-                      y ||
+                    (C =
+                      C ||
                       l.getUntyped(
                         o("WebBloksConstants").DESCENDANT_HAS_BIND,
                       ) === !0),
                     l
                   );
                 });
-              h.set(a, i);
+              y.set(a, i);
             }
           };
-          for (var I of b) k(I);
+          for (var T of v) I(T);
         }
       }
       return (
-        h.set(o("WebBloksConstants").DESCENDANT_HAS_BIND, y),
-        h.getExpression(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY),
-        h
+        y.set(o("WebBloksConstants").DESCENDANT_HAS_BIND, C),
+        y.getExpression(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY),
+        y
       );
     }
     function u(e, t, n, r, a) {

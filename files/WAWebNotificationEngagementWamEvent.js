@@ -13,6 +13,7 @@ __d(
             3796,
             {
               avgNotifEngagementT: [1, e.TYPES.TIMER],
+              dedupKey: [25, e.TYPES.INTEGER],
               groupSizeBucket: [
                 2,
                 o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,

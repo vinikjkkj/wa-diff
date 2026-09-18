@@ -20,6 +20,7 @@ __d(
               dbMainThreadWritesCount: [42, e.TYPES.INTEGER],
               dbReadsCount: [43, e.TYPES.INTEGER],
               dbWritesCount: [44, e.TYPES.INTEGER],
+              dedupKey: [58, e.TYPES.INTEGER],
               disconnected: [45, e.TYPES.BOOLEAN],
               e2eeQueueSize: [56, e.TYPES.INTEGER],
               expectedOfflineCallCount: [23, e.TYPES.INTEGER],

@@ -6,7 +6,10 @@ __d(
       {
         WebcPageResume: [
           884,
-          { webcResumeCount: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            webcResumeCount: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+          },
           [1, 1, 1],
           "regular",
         ],

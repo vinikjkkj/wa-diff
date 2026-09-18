@@ -10,6 +10,7 @@ __d(
             {
               appContext: [14, e.TYPES.STRING],
               appContextBitfield: [15, e.TYPES.INTEGER],
+              dedupKey: [17, e.TYPES.INTEGER],
               hasVerifiedNumber: [7, e.TYPES.BOOLEAN],
               numMessages: [8, e.TYPES.NUMBER],
               privateBytes: [3, e.TYPES.NUMBER],

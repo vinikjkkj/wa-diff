@@ -29,6 +29,7 @@ __d(
               collectionCount: [18, e.TYPES.INTEGER],
               collectionId: [14, e.TYPES.STRING],
               collectionIndex: [15, e.TYPES.STRING],
+              dedupKey: [25, e.TYPES.INTEGER],
               deepLinkOpenFrom: [
                 8,
                 o("WAWebWamEnumDeepLinkOpenFrom").DEEP_LINK_OPEN_FROM,

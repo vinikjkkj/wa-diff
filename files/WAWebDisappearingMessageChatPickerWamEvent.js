@@ -13,6 +13,7 @@ __d(
             3398,
             {
               chatsSelected: [1, e.TYPES.INTEGER],
+              dedupKey: [10, e.TYPES.INTEGER],
               dmChatPickerEntryPoint: [
                 2,
                 o("WAWebWamEnumDmChatPickerEntryPointType")

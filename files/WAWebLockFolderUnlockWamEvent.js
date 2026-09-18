@@ -11,6 +11,7 @@ __d(
         LockFolderUnlock: [
           4218,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             landingSurface: [
               1,
               o("WAWebWamEnumLandingSurface").LANDING_SURFACE,

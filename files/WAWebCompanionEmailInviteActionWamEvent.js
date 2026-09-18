@@ -11,6 +11,7 @@ __d(
         CompanionEmailInviteAction: [
           8576,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcEmailInviteAction: [
               1,
               o("WAWebWamEnumWebcEmailInviteActionType")

@@ -21,6 +21,7 @@ __d(
               ],
               ctwaSignals: [7, e.TYPES.STRING],
               ctwaTrackingPayload: [6, e.TYPES.STRING],
+              dedupKey: [11, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

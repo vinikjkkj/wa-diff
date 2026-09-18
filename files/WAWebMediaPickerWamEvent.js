@@ -18,6 +18,7 @@ __d(
               autoScaleCount: [51, e.TYPES.INTEGER],
               captionPositions: [37, e.TYPES.STRING],
               chatRecipients: [16, e.TYPES.INTEGER],
+              dedupKey: [56, e.TYPES.INTEGER],
               hasCollectionCaption: [38, e.TYPES.BOOLEAN],
               hdToggleChange: [34, e.TYPES.INTEGER],
               hdToggleEligible: [35, e.TYPES.BOOLEAN],

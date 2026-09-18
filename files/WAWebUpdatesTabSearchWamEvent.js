@@ -15,6 +15,7 @@ __d(
             {
               channelsAdminCount: [5, e.TYPES.INTEGER],
               channelsFollowedCount: [1, e.TYPES.INTEGER],
+              dedupKey: [14, e.TYPES.INTEGER],
               premiumChannelsFollowedCount: [8, e.TYPES.INTEGER],
               recentStatusItemCount: [2, e.TYPES.INTEGER],
               recentStatusRowCount: [3, e.TYPES.INTEGER],

@@ -20,6 +20,7 @@ __d(
               commercePaymentStatus: [8, e.TYPES.STRING],
               commerceSessionId: [9, e.TYPES.STRING],
               commerceSurface: [10, e.TYPES.STRING],
+              dedupKey: [23, e.TYPES.INTEGER],
               extraAttributes: [11, e.TYPES.STRING],
               isCtwaOriginated: [12, e.TYPES.BOOLEAN],
               isEligibleForAdSignal: [13, e.TYPES.BOOLEAN],

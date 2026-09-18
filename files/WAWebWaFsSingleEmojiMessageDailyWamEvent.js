@@ -11,6 +11,7 @@ __d(
               animatedEmojiEnabled: [1, e.TYPES.BOOLEAN],
               animatedEmojiReceiveCnt: [2, e.TYPES.INTEGER],
               animatedEmojiSendCnt: [3, e.TYPES.INTEGER],
+              dedupKey: [10, e.TYPES.INTEGER],
               emojiClickCnt: [4, e.TYPES.INTEGER],
               emojiReplyCount: [5, e.TYPES.INTEGER],
               pauseAnimationCnt: [6, e.TYPES.INTEGER],

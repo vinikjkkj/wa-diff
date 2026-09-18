@@ -7,6 +7,7 @@ __d(
         StickerStoreOpened: [
           3020,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             stickerStoreOpenedOrigin: [
               1,
               o("WAWebWamEnumStickerStoreOpenedOriginType")

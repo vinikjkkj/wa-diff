@@ -17,6 +17,7 @@ __d(
                 6,
                 o("WAWebWamEnumApplicationState").APPLICATION_STATE,
               ],
+              dedupKey: [9, e.TYPES.INTEGER],
               isFromWameta: [8, e.TYPES.BOOLEAN],
               overallT: [4, e.TYPES.TIMER],
               projectCode: [7, o("WAWebWamEnumProjectCode").PROJECT_CODE],

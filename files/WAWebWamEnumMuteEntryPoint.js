@@ -12,6 +12,7 @@ __d(
       LIST_BASED_MUTE: 7,
       APPLE_WATCH_PROFILE: 8,
       APPLE_WATCH_CHATLIST: 9,
+      META_AI_SETTINGS: 10,
     });
     i.MUTE_ENTRY_POINT = e;
   },

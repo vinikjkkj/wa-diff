@@ -7,6 +7,7 @@ __d(
         WebcNavbar: [
           5258,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcNavbarItemLabel: [
               1,
               o("WAWebWamEnumWebcNavbarItemLabel").WEBC_NAVBAR_ITEM_LABEL,

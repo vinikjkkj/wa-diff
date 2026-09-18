@@ -10,6 +10,7 @@ __d(
             {
               contactFavCountAfterUpdate: [1, e.TYPES.INTEGER],
               contactFavCountBeforeUpdate: [2, e.TYPES.INTEGER],
+              dedupKey: [6, e.TYPES.INTEGER],
               favoritesUpdateEntryPoint: [
                 3,
                 o("WAWebWamEnumFavoritesUpdateEntryPoint")

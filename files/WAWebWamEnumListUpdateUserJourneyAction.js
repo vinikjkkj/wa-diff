@@ -11,6 +11,7 @@ __d(
       LIST_ITEM_TAP: 5,
       CREATE_LIST_TAP: 6,
       EDIT_TAP: 7,
+      FILTER_APPLIED: 8,
     });
     i.LIST_UPDATE_USER_JOURNEY_ACTION = e;
   },

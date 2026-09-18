@@ -12,6 +12,7 @@ __d(
           MdGroupParticipantMissAck: [
             4146,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               groupSizeBucket: [
                 1,
                 o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,

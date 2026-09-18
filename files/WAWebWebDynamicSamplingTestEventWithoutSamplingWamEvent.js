@@ -6,7 +6,7 @@ __d(
       {
         WebDynamicSamplingTestEventWithoutSampling: [
           5322,
-          {},
+          { dedupKey: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER] },
           [1, 1, 1],
           "regular",
         ],

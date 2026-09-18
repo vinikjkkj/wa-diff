@@ -8,6 +8,7 @@ __d(
           WebcResourceLoad: [
             688,
             {
+              dedupKey: [4, e.TYPES.INTEGER],
               webcResourceCached: [3, e.TYPES.BOOLEAN],
               webcResourceDuration: [2, e.TYPES.TIMER],
               webcResourceName: [1, e.TYPES.STRING],

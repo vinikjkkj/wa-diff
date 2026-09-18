@@ -8,6 +8,7 @@ __d(
           WebcLinkPreviewResponseHandle: [
             3860,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               didRespondHqPreview: [5, e.TYPES.BOOLEAN],
               isPreviewSuccess: [2, e.TYPES.BOOLEAN],
               previewDurationMs: [4, e.TYPES.INTEGER],

@@ -104,12 +104,14 @@ __d(
                         o("WAWebMediaLoadErrors").UnableToPlayVideoError &&
                       u === 0
                     ) {
-                      o("WALogger").LOG(
+                      (o("WALogger").LOG(
                         e ||
                           (e = babelHelpers.taggedTemplateLiteralLoose([
                             "[generateThumbnailFromVideo] retry: UnableToPlayVideoError",
                           ])),
-                      );
+                      ),
+                        i.addAnnotations({ bool: { hasRetry: !0 } }),
+                        i.addPoint("video_thumbnail_retry_start"));
                       return;
                     }
                     throw t;
@@ -133,91 +135,111 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
-            n = e.msg;
-          if (
-            o("WAWebMsgModelPropUtils").isTrusted(n.unsafe()) &&
-            (t == null ? void 0 : t.isSuspendedOrTerminated()) !== !0
-          ) {
-            var a = n.directPath,
-              i = n.encFilehash,
-              l = n.filehash;
-            if (!(!l || !a)) {
-              var m = o(
-                "WAWebMediaCryptoEligibilityUtils",
-              ).isMediaCryptoExpectedForMsg(n);
-              if (!(m && !i)) {
-                var p = n.mediaData,
-                  f = p.fullHeight,
-                  g = p.fullPreviewData,
-                  h = p.fullWidth;
-                if (!(g && h != null && f != null)) {
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "media.downloadVideoThumbnail: start",
-                      ])),
-                  );
-                  var y = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl(
-                    { entryPoint: "DownloadVideoThumbnail" },
-                  );
-                  try {
-                    var C = yield _({
-                        msg: n,
-                        chat: t,
-                        downloadQpl: y,
-                        isEncrypted: m,
-                      }),
-                      b = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
-                        r("WAWebURLUtils").parseDataURL(C.url).data,
-                      ),
-                      v = r("nullthrows")(
-                        n.mediaObject,
-                        "mediaObject cannot be null for thumbnail download",
-                      ),
-                      S = {
-                        fullPreviewData: b,
-                        fullWidth: C.fullWidth,
-                        fullHeight: C.fullHeight,
-                      };
-                    (v.consolidate(S),
-                      y.endSuccess(),
-                      o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "media.downloadVideoThumbnail: success",
-                          ])),
-                      ));
-                  } catch (e) {
-                    if (
-                      (y.endFailWithError(
-                        "download_failed",
-                        r("getErrorSafe")(e).message,
-                      ),
-                      e instanceof
-                        o("WAWebImageUtils").BlackVideoThumbnailError)
-                    ) {
-                      o("WALogger").LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[downloadVideoThumbnail] black thumb, using blur fallback",
-                          ])),
-                      );
-                      return;
-                    }
-                    o("WALogger")
-                      .WARN(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose(
-                            ["media.downloadVideoThumbnail: error\n", ""],
-                            ["media.downloadVideoThumbnail: error\\n", ""],
-                          )),
-                        r("WAWebSerializeError")(e),
-                      )
-                      .verbose();
-                  }
-                }
-              }
+            n = e.msg,
+            a = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+              entryPoint: "DownloadVideoThumbnail",
+            });
+          if (!o("WAWebMsgModelPropUtils").isTrusted(n.unsafe())) {
+            a.endFail("untrusted_message", {
+              string: { earlyExitReason: "untrusted_message" },
+            });
+            return;
+          }
+          if ((t == null ? void 0 : t.isSuspendedOrTerminated()) === !0) {
+            a.endFail("suspended_or_terminated_chat", {
+              string: { earlyExitReason: "suspended_or_terminated_chat" },
+            });
+            return;
+          }
+          var i = n.directPath,
+            l = n.encFilehash,
+            m = n.filehash;
+          if (!m || !i) {
+            a.endFail("missing_download_path_or_filehash", {
+              string: { earlyExitReason: "missing_download_path_or_filehash" },
+            });
+            return;
+          }
+          var p = o(
+            "WAWebMediaCryptoEligibilityUtils",
+          ).isMediaCryptoExpectedForMsg(n);
+          if (p && !l) {
+            a.endFail("missing_encrypted_filehash", {
+              string: { earlyExitReason: "missing_encrypted_filehash" },
+            });
+            return;
+          }
+          var f = n.mediaData,
+            g = f.fullHeight,
+            h = f.fullPreviewData,
+            y = f.fullWidth;
+          if (h && y != null && g != null) {
+            a.endSuccess({ string: { downloadResult: "existing_thumbnail" } });
+            return;
+          }
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "media.downloadVideoThumbnail: start",
+              ])),
+          );
+          try {
+            a.addPoint("video_thumbnail_generation_start");
+            var C = yield _({
+              msg: n,
+              chat: t,
+              downloadQpl: a,
+              isEncrypted: p,
+            });
+            (a.addPoint("video_thumbnail_generation_end"),
+              a.addPoint("thumbnail_consolidation_start"));
+            var b = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+                r("WAWebURLUtils").parseDataURL(C.url).data,
+              ),
+              v = r("nullthrows")(
+                n.mediaObject,
+                "mediaObject cannot be null for thumbnail download",
+              ),
+              S = {
+                fullPreviewData: b,
+                fullWidth: C.fullWidth,
+                fullHeight: C.fullHeight,
+              };
+            (v.consolidate(S),
+              a.addPoint("thumbnail_consolidation_end"),
+              a.endSuccess(),
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "media.downloadVideoThumbnail: success",
+                  ])),
+              ));
+          } catch (e) {
+            if (
+              (a.endFailWithError(
+                "download_failed",
+                r("getErrorSafe")(e).message,
+              ),
+              e instanceof o("WAWebImageUtils").BlackVideoThumbnailError)
+            ) {
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[downloadVideoThumbnail] black thumb, using blur fallback",
+                  ])),
+              );
+              return;
             }
+            o("WALogger")
+              .WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose(
+                    ["media.downloadVideoThumbnail: error\n", ""],
+                    ["media.downloadVideoThumbnail: error\\n", ""],
+                  )),
+                r("WAWebSerializeError")(e),
+              )
+              .verbose();
           }
         })),
         h.apply(this, arguments)

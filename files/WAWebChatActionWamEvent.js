@@ -25,6 +25,7 @@ __d(
               1,
               o("WAWebWamEnumChatActionType").CHAT_ACTION_TYPE,
             ],
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],
           "regular",

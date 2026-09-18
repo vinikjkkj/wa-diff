@@ -36,6 +36,7 @@ __d(
                   .CONNECTION_SEQUENCE_STEP_TYPE,
               ],
               connectionT: [5, e.TYPES.TIMER],
+              dedupKey: [30, e.TYPES.INTEGER],
               dnsResolutionMethod: [
                 12,
                 o("WAWebWamEnumDnsResolutionMethodType")

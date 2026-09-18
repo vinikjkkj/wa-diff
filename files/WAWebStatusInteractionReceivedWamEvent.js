@@ -16,6 +16,7 @@ __d(
             {
               channelStatusId: [7, e.TYPES.INTEGER],
               cid: [8, e.TYPES.STRING],
+              dedupKey: [10, e.TYPES.INTEGER],
               statusId: [1, e.TYPES.STRING],
               statusInteractionActors: [
                 6,

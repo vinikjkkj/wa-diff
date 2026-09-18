@@ -33,6 +33,7 @@ __d(
                 e.TYPES.INTEGER,
               ],
               bucketedSenderKeyDistributionHashTime: [35, e.TYPES.INTEGER],
+              dedupKey: [51, e.TYPES.INTEGER],
               deviceCount: [36, e.TYPES.INTEGER],
               deviceSizeBucket: [26, o("WAWebWamEnumSizeBucket").SIZE_BUCKET],
               durationAbs: [11, e.TYPES.TIMER],

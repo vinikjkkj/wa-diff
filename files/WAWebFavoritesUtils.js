@@ -4,7 +4,6 @@ __d(
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFavoriteCollection",
-    "WAWebShouldShowCallButtons",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,23 +61,12 @@ __d(
         e
       );
     }
-    function u() {
-      return s().filter(function (e) {
-        var t = e.chat,
-          n = e.contact;
-        return !(
-          (t != null &&
-            !o("WAWebShouldShowCallButtons").shouldShowCallButtons(t)) ||
-          (n != null && !o("WAWebShouldShowCallButtons").canCallContact(n))
-        );
-      });
-    }
-    function c(e) {
-      return (e === void 0 && (e = 3), u().slice(0, e));
+    function u(e) {
+      return (e === void 0 && (e = 3), s().slice(0, e));
     }
     ((l.getFavoriteChats = e),
       (l.getFavoriteItems = s),
-      (l.getCallableFavoriteItemsLimited = c));
+      (l.getFavoriteItemsLimited = u));
   },
   98,
 );

@@ -32,6 +32,8 @@ __d(
       AI_FAB_QP: 26,
       AI_TAB_QP: 27,
       NONE: 28,
+      PRESETS: 29,
+      SUGGESTED_EDIT_PROMPT: 30,
     });
     i.IMAGINE_ACTION_SOURCE = e;
   },

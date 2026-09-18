@@ -12,6 +12,7 @@ __d(
           GroupMemberUpdates: [
             7768,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               fetchedMessageCount: [1, e.TYPES.INTEGER],
               fetchedMessageLatency: [5, e.TYPES.INTEGER],
               groupMemberUpdatesActionName: [

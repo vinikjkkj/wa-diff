@@ -4,6 +4,7 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumWsuaAction",
     "WAWebWamEnumWsuaActionTarget",
+    "WAWebWamEnumWsuaBlockSource",
     "WAWebWamEnumWsuaProductType",
     "WAWebWamEnumWsuaReferral",
     "WAWebWamEnumWsuaScreen",
@@ -17,6 +18,7 @@ __d(
           SubscriptionUserAction: [
             7458,
             {
+              dedupKey: [14, e.TYPES.INTEGER],
               wsuaAction: [1, o("WAWebWamEnumWsuaAction").WSUA_ACTION],
               wsuaActionTarget: [
                 2,
@@ -25,6 +27,10 @@ __d(
               wsuaActiveSubscriptions: [10, e.TYPES.STRING],
               wsuaBenefitGroup: [11, e.TYPES.STRING],
               wsuaBenefitsShown: [9, e.TYPES.STRING],
+              wsuaBlockSource: [
+                15,
+                o("WAWebWamEnumWsuaBlockSource").WSUA_BLOCK_SOURCE,
+              ],
               wsuaEligibleSubscriptions: [13, e.TYPES.STRING],
               wsuaProductType: [
                 3,
@@ -39,6 +45,7 @@ __d(
               ],
               wsuaSessionId: [8, e.TYPES.STRING],
               wsuaTier: [12, o("WAWebWamEnumWsuaTier").WSUA_TIER],
+              wsuaWaffleLinked: [16, e.TYPES.BOOLEAN],
             },
             [1, 1, 1],
             "regular",

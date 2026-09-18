@@ -19,6 +19,7 @@ __d(
           SearchUserJourney: [
             6358,
             {
+              dedupKey: [35, e.TYPES.INTEGER],
               searchDsSendContentType: [
                 32,
                 o("WAWebWamEnumSearchDsSendContentType")

@@ -13,6 +13,7 @@ __d(
               communityHomeGroupNavigations: [3, e.TYPES.INTEGER],
               communityHomeId: [4, e.TYPES.STRING],
               communityHomeViews: [5, e.TYPES.INTEGER],
+              dedupKey: [6, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

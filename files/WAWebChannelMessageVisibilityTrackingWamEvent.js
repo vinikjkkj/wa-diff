@@ -16,6 +16,7 @@ __d(
               ],
               cid: [1, e.TYPES.STRING],
               containsMusic: [9, e.TYPES.BOOLEAN],
+              dedupKey: [15, e.TYPES.INTEGER],
               isOriginalAuthor: [12, e.TYPES.BOOLEAN],
               isStarredPost: [8, e.TYPES.BOOLEAN],
               isVpvImpression: [7, e.TYPES.BOOLEAN],

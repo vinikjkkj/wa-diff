@@ -15,6 +15,7 @@ __d(
             {
               appSessionId: [1, e.TYPES.STRING],
               captionAdded: [12, e.TYPES.BOOLEAN],
+              dedupKey: [28, e.TYPES.INTEGER],
               forwardUserJourneyFunnelId: [27, e.TYPES.STRING],
               hasBotImagineImages: [22, e.TYPES.BOOLEAN],
               hasCaptionPrefilled: [21, e.TYPES.BOOLEAN],

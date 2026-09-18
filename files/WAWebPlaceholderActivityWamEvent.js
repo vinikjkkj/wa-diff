@@ -25,6 +25,7 @@ __d(
             1980,
             {
               botType: [24, o("WAWebWamEnumBotType").BOT_TYPE],
+              dedupKey: [26, e.TYPES.INTEGER],
               deviceCount: [9, e.TYPES.INTEGER],
               deviceSizeBucket: [8, o("WAWebWamEnumSizeBucket").SIZE_BUCKET],
               e2eSenderType: [

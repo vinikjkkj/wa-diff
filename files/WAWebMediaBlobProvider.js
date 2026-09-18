@@ -1,10 +1,12 @@
 __d(
   "WAWebMediaBlobProvider",
   [
+    "WAWebMediaDataGetters",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaTypes",
     "react",
-    "useWAWebModelValues",
+    "useWAWebIsBlobInMemoryCache",
+    "useWAWebMediaDataValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -14,37 +16,29 @@ __d(
     function d(e) {
       var t = e.downloadMedia,
         n = e.mediaData,
-        r = e.render,
-        a = e.renderPlaceholder,
-        i = o("useWAWebModelValues").useModelValues(n, [
-          "filehash",
-          "mediaStage",
+        a = e.render,
+        i = e.renderPlaceholder,
+        l = o("useWAWebMediaDataValues").useMediaDataValues(n, [
+          o("WAWebMediaDataGetters").getFilehash,
+          o("WAWebMediaDataGetters").getMediaStage,
         ]),
-        l = c(function () {
-          return o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            i.filehash,
-          );
-        }),
         s = l[0],
         d = l[1],
-        m = c(i),
-        p = m[0],
-        _ = m[1];
-      if (
-        (u(function () {
-          !s &&
-            i.mediaStage === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
-            t();
+        m = r("useWAWebIsBlobInMemoryCache")(s),
+        p = c(function () {
+          return o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(s);
+        }),
+        _ = p[0],
+        f = p[1];
+      return (
+        _ == null &&
+          m &&
+          f(o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(s)),
+        u(function () {
+          !_ && d === o("WAWebMediaTypes").MediaDataStage.RESOLVED && t();
         }, []),
-        p !== i)
-      ) {
-        _(i);
-        var f = i.filehash;
-        !s &&
-          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(f) &&
-          d(o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(f));
-      }
-      return s ? r(s) : a();
+        _ ? a(_) : i()
+      );
     }
     l.default = d;
   },

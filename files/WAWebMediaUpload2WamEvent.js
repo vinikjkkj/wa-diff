@@ -33,6 +33,7 @@ __d(
               debugMediaException: [34, e.TYPES.STRING],
               debugMediaIp: [32, e.TYPES.STRING],
               debugUrl: [33, e.TYPES.STRING],
+              dedupKey: [65, e.TYPES.INTEGER],
               estimatedBandwidth: [45, e.TYPES.NUMBER],
               estimatedBandwidthV2: [61, e.TYPES.NUMBER],
               fileHeight: [55, e.TYPES.INTEGER],

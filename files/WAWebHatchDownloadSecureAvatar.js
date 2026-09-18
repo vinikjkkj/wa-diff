@@ -23,21 +23,27 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          var l = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+            entryPoint: "DownloadHatchAvatar",
+          });
           if (
             o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(
               t.filehash,
             )
           )
-            return o(
-              "WAWebMediaInMemoryBlobCache",
-            ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash);
-          var l = t.mediaType === "video",
-            d = l
+            return (
+              l.endSuccess({
+                string: { downloadResult: "in_memory_media_blob_cache_hit" },
+              }),
+              o(
+                "WAWebMediaInMemoryBlobCache",
+              ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash)
+            );
+          l.addPoint("in_memory_media_blob_cache_miss");
+          var d = t.mediaType === "video",
+            m = d
               ? o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO
               : o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
-            m = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-              entryPoint: "DownloadHatchAvatar",
-            }),
             p = new AbortController(),
             _ = !1,
             f = window.setTimeout(function () {
@@ -59,22 +65,26 @@ __d(
                         mediaKey: t.mediaKey,
                         mimetype: t.mimeType,
                         staticUrl: t.staticUrl,
-                        type: d,
+                        type: m,
                         signal: e,
                         userDownloadAttemptCount: 0,
-                        downloadQpl: m,
+                        downloadQpl: l,
                         downloadOrigin: i,
                       }),
-                      a = (n = t.mimeType) != null ? n : l ? u : s,
+                      a = (n = t.mimeType) != null ? n : d ? u : s,
                       c = new Blob([r], { type: a });
-                    o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
-                      t.filehash,
-                      c,
-                    );
+                    (l.addPoint("in_memory_media_blob_cache_write_start"),
+                      o(
+                        "WAWebMediaInMemoryBlobCache",
+                      ).InMemoryMediaBlobCache.put(t.filehash, c));
                     var p = o(
                       "WAWebMediaInMemoryBlobCache",
                     ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash);
-                    return (m.endSuccess(), p);
+                    return (
+                      l.addPoint("in_memory_media_blob_cache_write_end"),
+                      l.endSuccess(),
+                      p
+                    );
                   },
                 );
                 return function (t) {
@@ -86,10 +96,10 @@ __d(
             var g = r("getErrorSafe")(t);
             if (g.name === o("WAAbortError").ABORT_ERROR) {
               var h = _ ? "download_timed_out" : "download_aborted";
-              return (m.endFailWithError(h, h), null);
+              return (l.endFailWithError(h, h), null);
             }
             return (
-              m.endFailWithError("download_failed", g.message),
+              l.endFailWithError("download_failed", g.message),
               o("WALogger")
                 .WARN(
                   e ||

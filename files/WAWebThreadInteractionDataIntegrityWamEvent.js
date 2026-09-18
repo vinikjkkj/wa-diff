@@ -9,6 +9,7 @@ __d(
             6468,
             {
               blockReason: [1, o("WAWebWamEnumBlockReason").BLOCK_REASON],
+              dedupKey: [10, e.TYPES.INTEGER],
               isBlocked: [2, e.TYPES.BOOLEAN],
               isReported: [3, e.TYPES.BOOLEAN],
               smbMarketingMessagesSpamReports: [4, e.TYPES.INTEGER],

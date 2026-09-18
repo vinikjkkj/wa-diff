@@ -33,6 +33,7 @@ __d(
               ],
               companionInviteSessionId: [6, e.TYPES.INTEGER],
               companionValidInviteCode: [7, e.TYPES.BOOLEAN],
+              dedupKey: [9, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

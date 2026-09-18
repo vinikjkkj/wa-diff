@@ -6,7 +6,10 @@ __d(
       {
         WaOldCode: [
           3940,
-          { deviceId: [1, o("WAWebWamCodegenUtils").TYPES.STRING] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            deviceId: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
+          },
           [1, 1, 1],
           "regular",
         ],

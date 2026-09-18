@@ -7,6 +7,7 @@ __d(
         MdAppStateDirtyBits: [
           2520,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             dirtyBitsFalsePositive: [
               2,
               o("WAWebWamCodegenUtils").TYPES.BOOLEAN,

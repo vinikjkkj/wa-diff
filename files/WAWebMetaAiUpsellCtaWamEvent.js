@@ -11,6 +11,7 @@ __d(
         MetaAiUpsellCta: [
           6532,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             metaAiUpsellCtaOperation: [
               1,
               o("WAWebWamEnumMetaAiUpsellCtaOperationType")

@@ -12,6 +12,7 @@ __d(
         AddressingModeMismatch: [
           4750,
           {
+            dedupKey: [7, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             iqResponse: [1, o("WAWebWamEnumIqResponseType").IQ_RESPONSE_TYPE],
             localAddressingMode: [
               2,

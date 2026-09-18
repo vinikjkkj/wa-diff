@@ -7,6 +7,7 @@ __d(
         SettingsSearchInitiate: [
           4014,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             settingsPageType: [
               1,
               o("WAWebWamEnumSettingsPageType").SETTINGS_PAGE_TYPE,

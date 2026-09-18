@@ -6,7 +6,10 @@ __d(
       {
         WebHdMediaAwarenessInteraction: [
           5426,
-          { hdMediaSelected: [1, o("WAWebWamCodegenUtils").TYPES.BOOLEAN] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            hdMediaSelected: [1, o("WAWebWamCodegenUtils").TYPES.BOOLEAN],
+          },
           [1, 1, 1],
           "regular",
         ],

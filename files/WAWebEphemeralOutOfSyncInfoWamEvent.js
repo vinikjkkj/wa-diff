@@ -8,6 +8,7 @@ __d(
           EphemeralOutOfSyncInfo: [
             3892,
             {
+              dedupKey: [10, e.TYPES.INTEGER],
               groupSizeBucket: [
                 1,
                 o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,

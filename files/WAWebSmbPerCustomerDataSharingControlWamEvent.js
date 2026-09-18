@@ -13,6 +13,7 @@ __d(
           SmbPerCustomerDataSharingControl: [
             8232,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               smbPerCustomerDataSharingControlAction: [
                 1,
                 o("WAWebWamEnumSmbPerCustomerDataSharingControlAction")

@@ -22,6 +22,7 @@ __d(
                 20,
                 o("WAWebWamEnumBundleSendSource").BUNDLE_SEND_SOURCE,
               ],
+              dedupKey: [31, e.TYPES.INTEGER],
               frequentlyContactedIndex: [3, e.TYPES.INTEGER],
               groupAddMemberEntryPoint: [
                 28,

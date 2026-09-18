@@ -7,6 +7,7 @@ __d(
         ScreenLockSettingsData: [
           4802,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             screenAutoLockDuration: [
               1,
               o("WAWebWamCodegenUtils").TYPES.INTEGER,

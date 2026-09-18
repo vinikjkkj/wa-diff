@@ -13,6 +13,7 @@ __d(
           GroupMemberTagUpdate: [
             7010,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               groupId: [1, e.TYPES.STRING],
               groupMemberTagUpdateAction: [
                 2,

@@ -25,6 +25,7 @@ __d(
               ],
               businessToolsSequenceNumber: [2, e.TYPES.INTEGER],
               businessToolsSessionId: [1, e.TYPES.STRING],
+              dedupKey: [7, e.TYPES.INTEGER],
               linkingTarget: [
                 4,
                 o("WAWebWamEnumBusinessToolsLinkedAccountType")

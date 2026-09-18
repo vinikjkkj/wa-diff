@@ -15,6 +15,7 @@ __d(
           ReportingTokenValidationFailure: [
             5466,
             {
+              dedupKey: [15, e.TYPES.INTEGER],
               editType: [1, o("WAWebWamEnumEditType").EDIT_TYPE],
               isLid: [5, e.TYPES.BOOLEAN],
               isMessageMediaRetry: [10, e.TYPES.BOOLEAN],

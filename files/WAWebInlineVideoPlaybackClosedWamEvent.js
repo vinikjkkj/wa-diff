@@ -15,6 +15,7 @@ __d(
             2032,
             {
               chatSize: [14, e.TYPES.INTEGER],
+              dedupKey: [17, e.TYPES.INTEGER],
               inlineVideoCancelBeforePlayStateT: [7, e.TYPES.TIMER],
               inlineVideoComplete: [8, e.TYPES.BOOLEAN],
               inlineVideoCompletionRate: [9, e.TYPES.INTEGER],

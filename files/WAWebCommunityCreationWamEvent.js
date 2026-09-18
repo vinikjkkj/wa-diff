@@ -31,6 +31,7 @@ __d(
               ],
               communityCreationSessionId: [4, e.TYPES.STRING],
               communityId: [6, e.TYPES.STRING],
+              dedupKey: [7, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

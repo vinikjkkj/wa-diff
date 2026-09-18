@@ -12,6 +12,8 @@ __d(
           GroupHistoryReceiverUserJourney: [
             7064,
             {
+              dedupKey: [15, e.TYPES.INTEGER],
+              groupHistoryBundleApplyDurationMs: [16, e.TYPES.INTEGER],
               groupHistoryDbIgnoredOlderMessages: [9, e.TYPES.BOOLEAN],
               groupHistoryMessagesCount: [1, e.TYPES.INTEGER],
               groupHistoryOutWindowPinsCount: [12, e.TYPES.INTEGER],

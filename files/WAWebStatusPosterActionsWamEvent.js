@@ -33,6 +33,7 @@ __d(
                 o("WAWebWamEnumEngagementCardVariant").ENGAGEMENT_CARD_VARIANT,
               ],
               cid: [36, e.TYPES.STRING],
+              dedupKey: [39, e.TYPES.INTEGER],
               defaultTrimmedVideoDuration: [26, e.TYPES.INTEGER],
               editable: [14, e.TYPES.BOOLEAN],
               externalInteractables: [15, e.TYPES.INTEGER],

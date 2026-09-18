@@ -10,6 +10,7 @@ __d(
             {
               dbStoringT: [7, e.TYPES.INTEGER],
               decryptionT: [1, e.TYPES.INTEGER],
+              dedupKey: [10, e.TYPES.INTEGER],
               isOffline: [2, e.TYPES.BOOLEAN],
               lidProcessingT: [8, e.TYPES.INTEGER],
               parsingT: [3, e.TYPES.INTEGER],

@@ -11,6 +11,7 @@ __d(
         WebcMenu: [
           2504,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcMenuAction: [2, o("WAWebWamEnumWebcMenuType").WEBC_MENU_TYPE],
             webcMenuItemLabel: [
               3,

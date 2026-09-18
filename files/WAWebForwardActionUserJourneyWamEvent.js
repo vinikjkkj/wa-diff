@@ -16,6 +16,7 @@ __d(
             6506,
             {
               appSessionId: [1, e.TYPES.STRING],
+              dedupKey: [13, e.TYPES.INTEGER],
               forwardActionUserJourneyAction: [
                 2,
                 o("WAWebWamEnumForwardActionUserJourneyAction")

@@ -8,6 +8,7 @@ __d(
       BUSINESS: 3,
       BROADCAST_LIST: 4,
       CHANNEL: 5,
+      META_AI: 6,
     });
     i.CHAT_ACTION_CHAT_TYPE = e;
   },

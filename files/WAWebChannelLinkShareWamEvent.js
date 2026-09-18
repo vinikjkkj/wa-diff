@@ -29,6 +29,7 @@ __d(
                   .CHANNEL_LINK_SHARE_SCREEN,
               ],
               cid: [3, e.TYPES.STRING],
+              dedupKey: [7, e.TYPES.INTEGER],
               unifiedSessionId: [5, e.TYPES.STRING],
               updatesTabSessionId: [6, e.TYPES.INTEGER],
             },

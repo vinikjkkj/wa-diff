@@ -24,6 +24,7 @@ __d(
             ],
             botBizType: [7, o("WAWebWamEnumBotBizType").BOT_BIZ_TYPE],
             botType: [4, o("WAWebWamEnumBotType").BOT_TYPE],
+            dedupKey: [8, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],
           "regular",

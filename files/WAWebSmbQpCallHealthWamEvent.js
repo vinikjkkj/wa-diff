@@ -11,6 +11,7 @@ __d(
         SmbQpCallHealth: [
           6746,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             fetchExceptionMessage: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
             fetchMechanism: [
               2,

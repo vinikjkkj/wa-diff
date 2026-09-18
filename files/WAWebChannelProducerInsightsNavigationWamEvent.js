@@ -35,6 +35,7 @@ __d(
                   .CHANNEL_PRODUCER_INSIGHTS_SURFACE,
               ],
               cid: [6, e.TYPES.STRING],
+              dedupKey: [10, e.TYPES.INTEGER],
               producerInsightsSessionId: [7, e.TYPES.INTEGER],
               unifiedSessionId: [8, e.TYPES.STRING],
               updatesTabSessionId: [9, e.TYPES.INTEGER],

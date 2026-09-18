@@ -8,6 +8,7 @@ __d(
           WebcLogin: [
             1664,
             {
+              dedupKey: [18, e.TYPES.INTEGER],
               webcBrowserNetworkType: [14, e.TYPES.STRING],
               webcBrowserStorageQuotaBytes: [15, e.TYPES.INTEGER],
               webcBrowserStorageQuotaUsedBytes: [16, e.TYPES.INTEGER],

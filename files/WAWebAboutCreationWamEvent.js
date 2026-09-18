@@ -37,6 +37,7 @@ __d(
                 11,
                 o("WAWebWamEnumAboutSaveOutcome").ABOUT_SAVE_OUTCOME,
               ],
+              dedupKey: [12, e.TYPES.INTEGER],
               preset: [8, o("WAWebWamEnumPresetType").PRESET_TYPE],
             },
             [1, 1, 1],

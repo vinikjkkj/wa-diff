@@ -26,7 +26,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebReportingTokenConfig",
     "WAWebReportingTokenConstants",
     "WAWebReportingTokenContent",
     "WAWebSchemaMessage",
@@ -57,8 +56,7 @@ __d(
       h = 7,
       y = { sampling: 0.01 },
       C = { sampling: 1 },
-      b = new Map([[35, new Set([1, 2, 3, 4, 6])]]),
-      v = new Set([
+      b = new Set([
         (p = o("WAWebMsgType")).MSG_TYPE.COMMENT,
         p.MSG_TYPE.EVENT_EDIT_ENCRYPTED,
         p.MSG_TYPE.EVENT_RESPONSE,
@@ -69,21 +67,21 @@ __d(
         p.MSG_TYPE.REACTION,
         p.MSG_TYPE.REACTION_ENC,
       ]);
-    function S(e) {
+    function v(e) {
       return o("WAWebMsgGetters").getIsGroupStatus(e)
         ? o("WAWebMsgGetters").getAuthor(e)
         : o("WAWebMsgGetters").getSender(e);
     }
-    function R(e) {
-      var t = S(e);
+    function S(e) {
+      var t = v(e);
       return t == null
         ? null
         : t.isLid()
           ? o("WAWebLidMigrationUtils").toPn(t)
           : t;
     }
-    function L(e) {
-      var t = S(e);
+    function R(e) {
+      var t = v(e);
       if (t == null) return null;
       if (t.isLid()) return t;
       if (e.preMatChat != null) return e.preMatChat;
@@ -92,21 +90,21 @@ __d(
       );
       return n != null ? o("WAWebWidFactory").createWid(n.toString()) : null;
     }
-    function E(e) {
-      var t = S(e);
+    function L(e) {
+      var t = v(e);
       if (t == null) return [];
       var n = e.id.remote.isRegularUser();
       if (!n || o("WAWebMsgGetters").getBroadcastId(e) != null) {
-        var r = W(e),
-          a = R(e),
-          i = L(e);
+        var r = O(e),
+          a = S(e),
+          i = R(e);
         return [
           { senderWid: t, receiverWid: r },
           { senderWid: t.isLid() ? a : i, receiverWid: r },
         ];
       }
-      var l = R(e),
-        s = L(e),
+      var l = S(e),
+        s = R(e),
         u = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         d = t.isLid()
@@ -129,12 +127,12 @@ __d(
         d
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function I() {
+    function k() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.messageSecret,
             n = e.remoteJid,
             r = e.senderJid,
@@ -153,21 +151,21 @@ __d(
             f,
           );
         })),
-        I.apply(this, arguments)
+        k.apply(this, arguments)
+      );
+    }
+    function I(e) {
+      return o("WAJids").extractFromJid(
+        o("WAWebWidToJid").widToJidWithType(O(e)),
       );
     }
     function T(e) {
-      return o("WAJids").extractFromJid(
-        o("WAWebWidToJid").widToJidWithType(W(e)),
-      );
-    }
-    function D(e) {
       var t = e.id.remote;
       t.isRegularUser() && !t.isLid() && e.to.isLid() && (t = e.to);
       var n = o("WAWebWidToJid").widToJidWithType(t);
       return { jidType: n.jidType, remoteJid: o("WAJids").extractFromJid(n) };
     }
-    function x(e) {
+    function D(e) {
       var t, n;
       if (e.encFilehash == null && e.caption == null) return null;
       var r = new Uint8Array(
@@ -181,12 +179,12 @@ __d(
         self.crypto.getRandomValues(new Uint8Array(i.length))
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n, r;
           if (
             !(
@@ -203,8 +201,8 @@ __d(
                 : (r = t.messageContextInfo) == null
                   ? void 0
                   : r.messageSecret,
-            i = S(e),
-            l = D(e),
+            i = v(e),
+            l = T(e),
             s = l.jidType,
             u = l.remoteJid;
           if (s === "interopUser") return null;
@@ -226,7 +224,7 @@ __d(
           var c = o(
               "WAWebMessagingGatingUtils",
             ).getSenderReportingTokenVersion(),
-            d = yield k({
+            d = yield E({
               messageSecret: a,
               stanzaId: e.id.id,
               senderJid: o("WAWebWidToJid").widToUserJid(
@@ -242,14 +240,21 @@ __d(
                 t,
               ),
               f = p.readByteArrayView();
-            ((m = N(f, c)),
-              c < 3 &&
+            ((m = o(
+              "WAWebReportingTokenContent",
+            ).calculateReportingTokenContent(f, c)),
+              c <
+                o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3 &&
                 m.length === 0 &&
                 o(
                   "WAWebMessagingGatingUtils",
                 ).isReportingTokenV3HybridSendingEnabled() &&
-                !v.has(e.type) &&
-                ((c = 3), (m = N(f, c))));
+                !b.has(e.type) &&
+                ((c = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
+                  .V3),
+                (m = o(
+                  "WAWebReportingTokenContent",
+                ).calculateReportingTokenContent(f, c))));
           }
           if (m == null || m.length === 0) return null;
           var g = yield o("WACryptoHmac").hmacSha256(
@@ -259,29 +264,18 @@ __d(
           );
           return { version: c, reportingToken: new Uint8Array(g) };
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e, t) {
-      var n = new (o(
-        "WAWebReportingTokenContent",
-      ).ReportingTokenContentCalculator)(
-        e,
-        o("WAWebReportingTokenConfig").getReportingTokenConfig(t),
-      );
-      return t === 3
-        ? n.getReportingTokenContentByExclusion(b)
-        : n.getReportingTokenContent();
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
-    }
-    function w() {
+    function N() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
             var r,
-              a = (r = yield $(t, n)) != null ? r : {},
+              a = (r = yield x(t, n)) != null ? r : {},
               i = a.reportingToken,
               l = a.version;
             return i == null || l == null
@@ -312,15 +306,15 @@ __d(
             );
           }
         })),
-        w.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function A(e, t, n) {
-      return F.apply(this, arguments);
+    function M(e, t, n) {
+      return w.apply(this, arguments);
     }
-    function F() {
+    function w() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE) {
             if (
               o(
@@ -339,20 +333,20 @@ __d(
             }
             return null;
           }
-          return M(e, t);
+          return P(e, t);
         })),
-        F.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function B() {
+    function F() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n,
-              r = (n = yield $(e, t)) != null ? n : {},
+              r = (n = yield x(e, t)) != null ? n : {},
               a = r.reportingToken,
               i = r.version;
             return a == null || i == null
@@ -375,10 +369,10 @@ __d(
             );
           }
         })),
-        B.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function W(e) {
+    function O(e) {
       var t = o("WAWebMsgGetters").getBroadcastId(e);
       if (t != null) return t;
       var n = e.id.remote;
@@ -388,14 +382,13 @@ __d(
           : o("WAWebUserPrefsMeUser").getMeUserOrThrow()
         : n;
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function U() {
+    function W() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            var n;
             if (
               !o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled()
             )
@@ -404,27 +397,23 @@ __d(
                 reportingTokenContent: null,
                 reportingTokenKey: null,
               };
-            var a = e.reportingTokenInfo;
-            if (a == null || r("isEmptyObject")(a))
+            var n = e.reportingTokenInfo;
+            if (n == null || r("isEmptyObject")(n))
               return {
                 res: !0,
                 reportingTokenContent: null,
                 reportingTokenKey: null,
               };
-            if (a.reportingTag == null)
+            if (n.reportingTag == null)
               return {
                 res: !0,
                 reportingTokenContent: null,
                 reportingTokenKey: null,
               };
-            var i = a.reportingToken,
-              l =
-                (n = a.version) != null
-                  ? n
-                  : o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
-                      .DEFAULT,
-              s = { msg: e, reportingTokenVersion: l };
-            if (i == null)
+            var a = n.reportingToken,
+              i = n.version,
+              l = { msg: e, reportingTokenVersion: i };
+            if (a == null)
               return {
                 res: !0,
                 reportingTokenContent: null,
@@ -440,12 +429,12 @@ __d(
                 reportingTokenContent: null,
                 reportingTokenKey: null,
               };
-            var p;
+            var s;
             if (
               (o("WAWebMsgGetters").getIsEdited(e) &&
-                (p = yield j(e.protocolMessageKey)),
-              (p = p != null ? p : e.messageSecret),
-              p == null)
+                (s = yield z(e.protocolMessageKey)),
+              (s = s != null ? s : e.messageSecret),
+              s == null)
             )
               return (
                 o("WALogger")
@@ -464,7 +453,7 @@ __d(
                 o(
                   "WAWebWamReportingTokenMismatchReporter",
                 ).logReportingTokenValidationEvent(
-                  babelHelpers.extends({}, s, {
+                  babelHelpers.extends({}, l, {
                     reason: o(
                       "WAWebWamEnumReportingTokenValidationFailureReason",
                     ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
@@ -477,13 +466,13 @@ __d(
                   reportingTokenKey: null,
                 }
               );
-            var _ = new (o(
-              "WAWebReportingTokenContent",
-            ).ReportingTokenContentCalculator)(
-              t,
-              o("WAWebReportingTokenConfig").getReportingTokenConfig(l),
-            ).getReportingTokenContent();
-            if (_.length === 0)
+            var p =
+              i == null
+                ? new Uint8Array(0)
+                : o(
+                    "WAWebReportingTokenContent",
+                  ).calculateReportingTokenContent(t, i);
+            if (p.length === 0)
               return (
                 o("WALogger")
                   .ERROR(
@@ -501,18 +490,14 @@ __d(
                 o(
                   "WAWebWamReportingTokenMismatchReporter",
                 ).logReportingTokenValidationEvent(
-                  babelHelpers.extends({}, s, {
-                    reason:
-                      l >
-                      o(
-                        "WAWebMessagingGatingUtils",
-                      ).getSenderReportingTokenVersion()
-                        ? o("WAWebWamEnumReportingTokenValidationFailureReason")
-                            .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
-                            .UNSUPPORTED_VERSION
-                        : o("WAWebWamEnumReportingTokenValidationFailureReason")
-                            .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
-                            .EMPTY_REPORTING_TOKEN_CONTENT,
+                  babelHelpers.extends({}, l, {
+                    reason: H(i)
+                      ? o("WAWebWamEnumReportingTokenValidationFailureReason")
+                          .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                          .EMPTY_REPORTING_TOKEN_CONTENT
+                      : o("WAWebWamEnumReportingTokenValidationFailureReason")
+                          .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                          .UNSUPPORTED_VERSION,
                   }),
                 ),
                 {
@@ -521,13 +506,13 @@ __d(
                   reportingTokenKey: null,
                 }
               );
-            var f = yield V({
-              messageSecret: p,
+            var _ = yield q({
+              messageSecret: s,
               msg: e,
-              receivedReportingToken: i,
-              derivedReportingTokenContent: _,
+              receivedReportingToken: a,
+              derivedReportingTokenContent: p,
             });
-            if (f.res === !0) return f;
+            if (_.res === !0) return _;
             if (
               (o("WALogger")
                 .ERROR(
@@ -542,49 +527,40 @@ __d(
                   e.id.toString(),
                   e.type,
                   e.subtype,
-                  l,
+                  i,
                 )
                 .tags("messaging", "wa-ice", "report-token")
                 .sendLogs("report-token-mismatch", C),
-              l >
-              o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion()
-                ? o(
-                    "WAWebWamReportingTokenMismatchReporter",
-                  ).logReportingTokenValidationEvent({
-                    msg: e,
-                    reason: o(
-                      "WAWebWamEnumReportingTokenValidationFailureReason",
-                    ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+              o(
+                "WAWebWamReportingTokenMismatchReporter",
+              ).logReportingTokenValidationEvent({
+                msg: e,
+                reason: H(i)
+                  ? o("WAWebWamEnumReportingTokenValidationFailureReason")
+                      .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                      .MISMATCH_REPORTING_TOKEN
+                  : o("WAWebWamEnumReportingTokenValidationFailureReason")
+                      .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
                       .UNSUPPORTED_VERSION,
-                    reportingTokenVersion: l,
-                  })
-                : o(
-                    "WAWebWamReportingTokenMismatchReporter",
-                  ).logReportingTokenValidationEvent({
-                    msg: e,
-                    reason: o(
-                      "WAWebWamEnumReportingTokenValidationFailureReason",
-                    ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
-                      .MISMATCH_REPORTING_TOKEN,
-                    reportingTokenVersion: l,
-                  }),
-              G(l))
+                reportingTokenVersion: i,
+              }),
+              V(i))
             ) {
-              var g = z(e);
+              var f = G(e);
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
-                externalId: g.externalId,
+                externalId: f.externalId,
                 nackReason: o("WAWebCreateNackFromStanza").NackReason
                   .ParsingError,
-                msgInfo: g,
+                msgInfo: f,
                 offline: !1,
                 additionalInfo:
                   "reporting token validation failed for msg " +
                   e.id.toString(),
               });
             }
-            return f;
+            return _;
           } catch (e) {
             return (
               o("WALogger")
@@ -602,20 +578,20 @@ __d(
             );
           }
         })),
-        U.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function H() {
+    function U() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.derivedReportingTokenContent,
             n = e.messageSecret,
             r = e.msg,
             a = e.receivedReportingToken,
-            i = E(r);
+            i = L(r);
           if (i.length === 0)
             return {
               res: !1,
@@ -633,7 +609,7 @@ __d(
                 ),
                 p = o("WAWebWidToJid").widToUserJid(d),
                 f = new Uint8Array(
-                  yield k({
+                  yield E({
                     messageSecret: n,
                     stanzaId: r.id.id,
                     senderJid: p,
@@ -658,23 +634,33 @@ __d(
           }
           return { res: !1, reportingTokenContent: t, reportingTokenKey: l };
         })),
-        H.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function G(e) {
-      return e > o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion()
-        ? !1
-        : o(
+    function V(e) {
+      return H(e)
+        ? o(
             "WAWebMessagingGatingUtils",
-          ).isReportingTokenValidationFailureDebugPlaceholderEnabled();
+          ).isReportingTokenValidationFailureDebugPlaceholderEnabled()
+        : !1;
     }
-    function z(e) {
+    function H(e) {
+      return e == null
+        ? !1
+        : e < o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
+          ? e <= o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion()
+          : e <=
+            o(
+              "WAWebReportingTokenContent",
+            ).getLatestReportingTokenExclusionVersion();
+    }
+    function G(e) {
       var t,
         n,
         a = e.id.id + "DEBUG",
         i = e.id.remote,
         l = {
-          author: (t = S(e)) != null ? t : e.from,
+          author: (t = v(e)) != null ? t : e.from,
           chat: i,
           count: null,
           edit: -1,
@@ -692,12 +678,12 @@ __d(
             type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT,
           });
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function K() {
+    function j() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return null;
           var t = yield o("WAWebSchemaMessage")
             .getMessageTable()
@@ -706,23 +692,24 @@ __d(
           var n = o("WAWebDBMessageSerialization").messageFromDbRow(t);
           return n.messageSecret;
         })),
-        K.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
     ((l.REPORTING_TOKEN_SIZE = _),
       (l.REPORTING_TOKEN_KEY_SIZE = f),
       (l.REPORTING_TOKEN_STORAGE_SIZE = g),
       (l.REPORTING_TOKEN_INVALID_STORAGE_SIZE = h),
-      (l.genReportingTokenKeyFromMessageSecret = k),
-      (l.getRemoteJidOnReceiverSide = T),
-      (l.getMediaReportingTokenContent = x),
-      (l.genReportingToken = $),
-      (l.genReportingTokenBody = M),
-      (l.genReportingTokenBodyForStanza = A),
-      (l.genClientReportingTokenMixinArgs = O),
-      (l.validateReportingTokenInfo = q),
-      (l.showDebugPlaceholderForReportingTokenMismatch = G),
-      (l.genDebugMsgInfo = z));
+      (l.genReportingTokenKeyFromMessageSecret = E),
+      (l.getRemoteJidOnReceiverSide = I),
+      (l.getMediaReportingTokenContent = D),
+      (l.genReportingToken = x),
+      (l.genReportingTokenBody = P),
+      (l.genReportingTokenBodyForStanza = M),
+      (l.genClientReportingTokenMixinArgs = A),
+      (l.validateReportingTokenInfo = B),
+      (l.showDebugPlaceholderForReportingTokenMismatch = V),
+      (l.isSupportedReceiveVersion = H),
+      (l.genDebugMsgInfo = G));
   },
   98,
 );

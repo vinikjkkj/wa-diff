@@ -8,6 +8,7 @@ __d(
           SyncdKeyCount: [
             3978,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               keysUsedInSnapshotCount: [1, e.TYPES.INTEGER],
               p80MuationsPerKey: [2, e.TYPES.INTEGER],
               p95MuationsPerKey: [3, e.TYPES.INTEGER],

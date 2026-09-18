@@ -39,6 +39,7 @@ __d(
               debugMediaException: [24, e.TYPES.STRING],
               debugMediaIp: [22, e.TYPES.STRING],
               debugUrl: [23, e.TYPES.STRING],
+              dedupKey: [73, e.TYPES.INTEGER],
               deviceCount: [49, e.TYPES.INTEGER],
               downloadBytesTransferred: [20, e.TYPES.NUMBER],
               downloadConnectT: [15, e.TYPES.TIMER],

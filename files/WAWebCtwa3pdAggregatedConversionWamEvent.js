@@ -21,6 +21,7 @@ __d(
                 o("WAWebWamEnumCtwaDirectionFrom").CTWA_DIRECTION_FROM,
               ],
               ctwaSignals: [10, e.TYPES.STRING],
+              dedupKey: [12, e.TYPES.INTEGER],
               threadIdHmac: [11, e.TYPES.STRING],
             },
             [1, 1, 1],

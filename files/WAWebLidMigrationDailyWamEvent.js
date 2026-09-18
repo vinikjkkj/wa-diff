@@ -9,6 +9,7 @@ __d(
             5842,
             {
               completedMigrations: [1, e.TYPES.STRING],
+              dedupKey: [24, e.TYPES.INTEGER],
               lidMigrationSource: [
                 7,
                 o("WAWebWamEnumLidMigrationSourceType")

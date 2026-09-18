@@ -16,6 +16,7 @@ __d(
             {
               currentMigrationBucket: [9, e.TYPES.INTEGER],
               customListCount: [7, e.TYPES.INTEGER],
+              dedupKey: [13, e.TYPES.INTEGER],
               listAction: [1, o("WAWebWamEnumListAction").LIST_ACTION],
               listId: [2, e.TYPES.INTEGER],
               listType: [3, o("WAWebWamEnumListType").LIST_TYPE],
@@ -24,6 +25,7 @@ __d(
                 o("WAWebWamEnumListUpdateUserJourneyAction")
                   .LIST_UPDATE_USER_JOURNEY_ACTION,
               ],
+              mentionsAndRepliesFilterChatCount: [12, e.TYPES.INTEGER],
               predefinedId: [5, e.TYPES.INTEGER],
               presetListCount: [8, e.TYPES.INTEGER],
               previousMigrationBucket: [10, e.TYPES.INTEGER],

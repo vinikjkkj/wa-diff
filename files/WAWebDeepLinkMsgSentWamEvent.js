@@ -7,6 +7,7 @@ __d(
         DeepLinkMsgSent: [
           3198,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             deepLinkAction: [
               1,
               o("WAWebWamEnumDeepLinkAction").DEEP_LINK_ACTION,

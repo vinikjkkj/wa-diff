@@ -26,6 +26,7 @@ __d(
                 20,
                 o("WAWebWamEnumConsentSource").CONSENT_SOURCE,
               ],
+              dedupKey: [21, e.TYPES.INTEGER],
               isCompanionDevice: [1, e.TYPES.BOOLEAN],
               isLatestConversionToken: [15, e.TYPES.BOOLEAN],
               isShimmingSignal: [13, e.TYPES.BOOLEAN],

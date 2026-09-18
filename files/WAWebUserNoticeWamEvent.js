@@ -13,6 +13,7 @@ __d(
           UserNotice: [
             2472,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               noticeTriggeredBy: [
                 5,
                 o("WAWebWamEnumNoticeTriggeredBy").NOTICE_TRIGGERED_BY,

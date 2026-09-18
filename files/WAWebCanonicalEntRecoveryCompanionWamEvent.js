@@ -32,6 +32,7 @@ __d(
                 e.TYPES.INTEGER,
               ],
               canonicalEntStorageSource: [10, e.TYPES.STRING],
+              dedupKey: [13, e.TYPES.INTEGER],
               deviceId: [5, e.TYPES.STRING],
               familyDeviceId: [6, e.TYPES.STRING],
               traceIdInt: [11, e.TYPES.INTEGER],

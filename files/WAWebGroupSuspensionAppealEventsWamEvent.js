@@ -14,6 +14,7 @@ __d(
           GroupSuspensionAppealEvents: [
             7574,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               groupJid: [5, e.TYPES.STRING],
               groupSuspensionAppealEntryPoint: [
                 7,

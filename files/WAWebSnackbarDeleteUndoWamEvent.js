@@ -12,6 +12,7 @@ __d(
           SnackbarDeleteUndo: [
             3628,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               isAGroup: [1, e.TYPES.BOOLEAN],
               mediaType: [6, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messagesUndeleted: [2, e.TYPES.INTEGER],

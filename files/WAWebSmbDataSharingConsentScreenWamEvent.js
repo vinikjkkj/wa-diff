@@ -12,6 +12,7 @@ __d(
           SmbDataSharingConsentScreen: [
             3972,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               elapsedTimeMs: [4, e.TYPES.INTEGER],
               previousImpressionCount: [5, e.TYPES.INTEGER],
               previousOptOutImpressionCount: [6, e.TYPES.INTEGER],

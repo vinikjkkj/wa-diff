@@ -24,6 +24,7 @@ __d(
             1658,
             {
               bytesDownloadedStartView: [47, e.TYPES.NUMBER],
+              dedupKey: [59, e.TYPES.INTEGER],
               estimatedBandwidth: [48, e.TYPES.NUMBER],
               externalSourceDomainType: [
                 34,

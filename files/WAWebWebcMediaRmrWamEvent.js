@@ -13,6 +13,7 @@ __d(
           WebcMediaRmr: [
             1906,
             {
+              dedupKey: [15, e.TYPES.INTEGER],
               messageMediaType: [10, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               webcBrowserNetworkType: [2, e.TYPES.STRING],
               webcBrowserStorageQuotaBytes: [11, e.TYPES.INTEGER],

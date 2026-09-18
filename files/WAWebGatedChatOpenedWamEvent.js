@@ -11,6 +11,7 @@ __d(
               1,
               o("WAWebWamEnumChatGatedReason").CHAT_GATED_REASON,
             ],
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             selfInitiated: [2, o("WAWebWamCodegenUtils").TYPES.BOOLEAN],
           },
           [1, 1, 1],

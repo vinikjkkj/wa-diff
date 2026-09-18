@@ -35,6 +35,7 @@ __d(
               ],
               chatAssignmentMdId: [9, e.TYPES.INTEGER],
               chatsCnt: [10, e.TYPES.INTEGER],
+              dedupKey: [11, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

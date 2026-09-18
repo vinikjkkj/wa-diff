@@ -7,6 +7,7 @@ __d(
         UsernameExposed: [
           7614,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             usernameExposureContext: [
               1,
               o("WAWebWamCodegenUtils").TYPES.STRING,

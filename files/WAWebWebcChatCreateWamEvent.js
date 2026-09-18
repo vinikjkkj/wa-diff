@@ -12,6 +12,7 @@ __d(
               o("WAWebWamEnumWebcChatCreateCreationMethod")
                 .WEBC_CHAT_CREATE_CREATION_METHOD,
             ],
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             noCreated: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],

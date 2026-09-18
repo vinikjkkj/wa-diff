@@ -15,6 +15,7 @@ __d(
             2978,
             {
               cid: [15, e.TYPES.STRING],
+              dedupKey: [16, e.TYPES.INTEGER],
               isPosterBiz: [9, e.TYPES.BOOLEAN],
               isPosterInAddressBook: [10, e.TYPES.BOOLEAN],
               muteAction: [8, o("WAWebWamEnumMuteAction").MUTE_ACTION],

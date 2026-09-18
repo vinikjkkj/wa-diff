@@ -29,6 +29,7 @@ __d(
                 o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
                   .CUSTOMER_ADS_SHARING_SETTING_ENABLED,
               ],
+              dedupKey: [12, e.TYPES.INTEGER],
               deepLinkConversionData: [4, e.TYPES.STRING],
               deepLinkConversionSource: [5, e.TYPES.STRING],
               eventSharingSettingEnabled: [6, e.TYPES.BOOLEAN],

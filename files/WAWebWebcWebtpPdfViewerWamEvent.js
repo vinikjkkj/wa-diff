@@ -12,6 +12,7 @@ __d(
           WebcWebtpPdfViewer: [
             7506,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               webtpErrorCode: [1, e.TYPES.STRING],
               webtpErrorMessage: [2, e.TYPES.STRING],
               webtpErrorStack: [3, e.TYPES.STRING],

@@ -8,6 +8,7 @@ __d(
           MexEvent: [
             3782,
             {
+              dedupKey: [15, e.TYPES.INTEGER],
               isMex: [1, e.TYPES.BOOLEAN],
               mexEventData: [2, e.TYPES.STRING],
               mexEventDurationT: [12, e.TYPES.TIMER],

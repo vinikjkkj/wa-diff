@@ -17,6 +17,7 @@ __d(
               appSessionId: [1, e.TYPES.STRING],
               companionSessionIds: [2, e.TYPES.STRING],
               contentLength: [3, e.TYPES.INTEGER],
+              dedupKey: [16, e.TYPES.INTEGER],
               isInBootstrap: [4, e.TYPES.BOOLEAN],
               isUsingLid: [5, e.TYPES.BOOLEAN],
               mutationBundle: [

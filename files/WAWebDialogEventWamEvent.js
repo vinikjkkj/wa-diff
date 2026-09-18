@@ -11,6 +11,7 @@ __d(
         DialogEvent: [
           7068,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             dialogEventSource: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
             dialogEventType: [
               2,

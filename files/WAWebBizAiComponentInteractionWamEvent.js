@@ -29,6 +29,7 @@ __d(
                 o("WAWebWamEnumBizAiRenderOutcomeType")
                   .BIZ_AI_RENDER_OUTCOME_TYPE,
               ],
+              dedupKey: [12, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

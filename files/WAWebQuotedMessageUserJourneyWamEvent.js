@@ -23,6 +23,7 @@ __d(
                 12,
                 o("WAWebWamEnumChatbarInitialState").CHATBAR_INITIAL_STATE,
               ],
+              dedupKey: [14, e.TYPES.INTEGER],
               messageMediaType: [2, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messageType: [3, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               quotedMediaType: [4, o("WAWebWamEnumMediaType").MEDIA_TYPE],

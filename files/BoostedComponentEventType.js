@@ -208,6 +208,8 @@ __d(
       AD_CREATION_LWI_MEDIA_UPLOAD_SUCCESS:
         "ad_creation_lwi_media_upload_success",
       AD_CREATION_LWI_MEDIA_UPLOAD_ERROR: "ad_creation_lwi_media_upload_error",
+      AD_PREVIEW_ADD_MEDIA_IMPRESSION: "ad_preview_add_media_impression",
+      AD_PREVIEW_ADD_MEDIA_CLICK: "ad_preview_add_media_click",
       SPECIAL_AD_CATEGORY_HELP_ICON_CLICK:
         "special_ad_category_help_icon_click",
       BUDGET_TOOLTIP_CLICK: "budget_tooltip_click",

@@ -38,6 +38,7 @@ __d(
               channelIndex: [6, e.TYPES.INTEGER],
               cid: [4, e.TYPES.STRING],
               countrySelector: [8, e.TYPES.STRING],
+              dedupKey: [17, e.TYPES.INTEGER],
               impReason: [
                 9,
                 o("WAWebWamEnumChannelDirectoryImpReason")

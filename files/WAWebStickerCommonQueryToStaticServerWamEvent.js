@@ -8,6 +8,7 @@ __d(
           StickerCommonQueryToStaticServer: [
             2740,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               httpResponseCode: [2, e.TYPES.INTEGER],
               params: [3, e.TYPES.STRING],
               queryLatencyMs: [4, e.TYPES.TIMER],

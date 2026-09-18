@@ -7,6 +7,7 @@ __d(
         SettingsSearchTap: [
           4016,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             tapItemName: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
             topLevelParentSetting: [
               2,

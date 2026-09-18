@@ -1,86 +1,98 @@
 __d(
   "WAWebReportingTokenContent",
-  ["WABinary", "WAProtoConst", "WAWebReportingTokenProtobufUtils", "err"],
+  [
+    "WABinary",
+    "WAProtoConst",
+    "WAWebReportingTokenConfig",
+    "WAWebReportingTokenConstants",
+    "WAWebReportingTokenProtobufUtils",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
+    var e = new Map([[35, new Set([1, 2, 3, 4, 6])]]),
+      s = new Map([
+        [o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3, e],
+      ]),
+      u = Math.max.apply(Math, Array.from(s.keys())),
+      c = function (t) {
         this.value = t;
         var e = o("WAWebReportingTokenProtobufUtils").convertToVarInt(t);
         this.size = e.length;
       },
-      s = (function () {
-        function t(t, n) {
+      d = (function () {
+        function e(e, t) {
           this.valLengthSize = 0;
-          var a = new (o("WABinary").Binary)(t);
-          a.advance(n);
-          var i = a.readVarInt(o("WABinary").parseInt64OrThrow);
-          if (i < 0 || i >= 4294967296)
-            throw r("err")("Invalid tag value, out of bound: " + i);
-          var l = o("WAWebReportingTokenProtobufUtils").getWireTypeFromTag(i);
-          this.tag = new e(i);
-          var s = 0,
-            u = new (o("WABinary").Binary)();
-          switch ((u.writeVarInt(i), l)) {
+          var n = new (o("WABinary").Binary)(e);
+          n.advance(t);
+          var a = n.readVarInt(o("WABinary").parseInt64OrThrow);
+          if (a < 0 || a >= 4294967296)
+            throw r("err")("Invalid tag value, out of bound: " + a);
+          var i = o("WAWebReportingTokenProtobufUtils").getWireTypeFromTag(a);
+          this.tag = new c(a);
+          var l = 0,
+            s = new (o("WABinary").Binary)();
+          switch ((s.writeVarInt(a), i)) {
             case o("WAProtoConst").ENC.VARINT: {
-              var c = a.readVarInt(o("WABinary").parseUint64OrThrow);
-              u.writeVarInt(c);
+              var u = n.readVarInt(o("WABinary").parseUint64OrThrow);
+              s.writeVarInt(u);
               break;
             }
             case o("WAProtoConst").ENC.BINARY: {
-              var d = a.readVarInt(o("WABinary").parseUint64OrThrow),
-                m = a.readByteArrayView(d);
-              ((s += o("WAWebReportingTokenProtobufUtils").convertToVarInt(
+              var d = n.readVarInt(o("WABinary").parseUint64OrThrow),
+                m = n.readByteArrayView(d);
+              ((l += o("WAWebReportingTokenProtobufUtils").convertToVarInt(
                 d,
               ).length),
-                u.writeVarInt(d),
-                u.writeByteArray(m),
-                (this.valLengthSize = s));
+                s.writeVarInt(d),
+                s.writeByteArray(m),
+                (this.valLengthSize = l));
               break;
             }
             case o("WAProtoConst").ENC.BIT64: {
-              var p = a.readByteArrayView(8);
-              u.writeByteArray(p);
+              var p = n.readByteArrayView(8);
+              s.writeByteArray(p);
               break;
             }
             case o("WAProtoConst").ENC.BIT32: {
-              var _ = a.readByteArrayView(4);
-              u.writeByteArray(_);
+              var _ = n.readByteArrayView(4);
+              s.writeByteArray(_);
               break;
             }
             default:
-              throw r("err")("Unsupported wire type " + l);
+              throw r("err")("Unsupported wire type " + i);
           }
-          ((this.bytes = u.readByteArrayView()),
-            (this.start = n),
-            (this.end = n + this.bytes.length));
+          ((this.bytes = s.readByteArrayView()),
+            (this.start = t),
+            (this.end = t + this.bytes.length));
         }
-        var n = t.prototype;
+        var t = e.prototype;
         return (
-          (n.getFieldNumber = function () {
+          (t.getFieldNumber = function () {
             return o("WAWebReportingTokenProtobufUtils").getFieldNumberFromTag(
               this.tag.value,
             );
           }),
-          (n.getWireType = function () {
+          (t.getWireType = function () {
             return o("WAWebReportingTokenProtobufUtils").getWireTypeFromTag(
               this.tag.value,
             );
           }),
-          (n.getTotalSize = function () {
+          (t.getTotalSize = function () {
             return this.bytes.length;
           }),
-          (n.getValueStartIdx = function () {
+          (t.getValueStartIdx = function () {
             return this.start + this.tag.size + this.valLengthSize;
           }),
-          (n.getValueEndIdx = function () {
+          (t.getValueEndIdx = function () {
             return this.end;
           }),
-          (n.getBytes = function () {
+          (t.getBytes = function () {
             return this.bytes;
           }),
-          t
+          e
         );
       })(),
-      u = (function () {
+      m = (function () {
         function e(e, t, n) {
           ((this.tag = e),
             (this.partsLength = t),
@@ -112,7 +124,7 @@ __d(
           e
         );
       })(),
-      c = (function () {
+      p = (function () {
         function e() {
           ((this.fields = []), (this.totalSize = 0));
         }
@@ -127,7 +139,7 @@ __d(
           e
         );
       })(),
-      d = (function () {
+      _ = (function () {
         function e(e, t) {
           ((this.protobufMessage = e), (this.messageConfig = t));
         }
@@ -138,25 +150,25 @@ __d(
               n = t.end,
               r = t.pos,
               a = t.protobufMessage,
-              i = new c();
+              i = new p();
             if (e == null) return i;
             for (var l = r; l < n; ) {
-              var d = new s(a, l),
-                m = e.getConfigForField(d.getFieldNumber());
-              if (((l += d.getTotalSize()), m != null))
-                if (m.isMessage === !0 || !m.isExtractWholeField()) {
-                  if (d.getWireType() === o("WAProtoConst").ENC.BINARY) {
-                    var p = this.extractProtobufParts({
+              var s = new d(a, l),
+                u = e.getConfigForField(s.getFieldNumber());
+              if (((l += s.getTotalSize()), u != null))
+                if (u.isMessage === !0 || !u.isExtractWholeField()) {
+                  if (s.getWireType() === o("WAProtoConst").ENC.BINARY) {
+                    var c = this.extractProtobufParts({
                       config:
-                        m.isMessage === !0 ? this.messageConfig : m.subfields,
-                      end: d.getValueEndIdx(),
-                      pos: d.getValueStartIdx(),
+                        u.isMessage === !0 ? this.messageConfig : u.subfields,
+                      end: s.getValueEndIdx(),
+                      pos: s.getValueStartIdx(),
                       protobufMessage: a,
                     });
-                    p.fields.length > 0 &&
-                      i.add(new u(d.tag, p.getTotalSize(), p));
+                    c.fields.length > 0 &&
+                      i.add(new m(s.tag, c.getTotalSize(), c));
                   }
-                } else i.add(d);
+                } else i.add(s);
             }
             return (
               i.fields.sort(function (e, t) {
@@ -221,7 +233,32 @@ __d(
           e
         );
       })();
-    l.ReportingTokenContentCalculator = d;
+    function f(e, t) {
+      var n = new _(
+          e,
+          o("WAWebReportingTokenConfig").getReportingTokenConfig(t),
+        ),
+        r = h(t);
+      return r != null
+        ? n.getReportingTokenContentByExclusion(r)
+        : n.getReportingTokenContent();
+    }
+    function g() {
+      return u;
+    }
+    function h(e) {
+      var t = null,
+        n = null;
+      for (var r of s) {
+        var o = r[0],
+          a = r[1];
+        o <= e && (t == null || o > t) && ((t = o), (n = a));
+      }
+      return n;
+    }
+    ((l.ReportingTokenContentCalculator = _),
+      (l.calculateReportingTokenContent = f),
+      (l.getLatestReportingTokenExclusionVersion = g));
   },
   98,
 );

@@ -21,6 +21,7 @@ __d(
               3,
               o("WAWebWamEnumCommunityUiFeatureType").COMMUNITY_UI_FEATURE_TYPE,
             ],
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],
           "regular",

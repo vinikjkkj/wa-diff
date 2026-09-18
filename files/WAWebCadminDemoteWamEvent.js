@@ -19,6 +19,7 @@ __d(
               2,
               o("WAWebWamEnumCadminDemoteResultType").CADMIN_DEMOTE_RESULT_TYPE,
             ],
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             isLastCadminOrCreator: [4, o("WAWebWamCodegenUtils").TYPES.BOOLEAN],
           },
           [1, 1, 1],

@@ -14,6 +14,7 @@ __d(
         SearchTheWebFunnel: [
           5702,
           {
+            dedupKey: [6, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             imageSearchFailedErrorType: [
               5,
               o("WAWebWamEnumImageSearchFailedErrorType")

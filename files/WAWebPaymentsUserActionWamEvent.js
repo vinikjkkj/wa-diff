@@ -34,6 +34,7 @@ __d(
                 o("WAWebWamEnumCustomPaymentMethodsSyncStatus")
                   .CUSTOM_PAYMENT_METHODS_SYNC_STATUS,
               ],
+              dedupKey: [53, e.TYPES.INTEGER],
               eventTsMs: [51, e.TYPES.INTEGER],
               graphqlEndpointName: [49, e.TYPES.STRING],
               merchantType: [

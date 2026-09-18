@@ -7,6 +7,7 @@ __d(
         SendRevokeMessage: [
           1348,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             messageMediaType: [2, o("WAWebWamEnumMediaType").MEDIA_TYPE],
             messageType: [1, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
             revokeSendDelay: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],

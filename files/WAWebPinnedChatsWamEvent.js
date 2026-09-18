@@ -7,6 +7,7 @@ __d(
         PinnedChats: [
           7630,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             pinnedChatNumber: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             pinnedChatsPremiumStatus: [
               2,

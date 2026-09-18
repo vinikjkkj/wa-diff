@@ -43,10 +43,14 @@ __d(
     function d() {
       return s._(/*BTDS*/ "Agent").toString();
     }
+    function m() {
+      return "Meta AI";
+    }
     ((l.getUnknownAccountName = e),
       (l.shouldDisplayProfileName = u),
       (l.isBotProfileViewOnly = c),
-      (l.getAgentSubtitle = d));
+      (l.getAgentSubtitle = d),
+      (l.getMetaAiThreadSubtitle = m));
   },
   226,
 );

@@ -17,6 +17,7 @@ __d(
               o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
                 .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM,
             ],
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             extraAttributes: [4, o("WAWebWamCodegenUtils").TYPES.STRING],
             smbUserActionType: [
               2,

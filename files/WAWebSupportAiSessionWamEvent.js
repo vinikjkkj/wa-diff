@@ -9,6 +9,7 @@ __d(
             4970,
             {
               citationCmsId: [5, e.TYPES.STRING],
+              dedupKey: [6, e.TYPES.INTEGER],
               supportAiErrorCode: [3, e.TYPES.INTEGER],
               supportAiErrorMessage: [4, e.TYPES.STRING],
               supportAiEventType: [

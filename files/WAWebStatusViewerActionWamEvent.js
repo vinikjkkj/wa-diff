@@ -21,6 +21,7 @@ __d(
                 o("WAWebWamEnumTopBarAttributionType").TOP_BAR_ATTRIBUTION_TYPE,
               ],
               attributionTypes: [3, e.TYPES.STRING],
+              dedupKey: [14, e.TYPES.INTEGER],
               externalSourceDomainType: [
                 5,
                 o("WAWebWamEnumInlineVideoType").INLINE_VIDEO_TYPE,

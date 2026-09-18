@@ -8,6 +8,7 @@ __d(
           WebcStorageStat: [
             1504,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               webcAgeOfStorage: [3, e.TYPES.INTEGER],
               webcPackingEnabled: [4, e.TYPES.BOOLEAN],
               webcStorageQuota: [2, e.TYPES.INTEGER],

@@ -8,6 +8,7 @@ __d(
           WebcAssetLoad: [
             1358,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               webcAssetCacheType: [
                 4,
                 o("WAWebWamEnumWebcAssetCacheTypeCode")

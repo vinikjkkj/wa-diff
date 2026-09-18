@@ -30,6 +30,7 @@ __d(
                   .BUG_REPORT_ENTRY_POINT_NAME,
               ],
               clientServerJoinKey: [13, e.TYPES.STRING],
+              dedupKey: [15, e.TYPES.INTEGER],
               submitBugCategory: [6, e.TYPES.STRING],
               submitBugContainsTitle: [5, e.TYPES.BOOLEAN],
             },

@@ -12,6 +12,7 @@ __d(
           WebDbTableUsage: [
             5074,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               offlineSessionId: [1, e.TYPES.STRING],
               webScenario: [
                 2,

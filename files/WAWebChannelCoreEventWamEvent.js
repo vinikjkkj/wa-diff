@@ -49,6 +49,7 @@ __d(
                 21,
                 o("WAWebWamEnumCoreEventTriggerType").CORE_EVENT_TRIGGER_TYPE,
               ],
+              dedupKey: [22, e.TYPES.INTEGER],
               directoryChannelIndex: [9, e.TYPES.INTEGER],
               discoverySurface: [14, o("WAWebWamEnumTsSurface").TS_SURFACE],
               entryPointMetadata: [5, e.TYPES.STRING],

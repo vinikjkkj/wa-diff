@@ -16,6 +16,7 @@ __d(
                 7,
                 e.TYPES.INTEGER,
               ],
+              dedupKey: [9, e.TYPES.INTEGER],
               deviceId: [5, e.TYPES.STRING],
               familyDeviceId: [6, e.TYPES.STRING],
               traceIdInt: [8, e.TYPES.INTEGER],

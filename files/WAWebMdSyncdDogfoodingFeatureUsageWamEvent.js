@@ -7,6 +7,7 @@ __d(
         MdSyncdDogfoodingFeatureUsage: [
           3016,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             mdSyncdDogfoodingFeature: [
               1,
               o("WAWebWamEnumMdFeatureCode").MD_FEATURE_CODE,

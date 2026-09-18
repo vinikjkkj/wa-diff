@@ -20,6 +20,7 @@ __d(
               contactUsOutageEmail: [6, e.TYPES.BOOLEAN],
               contactUsScreenshotC: [19, e.TYPES.NUMBER],
               contactUsT: [11, e.TYPES.TIMER],
+              dedupKey: [23, e.TYPES.INTEGER],
               languageCode: [21, e.TYPES.STRING],
             },
             [1, 1, 1],

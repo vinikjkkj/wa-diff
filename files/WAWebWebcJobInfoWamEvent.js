@@ -12,6 +12,7 @@ __d(
           WebcJobInfo: [
             3054,
             {
+              dedupKey: [9, e.TYPES.INTEGER],
               jobName: [1, e.TYPES.STRING],
               jobPriority: [2, e.TYPES.STRING],
               jobResultType: [

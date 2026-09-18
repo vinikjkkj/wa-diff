@@ -18,6 +18,7 @@ __d(
               chatDbSize: [18, e.TYPES.INTEGER],
               contactCollectionSize: [19, e.TYPES.INTEGER],
               contactDbSize: [20, e.TYPES.INTEGER],
+              dedupKey: [28, e.TYPES.INTEGER],
               isForeground: [13, e.TYPES.BOOLEAN],
               jsHeapSizeLimit: [9, e.TYPES.INTEGER],
               messageCollectionSize: [24, e.TYPES.INTEGER],

@@ -20,6 +20,7 @@ __d(
                 13,
                 o("WAWebWamEnumApplicationState").APPLICATION_STATE,
               ],
+              dedupKey: [18, e.TYPES.INTEGER],
               historySyncRetryRequestId: [16, e.TYPES.STRING],
               mdBootstrapContactsCount: [5, e.TYPES.INTEGER],
               mdBootstrapHistoryPayloadType: [

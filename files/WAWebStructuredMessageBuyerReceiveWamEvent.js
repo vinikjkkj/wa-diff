@@ -14,6 +14,7 @@ __d(
           7520,
           {
             bizPlatform: [1, o("WAWebWamEnumBizPlatform").BIZ_PLATFORM],
+            dedupKey: [6, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             messageClass: [
               2,
               o("WAWebWamEnumStructuredMessageClass").STRUCTURED_MESSAGE_CLASS,

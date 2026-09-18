@@ -21,6 +21,7 @@ __d(
                 6,
                 o("WAWebWamEnumChatbarInitialState").CHATBAR_INITIAL_STATE,
               ],
+              dedupKey: [11, e.TYPES.INTEGER],
               textMessageUserJourneyAction: [
                 2,
                 o("WAWebWamEnumTextMessageUserJourneyAction")

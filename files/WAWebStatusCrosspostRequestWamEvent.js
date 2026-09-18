@@ -27,6 +27,7 @@ __d(
                 4,
                 o("WAWebWamEnumCrosspostOriginType").CROSSPOST_ORIGIN_TYPE,
               ],
+              dedupKey: [18, e.TYPES.INTEGER],
               defaultStatusPrivacySettings: [
                 5,
                 o("WAWebWamEnumPrivacySettingsValueType")

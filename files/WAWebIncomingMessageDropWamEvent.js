@@ -31,6 +31,7 @@ __d(
                   .AGENT_ENGAGEMENT_ENUM_TYPE,
               ],
               botType: [14, o("WAWebWamEnumBotType").BOT_TYPE],
+              dedupKey: [25, e.TYPES.INTEGER],
               e2eCiphertextType: [
                 1,
                 o("WAWebWamEnumE2eCiphertextType").E2E_CIPHERTEXT_TYPE,

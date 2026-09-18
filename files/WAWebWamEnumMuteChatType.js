@@ -8,6 +8,7 @@ __d(
       CHANNEL: 3,
       INTEROP: 4,
       INORGANIC_NOTIFICATION: 5,
+      META_AI: 6,
     });
     i.MUTE_CHAT_TYPE = e;
   },

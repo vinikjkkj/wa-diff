@@ -23,6 +23,7 @@ __d(
               ],
               blockEventIsSuspicious: [3, e.TYPES.BOOLEAN],
               blockEventIsUnsub: [4, e.TYPES.BOOLEAN],
+              dedupKey: [7, e.TYPES.INTEGER],
               pastCall: [5, e.TYPES.BOOLEAN],
               pastCallResult: [
                 6,

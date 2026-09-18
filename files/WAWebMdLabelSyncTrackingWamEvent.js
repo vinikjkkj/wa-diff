@@ -14,6 +14,7 @@ __d(
           MdLabelSyncTracking: [
             7638,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               labelSyncDeviceRole: [
                 1,
                 o("WAWebWamEnumLabelSyncDeviceRoleType")

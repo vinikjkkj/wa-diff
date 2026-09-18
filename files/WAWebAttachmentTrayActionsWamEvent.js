@@ -30,6 +30,7 @@ __d(
                 o("WAWebWamEnumAttachmentTrayActionTargetType")
                   .ATTACHMENT_TRAY_ACTION_TARGET_TYPE,
               ],
+              dedupKey: [10, e.TYPES.INTEGER],
               groupSizeBucket: [
                 4,
                 o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,

@@ -394,6 +394,7 @@ __d(
       SEND_PIX_KEY: 389,
       GO_TO_PAYMENTS: 390,
       SPLIT_PAYMENT: 391,
+      COPY_PIX_KEY: 392,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

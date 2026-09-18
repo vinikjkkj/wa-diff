@@ -17,6 +17,7 @@ __d(
           MessageHighRetryCount: [
             3132,
             {
+              dedupKey: [12, e.TYPES.INTEGER],
               deviceSizeBucket: [5, o("WAWebWamEnumSizeBucket").SIZE_BUCKET],
               e2eSenderType: [
                 3,

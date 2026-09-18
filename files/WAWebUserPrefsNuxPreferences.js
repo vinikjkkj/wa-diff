@@ -148,6 +148,7 @@ __d(
           return o(
             "WAWebChatAssignmentGatingUtils",
           ).chatAssignmentMaxNuxImpressions();
+        case "business_ai_message_editing_discovery_tooltip":
         case "status_quick_replies":
           return 3;
         case "web_ui_refresh":

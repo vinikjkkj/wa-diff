@@ -8,6 +8,7 @@ __d(
           UserActivity: [
             1384,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               userActivityBitmapHigh: [4, e.TYPES.INTEGER],
               userActivityBitmapLen: [5, e.TYPES.INTEGER],
               userActivityBitmapLow: [3, e.TYPES.INTEGER],

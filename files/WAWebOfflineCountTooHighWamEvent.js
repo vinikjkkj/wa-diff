@@ -21,6 +21,7 @@ __d(
                 7,
                 o("WAWebWamEnumCallStanzaType").CALL_STANZA_TYPE,
               ],
+              dedupKey: [11, e.TYPES.INTEGER],
               e2eSenderType: [
                 10,
                 o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE,

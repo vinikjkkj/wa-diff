@@ -8,6 +8,7 @@ __d(
           BizAiHandoffNotification: [
             6528,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               handoffNotifAction: [
                 1,
                 o("WAWebWamEnumHandoffNotifActionType")

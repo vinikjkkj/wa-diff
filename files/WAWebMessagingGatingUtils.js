@@ -11,7 +11,7 @@ __d(
         : 1e5;
     }
     function s() {
-      return g() > 0;
+      return f() > 0;
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue("rt_sender_v3_hybrid_mode");
@@ -21,18 +21,13 @@ __d(
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "rt_receiver_v3_validation_enabled",
-      );
-    }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
         "rt_receiver_missing_reporting_token_detection",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue("rt_sync_reporting_tag");
     }
-    function _() {
+    function p() {
       var e;
       return (e = o("WAWebABProps").getABPropConfigValue(
         "rt_clean_reporting_tag",
@@ -40,33 +35,33 @@ __d(
         ? e
         : o("WAWebReportingTokenConstants").DEFAULT_RT_CLEANUP_OLDER_THAN_DAYS;
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("rt_clean_reporting_token");
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "rt_sender_reporting_token_version",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue("rt_web_delay_processing");
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "ft_validation_failure_drop_placeholder",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "visible_message_drop_placeholder_enabled_internal_only",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "rt_swapped_fallback_validation",
       );
     }
-    function v() {
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_biz_simple_signal_enabled",
@@ -77,17 +72,16 @@ __d(
       (l.isReportingTokenSendingEnabled = s),
       (l.isReportingTokenV3HybridSendingEnabled = u),
       (l.isReportingTokenReceivingEnabled = c),
-      (l.isReportingTokenV3ValidationEnabled = d),
-      (l.isMissingReportingTokenDetectionEnabled = m),
-      (l.isReportingTagSyncingEnabled = p),
-      (l.getReportingTagCleanupDays = _),
-      (l.getReportingTokenCleanupDays = f),
-      (l.getSenderReportingTokenVersion = g),
-      (l.isWebReportingTokenDelayProcessingEnabled = h),
-      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = y),
-      (l.isMessageDropPlaceholderEnabled = C),
-      (l.isReportingTokenSwappedFallbackValidationEnabled = b),
-      (l.isSimpleSignalEnabled = v));
+      (l.isMissingReportingTokenDetectionEnabled = d),
+      (l.isReportingTagSyncingEnabled = m),
+      (l.getReportingTagCleanupDays = p),
+      (l.getReportingTokenCleanupDays = _),
+      (l.getSenderReportingTokenVersion = f),
+      (l.isWebReportingTokenDelayProcessingEnabled = g),
+      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = h),
+      (l.isMessageDropPlaceholderEnabled = y),
+      (l.isReportingTokenSwappedFallbackValidationEnabled = C),
+      (l.isSimpleSignalEnabled = b));
   },
   98,
 );

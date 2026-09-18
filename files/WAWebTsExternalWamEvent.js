@@ -8,6 +8,7 @@ __d(
           TsExternal: [
             4574,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               relativeTimestampMs: [1, e.TYPES.INTEGER],
               tsDuration: [2, e.TYPES.INTEGER],
               tsExternalEventSource: [

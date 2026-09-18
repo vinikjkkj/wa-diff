@@ -477,12 +477,16 @@ __d(
                       o("WAWebWamEnumMetaAiActionEntryPoint")
                         .META_AI_ACTION_ENTRY_POINT.CONTINUE_CHAT_MODULE
                     ? "CONTINUE_CHAT_MODULE"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+                    : e ===
+                        o("WAWebWamEnumMetaAiActionEntryPoint")
+                          .META_AI_ACTION_ENTRY_POINT.THREAD_INFO_PAGE
+                      ? "THREAD_INFO_PAGE"
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              e,
+                          );
+                        })();
     }
     var y =
       ((c = {}),
@@ -611,12 +615,51 @@ __d(
                                           .THREAD_ACTION_TYPES
                                           .CLICK_CONTINUE_CHAT_MODULE
                                       ? "CLICK_CONTINUE_CHAT_MODULE"
-                                      : (function () {
-                                          throw Error(
-                                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                              e,
-                                          );
-                                        })();
+                                      : e ===
+                                          o("WAWebWamEnumThreadActionTypes")
+                                            .THREAD_ACTION_TYPES
+                                            .CREATION_SHEET_SHOWN
+                                        ? "CREATION_SHEET_SHOWN"
+                                        : e ===
+                                            o("WAWebWamEnumThreadActionTypes")
+                                              .THREAD_ACTION_TYPES
+                                              .THREAD_PHOTO_CHANGED
+                                          ? "THREAD_PHOTO_CHANGED"
+                                          : e ===
+                                              o("WAWebWamEnumThreadActionTypes")
+                                                .THREAD_ACTION_TYPES
+                                                .THREAD_CREATE_REQUEST
+                                            ? "THREAD_CREATE_REQUEST"
+                                            : e ===
+                                                o(
+                                                  "WAWebWamEnumThreadActionTypes",
+                                                ).THREAD_ACTION_TYPES
+                                                  .THREAD_CREATE_RESPONSE
+                                              ? "THREAD_CREATE_RESPONSE"
+                                              : e ===
+                                                  o(
+                                                    "WAWebWamEnumThreadActionTypes",
+                                                  ).THREAD_ACTION_TYPES
+                                                    .GREETING_RECEIVED
+                                                ? "GREETING_RECEIVED"
+                                                : e ===
+                                                    o(
+                                                      "WAWebWamEnumThreadActionTypes",
+                                                    ).THREAD_ACTION_TYPES
+                                                      .CLICK_CHAT_INFO
+                                                  ? "CLICK_CHAT_INFO"
+                                                  : e ===
+                                                      o(
+                                                        "WAWebWamEnumThreadActionTypes",
+                                                      ).THREAD_ACTION_TYPES
+                                                        .CREATION_SHEET_DISMISSED
+                                                    ? "CREATION_SHEET_DISMISSED"
+                                                    : (function () {
+                                                        throw Error(
+                                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                            e,
+                                                        );
+                                                      })();
     }
     var v = null;
     function S(e) {

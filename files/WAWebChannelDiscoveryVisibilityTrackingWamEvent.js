@@ -25,6 +25,7 @@ __d(
               channelIndex: [5, e.TYPES.INTEGER],
               cid: [6, e.TYPES.STRING],
               countrySelector: [7, e.TYPES.STRING],
+              dedupKey: [21, e.TYPES.INTEGER],
               discoverySurface: [8, o("WAWebWamEnumTsSurface").TS_SURFACE],
               isSubImpression: [16, e.TYPES.BOOLEAN],
               pillSelected: [

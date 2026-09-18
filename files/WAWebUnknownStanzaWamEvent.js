@@ -8,6 +8,7 @@ __d(
           UnknownStanza: [
             3448,
             {
+              dedupKey: [4, e.TYPES.INTEGER],
               unknownStanzaDropReason: [3, e.TYPES.INTEGER],
               unknownStanzaTag: [1, e.TYPES.STRING],
               unknownStanzaType: [2, e.TYPES.STRING],

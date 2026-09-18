@@ -6,7 +6,7 @@ __d(
     "WAWebChatCollection",
     "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerDateRangeUtils",
-    "WAWebContactManagerLastMessageCutoff",
+    "WAWebContactManagerLastMessageRangeSecondsBounds",
     "WAWebContactManagerSearchUtils",
     "WAWebLabelCollection",
     "WAWebLeadListConstants",
@@ -132,11 +132,13 @@ __d(
           var e = t.lastMessageRange;
           if (e == null) return o("WAWebBoolFunc").returnTrue;
           var n = o(
-            "WAWebContactManagerLastMessageCutoff",
-          ).lastMessageCutoffTimestamp(e);
+              "WAWebContactManagerLastMessageRangeSecondsBounds",
+            ).lastMessageRangeSecondsBounds(e),
+            r = n.endSec,
+            a = n.startSec;
           return function (e) {
             var t = _(e);
-            return t != null && t >= n;
+            return t != null && t >= a && (r == null || t <= r);
           };
         },
         serverFilter: o("WAWebNullFunc").returnNull,

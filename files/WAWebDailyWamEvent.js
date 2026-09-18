@@ -86,6 +86,7 @@ __d(
               countLimitSharingGroupThreads: [219, e.TYPES.INTEGER],
               dailyPasskeyCount: [247, e.TYPES.INTEGER],
               dbAddressbookTableSize: [206, e.TYPES.INTEGER],
+              dedupKey: [263, e.TYPES.INTEGER],
               defaultAfterReadDuration: [248, e.TYPES.INTEGER],
               defaultAfterReadEnabled: [249, e.TYPES.BOOLEAN],
               defaultDisappearingDuration: [140, e.TYPES.INTEGER],

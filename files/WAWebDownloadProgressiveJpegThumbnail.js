@@ -31,26 +31,26 @@ __d(
             i = t.msg,
             l = t.scanCount,
             m = l === void 0 ? 1 : l,
-            p = t.signal;
+            p = t.signal,
+            _ = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+              entryPoint: "DownloadProgressiveJpegThumbnail",
+            });
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "media.downloadProgressiveJpegThumbnail: start",
               ])),
           );
-          var _ = r("WAWebMediaGetDownloadOriginForMsg")(i.unsafe()),
-            f = {
+          var f = r("WAWebMediaGetDownloadOriginForMsg")(i.unsafe()),
+            g = {
               callsite: "DOWNLOAD_PROGRESSIVE_JPEG_THUMBNAIL",
               downloadOrigin: o(
                 "WAWebThumbnailOutcomeLogger",
-              ).thumbnailDownloadOriginFromWam(_),
+              ).thumbnailDownloadOriginFromWam(f),
               mediaType: o(
                 "WAWebThumbnailOutcomeLogger",
               ).thumbnailMediaTypeFromMsgType(i.type),
-            },
-            g = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-              entryPoint: "DownloadProgressiveJpegThumbnail",
-            });
+            };
           try {
             var h,
               y = (h = r("nullthrows"))(i.scanLengths),
@@ -79,24 +79,26 @@ __d(
                 },
                 isPreload: a,
                 chatWid: n == null ? void 0 : n.id,
-                downloadQpl: g,
-                downloadOrigin: _,
+                downloadQpl: _,
+                downloadOrigin: f,
                 experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(
                   i.unsafe(),
                 ),
               }),
               E = self.performance.now();
-            (b.consolidate({
-              fullPreviewData: yield r("WAWebMediaOpaqueData").createFromData(
-                L,
-                "image/jpeg",
-              ),
-            }),
-              g.endSuccess(),
+            (_.addPoint("thumbnail_consolidation_start"),
+              b.consolidate({
+                fullPreviewData: yield r("WAWebMediaOpaqueData").createFromData(
+                  L,
+                  "image/jpeg",
+                ),
+              }),
+              _.addPoint("thumbnail_consolidation_end"),
+              _.endSuccess(),
               o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome({
                 branch: "SERVER_THUMBNAIL",
                 checkPerformed: !1,
-                context: f,
+                context: g,
                 generationDurationMs: self.performance.now() - E,
                 outcome: "OK",
               }),
@@ -114,17 +116,17 @@ __d(
                     "media.downloadProgressiveJpegThumbnail aborted",
                   ])),
               ),
-                g.endFailWithError("download_aborted", "Download aborted"));
+                _.endFailWithError("download_aborted", "Download aborted"));
               return;
             }
-            (g.endFailWithError(
+            (_.endFailWithError(
               "download_failed",
               r("getErrorSafe")(e).message,
             ),
               o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome({
                 branch: "SERVER_THUMBNAIL",
                 checkPerformed: !1,
-                context: f,
+                context: g,
                 generationDurationMs: null,
                 outcome: "ERROR",
               }),

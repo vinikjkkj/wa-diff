@@ -20,6 +20,7 @@ __d(
           ForwardSend: [
             1728,
             {
+              dedupKey: [29, e.TYPES.INTEGER],
               disappearingChatInitiator: [
                 21,
                 o("WAWebWamEnumDisappearingChatInitiatorType")

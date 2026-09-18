@@ -8,6 +8,7 @@ __d(
           ChatLockDaily: [
             4214,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               folderChatsCount: [1, e.TYPES.INTEGER],
               folderOpenCount: [2, e.TYPES.INTEGER],
               lockFolderHidden: [5, e.TYPES.BOOLEAN],

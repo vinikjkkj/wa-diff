@@ -19,6 +19,7 @@ __d(
               callRandomId: [1, e.TYPES.STRING],
               callReplayerId: [31, e.TYPES.STRING],
               callSide: [41, o("WAWebWamEnumCallSide").CALL_SIDE],
+              dedupKey: [57, e.TYPES.INTEGER],
               groupAcceptNoCriticalGroupUpdate: [37, e.TYPES.BOOLEAN],
               groupAcceptToCriticalGroupUpdateMs: [38, e.TYPES.TIMER],
               hasScheduleExactAlarmPermission: [42, e.TYPES.BOOLEAN],

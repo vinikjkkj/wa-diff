@@ -8,6 +8,7 @@ __d(
           PttDaily: [
             2938,
             {
+              dedupKey: [52, e.TYPES.INTEGER],
               pttCancelBroadcast: [9, e.TYPES.INTEGER],
               pttCancelGroup: [8, e.TYPES.INTEGER],
               pttCancelIndividual: [7, e.TYPES.INTEGER],

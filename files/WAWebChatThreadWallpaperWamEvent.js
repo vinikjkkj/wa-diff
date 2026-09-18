@@ -25,6 +25,7 @@ __d(
               ],
               chatType: [2, o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE],
               colorSchemeId: [8, e.TYPES.STRING],
+              dedupKey: [10, e.TYPES.INTEGER],
               threadId: [3, e.TYPES.STRING],
               wallpaperApplied: [4, e.TYPES.BOOLEAN],
               wallpaperId: [9, e.TYPES.STRING],

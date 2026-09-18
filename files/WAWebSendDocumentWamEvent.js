@@ -8,6 +8,7 @@ __d(
           SendDocument: [
             2172,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               documentExt: [3, e.TYPES.STRING],
               documentPageSize: [4, e.TYPES.INTEGER],
               documentSize: [1, e.TYPES.NUMBER],

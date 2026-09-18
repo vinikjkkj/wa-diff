@@ -14,6 +14,7 @@ __d(
       UNHIDE: 9,
       REORDER: 10,
       BUCKET_MIGRATION_DONE: 11,
+      MENTIONS_AND_REPLIES_CACHE_BUILD: 12,
     });
     i.LIST_ACTION = e;
   },

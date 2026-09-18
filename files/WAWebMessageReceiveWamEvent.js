@@ -45,6 +45,7 @@ __d(
                 38,
                 o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE,
               ],
+              dedupKey: [68, e.TYPES.INTEGER],
               deviceCount: [16, e.TYPES.INTEGER],
               deviceSizeBucket: [10, o("WAWebWamEnumSizeBucket").SIZE_BUCKET],
               disappearingChatInitiator: [

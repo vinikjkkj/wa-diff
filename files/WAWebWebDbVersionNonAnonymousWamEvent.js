@@ -7,6 +7,7 @@ __d(
         WebDbVersionNonAnonymous: [
           4816,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webDbName: [1, o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE],
             webDbVersionNumber: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },

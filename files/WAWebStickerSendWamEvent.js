@@ -13,6 +13,7 @@ __d(
           StickerSend: [
             1840,
             {
+              dedupKey: [16, e.TYPES.INTEGER],
               stickerIsAi: [7, e.TYPES.BOOLEAN],
               stickerIsAnimated: [3, e.TYPES.BOOLEAN],
               stickerIsAvatar: [6, e.TYPES.BOOLEAN],

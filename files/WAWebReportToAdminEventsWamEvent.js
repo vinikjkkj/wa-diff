@@ -7,6 +7,7 @@ __d(
         ReportToAdminEvents: [
           4420,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             reportToAdminInteraction: [
               1,
               o("WAWebWamEnumReportToAdminInteraction")

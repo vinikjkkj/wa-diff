@@ -11,6 +11,7 @@ __d(
         GuestUpsellInteraction: [
           7146,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             guestUpsellAction: [
               1,
               o("WAWebWamEnumGuestUpsellActionType").GUEST_UPSELL_ACTION_TYPE,

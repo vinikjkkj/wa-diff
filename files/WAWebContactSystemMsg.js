@@ -177,7 +177,8 @@ __d(
             (t.isFromCTWA &&
               !t.isFMXCtWA &&
               o("WAWebFMXGatingUtils").fmxCTWAKillSwitchEnabled()) ||
-            e.isBot()
+            e.isBot() ||
+            e.isAiHub()
           )
             return null;
           var n = yield o("WAWebApiContact").isAddressBookContact(

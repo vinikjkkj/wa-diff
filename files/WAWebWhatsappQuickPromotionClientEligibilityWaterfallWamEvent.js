@@ -9,6 +9,7 @@ __d(
             4360,
             {
               clientExtraData: [6, e.TYPES.STRING],
+              dedupKey: [7, e.TYPES.INTEGER],
               eligibilityStatus: [1, e.TYPES.BOOLEAN],
               instanceLogData: [5, e.TYPES.STRING],
               promotionId: [2, e.TYPES.STRING],

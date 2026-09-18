@@ -15,6 +15,7 @@ __d(
               chatNotInMappingCount: [1, e.TYPES.INTEGER],
               companionHasADifferentMappingCount: [2, e.TYPES.INTEGER],
               currentLocalTimeSeconds: [10, e.TYPES.INTEGER],
+              dedupKey: [16, e.TYPES.INTEGER],
               fakeLidCount: [3, e.TYPES.INTEGER],
               isLocally1x1MigratedFromDb: [14, e.TYPES.BOOLEAN],
               isStageInOfflineResume: [11, e.TYPES.BOOLEAN],

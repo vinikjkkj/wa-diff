@@ -8,6 +8,7 @@ __d(
           RevokeMessageSend: [
             3656,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               messageSendResultIsTerminal: [1, e.TYPES.BOOLEAN],
               messageType: [2, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               resendCount: [3, e.TYPES.INTEGER],

@@ -9,6 +9,7 @@ __d(
             3806,
             {
               communityId: [1, e.TYPES.STRING],
+              dedupKey: [9, e.TYPES.INTEGER],
               mappingMissing: [7, e.TYPES.INTEGER],
               pnhIndicatorClicksChat: [2, e.TYPES.INTEGER],
               pnhIndicatorClicksInfoScreen: [3, e.TYPES.INTEGER],

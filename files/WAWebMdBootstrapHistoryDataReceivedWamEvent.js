@@ -12,6 +12,7 @@ __d(
           MdBootstrapHistoryDataReceived: [
             2998,
             {
+              dedupKey: [9, e.TYPES.INTEGER],
               historySyncChunkOrder: [6, e.TYPES.INTEGER],
               historySyncRetryRequestId: [7, e.TYPES.STRING],
               historySyncStageProgress: [5, e.TYPES.INTEGER],

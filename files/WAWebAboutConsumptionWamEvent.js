@@ -12,6 +12,7 @@ __d(
               o("WAWebWamEnumAboutConsumptionSurfaceType")
                 .ABOUT_CONSUMPTION_SURFACE_TYPE,
             ],
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],
           "regular",

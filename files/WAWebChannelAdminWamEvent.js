@@ -22,6 +22,7 @@ __d(
                 o("WAWebWamEnumChannelAdminAction").CHANNEL_ADMIN_ACTION,
               ],
               channelAdminSessionId: [4, e.TYPES.INTEGER],
+              dedupKey: [7, e.TYPES.INTEGER],
               unifiedSessionId: [5, e.TYPES.STRING],
               updatesTabSessionId: [6, e.TYPES.INTEGER],
             },

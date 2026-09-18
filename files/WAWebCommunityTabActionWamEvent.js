@@ -13,6 +13,7 @@ __d(
               communityTabToHomeViews: [2, e.TYPES.INTEGER],
               communityTabViews: [3, e.TYPES.INTEGER],
               communityTabViewsViaContextMenu: [5, e.TYPES.INTEGER],
+              dedupKey: [6, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

@@ -4,6 +4,7 @@ __d(
     "Bootloader",
     "BootloaderConfig",
     "BootloaderEvents",
+    "ClientConsistency",
     "ClientConsistencyEventEmitter",
     "HasteSupportData",
     "ServerJS",
@@ -19,14 +20,15 @@ __d(
       u = {
         handleSRPayload: function (t, n) {
           var e = t.hblp,
-            a = t.hsdp;
-          (a && o("HasteSupportData").handle(a, n == null ? void 0 : n.hsdp),
+            a = t.hsdp,
+            i = e == null ? void 0 : e.consistency;
+          (r("ClientConsistency").recordResponseRevision(
+            i == null ? void 0 : i.rev,
+          ),
+            a && o("HasteSupportData").handle(a, n == null ? void 0 : n.hsdp),
             e && r("Bootloader").handlePayload(e, n == null ? void 0 : n.hblp),
-            (e == null ? void 0 : e.consistency) != null &&
-              r("ClientConsistencyEventEmitter").emit(
-                "newEntry",
-                e.consistency,
-              ));
+            i != null &&
+              r("ClientConsistencyEventEmitter").emit("newEntry", i));
         },
         handle: function (a, i) {
           var t = a.allResources,

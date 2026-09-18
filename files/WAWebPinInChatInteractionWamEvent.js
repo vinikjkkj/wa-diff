@@ -15,6 +15,7 @@ __d(
           PinInChatInteraction: [
             4436,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               groupRole: [1, o("WAWebWamEnumGroupRoleType").GROUP_ROLE_TYPE],
               groupSize: [2, e.TYPES.INTEGER],
               groupTypeClient: [

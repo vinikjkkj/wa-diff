@@ -33,6 +33,7 @@ __d(
                 o("WAWebWamEnumChannelUserType").CHANNEL_USER_TYPE,
               ],
               cid: [6, e.TYPES.STRING],
+              dedupKey: [22, e.TYPES.INTEGER],
               deeplinkSource: [
                 20,
                 o("WAWebWamEnumDeeplinkSource").DEEPLINK_SOURCE,

@@ -54,6 +54,8 @@ __d(
       NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
       NOTIFICATIONS_OPT_IN: "notifications_opt_in",
       NCT_CAPPING_SUBSCRIPTION_TOAST: "nct_capping_subscription_toast",
+      BUSINESS_AI_MESSAGE_EDITING_DISCOVERY_TOOLTIP:
+        "business_ai_message_editing_discovery_tooltip",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -168,6 +170,8 @@ __d(
           NEWSLETTER_STATUS_INTRO: "newsletter_status_intro",
           NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
           NCT_CAPPING_SUBSCRIPTION_TOAST: "nct_capping_subscription_toast",
+          BUSINESS_AI_MESSAGE_EDITING_DISCOVERY_TOOLTIP:
+            "business_ai_message_editing_discovery_tooltip",
         },
       },
       g = {

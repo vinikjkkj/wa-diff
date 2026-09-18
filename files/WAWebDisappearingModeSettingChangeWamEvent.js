@@ -13,6 +13,7 @@ __d(
             3056,
             {
               afterReadDuration: [5, e.TYPES.INTEGER],
+              dedupKey: [11, e.TYPES.INTEGER],
               disappearingModeEntryPoint: [
                 4,
                 o("WAWebWamEnumDisappearingModeEntryPointType")

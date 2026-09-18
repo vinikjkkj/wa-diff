@@ -20,6 +20,7 @@ __d(
               aiSessionId: [39, e.TYPES.STRING],
               canonicalEntLastValidationTsMs: [38, e.TYPES.INTEGER],
               cid: [19, e.TYPES.STRING],
+              dedupKey: [45, e.TYPES.INTEGER],
               entryPointConversationInitiated: [
                 23,
                 o("WAWebWamEnumEntryPointConversationInitiated")

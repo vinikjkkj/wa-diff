@@ -8,6 +8,7 @@ __d(
           WebcStatusSession: [
             1880,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               webcStatusMutedItemCount: [4, e.TYPES.INTEGER],
               webcStatusMutedRowCount: [7, e.TYPES.INTEGER],
               webcStatusRecentItemCount: [2, e.TYPES.INTEGER],

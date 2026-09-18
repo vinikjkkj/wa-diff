@@ -15,6 +15,7 @@ __d(
           WaffleCompanionStateLifecycle: [
             8248,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               waffleLifecycleElapsedMs: [1, e.TYPES.INTEGER],
               waffleLifecycleErrorAction: [
                 2,

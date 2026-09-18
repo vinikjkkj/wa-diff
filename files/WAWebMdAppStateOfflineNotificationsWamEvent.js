@@ -6,7 +6,10 @@ __d(
       {
         MdAppStateOfflineNotifications: [
           2602,
-          { redundantCount: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            redundantCount: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+          },
           [1, 20, 1e3],
           "regular",
         ],

@@ -12,6 +12,7 @@ __d(
           WaFsGroupJoinRequestAction: [
             3944,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               groupJid: [1, e.TYPES.STRING],
               groupJoinRequestAction: [
                 2,

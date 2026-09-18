@@ -137,6 +137,8 @@ __d(
         QP_BANNER: "qp_banner",
         QUOTA_FETCH: "quota_fetch",
         REFRESH_INSIGHTS_BUTTON: "refresh_insights_button",
+        REMOVE_RECIPIENTS_FROM_DATA_SHARING:
+          "remove_recipients_from_data_sharing",
         RENAME_AUDIENCE_BUTTON: "rename_audience_button",
         RENAME_BROADCAST_BUTTON: "rename_broadcast_button",
         SAVE: "save",

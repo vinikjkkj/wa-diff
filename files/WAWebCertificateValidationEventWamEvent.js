@@ -14,6 +14,7 @@ __d(
                 o("WAWebWamEnumCertVerificationResultType")
                   .CERT_VERIFICATION_RESULT_TYPE,
               ],
+              dedupKey: [9, e.TYPES.INTEGER],
               leafCertCommonName: [3, e.TYPES.STRING],
               leafCertId: [4, e.TYPES.STRING],
               leafCertTtlDays: [5, e.TYPES.INTEGER],

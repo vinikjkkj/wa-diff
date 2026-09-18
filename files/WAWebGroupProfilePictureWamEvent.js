@@ -13,6 +13,7 @@ __d(
           GroupProfilePicture: [
             3652,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               groupCreationDs: [1, e.TYPES.STRING],
               groupProfileAction: [
                 7,

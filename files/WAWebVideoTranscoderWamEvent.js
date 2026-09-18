@@ -14,6 +14,7 @@ __d(
           VideoTranscoder: [
             1802,
             {
+              dedupKey: [28, e.TYPES.INTEGER],
               sourceAudioBitRate: [12, e.TYPES.NUMBER],
               sourceAudioCodec: [23, e.TYPES.STRING],
               sourceContainerFormat: [24, e.TYPES.STRING],

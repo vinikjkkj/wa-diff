@@ -15,6 +15,7 @@ __d(
           MdChatAssignmentSecondaryAction: [
             3716,
             {
+              dedupKey: [9, e.TYPES.INTEGER],
               mdChatAssignmentSecondaryActionAgentId: [1, e.TYPES.STRING],
               mdChatAssignmentSecondaryActionAssignmentType: [
                 8,

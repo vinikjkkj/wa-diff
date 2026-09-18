@@ -22,18 +22,24 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          var l = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+            entryPoint: "DownloadRichResponseMedia",
+          });
           if (
             o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(
               t.filehash,
             )
           )
-            return o(
-              "WAWebMediaInMemoryBlobCache",
-            ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash);
-          var l = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-              entryPoint: "DownloadRichResponseMedia",
-            }),
-            c = new AbortController(),
+            return (
+              l.endSuccess({
+                string: { downloadResult: "in_memory_media_blob_cache_hit" },
+              }),
+              o(
+                "WAWebMediaInMemoryBlobCache",
+              ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash)
+            );
+          l.addPoint("in_memory_media_blob_cache_miss");
+          var c = new AbortController(),
             d = window.setTimeout(function () {
               c.abort();
             }, u);
@@ -62,14 +68,18 @@ __d(
                       i = new Blob([r], {
                         type: (n = t.mimetype) != null ? n : s,
                       });
-                    o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
-                      t.filehash,
-                      i,
-                    );
+                    (l.addPoint("in_memory_media_blob_cache_write_start"),
+                      o(
+                        "WAWebMediaInMemoryBlobCache",
+                      ).InMemoryMediaBlobCache.put(t.filehash, i));
                     var u = o(
                       "WAWebMediaInMemoryBlobCache",
                     ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash);
-                    return (l.endSuccess(), u);
+                    return (
+                      l.addPoint("in_memory_media_blob_cache_write_end"),
+                      l.endSuccess(),
+                      u
+                    );
                   },
                 );
                 return function (t) {

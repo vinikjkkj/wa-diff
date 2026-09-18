@@ -58,15 +58,15 @@ __d(
             },
           ];
         },
+        header: { height: "xn3w4p2", marginTop: "xe3kor7", $$css: !0 },
       },
       h = {
         wrapper: {
-          display: "x78zum5",
           alignItems: "x6s0dn4",
+          color: "xhslqc4",
           columnGap: "x1trrmfo",
+          display: "x78zum5",
           maxWidth: "x193iq5w",
-          paddingTop: "x1tiyuxx",
-          paddingBottom: "x1nbhmlj",
           position: "x1n2onr6",
           $$css: !0,
         },
@@ -85,7 +85,6 @@ __d(
           marginInlineStart: "x15w1vwp",
           marginInlineEnd: "x1olz2oy",
           maxWidth: "x1x1rfll",
-          paddingTop: "x1p57kb1",
           paddingInlineStart: "x1phvje8",
           paddingInlineEnd: "xcldk2z",
           width: "x2abaw6",
@@ -394,7 +393,7 @@ __d(
       if (n == null) return null;
       var a;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = { className: "x14ug900 x78zum5 x2lah0s" }), (t[0] = a))
+        ? ((a = { className: "x78zum5 x2lah0s x14ju556" }), (t[0] = a))
         : (a = t[0]);
       var i;
       return (
@@ -598,8 +597,7 @@ __d(
         var P;
         n[7] === Symbol.for("react.memo_cache_sentinel")
           ? ((P = {
-              className:
-                "x78zum5 x6s0dn4 x1trrmfo x193iq5w x1tiyuxx x1nbhmlj x1n2onr6",
+              className: "x6s0dn4 xhslqc4 x1trrmfo x78zum5 x193iq5w x1n2onr6",
             }),
             (n[7] = P))
           : (P = n[7]);
@@ -922,6 +920,7 @@ __d(
                   o("WAWebContactManagerListViewColumnWidths")
                     .SELECT_COLUMN_WIDTH_PX,
                 ),
+                g.header,
               ),
               {
                 children: c.jsx(r("WDSBaseCheckbox.react"), {

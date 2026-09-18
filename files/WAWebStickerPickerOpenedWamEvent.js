@@ -7,6 +7,7 @@ __d(
         StickerPickerOpened: [
           1854,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             stickerPickerEntryPoint: [
               1,
               o("WAWebWamEnumStickerPickerEntryPoint")

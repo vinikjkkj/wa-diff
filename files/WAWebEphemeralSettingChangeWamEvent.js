@@ -15,6 +15,7 @@ __d(
             {
               afterReadDuration: [7, e.TYPES.INTEGER],
               chatEphemeralityDuration: [1, e.TYPES.INTEGER],
+              dedupKey: [13, e.TYPES.INTEGER],
               ephemeralSettingEntryPoint: [
                 3,
                 o("WAWebWamEnumEphemeralSettingEntryPointType")

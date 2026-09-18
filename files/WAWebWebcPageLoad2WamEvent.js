@@ -6,7 +6,10 @@ __d(
       {
         WebcPageLoad2: [
           5392,
-          { webcPageLoadId: [1, o("WAWebWamCodegenUtils").TYPES.STRING] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            webcPageLoadId: [1, o("WAWebWamCodegenUtils").TYPES.STRING],
+          },
           [1, 1, 1],
           "regular",
         ],

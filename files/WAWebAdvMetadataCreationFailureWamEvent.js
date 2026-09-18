@@ -6,7 +6,10 @@ __d(
       {
         AdvMetadataCreationFailure: [
           3048,
-          { advMetadataIsMe: [1, o("WAWebWamCodegenUtils").TYPES.BOOLEAN] },
+          {
+            advMetadataIsMe: [1, o("WAWebWamCodegenUtils").TYPES.BOOLEAN],
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+          },
           [1, 1, 1],
           "regular",
         ],

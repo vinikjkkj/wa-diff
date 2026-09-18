@@ -16,6 +16,7 @@ __d(
               o("WAWebWamEnumDefenseModeClickControlName")
                 .DEFENSE_MODE_CLICK_CONTROL_NAME,
             ],
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             defenseModeClickAccepted: [
               2,
               o("WAWebWamCodegenUtils").TYPES.BOOLEAN,

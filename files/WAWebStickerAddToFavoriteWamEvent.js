@@ -12,6 +12,7 @@ __d(
           StickerAddToFavorite: [
             1842,
             {
+              dedupKey: [14, e.TYPES.INTEGER],
               stickerAddToFavoriteOrigin: [
                 1,
                 o("WAWebWamEnumStickerAddToFavoriteOriginType")

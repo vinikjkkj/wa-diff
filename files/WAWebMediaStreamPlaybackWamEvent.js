@@ -15,6 +15,7 @@ __d(
             {
               bytesDownloadedStart: [4, e.TYPES.NUMBER],
               bytesTransferred: [5, e.TYPES.NUMBER],
+              dedupKey: [20, e.TYPES.INTEGER],
               didPlay: [15, e.TYPES.BOOLEAN],
               experienceIds: [19, e.TYPES.STRING],
               forcedPlayCount: [12, e.TYPES.INTEGER],

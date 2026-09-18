@@ -11,6 +11,7 @@ __d(
         PrivacySettingsClick: [
           3726,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             privacyControlEntryPoint: [
               1,
               o("WAWebWamEnumPrivacyControlEntryPointType")

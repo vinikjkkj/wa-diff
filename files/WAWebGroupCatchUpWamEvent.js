@@ -7,6 +7,7 @@ __d(
         GroupCatchUp: [
           3058,
           {
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             mentionsCountPendingPercentage: [
               4,
               o("WAWebWamCodegenUtils").TYPES.INTEGER,

@@ -13,6 +13,7 @@ __d(
           WebcQuickAction: [
             8326,
             {
+              dedupKey: [7, e.TYPES.INTEGER],
               webcQuickActionEventType: [
                 1,
                 o("WAWebWamEnumWebcQuickActionEventType")

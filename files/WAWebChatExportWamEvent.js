@@ -14,6 +14,7 @@ __d(
             7734,
             {
               chatType: [1, o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE],
+              dedupKey: [10, e.TYPES.INTEGER],
               exportDateRangeUsed: [2, e.TYPES.INTEGER],
               exportDurationMs: [3, e.TYPES.INTEGER],
               exportErrorReason: [4, e.TYPES.STRING],

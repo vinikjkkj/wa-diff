@@ -9,6 +9,7 @@ __d(
             2300,
             {
               crossIndexConflictCount: [11, e.TYPES.INTEGER],
+              dedupKey: [13, e.TYPES.INTEGER],
               invalidActionCount: [4, e.TYPES.INTEGER],
               keyRotationRemoveCount: [12, e.TYPES.INTEGER],
               missingKeyCount: [9, e.TYPES.INTEGER],

@@ -6,7 +6,10 @@ __d(
       {
         WebcImgError: [
           1700,
-          { webcImgErrorCode: [1, o("WAWebWamCodegenUtils").TYPES.NUMBER] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            webcImgErrorCode: [1, o("WAWebWamCodegenUtils").TYPES.NUMBER],
+          },
           [1, 1, 1],
           "regular",
         ],

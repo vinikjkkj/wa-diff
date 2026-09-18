@@ -7,6 +7,7 @@ __d(
         WebcStickerMakerEvents: [
           3104,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             stickerMakerEventName: [
               1,
               o("WAWebWamEnumWebcStickerMakerEventNameType")

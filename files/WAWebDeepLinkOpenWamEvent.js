@@ -14,6 +14,7 @@ __d(
             2136,
             {
               campaign: [8, e.TYPES.STRING],
+              dedupKey: [10, e.TYPES.INTEGER],
               deepLinkOpenFrom: [
                 2,
                 o("WAWebWamEnumDeepLinkOpenFrom").DEEP_LINK_OPEN_FROM,

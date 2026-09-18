@@ -3,6 +3,7 @@ __d(
   [
     "WAWebWamCodegenUtils",
     "WAWebWamEnumContactSearchEntrypoint",
+    "WAWebWamEnumKeyEntryErrorType",
     "WAWebWamEnumSearchActionName",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,8 +18,13 @@ __d(
                 o("WAWebWamEnumContactSearchEntrypoint")
                   .CONTACT_SEARCH_ENTRYPOINT,
               ],
+              dedupKey: [7, e.TYPES.INTEGER],
               isSearchTargetBusiness: [6, e.TYPES.BOOLEAN],
               isUsernameSearch: [1, e.TYPES.BOOLEAN],
+              keyEntryErrorType: [
+                8,
+                o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE,
+              ],
               searchActionName: [
                 2,
                 o("WAWebWamEnumSearchActionName").SEARCH_ACTION_NAME,

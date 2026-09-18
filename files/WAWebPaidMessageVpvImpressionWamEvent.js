@@ -24,6 +24,7 @@ __d(
               contactType: [5, o("WAWebWamEnumContactType").CONTACT_TYPE],
               ctaUrlUniqueCountInt: [6, e.TYPES.INTEGER],
               decisionId: [7, e.TYPES.STRING],
+              dedupKey: [30, e.TYPES.INTEGER],
               deltaTime: [8, e.TYPES.INTEGER],
               deltaTimeReceived: [9, e.TYPES.INTEGER],
               hsmTagStr: [10, e.TYPES.STRING],

@@ -12,6 +12,7 @@ __d(
           MessageDeleteActions: [
             3626,
             {
+              dedupKey: [9, e.TYPES.INTEGER],
               deleteActionType: [
                 1,
                 o("WAWebWamEnumDeleteActionType").DELETE_ACTION_TYPE,

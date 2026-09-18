@@ -20,6 +20,7 @@ __d(
                 o("WAWebWamEnumChatFilterActionTypes").CHAT_FILTER_ACTION_TYPES,
               ],
               activitySessionId: [6, e.TYPES.STRING],
+              dedupKey: [16, e.TYPES.INTEGER],
               filterType: [
                 2,
                 o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES,

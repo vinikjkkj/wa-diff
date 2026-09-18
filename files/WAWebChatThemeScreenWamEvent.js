@@ -28,6 +28,7 @@ __d(
                 o("WAWebWamEnumChatWallpaperType").CHAT_WALLPAPER_TYPE,
               ],
               colorSchemeId: [6, e.TYPES.STRING],
+              dedupKey: [8, e.TYPES.INTEGER],
               wallpaperId: [7, e.TYPES.STRING],
             },
             [1, 1, 1],

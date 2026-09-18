@@ -18,6 +18,7 @@ __d(
                 o("WAWebWamEnumCtwaBizUserJourneyOperation")
                   .CTWA_BIZ_USER_JOURNEY_OPERATION,
               ],
+              dedupKey: [8, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

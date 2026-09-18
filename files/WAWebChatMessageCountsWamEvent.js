@@ -77,6 +77,7 @@ __d(
               commentsReceived: [126, e.TYPES.INTEGER],
               commerceMsgsReceived: [41, e.TYPES.INTEGER],
               commerceMsgsSent: [40, e.TYPES.INTEGER],
+              dedupKey: [265, e.TYPES.INTEGER],
               deviceLanguage: [219, e.TYPES.STRING],
               disappearingChatInitiator: [
                 59,

@@ -8,6 +8,7 @@ __d(
           WebcMediaAnalyzed: [
             912,
             {
+              dedupKey: [4, e.TYPES.INTEGER],
               webcMediaAnalyzeT: [3, e.TYPES.TIMER],
               webcMediaExtensions: [2, e.TYPES.STRING],
               webcMediaSupported: [1, e.TYPES.BOOLEAN],

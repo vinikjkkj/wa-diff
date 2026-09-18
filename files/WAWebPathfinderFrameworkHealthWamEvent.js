@@ -7,6 +7,7 @@ __d(
         PathfinderFrameworkHealth: [
           7688,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             pathfinderHealthEventData: [
               1,
               o("WAWebWamCodegenUtils").TYPES.STRING,

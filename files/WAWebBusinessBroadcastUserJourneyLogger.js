@@ -155,6 +155,12 @@ __d(
               t,
             );
           }),
+          (t.removeRecipientsFromDataSharingClicked = function (t) {
+            o("WAWebBBHomeLogs").removeRecipientsFromDataSharingClicked(
+              this.$1,
+              t,
+            );
+          }),
           (t.homeAudiencesTabClicked = function (t) {
             o("WAWebBBHomeLogs").homeAudiencesTabClicked(this.$1, t);
           }),

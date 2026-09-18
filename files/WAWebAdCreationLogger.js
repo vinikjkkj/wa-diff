@@ -3,7 +3,9 @@ __d(
   [
     "WAWebLwiScreenWamEvent",
     "WAWebUserPrefsCTWA",
+    "WAWebWamEnumLwiAdsContentType",
     "WAWebWamEnumLwiAdsIdentityType",
+    "WAWebWamEnumLwiScreenAction",
     "WAWebWamEnumLwiScreenReference",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,9 +38,26 @@ __d(
           .LWI_SCREEN_REFERENCE.LWI_SCREEN_MEDIA_SELECTION_FLOW,
       }).commit();
     }
+    function c(e) {
+      var t = e.hasCatalogItemsToPromote,
+        n = e.itemCount,
+        r = e.lwiFlowId;
+      new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
+        adsContentSelected: o("WAWebWamEnumLwiAdsContentType")
+          .LWI_ADS_CONTENT_TYPE.LWI_ADS_CONTENT_TYPE_PRODUCT,
+        itemCount: n,
+        lwiFlowId: r,
+        lwiScreenAction: o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
+          .LWI_ACTION_PRODUCT_SELECTED,
+        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
+          .LWI_SCREEN_REFERENCE.LWI_SCREEN_MEDIA_SELECTION_FLOW,
+        userHasCatalogItemsToPromote: t,
+      }).commit();
+    }
     ((l.getLwiAdsIdentityTypeFromActiveAccountInfo = e),
       (l.logLwiAdCreationNuxScreen = s),
-      (l.logLwiAdCreationMediaSelectionScreen = u));
+      (l.logLwiAdCreationMediaSelectionScreen = u),
+      (l.logLwiAdCreationCatalogMediaSelected = c));
   },
   98,
 );

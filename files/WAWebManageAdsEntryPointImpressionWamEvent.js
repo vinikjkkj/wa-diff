@@ -7,6 +7,7 @@ __d(
         ManageAdsEntryPointImpression: [
           4124,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             manageAdsEntryPoint: [
               1,
               o("WAWebWamEnumManageAdsEntryPoint").MANAGE_ADS_ENTRY_POINT,

@@ -12,6 +12,7 @@ __d(
     "WAWebVoipCallStateUtils",
     "WAWebVoipContactUtils",
     "WAWebVoipCrashRecovery",
+    "WAWebVoipDtlsCertCallRegistration",
     "WAWebVoipErrorLogUpload",
     "WAWebVoipFocusTracker",
     "WAWebVoipGatingUtils",
@@ -969,7 +970,11 @@ __d(
               (o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
               o(
                 "WAWebVoipSctpConnectionManager",
-              ).reportSctpFallbackFamilyOutcome()));
+              ).reportSctpFallbackFamilyOutcome()),
+            o("WAWebVoipCallStateUtils").isCallTerminal(l) ||
+              o("WAWebVoipDtlsCertCallRegistration").syncDtlsCertCall(
+                s.callId,
+              ));
           var d = o("WAWebVoipGatingUtils").isWebTransportEnabled();
           if (
             (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
@@ -1196,6 +1201,9 @@ __d(
               o("WAWebVoipWindowMetrics").stopWindowMetrics(),
               o("WAWebVoipWebTransportConnectionManager").prepareForEndCall(),
               o("WAWebVoipWebTransportConnectionManager").closeAllConnections(),
+              o(
+                "WAWebVoipDtlsCertCallRegistration",
+              ).endDtlsCertCallForRegisteredCall(),
               o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
               o("WAWebVoipGatingUtils").markCurrentCallAsFna(!1),
               o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),

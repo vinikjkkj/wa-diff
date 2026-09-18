@@ -24,7 +24,6 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebPhashUtils",
-    "WAWebReportingTokenConstants",
     "WAWebReportingTokenUtils",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebUserPrefsMeUser",
@@ -588,17 +587,12 @@ __d(
                 c = s.reportingTokenInfo,
                 d = c.reportingTag,
                 m = c.reportingToken,
-                p = c.version,
-                _ =
-                  p === void 0
-                    ? o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
-                        .DEFAULT
-                    : p;
+                p = c.version;
               if (d != null) {
-                var f =
+                var _ =
                     (t = s.protocolMessageKey) == null ? void 0 : t.toString(),
-                  g = {
-                    msgKey: f != null ? f : s.id.toString(),
+                  f = {
+                    msgKey: _ != null ? _ : s.id.toString(),
                     stanzaId: s.id.id,
                     reportingTag: d,
                     receivedTs: o("WATimeUtils").unixTimeMs(),
@@ -612,9 +606,9 @@ __d(
                       {
                         type: o("WAWebHandleMessageTypes").MsgAdditionalInfoType
                           .ReportingInfo,
-                        data: babelHelpers.extends({}, g),
+                        data: babelHelpers.extends({}, f),
                       },
-                      f != null,
+                      _ != null,
                     );
                   return;
                 }
@@ -627,13 +621,13 @@ __d(
                     i === !1
                   )
                 ) {
-                  var h = yield o(
+                  var g = yield o(
                       "WAWebReportingTokenUtils",
                     ).validateReportingTokenInfo(s, u),
-                    y = h.reportingTokenContent,
-                    C = h.reportingTokenKey,
-                    b = h.res,
-                    v =
+                    h = g.reportingTokenContent,
+                    y = g.reportingTokenKey,
+                    C = g.res,
+                    b =
                       m != null
                         ? babelHelpers.extends(
                             {
@@ -642,16 +636,16 @@ __d(
                                   ? void 0
                                   : m.slice(
                                       0,
-                                      b
+                                      C
                                         ? o("WAWebReportingTokenUtils")
                                             .REPORTING_TOKEN_STORAGE_SIZE
                                         : o("WAWebReportingTokenUtils")
                                             .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
                                     ),
-                              reportingTokenContentOpaqueData: y,
-                              version: _,
+                              reportingTokenContentOpaqueData: h,
+                              version: p,
                             },
-                            C != null && { reportingTokenKey: C },
+                            y != null && { reportingTokenKey: y },
                           )
                         : null;
                   o("WAWebGetMessageCache")
@@ -660,9 +654,9 @@ __d(
                       {
                         type: o("WAWebHandleMessageTypes").MsgAdditionalInfoType
                           .ReportingInfo,
-                        data: babelHelpers.extends({}, g, v),
+                        data: babelHelpers.extends({}, f, b),
                       },
-                      f != null || i === !0,
+                      _ != null || i === !0,
                     );
                 }
               }

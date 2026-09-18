@@ -14,6 +14,7 @@ __d(
             7090,
             {
               customFields: [1, e.TYPES.STRING],
+              dedupKey: [8, e.TYPES.INTEGER],
               mediaHubAction: [2, o("WAWebWamEnumActionCode").ACTION_CODE],
               mediaHubEntryPoint: [
                 3,

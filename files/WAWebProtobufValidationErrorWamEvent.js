@@ -12,6 +12,7 @@ __d(
           ProtobufValidationError: [
             6110,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               protobufCorrelationOutcome: [
                 8,
                 o("WAWebWamEnumProtobufCorrelationOutcome")

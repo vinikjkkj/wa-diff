@@ -18,6 +18,7 @@ __d(
           UsernameCreationAction: [
             5224,
             {
+              dedupKey: [19, e.TYPES.INTEGER],
               eligibleToLink: [14, e.TYPES.BOOLEAN],
               linkedAccountsFb: [10, e.TYPES.INTEGER],
               linkedAccountsIg: [11, e.TYPES.INTEGER],

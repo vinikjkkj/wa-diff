@@ -7,6 +7,7 @@ __d(
         WebcPwaEvent: [
           4116,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcPwaAction: [
               2,
               o("WAWebWamEnumWebcPwaActionType").WEBC_PWA_ACTION_TYPE,

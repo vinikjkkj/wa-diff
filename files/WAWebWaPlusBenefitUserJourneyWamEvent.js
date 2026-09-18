@@ -17,6 +17,7 @@ __d(
           WaPlusBenefitUserJourney: [
             7896,
             {
+              dedupKey: [12, e.TYPES.INTEGER],
               wpbujAction: [1, o("WAWebWamEnumWpbujAction").WPBUJ_ACTION],
               wpbujActionTarget: [11, e.TYPES.STRING],
               wpbujBenefitStatus: [

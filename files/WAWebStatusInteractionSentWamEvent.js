@@ -23,6 +23,7 @@ __d(
                 o("WAWebWamEnumChannelUserType").CHANNEL_USER_TYPE,
               ],
               cid: [12, e.TYPES.STRING],
+              dedupKey: [13, e.TYPES.INTEGER],
               statusId: [1, e.TYPES.STRING],
               statusInteractionActors: [
                 9,

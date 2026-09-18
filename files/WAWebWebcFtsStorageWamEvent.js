@@ -6,7 +6,10 @@ __d(
       {
         WebcFtsStorage: [
           3642,
-          { ftsTotalSize: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER] },
+          {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+            ftsTotalSize: [1, o("WAWebWamCodegenUtils").TYPES.INTEGER],
+          },
           [1, 1, 1],
           "regular",
         ],

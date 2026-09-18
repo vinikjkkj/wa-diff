@@ -21,6 +21,7 @@ __d(
               bulkLabeling: [12, e.TYPES.BOOLEAN],
               currentListState: [13, e.TYPES.STRING],
               customListTitle: [1, e.TYPES.STRING],
+              dedupKey: [22, e.TYPES.INTEGER],
               entryPointConversionSource: [2, e.TYPES.STRING],
               extraAttributes: [18, e.TYPES.STRING],
               labelOperation: [

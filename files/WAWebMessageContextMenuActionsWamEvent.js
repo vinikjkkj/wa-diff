@@ -12,6 +12,7 @@ __d(
           MessageContextMenuActions: [
             3694,
             {
+              dedupKey: [6, e.TYPES.INTEGER],
               isAGroup: [1, e.TYPES.BOOLEAN],
               isMultiAction: [2, e.TYPES.BOOLEAN],
               isOriginalSender: [3, e.TYPES.BOOLEAN],

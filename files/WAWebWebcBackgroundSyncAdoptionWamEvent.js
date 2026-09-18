@@ -13,6 +13,7 @@ __d(
         WebcBackgroundSyncAdoption: [
           5302,
           {
+            dedupKey: [5, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             offboardSource: [
               1,
               o("WAWebWamEnumOffboardSources").OFFBOARD_SOURCES,

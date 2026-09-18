@@ -22,6 +22,7 @@ __d(
                 7,
                 o("WAWebWamEnumChatbarInitialState").CHATBAR_INITIAL_STATE,
               ],
+              dedupKey: [15, e.TYPES.INTEGER],
               isMetaAiThread: [12, e.TYPES.BOOLEAN],
               pttIntensityAggregateValue: [14, e.TYPES.NUMBER],
               pttMessageUserJourneyAction: [

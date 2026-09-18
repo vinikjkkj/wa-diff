@@ -14,6 +14,7 @@ __d(
             3488,
             {
               chatEphemeralityDuration: [1, e.TYPES.INTEGER],
+              dedupKey: [8, e.TYPES.INTEGER],
               kicErrorCode: [
                 2,
                 o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE,

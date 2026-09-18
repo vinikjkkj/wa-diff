@@ -14,6 +14,7 @@ __d(
       HORIZON_WEB: "12:0",
       SPARK_WEB: "13:0",
       ABRA: "15:0",
+      FRL: "17:0",
       GUEST: "19:0",
       DEV_HUB: "22:0",
     });
@@ -28,6 +29,7 @@ __d(
       if (t === "HORIZON_WEB") return e.HORIZON_WEB;
       if (t === "SPARK_WEB") return e.SPARK_WEB;
       if (t === "ABRA") return e.ABRA;
+      if (t === "FRL") return e.FRL;
       if (t === "GUEST") return e.GUEST;
       if (t === "DEV_HUB") return e.DEV_HUB;
       throw r("err")("failed to convert string to DGWAuth Type");
@@ -43,6 +45,7 @@ __d(
       if (t === e.HORIZON_WEB) return "HORIZON_WEB";
       if (t === e.SPARK_WEB) return "SPARK_WEB";
       if (t === e.ABRA) return "ABRA";
+      if (t === e.FRL) return "FRL";
       if (t === e.GUEST) return "GUEST";
       if (t === e.DEV_HUB) return "DEV_HUB";
       throw r("err")("failed to convert DGWAuth to string");

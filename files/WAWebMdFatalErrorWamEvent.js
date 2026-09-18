@@ -24,6 +24,7 @@ __d(
               companionSessionIds: [42, e.TYPES.STRING],
               currentPrimaryAppVersion: [14, e.TYPES.STRING],
               daysSinceLastPeriodicSync: [11, e.TYPES.INTEGER],
+              dedupKey: [52, e.TYPES.INTEGER],
               didBootstrapFromSnapshot: [38, e.TYPES.BOOLEAN],
               hoursSinceFirstFiniteFailure: [12, e.TYPES.INTEGER],
               isBootstrap: [3, e.TYPES.BOOLEAN],

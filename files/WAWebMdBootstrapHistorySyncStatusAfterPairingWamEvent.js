@@ -18,6 +18,7 @@ __d(
                 o("WAWebWamEnumActiveTimeAfterPairing")
                   .ACTIVE_TIME_AFTER_PAIRING,
               ],
+              dedupKey: [13, e.TYPES.INTEGER],
               isLoopRunning: [12, e.TYPES.BOOLEAN],
               lastProcessedNotificationChunkOrder: [2, e.TYPES.INTEGER],
               lastProcessedNotificationChunkProgress: [3, e.TYPES.INTEGER],

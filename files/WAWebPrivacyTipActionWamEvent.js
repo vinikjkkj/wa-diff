@@ -7,6 +7,7 @@ __d(
         PrivacyTipAction: [
           4794,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             privacyTipActionType: [
               1,
               o("WAWebWamEnumPrivacyTipActionType").PRIVACY_TIP_ACTION_TYPE,

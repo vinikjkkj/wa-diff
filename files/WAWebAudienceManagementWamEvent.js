@@ -34,6 +34,7 @@ __d(
               o("WAWebWamEnumAudienceResolutionTriggerType")
                 .AUDIENCE_RESOLUTION_TRIGGER_TYPE,
             ],
+            dedupKey: [6, o("WAWebWamCodegenUtils").TYPES.INTEGER],
           },
           [1, 1, 1],
           "regular",

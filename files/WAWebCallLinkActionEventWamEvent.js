@@ -36,6 +36,7 @@ __d(
               ],
               callLinkSharedApp: [4, e.TYPES.STRING],
               callLinkType: [7, o("WAWebWamEnumCallLinkType").CALL_LINK_TYPE],
+              dedupKey: [11, e.TYPES.INTEGER],
               isWaitingRoomEnabled: [10, e.TYPES.BOOLEAN],
               userJourneyEventMs: [8, e.TYPES.INTEGER],
               userJourneyFunnelId: [9, e.TYPES.STRING],

@@ -19,6 +19,7 @@ __d(
           StatusReply: [
             1180,
             {
+              dedupKey: [27, e.TYPES.INTEGER],
               isMentioned: [7, e.TYPES.BOOLEAN],
               isPosterBiz: [4, e.TYPES.BOOLEAN],
               isPosterInAddressBook: [6, e.TYPES.BOOLEAN],

@@ -11,6 +11,7 @@ __d(
         NativeContactsNuxEvent: [
           5788,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             nativeContactsNuxEntryPoint: [
               3,
               o("WAWebWamEnumNativeContactsNuxEntryPoint")

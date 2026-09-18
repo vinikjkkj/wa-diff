@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumGroupHistoryIneligibilityReason",
     "WAWebWamEnumGroupHistorySenderActionType",
     "WAWebWamEnumGroupHistorySystemMessageType",
+    "WAWebWamEnumGroupHistoryToggleMode",
     "WAWebWamEnumTsSurface",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,6 +23,7 @@ __d(
                 1,
                 o("WAWebWamEnumBundleSendSource").BUNDLE_SEND_SOURCE,
               ],
+              dedupKey: [22, e.TYPES.INTEGER],
               groupAddMemberEntryPoint: [
                 17,
                 o("WAWebWamEnumAddMembersEntrypointType")
@@ -31,6 +33,8 @@ __d(
                 20,
                 o("WAWebWamEnumGroupCreateEntryPoint").GROUP_CREATE_ENTRY_POINT,
               ],
+              groupHistoryBundleBuildDurationMs: [23, e.TYPES.INTEGER],
+              groupHistoryBundleDeflatedBytes: [24, e.TYPES.INTEGER],
               groupHistoryMessagesCount: [2, e.TYPES.INTEGER],
               groupHistoryOutWindowPinsCount: [3, e.TYPES.INTEGER],
               groupHistoryPinsCount: [4, e.TYPES.INTEGER],
@@ -44,6 +48,11 @@ __d(
                 o("WAWebWamEnumGroupHistorySystemMessageType")
                   .GROUP_HISTORY_SYSTEM_MESSAGE_TYPE,
               ],
+              groupHistoryToggleMode: [
+                25,
+                o("WAWebWamEnumGroupHistoryToggleMode")
+                  .GROUP_HISTORY_TOGGLE_MODE,
+              ],
               groupHistoryUncountedMessagesCount: [7, e.TYPES.INTEGER],
               groupSize: [8, e.TYPES.INTEGER],
               ineligibleReason: [
@@ -55,6 +64,10 @@ __d(
               isGroupHistoryToggledOn: [15, e.TYPES.BOOLEAN],
               isTeeBotNoticeOnly: [14, e.TYPES.BOOLEAN],
               recipientCount: [10, e.TYPES.INTEGER],
+              toggleAdminActivated: [26, e.TYPES.BOOLEAN],
+              toggleDefaultOn: [27, e.TYPES.BOOLEAN],
+              togglePerGroupUsageActivated: [28, e.TYPES.BOOLEAN],
+              toggleUserActivated: [29, e.TYPES.BOOLEAN],
               uiSurface: [11, o("WAWebWamEnumTsSurface").TS_SURFACE],
               unifiedSessionId: [12, e.TYPES.STRING],
               userJourneyFunnelId: [19, e.TYPES.STRING],

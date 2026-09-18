@@ -872,6 +872,7 @@ __d(
               downlinkSbweRttSlopeCongestionCount: [1969, e.TYPES.INTEGER],
               driverInitTime: [2270, e.TYPES.TIMER],
               droppedNetEventCount: [2005, e.TYPES.INTEGER],
+              dsmDurationT: [3170, e.TYPES.TIMER],
               dtlsConnectionSetupT: [2114, e.TYPES.TIMER],
               dtlsRxBytes: [2115, e.TYPES.INTEGER],
               dtlsRxPackets: [2116, e.TYPES.INTEGER],

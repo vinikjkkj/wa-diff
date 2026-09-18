@@ -12,6 +12,7 @@ __d(
           NonMessagePeerDataMediaUpload: [
             3902,
             {
+              dedupKey: [10, e.TYPES.INTEGER],
               peerDataErrorCount: [1, e.TYPES.INTEGER],
               peerDataExistingDataNoUploadCount: [2, e.TYPES.INTEGER],
               peerDataNotFoundCount: [3, e.TYPES.INTEGER],

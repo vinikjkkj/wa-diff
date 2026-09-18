@@ -10,6 +10,7 @@ __d(
             {
               appSessionId: [2, e.TYPES.STRING],
               companionSessionIds: [3, e.TYPES.STRING],
+              dedupKey: [11, e.TYPES.INTEGER],
               mdAppStateKeyRotationReason: [
                 1,
                 o("WAWebWamEnumMdAppStateKeyRotationReasonCode")

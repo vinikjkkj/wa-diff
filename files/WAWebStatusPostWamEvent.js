@@ -22,6 +22,7 @@ __d(
               channelStatusId: [57, e.TYPES.INTEGER],
               cid: [58, e.TYPES.STRING],
               containsPrompt: [19, e.TYPES.BOOLEAN],
+              dedupKey: [63, e.TYPES.INTEGER],
               defaultStatusPrivacySetting: [
                 6,
                 o("WAWebWamEnumPrivacySettingsValueType")

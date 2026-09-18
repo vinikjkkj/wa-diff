@@ -7,6 +7,7 @@ __d(
         WebcStreamModeChange: [
           770,
           {
+            dedupKey: [2, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcStreamMode: [
               1,
               o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE,

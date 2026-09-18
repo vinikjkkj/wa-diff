@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumPlatformType",
+    "WAWebWamEnumPqReceiveGateState",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumStanzaType",
@@ -35,6 +36,7 @@ __d(
                   .AGENT_ENGAGEMENT_ENUM_TYPE,
               ],
               botType: [19, o("WAWebWamEnumBotType").BOT_TYPE],
+              dedupKey: [33, e.TYPES.INTEGER],
               e2eCiphertextType: [
                 5,
                 o("WAWebWamEnumE2eCiphertextType").E2E_CIPHERTEXT_TYPE,
@@ -86,6 +88,10 @@ __d(
               ],
               messageMediaType: [7, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               offline: [9, e.TYPES.BOOLEAN],
+              pqReceiveGateState: [
+                34,
+                o("WAWebWamEnumPqReceiveGateState").PQ_RECEIVE_GATE_STATE,
+              ],
               processingDeferred: [29, e.TYPES.BOOLEAN],
               retryCount: [3, e.TYPES.INTEGER],
               revokeType: [10, o("WAWebWamEnumRevokeType").REVOKE_TYPE],

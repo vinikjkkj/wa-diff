@@ -21,6 +21,7 @@ __d(
               ],
               contactType: [3, o("WAWebWamEnumContactType").CONTACT_TYPE],
               decisionId: [4, e.TYPES.STRING],
+              dedupKey: [18, e.TYPES.INTEGER],
               deltaTime: [5, e.TYPES.INTEGER],
               deltaTimeReceived: [6, e.TYPES.INTEGER],
               entryPoint: [7, o("WAWebWamEnumEntryPoint").ENTRY_POINT],

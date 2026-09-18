@@ -12,6 +12,7 @@ __d(
           StatusRowView: [
             1656,
             {
+              dedupKey: [11, e.TYPES.INTEGER],
               psaCampaigns: [8, e.TYPES.STRING],
               statusRowEntryMethod: [
                 5,

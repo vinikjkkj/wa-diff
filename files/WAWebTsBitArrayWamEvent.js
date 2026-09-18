@@ -12,6 +12,7 @@ __d(
               bitarrayLength: [2, e.TYPES.INTEGER],
               bitarrayLow: [3, e.TYPES.INTEGER],
               cumulativeBits: [4, e.TYPES.INTEGER],
+              dedupKey: [10, e.TYPES.INTEGER],
               relativeTimestampMs: [5, e.TYPES.INTEGER],
               sessionSeq: [6, e.TYPES.INTEGER],
               tsSessionId: [7, e.TYPES.INTEGER],

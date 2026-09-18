@@ -15,6 +15,7 @@ __d(
             7112,
             {
               cid: [1, e.TYPES.STRING],
+              dedupKey: [8, e.TYPES.INTEGER],
               enforcementInteractionEvent: [
                 2,
                 o("WAWebWamEnumEnforcementInteractionEvent")

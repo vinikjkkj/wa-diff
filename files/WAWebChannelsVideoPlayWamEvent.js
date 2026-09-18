@@ -15,6 +15,7 @@ __d(
             {
               autoPlayT: [1, e.TYPES.INTEGER],
               cid: [2, e.TYPES.STRING],
+              dedupKey: [15, e.TYPES.INTEGER],
               finishCount: [13, e.TYPES.INTEGER],
               height: [3, e.TYPES.INTEGER],
               postId: [4, e.TYPES.STRING],

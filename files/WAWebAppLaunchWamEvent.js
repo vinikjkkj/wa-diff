@@ -34,6 +34,7 @@ __d(
               dbMainThreadWritesDurationT: [20, e.TYPES.TIMER],
               dbReadsCount: [8, e.TYPES.INTEGER],
               dbWritesCount: [9, e.TYPES.INTEGER],
+              dedupKey: [27, e.TYPES.INTEGER],
               lowPowerModeEnabled: [12, e.TYPES.BOOLEAN],
               peripheralConnected: [16, e.TYPES.STRING],
               processIdentifier: [15, e.TYPES.INTEGER],

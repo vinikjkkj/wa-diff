@@ -17,6 +17,7 @@ __d(
               aboutFailureCount: [4, e.TYPES.INTEGER],
               aboutLocale: [5, e.TYPES.STRING],
               aboutSuccessCount: [6, e.TYPES.INTEGER],
+              dedupKey: [7, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

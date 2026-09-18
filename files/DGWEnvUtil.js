@@ -125,6 +125,11 @@ __d(
           endpoint: "gateway.devicemanager.meta.com",
           authType: "FACEBOOK",
         };
+      if (
+        e === "accountscenter.meta.com" ||
+        e.endsWith(".accountscenter.meta.com")
+      )
+        return { endpoint: "gateway.accountscenter.meta.com", authType: "FRL" };
       if (e.includes("horizon.meta.com"))
         return {
           endpoint: "gateway.horizon.meta.com",

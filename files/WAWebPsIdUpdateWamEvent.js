@@ -8,6 +8,7 @@ __d(
           PsIdUpdate: [
             2862,
             {
+              dedupKey: [5, e.TYPES.INTEGER],
               isFromWamsys: [4, e.TYPES.BOOLEAN],
               psIdAction: [2, o("WAWebWamEnumPsIdAction").PS_ID_ACTION],
               psIdKey: [1, e.TYPES.INTEGER],

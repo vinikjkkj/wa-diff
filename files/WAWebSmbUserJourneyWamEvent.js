@@ -23,6 +23,7 @@ __d(
               ],
               bbTier: [22, o("WAWebWamEnumBbTierType").BB_TIER_TYPE],
               contactIsSaved: [2, e.TYPES.BOOLEAN],
+              dedupKey: [23, e.TYPES.INTEGER],
               entryPoint: [3, o("WAWebWamEnumEntryPoint").ENTRY_POINT],
               entryPointDetails: [18, e.TYPES.STRING],
               extraAttributes: [4, e.TYPES.STRING],

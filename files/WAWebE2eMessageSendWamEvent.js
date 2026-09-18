@@ -34,6 +34,7 @@ __d(
                   .AGENT_ENGAGEMENT_ENUM_TYPE,
               ],
               botType: [17, o("WAWebWamEnumBotType").BOT_TYPE],
+              dedupKey: [29, e.TYPES.INTEGER],
               e2eBackfill: [18, e.TYPES.BOOLEAN],
               e2eCiphertextType: [
                 5,

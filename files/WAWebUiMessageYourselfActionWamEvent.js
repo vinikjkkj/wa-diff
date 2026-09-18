@@ -11,6 +11,7 @@ __d(
         UiMessageYourselfAction: [
           3780,
           {
+            dedupKey: [4, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             uiMessageYourselfActionSessionId: [
               1,
               o("WAWebWamCodegenUtils").TYPES.STRING,

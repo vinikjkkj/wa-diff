@@ -11,6 +11,7 @@ __d(
         WebDbLoadFromVersionFailureNonAnonymous: [
           4814,
           {
+            dedupKey: [3, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webDbLoader: [
               1,
               o("WAWebWamEnumWebDbLoaderType").WEB_DB_LOADER_TYPE,

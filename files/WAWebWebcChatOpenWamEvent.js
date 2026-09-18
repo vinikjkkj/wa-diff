@@ -8,6 +8,7 @@ __d(
           WebcChatOpen: [
             864,
             {
+              dedupKey: [9, e.TYPES.INTEGER],
               webcChatOpenBeforePaintT: [7, e.TYPES.TIMER],
               webcChatOpenPaintedT: [6, e.TYPES.TIMER],
               webcChatOpenT: [2, e.TYPES.TIMER],

@@ -17,6 +17,7 @@ __d(
                 o("WAWebWamEnumBootstrapAppStateDataStageCode")
                   .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE,
               ],
+              dedupKey: [6, e.TYPES.INTEGER],
               mdBootstrapPayloadType: [
                 2,
                 o("WAWebWamEnumMdBootstrapPayloadType")

@@ -31,6 +31,8 @@ __d(
         enableDynamicBufferWatermarks: !1,
         enableEMSSHonestElementSnapshot: !0,
         enableEMSSImmediateMintOnNoOpSeek: !0,
+        enableEMSSMintDeadlineOffTimerPath: !0,
+        enableEMSSPreMintOnEnded: !0,
         enableEMSSRemintStrandedActiveSource: !0,
         enableFBPrefetchCacheKeyNormalization: !1,
         enableFetchPool: !1,

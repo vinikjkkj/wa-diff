@@ -18,6 +18,7 @@ __d(
                 o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS,
               ],
               bannerType: [1, o("WAWebWamEnumBannerTypes").BANNER_TYPES],
+              dedupKey: [6, e.TYPES.INTEGER],
               deviceId: [4, e.TYPES.STRING],
               notificationLogId: [5, e.TYPES.STRING],
             },

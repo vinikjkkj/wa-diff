@@ -78,6 +78,9 @@ __d(
             ),
             (l = !0));
         },
+        recordResponseRevision: function (n) {
+          n != null && n !== e && c.add(n);
+        },
         addAdditionalRevision: function (r) {
           r !== e &&
             (c.add(r),

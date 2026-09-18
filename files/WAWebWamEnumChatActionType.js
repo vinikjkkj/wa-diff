@@ -13,6 +13,10 @@ __d(
       UNREAD: 8,
       READ: 9,
       SUSPEND_CHAT_DELETE: 10,
+      UNARCHIVE: 11,
+      UNPIN: 12,
+      ENABLE_ANNOUNCEMENTS: 13,
+      DISABLE_ANNOUNCEMENTS: 14,
     });
     i.CHAT_ACTION_TYPE = e;
   },

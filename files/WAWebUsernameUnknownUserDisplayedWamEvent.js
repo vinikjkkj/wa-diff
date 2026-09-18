@@ -9,6 +9,7 @@ __d(
             8524,
             {
               clientTsMs: [2, e.TYPES.INTEGER],
+              dedupKey: [12, e.TYPES.INTEGER],
               durationInSecs: [3, e.TYPES.INTEGER],
               hasPn: [4, e.TYPES.BOOLEAN],
               hasPush: [5, e.TYPES.BOOLEAN],

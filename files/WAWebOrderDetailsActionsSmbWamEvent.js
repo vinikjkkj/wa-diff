@@ -14,6 +14,7 @@ __d(
             {
               acceptedPayMethods: [1, e.TYPES.STRING],
               actionCategory: [2, e.TYPES.STRING],
+              dedupKey: [17, e.TYPES.INTEGER],
               entryPointConversionSource: [13, e.TYPES.STRING],
               extraAttributes: [3, e.TYPES.STRING],
               hasAddedPrice: [4, e.TYPES.BOOLEAN],

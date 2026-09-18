@@ -19,6 +19,7 @@ __d(
               ],
               crashlogType: [6, o("WAWebWamEnumCrashlogType").CRASHLOG_TYPE],
               debug: [3, e.TYPES.STRING],
+              dedupKey: [10, e.TYPES.INTEGER],
               extraDebug: [7, e.TYPES.STRING],
               mobileBuildId: [5, e.TYPES.STRING],
               name: [1, e.TYPES.STRING],

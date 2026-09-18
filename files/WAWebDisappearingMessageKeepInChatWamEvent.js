@@ -16,6 +16,7 @@ __d(
             {
               canEditDmSettings: [16, e.TYPES.BOOLEAN],
               chatEphemeralityDuration: [1, e.TYPES.INTEGER],
+              dedupKey: [17, e.TYPES.INTEGER],
               isAGroup: [2, e.TYPES.BOOLEAN],
               isAdmin: [3, e.TYPES.BOOLEAN],
               keptCount: [15, e.TYPES.INTEGER],

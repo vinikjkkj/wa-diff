@@ -13,6 +13,7 @@ __d(
         PnhRequestRevealAction: [
           3808,
           {
+            dedupKey: [6, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             pnhAction: [1, o("WAWebWamEnumPnhActionType").PNH_ACTION_TYPE],
             pnhChatParty: [
               2,

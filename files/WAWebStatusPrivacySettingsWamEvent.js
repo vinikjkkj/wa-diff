@@ -22,6 +22,7 @@ __d(
                 o("WAWebWamEnumContactSuggestion").CONTACT_SUGGESTION,
               ],
               contactSuggestionsCount: [14, e.TYPES.INTEGER],
+              dedupKey: [17, e.TYPES.INTEGER],
               lastSuccessfulRankingUpdate: [15, e.TYPES.INTEGER],
               previousSetting: [2, o("WAWebWamEnumSetting").SETTING],
               selectedContactsSize: [7, e.TYPES.INTEGER],

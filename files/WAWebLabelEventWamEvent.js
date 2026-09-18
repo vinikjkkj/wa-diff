@@ -17,6 +17,7 @@ __d(
             {
               appSessionId: [16, e.TYPES.STRING],
               customLabelTitle: [9, e.TYPES.STRING],
+              dedupKey: [21, e.TYPES.INTEGER],
               entryPointConversionSource: [10, e.TYPES.STRING],
               extraAttributes: [17, e.TYPES.STRING],
               itemsLabeledCount: [5, e.TYPES.INTEGER],

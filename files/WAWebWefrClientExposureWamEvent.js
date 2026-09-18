@@ -9,6 +9,7 @@ __d(
             5504,
             {
               canonicalEntLastValidationTsMs: [8, e.TYPES.INTEGER],
+              dedupKey: [10, e.TYPES.INTEGER],
               deviceExpId: [5, e.TYPES.STRING],
               exposureKey: [1, e.TYPES.STRING],
               fromMetaconfig: [9, e.TYPES.BOOLEAN],

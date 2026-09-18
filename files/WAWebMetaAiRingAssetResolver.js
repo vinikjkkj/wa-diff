@@ -33,11 +33,17 @@ __d(
         ? r("bx").getURL(r("bx")("88730"))
         : r("bx").getURL(r("bx")("88083"));
     }
+    function m(e) {
+      return e
+        ? r("bx").getURL(r("bx")("110311"))
+        : r("bx").getURL(r("bx")("110312"));
+    }
     ((l.isAssetReplacementEnabled = e),
       (l.getMetaAiRingIcon = s),
       (l.getBotAssistantIconURL = u),
       (l.getBotAssistantURL = c),
-      (l.getMetaAiProfileURL = d));
+      (l.getMetaAiProfileURL = d),
+      (l.getMetaAiThreadDefaultAvatarURL = m));
   },
   98,
 );

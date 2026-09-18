@@ -16,6 +16,7 @@ __d(
                 4,
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES,
               ],
+              dedupKey: [13, e.TYPES.INTEGER],
               offlineProcessDecryptErrorCount: [5, e.TYPES.INTEGER],
               offlineProcessMailboxAge: [6, e.TYPES.INTEGER],
               offlineProcessMessageCount: [7, e.TYPES.INTEGER],

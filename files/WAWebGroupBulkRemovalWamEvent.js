@@ -14,6 +14,7 @@ __d(
             {
               appSessionId: [1, e.TYPES.STRING],
               bulkRemovalGroupId: [2, e.TYPES.STRING],
+              dedupKey: [6, e.TYPES.INTEGER],
               groupBulkRemovalAction: [
                 3,
                 o("WAWebWamEnumGroupBulkRemovalAction")

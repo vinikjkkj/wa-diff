@@ -13,6 +13,7 @@ __d(
         WebcNativeUpsellCta: [
           3934,
           {
+            dedupKey: [6, o("WAWebWamCodegenUtils").TYPES.INTEGER],
             webcNativeUpsellCtaEventType: [
               2,
               o("WAWebWamEnumWebcNativeUpsellCtaEventType")

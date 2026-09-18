@@ -13,6 +13,7 @@ __d(
           WebcMessageQuery: [
             1876,
             {
+              dedupKey: [22, e.TYPES.INTEGER],
               webcAudioMessageCount: [14, e.TYPES.INTEGER],
               webcBrowserNetworkType: [1, e.TYPES.STRING],
               webcBrowserStorageQuotaBytes: [20, e.TYPES.INTEGER],

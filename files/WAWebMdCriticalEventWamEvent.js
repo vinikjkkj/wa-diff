@@ -13,6 +13,7 @@ __d(
             2746,
             {
               collection: [2, o("WAWebWamEnumCollection").COLLECTION],
+              dedupKey: [6, e.TYPES.INTEGER],
               mdCriticalEventCode: [
                 1,
                 o("WAWebWamEnumMdSyncdCriticalEventCode")

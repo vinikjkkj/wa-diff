@@ -9,6 +9,7 @@ __d(
       CHAT_LIST: 4,
       NAVIGATION_BAR_BUTTON: 5,
       CONTINUE_CHAT_MODULE: 6,
+      THREAD_INFO_PAGE: 7,
     });
     i.META_AI_ACTION_ENTRY_POINT = e;
   },
