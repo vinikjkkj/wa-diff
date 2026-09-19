@@ -144,18 +144,16 @@ __d(
                   )
                 : null;
           return a != null && i != null
-            ? (o("WALogger")
-                .LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[wasa] Hatch send key rebuilt from syncd after ",
-                      ": ",
-                      "",
-                    ])),
-                  t,
-                  a,
-                )
-                .sendLogs("wasa-hatch-send-key-rebuilt"),
+            ? (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[wasa] Hatch send key rebuilt from syncd after ",
+                    ": ",
+                    "",
+                  ])),
+                t,
+                a,
+              ),
               { rootSecret: i, targetId: a })
             : (t === "no-active-target"
                 ? o("WALogger")

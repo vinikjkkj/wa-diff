@@ -46,18 +46,16 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          o("WALogger")
-            .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[wasa] root secret recovery: reading sync store for ",
-                  " target ",
-                  "",
-                ])),
-              t,
-              n,
-            )
-            .sendLogs("wasa-root-secret-recovery-attempt");
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[wasa] root secret recovery: reading sync store for ",
+                " target ",
+                "",
+              ])),
+            t,
+            n,
+          );
           try {
             var a = yield R(t, n);
             return a == null

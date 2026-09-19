@@ -13,20 +13,18 @@ __d(
       var a = n.alwaysScope,
         i = n.kind,
         l = a === "" ? "none" : a;
-      (o("WALogger")
-        .LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "hatch-approval: deciding approvalId=",
-              " decision=",
-              " scope=",
-              "",
-            ])),
-          t,
-          i,
-          l,
-        )
-        .sendLogs("hatch-approval-decide"),
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "hatch-approval: deciding approvalId=",
+            " decision=",
+            " scope=",
+            "",
+          ])),
+        t,
+        i,
+        l,
+      ),
         o("WAWebSendHatchMetadataRequest")
           .sendHatchMetadataRequest(
             babelHelpers.extends(

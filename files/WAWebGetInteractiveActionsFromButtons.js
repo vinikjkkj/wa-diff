@@ -36,6 +36,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModel",
+    "WAWebMuseCtaLinkOverride",
     "WAWebOpenBizAiHubDeeplink",
     "WAWebOrderStatus",
     "WAWebPaymentRequestWamLogger",
@@ -420,7 +421,7 @@ __d(
         u = e.msg;
       o("WAWebModalManager").ModalManager.open(
         m.jsx(r("WAWebExternalLinkPopup.react"), {
-          url: l,
+          url: o("WAWebMuseCtaLinkOverride").overrideCtaUrlIfNeeded(l),
           merchantUrl:
             (t = (n = a.data.merchantUrl) != null ? n : a.data.url) != null
               ? t

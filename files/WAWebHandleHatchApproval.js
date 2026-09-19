@@ -9,32 +9,28 @@ __d(
         a = t.record,
         i = t.resolvedDecision;
       if (i != null) {
-        (o("WALogger")
-          .LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "hatch-approval: received terminal record approvalId=",
-                " decision=",
-                "",
-              ])),
-            n,
-            i,
-          )
-          .sendLogs("hatch-approval-received-decision"),
+        (o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-approval: received terminal record approvalId=",
+              " decision=",
+              "",
+            ])),
+          n,
+          i,
+        ),
           r("WAWebHatchApprovalManager").settleApproval(n));
         return;
       }
       a != null &&
-        (o("WALogger")
-          .LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "hatch-approval: received pending request approvalId=",
-                "",
-              ])),
-            n,
-          )
-          .sendLogs("hatch-approval-received-pending"),
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-approval: received pending request approvalId=",
+              "",
+            ])),
+          n,
+        ),
         r("WAWebHatchApprovalManager").upsertApproval(a));
     }
     function d(e) {

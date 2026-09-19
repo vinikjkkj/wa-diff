@@ -12,6 +12,7 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "WAWebMuseCtaLinkOverride",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
     "WAWebPaymentReminder",
@@ -104,7 +105,7 @@ __d(
             index: t,
             data: {
               label: (l = _.display_text) != null ? l : _.title,
-              url: _.url,
+              url: o("WAWebMuseCtaLinkOverride").overrideCtaUrlIfNeeded(_.url),
               merchantUrl: _.merchant_url,
             },
           };

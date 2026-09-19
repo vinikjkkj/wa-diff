@@ -35,15 +35,20 @@ __d(
         r = e.storedCreativeMedia;
       return t ? !1 : !v(r, n);
     }
-    var d = new Map();
-    function m(e) {
+    var d = new Set();
+    function m(e, t) {
       if (e == null || e.size === 0) return d;
-      var t = new Map();
+      var n = new Set(
+          t.map(function (e) {
+            return e.key;
+          }),
+        ),
+        r = new Set();
       return (
-        e.forEach(function (e, n) {
-          t.set(e, n);
+        e.forEach(function (e, t) {
+          n.has(t) && r.add(e);
         }),
-        t
+        r
       );
     }
     function p(e) {
@@ -97,29 +102,27 @@ __d(
         });
       return n ? r : e;
     }
-    function b(e, t, n) {
+    function b(e, t) {
       if (t == null || t.length === 0) return e;
-      var r = new Map(
+      var n = new Map(
           e.map(function (e) {
             return [e.key, e];
           }),
         ),
-        o = m(n),
-        a = [];
+        r = [];
       (t.forEach(function (e) {
-        var t = r.has(e.key) ? e.key : o.get(e.key),
-          n = t == null ? null : r.get(t);
-        n != null && t != null && (a.push(n), r.delete(t));
+        var t = n.get(e.key);
+        t != null && (r.push(t), n.delete(e.key));
       }),
         e.forEach(function (e) {
-          r.has(e.key) && a.push(e);
+          n.has(e.key) && r.push(e);
         }));
-      var i =
-        a.length === e.length &&
-        a.every(function (t, n) {
+      var o =
+        r.length === e.length &&
+        r.every(function (t, n) {
           return t === e[n];
         });
-      return i ? e : a;
+      return o ? e : r;
     }
     function v(e, t) {
       return e == null || e.length !== t.length
@@ -175,6 +178,7 @@ __d(
       (l.creativeMediaKindFromMsgType = s),
       (l.creativeMediaKindFromAttachMedia = u),
       (l.shouldRecordCreativeMedia = c),
+      (l.shadowedCatalogKeysFor = m),
       (l.isCreativeMediaReady = p),
       (l.isCreativeMediaPending = _),
       (l.getCreativeMediaUrl = f),
