@@ -11,6 +11,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamEnumMessageType",
+    "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
@@ -72,6 +73,10 @@ __d(
               participantCount: [37, e.TYPES.INTEGER],
               phoneCores: [34, e.TYPES.INTEGER],
               prekeysEligibleForPrallelProcessing: [28, e.TYPES.BOOLEAN],
+              privateAiFeatureName: [
+                52,
+                o("WAWebWamEnumPrivateAiFeatureName").PRIVATE_AI_FEATURE_NAME,
+              ],
               receiverDeviceCount: [39, e.TYPES.INTEGER],
               runningTasks: [44, e.TYPES.STRING],
               sendCount: [13, e.TYPES.INTEGER],

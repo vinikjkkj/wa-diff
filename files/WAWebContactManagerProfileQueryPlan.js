@@ -81,6 +81,8 @@ __d(
             t === "customer" ||
             t === "phone" ||
             t === "username" ||
+            t === "address" ||
+            t === "birthday" ||
             t === "lastMessage" ||
             t === "list"
           ? !0

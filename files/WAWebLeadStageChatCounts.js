@@ -39,7 +39,19 @@ __d(
       }
       return n;
     }
-    l.getLeadStageChatCounts = s;
+    function u(t, n) {
+      return e(t).filter(function (e) {
+        var t;
+        return (
+          ((t = o("WAWebLeadStageStore").getLeadStageFromStore(
+            e.id.toString(),
+          )) != null
+            ? t
+            : o("WAWebLeadStage").LeadStage.NONE) === n
+        );
+      });
+    }
+    ((l.getLeadStageChatCounts = s), (l.getLeadListChatsAtStage = u));
   },
   98,
 );

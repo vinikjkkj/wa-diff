@@ -63,7 +63,7 @@ __d(
           .LWI_ACTION_PRODUCT_SELECTED,
         lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
           .LWI_SCREEN_REFERENCE.LWI_SCREEN_MEDIA_SELECTION_FLOW,
-        userHasCatalogItemsToPromote: t,
+        userHasCatalogItemsToPromote: t != null ? t : void 0,
       }).commit();
     }
     ((l.getLwiAdsIdentityTypeFromActiveAccountInfo = e),

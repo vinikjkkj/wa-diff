@@ -16,6 +16,7 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebUA",
     "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipExperimentTargetSample",
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParsersWeb",
     "WAWebVoipLogDrainer",
@@ -298,6 +299,12 @@ __d(
                     a.setABPropBool("disable_standalone_agc", !0),
                     a.setABPropBool("disable_eq", !0)),
                   a.setABPropString("self_country_code", S),
+                  a.setABPropString(
+                    "self_abprop_bucket_id_list",
+                    o(
+                      "WAWebVoipExperimentTargetSample",
+                    ).getExperimentTargetSampleExpoKeys(),
+                  ),
                   a.initVoipStack(e, t, n));
               } catch (e) {
                 throw (

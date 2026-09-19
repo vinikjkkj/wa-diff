@@ -11,6 +11,7 @@ __d(
     "relay-runtime/store/RelayOperationTracker",
     "relay-runtime/store/RelayPublishQueue",
     "relay-runtime/store/RelayRecordSource",
+    "relay-runtime/store/RelayStoreUtils",
     "relay-runtime/store/StoreInspector",
     "relay-runtime/store/defaultGetDataID",
     "relay-runtime/store/defaultRelayFieldLogger",
@@ -25,7 +26,8 @@ __d(
       s = n(
         "relay-runtime/multi-actor-environment/ActorIdentifier",
       ).assertInternalActorIdentifier,
-      u = (function () {
+      u = n("relay-runtime/store/RelayStoreUtils").ROOT_TYPE,
+      c = (function () {
         function t(e) {
           var t,
             r,
@@ -36,7 +38,7 @@ __d(
             s,
             u,
             c,
-            m,
+            d,
             p = this,
             _;
           ((this.configName = e.configName),
@@ -56,7 +58,7 @@ __d(
                         e.shouldProcessClientComponents,
                     },
                   );
-          ((this.__log = (r = e.log) != null ? r : d),
+          ((this.__log = (r = e.log) != null ? r : m),
             (this.relayFieldLogger =
               (o = e.relayFieldLogger) != null
                 ? o
@@ -88,8 +90,8 @@ __d(
             (this.options = e.options),
             (this.$14 = (c = e.isServer) != null ? c : !1),
             (this.$15 =
-              (m = e.normalizeResponse) != null
-                ? m
+              (d = e.normalizeResponse) != null
+                ? d
                 : n("relay-runtime/store/normalizeResponse")),
             (this.__setNet = function (e) {
               return (p.$4 = n(
@@ -169,7 +171,7 @@ __d(
             };
           }),
           (r.check = function (t) {
-            return this.$8.length === 0 && !c(t)
+            return this.$8.length === 0 && !d(t)
               ? this.$7.check(t)
               : this.$18(t, this.$8);
           }),
@@ -185,6 +187,23 @@ __d(
               optimisticConfig: null,
               updater: null,
             }).subscribe({});
+          }),
+          (r.publishWithDeferredNotify = function (t, n) {
+            var e = this.$15(
+              n,
+              t.root,
+              u,
+              {
+                deferDeduplicatedFields: !1,
+                getDataID: this.$10,
+                log: this.__log,
+                path: [],
+                shouldProcessClientComponents: this.$3,
+                treatMissingFieldsAsNull: this.$11,
+              },
+              !1,
+            );
+            return this.$5.publishWithDeferredNotify(t, e);
           }),
           (r.commitUpdate = function (t) {
             var e = this;
@@ -380,15 +399,15 @@ __d(
           t
         );
       })();
-    function c(e) {
+    function d(e) {
       return (
         e.root.node.kind === "Operation" &&
         e.root.node.clientAbstractTypes != null
       );
     }
-    u.prototype["@@RelayModernEnvironment"] = !0;
-    function d() {}
-    a.exports = u;
+    c.prototype["@@RelayModernEnvironment"] = !0;
+    function m() {}
+    a.exports = c;
   },
   null,
 );

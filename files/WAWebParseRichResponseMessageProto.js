@@ -29,74 +29,68 @@ __d(
           );
         var i = u(a.contextInfo);
         if (
-          !(
-            i &&
-            !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
-          )
-        ) {
-          var l = a.messageType,
-            d = a.submessages;
-          if (l == null)
-            throw new (o(
-              "WAWebRichResponseValidationError",
-            ).RichResponseValidationError)(
-              o("WAWebRichResponseValidationError")
-                .RichResponseValidationErrorCode.MISSING_MESSAGE_TYPE,
-              o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-                .INVALID_MESSAGE,
-            );
-          var m = o(
-              "WAWebRichResponseParseUtils",
-            ).generateFutureproofRichResponse(l, d),
-            p = o("WAWebRichResponseParseUtils").parseRichResponse(m),
-            _ = c(a, r.messageContextInfo, n.t)
-              ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
-                  a.unifiedResponse,
-                )
-              : null,
-            f = o(
-              "WAWebBotUnifiedResponseMutationUtils",
-            ).parseUnifiedResponseMutationMediaList(r.messageContextInfo),
-            g =
-              f != null &&
-              o(
-                "WAWebBotUnifiedResponseGating",
-              ).isUnifiedResponseMutationEnabled()
-                ? f
-                : void 0;
-          if (
-            !(
-              i &&
-              o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
-                _,
-              ) &&
-              (g == null ||
-                !o(
-                  "WAWebBotBaseGating",
-                ).isRichResponseForwardMediaReceivingEnabled())
-            )
-          ) {
-            var h =
-              ((t = a.unifiedResponse) == null ? void 0 : t.data) != null
-                ? new Uint8Array(a.unifiedResponse.data)
-                : null;
-            return {
-              msgData: babelHelpers.extends({}, n, {
-                type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
-                kind: o("WAWebMsgType").MsgKind.RichResponse,
-                richResponse: p,
-                unifiedResponse: _,
-                unifiedResponseRawData: h,
-                unifiedResponseMutationMediaList: g,
-              }),
-              contextInfo: o(
-                "WAWebBotBaseGating",
-              ).isRichResponseForwardReceivingEnabled()
-                ? a.contextInfo
-                : void 0,
-            };
-          }
-        }
+          i &&
+          !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
+        )
+          return c(n);
+        var l = a.messageType,
+          m = a.submessages;
+        if (l == null)
+          throw new (o(
+            "WAWebRichResponseValidationError",
+          ).RichResponseValidationError)(
+            o("WAWebRichResponseValidationError")
+              .RichResponseValidationErrorCode.MISSING_MESSAGE_TYPE,
+            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+              .INVALID_MESSAGE,
+          );
+        var p = o(
+            "WAWebRichResponseParseUtils",
+          ).generateFutureproofRichResponse(l, m),
+          _ = o("WAWebRichResponseParseUtils").parseRichResponse(p),
+          f = d(a, r.messageContextInfo, n.t)
+            ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
+                a.unifiedResponse,
+              )
+            : null,
+          g = o(
+            "WAWebBotUnifiedResponseMutationUtils",
+          ).parseUnifiedResponseMutationMediaList(r.messageContextInfo),
+          h =
+            g != null &&
+            o(
+              "WAWebBotUnifiedResponseGating",
+            ).isUnifiedResponseMutationEnabled()
+              ? g
+              : void 0;
+        if (
+          i &&
+          o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(f) &&
+          (h == null ||
+            !o(
+              "WAWebBotBaseGating",
+            ).isRichResponseForwardMediaReceivingEnabled())
+        )
+          return c(n);
+        var y =
+          ((t = a.unifiedResponse) == null ? void 0 : t.data) != null
+            ? new Uint8Array(a.unifiedResponse.data)
+            : null;
+        return {
+          msgData: babelHelpers.extends({}, n, {
+            type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
+            kind: o("WAWebMsgType").MsgKind.RichResponse,
+            richResponse: _,
+            unifiedResponse: f,
+            unifiedResponseRawData: y,
+            unifiedResponseMutationMediaList: h,
+          }),
+          contextInfo: o(
+            "WAWebBotBaseGating",
+          ).isRichResponseForwardReceivingEnabled()
+            ? a.contextInfo
+            : void 0,
+        };
       }
     }
     function s(e, t) {
@@ -119,7 +113,18 @@ __d(
           : t.botJid) != null
       );
     }
-    function c(e, t, n) {
+    function c(e) {
+      return {
+        msgData: babelHelpers.extends({}, e, {
+          type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+          kind: o("WAWebMsgType").MsgKind.Unknown,
+          subtype: void 0,
+          futureproofType: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
+        }),
+        contextInfo: null,
+      };
+    }
+    function d(e, t, n) {
       var r;
       return e.unifiedResponse == null
         ? !1

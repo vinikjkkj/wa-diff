@@ -395,6 +395,7 @@ __d(
       GO_TO_PAYMENTS: 390,
       SPLIT_PAYMENT: 391,
       COPY_PIX_KEY: 392,
+      QR_SCANNER_ZOOM: 393,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

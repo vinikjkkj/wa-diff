@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipTransportFallbackTracker",
-  ["WALogger", "WAWebCoreActionsODS"],
+  ["WALogger", "WAWebCoreActionsODS", "WAWebVoipWebTransportCallSummary"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,12 +11,16 @@ __d(
       u || ((u = !0), (c = !1));
     }
     function m() {
-      return u;
+      u && o("WAWebVoipWebTransportCallSummary").recordWtFallbackSctpStart();
     }
     function p() {
+      return u;
+    }
+    function _() {
       !u ||
         c ||
         ((c = !0),
+        o("WAWebVoipWebTransportCallSummary").recordWtFallbackSctpConnected(),
         o(
           "WAWebCoreActionsODS",
         ).logCallWebtransportFallbackToSctpSctpConnected(),
@@ -27,7 +31,7 @@ __d(
             ])),
         ));
     }
-    function _() {
+    function f() {
       !u ||
         c ||
         ((c = !0),
@@ -41,14 +45,15 @@ __d(
           )
           .sendLogs("webtransport-fallback-sctp-failed"));
     }
-    function f() {
+    function g() {
       ((u = !1), (c = !1));
     }
     ((l.markFallbackTriggered = d),
-      (l.hasFallbackTriggered = m),
-      (l.notifySctpConnectionOpened = p),
-      (l.finalizeFallbackOutcome = _),
-      (l.resetFallbackTracker = f));
+      (l.markFallbackSctpStarted = m),
+      (l.hasFallbackTriggered = p),
+      (l.notifySctpConnectionOpened = _),
+      (l.finalizeFallbackOutcome = f),
+      (l.resetFallbackTracker = g));
   },
   98,
 );

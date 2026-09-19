@@ -17,7 +17,7 @@ __d(
           "items" in o
         ) {
           var a = o.items;
-          return c(t, a);
+          return d(t, a);
         }
         if (
           ((typeof o == "object" && o !== null) || typeof o == "function") &&
@@ -28,8 +28,8 @@ __d(
           var i,
             l = o.fromIndex,
             u = o.toIndex,
-            d = [].concat((i = t.creativeMedia) != null ? i : []);
-          if (l < 0 || l >= d.length || u < 0 || u >= d.length)
+            m = [].concat((i = t.creativeMedia) != null ? i : []);
+          if (l < 0 || l >= m.length || u < 0 || u >= m.length)
             return (
               r("FBLogger")("wa_ctwa_web").MUSTFIX(
                 e ||
@@ -41,27 +41,36 @@ __d(
                   ])),
                 l,
                 u,
-                d.length,
+                m.length,
               ),
               [t]
             );
-          var m = d.splice(l, 1),
-            p = m[0];
-          return (d.splice(u, 0, p), c(t, d));
+          var p = m.splice(l, 1),
+            _ = p[0];
+          return (m.splice(u, 0, _), d(t, m));
           break e;
+        }
+        if (
+          ((typeof o == "object" && o !== null) || typeof o == "function") &&
+          o.type === "creative_media_reducer.substitute_creative_media_keys" &&
+          "keysByReplaced" in o
+        ) {
+          var f = o.keysByReplaced,
+            g = c(t.creativeMedia, f);
+          return g == null ? [t] : d(t, g);
         }
         if (
           ((typeof o == "object" && o !== null) || typeof o == "function") &&
           o.type === "creative_media_reducer.remove_creative_media" &&
           "key" in o
         ) {
-          var _ = o.key,
-            f = t.creativeMedia;
-          if (f == null || f.length === 0) return [t];
-          var g = f.filter(function (e) {
-            return e.key !== _;
+          var h = o.key,
+            y = t.creativeMedia;
+          if (y == null || y.length === 0) return [t];
+          var C = y.filter(function (e) {
+            return e.key !== h;
           });
-          return g.length === f.length
+          return C.length === y.length
             ? (r("FBLogger")("wa_ctwa_web").MUSTFIX(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -69,16 +78,32 @@ __d(
                     " (store holds ",
                     ")",
                   ])),
-                _,
-                f.length,
+                h,
+                y.length,
               ),
               [t])
-            : c(t, g);
+            : d(t, C);
         }
         return [t];
       }
     }
     function c(e, t) {
+      if (e == null || e.length === 0) return null;
+      var n = new Set(
+          e.map(function (e) {
+            return e.key;
+          }),
+        ),
+        r = !1,
+        o = e.map(function (e) {
+          var o = t.get(e.key);
+          return o == null || n.has(o)
+            ? e
+            : ((r = !0), babelHelpers.extends({}, e, { key: o }));
+        });
+      return r ? o : null;
+    }
+    function d(e, t) {
       var n = babelHelpers.extends({}, e, { creativeMedia: t });
       return r("getWAWebBizAdCreationCreativeCarouselReducer")(n, {
         carouselCardsData: o(

@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumInvisibleMessageCategoryType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDistributionEnumType",
+    "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
@@ -89,6 +90,10 @@ __d(
               messageIsInvisible: [10, e.TYPES.BOOLEAN],
               messageMediaType: [7, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messageTypeStr: [28, e.TYPES.STRING],
+              privateAiFeatureName: [
+                30,
+                o("WAWebWamEnumPrivateAiFeatureName").PRIVATE_AI_FEATURE_NAME,
+              ],
               retryCount: [3, e.TYPES.INTEGER],
               revokeType: [11, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
               sessionScope: [

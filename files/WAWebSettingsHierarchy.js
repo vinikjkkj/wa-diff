@@ -70,6 +70,7 @@ __d(
               "privacy_groups",
               "privacy_blocked",
               "screen_lock",
+              "protect_ip_in_calls",
               { calls: ["call-silencing", "license"] },
             ],
           },
@@ -513,6 +514,17 @@ __d(
             title: o("WAWebSettingsFBT").privacyBlockedTitle,
             searchCriteria: String(
               o("WAWebSettingsFBT").privacyBlockedTitle(),
+            ).toLowerCase(),
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.PrivacySettings,
+            id: "protect_ip_in_calls",
+            isAvailable: function () {
+              return o("WAWebVoipGatingUtils").isCallingEnabled();
+            },
+            title: o("WAWebSettingsFBT").protectIpInCallsTitle,
+            searchCriteria: String(
+              o("WAWebSettingsFBT").protectIpInCallsTitle(),
             ).toLowerCase(),
           },
           {

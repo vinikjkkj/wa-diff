@@ -5,9 +5,12 @@ __d(
     function e() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_web_customer_management_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "contact_manager_mvp_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "smb_web_customer_management_enabled",
+          ))
       );
     }
     function s() {
@@ -37,9 +40,12 @@ __d(
     function d() {
       return (
         e() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_contact_manager_sublist_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "contact_manager_mvp_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "smb_contact_manager_sublist_enabled",
+          ))
       );
     }
     function m(e) {

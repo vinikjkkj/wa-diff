@@ -51,6 +51,7 @@ __d(
                 o("WAWebWamEnumUsernameCreationFlowType")
                   .USERNAME_CREATION_FLOW_TYPE,
               ],
+              usernameCreationRequiredAccounts: [20, e.TYPES.STRING],
               usernameCreationUsernameSessionId: [6, e.TYPES.STRING],
               usernameLinkOriginSurface: [
                 18,

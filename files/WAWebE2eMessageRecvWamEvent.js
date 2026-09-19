@@ -17,6 +17,7 @@ __d(
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumPlatformType",
     "WAWebWamEnumPqReceiveGateState",
+    "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumStanzaType",
@@ -91,6 +92,10 @@ __d(
               pqReceiveGateState: [
                 34,
                 o("WAWebWamEnumPqReceiveGateState").PQ_RECEIVE_GATE_STATE,
+              ],
+              privateAiFeatureName: [
+                35,
+                o("WAWebWamEnumPrivateAiFeatureName").PRIVATE_AI_FEATURE_NAME,
               ],
               processingDeferred: [29, e.TYPES.BOOLEAN],
               retryCount: [3, e.TYPES.INTEGER],

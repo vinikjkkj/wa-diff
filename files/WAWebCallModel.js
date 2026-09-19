@@ -48,6 +48,7 @@ __d(
             (n.isCallLink = !1),
             (n.isEventLink = !1),
             (n.isGuestEligible = !1),
+            (n.isSelfCallLinkAdmin = !1),
             (n.isInWaitingRoom = !1),
             (n.displayWaitingRoomDenied = !1),
             (n.isWaitingRoomAdmin = !1),

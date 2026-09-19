@@ -2,6 +2,7 @@ __d(
   "WAWebReceiptStanzaReceiveWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumClientGroupSizeBucket",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumReceiptAggregationType",
@@ -17,6 +18,10 @@ __d(
               dbReadsCount: [12, e.TYPES.INTEGER],
               dbWritesCount: [13, e.TYPES.INTEGER],
               dedupKey: [17, e.TYPES.INTEGER],
+              groupSizeBucket: [
+                18,
+                o("WAWebWamEnumClientGroupSizeBucket").CLIENT_GROUP_SIZE_BUCKET,
+              ],
               mediaType: [2, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messageType: [10, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               processingDeferred: [14, e.TYPES.BOOLEAN],

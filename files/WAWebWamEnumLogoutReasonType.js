@@ -25,6 +25,7 @@ __d(
       SERVER_PING_KICK: 19,
       CONNECTION_RESET: 20,
       FULL_PROXY_AVAILABLE: 21,
+      SERVER_BAD_MAC: 22,
     });
     i.LOGOUT_REASON_TYPE = e;
   },

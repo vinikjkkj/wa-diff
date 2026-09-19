@@ -16,6 +16,7 @@ __d(
     "WAWebDBGetStarredMessagesForChat",
     "WAWebDBGroupsGroupMetadata",
     "WAWebGetBizCatalogType",
+    "WAWebGetThreadType",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebLidAwareContactsDB",
@@ -516,6 +517,16 @@ __d(
                             isPinned: D,
                             isArchived: x,
                             contactInfo: T,
+                            threadType: o(
+                              "WAWebGetThreadType",
+                            ).getThreadTypeFromWid(
+                              p,
+                              f == null
+                                ? null
+                                : o("WAWebGroupMetadataGetters").getGroupType(
+                                    f,
+                                  ),
+                            ),
                             messagesStarred: $,
                             messagesUnread: P,
                             isMuted: N,

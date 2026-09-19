@@ -94,7 +94,7 @@ __d(
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
     function y(e, t, n) {
-      return n == null || P.includes(e)
+      return n == null || N.includes(e)
         ? null
         : {
             draggable: !0,
@@ -112,7 +112,7 @@ __d(
             onDrop: function (r) {
               r.preventDefault();
               var t = r.dataTransfer.getData("text/plain"),
-                o = N.find(function (e) {
+                o = M.find(function (e) {
                   return e === t;
                 });
               o != null && o !== e && n(o, e);
@@ -819,26 +819,40 @@ __d(
         return "\u2014";
       }
     }
-    var P = ["select", "customer", "actions"],
-      N = [
+    function P(e) {
+      if (e == null || e === 0) return "\u2014";
+      try {
+        return new Intl.DateTimeFormat(void 0, {
+          day: "numeric",
+          month: "short",
+          timeZone: "UTC",
+        }).format(e * 1e3);
+      } catch (e) {
+        return "\u2014";
+      }
+    }
+    var N = ["select", "customer", "actions"],
+      M = [
         "customer",
         "phone",
         "username",
         "list",
         "acquisitionSource",
         "email",
+        "address",
+        "birthday",
         "lastMessage",
         "lastOrder",
         "notes",
         "actions",
       ],
-      M = N;
-    function w(e, t) {
+      w = M;
+    function A(e, t) {
       return e.filter(function (e) {
-        return !P.includes(e) && t.includes(e);
+        return !N.includes(e) && t.includes(e);
       });
     }
-    function A(e) {
+    function F(e) {
       return e === "select"
         ? "Select"
         : e === "customer"
@@ -849,29 +863,33 @@ __d(
               ? s._(/*BTDS*/ "Username")
               : e === "email"
                 ? s._(/*BTDS*/ "Email")
-                : e === "list"
-                  ? s._(/*BTDS*/ "List")
-                  : e === "acquisitionSource"
-                    ? s._(/*BTDS*/ "Source")
-                    : e === "lastMessage"
-                      ? s._(/*BTDS*/ "Last message")
-                      : e === "lastOrder"
-                        ? s._(/*BTDS*/ "Last order")
-                        : e === "notes"
-                          ? s._(/*BTDS*/ "Notes")
-                          : e === "actions"
-                            ? s._(/*BTDS*/ "Actions")
-                            : (function () {
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    e,
-                                );
-                              })();
+                : e === "address"
+                  ? s._(/*BTDS*/ "Address")
+                  : e === "birthday"
+                    ? s._(/*BTDS*/ "Birthday")
+                    : e === "list"
+                      ? s._(/*BTDS*/ "List")
+                      : e === "acquisitionSource"
+                        ? s._(/*BTDS*/ "Source")
+                        : e === "lastMessage"
+                          ? s._(/*BTDS*/ "Last message")
+                          : e === "lastOrder"
+                            ? s._(/*BTDS*/ "Last order")
+                            : e === "notes"
+                              ? s._(/*BTDS*/ "Notes")
+                              : e === "actions"
+                                ? s._(/*BTDS*/ "Actions")
+                                : (function () {
+                                    throw Error(
+                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                        e,
+                                    );
+                                  })();
     }
-    function F(e) {
+    function O(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
     }
-    function O(t) {
+    function B(t) {
       return {
         cell: function (a) {
           var n = o("WAWebContactCollection").ContactCollection.get(
@@ -929,7 +947,7 @@ __d(
                     return t.toggleAll();
                   },
                   testid: "customer_manager_select_all",
-                  value: F(t),
+                  value: O(t),
                 }),
               },
             ),
@@ -940,14 +958,14 @@ __d(
           .contactManagerColumnWidths.select,
       };
     }
-    function B(e, t, n, a, i, l, u, d) {
+    function W(e, t, n, a, i, l, u, d) {
       var m = u != null ? u : [],
         p = d != null ? d : r("WAWebNoop"),
         _ = function (t, r) {
           return a != null ? I(t, r, n, a, i, m, p) : void 0;
         },
         f = s._(/*BTDS*/ "Name"),
-        g = l != null ? O(l) : null;
+        g = l != null ? B(l) : null;
       return [].concat(g != null ? [g] : [], [
         {
           cell: function (t) {
@@ -1049,6 +1067,39 @@ __d(
         },
         {
           cell: function (t) {
+            var e;
+            return c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: (e = t.item.leadData.address) != null ? e : "\u2014",
+            });
+          },
+          header: s._(/*BTDS*/ "Address"),
+          key: "address",
+          renderHeader: _(s._(/*BTDS*/ "Address"), "address"),
+          sortable: !0,
+          width: o("WAWebContactManagerListViewColumnWidths")
+            .contactManagerColumnWidths.address,
+        },
+        {
+          cell: function (t) {
+            return c.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: P(t.item.leadData.birthday),
+            });
+          },
+          header: s._(/*BTDS*/ "Birthday"),
+          key: "birthday",
+          renderHeader: _(s._(/*BTDS*/ "Birthday"), "birthday"),
+          sortable: !0,
+          width: o("WAWebContactManagerListViewColumnWidths")
+            .contactManagerColumnWidths.birthday,
+        },
+        {
+          cell: function (t) {
             var e = o("WAWebChatCollection").ChatCollection.get(t.item.chatJid);
             return c.jsx(r("WDSText.react"), {
               type: "Body2",
@@ -1108,12 +1159,12 @@ __d(
       ]);
     }
     ((l.ColumnReorderAnnouncer = v),
-      (l.ALWAYS_VISIBLE_COLUMNS = P),
-      (l.ALL_COLUMN_KEYS = N),
-      (l.DEFAULT_VISIBLE_COLUMNS = M),
-      (l.getOrderedReorderableColumnKeys = w),
-      (l.getColumnLabel = A),
-      (l.getContactManagerListColumns = B));
+      (l.ALWAYS_VISIBLE_COLUMNS = N),
+      (l.ALL_COLUMN_KEYS = M),
+      (l.DEFAULT_VISIBLE_COLUMNS = w),
+      (l.getOrderedReorderableColumnKeys = A),
+      (l.getColumnLabel = F),
+      (l.getContactManagerListColumns = W));
   },
   226,
 );

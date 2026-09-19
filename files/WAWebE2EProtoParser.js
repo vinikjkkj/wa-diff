@@ -102,8 +102,8 @@ __d(
         b = C.contextInfo,
         v = C.msgData;
       return (
-        T({ contextInfo: b, message: v, msgContext: p, quotedPaymentInfo: g }),
-        M(v, y, p),
+        D({ contextInfo: b, message: v, msgContext: p, quotedPaymentInfo: g }),
+        w(v, y, p),
         v
       );
     }
@@ -145,7 +145,7 @@ __d(
       )
         return {
           contextInfo: null,
-          msgData: L({
+          msgData: E({
             baseMessage: d,
             associationType: v.associationType,
             parentMsgKey: v.associationParentMsgKey,
@@ -175,31 +175,31 @@ __d(
         if (
           !R &&
           (o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(S) ||
-            E(S))
+            k(S))
         ) {
-          var T = d,
-            D = babelHelpers.extends({}, T, {
+          var D = d,
+            x = babelHelpers.extends({}, D, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
               kind: "unknown",
               subtype: void 0,
             });
-          return { contextInfo: null, msgData: D };
+          return { contextInfo: null, msgData: x };
         }
         if (b != null) {
-          var M = o(
+          var w = o(
             "WAWebAssociationProtoUtils",
           ).convertAssociationTypeFromProtoToClientSupportedAssociationType(
             b.associationType,
           );
           if (
             !R &&
-            M !==
+            w !==
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .BOT_PLUGIN &&
-            (S == null ? void 0 : S.msgData.associationType) !== M &&
-            !k(m)
+            (S == null ? void 0 : S.msgData.associationType) !== w &&
+            !I(m)
           ) {
-            var w;
+            var A;
             throw (
               o("WALogger")
                 .WARN(
@@ -217,12 +217,12 @@ __d(
                       "",
                     ])),
                   S == null ? void 0 : S.msgData.type,
-                  M,
+                  w,
                   S == null ? void 0 : S.msgData.associationType,
                   i,
-                  m == null || (w = m.protocolMessage) == null
+                  m == null || (A = m.protocolMessage) == null
                     ? void 0
-                    : w.type,
+                    : A.type,
                   f == null ? void 0 : f.type,
                   f == null ? void 0 : f.pollType,
                   f == null ? void 0 : f.eventType,
@@ -249,57 +249,69 @@ __d(
             m,
             _,
           ),
-          I(S.msgData),
+          T(S.msgData),
           S
         );
       }
-      var A = m.deviceSentMessage;
-      (A && x(d, A, _, a), C && P(d, C));
-      var F = m.groupStatusMessageV2;
-      F != null && N(d, F, _, a);
-      var O = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(m);
-      if (O != null)
-        $({
+      var F = m.deviceSentMessage;
+      (F && $(d, F, _, a), C && N(d, C));
+      var O = m.groupStatusMessageV2;
+      O != null && M(d, O, _, a);
+      var B = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(m);
+      if (B != null)
+        P({
           depth: a,
           message: d,
-          futureproofMessage: O,
+          futureproofMessage: B,
           msgContext: _,
           topLevelMessageContextInfo: m.messageContextInfo,
           editAttr: i,
         });
-      else if (v != null && m.associatedChildMessage != null)
-        return (
-          o("WALogger")
-            .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "parseMsgProto: unopened associated child wrapper, associationType: ",
-                  ", msgContext: ",
-                  ", viewMode: ",
-                  "",
-                ])),
-              v.associationType,
-              _,
-              v.viewMode,
-            )
-            .tags("messaging")
-            .sendLogs("parseMsgProto-unopened-associated-child", {
-              sampling: 0.01,
-            }),
-          {
-            contextInfo: null,
-            msgData: L({
-              baseMessage: d,
-              associationType: o("WAWebMessageAssociation.flow")
-                .MessageAssociationType.UNKNOWN,
-              parentMsgKey: v.associationParentMsgKey,
-              viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-            }),
-          }
-        );
+      else {
+        if (v != null && m.associatedChildMessage != null)
+          return (
+            o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "parseMsgProto: unopened associated child wrapper, associationType: ",
+                    ", msgContext: ",
+                    ", viewMode: ",
+                    "",
+                  ])),
+                v.associationType,
+                _,
+                v.viewMode,
+              )
+              .tags("messaging")
+              .sendLogs("parseMsgProto-unopened-associated-child", {
+                sampling: 0.01,
+              }),
+            {
+              contextInfo: null,
+              msgData: E({
+                baseMessage: d,
+                associationType: o("WAWebMessageAssociation.flow")
+                  .MessageAssociationType.UNKNOWN,
+                parentMsgKey: v.associationParentMsgKey,
+                viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+              }),
+            }
+          );
+        if (m.botForwardedMessage != null)
+          return { contextInfo: null, msgData: L(d) };
+      }
       return { contextInfo: null, msgData: d };
     }
     function L(e) {
+      return babelHelpers.extends({}, e, {
+        type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+        kind: "unknown",
+        subtype: void 0,
+        futureproofType: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
+      });
+    }
+    function E(e) {
       var t = e.associationType,
         n = e.baseMessage,
         r = e.parentMsgKey,
@@ -312,7 +324,7 @@ __d(
         viewMode: a,
       });
     }
-    function E(e) {
+    function k(e) {
       var t = e.msgData;
       return r("WAWebNewsletterIsNewsletterMsg")(t)
         ? t.isFromTemplate === !0 ||
@@ -322,7 +334,7 @@ __d(
             t.carouselCardsParsed != null
         : !1;
     }
-    function k(e) {
+    function I(e) {
       var t, n;
       return (
         (e == null || (t = e.protocolMessage) == null ? void 0 : t.type) ===
@@ -334,7 +346,7 @@ __d(
             .MESSAGE_EDIT
       );
     }
-    function I(e) {
+    function T(e) {
       e.isViewOnce === !0 &&
         ([
           "body",
@@ -366,16 +378,16 @@ __d(
           ).isChannelVideoServerTranscodeUploadEnabled() &&
           (e.metadataUrl = void 0));
     }
-    function T(e) {
+    function D(e) {
       var t = e.contextInfo,
         n = e.message,
         r = e.msgContext,
         a = e.quotedPaymentInfo;
       t &&
-        (D(n, t, r, a),
+        (x(n, t, r, a),
         o("WAWebE2EProtoParserForCtwaContext").parseCtwaContextProto(n, t));
     }
-    function D(e, t, n, a) {
+    function x(e, t, n, a) {
       var i = t.quotedMessage,
         l = t.mentionedJid,
         s = t.groupMentions;
@@ -513,7 +525,7 @@ __d(
         (y == null ? void 0 : y.canBeReshared) != null &&
           (e.canBeReshared = y.canBeReshared));
     }
-    function x(e, t, n, a) {
+    function $(e, t, n, a) {
       if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= v)) {
         o("WALogger")
           .WARN(
@@ -541,7 +553,7 @@ __d(
           }),
         ));
     }
-    function $(e) {
+    function P(e) {
       var t = e.depth,
         n = t === void 0 ? 0 : t,
         a = e.editAttr,
@@ -584,7 +596,7 @@ __d(
         }),
       );
     }
-    function P(e, t) {
+    function N(e, t) {
       e.type = o("WAWebMsgType").MSG_TYPE.CALL_LOG;
       var n = !!t.isVideo;
       t.participants.length > 1
@@ -595,7 +607,7 @@ __d(
             ? o("WAWebCommonMsgSubtypeTypes").MsgSubtype.MissVideo
             : o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Miss);
     }
-    function N(e, t, n, a) {
+    function M(e, t, n, a) {
       if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= v)) {
         o("WALogger")
           .WARN(
@@ -630,7 +642,7 @@ __d(
             )
             .sendLogs("parse-group-status-message-skipped");
     }
-    function M(e, t, n) {
+    function w(e, t, n) {
       var a, i, l, s, u, c, d;
       if (t) {
         t.messageSecret != null &&
@@ -746,9 +758,9 @@ __d(
       }
     }
     ((l.parseMsgProto = S),
-      (l.parseContextInfo = T),
-      (l.parseContextInfoProto = D),
-      (l.parseMessageContextInfoProto = M));
+      (l.parseContextInfo = D),
+      (l.parseContextInfoProto = x),
+      (l.parseMessageContextInfoProto = w));
   },
   98,
 );

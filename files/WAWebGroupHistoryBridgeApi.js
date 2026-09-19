@@ -2,7 +2,6 @@ __d(
   "WAWebGroupHistoryBridgeApi",
   [
     "WAWebGroupHistoryReceiverUserJourneyLogger",
-    "WAWebGroupMemberAddingUserJourneyLogger",
     "WAWebUpdateGroupHistoryBundleStateAction",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,14 +53,6 @@ __d(
           groupHistoryMessagesCount: r,
           groupHistoryOutWindowPinsCount: a,
           groupHistoryReceiverGroupId: n,
-        });
-      },
-      logGroupHistorySelectableMessagesLoaded: function (t) {
-        var e = t.groupHistoryMessagesCount;
-        o(
-          "WAWebGroupMemberAddingUserJourneyLogger",
-        ).GroupMemberAddingUserJourneyLogger.selectableMessagesLoaded({
-          groupHistoryMessagesCount: e,
         });
       },
     };

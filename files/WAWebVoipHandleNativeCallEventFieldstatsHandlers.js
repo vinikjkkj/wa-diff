@@ -113,6 +113,13 @@ __d(
         webTransportConnectOpened: t.connectOpened,
         webTransportRelayTrafficSent: t.relayTrafficSent,
         webTransportFallbackTriggered: t.fallbackTriggered,
+        webTransportFallbackPhase: t.fallbackPhase,
+        webTransportFallbackReason: t.fallbackReason,
+        webTransportFallbackSinceCallStartMs: t.fallbackSinceCallStartMs,
+        webTransportFallbackSinceAcceptMs: t.fallbackSinceAcceptMs,
+        webTransportFallbackSctpStartMs: t.fallbackSctpStartMs,
+        webTransportFallbackSctpConnectedMs: t.fallbackSctpConnectedMs,
+        webTransportFallbackToFirstActiveMs: t.fallbackToFirstActiveMs,
       });
       return (
         t.configEnabled != null &&

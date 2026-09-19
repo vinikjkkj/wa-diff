@@ -734,7 +734,7 @@ __d(
           L = t == null ? void 0 : t.volatilityState,
           E = null;
         if (L != null) {
-          var k = Date.now(),
+          var k = e.host.clock().unixMs,
             I = o(
               "VideoPlayerNextgendashPlaybackLoop",
             ).internal_computeABRVolatility(L.abrSwitchTimestamps, k),

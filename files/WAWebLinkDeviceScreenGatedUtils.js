@@ -32,7 +32,7 @@ __d(
     function d() {
       return (
         !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
-        r("gkx")("15775")
+        r("gkx")("17622")
       );
     }
     function m(e) {
@@ -43,7 +43,7 @@ __d(
           ).isWAWebFeatureDetectionAndroidTablet()),
         !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
           e &&
-          r("gkx")("15842")
+          r("gkx")("17669")
       );
     }
     function p() {

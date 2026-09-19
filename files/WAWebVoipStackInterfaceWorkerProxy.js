@@ -17,6 +17,7 @@ __d(
     "WAWebVisibilityAwareTimeout",
     "WAWebVoipABPropConfig",
     "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipExperimentTargetSample",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitializationBarrier",
     "WAWebVoipJsWorkerThread",
@@ -637,13 +638,16 @@ __d(
                         "WAWebVoipWebTransportConnectionManager",
                       ).closeAllConnections(!1),
                       e != null
-                        ? o(
+                        ? (o(
+                            "WAWebVoipTransportFallbackTracker",
+                          ).markFallbackSctpStarted(),
+                          o(
                             "WAWebVoipSctpConnectionManager",
                           ).handleRelayListUpdate(e, {
                             bypassConnectionStagger: o(
                               "WAWebVoipGatingUtils",
                             ).isWebTransportFastSetupEnabled(),
-                          })
+                          }))
                         : o("WALogger").WARN(
                             L ||
                               (L = babelHelpers.taggedTemplateLiteralLoose([
@@ -753,10 +757,13 @@ __d(
                     (g.disable_standalone_agc = { value: !0, type: "bool" }),
                     (g.disable_eq = { value: !0, type: "bool" })));
                 var h =
-                  (l = yield o("WAWebCountryCodeUtils").getMyCallingCode()) !=
-                  null
-                    ? l
-                    : "";
+                    (l = yield o("WAWebCountryCodeUtils").getMyCallingCode()) !=
+                    null
+                      ? l
+                      : "",
+                  y = o(
+                    "WAWebVoipExperimentTargetSample",
+                  ).getExperimentTargetSampleExpoKeys();
                 o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                   o("WAWebVoipQplHelpers").VoipInitQplPoint
                     .VOIP_STACK_INIT_START,
@@ -771,16 +778,17 @@ __d(
                         selfUserJid: n,
                         selfLid: a,
                         selfCountryCode: h,
+                        selfAbpropBucketIdList: y,
                         abProps: g,
                       }),
                       "module",
                     ),
                     t)
                   ) {
-                    var y = c.registerMainThreadAfterVoipInit();
-                    if (y !== 0)
+                    var C = c.registerMainThreadAfterVoipInit();
+                    if (C !== 0)
                       throw r("err")(
-                        "voip: failed to register main thread (" + y + ")",
+                        "voip: failed to register main thread (" + C + ")",
                       );
                   }
                 } catch (e) {
@@ -796,29 +804,29 @@ __d(
                   "voip_stack_init",
                 ),
                   (ue = !1));
-                var C = c.getWebP2PVirtualIpv4(),
-                  b = c.getWebP2PVirtualIpv6(),
-                  v = c.getWebP2PVirtualPort();
+                var b = c.getWebP2PVirtualIpv4(),
+                  v = c.getWebP2PVirtualIpv6(),
+                  $ = c.getWebP2PVirtualPort();
                 (o("WAWebVoipP2PConnectionManager").initP2PVirtualAddresses(
-                  C,
                   b,
                   v,
+                  $,
                 ),
                   o(
                     "WAWebVoipP2PConnectionManager",
                   ).registerOnDataChannelMessage(function (e) {
                     ye(
                       "handleOnTransportMessage",
-                      { packet: e, ip: C, port: v },
+                      { packet: e, ip: b, port: $ },
                       [e],
                     );
                   }));
-                var $ = !1;
+                var P = !1;
                 (o(
                   "WAWebVoipP2PConnectionManager",
                 ).registerOnDataChannelStateChange(function (e) {
                   e === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
-                    ? (($ = !0),
+                    ? ((P = !0),
                       o("WALogger").LOG(
                         D ||
                           (D = babelHelpers.taggedTemplateLiteralLoose([
@@ -829,8 +837,8 @@ __d(
                         active: !0,
                         useIPv6: !1,
                       }))
-                    : $ &&
-                      (($ = !1),
+                    : P &&
+                      ((P = !1),
                       o("WALogger").LOG(
                         x ||
                           (x = babelHelpers.taggedTemplateLiteralLoose([

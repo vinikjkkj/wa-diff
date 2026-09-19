@@ -7,7 +7,6 @@ __d(
     "WAWebGenerateGroupHistoryNoticeMsgData",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryNoticeHandler",
-    "WAWebGroupMemberAddingUserJourneyLogger",
     "WAWebJidToWid",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -79,15 +78,12 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o(
-            "WAWebGenerateGroupHistoryNoticeMsgData",
-          ).generateGroupHistoryNoticeMsgData({
-            chat: e,
-            groupHistoryBundleMetadata: t,
-          });
-          o(
-            "WAWebGroupMemberAddingUserJourneyLogger",
-          ).GroupMemberAddingUserJourneyLogger.noticeMessageSent();
-          var r = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, n),
+              "WAWebGenerateGroupHistoryNoticeMsgData",
+            ).generateGroupHistoryNoticeMsgData({
+              chat: e,
+              groupHistoryBundleMetadata: t,
+            }),
+            r = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, n),
             a = r[0],
             i = r[1],
             l = yield i,

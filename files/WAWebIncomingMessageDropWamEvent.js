@@ -14,6 +14,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDropReasonType",
     "WAWebWamEnumPlatformType",
+    "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumTypeOfGroupEnum",
@@ -71,6 +72,10 @@ __d(
               messageMediaType: [5, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               offline: [6, e.TYPES.BOOLEAN],
               offlineCount: [11, e.TYPES.INTEGER],
+              privateAiFeatureName: [
+                26,
+                o("WAWebWamEnumPrivateAiFeatureName").PRIVATE_AI_FEATURE_NAME,
+              ],
               processingDeferred: [22, e.TYPES.BOOLEAN],
               retryCount: [7, e.TYPES.INTEGER],
               revokeType: [8, o("WAWebWamEnumRevokeType").REVOKE_TYPE],

@@ -361,6 +361,36 @@ __d(
               uiSurface: n,
             });
           }),
+          (n.speedBumpDialogDisplayed = function (t) {
+            var e = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_SPEED_BUMP_DIALOG_DISPLAYED,
+              uiSurface: e,
+            });
+          }),
+          (n.speedBumpDialogContinued = function (t) {
+            var e = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_SPEED_BUMP_DIALOG_CONTINUED,
+              uiSurface: e,
+            });
+          }),
+          (n.speedBumpDialogCanceled = function (t) {
+            var e = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_SPEED_BUMP_DIALOG_CANCELED,
+              uiSurface: e,
+            });
+          }),
           t
         );
       })(),

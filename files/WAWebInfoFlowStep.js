@@ -44,6 +44,8 @@ __d(
       "NotifyFor",
       "Search",
       "MemberUpdates",
+      "BotTasks",
+      "BotTaskDetail",
     ]);
     i.InfoFlowStep = e;
   },

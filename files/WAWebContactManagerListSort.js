@@ -67,44 +67,56 @@ __d(
       return o === "desc" ? -a : a;
     }
     function c(e, t) {
-      var n, r, a, i;
+      var n, r, a, i, l;
       return e === "customer"
-        ? d(t)
+        ? m(t)
         : e === "phone"
-          ? m(t)
+          ? p(t)
           : e === "username"
-            ? p(t)
+            ? _(t)
             : e === "email"
               ? (n = t.email) != null
                 ? n
                 : null
-              : e === "acquisitionSource"
-                ? _(t)
-                : e === "list"
-                  ? f(t)
-                  : e === "lastMessage"
-                    ? (r =
-                        (a = o("WAWebChatCollection").ChatCollection.get(
-                          t.chatJid,
-                        )) == null
-                          ? void 0
-                          : a.t) != null
-                      ? r
-                      : null
-                    : e === "lastOrder"
-                      ? (i = t.lastOrder) != null
-                        ? i
-                        : null
-                      : e === "select" || e === "actions" || e === "notes"
-                        ? null
-                        : (function () {
-                            throw Error(
-                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                e,
-                            );
-                          })();
+              : e === "address"
+                ? (r = t.address) != null
+                  ? r
+                  : null
+                : e === "birthday"
+                  ? d(t)
+                  : e === "acquisitionSource"
+                    ? f(t)
+                    : e === "list"
+                      ? g(t)
+                      : e === "lastMessage"
+                        ? (a =
+                            (i = o("WAWebChatCollection").ChatCollection.get(
+                              t.chatJid,
+                            )) == null
+                              ? void 0
+                              : i.t) != null
+                          ? a
+                          : null
+                        : e === "lastOrder"
+                          ? (l = t.lastOrder) != null
+                            ? l
+                            : null
+                          : e === "select" || e === "actions" || e === "notes"
+                            ? null
+                            : (function () {
+                                throw Error(
+                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                    e,
+                                );
+                              })();
     }
     function d(e) {
+      var t = e.birthday;
+      if (t == null || Number(t) === 0) return null;
+      var n = new Date(t * 1e3);
+      return n.getUTCMonth() * 32 + n.getUTCDate();
+    }
+    function m(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
       if (t == null) return null;
       var n = o("WAWebFrontendContactGetters").getFormattedUserAndType(t),
@@ -116,14 +128,14 @@ __d(
         type: a,
       });
     }
-    function m(e) {
+    function p(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
       return t != null
         ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(t)
             .displayName
         : null;
     }
-    function p(e) {
+    function _(e) {
       if (!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
         return null;
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
@@ -131,7 +143,7 @@ __d(
       var n = o("WAWebFrontendContactGetters").getFormattedUsername(t);
       return n != null && n !== "" ? n : null;
     }
-    function _(e) {
+    function f(e) {
       var t = e.acquisitionSource;
       if (t == null) return null;
       var n = o(
@@ -139,7 +151,7 @@ __d(
       ).getProfileAcquisitionSourceLabel(t);
       return n != null ? String(n) : null;
     }
-    function f(e) {
+    function g(e) {
       var t,
         n,
         r = o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(

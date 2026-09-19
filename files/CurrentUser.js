@@ -73,6 +73,7 @@ __d(
             ? (e || (e = n("CurrentUserInitialData"))).IS_INTERN_SITE ||
               (e || (e = n("CurrentUserInitialData"))).IS_ABRA_USER ||
               (e || (e = n("CurrentUserInitialData"))).IS_ENTERPRISE_USER ||
+              (e || (e = n("CurrentUserInitialData"))).IS_FRL_USER ||
               (e || (e = n("CurrentUserInitialData"))).IS_IMAGINE_USER ||
               (e || (e = n("CurrentUserInitialData"))).IS_INSTAGRAM_USER ||
               (e || (e = n("CurrentUserInitialData"))).IS_META_SPARK_USER ||

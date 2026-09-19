@@ -47,7 +47,7 @@ __d(
       return e && t;
     }
     function m() {
-      return r("justknobx")._("5322") || p();
+      return r("justknobx")._("5322");
     }
     function p() {
       var e = o("WAWebABProps").getABPropConfigValue(

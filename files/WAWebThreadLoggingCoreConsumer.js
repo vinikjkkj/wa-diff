@@ -25,6 +25,7 @@ __d(
               messagesRead: n.msgsRead,
               messagesUnread: n.messagesUnread,
               isMessageYourself: n.isMessageYourself,
+              threadType: n.threadType,
               isAGroup: i.isAGroup,
               isAContact: i.isAGroup ? void 0 : i.isAContact,
               groupSize: i.isAGroup ? i.groupSize : void 0,

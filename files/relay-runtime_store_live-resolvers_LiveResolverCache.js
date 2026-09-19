@@ -130,13 +130,18 @@ __d(
             o = t.get(r);
           o != null || l(0, 59681);
           var a = (
-            e || (e = n("relay-runtime/store/RelayModernRecord"))
-          ).getValue(o, E);
-          return new (s || (s = n("Promise")))(function (e) {
-            var t = a.subscribe(function () {
-              (t(), e());
+              e || (e = n("relay-runtime/store/RelayModernRecord"))
+            ).getValue(o, E),
+            i = new (s || (s = n("Promise")))(function (e) {
+              var t = a.subscribe(function () {
+                (t(), e());
+              });
             });
-          });
+          if (a.getSuspenseDisplayName != null)
+            try {
+              i.displayName = a.getSuspenseDisplayName();
+            } catch (e) {}
+          return i;
         }),
         (r.$8 = function (r, o, a, i, l) {
           var t = this.$12(o),

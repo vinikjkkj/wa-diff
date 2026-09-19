@@ -138,36 +138,35 @@ __d(
           });
         }),
         (r.$15 = function (r, o) {
+          var t = r.linkedField;
           if (this.$6) {
-            this.$11(r.linkedField, o);
+            t.plural ? this.$12(t, o) : this.$11(t, o);
             return;
           }
-          var t = this.$14(r.backingField, o);
-          if (t != null) {
-            var a = this.$3.get(t);
-            if (a != null) {
-              var i = r.linkedField;
+          var a = this.$14(r.backingField, o);
+          if (a != null) {
+            var i = this.$3.get(a);
+            if (i != null)
               if (r.backingField.isOutputType) {
                 var l = n(
                   "relay-runtime/store/live-resolvers/getOutputTypeRecordIDs",
-                )(a);
-                if (l != null) for (var s of l) (this.$4.add(s), this.$8(i, s));
+                )(i);
+                if (l != null) for (var s of l) (this.$4.add(s), this.$8(t, s));
               } else {
-                var u = i.concreteType;
+                var u = t.concreteType;
                 if (u == null) return;
-                if (i.plural) {
+                if (t.plural) {
                   var c = (
                     e || (e = n("relay-runtime/store/RelayModernRecord"))
-                  ).getResolverLinkedRecordIDs(a, u);
-                  if (c != null) for (var d of c) d != null && this.$8(i, d);
+                  ).getResolverLinkedRecordIDs(i, u);
+                  if (c != null) for (var d of c) d != null && this.$8(t, d);
                 } else {
                   var m = (
                     e || (e = n("relay-runtime/store/RelayModernRecord"))
-                  ).getResolverLinkedRecordID(a, u);
-                  m != null && this.$8(i, m);
+                  ).getResolverLinkedRecordID(i, u);
+                  m != null && this.$8(t, m);
                 }
               }
-            }
           }
         }),
         (r.$14 = function (r, o) {

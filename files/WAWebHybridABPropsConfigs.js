@@ -55,6 +55,13 @@ __d(
         "https://www.whatsapp.com/",
         "https://www.whatsapp.com/",
       ],
+      ai_hatch_mweb_signup_enabled: [37224, "bool", !1, !0],
+      ai_hatch_signup_trusted_hosts: [
+        37222,
+        "string",
+        "agent.meta.ai",
+        "agent.meta.ai",
+      ],
       ai_maiba_wass_migration_receiving: [27083, "bool", !1, !1],
       ai_maiba_wass_migration_sending: [27084, "bool", !1, !0],
       ai_search_experience_enabled: [8025, "bool", !1, !1],

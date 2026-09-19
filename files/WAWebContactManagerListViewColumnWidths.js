@@ -36,6 +36,16 @@ __d(
           type: "proportional",
           value: 10,
         },
+        address: {
+          options: { minWidth: 200, maxWidth: 320 },
+          type: "proportional",
+          value: 12,
+        },
+        birthday: {
+          options: { minWidth: 140, maxWidth: 180 },
+          type: "proportional",
+          value: 7,
+        },
         lastMessage: {
           options: { minWidth: 150, maxWidth: 180 },
           type: "proportional",

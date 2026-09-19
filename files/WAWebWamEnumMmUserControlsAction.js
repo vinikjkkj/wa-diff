@@ -18,6 +18,8 @@ __d(
       LEARN_MORE: 13,
       MANAGE_MESSAGES: 14,
       REPORT: 15,
+      MUTE: 16,
+      UNMUTE: 17,
     });
     i.MM_USER_CONTROLS_ACTION = e;
   },

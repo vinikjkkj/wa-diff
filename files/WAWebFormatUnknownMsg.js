@@ -43,7 +43,12 @@ __d(
     function _(e) {
       return o("WAWebMsgGetters").getIsSentByMe(e) ? m(e) : d(e);
     }
-    function f(e) {
+    function f() {
+      return s._(
+        /*BTDS*/ "This response type isn't supported on this device yet. View the response on your phone.",
+      );
+    }
+    function g(e) {
       if (e.futureproofType === o("WAWebMsgType").MSG_TYPE.REACTION)
         return o("WAWebMsgGetters").getIsSentByMe(e)
           ? s._(
@@ -81,10 +86,7 @@ __d(
         return s._(/*BTDS*/ "Media files");
       if (e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE)
         return c();
-      if (o("WAWebCommonMsgUtils").isRichResponseMsg(e.type))
-        return s._(
-          /*BTDS*/ "This response type isn't supported on this device yet. View the response on your phone.",
-        );
+      if (o("WAWebCommonMsgUtils").isRichResponseMsg(e.type)) return f();
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
         e.futureproofType === o("WAWebMsgType").MSG_TYPE.CALL_LOG
@@ -113,7 +115,7 @@ __d(
           return _(e);
       }
     }
-    function g(e) {
+    function h(e) {
       if (e.futureproofType === o("WAWebMsgType").MSG_TYPE.REACTION)
         return s._(
           /*BTDS*/ "You received a reaction. Update your version of WhatsApp to see reactions.",
@@ -138,8 +140,9 @@ __d(
       }
     }
     ((l.defaultFutureproofMsgText = _),
-      (l.formatUnknownMsgText = f),
-      (l.formatUnknownMsgNotification = g));
+      (l.richResponseUnsupportedMsgText = f),
+      (l.formatUnknownMsgText = g),
+      (l.formatUnknownMsgNotification = h));
   },
   226,
 );

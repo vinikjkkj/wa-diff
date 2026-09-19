@@ -13,38 +13,32 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = null;
-    function u() {
+      s = null,
+      u = 15e3;
+    function c(t) {
+      var r = null,
+        o = new (e || (e = n("Promise")))(function (e) {
+          r = window.setTimeout(function () {
+            return e(null);
+          }, u);
+        });
+      return e.race([t, o]).finally(function () {
+        r != null && window.clearTimeout(r);
+      });
+    }
+    function d() {
       return o("WAWebCatalogCollection").CatalogCollection.get(
         o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
     }
-    function c(e) {
+    function m(e) {
       return e.some(function (e) {
         return !e.isHidden && e.imageCdnUrl != null && e.imageCdnUrl !== "";
       });
     }
-    function d() {
-      var e = u();
-      return e != null && c(e.productCollection.getProductModels());
-    }
-    function m() {
-      return p.apply(this, arguments);
-    }
     function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = u();
-          e != null &&
-            e.afterCursor &&
-            !d() &&
-            (yield o(
-              "WAWebCatalogCollection",
-            ).CatalogCollection.findNextProductPage(e.id, !1),
-            yield m());
-        })),
-        p.apply(this, arguments)
-      );
+      var e = d();
+      return e != null && m(e.productCollection.getProductModels());
     }
     function _() {
       return f.apply(this, arguments);
@@ -52,6 +46,24 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = d();
+          e != null &&
+            e.afterCursor &&
+            !p() &&
+            (yield o(
+              "WAWebCatalogCollection",
+            ).CatalogCollection.findNextProductPage(e.id, !1),
+            yield _());
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return yield (e || (e = n("Promise")))
             .resolve()
             .then(function () {
@@ -60,10 +72,10 @@ __d(
               );
             })
             .then(function () {
-              return m();
+              return _();
             })
             .then(function () {
-              return d();
+              return p();
             })
             .catch(
               o("WAFilteredCatch").filteredCatch(
@@ -86,19 +98,19 @@ __d(
               );
             });
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g() {
+    function y() {
       return (
         s == null &&
-          (s = _().finally(function () {
+          (s = c(g()).finally(function () {
             s = null;
           })),
         s
       );
     }
-    l.default = g;
+    l.default = y;
   },
   98,
 );

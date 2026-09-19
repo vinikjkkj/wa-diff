@@ -36,11 +36,13 @@ __d(
           ((this.$6 = !1),
             (this.$2 = t || null),
             (this.$7 = !1),
-            (this.$8 = new Set()),
-            (this.$9 = new Set()),
-            (this.$1 = e),
+            (this.$8 = !1),
+            (this.$9 = !1),
             (this.$10 = new Set()),
-            (this.$11 = null),
+            (this.$11 = new Set()),
+            (this.$1 = e),
+            (this.$12 = new Set()),
+            (this.$13 = null),
             (this.$4 = n),
             (this.$3 = r),
             (this.$5 = o));
@@ -48,20 +50,20 @@ __d(
         var t = e.prototype;
         return (
           (t.applyUpdate = function (t) {
-            ((!this.$10.has(t) && !this.$9.has(t)) || l(0, 680),
-              this.$9.add(t));
+            ((!this.$12.has(t) && !this.$11.has(t)) || l(0, 680),
+              this.$11.add(t));
           }),
           (t.revertUpdate = function (t) {
-            this.$9.has(t)
-              ? this.$9.delete(t)
-              : this.$10.has(t) && ((this.$7 = !0), this.$10.delete(t));
+            this.$11.has(t)
+              ? this.$11.delete(t)
+              : this.$12.has(t) && ((this.$7 = !0), this.$12.delete(t));
           }),
           (t.revertAll = function () {
-            ((this.$7 = !0), this.$9.clear(), this.$10.clear());
+            ((this.$7 = !0), this.$11.clear(), this.$12.clear());
           }),
           (t.commitPayload = function (t, n, r) {
             ((this.$7 = !0),
-              this.$8.add({
+              this.$10.add({
                 kind: "payload",
                 operation: t,
                 payload: n,
@@ -69,97 +71,127 @@ __d(
               }));
           }),
           (t.commitUpdate = function (t) {
-            ((this.$7 = !0), this.$8.add({ kind: "updater", updater: t }));
+            ((this.$7 = !0), this.$10.add({ kind: "updater", updater: t }));
           }),
           (t.commitSource = function (t) {
-            ((this.$7 = !0), this.$8.add({ kind: "source", source: t }));
+            ((this.$7 = !0), this.$10.add({ kind: "source", source: t }));
+          }),
+          (t.publishWithDeferredNotify = function (t, n) {
+            var e = this;
+            return (
+              this.$15(),
+              (this.$7 = !0),
+              this.$10.add({
+                kind: "payload",
+                operation: t,
+                payload: n,
+                updater: null,
+                deferNotify: !0,
+              }),
+              (this.$14 = !0),
+              this.$16(),
+              (this.$14 = !1),
+              (this.$9 = !0),
+              function () {
+                e.$9 && e.run();
+              }
+            );
           }),
           (t.run = function (t) {
-            var e = this.$10 === 0 && !!this.$11,
-              r = !this.$7 && this.$9.size === 0 && !e;
+            var e = this.$12.size === 0 && !!this.$13,
+              r = !this.$7 && this.$11.size === 0 && !this.$9 && !e;
             if (
               (n("warning")(
                 !r,
                 "RelayPublishQueue.run was called, but the call would have been a noop.",
               ),
-              this.$13(),
-              (this.$12 = !0),
+              this.$15(),
+              (this.$14 = !0),
               r)
             )
-              return ((this.$12 = !1), []);
-            var o = this.$14();
-            return ((this.$12 = !1), this.$1.notify(t, o));
-          }),
-          (t.$14 = function () {
-            this.$7 && this.$6 && (this.$1.restore(), (this.$6 = !1));
-            var e = this.$15();
+              return ((this.$14 = !1), []);
+            this.$16();
+            var o = this.$8;
             return (
-              (this.$9.size || (this.$7 && this.$10.size)) &&
-                (this.$6 || (this.$1.snapshot(), (this.$6 = !0)), this.$16()),
-              (this.$7 = !1),
-              this.$10.size > 0
-                ? this.$11 || (this.$11 = this.$1.holdGC())
-                : this.$11 && (this.$11.dispose(), (this.$11 = null)),
-              e
+              (this.$8 = !1),
+              (this.$9 = !1),
+              (this.$14 = !1),
+              this.$1.notify(t, o)
             );
           }),
-          (t.$13 = function () {
+          (t.$16 = function () {
+            (this.$7 && this.$6 && (this.$1.restore(), (this.$6 = !1)),
+              this.$17() && (this.$8 = !0),
+              (this.$11.size || (this.$7 && this.$12.size)) &&
+                (this.$6 || (this.$1.snapshot(), (this.$6 = !0)), this.$18()),
+              (this.$7 = !1),
+              this.$12.size > 0
+                ? this.$13 || (this.$13 = this.$1.holdGC())
+                : this.$13 && (this.$13.dispose(), (this.$13 = null)));
+          }),
+          (t.$15 = function () {
             n("relay-runtime/util/RelayFeatureFlags").DISALLOW_NESTED_UPDATES
               ? l(
-                  this.$12 !== !0,
+                  this.$14 !== !0,
                   "A store update was detected within another store update. Please make sure new store updates aren't being executed within an updater function for a different update.",
                 )
               : n("warning")(
-                  this.$12 !== !0,
+                  this.$14 !== !0,
                   "A store update was detected within another store update. Please make sure new store updates aren't being executed within an updater function for a different update.",
                 );
           }),
-          (t.$17 = function (t) {
+          (t.$19 = function (t) {
             var e = this,
               r = t.payload,
               o = t.operation,
               a = t.updater,
-              i = r.source,
-              s = r.fieldPayloads,
-              u = new (n("relay-runtime/mutations/RelayRecordSourceMutator"))(
+              i = t.deferNotify,
+              s = r.source,
+              u = r.fieldPayloads,
+              c = new (n("relay-runtime/mutations/RelayRecordSourceMutator"))(
                 this.$1.getSource(),
-                i,
+                s,
               ),
-              c = new (n("relay-runtime/mutations/RelayRecordSourceProxy"))(
-                u,
+              d = new (n("relay-runtime/mutations/RelayRecordSourceProxy"))(
+                c,
                 this.$4,
                 this.$2,
                 this.$3,
                 this.$5,
               );
             if (
-              (s &&
-                s.length &&
-                s.forEach(function (t) {
+              (u &&
+                u.length &&
+                u.forEach(function (t) {
                   var n = e.$2 && e.$2(t.handle);
-                  (n || l(0, 681, t.handle), n.update(c, t));
+                  (n || l(0, 681, t.handle), n.update(d, t));
                 }),
               a)
             ) {
-              var d = o.fragment;
-              d != null || l(0, 12580);
-              var m = new (n(
+              var m = o.fragment;
+              m != null || l(0, 12580);
+              var _ = new (n(
                   "relay-runtime/mutations/RelayRecordSourceSelectorProxy",
-                ))(u, c, d, this.$3),
-                _ = p(i, d);
-              a(m, _);
+                ))(c, d, m, this.$3),
+                f = p(s, m);
+              a(_, f);
             }
-            var f = c.getIDsMarkedForInvalidation();
-            return (this.$1.publish(i, f), c.isStoreMarkedForInvalidation());
+            var g = d.getIDsMarkedForInvalidation();
+            return (
+              i === !0
+                ? this.$1.publishWithDeferredNotify(s, o, g)
+                : this.$1.publish(s, g),
+              d.isStoreMarkedForInvalidation()
+            );
           }),
-          (t.$15 = function () {
+          (t.$17 = function () {
             var e = this;
-            if (!this.$8.size) return !1;
+            if (!this.$10.size) return !1;
             var t = !1;
             return (
-              this.$8.forEach(function (r) {
+              this.$10.forEach(function (r) {
                 if (r.kind === "payload") {
-                  var o = e.$17(r);
+                  var o = e.$19(r);
                   t = t || o;
                 } else if (r.kind === "source") {
                   var a = r.source;
@@ -179,11 +211,11 @@ __d(
                   e.$1.publish(l, c);
                 }
               }),
-              this.$8.clear(),
+              this.$10.clear(),
               t
             );
           }),
-          (t.$16 = function () {
+          (t.$18 = function () {
             var e = this,
               t = n("relay-runtime/store/RelayRecordSource").create(),
               r = new (n("relay-runtime/mutations/RelayRecordSourceMutator"))(
@@ -217,12 +249,12 @@ __d(
                   }
                 }
               };
-            (this.$7 && this.$10.size && this.$10.forEach(a),
-              this.$9.size &&
-                (this.$9.forEach(function (t) {
-                  (a(t), e.$10.add(t));
+            (this.$7 && this.$12.size && this.$12.forEach(a),
+              this.$11.size &&
+                (this.$11.forEach(function (t) {
+                  (a(t), e.$12.add(t));
                 }),
-                this.$9.clear()),
+                this.$11.clear()),
               this.$1.publish(t));
           }),
           e

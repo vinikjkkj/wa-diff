@@ -33,28 +33,39 @@ __d(
       var t = e.isUploadInFlight,
         n = e.items,
         r = e.storedCreativeMedia;
-      return t ? !1 : !C(r, n);
+      return t ? !1 : !v(r, n);
     }
-    function d(e) {
-      return e.status === "ready";
-    }
+    var d = new Map();
     function m(e) {
-      return e.status === "pending";
+      if (e == null || e.size === 0) return d;
+      var t = new Map();
+      return (
+        e.forEach(function (e, n) {
+          t.set(e, n);
+        }),
+        t
+      );
     }
     function p(e) {
+      return e.status === "ready";
+    }
+    function _(e) {
+      return e.status === "pending";
+    }
+    function f(e) {
       return r("isStringNullOrEmpty")(e.resolvedUrl)
         ? r("isStringNullOrEmpty")(e.displayUrl)
           ? null
           : e.displayUrl
         : e.resolvedUrl;
     }
-    function _(e) {
+    function g(e) {
       return e.length > 0;
     }
-    function f(e, t) {
-      return g(e, t).some(m);
+    function h(e, t) {
+      return y(e, t).some(_);
     }
-    function g(e, t) {
+    function y(e, t) {
       var n = !1,
         r = e.map(function (e) {
           if (e.source !== "upload") return e;
@@ -65,7 +76,7 @@ __d(
         });
       return n ? r : e;
     }
-    function h(e, t) {
+    function C(e, t) {
       if (t.size === 0) return e;
       var n = !1,
         r = e.map(function (e) {
@@ -86,29 +97,31 @@ __d(
         });
       return n ? r : e;
     }
-    function y(e, t) {
+    function b(e, t, n) {
       if (t == null || t.length === 0) return e;
-      var n = new Map(
+      var r = new Map(
           e.map(function (e) {
             return [e.key, e];
           }),
         ),
-        r = [];
+        o = m(n),
+        a = [];
       (t.forEach(function (e) {
-        var t = n.get(e.key);
-        t != null && (r.push(t), n.delete(e.key));
+        var t = r.has(e.key) ? e.key : o.get(e.key),
+          n = t == null ? null : r.get(t);
+        n != null && t != null && (a.push(n), r.delete(t));
       }),
         e.forEach(function (e) {
-          n.has(e.key) && r.push(e);
+          r.has(e.key) && a.push(e);
         }));
-      var o =
-        r.length === e.length &&
-        r.every(function (t, n) {
+      var i =
+        a.length === e.length &&
+        a.every(function (t, n) {
           return t === e[n];
         });
-      return o ? e : r;
+      return i ? e : a;
     }
-    function C(e, t) {
+    function v(e, t) {
       return e == null || e.length !== t.length
         ? !1
         : e.every(function (e, n) {
@@ -124,7 +137,7 @@ __d(
             );
           });
     }
-    function b(e, t, n, r) {
+    function S(e, t, n, r) {
       var o,
         a = (o = t[n]) == null ? void 0 : o.attachMedia;
       if (a == null) return null;
@@ -133,45 +146,45 @@ __d(
       var l = [].concat(t),
         s = l.splice(n, 1),
         u = s[0],
-        c = R(r, l.length);
+        c = E(r, l.length);
       l.splice(c, 0, u);
-      var d = v(e, l, c, i);
+      var d = R(e, l, c, i);
       return d === i ? null : { fromIndex: i, toIndex: d };
     }
-    function v(e, t, n, r) {
+    function R(e, t, n, r) {
       for (var o = n - 1; o >= 0; o--) {
-        var a = S(e, t[o]);
+        var a = L(e, t[o]);
         if (a != null) return r < a ? a : a + 1;
       }
       for (var i = n + 1; i < t.length; i++) {
-        var l = S(e, t[i]);
+        var l = L(e, t[i]);
         if (l != null) return r < l ? l - 1 : l;
       }
       return r;
     }
-    function S(e, t) {
+    function L(e, t) {
       var n = t.attachMedia;
       if (n == null) return null;
       var r = e.indexOf(n);
       return r === -1 ? null : r;
     }
-    function R(e, t) {
+    function E(e, t) {
       return Math.max(0, Math.min(e, t));
     }
     ((l.creativeMediaKindFromMediaType = e),
       (l.creativeMediaKindFromMsgType = s),
       (l.creativeMediaKindFromAttachMedia = u),
       (l.shouldRecordCreativeMedia = c),
-      (l.isCreativeMediaReady = d),
-      (l.isCreativeMediaPending = m),
-      (l.getCreativeMediaUrl = p),
-      (l.hasCreativeMedia = _),
-      (l.isCreativeMediaResolving = f),
-      (l.withCreativeMediaStatus = g),
-      (l.withResolvedCreativeMedia = h),
-      (l.reconcileCreativeMediaOrder = y),
-      (l.creativeMediaMatchesStore = C),
-      (l.uploadReorderForCreativeMediaDrag = b));
+      (l.isCreativeMediaReady = p),
+      (l.isCreativeMediaPending = _),
+      (l.getCreativeMediaUrl = f),
+      (l.hasCreativeMedia = g),
+      (l.isCreativeMediaResolving = h),
+      (l.withCreativeMediaStatus = y),
+      (l.withResolvedCreativeMedia = C),
+      (l.reconcileCreativeMediaOrder = b),
+      (l.creativeMediaMatchesStore = v),
+      (l.uploadReorderForCreativeMediaDrag = S));
   },
   98,
 );

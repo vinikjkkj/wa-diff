@@ -14,6 +14,7 @@ __d(
     "WAWebWamEnumPlaceholderReasonType",
     "WAWebWamEnumPlaceholderType",
     "WAWebWamEnumPlatformType",
+    "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
@@ -70,6 +71,10 @@ __d(
               placeholderTypeInd: [
                 1,
                 o("WAWebWamEnumPlaceholderType").PLACEHOLDER_TYPE,
+              ],
+              privateAiFeatureName: [
+                27,
+                o("WAWebWamEnumPrivateAiFeatureName").PRIVATE_AI_FEATURE_NAME,
               ],
               senderPlatform: [25, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
               typeOfGroup: [

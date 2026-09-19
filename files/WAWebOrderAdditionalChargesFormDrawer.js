@@ -23,7 +23,7 @@ __d(
       d = c.useMemo,
       m = c.useState;
     function p(e) {
-      var t = o("react-compiler-runtime").c(50),
+      var t = o("react-compiler-runtime").c(60),
         n = e.additionalCharges,
         a = e.currency,
         i = e.onApply,
@@ -53,163 +53,192 @@ __d(
         x = m(D),
         $ = x[0],
         P = x[1],
-        N = m(!1),
-        M = N[0],
-        w = N[1],
-        A = m(!1),
-        F = A[0],
-        O = A[1],
-        B;
-      t[0] !== a || t[1] !== R
-        ? ((B = o("WAWebOrderDetailErrorUtils").additionalChargeErrorHandler({
+        N;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((N = s._(/*BTDS*/ "Discount")), (t[0] = N))
+        : (N = t[0]);
+      var M = N,
+        w;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = s._(/*BTDS*/ "Tax")), (t[1] = w))
+        : (w = t[1]);
+      var A = w,
+        F = c / o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+        O;
+      t[2] !== a || t[3] !== f || t[4] !== I || t[5] !== F
+        ? ((O = o("WAWebOrderDetailErrorUtils").additionalChargeErrorHandler({
+            currency: a,
+            enablePercentValueCheck: !0,
+            fieldType: I,
+            label: M,
+            maxFlatValue: F,
+            value: f,
+          })),
+          (t[2] = a),
+          (t[3] = f),
+          (t[4] = I),
+          (t[5] = F),
+          (t[6] = O))
+        : (O = t[6]);
+      var B = O,
+        W;
+      t[7] !== a || t[8] !== F || t[9] !== C || t[10] !== $
+        ? ((W = o("WAWebOrderDetailErrorUtils").additionalChargeErrorHandler({
+            currency: a,
+            enablePercentValueCheck: !0,
+            fieldType: $,
+            label: A,
+            maxFlatValue: F,
+            value: C,
+          })),
+          (t[7] = a),
+          (t[8] = F),
+          (t[9] = C),
+          (t[10] = $),
+          (t[11] = W))
+        : (W = t[11]);
+      var q = W,
+        U;
+      t[12] !== a || t[13] !== R
+        ? ((U = o("WAWebOrderDetailErrorUtils").additionalChargeErrorHandler({
             currency: a,
             value: R,
           })),
-          (t[0] = a),
-          (t[1] = R),
-          (t[2] = B))
-        : (B = t[2]);
-      var W = B,
-        q = [M, F, W].some(_),
-        U = d !== f || h !== C || v !== R || E !== I || D !== $,
-        V;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = { surface: "unknown", viewName: "order-additional-charges" }),
-          (t[3] = V))
-        : (V = t[3]);
-      var H;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((H = s._(/*BTDS*/ "Add discount, shipping or tax")), (t[4] = H))
-        : (H = t[4]);
-      var G;
-      t[5] !== U || t[6] !== l
-        ? ((G = U
+          (t[12] = a),
+          (t[13] = R),
+          (t[14] = U))
+        : (U = t[14]);
+      var V = U,
+        H = [B, q, V].some(_),
+        G = d !== f || h !== C || v !== R || E !== I || D !== $,
+        z;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((z = { surface: "unknown", viewName: "order-additional-charges" }),
+          (t[15] = z))
+        : (z = t[15]);
+      var j;
+      t[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((j = s._(/*BTDS*/ "Add discount, shipping or tax")), (t[16] = j))
+        : (j = t[16]);
+      var K;
+      t[17] !== G || t[18] !== l
+        ? ((K = G
             ? function () {
                 o("WAWebModalManager").ModalManager.open(
                   u.jsx(r("WAWebOrderConfirmDiscardModal"), { onOK: l }),
                 );
               }
             : l),
-          (t[5] = U),
-          (t[6] = l),
-          (t[7] = G))
-        : (G = t[7]);
-      var z;
-      t[8] !== G
-        ? ((z = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: H,
+          (t[17] = G),
+          (t[18] = l),
+          (t[19] = K))
+        : (K = t[19]);
+      var Q;
+      t[20] !== K
+        ? ((Q = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            title: j,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-            onBack: G,
+            onBack: K,
             focusBackOrCancel: !0,
           })),
-          (t[8] = G),
-          (t[9] = z))
-        : (z = t[9]);
-      var j;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((j = "x1p57kb1 xvtqlqk xvpt6g3 xdx6fka"), (t[10] = j))
-        : (j = t[10]);
-      var K;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((K = s._(/*BTDS*/ "Discount")), (t[11] = K))
-        : (K = t[11]);
-      var Q;
-      t[12] !== a || t[13] !== f || t[14] !== I || t[15] !== c
-        ? ((Q = u.jsx(r("WAWebOrderAdditionalChargesTextInput"), {
+          (t[20] = K),
+          (t[21] = Q))
+        : (Q = t[21]);
+      var X;
+      t[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((X = "x1p57kb1 xvtqlqk xvpt6g3 xdx6fka"), (t[22] = X))
+        : (X = t[22]);
+      var Y;
+      t[23] !== a || t[24] !== B || t[25] !== f || t[26] !== I
+        ? ((Y = u.jsx(r("WAWebOrderAdditionalChargesTextInput"), {
             text: f,
             testid: "additional-charges-discount-input",
-            label: K,
+            label: M,
             symbol: I,
             currency: a,
-            priceValue: c,
+            errorText: B,
             setText: g,
-            setError: w,
             setSymbol: T,
           })),
-          (t[12] = a),
-          (t[13] = f),
-          (t[14] = I),
-          (t[15] = c),
-          (t[16] = Q))
-        : (Q = t[16]);
-      var X;
-      t[17] !== a
-        ? ((X = s._(/*BTDS*/ "Shipping ({currency_symbol})", [
+          (t[23] = a),
+          (t[24] = B),
+          (t[25] = f),
+          (t[26] = I),
+          (t[27] = Y))
+        : (Y = t[27]);
+      var J;
+      t[28] !== a
+        ? ((J = s._(/*BTDS*/ "Shipping ({currency_symbol})", [
             s._param(
               "currency_symbol",
               o("WAWebCurrencyUtils").formatAmount1000ToParts(a, 0).symbol,
             ),
           ])),
-          (t[17] = a),
-          (t[18] = X))
-        : (X = t[18]);
-      var Y;
-      t[19] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Y = function (t) {
+          (t[28] = a),
+          (t[29] = J))
+        : (J = t[29]);
+      var Z;
+      t[30] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Z = function (t) {
             return L(t.text);
           }),
-          (t[19] = Y))
-        : (Y = t[19]);
-      var J;
-      t[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((J = [
+          (t[30] = Z))
+        : (Z = t[30]);
+      var ee;
+      t[31] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ee = [
             o("WAWebRichTextField.react").TextInputCustomStyleThemes
               .Desaturated,
           ]),
-          (t[20] = J))
-        : (J = t[20]);
-      var Z;
-      t[21] !== W || t[22] !== R || t[23] !== X
-        ? ((Z = u.jsx(o("WAWebRichTextField.react").RichTextField, {
+          (t[31] = ee))
+        : (ee = t[31]);
+      var te;
+      t[32] !== V || t[33] !== R || t[34] !== J
+        ? ((te = u.jsx(o("WAWebRichTextField.react").RichTextField, {
             value: R,
             testid: "additional-charges-shipping-input",
-            placeholder: X,
-            onChange: Y,
+            placeholder: J,
+            onChange: Z,
             theme: "small",
             maxLength: 10,
-            customStyleThemes: J,
-            error: W,
+            customStyleThemes: ee,
+            error: V,
           })),
-          (t[21] = W),
-          (t[22] = R),
-          (t[23] = X),
-          (t[24] = Z))
-        : (Z = t[24]);
-      var ee;
-      t[25] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ee = s._(/*BTDS*/ "Tax")), (t[25] = ee))
-        : (ee = t[25]);
-      var te;
-      t[26] !== a || t[27] !== c || t[28] !== C || t[29] !== $
-        ? ((te = u.jsx(r("WAWebOrderAdditionalChargesTextInput"), {
+          (t[32] = V),
+          (t[33] = R),
+          (t[34] = J),
+          (t[35] = te))
+        : (te = t[35]);
+      var ne;
+      t[36] !== a || t[37] !== q || t[38] !== C || t[39] !== $
+        ? ((ne = u.jsx(r("WAWebOrderAdditionalChargesTextInput"), {
             text: C,
             testid: "additional-charges-tax-input",
-            label: ee,
+            label: A,
             symbol: $,
             currency: a,
-            priceValue: c,
+            errorText: q,
             setText: b,
-            setError: O,
             setSymbol: P,
           })),
-          (t[26] = a),
-          (t[27] = c),
-          (t[28] = C),
-          (t[29] = $),
-          (t[30] = te))
-        : (te = t[30]);
-      var ne;
-      t[31] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ne = s._(/*BTDS*/ "Apply")), (t[31] = ne))
-        : (ne = t[31]);
+          (t[36] = a),
+          (t[37] = q),
+          (t[38] = C),
+          (t[39] = $),
+          (t[40] = ne))
+        : (ne = t[40]);
       var re;
-      t[32] !== f ||
-      t[33] !== I ||
-      t[34] !== i ||
-      t[35] !== R ||
-      t[36] !== C ||
-      t[37] !== $
-        ? ((re = function () {
+      t[41] === Symbol.for("react.memo_cache_sentinel")
+        ? ((re = s._(/*BTDS*/ "Apply")), (t[41] = re))
+        : (re = t[41]);
+      var oe;
+      t[42] !== f ||
+      t[43] !== I ||
+      t[44] !== i ||
+      t[45] !== R ||
+      t[46] !== C ||
+      t[47] !== $
+        ? ((oe = function () {
             return i({
               discountText: f,
               discountType: I,
@@ -218,50 +247,50 @@ __d(
               taxType: $,
             });
           }),
-          (t[32] = f),
-          (t[33] = I),
-          (t[34] = i),
-          (t[35] = R),
-          (t[36] = C),
-          (t[37] = $),
-          (t[38] = re))
-        : (re = t[38]);
-      var oe;
-      t[39] !== q || t[40] !== re
-        ? ((oe = u.jsx(o("WAWebOrderTotalPrice").OrderApplyChangesButton, {
-            disabled: q,
-            testid: "apply-additional-costs-button",
-            title: ne,
-            onClick: re,
-          })),
-          (t[39] = q),
-          (t[40] = re),
-          (t[41] = oe))
-        : (oe = t[41]);
+          (t[42] = f),
+          (t[43] = I),
+          (t[44] = i),
+          (t[45] = R),
+          (t[46] = C),
+          (t[47] = $),
+          (t[48] = oe))
+        : (oe = t[48]);
       var ae;
-      t[42] !== Z || t[43] !== te || t[44] !== oe || t[45] !== Q
-        ? ((ae = u.jsxs(r("WAWebDrawerSection.react"), {
-            className: j,
-            children: [Q, Z, te, oe],
+      t[49] !== H || t[50] !== oe
+        ? ((ae = u.jsx(o("WAWebOrderTotalPrice").OrderApplyChangesButton, {
+            disabled: H,
+            testid: "apply-additional-costs-button",
+            title: re,
+            onClick: oe,
           })),
-          (t[42] = Z),
-          (t[43] = te),
-          (t[44] = oe),
-          (t[45] = Q),
-          (t[46] = ae))
-        : (ae = t[46]);
+          (t[49] = H),
+          (t[50] = oe),
+          (t[51] = ae))
+        : (ae = t[51]);
       var ie;
+      t[52] !== Y || t[53] !== te || t[54] !== ne || t[55] !== ae
+        ? ((ie = u.jsxs(r("WAWebDrawerSection.react"), {
+            className: X,
+            children: [Y, te, ne, ae],
+          })),
+          (t[52] = Y),
+          (t[53] = te),
+          (t[54] = ne),
+          (t[55] = ae),
+          (t[56] = ie))
+        : (ie = t[56]);
+      var le;
       return (
-        t[47] !== ae || t[48] !== z
-          ? ((ie = u.jsxs(r("WAWebDrawer.react"), {
-              tsNavigationData: V,
-              children: [z, ae],
+        t[57] !== ie || t[58] !== Q
+          ? ((le = u.jsxs(r("WAWebDrawer.react"), {
+              tsNavigationData: z,
+              children: [Q, ie],
             })),
-            (t[47] = ae),
-            (t[48] = z),
-            (t[49] = ie))
-          : (ie = t[49]),
-        ie
+            (t[57] = ie),
+            (t[58] = Q),
+            (t[59] = le))
+          : (le = t[59]),
+        le
       );
     }
     function _(e) {

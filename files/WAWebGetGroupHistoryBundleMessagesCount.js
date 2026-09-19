@@ -3,7 +3,6 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WAWebBackendApi",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebRetrieveMessagesForBundle",
     "WAWebSerializeError",
@@ -28,13 +27,7 @@ __d(
                   var t = yield o(
                     "WAWebRetrieveMessagesForBundle",
                   ).retrieveMessagesForBundle(a, null, i);
-                  return (
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "logGroupHistorySelectableMessagesLoaded",
-                      { groupHistoryMessagesCount: t.length },
-                    ),
-                    t.length
-                  );
+                  return t.length;
                 } catch (t) {
                   return (
                     o("WALogger")

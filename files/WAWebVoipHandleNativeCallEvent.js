@@ -981,6 +981,7 @@ __d(
               s.isGroupCall === !0,
             ),
             he(c, u, typeof s.callId == "string" ? s.callId : null),
+            o("WAWebVoipWebTransportCallSummary").recordWtCallState(l),
             ge(c),
             d && !o("WAWebVoipGatingUtils").isWebTransportEnabled())
           ) {
@@ -995,14 +996,20 @@ __d(
                 !1,
               ),
               c ||
-                o(
+                (o(
                   "WAWebVoipWebTransportCallSummary",
-                ).recordWtFallbackTriggered(),
+                ).recordWtFallbackTriggered(
+                  l,
+                  o("WAWebVoipWebTransportCallSummary").WtFallbackReason
+                    .GroupCallDisabled,
+                ),
+                o("WAWebVoipTransportFallbackTracker").markFallbackTriggered()),
               o("WAWebVoipWebTransportConnectionManager").closeAllConnections(
                 !1,
               ));
             var m = K.cachedRelayListData;
             m != null &&
+              (o("WAWebVoipTransportFallbackTracker").markFallbackSctpStarted(),
               o("WAWebVoipSctpConnectionManager")
                 .handleRelayListUpdate(m)
                 .catch(function (e) {
@@ -1014,7 +1021,7 @@ __d(
                         ])),
                     )
                     .catching(r("getErrorSafe")(e));
-                });
+                }));
           }
           (oe(a, l, s).catch(function (e) {
             o("WALogger")
@@ -1291,9 +1298,12 @@ __d(
               ? o(
                   "WAWebVoipWebTransportConnectionManager",
                 ).handleRelayListUpdate(a)
-              : yield o("WAWebVoipSctpConnectionManager").handleRelayListUpdate(
+              : (o(
+                  "WAWebVoipTransportFallbackTracker",
+                ).markFallbackSctpStarted(),
+                yield o("WAWebVoipSctpConnectionManager").handleRelayListUpdate(
                   a,
-                ),
+                )),
             (K.cachedRelayListData = a),
             (K.relayListReceived = !0),
             ve().catch(function (e) {

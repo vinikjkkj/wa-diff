@@ -18,6 +18,7 @@ __d(
         RAISED_HAND_STATES: "raisedHandStates",
         CALL_LINK_STATE: "callLinkState",
         CALL_LINK_CREATOR_JID: "callLinkCreatorJid",
+        IS_SELF_CALL_LINK_ADMIN: "isSelfCallLinkAdmin",
         PEER_JID: "peerJid",
         IS_GROUP: "isGroup",
         GROUP_JID: "groupJid",

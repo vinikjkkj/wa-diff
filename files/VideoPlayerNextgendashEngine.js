@@ -40,7 +40,10 @@ __d(
     var e, s, u;
     function c() {
       if (r("gkx")("9512")) {
-        var e = r("gkx")("7137") ? "ManagedMediaSource" : "MediaSource";
+        var e =
+          r("gkx")("7137") || r("gkx")("21918")
+            ? "ManagedMediaSource"
+            : "MediaSource";
         if (n("cr:3020").mediaSourceCanConstructInDedicatedWorker(e))
           return r("gkx")("4484") ? "RealWorkerV2" : "RealWorker";
       }
@@ -163,20 +166,20 @@ __d(
           ? 1e4
           : e.bufferingEndRecentStallTimeoutMs,
         cacheQualityScoreInRepresentation: r("gkx")("8789"),
-        dataAppendOperationMinBytes: r("gkx")("19511")
+        dataAppendOperationMinBytes: r("gkx")("5751")
           ? null
           : e.dataAppendOperationMinBytes,
         debugLog: r("gkx")("17339"),
         debugOverlay: r("gkx")("26608"),
         debugViz: r("gkx")("17340"),
         disableFallbackFromRealWorkerAfterLinked: !0,
-        disablePlaybackLoopSchedulingOnTimer: r("gkx")("6615"),
+        disablePlaybackLoopSchedulingOnTimer: r("gkx")("5795"),
         disableZeroPlaybackRateWhileBuffering: r("gkx")("4185"),
-        eagerResyncOnMediaElementAttach: r("gkx")("25313"),
+        eagerResyncOnMediaElementAttach: r("gkx")("6091"),
         enableAdaptiveConcurrentSegmentFetching: r("gkx")("8486"),
         enableBandwidthDiagnosticsFallback: r("gkx")("23799"),
-        enableCdnUrlRefresh: r("gkx")("14068"),
-        enableCombinedInitSidxFetch: r("gkx")("18184"),
+        enableCdnUrlRefresh: r("gkx")("6370"),
+        enableCombinedInitSidxFetch: r("gkx")("6701"),
         enableDisposalResourceCleanup: r("gkx")("11526"),
         enableDynamicBufferWatermarks: r("gkx")("11395"),
         enableFBPrefetchCacheKeyNormalization: r("gkx")("18280"),
@@ -190,7 +193,7 @@ __d(
         enablePredictiveSidxPrefetch: r("gkx")("4970"),
         enablePrefetchBandwidthSampling: r("gkx")("12118"),
         enablePrefetchCacheKeyNormalization: r("gkx")("4090"),
-        enableQuotaExceededRecovery: r("gkx")("25887"),
+        enableQuotaExceededRecovery: r("gkx")("6862"),
         enableQuotaExceededRecoveryForCompositeErrors: r("gkx")("15535"),
         enableSkipRecoveryOnDeliberateDetach: r("gkx")("26845"),
         enableSplitAbrEvalSwitchIntervals: r("gkx")("18082"),
@@ -263,22 +266,23 @@ __d(
         playheadPredictIntervalMs:
           r("gkx")("12741") || r("gkx")("17440") ? 3e3 : 0,
         playheadStallRecoveryEnabled: r("gkx")("15564"),
-        preferredMediaSourceAPIType: r("gkx")("7137")
-          ? "ManagedMediaSource"
-          : "MediaSource",
+        preferredMediaSourceAPIType:
+          r("gkx")("7137") || r("gkx")("21918")
+            ? "ManagedMediaSource"
+            : "MediaSource",
         prefetchResolutionThreshold: r("gkx")("16054")
           ? 1080
           : e.prefetchResolutionThreshold,
         qplEnabled: r("gkx")("19263"),
-        reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("21728"),
-        resetTargetRepresentationWhenItGetsBlocked: r("gkx")("19128"),
-        retryShorterForUnrecoverableHTTP: r("gkx")("173"),
-        segmentStallRecoveryEnabled: r("gkx")("4177"),
+        reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("8280"),
+        resetTargetRepresentationWhenItGetsBlocked: r("gkx")("8531"),
+        retryShorterForUnrecoverableHTTP: r("gkx")("10018"),
+        segmentStallRecoveryEnabled: r("gkx")("10027"),
         sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime:
           r("gkx")("19380"),
         skipPlayheadRestoreOnMediaElementChange: r("gkx")("17440"),
         trackScrollPosition: r("gkx")("20629"),
-        useExponentialBackoffRetryStrategy: r("gkx")("8495"),
+        useExponentialBackoffRetryStrategy: r("gkx")("11270"),
       });
     }
     var S = 0;
@@ -493,7 +497,7 @@ __d(
               if (
                 (O != null && (O(), (O = null)),
                 n && (O = w == null ? void 0 : w.subspan("media_source")),
-                !r("gkx")("18183"))
+                !r("gkx")("11322"))
               ) {
                 var e,
                   i =
@@ -614,7 +618,7 @@ __d(
           destroyEngineParts: function () {
             e();
             function e() {
-              if ((w == null || w.point("destroy"), r("gkx")("18183"))) {
+              if ((w == null || w.point("destroy"), r("gkx")("11322"))) {
                 var e, t;
                 (w == null || w.endWithAbort(),
                   (e = x) == null || e.remove(),

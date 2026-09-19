@@ -31,26 +31,15 @@ __d(
         },
         s = {
           alias: null,
-          args: null,
-          concreteType: "CTWAAPI",
-          kind: "LinkedField",
-          name: "ctwa",
-          plural: !1,
-          selections: [
-            {
-              alias: null,
-              args: [
-                { kind: "Variable", name: "page_id", variableName: "pageID" },
-                { kind: "Literal", name: "product", value: "BOOSTED_MESSAGE" },
-              ],
-              concreteType: "AdsLWIDraftWrapper",
-              kind: "LinkedField",
-              name: "latest_wa_web_draft",
-              plural: !1,
-              selections: [l],
-              storageKey: null,
-            },
+          args: [
+            { kind: "Variable", name: "page_id", variableName: "pageID" },
+            { kind: "Literal", name: "product", value: "BOOSTED_MESSAGE" },
           ],
+          concreteType: "AdsLWIDraftWrapper",
+          kind: "LinkedField",
+          name: "latest_wa_web_draft",
+          plural: !1,
+          selections: [l],
           storageKey: null,
         },
         u = [{ kind: "Variable", name: "id", variableName: "pageID" }],
@@ -497,9 +486,9 @@ __d(
             {
               alias: null,
               args: null,
-              concreteType: "LWIAPI",
+              concreteType: "CTWAAPI",
               kind: "LinkedField",
-              name: "lwi",
+              name: "ctwa",
               plural: !1,
               selections: [
                 {
@@ -507,7 +496,7 @@ __d(
                   args: i,
                   concreteType: null,
                   kind: "LinkedField",
-                  name: "boosted_component_wrapper",
+                  name: "draft_boosted_component_wrapper",
                   plural: !1,
                   selections: [
                     {
@@ -543,10 +532,10 @@ __d(
                   ],
                   storageKey: null,
                 },
+                s,
               ],
               storageKey: null,
             },
-            s,
             {
               args: null,
               kind: "FragmentSpread",
@@ -654,9 +643,9 @@ __d(
             {
               alias: null,
               args: null,
-              concreteType: "LWIAPI",
+              concreteType: "CTWAAPI",
               kind: "LinkedField",
-              name: "lwi",
+              name: "ctwa",
               plural: !1,
               selections: [
                 {
@@ -664,7 +653,7 @@ __d(
                   args: i,
                   concreteType: null,
                   kind: "LinkedField",
-                  name: "boosted_component_wrapper",
+                  name: "draft_boosted_component_wrapper",
                   plural: !1,
                   selections: [
                     c,
@@ -1576,10 +1565,10 @@ __d(
                   ],
                   storageKey: null,
                 },
+                s,
               ],
               storageKey: null,
             },
-            s,
             {
               alias: null,
               args: null,
