@@ -583,6 +583,12 @@ __d(
       wa_individual_new_chat_msg_latest_rampup_date: [20601, "int", 0, 0],
       wa_individual_new_chat_thread_capping_limit: [29369, "int", 0, 0],
       wa_web_adaptive_layout_enabled: [30140, "bool", !1, !1],
+      wa_web_calling_calls_tab_notifications_off_banner_enabled: [
+        37282,
+        "bool",
+        !1,
+        !0,
+      ],
       wa_win_pdf_rendering_enabled: [29548, "bool", !1, !1],
       web_add_contact: [26892, "string", "", ""],
       web_ai_sticker_emission_enabled: [36294, "bool", !1, !0],

@@ -162,6 +162,8 @@ __d(
       TRY_ON_WITH_AI: "TRY_ON_WITH_AI",
       TRY_NOW: "TRY_NOW",
       SHOP_ON_RETAILER: "SHOP_ON_RETAILER",
+      WATCH_NOW: "WATCH_NOW",
+      STREAM_NOW: "STREAM_NOW",
     });
     i.default = e;
   },

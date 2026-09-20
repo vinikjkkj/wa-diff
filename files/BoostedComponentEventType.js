@@ -191,6 +191,8 @@ __d(
         "ctwa_native_ad_budget_recommendation",
       CTWA_NATIVE_AD_HEURISTICS_BUDGET_RECOMMENDATION:
         "ctwa_native_ad_heuristics_budget_recommendation",
+      CTWA_NATIVE_AD_BUDGET_REC_MODEL_V1_RECOMMENDATION:
+        "ctwa_native_ad_budget_rec_model_v1_recommendation",
       CTWA_NATIVE_AD_SABR_V2_WITH_ESTIMATION_WIDGET:
         "ctwa_native_ad_sabr_v2_with_estimation_widget",
       CTWA_SERVER_DRAFT_RESTORE: "ctwa_server_draft_restore",
@@ -289,6 +291,7 @@ __d(
       UPDATE_TEXT_VARIANT: "update_text_variant",
       GEN_DEFAULT_AUDIENCE: "gen_default_audience",
       GEN_DEFAULT_BUDGET: "gen_default_budget",
+      PROD_STICKY_DURATION_BELOW_DEFAULT: "prod_sticky_duration_below_default",
       HONOR_DEFAULT_BUDGET_STICKY_BELOW_DEFAULT:
         "honor_default_budget_sticky_below_default",
       GEN_BUDGET_LADDER_ROUNDING: "gen_budget_ladder_rounding",
