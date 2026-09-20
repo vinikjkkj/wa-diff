@@ -294,6 +294,8 @@ __d(
       PROD_STICKY_DURATION_BELOW_DEFAULT: "prod_sticky_duration_below_default",
       HONOR_DEFAULT_BUDGET_STICKY_BELOW_DEFAULT:
         "honor_default_budget_sticky_below_default",
+      EDIT_FLOW_BUDGET_LOWERED_BELOW_EXISTING:
+        "edit_flow_budget_lowered_below_existing",
       GEN_BUDGET_LADDER_ROUNDING: "gen_budget_ladder_rounding",
       GEN_DEFAULT_AUDIENCE_FAILURE: "gen_default_audience_failure",
       DEFAULT_IG_AUDIENCE_LAL_GENERATION: "default_ig_audience_lal_generation",

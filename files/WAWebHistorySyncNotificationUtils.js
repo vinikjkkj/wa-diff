@@ -78,8 +78,8 @@ __d(
                 n.pastParticipants.add(e.pastParticipants, { merge: !0 });
             }),
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync] Past Participants completed, ",
                   "",
                 ])),
@@ -102,8 +102,8 @@ __d(
             n !== t &&
             o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync] get changed self identity key from history sync,\n     existing length: ",
                     ", new length: ",
                     "",
@@ -117,178 +117,186 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(t, n) {
-      var a;
-      if (n.isGroup()) {
-        var i = (a = t.disappearingMode) == null ? void 0 : a.trigger,
-          l;
-        if (i != null) {
-          var s = o(
-            "WAWebEphemeralityUtils",
-          ).getDisappearingModeTriggerFromProtobuf(i);
-          s != null && (l = s);
-        }
-        if (
-          t.suspended != null ||
-          t.terminated != null ||
-          t.createdBy != null ||
-          t.createdAt != null ||
-          t.description != null ||
-          t.support != null ||
-          t.isParentGroup != null ||
-          t.isDefaultSubgroup != null ||
-          t.parentGroupId != null ||
-          t.disappearingMode != null ||
-          t.appealStatus != null ||
-          t.appealUpdateTime != null
-        ) {
-          var u,
-            c,
-            d = {
-              id: n,
-              subject: t.name,
-              suspended: t.suspended,
-              terminated: t.terminated,
-              owner:
-                t.createdBy != null
-                  ? o("WAWebWidFactory").createWid(t.createdBy)
-                  : void 0,
-              creation: t.createdAt,
-              desc: t.description,
-              support: t.support,
-              isParentGroup: t.isParentGroup,
-              defaultSubgroup: t.isDefaultSubgroup,
-              parentGroup:
-                t.parentGroupId != null
-                  ? o("WAWebWidFactory").createWid(t.parentGroupId)
-                  : void 0,
-              disappearingModeInitiatedByMe:
-                (u = t.disappearingMode) == null ? void 0 : u.initiatedByMe,
-              disappearingModeTrigger: l,
-              suspendAppealStatus:
-                t.appealStatus != null
-                  ? t.appealStatus ===
-                    o("WAWebProtobufsHistorySync.pb")
-                      .Conversation$GroupAppealStatus.APPEAL_IN_REVIEW
-                    ? "IN_REVIEW"
-                    : t.appealStatus ===
-                        o("WAWebProtobufsHistorySync.pb")
-                          .Conversation$GroupAppealStatus.APPEAL_APPROVED
-                      ? "APPROVED"
-                      : t.appealStatus ===
-                          o("WAWebProtobufsHistorySync.pb")
-                            .Conversation$GroupAppealStatus.APPEAL_REJECTED
-                        ? "REJECTED"
-                        : t.appealStatus ===
-                            o("WAWebProtobufsHistorySync.pb")
-                              .Conversation$GroupAppealStatus.NO_APPEAL
-                          ? null
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  t.appealStatus,
-                              );
-                            })()
-                  : void 0,
-              suspendAppealUpdateTime:
-                t.appealUpdateTime != null
-                  ? Number(t.appealUpdateTime)
-                  : void 0,
-            };
-          o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-            n,
-            babelHelpers.extends({}, d, {
-              id: d.id.toString(),
-              owner: d.owner !== void 0 ? d.owner.toString() : void 0,
-              creation: d.creation !== void 0 ? Number(d.creation) : void 0,
-              parentGroup:
-                d.parentGroup !== void 0 ? String(d.parentGroup) : void 0,
-            }),
-          );
-          var m = r("WAWebGroupMetadataCollection").add(
-              babelHelpers.extends({}, d),
-              { merge: !0 },
-            )[0],
-            p =
-              (c = t.participant) == null
-                ? void 0
-                : c.map(function (e) {
-                    var t =
-                        e.rank ===
-                        o("WAWebProtobufsHistorySync.pb").GroupParticipant$Rank
-                          .SUPERADMIN,
-                      n =
-                        e.rank ===
-                        o("WAWebProtobufsHistorySync.pb").GroupParticipant$Rank
-                          .ADMIN;
-                    return new (r("WAWebGroupParticipantModel"))({
-                      id: o("WAWebWidFactory").createWid(e.userJid),
-                      isAdmin: n || t,
-                      isSuperAdmin: t,
-                    });
-                  });
-          (m == null || m.participants.add(p, { merge: !0 }),
-            (t.readOnly === !0 || p.length > 0) &&
-              o("WAWebGroupParticipantsJob")
-                .updateParticipantsJob({
-                  group: n,
-                  participants: p.map(function (e) {
-                    return {
-                      id: e.id,
-                      isAdmin: e.isAdmin,
-                      isSuperAdmin: e.isSuperAdmin,
-                    };
-                  }),
-                  skipDeviceSync: t.readOnly,
-                })
-                .catch(function (t) {
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "updateParticipantsJob: failed: ",
-                        "",
-                      ])),
-                    t,
-                  );
-                }));
-        }
-      }
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function C(e) {
-      var t = (m || (m = n("Promise"))).resolve(),
-        r = m.resolve();
+    function C() {
       return (
-        e.threadIdUserSecret != null
-          ? (t = o("WAWebChatThreadLogging").setThreadIdUserSecret(
-              e.threadIdUserSecret,
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (t.isGroup()) {
+            var a = (n = e.disappearingMode) == null ? void 0 : n.trigger,
+              i;
+            if (a != null) {
+              var l = o(
+                "WAWebEphemeralityUtils",
+              ).getDisappearingModeTriggerFromProtobuf(a);
+              l != null && (i = l);
+            }
+            if (
+              e.suspended != null ||
+              e.terminated != null ||
+              e.createdBy != null ||
+              e.createdAt != null ||
+              e.description != null ||
+              e.support != null ||
+              e.isParentGroup != null ||
+              e.isDefaultSubgroup != null ||
+              e.parentGroupId != null ||
+              e.disappearingMode != null ||
+              e.appealStatus != null ||
+              e.appealUpdateTime != null
+            ) {
+              var s,
+                u,
+                c = {
+                  id: t,
+                  subject: e.name,
+                  suspended: e.suspended,
+                  terminated: e.terminated,
+                  owner:
+                    e.createdBy != null
+                      ? o("WAWebWidFactory").createWid(e.createdBy)
+                      : void 0,
+                  creation: e.createdAt,
+                  desc: e.description,
+                  support: e.support,
+                  isParentGroup: e.isParentGroup,
+                  defaultSubgroup: e.isDefaultSubgroup,
+                  parentGroup:
+                    e.parentGroupId != null
+                      ? o("WAWebWidFactory").createWid(e.parentGroupId)
+                      : void 0,
+                  disappearingModeInitiatedByMe:
+                    (s = e.disappearingMode) == null ? void 0 : s.initiatedByMe,
+                  disappearingModeTrigger: i,
+                  suspendAppealStatus:
+                    e.appealStatus != null
+                      ? e.appealStatus ===
+                        o("WAWebProtobufsHistorySync.pb")
+                          .Conversation$GroupAppealStatus.APPEAL_IN_REVIEW
+                        ? "IN_REVIEW"
+                        : e.appealStatus ===
+                            o("WAWebProtobufsHistorySync.pb")
+                              .Conversation$GroupAppealStatus.APPEAL_APPROVED
+                          ? "APPROVED"
+                          : e.appealStatus ===
+                              o("WAWebProtobufsHistorySync.pb")
+                                .Conversation$GroupAppealStatus.APPEAL_REJECTED
+                            ? "REJECTED"
+                            : e.appealStatus ===
+                                o("WAWebProtobufsHistorySync.pb")
+                                  .Conversation$GroupAppealStatus.NO_APPEAL
+                              ? null
+                              : (function () {
+                                  throw Error(
+                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                      e.appealStatus,
+                                  );
+                                })()
+                      : void 0,
+                  suspendAppealUpdateTime:
+                    e.appealUpdateTime != null
+                      ? Number(e.appealUpdateTime)
+                      : void 0,
+                };
+              yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                t,
+                babelHelpers.extends({}, c, {
+                  id: c.id.toString(),
+                  owner: c.owner !== void 0 ? c.owner.toString() : void 0,
+                  creation: c.creation !== void 0 ? Number(c.creation) : void 0,
+                  parentGroup:
+                    c.parentGroup !== void 0 ? String(c.parentGroup) : void 0,
+                }),
+              );
+              var m = r("WAWebGroupMetadataCollection").add(
+                  babelHelpers.extends({}, c),
+                  { merge: !0 },
+                )[0],
+                p =
+                  (u = e.participant) == null
+                    ? void 0
+                    : u.map(function (e) {
+                        var t =
+                            e.rank ===
+                            o("WAWebProtobufsHistorySync.pb")
+                              .GroupParticipant$Rank.SUPERADMIN,
+                          n =
+                            e.rank ===
+                            o("WAWebProtobufsHistorySync.pb")
+                              .GroupParticipant$Rank.ADMIN;
+                        return new (r("WAWebGroupParticipantModel"))({
+                          id: o("WAWebWidFactory").createWid(e.userJid),
+                          isAdmin: n || t,
+                          isSuperAdmin: t,
+                        });
+                      });
+              (m == null || m.participants.add(p, { merge: !0 }),
+                (e.readOnly === !0 || p.length > 0) &&
+                  o("WAWebGroupParticipantsJob")
+                    .updateParticipantsJob({
+                      group: t,
+                      participants: p.map(function (e) {
+                        return {
+                          id: e.id,
+                          isAdmin: e.isAdmin,
+                          isSuperAdmin: e.isSuperAdmin,
+                        };
+                      }),
+                      skipDeviceSync: e.readOnly,
+                    })
+                    .catch(function (e) {
+                      o("WALogger").WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "updateParticipantsJob: failed: ",
+                            "",
+                          ])),
+                        e,
+                      );
+                    }));
+            }
+          }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(t) {
+      var r = (m || (m = n("Promise"))).resolve(),
+        a = m.resolve();
+      return (
+        t.threadIdUserSecret != null
+          ? (r = o("WAWebChatThreadLogging").setThreadIdUserSecret(
+              t.threadIdUserSecret,
+            ))
+          : o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync] handleChatThreadLoggingMetadata: missing threadIdUserSecret",
+                  ])),
+              )
+              .sendLogs("ctl-missing-secret-history-sync"),
+        t.threadDsTimeframeOffset != null
+          ? (a = o("WAWebChatThreadLogging").setThreadDsTimeframeOffset(
+              t.threadDsTimeframeOffset,
             ))
           : o("WALogger")
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] handleChatThreadLoggingMetadata: missing threadIdUserSecret",
-                  ])),
-              )
-              .sendLogs("ctl-missing-secret-history-sync"),
-        e.threadDsTimeframeOffset != null
-          ? (r = o("WAWebChatThreadLogging").setThreadDsTimeframeOffset(
-              e.threadDsTimeframeOffset,
-            ))
-          : o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync] handleChatThreadLoggingMetadata: missing threadDsTimeframeOffset",
                   ])),
               )
               .sendLogs("ctl-missing-offset-history-sync"),
-        m.all([t, r])
+        m.all([r, a])
       );
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       ((e.mdTimestamp = n), (e.mdBootstrapStepDuration = n - t), e.commit());
     }
-    function v(e) {
+    function S(e) {
       var t = e.chunkDownloadFinishTimestamp,
         n = e.failureReason,
         r = e.historySyncDownloadMetric,
@@ -304,12 +312,12 @@ __d(
         n != null && (r.mdSyncFailureReason = n),
         r.commit());
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.failureReason,
             n = e.forceFlushWamBuffer,
             r = e.historySyncDataAppliedMetric,
@@ -328,10 +336,10 @@ __d(
             r.commitAndWaitForFlush(n)
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
+    function E(e) {
       return [
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
           .INITIAL_BOOTSTRAP,
@@ -346,12 +354,12 @@ __d(
         ? e.initialHistBootstrapInlinePayload
         : null;
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebSchemaHistorySyncNotification")
             .getHistorySyncNotificationTable()
             .equals(
@@ -381,7 +389,7 @@ __d(
                 });
             });
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
     ((l.HistorySyncScheduleSource = p),
@@ -394,12 +402,12 @@ __d(
       ).getHistorySyncLogDetailsString),
       (l.checkSelfHistorySyncIdentity = g),
       (l.saveGroupMetadataForLeftGroup = y),
-      (l.handleChatThreadLoggingMetadata = C),
-      (l.commitHistoryStartDownloadingMetric = b),
-      (l.commitHistoryDownloadedMetric = v),
-      (l.commitHistoryDataAppliedMetric = S),
-      (l.maybeGetInlinePayload = L),
-      (l.getUnprocessedRecentSyncNotifications = E));
+      (l.handleChatThreadLoggingMetadata = b),
+      (l.commitHistoryStartDownloadingMetric = v),
+      (l.commitHistoryDownloadedMetric = S),
+      (l.commitHistoryDataAppliedMetric = R),
+      (l.maybeGetInlinePayload = E),
+      (l.getUnprocessedRecentSyncNotifications = k));
   },
   98,
 );
