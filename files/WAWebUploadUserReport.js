@@ -17,12 +17,12 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.description,
-            a = t.email,
-            i = t.entityId,
-            l = t.phoneNumber,
-            m = t.screenshots,
-            p = t.subject,
-            _ = t.supportTag;
+            r = t.email,
+            a = t.entityId,
+            i = t.phoneNumber,
+            l = t.screenshots,
+            m = t.subject,
+            p = t.supportTag;
           try {
             (o("WALogger").LOG(
               e ||
@@ -40,35 +40,35 @@ __d(
                   n,
                 )
                 .verbose());
-            var f = yield o("WAWebCrashlog").upload({
+            var _ = yield o("WAWebCrashlog").upload({
                 reason: o("WAWebCrashlog").USER_REPORT,
                 immediate: !1,
                 isHighPri: !0,
                 logType: o("WAWebCrashlog").LogType.SUPPORT,
               }),
-              g = new FormData();
-            (l != null && g.append("user", String(l)),
-              g.append("email", a),
-              f && g.append("crashlog", f),
-              g.append("desc", n),
-              m.map(function (e, t) {
-                g.append("screenshot-" + t, e);
+              f = new FormData();
+            (i != null && f.append("user", String(i)),
+              f.append("email", r),
+              _ && f.append("crashlog", _),
+              f.append("desc", n),
+              l.map(function (e, t) {
+                f.append("screenshot-" + t, e);
               }));
-            var h = yield o("WAWebLoggerDebugInfo").getDebugInfo({
-                supportTag: _,
-                entityId: i,
+            var g = yield o("WAWebLoggerDebugInfo").getDebugInfo({
+                supportTag: p,
+                entityId: a,
               }),
-              y = babelHelpers.extends({}, h, { subject: p });
-            (g.append("info", JSON.stringify(y)),
+              h = babelHelpers.extends({}, g, { subject: m });
+            (f.append("info", JSON.stringify(h)),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "UploadUserReport:uploadUserReport submitting",
                   ])),
               ),
-              yield r("WAWebXHR").post(
+              yield o("WAWebXHR").post(
                 o("WAWebCrashlogConstants").TICKET_URL,
-                g,
+                f,
               ),
               o("WALogger").LOG(
                 c ||

@@ -1,6 +1,7 @@
 __d(
   "WAWebInitialSystemMsg",
   [
+    "WAWebABPropsSaga",
     "WAWebAdvHostedAccountTypeSystemMsg",
     "WAWebApiDeviceList",
     "WAWebBizCoexUtils",
@@ -11,6 +12,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebPrivacyModeSystemMsg",
     "WAWebProtobufsAdv.pb",
+    "WAWebSagaSystemMsg",
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -30,15 +32,25 @@ __d(
                 "chat_psa",
               ),
             ];
-          if (e.isBot()) return [o("WAWebBotSystemMsg").genBotInitSystemMsg(e)];
+          var a = e.isSupportAgentBot();
+          if (e.isBot() && !a)
+            return [o("WAWebBotSystemMsg").genBotInitSystemMsg(e)];
           if (r("WAWebWid").isBroadcast(e)) return u(e);
-          if (r("WAWebWid").isCAPISupportAccount(e))
-            return [
+          if (a || r("WAWebWid").isCAPISupportAccount(e)) {
+            var i = [
               o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                 e,
                 "support_system_message",
               ),
             ];
+            return (
+              a &&
+                r("WAWebWid").isCAPISupportAccount(e) &&
+                o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
+                i.push(o("WAWebSagaSystemMsg").genSagaInitSystemMsg(e)),
+              i
+            );
+          }
           if (n === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P)
             return [o("WAWebBotSystemMsg").genBizBot3pDisclosureMessage(e)];
           if (e.isUser()) {
@@ -54,13 +66,13 @@ __d(
                   ).genAdvMeAccountIsHostedNotificationMsg(e, e),
                 ),
               ];
-            var a = o("WAWebUserPrefsMultiDevice").getHaveProcessedCoexAdv();
-            if (a && e.isUser()) {
-              var i = yield o("WAWebApiDeviceList").getDeviceRecord(e);
+            var l = o("WAWebUserPrefsMultiDevice").getHaveProcessedCoexAdv();
+            if (l && e.isUser()) {
+              var s = yield o("WAWebApiDeviceList").getDeviceRecord(e);
               if (
-                (i == null ? void 0 : i.advAccountType) ===
+                (s == null ? void 0 : s.advAccountType) ===
                   o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED ||
-                (i == null ? void 0 : i.deletedChangedToHost) === !0
+                (s == null ? void 0 : s.deletedChangedToHost) === !0
               )
                 return o("WAWebBizCoexUtils").shouldDedupInitialHostedSystemMsg(
                   e,
@@ -75,15 +87,15 @@ __d(
                     ];
             }
           }
-          var l = [],
-            s = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(t);
+          var c = [],
+            d = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(t);
           e: {
-            if (s === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE) {
-              l.push(o("WAWebContactSystemMsg").genEncryptNotificationMsg(e));
+            if (d === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE) {
+              c.push(o("WAWebContactSystemMsg").genEncryptNotificationMsg(e));
               break e;
             }
-            if (s === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP) {
-              l.push(
+            if (d === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP) {
+              c.push(
                 o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                   e,
                   "biz_privacy_mode_init_bsp",
@@ -91,8 +103,8 @@ __d(
               );
               break e;
             }
-            if (s === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB) {
-              l.push(
+            if (d === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB) {
+              c.push(
                 o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                   e,
                   "biz_privacy_mode_init_fb",
@@ -101,10 +113,10 @@ __d(
               break e;
             }
             if (
-              s ===
+              d ===
               o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.HOSTED_GROUP
             ) {
-              l.push(
+              c.push(
                 o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                   e,
                   "is_capi_hosted_group",
@@ -114,14 +126,14 @@ __d(
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                s,
+                d,
             );
           }
           return (
             n === o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P &&
               o("WAWebBotTos").hasAcceptedBizBotTos() &&
-              l.push(o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e)),
-            l
+              c.push(o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e)),
+            c
           );
         })),
         s.apply(this, arguments)

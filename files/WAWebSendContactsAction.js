@@ -126,9 +126,10 @@ __d(
           d,
           { ctwaContext: s },
         ),
-        _ = o("WAWebBotUtils").isHatchBot(a.id)
-          ? self.crypto.getRandomValues(new Uint8Array(32))
-          : void 0,
+        _ =
+          o("WAWebBotUtils").isHatchBot(a.id) || a.id.isSupportAgentBot()
+            ? self.crypto.getRandomValues(new Uint8Array(32))
+            : void 0,
         f =
           o("WAWebBotUtils").isHatchBot(a.id) &&
           (u =

@@ -20,7 +20,6 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
     "WAWebFrontendPresenceGetters",
-    "WAWebGroupGatingUtils",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupPresenceUtils",
     "WAWebGroupType",
@@ -152,22 +151,14 @@ __d(
                         .map(function (e) {
                           return e.id;
                         }),
-                      u = o(
-                        "WAWebGroupGatingUtils",
-                      ).isGroupTypingIndicatorEnabled()
-                        ? o("WAWebPresenceOrder").preserveUserOrder(
-                            e.typingUserIds,
-                            l,
-                          )
-                        : l,
-                      c = o(
-                        "WAWebGroupGatingUtils",
-                      ).isGroupTypingIndicatorEnabled()
-                        ? o("WAWebPresenceOrder").preserveUserOrder(
-                            e.recordingUserIds,
-                            s,
-                          )
-                        : s,
+                      u = o("WAWebPresenceOrder").preserveUserOrder(
+                        e.typingUserIds,
+                        l,
+                      ),
+                      c = o("WAWebPresenceOrder").preserveUserOrder(
+                        e.recordingUserIds,
+                        s,
+                      ),
                       d = !r("WAArraysShallowEqual")(u, e.typingUserIds),
                       m = !r("WAArraysShallowEqual")(c, e.recordingUserIds);
                     ((d || m || e.isOnline !== n) &&
@@ -563,52 +554,28 @@ __d(
       return null;
     }
     function R(e, t) {
-      var n = L(e[e.length - 1], t),
-        r = n.accessibleName,
-        a = n.name,
-        i = e.length;
-      if (
-        i === 1 ||
-        !o("WAWebGroupGatingUtils").isGroupTypingIndicatorEnabled()
-      )
+      var n = e.length;
+      if (n === 1) {
+        var r = L(e[e.length - 1], t),
+          o = r.accessibleName,
+          a = r.name;
         return {
           text: s._(/*BTDS*/ "{member} is typing\u2026", [
             s._param("member", a),
           ]),
           ariaLabel: s._(/*BTDS*/ "{member} is typing\u2026", [
-            s._param("member", r),
+            s._param("member", o),
           ]),
         };
-      var l = o("WAWebGroupGatingUtils").getGroupTypingIndicatorVariant();
-      if (l === o("WAWebGroupGatingUtils").GROUP_TYPING_VARIANT.SHOW_COUNT_ONLY)
-        return {
-          text: s._(/*BTDS*/ "{count} people typing\u2026", [
-            s._param("count", i),
-          ]),
-          ariaLabel: s._(/*BTDS*/ "{count} people are typing", [
-            s._param("count", i),
-          ]),
-        };
-      var u = i - 1;
-      return u === 1
-        ? {
-            text: s._(/*BTDS*/ "{name} & 1 other typing\u2026", [
-              s._param("name", a),
-            ]),
-            ariaLabel: s._(/*BTDS*/ "{name} and 1 other are typing", [
-              s._param("name", r),
-            ]),
-          }
-        : {
-            text: s._(/*BTDS*/ "{name} & {count} others typing\u2026", [
-              s._param("name", a),
-              s._param("count", u),
-            ]),
-            ariaLabel: s._(/*BTDS*/ "{name} and {count} others are typing", [
-              s._param("name", r),
-              s._param("count", u),
-            ]),
-          };
+      }
+      return {
+        text: s._(/*BTDS*/ "{count} people typing\u2026", [
+          s._param("count", n),
+        ]),
+        ariaLabel: s._(/*BTDS*/ "{count} people are typing", [
+          s._param("count", n),
+        ]),
+      };
     }
     function L(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e);

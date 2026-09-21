@@ -123,7 +123,7 @@ __d(
           "getPaymentRequestMessageKey: no message key is defined",
         );
       var a = e.id;
-      if (!a)
+      if (a == null || a === "")
         throw r("err")("getPaymentRequestMessageKey: no key id is defined");
       if (!t)
         return (

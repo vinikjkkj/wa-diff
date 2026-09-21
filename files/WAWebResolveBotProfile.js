@@ -13,6 +13,7 @@ __d(
             product: n.product,
             isDeprecated: n.isDeprecated,
             isDeleted: n.isDeleted,
+            isSynced: !0,
           };
     }
     l.resolveBotSupportInput = e;

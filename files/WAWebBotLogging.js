@@ -24,6 +24,7 @@ __d(
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .AgentsSettingsList ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.SupportAgent ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint

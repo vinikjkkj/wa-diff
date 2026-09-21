@@ -13,37 +13,55 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
-    function c() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      if (e[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var n = d();
-        ((t = u.jsx(r("WAWebSecurityDrawerSection.react"), {
-          header: n.header,
-          text: n.text,
-          onClick: n.onClick,
-        })),
-          (e[0] = t));
-      } else t = e[0];
-      return t;
+    function c(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n = e.contactId,
+        a;
+      t[0] !== n ? ((a = d(n)), (t[0] = n), (t[1] = a)) : (a = t[1]);
+      var i = a,
+        l;
+      return (
+        t[2] !== i.header || t[3] !== i.onClick || t[4] !== i.text
+          ? ((l = u.jsx(r("WAWebSecurityDrawerSection.react"), {
+              header: i.header,
+              text: i.text,
+              onClick: i.onClick,
+            })),
+            (t[2] = i.header),
+            (t[3] = i.onClick),
+            (t[4] = i.text),
+            (t[5] = l))
+          : (l = t[5]),
+        l
+      );
     }
-    function d() {
-      var e = function () {
-          o("WAWebOpenSystemMessageModal").openSystemMessageModal(
-            o(
-              "WAWebFormatNotificationTemplateModalText",
-            ).formatWaChatSecurityModalText(),
-            o("WAWebFaqUrl").getWAChatFaqUrl(),
-          );
-        },
-        t = s._(/*BTDS*/ "This is an official account of WhatsApp");
+    function d(e) {
+      var t = e.isSupportAgentBot()
+          ? function () {
+              o("WAWebOpenSystemMessageModal").openSystemMessageModal(
+                o("WAWebFormatNotificationTemplateModalText").formatFbModalText(
+                  !1,
+                  !0,
+                ),
+                o("WAWebFaqUrl").getSupportChatSafetyFaqUrl(),
+              );
+            }
+          : function () {
+              o("WAWebOpenSystemMessageModal").openSystemMessageModal(
+                o(
+                  "WAWebFormatNotificationTemplateModalText",
+                ).formatWaChatSecurityModalText(),
+                o("WAWebFaqUrl").getWAChatFaqUrl(),
+              );
+            },
+        n = s._(/*BTDS*/ "This is an official account of WhatsApp");
       return {
         text: u.jsx(r("WAWebTextWithLearnMoreLink"), {
-          text: t,
-          handleClick: e,
+          text: n,
+          handleClick: t,
         }),
         header: { type: "none" },
-        onClick: e,
+        onClick: t,
       };
     }
     l.default = c;

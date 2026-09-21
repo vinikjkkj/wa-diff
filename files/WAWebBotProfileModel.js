@@ -92,6 +92,7 @@ __d(
                     product: this.product,
                     isDeprecated: this.isDeprecated,
                     isDeleted: this.isDeleted,
+                    isSynced: !0,
                   },
                   this.name,
                 ),

@@ -74,6 +74,10 @@ __d(
         case "blue_msg_verified_to_self_fb_unverified":
         case "blue_msg_verified_to_unverified":
           return o("WAWebFaqUrl").getE2EEnterpriseFaqUrl();
+        case "support_system_message":
+          return t.isSupportAgentBot()
+            ? o("WAWebFaqUrl").getSupportChatSafetyFaqUrl()
+            : o("WAWebFaqUrl").getFaqUrl();
         case "biz_privacy_mode_init_fb":
         case "biz_privacy_mode_to_fb":
         case "biz_privacy_mode_init_bsp":

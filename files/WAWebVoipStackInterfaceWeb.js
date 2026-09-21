@@ -16,6 +16,7 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebUA",
     "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipCallIdProvider",
     "WAWebVoipExperimentTargetSample",
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParsersWeb",
@@ -541,6 +542,7 @@ __d(
         acceptCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
+              o("WAWebVoipCallIdProvider").resetPendingCallId();
               var n = yield l;
               try {
                 n.acceptCall(e, t);
@@ -638,6 +640,7 @@ __d(
                 );
                 return;
               }
+              o("WAWebVoipCallIdProvider").resetPendingCallId();
               var b = yield l,
                 v = new b.StringList();
               a.forEach(function (e) {
@@ -727,6 +730,7 @@ __d(
                   ),
                   -1
                 );
+              o("WAWebVoipCallIdProvider").resetPendingCallId();
               var s = yield l;
               try {
                 var u = s.previewCallLink(
@@ -816,6 +820,7 @@ __d(
                   ),
                   -1
                 );
+              o("WAWebVoipCallIdProvider").resetPendingCallId();
               var s = yield l;
               try {
                 o("WAWebMLModelManager")

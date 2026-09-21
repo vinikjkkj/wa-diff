@@ -158,19 +158,20 @@ __d(
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.length !== 0) {
             var n = e.map(function (e) {
-              return e.id;
-            });
+                return e.id;
+              }),
+              a = o("WAWebContactSyncUtils").getDeviceSyncBackfillPnWids(n);
             o("WAWebApiContact").checkPnToLidMapping(
               n,
               o("WAWebApiContact").CheckPnToLidMappingCaller
                 .WAWEB_ADV_SYNC_DEVICE_LIST_SEND_DEVICE_SYNC_REQUEST,
             );
-            var a = new (o("WAWebUsync").USyncQuery)()
+            var i = new (o("WAWebUsync").USyncQuery)()
               .withContext(t || "interactive")
               .withDeviceProtocol();
             e.forEach(function (e) {
               e.id.user !== "0" &&
-                a.withUser(
+                i.withUser(
                   new (o("WAWebUsyncUser").USyncUser)()
                     .withId(e.id)
                     .withDeviceHash(String(e.hash))
@@ -178,7 +179,7 @@ __d(
                     .withExpectedTs(e.expectedTs),
                 );
             });
-            var i = o(
+            var l = o(
                 "WAWebContactSyncLogger",
               ).contactSyncLogger.createEventContext({
                 syncType: o("WAWebContactSyncLogger").getSyncTypeString(
@@ -188,31 +189,31 @@ __d(
                 requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
                   .DEVICE_REQUEST,
                 requestedCount: e.length,
-                protocols: a.protocols,
+                protocols: i.protocols,
               }),
-              l = yield o(
+              c = yield o(
                 "WAWebContactSyncLogger",
               ).contactSyncLogger.executeWithLogging(
-                i,
+                l,
                 function () {
-                  return a.execute();
+                  return i.execute();
                 },
                 o("WAWebContactSyncErrorCodes").DEVICE_SYNC,
               ),
-              c = l.error.all;
-            if (c)
+              d = c.error.all;
+            if (d)
               throw (
                 o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                  i,
-                  c.errorCode,
                   l,
+                  d.errorCode,
+                  c,
                   o("WAWebContactSyncErrorCodes").DEVICE_SYNC,
                 ),
                 r("err")(
-                  "syncDeviceList: error " + c.errorCode + ": " + c.errorText,
+                  "syncDeviceList: error " + d.errorCode + ": " + d.errorText,
                 )
               );
-            l.error.devices &&
+            c.error.devices &&
               o("WALogger").WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -220,23 +221,20 @@ __d(
                     ": ",
                     "",
                   ])),
-                l.error.devices.errorCode,
-                l.error.devices.errorText,
+                c.error.devices.errorCode,
+                c.error.devices.errorText,
               );
-            var d = l.list.filter(function (e) {
+            var m = c.list.filter(function (e) {
               return !("errorCode" in e.devices);
             });
-            d = d.map(function (e) {
+            ((m = m.map(function (e) {
               return { wid: e.id, devices: e.devices };
-            });
-            var m = n.filter(function (e) {
-              return e.isRegularUserPn();
-            });
-            d = o("WAWebContactSyncUtils").backfillMissingDeviceSyncEntries(
-              m,
-              d,
-            );
-            var p = d
+            })),
+              (m = o("WAWebContactSyncUtils").backfillMissingDeviceSyncEntries(
+                a,
+                m,
+              )));
+            var p = m
                 .filter(function (e) {
                   var t;
                   return (t = e.devices.keyIndex) == null
@@ -246,7 +244,7 @@ __d(
                 .map(function (e) {
                   return e.wid;
                 }),
-              _ = l.list.length - p.length,
+              _ = c.list.length - p.length,
               f = p
                 .map(function (e) {
                   return e.toString();
@@ -262,18 +260,18 @@ __d(
                     "",
                   ])),
                 _,
-                l.list.length,
+                c.list.length,
                 f,
               ),
               yield o("WAWebGetIdentityKeysJob").getAndStoreIdentityKeys(p),
               o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
-                i,
                 l,
+                c,
                 o("WAWebContactSyncLogger").createUpdateCounterWith({
-                  deviceChange: d.length,
+                  deviceChange: m.length,
                 }),
               ),
-              o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(d)
+              o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(m)
             );
           }
         })),

@@ -68,7 +68,7 @@ __d(
       );
     }
     function f(e) {
-      if (e)
+      if (!(e == null || e === ""))
         return e
           .replace(/^_\$!<([^>]*)>!\$_$/, "$1")
           .replace(/\\,/, ",")

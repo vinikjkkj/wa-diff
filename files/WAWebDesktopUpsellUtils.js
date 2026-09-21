@@ -7,7 +7,6 @@ __d(
     "WAWebEnvironment",
     "WAWebUA",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["WINDOWS", "MACOS"]),
@@ -80,7 +79,7 @@ __d(
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t;
           if (r("WAWebEnvironment").isWindows) return !1;
-          if (o("WAWebUA").UA.isSafari && r("justknobx")._("3037")) return !0;
+          if (o("WAWebUA").UA.isSafari) return !0;
           if (y != null) return y;
           var n = yield (e = self.navigator) == null ||
           (e = e.userAgentData) == null

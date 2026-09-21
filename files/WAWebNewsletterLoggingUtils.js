@@ -72,6 +72,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter:
         case o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AgentsSettingsList:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SupportAgent:
         case o("WAWebChatEntryPoint").ChatEntryPoint.PrivateReply:
         case o("WAWebChatEntryPoint").ChatEntryPoint.DirectMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo:

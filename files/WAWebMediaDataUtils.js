@@ -792,7 +792,7 @@ __d(
           var t = yield r("WAWebNetworkGetResponseIfOnline")({
             data: null,
             method: "GET",
-            responseType: r("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
+            responseType: o("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
             url: e,
           });
           return t

@@ -1,6 +1,12 @@
 __d(
   "WAWebCallInfoUserJourneyLogger",
-  ["WARandomHex", "WAWebCallInfoUserJourneyWamEvent", "WAWebWamEnumCallType"],
+  [
+    "WARandomHex",
+    "WAWebCallInfoUserJourneyWamEvent",
+    "WAWebCallUserJourneyAppSessionId",
+    "WAWebUserJourneyEventMs",
+    "WAWebWamEnumCallType",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -27,13 +33,16 @@ __d(
             r = this.$2;
           if (!(t == null || r == null)) {
             var a = {
-              appSessionId: e.appSessionId,
-              surfaceSessionId: t,
-              userJourneyFunnelId: r,
-              preCallActionType: n.preCallActionType,
-              userJourneyEventMs: Date.now(),
-            };
-            (this.$3 != null && (a.callSizeType = this.$3),
+                appSessionId: o(
+                  "WAWebCallUserJourneyAppSessionId",
+                ).callUserJourneyAppSessionId(e.appSessionId),
+                surfaceSessionId: t,
+                userJourneyFunnelId: r,
+                preCallActionType: n.preCallActionType,
+              },
+              i = o("WAWebUserJourneyEventMs").userJourneyEventMs();
+            (i != null && (a.userJourneyEventMs = i),
+              this.$3 != null && (a.callSizeType = this.$3),
               this.$4 != null && (a.callGroupSizeBucket = this.$4),
               n.isVideo === !0
                 ? (a.callType = o("WAWebWamEnumCallType").CALL_TYPE.VIDEO)

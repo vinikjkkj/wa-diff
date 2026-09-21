@@ -6,6 +6,7 @@ __d(
     "WAWebTPFrameUrlBuilder",
     "WAWebTPPdfViewerQpl",
     "asyncToGeneratorRuntime",
+    "err",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,20 +15,25 @@ __d(
       s = "whatsapp.net",
       u = r("justknobx")._("5486"),
       c = (function (t) {
-        function r(e) {
+        function a(e) {
           var n,
-            r = o("WAWebTPFrameUrlBuilder").getWAWebTPPdfViewerUrl();
+            a = o("WAWebTPFrameUrlBuilder").getWAWebTPPdfViewerUrl(),
+            i = e.contentWindow;
+          if (i == null)
+            throw r("err")(
+              "WebTP bridge requires an iframe attached to the DOM",
+            );
           return (
-            (n = t.call(this, e.contentWindow, new URL(r).origin, s) || this),
+            (n = t.call(this, i, new URL(a).origin, s) || this),
             (n.$WAWebTPWhatsAppNetBridge$p_1 =
               n.$WAWebTPWhatsAppNetBridge$p_2()),
             n
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.$WAWebTPWhatsAppNetBridge$p_2 = function () {
+          (i.$WAWebTPWhatsAppNetBridge$p_2 = function () {
             var t = this;
             return new (e || (e = n("Promise")))(function (e, n) {
               (t.listenOnce(
@@ -45,7 +51,7 @@ __d(
                 t.publish("GET_APP_READY", {}));
             });
           }),
-          (a.publishWhenReady = (function () {
+          (i.publishWhenReady = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n) {
                 return (
@@ -59,7 +65,7 @@ __d(
             }
             return t;
           })()),
-          r
+          a
         );
       })(o("WAWebTPBridge").WAWebTPBridge);
     l.WAWebTPWhatsAppNetBridge = c;

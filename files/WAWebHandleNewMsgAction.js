@@ -27,6 +27,7 @@ __d(
     "WAWebDBUpdateChatTable",
     "WAWebEnvironment",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupMetadataCollection",
     "WAWebGroupUnreadMessageType",
     "WAWebHandleMsgReceiptCommon",
     "WAWebInvisiblePlaceholderViewModeProcessor",
@@ -389,23 +390,23 @@ __d(
                   t.type === "gp2" &&
                   (t.subtype === "add" || t.subtype === "create")
                 ) {
-                  var C = e.getGroupMetadataCollection(),
-                    v =
-                      p != null &&
-                      !o(
-                        "WAWebBeyondPhoneNumberGatingUtils",
-                      ).removePnDependenciesEnabled()
-                        ? p
-                        : _;
-                  C.trigger("group_participant_change_" + v.toString(), {
-                    gid: e.id,
-                  });
+                  var C =
+                    p != null &&
+                    !o(
+                      "WAWebBeyondPhoneNumberGatingUtils",
+                    ).removePnDependenciesEnabled()
+                      ? p
+                      : _;
+                  r("WAWebGroupMetadataCollection").trigger(
+                    "group_participant_change_" + C.toString(),
+                    { gid: e.id },
+                  );
                 }
                 if (o("WAWebMsgGetters").getIsSentByMe(t)) {
                   if (e.unreadCount > 0 || e.markedUnread) {
-                    var T,
-                      D,
-                      x = e.id.toString() === t.id.remote.toString();
+                    var k,
+                      I,
+                      T = e.id.toString() === t.id.remote.toString();
                     o("WALogger").LOG(
                       y ||
                         (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -424,15 +425,15 @@ __d(
                       e.id.isLid(),
                       t.id.remote.toLogString(),
                       t.id.remote.isLid(),
-                      x,
+                      T,
                       e.unreadCount,
                       e.activeUnreadCount,
                       e.markedUnread,
-                      (T =
-                        (D = e.accountLid) == null
+                      (k =
+                        (I = e.accountLid) == null
                           ? void 0
-                          : D.toLogString()) != null
-                        ? T
+                          : I.toLogString()) != null
+                        ? k
                         : "none",
                     );
                   }
@@ -488,26 +489,26 @@ __d(
                       )
                         return;
                       o("WAWebCmd").Cmd.alertNewMsg(t);
-                      var S = e.getGroupMetadataCollection(),
-                        R =
-                          p != null &&
-                          !o(
-                            "WAWebBeyondPhoneNumberGatingUtils",
-                          ).removePnDependenciesEnabled()
-                            ? p
-                            : _;
-                      S.trigger("group_participant_change_" + R.toString(), {
-                        gid: e.id,
-                      });
+                      var v =
+                        p != null &&
+                        !o(
+                          "WAWebBeyondPhoneNumberGatingUtils",
+                        ).removePnDependenciesEnabled()
+                          ? p
+                          : _;
+                      r("WAWebGroupMetadataCollection").trigger(
+                        "group_participant_change_" + v.toString(),
+                        { gid: e.id },
+                      );
                       break;
                     }
                     default:
                       break;
                   }
-                  var L = t.mediaData;
+                  var S = t.mediaData;
                   if (
-                    (L &&
-                      (L.type === "image" || L.type === "video") &&
+                    (S &&
+                      (S.type === "image" || S.type === "video") &&
                       o("WAWebCmd").Cmd.newMediaMsg(t),
                     n.unreadCount != null &&
                       n.unreadCount > 0 &&
@@ -529,29 +530,29 @@ __d(
                         }),
                     o("WAWebMsgGetters").getIsImportantMessage(t))
                   ) {
-                    var E,
-                      k = new (r("WAWebUnreadMentionModel"))({
+                    var R,
+                      L = new (r("WAWebUnreadMentionModel"))({
                         id: t.id.toString(),
                         timestamp: t.t,
                       });
                     if (
-                      ((E = e.groupMetadata) == null ||
-                        E.unreadMentionMetadata.addUnreadMentions(
-                          k,
+                      ((R = e.groupMetadata) == null ||
+                        R.unreadMentionMetadata.addUnreadMentions(
+                          L,
                           o("WAWebGroupUnreadMessageType").UnreadMessageType
                             .NEW_MESSAGE,
                         ),
                       e.archiveAtMentionViewedInDrawer)
                     ) {
-                      var I = new Map();
-                      (I.set(e.id.toString(), !1),
+                      var E = new Map();
+                      (E.set(e.id.toString(), !1),
                         o("WALogger").LOG(
                           h ||
                             (h = babelHelpers.taggedTemplateLiteralLoose([
                               "handleNewMsgForChat: will mark chat for archive",
                             ])),
                         ),
-                        yield o("WAWebApiChat").updateChatArchiveDrawer(I),
+                        yield o("WAWebApiChat").updateChatArchiveDrawer(E),
                         (e.archiveAtMentionViewedInDrawer = !1));
                     }
                   }

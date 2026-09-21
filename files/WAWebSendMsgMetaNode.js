@@ -44,80 +44,101 @@ __d(
         l = e.includeAttributes,
         s = e.msgProtobuf,
         c = e.msgRecord,
-        g =
+        m =
           (t = o(
             "WAWebVerifyProtobufMsgObjectKeys",
           ).getUnwrappedProtobufMessage(s)) != null
             ? t
             : s,
-        h = d(g),
-        y = m(g),
-        C = _(l),
-        b;
+        y = p(m),
+        C = d(s),
+        b = _(m),
+        v = g(l),
+        S;
       c.type === "addon" &&
-        (b = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
+        (S = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
           c.data,
         ));
-      var v = c.data.botMetricsMetadata,
-        S =
-          v != null
+      var R = c.data.botMetricsMetadata,
+        L =
+          R != null
             ? o("WAWebBotLoggingUtils").getBotOriginFromBotMetricsEntryPoint(
-                v.destinationEntryPoint,
+                R.destinationEntryPoint,
               )
             : null,
-        R = (n = v == null ? void 0 : v.destinationId) != null ? n : null,
-        L = u({
-          botMetricsOrigin: S,
+        E = (n = R == null ? void 0 : R.destinationId) != null ? n : null,
+        k = u({
+          botMetricsOrigin: L,
           chatId: a,
           includeAttributes: l,
           msgRecord: c,
         }),
-        E = p(c, l),
-        k = f(c),
-        I = ((r = c.data.mediaData) == null ? void 0 : r.isViewOnce) === !0,
-        T =
-          h != null ||
+        I = f(c, l),
+        T = h(c),
+        D = ((r = c.data.mediaData) == null ? void 0 : r.isViewOnce) === !0,
+        x =
           y != null ||
           b != null ||
-          L != null ||
-          R != null ||
-          (l == null ? void 0 : l.appendHostedSenderIntent) === !0 ||
+          S != null ||
+          k != null ||
           E != null ||
-          I ||
-          C != null ||
-          k != null;
-      if (T) {
-        var D, x;
+          (l == null ? void 0 : l.appendHostedSenderIntent) === !0 ||
+          I != null ||
+          D ||
+          v != null ||
+          T != null ||
+          C != null;
+      if (x) {
+        var $, P;
         return o("WAWap").wap("meta", {
           origin:
-            L != null ? o("WAWap").CUSTOM_STRING(L) : o("WAWap").DROP_ATTR,
+            k != null ? o("WAWap").CUSTOM_STRING(k) : o("WAWap").DROP_ATTR,
           destination_id:
-            R != null ? o("WAWap").CUSTOM_STRING(R) : o("WAWap").DROP_ATTR,
+            E != null ? o("WAWap").CUSTOM_STRING(E) : o("WAWap").DROP_ATTR,
           sender_intent:
             (l == null ? void 0 : l.appendHostedSenderIntent) === !0
               ? "hosted"
               : o("WAWap").DROP_ATTR,
-          polltype: h != null ? h : o("WAWap").DROP_ATTR,
-          event_type: y != null ? y : o("WAWap").DROP_ATTR,
+          polltype: y != null ? y : o("WAWap").DROP_ATTR,
+          event_type: b != null ? b : o("WAWap").DROP_ATTR,
           thread_msg_id:
-            ((D = b) == null ? void 0 : D.threadMsgId) != null
-              ? o("WAWap").CUSTOM_STRING(b.threadMsgId)
+            (($ = S) == null ? void 0 : $.threadMsgId) != null
+              ? o("WAWap").CUSTOM_STRING(S.threadMsgId)
               : o("WAWap").DROP_ATTR,
           thread_msg_sender_jid:
-            (x = b) != null && x.threadMsgSenderLid
-              ? o("WAWebCommsWapMd").USER_JID(b.threadMsgSenderLid)
+            (P = S) != null && P.threadMsgSenderLid
+              ? o("WAWebCommsWapMd").USER_JID(S.threadMsgSenderLid)
               : o("WAWap").DROP_ATTR,
           appdata:
-            E != null ? o("WAWap").CUSTOM_STRING(E) : o("WAWap").DROP_ATTR,
-          view_once: I ? "true" : o("WAWap").DROP_ATTR,
+            I != null ? o("WAWap").CUSTOM_STRING(I) : o("WAWap").DROP_ATTR,
+          view_once: D ? "true" : o("WAWap").DROP_ATTR,
           conversation_thread_id:
-            C != null ? o("WAWap").CUSTOM_STRING(C) : o("WAWap").DROP_ATTR,
+            v != null ? o("WAWap").CUSTOM_STRING(v) : o("WAWap").DROP_ATTR,
           tag_reason:
-            k != null ? o("WAWap").CUSTOM_STRING(k) : o("WAWap").DROP_ATTR,
+            T != null ? o("WAWap").CUSTOM_STRING(T) : o("WAWap").DROP_ATTR,
+          message_association_type:
+            C != null ? o("WAWap").CUSTOM_STRING(C) : o("WAWap").DROP_ATTR,
         });
       }
     }
     function d(e) {
+      var t,
+        n,
+        r =
+          (t = e.messageContextInfo) == null ||
+          (t = t.messageAssociation) == null
+            ? void 0
+            : t.associationType;
+      return r == null ? null : (n = m.get(r)) != null ? n : null;
+    }
+    var m = new Map([
+      [
+        o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
+          .HD_IMAGE_DUAL_UPLOAD,
+        "hd_image_dual_upload",
+      ],
+    ]);
+    function p(e) {
       var t, n;
       return e.pollCreationMessage != null ||
         e.pollCreationMessageV2 != null ||
@@ -139,7 +160,7 @@ __d(
               ? o("WAWebHandleMsgCommon").POLL_TYPES.edit
               : null;
     }
-    function m(e) {
+    function _(e) {
       var t;
       return e.eventMessage != null
         ? o("WAWebHandleMsgCommon").EVENT_TYPES.creation
@@ -153,7 +174,7 @@ __d(
             ? o("WAWebHandleMsgCommon").EVENT_TYPES.edit
             : null;
     }
-    function p(e, t) {
+    function f(e, t) {
       var n =
         e.data.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
         e.data.subtype === "member_label";
@@ -169,12 +190,12 @@ __d(
           ? "group_history"
           : null;
     }
-    function _(e) {
+    function g(e) {
       var t = e != null ? e : {},
         n = t.hashedAiThreadId;
       return n != null ? n : null;
     }
-    function f(e) {
+    function h(e) {
       var t,
         n =
           e.data.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&

@@ -243,6 +243,7 @@ __d(
             a("replyCount"),
             a("associationType"),
             a("parentMsgKey"),
+            a("pairedMediaType"),
             a("statusMentioned"),
             a("viewMode"),
             a("stickers"),

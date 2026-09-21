@@ -142,20 +142,21 @@ __d(
         var e = null;
         try {
           if (((e = E()), e == null)) return;
-          ((p = e.contentWindow.String),
+          var t = e.contentWindow;
+          ((p = t == null ? void 0 : t.String),
             (_ = e.contentWindow.Function.prototype.call),
             (f = e.contentWindow.JSON.parse),
             (g = e.contentWindow.Function.prototype.toString));
-          var t = e.contentWindow.Object.getOwnPropertyDescriptor,
-            n = e.contentWindow.XMLHttpRequest.prototype,
-            o = t(n, "response"),
-            a = t(n, "responseText");
-          (o != null && o.get && (h = o.get),
-            a != null && a.get && (y = a.get));
+          var n = e.contentWindow.Object.getOwnPropertyDescriptor,
+            o = e.contentWindow.XMLHttpRequest.prototype,
+            a = n(o, "response"),
+            i = n(o, "responseText");
+          (a != null && a.get && (h = a.get),
+            i != null && i.get && (y = i.get));
           try {
-            var i,
-              l = e.contentWindow;
-            C = F(l == null || (i = l.JSON) == null ? void 0 : i.parse(m));
+            var l,
+              s = e.contentWindow;
+            C = F(s == null || (l = s.JSON) == null ? void 0 : l.parse(m));
           } catch (e) {
             C = !0;
           }

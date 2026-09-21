@@ -277,42 +277,46 @@ __d(
           })()),
           (i.$InteractiveMessageSync$p_1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a) {
-                var i = o("WATimeUtils").unixTimeMs(),
-                  l = babelHelpers.extends(
-                    { type: n },
-                    a != null ? { agmId: a } : {},
+              function* (e) {
+                var t = e.actionType,
+                  n = e.agmId,
+                  a = e.flowId,
+                  i = e.msgKey,
+                  l = o("WATimeUtils").unixTimeMs(),
+                  s = babelHelpers.extends(
+                    { type: t },
+                    n != null ? { agmId: n } : {},
                   ),
-                  s = { interactiveMessageAction: l },
-                  u = new (r("WAWebMsgKey"))({
-                    fromMe: e.fromMe,
-                    participant: e.participant,
+                  u = { interactiveMessageAction: s },
+                  c = new (r("WAWebMsgKey"))({
+                    fromMe: i.fromMe,
+                    participant: i.participant,
                     remote: o("WAWebWidFactory").createWid(
                       yield o(
                         "WAWebSyncdGetChat",
                       ).getChatJidMutationIndexForChat(
-                        e.remote,
+                        i.remote,
                         o("WAWebSyncdConst").Actions.InteractiveMessageAction,
                       ),
                     ),
-                    id: e.id,
+                    id: i.id,
                   });
                 return o("WAWebSyncdActionUtils").buildPendingMutation({
                   collection: this.collectionName,
                   indexArgs: [].concat(
-                    o("WAWebSyncdUtils").constructMsgKeySegmentsFromMsgKey(e),
-                    [t],
+                    o("WAWebSyncdUtils").constructMsgKeySegmentsFromMsgKey(i),
+                    [a],
                   ),
                   operation: o("WAWebProtobufsServerSync.pb")
                     .SyncdMutation$SyncdOperation.SET,
                   version: this.getVersion(),
-                  value: s,
-                  timestamp: i,
+                  value: u,
+                  timestamp: l,
                   action: this.getAction(),
                 });
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;
@@ -320,14 +324,14 @@ __d(
           (i.sendDisableCTAMutation = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, r) {
-                var a = yield this.$InteractiveMessageSync$p_1(
-                  e,
-                  t,
-                  o("WAWebProtobufSyncAction.pb")
+                var a = yield this.$InteractiveMessageSync$p_1({
+                  actionType: o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$InteractiveMessageAction$InteractiveMessageActionMode
                     .DISABLE_CTA,
-                  r,
-                );
+                  agmId: r,
+                  flowId: t,
+                  msgKey: e,
+                });
                 yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
                   return (m || (m = n("Promise"))).resolve();
                 });

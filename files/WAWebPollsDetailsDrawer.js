@@ -288,7 +288,7 @@ __d(
       var i;
       return (
         n[3] !== r || n[4] !== a
-          ? ((i = o("WAWebMsgGetters").getIsNewsletterMsg(r.msg)
+          ? ((i = o("WAWebMsgGetters").getIsNewsletterMsg(r.msg.unsafe())
               ? d.jsx(_, babelHelpers.extends({}, r, { ref: a }))
               : d.jsx(f, babelHelpers.extends({}, r, { ref: a }))),
             (n[3] = r),

@@ -14,13 +14,15 @@ __d(
       if (t.isDeprecated === !0) return { kind: e.DEPRECATED };
       if (t.product == null || t.product === "") return { kind: e.DEPRECATED };
       var r = o("WAWebBotProduct").botProductFromServerValue(t.product);
-      return r == null
+      return r === o("WAWebBotProduct").BotProduct.SUPPORT && t.isSynced === !0
         ? { kind: e.UNSUPPORTED, rawProduct: t.product }
-        : n(r)
-          ? t.isDeleted === !0
-            ? { kind: e.DELETED, product: r }
-            : { kind: e.SUPPORTED, product: r }
-          : { kind: e.UNSUPPORTED, rawProduct: t.product };
+        : r == null
+          ? { kind: e.UNSUPPORTED, rawProduct: t.product }
+          : n(r)
+            ? t.isDeleted === !0
+              ? { kind: e.DELETED, product: r }
+              : { kind: e.SUPPORTED, product: r }
+            : { kind: e.UNSUPPORTED, rawProduct: t.product };
     }
     function u(t) {
       return (

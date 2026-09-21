@@ -19,7 +19,10 @@ __d(
       })(),
       l = 1;
     function s(e) {
-      return (e.__BEHAVIOR_ID || (e.__BEHAVIOR_ID = l++), e.__BEHAVIOR_ID);
+      return (
+        e.__BEHAVIOR_ID == null && (e.__BEHAVIOR_ID = l++),
+        e.__BEHAVIOR_ID
+      );
     }
     var u = {
         enableBehavior: function (n) {

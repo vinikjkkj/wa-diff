@@ -11,6 +11,7 @@ __d(
       MANUS: "manus",
       HATCH: "hatch",
       THIRD_PARTY: "3p_bot",
+      SUPPORT: "wa_ias",
     });
     function l(t) {
       var n;

@@ -104,8 +104,12 @@ __d(
     function y(e, t) {
       return f(e, m.HEAD, null, t);
     }
-    var C = { head: y, get: g, post: h, request: f, VERB: m, RESP_TYPE: p };
-    l.default = C;
+    ((l.VERB = m),
+      (l.RESP_TYPE = p),
+      (l.request = f),
+      (l.get = g),
+      (l.post = h),
+      (l.head = y));
   },
   98,
 );

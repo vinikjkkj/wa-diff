@@ -21,13 +21,21 @@ __d(
         ],
       ]);
     function c(e) {
-      return u.has(e.toString());
+      var t = u.get(e.toString());
+      return t != null
+        ? t
+        : e.isSupportAgentBot()
+          ? o("WAWebBotProduct").BotProduct.SUPPORT
+          : null;
     }
     function d(e) {
-      var t = u.get(e.toString());
+      return c(e) != null;
+    }
+    function m(e) {
+      var t = c(e);
       return t == null ? null : { product: t.valueOf(), isDeprecated: !1 };
     }
-    ((l.isStaticProfile = c), (l.getStaticBotSupportInput = d));
+    ((l.isStaticProfile = d), (l.getStaticBotSupportInput = m));
   },
   98,
 );

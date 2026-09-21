@@ -32,6 +32,7 @@ __d(
       "NumberChangeNotificationBanner",
       "Initialization",
       "BotChatListShortcut",
+      "SupportAgent",
       "AgentsSettingsList",
       "PrivateReply",
       "DirectMessage",

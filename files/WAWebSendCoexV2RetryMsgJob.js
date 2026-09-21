@@ -9,13 +9,13 @@ __d(
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2HostedContactUtils",
     "WAWebCoexV2RelayEligibility",
+    "WAWebCoexV2SendContribution",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
     "WAWebMsgGetters",
     "WAWebOutgoingMessage",
     "WAWebSendMsgBotStanza",
     "WAWebSendMsgCommonApi",
-    "WAWebSendMsgCreateFanoutStanza",
     "WAWebSendMsgMetaNode",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -95,7 +95,7 @@ __d(
             ),
             h = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(i, i.id.remote),
             y = yield o(
-              "WAWebSendMsgCreateFanoutStanza",
+              "WAWebCoexV2SendContribution",
             ).genCoexV2RelayBotNodeForTargets(
               i,
               f,

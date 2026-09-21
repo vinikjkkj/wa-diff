@@ -17,6 +17,7 @@ __d(
     "WAWebVisibilityAwareTimeout",
     "WAWebVoipABPropConfig",
     "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipCallIdProvider",
     "WAWebVoipExperimentTargetSample",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitializationBarrier",
@@ -1019,6 +1020,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+                  o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield _e("acceptCall", {
                     isMicEnabled: e,
                     isCameraEnabled: t,
@@ -1106,6 +1108,7 @@ __d(
                   g != null ? g : null,
                   e,
                 ),
+                  o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield _e("joinOngoingCall", {
                     callId: e,
                     callCreatorJid: t,
@@ -1162,10 +1165,11 @@ __d(
                     ),
                     -1
                   );
-                o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   n != null ? n : null,
                   null,
-                );
+                ),
+                  o("WAWebVoipCallIdProvider").resetPendingCallId());
                 var l = yield ge("previewCallLink", {
                   token: e,
                   videoEnabled: t,
@@ -1224,10 +1228,11 @@ __d(
                     ),
                     -1
                   );
-                o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   n != null ? n : null,
                   null,
-                );
+                ),
+                  o("WAWebVoipCallIdProvider").resetPendingCallId());
                 var s = yield i;
                 return (
                   o("WAWebMLModelManager")

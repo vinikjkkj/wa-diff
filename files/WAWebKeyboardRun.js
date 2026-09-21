@@ -6,6 +6,8 @@ __d(
     "WAWebActions",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebCallCollection",
+    "WAWebCallUserJourneyInCallAction",
+    "WAWebCallUserJourneyLogger",
     "WAWebChatCollection",
     "WAWebChatPinBridge",
     "WAWebCmd",
@@ -45,6 +47,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsPrivacyMode",
     "WAWebUserPrefsScreenLock",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipMicrophonePermissionDeniedGuideLoadable.react",
     "WAWebVoipMicrophoneToggle",
@@ -531,6 +534,13 @@ __d(
     function te() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
+        (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+          o("WAWebVoipVideoStateUtils").isVideoEnabled(e.selfVideoState)
+            ? o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                .TURN_OFF_CAMERA
+            : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                .TURN_ON_CAMERA,
+        ),
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
@@ -539,16 +549,18 @@ __d(
             );
             yield t.setCallVideoMute(!n);
           }
-        })();
+        })());
     }
     function ne(e) {
-      r("WAWebCallCollection").activeCall != null &&
+      var t = r("WAWebCallCollection").activeCall;
+      if (t != null) {
+        var a = t.selfMicMuted;
         n("asyncToGeneratorRuntime")
           .asyncToGenerator(function* () {
             var t = (e == null ? void 0 : e.isDocPip) === !0,
               n = e == null ? void 0 : e.targetWindow,
               r = !1,
-              a = yield o(
+              i = yield o(
                 "WAWebVoipMicrophoneToggle",
               ).toggleActiveCallMicrophone({
                 onPermissionPrompt:
@@ -563,9 +575,18 @@ __d(
                         );
                       }
                     : void 0,
+                onToggleStarted: function () {
+                  return o("WAWebCallUserJourneyInCallAction").logInCallAction(
+                    a
+                      ? o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                          .TAP_UNMUTE
+                      : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                          .TAP_MUTE,
+                  );
+                },
                 targetWindow: t ? null : n,
               });
-            a === "permission_denied" && re(n, r);
+            i === "permission_denied" && re(n, r);
           })()
           .catch(function (e) {
             o("WALogger")
@@ -578,6 +599,7 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("voip-keyboard-microphone-toggle-failed");
           });
+      }
     }
     function re(e, t) {
       var n =
@@ -608,30 +630,47 @@ __d(
           if ((t == null ? void 0 : t.type) === "web") {
             var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               r = e.isHandRaisedForParticipant(n);
-            yield t.raiseHand(!r);
+            (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+              r
+                ? o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                    .TAP_LOWER_HAND
+                : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                    .TAP_RAISE_HAND,
+            ),
+              yield t.raiseHand(!r));
           }
         })();
     }
     function ie() {
       var e = r("WAWebCallCollection").activeCall;
-      e != null &&
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if ((t == null ? void 0 : t.type) === "web") {
-            var n = e.isSelfScreenSharing();
-            n ? yield t.stopScreenShare() : yield t.startScreenShare();
-          }
-        })();
+      if (e != null) {
+        var t = e.isSelfScreenSharing();
+        (!t &&
+          e.isVideo === !0 &&
+          o("WAWebVoipCallStateUtils").isCallActive(e.getState()) &&
+          o("WAWebCallUserJourneyInCallAction").logInCallAction(
+            o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+              .START_SCREEN_SHARE,
+          ),
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            (e == null ? void 0 : e.type) === "web" &&
+              (t ? yield e.stopScreenShare() : yield e.startScreenShare());
+          })());
+      }
     }
     function le() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
+        (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+          o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE.END_CALL,
+        ),
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           yield e == null
             ? void 0
             : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0);
-        })();
+        })());
     }
     function se() {
       if (o("WAWebPrivacyModeGating").isPrivacyScreenEnabled()) {

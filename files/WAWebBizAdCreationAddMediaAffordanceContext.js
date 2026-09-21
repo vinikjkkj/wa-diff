@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationAddMediaAffordanceContext",
-  ["WAWebNoop", "react", "react-compiler-runtime"],
+  ["WAWebNoop", "WAWebNullFunc", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -13,9 +13,7 @@ __d(
       _ = u.useRef,
       f = u.useState,
       g = {
-        getFocusTarget: function () {
-          return null;
-        },
+        getFocusTarget: o("WAWebNullFunc").returnNull,
         isAddMediaBusy: !1,
         isCreativeCtaVisible: null,
         openMediaPicker: function () {},

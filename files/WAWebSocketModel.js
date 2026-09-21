@@ -78,16 +78,18 @@ __d(
       A,
       F,
       O,
-      B = r("requireDeferred")("WAWebClearAppStates").__setRef(
+      B,
+      W = r("requireDeferred")("WAWebClearAppStates").__setRef(
         "WAWebSocketModel",
       ),
-      W = [
-        (O = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
-        O.LogoutReason.WebFailEncSalt,
-        O.LogoutReason.WebFailOfflineResume,
-        O.LogoutReason.WebFailStorageInitialization,
+      q = [
+        (B = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
+        B.LogoutReason.WebFailEncSalt,
+        B.LogoutReason.WebFailOfflineResume,
+        B.LogoutReason.WebFailStorageInitialization,
       ],
-      q = (function (t) {
+      U = 5e3,
+      V = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -115,7 +117,7 @@ __d(
           (i.initialize = function () {
             var t = this,
               a;
-            ((this.clearAppStatesDeferred = B.load()),
+            ((this.clearAppStatesDeferred = W.load()),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
@@ -245,25 +247,24 @@ __d(
           (i.clearCredentialsAndStoredData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                if (
-                  (o("WAWebBackendApi").frontendFireAndForget(
-                    "triggerLogoutDiagnosticFromBridge",
-                    { reason: e },
-                  ),
-                  r("WAWebEnvironment").isWindows)
-                ) {
-                  var a,
-                    i =
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "triggerLogoutDiagnosticFromBridge",
+                  { reason: e },
+                );
+                var a = !1;
+                if (r("WAWebEnvironment").isWindows) {
+                  var i,
+                    l =
                       n("cr:17219") == null ||
-                      (a = n("cr:17219").getWindowsBridge(
+                      (i = n("cr:17219").getWindowsBridge(
                         r("WAWebWindowsHybridBridgeInitiator").WAWebSocketModel,
                       )) == null
                         ? void 0
-                        : a.getClientKeyBridge();
-                  if (i != null)
+                        : i.getClientKeyBridge();
+                  if (l != null)
                     try {
                       yield o("WAPromiseTimeout").promiseTimeout(
-                        i.clearClientKey(),
+                        l.clearClientKey(),
                         5e3,
                       );
                     } catch (e) {
@@ -279,15 +280,17 @@ __d(
                         .sendLogs("native-clear-credentials-failed");
                     }
                 }
-                var l = !1;
-                if (
-                  (e != null && W.includes(e) && (l = !0),
-                  this.$SocketImpl$p_4(),
-                  (l = yield this.clearCredentials()),
-                  this.$SocketImpl$p_6())
-                ) {
-                  l = !0;
-                  var s = o("WALogger")
+                (e != null && q.includes(e) && (a = !0),
+                  this.$SocketImpl$p_4());
+                var s = z("clear_credentials", e);
+                try {
+                  a = yield this.clearCredentials();
+                } finally {
+                  self.clearTimeout(s);
+                }
+                if (this.$SocketImpl$p_6()) {
+                  a = !0;
+                  var u = o("WALogger")
                     .ERROR(
                       _ ||
                         (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -296,7 +299,7 @@ __d(
                     )
                     .tags("logout");
                   r("gkx")("26258") ||
-                    s.sendLogs("Logout clearCredentials failed");
+                    u.sendLogs("Logout clearCredentials failed");
                 }
                 (o("WAWebSubscribePushManagerAction").unsubscribePushManager(),
                   o("WAWebBackendApi").frontendFireAndForget(
@@ -304,10 +307,11 @@ __d(
                     { forceUnregister: !0 },
                   ),
                   this.$SocketImpl$p_4());
+                var c = z("destroy_storage", e);
                 try {
                   yield o("WAWebSocketLogoutStorageUtils").destroyStorage();
                 } catch (e) {
-                  ((l = !0),
+                  ((a = !0),
                     r("gkx")("26258")
                       ? o("WALogger")
                           .ERROR(
@@ -328,11 +332,13 @@ __d(
                           .catching(r("getErrorSafe")(e))
                           .tags("logout")
                           .sendLogs("Logout destroyStorage failed"));
+                } finally {
+                  self.clearTimeout(c);
                 }
                 (o("WAWebABPropsCache").clearABPropConfigs(),
                   o("WAWebGroupABPropsCache").clearGroupABPropConfigs(),
-                  l || this.$SocketImpl$p_5(),
-                  o("WAWebReloadAfterLogout").reloadAfterLogout(l, e, t));
+                  a || this.$SocketImpl$p_5(),
+                  o("WAWebReloadAfterLogout").reloadAfterLogout(a, e, t));
               },
             );
             function t(t, n) {
@@ -392,7 +398,7 @@ __d(
                   "ws2:user logged out",
                 ])),
             );
-            var i = (F || (F = n("Promise"))).resolve(),
+            var i = (O || (O = n("Promise"))).resolve(),
               l = 0,
               s = 20,
               u = Math.min(
@@ -585,7 +591,7 @@ __d(
                 o("WAWebAddMeContactAction").addMeToContacts(e)
               );
             }
-            return (F || (F = n("Promise"))).resolve();
+            return (O || (O = n("Promise"))).resolve();
           }),
           (i.clearCredentials = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -639,7 +645,7 @@ __d(
                       .sendLogs("clear_session_app_state");
               }
               try {
-                yield H();
+                yield j();
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
@@ -672,15 +678,34 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      U = o("WAWebBaseModel").defineModel(q),
-      V = new U();
-    function H() {
-      return G.apply(this, arguments);
+      H = o("WAWebBaseModel").defineModel(V),
+      G = new H();
+    function z(e, t) {
+      return self.setTimeout(function () {
+        var n = o("WALogger")
+          .ERROR(
+            F ||
+              (F = babelHelpers.taggedTemplateLiteralLoose([
+                "logout cleanup stalled: stage=",
+                ", reason=",
+                ", elapsed_threshold_ms=",
+                "",
+              ])),
+            e,
+            t != null ? t : "unknown",
+            U,
+          )
+          .tags("logout");
+        r("gkx")("26258") || n.sendLogs("logout-cleanup-stalled");
+      }, U);
     }
-    function G() {
+    function j() {
+      return K.apply(this, arguments);
+    }
+    function K() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (F || (F = n("Promise"))).allSettled([
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (O || (O = n("Promise"))).allSettled([
             r("WAWebDeleteAllCacheStorage")(),
             o("WAWebMediaStore").LruMediaStore.clear(),
           ]);
@@ -691,10 +716,10 @@ __d(
                 : r("err")(String(e.reason));
           });
         })),
-        G.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    l.Socket = V;
+    l.Socket = G;
   },
   98,
 );

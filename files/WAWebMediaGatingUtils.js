@@ -211,40 +211,35 @@ __d(
     }
     function b() {
       return o("WAWebABProps").getABPropConfigValue(
-        "media_viewer_accelerated_playback_enabled",
-      );
-    }
-    function v() {
-      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_video_comet_video_player_enabled",
       );
     }
-    function S() {
+    function v() {
       return r("justknobx")._("1920");
     }
-    function R() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_download_mimetype_check_block_enabled",
       );
     }
-    function L() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
-    function E() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "media_quality_auto_download_settings_enabled",
       );
     }
-    function k() {
+    function E() {
       var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
       return e ===
         o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
-        !E()
+        !L()
         ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
             .STANDARD
         : e;
     }
-    function I() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
@@ -260,14 +255,13 @@ __d(
       (l.shouldUseWasmMediaWorkerForFile = h),
       (l.isThumbnailGenerationForMsgOnServerEnabled = y),
       (l.isThumbnailGenerationOnServerEnabledForMediaType = C),
-      (l.isVideoPlaybackSpeedEnabled = b),
-      (l.isVideoCometVideoPlayerEnabled = v),
-      (l.isDownloadMimeTypeCheckLogEnabled = S),
-      (l.isDownloadMimeTypeCheckBlockEnabled = R),
-      (l.isHdImageDualUploadConsumptionEnabled = L),
-      (l.isMediaAutoDownloadQualityAutoEnabled = E),
-      (l.resolveEffectiveAutoDownloadMediaQuality = k),
-      (l.getHQImageThumbnailInChatScans = I));
+      (l.isVideoCometVideoPlayerEnabled = b),
+      (l.isDownloadMimeTypeCheckLogEnabled = v),
+      (l.isDownloadMimeTypeCheckBlockEnabled = S),
+      (l.isHdImageDualUploadConsumptionEnabled = R),
+      (l.isMediaAutoDownloadQualityAutoEnabled = L),
+      (l.resolveEffectiveAutoDownloadMediaQuality = E),
+      (l.getHQImageThumbnailInChatScans = k));
   },
   98,
 );

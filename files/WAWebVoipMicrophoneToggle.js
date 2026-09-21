@@ -21,13 +21,17 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e === void 0 ? {} : e,
             n = t.onPermissionPrompt,
-            r = t.targetWindow,
-            o = d();
-          if (o == null) return "cancelled";
+            r = t.onToggleStarted,
+            o = t.targetWindow,
+            a = d();
+          if (a == null) return "cancelled";
           try {
-            return yield m(o, { onPermissionPrompt: n, targetWindow: r });
+            return (
+              r == null || r(),
+              yield m(a, { onPermissionPrompt: n, targetWindow: o })
+            );
           } finally {
-            o.toggleRequest.finish();
+            a.toggleRequest.finish();
           }
         })),
         c.apply(this, arguments)

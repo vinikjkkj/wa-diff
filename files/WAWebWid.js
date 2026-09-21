@@ -299,12 +299,29 @@ __d(
           (n.isSupportAccount = function () {
             return this.isLid()
               ? o("WAWebABPropsSupportLid").getIsWaSupportLid(this.user)
-              : r("WAWebABPropsSupportGroup")(this.user);
+              : this.isFbidBot()
+                ? o("WAWebABPropsSupportLid").getIsWaSupportBotFbid(this.user)
+                : r("WAWebABPropsSupportGroup")(this.user);
           }),
           (n.isCAPISupportAccount = function () {
             return this.isLid()
               ? o("WAWebABPropsSupportLid").getIsWaCAPISupportLid(this.user)
-              : r("WAWebABPropsCAPISupportNumber")(this.user);
+              : this.isFbidBot()
+                ? o("WAWebABPropsSupportLid").getIsWaCAPISupportBotFbid(
+                    this.user,
+                  )
+                : r("WAWebABPropsCAPISupportNumber")(this.user);
+          }),
+          (n.isSupportAgentBot = function () {
+            return this.isFbidBot() && this.isSupportAccount();
+          }),
+          (n.isPaymentSupportAgentBot = function () {
+            return (
+              this.isFbidBot() &&
+              o("WAWebABPropsSupportLid").getIsWaPaymentSupportBotFbid(
+                this.user,
+              )
+            );
           }),
           (n.isNewsletter = function () {
             return this.server === "newsletter";
@@ -446,28 +463,44 @@ __d(
                 : !1;
           }),
           (t.isSupportAccount = function (n) {
-            return o("WATypeUtils").isString(n)
-              ? t.isStringLid(n)
-                ? o("WAWebABPropsSupportLid").getIsWaSupportLid(n.split("@")[0])
-                : r("WAWebABPropsSupportGroup")(n.split("@")[0])
-              : n instanceof t
-                ? n.isLid()
-                  ? o("WAWebABPropsSupportLid").getIsWaSupportLid(n.user)
-                  : n.isSupportAccount()
-                : !1;
+            if (o("WATypeUtils").isString(n)) {
+              if (t.isStringLid(n))
+                return o("WAWebABPropsSupportLid").getIsWaSupportLid(
+                  n.split("@")[0],
+                );
+              if (t.isFbidBot(n)) {
+                var e = E(n);
+                return (
+                  e != null &&
+                  o("WAWebABPropsSupportLid").getIsWaSupportBotFbid(e)
+                );
+              }
+              return r("WAWebABPropsSupportGroup")(n.split("@")[0]);
+            } else if (n instanceof t)
+              return n.isLid()
+                ? o("WAWebABPropsSupportLid").getIsWaSupportLid(n.user)
+                : n.isSupportAccount();
+            return !1;
           }),
           (t.isCAPISupportAccount = function (n) {
-            return o("WATypeUtils").isString(n)
-              ? t.isStringLid(n)
-                ? o("WAWebABPropsSupportLid").getIsWaCAPISupportLid(
-                    n.split("@")[0],
-                  )
-                : r("WAWebABPropsCAPISupportNumber")(n.split("@")[0])
-              : n instanceof t
-                ? n.isLid()
-                  ? o("WAWebABPropsSupportLid").getIsWaCAPISupportLid(n.user)
-                  : n.isCAPISupportAccount()
-                : !1;
+            if (o("WATypeUtils").isString(n)) {
+              if (t.isStringLid(n))
+                return o("WAWebABPropsSupportLid").getIsWaCAPISupportLid(
+                  n.split("@")[0],
+                );
+              if (t.isFbidBot(n)) {
+                var e = E(n);
+                return (
+                  e != null &&
+                  o("WAWebABPropsSupportLid").getIsWaCAPISupportBotFbid(e)
+                );
+              }
+              return r("WAWebABPropsCAPISupportNumber")(n.split("@")[0]);
+            } else if (n instanceof t)
+              return n.isLid()
+                ? o("WAWebABPropsSupportLid").getIsWaCAPISupportLid(n.user)
+                : n.isCAPISupportAccount();
+            return !1;
           }),
           (t.isOfficialBizAccount = function (n) {
             return o("WATypeUtils").isString(n)
@@ -498,6 +531,12 @@ __d(
       })();
     function L(e) {
       return R.isUser(e) && !R.isPSA(e) && !R.isBot(e);
+    }
+    function E(e) {
+      var t;
+      return (t = o("WAWebWidValidator").validateAndGetParts(e)) == null
+        ? void 0
+        : t.userPart;
     }
     l.default = R;
   },

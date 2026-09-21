@@ -131,7 +131,8 @@ __d(
             }),
             contextInfo: void 0,
           };
-        var S = v();
+        var S = v(),
+          R = p.length > 0 ? { hydratedButtons: p } : {};
         return {
           msgData: babelHelpers.extends(
             {},
@@ -149,7 +150,7 @@ __d(
                 ? o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(g)
                 : S.title,
             },
-            p.length > 0 && { hydratedButtons: p },
+            R,
           ),
           contextInfo: void 0,
         };

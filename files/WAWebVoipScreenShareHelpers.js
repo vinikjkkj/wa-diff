@@ -5,6 +5,8 @@ __d(
     "Promise",
     "WALogger",
     "WAWebCallCollection",
+    "WAWebCallUserJourneyInCallAction",
+    "WAWebCallUserJourneyLogger",
     "WAWebVoipActivityTracker",
     "WAWebVoipScreenShareConfirmPopup.react",
     "WAWebVoipScreenShareSurfaceState",
@@ -135,8 +137,12 @@ __d(
             yield v();
             return;
           }
-          (a = r("WAWebCallCollection").activeCall) == null ||
-            a.setSelfScreenShareRejected(!1);
+          (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+            o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+              .START_SCREEN_SHARE,
+          ),
+            (a = r("WAWebCallCollection").activeCall) == null ||
+              a.setSelfScreenShareRejected(!1));
           var S = !(
             (i =
               (l = r("WAWebCallCollection").activeCall) == null

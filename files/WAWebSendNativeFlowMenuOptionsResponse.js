@@ -55,7 +55,10 @@ __d(
               n,
               o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
             ),
-            u = o("WAWebBotBaseGating").isBotEnabled() && n.id.isBot(),
+            u =
+              n.id.isBot() &&
+              (o("WAWebBotBaseGating").isBotEnabled() ||
+                n.id.isSupportAgentBot()),
             c = u ? self.crypto.getRandomValues(new Uint8Array(32)) : void 0,
             d = u
               ? (t = o("WAWebBotProfileCollection").BotProfileCollection.get(

@@ -43,7 +43,7 @@ __d(
             this.inProgress = !0;
             var i = new AbortController(),
               l = o("WAPromiseTimeout").promiseTimeout(
-                r("WAWebXHR").get({ signal: i.signal, url: a }),
+                o("WAWebXHR").get({ signal: i.signal, url: a }),
                 c,
                 "ImgRetryTimeout",
               );

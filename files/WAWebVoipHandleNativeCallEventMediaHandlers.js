@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAThrottle",
     "WAWebBackendApi",
+    "WAWebCallUserJourneyLogger",
     "WAWebUserPrefsMeUser",
     "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipEncodeTargetFpsState",
@@ -64,13 +65,16 @@ __d(
             var t = yield e.getCallInfo();
             if (t !== "") {
               var n = e.parsers.parseCallInfo(t);
-              o("WAWebBackendApi").frontendFireAndForget(
-                "handleVoipSettingsUpdate",
-                {
-                  callId: n.callId,
-                  isDualStreamSsEnabled: n.isDualStreamSsEnabled,
-                },
-              );
+              (o(
+                "WAWebCallUserJourneyLogger",
+              ).CallUserJourneyLogger.setVideoCall(n.videoEnabled === !0),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "handleVoipSettingsUpdate",
+                  {
+                    callId: n.callId,
+                    isDualStreamSsEnabled: n.isDualStreamSsEnabled,
+                  },
+                ));
             }
           }
         })),

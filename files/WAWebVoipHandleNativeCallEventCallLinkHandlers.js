@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAThrottle",
     "WAWebBackendApi",
+    "WAWebCallUserJourneyLogger",
     "WAWebCoreActionsODS",
     "WAWebUserPrefsMeUser",
     "WAWebVoipP2PConnectionManager",
@@ -62,16 +63,35 @@ __d(
             ),
             t.type === "web")
           ) {
-            var a, i;
-            o("WAWebBackendApi").frontendFireAndForget(
+            var a, i, l, u;
+            (o("WAWebBackendApi").frontendFireAndForget(
               "handleGroupInfoChangedGroupCall",
               { groupInfoChangedPayload: n },
-            );
-            var l =
-                (a =
-                  (i = n.CallParticipants) == null
+            ),
+              o(
+                "WAWebCallUserJourneyLogger",
+              ).CallUserJourneyLogger.setGroupCall(!0));
+            var c =
+              (a =
+                (i = n.CallParticipants) == null
+                  ? void 0
+                  : i.filter(function (e) {
+                      return (
+                        e.outcome ===
+                        o("WAWebVoipWaCallEnums").CallParticipantState.Connected
+                      );
+                    }).length) != null
+                ? a
+                : 0;
+            c > 0 &&
+              o(
+                "WAWebCallUserJourneyLogger",
+              ).CallUserJourneyLogger.setConnectedParticipants(c);
+            var d =
+                (l =
+                  (u = n.CallParticipants) == null
                     ? void 0
-                    : i
+                    : u
                         .filter(function (e) {
                           return (
                             e.outcome ===
@@ -82,19 +102,19 @@ __d(
                         .map(function (e) {
                           return e.participant.toString();
                         })) != null
-                  ? a
+                  ? l
                   : b,
-              u = l.some(function (e) {
+              m = d.some(function (e) {
                 return !k.has(e);
               });
-            if (u) {
-              var c = yield t.getCallInfo();
-              if (c !== "") {
-                var d = t.parsers.parseCallInfo(c),
-                  m = d.linkToken != null && d.linkToken !== "";
-                m &&
-                  d.videoEnabled &&
-                  (l.forEach(function (e) {
+            if (m) {
+              var p = yield t.getCallInfo();
+              if (p !== "") {
+                var _ = t.parsers.parseCallInfo(p),
+                  f = _.linkToken != null && _.linkToken !== "";
+                f &&
+                  _.videoEnabled &&
+                  (d.forEach(function (e) {
                     return k.add(e);
                   }),
                   E != null && window.clearTimeout(E),

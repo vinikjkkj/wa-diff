@@ -285,6 +285,11 @@ __d(
             ],
           });
         case "support_system_message":
+          return d(
+            o("WAWebMsgGetters").getIsIAS(e),
+            o("WAWebMsgGetters").getIsCAPISupport(e) ||
+              t.remote.isSupportAgentBot(),
+          );
         case "biz_privacy_mode_init_fb":
         case "biz_privacy_mode_to_fb":
           return d(

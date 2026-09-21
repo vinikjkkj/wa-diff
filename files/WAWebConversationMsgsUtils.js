@@ -20,6 +20,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d(e) {
+      var t;
+      return (t = e.getBubbleElement == null ? void 0 : e.getBubbleElement()) !=
+        null
+        ? t
+        : e.getContainerElement();
+    }
+    function m(e) {
       return e == null
         ? null
         : e.key != null
@@ -28,7 +35,7 @@ __d(
             })
           : e;
     }
-    function m(e) {
+    function p(e) {
       var t = e.msgLoadState;
       return {
         noEarlierMsgs: t.noEarlierMsgs,
@@ -39,7 +46,7 @@ __d(
         isRepairingMsgHistory: t.isRepairingMsgHistory,
       };
     }
-    function p(t, n, r, a) {
+    function _(t, n, r, a) {
       var i = o("WAWebThreadModelResolver").resolveThreadOrChat(t, a),
         l =
           r.noEarlierMsgs &&
@@ -71,11 +78,11 @@ __d(
         l
       );
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = e.chat,
         r = e.focusCtx,
         a = e.msgCollection,
-        i = d(r) || f(e, t),
+        i = m(r) || g(e, t),
         l = i == null ? void 0 : i.msg,
         s = l == null ? void 0 : l.id;
       return {
@@ -89,13 +96,13 @@ __d(
         focusCtx: i,
       };
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = e.chat,
         a = e.focusCtx,
         i = e.msgCollection,
         l;
       if (
-        (n.unreadCount ? (l = n.unreadCount) : (l = t), !((a && !g(e)) || !l))
+        (n.unreadCount ? (l = n.unreadCount) : (l = t), !((a && !h(e)) || !l))
       ) {
         var d = i
             .filter(function (e) {
@@ -155,14 +162,14 @@ __d(
         };
       }
     }
-    function g(e) {
+    function h(e) {
       var t = o("WAWebThreadModelResolver").resolveThreadOrChat(
         e.chat,
         e.threadId,
       );
       return t.msgs === e.msgCollection;
     }
-    function h(e) {
+    function y(e) {
       var t =
         o("WAWebContactGetters").getIsUser(e) ||
         o("WAWebContactGetters").getIsGroup(e) ||
@@ -175,7 +182,7 @@ __d(
             ) === !0
         : !1;
     }
-    function y(e) {
+    function C(e) {
       var t = e.msg,
         n = e.msgCollection,
         r = e.threadId;
@@ -189,14 +196,15 @@ __d(
             o("WAWebThreadMsgUtils").isMsgRootOfThread(t, r)
         : !1;
     }
-    ((l.validateFocusCtx = d),
-      (l.getMsgLoadState = m),
-      (l.noEarlierMsgStateIsIncorrect = p),
-      (l.getInitialCursorAndFocusContext = _),
-      (l.getUnreadFocusCtx = f),
-      (l.isMostRecentCMC = g),
-      (l.isSimplifiedChatConversationMenuEnabled = h),
-      (l.isMsgVisibleInConversation = y));
+    ((l.getMessageAnchor = d),
+      (l.validateFocusCtx = m),
+      (l.getMsgLoadState = p),
+      (l.noEarlierMsgStateIsIncorrect = _),
+      (l.getInitialCursorAndFocusContext = f),
+      (l.getUnreadFocusCtx = g),
+      (l.isMostRecentCMC = h),
+      (l.isSimplifiedChatConversationMenuEnabled = y),
+      (l.isMsgVisibleInConversation = C));
   },
   98,
 );

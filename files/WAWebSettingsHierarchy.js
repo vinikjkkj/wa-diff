@@ -135,6 +135,7 @@ __d(
                 "developer_group_abprops",
                 "developer_infra_settings",
                 "developer_www_settings",
+                "developer_labyrinth_debug",
               ],
             },
           ],
@@ -818,6 +819,20 @@ __d(
                     ),
                     title: o("WAWebSettingsFBT").developerWWWSettingsTitle,
                     testid: "li-developer-www",
+                    wamName: o("WAWebWamEnumSettingsItemType")
+                      .SETTINGS_ITEM_TYPE.DEVELOPER,
+                    isDevOnly: !0,
+                  },
+                  {
+                    step: o("WAWebSettingsConst").SettingsSteps
+                      .DeveloperLabyrinthDebug,
+                    id: "developer_labyrinth_debug",
+                    isAvailable: r("gkx")("16539"),
+                    searchCriteria: String(
+                      o("WAWebSettingsFBT").developerLabyrinthDebugTitle(),
+                    ),
+                    title: o("WAWebSettingsFBT").developerLabyrinthDebugTitle,
+                    testid: "li-developer-labyrinth-debug",
                     wamName: o("WAWebWamEnumSettingsItemType")
                       .SETTINGS_ITEM_TYPE.DEVELOPER,
                     isDevOnly: !0,

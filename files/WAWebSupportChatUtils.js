@@ -2,7 +2,12 @@ __d(
   "WAWebSupportChatUtils",
   [
     "WALogger",
+    "WAWebABPropsSupportLid",
+    "WAWebChatEntryPoint",
+    "WAWebCmd",
+    "WAWebComposeBoxActions",
     "WAWebDrawerManager",
+    "WAWebFindChatAction",
     "WAWebModalManager",
     "WAWebOpenChatFlow.react",
     "WAWebSupportAIInfoNuxLoadable",
@@ -11,6 +16,7 @@ __d(
     "WAWebWamEnumSupportAiEventType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "err",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -74,7 +80,40 @@ __d(
         p.apply(this, arguments)
       );
     }
-    ((l.openSupportAINux = d), (l.openSupportChat = m));
+    function _() {
+      var e = o("WAWebABPropsSupportLid").getWaSupportAgentFbid();
+      return e == null ? null : o("WAWebWidFactory").createWid(e + "@bot");
+    }
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+              e,
+              "openSupportAgentChat",
+              { signal: t },
+            ),
+            a = n.chat;
+          if ((t == null ? void 0 : t.aborted) !== !0) {
+            var i = yield o("WAWebCmd").Cmd.openChatFromUnread({
+              chat: a,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                .SupportAgent,
+            });
+            if (!i) throw r("err")("support agent chat did not open");
+            (o("WAWebComposeBoxActions").ComposeBoxActions.focus(a),
+              o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    ((l.openSupportAINux = d),
+      (l.openSupportChat = m),
+      (l.getSupportAgentChatWid = _),
+      (l.openSupportAgentChat = f));
   },
   98,
 );

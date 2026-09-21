@@ -119,7 +119,8 @@ __d(
               return r("WAWebNotificationMuteReason").IgnoreBotMsgs;
             if (e.id.isBot()) {
               if (
-                !o("WAWebBotBaseGating").isBotEnabled() ||
+                (!o("WAWebBotBaseGating").isBotEnabled() &&
+                  !e.id.isSupportAgentBot()) ||
                 this.msg.botMsgBodyType ===
                   o("WAWebBotTypes").BotMsgBodyType.VOICE
               )

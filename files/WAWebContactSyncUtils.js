@@ -7,6 +7,7 @@ __d(
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
+    "uniqueBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -61,7 +62,21 @@ __d(
         n
       );
     }
-    function d(e, t) {
+    function d(e) {
+      return r("uniqueBy")(
+        e
+          .filter(function (e) {
+            return e.isRegularUserPn() && !e.isHostedLid();
+          })
+          .map(function (e) {
+            return o("WAWebWidFactory").asUserWidOrThrow(e);
+          }),
+        function (e) {
+          return e.toString();
+        },
+      );
+    }
+    function m(e, t) {
       if (e.length === 0) return t;
       var n = new Map();
       (t.forEach(function (e) {
@@ -113,7 +128,8 @@ __d(
       return t;
     }
     ((l.constructUsyncDeltaQuery = c),
-      (l.backfillMissingDeviceSyncEntries = d));
+      (l.getDeviceSyncBackfillPnWids = d),
+      (l.backfillMissingDeviceSyncEntries = m));
   },
   98,
 );

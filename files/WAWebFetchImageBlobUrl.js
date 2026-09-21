@@ -20,8 +20,8 @@ __d(
           var a;
           try {
             a = yield o("WAPromiseTimeout").promiseTimeout(
-              r("WAWebXHR").get({
-                responseType: r("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
+              o("WAWebXHR").get({
+                responseType: o("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
                 signal: n,
                 url: t,
               }),

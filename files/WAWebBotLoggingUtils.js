@@ -351,6 +351,7 @@ __d(
           e === o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Vcard ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.AgentsSettingsList ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.SupportAgent ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||
           e ===

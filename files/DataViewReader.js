@@ -64,7 +64,7 @@ __d(
           return (t === void 0 && (t = !1), this.$2.getInt32(this.skip(4), t));
         }),
         (t.readZeroTerminatedString = function (t) {
-          for (var e = "", n = 0, r; n++ < t && (r = this.readUint8()); )
+          for (var e = "", n = 0, r = 0; n++ < t && (r = this.readUint8()); )
             e += String.fromCharCode(r);
           return e;
         }),

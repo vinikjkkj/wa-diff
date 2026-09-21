@@ -49,6 +49,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.Vcard:
         case o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AgentsSettingsList:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SupportAgent:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab:

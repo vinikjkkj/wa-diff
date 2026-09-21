@@ -308,7 +308,8 @@ __d(
                 var U = yield R(S, g);
                 if (
                   (U != null && S.unshift(U),
-                  r("WAWebWid").isCAPISupportAccount(g))
+                  r("WAWebWid").isCAPISupportAccount(g) &&
+                    !g.isSupportAgentBot())
                 ) {
                   var V = S.some(function (e) {
                     return e.shouldShowSupportAISystemMessage === !0;

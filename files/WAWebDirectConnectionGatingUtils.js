@@ -50,7 +50,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          if (u() || !c(t, n) || !r) return !1;
+          if (u() || !c(t, n) || r == null || r === "") return !1;
           if (!s())
             return (
               o("WALogger").WARN(

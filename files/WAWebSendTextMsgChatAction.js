@@ -287,7 +287,11 @@ __d(
               (m = V.invokedBotWid) != null &&
               m.isBot()
             ),
-            Z = !!(o("WAWebBotBaseGating").isBotEnabled() && V.to.isBot()),
+            Z = !!(
+              V.to.isBot() &&
+              (o("WAWebBotBaseGating").isBotEnabled() ||
+                V.to.isSupportAgentBot())
+            ),
             ee =
               o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
               o(

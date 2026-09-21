@@ -1,21 +1,14 @@
 __d(
   "WAWebDualUploadsAutoDownloadPolicy",
   [
+    "WAWebDualUploadsAssociationTypes",
     "WAWebMediaAutoDownloadQuality.flow",
     "WAWebMediaGatingUtils",
     "WAWebMessageAssociation.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new Set([
-      o("WAWebMessageAssociation.flow").MessageAssociationType
-        .HD_IMAGE_DUAL_UPLOAD,
-      o("WAWebMessageAssociation.flow").MessageAssociationType
-        .HD_VIDEO_DUAL_UPLOAD,
-      o("WAWebMessageAssociation.flow").MessageAssociationType
-        .HEVC_VIDEO_DUAL_UPLOAD,
-    ]);
-    function s(e) {
-      return u(e)
+    function e(e) {
+      return s(e)
         ? e.unsafe().associationType !==
             o("WAWebMessageAssociation.flow").MessageAssociationType
               .HD_IMAGE_DUAL_UPLOAD ||
@@ -48,15 +41,16 @@ __d(
             )
         : !0;
     }
-    function u(t) {
-      var n = t.unsafe();
+    function s(e) {
+      var t = e.unsafe();
       return (
-        n.parentMsgKey != null &&
-        n.associationType != null &&
-        e.has(n.associationType)
+        t.parentMsgKey != null &&
+        o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(
+          t.associationType,
+        )
       );
     }
-    ((l.shouldAutoDownloadAssociatedChild = s), (l.isDualUploadHdChildMsg = u));
+    ((l.shouldAutoDownloadAssociatedChild = e), (l.isDualUploadHdChildMsg = s));
   },
   98,
 );

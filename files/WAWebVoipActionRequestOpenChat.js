@@ -1,6 +1,8 @@
 __d(
   "WAWebVoipActionRequestOpenChat",
   [
+    "WAWebCallUserJourneyInCallAction",
+    "WAWebCallUserJourneyLogger",
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebDrawerManager",
@@ -21,7 +23,14 @@ __d(
             });
           }));
     }
-    l.requestOpenChat = e;
+    function s(t) {
+      t != null &&
+        (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+          o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE.OPEN_CHAT,
+        ),
+        e(t));
+    }
+    ((l.requestOpenChat = e), (l.openChatFromCall = s));
   },
   98,
 );

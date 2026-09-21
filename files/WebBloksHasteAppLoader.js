@@ -20,7 +20,7 @@ __d(
           (o.makePostRequest = function (n, o) {
             var t =
               this.$WebBloksHasteAppLoader$p_2 != null
-                ? this.$WebBloksHasteAppLoader$p_2()
+                ? this.$WebBloksHasteAppLoader$p_2(o)
                 : null;
             return r("webBloksFetchJson")(
               new (e || (e = r("URI")))(n)

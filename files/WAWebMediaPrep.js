@@ -335,7 +335,10 @@ __d(
               "WAWebMessagePluginGenerateReportingTokenContent",
             ).isMsgTypeReportingTokenCompatible(M) &&
             (N = !0);
-          var w = o("WAWebBotBaseGating").isBotEnabled() && i.id.isBot();
+          var w =
+            i.id.isBot() &&
+            (o("WAWebBotBaseGating").isBotEnabled() ||
+              i.id.isSupportAgentBot());
           (w && (N = !0),
             N && (P = self.crypto.getRandomValues(new Uint8Array(32))));
           var A = babelHelpers.extends(
@@ -374,6 +377,7 @@ __d(
               viewMode: s.viewMode,
               parentMsgKey: s.parentMsgKey,
               associationType: s.associationType,
+              pairedMediaType: s.pairedMediaType,
               isQuestion: s.isQuestion,
               questionReplyQuotedMessage: s.questionReplyQuotedMessage,
               interactiveAnnotations: s.interactiveAnnotations,

@@ -246,6 +246,7 @@ __d(
               !(
                 a.id.isBot() &&
                 !o("WAWebBotUtils").isBotChannelFBID(a.id) &&
+                !a.id.isSupportAgentBot() &&
                 !o("WAWebBotGating").isMediaInputEnabledForAssistantBotChat(
                   a.id,
                 ) &&

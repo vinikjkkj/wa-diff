@@ -54,10 +54,11 @@ __d(
       f,
       g,
       h,
-      y = 20,
-      C = 5,
-      b = 100;
-    function v(e, t) {
+      y,
+      C = 20,
+      b = 5,
+      v = 100;
+    function S(e, t) {
       return e.reduce(
         function (e, n) {
           var r,
@@ -81,19 +82,19 @@ __d(
         { chats: [], newsletters: [] },
       );
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
     function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebApiChat").getAllChatsDeserialized();
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      var n = v(e, t),
+    function E(e, t) {
+      var n = S(e, t),
         a = n.chats,
         i = n.newsletters;
       return (
@@ -102,12 +103,12 @@ __d(
         { chats: a, newsletters: i }
       );
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebChatCollection").ChatCollection.filter(
               o("WAWebFrontendChatGetters").getShouldAppearInList,
             ).length,
@@ -117,32 +118,32 @@ __d(
               t && (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0,
             ));
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    var I = null,
-      T = !1,
-      D = null,
-      x = !1;
-    function $(e) {
+    var T = null,
+      D = !1,
+      x = null,
+      $ = !1;
+    function P(e) {
       return (n("cr:11133") == null ? void 0 : n("cr:11133")()) !== !0 ||
-        x ||
-        T ||
+        $ ||
+        D ||
         o("WAWebCmd").Cmd.isMainStreamReadyMd
-        ? (h || (h = n("Promise"))).resolve()
-        : ((D = e),
-          I != null ||
-            (I = n("asyncToGeneratorRuntime")
+        ? (y || (y = n("Promise"))).resolve()
+        : ((x = e),
+          T != null ||
+            (T = n("asyncToGeneratorRuntime")
               .asyncToGenerator(function* () {
                 if (
                   (yield o(
                     "WAWebDbEncryptionKey",
                   ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
                   yield o("WAWebModelStorageInitialize").initializeWithoutGKs(),
-                  !(x || T || o("WAWebCmd").Cmd.isMainStreamReadyMd))
+                  !($ || D || o("WAWebCmd").Cmd.isMainStreamReadyMd))
                 ) {
-                  var e = yield S();
-                  (L(e, D), (T = !0), yield E());
+                  var e = yield R();
+                  (E(e, x), (D = !0), yield k());
                 }
               })()
               .catch(function (e) {
@@ -157,21 +158,21 @@ __d(
                   .sendLogs("provisional-chat-row-restore-failed");
               })
               .finally(function () {
-                I = null;
+                T = null;
               })),
-          I);
-    }
-    function P() {
-      return N.apply(this, arguments);
+          T);
     }
     function N() {
+      return M.apply(this, arguments);
+    }
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          x = !0;
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          $ = !0;
           var e = !1;
           try {
             return (
-              I != null && (yield I),
+              T != null && (yield T),
               o(
                 "WAWebWamOfflineResumeReporter",
               ).OfflineResumeReporter.qpl.addPoint(
@@ -201,7 +202,7 @@ __d(
                       e.OfflineResumeReporter.qpl.addPoint(
                         "RCMGetChats_start",
                       ));
-                    var t = yield S();
+                    var t = yield R();
                     (e.OfflineResumeReporter.qpl.addPoint("RCMGetChats_end"),
                       e.OfflineResumeReporter.qpl.addPoint(
                         "RCMPopulateMatCache_start",
@@ -215,13 +216,13 @@ __d(
                     var n = o(
                         "WAWebThreadMetadata",
                       ).getOfflineThreadMetaPreview(),
-                      a = L(t, n == null ? void 0 : n.chatTimestamp),
+                      a = E(t, n == null ? void 0 : n.chatTimestamp),
                       i = a.chats,
                       l = a.newsletters;
                     (o(
                       "WAWebWamOfflineResumeReporter",
                     ).OfflineResumeReporter.logOfflineChatThreadCount(t.length),
-                      yield E(),
+                      yield k(),
                       o(
                         "WAWebWamOfflineResumeReporter",
                       ).OfflineResumeReporter.qpl.addPoint(
@@ -238,7 +239,7 @@ __d(
                     var s =
                       o("WAWebABProps").getABPropConfigValue(
                         "web_init_chat_batch_size",
-                      ) || b;
+                      ) || v;
                     (o(
                       "WAWebWamOfflineResumeReporter",
                     ).OfflineResumeReporter.qpl.addAnnotations({
@@ -250,8 +251,8 @@ __d(
                         (l.sort(r("WAWebChatComparator")),
                         r("WAWebNewsletterCollection") == null ||
                           r("WAWebNewsletterCollection").add(l, { merge: !0 }),
-                        M(K(l), s)));
-                    var u = yield M(K(i), s);
+                        w(Q(l), s)));
+                    var u = yield w(Q(i), s);
                     return (
                       o(
                         "WAWebWamOfflineResumeReporter",
@@ -295,19 +296,19 @@ __d(
                 })
             );
           } finally {
-            ((x = !1),
+            (($ = !1),
               e &&
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.InitialChatLoad,
                 ));
           }
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t) {
+    function w(e, t) {
       for (
-        var a = (h || (h = n("Promise"))).resolve(),
+        var a = (y || (y = n("Promise"))).resolve(),
           i = new (o("WAWebPromiseQueue").PromiseQueue)(),
           l = function (s) {
             var l = e.slice(s, s + t),
@@ -321,7 +322,7 @@ __d(
                       ).OfflineResumeReporter.qpl.addPoint(
                         "RCMChatMetadata_start",
                       );
-                    var t = yield w(l);
+                    var t = yield A(l);
                     (s === 0 &&
                       o(
                         "WAWebWamOfflineResumeReporter",
@@ -334,7 +335,7 @@ __d(
                         ).OfflineResumeReporter.qpl.addPoint(
                           "RCMRestoreMessages_start",
                         ),
-                      yield A(t),
+                      yield F(t),
                       s === 0 &&
                         o(
                           "WAWebWamOfflineResumeReporter",
@@ -401,10 +402,10 @@ __d(
         l(s);
       return a;
     }
-    function w(e) {
-      return (h || (h = n("Promise"))).all(
+    function A(e) {
+      return (y || (y = n("Promise"))).all(
         e.map(function (e) {
-          var t = F(e);
+          var t = O(e);
           return o("WAWebDBMessageStoreUtils")
             .getKeyMsgsFromChatHistory(e, t)
             .then(function (n) {
@@ -419,15 +420,15 @@ __d(
         }),
       );
     }
-    function A(e) {
-      var t = O(e),
+    function F(e) {
+      var t = B(e),
         r = t.lastMessageKeys,
         a = t.missingAnchorCount,
         i = t.missingAnchorIds,
         l = t.tasks;
       return (
-        l.push(G(r)),
-        (h || (h = n("Promise"))).all(l).then(function () {
+        l.push(z(r)),
+        (y || (y = n("Promise"))).all(l).then(function () {
           a > 0 &&
             o("WALogger").WARN(
               u ||
@@ -442,7 +443,7 @@ __d(
         })
       );
     }
-    function F(e) {
+    function O(e) {
       return (
         (e.t != null &&
           o("WATimeUtils").happenedWithin(
@@ -452,7 +453,7 @@ __d(
         (e.pin != null && e.pin > 0)
       );
     }
-    function O(e) {
+    function B(e) {
       var t = [],
         n = [],
         a = [],
@@ -462,10 +463,10 @@ __d(
           var l = e.chat,
             s = e.lastReceivedKey,
             u = e.previewMsg;
-          if (F(l) || (u && u.id !== s)) {
+          if (O(l) || (u && u.id !== s)) {
             var c = self.performance.now();
             t.push(
-              B(l, u).then(function () {
+              W(l, u).then(function () {
                 var e = l.unreadMsgAnchorId;
                 if (!r("isStringNullOrEmpty")(e)) {
                   var t = r("WAWebMsgKey").fromString(e),
@@ -491,21 +492,21 @@ __d(
         }
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function W() {
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!F(e) || e.unreadCount === 0) return q(e, t);
-          if (e.unreadCount >= y) return (yield q(e, t), V(e));
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!O(e) || e.unreadCount === 0) return U(e, t);
+          if (e.unreadCount >= C) return (yield U(e, t), H(e));
           o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
                 "restoreMessagesForChat: restoring last ",
                 " messages.",
               ])),
-            e.unreadCount + C,
+            e.unreadCount + b,
           );
           var n = [];
           if (t) {
@@ -521,7 +522,7 @@ __d(
             lowerBound: e.id + "_/",
             upperBound: e.id + "_g",
             options: { reverse: !0 },
-            count: e.unreadCount + C,
+            count: e.unreadCount + b,
             addOnReparseExclusionList: n,
           });
           yield o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
@@ -535,41 +536,41 @@ __d(
             "restoreMessagesForChat",
           );
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function U(e, t) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            r = [];
+            a = [];
           if (t != null && t.internalId != null) {
-            var a = t.internalId,
-              i = o("WAWebDBMessageSerialization").messageFromDbRow(t),
-              l = o("WAWebDBAddOnProviders").getAddOnProviderForFutureproofMsg(
-                i,
+            var i = t.internalId,
+              l = o("WAWebDBMessageSerialization").messageFromDbRow(t),
+              s = o("WAWebDBAddOnProviders").getAddOnProviderForFutureproofMsg(
+                l,
               );
-            (t && l != null && l.canRenderInUi(i) && r.push(t.id.toString()),
+            (t && s != null && s.canRenderInUi(l) && a.push(t.id.toString()),
               (n = yield o(
                 "WAWebDBQueryChatVisibleMessageHelper",
               ).queryChatVisibleMessageHelper({
-                lowerBound: a,
+                lowerBound: i,
                 upperBound: e.id + "_g",
                 options: { lowerInclusive: !0 },
-                addOnReparseExclusionList: r,
+                addOnReparseExclusionList: a,
               })));
           } else {
-            var s = 1;
+            var u = 1;
             n = yield o(
               "WAWebDBQueryChatVisibleMessageHelper",
             ).queryChatVisibleMessageHelper({
               lowerBound: e.id + "_/",
               upperBound: e.id + "_g",
               options: { reverse: !0 },
-              count: s,
+              count: u,
             });
           }
           (o("WALogger").LOG(
@@ -580,39 +581,51 @@ __d(
               ])),
             n.length,
           ),
-            o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
-              o("WAWebWidFactory").createWidFromWidLike(e.id),
-              n.map(function (e) {
-                return o("WAWebDBMessageSerialization").messageFromDbRow(
-                  e,
-                  function (e) {
-                    e.invis = !0;
-                  },
-                );
-              }),
-              { pendingMsgsDone: !1, resume: !1, add: "last", isHistory: !0 },
-              "processPreviewMessageInChat",
-            ));
+            o("WAWebMsgCollection")
+              .MsgCollection.processMultipleMessages(
+                o("WAWebWidFactory").createWidFromWidLike(e.id),
+                n.map(function (e) {
+                  return o("WAWebDBMessageSerialization").messageFromDbRow(
+                    e,
+                    function (e) {
+                      e.invis = !0;
+                    },
+                  );
+                }),
+                { pendingMsgsDone: !1, resume: !1, add: "last", isHistory: !0 },
+                "processPreviewMessageInChat",
+              )
+              .catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "processPreviewMessageInChat: processMultipleMessages failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("restore-preview-msg-process-failed");
+              }));
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function H(e) {
+      return G.apply(this, arguments);
     }
-    function H() {
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.unreadMsgAnchorId;
           if (r("isStringNullOrEmpty")(t))
             return (
               o("WALogger").WARN(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "unreadMsgAnchorId is not defined",
                   ])),
               ),
-              (h || (h = n("Promise"))).resolve()
+              (y || (y = n("Promise"))).resolve()
             );
           yield o("WAWebSchemaMessage")
             .getMessageTable()
@@ -620,8 +633,8 @@ __d(
             .then(function (t) {
               if (t.length === 0) {
                 o("WALogger").WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "Unread anchor message does not exist in message table",
                     ])),
                 );
@@ -630,17 +643,17 @@ __d(
               var a = o("WAWebDBMessageUtils").getInChatMsgId(
                   t[0].internalId || "",
                 ),
-                i = z(e, a, C),
-                l = j(e, a, C),
-                s = (h || (h = n("Promise"))).all([i, l]).then(function (e) {
+                i = j(e, a, b),
+                l = K(e, a, b),
+                s = (y || (y = n("Promise"))).all([i, l]).then(function (e) {
                   var t = e[0],
                     n = e[1];
                   return [].concat(t, n);
                 });
               return s.then(function (t) {
-                var n = t.length - C;
+                var n = t.length - b;
                 if (!(n < 0)) {
-                  var a = t[t.length - C].id,
+                  var a = t[t.length - b].id,
                     i = t.map(function (e) {
                       return o("WAWebDBMessageSerialization").messageFromDbRow(
                         e,
@@ -668,10 +681,10 @@ __d(
               });
             });
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function G(e) {
+    function z(e) {
       var t = self.performance.now();
       return o("WAWebSchemaMessage")
         .getMessageTable()
@@ -680,9 +693,9 @@ __d(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                yield (h || (h = n("Promise"))).all(
+                yield (y || (y = n("Promise"))).all(
                   e.map(function (e) {
-                    if (!e) return (h || (h = n("Promise"))).resolve();
+                    if (!e) return (y || (y = n("Promise"))).resolve();
                     var t = o("WAWebDBMessageSerialization").messageFromDbRow(
                       e,
                       function (e) {
@@ -725,7 +738,7 @@ __d(
           );
         });
     }
-    function z(e, t, n) {
+    function j(e, t, n) {
       var r = { lowerInclusive: !0, upperInclusive: !1 },
         a = o("WAWebDBMessageUtils").beginningOfChat(
           o("WAWebWidFactory").createWid(e.id),
@@ -739,13 +752,13 @@ __d(
           lowerBound: a,
           upperBound: i,
           options: babelHelpers.extends({}, r, { reverse: !0 }),
-          count: C,
+          count: b,
         })
         .then(function (e) {
           return e.reverse();
         });
     }
-    function j(e, t, n) {
+    function K(e, t, n) {
       var r = { lowerInclusive: !0, upperInclusive: !1 };
       return o(
         "WAWebDBQueryChatVisibleMessageHelper",
@@ -758,17 +771,17 @@ __d(
           o("WAWebWidFactory").createWid(e.id),
         ),
         options: r,
-        count: C,
+        count: b,
       });
     }
-    function K(t) {
+    function Q(t) {
       return t.map(function (t) {
         var n = t.id,
           r = babelHelpers.objectWithoutPropertiesLoose(t, e);
         return babelHelpers.extends({}, r, { id: n.toString() });
       });
     }
-    ((l.restoreChatRowsForDisplay = $), (l.restoreChatsAndMessages = P));
+    ((l.restoreChatRowsForDisplay = P), (l.restoreChatsAndMessages = N));
   },
   98,
 );

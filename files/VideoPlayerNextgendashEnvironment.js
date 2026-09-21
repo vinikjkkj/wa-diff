@@ -31,6 +31,7 @@ __d(
         enableDynamicBufferWatermarks: !1,
         enableEMSSHonestElementSnapshot: !0,
         enableEMSSImmediateMintOnNoOpSeek: !0,
+        enableEMSSLayoutSettleOffTimerPath: !0,
         enableEMSSMintDeadlineOffTimerPath: !0,
         enableEMSSPreMintOnEnded: !0,
         enableEMSSRemintStrandedActiveSource: !0,
