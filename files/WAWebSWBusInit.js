@@ -12,6 +12,7 @@ __d(
     "WAWebSWBusActions",
     "WAWebSocketConstants",
     "WAWebSocketModel",
+    "WAWebVoipNotificationActionBus",
     "asyncToGeneratorRuntime",
     "err",
     "requireDeferred",
@@ -114,7 +115,7 @@ __d(
               r = (t = e.message[0]) != null ? t : "",
               a = "ServiceWorker (" + n + "): " + r,
               i = e.level.match(/^(.*?)(?:Verbose)?$/i),
-              l = v(i[1]);
+              l = S(i[1]);
             o("WAWebLoggerImpl").Logger.logImpl(
               l,
               a,
@@ -153,6 +154,10 @@ __d(
               );
             case r("WAWebSWBusActions").HEARTBEAT:
               return i;
+            case r("WAWebSWBusActions").ACCEPT_CALL_FROM_NOTIFICATION:
+              return { handled: v("accept_call", i) };
+            case r("WAWebSWBusActions").DECLINE_CALL_FROM_NOTIFICATION:
+              return { handled: v("decline_call", i) };
             default:
               return (m || (m = n("Promise"))).reject(
                 r("err")("Invalid Action: " + a),
@@ -169,7 +174,19 @@ __d(
               .catch(r("WAWebNoop"));
         }));
     }
-    function v(e) {
+    function v(e, t) {
+      var n = !1;
+      return (
+        r("WAWebVoipNotificationActionBus").trigger(e, {
+          callId: t == null ? void 0 : t.callId,
+          claim: function () {
+            return n ? !1 : ((n = !0), !0);
+          },
+        }),
+        n
+      );
+    }
+    function S(e) {
       switch (e) {
         case "info":
           return 1;

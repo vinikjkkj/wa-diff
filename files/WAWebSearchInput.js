@@ -2,7 +2,7 @@ __d(
   "WAWebSearchInput",
   [
     "fbt",
-    "LexicalExtension",
+    "Lexical",
     "LexicalExtensionComposer",
     "WAWebClickable.react",
     "WAWebEditorRefPlugin",
@@ -612,7 +612,7 @@ __d(
       );
     }
     function h() {
-      return o("LexicalExtension").defineExtension({
+      return o("Lexical").defineExtension({
         name: "[root]",
         namespace: "CommandPaletteInput",
         onError: r("WAWebNoop"),

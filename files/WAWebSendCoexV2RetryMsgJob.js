@@ -8,10 +8,12 @@ __d(
     "WAWebBotTypes",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2HostedContactUtils",
+    "WAWebCoexV2RelayEligibility",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
     "WAWebMsgGetters",
     "WAWebOutgoingMessage",
+    "WAWebSendMsgBotStanza",
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgCreateFanoutStanza",
     "WAWebSendMsgMetaNode",
@@ -91,10 +93,7 @@ __d(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
               t,
             ),
-            h = o("WAWebSendMsgCreateFanoutStanza").getIsBizBotFeedback(
-              i,
-              i.id.remote,
-            ),
+            h = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(i, i.id.remote),
             y = yield o(
               "WAWebSendMsgCreateFanoutStanza",
             ).genCoexV2RelayBotNodeForTargets(
@@ -111,7 +110,7 @@ __d(
                   : o("WAWebBotTypes").getBotLocalAutomatedType(i.bizBotType),
                 modeSelected: null,
                 modeSelection: null,
-                type: o("WAWebSendMsgCreateFanoutStanza").getBotStanzaType(i),
+                type: o("WAWebSendMsgBotStanza").getBotStanzaType(i),
               },
             );
           if (y == null)
@@ -150,7 +149,7 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = e.data.id.remote,
             i = yield (p || (p = n("Promise"))).all([
-              o("WAWebSendMsgCreateFanoutStanza").isSelfCoexV2Hosted(),
+              o("WAWebCoexV2RelayEligibility").isSelfCoexV2Hosted(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(a),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(a),
             ]),

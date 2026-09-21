@@ -2,7 +2,8 @@ __d(
   "LexicalExtensionComposer.prod",
   [
     "Lexical",
-    "LexicalExtension",
+    "LexicalExtensionGetExtensionDependencyFromEditor",
+    "LexicalExtensionLexicalBuilder",
     "LexicalReactExtension",
     "LexicalReactProviderExtension",
     "react",
@@ -17,29 +18,29 @@ __d(
   ) {
     "use strict";
     var _require_closure_react;
-    var r =
+    var o =
         _require_closure_react || (_require_closure_react = require("react")),
-      o = _require_closure_react;
+      c = _require_closure_react;
     exports.LexicalExtensionComposer = function (_ref) {
-      var c = _ref.extension,
-        s = _ref.children,
-        x = _ref.contentEditable;
-      var u = r.useMemo(
+      var s = _ref.extension,
+        x = _ref.children,
+        u = _ref.contentEditable;
+      var a = o.useMemo(
         function () {
-          return require("LexicalExtension")
+          return require("LexicalExtensionLexicalBuilder")
             .LexicalBuilder.fromExtensions([
               require("LexicalReactProviderExtension").ReactProviderExtension,
               require("Lexical").configExtension(
                 require("LexicalReactExtension").ReactExtension,
-                void 0 === x ? {} : { contentEditable: x },
+                void 0 === u ? {} : { contentEditable: u },
               ),
-              c,
+              s,
             ])
             .buildEditor();
         },
-        [x, c],
+        [u, s],
       );
-      r.useEffect(
+      o.useEffect(
         function () {
           var e = !1;
           return (
@@ -47,17 +48,18 @@ __d(
               e = !0;
             }),
             function () {
-              e && u.dispose();
+              e && a.dispose();
             }
           );
         },
-        [u],
+        [a],
       );
-      var a = require("LexicalExtension").getExtensionDependencyFromEditor(
-        u,
-        require("LexicalReactExtension").ReactExtension,
-      ).output.Component;
-      return o.jsx(a, { children: s });
+      var E =
+        require("LexicalExtensionGetExtensionDependencyFromEditor").getExtensionDependencyFromEditor(
+          a,
+          require("LexicalReactExtension").ReactExtension,
+        ).output.Component;
+      return c.jsx(E, { children: x });
     };
   },
   null,

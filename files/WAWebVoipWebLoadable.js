@@ -311,38 +311,41 @@ __d(
                 "thread_pool_setup",
               ),
               o("WAWebVoipQplHelpers").voipInitQplAnnotateThreadPool(u, c, a));
-            var h = o("WAWebVoipGatingUtils").isWebTransportEnabled();
-            return (
-              h
-                ? o("WAWebPonyfillsIdleCallback").requestIdleCallback(
-                    function () {
-                      (o(
-                        "WAWebVoipGatingUtils",
-                      ).isWebTransportFastSetupEnabled() &&
-                        o("WAWebVoipWebTransportDataChannelThreadManager")
-                          .initWebTransportDataChannelWorker()
-                          .catch(function (e) {
-                            o("WALogger")
-                              .ERROR(
-                                m ||
-                                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                                    "voip: WebTransport pthread prewarm failed",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e))
-                              .sendLogs("webtransport-pthread-prewarm-failed");
-                          }),
-                        r("WAWebVoipSctpPrewarm")({ force: !0 }));
-                    },
-                  )
-                : o("WAWebVoipGatingUtils").shouldSkipEagerSctpPrewarm() ||
-                  o("WAWebPonyfillsIdleCallback").requestIdleCallback(
-                    function () {
-                      r("WAWebVoipSctpPrewarm")();
-                    },
-                  ),
-              i
-            );
+            var h = o("WAWebVoipGatingUtils").isAdaptiveSctpPrewarmV2Enabled(),
+              y = o("WAWebVoipGatingUtils").isWebTransportEnabled();
+            if (y) {
+              var C = o(
+                "WAWebVoipGatingUtils",
+              ).isWebTransportFastSetupEnabled();
+              (C || !h) &&
+                o("WAWebPonyfillsIdleCallback").requestIdleCallback(
+                  function () {
+                    (C &&
+                      o("WAWebVoipWebTransportDataChannelThreadManager")
+                        .initWebTransportDataChannelWorker()
+                        .catch(function (e) {
+                          o("WALogger")
+                            .ERROR(
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                                  "voip: WebTransport pthread prewarm failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("webtransport-pthread-prewarm-failed");
+                        }),
+                      h || r("WAWebVoipSctpPrewarm")({ force: !0 }));
+                  },
+                );
+            } else
+              !h &&
+                !o("WAWebVoipGatingUtils").shouldSkipEagerSctpPrewarm() &&
+                o("WAWebPonyfillsIdleCallback").requestIdleCallback(
+                  function () {
+                    r("WAWebVoipSctpPrewarm")();
+                  },
+                );
+            return i;
           } finally {
             o("WAWebAppTracker").AppTracker.stop(
               o("WAWebAppTracker").AppTrackerType.VoipWasmLoad,

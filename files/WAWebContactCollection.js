@@ -90,23 +90,20 @@ __d(
             var e = t.query,
               n = t.filter,
               r = n === void 0 ? {} : n,
-              a = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
-              i = [];
+              a = [];
             return (
               o("WAWebContactCollectionUtils").getFilteredContacts(
                 this,
                 babelHelpers.extends({}, r, {
                   filterFn: function (n) {
-                    var t = a
-                      ? n.searchMatchPrefix(e.text, e.number, e.label)
-                      : n.searchMatchExact(e.text, e.number, e.label);
+                    var t = n.searchMatchPrefix(e.text, e.number, e.label);
                     return t == null || (r.filterFn != null && !r.filterFn(n))
                       ? !1
-                      : (i.push({ contact: n, searchMatch: t }), !0);
+                      : (a.push({ contact: n, searchMatch: t }), !0);
                   },
                 }),
               ),
-              i
+              a
             );
           }),
           (i._buildFuzzyMatcher = function (n, r) {

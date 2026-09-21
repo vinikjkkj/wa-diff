@@ -35,8 +35,8 @@ __d(
     "WAWebResendGroupMsg",
     "WAWebScheduledMsgStanzaContributor",
     "WAWebSchemaMessage",
+    "WAWebSendMsgBotStanza",
     "WAWebSendMsgCommonApi",
-    "WAWebSendMsgCreateFanoutStanza",
     "WAWebSendMsgMetaNode",
     "WAWebSendMsgTypes",
     "WAWebSessionScope",
@@ -660,7 +660,7 @@ __d(
             m = d.ciphertext,
             p = d.type;
           p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg && (u = !0);
-          var _ = o("WAWebSendMsgCreateFanoutStanza").getBotAgentEngagementType(
+          var _ = o("WAWebSendMsgBotStanza").getBotAgentEngagementType(
               t,
               null,
               n,

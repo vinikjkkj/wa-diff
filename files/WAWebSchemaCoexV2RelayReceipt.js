@@ -22,6 +22,8 @@ __d(
             n("delivered"),
             n("read"),
             n("played"),
+            n("projectedDelivered"),
+            n("projectedRead"),
             a("createdAt"),
             a("msgId"),
           ],

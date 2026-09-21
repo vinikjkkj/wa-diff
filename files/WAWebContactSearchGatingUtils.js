@@ -29,15 +29,10 @@ __d(
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_global_search_prefix_based",
-      );
-    }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_contact_search_tokenized_enabled",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_push_name_in_global_search_non_contacts_enabled",
       );
@@ -46,9 +41,8 @@ __d(
       (l.getFuzzySearchTimeoutThreshold = s),
       (l.canTermsMeetFuzzySearchThreshold = c),
       (l.isAsyncFuzzySearchEnabled = d),
-      (l.isPrefixSearchEnabled = m),
-      (l.isTokenizedSearchEnabled = p),
-      (l.isNonContactPushNameSearchEnabled = _));
+      (l.isTokenizedSearchEnabled = m),
+      (l.isNonContactPushNameSearchEnabled = p));
   },
   98,
 );

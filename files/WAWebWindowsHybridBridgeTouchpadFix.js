@@ -14,9 +14,12 @@ __d(
           if (!(e.deltaX <= 0)) {
             for (
               var n = e.target,
-                r = o(
-                  "WAWebWindowsHybridFlowHelpers",
-                ).unsafeCastDocumentWheelEventTargetToElement(n, t),
+                r =
+                  n != null
+                    ? o(
+                        "WAWebWindowsHybridFlowHelpers",
+                      ).unsafeCastDocumentWheelEventTargetToElement(n, t)
+                    : null,
                 a = !1,
                 i = 0;
               r && r !== document.body && i < 3;

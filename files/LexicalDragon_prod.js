@@ -1,6 +1,11 @@
 __d(
   "LexicalDragon.prod",
-  ["Lexical", "LexicalExtension"],
+  [
+    "Lexical",
+    "LexicalExtensionNamedSignals",
+    "LexicalExtensionSignals",
+    "LexicalExtensionWatchedSignal",
+  ],
   function $module_LexicalDragon_prod(
     global,
     require,
@@ -10,7 +15,7 @@ __d(
     exports,
   ) {
     "use strict";
-    var n = {
+    var o = {
         bold: "bold",
         italic: "italic",
         strikeThrough: "strikethrough",
@@ -18,10 +23,10 @@ __d(
         superscript: "superscript",
         underline: "underline",
       },
-      i = Symbol["for"]("@lexical/dragon/WindowState");
-    function o(e, t, n) {
-      var o = (function (e) {
-        var t = e[i];
+      s = Symbol["for"]("@lexical/dragon/WindowState");
+    function r(e, t, n) {
+      var i = (function (e) {
+        var t = e[s];
         return (
           void 0 === t &&
             ((t = {
@@ -29,119 +34,119 @@ __d(
               editors: new Map(),
               installs: new Set(),
             }),
-            (e[i] = t)),
+            (e[s] = t)),
           t
         );
       })(e);
-      if (0 === o.installs.size) {
-        var _t = l.bind(e);
+      if (0 === i.installs.size) {
+        var _t = c.bind(e);
         (e.addEventListener("message", _t, !0),
-          (o.dispose = function () {
+          (i.dispose = function () {
             e.removeEventListener("message", _t, !0);
           }));
       }
-      if ((o.installs.add(t), n)) {
-        var _e = o.editors.get(n) || new Set();
-        (_e.add(t), o.editors.set(n, _e));
+      if ((i.installs.add(t), n)) {
+        var _e = i.editors.get(n) || new Set();
+        (_e.add(t), i.editors.set(n, _e));
       }
-      return s.bind(null, e, o, t, n);
+      return a.bind(null, e, i, t, n);
     }
-    function s(e, t, n, o) {
-      if (o) {
-        var _e2 = t.editors.get(o);
-        _e2 && _e2["delete"](n) && 0 === _e2.size && t.editors["delete"](o);
+    function a(e, t, n, i) {
+      if (i) {
+        var _e2 = t.editors.get(i);
+        _e2 && _e2["delete"](n) && 0 === _e2.size && t.editors["delete"](i);
       }
       t.installs["delete"](n) &&
         0 === t.installs.size &&
-        (t.dispose(), delete e[i]);
+        (t.dispose(), delete e[s]);
     }
-    function r(e) {
+    function l(e) {
       return e && e.ownerDocument.defaultView;
     }
-    function a(t) {
-      var n = require("LexicalExtension").watchedSignal(
+    function d(t) {
+      var i = require("LexicalExtensionWatchedSignal").watchedSignal(
         function () {
-          return r(t.getRootElement());
+          return l(t.getRootElement());
         },
         function (e) {
           return t.registerRootListener(function (t) {
-            e.value = r(t);
+            e.value = l(t);
           });
         },
       );
-      return require("LexicalExtension").effect(function () {
-        var e = n.value;
-        if (e) return o(e, Symbol("@lexical/dragon/editorInstall"), t);
+      return require("LexicalExtensionSignals").effect(function () {
+        var e = i.value;
+        if (e) return r(e, Symbol("@lexical/dragon/editorInstall"), t);
       });
     }
-    function l(e) {
+    function c(e) {
       if (e.origin !== this.location.origin) return;
-      var o = (function (e) {
-        var n = e[i];
-        if (void 0 === n) return null;
-        var o = require("Lexical").getEditorPropertyFromDOMNode(
+      var t = (function (e) {
+        var t = e[s];
+        if (void 0 === t) return null;
+        var n = require("Lexical").getEditorPropertyFromDOMNode(
           require("Lexical").getActiveElementDeep(e.document),
         );
-        return require("Lexical").isLexicalEditor(o) && n.editors.has(o)
-          ? o
+        return require("Lexical").isLexicalEditor(n) && t.editors.has(n)
+          ? n
           : null;
       })(this);
-      if (null === o) return;
-      var s = e.data;
-      if ("string" == typeof s) {
-        var _i;
+      if (null === t) return;
+      var n = e.data;
+      if ("string" == typeof n) {
+        var _s;
         try {
-          _i = JSON.parse(s);
+          _s = JSON.parse(n);
         } catch (e) {
           return;
         }
         if (
-          _i &&
-          "nuanria_messaging" === _i.protocol &&
-          "request" === _i.type
+          _s &&
+          "nuanria_messaging" === _s.protocol &&
+          "request" === _s.type
         ) {
-          var _s = _i.payload;
-          if (_s && "makeChanges" === _s.functionId) {
-            var _i2 = _s.args;
-            if (Array.isArray(_i2)) {
-              var _s2 = _i2[0],
-                _r = _i2[1],
-                _a = _i2[2],
-                _l = _i2[3],
-                _d = _i2[4],
-                c = _i2[5];
+          var _n = _s.payload;
+          if (_n && "makeChanges" === _n.functionId) {
+            var _s2 = _n.args;
+            if (Array.isArray(_s2)) {
+              var _n2 = _s2[0],
+                _r = _s2[1],
+                _a = _s2[2],
+                _l = _s2[3],
+                _d = _s2[4],
+                _c = _s2[5];
               if (
-                ![_s2, _r, _l, _d].every(Number.isFinite) ||
+                ![_n2, _r, _l, _d].every(Number.isFinite) ||
                 ("string" != typeof _a && -1 !== _a)
               )
                 return;
-              o.update(function () {
-                var i = require("Lexical").$getSelection();
-                if (require("Lexical").$isRangeSelection(i)) {
-                  var _o = i.anchor;
-                  var u = _o.getNode(),
+              t.update(function () {
+                var t = require("Lexical").$getSelection();
+                if (require("Lexical").$isRangeSelection(t)) {
+                  var _s3 = t.anchor;
+                  var _u = _s3.getNode(),
                     g = 0,
                     f = 0;
                   if (
-                    (require("Lexical").$isTextNode(u) &&
-                      _s2 >= 0 &&
+                    (require("Lexical").$isTextNode(_u) &&
+                      _n2 >= 0 &&
                       _r >= 0 &&
-                      ((g = _s2),
-                      (f = _s2 + _r),
-                      i.setTextNodeRange(u, g, u, f)),
+                      ((g = _n2),
+                      (f = _n2 + _r),
+                      t.setTextNodeRange(_u, g, _u, f)),
                     "string" != typeof _a ||
                       (g === f && "" === _a) ||
-                      (i.insertRawText(_a), (u = _o.getNode())),
-                    require("Lexical").$isTextNode(u))
+                      (t.insertRawText(_a), (_u = _s3.getNode())),
+                    require("Lexical").$isTextNode(_u))
                   ) {
-                    var _e3 = u.getTextContentSize();
+                    var _e3 = _u.getTextContentSize();
                     ((g = Math.min(Math.max(_l, 0), _e3)),
                       (f = _l < 0 || _d < 0 ? g : Math.min(_l + _d, _e3)),
-                      i.setTextNodeRange(u, g, u, f));
+                      t.setTextNodeRange(_u, g, _u, f));
                   }
-                  if ("string" == typeof c && _d > 0 && !i.isCollapsed()) {
-                    var _e4 = n[c];
-                    void 0 !== _e4 && i.formatText(_e4);
+                  if ("string" == typeof _c && _d > 0 && !t.isCollapsed()) {
+                    var _e4 = o[_c];
+                    void 0 !== _e4 && t.formatText(_e4);
                   }
                   e.stopImmediatePropagation();
                 }
@@ -151,19 +156,19 @@ __d(
         }
       }
     }
-    var d = {
-      build: function build(t, n, i) {
-        return require("LexicalExtension").namedSignals(n);
+    var u = {
+      build: function build(e, n, i) {
+        return require("LexicalExtensionNamedSignals").namedSignals(n);
       },
       config: { disabled: "undefined" == typeof window },
       name: "LexicalDragon",
       register: function register(t, n, i) {
-        return require("LexicalExtension").effect(function () {
-          return i.getOutput().disabled.value ? void 0 : a(t);
+        return require("LexicalExtensionSignals").effect(function () {
+          return i.getOutput().disabled.value ? void 0 : d(t);
         });
       },
     };
-    ((exports.DragonExtension = d),
+    ((exports.DragonExtension = u),
       (exports.installDragonSupport = function (e) {
         if (e === void 0) {
           e = (function () {
@@ -171,10 +176,10 @@ __d(
           })();
         }
         return e
-          ? o(e, Symbol("@lexical/dragon/globalInstall"), void 0)
+          ? r(e, Symbol("@lexical/dragon/globalInstall"), void 0)
           : function () {};
       }),
-      (exports.registerDragonSupport = a));
+      (exports.registerDragonSupport = d));
   },
   null,
 );

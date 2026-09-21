@@ -4,7 +4,7 @@ __d(
     "Lexical",
     "LexicalComposerContext",
     "LexicalDragon",
-    "LexicalExtension",
+    "LexicalExtensionLexicalBuilder",
     "LexicalPlainText",
     "LexicalReactProviderExtension",
     "LexicalText",
@@ -114,7 +114,10 @@ __d(
       var e = _ref2.editor,
         r = _ref2.ErrorBoundary;
       return (function (e) {
-        var r = require("LexicalExtension").LexicalBuilder.maybeFromEditor(e);
+        var r =
+          require("LexicalExtensionLexicalBuilder").LexicalBuilder.maybeFromEditor(
+            e,
+          );
         if (
           r &&
           r.hasExtensionByName(
@@ -131,8 +134,8 @@ __d(
         ? null
         : s.jsx(f, { editor: e, ErrorBoundary: r });
     }
-    var g = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
-    function L(e) {
+    var L = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
+    function g(e) {
       return e.read(
         "latest",
         require("LexicalText").$canShowPlaceholderCurry(e.isComposing()),
@@ -145,15 +148,15 @@ __d(
         n = _e$useLexicalComposer[0],
         i = (function (e) {
           var _o$useState = o.useState(function () {
-              return L(e);
+              return g(e);
             }),
             r = _o$useState[0],
             t = _o$useState[1];
           return (
-            g(
+            L(
               function () {
                 function r() {
-                  var r = L(e);
+                  var r = g(e);
                   t(r);
                 }
                 return (
@@ -186,7 +189,7 @@ __d(
         o = _e$useLexicalComposer2[0];
       return (
         (function (e) {
-          g(
+          L(
             function () {
               return require("Lexical").mergeRegister(
                 require("LexicalPlainText").registerPlainText(e),

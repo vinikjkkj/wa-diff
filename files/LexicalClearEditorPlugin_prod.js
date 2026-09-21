@@ -1,6 +1,11 @@
 __d(
   "LexicalClearEditorPlugin.prod",
-  ["Lexical", "LexicalComposerContext", "LexicalExtension", "react"],
+  [
+    "Lexical",
+    "LexicalComposerContext",
+    "LexicalExtensionClearEditorExtension",
+    "react",
+  ],
   function $module_LexicalClearEditorPlugin_prod(
     global,
     require,
@@ -22,7 +27,10 @@ __d(
       return (
         o(
           function () {
-            return require("LexicalExtension").registerClearEditor(i, t);
+            return require("LexicalExtensionClearEditorExtension").registerClearEditor(
+              i,
+              t,
+            );
           },
           [i, t],
         ),

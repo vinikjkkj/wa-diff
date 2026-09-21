@@ -10,7 +10,8 @@ __d(
           (o.saveToCache = function () {
             o.collection.saveToCache();
           }),
-          (o.$LoadCachePolicy$p_2 = n.trigger || "all"),
+          (o.$LoadCachePolicy$p_2 =
+            n.trigger == null || n.trigger === "" ? "all" : n.trigger),
           (o.$LoadCachePolicy$p_1 = n.delay),
           (o.$LoadCachePolicy$p_3 = r("WAWebDebounce")(
             o.saveToCache,

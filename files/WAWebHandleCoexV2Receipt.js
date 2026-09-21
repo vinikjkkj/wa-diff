@@ -5,6 +5,8 @@ __d(
     "WALogger",
     "WAWebAck",
     "WAWebApiCoexV2RelayReceiptStore",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -14,17 +16,23 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d(e) {
-      return m.apply(this, arguments);
+      return !e.from.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
+        !o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
+        ? null
+        : m(e);
     }
-    function m() {
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.ack,
             i = t.ackString,
             l = t.externalIds,
             d = t.participant,
             m = t.recipient,
-            _ = t.ts;
+            p = t.ts;
           if (m == null) {
             o("WALogger")
               .WARN(
@@ -37,7 +45,7 @@ __d(
             return;
           }
           try {
-            var f = p(i, d, m);
+            var f = _(i, d, m);
             if (f == null) {
               o("WALogger")
                 .WARN(
@@ -59,7 +67,7 @@ __d(
                   ack: a,
                   msgId: e,
                   representedLid: f,
-                  ts: _,
+                  ts: p,
                 });
               }),
             );
@@ -77,10 +85,10 @@ __d(
               .sendLogs("coexv2-relay-receipt-process-failed");
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       return e === o("WAWebAck").ACK_STRING.SENDER ||
         e === o("WAWebAck").ACK_STRING.READ_SELF ||
         e === o("WAWebAck").ACK_STRING.PLAYED_SELF
@@ -98,7 +106,7 @@ __d(
               )
             : null;
     }
-    l.handleCoexV2Receipt = d;
+    l.maybeHandleCoexV2Receipt = d;
   },
   98,
 );

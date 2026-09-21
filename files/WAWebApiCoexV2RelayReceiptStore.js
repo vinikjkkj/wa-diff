@@ -72,19 +72,21 @@ __d(
     function _(t) {
       var r = t.ack,
         a = t.msgId,
-        i = t.representedLid,
-        l = t.ts,
-        u = i.toString(),
-        d =
+        i = t.projectedAck,
+        l = t.representedLid,
+        u = t.ts,
+        d = l.toString(),
+        m =
           r === o("WAWebAck").ACK.RECEIVED
-            ? { delivered: l }
+            ? { delivered: u }
             : r === o("WAWebAck").ACK.READ
-              ? { read: l }
+              ? { read: u }
               : r === o("WAWebAck").ACK.PLAYED
-                ? { played: l }
+                ? { played: u }
                 : null;
-      return d == null
-        ? (o("WALogger")
+      if (m == null)
+        return (
+          o("WALogger")
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -94,16 +96,63 @@ __d(
               r,
             )
             .sendLogs("coexv2-relay-receipt-unsupported-ack"),
-          (s || (s = n("Promise"))).resolve())
-        : c({ msgId: a, props: d, representedLid: u });
+          (s || (s = n("Promise"))).resolve()
+        );
+      var p = f(r, i, u);
+      return c({
+        msgId: a,
+        props: babelHelpers.extends({}, m, p),
+        representedLid: d,
+      });
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function f(e, t, n) {
+      return e !== o("WAWebAck").ACK.READ
+        ? {}
+        : t === o("WAWebAck").ACK.RECEIVED
+          ? { projectedDelivered: n }
+          : t === o("WAWebAck").ACK.READ
+            ? { projectedRead: n }
+            : {};
     }
-    function g() {
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield h(o("WATimeUtils").unixTime() - u);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebSchemaCoexV2RelayReceipt")
+            .getCoexV2RelayReceiptTable()
+            .get([e, t.toString()]);
+          return (n == null ? void 0 : n.projectedRead) != null
+            ? o("WAWebAck").ACK.READ
+            : (n == null ? void 0 : n.projectedDelivered) != null
+              ? o("WAWebAck").ACK.RECEIVED
+              : null;
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSchemaCoexV2RelayReceipt")
+            .getCoexV2RelayReceiptTable()
+            .equals(["msgId"], e, { limit: 1 });
+          return t.length > 0;
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield S(o("WATimeUtils").unixTime() - u);
           var t = yield o("WAWebSchemaCoexV2RelayReceipt")
             .getCoexV2RelayReceiptTable()
             .equals(["msgId"], e);
@@ -115,27 +164,29 @@ __d(
               return e.representedLid;
             });
         })),
-        g.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function y() {
+    function R() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebSchemaCoexV2RelayReceipt")
             .getCoexV2RelayReceiptTable()
             .bulkDeleteRange(["createdAt"], 0, e);
         })),
-        y.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
     ((l.COEX_V2_RELAY_RECEIPT_RETENTION_SECONDS = u),
       (l.createOrMergeCoexV2RelayReceipts = m),
       (l.addOrUpdateCoexV2RelayReceipt = _),
-      (l.getUndeliveredCoexV2Lids = f),
-      (l.purgeCoexV2RelayReceiptsBefore = h));
+      (l.getCoexV2RelayMessageAck = g),
+      (l.hasCoexV2RelayReceipt = y),
+      (l.getUndeliveredCoexV2Lids = b),
+      (l.purgeCoexV2RelayReceiptsBefore = S));
   },
   98,
 );

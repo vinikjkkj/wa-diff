@@ -4,7 +4,8 @@ __d(
     "Lexical",
     "LexicalClipboard",
     "LexicalDragon",
-    "LexicalExtension",
+    "LexicalExtensionNormalizeInlineElementsExtension",
+    "LexicalExtensionNormalizeTripleClickSelectionExtension",
     "LexicalSelection",
     "LexicalUtils",
   ],
@@ -17,23 +18,23 @@ __d(
     exports,
   ) {
     "use strict";
-    function o(t, n) {
+    function l(t, n) {
       n.update(function () {
         if (null !== t) {
           var _r = require("LexicalUtils").objectKlassEquals(t, KeyboardEvent)
               ? null
               : t.clipboardData,
-            _o = require("Lexical").$getSelection();
-          if (null !== _o && !_o.isCollapsed() && null != _r) {
+            _i = require("Lexical").$getSelection();
+          if (null !== _i && !_i.isCollapsed() && null != _r) {
             t.preventDefault();
-            var _i = require("LexicalClipboard").$getHtmlContent(n);
-            (null !== _i && _r.setData("text/html", _i),
-              _r.setData("text/plain", _o.getTextContent()));
+            var _o = require("LexicalClipboard").$getHtmlContent(n);
+            (null !== _o && _r.setData("text/html", _o),
+              _r.setData("text/plain", _i.getTextContent()));
           }
         }
       });
     }
-    function l(t) {
+    function s(t) {
       var _require_Lexical;
       return (_require_Lexical = require("Lexical")).mergeRegister(
         t.registerCommand(
@@ -127,14 +128,14 @@ __d(
             var t = require("Lexical").$getSelection();
             if (!require("Lexical").$isRangeSelection(t)) return !1;
             var n = e,
-              i = n.shiftKey;
+              r = n.shiftKey;
             return (
               !!require("LexicalSelection").$shouldOverrideDefaultCharacterSelection(
                 t,
                 !0,
               ) &&
               (n.preventDefault(),
-              require("LexicalSelection").$moveCharacter(t, i, !0),
+              require("LexicalSelection").$moveCharacter(t, r, !0),
               !0)
             );
           },
@@ -146,14 +147,14 @@ __d(
             var t = require("Lexical").$getSelection();
             if (!require("Lexical").$isRangeSelection(t)) return !1;
             var n = e,
-              i = n.shiftKey;
+              r = n.shiftKey;
             return (
               !!require("LexicalSelection").$shouldOverrideDefaultCharacterSelection(
                 t,
                 !1,
               ) &&
               (n.preventDefault(),
-              require("LexicalSelection").$moveCharacter(t, i, !1),
+              require("LexicalSelection").$moveCharacter(t, r, !1),
               !0)
             );
           },
@@ -233,7 +234,7 @@ __d(
           _require_Lexical.COPY_COMMAND,
           function (e) {
             var n = require("Lexical").$getSelection();
-            return !!require("Lexical").$isRangeSelection(n) && (o(e, t), !0);
+            return !!require("Lexical").$isRangeSelection(n) && (l(e, t), !0);
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
         ),
@@ -244,7 +245,7 @@ __d(
             return (
               !!require("Lexical").$isRangeSelection(n) &&
               ((function (e, t) {
-                (o(e, t),
+                (l(e, t),
                   t.update(
                     function () {
                       var e = require("Lexical").$getSelection();
@@ -316,17 +317,19 @@ __d(
         ),
       );
     }
-    var s = {
+    var c = {
       conflictsWith: ["LexicalRichText"],
       dependencies: [
         require("LexicalDragon").DragonExtension,
-        require("LexicalExtension").NormalizeInlineElementsExtension,
-        require("LexicalExtension").NormalizeTripleClickSelectionExtension,
+        require("LexicalExtensionNormalizeInlineElementsExtension")
+          .NormalizeInlineElementsExtension,
+        require("LexicalExtensionNormalizeTripleClickSelectionExtension")
+          .NormalizeTripleClickSelectionExtension,
       ],
       name: "LexicalPlainText",
-      register: l,
+      register: s,
     };
-    ((exports.PlainTextExtension = s), (exports.registerPlainText = l));
+    ((exports.PlainTextExtension = c), (exports.registerPlainText = s));
   },
   null,
 );

@@ -37,10 +37,11 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
+    var e, s, u;
+    function c(t) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -61,33 +62,33 @@ __d(
                 "WAWebDBQueryAndRemoveMessageHistory",
               ).getBoundsForChat(t),
               r = yield o("WAWebSchemaChat").getChatTable().get(t.toString()),
-              a = yield (s || (s = n("Promise"))).all([
+              a = yield (u || (u = n("Promise"))).all([
                 o("WAWebSchemaChat").getChatTable().remove(t.toString()),
                 o(
                   "WAWebDBQueryAndRemoveMessageHistory",
                 ).queryAndRemoveMessageHistory(t),
-                c(t),
-                S(t),
-                m({
+                d(t),
+                R(t),
+                p({
                   chatId: t,
                   tcToken: r == null ? void 0 : r.tcToken,
                   tcTokenTimestamp: r == null ? void 0 : r.tcTokenTimestamp,
                 }),
-                b(
+                v(
                   t,
                   (r == null ? void 0 : r.accountLid) != null
                     ? o("WAWebWidFactory").createWid(r.accountLid)
                     : null,
                 ),
                 t.isNewsletter() || t.isBroadcast()
-                  ? (s || (s = n("Promise"))).resolve([])
+                  ? (u || (u = n("Promise"))).resolve([])
                   : o(
                       "WAWebScheduledMsgRevealKeyStore",
                     ).deleteRevealKeysForChat(
                       o("WAWebWidToJid").widToChatJid(t),
                     ),
                 t.isNewsletter()
-                  ? (s || (s = n("Promise"))).resolve()
+                  ? (u || (u = n("Promise"))).resolve()
                   : o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
                       t.isBroadcast()
                         ? o("WAWebWidToJid").widToBroadcastJid(t)
@@ -96,27 +97,41 @@ __d(
               ]),
               i = a[0],
               l = a[1],
-              u = a[2];
+              s = a[2];
             return { chatBoundaries: e, deletedMsgIds: l };
           }),
         )
         .then(
           (function () {
-            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                var r = n.chatBoundaries,
-                  a = n.deletedMsgIds;
-                r
-                  ? (o("WAWebFtsClient").ftsClient.purgeRange(
-                      babelHelpers.extends({ chatId: t.toString() }, r),
-                    ),
+            var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (a) {
+                var i = a.chatBoundaries,
+                  l = a.deletedMsgIds;
+                i
+                  ? ((u || (u = n("Promise")))
+                      .resolve(
+                        o("WAWebFtsClient").ftsClient.purgeRange(
+                          babelHelpers.extends({ chatId: t.toString() }, i),
+                        ),
+                      )
+                      .catch(function (e) {
+                        o("WALogger")
+                          .WARN(
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                                "sendConversationDelete: ftsClient.purgeRange failed",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("fts-purge-range-failed");
+                      }),
                     yield o("WAWebBackendApi").frontendSendAndReceive(
                       "deleteModelsForLastAddOnPreview",
-                      { messagesIds: a },
+                      { messagesIds: l },
                     ),
                     yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                       t.toString(),
-                      a,
+                      l,
                     ))
                   : o("WALogger").WARN(
                       e ||
@@ -127,22 +142,22 @@ __d(
               },
             );
             return function (e) {
-              return r.apply(this, arguments);
+              return a.apply(this, arguments);
             };
           })(),
         );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebMobilePlatforms").isSMB() ||
             o("WAWebListsGatingUtils").isListsEnabled()
           ) {
-            var t = yield _(e),
+            var t = yield f(e),
               n = t.labelsToUpdate,
               r = t.modelRecords;
             yield o(
@@ -150,15 +165,15 @@ __d(
             ).editLocalLabelAssociationMD(n, r);
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             r = e.tcToken,
             a = e.tcTokenTimestamp;
@@ -171,17 +186,17 @@ __d(
                 tcToken: r,
                 tcTokenTimestamp: a,
               })
-            : (s || (s = n("Promise"))).resolve();
+            : (u || (u = n("Promise"))).resolve();
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
               "WAWebDBLabelAssociationDatabaseApi",
             ).queryLocalLabelAssociations([
@@ -190,7 +205,7 @@ __d(
                 type: o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
               },
             ]),
-            r = (yield (s || (s = n("Promise"))).all(
+            r = (yield (u || (u = n("Promise"))).all(
               t.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -235,28 +250,28 @@ __d(
             ],
           };
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n, r, o) {
-      return h.apply(this, arguments);
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l) {
             a === void 0 && (a = !1);
-            var u = o("WATimeUtils").unixTimeMs(),
-              d = yield (s || (s = n("Promise"))).all([
-                r("WAWebDeleteChatSync").getDeleteChatMutation(u, e, !a),
-                o("WAWebPinChatSync").PinChatSync.getPinMutation(u, !1, e),
-                y(e),
+            var s = o("WATimeUtils").unixTimeMs(),
+              c = yield (u || (u = n("Promise"))).all([
+                r("WAWebDeleteChatSync").getDeleteChatMutation(s, e, !a),
+                o("WAWebPinChatSync").PinChatSync.getPinMutation(s, !1, e),
+                C(e),
               ]),
-              p = d[0],
-              _ = d[1],
-              f = d[2],
+              m = c[0],
+              _ = c[1],
+              f = c[2],
               g = [].concat(f, [_]);
-            t && g.push(p);
+            t && g.push(m);
             var h;
             return (
               yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
@@ -283,13 +298,13 @@ __d(
                       "deleteChat",
                       { deleteMedia: !a },
                     ),
-                    p.binarySyncAction,
+                    m.binarySyncAction,
                   ),
                     (h = yield o(
                       "WAWebDBQueryAndRemoveMessageHistory",
                     ).queryAndRemoveMessageHistory(e)));
                   var t = yield o("WAWebApiChatCommon").getChatRecord(e);
-                  yield (s || (s = n("Promise"))).all([
+                  yield (u || (u = n("Promise"))).all([
                     o("WAWebSchemaChat").getChatTable().remove(e.toString()),
                     o("WAWebSchemaGroupMetadata")
                       .getGroupMetadataTable()
@@ -298,17 +313,17 @@ __d(
                       ? o(
                           "WAWebGroupHistoryParticipantJob",
                         ).clearGroupHistoryParticipantStateForGroup(e)
-                      : (s || (s = n("Promise"))).resolve(),
-                    c(e),
-                    m({ chatId: e, tcToken: i, tcTokenTimestamp: l }),
-                    b(
+                      : (u || (u = n("Promise"))).resolve(),
+                    d(e),
+                    p({ chatId: e, tcToken: i, tcTokenTimestamp: l }),
+                    v(
                       e,
                       (t == null ? void 0 : t.accountLid) != null
                         ? o("WAWebWidFactory").createWid(t.accountLid)
                         : null,
                     ),
                     e.isBroadcast()
-                      ? (s || (s = n("Promise"))).resolve([])
+                      ? (u || (u = n("Promise"))).resolve([])
                       : o(
                           "WAWebScheduledMsgRevealKeyStore",
                         ).deleteRevealKeysForChat(
@@ -326,15 +341,15 @@ __d(
             );
           },
         )),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !(
               o("WAWebMobilePlatforms").isSMB() ||
@@ -342,20 +357,20 @@ __d(
             )
           )
             return [];
-          var t = yield _(e),
+          var t = yield f(e),
             n = t.labelsToUpdate,
             a = t.modelRecords;
           return r("WAWebLabelJidSync").createLabelAssociationMutations(n, a);
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = [
             JSON.stringify([r("WAWebMuteChatSync").getAction(), e.toJid()]),
           ];
@@ -363,7 +378,7 @@ __d(
             a.push(
               JSON.stringify([r("WAWebMuteChatSync").getAction(), t.toJid()]),
             );
-          var i = (yield (s || (s = n("Promise"))).all(
+          var i = (yield (u || (u = n("Promise"))).all(
             a.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -396,15 +411,15 @@ __d(
             }),
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebMobilePlatforms").isSMB()) {
             var t = e.toString({ legacy: !0 }),
               n = yield o("WAWebSchemaChatAssignment")
@@ -426,14 +441,14 @@ __d(
               ));
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
+    function E(e) {
       var t = e.id,
         r = e.tcToken,
         a = e.tcTokenTimestamp;
-      return g(t, !0, !1, r, a).then(
+      return h(t, !0, !1, r, a).then(
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             if (e.result != null && e.result.length > 0) {
@@ -461,7 +476,7 @@ __d(
         })(),
       );
     }
-    ((l.deleteFromStorage = u), (l.sendConversationDelete = L));
+    ((l.deleteFromStorage = c), (l.sendConversationDelete = E));
   },
   98,
 );

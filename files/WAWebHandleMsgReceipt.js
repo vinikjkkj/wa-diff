@@ -4,8 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAck",
-    "WAWebCoexV2BotWid",
-    "WAWebCoexV2GatingUtils",
     "WAWebCreateReceiptStanzaReceiveMetric",
     "WAWebHandleAckPeerSimpleReceipt",
     "WAWebHandleBotInvokeMsgReceipt",
@@ -169,11 +167,8 @@ __d(
         return o("WAWebHandleAckPeerSimpleReceipt").handleAckPeerSimpleReceipt(
           t,
         );
-      if (
-        l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
-        o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
-      )
-        return o("WAWebHandleCoexV2Receipt").handleCoexV2Receipt(t);
+      var d = o("WAWebHandleCoexV2Receipt").maybeHandleCoexV2Receipt(t);
+      if (d != null) return d;
       if (l.isNewsletter())
         return o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
           ? o("WAWebHandleNewsletterReceipt").handleNewsletterSimpleReceipt(t)
@@ -208,8 +203,8 @@ __d(
               ),
             )
           );
-        var d = o("WAWebWidFactory").asUserWidOrThrow(t.participant);
-        if (o("WAWebUserPrefsMeUser").isMeAccount(d))
+        var m = o("WAWebWidFactory").asUserWidOrThrow(t.participant);
+        if (o("WAWebUserPrefsMeUser").isMeAccount(m))
           return (
             o("WALogger").LOG(
               s ||
@@ -219,8 +214,8 @@ __d(
             ),
             (y || (y = n("Promise"))).resolve()
           );
-        var m = babelHelpers.extends({}, t, { from: d, participant: null });
-        return o("WAWebHandleDirectChatReceipt").handleChatSimpleReceipt(m);
+        var p = babelHelpers.extends({}, t, { from: m, participant: null });
+        return o("WAWebHandleDirectChatReceipt").handleChatSimpleReceipt(p);
       }
       return (
         o("WALogger")

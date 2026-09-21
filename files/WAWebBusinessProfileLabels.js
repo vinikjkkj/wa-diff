@@ -70,7 +70,7 @@ __d(
     }
     function T() {
       return s._(
-        /*BTDS*/ "You can change your about on the app with your phone.",
+        /*BTDS*/ "You can change your About on the app with your phone.",
       );
     }
     function D() {

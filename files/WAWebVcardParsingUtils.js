@@ -51,7 +51,8 @@ __d(
     function _(e) {
       var t = {};
       return (
-        e &&
+        e == null ||
+          e === "" ||
           e.split(";").forEach(function (e) {
             var n = e.split(/=/);
             if (n.length === 1) {

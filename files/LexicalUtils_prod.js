@@ -212,8 +212,8 @@ __d(
                   e._window ? e._window.document : document
                 ).createRange();
                 return (
-                  a.setStart.apply(a, s(e, t, n, o)),
-                  a.setEnd.apply(a, s(e, r, i, l)),
+                  a.setStart.apply(a, Array.from(s(e, t, n, o))),
+                  a.setEnd.apply(a, Array.from(s(e, r, i, l))),
                   a
                 );
               })(e, f, $, E, p, S, N);

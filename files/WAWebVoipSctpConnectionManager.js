@@ -753,7 +753,17 @@ __d(
           function* (e, t, r, a) {
             if (!(t >= e.length) && !(me || Ce !== r)) {
               var i = e[t];
-              if (i != null) {
+              if (
+                i != null &&
+                !(
+                  t > 0 &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "web_voip_relay_setup_yield_ipv4_first",
+                  ) === !0 &&
+                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+                  me || Ce !== r)
+                )
+              ) {
                 o("WALogger").LOG(
                   H ||
                     (H = babelHelpers.taggedTemplateLiteralLoose([

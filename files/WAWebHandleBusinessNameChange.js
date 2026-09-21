@@ -37,7 +37,10 @@ __d(
                 "WAWebApiVerifiedBusinessName",
               ).createOrUpdateVerifiedBusinessName(e.wid, {
                 level: e.level,
-                serial: parseInt(e.serial || "0", 10),
+                serial: parseInt(
+                  e.serial != null && e.serial !== "" ? e.serial : "0",
+                  10,
+                ),
                 name: e.verifiedName,
                 isApi: e.isApi,
                 isSmb: e.isSmb,

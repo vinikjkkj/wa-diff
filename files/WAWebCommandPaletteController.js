@@ -3,7 +3,6 @@ __d(
   [
     "Lexical",
     "LexicalComposerContext",
-    "LexicalExtension",
     "LexicalExtensionComposer",
     "WAWebCommandPaletteInput.react",
     "WAWebFlex.react",
@@ -222,7 +221,7 @@ __d(
       );
     }
     function R() {
-      return o("LexicalExtension").defineExtension({
+      return o("Lexical").defineExtension({
         name: "[root]",
         namespace: "CommandPaletteInput",
         onError: r("WAWebNoop"),

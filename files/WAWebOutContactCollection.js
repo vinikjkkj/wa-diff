@@ -49,15 +49,12 @@ __d(
               !e.text
             )
               return [];
-            var n = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
-              r = [];
-            for (var a of this.getModelsArray()) {
-              var i = n
-                ? a.searchMatchPrefix(e.text, e.number)
-                : a.searchMatchExact(e.text, e.number);
-              i != null && r.push({ outContact: a, searchMatch: i });
+            var n = [];
+            for (var r of this.getModelsArray()) {
+              var a = r.searchMatchPrefix(e.text, e.number);
+              a != null && n.push({ outContact: r, searchMatch: a });
             }
-            return u(r);
+            return u(n);
           }),
           (r.$OutContactCollectionImpl$p_1 = function (n) {
             if (
