@@ -979,7 +979,6 @@ __d(
                 }
                 o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   p != null ? p : null,
-                  r,
                 );
                 var f = yield i;
                 (o("WAWebMLModelManager")
@@ -1034,7 +1033,8 @@ __d(
           })(),
           rejectCall: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield _e("rejectCall", {});
+              (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+                yield _e("rejectCall", {}));
             });
             function t() {
               return e.apply(this, arguments);
@@ -1106,7 +1106,6 @@ __d(
                 }
                 (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   g != null ? g : null,
-                  e,
                 ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield _e("joinOngoingCall", {
@@ -1167,7 +1166,6 @@ __d(
                   );
                 (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   n != null ? n : null,
-                  null,
                 ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId());
                 var l = yield ge("previewCallLink", {
@@ -1230,7 +1228,6 @@ __d(
                   );
                 (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   n != null ? n : null,
-                  null,
                 ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId());
                 var s = yield i;

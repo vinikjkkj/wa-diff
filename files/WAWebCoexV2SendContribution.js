@@ -8,7 +8,6 @@ __d(
     "WAWebBackendJobsCommon",
     "WAWebCoexV2BotWid",
     "WAWebCoexV2ProtoSanitize",
-    "WAWebCoexV2RelayEligibility",
     "WAWebCommsWapMd",
     "WAWebEncryptMsgProtobuf",
     "WAWebManageE2ESessionsJob",
@@ -60,24 +59,22 @@ __d(
           var t = e.botAttrs,
             n = e.editType,
             r = e.msg,
-            a = e.sendContext,
-            i = yield o("WAWebCoexV2RelayEligibility").getCoexV2RelaySendPlan(
-              a,
-            );
-          if (i == null) return null;
-          var l = i.peerLid,
-            s = i.selfIsCoexV2,
-            u = i.selfLid,
-            c = [u, l].filter(Boolean),
-            d = yield p(r, a.msgProtobuf, n, c, null, s, t);
-          return d == null
+            o = e.msgProtobuf,
+            a = e.relayPlan;
+          if (a == null) return null;
+          var i = a.peerLid,
+            l = a.selfIsCoexV2,
+            s = a.selfLid,
+            u = [s, i].filter(Boolean),
+            c = yield p(r, o, n, u, null, l, t);
+          return c == null
             ? null
             : {
-                node: d.node,
+                node: c.node,
                 seedReceipts: function () {
-                  return h(r.id.id, c, r.t);
+                  return h(r.id.id, u, r.t);
                 },
-                shouldHaveIdentity: d.shouldHaveIdentity,
+                shouldHaveIdentity: c.shouldHaveIdentity,
               };
         })),
         d.apply(this, arguments)

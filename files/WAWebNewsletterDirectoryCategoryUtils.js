@@ -18,6 +18,25 @@ __d(
         SpecialEvents5: 12,
       });
     function u(e) {
+      if (e == null) return !1;
+      switch (e.type) {
+        case s.SpecialEvents:
+        case s.SpecialEvents2:
+        case s.SpecialEvents3:
+        case s.SpecialEvents4:
+        case s.SpecialEvents5:
+          return !0;
+        case s.Business:
+        case s.Entertainment:
+        case s.Lifestyle:
+        case s.News:
+        case s.Organizations:
+        case s.People:
+        case s.Sports:
+          return !1;
+      }
+    }
+    function c(e) {
       switch (e) {
         case s.Business:
           return "BUSINESS";
@@ -45,7 +64,7 @@ __d(
           return "SPECIAL_EVENTS_5";
       }
     }
-    function c(e) {
+    function d(e) {
       switch (e) {
         case "BUSINESS":
           return { type: s.Business, name: "Business" };
@@ -76,7 +95,7 @@ __d(
           return;
       }
     }
-    function d(t) {
+    function m(t) {
       switch (t) {
         case "BUSINESS":
           return s.Business;
@@ -119,7 +138,7 @@ __d(
           );
       }
     }
-    function m(e) {
+    function p(e) {
       switch (e) {
         case s.Business:
           return "BUSINESS";
@@ -147,7 +166,7 @@ __d(
           return "SPECIAL_EVENTS_5";
       }
     }
-    function p(e) {
+    function _(e) {
       return o("WAWebGetEnumValuesFromConfig").getEnumValuesFromConfig({
         config: e,
         enumCastFunction: function (t) {
@@ -156,11 +175,12 @@ __d(
       });
     }
     ((l.NewsletterDirectoryCategoryType = s),
-      (l.getNewsletterSectionFromCategoryType = u),
-      (l.getNewsletterCategoryFromSection = c),
-      (l.getNewsletterDirectoryCategoryTypeFromValue = d),
-      (l.getCategoryValueFromEnum = m),
-      (l.getNewsletterDirectoryCategoryTypesFromConfig = p));
+      (l.isSpecialEventsCategory = u),
+      (l.getNewsletterSectionFromCategoryType = c),
+      (l.getNewsletterCategoryFromSection = d),
+      (l.getNewsletterDirectoryCategoryTypeFromValue = m),
+      (l.getCategoryValueFromEnum = p),
+      (l.getNewsletterDirectoryCategoryTypesFromConfig = _));
   },
   98,
 );

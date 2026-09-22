@@ -57,40 +57,34 @@ __d(
         b + r("performanceNavigationStart")(),
         a + r("performanceNavigationStart")(),
       );
-      if (
-        (u &&
-          ((e || (e = r("QuickPerformanceLogger"))).markerAnnotate(
-            o("CometTailLoadLoggerConfig").getQPLEvent(),
-            {
-              int: {
-                client_revision: r("SiteData").client_revision,
-                hidden: +(R != null && R > 0),
-                interruptedConsumption: y,
-                position: n,
-                windowHeight: Math.floor(window.innerHeight / 100),
-              },
-              string: {
-                client_push_phase: r("SiteData").push_phase,
-                pageletName: t,
-                sessionId: g,
-                tracePolicy: l,
-              },
+      u &&
+        ((e || (e = r("QuickPerformanceLogger"))).markerAnnotate(
+          o("CometTailLoadLoggerConfig").getQPLEvent(),
+          {
+            int: {
+              client_revision: r("SiteData").client_revision,
+              hidden: +(R != null && R > 0),
+              interruptedConsumption: y,
+              position: n,
+              windowHeight: Math.floor(window.innerHeight / 100),
             },
-            { instanceKey: S },
-          ),
-          e.markerEnd(
-            o("CometTailLoadLoggerConfig").getQPLEvent(),
-            i,
-            S,
-            a + d,
-          )),
-        i !== 2 || (i === 706 && y >= s))
-      ) {
-        var L =
+            string: {
+              client_push_phase: r("SiteData").push_phase,
+              pageletName: t,
+              sessionId: g,
+              tracePolicy: l,
+            },
+          },
+          { instanceKey: S },
+        ),
+        e.markerEnd(o("CometTailLoadLoggerConfig").getQPLEvent(), i, S, a + d));
+      var L = i;
+      if (i !== 2 || (L === 706 && y >= s)) {
+        var E =
           Object.keys(r("QuickLogActionType")).find(function (e) {
             return r("QuickLogActionType")[e] === i;
           }) || "UNKNOWN";
-        h.add({ position: n, scrollingFNLType: L, tracePolicy: l });
+        h.add({ position: n, scrollingFNLType: E, tracePolicy: l });
       }
       (f.add(c), _.delete(c));
     }

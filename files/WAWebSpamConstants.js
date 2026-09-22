@@ -70,7 +70,8 @@ __d(
           e.MSG_TYPE.INTERACTIVE,
         ]),
       ),
-      d = new Set([
+      d = new Set([e.MSG_TYPE.POLL_ADD_OPTION_DECRYPTED]),
+      m = new Set([
         e.MSG_TYPE.CHAT,
         e.MSG_TYPE.AUDIO,
         e.MSG_TYPE.IMAGE,
@@ -82,7 +83,8 @@ __d(
     ((l.SpamFlow = s),
       (l.SUPPORTED_MESSAGE_TYPES_FOR_MESSAGE_LEVEL_REPORTING = u),
       (l.SPAM_REPORT_SUPPORTED_MESSAGE_TYPES = c),
-      (l.PAID_PARTNERSHIP_LABEL_SUPPORTED_MESSAGE_TYPES = d));
+      (l.SPAM_REPORT_SUPPORTED_ASSOCIATED_MESSAGE_TYPES = d),
+      (l.PAID_PARTNERSHIP_LABEL_SUPPORTED_MESSAGE_TYPES = m));
   },
   98,
 );

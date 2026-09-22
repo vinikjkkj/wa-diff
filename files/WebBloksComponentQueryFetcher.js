@@ -41,15 +41,24 @@ __d(
             a.fetchComponentQuery(n.appId, n.params)
               .then(function (a) {
                 var i = new Map();
-                for (var l of a.components) {
-                  var s = o("WebBloksPayloadParser").parseTree(
-                    l.payload,
-                    e.$5,
-                    e.$6,
-                    e.$4,
-                    void 0,
+                try {
+                  for (var l of a.components) {
+                    var s = o("WebBloksPayloadParser").parseTree(
+                      l.payload,
+                      e.$5,
+                      e.$6,
+                      e.$4,
+                      void 0,
+                    );
+                    i.set(l.id, s);
+                  }
+                } catch (e) {
+                  throw new (o(
+                    "WebBloksErrors",
+                  ).WebBloksComponentQueryParseError)(
+                    n.appId,
+                    e instanceof Error ? e : null,
                   );
-                  i.set(l.id, s);
                 }
                 var u = { components: i },
                   c = {
@@ -69,16 +78,20 @@ __d(
                 (e.$3.set(t, c), e.$1.delete(t), r(d));
               })
               .catch(function (a) {
-                e.$1.delete(t);
-                var i = a instanceof Error ? a : null;
-                r({
-                  result: { components: new Map() },
-                  success: !1,
-                  error: new (o("WebBloksErrors").WebBloksError)(
-                    "Failed to fetch async component for appId: " + n.appId,
-                    i,
-                  ),
-                });
+                (e.$1.delete(t),
+                  r({
+                    result: { components: new Map() },
+                    success: !1,
+                    error:
+                      a instanceof
+                      o("WebBloksErrors").WebBloksComponentQueryParseError
+                        ? a
+                        : new (o("WebBloksErrors").WebBloksError)(
+                            "Failed to fetch async component for appId: " +
+                              n.appId,
+                            a instanceof Error ? a : null,
+                          ),
+                  }));
               });
           }
         }),

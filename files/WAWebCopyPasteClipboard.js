@@ -250,14 +250,15 @@ __d(
                 a,
                 function (e) {
                   return r("WAWebDomIsTextNode")(e) ||
-                    o("WAWebCopyPasteCopyable.react").isCopyable(e)
+                    (e instanceof HTMLElement &&
+                      o("WAWebCopyPasteCopyable.react").isCopyable(e))
                     ? []
                     : Array.from(e.childNodes);
                 },
                 function (e) {
                   var a;
-                  o("WAWebCopyPasteCopyable.react").isCopyable(e) &&
-                  e instanceof HTMLElement
+                  e instanceof HTMLElement &&
+                  o("WAWebCopyPasteCopyable.react").isCopyable(e)
                     ? ((a = t.fromCopyableEl(e, !0)), i.append(a))
                     : r("WAWebDomIsTextNode")(e)
                       ? i.appendPlainText(e.textContent)

@@ -6,6 +6,8 @@ __d(
     "WAWebCurrentUser",
     "WAWebHandleHatchAgentStatus",
     "WAWebHandleHatchApproval",
+    "WAWebHandleHatchChannelNotification",
+    "WAWebHatchChannelNotificationDecoder",
     "WAWebHatchMetadataExchangeManager",
     "WAWebHatchPayloadDecoder",
     "getErrorSafe",
@@ -56,7 +58,7 @@ __d(
     }
     function d(e, t) {
       var n = o("WAWebHatchPayloadDecoder").decodeHatchPayload(e);
-      if (n.kind !== "approval_record") {
+      if (!o("WAWebHatchPayloadDecoder").bypassesLastWriteWins(e.opKey)) {
         var r,
           a = (r = e.seq) != null ? r : e.timestamp;
         if (a != null) {
@@ -76,8 +78,12 @@ __d(
         ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(n.status)
         : n.kind === "identity"
           ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(n.identity)
-          : n.kind === "approval_record" &&
-            o("WAWebHandleHatchApproval").handleHatchApprovalRecord(n.event);
+          : n.kind === "approval_record"
+            ? o("WAWebHandleHatchApproval").handleHatchApprovalRecord(n.event)
+            : n.kind === "channel_notification" &&
+              o(
+                "WAWebHandleHatchChannelNotification",
+              ).handleHatchChannelNotification(n.notification);
     }
     function m(e, t, n) {
       var r;
@@ -105,6 +111,16 @@ __d(
           a,
         );
       }
+    }
+    function p(e) {
+      return e.kind === "channel_notification"
+        ? {
+            kind: e.kind,
+            notification: o(
+              "WAWebHatchChannelNotificationDecoder",
+            ).summarizeHatchChannelNotification(e.notification),
+          }
+        : e;
     }
     l.handleHatchMetadataSync = c;
   },

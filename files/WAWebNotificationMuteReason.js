@@ -37,6 +37,7 @@ __d(
         "NotifyForHighlights",
         "IgnoreGroupHistoryNotice",
         "BotResponseStreaming",
+        "HatchApprovalChatOnScreen",
       ]),
       l = e;
     i.default = l;

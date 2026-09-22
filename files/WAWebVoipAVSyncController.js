@@ -51,6 +51,7 @@ __d(
                   framesHeld: 0,
                   framesLate: 0,
                   framesEvicted: 0,
+                  framesReordered: 0,
                   deltaSumMs: 0,
                   deltaSampleCount: 0,
                 }),
@@ -119,6 +120,7 @@ __d(
               recalibrationCount: e.recalibrationCount,
               framesHeld: e.framesHeld,
               framesLate: e.framesLate,
+              framesReordered: e.framesReordered,
               framesEvicted: e.framesEvicted,
               isCalibrated: e.calibration != null,
               consecutiveLateCount: e.consecutiveLateCount,
@@ -133,6 +135,7 @@ __d(
                 a = babelHelpers.extends({}, t, {
                   arrivalAudioTimestamp: r,
                   continuityDriftMs: this.$10(o, r, t.timestamp),
+                  skippedOver: !1,
                 }),
                 i = this.$9(o),
                 l = i.frameQueue;
@@ -466,6 +469,7 @@ __d(
           (n.$16 = function (t, n, r) {
             var e = t[n];
             (t.splice(n, 1),
+              n > 0 && this.$28(t, n, e.source),
               r(
                 e.source,
                 e.frameBuffer,
@@ -476,6 +480,17 @@ __d(
                 e.timestamp,
                 e.isKeyFrame,
               ));
+          }),
+          (n.$28 = function (t, n, r) {
+            for (var e = 0, o = 0; o < n; o++) {
+              var a = t[o];
+              a.skippedOver || ((a.skippedOver = !0), e++);
+            }
+            if (e !== 0) {
+              this.$8.recordFramesReordered(e);
+              var i = this.$6.get(r);
+              i != null && (i.framesReordered += e);
+            }
           }),
           (n.$12 = function (t) {
             for (var e of this.$7) {

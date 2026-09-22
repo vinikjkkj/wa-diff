@@ -2,18 +2,15 @@ __d(
   "WAWebBusinessDirectUtils",
   [
     "Promise",
-    "WAArraysShallowEqual",
     "WACustomError",
     "WAWeb-moment",
     "WAWebBackendErrors",
     "WAWebBizBusinessProfileAction",
     "WAWebBusinessProfileCollection",
-    "WAWebBusinessProfileVersioningBridge",
     "WAWebCertificateString",
     "WAWebChatCollection",
     "WAWebDirectConnectionCypher",
     "WAWebDirectConnectionGatingUtils",
-    "WAWebServerPropConstants",
     "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
@@ -181,30 +178,6 @@ __d(
         e.statusCode === R
       );
     }
-    function E(e, t) {
-      if (
-        e ===
-        o("WAWebServerPropConstants")
-          .UNINITIALIZED_VALUE_WEB_BIZ_PROFILE_OPTIONS
-      )
-        return !1;
-      var n =
-          (o(
-            "WAWebBusinessProfileVersioningBridge",
-          ).getBusinessProfileQueryVersionWithCustomBizProfileOptions(e) &
-            o("WAWebBusinessProfileVersioningBridge").DIRECT_CONNECTION_FLAG) >
-          0,
-        r =
-          (o(
-            "WAWebBusinessProfileVersioningBridge",
-          ).getBusinessProfileQueryVersionWithCustomBizProfileOptions(t) &
-            o("WAWebBusinessProfileVersioningBridge").DIRECT_CONNECTION_FLAG) >
-          0;
-      return n !== r;
-    }
-    function k(e, t) {
-      return e != null && !r("WAArraysShallowEqual")(e, t);
-    }
     ((l.timestampFormat = s),
       (l.DCCertificateDomainMismatchError = u),
       (l.isCypherExpired = c),
@@ -215,9 +188,7 @@ __d(
       (l.isCypherNeeded = y),
       (l.userHasSentMessageToBusiness = b),
       (l.fetchDefaultPostcode = v),
-      (l.errorIsDirectConnectionCypherError421 = L),
-      (l.isDirectConnectionFlagChanged = E),
-      (l.isDirectConnectionNumbersAbPropChanged = k));
+      (l.errorIsDirectConnectionCypherError421 = L));
   },
   98,
 );

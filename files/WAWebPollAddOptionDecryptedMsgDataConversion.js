@@ -13,33 +13,34 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      var a = r("nullthrows")(
+      var a,
+        i = r("nullthrows")(
           e.pollAddOptionMessage,
           "[Poll][AddOption] Missing pollAddOptionMessage",
         ),
-        i = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-        l = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
-          a.pollCreationMessageKey,
-          i,
+        l = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
+        s = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
+          i.pollCreationMessageKey,
+          l,
         );
-      if (l == null || !l.equals(n.id) || !l.equals(t.parentMsgKey))
+      if (s == null || !s.equals(n.id) || !s.equals(t.parentMsgKey))
         throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
           o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
             .PARENT_KEY_MISMATCH,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var s = a.addOption;
-      if (s == null)
+      var u = i.addOption;
+      if (u == null)
         throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
           o("WAWebPollsValidationError").PollAddOptionValidationErrorCode
             .MISSING_POLL_OPTION,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var u = s.optionName;
+      var c = u.optionName;
       if (
-        u == null ||
-        u.length === 0 ||
-        u.length >
+        c == null ||
+        c.length === 0 ||
+        c.length >
           o("WAWebPollsGatingUtils").getMaxPollOptionLengthForIncomingMessages()
       )
         throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
@@ -53,7 +54,7 @@ __d(
           t.id,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
         ),
-        i,
+        l,
         {
           type: o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED,
           viewMode: o("WAWebViewMode.flow").ViewModeType.POLL_ADD_OPTION,
@@ -61,8 +62,13 @@ __d(
           protocolMessageKey: t.targetMessageKey,
           parentMsgKey: t.parentMsgKey,
           associationType: t.associationType,
-          pollAddedOption: { name: u, localId: -1 },
+          reportingTokenInfo: t.reportingTokenInfo,
         },
+        ((a = e.messageContextInfo) == null ? void 0 : a.messageSecret) !=
+          null && {
+          messageSecret: new Uint8Array(e.messageContextInfo.messageSecret),
+        },
+        { pollAddedOption: { name: c, localId: -1 } },
       );
     }
     l.protobufToPollAddOptionDecryptedMsgData = e;

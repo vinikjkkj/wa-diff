@@ -7,7 +7,6 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebMessagingGatingUtils",
     "WAWebProtobufsE2E.pb",
-    "WAWebReportingTokenConfig",
     "WAWebReportingTokenContent",
     "WAWebScheduledMsgCrypto",
     "WAWebScheduledMsgStore",
@@ -60,19 +59,14 @@ __d(
             h = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(g, d),
             y = h.encIv,
             C = h.encPayload,
-            b = o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled()
-              ? new (o(
-                  "WAWebReportingTokenContent",
-                ).ReportingTokenContentCalculator)(
+            b = o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion(),
+            v = o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled()
+              ? o("WAWebReportingTokenContent").calculateReportingTokenContent(
                   g,
-                  o("WAWebReportingTokenConfig").getReportingTokenConfig(
-                    o(
-                      "WAWebMessagingGatingUtils",
-                    ).getSenderReportingTokenVersion(),
-                  ),
-                ).getReportingTokenContent()
+                  b,
+                )
               : null,
-            v = {
+            S = {
               conditionalRevealMessage: {
                 conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
                   .Message$ConditionalRevealMessage$ConditionalRevealMessageType
@@ -83,7 +77,7 @@ __d(
               },
               messageContextInfo: { messageSecret: new Uint8Array(_) },
             },
-            S = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
+            R = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
               chatId: a,
               msgId: i,
               revealKey: d,
@@ -92,7 +86,7 @@ __d(
               encPayload: new Uint8Array(C),
               encIv: new Uint8Array(y),
             });
-          if (!S)
+          if (!R)
             throw (
               o("WALogger").ERROR(
                 s ||
@@ -119,11 +113,11 @@ __d(
             ),
             {
               innerMessageSecret: _,
-              reportingTokenContent: b,
+              reportingTokenContent: v,
               revealKey: d,
               revealKeyId: m,
               scheduledTimestampS: c,
-              wrappedProtobuf: v,
+              wrappedProtobuf: S,
             }
           );
         })),

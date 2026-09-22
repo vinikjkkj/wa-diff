@@ -258,13 +258,14 @@ __d(
                             S === r("WAWebMmsClientMmsBackoffOptions").retries;
                         if (
                           (P ||
-                            p(
-                              x,
-                              Date.now() - C,
-                              S,
-                              o("WAWebWamEnumOverallLastUploadRetryPhaseType")
-                                .OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
-                            ),
+                            p({
+                              error: x,
+                              failCount: S,
+                              overallLastUploadRetryPhase: o(
+                                "WAWebWamEnumOverallLastUploadRetryPhaseType",
+                              ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
+                              overallT: Date.now() - C,
+                            }),
                           $)
                         )
                           return b(x);

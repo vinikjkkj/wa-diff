@@ -55,10 +55,11 @@ __d(
       g,
       h,
       y,
-      C = 20,
-      b = 5,
-      v = 100;
-    function S(e, t) {
+      C,
+      b = 20,
+      v = 5,
+      S = 100;
+    function R(e, t) {
       return e.reduce(
         function (e, n) {
           var r,
@@ -82,19 +83,19 @@ __d(
         { chats: [], newsletters: [] },
       );
     }
-    function R() {
-      return L.apply(this, arguments);
-    }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebApiChat").getAllChatsDeserialized();
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      var n = S(e, t),
+    function k(e, t) {
+      var n = R(e, t),
         a = n.chats,
         i = n.newsletters;
       return (
@@ -103,12 +104,12 @@ __d(
         { chats: a, newsletters: i }
       );
     }
-    function k() {
-      return I.apply(this, arguments);
-    }
     function I() {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebChatCollection").ChatCollection.filter(
               o("WAWebFrontendChatGetters").getShouldAppearInList,
             ).length,
@@ -118,32 +119,32 @@ __d(
               t && (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0,
             ));
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    var T = null,
-      D = !1,
-      x = null,
-      $ = !1;
-    function P(e) {
+    var D = null,
+      x = !1,
+      $ = null,
+      P = !1;
+    function N(e) {
       return (n("cr:11133") == null ? void 0 : n("cr:11133")()) !== !0 ||
-        $ ||
-        D ||
+        P ||
+        x ||
         o("WAWebCmd").Cmd.isMainStreamReadyMd
-        ? (y || (y = n("Promise"))).resolve()
-        : ((x = e),
-          T != null ||
-            (T = n("asyncToGeneratorRuntime")
+        ? (C || (C = n("Promise"))).resolve()
+        : (($ = e),
+          D != null ||
+            (D = n("asyncToGeneratorRuntime")
               .asyncToGenerator(function* () {
                 if (
                   (yield o(
                     "WAWebDbEncryptionKey",
                   ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
                   yield o("WAWebModelStorageInitialize").initializeWithoutGKs(),
-                  !($ || D || o("WAWebCmd").Cmd.isMainStreamReadyMd))
+                  !(P || x || o("WAWebCmd").Cmd.isMainStreamReadyMd))
                 ) {
-                  var e = yield R();
-                  (E(e, x), (D = !0), yield k());
+                  var e = yield L();
+                  (k(e, $), (x = !0), yield I());
                 }
               })()
               .catch(function (e) {
@@ -158,21 +159,21 @@ __d(
                   .sendLogs("provisional-chat-row-restore-failed");
               })
               .finally(function () {
-                T = null;
+                D = null;
               })),
-          T);
-    }
-    function N() {
-      return M.apply(this, arguments);
+          D);
     }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          $ = !0;
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          P = !0;
           var e = !1;
           try {
             return (
-              T != null && (yield T),
+              D != null && (yield D),
               o(
                 "WAWebWamOfflineResumeReporter",
               ).OfflineResumeReporter.qpl.addPoint(
@@ -202,7 +203,7 @@ __d(
                       e.OfflineResumeReporter.qpl.addPoint(
                         "RCMGetChats_start",
                       ));
-                    var t = yield R();
+                    var t = yield L();
                     (e.OfflineResumeReporter.qpl.addPoint("RCMGetChats_end"),
                       e.OfflineResumeReporter.qpl.addPoint(
                         "RCMPopulateMatCache_start",
@@ -216,13 +217,13 @@ __d(
                     var n = o(
                         "WAWebThreadMetadata",
                       ).getOfflineThreadMetaPreview(),
-                      a = E(t, n == null ? void 0 : n.chatTimestamp),
+                      a = k(t, n == null ? void 0 : n.chatTimestamp),
                       i = a.chats,
                       l = a.newsletters;
                     (o(
                       "WAWebWamOfflineResumeReporter",
                     ).OfflineResumeReporter.logOfflineChatThreadCount(t.length),
-                      yield k(),
+                      yield I(),
                       o(
                         "WAWebWamOfflineResumeReporter",
                       ).OfflineResumeReporter.qpl.addPoint(
@@ -239,7 +240,7 @@ __d(
                     var s =
                       o("WAWebABProps").getABPropConfigValue(
                         "web_init_chat_batch_size",
-                      ) || v;
+                      ) || S;
                     (o(
                       "WAWebWamOfflineResumeReporter",
                     ).OfflineResumeReporter.qpl.addAnnotations({
@@ -251,8 +252,18 @@ __d(
                         (l.sort(r("WAWebChatComparator")),
                         r("WAWebNewsletterCollection") == null ||
                           r("WAWebNewsletterCollection").add(l, { merge: !0 }),
-                        w(Q(l), s)));
-                    var u = yield w(Q(i), s);
+                        A(X(l), s).catch(function (e) {
+                          o("WALogger")
+                            .ERROR(
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[init-from-storage] newsletter chunked restore failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("newsletter-chunked-restore-failed");
+                        })));
+                    var u = yield A(X(i), s);
                     return (
                       o(
                         "WAWebWamOfflineResumeReporter",
@@ -285,8 +296,8 @@ __d(
                   throw (
                     o("WALogger")
                       .ERROR(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "restoreChatsAndMessages: failed with error",
                           ])),
                       )
@@ -296,19 +307,19 @@ __d(
                 })
             );
           } finally {
-            (($ = !1),
+            ((P = !1),
               e &&
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.InitialChatLoad,
                 ));
           }
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e, t) {
+    function A(e, t) {
       for (
-        var a = (y || (y = n("Promise"))).resolve(),
+        var a = (C || (C = n("Promise"))).resolve(),
           i = new (o("WAWebPromiseQueue").PromiseQueue)(),
           l = function (s) {
             var l = e.slice(s, s + t),
@@ -322,7 +333,7 @@ __d(
                       ).OfflineResumeReporter.qpl.addPoint(
                         "RCMChatMetadata_start",
                       );
-                    var t = yield A(l);
+                    var t = yield F(l);
                     (s === 0 &&
                       o(
                         "WAWebWamOfflineResumeReporter",
@@ -335,7 +346,7 @@ __d(
                         ).OfflineResumeReporter.qpl.addPoint(
                           "RCMRestoreMessages_start",
                         ),
-                      yield F(t),
+                      yield O(t),
                       s === 0 &&
                         o(
                           "WAWebWamOfflineResumeReporter",
@@ -402,10 +413,10 @@ __d(
         l(s);
       return a;
     }
-    function A(e) {
-      return (y || (y = n("Promise"))).all(
+    function F(e) {
+      return (C || (C = n("Promise"))).all(
         e.map(function (e) {
-          var t = O(e);
+          var t = B(e);
           return o("WAWebDBMessageStoreUtils")
             .getKeyMsgsFromChatHistory(e, t)
             .then(function (n) {
@@ -420,15 +431,15 @@ __d(
         }),
       );
     }
-    function F(e) {
-      var t = B(e),
+    function O(e) {
+      var t = W(e),
         r = t.lastMessageKeys,
         a = t.missingAnchorCount,
         i = t.missingAnchorIds,
         l = t.tasks;
       return (
-        l.push(z(r)),
-        (y || (y = n("Promise"))).all(l).then(function () {
+        l.push(j(r)),
+        (C || (C = n("Promise"))).all(l).then(function () {
           a > 0 &&
             o("WALogger").WARN(
               u ||
@@ -443,7 +454,7 @@ __d(
         })
       );
     }
-    function O(e) {
+    function B(e) {
       return (
         (e.t != null &&
           o("WATimeUtils").happenedWithin(
@@ -453,7 +464,7 @@ __d(
         (e.pin != null && e.pin > 0)
       );
     }
-    function B(e) {
+    function W(e) {
       var t = [],
         n = [],
         a = [],
@@ -463,10 +474,10 @@ __d(
           var l = e.chat,
             s = e.lastReceivedKey,
             u = e.previewMsg;
-          if (O(l) || (u && u.id !== s)) {
+          if (B(l) || (u && u.id !== s)) {
             var c = self.performance.now();
             t.push(
-              W(l, u).then(function () {
+              q(l, u).then(function () {
                 var e = l.unreadMsgAnchorId;
                 if (!r("isStringNullOrEmpty")(e)) {
                   var t = r("WAWebMsgKey").fromString(e),
@@ -492,21 +503,21 @@ __d(
         }
       );
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!O(e) || e.unreadCount === 0) return U(e, t);
-          if (e.unreadCount >= C) return (yield U(e, t), H(e));
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!B(e) || e.unreadCount === 0) return V(e, t);
+          if (e.unreadCount >= b) return (yield V(e, t), G(e));
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "restoreMessagesForChat: restoring last ",
                 " messages.",
               ])),
-            e.unreadCount + b,
+            e.unreadCount + v,
           );
           var n = [];
           if (t) {
@@ -522,7 +533,7 @@ __d(
             lowerBound: e.id + "_/",
             upperBound: e.id + "_g",
             options: { reverse: !0 },
-            count: e.unreadCount + b,
+            count: e.unreadCount + v,
             addOnReparseExclusionList: n,
           });
           yield o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
@@ -536,15 +547,15 @@ __d(
             "restoreMessagesForChat",
           );
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e, t) {
-      return V.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = [];
           if (t != null && t.internalId != null) {
@@ -574,8 +585,8 @@ __d(
             });
           }
           (o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "processPreviewMessageInChat: restoring ",
                 " message.",
               ])),
@@ -598,8 +609,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "processPreviewMessageInChat: processMultipleMessages failed",
                       ])),
                   )
@@ -607,25 +618,25 @@ __d(
                   .sendLogs("restore-preview-msg-process-failed");
               }));
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.unreadMsgAnchorId;
           if (r("isStringNullOrEmpty")(t))
             return (
               o("WALogger").WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "unreadMsgAnchorId is not defined",
                   ])),
               ),
-              (y || (y = n("Promise"))).resolve()
+              (C || (C = n("Promise"))).resolve()
             );
           yield o("WAWebSchemaMessage")
             .getMessageTable()
@@ -633,8 +644,8 @@ __d(
             .then(function (t) {
               if (t.length === 0) {
                 o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "Unread anchor message does not exist in message table",
                     ])),
                 );
@@ -643,17 +654,17 @@ __d(
               var a = o("WAWebDBMessageUtils").getInChatMsgId(
                   t[0].internalId || "",
                 ),
-                i = j(e, a, b),
-                l = K(e, a, b),
-                s = (y || (y = n("Promise"))).all([i, l]).then(function (e) {
+                i = K(e, a, v),
+                l = Q(e, a, v),
+                s = (C || (C = n("Promise"))).all([i, l]).then(function (e) {
                   var t = e[0],
                     n = e[1];
                   return [].concat(t, n);
                 });
               return s.then(function (t) {
-                var n = t.length - b;
+                var n = t.length - v;
                 if (!(n < 0)) {
-                  var a = t[t.length - b].id,
+                  var a = t[t.length - v].id,
                     i = t.map(function (e) {
                       return o("WAWebDBMessageSerialization").messageFromDbRow(
                         e,
@@ -681,10 +692,10 @@ __d(
               });
             });
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e) {
+    function j(e) {
       var t = self.performance.now();
       return o("WAWebSchemaMessage")
         .getMessageTable()
@@ -693,9 +704,9 @@ __d(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                yield (y || (y = n("Promise"))).all(
+                yield (C || (C = n("Promise"))).all(
                   e.map(function (e) {
-                    if (!e) return (y || (y = n("Promise"))).resolve();
+                    if (!e) return (C || (C = n("Promise"))).resolve();
                     var t = o("WAWebDBMessageSerialization").messageFromDbRow(
                       e,
                       function (e) {
@@ -738,7 +749,7 @@ __d(
           );
         });
     }
-    function j(e, t, n) {
+    function K(e, t, n) {
       var r = { lowerInclusive: !0, upperInclusive: !1 },
         a = o("WAWebDBMessageUtils").beginningOfChat(
           o("WAWebWidFactory").createWid(e.id),
@@ -752,13 +763,13 @@ __d(
           lowerBound: a,
           upperBound: i,
           options: babelHelpers.extends({}, r, { reverse: !0 }),
-          count: b,
+          count: v,
         })
         .then(function (e) {
           return e.reverse();
         });
     }
-    function K(e, t, n) {
+    function Q(e, t, n) {
       var r = { lowerInclusive: !0, upperInclusive: !1 };
       return o(
         "WAWebDBQueryChatVisibleMessageHelper",
@@ -771,17 +782,17 @@ __d(
           o("WAWebWidFactory").createWid(e.id),
         ),
         options: r,
-        count: b,
+        count: v,
       });
     }
-    function Q(t) {
+    function X(t) {
       return t.map(function (t) {
         var n = t.id,
           r = babelHelpers.objectWithoutPropertiesLoose(t, e);
         return babelHelpers.extends({}, r, { id: n.toString() });
       });
     }
-    ((l.restoreChatRowsForDisplay = P), (l.restoreChatsAndMessages = N));
+    ((l.restoreChatRowsForDisplay = N), (l.restoreChatsAndMessages = M));
   },
   98,
 );

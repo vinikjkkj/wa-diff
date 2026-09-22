@@ -39,7 +39,7 @@ __d(
           var e = yield u();
           !e ||
             e.constructor !== Uint8Array ||
-            o("WAWebInvocationInterface").get().initDatabaseEncnKey(e);
+            (yield o("WAWebInvocationInterface").get().initDatabaseEncnKey(e));
         })),
         p.apply(this, arguments)
       );

@@ -96,7 +96,7 @@ __d(
                 ])),
             ),
               (this.$5 = []),
-              this.$6 && (self.clearTimeout(this.$6), (this.$6 = null)),
+              this.$6 != null && (self.clearTimeout(this.$6), (this.$6 = null)),
               (this.$3 = !1),
               this.$2.resolveWasCalled() || this.$2.resolve(),
               (this.$2 = new (o("WAResolvable").Resolvable)()),

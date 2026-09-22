@@ -6,6 +6,7 @@ __d(
     "WAFilteredCatch",
     "WAWebBackendErrors",
     "WAWebCatalogCollection",
+    "WAWebNullFunc",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -84,9 +85,7 @@ __d(
                   o("WAWebBackendErrors").CatalogUnknownError,
                   o("WAWebBackendErrors").AdAccountRecoveryRequiredError,
                 ],
-                function () {
-                  return null;
-                },
+                o("WAWebNullFunc").returnNull,
               ),
             )
             .catch(function (e) {

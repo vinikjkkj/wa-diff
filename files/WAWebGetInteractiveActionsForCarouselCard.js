@@ -1,6 +1,7 @@
 __d(
   "WAWebGetInteractiveActionsForCarouselCard",
   [
+    "WAWebCarouselMsgUtils",
     "WAWebGetInteractiveActionsFromButtons",
     "WAWebGetInteractiveCtaActions",
     "WAWebInteractiveMessageCarouselLogEvents",
@@ -14,33 +15,34 @@ __d(
         i,
         l = [];
       if (
-        t !== !0 ||
+        !s(e, t) ||
         ((n = e.interactivePayload) == null ? void 0 : n.buttons) == null
       )
         return l;
       for (
-        var s =
+        var c =
             (a = (i = e.interactivePayload) == null ? void 0 : i.buttons) !=
             null
               ? a
               : [],
-          u = [],
-          c = 0;
-        c < s.length;
-        c++
+          d = [],
+          m = 0;
+        m < c.length;
+        m++
       ) {
-        var d = s[c];
-        if (d != null) {
-          var m = o(
+        var p = c[m];
+        if (p != null) {
+          var _ = o(
             "WAWebGetInteractiveCtaActions",
-          ).nativeFlowButtonToCtaButton(d, c, void 0, e.nativeFlowName);
-          m != null && u.push(m);
+          ).nativeFlowButtonToCtaButton(p, m, void 0, e.nativeFlowName);
+          _ != null && d.push(_);
         }
       }
+      var f = u(d, t);
       return (
-        (l = r("WAWebGetInteractiveActionsFromButtons")(u, e)),
+        (l = r("WAWebGetInteractiveActionsFromButtons")(f, e)),
         l.map(function (t, n) {
-          var a = u[n],
+          var a = f[n],
             i = null;
           switch (a.name) {
             case "cta_url":
@@ -74,6 +76,18 @@ __d(
               });
         })
       );
+    }
+    function s(e, t) {
+      return t === !0
+        ? !0
+        : o("WAWebCarouselMsgUtils").isOutgoingBizBotMessage(e.unsafe());
+    }
+    function u(e, t) {
+      return t === !0
+        ? e
+        : e.filter(function (e) {
+            return e.name === "quick_reply";
+          });
     }
     l.default = e;
   },

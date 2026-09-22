@@ -653,21 +653,22 @@ __d(
                 "WAWebGroupHistoryReportingTokenValidator",
               ).validateAndBuildReportingInfoRow(e, a, t),
               l = i.failureReason,
-              s = i.row;
+              s = i.reportingTokenVersion,
+              u = i.row;
             if (
               l != null &&
               o(
                 "WAWebReportingTokenUtils",
-              ).showDebugPlaceholderForReportingTokenMismatch(t.stanzaVersion)
+              ).showDebugPlaceholderForReportingTokenMismatch(s)
             ) {
-              var u = o("WAWebReportingTokenUtils").genDebugMsgInfo(e);
+              var c = o("WAWebReportingTokenUtils").genDebugMsgInfo(e);
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
-                externalId: u.externalId,
+                externalId: c.externalId,
                 nackReason: o("WAWebCreateNackFromStanza").NackReason
                   .ParsingError,
-                msgInfo: u,
+                msgInfo: c,
                 offline: !1,
                 additionalInfo:
                   "[ghs] reporting token validation failed (reason " +
@@ -676,7 +677,7 @@ __d(
                   e.id.toString(),
               });
             }
-            return s;
+            return u;
           } catch (t) {
             return (
               o("WALogger").WARN(

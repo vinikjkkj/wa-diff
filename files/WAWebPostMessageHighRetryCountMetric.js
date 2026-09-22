@@ -11,48 +11,50 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = 5;
-    function s(e, t, n, r) {
+    function s(e) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            if (!(t < e)) {
-              var i = new (o(
-                  "WAWebMessageHighRetryCountWamEvent",
-                ).MessageHighRetryCountWamEvent)({
-                  isPq: a,
-                  retryCount: t,
-                  messageType: o(
-                    "WAWebWamMsgUtils",
-                  ).getMessageTypeFromMsgInfoType(n.type),
-                  sessionScope: o(
-                    "WAWebSessionScopeWamUtils",
-                  ).sessionScopeToWamType(r),
-                }),
-                l = o("WAWebWamMsgUtils").getWamE2eSenderType(n.author);
-              (l != null && (i.e2eSenderType = l),
-                n.author.isHosted() &&
-                  (i.encryptionType = o(
-                    "WAWebWamEnumEncryptionTypeCode",
-                  ).ENCRYPTION_TYPE_CODE.COEX));
-              var s = n.chat;
-              if (s != null && s.isGroup()) {
-                var u = yield o("WAWebWamGroupMetricCache").getGroupMetrics(s);
-                ((u == null ? void 0 : u.deviceSizeBucket) != null &&
-                  (i.deviceSizeBucket = u.deviceSizeBucket),
-                  (u == null ? void 0 : u.participantCount) != null &&
-                    u.participantCount >
-                      o(
-                        "WAWebMessagingGatingUtils",
-                      ).getGroupSizeBypassingSampling() &&
-                    (i.weight = 0));
-              }
-              i.commit();
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.isPq,
+            r = t.msgInfo,
+            a = t.retryCount,
+            i = t.sessionScope;
+          if (!(a < e)) {
+            var l = new (o(
+                "WAWebMessageHighRetryCountWamEvent",
+              ).MessageHighRetryCountWamEvent)({
+                isPq: n,
+                retryCount: a,
+                messageType: o(
+                  "WAWebWamMsgUtils",
+                ).getMessageTypeFromMsgInfoType(r.type),
+                sessionScope: o(
+                  "WAWebSessionScopeWamUtils",
+                ).sessionScopeToWamType(i),
+              }),
+              s = o("WAWebWamMsgUtils").getWamE2eSenderType(r.author);
+            (s != null && (l.e2eSenderType = s),
+              r.author.isHosted() &&
+                (l.encryptionType = o(
+                  "WAWebWamEnumEncryptionTypeCode",
+                ).ENCRYPTION_TYPE_CODE.COEX));
+            var u = r.chat;
+            if (u != null && u.isGroup()) {
+              var c = yield o("WAWebWamGroupMetricCache").getGroupMetrics(u);
+              ((c == null ? void 0 : c.deviceSizeBucket) != null &&
+                (l.deviceSizeBucket = c.deviceSizeBucket),
+                (c == null ? void 0 : c.participantCount) != null &&
+                  c.participantCount >
+                    o(
+                      "WAWebMessagingGatingUtils",
+                    ).getGroupSizeBypassingSampling() &&
+                  (l.weight = 0));
             }
-          },
-        )),
+            l.commit();
+          }
+        })),
         u.apply(this, arguments)
       );
     }

@@ -50,33 +50,35 @@ __d(
         M = $.wrapperProps,
         w = r("useClickablePropsForWebBloks")(n, a),
         A = o("WebBloksComponentContext").useWebBloksContext(),
-        F = A.renderChildren,
-        O = i.slice(-1)[0],
-        B = r("useWebBloksRichTextDimensions")(i, T, l, D, x, L),
-        W = L === !0,
-        q = d(!1),
-        U = q[0],
-        V = q[1],
-        H = c(
+        F = A.bloksContext,
+        O = A.renderChildren,
+        B = F.objectSet.environment.enableDeterministicTextSize,
+        W = i.slice(-1)[0],
+        q = r("useWebBloksRichTextDimensions")(i, T, l, D, x, L, B),
+        U = L === !0,
+        V = d(!1),
+        H = V[0],
+        G = V[1],
+        z = c(
           function () {
             return {
               maxNumberOfLines: E != null ? E : 1,
-              isRootFontSizeEnabled: U,
-              setIsRootFontSizeEnabled: V,
+              isRootFontSizeEnabled: H,
+              setIsRootFontSizeEnabled: G,
             };
           },
-          [U, E],
+          [H, E],
         ),
-        G = c(
+        j = c(
           function () {
-            return W
+            return U
               ? s.jsx(r("WebBloksRichTextContext").Provider, {
-                  value: H,
-                  children: F(l),
+                  value: z,
+                  children: O(l),
                 })
-              : F(i);
+              : O(i);
           },
-          [W, i, l, F, H],
+          [U, i, l, O, z],
         );
       return N(
         s.jsx(
@@ -88,9 +90,9 @@ __d(
               dir: "auto",
               className: o("WebBloksStyle").WebBloksStyles.container,
               style: babelHelpers.extends({}, P, {
-                lineHeight: B.lineHeight,
+                lineHeight: q.lineHeight,
                 display: "block",
-                color: O == null ? void 0 : O.get(R),
+                color: W == null ? void 0 : W.get(R),
                 textAlign: o("WebBloksUtils").toHyphen(u),
                 overflow: "hidden",
               }),
@@ -100,13 +102,13 @@ __d(
               children: s.jsx(r("WebBloksRichTextVerticalAlign"), {
                 baselineSpacing: k,
                 capSpacing: I,
-                dimensions: B,
+                dimensions: q,
                 children: s.jsx(r("WebBloksRichTextTruncation"), {
-                  dimensions: B,
+                  dimensions: q,
                   maxNumberOfLines: E,
                   spansForTruncation: D,
                   truncationSpans: x,
-                  children: G,
+                  children: j,
                 }),
               }),
             },

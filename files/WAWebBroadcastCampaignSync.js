@@ -3,8 +3,10 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WALongInt",
     "WAWebBackendApi",
     "WAWebBizBroadcastCampaignStorageUtils",
+    "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBusinessBroadcastsGatingUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaBusinessBroadcastCampaign",
@@ -17,7 +19,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = (function (t) {
+      u,
+      c = (function (t) {
         function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -40,23 +43,23 @@ __d(
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var r = this;
-                if (
-                  !o(
+                var r = this,
+                  a = o(
                     "WAWebBusinessBroadcastsGatingUtils",
-                  ).isBizBroadcastSendWebEnabledNoExposure()
-                )
-                  return t.map(function () {
-                    return {
-                      actionState:
-                        o("WAWebSyncdConst").SyncActionState.Unsupported,
-                    };
-                  });
-                var a = 0,
-                  i = new Set(),
-                  l = [],
-                  u = [],
-                  m = yield (s || (s = n("Promise"))).all(
+                  ).isBizBroadcastSendWebEnabledNoExposure(),
+                  i =
+                    o(
+                      "WAWebBusinessBroadcastsGatingUtils",
+                    ).isBizBroadcastProEnabled() &&
+                    o(
+                      "WAWebBizBroadcastDeviceCapabilityCommon",
+                    ).getPrimarySupportsBusinessBroadcastPro(),
+                  l = 0,
+                  s = new Set(),
+                  c = [],
+                  p = [],
+                  _ = [],
+                  f = yield (u || (u = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -66,43 +69,61 @@ __d(
                                 n = t[1];
                               if (!n) return r.malformedActionIndex();
                               e: {
-                                var s = e;
+                                var u = e;
                                 if (
-                                  ((typeof s == "object" && s !== null) ||
-                                    typeof s == "function") &&
-                                  s.operation === "set" &&
-                                  "value" in s &&
-                                  "timestamp" in s
+                                  ((typeof u == "object" && u !== null) ||
+                                    typeof u == "function") &&
+                                  u.operation === "set" &&
+                                  "value" in u &&
+                                  "timestamp" in u
                                 ) {
-                                  var m = s.value,
-                                    p = s.timestamp,
-                                    _ = m.businessBroadcastCampaignAction,
-                                    f = c(_, r.collectionName);
-                                  if (f != null)
+                                  var f = u.value,
+                                    g = u.timestamp,
+                                    h = f.businessBroadcastCampaignAction,
+                                    y = d(h, r.collectionName);
+                                  if (y != null) {
+                                    l += y.malformedMutationCount;
+                                    var C = y.affectedBroadcastJid,
+                                      b = y.campaignTimestamp;
                                     return (
-                                      (a += f.malformedMutationCount),
-                                      d(i, f.affectedBroadcastJid),
-                                      f.result
+                                      i &&
+                                        C != null &&
+                                        b != null &&
+                                        (m(s, C),
+                                        c.push({
+                                          broadcastJid: C,
+                                          campaignId: n,
+                                          campaignTimestamp: b,
+                                          messageId: y.messageId,
+                                        })),
+                                      y.result
                                     );
+                                  }
+                                  if (!a)
+                                    return {
+                                      actionState:
+                                        o("WAWebSyncdConst").SyncActionState
+                                          .Unsupported,
+                                    };
                                   if (
-                                    !_ ||
-                                    _.broadcastJid == null ||
-                                    _.deviceId == null ||
-                                    _.status == null
+                                    !h ||
+                                    h.broadcastJid == null ||
+                                    h.deviceId == null ||
+                                    h.status == null
                                   )
                                     return (
-                                      a++,
+                                      l++,
                                       o(
                                         "WAWebSyncdIndexUtils",
                                       ).malformedActionValue(r.collectionName)
                                     );
                                   yield o(
                                     "WAWebBizBroadcastCampaignStorageUtils",
-                                  ).upsertCampaignStorage(n, _, p);
-                                  var g = _.broadcastJid;
+                                  ).upsertCampaignStorage(n, h, g);
+                                  var v = h.broadcastJid;
                                   return (
-                                    g != null && i.add(g),
-                                    l.push(n),
+                                    v != null && s.add(v),
+                                    p.push(n),
                                     {
                                       actionState:
                                         o("WAWebSyncdConst").SyncActionState
@@ -112,22 +133,28 @@ __d(
                                   break e;
                                 }
                                 if (
-                                  ((typeof s == "object" && s !== null) ||
-                                    typeof s == "function") &&
-                                  s.operation === "remove"
+                                  ((typeof u == "object" && u !== null) ||
+                                    typeof u == "function") &&
+                                  u.operation === "remove"
                                 ) {
-                                  var h = yield o(
+                                  if (!a)
+                                    return {
+                                      actionState:
+                                        o("WAWebSyncdConst").SyncActionState
+                                          .Unsupported,
+                                    };
+                                  var S = yield o(
                                     "WAWebSchemaBusinessBroadcastCampaign",
                                   )
                                     .getBusinessBroadcastCampaignTable()
                                     .get(n);
                                   return (
-                                    (h == null ? void 0 : h.broadcastJid) !=
-                                      null && i.add(h.broadcastJid),
+                                    (S == null ? void 0 : S.broadcastJid) !=
+                                      null && s.add(S.broadcastJid),
                                     yield o(
                                       "WAWebBizBroadcastCampaignStorageUtils",
                                     ).removeCampaignStorage(n),
-                                    u.push(n),
+                                    _.push(n),
                                     {
                                       actionState:
                                         o("WAWebSyncdConst").SyncActionState
@@ -138,7 +165,7 @@ __d(
                                 }
                                 throw Error(
                                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    s,
+                                    u,
                                 );
                               }
                             } catch (e) {
@@ -156,26 +183,31 @@ __d(
                     ),
                   );
                 return (
-                  a > 0 &&
+                  l > 0 &&
                     o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
                           "broadcast campaign sync: ",
                           " malformed mutations",
                         ])),
-                      a,
+                      l,
                     ),
-                  i.size > 0 &&
+                  s.size > 0 &&
                     o("WAWebBackendApi").frontendFireAndForget(
                       "refreshBroadcastCampaignState",
-                      { broadcastJids: Array.from(i) },
+                      { broadcastJids: Array.from(s) },
                     ),
-                  (l.length > 0 || u.length > 0) &&
+                  c.length > 0 &&
+                    o("WAWebBackendApi").frontendFireAndForget(
+                      "createBizBroadcastProLocalCampaignCards",
+                      { campaigns: c },
+                    ),
+                  (p.length > 0 || _.length > 0) &&
                     o("WAWebBackendApi").frontendFireAndForget(
                       "syncBroadcastCampaignsToCollection",
-                      { upsertedCampaignIds: l, removedCampaignIds: u },
+                      { upsertedCampaignIds: p, removedCampaignIds: _ },
                     ),
-                  m
+                  f
                 );
               },
             );
@@ -212,32 +244,51 @@ __d(
           r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase);
-    function c(e, t) {
+    function d(e, t) {
       var n = e == null ? void 0 : e.customAudienceFbid,
         r = n != null && n.length > 0;
-      return !r && (e == null ? void 0 : e.bbProStatus) == null
-        ? null
-        : !r ||
-            (e == null ? void 0 : e.broadcastJid) == null ||
-            e.broadcastJid.length === 0 ||
-            (e == null ? void 0 : e.deviceId) == null
-          ? {
-              malformedMutationCount: 1,
-              result: o("WAWebSyncdIndexUtils").malformedActionValue(t),
-            }
-          : {
-              affectedBroadcastJid: e.broadcastJid,
-              malformedMutationCount: 0,
-              result: {
-                actionState: o("WAWebSyncdConst").SyncActionState.Unsupported,
-              },
-            };
+      if (!r && (e == null ? void 0 : e.bbProStatus) == null) return null;
+      if (
+        !r ||
+        (e == null ? void 0 : e.broadcastJid) == null ||
+        e.broadcastJid.length === 0 ||
+        (e == null ? void 0 : e.deviceId) == null
+      )
+        return {
+          malformedMutationCount: 1,
+          result: o("WAWebSyncdIndexUtils").malformedActionValue(t),
+        };
+      var a = o("WALongInt").maybeNumber(
+        e == null ? void 0 : e.createTimestamp,
+      );
+      return a == null || !Number.isFinite(a) || a <= 0
+        ? (o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Business broadcast Pro mutation has an invalid createTimestamp",
+                ])),
+            )
+            .sendLogs("bb-pro-campaign-sync-timestamp-invalid"),
+          {
+            malformedMutationCount: 1,
+            result: o("WAWebSyncdIndexUtils").malformedActionValue(t),
+          })
+        : {
+            affectedBroadcastJid: e.broadcastJid,
+            campaignTimestamp: a,
+            malformedMutationCount: 0,
+            messageId: e.msgId,
+            result: {
+              actionState: o("WAWebSyncdConst").SyncActionState.Unsupported,
+            },
+          };
     }
-    function d(e, t) {
+    function m(e, t) {
       t != null && e.add(t);
     }
-    var m = new u();
-    l.default = m;
+    var p = new c();
+    l.default = p;
   },
   98,
 );

@@ -45,8 +45,11 @@ __d(
         return !1;
       }
     }
-    function m() {
-      return !(o("WAWebUA").UA.isSafari || o("WAWebUA").UA.isFirefox);
+    function m(e) {
+      var t;
+      e === void 0 && (e = 1);
+      var n = self.Notification;
+      return ((t = n == null ? void 0 : n.maxActions) != null ? t : 0) >= e;
     }
     ((l.canEnableOfflineNotifications = e),
       (l.isNotificationPermissionGranted = s),

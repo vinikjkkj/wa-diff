@@ -48,9 +48,9 @@ __d(
       } catch (e) {}
       return o("WAMd5").md5("payload:" + e);
     }
-    function m(e, t) {
-      var n = { callRandomId: t, jsonDataStr: e };
-      return ((s = n), n);
+    function m(e, t, n) {
+      var r = { callRandomId: t, jsonDataStr: e, lobbyEntryPoint: n };
+      return ((s = r), r);
     }
     function p() {
       return s;

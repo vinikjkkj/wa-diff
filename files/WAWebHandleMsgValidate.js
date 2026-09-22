@@ -592,7 +592,7 @@ __d(
                 var _ =
                     (t = s.protocolMessageKey) == null ? void 0 : t.toString(),
                   f = {
-                    msgKey: _ != null ? _ : s.id.toString(),
+                    msgKey: A(s),
                     stanzaId: s.id.id,
                     reportingTag: d,
                     receivedTs: o("WATimeUtils").unixTimeMs(),
@@ -617,7 +617,10 @@ __d(
                     (s.kind === o("WAWebMsgType").MsgKind.CommentEncrypted ||
                       s.kind === o("WAWebMsgType").MsgKind.EventEditEncrypted ||
                       s.kind ===
-                        o("WAWebMsgType").MsgKind.MessageEditEncrypted) &&
+                        o("WAWebMsgType").MsgKind.MessageEditEncrypted ||
+                      s.kind === o("WAWebMsgType").MsgKind.PollEditEncrypted ||
+                      s.kind ===
+                        o("WAWebMsgType").MsgKind.PollAddOptionEncrypted) &&
                     i === !1
                   )
                 ) {
@@ -665,6 +668,15 @@ __d(
         })),
         w.apply(this, arguments)
       );
+    }
+    function A(e) {
+      var t, n;
+      return e.kind === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
+        ? e.id.toString()
+        : (t = (n = e.protocolMessageKey) == null ? void 0 : n.toString()) !=
+            null
+          ? t
+          : e.id.toString();
     }
     ((l.validateMsgDestination = v),
       (l.validateBclHash = L),

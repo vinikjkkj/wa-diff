@@ -3,181 +3,109 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABPropsLocalStorage",
     "WAWebApiBusinessProfile",
     "WAWebBizBusinessProfileAction",
-    "WAWebBizProfileGatingUtils",
-    "WAWebBusinessDirectUtils",
     "WAWebBusinessProfileModel",
     "WAWebBusinessProfileUtils",
-    "WAWebCmd",
     "WAWebContactCollection",
-    "WAWebDirectConnectionGatingUtils",
     "WAWebHandleBizBotAutomatedTypeAction",
     "WAWebHandleBizBotWelcomeMsgProtocolModeAction",
     "WAWebLidMigrationUtils",
-    "WAWebServerPropConstants",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d,
-      m,
-      p = "catalog_exists",
-      _ = (function (t) {
+      c = "catalog_exists",
+      d = (function (t) {
         function a() {
-          var n;
-          n = t.call(this) || this;
-          var a = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync()
-              ? o(
-                  "WAWebDirectConnectionGatingUtils",
-                ).directConnectionBusinessNumbersFromAbprop()
-              : null,
-            i = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync()
-              ? o("WAWebBizProfileGatingUtils").webBizProfileOptions()
-              : o("WAWebServerPropConstants")
-                  .UNINITIALIZED_VALUE_WEB_BIZ_PROFILE_OPTIONS;
-          return (
-            n.listenTo(
-              o("WAWebCmd").Cmd,
-              "on_ab_props_update_from_bridge",
-              function () {
-                var t = o("WAWebBizProfileGatingUtils").webBizProfileOptions();
-                (o("WAWebBusinessDirectUtils").isDirectConnectionFlagChanged(
-                  i,
-                  t,
-                ) &&
-                  (o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[direct-connection] bit changed, marking profiles stale",
-                      ])),
-                  ),
-                  n.$BusinessProfileCollectionImpl$p_1(
-                    o(
-                      "WAWebDirectConnectionGatingUtils",
-                    ).directConnectionBusinessNumbersFromAbprop(),
-                  )),
-                  (i = t));
-                try {
-                  var l = o(
-                    "WAWebDirectConnectionGatingUtils",
-                  ).directConnectionBusinessNumbersFromAbprop();
-                  (o(
-                    "WAWebBusinessDirectUtils",
-                  ).isDirectConnectionNumbersAbPropChanged(a, l) &&
-                    n.$BusinessProfileCollectionImpl$p_1(
-                      Array.from(new Set((a != null ? a : []).concat(l))),
-                    ),
-                    (a = l));
-                } catch (e) {
-                  var u = r("getErrorSafe")(e);
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[direct-connection] biz profile update failed",
-                        ])),
-                    )
-                    .verbose()
-                    .sendLogs(
-                      "direct-connection-biz-number-abprop-sync-fail" +
-                        String(u),
-                    );
-                }
-              },
-            ),
-            n
-          );
+          return t.apply(this, arguments) || this;
         }
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
           (i.findImpl = function (t) {
-            return this.$BusinessProfileCollectionImpl$p_2(t, {
+            return this.$BusinessProfileCollectionImpl$p_1(t, {
               queryCatalog: !0,
             });
           }),
           (i._update = function (t, n) {
-            return this.$BusinessProfileCollectionImpl$p_2(t, {
+            return this.$BusinessProfileCollectionImpl$p_1(t, {
               queryCatalog: !1,
               getMerchantCompliance:
                 n == null ? void 0 : n.getMerchantCompliance,
             });
           }),
-          (i.$BusinessProfileCollectionImpl$p_2 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var r = t.getMerchantCompliance,
-                  a = t.queryCatalog,
-                  i = this.gadd(e);
-                if (!i.id.isUserNotPSA() || i.id.isFbidBot())
-                  return (m || (m = n("Promise"))).resolve({ id: e });
-                var l = o("WAWebBizBusinessProfileAction").queryBusinessProfile(
-                    [{ wid: i.id, tag: i.tag }],
-                    r,
+          (i.$BusinessProfileCollectionImpl$p_1 = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, r) {
+                var a = r.getMerchantCompliance,
+                  i = r.queryCatalog,
+                  l = this.gadd(t);
+                if (!l.id.isUserNotPSA() || l.id.isFbidBot())
+                  return (u || (u = n("Promise"))).resolve({ id: t });
+                var c = o("WAWebBizBusinessProfileAction").queryBusinessProfile(
+                    [{ wid: l.id, tag: l.tag }],
+                    a,
                   ),
-                  s = yield l;
-                if (!Array.isArray(s))
+                  d = yield c;
+                if (!Array.isArray(d))
                   return (
                     o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "Received invalid business profile response",
                         ])),
                     ),
                     null
                   );
-                if (s.length === 0)
+                if (d.length === 0)
                   return (
                     o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[BusinessProfile] #findAndParse: not found ",
                           "",
                         ])),
-                      String(e),
+                      String(t),
                     ),
-                    { id: e }
+                    { id: t }
                   );
-                var d = s[0],
-                  p = d.tag,
-                  _ = d.wid,
+                var m = d[0],
+                  p = m.tag,
+                  _ = m.wid,
                   f = { id: _, tag: p, dataSource: "server" },
-                  g = d.profile;
+                  g = m.profile;
                 if (g) {
-                  var h = o("WAWebContactCollection").ContactCollection.get(e);
+                  var h = o("WAWebContactCollection").ContactCollection.get(t);
                   h &&
                     !h.isContactSyncCompleted &&
                     (h.set("isBusiness", !0),
                     h.set("forcedBusinessUpdateFromServer", !0));
                   var y = o("WAWebBusinessProfileUtils").parseBusinessProfile({
-                      id: d.wid,
+                      id: m.wid,
                       profile: g,
-                      queryCatalog: a,
+                      queryCatalog: i,
                     }),
-                    C = i.dataSource === "placeholder" ? null : i.automatedType,
+                    C = l.dataSource === "placeholder" ? null : l.automatedType,
                     b = y.automatedType;
                   yield o(
                     "WAWebHandleBizBotAutomatedTypeAction",
-                  ).handleBizBotAutomatedTypeTransition(i.id, C, b);
+                  ).handleBizBotAutomatedTypeTransition(l.id, C, b);
                   var v =
-                      i.dataSource === "placeholder"
+                      l.dataSource === "placeholder"
                         ? null
-                        : i.welcomeMsgProtocolMode,
+                        : l.welcomeMsgProtocolMode,
                     S = y.welcomeMsgProtocolMode;
                   return (
                     yield o(
                       "WAWebHandleBizBotWelcomeMsgProtocolModeAction",
-                    ).handleBizBotWelcomeMsgProtocolModeTransition(i.id, v, S),
+                    ).handleBizBotWelcomeMsgProtocolModeTransition(l.id, v, S),
                     yield o(
                       "WAWebApiBusinessProfile",
                     ).createOrMergeBusinessProfileRecordLidAware({
@@ -194,10 +122,10 @@ __d(
                 return f;
               },
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
+            function r(e, n) {
+              return t.apply(this, arguments);
             }
-            return t;
+            return r;
           })()),
           (i.fetchBizProfile = function (t) {
             var e = this.get(t);
@@ -240,44 +168,12 @@ __d(
             }
             return e;
           }),
-          (i.$BusinessProfileCollectionImpl$p_1 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  r = e
-                    .map(function (e) {
-                      return o("WAWebWidFactory").createUserWidOrThrow(e);
-                    })
-                    .filter(function (e) {
-                      return t.hasBusinessProfileInCache(e);
-                    });
-                (yield (m || (m = n("Promise"))).all(
-                  r.map(function (e) {
-                    t.markProfileAsStale(e);
-                  }),
-                ),
-                  r.length > 0 &&
-                    o("WALogger").LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[direct-connection] forcefully marked ",
-                          " biz profiles as stale",
-                        ])),
-                      r.length,
-                    ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           a
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    _.model = o("WAWebBusinessProfileModel").BusinessProfile;
-    var f = new _();
-    ((l.CATALOG_EXISTS = p), (l.BusinessProfileCollection = f));
+    d.model = o("WAWebBusinessProfileModel").BusinessProfile;
+    var m = new d();
+    ((l.CATALOG_EXISTS = c), (l.BusinessProfileCollection = m));
   },
   98,
 );

@@ -19,6 +19,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,14 +27,15 @@ __d(
       u,
       c,
       d,
-      m = 25 * o("WATimeUtils").HOUR_SECONDS,
-      p = (function () {
+      m,
+      p = 25 * o("WATimeUtils").HOUR_SECONDS,
+      _ = (function () {
         function t(e) {
           this.advToSystemBridge = e;
         }
-        var r = t.prototype;
+        var a = t.prototype;
         return (
-          (r.run = (function () {
+          (a.run = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 o("WALogger").LOG(
@@ -45,31 +47,41 @@ __d(
                   t,
                 );
                 var n = this.advToSystemBridge,
-                  r = yield n.getUsersForExpiration(t),
-                  a = r.usersCloseToExpiration,
-                  i = r.usersExpired;
-                (n.removeCompanions(i),
-                  n.sendADVStoredTimestampExpiredEvents(i, t));
-                var l = Array.from(i.keys())
-                  .concat(Array.from(a.keys()))
+                  a = yield n.getUsersForExpiration(t),
+                  i = a.usersCloseToExpiration,
+                  l = a.usersExpired;
+                (n.removeCompanions(l).catch(function (e) {
+                  return o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to remove companions",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("adv-remove-companions-failed");
+                }),
+                  n.sendADVStoredTimestampExpiredEvents(l, t));
+                var u = Array.from(l.keys())
+                  .concat(Array.from(i.keys()))
                   .filter(function (e) {
                     return !n.canRemoveUserDevices(e);
                   });
                 return (
-                  n.sendOrQueueDeviceUsyncQuery(l).catch(function (e) {}),
+                  n.sendOrQueueDeviceUsyncQuery(u).catch(function (e) {}),
                   n.recordLocalTimestamp()
                 );
               },
             );
-            function r(e) {
+            function a(e) {
               return t.apply(this, arguments);
             }
-            return r;
+            return a;
           })()),
           t
         );
       })(),
-      _ = (function () {
+      f = (function () {
         function e() {}
         var t = e.prototype;
         return (
@@ -99,13 +111,13 @@ __d(
                 return (
                   n.forEach(function (n) {
                     n.deleted ||
-                      v(n) ||
-                      (S(e, a, n, r)
+                      S(n) ||
+                      (R(e, a, n, r)
                         ? i.set(
                             o("WAWebWidFactory").createUserWidOrThrow(n.id),
                             n,
                           )
-                        : R({
+                        : L({
                             currentTs: e,
                             deviceListRow: n,
                             numSecondsCloseExpiration:
@@ -173,7 +185,7 @@ __d(
               r = e.some(function (e) {
                 var t = e[0],
                   n = e[1];
-                return L(t);
+                return E(t);
               });
             return r &&
               o("WAWebABProps").getABPropConfigValue(
@@ -182,15 +194,15 @@ __d(
               ? (o("WAWebCurrentUser").isEmployee()
                   ? o("WALogger")
                       .LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "[adv] logging out due to own expired device",
                           ])),
                       )
                       .sendLogs("web-own-device-list-expired")
                   : o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "[adv] logging out due to own expired device",
                         ])),
                     ),
@@ -198,8 +210,8 @@ __d(
                 o("WAWebSocketLogoutJob").socketLogout(
                   o("WAWebLogoutReasonConstants").LogoutReason.InvalidAdvStatus,
                 ),
-                (d || (d = n("Promise"))).resolve())
-              : (d || (d = n("Promise"))).all(
+                (m || (m = n("Promise"))).resolve())
+              : (m || (m = n("Promise"))).all(
                   Array.from(t.entries(), function (e) {
                     var t = e[0],
                       n = e[1];
@@ -210,83 +222,83 @@ __d(
                 );
           }),
           (t.recordLocalTimestamp = function () {
-            return (d || (d = n("Promise"))).resolve();
+            return (m || (m = n("Promise"))).resolve();
           }),
           e
         );
       })(),
-      f = "advDeviceInfoCheck",
-      g;
-    function h() {
-      return y.apply(this, arguments);
-    }
+      g = "advDeviceInfoCheck",
+      h;
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          g != null && (self.clearTimeout(g), (g = null));
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          h != null && (self.clearTimeout(h), (h = null));
           var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
             t = yield o(
               "WAWebLastADVCheckTimeApi",
             ).getLastADVDeviceInfoCheckTime(),
             r = 0,
             a = function () {
-              return (d || (d = n("Promise"))).resolve();
+              return (m || (m = n("Promise"))).resolve();
             };
           (t != null &&
             ((r = Math.max(o("WATimeUtils").DAY_SECONDS - (e - t), 0)),
             (a = function () {
-              return b();
+              return v();
             })),
-            (g = self.setTimeout(
+            (h = self.setTimeout(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
                   yield a();
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "error running the adv device check job",
                         ])),
                     )
                     .tags("automated-device-verification");
                 }
-                g = null;
+                h = null;
                 var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
                 (o("WAWebLastADVCheckTimeApi").setLastADVDeviceInfoCheckTime(e),
                   o("WAWebApiTasksScheduledTime").updateTaskScheduledTime(
-                    f,
+                    g,
                     o("WATimeUtils").castToUnixTime(e),
                   ),
-                  yield h());
+                  yield y());
               }),
               r * 1e3,
             )));
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    var C;
-    function b() {
+    var b;
+    function v() {
       return (
-        C == null && (C = new p(new _())),
-        C.run(o("WATimeUtils").unixTimeWithoutClockSkewCorrection())
+        b == null && (b = new _(new f())),
+        b.run(o("WATimeUtils").unixTimeWithoutClockSkewCorrection())
       );
     }
-    function v(e) {
+    function S(e) {
       return (
         e.devices.length === 1 &&
         e.devices[0].id === o("WAJids").DEFAULT_DEVICE_ID
       );
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       return e - n.timestamp >= t
         ? !0
         : n.expectedTsUpdateTs != null
-          ? e - n.expectedTsUpdateTs >= m && n.expectedTsLastDeviceJobTs !== r
+          ? e - n.expectedTsUpdateTs >= p && n.expectedTsLastDeviceJobTs !== r
           : !1;
     }
-    function R(e) {
+    function L(e) {
       var t = e.currentTs,
         n = e.deviceListRow,
         r = e.numSecondsCloseExpiration;
@@ -296,16 +308,16 @@ __d(
           ? n.expectedTs > n.timestamp
           : !1;
     }
-    function L(e) {
+    function E(e) {
       return o("WAWebUserPrefsMeUser").isMeAccount(e)
         ? o("WAWebABProps").getABPropConfigValue("web_self_adv_daily_use_lid")
           ? e.equals(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())
           : !0
         : !1;
     }
-    ((l.AdvToSystemBridgeImpl = _),
-      (l.scheduleAdvDeviceInfoCheck = h),
-      (l.runAdvDeviceInfoCheck = b));
+    ((l.AdvToSystemBridgeImpl = f),
+      (l.scheduleAdvDeviceInfoCheck = y),
+      (l.runAdvDeviceInfoCheck = v));
   },
   98,
 );

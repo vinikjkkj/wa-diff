@@ -37,10 +37,10 @@ __d(
         : null;
     }
     function d() {
-      return typeof window.gc != "function" ||
-        typeof window.gc.toString != "function"
+      var e = window;
+      return typeof e.gc != "function" || typeof e.gc.toString != "function"
         ? !1
-        : c(window.gc.toString()) === "function gc() { [native code] }";
+        : c(e.gc.toString()) === "function gc() { [native code] }";
     }
     var m = d() ? window.gc : null;
     function p(t) {

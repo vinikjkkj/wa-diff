@@ -2,7 +2,7 @@ __d(
   "WAWebCheckPife",
   [],
   function (t, n, r, o, a, i) {
-    var e = !1;
+    var e = !0;
     function l() {
       return e;
     }

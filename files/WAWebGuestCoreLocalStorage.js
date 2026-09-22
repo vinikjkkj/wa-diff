@@ -283,27 +283,40 @@ __d(
       );
     }
     function Z() {
-      var e;
       (u(
-        (e = o("WAWebGuestCoreConsts")).GuestLocalStorageKeys
-          .GuestPNVerificationStep,
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
       ),
-        u(e.GuestLocalStorageKeys.GuestPNVerificationPhone),
-        u(e.GuestLocalStorageKeys.GuestPNVerificationName),
-        u(e.GuestLocalStorageKeys.GuestPNVerificationCountryIso),
-        u(e.GuestLocalStorageKeys.GuestPNVerificationOtpRequestedAt),
+        u(
+          o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+            .GuestPNVerificationPhone,
+        ),
+        u(
+          o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+            .GuestPNVerificationOtpRequestedAt,
+        ),
         J());
     }
-    var ee = "US";
-    function te(e, t) {
+    function ee() {
+      (Z(),
+        u(
+          o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+            .GuestPNVerificationName,
+        ),
+        u(
+          o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+            .GuestPNVerificationCountryIso,
+        ));
+    }
+    var te = "US";
+    function ne(e, t) {
       var n = t.steps,
         r = n[0];
       if (e === "") return r;
       for (var o of n) if (o === e) return o;
       return r;
     }
-    function ne(e, t) {
-      t === void 0 && (t = ee);
+    function re(e, t) {
+      t === void 0 && (t = te);
       var n = q(),
         r = V(),
         a = G() || t,
@@ -319,18 +332,18 @@ __d(
           initialPhoneNumber: n,
           initialName: r,
           initialCountryIso: a,
-          initialStep: te("otp", e),
+          initialStep: ne("otp", e),
           remainingCooldownSeconds: m,
           shouldResume: !0,
         };
       }
       return i !== "" || n !== "" || l !== 0
-        ? (Z(),
+        ? (ee(),
           {
             initialPhoneNumber: "",
             initialName: "",
             initialCountryIso: t,
-            initialStep: te("", e),
+            initialStep: ne("", e),
             remainingCooldownSeconds: 0,
             shouldResume: !1,
           })
@@ -339,7 +352,7 @@ __d(
             initialPhoneNumber: "",
             initialName: r,
             initialCountryIso: a,
-            initialStep: te(i, e),
+            initialStep: ne(i, e),
             remainingCooldownSeconds: 0,
             shouldResume: !1,
           });
@@ -384,9 +397,10 @@ __d(
       (l.setGuestPNVerificationRateLimitEligibleAt = X),
       (l.persistGuestPNVerificationOtpSession = Y),
       (l.clearGuestPNVerificationRateLimitState = J),
-      (l.clearGuestPNVerificationState = Z),
-      (l.DEFAULT_RESTORE_COUNTRY_ISO = ee),
-      (l.getGuestPNVerificationRestoreState = ne));
+      (l.clearGuestPNVerificationOtpSession = Z),
+      (l.clearGuestPNVerificationState = ee),
+      (l.DEFAULT_RESTORE_COUNTRY_ISO = te),
+      (l.getGuestPNVerificationRestoreState = re));
   },
   98,
 );

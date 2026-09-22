@@ -1,6 +1,10 @@
 __d(
   "WAWebBizAiPluginsForSurfaceQuery",
-  ["WAWebBizAiPluginsForSurfaceQuery.graphql"],
+  [
+    "CometRelay",
+    "WAWebBizAiAppointmentConnectorsQuery",
+    "WAWebBizAiPluginsForSurfaceQuery.graphql",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s =
@@ -11,29 +15,40 @@ __d(
           e == null || (t = e.meta_ai_biz_agent_wa_plugins_for_surface) == null
             ? void 0
             : t.plugins;
-      if (n == null) return [];
-      var r = [];
-      for (var o of n) {
-        var a,
-          i,
-          l = o == null ? void 0 : o.plugin;
-        if (!((l == null ? void 0 : l.id) == null || l.display_name == null)) {
-          var s = l.apixfn_plugin,
-            u = o.is_connected === !0,
-            c = o.connection_status;
-          r.push({
-            apixfnPlugin: s == null ? null : s,
-            display_name: l.display_name,
-            id: l.id,
-            is_connected: u && (c == null || c === "CONNECTED"),
-            logoUri:
-              (a = (i = l.logo) == null ? void 0 : i.uri) != null ? a : null,
-          });
-        }
-      }
-      return r;
+      return n == null
+        ? []
+        : d(
+            o(
+              "WAWebBizAiAppointmentConnectorsQuery",
+            ).normalizeAppointmentConnectorEntries(
+              n.map(function (e) {
+                return o("CometRelay").readInlineData(
+                  o("WAWebBizAiAppointmentConnectorsQuery")
+                    .CONNECTOR_ENTRY_FRAGMENT,
+                  e,
+                );
+              }),
+            ),
+          );
     }
-    ((l.PLUGINS_QUERY = s), (l.normalizePlugins = u));
+    function c(e) {
+      return d(
+        o(
+          "WAWebBizAiAppointmentConnectorsQuery",
+        ).normalizeAppointmentConnectorEntries(e),
+      );
+    }
+    function d(e) {
+      return e.map(function (e) {
+        return babelHelpers.extends({}, e, {
+          display_name: e.displayName,
+          is_connected: e.isConnected,
+        });
+      });
+    }
+    ((l.PLUGINS_QUERY = s),
+      (l.normalizePlugins = u),
+      (l.normalizePluginEntries = c));
   },
   98,
 );

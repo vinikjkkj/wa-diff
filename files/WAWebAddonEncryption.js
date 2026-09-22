@@ -117,7 +117,9 @@ __d(
               h =
                 e.type === o("WAWebMsgType").MsgKind.CommentDecrypted ||
                 e.type === o("WAWebMsgType").MsgKind.EventEditDecrypted ||
-                e.type === o("WAWebMsgType").MsgKind.MessageEditDecrypted
+                e.type === o("WAWebMsgType").MsgKind.MessageEditDecrypted ||
+                e.type === o("WAWebMsgType").MsgKind.PollEditDecrypted ||
+                e.type === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
                   ? o(
                       "WAWebReportingTokenContent",
                     ).calculateReportingTokenContent(

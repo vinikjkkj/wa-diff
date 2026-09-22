@@ -69,7 +69,8 @@ __d(
         m = s._(/*BTDS*/ "Incoming group video call from {name}", [
           s._param("name", l),
         ]),
-        p = s._(/*BTDS*/ "Open WhatsApp Web to answer this call.");
+        p = s._(/*BTDS*/ "Open WhatsApp Web to answer this call."),
+        _ = s._(/*BTDS*/ "Unknown");
       return o("WAWebUserPrefsGeneral").setOfflineNotificationContent({
         notificationTitle: t.toString(),
         notificationText: n.toString(),
@@ -80,6 +81,7 @@ __d(
         callNotificationGroupAudioTitle: d.toString(),
         callNotificationGroupVideoTitle: m.toString(),
         callNotificationBody: p.toString(),
+        callNotificationUnknownCaller: _.toString(),
       });
     }
     function f(t) {

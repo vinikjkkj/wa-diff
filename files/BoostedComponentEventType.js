@@ -1887,6 +1887,22 @@ __d(
         "ad_limits_removed_notice_impression",
       AD_LIMITS_REMOVED_NOTICE_DISMISS: "ad_limits_removed_notice_dismiss",
       AD_LIMITS_REMOVED_NOTICE_OK_CLICK: "ad_limits_removed_notice_ok_click",
+      GENAI_TEXT_TO_AUDIENCE_SHEET_OPEN: "genai_text_to_audience_sheet_open",
+      GENAI_TEXT_TO_AUDIENCE_GENERATE_CLICK:
+        "genai_text_to_audience_generate_click",
+      GENAI_TEXT_TO_AUDIENCE_GENERATE_SUCCESS:
+        "genai_text_to_audience_generate_success",
+      GENAI_TEXT_TO_AUDIENCE_GENERATE_FAILURE:
+        "genai_text_to_audience_generate_failure",
+      GENAI_TEXT_TO_AUDIENCE_SAVE_CLICK: "genai_text_to_audience_save_click",
+      GENAI_TEXT_TO_AUDIENCE_SAVE_SUCCESS:
+        "genai_text_to_audience_save_success",
+      GENAI_TEXT_TO_AUDIENCE_SAVE_FAILURE:
+        "genai_text_to_audience_save_failure",
+      GENAI_TEXT_TO_AUDIENCE_EDIT_CLICK: "genai_text_to_audience_edit_click",
+      GENAI_TEXT_TO_AUDIENCE_CREATE_MANUALLY_CLICK:
+        "genai_text_to_audience_create_manually_click",
+      GENAI_TEXT_TO_AUDIENCE_DISMISS: "genai_text_to_audience_dismiss",
     });
     i.default = e;
   },

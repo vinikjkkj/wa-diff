@@ -1,6 +1,7 @@
 __d(
   "WAWebBroadcastBridgeApi",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WAJids",
     "WALogger",
@@ -26,7 +27,22 @@ __d(
       d,
       m,
       p,
-      _ = {
+      _,
+      f,
+      g = r("JSResourceForInteraction")(
+        "WAWebBizBroadcastProLocalCampaignCardAction",
+      ).__setRef("WAWebBroadcastBridgeApi"),
+      h = {
+        createBizBroadcastProLocalCampaignCards: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.campaigns;
+            yield (f || (f = n("Promise"))).all(t.map(y));
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         loadedBizBroadcastCampaignInsights: function (t) {
           var e = t.rows;
           o("WALogger").LOG(
@@ -107,7 +123,7 @@ __d(
             var l = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
-            (p || (p = n("Promise"))).all(
+            (f || (f = n("Promise"))).all(
               a.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -207,7 +223,50 @@ __d(
               ));
         },
       };
-    l.BroadcastBridgeApi = _;
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.broadcastJid,
+            n = e.campaignId,
+            a = e.campaignTimestamp,
+            i = e.messageId,
+            l = o("WAJids").validateBroadcastJid(t);
+          if (l == null) {
+            o("WALogger").ERROR(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bb-pro-local-card] invalid broadcast JID",
+                ])),
+            );
+            return;
+          }
+          try {
+            var s = yield g.load();
+            yield s({
+              broadcastJid: l,
+              campaignId: n,
+              campaignTimestamp: a,
+              messageId: i,
+            });
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "BB Pro local campaign card creation failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("bb-pro-local-campaign-card-creation-failed");
+          }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    l.BroadcastBridgeApi = h;
   },
   98,
 );

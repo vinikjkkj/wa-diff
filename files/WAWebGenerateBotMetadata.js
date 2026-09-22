@@ -64,14 +64,15 @@ __d(
       if (e.botGroupParticipant != null) return _(e);
     }
     function d(t) {
-      var n = t.botPersonaId != null ? t.botPersonaId : void 0,
-        r = g(t),
-        a = t.aiThreadInfo != null ? e(t) : void 0,
-        i = b(t.botModeSelection, t.botModeOverride),
-        l = s(t),
-        c = C(t.type),
-        d = u(t),
-        p =
+      var n,
+        r = t.botPersonaId != null ? t.botPersonaId : void 0,
+        a = g(t),
+        i = t.aiThreadInfo != null ? e(t) : void 0,
+        l = v(t.botModeSelection, t.botModeOverride),
+        c = s(t),
+        d = b(t.type),
+        p = u(t),
+        _ =
           t.unifiedResponseMutationMediaList != null
             ? o(
                 "WAWebBotUnifiedResponseMutationUtils",
@@ -79,32 +80,25 @@ __d(
                 t.unifiedResponseMutationMediaList,
               )
             : void 0,
-        _ = m(t);
+        y = m(t);
       if (
-        !(
-          t.botGroupParticipant == null &&
-          n == null &&
-          r == null &&
-          i == null &&
-          l == null &&
-          c == null &&
-          d == null &&
-          p == null &&
-          _ == null
+        !h(
+          [t.botGroupParticipant, r, a, l, c, d, p, _, y],
+          (n = t.id) == null ? void 0 : n.remote,
         )
       )
         return {
-          personaId: n,
-          invokerJid: r,
-          capabilityMetadata: t.id ? y(t.id.remote) : void 0,
-          botThreadInfo: a,
+          personaId: r,
+          invokerJid: a,
+          capabilityMetadata: t.id ? C(t.id.remote) : void 0,
+          botThreadInfo: i,
           botGroupMetadata: f(t.botGroupParticipant),
-          botModeSelectionMetadata: i,
-          botMetricsMetadata: l,
-          botDocumentMessageMetadata: c,
-          aiMediaCollectionMetadata: d,
-          unifiedResponseMutation: p,
-          botLinkedAccountsMetadata: _,
+          botModeSelectionMetadata: l,
+          botMetricsMetadata: c,
+          botDocumentMessageMetadata: d,
+          aiMediaCollectionMetadata: p,
+          unifiedResponseMutation: _,
+          botLinkedAccountsMetadata: y,
         };
     }
     function m(e) {
@@ -168,7 +162,14 @@ __d(
           : n.toJid();
       }
     }
-    function h(e) {
+    function h(e, t) {
+      return (
+        e.every(function (e) {
+          return e == null;
+        }) && !y(t)
+      );
+    }
+    function y(e) {
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
@@ -177,7 +178,7 @@ __d(
         ).isHatchApprovalNotificationEnabledOnBackend()
       );
     }
-    function y(e) {
+    function C(e) {
       var t,
         n = [
           (t = o("WAWebProtobufsAICommon.pb"))
@@ -331,7 +332,7 @@ __d(
                   .AI_SUBSCRIPTION_ENABLED,
               ]
             : [],
-          h(e)
+          y(e)
             ? [
                 o("WAWebProtobufsAICommon.pb")
                   .BotCapabilityMetadata$BotCapabilityType
@@ -341,7 +342,7 @@ __d(
         );
       return n.length === 0 ? void 0 : { capabilities: n };
     }
-    function C(e) {
+    function b(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -351,7 +352,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function b(e, t) {
+    function v(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -369,8 +370,8 @@ __d(
       (l.generateAiMediaCollectionMetadata = u),
       (l.generateBotMetadata = c),
       (l.mergeBotMetadata = p),
-      (l.generateBotCapabilityMetadata = y),
-      (l.generateBotModeSelectionMetadata = b));
+      (l.generateBotCapabilityMetadata = C),
+      (l.generateBotModeSelectionMetadata = v));
   },
   98,
 );

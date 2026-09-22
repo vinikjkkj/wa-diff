@@ -143,68 +143,67 @@ __d(
       );
     }
     var T = 12;
-    function D(e) {
-      if (e == null) return 0;
-      var t = T;
-      for (var n of e) {
-        var r = T;
-        switch (n.styleId) {
+    function D(e, t) {
+      return t
+        ? e != null
+          ? parseFloat(e)
+          : T
+        : o("WebBloksSSRUtils").canUseDOM
+          ? parseFloat(
+              e != null ? e : window.getComputedStyle(document.body).fontSize,
+            )
+          : parseFloat(e);
+    }
+    function x(e, t) {
+      if ((t === void 0 && (t = !1), e == null)) return 0;
+      var n = T;
+      for (var r of e) {
+        var a = T;
+        switch (r.styleId) {
           case d:
           case "bk.components.TextSpan": {
-            var a = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(n).get(p));
-            o("WebBloksSSRUtils").canUseDOM
-              ? (r = parseFloat(
-                  a != null
-                    ? a
-                    : window.getComputedStyle(document.body).fontSize,
-                ))
-              : (r = parseFloat(a));
+            var i = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(r).get(p));
+            a = D(i, t);
             break;
           }
           case s:
           case c:
           case "bk.data.ComposableTextSpan":
           case "bk.data.TextSpan": {
-            var i =
-                n.styleId === s || n.styleId === "bk.data.ComposableTextSpan"
-                  ? o("WebBloksUtils").cast(n).get(_)
-                  : o("WebBloksUtils").cast(n).get(f),
-              l =
-                i == null
+            var l =
+                r.styleId === s || r.styleId === "bk.data.ComposableTextSpan"
+                  ? o("WebBloksUtils").cast(r).get(_)
+                  : o("WebBloksUtils").cast(r).get(f),
+              y =
+                l == null
                   ? void 0
-                  : i.find(function (e) {
+                  : l.find(function (e) {
                       var t = e.styleId;
                       return t === m || t === "bk.style.textspan.TextStyle";
                     });
-            if (l == null) break;
-            var y = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(l).get(g));
-            o("WebBloksSSRUtils").canUseDOM
-              ? (r = parseFloat(
-                  y != null
-                    ? y
-                    : window.getComputedStyle(document.body).fontSize,
-                ))
-              : (r = parseFloat(y));
+            if (y == null) break;
+            var C = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(y).get(g));
+            a = D(C, t);
             break;
           }
           case u:
           case "bk.data.ImageSpan": {
-            var C,
-              b = o("WebBloksUtils").cast(n).get(h);
-            r = (C = parseFloat(b)) != null ? C : T;
+            var b,
+              v = o("WebBloksUtils").cast(r).get(h);
+            a = (b = parseFloat(v)) != null ? b : T;
             break;
           }
           default:
             continue;
         }
-        r > t && (t = r);
+        a > n && (n = a);
       }
-      return t;
+      return n;
     }
-    function x(e) {
+    function $(e) {
       return (e === void 0 && (e = 1), C * e);
     }
-    function $(e, t) {
+    function P(e, t) {
       if (e === "AvenyT") return "Instagram Sans Condensed";
       if (e != null && t != null && t[e]) {
         var n = t[e].webFontName;
@@ -212,7 +211,7 @@ __d(
       }
       return e;
     }
-    function P(e, t) {
+    function N(e, t) {
       var n,
         r,
         a,
@@ -237,10 +236,10 @@ __d(
       (l.getGradientTextStyle = L),
       (l.getVerticalSpacingStyles = E),
       (l.getLineClampStyle = I),
-      (l.getMaxTextSizePx = D),
-      (l.getLineHeight = x),
-      (l.getFontFamily = $),
-      (l.getTextShadow = P));
+      (l.getMaxTextSizePx = x),
+      (l.getLineHeight = $),
+      (l.getFontFamily = P),
+      (l.getTextShadow = N));
   },
   98,
 );

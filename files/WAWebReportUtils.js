@@ -48,6 +48,20 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.type === o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED)
+            return {
+              deletedReason: null,
+              messagePayloadTypesArgs: {
+                messageWithType: {
+                  contentTypeTextOrMediaMixinGroupArgs: {
+                    isContentTypeText: !0,
+                  },
+                },
+              },
+              hsmTemplateMixin: null,
+              questionsResponseMixin: null,
+              rawArgs: null,
+            };
           if (
             e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
             e.signupContext != null
@@ -354,82 +368,93 @@ __d(
             };
           });
     }
-    function f(e) {
+    function f(e, t) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type))
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = n === void 0 ? {} : n,
+            i = a.allowAssociatedMessage,
+            l = i === void 0 ? !1 : i;
+          if (
+            !o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type) &&
+            !(
+              l &&
+              o("WAWebSpamUtils").isSpamSupportedForAssociatedMessageType(
+                t.type,
+              )
+            )
+          )
             return null;
-          var n = t.id;
+          var s = t.id;
           if (t.type === "revoked") {
-            var a;
-            n = (a = t.protocolMessageKey) != null ? a : t.id;
+            var u;
+            s = (u = t.protocolMessageKey) != null ? u : t.id;
           }
           try {
-            var i = yield c(t),
-              l = i.deletedReason,
-              s = i.hsmTemplateMixin,
-              u = i.messagePayloadTypesArgs,
-              d = i.questionsResponseMixin,
-              p = i.rawArgs,
-              f = {
-                messagePayloadTypesArgs: u,
+            var d = yield c(t),
+              p = d.deletedReason,
+              f = d.hsmTemplateMixin,
+              g = d.messagePayloadTypesArgs,
+              h = d.questionsResponseMixin,
+              y = d.rawArgs,
+              C = {
+                messagePayloadTypesArgs: g,
                 messageT: t.t,
-                messageId: o("WAStanzaUtils").toStanzaId(n.id),
-                rawArgs: p,
-                messageDeletedReason: l,
-                messageWithHsmTemplateMixinArgs: s,
+                messageId: o("WAStanzaUtils").toStanzaId(s.id),
+                rawArgs: y,
+                messageDeletedReason: p,
+                messageWithHsmTemplateMixinArgs: f,
               };
             (o("WAWebMsgGetters").getIsEdited(t) &&
-              (f = babelHelpers.extends({}, f, { hasMessageEdit: !0 })),
+              (C = babelHelpers.extends({}, C, { hasMessageEdit: !0 })),
               t.type === "revoked" &&
-                (f = babelHelpers.extends(
+                (C = babelHelpers.extends(
                   {},
-                  f,
+                  C,
                   t.subtype === "sender"
                     ? { hasRevoke: !0 }
                     : { hasAdminRevoke: !0 },
                 )),
               o("WAWebMsgGetters").getIsMarketingMessage(t) &&
-                (f = babelHelpers.extends({}, f, {
+                (C = babelHelpers.extends({}, C, {
                   sMBBroadcastSourceMixinArgs: { metaBizSource: "smb_promo" },
                 })));
-            var g = yield m(n, t);
+            var b = yield m(s, t);
             if (
-              (g != null &&
-                (f = babelHelpers.extends(
+              (b != null &&
+                (C = babelHelpers.extends(
                   {
                     waMessageReportingMixinArgs: {
                       hasRaw: !1,
-                      clientReportingContentValidationMixinArgs: g,
+                      clientReportingContentValidationMixinArgs: b,
                     },
                   },
-                  f,
+                  C,
                 )),
-              d != null &&
-                (f = babelHelpers.extends({}, f, {
-                  messageWithNewsletterQuestionResponseMixinArgs: d,
+              h != null &&
+                (C = babelHelpers.extends({}, C, {
+                  messageWithNewsletterQuestionResponseMixinArgs: h,
                 })),
               (t == null ? void 0 : t.nativeFlowName) ===
                 r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW)
             ) {
-              var h,
-                y = (h = t.interactivePayload) == null ? void 0 : h.buttons;
-              if (y != null) {
-                var C = _(t, y);
-                C != null &&
-                  (f = babelHelpers.extends({}, f, {
-                    extensionScreenDataMixinArgs: { extensionScreenArgs: C },
+              var v,
+                S = (v = t.interactivePayload) == null ? void 0 : v.buttons;
+              if (S != null) {
+                var R = _(t, S);
+                R != null &&
+                  (C = babelHelpers.extends({}, C, {
+                    extensionScreenDataMixinArgs: { extensionScreenArgs: R },
                   }));
               }
             }
             return (
               t.type ===
                 o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-                (f = babelHelpers.extends({}, f, { hasAutomated: !0 })),
-              f
+                (C = babelHelpers.extends({}, C, { hasAutomated: !0 })),
+              C
             );
           } catch (n) {
             throw (

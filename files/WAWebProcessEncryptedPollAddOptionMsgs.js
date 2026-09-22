@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAddonEncryptionError",
+    "WAWebHandleMsgValidate",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -200,15 +201,16 @@ __d(
                 stanzaId: t.id.id,
               },
             ),
-            f = _.protobuf,
-            g = o(
+            f = _.arrayBuffer,
+            g = _.protobuf,
+            h = o(
               "WAWebPollAddOptionDecryptedMsgDataConversion",
             ).protobufToPollAddOptionDecryptedMsgData(
               (n = o(
                 "WAWebVerifyProtobufMsgObjectKeys",
-              ).getUnwrappedProtobufMessage(f)) != null
+              ).getUnwrappedProtobufMessage(g)) != null
                 ? n
-                : f,
+                : g,
               e,
               t,
             );
@@ -216,12 +218,12 @@ __d(
             t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
             t.pollOptions
           ) {
-            var h = new Set(
+            var y = new Set(
               t.pollOptions.map(function (e) {
                 return e.name;
               }),
             );
-            if (h.has(g.pollAddedOption.name))
+            if (y.has(h.pollAddedOption.name))
               throw new (o(
                 "WAWebPollsValidationError",
               ).PollAddOptionValidationError)(
@@ -231,7 +233,19 @@ __d(
                   .INVALID_MESSAGE,
               );
           }
-          return { parentMsg: t, decryptedAddOption: g };
+          return (
+            yield o(
+              "WAWebHandleMsgValidate",
+            ).validateAndProcessReportingTokenInfo({
+              renderableMsgs: [
+                babelHelpers.extends({}, h, {
+                  plainProtobufBytes: new Uint8Array(f),
+                }),
+              ],
+              forceDualEncryptedValidation: !0,
+            }),
+            { parentMsg: t, decryptedAddOption: h }
+          );
         })),
         m.apply(this, arguments)
       );

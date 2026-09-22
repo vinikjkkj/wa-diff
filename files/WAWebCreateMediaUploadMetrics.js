@@ -154,42 +154,44 @@ __d(
         (f.set({ overallT: e }),
           m == null || m.addPoint("handle_upload_attempt_success"));
       }
-      function L(e, t, n, r) {
-        var a = new (o("WAWebMediaUpload2WamEvent").MediaUpload2WamEvent)(
-            f.all,
-          ),
-          i = o("WAWebWamMediaMetricUtils").getStatusCode(e),
-          l =
+      var L = function (t) {
+        var e = t.error,
+          n = t.failCount,
+          r = t.overallLastUploadRetryPhase,
+          a = t.overallT,
+          i = new (o("WAWebMediaUpload2WamEvent").MediaUpload2WamEvent)(f.all),
+          l = o("WAWebWamMediaMetricUtils").getStatusCode(e),
+          s =
             r ===
             o("WAWebWamEnumOverallLastUploadRetryPhaseType")
               .OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.FINALIZE
-              ? i
-              : a.finalizeHttpCode;
-        (a.set({
+              ? l
+              : i.finalizeHttpCode;
+        (i.set({
           mediaId: o("WAWebWamMediaMetricUtils").generateMediaEventId(),
           overallUploadResult: o(
             "WAWebWamMediaMetricUtils",
           ).getMetricUploadErrorResultType(e),
           overallIsFinal: !1,
-          overallT: t,
+          overallT: a,
           overallRetryCount: n,
           overallLastUploadRetryPhase: r,
-          finalizeHttpCode: l,
+          finalizeHttpCode: s,
         }),
-          i != null && (f.uploadHttpCode = i),
+          l != null && (f.uploadHttpCode = l),
           f.markOverallCumT(),
           o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.MediaUL,
           ),
           o("WAWebAppTracker").attachWAMAppContext(f, f.overallCumT),
-          a.commit(),
+          i.commit(),
           o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(f, e),
           m == null ||
             m.addPoint("handle_upload_attempt_error", {
               string: { upload_error_name: e.name },
               int: { upload_attempt: n, upload_retry_phase: r },
             }));
-      }
+      };
       function E() {
         (f.startOverallEncryptT(), m == null || m.addPoint("encrypt_start"));
       }

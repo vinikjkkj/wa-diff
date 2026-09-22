@@ -9,6 +9,7 @@ __d(
     "WASmaxSpamStatusReportRPC",
     "WAWebChatGetters",
     "WAWebGroupHistoryUtils",
+    "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationUIUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -30,54 +31,62 @@ __d(
       u,
       c = 5;
     function d(e, t, n) {
-      for (
-        var r = [], a = e.msgs.toArray().reverse(), i = t, l = 0;
-        l < a.length && !(r.length >= t);
-        l++
-      ) {
-        var s = a[l];
-        if (
-          !(
-            (!o("WAWebSpamUtils").isSpamSupportedForMessageType(s.type) &&
-              s.type !== o("WAWebMsgType").MSG_TYPE.ALBUM) ||
-            o("WAWebMsgGetters").getIsBotResponse(s) ||
-            (o("WAWebUserPrefsMeUser").isMeAccount(s.from) &&
-              !o("WAWebGroupHistoryUtils").shouldReportGroupHistoryBundleSender(
-                s,
-              )) ||
-            !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
-              o("WAWebViewMode.flow").ViewModeSurface.CHAT_SPAM_REPORT,
-              s.viewMode,
-            )
-          ) &&
-          !(
-            n &&
-            ((o("WAWebChatGetters").getIsGroup(e) && !n.equals(s.author)) ||
-              (o("WAWebChatGetters").getIsUser(e) && !n.equals(s.from)))
-          )
-        )
-          if (s.type === o("WAWebMsgType").MSG_TYPE.ALBUM)
-            r.push.apply(
-              r,
-              o("WAWebMessageAssociationUIUtils")
-                .getHiddenAssociatedMessages(s.id)
-                .slice(0, 4),
-            );
-          else if (
-            s.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
-            s.pollContentType ===
-              o("WAWebPollCreationUtils").PollContentType.IMAGE
-          ) {
-            r.push(s);
-            var u = o(
-              "WAWebMessageAssociationUIUtils",
-            ).getHiddenAssociatedMessages(s.id);
-            (r.push.apply(r, u), (i += u.length));
-          } else r.push(s);
-      }
-      return r.slice(0, i);
+      return m.apply(this, arguments);
     }
-    function m(e) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          for (
+            var r = [], a = e.msgs.toArray().reverse(), i = t, l = 0;
+            l < a.length && !(r.length >= t);
+            l++
+          ) {
+            var s = a[l];
+            if (
+              !(
+                (!o("WAWebSpamUtils").isSpamSupportedForMessageType(s.type) &&
+                  s.type !== o("WAWebMsgType").MSG_TYPE.ALBUM) ||
+                o("WAWebMsgGetters").getIsBotResponse(s) ||
+                (o("WAWebUserPrefsMeUser").isMeAccount(s.from) &&
+                  !o(
+                    "WAWebGroupHistoryUtils",
+                  ).shouldReportGroupHistoryBundleSender(s)) ||
+                !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+                  o("WAWebViewMode.flow").ViewModeSurface.CHAT_SPAM_REPORT,
+                  s.viewMode,
+                )
+              ) &&
+              !(
+                n &&
+                ((o("WAWebChatGetters").getIsGroup(e) && !n.equals(s.author)) ||
+                  (o("WAWebChatGetters").getIsUser(e) && !n.equals(s.from)))
+              )
+            )
+              if (s.type === o("WAWebMsgType").MSG_TYPE.ALBUM)
+                r.push.apply(
+                  r,
+                  o("WAWebMessageAssociationUIUtils")
+                    .getHiddenAssociatedMessages(s.id)
+                    .slice(0, 4),
+                );
+              else if (s.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
+                r.push(s);
+                var u =
+                  s.pollContentType ===
+                  o("WAWebPollCreationUtils").PollContentType.IMAGE
+                    ? o(
+                        "WAWebMessageAssociationUIUtils",
+                      ).getHiddenAssociatedMessages(s.id)
+                    : [];
+                (r.push.apply(r, u), (i += u.length));
+              } else r.push(s);
+          }
+          return b(r.slice(0, i));
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
       var t, n;
       return (
         ((t = e.buttonsMessage) == null ? void 0 : t.buttons) != null &&
@@ -111,12 +120,12 @@ __d(
         e
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = yield o("WAWebReportUtils").getMessageMixinArgs(n);
           if (a == null)
             throw r("err")("report status failed due to unsupported msg type");
@@ -179,50 +188,131 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = yield o("WAWebReportUtils").getMessageMixinArgs(e);
-          a != null &&
-            (n = babelHelpers.extends(
-              {
-                messageSenderOrRecipientMixinGroupArgs: {
-                  messageSender: {
-                    messageFrom: o("WAWebWidToJid").widToUserJid(e.from),
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = yield o("WAWebReportUtils").getMessageMixinArgs(e),
+            i = a != null ? yield y(e) : [],
+            l = yield (u || (u = n("Promise"))).all(
+              i.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = yield o("WAWebReportUtils").getMessageMixinArgs(
+                        e,
+                        { allowAssociatedMessage: !0 },
+                      );
+                      return t != null
+                        ? babelHelpers.extends(
+                            {
+                              messageSenderOrRecipientMixinGroupArgs: {
+                                messageSender: {
+                                  messageFrom: o("WAWebWidToJid").widToUserJid(
+                                    e.from,
+                                  ),
+                                },
+                              },
+                            },
+                            t,
+                          )
+                        : null;
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            ),
+            s = [];
+          (a != null &&
+            s.push(
+              babelHelpers.extends(
+                {
+                  messageSenderOrRecipientMixinGroupArgs: {
+                    messageSender: {
+                      messageFrom: o("WAWebWidToJid").widToUserJid(e.from),
+                    },
                   },
                 },
-              },
-              a,
-            ));
-          var i = o("WAWebMsgGetters").getSender(e);
-          if (i == null)
+                a,
+              ),
+            ),
+            l.forEach(function (e) {
+              e != null && s.push(e);
+            }));
+          var c = o("WAWebMsgGetters").getSender(e);
+          if (c == null)
             throw r("err")("report status failed due to missing sender");
-          var l = {
+          var d = {
               spamListSpamFlow: t,
-              spamListJid: o("WAWebWidToJid").widToUserJid(i),
-              messageArgs: n != null ? [n] : [],
+              spamListJid: o("WAWebWidToJid").widToUserJid(c),
+              messageArgs: s,
             },
-            s = yield o(
+            m = yield o(
               "WASmaxSpamIndividualReportRPC",
-            ).sendIndividualReportRPC(l);
-          return o("WAWebParseReportResponse").parseIndividualReportResponse(s);
+            ).sendIndividualReportRPC(d);
+          return o("WAWebParseReportResponse").parseIndividualReportResponse(m);
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          if (e.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION) return [];
+          if (!o("WAWebSpamUtils").isSpamSupportedForMessageType(e.type))
+            return [];
+          var n = ((t = e.pollOptions) != null ? t : []).flatMap(function (e) {
+              return e.addOptionMsgKey != null ? [e.addOptionMsgKey] : [];
+            }),
+            r = yield o(
+              "WAWebMessageAssociationUIUtils",
+            ).getAssociatedMessagesByMsgKeys(e.id, n);
+          return r.filter(function (e) {
+            return (
+              o("WAWebSpamUtils").isSpamSupportedForAssociatedMessageType(
+                e.type,
+              ) &&
+              e.associationType ===
+                o("WAWebMessageAssociation.flow").MessageAssociationType
+                  .POLL_ADD_OPTION &&
+              !o("WAWebMsgGetters").getIsSentByMe(e) &&
+              !e.pendingDeleteForMe
+            );
+          });
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield (u || (u = n("Promise"))).all(e.map(y));
+          return [].concat(e, t.flat());
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e, t) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = {
               spamListJid: o("WAWebWidToJid").widToGroupJid(e.id),
               spamListSpamFlow: t,
@@ -231,29 +321,39 @@ __d(
             r = yield o("WASmaxSpamGroupReportRPC").sendGroupReportRPC(n);
           return o("WAWebParseReportResponse").parseGroupReportResponse(r);
         })),
-        y.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function L(e, t, n) {
+      return E.apply(this, arguments);
     }
-    function b() {
+    function E() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = [];
-          t != null ? (a = [t]) : (a = d(e, c, null));
+          t != null
+            ? (a = o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type)
+                ? yield b([t])
+                : [])
+            : (a = yield d(e, c, null));
           var i,
             l = yield (u || (u = n("Promise"))).all(
               a.map(
                 (function () {
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
-                      var n =
-                          yield o("WAWebReportUtils").getMessageMixinArgs(t),
+                      var n = yield o("WAWebReportUtils").getMessageMixinArgs(
+                          t,
+                          {
+                            allowAssociatedMessage: o(
+                              "WAWebSpamUtils",
+                            ).isSpamSupportedForAssociatedMessageType(t.type),
+                          },
+                        ),
                         r = o(
                           "WAWebGroupHistoryUtils",
                         ).shouldReportGroupHistoryBundleSender(t),
-                        a = yield E(t, r);
+                        a = yield x(t, r);
                       return (
                         n != null &&
                           (i = babelHelpers.extends(
@@ -291,25 +391,35 @@ __d(
             m = yield o("WASmaxSpamGroupReportRPC").sendGroupReportRPC(s);
           return o("WAWebParseReportResponse").parseGroupReportResponse(m);
         })),
-        b.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function S() {
+    function I() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = [];
-          t != null ? (a = [t]) : (a = d(e, c, e.id));
+          t != null
+            ? (a = o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type)
+                ? yield b([t])
+                : [])
+            : (a = yield d(e, c, e.id));
           var i,
             l = yield (u || (u = n("Promise"))).all(
               a.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t =
-                        yield o("WAWebReportUtils").getMessageMixinArgs(e);
+                      var t = yield o("WAWebReportUtils").getMessageMixinArgs(
+                        e,
+                        {
+                          allowAssociatedMessage: o(
+                            "WAWebSpamUtils",
+                          ).isSpamSupportedForAssociatedMessageType(e.type),
+                        },
+                      );
                       return (
                         t != null &&
                           (i = babelHelpers.extends(
@@ -340,15 +450,15 @@ __d(
             ).sendIndividualReportRPC(s);
           return o("WAWebParseReportResponse").parseIndividualReportResponse(m);
         })),
-        S.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function L() {
+    function D() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r;
           return (
             o("WAWebChatGetters").getIsNewsletter(e)
@@ -365,24 +475,24 @@ __d(
                         t,
                       ))
               : n != null && !o("WAWebChatGetters").getIsGroup(e)
-                ? (r = yield f(n, t))
+                ? (r = yield g(n, t))
                 : e.isParentGroup === !0
-                  ? (r = yield h(e, t))
+                  ? (r = yield S(e, t))
                   : o("WAWebChatGetters").getIsGroup(e)
-                    ? (r = yield C(e, n, t))
-                    : (r = yield v(e, n, t)),
+                    ? (r = yield L(e, n, t))
+                    : (r = yield k(e, n, t)),
             r
           );
         })),
-        L.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function k() {
+    function $() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t) {
             var n = o("WAWebMsgGetters").getGroupHistoryBundleSender(e);
             return n != null
@@ -401,14 +511,14 @@ __d(
               ? o("WAWebWidToJid").widToUserJid(e.from)
               : null;
         })),
-        k.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
     ((l.SPAM_REPORT_MESSAGE_COUNT = c),
       (l.loadMsgsForSpamReport = d),
-      (l.getSpamMessageProtobuf = m),
-      (l.reportStatus = p),
-      (l.reportSpam = R));
+      (l.getSpamMessageProtobuf = p),
+      (l.reportStatus = _),
+      (l.reportSpam = T));
   },
   98,
 );

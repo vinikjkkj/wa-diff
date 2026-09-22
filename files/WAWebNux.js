@@ -57,6 +57,7 @@ __d(
       NCT_CAPPING_SUBSCRIPTION_TOAST: "nct_capping_subscription_toast",
       BUSINESS_AI_MESSAGE_EDITING_DISCOVERY_TOOLTIP:
         "business_ai_message_editing_discovery_tooltip",
+      BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -174,6 +175,7 @@ __d(
           NCT_CAPPING_SUBSCRIPTION_TOAST: "nct_capping_subscription_toast",
           BUSINESS_AI_MESSAGE_EDITING_DISCOVERY_TOOLTIP:
             "business_ai_message_editing_discovery_tooltip",
+          BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
         },
       },
       g = {

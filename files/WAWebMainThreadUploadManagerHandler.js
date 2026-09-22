@@ -69,12 +69,12 @@ __d(
     function v(e) {
       var t;
       (t = d(e.uploadId)) == null ||
-        t.callbacks.handleUploadAttemptError(
-          m(e.error),
-          e.overallT,
-          e.failCount,
-          e.retryPhase,
-        );
+        t.callbacks.handleUploadAttemptError({
+          error: m(e.error),
+          failCount: e.failCount,
+          overallLastUploadRetryPhase: e.retryPhase,
+          overallT: e.overallT,
+        });
     }
     function S(e) {
       var t;

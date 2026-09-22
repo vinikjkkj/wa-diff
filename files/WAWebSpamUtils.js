@@ -19,6 +19,11 @@ __d(
       return o("WAWebSpamConstants").SPAM_REPORT_SUPPORTED_MESSAGE_TYPES.has(e);
     }
     function c(e) {
+      return o(
+        "WAWebSpamConstants",
+      ).SPAM_REPORT_SUPPORTED_ASSOCIATED_MESSAGE_TYPES.has(e);
+    }
+    function d(e) {
       return e === "album"
         ? 0
         : e === "audio"
@@ -221,7 +226,8 @@ __d(
     ((l.isMsgTypeSupportedForMsgLevelReporting = e),
       (l.isMsgTypeSupportedForPaidPartnershipLabel = s),
       (l.isSpamSupportedForMessageType = u),
-      (l.msgTypeToReportLocalMessageType = c));
+      (l.isSpamSupportedForAssociatedMessageType = c),
+      (l.msgTypeToReportLocalMessageType = d));
   },
   98,
 );

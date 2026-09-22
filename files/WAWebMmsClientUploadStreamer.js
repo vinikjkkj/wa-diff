@@ -183,13 +183,14 @@ __d(
                     if (_(l, i))
                       return (
                         e.$16 == null ||
-                          e.$16(
-                            l,
-                            e.$24(),
-                            i,
-                            o("WAWebWamEnumOverallLastUploadRetryPhaseType")
-                              .OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
-                          ),
+                          e.$16({
+                            error: l,
+                            failCount: i,
+                            overallLastUploadRetryPhase: o(
+                              "WAWebWamEnumOverallLastUploadRetryPhaseType",
+                            ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
+                            overallT: e.$24(),
+                          }),
                         e.$23(),
                         n(l)
                       );
@@ -219,13 +220,14 @@ __d(
                     if (f(i, a))
                       return (
                         e.$16 == null ||
-                          e.$16(
-                            i,
-                            e.$24(),
-                            a,
-                            o("WAWebWamEnumOverallLastUploadRetryPhaseType")
-                              .OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.FINALIZE,
-                          ),
+                          e.$16({
+                            error: i,
+                            failCount: a,
+                            overallLastUploadRetryPhase: o(
+                              "WAWebWamEnumOverallLastUploadRetryPhaseType",
+                            ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.FINALIZE,
+                            overallT: e.$24(),
+                          }),
                         e.$23(),
                         n(i)
                       );

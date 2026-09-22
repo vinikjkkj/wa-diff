@@ -206,7 +206,17 @@ __d(
               "[scheduled_msg] Scheduled media not available for this chat",
             );
           if (l.length !== 0) {
-            var g =
+            var g = l.find(function (e) {
+              var t = e.media;
+              return !o(
+                "WAWebScheduledMsgConstants",
+              ).SCHEDULABLE_MEDIA_TYPES.has(t.type);
+            });
+            if (g != null)
+              throw r("err")(
+                "[scheduled_msg] Cannot schedule media of type " + g.media.type,
+              );
+            var h =
               l.length >
               o("WAWebScheduledMsgConstants").MAX_MEDIA_MSGS_TO_SCHEDULE
                 ? l.slice(
@@ -214,7 +224,7 @@ __d(
                     o("WAWebScheduledMsgConstants").MAX_MEDIA_MSGS_TO_SCHEDULE,
                   )
                 : l;
-            g.length < l.length &&
+            h.length < l.length &&
               o("WALogger")
                 .WARN(
                   c ||
@@ -229,9 +239,9 @@ __d(
                   ),
                 )
                 .sendLogs("scheduled-media-capped");
-            var h = o("WAWebStateUtils").unproxy(i),
-              y = o("WAWebWidToJid").widToChatJid(h.id);
-            if (yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(y)) {
+            var y = o("WAWebStateUtils").unproxy(i),
+              C = o("WAWebWidToJid").widToChatJid(y.id);
+            if (yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(C)) {
               o(
                 "WAWebScheduledMsgLimitDialog.react",
               ).showScheduledMsgLimitReachedDialog();
@@ -245,29 +255,29 @@ __d(
                   " at ",
                   "",
                 ])),
-              String(g.length),
-              h.id.toLogString(),
+              String(h.length),
+              y.id.toLogString(),
               String(_),
             );
-            var C = h.composeQuotedMsg;
-            h.composeQuotedMsg = null;
-            var v = !1,
-              S = [];
-            for (var R of g.entries()) {
-              var L = R[0],
-                E = R[1],
-                k = E.media,
-                I = {
-                  type: k.type,
-                  caption: k.caption,
-                  mentionedJidList: E.mentionedJidList,
-                  groupMentions: E.groupMentions,
+            var v = y.composeQuotedMsg;
+            y.composeQuotedMsg = null;
+            var S = !1,
+              R = [];
+            for (var L of h.entries()) {
+              var E = L[0],
+                k = L[1],
+                I = k.media,
+                T = {
+                  type: I.type,
+                  caption: I.caption,
+                  mentionedJidList: k.mentionedJidList,
+                  groupMentions: k.groupMentions,
                   addEvenWhilePreparing:
-                    o("WAWebAttachMediaGetters").getPreviewable(k) &&
-                    k.state ===
+                    o("WAWebAttachMediaGetters").getPreviewable(I) &&
+                    I.state ===
                       o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                         .PROCESSING,
-                  quotedMsg: L === 0 ? C : void 0,
+                  quotedMsg: E === 0 ? v : void 0,
                   isViewOnce: u.isViewOnce,
                   threadId: u.threadId,
                   isScheduledMsg: !0,
@@ -276,13 +286,13 @@ __d(
                     o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
                 };
               try {
-                var T = yield k.sendToChat({ chat: h, options: I });
+                var D = yield I.sendToChat({ chat: y, options: T });
                 if (
-                  T.ackErrorCode ===
+                  D.ackErrorCode ===
                   o("WAWebScheduledMsgConstants")
                     .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE
                 ) {
-                  ((v = !0), T.msg != null && S.push(T.msg.id.toString()));
+                  ((S = !0), D.msg != null && R.push(D.msg.id.toString()));
                   break;
                 }
               } catch (e) {
@@ -301,9 +311,9 @@ __d(
               }
             }
             if (
-              (v &&
+              (S &&
                 (yield (f || (f = n("Promise"))).all(
-                  S.map(function (e) {
+                  R.map(function (e) {
                     return o(
                       "WAWebScheduledMsgRevealKeyStore",
                     ).updateRevealKeyStatus(e, "FAILED");
@@ -315,7 +325,7 @@ __d(
               a)
             )
               try {
-                yield b(h);
+                yield b(y);
               } catch (e) {
                 o("WALogger")
                   .ERROR(

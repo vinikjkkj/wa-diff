@@ -2,7 +2,7 @@ __d(
   "WAWebBizAiPluginsForSurfaceQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "38465705873075126";
+    a.exports = "28566727489607010";
   },
   null,
 );

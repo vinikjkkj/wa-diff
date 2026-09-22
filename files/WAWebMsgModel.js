@@ -22,7 +22,6 @@ __d(
     "WAWebContactCollection",
     "WAWebDBUpdateMessageTable",
     "WAWebDebounce",
-    "WAWebDirectConnectionGatingUtils",
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendMsgGetters",
     "WAWebInteractiveMessageCarouselConstants",
@@ -1149,10 +1148,8 @@ __d(
           })()),
           (i.waitForPrep = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e,
-                t = this,
-                r = o("WAWebMsgModelUtils").typeIsMms(this);
-              r &&
+              var e = o("WAWebMsgModelUtils").typeIsMms(this);
+              e &&
                 this.mediaData == null &&
                 (o("WALogger").ERROR(
                   f ||
@@ -1175,22 +1172,10 @@ __d(
                   this.calledCiphertextDecrypted,
                 ),
                 this.$MsgImpl$p_11());
-              var a =
-                  this.requiresDirectConnection == null
-                    ? o("WAWebDirectConnectionGatingUtils")
-                        .genDirectConnectionMessageModifiers(
-                          this.type,
-                          (e = this.list) == null ? void 0 : e.listType,
-                          this.businessOwnerJid,
-                        )
-                        .then(function (e) {
-                          return t.set(e);
-                        })
-                    : (g || (g = n("Promise"))).resolve(),
-                i = r
-                  ? o("WAWebMedia").prepareMsg(this)
-                  : (g || (g = n("Promise"))).resolve();
-              return (yield a, i);
+              var t = e
+                ? o("WAWebMedia").prepareMsg(this)
+                : (g || (g = n("Promise"))).resolve();
+              return t;
             });
             function t() {
               return e.apply(this, arguments);

@@ -42,6 +42,19 @@ __d(
       })(e),
       u = (function (e) {
         function t(t, n, r) {
+          return (
+            e.call(
+              this,
+              "Failed to parse async component response for appId: " + t,
+              n,
+              r,
+            ) || this
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(e),
+      c = (function (e) {
+        function t(t, n, r) {
           var o, a;
           return (
             (a = e.call(this, "Script error: " + t, null, r) || this),
@@ -49,13 +62,13 @@ __d(
               n == null || (o = n.getSourceMapNode()) == null
                 ? void 0
                 : o.getBloksStackFrame()),
-            (a.stackFrame = c(a.stackFrame)),
+            (a.stackFrame = d(a.stackFrame)),
             a
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e);
-    function c(e) {
+    function d(e) {
       for (var t = e; t != null; ) {
         var n;
         if (t.offset === ((n = t.nextFrame) == null ? void 0 : n.offset)) {
@@ -65,7 +78,7 @@ __d(
       }
       return e;
     }
-    var d = (function (e) {
+    var m = (function (e) {
         function t(t, n, r) {
           return (
             e.call(
@@ -78,7 +91,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      m = (function (e) {
+      p = (function (e) {
         function t(t, n) {
           return (
             e.call(
@@ -91,7 +104,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      p = (function (e) {
+      _ = (function (e) {
         function t(t, n) {
           return (
             e.call(
@@ -104,13 +117,13 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      _ = (function (e) {
+      f = (function (e) {
         function t(t, n) {
           return e.call(this, "Unsupported feature: " + t, null, n) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      f = (function (e) {
+      g = (function (e) {
         function t(t, n) {
           return (
             e.call(
@@ -126,12 +139,13 @@ __d(
     ((i.WebBloksError = e),
       (i.WebBloksComponentIdNotFoundError = l),
       (i.WebBloksNetworkError = s),
-      (i.WebBloksScriptError = u),
-      (i.WebBloksScriptParseError = d),
-      (i.WebBloksUnknownActionError = m),
-      (i.WebBloksUnknownComponentError = p),
-      (i.WebBloksUnsupportedFeatureError = _),
-      (i.WebBloksUnknownContainerConfigError = f));
+      (i.WebBloksComponentQueryParseError = u),
+      (i.WebBloksScriptError = c),
+      (i.WebBloksScriptParseError = m),
+      (i.WebBloksUnknownActionError = p),
+      (i.WebBloksUnknownComponentError = _),
+      (i.WebBloksUnsupportedFeatureError = f),
+      (i.WebBloksUnknownContainerConfigError = g));
   },
   66,
 );

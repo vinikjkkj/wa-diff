@@ -11,7 +11,6 @@ __d(
     "WAWebContactBlockedErrorAction",
     "WAWebContactGetters",
     "WAWebCryptoRandomMediaKey",
-    "WAWebFileUtils",
     "WAWebForwardAssociatedChildren",
     "WAWebForwardRichResponseHandler",
     "WAWebFrontendMsgGetters",
@@ -29,6 +28,7 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMetaAiForwardedText",
     "WAWebMmsMediaTypes",
+    "WAWebMsgActionCapability",
     "WAWebMsgDataUtils",
     "WAWebMsgGetters",
     "WAWebMsgModelFromData",
@@ -61,20 +61,20 @@ __d(
             l = t.chat,
             u = t.includeCaption,
             c = u === void 0 ? !1 : u,
-            p = t.msg,
-            _ = t.multicast,
-            g = _ === void 0 ? !1 : _;
-          if (m(p) || o("WAWebFileUtils").isDocument(p))
+            m = t.msg,
+            p = t.multicast,
+            _ = p === void 0 ? !1 : p;
+          if (o("WAWebMsgActionCapability").isForwardedAsMedia(m))
             return o("WAWebMediaForwardMediaMsg").forwardMediaMsg({
               appendedText: a,
               chat: l,
               includeCaption: c,
-              msg: p,
-              multicast: g,
+              msg: m,
+              multicast: _,
               associationOptions: i,
             });
-          var h = S(p, l);
-          if (b(p) && (h.body == null || h.body === ""))
+          var g = S(m, l);
+          if (b(m) && (g.body == null || g.body === ""))
             return (
               o("WALogger")
                 .LOG(
@@ -90,29 +90,29 @@ __d(
             o("WAWebBotUtils").isMetaAiBot(l.id) &&
             (a != null &&
               a !== "" &&
-              (h.body = o(
+              (g.body = o(
                 "WAWebMetaAiForwardedText",
-              ).composeMetaAiForwardedText(h.body, a)),
+              ).composeMetaAiForwardedText(g.body, a)),
             o("WAWebBotGating").isAiChatThreadsEnabled())
           )
             return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
               type: "MetaAiForward",
-              query: h.body,
+              query: g.body,
             });
-          var y = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, p.type),
-            C = y.type,
-            v = babelHelpers.objectWithoutPropertiesLoose(y, e),
-            R = Object.assign(
-              h,
-              babelHelpers.extends({}, v, {
+          var h = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, m.type),
+            y = h.type,
+            C = babelHelpers.objectWithoutPropertiesLoose(h, e),
+            v = Object.assign(
+              g,
+              babelHelpers.extends({}, C, {
                 participant: void 0,
                 star: !1,
                 isForwarded:
-                  o("WAWebMsgGetters").getShouldDisplayAsForwarded(p),
+                  o("WAWebMsgGetters").getShouldDisplayAsForwarded(m),
                 forwardedFromWeb: !0,
                 forwardingScore:
-                  o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(p),
-                multicast: g,
+                  o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(m),
+                multicast: _,
                 messageSecret:
                   o(
                     "WAWebMessagingGatingUtils",
@@ -127,21 +127,21 @@ __d(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).maybeStripNewsletterForwardMetadata({
                 isQuestionOrQuestionReply:
-                  p.isQuestion || p.questionReplyQuotedMessage != null,
-                forwardable: R,
+                  m.isQuestion || m.questionReplyQuotedMessage != null,
+                forwardable: v,
                 destination: l.id,
-                source: p.id.remote,
-                isOriginalMsgForwarded: p.isForwarded,
+                source: m.id.remote,
+                isOriginalMsgForwarded: m.isForwarded,
               }),
             );
-          var L = yield f(R),
-            E = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, L),
-            k = E[0],
-            I = E[1],
-            T = yield (d || (d = n("Promise"))).all([k, I]),
-            D = T[0],
-            x = T[1];
-          return babelHelpers.extends({}, x, { msg: D });
+          var R = yield f(v),
+            L = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, R),
+            E = L[0],
+            k = L[1],
+            I = yield (d || (d = n("Promise"))).all([E, k]),
+            T = I[0],
+            D = I[1];
+          return babelHelpers.extends({}, D, { msg: T });
         })),
         _.apply(this, arguments)
       );

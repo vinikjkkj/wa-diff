@@ -12,6 +12,7 @@ __d(
     "WAWebProductModel",
     "WAWebProductSelectors",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "react",
     "sumBy",
   ],
@@ -148,49 +149,59 @@ __d(
       );
     }
     function b(e, t) {
-      var n = o("WAWebCatalogCollection").CatalogCollection.get(
-          o("WAWebWidFactory").createWid(e.id),
-        ),
-        a = [],
-        i = [],
-        l = !0;
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        n
-          ? e.cartItemCollection.forEach(function (r) {
-              var o = n.productCollection.get(r.id),
-                s =
-                  t &&
-                  t.products.find(function (e) {
-                    return e.id === r.id;
-                  });
-              if (((s = _(s, n)), !t && o)) {
-                var u = m(r, o);
-                ((l = l && u), a.push({ product: o, cartItem: r }));
-              } else if (s) {
-                var c = p(r, s);
-                ((l = l && c), a.push({ product: C(s, e.id), cartItem: r }));
-              } else ((l = !1), i.push(r.id));
-            })
-          : t
-            ? e.cartItemCollection.forEach(function (n) {
-                var r = t.products.find(function (e) {
-                  return e.id === n.id;
-                });
-                if (r && r.status !== "deleted") {
-                  var o = p(n, r);
-                  ((l = l && o), a.push({ product: C(r, e.id), cartItem: n }));
-                } else ((l = !1), i.push(n.id));
-              })
-            : r("WAWebBizClearCartAction")(e),
-        l ||
-          (i.length && e.cartItemCollection.remove(i),
-          e.trigger("change:cartItemCollection"),
-          f()),
-        o("WAWebBizCartBridge").updateCart(e),
-        a
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebCatalogCollection").CatalogCollection.get(
+              o("WAWebWidFactory").createWid(e.id),
+            ),
+            a = [],
+            i = [],
+            l = !0;
+          return (
+            n
+              ? e.cartItemCollection.forEach(function (r) {
+                  var o = n.productCollection.get(r.id),
+                    s =
+                      t &&
+                      t.products.find(function (e) {
+                        return e.id === r.id;
+                      });
+                  if (((s = _(s, n)), !t && o)) {
+                    var u = m(r, o);
+                    ((l = l && u), a.push({ product: o, cartItem: r }));
+                  } else if (s) {
+                    var c = p(r, s);
+                    ((l = l && c),
+                      a.push({ product: C(s, e.id), cartItem: r }));
+                  } else ((l = !1), i.push(r.id));
+                })
+              : t
+                ? e.cartItemCollection.forEach(function (n) {
+                    var r = t.products.find(function (e) {
+                      return e.id === n.id;
+                    });
+                    if (r && r.status !== "deleted") {
+                      var o = p(n, r);
+                      ((l = l && o),
+                        a.push({ product: C(r, e.id), cartItem: n }));
+                    } else ((l = !1), i.push(n.id));
+                  })
+                : r("WAWebBizClearCartAction")(e),
+            l ||
+              (i.length && e.cartItemCollection.remove(i),
+              e.trigger("change:cartItemCollection"),
+              f()),
+            yield o("WAWebBizCartBridge").updateCart(e),
+            a
+          );
+        })),
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S(e) {
       return r("sumBy")(e, function (e) {
         return (
           e.cartItem.quantity * o("WAWebProductSelectors").getSavings(e.product)
@@ -201,7 +212,7 @@ __d(
       (l.isPriceMatch = y),
       (l.createProductFromRefreshCartItem = C),
       (l.matchCartItemsToProducts = b),
-      (l.getSavingsFromCartItemsAndProducts = v));
+      (l.getSavingsFromCartItemsAndProducts = S));
   },
   226,
 );

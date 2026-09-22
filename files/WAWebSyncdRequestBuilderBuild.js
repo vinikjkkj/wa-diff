@@ -107,7 +107,11 @@ __d(
                   if (t != null && t.length > 0)
                     if (n == null) a.push(e);
                     else {
-                      var u = yield b(e, t, r),
+                      var u = yield b({
+                          collection: e,
+                          pendingMutations: t,
+                          session: r,
+                        }),
                         c = u.encryptedMutations,
                         d = u.ltHash,
                         m = u.patchNode;
@@ -193,17 +197,20 @@ __d(
         C.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
+    function b(e) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = yield o("WAWebSyncdKeyManagement").getActiveKey(!L(t)),
-            i = yield T(e, t, a),
-            l = i.map(function (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.collection,
+            r = e.pendingMutations,
+            a = e.session,
+            i = yield o("WAWebSyncdKeyManagement").getActiveKey(!L(r)),
+            l = yield T(t, r, i),
+            s = l.map(function (e, t) {
               return o("WAWebSyncdEncryptMutationsWrapper")
-                .encryptMutation(e, a)
+                .encryptMutation(e, i)
                 .catch(function (e) {
                   throw (
                     o("WALogger").WARN(
@@ -218,46 +225,46 @@ __d(
                   );
                 });
             }),
-            s = yield (p || (p = n("Promise"))).all(l).catch(
+            u = yield (p || (p = n("Promise"))).all(s).catch(
               (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
                     throw (
-                      t instanceof o("WAWebSyncdError").SyncdFatalError &&
-                        (yield S(i, e)),
-                      t
+                      e instanceof o("WAWebSyncdError").SyncdFatalError &&
+                        (yield S(l, t)),
+                      e
                     );
                   },
                 );
-                return function (e) {
-                  return t.apply(this, arguments);
+                return function (t) {
+                  return e.apply(this, arguments);
                 };
               })(),
             ),
-            u =
+            d =
               o("WAWebABProps").getABPropConfigValue(
                 "syncd_use_index_for_lthash_lookup",
               ) === !0,
-            d = s.map(function (e) {
+            m = u.map(function (e) {
               return {
                 indexMac: e.indexMac,
                 valueMac: e.valueMac,
                 operation: e.operation,
                 action: e.action || void 0,
-                index: u ? e.index : void 0,
+                index: d ? e.index : void 0,
               };
             }),
-            m = yield o("WAWebSyncdAntiTampering").computeLtHash(e, d, r),
-            _ = m.ltHash,
-            f = yield o(
+            _ = yield o("WAWebSyncdAntiTampering").computeLtHash(t, m, a),
+            f = _.ltHash,
+            g = yield o(
               "WAWebSyncdAntiTampering",
-            ).computeOutgoingSnapshotAndPatchMacs(e, _, s, a.keyData),
-            g = f.patchMac,
-            h = f.snapshotMac;
-          s.map(function (e) {
-            e.patchMac = g;
+            ).computeOutgoingSnapshotAndPatchMacs(t, f, u, i.keyData),
+            h = g.patchMac,
+            y = g.snapshotMac;
+          u.map(function (e) {
+            e.patchMac = h;
           });
-          var y = s.map(function (e) {
+          var C = u.map(function (e) {
               return I(
                 e.keyId,
                 e.operation,
@@ -265,20 +272,20 @@ __d(
                 e.indexAndValueCipherText,
               );
             }),
-            C = k(y),
-            b;
-          o("WAWebSyncdMMSUpload").exceedInlineMutationCount(y)
-            ? (b = yield o("WAWebSyncdMMSUpload").uploadPatch(C, a.keyId, h, g))
-            : ((b = E(y, a.keyId, h, g)),
-              o("WAWebSyncdMMSUpload").exceedPatchProtobufSize(b) &&
-                (b = yield o("WAWebSyncdMMSUpload").uploadPatch(
-                  C,
-                  a.keyId,
+            b = k(C),
+            v;
+          o("WAWebSyncdMMSUpload").exceedInlineMutationCount(C)
+            ? (v = yield o("WAWebSyncdMMSUpload").uploadPatch(b, i.keyId, y, h))
+            : ((v = E(C, i.keyId, y, h)),
+              o("WAWebSyncdMMSUpload").exceedPatchProtobufSize(v) &&
+                (v = yield o("WAWebSyncdMMSUpload").uploadPatch(
+                  b,
+                  i.keyId,
+                  y,
                   h,
-                  g,
                 )));
-          var v = o("WAWap").wap("patch", null, b);
-          return { patchNode: v, encryptedMutations: s, ltHash: _ };
+          var R = o("WAWap").wap("patch", null, v);
+          return { patchNode: R, encryptedMutations: u, ltHash: f };
         })),
         v.apply(this, arguments)
       );

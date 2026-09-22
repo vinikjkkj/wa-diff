@@ -28,6 +28,7 @@ __d(
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiManager",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
+    "WAWebVoipVideoRenderSource",
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoStateUtils",
     "WAWebVoipWaCallEnums",
@@ -434,8 +435,8 @@ __d(
           n = r("WAWebCallCollection").activeCall;
         if (n) {
           var a = e.isSelf != null && e.isSelf;
-          a
-            ? ((n.selfVideoState = e.videoState),
+          if (a)
+            ((n.selfVideoState = e.videoState),
               n.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents
@@ -447,21 +448,38 @@ __d(
               ) &&
                 o(
                   "WAWebVoipUiPopoutWindowPortalContainer.react",
-                ).setMediaStream("camera", null))
-            : ((n.peerVideoState = e.videoState),
+                ).setMediaStream("camera", null));
+          else {
+            ((n.peerVideoState = e.videoState),
               e.userJid && (n.peerVideoJid = e.userJid));
-          var i = e.userJid;
+            var i = e.userJid;
+            i != null &&
+              (o("WAWebVoipVideoStateUtils").isVideoStateInactiveForCallMode(
+                e.videoState,
+              ) ||
+                e.videoState === o("WAWebVoipWaCallEnums").VideoState.Paused) &&
+              o(
+                "WAWebVoipVideoRendererRegistry",
+              ).videoRendererRegistry.onPeerVideoInactive(
+                o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderSource.peer(
+                  i,
+                  o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderStream
+                    .CAMERA,
+                ),
+              );
+          }
+          var l = e.userJid;
           if (
             (n.isGroup &&
-              i != null &&
-              (n.updateParticipantVideoState(i, e.videoState),
+              l != null &&
+              (n.updateParticipantVideoState(l, e.videoState),
               n.trigger("participantVideoStateChange", {
-                participantJid: i,
+                participantJid: l,
                 videoState: e.videoState,
               })),
             e.callMediaStateChanged === !0)
           ) {
-            var l = n.hasActiveVideo();
+            var s = n.hasActiveVideo();
             (o("WALogger").LOG(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -472,9 +490,9 @@ __d(
                 ])),
               n.selfVideoState,
               n.peerVideoState,
-              l,
+              s,
             ),
-              (n.isVideo = l),
+              (n.isVideo = s),
               n.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.IS_VIDEO,

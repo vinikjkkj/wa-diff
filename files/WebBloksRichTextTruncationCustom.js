@@ -15,61 +15,63 @@ __d(
         r = e.maxNumberOfLines,
         a = e.truncationSpans,
         i = o("WebBloksComponentContext").useWebBloksContext(),
-        l = i.renderChildren,
-        u = d(null),
-        _ = m(!1),
-        g = _[0],
-        h = _[1],
-        y = n.lineHeight,
-        C = n.textSizePx,
-        b = C * y,
-        v = b * r;
+        l = i.bloksContext,
+        u = i.renderChildren,
+        _ = l.objectSet.environment.enableDeterministicTextSize,
+        g = d(null),
+        h = m(!1),
+        y = h[0],
+        C = h[1],
+        b = n.lineHeight,
+        v = n.textSizePx,
+        S = v * b,
+        R = S * r;
       if (
         (c(
           function () {
             var e, t;
-            h(
-              ((e = (t = u.current) == null ? void 0 : t.clientHeight) != null
+            C(
+              ((e = (t = g.current) == null ? void 0 : t.clientHeight) != null
                 ? e
                 : 0) >
-                v + b / 2,
+                R + S / 2,
             );
           },
-          [v, b],
+          [R, S],
         ),
         r == null)
       )
         return null;
-      var S = u.current,
-        R = S != null ? window.getComputedStyle(S).direction === "rtl" : !1,
-        L = R ? "left" : "right",
-        E = r === 1 || (S == null ? void 0 : S.closest(p)) != null,
-        k = o("WebBloksTextStyle").getMaxTextSizePx(a) * y,
-        I = {
-          fontSize: C,
-          maxHeight: v + "px",
-          wordBreak: E ? "break-all" : "break-word",
+      var L = g.current,
+        E = L != null ? window.getComputedStyle(L).direction === "rtl" : !1,
+        k = E ? "left" : "right",
+        I = r === 1 || (L == null ? void 0 : L.closest(p)) != null,
+        T = o("WebBloksTextStyle").getMaxTextSizePx(a, _) * b,
+        D = {
+          fontSize: v,
+          maxHeight: R + "px",
+          wordBreak: I ? "break-all" : "break-word",
         },
-        T = l(a);
+        x = u(a);
       return s.jsxs("div", {
-        style: I,
+        style: D,
         className: f.container,
         children: [
-          g &&
+          y &&
             s.jsxs(s.Fragment, {
               children: [
-                s.jsx("div", { style: { float: L, height: v - k + "px" } }),
+                s.jsx("div", { style: { float: k, height: R - T + "px" } }),
                 s.jsx("div", {
-                  dir: R ? "rtl" : "ltr",
-                  style: { float: L, clear: L },
-                  children: T,
+                  dir: E ? "rtl" : "ltr",
+                  style: { float: k, clear: k },
+                  children: x,
                 }),
               ],
             }),
           s.jsx("div", {
             className: f.content,
             dir: "auto",
-            ref: u,
+            ref: g,
             children: t,
           }),
         ],

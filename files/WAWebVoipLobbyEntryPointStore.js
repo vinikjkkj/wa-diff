@@ -3,20 +3,19 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = null,
-      l = null;
-    function s(t, n) {
-      ((e = t), (l = n));
+    var e = null;
+    function l(t) {
+      e = t;
+    }
+    function s() {
+      e = null;
     }
     function u() {
-      ((e = null), (l = null));
+      return e;
     }
-    function c(t) {
-      return e == null ? null : l == null || l === t ? e : null;
-    }
-    ((i.setLobbyEntryPoint = s),
-      (i.resetLobbyEntryPoint = u),
-      (i.getLobbyEntryPointForCall = c));
+    ((i.setLobbyEntryPoint = l),
+      (i.resetLobbyEntryPoint = s),
+      (i.getCurrentLobbyEntryPoint = u));
   },
   66,
 );

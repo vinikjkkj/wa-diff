@@ -6,7 +6,7 @@ __d(
     "WALogger",
     "WAWebMessagingGatingUtils",
     "WAWebProtobufsGroupHistory.pb",
-    "WAWebReportingTokenConfig",
+    "WAWebReportingTokenConstants",
     "WAWebReportingTokenContent",
     "WAWebReportingTokenUtils",
     "asyncToGeneratorRuntime",
@@ -37,7 +37,10 @@ __d(
                   : o(
                       "WAWebMessagingGatingUtils",
                     ).getSenderReportingTokenVersion(),
-              C = [].concat(
+              C = o(
+                "WAWebMessagingGatingUtils",
+              ).isReportingTokenV3HybridSendingEnabled(),
+              b = [].concat(
                 (p = h.messages) != null ? p : [],
                 ((_ = h.uncountedAssociatedMessageLists) != null
                   ? _
@@ -49,21 +52,22 @@ __d(
                 (f = h.commentMessages) != null ? f : [],
                 (g = h.outOfWindowPinnedMessages) != null ? g : [],
               ),
-              b = yield (s || (s = n("Promise"))).all(
-                C.map(function (e) {
+              v = yield (s || (s = n("Promise"))).all(
+                b.map(function (e) {
                   var t;
                   return m({
                     bundleMessageSecret: a,
                     groupJid: l,
                     msgInfo: e,
+                    promoteEmptyContentToV3: C,
                     reportingTokenVersion: y,
                     senderJid: i,
                     stanzaId: d((t = e.key) == null ? void 0 : t.id, c),
                   });
                 }),
               ),
-              v = r("compactMap")(b, function (e) {
-                return e;
+              S = r("compactMap")(v, function (e) {
+                return e.info;
               });
             return (
               o("WALogger").LOG(
@@ -72,9 +76,9 @@ __d(
                     "[group-history] Generated ",
                     " reporting tokens",
                   ])),
-                v.length,
+                S.length,
               ),
-              v
+              S
             );
           },
         )),
@@ -98,40 +102,64 @@ __d(
           var t = e.bundleMessageSecret,
             n = e.groupJid,
             r = e.msgInfo,
-            a = e.reportingTokenVersion,
-            i = e.senderJid,
-            l = e.stanzaId;
-          if (l == null) return null;
-          var s = r.messageBytes;
-          if (s == null)
-            return { stanzaId: l, reportingToken: null, version: null };
-          var u = yield o(
+            a = e.promoteEmptyContentToV3,
+            i = a === void 0 ? !1 : a,
+            l = e.reportingTokenVersion,
+            s = e.senderJid,
+            u = e.stanzaId,
+            c = o("WAWebReportingTokenUtils").isSupportedReceiveVersion(l);
+          if (u == null) return { info: null, isSupportedReceiveVersion: c };
+          var d = r.messageBytes;
+          if (d == null)
+            return {
+              info: { stanzaId: u, reportingToken: null, version: null },
+              isSupportedReceiveVersion: c,
+            };
+          var m = yield o(
               "WAWebReportingTokenUtils",
             ).genReportingTokenKeyFromMessageSecret({
               messageSecret: t,
-              stanzaId: l,
-              senderJid: i,
+              stanzaId: u,
+              senderJid: s,
               remoteJid: n,
             }),
-            c = new (o(
-              "WAWebReportingTokenContent",
-            ).ReportingTokenContentCalculator)(
-              new Uint8Array(s),
-              o("WAWebReportingTokenConfig").getReportingTokenConfig(a),
-            ).getReportingTokenContent();
-          if (c == null || c.length === 0)
-            return { stanzaId: l, reportingToken: null, version: null };
-          var d = yield o("WACryptoHmac").hmacSha256(
-            new Uint8Array(u),
-            c,
+            p = new Uint8Array(d),
+            _ = l,
+            f = o("WAWebReportingTokenContent").calculateReportingTokenContent(
+              p,
+              _,
+            );
+          if (
+            (_ > 0 &&
+              _ <
+                o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3 &&
+              f.length === 0 &&
+              i &&
+              ((_ = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
+                .V3),
+              (f = o(
+                "WAWebReportingTokenContent",
+              ).calculateReportingTokenContent(p, _))),
+            f == null || f.length === 0)
+          )
+            return {
+              info: { stanzaId: u, reportingToken: null, version: null },
+              isSupportedReceiveVersion: c,
+            };
+          var g = yield o("WACryptoHmac").hmacSha256(
+            new Uint8Array(m),
+            f,
             o("WAWebReportingTokenUtils").REPORTING_TOKEN_SIZE,
           );
           return {
-            stanzaId: l,
-            reportingToken: new Uint8Array(d),
-            version: a,
-            reportingTokenKey: new Uint8Array(u),
-            reportingTokenContent: c,
+            info: {
+              stanzaId: u,
+              reportingToken: new Uint8Array(g),
+              version: _,
+              reportingTokenKey: new Uint8Array(m),
+              reportingTokenContent: f,
+            },
+            isSupportedReceiveVersion: c,
           };
         })),
         p.apply(this, arguments)

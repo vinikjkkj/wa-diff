@@ -22,12 +22,10 @@ __d(
     "WAWebOffline.react",
     "WAWebProxied.react",
     "WAWebServiceUnavailable.react",
-    "WAWebSmbLearnMore.react",
     "WAWebSocketModel",
     "WAWebStartup.react",
     "WAWebTempBanScreen.react",
     "WAWebToastManagerImplLoadable",
-    "WAWebTos.react",
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "cr:11133",
@@ -243,38 +241,9 @@ __d(
             requiresBackendCheck: !0,
           };
         case o("WAWebAppScreen").AppScreen.TOS_BLOCK:
-          return {
-            appScreenUI: [
-              {
-                ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
-                  children: u.jsx(r("WAWebTos.react"), {
-                    description: s._(
-                      /*BTDS*/ 'WhatsApp is updating our Terms and Privacy Policy to reflect new features and comply with the new European Union data protection laws. Open WhatsApp on your phone to read our Terms and Privacy Policy and learn more about the choices you have. If you have accepted the Terms and Privacy Policy, click "Log in" to continue using WhatsApp.',
-                    ),
-                  }),
-                }),
-                errorBoundaryName: p,
-              },
-            ],
-            requiresBackendCheck: !0,
-          };
+          return { appScreenUI: [], requiresBackendCheck: !0 };
         case o("WAWebAppScreen").AppScreen.SMB_TOS_BLOCK:
-          return {
-            appScreenUI: [
-              {
-                ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
-                  children: u.jsx(r("WAWebTos.react"), {
-                    description: s._(
-                      /*BTDS*/ "We are updating our WhatsApp Business Terms of Service. Agree to our new Terms on your phone to continue using WhatsApp Business. If you have accepted the Terms of Service, click Log in to continue using WhatsApp Business.",
-                    ),
-                    children: u.jsx(r("WAWebSmbLearnMore.react"), {}),
-                  }),
-                }),
-                errorBoundaryName: p,
-              },
-            ],
-            requiresBackendCheck: !0,
-          };
+          return { appScreenUI: [], requiresBackendCheck: !0 };
         case o("WAWebAppScreen").AppScreen.LOGOUT:
           return {
             appScreenUI: [

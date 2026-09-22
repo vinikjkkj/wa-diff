@@ -110,46 +110,54 @@ __d(
             var e,
               i = this,
               l = { resolution_type: a, response_summary: {} };
-            if (!n.success)
-              return [
-                {
-                  treeModification: null,
-                  variableUpdate: {
-                    variableIdentifier: this.$10(t.id),
-                    value: l,
+            if (!n.success) {
+              var s = n.error;
+              return (
+                this.$1.bloksContext.objectSet.environment.logger.mustfix(
+                  "Async component query " + t.id + " failed",
+                  s instanceof Error ? s : null,
+                ),
+                [
+                  {
+                    treeModification: null,
+                    variableUpdate: {
+                      variableIdentifier: this.$10(t.id),
+                      value: l,
+                    },
                   },
-                },
-              ];
-            var s = this.$11(
+                ]
+              );
+            }
+            var u = this.$11(
                 (e = t.targets) != null ? e : new Map(),
                 n.result.components,
               ),
-              u = t.isScoped ? o("WebBloksScopedIds").extendKeyPath() : null,
-              c = [],
-              d = function () {
-                var e = m[0],
-                  n = m[1],
-                  a = i.$12(n, e.serverId, u),
+              c = t.isScoped ? o("WebBloksScopedIds").extendKeyPath() : null,
+              d = [],
+              m = function () {
+                var e = p[0],
+                  n = p[1],
+                  a = i.$12(n, e.serverId, c),
                   s = function (n) {
                     var t = r.createBloksModelScopedContext(e.keyPath);
                     return o("WebBloksScriptExecutor").execute(t, n, []);
                   },
-                  d =
+                  u =
                     t.clientParamsExpression != null
                       ? o("WebBloksUtils").cast(s(t.clientParamsExpression))
                       : {};
-                for (var p of Object.entries(d)) {
-                  var _ = p[0],
-                    f = p[1];
-                  c.push({
+                for (var m of Object.entries(u)) {
+                  var _ = m[0],
+                    f = m[1];
+                  d.push({
                     treeModification: null,
                     variableUpdate: {
-                      variableIdentifier: i.$13(_, u),
+                      variableIdentifier: i.$13(_, c),
                       value: f,
                     },
                   });
                 }
-                c.push({
+                d.push({
                   treeModification: a,
                   variableUpdate: {
                     variableIdentifier: i.$13(i.$10(t.id), e.keyPath),
@@ -157,8 +165,8 @@ __d(
                   },
                 });
               };
-            for (var m of s.entries()) d();
-            return c;
+            for (var p of u.entries()) m();
+            return d;
           }),
           (n.$12 = function (t, n, a) {
             var e = this.$1.bloksContext.objectSet.environment.traversalKeys,

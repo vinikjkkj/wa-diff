@@ -238,23 +238,25 @@ __d(
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",
-                  ).maybePostMessageHighRetryCountMetric(
-                    M,
-                    t,
-                    w != null
-                      ? o(
-                          "WAWebSessionScopeWamUtils",
-                        ).getIncomingSkdmSessionScope({
-                          from: C,
-                          isGroupStatus: a.isGroupStatus,
-                          isSkdm: a.isSkdm,
-                          metaSessionScope: a.metaSessionScope,
-                        })
-                      : void 0,
-                    (w == null ? void 0 : w.sessionType) != null
-                      ? w.sessionType === "pq"
-                      : void 0,
-                  ));
+                  ).maybePostMessageHighRetryCountMetric({
+                    isPq:
+                      (w == null ? void 0 : w.sessionType) != null
+                        ? w.sessionType === "pq"
+                        : void 0,
+                    msgInfo: t,
+                    retryCount: M,
+                    sessionScope:
+                      w != null
+                        ? o(
+                            "WAWebSessionScopeWamUtils",
+                          ).getIncomingSkdmSessionScope({
+                            from: C,
+                            isGroupStatus: a.isGroupStatus,
+                            isSkdm: a.isSkdm,
+                            metaSessionScope: a.metaSessionScope,
+                          })
+                        : void 0,
+                  }));
                 return;
               }
               if (
