@@ -113,7 +113,14 @@ __d(
             function c() {
               var e = r.ephemeralDuration;
               return t.author && t.ts != null && e != null && e > 0
-                ? [x(t.chatId, t.ts, t.author, e)]
+                ? [
+                    x({
+                      author: t.author,
+                      ephemeralDuration: e,
+                      ts: t.ts,
+                      wid: t.chatId,
+                    }),
+                  ]
                 : [];
             }
             function d() {
@@ -694,24 +701,28 @@ __d(
         }),
       };
     }
-    function x(e, t, n, a) {
+    function x(e) {
+      var t = e.author,
+        n = e.ephemeralDuration,
+        a = e.ts,
+        i = e.wid;
       return {
         id: new (r("WAWebMsgKey"))({
-          remote: e,
+          remote: i,
           fromMe: !1,
-          participant: n,
+          participant: t,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         }),
-        author: n,
-        from: e,
+        author: t,
+        from: i,
         to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         recipients: [],
         subtype: "ephemeral",
-        t: t,
+        t: a,
         type: "gp2",
         kind: o("WAWebMsgType").MsgKind.Gp2,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-        templateParams: ["" + a],
+        templateParams: ["" + n],
       };
     }
     function $(e, t) {

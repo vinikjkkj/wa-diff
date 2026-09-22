@@ -1,6 +1,7 @@
 __d(
   "oz-player/media_source/MediaSourceManager",
   [
+    "getErrorSafe",
     "oz-player/loggings/OzMultiDestinationPerfLogger",
     "oz-player/media_source/OzMSESourceBufferImpl",
     "oz-player/media_source/OzMediaErrorProvider",
@@ -229,7 +230,7 @@ __d(
               return t == null ? void 0 : t.catch(function () {});
             }
           }).catch(function (t) {
-            e.$20.emitError(t);
+            e.$20.emitError(r("getErrorSafe")(t));
           });
         }),
         (t.$28 = function () {
@@ -299,7 +300,7 @@ __d(
                 'Failed to addSourceBuffer("' +
                 t +
                 '"): ' +
-                (e.message || String(e)),
+                (r("getErrorSafe")(e).message || String(e)),
               extra: {
                 originalError: e,
                 code: r(

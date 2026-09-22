@@ -161,6 +161,9 @@ __d(
               t,
             );
           }),
+          (t.dataSharingClicked = function (t) {
+            o("WAWebBBHomeLogs").dataSharingClicked(this.$1, t);
+          }),
           (t.homeAudiencesTabClicked = function (t) {
             o("WAWebBBHomeLogs").homeAudiencesTabClicked(this.$1, t);
           }),
@@ -359,6 +362,57 @@ __d(
           }),
           (t.createBroadcastViewed = function (t) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
+          }),
+          (t.proMaxBidValidated = function (t, n, r) {
+            o("WAWebBBBroadcastCreationLogs").proMaxBidValidated(
+              this.$1,
+              t,
+              n,
+              r,
+            );
+          }),
+          (t.proCampaignBudgetValidated = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").proCampaignBudgetValidated(
+              this.$1,
+              t,
+              n,
+            );
+          }),
+          (t.proMaxBidInfoClicked = function (t) {
+            o("WAWebBBBroadcastCreationLogs").proMaxBidInfoClicked(this.$1, t);
+          }),
+          (t.proCampaignBudgetInfoClicked = function (t) {
+            o("WAWebBBBroadcastCreationLogs").proCampaignBudgetInfoClicked(
+              this.$1,
+              t,
+            );
+          }),
+          (t.proSendButtonViewed = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").proSendButtonViewed(
+              this.$1,
+              t,
+              n,
+            );
+          }),
+          (t.proSendClicked = function (t, n, r, a) {
+            o("WAWebBBBroadcastCreationLogs").proSendClicked(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+            );
+          }),
+          (t.proSendResult = function (t, n, r, a, i, l) {
+            o("WAWebBBBroadcastCreationLogs").proSendResult(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+              i,
+              l,
+            );
           }),
           (t.sendBroadcastResult = function (
             t,

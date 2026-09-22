@@ -94,23 +94,26 @@ __d(
       ie,
       le,
       se,
-      ue = se || (se = o("react"));
-    function ce() {
+      ue,
+      ce,
+      de,
+      me = de || (de = o("react"));
+    function pe() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_virtual_video_capture_driver",
         ) === !0
       );
     }
-    var de = 200,
-      me = new WeakMap();
-    function pe(e) {
-      var t = me.get(e);
+    var _e = 200,
+      fe = new WeakMap();
+    function ge(e) {
+      var t = fe.get(e);
       if (t != null) return t;
       var r = n("asyncToGeneratorRuntime")
         .asyncToGenerator(function* () {
           var t = Date.now(),
-            n = yield Lt(e),
+            n = yield Bt(e),
             r = Date.now() - t;
           n.getTracks().forEach(function (e) {
             (o("WALogger").LOG(
@@ -130,39 +133,39 @@ __d(
         })()
         .finally(function () {
           window.setTimeout(function () {
-            me.get(e) === r && me.delete(e);
-          }, de);
+            fe.get(e) === r && fe.delete(e);
+          }, _e);
         });
-      return (me.set(e, r), r);
+      return (fe.set(e, r), r);
     }
-    var _e = n("$InternalEnum").Mirrored(["None", "Ideal", "Exact"]),
-      fe = new Set([
+    var he = n("$InternalEnum").Mirrored(["None", "Ideal", "Exact"]),
+      ye = new Set([
         "ConstraintNotSatisfiedError",
         "OverconstrainedError",
         "NotFoundError",
       ]),
-      ge = null;
-    function he() {
-      return ge;
+      Ce = null;
+    function be() {
+      return Ce;
     }
-    var ye = { microphone: null, camera: null };
-    function Ce() {
-      ((ye.microphone = null), (ye.camera = null));
+    var ve = { microphone: null, camera: null };
+    function Se() {
+      ((ve.microphone = null), (ve.camera = null));
     }
-    var be = 1e3,
-      ve = 1e4,
-      Se = 3e4,
-      Re = 1e4,
-      Le = 1e3,
+    var Re = 1e3,
+      Le = 1e4,
       Ee = 3e4,
-      ke = null;
-    function Ie(e) {
-      return ke !== e;
+      ke = 1e4,
+      Ie = 1e3,
+      Te = 3e4,
+      De = null;
+    function xe(e) {
+      return De !== e;
     }
-    function Te(e) {
-      ke === e && (ke = null);
+    function $e(e) {
+      De === e && (De = null);
     }
-    function De(e) {
+    function Pe(e) {
       var t = e.scheduledCallId,
         n = r("WAWebCallCollection").activeCall,
         o = n == null ? void 0 : n.id;
@@ -177,8 +180,8 @@ __d(
           ? "call link preview no longer active (callId=" + t + ")"
           : null;
     }
-    function xe(e, t) {
-      var n = De(e);
+    function Ne(e, t) {
+      var n = Pe(e);
       return n == null
         ? !1
         : (o("WALogger").LOG(
@@ -191,10 +194,10 @@ __d(
             t,
             n,
           ),
-          Te(e),
+          $e(e),
           !0);
     }
-    function $e(e) {
+    function Me(e) {
       return (function (e) {
         return (
           (((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -205,9 +208,9 @@ __d(
             e.checkVideo === !1 &&
             e.microphone === !0)
         );
-      })(babelHelpers.extends({ checkVideo: e }, ye));
+      })(babelHelpers.extends({ checkVideo: e }, ve));
     }
-    function Pe() {
+    function we() {
       var e,
         t = r("WAWebCallCollection").activeCall;
       return {
@@ -216,32 +219,32 @@ __d(
         scheduledCallId: (e = t == null ? void 0 : t.id) != null ? e : null,
       };
     }
-    function Ne(e, t) {
+    function Ae(e, t) {
       return e !== "prompt" || o("WAWebUA").UA.isSafari
-        ? ve
+        ? Le
         : t.isCallLinkPreview
-          ? Se
+          ? Ee
           : null;
     }
-    function Me(e) {
-      return e !== "prompt" || o("WAWebUA").UA.isSafari ? Re : null;
+    function Fe(e) {
+      return e !== "prompt" || o("WAWebUA").UA.isSafari ? ke : null;
     }
-    function we(e) {
-      return Ae.apply(this, arguments);
+    function Oe(e) {
+      return Be.apply(this, arguments);
     }
-    function Ae() {
+    function Be() {
       return (
-        (Ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!xe(e, "unmute start")) {
+        (Be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!Ne(e, "unmute start")) {
             var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
             if (
-              !xe(e, "after stack load") &&
+              !Ne(e, "after stack load") &&
               (t == null ? void 0 : t.type) === "web"
             ) {
               var n = yield t.setCallVideoMute(!1);
               o("WALogger").LOG(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
+                M ||
+                  (M = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:acquireCameraStream] camera permission retry setCallVideoMute(false) status: ",
                     "",
                   ])),
@@ -250,39 +253,39 @@ __d(
             }
           }
         })),
-        Ae.apply(this, arguments)
+        Be.apply(this, arguments)
       );
     }
-    function Fe(e) {
-      return Oe.apply(this, arguments);
+    function We(e) {
+      return qe.apply(this, arguments);
     }
-    function Oe() {
+    function qe() {
       return (
-        (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!Ie(e) && !xe(e, "before permission query")) {
-            var t = yield He(!0),
+        (qe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!xe(e) && !Ne(e, "before permission query")) {
+            var t = yield je(!0),
               n = t.cameraPermission;
-            if (!Ie(e) && !xe(e, "after permission query")) {
+            if (!xe(e) && !Ne(e, "after permission query")) {
               if (n === "granted") {
                 o("WALogger").LOG(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                  w ||
+                    (w = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:acquireCameraStream] camera permission granted after timeout; retrying video capture",
                     ])),
                 );
                 try {
-                  yield we(e);
+                  yield Oe(e);
                 } finally {
-                  Te(e);
+                  $e(e);
                 }
                 return;
               }
               var r = Date.now() - e.retryStartedAt;
-              if (n === "denied" || (!e.isCallLinkPreviewRetry && r >= Ee)) {
-                (Te(e),
+              if (n === "denied" || (!e.isCallLinkPreviewRetry && r >= Te)) {
+                ($e(e),
                   o("WALogger").LOG(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:acquireCameraStream] camera permission retry stopped: permission=",
                         ", elapsed=",
                         "ms",
@@ -292,17 +295,17 @@ __d(
                   ));
                 return;
               }
-              Be(e);
+              Ue(e);
             }
           }
         })),
-        Oe.apply(this, arguments)
+        qe.apply(this, arguments)
       );
     }
-    function Be(e) {
+    function Ue(e) {
       self.setTimeout(function () {
-        Ie(e) ||
-          Fe(e).catch(function (e) {
+        xe(e) ||
+          We(e).catch(function (e) {
             o("WALogger")
               .ERROR(
                 m ||
@@ -314,9 +317,9 @@ __d(
               )
               .sendLogs("voip-camera-retry-poll-fail");
           });
-      }, Le);
+      }, Ie);
     }
-    function We(e) {
+    function Ve(e) {
       var t;
       if (!(!o("WAWebUA").UA.isSafari && !e.isCallLinkPreview)) {
         var n = {
@@ -324,7 +327,7 @@ __d(
             retryStartedAt: Date.now(),
             scheduledCallId: e.scheduledCallId,
           },
-          r = De(n);
+          r = Pe(n);
         if (r != null) {
           o("WALogger").LOG(
             p ||
@@ -336,7 +339,7 @@ __d(
           );
           return;
         }
-        ((ke = n),
+        ((De = n),
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -349,18 +352,18 @@ __d(
             n.isCallLinkPreviewRetry,
             String(o("WAWebUA").UA.isSafari),
           ),
-          Be(n));
+          Ue(n));
       }
     }
-    function qe(e, t, a, i, l) {
+    function He(e, t, a, i, l) {
       var s = null,
         u = !1;
       return (
         e.catch(r("WAWebNoop")),
-        (le || (le = n("Promise")))
+        (ce || (ce = n("Promise")))
           .race([
             e,
-            new le(function (e) {
+            new ce(function (e) {
               s = self.setTimeout(function () {
                 ((u = !0),
                   (s = null),
@@ -385,12 +388,12 @@ __d(
           })
       );
     }
-    function Ue() {
-      return Ve.apply(this, arguments);
+    function Ge() {
+      return ze.apply(this, arguments);
     }
-    function Ve() {
+    function ze() {
       return (
-        (Ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ze = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (navigator === void 0 || !navigator.permissions) return null;
           try {
             var e = yield navigator.permissions.query({ name: "camera" });
@@ -399,15 +402,15 @@ __d(
             return null;
           }
         })),
-        Ve.apply(this, arguments)
+        ze.apply(this, arguments)
       );
     }
-    function He(e) {
-      return Ge.apply(this, arguments);
+    function je(e) {
+      return Ke.apply(this, arguments);
     }
-    function Ge() {
+    function Ke() {
       return (
-        (Ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = { micPermission: "prompt", cameraPermission: "prompt" };
           if (navigator === void 0 || !navigator.permissions) return t;
           try {
@@ -419,10 +422,84 @@ __d(
           } catch (e) {}
           return t;
         })),
-        Ge.apply(this, arguments)
+        Ke.apply(this, arguments)
       );
     }
-    function ze(e, t) {
+    function Qe(e) {
+      return Xe.apply(this, arguments);
+    }
+    function Xe() {
+      return (
+        (Xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e === "denied") return "camera_denied";
+          var t = yield Ge();
+          return t === "denied" || (e === "timed_out" && t === "prompt")
+            ? "camera_denied"
+            : "camera_unavailable";
+        })),
+        Xe.apply(this, arguments)
+      );
+    }
+    function Ye(e, t, n, r) {
+      return Je.apply(this, arguments);
+    }
+    function Je() {
+      return (
+        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a,
+              i = yield at(!1, n, r);
+            if (!i || !e || pe())
+              return { canJoin: i, reason: null, videoMuted: !1 };
+            var l = yield Ge();
+            if (Ze(n, r)) return { canJoin: !1, reason: null, videoMuted: !1 };
+            if (l === "denied")
+              return { canJoin: !0, reason: "camera_denied", videoMuted: !0 };
+            var s =
+                (a = t == null ? void 0 : t.cameraTimeoutMs) != null
+                  ? a
+                  : l === "prompt" && !o("WAWebUA").UA.isSafari
+                    ? Ee
+                    : Le,
+              u = yield lt({
+                captureTypeOverride: o("WAWebMediaCaptureStreamType")
+                  .WAWebMediaCaptureStreamType.CAMERA,
+                checkVideo: !0,
+                showFailureModal: !1,
+                timeoutLimitOverride: s,
+                originatingCall: n,
+                abortSignal: r,
+              });
+            return Ze(n, r)
+              ? { canJoin: !1, reason: null, videoMuted: !1 }
+              : u === "granted"
+                ? { canJoin: !0, reason: null, videoMuted: !1 }
+                : { canJoin: !0, reason: yield Qe(u), videoMuted: !0 };
+          },
+        )),
+        Je.apply(this, arguments)
+      );
+    }
+    function Ze(e, t) {
+      return (t == null ? void 0 : t.aborted) === !0
+        ? (o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [AV:checkVoipCallJoinPermissions] join cancelled during the camera probe",
+              ])),
+          ),
+          !0)
+        : o("WAWebVoipPermissionCheckCaptureOwner").didPermissionCheckCallEnd(e)
+          ? (o("WALogger").LOG(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV:checkVoipCallJoinPermissions] originating call ended during the camera probe",
+                ])),
+            ),
+            !0)
+          : !1;
+    }
+    function et(e, t) {
       return e
         ? (function (e) {
             if (e === "camera")
@@ -445,133 +522,204 @@ __d(
           )
         : o("WAWebGuidePopup.react").Messaging.MIC_FAIL;
     }
-    function je(e, t, n) {
-      return Ke.apply(this, arguments);
+    var tt = { not_acquired: "unavailable", timed_out: "timed_out" };
+    function nt(e) {
+      return e instanceof o("WAWebGetUserMediaErrors").NotAllowedError
+        ? "denied"
+        : "unavailable";
     }
-    function Ke() {
+    function rt(e, t) {
+      (e || (ve.microphone = !0), t && (ve.camera = !0));
+    }
+    function ot(e, t, n) {
+      if (e) {
+        o("WAWebVoipActivityTracker").trackUiActivity(
+          n
+            ? o("WAWebVoipActivityTracker").VoipUiActivity
+                .PERMISSION_REQUEST_CAMERA_START
+            : o("WAWebVoipActivityTracker").VoipUiActivity
+                .PERMISSION_REQUEST_CAMERA_END,
+        );
+        return;
+      }
+      if (t) {
+        o("WAWebVoipActivityTracker").trackUiActivity(
+          n
+            ? o("WAWebVoipActivityTracker").VoipUiActivity
+                .PERMISSION_REQUEST_CAMERA_AND_MIC_START
+            : o("WAWebVoipActivityTracker").VoipUiActivity
+                .PERMISSION_REQUEST_CAMERA_AND_MIC_END,
+        );
+        return;
+      }
+      o("WAWebVoipActivityTracker").trackUiActivity(
+        n
+          ? o("WAWebVoipActivityTracker").VoipUiActivity
+              .PERMISSION_REQUEST_MIC_START
+          : o("WAWebVoipActivityTracker").VoipUiActivity
+              .PERMISSION_REQUEST_MIC_END,
+      );
+    }
+    function at(e, t, n) {
+      return it.apply(this, arguments);
+    }
+    function it() {
       return (
-        (Ke = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (it = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
-            if (
-              r("WAWebEnvironment").isWindows &&
-              !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
-            )
-              return ((ye.microphone = !0), (ye.camera = !0), !0);
-            var a = e && !ce(),
-              i = o(
-                "WAWebVoipPermissionCheckCaptureOwner",
-              ).getPermissionCheckOwner(t),
-              l = yield He(e);
-            if (Qe(t, n)) return !1;
-            try {
-              o("WAWebVoipActivityTracker").trackUiActivity(
-                a
-                  ? o("WAWebVoipActivityTracker").VoipUiActivity
-                      .PERMISSION_REQUEST_CAMERA_AND_MIC_START
-                  : o("WAWebVoipActivityTracker").VoipUiActivity
-                      .PERMISSION_REQUEST_MIC_START,
-              );
-              var s = a
+            var r = yield lt({
+              checkVideo: e,
+              showFailureModal: !0,
+              originatingCall: t,
+              abortSignal: n,
+            });
+            return r === "granted";
+          },
+        )),
+        it.apply(this, arguments)
+      );
+    }
+    function lt(e) {
+      return st.apply(this, arguments);
+    }
+    function st() {
+      return (
+        (st = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.abortSignal,
+            n = e.captureTypeOverride,
+            a = e.checkVideo,
+            i = e.originatingCall,
+            l = e.showFailureModal,
+            s = e.timeoutLimitOverride;
+          if (
+            r("WAWebEnvironment").isWindows &&
+            !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+          )
+            return ((ve.microphone = !0), (ve.camera = !0), "granted");
+          var u = a && !pe(),
+            c = o(
+              "WAWebVoipPermissionCheckCaptureOwner",
+            ).getPermissionCheckOwner(i),
+            d = yield je(a);
+          if (ct(i, t)) return "unavailable";
+          var m =
+              n != null
+                ? n
+                : u
                   ? o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                       .CAMERA_AND_MICROPHONE
                   : o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                       .MICROPHONE,
-                u = yield Ze(s, a, i, n);
-              return Ye(u, a, t, n);
-            } catch (e) {
-              return (Xe(t, e, n) || Je(e, a, l), !1);
-            } finally {
-              o("WAWebVoipActivityTracker").trackUiActivity(
-                a
-                  ? o("WAWebVoipActivityTracker").VoipUiActivity
-                      .PERMISSION_REQUEST_CAMERA_AND_MIC_END
-                  : o("WAWebVoipActivityTracker").VoipUiActivity
-                      .PERMISSION_REQUEST_MIC_END,
-              );
-            }
-          },
-        )),
-        Ke.apply(this, arguments)
+            p =
+              m ===
+              o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
+                .CAMERA,
+            _ =
+              m ===
+              o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
+                .CAMERA_AND_MICROPHONE;
+          try {
+            ot(p, _, !0);
+            var f = yield _t(m, u, c, t, l, s);
+            return ut(f, {
+              abortSignal: t,
+              isCameraOnly: p,
+              originatingCall: i,
+              shouldCheckVideo: u,
+            });
+          } catch (e) {
+            return dt(i, e, t) ? "unavailable" : (mt(e, u, d, l), nt(e));
+          } finally {
+            ot(p, _, !1);
+          }
+        })),
+        st.apply(this, arguments)
       );
     }
-    function Qe(e, t) {
+    function ut(e, t) {
+      var n = t.abortSignal,
+        r = t.isCameraOnly,
+        a = t.originatingCall,
+        i = t.shouldCheckVideo,
+        l = tt[e];
+      return l != null
+        ? l
+        : (rt(r, i),
+          e === "released_after_acquire"
+            ? "unavailable"
+            : (n == null ? void 0 : n.aborted) === !0
+              ? (o("WALogger").LOG(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:checkVoipDevicePermissions] permission capture was cancelled after acquisition",
+                    ])),
+                ),
+                "unavailable")
+              : o(
+                    "WAWebVoipPermissionCheckCaptureOwner",
+                  ).didPermissionCheckCallEnd(a)
+                ? (o("WALogger").LOG(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:checkVoipDevicePermissions] aborting permission check because the originating call ended during capture",
+                      ])),
+                  ),
+                  "unavailable")
+                : "granted");
+    }
+    function ct(e, t) {
       return (t == null ? void 0 : t.aborted) === !0
         ? (o("WALogger").LOG(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV:checkVoipDevicePermissions] permission check was cancelled before capture",
               ])),
           ),
           !0)
         : o("WAWebVoipPermissionCheckCaptureOwner").didPermissionCheckCallEnd(e)
           ? (o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:checkVoipDevicePermissions] aborting permission check because the originating call ended",
                 ])),
             ),
             !0)
           : !1;
     }
-    function Xe(e, t, n) {
+    function dt(e, t, n) {
       return (n == null ? void 0 : n.aborted) === !0
         ? (o("WALogger").LOG(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV:checkVoipDevicePermissions] suppressing permission capture error because the permission check was cancelled: ",
                 "",
               ])),
-            t,
+            String(t),
           ),
           !0)
         : o("WAWebVoipPermissionCheckCaptureOwner").didPermissionCheckCallEnd(e)
           ? (o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:checkVoipDevicePermissions] suppressing permission capture error because the originating call ended: ",
                   "",
                 ])),
-              t,
+              String(t),
             ),
             !0)
           : !1;
     }
-    function Ye(e, t, n, r) {
-      return e === "not_acquired" ||
-        ((ye.microphone = !0),
-        t && (ye.camera = !0),
-        e === "released_after_acquire")
-        ? !1
-        : (r == null ? void 0 : r.aborted) === !0
-          ? (o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [AV:checkVoipDevicePermissions] permission capture was cancelled after acquisition",
-                ])),
-            ),
-            !1)
-          : o("WAWebVoipPermissionCheckCaptureOwner").didPermissionCheckCallEnd(
-                n,
-              )
-            ? (o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:checkVoipDevicePermissions] aborting permission check because the originating call ended during capture",
-                  ])),
-              ),
-              !1)
-            : !0;
-    }
-    function Je(e, t, n) {
-      if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
+    function mt(e, t, n, r) {
+      if (
+        (r === void 0 && (r = !0),
+        e instanceof o("WAWebGetUserMediaErrors").NotAllowedError)
+      ) {
         (o("WAWebCoreActionsODS").logCallPermissionDenied(),
-          o("WAWebModalManager").ModalManager.open(
-            ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
-              messaging: ze(t, n),
-              type: o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK,
-              featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
-            }),
-          ));
+          r &&
+            pt(
+              et(t, n),
+              o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK,
+            ));
         return;
       }
       if (
@@ -579,189 +727,242 @@ __d(
         e instanceof o("WAWebGetUserMediaErrors").SourceUnavailableError
       ) {
         (o("WAWebCoreActionsODS").logCallPermissionDeviceError(),
-          o("WAWebModalManager").ModalManager.open(
-            ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
-              messaging: ze(t, n),
-              type: o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK,
-              featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
-            }),
-          ));
+          r &&
+            pt(
+              et(t, n),
+              o("WAWebGuidePopup.react").GuidePopupType.GUIDE_UNBLOCK,
+            ));
         return;
       }
       e instanceof o("WAWebGetUserMediaErrors").GetUserMediaError &&
-        o("WAWebModalManager").ModalManager.open(
-          ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
-            messaging: t
-              ? o("WAWebGuidePopup.react").Messaging.CAMERA_AND_MIC_MISSING
-              : o("WAWebGuidePopup.react").Messaging.MIC_MISSING,
-            type: o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE,
-            featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
-          }),
+        r &&
+        pt(
+          t
+            ? o("WAWebGuidePopup.react").Messaging.CAMERA_AND_MIC_MISSING
+            : o("WAWebGuidePopup.react").Messaging.MIC_MISSING,
+          o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE,
         );
     }
-    function Ze(e, t, n, r) {
-      return et.apply(this, arguments);
+    function pt(e, t) {
+      o("WAWebModalManager").ModalManager.open(
+        me.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+          messaging: e,
+          type: t,
+          featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
+        }),
+      );
     }
-    function et() {
+    function _t(e, t, n, r, o, a) {
+      return ft.apply(this, arguments);
+    }
+    function ft() {
       return (
-        (et = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = o(
+        (ft = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i, l) {
+            var s = o(
                 "WAWebVoipPermissionCheckCaptureOwner",
               ).registerPermissionCheckCaptureForKeys(
                 n.registryKeys,
                 r("WAWebNoop"),
               ),
-              l = $e(t) ? Number.POSITIVE_INFINITY : void 0,
-              s = rt(t);
+              u = i != null ? i : !0,
+              c = l != null ? l : Me(t) ? Number.POSITIVE_INFINITY : void 0,
+              d = l == null ? null : Date.now() + l,
+              m = yt(
+                t,
+                e !==
+                  o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
+                    .CAMERA,
+              );
             try {
               try {
-                return yield tt(e, l, n.registryKeys, s, a);
+                return yield gt(e, c, n.registryKeys, m, a, !u, l);
               } catch (t) {
-                if (s == null || !ot(t)) throw t;
-                return (a == null ? void 0 : a.aborted) === !0
-                  ? (o("WALogger").LOG(
-                      w ||
-                        (w = babelHelpers.taggedTemplateLiteralLoose([
+                if (m == null || !Ct(t)) throw t;
+                if ((a == null ? void 0 : a.aborted) === !0)
+                  return (
+                    o("WALogger").LOG(
+                      F ||
+                        (F = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:checkVoipDevicePermissions] skipping default-camera retry because the permission check was cancelled",
                         ])),
                     ),
-                    "not_acquired")
-                  : i.wasReleased()
-                    ? (o("WALogger").LOG(
-                        A ||
-                          (A = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:checkVoipDevicePermissions] skipping default-camera retry because the permission capture owner was released",
-                          ])),
-                      ),
-                      "not_acquired")
-                    : o(
-                          "WAWebVoipPermissionCheckCaptureOwner",
-                        ).didPermissionCheckCallEnd(n.call)
-                      ? (o("WALogger").LOG(
-                          F ||
-                            (F = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:checkVoipDevicePermissions] skipping default-camera retry because the originating call ended",
-                            ])),
-                        ),
-                        "not_acquired")
-                      : (o("WALogger").LOG(
-                          O ||
-                            (O = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:checkVoipDevicePermissions] selected camera unavailable, retrying permission check with default camera: ",
-                              "",
-                            ])),
-                          t,
-                        ),
-                        yield tt(e, l, n.registryKeys, void 0, a));
+                    "not_acquired"
+                  );
+                if (s.wasReleased())
+                  return (
+                    o("WALogger").LOG(
+                      O ||
+                        (O = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:checkVoipDevicePermissions] skipping default-camera retry because the permission capture owner was released",
+                        ])),
+                    ),
+                    "not_acquired"
+                  );
+                if (
+                  o(
+                    "WAWebVoipPermissionCheckCaptureOwner",
+                  ).didPermissionCheckCallEnd(n.call)
+                )
+                  return (
+                    o("WALogger").LOG(
+                      B ||
+                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:checkVoipDevicePermissions] skipping default-camera retry because the originating call ended",
+                        ])),
+                    ),
+                    "not_acquired"
+                  );
+                o("WALogger").LOG(
+                  W ||
+                    (W = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:checkVoipDevicePermissions] selected camera unavailable, retrying permission check with default camera: ",
+                      "",
+                    ])),
+                  String(t),
+                );
+                var p = d == null ? void 0 : Math.max(0, d - Date.now());
+                return p === 0
+                  ? "timed_out"
+                  : yield gt(
+                      e,
+                      p != null ? p : c,
+                      n.registryKeys,
+                      void 0,
+                      a,
+                      !u,
+                      p,
+                    );
               }
             } finally {
-              i.release();
+              s.release();
             }
           },
         )),
-        et.apply(this, arguments)
+        ft.apply(this, arguments)
       );
     }
-    function tt(e, t, n, r, o) {
-      return nt.apply(this, arguments);
+    function gt(e, t, n, r, o, a, i) {
+      return ht.apply(this, arguments);
     }
-    function nt() {
+    function ht() {
       return (
-        (nt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            var l = {
-              type: e,
-              featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
-            };
-            (t != null && (l.timeoutLimit = t),
-              a != null && (l.mediaConstraints = a));
-            var s = o("WAWebMediaCapture").start(l),
-              u = s.asyncStream,
-              c = s.disposeStream,
-              d = o(
+        (ht = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i, l, s) {
+            l === void 0 && (l = !1);
+            var u = {
+                type: e,
+                featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
+              },
+              c = s != null ? s : t;
+            (c != null && (u.timeoutLimit = c),
+              l && (u.timeoutCallback = r("WAWebNoop")),
+              a != null && (u.mediaConstraints = a));
+            var d = o("WAWebMediaCapture").start(u),
+              m = d.asyncStream,
+              p = d.disposeStream,
+              _ = o(
                 "WAWebVoipPermissionCheckCaptureOwner",
-              ).registerPermissionCheckCaptureForKeys(n, c);
+              ).registerPermissionCheckCaptureForKeys(n, p);
             try {
-              u.catch(r("WAWebNoop"));
-              var m;
+              m.catch(r("WAWebNoop"));
+              var f = !1,
+                g = m;
+              s != null &&
+                (g = He(m, p, s, "checkVoipDevicePermissions", function () {
+                  f = !0;
+                }));
+              var h;
               try {
-                m =
+                h =
                   i == null
-                    ? yield u
-                    : yield r("WAPromiseRaceAbort")(u, i).catch(
+                    ? yield g
+                    : yield r("WAPromiseRaceAbort")(g, i).catch(
                         o("WAAbortError").catchAbort(
                           o("WAWebNullFunc").returnNull,
                         ),
                       );
               } catch (e) {
-                if ((i == null ? void 0 : i.aborted) === !0 || d.wasReleased())
+                if ((i == null ? void 0 : i.aborted) === !0 || _.wasReleased())
                   return (
                     o("WALogger").LOG(
-                      B ||
-                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                      q ||
+                        (q = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:checkVoipDevicePermissions] suppressing permission capture error after cancellation or owner release: ",
                           "",
                         ])),
-                      e,
+                      String(e),
                     ),
                     "not_acquired"
                   );
                 throw e;
               }
-              return m == null
+              return h == null
                 ? (i == null ? void 0 : i.aborted) === !0
                   ? (o("WALogger").LOG(
-                      W ||
-                        (W = babelHelpers.taggedTemplateLiteralLoose([
+                      U ||
+                        (U = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:checkVoipDevicePermissions] permission capture was cancelled",
                         ])),
                     ),
                     "not_acquired")
-                  : (o("WALogger").LOG(
-                      q ||
-                        (q = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:checkVoipDevicePermissions] permission capture completed without a stream",
-                        ])),
-                    ),
-                    "not_acquired")
-                : d.wasReleased()
+                  : !f || _.wasReleased()
+                    ? (o("WALogger").LOG(
+                        V ||
+                          (V = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:checkVoipDevicePermissions] permission capture was disposed before completing",
+                          ])),
+                      ),
+                      "not_acquired")
+                    : (o("WALogger").LOG(
+                        H ||
+                          (H = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:checkVoipDevicePermissions] permission capture timed out",
+                          ])),
+                      ),
+                      "timed_out")
+                : _.wasReleased()
                   ? (o("WALogger").LOG(
-                      U ||
-                        (U = babelHelpers.taggedTemplateLiteralLoose([
+                      G ||
+                        (G = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:checkVoipDevicePermissions] permission capture was released before completion",
                         ])),
                     ),
                     "released_after_acquire")
                   : "acquired";
             } finally {
-              d.release();
+              _.release();
             }
           },
         )),
-        nt.apply(this, arguments)
+        ht.apply(this, arguments)
       );
     }
-    function rt(e) {
-      if (!e) return null;
-      var t = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice();
-      return r("isStringNullOrEmpty")(t)
+    function yt(e, t) {
+      if ((t === void 0 && (t = !0), !e)) return null;
+      var n = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice();
+      return r("isStringNullOrEmpty")(n)
         ? null
-        : [{ video: { deviceId: { exact: t } }, audio: !0 }];
+        : [
+            babelHelpers.extends(
+              { video: { deviceId: { exact: n } } },
+              t ? { audio: !0 } : {},
+            ),
+          ];
     }
-    function ot(e) {
-      return e instanceof Error && fe.has(e.name);
+    function Ct(e) {
+      return e instanceof Error && ye.has(e.name);
     }
-    function at(e) {
-      return it.apply(this, arguments);
+    function bt(e) {
+      return vt.apply(this, arguments);
     }
-    function it() {
+    function vt() {
       return (
-        (it = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (vt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           return !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia
             ? (o("WALogger").ERROR(
-                V ||
-                  (V = babelHelpers.taggedTemplateLiteralLoose([
+                z ||
+                  (z = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV] getUserMedia not supported",
                   ])),
               ),
@@ -774,7 +975,7 @@ __d(
                 ) {
                   var n = t.type,
                     r = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                  return dt(r);
+                  return kt(r);
                 }
                 if (
                   ((typeof t == "object" && t !== null) ||
@@ -783,7 +984,7 @@ __d(
                 ) {
                   var o = t.type,
                     a = babelHelpers.objectWithoutPropertiesLoose(t, s);
-                  return ht({
+                  return Pt({
                     selectedDeviceId: a.selectedDeviceId,
                     params: a.params,
                     targetWindow: a.targetWindow,
@@ -798,7 +999,7 @@ __d(
                 ) {
                   var i = t.type,
                     l = babelHelpers.objectWithoutPropertiesLoose(t, u);
-                  return Mt({ params: l.params, targetWindow: l.targetWindow });
+                  return Qt({ params: l.params, targetWindow: l.targetWindow });
                 }
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -806,23 +1007,23 @@ __d(
                 );
               })(t);
         })),
-        it.apply(this, arguments)
+        vt.apply(this, arguments)
       );
     }
-    var lt = null;
-    function st() {
+    var St = null;
+    function Rt() {
       var e;
-      if (lt == null) {
+      if (St == null) {
         var t = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
         o("WALogger").LOG(
-          S ||
-            (S = babelHelpers.taggedTemplateLiteralLoose([
+          L ||
+            (L = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [EarlyMicAcquire] Acquiring microphone in gesture (device=",
               ")",
             ])),
           (e = t == null ? void 0 : t.slice(0, 8)) != null ? e : "default",
         );
-        var n = (lt = at({
+        var n = (St = bt({
           type: "microphone",
           selectedDeviceId: t != null ? t : void 0,
           suppressErrorPopup: !0,
@@ -831,8 +1032,8 @@ __d(
             return (
               e != null &&
                 o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [EarlyMicAcquire] Microphone acquired successfully",
                     ])),
                 ),
@@ -842,38 +1043,38 @@ __d(
           .catch(function (e) {
             return (
               o("WALogger").WARN(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [EarlyMicAcquire] Microphone acquire failed: ",
                     "",
                   ])),
                 e,
               ),
-              lt === n && (lt = null),
+              St === n && (St = null),
               null
             );
           }));
       }
     }
-    function ut() {
-      if (lt != null) {
-        var e = lt;
-        ((lt = null),
+    function Lt() {
+      if (St != null) {
+        var e = St;
+        ((St = null),
           e
             .then(function (e) {
               e != null &&
                 (o("WAWebMediaCapture").stop(e),
                 o("WALogger").LOG(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [EarlyMicAcquire] Cleaned up unused early-acquired microphone stream",
                     ])),
                 ));
             })
             .catch(function (e) {
               o("WALogger").WARN(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [EarlyMicAcquire] Cleanup failed: ",
                     "",
                   ])),
@@ -882,13 +1083,13 @@ __d(
             }));
       }
     }
-    var ct = ["exact", "ideal", "none"];
-    function dt(e) {
-      return mt.apply(this, arguments);
+    var Et = ["exact", "ideal", "none"];
+    function kt(e) {
+      return It.apply(this, arguments);
     }
-    function mt() {
+    function It() {
       return (
-        (mt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (It = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.exactDeviceOnly,
             a = n === void 0 ? !1 : n,
@@ -900,8 +1101,8 @@ __d(
             c = e.suppressErrorPopup,
             d = e.targetWindow;
           o("WALogger").LOG(
-            H ||
-              (H = babelHelpers.taggedTemplateLiteralLoose([
+            j ||
+              (j = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV:acquireMicrophoneStream] deviceId=",
                 ", hasParams=",
                 "",
@@ -913,7 +1114,7 @@ __d(
               d != null
                 ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
                 : o("WAWebModalManager").ModalManager,
-            p = $e(!1),
+            p = Me(!1),
             _ = yield o("WAWebMediaCapture").start({
               type: o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .MICROPHONE,
@@ -922,8 +1123,8 @@ __d(
               timeoutCallback: a ? r("WAWebNoop") : void 0,
               targetWindow: d,
               mediaConstraints: s
-                ? ct.slice(0, a ? 1 : 3).map(function (e) {
-                    return _t(e === "none" ? null : u, e, s);
+                ? Et.slice(0, a ? 1 : 3).map(function (e) {
+                    return Dt(e === "none" ? null : u, e, s);
                   })
                 : void 0,
             }),
@@ -939,16 +1140,16 @@ __d(
                   : y.query({ name: "microphone" });
               h = (C = b == null ? void 0 : b.state) != null ? C : null;
             } catch (e) {}
-          var v = Me(h),
-            S = v != null ? qe(f, g, v, "acquireMicrophoneStream") : f;
+          var v = Fe(h),
+            S = v != null ? He(f, g, v, "acquireMicrophoneStream") : f;
           return S.then(function (e) {
             if (e != null && !a)
               try {
-                pt(e, (s == null ? void 0 : s.autoGainControl) !== !1);
+                Tt(e, (s == null ? void 0 : s.autoGainControl) !== !1);
               } catch (e) {
                 o("WALogger").LOG(
-                  G ||
-                    (G = babelHelpers.taggedTemplateLiteralLoose([
+                  K ||
+                    (K = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:detectBrowserAudioProcessing] failed: ",
                       "",
                     ])),
@@ -964,7 +1165,7 @@ __d(
                   if ((l(e), c !== !0)) {
                     var t;
                     m.open(
-                      ue.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
+                      me.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
                         messaging: t.Messaging.MIC_FAIL,
                         type: t.GuidePopupType.GUIDE_UNBLOCK,
                         featureSurface: t.FeatureSurface.VOIP,
@@ -987,7 +1188,7 @@ __d(
                   if ((l(e), c !== !0)) {
                     var t;
                     m.open(
-                      ue.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
+                      me.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
                         messaging: t.Messaging.MIC_FAIL,
                         type: t.GuidePopupType.GUIDE_UNBLOCK,
                         featureSurface: t.FeatureSurface.VOIP,
@@ -1007,7 +1208,7 @@ __d(
                   if ((l(e), c !== !0)) {
                     var t;
                     m.open(
-                      ue.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
+                      me.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
                         messaging: t.Messaging.MIC_MISSING,
                         type: t.GuidePopupType.GUIDE_NONE,
                         featureSurface: t.FeatureSurface.VOIP,
@@ -1021,10 +1222,10 @@ __d(
               ),
             );
         })),
-        mt.apply(this, arguments)
+        It.apply(this, arguments)
       );
     }
-    function pt(e, t) {
+    function Tt(e, t) {
       var n = o(
           "WAGetMediaDevicesSupportedConstraints",
         ).getMediaDevicesSupportedConstraints(),
@@ -1042,14 +1243,14 @@ __d(
             noiseSuppression: l.get("noiseSuppression") === !0,
             autoGainControl: l.get("autoGainControl") === !0,
           };
-        ((ge = { supported: r, applied: s }),
+        ((Ce = { supported: r, applied: s }),
           o("WAWebVoipBrowserAudioStatus").setBrowserAudioProcessingApplied(
             s,
             t,
           ),
           o("WALogger").LOG(
-            I ||
-              (I = babelHelpers.taggedTemplateLiteralLoose([
+            D ||
+              (D = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV:detectBrowserAudioProcessing] supported: EC=",
                 ", NS=",
                 ", AGC=",
@@ -1066,7 +1267,7 @@ __d(
             String(s.autoGainControl),
           ));
       } else
-        ((ge = {
+        ((Ce = {
           supported: r,
           applied: {
             echoCancellation: !1,
@@ -1075,13 +1276,13 @@ __d(
           },
         }),
           o("WALogger").LOG(
-            T ||
-              (T = babelHelpers.taggedTemplateLiteralLoose([
+            x ||
+              (x = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV:detectBrowserAudioProcessing] no audio track found in stream",
               ])),
           ));
     }
-    function _t(e, t, n) {
+    function Dt(e, t, n) {
       var r;
       t === void 0 && (t = "exact");
       var a = {
@@ -1106,8 +1307,8 @@ __d(
               deviceId: { ideal: e },
             })),
         o("WALogger").LOG(
-          D ||
-            (D = babelHelpers.taggedTemplateLiteralLoose([
+          $ ||
+            ($ = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [MicDeviceSelector] getVoipMicrophoneMediaConstraints: deviceId=",
               ", constraintType=",
               ", sampleRate=",
@@ -1124,12 +1325,12 @@ __d(
         a
       );
     }
-    function ft(e) {
-      return gt.apply(this, arguments);
+    function xt(e) {
+      return $t.apply(this, arguments);
     }
-    function gt() {
+    function $t() {
       return (
-        (gt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.facingMode,
             n = e.params,
             a = e.selectedDeviceId,
@@ -1152,8 +1353,8 @@ __d(
             var d;
             return (
               o("WALogger").LOG(
-                z ||
-                  (z = babelHelpers.taggedTemplateLiteralLoose([
+                Q ||
+                  (Q = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [CameraPrewarm] pre-warmed stream facing mismatch: requested=",
                     ", actual=",
                     ". Discarding pre-warmed stream.",
@@ -1171,8 +1372,8 @@ __d(
             !r("isStringNullOrEmpty")(a) && c != null && c !== "" && c !== a;
           return m
             ? (o("WALogger").LOG(
-                j ||
-                  (j = babelHelpers.taggedTemplateLiteralLoose([
+                X ||
+                  (X = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [CameraPrewarm] pre-warmed stream device mismatch: requested=",
                     ", actual=",
                     ". Discarding pre-warmed stream.",
@@ -1188,27 +1389,27 @@ __d(
                 o("WAWebVoipCameraPrewarm").scheduleResolutionSwitch(l, n),
               l);
         })),
-        gt.apply(this, arguments)
+        $t.apply(this, arguments)
       );
     }
-    function ht(e) {
-      return yt.apply(this, arguments);
+    function Pt(e) {
+      return Nt.apply(this, arguments);
     }
-    function yt() {
+    function Nt() {
       return (
-        (yt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Nt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.facingMode,
             r = e.isAVUpgrade,
             a = e.params,
             i = e.selectedDeviceId,
             l = e.targetWindow;
-          if (ce()) return null;
-          var s = yield Ue();
+          if (pe()) return null;
+          var s = yield Ge();
           if (s === "denied") {
             o("WALogger").LOG(
-              K ||
-                (K = babelHelpers.taggedTemplateLiteralLoose([
+              Y ||
+                (Y = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:acquireCameraStream] camera permission denied, skipping camera acquisition",
                 ])),
             );
@@ -1221,7 +1422,7 @@ __d(
               null
             );
           }
-          var c = yield ft({
+          var c = yield xt({
             selectedDeviceId: i,
             params: a,
             targetWindow: l,
@@ -1236,11 +1437,11 @@ __d(
               l != null
                 ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
                 : o("WAWebModalManager").ModalManager,
-            p = Pe(),
+            p = we(),
             _ = Date.now();
           o("WALogger").LOG(
-            Q ||
-              (Q = babelHelpers.taggedTemplateLiteralLoose([
+            J ||
+              (J = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [AV:acquireCameraStream] requesting camera: deviceId=",
                 ", targetWindow=",
                 ", isAVUpgrade=",
@@ -1254,9 +1455,9 @@ __d(
               type: o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA,
               featureSurface: d,
-              timeoutLimit: $e(!0) ? Number.POSITIVE_INFINITY : void 0,
+              timeoutLimit: Me(!0) ? Number.POSITIVE_INFINITY : void 0,
               targetWindow: l,
-              mediaConstraints: Ct({
+              mediaConstraints: Mt({
                 facingMode: n,
                 params: a,
                 selectedDeviceId: i,
@@ -1264,11 +1465,11 @@ __d(
             }),
             g = f.asyncStream,
             h = f.disposeStream,
-            y = Ne(s, p),
+            y = Ae(s, p),
             C =
               y != null
-                ? qe(g, h, y, "acquireCameraStream", function () {
-                    s === "prompt" && We(p);
+                ? He(g, h, y, "acquireCameraStream", function () {
+                    s === "prompt" && Ve(p);
                   })
                 : g;
           return C.then(function (e) {
@@ -1280,8 +1481,8 @@ __d(
                 i,
                 l = e.getVideoTracks()[0];
               o("WALogger").LOG(
-                X ||
-                  (X = babelHelpers.taggedTemplateLiteralLoose([
+                Z ||
+                  (Z = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:acquireCameraStream] acquired in ",
                     "ms: readyState=",
                     ", muted=",
@@ -1302,8 +1503,8 @@ __d(
               );
             } else
               o("WALogger").LOG(
-                Y ||
-                  (Y = babelHelpers.taggedTemplateLiteralLoose([
+                ee ||
+                  (ee = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:acquireCameraStream] returned null stream after ",
                     "ms",
                   ])),
@@ -1318,15 +1519,15 @@ __d(
                   o("WAWebCoreActionsODS").logCallMediaCameraError();
                   var e = Date.now() - _;
                   (o("WALogger").LOG(
-                    J ||
-                      (J = babelHelpers.taggedTemplateLiteralLoose([
+                    te ||
+                      (te = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:acquireCameraStream] NotAllowedError after ",
                         "ms",
                       ])),
                     e,
                   ),
                     m.open(
-                      ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+                      me.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                         messaging: o("WAWebGuidePopup.react").Messaging
                           .CAMERA_FAIL,
                         type: o("WAWebGuidePopup.react").GuidePopupType
@@ -1350,8 +1551,8 @@ __d(
                   o("WAWebCoreActionsODS").logCallMediaCameraError();
                   var t = Date.now() - _;
                   (o("WALogger").LOG(
-                    Z ||
-                      (Z = babelHelpers.taggedTemplateLiteralLoose([
+                    ne ||
+                      (ne = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:acquireCameraStream] NotReadableError after ",
                         "ms: ",
                         "",
@@ -1360,7 +1561,7 @@ __d(
                     e,
                   ),
                     m.open(
-                      ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+                      me.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                         messaging: o("WAWebGuidePopup.react").Messaging
                           .CAMERA_FAIL,
                         type: o("WAWebGuidePopup.react").GuidePopupType
@@ -1381,8 +1582,8 @@ __d(
                   o("WAWebCoreActionsODS").logCallMediaCameraError();
                   var t = Date.now() - _;
                   (o("WALogger").LOG(
-                    ee ||
-                      (ee = babelHelpers.taggedTemplateLiteralLoose([
+                    re ||
+                      (re = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:acquireCameraStream] GetUserMediaError after ",
                         "ms: ",
                         "",
@@ -1391,7 +1592,7 @@ __d(
                     e,
                   ),
                     m.open(
-                      ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+                      me.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                         messaging: o("WAWebGuidePopup.react").Messaging
                           .CAMERA_MISSING,
                         type: o("WAWebGuidePopup.react").GuidePopupType
@@ -1406,32 +1607,32 @@ __d(
               ),
             );
         })),
-        yt.apply(this, arguments)
+        Nt.apply(this, arguments)
       );
     }
-    function Ct(e) {
+    function Mt(e) {
       var t = e.facingMode,
         n = e.params,
         r = e.selectedDeviceId;
       if (n != null)
         return t != null
           ? [
-              bt({ facing: { mode: t, constraintType: _e.Ideal }, params: n }),
-              bt({ params: n }),
+              wt({ facing: { mode: t, constraintType: he.Ideal }, params: n }),
+              wt({ params: n }),
             ]
           : [
-              bt({
-                device: { deviceId: r, constraintType: _e.Exact },
+              wt({
+                device: { deviceId: r, constraintType: he.Exact },
                 params: n,
               }),
-              bt({
-                device: { deviceId: r, constraintType: _e.Ideal },
+              wt({
+                device: { deviceId: r, constraintType: he.Ideal },
                 params: n,
               }),
-              bt({ params: n }),
+              wt({ params: n }),
             ];
     }
-    function bt(e) {
+    function wt(e) {
       var t,
         n = e.device,
         a = e.facing,
@@ -1439,8 +1640,8 @@ __d(
         l = r("WAWebVoipCameraTrackConstraints")(i);
       if (
         (o("WALogger").LOG(
-          x ||
-            (x = babelHelpers.taggedTemplateLiteralLoose([
+          P ||
+            (P = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [CameraDeviceSelector] getVoipCameraMediaConstraints:\n    deviceId=",
               ", facing=",
               ", constraintType=",
@@ -1460,12 +1661,12 @@ __d(
       ) {
         var s = n.deviceId;
         e: {
-          if (n.constraintType === _e.None) break e;
-          if (n.constraintType === _e.Exact) {
+          if (n.constraintType === he.None) break e;
+          if (n.constraintType === he.Exact) {
             l.deviceId = { exact: s };
             break e;
           }
-          if (n.constraintType === _e.Ideal) {
+          if (n.constraintType === he.Ideal) {
             l.deviceId = { ideal: s };
             break e;
           }
@@ -1476,12 +1677,12 @@ __d(
         }
       } else if (a != null)
         e: {
-          if (a.constraintType === _e.None) break e;
-          if (a.constraintType === _e.Exact) {
+          if (a.constraintType === he.None) break e;
+          if (a.constraintType === he.Exact) {
             l.facingMode = { exact: a.mode };
             break e;
           }
-          if (a.constraintType === _e.Ideal) {
+          if (a.constraintType === he.Ideal) {
             l.facingMode = { ideal: a.mode };
             break e;
           }
@@ -1492,7 +1693,7 @@ __d(
         }
       return { video: l, audio: !1 };
     }
-    function vt(e) {
+    function At(e) {
       return {
         video: {
           width: { ideal: e.width },
@@ -1502,12 +1703,12 @@ __d(
         audio: !1,
       };
     }
-    function St(e) {
-      return Rt.apply(this, arguments);
+    function Ft(e) {
+      return Ot.apply(this, arguments);
     }
-    function Rt() {
+    function Ot() {
       return (
-        (Rt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ot = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e === void 0 ? {} : e,
             n = t.isInActiveCall,
             r = t.skipPermissionRequest,
@@ -1532,8 +1733,8 @@ __d(
             if (!(d != null && d.enumerateDevices))
               return (
                 o("WALogger").ERROR(
-                  te ||
-                    (te = babelHelpers.taggedTemplateLiteralLoose([
+                  oe ||
+                    (oe = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:getAvailableVideoDevices] mediaDevices API not supported",
                     ])),
                 ),
@@ -1542,7 +1743,7 @@ __d(
             var m = r === !0 || (o("WAWebUA").UA.isSafari && n === !0),
               p = o("WAWebUA").UA.isFirefox && a != null;
             if (!(c || m)) {
-              if (!ce()) {
+              if (!pe()) {
                 var _ = p
                     ? { granted: !1 }
                     : yield o(
@@ -1554,7 +1755,7 @@ __d(
                   f = _.granted;
                 if (!f)
                   try {
-                    yield pe(d);
+                    yield ge(d);
                   } catch (e) {
                     if (n !== !0) throw e;
                   }
@@ -1575,8 +1776,8 @@ __d(
                 });
             return (
               o("WALogger").LOG(
-                ne ||
-                  (ne = babelHelpers.taggedTemplateLiteralLoose([
+                ae ||
+                  (ae = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:getAvailableVideoDevices] loaded ",
                     "\n      video devices",
                   ])),
@@ -1588,8 +1789,8 @@ __d(
             return (
               (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
                 o("WALogger").ERROR(
-                  re ||
-                    (re = babelHelpers.taggedTemplateLiteralLoose([
+                  ie ||
+                    (ie = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:getAvailableVideoDevices] error loading devices: ",
                       "",
                     ])),
@@ -1599,25 +1800,25 @@ __d(
             );
           }
         })),
-        Rt.apply(this, arguments)
+        Ot.apply(this, arguments)
       );
     }
-    function Lt(e) {
-      return Et.apply(this, arguments);
+    function Bt(e) {
+      return Wt.apply(this, arguments);
     }
-    function Et() {
+    function Wt() {
       return (
-        (Et = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Wt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice();
           if (r("isStringNullOrEmpty")(t)) return e.getUserMedia({ video: !0 });
           try {
             return yield e.getUserMedia({ video: { deviceId: { exact: t } } });
           } catch (t) {
-            if (!ot(t)) throw t;
+            if (!Ct(t)) throw t;
             return (
               o("WALogger").LOG(
-                oe ||
-                  (oe = babelHelpers.taggedTemplateLiteralLoose([
+                le ||
+                  (le = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:getAvailableVideoDevices] selected camera unavailable, falling back to default camera: ",
                     "",
                   ])),
@@ -1627,20 +1828,20 @@ __d(
             );
           }
         })),
-        Et.apply(this, arguments)
+        Wt.apply(this, arguments)
       );
     }
-    function kt(e) {
-      return It.apply(this, arguments);
+    function qt(e) {
+      return Ut.apply(this, arguments);
     }
-    function It() {
+    function Ut() {
       return (
-        (It = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ut = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.deviceId,
             n = e.isInActiveCall,
             r = e.skipPermissionRequest,
             a = e.targetWindow,
-            i = yield St({
+            i = yield Ft({
               isInActiveCall: n,
               skipPermissionRequest: r,
               targetWindow: a,
@@ -1650,8 +1851,8 @@ __d(
           })
             ? !0
             : (o("WALogger").ERROR(
-                ae ||
-                  (ae = babelHelpers.taggedTemplateLiteralLoose([
+                se ||
+                  (se = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: getIsValidVideoDevice: device not found in available devices: ",
                     "",
                   ])),
@@ -1659,17 +1860,17 @@ __d(
               ),
               !1);
         })),
-        It.apply(this, arguments)
+        Ut.apply(this, arguments)
       );
     }
-    var Tt = 25e3,
-      Dt = 250,
-      xt = 500;
-    function $t(e) {
+    var Vt = 25e3,
+      Ht = 250,
+      Gt = 500;
+    function zt(e) {
       var t = e;
       return t.closed === !0;
     }
-    function Pt(e, t) {
+    function jt(e, t) {
       var n = null,
         r = null,
         o = null;
@@ -1686,12 +1887,12 @@ __d(
           ((r = null),
             (o = self.setInterval(function () {
               try {
-                $t(e) && t("popout closed");
+                zt(e) && t("popout closed");
               } catch (e) {
                 t("popout inaccessible");
               }
-            }, Dt)));
-        }, xt)),
+            }, Ht)));
+        }, Gt)),
         function () {
           if (
             (r != null && self.clearTimeout(r),
@@ -1704,15 +1905,15 @@ __d(
         }
       );
     }
-    function Nt(e, t, n) {
+    function Kt(e, t, n) {
       var a = new AbortController(),
         i = !1,
         l = function (n) {
           i ||
             ((i = !0),
             o("WALogger").LOG(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+              N ||
+                (N = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:acquireDesktopStream] aborted: ",
                   "",
                 ])),
@@ -1722,9 +1923,9 @@ __d(
             a.abort());
         },
         s = self.setTimeout(function () {
-          return l("getDisplayMedia timed out after " + Tt + "ms");
-        }, Tt),
-        u = n != null ? Pt(n, l) : null;
+          return l("getDisplayMedia timed out after " + Vt + "ms");
+        }, Vt),
+        u = n != null ? jt(n, l) : null;
       return (
         e.catch(r("WAWebNoop")),
         r("WAPromiseRaceAbort")(e, a.signal)
@@ -1734,16 +1935,16 @@ __d(
           })
       );
     }
-    function Mt(e) {
-      return wt.apply(this, arguments);
+    function Qt(e) {
+      return Xt.apply(this, arguments);
     }
-    function wt() {
+    function Xt() {
       return (
-        (wt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Xt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.params,
             r = e.targetWindow,
-            a = n ? vt(n) : { video: !0 },
+            a = n ? At(n) : { video: !0 },
             i =
               ((t = o("WAWebABProps").getABPropConfigValue(
                 "calling_audio_share_version",
@@ -1770,14 +1971,14 @@ __d(
               }),
               d = c.asyncStream,
               m = c.disposeStream,
-              p = yield Nt(d, m, r).catch(function (e) {
+              p = yield Kt(d, m, r).catch(function (e) {
                 if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
                   o("WAWebCoreActionsODS").logCallScreenShareDenied();
                   var t = Date.now() - s;
-                  if (t < be) {
+                  if (t < Re) {
                     o("WALogger").LOG(
-                      ie ||
-                        (ie = babelHelpers.taggedTemplateLiteralLoose([
+                      ue ||
+                        (ue = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV] acquireDesktopStream: auto-denied in ",
                           "ms, showing guide popup",
                         ])),
@@ -1789,7 +1990,7 @@ __d(
                             .VoipPopoutModalManager
                         : o("WAWebModalManager").ModalManager;
                     n.open(
-                      ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+                      me.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                         messaging: o("WAWebGuidePopup.react").Messaging
                           .SCREEN_SHARE_FAIL,
                         type: o("WAWebGuidePopup.react").GuidePopupType
@@ -1811,13 +2012,13 @@ __d(
             if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
               o("WAWebCoreActionsODS").logCallScreenShareDenied();
               var _ = Date.now() - s;
-              if (_ < be) {
+              if (_ < Re) {
                 var f =
                   r != null
                     ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
                     : o("WAWebModalManager").ModalManager;
                 f.open(
-                  ue.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+                  me.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: o("WAWebGuidePopup.react").Messaging
                       .SCREEN_SHARE_FAIL,
                     type: o("WAWebGuidePopup.react").GuidePopupType
@@ -1837,19 +2038,20 @@ __d(
             u();
           }
         })),
-        wt.apply(this, arguments)
+        Xt.apply(this, arguments)
       );
     }
-    ((l.getBrowserAudioProcessingStatus = he),
-      (l.resetPermissionsCheckedForTest = Ce),
-      (l.queryCameraPermissionStrict = Ue),
-      (l.queryPermissionStatus = He),
-      (l.checkVoipDevicePermissions = je),
-      (l.acquireVoipMediaStream = at),
-      (l.earlyAcquireMic = st),
-      (l.cleanupEarlyAcquiredMic = ut),
-      (l.getAvailableVideoDevices = St),
-      (l.getIsValidVideoDevice = kt));
+    ((l.getBrowserAudioProcessingStatus = be),
+      (l.resetPermissionsCheckedForTest = Se),
+      (l.queryCameraPermissionStrict = Ge),
+      (l.queryPermissionStatus = je),
+      (l.checkVoipCallJoinPermissions = Ye),
+      (l.checkVoipDevicePermissions = at),
+      (l.acquireVoipMediaStream = bt),
+      (l.earlyAcquireMic = Rt),
+      (l.cleanupEarlyAcquiredMic = Lt),
+      (l.getAvailableVideoDevices = Ft),
+      (l.getIsValidVideoDevice = qt));
   },
   98,
 );

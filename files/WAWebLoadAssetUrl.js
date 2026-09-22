@@ -42,7 +42,7 @@ __d(
             ).detectWebpSupport(),
             a = t.asset,
             i = t.resolution,
-            l = n && a[i][e.WEBP] ? e.WEBP : e.DEFAULT;
+            l = n && a[i][e.WEBP] != null ? e.WEBP : e.DEFAULT;
           return r("nullthrows")(a[i][l]);
         })),
         c.apply(this, arguments)

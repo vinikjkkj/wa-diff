@@ -12,12 +12,13 @@ __d(
       return o("WAWebMobilePlatforms").isSMB();
     }
     function s(t) {
+      var n;
       return (
         !o("WAWebChatGetters").getIsNewsletter(t) &&
         !o("WAWebChatGetters").getIsBroadcast(t) &&
         e() &&
         !o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
-          t.contact.businessProfile,
+          (n = t.contact) == null ? void 0 : n.businessProfile,
         ) &&
         !t.id.isAiHub()
       );

@@ -11,58 +11,64 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("$InternalEnum")({
-      DISCLOSED_TOKEN: "data_sharing_encrypted_token_disclosed",
-      UNDISCLOSED_TOKEN: "data_sharing_encrypted_token_undisclosed",
-    });
-    function s(e, t) {
+    var e = 1e3,
+      s = n("$InternalEnum")({
+        DISCLOSED_TOKEN: "data_sharing_encrypted_token_disclosed",
+        UNDISCLOSED_TOKEN: "data_sharing_encrypted_token_undisclosed",
+      });
+    function u(e, t) {
       if (
-        !(
-          e.isForwarded ||
-          !o(
-            "WAWebMmSignalSharingGatingUtils",
-          ).isMmSignalSharingDisclosureEnabled()
-        ) &&
-        t
-      ) {
-        var n = c(t),
+        e.isForwarded ||
+        !o(
+          "WAWebMmSignalSharingGatingUtils",
+        ).isMmSignalSharingDisclosureEnabled()
+      )
+        return !1;
+      if (t) {
+        var n = d(t),
           r = o(
             "WAWebMmSignalSharingContextInfo",
           ).getMmSignalSharingContextInfoDisclosureFlag(t),
           a = o(
             "WAWebMmSignalSharingContextInfo",
           ).existsMmSignalSharingURlTrackingMapElements(t);
-        (n.disclosedToken != null ||
+        if (
+          n.disclosedToken != null ||
           n.undisclosedToken != null ||
           r != null ||
-          a) &&
-          ((e.mmSignalSharing = babelHelpers.extends(
-            {
-              dataSharingFlags: r,
-              existsDisclosedToken: !!n.disclosedToken,
-              existsUndisclosedToken: !!n.undisclosedToken,
-            },
-            a
-              ? {
-                  urlTrackingMapElements: o(
-                    "WAWebMmSignalSharingContextInfo",
-                  ).getMmSignalSharingURLTrackingMapElements(t),
-                }
-              : {},
-          )),
-          o("WAWebBackendApi").frontendFireAndForget(
-            "updateMmSignalSharingExpirationWindow",
-            { id: e.id.remote, msg: e, contextInfo: t },
-          ),
-          o(
-            "WAWebMmSignalSharingLoggingEvents",
-          ).logMmSignalSharingUpdateExpirationWindowEvent({
-            msg: e,
-            contextInfo: t,
-          }));
+          a
+        )
+          return (
+            (e.mmSignalSharing = babelHelpers.extends(
+              {
+                dataSharingFlags: r,
+                existsDisclosedToken: !!n.disclosedToken,
+                existsUndisclosedToken: !!n.undisclosedToken,
+              },
+              a
+                ? {
+                    urlTrackingMapElements: o(
+                      "WAWebMmSignalSharingContextInfo",
+                    ).getMmSignalSharingURLTrackingMapElements(t),
+                  }
+                : {},
+            )),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateMmSignalSharingExpirationWindow",
+              { id: e.id.remote, msg: e, contextInfo: t },
+            ),
+            o(
+              "WAWebMmSignalSharingLoggingEvents",
+            ).logMmSignalSharingUpdateExpirationWindowEvent({
+              msg: e,
+              contextInfo: t,
+            }),
+            !0
+          );
       }
+      return !1;
     }
-    function u(e) {
+    function c(e) {
       var t = e.contextInfo,
         n = e.mmSignalSharingExpirationWindow,
         r = e.msgKey,
@@ -76,15 +82,15 @@ __d(
         return null;
       var l = babelHelpers.extends(
         { unixTime: { client: a, server: i }, messageId: r },
-        c(t),
+        d(t),
       );
       return o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingOptimizedDeliveryMultipleCollectionWindowsEnabled()
-        ? g(n, l)
+        ? h(n, l)
         : [l];
     }
-    function c(e) {
+    function d(e) {
       var t,
         n = { disclosedToken: void 0, undisclosedToken: void 0 };
       if (
@@ -95,9 +101,9 @@ __d(
         return n;
       var r =
         e == null || (t = e.dataSharingContext) == null ? void 0 : t.parameters;
-      return r != null ? y(r, n) : n;
+      return r != null ? C(r, n) : n;
     }
-    function d(e, t) {
+    function m(e, t) {
       var n;
       if (
         !o(
@@ -116,7 +122,7 @@ __d(
         o(
           "WAWebMmSignalSharingContextInfo",
         ).existsMmSignalSharingContextInfoDisclosureFlag(r)
-        ? u({
+        ? c({
             contextInfo: r,
             mmSignalSharingExpirationWindow: t,
             msgKey: o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(e.key),
@@ -125,10 +131,10 @@ __d(
           })
         : t;
     }
-    function m(e) {
+    function p(e) {
       return [].concat(e).reverse();
     }
-    function p(e) {
+    function _(e) {
       if (
         !o(
           "WAWebMmSignalSharingGatingUtils",
@@ -136,9 +142,9 @@ __d(
       )
         return !1;
       var t = e == null ? void 0 : e[e.length - 1];
-      return t != null && !_(t);
+      return t != null && !f(t);
     }
-    function _(e) {
+    function f(e) {
       return (
         e.unixTime.server +
           o(
@@ -147,12 +153,12 @@ __d(
         o("WATimeUtils").unixTime()
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       return e.unixTime.server + t * 3600 < o("WATimeUtils").unixTime();
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = e != null ? e : [];
-      for (var r of n != null ? n : []) h(r);
+      for (var r of n != null ? n : []) y(r);
       return n
         .filter(function (e) {
           var t = e.disclosedToken,
@@ -161,40 +167,41 @@ __d(
         })
         .concat(t);
     }
-    function h(e) {
+    function y(e) {
       var t = o(
           "WAWebMmSignalSharingGatingUtils",
         ).getMmSignalSharingOptimizedDeliverySignalCollectionConfig(),
         n = t.consented_collection_window_in_hours,
         r = t.non_consented_collection_window_in_hours;
-      (f(e, n) && (e.disclosedToken = void 0),
-        f(e, r) && (e.undisclosedToken = void 0));
+      (g(e, n) && (e.disclosedToken = void 0),
+        g(e, r) && (e.undisclosedToken = void 0));
     }
-    function y(t, n) {
-      var r = o(
+    function C(e, t) {
+      var n = o(
           "WAWebMmSignalSharingGatingUtils",
         ).getMmSignalSharingOptimizedDeliveryTokensStorageConfig(),
-        a = r.store_consented_token_enabled,
-        i = r.store_non_consented_token_enabled;
-      return t.reduce(function (t, n) {
+        r = n.store_consented_token_enabled,
+        a = n.store_non_consented_token_enabled;
+      return e.reduce(function (e, t) {
         return {
           disclosedToken:
-            a && n.key === e.DISCLOSED_TOKEN ? n.stringData : t.disclosedToken,
+            r && t.key === s.DISCLOSED_TOKEN ? t.stringData : e.disclosedToken,
           undisclosedToken:
-            i && n.key === e.UNDISCLOSED_TOKEN
-              ? n.stringData
-              : t.undisclosedToken,
+            a && t.key === s.UNDISCLOSED_TOKEN
+              ? t.stringData
+              : e.undisclosedToken,
         };
-      }, n);
+      }, t);
     }
-    ((l.updateMmSignalSharingExpirationWindowImpl = s),
-      (l.getMmSignalSharingExpirationWindow = u),
-      (l.getMmSignalSharingExpirationTokens = c),
-      (l.getUpdatedMmSignalSharingExpirationWindowFromHistorySync = d),
-      (l.getSortedMmSignalSharingExpirationWindowFromHistorySync = m),
-      (l.isMmSignalSharingExpirationWindowActive = p),
-      (l.hasMmSignalSharingWindowExpired = _),
-      (l.hasMmSignalSharingTokenExpired = f));
+    ((l.MILLIS_PER_SECOND = e),
+      (l.updateMmSignalSharingExpirationWindowImpl = u),
+      (l.getMmSignalSharingExpirationWindow = c),
+      (l.getMmSignalSharingExpirationTokens = d),
+      (l.getUpdatedMmSignalSharingExpirationWindowFromHistorySync = m),
+      (l.getSortedMmSignalSharingExpirationWindowFromHistorySync = p),
+      (l.isMmSignalSharingExpirationWindowActive = _),
+      (l.hasMmSignalSharingWindowExpired = f),
+      (l.hasMmSignalSharingTokenExpired = g));
   },
   98,
 );

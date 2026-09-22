@@ -136,24 +136,28 @@ __d(
     }
     function E(e) {
       var t = !1;
-      (e.forEach(function (e) {
-        (f.set(e.configCode, e),
-          e.hasAccessed === !0 &&
-            (o("WAWebABPropsGlobals").accessedConfigs.add(e.configCode),
-            e.configExpoKey != null &&
-              (o("WAWebABPropsGlobals").exposureKeys.add(e.configExpoKey),
-              (t = !0))));
-      }),
+      if (
+        (e.forEach(function (e) {
+          (f.set(e.configCode, e),
+            e.hasAccessed === !0 &&
+              (o("WAWebABPropsGlobals").accessedConfigs.add(e.configCode),
+              e.configExpoKey != null &&
+                (o("WAWebABPropsGlobals").exposureKeys.add(e.configExpoKey),
+                (t = !0))));
+        }),
         t && o("WAWebABPropsGlobals").updateGlobalExpoKey(),
-        g.resolve());
-      var n = L(),
-        r = Array.from(n.values()).map(function (e) {
-          return { configCode: e.configCode, configValue: e.configValue };
+        g.resolve(),
+        !o("WAWebRuntimeEnvironmentUtils").isWorker())
+      ) {
+        var n = L(),
+          r = Array.from(n.values()).map(function (e) {
+            return { configCode: e.configCode, configValue: e.configValue };
+          });
+        o("WAWebBackendWorkerInitState").recordInitAbProps({
+          configs: r,
+          urlSearch: window.location.search,
         });
-      o("WAWebBackendWorkerInitState").recordInitAbProps({
-        configs: r,
-        urlSearch: window.location.search,
-      });
+      }
     }
     function k() {
       return g.promise;

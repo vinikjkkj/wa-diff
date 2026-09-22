@@ -28,6 +28,7 @@ __d(
         WorkerError: 9,
         SendOnFailedConnection: 10,
         GroupCallDisabled: 11,
+        NoReadyAfterAcceptTimeout: 12,
       }),
       c = (function () {
         function t() {

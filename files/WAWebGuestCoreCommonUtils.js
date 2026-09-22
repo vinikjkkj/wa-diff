@@ -37,9 +37,13 @@ __d(
       return (t = e.get("invite_code")) != null ? t : e.get("sc");
     }
     function c(e) {
-      return e.get("sc") != null && e.get("invite_code") == null;
+      var t;
+      return (t = u(e)) != null ? t : e.get("ic");
     }
     function d(e) {
+      return e.get("sc") != null && e.get("invite_code") == null;
+    }
+    function m(e) {
       return (
         (e >= 65 && e <= 90) ||
         (e >= 97 && e <= 122) ||
@@ -50,7 +54,7 @@ __d(
         e === 126
       );
     }
-    function m(e) {
+    function p(e) {
       for (
         var t = "0123456789ABCDEF",
           n = e instanceof Uint8Array ? e : new Uint8Array(e),
@@ -60,20 +64,20 @@ __d(
         o++
       ) {
         var a = n[o];
-        d(a)
+        m(a)
           ? (r += String.fromCharCode(a))
           : (r += "%" + t[Math.floor(a / 16)] + t[a % 16]);
       }
       return r;
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       var r = e.includes("?") ? "&" : "?";
       return "" + e + r + encodeURIComponent(t) + "=" + n;
     }
-    function _(e) {
+    function f(e) {
       return o("WABase64UrlSafe").urlSafeBase64(o("WABase64").encodeB64(e));
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = function () {
         document.visibilityState === "visible" &&
           o("WAWebGuestCoreLocalStorage").getGuestExperienceType() !== t &&
@@ -84,11 +88,12 @@ __d(
     ((l.isAppClipWebView = e),
       (l.getBrowserAndOsDetails = s),
       (l.getInviteCodeFromUrlParams = u),
-      (l.isSSIInviteCode = c),
-      (l.percentEncodeBytes = m),
-      (l.appendPreEncodedQueryParam = p),
-      (l.encodeB64UrlSafe = _),
-      (l.addGuestExperienceVisibilityListener = f));
+      (l.getPrivateInviteCodeFromUrlParams = c),
+      (l.isSSIInviteCode = d),
+      (l.percentEncodeBytes = p),
+      (l.appendPreEncodedQueryParam = _),
+      (l.encodeB64UrlSafe = f),
+      (l.addGuestExperienceVisibilityListener = g));
   },
   98,
 );

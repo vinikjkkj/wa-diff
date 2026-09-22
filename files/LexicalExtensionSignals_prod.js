@@ -16,7 +16,7 @@ __d(
       var t,
         i = !1;
       for (
-        !(function () {
+        (function () {
           var t = r;
           for (r = void 0; void 0 !== t; )
             (t.S.v === t.v && (t.S.i = t.i), (t = t.o));

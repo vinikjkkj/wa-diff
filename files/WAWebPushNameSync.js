@@ -79,7 +79,7 @@ __d(
                                       ? void 0
                                       : t.name;
                                 return (
-                                  f ||
+                                  (f == null || f === "") &&
                                     (a++,
                                     o(
                                       "WAWebSyncdCriticalBootstrapProcessingApi",

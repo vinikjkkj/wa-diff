@@ -50,67 +50,66 @@ __d(
         )
       );
     }
-    function d(e, r) {
-      var _o$useMemo = o.useMemo(
-          function () {
-            return [
-              function (r) {
-                return e.registerDecoratorListener(r);
-              },
-              function () {
-                return e.getDecorators();
-              },
-            ];
-          },
-          [e],
-        ),
-        t = _o$useMemo[0],
-        n = _o$useMemo[1],
-        c = o.useSyncExternalStore(t, n, n),
-        a = (function (e) {
-          var _o$useMemo2 = o.useMemo(
-              function () {
-                return [
-                  e.registerRootListener.bind(e),
-                  e.getRootElement.bind(e),
-                ];
-              },
-              [e],
-            ),
-            r = _o$useMemo2[0],
-            t = _o$useMemo2[1];
-          return o.useSyncExternalStore(r, t, t);
-        })(e);
-      return o.useMemo(
-        function () {
-          var t = function t(r) {
-              return e._onError(r);
-            },
-            n = [];
-          for (var _a in c) {
-            var _u = e.getElementByKey(_a);
-            if (null !== _u) {
-              var _e2 = s.jsx(r, {
-                onError: t,
-                children: s.jsx(o.Suspense, {
-                  fallback: null,
-                  children: c[_a],
-                }),
-              });
-              n.push(require("ReactDOM").createPortal(_e2, _u, _a));
-            }
-          }
-          return n;
-        },
-        [r, c, e, a],
-      );
-    }
-    function f(_ref) {
+    function d(_ref) {
       var e = _ref.editor,
         r = _ref.ErrorBoundary;
-      return d(e, r);
+      return (function (e, r) {
+        var _o$useMemo = o.useMemo(
+            function () {
+              return [
+                function (r) {
+                  return e.registerDecoratorListener(r);
+                },
+                function () {
+                  return e.getDecorators();
+                },
+              ];
+            },
+            [e],
+          ),
+          t = _o$useMemo[0],
+          n = _o$useMemo[1],
+          c = o.useSyncExternalStore(t, n, n),
+          a = (function (e) {
+            var _o$useMemo2 = o.useMemo(
+                function () {
+                  return [
+                    e.registerRootListener.bind(e),
+                    e.getRootElement.bind(e),
+                  ];
+                },
+                [e],
+              ),
+              r = _o$useMemo2[0],
+              t = _o$useMemo2[1];
+            return o.useSyncExternalStore(r, t, t);
+          })(e);
+        return o.useMemo(
+          function () {
+            var t = function t(r) {
+                return e._onError(r);
+              },
+              n = [];
+            for (var _a in c) {
+              var _u = e.getElementByKey(_a);
+              if (null !== _u) {
+                var _e2 = s.jsx(r, {
+                  onError: t,
+                  children: s.jsx(o.Suspense, {
+                    fallback: null,
+                    children: c[_a],
+                  }),
+                });
+                n.push(require("ReactDOM").createPortal(_e2, _u, _a));
+              }
+            }
+            return n;
+          },
+          [r, c, e, a],
+        );
+      })(e, r);
     }
-    function E(_ref2) {
+    function f(_ref2) {
       var e = _ref2.editor,
         r = _ref2.ErrorBoundary;
       return (function (e) {
@@ -132,31 +131,31 @@ __d(
         return !1;
       })(e)
         ? null
-        : s.jsx(f, { editor: e, ErrorBoundary: r });
+        : s.jsx(d, { editor: e, ErrorBoundary: r });
     }
-    var L = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
-    function g(e) {
+    var E = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
+    function L(e) {
       return e.read(
         "latest",
         require("LexicalText").$canShowPlaceholderCurry(e.isComposing()),
       );
     }
-    function m(_ref3) {
+    function g(_ref3) {
       var t = _ref3.content;
       var _e$useLexicalComposer =
           require("LexicalComposerContext").useLexicalComposerContext(),
         n = _e$useLexicalComposer[0],
         i = (function (e) {
           var _o$useState = o.useState(function () {
-              return g(e);
+              return L(e);
             }),
             r = _o$useState[0],
             t = _o$useState[1];
           return (
-            L(
+            E(
               function () {
                 function r() {
-                  var r = g(e);
+                  var r = L(e);
                   t(r);
                 }
                 return (
@@ -189,7 +188,7 @@ __d(
         o = _e$useLexicalComposer2[0];
       return (
         (function (e) {
-          L(
+          E(
             function () {
               return require("Lexical").mergeRegister(
                 require("LexicalPlainText").registerPlainText(e),
@@ -202,8 +201,8 @@ __d(
         s.jsxs(s.Fragment, {
           children: [
             r,
-            s.jsx(m, { content: t }),
-            s.jsx(E, { editor: o, ErrorBoundary: n }),
+            s.jsx(g, { content: t }),
+            s.jsx(f, { editor: o, ErrorBoundary: n }),
           ],
         })
       );

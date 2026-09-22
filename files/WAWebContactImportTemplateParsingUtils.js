@@ -4,47 +4,50 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e = s._(/*BTDS*/ "Phone number").toString(),
       u = s._(/*BTDS*/ "Full name").toString(),
-      c = new Set(["phone", "phone number", e.toLowerCase()]),
-      d = ["name", "full name", u.toLowerCase()],
-      m = ["firstname", "first name"],
-      p = new Set(d),
+      c = ["phone", "phone number", e.toLowerCase()],
+      d = new Set(c),
+      m = ["name", "full name", u.toLowerCase()],
+      p = ["firstname", "first name"],
       _ = new Set(m),
-      f = new Set([].concat(m, d)),
-      g = new Set(["lastname", "last name"]);
-    function h(e, t) {
+      f = new Set(p),
+      g = new Set([].concat(p, m)),
+      h = ["lastname", "last name"],
+      y = new Set(h),
+      C = new Set([].concat(c, m, p, h));
+    function b(e, t) {
       for (var n in e) {
         var r = n.toLowerCase();
         if (t.has(r)) return n;
       }
     }
-    function y(e) {
+    function v(e) {
       for (var t of e.slice(0, 3)) {
-        var n = h(t, _) != null,
-          r = h(t, g) != null;
+        var n = b(t, f) != null,
+          r = b(t, y) != null;
         if (n || r) return "dual";
-        var o = h(t, p) != null;
+        var o = b(t, _) != null;
         if (o) return "single";
       }
       return "single";
     }
-    function C(e, t) {
-      var n = h(e, t);
+    function S(e, t) {
+      var n = b(e, t);
       if (n != null) return e[n];
     }
-    function b(e, t) {
+    function R(e, t) {
       for (var n in e) {
         var r = n.toLowerCase();
         if (t.has(r) && e[n] != null) return String(e[n]);
       }
       return "";
     }
-    function v(e) {
-      return b(e, f);
+    function L(e) {
+      return R(e, g);
     }
-    function S(e) {
-      return b(e, c);
+    function E(e) {
+      return R(e, d);
     }
-    function R(e, t) {
+    function k(e, t) {
       if (e == null) return null;
       var n = new Set(
         t.map(function (e) {
@@ -58,15 +61,18 @@ __d(
         }
       return null;
     }
-    function L(e) {
-      return typeof e != "string" ? !1 : c.has(e.toLowerCase().trim());
+    function I(e) {
+      return typeof e != "string" ? !1 : d.has(e.toLowerCase().trim());
     }
-    function E(e) {
+    function T(e) {
+      return typeof e != "string" ? !1 : C.has(e.toLowerCase().trim());
+    }
+    function D(e) {
       var t = [],
-        n = y(e),
+        n = v(e),
         r = [];
       e.forEach(function (e, n) {
-        var a = C(e, c),
+        var a = S(e, d),
           i = o(
             "WAWebContactImportValidationUtils",
           ).validateAndFormatPhoneNumber(String(a));
@@ -102,7 +108,7 @@ __d(
           i = void 0,
           l = void 0;
         if (n === "single") {
-          var s = C(a, p),
+          var s = S(a, _),
             u = o("WAWebContactImportValidationUtils").sanitizeName(s),
             c = "";
           (u.status ===
@@ -111,36 +117,36 @@ __d(
             : (c = r.value != null ? r.value : ""),
             (i = c !== "" ? c : void 0));
         } else {
-          var d = C(a, _),
-            m = C(a, g),
-            f = "",
-            h = "",
-            y = null,
-            b = null;
+          var d = S(a, f),
+            m = S(a, y),
+            p = "",
+            g = "",
+            h = null,
+            C = null;
           (d != null &&
-            ((y = o("WAWebContactImportValidationUtils").sanitizeName(d)),
-            y.status ===
+            ((h = o("WAWebContactImportValidationUtils").sanitizeName(d)),
+            h.status ===
               o("WAWebContactImportValidationUtils").ValidationStatus.VALID &&
-              (f = y.value != null ? y.value : "")),
+              (p = h.value != null ? h.value : "")),
             m != null &&
-              ((b = o("WAWebContactImportValidationUtils").sanitizeName(m)),
-              b.status ===
+              ((C = o("WAWebContactImportValidationUtils").sanitizeName(m)),
+              C.status ===
                 o("WAWebContactImportValidationUtils").ValidationStatus.VALID &&
-                (h = b.value != null ? b.value : "")),
-            f !== "" || h !== ""
-              ? ((i = f !== "" ? f : void 0), (l = h !== "" ? h : void 0))
+                (g = C.value != null ? C.value : "")),
+            p !== "" || g !== ""
+              ? ((i = p !== "" ? p : void 0), (l = g !== "" ? g : void 0))
               : (i = r.value != null ? r.value : void 0));
         }
-        var v = {};
-        for (var S in a)
-          if (S !== "originalRowIndex") {
-            var R = a[S];
-            R != null && (v[S] = String(R));
+        var b = {};
+        for (var v in a)
+          if (v !== "originalRowIndex") {
+            var R = a[v];
+            R != null && (b[v] = String(R));
           }
         var L = {
           phone: r.value != null ? r.value : "",
           rowIndex: t,
-          rawRow: v,
+          rawRow: b,
         };
         return (
           i != null && (L.firstName = i),
@@ -152,11 +158,12 @@ __d(
     }
     ((l.FBT_PHONE = e),
       (l.FBT_NAME = u),
-      (l.extractName = v),
-      (l.extractPhone = S),
-      (l.readRawRowColumn = R),
-      (l.isPhoneFieldName = L),
-      (l.parseContactData = E));
+      (l.extractName = L),
+      (l.extractPhone = E),
+      (l.readRawRowColumn = k),
+      (l.isPhoneFieldName = I),
+      (l.isParsedNameOrPhoneFieldName = T),
+      (l.parseContactData = D));
   },
   226,
 );

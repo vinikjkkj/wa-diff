@@ -49,9 +49,9 @@ __d(
     function p(t, r) {
       return new (e || (e = n("Promise")))(function (e, n) {
         var o = t.openCursor(null, "prev");
-        ((o.onsuccess = function (t) {
-          var n = t.target.result;
-          n && r(n.value) ? n.continue() : e();
+        ((o.onsuccess = function () {
+          var t = o.result;
+          t && r(t.value) ? t.continue() : e();
         }),
           (o.onerror = function (e) {
             n(e.target.result);

@@ -226,20 +226,25 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
     function L() {
+      return (
+        R() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
+      );
+    }
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "media_quality_auto_download_settings_enabled",
       );
     }
-    function E() {
+    function k() {
       var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
       return e ===
         o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
-        !L()
+        !E()
         ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
             .STANDARD
         : e;
     }
-    function k() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
@@ -259,9 +264,10 @@ __d(
       (l.isDownloadMimeTypeCheckLogEnabled = v),
       (l.isDownloadMimeTypeCheckBlockEnabled = S),
       (l.isHdImageDualUploadConsumptionEnabled = R),
-      (l.isMediaAutoDownloadQualityAutoEnabled = L),
-      (l.resolveEffectiveAutoDownloadMediaQuality = E),
-      (l.getHQImageThumbnailInChatScans = k));
+      (l.isHdImageDualUploadSendEnabled = L),
+      (l.isMediaAutoDownloadQualityAutoEnabled = E),
+      (l.resolveEffectiveAutoDownloadMediaQuality = k),
+      (l.getHQImageThumbnailInChatScans = I));
   },
   98,
 );

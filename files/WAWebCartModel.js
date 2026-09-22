@@ -59,9 +59,12 @@ __d(
           this.set(n);
         }),
         (r.initialize = function () {
+          var n = this;
           (t.prototype.initialize.call(this),
             (this.cartItemCollection = new e()),
-            this.listenTo(this, "change:cartItemCollection", this.countTotals));
+            this.listenTo(this, "change:cartItemCollection", function () {
+              return n.countTotals();
+            }));
         }),
         (r.getCollection = function () {
           return o("WAWebCartCollection").CartCollection;

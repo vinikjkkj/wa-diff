@@ -54,8 +54,9 @@ __d(
         ? new (e || (e = n("Promise")))(function (e) {
             var t = document.createElement("input");
             ((t.type = "file"),
-              (t.onchange = function (t) {
-                e(t.target.files[0]);
+              (t.onchange = function () {
+                var n = t.files;
+                n != null && e(n[0]);
               }),
               t.click());
           }).then(r)

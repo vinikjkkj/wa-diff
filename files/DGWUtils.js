@@ -188,9 +188,10 @@ __d(
               this.$1 = t;
               return;
             }
-            var e = this.$1.length,
-              n = new Uint8Array(e + t.length);
-            (n.set(this.$1, 0), n.set(t, e), (this.$1 = n));
+            var e = this.$1,
+              n = e.length,
+              r = new Uint8Array(n + t.length);
+            (r.set(e, 0), r.set(t, n), (this.$1 = r));
           }),
           (t.processData = function () {
             var e = this;

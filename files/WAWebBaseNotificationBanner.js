@@ -22,6 +22,7 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNoop",
     "WAWebSendTextMsgChatAction",
+    "WAWebSwNotificationBannerRegistry",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "cr:3133",
@@ -29,11 +30,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
+        "actions",
         "contextMenuItems",
         "footer",
         "isReplyable",
         "notification",
         "renotify",
+        "showViaServiceWorker",
         "suppressBanner",
         "title",
       ],
@@ -44,10 +47,13 @@ __d(
       m,
       p,
       _,
-      f = (s = n("cr:3133")) != null ? s : {},
-      g = f.closeMessageNotification,
-      h = f.showMessageNotification,
-      y = (function () {
+      f,
+      g,
+      h,
+      y = (s = n("cr:3133")) != null ? s : {},
+      C = y.closeMessageNotification,
+      b = y.showMessageNotification,
+      v = (function () {
         function t(e) {
           var t = this,
             a,
@@ -57,26 +63,33 @@ __d(
             c = e.tag,
             d = e.wid;
           ((this.isReplyable = !1),
+            (this.$2 = null),
+            (this.$3 = null),
             (this.close = function () {
-              t.$3()
+              t.$5()
                 .then(function () {
                   (t.notification &&
                     o("WATypeUtils").isFunction(t.notification.close) &&
                     t.notification.close(),
-                    g == null || g(t.key, t.tag));
+                    t.$2 != null && (t.$6(), t.$7()),
+                    C == null || C(t.key, t.tag));
                 })
                 .catch(r("WAWebNoop"));
             }),
-            (this.$4 = function () {
+            (this.$7 = function () {
               (t.waitingPromise.resolver(),
-                window.removeEventListener("beforeunload", t.close));
+                window.removeEventListener("beforeunload", t.close),
+                o(
+                  "WAWebSwNotificationBannerRegistry",
+                ).unregisterSwNotificationBanner(t.$2),
+                (t.$2 = null));
               var e = t.notification;
               (e &&
-                (e.removeEventListener("click", t.$5),
-                e.removeEventListener("close", t.$4)),
-                t.msg && t.msg.off("change:type", t.$6));
+                (e.removeEventListener("click", t.$8),
+                e.removeEventListener("close", t.$7)),
+                t.msg && t.msg.off("change:type", t.$9));
             }),
-            (this.$5 = function () {
+            (this.$8 = function () {
               (t.$1 == null || t.$1(), window.focus());
               var e = t.chat,
                 n = t.msg,
@@ -132,7 +145,7 @@ __d(
                   t.close());
               }
             }),
-            (this.$6 = function () {
+            (this.$9 = function () {
               !t.msg ||
                 t.msg.type !== o("WAWebMsgType").MSG_TYPE.REVOKED ||
                 t.close();
@@ -149,12 +162,12 @@ __d(
             (this.canBlock = s.canBlock),
             (this.doNotOpenChat = s.doNotOpenChat),
             (this.isReplyable = s.isReplyable));
-          var m = new (_ || (_ = n("Promise")))(function (e) {
+          var m = new (h || (h = n("Promise")))(function (e) {
             t.waitingPromise = { resolver: e };
           });
           this.waitingPromise.promise = m;
           try {
-            this.$2(i, c, s);
+            this.$4(i, c, s);
           } catch (e) {
             var p = r("getErrorSafe")(e);
             (o("WALogger")
@@ -170,17 +183,17 @@ __d(
         }
         var a = t.prototype;
         return (
-          (a.$3 = function () {
-            return (_ || (_ = n("Promise"))).resolve();
+          (a.$5 = function () {
+            return (h || (h = n("Promise"))).resolve();
           }),
           (a.waitForClose = function () {
             return this.waitingPromise.promise;
           }),
           (a.detach = function () {
-            this.$4();
+            this.$7();
           }),
           (a.click = function () {
-            this.$5();
+            this.$8();
           }),
           (a.quickReply = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -199,7 +212,7 @@ __d(
                     t,
                     e,
                   )),
-                  this.$4());
+                  this.$7());
               },
             );
             function t(t) {
@@ -207,87 +220,190 @@ __d(
             }
             return t;
           })()),
-          (a.$2 = function (n, a, i) {
-            var t = i.contextMenuItems,
-              l = i.footer,
-              s = i.isReplyable,
-              u = i.notification,
-              c = i.renotify,
-              p = i.suppressBanner,
-              _ = i.title,
-              f = babelHelpers.objectWithoutPropertiesLoose(i, e);
-            f.body && f.body.charCodeAt(0) >= 128 && (f.body = " " + f.body);
-            var g = babelHelpers.extends(
+          (a.$4 = function (n, o, a) {
+            var t = a.actions,
+              i = a.contextMenuItems,
+              l = a.footer,
+              s = a.isReplyable,
+              u = a.notification,
+              c = a.renotify,
+              d = a.showViaServiceWorker,
+              m = a.suppressBanner,
+              p = a.title,
+              _ = babelHelpers.objectWithoutPropertiesLoose(a, e);
+            _.body && _.body.charCodeAt(0) >= 128 && (_.body = " " + _.body);
+            var f = babelHelpers.extends(
               {
-                tag: a,
-                renotify: c != null ? c : !!a,
+                tag: o,
+                renotify: c != null ? c : !!o,
                 dir: "auto",
                 lang: r("WAWebL10N").getNormalizedLocale(),
                 silent: !0,
               },
-              f,
+              _,
             );
-            if (h)
-              h({
-                key: n,
-                tag: a,
-                title: _,
-                body: g.body,
-                icon: g.icon,
-                footer: l,
-                contextMenuItems: t,
-                isReplyable: s,
-                suppressBanner: p,
-                chat: this.chat,
-              });
-            else {
-              var y, C, b, v;
-              ((this.notification = new u(_, g)),
-                (y = this.notification) == null ||
-                  y.addEventListener("error", function (e) {
-                    o("WALogger").LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "native notification error",
-                        ])),
-                    );
-                  }),
-                (C = this.notification) == null ||
-                  C.addEventListener("close", function (e) {
-                    o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "native notification close",
-                        ])),
-                    );
-                  }),
-                (b = this.notification) == null ||
-                  b.addEventListener("click", this.$5),
-                (v = this.notification) == null ||
-                  v.addEventListener("close", this.$4));
-            }
-            (this.msg && this.msg.on("change:type", this.$6),
+            (b
+              ? b({
+                  key: n,
+                  tag: o,
+                  title: p,
+                  body: f.body,
+                  icon: f.icon,
+                  footer: l,
+                  contextMenuItems: i,
+                  isReplyable: s,
+                  suppressBanner: m,
+                  chat: this.chat,
+                })
+              : d === !0
+                ? this.$10(babelHelpers.extends({}, f, { actions: t }), p)
+                : this.$11(u, p, f),
+              this.msg && this.msg.on("change:type", this.$9),
               window.addEventListener("beforeunload", this.close),
               this.increaseNotificationEngagement({ isShow: !0 }));
+          }),
+          (a.$11 = function (t, n, r) {
+            var e, a, i, l;
+            ((this.notification = new t(n, r)),
+              (e = this.notification) == null ||
+                e.addEventListener("error", function (e) {
+                  o("WALogger").LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "native notification error",
+                      ])),
+                  );
+                }),
+              (a = this.notification) == null ||
+                a.addEventListener("close", function (e) {
+                  o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "native notification close",
+                      ])),
+                  );
+                }),
+              (i = this.notification) == null ||
+                i.addEventListener("click", this.$8),
+              (l = this.notification) == null ||
+                l.addEventListener("close", this.$7));
+          }),
+          (a.$10 = function (t, n) {
+            var e = this,
+              a = o(
+                "WAWebSwNotificationBannerRegistry",
+              ).registerSwNotificationBanner({
+                onClick: this.$8,
+                onClose: this.$7,
+              });
+            this.$2 = a;
+            var i = this.$12(a, t, n);
+            ((this.$3 = i),
+              i.catch(function (t) {
+                (o("WALogger")
+                  .ERROR(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "service worker notification failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("sw-show-notification-failed"),
+                  e.$7());
+              }));
+          }),
+          (a.$12 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                var r,
+                  a = yield (r = navigator.serviceWorker) == null
+                    ? void 0
+                    : r.ready;
+                if ((a == null ? void 0 : a.showNotification) == null) {
+                  (o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "no service worker available to show notification",
+                      ])),
+                  ),
+                    this.$7());
+                  return;
+                }
+                yield a.showNotification(
+                  n,
+                  babelHelpers.extends({}, t, {
+                    data: babelHelpers.extends({}, t.data, {
+                      notificationBannerKey: e,
+                    }),
+                  }),
+                );
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$6 = function () {
+            var e = this.$2,
+              t = this.tag;
+            (h || (h = n("Promise")))
+              .resolve(this.$3)
+              .catch(r("WAWebNoop"))
+              .then(function () {
+                var e;
+                return (e = navigator.serviceWorker) == null ? void 0 : e.ready;
+              })
+              .then(function (e) {
+                return e == null || e.getNotifications == null
+                  ? void 0
+                  : e.getNotifications(t != null ? { tag: t } : void 0);
+              })
+              .then(function (t) {
+                t == null ||
+                  t
+                    .filter(function (t) {
+                      var n;
+                      return (
+                        ((n = t.data) == null
+                          ? void 0
+                          : n.notificationBannerKey) === e
+                      );
+                    })
+                    .forEach(function (e) {
+                      return e.close();
+                    });
+              })
+              .catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "sw close notification failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("sw-close-notification-failed");
+              });
           }),
           (a.contextMenuClick = function (t) {
             var e = this.chat;
             if (e) {
               switch (t) {
                 case r("WAWebBannerContextMenuActions").MuteChatForEightHours:
-                  this.$7(
+                  this.$13(
                     e,
                     o("WAWebMuteExpirations").ALL_MUTE_DURATIONS[0].duration,
                   );
                   break;
                 case r("WAWebBannerContextMenuActions").MuteChatForOneWeek:
-                  this.$7(
+                  this.$13(
                     e,
                     o("WAWebMuteExpirations").ALL_MUTE_DURATIONS[1].duration,
                   );
                   break;
                 case r("WAWebBannerContextMenuActions").MuteChat:
-                  this.$7(
+                  this.$13(
                     e,
                     o("WAWebMuteExpirations").ALL_MUTE_DURATIONS[2].duration,
                   );
@@ -300,10 +416,10 @@ __d(
                 case r("WAWebBannerContextMenuActions").None:
                   break;
               }
-              this.$4();
+              this.$7();
             }
           }),
-          (a.$7 = function (t, n) {
+          (a.$13 = function (t, n) {
             t.mute
               .mute({
                 expiration: o("WAWebMuteExpirations").calculateMuteExpiration(
@@ -314,8 +430,8 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "mute failed",
                       ])),
                   )
@@ -355,7 +471,7 @@ __d(
           t
         );
       })();
-    l.default = y;
+    l.default = v;
   },
   98,
 );

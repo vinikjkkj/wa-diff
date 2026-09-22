@@ -57,7 +57,8 @@ __d(
         (t.onMessage = function (t) {}),
         (t.onWSFatal = function () {}),
         (t.$9 = function () {
-          this.$2 && (o("MqttEnv").Env.clearTimeout(this.$2), (this.$2 = null));
+          this.$2 != null &&
+            (o("MqttEnv").Env.clearTimeout(this.$2), (this.$2 = null));
         }),
         (t.$10 = function () {
           if (this.$4 === !1) {

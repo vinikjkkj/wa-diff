@@ -13,7 +13,7 @@ __d(
       e = t;
     }
     function c(e, t) {
-      return s()(e, t);
+      s()(e, t);
     }
     ((l.setInstance = u), (l.updateMmSignalSharingExpirationWindow = c));
   },

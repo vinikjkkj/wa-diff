@@ -63,9 +63,7 @@ __d(
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget
-            .DOWNLOAD_SUBSCRIBED_RECIPIENTS,
+        userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.DATA_SHARING,
       });
     }
     function _(e, t) {
@@ -75,7 +73,7 @@ __d(
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget
-            .REMOVE_RECIPIENTS_FROM_DATA_SHARING,
+            .DOWNLOAD_SUBSCRIBED_RECIPIENTS,
       });
     }
     function f(e, t) {
@@ -84,7 +82,8 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCES_TAB_BUTTON,
+          o("WAWebBBLoggerTypes").UserActionTarget
+            .REMOVE_RECIPIENTS_FROM_DATA_SHARING,
       });
     }
     function g(e, t) {
@@ -93,10 +92,19 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCES_TAB_BUTTON,
+      });
+    }
+    function h(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.BROADCASTS_TAB_BUTTON,
       });
     }
-    function h(e, t, n, r) {
+    function y(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -107,7 +115,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARDS_IMPRESSION,
       });
     }
-    function y(e, t) {
+    function C(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -117,7 +125,7 @@ __d(
         userActionTarget: n.UserActionTarget.CHAT_LIST_CONTEXT_MENU,
       });
     }
-    function C(e) {
+    function b(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -126,7 +134,7 @@ __d(
         userActionTarget: t.UserActionTarget.MESSAGE_CONTEXT_MENU,
       });
     }
-    function b(e, t) {
+    function v(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -136,7 +144,7 @@ __d(
         userActionTarget: n.UserActionTarget.CONVERSATION_HEADER_MENU,
       });
     }
-    function v(e) {
+    function S(e) {
       var t,
         n = e.broadcastChatCount,
         r = e.hasBroadcastWithNonZeroRecipients,
@@ -158,7 +166,7 @@ __d(
         userActionTarget: t.UserActionTarget.BROADCAST_CHAT_LIST_STATE,
       });
     }
-    function S(e, t) {
+    function R(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -168,7 +176,7 @@ __d(
         userActionTarget: n.UserActionTarget.PAGE,
       });
     }
-    function R(e) {
+    function L(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -177,7 +185,7 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function L(e) {
+    function E(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -186,7 +194,7 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function E(e, t) {
+    function k(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -196,7 +204,7 @@ __d(
             .BROADCAST_ITEM_OVERFLOW_BUTTON,
       });
     }
-    function k(e, t, n, r) {
+    function I(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: n,
@@ -206,7 +214,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ELIGIBILITY_GATE,
       });
     }
-    function I(e, t, n, r, a) {
+    function T(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: a,
@@ -221,7 +229,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARD_CLICK,
       });
     }
-    function T(e, t, n, r, a) {
+    function D(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
@@ -241,22 +249,23 @@ __d(
       (l.homeLearnMoreClicked = c),
       (l.homeNewAudienceDropdownClicked = d),
       (l.homeOverflowMenuClicked = m),
-      (l.downloadSubscribedRecipientsClicked = p),
-      (l.removeRecipientsFromDataSharingClicked = _),
-      (l.homeAudiencesTabClicked = f),
-      (l.homeBroadcastsTabClicked = g),
-      (l.suggestedAudienceCardsViewed = h),
-      (l.chatListContextMenuOpened = y),
-      (l.messageContextMenuOpened = C),
-      (l.conversationHeaderMenuOpened = b),
-      (l.broadcastChatListItemViewed = v),
-      (l.broadcastThreadViewed = S),
-      (l.tosReviewBannerViewed = R),
-      (l.tosReviewBannerClicked = L),
-      (l.broadcastItemOverflowClicked = E),
-      (l.eligibilityCheckResult = k),
-      (l.suggestedAudienceCardClicked = I),
-      (l.suggestedAudienceCardError = T));
+      (l.dataSharingClicked = p),
+      (l.downloadSubscribedRecipientsClicked = _),
+      (l.removeRecipientsFromDataSharingClicked = f),
+      (l.homeAudiencesTabClicked = g),
+      (l.homeBroadcastsTabClicked = h),
+      (l.suggestedAudienceCardsViewed = y),
+      (l.chatListContextMenuOpened = C),
+      (l.messageContextMenuOpened = b),
+      (l.conversationHeaderMenuOpened = v),
+      (l.broadcastChatListItemViewed = S),
+      (l.broadcastThreadViewed = R),
+      (l.tosReviewBannerViewed = L),
+      (l.tosReviewBannerClicked = E),
+      (l.broadcastItemOverflowClicked = k),
+      (l.eligibilityCheckResult = I),
+      (l.suggestedAudienceCardClicked = T),
+      (l.suggestedAudienceCardError = D));
   },
   98,
 );

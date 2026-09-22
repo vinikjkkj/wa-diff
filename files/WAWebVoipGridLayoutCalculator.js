@@ -46,6 +46,20 @@ __d(
       return i;
     }
     function d(e) {
+      return e <= 2 ? 1 : e <= 8 ? 2 : 3;
+    }
+    function m(e, t, n, r, o) {
+      if (n <= 0 || e <= 0 || t <= 0)
+        return { cellWidth: 0, cellHeight: 0, columns: 0, rows: 0 };
+      var a = d(n),
+        i = Math.ceil(n / a),
+        l = o ? i : a,
+        s = o ? a : i,
+        u = Math.max(0, (e - (l - 1) * r) / l),
+        c = Math.max(0, (t - (s - 1) * r) / s);
+      return { cellWidth: u, cellHeight: c, columns: l, rows: s };
+    }
+    function p(e) {
       return e <= 0
         ? { cols: 1, rows: 1 }
         : e <= 2
@@ -58,14 +72,14 @@ __d(
                 ? { cols: 3, rows: 3 }
                 : { cols: 4, rows: Math.ceil(e / 4) };
     }
-    function m(e, t) {
-      var n = d(e),
-        r = d(t);
+    function _(e, t) {
+      var n = p(e),
+        r = p(t);
       return n.cols !== r.cols || n.rows !== r.rows;
     }
-    function p(t, n) {
+    function f(t, n) {
       if (t <= 0 || n <= 0) return 0;
-      var r = d(n),
+      var r = p(n),
         o = r.cols,
         a = r.rows,
         i = t - 2 * s - (o - 1) * l;
@@ -77,9 +91,10 @@ __d(
     ((i.GRID_GAP_PX = l),
       (i.GRID_PADDING_SINGLE_PX = s),
       (i.calculateOptimalGridLayout = c),
-      (i.canonicalGridShape = d),
-      (i.hasCanonicalGridShapeChanged = m),
-      (i.calculateGroupVideoGridContentHeight = p));
+      (i.calculateNativeGridLayout = m),
+      (i.canonicalGridShape = p),
+      (i.hasCanonicalGridShapeChanged = _),
+      (i.calculateGroupVideoGridContentHeight = f));
   },
   66,
 );

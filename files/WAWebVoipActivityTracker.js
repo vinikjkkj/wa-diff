@@ -108,6 +108,8 @@ __d(
           "permission_request_camera_and_mic_start",
         PERMISSION_REQUEST_CAMERA_AND_MIC_END:
           "permission_request_camera_and_mic_end",
+        PERMISSION_REQUEST_CAMERA_START: "permission_request_camera_start",
+        PERMISSION_REQUEST_CAMERA_END: "permission_request_camera_end",
         VOIP_WINDOW_MOUNTING: "voip_window_mounting",
         VOIP_UI_BUNDLE_LOADING: "voip_ui_bundle_loading",
         VOIP_UI_BUNDLE_LOADED: "voip_ui_bundle_loaded",

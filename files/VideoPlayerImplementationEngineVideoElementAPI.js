@@ -55,7 +55,7 @@ __d(
         };
       return {
         exitPictureInPicture: function () {
-          window.document.exitPictureInPicture().catch(function (e) {
+          t.ownerDocument.exitPictureInPicture().catch(function (e) {
             r("FBLogger")("comet_video_player")
               .catching(r("getErrorSafe")(e))
               .mustfix("Failed to exit picture-in-picture mode");

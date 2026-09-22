@@ -26,7 +26,9 @@ __d(
       var t,
         n = e.entryPoint,
         r = e.inviteCodeError,
-        a = e.validInviteCode;
+        a = e.isServerSentInvite,
+        i = a === void 0 ? !1 : a,
+        l = e.validInviteCode;
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
@@ -34,8 +36,11 @@ __d(
           {},
           p(),
           {
-            companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
-              .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
+            companionInviteMethod: i
+              ? o("WAWebWamEnumCompanionInviteMethodType")
+                  .COMPANION_INVITE_METHOD_TYPE.SERVER_SMS
+              : o("WAWebWamEnumCompanionInviteMethodType")
+                  .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
             companionInviteOrigin: n,
             companionInviteSessionId:
               (t = o(
@@ -47,7 +52,7 @@ __d(
                   ).createCompanionInviteSessionId(),
             companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
               .COMPANION_INVITE_ACTION_TYPE.INVITE_SEND,
-            companionValidInviteCode: a,
+            companionValidInviteCode: l,
           },
           r != null ? { companionInviteCodeError: r } : {},
         ),

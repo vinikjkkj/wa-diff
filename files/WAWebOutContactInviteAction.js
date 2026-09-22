@@ -21,35 +21,36 @@ __d(
     var e,
       u,
       c,
-      d = c || (c = o("react"));
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+      d,
+      m = d || (d = o("react"));
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return g(e, t, !0, n);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return h(e, t, !0, n);
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return g(e, t, !1, n);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return h(e, t, !1, n);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n, r) {
-      return h.apply(this, arguments);
+    function h(e, t, n, r) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a) {
             var i = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
             if (
@@ -77,67 +78,168 @@ __d(
               !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
             )
               return !1;
-            if (l) {
-              var c = yield o(
+            if (r && l) {
+              var s = yield o(
                 "WAWebOutContactInviteConfirmDialog.react",
               ).waitForOutContactInviteConfirmDialog(a != null ? a : i, i);
-              if (!c) return !1;
+              if (!s) return !1;
             }
-            var m,
-              p = !1,
-              _;
-            try {
-              var f = yield o(
-                "WAWebMexCreateInviteCodeJob",
-              ).mexCreateInviteCode(i, n.toString(), !1);
-              f != null
-                ? ((m = o(
-                    "WAWebOutContactInviteUtils",
-                  ).getInviteMessageTextWithCode(f)),
-                  (p = !0))
-                : (m = o("WAWebOutContactInviteUtils").getInviteMessageText());
-            } catch (e) {
-              (o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[out-contact-invite] MEX invite failed, fallback: ",
-                    "",
-                  ])),
-                e,
-              ),
-                o("WAWebToastManager").ToastManager.open(
-                  d.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(
-                      /*BTDS*/ "Could not generate invite link. Sending with default link.",
-                    ),
-                  }),
-                ),
-                (_ = String(e)),
-                (m = o("WAWebOutContactInviteUtils").getInviteMessageText()));
-            }
-            (o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
-              entryPoint: n,
-              inviteCodeError: _,
-              validInviteCode: p,
-            }),
-              o("WAWebOutContactInviteJourney").clearOutContactInviteJourney());
-            var g = encodeURIComponent(m),
-              h = window.open("sms:+" + i + "?body=" + g);
-            return (y(h == null), h != null);
+            return l ? C(i, n) : R(i, n);
           },
         )),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n, r;
+          try {
+            r = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+              e,
+              t.toString(),
+              !0,
+            );
+          } catch (n) {
+            return v(e, t, String(n));
+          }
+          var a =
+              ((n = r) == null ? void 0 : n.errorReason) != null &&
+              r.errorReason !== ""
+                ? r.errorReason
+                : null,
+            i = r != null && (r.code == null || r.code === "") && a == null;
+          return i
+            ? (o("WAWebToastManager").ToastManager.open(
+                m.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(/*BTDS*/ "Invite sent"),
+                }),
+              ),
+              o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+                entryPoint: t,
+                isServerSentInvite: !0,
+                validInviteCode: !0,
+              }),
+              o("WAWebOutContactInviteJourney").clearOutContactInviteJourney(),
+              !0)
+            : v(
+                e,
+                t,
+                a != null
+                  ? a
+                  : r == null
+                    ? "missing server response"
+                    : "invite code returned",
+              );
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t, n) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return (
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[out-contact-invite] Server-sent invite unsuccessful: ",
+                    "",
+                  ])),
+                n,
+              )
+              .sendLogs("out-contact-server-sent-invite-failed"),
+            o("WAWebOutContactInviteGating").isNativeSmsFallbackAvailable()
+              ? R(e, t, n)
+              : (o("WAWebToastManager").ToastManager.open(
+                  m.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(/*BTDS*/ "Could not send invite"),
+                  }),
+                ),
+                o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+                  entryPoint: t,
+                  inviteCodeError: n,
+                  isServerSentInvite: !0,
+                  validInviteCode: !1,
+                }),
+                o(
+                  "WAWebOutContactInviteJourney",
+                ).clearOutContactInviteJourney(),
+                !1)
+          );
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t, n) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            a = !1,
+            i = n;
+          try {
+            var l = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+                e,
+                t.toString(),
+                !1,
+              ),
+              u = l == null ? void 0 : l.code;
+            u != null
+              ? ((r = o(
+                  "WAWebOutContactInviteUtils",
+                ).getInviteMessageTextWithCode(u)),
+                (a = !0))
+              : (r = o("WAWebOutContactInviteUtils").getInviteMessageText());
+          } catch (e) {
+            (o("WALogger").ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[out-contact-invite] MEX invite failed, fallback: ",
+                  "",
+                ])),
+              e,
+            ),
+              o("WAWebToastManager").ToastManager.open(
+                m.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(
+                    /*BTDS*/ "Could not generate invite link. Sending with default link.",
+                  ),
+                }),
+              ),
+              (i = String(e)),
+              (r = o("WAWebOutContactInviteUtils").getInviteMessageText()));
+          }
+          (o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+            entryPoint: t,
+            inviteCodeError: i,
+            validInviteCode: a,
+          }),
+            o("WAWebOutContactInviteJourney").clearOutContactInviteJourney());
+          var d = encodeURIComponent(r),
+            p = window.open("sms:+" + e + "?body=" + d);
+          return (E(p == null), p != null);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e) {
       e &&
         o("WAWebToastManager").ToastManager.open(
-          d.jsx(o("WAWebToast.react").Toast, {
+          m.jsx(o("WAWebToast.react").Toast, {
             msg: s._(/*BTDS*/ "Could not open SMS app"),
           }),
         );
     }
-    function C(e, t, n) {
+    function k(e, t, n) {
       if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
         return !1;
       var r = e
@@ -166,11 +268,11 @@ __d(
           })
           .join(","),
         u = window.open("sms://open?addresses=" + s + "&body=" + i);
-      return (y(u == null), u != null);
+      return (E(u == null), u != null);
     }
-    ((l.sendInvite = m),
-      (l.sendDeactivatedUserInvite = _),
-      (l.sendMultiGroupInvite = C));
+    ((l.sendInvite = p),
+      (l.sendDeactivatedUserInvite = f),
+      (l.sendMultiGroupInvite = k));
   },
   226,
 );

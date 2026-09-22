@@ -13,16 +13,16 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i,
-            l =
+          var i =
               e !== void 0
                 ? e
                 : (e = n("WAWebMexCreateInviteCodeJobMutation.graphql")),
-            s = { input: { receiver: t, entry_point: r, server_send_sms: a } },
-            u = yield o("WAWebMexClient").fetchQuery(l, s);
-          return (i = u.xwa2_growth_create_invite_code) == null
-            ? void 0
-            : i.code;
+            l = { input: { receiver: t, entry_point: r, server_send_sms: a } },
+            s = yield o("WAWebMexClient").fetchQuery(i, l),
+            u = s.xwa2_growth_create_invite_code;
+          return u == null
+            ? null
+            : { code: u.code, errorReason: u.error_reason };
         })),
         u.apply(this, arguments)
       );

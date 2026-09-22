@@ -76,7 +76,9 @@ __d(
         R = e.trusted,
         L;
       t[0] !== g
-        ? ((L = o("WAWebMsgGetters").getIsSentByMe(g)), (t[0] = g), (t[1] = L))
+        ? ((L = o("WAWebMsgGetters").getIsSentByMe(g.unsafe())),
+          (t[0] = g),
+          (t[1] = L))
         : (L = t[1]);
       var E = L,
         k = E ? "polls_sender" : "polls_receiver",

@@ -11,7 +11,98 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.PAGE,
       });
     }
-    function s(e, t) {
+    function s(e, t, n, r) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
+        entryPoint: t,
+        extraAttributes: { validation_error_type: r, validation_succeeded: n },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.MAX_BID_INPUT,
+      });
+    }
+    function u(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
+        entryPoint: t,
+        extraAttributes: { validation_succeeded: n },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.CAMPAIGN_BUDGET_INPUT,
+      });
+    }
+    function c(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.MAX_BID_INFO_BUTTON,
+      });
+    }
+    function d(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.CAMPAIGN_BUDGET_INFO_BUTTON,
+      });
+    }
+    function m(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: n,
+        extraAttributes: {
+          has_invalid_audience: t.hasInvalidAudience,
+          has_no_bid: t.hasNoBid,
+          has_no_budget: t.hasNoBudget,
+          has_no_content: t.hasNoContent,
+          has_required_action: t.hasRequiredAction,
+          has_unsupported_attachment: t.hasUnsupportedAttachment,
+          is_creating_campaign: t.isCreatingCampaign,
+          is_disabled: t.isDisabled,
+          is_max_bid_valid: t.isMaxBidValid,
+          scheduled_send_enabled: t.scheduledSendEnabled,
+        },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+      });
+    }
+    function p(e, t, n, r, a) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        extraAttributes: {
+          attachment_type: a != null ? a : void 0,
+          recipient_count: n != null ? n : void 0,
+          scheduled: r,
+        },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget: r
+          ? o("WAWebBBLoggerTypes").UserActionTarget.SCHEDULE_BROADCAST_BUTTON
+          : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+      });
+    }
+    function _(e, t, n, r, a, i, l) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        entryPoint: t,
+        extraAttributes: {
+          attachment_type: i != null ? i : void 0,
+          error_type: l,
+          recipient_count: n != null ? n : void 0,
+          save_result: a,
+          scheduled: r,
+        },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget: r
+          ? o("WAWebBBLoggerTypes").UserActionTarget.SCHEDULE_BROADCAST_BUTTON
+          : o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+      });
+    }
+    function f(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -21,7 +112,7 @@ __d(
             .ATTACHMENTS_IMAGE_VIDEOS_DROPDOWN,
       });
     }
-    function u(e, t) {
+    function g(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -30,7 +121,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ATTACHMENTS_CAMERA_DROPDOWN,
       });
     }
-    function c(e, t) {
+    function h(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -39,7 +130,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ATTACHMENTS_CATALOG_DROPDOWN,
       });
     }
-    function d(e, t) {
+    function y(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -49,7 +140,7 @@ __d(
             .ATTACHMENTS_DOCUMENT_DROPDOWN,
       });
     }
-    function m(e, t) {
+    function C(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -58,7 +149,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_ATTACHMENT_BUTTON,
       });
     }
-    function p(e, t) {
+    function b(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -67,7 +158,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ATTACHMENT_SELECTION_PREVIEW,
       });
     }
-    function _(e, t, n) {
+    function v(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -75,7 +166,7 @@ __d(
         userActionTarget: n,
       });
     }
-    function f(e, t, n, r) {
+    function S(e, t, n, r) {
       var a = {};
       (n != null && (a.attachmentExt = n),
         r != null && (a.attachmentFileSize = r),
@@ -89,7 +180,7 @@ __d(
               .ATTACHMENT_PREVIEW_SAVE_BUTTON,
         }));
     }
-    function g(e) {
+    function R(e) {
       var t = e.entryPoint,
         n = e.fileExt,
         r = e.fileSize,
@@ -106,7 +197,7 @@ __d(
           userActionTarget: i,
         }));
     }
-    function h(e, t, n, r, a) {
+    function L(e, t, n, r, a) {
       var i = {};
       (r != null && (i.attachmentExt = r),
         a != null && (i.attachmentFileSize = a),
@@ -118,7 +209,7 @@ __d(
           userActionTarget: n,
         }));
     }
-    function y(e, t, n) {
+    function E(e, t, n) {
       var r = {};
       (n != null && (r.errorType = n),
         e({
@@ -130,7 +221,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.ADD_ATTACHMENT_BUTTON,
         }));
     }
-    function C(e, t) {
+    function k(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -140,7 +231,7 @@ __d(
             .ATTACHMENT_SECTION_ERROR_RENDER,
       });
     }
-    function b(e) {
+    function I(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
@@ -149,7 +240,7 @@ __d(
             .DOCUMENT_PREVIEW_MESSAGE_BUBBLE_ERROR_RENDER,
       });
     }
-    function v(e, t) {
+    function T(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -158,7 +249,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_AUDIENCE_BUTTON,
       });
     }
-    function S(e, t) {
+    function D(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -167,7 +258,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function R(e, t, n, r, a, i, l, s, u, c, d, m, p) {
+    function x(e, t, n, r, a, i, l, s, u, c, d, m, p) {
       var _ = { contact_count: t, save_result: n };
       (s != null && ((_.audience_count = s), (_.is_multi_audience = s > 1)),
         a != null && (_.errorType = a),
@@ -187,7 +278,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
         }));
     }
-    function L(e, t) {
+    function $(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         extraAttributes: t,
@@ -196,7 +287,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_CAMPAIGN_ACK,
       });
     }
-    function E(e, t, n) {
+    function P(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -206,7 +297,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CHOOSE_AUDIENCE_BUTTON,
       });
     }
-    function k(e, t, n) {
+    function N(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -215,7 +306,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.MENU,
       });
     }
-    function I(e, t, n) {
+    function M(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -224,7 +315,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CREATE_AUDIENCE_BUTTON,
       });
     }
-    function T(e, t, n) {
+    function w(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -233,7 +324,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
       });
     }
-    function D(e, t) {
+    function A(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -242,7 +333,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_BUTTON,
       });
     }
-    function x(e, t) {
+    function F(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -250,7 +341,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function $(e, t, n, r, a, i, l, s, u, c) {
+    function O(e, t, n, r, a, i, l, s, u, c) {
       var d = t.length,
         m = {
           audience_count: d,
@@ -273,7 +364,7 @@ __d(
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
         }));
     }
-    function P(e, t, n) {
+    function B(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -298,7 +389,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function N(e, t) {
+    function W(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -308,7 +399,7 @@ __d(
             .EXIT_CONFIRMATION_DISMISS_BUTTON,
       });
     }
-    function M(e, t) {
+    function q(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -318,7 +409,7 @@ __d(
             .EXIT_CONFIRMATION_CONTINUE_BUTTON,
       });
     }
-    function w(e, t) {
+    function U(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -327,7 +418,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_MODAL,
       });
     }
-    function A(e, t, n) {
+    function V(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -338,35 +429,42 @@ __d(
       });
     }
     ((l.createBroadcastViewed = e),
-      (l.attachmentsImageVideoDropdownClicked = s),
-      (l.attachmentsCameraDropdownClicked = u),
-      (l.attachmentsCatalogDropdownClicked = c),
-      (l.attachmentsDocumentDropdownClicked = d),
-      (l.addAttachmentButtonClicked = m),
-      (l.attachmentFileSelected = p),
-      (l.catalogAttachmentSelected = _),
-      (l.attachmentPreviewSaveButtonClicked = f),
-      (l.attachmentPreviewButtonClicked = g),
-      (l.attachmentRemoveButtonClicked = h),
-      (l.attachmentUpload = y),
-      (l.attachmentSectionErrorRender = C),
-      (l.documentPreviewMessageBubbleErrorRender = b),
-      (l.addAudienceButtonClicked = v),
-      (l.addCTAButtonClicked = S),
-      (l.sendBroadcastResult = R),
-      (l.sendCampaignAck = L),
-      (l.createBroadcastChooseAudienceClicked = E),
-      (l.createBroadcastAudienceMenuViewed = k),
-      (l.createAudienceButtonClicked = I),
-      (l.importAudienceButtonClicked = T),
-      (l.createBroadcastAudienceMenuExistingAudiencesClicked = D),
-      (l.createBroadcastBackClicked = x),
-      (l.createBroadcastSendClicked = $),
-      (l.sendBroadcastButtonViewed = P),
-      (l.createBroadcastExitConfirmationDismissed = N),
-      (l.createBroadcastExitConfirmationConfirmed = M),
-      (l.existingAudiencesModalViewed = w),
-      (l.existingAudiencesModalSaved = A));
+      (l.proMaxBidValidated = s),
+      (l.proCampaignBudgetValidated = u),
+      (l.proMaxBidInfoClicked = c),
+      (l.proCampaignBudgetInfoClicked = d),
+      (l.proSendButtonViewed = m),
+      (l.proSendClicked = p),
+      (l.proSendResult = _),
+      (l.attachmentsImageVideoDropdownClicked = f),
+      (l.attachmentsCameraDropdownClicked = g),
+      (l.attachmentsCatalogDropdownClicked = h),
+      (l.attachmentsDocumentDropdownClicked = y),
+      (l.addAttachmentButtonClicked = C),
+      (l.attachmentFileSelected = b),
+      (l.catalogAttachmentSelected = v),
+      (l.attachmentPreviewSaveButtonClicked = S),
+      (l.attachmentPreviewButtonClicked = R),
+      (l.attachmentRemoveButtonClicked = L),
+      (l.attachmentUpload = E),
+      (l.attachmentSectionErrorRender = k),
+      (l.documentPreviewMessageBubbleErrorRender = I),
+      (l.addAudienceButtonClicked = T),
+      (l.addCTAButtonClicked = D),
+      (l.sendBroadcastResult = x),
+      (l.sendCampaignAck = $),
+      (l.createBroadcastChooseAudienceClicked = P),
+      (l.createBroadcastAudienceMenuViewed = N),
+      (l.createAudienceButtonClicked = M),
+      (l.importAudienceButtonClicked = w),
+      (l.createBroadcastAudienceMenuExistingAudiencesClicked = A),
+      (l.createBroadcastBackClicked = F),
+      (l.createBroadcastSendClicked = O),
+      (l.sendBroadcastButtonViewed = B),
+      (l.createBroadcastExitConfirmationDismissed = W),
+      (l.createBroadcastExitConfirmationConfirmed = q),
+      (l.existingAudiencesModalViewed = U),
+      (l.existingAudiencesModalSaved = V));
   },
   98,
 );

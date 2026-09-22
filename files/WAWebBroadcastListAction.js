@@ -136,7 +136,7 @@ __d(
             )
           ) {
             var m = yield h(n),
-              f = o("WATimeUtils").unixTime(),
+              f = o("WATimeUtils").unixTimeMs(),
               g = m.flatMap(function (e) {
                 var t = o(
                     "WAWebContactImportFileProcessor",
@@ -191,7 +191,12 @@ __d(
                 babelHelpers.extends(
                   { audienceExpression: y },
                   a != null ? { customAudienceFbid: a } : {},
-                  { id: i, isWebCreatedList: l, listName: d, timestamp: f },
+                  {
+                    id: i,
+                    isWebCreatedList: l,
+                    listName: d,
+                    timestamp: o("WATimeUtils").castMilliSecondsToUnixTime(f),
+                  },
                 ),
                 [C],
               );
@@ -231,17 +236,14 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WATimeUtils").unixTime(),
+          var t = o("WATimeUtils").unixTimeMs(),
             n = o("WAWebWidFactory").createWid(e);
           try {
             var a = r("WAWebBroadcastListSync").getDeleteBroadcastListMutation(
                 e,
                 t,
               ),
-              i = yield r("WAWebDeleteChatSync").getDeleteChatMutation(
-                o("WATimeUtils").unixTimeMs(),
-                n,
-              );
+              i = yield r("WAWebDeleteChatSync").getDeleteChatMutation(t, n);
             yield o(
               "WAWebBroadcastListStorageUtils",
             ).removeBroadcastListStorage(e, [a, i]);

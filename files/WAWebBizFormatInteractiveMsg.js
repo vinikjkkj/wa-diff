@@ -26,35 +26,36 @@ __d(
       if (
         e.interactiveType === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
       ) {
-        var s;
+        var s, c;
         return (
           e.caption ||
-          ((s = e.interactiveHeader) == null ? void 0 : s.title) ||
-          ""
+          ((s = (c = e.interactiveHeader) == null ? void 0 : c.title) != null
+            ? s
+            : "")
         );
       }
       if (
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       ) {
-        var c = _(e);
-        if (c != null) return c;
+        var m = _(e);
+        if (m != null) return m;
       }
       if (
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
       ) {
-        var m = p(e);
-        if (m != null) return m;
+        var f = p(e);
+        if (f != null) return f;
       }
       if (
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var f = d(e);
-        if (f != null) return f;
+        var g = d(e);
+        if (g != null) return g;
       }
-      var g = [
+      var h = [
         (n = e.interactiveHeader) == null ? void 0 : n.title,
         l ? ((o = e.interactiveHeader) == null ? void 0 : o.subtitle) : null,
         e.caption,
@@ -62,7 +63,7 @@ __d(
       ]
         .filter(Boolean)
         .join("\n");
-      return g === "" ? u(e.bloksWidget) : g;
+      return h === "" ? u(e.bloksWidget) : h;
     }
     function u(e) {
       var t;

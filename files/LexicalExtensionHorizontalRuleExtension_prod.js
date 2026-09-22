@@ -159,11 +159,10 @@ __d(
               e.push(
                 require("LexicalExtensionSignals").effect(function () {
                   var e = n.value;
-                  if (e) {
-                    o.value
+                  e &&
+                    (o.value
                       ? require("Lexical").addClassNamesToElement(e, g)
-                      : require("Lexical").removeClassNamesFromElement(e, g);
-                  }
+                      : require("Lexical").removeClassNamesFromElement(e, g));
                 }),
               );
             };

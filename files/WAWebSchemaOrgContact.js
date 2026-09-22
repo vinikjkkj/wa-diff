@@ -22,6 +22,7 @@ __d(
           r(["orgId", "lid"]),
           n("memberName"),
           n("memberTag"),
+          n("role"),
           a("lid"),
         ])
         .view(function (e) {

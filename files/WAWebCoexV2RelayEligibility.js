@@ -28,7 +28,7 @@ __d(
               !(yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
                 e,
               ))) ||
-            (yield S());
+            (yield L());
           return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
         })),
         m.apply(this, arguments)
@@ -40,37 +40,42 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() ||
-            !e.isFbidBot() ||
-            e.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
-            !o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(t) ||
-            !(yield y())
-          )
-            return null;
+          if (!v(e, t) || !(yield C())) return null;
           var n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-          return n == null ? null : { agentCopyIsRequired: !0, selfLid: n };
+          return n == null
+            ? null
+            : { agentCopyIsRequired: !0, kind: "user_agent", selfLid: n };
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e) {
+      var t = e.hasFbidBotDevice,
+        n = e.isBotInvokeMessage,
+        r = e.isResendingMsg,
+        o = e.isRevokeForMsgFromOrDeliveredToBot,
+        a = e.relayPlan;
+      return r || a == null || (!n && !o) || !t
+        ? null
+        : { agentCopyIsRequired: !1, kind: "invoked_agent", relayPlan: a };
+    }
+    function g(e, t) {
       return (e == null ? void 0 : e.agentCopyIsRequired) === !0 && t === 0;
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             r = e.chatId,
             a = e.msgProtobuf,
             i = e.option,
             l = e.stanzaTo;
-          if (!b(a, l, i)) return null;
+          if (!S(a, l, i)) return null;
           var u = yield (c || (c = n("Promise"))).all([
-              y(),
+              C(),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(r),
               o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(r),
             ]),
@@ -79,7 +84,7 @@ __d(
             p = u[2];
           if (!d && !m) return null;
           var _ = d ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
-            f = m && !p ? v(t == null ? void 0 : t.accountLid, l) : null,
+            f = m && !p ? R(t == null ? void 0 : t.accountLid, l) : null,
             g =
               f != null &&
               (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(f));
@@ -98,15 +103,15 @@ __d(
             ? null
             : { peerLid: h, selfIsCoexV2: d, selfLid: _ };
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y() {
-      return C.apply(this, arguments);
-    }
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebApiDeviceList").getMyDeviceList();
             return e.devices.some(function (e) {
@@ -127,10 +132,18 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
+    function v(e, t) {
+      return (
+        o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
+        e.isFbidBot() &&
+        !e.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+        o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(t)
+      );
+    }
+    function S(e, t, n) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
         n.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
@@ -141,7 +154,7 @@ __d(
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(e)
       );
     }
-    function v(t, n) {
+    function R(t, n) {
       var r =
         t != null && t.isLid() ? t : o("WAWebLidMigrationUtils").toUserLid(n);
       return (
@@ -157,16 +170,17 @@ __d(
         r
       );
     }
-    function S() {
+    function L() {
       return o("WAWebUserPrefsMeUser").getMaybeMeLidUser() == null
         ? (c || (c = n("Promise"))).resolve(!1)
-        : y();
+        : C();
     }
     ((l.genIsCoexV2RelayEligibleSend = d),
       (l.getCoexV2AgentSendPlan = p),
-      (l.shouldRejectCoexV2AgentSend = f),
-      (l.getCoexV2RelaySendPlan = g),
-      (l.isSelfCoexV2Hosted = y));
+      (l.getCoexV2InvokedAgentSendPlan = f),
+      (l.shouldRejectCoexV2AgentSend = g),
+      (l.getCoexV2RelaySendPlan = h),
+      (l.isSelfCoexV2Hosted = C));
   },
   98,
 );

@@ -12,6 +12,7 @@ __d(
     "WAWebSWBusActions",
     "WAWebSocketConstants",
     "WAWebSocketModel",
+    "WAWebSwNotificationBannerRegistry",
     "WAWebVoipNotificationActionBus",
     "asyncToGeneratorRuntime",
     "err",
@@ -158,6 +159,22 @@ __d(
               return { handled: v("accept_call", i) };
             case r("WAWebSWBusActions").DECLINE_CALL_FROM_NOTIFICATION:
               return { handled: v("decline_call", i) };
+            case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLICKED:
+              return {
+                handled: o(
+                  "WAWebSwNotificationBannerRegistry",
+                ).handleSwNotificationBannerClick(
+                  i == null ? void 0 : i.bannerKey,
+                ),
+              };
+            case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLOSED:
+              return {
+                handled: o(
+                  "WAWebSwNotificationBannerRegistry",
+                ).handleSwNotificationBannerClose(
+                  i == null ? void 0 : i.bannerKey,
+                ),
+              };
             default:
               return (m || (m = n("Promise"))).reject(
                 r("err")("Invalid Action: " + a),

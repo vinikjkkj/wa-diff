@@ -12,6 +12,7 @@ __d(
     "WAWebNotificationsDeviceSwitchNotification",
     "WAWebNotificationsReactionNotification",
     "WAWebNotificationsStatusReactionNotification",
+    "WAWebNotificationsTestNotification",
     "WAWebPollsVoteNotification",
     "WAWebStatusNotification",
     "WAWebVoiceChatWaveNotification",
@@ -83,7 +84,14 @@ __d(
         ).WADeviceSwitchNotification)(e),
       );
     }
-    function _(e) {
+    function _() {
+      return o(
+        "WAWebNotificationController",
+      ).WANotificationController.triggerNotification(
+        new (o("WAWebNotificationsTestNotification").WATestNotification)(),
+      );
+    }
+    function f(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -92,7 +100,7 @@ __d(
         ).WACallAcceptedElsewhereNotification)(e),
       );
     }
-    function f(e) {
+    function g(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -101,14 +109,14 @@ __d(
         ),
       );
     }
-    function g(e) {
+    function h(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
         new (o("WAWebWaitingRoomNotification").WAWaitingRoomNotification)(e),
       );
     }
-    function h(e) {
+    function y(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -117,7 +125,7 @@ __d(
         ),
       );
     }
-    function y(e) {
+    function C(e) {
       var t = new (o("WAWebAiHandoffNotification").AiHandoffNotification)({
         chat: e,
       });
@@ -128,24 +136,24 @@ __d(
         ).WANotificationController.triggerNotification(t)
       );
     }
-    function C() {
+    function b() {
       o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelAllNotifications();
     }
-    function b(e) {
+    function v(e) {
       o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelNotificationsForChat(e);
     }
-    function v(e) {
+    function S(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
         new (o("WAWebStatusNotification").WAStatusNotification)({ msg: e }),
       );
     }
-    function S(e) {
+    function R(e) {
       o("WAWebNotificationController").WANotificationController.setAppContext(
         e,
       );
@@ -156,15 +164,16 @@ __d(
       (l.removeCommentNotification = d),
       (l.showPollVoteNotification = m),
       (l.showDeviceSwitchNotification = p),
-      (l.showCallAcceptedElsewhereNotification = _),
-      (l.showCallLinkJoinedNotification = f),
-      (l.showWaitingRoomNotification = g),
-      (l.showVoiceChatWaveNotification = h),
-      (l.showAiHandoffNotification = y),
-      (l.shutdownAsNeeded = C),
-      (l.closeNotifications = b),
-      (l.showStatusNotification = v),
-      (l.setAppContext = S));
+      (l.showTestNotification = _),
+      (l.showCallAcceptedElsewhereNotification = f),
+      (l.showCallLinkJoinedNotification = g),
+      (l.showWaitingRoomNotification = h),
+      (l.showVoiceChatWaveNotification = y),
+      (l.showAiHandoffNotification = C),
+      (l.shutdownAsNeeded = b),
+      (l.closeNotifications = v),
+      (l.showStatusNotification = S),
+      (l.setAppContext = R));
   },
   98,
 );

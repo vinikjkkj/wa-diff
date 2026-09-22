@@ -33,8 +33,12 @@ __d(
           return navigator.onLine;
         },
         timers: {
-          clearInterval: window.clearInterval.bind(window),
-          clearTimeout: window.clearTimeout.bind(window),
+          clearInterval: function (t) {
+            return window.clearInterval(t != null ? t : void 0);
+          },
+          clearTimeout: function (t) {
+            return window.clearTimeout(t != null ? t : void 0);
+          },
           setInterval: window.setInterval.bind(window),
           setTimeout: window.setTimeout.bind(window),
         },

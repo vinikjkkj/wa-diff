@@ -29,7 +29,7 @@ __d(
           var n = o("WAJids").toNewsletterJid(t.id.toJid());
           try {
             (yield o("WAWebNewsletterDeleteJob").deleteNewsletter(n),
-              o(
+              yield o(
                 "WAWebNewsletterBridgeApi",
               ).NewsletterBridgeApi.deleteNewsletter({
                 id: t.id,

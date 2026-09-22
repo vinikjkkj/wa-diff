@@ -11,38 +11,46 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = _(o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow),
-            t = e.itemsToWrite;
-          yield o("WAWebApiLocalStorage").updateLocalStorage(t);
-        })),
-        c.apply(this, arguments)
-      );
-    }
+    var e,
+      s,
+      u = "push-offline-resume-treatment",
+      c = "treatment-v1";
     function d() {
       return m.apply(this, arguments);
     }
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = _(o("WAWebUserPrefsMeUser").getMaybeMeDisplayName),
-            t = e.itemsToWrite,
-            n = e.keysToRemove;
-          yield o("WAWebApiLocalStorage").applyLocalStorageChanges(t, n);
+          var e = h(o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow),
+            t = e.itemsToWrite;
+          yield o("WAWebApiLocalStorage").updateLocalStorage(t, [u]);
         })),
         m.apply(this, arguments)
       );
     }
-    function p() {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e === void 0 && (e = !1);
+          var t = h(o("WAWebUserPrefsMeUser").getMaybeMeDisplayName),
+            n = t.itemsToWrite,
+            r = t.keysToRemove;
+          (e && n.push({ key: u, value: c }),
+            yield o("WAWebApiLocalStorage").applyLocalStorageChanges(n, r));
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f() {
       return o("WAWebApiLocalStorage").clearLocalStorage();
     }
-    function _(t) {
+    function g() {
+      return o("WAWebApiLocalStorage").applyLocalStorageChanges([], [u]);
+    }
+    function h(t) {
       var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
         a = [{ key: "lidDeviceJid", value: n.toString() }],
         i = [],
@@ -86,9 +94,10 @@ __d(
         { itemsToWrite: a, keysToRemove: i }
       );
     }
-    ((l.setWorkerLocalStorage = u),
-      (l.setWorkerLocalStorageForOfflineResume = d),
-      (l.clearWorkerLocalStorage = p));
+    ((l.setWorkerLocalStorage = d),
+      (l.setWorkerLocalStorageForOfflineResume = p),
+      (l.clearWorkerLocalStorage = f),
+      (l.clearWorkerPushOfflineResumeTreatment = g));
   },
   98,
 );

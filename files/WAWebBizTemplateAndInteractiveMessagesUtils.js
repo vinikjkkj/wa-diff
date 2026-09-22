@@ -1,28 +1,34 @@
 __d(
   "WAWebBizTemplateAndInteractiveMessagesUtils",
-  ["WAWebABProps", "WAWebInteractiveMessagesNativeFlowName", "WAWebMsgGetters"],
+  [
+    "WALogger",
+    "WAWebABProps",
+    "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMsgGetters",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 10,
-      u = 3,
-      c = [
-        (e = r("WAWebInteractiveMessagesNativeFlowName")).QUICK_REPLY,
-        e.CTA_CALL,
-        e.CTA_URL,
-        e.CTA_CATALOG,
-        e.CATALOG_MESSAGE,
-        e.CTA_COPY_CODE,
-        e.CTA_FLOW,
-        e.ORDER_STATUS,
-        e.PAYMENT_REMINDER,
-        e.BOOKING_CONFIRMATION,
-        e.PAYMENT_REQUEST,
-        e.API_SIGNUP,
-        e.INAPP_SIGNUP,
-        e.CTA_APP,
-        e.FORM_MESSAGE,
+      s,
+      u = 10,
+      c = 3,
+      d = [
+        (s = r("WAWebInteractiveMessagesNativeFlowName")).QUICK_REPLY,
+        s.CTA_CALL,
+        s.CTA_URL,
+        s.CTA_CATALOG,
+        s.CATALOG_MESSAGE,
+        s.CTA_COPY_CODE,
+        s.CTA_FLOW,
+        s.ORDER_STATUS,
+        s.PAYMENT_REMINDER,
+        s.BOOKING_CONFIRMATION,
+        s.PAYMENT_REQUEST,
+        s.API_SIGNUP,
+        s.INAPP_SIGNUP,
+        s.CTA_APP,
+        s.FORM_MESSAGE,
       ];
-    function d(e) {
+    function m(e) {
       return e === "review_and_pay"
         ? r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
         : e === "payment_info"
@@ -98,14 +104,14 @@ __d(
                                                       ).FORM_MESSAGE
                                                   : void 0;
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       return o("WAWebMsgGetters").isBizSourceFromMarketingMessage(n)
         ? o("WAWebABProps").getABPropConfigValue(
             "web_premium_messages_interactivity_rendering_enabled",
           )
         : (n === "quoted_carousel_card" &&
               e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY) ||
-            f(e)
+            y(e)
           ? !0
           : t === !0
             ? o("WAWebABProps").getABPropConfigValue(
@@ -113,7 +119,7 @@ __d(
               )
             : !1;
     }
-    var p = function (t) {
+    var _ = function (t) {
       return t.hydratedTemplateButton != null
         ? t.hydratedTemplateButton.quickReplyButton != null
         : t.nativeFlowButton != null
@@ -121,29 +127,56 @@ __d(
             String(r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY)
           : !1;
     };
-    function _(e) {
-      if (e.length === 0) return !1;
-      var t = p(e[0]),
-        n = t ? s : u;
-      return (
-        e.length > n ||
-        !e.slice(1).every(function (e) {
-          var n,
-            r = p(e),
-            o = (n = e.nativeFlowButton) == null ? void 0 : n.name,
-            a = d(o),
-            i = a != null ? c.includes(a) : !0;
-          return i && t === r;
-        })
-      );
-    }
     function f(e) {
-      return c.includes(e);
+      if (e.length === 0) return !1;
+      var t = _(e[0]),
+        n = e[0].hydratedTemplateButton != null;
+      return g(e, n, t)
+        ? !0
+        : !e.slice(1).every(function (e) {
+            return h(e, n, t);
+          });
     }
-    ((l.supportedNativeFlowButtonNamesForInteractiveMsg = c),
-      (l.getNativeFlowNameByButtonName = d),
-      (l.isInteractiveCtaMessageEnabled = m),
-      (l.buttonsViolateButtonImprovementsConstraints = _));
+    function g(t, n, r) {
+      if (n) {
+        var a = t.filter(_).length,
+          i = t.length - a,
+          l = t.length > u || i > c;
+        return (
+          l &&
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Template button limits exceeded: total=",
+                    ", cta=",
+                    "",
+                  ])),
+                t.length,
+                i,
+              )
+              .sendLogs("template-button-limit-exceeded"),
+          l
+        );
+      }
+      var s = r ? u : c;
+      return t.length > s;
+    }
+    function h(e, t, n) {
+      var r,
+        o = _(e),
+        a = (r = e.nativeFlowButton) == null ? void 0 : r.name,
+        i = m(a),
+        l = i != null ? d.includes(i) : !0;
+      return l && (t || n === o);
+    }
+    function y(e) {
+      return d.includes(e);
+    }
+    ((l.supportedNativeFlowButtonNamesForInteractiveMsg = d),
+      (l.getNativeFlowNameByButtonName = m),
+      (l.isInteractiveCtaMessageEnabled = p),
+      (l.buttonsViolateButtonImprovementsConstraints = f));
   },
   98,
 );

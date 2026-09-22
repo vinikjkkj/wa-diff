@@ -83,7 +83,10 @@ __d(
           else {
             var a = yield o(
               "WAWebCreateEncryptedEventResponseMsgData",
-            ).createEncryptedEventResponseMsgData(t, e.eventCreationMsg);
+            ).createEncryptedEventResponseMsgData(
+              t,
+              e.eventCreationMsg.unsafe(),
+            );
             n = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(a);
           }
           if (

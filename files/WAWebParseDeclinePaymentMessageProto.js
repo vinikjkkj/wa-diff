@@ -31,7 +31,7 @@ __d(
           "parseProtocolMessageProto: no message key is defined for decline payment request message",
         );
       var n = e.id;
-      if (!n)
+      if (n == null || n === "")
         throw r("err")(
           "parseProtocolMessageProto: no message id is defined for decline payment request message",
         );

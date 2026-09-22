@@ -33,6 +33,7 @@ __d(
     "WAWebHandlePlaceholderWam",
     "WAWebLinkify",
     "WAWebMessageAssociationUIUpdateFromStorage",
+    "WAWebMmSignalSharingExpirationWindowWorker",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -160,6 +161,18 @@ __d(
                     ).replaceUnknownAssociations(U),
                   ),
                 yield (g || (g = n("Promise"))).all(q),
+                yield o(
+                  "WAWebMmSignalSharingExpirationWindowWorker",
+                ).persistPendingMmSignalSharingExpirationWindows(
+                  t.map(function (e) {
+                    var t = e.id;
+                    return t.toString();
+                  }),
+                  [].concat(W, S, $).map(function (e) {
+                    var t = e.id;
+                    return t.toString();
+                  }),
+                ),
                 yield h(x));
               var V = yield o("WAWebAddonProcessMsgs").processMsgsAndGetOrphans(
                   M,

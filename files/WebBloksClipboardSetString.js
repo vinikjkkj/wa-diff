@@ -5,7 +5,12 @@ __d(
     function e(e, t) {
       var n = window.navigator;
       n && n.clipboard && "writeText" in n.clipboard
-        ? n.clipboard.writeText(t)
+        ? n.clipboard.writeText(t).catch(function (t) {
+            e.bloksContext.objectSet.environment.logger.warn(
+              "clipboard.SetString failed to write to the clipboard",
+              t instanceof Error ? t : String(t),
+            );
+          })
         : l(t) ||
           e.bloksContext.objectSet.environment.logger.warn(
             "clipboard.SetString not supported on this browser",

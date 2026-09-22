@@ -31,6 +31,7 @@ __d(
     "cr:696703",
     "err",
     "fb-error",
+    "getErrorSafe",
     "gkx",
     "ifRequireable",
     "ifRequired",
@@ -245,7 +246,7 @@ __d(
               function () {
                 (I.set(e, s),
                   r("FBLogger")("bootloader")
-                    .catching(l)
+                    .catching(r("getErrorSafe")(l))
                     .warn(
                       "JS loading error [%s] at %s | time: %s | retries: %s | concurrency: %s",
                       e,

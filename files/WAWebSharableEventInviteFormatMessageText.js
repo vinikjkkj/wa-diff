@@ -16,7 +16,7 @@ __d(
           o("WAWebFrontendMsgGetters").getAsSharableEventInvite(t),
         );
       if (n.formatAsLastMsg === !0)
-        return o("WAWebMsgGetters").getIsSentByMe(a)
+        return o("WAWebMsgGetters").getIsSentByMe(t)
           ? s._(/*BTDS*/ "sent an event invitation: {event-title}", [
               s._param("event-title", a.sharableEventInviteTitle),
             ])

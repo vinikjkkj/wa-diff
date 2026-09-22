@@ -81,7 +81,7 @@ __d(
           ));
       }
     }
-    l.requestNotificationsPermission = u;
+    ((l.requestNotificationsPermission = u), (l.openOwnedGuidePopup = c));
   },
   98,
 );

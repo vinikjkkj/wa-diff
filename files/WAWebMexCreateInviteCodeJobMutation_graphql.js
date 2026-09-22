@@ -21,6 +21,13 @@ __d(
                 name: "code",
                 storageKey: null,
               },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "error_reason",
+                storageKey: null,
+              },
             ],
             storageKey: null,
           },
@@ -43,7 +50,7 @@ __d(
           selections: t,
         },
         params: {
-          id: "26155584267463745",
+          id: "28250338504572715",
           metadata: {},
           name: "WAWebMexCreateInviteCodeJobMutation",
           operationKind: "mutation",

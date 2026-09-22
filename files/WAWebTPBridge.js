@@ -88,15 +88,18 @@ __d(
             l = a.timeoutMs,
             s = null,
             u = function (r) {
-              (s != null &&
-                (e.$6.delete(s), window.clearTimeout(s), (s = null)),
-                n(r));
+              if (s != null) {
+                var t = s;
+                (e.$6.delete(t), window.clearTimeout(t), (s = null));
+              }
+              n(r);
             };
           this.$7.once(t, u);
           var c = function () {
-            (e.$7.off(t, u),
-              s != null &&
-                (e.$6.delete(s), window.clearTimeout(s), (s = null)));
+            if ((e.$7.off(t, u), s != null)) {
+              var n = s;
+              (e.$6.delete(n), window.clearTimeout(n), (s = null));
+            }
           };
           return (
             l > 0 &&

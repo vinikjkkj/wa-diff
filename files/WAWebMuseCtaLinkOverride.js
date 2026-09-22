@@ -17,9 +17,31 @@ __d(
       }
     }
     function c(e) {
-      return e != null && u(e) && !r("justknobx")._("5912") ? s : e;
+      try {
+        var t = new URL(e);
+        if (
+          t.protocol !== "whatsapp:" ||
+          t.hostname.toLowerCase() !== "hatch" ||
+          (t.pathname !== "" && t.pathname !== "/")
+        )
+          return !1;
+        var n = t.searchParams.get("link_to_open");
+        return n == null || new URL(n).protocol.toLowerCase() === "hatch:";
+      } catch (e) {
+        return !1;
+      }
     }
-    l.overrideCtaUrlIfNeeded = c;
+    function d(e) {
+      return u(e) || c(e) ? s : null;
+    }
+    function m(e) {
+      if (e != null) {
+        var t = d(e);
+        if (t != null && !r("justknobx")._("5912")) return t;
+      }
+      return e;
+    }
+    l.overrideCtaUrlIfNeeded = m;
   },
   98,
 );

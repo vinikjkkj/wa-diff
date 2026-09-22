@@ -246,8 +246,8 @@ __d(
           cancelText: s._(/*BTDS*/ "Cancel"),
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(),
-              S({ catalog: t, collection: n, context: a }).catch(function (t) {
-                return o("WAFilteredCatch").filteredCatch(
+              S({ catalog: t, collection: n, context: a }).catch(
+                o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
                   function (t) {
                     return (
@@ -273,8 +273,8 @@ __d(
                       !1
                     );
                   },
-                )(t);
-              }));
+                ),
+              ));
           },
           onCancel: o("WAWebModalManager").closeModalManager,
           children: m.jsx("div", {

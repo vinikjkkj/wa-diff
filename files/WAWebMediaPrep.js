@@ -746,6 +746,7 @@ __d(
                       messageSendResult: o("WAWebMediaPrepHelpers").errorUpload(
                         O,
                       ),
+                      msg: O,
                     };
                   case o("WAWebMediaTypes").UploadStage.ERROR_MISSING:
                     return (
@@ -754,6 +755,7 @@ __d(
                       {
                         messageSendResult: o("WAWebSendMsgResultAction")
                           .SendMsgResult.ERROR_EXPIRED,
+                        msg: O,
                       }
                     );
                   default:
@@ -764,6 +766,7 @@ __d(
                     messageSendResult: o("WAWebMediaPrepHelpers").errorUpload(
                       O,
                     ),
+                    msg: O,
                   }
                 : r != null
                   ? O != null

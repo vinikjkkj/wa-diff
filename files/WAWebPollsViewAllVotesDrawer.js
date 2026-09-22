@@ -213,7 +213,7 @@ __d(
                   "WAWebPollOptionsRenderUtils",
                 ).getIsCorrectOption(i.correctOptionIndex, C),
                 hideVoterNames:
-                  o("WAWebMsgGetters").getPollHideVoterNames(i) === !0,
+                  o("WAWebMsgGetters").getPollHideVoterNames(i.unsafe()) === !0,
               }),
             }),
           ],

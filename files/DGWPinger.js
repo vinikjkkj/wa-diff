@@ -38,7 +38,7 @@ __d(
         (t.reset = function () {
           var e = this;
           ((this.$3 = !0),
-            this.$2 &&
+            this.$2 != null &&
               (this.$6.bumpODSKey(
                 o("IDGWLoggingContext").DGWLoggingComponent.PINGER,
                 "reset",
@@ -55,7 +55,7 @@ __d(
               }, this.$1))));
         }),
         (t.cancel = function () {
-          this.$2 &&
+          this.$2 != null &&
             (this.$6.bumpODSKey(
               o("IDGWLoggingContext").DGWLoggingComponent.PINGER,
               "canceled",

@@ -1026,14 +1026,22 @@ __d(
                 s.callId,
               ));
           var d = o("WAWebVoipGatingUtils").isWebTransportEnabled();
+          o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
+            s.isGroupCall === !0,
+          );
+          var m =
+            s.isGroupCall === !0 &&
+            d &&
+            !o("WAWebVoipGatingUtils").isWebTransportEnabled();
           if (
-            (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
-              s.isGroupCall === !0,
-            ),
-            Le(c, u, typeof s.callId == "string" ? s.callId : null),
+            (Le(c, u, typeof s.callId == "string" ? s.callId : null),
             o("WAWebVoipWebTransportCallSummary").recordWtCallState(l),
             Re(c),
-            d && !o("WAWebVoipGatingUtils").isWebTransportEnabled())
+            o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+              (l === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
+                l === o("WAWebVoipWaCallEnums").CallState.AcceptReceived) &&
+              o("WAWebVoipWebTransportConnectionManager").handleCallAccepted(),
+            m)
           ) {
             (o("WALogger").LOG(
               I ||
@@ -1057,11 +1065,11 @@ __d(
               o("WAWebVoipWebTransportConnectionManager").closeAllConnections(
                 !1,
               ));
-            var m = Y.cachedRelayListData;
-            m != null &&
+            var p = Y.cachedRelayListData;
+            p != null &&
               (o("WAWebVoipTransportFallbackTracker").markFallbackSctpStarted(),
               o("WAWebVoipSctpConnectionManager")
-                .handleRelayListUpdate(m)
+                .handleRelayListUpdate(p)
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
@@ -1084,10 +1092,10 @@ __d(
               .catching(r("getErrorSafe")(e));
           }),
             ce({ callInfo: s, callState: l, voipStackInterface: a }));
-          var p = o(
+          var _ = o(
             "WAWebVoipThreadPoolManagerRegistry",
           ).getVoipThreadPoolManager();
-          (p == null || p.onCallStateChanged(l),
+          (_ == null || _.onCallStateChanged(l),
             a.type === "web" && ae(l, s),
             o("WAWebVoipCallStateUtils").isCallTerminal(l) ||
               (o("WAWebBackendApi").frontendFireAndForget(
@@ -1102,11 +1110,11 @@ __d(
                 "startUiActivityTracking",
                 {},
               )));
-          var _ = G(l);
+          var f = G(l);
           if (
             (o("WAWebBackendApi").frontendFireAndForget(
               "trackVoipCallStateChange",
-              { stateName: _ },
+              { stateName: f },
             ),
             o("WAWebBackendApi").frontendFireAndForget("setCallState", {
               callState: l,
@@ -1115,29 +1123,29 @@ __d(
             l === o("WAWebVoipWaCallEnums").CallState.CallActive)
           )
             try {
-              var f = i.call_info.callId;
-              z = f;
-              var g = o("WAWebABProps").getABPropConfigValue(
+              var g = i.call_info.callId;
+              z = g;
+              var h = o("WAWebABProps").getABPropConfigValue(
                   "web_voip_dynamic_thread_preallocate_count",
                 ),
-                h = o("WAWebVoipGatingUtils").isWebKitBrowser(),
-                y =
-                  g > 0 && !h
-                    ? g
-                    : "disabled(webkit=" + String(h) + ", count=" + g + ")",
-                C = o("WAWebABProps").getABPropConfigValue(
+                y = o("WAWebVoipGatingUtils").isWebKitBrowser(),
+                C =
+                  h > 0 && !y
+                    ? h
+                    : "disabled(webkit=" + String(y) + ", count=" + h + ")",
+                b = o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_proxy_and_sctp_workers",
                 ),
-                b = o("WAWebABProps").getABPropConfigValue(
+                v = o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_dynamic_fps_throttle",
                 ),
-                v = o("WAWebABProps").getABPropConfigValue(
+                S = o("WAWebABProps").getABPropConfigValue(
                   "web_calling_perf_optimizations_bitmask",
                 ),
-                S = o("WAWebABProps").getABPropConfigValue(
+                R = o("WAWebABProps").getABPropConfigValue(
                   "web_voip_audio_capture_impl",
                 ),
-                R = o("WAWebABProps").getABPropConfigValue(
+                L = o("WAWebABProps").getABPropConfigValue(
                   "web_voip_audio_playback_impl",
                 );
               (o("WALogger").LOG(
@@ -1149,10 +1157,10 @@ __d(
                     " perfBits=",
                     "",
                   ])),
-                C,
-                !0,
                 b,
+                !0,
                 v,
+                S,
               ),
                 o("WALogger").LOG(
                   $ ||
@@ -1162,12 +1170,12 @@ __d(
                       " dynPool=",
                       "",
                     ])),
-                  S,
                   R,
-                  y,
+                  L,
+                  C,
                 ),
-                o("WAWebVoipCrashRecovery").markCallActive(f),
-                o("WAWebVoipCrashRecovery").registerGracefulExitHandler(f),
+                o("WAWebVoipCrashRecovery").markCallActive(g),
+                o("WAWebVoipCrashRecovery").registerGracefulExitHandler(g),
                 o("WAWebVoipFocusTracker").startVoipFocusTracking(),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "reloadVideoEnhancement",
@@ -1177,7 +1185,7 @@ __d(
                   o("WAWebBackendApi")
                     .frontendSendAndReceive("initializeVoipWasm")
                     .then(function (e) {
-                      z === f &&
+                      z === g &&
                         o("WAWebVoipPersistentFS").startPeriodicVoipSync(e);
                     })
                     .catch(function (e) {
@@ -1194,8 +1202,8 @@ __d(
                 o("WAWebVoipWindowMetrics").startWindowMetrics(),
                 o("WAWebVoipBatteryDiagnostics").startBatteryDiagnostics(),
                 (Y.callIsActive = !0));
-              var L = s.linkToken != null && s.linkToken !== "";
-              (L &&
+              var E = s.linkToken != null && s.linkToken !== "";
+              (E &&
                 s.videoEnabled &&
                 a.type === "web" &&
                 a.broadcastVideoState().catch(function (e) {
@@ -1231,9 +1239,9 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e));
             }
-          var E = o("WAWebVoipCallStateUtils").isCallTerminal(l);
+          var k = o("WAWebVoipCallStateUtils").isCallTerminal(l);
           if (
-            (E &&
+            (k &&
               i.call_info.callDuration === 0 &&
               o(
                 "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
@@ -1248,10 +1256,10 @@ __d(
               o("WAWebVoipQplHelpers").VoipEndCallQplPoint.CLEANUP_START,
             ),
               o("WAWebVoipErrorLogUpload").captureWamCallResult(e));
-            var k = z != null ? z : "unknown";
+            var A = z != null ? z : "unknown";
             ((z = null),
               o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
-              o("WAWebVoipCrashRecovery").clearExitMarkers(k),
+              o("WAWebVoipCrashRecovery").clearExitMarkers(A),
               o("WAWebVoipCrashRecovery").unregisterGracefulExitHandler(),
               o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),
               o("WAWebVoipBrowserMetrics").stopBrowserMetrics(),

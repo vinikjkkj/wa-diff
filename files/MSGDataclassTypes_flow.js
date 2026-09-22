@@ -261,11 +261,11 @@ __d(
       }),
       Re = e({ Comparison: "COMPARISON", Segmented: "SEGMENTED" }),
       Le = e({
+        AiGray: "AI_GRAY",
         Blue: "BLUE",
         Cyan: "CYAN",
         Green: "GREEN",
         Indigo: "INDIGO",
-        MetaGray: "META_GRAY",
         Olive: "OLIVE",
         Orange: "ORANGE",
         Pink: "PINK",

@@ -22,7 +22,7 @@ __d(
       var e = o(
         "WAWebMuteCollection",
       ).MuteCollection.getGlobalOfflineNotifications();
-      return ((e = _(e)), e);
+      return ((e = f(e)), e);
     }
     function d(e) {
       return m.apply(this, arguments);
@@ -46,44 +46,43 @@ __d(
       );
     }
     function p() {
+      return (_(), (u || (u = n("Promise"))).resolve());
+    }
+    function _() {
       var e,
         t = r("WAWebFbtCommon")("WhatsApp"),
-        a = s._(/*BTDS*/ "Syncing messages in the background"),
-        i = s._(/*BTDS*/ "Syncing messages complete"),
-        l;
+        n = s._(/*BTDS*/ "Syncing messages in the background"),
+        a = s._(/*BTDS*/ "Syncing messages complete"),
+        i;
       o("WAWebPushNotificationsGatingUtils").canSupportNotificationActions() &&
-        (l = s._(/*BTDS*/ "Go to app"));
-      var c = "{name}",
-        d = s._(/*BTDS*/ "Incoming voice call from {name}", [
-          s._param("name", c),
+        (i = s._(/*BTDS*/ "Go to app"));
+      var l = "{name}",
+        u = s._(/*BTDS*/ "Incoming voice call from {name}", [
+          s._param("name", l),
         ]),
-        m = s._(/*BTDS*/ "Incoming video call from {name}", [
-          s._param("name", c),
+        c = s._(/*BTDS*/ "Incoming video call from {name}", [
+          s._param("name", l),
         ]),
-        p = s._(/*BTDS*/ "Incoming group voice call from {name}", [
-          s._param("name", c),
+        d = s._(/*BTDS*/ "Incoming group voice call from {name}", [
+          s._param("name", l),
         ]),
-        _ = s._(/*BTDS*/ "Incoming group video call from {name}", [
-          s._param("name", c),
+        m = s._(/*BTDS*/ "Incoming group video call from {name}", [
+          s._param("name", l),
         ]),
-        f = s._(/*BTDS*/ "Open WhatsApp Web to answer this call.");
-      return (
-        o("WAWebUserPrefsGeneral").setOfflineNotificationContent({
-          notificationTitle: t.toString(),
-          notificationText: a.toString(),
-          notificationSyncCompleteText: i.toString(),
-          notificationSettingActionText:
-            (e = l) == null ? void 0 : e.toString(),
-          callNotification1on1AudioTitle: d.toString(),
-          callNotification1on1VideoTitle: m.toString(),
-          callNotificationGroupAudioTitle: p.toString(),
-          callNotificationGroupVideoTitle: _.toString(),
-          callNotificationBody: f.toString(),
-        }),
-        (u || (u = n("Promise"))).resolve()
-      );
+        p = s._(/*BTDS*/ "Open WhatsApp Web to answer this call.");
+      return o("WAWebUserPrefsGeneral").setOfflineNotificationContent({
+        notificationTitle: t.toString(),
+        notificationText: n.toString(),
+        notificationSyncCompleteText: a.toString(),
+        notificationSettingActionText: (e = i) == null ? void 0 : e.toString(),
+        callNotification1on1AudioTitle: u.toString(),
+        callNotification1on1VideoTitle: c.toString(),
+        callNotificationGroupAudioTitle: d.toString(),
+        callNotificationGroupVideoTitle: m.toString(),
+        callNotificationBody: p.toString(),
+      });
     }
-    function _(t) {
+    function f(t) {
       var n;
       return !t &&
         ((n = window.Notification) == null ? void 0 : n.permission) ===
@@ -113,7 +112,8 @@ __d(
     }
     ((l.isOfflineNotificationsEnabled = c),
       (l.shouldSubscribePushManager = d),
-      (l.updateOfflineNotificationL10nStrings = p));
+      (l.updateOfflineNotificationL10nStrings = p),
+      (l.updateOfflineNotificationL10nStringsForOfflineResume = _));
   },
   226,
 );

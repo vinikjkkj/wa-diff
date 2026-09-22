@@ -3,9 +3,16 @@ __d(
   ["WAWebEnvironment", "WAWebNotificationConstants", "WAWebUA"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return u() && !r("WAWebEnvironment").isWindows;
+      return c() && !r("WAWebEnvironment").isWindows;
     }
-    function s(e, t) {
+    function s() {
+      var e;
+      return (
+        ((e = globalThis.Notification) == null ? void 0 : e.permission) ===
+        o("WAWebNotificationConstants").PERMISSION_ALLOWED
+      );
+    }
+    function u(e, t) {
       return (
         e === o("WAWebNotificationConstants").PERMISSION_DEFAULT ||
         (e === o("WAWebNotificationConstants").PERMISSION_DENIED &&
@@ -16,7 +23,7 @@ __d(
             o("WAWebUA").UA.browser === "opera"))
       );
     }
-    function u() {
+    function c() {
       try {
         var e =
           o("WAWebUA").UA.isSafari &&
@@ -26,7 +33,7 @@ __d(
         return !1;
       }
     }
-    function c() {
+    function d() {
       try {
         var e =
           o("WAWebUA").UA.isSafari ||
@@ -38,14 +45,15 @@ __d(
         return !1;
       }
     }
-    function d() {
+    function m() {
       return !(o("WAWebUA").UA.isSafari || o("WAWebUA").UA.isFirefox);
     }
     ((l.canEnableOfflineNotifications = e),
-      (l.canShowNotificationsBanner = s),
-      (l.canSupportOfflineNotifications = u),
-      (l.canSupportPeriodicBackgroundSync = c),
-      (l.canSupportNotificationActions = d));
+      (l.isNotificationPermissionGranted = s),
+      (l.canShowNotificationsBanner = u),
+      (l.canSupportOfflineNotifications = c),
+      (l.canSupportPeriodicBackgroundSync = d),
+      (l.canSupportNotificationActions = m));
   },
   98,
 );

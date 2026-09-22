@@ -13,7 +13,7 @@ __d(
         n = e.options,
         a = r("nullthrows")(o("WAWebFrontendMsgGetters").getAsEventCreation(t));
       if (n.formatAsLastMsg === !0)
-        return o("WAWebMsgGetters").getIsSentByMe(a)
+        return o("WAWebMsgGetters").getIsSentByMe(t)
           ? s._(/*BTDS*/ "created an event: {event-name}", [
               s._param("event-name", a.eventName),
             ])

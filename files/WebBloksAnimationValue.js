@@ -42,7 +42,7 @@ __d(
           return (e = this.$2) != null ? e : 0;
         }),
         (t.setCurrentTime = function (t) {
-          ((this.$2 = t), (this.$1 = window.performance.now() - this.$2));
+          ((this.$2 = t), (this.$1 = window.performance.now() - t));
         }),
         (t.calculateTimelineAnimatedValue = function (t) {
           var e = this.animation,

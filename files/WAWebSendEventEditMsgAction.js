@@ -85,7 +85,7 @@ __d(
             ),
             C = yield o(
               "WAWebCreateEncryptedEventEditMsgData",
-            ).createEncryptedEventEditMsgData(y, t),
+            ).createEncryptedEventEditMsgData(y, t.unsafe()),
             b = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(C);
           if (
             b.messageSendResult !==

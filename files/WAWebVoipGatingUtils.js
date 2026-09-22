@@ -517,6 +517,9 @@ __d(
         "documentPictureInPicture" in window && !o("WAWebUA").UA.isBrokenDocPip
       );
     }
+    function Ie() {
+      return r("justknobx")._("4943");
+    }
     ((l.isWebKitBrowser = g),
       (l.shouldUsePortalModeForSafari = y),
       (l.getCrossOriginIsolatedState = C),
@@ -575,7 +578,8 @@ __d(
       (l.isPopoutReuseCaptureEnabled = Re),
       (l.doesPopoutEndMainWindowScreenShare = Le),
       (l.isScreenShareDualStreamAppUpdateDialogEnabled = Ee),
-      (l.isDocPipEnabled = ke));
+      (l.isDocPipEnabled = ke),
+      (l.areRichCallNotificationsEnabled = Ie));
   },
   98,
 );

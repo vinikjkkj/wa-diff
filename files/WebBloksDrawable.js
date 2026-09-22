@@ -32,7 +32,8 @@ __d(
       T = o("WebBloksModel").defineWebBloksAttributeKey("#"),
       D = o("WebBloksModel").defineWebBloksAttributeKey("$");
     function x(e) {
-      return [1, void 0, !0].includes(e);
+      var t = [1, void 0, !0];
+      return t.includes(e);
     }
     function $(e, t, n) {
       var r = o("react-compiler-runtime").c(5),

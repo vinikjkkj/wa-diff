@@ -10,45 +10,53 @@ __d(
     "WAWebCoexV2ProtoSanitize",
     "WAWebCoexV2RelayEligibility",
     "WAWebCommsWapMd",
-    "WAWebE2EProtoGenerator",
     "WAWebEncryptMsgProtobuf",
     "WAWebManageE2ESessionsJob",
     "WAWebMsgGetters",
     "WAWebSessionScope",
+    "WAWebSimpleSignalPNToFBIDMigration",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e, s;
+    function u(e) {
       var t = e.agentCopies,
         n = e.agentEngagementType,
-        r = e.isFeedback,
-        o = e.msg,
-        a = e.personaType,
-        i = e.plan;
-      if (i == null) return null;
-      var l = t[0];
-      return l == null
-        ? null
-        : {
-            node: m({
-              agentEngagementType: n,
-              agentWids: [l.agentWid],
-              isFeedback: r,
-              personaType: a,
-              selfLid: i.selfLid,
-              sharedEnc: l.sharedEnc,
-            }),
-            seedReceipts: null,
-          };
+        r = e.botAttrs,
+        a = e.isFeedback,
+        i = e.msg,
+        l = e.plan;
+      if (l == null) return null;
+      var s = t[0];
+      if (s == null) return null;
+      var u = C(l),
+        c = u.peerLid,
+        d = u.selfLid,
+        m = b(d, c),
+        p = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
+          s.agentWid,
+        );
+      return {
+        node: g({
+          agentEngagementType: n,
+          botAttrs: r,
+          destinationWids: [d, c, s.agentWid],
+          isFeedback: a,
+          personaType: p != null ? p : null,
+          sharedEnc: s.sharedEnc,
+        }),
+        seedReceipts: function () {
+          return h(i.id.id, m, i.t);
+        },
+      };
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.botAttrs,
             n = e.editType,
             r = e.msg,
@@ -67,40 +75,16 @@ __d(
             : {
                 node: d.node,
                 seedReceipts: function () {
-                  return o(
-                    "WAWebApiCoexV2RelayReceiptStore",
-                  ).createOrMergeCoexV2RelayReceipts(r.id.id, c, r.t);
+                  return h(r.id.id, c, r.t);
                 },
                 shouldHaveIdentity: d.shouldHaveIdentity,
               };
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t, n) {
-      var r = e;
-      return (
-        t.isFbidBot() &&
-          (r = o("WAWebE2EProtoGenerator").updateFbidBotProtobuf(r)),
-        t.isBot() && (r = o("WAWebE2EProtoGenerator").updateBotProtobuf(r)),
-        f(r, o("WAWebMsgGetters").getMessageSecret(n))
-      );
-    }
-    function m(e) {
-      var t = e.agentEngagementType,
-        n = e.agentWids,
-        r = e.isFeedback,
-        o = e.personaType,
-        a = e.selfLid,
-        i = e.sharedEnc;
-      return g({
-        agentEngagementType: t,
-        botAttrs: null,
-        destinationWids: [a].concat(n),
-        isFeedback: r,
-        personaType: o,
-        sharedEnc: i,
-      });
+    function m(e, t) {
+      return f(e, o("WAWebMsgGetters").getMessageSecret(t));
     }
     function p(e, t, n, r, o, a, i) {
       return _.apply(this, arguments);
@@ -214,12 +198,12 @@ __d(
         l = e.sharedEnc,
         s = new Set(),
         u = [];
-      for (var c of r) {
-        var d = o("WAWebCommsWapMd").DEVICE_JID(c),
-          m = d.toString();
-        s.has(m) || (s.add(m), u.push(c));
-      }
-      var p = u.map(function (e) {
+      for (var c of r)
+        if (c != null) {
+          var d = v(c);
+          s.has(d) || (s.add(d), u.push(c));
+        }
+      var m = u.map(function (e) {
         return o("WAWap").wap("to", {
           jid: o("WAWebCommsWapMd").DEVICE_JID(e),
         });
@@ -247,12 +231,74 @@ __d(
             n == null ? void 0 : n.modeSelected,
           ),
         },
-        [].concat(p, [l]),
+        [].concat(m, [l]),
       );
     }
-    ((l.finalizeCoexV2AgentContribution = s),
-      (l.buildCoexV2RelayContribution = u),
-      (l.prepareCoexV2AgentPayload = d),
+    function h(e, t, n) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          try {
+            yield o(
+              "WAWebApiCoexV2RelayReceiptStore",
+            ).createOrMergeCoexV2RelayReceipts(e, t, n);
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[coexv2] failed to seed relay receipt rows",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("coexv2-relay-receipt-seed-failed"),
+              e
+            );
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "user_agent"
+        ) {
+          var t = e;
+          return { peerLid: null, selfLid: t.selfLid };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "invoked_agent"
+        ) {
+          var n = e;
+          return { peerLid: n.relayPlan.peerLid, selfLid: n.relayPlan.selfLid };
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
+    }
+    function b(e, t) {
+      return e == null
+        ? t == null
+          ? []
+          : [t]
+        : t == null || v(e) === v(t)
+          ? [e]
+          : [e, t];
+    }
+    function v(e) {
+      return o("WAWebCommsWapMd").DEVICE_JID(e).toString();
+    }
+    ((l.finalizeCoexV2AgentContribution = u),
+      (l.buildCoexV2RelayContribution = c),
+      (l.prepareCoexV2AgentPayload = m),
       (l.genCoexV2RelayBotNodeForTargets = p));
   },
   98,

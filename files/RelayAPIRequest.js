@@ -130,9 +130,9 @@ __d(
               this.$14 &&
                 this.$14({
                   errorCode: "HTTP_CLIENT_ERROR",
-                  errorType: "HTTP",
                   errorMsg:
                     "No uri provided - make sure RelayAPIConfig is properly setup.",
+                  errorType: "HTTP",
                 }),
               { abort: function () {} }
             );

@@ -13,21 +13,25 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
-      return c.apply(this, arguments);
+    var e,
+      s = "push-offline-resume-treatment",
+      u = "treatment-v1",
+      c;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function c() {
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n;
+          (t === void 0 && (t = {}),
             o("WAWebDexieBootstrap").patchDexie(),
-            s == null &&
+            c == null &&
               (yield o("WAWebDbRolloutUtil").loadSchemaVersions(),
               o("WAWebWorkerStorageUtils").createStorage(),
               o("WAWebSchemaLocalStorage").addTable(),
               o("WAWebSchemaDeferredMessagesStorage").addTable(),
-              (s = o("WAWebWorkerStorageUtils")
+              (c = o("WAWebWorkerStorageUtils")
                 .getStorage()
                 .initialize()
                 .catch(function (t) {
@@ -56,13 +60,25 @@ __d(
                     t
                   );
                 }))),
-            s
-          );
+            yield c);
+          var a = o("WAWebWorkerStorageUtils")
+            .getStorage()
+            .table("local_storage");
+          if (t.clearPushOfflineResumeTreatment === !0) {
+            (yield a.bulkRemove([s]),
+              t.onPushOfflineResumeTreatment == null ||
+                t.onPushOfflineResumeTreatment(!1));
+            return;
+          }
+          t.onPushOfflineResumeTreatment == null ||
+            t.onPushOfflineResumeTreatment(
+              ((n = yield a.get(s)) == null ? void 0 : n.value) === u,
+            );
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function d() {
+    function p() {
       return o("WAWebWorkerStorageUtils")
         .destroyStorage()
         .catch(function () {
@@ -73,12 +89,12 @@ __d(
           );
         })
         .finally(function () {
-          s = null;
+          c = null;
         });
     }
     ((l.getLocalStorageTable = o("WAWebSchemaLocalStorage").getTable),
-      (l.initialize = u),
-      (l.destroy = d));
+      (l.initialize = d),
+      (l.destroy = p));
   },
   98,
 );

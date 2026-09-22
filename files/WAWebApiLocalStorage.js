@@ -14,8 +14,9 @@ __d(
           return e == null ? void 0 : e.value;
         });
     }
-    function s(e) {
-      var t = d(e);
+    function s(e, t) {
+      t === void 0 && (t = []);
+      var r = d(e);
       return o("WAWebWorkerStorageUtils")
         .getStorage()
         .lock(
@@ -23,8 +24,11 @@ __d(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var n = e[0];
-                (yield n.clear(), yield n.bulkCreateOrReplace(t));
+                var n = e[0],
+                  o = [],
+                  a = yield n.bulkGet(t);
+                for (var i of a) i != null && o.push(i);
+                (yield n.clear(), yield n.bulkCreateOrReplace([].concat(o, r)));
               },
             );
             return function (t) {

@@ -2,6 +2,7 @@ __d(
   "WAWebUsernameErrorUtils",
   [
     "$InternalEnum",
+    "WAWebBackendErrors",
     "WAWebFbtCommon",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -26,7 +27,11 @@ __d(
         USERNAME_KEY_REQUESTEE_RATE_LIMITED: 42902,
       });
     function c(e, t) {
-      switch (e.statusCode) {
+      var n =
+        e instanceof o("WAWebBackendErrors").ServerStatusCodeError
+          ? e.statusCode
+          : null;
+      switch (n) {
         case u.USERNAME_CHANGE_BLOCKED:
           d(
             o("WAWebUsernameStringUtils").getUsernameChangeNotAllowedMessage(),

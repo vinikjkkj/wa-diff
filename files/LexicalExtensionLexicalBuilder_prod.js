@@ -43,8 +43,8 @@ __d(
     function s() {
       var t;
       try {
-        t = "0.50.0+prod.cjs";
-      } catch (t) {}
+        t = "0.51.0+prod.cjs";
+      } catch (_unused) {}
       return t != null ? t : '"<unknown>+source"';
     }
     var o = s(),
@@ -67,37 +67,21 @@ __d(
       }
       return e;
     }
-    var c = 0,
-      d = 1,
-      g = 2,
-      h = 3,
-      f = 4,
-      u = 5,
-      l = 6,
-      p = 7;
-    function m(t) {
-      return t.id === c;
+    function c(t) {
+      return 0 === t.id;
     }
-    function x(t) {
-      return t.id === g;
+    function d(t) {
+      return 2 === t.id;
     }
-    function E(t) {
-      return (
-        (function (t) {
-          return t.id === d;
-        })(t) || i(305, String(t.id), String(d)),
-        Object.assign(t, { id: g })
-      );
-    }
-    var S = new Set();
-    var _b = (function () {
-      function b(t, e) {
+    var g = new Set();
+    var _h = (function () {
+      function h(t, e) {
         ((this.builder = t),
           (this.extension = e),
           (this.configs = new Set()),
-          (this.state = { id: c }));
+          (this.state = { id: 0 }));
       }
-      var _proto = b.prototype;
+      var _proto = h.prototype;
       _proto.mergeConfigs = function mergeConfigs() {
         var e = this.extension.config || {};
         var n = this.extension.mergeConfig
@@ -108,7 +92,7 @@ __d(
       };
       _proto.init = function init(t) {
         var e = this.state;
-        x(e) || i(306, String(e.id));
+        d(e) || i(306, String(e.id));
         var n = {
             getDependency: this.getInitDependency.bind(this),
             getDirectDependentNames: this.getDirectDependentNames.bind(this),
@@ -121,19 +105,19 @@ __d(
             getPeer: this.getPeer.bind(this),
           }),
           o = (function (t, e, n) {
-            return Object.assign(t, { config: e, id: h, registerState: n });
+            return Object.assign(t, { config: e, id: 3, registerState: n });
           })(e, this.mergeConfigs(), n);
         var r;
         ((this.state = o),
           this.extension.init && (r = this.extension.init(t, o.config, n)),
           (this.state = (function (t, e, n) {
-            return Object.assign(t, { id: f, initResult: e, registerState: n });
+            return Object.assign(t, { id: 4, initResult: e, registerState: n });
           })(o, r, s)));
       };
       _proto.build = function build(t) {
         var e = this.state;
         var n;
-        (e.id !== f && i(307, String(e.id), String(u)),
+        (4 !== e.id && i(307, String(e.id), String(5)),
           this.extension.build &&
             (n = this.extension.build(t, e.config, e.registerState)));
         var s = babelHelpers["extends"]({}, e.registerState, {
@@ -143,26 +127,26 @@ __d(
           getSignal: this.getSignal.bind(this),
         });
         this.state = (function (t, e, n) {
-          return Object.assign(t, { id: u, output: e, registerState: n });
+          return Object.assign(t, { id: 5, output: e, registerState: n });
         })(e, n, s);
       };
       _proto.register = function register(t, e) {
         var _this = this;
         this._signal = e;
         var n = this.state;
-        n.id !== u && i(308, String(n.id), String(u));
+        5 !== n.id && i(308, String(n.id), String(5));
         var s =
           this.extension.register &&
           this.extension.register(t, n.config, n.registerState);
         return (
           (this.state = (function (t) {
-            return Object.assign(t, { id: l });
+            return Object.assign(t, { id: 6 });
           })(n)),
           function () {
             var t = _this.state;
-            (t.id !== p && i(309, String(n.id), String(p)),
+            (7 !== t.id && i(309, String(n.id), String(7)),
               (_this.state = (function (t) {
-                return Object.assign(t, { id: u });
+                return Object.assign(t, { id: 5 });
               })(t)),
               s && s());
           }
@@ -172,7 +156,7 @@ __d(
         var e = this.state;
         var n;
         return (
-          e.id !== l && i(310, String(e.id), String(l)),
+          6 !== e.id && i(310, String(e.id), String(6)),
           this.extension.afterRegistration &&
             (n = this.extension.afterRegistration(
               t,
@@ -180,7 +164,7 @@ __d(
               e.registerState,
             )),
           (this.state = (function (t) {
-            return Object.assign(t, { id: p });
+            return Object.assign(t, { id: 7 });
           })(e)),
           n
         );
@@ -193,8 +177,8 @@ __d(
         var t = this.state;
         return (
           (function (t) {
-            return t.id >= f;
-          })(t) || i(313, String(t.id), String(f)),
+            return t.id >= 4;
+          })(t) || i(313, String(t.id), String(4)),
           t.initResult
         );
       };
@@ -207,8 +191,8 @@ __d(
           var t = this.state;
           return (
             (function (t) {
-              return t.id >= h;
-            })(t) || i(314, String(t.id), String(h)),
+              return t.id >= 3;
+            })(t) || i(314, String(t.id), String(3)),
             { config: t.config }
           );
         };
@@ -234,13 +218,13 @@ __d(
         var t = this.state;
         return (
           (function (t) {
-            return t.id >= p;
-          })(t) || i(316, String(t.id), String(p)),
+            return t.id >= 7;
+          })(t) || i(316, String(t.id), String(7)),
           t
         );
       };
       _proto.getDirectDependentNames = function getDirectDependentNames() {
-        return this.builder.incomingEdges.get(this.extension.name) || S;
+        return this.builder.incomingEdges.get(this.extension.name) || g;
       };
       _proto.getPeerNameSet = function getPeerNameSet() {
         var t = this._peerNameSet;
@@ -260,7 +244,7 @@ __d(
         if (!this._dependency) {
           var _t4 = this.state;
           ((function (t) {
-            return t.id >= u;
+            return t.id >= 5;
           })(_t4) || i(317, this.extension.name),
             (this._dependency = {
               config: _t4.config,
@@ -270,51 +254,51 @@ __d(
         }
         return this._dependency;
       };
-      return b;
+      return h;
     })();
-    var y = Symbol["for"]("LexicalExtensionLexicalBuilder");
-    function R() {}
-    function v(t) {
+    var f = Symbol["for"]("LexicalExtensionLexicalBuilder");
+    function u() {}
+    function l(t) {
       throw t;
     }
-    function N(t) {
+    function p(t) {
       return Array.isArray(t) ? t : [t];
     }
-    var w = o;
-    var _2 = (function () {
-      function _(t) {
+    var m = o;
+    var _x = (function () {
+      function x(t) {
         ((this.outgoingConfigEdges = new Map()),
           (this.incomingEdges = new Map()),
           (this.extensionNameMap = new Map()),
           (this.conflicts = new Map()),
-          (this.PACKAGE_VERSION = w),
+          (this.PACKAGE_VERSION = m),
           (this.roots = t));
         for (var _e of t) this.addExtension(_e);
       }
-      _.fromExtensions = function fromExtensions(t) {
+      x.fromExtensions = function fromExtensions(t) {
         var e = [
-          N(
+          p(
             require("LexicalExtensionInitialStateExtension")
               .InitialStateExtension,
           ),
         ];
-        for (var _n2 of t) e.push(N(_n2));
-        return new _(e);
+        for (var _n2 of t) e.push(p(_n2));
+        return new x(e);
       };
-      _.maybeFromEditor = function maybeFromEditor(t) {
-        var e = t[y];
+      x.maybeFromEditor = function maybeFromEditor(t) {
+        var e = t[f];
         return (
           e &&
-            (e.PACKAGE_VERSION !== w && i(292, e.PACKAGE_VERSION, w),
-            e instanceof _ || i(293)),
+            (e.PACKAGE_VERSION !== m && i(292, e.PACKAGE_VERSION, m),
+            e instanceof x || i(293)),
           e
         );
       };
-      _.fromEditor = function fromEditor(t) {
-        var e = _.maybeFromEditor(t);
+      x.fromEditor = function fromEditor(t) {
+        var e = x.maybeFromEditor(t);
         return (void 0 === e && i(294), e);
       };
-      var _proto2 = _.prototype;
+      var _proto2 = x.prototype;
       _proto2.constructEditor = function constructEditor() {
         var _Object$assign;
         var _this$buildCreateEdit = this.buildCreateEditorArgs(),
@@ -346,19 +330,19 @@ __d(
                   : {},
               ),
             ),
-            ((_Object$assign = {}), (_Object$assign[y] = this), _Object$assign),
+            ((_Object$assign = {}), (_Object$assign[f] = this), _Object$assign),
           );
         for (var _t5 of this.sortedExtensionReps()) _t5.build(o);
         return o;
       };
       _proto2.buildEditor = function buildEditor() {
         var _Object$assign2;
-        var e = R;
+        var e = u;
         function n() {
           try {
             e();
           } finally {
-            e = R;
+            e = u;
           }
         }
         var i = Object.assign(
@@ -397,19 +381,19 @@ __d(
       };
       _proto2.addExtension = function addExtension(t) {
         void 0 !== this._sortedExtensionReps && i(296);
-        var e = N(t),
+        var e = p(t),
           n = e[0];
         "string" != typeof n.name && i(297, typeof n.name);
         var s = this.extensionNameMap.get(n.name);
         if ((void 0 !== s && s.extension !== n && i(298, n.name), !s)) {
-          ((s = new _b(this, n)), this.extensionNameMap.set(n.name, s));
+          ((s = new _h(this, n)), this.extensionNameMap.set(n.name, s));
           var _t7 = this.conflicts.get(n.name);
           "string" == typeof _t7 && i(299, n.name, _t7);
           for (var _t8 of n.conflictsWith || [])
             (this.extensionNameMap.has(_t8) && i(299, n.name, _t8),
               this.conflicts.set(_t8, n.name));
           for (var _t9 of n.dependencies || []) {
-            var _e2 = N(_t9);
+            var _e2 = p(_t9);
             (this.addEdge(n.name, _e2[0].name, _e2.slice(1)),
               this.addExtension(_e2));
           }
@@ -426,12 +410,12 @@ __d(
         var t = [],
           _e4 = function e(n, s) {
             var o = n.state;
-            if (x(o)) return;
+            if (d(o)) return;
             var r = n.extension.name;
             var a;
-            (m(o) || i(300, r, s || "[unknown]"),
-              m((a = o)) || i(304, String(a.id), String(c)),
-              (o = Object.assign(a, { id: d })),
+            (c(o) || i(300, r, s || "[unknown]"),
+              c((a = o)) || i(304, String(a.id), String(0)),
+              (o = Object.assign(a, { id: 1 })),
               (n.state = o));
             var g = _this2.outgoingConfigEdges.get(r);
             if (g)
@@ -439,10 +423,19 @@ __d(
                 var _n3 = _this2.extensionNameMap.get(_t1);
                 _n3 && _e4(_n3, r);
               }
-            ((o = E(o)), (n.state = o), t.push(n));
+            ((o = (function (t) {
+              return (
+                (function (t) {
+                  return 1 === t.id;
+                })(t) || i(305, String(t.id), String(1)),
+                Object.assign(t, { id: 2 })
+              );
+            })(o)),
+              (n.state = o),
+              t.push(n));
           };
         for (var _t10 of this.extensionNameMap.values())
-          m(_t10.state) && _e4(_t10);
+          c(_t10.state) && _e4(_t10);
         for (var _e5 of t)
           for (var _ref5 of this.outgoingConfigEdges.get(_e5.extension.name) ||
             []) {
@@ -537,11 +530,11 @@ __d(
           g && (t.html["import"] = r),
           h && (t.html["export"] = o));
         for (var _e0 of d) _e0.init(t);
-        return (t.onError || (t.onError = v), t);
+        return (t.onError || (t.onError = l), t);
       };
-      return _;
+      return x;
     })();
-    ((exports.LexicalBuilder = _2),
+    ((exports.LexicalBuilder = _x),
       (exports.buildEditorFromExtensions = function () {
         for (
           var _len2 = arguments.length, t = new Array(_len2), _key2 = 0;
@@ -550,9 +543,9 @@ __d(
         ) {
           t[_key2] = arguments[_key2];
         }
-        return _2.fromExtensions(t).buildEditor();
+        return _x.fromExtensions(t).buildEditor();
       }),
-      (exports.builderSymbol = y));
+      (exports.builderSymbol = f));
   },
   null,
 );

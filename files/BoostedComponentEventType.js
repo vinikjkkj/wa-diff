@@ -296,6 +296,8 @@ __d(
         "honor_default_budget_sticky_below_default",
       EDIT_FLOW_BUDGET_LOWERED_BELOW_EXISTING:
         "edit_flow_budget_lowered_below_existing",
+      HONOR_DEFAULT_DURATION_STICKY_BELOW_DEFAULT:
+        "honor_default_duration_sticky_below_default",
       GEN_BUDGET_LADDER_ROUNDING: "gen_budget_ladder_rounding",
       GEN_DEFAULT_AUDIENCE_FAILURE: "gen_default_audience_failure",
       DEFAULT_IG_AUDIENCE_LAL_GENERATION: "default_ig_audience_lal_generation",
@@ -1654,6 +1656,8 @@ __d(
       INSTANT_ADS_PRODUCT_CARD_CLICK: "instant_ads_product_card_click",
       INSTANT_ADS_PREGENERATE_INTENTION_WITH_PERSONAS:
         "instant_ads_pregenerate_intention_with_personas",
+      INSTANT_ADS_PREGENERATE_FUNNEL_OUTCOME:
+        "instant_ads_pregenerate_funnel_outcome",
       INSTANT_ADS_CREATIVES_GENERATING: "instant_ads_creatives_generating",
       INSTANT_ADS_CREATIVES_RENDERED: "instant_ads_creatives_rendered",
       INSTANT_ADS_INVALID_AD_ACCOUNT_RENDERED:

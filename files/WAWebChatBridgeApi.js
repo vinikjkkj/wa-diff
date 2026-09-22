@@ -212,7 +212,11 @@ __d(
                 msgKey: r.id,
                 msgTimeClient:
                   r.clientReceivedTsMillis != null
-                    ? r.clientReceivedTsMillis * 1e3
+                    ? Math.round(
+                        r.clientReceivedTsMillis /
+                          o("WAWebMmSignalSharingExpirationWindowUtils")
+                            .MILLIS_PER_SECOND,
+                      )
                     : r.t,
                 msgTimeServer: r.t,
               });
