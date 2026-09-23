@@ -1,6 +1,11 @@
 __d(
   "WAWebContactImportTemplateParsingUtils",
-  ["fbt", "WAWebContactImportTypedError", "WAWebContactImportValidationUtils"],
+  [
+    "fbt",
+    "WAWebContactImportSmartColumnDetection",
+    "WAWebContactImportTypedError",
+    "WAWebContactImportValidationUtils",
+  ],
   function (t, n, r, o, a, i, l, s) {
     var e = s._(/*BTDS*/ "Phone number").toString(),
       u = s._(/*BTDS*/ "Full name").toString(),
@@ -42,12 +47,41 @@ __d(
       return "";
     }
     function L(e) {
-      return R(e, g);
+      var t = e.trim(),
+        n = t.search(/\s/);
+      return n === -1
+        ? { firstName: t, lastName: "" }
+        : {
+            firstName: t.slice(0, n),
+            lastName: t.slice(n).trim().replace(/\s+/g, " "),
+          };
     }
     function E(e) {
+      var t = e.toLowerCase();
+      return (
+        g.has(t) ||
+        y.has(t) ||
+        o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+          e,
+          o("WAWebContactImportSmartColumnDetection").FULL_NAME_HEADER_ALIASES,
+        ) ||
+        o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+          e,
+          o("WAWebContactImportSmartColumnDetection").FIRST_NAME_HEADER_ALIASES,
+        ) ||
+        o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+          e,
+          o("WAWebContactImportSmartColumnDetection").LAST_NAME_HEADER_ALIASES,
+        )
+      );
+    }
+    function k(e) {
+      return R(e, g);
+    }
+    function I(e) {
       return R(e, d);
     }
-    function k(e, t) {
+    function T(e, t) {
       if (e == null) return null;
       var n = new Set(
         t.map(function (e) {
@@ -61,13 +95,13 @@ __d(
         }
       return null;
     }
-    function I(e) {
+    function D(e) {
       return typeof e != "string" ? !1 : d.has(e.toLowerCase().trim());
     }
-    function T(e) {
+    function x(e) {
       return typeof e != "string" ? !1 : C.has(e.toLowerCase().trim());
     }
-    function D(e) {
+    function $(e) {
       var t = [],
         n = v(e),
         r = [];
@@ -158,12 +192,14 @@ __d(
     }
     ((l.FBT_PHONE = e),
       (l.FBT_NAME = u),
-      (l.extractName = L),
-      (l.extractPhone = E),
-      (l.readRawRowColumn = k),
-      (l.isPhoneFieldName = I),
-      (l.isParsedNameOrPhoneFieldName = T),
-      (l.parseContactData = D));
+      (l.splitFullName = L),
+      (l.isNameFieldKey = E),
+      (l.extractName = k),
+      (l.extractPhone = I),
+      (l.readRawRowColumn = T),
+      (l.isPhoneFieldName = D),
+      (l.isParsedNameOrPhoneFieldName = x),
+      (l.parseContactData = $));
   },
   226,
 );

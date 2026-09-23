@@ -378,6 +378,7 @@ __d(
             ).failFastOnPthreadGlueFailure(
               de(n, u, s, c.signal),
               "pthread_bootstrap",
+              { workerID: n.getWorkerID(), ownsThread: !0 },
             );
           (o("WALogger").LOG(
             f ||

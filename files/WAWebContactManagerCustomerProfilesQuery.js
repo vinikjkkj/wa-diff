@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
+    "WAWebCustomerProfileBirthday",
     "WAWebFBLogger",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
@@ -82,6 +83,10 @@ __d(
             acquisitionSource: o(
               "WAWebContactManagerCustomerProfileDecoders",
             ).toProfileAcquisitionSourceId(n.acquisition_source),
+            address: n.address,
+            birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
+              n.dob,
+            ),
             chatJid: o("WAJids").toLidUserJid(a),
             email: n.email,
             lastOrder: o(

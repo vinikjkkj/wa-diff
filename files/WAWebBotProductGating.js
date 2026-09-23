@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebBotBaseGating",
+    "WAWebBotGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotProduct",
     "WAWebHatchGating",
@@ -27,16 +28,17 @@ __d(
                   )
                 : e === o("WAWebBotProduct").BotProduct.SUPPORT
                   ? !0
-                  : e === o("WAWebBotProduct").BotProduct.MANUS ||
-                      e === o("WAWebBotProduct").BotProduct.META_AI_THREAD ||
-                      e === o("WAWebBotProduct").BotProduct.SIDE_CHAT
-                    ? !1
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+                  : e === o("WAWebBotProduct").BotProduct.META_AI_THREAD
+                    ? o("WAWebBotGating").isMetaAiThreadRenderingEnabled()
+                    : e === o("WAWebBotProduct").BotProduct.MANUS ||
+                        e === o("WAWebBotProduct").BotProduct.SIDE_CHAT
+                      ? !1
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              e,
+                          );
+                        })();
     }
     l.isBotProductGateOn = e;
   },

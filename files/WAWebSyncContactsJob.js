@@ -11,27 +11,29 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = 86400,
-      d = 2e4,
-      m = 1e3,
-      p = 60,
-      _ = null,
-      f = [];
-    function g(t) {
-      (f.push(t),
-        _
-          ? _.debounce(m)
-          : ((_ = new (o("WAShiftTimer").ShiftTimer)(function () {
+      c,
+      d = 86400,
+      m = 2e4,
+      p = 1e3,
+      _ = 60,
+      f = null,
+      g = [];
+    function h(t) {
+      (g.push(t),
+        f
+          ? f.debounce(p)
+          : ((f = new (o("WAShiftTimer").ShiftTimer)(function () {
               if (o("WAWebUserPrefsMultiDevice").isRegistered()) {
-                var t = f;
-                ((f = []),
-                  (_ = null),
+                var t = g;
+                ((g = []),
+                  (f = null),
                   o("WALogger")
                     .LOG(
                       e ||
@@ -64,14 +66,14 @@ __d(
                     }));
               }
             })),
-            _.onOrBefore(d)));
-    }
-    function h() {
-      return y.apply(this, arguments);
+            f.onOrBefore(m)));
     }
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("WAWebLidAwareContactsDB").equals(
               ["isContactSyncCompleted"],
               0,
@@ -97,41 +99,52 @@ __d(
             })
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           ((yield o(
             "WAWebUserPrefsMultiDevice",
           ).getShouldCheckContactSyncStatus()) &&
             self.setTimeout(function () {
-              h();
-            }, p * 1e3),
+              y().catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "runSyncDirtyContactsJob: contact sync failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .tags("non-sad", "contact-sync")
+                  .sendLogs("runSyncDirtyContactsJob: contact sync failed");
+              });
+            }, _ * 1e3),
             yield o(
               "WAWebUserPrefsAppStateSync",
             ).setShouldCheckContactSyncStatus());
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v() {
+    function S() {
       var e,
         t =
           (e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
             o("WAWebUserPrefsKeys").KEYS.CONTACT_SYNC_REFRESH,
           )) != null
             ? e
-            : c;
+            : d;
       return parseInt(t, 10);
     }
-    ((l.syncNewContact = g),
-      (l.runSyncDirtyContactsJob = C),
-      (l.getContactSyncRefreshSeconds = v));
+    ((l.syncNewContact = h),
+      (l.runSyncDirtyContactsJob = b),
+      (l.getContactSyncRefreshSeconds = S));
   },
   98,
 );

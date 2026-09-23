@@ -96,8 +96,8 @@ __d(
         t === "MESSAGE_PAGE" && (e == null ? void 0 : e.call_to_actions) == null
       );
     }
-    function C(e, t, n) {
-      return t && n && e;
+    function C(e, t) {
+      return t && e;
     }
     function b(e) {
       return (

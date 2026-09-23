@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipJsWorkerThread",
-  ["WAWebBackendApi", "WorkerMessagePort", "asyncToGeneratorRuntime", "err"],
+  [
+    "WAWebBackendApi",
+    "WAWebVoipPthreadWorkerFields",
+    "WorkerMessagePort",
+    "asyncToGeneratorRuntime",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -39,6 +45,11 @@ __d(
       })();
       var a = e.prototype;
       return (
+        (a.getWorkerID = function () {
+          return o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(
+            this.worker,
+          );
+        }),
         (a.joinJsWorkerThread = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this,

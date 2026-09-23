@@ -53,29 +53,39 @@ __d(
       g = 200;
     function h(e) {
       var t = d(null),
-        n = r("useVisibility")({
+        n = m(!1),
+        a = n[0],
+        i = n[1],
+        l = m(!1),
+        u = l[0],
+        h = l[1],
+        C = r("WAWebL10N").isRTL(),
+        b = r("useWAWebThrottledCallback")(function () {
+          var e = t == null ? void 0 : t.current;
+          if (e != null) {
+            var n = (C ? -1 : 1) * e.scrollLeft <= f;
+            h(!n);
+            var r =
+              (C ? -1 : 1) * e.scrollLeft + e.clientWidth >= e.scrollWidth - f;
+            i(!r);
+          }
+        }, 100),
+        v = r("useVisibility")({
           onVisible: function () {
-            R();
+            b();
           },
         }),
-        a = n[0],
-        i = m(!1),
-        l = i[0],
-        u = i[1],
-        h = m(!1),
-        C = h[0],
-        b = h[1],
-        v = r("WAWebL10N").isRTL();
+        S = v[0];
       c(function () {
         return (
-          window.addEventListener("resize", R),
+          window.addEventListener("resize", b),
           function () {
-            window.removeEventListener("resize", R);
+            window.removeEventListener("resize", b);
           }
         );
       }, []);
-      var S = function (o) {
-          var n = _ * 0.5 * e.items.length * (o ? 1 : -1) * (v ? -1 : 1),
+      var R = function (o) {
+          var n = _ * 0.5 * e.items.length * (o ? 1 : -1) * (C ? -1 : 1),
             a = t == null ? void 0 : t.current;
           a != null &&
             (r("WAWebVelocityAnimate")(a, "stop"),
@@ -87,16 +97,6 @@ __d(
               easing: [0.1, 0.82, 0.25, 1],
             }));
         },
-        R = r("useWAWebThrottledCallback")(function () {
-          var e = t == null ? void 0 : t.current;
-          if (e != null) {
-            var n = (v ? -1 : 1) * e.scrollLeft <= f;
-            b(!n);
-            var r =
-              (v ? -1 : 1) * e.scrollLeft + e.clientWidth >= e.scrollWidth - f;
-            u(!r);
-          }
-        }, 100),
         L = e.items.map(function (t) {
           return s.jsx(
             "div",
@@ -133,20 +133,20 @@ __d(
           );
         }),
         E =
-          C === !0
+          u === !0
             ? s.jsx(r("WAWebSupportCarouselChevronBtn.react"), {
                 type: o("WAWebChevronButton.react").ButtonType.Prev,
                 onClick: function () {
-                  S(!1);
+                  R(!1);
                 },
               })
             : null,
         k =
-          l === !0
+          a === !0
             ? s.jsx(r("WAWebSupportCarouselChevronBtn.react"), {
                 type: o("WAWebChevronButton.react").ButtonType.Next,
                 onClick: function () {
-                  S(!0);
+                  R(!0);
                 },
               })
             : null;
@@ -155,7 +155,7 @@ __d(
         children: s.jsx("div", {
           className: "x1n2onr6",
           children: s.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-            ref: a,
+            ref: S,
             tabIndex: -1,
             children: s.jsx(r("WAWebVelocityTransitionGroup"), {
               transitionName: "support-citations-carousel",
@@ -178,7 +178,7 @@ __d(
                         },
                       }[(e.items.length === 1) << 0],
                       {
-                        onScroll: R,
+                        onScroll: b,
                         ref: t,
                         children: s.jsx(
                           "div",

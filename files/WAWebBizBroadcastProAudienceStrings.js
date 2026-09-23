@@ -88,7 +88,23 @@ __d(
     function I() {
       return s._(/*BTDS*/ "Loading\u2026");
     }
-    ((I.displayName = I.name + " [from " + i.id + "]"),
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(e) {
+      return s._(/*BTDS*/ "Delete {audience name}?", [
+        s._param("audience name", e),
+      ]);
+    }
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D() {
+      return s._(
+        /*BTDS*/ "This audience and its thread will be permanently deleted and cannot be restored.",
+      );
+    }
+    D.displayName = D.name + " [from " + i.id + "]";
+    function x() {
+      return s._(/*BTDS*/ "Audience deleted");
+    }
+    ((x.displayName = x.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -106,7 +122,10 @@ __d(
       (l.getContactListAriaLabel = L),
       (l.getSelectRecipientAriaLabel = E),
       (l.getLoadMorePaginationLabel = k),
-      (l.getLoadingPaginationLabel = I));
+      (l.getLoadingPaginationLabel = I),
+      (l.getDeleteAudienceModalTitle = T),
+      (l.getDeleteAudienceModalBody = D),
+      (l.getAudienceDeletedToastMessage = x));
   },
   226,
 );

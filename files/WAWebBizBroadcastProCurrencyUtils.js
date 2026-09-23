@@ -31,37 +31,42 @@ __d(
       var n = o("Currency").getOffset(t) || 100;
       return Math.round(e * n);
     }
-    var d = 1e3;
-    function m(e, t) {
+    function d(e, t) {
       var n = o("Currency").getOffset(t) || 100;
-      return Math.round(e * n * d);
+      return e / n;
     }
+    var m = 1e3;
     function p(e, t) {
       var n = o("Currency").getOffset(t) || 100;
-      return e / n / d;
+      return Math.round(e * n * m);
     }
-    function _(e, t, n) {
+    function _(e, t) {
+      var n = o("Currency").getOffset(t) || 100;
+      return e / n / m;
+    }
+    function f(e, t, n) {
       var r = o("Currency").getOffset(n) || 100;
-      return Math.ceil((e * t) / d) / r;
+      return Math.ceil((e * t) / m) / r;
     }
-    function f(e) {
+    function g(e) {
       var t = o("Currency").getOffset(e) || 100;
       return t === 1 ? 0 : t === 10 ? 1 : t === 1e3 ? 3 : 2;
     }
-    var g = 2;
-    function h(e) {
-      return f(e) + g;
+    var h = 2;
+    function y(e) {
+      return g(e) + h;
     }
     ((l.getCurrencySymbol = e),
       (l.getCurrencyISO = s),
       (l.formatCurrencyAmount = u),
       (l.displayAmountToSmallestUnit = c),
-      (l.displayAmountToCpmSmallestUnit = m),
-      (l.cpmSmallestUnitToDisplayAmount = p),
-      (l.budgetToFundCount = _),
-      (l.getCurrencyDecimalPlaces = f),
-      (l.BID_EXTRA_PRECISION = g),
-      (l.getBidDecimalPlaces = h));
+      (l.smallestUnitToDisplayAmount = d),
+      (l.displayAmountToCpmSmallestUnit = p),
+      (l.cpmSmallestUnitToDisplayAmount = _),
+      (l.budgetToFundCount = f),
+      (l.getCurrencyDecimalPlaces = g),
+      (l.BID_EXTRA_PRECISION = h),
+      (l.getBidDecimalPlaces = y));
   },
   98,
 );

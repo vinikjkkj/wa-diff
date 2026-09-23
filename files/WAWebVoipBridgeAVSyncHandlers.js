@@ -55,6 +55,11 @@ __d(
           "WAWebVoipVideoRendererRegistry",
         ).videoRendererRegistry.consumeWebCodecsFatalErrorCount();
       },
+      consumeWebCodecsDecodeOrderMetrics: function () {
+        return o(
+          "WAWebVoipVideoRendererRegistry",
+        ).videoRendererRegistry.consumeWebCodecsDecodeOrderMetrics();
+      },
     };
     l.VoipBridgeAVSyncHandlers = e;
   },

@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebBizBroadcastProCurrencyUtils",
     "WAWebBizBroadcastProInsightMetrics",
     "WAWebFileUtils",
     "WAWebMimeTypes",
@@ -41,65 +42,89 @@ __d(
         r,
         a,
         i,
-        l = d(
+        l,
+        s = d(
           e.broadcast_insights,
           (t = e.broadcast_insights) == null ? void 0 : t.start_time,
         ),
-        s = l.insights,
-        c = l.startTime,
-        m = o("WAWebBizBroadcastProInsightMetrics").deriveProInsightMetrics({
-          ads_delivered: s.ads_delivered,
-          cta_url_clicks: s.cta_url_clicks,
-          first_customer_reply: s.first_customer_reply,
-          quick_reply_clicks: s.quick_reply_clicks,
-          read: s.read,
-          sent: s.sent,
+        c = s.insights,
+        m = s.startTime,
+        f = o("WAWebBizBroadcastProInsightMetrics").deriveProInsightMetrics({
+          ads_delivered: c.ads_delivered,
+          cta_url_clicks: c.cta_url_clicks,
+          first_customer_reply: c.first_customer_reply,
+          quick_reply_clicks: c.quick_reply_clicks,
+          read: c.read,
+          sent: c.sent,
         }),
-        p = c * u,
-        f = (n = e.campaign_name) != null ? n : e.id,
-        g = _(s.template),
-        h = g.attachmentData,
-        y = g.buttonData,
-        C = g.message,
-        b = (r = e.delivery_status_info) == null ? void 0 : r.status,
-        v = R(b);
+        h = m * u,
+        y = (n = e.campaign_name) != null ? n : e.id,
+        C = g(c.template),
+        b = C.attachmentData,
+        v = C.buttonData,
+        S = C.message,
+        R = (r = e.delivery_status_info) == null ? void 0 : r.status,
+        L = E(R),
+        k = c.currency;
       return {
-        amountSpent: s.ads_amount_spent,
-        attachmentData: h,
-        audienceName: s.customer_list_name,
+        amountSpent: c.ads_amount_spent,
+        attachmentData: b,
+        audienceName: c.customer_list_name,
         broadcastJid: o("WAJids").toBroadcastJid(e.id),
+        budget: p(c.lifetime_budget_long, k),
         campaignId: e.id,
-        campaignName: f,
-        createdTimestamp: p,
-        ctaButtonData: y,
-        currency: s.currency,
-        customReplyClickCount: m.customReplyClickCount,
-        deliveredCount: m.deliveredCount,
+        campaignName: y,
+        createdTimestamp: h,
+        ctaButtonData: v,
+        currency: k,
+        customReplyClickCount: f.customReplyClickCount,
+        deliveredCount: f.deliveredCount,
+        hsmTemplateId:
+          (a = e.delivery_status_info) == null || (a = a.extra_data) == null
+            ? void 0
+            : a.template_id,
         isProCampaign: !0,
         lastUpdatedTimestampMs: null,
-        lifecycleStatus: s.status,
-        messageBody: C,
+        lifecycleStatus: c.status,
+        maxPrice: _(c.bid_amount_long, k),
+        messageBody: S,
         msgType: null,
-        rawDeliveryStatus: b,
+        rawDeliveryStatus: R,
         readRate: {
-          count: m.readCount,
-          percentage: (a = m.readRatePercentage) != null ? a : 0,
+          count: f.readCount,
+          percentage: (i = f.readRatePercentage) != null ? i : 0,
         },
-        readRatePercentage: m.readRatePercentage,
-        recipientCount: m.sentCount,
+        readRatePercentage: f.readRatePercentage,
+        recipientCount: f.sentCount,
         replyRate: {
-          count: m.replyCount,
-          percentage: (i = m.replyRatePercentage) != null ? i : 0,
+          count: f.replyCount,
+          percentage: (l = f.replyRatePercentage) != null ? l : 0,
         },
-        replyRatePercentage: m.replyRatePercentage,
-        scheduledTimestamp: String(v) === "SCHEDULED" ? p : null,
-        sentAt: p,
-        status: v,
+        replyRatePercentage: f.replyRatePercentage,
+        scheduledTimestamp: String(L) === "SCHEDULED" ? h : null,
+        sentAt: h,
+        status: L,
         statusSource: "PRO",
-        websiteClickCount: m.websiteClickCount,
+        websiteClickCount: f.websiteClickCount,
       };
     }
-    function p(t) {
+    function p(e, t) {
+      return e == null || t == null
+        ? null
+        : o("WAWebBizBroadcastProCurrencyUtils").smallestUnitToDisplayAmount(
+            e,
+            t,
+          );
+    }
+    function _(e, t) {
+      return e == null || t == null
+        ? null
+        : o("WAWebBizBroadcastProCurrencyUtils").cpmSmallestUnitToDisplayAmount(
+            e,
+            t,
+          );
+    }
+    function f(t) {
       try {
         return m(t);
       } catch (n) {
@@ -119,16 +144,16 @@ __d(
         );
       }
     }
-    function _(e) {
-      return { attachmentData: g(e), buttonData: h(e), message: f(e) };
+    function g(e) {
+      return { attachmentData: y(e), buttonData: C(e), message: h(e) };
     }
-    function f(e) {
+    function h(e) {
       var t,
         n,
         r = e == null ? void 0 : e.element;
       return r != null && r.trim() !== ""
         ? r
-        : (t = y(
+        : (t = b(
               e == null ||
                 (n = e.hsm_components) == null ||
                 (n = n.find(function (e) {
@@ -140,14 +165,14 @@ __d(
           ? t
           : "";
     }
-    function g(e) {
+    function y(e) {
       var t = e == null ? void 0 : e.header_type,
         n = t == null ? null : c[t];
       if (n == null) return null;
-      var r = C(e);
-      return r == null ? null : b(r, n);
+      var r = v(e);
+      return r == null ? null : S(r, n);
     }
-    function h(e) {
+    function C(e) {
       var t,
         n =
           e == null ||
@@ -159,10 +184,10 @@ __d(
             ? void 0
             : t[0];
       if (n == null) return null;
-      var r = y(n.text);
+      var r = b(n.text);
       if (r == null) return null;
-      var o = y(n.phone_number),
-        a = y(n.url);
+      var o = b(n.phone_number),
+        a = b(n.url);
       return n.type === "QUICK_REPLY"
         ? { displayText: r, type: "quick_reply" }
         : n.type === "URL"
@@ -180,11 +205,11 @@ __d(
               : { displayText: r, phoneNumber: o, type: "cta_call" }
             : null;
     }
-    function y(e) {
+    function b(e) {
       var t = e == null ? void 0 : e.trim();
       return t == null || t === "" ? null : t;
     }
-    function C(e) {
+    function v(e) {
       var t,
         n,
         r =
@@ -195,12 +220,12 @@ __d(
           })) == null
             ? void 0
             : t.example;
-      return (n = v(r == null ? void 0 : r.header_url)) != null
+      return (n = R(r == null ? void 0 : r.header_url)) != null
         ? n
-        : v(r == null ? void 0 : r.header_handle);
+        : R(r == null ? void 0 : r.header_handle);
     }
-    function b(e, t) {
-      var n = S(e, t),
+    function S(e, t) {
+      var n = L(e, t),
         r = n.fileExt,
         o = n.mimetype;
       return {
@@ -214,14 +239,14 @@ __d(
         previewUrl: e,
       };
     }
-    function v(e) {
+    function R(e) {
       return e == null
         ? void 0
         : e.find(function (e) {
             return e != null && r("WAWebURLUtils").isHttp(e);
           });
     }
-    function S(e, t) {
+    function L(e, t) {
       var n = e;
       try {
         n = new URL(e).pathname;
@@ -241,32 +266,32 @@ __d(
           a != null && a.startsWith(t.mediaType + "/") ? a : t.fallbackMimetype,
       };
     }
-    function R(e) {
+    function E(e) {
       var t = e == null ? null : String(e);
       return t === "ACTIVE"
-        ? L("ACTIVE")
+        ? k("ACTIVE")
         : t === "COMPLETED"
-          ? L("COMPLETED")
+          ? k("COMPLETED")
           : t === "IN_DRAFT"
-            ? L("IN_DRAFT")
+            ? k("IN_DRAFT")
             : t === "IN_REVIEW"
-              ? L("IN_REVIEW")
+              ? k("IN_REVIEW")
               : t === "NOT_SENDING"
-                ? L("NOT_SENDING")
+                ? k("NOT_SENDING")
                 : t === "OFF"
-                  ? L("OFF")
+                  ? k("OFF")
                   : t === "REJECTED"
-                    ? L("REJECTED")
+                    ? k("REJECTED")
                     : t === "SCHEDULED"
-                      ? L("SCHEDULED")
+                      ? k("SCHEDULED")
                       : t === "SENDING_LIMITED"
-                        ? L("SENDING_LIMITED")
-                        : E(e);
+                        ? k("SENDING_LIMITED")
+                        : I(e);
     }
-    function L(e) {
+    function k(e) {
       return r("unsafeCast")(e);
     }
-    function E(e) {
+    function I(e) {
       return (
         o("WALogger")
           .WARN(
@@ -277,13 +302,13 @@ __d(
           )
           .tags("biz-broadcast-pro")
           .sendLogs("bb-pro-campaign-delivery-status-unexpected"),
-        L("OFF")
+        k("OFF")
       );
     }
     ((l.requireProCampaignInsights = d),
       (l.deriveListItemFromProCampaign = m),
-      (l.tryDeriveListItemFromProCampaign = p),
-      (l.getProCampaignMessageData = _));
+      (l.tryDeriveListItemFromProCampaign = f),
+      (l.getProCampaignMessageData = g));
   },
   98,
 );

@@ -4,7 +4,6 @@ __d(
     "BootloaderResource",
     "cr:2448",
     "cr:38536",
-    "gkx",
     "react",
     "react-compiler-runtime",
   ],
@@ -21,9 +20,9 @@ __d(
       return d.get(e);
     }
     function _(t) {
-      var a = p(t);
-      if (a) return a;
-      function i(r) {
+      var r = p(t);
+      if (r) return r;
+      function a(r) {
         var a = o("react-compiler-runtime").c(7),
           i,
           l;
@@ -52,10 +51,10 @@ __d(
           m
         );
       }
-      i.displayName = "lazyLoadComponent(" + t.getModuleId() + ")";
-      var l = i;
-      if (n("cr:38536") != null && r("gkx")("18719")) {
-        var u = function (t) {
+      a.displayName = "lazyLoadComponent(" + t.getModuleId() + ")";
+      var i = a;
+      if (n("cr:38536") != null) {
+        var l = function (t) {
             var e = o("react-compiler-runtime").c(6),
               n,
               r;
@@ -66,28 +65,28 @@ __d(
                 (e[1] = n),
                 (e[2] = r))
               : ((n = e[1]), (r = e[2]));
-            var a = r === void 0 ? void 0 : r,
+            var i = r === void 0 ? void 0 : r,
               l;
             return (
-              e[3] !== n || e[4] !== a
-                ? ((l = c.jsx(_, {
-                    description: d,
-                    moduleName: d,
-                    children: c.jsx(i, babelHelpers.extends({}, n, { ref: a })),
+              e[3] !== n || e[4] !== i
+                ? ((l = c.jsx(d, {
+                    description: u,
+                    moduleName: u,
+                    children: c.jsx(a, babelHelpers.extends({}, n, { ref: i })),
                   })),
                   (e[3] = n),
-                  (e[4] = a),
+                  (e[4] = i),
                   (e[5] = l))
                 : (l = e[5]),
               l
             );
           },
-          d = t.getModuleId(),
-          _ = n("cr:38536");
-        ((u.displayName = "lazyLoadComponent(" + d + ")[ErrorBoundary]"),
-          (l = u));
+          u = t.getModuleId(),
+          d = n("cr:38536");
+        ((l.displayName = "lazyLoadComponent(" + u + ")[ErrorBoundary]"),
+          (i = l));
       }
-      return (m(t, l), l);
+      return (m(t, i), i);
     }
     l.default = _;
   },

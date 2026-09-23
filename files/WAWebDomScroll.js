@@ -6,7 +6,7 @@ __d(
     function s(e, t, n) {
       if (
         (t === void 0 && (t = !0),
-        e.scrollIntoViewIfNeeded &&
+        e.scrollIntoViewIfNeeded != null &&
           o("WATypeUtils").isFunction(e.scrollIntoViewIfNeeded))
       )
         return e.scrollIntoViewIfNeeded(t);

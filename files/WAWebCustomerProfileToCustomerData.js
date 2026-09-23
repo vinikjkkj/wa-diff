@@ -13,9 +13,9 @@ __d(
         t === void 0 && (t = e.leadStage),
         new (o("WAWebCustomerDataModel").CustomerData)({
           acquisitionSource: e.acquisitionSource,
-          address: null,
+          address: e.address,
           altPhoneNumbers: null,
-          birthday: null,
+          birthday: e.birthday,
           chatJid: e.chatJid,
           contactType: o("WAWebContactType").ContactType.CUSTOMER,
           createdAt: e.modifiedAt,
@@ -44,19 +44,21 @@ __d(
       });
     }
     function u(e) {
-      var t = o(
-        "WAWebCustomerDataCollection",
-      ).CustomerDataCollection.maybeGetCustomerDataByChatJid(e.chatJid);
-      return t == null
+      var t,
+        n,
+        r = o(
+          "WAWebCustomerDataCollection",
+        ).CustomerDataCollection.maybeGetCustomerDataByChatJid(e.chatJid);
+      return r == null
         ? e
         : new (o("WAWebCustomerDataModel").CustomerData)({
             acquisitionSource: e.acquisitionSource,
-            address: t.address,
-            altPhoneNumbers: t.altPhoneNumbers,
-            birthday: t.birthday,
+            address: (t = e.address) != null ? t : r.address,
+            altPhoneNumbers: r.altPhoneNumbers,
+            birthday: (n = e.birthday) != null ? n : r.birthday,
             chatJid: e.chatJid,
             contactType: e.contactType,
-            createdAt: t.createdAt,
+            createdAt: r.createdAt,
             email: e.email,
             id: e.id,
             lastOrder: e.lastOrder,

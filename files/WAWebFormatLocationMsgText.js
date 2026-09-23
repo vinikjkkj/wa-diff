@@ -16,7 +16,9 @@ __d(
           : t.loc || s._(/*BTDS*/ "Location");
       }
       return t.isLive
-        ? t.comment || s._(/*BTDS*/ "Live location")
+        ? t.comment != null && t.comment !== ""
+          ? t.comment
+          : s._(/*BTDS*/ "Live location")
         : t.loc || s._(/*BTDS*/ "Location");
     }
     l.default = e;

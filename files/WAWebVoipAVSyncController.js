@@ -26,16 +26,17 @@ __d(
             (this.$3 = null),
             (this.$4 = null),
             (this.$5 = !1),
-            (this.$6 = new Map()),
-            (this.$7 = new Set()),
-            (this.$8 = new (o(
+            (this.$6 = !1),
+            (this.$7 = new Map()),
+            (this.$8 = new Set()),
+            (this.$9 = new (o(
               "WAWebVoipAVSyncMetricsCollector",
             ).WAWebVoipAVSyncMetricsCollector)(p)));
         }
         var n = t.prototype;
         return (
-          (n.$9 = function (t) {
-            var e = this.$6.get(t);
+          (n.$10 = function (t) {
+            var e = this.$7.get(t);
             return (
               e == null &&
                 ((e = {
@@ -52,22 +53,26 @@ __d(
                   framesLate: 0,
                   framesEvicted: 0,
                   framesReordered: 0,
+                  framesReorderPrevented: 0,
                   deltaSumMs: 0,
                   deltaSampleCount: 0,
                 }),
-                this.$6.set(t, e)),
+                this.$7.set(t, e)),
               e
             );
           }),
-          (n.enable = function (n, r, a, i) {
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [AVSync] Enabling, sampleRate=",
-                  "",
-                ])),
-              n,
-            ),
+          (n.enable = function (n, r, a, i, l) {
+            ((this.$6 = (l == null ? void 0 : l.strictFifoDrain) === !0),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AVSync] Enabling, sampleRate=",
+                    " strictFifoDrain=",
+                    "",
+                  ])),
+                n,
+                this.$6,
+              ),
               (this.$1 = n),
               (this.$2 = r),
               (this.$3 = a),
@@ -82,14 +87,14 @@ __d(
                 ])),
             ),
               (this.$5 = !1),
-              this.$6.clear(),
               this.$7.clear(),
+              this.$8.clear(),
               (this.$2 = null),
               (this.$3 = null),
               (this.$4 = null));
           }),
           (n.reset = function () {
-            for (var e of this.$6.values())
+            for (var e of this.$7.values())
               ((e.calibration = null),
                 (e.calibrationCandidate = null),
                 (e.lastObservedFrame = null),
@@ -97,21 +102,21 @@ __d(
                 (e.pendingRecalibration = !1),
                 (e.consecutiveLateCount = 0),
                 (e.lastRecalibTimeMs = 0));
-            this.$8.recordDeviceChangeReset();
+            this.$9.recordDeviceChangeReset();
           }),
           (n.isEnabled = function () {
             return this.$5;
           }),
           (n.removeParticipant = function (t) {
-            (this.$6.delete(t), this.$7.delete(t));
+            (this.$7.delete(t), this.$8.delete(t));
           }),
           (n.consumeMetrics = function () {
-            return !this.$5 && !this.$8.hasCalibrated()
+            return !this.$5 && !this.$9.hasCalibrated()
               ? null
-              : this.$8.consume();
+              : this.$9.consume();
           }),
           (n.peekPerParticipantMetrics = function (t) {
-            var e = this.$6.get(t);
+            var e = this.$7.get(t);
             if (e == null) return null;
             var n =
               e.deltaSampleCount > 0 ? e.deltaSumMs / e.deltaSampleCount : null;
@@ -121,6 +126,7 @@ __d(
               framesHeld: e.framesHeld,
               framesLate: e.framesLate,
               framesReordered: e.framesReordered,
+              framesReorderPrevented: e.framesReorderPrevented,
               framesEvicted: e.framesEvicted,
               isCalibrated: e.calibration != null,
               consecutiveLateCount: e.consecutiveLateCount,
@@ -134,17 +140,17 @@ __d(
                 o = t.source,
                 a = babelHelpers.extends({}, t, {
                   arrivalAudioTimestamp: r,
-                  continuityDriftMs: this.$10(o, r, t.timestamp),
+                  continuityDriftMs: this.$11(o, r, t.timestamp),
                   skippedOver: !1,
                 }),
-                i = this.$9(o),
+                i = this.$10(o),
                 l = i.frameQueue;
               for (
-                l == null && ((l = []), (i.frameQueue = l), this.$7.add(o));
+                l == null && ((l = []), (i.frameQueue = l), this.$8.add(o));
                 l.length >= m;
               ) {
                 var s = l.shift();
-                (this.$8.recordFrameEvicted(),
+                (this.$9.recordFrameEvicted(),
                   i.framesEvicted++,
                   s != null &&
                     e != null &&
@@ -159,30 +165,30 @@ __d(
                       s.isKeyFrame,
                     ));
               }
-              (l.push(a), this.$8.observeQueueDepth(l.length), this.$11());
+              (l.push(a), this.$9.observeQueueDepth(l.length), this.$12());
             }
           }),
-          (n.$11 = function () {
+          (n.$12 = function () {
             var e = this.$3,
               t = this.$2;
             if (!(e == null || t == null)) {
               var n = e();
               if (n === 0) {
-                this.$12(t);
+                this.$13(t);
                 return;
               }
-              for (var r of this.$7) {
-                var o = this.$6.get(r);
-                o != null && this.$13(r, o, n, t);
+              for (var r of this.$8) {
+                var o = this.$7.get(r);
+                o != null && this.$14(r, o, n, t);
               }
             }
           }),
-          (n.$13 = function (t, n, r, a) {
+          (n.$14 = function (t, n, r, a) {
             var e = n.frameQueue;
             if (e != null) {
               for (var i = 0; i < e.length; ) {
                 var l = e[i],
-                  s = this.$14({
+                  s = this.$15({
                     audioTimestamp: r,
                     state: n,
                     videoRtpTimestamp: l.timestamp,
@@ -190,25 +196,27 @@ __d(
                 if (s == null) {
                   var c =
                     l.arrivalAudioTimestamp !== 0 ? l.arrivalAudioTimestamp : r;
-                  (this.$15(t, n, l, c), this.$16(e, i, a));
+                  (this.$16(t, n, l, c), (i = this.$17(e, i, a)));
                   continue;
                 }
                 if (
-                  (this.$8.recordDelta(s),
+                  (this.$9.recordDelta(s),
                   (n.deltaSumMs += s),
                   n.deltaSampleCount++,
-                  this.$17(l, s))
+                  this.$18(l, s))
                 ) {
-                  (this.$18(t, n, l, r, s), this.$16(e, i, a));
+                  ((i = this.$19(e, i, a)),
+                    this.$20(t, n, l, r, s),
+                    (i = this.$17(e, i, a)));
                   continue;
                 }
                 if (Math.abs(s) > h) {
-                  (this.$19(t, n, r, l.timestamp, s), this.$16(e, i, a));
+                  (this.$21(t, n, r, l.timestamp, s), (i = this.$17(e, i, a)));
                   continue;
                 }
                 if (s > p) {
                   ((n.consecutiveLateCount = 0),
-                    this.$8.recordFrameHeld(),
+                    this.$9.recordFrameHeld(),
                     n.framesHeld++,
                     i++);
                   continue;
@@ -217,7 +225,7 @@ __d(
                   var d = n.consecutiveLateCount + 1;
                   if (
                     ((n.consecutiveLateCount = d),
-                    this.$8.recordFrameRenderedLate(),
+                    this.$9.recordFrameRenderedLate(),
                     n.framesLate++,
                     d >= v)
                   ) {
@@ -235,28 +243,28 @@ __d(
                     ),
                       (n.consecutiveLateCount = 0),
                       (n.lastRecalibTimeMs = Date.now()),
-                      this.$20({
+                      this.$22({
                         audioTimestamp: r,
                         source: t,
                         state: n,
                         videoRtpTimestamp: l.timestamp,
                       }),
-                      this.$8.recordForceRecalibration(),
+                      this.$9.recordForceRecalibration(),
                       n.recalibrationCount++,
-                      this.$16(e, i, a));
+                      (i = this.$17(e, i, a)));
                     continue;
                   }
-                  this.$16(e, i, a);
+                  i = this.$17(e, i, a);
                   continue;
                 }
                 ((n.consecutiveLateCount = 0),
-                  this.$8.recordFrameRenderedInSync(),
-                  this.$16(e, i, a));
+                  this.$9.recordFrameRenderedInSync(),
+                  (i = this.$17(e, i, a)));
               }
-              e.length === 0 && ((n.frameQueue = null), this.$7.delete(t));
+              e.length === 0 && ((n.frameQueue = null), this.$8.delete(t));
             }
           }),
-          (n.$14 = function (t) {
+          (n.$15 = function (t) {
             var e = t.audioTimestamp,
               n = t.state,
               r = t.videoRtpTimestamp,
@@ -265,11 +273,11 @@ __d(
             var a = this.$1;
             if (a === 0) return null;
             var i = (e - o.firstAudioTimestamp) / a,
-              l = this.$21(r, o.firstVideoRtpTimestamp),
+              l = this.$23(r, o.firstVideoRtpTimestamp),
               s = l / S;
             return (s - i) * 1e3;
           }),
-          (n.$20 = function (t) {
+          (n.$22 = function (t) {
             var e = t.audioTimestamp,
               n = t.source,
               r = t.state,
@@ -286,10 +294,10 @@ __d(
               i
                 ? ((r.pendingRecalibration = !1),
                   (r.lastRecalibTimeMs = Date.now()),
-                  this.$8.recordRecalibration())
-                : a && this.$8.recordCalibration());
+                  this.$9.recordRecalibration())
+                : a && this.$9.recordCalibration());
           }),
-          (n.$19 = function (t, n, r, a, i) {
+          (n.$21 = function (t, n, r, a, i) {
             var e = Date.now();
             return e - n.lastRecalibTimeMs < b
               ? !1
@@ -305,21 +313,21 @@ __d(
                 ),
                 (n.lastRecalibTimeMs = e),
                 (n.pendingRecalibration = !1),
-                this.$20({
+                this.$22({
                   audioTimestamp: r,
                   source: t,
                   state: n,
                   videoRtpTimestamp: a,
                 }),
-                this.$8.recordRecalibration(),
+                this.$9.recordRecalibration(),
                 n.recalibrationCount++,
                 !0);
           }),
-          (n.$10 = function (t, n, r) {
-            var e = this.$9(t);
+          (n.$11 = function (t, n, r) {
+            var e = this.$10(t);
             if (n === 0) return ((e.lastObservedFrame = null), null);
             var o = e.lastObservedFrame,
-              a = this.$22(n, o != null ? o.audioTimestamp : null);
+              a = this.$24(n, o != null ? o.audioTimestamp : null);
             if (
               ((e.lastObservedFrame = {
                 audioTimestamp: a,
@@ -328,18 +336,18 @@ __d(
               o == null)
             )
               return null;
-            var i = this.$23(a, o.audioTimestamp);
+            var i = this.$25(a, o.audioTimestamp);
             if (i == null) return null;
-            var l = this.$24(r, o.videoRtpTimestamp);
+            var l = this.$26(r, o.videoRtpTimestamp);
             return l - i;
           }),
-          (n.$25 = function (t) {
+          (n.$27 = function (t) {
             return t.isKeyFrame ? y : C;
           }),
-          (n.$26 = function (t, n, r, o) {
+          (n.$28 = function (t, n, r, o) {
             return n.awaitingKeyFrame
               ? r.isKeyFrame
-                ? (this.$20({
+                ? (this.$22({
                     audioTimestamp: o,
                     source: t,
                     state: n,
@@ -349,18 +357,18 @@ __d(
                 : !1
               : null;
           }),
-          (n.$27 = function (t, n, r, o) {
-            var e = this.$25(r);
+          (n.$29 = function (t, n, r, o) {
+            var e = this.$27(r);
             return r.continuityDriftMs == null ||
               Math.abs(r.continuityDriftMs) <= e
               ? !1
-              : (this.$18(t, n, r, o, null), !0);
+              : (this.$20(t, n, r, o, null), !0);
           }),
-          (n.$15 = function (t, n, r, o) {
+          (n.$16 = function (t, n, r, o) {
             if (o === 0 || this.$1 === 0) return !1;
-            var e = this.$26(t, n, r, o);
+            var e = this.$28(t, n, r, o);
             if (e != null) return e;
-            if (this.$27(t, n, r, o)) return !1;
+            if (this.$29(t, n, r, o)) return !1;
             var a = n.calibrationCandidate;
             if (a == null)
               return (
@@ -371,13 +379,13 @@ __d(
                 }),
                 !1
               );
-            var i = this.$22(o, a.lastAudioTimestamp),
-              l = this.$23(i, a.lastAudioTimestamp);
+            var i = this.$24(o, a.lastAudioTimestamp),
+              l = this.$25(i, a.lastAudioTimestamp);
             if (l == null) return !1;
-            var s = this.$24(r.timestamp, a.lastVideoRtpTimestamp),
+            var s = this.$26(r.timestamp, a.lastVideoRtpTimestamp),
               u = s - l,
-              c = this.$25(r);
-            if (Math.abs(u) > c) return (this.$18(t, n, r, o, null), !1);
+              c = this.$27(r);
+            if (Math.abs(u) > c) return (this.$20(t, n, r, o, null), !1);
             if (Math.abs(u) > f)
               return (
                 (n.calibrationCandidate = {
@@ -395,7 +403,7 @@ __d(
                   stableFramePairs: d,
                 }),
                 !1)
-              : (this.$20({
+              : (this.$22({
                   audioTimestamp: i,
                   source: t,
                   state: n,
@@ -403,14 +411,14 @@ __d(
                 }),
                 !0);
           }),
-          (n.$17 = function (t, n) {
-            var e = this.$25(t);
+          (n.$18 = function (t, n) {
+            var e = this.$27(t);
             return (
               Math.abs(n) > e ||
               (t.continuityDriftMs != null && Math.abs(t.continuityDriftMs) > e)
             );
           }),
-          (n.$18 = function (t, n, r, a, i) {
+          (n.$20 = function (t, n, r, a, i) {
             var e = n.calibration != null,
               l = r.arrivalAudioTimestamp !== 0 ? r.arrivalAudioTimestamp : a,
               s = i != null ? Math.round(i) : "n/a",
@@ -440,7 +448,7 @@ __d(
               e && (n.pendingRecalibration = !0),
               r.isKeyFrame)
             ) {
-              this.$20({
+              this.$22({
                 audioTimestamp: l,
                 source: t,
                 state: n,
@@ -452,49 +460,64 @@ __d(
             var c = this.$4;
             c != null && c(t);
           }),
-          (n.$23 = function (t, n) {
+          (n.$25 = function (t, n) {
             var e = this.$1;
             return e === 0 ? null : (Math.max(0, t - n) / e) * 1e3;
           }),
-          (n.$22 = function (t, n) {
+          (n.$24 = function (t, n) {
             return n != null ? Math.max(t, n) : t;
           }),
-          (n.$24 = function (t, n) {
-            return (this.$21(t, n) / S) * 1e3;
+          (n.$26 = function (t, n) {
+            return (this.$23(t, n) / S) * 1e3;
           }),
-          (n.$21 = function (t, n) {
+          (n.$23 = function (t, n) {
             var e = t - n;
             return (e > R / 2 ? (e -= R) : e < -(R / 2) && (e += R), e);
           }),
-          (n.$16 = function (t, n, r) {
-            var e = t[n];
-            (t.splice(n, 1),
-              n > 0 && this.$28(t, n, e.source),
-              r(
-                e.source,
-                e.frameBuffer,
-                e.width,
-                e.height,
-                e.orientation,
-                e.format,
-                e.timestamp,
-                e.isKeyFrame,
-              ));
+          (n.$17 = function (t, n, r) {
+            var e = n;
+            e > 0 &&
+              (this.$6 ? (e = this.$19(t, e, r)) : this.$30(t, e, t[e].source));
+            var o = t[e];
+            return (t.splice(e, 1), this.$31(o, r), e);
           }),
-          (n.$28 = function (t, n, r) {
+          (n.$19 = function (t, n, r) {
+            if (!this.$6 || n === 0) return n;
+            var e = this.$7.get(t[n].source),
+              o = t.splice(0, n);
+            this.$9.recordReordersPrevented(o.length);
+            for (var a of o)
+              (this.$9.recordFrameRenderedLate(),
+                e != null && (e.framesLate++, e.framesReorderPrevented++),
+                this.$31(a, r));
+            return 0;
+          }),
+          (n.$31 = function (t, n) {
+            n(
+              t.source,
+              t.frameBuffer,
+              t.width,
+              t.height,
+              t.orientation,
+              t.format,
+              t.timestamp,
+              t.isKeyFrame,
+            );
+          }),
+          (n.$30 = function (t, n, r) {
             for (var e = 0, o = 0; o < n; o++) {
               var a = t[o];
               a.skippedOver || ((a.skippedOver = !0), e++);
             }
             if (e !== 0) {
-              this.$8.recordFramesReordered(e);
-              var i = this.$6.get(r);
+              this.$9.recordFramesReordered(e);
+              var i = this.$7.get(r);
               i != null && (i.framesReordered += e);
             }
           }),
-          (n.$12 = function (t) {
-            for (var e of this.$7) {
-              var n = this.$6.get(e);
+          (n.$13 = function (t) {
+            for (var e of this.$8) {
+              var n = this.$7.get(e);
               if (!(n == null || n.frameQueue == null)) {
                 for (var r of n.frameQueue)
                   t(
@@ -510,7 +533,7 @@ __d(
                 n.frameQueue = null;
               }
             }
-            this.$7.clear();
+            this.$8.clear();
           }),
           t
         );

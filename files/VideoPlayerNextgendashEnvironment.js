@@ -34,6 +34,7 @@ __d(
         enableEMSSLayoutSettleOffTimerPath: !0,
         enableEMSSMintDeadlineOffTimerPath: !0,
         enableEMSSPreMintOnEnded: !0,
+        enableEMSSRedeclareOnAudioConfigChange: !0,
         enableEMSSRemintStrandedActiveSource: !0,
         enableFBPrefetchCacheKeyNormalization: !1,
         enableFetchPool: !1,

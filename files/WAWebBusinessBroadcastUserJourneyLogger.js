@@ -820,6 +820,33 @@ __d(
           (t.broadcastDeleteConfirmed = function (t, n) {
             o("WAWebBBInfoDrawerLogs").broadcastDeleteConfirmed(this.$1, t, n);
           }),
+          (t.deleteAudienceDialogViewed = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").deleteAudienceDialogViewed(
+              this.$1,
+              t,
+              n,
+            );
+          }),
+          (t.audienceDeleteConfirmed = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").audienceDeleteConfirmed(this.$1, t, n);
+          }),
+          (t.deleteAudienceCancelClicked = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").deleteAudienceCancelClicked(
+              this.$1,
+              t,
+              n,
+            );
+          }),
+          (t.audienceDeleteResult = function (t, n, r, a, i) {
+            o("WAWebBBInfoDrawerLogs").audienceDeleteResult(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+              i,
+            );
+          }),
           (t.deleteBroadcastDialogViewed = function (t, n) {
             o("WAWebBBInfoDrawerLogs").deleteBroadcastDialogViewed(
               this.$1,

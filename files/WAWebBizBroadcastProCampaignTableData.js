@@ -68,11 +68,22 @@ __d(
       return {
         id: a,
         campaign_name: e.campaign_name,
-        delivery_status_info: c == null ? null : { status: c.status },
+        delivery_status_info:
+          c == null
+            ? null
+            : {
+                extra_data:
+                  c.extra_data == null
+                    ? null
+                    : { template_id: c.extra_data.template_id },
+                status: c.status,
+              },
         broadcast_insights: {
           ads_amount_spent: s.ads_amount_spent,
+          bid_amount_long: s.bid_amount_long,
           currency: s.currency,
           customer_list_name: s.customer_list_name,
+          lifetime_budget_long: s.lifetime_budget_long,
           quick_reply_clicks:
             (t = s.quick_reply_clicks) == null
               ? void 0

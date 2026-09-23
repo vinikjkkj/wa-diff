@@ -19,9 +19,10 @@ __d(
             (this.$12 = 0),
             (this.$13 = 0),
             (this.$14 = 0),
-            (this.$15 = []),
-            (this.$16 = 0),
+            (this.$15 = 0),
+            (this.$16 = []),
             (this.$17 = 0),
+            (this.$18 = 0),
             (this.$1 = e));
         }
         var n = t.prototype;
@@ -53,31 +54,34 @@ __d(
           (n.recordFramesReordered = function (t) {
             this.$11 += t;
           }),
+          (n.recordReordersPrevented = function (t) {
+            this.$12 += t;
+          }),
           (n.observeQueueDepth = function (t) {
             t > this.$8 && (this.$8 = t);
           }),
           (n.recordDelta = function (n) {
-            (this.$12++, (this.$13 += n));
+            (this.$13++, (this.$14 += n));
             var t = Math.abs(n);
-            if ((t > this.$14 && (this.$14 = t), this.$15.length < e))
-              this.$15.push(n);
+            if ((t > this.$15 && (this.$15 = t), this.$16.length < e))
+              this.$16.push(n);
             else {
-              var r = this.$12 % (e * l);
-              r < e && (this.$15[r] = n);
+              var r = this.$13 % (e * l);
+              r < e && (this.$16[r] = n);
             }
             var o = Date.now();
-            (this.$17 > 0 && t > this.$1 && (this.$16 += o - this.$17),
-              (this.$17 = o));
+            (this.$18 > 0 && t > this.$1 && (this.$17 += o - this.$18),
+              (this.$18 = o));
           }),
           (n.hasCalibrated = function () {
             return this.$2 > 0;
           }),
           (n.consume = function () {
-            var e = this.$12 > 0 ? this.$13 / this.$12 : null,
+            var e = this.$13 > 0 ? this.$14 / this.$13 : null,
               t = null,
               n = null;
-            if (this.$15.length > 0) {
-              var r = this.$15.slice().sort(function (e, t) {
+            if (this.$16.length > 0) {
+              var r = this.$16.slice().sort(function (e, t) {
                 return e - t;
               });
               ((t = r[Math.floor(r.length * 0.5)]),
@@ -95,15 +99,16 @@ __d(
               webAvSyncFramesRenderedInSync: this.$9,
               webAvSyncFramesRenderedLate: this.$10,
               webAvSyncReorderCount: this.$11,
+              webAvSyncReorderPreventedCount: this.$12,
               webAvSyncAvgDeltaMs: e != null ? Math.round(e) : null,
               webAvSyncP50DeltaMs: t != null ? Math.round(t) : null,
               webAvSyncP95DeltaMs: n != null ? Math.round(n) : null,
-              webAvSyncMaxAbsDeltaMs: Math.round(this.$14),
-              webAvSyncTimeOutOfSyncMs: Math.round(this.$16),
+              webAvSyncMaxAbsDeltaMs: Math.round(this.$15),
+              webAvSyncTimeOutOfSyncMs: Math.round(this.$17),
             };
-            return (this.$18(), o);
+            return (this.$19(), o);
           }),
-          (n.$18 = function () {
+          (n.$19 = function () {
             ((this.$2 = 0),
               (this.$3 = 0),
               (this.$4 = 0),
@@ -117,9 +122,10 @@ __d(
               (this.$12 = 0),
               (this.$13 = 0),
               (this.$14 = 0),
-              (this.$15 = []),
-              (this.$16 = 0),
-              (this.$17 = 0));
+              (this.$15 = 0),
+              (this.$16 = []),
+              (this.$17 = 0),
+              (this.$18 = 0));
           }),
           t
         );

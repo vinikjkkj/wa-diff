@@ -28,7 +28,9 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!v()) return null;
           try {
-            var e = yield navigator.getBattery();
+            var e = yield navigator.getBattery == null
+              ? void 0
+              : navigator.getBattery();
             return e;
           } catch (e) {
             return (

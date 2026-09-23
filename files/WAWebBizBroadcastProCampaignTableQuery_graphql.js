@@ -245,7 +245,28 @@ __d(
                                   kind: "LinkedField",
                                   name: "delivery_status_info",
                                   plural: !1,
-                                  selections: [s],
+                                  selections: [
+                                    s,
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType:
+                                        "XFBBMCampaignDeliveryStatusExtraDataNode",
+                                      kind: "LinkedField",
+                                      name: "extra_data",
+                                      plural: !1,
+                                      selections: [
+                                        {
+                                          alias: null,
+                                          args: null,
+                                          kind: "ScalarField",
+                                          name: "template_id",
+                                          storageKey: null,
+                                        },
+                                      ],
+                                      storageKey: null,
+                                    },
+                                  ],
                                   storageKey: null,
                                 },
                                 {
@@ -283,7 +304,21 @@ __d(
                                       alias: null,
                                       args: null,
                                       kind: "ScalarField",
+                                      name: "bid_amount_long",
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
                                       name: "currency",
+                                      storageKey: null,
+                                    },
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "lifetime_budget_long",
                                       storageKey: null,
                                     },
                                     {

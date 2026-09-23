@@ -94,7 +94,7 @@ __d(
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
     function y(e, t, n) {
-      return n == null || N.includes(e)
+      return n == null || w.includes(e)
         ? null
         : {
             draggable: !0,
@@ -112,7 +112,7 @@ __d(
             onDrop: function (r) {
               r.preventDefault();
               var t = r.dataTransfer.getData("text/plain"),
-                o = M.find(function (e) {
+                o = A.find(function (e) {
                   return e === t;
                 });
               o != null && o !== e && n(o, e);
@@ -421,8 +421,24 @@ __d(
         i
       );
     }
-    function E(t) {
-      var n = o("react-compiler-runtime").c(39),
+    function E(e) {
+      return e === "asc"
+        ? s._(/*BTDS*/ "Sorted ascending")
+        : s._(/*BTDS*/ "Sorted descending");
+    }
+    function k(e, t) {
+      return t == null
+        ? e
+        : t === "asc"
+          ? s._(/*BTDS*/ "{column name}, sorted ascending", [
+              s._param("column name", e),
+            ])
+          : s._(/*BTDS*/ "{column name}, sorted descending", [
+              s._param("column name", e),
+            ]);
+    }
+    function I(t) {
+      var n = o("react-compiler-runtime").c(42),
         a = t.columnKey,
         i = t.label,
         l = t.onColumnReorder,
@@ -438,26 +454,26 @@ __d(
         ? ((v = y(a, g, l)), (n[0] = a), (n[1] = l), (n[2] = v))
         : (v = n[2]);
       var E = v,
-        k = String(i),
-        I;
+        I = String(i),
+        T;
       n[3] !== a || n[4] !== E || n[5] !== d
-        ? ((I = E != null && d.includes(a)),
+        ? ((T = E != null && d.includes(a)),
           (n[3] = a),
           (n[4] = E),
           (n[5] = d),
-          (n[6] = I))
-        : (I = n[6]);
-      var T = I,
-        D = C(),
-        x = D.revealed,
-        $ = D.setHeaderRef,
-        P = S(a, k, d, T, s, l),
-        N = P.handleReorderBlur,
-        M = P.handleReorderKeyDown,
-        w = m != null && m.key === a ? m.direction : null,
-        A;
+          (n[6] = T))
+        : (T = n[6]);
+      var D = T,
+        x = C(),
+        $ = x.revealed,
+        P = x.setHeaderRef,
+        N = S(a, I, d, D, s, l),
+        M = N.handleReorderBlur,
+        w = N.handleReorderKeyDown,
+        A = m != null && m.key === a ? m.direction : null,
+        F;
       n[7] !== f
-        ? ((A = (e || (e = r("stylex"))).props(
+        ? ((F = (e || (e = r("stylex"))).props(
             h.wrapper,
             h.sortable,
             h.fullCellTarget,
@@ -465,104 +481,108 @@ __d(
             f && h.dragging,
           )),
           (n[7] = f),
-          (n[8] = A))
-        : (A = n[8]);
-      var F;
-      n[9] !== T
-        ? ((F = T ? b() : void 0), (n[9] = T), (n[10] = F))
-        : (F = n[10]);
+          (n[8] = F))
+        : (F = n[8]);
       var O;
-      n[11] !== E
-        ? ((O = E != null ? E : {}), (n[11] = E), (n[12] = O))
-        : (O = n[12]);
+      n[9] !== A || n[10] !== i
+        ? ((O = k(i, A)), (n[9] = A), (n[10] = i), (n[11] = O))
+        : (O = n[11]);
       var B;
-      n[13] !== a || n[14] !== u
-        ? ((B = function () {
+      n[12] !== D
+        ? ((B = D ? b() : void 0), (n[12] = D), (n[13] = B))
+        : (B = n[13]);
+      var W;
+      n[14] !== E
+        ? ((W = E != null ? E : {}), (n[14] = E), (n[15] = W))
+        : (W = n[15]);
+      var q;
+      n[16] !== a || n[17] !== u
+        ? ((q = function () {
             return u(a);
           }),
-          (n[13] = a),
-          (n[14] = u),
-          (n[15] = B))
-        : (B = n[15]);
-      var W;
-      n[16] !== a || n[17] !== M || n[18] !== u
-        ? ((W = function (t) {
-            M(t) ||
+          (n[16] = a),
+          (n[17] = u),
+          (n[18] = q))
+        : (q = n[18]);
+      var U;
+      n[19] !== a || n[20] !== w || n[21] !== u
+        ? ((U = function (t) {
+            w(t) ||
               ((t.key === "Enter" || t.key === " ") &&
                 (t.preventDefault(), u(a)));
           }),
-          (n[16] = a),
-          (n[17] = M),
-          (n[18] = u),
-          (n[19] = W))
-        : (W = n[19]);
-      var q;
-      n[20] !== T || n[21] !== x
-        ? ((q = T && c.jsx(R, { revealed: x })),
-          (n[20] = T),
-          (n[21] = x),
-          (n[22] = q))
-        : (q = n[22]);
-      var U;
-      n[23] !== i
-        ? ((U = c.jsx(r("WDSText.react"), {
+          (n[19] = a),
+          (n[20] = w),
+          (n[21] = u),
+          (n[22] = U))
+        : (U = n[22]);
+      var V;
+      n[23] !== D || n[24] !== $
+        ? ((V = D && c.jsx(R, { revealed: $ })),
+          (n[23] = D),
+          (n[24] = $),
+          (n[25] = V))
+        : (V = n[25]);
+      var H;
+      n[26] !== i
+        ? ((H = c.jsx(r("WDSText.react"), {
             maxLines: 1,
             type: "Body2Emphasized",
             colorName: "contentDeemphasized",
             children: i,
           })),
-          (n[23] = i),
-          (n[24] = U))
-        : (U = n[24]);
-      var V;
-      n[25] !== w
-        ? ((V = c.jsx(L, { direction: w })), (n[25] = w), (n[26] = V))
-        : (V = n[26]);
-      var H;
+          (n[26] = i),
+          (n[27] = H))
+        : (H = n[27]);
+      var G;
+      n[28] !== A
+        ? ((G = c.jsx(L, { direction: A })), (n[28] = A), (n[29] = G))
+        : (G = n[29]);
+      var z;
       return (
-        n[27] !== k ||
-        n[28] !== N ||
-        n[29] !== $ ||
-        n[30] !== V ||
-        n[31] !== A ||
-        n[32] !== F ||
-        n[33] !== O ||
-        n[34] !== B ||
-        n[35] !== W ||
-        n[36] !== q ||
-        n[37] !== U
-          ? ((H = c.jsxs(
+        n[30] !== M ||
+        n[31] !== P ||
+        n[32] !== H ||
+        n[33] !== G ||
+        n[34] !== F ||
+        n[35] !== O ||
+        n[36] !== B ||
+        n[37] !== W ||
+        n[38] !== q ||
+        n[39] !== U ||
+        n[40] !== V
+          ? ((z = c.jsxs(
               "div",
               babelHelpers.extends(
-                { ref: $ },
-                A,
+                { ref: P },
+                F,
                 {
-                  "aria-label": k,
+                  "aria-label": O,
                   role: "button",
                   tabIndex: 0,
-                  "aria-roledescription": F,
+                  "aria-roledescription": B,
                 },
-                O,
-                { onBlur: N, onClick: B, onKeyDown: W, children: [q, U, V] },
+                W,
+                { onBlur: M, onClick: q, onKeyDown: U, children: [V, H, G] },
               ),
             )),
-            (n[27] = k),
-            (n[28] = N),
-            (n[29] = $),
-            (n[30] = V),
-            (n[31] = A),
-            (n[32] = F),
-            (n[33] = O),
-            (n[34] = B),
-            (n[35] = W),
-            (n[36] = q),
-            (n[37] = U),
-            (n[38] = H))
-          : (H = n[38]),
-        H
+            (n[30] = M),
+            (n[31] = P),
+            (n[32] = H),
+            (n[33] = G),
+            (n[34] = F),
+            (n[35] = O),
+            (n[36] = B),
+            (n[37] = W),
+            (n[38] = q),
+            (n[39] = U),
+            (n[40] = V),
+            (n[41] = z))
+          : (z = n[41]),
+        z
       );
     }
-    function k(t) {
+    function T(t) {
       var n = o("react-compiler-runtime").c(30),
         a = t.columnKey,
         i = t.label,
@@ -702,9 +722,9 @@ __d(
         W
       );
     }
-    function I(e, t, n, r, o, a, i) {
+    function D(e, t, n, r, o, a, i) {
       return function () {
-        return c.jsx(E, {
+        return c.jsx(I, {
           label: e,
           columnKey: t,
           sortConfig: n,
@@ -715,9 +735,9 @@ __d(
         });
       };
     }
-    function T(e, t, n, r, o) {
+    function x(e, t, n, r, o) {
       return function () {
-        return c.jsx(k, {
+        return c.jsx(T, {
           label: e,
           columnKey: t,
           onColumnReorder: n,
@@ -726,7 +746,7 @@ __d(
         });
       };
     }
-    function D(e) {
+    function $(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.chatJid,
         a;
@@ -762,7 +782,7 @@ __d(
         u
       );
     }
-    function x(e) {
+    function P(e) {
       var t,
         n = o("react-compiler-runtime").c(6),
         a = e.chatJid,
@@ -807,7 +827,7 @@ __d(
         m
       );
     }
-    function $(e) {
+    function N(e) {
       if (e == null || e === 0) return "\u2014";
       try {
         return new Intl.DateTimeFormat(void 0, {
@@ -819,7 +839,7 @@ __d(
         return "\u2014";
       }
     }
-    function P(e) {
+    function M(e) {
       if (e == null || e === 0) return "\u2014";
       try {
         return new Intl.DateTimeFormat(void 0, {
@@ -831,8 +851,8 @@ __d(
         return "\u2014";
       }
     }
-    var N = ["select", "customer", "actions"],
-      M = [
+    var w = ["select", "customer", "actions"],
+      A = [
         "customer",
         "phone",
         "username",
@@ -846,13 +866,25 @@ __d(
         "notes",
         "actions",
       ],
-      w = M;
-    function A(e, t) {
+      F = [
+        "customer",
+        "phone",
+        "username",
+        "list",
+        "acquisitionSource",
+        "email",
+        "address",
+        "birthday",
+        "lastMessage",
+        "lastOrder",
+      ],
+      O = A;
+    function B(e, t) {
       return e.filter(function (e) {
-        return !N.includes(e) && t.includes(e);
+        return !w.includes(e) && t.includes(e);
       });
     }
-    function F(e) {
+    function W(e) {
       return e === "select"
         ? "Select"
         : e === "customer"
@@ -886,10 +918,10 @@ __d(
                                     );
                                   })();
     }
-    function O(e) {
+    function q(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
     }
-    function B(t) {
+    function U(t) {
       return {
         cell: function (a) {
           var n = o("WAWebContactCollection").ContactCollection.get(
@@ -947,7 +979,7 @@ __d(
                     return t.toggleAll();
                   },
                   testid: "customer_manager_select_all",
-                  value: O(t),
+                  value: q(t),
                 }),
               },
             ),
@@ -958,14 +990,14 @@ __d(
           .contactManagerColumnWidths.select,
       };
     }
-    function W(e, t, n, a, i, l, u, d) {
+    function V(e, t, n, a, i, l, u, d) {
       var m = u != null ? u : [],
         p = d != null ? d : r("WAWebNoop"),
         _ = function (t, r) {
-          return a != null ? I(t, r, n, a, i, m, p) : void 0;
+          return a != null ? D(t, r, n, a, i, m, p) : void 0;
         },
         f = s._(/*BTDS*/ "Name"),
-        g = l != null ? B(l) : null;
+        g = l != null ? U(l) : null;
       return [].concat(g != null ? [g] : [], [
         {
           cell: function (t) {
@@ -982,7 +1014,7 @@ __d(
         },
         {
           cell: function (t) {
-            return c.jsx(D, { chatJid: t.item.chatJid });
+            return c.jsx($, { chatJid: t.item.chatJid });
           },
           header: s._(/*BTDS*/ "Phone number"),
           key: "phone",
@@ -993,7 +1025,7 @@ __d(
         },
         {
           cell: function (t) {
-            return c.jsx(x, { chatJid: t.item.chatJid });
+            return c.jsx(P, { chatJid: t.item.chatJid });
           },
           header: s._(/*BTDS*/ "Username"),
           key: "username",
@@ -1088,7 +1120,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: P(t.item.leadData.birthday),
+              children: M(t.item.leadData.birthday),
             });
           },
           header: s._(/*BTDS*/ "Birthday"),
@@ -1105,7 +1137,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: $(e == null ? void 0 : e.t),
+              children: N(e == null ? void 0 : e.t),
             });
           },
           header: s._(/*BTDS*/ "Last message"),
@@ -1121,7 +1153,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: $(t.item.leadData.lastOrder),
+              children: N(t.item.leadData.lastOrder),
             });
           },
           header: s._(/*BTDS*/ "Last order"),
@@ -1139,16 +1171,15 @@ __d(
           },
           header: s._(/*BTDS*/ "Notes"),
           key: "notes",
-          renderHeader: T(s._(/*BTDS*/ "Notes"), "notes", i, m, p),
+          renderHeader: x(s._(/*BTDS*/ "Notes"), "notes", i, m, p),
           width: o("WAWebContactManagerListViewColumnWidths")
             .contactManagerColumnWidths.notes,
         },
         {
-          cell: function (o) {
+          cell: function (n) {
             return c.jsx(r("WAWebContactManagerActionsCell.react"), {
-              chatJid: o.item.chatJid,
+              chatJid: n.item.chatJid,
               onChatClick: e,
-              onDelete: t,
             });
           },
           key: "actions",
@@ -1159,12 +1190,14 @@ __d(
       ]);
     }
     ((l.ColumnReorderAnnouncer = v),
-      (l.ALWAYS_VISIBLE_COLUMNS = N),
-      (l.ALL_COLUMN_KEYS = M),
-      (l.DEFAULT_VISIBLE_COLUMNS = w),
-      (l.getOrderedReorderableColumnKeys = A),
-      (l.getColumnLabel = F),
-      (l.getContactManagerListColumns = W));
+      (l.getSortDirectionLabel = E),
+      (l.ALWAYS_VISIBLE_COLUMNS = w),
+      (l.ALL_COLUMN_KEYS = A),
+      (l.SORTABLE_COLUMN_KEYS = F),
+      (l.DEFAULT_VISIBLE_COLUMNS = O),
+      (l.getOrderedReorderableColumnKeys = B),
+      (l.getColumnLabel = W),
+      (l.getContactManagerListColumns = V));
   },
   226,
 );

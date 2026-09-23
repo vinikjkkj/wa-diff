@@ -255,30 +255,33 @@ __d(
           );
         }
     }
-    function $e(e, t) {
+    function $e(e, t, n) {
       return Pe.apply(this, arguments);
     }
     function Pe() {
       return (
-        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = "wa-web-call",
-            r = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
-          if (
-            r &&
-            (r.state ===
-              o("WAWebVoipRelayConnectionUtils").ConnectionState.Open ||
-              r.state ===
-                o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting)
-          ) {
-            qe(e.id);
-            return;
-          }
-          (r &&
-            r.state !==
-              o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
-            it(e.id),
-            yield nt(e, n, t));
-        })),
+        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            n === void 0 && (n = !1);
+            var r = "wa-web-call",
+              a = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
+            if (
+              a &&
+              (a.state ===
+                o("WAWebVoipRelayConnectionUtils").ConnectionState.Open ||
+                a.state ===
+                  o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting)
+            ) {
+              qe(e.id);
+              return;
+            }
+            (a &&
+              a.state !==
+                o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
+              it(e.id),
+              yield nt(e, r, t, n));
+          },
+        )),
         Pe.apply(this, arguments)
       );
     }
@@ -753,41 +756,44 @@ __d(
           function* (e, t, r, a) {
             if (!(t >= e.length) && !(me || Ce !== r)) {
               var i = e[t];
-              if (
-                i != null &&
-                !(
-                  t > 0 &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "web_voip_relay_setup_yield_ipv4_first",
-                  ) === !0 &&
-                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                  me || Ce !== r)
-                )
-              ) {
-                o("WALogger").LOG(
-                  H ||
-                    (H = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SctpConnectionManager] Starting staggered connection ",
-                      "/",
-                      ": ",
-                      "",
-                    ])),
-                  t + 1,
-                  e.length,
-                  i.id,
-                );
-                var l = We(i.id);
-                if (($e(i, a), t < e.length - 1)) {
-                  var s = new (le || (le = n("Promise")))(function (e) {
-                    window.setTimeout(
-                      e,
-                      o("WAWebVoipSctpConnectionManagerConstants")
-                        .PER_CONNECTION_STAGGER_DELAY_MS,
-                    );
-                  });
-                  yield le.race([l, s]);
+              if (i != null) {
+                var l = i.isEarlyPacketRelayReconnect,
+                  s = i.relayConnectionInfo;
+                if (
+                  !(
+                    t > 0 &&
+                    o("WAWebABProps").getABPropConfigValue(
+                      "web_voip_relay_setup_yield_ipv4_first",
+                    ) === !0 &&
+                    (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+                    me || Ce !== r)
+                  )
+                ) {
+                  o("WALogger").LOG(
+                    H ||
+                      (H = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [SctpConnectionManager] Starting staggered connection ",
+                        "/",
+                        ": ",
+                        "",
+                      ])),
+                    t + 1,
+                    e.length,
+                    s.id,
+                  );
+                  var u = We(s.id);
+                  if (($e(s, a, l), t < e.length - 1)) {
+                    var c = new (le || (le = n("Promise")))(function (e) {
+                      window.setTimeout(
+                        e,
+                        o("WAWebVoipSctpConnectionManagerConstants")
+                          .PER_CONNECTION_STAGGER_DELAY_MS,
+                      );
+                    });
+                    yield le.race([u, c]);
+                  }
+                  yield je(e, t + 1, r, a);
                 }
-                yield je(e, t + 1, r, a);
               }
             }
           },
@@ -867,24 +873,38 @@ __d(
             var g = f[0],
               h = f[1],
               y = o("WAWebVoipSctpConnectionState").sctpConnections.get(g);
-            (Qe(g, y, s), Xe(g, y, u) && _.push(h));
+            Qe(g, y, s);
+            var C =
+              u &&
+              o("WAWebVoipSctpConnectionState").currentRelayState.has(g) &&
+              (y == null ? void 0 : y.state) ===
+                o("WAWebVoipRelayConnectionUtils").ConnectionState.None;
+            Xe(g, y, u) &&
+              _.push({
+                relayConnectionInfo: h,
+                isEarlyPacketRelayReconnect: C,
+              });
           }
           o("WAWebVoipSctpConnectionState").currentRelayState.clear();
-          for (var C of l) {
-            var b = C[0],
-              v = C[1];
-            o("WAWebVoipSctpConnectionState").currentRelayState.set(b, v);
+          for (var b of l) {
+            var v = b[0],
+              S = b[1];
+            o("WAWebVoipSctpConnectionState").currentRelayState.set(v, S);
           }
           if (_.length > 0) {
             o("WAWebVoipRelayConnectQpl").maybeStartVoipRelayConnectQpl();
-            var S =
+            var R =
               e.enable_web_relay_connection_stagger === !0 &&
               (t == null ? void 0 : t.bypassConnectionStagger) !== !0;
-            S
+            R
               ? yield Ge(_, a)
               : yield (le || (le = n("Promise"))).all(
                   _.map(function (e) {
-                    return $e(e, a);
+                    return $e(
+                      e.relayConnectionInfo,
+                      a,
+                      e.isEarlyPacketRelayReconnect,
+                    );
                   }),
                 );
           }
@@ -1061,10 +1081,17 @@ __d(
               );
             }
             if (n === "connected") {
-              o("WAWebVoipRelayConnectQpl").endVoipRelayConnectQplSuccess();
+              (o("WAWebVoipRelayConnectQpl").endVoipRelayConnectQplSuccess(),
+                i.isEarlyPacketRelayReconnect === !0 &&
+                  i.hasLoggedEarlyPacketRelayReconnectConnected !== !0 &&
+                  ((i.hasLoggedEarlyPacketRelayReconnectConnected = !0),
+                  o(
+                    "WAWebCoreActionsODS",
+                  ).logCallSctpEarlyPacketRelayReconnectEvent("pc_connected")));
               var s = i.relayIp,
                 u = i.relayPort;
               s !== "" &&
+                i.isEarlyPacketRelayReconnect !== !0 &&
                 r("justknobx")._("3110") &&
                 o("WAWebVoipStackInterface")
                   .getVoipStackInterface()
@@ -1093,27 +1120,29 @@ __d(
           }
         }));
     }
-    function nt(e, t, n) {
+    function nt(e, t, n, r) {
       return rt.apply(this, arguments);
     }
     function rt() {
       return (
         (rt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var r = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
-            r &&
-            r.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None
-              ? ((r.state = o(
+          function* (e, t, n, r) {
+            var a = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
+            (a &&
+            a.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None
+              ? ((a.isEarlyPacketRelayReconnect = r),
+                (a.hasLoggedEarlyPacketRelayReconnectConnected = !1),
+                (a.state = o(
                   "WAWebVoipRelayConnectionUtils",
                 ).ConnectionState.Connecting),
-                (r.connectionStartTime = Date.now()),
-                (r.relayConnectionInfo = e),
-                (r.relayId = e.relayId),
-                (r.relayIp = e.ip),
-                (r.relayPort = e.port),
-                r.connectionTimeout &&
-                  (window.clearTimeout(r.connectionTimeout),
-                  (r.connectionTimeout = null)),
+                (a.connectionStartTime = Date.now()),
+                (a.relayConnectionInfo = e),
+                (a.relayId = e.relayId),
+                (a.relayIp = e.ip),
+                (a.relayPort = e.port),
+                a.connectionTimeout &&
+                  (window.clearTimeout(a.connectionTimeout),
+                  (a.connectionTimeout = null)),
                 o("WALogger").LOG(
                   G ||
                     (G = babelHelpers.taggedTemplateLiteralLoose([
@@ -1122,9 +1151,9 @@ __d(
                       "",
                     ])),
                   e.id,
-                  r.packetBuffer.bufferedBytes,
+                  a.packetBuffer.bufferedBytes,
                 ))
-              : ((r = {
+              : ((a = {
                   state: o("WAWebVoipRelayConnectionUtils").ConnectionState
                     .Connecting,
                   channel: null,
@@ -1150,12 +1179,18 @@ __d(
                   relayPort: e.port,
                   iceConnectedTime: 0,
                   dtlsStallTimeout: null,
+                  isEarlyPacketRelayReconnect: r,
+                  hasLoggedEarlyPacketRelayReconnectConnected: !1,
                 }),
-                fe.recordAttempt(r.relayIp),
-                o("WAWebVoipSctpConnectionState").sctpConnections.set(r.id, r));
-            var a = r;
-            r.connectionTimeout = window.setTimeout(function () {
-              a.state ===
+                fe.recordAttempt(a.relayIp),
+                o("WAWebVoipSctpConnectionState").sctpConnections.set(a.id, a)),
+              r &&
+                o(
+                  "WAWebCoreActionsODS",
+                ).logCallSctpEarlyPacketRelayReconnectEvent("attempted"));
+            var i = a;
+            a.connectionTimeout = window.setTimeout(function () {
+              i.state ===
                 o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting &&
                 (o("WALogger").WARN(
                   z ||
@@ -1167,12 +1202,12 @@ __d(
                   de(),
                   e.id,
                 ),
-                lt(a, "connection_timeout"));
+                lt(i, "connection_timeout"));
             }, de());
-            var i = !1;
+            var l = !1;
             if (
               (o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled() ||
-                (i = yield ht()),
+                (l = yield ht()),
               me)
             )
               return (it(e.id), qe(e.id), !1);
@@ -1185,18 +1220,18 @@ __d(
                 e.port,
               ));
             try {
-              var l,
-                s,
-                u = {};
+              var s,
+                u,
+                c = {};
               if (
-                ((u.certificates = [
+                ((c.certificates = [
                   yield o("WAWebVoipDtlsCertAcquire").acquireDtlsCert(n),
                 ]),
                 yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
                 me)
               )
                 return (it(e.id), qe(e.id), !1);
-              if (at(r))
+              if (at(a))
                 return (
                   o("WALogger").WARN(
                     j ||
@@ -1206,13 +1241,13 @@ __d(
                       ])),
                     e.id,
                   ),
-                  o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(r),
+                  o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(a),
                   !1
                 );
-              var c = Date.now(),
-                d = new RTCPeerConnection(u),
-                m = Date.now() - c;
-              (m >
+              var d = Date.now(),
+                m = new RTCPeerConnection(c),
+                p = Date.now() - d;
+              (p >
                 o("WAWebVoipSctpConnectionManagerConstants")
                   .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
                 o("WALogger").WARN(
@@ -1223,10 +1258,10 @@ __d(
                       "ms",
                     ])),
                   e.id,
-                  m,
+                  p,
                 ),
-                (r.peerConnection = d),
-                (d.onicecandidate = function (t) {
+                (a.peerConnection = m),
+                (m.onicecandidate = function (t) {
                   t.candidate ||
                     o("WALogger").LOG(
                       Q ||
@@ -1237,20 +1272,20 @@ __d(
                       e.id,
                     );
                 }),
-                tt(d, e.id),
+                tt(m, e.id),
                 et({
-                  connection: r,
-                  peerConnection: d,
+                  connection: a,
+                  peerConnection: m,
                   relayConnectionInfo: e,
                 }));
-              var p = Date.now(),
-                _ = yield d.createOffer();
-              yield d.setLocalDescription(_);
-              var f = _.sdp || "",
-                g = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(f, e);
+              var _ = Date.now(),
+                f = yield m.createOffer();
+              yield m.setLocalDescription(f);
+              var g = f.sdp || "",
+                h = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(g, e);
               if (
-                (yield d.setRemoteDescription({ sdp: g, type: "answer" }),
-                at(r))
+                (yield m.setRemoteDescription({ sdp: h, type: "answer" }),
+                at(a))
               )
                 return (
                   o("WALogger").WARN(
@@ -1261,19 +1296,19 @@ __d(
                       ])),
                     e.id,
                   ),
-                  o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(r),
+                  o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(a),
                   o(
                     "WAWebVoipSctpConnectionTeardown",
-                  ).closeConnectionDataChannel(r),
+                  ).closeConnectionDataChannel(a),
                   o(
                     "WAWebVoipSctpConnectionTeardown",
-                  ).detachPeerConnectionHandlers(d),
-                  d.close(),
-                  (r.peerConnection = null),
+                  ).detachPeerConnectionHandlers(m),
+                  m.close(),
+                  (a.peerConnection = null),
                   !1
                 );
-              var h = Date.now() - p;
-              h >
+              var y = Date.now() - _;
+              y >
                 o("WAWebVoipSctpConnectionManagerConstants")
                   .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
                 o("WALogger").WARN(
@@ -1284,12 +1319,12 @@ __d(
                       "ms",
                     ])),
                   e.id,
-                  h,
+                  y,
                 );
-              var y = d.iceConnectionState,
-                C =
-                  (l = (s = r.channel) == null ? void 0 : s.readyState) != null
-                    ? l
+              var C = m.iceConnectionState,
+                b =
+                  (s = (u = a.channel) == null ? void 0 : u.readyState) != null
+                    ? s
                     : "unknown";
               return (
                 o("WALogger").LOG(
@@ -1301,8 +1336,8 @@ __d(
                       "",
                     ])),
                   e.id,
+                  b,
                   C,
-                  y,
                 ),
                 !0
               );
@@ -1316,7 +1351,7 @@ __d(
                     ])),
                   e,
                 ),
-                lt(r, "channel_creation_failed"),
+                lt(a, "channel_creation_failed"),
                 !1
               );
             }

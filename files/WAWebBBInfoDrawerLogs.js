@@ -183,20 +183,20 @@ __d(
     }
     function E(e, t, n) {
       e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        surface: n,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_BROADCAST_BUTTON,
-      });
-    }
-    function k(e, t, n) {
-      e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
         surface: n,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.DELETE_DIALOG,
+      });
+    }
+    function k(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: n,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_AUDIENCE_BUTTON,
       });
     }
     function I(e, t, n) {
@@ -207,7 +207,46 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function T(e, t, n, r, a, i, l) {
+    function T(e, t, n, r, a, i) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        entryPoint: t,
+        extraAttributes: babelHelpers.extends(
+          { audience_id: r, save_result: a },
+          i != null ? { errorType: i } : void 0,
+        ),
+        surface: n,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_AUDIENCE_BUTTON,
+      });
+    }
+    function D(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: n,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_BROADCAST_BUTTON,
+      });
+    }
+    function x(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: t,
+        surface: n,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_DIALOG,
+      });
+    }
+    function $(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: n,
+        userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
+      });
+    }
+    function P(e, t, n, r, a, i, l) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
@@ -220,7 +259,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.DELETE_BROADCAST_BUTTON,
       });
     }
-    function D(e, t) {
+    function N(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -229,7 +268,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.RENAME_BROADCAST_BUTTON,
       });
     }
-    function x(e, t, n, r) {
+    function M(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
@@ -242,7 +281,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.RENAME_BROADCAST_BUTTON,
       });
     }
-    function $(e, t, n, r) {
+    function w(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -252,7 +291,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.RENAME_AUDIENCE_BUTTON,
       });
     }
-    function P(e, t, n, r, a, i) {
+    function A(e, t, n, r, a, i) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
@@ -265,7 +304,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.RENAME_AUDIENCE_BUTTON,
       });
     }
-    function N(e, t) {
+    function F(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -274,7 +313,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.UNDO_RENAME_BROADCAST,
       });
     }
-    function M(e, t, n, r) {
+    function O(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -284,7 +323,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.UNDO_RENAME_AUDIENCE,
       });
     }
-    function w(e, t, n) {
+    function B(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -293,7 +332,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.PREVIEW_BUTTON,
       });
     }
-    function A(e, t, n) {
+    function W(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -302,7 +341,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.DUPLICATE_BROADCAST_BUTTON,
       });
     }
-    function F(e, t, n) {
+    function q(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -311,7 +350,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.DUPLICATE_BROADCAST_BUTTON,
       });
     }
-    function O(e, t, n, r) {
+    function U(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -322,7 +361,7 @@ __d(
             .IN_THREAD_INSIGHT_METRICS_CHIP,
       });
     }
-    function B(e, t) {
+    function V(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -331,7 +370,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.REFRESH_INSIGHTS_BUTTON,
       });
     }
-    function W(e, t, n) {
+    function H(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -341,7 +380,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.DELIVERED_TO_DRAWER,
       });
     }
-    function q(e, t, n, r) {
+    function G(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
@@ -373,23 +412,27 @@ __d(
       (l.labelChatClicked = S),
       (l.labelChatSaved = R),
       (l.deleteAudienceClicked = L),
-      (l.broadcastDeleteConfirmed = E),
-      (l.deleteBroadcastDialogViewed = k),
-      (l.deleteBroadcastCancelClicked = I),
-      (l.broadcastDeleteResult = T),
-      (l.renameBroadcastClicked = D),
-      (l.renameBroadcastResult = x),
-      (l.renameAudienceClicked = $),
-      (l.renameAudienceResult = P),
-      (l.undoRenameBroadcastClicked = N),
-      (l.undoRenameAudienceClicked = M),
-      (l.broadcastPreviewClicked = w),
-      (l.duplicateBroadcastClicked = A),
-      (l.duplicateBroadcastTileViewed = F),
-      (l.inThreadInsightMetricsChipClicked = O),
-      (l.refreshInsightsClicked = B),
-      (l.deliveredToDrawerViewed = W),
-      (l.deliveredToDrawerFetchFailed = q));
+      (l.deleteAudienceDialogViewed = E),
+      (l.audienceDeleteConfirmed = k),
+      (l.deleteAudienceCancelClicked = I),
+      (l.audienceDeleteResult = T),
+      (l.broadcastDeleteConfirmed = D),
+      (l.deleteBroadcastDialogViewed = x),
+      (l.deleteBroadcastCancelClicked = $),
+      (l.broadcastDeleteResult = P),
+      (l.renameBroadcastClicked = N),
+      (l.renameBroadcastResult = M),
+      (l.renameAudienceClicked = w),
+      (l.renameAudienceResult = A),
+      (l.undoRenameBroadcastClicked = F),
+      (l.undoRenameAudienceClicked = O),
+      (l.broadcastPreviewClicked = B),
+      (l.duplicateBroadcastClicked = W),
+      (l.duplicateBroadcastTileViewed = q),
+      (l.inThreadInsightMetricsChipClicked = U),
+      (l.refreshInsightsClicked = V),
+      (l.deliveredToDrawerViewed = H),
+      (l.deliveredToDrawerFetchFailed = G));
   },
   98,
 );

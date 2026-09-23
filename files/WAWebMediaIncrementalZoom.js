@@ -311,39 +311,39 @@ __d(
           return window.cancelAnimationFrame(e);
         };
       }, []);
-      var ee = X && J;
-      _(function () {
-        G(ne());
-      }, []);
-      var te = m(function () {
-        var e = g.current,
-          t = b.current;
-        if (!e || !t) return null;
-        var n = e.offsetWidth,
-          r = e.offsetHeight,
-          o = t.offsetWidth,
-          a = t.offsetHeight;
-        return { containerW: n, containerH: r, imageW: o, imageH: a };
-      }, []);
+      var ee = X && J,
+        te = m(function () {
+          var e = g.current,
+            t = b.current;
+          if (!e || !t) return null;
+          var n = e.offsetWidth,
+            r = e.offsetHeight,
+            o = t.offsetWidth,
+            a = t.offsetHeight;
+          return { containerW: n, containerH: r, imageW: o, imageH: a };
+        }, []);
       o("WAWebIncrementalZoomUtils").useThumbnailOverflow({
         panOffset: E,
         getContainerAndImageDimensions: te,
       });
       var ne = m(
-          function () {
-            var e = te();
-            if (!e) return 1;
-            var t = e.containerH,
-              n = e.containerW,
-              r = e.imageH,
-              o = e.imageW,
-              a = n / o,
-              i = t / r;
-            return Math.min(a, i);
-          },
-          [te],
-        ),
-        re = m(
+        function () {
+          var e = te();
+          if (!e) return 1;
+          var t = e.containerH,
+            n = e.containerW,
+            r = e.imageH,
+            o = e.imageW,
+            a = n / o,
+            i = t / r;
+          return Math.min(a, i);
+        },
+        [te],
+      );
+      _(function () {
+        G(ne());
+      }, []);
+      var re = m(
           function (e) {
             var t = te();
             if (!t) return null;

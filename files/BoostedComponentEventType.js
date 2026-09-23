@@ -1694,6 +1694,8 @@ __d(
       MICROSITE_CONTENT_FILTER: "microsite_content_filter",
       MICROSITE_RENDER: "microsite_render",
       MICROSITE_DELETE: "microsite_delete",
+      MICROSITE_CONTENT_EXTRACT: "microsite_content_extract",
+      MICROSITE_PREVIEW_RESULT: "microsite_preview_result",
       SHOW_IG_USER_DEFAULT_AD_ACCOUNT_LINKING_DISCLOSURE:
         "show_ig_user_default_ad_account_linking_disclosure",
       LWI_BROWSER_ADD_ONS_DEFAULTING_ML_WTM:

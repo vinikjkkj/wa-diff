@@ -87,7 +87,6 @@ __d(
       return s + (s.includes("?") ? "&" : "?") + o;
     }
     function y(e, t, r) {
-      if (!n("gkx")("18719")) return null;
       var o = e.getAllResponseHeaders(),
         a =
           o.indexOf("error-mid") >= 0 ? e.getResponseHeader("error-mid") : null;

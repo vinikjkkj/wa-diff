@@ -12,17 +12,23 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebNotificationMuteReason",
     "WAWebNotificationTone",
+    "WAWebPonyfillsCryptoRandomUUID",
+    "WAWebWamEnumNotificationActionType",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = (function () {
+      c,
+      d = (function () {
         function t() {
           var t = this;
           ((this.creationAt = Date.now()),
+            (this.$1 = null),
+            (this.$2 = r("WAWebPonyfillsCryptoRandomUUID")()),
             (this.closeBanner = function () {
               t.notificationBanner != null &&
                 (o("WALogger").LOG(
@@ -84,7 +90,7 @@ __d(
             return !1;
           }),
           (a.beforeBannerShown = function () {
-            return (u || (u = n("Promise"))).resolve();
+            return (c || (c = n("Promise"))).resolve();
           }),
           (a.afterBannerShown = function (t) {}),
           (a.getChatKind = function () {
@@ -99,13 +105,44 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = yield this.getNotificationDeliveryWamEventData();
-                t != null &&
+                ((this.$1 = t),
+                  t != null &&
+                    new (o(
+                      "WAWebNotificationDeliveryWamEvent",
+                    ).NotificationDeliveryWamEvent)({
+                      uiNotificationType: t.uiNotificationType,
+                      notificationId: this.$2,
+                      notificationAction: o(
+                        "WAWebWamEnumNotificationActionType",
+                      ).NOTIFICATION_ACTION_TYPE.SHOW,
+                      isSilenced: e,
+                      triggeredByOfflineMessage: t.triggeredByOfflineMessage,
+                    }).commit());
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.performClickLogging = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  n =
+                    (t = this.$1) != null
+                      ? t
+                      : yield this.getNotificationDeliveryWamEventData();
+                n != null &&
                   new (o(
                     "WAWebNotificationDeliveryWamEvent",
                   ).NotificationDeliveryWamEvent)({
-                    uiNotificationType: t.uiNotificationType,
+                    uiNotificationType: n.uiNotificationType,
+                    notificationId: this.$2,
+                    notificationAction: o("WAWebWamEnumNotificationActionType")
+                      .NOTIFICATION_ACTION_TYPE.CLICK,
                     isSilenced: e,
-                    triggeredByOfflineMessage: t.triggeredByOfflineMessage,
+                    triggeredByOfflineMessage: n.triggeredByOfflineMessage,
                   }).commit();
               },
             );
@@ -159,10 +196,11 @@ __d(
           (a.showBanner = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
+                var t = this;
                 (e === void 0 && (e = !1),
                   (this.abortController = new AbortController()));
-                var t = this.getBannerOptions(),
-                  n = yield this.getIcon();
+                var n = this.getBannerOptions(),
+                  a = yield this.getIcon();
                 if (this.abortController.signal.aborted)
                   throw new (o("WAAbortError").AbortError)(
                     "Aborted through abortController",
@@ -173,15 +211,32 @@ __d(
                     o("WAWebNotificationConstants").PERMISSION_ALLOWED
                 )
                   throw new (o("WAAbortError").AbortError)("Permission Denied");
-                var a = new (r("WAWebNotificationBanner"))(
-                  babelHelpers.extends({}, t, {
-                    icon: n,
+                var i = new (r("WAWebNotificationBanner"))(
+                  babelHelpers.extends({}, n, {
+                    onClick: function () {
+                      try {
+                        n.onClick == null || n.onClick();
+                      } finally {
+                        t.performClickLogging(e).catch(function (e) {
+                          o("WALogger")
+                            .ERROR(
+                              u ||
+                                (u = babelHelpers.taggedTemplateLiteralLoose([
+                                  "Notification click logging failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("notification-click-log-fail");
+                        });
+                      }
+                    },
+                    icon: a,
                     key: this.buildKey(),
                     isReplyable: this.isReplyable(),
                     suppressBanner: e,
                   }),
                 );
-                return ((this.notificationBanner = a), a);
+                return ((this.notificationBanner = i), i);
               },
             );
             function t(t) {
@@ -195,7 +250,7 @@ __d(
           t
         );
       })();
-    l.WABaseNotification = c;
+    l.WABaseNotification = d;
   },
   98,
 );
