@@ -75,7 +75,9 @@ __d(
       var P = $ + "-option-" + x,
         N;
       t[2] !== b
-        ? ((N = o("WAWebMsgGetters").getIsSentByMe(b)), (t[2] = b), (t[3] = N))
+        ? ((N = o("WAWebMsgGetters").getIsSentByMe(b.unsafe())),
+          (t[2] = b),
+          (t[3] = N))
         : (N = t[3]);
       var M = N,
         w;

@@ -149,8 +149,9 @@ __d(
               c = r.isFeedback,
               d = r.representedLids,
               _ = r.selfHosted,
-              f = r.useStatelessSession,
-              g = o("WAWebSendMsgBotStanza").getBotStanzaAttrs(
+              f = r.stanzaTo,
+              g = r.useStatelessSession,
+              h = o("WAWebSendMsgBotStanza").getBotStanzaAttrs(
                 e,
                 o("WAWebSendMsgBotStanza").getIsBizBotFeedback(e, e.id.remote),
                 (i =
@@ -160,30 +161,30 @@ __d(
                   ? i
                   : null,
               );
-            (f && (yield o("WAWebSignalSessionApi").deleteRemoteSession(u)),
+            (g && (yield o("WAWebSignalSessionApi").deleteRemoteSession(u)),
               yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 identityChanged: !1,
                 sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
                 wids: [u],
               }),
               yield o("WAWebICDCMetaApi").populateICDCMeta(
-                o("WAWebWidFactory").asUserWidOrThrow(e.to),
+                o("WAWebWidFactory").asUserWidOrThrow(f),
                 t,
               ));
-            var h = m(t, e);
+            var y = m(t, e);
             if (
               o("WAWebWasaHatchOutboundWrapper").shouldWrapHatchOutbound(
-                e.to,
+                f,
                 u,
                 e.subtype,
               )
             )
               try {
-                h = yield o(
+                y = yield o(
                   "WAWebWasaHatchOutboundWrapper",
                 ).wrapHatchOutboundMessage({
                   currentStanzaId: e.id.id,
-                  innerMessage: h,
+                  innerMessage: y,
                 });
               } catch (e) {
                 throw e instanceof
@@ -196,41 +197,41 @@ __d(
                       e,
                     );
               }
-            var y = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+            var b = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
                 u,
                 a,
-                h,
+                y,
                 e,
                 n,
                 o("WAWebSessionScope").SessionScope.DEFAULT,
-                f,
+                g,
                 _,
               ),
-              b = y.ciphertext,
-              v = y.type,
-              S = p({
-                ciphertext: b,
+              v = b.ciphertext,
+              S = b.type,
+              R = p({
+                ciphertext: v,
                 mediaType: o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(t),
                 msgProtobuf: t,
                 retryCount: a,
-                type: v,
-                useStatelessSession: f,
+                type: S,
+                useStatelessSession: g,
               }),
-              R = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
+              L = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
                 u,
               );
             return {
               node: C({
                 agentEngagementType: s,
-                botAttrs: g,
+                botAttrs: h,
                 destinationWids: [].concat(d, [u]),
                 isFeedback: c,
-                personaType: R != null ? R : null,
-                sharedEnc: S,
+                personaType: L != null ? L : null,
+                sharedEnc: R,
               }),
               shouldHaveIdentity:
-                v === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
-              type: v,
+                S === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+              type: S,
             };
           },
         )),

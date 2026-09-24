@@ -22,16 +22,10 @@ __d(
         "ai_rich_response_unknown_sender_preview_enabled",
       );
     }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_rich_response_unknown_sender_verification_masking_enabled",
-      );
-    }
     ((l.BotSignatureVerificationEnforcementLevel = e),
       (l.getForwardVerificationEnforcementLevel = s),
       (l.isForwardVerificationEnabled = u),
-      (l.isUnknownSenderPreviewEnabled = c),
-      (l.isVerificationMaskingEnabled = d));
+      (l.isUnknownSenderPreviewEnabled = c));
   },
   98,
 );

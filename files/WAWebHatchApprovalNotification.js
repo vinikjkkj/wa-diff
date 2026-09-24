@@ -7,7 +7,6 @@ __d(
     "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebFrontendChatGetters",
-    "WAWebHatchFrontendGating",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
     "WAWebNotificationHelpers",
@@ -17,25 +16,25 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e, u, c, d;
-    function m(e) {
+    var e, u, c, d, m;
+    function p(e) {
       return "hatchApproval:" + e;
     }
-    var p = (function (t) {
-      function a(e) {
-        var n;
+    var _ = (function (t) {
+      function a(e, n) {
+        var r;
         return (
-          (n = t.call(this) || this),
-          (n.$WAWebHatchApprovalNotification$p_1 = null),
-          (n.notification = e),
-          n
+          (r = t.call(this) || this),
+          (r.notification = e),
+          (r.$WAWebHatchApprovalNotification$p_1 = n),
+          r
         );
       }
       babelHelpers.inheritsLoose(a, t);
       var i = a.prototype;
       return (
         (i.buildKey = function () {
-          return m(this.notification.subjectId);
+          return p(this.notification.subjectId);
         }),
         (i.shouldMute = function (n) {
           var t = this.$WAWebHatchApprovalNotification$p_2(n);
@@ -54,9 +53,9 @@ __d(
           );
         }),
         (i.$WAWebHatchApprovalNotification$p_2 = function (t) {
-          if (g(t))
+          if (h(t))
             return r("WAWebNotificationMuteReason").HatchApprovalChatOnScreen;
-          var e = h();
+          var e = y();
           return e != null && o("WAWebMuteGetters").getIsMuted(e.mute)
             ? r("WAWebNotificationMuteReason").MutedChat
             : (e == null ? void 0 : e.archive) === !0
@@ -64,29 +63,27 @@ __d(
               : null;
         }),
         (i.shouldShowBanner = function () {
-          var e = this.$WAWebHatchApprovalNotification$p_1;
-          if (e != null) return e;
-          var t = h();
           if (
-            t == null ||
-            !o("WAWebNotificationHelpers").shouldEnableNotificationGranular(t)
+            this.$WAWebHatchApprovalNotification$p_1(
+              this.notification.subjectId,
+            )
           )
             return (
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "hatch-approval-notif: shouldShowBanner ",
-                    " -> false",
+                    " -> false, withdrawn",
                   ])),
                 this.$WAWebHatchApprovalNotification$p_3(),
               ),
               !1
             );
-          var n = o(
-            "WAWebHatchFrontendGating",
-          ).isHatchApprovalNotificationEnabled();
+          var e = y(),
+            t =
+              e != null &&
+              o("WAWebNotificationHelpers").shouldEnableNotificationGranular(e);
           return (
-            (this.$WAWebHatchApprovalNotification$p_1 = n),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -95,13 +92,13 @@ __d(
                   "",
                 ])),
               this.$WAWebHatchApprovalNotification$p_3(),
-              String(n),
+              String(t),
             ),
-            n
+            t
           );
         }),
         (i.shouldPlaySound = function () {
-          var e = h();
+          var e = y();
           return (
             this.shouldShowBanner() &&
             e != null &&
@@ -110,7 +107,7 @@ __d(
           );
         }),
         (i.getBannerOptions = function () {
-          var e = h(),
+          var e = y(),
             t =
               !o("WAWebMuteCollection").MuteCollection.getGlobalPreviews() ||
               e == null ||
@@ -129,23 +126,37 @@ __d(
             {
               wid: o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               tag: this.buildKey(),
-              title: t ? _() : this.notification.title,
-              body: t ? f() : this.notification.body,
+              title: t ? f() : this.notification.title,
+              body: t ? g() : this.notification.body,
             }
           );
         }),
         (i.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = h();
-            return e == null
-              ? ""
-              : o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                  e,
-                  this.abortController.signal,
-                  o(
-                    "WAWebNotificationIconUtils",
-                  ).getDefaultChatNotificationIcon(e),
-                );
+            var e = y();
+            if (e == null) return "";
+            var t = yield o(
+              "WAWebNotificationIconUtils",
+            ).getChatNotificationIcon(
+              e,
+              this.abortController.signal,
+              o("WAWebNotificationIconUtils").getDefaultChatNotificationIcon(e),
+            );
+            return (
+              this.$WAWebHatchApprovalNotification$p_1(
+                this.notification.subjectId,
+              ) &&
+                (o("WALogger").LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-approval-notif: aborting ",
+                      ", withdrawn while building",
+                    ])),
+                  this.$WAWebHatchApprovalNotification$p_3(),
+                ),
+                this.abortController.abort()),
+              t
+            );
           });
           function t() {
             return e.apply(this, arguments);
@@ -153,7 +164,7 @@ __d(
           return t;
         })()),
         (i.getChatKind = function () {
-          var e = h();
+          var e = y();
           return e == null ? null : o("WAWebFrontendChatGetters").getKind(e);
         }),
         (i.matchesChat = function (t) {
@@ -165,13 +176,13 @@ __d(
         a
       );
     })(o("WAWebBaseNotification").WABaseNotification);
-    function _() {
+    function f() {
       return s._(/*BTDS*/ "Approval needed").toString();
     }
-    function f() {
+    function g() {
       return s._(/*BTDS*/ "A task needs your approval").toString();
     }
-    function g(e) {
+    function h(e) {
       var t,
         n =
           (t = o("WAWebChatCollection").ChatCollection.getActive()) == null
@@ -184,13 +195,13 @@ __d(
         (e == null ? void 0 : e.isChatsSurfaceActive) === !0
       );
     }
-    function h() {
+    function y() {
       return o("WAWebChatCollection").ChatCollection.get(
         o("WAWebBotUtils").HATCH_BOT_FBID_WID,
       );
     }
-    ((l.hatchApprovalNotificationKey = m),
-      (l.WAWebHatchApprovalNotification = p));
+    ((l.hatchApprovalNotificationKey = p),
+      (l.WAWebHatchApprovalNotification = _));
   },
   226,
 );

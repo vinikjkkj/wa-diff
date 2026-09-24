@@ -11,6 +11,7 @@ __d(
     "WAWebODS",
     "WAWebUA",
     "WAWebVoipBrowserMuteDetector",
+    "WAWebVoipBrowserMuteState",
     "WAWebVoipSharedBufferPlaybackProcessorConfig",
     "asyncToGeneratorRuntime",
     "err",
@@ -339,7 +340,10 @@ __d(
                   ? this.$23()
                   : r("WAWebODS").incr(
                       "web.call.audio_playback.browser_mute_cleared",
-                    )));
+                    ),
+                o("WAWebVoipBrowserMuteState").reportBrowserMuteSuspected(
+                  a === "suspected",
+                )));
           }
         }),
         (a.$22 = function () {
@@ -867,15 +871,14 @@ __d(
         (a.stopAudioPlayback = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
-              var n,
-                r = e != null ? e : this.$17,
-                a = r == null ? t.$2 == null : t.$2 === r,
-                i = o("WAWebAudioUtility").getCachedWasmModule();
-              if (a && i != null)
+              var n = e != null ? e : this.$17,
+                r = n == null ? t.$2 == null : t.$2 === n,
+                a = o("WAWebAudioUtility").getCachedWasmModule();
+              if (r && a != null)
                 try {
-                  (i.isAudioWriterThreadRunning() && i.stopAudioWriterThread(),
-                    t.$2 === r && (t.$2 = null),
-                    this.$17 === r && (this.$17 = null));
+                  (a.isAudioWriterThreadRunning() && a.stopAudioWriterThread(),
+                    t.$2 === n && (t.$2 = null),
+                    this.$17 === n && (this.$17 = null));
                 } catch (e) {
                   o("WALogger").WARN(
                     $ ||
@@ -891,9 +894,9 @@ __d(
                   this.audioWorkletNode.port.postMessage({ type: "stop" }),
                 this.playbackAudioElement != null)
               ) {
-                var l = this.playbackAudioElement;
-                (l.pause(),
-                  (l.srcObject = null),
+                var i = this.playbackAudioElement;
+                (i.pause(),
+                  (i.srcObject = null),
                   (this.playbackAudioElement = null));
               }
               (this.audioWorkletNode != null &&
@@ -902,11 +905,11 @@ __d(
                 this.playbackMediaStreamDestination != null &&
                   (this.playbackMediaStreamDestination.disconnect(),
                   (this.playbackMediaStreamDestination = null)));
-              var s = this.ringBufferPtr;
-              if (s != null) {
+              var l = this.ringBufferPtr;
+              if (l != null) {
                 this.ringBufferPtr = null;
                 try {
-                  yield o("WAWebAudioUtility").freeWasmBuffer(s);
+                  yield o("WAWebAudioUtility").freeWasmBuffer(l);
                 } catch (e) {
                   o("WALogger").WARN(
                     P ||
@@ -936,32 +939,18 @@ __d(
                 (this.$8 = 0),
                 (this.$9 = 0),
                 (this.$10 = null),
-                (this.$11 = 0),
-                (n = this.$14) == null || n.call(this),
-                (this.$14 = null),
-                (this.$13 = null),
-                (this.$15 = !1),
-                (this.$16 = !1));
-              var u = this.$12.getFloorSampleCount();
-              (u > 0 &&
-                o("WALogger").LOG(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:SharedBuffer:Playback] browser mute floor seconds this session: ",
-                      "",
-                    ])),
-                  u,
-                ),
-                this.$12.reset());
+                (this.$11 = 0));
             } catch (e) {
               o("WALogger").ERROR(
-                M ||
-                  (M = babelHelpers.taggedTemplateLiteralLoose([
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Playback] Cleanup error: ",
                     "",
                   ])),
                 e,
               );
+            } finally {
+              this.$30();
             }
           });
           function r(t) {
@@ -969,6 +958,27 @@ __d(
           }
           return r;
         })()),
+        (a.$30 = function () {
+          var e;
+          ((e = this.$14) == null || e.call(this),
+            (this.$14 = null),
+            (this.$13 = null),
+            (this.$15 = !1),
+            (this.$16 = !1));
+          var t = this.$12.getFloorSampleCount();
+          (t > 0 &&
+            o("WALogger").LOG(
+              M ||
+                (M = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV:SharedBuffer:Playback] browser mute floor seconds this session: ",
+                  "",
+                ])),
+              t,
+            ),
+            this.$12.isSuspected() &&
+              o("WAWebVoipBrowserMuteState").reportBrowserMuteSuspected(!1),
+            this.$12.reset());
+        }),
         (a.getAudioElement = function () {
           return this.playbackAudioElement;
         }),

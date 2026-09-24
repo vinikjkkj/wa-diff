@@ -1,7 +1,6 @@
 __d(
   "oz-player/parsers/OzSidxSegmentsParser",
   [
-    "getErrorSafe",
     "oz-player/loggings/OzLoggingUtils",
     "oz-player/manifests/OzSegmentOptions",
     "oz-player/manifests/OzZeroTimeRangeSegment",
@@ -84,7 +83,7 @@ __d(
               "oz-player/loggings/OzLoggingUtils",
             ).monitorPromiseAndLogOperation(t, this.$8, "process_sidx"),
             t.catch(function (t) {
-              e.$6.emitError(r("getErrorSafe")(t));
+              e.$6.emitError(t);
             }),
             new (r("oz-player/parsers/OzSidxSegmentsContainer"))(function () {
               return e.$7;

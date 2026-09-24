@@ -13,21 +13,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(e) {
-      var t,
-        n =
-          (t = o("WAWebContactCollection").ContactCollection.get(e)) != null
-            ? t
-            : o("WAWebContactCollection").ContactCollection.gadd(e);
-      return e.isLid() && (n == null ? void 0 : n.phoneNumber) != null
-        ? o("WAWebContactCollection").ContactCollection.get(n.phoneNumber)
-        : n;
+      return d.apply(this, arguments);
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             return (
@@ -63,23 +53,24 @@ __d(
               l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               ),
-              d = yield o(
+              c = yield o(
                 "WAWebNewsletterPendingInvitesJob",
               ).getNewsletterPendingInvites(l),
-              m =
-                d != null
-                  ? r("compactMap")(d, function (e) {
-                      var t = c(e);
+              d =
+                c != null
+                  ? r("compactMap")(c, function (e) {
                       return new (o(
                         "WAWebNewsletterSubscriberModel",
                       ).NewsletterSubscriber)({
-                        id: t == null ? void 0 : t.id,
-                        contact: t,
+                        id: e,
+                        contact: o(
+                          "WAWebContactCollection",
+                        ).ContactCollection.gadd(e),
                         isPendingAdmin: !0,
                       });
                     })
                   : void 0,
-              p = m != null ? m : [];
+              m = d != null ? d : [];
             return (
               t == null ||
                 (a = t.newsletterMetadata) == null ||
@@ -88,8 +79,8 @@ __d(
               t == null ||
                 (i = t.newsletterMetadata) == null ||
                 (i = i.pendingAdmins) == null ||
-                i.add(p, { sort: !1 }),
-              p.map(function (e) {
+                i.add(m, { sort: !1 }),
+              m.map(function (e) {
                 return e.contact;
               })
             );
@@ -108,10 +99,10 @@ __d(
             );
           }
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.getNewsletterPendingInvitesAction = d;
+    l.getNewsletterPendingInvitesAction = c;
   },
   98,
 );

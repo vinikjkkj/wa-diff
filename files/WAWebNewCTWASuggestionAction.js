@@ -87,9 +87,12 @@ __d(
             suggestion: e,
           });
         });
-      o(
+      (o(
         "WAWebCTWASuggestionCollection",
-      ).CTWASuggestionCollection.initializeFromCache(n);
+      ).CTWASuggestionCollection.initializeFromCache(n),
+        o(
+          "WAWebCTWASuggestionCollection",
+        ).CTWASuggestionCollection.markLoadedFromStorage());
     }
     function g(e, t) {
       (o(

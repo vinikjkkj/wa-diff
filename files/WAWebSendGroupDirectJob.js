@@ -56,7 +56,8 @@ __d(
             f = _.addressingMode,
             g = _.phash;
           return (
-            g &&
+            g != null &&
+              g !== "" &&
               (o("WALogger")
                 .LOG(
                   s ||

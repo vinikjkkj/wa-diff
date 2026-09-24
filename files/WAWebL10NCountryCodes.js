@@ -321,7 +321,7 @@ __d(
     function s(e, t) {
       if (e != null && e.length > 0 && t != null)
         for (var n = t[e[0]], r = e; r.length > 0 && n; ) {
-          if (n.c) return n.c;
+          if (n.c != null) return n.c;
           ((r = r.substr(1, r.length - 1)), (n = n[r[0]]));
         }
       return "";

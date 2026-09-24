@@ -20,34 +20,45 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f;
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("WAWebSendProfilePictureJob")(e, null).then(function () {
               return { status: 200 };
             }),
             n = yield t;
           return (
-            o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
-              e,
-              o("WAWebProfilePicConstants").ProfilePicCommand.Remove,
-            ),
+            o("WAWebChangeProfilePicThumb")
+              .changeProfilePicThumb(
+                e,
+                o("WAWebProfilePicConstants").ProfilePicCommand.Remove,
+              )
+              .catch(function (e) {
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "changeProfilePicThumb failed with error ",
+                      "",
+                    ])),
+                  r("getErrorSafe")(e).message,
+                );
+              }),
             n
           );
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = r("WAWebURLUtils").parseDataURL(a).data,
             l = o("WABase64").decodeB64(i),
             s = r("WAWebSendProfilePictureJob")(e, l).then(
@@ -64,19 +75,30 @@ __d(
                 };
               }),
             ),
-            u = yield s;
+            c = yield s;
           return (
-            o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
-              e,
-              o("WAWebProfilePicConstants").ProfilePicCommand.Set,
-            ),
-            u
+            o("WAWebChangeProfilePicThumb")
+              .changeProfilePicThumb(
+                e,
+                o("WAWebProfilePicConstants").ProfilePicCommand.Set,
+              )
+              .catch(function (e) {
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "changeProfilePicThumb failed with error ",
+                      "",
+                    ])),
+                  r("getErrorSafe")(e).message,
+                );
+              }),
+            c
           );
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e, t) {
+    function b(e, t) {
       var n, r, o, a, i, l;
       return {
         id: e.toString(),
@@ -92,25 +114,25 @@ __d(
         timestamp: Date.now(),
       };
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = y(e, t);
-          yield o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(n);
-        })),
-        b.apply(this, arguments)
-      );
-    }
     function v(e, t) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = (p || (p = n("Promise")))
+          var n = b(e, t);
+          yield o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(n);
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = (f || (f = n("Promise")))
             .all([
               o("WAWebGetProfilePicJob").getProfilePic(
                 e,
@@ -137,23 +159,23 @@ __d(
             });
           try {
             var i = yield a;
-            (C(e, i).catch(function (e) {
+            (v(e, i).catch(function (e) {
               o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "persistProfilePicToDB failed with error ",
                     "",
                   ])),
                 r("getErrorSafe")(e).message,
               );
             }),
-              E(e, i.eurl));
+              I(e, i.eurl));
           } catch (t) {
-            (E(e),
-              R(e, r("getErrorSafe")(t)).catch(function (e) {
+            (I(e),
+              E(e, r("getErrorSafe")(t)).catch(function (e) {
                 o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[profilePicFind] persistProfilePicToDB failed: ",
                       "",
                     ])),
@@ -163,48 +185,48 @@ __d(
           }
           return a;
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
             var n = t.status;
             n === 500 || n === 501 || n === 503
               ? o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "profilePicFind failed with serverCode: ",
                       "",
                     ])),
                   n,
                 )
               : n === 404
-                ? yield C(e)
-                : n === 401 && !e.isGroup() && (yield C(e));
+                ? yield v(e)
+                : n === 401 && !e.isGroup() && (yield v(e));
           }
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function E(e, t) {
+    function I(e, t) {
       o("WAWebUserPrefsMeUser").isMeAccount(e) &&
         o("WAWebUserPrefsMultiDevice").setCachedProfilePicEURL(
           t != null ? t : "",
         );
     }
-    function k(t) {
-      return (p || (p = n("Promise"))).all(
+    function T(t) {
+      return (f || (f = n("Promise"))).all(
         t.map(
           (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 try {
-                  var n = yield v(t.id, {
+                  var n = yield R(t.id, {
                     tcToken: t.tcToken,
                     commonGid: t.commonGid,
                   });
@@ -265,12 +287,12 @@ __d(
         ),
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.commonGid,
             a = e.id,
             i = e.newsletterRole,
@@ -285,10 +307,10 @@ __d(
                 i,
               );
               return (
-                C(a, u).catch(function (e) {
+                v(a, u).catch(function (e) {
                   o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "persistProfilePicToDB failed with error ",
                         "",
                       ])),
@@ -303,10 +325,10 @@ __d(
                 "WAWebFetchCommunityProfilePic",
               ).fetchCommunityProfilePic(a, l);
               return (
-                C(a, c).catch(function (e) {
+                v(a, c).catch(function (e) {
                   o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "persistProfilePicToDB failed with error ",
                         "",
                       ])),
@@ -316,14 +338,14 @@ __d(
                 c
               );
             }
-            var _ = yield v(a, { tcToken: s, commonGid: t }),
-              f = babelHelpers.extends({}, _, {
+            var d = yield R(a, { tcToken: s, commonGid: t }),
+              m = babelHelpers.extends({}, d, {
                 id: a,
                 timestamp: Date.now(),
                 eurlStale: !1,
                 stale: !1,
               });
-            return f;
+            return m;
           } catch (e) {
             if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
               var g = { id: a };
@@ -345,20 +367,20 @@ __d(
                   g.eurlStale = !1;
                   break;
               }
-              return (p || (p = n("Promise"))).resolve(g);
+              return (f || (f = n("Promise"))).resolve(g);
             }
             throw e;
           }
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.requestDeletePicture = _),
-      (l.sendSetPicture = g),
-      (l.mapProfilePictureToProfilePicThumbRowType = y),
-      (l.persistProfilePicToDB = C),
-      (l.profilePicResync = k),
-      (l.requestProfilePicFromServer = I));
+    ((l.requestDeletePicture = g),
+      (l.sendSetPicture = y),
+      (l.mapProfilePictureToProfilePicThumbRowType = b),
+      (l.persistProfilePicToDB = v),
+      (l.profilePicResync = T),
+      (l.requestProfilePicFromServer = D));
   },
   98,
 );

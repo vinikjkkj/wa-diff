@@ -32,31 +32,31 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t, a) {
+    var e, s, u, c, d, m;
+    function p(t, a) {
       var i = t.chatId,
         l = o("WAWebChatCollection").ChatCollection.get(i);
-      if (!l) return (c || (c = n("Promise"))).resolve();
-      var d = r("nullthrows")(l.groupMetadata),
-        m = t.author,
-        p = t.ts;
+      if (!l) return (m || (m = n("Promise"))).resolve();
+      var p = r("nullthrows")(l.groupMetadata),
+        _ = t.author,
+        f = t.ts;
       switch (a.actionType) {
         case o("WAWebGroupType").GROUP_ACTIONS.SUBJECT: {
-          var _ = { name: a.subject };
-          (l.contact.set(_), d.set("subject", a.subject));
+          var g = { name: a.subject };
+          (l.contact.set(g), p.set("subject", a.subject));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE: {
           if (!a.jid) break;
-          var f = r("WAWebGroupMetadataCollection").assertGet(a.jid);
-          if (f.participants.iAmAdmin()) {
-            var g = a.participants.map(function (e) {
+          var h = r("WAWebGroupMetadataCollection").assertGet(a.jid);
+          if (h.participants.iAmAdmin()) {
+            var y = a.participants.map(function (e) {
               var t = e.id;
               return { id: t, isAdmin: !1 };
             });
-            f.participants.add(g, { merge: !0 });
+            h.participants.add(y, { merge: !0 });
           } else
-            f.participants.remove(
+            h.participants.remove(
               a.participants.map(function (e) {
                 return e.id;
               }),
@@ -66,65 +66,65 @@ __d(
               return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
             })
           ) {
-            var h = f.participants
+            var C = h.participants
               .filter(function (e) {
                 return !e.isAdmin;
               })
               .map(function (e) {
                 return e.id;
               });
-            f.participants.remove(h);
+            h.participants.remove(C);
           }
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_PROMOTE: {
           if (!a.jid) break;
-          var y = r("WAWebGroupMetadataCollection").assertGet(a.jid),
-            C = a.participants.map(function (e) {
+          var b = r("WAWebGroupMetadataCollection").assertGet(a.jid),
+            v = a.participants.map(function (e) {
               var t = e.id;
               return { id: t, isAdmin: !0 };
             });
-          y.participants.add(C, { merge: !0 });
+          b.participants.add(v, { merge: !0 });
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.ADD:
         case o("WAWebGroupType").GROUP_ACTIONS.PROMOTE:
         case o("WAWebGroupType").GROUP_ACTIONS.DEMOTE: {
           if (a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD) {
-            d.groupAdder == null && d.set("groupAdder", t.author);
-            var b = a.participants.some(function (e) {
+            p.groupAdder == null && p.set("groupAdder", t.author);
+            var S = a.participants.some(function (e) {
                 return e.id.isLid();
               }),
-              v = o("WAWebGroupMetadataGetters").getIsCag(d),
-              S = !!d.isLidAddressingMode;
+              R = o("WAWebGroupMetadataGetters").getIsCag(p),
+              L = !!p.isLidAddressingMode;
             if (
               o(
                 "WAWebBotGroupGatingUtils",
               ).isOpenGroupBotParticipantAddEnabled() ||
               o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
             ) {
-              var R = o(
+              var E = o(
                 "WAWebBotUtils",
               ).participantListIncludeOpenOrTeeGroupBotWid(a.participants);
               (o(
                 "WAWebBotGroupGatingUtils",
               ).isOpenGroupBotParticipantAddEnabled() &&
-                R.includeOpenMetabot &&
-                (d.isOpenBotGroup = !0),
+                E.includeOpenMetabot &&
+                (p.isOpenBotGroup = !0),
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isTEEGroupBotParticipantAddEnabled() &&
-                  R.includeTeeMetabot &&
-                  (d.isTeeBotGroup = !0));
+                  E.includeTeeMetabot &&
+                  (p.isTeeBotGroup = !0));
             }
-            if (b && !v && !S) break;
+            if (S && !R && !L) break;
           }
-          var L = [],
-            E = new Set();
-          d.participants.iAmAdmin() ||
+          var k = [],
+            I = new Set();
+          p.participants.iAmAdmin() ||
           a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD ||
           a.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE
-            ? ((L = a.participants.map(function (e) {
+            ? ((k = a.participants.map(function (e) {
                 var t = e.id;
                 return t;
               })),
@@ -132,11 +132,11 @@ __d(
                 var t = e.id,
                   n = e.isAdmin,
                   r = e.lid;
-                (n && E.add(t.toString()),
-                  !(r == null || t.isLid()) && d.participants.remove(r));
+                (n && I.add(t.toString()),
+                  !(r == null || t.isLid()) && p.participants.remove(r));
               }))
             : a.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE &&
-              ((L = a.participants.map(function (e) {
+              ((k = a.participants.map(function (e) {
                 var t = e.id,
                   n = e.lid;
                 return n == null || t.isLid() ? t : n;
@@ -144,21 +144,21 @@ __d(
               a.participants.forEach(function (e) {
                 var t = e.id,
                   n = e.lid;
-                n == null || t.isLid() || d.participants.remove(t);
+                n == null || t.isLid() || p.participants.remove(t);
               }));
-          var k = new Map(
+          var T = new Map(
               a.participants.map(function (e) {
                 return [e.id.toString(), e.groupHistorySentState];
               }),
             ),
-            I = new Map(
+            D = new Map(
               a.participants.map(function (e) {
                 return [e.id.toString(), e.joinTime];
               }),
             ),
-            T = L.map(function (e) {
-              var t = k.get(e.toString()),
-                n = I.get(e.toString()),
+            x = k.map(function (e) {
+              var t = T.get(e.toString()),
+                n = D.get(e.toString()),
                 r = {};
               return (
                 t != null && (r.groupHistorySentState = t),
@@ -170,25 +170,25 @@ __d(
                       a.actionType ===
                         o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
                       (a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD &&
-                        E.has(e.toString())),
+                        I.has(e.toString())),
                   },
                   r,
                 )
               );
             });
           if (
-            (d.participants.add(T, { merge: !0 }),
+            (p.participants.add(x, { merge: !0 }),
             a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD &&
-              (L.forEach(function (e) {
-                (d.pastParticipants.remove(e),
+              (k.forEach(function (e) {
+                (p.pastParticipants.remove(e),
                   o("WAWebUserPrefsMeUser").isMeAccount(e) &&
-                    d.pastParticipants.reset());
+                    p.pastParticipants.reset());
               }),
-              d.membershipApprovalMode &&
-                L.forEach(function (e) {
-                  d.membershipApprovalRequests.remove(e);
+              p.membershipApprovalMode &&
+                k.forEach(function (e) {
+                  p.membershipApprovalRequests.remove(e);
                 }),
-              L.forEach(function (e) {
+              k.forEach(function (e) {
                 r("WAWebGroupMetadataCollection").trigger(
                   "group_participant_change_" + e.toString(),
                   { gid: l.id, collectionIsStale: !0 },
@@ -200,55 +200,81 @@ __d(
                   communityId: i,
                   type: o("WAWebCommunityActivityModel").ActivityTypeType
                     .NEW_COMMUNITY,
-                  timestamp: p != null ? p : o("WATimeUtils").unixTime(),
+                  timestamp: f != null ? f : o("WATimeUtils").unixTime(),
                 })),
-            L.find(function (e) {
+            k.find(function (e) {
               return o("WAWebUserPrefsMeUser").isMeAccount(e);
             }))
           )
             if (a.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE) {
               if (
-                o("WAWebGroupMetadataGetters").getGroupType(d) ===
+                o("WAWebGroupMetadataGetters").getGroupType(p) ===
                 o("WAWebGroupType").GroupType.COMMUNITY
               ) {
-                var D = o("WAWebNux").getCommunityAdminPromotionNuxKey(
-                  d.id.toString(),
+                var $ = o("WAWebNux").getCommunityAdminPromotionNuxKey(
+                  p.id.toString(),
                 );
-                o("WAWebNuxAction").resetNux(D);
+                o("WAWebNuxAction")
+                  .resetNux($)
+                  .catch(function (t) {
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[groups] resetNux failed on community admin promote: ",
+                            "",
+                          ])),
+                        t,
+                      )
+                      .sendLogs("group-action-promote-reset-nux-failed");
+                  });
               }
-              d.membershipApprovalMode &&
-                o(
-                  "WAWebGroupGetMembershipApprovalRequestsJob",
-                ).queryAndUpdateGroupMembershipApprovalRequests(l.id);
+              p.membershipApprovalMode &&
+                o("WAWebGroupGetMembershipApprovalRequestsJob")
+                  .queryAndUpdateGroupMembershipApprovalRequests(l.id)
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[groups] queryAndUpdateGroupMembershipApprovalRequests failed on group action promote: ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .sendLogs(
+                        "group-action-promote-query-membership-approval-requests-failed",
+                      );
+                  });
             } else
               a.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE &&
-                d.membershipApprovalRequests.reset();
+                p.membershipApprovalRequests.reset();
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.REMOVE: {
-          var x,
-            $ = !1,
-            P = [],
-            N = [];
+          var P,
+            N = !1,
+            M = [],
+            w = [];
           if (
             (a.participants.forEach(function (e) {
               var n = e.id,
                 r = e.isAdmin,
                 a = e.lid,
                 i = o("WAWebUserPrefsMeUser").isMeAccount(n);
-              (a != null && i && r === !0 && P.push(a),
-                P.push(n),
-                N.push({
+              (a != null && i && r === !0 && M.push(a),
+                M.push(n),
+                w.push({
                   id: n,
-                  leaveTs: p,
+                  leaveTs: f,
                   leaveReason: n.equals(t.author)
                     ? o("WAWebLeaveReasonType").LeaveReason.Left
                     : o("WAWebLeaveReasonType").LeaveReason.Removed,
                 }),
-                i && ($ = !0));
+                i && (N = !0));
             }),
-            d.participants.remove(P),
-            d.pastParticipants.add(N),
+            p.participants.remove(M),
+            p.pastParticipants.add(w),
             o(
               "WAWebBotGroupGatingUtils",
             ).isOpenGroupBotParticipantAddEnabled() ||
@@ -257,54 +283,54 @@ __d(
               ).isTEEGroupBotParticipantAddEnabled())
           )
             try {
-              var M = o(
+              var A = o(
                 "WAWebBotUtils",
               ).participantListIncludeOpenOrTeeGroupBotWid(a.participants);
               if (
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isOpenGroupBotParticipantAddEnabled() &&
-                M.includeOpenMetabot
+                A.includeOpenMetabot
               ) {
-                var w = d.participants.some(function (e) {
+                var F = p.participants.some(function (e) {
                   var t;
                   return (
                     (e == null || (t = e.id) == null ? void 0 : t.isBot()) ===
                     !0
                   );
                 });
-                w || (d.isOpenBotGroup = !1);
+                F || (p.isOpenBotGroup = !1);
               }
               if (
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isTEEGroupBotParticipantAddEnabled() &&
-                M.includeTeeMetabot
+                A.includeTeeMetabot
               ) {
-                var A = d.participants.some(function (e) {
+                var O = p.participants.some(function (e) {
                   var t;
                   return (
                     (e == null || (t = e.id) == null ? void 0 : t.isBot()) ===
                     !0
                   );
                 });
-                A || (d.isTeeBotGroup = !1);
+                O || (p.isTeeBotGroup = !1);
               }
-            } catch (t) {
+            } catch (e) {
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[bot groups] prev participant state check err ",
                       "",
                     ])),
-                  t,
+                  e,
                 )
                 .sendLogs("bot-groups-error-previous-participant-state");
             }
           (a.reason ===
             o("WAWebGroupType").REMOVE_REASON.DEFAULT_SUBGROUP_DEMOTE &&
-            d.participants.add(
+            p.participants.add(
               a.participants.map(function (e) {
                 var t = e.id,
                   n = e.lid;
@@ -318,7 +344,7 @@ __d(
                 { gid: l.id },
               );
             }),
-            $ &&
+            N &&
               (o(
                 "WAWebPollsInvalidateChatPollMsgsAction",
               ).invalidateChatPollMsgs(l),
@@ -327,37 +353,37 @@ __d(
                 l.id,
                 { suppressToast: !0 },
               )));
-          var F =
-            (x = d.getParentGroupChat()) == null ? void 0 : x.groupMetadata;
-          (o("WAWebGroupMetadataGetters").getIsCag(d) &&
-            (F == null || F.participants.remove(P),
-            F == null || F.pastParticipants.add(N)),
-            !d.isParentGroupParticipant() &&
-              d.parentGroup &&
-              (F == null || F.trigger("exitParentGroup"),
+          var B =
+            (P = p.getParentGroupChat()) == null ? void 0 : P.groupMetadata;
+          (o("WAWebGroupMetadataGetters").getIsCag(p) &&
+            (B == null || B.participants.remove(M),
+            B == null || B.pastParticipants.add(w)),
+            !p.isParentGroupParticipant() &&
+              p.parentGroup &&
+              (B == null || B.trigger("exitParentGroup"),
               o(
                 "WAWebUpdateModelsForCommunityAction",
-              ).updateModelsForExitedCommunity(d.parentGroup)));
+              ).updateModelsForExitedCommunity(p.parentGroup)));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.MODIFY:
-          if (m && a.participants && a.participants.length > 0) {
-            var O = m,
-              B = a.participants[0].id,
-              W = d.participants.remove(O),
-              q = !1,
-              U = !1;
-            W.length && W[0] && ((q = W[0].isAdmin), (U = W[0].isSuperAdmin));
-            var V = { id: B, isAdmin: q, isSuperAdmin: U };
-            d.participants.add(V);
+          if (_ && a.participants && a.participants.length > 0) {
+            var W = _,
+              q = a.participants[0].id,
+              U = p.participants.remove(W),
+              V = !1,
+              H = !1;
+            U.length && U[0] && ((V = U[0].isAdmin), (H = U[0].isSuperAdmin));
+            var G = { id: q, isAdmin: V, isSuperAdmin: H };
+            p.participants.add(G);
           }
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.INVITE_CODE:
           a.code
-            ? (d.inviteCode = a.code)
+            ? (p.inviteCode = a.code)
             : o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "model:chat:handleGroupAction:invalid invite code: ",
                     " for ",
                     "",
@@ -367,16 +393,16 @@ __d(
               );
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.DESC_ADD:
-          d.set({
+          p.set({
             desc: a.desc,
             descId: a.descId,
             descTime: a.descTime,
-            descOwner: m == null ? void 0 : m.toString(),
+            descOwner: _ == null ? void 0 : _.toString(),
           });
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.DESC_REMOVE:
-          if (d.descId === a.descId) {
-            d.set({
+          if (p.descId === a.descId) {
+            p.set({
               desc: void 0,
               descId: void 0,
               descTime: void 0,
@@ -386,61 +412,61 @@ __d(
           }
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.RESTRICT:
-          d.restrict = !!a.value;
+          p.restrict = !!a.value;
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND: {
-          var H = !!a.value;
-          (H &&
-            !d.suspended &&
-            o("WAWebGroupMetadataGetters").getGroupType(d) ===
+          var z = !!a.value;
+          (z &&
+            !p.suspended &&
+            o("WAWebGroupMetadataGetters").getGroupType(p) ===
               o("WAWebGroupType").GroupType.DEFAULT &&
-            d.participants.iAmAdmin() &&
+            p.participants.iAmAdmin() &&
             o(
               "WAWebGroupGatingUtils",
             ).isGroupSuspensionAppealsRedesignEnabled() &&
             ((l.unreadCount = -1),
             o("WAWebChatSeenBridge").markConversationUnseen(i)),
-            (d.suspended = H),
+            (p.suspended = z),
             o(
               "WAWebUpdateModelsForCommunityAction",
-            ).maybeUpdateModelsForCommunitySuspendedStatus(i, H));
+            ).maybeUpdateModelsForCommunitySuspendedStatus(i, z));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL: {
-          ((d.suspendAppealStatus = a.appealStatus),
-            (d.suspendAppealUpdateTime = a.appealUpdateTime));
+          ((p.suspendAppealStatus = a.appealStatus),
+            (p.suspendAppealUpdateTime = a.appealUpdateTime));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.ANNOUNCE:
-          d.announce = !!a.value;
+          p.announce = !!a.value;
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.NO_FORWARD:
-          d.noFrequentlyForwarded = !!a.value;
+          p.noFrequentlyForwarded = !!a.value;
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL: {
-          var G =
+          var j =
             o("WAWebAfterReadUtils").isAfterReadEnabled() &&
             o("WAWebAfterReadUtils").isAfterReadDuration(a.duration);
-          (G
-            ? ((d.ephemeralDuration = o(
+          (j
+            ? ((p.ephemeralDuration = o(
                 "WAWebAfterReadUtils",
               ).getAfterReadFallbackDuration()),
-              (d.afterReadDuration = a.duration))
-            : ((d.ephemeralDuration = a.duration),
-              (d.afterReadDuration = null)),
-            (d.disappearingModeTrigger = o(
+              (p.afterReadDuration = a.duration))
+            : ((p.ephemeralDuration = a.duration),
+              (p.afterReadDuration = null)),
+            (p.disappearingModeTrigger = o(
               "WAWebEphemeralityUtils",
             ).getDisappearingModeTrigger(a.trigger)),
-            (d.disappearingModeInitiatedByMe = a.initiatedByMe));
+            (p.disappearingModeInitiatedByMe = a.initiatedByMe));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE: {
-          var z = [];
+          var K = [];
           (a.participants.forEach(function (e) {
             var t = e.id;
-            d.pendingParticipants.get(t) && z.push(t);
+            p.pendingParticipants.get(t) && K.push(t);
           }),
-            d.pendingParticipants.remove(z));
+            p.pendingParticipants.remove(K));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.DELETE:
@@ -452,40 +478,40 @@ __d(
               ? o(
                   "WAWebUpdateModelsForCommunityAction",
                 ).updateModelsForDeactivateCommunity(i)
-              : (d.terminated = !0);
+              : (p.terminated = !0);
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.GROWTH_UNLOCKED:
-          ((d.growthLockExpiration = void 0), (d.growthLockType = void 0));
+          ((p.growthLockExpiration = void 0), (p.growthLockType = void 0));
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED:
           a.type === "invite" &&
-            ((d.growthLockExpiration = a.expiration),
-            (d.growthLockType = a.type));
+            ((p.growthLockExpiration = a.expiration),
+            (p.growthLockType = a.type));
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_LINK:
-          d.parentGroup = a.groupDatas[0].id;
+          p.parentGroup = a.groupDatas[0].id;
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_LINK:
           o("WAWebUpdateModelsForCommunityAction").updateModelsForSubgroupLink({
             parentGroupId: l.id,
             subgroups: a.groupDatas,
-            timestamp: p,
+            timestamp: f,
             author: t.author,
           });
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_LINK:
-          d.parentGroup &&
+          p.parentGroup &&
             o(
               "WAWebUpdateModelsForCommunityAction",
             ).updateModelsForSubgroupLink({
-              parentGroupId: d.parentGroup,
+              parentGroupId: p.parentGroup,
               subgroups: a.groupDatas,
-              timestamp: p,
+              timestamp: f,
               author: t.author,
             });
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_UNLINK:
-          d.parentGroup = void 0;
+          p.parentGroup = void 0;
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_UNLINK:
           o(
@@ -493,50 +519,50 @@ __d(
           ).updateModelsForSubgroupUnlink(l.id, a.groupDatas);
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_UNLINK:
-          d.parentGroup &&
+          p.parentGroup &&
             o(
               "WAWebUpdateModelsForCommunityAction",
-            ).updateModelsForSubgroupUnlink(d.parentGroup, a.groupDatas);
+            ).updateModelsForSubgroupUnlink(p.parentGroup, a.groupDatas);
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_MODE:
-          ((d.membershipApprovalMode = !!a.value),
-            a.value || d.membershipApprovalRequests.reset());
+          ((p.membershipApprovalMode = !!a.value),
+            a.value || p.membershipApprovalRequests.reset());
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS: {
-          (d.set("reportToAdminMode", a.value),
-            a.value || d.set("lastReportToAdminTimestamp", null));
+          (p.set("reportToAdminMode", a.value),
+            a.value || p.set("lastReportToAdminTimestamp", null));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED: {
-          d.set("lastReportToAdminTimestamp", a.value);
+          p.set("lastReportToAdminTimestamp", a.value);
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_REQUEST:
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS: {
-          var j = a.requests.map(function (e) {
+          var Q = a.requests.map(function (e) {
             return {
               id: e.wid,
-              t: p,
-              addedBy: r("nullthrows")(m),
+              t: f,
+              addedBy: r("nullthrows")(_),
               requestMethod: a.requestMethod,
               parentGroupId: a.parentGroupId,
             };
           });
-          d.membershipApprovalRequests.add(j);
+          p.membershipApprovalRequests.add(Q);
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.REVOKED_MEMBERSHIP_REQUESTS:
           a.requests.forEach(function (e) {
-            d.membershipApprovalRequests.remove(e);
+            p.membershipApprovalRequests.remove(e);
           });
           break;
         case o("WAWebGroupType").GROUP_ACTIONS
           .ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
-          d.allowNonAdminSubGroupCreation = !!a.value;
+          p.allowNonAdminSubGroupCreation = !!a.value;
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.CREATED_SUBGROUP_SUGGESTION:
-          d.subgroupSuggestions.add(
+          p.subgroupSuggestions.add(
             {
               id: o(
                 "WAWebCommunitySubgroupSuggestionsUtils",
@@ -554,7 +580,7 @@ __d(
           );
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.REVOKED_SUB_GROUP_SUGGESTIONS:
-          d.subgroupSuggestions.remove(
+          p.subgroupSuggestions.remove(
             a.subgroupSuggestions.map(function (e) {
               var t = e.id,
                 n = e.owner;
@@ -566,16 +592,16 @@ __d(
           break;
         case o("WAWebGroupType").GROUP_ACTIONS
           .SUBGROUP_SUGGESTIONS_CHANGE_NUMBER: {
-          var K = r("compactMap")(a.subgroupSuggestions, function (e) {
-            return d.subgroupSuggestions.get(
+          var X = r("compactMap")(a.subgroupSuggestions, function (e) {
+            return p.subgroupSuggestions.get(
               o(
                 "WAWebCommunitySubgroupSuggestionsUtils",
               ).getSubgroupSuggestionId(e, a.oldOwner),
             );
           });
-          (d.subgroupSuggestions.remove(K),
-            d.subgroupSuggestions.add(
-              K.map(function (e) {
+          (p.subgroupSuggestions.remove(X),
+            p.subgroupSuggestions.add(
+              X.map(function (e) {
                 return {
                   id: o(
                     "WAWebCommunitySubgroupSuggestionsUtils",
@@ -595,80 +621,80 @@ __d(
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_ADD_MODE: {
-          d.memberAddMode = a.memberAddMode;
+          p.memberAddMode = a.memberAddMode;
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE: {
-          d.memberLinkMode = a.value;
+          p.memberLinkMode = a.value;
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.GENERAL_CHAT_AUTO_ADD_DISABLED: {
-          d.generalChatAutoAddDisabled = !0;
+          p.generalChatAutoAddDisabled = !0;
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.COMMUNITY_OWNER_UPDATE: {
-          var Q = a.newOwner,
-            X = a.oldOwner,
-            Y = new Set([Q.toString()]),
-            J = o("WAWebApiContact").getAlternateUserWid(
-              o("WAWebWidFactory").asUserWidOrThrow(Q),
+          var Y = a.newOwner,
+            J = a.oldOwner,
+            Z = new Set([Y.toString()]),
+            ee = o("WAWebApiContact").getAlternateUserWid(
+              o("WAWebWidFactory").asUserWidOrThrow(Y),
             );
-          J != null && Y.add(J.toString());
-          var Z = new Set();
-          if (X) {
-            Z.add(X.toString());
-            var ee = o("WAWebApiContact").getAlternateUserWid(
-              o("WAWebWidFactory").asUserWidOrThrow(X),
+          ee != null && Z.add(ee.toString());
+          var te = new Set();
+          if (J) {
+            te.add(J.toString());
+            var ne = o("WAWebApiContact").getAlternateUserWid(
+              o("WAWebWidFactory").asUserWidOrThrow(J),
             );
             if (
-              (ee && Z.add(ee.toString()),
-              o("WAWebUserPrefsMeUser").isMeAccount(X))
+              (ne && te.add(ne.toString()),
+              o("WAWebUserPrefsMeUser").isMeAccount(J))
             ) {
-              var te = o("WAWebNux").getCommunityAdminPromotionNuxKey(
-                d.id.toString(),
+              var re = o("WAWebNux").getCommunityAdminPromotionNuxKey(
+                p.id.toString(),
               );
-              o("WAWebNuxAction").dismissNux(te);
+              o("WAWebNuxAction").dismissNux(re);
             }
           }
-          var ne = [];
-          (d.participants.forEach(function (e) {
+          var oe = [];
+          (p.participants.forEach(function (e) {
             var t = e.id.toString();
-            Z.has(t)
-              ? ne.push({ id: e.id, isAdmin: !0, isSuperAdmin: !1 })
-              : Y.has(t) &&
-                ne.push({ id: e.id, isAdmin: !0, isSuperAdmin: !0 });
+            te.has(t)
+              ? oe.push({ id: e.id, isAdmin: !0, isSuperAdmin: !1 })
+              : Z.has(t) &&
+                oe.push({ id: e.id, isAdmin: !0, isSuperAdmin: !0 });
           }),
-            (d.owner = Q),
-            d.participants.add(ne, { merge: !0 }));
+            (p.owner = Y),
+            p.participants.add(oe, { merge: !0 }));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.HIDDEN_GROUP: {
-          d.hiddenSubgroup = !!a.value;
+          p.hiddenSubgroup = !!a.value;
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK: {
-          d.groupSafetyCheck = !!a.value;
+          p.groupSafetyCheck = !!a.value;
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS
           .MEMBER_SHARE_GROUP_HISTORY_MODE: {
-          d.memberShareGroupHistoryMode = a.value;
+          p.memberShareGroupHistoryMode = a.value;
           break;
         }
         default:
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "unhandled group notif action in handleGroupAction",
                 ])),
             )
             .tags("groups");
           break;
       }
-      return (c || (c = n("Promise"))).resolve();
+      return (m || (m = n("Promise"))).resolve();
     }
-    l.updateModelForGroupAction = d;
+    l.updateModelForGroupAction = p;
   },
   98,
 );

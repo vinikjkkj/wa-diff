@@ -6,7 +6,6 @@ __d(
     "WAWebABPropsWamGlobals",
     "WAWebLocalStorage",
     "WAWebProtobufsE2E.pb",
-    "WAWebQuickPromotionGating",
     "WAWebStoreSpecialAbProps",
     "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsCTWA",
@@ -78,7 +77,9 @@ __d(
         o("WAWebStoreSpecialAbProps").storeSpecialAbProps());
     }
     function g() {
-      var e = o("WAWebQuickPromotionGating").qpEmergencyForceFetchNonce();
+      var e = o("WAWebABProps").getABPropConfigValue(
+        "smb_qp_emergency_force_fetch_nonce",
+      );
       if (e === "") return !1;
       var t = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").KEYS

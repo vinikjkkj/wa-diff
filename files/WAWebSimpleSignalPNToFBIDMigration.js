@@ -1,6 +1,6 @@
 __d(
   "WAWebSimpleSignalPNToFBIDMigration",
-  ["WAWebABProps", "WAWebBotTypes", "WAWebWidFactory"],
+  ["WAWebABProps", "WAWebBotTypes", "WAWebBotUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
     var e = "867051314767696",
       s = new Map([
@@ -260,13 +260,15 @@ __d(
       return e;
     }
     function h(t) {
-      return t.isFbidBot()
-        ? e === t.user
-          ? o("WAWebBotTypes").BotPersonaType.DEFAULT
-          : s.has(t.user)
-            ? o("WAWebBotTypes").BotPersonaType.FIRST_PARTY_CHARACTER
-            : o("WAWebBotTypes").BotPersonaType.UGC
-        : null;
+      return o("WAWebBotUtils").isHatchBot(t)
+        ? null
+        : t.isFbidBot()
+          ? e === t.user
+            ? o("WAWebBotTypes").BotPersonaType.DEFAULT
+            : s.has(t.user)
+              ? o("WAWebBotTypes").BotPersonaType.FIRST_PARTY_CHARACTER
+              : o("WAWebBotTypes").BotPersonaType.UGC
+          : null;
     }
     function y(e, t) {
       if (e.type !== "addon") {

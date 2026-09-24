@@ -1,6 +1,6 @@
 __d(
   "RSTUtilsMainThread",
-  ["CurrentUser", "RSTConfig", "gkx"],
+  ["AirwaveAppIdUtils", "CurrentUser", "RSTConfig", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Map();
@@ -25,6 +25,8 @@ __d(
     var d = r("CurrentUser").getAppID();
     function m(e) {
       if (c(e)) return "WhatsApp_Web";
+      if (o("AirwaveAppIdUtils").isAirwaveWebAppId(e))
+        return "instagram_airwave";
       switch (e) {
         case "" + 0x6c6c24b58878:
           return "Ads";
@@ -32,12 +34,6 @@ __d(
           return "Comet";
         case "" + 0x770a46dafb86b:
           return "Business";
-        case "1509803480261504":
-        case "2385360641951750":
-        case "1315352273538439":
-        case "1636455547794985":
-        case "3091416277713978":
-          return "instagram_airwave";
         default:
           return "(Unset-in-RST)";
       }

@@ -60,10 +60,10 @@ __d(
         s.MSG_TYPE.AUDIO,
         s.MSG_TYPE.RICH_RESPONSE,
       ]),
-      d = new Set([s.MSG_TYPE.INTERACTIVE]),
-      m = function (t) {
-        return t.filter(Boolean);
-      };
+      d = new Set([s.MSG_TYPE.INTERACTIVE]);
+    function m(e) {
+      return e.filter(Boolean);
+    }
     function p(e) {
       if (!u.has(e.type) || e.isViewOnce === !0) return !1;
       var t = e.botEditType;

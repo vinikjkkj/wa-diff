@@ -85,9 +85,9 @@ __d(
           o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n.user)
       );
     }
-    var p = function (t) {
-      return t != null ? o("WAWebLidMigrationUtils").toPn(t) : t;
-    };
+    function p(e) {
+      return e != null ? o("WAWebLidMigrationUtils").toPn(e) : e;
+    }
     ((l.isOrderExpansionBannerEnabled = e),
       (l.isOrderExpansionEnabled = s),
       (l.isContactCountrySupported = c),

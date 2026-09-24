@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendApi",
-    "WAWebBizUpdateVerifiedInfoAction",
     "WAWebContactSyncLogger",
     "WAWebMessagePostProcessBatcher",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
@@ -79,11 +78,12 @@ __d(
         i = t.shouldQueryContactInfo,
         l = r.chat;
       (i &&
-        o("WAWebBizUpdateVerifiedInfoAction")
-          .queryAndUpdateContactPropertiesOnNewChat(
-            l,
-            o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.PRIVACY_MODE_CHANGE,
-          )
+        o("WAWebBackendApi")
+          .frontendSendAndReceive("queryAndUpdateContactPropertiesOnNewChat", {
+            contactInfoId: l.toString(),
+            requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
+              .PRIVACY_MODE_CHANGE,
+          })
           .catch(function (t) {
             o("WALogger").WARN(
               e ||

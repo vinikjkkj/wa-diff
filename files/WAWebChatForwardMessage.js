@@ -104,24 +104,20 @@ __d(
           var y = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, m.type),
             C = y.type,
             v = babelHelpers.objectWithoutPropertiesLoose(y, e),
-            R = Object.assign(
-              h,
-              babelHelpers.extends({}, v, {
-                participant: void 0,
-                star: !1,
-                isForwarded:
-                  o("WAWebMsgGetters").getShouldDisplayAsForwarded(m),
-                forwardedFromWeb: !0,
-                forwardingScore:
-                  o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(m),
-                multicast: _,
-                messageSecret:
-                  o(
-                    "WAWebMessagingGatingUtils",
-                  ).isReportingTokenSendingEnabled() &&
-                  self.crypto.getRandomValues(new Uint8Array(32)),
-              }),
-            );
+            R = babelHelpers.extends({}, h, v, {
+              participant: void 0,
+              star: !1,
+              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(m),
+              forwardedFromWeb: !0,
+              forwardingScore:
+                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(m),
+              multicast: _,
+              messageSecret:
+                o(
+                  "WAWebMessagingGatingUtils",
+                ).isReportingTokenSendingEnabled() &&
+                self.crypto.getRandomValues(new Uint8Array(32)),
+            });
           if (r("WAWebWid").isNewsletter(l.id))
             return o("WAWebNewsletterSendMsgAction").forwardNewsletterMessage(
               l,

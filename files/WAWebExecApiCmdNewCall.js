@@ -118,12 +118,26 @@ __d(
             n = e.isVideo,
             r = e.lookup,
             a = e.peerWid;
-          if (!o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(a)) {
+          if (
+            !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+              a,
+              "before_ask",
+            )
+          ) {
             o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
             return;
           }
           if (
             !(yield o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(a, n))
+          ) {
+            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
+            return;
+          }
+          if (
+            !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+              a,
+              "after_ask",
+            )
           ) {
             o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
             return;
@@ -148,6 +162,15 @@ __d(
                 )
                 .sendLogs("new-call-deep-link-peer-mismatch"),
               o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !1));
+            return;
+          }
+          if (
+            !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+              i.wid,
+              "after_ask",
+            )
+          ) {
+            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
             return;
           }
           (yield o("WAWebVoipStartCall").startWAWebVoipCall(

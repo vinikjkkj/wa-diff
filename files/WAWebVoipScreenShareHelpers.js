@@ -104,8 +104,16 @@ __d(
             g = t.isVideoMuted,
             h = t.onVideoMuteToggle,
             y = t.openModal,
-            b = t.targetWindow;
-          if (!f) {
+            b = t.subSurface,
+            S = t.targetWindow;
+          if (
+            (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+              o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+                .TAP_SCREEN_SHARE,
+              b,
+            ),
+            !f)
+          ) {
             if (m) {
               y(
                 p.jsx(
@@ -143,13 +151,13 @@ __d(
           ),
             (a = r("WAWebCallCollection").activeCall) == null ||
               a.setSelfScreenShareRejected(!1));
-          var S = !(
+          var R = !(
             (i =
               (l = r("WAWebCallCollection").activeCall) == null
                 ? void 0
                 : l.isDualStreamScreenShareEnabled()) != null && i
           );
-          if (g && S) {
+          if (g && R) {
             y(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
@@ -164,7 +172,7 @@ __d(
                     function* () {
                       try {
                         (yield (d || (d = n("Promise"))).resolve(h()),
-                          yield C(b));
+                          yield C(S));
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
@@ -182,7 +190,7 @@ __d(
             );
             return;
           }
-          yield C(b);
+          yield C(S);
         })),
         y.apply(this, arguments)
       );

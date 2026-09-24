@@ -144,15 +144,15 @@ __d(
               return ((e.lastIndex = 0), e);
             }),
             (this.$2 = (n = r("WAOnceWithReset"))(function () {
-              var e = t.$5();
+              var e = t.$4();
               return new RegExp("(" + e + ")", "g");
             })),
             (this.onlyEmojiRegex = function () {
-              var e = t.$4();
+              var e = t.$3();
               return ((e.lastIndex = 0), e);
             }),
-            (this.$4 = n(function () {
-              var e = t.$5();
+            (this.$3 = n(function () {
+              var e = t.$4();
               return new RegExp("^(" + e + ")+$", "g");
             })),
             (this.splitEmojis = function (e) {
@@ -176,33 +176,10 @@ __d(
               return t.onlyEmojiRegex().test(e);
             }),
             (this.matchLargeEmojiPattern = function (e) {
-              if (e != null) {
-                if (e.length > 50 || e.includes(" ")) return null;
-                if (
-                  !o("WAWebABProps").getABPropConfigValue(
-                    "no_large_emoji_regex",
-                  )
-                ) {
-                  var n = t.$14(e);
-                  if (n != null) return n;
-                }
-                return t.$15(e);
-              }
+              if (e != null)
+                return e.length > 50 || e.includes(" ") ? null : t.$13(e);
             }),
-            (this.$14 = function (e) {
-              var n = t.$16(),
-                r = n.exec(e);
-              if (r == null) return null;
-              var o = r,
-                a = o
-                  .filter(Boolean)
-                  .slice(1)
-                  .filter(function (e) {
-                    return !D.has(e);
-                  });
-              return a.length > 0 ? a : null;
-            }),
-            (this.$15 = function (e) {
+            (this.$13 = function (e) {
               for (var n = [], r = t.emojiRegex(), o = 0; o < e.length; ) {
                 r.lastIndex = o;
                 var a = r.exec(e);
@@ -221,7 +198,7 @@ __d(
             }),
             (this.normalizeEmoji = function (e) {
               var n = F(e),
-                r = t.$12(),
+                r = t.$11(),
                 o = r.unqualifiedToNormalizedEmoji;
               return o.get(n);
             }),
@@ -243,14 +220,14 @@ __d(
               },
             )),
             (this.getSkinToneVariant = function (e, n) {
-              var r = t.$8(),
+              var r = t.$7(),
                 o = r.get(e);
               if (o == null) return null;
               var a = W(n);
               return o.get(a);
             }),
-            (this.$12 = n(function () {
-              var e = t.$13(),
+            (this.$11 = n(function () {
+              var e = t.$12(),
                 n = e.legacyToEmoji,
                 o = e.orderedEmojis,
                 a = new Map(),
@@ -284,8 +261,8 @@ __d(
                 }
               );
             })),
-            (this.$8 = n(function () {
-              var e = t.$12(),
+            (this.$7 = n(function () {
+              var e = t.$11(),
                 n = e.emojiToGlyphId,
                 r = new Map(),
                 o = function () {
@@ -326,32 +303,28 @@ __d(
               for (var i of n.keys()) a = o();
               return r;
             })),
-            (this.$7 = n(function () {
+            (this.$6 = n(function () {
               var e = new Map();
-              for (var n of t.$8().entries()) {
+              for (var n of t.$7().entries()) {
                 var r = n[0],
                   o = n[1];
                 for (var a of o.values()) e.set(a, r);
               }
               return e;
             })),
-            (this.$5 = n(function () {
-              var e = t.$12(),
+            (this.$4 = n(function () {
+              var e = t.$11(),
                 n = e.emojiToGlyphId;
               return r("WAWebEmojiCompile")(
                 [].concat(Array.from(n.keys()), Array.from(D)).filter(Boolean),
               );
             })),
-            (this.$3 = n(function () {
-              var e = t.$5();
-              return new RegExp("^(" + e + ")(" + e + ")?(" + e + ")?$");
-            })),
             (this.getEmojisInCategory = function (e) {
               var n;
-              return (n = t.$13().categorizedEmojis[e]) != null ? n : [];
+              return (n = t.$12().categorizedEmojis[e]) != null ? n : [];
             }),
-            (this.$9 = n(function () {
-              var e = t.$13(),
+            (this.$8 = n(function () {
+              var e = t.$12(),
                 n = e.categorizedEmojis,
                 r = new Map();
               return (
@@ -367,7 +340,7 @@ __d(
                 r
               );
             })),
-            (this.$17 = function (e) {
+            (this.$14 = function (e) {
               return e === P
                 ? N
                 : e === M &&
@@ -381,28 +354,28 @@ __d(
                   : e;
             }),
             (this.applyGlyphTransformations = function (e) {
-              return t.$17(e);
+              return t.$14(e);
             }),
             (this.getGlyphId = function (e) {
               var n = t.normalizeEmoji(e);
               if (n == null) return null;
-              var r = t.$17(n),
-                o = t.$12(),
+              var r = t.$14(n),
+                o = t.$11(),
                 a = o.emojiToGlyphId;
               return a.get(r);
             }),
             (this.getGlyphPath = function (e, n) {
               var r = t.normalizeEmojiFromString(e);
               if (r == null) return null;
-              var a = t.$17(r),
-                i = t.$12(),
+              var a = t.$14(r),
+                i = t.$11(),
                 l = i.emojiToGlyphId,
                 s = l.get(a);
               return s == null
                 ? null
                 : o("WAWebGetEmojiPathExperimental").getGlyphExperimentalPath(
                     a,
-                    t.$13().emojiType,
+                    t.$12().emojiType,
                     n,
                   );
             }),
@@ -412,15 +385,15 @@ __d(
               ).getEmojiSpritesExperimentalPath(e, t, n, r);
             }),
             (this.isGlyphCached = function (e) {
-              var n = t.$18(e);
-              return t.$6().get(n);
+              var n = t.$15(e);
+              return t.$5().get(n);
             }),
             (this.markGlyphCached = function (e) {
-              var n = t.$18(e);
-              t.$6().set(n);
+              var n = t.$15(e);
+              t.$5().set(n);
             }),
-            (this.$6 = n(function () {
-              return new (r("WABitArray"))(t.$19());
+            (this.$5 = n(function () {
+              return new (r("WABitArray"))(t.$16());
             })),
             (this.getCssClasses = function (e, n) {
               return (
@@ -428,7 +401,7 @@ __d(
                 [
                   "b" + t.getBucket(e),
                   n === "small" ? "emoji" : "emojik",
-                  t.$13().emojiType === o("WAWebEmojiConst").EMOJI_TYPE.APPLE
+                  t.$12().emojiType === o("WAWebEmojiConst").EMOJI_TYPE.APPLE
                     ? "apple"
                     : "wa",
                 ].join(" ")
@@ -436,25 +409,25 @@ __d(
             }),
             (this.getStyle = function (e, n) {
               n === void 0 && (n = "small");
-              var r = t.$20(e, n),
+              var r = t.$17(e, n),
                 o = r.xpos,
                 a = r.ypos;
               return { backgroundPosition: "-" + o + "px -" + a + "px" };
             }),
             (this.getBucket = function (e) {
-              var n = t.$18(e),
+              var n = t.$15(e),
                 r = Math.floor(n / o("WAWebEmojiConst").BUCKET_SIZE);
               return "" + r;
             }),
             (this.getHeartEmojis = n(function () {
               return r("compactMap")(T, t.normalizeEmoji);
             })),
-            (this.$10 = n(function () {
-              var e = t.$19();
+            (this.$9 = n(function () {
+              var e = t.$16();
               return e - (e % o("WAWebEmojiConst").BUCKET_SIZE);
             })),
-            (this.$11 = n(function () {
-              return Math.floor(Math.sqrt(t.$19() - t.$10()));
+            (this.$10 = n(function () {
+              return Math.floor(Math.sqrt(t.$16() - t.$9()));
             })));
         }
         var n = t.prototype;
@@ -472,10 +445,9 @@ __d(
               this.$8.reset(),
               this.$9.reset(),
               this.$10.reset(),
-              this.$11.reset(),
-              this.$12.reset());
+              this.$11.reset());
           }),
-          (n.$13 = function () {
+          (n.$12 = function () {
             return (this.$1 != null || s(0, 56544), this.$1);
           }),
           (n.isConfigured = function () {
@@ -487,23 +459,19 @@ __d(
           (n.getSkinToneBase = function (t) {
             var e,
               n = this.normalizeEmoji(t);
-            return n == null ? null : (e = this.$7().get(n)) != null ? e : null;
+            return n == null ? null : (e = this.$6().get(n)) != null ? e : null;
           }),
           (n.$16 = function () {
-            var e = this.$3();
-            return ((e.lastIndex = 0), e);
-          }),
-          (n.$19 = function () {
-            var e = this.$12(),
+            var e = this.$11(),
               t = e.glyphIdToIndex;
             return t.size;
           }),
-          (n.$20 = function (t, n) {
-            var e = this.$18(t),
+          (n.$17 = function (t, n) {
+            var e = this.$15(t),
               r = e % o("WAWebEmojiConst").BUCKET_SIZE,
               a =
-                e >= this.$10()
-                  ? this.$11()
+                e >= this.$9()
+                  ? this.$10()
                   : Math.floor(Math.sqrt(o("WAWebEmojiConst").BUCKET_SIZE)),
               i = o("WAWebEmojiConst").EMOJI_WIDTH[n],
               l = Math.floor(r / a),
@@ -512,8 +480,8 @@ __d(
               c = l * i;
             return { xpos: u, ypos: c, width: i };
           }),
-          (n.$18 = function (t) {
-            var e = this.$12(),
+          (n.$15 = function (t) {
+            var e = this.$11(),
               n = e.glyphIdToIndex;
             return r("nullthrows")(n.get(t));
           }),

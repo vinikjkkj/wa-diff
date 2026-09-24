@@ -104,7 +104,7 @@ __d(
                         }));
                     }
                     i.waitForClose().then(function () {
-                      t.$4(n);
+                      e.notificationBanner === i && t.$4(n, e);
                     });
                   } else
                     (o("WALogger").LOG(
@@ -113,19 +113,19 @@ __d(
                           "WANotificationController: notification not invoked:",
                         ])),
                     ),
-                      this.$4(n));
-                } catch (e) {
-                  o("WAAbortError").catchAbort(function (e) {
+                      this.$4(n, e));
+                } catch (a) {
+                  o("WAAbortError").catchAbort(function (r) {
                     (o("WALogger").LOG(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
                           "WANotificationController: notification aborted: ",
                           "",
                         ])),
-                      e,
+                      r,
                     ),
-                      t.$4(n));
-                  })(r("getErrorSafe")(e));
+                      t.$4(n, e));
+                  })(r("getErrorSafe")(a));
                 }
                 return e;
               },

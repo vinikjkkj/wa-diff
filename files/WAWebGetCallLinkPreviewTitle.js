@@ -5,8 +5,8 @@ __d(
     "use strict";
     function e(e) {
       return e === "video"
-        ? s._(/*BTDS*/ "Join video call")
-        : s._(/*BTDS*/ "Join Voice call");
+        ? s._(/*BTDS*/ "Video call")
+        : s._(/*BTDS*/ "Voice call");
     }
     l.default = e;
   },

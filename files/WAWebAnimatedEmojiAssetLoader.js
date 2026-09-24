@@ -3,7 +3,6 @@ __d(
   [
     "WAConcurrentPriorityPromiseQueue",
     "WALogger",
-    "WAWebABProps",
     "WAWebEmojiConst",
     "WAWebMediaHostsUtil",
     "WAWebPonyfillsFetch",
@@ -36,30 +35,20 @@ __d(
                     var n = e[0],
                       a = e[1];
                     try {
-                      var l = r("WAWebURLUtils").build(i, {
+                      var l,
+                        u = r("WAWebURLUtils").build(i, {
                           cat: m,
                           id: a,
                           _nc_cat: 1,
                         }),
                         d = yield t.enqueue(
                           function () {
-                            return r("WAWebPonyfillsFetch")(l);
+                            return r("WAWebPonyfillsFetch")(u);
                           },
                           { group: "emojis", priority: 1 },
-                        );
-                      if (
-                        o("WAWebABProps").getABPropConfigValue(
-                          "animated_emoji_use_lazy_parsing",
-                        )
-                      ) {
-                        var p,
-                          _ = yield d.text();
-                        (p = c) == null || p.set(n, _);
-                      } else {
-                        var f,
-                          g = yield d.json();
-                        (f = u) == null || f.set(n, g);
-                      }
+                        ),
+                        p = yield d.text();
+                      (l = c) == null || l.set(n, p);
                     } catch (e) {
                       o("WALogger").LOG(
                         s ||

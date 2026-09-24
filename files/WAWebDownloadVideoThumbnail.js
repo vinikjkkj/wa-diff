@@ -59,7 +59,9 @@ __d(
                         filehash: s.filehash,
                         mediaKey: s.mediaKey,
                         mediaKeyTimestamp: s.mediaKeyTimestamp,
-                        type: o("WAWebMsgGetters").getIsNewsletterMsg(s)
+                        type: o("WAWebMsgGetters").getIsNewsletterMsg(
+                          s.unsafe(),
+                        )
                           ? o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_VIDEO
                           : o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO,
                         signal: new AbortController().signal,
@@ -162,7 +164,7 @@ __d(
           }
           var p = o(
             "WAWebMediaCryptoEligibilityUtils",
-          ).isMediaCryptoExpectedForMsg(n);
+          ).isMediaCryptoExpectedForMsg(n.unsafe());
           if (p && !l) {
             a.endFail("missing_encrypted_filehash", {
               string: { earlyExitReason: "missing_encrypted_filehash" },

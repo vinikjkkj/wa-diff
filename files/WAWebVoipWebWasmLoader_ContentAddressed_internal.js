@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "901390549971e3e50e00f3ccca9e0326c89504aa1b1ae1c9a858671619811dd5",
+      c = "a87537845a680b9b0a575daadad57d81ebb1d02f8839cfa6ecba67f411f5aede",
       d = {
+        a87537845a680b9b0a575daadad57d81ebb1d02f8839cfa6ecba67f411f5aede:
+          function () {
+            return r("bx")("110349");
+          },
         "901390549971e3e50e00f3ccca9e0326c89504aa1b1ae1c9a858671619811dd5":
           function () {
             return r("bx")("110343");
@@ -77,12 +81,8 @@ __d(
           function () {
             return r("bx")("88736");
           },
-        "5f2be8a1b01051b55babe8308ad112fbd2b45008e2e82ccaaf500e0bf4dda067":
-          function () {
-            return r("bx")("90677");
-          },
       },
-      m = d["901390549971e3e50e00f3ccca9e0326c89504aa1b1ae1c9a858671619811dd5"],
+      m = d.a87537845a680b9b0a575daadad57d81ebb1d02f8839cfa6ecba67f411f5aede,
       p = null,
       _ = null;
     try {
@@ -91,6 +91,10 @@ __d(
       p = e;
     }
     var f = {
+        a87537845a680b9b0a575daadad57d81ebb1d02f8839cfa6ecba67f411f5aede:
+          function () {
+            return r("bx")("110348");
+          },
         "901390549971e3e50e00f3ccca9e0326c89504aa1b1ae1c9a858671619811dd5":
           function () {
             return r("bx")("110342");
@@ -151,16 +155,12 @@ __d(
           function () {
             return r("bx")("88734");
           },
-        "5f2be8a1b01051b55babe8308ad112fbd2b45008e2e82ccaaf500e0bf4dda067":
-          function () {
-            return r("bx")("90676");
-          },
       },
-      g = f["901390549971e3e50e00f3ccca9e0326c89504aa1b1ae1c9a858671619811dd5"],
+      g = f.a87537845a680b9b0a575daadad57d81ebb1d02f8839cfa6ecba67f411f5aede,
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1790143497682" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1790230135723" });
     } catch (e) {
       h = e;
     }
@@ -199,7 +199,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/901390549971e3e50e00f3ccca9e0326c89504aa1b1ae1c9a858671619811dd5/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/a87537845a680b9b0a575daadad57d81ebb1d02f8839cfa6ecba67f411f5aede/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -924,10 +924,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1367423: function () {
+          1368831: function () {
             return Date.now();
           },
-          1367446: function (t, n) {
+          1368854: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7907,8 +7907,8 @@ __d(
           yl = (v.___get_exception_message = Ne("__get_exception_message")),
           Cl = Ne("__cxa_can_catch"),
           bl = Ne("__cxa_is_pointer_type"),
-          vl = (v.___start_em_js = 1361436),
-          Sl = (v.___stop_em_js = 1367423);
+          vl = (v.___start_em_js = 1362844),
+          Sl = (v.___stop_em_js = 1368831);
         function Rl(e, t, n, r) {
           var o = _l();
           try {

@@ -32,24 +32,28 @@ __d(
     function m(e) {
       var t = e.chat,
         n = e.contacts,
-        r = e.ctwaContext,
-        a = e.options,
-        i = e.quotedMsg,
-        l = n.map(function (e, t) {
+        a = e.ctwaContext,
+        i = e.options,
+        l = e.quotedMsg,
+        s = n.map(function (e, t) {
           return o("WAWebFrontendVcardUtils").vcardFromContactModel(
             e,
-            a == null ? void 0 : a[t],
+            i == null ? void 0 : i[t],
           );
         }),
-        s = l.length === 1 ? l[0] : o("WAWebVcardUtils").mergeVcards(l),
-        u = s.displayName.toString() + ".vcf",
-        c = o("WAWebCreateFile").createFile([s.vcard], u, { type: d }),
-        m = c.size / 1024;
-      if (m > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
-        p(c, n.length, t, i, r);
+        u = s.length === 1 ? s[0] : o("WAWebVcardUtils").mergeVcards(s),
+        c = u.displayName.toString() + ".vcf",
+        m = o("WAWebCreateFile").createFile(
+          [r("nullthrows")(u.vcard, "Outgoing vcard has no content")],
+          c,
+          { type: d },
+        ),
+        _ = m.size / 1024;
+      if (_ > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
+        p(m, n.length, t, l, a);
         return;
       }
-      f(l, t, m, i, r);
+      f(s, t, _, l, a);
     }
     function p(e, t, n, r, o) {
       return _.apply(this, arguments);

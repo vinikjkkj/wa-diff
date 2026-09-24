@@ -9,7 +9,7 @@ __d(
       d,
       m = function () {
         var e = typeof self != "undefined" ? self.navigator : null;
-        return !!e.webdriver;
+        return !!(e != null && e.webdriver);
       },
       p = function () {
         return !(

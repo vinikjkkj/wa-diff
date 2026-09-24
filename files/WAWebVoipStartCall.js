@@ -285,56 +285,56 @@ __d(
               r === void 0 && (r = 0),
               a === void 0 && (a = null),
               i === void 0 && (i = {}),
-              !!(yield o("WAWebVoipOutgoingCallConsent").hasOutgoingCallConsent(
+              !(yield o("WAWebVoipOutgoingCallConsent").hasOutgoingCallConsent(
                 o("WAWebVoipOutgoingCallConsent").entryTrustOf(i),
                 e,
                 t,
               )))
             ) {
-              var u =
-                  (l =
-                    (s = globalThis.document) == null
-                      ? void 0
-                      : s.visibilityState) != null
-                    ? l
-                    : "unknown",
-                c = o("WAWebVoipOutgoingCallQpl").startVoipOutgoingCallQpl({
-                  bool: {
-                    is_video: t,
-                    is_hidden_at_start: u !== "visible",
-                    socket_connected_at_start: o("WAComms").isSocketConnected(),
-                    was_hidden_within_30s: o(
-                      "WAWebPageVisibilityRecency",
-                    ).wasDocumentHiddenWithinMs(ce),
-                  },
-                  int: {
-                    call_from_ui: n != null ? n : 0,
-                    ms_since_visibility_visible: Math.round(
-                      o(
-                        "WAWebPageVisibilityRecency",
-                      ).getMsSinceDocumentVisible(),
-                    ),
-                    last_hidden_duration_ms: Math.round(
-                      o("WAWebPageVisibilityRecency").getLastHiddenDurationMs(),
-                    ),
-                    ms_since_last_socket_rx: Math.round(
-                      o("WAComms").getMsSinceLastInboundRx(),
-                    ),
-                  },
-                  string: { visibility_state_at_start: u },
-                });
-              try {
-                yield Te(c, e, t, n, r, a);
-              } catch (e) {
-                throw (
-                  c.isActive() &&
-                    o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplFail(
-                      c,
-                      "unexpected_error",
-                    ),
-                  e
-                );
-              }
+              o("WAWebVoipCallIdProvider").resetPendingCallId();
+              return;
+            }
+            var u =
+                (l =
+                  (s = globalThis.document) == null
+                    ? void 0
+                    : s.visibilityState) != null
+                  ? l
+                  : "unknown",
+              c = o("WAWebVoipOutgoingCallQpl").startVoipOutgoingCallQpl({
+                bool: {
+                  is_video: t,
+                  is_hidden_at_start: u !== "visible",
+                  socket_connected_at_start: o("WAComms").isSocketConnected(),
+                  was_hidden_within_30s: o(
+                    "WAWebPageVisibilityRecency",
+                  ).wasDocumentHiddenWithinMs(ce),
+                },
+                int: {
+                  call_from_ui: n != null ? n : 0,
+                  ms_since_visibility_visible: Math.round(
+                    o("WAWebPageVisibilityRecency").getMsSinceDocumentVisible(),
+                  ),
+                  last_hidden_duration_ms: Math.round(
+                    o("WAWebPageVisibilityRecency").getLastHiddenDurationMs(),
+                  ),
+                  ms_since_last_socket_rx: Math.round(
+                    o("WAComms").getMsSinceLastInboundRx(),
+                  ),
+                },
+                string: { visibility_state_at_start: u },
+              });
+            try {
+              yield Te(c, e, t, n, r, a);
+            } catch (e) {
+              throw (
+                c.isActive() &&
+                  o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplFail(
+                    c,
+                    "unexpected_error",
+                  ),
+                e
+              );
             }
           },
         )),

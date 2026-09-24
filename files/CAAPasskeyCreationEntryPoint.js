@@ -52,6 +52,7 @@ __d(
         SECURITY_CHECKUP: "security_checkup",
         SECURITY_CHECKUP_REACTIVE: "security_checkup_reactive",
         TWO_FA_PROPAGATION_MITIGATION: "two_fa_propagation_mitigation",
+        UNIFIED_CLEANUP_SECURITY_CHECKUP: "unified_cleanup_security_checkup",
         WARM_START: "warm_start",
       }),
       l = e;

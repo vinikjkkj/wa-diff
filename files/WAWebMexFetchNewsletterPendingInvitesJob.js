@@ -56,17 +56,8 @@ __d(
               i != null
                 ? r("compactMap")(i, function (e) {
                     var t,
-                      n,
-                      r,
-                      a =
-                        (t =
-                          e == null || (n = e.user) == null ? void 0 : n.pn) !=
-                        null
-                          ? t
-                          : e == null || (r = e.user) == null
-                            ? void 0
-                            : r.id;
-                    return a != null ? o("WAWebWidFactory").createWid(a) : null;
+                      n = e == null || (t = e.user) == null ? void 0 : t.id;
+                    return n != null ? o("WAWebWidFactory").createWid(n) : null;
                   })
                 : void 0;
           return l;

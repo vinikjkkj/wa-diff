@@ -13,17 +13,11 @@ __d(
       );
     }
     function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_shop_storefront_message",
-      );
-    }
-    function c() {
       return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
     }
     ((l.interactiveNativeFlowResponseMessagesEnabled = e),
       (l.shouldUseLegacyButtonsResponse = s),
-      (l.shopsInteractiveMessageEnabled = u),
-      (l.isBloksWidgetEnabled = c));
+      (l.isBloksWidgetEnabled = u));
   },
   98,
 );

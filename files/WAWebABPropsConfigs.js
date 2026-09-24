@@ -1712,6 +1712,7 @@ __d(
       kill_switch_ctwa_ml_entry_point_config: [6215, "bool", !0, !1],
       kmp_syncd_engine_crypto_enabled: [15909, "bool", !1, !1],
       kmp_syncd_engine_outgoing_processor_enabled: [18234, "bool", !1, !1],
+      ks_ogg_opus_strict_validation_enabled: [37509, "bool", !1, !0],
       ks_pdf_strict_validation_enabled: [37251, "bool", !1, !0],
       ks_use_component_model: [26966, "bool", !1, !1],
       lanczos_min_upscale_scale_for_vod: [

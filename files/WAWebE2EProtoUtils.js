@@ -398,7 +398,9 @@ __d(
             "interactive_message_native_flow_killswitch",
           )
         : e === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
-          ? o("WAWebHsmGatingUtils").shopsInteractiveMessageEnabled()
+          ? o("WAWebABProps").getABPropConfigValue(
+              "web_shop_storefront_message",
+            )
           : e === r("WAWebInteractiveMessageType").CAROUSEL
             ? !0
             : (function () {

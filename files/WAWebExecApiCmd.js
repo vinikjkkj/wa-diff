@@ -253,12 +253,23 @@ __d(
             return;
           }
           if (
-            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(n) &&
+            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+              n,
+              "before_ask",
+            ) &&
             (yield o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(
               n,
               t,
             )) &&
-            (yield V(n))
+            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+              n,
+              "after_ask",
+            ) &&
+            (yield V(n)) &&
+            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+              n,
+              "after_ask",
+            )
           )
             try {
               yield o("WAWebVoipStartCall").startWAWebVoipCall(

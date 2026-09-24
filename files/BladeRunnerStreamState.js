@@ -105,8 +105,8 @@ __d(
                     ? JSON.parse(this.$1.extraHeader)
                     : {};
               this.$1.headers == null && (this.$1.headers = {});
-              for (var o of Object.keys(e))
-                ((this.$1.headers[o] = e[o]), (n[o] = e[o]));
+              var o = this.$1.headers;
+              for (var a of Object.keys(e)) ((o[a] = e[a]), (n[a] = e[a]));
               this.$1.extraHeader = JSON.stringify(n);
             } catch (e) {
               r("BladeRunnerLogger").warn(

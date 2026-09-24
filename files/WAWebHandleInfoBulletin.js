@@ -18,15 +18,18 @@ __d(
     "WAWebTos",
     "asyncToGeneratorRuntime",
     "cr:1175",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = (e = n("cr:1175")) != null ? e : {},
-      m = d.handleDirtyBits,
-      p = new (r("WADeprecatedWapParser"))("infoBulletinParser", function (e) {
+      d,
+      m,
+      p = (e = n("cr:1175")) != null ? e : {},
+      _ = p.handleDirtyBits,
+      f = new (r("WADeprecatedWapParser"))("infoBulletinParser", function (e) {
         if (
           (e.assertTag("ib"),
           e.assertFromServer(),
@@ -187,13 +190,13 @@ __d(
         }
         return null;
       });
-    function _(e) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = p.parse(e);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = f.parse(e);
           if (t.error)
             throw (
               o("WALogger").ERROR(
@@ -218,7 +221,7 @@ __d(
           }
           switch (n.type) {
             case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY:
-              if (!m) {
+              if (!_) {
                 o("WALogger").WARN(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -227,7 +230,7 @@ __d(
                 );
                 return;
               }
-              return (yield m(n), "NO_ACK");
+              return (yield _(n), "NO_ACK");
             case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING:
               return (
                 yield o("WAWebHandleRoutingInfo").handleRoutingInfo(n),
@@ -235,9 +238,19 @@ __d(
               );
             case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE:
               return (
-                o("WAWebOfflineHandler").OfflineMessageHandler.processOfflineIb(
-                  n.count,
-                ),
+                o("WAWebOfflineHandler")
+                  .OfflineMessageHandler.processOfflineIb(n.count)
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleInfoBulletin processOfflineIb failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("offline-ib-failed", { sampling: 0.01 });
+                  }),
                 o(
                   "WAWebHandleReportServerSyncNotification",
                 ).reportOfflineNotifications(),
@@ -253,7 +266,19 @@ __d(
               );
             case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.TOS:
               return (
-                o("WAWebTos").TosManager.maybeUpdateServer(n.noticeIds),
+                o("WAWebTos")
+                  .TosManager.maybeUpdateServer(n.noticeIds)
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleInfoBulletin maybeUpdateServer failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("tos-update-failed", { sampling: 0.01 });
+                  }),
                 "NO_ACK"
               );
             case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META:
@@ -277,10 +302,10 @@ __d(
               return;
           }
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.default = _;
+    l.default = g;
   },
   98,
 );

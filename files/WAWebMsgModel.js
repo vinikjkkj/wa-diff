@@ -5,7 +5,6 @@ __d(
     "WAJids",
     "WALogger",
     "WATypeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebBaseModel",
     "WAWebBizBotProfileUtils",
@@ -92,9 +91,8 @@ __d(
       _,
       f,
       g,
-      h,
-      y = h || (h = o("react")),
-      C = (function (t) {
+      h = g || (g = o("react")),
+      y = (function (t) {
         function a() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
@@ -602,8 +600,7 @@ __d(
                 o("WAWebMedia").registerMsg(this));
           }),
           (i.initialize = function () {
-            var e = this,
-              n;
+            var e;
             (t.prototype.initialize.call(this),
               (this.typeOnInit = this.type),
               this.carouselCardsParsed != null && this.$MsgImpl$p_13(),
@@ -616,27 +613,26 @@ __d(
               (this.$MsgImpl$p_10 = new (o(
                 "WAWebPromiseQueue",
               ).PromiseQueue)()));
-            var a = o("WAWebMsgModelUtils").getValidatedSender(this);
-            if (
-              (a &&
-                (this.addChild(
-                  "senderObj",
-                  o("WAWebContactCollection").ContactCollection.gadd(
-                    a.isUser() &&
-                      !a.isFbidBot() &&
-                      !a.isHosted() &&
-                      !a.isNewsletter()
-                      ? o("WAWebWidFactory").createWid(
-                          a.isLid()
-                            ? o("WAJids").toLidUserJid(a.user)
-                            : o("WAJids").toPhoneUserJid(a.user),
-                        )
-                      : a,
-                  ),
+            var n = o("WAWebMsgModelUtils").getValidatedSender(this);
+            (n &&
+              (this.addChild(
+                "senderObj",
+                o("WAWebContactCollection").ContactCollection.gadd(
+                  n.isUser() &&
+                    !n.isFbidBot() &&
+                    !n.isHosted() &&
+                    !n.isNewsletter()
+                    ? o("WAWebWidFactory").createWid(
+                        n.isLid()
+                          ? o("WAJids").toLidUserJid(n.user)
+                          : o("WAJids").toPhoneUserJid(n.user),
+                      )
+                    : n,
                 ),
-                this.hsmTag ===
-                  o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.MARKETING &&
-                  this.senderObj.setIsMarketingMessageThread(!0)),
+              ),
+              this.hsmTag ===
+                o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.MARKETING &&
+                this.senderObj.setIsMarketingMessageThread(!0)),
               (this.mentionedJidList = this.mentionedJidList || []),
               (this.groupMentions = this.groupMentions || []),
               this.mentionedJidList.forEach(function (e) {
@@ -659,44 +655,14 @@ __d(
                 o("WAWebViewMode.flow").ViewModeSurface.CHAT,
                 this.viewMode,
               ) || this.$MsgImpl$p_16(),
-              !r("gkx")("26258"))
-            ) {
-              var i = o("WAWebABProps").getABPropConfigValue(
-                "web_optimized_event_handlers",
-              );
-              this.listenTo(
-                this,
-                "change:t",
-                i
-                  ? this.$MsgImpl$p_17
-                  : function () {
-                      Number.isInteger(e.t) ||
-                        o("WALogger")
-                          .ERROR(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "Invalid timestamp value in msg, raw ts value: ",
-                                ", msgId: ",
-                                ", msgType: ",
-                                "_",
-                                "",
-                              ])),
-                            e.t,
-                            e.id.toString(),
-                            e.type,
-                            e.subtype,
-                          )
-                          .tags("date_marker")
-                          .sendLogs("Msg TS updated to invalid value");
-                    },
-              );
-            }
-            (o("WAWebMsgGetters").getIsMetaBotResponse(this) &&
-              this.listenTo(this, "change:botEditType", this.$MsgImpl$p_18),
+              r("gkx")("26258") ||
+                this.listenTo(this, "change:t", this.$MsgImpl$p_17),
+              o("WAWebMsgGetters").getIsMetaBotResponse(this) &&
+                this.listenTo(this, "change:botEditType", this.$MsgImpl$p_18),
               this.recvFresh &&
-                (n = this.senderObj) != null &&
-                (n = n.id) != null &&
-                n.isBot() &&
+                (e = this.senderObj) != null &&
+                (e = e.id) != null &&
+                e.isBot() &&
                 (this.botEditType == null &&
                   (this.botEditType = o("WAWebBotTypes").BotMsgEditType.FULL),
                 (this.activeBotMsgStreamingInProgress = !0)),
@@ -706,8 +672,8 @@ __d(
             Number.isInteger(this.t) ||
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "Invalid timestamp value in msg, raw ts value: ",
                       ", msgId: ",
                       ", msgType: ",
@@ -758,8 +724,8 @@ __d(
               ).eligibleMessagesForNotificationRetriggering.has(r.type)
                 ? o("WAWebCmd").Cmd.alertNewMsg(r)
                 : o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "Msg: #triggerNotificationForParentMessage: parentMsg for ",
                         " not found in MsgCollection or not eligible for notification re-triggering",
                       ])),
@@ -960,8 +926,8 @@ __d(
                 o("WAWebMediaTypes").MediaDataStage.NEED_UPLOAD &&
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "resumeUpload called while state was ",
                         "",
                       ])),
@@ -990,15 +956,15 @@ __d(
             var e = this,
               a;
             if (o("WAWebFrontendMsgGetters").getAsRevoked(this))
-              return (g || (g = n("Promise"))).resolve();
+              return (f || (f = n("Promise"))).resolve();
             var i = t.downloadEvenIfExpensive,
               l = t.isAutoDownload,
               s = t.isUserInitiated,
               u = t.rmrReason,
               c = t.shouldSequenceDownload,
-              d = t.shouldThrowAbortError;
+              m = t.shouldThrowAbortError;
             if (!s && !o("WAWebMsgModelPropUtils").isTrusted(this))
-              return (g || (g = n("Promise"))).resolve();
+              return (f || (f = n("Promise"))).resolve();
             if (
               !o("WAWebMsgGetters").getIsStatus(this) &&
               !o("WAWebMsgGetters").getIsNewsletterMsg(this) &&
@@ -1010,20 +976,20 @@ __d(
               return (
                 s &&
                   o("WAWebModalManager").ModalManager.open(
-                    y.jsx(
+                    h.jsx(
                       r("WAWebSuspendedGroupMediaDownloadFailureModal.react"),
                       {},
                     ),
                     { transition: "modal-flow" },
                   ),
-                (g || (g = n("Promise"))).resolve()
+                (f || (f = n("Promise"))).resolve()
               );
             if (
               (o("WAWebFrontendMsgGetters").getAsMms(this) ||
                 o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "id: ",
                         " type: ",
                         "",
@@ -1068,7 +1034,7 @@ __d(
                   ? void 0
                   : a.id,
               shouldSequenceDownload: c,
-              shouldThrowAbortError: d,
+              shouldThrowAbortError: m,
             });
           }),
           (i.$MsgImpl$p_22 = function (t) {
@@ -1099,8 +1065,8 @@ __d(
                     !o("WAWebCommonMsgUtils").isQuarantinedMsg(this.type) &&
                     o("WALogger")
                       .ERROR(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "updated ",
                             " from ",
                             " to ",
@@ -1114,7 +1080,7 @@ __d(
                   this.registerAndPrepMedia(t).then(function () {
                     e.set(t);
                   }))
-                : (this.set(t), (g || (g = n("Promise"))).resolve())
+                : (this.set(t), (f || (f = n("Promise"))).resolve())
             );
           }),
           (i.registerAndPrepMedia = (function () {
@@ -1129,8 +1095,8 @@ __d(
                   throw (
                     o("WALogger")
                       .ERROR(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "error",
                           ])),
                       )
@@ -1152,8 +1118,8 @@ __d(
               e &&
                 this.mediaData == null &&
                 (o("WALogger").ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "Msg: waitForPrep called while mediaData was null. id: ",
                       "\n            createdMediaDataOnInit: ",
                       ", createdMediaDataOnUpdate: ",
@@ -1174,7 +1140,7 @@ __d(
                 this.$MsgImpl$p_11());
               var t = e
                 ? o("WAWebMedia").prepareMsg(this)
-                : (g || (g = n("Promise"))).resolve();
+                : (f || (f = n("Promise"))).resolve();
               return t;
             });
             function t() {
@@ -1404,11 +1370,11 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((C.Proxy = "msg"),
-      (C.idClass = r("WAWebMsgKey")),
-      (C.kind = "__MOCKED_KIND__"));
-    var b = o("WAWebBaseModel").defineModel(C);
-    l.Msg = b;
+    ((y.Proxy = "msg"),
+      (y.idClass = r("WAWebMsgKey")),
+      (y.kind = "__MOCKED_KIND__"));
+    var C = o("WAWebBaseModel").defineModel(y);
+    l.Msg = C;
   },
   98,
 );

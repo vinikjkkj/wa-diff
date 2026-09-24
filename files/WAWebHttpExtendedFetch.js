@@ -99,7 +99,7 @@ __d(
                 l(r("err")("fetch error: unexpected status " + c.status));
                 return;
               }
-              i(v());
+              i(R());
             }
           }),
             (c.onerror = function () {
@@ -113,18 +113,20 @@ __d(
               );
             }),
             (c.withCredentials = a.credentials === "include"),
-            a.timeout != null && (c.timeout = a.timeout),
-            c.open(a.method || "get", t.toString(), !0));
-          var y = new (r("WAWebPonyfillsHeaders"))(a.headers || {});
-          for (var C of y.keys()) {
-            var b = y.get(C);
-            b != null && c.setRequestHeader(C, b);
+            a.timeout != null && (c.timeout = a.timeout));
+          var y = a.method;
+          c.open(y != null && y !== "" ? y : "get", t.toString(), !0);
+          var C = new (r("WAWebPonyfillsHeaders"))(a.headers || {});
+          for (var b of C.keys()) {
+            var v = C.get(b);
+            v != null && c.setRequestHeader(b, v);
           }
-          (p
+          p
             ? c.overrideMimeType("text/plain; charset=x-user-defined")
-            : (c.responseType = "arraybuffer"),
-            c.send(a.body || null));
-          function v() {
+            : (c.responseType = "arraybuffer");
+          var S = a.body;
+          c.send(S != null && S !== "" ? S : null);
+          function R() {
             var t = new (r("WAWebPonyfillsHeaders"))(
               r("WAWebHttpParseHeaders")(c.getAllResponseHeaders()),
             );
@@ -135,7 +137,7 @@ __d(
                 status: c.status,
                 url: c.responseURL,
               },
-              S(),
+              L(),
               {
                 blob: function () {
                   return (e || (e = n("Promise"))).resolve(
@@ -144,12 +146,12 @@ __d(
                     }),
                   );
                 },
-                clone: v,
+                clone: R,
                 headers: t,
               },
             );
           }
-          function S() {
+          function L() {
             return p
               ? {
                   text: function () {
@@ -168,12 +170,12 @@ __d(
                 }
               : {
                   text: function () {
-                    return R();
+                    return E();
                   },
                   json: (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
-                        var e = yield R();
+                        var e = yield E();
                         return JSON.parse(e);
                       },
                     );
@@ -187,7 +189,7 @@ __d(
                   },
                 };
           }
-          function R() {
+          function E() {
             return (e || (e = n("Promise"))).resolve(
               String.fromCharCode.apply(
                 String,

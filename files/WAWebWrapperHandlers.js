@@ -1,6 +1,7 @@
 __d(
   "WAWebWrapperHandlers",
   [
+    "fbt",
     "WAWebAfterReadUtils",
     "WAWebBizCoexStringUtils",
     "WAWebBizPrivacyUtils",
@@ -20,10 +21,10 @@ __d(
     "WAWebWrapperOrderEphemeralExemption",
     "react",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e,
-      s = e || (e = o("react"));
-    function u(e) {
+      u = e || (e = o("react"));
+    function c(e) {
       var t = function () {
           o("WAWebCmd").Cmd.msgInfoDrawer(o("WAWebStateUtils").unproxy(e));
         },
@@ -42,7 +43,7 @@ __d(
         },
         a = function () {
           o("WAWebModalManager").ModalManager.open(
-            s.jsx(r("WAWebWebSearchPopup.react"), { message: e }),
+            u.jsx(r("WAWebWebSearchPopup.react"), { message: e }),
             { transition: "modal-flow" },
           );
         },
@@ -70,11 +71,11 @@ __d(
               : ((i = o(
                   "WAWebEphemeralFbtKic",
                 ).getDisappearingMessageOutOfSyncWontDisappearTitle()),
-                (l = o(
-                  "WAWebEphemeralFbtKic",
-                ).getDisappearingMessageOutOfSyncWontDisappearBody())),
+                (l = s._(
+                  /*BTDS*/ "The sender may be using an older version of WhatsApp.",
+                ))),
             o("WAWebModalManager").ModalManager.open(
-              s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 tsNavigationData: {
                   surface: "unknown",
                   viewName: "ephemeral-msg-info",
@@ -90,7 +91,7 @@ __d(
           var t = e.bizPrivacyStatus;
           t != null &&
             o("WAWebModalManager").ModalManager.open(
-              s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 tsNavigationData: {
                   surface: "unknown",
                   viewName: "biz-privacy-info",
@@ -101,7 +102,7 @@ __d(
               { transition: "modal-flow" },
             );
         },
-        u = function () {
+        c = function () {
           var t,
             n,
             r =
@@ -117,7 +118,7 @@ __d(
               n.isUser()
             ) ||
             o("WAWebModalManager").ModalManager.open(
-              s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 tsNavigationData: {
                   surface: "unknown",
                   viewName: "biz-enc-state-mismatch",
@@ -130,7 +131,7 @@ __d(
               { transition: "modal-flow" },
             );
         },
-        c = function () {
+        d = function () {
           var e = o(
               "WAWebWrapperOrderEphemeralExemption",
             ).getOrderEphemeralExemptionInfoString(),
@@ -138,7 +139,7 @@ __d(
               "WAWebWrapperOrderEphemeralExemption",
             ).getLearnMorerderEphemeralExemptionButtonString();
           o("WAWebModalManager").ModalManager.open(
-            s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+            u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               tsNavigationData: {
                 surface: "unknown",
                 viewName: "order-ephemeral-exemption",
@@ -155,9 +156,9 @@ __d(
             { transition: "modal-flow" },
           );
         },
-        d = function () {
+        m = function () {
           o("WAWebModalManager").ModalManager.open(
-            s.jsx(
+            u.jsx(
               o("WAWebMarketingMessagesUserControlsPopupLoadable")
                 .WAWebMarketingMessagesUserControlsPopupLoadable,
               {
@@ -175,12 +176,12 @@ __d(
         handleOpenWebSearchFlow: a,
         handleOpenEphemeralInfoPopup: i,
         handleOpenBizPrivacyInfoPopup: l,
-        handleOpenEphemeralExemptionInfoPopup: c,
-        handleOpenBizEncStateMismatchInfoPopup: u,
-        handleOpenMarketingMessagesFeedbackPopup: d,
+        handleOpenEphemeralExemptionInfoPopup: d,
+        handleOpenBizEncStateMismatchInfoPopup: c,
+        handleOpenMarketingMessagesFeedbackPopup: m,
       };
     }
-    l.getHandlers = u;
+    l.getHandlers = c;
   },
-  98,
+  226,
 );

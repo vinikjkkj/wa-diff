@@ -7,11 +7,20 @@ __d(
       var n = o("WATimeUtils").unixTime() - t > e;
       return n;
     }
-    var u = 7 / 5;
-    function c(e, t) {
+    function u(e, t) {
+      return (
+        e !== o("WAWebDisplayType").DISPLAY_TYPE.STATUS &&
+        e !== o("WAWebDisplayType").DISPLAY_TYPE.GALLERY &&
+        t !== "bot_plugin_link" &&
+        t !== "high-quality" &&
+        t !== "high-quality-extended"
+      );
+    }
+    var c = 7 / 5;
+    function d(e, t) {
       var n, r;
       if (e) {
-        var o = d(e.unsafe(), t);
+        var o = m(e.unsafe(), t);
         if (
           o &&
           (e == null ? void 0 : e.thumbnailHeight) != null &&
@@ -23,7 +32,7 @@ __d(
       }
       return { bubbleTheme: r, linkPreviewTheme: n };
     }
-    function d(e, t) {
+    function m(e, t) {
       var n =
         !!(e.thumbnailDirectPath || e.thumbnailHQ) &&
         e.thumbnailHeight != null &&
@@ -37,13 +46,14 @@ __d(
         : t === o("WAWebDisplayType").DISPLAY_TYPE.STATUS &&
             e.thumbnailHeight != null &&
             e.thumbnailWidth != null
-          ? e.thumbnailWidth / e.thumbnailHeight >= u
+          ? e.thumbnailWidth / e.thumbnailHeight >= c
           : !0;
     }
     ((l.HQ_PREVIEW_LIFESPAN = e),
       (l.hqLinkPreviewExpired = s),
-      (l.getLinkPreviewThemes = c),
-      (l.displayHighQualityLinkPreview = d));
+      (l.supportsCallLinkCard = u),
+      (l.getLinkPreviewThemes = d),
+      (l.displayHighQualityLinkPreview = m));
   },
   98,
 );

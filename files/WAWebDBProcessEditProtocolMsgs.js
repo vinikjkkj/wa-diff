@@ -10,6 +10,7 @@ __d(
     "WAWebAddonQueryUtils",
     "WAWebApiChatUnreadMention",
     "WAWebBackendApi",
+    "WAWebCoexV2MessageAckProjection",
     "WAWebDBMarkFutureproofMessagesReparsed",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
@@ -57,33 +58,33 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if ((t === void 0 && (t = !1), e.length === 0)) return [];
-          var n = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(
+          var a = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(
               r("compactMap")(e, function (e) {
                 return e.protocolMessageKey;
               }),
             ),
-            a = R(e, n),
-            i = [],
+            i = R(e, a),
             l = [],
-            s = [];
-          a.sort(function (e, t) {
+            s = [],
+            u = [];
+          i.sort(function (e, t) {
             return (
               r("nullthrows")(t.latestEditSenderTimestampMs) -
               r("nullthrows")(e.latestEditSenderTimestampMs)
             );
           });
-          for (var u of a) {
-            var c =
-              u.protocolMessageKey && n.get(u.protocolMessageKey.toString());
-            if (!c || c.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-              i.push(u);
+          for (var c of i) {
+            var d =
+              c.protocolMessageKey && a.get(c.protocolMessageKey.toString());
+            if (!d || d.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
+              l.push(c);
             else {
               if (
                 o(
                   "WAWebMessagingGatingUtils",
                 ).isWebReportingTokenDelayProcessingEnabled()
               ) {
-                var d = o(
+                var m = o(
                   "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                 ).msgProcessReporter.startMarker(
                   o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
@@ -91,19 +92,19 @@ __d(
                 );
                 (yield o(
                   "WAWebHandleMsgValidate",
-                ).validateAndProcessReportingTokenInfo({ renderableMsgs: [u] }),
-                  d == null || d());
+                ).validateAndProcessReportingTokenInfo({ renderableMsgs: [c] }),
+                  m == null || m());
               }
-              (l.push(P(c, u)),
-                o("WAWebThreadMsgUtils").isThreadMsg(u) && s.push(u));
+              (s.push(P(d, c)),
+                o("WAWebThreadMsgUtils").isThreadMsg(c) && u.push(c));
             }
           }
-          yield L(i);
-          var m = l.filter(function (e) {
+          yield L(l);
+          var p = s.filter(function (e) {
             return e.isLatest;
           });
           return (
-            yield v(l, m),
+            yield v(s, p),
             t &&
               (yield o(
                 "WAWebDBMarkFutureproofMessagesReparsed",
@@ -114,8 +115,18 @@ __d(
               )),
             yield o(
               "WAWebDBThreadMetadataBulkHelper",
-            ).persistNewMessagesThreadMetadataInBulk(s),
-            m
+            ).persistNewMessagesThreadMetadataInBulk(u),
+            yield o(
+              "WAWebCoexV2MessageAckProjection",
+            ).reconcileCoexV2ReceiptAcksAfterMessagePersisted(
+              p.map(function (e) {
+                var t = e.protocolMsg;
+                return t;
+              }),
+              (f || (f = n("Promise"))).resolve(),
+              null,
+            ),
+            p
           );
         })),
         b.apply(this, arguments)

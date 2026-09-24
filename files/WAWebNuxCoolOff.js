@@ -104,7 +104,8 @@ __d(
           );
         }),
         (n.$7 = function (t) {
-          this.$4(Object.assign(this.nux, t));
+          ((this.nux = babelHelpers.extends({}, this.nux, t)),
+            this.$4(this.nux));
         }),
         (n.$8 = function () {
           var e = o("WAWebCurrentMoment").getCurrentMoment(),

@@ -32,8 +32,7 @@ __d(
           t
         );
       })(o("WAWebBaseModel").BaseModel),
-      u = o("WAWebBaseModel").defineModel(s),
-      c = (function (e) {
+      u = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -83,11 +82,10 @@ __d(
           t
         );
       })(s),
-      d = o("WAWebBaseModel").defineModel(c);
+      c = o("WAWebBaseModel").defineModel(u);
     ((l.ImageOutputTypes = e),
-      (l.MediaCache = u),
-      (l.ResizeRotateMediaCacheImpl = c),
-      (l.ResizeRotateMediaCache = d));
+      (l.ResizeRotateMediaCacheImpl = u),
+      (l.ResizeRotateMediaCache = c));
   },
   98,
 );

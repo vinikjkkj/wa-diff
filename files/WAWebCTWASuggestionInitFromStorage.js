@@ -14,7 +14,12 @@ __d(
       if (
         !o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabledOnStartup()
       )
-        return (s || (s = n("Promise"))).resolve();
+        return (
+          o("WAWebBackendApi").frontendFireAndForget("loadedCTWASuggestions", {
+            suggestions: [],
+          }),
+          (s || (s = n("Promise"))).resolve()
+        );
       var t = o("WAWebSchemaCTWASuggestion").getCTWASuggestionTable();
       return t.all().then(function (n) {
         var r = [],

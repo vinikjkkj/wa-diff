@@ -14,7 +14,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d;
     function m(e) {
-      return C(
+      return y(
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType.OutOfSyncInfo,
         e,
       );
@@ -25,34 +25,29 @@ __d(
     function _() {
       return s._(/*BTDS*/ "This message won't disappear");
     }
-    function f() {
-      return s._(
-        /*BTDS*/ "The sender may be using an older version of WhatsApp.",
-      );
-    }
-    function g(e) {
+    function f(e) {
       return (
         e === void 0 && (e = 0),
-        C(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.Explanation, e)
+        y(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.Explanation, e)
       );
     }
-    function h(e, t) {
+    function g(e, t) {
       return (
         e === void 0 && (e = 0),
-        C(
+        y(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType.ModeChangeByOthers,
           e,
           t,
         )
       );
     }
-    function y(e) {
+    function h(e) {
       return (
         e === void 0 && (e = 0),
-        C(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.ModeChangeByYou, e)
+        y(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.ModeChangeByYou, e)
       );
     }
-    function C(t, n, r) {
+    function y(t, n, r) {
       if ((n === void 0 && (n = 0), n < 0))
         return (
           o("WALogger")
@@ -69,11 +64,11 @@ __d(
             .sendLogs("invalid-duration"),
           ""
         );
-      if (n === 0) return b(t, r);
-      if (n <= 60) return v(t, n, r);
+      if (n === 0) return C(t, r);
+      if (n <= 60) return b(t, n, r);
       if (n < 3600) {
         var a = Math.floor(n / 60);
-        return S(t, a, r);
+        return v(t, a, r);
       } else if (n <= 1440 * 60) {
         var i = Math.floor(n / 60 / 60);
         return o(
@@ -87,7 +82,7 @@ __d(
         r,
       );
     }
-    function b(e, t) {
+    function C(e, t) {
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && t != null
@@ -163,7 +158,7 @@ __d(
                           .sendLogs("invalid-ephemeral-string-type"),
                         "");
     }
-    function v(e, t, n) {
+    function b(e, t, n) {
       var r = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled();
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
@@ -303,7 +298,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function S(e, t, n) {
+    function v(e, t, n) {
       var r = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled();
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
@@ -443,7 +438,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function R(e) {
+    function S(e) {
       var t = o("WAWebContactCollection").ContactCollection.assertGet(e);
       if (o("WAWebContactGetters").getIsMe(t))
         return s._(/*BTDS*/ "Kept by you");
@@ -455,11 +450,10 @@ __d(
     ((l.getDisappearingMessageOutOfSyncDifferentBody = m),
       (l.getDisappearingMessageOutOfSyncDifferentTitle = p),
       (l.getDisappearingMessageOutOfSyncWontDisappearTitle = _),
-      (l.getDisappearingMessageOutOfSyncWontDisappearBody = f),
-      (l.getDisappearingMessageExplanationStringKic = g),
-      (l.getDisappearingModeOtherStringKic = h),
-      (l.getDisappearingModeYouStringKic = y),
-      (l.getKeptByString = R));
+      (l.getDisappearingMessageExplanationStringKic = f),
+      (l.getDisappearingModeOtherStringKic = g),
+      (l.getDisappearingModeYouStringKic = h),
+      (l.getKeptByString = S));
   },
   226,
 );

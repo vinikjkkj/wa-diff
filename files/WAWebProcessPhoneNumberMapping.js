@@ -5,6 +5,7 @@ __d(
     "WAArrayUtils",
     "WALogger",
     "WAWebApiContact",
+    "WAWebCoexV2PhoneNumberMapping",
     "WAWebDBCreateLidPnMappings",
     "WAWebHandleMsgTypes.flow",
     "WAWebUpdateLidMetadataJob",
@@ -186,8 +187,18 @@ __d(
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgInfo,
             n = e.msgMeta,
-            r = t.author;
-          return r.isLid() ? p(t, n) : f(t);
+            r = o(
+              "WAWebCoexV2PhoneNumberMapping",
+            ).maybeGetCoexV2PhoneNumberMappingPlan(t, n);
+          if (r != null) {
+            var a;
+            return {
+              mapping: (a = r.mapping) != null ? a : void 0,
+              lidMetadataUpdates: [],
+            };
+          }
+          var i = t.author;
+          return i.isLid() ? p(t, n) : f(t);
         })),
         y.apply(this, arguments)
       );

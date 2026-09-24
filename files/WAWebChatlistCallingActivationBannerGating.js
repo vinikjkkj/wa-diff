@@ -1,7 +1,7 @@
 __d(
   "WAWebChatlistCallingActivationBannerGating",
   [
-    "WAWebMobilePlatforms",
+    "WAWebBizCoexGatingUtils",
     "WAWebNux",
     "WAWebUserPrefsNuxPreferences",
     "WAWebVoipGatingUtils",
@@ -9,7 +9,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return o("WAWebMobilePlatforms").isSMB() ||
+      return o(
+        "WAWebBizCoexGatingUtils",
+      ).isCallingDisabledOnAuthAgentSoftOffboarded() ||
         !o("WAWebVoipGatingUtils").isChatlistCallingBannerEnabled()
         ? !1
         : !o("WAWebUserPrefsNuxPreferences").nuxExistsInNuxSync(

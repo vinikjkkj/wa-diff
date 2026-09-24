@@ -10,6 +10,7 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotReplaceMentionWidsWithPushnames",
+    "WAWebBotUtils",
     "WAWebButtonsMessageProtoUtils",
     "WAWebConversionTupleCollection",
     "WAWebE2EProtoUtils",
@@ -378,21 +379,21 @@ __d(
       return (i && (n.conversionTuple = i.serialize()), n);
     }
     function C(e, t, n, a, i) {
-      var l, s, u;
+      var l, s, u, d;
       (t === void 0 && (t = {}), n === void 0 && (n = void 0));
-      var d = b(e, t, n, a, i);
+      var m = b(e, t, n, a, i);
       try {
-        var m = o(
+        var p = o(
           "WAWebAssociationProtoUtils",
         ).getValidatedOutgoingMessageAssociationContextInfo(
           e.associationType,
           e.parentMsgKey,
         );
-        m &&
-          (d.messageContextInfo = babelHelpers.extends(
+        p &&
+          (m.messageContextInfo = babelHelpers.extends(
             {},
-            d.messageContextInfo,
-            m,
+            m.messageContextInfo,
+            p,
           ));
       } catch (t) {
         o("WALogger")
@@ -420,69 +421,71 @@ __d(
         ) &&
           e.messageSecret &&
           i !== "quoted" &&
-          (d.messageContextInfo = babelHelpers.extends(
+          (m.messageContextInfo = babelHelpers.extends(
             {},
-            d.messageContextInfo,
+            m.messageContextInfo,
             { messageSecret: e.messageSecret },
           )),
         o("WAWebBotBaseGating").isBotEnabled() ||
           e.botGroupParticipant != null ||
-          ((s = e.to) == null ? void 0 : s.isSupportAgentBot()) === !0)
+          ((s = e.to) == null ? void 0 : s.isSupportAgentBot()) === !0 ||
+          (((u = e.id) == null ? void 0 : u.remote) != null &&
+            o("WAWebBotUtils").isHatchBot(e.id.remote)))
       ) {
-        var p,
-          _ = (p = d.messageContextInfo) == null ? void 0 : p.botMetadata,
-          f = o("WAWebGenerateBotMetadata").mergeBotMetadata(
-            _,
+        var _,
+          f = (_ = m.messageContextInfo) == null ? void 0 : _.botMetadata,
+          g = o("WAWebGenerateBotMetadata").mergeBotMetadata(
+            f,
             o("WAWebGenerateBotMetadata").generateBotMetadata(e),
           );
-        f != null &&
-          f !== _ &&
-          (d.messageContextInfo = babelHelpers.extends(
+        g != null &&
+          g !== f &&
+          (m.messageContextInfo = babelHelpers.extends(
             {},
-            d.messageContextInfo,
-            { botMetadata: f },
+            m.messageContextInfo,
+            { botMetadata: g },
           ));
       }
       if (!r("isArrayNullOrEmpty")(e.threadIds)) {
-        var g = o("WAWebGenerateThreadIds").generateThreadIds(e);
-        d.messageContextInfo = babelHelpers.extends({}, d.messageContextInfo, {
-          threadId: g,
+        var h = o("WAWebGenerateThreadIds").generateThreadIds(e);
+        m.messageContextInfo = babelHelpers.extends({}, m.messageContextInfo, {
+          threadId: h,
         });
       }
       if (
-        ((d = x(d, e, n)),
+        ((m = x(m, e, n)),
         o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
           o(
             "WAWebMessagePluginGenerateReportingTokenContent",
           ).isMsgTypeReportingTokenCompatible(e.type, e.subtype) &&
           i !== "quoted")
       ) {
-        var h, y;
-        d.messageContextInfo = babelHelpers.extends({}, d.messageContextInfo, {
+        var y, C;
+        m.messageContextInfo = babelHelpers.extends({}, m.messageContextInfo, {
           messageSecret:
-            (h =
-              (y = d.messageContextInfo) == null ? void 0 : y.messageSecret) !=
+            (y =
+              (C = m.messageContextInfo) == null ? void 0 : C.messageSecret) !=
             null
-              ? h
+              ? y
               : e.messageSecret,
         });
       }
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.COMMENT &&
-          ((u = d.messageContextInfo) == null ? void 0 : u.messageSecret) !=
+          ((d = m.messageContextInfo) == null ? void 0 : d.messageSecret) !=
             null &&
-          (d.messageContextInfo = babelHelpers.extends(
+          (m.messageContextInfo = babelHelpers.extends(
             {},
-            d.messageContextInfo,
+            m.messageContextInfo,
             { messageSecret: null },
           )),
         e.limitSharing &&
-          (d.messageContextInfo = babelHelpers.extends(
+          (m.messageContextInfo = babelHelpers.extends(
             {},
-            d.messageContextInfo,
+            m.messageContextInfo,
             { limitSharingV2: e.limitSharing },
           )),
-        d
+        m
       );
     }
     function b(e, t, n, r, a) {

@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebABProps",
     "WAWebAvUpgradeBannerState",
     "WAWebCallCollection",
     "WAWebCallModel",
@@ -787,9 +788,9 @@ __d(
                 o("WAWebVoipWaCallEnums").ScreenShareEndReason.NotSupported &&
               Number(t.sharer_version) >=
                 Number(o("WAWebVoipWaCallEnums").ScreenShareVersion.Version3) &&
-              o(
-                "WAWebVoipGatingUtils",
-              ).isScreenShareDualStreamAppUpdateDialogEnabled() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "call_screen_share_dual_stream_app_update_dialog_enabled",
+              ) &&
               e.tryMarkScreenShareUpdateAppModalShown() &&
               o("WAWebModalManager").ModalManager.open(
                 P.jsx(r("WAWebVoipScreenShareUpdateAppModal.react"), {}),

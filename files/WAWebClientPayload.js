@@ -10,6 +10,7 @@ __d(
     "WAWebBuildConstants",
     "WAWebClientFeatureFlags",
     "WAWebClientPayloadReleaseChannel",
+    "WAWebCompanionPlatformType",
     "WAWebEnvironment",
     "WAWebLid1X1MigrationGating",
     "WAWebProtobufsCompanionReg.pb",
@@ -112,7 +113,7 @@ __d(
             connectReason: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
               .USER_ACTIVATED,
             userAgent: yield v(),
-            webInfo: { webSubPlatform: L() },
+            webInfo: { webSubPlatform: R() },
           };
         })),
         g.apply(this, arguments)
@@ -176,23 +177,20 @@ __d(
           }
           var s = r("WAWebEnvironment").isWindows && !r("justknobx")._("1836");
           s && ((a.onDemandReady = !0), (a.completeOnDemandReady = !0));
-          var u = r("WAWebEnvironment").isWindows
-              ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.UWP
-              : R(e.name),
-            c = {
+          var u = {
               os: e.os,
               version: t,
-              platformType: u,
+              platformType: r("WAWebCompanionPlatformType")(),
               requireFullSync: i,
               historySyncConfig: a,
             },
-            d = o("encodeProtobuf")
+            c = o("encodeProtobuf")
               .encodeProtobuf(
                 o("WAWebProtobufsCompanionReg.pb").DevicePropsSpec,
-                c,
+                u,
               )
               .readByteArrayView();
-          return d;
+          return c;
         })),
         C.apply(this, arguments)
       );
@@ -249,44 +247,7 @@ __d(
         S.apply(this, arguments)
       );
     }
-    function R(e) {
-      return e === "Chrome"
-        ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.CHROME
-        : e === "Firefox"
-          ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.FIREFOX
-          : e === "IE"
-            ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.IE
-            : e === "Opera"
-              ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType
-                  .OPERA
-              : e === "Safari"
-                ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType
-                    .SAFARI
-                : e === "Edge"
-                  ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType
-                      .EDGE
-                  : e === "electron" || e === "Desktop"
-                    ? o("WAWebProtobufsCompanionReg.pb")
-                        .DeviceProps$PlatformType.DESKTOP
-                    : e === "ipad" || e === "iPad"
-                      ? o("WAWebProtobufsCompanionReg.pb")
-                          .DeviceProps$PlatformType.IPAD
-                      : e === "tablet" || e === "Android tablet"
-                        ? o("WAWebProtobufsCompanionReg.pb")
-                            .DeviceProps$PlatformType.ANDROID_TABLET
-                        : e === "Ohana"
-                          ? o("WAWebProtobufsCompanionReg.pb")
-                              .DeviceProps$PlatformType.OHANA
-                          : e === "Aloha"
-                            ? o("WAWebProtobufsCompanionReg.pb")
-                                .DeviceProps$PlatformType.ALOHA
-                            : e === "Catalina"
-                              ? o("WAWebProtobufsCompanionReg.pb")
-                                  .DeviceProps$PlatformType.CATALINA
-                              : o("WAWebProtobufsCompanionReg.pb")
-                                  .DeviceProps$PlatformType.UNKNOWN;
-    }
-    function L() {
+    function R() {
       return (function (e) {
         if (e === "WEB" || e === "PWA")
           return o("WAWebProtobufsWa6.pb").ClientPayload$WebInfo$WebSubPlatform

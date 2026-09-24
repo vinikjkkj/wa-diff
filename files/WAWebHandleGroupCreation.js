@@ -16,19 +16,19 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.groupInfo,
             a = t.isJoinViaInviteLink,
             i = a === void 0 ? !1 : a,
             l = t.isOffline,
-            d = l === void 0 ? !1 : l,
-            m = t.meta;
+            m = l === void 0 ? !1 : l,
+            p = t.meta;
           o("WALogger")
             .LOG(
               e ||
@@ -37,53 +37,67 @@ __d(
                 ])),
             )
             .tags("groups");
-          var p = m.author,
-            _ = m.chatId,
-            f = m.pushname,
-            g = r.creation,
-            h = r.hasCapi,
-            y = r.id,
-            C = r.participants,
-            b = r.subject;
-          ((m.author == null ||
-            !o("WAWebUserPrefsMeUser").isMeAccount(m.author)) &&
+          var _ = p.author,
+            f = p.chatId,
+            g = p.pushname,
+            h = r.creation,
+            y = r.hasCapi,
+            C = r.id,
+            b = r.participants,
+            v = r.subject;
+          ((p.author == null ||
+            !o("WAWebUserPrefsMeUser").isMeAccount(p.author)) &&
             new (o("WAWebGroupJoinCWamEvent").GroupJoinCWamEvent)().commit(),
-            p && f && o("WAWebHandlePushnameUpdate").updatePushname(p, f, d),
-            yield (c || (c = n("Promise"))).all([
+            _ &&
+              g != null &&
+              g !== "" &&
+              o("WAWebHandlePushnameUpdate")
+                .updatePushname(_, g, m)
+                .catch(function (e) {
+                  o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "handleGroupCreation: updatePushname failed: ",
+                        "",
+                      ])),
+                    String(e),
+                  );
+                }),
+            yield (d || (d = n("Promise"))).all([
               o("WAWebGroupDatabaseJob").updateGroupMetadataTableJob([r]),
               o("WAWebGroupParticipantsJob").updateParticipantsJob({
-                group: y,
-                participants: C,
-                isOffline: d,
+                group: C,
+                participants: b,
+                isOffline: m,
                 groupInfo: r,
               }),
             ]),
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "updated GroupMetadata and participants tables",
                   ])),
               )
               .tags("groups"),
-            (yield o("WAWebApiChatCommon").getChatRecord(_)) != null
+            (yield o("WAWebApiChatCommon").getChatRecord(f)) != null
               ? o("WAWebBackendApi").frontendFireAndForget(
                   "updateGroupSubject",
-                  { id: _, subject: b },
+                  { id: f, subject: v },
                 )
               : (yield o(
                   "WAWebGroupHistoryParticipantJob",
-                ).clearGroupHistoryParticipantStateForGroup(y),
+                ).clearGroupHistoryParticipantStateForGroup(C),
                 yield o("WAWebCreateChat").createChat({
                   createChatOrigin: "groupCreation",
-                  destination: { chatId: _ },
+                  destination: { chatId: f },
                   initialProps: babelHelpers.extends(
-                    { t: g, pendingInitialLoading: !1, createdLocally: !1 },
+                    { t: h, pendingInitialLoading: !1, createdLocally: !1 },
                     i === !0 && { notSpam: !0 },
                   ),
                   options: babelHelpers.extends(
-                    { createdOffline: d },
-                    h === !0 && {
+                    { createdOffline: m },
+                    y === !0 && {
                       nextPrivacyMode: {
                         actualActors: o("WAWebHandleMsgTypes.flow")
                           .ActualActorsEnumType.Capi,
@@ -96,25 +110,25 @@ __d(
                 }),
                 o("WALogger")
                   .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "updated chat model and table",
                       ])),
                   )
                   .tags("groups"),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateGroupSubject",
-                  { id: y, subject: b },
+                  { id: C, subject: v },
                 )),
             o("WAWebBackendApi").frontendFireAndForget("setGroupMetadata", r),
             o("WAWebBackendApi").frontendFireAndForget("markProfilePicStale", {
-              profilePicThumbWid: y,
+              profilePicThumbWid: C,
             }));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.handleGroupCreation = d;
+    l.handleGroupCreation = m;
   },
   98,
 );

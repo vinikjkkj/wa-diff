@@ -41,7 +41,7 @@ __d(
         ((n.id = i), (n.participant = void 0), (a = t.chatstates.gadd(n.id)));
       } else a = t.chatstate;
       ((!r || a.type === "typing" || a.type === "recording_audio") && a.set(n),
-        a.expireTimerId && self.clearTimeout(a.expireTimerId),
+        a.expireTimerId != null && self.clearTimeout(a.expireTimerId),
         a.type === "typing" || a.type === "recording_audio"
           ? (a.expireTimerId = self.setTimeout(function () {
               return u(a, t);

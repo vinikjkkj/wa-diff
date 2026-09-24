@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebAck",
     "WAWebAckMsgAction",
     "WAWebBizAgentAction",
     "WAWebChatLoadMessages",
@@ -96,7 +97,9 @@ __d(
           var e = t.updates;
           e.forEach(function (e) {
             var t = o("WAWebMsgCollection").MsgCollection.get(e.id);
-            t != null && (t.ack = e.ack);
+            t != null &&
+              ((e.ack < t.ack && e.ack !== o("WAWebAck").ACK.FAILED) ||
+                (t.ack = e.ack));
           });
         },
         updateMsgExpiredTimestamps: function (t) {

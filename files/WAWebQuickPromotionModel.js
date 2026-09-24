@@ -15,6 +15,7 @@ __d(
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.promotion = o("WAWebBaseModel").prop()),
+          (t.isDismissedThisSession = o("WAWebBaseModel").session(!1)),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );
@@ -23,6 +24,7 @@ __d(
       var n = t.prototype;
       return (
         (n.dismiss = function () {
+          this.isDismissedThisSession = !0;
           var e = this.promotion.tracking;
           ((e.dismisses += 1),
             (e.lastDismissTs = o("WATimeUtils").unixTime()),

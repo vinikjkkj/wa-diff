@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebApiContact",
     "WAWebBizUpdateContactsWithVerifiedNamesAction",
+    "WAWebBizUpdateVerifiedInfoAction",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebContactMutator",
@@ -58,6 +59,16 @@ __d(
           });
         },
         updateBusinessInfo: s.updateBusinessInfo,
+        queryAndUpdateContactPropertiesOnNewChat: function (t) {
+          var e = t.contactInfoId,
+            n = t.requestOrigin;
+          return o(
+            "WAWebBizUpdateVerifiedInfoAction",
+          ).queryAndUpdateContactPropertiesOnNewChat(
+            o("WAWebWidFactory").createWid(e),
+            n,
+          );
+        },
         bulkUpdateUsernames: s.bulkUpdateUsernames,
         bulkUpdateContactPushnames: s.bulkUpdateContactPushnames,
         updateContactAdvAccountType: s.updateContactAdvAccountType,

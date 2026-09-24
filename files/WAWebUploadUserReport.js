@@ -49,7 +49,7 @@ __d(
               f = new FormData();
             (i != null && f.append("user", String(i)),
               f.append("email", r),
-              _ && f.append("crashlog", _),
+              _ != null && _ !== "" && f.append("crashlog", _),
               f.append("desc", n),
               l.map(function (e, t) {
                 f.append("screenshot-" + t, e);

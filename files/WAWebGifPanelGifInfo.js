@@ -14,7 +14,7 @@ __d(
         ((this.rank = i),
           (this.gifId = ++e),
           (this.url = s),
-          (this.previewUrl = a || s),
+          (this.previewUrl = a != null && a !== "" ? a : s),
           (this.nonVideoUrl = r),
           (this.width = u),
           (this.widthStr = u + "px"),

@@ -522,16 +522,11 @@ __d(
       return o("WAWebUA").UA.isSafari;
     }
     function Ie() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "call_screen_share_dual_stream_app_update_dialog_enabled",
-      );
-    }
-    function Te() {
       return (
         "documentPictureInPicture" in window && !o("WAWebUA").UA.isBrokenDocPip
       );
     }
-    function De() {
+    function Te() {
       return r("justknobx")._("4943");
     }
     ((l.isWebKitBrowser = g),
@@ -593,9 +588,8 @@ __d(
       (l.isCallInfoOptimizationsContextMenuEnabledForCallType = Le),
       (l.isPopoutReuseCaptureEnabled = Ee),
       (l.doesPopoutEndMainWindowScreenShare = ke),
-      (l.isScreenShareDualStreamAppUpdateDialogEnabled = Ie),
-      (l.isDocPipEnabled = Te),
-      (l.areRichCallNotificationsEnabled = De));
+      (l.isDocPipEnabled = Ie),
+      (l.areRichCallNotificationsEnabled = Te));
   },
   98,
 );

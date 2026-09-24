@@ -2,7 +2,6 @@ __d(
   "WAWebContactManagerListViewColumns",
   [
     "fbt",
-    "WAWebAcquisitionSourceNames",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebContactManagerActionsCell.react",
@@ -1068,9 +1067,7 @@ __d(
                   type: "Body2",
                   colorName: "contentDeemphasized",
                   maxLines: 1,
-                  children: o(
-                    "WAWebAcquisitionSourceNames",
-                  ).getUnknownAcquisitionSourceLabel(),
+                  children: s._(/*BTDS*/ "Unknown"),
                 });
           },
           header: s._(/*BTDS*/ "Source"),

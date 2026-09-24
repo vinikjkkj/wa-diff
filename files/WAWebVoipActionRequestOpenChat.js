@@ -7,6 +7,7 @@ __d(
     "WAWebCmd",
     "WAWebDrawerManager",
     "WAWebFindChatAction",
+    "WAWebWamEnumSubSurface",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,7 +31,17 @@ __d(
         ),
         e(t));
     }
-    ((l.requestOpenChat = e), (l.openChatFromCall = s));
+    function u(t) {
+      (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+        o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+          .MESSAGE_OTHER_FOCUS_VIEW,
+        o("WAWebWamEnumSubSurface").SUB_SURFACE.MORE_MENU,
+      ),
+        e(t));
+    }
+    ((l.requestOpenChat = e),
+      (l.openChatFromCall = s),
+      (l.messageParticipantFromCall = u));
   },
   98,
 );

@@ -26,8 +26,8 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e, t) {
+    var e, s, u, c, d, m, p, _;
+    function f(e, t) {
       return e == null
         ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
           ? t
@@ -49,21 +49,21 @@ __d(
                   );
                 })();
     }
-    function f(e, t, n, r, o) {
-      return g.apply(this, arguments);
+    function g(e, t, n, r, o) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, u) {
             (i === void 0 && (i = !1),
-              yield (p || (p = n("Promise"))).all(
+              yield (_ || (_ = n("Promise"))).all(
                 a
                   .filter(function (e) {
                     return e.id !== o("WAJids").DEFAULT_DEVICE_ID;
                   })
                   .map(function (e) {
-                    return v(
+                    return S(
                       o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
                         t.user,
                         t.server,
@@ -80,7 +80,7 @@ __d(
                 .filter(function (e) {
                   return e !== o("WAJids").DEFAULT_DEVICE_ID;
                 }),
-              m = _(l, u);
+              m = f(l, u);
             m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
               (o("WALogger").LOG(
                 e ||
@@ -94,7 +94,7 @@ __d(
                 "WAWebBizCoexHostedAddVerification",
               ).assertThrowsWidAdvTypeFromVerificationCache(t),
               yield o("WAWebUserPrefsMultiDevice").setHaveProcessedCoexAdv());
-            var f = yield C(
+            var p = yield b(
                 [
                   {
                     wid: t,
@@ -107,8 +107,8 @@ __d(
                 i,
                 m != null,
               ),
-              g = f.chatIds,
-              h = f.encryptedNotifications,
+              g = p.chatIds,
+              h = p.encryptedNotifications,
               y = null;
             (yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock({
               callback: (function () {
@@ -119,7 +119,7 @@ __d(
                           ? o(
                               "WAWebDBStoreEncryptedMsgs",
                             ).storeEncryptedDBMessages(h, g, !1)
-                          : (p || (p = n("Promise"))).resolve(),
+                          : (_ || (_ = n("Promise"))).resolve(),
                       a = o(
                         "WAWebAdvUpdateParticipantApi",
                       ).updateGroupParticipantsInTransaction(t, c, d),
@@ -147,7 +147,7 @@ __d(
                             r("err")("remove from device list table failed")
                           );
                         }),
-                      u = (p || (p = n("Promise"))).resolve();
+                      u = (_ || (_ = n("Promise"))).resolve();
                     (m != null &&
                       ((u = o("WAWebApiContact").updateContactAdvHostedType(
                         t,
@@ -157,7 +157,7 @@ __d(
                         contactId: o("WAWebWidFactory").asUserWidOrThrow(t),
                         advAccountType: m,
                       })),
-                      yield p.all([e, a, l, u]));
+                      yield _.all([e, a, l, u]));
                   },
                 );
                 function a() {
@@ -177,26 +177,26 @@ __d(
               o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(h));
           },
         )),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.deviceUpdateResult,
             a = e.offline,
             i = a === void 0 ? !1 : a,
             l = e.shouldAddHostedSystemMsgIfApplicable,
             s = l === void 0 ? !1 : l,
-            m = [],
-            f = [],
-            g = !1,
+            p = [],
+            g = [],
             h = !1,
             y = !1,
-            b = [];
+            C = !1,
+            v = [];
           (t.forEach(function (e) {
             var t = e.currentRecord,
               n = e.update,
@@ -222,19 +222,19 @@ __d(
                 },
               ),
               c = t == null,
-              d = _(
+              d = f(
                 t == null ? void 0 : t.advAccountType,
                 n == null ? void 0 : n.advAccountType,
               );
             (d === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-              (b.length < 3 && b.push(r == null ? void 0 : r.toLogString()),
+              (v.length < 3 && v.push(r == null ? void 0 : r.toLogString()),
               o(
                 "WAWebBizCoexHostedAddVerification",
               ).assertThrowsWidAdvTypeFromVerificationCache(r)),
-              d != null && (h = !0),
+              d != null && (y = !0),
               d === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                (y = !0),
-              m.push({
+                (C = !0),
+              p.push({
                 wid: r,
                 added: s,
                 removed: u,
@@ -242,7 +242,7 @@ __d(
                 newAdvAccountType: d,
               }),
               u.forEach(function (e) {
-                f.push(
+                g.push(
                   o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
                     r.user,
                     r.server,
@@ -252,9 +252,9 @@ __d(
               }),
               o("WAWebUserPrefsMeUser").isMeAccount(r) &&
                 u.length > 0 &&
-                (g = !0));
+                (h = !0));
           }),
-            b.length > 0 &&
+            v.length > 0 &&
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -262,34 +262,48 @@ __d(
                     " wids => ",
                     "",
                   ])),
-                b.length,
-                b,
+                v.length,
+                v,
               ),
-            y === !0 &&
+            C === !0 &&
               (yield o("WAWebUserPrefsMultiDevice").setHaveProcessedCoexAdv()));
-          var S = yield C(m, i, (i || s) && h),
-            R = S.chatIds,
-            L = S.encryptedNotifications;
-          (p || (p = n("Promise"))).all(
-            f.map(function (e) {
-              return v(e);
-            }),
-          );
-          var E = (L == null ? void 0 : L.length) > 0,
-            k = [];
+          var R = yield b(p, i, (i || s) && y),
+            L = R.chatIds,
+            E = R.encryptedNotifications;
+          (_ || (_ = n("Promise")))
+            .all(
+              g.map(function (e) {
+                return S(e);
+              }),
+            )
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "remove identity of deleted devices failed",
+                    ])),
+                )
+                .verbose()
+                .sendLogs(
+                  "remove identity of deleted devices failed when applying device update",
+                );
+            });
+          var k = (E == null ? void 0 : E.length) > 0,
+            I = [];
           yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock({
             callback: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
                   var e =
-                      L.length > 0
+                      E.length > 0
                         ? o(
                             "WAWebDBStoreEncryptedMsgs",
-                          ).storeEncryptedDBMessages(L, R, !1)
-                        : (p || (p = n("Promise"))).resolve(),
+                          ).storeEncryptedDBMessages(E, L, !1)
+                        : (_ || (_ = n("Promise"))).resolve(),
                     a = o(
                       "WAWebAdvUpdateParticipantApi",
-                    ).bulkUpdateGroupParticipantsInTransaction(m),
+                    ).bulkUpdateGroupParticipantsInTransaction(p),
                     i = o("WAWebApiDeviceList")
                       .bulkCreateOrReplaceDeviceRecord(
                         t.map(function (e) {
@@ -300,8 +314,8 @@ __d(
                         throw (
                           o("WALogger")
                             .ERROR(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
                                   "bulkCreateOrReplace into device list table failed",
                                 ])),
                             )
@@ -314,14 +328,14 @@ __d(
                           )
                         );
                       }),
-                    l = g
+                    l = h
                       ? i.then(function () {
                           return o("WAWebSyncdStoreMissingKeys")
                             .updateMissingKeyDevices()
                             .catch(function (e) {
                               o("WALogger").WARN(
-                                d ||
-                                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                                m ||
+                                  (m = babelHelpers.taggedTemplateLiteralLoose([
                                     "syncd: updateMissingKeyDevices failed with error:\n        ",
                                     "",
                                   ])),
@@ -329,22 +343,22 @@ __d(
                               );
                             });
                         })
-                      : (p || (p = n("Promise"))).resolve(),
+                      : (_ || (_ = n("Promise"))).resolve(),
                     s = [];
-                  (E &&
-                    m.forEach(function (e) {
+                  (k &&
+                    p.forEach(function (e) {
                       var t = e.newAdvAccountType,
                         n = e.wid;
                       t != null &&
                         (s.push(
                           o("WAWebApiContact").updateContactAdvHostedType(n, t),
                         ),
-                        k.push({
+                        I.push({
                           contactId: o("WAWebWidFactory").asUserWidOrThrow(n),
                           advAccountType: t,
                         }));
                     }),
-                    yield (p || (p = n("Promise"))).all(
+                    yield (_ || (_ = n("Promise"))).all(
                       [e, a, i, l].concat(s),
                     ));
                 },
@@ -354,26 +368,26 @@ __d(
               }
               return a;
             })(),
-            hasAdvAccountTypeChange: E,
-            hasNewNotification: L.length > 0,
-            shouldUpdateSyncdMissingKeyDevices: g,
+            hasAdvAccountTypeChange: k,
+            hasNewNotification: E.length > 0,
+            shouldUpdateSyncdMissingKeyDevices: h,
           });
-          for (var I of k)
+          for (var T of I)
             o("WAWebBackendApi").frontendFireAndForget(
               "updateContactAdvAccountType",
-              I,
+              T,
             );
-          o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(L);
+          o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(E);
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = !1);
           var r = n,
             a =
@@ -393,7 +407,7 @@ __d(
             var u = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
               l,
             );
-            return (R(l), { chatIds: i, encryptedNotifications: u });
+            return (L(l), { chatIds: i, encryptedNotifications: u });
           }
           return (
             o("WAWebGetMessageCache")
@@ -407,24 +421,24 @@ __d(
             { chatIds: [], encryptedNotifications: [] }
           );
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            yield (p || (p = n("Promise"))).all([
+            yield (_ || (_ = n("Promise"))).all([
               o("WAWebSignalSessionApi").deleteRemoteInfo(e),
               o("WAWebSignalSessionApi").deleteDeviceSenderKey(e),
             ]);
           } catch (t) {
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "handleDevicesNotification: signal info cleanup failed ",
                   "",
                 ])),
@@ -432,11 +446,11 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return (p || (p = n("Promise"))).all(
+    function L(e) {
+      return (_ || (_ = n("Promise"))).all(
         e.map(function (e) {
           return o("WAWebBackendApi").frontendSendAndReceive(
             "processMultipleMessages",
@@ -452,7 +466,7 @@ __d(
         }),
       );
     }
-    ((l.clearDeviceRecord = f), (l.bulkApplyDeviceUpdate = h));
+    ((l.clearDeviceRecord = g), (l.bulkApplyDeviceUpdate = y));
   },
   98,
 );

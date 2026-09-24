@@ -144,11 +144,7 @@ __d(
                   )));
           }),
           (a.initialize = function () {
-            var n = this;
             if ((t.prototype.initialize.call(this), !!this.id)) {
-              var a = o("WAWebABProps").getABPropConfigValue(
-                "web_optimized_event_handlers",
-              );
               (this.id.device != null &&
                 o("WALogger")
                   .ERROR(
@@ -173,13 +169,7 @@ __d(
                   this.listenTo(
                     this,
                     "change:textStatusExpiryTs",
-                    a
-                      ? this.$Contact$p_2
-                      : function () {
-                          self.setTimeout(function () {
-                            n.setupStatusExpiration();
-                          });
-                        },
+                    this.$Contact$p_2,
                   )),
                 o("WAWebContactGetters").getIsMe(this) &&
                   this.addChild(
@@ -199,28 +189,12 @@ __d(
                       "WAWebBusinessProfileCollection",
                     ).BusinessProfileCollection.gadd(this.id),
                   ),
-                this.listenTo(
-                  this,
-                  "change:isBusiness",
-                  a
-                    ? this.$Contact$p_3
-                    : function () {
-                        return o(
-                          "WAWebBizBusinessChangeAction",
-                        ).handleBusinessChange(n);
-                      },
-                ),
+                this.listenTo(this, "change:isBusiness", this.$Contact$p_3),
                 o("WAWebContactGetters").getIsMe(this) &&
                   this.listenTo(
                     o("WAWebConnModel").Conn,
                     "change:pushname",
-                    a
-                      ? this.$Contact$p_4
-                      : function () {
-                          n.set({
-                            pushname: o("WAWebConnModel").Conn.pushname,
-                          });
-                        },
+                    this.$Contact$p_4,
                   ),
                 o("WAWebABProps").getABPropConfigValue(
                   "web_contact_collection_locale_listener",
@@ -228,11 +202,7 @@ __d(
                   this.listenTo(
                     r("WAWebL10N"),
                     "locale_change",
-                    a
-                      ? this.$Contact$p_5
-                      : function () {
-                          n.locale = r("WAWebL10N").getLocale();
-                        },
+                    this.$Contact$p_5,
                   ),
                 this.id.isUser() &&
                   (o("WAWebContactBlocklistUtils").updateContactBlocked(this),
@@ -243,22 +213,18 @@ __d(
                 (o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
                   o("WAWebListsGatingUtils").isListsEnabled()) &&
                   o("WAWebBizLabelUtils").initializeLabels(this));
-              var i = this.id;
-              if (i.isLid()) {
-                var l =
-                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(i);
-                l != null && this.copyFieldsFromPnContact(l);
+              var n = this.id;
+              if (n.isLid()) {
+                var a =
+                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(n);
+                a != null && this.copyFieldsFromPnContact(a);
               } else
                 this.id.isUser() &&
                   (this.$Contact$p_7(),
                   this.listenTo(
                     this,
                     "change:name change:statusMute",
-                    a
-                      ? this.$Contact$p_7
-                      : function () {
-                          n.$Contact$p_7();
-                        },
+                    this.$Contact$p_7,
                   ));
               this.id.isBot() &&
                 o("WAWebInitializeBotContact").initializeBotContact(this);

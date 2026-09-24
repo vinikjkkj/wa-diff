@@ -12,6 +12,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBlocklistMigration",
     "WAWebClearDanglingReceipts",
+    "WAWebCoexV2MessageAckProjection",
     "WAWebDbEncryptionKey",
     "WAWebGetMessageCache",
     "WAWebLogoutReasonConstants",
@@ -65,6 +66,9 @@ __d(
           ];
           (e.push(
             o("WAWebMessageReceiptBatcher").receiptBatcher.runActiveBatches(),
+            o(
+              "WAWebCoexV2MessageAckProjection",
+            ).flushCoexV2OfflineMessageAckWork(),
           ),
             yield (C || (C = n("Promise"))).all(e));
         })),

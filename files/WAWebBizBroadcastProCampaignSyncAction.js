@@ -53,15 +53,17 @@ __d(
           var t = e.broadcastJid,
             a = e.campaignId,
             i = e.campaignName,
-            l = e.customAudienceFbid,
-            c = e.deliveryStatus;
+            l = e.createTimestamp,
+            c = e.customAudienceFbid,
+            d = e.deliveryStatus,
+            m = e.messageId;
           if (
             o(
               "WAWebBizBroadcastDeviceCapabilityCommon",
             ).getPrimarySupportsBusinessBroadcastPro()
           ) {
-            var d = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
-            if (d == null) {
+            var p = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
+            if (p == null) {
               o("WALogger")
                 .WARN(
                   s ||
@@ -72,21 +74,21 @@ __d(
                 .sendLogs("bb-pro-campaign-sync-device-id-missing");
               return;
             }
-            var m = Date.now(),
-              p = _(c),
-              f = babelHelpers.extends(
+            var f = _(d),
+              g = babelHelpers.extends(
                 {},
-                p == null ? {} : { bbProStatus: p },
+                f == null ? {} : { bbProStatus: f },
                 {
                   broadcastJid: t,
-                  createTimestamp: m,
-                  customAudienceFbid: l,
-                  deviceId: d,
+                  createTimestamp: l,
+                  customAudienceFbid: c,
+                  deviceId: p,
+                  msgId: m,
                   name: i,
                 },
               ),
-              g = r("WAWebBroadcastCampaignSync").getCampaignMutation(a, f, m);
-            yield o("WAWebSyncdCoreApi").lockForSync([], [g], function () {
+              h = r("WAWebBroadcastCampaignSync").getCampaignMutation(a, g, l);
+            yield o("WAWebSyncdCoreApi").lockForSync([], [h], function () {
               return (u || (u = n("Promise"))).resolve();
             });
           }

@@ -13,38 +13,44 @@ __d(
       for (var t = "3f0a7c1b9e42d685"; t.length < e; ) t += t;
       return t.slice(0, e);
     }
-    function c() {
+    function c(e) {
+      for (var t = " "; t.length < e; ) t += t;
+      return t.slice(0, e);
+    }
+    function d() {
       for (var e = ["Spon", "sored", "Data"], t = "", n = 0; n < e.length; n++)
         t += e[n];
       return '{"node":{"s":{"__typename":"' + t + '"}}}';
     }
-    var d = c(),
-      m =
+    var m = d(),
+      p =
         '{"data":' +
-        d +
+        m +
         ',"edges":[' +
-        d +
+        m +
         '],"require":[' +
-        d +
+        m +
         '],"p":"' +
-        u(4095) +
-        '","extensions":{"is_final":true}}',
-      p = null,
+        u(16) +
+        '","extensions":{"is_final":true}' +
+        c(4079) +
+        "}",
       _ = null,
       f = null,
       g = null,
       h = null,
       y = null,
-      C = !1,
-      b = null,
-      v = !1,
+      C = null,
+      b = !1,
+      v = null,
       S = !1,
-      R = null;
-    function L(e) {
-      (e != null && e.remove(), R != null && (R.remove(), (R = null)));
+      R = !1,
+      L = null;
+    function E(e) {
+      (e != null && e.remove(), L != null && (L.remove(), (L = null)));
     }
-    function E() {
-      if (((R = null), !(e || (e = r("ExecutionEnvironment"))).canUseDOM))
+    function k() {
+      if (((L = null), !(e || (e = r("ExecutionEnvironment"))).canUseDOM))
         return (
           r("FBLogger")("ad_blocker_defense_ghost_owl").info(
             "Environment does not support DOM",
@@ -58,7 +64,7 @@ __d(
       var a = document.createElement("iframe");
       a.style.display = "none";
       var i = t != null && "h4npx7qw" in t;
-      ((S = i),
+      ((R = i),
         i
           ? (a.src = "about:blank#g")
           : t != null &&
@@ -79,7 +85,7 @@ __d(
         C = s ? document.createElement("span") : null,
         b = y ? document.createElement("div") : null,
         v = h ? document.createElement("span") : null,
-        L = u ? document.createComment("") : null,
+        S = u ? document.createComment("") : null,
         E = c ? document.createRange() : null;
       return (
         C != null && "replaceWith" in C
@@ -88,11 +94,11 @@ __d(
             ? ((b.style.display = "none"),
               o.appendChild(b),
               b.replaceChildren(a),
-              (R = b))
+              (L = b))
             : v != null
               ? (o.appendChild(v), o.replaceChild(a, v))
-              : L != null && "replaceWith" in L
-                ? (o.appendChild(L), L.replaceWith(a))
+              : S != null && "replaceWith" in S
+                ? (o.appendChild(S), S.replaceWith(a))
                 : E != null
                   ? (E.setStart(o, o.childNodes.length), E.insertNode(a))
                   : m && l != null
@@ -111,13 +117,13 @@ __d(
         a
       );
     }
-    function k() {
-      if (v) return b;
-      v = !0;
+    function I() {
+      if (S) return v;
+      S = !0;
       var e = null;
       try {
         var t, n;
-        e = E();
+        e = k();
         var r = (t = e) == null ? void 0 : t.contentWindow,
           o = r == null ? void 0 : r.XMLHttpRequest,
           a =
@@ -128,43 +134,43 @@ __d(
           o != null &&
             a != null &&
             s(a.call(o)) === "function XMLHttpRequest() { [native code] }" &&
-            (b = o),
-          b
+            (v = o),
+          v
         );
       } catch (e) {
         return null;
       } finally {
-        b == null && L(e);
+        v == null && E(e);
       }
     }
-    function I() {
-      if (!(p != null && _ != null)) {
+    function T() {
+      if (!(_ != null && f != null)) {
         var e = null;
         try {
           var t, n;
-          if (((e = E()), e == null)) return;
+          if (((e = k()), e == null)) return;
           var o = e.contentWindow;
-          p = o == null ? void 0 : o.String;
+          _ = o == null ? void 0 : o.String;
           var a = e.contentWindow;
-          _ =
+          f =
             a == null || (t = a.Function) == null || (t = t.prototype) == null
               ? void 0
               : t.call;
           var i = e.contentWindow;
-          ((f = i == null || (n = i.JSON) == null ? void 0 : n.parse),
-            (g = e.contentWindow.Function.prototype.toString));
+          ((g = i == null || (n = i.JSON) == null ? void 0 : n.parse),
+            (h = e.contentWindow.Function.prototype.toString));
           var l = e.contentWindow.Object.getOwnPropertyDescriptor,
             s = e.contentWindow.XMLHttpRequest.prototype,
             u = l(s, "response"),
             c = l(s, "responseText");
-          (u != null && u.get && (h = u.get),
-            c != null && c.get && (y = c.get));
+          (u != null && u.get && (y = u.get),
+            c != null && c.get && (C = c.get));
           try {
             var d,
-              b = e.contentWindow;
-            C = F(b == null || (d = b.JSON) == null ? void 0 : d.parse(m));
+              m = e.contentWindow;
+            b = O(m == null || (d = m.JSON) == null ? void 0 : d.parse(p));
           } catch (e) {
-            C = !0;
+            b = !0;
           }
         } catch (e) {
           r("FBLogger")("ad_blocker_defense_ghost_owl").warn(
@@ -172,20 +178,20 @@ __d(
           );
         } finally {
           try {
-            L(e);
+            E(e);
           } catch (e) {}
         }
       }
     }
-    function T() {
-      I();
-      var e = p;
-      e != null && !U() && (window.String = e);
-    }
     function D() {
-      I();
-      var e = _,
-        t = g;
+      T();
+      var e = _;
+      e != null && !V() && (window.String = e);
+    }
+    function x() {
+      T();
+      var e = f,
+        t = h;
       if (e == null || t == null) return !1;
       try {
         var n = s(t.call(Function.prototype.call)),
@@ -199,25 +205,25 @@ __d(
         return !1;
       }
     }
-    function x() {
+    function $() {
       try {
-        return String(m) !== m;
+        return String(p) !== p;
       } catch (e) {
         return !1;
       }
     }
-    function $() {
+    function P() {
       try {
         var e = null,
           t = function (n, r) {
             e = r;
           };
-        return (t.call({}, null, [m]), Array.isArray(e) && e[0] !== m);
+        return (t.call({}, null, [p]), Array.isArray(e) && e[0] !== p);
       } catch (e) {
         return !1;
       }
     }
-    function P(e) {
+    function N(e) {
       for (
         var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
         r < t;
@@ -226,23 +232,23 @@ __d(
         n[r - 1] = arguments[r];
       return Reflect.apply(this, e, n);
     }
-    function N() {
+    function M() {
       if (typeof Reflect == "object" && typeof Reflect.apply == "function") {
         var e = Function.prototype,
           t = "call";
-        e[t] = P;
+        e[t] = N;
         return;
       }
-      I();
-      var n = _;
-      n != null && !U() && (Function.prototype.call = n);
+      T();
+      var n = f;
+      n != null && !V() && (Function.prototype.call = n);
     }
-    function M() {
-      if ((I(), !U())) {
-        if (h != null)
+    function w() {
+      if ((T(), !V())) {
+        if (y != null)
           try {
             Object.defineProperty(t.XMLHttpRequest.prototype, "response", {
-              get: h,
+              get: y,
               configurable: !0,
               enumerable: !0,
             });
@@ -251,10 +257,10 @@ __d(
               "Failed to restore native XHR response getter",
             );
           }
-        if (y != null)
+        if (C != null)
           try {
             Object.defineProperty(t.XMLHttpRequest.prototype, "responseText", {
-              get: y,
+              get: C,
               configurable: !0,
               enumerable: !0,
             });
@@ -265,10 +271,10 @@ __d(
           }
       }
     }
-    function w() {
-      I();
-      var e = h,
-        n = g;
+    function A() {
+      T();
+      var e = y,
+        n = h;
       if (e != null && n != null)
         try {
           var r = Object.getOwnPropertyDescriptor(
@@ -293,10 +299,10 @@ __d(
       } catch (e) {}
       return !1;
     }
-    function A() {
-      I();
-      var e = f,
-        t = g;
+    function F() {
+      T();
+      var e = g,
+        t = h;
       if (e != null && t != null)
         try {
           var n = s(t.call(JSON.parse)),
@@ -313,7 +319,7 @@ __d(
         )
       );
     }
-    function F(e) {
+    function O(e) {
       var t, n, r;
       return (
         (e == null || (t = e.data) == null ? void 0 : t.node) == null ||
@@ -325,34 +331,34 @@ __d(
           : r.node) == null
       );
     }
-    function O() {
+    function B() {
       try {
-        return F(JSON.parse(m));
+        return O(JSON.parse(p));
       } catch (e) {
         return !1;
       }
     }
-    function B(e, t) {
+    function W(e, t) {
       try {
         var n = JSON.parse(e);
-        return n != null && !F(n[t]);
+        return n != null && !O(n[t]);
       } catch (e) {
         return !1;
       }
     }
-    function W() {
-      return B('{"q7z":' + m + "}", "q7z");
-    }
     function q() {
-      return B("[" + m + "]", 0);
+      return W('{"q7z":' + p + "}", "q7z");
     }
     function U() {
-      return (I(), C);
+      return W("[" + p + "]", 0);
     }
     function V() {
-      return (I(), !S || C ? null : f);
+      return (T(), b);
     }
-    function H(e) {
+    function H() {
+      return (T(), !R || b ? null : g);
+    }
+    function G(e) {
       try {
         e();
       } catch (e) {
@@ -363,9 +369,9 @@ __d(
       }
       return "";
     }
-    var G =
+    var z =
       /chrome-extension:\/\/|moz-extension:\/\/|safari-web-extension:\/\/|<anonymous>:\d/;
-    function z() {
+    function j() {
       if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) return !1;
       var t = document.body || document.documentElement;
       if (t == null) return !1;
@@ -376,22 +382,22 @@ __d(
         var o = n.contentWindow;
         if (o == null) return !1;
         var a = [
-          H(function () {
+          G(function () {
             JSON.parse("{ ");
           }),
-          H(function () {
+          G(function () {
             var e;
             (e = o.JSON) == null || e.parse("{ ");
           }),
-          H(function () {
+          G(function () {
             new XMLHttpRequest().send();
           }),
-          H(function () {
+          G(function () {
             new o.XMLHttpRequest().send();
           }),
         ];
         return a.some(function (e) {
-          return G.test(e);
+          return z.test(e);
         });
       } catch (e) {
         return !1;
@@ -400,21 +406,21 @@ __d(
       }
     }
     ((l.normalize = s),
-      (l.getCleanRealmXHRConstructor = k),
-      (l.restoreNativeString = T),
-      (l.isCallShimmedCrossRealm = D),
-      (l.isStringBehaviorallyShimmed = x),
-      (l.isCallBehaviorallyShimmed = $),
-      (l.restoreNativeCall = N),
-      (l.restoreNativeXHRGetters = M),
-      (l.isXHRResponseGetterShimmed = w),
-      (l.isJSONParseShimmed = A),
-      (l.isJSONParseBehaviorallyShimmed = O),
-      (l.isBoxedParseEffective = W),
-      (l.isWrappedParseEffective = q),
-      (l.isHarvestPoisoned = U),
-      (l.getCleanJSONParse = V),
-      (l.isNativeStackTampered = z));
+      (l.getCleanRealmXHRConstructor = I),
+      (l.restoreNativeString = D),
+      (l.isCallShimmedCrossRealm = x),
+      (l.isStringBehaviorallyShimmed = $),
+      (l.isCallBehaviorallyShimmed = P),
+      (l.restoreNativeCall = M),
+      (l.restoreNativeXHRGetters = w),
+      (l.isXHRResponseGetterShimmed = A),
+      (l.isJSONParseShimmed = F),
+      (l.isJSONParseBehaviorallyShimmed = B),
+      (l.isBoxedParseEffective = q),
+      (l.isWrappedParseEffective = U),
+      (l.isHarvestPoisoned = V),
+      (l.getCleanJSONParse = H),
+      (l.isNativeStackTampered = j));
   },
   98,
 );

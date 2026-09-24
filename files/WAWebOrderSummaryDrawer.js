@@ -323,12 +323,12 @@ __d(
           },
         );
     }
-    var y = function () {
+    function y() {
       return (
         o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
         o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
       );
-    };
+    }
     function C(e) {
       var t = e.amount,
         n = e.chat,

@@ -23,26 +23,21 @@ __d(
       );
     }
     function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_hatch_video_avatars_enabled",
-      );
-    }
-    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    var p = 1;
-    function _() {
+    var m = 1;
+    function p() {
       return Math.max(
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_media_upload_count_limit",
         ),
-        p,
+        m,
       );
     }
-    function f() {
+    function _() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -55,7 +50,7 @@ __d(
         }
       return "";
     }
-    function g() {
+    function f() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -72,11 +67,10 @@ __d(
       (l.isHatchCommandsEnabled = s),
       (l.isHatchRevokeEnabled = u),
       (l.isHatchVideoUploadEnabled = c),
-      (l.isHatchVideoAvatarEnabled = d),
-      (l.getHatchDocumentUploadSizeLimitBytes = m),
-      (l.getHatchMediaUploadCountLimit = _),
-      (l.getHatchBotName = f),
-      (l.getHatchBotProfileThumb = g));
+      (l.getHatchDocumentUploadSizeLimitBytes = d),
+      (l.getHatchMediaUploadCountLimit = p),
+      (l.getHatchBotName = _),
+      (l.getHatchBotProfileThumb = f));
   },
   98,
 );

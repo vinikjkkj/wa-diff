@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WATypeUtils",
-    "WAWebABProps",
     "WAWebBaseMirror",
     "WAWebEventEmitter",
     "WAWebModelUtils",
@@ -116,19 +115,11 @@ __d(
             var e = {};
             ((e[t] = n),
               this.set(e, { silent: !0 }),
-              o("WAWebABProps").getABPropConfigValue(
-                "web_optimized_event_handlers",
-              )
-                ? this.listenTo(
-                    n,
-                    "all",
-                    this._getUnboundCachedEventBubblingHandler(t),
-                  )
-                : this.listenTo(
-                    n,
-                    "all",
-                    this._getCachedEventBubblingHandler(t),
-                  ));
+              this.listenTo(
+                n,
+                "all",
+                this._getUnboundCachedEventBubblingHandler(t),
+              ));
           }),
           (i.get = function (t) {
             return this[t];
@@ -336,13 +327,6 @@ __d(
               var n = e.defaultValue;
               return o("WATypeUtils").isFunction(n) ? n() : n;
             }
-          }),
-          (i._getCachedEventBubblingHandler = function (t) {
-            return function (e, n, r) {
-              u.test(e)
-                ? this.trigger("change:" + t + "." + e.split(":")[1], n, r)
-                : e === "change" && this.trigger("change", this);
-            }.bind(this);
           }),
           (i._getUnboundCachedEventBubblingHandler = function (t) {
             var e;

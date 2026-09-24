@@ -7,7 +7,12 @@ __d(
     "WAWebApiCoexV2RelayReceiptStore",
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2MessageAckProjection",
+    "WAWebCoexV2MessageAckProjectionEligibility",
     "WAWebLidMigrationUtils",
+    "WAWebOfflineHandler",
+    "WAWebUserPrefsIndexedDBStorage",
+    "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -17,7 +22,8 @@ __d(
     var e, s, u, c;
     function d(e) {
       return !e.from.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
-        !o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
+        (!o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled() &&
+          !o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled())
         ? null
         : m(e);
     }
@@ -30,10 +36,20 @@ __d(
           var a = t.ack,
             i = t.ackString,
             l = t.externalIds,
-            d = t.participant,
-            m = t.recipient,
-            p = t.ts;
-          if (m == null) {
+            d = t.offline,
+            m = t.participant,
+            p = t.recipient,
+            g = t.ts;
+          d != null &&
+            o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete();
+          var h =
+            d != null &&
+            !o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.isResumeFromRestartComplete();
+          if (p == null) {
             o("WALogger")
               .WARN(
                 e ||
@@ -45,8 +61,8 @@ __d(
             return;
           }
           try {
-            var f = _(i, d, m);
-            if (f == null) {
+            var y = f(i, m, p);
+            if (y == null) {
               o("WALogger")
                 .WARN(
                   s ||
@@ -59,18 +75,39 @@ __d(
                 .sendLogs("coexv2-relay-receipt-unresolved-lid");
               return;
             }
-            yield (c || (c = n("Promise"))).all(
-              l.map(function (e) {
-                return o(
-                  "WAWebApiCoexV2RelayReceiptStore",
-                ).addOrUpdateCoexV2RelayReceipt({
-                  ack: a,
-                  msgId: e,
-                  representedLid: f,
-                  ts: p,
-                });
-              }),
-            );
+            var C = o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+              ? o(
+                  "WAWebCoexV2MessageAckProjectionEligibility",
+                ).getEligibleCoexV2MessageAckProjection({
+                  projectedAck: _(a, i),
+                  representedLid: y,
+                })
+              : null;
+            if (
+              (yield (c || (c = n("Promise"))).all(
+                l.map(function (e) {
+                  return o(
+                    "WAWebApiCoexV2RelayReceiptStore",
+                  ).addOrUpdateCoexV2RelayReceipt({
+                    ack: a,
+                    msgId: e,
+                    projectedAck: C,
+                    representedLid: y,
+                    ts: g,
+                  });
+                }),
+              ),
+              C == null)
+            )
+              return;
+            yield o(
+              "WAWebCoexV2MessageAckProjection",
+            ).projectCoexV2ReadReceiptAck({
+              isOffline: h,
+              msgIds: l,
+              projectedAck: C,
+              representedLid: y,
+            });
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -88,7 +125,19 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
+    function _(e, t) {
+      var n;
+      return t !== o("WAWebAck").ACK_STRING.READ || e !== o("WAWebAck").ACK.READ
+        ? null
+        : ((n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+              o("WAWebUserPrefsKeys").HASHED_KEYS.USER_PRIVACY_SETTINGS,
+            )) == null
+              ? void 0
+              : n.readReceipts) === "none"
+          ? o("WAWebAck").ACK.RECEIVED
+          : o("WAWebAck").ACK.READ;
+    }
+    function f(e, t, n) {
       return e === o("WAWebAck").ACK_STRING.SENDER ||
         e === o("WAWebAck").ACK_STRING.READ_SELF ||
         e === o("WAWebAck").ACK_STRING.PLAYED_SELF

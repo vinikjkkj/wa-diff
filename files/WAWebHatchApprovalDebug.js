@@ -4,19 +4,74 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "hitl.approval_record",
-      s = 1;
-    function u() {
-      return "debug-approval-" + s++;
+      s = "notification",
+      u = 1;
+    function c() {
+      return "debug-approval-" + u++;
     }
-    function c(e) {
+    function d(e) {
       var t,
-        n = (t = e == null ? void 0 : e.approvalId) != null ? t : u();
-      return (E(n, null, e), n);
+        n = (t = e == null ? void 0 : e.approvalId) != null ? t : c();
+      return (I(n, null, e), n);
     }
-    function d(e, t) {
-      (t === void 0 && (t = "allow_once"), E(e, t));
+    function m(e, t) {
+      (t === void 0 && (t = "allow_once"), I(e, t));
     }
-    var m = [
+    function p(e) {
+      var t,
+        n,
+        r,
+        a,
+        i,
+        l = (t = e == null ? void 0 : e.subjectId) != null ? t : c();
+      (e == null ? void 0 : e.withApproval) === !0 && I(l, null);
+      var u = {
+        type: "event",
+        requestId: null,
+        event: {
+          seq: null,
+          timestamp: null,
+          index: s,
+          opKey: s,
+          operation: "SET",
+          payload: babelHelpers.extends(
+            {
+              deduplication_key:
+                (n = e == null ? void 0 : e.deduplicationKey) != null
+                  ? n
+                  : "debug-notification-" + l,
+              channel_notification_type:
+                (r = e == null ? void 0 : e.notificationType) != null
+                  ? r
+                  : "approval_request",
+              source_subject_id: l,
+              presentation: {
+                title:
+                  (a = e == null ? void 0 : e.title) != null
+                    ? a
+                    : "Approval needed",
+                body:
+                  (i = e == null ? void 0 : e.body) != null
+                    ? i
+                    : "Hatch wants to send an email in Gmail",
+              },
+            },
+            (e == null ? void 0 : e.expiresAtMs) != null
+              ? { notification_expires_at_ms: e.expiresAtMs }
+              : null,
+          ),
+          sessionId: null,
+        },
+      };
+      return (
+        o("WAWebHandleHatchMetadataSync").handleHatchMetadataSync(
+          u,
+          "debug-" + l,
+        ),
+        l
+      );
+    }
+    var _ = [
         {
           payment_method: "stripe_link",
           payment_id: "debug-pm-visa",
@@ -53,13 +108,13 @@ __d(
           card_last4: "3333",
         },
       ],
-      p = {
+      f = {
         payment_id: "debug-pm-elsewhere",
         payment_method_label: "Card on another device",
         card_brand: "jcb",
         card_last4: "7777",
       },
-      _ = [
+      g = [
         {
           name: "Nike Air Zoom Pegasus 41",
           quantity: 1,
@@ -77,13 +132,13 @@ __d(
         },
         { name: "Reflective running cap", quantity: 1, unit_amount: "$22.00" },
       ],
-      f = 24,
-      g = 60;
-    function h(e) {
+      h = 24,
+      y = 60;
+    function C(e) {
       return Array.from({ length: e }, function (e, t) {
-        var n = m[t % m.length];
-        if (t < m.length) return n;
-        var r = Math.floor(t / m.length);
+        var n = _[t % _.length];
+        if (t < _.length) return n;
+        var r = Math.floor(t / _.length);
         return babelHelpers.extends({}, n, {
           payment_id: n.payment_id + "-" + r,
           payment_method_label:
@@ -94,17 +149,17 @@ __d(
         });
       });
     }
-    function y(e) {
+    function b(e) {
       return Array.from({ length: e }, function (e, t) {
-        var n = _[t % _.length];
-        return t < _.length
+        var n = g[t % g.length];
+        return t < g.length
           ? n
           : babelHelpers.extends({}, n, {
-              name: n.name + " (" + (Math.floor(t / _.length) + 1) + ")",
+              name: n.name + " (" + (Math.floor(t / g.length) + 1) + ")",
             });
       });
     }
-    function C(e) {
+    function v(e) {
       var t = e != null ? e : {},
         n = t.cards,
         r = n === void 0 ? 2 : n,
@@ -113,14 +168,14 @@ __d(
         i = t.items,
         l = i === void 0 ? 3 : i,
         s = t.kind,
-        c = s === void 0 ? "browser" : s,
-        d = u(),
-        m = h(L(r, 0, f)),
-        _ = a === "unmatched" ? p : b(m[0]),
-        g = c === "shopify" ? S(m, _, l) : v(m, _);
-      return (R(d, c, g), d);
+        u = s === void 0 ? "browser" : s,
+        d = c(),
+        m = C(k(r, 0, h)),
+        p = a === "unmatched" ? f : S(m[0]),
+        _ = u === "shopify" ? L(m, p, l) : R(m, p);
+      return (E(d, u, _), d);
     }
-    function b(e) {
+    function S(e) {
       return e == null
         ? {}
         : {
@@ -130,7 +185,7 @@ __d(
             card_last4: e.card_last4,
           };
     }
-    function v(e, t) {
+    function R(e, t) {
       return {
         type: "browser_checkout",
         browser_checkout_payload: babelHelpers.extends(
@@ -150,8 +205,8 @@ __d(
         ),
       };
     }
-    function S(e, t, n) {
-      var r = y(L(n, 1, g));
+    function L(e, t, n) {
+      var r = b(k(n, 1, y));
       return {
         type: "shopify_checkout",
         shopify_checkout_payload: babelHelpers.extends(
@@ -199,7 +254,7 @@ __d(
         ),
       };
     }
-    function R(t, n, r) {
+    function E(t, n, r) {
       var a = n === "shopify" ? "Example Running Co." : "Example Shop",
         i = {
           type: "event",
@@ -239,10 +294,10 @@ __d(
         "debug-" + t,
       );
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       return Math.max(t, Math.min(Math.floor(e), n));
     }
-    function E(t, n, r) {
+    function I(t, n, r) {
       var a,
         i,
         l,
@@ -295,10 +350,11 @@ __d(
         "debug-" + t,
       );
     }
-    ((l.nextDebugApprovalId = u),
-      (l.debugInjectHatchApprovalRequest = c),
-      (l.debugResolveHatchApproval = d),
-      (l.debugInjectHatchCheckout = C));
+    ((l.nextDebugApprovalId = c),
+      (l.debugInjectHatchApprovalRequest = d),
+      (l.debugResolveHatchApproval = m),
+      (l.debugInjectHatchNotification = p),
+      (l.debugInjectHatchCheckout = v));
   },
   98,
 );

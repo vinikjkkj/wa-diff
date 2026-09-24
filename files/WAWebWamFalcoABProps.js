@@ -8,6 +8,7 @@ __d(
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
     "WAWebNetworkStatus",
+    "WAWebUserPrefsGeneral",
     "WAWebWamFalcoModes",
     "justknobx",
   ],
@@ -72,7 +73,7 @@ __d(
     }
     function R() {
       try {
-        return E(r("MetaConfig")._("371", !0));
+        return I(E());
       } catch (t) {
         return (
           o("WALogger").ERROR(
@@ -89,7 +90,7 @@ __d(
     }
     function L() {
       try {
-        return E(r("MetaConfig")._("410"));
+        return I(k());
       } catch (e) {
         return (
           o("WALogger").ERROR(
@@ -104,7 +105,17 @@ __d(
         );
       }
     }
-    function E(e) {
+    function E() {
+      return o("WAWebUserPrefsGeneral").getWhatsAppWebExternalBetaJoinedIdb()
+        ? r("MetaConfig")._("596", !0)
+        : r("MetaConfig")._("371", !0);
+    }
+    function k() {
+      return o("WAWebUserPrefsGeneral").getWhatsAppWebExternalBetaJoinedIdb()
+        ? r("MetaConfig")._("597")
+        : r("MetaConfig")._("410");
+    }
+    function I(e) {
       return e === o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         : e === o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING
@@ -125,7 +136,7 @@ __d(
                       ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_OR_FALCO
                       : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
     }
-    function k() {
+    function T() {
       if (m != null) return m;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
@@ -147,7 +158,7 @@ __d(
       }
       return m;
     }
-    function I() {
+    function D() {
       if (p != null) return p;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
@@ -169,10 +180,10 @@ __d(
       }
       return p;
     }
-    function T(e) {
-      return o("WAWebABPropsCache").isABPropConfigsReady() && I().has(e);
+    function x(e) {
+      return o("WAWebABPropsCache").isABPropConfigsReady() && D().has(e);
     }
-    function D() {
+    function $() {
       var e = r("MetaConfig")._("565", !0),
         t = _;
       if (t != null && t.raw === e) return t.eventNames;
@@ -185,9 +196,9 @@ __d(
       (l.isFalcoLoggingEnabled = v),
       (l.isWamLoggingDisabled = S),
       (l.getWamFalcoMode = R),
-      (l.getShadowLoggingEventIds = k),
-      (l.isCriticalEvent = T),
-      (l.getWamFalcoBlocklistEventNames = D));
+      (l.getShadowLoggingEventIds = T),
+      (l.isCriticalEvent = x),
+      (l.getWamFalcoBlocklistEventNames = $));
   },
   98,
 );

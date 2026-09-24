@@ -19,6 +19,9 @@ __d(
           (n.handleNuxChange = function (t) {
             this.trigger(t);
           }),
+          (n.handleNuxSyncChange = function (t) {
+            this.trigger("nux_sync_change", t);
+          }),
           (n.close = function (t) {
             this.trigger("close_nux", t);
           }),
@@ -105,7 +108,7 @@ __d(
         e.forEach(function (e) {
           var t = e.nuxKey,
             n = C(t);
-          n != null && s.handleNuxChange(n);
+          (n != null && s.handleNuxChange(n), s.handleNuxSyncChange(t));
         }));
     }
     function g() {

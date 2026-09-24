@@ -23,14 +23,16 @@ __d(
       c,
       d,
       m = d || (d = o("react"));
-    function p(e, t, n) {
+    function p(e, t, n, r) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return h(e, t, !0, n);
-        })),
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            return h(e, t, !0, n, r);
+          },
+        )),
         _.apply(this, arguments)
       );
     }
@@ -45,18 +47,18 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r) {
+    function h(e, t, n, r, o) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
+          function* (t, n, r, a, i) {
+            var l = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
             if (
               !o(
                 "WAWebContactlessChatUtils",
-              ).PHONE_NUMBER_VALIDATION_REGEX.test(i)
+              ).PHONE_NUMBER_VALIDATION_REGEX.test(l)
             )
               return (
                 o("WALogger").ERROR(
@@ -67,24 +69,24 @@ __d(
                 ),
                 !1
               );
-            var l =
+            var s =
               r &&
               o(
                 "WAWebOutContactServerSentInviteEligibility",
-              ).isServerSentInviteEligible(i);
+              ).isServerSentInviteEligible(l);
             if (
               r &&
-              !l &&
+              !s &&
               !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
             )
               return !1;
-            if (r && l) {
-              var s = yield o(
+            if (r && s) {
+              var u = yield o(
                 "WAWebOutContactInviteConfirmDialog.react",
-              ).waitForOutContactInviteConfirmDialog(a != null ? a : i, i);
-              if (!s) return !1;
+              ).waitForOutContactInviteConfirmDialog(a != null ? a : l, l);
+              if (!u) return !1;
             }
-            return l ? C(i, n) : R(i, n);
+            return (i == null || i(), s ? C(l, n) : R(l, n));
           },
         )),
         y.apply(this, arguments)

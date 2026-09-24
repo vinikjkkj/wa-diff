@@ -1,6 +1,10 @@
 __d(
   "WAWebCallUserJourneyInCallAction",
-  ["WAWebCallUserJourneyLogger", "WAWebWamEnumTsSurface"],
+  [
+    "WAWebCallCollection",
+    "WAWebCallUserJourneyLogger",
+    "WAWebWamEnumTsSurface",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -10,7 +14,10 @@ __d(
         uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.IN_CALL_UI,
       });
     }
-    l.logInCallAction = e;
+    function s(t, n) {
+      r("WAWebCallCollection").activeCall != null && e(t, n);
+    }
+    ((l.logInCallAction = e), (l.logInCallActionOnTeardown = s));
   },
   98,
 );

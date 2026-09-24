@@ -142,7 +142,7 @@ __d(
                   r = yield e
                     .getManifestTable()
                     .get(t.ManifestKeys.NEXT_VERSION);
-                (e
+                (yield e
                   .getManifestTable()
                   .bulkCreateOrReplace([
                     babelHelpers.extends({}, n, {

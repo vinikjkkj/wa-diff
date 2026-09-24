@@ -28,37 +28,34 @@ __d(
       return s._(/*BTDS*/ "Choose a username with at least one letter.");
     }
     function _() {
-      return s._(/*BTDS*/ "This username is available.");
-    }
-    function f() {
       return s._(/*BTDS*/ "This username is not available.");
     }
-    function g() {
+    function f() {
       return s._(
         /*BTDS*/ "You can't make changes to your username right now. Try again later.",
       );
     }
-    function h() {
+    function g() {
       return s._(/*BTDS*/ "Wrong key entered. Try again.");
     }
-    function y() {
+    function h() {
       return s._(/*BTDS*/ "Too many attempts. Try again later.");
     }
-    function C() {
+    function y() {
       return s._(
         /*BTDS*/ "This account can't be reached with their key right now. Please try again later or contact them by phone number.",
       );
     }
-    function b(e, t) {
+    function C(e, t) {
       return s._(/*BTDS*/ "Keys must be {min}-{max} characters.", [
         s._param("min", e),
         s._param("max", t),
       ]);
     }
-    function v() {
+    function b() {
       return s._(/*BTDS*/ "Something went wrong. Please try again later.");
     }
-    function S() {
+    function v() {
       return s._(/*BTDS*/ "We couldn't complete your request.");
     }
     ((l.getUsernameInvalidCharacterMessage = e),
@@ -67,15 +64,14 @@ __d(
       (l.getUsernameInvalidDomainSuffixMessage = d),
       (l.getUsernameInvalidWWWPrefixMessage = m),
       (l.getUsernameInvalidNoLettersMessage = p),
-      (l.getUsernameAvailableMessage = _),
-      (l.getUsernameUnavailableMessage = f),
-      (l.getUsernameChangeNotAllowedMessage = g),
-      (l.getUsernameKeyWrongKeyMessage = h),
-      (l.getUsernameKeyRequestorRateLimitedMessage = y),
-      (l.getUsernameKeyRequesteeRateLimitedMessage = C),
-      (l.getUsernameKeyInvalidLengthMessage = b),
-      (l.getUsernameKeyUnexpectedErrorMessage = v),
-      (l.getUsernameGenericErrorMessage = S));
+      (l.getUsernameUnavailableMessage = _),
+      (l.getUsernameChangeNotAllowedMessage = f),
+      (l.getUsernameKeyWrongKeyMessage = g),
+      (l.getUsernameKeyRequestorRateLimitedMessage = h),
+      (l.getUsernameKeyRequesteeRateLimitedMessage = y),
+      (l.getUsernameKeyInvalidLengthMessage = C),
+      (l.getUsernameKeyUnexpectedErrorMessage = b),
+      (l.getUsernameGenericErrorMessage = v));
   },
   226,
 );

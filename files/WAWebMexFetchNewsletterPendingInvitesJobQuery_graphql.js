@@ -36,16 +36,7 @@ __d(
               kind: "LinkedField",
               name: "user",
               plural: !1,
-              selections: [
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "pn",
-                  storageKey: null,
-                },
-                n,
-              ],
+              selections: [n],
               storageKey: null,
             },
           ],
@@ -91,7 +82,7 @@ __d(
           ],
         },
         params: {
-          id: "9783111038412085",
+          id: "28049623068067370",
           metadata: {},
           name: "WAWebMexFetchNewsletterPendingInvitesJobQuery",
           operationKind: "query",

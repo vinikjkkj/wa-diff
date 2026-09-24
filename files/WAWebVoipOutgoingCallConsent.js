@@ -4,6 +4,7 @@ __d(
     "fbt",
     "Promise",
     "WALogger",
+    "WAWebApiContact",
     "WAWebBlocklistCollection",
     "WAWebCallCollection",
     "WAWebConfirmPopup.react",
@@ -11,9 +12,13 @@ __d(
     "WAWebContactGetters",
     "WAWebCoreActionsODS",
     "WAWebLidMigrationUtils",
+    "WAWebVoipCallBlockedModals",
+    "WAWebWidFactory",
     "WAWebWidFormat",
+    "WAWebWidToJid",
     "WDSIconIcCallFilled.react",
     "WDSIconIcVideocamFilled.react",
+    "WDSText.react",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
@@ -26,14 +31,21 @@ __d(
       d,
       m,
       p,
-      _ = p || (p = o("react"));
-    function f(e) {
+      _,
+      f = _ || (_ = o("react")),
+      g = 500;
+    function h(e) {
       var t;
       return (t = e.entryTrust) != null ? t : "deep_link";
     }
-    function g(t) {
+    function y(t, n) {
+      var a =
+        n === "before_ask"
+          ? o("WAWebCoreActionsODS").logDeepLinkCallNotAllowed
+          : o("WAWebCoreActionsODS").logDeepLinkCallRefusedAfterAsk;
       return r("WAWebCallCollection").activeCall != null
-        ? (o("WAWebCoreActionsODS").logDeepLinkCallNotAllowed(),
+        ? (a(),
+          o("WAWebVoipCallBlockedModals").showEndCurrentCallToast(),
           o("WALogger")
             .LOG(
               e ||
@@ -43,8 +55,8 @@ __d(
             )
             .sendLogs("deep-link-call-already-in-call"),
           !1)
-        : h(t)
-          ? (o("WAWebCoreActionsODS").logDeepLinkCallNotAllowed(),
+        : C(t)
+          ? (a(),
             o("WALogger")
               .LOG(
                 u ||
@@ -56,7 +68,7 @@ __d(
             !1)
           : !0;
     }
-    function h(e) {
+    function C(e) {
       if (o("WAWebBlocklistCollection").BlocklistCollection.get(e) != null)
         return !0;
       var t = o("WAWebLidMigrationUtils").toLid(e);
@@ -65,27 +77,32 @@ __d(
         o("WAWebBlocklistCollection").BlocklistCollection.get(t) != null
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WAWebCoreActionsODS").logDeepLinkCallConfirmShown();
           try {
-            var n = yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
-              okIcon: r(
-                t
-                  ? "WDSIconIcVideocamFilled.react"
-                  : "WDSIconIcCallFilled.react",
-              ),
-              okText: t
-                ? s._(/*BTDS*/ "Video call")
-                : s._(/*BTDS*/ "Voice call"),
-              title: v(e, t),
-            });
+            var n = yield E(e),
+              a = yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
+                okInputGuardMs: g,
+                onOkInputGuarded: o("WAWebCoreActionsODS")
+                  .logDeepLinkCallConfirmGuardSwallowed,
+                okIcon: r(
+                  t
+                    ? "WDSIconIcVideocamFilled.react"
+                    : "WDSIconIcCallFilled.react",
+                ),
+                okText: t
+                  ? s._(/*BTDS*/ "Video call")
+                  : s._(/*BTDS*/ "Voice call"),
+                children: L(n),
+                title: R(n, t),
+              });
             return (
-              n
+              a
                 ? o("WAWebCoreActionsODS").logDeepLinkCallConfirmAccepted()
                 : (o("WAWebCoreActionsODS").logDeepLinkCallConfirmDeclined(),
                   o("WALogger")
@@ -96,7 +113,7 @@ __d(
                         ])),
                     )
                     .sendLogs("deep-link-call-declined")),
-              n
+              a
             );
           } catch (e) {
             return (
@@ -114,16 +131,16 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b(e, t, r) {
+    function S(e, t, r) {
       return e === "user_gesture"
-        ? (m || (m = n("Promise"))).resolve(!0)
-        : y(t, r);
+        ? (p || (p = n("Promise"))).resolve(!0)
+        : b(t, r);
     }
-    function v(e, t) {
-      var n = S(e);
+    function R(e, t) {
+      var n = e.title;
       return t
         ? s._(/*BTDS*/ "Start a WhatsApp video call with {name}?", [
             s._param("name", n),
@@ -132,31 +149,116 @@ __d(
             s._param("name", n),
           ]);
     }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S(e) {
-      var t;
-      return (t = R(e)) != null ? t : o("WAWebWidFormat").widToFormattedUser(e);
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L(e) {
+      return e.name == null || e.number == null
+        ? null
+        : f.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            textAlign: "center",
+            testid: "voip_deeplink_confirm_peer_number",
+            children: e.number,
+          });
     }
-    function R(e) {
-      var t = o("WAWebContactCollection").ContactCollection.get(e);
-      if (t == null) return null;
-      var n = o("WAWebContactGetters").getName(t);
-      return n == null || n === "" || L(t, n) ? null : n;
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function L(e, t) {
-      if (t === o("WAWebContactGetters").getVerifiedName(e)) return !0;
-      if (!e.id.isLid()) return !1;
-      var n = o("WAWebLidMigrationUtils").toPn(e.id),
-        r =
-          n != null
-            ? o("WAWebContactCollection").ContactCollection.get(n)
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = I(e);
+          if (t == null)
+            return {
+              name: null,
+              number: null,
+              title: o("WAWebWidFormat").getUnknownUserOrNumber(),
+            };
+          var n = yield T(e);
+          return { name: n, number: t, title: n != null ? n : t };
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(e) {
+      if (e.isLid()) {
+        var t = o("WAWebApiContact").getPnIfLidIsLatestMapping(
+          o("WAWebWidFactory").asUserLidOrThrow(e),
+        );
+        return t != null ? o("WAWebWidFormat").widToFormattedUser(t) : null;
+      }
+      return e.isRegularUserPn() && !e.isHosted()
+        ? o("WAWebWidFormat").widToFormattedUser(e)
+        : null;
+    }
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.isLid()
+              ? o("WAWebLidMigrationUtils").toPn(e)
+              : o("WAWebLidMigrationUtils").toLid(e),
+            r = t != null && !t.equals(e) ? [e, t] : [e],
+            a = yield (p || (p = n("Promise"))).all(r.map(x)),
+            i = a.find(function (e) {
+              return e != null;
+            });
+          return i != null &&
+            !r.some(function (e) {
+              return P(e, i);
+            })
+            ? i
             : null;
-      return r != null && t === o("WAWebContactGetters").getVerifiedName(r);
+        })),
+        D.apply(this, arguments)
+      );
     }
-    ((l.entryTrustOf = f),
-      (l.canStartDeepLinkCall = g),
-      (l.confirmDeepLinkCall = y),
-      (l.hasOutgoingCallConsent = b));
+    function x(e) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebContactCollection").ContactCollection.get(e);
+          if (t == null) return null;
+          var n = o("WAWebContactGetters").getName(t);
+          if (n == null || n === "") return null;
+          try {
+            var a = o("WAWebWidToJid").widToUserJid(
+              o("WAWebWidFactory").asUserWidOrThrow(e),
+            );
+            return (yield o("WAWebApiContact").isAddressBookContact(a))
+              ? n
+              : null;
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: deep-link call could not read address-book membership",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("deep-link-call-address-book-read-failed"),
+              null
+            );
+          }
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e, t) {
+      var n = o("WAWebContactCollection").ContactCollection.get(e);
+      return n != null && t === o("WAWebContactGetters").getVerifiedName(n);
+    }
+    ((l.entryTrustOf = h),
+      (l.canStartDeepLinkCall = y),
+      (l.confirmDeepLinkCall = b),
+      (l.hasOutgoingCallConsent = S));
   },
   226,
 );

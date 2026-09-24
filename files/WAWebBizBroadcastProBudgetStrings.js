@@ -24,7 +24,7 @@ __d(
       return s._(/*BTDS*/ "Add payment method");
     }
     function _() {
-      return s._(/*BTDS*/ "Maximum bid");
+      return s._(/*BTDS*/ "Maximum price");
     }
     function f() {
       return s._(
@@ -32,11 +32,11 @@ __d(
       );
     }
     function g() {
-      return s._(/*BTDS*/ "Maximum bid");
+      return s._(/*BTDS*/ "Maximum price");
     }
     function h() {
       return s._(
-        /*BTDS*/ "Set a budget to tell us how much you're willing to spend in this campaign.",
+        /*BTDS*/ "Set the amount you're willing to spend on this campaign.",
       );
     }
     function y() {
@@ -47,47 +47,50 @@ __d(
     }
     function b() {
       return s._(
-        /*BTDS*/ "Set a budget for this campaign, and we\u2019ll estimate how many recipients you can reach based on your max bid, up to the size of your audience.",
+        /*BTDS*/ "We work out your budget from your maximum price and the size of your audience. You can change it any time, and we\u2019ll update it again if your audience changes.",
       );
     }
     function v(e) {
       return s._(
-        /*BTDS*/ "Suggested budget of {suggested budget} to reach your whole audience.",
+        /*BTDS*/ "Suggested budget is {suggested budget} based on your audience size.",
         [s._param("suggested budget", e)],
       );
     }
     function S() {
-      return s._(/*BTDS*/ "Estimated number of recipients");
+      return s._(/*BTDS*/ "Learn more about maximum price");
     }
-    function R() {
-      return s._(/*BTDS*/ "Learn more about maximum bid");
-    }
-    function L(e) {
+    function R(e) {
       return s._(
-        /*BTDS*/ "{cost} is the default cost to send a broadcast to customers in the region associated with your phone number. To reach more customers, we suggest setting a max bid higher than {cost}.",
+        /*BTDS*/ "{cost} is the default cost to send a broadcast to customers in the region associated with your phone number. To reach more customers, we suggest setting a maximum price higher than {cost}.",
         [s._param("cost", e)],
       );
     }
-    function E() {
+    function L() {
       return s._(/*BTDS*/ "OK");
     }
-    function k() {
+    function E() {
       return s._(/*BTDS*/ "Region");
+    }
+    function k(e) {
+      return s._(
+        /*BTDS*/ "{cost} is the default cost to send a broadcast to customers in your selected region.",
+        [s._param("cost", e)],
+      );
     }
     function I(e) {
       return s._(
-        /*BTDS*/ "{cost} is the default cost to send a broadcast to customers in your selected region. To reach more customers, set a higher bid.",
+        /*BTDS*/ "To reach more customers, set a maximum price higher than {cost}.",
         [s._param("cost", e)],
       );
     }
     function T(e) {
       return s._(
-        /*BTDS*/ "Maximum bid can\u2019t be more than {maxBid} for this account.",
+        /*BTDS*/ "Maximum price can\u2019t be more than {maxBid} for this account.",
         [s._param("maxBid", e)],
       );
     }
     function D() {
-      return s._(/*BTDS*/ "Maximum bid is required");
+      return s._(/*BTDS*/ "Maximum price is required");
     }
     ((l.getBudgetSectionTitle = e),
       (l.getSummarySectionTitle = u),
@@ -103,12 +106,12 @@ __d(
       (l.getCampaignBudgetInfoButtonLabel = C),
       (l.getCampaignBudgetInfoBody = b),
       (l.getSuggestedBudgetHelperText = v),
-      (l.getEstimatedPeopleLabel = S),
-      (l.getMaximumBidInfoButtonLabel = R),
-      (l.getMaximumBidInfoBody = L),
-      (l.getInfoDialogConfirmLabel = E),
-      (l.getDefaultCostRegionLabel = k),
-      (l.getDefaultCostHelperText = I),
+      (l.getMaximumBidInfoButtonLabel = S),
+      (l.getMaximumBidInfoBody = R),
+      (l.getInfoDialogConfirmLabel = L),
+      (l.getDefaultCostRegionLabel = E),
+      (l.getDefaultCostHelperText = k),
+      (l.getMaxBidHelperText = I),
       (l.getMaxBidTooHighError = T),
       (l.getMaxBidRequiredError = D));
   },

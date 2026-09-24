@@ -32,14 +32,27 @@ __d(
         var a = n.prototype;
         return (
           (a.refreshPromotions = function (n) {
+            var t = new Set(
+              this.filter(function (e) {
+                return e.isDismissedThisSession;
+              }).map(function (e) {
+                var t = e.id;
+                return t;
+              }),
+            );
             (this.reset(),
               this.initializeFromCache(
                 n.map(function (e) {
                   return new (o(
                     "WAWebQuickPromotionModel",
-                  ).QuickPromotionModel)({ id: e.id, promotion: e });
+                  ).QuickPromotionModel)({
+                    id: e.id,
+                    promotion: e,
+                    isDismissedThisSession: t.has(e.id),
+                  });
                 }),
               ),
+              n.length === 0 && this.trigger("emptied_by_refresh"),
               this.localeChangeListener == null &&
                 o("WAWebQuickPromotionGating").qpGraphQLEnabled() &&
                 (this.localeChangeListener = r("WAWebL10N").on(

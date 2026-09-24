@@ -70,7 +70,7 @@ __d(
           }
         if (!c && n("cr:7329"))
           try {
-            ((u = n("cr:7329").parse(t + " ")), (c = !0));
+            ((u = n("cr:7329").parse(t + "\n//x")), (c = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))

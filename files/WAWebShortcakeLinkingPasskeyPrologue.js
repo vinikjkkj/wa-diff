@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WASmaxMdGetRefRPC",
     "WASmaxMdSetPasskeyPrologueRPC",
-    "WAWebProtobufsCompanionReg.pb",
+    "WAWebCompanionPlatformType",
     "WAWebShortcakeLinkingApi",
     "WAWebShortcakeLinkingHandoffProof",
     "WAWebShortcakeLinkingRequestOptionsCache",
@@ -92,32 +92,32 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g() {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (e === void 0 &&
-            (e = o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType
-              .CHROME),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "Shortcake prologue: starting",
-                ])),
-            ));
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "Shortcake prologue: starting",
+              ])),
+          );
           try {
-            var t = yield o(
+            var e = yield o(
                 "WAWebShortcakeLinkingRequestOptionsCache",
               ).getRequestOptions(),
-              n = yield m(t),
-              r = n.assertionJson,
-              a = n.credentialId,
+              t = yield m(e),
+              n = t.assertionJson,
+              a = t.credentialId,
               i = yield _(),
               l = yield o(
                 "WAWebShortcakeLinkingApi",
-              ).initializeShortcakeLinking(i, e),
+              ).initializeShortcakeLinking(
+                i,
+                r("WAWebCompanionPlatformType")(),
+              ),
               s = o("WAWebShortcakeLinkingHandoffProof")
                 .getHandoffKeyHolder()
                 .peek(),
@@ -137,7 +137,7 @@ __d(
             (yield o("WASmaxMdSetPasskeyPrologueRPC").sendSetPasskeyPrologueRPC(
               {
                 credentialIdElementValue: a,
-                webauthnAssertionElementValue: r,
+                webauthnAssertionElementValue: n,
                 prologuePayloadElementValue: new Uint8Array(l),
                 pairingHandoffProofArgs: p,
               },
