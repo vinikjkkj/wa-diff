@@ -23,6 +23,8 @@ __d(
           n("memberName"),
           n("memberTag"),
           n("role"),
+          n("username"),
+          n("phoneNumber"),
           a("lid"),
         ])
         .view(function (e) {

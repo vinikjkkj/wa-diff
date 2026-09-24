@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebBizProductCatalogBridge",
-    "WAWebBusinessDirectConnectionBridge",
     "WAWebBusinessProfileCollection",
     "WAWebCatalogVariantHelper",
     "WAWebProductCollModel",
@@ -85,21 +84,17 @@ __d(
                   (p = o(
                     "WAWebCatalogVariantHelper",
                   ).VARIANT_THUMBNAIL_IMAGE_SIZE));
-                var f = yield o(
-                  "WAWebBusinessDirectConnectionBridge",
-                ).attemptWithDirectConnectionRetry(t, function (e) {
-                  return r("WAWebQueryProductCollections")({
-                    catalogWid: t,
-                    afterCursor: l.afterCursor,
-                    limit: c,
-                    productsCount: n,
-                    width: u,
-                    height: u,
-                    directConnectionEncryptedInfo: e,
-                    variantInfoFields: s,
-                    variantThumbnailHeight: m,
-                    variantThumbnailWidth: p,
-                  });
+                var f = yield r("WAWebQueryProductCollections")({
+                  catalogWid: t,
+                  afterCursor: this.afterCursor,
+                  limit: c,
+                  productsCount: n,
+                  width: u,
+                  height: u,
+                  directConnectionEncryptedInfo: void 0,
+                  variantInfoFields: s,
+                  variantThumbnailHeight: m,
+                  variantThumbnailWidth: p,
                 });
                 (i &&
                   o("WAWebQplFlowWrapper").QPL.markerPoint(
@@ -176,21 +171,17 @@ __d(
                 (f = o(
                   "WAWebCatalogVariantHelper",
                 ).VARIANT_THUMBNAIL_IMAGE_SIZE));
-              var h = yield o(
-                "WAWebBusinessDirectConnectionBridge",
-              ).attemptWithDirectConnectionRetry(t, function (e) {
-                return r("WAWebQueryProductSingleCollection")({
-                  catalogWid: t,
-                  collectionId: n,
-                  afterCursor: m,
-                  limit: c,
-                  width: u,
-                  height: u,
-                  directConnectionEncryptedInfo: e,
-                  variantInfoFields: p,
-                  variantThumbnailHeight: _,
-                  variantThumbnailWidth: f,
-                });
+              var h = yield r("WAWebQueryProductSingleCollection")({
+                catalogWid: t,
+                collectionId: n,
+                afterCursor: m,
+                limit: c,
+                width: u,
+                height: u,
+                directConnectionEncryptedInfo: void 0,
+                variantInfoFields: p,
+                variantThumbnailHeight: _,
+                variantThumbnailWidth: f,
               });
               (i &&
                 o("WAWebQplFlowWrapper").QPL.markerPoint(i, "datasource_end"),

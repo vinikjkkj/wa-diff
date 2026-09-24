@@ -40,9 +40,19 @@ __d(
       var r = t.prototype;
       return (
         (r.mark = function (t, n) {
-          ((t.kind === "Operation" || t.kind === "SplitOperation") &&
-            (this.$2 = t.name),
-            this.$8(t, n));
+          if (
+            ((t.kind === "Operation" || t.kind === "SplitOperation") &&
+              (this.$2 = t.name),
+            t.kind === "Operation")
+          ) {
+            var e = t.clientAbstractTypes;
+            if (e != null)
+              for (var r of Object.keys(e)) {
+                var o = e[r];
+                if (o != null) for (var a of o) this.$4.add(u(a));
+              }
+          }
+          this.$8(t, n);
         }),
         (r.$8 = function (t, n) {
           this.$4.add(n);

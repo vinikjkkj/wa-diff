@@ -401,6 +401,25 @@ __d(
       };
       return t;
     }
+    function ne() {
+      return (
+        r("WAWebUserPrefsStore").getUser(
+          o("WAWebUserPrefsKeys").KEYS.NOTIFICATION_TEST_VERIFIED,
+        ) === !0
+      );
+    }
+    function re() {
+      r("WAWebUserPrefsStore").setUser(
+        o("WAWebUserPrefsKeys").KEYS.NOTIFICATION_TEST_VERIFIED,
+        !0,
+      );
+    }
+    function oe() {
+      r("WAWebUserPrefsStore").setUser(
+        o("WAWebUserPrefsKeys").KEYS.NOTIFICATION_TEST_VERIFIED,
+        !1,
+      );
+    }
     ((l.getGlobalSounds = e),
       (l.setGlobalSounds = s),
       (l.getGlobalCallRingtone = u),
@@ -448,7 +467,10 @@ __d(
       (l.setGlobalStatusNotificationReactionsEnabled = Y),
       (l.getGlobalStatusSoundsEnabled = J),
       (l.setGlobalStatusSoundsEnabled = Z),
-      (l.getNotificationsGranularityAwarenessBannerStatus = te));
+      (l.getNotificationsGranularityAwarenessBannerStatus = te),
+      (l.getNotificationTestVerified = ne),
+      (l.setNotificationTestVerified = re),
+      (l.clearNotificationTestVerified = oe));
   },
   98,
 );

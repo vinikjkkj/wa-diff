@@ -83,7 +83,7 @@ __d(
     }
     function v(e) {
       if (typeof e == "number") return s._malloc(e);
-      var t = new Uint8Array(e.buffer || e),
+      var t = new Uint8Array(e instanceof Uint8Array ? e.buffer : e),
         n = s._malloc(t.length);
       return (s.HEAPU8.set(t, n), n);
     }

@@ -2,7 +2,7 @@ __d(
   "WAWebWamEnumGroupMemberTagUpdateActionType",
   [],
   function (t, n, r, o, a, i) {
-    var e = Object.freeze({ UPDATE: 1, DELETE_CONFIRM: 2, ERROR: 3 });
+    var e = Object.freeze({ UPDATE: 1, DELETE_CONFIRM: 2, ERROR: 3, OPEN: 4 });
     i.GROUP_MEMBER_TAG_UPDATE_ACTION_TYPE = e;
   },
   66,

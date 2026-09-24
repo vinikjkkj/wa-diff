@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebAudienceExpressionTypes",
-    "WAWebBaseModel",
     "WAWebBroadcastDatabaseJob",
     "WAWebBroadcastMetadataGetters",
     "WAWebBroadcastMetadataModel",
@@ -36,9 +35,7 @@ __d(
             (e.findImpl = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  var t = o("WAWebWidFactory").createWid(
-                      o("WAWebBaseModel").idTypeToString(e),
-                    ),
+                  var t = o("WAWebWidFactory").createWid(d(e)),
                     n = yield o(
                       "WAWebBroadcastDatabaseJob",
                     ).getBroadcastMetadataJob(t);
@@ -215,8 +212,11 @@ __d(
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     c.model = r("WAWebBroadcastMetadataModel");
-    var d = new c();
-    l.default = d;
+    function d(e) {
+      return typeof e == "string" ? e : e.toString();
+    }
+    var m = new c();
+    l.default = m;
   },
   98,
 );

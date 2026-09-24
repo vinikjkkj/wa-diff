@@ -9,6 +9,7 @@ __d(
     "cometComposedTextV2GenAiBotThinkingStatusPrimitiveParser",
     "cometComposedTextV2GenAiCodeUxPrimitiveParser",
     "cometComposedTextV2GenAiDividerPrimitiveParser",
+    "cometComposedTextV2GenAiFilePrimitiveParser",
     "cometComposedTextV2GenAiFollowUpSuggestionPillPrimitiveParser",
     "cometComposedTextV2GenAiImagePrimitiveParser",
     "cometComposedTextV2GenAiImaginePrimitiveParser",
@@ -66,6 +67,8 @@ __d(
           return r("cometComposedTextV2GenAiProductItemCardPrimitiveParser")(e);
         if (e.__typename === "GenAITaskPrimitive")
           return r("cometComposedTextV2GenAiTaskPrimitiveParser")(e);
+        if (e.__typename === "GenAIFilePrimitive")
+          return r("cometComposedTextV2GenAiFilePrimitiveParser")(e);
         if (e.__typename === "FOABloksPrimitive")
           return r("cometComposedTextV2FoABloksPrimitiveParser")(e, t);
         if (e.__typename === "FOATextPrimitive")

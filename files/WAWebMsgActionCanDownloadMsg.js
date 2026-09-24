@@ -2,6 +2,7 @@ __d(
   "WAWebMsgActionCanDownloadMsg",
   [
     "WAWebFrontendMsgGetters",
+    "WAWebMediaTypes",
     "WAWebMiscGatingUtils",
     "WAWebMsgActionCapability",
     "WAWebMsgGetters",
@@ -11,6 +12,7 @@ __d(
     "WAWebMusicParsingUtils",
     "WAWebMusicPlaybackUtils",
     "WAWebStateUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -40,11 +42,11 @@ __d(
           var l = o(
               "WAWebMusicEligibleCountriesProvider",
             ).provideMusicEligibleCountries(),
-            s = o("WAWebMusicParsingUtils").toMusicMetadata(i);
+            u = o("WAWebMusicParsingUtils").toMusicMetadata(i);
           if (
-            (s &&
+            (u &&
               !o("WAWebMusicPlaybackUtils").canPlaybackMusic(
-                s.countryBlocklist,
+                u.countryBlocklist,
                 l,
               )) ||
             !o("WAWebMusicGatingUtils").isStatusMusicSaveToDiskEnabled()
@@ -55,18 +57,29 @@ __d(
       return n.type === o("WAWebMsgType").MSG_TYPE.STICKER ||
         n.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
         o("WAWebFrontendMsgGetters").getAsRevoked(n) ||
-        n.isViewOnce
+        n.isViewOnce === !0 ||
+        o("WAWebMsgGetters").getIsViewOncePlaceholder(n)
         ? !1
         : n.type === o("WAWebMsgType").MSG_TYPE.VCARD ||
             n.type === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD
           ? !0
           : !(
               n.mediaData == null ||
-              (t !== !0 && !n.mediaData.isDownloadable()) ||
+              (t !== !0 && !s(n)) ||
               (n.type === o("WAWebMsgType").MSG_TYPE.PTV &&
                 !o("WAWebMsgGetters").getIsSentByMe(n)) ||
               !o("WAWebMsgActionCapability").canWamoSubMsgBeSharedByUser(n, r)
             );
+    }
+    function s(e) {
+      var t;
+      return e.mediaData.isDownloadable()
+        ? !0
+        : r("justknobx")._("5943")
+          ? ((t = e.mediaObject) == null ? void 0 : t.downloadStage) !==
+              o("WAWebMediaTypes").DownloadStage.ERROR_MISSING &&
+            o("WAWebMsgActionCapability").hasRetrievableMedia(e)
+          : !1;
     }
     l.canDownloadMsg = e;
   },

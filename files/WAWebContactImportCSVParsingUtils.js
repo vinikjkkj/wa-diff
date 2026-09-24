@@ -3,15 +3,15 @@ __d(
   ["JSResourceForInteraction", "WALogger", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e) {
+    function d(e, t) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a;
           try {
-            ((n = yield r("JSResourceForInteraction")("papaparse")
+            ((a = yield r("JSResourceForInteraction")("papaparse")
               .__setRef("WAWebContactImportCSVParsingUtils")
               .load()),
               o("WALogger").LOG(
@@ -41,8 +41,8 @@ __d(
             );
           }
           try {
-            var a,
-              i = n.parse(t);
+            var i,
+              l = n == null ? a.parse(t) : a.parse(t, { preview: n });
             return (
               o("WALogger").LOG(
                 u ||
@@ -50,9 +50,9 @@ __d(
                     "CSV file parsed successfully: ",
                     " rows extracted",
                   ])),
-                ((a = i.data) == null ? void 0 : a.length) || 0,
+                ((i = l.data) == null ? void 0 : i.length) || 0,
               ),
-              i
+              l
             );
           } catch (e) {
             throw (

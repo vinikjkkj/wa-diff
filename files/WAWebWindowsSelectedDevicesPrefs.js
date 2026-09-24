@@ -68,8 +68,8 @@ __d(
           for (var a of t) {
             var i = v(a[n], e, o);
             if (i) {
-              var l;
-              r.push(((l = {}), (l[n] = i), l));
+              var l = {};
+              ((l[n] = i), r.push(l));
             }
           }
       return r;

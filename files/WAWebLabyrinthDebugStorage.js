@@ -24,15 +24,21 @@ __d(
       c,
       d,
       m,
-      p = { deviceState: { indexes: {}, primaryKey: "id", secure: !0 } },
-      _ = "labyrinth-debug-storage",
-      f = "current",
-      g = "labyrinth_debug_storage",
-      h = 10,
-      y = 30 * 1e3,
-      C = 10 * 1e3,
-      b = r("qpl")._(891432473, "3638"),
-      v = {
+      p = {
+        backup: { indexes: {}, primaryKey: "id", secure: !0 },
+        device: { indexes: {}, primaryKey: "id", secure: !0 },
+        epoch: { indexes: {}, primaryKey: "serverEpochId", secure: !0 },
+      },
+      _ = ["backup", "device", "epoch"],
+      f = "labyrinth-debug-storage",
+      g = "current",
+      h = "labyrinth_debug_storage",
+      y = 10,
+      C = 30 * 1e3,
+      b = 10 * 1e3,
+      v = new Set(["deviceState"]),
+      S = r("qpl")._(891432473, "3638"),
+      R = {
         log: function (n) {
           (o("WALogger").LOG(
             e ||
@@ -42,43 +48,54 @@ __d(
               ])),
             n,
           ),
-            P(n));
+            A(n));
         },
       },
-      S = null,
-      R = null;
-    function L() {
-      return r("gkx")("23871")
-        ? (R == null && (R = x()), R)
-        : (m || (m = n("Promise"))).reject(
-            r("err")("Labyrinth debug storage is disabled"),
-          );
-    }
-    function E() {
-      return (S != null || s(0, 172847), S);
-    }
+      L = null,
+      E = null;
     function k() {
       return I.apply(this, arguments);
     }
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          ((R = null), (e = S) == null || e.close(), (S = null), yield T());
+          return (yield T(), D());
         })),
         I.apply(this, arguments)
       );
     }
     function T() {
-      return D.apply(this, arguments);
+      return r("gkx")("23871")
+        ? (E == null && (E = M()), E)
+        : (m || (m = n("Promise"))).reject(
+            r("err")("Labyrinth debug storage is disabled"),
+          );
     }
     function D() {
+      return (L != null || s(0, 172847), L);
+    }
+    function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
+          ((E = null), (e = L) == null || e.close(), (L = null), yield P());
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P() {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             yield o("WAPromiseTimeout").promiseTimeout(
-              o("WAWormDB").deleteWAWormDatabase(_),
-              y,
+              o("WAWormDB").deleteWAWormDatabase(f),
+              C,
             );
           } catch (e) {
             o("WALogger")
@@ -93,35 +110,35 @@ __d(
               .sendLogs("labyrinth-debug-storage-delete-failed");
           }
         })),
-        D.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function x() {
-      return $.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function $() {
+    function w() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForWormEarKey(),
             o("WAWebWormCallbacks").setupWAWebWormCallbacks());
-          var e = o("QPLFlow").startQPLFlow(b, {
+          var e = o("QPLFlow").startQPLFlow(S, {
             annotations: {
               string: {
-                dbAlias: g,
+                dbAlias: h,
                 operationType: "openLabyrinthDebugStorage",
               },
             },
-            timeoutInMs: C,
+            timeoutInMs: b,
           });
           try {
             var t = new (o("WAWormDB").WAWormDatabase)(
               o("WAWormDB").makeWAWormEarSyncDriver({
-                dbAlias: g,
-                dbName: _,
+                dbAlias: h,
+                dbName: f,
                 encKey: o("WAWebDbEncryptionKey").DbEncKeyStore.getWormEarKey(),
-                odsLogger: v,
+                odsLogger: R,
                 options: {
-                  blockingErrorThreshold: h,
+                  blockingErrorThreshold: y,
                   onBlockingError: function (t) {
                     (r("WAWebODS").incr(
                       "web.labyrinth_debug_storage.error.blocking",
@@ -138,12 +155,13 @@ __d(
                         .catching(r("err")(t))
                         .sendLogs("labyrinth-debug-storage-unrecoverable"));
                   },
+                  safeToDeleteStores: v,
                 },
                 schema: p,
               }),
-              b,
+              S,
             );
-            (yield t.init({ eventFlow: e }), (S = t), e.endSuccess());
+            (yield t.init({ eventFlow: e }), (L = t), e.endSuccess());
           } catch (t) {
             throw (
               e.endFail("error", {
@@ -163,11 +181,11 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function P(e) {
-      var t = g + ".",
+    function A(e) {
+      var t = h + ".",
         n = e.startsWith(t) ? e.slice(t.length) : e;
       e: {
         if (n === "error.db_stale") {
@@ -190,11 +208,13 @@ __d(
         }
       }
     }
-    ((l.DATABASE_NAME = _),
-      (l.LABYRINTH_DEBUG_DEVICE_STATE_ID = f),
-      (l.initialize = L),
-      (l.getDatabase = E),
-      (l.destroy = k));
+    ((l.LABYRINTH_DEBUG_STORE_NAMES = _),
+      (l.DATABASE_NAME = f),
+      (l.LABYRINTH_DEBUG_SINGLETON_ID = g),
+      (l.getLabyrinthDebugDatabase = k),
+      (l.initialize = T),
+      (l.getDatabase = D),
+      (l.destroy = x));
   },
   98,
 );

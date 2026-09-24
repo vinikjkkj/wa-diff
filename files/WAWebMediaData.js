@@ -2,9 +2,9 @@ __d(
   "WAWebMediaData",
   [
     "WAWebBaseModel",
-    "WAWebFeatureDetectionSwSupport",
     "WAWebMediaCleanFileName",
     "WAWebMediaInMemoryBlobCache",
+    "WAWebMediaStreamability",
     "WAWebMediaTypes",
     "WAWebSuspiciousContent",
   ],
@@ -64,21 +64,6 @@ __d(
           (t.duration = o("WAWebBaseModel").prop()),
           (t.isGif = o("WAWebBaseModel").prop()),
           (t.gifAttribution = o("WAWebBaseModel").prop()),
-          (t.streamable = o("WAWebBaseModel").derived(
-            function () {
-              return this.isStreamable();
-            },
-            [
-              "isGif",
-              "isViewOnce",
-              "mediaStage",
-              "sidecar",
-              "type",
-              "swStreamingSupported",
-            ],
-          )),
-          (t.swStreamingSupported = o("WAWebBaseModel").prop(!1)),
-          (t.$MediaData$p_1 = o("WAWebBaseModel").prop(!1)),
           (t.suspiciousContent = o("WAWebBaseModel").prop(
             o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO,
           )),
@@ -112,44 +97,8 @@ __d(
           } else ((t = n), (a = r));
           return ((t = m(t)), e.prototype.set.call(this, t, a));
         }),
-        (n.isStreamable = function () {
-          return (
-            this.isStreamableType() &&
-            this.listenToServiceWorkerSupport() &&
-            !this.isViewOnce
-          );
-        }),
-        (n.$MediaData$p_2 = function (t) {
-          this.swStreamingSupported = t;
-        }),
-        (n.listenToServiceWorkerSupport = function () {
-          return this.$MediaData$p_1
-            ? this.swStreamingSupported
-            : (this.listenTo(
-                r("WAWebFeatureDetectionSwSupport"),
-                "change:streamingSupported",
-                this.$MediaData$p_2,
-              ),
-              (this.swStreamingSupported = !!r("WAWebFeatureDetectionSwSupport")
-                .streamingSupported),
-              (this.$MediaData$p_1 = !0),
-              this.swStreamingSupported);
-        }),
-        (n.isStreamableType = function () {
-          return (
-            this.type === o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO &&
-            !this.isGif &&
-            (this.mediaStage === o("WAWebMediaTypes").MediaDataStage.INIT ||
-              this.mediaStage ===
-                o("WAWebMediaTypes").MediaDataStage.FETCHING ||
-              this.mediaStage ===
-                o("WAWebMediaTypes").MediaDataStage.DECRYPTING ||
-              this.mediaStage ===
-                o("WAWebMediaTypes").MediaDataStage.RESOLVED) &&
-            this.fullWidth != null &&
-            this.fullHeight != null &&
-            !!(this.sidecar && this.sidecar.byteLength > 0)
-          );
+        (n.isStreamable = function (t) {
+          return o("WAWebMediaStreamability").isStreamableMedia(this, t);
         }),
         (n.isDownloadable = function () {
           if (this.isViewOnce) return !1;

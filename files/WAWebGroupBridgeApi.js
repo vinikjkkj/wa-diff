@@ -5,6 +5,7 @@ __d(
     "WAWebCommunitySubgroupSuggestionsUtils",
     "WAWebContactCollection",
     "WAWebCreateOrUpdateGroupMetadataAction",
+    "WAWebGroupHistorySenderUserJourneyLogger",
     "WAWebGroupMetadataCollection",
     "WAWebMsgCollection",
     "WAWebRestoreGroupParticipantsAction",
@@ -114,6 +115,14 @@ __d(
           o = t.shouldDefaultGroupHistoryShareOn;
         (e = r("WAWebGroupMetadataCollection").get(n)) == null ||
           e.set({ shouldDefaultGroupHistoryShareOn: o });
+      },
+      logGroupHistoryToggleModeMdSyncReceived: function (t) {
+        var e = t.isToggleOn;
+        o(
+          "WAWebGroupHistorySenderUserJourneyLogger",
+        ).GroupHistorySenderUserJourneyLogger.groupHistoryToggleModeMdSyncReceived(
+          { isToggleOn: e },
+        );
       },
     };
     l.GroupBridgeApi = e;

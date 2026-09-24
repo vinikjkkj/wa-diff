@@ -5,17 +5,24 @@ __d(
     var e = "customer_manager_hidden_columns",
       s = "customer_manager_column_order",
       u = "customer_manager_sort_config",
-      c = new Set(o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS);
-    function d(e) {
+      c = "customer_manager_column_widths",
+      d = new Map(
+        o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.map(
+          function (e) {
+            return [e, e];
+          },
+        ),
+      );
+    function m(e) {
       if (!Array.isArray(e)) return null;
       var t = e.filter(function (e) {
-        return typeof e == "string" && c.has(e);
+        return typeof e == "string" && d.has(e);
       });
       if (t.length === 0) return null;
       var n = t;
       return n;
     }
-    function m(e) {
+    function p(e) {
       if (!Array.isArray(e)) return null;
       var t = new Set(e);
       return o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.filter(
@@ -24,9 +31,9 @@ __d(
         },
       );
     }
-    function p() {
+    function _() {
       var t = new Set(
-        o("WAWebUICustomizationStore").getCustomization(e, m, []),
+        o("WAWebUICustomizationStore").getCustomization(e, p, []),
       );
       return o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.filter(
         function (e) {
@@ -38,7 +45,7 @@ __d(
         },
       );
     }
-    function _(t) {
+    function f(t) {
       var n = new Set(t);
       o("WAWebUICustomizationStore").saveCustomization(
         e,
@@ -49,8 +56,8 @@ __d(
         ),
       );
     }
-    function f(e) {
-      var t = d(e);
+    function g(e) {
+      var t = m(e);
       if (t == null) return null;
       var n = new Set(t),
         r = o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS.filter(
@@ -60,17 +67,17 @@ __d(
         );
       return r.length === 0 ? t : [].concat(t, r);
     }
-    function g() {
+    function h() {
       return o("WAWebUICustomizationStore").getCustomization(
         s,
-        f,
+        g,
         o("WAWebContactManagerListViewColumns").ALL_COLUMN_KEYS,
       );
     }
-    function h(e) {
+    function y(e) {
       o("WAWebUICustomizationStore").saveCustomization(s, [].concat(e));
     }
-    function y(e) {
+    function C(e) {
       if (!Array.isArray(e) || e.length !== 2) return null;
       var t = e[0],
         n = e[1],
@@ -83,21 +90,45 @@ __d(
         ? null
         : { direction: n, key: r };
     }
-    function C() {
-      return o("WAWebUICustomizationStore").getCustomization(u, y, null);
+    function b() {
+      return o("WAWebUICustomizationStore").getCustomization(u, C, null);
     }
-    function b(e) {
+    function v(e) {
       o("WAWebUICustomizationStore").saveCustomization(
         u,
         e == null ? null : [e.key, e.direction],
       );
     }
-    ((l.getVisibleColumns = p),
-      (l.saveVisibleColumns = _),
-      (l.getColumnOrder = g),
-      (l.saveColumnOrder = h),
-      (l.getSortConfig = C),
-      (l.saveSortConfig = b));
+    function S(e) {
+      if (!Array.isArray(e)) return null;
+      var t = new Map();
+      for (var n of e)
+        if (Array.isArray(n)) {
+          var r = n[0],
+            o = n[1],
+            a = typeof r == "string" ? d.get(r) : void 0;
+          a != null &&
+            typeof o == "number" &&
+            Number.isFinite(o) &&
+            o > 0 &&
+            t.set(a, o);
+        }
+      return Array.from(t);
+    }
+    function R() {
+      return o("WAWebUICustomizationStore").getCustomization(c, S, []);
+    }
+    function L(e) {
+      o("WAWebUICustomizationStore").saveCustomization(c, [].concat(e));
+    }
+    ((l.getVisibleColumns = _),
+      (l.saveVisibleColumns = f),
+      (l.getColumnOrder = h),
+      (l.saveColumnOrder = y),
+      (l.getSortConfig = b),
+      (l.saveSortConfig = v),
+      (l.getColumnWidths = R),
+      (l.saveColumnWidths = L));
   },
   98,
 );

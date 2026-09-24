@@ -2,6 +2,7 @@ __d(
   "WAWebChatAssignmentSync",
   [
     "Promise",
+    "WALogger",
     "WATimeUtils",
     "WAWebAgentCollection",
     "WAWebBizChatAssignmentAction",
@@ -20,7 +21,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function (t) {
+      s,
+      u = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -42,30 +44,30 @@ __d(
             return o("WAWebSyncdConst").Actions.ChatAssignment;
           }),
           (i.createChatAssignmentMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = this,
-                  a = o("WATimeUtils").unixTimeMs(),
-                  i = yield (e || (e = n("Promise"))).all(
-                    t.map(
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  r = o("WATimeUtils").unixTimeMs(),
+                  a = yield (s || (s = n("Promise"))).all(
+                    e.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                           function* (e) {
-                            var t = e.agentId,
-                              n = e.chatId,
-                              i = { chatAssignment: { deviceAgentId: t } };
+                            var n = e.agentId,
+                              a = e.chatId,
+                              i = { chatAssignment: { deviceAgentId: n } };
                             return o(
                               "WAWebSyncdActionUtils",
                             ).buildPendingMutation({
-                              timestamp: a,
-                              collection: r.collectionName,
+                              timestamp: r,
+                              collection: t.collectionName,
                               operation: o("WAWebProtobufsServerSync.pb")
                                 .SyncdMutation$SyncdOperation.SET,
                               indexArgs: [
                                 yield o(
                                   "WAWebSyncdGetChat",
                                 ).getChatJidMutationIndexForChat(
-                                  o("WAWebWidFactory").createWid(n),
+                                  o("WAWebWidFactory").createWid(a),
                                   o("WAWebSyncdConst").Actions.ChatAssignment,
                                 ),
                               ],
@@ -84,13 +86,13 @@ __d(
                       })(),
                     ),
                   );
-                return i;
+                return a;
               },
             );
-            function r(e) {
-              return t.apply(this, arguments);
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return r;
+            return t;
           })()),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -98,8 +100,8 @@ __d(
                 var a = this,
                   i = [],
                   l = [],
-                  s = [],
-                  u = yield (e || (e = n("Promise"))).all(
+                  u = [],
+                  c = yield (s || (s = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -109,13 +111,13 @@ __d(
                                 n = t[1];
                               if (!n) return a.malformedActionIndex();
                               if (e.operation === "set") {
-                                var u,
+                                var s,
                                   c = e.value.chatAssignment;
                                 if (!c)
                                   return o(
                                     "WAWebSyncdIndexUtils",
                                   ).malformedActionValue(a.collectionName);
-                                var d = (u = c.deviceAgentId) != null ? u : "",
+                                var d = (s = c.deviceAgentId) != null ? s : "",
                                   m = o(
                                     "WAWebAgentCollection",
                                   ).AgentCollection.get(d);
@@ -167,7 +169,7 @@ __d(
                                   r(
                                     "WAWebSyncBootstrap",
                                   ).isSyncDBootstrapInProcess() ||
-                                    s.push({
+                                    u.push({
                                       chatId: _,
                                       agent: m,
                                       timestamp: Math.floor(e.timestamp / 1e3),
@@ -212,7 +214,7 @@ __d(
                   ).ChatAssignmentCollection.remove(l),
                   o(
                     "WAWebBizChatAssignmentAction",
-                  ).createChatAssignmentSystemMsgs(s),
+                  ).createChatAssignmentSystemMsgs(u),
                   o(
                     "WAWebBizChatAssignmentAction",
                   ).triggerChatAssignmentNotification(
@@ -223,10 +225,24 @@ __d(
                       })
                       .join("-"),
                   ));
-                var c = i.map(function (e) {
+                var d = i.map(function (e) {
                   return e.id.toString();
                 });
-                return (o("WAWebSyncdOrphan").checkOrphanChatAssignments(c), u);
+                return (
+                  o("WAWebSyncdOrphan")
+                    .checkOrphanChatAssignments(d)
+                    .catch(function () {
+                      o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[syncd] chat_assignment: orphan chat assignments check failed",
+                            ])),
+                        )
+                        .sendLogs("failed-to-check-orphan-chat-assignments");
+                    }),
+                  c
+                );
               },
             );
             function a(e) {
@@ -237,8 +253,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase),
-      u = new s();
-    l.default = u;
+      c = new u();
+    l.default = c;
   },
   98,
 );

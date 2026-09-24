@@ -37,7 +37,11 @@ __d(
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
     u.message = "The user did not grant permission for the operation";
-    var c = (function (e) {
+    var c = "denied by system";
+    function d(e) {
+      return e instanceof u && e.message.toLowerCase().includes(c);
+    }
+    var m = (function (e) {
         function t(t) {
           var n;
           return (
@@ -55,7 +59,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      d = (function (e) {
+      p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -73,7 +77,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      m = (function (e) {
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -84,8 +88,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e);
-    m.message = "One of the mandatory Constraints could not be satisfied.";
-    var p = (function (e) {
+    _.message = "One of the mandatory Constraints could not be satisfied.";
+    var f = (function (e) {
       function t(t) {
         var n;
         return (
@@ -96,9 +100,9 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    p.message =
+    f.message =
       "Due to changes in the environment, one or more mandatory constraints can no longer be satisfied.";
-    var _ = (function (e) {
+    var g = (function (e) {
       function t(t) {
         var n;
         return (
@@ -109,8 +113,8 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    _.message = "The object can not be found here.";
-    var f = (function (e) {
+    g.message = "The object can not be found here.";
+    var h = (function (e) {
       function t(t) {
         var n;
         return (
@@ -121,9 +125,9 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    f.message =
+    h.message =
       "The source of the MediaStream could not be accessed due to a hardware error (e.g. lock from another process).";
-    var g = (function (e) {
+    var y = (function (e) {
       function t(t) {
         var n;
         return (
@@ -134,18 +138,19 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e);
-    ((g.message =
+    ((y.message =
       "Although the user granted permission to use the matching devices, a hardware error occurred which prevented access to the device."),
       (l.GetUserMediaError = e),
       (l.NotSupportedError = s),
       (l.NotAllowedError = u),
-      (l.RMRNotSupportedOnNewsletterMessagesError = c),
-      (l.RMRWithoutMediaKeyError = d),
-      (l.ConstraintNotSatisfiedError = m),
-      (l.OverconstrainedError = p),
-      (l.NotFoundError = _),
-      (l.SourceUnavailableError = f),
-      (l.NotReadableError = g));
+      (l.isDeniedBySystem = d),
+      (l.RMRNotSupportedOnNewsletterMessagesError = m),
+      (l.RMRWithoutMediaKeyError = p),
+      (l.ConstraintNotSatisfiedError = _),
+      (l.OverconstrainedError = f),
+      (l.NotFoundError = g),
+      (l.SourceUnavailableError = h),
+      (l.NotReadableError = y));
   },
   98,
 );

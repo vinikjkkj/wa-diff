@@ -2,6 +2,7 @@ __d(
   "WAWebBizFormatInteractiveMsg",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebBizOrderDetailsParams",
     "WAWebBloksWidgetPayload",
     "WAWebBrazilPixKeyFormattingUtils",
@@ -71,7 +72,7 @@ __d(
       if (
         o("WAWebBloksWidgetPayload").isA2UIBloksWidget(e) &&
         o("WAWebHsmGatingUtils").isBloksWidgetEnabled() &&
-        o("WAWebHsmGatingUtils").isA2UIReplyQuoteEnabled()
+        o("WAWebABProps").getABPropConfigValue("im_a2ui_reply_quote_enabled")
       ) {
         var n = o("WAWebBloksWidgetPayload").readA2UITitle(e.data);
         if (n != null) return n;

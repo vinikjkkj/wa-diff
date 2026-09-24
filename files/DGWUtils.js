@@ -82,53 +82,59 @@ __d(
               g = n.headers,
               h = n.loggingId,
               y = n.regionHint,
-              C = n.serviceId,
-              b = n.tier,
-              v = n.trafficTracing,
-              S =
+              C = n.requestedSubjectId,
+              b = n.serviceId,
+              v = n.tier,
+              S = n.trafficTracing,
+              R =
                 ((t = {}),
                 (t[(a = o("DGWConstants")).HEADER_CONSTANTS.HEADER_APPID] = i),
                 (t[a.HEADER_CONSTANTS.HEADER_APPVERSION] = l),
                 (t[a.HEADER_CONSTANTS.HEADER_AUTHTYPE] = u),
                 (t[a.HEADER_CONSTANTS.HEADER_DGW_VERSION] = "" + m),
                 (t[a.HEADER_CONSTANTS.HEADER_UUID] = f),
-                (t[a.HEADER_CONSTANTS.HEADER_TARGET_TIER] = b),
+                (t[a.HEADER_CONSTANTS.HEADER_TARGET_TIER] = v),
                 t);
             (_ !== void 0 &&
-              (S[
+              (R[
                 o(
                   "DGWConstants",
                 ).HEADER_CONSTANTS.HEADER_ESTABLISH_STREAM_FRAME_BASE64
               ] = d(_)),
               h !== void 0 &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_LOGGING_ID] = h),
+                (R[o("DGWConstants").HEADER_CONSTANTS.HEADER_LOGGING_ID] = h),
               y !== void 0 &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_REGIONHINT] = y),
+                (R[o("DGWConstants").HEADER_CONSTANTS.HEADER_REGIONHINT] = y),
               c !== void 0 &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_DEVICE_ID] = c),
-              v !== void 0 &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.TRAFFIC_TRACING] =
-                  "debug:" + v),
+                (R[o("DGWConstants").HEADER_CONSTANTS.HEADER_DEVICE_ID] = c),
+              S !== void 0 &&
+                (R[o("DGWConstants").HEADER_CONSTANTS.TRAFFIC_TRACING] =
+                  "debug:" + S),
               s !== void 0 &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_AUTHTOKEN] = s),
+                (R[o("DGWConstants").HEADER_CONSTANTS.HEADER_AUTHTOKEN] = s),
+              C != null &&
+                C !== "" &&
+                (R[
+                  o("DGWConstants").HEADER_CONSTANTS.HEADER_REQUESTED_SUBJECT_ID
+                ] = C),
               o("DGWWebSocketGating").isWsCompressionEnabled(Number(i)) &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_WS_COMPRESSION] =
+                (R[o("DGWConstants").HEADER_CONSTANTS.HEADER_WS_COMPRESSION] =
                   "true"),
               Object.keys(g).forEach(function (e) {
                 var t = o("DGWConstants").HEADER_CONSTANTS.APPHEADER_PREFIX + e;
-                Object.prototype.hasOwnProperty.call(S, t) || (S[t] = g[e]);
+                Object.prototype.hasOwnProperty.call(R, t) || (R[t] = g[e]);
               }));
-            var R = new (e || (e = r("URI")))(p);
+            var L = new (e || (e = r("URI")))(p);
             return (
-              R.setQueryData(S),
-              R.setPath(R.getPath() + "/" + C),
-              R.toString().length > 2e3 &&
-                (delete S[
+              L.setQueryData(R),
+              L.setPath(L.getPath() + "/" + b),
+              L.toString().length > 2e3 &&
+                (delete R[
                   o("DGWConstants").HEADER_CONSTANTS
                     .HEADER_ESTABLISH_STREAM_FRAME_BASE64
                 ],
-                R.setQueryData(S)),
-              R.toStringRawQuery()
+                L.setQueryData(R)),
+              L.toStringRawQuery()
             );
           }),
           t

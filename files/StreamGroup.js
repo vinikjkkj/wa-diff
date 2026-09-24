@@ -41,6 +41,7 @@ __d(
               enableFirstStreamOnWsHandshake: !1,
               authToken: l.authToken,
               connectTimeoutMs: l.connectTimeoutMs,
+              requestedSubjectId: l.requestedSubjectId,
             }),
             (this.$4 = l),
             (this.$5 = c),
@@ -64,6 +65,7 @@ __d(
               regionHint: (h = this.$3.regionHint) != null ? h : void 0,
               trafficTracing: (y = this.$4.trafficTracing) != null ? y : void 0,
               authToken: (C = this.$4.authToken) != null ? C : void 0,
+              requestedSubjectId: this.$3.requestedSubjectId,
             })));
         }
         var r = t.prototype;

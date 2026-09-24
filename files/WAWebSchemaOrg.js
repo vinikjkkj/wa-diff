@@ -29,6 +29,7 @@ __d(
           n("viewerRole"),
           n("managedGroups"),
           n("managedChannels"),
+          n("directoryIsComplete"),
         ])
         .view(function (e) {
           return e;

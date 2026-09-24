@@ -420,7 +420,14 @@ __d(
     }
     function me(e) {
       var t = new (o("WAWebJoinableCallWamEvent").JoinableCallWamEvent)();
-      return (t.set(e), t);
+      return (
+        t.set(
+          o("WAWebVoipGatingUtils").isGuestViewer()
+            ? babelHelpers.extends({}, e, { isGuestParticipant: !0 })
+            : e,
+        ),
+        t
+      );
     }
     function pe(e) {
       var t = o("WAWebVoipCallRatingStore").getPendingFieldstats();

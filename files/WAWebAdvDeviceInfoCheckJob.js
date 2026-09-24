@@ -28,8 +28,9 @@ __d(
       c,
       d,
       m,
-      p = 25 * o("WATimeUtils").HOUR_SECONDS,
-      _ = (function () {
+      p,
+      _ = 25 * o("WATimeUtils").HOUR_SECONDS,
+      f = (function () {
         function t(e) {
           this.advToSystemBridge = e;
         }
@@ -81,7 +82,7 @@ __d(
           t
         );
       })(),
-      f = (function () {
+      g = (function () {
         function e() {}
         var t = e.prototype;
         return (
@@ -111,13 +112,13 @@ __d(
                 return (
                   n.forEach(function (n) {
                     n.deleted ||
-                      S(n) ||
-                      (R(e, a, n, r)
+                      R(n) ||
+                      (L(e, a, n, r)
                         ? i.set(
                             o("WAWebWidFactory").createUserWidOrThrow(n.id),
                             n,
                           )
-                        : L({
+                        : E({
                             currentTs: e,
                             deviceListRow: n,
                             numSecondsCloseExpiration:
@@ -185,7 +186,7 @@ __d(
               r = e.some(function (e) {
                 var t = e[0],
                   n = e[1];
-                return E(t);
+                return k(t);
               });
             return r &&
               o("WAWebABProps").getABPropConfigValue(
@@ -210,8 +211,8 @@ __d(
                 o("WAWebSocketLogoutJob").socketLogout(
                   o("WAWebLogoutReasonConstants").LogoutReason.InvalidAdvStatus,
                 ),
-                (m || (m = n("Promise"))).resolve())
-              : (m || (m = n("Promise"))).all(
+                (p || (p = n("Promise"))).resolve())
+              : (p || (p = n("Promise"))).all(
                   Array.from(t.entries(), function (e) {
                     var t = e[0],
                       n = e[1];
@@ -222,37 +223,37 @@ __d(
                 );
           }),
           (t.recordLocalTimestamp = function () {
-            return (m || (m = n("Promise"))).resolve();
+            return (p || (p = n("Promise"))).resolve();
           }),
           e
         );
       })(),
-      g = "advDeviceInfoCheck",
-      h;
-    function y() {
-      return C.apply(this, arguments);
-    }
+      h = "advDeviceInfoCheck",
+      y;
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          h != null && (self.clearTimeout(h), (h = null));
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          y != null && (self.clearTimeout(y), (y = null));
           var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
             t = yield o(
               "WAWebLastADVCheckTimeApi",
             ).getLastADVDeviceInfoCheckTime(),
-            r = 0,
-            a = function () {
-              return (m || (m = n("Promise"))).resolve();
+            a = 0,
+            i = function () {
+              return (p || (p = n("Promise"))).resolve();
             };
           (t != null &&
-            ((r = Math.max(o("WATimeUtils").DAY_SECONDS - (e - t), 0)),
-            (a = function () {
-              return v();
+            ((a = Math.max(o("WATimeUtils").DAY_SECONDS - (e - t), 0)),
+            (i = function () {
+              return S();
             })),
-            (h = self.setTimeout(
+            (y = self.setTimeout(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  yield a();
+                  yield i();
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -263,42 +264,54 @@ __d(
                     )
                     .tags("automated-device-verification");
                 }
-                h = null;
+                y = null;
                 var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
                 (o("WAWebLastADVCheckTimeApi").setLastADVDeviceInfoCheckTime(e),
-                  o("WAWebApiTasksScheduledTime").updateTaskScheduledTime(
-                    g,
-                    o("WATimeUtils").castToUnixTime(e),
-                  ),
-                  yield y());
+                  o("WAWebApiTasksScheduledTime")
+                    .updateTaskScheduledTime(
+                      h,
+                      o("WATimeUtils").castToUnixTime(e),
+                    )
+                    .catch(function (e) {
+                      return o("WALogger")
+                        .ERROR(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "Failed to update task scheduled time",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("adv-update-task-scheduled-time-failed");
+                    }),
+                  yield C());
               }),
-              r * 1e3,
+              a * 1e3,
             )));
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    var b;
-    function v() {
+    var v;
+    function S() {
       return (
-        b == null && (b = new _(new f())),
-        b.run(o("WATimeUtils").unixTimeWithoutClockSkewCorrection())
+        v == null && (v = new f(new g())),
+        v.run(o("WATimeUtils").unixTimeWithoutClockSkewCorrection())
       );
     }
-    function S(e) {
+    function R(e) {
       return (
         e.devices.length === 1 &&
         e.devices[0].id === o("WAJids").DEFAULT_DEVICE_ID
       );
     }
-    function R(e, t, n, r) {
+    function L(e, t, n, r) {
       return e - n.timestamp >= t
         ? !0
         : n.expectedTsUpdateTs != null
-          ? e - n.expectedTsUpdateTs >= p && n.expectedTsLastDeviceJobTs !== r
+          ? e - n.expectedTsUpdateTs >= _ && n.expectedTsLastDeviceJobTs !== r
           : !1;
     }
-    function L(e) {
+    function E(e) {
       var t = e.currentTs,
         n = e.deviceListRow,
         r = e.numSecondsCloseExpiration;
@@ -308,16 +321,16 @@ __d(
           ? n.expectedTs > n.timestamp
           : !1;
     }
-    function E(e) {
+    function k(e) {
       return o("WAWebUserPrefsMeUser").isMeAccount(e)
         ? o("WAWebABProps").getABPropConfigValue("web_self_adv_daily_use_lid")
           ? e.equals(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())
           : !0
         : !1;
     }
-    ((l.AdvToSystemBridgeImpl = f),
-      (l.scheduleAdvDeviceInfoCheck = y),
-      (l.runAdvDeviceInfoCheck = v));
+    ((l.AdvToSystemBridgeImpl = g),
+      (l.scheduleAdvDeviceInfoCheck = C),
+      (l.runAdvDeviceInfoCheck = S));
   },
   98,
 );

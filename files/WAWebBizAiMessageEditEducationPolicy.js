@@ -5,10 +5,10 @@ __d(
     "use strict";
     var e = 30 * o("WATimeUtils").DAY_SECONDS;
     function s(t, n) {
-      return t.hasUsedMessageEditing
-        ? !1
-        : t.tooltipLastDismissedAtSeconds == null ||
-            n - t.tooltipLastDismissedAtSeconds >= e;
+      return (
+        t.tooltipLastDismissedAtSeconds == null ||
+        n - t.tooltipLastDismissedAtSeconds >= e
+      );
     }
     function u(e, t, n) {
       return e != null && !c(e, n)
@@ -17,15 +17,13 @@ __d(
             n - t.hintLastShownAtSeconds >= o("WATimeUtils").DAY_SECONDS;
     }
     function c(e, t) {
-      return (
-        e != null && t - e.startedAtSeconds >= o("WATimeUtils").WEEK_SECONDS
-      );
+      return e != null && t >= d(e);
     }
-    function d(e, t) {
+    function d(e) {
+      return e.startedAtSeconds + o("WATimeUtils").WEEK_SECONDS;
+    }
+    function m(e, t) {
       return babelHelpers.extends({}, e, { tooltipLastDismissedAtSeconds: t });
-    }
-    function m(e) {
-      return babelHelpers.extends({}, e, { hasUsedMessageEditing: !0 });
     }
     function p(e, t) {
       return babelHelpers.extends({}, e, { hintLastShownAtSeconds: t });
@@ -33,8 +31,8 @@ __d(
     ((l.isDiscoveryTooltipEligible = s),
       (l.isPostEditHintEligible = u),
       (l.isActivePostEditHintExpired = c),
-      (l.withDiscoveryTooltipDismissed = d),
-      (l.withMessageEditingUsed = m),
+      (l.getPostEditHintExpirySeconds = d),
+      (l.withDiscoveryTooltipDismissed = m),
       (l.withPostEditHintShown = p));
   },
   98,

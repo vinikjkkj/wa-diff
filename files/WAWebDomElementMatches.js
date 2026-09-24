@@ -2,14 +2,15 @@ __d(
   "WAWebDomElementMatches",
   [],
   function (t, n, r, o, a, i) {
-    var e =
-      Element.prototype.matches ||
-      Element.prototype.msMatchesSelector ||
-      Element.prototype.webkitMatchesSelector;
-    function l(t, n) {
-      return t instanceof HTMLElement ? e.call(t, n) : !1;
+    var e = Element.prototype,
+      l =
+        Element.prototype.matches ||
+        e.msMatchesSelector ||
+        Element.prototype.webkitMatchesSelector;
+    function s(e, t) {
+      return e instanceof HTMLElement ? l.call(e, t) : !1;
     }
-    i.default = l;
+    i.default = s;
   },
   66,
 );

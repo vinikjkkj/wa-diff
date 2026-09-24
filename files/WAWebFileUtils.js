@@ -20,11 +20,11 @@ __d(
         STICKER: "sticker",
         STICKER_PACK: "sticker-pack",
       }),
-      u = "NotReadableError",
-      c = function (t) {
-        var e;
-        return (e = t == null ? void 0 : t.message) != null ? e : "";
-      };
+      u = "NotReadableError";
+    function c(e) {
+      var t;
+      return (t = e == null ? void 0 : e.message) != null ? t : "";
+    }
     function d(t) {
       var a;
       return new (e || (e = n("Promise")))(function (e, n) {

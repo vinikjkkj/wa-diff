@@ -38,9 +38,9 @@ __d(
           return c.getPlaceholderReusableContinuation();
         },
         getPlaceholderReusableContinuation: function () {
-          var e = function (t) {
-            return t();
-          };
+          function e(e) {
+            e();
+          }
           return ((e.last = e), e);
         },
         getGuardNameStack: function () {

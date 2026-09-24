@@ -1,8 +1,8 @@
 __d(
   "WAWebAppScreen",
   [
-    "$InternalEnum",
     "WAWebAppMutex",
+    "WAWebAppScreenTypes",
     "WAWebBuildConstants",
     "WAWebStreamModel",
     "cr:11133",
@@ -10,72 +10,60 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum").Mirrored([
-      "ANOTHER_SESSION",
-      "CALL_TAKEOVER_PREVENTION",
-      "QR",
-      "SYNCING",
-      "OFFLINE",
-      "PROXYBLOCK",
-      "CONFLICT",
-      "TOS_BLOCK",
-      "SMB_TOS_BLOCK",
-      "MAIN",
-      "STARTUP",
-      "TEMP_BAN",
-      "LOGOUT",
-      "SCREEN_LOCK",
-      "SERVICE_UNAVAILABLE",
-    ]);
-    function s(t) {
-      var a,
-        i = t.anotherSession,
-        l = t.mainLoaded,
-        s = t.mode,
-        u = t.screenLocked;
-      if ((a = t.temporaryBan) != null && a.banned) return e.TEMP_BAN;
-      if (t.serviceUnavailable === !0) return e.SERVICE_UNAVAILABLE;
-      if (t.startLogout) return e.LOGOUT;
+    function e(e) {
+      var t,
+        a = e.anotherSession,
+        i = e.mainLoaded,
+        l = e.mode,
+        s = e.screenLocked;
+      if ((t = e.temporaryBan) != null && t.banned)
+        return o("WAWebAppScreenTypes").AppScreen.TEMP_BAN;
+      if (e.serviceUnavailable === !0)
+        return o("WAWebAppScreenTypes").AppScreen.SERVICE_UNAVAILABLE;
+      if (e.startLogout) return o("WAWebAppScreenTypes").AppScreen.LOGOUT;
       if (r("WAWebAppMutex").hasShownCallTakeoverModal())
-        return e.CALL_TAKEOVER_PREVENTION;
-      if (i) return e.ANOTHER_SESSION;
-      if (u) return l ? e.SCREEN_LOCK : e.STARTUP;
-      switch (s) {
+        return o("WAWebAppScreenTypes").AppScreen.CALL_TAKEOVER_PREVENTION;
+      if (a) return o("WAWebAppScreenTypes").AppScreen.ANOTHER_SESSION;
+      if (s)
+        return i
+          ? o("WAWebAppScreenTypes").AppScreen.SCREEN_LOCK
+          : o("WAWebAppScreenTypes").AppScreen.STARTUP;
+      switch (l) {
         case o("WAWebStreamModel").StreamMode.QR:
-          return e.QR;
+          return o("WAWebAppScreenTypes").AppScreen.QR;
         case o("WAWebStreamModel").StreamMode.SYNCING:
           return (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
-            l &&
+            i &&
             (n("cr:12321") == null
               ? void 0
               : n("cr:12321").isMeUserRestored()) === !0
-            ? e.MAIN
-            : e.SYNCING;
+            ? o("WAWebAppScreenTypes").AppScreen.MAIN
+            : o("WAWebAppScreenTypes").AppScreen.SYNCING;
         case o("WAWebStreamModel").StreamMode.OFFLINE:
-          return l && o("WAWebBuildConstants").WINDOWS_OFFLINE
-            ? e.MAIN
-            : e.OFFLINE;
+          return i && o("WAWebBuildConstants").WINDOWS_OFFLINE
+            ? o("WAWebAppScreenTypes").AppScreen.MAIN
+            : o("WAWebAppScreenTypes").AppScreen.OFFLINE;
         case o("WAWebStreamModel").StreamMode.PROXYBLOCK:
-          return e.PROXYBLOCK;
+          return o("WAWebAppScreenTypes").AppScreen.PROXYBLOCK;
         case o("WAWebStreamModel").StreamMode.CONFLICT:
-          return e.CONFLICT;
+          return o("WAWebAppScreenTypes").AppScreen.CONFLICT;
         case o("WAWebStreamModel").StreamMode.TOS_BLOCK:
-          return e.TOS_BLOCK;
+          return o("WAWebAppScreenTypes").AppScreen.TOS_BLOCK;
         case o("WAWebStreamModel").StreamMode.SMB_TOS_BLOCK:
-          return e.SMB_TOS_BLOCK;
+          return o("WAWebAppScreenTypes").AppScreen.SMB_TOS_BLOCK;
         case o("WAWebStreamModel").StreamMode.MAIN:
           return o("WAWebBuildConstants").WINDOWS_OFFLINE
-            ? e.MAIN
-            : l
-              ? t.stayInSync &&
+            ? o("WAWebAppScreenTypes").AppScreen.MAIN
+            : i
+              ? e.stayInSync &&
                 (n("cr:11133") == null ? void 0 : n("cr:11133")()) !== !0
-                ? e.SYNCING
-                : e.MAIN
-              : e.STARTUP;
+                ? o("WAWebAppScreenTypes").AppScreen.SYNCING
+                : o("WAWebAppScreenTypes").AppScreen.MAIN
+              : o("WAWebAppScreenTypes").AppScreen.STARTUP;
       }
-      throw r("err")("[app] render Error invalid StreamMode: " + s);
+      throw r("err")("[app] render Error invalid StreamMode: " + l);
     }
-    ((l.AppScreen = e), (l.getScreen = s));
+    l.getScreen = e;
   },
   98,
 );

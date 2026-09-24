@@ -34,7 +34,8 @@ __d(
             )
           ) {
             if (
-              ((a = window.navigator.serviceWorker) != null &&
+              (r("WAWebFeatureDetectionSwSupport").refreshStreamingSupport(),
+              (a = window.navigator.serviceWorker) != null &&
                 a.controller &&
                 (yield o("WAWebSwUpdater").updateSw()),
               !r("gkx")("26258") &&

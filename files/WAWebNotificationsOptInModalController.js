@@ -21,15 +21,19 @@ __d(
             ? c(e)
             : null;
       window.Notification.requestPermission(function (n) {
-        var r =
-          a === o("WAWebNotificationConstants").PERMISSION_DENIED &&
-          o("WAWebPushNotificationsGatingUtils").canShowNotificationsBanner(
-            a,
-            e,
-          );
-        (i == null || i({ close: !r }),
+        var r,
+          l =
+            a === o("WAWebNotificationConstants").PERMISSION_DENIED &&
+            o("WAWebPushNotificationsGatingUtils").canShowNotificationsBanner(
+              a,
+              e,
+            );
+        (i == null || i({ close: !l }),
           t == null || t.onPermissionResult == null || t.onPermissionResult(n),
-          n === o("WAWebNotificationConstants").PERMISSION_ALLOWED && d());
+          n === o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
+            ((r = t == null ? void 0 : t.enableInAppSettingsOnGrant) == null ||
+              r) &&
+            d());
       });
     }
     function c(e) {

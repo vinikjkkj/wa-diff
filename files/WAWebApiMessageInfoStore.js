@@ -100,27 +100,30 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.identityRowId,
-            n = e.messageRowId,
-            r = e.msgKey,
-            a = e.receiver,
-            i = o("WAWebWidFactory").asUserWidOrThrow(a).toString(),
-            l = a.device || 0,
-            m = yield o("WAWebSchemaMessageInfo")
+          var t,
+            n = e.identityRowId,
+            r = e.messageRowId,
+            a = e.msgKey,
+            i = e.receiver,
+            l = o("WAWebWidFactory").asUserWidOrThrow(i).toString(),
+            m = i.device || 0,
+            _ = yield o("WAWebSchemaMessageInfo")
               .getMessageInfoTable()
-              .get([r.toString(), i]);
-          if (!m) {
-            var _ = o("WAWebLidMigrationUtils").getAlternateMsgKey(r);
-            _ != null &&
-              (m = yield o("WAWebSchemaMessageInfo")
+              .get([a.toString(), l]);
+          if (!_) {
+            var f = o("WAWebLidMigrationUtils").getAlternateMsgKey(a);
+            f != null &&
+              (_ = yield o("WAWebSchemaMessageInfo")
                 .getMessageInfoTable()
-                .get([_.toString(), i]));
+                .get([f.toString(), l]));
           }
-          if (m) {
-            if (m.deviceNotDelivered.includes(l))
-              return t != null && n >= t
-                ? p.ELIGIBLE
-                : a.device != null && a.device !== o("WAJids").DEFAULT_DEVICE_ID
+          var g =
+            ((t = _) == null ? void 0 : t.hasAdditionalRetryTargets) === !0;
+          if (_) {
+            if (_.deviceNotDelivered.includes(m))
+              return n != null && r >= n
+                ? { hasAdditionalRetryTargets: g, retryEligibility: p.ELIGIBLE }
+                : i.device != null && i.device !== o("WAJids").DEFAULT_DEVICE_ID
                   ? (o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -129,12 +132,15 @@ __d(
                           ":",
                           ": companion identity changed",
                         ])),
-                      r.toString(),
-                      i,
+                      a.toString(),
                       l,
+                      m,
                     ),
-                    p.INELIGIBLE_CHANGED_IDENTITY)
-                  : m.delivery != null
+                    {
+                      hasAdditionalRetryTargets: g,
+                      retryEligibility: p.INELIGIBLE_CHANGED_IDENTITY,
+                    })
+                  : _.delivery != null
                     ? (o("WALogger").LOG(
                         c ||
                           (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -143,12 +149,18 @@ __d(
                             ":",
                             ": primary id changed post-delivery",
                           ])),
-                        r.toString(),
-                        i,
+                        a.toString(),
                         l,
+                        m,
                       ),
-                      p.INELIGIBLE_CHANGED_IDENTITY)
-                    : p.ELIGIBLE;
+                      {
+                        hasAdditionalRetryTargets: g,
+                        retryEligibility: p.INELIGIBLE_CHANGED_IDENTITY,
+                      })
+                    : {
+                        hasAdditionalRetryTargets: g,
+                        retryEligibility: p.ELIGIBLE,
+                      };
           } else
             return (
               o("WALogger").LOG(
@@ -158,10 +170,13 @@ __d(
                     ", ",
                     "",
                   ])),
-                r.toString(),
-                i,
+                a.toString(),
+                l,
               ),
-              p.INELIGIBLE_RECORD_MISSING
+              {
+                hasAdditionalRetryTargets: g,
+                retryEligibility: p.INELIGIBLE_RECORD_MISSING,
+              }
             );
           return (
             o("WALogger").LOG(
@@ -172,11 +187,14 @@ __d(
                   ":",
                   " has been delivered",
                 ])),
-              r.toString(),
-              i,
+              a.toString(),
               l,
+              m,
             ),
-            p.INELIGIBLE_ALREADY_DELIVERED
+            {
+              hasAdditionalRetryTargets: g,
+              retryEligibility: p.INELIGIBLE_ALREADY_DELIVERED,
+            }
           );
         })),
         g.apply(this, arguments)
@@ -188,10 +206,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield C([e]),
-            n = t.get(e.toString());
-          if (!n) throw r("err")("No message info found for " + e.toString());
-          return n;
+          return (yield f(e)).retryEligibility;
         })),
         y.apply(this, arguments)
       );
@@ -202,6 +217,20 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield v([e]),
+            n = t.get(e.toString());
+          if (!n) throw r("err")("No message info found for " + e.toString());
+          return n;
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = yield o("WAWebSchemaMessage")
                 .getMessageTable()
@@ -246,7 +275,7 @@ __d(
             var t;
             (t = n.get(e.msgKey)) == null || t.messageInfoRecords.push(e);
           });
-          var f = v(n),
+          var f = R(n),
             g = new Map();
           for (var h of f) {
             var y = h[0],
@@ -258,10 +287,10 @@ __d(
           }
           return g;
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(t) {
+    function R(t) {
       var n = new Map(),
         a = [],
         i = function () {
@@ -282,7 +311,7 @@ __d(
           s.forEach(function (t) {
             var n = o("WAWebWidFactory").createWid(t.receiverUserJid);
             if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
-              S(t);
+              L(t);
               for (var a = 0; a < m.length; a++) {
                 var i = m[a],
                   l = t[i];
@@ -327,18 +356,18 @@ __d(
         n
       );
     }
-    function S(e) {
+    function L(e) {
       var t = e.read;
       t != null && (e.delivery == null || e.delivery > t) && (e.delivery = t);
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
-            n = yield C(e);
+            n = yield v(e);
           for (var r of e) {
             var a = n.get(r.toString());
             if (a != null) {
@@ -355,15 +384,16 @@ __d(
           }
           return t;
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
     ((l.RetryEligibilityResult = p),
       (l.createOrMergeReceiptRecords = _),
-      (l.isRetryEligible = f),
-      (l.queryMsgInfo = h),
-      (l.queryMsgInfos = C),
-      (l.getHighestMsgAcks = R));
+      (l.getRetryEligibilityWithMetadata = f),
+      (l.isRetryEligible = h),
+      (l.queryMsgInfo = C),
+      (l.queryMsgInfos = v),
+      (l.getHighestMsgAcks = E));
   },
   98,
 );

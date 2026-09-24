@@ -81,7 +81,8 @@ __d(
           y = new (o("WAShiftTimer").ShiftTimer)(function (e) {
             var t =
               !r("WAWebEnvironment").isGuest &&
-              !o("WAWebUserPrefsTabMutex").currentTabHasMutex();
+              !o("WAWebUserPrefsTabMutex").currentTabHasMutex() &&
+              o("WAWebUserPrefsIsLoggedIn").isLoggedIn();
             if (t) {
               o("WALogger").WARN(
                 s ||

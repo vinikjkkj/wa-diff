@@ -7,33 +7,27 @@ __d(
     "WAWebBizCreateOrderJob",
     "WAWebBizLogQplEvents",
     "WAWebBizQueryOrderJob",
-    "WAWebBusinessDirectConnectionBridge",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
-      var r = t.bizJid,
-        a = t.height,
-        i = t.orderId,
-        l = t.token,
-        s = t.width;
+      var r = t.height,
+        a = t.orderId,
+        i = t.token,
+        l = t.width;
       if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (e || (e = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );
       o("WAWebBizLogQplEvents").qplPointOrderView("datasource_start");
-      var u = o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(r, function (e) {
-        return o("WAWebBizQueryOrderJob").queryOrder({
-          directConnectionEncryptedInfo: e,
-          height: a,
-          orderId: i,
-          token: l,
-          width: s,
-        });
+      var s = o("WAWebBizQueryOrderJob").queryOrder({
+        directConnectionEncryptedInfo: void 0,
+        height: r,
+        orderId: a,
+        token: i,
+        width: l,
       });
-      return u.then(function (e) {
+      return s.then(function (e) {
         return (
           o("WAWebBizLogQplEvents").qplPointOrderView("datasource_end"),
           e
@@ -46,11 +40,7 @@ __d(
           new (o("WAWebBackendErrors").E451)(),
         );
       o("WAWebBizLogQplEvents").qplPointOrderCreate("datasource_start");
-      var a = o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithOrderDirectConnectionRetry(t, function (e) {
-        return o("WAWebBizCreateOrderJob").createOrderMD(t, r, e);
-      });
+      var a = o("WAWebBizCreateOrderJob").createOrderMD(t, r, void 0);
       return a.then(function (e) {
         return (
           o("WAWebBizLogQplEvents").qplPointOrderCreate("datasource_end"),

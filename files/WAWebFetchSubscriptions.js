@@ -87,9 +87,9 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
+          var t, n, a, i;
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var a = yield o("WAWebRelayClient")
+          var l = yield o("WAWebRelayClient")
               .fetchQuery(
                 d,
                 { data: { platform: "UNKNOWN" } },
@@ -103,57 +103,54 @@ __d(
                 )
                   return { type: "graphql-error", error: e };
               }),
-            i =
-              a == null || (t = a.xwa_get_subscriptions) == null
+            s =
+              l == null || (t = l.xwa_get_subscriptions) == null
                 ? void 0
                 : t.subscriptions,
-            l =
-              a == null || (n = a.xwa_get_subscriptions) == null
+            u =
+              l == null || (n = l.xwa_get_subscriptions) == null
                 ? void 0
                 : n.feature_flags;
-          return i == null || l == null
-            ? c
-            : {
-                type: "success",
-                subscriptions: i.map(function (e) {
-                  var t, n, r, a, i, s, u, c;
-                  return {
-                    expirationDate: (t = e.end_time) != null ? t : null,
-                    id: (n = e.id) != null ? n : "",
-                    status: y(e.status),
-                    creationTime: (r = e.creation_time) != null ? r : null,
-                    newMessageCappingEnabled:
-                      (a =
-                        (i = l.find(function (e) {
-                          return (
-                            o("WAWebFeatureFlagName").FeatureFlagName.cast(
-                              e.name,
-                            ) ===
-                            o("WAWebFeatureFlagName").FeatureFlagName
-                              .NEW_CHATS_LIMIT
-                          );
-                        })) == null
-                          ? void 0
-                          : i.enabled) != null
-                        ? a
-                        : !1,
-                    tier: (s = e.tier) != null ? s : null,
-                    source: C(e.source),
-                    isPlatformChanged:
-                      (u = e.is_platform_changed) != null ? u : null,
-                    startTime: (c = e.start_time) != null ? c : null,
-                  };
-                }),
-                featureFlags: l.map(function (e) {
-                  var t, n, r, o;
-                  return {
-                    name: (t = e.name) != null ? t : "",
-                    enabled: (n = e.enabled) != null ? n : !1,
-                    expirationTime: (r = e.expiration_time) != null ? r : null,
-                    limit: (o = e.limit) != null ? o : null,
-                  };
-                }),
+          if (s == null || u == null) return c;
+          var m =
+            (a =
+              (i = u.find(function (e) {
+                return (
+                  o("WAWebFeatureFlagName").FeatureFlagName.cast(e.name) ===
+                  o("WAWebFeatureFlagName").FeatureFlagName.NEW_CHATS_LIMIT
+                );
+              })) == null
+                ? void 0
+                : i.enabled) != null
+              ? a
+              : !1;
+          return {
+            type: "success",
+            subscriptions: s.map(function (e) {
+              var t, n, r, o, a, i;
+              return {
+                expirationDate: (t = e.end_time) != null ? t : null,
+                id: (n = e.id) != null ? n : "",
+                status: y(e.status),
+                creationTime: (r = e.creation_time) != null ? r : null,
+                newMessageCappingEnabled: m,
+                tier: (o = e.tier) != null ? o : null,
+                source: C(e.source),
+                isPlatformChanged:
+                  (a = e.is_platform_changed) != null ? a : null,
+                startTime: (i = e.start_time) != null ? i : null,
               };
+            }),
+            featureFlags: u.map(function (e) {
+              var t, n, r, o;
+              return {
+                name: (t = e.name) != null ? t : "",
+                enabled: (n = e.enabled) != null ? n : !1,
+                expirationTime: (r = e.expiration_time) != null ? r : null,
+                limit: (o = e.limit) != null ? o : null,
+              };
+            }),
+          };
         })),
         h.apply(this, arguments)
       );

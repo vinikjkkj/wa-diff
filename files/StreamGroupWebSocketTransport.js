@@ -164,6 +164,7 @@ __d(
                 regionHint: (y = i.regionHint) != null ? y : void 0,
                 establishStreamFrame: v,
                 authToken: (C = i.authToken) != null ? C : void 0,
+                requestedSubjectId: i.requestedSubjectId,
               });
             if (
               ((this.$1 = n(S)),

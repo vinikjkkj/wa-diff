@@ -3269,6 +3269,7 @@ __d(
       wa_web_media_loader_button_uix_improvement: [33245, "bool", !1, !1],
       wa_web_media_upload_retry_retries_count: [27782, "int", 0, 0],
       wa_web_mention_search: [28455, "bool", !1, !1],
+      wa_web_meta_one_dev: [37481, "bool", !1, !1],
       wa_web_multi_ppl_typing_indicator_for_chatlist_groups_variant: [
         24560,
         "int",
@@ -3884,6 +3885,7 @@ __d(
       web_voip_outgoing_call_setup_latency_mode: [33122, "int", 0, 0],
       web_voip_pin_worker_glue_to_wasm: [36184, "bool", !1, !1],
       web_voip_pre_init_worker_bootstrap: [34685, "bool", !1, !1],
+      web_voip_pthread_hardening_level: [37490, "int", 0, 0],
       web_voip_relay_setup_yield_ipv4_first: [36803, "bool", !1, !1],
       web_voip_runtime_stack_selection_enabled: [33151, "bool", !1, !1],
       web_voip_sctp_worker_safari_exp: [27695, "int", 1, 1],

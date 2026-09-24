@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebABPropsSaga",
     "WAWebBotMessageSecret",
-    "WAWebCoexV2BotWid",
     "WAWebCommsAckParser",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
@@ -29,10 +28,11 @@ __d(
           var n = t.msgRecord,
             r = t.participant,
             a = t.recipient,
-            i = t.retryCount,
-            l = t.to,
-            c = n.data.id.id,
-            d = r || l;
+            i = t.retryContext,
+            l = t.retryCount,
+            c = t.to,
+            d = n.data.id.id,
+            p = r || c;
           if (
             (o("WALogger")
               .LOG(
@@ -44,27 +44,65 @@ __d(
                     ", count: ",
                     "",
                   ])),
-                c,
-                l.toString(),
-                d.toString(),
-                i,
+                d,
+                c.toString(),
+                p.toString(),
+                l,
               )
               .tags("messaging"),
-            l.isStatus() &&
+            c.isStatus() &&
               o("WAWebStatusGatingUtils").isStatusPublishViaSmaxEnabled())
           )
             return m(t);
-          var p,
-            f = "message";
-          if (l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) {
-            var g = yield o(
-              "WAWebSendCoexV2RetryMsgJob",
-            ).buildCoexV2RetryStanza(n, i, a);
-            if (g == null) return;
-            p = g;
-          } else {
-            var h = yield _(t);
-            ((p = h.stanza), (f = h.statusStanzaClass));
+          var f,
+            g = "message",
+            h,
+            y = o("WAWebSendCoexV2RetryMsgJob").getCoexV2RetryDispatch({
+              msgRecord: n,
+              recipient: a,
+              retryContext: i,
+              retryCount: l,
+              to: c,
+            });
+          e: {
+            var C = y;
+            if (
+              ((typeof C == "object" && C !== null) ||
+                typeof C == "function") &&
+              C.kind === "applicable" &&
+              "result" in C
+            ) {
+              var b = C.result;
+              if (((h = yield b), h == null)) return;
+              break e;
+            }
+            if (
+              ((typeof C == "object" && C !== null) ||
+                typeof C == "function") &&
+              C.kind === "fallback" &&
+              "result" in C
+            ) {
+              var v = C.result;
+              h = yield v;
+              break e;
+            }
+            if (
+              ((typeof C == "object" && C !== null) ||
+                typeof C == "function") &&
+              C.kind === "not_applicable"
+            ) {
+              h = null;
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                C,
+            );
+          }
+          if (h != null) f = h;
+          else {
+            var S = yield _(t);
+            ((f = S.stanza), (g = S.statusStanzaClass));
           }
           o("WALogger")
             .LOG(
@@ -74,26 +112,26 @@ __d(
                   " to ",
                   "",
                 ])),
-              c,
-              l.toString(),
+              d,
+              c.toString(),
             )
             .tags("messaging");
-          var y = l.isStatus() ? null : r,
-            C = l;
+          var R = c.isStatus() ? null : r,
+            L = c;
           return (
-            l.isBot() &&
+            c.isBot() &&
               a != null &&
               !(a != null && a.isBot()) &&
-              ((y = l), a != null || s(0, 75958), (C = a)),
+              ((R = c), a != null || s(0, 75958), (L = a)),
             o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
-              p,
+              f,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: c,
-                class: l.isStatus() ? f : "message",
-                from: C,
-                participant: y,
+                id: d,
+                class: c.isStatus() ? g : "message",
+                from: L,
+                participant: R,
               }),
             )
           );

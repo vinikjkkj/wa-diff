@@ -31,6 +31,7 @@ __d(
     "useWAWebBroadcastMetadataValues",
     "useWAWebChatValues",
     "useWAWebConversationPanelCanCompose",
+    "useWAWebIsBlobInMemoryCache",
     "useWAWebOrderPaymentStatus",
     "useWAWebUIM",
   ],
@@ -70,167 +71,172 @@ __d(
       };
     function d(t) {
       var n,
-        a = t.displayType,
-        i = t.headerRef,
-        l = t.isMsgVisible,
-        s = t.minTextHeight,
-        d = t.msg,
-        p = t.quotedMsg,
-        _ = r("useWAWebUIM")(),
-        f = o("WAWebFrontendMsgGetters").getChat(d.unsafe()),
-        g = o("useWAWebChatValues").useChatValues(f.id, [
+        a,
+        i = t.displayType,
+        l = t.headerRef,
+        s = t.isMsgVisible,
+        d = t.minTextHeight,
+        p = t.msg,
+        _ = t.quotedMsg,
+        f = r("useWAWebUIM")(),
+        g = o("WAWebFrontendMsgGetters").getChat(p.unsafe()),
+        h = o("useWAWebChatValues").useChatValues(g.id, [
           o("WAWebFrontendChatGetters").getBroadcastMetadata,
         ]),
-        h = g[0],
-        y =
+        y = h[0],
+        C =
           (n = o(
             "useWAWebBroadcastMetadataValues",
-          ).useOptionalBroadcastMetadataValues(h == null ? void 0 : h.id, [
+          ).useOptionalBroadcastMetadataValues(y == null ? void 0 : y.id, [
             o("WAWebBroadcastMetadataGetters").getCustomAudienceFbid,
           ])) != null
             ? n
             : [null],
-        C = y[0],
-        b = o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(C),
-        v = r("useWAWebConversationPanelCanCompose")(f),
-        S = v[0],
-        R = o("WAWebOrderDetails").getOrderInfo(d),
-        L = o("WAWebInAppSignupPrompt").getInAppSignupPromptInfo(d),
-        E = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          f,
-          R == null ? void 0 : R.referenceId,
-          o("WAWebOrderStatus").isSimplifiedOrder(R),
+        b = C[0],
+        v = o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(b),
+        S = r("useWAWebConversationPanelCanCompose")(g),
+        R = S[0],
+        L = o("WAWebOrderDetails").getOrderInfo(p),
+        E = o("WAWebInAppSignupPrompt").getInAppSignupPromptInfo(p),
+        k = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+          g,
+          L == null ? void 0 : L.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(L),
         ),
-        k = d.interactiveHeader,
-        I,
-        T,
-        D = !1,
-        x = !1,
-        $ = !1;
-      (!o("WAWebOrderStatus").hasOrderStatusButton(d) &&
-        k != null &&
-        k.mediaType &&
-        (T = m(a, i, k.mediaType, b, l, d)),
-        d.nativeFlowName ===
+        I = p.interactiveHeader,
+        T = r("useWAWebIsBlobInMemoryCache")(
+          (a = p.mediaData) == null ? void 0 : a.filehash,
+        ),
+        D,
+        x,
+        $ = !1,
+        P = !1,
+        N = !1;
+      (!o("WAWebOrderStatus").hasOrderStatusButton(p) &&
+        I != null &&
+        I.mediaType &&
+        (x = m(i, l, I.mediaType, T, v, s, p)),
+        p.nativeFlowName ===
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
-        d.nativeFlowName ===
+        p.nativeFlowName ===
           r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
-        d.nativeFlowName ===
+        p.nativeFlowName ===
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS ||
-        d.nativeFlowName ===
+        p.nativeFlowName ===
           r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
-        d.nativeFlowName ===
+        p.nativeFlowName ===
           r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
-          ? ((I = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
-              msg: d,
-              quotedMsg: p,
-              displayType: a,
+          ? ((D = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+              msg: p,
+              quotedMsg: _,
+              displayType: i,
             })),
-            (D =
-              d.nativeFlowName ===
+            ($ =
+              p.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-              o("WAWebOrderStatus").isPaymentRequest(f, R)))
-          : d.nativeFlowName ===
+              o("WAWebOrderStatus").isPaymentRequest(g, L)))
+          : p.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER
-            ? (I = u.jsx(r("WAWebPaymentReminderHeader.react"), { msg: d }))
-            : d.nativeFlowName ===
+            ? (D = u.jsx(r("WAWebPaymentReminderHeader.react"), { msg: p }))
+            : p.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
-              ? (I = u.jsx(r("WAWebBookingConfirmationHeader.react"), {
-                  msg: d,
+              ? (D = u.jsx(r("WAWebBookingConfirmationHeader.react"), {
+                  msg: p,
                 }))
-              : d.nativeFlowName ===
+              : p.nativeFlowName ===
                   r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
-                ? (I = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
-                    msg: d,
+                ? (D = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
+                    msg: p,
                   }))
-                : d.nativeFlowName ===
+                : p.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP &&
-                    L != null
-                  ? ((I = u.jsx(r("WAWebInAppSignupPromptHeader.react"), {
-                      info: L,
-                      msg: d,
+                    E != null
+                  ? ((D = u.jsx(r("WAWebInAppSignupPromptHeader.react"), {
+                      info: E,
+                      msg: p,
                     })),
-                    ($ = !0))
-                  : d.nativeFlowName ===
+                    (N = !0))
+                  : p.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName")
                         .PAYMENT_REQUEST
                     ? o(
                         "WAWebBrPaymentRequest",
                       ).shouldShowPaymentRequestPayWithHeader(
-                        d.isFromTemplate,
+                        p.isFromTemplate,
                       ) &&
-                      ((I = u.jsx(r("WAWebPaymentRequestHeader.react"), {
-                        msg: d,
+                      ((D = u.jsx(r("WAWebPaymentRequestHeader.react"), {
+                        msg: p,
                       })),
-                      (x = !0))
-                    : k &&
-                      (k.title != null || k.subtitle != null) &&
-                      (I = T
-                        ? u.jsx(r("WAWebInteractiveTitleHeader"), { msg: d })
+                      (P = !0))
+                    : I &&
+                      (I.title != null || I.subtitle != null) &&
+                      (D = x
+                        ? u.jsx(r("WAWebInteractiveTitleHeader"), { msg: p })
                         : u.jsx("div", {
                             className: "x1k70j0n",
                             children: u.jsx(r("WAWebInteractiveTitleHeader"), {
-                              msg: d,
+                              msg: p,
                             }),
                           })));
-      var P = k == null ? void 0 : k.mediaType;
+      var M = I == null ? void 0 : I.mediaType;
       if (
-        (T != null &&
-          d.nativeFlowName ===
+        (x != null &&
+          p.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-          R != null &&
-          (P ===
+          L != null &&
+          (M ===
             o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.DOCUMENT ||
-            (P ===
+            (M ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.IMAGE &&
-              o("WAWebOrderStatus").isSimplifiedOrder(R))) &&
-          (T = null),
-        I)
+              o("WAWebOrderStatus").isSimplifiedOrder(L))) &&
+          (x = null),
+        D)
       ) {
-        var N = r("WAWebGetInteractiveHeaderAction")({
-          canCompose: S,
-          msg: d,
-          uimContext: _,
+        var w = r("WAWebGetInteractiveHeaderAction")({
+          canCompose: R,
+          msg: p,
+          uimContext: f,
         });
-        if (N) {
-          var M = E == null,
-            w = M && o("WAWebOrderStatus").isSimplifiedOrder(R);
-          I = u.jsx("div", {
+        if (w) {
+          var A = k == null,
+            F = A && o("WAWebOrderStatus").isSimplifiedOrder(L);
+          D = u.jsx("div", {
             role: "button",
-            onClick: w ? null : N.onClick,
-            children: I,
+            onClick: F ? null : w.onClick,
+            children: D,
           });
         }
       }
-      if (I == null && T == null) return null;
-      var A;
+      if (D == null && x == null) return null;
+      var O;
       return (
-        D
-          ? (A = c.paymentRequestHeaderSpacing)
-          : x
-            ? (A = c.paymentRequestCtaHeaderSpacing)
-            : $
-              ? (A = c.signupPromptHeaderSpacing)
-              : (A = c.headerSpacing),
+        $
+          ? (O = c.paymentRequestHeaderSpacing)
+          : P
+            ? (O = c.paymentRequestCtaHeaderSpacing)
+            : N
+              ? (O = c.signupPromptHeaderSpacing)
+              : (O = c.headerSpacing),
         u.jsxs(
           "div",
-          babelHelpers.extends({}, (e || (e = r("stylex"))).props(A), {
+          babelHelpers.extends({}, (e || (e = r("stylex"))).props(O), {
             children: [
-              I && T ? u.jsx("div", { className: "xzueoph", children: T }) : T,
-              I,
+              D && x ? u.jsx("div", { className: "xzueoph", children: x }) : x,
+              D,
             ],
           }),
         )
       );
     }
     d.displayName = d.name + " [from " + i.id + "]";
-    function m(e, t, n, a, i, l) {
-      var s = l.pmCampaignId;
-      return a &&
-        l.local === !0 &&
-        s != null &&
+    function m(e, t, n, a, i, l, s) {
+      var c = s.pmCampaignId;
+      return i &&
+        !a &&
+        s.local === !0 &&
+        c != null &&
         (n ===
           o("WAWebInteractiveMessageHeaderMediaType")
             .InteractiveMessageHeaderMediaType.IMAGE ||
@@ -243,28 +249,28 @@ __d(
             children: u.jsx(
               o("WAWebBizBroadcastProRemoteMediaHeaderLoadable")
                 .WAWebBizBroadcastProRemoteMediaHeaderLoadable,
-              { campaignId: s, mediaType: n },
+              { campaignId: c, mediaType: n, msg: s },
             ),
           })
         : n ===
             o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.IMAGE
           ? u.jsx(r("WAWebInteractiveImageHeader"), {
-              msg: l,
+              msg: s,
               displayType: e != null ? e : void 0,
-              isMsgVisible: i,
+              isMsgVisible: l,
               pictureRef: t != null ? t : r("WAWebNoop"),
             })
           : n ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.DOCUMENT
-            ? u.jsx(r("WAWebMediaDocumentPreview"), { msg: l })
+            ? u.jsx(r("WAWebMediaDocumentPreview"), { msg: s })
             : n ===
                 o("WAWebInteractiveMessageHeaderMediaType")
                   .InteractiveMessageHeaderMediaType.VIDEO
               ? u.jsx(r("WAWebVideoPreview.react"), {
-                  msg: l,
-                  mediaData: l.mediaData,
+                  msg: s,
+                  mediaData: s.mediaData,
                   displayType: e != null ? e : void 0,
                 })
               : n ===
@@ -272,9 +278,9 @@ __d(
                     .InteractiveMessageHeaderMediaType.PRODUCT
                 ? u.jsx(r("WAWebBizProduct"), {
                     displayAuthor: !1,
-                    msg: l,
+                    msg: s,
                     displayType: e != null ? e : void 0,
-                    trusted: o("WAWebMsgModelPropUtils").isTrusted(l.unsafe()),
+                    trusted: o("WAWebMsgModelPropUtils").isTrusted(s.unsafe()),
                     isCarouselCard: !0,
                   })
                 : (function () {

@@ -13,15 +13,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["ref"],
-      s = ["src", "style"],
-      u,
+      s = ["src"],
+      u = ["src", "style"],
       c,
-      d = c || (c = o("react"));
-    function m(e) {
-      return e instanceof (u || (u = r("URI"))) ? e.toString() : e;
+      d,
+      m = d || (d = o("react"));
+    function p(e) {
+      return e instanceof (c || (c = r("URI"))) ? e.toString() : e;
     }
-    function p(t) {
-      var n = o("react-compiler-runtime").c(27),
+    function _(t) {
+      var n = o("react-compiler-runtime").c(29),
         a,
         i;
       n[0] !== t
@@ -31,134 +32,141 @@ __d(
           (n[1] = a),
           (n[2] = i))
         : ((a = n[1]), (i = n[2]));
-      var l, u, c, p, _;
+      var l, c, d, _, f;
       if (n[3] !== a || n[4] !== i) {
-        _ = Symbol.for("react.early_return_sentinel");
+        f = Symbol.for("react.early_return_sentinel");
         e: {
-          u = o("WebBloksStyle").classNames(a.className, "img");
-          var f = m(a.src);
-          if (f == null) {
-            _ = d.jsx("img", babelHelpers.extends({}, a, { className: u }));
+          c = o("WebBloksStyle").classNames(a.className, "img");
+          var g = p(a.src);
+          if (g == null) {
+            var h;
+            if (n[10] !== a) {
+              var y = a,
+                C = y.src,
+                b = babelHelpers.objectWithoutPropertiesLoose(y, s);
+              ((h = b), (n[10] = a), (n[11] = h));
+            } else h = n[11];
+            f = m.jsx("img", babelHelpers.extends({}, h, { className: c }));
             break e;
           }
-          var g = r("coerceImageishSprited")(f);
+          var v = r("coerceImageishSprited")(g);
           if (
             ((l =
-              g && a.alt != null && String(a.alt) !== ""
-                ? d.jsx("u", { children: a.alt })
+              v && a.alt != null && String(a.alt) !== ""
+                ? m.jsx("u", { children: a.alt })
                 : null),
-            typeof f == "string")
+            typeof g == "string")
           ) {
-            _ = d.jsx(
+            f = m.jsx(
               "img",
               babelHelpers.extends({}, a, {
-                className: u,
-                src: f,
+                className: c,
+                src: g,
                 children: l,
               }),
             );
             break e;
           }
-          if (g) {
-            var h, y;
-            if (n[10] !== a) {
-              var C = a,
-                b = C.src,
-                v = C.style,
-                S = babelHelpers.objectWithoutPropertiesLoose(C, s);
-              ((y = v), (h = S), (n[10] = a), (n[11] = h), (n[12] = y));
-            } else ((h = n[11]), (y = n[12]));
-            _ = d.jsx(
+          if (v) {
+            var S, R;
+            if (n[12] !== a) {
+              var L = a,
+                E = L.src,
+                k = L.style,
+                I = babelHelpers.objectWithoutPropertiesLoose(L, u);
+              ((R = k), (S = I), (n[12] = a), (n[13] = S), (n[14] = R));
+            } else ((S = n[13]), (R = n[14]));
+            f = m.jsx(
               "i",
               babelHelpers.extends(
                 {},
-                h,
+                S,
                 r("CometVisualCompletionAttributes").CSS_IMG,
                 {
                   className: o("WebBloksStyle").classNames(
-                    u,
-                    g.type === "css" ? g.className : void 0,
+                    c,
+                    v.type === "css" ? v.className : void 0,
                   ),
                   ref: i,
                   style:
-                    g.type === "cssless"
-                      ? babelHelpers.extends({}, y, g.style)
-                      : y,
+                    v.type === "cssless"
+                      ? babelHelpers.extends({}, R, v.style)
+                      : R,
                   children: l,
                 },
               ),
             );
             break e;
           }
-          ((c = r("getImageSourceURLFromImageish")(f)),
-            (p = r("coerceImageishURL")(f)));
+          ((d = r("getImageSourceURLFromImageish")(g)),
+            (_ = r("coerceImageishURL")(g)));
         }
         ((n[3] = a),
           (n[4] = i),
           (n[5] = l),
-          (n[6] = u),
-          (n[7] = c),
-          (n[8] = p),
-          (n[9] = _));
-      } else ((l = n[5]), (u = n[6]), (c = n[7]), (p = n[8]), (_ = n[9]));
-      if (_ !== Symbol.for("react.early_return_sentinel")) return _;
-      var R = p;
-      if (a.width === void 0 && a.height === void 0 && R) {
-        var L;
+          (n[6] = c),
+          (n[7] = d),
+          (n[8] = _),
+          (n[9] = f));
+      } else ((l = n[5]), (c = n[6]), (d = n[7]), (_ = n[8]), (f = n[9]));
+      if (f !== Symbol.for("react.early_return_sentinel")) return f;
+      var T = _;
+      if (a.width === void 0 && a.height === void 0 && T) {
+        var D;
         return (
-          n[13] !== l ||
-          n[14] !== u ||
-          n[15] !== c ||
-          n[16] !== a ||
-          n[17] !== i ||
-          n[18] !== R.height ||
-          n[19] !== R.width
-            ? ((L = d.jsx(
+          n[15] !== l ||
+          n[16] !== c ||
+          n[17] !== d ||
+          n[18] !== a ||
+          n[19] !== i ||
+          n[20] !== T.height ||
+          n[21] !== T.width
+            ? ((D = m.jsx(
                 "img",
                 babelHelpers.extends({}, a, {
-                  className: u,
-                  height: R.height,
-                  src: c,
+                  className: c,
+                  height: T.height,
+                  src: d,
                   ref: i,
-                  width: R.width,
+                  width: T.width,
                   children: l,
                 }),
               )),
-              (n[13] = l),
-              (n[14] = u),
-              (n[15] = c),
-              (n[16] = a),
-              (n[17] = i),
-              (n[18] = R.height),
-              (n[19] = R.width),
-              (n[20] = L))
-            : (L = n[20]),
-          L
+              (n[15] = l),
+              (n[16] = c),
+              (n[17] = d),
+              (n[18] = a),
+              (n[19] = i),
+              (n[20] = T.height),
+              (n[21] = T.width),
+              (n[22] = D))
+            : (D = n[22]),
+          D
         );
       }
-      var E;
+      var x;
       return (
-        n[21] !== l || n[22] !== u || n[23] !== c || n[24] !== a || n[25] !== i
-          ? ((E = d.jsx(
+        n[23] !== l || n[24] !== c || n[25] !== d || n[26] !== a || n[27] !== i
+          ? ((x = m.jsx(
               "img",
               babelHelpers.extends({}, a, {
-                className: u,
+                className: c,
                 ref: i,
-                src: c,
+                src: d,
                 children: l,
               }),
             )),
-            (n[21] = l),
-            (n[22] = u),
-            (n[23] = c),
-            (n[24] = a),
-            (n[25] = i),
-            (n[26] = E))
-          : (E = n[26]),
-        E
+            (n[23] = l),
+            (n[24] = c),
+            (n[25] = d),
+            (n[26] = a),
+            (n[27] = i),
+            (n[28] = x))
+          : (x = n[28]),
+        x
       );
     }
-    l.default = p;
+    l.default = _;
   },
   98,
 );

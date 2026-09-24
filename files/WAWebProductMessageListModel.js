@@ -4,14 +4,11 @@ __d(
     "WAWebBaseModel",
     "WAWebBizProductCatalogBridge",
     "WAWebBizProductMessageListAction",
-    "WAWebBusinessDirectUtils",
     "WAWebCatalogCollection",
-    "WAWebChatCollection",
     "WAWebMsgKey",
     "WAWebProductCollection",
     "WAWebProductMessageListConstant",
     "WAWebProductTypes",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "countWhere",
     "sumBy",
@@ -19,7 +16,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["ERROR", "SUCCESS"],
       s = (function (t) {
-        function a() {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -35,10 +32,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.initialize = function () {
+          (a.initialize = function () {
             var e = this;
             (t.prototype.initialize.call(this),
               (this.productCollection = o(
@@ -53,21 +50,14 @@ __d(
               this.triggerProductUpdate(),
               this.listenTo(this.productCollection, "remove", function (t) {
                 return e.triggerProductRemoved(t);
-              }),
-              this.listenTo(
-                o("WAWebChatCollection").ChatCollection,
-                "add",
-                function (t) {
-                  return e.triggerChatAdded(t);
-                },
-              ));
+              }));
           }),
-          (i.triggerProductRemoved = function (t) {
+          (a.triggerProductRemoved = function (t) {
             o(
               "WAWebBizProductMessageListAction",
             ).updateProductListHeaderImageRejected(t, this.id);
           }),
-          (i.triggerProductUpdate = function () {
+          (a.triggerProductUpdate = function () {
             var e = this;
             this._products != null &&
               (this._products.forEach(function (t) {
@@ -88,23 +78,7 @@ __d(
               }),
               (this._products = void 0));
           }),
-          (i.triggerChatAdded = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                e.id.equals(this.catalogId) &&
-                  (yield o("WAWebBusinessDirectUtils").isCypherNeeded(
-                    this.catalogId,
-                  )) &&
-                  (this.productCollection.reset(),
-                  (this._productsLoadingStatus = new Map()));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getNextProductBatchToLoad = function () {
+          (a.getNextProductBatchToLoad = function () {
             var e = this,
               t = this.getPageSize(),
               n = this._productList.productSections
@@ -128,24 +102,24 @@ __d(
               n
             );
           }),
-          (i.getPageSize = function () {
+          (a.getPageSize = function () {
             var e = o("WAWebProductTypes").PRODUCT_PAGE_SIZE,
               t = this.getProductSize();
             return t < 3 * e ? t : e * 2;
           }),
-          (i.getProductSize = function () {
+          (a.getProductSize = function () {
             return r("sumBy")(this._productList.productSections, function (e) {
               var t = e.products;
               return t.length;
             });
           }),
-          (i.setProductLoadingStatus = function (t, n) {
+          (a.setProductLoadingStatus = function (t, n) {
             this._productsLoadingStatus.set(t, n);
           }),
-          (i.getProductLoadingStatus = function (t) {
+          (a.getProductLoadingStatus = function (t) {
             return this._productsLoadingStatus.get(t) || "NONE";
           }),
-          (i.getTotalProductsFetchedOrFailed = function () {
+          (a.getTotalProductsFetchedOrFailed = function () {
             return r("countWhere")(
               Array.from(this._productsLoadingStatus),
               function (t) {
@@ -155,19 +129,19 @@ __d(
               },
             );
           }),
-          (i.getProductList = function () {
+          (a.getProductList = function () {
             return this._productList;
           }),
-          (i.getSections = function () {
+          (a.getSections = function () {
             return this._productList.productSections;
           }),
-          (i.getSectionsCount = function () {
+          (a.getSectionsCount = function () {
             return this._productList.productSections.reduce(function (e, t) {
               var n = t.title;
               return n != null && n !== "" ? e + 1 : e;
             }, 0);
           }),
-          (i.isFetching = function () {
+          (a.isFetching = function () {
             var e = !1;
             return (
               this._productsLoadingStatus.forEach(function (t) {
@@ -176,14 +150,14 @@ __d(
               e
             );
           }),
-          (i._getFetchStatus = function (t) {
+          (a._getFetchStatus = function (t) {
             return t.status ===
               o("WAWebProductMessageListConstant").INVALID_PRODUCT_TOKEN ||
               !t.image_cdn_urls
               ? "ERROR"
               : "SUCCESS";
           }),
-          a
+          n
         );
       })(o("WAWebBaseModel").BaseModel);
     ((s.Proxy = "product_list"), (s.idClass = r("WAWebMsgKey")));

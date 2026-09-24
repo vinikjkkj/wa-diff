@@ -62,8 +62,9 @@ __d(
       ) {
         var l = e.msgs.at(i);
         if (l && o("WAWebNotificationHelpers").isMeUserMentionedOrQuoted(l)) {
-          var s = e.getCollection().get(o("WAWebMsgGetters").getSender(l));
-          if (!s || !s.muteExpiration) {
+          var s = o("WAWebMsgGetters").getSender(l),
+            u = s != null ? e.getCollection().get(s) : null;
+          if (!u || !u.muteExpiration) {
             n = !0;
             break;
           }

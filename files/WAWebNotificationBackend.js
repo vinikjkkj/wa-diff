@@ -84,11 +84,13 @@ __d(
         ).WADeviceSwitchNotification)(e),
       );
     }
-    function _() {
+    function _(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
-        new (o("WAWebNotificationsTestNotification").WATestNotification)(),
+        new (o("WAWebNotificationsTestNotification").WATestNotification)({
+          onClick: e,
+        }),
       );
     }
     function f(e) {

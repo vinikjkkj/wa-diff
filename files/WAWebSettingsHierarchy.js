@@ -279,13 +279,7 @@ __d(
             id: "business_tools_business_ai",
             isAvailable:
               t &&
-              o(
-                "WAWebChatAssignmentGatingUtils",
-              ).isBizAIToolsSettingsEnabled() &&
-              (o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent() ||
-                o(
-                  "WAWebChatAssignmentGatingUtils",
-                ).isBizAiWebOnboardingHandoffEnabled()),
+              o("WAWebChatAssignmentGatingUtils").isBizAIToolsSettingsEnabled(),
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsBusinessAITitle(),
             ),

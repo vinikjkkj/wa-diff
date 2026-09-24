@@ -2,9 +2,9 @@ __d(
   "WAWebGroupHistoryShareToggleDefaultAction",
   [
     "Promise",
-    "WAWebDBGroupsGroupMetadata",
     "WAWebGroupHistoryGating",
     "WAWebGroupMetadataCollection",
+    "WAWebPersistAndSyncGroupHistoryToggle",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,9 +17,9 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(e, {
-            shouldDefaultGroupHistoryShareOn: t,
-          }),
+          (yield o(
+            "WAWebPersistAndSyncGroupHistoryToggle",
+          ).persistAndSyncGroupHistoryToggle(e, t),
             (n = r("WAWebGroupMetadataCollection").get(e)) == null ||
               n.set({ shouldDefaultGroupHistoryShareOn: t }));
         })),

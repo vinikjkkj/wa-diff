@@ -14,7 +14,16 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_MODAL,
       });
     }
-    function s(e) {
+    function s(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        bbTier: n,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
+        userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_QR,
+      });
+    }
+    function u(e) {
       var t = e.bbTier,
         n = e.entryPoint,
         r = e.log;
@@ -27,7 +36,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT,
       });
     }
-    function u(e, t, n, r) {
+    function c(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         bbTier: r,
@@ -38,7 +47,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_SUCCESS,
       });
     }
-    function c(e, t, n, r, a, i) {
+    function d(e, t, n, r, a, i) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         bbTier: i,
@@ -52,7 +61,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_FAILED,
       });
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         bbTier: n,
@@ -62,7 +71,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_DISMISS,
       });
     }
-    function m(e, t, n, r) {
+    function p(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         bbTier: r,
@@ -73,11 +82,12 @@ __d(
       });
     }
     ((l.tosNuxViewed = e),
-      (l.tosNuxAcceptClicked = s),
-      (l.tosNuxAcceptSuccess = u),
-      (l.tosNuxAcceptFailed = c),
-      (l.tosNuxDismissClicked = d),
-      (l.tosNuxLinkClicked = m));
+      (l.tosNuxQrViewed = s),
+      (l.tosNuxAcceptClicked = u),
+      (l.tosNuxAcceptSuccess = c),
+      (l.tosNuxAcceptFailed = d),
+      (l.tosNuxDismissClicked = m),
+      (l.tosNuxLinkClicked = p));
   },
   98,
 );

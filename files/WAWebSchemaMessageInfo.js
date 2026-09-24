@@ -24,7 +24,7 @@ __d(
         ])
         .version(
           o("WAWebModelStorageVersions").messageInfoAddDeliveryPrivacyMode(),
-          [n("deliveryPrivacyMode")],
+          [n("deliveryPrivacyMode"), n("hasAdditionalRetryTargets")],
         )
         .view(function (e) {
           return e;

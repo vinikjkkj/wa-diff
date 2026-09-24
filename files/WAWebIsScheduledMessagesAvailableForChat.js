@@ -1,6 +1,7 @@
 __d(
   "WAWebIsScheduledMessagesAvailableForChat",
   [
+    "WAWebABProps",
     "WAWebBizCoexUtils",
     "WAWebChatGetters",
     "WAWebFrontendChatGetters",
@@ -23,9 +24,9 @@ __d(
     function s(t) {
       return (
         e(t) &&
-        o(
-          "WAWebScheduledMessagesGatingUtils",
-        ).isScheduledMessagesPhotoVideoSenderEnabled()
+        o("WAWebABProps").getABPropConfigValue(
+          "scheduled_messages_photo_video_sender_enabled",
+        )
       );
     }
     ((l.isScheduledMessagesAvailableForChat = e),

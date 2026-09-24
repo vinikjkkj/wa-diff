@@ -37,7 +37,9 @@ __d(
     }
     function p() {
       if (
-        !o("WAWebUsernameGatingUtils").usernameUnknownUserLoggingEnabled() ||
+        !o("WAWebABProps").getABPropConfigValue(
+          "username_unknown_user_logging_enabled",
+        ) ||
         !o(
           "WAWebUsernameGatingUtils",
         ).usernameAdoptionAndEngagementMonitoringEnabled()

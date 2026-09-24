@@ -16,13 +16,11 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return typeof e == "string" ? e : e.toString();
-    }
-    var c = /^change:/,
-      d = {},
-      m = (function (t) {
+    var e,
+      s,
+      u = /^change:/,
+      c = {},
+      d = (function (t) {
         function a(e, n) {
           var r;
           if (
@@ -45,7 +43,7 @@ __d(
           var a = r.__defaults,
             i = a ? babelHelpers.extends({}, a, e) : e;
           return (
-            i && !_(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
+            i && !p(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
             r.initialize(),
             (r.__initialized = !0),
             r
@@ -154,7 +152,7 @@ __d(
               ? this._set({ keyOrAttrs: a, maybeOptions: s, valueOrOptions: i })
               : ((s = i),
                 (t = s) != null && t.merge
-                  ? this._set({ keyOrAttrs: f(a), valueOrOptions: s })
+                  ? this._set({ keyOrAttrs: _(a), valueOrOptions: s })
                   : this._set({ keyOrAttrs: a, valueOrOptions: s }));
           }),
           (i._markChange = function (t, n) {
@@ -341,17 +339,17 @@ __d(
           }),
           (i._getCachedEventBubblingHandler = function (t) {
             return function (e, n, r) {
-              c.test(e)
+              u.test(e)
                 ? this.trigger("change:" + t + "." + e.split(":")[1], n, r)
                 : e === "change" && this.trigger("change", this);
             }.bind(this);
           }),
           (i._getUnboundCachedEventBubblingHandler = function (t) {
             var e;
-            return (e = d[t]) != null
+            return (e = c[t]) != null
               ? e
-              : (d[t] = function (e, n, r) {
-                  c.test(e)
+              : (c[t] = function (e, n, r) {
+                  u.test(e)
                     ? this.trigger("change:" + t + "." + e.split(":")[1], n, r)
                     : e === "change" && this.trigger("change", this);
                 });
@@ -366,9 +364,9 @@ __d(
           a
         );
       })(r("WAWebEventEmitter"));
-    function p(e) {
+    function m(e) {
       var t = o("WAWebModelUtils").convert(e),
-        n = o("WAWebModelUtils").stateExtend(m, t);
+        n = o("WAWebModelUtils").stateExtend(d, t);
       if (e.Proxy) {
         var r = o("WAWebBaseMirror").genMirrorMask(t);
         ((n.prototype.mirrorMask = r),
@@ -377,11 +375,11 @@ __d(
       }
       return n;
     }
-    function _(e) {
+    function p(e) {
       for (var t in e) if (Object.hasOwn(e, t)) return !1;
       return !0;
     }
-    function f(e) {
+    function _(e) {
       for (var t = Object.keys(e), n = t.length, r = {}, o = 0; o < n; o++) {
         var a = t[o];
         e[a] !== void 0 && (r[a] = e[a]);
@@ -393,9 +391,8 @@ __d(
       (l.derived = s.derived),
       (l.getter = s.getter),
       (l.collection = s.collection),
-      (l.idTypeToString = u),
-      (l.BaseModel = m),
-      (l.defineModel = p));
+      (l.BaseModel = d),
+      (l.defineModel = m));
   },
   98,
 );

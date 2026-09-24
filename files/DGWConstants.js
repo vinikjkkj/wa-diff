@@ -157,6 +157,7 @@ __d(
       HEADER_DGW_VERSION: "x-dgw-version",
       HEADER_LOGGING_ID: "x-dgw-loggingid",
       HEADER_REGIONHINT: "x-dgw-regionhint",
+      HEADER_REQUESTED_SUBJECT_ID: "x-dgw-requested-subjectid",
       HEADER_TARGET_TIER: "x-dgw-tier",
       HEADER_UUID: "x-dgw-uuid",
       HEADER_WS_COMPRESSION: "x-dgw-ws-compression",

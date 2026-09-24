@@ -362,7 +362,7 @@ __d(
       c === void 0 && (c = !0);
       var m = o("WAWebStateUtils").unproxy(t),
         p = self.performance.now();
-      (s === "after"
+      s === "after"
         ? ((i.msgLoadState.isLoadingRecentMsgs = !0),
           (u.webcMessageQueryType = o(
             "WAWebWamEnumWebcMessageQueryDirection",
@@ -376,13 +376,13 @@ __d(
             ((i.msgLoadState.isLoadingAroundMsgs = !0),
             (u.webcMessageQueryType = o(
               "WAWebWamEnumWebcMessageQueryDirection",
-            ).WEBC_MESSAGE_QUERY_DIRECTION.LOAD_AROUND)),
-        (u.webcBrowserNetworkType =
-          o("WAWebNetworkType").getEffectiveNetworkType()),
+            ).WEBC_MESSAGE_QUERY_DIRECTION.LOAD_AROUND));
+      var _ = o("WAWebNetworkType").getEffectiveNetworkType();
+      (_ != null && (u.webcBrowserNetworkType = _),
         (u.webcChatType = m.getWebcChatType()),
         typeof m.initialIndex == "number" &&
           (u.webcChatPosition = m.initialIndex));
-      var _ = r("WARaceSignal")(
+      var g = r("WARaceSignal")(
         [d, m.getDeleteSignal()].filter(Boolean),
         function (t) {
           return o("WAPromiseLoop").promiseLoop(
@@ -483,11 +483,11 @@ __d(
         );
       return (
         s === "after"
-          ? (i.loadRecentPromise = _)
+          ? (i.loadRecentPromise = g)
           : s === "before"
-            ? (i.loadEarlierPromise = _)
-            : s === "around" && (i.loadAroundPromise = _),
-        _
+            ? (i.loadEarlierPromise = g)
+            : s === "around" && (i.loadAroundPromise = g),
+        g
       );
     }
     function E(e, t, n) {

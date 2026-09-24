@@ -46,6 +46,7 @@ __d(
     "WAWebQuarantineDataCleanupJob",
     "WAWebQuickPromotionGating",
     "WAWebReportDbVerionsJob",
+    "WAWebReportingTokenConstants",
     "WAWebRestartRecentSyncJob",
     "WAWebScheduledMessagesGatingUtils",
     "WAWebScheduledMsgOrphanRevealKeyStore",
@@ -738,12 +739,20 @@ __d(
                                                     ).asyncToGenerator(
                                                       function* () {
                                                         try {
+                                                          var e;
                                                           (yield o(
                                                             "WAWebDBReportingTokenUtils",
                                                           ).cleanupReportingTable(
-                                                            o(
-                                                              "WAWebMessagingGatingUtils",
-                                                            ).getReportingTagCleanupDays(),
+                                                            (e = o(
+                                                              "WAWebABProps",
+                                                            ).getABPropConfigValue(
+                                                              "rt_clean_reporting_tag",
+                                                            )) != null
+                                                              ? e
+                                                              : o(
+                                                                  "WAWebReportingTokenConstants",
+                                                                )
+                                                                  .DEFAULT_RT_CLEANUP_OLDER_THAN_DAYS,
                                                           ),
                                                             yield o(
                                                               "WAWebDBReportingTokenUtils",

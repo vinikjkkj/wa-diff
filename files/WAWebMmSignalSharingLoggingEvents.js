@@ -1,6 +1,7 @@
 __d(
   "WAWebMmSignalSharingLoggingEvents",
   [
+    "WAWebABProps",
     "WAWebBlockContants",
     "WAWebHandleMsgTypes.flow",
     "WAWebMmSignalSharingConversationCounters",
@@ -590,9 +591,9 @@ __d(
           a === 0
         )
       ) {
-        var u = o(
-          "WAWebMmSignalSharingGatingUtils",
-        ).getMmSignalSharingPostDcDepthLimit();
+        var u = o("WAWebABProps").getABPropConfigValue(
+          "mm_1pd_post_dc_depth_limit",
+        );
         if (!(u > 0 && a > u)) {
           var c = {
             mmConversationDepth: a,

@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "android",
-      s = 1,
+      s = 2,
       u = 500,
       c = 6,
       d = "tablet",
@@ -52,7 +52,7 @@ __d(
     }
     function S(t, n, r, a) {
       var i = o("WAWebUA").parseUA(t);
-      if (i.os !== e || !A(i.osVersion)) return null;
+      if (i.os !== e || !F(i.osVersion)) return null;
       var l = i.parser.getDevice();
       return P(
         l.type,
@@ -82,7 +82,7 @@ __d(
       if (
         b ||
         o("WAWebUA").UA.os !== e ||
-        !A(o("WAWebUA").UA.osVersion) ||
+        !F(o("WAWebUA").UA.osVersion) ||
         ((t = self.navigator.userAgentData) == null ? void 0 : t.mobile) === !0
       )
         return !1;
@@ -102,7 +102,7 @@ __d(
         i &&
         l &&
         !o("WAWebUA").UA.isOculusBrowser &&
-        !O(o("WAWebUA").UA.parser.getUA(), a.vendor, a.model)
+        !B(o("WAWebUA").UA.parser.getUA(), a.vendor, a.model)
       );
     }
     function k() {
@@ -151,10 +151,10 @@ __d(
       );
     }
     function P(e, t, n, r, o, a, i, l) {
-      var u = F(o),
+      var u = O(o),
         c = u ? o : a == null ? void 0 : a.trim(),
         d = M(e, n, c, i, l);
-      return d == null || t || !F(c) || O(n, r, c)
+      return d == null || t || !O(c) || B(n, r, c)
         ? null
         : {
             detectionSource: d,
@@ -169,9 +169,7 @@ __d(
       if (r === !0 || /\bmobile\b/i.test(t)) return null;
       var a = w(o);
       return a !== "unavailable"
-        ? a === "tablet"
-          ? "ua_ch_form_factor"
-          : null
+        ? A(a, r)
         : r === !1
           ? "ua_ch_mobile_false"
           : e === d
@@ -196,16 +194,25 @@ __d(
           ? "phone"
           : t.has("tablet")
             ? "tablet"
-            : "non_handheld";
+            : t.has("desktop")
+              ? "desktop"
+              : "non_handheld";
     }
-    function A(e) {
-      return parseInt(e, 10) >= c;
+    function A(e, t) {
+      return e === "tablet"
+        ? "ua_ch_form_factor"
+        : e === "desktop" && t === !1
+          ? "ua_ch_mobile_false"
+          : null;
     }
     function F(e) {
+      return parseInt(e, 10) >= c;
+    }
+    function O(e) {
       var t = e == null ? void 0 : e.trim().toLowerCase();
       return t != null && !_.has(t);
     }
-    function O(e, t, n) {
+    function B(e, t, n) {
       var r,
         o = e.toLowerCase(),
         a = (r = t == null ? void 0 : t.toLowerCase()) != null ? r : "",

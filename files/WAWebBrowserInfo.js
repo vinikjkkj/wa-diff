@@ -15,15 +15,13 @@ __d(
       var e = o("WAWebUA").UA.parser.getResult();
       if (e != null && e.browser.name === "Chrome") {
         var t,
-          n =
-            (t = self.navigator) == null || (t = t.userAgentData) == null
-              ? void 0
-              : t.brands;
-        if (n != null) {
-          var r = n.some(function (e) {
+          n = self.navigator,
+          r = n == null || (t = n.userAgentData) == null ? void 0 : t.brands;
+        if (r != null) {
+          var a = r.some(function (e) {
             return e.brand === "Microsoft Edge";
           });
-          r && (e.browser.name = "Edge");
+          a && (e.browser.name = "Edge");
         }
       }
       return e;

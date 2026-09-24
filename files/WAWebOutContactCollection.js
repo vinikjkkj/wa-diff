@@ -101,14 +101,6 @@ __d(
               },
             };
           }),
-          (r.searchOutContactsFuzzy = function (t) {
-            var e = this,
-              n = t.query,
-              r = t.signal;
-            return o("WAWebSlicedMatcher").searchFuzzyAsync(function () {
-              return e.$OutContactCollectionImpl$p_1(n);
-            }, r);
-          }),
           (r.searchOutContacts = function (t) {
             var e = t.query,
               n = t.skipFuzzySearch,

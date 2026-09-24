@@ -12,6 +12,13 @@ __d(
         {
           alias: null,
           args: null,
+          kind: "ScalarField",
+          name: "boosting_status_display_text",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
           concreteType: null,
           kind: "LinkedField",
           name: "spec",

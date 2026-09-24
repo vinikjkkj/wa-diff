@@ -217,12 +217,7 @@ __d(
           )
         : !1;
     }
-    function x() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "mm_1pd_post_dc_depth_limit",
-      );
-    }
-    function $(e, t) {
+    function x(e, t) {
       var n = y(),
         r = n.consented_types_allowlist,
         o = n.non_consented_types_allowlist;
@@ -250,8 +245,7 @@ __d(
       (l.isMmSignalSharingAppCtaEnabled = I),
       (l.isMmSignalSharingPostDcNewSchemaEnabled = T),
       (l.isMmSignalSharingPostDcOldSchemaEnabled = D),
-      (l.getMmSignalSharingPostDcDepthLimit = x),
-      (l.isSignalTypeAllowlisted = $));
+      (l.isSignalTypeAllowlisted = x));
   },
   98,
 );

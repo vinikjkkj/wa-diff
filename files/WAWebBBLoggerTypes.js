@@ -165,6 +165,7 @@ __d(
         TOS_NUX_DISMISS: "tos_nux_dismiss",
         TOS_NUX_LINK: "tos_nux_link",
         TOS_NUX_MODAL: "tos_nux_modal",
+        TOS_NUX_QR: "tos_nux_qr",
         TOS_REVIEW_BANNER: "tos_review_banner",
         UNDO_RENAME_AUDIENCE: "undo_rename_audience",
         UNDO_RENAME_BROADCAST: "undo_rename_broadcast",

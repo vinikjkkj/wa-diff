@@ -12,9 +12,9 @@ __d(
       return t && t[1].toLowerCase();
     }
     function m(e, t) {
-      var n = u;
       u || s(0, 5001);
-      var o = d(e),
+      var n = u,
+        o = d(e),
         a = o != null && o !== "" ? r("getMarkupWrap")(o) : null;
       if (a != null) {
         n.innerHTML = a[1] + e + a[2];

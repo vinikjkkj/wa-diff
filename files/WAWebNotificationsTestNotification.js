@@ -9,8 +9,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
-      function t() {
-        return e.apply(this, arguments) || this;
+      function t(t) {
+        var n,
+          r = t === void 0 ? {} : t,
+          o = r.onClick;
+        return ((n = e.call(this) || this), (n.$WATestNotification$p_1 = o), n);
       }
       babelHelpers.inheritsLoose(t, e);
       var r = t.prototype;
@@ -41,6 +44,7 @@ __d(
             title: e,
             body: t,
             doNotOpenChat: !0,
+            onClick: this.$WATestNotification$p_1,
           };
         }),
         t

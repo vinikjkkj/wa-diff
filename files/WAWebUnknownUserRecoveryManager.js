@@ -34,7 +34,9 @@ __d(
           var r = o("WATimeUtils").unixTime();
           o("WAWebUnknownUserRecoveryStore").tryReserveUsyncFetch(
             n,
-            o("WAWebUsernameGatingUtils").unknownUserUsyncRequestCoolDownSecs(),
+            o("WAWebABProps").getABPropConfigValue(
+              "unknown_user_usync_request_cool_down",
+            ),
             r,
           ) && (d.add(n), y(n, r));
         }

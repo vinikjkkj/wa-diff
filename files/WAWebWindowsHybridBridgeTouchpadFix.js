@@ -1,42 +1,32 @@
 __d(
   "WAWebWindowsHybridBridgeTouchpadFix",
-  [
-    "WAWebDebounce",
-    "WAWebODS",
-    "WAWebWindowsHybridBridgeTrace",
-    "WAWebWindowsHybridFlowHelpers",
-  ],
+  ["WAWebDebounce", "WAWebODS", "WAWebWindowsHybridBridgeTrace"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
         var t = this;
         ((this.$2 = r("WAWebDebounce")(function (e) {
           if (!(e.deltaX <= 0)) {
-            for (
-              var n = e.target,
-                r =
-                  n != null
-                    ? o(
-                        "WAWebWindowsHybridFlowHelpers",
-                      ).unsafeCastDocumentWheelEventTargetToElement(n, t)
-                    : null,
-                a = !1,
-                i = 0;
-              r && r !== document.body && i < 3;
-            ) {
-              var l = self.getComputedStyle(r);
-              if (
-                (l.overflowX === "auto" || l.overflowX === "scroll") &&
-                r.scrollWidth > r.clientWidth
+            var n = e.target;
+            if (n instanceof Element) {
+              for (
+                var r = n, o = !1, a = 0;
+                r && r !== document.body && a < 3;
               ) {
-                a = !0;
-                break;
+                var i = self.getComputedStyle(r);
+                if (
+                  (i.overflowX === "auto" || i.overflowX === "scroll") &&
+                  r.scrollWidth > r.clientWidth
+                ) {
+                  o = !0;
+                  break;
+                }
+                var l = r.parentElement;
+                if (!l) break;
+                ((r = l), a++);
               }
-              var s = r.parentElement;
-              if (!s) break;
-              ((r = s), i++);
+              o || t.interruptManipulations();
             }
-            a || t.interruptManipulations();
           }
         }, 500)),
           (this.$1 = e));

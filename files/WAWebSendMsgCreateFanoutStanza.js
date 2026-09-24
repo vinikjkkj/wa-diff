@@ -316,67 +316,75 @@ __d(
                         P === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
                           (G = !0);
                         var N = o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(
-                            $,
-                          )
-                            ? !0
-                            : void 0,
-                          w = o("WAWap").wap(
-                            "enc",
-                            {
-                              v: o("WAWap").CUSTOM_STRING(
-                                o(
-                                  "WAWebBackendJobsCommon",
-                                ).CIPHERTEXT_VERSION.toString(),
-                              ),
-                              type: o("WAWap").CUSTOM_STRING(P),
-                              session_type: N
-                                ? o("WAWap").CUSTOM_STRING("pq")
-                                : o("WAWap").DROP_ATTR,
-                              state:
-                                S &&
-                                P ===
-                                  o("WAWebBackendJobs.flow").CiphertextType
-                                    .Pkmsg
-                                  ? o("WAWap").CUSTOM_STRING("false")
-                                  : o("WAWap").DROP_ATTR,
-                              mediatype: o(
-                                "WAWebBackendJobsCommon",
-                              ).encodeMaybeMediaType(v),
-                              "decrypt-fail": o(
-                                "WAWebBackendJobsCommon",
-                              ).encodeMaybeDecryptFail(
-                                o(
-                                  "WAWebE2EProtoUtils",
-                                ).decryptFailAttributeFromProtobuf(i),
-                              ),
-                              native_flow_name: o(
-                                "WAWebBackendJobsCommon",
-                              ).encodeMaybeNativeFlowName(L),
+                          $,
+                        )
+                          ? !0
+                          : void 0;
+                        if (M && n.isFbidBot())
+                          return {
+                            coexV2AgentCopy: {
+                              agentWid: n,
+                              encType: P,
+                              sharedEnc: o(
+                                "WAWebCoexV2SendContribution",
+                              ).genCoexV2AgentSharedEncNode({
+                                ciphertext: $,
+                                mediaType: v,
+                                msgProtobuf: i,
+                                retryCount: 0,
+                                type: P,
+                                useStatelessSession: S,
+                              }),
                             },
-                            $,
-                          );
-                        return M && n.isFbidBot()
-                          ? {
-                              coexV2AgentCopy: {
-                                agentWid: n,
-                                encType: P,
-                                sharedEnc: w,
-                              },
-                              isPq: N,
-                              node: null,
-                              shouldFanoutToBot: g,
-                            }
-                          : {
-                              deviceEnc: _ ? h(n, $, P) : null,
-                              isPq: N,
-                              shouldFanoutToBot: g,
-                              node: o("WAWap").wap(
-                                "to",
-                                { jid: o("WAWebCommsWapMd").DEVICE_JID(n) },
-                                w,
-                                f,
-                              ),
-                            };
+                            isPq: N,
+                            node: null,
+                            shouldFanoutToBot: g,
+                          };
+                        var w = o("WAWap").wap(
+                          "enc",
+                          {
+                            v: o("WAWap").CUSTOM_STRING(
+                              o(
+                                "WAWebBackendJobsCommon",
+                              ).CIPHERTEXT_VERSION.toString(),
+                            ),
+                            type: o("WAWap").CUSTOM_STRING(P),
+                            session_type: N
+                              ? o("WAWap").CUSTOM_STRING("pq")
+                              : o("WAWap").DROP_ATTR,
+                            state:
+                              S &&
+                              P ===
+                                o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                                ? o("WAWap").CUSTOM_STRING("false")
+                                : o("WAWap").DROP_ATTR,
+                            mediatype: o(
+                              "WAWebBackendJobsCommon",
+                            ).encodeMaybeMediaType(v),
+                            "decrypt-fail": o(
+                              "WAWebBackendJobsCommon",
+                            ).encodeMaybeDecryptFail(
+                              o(
+                                "WAWebE2EProtoUtils",
+                              ).decryptFailAttributeFromProtobuf(i),
+                            ),
+                            native_flow_name: o(
+                              "WAWebBackendJobsCommon",
+                            ).encodeMaybeNativeFlowName(L),
+                          },
+                          $,
+                        );
+                        return {
+                          deviceEnc: _ ? h(n, $, P) : null,
+                          isPq: N,
+                          shouldFanoutToBot: g,
+                          node: o("WAWap").wap(
+                            "to",
+                            { jid: o("WAWebCommsWapMd").DEVICE_JID(n) },
+                            w,
+                            f,
+                          ),
+                        };
                       } catch (e) {
                         if (
                           e instanceof

@@ -47,7 +47,9 @@ __d(
       startVoipCallByWid: function (t) {
         var e = t.isVideo,
           n = t.peerJid;
-        return o("WAWebVoipStartCall").startWAWebVoipCall(n, e);
+        return o("WAWebVoipStartCall").startWAWebVoipCall(n, e, 0, 0, null, {
+          entryTrust: "user_gesture",
+        });
       },
       requestOpenChat: function (t) {
         var e = t.chatJid,

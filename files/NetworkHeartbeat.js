@@ -11,9 +11,10 @@ __d(
       m = null,
       p = !1;
     function _(t, n) {
-      ((m = r("getSameOriginTransport")()),
-        m.open("GET", e, !0),
-        (m.onload = function () {
+      var o = r("getSameOriginTransport")();
+      ((m = o),
+        o.open("GET", e, !0),
+        (o.onload = function () {
           (m && m.status === 204 && (p = !0), g(t));
         }),
         (m.onerror = function () {

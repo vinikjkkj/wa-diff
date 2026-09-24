@@ -18,6 +18,9 @@ __d(
           (t.getApproval = function (t) {
             return this.$1.get(t);
           }),
+          (t.isSettled = function (t) {
+            return this.$3.has(t);
+          }),
           (t.upsertApproval = function (t) {
             this.$3.has(t.approvalId) ||
               (this.$1.set(t.approvalId, t), this.$5());
@@ -50,7 +53,8 @@ __d(
             return a == null ? !1 : (this.$1.set(t, a), this.$5(), !0);
           }),
           (t.settleApproval = function (t) {
-            (this.$3.add(t), this.resolveApproval(t));
+            var e = !this.$3.has(t);
+            (this.$3.add(t), (this.$1.delete(t) || e) && this.$5());
           }),
           (t.subscribe = function (t) {
             var e = this;

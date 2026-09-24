@@ -2,7 +2,6 @@ __d(
   "WAWebGalaxyFlowQPLLoggerUtils",
   [
     "$InternalEnum",
-    "WAWebABProps",
     "WAWebGalaxyFlowWamLoggerUtils",
     "WAWebGalaxyFlowsUtils",
     "WAWebQplFlowWrapper",
@@ -163,9 +162,6 @@ __d(
       );
     }
     function P() {
-      return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");
-    }
-    function N() {
       (g(4), I(4));
     }
     ((l.WaeScreenNavigationQPLPoints = c),
@@ -186,8 +182,7 @@ __d(
       (l.qplAnnotateMetadataSize = D),
       (l.qplBuildAnnotations = x),
       (l.getWaeMetadataAnnotations = $),
-      (l.isGalaxyFlowSanctioned = P),
-      (l.clearAllActiveWaeQPLMarkerInstances = N));
+      (l.clearAllActiveWaeQPLMarkerInstances = P));
   },
   98,
 );

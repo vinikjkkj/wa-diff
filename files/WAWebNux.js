@@ -58,6 +58,7 @@ __d(
       BUSINESS_AI_MESSAGE_EDITING_DISCOVERY_TOOLTIP:
         "business_ai_message_editing_discovery_tooltip",
       BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
+      CALLS_TAB_NOTIFICATIONS_OFF_BANNER: "calls_tab_notifications_off_banner",
     };
     function l(e) {
       return "community_admin_promote_" + e;

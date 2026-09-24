@@ -8,7 +8,7 @@ __d(
     function u(e) {
       var t = [],
         n = [];
-      for (var r of e) r.is_connected ? t.push(r) : n.push(r);
+      for (var r of e) r.isConnected ? t.push(r) : n.push(r);
       return { availableApps: n, connectedApps: t };
     }
     function c(e) {
@@ -19,7 +19,7 @@ __d(
       var t = null;
       for (var n of e)
         if (c(n)) {
-          if (n.is_connected) return n;
+          if (n.isConnected) return n;
           t == null && (t = n);
         }
       return t;

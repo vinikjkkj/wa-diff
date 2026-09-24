@@ -354,6 +354,8 @@ __d(
       AYMT_ADS_RECOMMEND_ADDING_SECOND_PM_TIP:
         "aymt_ads_recommend_adding_second_pm_tip",
       AYMT_REAUTHENTICATE_PLAID_TIP: "aymt_reauthenticate_plaid_tip",
+      AYMT_BILLING_BILLABLE_ACCOUNT_GRACE_PERIOD_UNSETTLED_TIP:
+        "aymt_billing_billable_account_grace_period_unsettled_tip",
       AYMT_BILLING_STATEMENT_READY_TIP: "aymt_billing_statement_ready_tip",
       AYMT_ACCOUNT_UNSETTLED_TIP_WHATS_APP_BUSINESS:
         "aymt_account_unsettled_tip_whats_app_business",

@@ -20,36 +20,32 @@ __d(
       s,
       u,
       c,
-      d = {
-        minTimeout: 5e3,
-        maxTimeout: 3e4,
-        retries: 10,
-        signal: new AbortController().signal,
-      },
+      d = { minTimeout: 5e3, maxTimeout: 3e4, retries: 10 },
       m = 86400 * 1e3,
       p = ["ACTIVE", "FREE_TRIAL", "IN_GRACE_PERIOD"];
-    function _() {
-      return f.apply(this, arguments);
+    function _(e) {
+      return (
+        e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
+        e.statusCode === 500
+      );
     }
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebSubscriptionsGatingUtils").subscriptionFetchEnabled()) {
-            var t = o("WAWebUserPrefsSubscription").getNextSubscriptionQuery();
-            if (t) {
-              var n = t - Date.now();
-              n > 0 && (yield o("WAPromiseDelays").delayMs(n));
-            }
+            var t =
+              o("WAWebUserPrefsSubscription").getNextSubscriptionQuery() -
+              Date.now();
+            t > 0 && (yield o("WAPromiseDelays").delayMs(t));
             try {
               yield o("WAExponentialBackoff").exponentialBackoff(
                 d,
                 function (t, n) {
-                  return L().catch(function (r) {
-                    if (
-                      r instanceof
-                        o("WAWebBackendErrors").ServerStatusCodeError &&
-                      r.statusCode === 500
-                    )
+                  return E().catch(function (r) {
+                    if (_(r))
                       return (
                         o("WALogger").WARN(
                           e ||
@@ -80,10 +76,7 @@ __d(
                   )
                   .verbose()
                   .sendLogs("Subscriptions manager run failed"),
-                !(
-                  e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-                  e.statusCode === 500
-                ))
+                !_(e))
               )
                 return;
             }
@@ -91,24 +84,24 @@ __d(
               Date.now() + m,
             ),
               yield o("WAPromiseDelays").delayMs(m),
-              o("WAWebUserPrefsMeUser").getMaybeMePnUser() && _());
+              o("WAWebUserPrefsMeUser").getMaybeMePnUser() && f());
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          (n === void 0 && (n = "update"), yield b(e, n), yield S(t, n));
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          (n === void 0 && (n = "update"), yield v(e, n), yield R(t, n));
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
+    function C(e) {
       return e.map(function (e) {
         var t,
           n,
@@ -139,7 +132,7 @@ __d(
         );
       });
     }
-    function C(e) {
+    function b(e) {
       return e.map(function (e) {
         var t, n;
         return {
@@ -150,13 +143,13 @@ __d(
         };
       });
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = y(e);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = C(e);
           e: {
             if (t === "update") {
               (yield o("WAWebSchemaSubscription")
@@ -188,15 +181,15 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!o("WAWebSchemaFeatureFlag").isFeatureFlagTableAvailable()) {
             o("WALogger").WARN(
               u ||
@@ -206,7 +199,7 @@ __d(
             );
             return;
           }
-          var n = C(e);
+          var n = b(e);
           e: {
             if (t === "update") {
               (yield o("WAWebSchemaFeatureFlag")
@@ -236,53 +229,54 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L() {
-      return E.apply(this, arguments);
-    }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebUserPrefsMeUser").getMaybeMePnUser()) {
             var e = yield o("WAWebFetchSubscriptions").fetchSubscriptions();
             if (e.type === "success" && e.subscriptions != null) {
               var t;
-              g(
+              h(
                 e.subscriptions,
                 (t = e.featureFlags) != null ? t : [],
                 "rewrite",
               );
-            } else
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "subscription sync: GraphQL fetch failed with type: ",
-                        "",
-                      ])),
-                    e.type,
+              return;
+            }
+            throw (
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "subscription sync: GraphQL fetch failed with type: ",
+                      "",
+                    ])),
+                  e.type,
+                )
+                .verbose()
+                .sendLogs("premium-subscriptions-fetch-error", {
+                  sampling: 0.01,
+                }),
+              e.type === "error" || e.type === "graphql-error"
+                ? new (o("WAWebBackendErrors").ServerStatusCodeError)(500)
+                : r("err")(
+                    "Failed to fetch subscriptions via GraphQL: " + e.type,
                   )
-                  .verbose()
-                  .sendLogs("premium-subscriptions-fetch-error", {
-                    sampling: 0.01,
-                  }),
-                e.type === "error" || e.type === "graphql-error"
-                  ? new (o("WAWebBackendErrors").ServerStatusCodeError)(500)
-                  : r("err")(
-                      "Failed to fetch subscriptions via GraphQL: " + e.type,
-                    )
-              );
+            );
           }
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.runSubscriptionsManager = _),
-      (l.applySubscriptionsAndFeatureFlags = g),
-      (l.query = L));
+    ((l.runSubscriptionsManager = f),
+      (l.applySubscriptionsAndFeatureFlags = h),
+      (l.query = E));
   },
   98,
 );

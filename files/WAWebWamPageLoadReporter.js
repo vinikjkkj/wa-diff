@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebAppScreen",
+    "WAWebAppScreenTypes",
     "WAWebPageLoadLogging",
-    "WAWebStreamModel",
+    "WAWebStreamTypes",
     "WAWebWam",
     "WAWebWamResourceLoadReporter",
     "WAWebWebcPageLoadWamEvent",
@@ -37,31 +37,32 @@ __d(
         });
       }),
       b = !1,
-      v;
-    function S(e, t, n) {
-      R(e);
-      var r = Math.floor(self.performance.now());
-      ((m[e] = r), n && ((m.socketSequence = t), _()));
+      v,
+      S = !1;
+    function R(e, t, n, r) {
+      L(e);
+      var o = r != null ? r : Math.floor(self.performance.now());
+      ((m[e] = o), n && ((m.socketSequence = t), _()));
     }
-    function R(e) {
+    function L(e) {
       e: {
-        if (e === o("WAWebStreamModel").StreamInfo.OPENING) {
+        if (e === o("WAWebStreamTypes").StreamInfo.OPENING) {
           o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_opening");
           break e;
         }
-        if (e === o("WAWebStreamModel").StreamInfo.PAIRING) {
+        if (e === o("WAWebStreamTypes").StreamInfo.PAIRING) {
           o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_pairing");
           break e;
         }
-        if (e === o("WAWebStreamModel").StreamInfo.NORMAL) {
+        if (e === o("WAWebStreamTypes").StreamInfo.NORMAL) {
           o("WAWebPageLoadLogging").addPageLoadQplPoint("webc_ws_normal");
           break e;
         }
         if (
-          e === o("WAWebStreamModel").StreamInfo.OFFLINE ||
-          e === o("WAWebStreamModel").StreamInfo.SYNCING ||
-          e === o("WAWebStreamModel").StreamInfo.RESUMING ||
-          e === o("WAWebStreamModel").StreamInfo.CONNECTING
+          e === o("WAWebStreamTypes").StreamInfo.OFFLINE ||
+          e === o("WAWebStreamTypes").StreamInfo.SYNCING ||
+          e === o("WAWebStreamTypes").StreamInfo.RESUMING ||
+          e === o("WAWebStreamTypes").StreamInfo.CONNECTING
         )
           break e;
         throw Error(
@@ -70,37 +71,37 @@ __d(
         );
       }
     }
-    function L(e) {
+    function E(e) {
       (o("WAWebPageLoadLogging").addPageLoadQplPoint(
         "webc_initial_panel_mount_t",
       ),
         (d = e));
     }
-    function E(e) {
+    function k(e) {
       c != null && c.set({ webcInitialPanel: e });
     }
-    function k() {
+    function I() {
       p();
     }
     (window.document &&
       ((v = !document.hidden),
-      document.addEventListener("visibilitychange", T)),
+      document.addEventListener("visibilitychange", D)),
       u.all([y, C]).then(function () {
-        (D(),
+        (x(),
           r("WAWebWamResourceLoadReporter")(),
           b || ((b = !0), o("WAWebWam").Wam.resumeJobs()));
       }));
-    function I(e) {
+    function T(e) {
       return !self.performance ||
         !self.performance.timing ||
         !self.performance.timing.navigationStart
         ? null
         : e - self.performance.timing.navigationStart;
     }
-    function T() {
+    function D() {
       c && document.hidden && (v = !1);
     }
-    function D() {
+    function x() {
       var t;
       if (
         !(
@@ -130,12 +131,12 @@ __d(
               "MetricReporter:logPageLoad delayed",
             ])),
         ),
-          self.setTimeout(D, 1e4));
+          self.setTimeout(x, 1e4));
         return;
       }
       function p(e) {
         var t = a[e];
-        return t && I(t);
+        return t && T(t);
       }
       (r.set({
         webcPageLoadT: u,
@@ -175,12 +176,12 @@ __d(
         webcLoadInForeground: v,
         webcPageLoadId: o("WAWebPageLoadLogging").getPageLoadId(),
       }),
-        x(r),
-        r.commit(),
-        window.document && document.removeEventListener("visibilitychange", T),
+        $(r),
+        S ? r.commitAndWaitForFlush(!0) : r.commit(),
+        window.document && document.removeEventListener("visibilitychange", D),
         (c = null));
     }
-    function x(e) {
+    function $(e) {
       var t;
       ((t = o("WAWebPageLoadLogging")).addPageLoadValidationData(
         "webc_ws_opening",
@@ -201,7 +202,7 @@ __d(
         }),
         t.setWamCompleteForValidation());
     }
-    var $ = (function () {
+    var P = (function () {
       function e(e) {
         ((this.$4 = !1),
           (this.$3 = e.label),
@@ -210,14 +211,18 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.start = function () {
+        (t.start = function (t) {
           var e;
           ((this.$4 = !0),
-            c != null && c.set(((e = {}), (e[this.$1] = I(Date.now())), e)));
+            c != null &&
+              c.set(
+                ((e = {}), (e[this.$1] = T(t != null ? t : Date.now())), e),
+              ));
         }),
-        (t.end = function () {
+        (t.end = function (t) {
           var e;
-          c != null && c.set(((e = {}), (e[this.$2] = I(Date.now())), e));
+          c != null &&
+            c.set(((e = {}), (e[this.$2] = T(t != null ? t : Date.now())), e));
         }),
         (t.hasStarted = function () {
           return this.$4;
@@ -225,57 +230,96 @@ __d(
         e
       );
     })();
-    function P(e) {
-      W.hasStarted() ||
-        (N(e) &&
-          (E(e),
-          W.start(),
+    function N(e, t) {
+      if (!U.hasStarted() && M(e)) {
+        if (
+          (k(e),
+          U.start(t == null ? void 0 : t.mountEpochMs),
           o("WAWebPageLoadLogging").addPageLoadQplPoint(
             "webc_initial_panel_mount_start_t",
           ),
-          window.requestAnimationFrame(function () {
-            (W.end(),
-              o("WAWebPageLoadLogging").addPageLoadQplPoint(
-                "webc_initial_panel_render_t",
-              ),
-              A("initialPanelRenderTRecorded"));
-          })));
+          (t == null ? void 0 : t.renderEpochMs) != null)
+        ) {
+          (U.end(t.renderEpochMs),
+            o("WAWebPageLoadLogging").addPageLoadQplPoint(
+              "webc_initial_panel_render_t",
+            ),
+            F("initialPanelRenderTRecorded"));
+          return;
+        }
+        window.requestAnimationFrame(function () {
+          (U.end(),
+            o("WAWebPageLoadLogging").addPageLoadQplPoint(
+              "webc_initial_panel_render_t",
+            ),
+            F("initialPanelRenderTRecorded"));
+        });
+      }
     }
-    function N(e) {
-      return e !== o("WAWebAppScreen").AppScreen.SYNCING;
+    function M(e) {
+      return e !== o("WAWebAppScreenTypes").AppScreen.SYNCING;
     }
-    var M = !1,
-      w = !1;
-    function A(e) {
-      (e === "initialPanelMountTRecorded" && (M = !0),
-        e === "initialPanelRenderTRecorded" && (w = !0),
-        M && w && k());
+    var w = !1,
+      A = !1;
+    function F(e) {
+      (e === "initialPanelMountTRecorded" && (w = !0),
+        e === "initialPanelRenderTRecorded" && (A = !0),
+        w && A && I());
     }
-    var F = r("once")(function () {
-        (L(Date.now()), A("initialPanelMountTRecorded"));
-      }),
-      O = new $({
+    var O = r("once")(function (e) {
+      (E(e != null ? e : Date.now()), F("initialPanelMountTRecorded"));
+    });
+    function B(e, t) {
+      S = !0;
+      var n = typeof t == "number" ? t : void 0,
+        r = t != null && typeof t != "number" ? t : void 0;
+      e: {
+        if (e === "qr_mount") {
+          (N(o("WAWebAppScreenTypes").AppScreen.QR, r),
+            O(r == null ? void 0 : r.mountEpochMs));
+          break e;
+        }
+        if (e === "ws_opening") {
+          R(o("WAWebStreamTypes").StreamInfo.OPENING, 1, !1, n);
+          break e;
+        }
+        if (e === "ws_pairing") {
+          R(o("WAWebStreamTypes").StreamInfo.PAIRING, 1, !1, n);
+          break e;
+        }
+        if (e === "ws_normal") {
+          R(o("WAWebStreamTypes").StreamInfo.NORMAL, 1, !0, n);
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    var W = new P({
         label: "PageLoad.webcExe",
         startProperty: "webcExeStart",
         endProperty: "webcExeDone",
       }),
-      B = new $({
+      q = new P({
         label: "PageLoad.webcMainScript",
         startProperty: "webcMainScriptStart",
         endProperty: "webcMainScriptEnd",
       }),
-      W = new $({
+      U = new P({
         label: "PageLoad.webcInitialPanelRender",
         startProperty: "webcInitialPanelMountStartT",
         endProperty: "webcInitialPanelRenderT",
       });
     ((l.getWamPageLoadTimingCompletion = h),
-      (l.streamInfoChange = S),
-      (l.logWamPageLoad = D),
-      (l.maybeLogInitialScreenRenderStart = P),
-      (l.logFirstRenderMountTimeOnce = F),
-      (l.exeTimer = O),
-      (l.mainScriptTimer = B));
+      (l.streamInfoChange = R),
+      (l.logWamPageLoad = x),
+      (l.maybeLogInitialScreenRenderStart = N),
+      (l.logFirstRenderMountTimeOnce = O),
+      (l.reportLoggedOutPageLoadStage = B),
+      (l.exeTimer = W),
+      (l.mainScriptTimer = q));
   },
   98,
 );

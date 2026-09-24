@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebAppMutex",
-    "WAWebAppScreen",
+    "WAWebAppScreenTypes",
     "WAWebBizBroadcastProDownloadProgressHost.react",
     "WAWebConflict.react",
     "WAWebConnModel",
@@ -46,7 +46,7 @@ __d(
         m = e.state,
         p = d;
       switch (d) {
-        case o("WAWebAppScreen").AppScreen.ANOTHER_SESSION: {
+        case o("WAWebAppScreenTypes").AppScreen.ANOTHER_SESSION: {
           var _, f;
           m.takingOver
             ? ((_ = r("WAWebNoop")), (f = s._(/*BTDS*/ "Connecting\u2026")))
@@ -79,7 +79,7 @@ __d(
             requiresBackendCheck: !1,
           };
         }
-        case o("WAWebAppScreen").AppScreen.CALL_TAKEOVER_PREVENTION: {
+        case o("WAWebAppScreenTypes").AppScreen.CALL_TAKEOVER_PREVENTION: {
           var h = window.open.bind(
             window,
             "https://www.whatsapp.com/",
@@ -107,7 +107,7 @@ __d(
             requiresBackendCheck: !1,
           };
         }
-        case o("WAWebAppScreen").AppScreen.SERVICE_UNAVAILABLE:
+        case o("WAWebAppScreenTypes").AppScreen.SERVICE_UNAVAILABLE:
           return {
             appScreenUI: [
               {
@@ -119,7 +119,7 @@ __d(
             ],
             requiresBackendCheck: !1,
           };
-        case o("WAWebAppScreen").AppScreen.TEMP_BAN:
+        case o("WAWebAppScreenTypes").AppScreen.TEMP_BAN:
           return {
             appScreenUI: [
               {
@@ -131,7 +131,7 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.QR:
+        case o("WAWebAppScreenTypes").AppScreen.QR:
           return {
             appScreenUI: [
               {
@@ -174,8 +174,8 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.STARTUP:
-        case o("WAWebAppScreen").AppScreen.SYNCING:
+        case o("WAWebAppScreenTypes").AppScreen.STARTUP:
+        case o("WAWebAppScreenTypes").AppScreen.SYNCING:
           return n("cr:11133") != null && n("cr:11133")()
             ? { appScreenUI: [], requiresBackendCheck: !0 }
             : {
@@ -192,7 +192,7 @@ __d(
                 ],
                 requiresBackendCheck: !0,
               };
-        case o("WAWebAppScreen").AppScreen.OFFLINE:
+        case o("WAWebAppScreenTypes").AppScreen.OFFLINE:
           return {
             appScreenUI: [
               {
@@ -204,7 +204,7 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.PROXYBLOCK:
+        case o("WAWebAppScreenTypes").AppScreen.PROXYBLOCK:
           return {
             appScreenUI: [
               {
@@ -216,7 +216,7 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.CONFLICT:
+        case o("WAWebAppScreenTypes").AppScreen.CONFLICT:
           return {
             appScreenUI: [
               {
@@ -240,11 +240,11 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.TOS_BLOCK:
+        case o("WAWebAppScreenTypes").AppScreen.TOS_BLOCK:
           return { appScreenUI: [], requiresBackendCheck: !0 };
-        case o("WAWebAppScreen").AppScreen.SMB_TOS_BLOCK:
+        case o("WAWebAppScreenTypes").AppScreen.SMB_TOS_BLOCK:
           return { appScreenUI: [], requiresBackendCheck: !0 };
-        case o("WAWebAppScreen").AppScreen.LOGOUT:
+        case o("WAWebAppScreenTypes").AppScreen.LOGOUT:
           return {
             appScreenUI: [
               {
@@ -266,7 +266,7 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.SCREEN_LOCK:
+        case o("WAWebAppScreenTypes").AppScreen.SCREEN_LOCK:
           return {
             appScreenUI: [
               {
@@ -276,7 +276,7 @@ __d(
             ],
             requiresBackendCheck: !0,
           };
-        case o("WAWebAppScreen").AppScreen.MAIN: {
+        case o("WAWebAppScreenTypes").AppScreen.MAIN: {
           var y,
             C,
             b = r("nullthrows")(t),

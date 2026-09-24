@@ -175,7 +175,9 @@ __d(
                       "MediaCapture: permission already denied, fast-failing",
                     ])),
                 ),
-                new (o("WAWebGetUserMediaErrors").NotAllowedError)()
+                new (o("WAWebGetUserMediaErrors").NotAllowedError)(
+                  "Permissions API reports denied",
+                )
               );
             return r("WARetryPromise")(function (e) {
               var t = e.failCount,
@@ -216,9 +218,9 @@ __d(
             });
           })()
           .catch(function (e) {
-            var t = e instanceof Error ? (e == null ? void 0 : e.name) : e,
+            var t = e instanceof Error ? e.name : e,
               n = _[t] || o("WAWebGetUserMediaErrors").GetUserMediaError;
-            throw new n();
+            throw new n(e instanceof Error ? e.message : void 0);
           })
           .finally($);
       return {

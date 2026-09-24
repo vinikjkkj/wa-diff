@@ -16,7 +16,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
-    "WAWebNotificationConstants",
+    "WAWebNotificationPermission",
     "WAWebOfflineHandler",
     "WAWebParticipantListUtils",
     "WAWebQuotedMsgModelUtils",
@@ -113,10 +113,9 @@ __d(
         return !1;
       if (!o("WAWebChatGetters").getIsGroup(t)) return !0;
       if (g(e)) {
-        var n = o("WAWebChatCollection").ChatCollection.get(
-          o("WAWebMsgGetters").getSender(e),
-        );
-        return n != null && o("WAWebMuteGetters").getIsMuted(n.mute) === !0;
+        var n = o("WAWebMsgGetters").getSender(e),
+          a = n != null ? o("WAWebChatCollection").ChatCollection.get(n) : null;
+        return a != null && o("WAWebMuteGetters").getIsMuted(a.mute) === !0;
       }
       return !0;
     }
@@ -193,21 +192,16 @@ __d(
       return !0;
     }
     function S(e) {
-      var t,
-        n = o("WAWebABProps").getABPropConfigValue(
-          "wa_web_enable_granular_notifications",
-        );
-      if (
-        !r("WAWebEnvironment").isWindows &&
-        ((t = window.Notification) == null ? void 0 : t.permission) !==
-          o("WAWebNotificationConstants").PERMISSION_ALLOWED
-      )
+      var t = o("WAWebABProps").getABPropConfigValue(
+        "wa_web_enable_granular_notifications",
+      );
+      if (!o("WAWebNotificationPermission").isNotificationPermissionGranted())
         return !1;
-      if (!n)
+      if (!t)
         return o("WAWebMuteCollection").MuteCollection.getGlobalNotifications();
       if (e) {
-        var a = o("WAWebChatGetters").getIsGroup(e);
-        return a
+        var n = o("WAWebChatGetters").getIsGroup(e);
+        return n
           ? o(
               "WAWebMuteCollection",
             ).MuteCollection.getGlobalGroupNotificationsEnabled()

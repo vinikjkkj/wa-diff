@@ -11,7 +11,6 @@ __d(
     "WAWebOrderModel",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -72,7 +71,6 @@ __d(
             var r = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (r, a, i) {
                 var l = yield o("WAWebBizOrderAction").queryOrder({
-                  bizWid: o("WAWebWidFactory").createWid(a),
                   height: this.height,
                   orderId: r,
                   token: i,

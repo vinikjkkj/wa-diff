@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WATypeUtils",
+    "WAWebABProps",
     "WAWebAddonCrossWindowUtils",
     "WAWebAddonProcessMsgsUtils",
     "WAWebAddonProcessingError",
@@ -393,7 +394,9 @@ __d(
     }
     function D(e) {
       return e === r("WAWebInteractiveMessageType").NATIVE_FLOW
-        ? o("WAWebHsmGatingUtils").interactiveNativeFlowMessagesEnabled()
+        ? !o("WAWebABProps").getABPropConfigValue(
+            "interactive_message_native_flow_killswitch",
+          )
         : e === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
           ? o("WAWebHsmGatingUtils").shopsInteractiveMessageEnabled()
           : e === r("WAWebInteractiveMessageType").CAROUSEL

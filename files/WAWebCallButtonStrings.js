@@ -15,6 +15,9 @@ __d(
       );
     }
     function d() {
+      return s._(/*BTDS*/ "Already in a call");
+    }
+    function m() {
       return s._(
         /*BTDS*/ "Something went wrong. Please refresh the page and try again.",
       );
@@ -22,7 +25,8 @@ __d(
     ((l.getVoiceCallLabel = e),
       (l.getVideoCallLabel = u),
       (l.getUnsupportedBrowserTooltip = c),
-      (l.getCallingInitFailedTooltip = d));
+      (l.getAlreadyInCallTooltip = d),
+      (l.getCallingInitFailedTooltip = m));
   },
   226,
 );

@@ -3,12 +3,12 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
-    "WAWebDBGroupsGroupMetadata",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
+    "WAWebPersistAndSyncGroupHistoryToggle",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
@@ -44,10 +44,9 @@ __d(
                   o(
                     "WAWebGroupHistoryGating",
                   ).isGroupHistorySendOnceDefaultOnEnabled() &&
-                  (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-                    t.id.remote,
-                    { shouldDefaultGroupHistoryShareOn: !0 },
-                  ),
+                  (yield o(
+                    "WAWebPersistAndSyncGroupHistoryToggle",
+                  ).persistAndSyncGroupHistoryToggle(t.id.remote, !0),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "updateGroupMetadataModelForShareHistoryDefault",
                     {

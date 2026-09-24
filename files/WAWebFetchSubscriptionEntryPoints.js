@@ -107,47 +107,48 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return r("WAWebNetworkStatus")
-            .waitIfOffline()
-            .then(function () {
-              return o("WAWebRelayClient")
-                .fetchQuery(
-                  m,
-                  {},
-                  { environmentType: "facebook", accessToken: e },
-                )
-                .then(function (e) {
-                  var t,
-                    n =
-                      e == null || (t = e.waSubscriptionEntryPoints) == null
-                        ? void 0
-                        : t.subscriptionEntryPoints;
-                  if (n == null) return c;
-                  var a = r("compactMap")(n, function (e) {
-                    var t = e.subscriptionType,
-                      n = e.webEntryPointEligibility,
-                      r = e.webEntryPointRedirectionUri;
-                    return t != null
-                      ? {
+          yield r("WAWebNetworkStatus").waitIfOffline();
+          try {
+            var t,
+              n = yield o("WAWebRelayClient").fetchQuery(
+                m,
+                {},
+                { environmentType: "facebook", accessToken: e },
+              ),
+              a =
+                n == null || (t = n.waSubscriptionEntryPoints) == null
+                  ? void 0
+                  : t.subscriptionEntryPoints;
+            return a == null
+              ? c
+              : {
+                  type: "success",
+                  subscriptionEntrypoints: r("compactMap")(a, function (e) {
+                    var t;
+                    return e.subscriptionType == null
+                      ? null
+                      : {
                           subscriptionType: o(
                             "WAWebXWASubscriptionEntryPointTypeUtils",
-                          ).mapXWASubscriptionEntryPointTypeToString(t),
-                          webEntryPointEligibility: n != null ? n : !1,
-                          webEntryPointRedirectionUri: r,
-                        }
-                      : null;
-                  });
-                  return { type: "success", subscriptionEntrypoints: a };
-                })
-                .catch(function (e) {
-                  return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-                    ? { type: "auth-failure" }
-                    : e instanceof
-                        o("WAWebGraphQLServerError").GraphQLServerError
-                      ? { type: "graphql-error", error: e }
-                      : c;
-                });
-            });
+                          ).mapXWASubscriptionEntryPointTypeToString(
+                            e.subscriptionType,
+                          ),
+                          webEntryPointEligibility:
+                            (t = e.webEntryPointEligibility) != null ? t : !1,
+                          webEntryPointRedirectionUri:
+                            e.webEntryPointRedirectionUri,
+                        };
+                  }),
+                };
+          } catch (e) {
+            return e instanceof Error
+              ? o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+                ? { type: "auth-failure" }
+                : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+                  ? { type: "graphql-error", error: e }
+                  : c
+              : c;
+          }
         })),
         y.apply(this, arguments)
       );

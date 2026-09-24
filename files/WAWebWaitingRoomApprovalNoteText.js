@@ -1,31 +1,50 @@
 __d(
   "WAWebWaitingRoomApprovalNoteText",
-  ["fbt", "WAWebVoipGatingUtils"],
+  [
+    "fbt",
+    "WAWebFaqUrl",
+    "WAWebVoipGatingUtils",
+    "WDSTextualLink.react",
+    "react",
+  ],
   function (t, n, r, o, a, i, l, s) {
-    function e() {
+    var e,
+      u = e || (e = o("react"));
+    function c() {
       return s._(
         /*BTDS*/ "People who don't have WhatsApp will always need approval to join.",
       );
     }
-    function u(e) {
-      return e ? m() : d();
+    function d(e) {
+      return e ? _() : p();
     }
-    function c() {
-      return o("WAWebVoipGatingUtils").canCreateGuestCallLinks() ? m() : d();
+    function m() {
+      return o("WAWebVoipGatingUtils").canCreateGuestCallLinks() ? _() : p();
     }
-    function d() {
+    function p() {
       return s._(
         /*BTDS*/ "Anyone with WhatsApp can use this link to join this call. Only share it with people you trust.",
       );
     }
-    function m() {
+    function _() {
       return s._(
-        /*BTDS*/ "Anyone can use this link to join this call, even if they're not on WhatsApp. Only share it with people you trust.",
+        /*BTDS*/ "Anyone can use this link to join this call, even if they're not on WhatsApp. Only share it with people you trust. {learn_more_link}",
+        [
+          s._param(
+            "learn_more_link",
+            u.jsx(r("WDSTextualLink.react"), {
+              href: o("WAWebFaqUrl").getCallLinksFaqUrl(),
+              testid: "voip_call_link_description_learn_more",
+              children: s._(/*BTDS*/ "Learn more"),
+            }),
+          ),
+        ],
       );
     }
-    ((l.getWaitingRoomApprovalNoteText = e),
-      (l.getCallLinkSharePanelDescriptionText = u),
-      (l.getCreateCallLinkDescriptionText = c));
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.getWaitingRoomApprovalNoteText = c),
+      (l.getCallLinkSharePanelDescriptionText = d),
+      (l.getCreateCallLinkDescriptionText = m));
   },
   226,
 );

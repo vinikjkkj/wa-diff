@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumGroupHistoryIneligibilityReason",
     "WAWebWamEnumGroupHistorySenderActionType",
     "WAWebWamEnumGroupHistorySystemMessageType",
+    "WAWebWamEnumGroupHistoryToggleMode",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -389,6 +390,20 @@ __d(
               ).GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_SPEED_BUMP_DIALOG_CANCELED,
               uiSurface: e,
+            });
+          }),
+          (n.groupHistoryToggleModeMdSyncReceived = function (t) {
+            var e = t.isToggleOn;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_TOGGLE_MODE_MD_SYNC_RECEIVED,
+              groupHistoryToggleMode: e
+                ? o("WAWebWamEnumGroupHistoryToggleMode")
+                    .GROUP_HISTORY_TOGGLE_MODE.ON
+                : o("WAWebWamEnumGroupHistoryToggleMode")
+                    .GROUP_HISTORY_TOGGLE_MODE.OFF,
             });
           }),
           t

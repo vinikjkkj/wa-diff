@@ -86,6 +86,7 @@ __d(
         SubscriptionsSyncV2: "subscriptions_sync_v2",
         BizAiSettingsNudge: "biz_ai_settings_nudge",
         WasaRootSecret: "wasa_root_secret",
+        GroupHistoryToggle: "group_history_toggle",
       }),
       y = e({
         Regular: "regular",

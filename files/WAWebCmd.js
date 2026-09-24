@@ -66,11 +66,12 @@ __d(
           (i.muteChatMultiselect = function (t, n, r) {
             this.trigger("mute_chat_multiselect", t, n, r);
           }),
-          (i.muteChatWithDuration = function (t, n) {
+          (i.muteChatWithDuration = function (t, n, r) {
             this.trigger(
               "mute_chat_with_duration",
               o("WAWebStateUtils").unproxy(t),
               n,
+              r,
             );
           }),
           (i.muteChatFromEntryPoint = function (t, n, r, a) {
@@ -1053,6 +1054,9 @@ __d(
           }),
           (i.onNotificationPermissionChange = function () {
             this.trigger("on_notification_permission_change");
+          }),
+          (i.onNotificationTestVerified = function () {
+            this.trigger("on_notification_test_verified");
           }),
           (i.onBrigadingStateChangeFromBridge = function (t) {
             this.trigger("on_brigading_state_change_from_bridge", t);

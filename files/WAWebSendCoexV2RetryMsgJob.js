@@ -6,6 +6,7 @@ __d(
     "WAWap",
     "WAWebApiCoexV2RelayReceiptStore",
     "WAWebBotTypes",
+    "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2HostedContactUtils",
     "WAWebCoexV2RelayEligibility",
@@ -25,12 +26,21 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function _(e) {
+      var t = e.msgRecord,
+        n = e.recipient,
+        r = e.retryCount,
+        a = e.to;
+      return a.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
+        ? { kind: "applicable", result: f(t, r, n) }
+        : { kind: "not_applicable" };
     }
-    function f() {
+    function f(e, t, n) {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (a == null)
             return (
               o("WALogger")
@@ -74,7 +84,7 @@ __d(
               ),
               null
             );
-          var m = yield g(t, d),
+          var m = yield h(t, d),
             p = m.selfHosted,
             _ = m.survivors;
           if (_.length === 0)
@@ -93,7 +103,7 @@ __d(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
               t,
             ),
-            h = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(i, i.id.remote),
+            g = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(i, i.id.remote),
             y = yield o(
               "WAWebCoexV2SendContribution",
             ).genCoexV2RelayBotNodeForTargets(
@@ -105,7 +115,7 @@ __d(
               p,
               {
                 clientThreadId: null,
-                localAutomatedType: h
+                localAutomatedType: g
                   ? null
                   : o("WAWebBotTypes").getBotLocalAutomatedType(i.bizBotType),
                 modeSelected: null,
@@ -138,15 +148,15 @@ __d(
             C,
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = e.data.id.remote,
             i = yield (p || (p = n("Promise"))).all([
               o("WAWebCoexV2RelayEligibility").isSelfCoexV2Hosted(),
@@ -209,10 +219,10 @@ __d(
                 : y;
           return { selfHosted: l, survivors: [].concat(c, C) };
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.buildCoexV2RetryStanza = _;
+    ((l.getCoexV2RetryDispatch = _), (l.buildCoexV2RetryStanza = f));
   },
   98,
 );

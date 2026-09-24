@@ -71,22 +71,12 @@ __d(
     }
     function S() {
       return o("WAWebABProps").getABPropConfigValue(
-        "username_unknown_user_logging_enabled",
+        "unknown_user_target_rid_logging",
       );
     }
     function R() {
       return o("WAWebABProps").getABPropConfigValue(
-        "unknown_user_target_rid_logging",
-      );
-    }
-    function L() {
-      return o("WAWebABProps").getABPropConfigValue(
         "unknown_user_recovery_enabled",
-      );
-    }
-    function E() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "unknown_user_usync_request_cool_down",
       );
     }
     ((l.usernameDisplayedEnabled = e),
@@ -103,10 +93,8 @@ __d(
       (l.usernameKeyUpsellMaxCharacters = C),
       (l.usernameKeyUpsellMaxNumbers = b),
       (l.usernameAdoptionAndEngagementMonitoringEnabled = v),
-      (l.usernameUnknownUserLoggingEnabled = S),
-      (l.unknownUserTargetRidLoggingEnabled = R),
-      (l.unknownUserRecoveryEnabled = L),
-      (l.unknownUserUsyncRequestCoolDownSecs = E));
+      (l.unknownUserTargetRidLoggingEnabled = S),
+      (l.unknownUserRecoveryEnabled = R));
   },
   98,
 );

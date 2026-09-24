@@ -6,7 +6,6 @@ __d(
     "WAWebBizCatalogGatingUtils",
     "WAWebBizLogQplEvents",
     "WAWebBizRefreshCartJob",
-    "WAWebBusinessDirectConnectionBridge",
     "WAWebQplFlowWrapper",
     "WAWebSchemaCart",
   ],
@@ -19,16 +18,12 @@ __d(
         );
       l === !0 &&
         o("WAWebBizLogQplEvents").qplPointCartView("datasource_start");
-      var s = o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(t, function (e) {
-        return o("WAWebBizRefreshCartJob").refreshCart({
-          bizJID: t,
-          directConnectionEncryptedInfo: e,
-          ids: r,
-          imageHeight: i,
-          imageWidth: a,
-        });
+      var s = o("WAWebBizRefreshCartJob").refreshCart({
+        bizJID: t,
+        directConnectionEncryptedInfo: void 0,
+        ids: r,
+        imageHeight: i,
+        imageWidth: a,
       });
       return s.then(function (e) {
         return (

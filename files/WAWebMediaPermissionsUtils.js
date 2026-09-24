@@ -40,12 +40,37 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    function m(e, t, n) {
+      var r = !0,
+        o = null,
+        a = function () {
+          r && t("unknown");
+        },
+        i = function () {
+          r && o != null && t(o.state);
+        },
+        l = n != null ? n : navigator,
+        s = l.permissions;
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        s == null
+          ? queueMicrotask(a)
+          : s.query({ name: e }).then(function (e) {
+              r && ((o = e), e.addEventListener("change", i), t(e.state));
+            }, a),
+        function () {
+          var e;
+          ((r = !1),
+            (e = o) == null || e.removeEventListener("change", i),
+            (o = null));
+        }
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var o = yield (e || (e = n("Promise"))).all(
             t.map(function (e) {
               return s(e, r);
@@ -55,10 +80,10 @@ __d(
             return e.denied;
           });
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t) {
+    function f(e, t) {
       return (function (e) {
         return ((typeof e == "object" && e !== null) ||
           typeof e == "function") &&
@@ -74,8 +99,9 @@ __d(
     }
     ((l.checkMediaPermissionState = s),
       (l.queryMediaPermissionStateStrict = c),
-      (l.isAnyMediaPermissionDenied = m),
-      (l.getDeviceSpecificPermissionMessaging = _));
+      (l.watchMediaPermissionState = m),
+      (l.isAnyMediaPermissionDenied = p),
+      (l.getDeviceSpecificPermissionMessaging = f));
   },
   98,
 );

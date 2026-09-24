@@ -57,22 +57,23 @@ __d(
         u.length === 0)
       )
         return null;
-      var d = o("cometComposedTextV2NodeBuilders").buildRootNode();
-      for (var m of u) {
-        var p,
-          _,
+      var d = typeof a == "function" ? a(u.length) : a,
+        m = o("cometComposedTextV2NodeBuilders").buildRootNode();
+      for (var p of u) {
+        var _,
           f,
-          g = o("cometComposedTextV2NodeBuilders").buildCitationNode(
-            (p = m.source_url) != null ? p : "#",
-            m.source_type,
+          g,
+          h = o("cometComposedTextV2NodeBuilders").buildCitationNode(
+            (_ = p.source_url) != null ? _ : "#",
+            p.source_type,
             !1,
-            (_ = m.source_display_name) != null ? _ : "",
-            m.source_subtitle,
-            (f = m.favicon) == null ? void 0 : f.url,
+            (f = p.source_display_name) != null ? f : "",
+            p.source_subtitle,
+            (g = p.favicon) == null ? void 0 : g.url,
           );
-        d.append(g);
+        m.append(h);
       }
-      var h = s.jsx(o("CometAIThemeProvider.react").CometAIThemeProvider, {
+      var y = s.jsx(o("CometAIThemeProvider.react").CometAIThemeProvider, {
           displayMode: i != null ? i : "light",
           children: s.jsx(
             o("CometComposedTextV2URParserContext.react")
@@ -81,24 +82,25 @@ __d(
               renderers: l != null ? l : {},
               children: s.jsx(
                 r("CometComposedTextV2RendererWithStableKeys.react"),
-                { root: d },
+                { root: m },
               ),
             },
           ),
         }),
-        y = o("cometComposedTextV2NodeBuilders").buildContentViewerNode(
+        C = o("cometComposedTextV2NodeBuilders").buildContentViewerNode(
           "citations",
-          h,
+          y,
+          u.length,
         );
       return (
-        y.append(
+        C.append(
           o("cometComposedTextV2NodeBuilders").buildTextNode(
-            a,
+            d,
             0,
             "modalTrigger",
           ),
         ),
-        o("cometComposedTextV2NodeBuilders").buildRootNode().append(y)
+        o("cometComposedTextV2NodeBuilders").buildRootNode().append(C)
       );
     }
     l.default = u;

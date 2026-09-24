@@ -90,6 +90,7 @@ __d(
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebVoipGatingUtils",
+    "WAWebVoipOutgoingCallConsent",
     "WAWebVoipStartCall",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumCommunityCreationCurrentScreenType",
@@ -139,20 +140,21 @@ __d(
       T,
       D,
       x,
-      $ = x || (x = o("react")),
-      P = (e = n("cr:17104")) != null ? e : {},
-      N = P.handleClickCallLink,
-      M = {
+      $,
+      P = $ || ($ = o("react")),
+      N = (e = n("cr:17104")) != null ? e : {},
+      M = N.handleClickCallLink,
+      w = {
         callPopupTitle: {
           marginTop: "xw7yly9",
           marginBottom: "x1yztbdb",
           $$css: !0,
         },
       },
-      w = 1;
-    function A(e, t) {
+      A = 1;
+    function F(e, t) {
       o("WAWebDrawerManager").DrawerManager.openDrawerMid(
-        $.jsx(
+        P.jsx(
           o("WAWebBizBroadcastsManageAudiencePanelLoadable")
             .WAWebBizBroadcastsManageAudiencePanelLoadable,
           {
@@ -164,9 +166,9 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function F(e, t) {
+    function O(e, t) {
       o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-        $.jsx(
+        P.jsx(
           o("WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable")
             .WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable,
           {
@@ -188,16 +190,16 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function O(e, t) {
-      var n = e.length === w ? e[0] : null;
+    function B(e, t) {
+      var n = e.length === A ? e[0] : null;
       if (n != null) {
         var r;
-        A(n.contacts, (r = n.errorList) != null ? r : []);
+        F(n.contacts, (r = n.errorList) != null ? r : []);
         return;
       }
-      F(e, t);
+      O(e, t);
     }
-    function B(e, t, n, r, a) {
+    function W(e, t, n, r, a) {
       if (n != null) {
         o(
           "WAWebBizBroadcastsSmartCSVImportSetupFlowLoadable",
@@ -208,75 +210,120 @@ __d(
           errorList: t,
           importLoggingContext: r,
           maxContactsPerAudience: a,
-          onReviewAudience: A,
+          onReviewAudience: F,
           onReviewAudiences: function (t) {
-            return O(t, r);
+            return B(t, r);
           },
         });
         return;
       }
-      A(e, t);
+      F(e, t);
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           try {
             n = o("WAWebWidFactory").createUserWidOrThrow(e + "@c.us");
-            var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                n,
-                "callUserDeeplink",
-              ),
-              i = a.chat;
-            yield o("WAWebCmd").Cmd.openChatAt({
-              chat: i,
-              msgContext: null,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
-            });
           } catch (e) {
             o("WALogger")
               .ERROR(
                 I ||
                   (I = babelHelpers.taggedTemplateLiteralLoose([
-                    "CALL_USER deep-link: failed to open chat",
+                    "CALL_USER deep-link: unusable phone number",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
-              .sendLogs("calling-deep-link-open-chat-failed");
+              .sendLogs("calling-deep-link-bad-phone");
             return;
           }
           if (o("WAWebUserPrefsMeUser").isMeAccount(n)) {
-            o("WALogger")
+            (o("WALogger")
               .LOG(
                 T ||
                   (T = babelHelpers.taggedTemplateLiteralLoose([
                     "CALL_USER deep-link: redirecting self-call to self chat",
                   ])),
               )
-              .sendLogs("calling-deep-links-self-call");
+              .sendLogs("calling-deep-links-self-call"),
+              yield V(n));
             return;
           }
-          try {
-            yield o("WAWebVoipStartCall").startWAWebVoipCall(n, t);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                D ||
-                  (D = babelHelpers.taggedTemplateLiteralLoose([
-                    "CALL_USER deep-link: startWAWebVoipCall failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("calling-deep-link-start-call-failed");
-          }
+          if (
+            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(n) &&
+            (yield o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(
+              n,
+              t,
+            )) &&
+            (yield V(n))
+          )
+            try {
+              yield o("WAWebVoipStartCall").startWAWebVoipCall(
+                n,
+                t,
+                0,
+                0,
+                null,
+                { entryTrust: "user_gesture" },
+              );
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  D ||
+                    (D = babelHelpers.taggedTemplateLiteralLoose([
+                      "CALL_USER deep-link: startWAWebVoipCall failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("calling-deep-link-start-call-failed");
+            }
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
+    function V(e) {
+      return H.apply(this, arguments);
+    }
+    function H() {
+      return (
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+                e,
+                "callUserDeeplink",
+              ),
+              n = t.chat;
+            return (
+              yield o("WAWebCmd").Cmd.openChatAt({
+                chat: n,
+                msgContext: null,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .Deeplink,
+              }),
+              !0
+            );
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose([
+                      "CALL_USER deep-link: failed to open chat",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("calling-deep-link-open-chat-failed"),
+              !1
+            );
+          }
+        })),
+        H.apply(this, arguments)
+      );
+    }
+    function G(e) {
       var t = e.cmdData,
         a = e.isExternal,
         i = e.preserveAttribution,
@@ -288,7 +335,7 @@ __d(
           var T = t.data;
           return (
             o("WAWebModalManager").ModalManager.open(
-              $.jsx(
+              P.jsx(
                 o("WAWebGroupInviteLinkModalLoadable.react")
                   .WAWebGroupInviteLinkModalLoadable,
                 { groupCode: T.code, source: "invite_link" },
@@ -307,16 +354,16 @@ __d(
           o("WAWebCmd").Cmd.closeStatusViewer();
           var D = t.data,
             x = D.catalogOwnerJid,
-            P = D.partnertoken,
-            w = D.utm;
+            $ = D.partnertoken,
+            N = D.utm;
           return (
             o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled({
               chatId: o("WAWebWidFactory").createWid(x),
               deepLinkType: t.resultType,
               isExternal: a,
-              partnerToken: P,
+              partnerToken: $,
             }),
-            o("WAWebExecApiCmdHelpers").openChatAndCatalog(x, w),
+            o("WAWebExecApiCmdHelpers").openChatAndCatalog(x, N),
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
                 .DEEP_LINK_CATALOG,
@@ -330,7 +377,7 @@ __d(
           var A = t.data,
             F = A.businessOwnerJid,
             O = A.partnertoken,
-            q = A.productId,
+            B = A.productId,
             U = A.utm;
           return (
             o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled({
@@ -339,7 +386,7 @@ __d(
               isExternal: a,
               partnerToken: O,
             }),
-            o("WAWebExecApiCmdHelpers").openChatAndProduct(F, q, U),
+            o("WAWebExecApiCmdHelpers").openChatAndProduct(F, B, U),
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
                 .DEEP_LINK_PRODUCT,
@@ -405,7 +452,7 @@ __d(
                               "WAWebWamEnumProfileEntryPoint",
                             ).PROFILE_ENTRY_POINT.CUSTOM_URL_LINK,
                           }
-                        : $.jsx(
+                        : P.jsx(
                             o("WAWebInfoFlowLoadable").InfoFlowLoadable,
                             {
                               chat: e,
@@ -463,7 +510,7 @@ __d(
                   }
                 : void 0;
             (o("WAWebModalManager").ModalManager.open(
-              $.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+              P.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
                 target: o("WAWebExecApiCmdHelpers").getOpenChatFlowProps(V),
                 msgText: Y,
                 onSuccess: oe,
@@ -493,7 +540,7 @@ __d(
                 (t && (e.attachments = t),
                   te != null && te.length > 0 && (e.preSelectedContactLid = te),
                   o("WAWebModalManager").ModalManager.open(
-                    $.jsx(
+                    P.jsx(
                       o("WAWebSendMsgModalImplLoadable")
                         .SendMsgModalImplLoadable,
                       babelHelpers.extends({}, e),
@@ -504,7 +551,7 @@ __d(
                 var n = { msgText: Y, urlText: !0 };
                 (t && (n.attachments = t),
                   o("WAWebModalManager").ModalManager.open(
-                    $.jsx(
+                    P.jsx(
                       o("WAWebSendMsgMultiModalLoadable")
                         .SendMsgMultiModalLoadable,
                       babelHelpers.extends({}, n),
@@ -543,7 +590,7 @@ __d(
             return !1;
           (o("WAWebCmd").Cmd.closeStatusViewer(),
             o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-              $.jsx(r("WAWebNewCommunityInfoDrawerLoadable"), {}),
+              P.jsx(r("WAWebNewCommunityInfoDrawerLoadable"), {}),
               { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
             ));
           var ue = t.data.entrypointType;
@@ -702,7 +749,7 @@ __d(
               ).ProfilePicThumbCollection.assertGet(ye);
             return (
               o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-                $.jsx(n("cr:1923"), {
+                P.jsx(n("cr:1923"), {
                   status: Ce,
                   profilePicThumb: ve,
                   contact: be,
@@ -752,7 +799,7 @@ __d(
             return (
               r("isStringNullOrEmpty")(Le)
                 ? (o("WAWebModalManager").ModalManager.open(
-                    $.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                    P.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                       onOK: o("WAWebModalManager").closeModalManager,
                       children: s._(
                         /*BTDS*/ "You can set up your username from your primary device.",
@@ -766,7 +813,7 @@ __d(
                       ])),
                   ))
                 : (o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-                    $.jsx(r("WAWebUsernameManagementDrawerLoadable"), {
+                    P.jsx(r("WAWebUsernameManagementDrawerLoadable"), {
                       contactId: Re.id,
                       username: Le,
                     }),
@@ -813,7 +860,7 @@ __d(
           switch (ke) {
             case o("WAWebStatusApiParse").StatusPostType.Text:
               o("WAWebModalManager").ModalManager.openMedia(
-                $.jsx(
+                P.jsx(
                   o("WAWebCreateTextStatusFlowLoadable")
                     .CreateTextStatusFlowLoadable,
                   {},
@@ -823,7 +870,7 @@ __d(
               break;
             case o("WAWebStatusApiParse").StatusPostType.Media:
               o("WAWebModalManager").ModalManager.open(
-                $.jsx(
+                P.jsx(
                   o("WAWebStatusAttachMediaFlowLoadable")
                     .StatusAttachMediaFlowLoadable,
                   {},
@@ -853,17 +900,17 @@ __d(
                     )
                     .sendLogs("calling-deep-link-missing-phone"),
                   o("WAWebModalManager").ModalManager.open(
-                    $.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                    P.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
                       onOK: o("WAWebModalManager").closeModalManager,
                       children: [
-                        $.jsx(r("WDSText.react"), {
+                        P.jsx(r("WDSText.react"), {
                           type: "Headline2",
                           colorName: "contentDefault",
                           textAlign: "center",
-                          xstyle: M.callPopupTitle,
+                          xstyle: w.callPopupTitle,
                           children: s._(/*BTDS*/ "Couldn't place the call"),
                         }),
-                        $.jsx(r("WDSText.react"), {
+                        P.jsx(r("WDSText.react"), {
                           type: "Body2",
                           colorName: "contentDeemphasized",
                           textAlign: "center",
@@ -875,19 +922,19 @@ __d(
                     }),
                   ),
                   !0)
-                : (W(Ie, Te), !0)
+                : (q(Ie, Te), !0)
               : (o("WAWebModalManager").ModalManager.open(
-                  $.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                  P.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
                     onOK: o("WAWebModalManager").closeModalManager,
                     children: [
-                      $.jsx(r("WDSText.react"), {
+                      P.jsx(r("WDSText.react"), {
                         type: "Headline2",
                         colorName: "contentDefault",
                         textAlign: "center",
-                        xstyle: M.callPopupTitle,
+                        xstyle: w.callPopupTitle,
                         children: s._(/*BTDS*/ "Your call can't be completed"),
                       }),
-                      $.jsx(r("WDSText.react"), {
+                      P.jsx(r("WDSText.react"), {
                         type: "Body2",
                         colorName: "contentDeemphasized",
                         textAlign: "center",
@@ -968,7 +1015,7 @@ __d(
           )
             return (
               o("WAWebModalManager").ModalManager.open(
-                $.jsx(r("WAWebHatchPairingUnavailableDialog.react"), {}),
+                P.jsx(r("WAWebHatchPairingUnavailableDialog.react"), {}),
               ),
               o("WALogger")
                 .LOG(
@@ -1042,7 +1089,7 @@ __d(
           var Ne = t.data.url;
           return (
             o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-              $.jsx(
+              P.jsx(
                 r("WAWebStickerStoreFlowLoadable").StickerStoreFlowLoadable,
                 {
                   stickerPackId: Ne,
@@ -1055,7 +1102,7 @@ __d(
           );
         }
         case "CALL_LINK": {
-          var Me = N;
+          var Me = M;
           return (
             Me == null &&
               n("cr:9382") != null &&
@@ -1090,7 +1137,7 @@ __d(
           }
           return (
             o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-              $.jsx(r("WAWebSMBDataSharingDrawer.react"), {
+              P.jsx(r("WAWebSMBDataSharingDrawer.react"), {
                 onClose: o("WAWebDrawerManager").closeDrawerLeft,
                 entrypoint: Ae,
               }),
@@ -1113,7 +1160,7 @@ __d(
                 o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER,
               ),
               o("WAWebModalManager").ModalManager.open(
-                $.jsx(
+                P.jsx(
                   o("WAWebBizBroadcastsUploadModalLoadable.react")
                     .WAWebBizBroadcastsUploadModalLoadable,
                   {
@@ -1128,7 +1175,7 @@ __d(
                             o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER,
                           ));
                     },
-                    onUploadSuccess: B,
+                    onUploadSuccess: W,
                   },
                 ),
               ),
@@ -1182,7 +1229,7 @@ __d(
                 : Be,
             Ue = function () {
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-                $.jsx(
+                P.jsx(
                   o("WAWebBusinessBroadcastHomeFlowLoadable")
                     .WAWebBusinessBroadcastHomeFlowLoadable,
                   {
@@ -1398,7 +1445,7 @@ __d(
               o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
                 o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
                   ? { descriptorType: "new_chat" }
-                  : $.jsx(
+                  : P.jsx(
                       o("WAWebNewChatFlowLoadable").NewChatFlowLoadable,
                       {},
                     ),
@@ -1479,7 +1526,7 @@ __d(
           return o("WAWebTextStatusGatingUtils").sendTextStatusEnabled()
             ? (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebModalManager").ModalManager.open(
-                $.jsx(
+                P.jsx(
                   o("WAWebTextStatusEditModalLoadable")
                     .TextStatusEditModalLoadable,
                   {
@@ -1499,7 +1546,7 @@ __d(
           return (t.resultType, !1);
       }
     }
-    l.default = U;
+    l.default = G;
   },
   226,
 );

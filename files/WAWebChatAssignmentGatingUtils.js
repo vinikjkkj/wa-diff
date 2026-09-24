@@ -17,12 +17,7 @@ __d(
           )
         : 0;
     }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_md_agent_chat_assignment_notifications_enabled",
-      );
-    }
-    function c(e) {
+    function u(e) {
       return e
         ? o("WAWebABProps").getABPropConfigValue(
             "smb_md_agent_chat_assignment_chats_reorder_on_chat_unassignment_enabled",
@@ -31,24 +26,18 @@ __d(
             "smb_md_agent_chat_assignment_chats_reorder_on_chat_assignment_enabled",
           );
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_ai_agents_web_chat_assignment_interop_enabled",
       );
     }
-    function m() {
+    function d() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
       );
     }
-    function p() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("biz_ai_web_onboarding_handoff")
-      );
-    }
-    function _() {
+    function m() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -58,12 +47,10 @@ __d(
     }
     ((l.chatAssignmentEnabled = e),
       (l.chatAssignmentMaxNuxImpressions = s),
-      (l.chatAssignmentNotificationsEnabled = u),
-      (l.shouldReorderChatOnAssignment = c),
-      (l.isBizAiChatAssignmentInteropTosEnabled = d),
-      (l.isBizAIToolsSettingsEnabled = m),
-      (l.isBizAiWebOnboardingHandoffEnabled = p),
-      (l.isMultiDeviceMessageAttributionEnabled = _));
+      (l.shouldReorderChatOnAssignment = u),
+      (l.isBizAiChatAssignmentInteropTosEnabled = c),
+      (l.isBizAIToolsSettingsEnabled = d),
+      (l.isMultiDeviceMessageAttributionEnabled = m));
   },
   98,
 );

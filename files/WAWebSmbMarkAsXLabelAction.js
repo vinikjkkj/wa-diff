@@ -3,7 +3,7 @@ __d(
   [
     "WASmaxInBizSettingsEnums",
     "WATimeUtils",
-    "WAWebCTWAAeDetectionGating",
+    "WAWebABProps",
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
@@ -102,9 +102,9 @@ __d(
       if (
         !(
           e == null ||
-          !o(
-            "WAWebCTWAAeDetectionGating",
-          ).isCtwaAeModelMetadataEmissionEnabled()
+          !o("WAWebABProps").getABPropConfigValue(
+            "ctwa_ae_model_meta_data_signal_enabled",
+          )
         )
       )
         return e;

@@ -19,11 +19,12 @@ __d(
       m,
       p,
       _,
-      f = function () {},
-      g = function () {
-        return (_ || (_ = n("Promise"))).resolve();
+      f,
+      g = function () {},
+      h = function () {
+        return (f || (f = n("Promise"))).resolve();
       },
-      h = (function () {
+      y = (function () {
         function t(e, t, n, r, o) {
           (r === void 0 && (r = 2e3),
             (this.__progressCallbacks = []),
@@ -44,17 +45,28 @@ __d(
             ((this.__isFullIndexingPending = !1),
               (this.__fullIndexingProgress = -1));
           }),
-          (a.__notifyProgress = function (t, n) {
-            ((this.__fullIndexingProgress = t),
-              this.__progressCallbacks.forEach(function (e) {
+          (a.__notifyProgress = function (n, r) {
+            ((this.__fullIndexingProgress = n),
+              this.__progressCallbacks.forEach(function (t) {
                 try {
-                  e(t, n);
+                  var a = t(n, r);
+                  a != null &&
+                    a.catch(function (t) {
+                      o("WALogger").ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "FTS:Indexer:__notifyProgress: Progress callback failed ",
+                            "",
+                          ])),
+                        t,
+                      );
+                    });
                 } catch (e) {}
               }),
-              t === 1 && (this.__progressCallbacks = []));
+              n === 1 && (this.__progressCallbacks = []));
           }),
           (a.__processBatch = function (t) {
-            return (_ || (_ = n("Promise"))).reject(
+            return (f || (f = n("Promise"))).reject(
               new (o("WACustomError").UnimplementedMethod)(
                 "BaseIndexer.__processBatch",
               ),
@@ -70,17 +82,17 @@ __d(
             return this.__isProcessingBacklog;
           }),
           (a.purge = function (t) {
-            return (_ || (_ = n("Promise"))).reject(
+            return (f || (f = n("Promise"))).reject(
               new (o("WACustomError").UnimplementedMethod)("purge"),
             );
           }),
           (a.purgeChat = function (t) {
-            return (_ || (_ = n("Promise"))).reject(
+            return (f || (f = n("Promise"))).reject(
               new (o("WACustomError").UnimplementedMethod)("purge"),
             );
           }),
           (a.purge__DEPRECATED_DO_NOT_USE = function (t, r, a) {
-            return (_ || (_ = n("Promise"))).reject(
+            return (f || (f = n("Promise"))).reject(
               new (o("WACustomError").UnimplementedMethod)("purge"),
             );
           }),
@@ -88,67 +100,67 @@ __d(
             return this.finder.find(t, n);
           }),
           (a.incremental = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a) {
-                var i = this;
-                if ((t === void 0 && (t = g), this.isQueuedIndexingPending()))
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var a = this;
+                if ((e === void 0 && (e = h), this.isQueuedIndexingPending()))
                   return r("nullthrows")(this.__currentQueuedIndexingOp);
-                var l = new (o("WAResolvable").Resolvable)(),
-                  m = !0;
+                var i = new (o("WAResolvable").Resolvable)(),
+                  l = !0;
                 try {
                   for (
                     this.__isProcessingBacklog = !0,
-                      this.__currentQueuedIndexingOp = l.promise,
-                      l.promise.finally(function () {
-                        i.__isProcessingBacklog = !1;
+                      this.__currentQueuedIndexingOp = i.promise,
+                      i.promise.finally(function () {
+                        a.__isProcessingBacklog = !1;
                       }),
                       o("WALogger").LOG(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "FTS:Indexer:indexQueuedBatch: Starting new batch size : ",
                             "",
                           ])),
                         this.batchSize,
                       );
-                    m;
+                    l;
                   ) {
                     if (
                       this.signaller != null &&
                       this.signaller.shouldTerminateAll()
                     ) {
-                      m = !1;
+                      l = !1;
                       break;
                     }
                     var p = this.scheduler;
                     if (p)
-                      (a == null &&
+                      (t == null &&
                         o("WALogger").ERROR(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
                               "FTS:Indexer:indexQueuedBatch: Priority is null",
                             ])),
                         ),
                         yield p.run(
                           n("asyncToGeneratorRuntime").asyncToGenerator(
                             function* () {
-                              var e = yield i.messageSource.getBacklogged({
-                                limit: i.batchSize,
+                              var t = yield a.messageSource.getBacklogged({
+                                limit: a.batchSize,
                               });
-                              if (e == null) {
-                                m = !1;
+                              if (t == null) {
+                                l = !1;
                                 return;
                               }
-                              e.length !== 0 &&
-                                (yield i.__processBatch(e),
+                              t.length !== 0 &&
+                                (yield a.__processBatch(t),
                                 o("WALogger").LOG(
-                                  u ||
-                                    (u =
+                                  c ||
+                                    (c =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "FTS:Indexer:indexQueuedBatch: Completed batch",
                                       ])),
                                 ),
-                                yield t(
-                                  e.map(function (e) {
+                                yield e(
+                                  t.map(function (e) {
                                     return e.id;
                                   }),
                                 ));
@@ -157,8 +169,8 @@ __d(
                           {
                             name: "fts_incremental",
                             priority:
-                              a != null
-                                ? a
+                              t != null
+                                ? t
                                 : o("TaskSchedulerPriority")
                                     .BACKGROUND_PRIORITY,
                           },
@@ -168,18 +180,18 @@ __d(
                         limit: this.batchSize,
                       });
                       if (_ == null) {
-                        m = !1;
+                        l = !1;
                         break;
                       }
                       _.length !== 0 &&
                         (yield this.__processBatch(_),
                         o("WALogger").LOG(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "FTS:Indexer:indexQueuedBatch: Completed batch",
                             ])),
                         ),
-                        yield t(
+                        yield e(
                           _.map(function (e) {
                             return e.id;
                           }),
@@ -187,28 +199,28 @@ __d(
                     }
                   }
                   o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "FTS:Indexer:indexQueuedBatch: Completed",
                       ])),
                   );
                 } catch (e) {
-                  return (l.reject(e), !1);
+                  return (i.reject(e), !1);
                 }
-                return (l.resolve(!0), !0);
+                return (i.resolve(!0), !0);
               },
             );
-            function a(e, n) {
-              return t.apply(this, arguments);
+            function t(t, n) {
+              return e.apply(this, arguments);
             }
-            return a;
+            return t;
           })()),
           (a.full = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var a = this;
                 if (
-                  (e === void 0 && (e = f),
+                  (e === void 0 && (e = g),
                   this.__progressCallbacks.push(e),
                   this.isFullIndexingPending())
                 )
@@ -227,13 +239,13 @@ __d(
                       u = null,
                       c = yield this.messageSource.size(),
                       d = [performance.now()],
-                      _ = !0;
-                    s <= c && _;
+                      m = !0;
+                    s <= c && m;
                   ) {
-                    var g = performance.now();
+                    var f = performance.now();
                     o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "Current message batch is from entry ",
                           " of ",
                           "...",
@@ -258,7 +270,7 @@ __d(
                                   fromMessageId: u,
                                 });
                             if (e == null || e.length === 0) {
-                              _ = !1;
+                              m = !1;
                               return;
                             }
                             var n = e[e.length - 1];
@@ -293,8 +305,8 @@ __d(
                     }
                     var v = performance.now();
                     (o("WALogger").LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "Finished batch from entry ",
                           " of ",
                           ". (Took ",
@@ -302,9 +314,9 @@ __d(
                         ])),
                       s,
                       c,
-                      v - g,
+                      v - f,
                     ),
-                      d.push(v - g),
+                      d.push(v - f),
                       (s += l));
                   }
                   return (this.__notifyProgress(1), i.resolve(d), d);
@@ -330,7 +342,7 @@ __d(
           t
         );
       })();
-    l.default = h;
+    l.default = y;
   },
   98,
 );

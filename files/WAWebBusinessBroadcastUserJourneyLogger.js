@@ -1028,6 +1028,9 @@ __d(
               r,
             );
           }),
+          (t.tosNuxQrViewed = function (t, n) {
+            o("WAWebBBNuxLogs").tosNuxQrViewed(this.$1, t, n);
+          }),
           (t.tosNuxAcceptClicked = function (t, n) {
             o("WAWebBBNuxLogs").tosNuxAcceptClicked({
               bbTier: n,

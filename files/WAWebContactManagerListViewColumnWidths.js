@@ -56,7 +56,11 @@ __d(
           type: "proportional",
           value: 7,
         },
-        notes: { options: { minWidth: 200 }, type: "proportional", value: 25 },
+        notes: {
+          options: { minWidth: 200, maxWidth: 640 },
+          type: "proportional",
+          value: 25,
+        },
         actions: { options: { minWidth: 100 }, type: "fill" },
       };
     ((i.SELECT_COLUMN_WIDTH_PX = e), (i.contactManagerColumnWidths = l));

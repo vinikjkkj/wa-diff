@@ -270,162 +270,165 @@ __d(
       return u(414631957536067);
     }
     function Ue() {
-      return u(445453537819972);
+      return u(456694046556486);
     }
     function Ve() {
-      return u(764072925284841);
+      return u(445453537819972);
     }
     function He() {
-      return u(515115256843064);
+      return u(764072925284841);
     }
     function Ge() {
+      return u(515115256843064);
+    }
+    function ze() {
       return u(
         o("WAWebContactManagementGating").getNativeContactLearnMoreArticleId(),
       );
     }
-    function ze() {
+    function je() {
       return u(0xc01cf66d59161);
     }
-    function je() {
+    function Ke() {
       return u(0x95c9df9bda823);
     }
-    function Ke() {
+    function Qe() {
       return u(0x5a1157833f8ac);
     }
-    function Qe() {
+    function Xe() {
       return u(0x78ed36c5dcc0a);
     }
-    function Xe() {
+    function Ye() {
       return u(975452738365174);
     }
-    function Ye() {
+    function Je() {
       return u(0x8e04008cddcee);
     }
-    function Je() {
+    function Ze() {
       return u(0x6b6dc84a63837);
     }
-    function Ze() {
+    function et() {
       return u(0x65d0a8ea5ce82);
     }
-    function et() {
+    function tt() {
       return o(
         "WAWebMarketingMessagesUserFeedbackGatingUtils",
       ).isMMMessageLevelFeedbackNotInterestedMenuEnabled()
         ? u(0x3a64d5ff15ce8)
         : u(849628780369041);
     }
-    function tt() {
+    function nt() {
       return u(0x3cf8b510ac7b3);
     }
-    function nt() {
+    function rt() {
       return u(471097579286138);
     }
-    function rt() {
+    function ot() {
       return u(925016942750794);
     }
-    function ot() {
+    function at() {
       return u(0xc38fcd98588b5);
     }
-    function at() {
+    function it() {
       return u(0x81ff896ec8e7b);
     }
-    function it() {
+    function lt() {
       return u(0x40f14c3d8a34d);
     }
-    function lt() {
+    function st() {
       return u(684051319521343);
     }
-    function st() {
+    function ut() {
       return "https://www.whatsapp.com/usephone";
     }
-    function ut() {
+    function ct() {
       return "https://business.whatsapp.com/policy#policies_for_whatsapp_commerce_features";
     }
-    function ct() {
+    function dt() {
       return u(717472490411581);
     }
-    function dt() {
+    function mt() {
       return (
         "https://business.whatsapp.com/policy?lang=" +
         r("WAWebL10N").getNormalizedLocale()
       );
     }
-    function mt() {
+    function pt() {
       return (
         "https://business.whatsapp.com/?lang=" +
         r("WAWebL10N").getNormalizedLocale()
       );
     }
-    function pt() {
+    function _t() {
       return u(361005896189245);
     }
-    function _t() {
+    function ft() {
       return u(0x3c176e69dcbf0);
     }
-    function ft() {
+    function gt() {
       return u(0x4047e189c6f13);
     }
-    function gt() {
+    function ht() {
       return u(0x5c1079d27797b);
     }
-    function ht() {
+    function yt() {
       return u(813462751272572);
     }
-    function yt() {
+    function Ct() {
       return u(829033686455542);
     }
-    function Ct() {
+    function bt() {
       return u(0x43c034e1473e6);
     }
-    function bt() {
+    function vt() {
       return u(360977646301595);
     }
-    function vt() {
+    function St() {
       return u(0x3c601ac2e47ea);
     }
-    function St() {
+    function Rt() {
       return u(0x4c4f0ab002a27);
     }
-    function Rt() {
+    function Lt() {
       return u(0x5586e377c54fe);
     }
-    function Lt() {
+    function Et() {
       return u(0xf65c3fa5555e5);
     }
-    function Et() {
+    function kt() {
       return u(0x55f94b56578b1);
     }
-    function kt() {
+    function It() {
       return u(0x804bec3ee93f0);
     }
-    function It() {
+    function Tt() {
       return u(0x86a9e572bfaa1);
     }
-    function Tt() {
+    function Dt() {
       return u(0x405337740b131);
     }
-    function Dt() {
+    function xt() {
       return u(0x46cf699c0b6e0);
     }
-    function xt() {
+    function $t() {
       return u(0x3bbd1c8f1c2a8);
     }
-    function $t() {
+    function Pt() {
       return u(0x56aefcbc25d3f);
     }
-    function Pt() {
+    function Nt() {
       return u(8122483904494954);
     }
-    function Nt() {
+    function Mt() {
       return u(0x566e31f78e0b2);
     }
-    function Mt() {
+    function wt() {
       return u(0x769e543c0aed3);
     }
-    function wt() {
+    function At() {
       return u(0x548d90f8cf00c);
     }
-    function At() {
+    function Ft() {
       return u(0x59132db60167f);
     }
     ((l.FAQ_BASE_URL = e),
@@ -517,55 +520,56 @@ __d(
       (l.getCoexHostedFaqUrl = Be),
       (l.getCoexHostedBusinessFaqUrl = We),
       (l.getBlockingReportingFaqUrl = qe),
-      (l.getDisableLinkPreviewsFaqUrl = Ue),
-      (l.getChatLockSecretCodeFaqUrl = Ve),
-      (l.getAccountTakeOverFaqUrl = He),
-      (l.getNativeContactLearnMoreFaqUrl = Ge),
-      (l.getAntiBrigadingFaqUrl = ze),
-      (l.getProtectIpInCallsFaqUrl = je),
-      (l.getEventsAboutSafetyFaqUrl = Ke),
-      (l.getEventsLearnMoreFaqUrl = Qe),
-      (l.getEventsFindAndRespondFaqUrl = Xe),
-      (l.getEventSuspensionFaqUrl = Ye),
-      (l.getCommunityGroupsVisibilityFaqUrl = Je),
-      (l.getBizQuickRepliesFaqUrl = Ze),
-      (l.marketingMessageFeedbackLearnMoreURL = et),
-      (l.marketingMessageUserControlsStopLearnMoreURL = tt),
-      (l.marketingMessageUserControlsResumeLearnMoreURL = nt),
-      (l.sharingCustomerRelatedActivityLearnMoreURL = rt),
-      (l.getNewsletterReportLearnMoreUrl = ot),
-      (l.getSeeExamplesOfScamsUrl = at),
-      (l.getHowToReport = it),
-      (l.getEnterPnFaqUrl = lt),
-      (l.getWhatsappUsePhoneFallbackUrl = st),
-      (l.getWhatsappBusinessCommercePolicyUrl = ut),
-      (l.getRestrictedAccountLearnMoreUrl = ct),
-      (l.getWhatsAppBusinessPolicyUrl = dt),
-      (l.getWhatsAppBusinessHomeUrl = mt),
-      (l.getMessagingBestPracticeUrl = pt),
-      (l.getSMBLinkedCatalogUrl = _t),
-      (l.getGuestFAQUrl = ft),
-      (l.getGuestUsernameReservationFAQUrl = gt),
-      (l.getSMBIndividualNewChatMessageCappingHCAUrl = ht),
-      (l.getConsumerIndividualNewChatMessageCappingHCAUrl = yt),
-      (l.getNewsletterQuestionResponsePrivacyBannerFAQUrl = Ct),
-      (l.getNewsletterAdminProfilesFAQUrl = bt),
-      (l.getGroupHistoryFAQUrl = vt),
-      (l.getGroupMemberTagUrl = St),
-      (l.getOpenGroupLearnMoreUrl = Rt),
-      (l.getTeeGroupLearnMoreUrl = Lt),
-      (l.getPaidPartnershipLabelFaqUrl = Et),
-      (l.getBotSessionTransparencyUrl = kt),
-      (l.getManusLearnMoreUrl = It),
-      (l.getHatchLearnMoreUrl = Tt),
-      (l.getStandardBotProfileLearnMoreUrl = Dt),
-      (l.getThirdPartyAgentLearnMoreUrl = xt),
-      (l.getBusinessBroadcastsLearnMoreUrl = $t),
-      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = Pt),
-      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Nt),
-      (l.getCloseFriendLearnMoreUrl = Mt),
-      (l.getNewsletterStatusIntroFaqUrl = wt),
-      (l.getPasskeySecurityCheckFaqUrl = At));
+      (l.getCallLinksFaqUrl = Ue),
+      (l.getDisableLinkPreviewsFaqUrl = Ve),
+      (l.getChatLockSecretCodeFaqUrl = He),
+      (l.getAccountTakeOverFaqUrl = Ge),
+      (l.getNativeContactLearnMoreFaqUrl = ze),
+      (l.getAntiBrigadingFaqUrl = je),
+      (l.getProtectIpInCallsFaqUrl = Ke),
+      (l.getEventsAboutSafetyFaqUrl = Qe),
+      (l.getEventsLearnMoreFaqUrl = Xe),
+      (l.getEventsFindAndRespondFaqUrl = Ye),
+      (l.getEventSuspensionFaqUrl = Je),
+      (l.getCommunityGroupsVisibilityFaqUrl = Ze),
+      (l.getBizQuickRepliesFaqUrl = et),
+      (l.marketingMessageFeedbackLearnMoreURL = tt),
+      (l.marketingMessageUserControlsStopLearnMoreURL = nt),
+      (l.marketingMessageUserControlsResumeLearnMoreURL = rt),
+      (l.sharingCustomerRelatedActivityLearnMoreURL = ot),
+      (l.getNewsletterReportLearnMoreUrl = at),
+      (l.getSeeExamplesOfScamsUrl = it),
+      (l.getHowToReport = lt),
+      (l.getEnterPnFaqUrl = st),
+      (l.getWhatsappUsePhoneFallbackUrl = ut),
+      (l.getWhatsappBusinessCommercePolicyUrl = ct),
+      (l.getRestrictedAccountLearnMoreUrl = dt),
+      (l.getWhatsAppBusinessPolicyUrl = mt),
+      (l.getWhatsAppBusinessHomeUrl = pt),
+      (l.getMessagingBestPracticeUrl = _t),
+      (l.getSMBLinkedCatalogUrl = ft),
+      (l.getGuestFAQUrl = gt),
+      (l.getGuestUsernameReservationFAQUrl = ht),
+      (l.getSMBIndividualNewChatMessageCappingHCAUrl = yt),
+      (l.getConsumerIndividualNewChatMessageCappingHCAUrl = Ct),
+      (l.getNewsletterQuestionResponsePrivacyBannerFAQUrl = bt),
+      (l.getNewsletterAdminProfilesFAQUrl = vt),
+      (l.getGroupHistoryFAQUrl = St),
+      (l.getGroupMemberTagUrl = Rt),
+      (l.getOpenGroupLearnMoreUrl = Lt),
+      (l.getTeeGroupLearnMoreUrl = Et),
+      (l.getPaidPartnershipLabelFaqUrl = kt),
+      (l.getBotSessionTransparencyUrl = It),
+      (l.getManusLearnMoreUrl = Tt),
+      (l.getHatchLearnMoreUrl = Dt),
+      (l.getStandardBotProfileLearnMoreUrl = xt),
+      (l.getThirdPartyAgentLearnMoreUrl = $t),
+      (l.getBusinessBroadcastsLearnMoreUrl = Pt),
+      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = Nt),
+      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Mt),
+      (l.getCloseFriendLearnMoreUrl = wt),
+      (l.getNewsletterStatusIntroFaqUrl = At),
+      (l.getPasskeySecurityCheckFaqUrl = Ft));
   },
   98,
 );

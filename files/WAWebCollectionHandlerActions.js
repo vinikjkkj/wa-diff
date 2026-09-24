@@ -30,6 +30,7 @@ __d(
     "WAWebDisableLinkPreviewsSync",
     "WAWebExternalWebBetaSync",
     "WAWebFavoritesSync",
+    "WAWebGroupHistoryToggleSync",
     "WAWebInteractiveMessageSync",
     "WAWebLabelJidSync",
     "WAWebLabelReorderingSync",
@@ -140,6 +141,7 @@ __d(
       r("WAWebOutContactSync"),
       r("WAWebBizAiSettingsNudgeSync"),
       r("WAWebWASARootSecretSync"),
+      r("WAWebGroupHistoryToggleSync"),
     ];
     l.ActionHandlers = e;
   },

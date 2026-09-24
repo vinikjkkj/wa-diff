@@ -108,6 +108,7 @@ __d(
               "WAGlobalOfflineNotificationsEnabledOnce",
             GLOBAL_COLLAPSE_MUTED: "WAGlobalCollapseMuted",
             NOTIFICATION_SOUND: "WANotificationSound",
+            NOTIFICATION_TEST_VERIFIED: "WANotificationTestVerified",
             AUTO_DOWNLOAD_PHOTOS: "WAAutoDownloadPhotos",
             AUTO_DOWNLOAD_AUDIO: "WAAutoDownloadAudio",
             AUTO_DOWNLOAD_VIDEOS: "WAAutoDownloadVideos",

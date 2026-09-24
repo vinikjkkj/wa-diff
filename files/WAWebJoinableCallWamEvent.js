@@ -28,6 +28,7 @@ __d(
               isDeviceSwitch: [55, e.TYPES.BOOLEAN],
               isEventsLink: [50, e.TYPES.BOOLEAN],
               isFromCallLink: [32, e.TYPES.BOOLEAN],
+              isGuestParticipant: [58, e.TYPES.BOOLEAN],
               isLidCall: [45, e.TYPES.BOOLEAN],
               isLinkCreator: [39, e.TYPES.BOOLEAN],
               isLinkJoin: [33, e.TYPES.BOOLEAN],

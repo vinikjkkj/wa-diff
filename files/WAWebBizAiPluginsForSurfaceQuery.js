@@ -17,38 +17,19 @@ __d(
             : t.plugins;
       return n == null
         ? []
-        : d(
-            o(
-              "WAWebBizAiAppointmentConnectorsQuery",
-            ).normalizeAppointmentConnectorEntries(
-              n.map(function (e) {
-                return o("CometRelay").readInlineData(
-                  o("WAWebBizAiAppointmentConnectorsQuery")
-                    .CONNECTOR_ENTRY_FRAGMENT,
-                  e,
-                );
-              }),
-            ),
+        : o(
+            "WAWebBizAiAppointmentConnectorsQuery",
+          ).normalizeAppointmentConnectorEntries(
+            n.map(function (e) {
+              return o("CometRelay").readInlineData(
+                o("WAWebBizAiAppointmentConnectorsQuery")
+                  .CONNECTOR_ENTRY_FRAGMENT,
+                e,
+              );
+            }),
           );
     }
-    function c(e) {
-      return d(
-        o(
-          "WAWebBizAiAppointmentConnectorsQuery",
-        ).normalizeAppointmentConnectorEntries(e),
-      );
-    }
-    function d(e) {
-      return e.map(function (e) {
-        return babelHelpers.extends({}, e, {
-          display_name: e.displayName,
-          is_connected: e.isConnected,
-        });
-      });
-    }
-    ((l.PLUGINS_QUERY = s),
-      (l.normalizePlugins = u),
-      (l.normalizePluginEntries = c));
+    ((l.PLUGINS_QUERY = s), (l.normalizePlugins = u));
   },
   98,
 );

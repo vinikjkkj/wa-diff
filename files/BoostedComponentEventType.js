@@ -1663,6 +1663,8 @@ __d(
       INSTANT_ADS_INVALID_AD_ACCOUNT_RENDERED:
         "instant_ads_invalid_ad_account_rendered",
       INSTANT_ADS_MEDIA_EXPIRED: "instant_ads_media_expired",
+      INSTANT_BOOST_IMPRESSION: "instant_boost_impression",
+      INSTANT_BOOST_PUBLISH_SUCCESS: "instant_boost_publish_success",
       BOOSTED_COMPONENT_ASYNC_EDIT_ADD_BUDGET_AND_DURATION_CALLED:
         "boosted_component_async_edit_add_budget_and_duration_called",
       BOOSTED_COMPONENT_ASYNC_EDIT_ADD_BUDGET_AND_DURATION_FAIL:

@@ -63,7 +63,8 @@ __d(
             c = u === void 0 ? !1 : u,
             m = t.msg,
             p = t.multicast,
-            _ = p === void 0 ? !1 : p;
+            _ = p === void 0 ? !1 : p,
+            g = t.pairedMediaType;
           if (o("WAWebMsgActionCapability").isForwardedAsMedia(m))
             return o("WAWebMediaForwardMediaMsg").forwardMediaMsg({
               appendedText: a,
@@ -71,10 +72,11 @@ __d(
               includeCaption: c,
               msg: m,
               multicast: _,
+              pairedMediaType: g,
               associationOptions: i,
             });
-          var g = S(m, l);
-          if (b(m) && (g.body == null || g.body === ""))
+          var h = S(m, l);
+          if (b(m) && (h.body == null || h.body === ""))
             return (
               o("WALogger")
                 .LOG(
@@ -90,21 +92,21 @@ __d(
             o("WAWebBotUtils").isMetaAiBot(l.id) &&
             (a != null &&
               a !== "" &&
-              (g.body = o(
+              (h.body = o(
                 "WAWebMetaAiForwardedText",
-              ).composeMetaAiForwardedText(g.body, a)),
+              ).composeMetaAiForwardedText(h.body, a)),
             o("WAWebBotGating").isAiChatThreadsEnabled())
           )
             return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
               type: "MetaAiForward",
-              query: g.body,
+              query: h.body,
             });
-          var h = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, m.type),
-            y = h.type,
-            C = babelHelpers.objectWithoutPropertiesLoose(h, e),
-            v = Object.assign(
-              g,
-              babelHelpers.extends({}, C, {
+          var y = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, m.type),
+            C = y.type,
+            v = babelHelpers.objectWithoutPropertiesLoose(y, e),
+            R = Object.assign(
+              h,
+              babelHelpers.extends({}, v, {
                 participant: void 0,
                 star: !1,
                 isForwarded:
@@ -128,20 +130,20 @@ __d(
               ).maybeStripNewsletterForwardMetadata({
                 isQuestionOrQuestionReply:
                   m.isQuestion || m.questionReplyQuotedMessage != null,
-                forwardable: v,
+                forwardable: R,
                 destination: l.id,
                 source: m.id.remote,
                 isOriginalMsgForwarded: m.isForwarded,
               }),
             );
-          var R = yield f(v),
-            L = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, R),
-            E = L[0],
-            k = L[1],
-            I = yield (d || (d = n("Promise"))).all([E, k]),
-            T = I[0],
-            D = I[1];
-          return babelHelpers.extends({}, D, { msg: T });
+          var L = yield f(R),
+            E = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, L),
+            k = E[0],
+            I = E[1],
+            T = yield (d || (d = n("Promise"))).all([k, I]),
+            D = T[0],
+            x = T[1];
+          return babelHelpers.extends({}, x, { msg: D });
         })),
         _.apply(this, arguments)
       );
@@ -233,24 +235,48 @@ __d(
             var h = i || o("WAWebMsgGetters").getHasOriginatedFromNewsletter(g);
             try {
               var y,
-                C = yield p({
+                C = o(
+                  "WAWebForwardAssociatedChildren",
+                ).getForwardableAssociatedChildren(
+                  {
+                    businessProfile:
+                      (y = n.contact) == null ? void 0 : y.businessProfile,
+                    chatWid: n.id,
+                  },
+                  g,
+                ),
+                b = C.droppedPairedTypes,
+                v = C.forwardable,
+                S =
+                  o(
+                    "WAWebForwardAssociatedChildren",
+                  ).areForwardPairLabelsEnabled() &&
+                  v.some(function (e) {
+                    var t = e.child,
+                      n = e.row;
+                    return n.role === "shadow" && t.pairedMediaType != null;
+                  })
+                    ? g.pairedMediaType
+                    : void 0,
+                R = yield p({
                   chat: n,
                   msg: g,
                   multicast: d,
                   includeCaption: h,
                   appendedText: t,
+                  pairedMediaType: S,
                 });
               (o(
                 "WAWebIncrementNewsletterForwardCounterAction",
               ).incrementNewsletterForwardCounter(g, n),
                 o("WAWebForwardAssociatedChildren")
-                  .maybeForwardAssociatedChildren({
+                  .forwardAssociatedChildren({
                     chat: n,
+                    children: v,
+                    droppedPairedTypes: b,
                     multicast: d,
                     includeCaption: h,
-                    originalMsg: g,
-                    forwardedParentMsgId:
-                      C == null || (y = C.msg) == null ? void 0 : y.id,
+                    forwardedParent: R == null ? void 0 : R.msg,
                     sendChild: p,
                   })
                   .catch(function (e) {

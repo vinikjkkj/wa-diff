@@ -13,7 +13,6 @@ __d(
     "WAWebBizCatalogProductVisibilitySetJob",
     "WAWebBizCreateProductCatalogJob",
     "WAWebBizLogQplEvents",
-    "WAWebBusinessDirectConnectionBridge",
     "WAWebNoop",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
@@ -45,11 +44,7 @@ __d(
     function C(e, t, n, a, i, l, s, u, c) {
       l === !0 &&
         o("WAWebBizLogQplEvents").qplPointProductView("datasource_start");
-      var d = o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(e, function (o) {
-        return r("WAWebQueryCatalogProduct")(e, t, n, a, i, o, s, u, c);
-      });
+      var d = r("WAWebQueryCatalogProduct")(e, t, n, a, i, void 0, s, u, c);
       return (
         d
           .then(function () {
@@ -67,22 +62,18 @@ __d(
         return (d || (d = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );
-      var g = o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(t, function (e) {
-        return r("WAWebQueryCatalog")({
-          catalogWid: t,
-          afterCursor: a,
-          limit: i,
-          width: l,
-          height: u,
-          checkmarkCollectionId: c,
-          allowShopSource: m,
-          directConnectionEncryptedInfo: e,
-          variantInfoFields: p,
-          variantThumbnailHeight: _,
-          variantThumbnailWidth: f,
-        });
+      var g = r("WAWebQueryCatalog")({
+        catalogWid: t,
+        afterCursor: a,
+        limit: i,
+        width: l,
+        height: u,
+        checkmarkCollectionId: c,
+        allowShopSource: m,
+        directConnectionEncryptedInfo: void 0,
+        variantInfoFields: p,
+        variantThumbnailHeight: _,
+        variantThumbnailWidth: f,
       });
       return g.catch(function (t) {
         throw t instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
@@ -119,33 +110,31 @@ __d(
           new (o("WAWebBackendErrors").E451)(),
         );
       i && o("WAWebBizLogQplEvents").qplPointPLMDetailsView("datasource_start");
-      var l = o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(e, function (n) {
-        return o("WAWebRestOperations").runRestOperation(
-          o("WAWebScheduledOperations").ScheduledOperation.QUERY_PRODUCT_LIST,
-          function () {
-            return o("WAWebQueryProductListCatalogJob").queryProductListCatalog(
-              {
-                catalogWid: e.toString(),
-                directConnectionEncryptedInfo: n,
-                height: a,
-                productIds: t,
-                width: r,
-              },
+      var l = o("WAWebRestOperations").runRestOperation(
+        o("WAWebScheduledOperations").ScheduledOperation.QUERY_PRODUCT_LIST,
+        function () {
+          return o("WAWebQueryProductListCatalogJob").queryProductListCatalog({
+            catalogWid: e.toString(),
+            directConnectionEncryptedInfo: void 0,
+            height: a,
+            productIds: t,
+            width: r,
+          });
+        },
+        function () {
+          return o("WAWebPersistedJobManagerWorkerCompatible")
+            .getJobManager()
+            .waitUntilCompleted(
+              o("WAWebPersistedJobDefinitions").jobSerializers.queryProductList(
+                e,
+                t,
+                void 0,
+                r,
+                a,
+              ),
             );
-          },
-          function () {
-            return o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .waitUntilCompleted(
-                o(
-                  "WAWebPersistedJobDefinitions",
-                ).jobSerializers.queryProductList(e, t, n, r, a),
-              );
-          },
-        );
-      });
+        },
+      );
       return (
         l
           .then(function () {
@@ -161,13 +150,9 @@ __d(
       );
     }
     function S(e) {
-      return o(
-        "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(e, function (t) {
-        return o("WAWebQueryCatalogHasCategories").queryCatalogHasCategories({
-          catalogWid: e,
-          directConnectionEncryptedInfo: t,
-        });
+      return o("WAWebQueryCatalogHasCategories").queryCatalogHasCategories({
+        catalogWid: e,
+        directConnectionEncryptedInfo: void 0,
       });
     }
     function R(e, t, n) {

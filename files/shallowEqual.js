@@ -3,7 +3,9 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = Object.prototype.hasOwnProperty;
+    var e = Object.prototype.hasOwnProperty.call.bind(
+      Object.prototype.hasOwnProperty,
+    );
     function l(e, t) {
       return e === t
         ? e !== 0 || t !== 0 || 1 / e === 1 / t
@@ -22,7 +24,7 @@ __d(
         o = Object.keys(n);
       if (r.length !== o.length) return !1;
       for (var a = 0; a < r.length; a++)
-        if (!e.call(n, r[a]) || !l(t[r[a]], n[r[a]])) return !1;
+        if (!e(n, r[a]) || !l(t[r[a]], n[r[a]])) return !1;
       return !0;
     }
     i.default = s;

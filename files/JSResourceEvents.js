@@ -13,8 +13,11 @@ __d(
       var c = l.get(i);
       c || l.set(i, (c = new Map()));
       var d = c.get(o);
-      (d || c.set(o, (d = [0, []])),
-        (d[1][d[0]++ % s] = (e || (e = r("performanceAbsoluteNow")))()));
+      if (!d) {
+        var m = [0, []];
+        c.set(o, (d = m));
+      }
+      d[1][d[0]++ % s] = (e || (e = r("performanceAbsoluteNow")))();
     }
     function d(e, t, n) {
       var r = u.get(e);

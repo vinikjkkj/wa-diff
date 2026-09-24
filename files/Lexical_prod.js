@@ -9446,29 +9446,33 @@ __d(
       _proto18.getEditorState = function getEditorState() {
         return this._editorState;
       };
-      _proto18.setEditorState = function setEditorState(e, n) {
+      _proto18.setEditorState = function setEditorState(t, n) {
         var _this16 = this;
-        e.isEmpty() && t(38);
-        var o = e;
-        (o._readOnly &&
-          ((o = Us(e)),
-          (o._selection = e._selection ? e._selection.clone() : null)),
+        var o = t.isEmpty();
+        var r = t;
+        (r._readOnly &&
+          ((r = Us(t)),
+          (r._selection = t._selection ? t._selection.clone() : null)),
           ht(this));
-        var r = this._pendingEditorState,
-          i = void 0 !== n ? n.tag : null;
-        (null === r ||
-          r.isEmpty() ||
-          (null != i && this._updateTags.add(i), vs(this)),
-          (this._pendingEditorState = o),
+        var i = this._pendingEditorState,
+          s = void 0 !== n ? n.tag : null;
+        (null === i ||
+          i.isEmpty() ||
+          (null != s && this._updateTags.add(s), vs(this)),
+          (this._pendingEditorState = r),
           (this._dirtyType = 2),
           this._dirtyElements.set("root", !1),
           (this._compositionKey = null),
-          (this._slotsUsed = this._slotsUsed || e._slotsUsed),
+          (this._slotsUsed = this._slotsUsed || t._slotsUsed),
           Ms(
             this,
             function () {
-              if ((i && _this16._updateTags.add(i), e._parsed))
-                for (var _ref45 of o._nodeMap.entries()) {
+              if (
+                (s && _this16._updateTags.add(s),
+                o && (e(38), cc().append(Sl())),
+                t._parsed)
+              )
+                for (var _ref45 of r._nodeMap.entries()) {
                   var _t245 = _ref45[0];
                   var _e152 = _ref45[1];
                   Ls(_e152)

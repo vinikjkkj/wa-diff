@@ -21,23 +21,17 @@ __d(
     var d = 32;
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_group_discard_dialog_contact_threshold",
-      );
-    }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_enabled",
       );
     }
-    var _ = 33;
+    var p = 33;
     ((l.getGroupDescriptionLength = e),
       (l.getGroupMaxSubject = s),
       (l.isPersistentPendingJoinRequestsBannerEnabled = u),
       (l.isAnyoneCanLinkToGroupsM2Enabled = c),
       (l.ANYONE_CAN_LINK_M2_PARTICIPANT_THRESHOLD = d),
-      (l.getGroupDiscardDialogThreshold = m),
-      (l.isGroupSuspensionAppealsRedesignEnabled = p),
-      (l.GFG_GROUP_SIZE_THRESHOLD = _));
+      (l.isGroupSuspensionAppealsRedesignEnabled = m),
+      (l.GFG_GROUP_SIZE_THRESHOLD = p));
   },
   98,
 );

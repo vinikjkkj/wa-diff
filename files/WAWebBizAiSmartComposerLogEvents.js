@@ -33,21 +33,21 @@ __d(
         transition: s.SMB_USER_ACTION_TYPE_ENUM.VIEW,
       };
     function p(e) {
-      E(
+      I(
         "smart_composer",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_chat_ai_eligible: e, variant: c },
       );
     }
     function _() {
-      E(
+      I(
         "mode_switching_bottom_sheet",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { variant: c },
       );
     }
     function f(e) {
-      E(
+      I(
         e,
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_companion: !0 },
@@ -68,7 +68,7 @@ __d(
           (l.error_code = o(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(r)),
-        E(
+        I(
           "suggested_reply_card_dismissed",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .DISMISS,
@@ -91,24 +91,24 @@ __d(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(l)),
         i != null && (u.edit_distance_ratio = i),
-        E("suggested_reply_card_funnel", m[t], u));
+        I("suggested_reply_card_funnel", m[t], u));
     }
     function y(e) {
-      E(
+      I(
         "suggested_reply_metering_gql_response",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { success: e },
       );
     }
     function C(e, t, n) {
-      E(
+      I(
         "suggested_reply_card_view",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { card_state: "success", is_from_cache: t, trigger: e, card_type: n },
       );
     }
     function b(e) {
-      E(
+      I(
         "suggested_reply_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { trigger: e },
@@ -120,7 +120,7 @@ __d(
         (n.error_code = o(
           "WAWebBizAiSmartComposerErrorMapping",
         ).getSuggestedReplyErrorWireValue(t)),
-        E(
+        I(
           "suggested_reply_received",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
           n,
@@ -136,32 +136,47 @@ __d(
       (n.editDistance != null && (r.edit_distance = n.editDistance),
         n.editDistanceRatio != null &&
           (r.edit_distance_ratio = n.editDistanceRatio),
-        E(
+        I(
           "suggested_reply_send",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .CLICK,
           r,
         ));
     }
-    function R(e, t) {
-      E(
+    function R() {
+      I(
+        "submit_coaching_response_start",
+        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
+      );
+    }
+    function L(e) {
+      I(
+        "submit_coaching_response_result",
+        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
+        e === "success"
+          ? { result: "success" }
+          : { error: e, result: "failure" },
+      );
+    }
+    function E(e, t) {
+      I(
         "suggested_reply_card_tapped",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { card_type: t, trigger: e },
       );
     }
-    function L(e) {
+    function k(e) {
       var t = e.from,
         n = e.success,
         r = e.to,
         a = e.trigger;
-      E(
+      I(
         "mode_switch_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { from: u[t], success: n, to: u[r], trigger: a, variant: c },
       );
     }
-    function E(t, n, a, i) {
+    function I(t, n, a, i) {
       i === void 0 &&
         (i = o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SMB_SMART_COMPOSER);
       try {
@@ -197,8 +212,10 @@ __d(
       (l.logSuggestionRequested = b),
       (l.logSuggestionReceived = v),
       (l.logSendSuggestion = S),
-      (l.logTapSuggestionCard = R),
-      (l.logModeSwitchRequested = L));
+      (l.logSuggestedReplyCoachingStart = R),
+      (l.logSuggestedReplyCoachingResult = L),
+      (l.logTapSuggestionCard = E),
+      (l.logModeSwitchRequested = k));
   },
   98,
 );

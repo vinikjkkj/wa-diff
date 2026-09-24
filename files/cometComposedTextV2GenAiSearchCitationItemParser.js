@@ -10,15 +10,17 @@ __d(
         i,
         l = t.normalize("NFKC");
       return e.sources && e.sources.length > 0
-        ? e.sources.map(function (e) {
-            var t, n, r;
+        ? e.sources.map(function (t, n) {
+            var r, a, i, s;
             return o("cometComposedTextV2NodeBuilders").buildCitationNode(
-              (t = e.source_url) != null ? t : "#",
-              e.source_type,
+              (r = t.source_url) != null ? r : "#",
+              t.source_type,
               !0,
-              (n = e.source_display_name) != null ? n : l,
-              e.source_subtitle,
-              (r = e.favicon) == null ? void 0 : r.url,
+              (a = t.source_display_name) != null ? a : l,
+              t.source_subtitle,
+              (i = t.favicon) == null ? void 0 : i.url,
+              (s = e.sources) != null ? s : void 0,
+              n,
             );
           })
         : [

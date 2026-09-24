@@ -18,6 +18,19 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
+      var t,
+        n = e.liveData,
+        r = e.liveDisplayTextEnabled,
+        o = e.snapshotDisplayText,
+        a = e.snapshotStatus;
+      return n == null
+        ? { boostingStatus: a, boostingStatusDisplayText: o }
+        : {
+            boostingStatus: (t = n.status) != null ? t : a,
+            boostingStatusDisplayText: r ? n.displayText : o,
+          };
+    }
+    function d(e) {
       switch (e) {
         case o("WAWebCommonAdsTypes").BoostingStatus.ACTIVE:
           return {
@@ -62,7 +75,7 @@ __d(
           return null;
       }
     }
-    function d(e) {
+    function m(e) {
       switch (e) {
         case o("WAWebCommonAdsTypes").BoostingStatus.PENDING:
           return {
@@ -112,7 +125,7 @@ __d(
           };
       }
     }
-    function m(e) {
+    function p(e) {
       return e === o("WAWebCommonAdsTypes").BoostingStatus.ACTIVE ||
         e === o("WAWebCommonAdsTypes").BoostingStatus.SCHEDULED
         ? "secondaryPositive"
@@ -122,7 +135,7 @@ __d(
           ? "secondaryNegative"
           : "contentDeemphasized";
     }
-    function p(e, t) {
+    function _(e, t) {
       return t != null &&
         e !== o("WAWebCommonAdsTypes").BoostingStatus.PAUSING &&
         e !== o("WAWebCommonAdsTypes").BoostingStatus.RESUMING
@@ -139,10 +152,11 @@ __d(
                   ? s._(/*BTDS*/ "Active")
                   : null;
     }
-    ((l.getAdStatusIcon = c),
-      (l.getStatusIconConfig = d),
-      (l.getBoostingStatusColorName = m),
-      (l.getBoostingStatusDisplayText = p));
+    ((l.applyLiveBoostingStatus = c),
+      (l.getAdStatusIcon = d),
+      (l.getStatusIconConfig = m),
+      (l.getBoostingStatusColorName = p),
+      (l.getBoostingStatusDisplayText = _));
   },
   226,
 );

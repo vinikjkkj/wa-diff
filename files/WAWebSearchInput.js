@@ -73,7 +73,7 @@ __d(
           borderEndEndRadius: "xum4auv",
           borderEndStartRadius: "xj21bgg",
           height: "x1vqgdyp",
-          boxShadow: "x19qpdui",
+          boxShadow: "x1gnnqk1 x19qpdui",
           paddingInlineStart: "x1p4gyq8",
           $$css: !0,
         },

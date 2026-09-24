@@ -3,30 +3,42 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = new Set(),
-      l = new Set();
-    function s(t) {
-      e.add(t);
+    var e = {
+      "'": "&#39;",
+      '"': "&quot;",
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+    };
+    function l(t) {
+      return t.replace(/[\"&\'<>]/g, function (t) {
+        return e[t];
+      });
     }
-    function u() {
-      e.clear();
+    var s = new Set(),
+      u = new Set();
+    function c(e) {
+      s.add(e);
     }
-    function c() {
-      if (!e || e.size === 0) return "";
-      var t = [];
+    function d() {
+      s.clear();
+    }
+    function m() {
+      if (!s || s.size === 0) return "";
+      var e = [];
       return (
-        e == null ||
-          e.forEach(function (e) {
-            l.has(e) ||
-              (t.push('<link rel="preload" as="image" href="' + e + '" />'),
-              l.add(e));
+        s == null ||
+          s.forEach(function (t) {
+            u.has(t) ||
+              (e.push('<link rel="preload" as="image" href="' + l(t) + '" />'),
+              u.add(t));
           }),
-        t.join("\n")
+        e.join("\n")
       );
     }
-    ((i.addImage = s),
-      (i.clearImageCollection = u),
-      (i.imagesToHTMLLinkString = c));
+    ((i.addImage = c),
+      (i.clearImageCollection = d),
+      (i.imagesToHTMLLinkString = m));
   },
   66,
 );

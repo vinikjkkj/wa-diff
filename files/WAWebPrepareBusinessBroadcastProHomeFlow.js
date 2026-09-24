@@ -186,7 +186,7 @@ __d(
       );
     }
     function L(e) {
-      var t = o("react-compiler-runtime").c(30),
+      var t = o("react-compiler-runtime").c(31),
         n = e.ProAudienceTable,
         a = e.dispose,
         i = e.entryPoint,
@@ -255,25 +255,31 @@ __d(
         : (N = t[5]);
       var M = N,
         w;
-      t[6] !== R || t[7] !== b || t[8] !== M
+      t[6] !== R || t[7] !== b || t[8] !== P || t[9] !== M
         ? ((w =
             b == null
               ? null
-              : { errorBoundaryResetKey: R, onRetry: M, queryRef: b }),
+              : {
+                  errorBoundaryResetKey: R,
+                  onRefresh: P,
+                  onRetry: M,
+                  queryRef: b,
+                }),
           (t[6] = R),
           (t[7] = b),
-          (t[8] = M),
-          (t[9] = w))
-        : (w = t[9]);
+          (t[8] = P),
+          (t[9] = M),
+          (t[10] = w))
+        : (w = t[10]);
       var A = w,
         F;
-      t[10] !== n ||
-      t[11] !== i ||
-      t[12] !== c ||
-      t[13] !== d ||
-      t[14] !== b ||
-      t[15] !== f ||
-      t[16] !== P
+      t[11] !== n ||
+      t[12] !== i ||
+      t[13] !== c ||
+      t[14] !== d ||
+      t[15] !== b ||
+      t[16] !== f ||
+      t[17] !== P
         ? ((F = function (t) {
             var e = t.businessID,
               r = t.customerBaseName,
@@ -297,18 +303,18 @@ __d(
               },
             );
           }),
-          (t[10] = n),
-          (t[11] = i),
-          (t[12] = c),
-          (t[13] = d),
-          (t[14] = b),
-          (t[15] = f),
-          (t[16] = P),
-          (t[17] = F))
-        : (F = t[17]);
+          (t[11] = n),
+          (t[12] = i),
+          (t[13] = c),
+          (t[14] = d),
+          (t[15] = b),
+          (t[16] = f),
+          (t[17] = P),
+          (t[18] = F))
+        : (F = t[18]);
       var O = F,
         B;
-      t[18] !== b || t[19] !== O
+      t[19] !== b || t[20] !== O
         ? ((B =
             b == null
               ? O({
@@ -322,40 +328,40 @@ __d(
                     .WAWebBizBroadcastProHomeQueryReader,
                   { queryRef: b, children: O },
                 )),
-          (t[18] = b),
-          (t[19] = O),
-          (t[20] = B))
-        : (B = t[20]);
+          (t[19] = b),
+          (t[20] = O),
+          (t[21] = B))
+        : (B = t[21]);
       var W;
-      t[21] !== _ || t[22] !== B
+      t[22] !== _ || t[23] !== B
         ? ((W = u.jsx(
             o("useWAWebBizBroadcastProAudienceIngestion")
               .ProAudiencePendingConfirmContext.Provider,
             { value: _, children: B },
           )),
-          (t[21] = _),
-          (t[22] = B),
-          (t[23] = W))
-        : (W = t[23]);
+          (t[22] = _),
+          (t[23] = B),
+          (t[24] = W))
+        : (W = t[24]);
       var q;
-      t[24] !== p || t[25] !== W
+      t[25] !== p || t[26] !== W
         ? ((q = u.jsx(
             o("useWAWebBizBroadcastProAudienceIngestion")
               .ProAudienceIngestionStalledContext.Provider,
             { value: p, children: W },
           )),
-          (t[24] = p),
-          (t[25] = W),
-          (t[26] = q))
-        : (q = t[26]);
+          (t[25] = p),
+          (t[26] = W),
+          (t[27] = q))
+        : (q = t[27]);
       var U;
       return (
-        t[27] !== A || t[28] !== q
+        t[28] !== A || t[29] !== q
           ? ((U = u.jsx(y.Provider, { value: A, children: q })),
-            (t[27] = A),
-            (t[28] = q),
-            (t[29] = U))
-          : (U = t[29]),
+            (t[28] = A),
+            (t[29] = q),
+            (t[30] = U))
+          : (U = t[30]),
         U
       );
     }
@@ -368,6 +374,7 @@ __d(
         r("WAWebBizBroadcastProHomeBroadcastTable.react"),
         babelHelpers.extends({}, t, {
           errorBoundaryResetKey: e.errorBoundaryResetKey,
+          onCampaignsRefresh: e.onRefresh,
           onRetry: e.onRetry,
           queryRef: e.queryRef,
         }),

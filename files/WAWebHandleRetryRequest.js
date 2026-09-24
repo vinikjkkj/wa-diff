@@ -149,31 +149,32 @@ __d(
                                 retryCount: g,
                                 sessionScope: b,
                               })),
-                            !R)
+                            R == null)
                           ) {
-                            var k;
                             o("WALogger").WARN(
                               c ||
                                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                                  "handleMessageRetryRequest ",
-                                  " retry not authorized",
+                                  "handleMessageRetryRequest retry not authorized",
                                 ])),
-                              (k = R) == null ? void 0 : k.type,
                             );
                             return;
                           }
-                          var I = {
-                            to: p,
-                            participant: _,
-                            msgRecord: R,
-                            retryCount: g,
-                            isLidBot: u,
-                            sessionScope: C,
-                          };
-                          (f && (I.recipient = f),
-                            m && (I.lidOrigin = m),
-                            a && (I.accountLid = a),
-                            yield o("WAWebSendRetryMsgJob").sendRetry(I));
+                          var k = R,
+                            I = k.msgRecord,
+                            T = k.retryContext,
+                            D = {
+                              to: p,
+                              participant: _,
+                              msgRecord: I,
+                              retryContext: T,
+                              retryCount: g,
+                              isLidBot: u,
+                              sessionScope: C,
+                            };
+                          (f && (D.recipient = f),
+                            m && (D.lidOrigin = m),
+                            a && (D.accountLid = a),
+                            yield o("WAWebSendRetryMsgJob").sendRetry(D));
                         }
                       } catch (e) {
                         o("WALogger").WARN(

@@ -141,14 +141,18 @@ __d(
       );
     }
     function N() {
+      var e =
+        o("WAWebABProps").getABPropConfigValue("wa_web_meta_one_dev") === !0;
       return (
-        o("WAWebABProps").getABPropConfigValue(
+        e ||
+        (o("WAWebABProps").getABPropConfigValue(
           "biz_ai_meta_one_integration",
         ) === !0 &&
-        o("WAWebABProps").getABPropConfigValue("wa_meta_one_enabled") === !0 &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_meta_one_rollout_enabled",
-        ) === !0
+          o("WAWebABProps").getABPropConfigValue("wa_meta_one_enabled") ===
+            !0 &&
+          o("WAWebABProps").getABPropConfigValue(
+            "wa_meta_one_rollout_enabled",
+          ) === !0)
       );
     }
     function M() {

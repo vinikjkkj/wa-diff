@@ -315,18 +315,16 @@ __d(
                                 e.deviceDelivered.forEach(function (e) {
                                   return s.add(e);
                                 }),
-                                {
+                                babelHelpers.extends({}, e, {
                                   delivery: S(e.delivery, l.delivery),
                                   read: S(e.read, l.read),
                                   played: S(e.played, l.played),
-                                  msgKey: e.msgKey,
-                                  receiverUserJid: e.receiverUserJid,
                                   deviceDelivered: Array.from(s),
                                   deviceNotDelivered:
                                     e.deviceNotDelivered.filter(function (e) {
                                       return !s.has(e);
                                     }),
-                                }
+                                })
                               );
                             });
                           yield o("WAWebSchemaMessageInfo")

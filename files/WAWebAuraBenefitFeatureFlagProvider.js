@@ -1,6 +1,6 @@
 __d(
   "WAWebAuraBenefitFeatureFlagProvider",
-  ["WAWebAuraBenefitTypes", "WAWebFeatureFlagName", "WAWebPinChatLimits"],
+  ["WAWebAuraBenefitProvider", "WAWebAuraBenefitTypes", "WAWebFeatureFlagName"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -60,13 +60,11 @@ __d(
         (t.$2 = function (t, n) {
           var e = this.$1(n),
             r = (e == null ? void 0 : e.enabled) === !0;
-          return { id: t, isActive: r, limit: this.$3(t, r) };
-        }),
-        (t.$3 = function (t, n) {
-          return t === o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS &&
-            n
-            ? o("WAWebPinChatLimits").MAX_PINNED_CHATS_PREMIUM
-            : null;
+          return {
+            id: t,
+            isActive: r,
+            limit: o("WAWebAuraBenefitProvider").auraBenefitLimit(t, r),
+          };
         }),
         e
       );

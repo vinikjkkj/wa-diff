@@ -2,6 +2,7 @@ __d(
   "WAWebVideoUtils",
   [
     "WAWebBotUtils",
+    "WAWebFeatureDetectionSwSupport",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaOpaqueData",
     "WAWebMsgGetters",
@@ -22,17 +23,24 @@ __d(
         );
     }
     function s(e) {
-      var t = e.mediaData,
-        n = o("WAWebMsgGetters").getSender(e),
-        r = n != null && o("WAWebBotUtils").isAnyMetaAiBot(n);
+      return u(e, r("WAWebFeatureDetectionSwSupport").getStreamingSupported());
+    }
+    function u(e, t) {
+      var n = e.mediaData;
+      return n != null && n.isStreamable(t) && c(e);
+    }
+    function c(e) {
+      var t = o("WAWebMsgGetters").getSender(e),
+        n = t != null && o("WAWebBotUtils").isAnyMetaAiBot(t);
       return (
-        (t == null ? void 0 : t.streamable) &&
-        (t == null ? void 0 : t.isStreamable()) &&
-        !r &&
+        !n &&
         o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(e)
       );
     }
-    ((l.getVideoUrl = e), (l.isMsgStreamable = s));
+    ((l.getVideoUrl = e),
+      (l.isMsgStreamable = s),
+      (l.isMsgStreamableWithSupport = u),
+      (l.canMsgStream = c));
   },
   98,
 );

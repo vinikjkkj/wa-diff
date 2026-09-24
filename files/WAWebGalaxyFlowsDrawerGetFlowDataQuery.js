@@ -2,6 +2,7 @@ __d(
   "WAWebGalaxyFlowsDrawerGetFlowDataQuery",
   [
     "Promise",
+    "WAWebABProps",
     "WAWebGalaxyFlowQPLLoggerUtils",
     "WAWebGalaxyFlowWamLoggerUtils",
     "WAWebGalaxyFlowsDrawerGetFlowDataQuery.graphql",
@@ -32,7 +33,7 @@ __d(
         ));
       var _ =
         ((a = d.flowMetadata) == null ? void 0 : a.data_api_version) != null;
-      if (o("WAWebGalaxyFlowQPLLoggerUtils").isGalaxyFlowSanctioned()) {
+      if (o("WAWebABProps").getABPropConfigValue("commerce_sanctioned")) {
         var f = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
           o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors.SANCTIONED,
         );

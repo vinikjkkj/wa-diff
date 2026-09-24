@@ -354,7 +354,12 @@ __d(
               );
             }),
             (H = function (t) {
-              o("WAWebCmd").Cmd.muteChatWithDuration(i, t);
+              o("WAWebCmd").Cmd.muteChatWithDuration(
+                i,
+                t,
+                o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
+                  .CONVERSATION_SCREEN,
+              );
             }),
             (a[27] = i),
             (a[28] = V),

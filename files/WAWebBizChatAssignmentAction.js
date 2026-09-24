@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAgentCollection",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizChatAssignmentOpenedAction",
@@ -240,10 +241,9 @@ __d(
     function h(e, t) {
       if (
         !(
-          !o(
-            "WAWebChatAssignmentGatingUtils",
-          ).chatAssignmentNotificationsEnabled() ||
-          !o("WAWebChatAssignmentUtils").canAssignChats()
+          !o("WAWebABProps").getABPropConfigValue(
+            "smb_md_agent_chat_assignment_notifications_enabled",
+          ) || !o("WAWebChatAssignmentUtils").canAssignChats()
         )
       ) {
         var n = o("WAWebUserPrefsMeUser")

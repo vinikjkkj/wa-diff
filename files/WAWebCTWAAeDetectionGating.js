@@ -12,14 +12,8 @@ __d(
         "ctwa_ae_model_meta_data_enabled",
       );
     }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_ae_model_meta_data_signal_enabled",
-      );
-    }
     ((l.isCtwa3pdConversionOnAeDetectionEnabled = e),
-      (l.isCtwaAeModelMetadataIngestionEnabled = s),
-      (l.isCtwaAeModelMetadataEmissionEnabled = u));
+      (l.isCtwaAeModelMetadataIngestionEnabled = s));
   },
   98,
 );
