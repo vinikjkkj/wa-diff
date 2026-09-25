@@ -332,7 +332,12 @@ __d(
                   ? a.byMeChatProgressOn()
                   : a.byMeChatProgressOff(),
               ),
-              l = A(e, t, n, r).then(function () {
+              l = A({
+                chat: e,
+                limitSharing: t,
+                meUser: n,
+                unixTimeSeconds: r,
+              }).then(function () {
                 return new (o("WAWebActionToast.react").ActionType)(
                   t.sharingLimited === !0
                     ? a.byMeChatCompletedOn()
@@ -345,28 +350,30 @@ __d(
         w.apply(this, arguments)
       );
     }
-    function A(e, t, n, r) {
+    function A(e) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield O({
-              chat: e,
-              limitSharing: t,
-              meUser: n,
-              unixTimeSeconds: r,
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.limitSharing,
+            r = e.meUser,
+            a = e.unixTimeSeconds,
+            i = yield O({
+              chat: t,
+              limitSharing: n,
+              meUser: r,
+              unixTimeSeconds: a,
             });
-            yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, a);
-            var i = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
-              e.id,
-              t,
-            );
-            (yield o("WAWebDBProcessMessage").storeMessages([i], e.id),
-              yield o("WAWebLimitSharingModelUtils").updateChat(e.id, t));
-          },
-        )),
+          yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, i);
+          var l = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
+            t.id,
+            n,
+          );
+          (yield o("WAWebDBProcessMessage").storeMessages([l], t.id),
+            yield o("WAWebLimitSharingModelUtils").updateChat(t.id, n));
+        })),
         F.apply(this, arguments)
       );
     }

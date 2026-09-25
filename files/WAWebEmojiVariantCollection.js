@@ -18,7 +18,7 @@ __d(
       return (
         (n.setVariant = function (t, n) {
           var e = o("WAWebEmoji").EmojiUtil.getSkinToneBase(t);
-          if (e) this.gadd({ id: e, variant: n });
+          if (e != null && e !== "") this.gadd({ id: e, variant: n });
           else throw r("err")("attempt to store variantless emoji");
         }),
         (n.getVariant = function (t) {

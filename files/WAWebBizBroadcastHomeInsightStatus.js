@@ -6,11 +6,7 @@ __d(
     function s(e, t) {
       var n;
       return e.statusSource === "PRO"
-        ? u({
-            nowMs: t,
-            sentTimestampMs: e.sentAt,
-            status: e.rawDeliveryStatus,
-          })
+        ? u({ nowMs: t, sentTimestampMs: e.sentAt, status: e.displayStatus })
         : o("WAWebBroadcastInsightStatus").getInsightStatus({
             deliveredCount: e.deliveredCount,
             nowMs: t,

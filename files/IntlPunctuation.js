@@ -20,11 +20,12 @@ __d(
             s = n.meta[i];
           ((o = o.replace(l, s)), (a = a.replace(l, s)));
         }
-        (a === "javascript" &&
-          (a = function (t) {
+        var u = a;
+        (u === "javascript" &&
+          (u = function (t) {
             return t.slice(1).toLowerCase();
           }),
-          t.push([new RegExp(o.slice(1, -1), "g"), a]));
+          t.push([new RegExp(o.slice(1, -1), "g"), u]));
       }
       return t;
     }

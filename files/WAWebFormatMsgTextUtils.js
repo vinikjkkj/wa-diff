@@ -12,7 +12,7 @@ __d(
     function e(e, t) {
       if (e == null) return null;
       var n = t.isDynamicReplyButtonsMsg === !0;
-      return t.footer && n ? e + "\n" + t.footer : e;
+      return t.footer != null && t.footer !== "" && n ? e + "\n" + t.footer : e;
     }
     function u(e) {
       switch (e.subtype) {

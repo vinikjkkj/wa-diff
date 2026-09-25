@@ -219,7 +219,7 @@ __d(
               ),
             }),
             L = R.encPayload,
-            E = R.reportingTokenContent;
+            E = R.reportingTokenContentInfo;
           return babelHelpers.extends(
             { id: e.id },
             o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
@@ -244,7 +244,7 @@ __d(
               groupMentions: e.groupMentions,
               errorCode: e.errorCode,
               messageSecret: d,
-              reportingTokenContent: E,
+              reportingTokenContentInfo: E,
             },
           );
         })),

@@ -34,26 +34,34 @@ __d(
                       "g",
                     ),
                   ),
-                  s = 0;
-                s < l.length;
-                ++s
+                  s = [],
+                  u = 0;
+                u < l.length;
+                ++u
               ) {
-                var u = l[s][4][1],
-                  d = o("WAWebWidFactory").createUserWidOrThrow(u),
-                  m = o("WAWebContactCollection").ContactCollection.get(d);
-                if (m == null) return [];
-                l[s][4] = { contact: m, groupMetadata: e };
+                var d = l[u],
+                  m = d[4][1],
+                  p = o("WAWebWidFactory").createUserWidOrThrow(m),
+                  _ = o("WAWebContactCollection").ContactCollection.get(p);
+                if (_ == null) return [];
+                s.push([
+                  d[0],
+                  d[1],
+                  d[2],
+                  d[3],
+                  { contact: _, groupMetadata: e },
+                ]);
               }
-              return l;
+              return s;
             }
             if (!i || r("isEmptyObject")(i)) return [];
             for (
-              var p = c(i), _ = r("WAWebExtractRangesUsingRegex")(t, p), f = 0;
-              f < _.length;
-              ++f
+              var f = c(i), g = r("WAWebExtractRangesUsingRegex")(t, f), h = 0;
+              h < g.length;
+              ++h
             )
-              _[f][4] = { contact: i[_[f][4][0]], groupMetadata: e };
-            return _;
+              g[h][4] = { contact: i[g[h][4][0]], groupMetadata: e };
+            return g;
           }),
           (t.jsx = function (t, n, o) {
             var e = o.lastMessage,

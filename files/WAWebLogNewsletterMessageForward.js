@@ -23,22 +23,25 @@ __d(
             ? void 0
             : r.serverMessageId;
       for (var u of t) {
-        var c = {
-          channelForwardGroupType: o(
-            "WAWebGetMessageChatTypeFromWid",
-          ).getMessageChatTypeFromWid(u.id),
-          mediaType: i,
-        };
-        (s({ origin: e.id.remote, destination: u }) &&
-          Object.assign(c, {
-            cid: a == null ? void 0 : a.user,
-            postId: l == null ? void 0 : l.toString(),
-            destinationChannelId: u.id.user,
-            isSecondOrder: e.forwardedNewsletterMessageInfo != null,
-          }),
-          new (o(
-            "WAWebPsChannelPostForwardWamEvent",
-          ).PsChannelPostForwardWamEvent)(c).commit());
+        var c = babelHelpers.extends(
+          {
+            channelForwardGroupType: o(
+              "WAWebGetMessageChatTypeFromWid",
+            ).getMessageChatTypeFromWid(u.id),
+            mediaType: i,
+          },
+          s({ origin: e.id.remote, destination: u })
+            ? {
+                cid: a == null ? void 0 : a.user,
+                postId: l == null ? void 0 : l.toString(),
+                destinationChannelId: u.id.user,
+                isSecondOrder: e.forwardedNewsletterMessageInfo != null,
+              }
+            : null,
+        );
+        new (o(
+          "WAWebPsChannelPostForwardWamEvent",
+        ).PsChannelPostForwardWamEvent)(c).commit();
       }
     }
     function s(e) {

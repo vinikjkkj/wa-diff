@@ -217,41 +217,40 @@ __d(
                   var a,
                     i,
                     l,
-                    s,
-                    u =
+                    s =
                       (a = e.environmentType) != null ? a : "whatsapp_catalog",
-                    c = {
+                    u = {
                       Accept: "application/json",
                       "Content-Type": "application/json",
                     };
-                  if (u === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
-                    var h = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
-                    h != null && (c["X-WA-Device-ID"] = h);
+                  if (s === "facebook" && o("WAWebMobilePlatforms").isSMB()) {
+                    var c = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
+                    c != null && (u["X-WA-Device-ID"] = c);
                   }
-                  var y =
+                  var h =
                       (i = o("WAWebGraphQLPersistedQueries").PersistedQueries[
                         t.name
                       ]) != null
                         ? i
                         : t.id,
-                    C = m(u),
-                    b = yield o("WAWebBackendApi").frontendSendAndReceive(
+                    y = m(s),
+                    C = yield o("WAWebBackendApi").frontendSendAndReceive(
                       "getFullLocale",
                       void 0,
                     ),
-                    v = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
-                      b.replace("-", "_"),
+                    b = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
+                      C.replace("-", "_"),
                       o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
                     );
-                  if (u === "whatsapp_web")
+                  if (s === "whatsapp_web")
                     return g({
-                      docId: y,
-                      locale: v,
-                      localeParameterName: C,
+                      docId: h,
+                      locale: b,
+                      localeParameterName: y,
                       variables: n,
                     });
                   if (
-                    u === "whatsapp_guest" &&
+                    s === "whatsapp_guest" &&
                     (e == null ? void 0 : e.accessToken) == null
                   )
                     throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
@@ -265,49 +264,49 @@ __d(
                         ],
                       },
                     );
-                  var S =
-                      ((s = {
+                  var v = babelHelpers.extends(
+                      {
                         access_token:
                           (l = e == null ? void 0 : e.accessToken) != null
                             ? l
                             : o("WAWebGraphQLConstants")
                                 .WHATSAPP_GRAPHQL_CATALOG_ACCESS_TOKEN,
-                        doc_id: y,
+                        doc_id: h,
                         variables: n,
-                      }),
-                      (s[C] = v),
-                      s),
-                    R = yield self.fetch(d(u), {
+                      },
+                      y === "lang" ? { lang: b } : { locale: b },
+                    ),
+                    S = yield self.fetch(d(s), {
                       method: "POST",
-                      headers: c,
-                      body: JSON.stringify(S),
+                      headers: u,
+                      body: JSON.stringify(v),
                     });
-                  if (!R.ok) {
-                    var L, E;
+                  if (!S.ok) {
+                    var R, L;
                     try {
-                      E = yield R.json();
+                      L = yield S.json();
                     } catch (e) {
-                      p(R);
+                      p(S);
                     }
-                    if (((L = E) == null ? void 0 : L.error) != null)
+                    if (((R = L) == null ? void 0 : R.error) != null)
                       throw new (o(
                         "WAWebGraphQLServerError",
                       ).GraphQLServerError)({
-                        errors: [E.error],
-                        httpStatus: R.status,
+                        errors: [L.error],
+                        httpStatus: S.status,
                       });
-                    p(R);
+                    p(S);
                   }
-                  if (u === "facebook" && !r("justknobx")._("1636")) {
-                    var k = _(yield R.text());
-                    return (f(k), k);
+                  if (s === "facebook" && !r("justknobx")._("1636")) {
+                    var E = _(yield S.text());
+                    return (f(E), E);
                   }
-                  var I = yield R.json();
-                  if ((I == null ? void 0 : I.errors) != null)
+                  var k = yield S.json();
+                  if ((k == null ? void 0 : k.errors) != null)
                     throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
-                      { errors: I.errors },
+                      { errors: k.errors },
                     );
-                  return I;
+                  return k;
                 },
               );
               return function (n, r) {

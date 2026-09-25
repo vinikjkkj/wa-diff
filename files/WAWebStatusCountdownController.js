@@ -17,7 +17,7 @@ __d(
             n.$5.clear();
           }),
           (this.play = function () {
-            if (n.$2) {
+            if (n.$2 != null) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -40,7 +40,7 @@ __d(
               ));
           }),
           (this.stop = function () {
-            if (n.$2) {
+            if (n.$2 != null) {
               (self.clearTimeout(n.$2), (n.$2 = null));
               var e = Date.now();
               ((n.$3 -= e - n.$4),

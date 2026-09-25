@@ -196,15 +196,7 @@ __d(
                                 d.addPoint("kaleidoscope_classify_fail"));
                             }
                           }
-                          if (
-                            B({ downloadOrigin: l, partialVideoOpts: m }) &&
-                            (o(
-                              "WAWebMediaGatingUtils",
-                            ).isDownloadMimeTypeCheckLogEnabled() ||
-                              o(
-                                "WAWebMediaGatingUtils",
-                              ).isDownloadMimeTypeCheckBlockEnabled())
-                          ) {
+                          if (B({ downloadOrigin: l, partialVideoOpts: m })) {
                             var v = o(
                                 "WAWebMmsMediaTypes",
                               ).mediaTypeToMsgTypeSupportedByAllowlist(a.type),
@@ -270,12 +262,7 @@ __d(
                                   .tags("media", "security")
                                   .sendLogs("blocked-svg-mimetype"),
                                 (S = !0));
-                            if (
-                              S &&
-                              o(
-                                "WAWebMediaGatingUtils",
-                              ).isDownloadMimeTypeCheckBlockEnabled()
-                            )
+                            if (S)
                               throw new (o(
                                 "WAWebMediaFileErrors",
                               ).InvalidMediaFileType)(

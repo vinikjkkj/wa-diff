@@ -1,31 +1,34 @@
 __d(
   "WAWebRestoreProfilePictures",
   [
+    "WALogger",
     "WAWebApiHydrateWidsUtil",
     "WAWebProfilePicThumbCollection",
     "WAWebQplFlowWrapper",
     "WAWebSchemaProfilePicThumb",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = r("qpl")._(891431279, "3267");
-    function s() {
-      return u.apply(this, arguments);
-    }
+    var e,
+      s = r("qpl")._(891431279, "3267");
     function u() {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = self.performance.now();
           o("WAWebQplFlowWrapper").QPL.markerPoint(
-            e,
+            s,
             "RestoreProfilePictures_start",
           );
           var n = yield o("WAWebSchemaProfilePicThumb")
               .getProfilePicThumbTable()
               .all(),
-            r = [],
-            a = [];
+            a = [],
+            i = [];
           (n.forEach(function (e) {
             var t = o(
               "WAWebProfilePicThumbCollection",
@@ -34,14 +37,25 @@ __d(
             o(
               "WAWebProfilePicThumbCollection",
             ).ProfilePicThumbCollection.isProfilePicRefreshNeeded(e.timestamp)
-              ? a.push(e.id)
-              : r.push(e);
+              ? i.push(e.id)
+              : a.push(e);
           }),
-            a.length > 0 &&
+            i.length > 0 &&
               o("WAWebSchemaProfilePicThumb")
                 .getProfilePicThumbTable()
-                .bulkRemove(a));
-          var i = r.map(function (e) {
+                .bulkRemove(i)
+                .catch(function (t) {
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[restoreProfilePictures]: failed to bulk-remove outdated profile pics",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("restore-profile-pics-bulk-remove-failed");
+                }));
+          var l = a.map(function (e) {
             return babelHelpers.extends(
               {},
               o("WAWebApiHydrateWidsUtil").hydrateWids(e),
@@ -49,18 +63,18 @@ __d(
             );
           });
           (o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.add(
-            i,
+            l,
             { silent: !0, merge: !1 },
           ),
             o("WAWebQplFlowWrapper").QPL.markerPoint(
-              e,
+              s,
               "RestoreProfilePictures_end",
             ));
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.restoreProfilePictures = s;
+    l.restoreProfilePictures = u;
   },
   98,
 );

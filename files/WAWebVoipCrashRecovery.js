@@ -322,7 +322,7 @@ __d(
                     "[voip:recovery] init failed",
                   ])),
               )
-              .catching(e);
+              .catching(r("getErrorSafe")(e));
           }
         })),
         V.apply(this, arguments)

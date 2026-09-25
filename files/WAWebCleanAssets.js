@@ -28,9 +28,10 @@ __d(
               })
               .map(function (t) {
                 var r,
-                  o = n && t[e.WEBP] ? e.WEBP : e.DEFAULT,
-                  a = (r = t[o]) == null ? void 0 : r.split("/");
-                return a != null ? a[a.length - 1] : null;
+                  o = t[e.WEBP],
+                  a = n && o != null && o !== "" ? e.WEBP : e.DEFAULT,
+                  i = (r = t[a]) == null ? void 0 : r.split("/");
+                return i != null ? i[i.length - 1] : null;
               });
             a != null &&
               a.controller &&

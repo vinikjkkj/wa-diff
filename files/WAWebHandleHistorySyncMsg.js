@@ -16,22 +16,22 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.associatedMsgs,
             i = t.chatsWithRecentOrFullSyncMsgs,
             l = t.chunkOrder,
-            c = t.lastMsgs,
-            d = t.missingParentsCache,
-            m = t.recentOrFullSyncMsgs,
-            p = t.syncType,
-            _ = t.threadMsgs,
-            f = t.unifiedAddons;
+            d = t.lastMsgs,
+            m = t.missingParentsCache,
+            p = t.recentOrFullSyncMsgs,
+            _ = t.syncType,
+            f = t.threadMsgs,
+            g = t.unifiedAddons;
           if (
             (o("WALogger").LOG(
               e ||
@@ -42,20 +42,33 @@ __d(
             !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
           )
             return (
-              yield (u || (u = n("Promise"))).resolve(),
+              yield (c || (c = n("Promise"))).resolve(),
               o("WAWebDBProcessRecentAndFullHistorySyncMessage")
-                .storeRecentAndFullHistSyncMessages(m, i, p, l, a, d, _)
+                .storeRecentAndFullHistSyncMessages(p, i, _, l, a, m, f)
                 .then(function () {
                   var e = i.map(function (e) {
                       return e;
                     }),
-                    t = m.map(function (e) {
+                    t = p.map(function (e) {
                       return e.id.toString();
                     });
-                  o(
-                    "WAWebCheckUpdateOrphanReactions",
-                  ).checkUpdateForOrphanReactions(t);
-                  var n = _.flatMap(function (e) {
+                  o("WAWebCheckUpdateOrphanReactions")
+                    .checkUpdateForOrphanReactions(t)
+                    .catch(function (e) {
+                      var t = r("getErrorSafe")(e);
+                      o("WALogger")
+                        .ERROR(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[history sync] error occurred",
+                            ])),
+                        )
+                        .catching(t)
+                        .sendLogs(
+                          "handleProgressiveHistorySyncMsgs: error checking orphan reactions",
+                        );
+                    });
+                  var n = f.flatMap(function (e) {
                     var t;
                     return ((t = e.threadIds) != null ? t : []).map(
                       function (e) {
@@ -68,7 +81,7 @@ __d(
                   ).checkOrphanMutations(t, e, n);
                 })
                 .then(function () {
-                  return (u || (u = n("Promise"))).all(f).then(function (e) {
+                  return (c || (c = n("Promise"))).all(g).then(function (e) {
                     var t;
                     return o("WAWebAddonProcessMsgs").processHistoryMsgs(
                       (t = []).concat.apply(t, e),
@@ -77,7 +90,7 @@ __d(
                 })
                 .then(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    for (var e of c) {
+                    for (var e of d) {
                       if (!e || !e.id || !e.id.remote) return;
                       var t = e.id.remote;
                       if (t.isNewsletter()) return;
@@ -103,8 +116,8 @@ __d(
                   var t = r("getErrorSafe")(e);
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[history sync] error occurred",
                         ])),
                     )
@@ -115,10 +128,10 @@ __d(
                 })
             );
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.handleProgressiveHistorySyncMsgs = c;
+    l.handleProgressiveHistorySyncMsgs = d;
   },
   98,
 );

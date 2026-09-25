@@ -7,7 +7,7 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebMessagingGatingUtils",
     "WAWebProtobufsE2E.pb",
-    "WAWebReportingTokenContent",
+    "WAWebReportingTokenUtils",
     "WAWebScheduledMsgCrypto",
     "WAWebScheduledMsgStore",
     "WAWebSendMsgTypes",
@@ -60,12 +60,12 @@ __d(
             y = h.encIv,
             C = h.encPayload,
             b = o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion(),
-            v = o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled()
-              ? o("WAWebReportingTokenContent").calculateReportingTokenContent(
-                  g,
-                  b,
-                )
-              : null,
+            v =
+              b > 0
+                ? o(
+                    "WAWebReportingTokenUtils",
+                  ).calculateSenderReportingTokenContent(g, b)
+                : null,
             S = {
               conditionalRevealMessage: {
                 conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
@@ -113,7 +113,7 @@ __d(
             ),
             {
               innerMessageSecret: _,
-              reportingTokenContent: v,
+              reportingTokenContentInfo: v,
               revealKey: d,
               revealKeyId: m,
               scheduledTimestampS: c,
@@ -154,8 +154,8 @@ __d(
             });
           return (
             (n.data.messageSecret = m.innerMessageSecret),
-            m.reportingTokenContent != null &&
-              (n.data.reportingTokenContent = m.reportingTokenContent),
+            m.reportingTokenContentInfo != null &&
+              (n.data.reportingTokenContentInfo = m.reportingTokenContentInfo),
             {
               msgProtobuf: m.wrappedProtobuf,
               scheduledMsgMetadata: {

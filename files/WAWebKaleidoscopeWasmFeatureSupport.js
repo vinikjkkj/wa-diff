@@ -69,8 +69,9 @@ __d(
                   2, 1, 0, 7, 5, 1, 1, 98, 0, 0, 10, 6, 1, 4, 0, 32, 0, 11,
                 ]),
               ),
-              t = e.instance;
-            return t.exports.b(BigInt(0)) === BigInt(0);
+              t = e.instance,
+              n = t.exports.b;
+            return typeof n == "function" && n(BigInt(0)) === BigInt(0);
           } catch (e) {
             return !1;
           }

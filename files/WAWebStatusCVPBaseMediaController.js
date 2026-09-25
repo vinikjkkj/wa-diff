@@ -54,9 +54,10 @@ __d(
         (t.$9 = function (t) {
           return t == null
             ? !1
-            : (t.audioTracks && t.audioTracks.length > 0) ||
+            : (t.audioTracks != null && t.audioTracks.length > 0) ||
                 t.mozHasAudio === !0 ||
-                t.webkitAudioDecodedByteCount > 0;
+                (t.webkitAudioDecodedByteCount != null &&
+                  t.webkitAudioDecodedByteCount > 0);
         }),
         (t.$8 = function () {
           var e = this,

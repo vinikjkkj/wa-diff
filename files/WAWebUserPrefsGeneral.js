@@ -8,6 +8,7 @@ __d(
     "WAWebEventEmitter",
     "WAWebMediaAutoDownloadQuality.flow",
     "WAWebMobilePlatformPersistence",
+    "WAWebNonEmptyString",
     "WAWebPrivacySettings",
     "WAWebUserPrefsDebugKeys",
     "WAWebUserPrefsIndexedDBStorage",
@@ -37,10 +38,14 @@ __d(
       return typeof e == "string" ? e : null;
     }
     function g() {
-      var e = r("WAWebUserPrefsStore").get(
-        o("WAWebUserPrefsKeys").KEYS.BROWSER_ID,
-      );
-      return typeof e == "string" ? e : null;
+      var e,
+        t = r("WAWebUserPrefsStore").get(
+          o("WAWebUserPrefsKeys").KEYS.BROWSER_ID,
+        );
+      return typeof t == "string" &&
+        (e = o("WAWebNonEmptyString").asMaybeNonEmptyString(t)) != null
+        ? e
+        : null;
     }
     function h(e) {
       r("WAWebUserPrefsStore").set(o("WAWebUserPrefsKeys").KEYS.BROWSER_ID, e);

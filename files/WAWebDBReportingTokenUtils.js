@@ -216,7 +216,7 @@ __d(
           try {
             if (t.length === 0) return;
             if (n.removeWholeRow)
-              return o("WAWebSchemaReportingInfo")
+              return yield o("WAWebSchemaReportingInfo")
                 .getReportingInfoTable()
                 .bulkRemoveByIndex(["msgKey"], t);
             var r = yield o("WAWebSchemaReportingInfo")

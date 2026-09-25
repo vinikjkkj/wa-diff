@@ -4,6 +4,7 @@ __d(
     "TWAWebBizAdCreationSpec",
     "WAWebBizAdCreationConsts",
     "WAWebBizAdCreationEUCountryUtils",
+    "WAWebBizAdCreationUnknownAgeOptIn",
     "WAWebBizNativeAdsGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,7 +55,14 @@ __d(
             e.audienceData.audienceOption === "SAVED_AUDIENCE"
               ? e.audienceData.audienceID
               : null,
-          targeting_spec_string: JSON.stringify(e.audienceData.targetSpec),
+          targeting_spec_string: JSON.stringify(
+            o("WAWebBizAdCreationUnknownAgeOptIn").applyUnknownAgeOptIn(
+              e.audienceData.targetSpec,
+              e.audienceData.audienceOption,
+              e.placementData.selectedPublisherPlatforms,
+              e.placementData.isWhatsAppOffered,
+            ),
+          ),
         };
       return n;
     }

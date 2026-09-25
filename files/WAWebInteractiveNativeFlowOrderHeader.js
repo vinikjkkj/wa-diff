@@ -103,7 +103,7 @@ __d(
         if (i) {
           var p;
           (t[2] !== a
-            ? ((p = o("WAWebMsgGetters").getIsSentByMe(a)),
+            ? ((p = o("WAWebMsgGetters").getIsSentByMe(a.unsafe())),
               (t[2] = a),
               (t[3] = p))
             : (p = t[3]),

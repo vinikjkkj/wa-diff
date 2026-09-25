@@ -14,29 +14,30 @@ __d(
       c = "capture_volume",
       d = "ring_buffer_overflows",
       m = "targetless_touch_drops",
-      p = [s, u, c, d, m],
-      _ = f();
-    function f() {
+      p = "unresolvable_custom_event_drops",
+      _ = [s, u, c, d, m, p],
+      f = g();
+    function g() {
       var e = {};
-      for (var t of p) e[t] = 0;
+      for (var t of _) e[t] = 0;
       return e;
     }
-    function g(e, t) {
-      _[e] == null || !Number.isFinite(t) || t < 0 || (_[e] += t);
+    function h(e, t) {
+      f[e] == null || !Number.isFinite(t) || t < 0 || (f[e] += t);
     }
-    function h() {
+    function y() {
       var e = [],
         t = !1;
-      for (var n of p) {
-        var r = _[n];
+      for (var n of _) {
+        var r = f[n];
         (r !== 0 && (t = !0), e.push(n + ": " + String(r)));
       }
       if (t) {
         var o = e.join(", ");
-        (v(), y(o));
+        (S(), C(o));
       }
     }
-    function y(t) {
+    function C(t) {
       try {
         new (o(
           "WAWebPathfinderFrameworkHealthWamEvent",
@@ -57,24 +58,25 @@ __d(
           .sendLogs("pathfinder-framework-health-drain-failed");
       }
     }
-    function C() {
-      v();
-    }
     function b() {
-      v();
+      S();
     }
     function v() {
-      for (var e of p) _[e] = 0;
+      S();
+    }
+    function S() {
+      for (var e of _) f[e] = 0;
     }
     ((l.COUNTER_CAP_DROPS = s),
       (l.COUNTER_EDITING_DEDUP_DROPS = u),
       (l.COUNTER_CAPTURE_VOLUME = c),
       (l.COUNTER_RING_BUFFER_OVERFLOWS = d),
       (l.COUNTER_TARGETLESS_TOUCH_DROPS = m),
-      (l.recordPathfinderHealthCounter = g),
-      (l.drainPathfinderHealthCounters = h),
-      (l.discardPathfinderHealthCounters = C),
-      (l.resetPathfinderHealthCountersForTesting = b));
+      (l.COUNTER_UNRESOLVABLE_CUSTOM_EVENT_DROPS = p),
+      (l.recordPathfinderHealthCounter = h),
+      (l.drainPathfinderHealthCounters = y),
+      (l.discardPathfinderHealthCounters = b),
+      (l.resetPathfinderHealthCountersForTesting = v));
   },
   98,
 );

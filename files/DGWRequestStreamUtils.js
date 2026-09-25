@@ -47,19 +47,15 @@ __d(
       }, {});
     }
     function u(e) {
-      if (
-        e.response &&
-        e.response.instrumentation_data != null &&
-        e.response.instrumentation_data.length > 0
-      )
+      var t,
+        n = (t = e.response) == null ? void 0 : t.instrumentation_data;
+      if (n != null && n.length > 0)
         try {
-          var t,
-            n = JSON.parse(
-              new TextDecoder("utf-8").decode(e.response.instrumentation_data),
-            );
+          var r,
+            o = JSON.parse(new TextDecoder("utf-8").decode(n));
           return {
-            auxId: n.auxId,
-            dfTraceId: (t = n.dataFlowTracingData) == null ? void 0 : t.traceId,
+            auxId: o.auxId,
+            dfTraceId: (r = o.dataFlowTracingData) == null ? void 0 : r.traceId,
           };
         } catch (e) {}
       return null;

@@ -303,8 +303,10 @@ __d(
             var e = ge.current;
             if (
               e instanceof HTMLInputElement &&
-              e.selectionStart &&
-              e.selectionEnd
+              e.selectionStart != null &&
+              e.selectionStart !== 0 &&
+              e.selectionEnd != null &&
+              e.selectionEnd !== 0
             ) {
               var t = e.selectionStart,
                 n = e.selectionEnd;

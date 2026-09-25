@@ -676,52 +676,57 @@ __d(
     }
     function Rt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channels_admin_profiles_receiver_enabled",
+        "channels_scheduling_updates_receiver_enabled",
       );
     }
     function Lt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channels_admin_profiles_forwarding_to_chats_enabled",
+        "channels_admin_profiles_receiver_enabled",
       );
     }
     function Et() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channel_status_consumption",
+        "channels_admin_profiles_forwarding_to_chats_enabled",
       );
     }
     function kt() {
-      return (
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channel_status_deeplink_enabled",
-        ) && Et()
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channel_status_consumption",
       );
     }
     function It() {
       return (
-        Et() &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channel_status_deeplink_enabled",
+        ) && kt()
+      );
+    }
+    function Tt() {
+      return (
+        kt() &&
         o("WAWebABProps").getABPropConfigValue(
           "channel_status_resharing_enabled",
         )
       );
     }
-    function Tt() {
+    function Dt() {
       return (
-        Et() &&
+        kt() &&
         o("WAWebABProps").getABPropConfigValue(
           "channel_status_forwarding_enabled",
         )
       );
     }
-    function Dt(e) {
+    function xt(e) {
       return e == null
         ? !1
-        : xt(
+        : $t(
             e.membershipType,
             o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(e),
             e.capabilities,
           );
     }
-    function xt(e, t, n) {
+    function $t(e, t, n) {
       var r;
       return !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_status_creation",
@@ -744,32 +749,32 @@ __d(
               "channels_capabilities_enabled",
             );
     }
-    var $t = n("$InternalEnum")({
+    var Pt = n("$InternalEnum")({
       Disabled: 0,
       ProfileRing: 1,
       ThreadRing: 2,
       AllEntrypoints: 3,
     });
-    function Pt(e) {
+    function Nt(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_status_consumption_entrypoints",
         ) >= e
       );
     }
-    function Nt(e) {
-      var t = Et(),
-        n = Pt(e);
+    function Mt(e) {
+      var t = kt(),
+        n = Nt(e);
       return t && n;
     }
-    function Mt() {
-      return Nt($t.ProfileRing);
-    }
     function wt() {
-      return Nt($t.ThreadRing);
+      return Mt(Pt.ProfileRing);
     }
     function At() {
-      return Nt($t.AllEntrypoints);
+      return Mt(Pt.ThreadRing);
+    }
+    function Ft() {
+      return Mt(Pt.AllEntrypoints);
     }
     ((l.NewsletterABPropConfig = e),
       (l.getMaxSubscriberNumber = c),
@@ -892,17 +897,18 @@ __d(
       (l.isChannelSGISenderEnabled = bt),
       (l.isChannelSGIUiLabelEnabled = vt),
       (l.isChannelSGISenderSelfDisclosureEnabled = St),
-      (l.isNewsletterAdminProfilesReceiverEnabled = Rt),
-      (l.isNewsletterAdminProfilesForwardingEnabled = Lt),
-      (l.isNewsletterStatusReceiverEnabled = Et),
-      (l.isNewsletterStatusDeeplinkEnabled = kt),
-      (l.isNewsletterStatusReshareEnabled = It),
-      (l.isNewsletterStatusForwardEnabled = Tt),
-      (l.isNewsletterStatusCreationEnabled = Dt),
-      (l.isNewsletterStatusCreationEnabledForValues = xt),
-      (l.isNewsletterStatusProfileRingEnabled = Mt),
-      (l.isNewsletterStatusThreadRingEnabled = wt),
-      (l.isNewsletterStatusAllEntrypointsEnabled = At));
+      (l.isSchedulingUpdatesReceiverEnabled = Rt),
+      (l.isNewsletterAdminProfilesReceiverEnabled = Lt),
+      (l.isNewsletterAdminProfilesForwardingEnabled = Et),
+      (l.isNewsletterStatusReceiverEnabled = kt),
+      (l.isNewsletterStatusDeeplinkEnabled = It),
+      (l.isNewsletterStatusReshareEnabled = Tt),
+      (l.isNewsletterStatusForwardEnabled = Dt),
+      (l.isNewsletterStatusCreationEnabled = xt),
+      (l.isNewsletterStatusCreationEnabledForValues = $t),
+      (l.isNewsletterStatusProfileRingEnabled = wt),
+      (l.isNewsletterStatusThreadRingEnabled = At),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Ft));
   },
   98,
 );

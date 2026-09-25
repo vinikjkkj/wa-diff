@@ -23,7 +23,7 @@ __d(
               i = n.getTime() - a,
               l = Math.floor(i / e),
               s = a + e * l;
-            return (t = this.get(s)) != null
+            return (t = this.get(s.toString())) != null
               ? t
               : r("nullthrows")(
                   this.add({ id: s.toString(), startTime: s })[0],

@@ -23,15 +23,13 @@ __d(
           try {
             n = new URL(t.name).pathname;
           } catch (e) {}
-          if (/\.(css|js)$/.test(n)) {
-            var r = t;
-            r != null &&
-              typeof r == "object" &&
-              typeof r.encodedBodySize == "number" &&
-              typeof r.decodedBodySize == "number" &&
-              typeof r.transferSize == "number" &&
-              c.set(p(t.name), r);
-          }
+          /\.(css|js)$/.test(n) &&
+            t != null &&
+            typeof t == "object" &&
+            typeof t.encodedBodySize == "number" &&
+            typeof t.decodedBodySize == "number" &&
+            typeof t.transferSize == "number" &&
+            c.set(p(t.name), t);
         }
       c.size > s && m();
     }

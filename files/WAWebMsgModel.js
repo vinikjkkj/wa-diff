@@ -517,7 +517,7 @@ __d(
             (e.newsletterAdminInviteInfo = o("WAWebBaseModel").prop()),
             (e.newsletterFollowerInviteInfo = o("WAWebBaseModel").prop()),
             (e.reportingTokenInfo = o("WAWebBaseModel").prop()),
-            (e.reportingTokenContent = o("WAWebBaseModel").prop()),
+            (e.reportingTokenContentInfo = o("WAWebBaseModel").prop()),
             (e.plainProtobufBytes = o("WAWebBaseModel").session()),
             (e.preMatChat = o("WAWebBaseModel").session()),
             (e.senderWithDevice = o("WAWebBaseModel").session()),

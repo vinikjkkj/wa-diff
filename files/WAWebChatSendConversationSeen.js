@@ -27,7 +27,7 @@ __d(
               ).getMarkChatAsReadMutation(l, !0, t.id),
               u = t.id.toString();
             return (
-              o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+              yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
                 [],
                 [s],
                 function () {

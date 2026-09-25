@@ -32,7 +32,7 @@ __d(
         s;
       t[1] !== e
         ? ((s =
-            o("WAWebMsgGetters").getIsMetaBotResponse(e) &&
+            o("WAWebMsgGetters").getIsMetaBotResponse(e.unsafe()) &&
             e.activeBotMsgStreamingInProgress === !0),
           (t[1] = e),
           (t[2] = s))

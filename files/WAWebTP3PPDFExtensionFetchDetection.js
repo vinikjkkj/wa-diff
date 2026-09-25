@@ -21,7 +21,7 @@ __d(
           } catch (e) {
             return !1;
           } finally {
-            self.clearTimeout(n);
+            self.clearTimeout(n != null ? n : void 0);
           }
         })),
         u.apply(this, arguments)

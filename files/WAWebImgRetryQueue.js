@@ -62,11 +62,12 @@ __d(
                 c = r("WAPromiseRaceAbort")(
                   o("WABackoffUtils").expDelaySec(n, 60, 0),
                   s,
-                ).catch(o("WAAbortError").catchAbort(r("WAWebNoop")));
-              (this.$2.set(t.key(), { promise: c, controller: l }),
-                c.then(function () {
-                  (e.$2.delete(i), s.aborted || e.$1.set(i, t), e.$6());
-                }));
+                )
+                  .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))
+                  .then(function () {
+                    (e.$2.delete(i), s.aborted || e.$1.set(i, t), e.$6());
+                  });
+              this.$2.set(t.key(), { promise: c, controller: l });
             }
           }),
           (a.$6 = function () {

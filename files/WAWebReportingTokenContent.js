@@ -9,7 +9,7 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new Map([[35, new Set([1, 2, 3, 4, 6])]]),
+    var e = new Map([[35, new Set([1, 2, 3, 4, 6, 18])]]),
       s = new Map([
         [o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3, e],
       ]),

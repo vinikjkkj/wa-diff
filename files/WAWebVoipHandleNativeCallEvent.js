@@ -25,6 +25,7 @@ __d(
     "WAWebVoipHandleNativeCallEventCallLogHandlers",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipHandleNativeCallEventMediaHandlers",
+    "WAWebVoipIncomingCallUiActionStore",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
@@ -994,7 +995,10 @@ __d(
             o(
               "WAWebVoipWebTransportConnectionManager",
             ).resetFallbackStateForNewCall(),
-            o("WAWebCallRandomIdStore").clearCurrentCallRandomId()),
+            o("WAWebCallRandomIdStore").clearCurrentCallRandomId(),
+            o(
+              "WAWebVoipIncomingCallUiActionStore",
+            ).resetIncomingCallUiAction()),
             o("WAWebVoipCallStateUtils").isCallTerminal(l)
               ? (he = null)
               : ye(typeof s.callId == "string" ? s.callId : null),

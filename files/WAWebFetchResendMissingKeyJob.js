@@ -280,7 +280,8 @@ __d(
               )
               .then(function (e) {
                 var t,
-                  n = e == null ? void 0 : e.sessions;
+                  n =
+                    e instanceof ArrayBuffer || e == null ? void 0 : e.sessions;
                 if (n) {
                   for (var r in n)
                     if (n[r].indexInfo.closed === -1)

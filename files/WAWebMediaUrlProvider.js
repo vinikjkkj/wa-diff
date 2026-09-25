@@ -13,104 +13,121 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react")),
-      c = s,
-      d = c.useEffect,
-      m = c.useMemo,
-      p = c.useState,
-      _ = [];
-    function f(t) {
+      u,
+      c = u || (u = o("react")),
+      d = u,
+      m = d.useEffect,
+      p = d.useMemo,
+      _ = d.useState,
+      f = [];
+    function g(t) {
       var n = t.children,
         a = t.downloadMedia,
         i = t.mediaData,
         l = t.placeholderRenderer,
-        s = t.renderProgressively,
-        c = s === void 0 ? !1 : s,
-        f = o("useWAWebMediaDataValues").useMediaDataValues(i, [
+        u = t.renderProgressively,
+        d = u === void 0 ? !1 : u,
+        g = o("useWAWebMediaDataValues").useMediaDataValues(i, [
           o("WAWebMediaDataGetters").getFilehash,
           o("WAWebMediaDataGetters").getMediaStage,
           o("WAWebMediaDataGetters").getProgressiveStage,
         ]),
-        g = f[0],
-        h = f[1],
-        y = f[2],
-        C = p(_),
-        b = C[0],
-        v = C[1],
-        S = m(
+        h = g[0],
+        y = g[1],
+        C = g[2],
+        b = _(f),
+        v = b[0],
+        S = b[1],
+        R = p(
           function () {
-            return y != null
-              ? o("WAWebCryptoImageStreamer").getProgressiveMediaCacheKey(g, y)
+            return C != null
+              ? o("WAWebCryptoImageStreamer").getProgressiveMediaCacheKey(h, C)
               : null;
           },
-          [g, y],
+          [h, C],
         ),
-        R =
-          S != null && h !== o("WAWebMediaTypes").MediaDataStage.RESOLVED
-            ? S
-            : g,
-        L = r("useWAWebInMemoryMediaBlobCache")(R),
-        E = p(g),
-        k = E[0],
-        I = E[1],
-        T = p(null),
-        D = T[0],
-        x = T[1];
-      k !== g
-        ? (v(L != null ? [L] : []), I(g), x(L))
-        : L != null && L !== D && (v([].concat(b, [L])), x(L));
-      var $ = r("useWAWebStableCallback")(function () {
-        (S == null || !c) && (a == null || a());
+        L =
+          R != null && y !== o("WAWebMediaTypes").MediaDataStage.RESOLVED
+            ? R
+            : h,
+        E = r("useWAWebInMemoryMediaBlobCache")(L),
+        k = _(h),
+        I = k[0],
+        T = k[1],
+        D = _(null),
+        x = D[0],
+        $ = D[1];
+      I !== h
+        ? (S(E != null ? [E] : []), T(h), $(E))
+        : E != null && E !== x && (S([].concat(v, [E])), $(E));
+      var P = r("useWAWebStableCallback")(function () {
+        if (R == null || !d) {
+          var t;
+          a == null ||
+            (t = a()) == null ||
+            t.catch(function () {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "MediaUrlProvider: downloadMedia failed",
+                    ])),
+                )
+                .sendLogs("media-url-provider-download-failed", {
+                  sampling: 0.01,
+                });
+            });
+        }
       });
       return (
-        d(
+        m(
           function () {
-            $();
+            P();
           },
-          [g, $],
+          [h, P],
         ),
-        d(
+        m(
           function () {
-            if (L == null) {
+            if (E == null) {
               if (
-                h !== o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
-                S != null
+                y !== o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
+                R != null
               ) {
-                var t = g.slice(0, 10);
+                var e = h.slice(0, 10);
                 o("WALogger")
                   .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "blob missing hash: ",
                         " progStage: ",
                         " mediaStage: ",
                         "",
                       ])),
-                    t,
+                    e,
+                    C,
                     y,
-                    h,
                   )
                   .sendLogs("missing-progressive-blob");
               }
               return;
             }
           },
-          [L, h, S, g, y],
+          [E, y, R, h, C],
         ),
-        L == null
+        E == null
           ? l()
-          : c === !0
-            ? u.jsxs("div", {
+          : d === !0
+            ? c.jsxs("div", {
                 className: "x1n2onr6 xh8yej3 x5yr21d",
                 "data-testid": "media-url-provider",
                 children: [
-                  u.jsx("div", {
+                  c.jsx("div", {
                     className:
                       "x10l6tqk x1vjfegm x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d",
                     children: l(),
                   }),
-                  b.map(function (e) {
-                    return u.jsx(
+                  v.map(function (e) {
+                    return c.jsx(
                       "div",
                       {
                         className:
@@ -122,10 +139,10 @@ __d(
                   }),
                 ],
               })
-            : n(L)
+            : n(E)
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   98,
 );

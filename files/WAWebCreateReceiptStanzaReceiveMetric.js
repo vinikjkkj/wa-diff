@@ -28,7 +28,7 @@ __d(
         }
         (n == null
           ? (e.receiptStanzaType = o("WAWebAck").ACK_STRING.DELIVERY)
-          : o("WAWebHandleMsgReceiptParser").RECEIPT_TYPES_TO_ACK[n] != null &&
+          : n in o("WAWebHandleMsgReceiptParser").RECEIPT_TYPES_TO_ACK &&
             (e.receiptStanzaType = n),
           (i == null ? void 0 : i.length) != null &&
             (e.receiptStanzaTotalCount = i.length),

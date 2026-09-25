@@ -15,7 +15,9 @@ __d(
       u = function (n) {
         return (e || (e = r("ContextualConfigAssert")))(
           o("ContextualConfigValidators").isDefined(n) &&
-            o("ContextualConfigValidators").isDefined(n.version),
+            o("ContextualConfigValidators").isDefined(
+              n == null ? void 0 : n.version,
+            ),
           o("ContextualConfigConstants").ERROR.BAD_CONFIG,
         );
       },

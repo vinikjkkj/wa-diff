@@ -17,7 +17,7 @@ __d(
         r("WAWebMediaOpaqueData")
           .createFromData(n, a.mimetype)
           .then(function (e) {
-            o("WAWebMediaMmsV4Download").manuallySetMedia({
+            return o("WAWebMediaMmsV4Download").manuallySetMedia({
               mimetype: a.mimetype,
               mediaObject: l,
               mediaBlob: e,

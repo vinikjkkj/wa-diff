@@ -3,7 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e() {
-      return navigator.connection &&
+      return navigator.connection != null &&
         typeof navigator.connection.effectiveType == "string"
         ? navigator.connection.effectiveType
         : null;

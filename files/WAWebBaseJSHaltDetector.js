@@ -22,7 +22,7 @@ __d(
         return (
           (r.startDetection = function () {
             var t = this;
-            if (!this.$BaseJsHaltDetector$p_3) {
+            if (this.$BaseJsHaltDetector$p_3 == null) {
               var n = Date.now();
               ((this.$BaseJsHaltDetector$p_3 = self.setInterval(function () {
                 var e = Date.now(),
@@ -41,7 +41,7 @@ __d(
             }
           }),
           (r.stopDetection = function () {
-            this.$BaseJsHaltDetector$p_3 &&
+            this.$BaseJsHaltDetector$p_3 != null &&
               (self.clearInterval(this.$BaseJsHaltDetector$p_3),
               (this.$BaseJsHaltDetector$p_3 = null),
               o("WALogger").LOG(

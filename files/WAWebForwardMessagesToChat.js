@@ -7,6 +7,7 @@ __d(
     "WAWebChatForwardMessage",
     "WAWebChatGetters",
     "WAWebFormatForwardErrorChatAction",
+    "WAWebForwardAssociatedChildren",
     "WAWebForwardContentMsgs",
     "WAWebForwardErrorChatAction",
     "WAWebLogNewsletterMessageForward",
@@ -42,10 +43,7 @@ __d(
                 o(
                   "WAWebLogNewsletterMessageForward",
                 ).logNewsletterMessageForward(m, i));
-          var p = c(d),
-            _ = p.msgsThatCanBeforwarded,
-            f = p.msgsThatCannotBeForwarded,
-            g = yield (e || (e = n("Promise"))).all(
+          var p = yield (e || (e = n("Promise"))).all(
               i
                 .filter(function (e) {
                   return e.canSend;
@@ -54,6 +52,18 @@ __d(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
+                        var t = c(
+                            o(
+                              "WAWebForwardContentMsgs",
+                            ).getForwardContentMsgsForDestination(
+                              u,
+                              o(
+                                "WAWebForwardAssociatedChildren",
+                              ).getForwardDestination(e),
+                            ),
+                          ),
+                          n = t.msgsThatCanBeforwarded,
+                          r = t.msgsThatCannotBeForwarded;
                         return (
                           o("WAWebChatGetters").getIsUser(e) &&
                             e.contact.isContactBlocked &&
@@ -66,13 +76,13 @@ __d(
                               "WAWebChatForwardMessage",
                             ).forwardMessages({
                               chat: e,
-                              msgs: _,
+                              msgs: n,
                               multicast: !0,
                               includeCaption: s,
                               appendedText: a,
                             }),
-                            msgsThatCanBeforwarded: _,
-                            msgsThatCannotBeForwarded: f,
+                            msgsThatCanBeforwarded: n,
+                            msgsThatCannotBeForwarded: r,
                           })
                         );
                       },
@@ -83,7 +93,7 @@ __d(
                   })(),
                 ),
             ),
-            h = r("compactMap")(g, function (e) {
+            _ = r("compactMap")(p, function (e) {
               var t = e.chat,
                 n = e.msgsThatCanBeforwarded,
                 o = e.msgsThatCannotBeForwarded,
@@ -100,7 +110,7 @@ __d(
                 i != null && i !== "" ? { chat: t, reason: i } : null
               );
             });
-          if (h.length) throw new (r("WAWebForwardErrorChatAction"))(h);
+          if (_.length) throw new (r("WAWebForwardErrorChatAction"))(_);
           return !0;
         })),
         u.apply(this, arguments)

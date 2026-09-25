@@ -101,17 +101,17 @@ __d(
         a = typeof e.outputLatency == "number" ? e.outputLatency * 1e3 : 0,
         i = null,
         l = e.getOutputTimestamp();
-      if (
-        l != null &&
-        typeof l.contextTime == "number" &&
-        typeof l.performanceTime == "number"
-      ) {
-        var s = Math.max(0, self.performance.now() - l.performanceTime),
-          u = l.contextTime + s / 1e3;
-        i = Math.max(0, (e.currentTime - u) * 1e3);
+      if (l != null) {
+        var s = l.contextTime,
+          u = l.performanceTime;
+        if (typeof s == "number" && typeof u == "number") {
+          var c = Math.max(0, self.performance.now() - u),
+            d = s + c / 1e3;
+          i = Math.max(0, (e.currentTime - d) * 1e3);
+        }
       }
-      var c = i != null ? i : o > 0 && a > 0 ? o + a : Math.max(o, a);
-      return { estimatedOutputLagMs: r + c };
+      var m = i != null ? i : o > 0 && a > 0 ? o + a : Math.max(o, a);
+      return { estimatedOutputLagMs: r + m };
     }
     var Z = (function () {
       function t() {

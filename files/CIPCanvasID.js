@@ -769,14 +769,14 @@ __d(
           e.push("cd:" + String(screen.colorDepth)),
           e.push("pd:" + String(screen.pixelDepth)),
           navigator.hardwareConcurrency != null &&
-            e.push("cores:" + String(navigator.hardwareConcurrency)),
-          navigator.deviceMemory != null &&
-            e.push("mem:" + String(navigator.deviceMemory)),
+            e.push("cores:" + String(navigator.hardwareConcurrency)));
+        var r = navigator;
+        (r.deviceMemory != null && e.push("mem:" + String(r.deviceMemory)),
           navigator.maxTouchPoints != null &&
             e.push("touch:" + String(navigator.maxTouchPoints)));
         try {
-          var r = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          r != null && e.push("tz:" + r);
+          var o = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          o != null && e.push("tz:" + o);
         } catch (e) {}
         (e.push("lang:" + ((t = navigator.language) != null ? t : "")),
           e.push("platform:" + ((n = navigator.platform) != null ? n : "")));

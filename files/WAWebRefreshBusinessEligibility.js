@@ -19,7 +19,7 @@ __d(
       u = { maxTimeout: 1e4, minTimeout: 1e3, retries: 2 },
       c = null;
     function d(e) {
-      var t, n, r;
+      var t, n;
       (o(
         "WAWebBizBroadcastMarketingMessagesEligibilityModel",
       ).updateMarketingMessagesEligibility(
@@ -29,14 +29,28 @@ __d(
         o("WAWebBizBroadcastGenAIEligibilityModel").updateGenAIEligibility(
           (e == null || (n = e.genai) == null ? void 0 : n.status) ===
             "SUCCESS",
-        ),
+        ));
+    }
+    function m(e) {
+      var t;
+      (d(e),
         o(
           "WAWebBizBroadcastProOnboardingStatus",
         ).updateBizBroadcastProEligibility(
-          e == null || (r = e.bbPro) == null ? void 0 : r.status,
+          e == null || (t = e.bbPro) == null ? void 0 : t.status,
         ));
     }
-    function m() {
+    function p(e) {
+      if ((d(e), e != null)) {
+        var t;
+        o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).updateBizBroadcastProEligibility(
+          (t = e.bbPro) == null ? void 0 : t.status,
+        );
+      }
+    }
+    function _() {
       var e = new AbortController();
       return o("WAExponentialBackoff").exponentialBackoff(
         babelHelpers.extends({}, u, { signal: e.signal }),
@@ -62,18 +76,18 @@ __d(
         },
       );
     }
-    function p() {
-      return _.apply(this, arguments);
+    function f() {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            var t = yield m();
-            return (d(t), t);
+            var t = yield _();
+            return (m(t), t);
           } catch (t) {
             throw (
-              d(null),
+              p(null),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -88,15 +102,15 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebBizBroadcastEligibilityCache").readCache();
           if (
             (!e &&
@@ -106,19 +120,19 @@ __d(
               t != null &&
               o("WAWebBizBroadcastEligibilityCache").isInFailureBackoff(t))
           )
-            return (d(t.result), t.result);
+            return (m(t.result), t.result);
           try {
-            var n = yield m();
+            var n = yield _();
             return (
               o("WAWebBizBroadcastEligibilityCache").writeCacheSuccess(n),
-              d(n),
+              m(n),
               n
             );
           } catch (e) {
             var r;
             throw (
               o("WAWebBizBroadcastEligibilityCache").writeCacheFailure(),
-              d((r = t == null ? void 0 : t.result) != null ? r : null),
+              p((r = t == null ? void 0 : t.result) != null ? r : null),
               o("WALogger")
                 .ERROR(
                   s ||
@@ -133,10 +147,10 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e) {
+    function C(e) {
       var t, n;
       e === void 0 && (e = {});
       var r = e,
@@ -158,8 +172,8 @@ __d(
         var d = o(
           "WAWebBizBroadcastEligibilityCache",
         ).isEligibilityCachingEnabled()
-          ? f(i)
-          : p();
+          ? h(i)
+          : f();
         c = d.finally(function () {
           c = null;
         });
@@ -170,7 +184,7 @@ __d(
             return u;
           });
     }
-    l.refreshBusinessEligibilityIfNeeded = h;
+    l.refreshBusinessEligibilityIfNeeded = C;
   },
   98,
 );

@@ -62,58 +62,63 @@ __d(
         $ = o("WebBloksTheme").useTheme().getTheme(),
         P = r.get(h);
       T.position === "absolute" &&
-        (T.top === "0px" && T.bottom === "0px" && (T.height = "100%"),
-        T.left === "0px" && T.right === "0px" && (T.width = "100%"));
-      var N = S(i),
-        M = {};
+        T.left === "0px" &&
+        T.right === "0px" &&
+        (T.width = "100%");
+      var N =
+          T.position === "absolute" && T.top === "0px" && T.bottom === "0px"
+            ? babelHelpers.extends({}, T, { height: "100%" })
+            : T,
+        M = S(i),
+        w = {};
       if (u != null && l != null) {
-        var w = N === "fill" ? "100% 100%" : N;
-        M = {
+        var A = M === "fill" ? "100% 100%" : M;
+        w = {
           WebkitMaskImage: "url(" + l + ")",
-          WebkitMaskSize: w,
+          WebkitMaskSize: A,
           maskImage: "url(" + l + ")",
-          maskSize: w,
+          maskSize: A,
           backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(u, $),
           objectPosition: "10000px 10000px",
         };
       }
-      var A = function (t) {
+      var F = function (t) {
         b != null && k(r, b, [t, Date.now(), E]);
       };
       c(function () {
-        A("ImageRequested");
+        F("ImageRequested");
       }, []);
-      var F = P == null ? void 0 : P.get(v);
-      if (F != null) {
-        var O = F.charAt(0),
-          B = "";
-        switch (O) {
+      var O = P == null ? void 0 : P.get(v);
+      if (O != null) {
+        var B = O.charAt(0),
+          W = "";
+        switch (B) {
           case "/":
-            B = "jpg";
+            W = "jpg";
             break;
           case "i":
-            B = "png";
+            W = "png";
             break;
           case "R":
-            B = "gif";
+            W = "gif";
             break;
           case "U":
-            B = "webp";
+            W = "webp";
             break;
           case "P":
-            B = "svg";
+            W = "svg";
             break;
         }
-        F = "data:image/" + B + ";base64," + F;
+        O = "data:image/" + W + ";base64," + O;
       }
-      var W = $ === o("WebBloksTheme").THEME.light || a == null ? l : a,
-        q = typeof W == "string" && W ? W.replace(/\\/g, "") : null,
-        U = F != null ? F : q,
-        V = babelHelpers.extends({}, x, {
+      var q = $ === o("WebBloksTheme").THEME.light || a == null ? l : a,
+        U = typeof q == "string" && q ? q.replace(/\\/g, "") : null,
+        V = O != null ? O : U,
+        H = babelHelpers.extends({}, x, {
           "aria-label": null,
           alt: (t = x == null ? void 0 : x["aria-label"]) != null ? t : "",
         }),
-        H = d(
+        G = d(
           function () {
             return C != null && u == null ? R(C) : void 0;
           },
@@ -124,23 +129,23 @@ __d(
           "img",
           babelHelpers.extends(
             {},
-            V,
+            H,
             {
-              src: U,
+              src: V,
               onLoad: function () {
-                return A("ImageFinalRendered");
+                return F("ImageFinalRendered");
               },
               onError: function () {
-                return A("ImageFailed");
+                return F("ImageFailed");
               },
             },
             o("WebBloksStyle").getStyleProps(
               babelHelpers.extends(
                 {},
-                T,
-                M,
-                { objectFit: N },
-                H != null ? { objectPosition: H } : null,
+                N,
+                w,
+                { objectFit: M },
+                G != null ? { objectPosition: G } : null,
                 { overflow: "hidden" },
               ),
             ),

@@ -53,8 +53,8 @@ __d(
           var t = o.result;
           t && r(t.value) ? t.continue() : e();
         }),
-          (o.onerror = function (e) {
-            n(e.target.result);
+          (o.onerror = function () {
+            n(o.result);
           }));
       });
     }

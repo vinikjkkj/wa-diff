@@ -15,7 +15,6 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWid",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
@@ -215,36 +214,33 @@ __d(
       );
     }
     function v() {
-      return r("justknobx")._("1920");
+      return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
     function S() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_download_mimetype_check_block_enabled",
+      return (
+        v() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
       );
     }
     function R() {
-      return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
+      return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_video");
     }
     function L() {
       return (
-        R() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
+        o("WAWebABProps").getABPropConfigValue(
+          "media_quality_auto_download_settings_enabled",
+        ) && R()
       );
     }
     function E() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "media_quality_auto_download_settings_enabled",
-      );
-    }
-    function k() {
       var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
       return e ===
         o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
-        !E()
+        !L()
         ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
             .STANDARD
         : e;
     }
-    function I() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
@@ -261,13 +257,12 @@ __d(
       (l.isThumbnailGenerationForMsgOnServerEnabled = y),
       (l.isThumbnailGenerationOnServerEnabledForMediaType = C),
       (l.isVideoCometVideoPlayerEnabled = b),
-      (l.isDownloadMimeTypeCheckLogEnabled = v),
-      (l.isDownloadMimeTypeCheckBlockEnabled = S),
-      (l.isHdImageDualUploadConsumptionEnabled = R),
-      (l.isHdImageDualUploadSendEnabled = L),
-      (l.isMediaAutoDownloadQualityAutoEnabled = E),
-      (l.resolveEffectiveAutoDownloadMediaQuality = k),
-      (l.getHQImageThumbnailInChatScans = I));
+      (l.isHdImageDualUploadConsumptionEnabled = v),
+      (l.isHdImageDualUploadSendEnabled = S),
+      (l.isHdVideoDualUploadConsumptionEnabled = R),
+      (l.isMediaAutoDownloadQualityAutoEnabled = L),
+      (l.resolveEffectiveAutoDownloadMediaQuality = E),
+      (l.getHQImageThumbnailInChatScans = k));
   },
   98,
 );

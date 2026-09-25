@@ -177,7 +177,7 @@ __d(
       }
     }
     function p(e, t) {
-      if (!t) return u.STATUS_UNSET;
+      if (t == null || t === "") return u.STATUS_UNSET;
       var n = t.toUpperCase();
       switch (e) {
         case s.TYPE_P2P_SENT:

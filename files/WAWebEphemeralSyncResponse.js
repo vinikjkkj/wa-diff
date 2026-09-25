@@ -497,7 +497,7 @@ __d(
               var c,
                 d = (c = r == null ? void 0 : r.duration) != null ? c : 0;
               (i.duration !== d &&
-                (x(e), O(r == null ? void 0 : r.duration, t)),
+                (yield x(e), O(r == null ? void 0 : r.duration, t)),
                 w({
                   changes: i,
                   incomingMsgSettings: r,

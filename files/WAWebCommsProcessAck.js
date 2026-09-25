@@ -103,7 +103,9 @@ __d(
               t
             );
           }
-          o("WAWebActiveMessageRanges").checkAndRemoveActiveMessageRanges(l, i);
+          return o(
+            "WAWebActiveMessageRanges",
+          ).checkAndRemoveActiveMessageRanges(l, i);
         })),
         p.apply(this, arguments)
       );

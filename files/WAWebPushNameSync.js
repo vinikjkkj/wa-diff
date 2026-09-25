@@ -81,7 +81,7 @@ __d(
                                 return (
                                   (f == null || f === "") &&
                                     (a++,
-                                    o(
+                                    yield o(
                                       "WAWebSyncdCriticalBootstrapProcessingApi",
                                     ).logCriticalBootstrapStageIfNecessary(
                                       o(

@@ -31,15 +31,14 @@ __d(
       var n = t.prototype;
       return (
         (n.initialize = function () {
+          var t = this;
           (e.prototype.initialize.call(this),
             (this.orderItemCollection = new (o(
               "WAWebOrderItemCollection",
             ).OrderItemCollection)()),
-            this.listenTo(
-              this,
-              "change:cartItemCollection",
-              this.triggerItemCollectionUpdate,
-            ),
+            this.listenTo(this, "change:cartItemCollection", function () {
+              return t.triggerItemCollectionUpdate();
+            }),
             this.triggerItemCollectionUpdate());
         }),
         (n.triggerItemCollectionUpdate = function () {

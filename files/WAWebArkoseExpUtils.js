@@ -6,12 +6,13 @@ __d(
     var e = n("$InternalEnum")({ NONE: -1, CONTROL: 0, TEST: 1, DEV: 2 });
     function s() {
       if (o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe()) {
-        var t = window.parent.arkoseVariant,
-          n = e.cast(t);
-        return n != null ? n : u();
+        var t = window.parent,
+          n = t.arkoseVariant,
+          r = e.cast(n);
+        return r != null ? r : u();
       }
-      var r = u();
-      return ((window.arkoseVariant = r), r);
+      var a = u();
+      return ((window.arkoseVariant = a), a);
     }
     function u() {
       return r("gkx")("26256") || !r("gkx")("18518")

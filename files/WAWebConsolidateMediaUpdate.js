@@ -95,7 +95,7 @@ __d(
           (n.mediaObject = u),
           o("WAWebMediaStorage").associateMediaWithMsg(u, n));
       else {
-        d
+        d != null && d !== ""
           ? (u = o("WAWebMediaStorage").getOrCreateMediaObject(d))
           : (u = new (o("WAWebMediaObject").MediaObject)());
         var p = n.mediaData;

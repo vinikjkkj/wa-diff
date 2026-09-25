@@ -7,6 +7,7 @@ __d(
     "WAWebMsgRcatUtils",
     "WAWebPipConst",
     "WAWebVoipGatingUtils",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,12 +19,13 @@ __d(
       p,
       _,
       f,
-      g = (function (t) {
+      g,
+      h = (function (t) {
         function n() {
-          for (var n, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
-            a[i] = arguments[i];
+          for (var n, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+            i[l] = arguments[l];
           return (
-            (n = t.call.apply(t, [this].concat(a)) || this),
+            (n = t.call.apply(t, [this].concat(i)) || this),
             (n.openPiP = function (e, t, r) {
               var a;
               (a = n.manager) == null ||
@@ -44,32 +46,43 @@ __d(
               var e;
               (e = n.manager) == null || e.pausePiP();
             }),
-            (n.openYoutubePiP = function (e, t, r, a) {
+            (n.openYoutubePiP = function (t, a, i, l) {
               o("WAWebMsgRcatUtils")
-                .genNonceForMsg(t)
-                .then(function (i) {
-                  var l,
-                    s = o("WAWebMsgGetters").getRcatString(t),
+                .genNonceForMsg(a)
+                .then(function (e) {
+                  var r,
+                    s = o("WAWebMsgGetters").getRcatString(a),
                     u =
-                      i != null && s != null
-                        ? { nonce: i, counterAbuseToken: s }
+                      e != null && s != null
+                        ? { nonce: e, counterAbuseToken: s }
                         : null;
-                  (l = n.manager) == null ||
-                    l.openPiP(o("WAWebPipConst").PiPVideoType.YOUTUBE, {
-                      msg: t,
-                      startTime: r,
-                      zoomRect: a,
-                      videoSrc: e,
+                  (r = n.manager) == null ||
+                    r.openPiP(o("WAWebPipConst").PiPVideoType.YOUTUBE, {
+                      msg: a,
+                      startTime: i,
+                      zoomRect: l,
+                      videoSrc: t,
                       preview: null,
                       counterAbuseData: u,
                     });
+                })
+                .catch(function (t) {
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[PiP] openYoutubePiP failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("pip-open-youtube-failed");
                 });
             }),
-            (n.openVoipUiPiP = function (t) {
+            (n.openVoipUiPiP = function (e) {
               if (!o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
                 o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] openVoipUiPiP: suppressed, native platform owns the call UI",
                     ])),
                 );
@@ -77,29 +90,29 @@ __d(
               }
               if (n.manager != null) {
                 (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] openVoipUiPiP: delegating to PiPManager",
                     ])),
                 ),
-                  n.__openVoipPiP(t));
+                  n.__openVoipPiP(e));
                 return;
               }
               (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] openVoipUiPiP: manager not ready, deferring",
                   ])),
               ),
                 (n.__pendingAction = function () {
-                  return n.__openVoipPiP(t);
+                  return n.__openVoipPiP(e);
                 }));
             }),
             (n.openVoipUiPiPForCallLink = function () {
               if (!o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] openVoipUiPiPForCallLink: suppressed, native platform owns the call UI",
                     ])),
                 );
@@ -107,8 +120,8 @@ __d(
               }
               if (n.manager != null) {
                 (o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] openVoipUiPiPForCallLink: delegating to PiPManager",
                     ])),
                 ),
@@ -116,8 +129,8 @@ __d(
                 return;
               }
               (o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] openVoipUiPiPForCallLink: manager not ready, deferring",
                   ])),
               ),
@@ -127,8 +140,8 @@ __d(
             }),
             (n.openVoipUiPiPForOutgoing = function () {
               (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] openVoipUiPiPForOutgoing: opening msg-less PiP for outgoing call",
                   ])),
               ),
@@ -146,13 +159,13 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        var a = n.prototype;
         return (
-          (r.register = function (t) {
+          (a.register = function (t) {
             if (
               (o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] PiPManager registered",
                   ])),
               ),
@@ -162,18 +175,18 @@ __d(
               var e = this.__pendingAction;
               ((this.__pendingAction = null),
                 o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] flushing pending PiP action after manager registration",
                     ])),
                 ),
                 e());
             }
           }),
-          (r.unregister = function () {
+          (a.unregister = function () {
             ((this.__pendingAction = null), (this.manager = null));
           }),
-          (r.__openVoipPiP = function (t) {
+          (a.__openVoipPiP = function (t) {
             var e;
             (e = this.manager) == null ||
               e.openPiP(o("WAWebPipConst").PiPVideoType.VOIP, {
@@ -184,7 +197,7 @@ __d(
                 zoomRect: null,
               });
           }),
-          (r.__openVoipCallLinkPiP = function () {
+          (a.__openVoipCallLinkPiP = function () {
             var e;
             (e = this.manager) == null ||
               e.openPiP(o("WAWebPipConst").PiPVideoType.VOIP, {
@@ -195,21 +208,21 @@ __d(
                 zoomRect: null,
               });
           }),
-          (r.didOpen = function (t) {
+          (a.didOpen = function (t) {
             this.trigger(t.id.toString() + "_pip_did_open");
           }),
-          (r.didClose = function (t) {
+          (a.didClose = function (t) {
             this.trigger(t.id.toString() + "_pip_did_close");
           }),
-          (r.didError = function (t) {
+          (a.didError = function (t) {
             this.trigger(t.id.toString() + "_pip_did_error");
           }),
           n
         );
       })(r("WAWebEventEmitter")),
-      h = new g(),
-      y = h;
-    l.default = y;
+      y = new h(),
+      C = y;
+    l.default = C;
   },
   98,
 );

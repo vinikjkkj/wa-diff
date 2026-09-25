@@ -14,13 +14,13 @@ __d(
     function u() {
       return o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web");
     }
-    function c(e, t) {
+    function c(e, t, n) {
       o("WAWebPixPaymentRequestFeature").isPixPaymentRequestEnabled()
         ? o("WAWebModalManager").ModalManager.open(
             s.jsx(
               o("WAWebPaymentOnboardingFlowLoadable")
                 .PaymentOnboardingFlowLoadable,
-              { referral: t, previousScreen: e },
+              { prefill: n, referral: t, previousScreen: e },
             ),
             { transition: "modal-flow" },
           )
@@ -28,7 +28,7 @@ __d(
             s.jsx(
               o("WAWebBusinessAddPixModalLoadable")
                 .WAWebBizPaymentsBrazilAddPixModalLoadable,
-              { referral: t, previousScreen: e },
+              { prefill: n, referral: t, previousScreen: e },
             ),
           );
     }

@@ -66,7 +66,7 @@ __d(
         o = t.lng,
         a = t.name,
         i = r("WAWebL10N").getNormalizedLocale();
-      return a
+      return a != null && a !== ""
         ? g +
             "/" +
             encodeURIComponent(a) +

@@ -210,7 +210,7 @@ __d(
         d = e.option,
         m = e.selectable,
         p = e.trusted,
-        _ = o("WAWebMsgGetters").getIsSentByMe(l),
+        _ = o("WAWebMsgGetters").getIsSentByMe(l.unsafe()),
         f = o("WAWebTextSizeUtils").getWAWebTextSizeStyles().textSize,
         g = o("WAWebPollsGatingUtils").isTappableLinksInPollOptionEnabled(),
         h = o("WAWebFormatConfigurationConversation").Conversation({

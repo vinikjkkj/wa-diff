@@ -10,7 +10,7 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebReportingTokenContent",
+    "WAWebReportingTokenUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
@@ -119,20 +119,21 @@ __d(
                 e.type === o("WAWebMsgType").MsgKind.EventEditDecrypted ||
                 e.type === o("WAWebMsgType").MsgKind.MessageEditDecrypted ||
                 e.type === o("WAWebMsgType").MsgKind.PollEditDecrypted ||
-                e.type === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
-                  ? o(
-                      "WAWebReportingTokenContent",
-                    ).calculateReportingTokenContent(
-                      new Uint8Array(f),
-                      o(
-                        "WAWebMessagingGatingUtils",
-                      ).getSenderReportingTokenVersion(),
-                    )
-                  : null;
-            return babelHelpers.extends(
-              { encPayload: g },
-              h != null && { reportingTokenContent: h },
-            );
+                e.type === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted,
+              y = h
+                ? o(
+                    "WAWebReportingTokenUtils",
+                  ).calculateSenderReportingTokenContent(
+                    new Uint8Array(f),
+                    o(
+                      "WAWebMessagingGatingUtils",
+                    ).getSenderReportingTokenVersion(),
+                  )
+                : null;
+            return {
+              encPayload: g,
+              reportingTokenContentInfo: y != null ? y : void 0,
+            };
           } catch (t) {
             throw (
               o("WALogger").LOG(

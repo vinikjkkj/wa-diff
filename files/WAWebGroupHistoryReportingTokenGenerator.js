@@ -109,7 +109,7 @@ __d(
             u = e.stanzaId,
             c = o("WAWebReportingTokenUtils").isSupportedReceiveVersion(l);
           if (u == null) return { info: null, isSupportedReceiveVersion: c };
-          var d = r.messageBytes;
+          var d = _(r.messageBytes, l, i);
           if (d == null)
             return {
               info: { stanzaId: u, reportingToken: null, version: null },
@@ -123,46 +123,63 @@ __d(
               senderJid: s,
               remoteJid: n,
             }),
-            p = new Uint8Array(d),
-            _ = l,
-            f = o("WAWebReportingTokenContent").calculateReportingTokenContent(
+            p = d.content,
+            f = d.version,
+            g = yield o("WACryptoHmac").hmacSha256(
+              new Uint8Array(m),
               p,
-              _,
+              o("WAWebReportingTokenUtils").REPORTING_TOKEN_SIZE,
             );
-          if (
-            (_ > 0 &&
-              _ <
-                o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3 &&
-              f.length === 0 &&
-              i &&
-              ((_ = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
-                .V3),
-              (f = o(
-                "WAWebReportingTokenContent",
-              ).calculateReportingTokenContent(p, _))),
-            f == null || f.length === 0)
-          )
-            return {
-              info: { stanzaId: u, reportingToken: null, version: null },
-              isSupportedReceiveVersion: c,
-            };
-          var g = yield o("WACryptoHmac").hmacSha256(
-            new Uint8Array(m),
-            f,
-            o("WAWebReportingTokenUtils").REPORTING_TOKEN_SIZE,
-          );
           return {
             info: {
               stanzaId: u,
               reportingToken: new Uint8Array(g),
-              version: _,
+              version: f,
               reportingTokenKey: new Uint8Array(m),
-              reportingTokenContent: f,
+              reportingTokenContent: p,
             },
             isSupportedReceiveVersion: c,
           };
         })),
         p.apply(this, arguments)
+      );
+    }
+    function _(e, t, n) {
+      if (e == null) {
+        var r = f(t, n)
+          ? o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
+          : t;
+        return r < o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
+          ? null
+          : {
+              content: o(
+                "WAWebReportingTokenConstants",
+              ).GHS_NULL_REPORTING_TOKEN_CONTENT.slice(),
+              version: r,
+            };
+      }
+      var a = new Uint8Array(e),
+        i = t,
+        l = o("WAWebReportingTokenContent").calculateReportingTokenContent(
+          a,
+          i,
+        );
+      return (
+        l.length === 0 &&
+          f(i, n) &&
+          ((i = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3),
+          (l = o("WAWebReportingTokenContent").calculateReportingTokenContent(
+            a,
+            i,
+          ))),
+        l == null || l.length === 0 ? null : { content: l, version: i }
+      );
+    }
+    function f(e, t) {
+      return (
+        t &&
+        e > 0 &&
+        e < o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
       );
     }
     ((l.genGroupHistoryReportingTokens = u),

@@ -110,6 +110,7 @@ __d(
       MESSENGER_LWE_SCAM_IDV: 104,
       TECH_PROVIDER_INTEGRITY_PAGE_MESSAGING_HARM_APPEAL: 105,
       MT_UFAC: 106,
+      SHADOW_APPEAL: 107,
       XFAC_DEMO: 1e4,
     });
     i.default = e;

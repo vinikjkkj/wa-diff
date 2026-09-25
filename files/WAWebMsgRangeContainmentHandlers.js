@@ -27,9 +27,9 @@ __d(
                 "WAWebUserPrefsMultiDevice",
               ).getUnarchiveChatsSetting();
             ((!n || r) &&
-              o("WAWebChatDbUpdatesApi").setArchive([
+              (yield o("WAWebChatDbUpdatesApi").setArchive([
                 { id: e.chatId, archive: !1 },
-              ]),
+              ])),
               yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
                 e.chatId,
                 e.action,

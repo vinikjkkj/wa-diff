@@ -95,7 +95,8 @@ __d(
               n = (e = this.realProgress) != null ? e : 0;
             if (((this.realProgress = t), !(t <= n))) {
               ((this.fakeProgress = 0),
-                self.clearTimeout(this._progressIncrementTimeout));
+                this._progressIncrementTimeout != null &&
+                  self.clearTimeout(this._progressIncrementTimeout));
               var r = o("WATimeUtils").unixTime();
               if (t < 100) {
                 var a = r - this._lastUpdateSeconds,

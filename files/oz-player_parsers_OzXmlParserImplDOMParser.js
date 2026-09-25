@@ -17,8 +17,11 @@ __d(
           (Object.prototype.hasOwnProperty.call(n, c) || (n[c] = []),
             n[c].push(s(u)));
         } else {
-          var d = u.nodeValue.trim();
-          d && (n._ = d);
+          var d = u.nodeValue;
+          if (d != null) {
+            var m = d.trim();
+            m && (n._ = m);
+          }
         }
       }
       return n;

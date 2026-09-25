@@ -4,6 +4,7 @@ __d(
     "WARandomHex",
     "WAWebCallInfoUserJourneyWamEvent",
     "WAWebCallUserJourneyAppSessionId",
+    "WAWebCallUserJourneyGating",
     "WAWebUserJourneyEventMs",
     "WAWebWamEnumCallType",
   ],
@@ -14,54 +15,69 @@ __d(
         ((this.$1 = null),
           (this.$2 = null),
           (this.$3 = null),
-          (this.$4 = null));
+          (this.$4 = null),
+          (this.$5 = null));
       }
       var t = e.prototype;
       return (
         (t.newSession = function (t) {
-          var e;
+          var e, n;
           ((this.$1 = o("WARandomHex").randomHex(16)),
             (this.$2 = o("WARandomHex").randomHex(16)),
             (this.$3 = t.callSizeType),
-            (this.$4 = (e = t.callGroupSizeBucket) != null ? e : null));
+            (this.$4 = (e = t.callGroupSizeBucket) != null ? e : null),
+            (this.$5 = (n = t.isVideo) != null ? n : null));
         }),
         (t.newFunnel = function () {
           this.$2 = o("WARandomHex").randomHex(16);
         }),
+        (t.updateSessionIsVideo = function (t) {
+          this.$5 = t != null ? t : null;
+        }),
         (t.logEvent = function (n) {
-          var t = this.$1,
-            r = this.$2;
-          if (!(t == null || r == null)) {
-            var a = {
+          var t,
+            r = this.$1,
+            a = this.$2;
+          if (!(r == null || a == null)) {
+            var i = {
                 appSessionId: o(
                   "WAWebCallUserJourneyAppSessionId",
                 ).callUserJourneyAppSessionId(e.appSessionId),
-                surfaceSessionId: t,
-                userJourneyFunnelId: r,
+                surfaceSessionId: r,
+                userJourneyFunnelId: a,
                 preCallActionType: n.preCallActionType,
               },
-              i = o("WAWebUserJourneyEventMs").userJourneyEventMs();
-            (i != null && (a.userJourneyEventMs = i),
-              this.$3 != null && (a.callSizeType = this.$3),
-              this.$4 != null && (a.callGroupSizeBucket = this.$4),
-              n.isVideo === !0
-                ? (a.callType = o("WAWebWamEnumCallType").CALL_TYPE.VIDEO)
-                : n.isVideo === !1 &&
-                  (a.callType = o("WAWebWamEnumCallType").CALL_TYPE.VOICE),
+              l = o("WAWebUserJourneyEventMs").userJourneyEventMs();
+            (l != null && (i.userJourneyEventMs = l),
+              this.$3 != null && (i.callSizeType = this.$3),
+              this.$4 != null && (i.callGroupSizeBucket = this.$4));
+            var s =
+              (t = n.isVideo) != null
+                ? t
+                : o(
+                      "WAWebCallUserJourneyGating",
+                    ).isCallUserJourneyLoggingEnabled()
+                  ? this.$5
+                  : null;
+            (s === !0
+              ? (i.callType = o("WAWebWamEnumCallType").CALL_TYPE.VIDEO)
+              : s === !1 &&
+                (i.callType = o("WAWebWamEnumCallType").CALL_TYPE.VOICE),
               n.participantActionSource != null &&
-                (a.participantActionSource = n.participantActionSource),
+                (i.participantActionSource = n.participantActionSource),
               n.numParticipantsShown != null &&
-                (a.numParticipantsShown = n.numParticipantsShown),
+                (i.numParticipantsShown = n.numParticipantsShown),
               new (o(
                 "WAWebCallInfoUserJourneyWamEvent",
-              ).CallInfoUserJourneyWamEvent)(a).commit());
+              ).CallInfoUserJourneyWamEvent)(i).commit());
           }
         }),
         (t.clearSession = function () {
           ((this.$1 = null),
             (this.$2 = null),
             (this.$3 = null),
-            (this.$4 = null));
+            (this.$4 = null),
+            (this.$5 = null));
         }),
         (t.getSurfaceSessionIdForTest = function () {
           return this.$1;

@@ -1,14 +1,25 @@
 __d(
   "WAWebCoexV2WamClassification",
   [
+    "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumE2eDeviceType",
     "WAWebWamEnumEncryptionTypeCode",
+    "WAWebWamEnumMessageDropReasonType",
     "WAWebWamMsgUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    function e(e) {
+      return e == null || !e.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
+        ? null
+        : o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+          ? o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
+              .COEX_V2_INVALID_SENDER
+          : o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
+              .COEX_V2_RECV_UNSUPPORTED;
+    }
+    function s(e, t) {
       if (
         e == null ||
         t == null ||
@@ -26,21 +37,22 @@ __d(
           : o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE.OTHER_COEX_V2,
       };
     }
-    function s(t, n, r) {
-      var a = e(t, r);
-      return a != null
-        ? { e2eSenderType: a.e2eSenderType, encryptionType: a.encryptionType }
-        : n == null
+    function u(e, t, n) {
+      var r = s(e, n);
+      return r != null
+        ? { e2eSenderType: r.e2eSenderType, encryptionType: r.encryptionType }
+        : t == null
           ? {}
           : {
-              e2eSenderType: o("WAWebWamMsgUtils").getWamE2eSenderType(n),
-              encryptionType: n.isHosted()
+              e2eSenderType: o("WAWebWamMsgUtils").getWamE2eSenderType(t),
+              encryptionType: t.isHosted()
                 ? o("WAWebWamEnumEncryptionTypeCode").ENCRYPTION_TYPE_CODE.COEX
                 : null,
             };
     }
-    ((l.getCoexV2RecvWamClassification = e),
-      (l.getRecvWamE2eClassification = s));
+    ((l.getCoexV2ReceiveDropReason = e),
+      (l.getCoexV2RecvWamClassification = s),
+      (l.getRecvWamE2eClassification = u));
   },
   98,
 );

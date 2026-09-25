@@ -64,7 +64,9 @@ __d(
                 var a = t.isCurrent,
                   i = t.isFullIndexingComplete,
                   l = t.lastMsgKeyViaFullIndexer;
-                if (i) a || this.__handleFullIndexerProgress(!1, 1, null, null);
+                if (i)
+                  a ||
+                    (yield this.__handleFullIndexerProgress(!1, 1, null, null));
                 else {
                   var s = yield this.__getIndexer(a);
                   if (s)

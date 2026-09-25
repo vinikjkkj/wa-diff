@@ -10,6 +10,7 @@ __d(
         currency: "USD",
         dailyBudget: 0,
         environment: null,
+        isEditingSavedAudience: !1,
         legacyAdAccountID: "",
         selectedPublisherPlatforms: [],
         setAudienceName: function () {},

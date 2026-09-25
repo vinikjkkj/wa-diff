@@ -37,14 +37,15 @@ __d(
         }),
         (t.reset = function () {
           var e = this;
-          ((this.$3 = !0),
-            this.$2 != null &&
-              (this.$6.bumpODSKey(
-                o("IDGWLoggingContext").DGWLoggingComponent.PINGER,
-                "reset",
-              ),
-              window.clearTimeout(this.$2),
-              (this.$2 = null)),
+          this.$3 = !0;
+          var t = this.$2;
+          (t != null &&
+            (this.$6.bumpODSKey(
+              o("IDGWLoggingContext").DGWLoggingComponent.PINGER,
+              "reset",
+            ),
+            window.clearTimeout(t),
+            (this.$2 = null)),
             this.$1 > 0 &&
               (this.$6.bumpODSKey(
                 o("IDGWLoggingContext").DGWLoggingComponent.PINGER,
@@ -55,12 +56,13 @@ __d(
               }, this.$1))));
         }),
         (t.cancel = function () {
-          this.$2 != null &&
+          var e = this.$2;
+          e != null &&
             (this.$6.bumpODSKey(
               o("IDGWLoggingContext").DGWLoggingComponent.PINGER,
               "canceled",
             ),
-            window.clearTimeout(this.$2),
+            window.clearTimeout(e),
             (this.$2 = null));
         }),
         e

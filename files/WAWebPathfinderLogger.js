@@ -169,21 +169,9 @@ __d(
     }
     function I(e, t) {
       if (e.eventType !== "CUSTOM_EVENT") return t;
-      var n = e.originalEventName,
-        r = n != null && n !== "CUSTOM_EVENT" ? y[n] : null;
-      return r == null
-        ? (le ||
-            (o("WALogger")
-              .WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[pathfinder] dropped custom event without a semantic event name",
-                  ])),
-              )
-              .sendLogs("pathfinder-custom-event-unresolvable-name"),
-            (le = !0)),
-          null)
-        : r.eventName;
+      if (Ae(e)) return null;
+      var n = e.originalEventName;
+      return n == null ? null : y[n].eventName;
     }
     var T = null;
     function D() {
@@ -243,8 +231,8 @@ __d(
         G(o("WAWebPathfinderHealthReporter").COUNTER_EDITING_DEDUP_DROPS, 1),
         ie === 1 &&
           o("WALogger").WARN(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[pathfinder] Editing-event dedup active (window=",
                 "ms), suppressing rapid duplicate BEGIN/END events",
               ])),
@@ -340,13 +328,13 @@ __d(
             if (!N()) return null;
             var e = o(
               "WAWebPathfinderTraceEnvelope",
-            ).buildPathfinderTraceEnvelope(qe());
+            ).buildPathfinderTraceEnvelope(Ve());
             return e != null &&
               o("WAWebPathfinderTraceEnvelope").exceedsTraceByteBudget(e)
               ? (o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "Pathfinder crash-log trace exceeds ",
                         "B, skipping trace attachment",
                       ])),
@@ -359,8 +347,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "Pathfinder crash-log trace build failed",
                     ])),
                 )
@@ -373,7 +361,7 @@ __d(
     }
     function Ie() {
       return o("WAWebPathfinderTraceEnvelope").serializePathfinderTraceEnvelope(
-        qe,
+        Ve,
         N,
       );
     }
@@ -399,13 +387,39 @@ __d(
     }
     function Ae(e) {
       return (
+        e.eventType === "CUSTOM_EVENT" &&
+        (e.originalEventName == null ||
+          e.originalEventName === "CUSTOM_EVENT" ||
+          !Object.prototype.hasOwnProperty.call(y, e.originalEventName))
+      );
+    }
+    function Fe() {
+      (G(
+        o("WAWebPathfinderHealthReporter")
+          .COUNTER_UNRESOLVABLE_CUSTOM_EVENT_DROPS,
+        1,
+      ),
+        we(),
+        le ||
+          (o("WALogger")
+            .WARN(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[pathfinder] dropped custom event without a semantic event name",
+                ])),
+            )
+            .sendLogs("pathfinder-custom-event-unresolvable-name"),
+          (le = !0)));
+    }
+    function Oe(e) {
+      return (
         C.has(e.eventType) &&
         (e.targetTrackingId == null || e.targetTrackingId === "") &&
         (e.targetType == null || e.targetType === "") &&
         r("justknobx")._("3611")
       );
     }
-    function Fe(e) {
+    function Be(e) {
       return !N() || (ge(), de)
         ? !1
         : re >= ue || oe >= ce
@@ -425,27 +439,29 @@ __d(
             Me(),
             !1)
           : Ae(e)
-            ? (Oe(),
-              G(
-                o("WAWebPathfinderHealthReporter")
-                  .COUNTER_TARGETLESS_TOUCH_DROPS,
-                1,
-              ),
-              !1)
-            : M.has(e.eventType) && !K(e)
-              ? !1
-              : (Oe(), !0);
+            ? (Fe(), !1)
+            : Oe(e)
+              ? (We(),
+                G(
+                  o("WAWebPathfinderHealthReporter")
+                    .COUNTER_TARGETLESS_TOUCH_DROPS,
+                  1,
+                ),
+                !1)
+              : M.has(e.eventType) && !K(e)
+                ? !1
+                : (We(), !0);
     }
-    function Oe() {
+    function We() {
       (re++, oe++);
     }
-    function Be(e) {
+    function qe(e) {
       var t, n, a, i, l, s;
-      if (Fe(e)) {
+      if (Be(e)) {
         var u = y[e.eventType],
           c = u != null ? I(e, u.eventName) : null;
         if (e.eventType === "CUSTOM_EVENT" && c == null) {
-          we();
+          Fe();
           return;
         }
         G(o("WAWebPathfinderHealthReporter").COUNTER_CAPTURE_VOLUME, 1);
@@ -574,7 +590,7 @@ __d(
           }
       }
     }
-    function We() {
+    function Ue() {
       for (var e = [], t = 0; t < be; t++) {
         var n = (Se + t) % be,
           r = ve[n];
@@ -582,8 +598,8 @@ __d(
       }
       return e;
     }
-    function qe() {
-      return { entries: We(), headClipped: Le > be, totalRecorded: Le };
+    function Ve() {
+      return { entries: Ue(), headClipped: Le > be, totalRecorded: Le };
     }
     ((l.FALCO_MAP = y),
       (l.isPathfinderLoggingEnabled = N),
@@ -594,9 +610,9 @@ __d(
       (l.registerPathfinderEmitObserver = $e),
       (l.PATHFINDER_CAP_DROP_ODS_KEY = Pe),
       (l.PATHFINDER_UNRESOLVABLE_CUSTOM_EVENT_DROP_ODS_KEY = Ne),
-      (l.emitPathfinderEvent = Be),
-      (l.getPathfinderLogSnapshot = We),
-      (l.getPathfinderLogSnapshotWithMeta = qe));
+      (l.emitPathfinderEvent = qe),
+      (l.getPathfinderLogSnapshot = Ue),
+      (l.getPathfinderLogSnapshotWithMeta = Ve));
   },
   98,
 );

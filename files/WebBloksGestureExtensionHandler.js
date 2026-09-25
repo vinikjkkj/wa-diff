@@ -74,7 +74,8 @@ __d(
           };
           i.uiMutableContainer.gestures = B;
           function W() {
-            (window.clearTimeout(B.longPressTimeout),
+            var e;
+            (window.clearTimeout((e = B.longPressTimeout) != null ? e : void 0),
               (B.longPressTimeout = null),
               o("WebBloksExtentionUtils").enableLongPressSideEffectsInSafari());
           }
@@ -165,7 +166,8 @@ __d(
             l.addEventListener("mouseup", j));
           function K(e) {
             var t;
-            (e.stopPropagation(),
+            if (
+              (e.stopPropagation(),
               ((t = n.current.uiMutableContainer) == null ||
               (t = t.gestures) == null
                 ? void 0
@@ -194,27 +196,32 @@ __d(
                     ])),
                 (T != null || D != null || x != null) &&
                   (S != null || R != null || L != null) &&
-                  e.detail === 1 &&
-                  (window.clearTimeout(B.doublePressTimeout),
-                  (B.doublePressTimeout = window.setTimeout(function () {
-                    (S != null &&
-                      r.executeCatch(n.current, S, [n.current, r.bloksContext]),
-                      R != null &&
-                        r.executeCatch(n.current, R, [
-                          n.current,
-                          r.bloksContext,
-                          e.clientX,
-                          e.clientY,
-                        ]),
-                      L != null &&
-                        r.executeCatch(n.current, L, [
-                          n.current,
-                          r.bloksContext,
-                          r,
-                          e.clientX,
-                          e.clientY,
-                        ]));
-                  }, u)))));
+                  e.detail === 1))
+            ) {
+              var o;
+              (window.clearTimeout(
+                (o = B.doublePressTimeout) != null ? o : void 0,
+              ),
+                (B.doublePressTimeout = window.setTimeout(function () {
+                  (S != null &&
+                    r.executeCatch(n.current, S, [n.current, r.bloksContext]),
+                    R != null &&
+                      r.executeCatch(n.current, R, [
+                        n.current,
+                        r.bloksContext,
+                        e.clientX,
+                        e.clientY,
+                      ]),
+                    L != null &&
+                      r.executeCatch(n.current, L, [
+                        n.current,
+                        r.bloksContext,
+                        r,
+                        e.clientX,
+                        e.clientY,
+                      ]));
+                }, u)));
+            }
           }
           (S != null ||
             R != null ||
@@ -224,7 +231,10 @@ __d(
             x == null) &&
             l.addEventListener("click", K);
           function Q(e) {
-            (window.clearTimeout(B.doublePressTimeout),
+            var t;
+            (window.clearTimeout(
+              (t = B.doublePressTimeout) != null ? t : void 0,
+            ),
               (B.doublePressTimeout = null),
               T != null &&
                 r.executeCatch(n.current, T, [n.current, r.bloksContext]),

@@ -768,7 +768,8 @@ __d(
                   y = globalThis.screen,
                   C = y != null ? y[ae] : null,
                   b = C == null ? void 0 : C.angle,
-                  v = this.$8
+                  v = $e(h),
+                  S = this.$8
                     ? {
                         fallbackOrientation: o(
                           "WAWebVoipMediaEnums",
@@ -777,21 +778,22 @@ __d(
                           a,
                           typeof b == "number" ? b : null,
                         ),
-                        frameRotation: $e(h),
+                        frameRotation: 0,
                         screenAngle: typeof b == "number" ? b : null,
                         screenType:
                           (e = C == null ? void 0 : C.type) != null ? e : null,
                         sensorOffsetInitialized: this.$5,
                       }
                     : void 0;
-                if ((this.$22++, v != null && this.$22 <= 3)) {
-                  var S, R, L;
+                if ((this.$22++, S != null && this.$22 <= 3)) {
+                  var R, L, E;
                   o("WALogger").LOG(
                     $ ||
                       ($ = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [orient_pretransfer_v1] frame=",
                         "x",
                         " frameRot=",
+                        " rawFrameRot=",
                         " fallback=",
                         " screenAngle=",
                         " screenType=",
@@ -801,18 +803,19 @@ __d(
                       ])),
                     h.displayWidth,
                     h.displayHeight,
-                    String((S = v.frameRotation) != null ? S : "na"),
-                    v.fallbackOrientation,
-                    String((R = v.screenAngle) != null ? R : "na"),
-                    (L = v.screenType) != null ? L : "na",
-                    v.sensorOffsetInitialized ? 1 : 0,
+                    String((R = S.frameRotation) != null ? R : "na"),
+                    String(v != null ? v : "na"),
+                    S.fallbackOrientation,
+                    String((L = S.screenAngle) != null ? L : "na"),
+                    (E = S.screenType) != null ? E : "na",
+                    S.sensorOffsetInitialized ? 1 : 0,
                     this.$8 ? 1 : 0,
                   );
                 }
                 if (this.$22 % 150 === 0) {
-                  var E =
+                  var k =
                       this.$20 > 0 ? (u - this.$20).toFixed(1) + "ms" : "n/a",
-                    k = this.$21 > 0 ? (u - this.$21).toFixed(1) + "ms" : "n/a";
+                    I = this.$21 > 0 ? (u - this.$21).toFixed(1) + "ms" : "n/a";
                   o("WALogger").LOG(
                     P ||
                       (P = babelHelpers.taggedTemplateLiteralLoose([
@@ -825,8 +828,8 @@ __d(
                         "",
                       ])),
                     this.$22,
-                    E,
                     k,
+                    I,
                     _,
                     f.toFixed(2),
                     u.toFixed(2),
@@ -838,7 +841,7 @@ __d(
                     {
                       jsWorkerCmd: "deliverVideoFrame",
                       frame: h,
-                      frameMetadata: v,
+                      frameMetadata: S,
                     },
                     [h],
                   ));

@@ -21,7 +21,9 @@ __d(
     var m = {
       id: function () {
         var e = o("WAWebUserPrefsGeneral").getBrowserId();
-        return e || ((e = d()), o("WAWebUserPrefsGeneral").setBrowserId(e), e);
+        if (e != null) return e;
+        var t = d();
+        return (o("WAWebUserPrefsGeneral").setBrowserId(t), t);
       },
       persistentExpiringId: function () {
         var e = o("WAWebUserPrefsGeneral").getPersistentExpiringId();

@@ -58,7 +58,7 @@ __d(
         !h && f === o("WAWebMediaTypes").MediaDataStage.RESOLVED && n && n();
       }, []),
         r("useWAWebOnUnmount")(function () {
-          b && S(b);
+          b != null && S(b);
         }));
       var R = function () {
         var e = g.current;
@@ -68,19 +68,19 @@ __d(
           );
         var t = new Blob([e], { type: e.type }),
           n = window.URL.createObjectURL(t);
-        (b && window.URL.revokeObjectURL(b), v(n));
+        (b != null && window.URL.revokeObjectURL(b), v(n));
       };
       return (
         d(
           function () {
-            h && !b && v(y(u));
+            h && b == null && v(y(u));
           },
           [h, u, b, y],
         ),
         m(l, function () {
           return { refreshBlob: R };
         }),
-        b ? t(b) : i()
+        b == null ? i() : t(b)
       );
     }
     ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));

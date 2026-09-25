@@ -26,6 +26,9 @@ __d(
           case "wa_web_biz_ad_creation_targeting_modal_reducer.update_interests":
             e.flexible_spec = t.flexibleSpec;
             break;
+          case "wa_web_biz_ad_creation_targeting_modal_reducer.update_user_age_unknown":
+            e.user_age_unknown = t.userAgeUnknown;
+            break;
           case "wa_web_biz_ad_creation_targeting_modal_reducer.update_targeting_automation":
             r("WAWebBizAdCreationTargetingModalApplyTargetingAutomation")(
               e,

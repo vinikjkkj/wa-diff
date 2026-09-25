@@ -10,6 +10,7 @@ __d(
     "WAWebUnknownIcon.react",
     "WAWebUpdater",
     "WAWebUpdaterUpdateApp",
+    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
   ],
@@ -18,9 +19,17 @@ __d(
       u = e || (e = o("react"));
     window.updater = o("WAWebUpdater").Updater;
     function c() {
-      o("WAWebUpdaterUpdateApp").updateApp();
+      return d.apply(this, arguments);
     }
-    function d(e) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebUpdaterUpdateApp").updateApp();
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
       var t = o("react-compiler-runtime").c(4),
         n = e.customUpdateButtonFbt,
         r = e.msg,
@@ -62,7 +71,7 @@ __d(
       }
       return null;
     }
-    function m(e) {
+    function p(e) {
       var t,
         n,
         a = e.customPlaceholderIconProps,
@@ -83,12 +92,12 @@ __d(
           children: [
             r("WAWebFormatMsgText")({ msg: c.unsafe() }),
             " ",
-            s ? null : u.jsx(d, { msg: c, customUpdateButtonFbt: i }),
+            s ? null : u.jsx(m, { msg: c, customUpdateButtonFbt: i }),
           ],
         }),
       });
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

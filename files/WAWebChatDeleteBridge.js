@@ -12,6 +12,7 @@ __d(
     "WAWebBackendApi",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBQueryAndRemoveMessageHistory",
+    "WAWebDBReportingTokenUtils",
     "WAWebDeleteChatSync",
     "WAWebEditLabelAssociationBridge",
     "WAWebFtsClient",
@@ -107,38 +108,41 @@ __d(
               function* (a) {
                 var i = a.chatBoundaries,
                   l = a.deletedMsgIds;
-                i
-                  ? ((u || (u = n("Promise")))
-                      .resolve(
-                        o("WAWebFtsClient").ftsClient.purgeRange(
-                          babelHelpers.extends({ chatId: t.toString() }, i),
-                        ),
-                      )
-                      .catch(function (e) {
-                        o("WALogger")
-                          .WARN(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "sendConversationDelete: ftsClient.purgeRange failed",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(e))
-                          .sendLogs("fts-purge-range-failed");
-                      }),
-                    yield o("WAWebBackendApi").frontendSendAndReceive(
-                      "deleteModelsForLastAddOnPreview",
-                      { messagesIds: l },
-                    ),
-                    yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
-                      t.toString(),
-                      l,
-                    ))
-                  : o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "sendConversationDelete: chat boundaries was null",
-                        ])),
-                    );
+                (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(l, {
+                  removeWholeRow: !0,
+                }),
+                  i
+                    ? ((u || (u = n("Promise")))
+                        .resolve(
+                          o("WAWebFtsClient").ftsClient.purgeRange(
+                            babelHelpers.extends({ chatId: t.toString() }, i),
+                          ),
+                        )
+                        .catch(function (e) {
+                          o("WALogger")
+                            .WARN(
+                              s ||
+                                (s = babelHelpers.taggedTemplateLiteralLoose([
+                                  "sendConversationDelete: ftsClient.purgeRange failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("fts-purge-range-failed");
+                        }),
+                      yield o("WAWebBackendApi").frontendSendAndReceive(
+                        "deleteModelsForLastAddOnPreview",
+                        { messagesIds: l },
+                      ),
+                      yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                        t.toString(),
+                        l,
+                      ))
+                    : o("WALogger").WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "sendConversationDelete: chat boundaries was null",
+                          ])),
+                      ));
               },
             );
             return function (e) {
@@ -454,6 +458,9 @@ __d(
             if (e.result != null && e.result.length > 0) {
               var n = e.result;
               return (
+                o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(n, {
+                  removeWholeRow: !0,
+                }),
                 yield o("WAWebBackendApi").frontendSendAndReceive(
                   "deleteModelsForLastAddOnPreview",
                   { messagesIds: n },

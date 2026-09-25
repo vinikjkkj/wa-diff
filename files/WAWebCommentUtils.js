@@ -78,17 +78,15 @@ __d(
               stanzaId: e.id.id,
             }),
             u = s.encPayload,
-            c = s.reportingTokenContent;
-          return babelHelpers.extends(
-            {
-              encIv: a.buffer,
-              encPayload: u,
-              targetMessageKey: o(
-                "WAWebReferentialMsgKey",
-              ).getReferentialMsgKey(e),
-            },
-            c != null && { reportingTokenContent: c },
-          );
+            c = s.reportingTokenContentInfo;
+          return {
+            encIv: a.buffer,
+            encPayload: u,
+            targetMessageKey: o("WAWebReferentialMsgKey").getReferentialMsgKey(
+              e,
+            ),
+            reportingTokenContentInfo: c,
+          };
         })),
         c.apply(this, arguments)
       );

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBotBaseGating",
     "WAWebMessageAssociationGatingUtils",
+    "WAWebNewsletterGatingUtils",
     "WAWebSpoilerGating",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,40 +17,47 @@ __d(
         l = e.ephemeralMessage,
         s = e.groupMentionedMessage,
         u = e.newsletterAdminProfileMessage,
-        c = e.pollCreationMessageV4,
-        d = e.pollCreationOptionImageMessage,
-        m = e.questionMessage,
-        p = e.questionReplyMessage,
-        _ = e.spoilerMessage,
-        f = e.viewOnceMessage,
-        g = e.viewOnceMessageV2,
-        h = e.viewOnceMessageV2Extension;
+        c = e.newsletterScheduledMessage,
+        d = e.pollCreationMessageV4,
+        m = e.pollCreationOptionImageMessage,
+        p = e.questionMessage,
+        _ = e.questionReplyMessage,
+        f = e.spoilerMessage,
+        g = e.viewOnceMessage,
+        h = e.viewOnceMessageV2,
+        y = e.viewOnceMessageV2Extension;
       return (
         s ||
         a ||
-        f ||
         g ||
         h ||
+        y ||
         l ||
         i ||
         r ||
-        c ||
         d ||
+        m ||
         (t &&
         o(
           "WAWebMessageAssociationGatingUtils",
         ).isFutureproofAssociatedChildEnabled()
           ? t
-          : m ||
-            p ||
-            (_ && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
-              ? _
+          : p ||
+            _ ||
+            (f && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+              ? f
               : n &&
                   o(
                     "WAWebBotBaseGating",
                   ).isRichResponseForwardReceivingEnabled()
                 ? n
-                : u || null))
+                : u ||
+                  (c &&
+                  o(
+                    "WAWebNewsletterGatingUtils",
+                  ).isSchedulingUpdatesReceiverEnabled()
+                    ? c
+                    : null)))
       );
     }
     function s(e) {

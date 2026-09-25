@@ -27,20 +27,32 @@ __d(
       m,
       p,
       _,
-      f = 0,
-      g = 6,
-      h = (function () {
+      f,
+      g = 0,
+      h = 6,
+      y = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          o(
-            "WAWebSyncdCriticalBootstrapProcessingApi",
-          ).logCriticalBootstrapStageIfNecessary(
-            o("WAWebWamEnumBootstrapAppStateDataStageCode")
-              .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.MISSING_KEYS_RECEIVED,
-          );
+          o("WAWebSyncdCriticalBootstrapProcessingApi")
+            .logCriticalBootstrapStageIfNecessary(
+              o("WAWebWamEnumBootstrapAppStateDataStageCode")
+                .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.MISSING_KEYS_RECEIVED,
+            )
+            .catch(function () {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "syncd: failed to log critical bootstrap stage for key share",
+                    ])),
+                )
+                .sendLogs(
+                  "failed-to-log-critical-bootstrap-stage-for-key-share",
+                );
+            });
           var a = r.getDeviceId();
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "syncd: handling key share from device ",
                 " with ",
                 " keys",
@@ -50,29 +62,29 @@ __d(
           );
           var i = [],
             l = t.keys;
-          if (!l) return (_ || (_ = n("Promise"))).resolve();
-          var p = 0,
-            h = 0,
+          if (!l) return (f || (f = n("Promise"))).resolve();
+          var _ = 0,
             y = 0,
-            C = [];
+            C = 0,
+            b = [];
           return (
-            yield (_ || (_ = n("Promise"))).all(
+            yield (f || (f = n("Promise"))).all(
               l.map(function (e) {
                 var t,
                   n = (t = e.keyId) == null ? void 0 : t.keyId,
                   r = e.keyData,
                   l = r == null ? void 0 : r.keyData,
-                  d = l == null ? null : o("WASyncdKeyTypes").toSyncKeyData(l);
+                  s = l == null ? null : o("WASyncdKeyTypes").toSyncKeyData(l);
                 if (!n) {
-                  p++;
+                  _++;
                   return;
                 }
                 var m = o("WASyncdKeyTypes").toSyncKeyId(n),
-                  _ = o("WAWebSyncdCryptoUtils").syncKeyIdToHex(m);
+                  p = o("WAWebSyncdCryptoUtils").syncKeyIdToHex(m);
                 if (
-                  (l != null ? h++ : y++,
-                  C.length < 3 && C.push(_),
-                  n.byteLength !== g)
+                  (l != null ? y++ : C++,
+                  b.length < 3 && b.push(p),
+                  n.byteLength !== h)
                 )
                   return (
                     o(
@@ -84,8 +96,8 @@ __d(
                     }),
                     o("WALogger")
                       .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "syncd: fatal error: key share key id has invalid bytelength of ",
                             "",
                           ])),
@@ -98,19 +110,19 @@ __d(
                     o("WAWebSyncdFatal").handleFatalError()
                   );
                 if (r) {
-                  var b,
+                  var f,
                     v,
                     S,
                     R = r.timestamp,
-                    L = (b = r.fingerprint) == null ? void 0 : b.currentIndex,
+                    L = (f = r.fingerprint) == null ? void 0 : f.currentIndex,
                     E = (v = r.fingerprint) == null ? void 0 : v.rawId,
                     k = (S = r.fingerprint) == null ? void 0 : S.deviceIndexes;
-                  if (!d || R == null || L == null || E == null || !k) {
-                    if (a !== f) {
+                  if (!s || R == null || L == null || E == null || !k) {
+                    if (a !== g) {
                       o("WALogger")
                         .ERROR(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "syncd: fatal error: invalid key share key data (from companion)",
                             ])),
                         )
@@ -129,8 +141,8 @@ __d(
                       }),
                       o("WALogger")
                         .ERROR(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "syncd: fatal error: invalid key share key data",
                             ])),
                         )
@@ -143,7 +155,7 @@ __d(
                   var I = {
                     keyId: m,
                     keyEpoch: o("WAWebSyncdKeyManagementUtils").getKeyEpoch(m),
-                    keyData: d,
+                    keyData: s,
                     timestamp: o("WALongInt").numberOrThrowIfTooLarge(R),
                     fingerprint: {
                       rawId: E,
@@ -155,21 +167,21 @@ __d(
                 } else i.push({ keyId: m, fullKey: null });
               }),
             ),
-            p > 0 &&
+            _ > 0 &&
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: received ",
                     " keys with missing keyID from device ",
                     "",
                   ])),
-                p,
+                _,
                 a,
               ),
-            (h > 0 || y > 0) &&
+            (y > 0 || C > 0) &&
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: received key share from device ",
                     ": ",
                     " with keyData, ",
@@ -177,9 +189,9 @@ __d(
                     "",
                   ])),
                 a,
-                h,
                 y,
                 C,
+                b,
               ),
             o("WAWebSyncdHandleKeyShare").handleKeyShare(
               o("WAJids").interpretAsDeviceId(a),
@@ -191,24 +203,24 @@ __d(
           return t.apply(this, arguments);
         };
       })();
-    function y(e, t) {
+    function C(e, t) {
       return o("WAWebUserPrefsMeUser").isMeAccount(t)
-        ? h(e, t)
+        ? y(e, t)
         : (o("WALogger")
             .ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: key share wid error",
                 ])),
             )
             .sendLogs("syncd: key share wid error"),
-          (_ || (_ = n("Promise"))).resolve());
+          (f || (f = n("Promise"))).resolve());
     }
-    function C(e) {
-      r("gkx")("26258") || (h = e(h));
+    function b(e) {
+      r("gkx")("26258") || (y = e(y));
     }
-    ((l.handleAppStateSyncKeyShare = y),
-      (l.setAppStateSyncKeyShareHandler = C));
+    ((l.handleAppStateSyncKeyShare = C),
+      (l.setAppStateSyncKeyShareHandler = b));
   },
   98,
 );

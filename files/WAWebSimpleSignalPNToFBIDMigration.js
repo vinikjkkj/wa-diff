@@ -2,8 +2,7 @@ __d(
   "WAWebSimpleSignalPNToFBIDMigration",
   ["WAWebABProps", "WAWebBotTypes", "WAWebBotUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
-    var e = "867051314767696",
-      s = new Map([
+    var e = new Map([
         ["867051314767696", "13135550002"],
         ["1061492271844689", "13135550005"],
         ["245886058483988", "13135550009"],
@@ -211,79 +210,84 @@ __d(
         ["1175736513679463", "13135559120"],
         ["491811473512352", "13165550064"],
       ]),
-      u = new Map(
-        Array.from(s.entries(), function (e) {
+      s = new Map(
+        Array.from(e.entries(), function (e) {
           var t = e[0],
             n = e[1];
           return [n, t];
         }),
       );
-    function c(e) {
-      return m(e);
+    function u(e) {
+      return d(e);
     }
-    function d(e) {
+    function c(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "ai_fbid_migration_invoke_receive_enabled",
         ) === !0
       )
-        return m(e);
+        return d(e);
     }
-    function m(e) {
-      if (e.isFbidBot()) {
-        var t = s.get(e.user);
-        if (t != null)
-          return o("WAWebWidFactory").createWid(t + "@s.whatsapp.net");
+    function d(t) {
+      if (t.isFbidBot()) {
+        var n = e.get(t.user);
+        if (n != null)
+          return o("WAWebWidFactory").createWid(n + "@s.whatsapp.net");
       }
     }
-    function p(e) {
+    function m(e) {
       if (e.isPnBot()) {
-        var t = u.get(e.user);
+        var t = s.get(e.user);
         if (t != null) return o("WAWebWidFactory").createWid(t + "@bot");
       }
     }
+    function p(e) {
+      return s.has(e.user);
+    }
     function _(e) {
-      return u.has(e.user);
+      if (e.isPnBot() && p(e)) {
+        var t = m(e);
+        if (t != null) return t;
+      }
+      return e;
     }
     function f(e) {
-      if (e.isPnBot() && _(e)) {
-        var t = p(e);
-        if (t != null) return t;
-      }
-      return e;
-    }
-    function g(e) {
       if (e.isFbidBot()) {
-        var t = c(e);
+        var t = u(e);
         if (t != null) return t;
       }
       return e;
     }
-    function h(t) {
-      return o("WAWebBotUtils").isHatchBot(t)
+    function g(t) {
+      return !t.isFbidBot() || h(t)
         ? null
-        : t.isFbidBot()
-          ? e === t.user
-            ? o("WAWebBotTypes").BotPersonaType.DEFAULT
-            : s.has(t.user)
-              ? o("WAWebBotTypes").BotPersonaType.FIRST_PARTY_CHARACTER
-              : o("WAWebBotTypes").BotPersonaType.UGC
-          : null;
+        : o("WAWebBotUtils").isMetaAiBot(t) ||
+            o("WAWebBotUtils").isBusinessAssistantBot(t)
+          ? o("WAWebBotTypes").BotPersonaType.DEFAULT
+          : o("WAWebBotUtils").isMaibaAiHubFbid(t) || e.has(t.user)
+            ? o("WAWebBotTypes").BotPersonaType.FIRST_PARTY_CHARACTER
+            : o("WAWebBotTypes").BotPersonaType.UGC;
+    }
+    function h(e) {
+      return (
+        o("WAWebBotUtils").isHatchBot(e) ||
+        o("WAWebBotUtils").isSideChatBotWid(e)
+      );
     }
     function y(e, t) {
       if (e.type !== "addon") {
         var n = e.data,
           r = n.get(t);
-        if (r != null && _(r)) {
-          var o = p(r);
+        if (r != null && p(r)) {
+          var o = m(r);
           o != null && n.set(t, o);
         }
       }
     }
     function C(e) {
       var t = e.data.to;
-      if (_(t)) {
-        var n = p(t);
+      if (p(t)) {
+        var n = m(t);
         n != null &&
           (e.type === "message"
             ? (e.data.to = n)
@@ -291,11 +295,11 @@ __d(
               (e.data = babelHelpers.extends({}, e.data, { to: n })));
       }
     }
-    ((l.getDeprecatedPnChatForFbidThread = c),
-      (l.getDeprecatedPnChatForFbidInvoke = d),
-      (l.maybeReplaceDeprecatedBotPnWithFbid = f),
-      (l.maybeReplaceFbidWithDeprecatedBotPn = g),
-      (l.getFbidBotPersonaType = h),
+    ((l.getDeprecatedPnChatForFbidThread = u),
+      (l.getDeprecatedPnChatForFbidInvoke = c),
+      (l.maybeReplaceDeprecatedBotPnWithFbid = _),
+      (l.maybeReplaceFbidWithDeprecatedBotPn = f),
+      (l.getFbidBotPersonaType = g),
       (l.maybeReplaceWidWithFbIdForInvoke = y),
       (l.maybeReplaceWidWithFbIdForBotSend = C));
   },

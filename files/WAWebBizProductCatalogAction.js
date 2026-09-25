@@ -119,51 +119,65 @@ __d(
     function f(e) {
       return o("WAWebBizProductCatalogBridge").deleteProducts(e);
     }
-    function g(e, t, n) {
-      var r = e.catalogWid;
+    function g(e, t, r) {
+      var a = e.catalogWid;
       if (t) {
-        var a = t.productCollection.get(e.id),
-          i = a
-            ? o("WAWebStateUtils").unproxy(a)
+        var i = t.productCollection.get(e.id),
+          l = i
+            ? o("WAWebStateUtils").unproxy(i)
             : o("WAWebStateUtils").unproxy(e);
-        if (i) {
-          var l = i.getProductImageCollectionHead(),
-            s = l == null ? void 0 : l.mediaData;
-          s &&
+        if (l) {
+          var s = l.getProductImageCollectionHead(),
+            u = s == null ? void 0 : s.mediaData;
+          u &&
             o("WAWebFindChatAction")
-              .findOrCreateLatestChat(r, "bizProductCatalogAction")
-              .then(function (e) {
-                var t = e.chat;
-                o("WAWebCmd")
-                  .Cmd.openChatFromUnread({
-                    chat: t,
-                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                      .BizProduct,
-                  })
-                  .then(function (e) {
-                    if (e) {
-                      var a = o("WAWebStateUtils").unproxy(
-                        o("WAWebBizCreateProductInquiry").createProductInquiry({
-                          catalogWid: r,
-                          chatId: t.id,
-                          mediaData: s,
-                          product: i,
-                          sessionId: n == null ? void 0 : n.session.toString(),
-                        }),
-                      );
-                      (o("WAWebMsgCollection").MsgCollection.add(a),
-                        (t.composeQuotedMsg =
-                          o("WAWebMsgModelUtils").createMsgSnapshot(a)),
-                        o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),
-                        window.innerWidth <=
-                          o("WAWebFrontendConstants")
-                            .LAYOUT_2COLUMNS_MAX_WIDTH &&
-                          o(
-                            "WAWebDrawerManager",
-                          ).DrawerManager.closeDrawerRight());
-                    }
-                  });
-              });
+              .findOrCreateLatestChat(a, "bizProductCatalogAction")
+              .then(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e.chat;
+                      yield o("WAWebCmd")
+                        .Cmd.openChatFromUnread({
+                          chat: t,
+                          chatEntryPoint: o("WAWebChatEntryPoint")
+                            .ChatEntryPoint.BizProduct,
+                        })
+                        .then(function (e) {
+                          if (e) {
+                            var n = o("WAWebStateUtils").unproxy(
+                              o(
+                                "WAWebBizCreateProductInquiry",
+                              ).createProductInquiry({
+                                catalogWid: a,
+                                chatId: t.id,
+                                mediaData: u,
+                                product: l,
+                                sessionId:
+                                  r == null ? void 0 : r.session.toString(),
+                              }),
+                            );
+                            (o("WAWebMsgCollection").MsgCollection.add(n),
+                              (t.composeQuotedMsg =
+                                o("WAWebMsgModelUtils").createMsgSnapshot(n)),
+                              o(
+                                "WAWebComposeBoxActions",
+                              ).ComposeBoxActions.focus(t),
+                              window.innerWidth <=
+                                o("WAWebFrontendConstants")
+                                  .LAYOUT_2COLUMNS_MAX_WIDTH &&
+                                o(
+                                  "WAWebDrawerManager",
+                                ).DrawerManager.closeDrawerRight());
+                          }
+                        });
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              );
         }
       }
     }

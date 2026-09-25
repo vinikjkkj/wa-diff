@@ -1,9 +1,14 @@
 __d(
   "WAWebIcceBubbleActivationHandlers",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebWamEnumSubSurface"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
+      return e
+        ? o("WAWebWamEnumSubSurface").SUB_SURFACE.MISSED_ICCE_BUBBLE
+        : o("WAWebWamEnumSubSurface").SUB_SURFACE.ICCE_BUBBLE_OTHER_RESULT;
+    }
+    function s(e) {
       return {
         onClick: function (n) {
           var t = window.getSelection(),
@@ -19,7 +24,7 @@ __d(
         },
       };
     }
-    i.getIcceBubbleActivationHandlers = e;
+    ((l.getIcceBubbleSubSurface = e), (l.getIcceBubbleActivationHandlers = s));
   },
-  66,
+  98,
 );

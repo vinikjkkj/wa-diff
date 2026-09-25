@@ -263,7 +263,12 @@ __d(
     }
     function y(e, t) {
       var n;
-      if (e == null || e.reportingToken == null) {
+      if (
+        (e == null ? void 0 : e.reportingToken) == null ||
+        t.every(function (e) {
+          return e.reportingToken == null;
+        })
+      ) {
         var r,
           a = t.find(function (e) {
             return e.reportingToken == null;

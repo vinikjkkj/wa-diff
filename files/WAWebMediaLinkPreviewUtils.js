@@ -34,7 +34,7 @@ __d(
     }
     function m(e, t) {
       var n =
-        !!(e.thumbnailDirectPath || e.thumbnailHQ) &&
+        (!!e.thumbnailDirectPath || !!e.thumbnailHQ) &&
         e.thumbnailHeight != null &&
         e.thumbnailWidth != null;
       if (!n) return !1;

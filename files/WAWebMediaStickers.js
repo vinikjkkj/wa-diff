@@ -65,7 +65,7 @@ __d(
           c = i.encFilehash;
         if (
           (!r("gkx")("26258") &&
-            !c &&
+            (c == null || c === "") &&
             u &&
             o("WALogger")
               .ERROR(

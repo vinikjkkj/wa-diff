@@ -15,17 +15,17 @@ __d(
         }
         function s() {
           return (
-            (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
+            (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (s) {
               try {
                 e(yield t());
               } catch (e) {
-                if (n > 0) {
-                  var s = typeof a == "function" ? a(o - n) : a;
+                if (s > 0) {
+                  var u = typeof a == "function" ? a(o - s) : a;
                   r("oz-player/shims/ozSetTimeoutAcrossTransitions")(
-                    function () {
-                      l(n - 1);
-                    },
-                    s,
+                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                      yield l(s - 1);
+                    }),
+                    u,
                   );
                 } else i(e);
               }

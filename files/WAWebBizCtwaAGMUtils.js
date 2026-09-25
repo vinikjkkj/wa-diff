@@ -11,30 +11,27 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    function e() {
-      return s._(/*BTDS*/ "View details");
-    }
-    function u(e) {
+    function e(e) {
       return s._(/*BTDS*/ "{ad source} ad", [s._param("ad source", e)]);
     }
-    function c(e) {
+    function u(e) {
       return r("WAWebURLUtils").withoutWww(r("WAWebURLUtils").hostname(e));
     }
-    function d(e) {
+    function c(e) {
       if (e.sourceUrl == null) return null;
-      var t = c(e.sourceUrl),
+      var t = u(e.sourceUrl),
         n = t.split(".")[0];
       return n === "fb" ? "facebook" : n;
     }
-    function m(e) {
+    function d(e) {
       return s._(/*BTDS*/ "{ad source} Ad image preview", [
         s._param("ad source", e),
       ]);
     }
-    function p() {
+    function m() {
       return s._(/*BTDS*/ "Error loading photo");
     }
-    function _(e) {
+    function p(e) {
       var t = e.isAGMShown,
         n = e.msgSource,
         r = e.msgSubtype,
@@ -52,7 +49,7 @@ __d(
           t === !0;
       return i && l;
     }
-    function f(e) {
+    function _(e) {
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
         e.ctwaContext != null
@@ -71,13 +68,13 @@ __d(
       }
       return !1;
     }
-    function g(e) {
+    function f(e) {
       var t, n;
       return e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
         e.subtype === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup
         ? o("WAWebSignupGating").isSignupAGMEnabled()
-        : f(e) &&
-            _({
+        : _(e) &&
+            p({
               isAGMShown:
                 ((t = e.ctwaContext) == null
                   ? void 0
@@ -86,7 +83,7 @@ __d(
               msgType: e.type,
             });
     }
-    function h(e) {
+    function g(e) {
       var t = e.getAllMsgs(),
         n = t.find(function (e) {
           return (
@@ -100,14 +97,13 @@ __d(
         o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
       );
     }
-    ((l.getCtwaDetailsLabel = e),
-      (l.getAdSourceLabel = u),
-      (l.getHostnameLabel = d),
-      (l.getAdImageAlt = m),
-      (l.getAdImgError = p),
-      (l.isAutomatedGreetingMessage = _),
-      (l.isAGMSupported = g),
-      (l.isCtWAInitiatedChat = h));
+    ((l.getAdSourceLabel = e),
+      (l.getHostnameLabel = c),
+      (l.getAdImageAlt = d),
+      (l.getAdImgError = m),
+      (l.isAutomatedGreetingMessage = p),
+      (l.isAGMSupported = f),
+      (l.isCtWAInitiatedChat = g));
   },
   226,
 );

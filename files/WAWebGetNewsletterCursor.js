@@ -5,17 +5,20 @@ __d(
     function e(e, t, n) {
       var r,
         o,
-        a,
-        i = n.length > 0 ? n : e.toArray(),
-        l =
+        a = n.length > 0 ? n : e.toArray(),
+        i =
           t === "before"
-            ? (r = i[0]) == null
+            ? (r = a[0]) == null
               ? void 0
               : r.serverId
-            : (o = i[i.length - 1]) == null
+            : (o = a[a.length - 1]) == null
               ? void 0
               : o.serverId;
-      return l == null ? null : ((a = {}), (a[t] = s(l)), a);
+      return i == null
+        ? null
+        : t === "before"
+          ? { before: s(i) }
+          : { after: s(i) };
     }
     function s(e) {
       return Math.min(

@@ -25,6 +25,8 @@ __d(
         ANDROID_TABLET_OVERLAY_SCREEN_LOADED:
           "android_tablet_overlay_screen_loaded",
         ANDROID_TABLET_OVERLAY_CLOSE: "android_tablet_overlay_close",
+        ANDROID_TABLET_OVERLAY_CONTINUE_TO_WEB:
+          "android_tablet_overlay_continue_to_web",
         ANDROID_TABLET_OVERLAY_DOWNLOAD_APP:
           "android_tablet_overlay_download_app",
         APPLE_TOUCHSCREEN_OVERLAY_CONTINUE_TO_WEB:

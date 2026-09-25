@@ -9,7 +9,7 @@ __d(
       var t = e.prototype;
       return (
         (t.createStyleSheet = function (t) {
-          var e = t || r("uniqueID")("dynamic-style-"),
+          var e = t != null && t !== "" ? t : r("uniqueID")("dynamic-style-"),
             n = document.createElement("style");
           return (
             (n.id = e),

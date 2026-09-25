@@ -29,6 +29,11 @@ __d(
         (o("WAWebCallUserJourneyInCallAction").logInCallAction(
           o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE.OPEN_CHAT,
         ),
+        o("WAWebCallUserJourneyInCallAction").logInCallAction(
+          o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
+            .MESSAGE_BUTTON_CALL_HEADER,
+          o("WAWebWamEnumSubSurface").SUB_SURFACE.CALL_HEADER,
+        ),
         e(t));
     }
     function u(t) {

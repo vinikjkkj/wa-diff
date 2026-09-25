@@ -12,16 +12,29 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      var t = Number(e.mute.expiration);
+    var e, s;
+    function u(t) {
+      var n = Number(t.mute.expiration);
       o("WAWebDBUpdateChatTable")
-        .updateChatTable(e.id, { muteExpiration: t })
+        .updateChatTable(t.id, { muteExpiration: n })
         .then(function () {
-          return (e.muteExpiration = t);
+          return (t.muteExpiration = n);
+        })
+        .catch(function (n) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "models:Chat:updateMuteExpiration ",
+                  "",
+                ])),
+              t.id.toString(),
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("chat-update-mute-expiration-fail");
         });
     }
-    function u(e) {
+    function c(e) {
       var t,
         n = (t = e.mute.mentionAllMuteExpiration) != null ? t : 0;
       e.mentionAllMuteExpiration !== n &&
@@ -31,30 +44,30 @@ __d(
             e.mentionAllMuteExpiration = n;
           });
     }
-    function c(t) {
-      var n,
-        a = (n = t.mute.callExpiration) != null ? n : 0;
-      t.callMuteExpiration !== a &&
+    function d(e) {
+      var t,
+        n = (t = e.mute.callExpiration) != null ? t : 0;
+      e.callMuteExpiration !== n &&
         o("WAWebDBUpdateChatTable")
-          .updateChatTable(t.id, { callMuteExpiration: a })
+          .updateChatTable(e.id, { callMuteExpiration: n })
           .then(function () {
-            t.callMuteExpiration = a;
+            e.callMuteExpiration = n;
           })
-          .catch(function (n) {
+          .catch(function (t) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "models:Chat:updateCallMuteExpiration ",
                     "",
                   ])),
-                t.id.toString(),
+                e.id.toString(),
               )
-              .catching(r("getErrorSafe")(n))
+              .catching(r("getErrorSafe")(t))
               .sendLogs("chat-update-call-mute-expiration-fail");
           });
     }
-    function d(e) {
+    function m(e) {
       if (!e.promises.updateSortTime) {
         var t = new AbortController(),
           n = t.signal,
@@ -92,10 +105,10 @@ __d(
         e.promises.updateSortTime = { promise: a, abortController: t };
       }
     }
-    ((l.updateMuteExpiration = s),
-      (l.updateMentionAllMuteExpiration = u),
-      (l.updateCallMuteExpiration = c),
-      (l.updateSortTime = d));
+    ((l.updateMuteExpiration = u),
+      (l.updateMentionAllMuteExpiration = c),
+      (l.updateCallMuteExpiration = d),
+      (l.updateSortTime = m));
   },
   98,
 );

@@ -48,17 +48,18 @@ __d(
       y,
       C,
       b,
-      v = b || (b = o("react"));
-    function S(e) {
-      return R.apply(this, arguments);
+      v,
+      S = v || (v = o("react"));
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             (o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[MediaHub] downloadMessages ",
                   " msg(s)",
                 ])),
@@ -68,8 +69,8 @@ __d(
           )
             if (r("WAWebEnvironment").isWindows && n("cr:7565") != null) {
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[MediaHub] Windows bulk save ",
                     " msg(s)",
                   ])),
@@ -78,8 +79,8 @@ __d(
               try {
                 (yield n("cr:7565").selectFolderAndSaveFiles(e),
                   o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[MediaHub] Windows bulk save done ",
                         " msg(s)",
                       ])),
@@ -88,8 +89,8 @@ __d(
               } catch (t) {
                 (o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[MediaHub] Windows bulk save failed ",
                         "",
                       ])),
@@ -97,8 +98,8 @@ __d(
                   )
                   .catching(t),
                   o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[MediaHub] fallback\u2192FileSaver ",
                         " msg(s)",
                       ])),
@@ -109,8 +110,8 @@ __d(
             } else {
               var t = n("cr:7565") != null ? "yes" : "no";
               (o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[MediaHub] FileSaver ",
                     " msg(s) win=",
                     " helpers=",
@@ -123,10 +124,10 @@ __d(
                 o("WAWebFileSaver").FileSaver.initDownload(e));
             }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
+    function E(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e),
         n = o("WAWebThreadMsgUtils").getMsgAiThread(e);
       if (n != null && o("WAWebBotGating").isAiChatThreadsEnabled()) {
@@ -158,7 +159,7 @@ __d(
               ));
           }));
     }
-    function E(t, r, a) {
+    function k(t, r, a) {
       var i = t.filter(function (e) {
         return e.mediaData;
       });
@@ -166,9 +167,9 @@ __d(
         var l = i.filter(function (e) {
             return !e.mediaData.isDownloadable();
           }),
-          c = function (t) {
+          d = function (t) {
             o("WAWebToastManager").ToastManager.open(
-              v.jsx(o("WAWebToast.react").Toast, {
+              S.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(
                   /*BTDS*/ '_j{"*":"Downloading {number_of_messages} items","_1":"Downloading 1 item"}',
                   [s._plural(t, "number_of_messages")],
@@ -176,15 +177,15 @@ __d(
               }),
             );
           };
-        (a === "media_hub" && c(t.length),
+        (a === "media_hub" && d(t.length),
           l.length > 0
             ? (a !== "media_hub" &&
                 o("WAWebToastManager").ToastManager.open(
-                  v.jsx(o("WAWebToast.react").Toast, {
+                  S.jsx(o("WAWebToast.react").Toast, {
                     msg: s._(/*BTDS*/ "Downloading\u2026"),
                   }),
                 ),
-              (C || (C = n("Promise")))
+              (b || (b = n("Promise")))
                 .all(
                   l.map(function (e) {
                     return e.downloadMedia({
@@ -201,7 +202,7 @@ __d(
                   });
                   (i.length > t.length &&
                     o("WAWebToastManager").ToastManager.open(
-                      v.jsx(o("WAWebToast.react").Toast, {
+                      S.jsx(o("WAWebToast.react").Toast, {
                         msg: s._(
                           /*BTDS*/ '_j{"*":"{count} files couldn\'t be downloaded because they\'re no longer on your phone.","_1":"1 file couldn\'t be downloaded because it\'s no longer on your phone."}',
                           [s._plural(i.length - t.length, "count")],
@@ -209,7 +210,7 @@ __d(
                       }),
                     ),
                     t.length &&
-                      S(t).catch(function (t) {
+                      R(t).catch(function (t) {
                         o("WALogger")
                           .ERROR(
                             e ||
@@ -219,12 +220,22 @@ __d(
                           )
                           .catching(t);
                       }));
-                }))
-            : S(i).catch(function (e) {
-                o("WALogger")
-                  .ERROR(
+                })
+                .catch(function (e) {
+                  o("WALogger").ERROR(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[MediaHub] phone download failed ",
+                        "",
+                      ])),
+                    e,
+                  );
+                }))
+            : R(i).catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[MediaHub] download failed",
                       ])),
                   )
@@ -238,7 +249,7 @@ __d(
           ));
       }
     }
-    function k(e) {
+    function I(e) {
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebFrontendMsgGetters").getChat(t);
       (o("WAWebCmd").Cmd.sendUnstarMsgs(n, [t]),
@@ -248,12 +259,12 @@ __d(
             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
         ));
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             (yield o("WAWebKeepInChatActions").runKeepInChatUX(
               o("WAWebStateUtils").unproxy(e),
@@ -261,7 +272,7 @@ __d(
               !0,
             ),
               o("WAWebToastManager").ToastManager.open(
-                v.jsx(o("WAWebToast.react").Toast, {
+                S.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ '_j{"*":"Kept {number_of_messages} items","_1":"Kept 1 item"}',
                     [s._plural(1, "number_of_messages")],
@@ -271,8 +282,8 @@ __d(
           } catch (e) {
             var t;
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "Keep operation not complete. Reason: ",
                   "",
                 ])),
@@ -280,15 +291,15 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             (yield o("WAWebKeepInChatActions").runUndoKeepInChatUX(
               o("WAWebStateUtils").unproxy(e),
@@ -296,7 +307,7 @@ __d(
               !0,
             ),
               o("WAWebToastManager").ToastManager.open(
-                v.jsx(o("WAWebToast.react").Toast, {
+                S.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ '_j{"*":"Unkept {number_of_messages} items","_1":"Unkept 1 item"}',
                     [s._plural(1, "number_of_messages")],
@@ -306,8 +317,8 @@ __d(
           } catch (e) {
             var t;
             o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "UndoKeep operation not complete. Reason: ",
                   "",
                 ])),
@@ -315,10 +326,10 @@ __d(
             );
           }
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
+    function P(e) {
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebFrontendMsgGetters").getChat(t);
       (o("WAWebCmd").Cmd.sendStarMsgs(n, [t]),
@@ -328,7 +339,7 @@ __d(
             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
         ));
     }
-    function P(e, t) {
+    function N(e, t) {
       o("WAWebMessageHandlers").handleOpenForwardFlow({
         multiSelect: !1,
         msg: o("WAWebStateUtils").unproxy(e),
@@ -343,7 +354,7 @@ __d(
             [s._plural(1, "number_of_messages")],
           );
           o("WAWebToastManager").ToastManager.open(
-            v.jsx(o("WAWebToast.react").Toast, {
+            S.jsx(o("WAWebToast.react").Toast, {
               id: o("WAWebActionToast.react").genId(),
               msg: e,
               duration: 4e3,
@@ -352,12 +363,12 @@ __d(
         },
       });
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFrontendMsgGetters").getChat(e);
           (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
             o("WAWebCmd").Cmd.setActiveNavBarItem(
@@ -369,8 +380,8 @@ __d(
           });
           if (!n) {
             o("WALogger").ERROR(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "[MediaHub] reply failed",
                 ])),
             );
@@ -385,15 +396,15 @@ __d(
               o("WAWebFrontendMsgGetters").getChat(e),
             ));
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
             o("WAWebCmd").Cmd.setActiveNavBarItem(
               o("WAWebNavBarTypes").NavBarItems.Chats,
@@ -404,18 +415,18 @@ __d(
               o("WAWebFrontendMsgGetters").getChat(e),
             ));
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    ((l.goToMessageFromModal = L),
-      (l.handleMessageDownloadClick = E),
-      (l.handleMessageUnstarClick = k),
-      (l.handleKeepClick = I),
-      (l.handleUndoKeepClick = D),
-      (l.handleMessageStarClick = $),
-      (l.handleForwardClick = P),
-      (l.replyToMessageFromModal = N),
-      (l.replyPrivatelyToMessageFromModal = w));
+    ((l.goToMessageFromModal = E),
+      (l.handleMessageDownloadClick = k),
+      (l.handleMessageUnstarClick = I),
+      (l.handleKeepClick = T),
+      (l.handleUndoKeepClick = x),
+      (l.handleMessageStarClick = P),
+      (l.handleForwardClick = N),
+      (l.replyToMessageFromModal = M),
+      (l.replyPrivatelyToMessageFromModal = A));
   },
   226,
 );

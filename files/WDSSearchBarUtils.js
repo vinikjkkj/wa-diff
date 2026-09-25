@@ -67,15 +67,16 @@ __d(
       var t = e.EndIcon,
         n = e.density,
         a = e.onEndIconClick,
-        i = e.platform;
+        i = e.platform,
+        l = e.tabOrder;
       if (t == null || a == null) return null;
-      var l;
+      var s;
       return (
         n === o("WDSSearchBarConfig").SearchBarDensity.POINTER
-          ? (l = d.pointerButtonContainer)
+          ? (s = d.pointerButtonContainer)
           : i === "android"
-            ? (l = d.androidTouchButtonContainer)
-            : (l = d.iOSTouchButtonContainer),
+            ? (s = d.androidTouchButtonContainer)
+            : (s = d.iOSTouchButtonContainer),
         c.jsx(o("react-strict-dom").html.div, {
           style: d.iconContainer,
           children: c.jsx(r("WDSButton.react"), {
@@ -84,8 +85,9 @@ __d(
             onPress: a,
             Icon: t,
             "aria-label": "End icon button",
+            tabOrder: l,
             widthMode: "fit",
-            xstyle: l,
+            xstyle: s,
           }),
         })
       );

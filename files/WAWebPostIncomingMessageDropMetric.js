@@ -5,8 +5,7 @@ __d(
     "WAWebAck",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
-    "WAWebCoexV2BotWid",
-    "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2WamClassification",
     "WAWebGetMetricE2eDestination",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
@@ -245,32 +244,20 @@ __d(
         stanza: e,
       });
     }
-    function f(e) {
+    function f(e, t) {
+      var n;
       u({
-        messageDropReason: o("WAWebWamEnumMessageDropReasonType")
-          .MESSAGE_DROP_REASON_TYPE.COEX_V2_RECV_UNSUPPORTED,
+        messageDropReason:
+          (n = o("WAWebCoexV2WamClassification").getCoexV2ReceiveDropReason(
+            t,
+          )) != null
+            ? n
+            : o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
+                .INVALID_HOSTED_COMPANION_STANZA,
         stanza: e,
       });
     }
-    function g(e) {
-      u({
-        messageDropReason: o("WAWebWamEnumMessageDropReasonType")
-          .MESSAGE_DROP_REASON_TYPE.COEX_V2_INVALID_SENDER,
-        stanza: e,
-      });
-    }
-    function h(e, t) {
-      if (t == null || !t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) {
-        _(e);
-        return;
-      }
-      if (o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()) {
-        g(e);
-        return;
-      }
-      f(e);
-    }
-    function y(t, n) {
+    function g(t, n) {
       var r = t.enc,
         a = t.error,
         i = t.msgInfo,
@@ -323,36 +310,36 @@ __d(
       }
       s.commit();
     }
-    function C(e) {
-      y(
+    function h(e) {
+      g(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .RECEIVED_WITH_OLD_COUNTER,
       );
     }
-    function b(e) {
-      y(
+    function y(e) {
+      g(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .DUPLICATE_MESSAGE,
       );
     }
-    function v(e) {
-      y(
+    function C(e) {
+      g(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .INVALID_PROTOBUF,
       );
     }
-    function S(e) {
-      y(
+    function b(e) {
+      g(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .INVALID_STANZA,
       );
     }
-    function R(e) {
-      y(
+    function v(e) {
+      g(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE.EXPIRED,
       );
@@ -362,14 +349,12 @@ __d(
       (l.postIncomingMessageDropInternalError = m),
       (l.postIncomingMessageDropDBOperationFailed = p),
       (l.postIncomingMessageDropInvalidHostedCompanionStanza = _),
-      (l.postIncomingMessageDropCoexV2RecvUnsupported = f),
-      (l.postIncomingMessageDropCoexV2InvalidSender = g),
-      (l.postIncomingMessageDropForCoexV2RelayOrHostedCompanion = h),
-      (l.postIncomingMessageDropOldCounter = C),
-      (l.postIncomingMessageDropDuplicateMessage = b),
-      (l.postIncomingMessageDropInvalidProtobuf = v),
-      (l.postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo = S),
-      (l.postIncomingMessageDropExpired = R));
+      (l.postIncomingMessageDropForCoexV2RelayOrHostedCompanion = f),
+      (l.postIncomingMessageDropOldCounter = h),
+      (l.postIncomingMessageDropDuplicateMessage = y),
+      (l.postIncomingMessageDropInvalidProtobuf = C),
+      (l.postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo = b),
+      (l.postIncomingMessageDropExpired = v));
   },
   98,
 );

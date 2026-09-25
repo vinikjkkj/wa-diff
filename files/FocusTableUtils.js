@@ -101,7 +101,7 @@ __d(
           r = n.nextNode();
         r;
       )
-        (t.push(r), (r = n.nextNode()));
+        (r instanceof HTMLElement && t.push(r), (r = n.nextNode()));
       return t;
     }
     function f(e, t) {

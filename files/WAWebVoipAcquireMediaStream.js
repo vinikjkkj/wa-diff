@@ -2069,14 +2069,15 @@ __d(
               )) != null
                 ? t
                 : 1) > 0,
-            l = babelHelpers.extends({}, a, {
+            l = {
+              video: a.video,
               audio: i,
               preferCurrentTab: !1,
               selfBrowserSurface: "exclude",
               systemAudio: i ? "include" : "exclude",
               surfaceSwitching: "include",
               monitorTypeSurfaces: "include",
-            }),
+            },
             s = Date.now(),
             u = o("WAWebVoipScreenSharePickerState").beginScreenSharePicker();
           try {

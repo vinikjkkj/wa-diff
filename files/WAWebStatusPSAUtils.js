@@ -35,7 +35,7 @@ __d(
             r = e.campaignId,
             o = e.statusPSAReadTimestamp,
             a = e.t;
-          if (r) {
+          if (!(r == null || r === "")) {
             t[r] ||
               (t[r] = {
                 id: r,

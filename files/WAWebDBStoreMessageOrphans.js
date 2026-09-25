@@ -24,25 +24,28 @@ __d(
               ])),
           );
           var a = t.map(function (e) {
-            var t, a;
+            var t, a, i;
             return babelHelpers.extends(
               {
                 msgKey: e.id.toString(),
                 parentMsgKey: n(e).toString(),
-                sender: o("WAWebMsgGetters").getSender(e).toString(),
+                sender:
+                  (t = o("WAWebMsgGetters").getSender(e)) == null
+                    ? void 0
+                    : t.toString(),
                 parsedMsgPayload: o(
                   "WAWebDBMessageSerialization",
                 ).dbRowFromMessage(babelHelpers.extends({}, e), r),
                 type:
-                  (t =
-                    (a = o("WAWebDBAddOnProviders").addOnProviders.find(
+                  (a =
+                    (i = o("WAWebDBAddOnProviders").addOnProviders.find(
                       function (t) {
                         return t.matches(e);
                       },
                     )) == null
                       ? void 0
-                      : a.type) != null
-                    ? t
+                      : i.type) != null
+                    ? a
                     : o("WAWebMessageAddOnType").MessageAddOnType.Unknown,
                 senderTimestampMs: e.senderTimestampMs,
                 t: e.t,

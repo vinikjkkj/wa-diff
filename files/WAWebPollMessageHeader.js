@@ -102,7 +102,7 @@ __d(
           : (k = n[15]);
         var I;
         n[16] !== l
-          ? ((I = o("WAWebMsgGetters").getInitialPageSize(l)),
+          ? ((I = o("WAWebMsgGetters").getInitialPageSize(l.unsafe())),
             (n[16] = l),
             (n[17] = I))
           : (I = n[17]);
@@ -129,9 +129,9 @@ __d(
               return c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 text: s,
                 dirMismatch:
-                  o("WAWebFrontendMsgGetters").getRtl(l) !==
+                  o("WAWebFrontendMsgGetters").getRtl(l.unsafe()) !==
                   r("WAWebL10N").isRTL(),
-                direction: o("WAWebFrontendMsgGetters").getDir(l),
+                direction: o("WAWebFrontendMsgGetters").getDir(l.unsafe()),
                 inferLinesDirection: !0,
                 formatters: n,
                 selectable: !0,

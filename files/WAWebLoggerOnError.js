@@ -214,15 +214,17 @@ __d(
     function y(e) {
       var t = e.promise,
         n = e.reason,
-        r = o("WAWebLoggerImpl").Logger.logUncaughtError(n, t);
+        a = o("WAWebLoggerImpl").Logger.logUncaughtError(n, t);
       p(n) &&
         (o("WAWebCoreActionsODS").isPageLoadComplete() ||
           o("WAWebCoreActionsODS").logPageLoadErrorUnhandledRejection(),
-        o("WAWebCrashlog").upload({
-          reason: r,
-          hasTaggedMessage: !0,
-          sendLogsType: o("WALogger").SendLogsType.UNHANDLED_REJECTED_PROMISE,
-        }));
+        o("WAWebCrashlog")
+          .upload({
+            reason: a,
+            hasTaggedMessage: !0,
+            sendLogsType: o("WALogger").SendLogsType.UNHANDLED_REJECTED_PROMISE,
+          })
+          .catch(r("WAWebNoop")));
     }
     ((l.onErrorHandler = h), (l.onUnhandledPromiseRejection = y));
   },

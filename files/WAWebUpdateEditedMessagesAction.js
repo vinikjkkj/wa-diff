@@ -27,8 +27,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
+    var e, s, u, c;
+    function d(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
       e.unreadEditTimestampMs = n;
       var r = o("WAWebThreadMsgUtils").getMsgAiThread(t);
@@ -38,56 +38,56 @@ __d(
         i != null && i.set({ unreadEditTimestampMs: n });
       }
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          (yield (s || (s = n("Promise"))).all(
-            t.map(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    try {
-                      yield m(t);
-                    } catch (n) {
-                      o("WALogger")
-                        .ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[message-edit] failed to apply edit for ",
-                              "",
-                            ])),
-                          t.parentMsg.id.toString(),
-                        )
-                        .catching(r("getErrorSafe")(n))
-                        .sendLogs("update-edited-message-failed");
-                    }
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            o("WAWebMsgCollection").MsgCollection.processEditedMessages(
-              t.map(function (e) {
-                var t = e.parentMsg;
-                return o("WAWebMsgCollection").MsgCollection.get(t.id);
-              }),
-            ));
-        })),
-        d.apply(this, arguments)
-      );
-    }
     function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield (c || (c = n("Promise"))).all(
+            e.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    try {
+                      yield _(e);
+                    } catch (t) {
+                      o("WALogger")
+                        .ERROR(
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                              "[message-edit] failed to apply edit for ",
+                              "",
+                            ])),
+                          e.parentMsg.id.toString(),
+                        )
+                        .catching(r("getErrorSafe")(t))
+                        .sendLogs("update-edited-message-failed");
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          ),
+            o("WAWebMsgCollection").MsgCollection.processEditedMessages(
+              e.map(function (e) {
+                var t = e.parentMsg;
+                return o("WAWebMsgCollection").MsgCollection.get(t.id);
+              }),
+            ));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.editedMsgData,
             n = e.mentionOfMe,
             a = e.parentMsg,
@@ -124,8 +124,8 @@ __d(
             var m = o("WAWebFrontendMsgGetters").getMaybeChat(l);
             (m != null &&
               (o("WAWebChatMessageSearch").clearFtsCache(m),
-              _(l, m, u, n),
-              f(m, l, i, n)),
+              g(l, m, u, n),
+              h(m, l, i, n)),
               l.clearRawLinks(),
               l.clearRawPhoneNumbers());
             var p = o("WAWebMsgCollection").MsgCollection.get(i.id);
@@ -135,45 +135,67 @@ __d(
               o("WAWebMsgInfoCollection").MsgInfoCollection.remove(l.id));
           }
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e, t, n, r) {
-      var a = o(
+    function g(t, n, a, i) {
+      var l = o(
           "WAWebNotificationController",
-        ).WANotificationController.getNotification(n),
-        i = new (o("WAWebMsgNotification").WAMsgNotification)({ msg: e });
-      if (a && o("WAWebMsgGetters").getIsMetaBotResponse(e)) {
-        e.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
+        ).WANotificationController.getNotification(a),
+        u = new (o("WAWebMsgNotification").WAMsgNotification)({ msg: t });
+      if (l && o("WAWebMsgGetters").getIsMetaBotResponse(t)) {
+        t.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
           o(
             "WAWebNotificationController",
-          ).WANotificationController.triggerNotification(i);
+          ).WANotificationController.triggerNotification(u);
         return;
       }
       if (
-        (a &&
-          o(
-            "WAWebNotificationController",
-          ).WANotificationController.triggerNotification(i),
-        o("WAWebMuteGetters").getIsMuted(t.mute) && r != null)
+        (l &&
+          o("WAWebNotificationController")
+            .WANotificationController.triggerNotification(u)
+            .catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[message-edit] failed to trigger notification for edited msg",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("update-edited-message-notification-failed");
+            }),
+        o("WAWebMuteGetters").getIsMuted(n.mute) && i != null)
       )
-        switch (r) {
+        switch (i) {
           case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Added:
-            t.isUnreadMsg(e) &&
-              o(
-                "WAWebNotificationController",
-              ).WANotificationController.triggerNotification(i);
+            n.isUnreadMsg(t) &&
+              o("WAWebNotificationController")
+                .WANotificationController.triggerNotification(u)
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[message-edit] failed to trigger notification for added mention of me",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs(
+                      "update-edited-message-mention-notification-failed",
+                    );
+                });
             break;
           case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Removed:
-            a == null || a.closeBanner();
+            l == null || l.closeBanner();
             break;
         }
     }
-    function f(e, t, n, r) {
-      (o("WAWebMsgGetters").getIsSentByMe(n) || u(e, t),
-        r != null && g(e, t, r));
+    function h(e, t, n, r) {
+      (o("WAWebMsgGetters").getIsSentByMe(n) || d(e, t),
+        r != null && y(e, t, r));
     }
-    function g(e, t, n) {
+    function y(e, t, n) {
       var a;
       switch (n) {
         case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Added:
@@ -196,7 +218,7 @@ __d(
           break;
       }
     }
-    l.updateEditedMessagesAction = c;
+    l.updateEditedMessagesAction = m;
   },
   98,
 );

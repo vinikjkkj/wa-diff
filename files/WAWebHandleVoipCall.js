@@ -56,10 +56,8 @@ __d(
       P = $.maybeOverrideJestE2ERelayEndpoints,
       N = "incoming";
     function M(e) {
-      return (
-        o("WAWebVoipSignalingEnums").TYPE[e.tag().toUpperCase()] ||
-        o("WAWebVoipSignalingEnums").TYPE.NONE
-      );
+      var t = o("WAWebVoipSignalingEnums").TYPE;
+      return t[e.tag().toUpperCase()] || o("WAWebVoipSignalingEnums").TYPE.NONE;
     }
     var w = new (r("WADeprecatedWapParser"))("callParser", function (e) {
       var t, n, a, i, l, s, u;

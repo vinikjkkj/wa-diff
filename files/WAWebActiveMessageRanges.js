@@ -7,6 +7,7 @@ __d(
     "WAWebHandleForMessageRangeEnums",
     "WAWebSchemaActiveMessageRanges",
     "WAWebTimestampConversionUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -55,26 +56,34 @@ __d(
       return o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN;
     }
     function c(e, t) {
-      o("WAWebApiActiveMessageRanges")
-        .getActiveMessageRanges(e.remote.toString())
-        .then(function (n) {
-          n.forEach(function (n) {
-            if (
-              [
-                o("WAWebSchemaActiveMessageRanges").ActiveRangeAction.Archive,
-                o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                  .MarkChatAsRead,
-              ].includes(n.action) &&
-              u(n.actionValue.messageRange, { id: e, t: t }) ===
-                o("WAWebHandleForMessageRangeEnums").RangeContain
-                  .DOES_NOT_CONTAIN
-            )
-              return o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-                e.remote.toString(),
-                n.action,
-              );
-          });
-        });
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o("WAWebApiActiveMessageRanges")
+            .getActiveMessageRanges(e.remote.toString())
+            .then(function (n) {
+              n.forEach(function (n) {
+                if (
+                  [
+                    o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                      .Archive,
+                    o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                      .MarkChatAsRead,
+                  ].includes(n.action) &&
+                  u(n.actionValue.messageRange, { id: e, t: t }) ===
+                    o("WAWebHandleForMessageRangeEnums").RangeContain
+                      .DOES_NOT_CONTAIN
+                )
+                  return o(
+                    "WAWebApiActiveMessageRanges",
+                  ).removeActiveMessageRange(e.remote.toString(), n.action);
+              });
+            });
+        })),
+        d.apply(this, arguments)
+      );
     }
     ((l.rangeContainsMessage = u), (l.checkAndRemoveActiveMessageRanges = c));
   },

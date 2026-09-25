@@ -22,37 +22,33 @@ __d(
       );
     }
     function m() {
-      return s._(/*BTDS*/ "Catalog image");
-    }
-    function p() {
       return s._(/*BTDS*/ "Couldn't load your catalog. Please try again.");
     }
-    function _() {
+    function p() {
       return s._(/*BTDS*/ "You don't have a catalog yet");
     }
-    function f() {
+    function _() {
       return s._(/*BTDS*/ "Couldn't add your catalog image. Please try again.");
     }
-    function g() {
+    function f() {
       return s._(/*BTDS*/ "We couldn't add some images.");
     }
-    function h() {
+    function g() {
       return s._(/*BTDS*/ "These images can't be added to your ad.");
     }
-    function y() {
+    function h() {
       return s._(/*BTDS*/ "Something went wrong. Please try again.");
     }
     ((l.getSharingDisclosure = e),
       (l.getNoCatalogItemsText = u),
       (l.getCatalogFooterHint = c),
       (l.getCatalogSelectionCountText = d),
-      (l.getCatalogImageTileLabel = m),
-      (l.getCatalogLoadErrorText = p),
-      (l.getNoCatalogText = _),
-      (l.getCatalogMediaResolveErrorText = f),
-      (l.getCatalogMediaPartialSkipText = g),
-      (l.getCatalogMediaNoneAddableText = h),
-      (l.getCatalogMediaGenericErrorText = y));
+      (l.getCatalogLoadErrorText = m),
+      (l.getNoCatalogText = p),
+      (l.getCatalogMediaResolveErrorText = _),
+      (l.getCatalogMediaPartialSkipText = f),
+      (l.getCatalogMediaNoneAddableText = g),
+      (l.getCatalogMediaGenericErrorText = h));
   },
   226,
 );

@@ -20,27 +20,28 @@ __d(
           return null;
         }),
         (t.$5 = function (t, n, r, o) {
-          r != null && !this.$3[r] && (r = null);
-          var e;
-          r != null && this.$3[r]
-            ? (e = this.$3[r])
-            : (e = o ? this.$1 : this.$2);
-          var a = { data: n, key: t, next: null, prev: null };
+          var e = r;
+          e != null && !this.$3[e] && (e = null);
+          var a;
+          e != null && this.$3[e]
+            ? (a = this.$3[e])
+            : (a = o ? this.$1 : this.$2);
+          var i = { data: n, key: t, next: null, prev: null };
           return (
-            e &&
+            a &&
               (this.remove(t),
               o
-                ? ((a.prev = e.prev),
-                  e.prev && (e.prev.next = a),
-                  (e.prev = a),
-                  (a.next = e))
-                : ((a.next = e.next),
-                  e.next && (e.next.prev = a),
-                  (e.next = a),
-                  (a.prev = e))),
-            a.prev === null && (this.$1 = a),
-            a.next === null && (this.$2 = a),
-            (this.$3[t] = a),
+                ? ((i.prev = a.prev),
+                  a.prev && (a.prev.next = i),
+                  (a.prev = i),
+                  (i.next = a))
+                : ((i.next = a.next),
+                  a.next && (a.next.prev = i),
+                  (a.next = i),
+                  (i.prev = a))),
+            i.prev === null && (this.$1 = i),
+            i.next === null && (this.$2 = i),
+            (this.$3[t] = i),
             this.$4++,
             this
           );
@@ -76,8 +77,8 @@ __d(
           return null;
         }),
         (t.reduce = function (t, n) {
-          for (var e = this.$1; e; e = e.next) n = t(e.data, n);
-          return n;
+          for (var e = n, r = this.$1; r; r = r.next) e = t(r.data, e);
+          return e;
         }),
         (t.exists = function (t) {
           return !!this.$3[t];

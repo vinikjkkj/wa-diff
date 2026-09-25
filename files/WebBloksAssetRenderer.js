@@ -22,7 +22,7 @@ __d(
       return e instanceof (c || (c = r("URI"))) ? e.toString() : e;
     }
     function _(t) {
-      var n = o("react-compiler-runtime").c(29),
+      var n = o("react-compiler-runtime").c(28),
         a,
         i;
       n[0] !== t
@@ -146,23 +146,17 @@ __d(
       }
       var x;
       return (
-        n[23] !== l || n[24] !== c || n[25] !== d || n[26] !== a || n[27] !== i
+        n[23] !== c || n[24] !== d || n[25] !== a || n[26] !== i
           ? ((x = m.jsx(
               "img",
-              babelHelpers.extends({}, a, {
-                className: c,
-                ref: i,
-                src: d,
-                children: l,
-              }),
+              babelHelpers.extends({}, a, { className: c, ref: i, src: d }),
             )),
-            (n[23] = l),
-            (n[24] = c),
-            (n[25] = d),
-            (n[26] = a),
-            (n[27] = i),
-            (n[28] = x))
-          : (x = n[28]),
+            (n[23] = c),
+            (n[24] = d),
+            (n[25] = a),
+            (n[26] = i),
+            (n[27] = x))
+          : (x = n[27]),
         x
       );
     }

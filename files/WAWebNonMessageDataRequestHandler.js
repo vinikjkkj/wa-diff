@@ -23,61 +23,70 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      if (t.peerDataOperationRequestType != null)
+    var e, s, u;
+    function c(t, n) {
+      if (n.peerDataOperationRequestType != null)
         e: {
           if (
-            t.peerDataOperationRequestType ===
+            n.peerDataOperationRequestType ===
             o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .UPLOAD_STICKER
           ) {
-            o(
-              "WAWebNonMessageDataRequestHandlerUploadSticker",
-            ).handleUploadStickerPeerDataOperationRequest(
-              e,
-              t.requestStickerReupload,
-            );
+            o("WAWebNonMessageDataRequestHandlerUploadSticker")
+              .handleUploadStickerPeerDataOperationRequest(
+                t,
+                n.requestStickerReupload,
+              )
+              .catch(function (t) {
+                o("WALogger").ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "sticker reupload request handling failed: ",
+                      "",
+                    ])),
+                  t,
+                );
+              });
             break e;
           }
           if (
-            t.peerDataOperationRequestType ===
+            n.peerDataOperationRequestType ===
             o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .GALAXY_FLOW_ACTION
           ) {
             o(
               "WAWebNonMessageDataRequestHandlerGalaxyFlow",
-            ).handleGalaxyFlowLaunchRequest(t);
+            ).handleGalaxyFlowLaunchRequest(n);
             break e;
           }
           break e;
         }
     }
-    function c(t, n) {
-      if (n.peerDataOperationRequestType != null)
-        switch (n.peerDataOperationRequestType) {
+    function d(e, t) {
+      if (t.peerDataOperationRequestType != null)
+        switch (t.peerDataOperationRequestType) {
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
             .UPLOAD_STICKER:
             o(
               "WAWebNonMessageDataRequestHandlerUploadSticker",
             ).handleUploadStickerPeerDataOperationRequestResponse(
-              t,
-              n.peerDataOperationResult,
+              e,
+              t.peerDataOperationResult,
             );
             return;
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
             .GENERATE_LINK_PREVIEW:
             o(
               "WAWebNonMessageDataRequestHandlerGenLinkPreview",
-            ).handleGenerateLinkPreviewOperationRequestResponse(n);
+            ).handleGenerateLinkPreviewOperationRequestResponse(t);
             return;
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
             .PLACEHOLDER_MESSAGE_RESEND:
             o(
               "WAWebNonMessageDataRequestHandlerPlaceholderResend",
             ).handlePlaceholderResendOperationRequestResponse(
-              t,
-              n.peerDataOperationResult,
+              e,
+              t.peerDataOperationResult,
             );
             return;
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
@@ -85,14 +94,14 @@ __d(
             o(
               "WAWebNonMessageDataRequestHandlerWaffleLinkingNonceFetch",
             ).handleWaffleLinkingNonceFetchOperationRequestResponse(
-              n.peerDataOperationResult,
+              t.peerDataOperationResult,
             );
             return;
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
             .COMPANION_CANONICAL_USER_NONCE_FETCH:
             o(
               "WAWebNonMessageDataRequestHandlerCanonicalEntNonce",
-            ).handleCanonicalEntNonceFetchResponse(n.peerDataOperationResult);
+            ).handleCanonicalEntNonceFetchResponse(t.peerDataOperationResult);
             return;
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
             .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY:
@@ -102,30 +111,30 @@ __d(
               ).syncdSnapshotRecoveryEnabled() === !1
             ) {
               o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd Snapshot recovery is not enabled",
                   ])),
               );
               return;
             }
             try {
-              d(n.peerDataOperationResult[0], t);
-            } catch (e) {
+              m(t.peerDataOperationResult[0], e);
+            } catch (t) {
               (o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd Snapshot recovery initianl handling failed: ",
                     "",
                   ])),
-                e,
+                t,
               ),
                 o(
                   "WAWebNonMessageDataRequestLoggingUtils",
                 ).logNonMessagePeerDataResponse(
                   o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
                     .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY,
-                  t,
+                  e,
                   0,
                   0,
                   0,
@@ -138,17 +147,17 @@ __d(
             .GALAXY_FLOW_ACTION:
             o(
               "WAWebNonMessageDataRequestHandlerGalaxyFlow",
-            ).handleGalaxyFlowDownloadResponse(n.peerDataOperationResult);
+            ).handleGalaxyFlowDownloadResponse(t.peerDataOperationResult);
             return;
           case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
             .BUSINESS_BROADCAST_INSIGHTS_DELIVERED_TO: {
-            var r = o(
+            var n = o(
               "WAWebBizBroadcastInsightsContactListHandler",
-            ).handleInsightsContactListResponse(n.peerDataOperationResult);
-            r != null &&
+            ).handleInsightsContactListResponse(t.peerDataOperationResult);
+            n != null &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerBizBroadcastInsightsContactListFromBridge",
-                r,
+                n,
               );
             return;
           }
@@ -156,12 +165,12 @@ __d(
             return;
         }
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
             i =
@@ -200,11 +209,11 @@ __d(
               0,
             ));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.handlePeerDataOperationRequest = u),
-      (l.handlePeerDataOperationRequestResponse = c));
+    ((l.handlePeerDataOperationRequest = c),
+      (l.handlePeerDataOperationRequestResponse = d));
   },
   98,
 );

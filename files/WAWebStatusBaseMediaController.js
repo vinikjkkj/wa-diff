@@ -117,7 +117,7 @@ __d(
               var n =
                   t.$4 === o("WAWebStatusSetupController").MediaType.Audio
                     ? !0
-                    : (e.audioTracks && e.audioTracks.length > 0) ||
+                    : (e.audioTracks != null && e.audioTracks.length > 0) ||
                       e.mozHasAudio === !0 ||
                       e.webkitAudioDecodedByteCount > 0,
                 r = e.muted;

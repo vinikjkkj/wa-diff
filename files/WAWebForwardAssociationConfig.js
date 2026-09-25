@@ -1,33 +1,37 @@
 __d(
   "WAWebForwardAssociationConfig",
   [
-    "WAWebBoolFunc",
     "WAWebDualUploadsSendPolicy",
     "WAWebMediaGatingUtils",
     "WAWebMessageAssociation.flow",
     "WAWebMsgType",
     "WAWebViewMode.flow",
+    "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n = c(e);
+      var n = d(e);
       if (!(n == null || !n.canDestinationCarry(t) || !n.isEnabled()))
         return { role: n.role, viewMode: n.viewMode };
     }
     function s(e) {
-      return d.has(e);
+      return m.has(e);
     }
     function u(e) {
+      var t = e.chatWid;
+      return !r("WAWebWid").isNewsletter(t) && !t.isBot();
+    }
+    function c(e) {
       var t = e.businessProfile,
         n = e.chatWid;
       return o("WAWebDualUploadsSendPolicy").canChatCarryHdImagePair(n, t);
     }
-    function c(e) {
+    function d(e) {
       return e ===
         o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_IMAGE_DUAL_UPLOAD
         ? {
-            canDestinationCarry: u,
+            canDestinationCarry: c,
             isEnabled: o("WAWebMediaGatingUtils")
               .isHdImageDualUploadConsumptionEnabled,
             role: "shadow",
@@ -36,7 +40,7 @@ __d(
         : e ===
             o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_ALBUM
           ? {
-              canDestinationCarry: o("WAWebBoolFunc").returnTrue,
+              canDestinationCarry: u,
               isEnabled: o("WAWebMediaGatingUtils").isAlbumV2SenderEnabled,
               role: "member",
               viewMode: o("WAWebViewMode.flow").ViewModeType.MEDIA_ALBUM,
@@ -66,7 +70,7 @@ __d(
                 );
               })();
     }
-    var d = new Set([o("WAWebMsgType").MSG_TYPE.ALBUM]);
+    var m = new Set([o("WAWebMsgType").MSG_TYPE.ALBUM]);
     ((l.getForwardAssociationConfig = e), (l.isForwardContainerMsgType = s));
   },
   98,

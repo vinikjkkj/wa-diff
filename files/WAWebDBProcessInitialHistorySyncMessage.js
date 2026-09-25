@@ -147,38 +147,40 @@ __d(
               { nextRowId: _ - a, messages: [] },
             ),
             g = [],
-            y = [];
-          f.messages.forEach(function (e) {
-            (e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-              o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
-                e.id.toString(),
-                {
-                  id: e.id.toString(),
-                  from: e.from.toString(),
-                  to: e.to.toString(),
-                  groupId: e.inviteGrp,
-                  expiration: parseInt(e.inviteCodeExp, 10),
-                  expired:
-                    o("WATimeUtils").unixTime() >=
-                    parseInt(e.inviteCodeExp, 10),
-                },
-              ),
-              e.associationType != null &&
-                g.push({
-                  msgKey: e.id.toString(),
-                  parentMsgKey: e.parentMsgKey.toString(),
-                  associationType: e.associationType,
-                  msgKeyInternalId: e.internalId,
-                }),
-              o("WAWebThreadMsgUtils").isThreadMsg(e) && y.push(e));
-          });
-          var b = [
-            o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(f.messages),
-          ];
+            y = [],
+            b = [
+              o("WAWebSchemaMessage")
+                .getMessageTable()
+                .bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(f.messages),
+            ];
           if (
-            (g.length &&
+            (f.messages.forEach(function (e) {
+              (e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
+                b.push(
+                  o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
+                    e.id.toString(),
+                    {
+                      id: e.id.toString(),
+                      from: e.from.toString(),
+                      to: e.to.toString(),
+                      groupId: e.inviteGrp,
+                      expiration: parseInt(e.inviteCodeExp, 10),
+                      expired:
+                        o("WATimeUtils").unixTime() >=
+                        parseInt(e.inviteCodeExp, 10),
+                    },
+                  ),
+                ),
+                e.associationType != null &&
+                  g.push({
+                    msgKey: e.id.toString(),
+                    parentMsgKey: e.parentMsgKey.toString(),
+                    associationType: e.associationType,
+                    msgKeyInternalId: e.internalId,
+                  }),
+                o("WAWebThreadMsgUtils").isThreadMsg(e) && y.push(e));
+            }),
+            g.length &&
               b.push(
                 o("WAWebSchemaMessageAssociation")
                   .getMessageAssociationTable()

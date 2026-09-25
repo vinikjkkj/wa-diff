@@ -11,6 +11,7 @@ __d(
     "WAWebChatDeleteBridge",
     "WAWebDBMessageRange",
     "WAWebDBQueryAndRemoveMessageHistory",
+    "WAWebDBReportingTokenUtils",
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebMessageRangeUtils",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
@@ -197,7 +198,11 @@ __d(
                     forceDeleteAllMessagesExceptInitialEncryption: !0,
                   });
                   n.length > 0 &&
-                    (o("WAWebBackendApi").frontendFireAndForget(
+                    (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
+                      n,
+                      { removeWholeRow: !0 },
+                    ),
+                    o("WAWebBackendApi").frontendFireAndForget(
                       "deleteModelsForLastAddOnPreview",
                       { messagesIds: n },
                     ),
@@ -425,7 +430,7 @@ __d(
                     return (
                       delete y.id,
                       yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
-                        ["message-association", "chat"],
+                        ["message-association", "chat", "reporting-info"],
                         [y],
                         n("asyncToGeneratorRuntime").asyncToGenerator(
                           function* () {

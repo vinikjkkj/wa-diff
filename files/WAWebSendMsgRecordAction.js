@@ -51,6 +51,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsTypes",
     "WAWebUtmBizUtils",
+    "WAWebVoipInCallMessageSendLogger",
     "WAWebWamEnumMessageCappingActionType",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamMsgUtils",
@@ -246,6 +247,10 @@ __d(
                           ).maybeIncrementSingleEmojiDailyStatsCount(i),
                         i.utm != null &&
                           o("WAWebUpdateUtmAction").clearUtmAfterMessageSent(h),
+                        C ||
+                          o(
+                            "WAWebVoipInCallMessageSendLogger",
+                          ).logInCallMessageSendIfNeeded(t),
                         yield o(
                           "WAWebMsgUtilsBridge",
                         ).logMessageSendForChatThreadLogging(i),

@@ -134,7 +134,7 @@ __d(
             b = o(
               "WAWebRequestMediaReuploadManager",
             ).RequestMediaReuploadManager.getMediaKey(_);
-          if (!b)
+          if (b == null || b === "")
             return (
               o("WALogger").WARN(
                 d ||
