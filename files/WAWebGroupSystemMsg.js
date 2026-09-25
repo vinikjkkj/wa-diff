@@ -161,6 +161,7 @@ __d(
                       ).genLimitSharingSystemMessageOnPersistedChat({
                         chatWID: t.chatId,
                         sharingLimited: r.limitSharingEnabled,
+                        acp2Enabled: r.acp2Enabled,
                       });
                       if (e) return [e];
                     }
@@ -170,12 +171,35 @@ __d(
                 _.apply(this, arguments)
               );
             }
+            function f() {
+              return g.apply(this, arguments);
+            }
+            function g() {
+              return (
+                (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    if (r.acp2Enabled === !0) {
+                      var e = yield o(
+                        "WAWebLimitSharingModelUtils",
+                      ).genAcp2SystemMessageOnPersistedChat({
+                        chatWID: t.chatId,
+                        enabled: r.acp2Enabled,
+                      });
+                      if (e) return [e];
+                    }
+                    return [];
+                  },
+                )),
+                g.apply(this, arguments)
+              );
+            }
             return (yield (C || (C = n("Promise"))).all([
               s(),
               u(),
               c(),
               d(),
               p(),
+              f(),
             ]))
               .filter(Boolean)
               .flat();

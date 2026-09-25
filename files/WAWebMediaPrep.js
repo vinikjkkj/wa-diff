@@ -529,6 +529,15 @@ __d(
                           ).isChannelVideoServerTranscodeUploadEnabled()
                             ? f.metadataUrl
                             : null,
+                        dashManifestUrl:
+                          f instanceof
+                            o("WAWebMediaEntry").UnencryptedMediaEntry &&
+                          f.dashManifestUrl != null &&
+                          o(
+                            "WAWebChannelVideoServerTranscodeGating",
+                          ).isChannelVideoServerTranscodeUploadEnabled()
+                            ? f.dashManifestUrl
+                            : void 0,
                       },
                       g,
                     ),

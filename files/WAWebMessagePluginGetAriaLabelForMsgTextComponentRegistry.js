@@ -36,6 +36,11 @@ __d(
       { type: "chat", subtype: void 0, getAriaLabelForMsgTextComponent: null },
       {
         type: "ciphertext",
+        subtype: "acp_unavailable_fanout",
+        getAriaLabelForMsgTextComponent: null,
+      },
+      {
+        type: "ciphertext",
         subtype: "bot_unavailable_fanout",
         getAriaLabelForMsgTextComponent: null,
       },
@@ -253,6 +258,11 @@ __d(
       {
         type: "product",
         subtype: void 0,
+        getAriaLabelForMsgTextComponent: null,
+      },
+      {
+        type: "protocol",
+        subtype: "acp2_system_message",
         getAriaLabelForMsgTextComponent: null,
       },
       {

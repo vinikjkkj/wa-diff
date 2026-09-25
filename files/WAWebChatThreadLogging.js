@@ -7,6 +7,7 @@ __d(
     "WAWebChatThreadLoggingUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,47 +25,48 @@ __d(
       y,
       C,
       b,
-      v = null;
-    function S() {
+      v,
+      S = null;
+    function R() {
       return (
-        v == null &&
+        S == null &&
           o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "getChatThreadLoggingState: init incomplete!",
               ])),
           ),
-        v
+        S
       );
     }
-    function R(e) {
-      v = e;
-    }
     function L(e) {
-      return E.apply(this, arguments);
+      S = e;
     }
-    function E() {
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, n;
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "chat_thread_logging: setting offset",
               ])),
           );
           var r =
-            (t = yield (n = S()) == null
+            (t = yield (n = R()) == null
               ? void 0
               : n.metadataStore.setOffset(e)) != null
               ? t
               : !1;
-          return (r && x(e), r);
+          return (r && $(e), r);
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
+    function I(e) {
       var t, r;
       return (
         o("WALogger").LOG(
@@ -73,12 +75,12 @@ __d(
               "chat_thread_logging: setting thread_id_user_secret",
             ])),
         ),
-        (t = (r = S()) == null ? void 0 : r.metadataStore.setSecret(e)) != null
+        (t = (r = R()) == null ? void 0 : r.metadataStore.setSecret(e)) != null
           ? t
-          : (b || (b = n("Promise"))).resolve(!1)
+          : (v || (v = n("Promise"))).resolve(!1)
       );
     }
-    function I(e) {
+    function T(e) {
       var t;
       (o("WALogger").LOG(
         u ||
@@ -88,7 +90,7 @@ __d(
           ])),
         e.length,
       ),
-        (t = S()) == null ||
+        (t = R()) == null ||
           t.eventStore.handleMessages(e).catch(function (e) {
             o("WALogger").ERROR(
               c ||
@@ -98,75 +100,88 @@ __d(
             );
           }));
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
-            a = yield (t = S()) == null ? void 0 : t.metadataStore.getOffset();
+            a = yield (t = R()) == null ? void 0 : t.metadataStore.getOffset();
           if (a == null) {
             o("WALogger").ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[ctl] upload failed: offset unset",
                 ])),
             );
             return;
           }
-          var i = yield (n = S()) == null
+          var i = yield (n = R()) == null
             ? void 0
             : n.metadataStore.getSecret();
           if (i == null) {
             o("WALogger").ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[ctl] upload failed: secret unset",
                 ])),
             );
             return;
           }
-          var l = yield (r = S()) == null
+          var l = yield (r = R()) == null
             ? void 0
             : r.eventUploader.uploadEvents(e);
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
+    function $(e) {
       var t = o("WATimeUtils").unixTime(),
-        r = t - (t % 86400),
-        a = r + e,
-        i = a - t;
-      (i < 0 && (i += o("WATimeUtils").DAY_SECONDS),
+        a = t - (t % 86400),
+        i = a + e,
+        l = i - t;
+      (l < 0 && (l += o("WATimeUtils").DAY_SECONDS),
         self.setTimeout(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t;
-            (yield (t = S()) == null ? void 0 : t.eventUploader.uploadEvents(),
-              x(e));
+            try {
+              var t;
+              yield (t = R()) == null ? void 0 : t.eventUploader.uploadEvents();
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ctl] scheduled upload failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("ctl-scheduled-upload-failed");
+            } finally {
+              $(e);
+            }
           }),
-          i * 1e3,
+          l * 1e3,
         ));
     }
-    function $() {
-      if (!r("gkx")("26258")) return S();
-    }
     function P() {
-      return N.apply(this, arguments);
+      if (!r("gkx")("26258")) return R();
     }
     function N() {
+      return M.apply(this, arguments);
+    }
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield S(),
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield R(),
             t = yield e == null ? void 0 : e.metadataStore.getSecret();
           return t == null
             ? (o("WALogger")
                 .WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[ctl] secret unavailable",
                     ])),
                 )
@@ -174,20 +189,20 @@ __d(
               null)
             : t;
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield P();
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield N();
           if (n == null) {
             o("WALogger").WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[ctl] getChatThreadID failed: secret unset",
                 ])),
             );
@@ -198,21 +213,21 @@ __d(
           );
           return o("WAWebChatThreadLoggingUtils").generateThreadID(n, e, r);
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield P();
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield N();
           return t == null
             ? (o("WALogger")
                 .WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[ctwa] getChatThreadIDHMAC failed: secret unset",
                     ])),
                 )
@@ -220,21 +235,21 @@ __d(
               null)
             : o("WAWebChatThreadLoggingUtils").generateThreadIDHMAC(t, e);
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield P();
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield N();
           return t == null
             ? (o("WALogger")
                 .WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[ctwa] getCtwa3pdAggregatedThreadIDHMAC failed: secret unset",
                     ])),
                 )
@@ -244,35 +259,35 @@ __d(
                 "WAWebChatThreadLoggingUtils",
               ).generateCtwa3pdAggregatedThreadIDHMAC(t, e);
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield P();
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield N();
           return t == null
             ? (o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[ctl] getMessageIDHMAC failed: secret unset",
                   ])),
               ),
               null)
             : o("WAWebChatThreadLoggingUtils").generateMessageIDHMAC(t, e);
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
-      return V.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o("WAWebUserPrefsMeUser")
                 .getMePnUserOrThrow_DO_NOT_USE()
@@ -285,8 +300,8 @@ __d(
           } catch (e) {
             return (
               o("WALogger").WARN(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[ctl] getThreadIDHMAC failed: ",
                     "",
                   ])),
@@ -296,21 +311,21 @@ __d(
             );
           }
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    ((l.setChatThreadLoggingState = R),
-      (l.setThreadDsTimeframeOffset = L),
-      (l.setThreadIdUserSecret = k),
-      (l.handleActivitiesForChatThreadLogging = I),
-      (l.uploadChatThreadLoggingEvents = T),
-      (l.initUploadTimer = x),
-      (l.getChatThreadLoggingStateDebug = $),
-      (l.getChatThreadID = M),
-      (l.getChatThreadIDHMAC = A),
-      (l.getCtwa3pdAggregatedThreadIDHMAC = O),
-      (l.getMessageIDHMAC = W),
-      (l.getThreadIDHMAC = U));
+    ((l.setChatThreadLoggingState = L),
+      (l.setThreadDsTimeframeOffset = E),
+      (l.setThreadIdUserSecret = I),
+      (l.handleActivitiesForChatThreadLogging = T),
+      (l.uploadChatThreadLoggingEvents = D),
+      (l.initUploadTimer = $),
+      (l.getChatThreadLoggingStateDebug = P),
+      (l.getChatThreadID = w),
+      (l.getChatThreadIDHMAC = F),
+      (l.getCtwa3pdAggregatedThreadIDHMAC = B),
+      (l.getMessageIDHMAC = q),
+      (l.getThreadIDHMAC = V));
   },
   98,
 );

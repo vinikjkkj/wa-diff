@@ -17,6 +17,7 @@ __d(
     var e,
       s,
       u = [
+        "dashManifestUrl",
         "fbid",
         "filehash",
         "handle",
@@ -79,21 +80,23 @@ __d(
       _ = (function (e) {
         function t(t) {
           var n,
-            r = t.fbid,
-            o = t.filehash,
-            a = t.handle,
-            i = t.metadataUrl,
-            l = t.thumbnailDirectPath,
-            s = t.thumbnailSha256,
-            c = babelHelpers.objectWithoutPropertiesLoose(t, u);
+            r = t.dashManifestUrl,
+            o = t.fbid,
+            a = t.filehash,
+            i = t.handle,
+            l = t.metadataUrl,
+            s = t.thumbnailDirectPath,
+            c = t.thumbnailSha256,
+            d = babelHelpers.objectWithoutPropertiesLoose(t, u);
           return (
-            (n = e.call(this, c) || this),
-            (n.filehash = o),
-            (n.handle = a),
-            (n.metadataUrl = i),
-            (n.fbid = r),
-            (n.thumbnailDirectPath = l),
-            (n.thumbnailSha256 = s),
+            (n = e.call(this, d) || this),
+            (n.filehash = a),
+            (n.handle = i),
+            (n.metadataUrl = l),
+            (n.dashManifestUrl = r),
+            (n.fbid = o),
+            (n.thumbnailDirectPath = s),
+            (n.thumbnailSha256 = c),
             n
           );
         }
@@ -292,6 +295,7 @@ __d(
               return (
                 (e.handle = t.handle),
                 (e.metadataUrl = t.metadataUrl),
+                (e.dashManifestUrl = t.dashManifestUrl),
                 (e.fbid = t.fbid),
                 e
               );
@@ -302,6 +306,7 @@ __d(
               directPath: t.directPath,
               handle: t.handle,
               metadataUrl: t.metadataUrl,
+              dashManifestUrl: t.dashManifestUrl,
               thumbnailDirectPath: t.thumbnailDirectPath,
               thumbnailSha256: t.thumbnailSha256,
               fbid: t.fbid,

@@ -43,6 +43,10 @@ __d(
             };
           return t.execute(o, a, i, l, p, u, c, d).do(m);
         },
+        executeWithPreloadedSource: function (n, r, o, a, i) {
+          var e = t.executeWithPreloadedSource;
+          return e == null ? a : e(n, r, o, a, i);
+        },
       };
     }
     a.exports = e;

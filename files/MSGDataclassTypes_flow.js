@@ -207,6 +207,7 @@ __d(
         AiGenerated: "AI_GENERATED",
         CatalogProduct: "CATALOG_PRODUCT",
         FacebookPost: "FACEBOOK_POST",
+        HealthProvider: "HEALTH_PROVIDER",
         ImageGen: "IMAGE_GEN",
         InstagramPost: "INSTAGRAM_POST",
         ThirdParty: "THIRD_PARTY",
@@ -248,9 +249,11 @@ __d(
         GoogleContacts: "GOOGLE_CONTACTS",
         GoogleDrive: "GOOGLE_DRIVE",
         GoogleHealthConnect: "GOOGLE_HEALTH_CONNECT",
+        Opentable: "OPENTABLE",
         OutlookCalendar: "OUTLOOK_CALENDAR",
         OutlookContacts: "OUTLOOK_CONTACTS",
         OutlookMail: "OUTLOOK_MAIL",
+        Ticketmaster: "TICKETMASTER",
       }),
       Re = e({
         Initiated: "INITIATED",
@@ -561,6 +564,7 @@ __d(
         Destination: "DESTINATION",
         DestinationDomain: "DESTINATION_DOMAIN",
         Entity: "ENTITY",
+        Recipient: "RECIPIENT",
       }),
       vt = e({
         BrowserAction: "BROWSER_ACTION",

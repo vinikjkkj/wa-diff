@@ -31,6 +31,7 @@ __d(
         thumbnailSha256:
           (n = e.thumbnail_info) == null ? void 0 : n.thumbnail_sha256,
         metadataUrl: e.metadata_url,
+        dashManifestUrl: e.dash_manifest_url,
       };
     }
     function c(e) {

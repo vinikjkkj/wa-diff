@@ -34,6 +34,11 @@ __d(
       },
       {
         type: "ciphertext",
+        subtype: "acp_unavailable_fanout",
+        getThumbnailTypeForMediaMsg: null,
+      },
+      {
+        type: "ciphertext",
         subtype: "bot_unavailable_fanout",
         getThumbnailTypeForMediaMsg: null,
       },
@@ -235,6 +240,11 @@ __d(
         getThumbnailTypeForMediaMsg: null,
       },
       { type: "product", subtype: void 0, getThumbnailTypeForMediaMsg: null },
+      {
+        type: "protocol",
+        subtype: "acp2_system_message",
+        getThumbnailTypeForMediaMsg: null,
+      },
       {
         type: "protocol",
         subtype: "admin_revoke",

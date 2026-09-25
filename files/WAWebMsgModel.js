@@ -560,6 +560,7 @@ __d(
             (e.placeholderCreatedWhenAccountIsHosted =
               o("WAWebBaseModel").prop(!1)),
             (e.limitSharing = o("WAWebBaseModel").prop()),
+            (e.acp2Setting = o("WAWebBaseModel").prop()),
             (e.galaxyFlowWAMMessageId = o("WAWebBaseModel").prop()),
             (e.galaxyFlowQPLMessageId = o("WAWebBaseModel").prop()),
             (e.galaxyFlowDisabled = o("WAWebBaseModel").prop()),

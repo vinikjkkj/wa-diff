@@ -229,7 +229,10 @@ __d(
                     .OTHER;
     }
     function R(e) {
-      return e.subtype !== "view_once_unavailable_fanout";
+      return !(
+        e.subtype === "view_once_unavailable_fanout" ||
+        e.subtype === "acp_unavailable_fanout"
+      );
     }
     ((l.postPlaceholderActivityAddEvent = s),
       (l.postPlaceholderActivityViewEvent = c),

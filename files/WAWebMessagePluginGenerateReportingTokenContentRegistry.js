@@ -41,6 +41,11 @@ __d(
         },
         {
           type: "ciphertext",
+          subtype: "acp_unavailable_fanout",
+          generateReportingTokenContent: null,
+        },
+        {
+          type: "ciphertext",
           subtype: "bot_unavailable_fanout",
           generateReportingTokenContent: null,
         },
@@ -248,6 +253,11 @@ __d(
         {
           type: "product",
           subtype: void 0,
+          generateReportingTokenContent: null,
+        },
+        {
+          type: "protocol",
+          subtype: "acp2_system_message",
           generateReportingTokenContent: null,
         },
         {

@@ -111,6 +111,7 @@ __d(
             .version(n.chatAddIsAiHandoff(), [r("isAiHandoff")])
             .version(n.chatAddAiHandoffRemovalExpiry(), [
               r("aiHandoffRemovalExpiry"),
+              r("acp2Setting"),
             ])
             .view(function (e) {
               return e;

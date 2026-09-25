@@ -22,6 +22,7 @@ __d(
     "WAWebNonMessageDataRequestHandlerGenLinkPreview",
     "WAWebParseCallLinkType",
     "WAWebPrimaryFeaturesModel",
+    "WAWebProfilePicThumbGetters",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsMmsRetry.pb",
     "WAWebSendNonMessageDataRequest",
@@ -120,7 +121,11 @@ __d(
           else if (R.resultType === o("WAWebApi").APICmd.GROUP_INVITE) {
             var L = yield o(
               "WAWebLinkPreviewGroupUtils",
-            ).getGroupInviteLinkPreview(e.url, R.data.code);
+            ).getGroupInviteLinkPreview(
+              e.url,
+              R.data.code,
+              o("WAWebProfilePicThumbGetters").getMaybeImg,
+            );
             L && (b = L);
           } else
             R.resultType === o("WAWebApi").APICmd.PAYMENT_LINK &&

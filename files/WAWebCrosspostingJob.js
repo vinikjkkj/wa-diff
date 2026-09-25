@@ -6,19 +6,24 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, r, a, i) {
+    function e(e) {
+      var t = e.caption,
+        r = e.destinations,
+        a = e.statusBlob,
+        i = e.statusKey,
+        l = e.statusTimestamp;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "crosspostStatus",
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var n = yield a.arrayBuffer();
+              var e = yield a.arrayBuffer();
               yield o("WAWebEligibilityCheckHelper").initiateCrossposting({
-                statusTimestamp: e,
-                statusKey: t,
+                statusTimestamp: l,
+                statusKey: i,
                 destinations: r,
-                statusBlob: n,
-                caption: i,
+                statusBlob: e,
+                caption: t,
               });
             } catch (e) {
               throw e;

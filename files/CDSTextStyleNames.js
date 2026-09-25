@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+        bodyLargeMeta: "bodyLarge",
         headline1Body: "headline1",
         headline1Meta: "headline1",
         headline2Body: "headline2",
@@ -12,6 +13,7 @@ __d(
         primaryLabelMeta: "primaryLabel",
       },
       l = {
+        bodyLargeMeta: "meta",
         headline1Body: "body",
         headline1Meta: "meta",
         headline2Body: "body",

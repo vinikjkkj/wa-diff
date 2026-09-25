@@ -12,6 +12,7 @@ __d(
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebLabelPillColors",
+    "WAWebLeadListConstants",
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebSchemaLabel",
@@ -81,10 +82,15 @@ __d(
       );
     }
     function C(e) {
-      return e === o("WAWebSchemaLabel").ListType.LEAD;
+      return (
+        (e == null ? void 0 : e.predefinedId) ===
+        o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
+      );
     }
     function b(e) {
-      return h(e) || y(e) || C(e);
+      return (
+        h(e == null ? void 0 : e.type) || y(e == null ? void 0 : e.type) || C(e)
+      );
     }
     function v(e) {
       return (

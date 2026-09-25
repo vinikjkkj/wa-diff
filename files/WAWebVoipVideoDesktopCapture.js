@@ -9,6 +9,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipAudioCaptureSharedBufferWorklet",
+    "WAWebVoipPthreadHardening",
     "WAWebVoipScreenShareSurfaceState",
     "WAWebVoipSharedBufferCaptureProcessorConfig",
     "WAWebVoipStackInterface",
@@ -451,9 +452,14 @@ __d(
           })()),
           (i.__cleanup = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this.desktopStream;
               (yield this.$WAWebVoipVideoDesktopCaptureImpl$p_4(),
                 yield t.prototype.__cleanup.call(this),
-                (this.desktopStream = null));
+                (!o(
+                  "WAWebVoipPthreadHardening",
+                ).isVoipWorkerLifecycleHardeningEnabled() ||
+                  this.desktopStream === e) &&
+                  (this.desktopStream = null));
             });
             function r() {
               return e.apply(this, arguments);

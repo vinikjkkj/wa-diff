@@ -118,6 +118,7 @@ __d(
                   camera_id_requested: n,
                   height: r,
                   isAVUpgrade: i,
+                  isStackRequest: !0,
                   max_fps: l,
                   width: u,
                 });

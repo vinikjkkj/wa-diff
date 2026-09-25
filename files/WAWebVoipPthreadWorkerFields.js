@@ -7,7 +7,16 @@ __d(
       var t = Reflect.get(e, "workerID");
       return typeof t == "number" ? t : null;
     }
-    i.getPthreadWorkerID = e;
+    function l(e) {
+      return Reflect.get(e, "loaded") === !0;
+    }
+    function s(e) {
+      var t = Reflect.get(e, "pthread_ptr");
+      return typeof t == "number" && t !== 0;
+    }
+    ((i.getPthreadWorkerID = e),
+      (i.isPthreadWorkerLoaded = l),
+      (i.isPthreadWorkerBound = s));
   },
   66,
 );

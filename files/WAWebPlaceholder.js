@@ -2,6 +2,7 @@ __d(
   "WAWebPlaceholder",
   [
     "fbt",
+    "WAWebAcp2PlaceholderStrings",
     "WAWebFaqUrl",
     "WAWebUnknownIcon.react",
     "WDSIconIcSchedule.react",
@@ -36,11 +37,19 @@ __d(
                     (a =
                       o("WAWebFaqUrl").getViewOnceScreenshotProtectionUrl())),
                 (i = u.jsx(r("WDSIconWdsIcViewOnce.react"), {})))
-              : ((n = s._(
-                  /*BTDS*/ "Waiting for this message. This may take a while.",
-                )),
-                (a = o("WAWebFaqUrl").getCiphertextFaqUrl()),
-                (i = u.jsx(r("WDSIconIcSchedule.react"), {}))),
+              : e === "acp_unavailable_fanout"
+                ? ((n = o(
+                    "WAWebAcp2PlaceholderStrings",
+                  ).getAcp2PlaceholderText()),
+                  (a = o(
+                    "WAWebAcp2PlaceholderStrings",
+                  ).getAcp2PlaceholderFaqUrl()),
+                  (i = u.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {})))
+                : ((n = s._(
+                    /*BTDS*/ "Waiting for this message. This may take a while.",
+                  )),
+                  (a = o("WAWebFaqUrl").getCiphertextFaqUrl()),
+                  (i = u.jsx(r("WDSIconIcSchedule.react"), {}))),
         { placeholderMsg: n, placeholderIcon: i, externalLink: a }
       );
     }

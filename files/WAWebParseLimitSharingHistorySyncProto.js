@@ -79,9 +79,34 @@ __d(
         m.apply(this, arguments)
       );
     }
+    function p(e, t) {
+      return {
+        enabled: e == null ? void 0 : e.enabled,
+        trigger: e == null ? void 0 : e.trigger,
+        settingTimestamp: e == null ? void 0 : e.settingTimestamp,
+        initiatedByMe: e == null ? void 0 : e.initiatedByMe,
+        initiatedBy: t,
+      };
+    }
+    function _(e) {
+      var t,
+        n,
+        r = e.acp2SettingMessage,
+        o = e.protocolMessage;
+      return r != null &&
+        (t = r.message) != null &&
+        (t = t.protocolMessage) != null &&
+        t.acp2Setting
+        ? r == null || (n = r.message) == null
+          ? void 0
+          : n.protocolMessage
+        : o;
+    }
     ((l.parseLimitSharingFromProtocolHistorySyncMessage = e),
       (l.getLimitSharingFromEnvelope = u),
-      (l.getLimitSharingEnvelopeFromProtobuf = c));
+      (l.getLimitSharingEnvelopeFromProtobuf = c),
+      (l.getAcp2SettingFromEnvelope = p),
+      (l.getAcp2EnvelopeFromProtobuf = _));
   },
   98,
 );

@@ -8,7 +8,9 @@ __d(
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMexClient",
+    "WAWebMexFetchGroupInfoJobAcp2Query.graphql",
     "WAWebMexFetchGroupInfoJobQuery.graphql",
     "WAWebMexGetTypename",
     "WAWebNewsletterRpcUtils",
@@ -21,49 +23,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = "XWA2CommunityGroup",
-      c = "XWA2CommunityDefaultSubGroup",
-      d = "XWA2CommunitySubGroup",
-      m = "LID",
-      p = e !== void 0 ? e : (e = n("WAWebMexFetchGroupInfoJobQuery.graphql"));
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.groupId,
-            r = e.participantsPhash,
-            a = e.queryContext;
-          return o("WAWebNewsletterRpcUtils").runWithBackoff(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o("WAWebMexClient").fetchQuery(p, {
-                id: t,
-                query_context: a,
-                include_username: o(
-                  "WAWebUsernameGatingUtils",
-                ).usernameDisplayedEnabled(),
-                participants_phash: r,
-              });
-              return (
-                o("WALogger")
-                  .LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MEX][GROUP] fetched get group info for ",
-                        "",
-                      ])),
-                    t,
-                  )
-                  .tags("GQL", "MEX"),
-                e
-              );
-            }),
-          );
-        })),
-        f.apply(this, arguments)
-      );
-    }
+      u,
+      c = "XWA2CommunityGroup",
+      d = "XWA2CommunityDefaultSubGroup",
+      m = "XWA2CommunitySubGroup",
+      p = "LID",
+      _ = e !== void 0 ? e : (e = n("WAWebMexFetchGroupInfoJobQuery.graphql")),
+      f =
+        s !== void 0
+          ? s
+          : (s = n("WAWebMexFetchGroupInfoJobAcp2Query.graphql"));
     function g(e) {
       return h.apply(this, arguments);
     }
@@ -71,16 +40,60 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.groupId,
-            n = e.participantsPhash,
-            r = e.queryContext,
-            o = b(r),
-            a = yield _({ groupId: t, queryContext: o, participantsPhash: n });
-          if (a != null) return y(a);
+            r = e.participantsPhash,
+            a = e.queryContext;
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = {
+                  id: t,
+                  query_context: a,
+                  include_username: o(
+                    "WAWebUsernameGatingUtils",
+                  ).usernameDisplayedEnabled(),
+                  participants_phash: r,
+                },
+                n = o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
+                  ? yield o("WAWebMexClient").fetchQuery(
+                      f,
+                      babelHelpers.extends({}, e, { include_acp2: !0 }),
+                    )
+                  : yield o("WAWebMexClient").fetchQuery(_, e);
+              return (
+                o("WALogger")
+                  .LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[MEX][GROUP] fetched get group info for ",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .tags("GQL", "MEX"),
+                n
+              );
+            }),
+          );
         })),
         h.apply(this, arguments)
       );
     }
     function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupId,
+            n = e.participantsPhash,
+            r = e.queryContext,
+            o = S(r),
+            a = yield g({ groupId: t, queryContext: o, participantsPhash: n });
+          if (a != null) return b(a);
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
       var t,
         n,
         r,
@@ -88,15 +101,15 @@ __d(
         i,
         l,
         s,
-        p,
+        u,
         _,
         f,
         g,
         h,
         y,
+        C,
         b,
-        R,
-        L,
+        S,
         E,
         k,
         I,
@@ -138,9 +151,9 @@ __d(
             : l.allow_non_admin_sub_group_creation,
         X = (s = O.properties) == null ? void 0 : s.announcement,
         Y =
-          (p = O.properties) == null || (p = p.ephemeral) == null
+          (u = O.properties) == null || (u = u.ephemeral) == null
             ? void 0
-            : p.expiration_time_in_sec,
+            : u.expiration_time_in_sec,
         J =
           Y != null &&
           o("WAWebAfterReadUtils").isAfterReadEnabled() &&
@@ -149,7 +162,7 @@ __d(
           (_ = O.properties) == null || (_ = _.lid_migration_state) == null
             ? void 0
             : _.addressing_mode,
-        ee = Z == null || Z === m,
+        ee = Z == null || Z === p,
         te = (f = O.properties) == null ? void 0 : f.locked,
         ne = (g = O.properties) == null ? void 0 : g.member_add_mode,
         re = (h = O.properties) == null ? void 0 : h.member_link_mode,
@@ -158,13 +171,13 @@ __d(
             ? void 0
             : y.member_share_group_history_mode,
         ae =
-          (b = O.properties) == null
+          (C = O.properties) == null
             ? void 0
-            : b.membership_approval_mode_enabled,
-        ie = (R = O.properties) == null ? void 0 : R.support,
+            : C.membership_approval_mode_enabled,
+        ie = (b = O.properties) == null ? void 0 : b.support,
         le = O.state,
         se = O.subject,
-        ue = (L = O.subject) == null || (L = L.creator) == null ? void 0 : L.pn,
+        ue = (S = O.subject) == null || (S = S.creator) == null ? void 0 : S.pn,
         ce = B
           ? (E = O.subject) == null ||
             (E = E.creator) == null ||
@@ -215,8 +228,9 @@ __d(
           De,
           xe,
           $e,
-          Pe = o("WAWebMexGetTypename").getTypename(O),
-          Ne = {
+          Pe,
+          Ne = o("WAWebMexGetTypename").getTypename(O),
+          Me = {
             groupInfo: babelHelpers.extends(
               {
                 id: o("WAWebWidFactory").createWid(W),
@@ -229,7 +243,7 @@ __d(
                 creatorUsername: H,
                 subject: se.value,
                 creation: Number(q),
-                participants: S(me, j),
+                participants: L(me, j),
                 subjectTime: Number(se == null ? void 0 : se.creation_time),
                 subjectOwner:
                   (se == null || (Ee = se.creator) == null ? void 0 : Ee.id) !=
@@ -244,9 +258,9 @@ __d(
                   ue != null ? o("WAWebWidFactory").createWid(ue) : void 0,
                 subjectOwnerUsername: ce,
                 allowNonAdminSubGroupCreation: Q != null ? Q : !1,
-                generalChatAutoAddDisabled: Pe === d && ge != null ? ge : !1,
+                generalChatAutoAddDisabled: Ne === m && ge != null ? ge : !1,
                 restrict: te === !0,
-                announce: Pe === c || X === !0,
+                announce: Ne === d || X === !0,
                 support: ie != null ? ie : !1,
                 desc: (Ie = G == null ? void 0 : G.value) != null ? Ie : void 0,
                 descId: (Te = G == null ? void 0 : G.id) != null ? Te : void 0,
@@ -271,9 +285,9 @@ __d(
                     : void 0,
                 afterReadDuration: J ? Y : void 0,
                 membershipApprovalMode: ae != null ? ae : !1,
-                memberAddMode: v(ne),
+                memberAddMode: R(ne),
               },
-              Pe !== c && Pe !== u
+              Ne !== d && Ne !== c
                 ? {
                     memberLinkMode: o(
                       "WAWebGroupMemberLinkMode",
@@ -284,21 +298,21 @@ __d(
                   }
                 : void 0,
               {
-                suspended: le === C.SUSPENDED,
+                suspended: le === v.SUSPENDED,
                 suspendAppealStatus: o(
                   "WAWebSuspendAppealStatusType",
                 ).toSuspendAppealStatus(Se),
                 suspendAppealUpdateTime: Re != null ? Re : null,
-                terminated: le === C.TERMINATED ? !0 : void 0,
+                terminated: le === v.TERMINATED ? !0 : void 0,
                 isLidAddressingMode: ee,
                 reportToAdminMode: K != null ? K : !1,
                 isParentGroupClosed: pe === !0,
-                isParentGroup: Pe === u,
+                isParentGroup: Ne === c,
                 parentGroup:
                   he != null ? o("WAWebWidFactory").createWid(he) : void 0,
                 generalSubgroup: _e === !0,
-                defaultSubgroup: Pe === c,
-                parentGroupSubject: Pe === d || Pe === c ? null : void 0,
+                defaultSubgroup: Ne === d,
+                parentGroupSubject: Ne === m || Ne === d ? null : void 0,
                 numSubgroups: 0,
                 membershipApprovalRequest: O.membership_approval_request === !0,
                 growthLockType: fe === !0 ? "invite" : void 0,
@@ -309,20 +323,27 @@ __d(
                   ($e = ve == null ? void 0 : ve.limit_sharing_enabled) != null
                     ? $e
                     : void 0,
+                acp2Enabled:
+                  o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled() &&
+                  (Pe =
+                    ve == null ? void 0 : ve.limit_companion_sharing_enabled) !=
+                    null
+                    ? Pe
+                    : void 0,
                 hasIncompleteParticipantInformation: Le,
               },
             ),
             participantPhashMatch: me,
           };
-        return Ne;
+        return Me;
       }
     }
-    var C = {
+    var v = {
       ACTIVE: "ACTIVE",
       TERMINATED: "NON_EXISTENT",
       SUSPENDED: "SUSPENDED",
     };
-    function b(e) {
+    function S(e) {
       return e === "interactive" || e === "enter_group_info"
         ? "INTERACTIVE"
         : e === "missing_participant_identification"
@@ -336,7 +357,7 @@ __d(
                 );
               })();
     }
-    function v(e) {
+    function R(e) {
       switch (e) {
         case "ADMIN_ADD":
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
@@ -346,7 +367,7 @@ __d(
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
       }
     }
-    function S(e, t) {
+    function L(e, t) {
       if (e) return [];
       if (t == null)
         throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
@@ -397,7 +418,7 @@ __d(
         });
       return a;
     }
-    l.mexGetGroupInfo = g;
+    l.mexGetGroupInfo = y;
   },
   98,
 );

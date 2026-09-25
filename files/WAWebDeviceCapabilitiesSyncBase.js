@@ -164,6 +164,10 @@ __d(
                           ).saveBizBroadcastProCapabilityToStorage(
                             p == null ? void 0 : p.proCompanionSupportEnabled,
                           ),
+                          o("WAWebBackendApi").frontendFireAndForget(
+                            "refreshBizBroadcastProEligibility",
+                            {},
+                          ),
                           o(
                             "WAWebBizBroadcastDeviceCapabilityCommon",
                           ).saveBizBroadcastRecipientLimitToStorage(

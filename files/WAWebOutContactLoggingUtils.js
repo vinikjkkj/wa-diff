@@ -86,19 +86,20 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entryPoint,
             n = e.groupJid,
-            r = e.sessionId,
-            a = e.validNumbers,
-            i = yield o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
+            r = e.serverSendFailureReason,
+            a = e.sessionId,
+            i = e.validNumbers,
+            l = yield o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
               n,
-              a,
+              i,
               t,
             );
-          a.forEach(function (e, n) {
-            var o = i[n];
+          i.forEach(function (e, n) {
+            var o = l[n];
             m({
               entryPoint: t,
-              inviteCodeError: o != null ? o.toString() : void 0,
-              sessionId: r,
+              inviteCodeError: o != null ? o.toString() : r,
+              sessionId: a,
             });
           });
         })),
@@ -109,7 +110,9 @@ __d(
       var t,
         n = e.entryPoint,
         r = e.inviteCodeError,
-        a = e.sessionId;
+        a = e.isServerSentInvite,
+        i = a === void 0 ? !1 : a,
+        l = e.sessionId;
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
@@ -117,15 +120,18 @@ __d(
           {},
           p(),
           {
-            companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
-              .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
+            companionInviteMethod: i
+              ? o("WAWebWamEnumCompanionInviteMethodType")
+                  .COMPANION_INVITE_METHOD_TYPE.SERVER_SMS
+              : o("WAWebWamEnumCompanionInviteMethodType")
+                  .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
             companionInviteOrigin: n,
             companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
               .COMPANION_INVITE_ACTION_TYPE.INVITE_SEND,
             companionInviteSessionId:
               (t =
-                a != null
-                  ? a
+                l != null
+                  ? l
                   : o(
                       "WAWebOutContactInviteJourney",
                     ).getOutContactInviteSessionId()) != null

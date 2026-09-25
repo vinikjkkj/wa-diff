@@ -31,6 +31,7 @@ __d(
     "WAWebNewsletterValidationUtils",
     "WAWebPollResultSnapshotPollTypeEnvelopeEnabled",
     "WAWebProfilePicThumbCollection",
+    "WAWebProfilePicThumbGetters",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebSendTextMsgChatAction",
@@ -280,7 +281,7 @@ __d(
               "WAWebNewsletterExtendedGatingUtils",
             ).isNewsletterAdminProfilesSenderEnabled(a.newsletterMetadata)
           ) {
-            var u, _, f, h;
+            var u, _, f;
             s.newsletterAdminProfile =
               (u =
                 (_ = a.newsletterMetadata) == null ? void 0 : _.adminProfile) !=
@@ -290,12 +291,11 @@ __d(
                     id: null,
                     name: a.name,
                     pictureDirectPath:
-                      (f =
-                        (h = o(
+                      (f = o("WAWebProfilePicThumbGetters").getMaybeImgFull(
+                        o(
                           "WAWebProfilePicThumbCollection",
-                        ).ProfilePicThumbCollection.get(a.id)) == null
-                          ? void 0
-                          : h.imgFull) != null
+                        ).ProfilePicThumbCollection.get(a.id),
+                      )) != null
                         ? f
                         : null,
                     pictureId: null,
@@ -325,7 +325,7 @@ __d(
             (r = s.wamMessageSendPerfReporter) == null ||
               r.postRenderedStage());
           try {
-            var y, C, b, S;
+            var h, y, C, b;
             try {
               l != null && (s = yield l(s));
             } catch (e) {
@@ -333,60 +333,60 @@ __d(
                 "WAWebNewsletterErrors",
               ).NewsletterMediaUploadError)();
             }
-            (y = s.wamMessageSendPerfReporter) == null ||
-              y.startReadyToSendStage();
-            var R = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            (h = s.wamMessageSendPerfReporter) == null ||
+              h.startReadyToSendStage();
+            var S = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 a.id.toJid(),
               ),
-              L = o("WAWebMsgRcatUtils").getContentIdString(s, !0),
-              E =
+              R = o("WAWebMsgRcatUtils").getContentIdString(s, !0),
+              L =
                 i === "media"
                   ? {
                       msg: s,
                       type: i,
-                      newsletterJid: R,
+                      newsletterJid: S,
                       mediaHandle: s.mediaHandle,
                       contentId:
-                        L != null &&
+                        R != null &&
                         o(
                           "WAWebNewsletterGatingUtils",
                         ).isRCATFieldGenerationEnabled()
                           ? o("WAWebMsgRcatUtils").getContentIdString(s, !0)
                           : null,
                     }
-                  : { msg: s, type: i, newsletterJid: R };
-            ((C = s.wamMessageSendPerfReporter) == null ||
-              C.postReadyToSendStage(),
-              (b = s.wamMessageSendPerfReporter) == null ||
-                b.startWrittenWireStage());
-            var k = yield a.sendQueue.enqueue(
-              o("WAWebNewsletterSendMessageJob").sendNewsletterMessageJob(E),
+                  : { msg: s, type: i, newsletterJid: S };
+            ((y = s.wamMessageSendPerfReporter) == null ||
+              y.postReadyToSendStage(),
+              (C = s.wamMessageSendPerfReporter) == null ||
+                C.startWrittenWireStage());
+            var E = yield a.sendQueue.enqueue(
+              o("WAWebNewsletterSendMessageJob").sendNewsletterMessageJob(L),
             );
             switch (
-              ((S = s.wamMessageSendPerfReporter) == null ||
-                S.postWrittenWireStage(),
-              k.success)
+              ((b = s.wamMessageSendPerfReporter) == null ||
+                b.postWrittenWireStage(),
+              E.success)
             ) {
               case !0: {
-                var I;
+                var k;
                 o("WAWebCoreActionsODS").logChannelMsgSend();
-                var T = k.serverId;
-                if (T == null)
+                var I = E.serverId;
+                if (I == null)
                   throw new (o(
                     "WAWebNewsletterErrors",
                   ).MissingNewsletterServerIdError)();
-                ((s.serverId = k.serverId),
-                  (s.t = k.ack.t),
+                ((s.serverId = E.serverId),
+                  (s.t = E.ack.t),
                   s.updateAck(o("WAAckLevel").ACK.SENT, !0));
                 try {
-                  var D, x;
-                  ((D = s.wamMessageSendPerfReporter) == null ||
-                    D.startSavedStage(),
+                  var T, D;
+                  ((T = s.wamMessageSendPerfReporter) == null ||
+                    T.startSavedStage(),
                     yield o(
                       "WAWebNewsletterUpdateMsgsRecordsJob",
                     ).updateNewsletterMsgRecord(s),
-                    (x = s.wamMessageSendPerfReporter) == null ||
-                      x.postSavedStage());
+                    (D = s.wamMessageSendPerfReporter) == null ||
+                      D.postSavedStage());
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -399,7 +399,7 @@ __d(
                     .sendLogs("newsletter-send-message-db-fail");
                 }
                 return (
-                  (I = s.wamMessageSendReporter) == null || I.postSuccess(),
+                  (k = s.wamMessageSendReporter) == null || k.postSuccess(),
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.OK,
@@ -408,7 +408,7 @@ __d(
                 );
               }
               case !1: {
-                var $;
+                var x;
                 return (
                   o("WALogger")
                     .ERROR(
@@ -417,13 +417,13 @@ __d(
                           "[newsletter] Failed to send message, ",
                           " from server",
                         ])),
-                      k.ack.error,
+                      E.ack.error,
                     )
                     .tags("newsletter")
                     .sendLogs("newsletter-send-message-fail-server"),
                   s.updateAck(o("WAAckLevel").ACK.FAILED, !0),
-                  ($ = s.wamMessageSendReporter) == null ||
-                    $.postFailure({
+                  (x = s.wamMessageSendReporter) == null ||
+                    x.postFailure({
                       result: o("WAWebWamEnumMessageSendResultType")
                         .MESSAGE_SEND_RESULT_TYPE.ERROR_NETWORK,
                       isTerminal: !1,
@@ -436,7 +436,7 @@ __d(
               }
             }
           } catch (e) {
-            var P;
+            var $;
             return (
               e instanceof
               o("WAWebNewsletterErrors").MissingNewsletterServerIdError
@@ -458,8 +458,8 @@ __d(
                     )
                     .tags("newsletter"),
               s.updateAck(o("WAAckLevel").ACK.FAILED, !0),
-              (P = s.wamMessageSendReporter) == null ||
-                P.postFailure({
+              ($ = s.wamMessageSendReporter) == null ||
+                $.postFailure({
                   result:
                     e instanceof
                     o("WAWebNewsletterErrors").NewsletterMediaUploadError

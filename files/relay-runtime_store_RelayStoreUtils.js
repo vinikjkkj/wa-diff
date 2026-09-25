@@ -105,17 +105,14 @@ __d(
     }
     function E(e, t) {
       if (!t) return e;
-      var n = [];
-      for (var r in t)
-        if (Object.prototype.hasOwnProperty.call(t, r)) {
-          var o = t[r];
-          if (o != null) {
-            var a;
-            n.push(
-              r + ":" + ((a = JSON.stringify(o)) != null ? a : "undefined"),
-            );
-          }
+      for (var n = [], r = Object.keys(t), o = 0; o < r.length; o++) {
+        var a = r[o],
+          i = t[a];
+        if (i != null) {
+          var l;
+          n.push(a + ":" + ((l = JSON.stringify(i)) != null ? l : "undefined"));
         }
+      }
       return n.length === 0 ? e : e + ("(" + n.join(",") + ")");
     }
     function k(e, t) {

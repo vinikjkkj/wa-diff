@@ -422,6 +422,7 @@ __d(
         o("WAWebChatGetters").getIsBroadcast(i) ||
         a.isViewOnce === !0 ||
         a.subtype === "view_once_unavailable_fanout" ||
+        a.subtype === "acp_unavailable_fanout" ||
         i.id.isBot()
       )
         return !1;

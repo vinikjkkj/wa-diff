@@ -91,6 +91,7 @@ __d(
             return [];
           })),
           (e.preview = o("WAWebBaseModel").session()),
+          (e.previewBase64 = o("WAWebBaseModel").session()),
           (e.fullPreview = o("WAWebBaseModel").session()),
           (e.fullPreviewSize = o("WAWebBaseModel").session()),
           (e.filename = o("WAWebBaseModel").session()),
@@ -258,7 +259,9 @@ __d(
                       throw new (o(
                         "WAWebMediaFileErrors",
                       ).InvalidMediaFileType)();
-                    (e.set(n), (e.originalFilename = n.filename));
+                    (e.set(n),
+                      n.preview != null && (e.previewBase64 = n.preview),
+                      (e.originalFilename = n.filename));
                     var i = {
                         maxDimension: e.$AttachMediaImpl$p_5(),
                         fileOrigin: e.fileOrigin,
@@ -301,6 +304,7 @@ __d(
                         (i.setMediaPreview = function (t, n, r) {
                           var a = o("WABase64").encodeB64(t);
                           (e.updatePreview(a),
+                            (e.previewBase64 = a),
                             (e.fullPreviewSize = { width: n, height: r }));
                           var i = new Blob([t], { type: "image/jpeg" }),
                             l = window.URL.createObjectURL(i);
@@ -310,7 +314,9 @@ __d(
                           e.mimetype = t;
                         }),
                         (i.resetMediaPreview = function () {
-                          (e.updatePreview(""), e.updateFullPreview(""));
+                          (e.updatePreview(""),
+                            (e.previewBase64 = ""),
+                            e.updateFullPreview(""));
                         })),
                       (i.asSticker = l),
                       g === !0 &&
@@ -353,6 +359,7 @@ __d(
                         mimetype: C.mimetype,
                         originalMimetype: n.mimetype,
                         preview: C.preview,
+                        previewBase64: C.preview,
                         state: o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                           .READY,
                         isGif: C.isGif,
@@ -639,13 +646,13 @@ __d(
             case o("WAWebMsgType").MSG_TYPE.IMAGE:
               ((r.width = this.fullPreviewSize.width),
                 (r.height = this.fullPreviewSize.height),
-                (r.body = this.preview),
+                (r.body = this.previewBase64),
                 (n.placeholderProps = r));
               break;
             case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
               ((r.pageCount = this.documentPageCount),
                 (r.filename = this.filename),
-                (r.body = this.preview),
+                (r.body = this.previewBase64),
                 (n.placeholderProps = r));
               break;
             case o("WAWebMsgType").MSG_TYPE.AUDIO:

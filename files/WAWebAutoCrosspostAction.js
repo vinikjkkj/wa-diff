@@ -127,7 +127,13 @@ __d(
                 return;
               }
               var I = new (o("WAWebActionToast.react").ActionType)(L(c)),
-                T = b(t.t, t.id, c, k, t.caption)
+                T = b({
+                  caption: t.caption,
+                  destinations: c,
+                  statusBlob: k,
+                  statusKey: t.id,
+                  statusTimestamp: t.t,
+                })
                   .then(function () {
                     var e;
                     return (

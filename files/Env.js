@@ -19,7 +19,7 @@ __d(
       ig_mqtt_wss_endpoint: "",
       ig_mqtt_polling_endpoint: "",
     };
-    (t.Env && Object.assign(e, t.Env), (t.Env = e));
+    (t.Env && (e = babelHelpers.extends({}, e, t.Env)), (t.Env = e));
     var l = e;
     i.default = l;
   },

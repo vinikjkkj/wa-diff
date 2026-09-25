@@ -21,6 +21,7 @@ __d(
       "EventInfo",
       "TransferOwnershipFlow",
       "LimitSharing",
+      "Acp2",
     ]);
     i.CommunityFlowStep = e;
   },

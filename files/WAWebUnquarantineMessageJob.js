@@ -120,6 +120,7 @@ __d(
         senderOrRecipientAccountTypeHosted:
           e.senderOrRecipientAccountTypeHosted,
         limitSharing: e.limitSharing,
+        acp2Setting: e.acp2Setting,
         mmSignalSharing: e.mmSignalSharing,
       };
     }

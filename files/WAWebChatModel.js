@@ -198,7 +198,7 @@ __d(
             (e.groupMetadata = o("WAWebBaseModel").session()),
             (e.broadcastMetadata = o("WAWebBaseModel").session()),
             (e.broadcastRecipientCount = o("WAWebBaseModel").session(0)),
-            (e.bbProStatus = o("WAWebBaseModel").session()),
+            (e.bbProEntrypointEnabled = o("WAWebBaseModel").session(!1)),
             (e.newsletterMetadata = o("WAWebBaseModel").session()),
             (e.presence = o("WAWebBaseModel").session()),
             (e.mute = o("WAWebBaseModel").session()),
@@ -251,6 +251,7 @@ __d(
             (e.isSmartComposerHandoffCardDismissed =
               o("WAWebBaseModel").session(!1)),
             (e.limitSharing = o("WAWebBaseModel").prop()),
+            (e.acp2Setting = o("WAWebBaseModel").prop()),
             (e.mmSignalSharingExpirationWindow = o("WAWebBaseModel").prop()),
             (e.isSenderNewAccount = o("WAWebBaseModel").prop()),
             (e.isSenderSuspicious = o("WAWebBaseModel").prop()),

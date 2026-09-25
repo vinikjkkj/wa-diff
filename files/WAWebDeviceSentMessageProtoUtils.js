@@ -37,12 +37,15 @@ __d(
         p,
         _,
         f,
-        g = e == null || (t = e.deviceSentMessage) == null ? void 0 : t.message;
-      if (g == null) return null;
-      var h = babelHelpers.extends({}, g.messageContextInfo, {
+        g,
+        h,
+        y,
+        C = e == null || (t = e.deviceSentMessage) == null ? void 0 : t.message;
+      if (C == null) return null;
+      var b = babelHelpers.extends({}, C.messageContextInfo, {
         messageSecret:
           (n =
-            g == null || (r = g.messageContextInfo) == null
+            C == null || (r = C.messageContextInfo) == null
               ? void 0
               : r.messageSecret) != null
             ? n
@@ -51,7 +54,7 @@ __d(
               : o.messageSecret,
         messageAssociation:
           (a =
-            g == null || (i = g.messageContextInfo) == null
+            C == null || (i = C.messageContextInfo) == null
               ? void 0
               : i.messageAssociation) != null
             ? a
@@ -62,29 +65,38 @@ __d(
           e == null || (s = e.messageContextInfo) == null
             ? void 0
             : s.limitSharingV2,
-        threadId:
+        acp2Setting:
           (u =
-            (c =
-              g == null || (d = g.messageContextInfo) == null
-                ? void 0
-                : d.threadId) != null
-              ? c
-              : e == null || (m = e.messageContextInfo) == null
-                ? void 0
-                : m.threadId) != null
+            C == null || (c = C.messageContextInfo) == null
+              ? void 0
+              : c.acp2Setting) != null
             ? u
+            : e == null || (d = e.messageContextInfo) == null
+              ? void 0
+              : d.acp2Setting,
+        threadId:
+          (m =
+            (p =
+              C == null || (_ = C.messageContextInfo) == null
+                ? void 0
+                : _.threadId) != null
+              ? p
+              : e == null || (f = e.messageContextInfo) == null
+                ? void 0
+                : f.threadId) != null
+            ? m
             : [],
         botMetadata:
-          (p =
-            g == null || (_ = g.messageContextInfo) == null
+          (g =
+            C == null || (h = C.messageContextInfo) == null
               ? void 0
-              : _.botMetadata) != null
-            ? p
-            : e == null || (f = e.messageContextInfo) == null
+              : h.botMetadata) != null
+            ? g
+            : e == null || (y = e.messageContextInfo) == null
               ? void 0
-              : f.botMetadata,
+              : y.botMetadata,
       });
-      return babelHelpers.extends({}, g, { messageContextInfo: h });
+      return babelHelpers.extends({}, C, { messageContextInfo: b });
     }
     ((i.wrapDeviceSentMessage = e), (i.unwrapDeviceSentMessage = l));
   },

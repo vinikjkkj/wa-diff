@@ -14,10 +14,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
-        for (var t, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
-          a[i] = arguments[i];
+        for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+          r[a] = arguments[a];
         return (
-          (t = e.call.apply(e, [this].concat(a)) || this),
+          (t = e.call.apply(e, [this].concat(r)) || this),
           (t.id = o("WAWebBaseModel").prop()),
           (t.tag = o("WAWebBaseModel").prop()),
           (t.raw = o("WAWebBaseModel").prop()),
@@ -34,64 +34,6 @@ __d(
           (t.lastHostUsed = o("WAWebBaseModel").session()),
           (t.aiHubProfileIsDarkTheme = o("WAWebBaseModel").session(
             o("WAWebBizAiAssetResolver").getAiHubProfileIsDarkTheme,
-          )),
-          (t.img = o("WAWebBaseModel").derived(
-            function () {
-              if (r("WAWebWid").isAiHub(this.id))
-                return o("WAWebBizAiAssetResolver").getAiHubProfileURL(
-                  this.aiHubProfileIsDarkTheme,
-                );
-              if (this.raw) return "data:image/jpeg;base64," + this.raw;
-              if (!this.tag && this.stale) return null;
-              if (this.tag)
-                return this.previewDirectPath != null
-                  ? o("WAWebProfilePicThumbHostUtils").buildMms4DownloadUrl(
-                      this.previewDirectPath,
-                      this.filehash,
-                      this.lastHostUsed,
-                    )
-                  : this.previewEurl;
-            },
-            [
-              "id",
-              "tag",
-              "raw",
-              "stale",
-              "eurl",
-              "eurlStale",
-              "previewEurl",
-              "previewDirectPath",
-              "lastHostUsed",
-              "aiHubProfileIsDarkTheme",
-            ],
-          )),
-          (t.imgFull = o("WAWebBaseModel").derived(
-            function () {
-              if (r("WAWebWid").isAiHub(this.id))
-                return o("WAWebBizAiAssetResolver").getAiHubProfileURL(
-                  this.aiHubProfileIsDarkTheme,
-                );
-              if ((this.raw || !this.tag) && this.stale) return null;
-              if (!this.raw && this.tag)
-                return this.fullDirectPath != null
-                  ? o("WAWebProfilePicThumbHostUtils").buildMms4DownloadUrl(
-                      this.fullDirectPath,
-                      this.filehash,
-                      this.lastHostUsed,
-                    )
-                  : this.eurl;
-            },
-            [
-              "id",
-              "tag",
-              "raw",
-              "stale",
-              "eurl",
-              "eurlStale",
-              "fullDirectPath",
-              "lastHostUsed",
-              "aiHubProfileIsDarkTheme",
-            ],
           )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

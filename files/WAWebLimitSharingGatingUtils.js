@@ -24,11 +24,35 @@ __d(
     function d() {
       return o("WAWebABProps").getABPropConfigValue("opus_admin");
     }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue("acp2_enabled");
+    }
+    function p() {
+      return (
+        m() &&
+        o("WAWebABProps").getABPropConfigValue("acp2_group_chats_enabled")
+      );
+    }
+    function _(e) {
+      return f(e.id);
+    }
+    function f(e) {
+      return e.isGroup() ? p() : m();
+    }
+    function g(e) {
+      var t;
+      return _(e) && ((t = e.acp2Setting) == null ? void 0 : t.enabled) === !0;
+    }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),
       (l.isRenderUpdatedDisclosureGatingEnabled = u),
       (l.isLimitSharingReceiverGatingEnabledForChat = c),
-      (l.isOpusAdminOnly = d));
+      (l.isOpusAdminOnly = d),
+      (l.isAcp2Enabled = m),
+      (l.isAcp2GroupEnabled = p),
+      (l.isAcp2EnabledForChat = _),
+      (l.isAcp2EnabledForWid = f),
+      (l.isChatAcp2Restricted = g));
   },
   98,
 );

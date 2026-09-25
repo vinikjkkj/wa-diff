@@ -2,8 +2,11 @@ __d(
   "WAWebVoipWebTransportDataChannelThreadManager",
   [
     "Promise",
+    "WACustomError",
     "WALogger",
+    "WAWebCoreActionsODS",
     "WAWebNoop",
+    "WAWebVoipPthreadHardening",
     "WAWebVoipWebTransportDataChannelThread",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -14,40 +17,41 @@ __d(
       s,
       u,
       c,
-      d = null,
+      d,
       m = null,
-      p = 0;
-    function _() {
-      return f.apply(this, arguments);
-    }
+      p = null,
+      _ = 0;
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = m;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = p;
           if (e != null) {
             if (e.isActive()) return !0;
-            ((m = null), (d = null), p++, yield C(e));
+            ((p = null), (m = null), _++, yield b(e));
           }
-          var t = d;
+          var t = m;
           if (t == null) {
-            var r = p;
-            ((t = (c || (c = n("Promise"))).resolve().then(function () {
-              return g(r);
+            var r = _;
+            ((t = (d || (d = n("Promise"))).resolve().then(function () {
+              return h(r);
             })),
-              (d = t));
+              (m = t));
           }
           var o = yield t;
-          return o == null || !o.isActive() ? (d === t && (d = null), !1) : !0;
+          return o == null || !o.isActive() ? (m === t && (m = null), !1) : !0;
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -68,32 +72,53 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("webtransport-pthread-create-failed"),
-              t === p && (d = null),
+              t === _ && (m = null),
               null
             );
           }
-          return t !== p || !n.isActive() ? (yield C(n), null) : ((m = n), n);
+          return t !== _ || !n.isActive()
+            ? (o(
+                "WAWebVoipPthreadHardening",
+              ).isVoipWorkerLifecycleHardeningEnabled()
+                ? b(n)
+                : yield b(n),
+              null)
+            : ((p = n), n);
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y() {
-      return m != null && m.isActive() ? m : null;
+    function C() {
+      return p != null && p.isActive() ? p : null;
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e.registerStateHandler(r("WAWebNoop"));
           try {
             yield e.shutdown();
           } catch (e) {
+            if (e instanceof o("WACustomError").TimeoutError) {
+              (o(
+                "WAWebCoreActionsODS",
+              ).logCallWebtransportJsWorkerJoinTimeout(),
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [WebTransportThread] pthread join timed out: ",
+                      "",
+                    ])),
+                  String(e),
+                ));
+              return;
+            }
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [WebTransportThread] Failed to shut down pthread",
                   ])),
               )
@@ -101,25 +126,25 @@ __d(
               .sendLogs("webtransport-pthread-shutdown-failed");
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
-    }
-    function v() {
-      return S.apply(this, arguments);
     }
     function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (p++, (d = null));
-          var e = m;
-          ((m = null), e != null && (yield C(e)));
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (_++, (m = null));
+          var e = p;
+          ((p = null), e != null && (yield b(e)));
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.initWebTransportDataChannelWorker = _),
-      (l.getWebTransportDataChannelThread = y),
-      (l.stopWebTransportDataChannelWorker = v));
+    ((l.initWebTransportDataChannelWorker = f),
+      (l.getWebTransportDataChannelThread = C),
+      (l.stopWebTransportDataChannelWorker = S));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebFormatCiphertextMsgText",
-  ["fbt", "WAWebMsgGetters"],
+  ["fbt", "WAWebAcp2PlaceholderStrings", "WAWebMsgGetters"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
@@ -15,6 +15,8 @@ __d(
           );
         case "view_once_unavailable_fanout":
           return s._(/*BTDS*/ "Message");
+        case "acp_unavailable_fanout":
+          return o("WAWebAcp2PlaceholderStrings").getAcp2PlaceholderText();
         default:
           return s._(
             /*BTDS*/ "Waiting for this message. This may take a while.",

@@ -185,6 +185,7 @@ __d(
       BotUnavailableFanout: "bot_unavailable_fanout",
       HostedUnavailableFanout: "hosted_unavailable_fanout",
       ViewOnceUnavailableFanout: "view_once_unavailable_fanout",
+      AcpUnavailableFanout: "acp_unavailable_fanout",
       BotOrphan: "bot_orphan",
       DisappearingMode: "disappearing_mode",
       DisappearingModeUpdate: "disappearing_mode_update",
@@ -295,6 +296,7 @@ __d(
       EventEditDecrypted: "event_edit_decrypted",
       HostedGroup: "is_capi_hosted_group",
       LimitSharingSystemMessage: "limit_sharing_system_message",
+      Acp2SystemMessage: "acp2_system_message",
       BizAutomaticallyLabeledChatSystemMessage:
         "biz_automatically_labeled_chat_system_message",
       GuestUpsell: "guest_upsell",

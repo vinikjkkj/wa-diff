@@ -443,7 +443,7 @@ __d(
                 ),
                 (T || (T = n("Promise"))).resolve()
               );
-            if (o("WAWebListUtils").hasFixedIdentity(i.type))
+            if (o("WAWebListUtils").hasFixedIdentity(i))
               return (
                 o("WALogger")
                   .ERROR(

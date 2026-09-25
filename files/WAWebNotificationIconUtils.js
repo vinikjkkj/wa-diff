@@ -10,6 +10,7 @@ __d(
     "WAWebChatGetters",
     "WAWebNotificationTone",
     "WAWebProfilePicThumbCollection",
+    "WAWebProfilePicThumbGetters",
     "asyncToGeneratorRuntime",
     "bx",
   ],
@@ -53,7 +54,10 @@ __d(
         .then(function (e) {
           var t;
           if (n.aborted) throw new (o("WAAbortError").AbortError)();
-          var r = (t = e == null ? void 0 : e.img) != null ? t : a;
+          var r =
+            (t = o("WAWebProfilePicThumbGetters").getMaybeImg(e)) != null
+              ? t
+              : a;
           return o("WAWebNotificationTone").cachePath(r);
         })
         .catch(

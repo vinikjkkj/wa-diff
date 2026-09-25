@@ -21,7 +21,7 @@ __d(
       }
       if (t) return i;
       var f = i === "" ? "" : "\n" + i;
-      return o ? a + ": " + o + f : "" + a + f;
+      return o != null && o !== "" ? a + ": " + o + f : "" + a + f;
     }
     function s(e) {
       var t =

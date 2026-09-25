@@ -11,9 +11,10 @@ __d(
     var e,
       l = {
         rewriteURI: function (t) {
-          if (!n("isFacebookURI")(t) || l._isWhitelisted(t)) return t;
-          var e = l._getRewrittenSubdomain(t);
-          return (e != null && (t = t.setSubdomain(e)), t);
+          var e = t;
+          if (!n("isFacebookURI")(e) || l._isWhitelisted(e)) return e;
+          var r = l._getRewrittenSubdomain(e);
+          return (r != null && (e = e.setSubdomain(r)), e);
         },
         getTransportBuilderForURI: function (t) {
           return l.isRewritten(t)

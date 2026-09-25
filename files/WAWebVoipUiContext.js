@@ -13,6 +13,7 @@ __d(
         registerMicrophoneSettingsOpener: void 0,
         isCompactLayout: !1,
         activeMicrophoneWarning: null,
+        requestSecurityCodeVerification: void 0,
       });
     l.default = u;
   },

@@ -17,76 +17,75 @@ __d(
     var e = r("bx").getURL(r("bx")("9583")),
       u = 100,
       c = s._(/*BTDS*/ "Group chat invite").toString();
-    function d(e, t) {
+    function d(e, t, n) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a, i;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i, l;
           if (n == null) return null;
-          var l, s, c;
+          var s, c, d;
           try {
-            var d,
-              m = r("WAWebGroupMetadataCollection").filter(function (e) {
+            var m,
+              _ = r("WAWebGroupMetadataCollection").filter(function (e) {
                 return e.inviteCode === n;
               });
-            if (m == null || m.length < 1) return null;
-            ((l = m[0]),
-              (c = o("WAWebChatCollection").ChatCollection.get(l.id)),
-              (s =
-                (d = c) == null ||
-                (d = d.contact) == null ||
-                (d = d.profilePicThumb) == null
+            if (_ == null || _.length < 1) return null;
+            ((s = _[0]),
+              (d = o("WAWebChatCollection").ChatCollection.get(s.id)),
+              (c = a(
+                (m = d) == null || (m = m.contact) == null
                   ? void 0
-                  : d.img));
+                  : m.profilePicThumb,
+              )));
           } catch (e) {
             return null;
           }
-          var _ = 0.75;
-          (s == null || s === "") &&
-            (o("WAWebGroupMetadataGetters").getGroupType(l) ===
+          var f = 0.75;
+          (c == null || c === "") &&
+            (o("WAWebGroupMetadataGetters").getGroupType(s) ===
             o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
-              ? (s = o(
+              ? (c = o(
                   "WAWebCommunityGeneralChatImage.react",
                 ).GeneralChatPlaceholderFullUrl)
-              : (s = e),
-            (_ = 1));
-          var f = [
+              : (c = e),
+            (f = 1));
+          var g = [
               {
                 width: u,
                 height: u,
                 imageFormat: "image/jpeg",
-                imageFormatOptions: _,
+                imageFormatOptions: f,
               },
             ],
-            g = yield o("WAWebMediaDataUtils").getResizedThumbData(s, f),
-            h = g != null && g.length > 0 ? g[0] : void 0,
-            y =
-              (a = l.getParentGroupChat()) == null ? void 0 : a.formattedTitle,
-            C;
-          o("WAWebGroupMetadataGetters").getGroupType(l) ===
+            h = yield o("WAWebMediaDataUtils").getResizedThumbData(c, g),
+            y = h != null && h.length > 0 ? h[0] : void 0,
+            C =
+              (i = s.getParentGroupChat()) == null ? void 0 : i.formattedTitle,
+            b;
+          o("WAWebGroupMetadataGetters").getGroupType(s) ===
           o("WAWebGroupType").GroupType.LINKED_SUBGROUP
-            ? (C = y)
-            : (C = p(o("WAWebGroupMetadataGetters").getGroupType(l), y));
-          var b = o("WAWebLinkPreviewUtils").genLinkPreview({
+            ? (b = C)
+            : (b = p(o("WAWebGroupMetadataGetters").getGroupType(s), C));
+          var v = o("WAWebLinkPreviewUtils").genLinkPreview({
             url: t,
             linkDetails: {
-              title: (i = c) == null ? void 0 : i.formattedTitle,
-              description: C,
+              title: (l = d) == null ? void 0 : l.formattedTitle,
+              description: b,
               richPreviewType: o("WAWebProtobufsE2E.pb")
                 .Message$ExtendedTextMessage$PreviewType.NONE,
               doNotPlayInline: !0,
-              inviteGrpType: o("WAWebGroupMetadataGetters").getGroupType(l),
+              inviteGrpType: o("WAWebGroupMetadataGetters").getGroupType(s),
               isLoading: !1,
             },
             linkThumbnail: {
-              thumbnail: h == null ? void 0 : h.dataUrl,
-              thumbnailHeight: h == null ? void 0 : h.height,
-              thumbnailWidth: h == null ? void 0 : h.width,
+              thumbnail: y == null ? void 0 : y.dataUrl,
+              thumbnailHeight: y == null ? void 0 : y.height,
+              thumbnailWidth: y == null ? void 0 : y.width,
             },
           });
-          return b;
+          return v;
         })),
         m.apply(this, arguments)
       );

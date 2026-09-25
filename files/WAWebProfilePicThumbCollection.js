@@ -379,8 +379,7 @@ __d(
           (i.findThumbnailWid = function (t) {
             var e = this;
             return t.find(function (t) {
-              var n;
-              return (n = e.get(t)) == null ? void 0 : n.img;
+              return o("WAWebProfilePicThumbGetters").getMaybeImg(e.get(t));
             });
           }),
           (i.getThumbnailWidFromVcard = function (t) {

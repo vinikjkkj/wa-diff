@@ -1,6 +1,7 @@
 __d(
   "WAWebBizBroadcastDeviceCapabilityCommon",
   [
+    "WAWebBizBroadcastProEligibilityEvent",
     "WAWebBizBroadcastProOnboardingStatusType",
     "WAWebBusinessBroadcastsGatingUtils",
     "WAWebUserPrefsKeys",
@@ -26,7 +27,10 @@ __d(
         n = r("WAWebUserPrefsStore").getUser(t);
       n === e ||
         (n == null && e == null) ||
-        r("WAWebUserPrefsStore").setUser(t, e, { shouldWriteToIdb: !0 });
+        (r("WAWebUserPrefsStore").setUser(t, e, { shouldWriteToIdb: !0 }),
+        o(
+          "WAWebBizBroadcastProEligibilityEvent",
+        ).bizBroadcastProEligibilityEmitter.trigger("change"));
     }
     function c() {
       var e = r("WAWebUserPrefsStore").getUser(

@@ -25,43 +25,46 @@ __d(
       )
         return !1;
       if (t) {
-        var n = d(t),
-          r = o(
+        var n = o(
             "WAWebMmSignalSharingContextInfo",
-          ).getMmSignalSharingContextInfoDisclosureFlag(t),
+          ).getCappedMmSignalSharingContextInfo(t),
+          r = d(n),
           a = o(
             "WAWebMmSignalSharingContextInfo",
-          ).existsMmSignalSharingURlTrackingMapElements(t);
+          ).getMmSignalSharingContextInfoDisclosureFlag(n),
+          i = o(
+            "WAWebMmSignalSharingContextInfo",
+          ).existsMmSignalSharingURlTrackingMapElements(n);
         if (
-          n.disclosedToken != null ||
-          n.undisclosedToken != null ||
-          r != null ||
-          a
+          r.disclosedToken != null ||
+          r.undisclosedToken != null ||
+          a != null ||
+          i
         )
           return (
             (e.mmSignalSharing = babelHelpers.extends(
               {
-                dataSharingFlags: r,
-                existsDisclosedToken: !!n.disclosedToken,
-                existsUndisclosedToken: !!n.undisclosedToken,
+                dataSharingFlags: a,
+                existsDisclosedToken: !!r.disclosedToken,
+                existsUndisclosedToken: !!r.undisclosedToken,
               },
-              a
+              i
                 ? {
                     urlTrackingMapElements: o(
                       "WAWebMmSignalSharingContextInfo",
-                    ).getMmSignalSharingURLTrackingMapElements(t),
+                    ).getMmSignalSharingURLTrackingMapElements(n),
                   }
                 : {},
             )),
             o("WAWebBackendApi").frontendFireAndForget(
               "updateMmSignalSharingExpirationWindow",
-              { id: e.id.remote, msg: e, contextInfo: t },
+              { id: e.id.remote, msg: e, contextInfo: n },
             ),
             o(
               "WAWebMmSignalSharingLoggingEvents",
             ).logMmSignalSharingUpdateExpirationWindowEvent({
               msg: e,
-              contextInfo: t,
+              contextInfo: n,
             }),
             !0
           );

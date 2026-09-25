@@ -104,6 +104,7 @@ __d(
       return (t = y(e)) == null ? void 0 : t.benefit_type;
     }
     var b = [
+      "GenAIFilePrimitive",
       "GenAIImaginePrimitive",
       "GenAIImagePrimitive",
       "GenAIReelPrimitive",

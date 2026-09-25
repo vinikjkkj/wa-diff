@@ -12,8 +12,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 3e3,
-      c = (function () {
+      u,
+      c = 3e3,
+      d = (function () {
         function t() {
           var e = this;
           ((this.pendingDeviceCache = new Set()),
@@ -39,9 +40,9 @@ __d(
                       "[offline-resume][device-cache]: creating snapshot: schedule in ",
                       " ms",
                     ])),
-                  u,
+                  c,
                 ),
-                this.snapshotTimer.onOrAfter(u)));
+                this.snapshotTimer.onOrAfter(c)));
           }),
           (r.createSnapshot = function () {
             this.snapshotTimer.isScheduled() && this.snapshotTimer.cancel();
@@ -55,25 +56,36 @@ __d(
                 ])),
               e.join(","),
             ),
-              this.checkpointQueue.enqueue(
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  (yield o(
-                    "WAWebApiPendingDeviceSync",
-                  ).addUserToPendingDeviceSync(e),
-                    t.forEach(function (e) {
-                      return o("WADeprecatedSendIq").deprecatedCastStanza(e);
-                    }),
-                    o("WAComms").cancelDeadSocketTimer());
+              this.checkpointQueue
+                .enqueue(
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    (yield o(
+                      "WAWebApiPendingDeviceSync",
+                    ).addUserToPendingDeviceSync(e),
+                      t.forEach(function (e) {
+                        return o("WADeprecatedSendIq").deprecatedCastStanza(e);
+                      }),
+                      o("WAComms").cancelDeadSocketTimer());
+                  }),
+                )
+                .catch(function (e) {
+                  o("WALogger").ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][device-cache]: creating snapshot failed: ",
+                        "",
+                      ])),
+                    e,
+                  );
                 }),
-              ),
               (this.pendingDeviceCache = new Set()),
               (this.pendingAcks = []));
           }),
           t
         );
       })(),
-      d = new c();
-    l.OfflinePendingDeviceCache = d;
+      m = new d();
+    l.OfflinePendingDeviceCache = m;
   },
   98,
 );

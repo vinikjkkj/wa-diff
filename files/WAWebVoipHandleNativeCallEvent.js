@@ -1284,6 +1284,9 @@ __d(
               ),
               o(
                 "WAWebVoipVideoCameraCapture",
+              ).WAWebVoipVideoCameraCapture.recordCallEnd(),
+              o(
+                "WAWebVoipVideoCameraCapture",
               ).WAWebVoipVideoCameraCapture.scheduleCallEndCameraRelease(),
               o("WAWebVoipAudioCaptureBase").scheduleCallEndMicRelease(),
               o("WAWebVoipVideoCaptureAndRendering").releaseDesktopStreamJS(),

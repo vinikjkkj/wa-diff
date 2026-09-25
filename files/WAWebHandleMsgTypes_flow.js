@@ -21,6 +21,7 @@ __d(
         "BOT_UNAVAILABLE_FANOUT",
         "HOSTED_UNAVAILABLE_FANOUT",
         "VIEW_ONCE_UNAVAILABLE_FANOUT",
+        "ACP_UNAVAILABLE_FANOUT",
       ]),
       m = e({
         NO_OVERWRITE: 0,

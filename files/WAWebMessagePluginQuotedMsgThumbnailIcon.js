@@ -8,9 +8,9 @@ __d(
     var e = o("WAWebPluginCreateRegistryLookup").createMsgTypeRegistryLookup(
       r("WAWebMessagePluginQuotedMsgThumbnailIconRegistry"),
     );
-    function s(t) {
-      var n = e(t.type, t.subtype);
-      return n == null ? void 0 : n.quotedMsgThumbnailIcon;
+    function s(t, n) {
+      var r = e(t, n);
+      return r == null ? void 0 : r.quotedMsgThumbnailIcon;
     }
     l.quotedMsgThumbailIconComponent = s;
   },

@@ -18,6 +18,7 @@ __d(
     "WAWebE2EProtoParserForCtwaContext",
     "WAWebExperienceIdReceive",
     "WAWebFutureproofProtoUtils",
+    "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingProtoUtils",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationValidation",
@@ -250,6 +251,12 @@ __d(
             m,
             _,
           ),
+          o("WAWebLimitSharingGatingUtils").isAcp2Enabled() &&
+            o("WAWebLimitSharingProtoUtils").parseAcp2SettingFromMessage(
+              d,
+              m,
+              _,
+            ),
           T(S.msgData),
           S
         );

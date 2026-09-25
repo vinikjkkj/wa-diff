@@ -7,6 +7,7 @@ __d(
     "WAWebGalaxyFlowWamLoggerUtils",
     "WAWebGalaxyFlowsUtils",
     "WAWebProfilePicThumbCollection",
+    "WAWebProfilePicThumbGetters",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -56,7 +57,9 @@ __d(
             "WAWebProfilePicThumbCollection",
           ).ProfilePicThumbCollection.resyncPicturesByWid([r.contact.id]);
           var t = r.contact.getProfilePicThumb();
-          return (e = t == null ? void 0 : t.img) != null ? e : "";
+          return (e = o("WAWebProfilePicThumbGetters").getMaybeImg(t)) != null
+            ? e
+            : "";
         },
         c = o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
           i.flowId,

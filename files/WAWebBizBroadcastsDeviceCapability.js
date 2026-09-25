@@ -1,6 +1,7 @@
 __d(
   "WAWebBizBroadcastsDeviceCapability",
   [
+    "WAWebBackendApi",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebMobilePlatforms",
     "WAWebProtobufSyncAction.pb",
@@ -82,6 +83,10 @@ __d(
                 "WAWebBizBroadcastDeviceCapabilityCommon",
               ).saveBizBroadcastProCapabilityToStorage(
                 t == null ? void 0 : t.proCompanionSupportEnabled,
+              ),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "refreshBizBroadcastProEligibility",
+                {},
               ),
               o(
                 "WAWebBizBroadcastDeviceCapabilityCommon",

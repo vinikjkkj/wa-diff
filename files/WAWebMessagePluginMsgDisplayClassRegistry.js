@@ -50,6 +50,11 @@ __d(
         },
         {
           type: "ciphertext",
+          subtype: "acp_unavailable_fanout",
+          msgDisplayClass: null,
+        },
+        {
+          type: "ciphertext",
           subtype: "bot_unavailable_fanout",
           msgDisplayClass: null,
         },
@@ -194,6 +199,11 @@ __d(
           type: "product",
           subtype: void 0,
           msgDisplayClass: r("WAWebMessageProductMsgDisplayClass"),
+        },
+        {
+          type: "protocol",
+          subtype: "acp2_system_message",
+          msgDisplayClass: null,
         },
         { type: "protocol", subtype: "admin_revoke", msgDisplayClass: null },
         {

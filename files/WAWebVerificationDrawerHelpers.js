@@ -9,6 +9,9 @@ __d(
       return t ? Uint8Array.from(t.binaryData) : null;
     }
     function u(e, t) {
+      return e === "user" ? !0 : e === "environment" ? !1 : !t;
+    }
+    function c(e, t) {
       if (!e)
         return o("WAValidateFingerprints").FingerprintValidationResult
           .MALFORMED_CODE;
@@ -23,7 +26,7 @@ __d(
           .MALFORMED_CODE;
       }
     }
-    function c(e, t) {
+    function d(e, t) {
       var n;
       switch (e) {
         case o("WAValidateFingerprints").FingerprintValidationResult
@@ -146,8 +149,9 @@ __d(
       return n;
     }
     ((l.decodeQRCode = e),
-      (l.getFingerprintValidationResult = u),
-      (l.getErrorBannerText = c));
+      (l.shouldMirrorWebcamPreview = u),
+      (l.getFingerprintValidationResult = c),
+      (l.getErrorBannerText = d));
   },
   226,
 );

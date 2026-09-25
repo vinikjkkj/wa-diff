@@ -45,6 +45,21 @@ __d(
           );
     }
     function m(e) {
+      var t,
+        n =
+          (t = e.metadataByQuality) == null
+            ? void 0
+            : t.get(o("WAWebAttachMediaModel").MediaQuality.Standard);
+      return n == null
+        ? null
+        : {
+            body: e.previewBase64,
+            height: n.height,
+            mimetype: e.mimetype,
+            width: n.width,
+          };
+    }
+    function p(e) {
       var t = e.chat,
         n = e.childPrep,
         a = e.fileOrigin,
@@ -68,17 +83,17 @@ __d(
             addEvenWhilePreparing: !0,
             fileOrigin: a,
             pairedMediaType: "SD_IMAGE_PARENT",
-            placeholderProps: l,
+            placeholderProps: l != null ? l : void 0,
           }),
         });
-      p({ chat: t, childPrep: n, fileOrigin: a, options: i, parentSend: c });
+      _({ chat: t, childPrep: n, fileOrigin: a, options: i, parentSend: c });
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a,
             i,
@@ -164,10 +179,12 @@ __d(
                 sendLogsType: o("WALogger").SendLogsType.COUNTING_STAT,
               });
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.shouldSendAsHdImagePair = d), (l.sendHdImagePair = m));
+    ((l.shouldSendAsHdImagePair = d),
+      (l.getParentPlaceholderProps = m),
+      (l.sendHdImagePair = p));
   },
   98,
 );

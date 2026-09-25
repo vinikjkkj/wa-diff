@@ -8,6 +8,8 @@ __d(
     "WAWebCTWAGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDecodeJid",
+    "WAWebLimitSharingGatingUtils",
+    "WAWebLimitSharingPropMappingUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebParseMsgPaymentInfo",
@@ -1115,6 +1117,32 @@ __d(
           case l.CHANGE_LIMIT_SHARING:
             t.viewMode = o("WAWebViewMode.flow").ViewModeType.HIDDEN;
             break;
+          case l.CHANGE_ACP2_SETTING: {
+            var g, h;
+            if (!o("WAWebLimitSharingGatingUtils").isAcp2Enabled()) {
+              t.viewMode = o("WAWebViewMode.flow").ViewModeType.HIDDEN;
+              break;
+            }
+            var y = (g = e.messageStubParameters) != null ? g : [],
+              C = y[0],
+              b = y[1],
+              v = y[2];
+            ((t.subtype = o(
+              "WAWebCommonMsgSubtypeTypes",
+            ).MsgSubtype.Acp2SystemMessage),
+              (t.templateParams = void 0),
+              (t.acp2Setting = {
+                enabled: C === "1" || C === "true",
+                trigger: o(
+                  "WAWebLimitSharingPropMappingUtils",
+                ).getLimitSharingTriggerFromHistorySyncStubParameter(
+                  String(b != null ? b : ""),
+                ),
+                settingTimestamp: Number(v != null ? v : 0) * 1e3,
+                initiatedByMe: ((h = e.key) == null ? void 0 : h.fromMe) === !0,
+              }));
+            break;
+          }
           case l.GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE:
             ((t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),

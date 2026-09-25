@@ -204,7 +204,7 @@ __d(
               case "token": {
                 var i = T(e),
                   l = D(i);
-                (Object.assign(n, l), (a = !0));
+                ((n = babelHelpers.extends({}, n, l)), (a = !0));
                 break;
               }
               case "attachment_uris":

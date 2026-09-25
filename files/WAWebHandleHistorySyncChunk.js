@@ -35,6 +35,7 @@ __d(
     "WAWebHistorySyncProgress",
     "WAWebHistorySyncWorkerCompatibleNotificationUtils",
     "WAWebHttpErrors",
+    "WAWebLimitSharingProtoUtils",
     "WAWebMdSyncDownloadFailureReason",
     "WAWebMessageAssociation.flow",
     "WAWebMetricsAttributionActions",
@@ -776,68 +777,78 @@ __d(
                         Ze++;
                         continue;
                       }
-                      ve.add(qe);
-                      var mt = o(
-                        "WAWebHistorySyncNotificationCommonUtils",
-                      ).parseWebMsgInfoAndReturnNullOnFailure({
-                        protobufChatId: He,
-                        message: st.message,
-                        chunkInfo: e,
-                        allLidMapping: ue,
-                        totalMissingMapping: ce,
-                        historyLidPnMappings: le,
-                        dbChatId: ze,
-                      });
                       if (
-                        (mt &&
-                          mt.id.remote.toString() !== qe &&
-                          ve.add(mt.id.remote.toString()),
-                        et === 0 && mt && Ge)
+                        !o(
+                          "WAWebLimitSharingProtoUtils",
+                        ).shouldWithholdHistorySyncMessage(We, st)
                       ) {
-                        var pt = yield o("WAWebSchemaMessage")
-                          .getMessageTable()
-                          .betweenCount(
-                            ["internalId"],
-                            o("WAWebDBMessageUtils").beginningOfChat(ze),
-                            o("WAWebDBMessageUtils").endOfChat(ze),
-                          );
-                        pt === 0 && Se.push(mt);
+                        ve.add(qe);
+                        var mt = o(
+                          "WAWebHistorySyncNotificationCommonUtils",
+                        ).parseWebMsgInfoAndReturnNullOnFailure({
+                          protobufChatId: He,
+                          message: st.message,
+                          chunkInfo: e,
+                          allLidMapping: ue,
+                          totalMissingMapping: ce,
+                          historyLidPnMappings: le,
+                          dbChatId: ze,
+                        });
+                        if (
+                          (mt &&
+                            mt.id.remote.toString() !== qe &&
+                            ve.add(mt.id.remote.toString()),
+                          et === 0 && mt && Ge)
+                        ) {
+                          var pt = yield o("WAWebSchemaMessage")
+                            .getMessageTable()
+                            .betweenCount(
+                              ["internalId"],
+                              o("WAWebDBMessageUtils").beginningOfChat(ze),
+                              o("WAWebDBMessageUtils").endOfChat(ze),
+                            );
+                          pt === 0 && Se.push(mt);
+                        }
+                        if (
+                          ((be = be.concat(
+                            o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg(
+                              {
+                                webMsgInfo: st.message,
+                                parsedWebMsgInfo: mt,
+                                isFromCag:
+                                  (rt = We.isDefaultSubgroup) != null ? rt : !1,
+                              },
+                            ),
+                          )),
+                          mt != null &&
+                            ((ot = st.message) == null ||
+                            (ot = ot.commentMetadata) == null
+                              ? void 0
+                              : ot.commentParentKey) == null &&
+                            (he.has(mt.id.toString()) &&
+                              he.delete(mt == null ? void 0 : mt.id.toString()),
+                            ge.push(mt)),
+                          mt != null &&
+                            o("WAWebMessageAssociation.flow").isAssociatedMsg(
+                              mt,
+                            ))
+                        ) {
+                          var _t = mt.parentMsgKey.toString();
+                          (he.add(_t), ye.push(mt));
+                        }
+                        (mt != null &&
+                          o("WAWebThreadMsgUtils").isThreadMsg(mt) &&
+                          Ce.push(mt),
+                          o("WAWebABProps").getABPropConfigValue(
+                            "wa_web_history_sync_dynamic_throttling",
+                          ) ||
+                            (yield o(
+                              "WAAsyncSleep",
+                            ).asyncSleepAfterGivenLoopIteration(
+                              Ee++,
+                              Te ? Ie : z,
+                            )));
                       }
-                      if (
-                        ((be = be.concat(
-                          o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
-                            webMsgInfo: st.message,
-                            parsedWebMsgInfo: mt,
-                            isFromCag:
-                              (rt = We.isDefaultSubgroup) != null ? rt : !1,
-                          }),
-                        )),
-                        mt != null &&
-                          ((ot = st.message) == null ||
-                          (ot = ot.commentMetadata) == null
-                            ? void 0
-                            : ot.commentParentKey) == null &&
-                          (he.has(mt.id.toString()) &&
-                            he.delete(mt == null ? void 0 : mt.id.toString()),
-                          ge.push(mt)),
-                        mt != null &&
-                          o("WAWebMessageAssociation.flow").isAssociatedMsg(mt))
-                      ) {
-                        var _t = mt.parentMsgKey.toString();
-                        (he.add(_t), ye.push(mt));
-                      }
-                      (mt != null &&
-                        o("WAWebThreadMsgUtils").isThreadMsg(mt) &&
-                        Ce.push(mt),
-                        o("WAWebABProps").getABPropConfigValue(
-                          "wa_web_history_sync_dynamic_throttling",
-                        ) ||
-                          (yield o(
-                            "WAAsyncSleep",
-                          ).asyncSleepAfterGivenLoopIteration(
-                            Ee++,
-                            Te ? Ie : z,
-                          )));
                     }
                   }
                   if (

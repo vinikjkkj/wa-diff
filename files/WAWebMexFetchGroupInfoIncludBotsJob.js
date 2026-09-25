@@ -10,7 +10,9 @@ __d(
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMexClient",
+    "WAWebMexFetchGroupInfoIncludBotsJobAcp2Query.graphql",
     "WAWebMexFetchGroupInfoIncludBotsJobQuery.graphql",
     "WAWebMexGetTypename",
     "WAWebNewsletterRpcUtils",
@@ -24,52 +26,19 @@ __d(
     var e,
       s,
       u,
-      c = "XWA2CommunityGroup",
-      d = "XWA2CommunityDefaultSubGroup",
-      m = "XWA2CommunitySubGroup",
-      p = "LID",
-      _ =
+      c,
+      d = "XWA2CommunityGroup",
+      m = "XWA2CommunityDefaultSubGroup",
+      p = "XWA2CommunitySubGroup",
+      _ = "LID",
+      f =
         e !== void 0
           ? e
-          : (e = n("WAWebMexFetchGroupInfoIncludBotsJobQuery.graphql"));
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.groupId,
-            r = e.participantsPhash,
-            a = e.queryContext;
-          return o("WAWebNewsletterRpcUtils").runWithBackoff(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o("WAWebMexClient").fetchQuery(_, {
-                id: t,
-                query_context: a,
-                include_username: o(
-                  "WAWebUsernameGatingUtils",
-                ).usernameDisplayedEnabled(),
-                participants_phash: r,
-              });
-              return (
-                o("WALogger")
-                  .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MEX][GROUP] fetched get group info for ",
-                        "",
-                      ])),
-                    t,
-                  )
-                  .tags("GQL", "MEX"),
-                e
-              );
-            }),
-          );
-        })),
-        g.apply(this, arguments)
-      );
-    }
+          : (e = n("WAWebMexFetchGroupInfoIncludBotsJobQuery.graphql")),
+      g =
+        s !== void 0
+          ? s
+          : (s = n("WAWebMexFetchGroupInfoIncludBotsJobAcp2Query.graphql"));
     function h(e) {
       return y.apply(this, arguments);
     }
@@ -77,16 +46,60 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.groupId,
-            n = e.participantsPhash,
-            r = e.queryContext,
-            o = v(r),
-            a = yield f({ groupId: t, queryContext: o, participantsPhash: n });
-          if (a != null) return C(a);
+            r = e.participantsPhash,
+            a = e.queryContext;
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = {
+                  id: t,
+                  query_context: a,
+                  include_username: o(
+                    "WAWebUsernameGatingUtils",
+                  ).usernameDisplayedEnabled(),
+                  participants_phash: r,
+                },
+                n = o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
+                  ? yield o("WAWebMexClient").fetchQuery(
+                      g,
+                      babelHelpers.extends({}, e, { include_acp2: !0 }),
+                    )
+                  : yield o("WAWebMexClient").fetchQuery(f, e);
+              return (
+                o("WALogger")
+                  .LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[MEX][GROUP] fetched get group info for ",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .tags("GQL", "MEX"),
+                n
+              );
+            }),
+          );
         })),
         y.apply(this, arguments)
       );
     }
     function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupId,
+            n = e.participantsPhash,
+            r = e.queryContext,
+            o = R(r),
+            a = yield h({ groupId: t, queryContext: o, participantsPhash: n });
+          if (a != null) return v(a);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
       var t,
         n,
         r,
@@ -95,15 +108,15 @@ __d(
         l,
         s,
         u,
-        _,
+        c,
         f,
         g,
         h,
         y,
         C,
+        b,
         v,
-        L,
-        E,
+        R,
         k,
         I,
         T,
@@ -152,10 +165,10 @@ __d(
           o("WAWebAfterReadUtils").isAfterReadEnabled() &&
           o("WAWebAfterReadUtils").isAfterReadDuration(Y),
         Z =
-          (_ = O.properties) == null || (_ = _.lid_migration_state) == null
+          (c = O.properties) == null || (c = c.lid_migration_state) == null
             ? void 0
-            : _.addressing_mode,
-        ee = Z == null || Z === p,
+            : c.addressing_mode,
+        ee = Z == null || Z === _,
         te = (f = O.properties) == null ? void 0 : f.locked,
         ne = (g = O.properties) == null ? void 0 : g.member_add_mode,
         re = (h = O.properties) == null ? void 0 : h.member_link_mode,
@@ -167,16 +180,16 @@ __d(
           (C = O.properties) == null
             ? void 0
             : C.membership_approval_mode_enabled,
-        ie = (v = O.properties) == null ? void 0 : v.support,
+        ie = (b = O.properties) == null ? void 0 : b.support,
         le = O.state,
         se = O.subject,
-        ue = (L = O.subject) == null || (L = L.creator) == null ? void 0 : L.pn,
+        ue = (v = O.subject) == null || (v = v.creator) == null ? void 0 : v.pn,
         ce = B
-          ? (E = O.subject) == null ||
-            (E = E.creator) == null ||
-            (E = E.username_info) == null
+          ? (R = O.subject) == null ||
+            (R = R.creator) == null ||
+            (R = R.username_info) == null
             ? void 0
-            : E.username
+            : R.username
           : null,
         de = O.total_participants_count,
         me =
@@ -221,12 +234,13 @@ __d(
           De,
           xe,
           $e,
-          Pe = o("WAWebMexGetTypename").getTypename(O),
-          Ne = R(me, j),
-          Me = Ne.isOpenBotGroup,
-          we = Ne.isTeeBotGroup,
-          Ae = Ne.participantsInfo,
-          Fe = {
+          Pe,
+          Ne = o("WAWebMexGetTypename").getTypename(O),
+          Me = E(me, j),
+          we = Me.isOpenBotGroup,
+          Ae = Me.isTeeBotGroup,
+          Fe = Me.participantsInfo,
+          Oe = {
             groupInfo: babelHelpers.extends(
               {
                 id: o("WAWebWidFactory").createWid(W),
@@ -239,7 +253,7 @@ __d(
                 creatorUsername: H,
                 subject: se.value,
                 creation: Number(q),
-                participants: Ae,
+                participants: Fe,
                 subjectTime: Number(se == null ? void 0 : se.creation_time),
                 subjectOwner:
                   (se == null || (Ee = se.creator) == null ? void 0 : Ee.id) !=
@@ -254,9 +268,9 @@ __d(
                   ue != null ? o("WAWebWidFactory").createWid(ue) : void 0,
                 subjectOwnerUsername: ce,
                 allowNonAdminSubGroupCreation: Q != null ? Q : !1,
-                generalChatAutoAddDisabled: Pe === m && ge != null ? ge : !1,
+                generalChatAutoAddDisabled: Ne === p && ge != null ? ge : !1,
                 restrict: te === !0,
-                announce: Pe === d || X === !0,
+                announce: Ne === m || X === !0,
                 support: ie != null ? ie : !1,
                 desc: (Ie = G == null ? void 0 : G.value) != null ? Ie : void 0,
                 descId: (Te = G == null ? void 0 : G.id) != null ? Te : void 0,
@@ -281,9 +295,9 @@ __d(
                     : void 0,
                 afterReadDuration: J ? Y : void 0,
                 membershipApprovalMode: ae != null ? ae : !1,
-                memberAddMode: S(ne),
+                memberAddMode: L(ne),
               },
-              Pe !== d && Pe !== c
+              Ne !== m && Ne !== d
                 ? {
                     memberLinkMode: o(
                       "WAWebGroupMemberLinkMode",
@@ -294,21 +308,21 @@ __d(
                   }
                 : void 0,
               {
-                suspended: le === b.SUSPENDED,
+                suspended: le === S.SUSPENDED,
                 suspendAppealStatus: o(
                   "WAWebSuspendAppealStatusType",
                 ).toSuspendAppealStatus(Se),
                 suspendAppealUpdateTime: Re != null ? Re : null,
-                terminated: le === b.TERMINATED ? !0 : void 0,
+                terminated: le === S.TERMINATED ? !0 : void 0,
                 isLidAddressingMode: ee,
                 reportToAdminMode: K != null ? K : !1,
                 isParentGroupClosed: pe === !0,
-                isParentGroup: Pe === c,
+                isParentGroup: Ne === d,
                 parentGroup:
                   he != null ? o("WAWebWidFactory").createWid(he) : void 0,
                 generalSubgroup: _e === !0,
-                defaultSubgroup: Pe === d,
-                parentGroupSubject: Pe === m || Pe === d ? null : void 0,
+                defaultSubgroup: Ne === m,
+                parentGroupSubject: Ne === p || Ne === m ? null : void 0,
                 numSubgroups: 0,
                 membershipApprovalRequest: O.membership_approval_request === !0,
                 growthLockType: fe === !0 ? "invite" : void 0,
@@ -319,22 +333,29 @@ __d(
                   ($e = ve == null ? void 0 : ve.limit_sharing_enabled) != null
                     ? $e
                     : void 0,
+                acp2Enabled:
+                  o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled() &&
+                  (Pe =
+                    ve == null ? void 0 : ve.limit_companion_sharing_enabled) !=
+                    null
+                    ? Pe
+                    : void 0,
                 hasIncompleteParticipantInformation: Le,
-                isOpenBotGroup: Me != null ? Me : void 0,
-                isTeeBotGroup: we != null ? we : void 0,
+                isOpenBotGroup: we != null ? we : void 0,
+                isTeeBotGroup: Ae != null ? Ae : void 0,
               },
             ),
             participantPhashMatch: me,
           };
-        return Fe;
+        return Oe;
       }
     }
-    var b = {
+    var S = {
       ACTIVE: "ACTIVE",
       TERMINATED: "NON_EXISTENT",
       SUSPENDED: "SUSPENDED",
     };
-    function v(e) {
+    function R(e) {
       return e === "interactive" || e === "enter_group_info"
         ? "INTERACTIVE"
         : e === "missing_participant_identification"
@@ -348,7 +369,7 @@ __d(
                 );
               })();
     }
-    function S(e) {
+    function L(e) {
       switch (e) {
         case "ADMIN_ADD":
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
@@ -358,7 +379,7 @@ __d(
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
       }
     }
-    function R(e, t) {
+    function E(e, t) {
       if (e)
         return {
           participantsInfo: [],
@@ -377,11 +398,11 @@ __d(
         a = [],
         i = !1,
         l = !1,
-        u = [];
+        s = [];
       return (
         t.forEach(function (e) {
           var t,
-            s,
+            u,
             c = e.group_history_sent,
             d = e.join_time,
             m = e.node,
@@ -426,9 +447,9 @@ __d(
             isAdmin: _ === "ADMIN_MEMBER" || _ === "SUPERADMIN_MEMBER",
             isSuperAdmin: _ === "SUPERADMIN_MEMBER",
             username: n
-              ? (s = h.username_info) == null
+              ? (u = h.username_info) == null
                 ? void 0
-                : s.username
+                : u.username
               : null,
             joinTime: r && d != null ? d : null,
             groupHistorySentState: r
@@ -443,23 +464,23 @@ __d(
           (g &&
             o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled())
             ? a.push(v)
-            : u.length < 3 && u.push(y.toString());
+            : s.length < 3 && s.push(y.toString());
         }),
-        u.length > 0 &&
+        s.length > 0 &&
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[MEX][GROUP] skipped ",
                 " bot participants => ",
                 "",
               ])),
-            u.length,
-            u,
+            s.length,
+            s,
           ),
         { participantsInfo: a, isOpenBotGroup: i, isTeeBotGroup: l }
       );
     }
-    l.mexGetGroupInfoIncludBots = h;
+    l.mexGetGroupInfoIncludBots = C;
   },
   98,
 );

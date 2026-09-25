@@ -15,6 +15,11 @@ __d(
       { type: "chat", subtype: void 0, renderMsg: null },
       {
         type: "ciphertext",
+        subtype: "acp_unavailable_fanout",
+        renderMsg: null,
+      },
+      {
+        type: "ciphertext",
         subtype: "bot_unavailable_fanout",
         renderMsg: null,
       },
@@ -96,6 +101,7 @@ __d(
       { type: "poll_result_snapshot", subtype: void 0, renderMsg: null },
       { type: "poll_update", subtype: "poll_vote", renderMsg: null },
       { type: "product", subtype: void 0, renderMsg: null },
+      { type: "protocol", subtype: "acp2_system_message", renderMsg: null },
       { type: "protocol", subtype: "admin_revoke", renderMsg: null },
       { type: "protocol", subtype: "ai_media_collection", renderMsg: null },
       { type: "protocol", subtype: "bot_feedback", renderMsg: null },

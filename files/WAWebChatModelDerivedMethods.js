@@ -52,6 +52,7 @@ __d(
         e.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT &&
         e.subtype !== "newsletter_admin_context_card" &&
         e.subtype !== "newsletter_privacy" &&
+        e.subtype !== "scheduled_message_created" &&
         !e.pendingDeleteForMe &&
         e.botPluginReferenceIndex == null &&
         o("WAWebViewModeUtils").isViewModeVisibleInSurface(

@@ -187,6 +187,12 @@ __d(
             r = o("WAWebChatCollection").ChatCollection.get(e);
           r && (r.limitSharing = n);
         },
+        updateChatAcp2Setting: function (t) {
+          var e = t.acp2Setting,
+            n = t.id,
+            r = o("WAWebChatCollection").ChatCollection.get(n);
+          r && (r.acp2Setting = e);
+        },
         getChatModelsArray: function () {
           return (d || (d = n("Promise"))).resolve(
             [].concat(o("WAWebChatCollection").ChatCollection.getModelsArray()),

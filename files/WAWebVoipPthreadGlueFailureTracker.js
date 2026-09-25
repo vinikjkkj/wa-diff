@@ -28,8 +28,9 @@ __d(
       v = null,
       S = !1,
       R = new Set(),
-      L = 0.1;
-    function E(e) {
+      L = new Set(),
+      E = 0.1;
+    function k(e) {
       return e.kind === "build_mismatch"
         ? r("err")(
             o("WAWebVoipWasmArtifactSkewErrors")
@@ -48,8 +49,8 @@ __d(
               e.error,
           );
     }
-    function k(t) {
-      var n = E(t);
+    function I(t) {
+      var n = k(t);
       if (C != null) {
         o("WALogger").LOG(
           e ||
@@ -63,10 +64,12 @@ __d(
       }
       (t.kind === "build_mismatch" && (C = n),
         t.kind === "pinned_load_failed"
-          ? (o(
-              "WAWebCoreActionsODS",
-            ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailed(),
-            N())
+          ? (t.cause !== "timed_out" &&
+              o(
+                "WAWebCoreActionsODS",
+              ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailed(),
+            w(),
+            F(t.workerID))
           : o("WALogger")
               .ERROR(
                 s ||
@@ -76,21 +79,21 @@ __d(
               )
               .catching(n)
               .sendLogs("voip-pthread-glue-refused"));
-      var r = I(t);
-      if ((T(t, n), t.kind === "pinned_load_failed")) {
-        var a = w(t.workerID);
-        D(n, a === "bound" && r ? "bootstrap" : a);
+      var r = T(t);
+      if ((D(t, n), t.kind === "pinned_load_failed")) {
+        var a = B(t.workerID);
+        x(n, a === "bound" && r ? "bootstrap" : a, t.cause === "timed_out");
       }
     }
-    function I(e) {
+    function T(e) {
       if (e.kind !== "pinned_load_failed" || e.workerID == null) return !1;
       for (var t of b) if (t.ownsThread && t.workerID === e.workerID) return !0;
       return !1;
     }
-    function T(e, t) {
+    function D(e, t) {
       var n = 0;
       for (var r of Array.from(b)) {
-        var a = x(e, r);
+        var a = $(e, r);
         if (a != null) {
           (a === "no_worker_id" && n++, b.delete(r));
           try {
@@ -122,44 +125,46 @@ __d(
           String(e.workerID),
         ));
     }
-    function D(e, t) {
+    function x(e, t, n) {
       if (t === "unused" || t === "bootstrap") {
         t === "bootstrap" &&
           o(
             "WAWebCoreActionsODS",
           ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailedBootstrap();
-        var n =
-          t === "bootstrap"
-            ? "voip-pthread-glue-refused-recovered-bootstrap"
-            : "voip-pthread-glue-refused-recovered";
-        if (R.has(n)) {
+        var r = P(t, n),
+          a = n ? "did not load its glue in time" : "refused its glue";
+        if (R.has(r)) {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [pthread-glue] ",
-                " pthread worker refused its glue; page unpinned: ",
+                " pthread worker ",
+                "; page unpinned: ",
                 "",
               ])),
             t,
+            a,
             e.message,
           );
           return;
         }
-        (R.add(n),
+        (R.add(r),
           o("WALogger")
             .LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [pthread-glue] ",
-                  " pthread worker refused its glue; page unpinned",
+                  " pthread worker ",
+                  "; page unpinned",
                 ])),
               t,
+              a,
             )
             .catching(e)
             .tags("non-sad")
-            .sendLogs(n, {
+            .sendLogs(r, {
               sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-              sampling: L,
+              sampling: E,
             }));
         return;
       }
@@ -182,7 +187,7 @@ __d(
           .catching(e)
           .sendLogs("voip-pthread-glue-refused"));
     }
-    function x(e, t) {
+    function $(e, t) {
       if (e.kind === "build_mismatch") return "build_mismatch";
       if (t.scope !== "pthread_bootstrap") return null;
       var n = e.workerID;
@@ -192,21 +197,28 @@ __d(
           ? "worker_match"
           : null;
     }
-    function $() {
+    function P(e, t) {
+      var n =
+        e === "bootstrap"
+          ? "voip-pthread-glue-refused-recovered-bootstrap"
+          : "voip-pthread-glue-refused-recovered";
+      return t ? n + "-timeout" : n;
+    }
+    function N() {
       return C;
     }
-    function P(e) {
+    function M(e) {
       ((v = {
         unpin: function () {
           Reflect.set(e, "pinWorkerGlue", !1);
         },
         terminateWorker: function (n) {
-          return A(e.PThread, n);
+          return W(e.PThread, n);
         },
       }),
         S && v.unpin());
     }
-    function N() {
+    function w() {
       var e;
       S ||
         ((S = !0),
@@ -221,10 +233,16 @@ __d(
         ),
         (e = v) == null || e.unpin());
     }
-    function M() {
+    function A() {
       return S;
     }
-    function w(e) {
+    function F(e) {
+      e != null && L.add(e);
+    }
+    function O(e) {
+      return e != null && L.has(e);
+    }
+    function B(e) {
       var t = v;
       if (t == null || typeof e != "number") return "unknown";
       var n;
@@ -261,7 +279,7 @@ __d(
         n
       );
     }
-    function A(e, t) {
+    function W(e, t) {
       var n = function (n) {
           return o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(n) === t;
         },
@@ -272,10 +290,10 @@ __d(
           : "unknown"
         : (e.unusedWorkers[r].close(), e.unusedWorkers.splice(r, 1), "unused");
     }
-    function F() {
+    function q() {
       return C != null;
     }
-    function O(e, t, a) {
+    function U(e, t, a) {
       var i = C;
       return i != null
         ? (e.then(r("WAWebNoop"), function (e) {
@@ -307,17 +325,18 @@ __d(
               ));
           });
     }
-    function B() {
-      ((C = null), b.clear(), (v = null), (S = !1), R.clear());
+    function V() {
+      ((C = null), b.clear(), (v = null), (S = !1), R.clear(), L.clear());
     }
-    ((l.recordPthreadGlueFailure = k),
-      (l.getLatchedPthreadGlueFailure = $),
-      (l.attachPthreadGlueFailureModule = P),
-      (l.markPinnedWorkerGlueUnpinnedForPage = N),
-      (l.isPinnedWorkerGlueUnpinnedForPage = M),
-      (l.hasTerminalPthreadGlueFailure = F),
-      (l.failFastOnPthreadGlueFailure = O),
-      (l.resetPthreadGlueFailureTracker = B));
+    ((l.recordPthreadGlueFailure = I),
+      (l.getLatchedPthreadGlueFailure = N),
+      (l.attachPthreadGlueFailureModule = M),
+      (l.markPinnedWorkerGlueUnpinnedForPage = w),
+      (l.isPinnedWorkerGlueUnpinnedForPage = A),
+      (l.hasPinnedGlueFailedForWorker = O),
+      (l.hasTerminalPthreadGlueFailure = q),
+      (l.failFastOnPthreadGlueFailure = U),
+      (l.resetPthreadGlueFailureTracker = V));
   },
   98,
 );

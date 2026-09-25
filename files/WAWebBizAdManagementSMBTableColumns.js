@@ -153,24 +153,26 @@ __d(
       {
         cell: function (t) {
           var e = t.isRowHovered,
-            n = t.item;
-          return n.isDraft
+            n = t.isSelected,
+            a = t.item;
+          return a.isDraft
             ? u.jsx(r("WAWebBizAdManagementDraftActionsCell.react"), {
                 isRowHovered: e,
-                onDelete: n.onDeleteDraft,
+                onDelete: a.onDeleteDraft,
               })
             : u.jsx(r("WAWebBizAdManagementActionsCell.react"), {
-                boostId: n.boostId,
-                boostingStatus: n.boostingStatus,
+                boostId: a.boostId,
+                boostingStatus: a.boostingStatus,
+                isDetailsOpen: n,
                 onRecreatePress: function () {
-                  return n.onRecreateAd(
+                  return a.onRecreateAd(
                     o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
                       .SMB_ADVERTISE_FROM_MANAGE_ADS_OVERFLOW_MENU_ITEM_RECREATE_AD_BUTTON,
                     "whatsapp_smb_manage_ads_listing_overflow_menu_recreate_ad_option",
                   );
                 },
-                onViewResults: n.onViewResults,
-                regulatedCategories: n.regulatedCategories,
+                onViewResults: a.onViewResults,
+                regulatedCategories: a.regulatedCategories,
               });
         },
         key: "actions",

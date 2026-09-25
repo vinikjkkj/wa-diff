@@ -51,8 +51,13 @@ __d(
         { type: "chat", subtype: void 0, renderPreviewIcon: null },
         {
           type: "ciphertext",
-          subtype: "bot_unavailable_fanout",
+          subtype: "acp_unavailable_fanout",
           renderPreviewIcon: (e = r("WAWebRenderCiphertextPreviewIcon")),
+        },
+        {
+          type: "ciphertext",
+          subtype: "bot_unavailable_fanout",
+          renderPreviewIcon: e,
         },
         { type: "ciphertext", subtype: "fanout", renderPreviewIcon: e },
         {
@@ -223,6 +228,11 @@ __d(
           type: "product",
           subtype: void 0,
           renderPreviewIcon: r("WAWebRenderProductPreviewIcon"),
+        },
+        {
+          type: "protocol",
+          subtype: "acp2_system_message",
+          renderPreviewIcon: null,
         },
         { type: "protocol", subtype: "admin_revoke", renderPreviewIcon: null },
         {

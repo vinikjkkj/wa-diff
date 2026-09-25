@@ -1103,6 +1103,9 @@ __d(
           (i.limitSharingDrawer = function (t) {
             this.trigger("limit_sharing_drawer", t);
           }),
+          (i.acp2Drawer = function (t) {
+            this.trigger("acp2_drawer", t);
+          }),
           (i.reachoutTimelockStateChange = function () {
             this.trigger("reachout_timelock_state_change");
           }),

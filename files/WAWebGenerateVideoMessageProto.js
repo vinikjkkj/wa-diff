@@ -68,6 +68,13 @@ __d(
             ).isChannelVideoServerTranscodeUploadEnabled()
               ? a.metadataUrl
               : void 0,
+          dashManifestUrl:
+            (a == null ? void 0 : a.dashManifestUrl) != null &&
+            o(
+              "WAWebChannelVideoServerTranscodeGating",
+            ).isChannelVideoServerTranscodeUploadEnabled()
+              ? a.dashManifestUrl
+              : void 0,
         },
         c,
       );

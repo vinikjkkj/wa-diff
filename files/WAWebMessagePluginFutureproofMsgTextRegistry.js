@@ -31,6 +31,11 @@ __d(
       { type: "chat", subtype: void 0, futureproofMsgText: null },
       {
         type: "ciphertext",
+        subtype: "acp_unavailable_fanout",
+        futureproofMsgText: null,
+      },
+      {
+        type: "ciphertext",
         subtype: "bot_unavailable_fanout",
         futureproofMsgText: null,
       },
@@ -172,6 +177,11 @@ __d(
       },
       { type: "poll_update", subtype: "poll_vote", futureproofMsgText: null },
       { type: "product", subtype: void 0, futureproofMsgText: null },
+      {
+        type: "protocol",
+        subtype: "acp2_system_message",
+        futureproofMsgText: null,
+      },
       { type: "protocol", subtype: "admin_revoke", futureproofMsgText: null },
       {
         type: "protocol",

@@ -51,7 +51,8 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL: {
           p === "event_edit_decrypted"
             ? (g = s._(/*BTDS*/ "See event"))
-            : p === "limit_sharing_system_message" &&
+            : (p === "limit_sharing_system_message" ||
+                p === "acp2_system_message") &&
               (g = r("WAWebFbtCommon")("Learn more"));
           break;
         }
@@ -67,6 +68,7 @@ __d(
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE: {
           p === "limit_sharing_system_message" ||
+          p === "acp2_system_message" ||
           p === "biz_automatically_labeled_chat_system_message"
             ? (g = r("WAWebFbtCommon")("Learn more"))
             : (p === "biz_per_customer_3pd_data_share_opt_in" ||

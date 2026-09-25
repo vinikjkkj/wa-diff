@@ -95,6 +95,11 @@ __d(
         },
         {
           type: "ciphertext",
+          subtype: "acp_unavailable_fanout",
+          generateProtobuf: null,
+        },
+        {
+          type: "ciphertext",
           subtype: "bot_unavailable_fanout",
           generateProtobuf: null,
         },
@@ -295,6 +300,11 @@ __d(
           type: "product",
           subtype: void 0,
           generateProtobuf: r("WAWebGenerateProductMessageProto"),
+        },
+        {
+          type: "protocol",
+          subtype: "acp2_system_message",
+          generateProtobuf: null,
         },
         {
           type: "protocol",

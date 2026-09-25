@@ -24,6 +24,11 @@ __d(
         { type: "chat", subtype: void 0, generateWebMessageInfo: e },
         {
           type: "ciphertext",
+          subtype: "acp_unavailable_fanout",
+          generateWebMessageInfo: null,
+        },
+        {
+          type: "ciphertext",
           subtype: "bot_unavailable_fanout",
           generateWebMessageInfo: null,
         },
@@ -173,6 +178,11 @@ __d(
           generateWebMessageInfo: null,
         },
         { type: "product", subtype: void 0, generateWebMessageInfo: null },
+        {
+          type: "protocol",
+          subtype: "acp2_system_message",
+          generateWebMessageInfo: null,
+        },
         {
           type: "protocol",
           subtype: "admin_revoke",

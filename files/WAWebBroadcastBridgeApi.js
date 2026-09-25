@@ -9,6 +9,7 @@ __d(
     "WAWebBizBroadcastCampaignCollection",
     "WAWebBizBroadcastCampaignInsightsCollection",
     "WAWebBizBroadcastInsightsContactListHandler",
+    "WAWebBizBroadcastProEligibilityEvent",
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBroadcastConsts",
     "WAWebBroadcastMetadataCollection",
@@ -88,6 +89,11 @@ __d(
           });
           (r("WAWebBizBroadcastCampaignCollection").add(a, { merge: !0 }),
             r("WAWebBizBroadcastCampaignCollection").markBootstrapped());
+        },
+        refreshBizBroadcastProEligibility: function () {
+          o(
+            "WAWebBizBroadcastProEligibilityEvent",
+          ).bizBroadcastProEligibilityEmitter.trigger("change");
         },
         refreshBroadcastCampaignState: function (t) {
           var e = t.broadcastJids;

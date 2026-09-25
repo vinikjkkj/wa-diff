@@ -751,14 +751,18 @@ __d(
                     o("WAWebHandleMsgTypes.flow").PlaceholderType
                       .VIEW_ONCE_UNAVAILABLE_FANOUT
                   ? "view_once_unavailable_fanout"
-                  : a === o("WAWebHandleMsgTypes.flow").PlaceholderType.FANOUT
-                    ? "fanout"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            a,
-                        );
-                      })(),
+                  : a ===
+                      o("WAWebHandleMsgTypes.flow").PlaceholderType
+                        .ACP_UNAVAILABLE_FANOUT
+                    ? "acp_unavailable_fanout"
+                    : a === o("WAWebHandleMsgTypes.flow").PlaceholderType.FANOUT
+                      ? "fanout"
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              a,
+                          );
+                        })(),
         l = n.isReadByPeer === !0,
         s = babelHelpers.extends({}, V(t), {
           type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,

@@ -68,8 +68,13 @@ __d(
         { type: "chat", subtype: void 0, formatMsgText: null },
         {
           type: "ciphertext",
-          subtype: "bot_unavailable_fanout",
+          subtype: "acp_unavailable_fanout",
           formatMsgText: (e = r("WAWebFormatCiphertextMsgText")),
+        },
+        {
+          type: "ciphertext",
+          subtype: "bot_unavailable_fanout",
+          formatMsgText: e,
         },
         { type: "ciphertext", subtype: "fanout", formatMsgText: e },
         {
@@ -240,6 +245,11 @@ __d(
           type: "product",
           subtype: void 0,
           formatMsgText: r("WAWebFormatProductMsgText"),
+        },
+        {
+          type: "protocol",
+          subtype: "acp2_system_message",
+          formatMsgText: null,
         },
         {
           type: "protocol",

@@ -2,6 +2,7 @@ __d(
   "WAWebMmSignalSharingModelUtils",
   [
     "WAWebHandleMsgTypes.flow",
+    "WAWebMmSignalSharingContextInfo",
     "WAWebMmSignalSharingExpirationWindowUtils",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
@@ -92,87 +93,83 @@ __d(
       return r;
     }
     function d(e) {
-      var t = e.chat,
-        n = e.defaultUrl,
-        r = e.isMmSignalSharingDisclosureTosAccepted,
-        a = e.msg;
+      var t,
+        n,
+        r = e.chat,
+        a = e.defaultUrl,
+        i = e.isMmSignalSharingDisclosureTosAccepted,
+        l = e.msg;
       if (
         !o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingDisclosureEnabled()
       )
-        return { link: n, index: 0 };
+        return { link: a, index: 0 };
+      var u =
+        (t = o(
+          "WAWebMmSignalSharingContextInfo",
+        ).getCappedMmSignalSharingURLTrackingMapElements(
+          (n = l.mmSignalSharing) == null ? void 0 : n.urlTrackingMapElements,
+        )) != null
+          ? t
+          : [];
       if (
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingReplacingShimmedLinksEnabled()
       ) {
-        var i = 0;
-        for (var l of (u =
-          (c = a.mmSignalSharing) == null
-            ? void 0
-            : c.urlTrackingMapElements) != null
-          ? u
-          : []) {
-          var u,
-            c,
-            d = l.consentedUsersUrl,
-            m = l.originalUrl,
-            p = l.unconsentedUsersUrl;
-          if (S(m) === S(n)) {
-            var _ = void 0;
-            if (r) {
-              var f;
+        var c = 0;
+        for (var d of u) {
+          var m = d.consentedUsersUrl,
+            p = d.originalUrl,
+            _ = d.unconsentedUsersUrl;
+          if (S(p) === S(a)) {
+            var f = void 0;
+            if (i) {
+              var g;
               if (
                 o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
-                (f = t.contact) != null &&
-                f.isContactBlocked
+                (g = r.contact) != null &&
+                g.isContactBlocked
               ) {
-                var g;
-                _ = (g = p != null ? p : m) != null ? g : n;
+                var h;
+                f = (h = _ != null ? _ : p) != null ? h : a;
               } else {
-                var h, y;
-                _ =
-                  (h = (y = d != null ? d : p) != null ? y : m) != null ? h : n;
+                var y, C;
+                f =
+                  (y = (C = m != null ? m : _) != null ? C : p) != null ? y : a;
               }
             } else {
-              var C;
-              _ = (C = p != null ? p : m) != null ? C : n;
+              var b;
+              f = (b = _ != null ? _ : p) != null ? b : a;
             }
-            return { link: _, index: i };
+            return { link: f, index: c };
           }
-          i++;
+          c++;
         }
-        return { link: n, index: void 0 };
+        return { link: a, index: void 0 };
       }
-      if (s(t, a) && r) {
-        var b = 0;
-        for (var R of (L =
-          (E = a.mmSignalSharing) == null
-            ? void 0
-            : E.urlTrackingMapElements) != null
-          ? L
-          : []) {
-          var L,
-            E,
-            k = R.consentedUsersUrl,
-            I = R.originalUrl,
-            T = R.unconsentedUsersUrl;
-          if (S(I) === S(n))
+      if (s(r, l) && i) {
+        var R = 0;
+        for (var L of u) {
+          var E = L.consentedUsersUrl,
+            k = L.originalUrl,
+            I = L.unconsentedUsersUrl;
+          if (S(k) === S(a))
             return {
               link: v({
-                chat: t,
-                consentedUrl: k,
-                defaultUrl: n,
-                originalUrl: I,
-                unconsentedUrl: T,
+                chat: r,
+                consentedUrl: E,
+                defaultUrl: a,
+                originalUrl: k,
+                unconsentedUrl: I,
               }),
-              index: b,
+              index: R,
             };
-          b++;
+          R++;
         }
       }
-      return { link: n, index: void 0 };
+      return { link: a, index: void 0 };
     }
     function m(e, t, n) {
       if (
@@ -195,6 +192,7 @@ __d(
         }
     }
     function p(e) {
+      var t, n;
       if (
         !o(
           "WAWebMmSignalSharingGatingUtils",
@@ -202,42 +200,39 @@ __d(
       )
         return !1;
       for (
-        var t = 0;
-        t <
-        ((n =
-          (r = e.interactivePayload) == null || (r = r.buttons) == null
+        var r = 0;
+        r <
+        ((a =
+          (i = e.interactivePayload) == null || (i = i.buttons) == null
             ? void 0
-            : r.length) != null
-          ? n
+            : i.length) != null
+          ? a
           : 0);
-        t++
+        r++
       ) {
-        var n,
-          r,
-          a,
-          i = (a = R(e, t)) != null ? a : {},
-          l = i.consentedUrl;
-        if (l != null) return !0;
+        var a,
+          i,
+          l,
+          s = (l = R(e, r)) != null ? l : {},
+          u = s.consentedUrl;
+        if (u != null) return !0;
       }
       for (
-        var s = 0;
-        s <
-        ((u =
-          (c = e.mmSignalSharing) == null ||
-          (c = c.urlTrackingMapElements) == null
-            ? void 0
-            : c.length) != null
-          ? u
-          : 0);
-        s++
-      ) {
-        var u,
-          c,
-          d,
-          m = (d = L(e, s)) != null ? d : {},
-          p = m.consentedUrl;
-        if (p != null) return !0;
-      }
+        var c =
+            (t = o(
+              "WAWebMmSignalSharingContextInfo",
+            ).getCappedMmSignalSharingURLTrackingMapElements(
+              (n = e.mmSignalSharing) == null
+                ? void 0
+                : n.urlTrackingMapElements,
+            )) != null
+              ? t
+              : [],
+          d = 0;
+        d < c.length;
+        d++
+      )
+        if (c[d].consentedUsersUrl != null) return !0;
       return !1;
     }
     var _ = new Set([
@@ -479,18 +474,24 @@ __d(
       if (t != null) {
         var n,
           r,
-          o =
+          a,
+          i =
             (n =
-              (r = e.mmSignalSharing) == null ||
-              (r = r.urlTrackingMapElements) == null
+              (r = o(
+                "WAWebMmSignalSharingContextInfo",
+              ).getCappedMmSignalSharingURLTrackingMapElements(
+                (a = e.mmSignalSharing) == null
+                  ? void 0
+                  : a.urlTrackingMapElements,
+              )) == null
                 ? void 0
                 : r[t]) != null
               ? n
               : {},
-          a = o.consentedUsersUrl,
-          i = o.originalUrl,
-          l = o.unconsentedUsersUrl;
-        return { consentedUrl: a, unconsentedUrl: l, originalUrl: i };
+          l = i.consentedUsersUrl,
+          s = i.originalUrl,
+          u = i.unconsentedUsersUrl;
+        return { consentedUrl: l, unconsentedUrl: u, originalUrl: s };
       }
     }
     ((l.isDisclosureEnabledForMm = s),

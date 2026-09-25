@@ -468,10 +468,13 @@ __d(
                               : W.isHostedMsgUnavailable === !0
                                 ? (U = o("WAWebHandleMsgTypes.flow")
                                     .PlaceholderType.HOSTED_UNAVAILABLE_FANOUT)
-                                : W.isViewOnceUnavailable === !0 &&
-                                  (U = o("WAWebHandleMsgTypes.flow")
-                                    .PlaceholderType
-                                    .VIEW_ONCE_UNAVAILABLE_FANOUT),
+                                : W.isViewOnceUnavailable === !0
+                                  ? (U = o("WAWebHandleMsgTypes.flow")
+                                      .PlaceholderType
+                                      .VIEW_ONCE_UNAVAILABLE_FANOUT)
+                                  : W.isAcpUnavailable === !0 &&
+                                    (U = o("WAWebHandleMsgTypes.flow")
+                                      .PlaceholderType.ACP_UNAVAILABLE_FANOUT),
                             yield o(
                               "WAWebHandleMsgProcess",
                             ).processPlaceholderMsg({

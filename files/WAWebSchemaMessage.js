@@ -377,6 +377,7 @@ __d(
           .version(n.messageAddBloksWidgetField(), [a("bloksWidget")])
           .version(n.messageAddProtocolMessageKeyIndex(), [
             s("protocolMessageKey"),
+            a("acp2Setting"),
           ])
           .view(function (e) {
             return e;

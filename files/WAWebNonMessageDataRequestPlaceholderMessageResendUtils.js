@@ -28,6 +28,7 @@ __d(
               t.subtype !== "bot_unavailable_fanout" &&
               t.subtype !== "hosted_unavailable_fanout" &&
               t.subtype !== "view_once_unavailable_fanout" &&
+              t.subtype !== "acp_unavailable_fanout" &&
               (e.add(t.id), r.push(t.id));
           }),
           r.length > 0)

@@ -47,12 +47,13 @@ __d(
                   t.getItem((s || (s = r("BanzaiConsts"))).LAST_STORAGE_FLUSH),
                   10,
                 ));
-              var o =
-                _ &&
-                (u || (u = r("performanceAbsoluteNow")))() - _ >=
-                  (s || (s = r("BanzaiConsts"))).STORAGE_FLUSH_INTERVAL;
-              (o && n(),
-                (o || _ == null || _ === 0 || Number.isNaN(_)) &&
+              var o = _,
+                a =
+                  o &&
+                  (u || (u = r("performanceAbsoluteNow")))() - o >=
+                    (s || (s = r("BanzaiConsts"))).STORAGE_FLUSH_INTERVAL;
+              (a && n(),
+                (a || _ == null || _ === 0 || Number.isNaN(_)) &&
                   ((_ = (u || (u = r("performanceAbsoluteNow")))()),
                   (e || (e = r("WebStorage"))).setItemGuarded(
                     t,

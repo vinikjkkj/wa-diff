@@ -6,6 +6,7 @@ __d(
       "NoError",
       "EditWindowExpired",
       "UserReachedMaxMonthlyLimitForNewMessages",
+      "Acp2Restricted",
     ]);
     i.SendFailureErrorCode = e;
   },

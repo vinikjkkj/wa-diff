@@ -580,46 +580,51 @@ __d(
         t.length === 0 &&
         e.throw("incomingMsgParser: to have enc node children");
       var s = !1,
-        u = !1;
+        u = !1,
+        c = !1;
       if (l) {
-        var c = e.maybeChild("unavailable");
-        ((u = (c == null ? void 0 : c.maybeAttrString("hosted")) === "true"),
+        var d = e.maybeChild("unavailable");
+        ((u = (d == null ? void 0 : d.maybeAttrString("hosted")) === "true"),
           (s =
-            (c == null ? void 0 : c.maybeAttrString("type")) === "view_once"));
+            (d == null ? void 0 : d.maybeAttrString("type")) === "view_once"),
+          (c =
+            (d == null ? void 0 : d.maybeAttrString("type")) ===
+            "sender_drop"));
       }
-      var d = e.attrEnum("type", o("WAWebHandleMsgCommon").STANZA_MSG_TYPES),
-        m = e.maybeChild("meta"),
-        p =
-          d === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.poll
-            ? m == null
+      var m = e.attrEnum("type", o("WAWebHandleMsgCommon").STANZA_MSG_TYPES),
+        p = e.maybeChild("meta"),
+        _ =
+          m === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.poll
+            ? p == null
               ? void 0
-              : m.attrEnumOrNullIfUnknown(
+              : p.attrEnumOrNullIfUnknown(
                   "polltype",
                   o("WAWebHandleMsgCommon").POLL_TYPES,
                 )
             : null,
-        _;
+        f;
       o("WAWebStatusGatingUtils").isStatusPrivateMentionsReceiveEnabled() &&
-        (_ =
-          (m == null ? void 0 : m.maybeAttrString("status_mentioned")) ===
+        (f =
+          (p == null ? void 0 : p.maybeAttrString("status_mentioned")) ===
           "true");
-      var f = {
+      var g = {
         isUnavailable: l,
         isViewOnceUnavailable: s,
         isHostedMsgUnavailable: u,
-        type: d,
-        pollType: p,
+        isAcpUnavailable: c,
+        type: m,
+        pollType: _,
         origin:
-          m == null
+          p == null
             ? void 0
-            : m.maybeAttrEnum(
+            : p.maybeAttrEnum(
                 "origin",
                 o("WAWebHandleMsgCommon").STANZA_MSG_ORIGIN,
               ),
         rawTs: e.attrString("t"),
         urlNumber: e.hasChild("url_number"),
         urlText: e.hasChild("url_text"),
-        statusMentioned: _,
+        statusMentioned: f,
         isSkdm:
           t.some(function (e) {
             return (
@@ -632,92 +637,92 @@ __d(
             );
           }),
         appdata:
-          m == null
+          p == null
             ? void 0
-            : m.maybeAttrEnum("appdata", o("WAWebHandleMsgCommon").APPDATA),
+            : p.maybeAttrEnum("appdata", o("WAWebHandleMsgCommon").APPDATA),
       };
-      (m &&
-        m.hasAttr(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR) &&
-        (f.bizSource = m.attrString(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR)),
-        m &&
-          m.hasAttr("thread_msg_id") &&
-          (f.threadMsgId = m.attrString("thread_msg_id")),
-        m &&
-          m.hasAttr("thread_msg_sender_jid") &&
-          (f.threadMsgSenderJid = o("WAWebJidToWid").jidWithTypeToWid(
-            m.attrJidWithType("thread_msg_sender_jid"),
+      (p &&
+        p.hasAttr(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR) &&
+        (g.bizSource = p.attrString(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR)),
+        p &&
+          p.hasAttr("thread_msg_id") &&
+          (g.threadMsgId = p.attrString("thread_msg_id")),
+        p &&
+          p.hasAttr("thread_msg_sender_jid") &&
+          (g.threadMsgSenderJid = o("WAWebJidToWid").jidWithTypeToWid(
+            p.attrJidWithType("thread_msg_sender_jid"),
           )),
-        m && m.hasAttr("target_id") && (f.targetId = m.attrString("target_id")),
-        m &&
-          m.hasAttr("target_sender_jid") &&
-          (f.targetSenderJid = o("WAWebJidToWid").jidWithTypeToWid(
-            m.attrJidWithType("target_sender_jid"),
+        p && p.hasAttr("target_id") && (g.targetId = p.attrString("target_id")),
+        p &&
+          p.hasAttr("target_sender_jid") &&
+          (g.targetSenderJid = o("WAWebJidToWid").jidWithTypeToWid(
+            p.attrJidWithType("target_sender_jid"),
           )),
-        m &&
-          m.hasAttr("target_chat_jid") &&
-          (f.targetChatJid = o("WAWebJidToWid").jidWithTypeToWid(
-            m.attrJidWithType("target_chat_jid"),
+        p &&
+          p.hasAttr("target_chat_jid") &&
+          (g.targetChatJid = o("WAWebJidToWid").jidWithTypeToWid(
+            p.attrJidWithType("target_chat_jid"),
           )),
-        m &&
-          m.hasAttr("target_chat_jid_lid") &&
-          (f.targetChatJidLid = o("WAWebJidToWid").jidWithTypeToWid(
-            m.attrJidWithType("target_chat_jid_lid"),
+        p &&
+          p.hasAttr("target_chat_jid_lid") &&
+          (g.targetChatJidLid = o("WAWebJidToWid").jidWithTypeToWid(
+            p.attrJidWithType("target_chat_jid_lid"),
           )),
-        m &&
-          m.hasAttr("from") &&
-          (f.from = o("WAWebJidToWid").jidWithTypeToWid(
-            m.attrJidWithType("from"),
+        p &&
+          p.hasAttr("from") &&
+          (g.from = o("WAWebJidToWid").jidWithTypeToWid(
+            p.attrJidWithType("from"),
           )),
-        m &&
-          m.hasAttr("capi") &&
-          m.attrString("capi") === "true" &&
-          (f.capi = !0),
-        d === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.event &&
-          m &&
-          m.hasAttr("event_type") &&
-          (f.eventType = m.attrEnum(
+        p &&
+          p.hasAttr("capi") &&
+          p.attrString("capi") === "true" &&
+          (g.capi = !0),
+        m === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.event &&
+          p &&
+          p.hasAttr("event_type") &&
+          (g.eventType = p.attrEnum(
             "event_type",
             o("WAWebHandleMsgCommon").EVENT_TYPES,
           )),
-        m &&
-          m.hasAttr("context_source") &&
-          (f.context_source = m.attrString("context_source")),
-        m &&
-          m.hasAttr("read") &&
+        p &&
+          p.hasAttr("context_source") &&
+          (g.context_source = p.attrString("context_source")),
+        p &&
+          p.hasAttr("read") &&
           r("justknobx")._("1799") &&
-          (f.isReadByPeer = m.attrString("read") === "true"),
-        m &&
-          m.maybeAttrString("is_group_status") === "true" &&
-          (f.isGroupStatus = !0));
-      var g = m == null ? void 0 : m.maybeAttrString("session_scope");
+          (g.isReadByPeer = p.attrString("read") === "true"),
+        p &&
+          p.maybeAttrString("is_group_status") === "true" &&
+          (g.isGroupStatus = !0));
+      var h = p == null ? void 0 : p.maybeAttrString("session_scope");
       if (
-        (g != null &&
-          (f.metaSessionScope = o("WAWebSessionScope").SessionScope.cast(g)),
-        m &&
-          m.maybeAttrString("type") ===
+        (h != null &&
+          (g.metaSessionScope = o("WAWebSessionScope").SessionScope.cast(h)),
+        p &&
+          p.maybeAttrString("type") ===
             o("WAWebScheduledMsgConstants").SCHEDULED_MSG_META_TYPE)
       ) {
-        var h = m.maybeAttrInt("st"),
-          y = m.maybeChild("key"),
-          C = y == null ? void 0 : y.maybeAttrString("rkid");
-        if (h == null || y == null || C == null)
+        var y = p.maybeAttrInt("st"),
+          C = p.maybeChild("key"),
+          b = C == null ? void 0 : C.maybeAttrString("rkid");
+        if (y == null || C == null || b == null)
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
             "parseMessageMeta",
             "scheduled_message stanza missing st/key/rkid",
           );
-        var b = R(y.contentBytes());
-        if (b == null)
+        var v = R(C.contentBytes());
+        if (v == null)
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
             "parseMessageMeta",
             "scheduled_message reveal-key content has unexpected length",
           );
-        f.scheduledMsgMeta = {
-          scheduledTimestampS: h,
-          revealKeyId: C,
-          revealKey: b,
+        g.scheduledMsgMeta = {
+          scheduledTimestampS: y,
+          revealKeyId: b,
+          revealKey: v,
         };
       }
-      return f;
+      return g;
     }
     function R(e) {
       if (

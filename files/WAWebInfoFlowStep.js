@@ -40,6 +40,7 @@ __d(
       "EventInfo",
       "AllEvents",
       "LimitSharing",
+      "Acp2",
       "Notifications",
       "NotifyFor",
       "Search",

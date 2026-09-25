@@ -29,7 +29,7 @@ __d(
       var i = g.get(t);
       ((i != null && i.has(n)) || i == null || i.set(n, []),
         i == null || (a = i.get(n)) == null || a.push(r),
-        h ||
+        h == null &&
           (h = self.setTimeout(function () {
             (o("WALogger").LOG(
               e ||

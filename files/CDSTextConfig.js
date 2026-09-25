@@ -9,6 +9,9 @@ __d(
     "_atz9";
     var e = {
         blueLink: { color: "x1fey0fg", $$css: !0 },
+        blurAdaptiveButtonText: { color: "x6ffxk3", $$css: !0 },
+        blurDarkButtonText: { color: "x4vjzbp", $$css: !0 },
+        blurLightButtonText: { color: "x1svllfq", $$css: !0 },
         disabledText: { color: "x1dntmbh", $$css: !0 },
         inherit_INTERNAL_ONLY: { color: "x1heor9g", $$css: !0 },
         inverseText: { color: "x1qoxp87", $$css: !0 },
@@ -535,6 +538,9 @@ __d(
       q = {
         colors: {
           blueLink: e.blueLink,
+          blurAdaptiveButtonText: e.blurAdaptiveButtonText,
+          blurDarkButtonText: e.blurDarkButtonText,
+          blurLightButtonText: e.blurLightButtonText,
           disabledText: e.disabledText,
           inherit_INTERNAL_ONLY: e.inherit_INTERNAL_ONLY,
           inverseText: e.inverseText,

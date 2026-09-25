@@ -42,7 +42,7 @@ __d(
         d = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         m =
           (r =
-            (a = o("WAWebMsgGetters").getSender(e)) == null
+            (a = o("WAWebMsgGetters").getSender(e.unsafe())) == null
               ? void 0
               : a.equals(d)) != null
             ? r

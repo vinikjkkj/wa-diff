@@ -12,6 +12,7 @@ __d(
     "WAWebChatConstants",
     "WAWebDBMessageRange",
     "WAWebDBQueryAndRemoveMessageHistory",
+    "WAWebLimitSharingModelUtils",
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebMessageRangeUtils",
     "WAWebMsgKey",
@@ -308,6 +309,7 @@ __d(
                       "WAWebChatConstants",
                     ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
                   i.deleteMessages(a),
+                  o("WAWebLimitSharingModelUtils").createAcp2MsgOnChatClear(e),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "deleteAiThreadsForChat",
                     { chatId: e.toString() },

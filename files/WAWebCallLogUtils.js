@@ -13,6 +13,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebProfilePicThumbCollection",
+    "WAWebProfilePicThumbGetters",
     "WAWebUserPrefsMeUser",
     "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipConnectingStatus.react",
@@ -312,8 +313,9 @@ __d(
       var i = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
           e,
         ),
-        l = (i == null ? void 0 : i.img) != null && i.img !== "";
-      return (l && (n += D), n);
+        l = o("WAWebProfilePicThumbGetters").getMaybeImg(i),
+        s = l != null && l !== "";
+      return (s && (n += D), n);
     }
     function $(e, t, n) {
       var r,

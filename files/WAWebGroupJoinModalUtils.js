@@ -13,6 +13,7 @@ __d(
     "WAWebMembershipApprovalRequestAction",
     "WAWebModalManager",
     "WAWebNetworkStatus",
+    "WAWebProfilePicThumbGetters",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumOppositeVisibleIdentificationType",
@@ -329,14 +330,18 @@ __d(
       var n = [],
         r = [];
       (e.map(function (e) {
-        e.contact.getProfilePicThumb().img != null ? n.push(e) : r.push(e);
+        o("WAWebProfilePicThumbGetters").getImg(
+          e.contact.getProfilePicThumb(),
+        ) != null
+          ? n.push(e)
+          : r.push(e);
       }),
         n.sort(C),
         (r = r.slice(0, b)));
-      var o = n.concat(r);
-      o = o.slice(0, v);
-      var a = Math.max(0, (t != null ? t : e.length) - o.length);
-      return { sortedContacts: o, hiddenPileCount: a };
+      var a = n.concat(r);
+      a = a.slice(0, v);
+      var i = Math.max(0, (t != null ? t : e.length) - a.length);
+      return { sortedContacts: a, hiddenPileCount: i };
     }
     function R() {
       return r("WAWebNetworkStatus").online

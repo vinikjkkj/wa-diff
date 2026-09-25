@@ -2,8 +2,8 @@ __d(
   "WAWebBizBroadcastProOnboardingStatus",
   [
     "WAWebBizBroadcastEligibilityCache",
+    "WAWebBizBroadcastProEligibilityEvent",
     "WAWebBizBroadcastProOnboardingStatusType",
-    "WAWebEventEmitter",
     "WAWebWamEnumBbTierType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -11,12 +11,16 @@ __d(
     var e = null,
       s = !1,
       u = !1,
-      c = !1,
-      d = new (r("WAWebEventEmitter"))();
-    function m(t) {
-      ((e = t), (s = !0), (u = !0), d.trigger("change"));
+      c = !1;
+    function d(t) {
+      ((e = t),
+        (s = !0),
+        (u = !0),
+        o(
+          "WAWebBizBroadcastProEligibilityEvent",
+        ).bizBroadcastProEligibilityEmitter.trigger("change"));
     }
-    function p(t) {
+    function m(t) {
       var n;
       if (!u) {
         var r =
@@ -29,10 +33,15 @@ __d(
             ? n
             : o("WAWebBizBroadcastProOnboardingStatusType")
                 .BBProOnboardingStatus.NOT_ELIGIBLE;
-        ((s = !0), r !== e && ((e = r), d.trigger("change")));
+        ((s = !0),
+          r !== e &&
+            ((e = r),
+            o(
+              "WAWebBizBroadcastProEligibilityEvent",
+            ).bizBroadcastProEligibilityEmitter.trigger("change")));
       }
     }
-    function _() {
+    function p() {
       if (e == null && !s) {
         var t;
         s = !0;
@@ -54,47 +63,52 @@ __d(
       }
       return e;
     }
-    function f() {
-      return _() != null;
+    function _() {
+      return p() != null;
     }
-    function g() {
+    function f() {
       return (
-        _() ===
+        p() ===
         o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
           .ELIGIBLE_TO_ONBOARD
       );
     }
-    function h() {
+    function g() {
       return (
-        _() ===
+        p() ===
         o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
           .ONBOARDED
       );
     }
-    function y() {
-      return h()
+    function h() {
+      return g()
         ? o("WAWebWamEnumBbTierType").BB_TIER_TYPE.PRO
         : o("WAWebWamEnumBbTierType").BB_TIER_TYPE.CORE;
     }
-    function C() {
+    function y() {
       return c;
     }
-    function b() {
-      ((c = !0), d.trigger("change"));
+    function C() {
+      ((c = !0),
+        o(
+          "WAWebBizBroadcastProEligibilityEvent",
+        ).bizBroadcastProEligibilityEmitter.trigger("change"));
     }
     ((l.BBProOnboardingStatus = o(
       "WAWebBizBroadcastProOnboardingStatusType",
     ).BBProOnboardingStatus),
-      (l.bizBroadcastProNuxStateEmitter = d),
-      (l.debugSetBizBroadcastProOnboardingStatus = m),
-      (l.updateBizBroadcastProEligibility = p),
-      (l.getBizBroadcastProNuxOnboardingStatus = _),
-      (l.isBizBroadcastProNuxOnboardingStatusResolved = f),
-      (l.isBizBroadcastProEligibleToOnboard = g),
-      (l.isBizBroadcastProOnboarded = h),
-      (l.getBizBroadcastProductTier = y),
-      (l.isBizBroadcastProNuxOnboardingDismissed = C),
-      (l.dismissBizBroadcastProNuxOnboarding = b));
+      (l.bizBroadcastProNuxStateEmitter = o(
+        "WAWebBizBroadcastProEligibilityEvent",
+      ).bizBroadcastProEligibilityEmitter),
+      (l.debugSetBizBroadcastProOnboardingStatus = d),
+      (l.updateBizBroadcastProEligibility = m),
+      (l.getBizBroadcastProNuxOnboardingStatus = p),
+      (l.isBizBroadcastProNuxOnboardingStatusResolved = _),
+      (l.isBizBroadcastProEligibleToOnboard = f),
+      (l.isBizBroadcastProOnboarded = g),
+      (l.getBizBroadcastProductTier = h),
+      (l.isBizBroadcastProNuxOnboardingDismissed = y),
+      (l.dismissBizBroadcastProNuxOnboarding = C));
   },
   98,
 );

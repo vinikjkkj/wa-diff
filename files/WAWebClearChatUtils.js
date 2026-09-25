@@ -5,6 +5,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebChatClearBridge",
     "WAWebDBUpdateChatTable",
+    "WAWebLimitSharingModelUtils",
     "WAWebMaybeClearChatAiThreads",
     "WAWebNoop",
     "WAWebStatusCollection",
@@ -15,7 +16,9 @@ __d(
       if (
         e &&
         t &&
-        (e.deleteMessages(t), e.id && e.id.isGroup() && t.length > 0)
+        (e.deleteMessages(t),
+        o("WAWebLimitSharingModelUtils").createAcp2MsgOnChatClear(e.id),
+        e.id && e.id.isGroup() && t.length > 0)
       ) {
         var n = o("WAWebStatusCollection").StatusCollection.get(e.id);
         (n == null || n.revokeMsgs(t),

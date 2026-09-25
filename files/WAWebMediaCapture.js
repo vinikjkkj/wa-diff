@@ -56,112 +56,113 @@ __d(
       );
     function g(e) {
       var t,
-        a = e.featureSurface,
-        i = e.mediaConstraints,
-        l = e.targetWindow,
-        c = e.timeoutCallback,
-        m = e.timeoutLimit,
-        p = e.type,
-        g,
-        C = !1,
-        v = null,
+        a = e.cameraFacingMode,
+        i = e.featureSurface,
+        l = e.mediaConstraints,
+        c = e.targetWindow,
+        m = e.timeoutCallback,
+        p = e.timeoutLimit,
+        g = e.type,
+        C,
+        v = !1,
         R = null,
         L = null,
-        E = m != null ? m : f[p];
-      function k() {
-        v != null && (self.clearTimeout(v), (v = null));
-      }
+        E = null,
+        k = p != null ? p : f[g];
       function I() {
-        (k(),
-          !C &&
-            E < Number.POSITIVE_INFINITY &&
-            (v = self.setTimeout(function () {
-              if (((v = null), !C))
-                if (c) c();
-                else {
-                  var e = S(p, a, L);
-                  e != null &&
-                    (T(),
-                    (R = e),
-                    o("WAWebModalManager").ModalManager.on("open_modal", x),
-                    o("WAWebModalManager").ModalManager.on("close_modal", D),
-                    o("WAWebModalManager").ModalManager.open(e));
-                }
-            }, E)));
+        R != null && (self.clearTimeout(R), (R = null));
       }
       function T() {
-        (o("WAWebModalManager").ModalManager.off("open_modal", x),
-          o("WAWebModalManager").ModalManager.off("close_modal", D));
+        (I(),
+          !v &&
+            k < Number.POSITIVE_INFINITY &&
+            (R = self.setTimeout(function () {
+              if (((R = null), !v))
+                if (m) m();
+                else {
+                  var e = S(g, i, E);
+                  e != null &&
+                    (D(),
+                    (L = e),
+                    o("WAWebModalManager").ModalManager.on("open_modal", $),
+                    o("WAWebModalManager").ModalManager.on("close_modal", x),
+                    o("WAWebModalManager").ModalManager.open(e));
+                }
+            }, k)));
       }
       function D() {
-        ((R = null), T());
+        (o("WAWebModalManager").ModalManager.off("open_modal", $),
+          o("WAWebModalManager").ModalManager.off("close_modal", x));
       }
-      function x(e) {
-        e !== R && D();
+      function x() {
+        ((L = null), D());
       }
-      function $() {
-        (k(), R != null && (D(), o("WAWebModalManager").ModalManager.close()));
+      function $(e) {
+        e !== L && x();
       }
-      var P = i != null ? i : y(p),
-        N = l == null || (t = l.navigator) == null ? void 0 : t.mediaDevices,
-        M =
-          p ===
+      function P() {
+        (I(), L != null && (x(), o("WAWebModalManager").ModalManager.close()));
+      }
+      var N = l != null ? l : y(g, a),
+        M = c == null || (t = c.navigator) == null ? void 0 : t.mediaDevices,
+        w =
+          g ===
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
               .CAMERA ||
-          p ===
+          g ===
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
               .CAMERA_AND_MICROPHONE ||
-          p ===
+          g ===
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
               .MICROPHONE
-            ? l != null && N != null
+            ? c != null && M != null
               ? function (e) {
-                  return N.getUserMedia(e);
+                  return M.getUserMedia(e);
                 }
               : o("WAGetUserMedia").getUserMedia
-            : p ===
+            : g ===
                 o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                   .DESKTOP
-              ? l != null && N != null
+              ? c != null && M != null
                 ? function (e) {
-                    return N.getDisplayMedia(e);
+                    return M.getDisplayMedia(e);
                   }
                 : o("WAGetDisplayMedia").getDisplayMedia
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      p,
+                      g,
                   );
                 })(),
-        w = n("asyncToGeneratorRuntime")
+        A = n("asyncToGeneratorRuntime")
           .asyncToGenerator(function* () {
             var e;
-            ((L = yield b(p)), I());
+            ((E = yield b(g)), T());
             var t =
-                (e = l == null ? void 0 : l.navigator) != null ? e : navigator,
+                (e = c == null ? void 0 : c.navigator) != null ? e : navigator,
               a = !1;
             if (
-              p ===
+              g ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .MICROPHONE
             ) {
               var i = yield o(
                   "WAWebMediaPermissionsUtils",
                 ).checkMediaPermissionState("microphone", t),
-                c = i.denied;
-              a = c;
+                l = i.denied;
+              a = l;
             } else if (
-              p ===
+              g ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA
             ) {
               var m = yield o(
                   "WAWebMediaPermissionsUtils",
                 ).checkMediaPermissionState("camera", t),
-                _ = m.denied;
-              a = _;
+                p = m.denied;
+              a = p;
             } else
-              p ===
+              g ===
                 o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                   .CAMERA_AND_MICROPHONE &&
                 (a = yield o(
@@ -183,11 +184,11 @@ __d(
               var t = e.failCount,
                 r = e.retry;
               return new (d || (d = n("Promise")))(function (e, n) {
-                if ((I(), C)) {
+                if ((T(), v)) {
                   e(void 0);
                   return;
                 }
-                if (!M)
+                if (!w)
                   (o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -196,18 +197,18 @@ __d(
                   ),
                     n(new (o("WAWebGetUserMediaErrors").GetUserMediaError)()));
                 else {
-                  var a = P[t];
-                  M(a)
+                  var a = N[t];
+                  w(a)
                     .then(function (e) {
-                      if (C) {
+                      if (v) {
                         h(e);
                         return;
                       }
-                      return ((g = e), e);
+                      return ((C = e), e);
                     })
                     .then(e)
                     .catch(function (e) {
-                      if (e.name === "NotReadableError" && P[t + 1]) {
+                      if (e.name === "NotReadableError" && N[t + 1]) {
                         r();
                         return;
                       }
@@ -222,11 +223,11 @@ __d(
               n = _[t] || o("WAWebGetUserMediaErrors").GetUserMediaError;
             throw new n(e instanceof Error ? e.message : void 0);
           })
-          .finally($);
+          .finally(P);
       return {
-        asyncStream: w,
+        asyncStream: A,
         disposeStream: function () {
-          ((C = !0), $(), g && h(g));
+          ((v = !0), P(), C && h(C));
         },
       };
     }
@@ -248,14 +249,14 @@ __d(
             .sendLogs("media-capture-track-stop-failed");
         }
     }
-    function y(e) {
-      var t = [];
+    function y(e, t) {
+      var r = [];
       e: {
         if (
           e ===
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType.CAMERA
         ) {
-          t.push.apply(t, C(!1));
+          r.push.apply(r, C(!1, t));
           break e;
         }
         if (
@@ -263,7 +264,7 @@ __d(
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
             .CAMERA_AND_MICROPHONE
         ) {
-          t.push.apply(t, C(!0));
+          r.push.apply(r, C(!0, t));
           break e;
         }
         if (
@@ -271,17 +272,17 @@ __d(
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
             .MICROPHONE
         ) {
-          t.push({ audio: !0 });
+          r.push({ audio: !0 });
           break e;
         }
         if (
           e ===
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType.DESKTOP
         ) {
-          var r = C(!1);
-          t.push.apply(
-            t,
-            r.map(function (e) {
+          var a = C(!1);
+          r.push.apply(
+            r,
+            a.map(function (e) {
               return babelHelpers.extends({}, e, {
                 preferCurrentTab: !1,
                 selfBrowserSurface: "exclude",
@@ -299,17 +300,27 @@ __d(
         );
       }
       return n("cr:19603") != null
-        ? n("cr:19603").addSelectedDeviceConstraints(e, t)
-        : t;
+        ? n("cr:19603").addSelectedDeviceConstraints(e, r)
+        : r;
     }
-    function C(e) {
-      var t = o("WAWebABProps").getABPropConfigValue("web_image_max_edge"),
-        n = 1280,
-        r = 720;
+    function C(e, t) {
+      var n = o("WAWebABProps").getABPropConfigValue("web_image_max_edge"),
+        r = 1280,
+        a = 720,
+        i = t != null ? { facingMode: { ideal: t } } : void 0;
       return [
-        { video: { width: t, height: t }, audio: e },
-        { video: { width: Math.min(n, t), height: Math.min(r, t) }, audio: e },
-        { video: !0, audio: e },
+        {
+          video: babelHelpers.extends({}, i, { width: n, height: n }),
+          audio: e,
+        },
+        {
+          video: babelHelpers.extends({}, i, {
+            width: Math.min(r, n),
+            height: Math.min(a, n),
+          }),
+          audio: e,
+        },
+        { video: i != null ? i : !0, audio: e },
       ];
     }
     function b(e) {

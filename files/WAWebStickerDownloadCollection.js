@@ -14,7 +14,8 @@ __d(
       u,
       c,
       d,
-      m = (function (t) {
+      m,
+      p = (function (t) {
         function r() {
           return t.apply(this, arguments) || this;
         }
@@ -42,7 +43,16 @@ __d(
               (this.$StickerDownloadCollectionImpl$p_1 = o(
                 "WAWebIdleTaskRunner",
               ).IdleCallbackTasks.enqueue(function () {
-                e.$StickerDownloadCollectionImpl$p_3();
+                e.$StickerDownloadCollectionImpl$p_3().catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "StickerDownloadCollection save task failed",
+                        ])),
+                    )
+                    .sendLogs(String(e));
+                });
               }));
           }),
           (a.$StickerDownloadCollectionImpl$p_3 = (function () {
@@ -51,8 +61,8 @@ __d(
                 return { id: e.id, timestamp: o("WATimeUtils").unixTime() };
               });
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[StickerDownload] saving to DB, count=",
                     "",
                   ])),
@@ -64,8 +74,8 @@ __d(
                   ).getStickerDownloadTable(),
                   n = yield t.count();
                 (o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[StickerDownload] before save, DB count=",
                       "",
                     ])),
@@ -75,8 +85,8 @@ __d(
                   yield t.bulkCreateOrReplace(e),
                   (n = yield t.count()),
                   o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[StickerDownload] after save, DB count=",
                         "",
                       ])),
@@ -85,8 +95,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "StickerDownloadCollection attempt to save to database failed",
                       ])),
                   )
@@ -101,8 +111,8 @@ __d(
           r
         );
       })(o("WAWebStickerPackCollectionMd").StickerPackCollection),
-      p = new m();
-    l.StickerDownloadCollection = p;
+      _ = new p();
+    l.StickerDownloadCollection = _;
   },
   98,
 );

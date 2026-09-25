@@ -202,12 +202,21 @@ __d(
       return f(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+        subtype: "acp2_system_message",
+        acp2Setting: t,
+        templateParams: [],
+      });
+    }
+    function C(e, t) {
+      return f(e, {
+        type: "notification_template",
+        kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
         subtype: "limit_sharing_system_message",
         limitSharing: t,
         templateParams: [],
       });
     }
-    function C(e) {
+    function b(e) {
       return f(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -225,8 +234,9 @@ __d(
       (l.genDisappearingModeUnsupportedSystemMsg = _),
       (l.genNotificationMsg = f),
       (l.genContactInfoCardMsg = g),
-      (l.genLimitSharingUpdateSystemMsg = y),
-      (l.genMmSignalSharingSystemMsg = C));
+      (l.genAcp2UpdateSystemMsg = y),
+      (l.genLimitSharingUpdateSystemMsg = C),
+      (l.genMmSignalSharingSystemMsg = b));
   },
   98,
 );

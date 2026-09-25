@@ -11,7 +11,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.domain;
-          if (!n) {
+          if (n == null || n === "") {
             var r = yield o("WAWebUserPrefsMultiDevice").getRoutingInfo();
             n = r ? r.domain : s.fb;
           }

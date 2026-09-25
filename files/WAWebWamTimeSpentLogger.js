@@ -67,16 +67,15 @@ __d(
                 return;
               ((n.current = r.pageX), (a.current = r.pageY));
             }
-            var s = Date.now(),
-              u = s - t.current;
-            u > 0
-              ? ((t.current = s),
-                e == null || e.update(t.current),
-                o == null || o.update(t.current))
-              : u < d && (t.current = s);
+            var s = f(t.current);
+            s != null &&
+              ((t.current = s.now),
+              s.shouldUpdateArrays &&
+                (e == null || e.update(t.current),
+                o == null || o.update(t.current)));
           }
         },
-        _ = function () {
+        d = function () {
           (i.current &&
             (i.current.ship(function (e) {
               o("WAWebTimeSpentLoggingBitArray").stashBitarrayData(
@@ -123,7 +122,7 @@ __d(
         o("WAWebUseIdleSessionRotation").useIdleSessionRotation(
           o("WAWebPathfinderLogger").resetPathfinderSessionState,
         ),
-        (e = o("useWAWebListener")).useListener(window, "beforeunload", _),
+        (e = o("useWAWebListener")).useListener(window, "beforeunload", d),
         e.useListener(
           window,
           "blur",
@@ -151,6 +150,15 @@ __d(
         ),
         null
       );
+    }
+    function f(e) {
+      var t = Date.now(),
+        n = t - e;
+      return n > 0
+        ? { now: t, shouldUpdateArrays: !0 }
+        : n < d
+          ? { now: t, shouldUpdateArrays: !1 }
+          : null;
     }
     l.default = _;
   },

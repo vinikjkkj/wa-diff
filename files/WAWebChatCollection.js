@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebBaseCollection",
+    "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastProOnboardingStatus",
     "WAWebChatComparator",
     "WAWebChatGetters",
@@ -121,7 +122,7 @@ __d(
             this.$ChatCollectionImpl$p_2 ||
               (this.listenTo(
                 this,
-                "change:t change:pin change:id change:isLocked change:endOfHistoryTransferType change:isParentGroup change:msgs change:createdLocally change:msgsLength change:bbProStatus",
+                "change:t change:pin change:id change:isLocked change:endOfHistoryTransferType change:isParentGroup change:msgs change:createdLocally change:msgsLength change:bbProEntrypointEnabled",
                 this.sort,
               ),
               t === !0 && this.sort(),
@@ -177,13 +178,15 @@ __d(
       (u.comparator = r("WAWebChatComparator")));
     var c = new u();
     function d(e) {
-      var t = o(
-        "WAWebBizBroadcastProOnboardingStatus",
-      ).getBizBroadcastProNuxOnboardingStatus();
-      t != null &&
-        o("WAWebChatGetters").getIsBroadcast(e) &&
-        e.bbProStatus !== t &&
-        (e.bbProStatus = t);
+      if (o("WAWebChatGetters").getIsBroadcast(e)) {
+        var t = o(
+            "WAWebBizBroadcastProOnboardingStatus",
+          ).getBizBroadcastProNuxOnboardingStatus(),
+          n = o(
+            "WAWebBizBroadcastDeviceCapabilityCommon",
+          ).isBizBroadcastProEntrypointEnabledForStatus(t);
+        e.bbProEntrypointEnabled !== n && (e.bbProEntrypointEnabled = n);
+      }
     }
     ((l.ChatCollectionImpl = u), (l.ChatCollection = c));
   },

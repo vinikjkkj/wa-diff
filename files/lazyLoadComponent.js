@@ -13,16 +13,18 @@ __d(
       u,
       c = u || (u = o("react")),
       d = new Map();
-    function m(e, t) {
-      d.set(e, t);
+    function m(e, t, n) {
+      var r = d.get(e);
+      (r == null && ((r = new Map()), d.set(e, r)), r.set(t, n));
     }
-    function p(e) {
-      return d.get(e);
+    function p(e, t) {
+      var n;
+      return (n = d.get(e)) == null ? void 0 : n.get(t);
     }
-    function _(t) {
-      var r = p(t);
-      if (r) return r;
-      function a(r) {
+    function _(t, r) {
+      var a = p(t, r);
+      if (a) return a;
+      function i(r) {
         var a = o("react-compiler-runtime").c(7),
           i,
           l;
@@ -51,42 +53,51 @@ __d(
           m
         );
       }
-      a.displayName = "lazyLoadComponent(" + t.getModuleId() + ")";
-      var i = a;
+      i.displayName = "lazyLoadComponent(" + t.getModuleId() + ")";
+      var l = i;
       if (n("cr:38536") != null) {
-        var l = function (t) {
+        var u = function (t) {
             var e = o("react-compiler-runtime").c(6),
               n,
-              r;
+              a;
             e[0] !== t
-              ? ((r = t.ref),
+              ? ((a = t.ref),
                 (n = babelHelpers.objectWithoutPropertiesLoose(t, s)),
                 (e[0] = t),
                 (e[1] = n),
-                (e[2] = r))
-              : ((n = e[1]), (r = e[2]));
-            var i = r === void 0 ? void 0 : r,
-              l;
+                (e[2] = a))
+              : ((n = e[1]), (a = e[2]));
+            var l = a === void 0 ? void 0 : a,
+              u;
             return (
-              e[3] !== n || e[4] !== i
-                ? ((l = c.jsx(d, {
-                    description: u,
-                    moduleName: u,
-                    children: c.jsx(a, babelHelpers.extends({}, n, { ref: i })),
+              e[3] !== n || e[4] !== l
+                ? ((u = c.jsx(_, {
+                    description: d,
+                    fallback: g,
+                    fallbackComponent: r,
+                    moduleName: d,
+                    children: c.jsx(i, babelHelpers.extends({}, n, { ref: l })),
                   })),
                   (e[3] = n),
-                  (e[4] = i),
-                  (e[5] = l))
-                : (l = e[5]),
-              l
+                  (e[4] = l),
+                  (e[5] = u))
+                : (u = e[5]),
+              u
             );
           },
-          u = t.getModuleId(),
-          d = n("cr:38536");
-        ((l.displayName = "lazyLoadComponent(" + u + ")[ErrorBoundary]"),
-          (i = l));
+          d = t.getModuleId(),
+          _ = n("cr:38536"),
+          f = r,
+          g =
+            f == null
+              ? void 0
+              : function (e, t) {
+                  return c.jsx(f, { error: e, moduleName: t });
+                };
+        ((u.displayName = "lazyLoadComponent(" + d + ")[ErrorBoundary]"),
+          (l = u));
       }
-      return (m(t, i), i);
+      return (m(t, r, l), l);
     }
     l.default = _;
   },

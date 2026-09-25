@@ -12,6 +12,7 @@ __d(
     "WAWebJidToWid",
     "WAWebLidMigrationUtils",
     "WAWebProfilePicThumbCollection",
+    "WAWebProfilePicThumbGetters",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -183,7 +184,10 @@ __d(
               h = o(
                 "WAWebProfilePicThumbCollection",
               ).ProfilePicThumbCollection.get(p.id),
-              y = (_ = h == null ? void 0 : h.img) != null ? _ : null;
+              y =
+                (_ = o("WAWebProfilePicThumbGetters").getMaybeImg(h)) != null
+                  ? _
+                  : null;
             if (p.id.isGroup()) {
               var C, b, v;
               m.push({
