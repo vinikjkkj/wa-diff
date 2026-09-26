@@ -182,7 +182,17 @@ __d(
                 sentBytes: 0,
               },
               a = e.performHandshake(m, m, m);
-            return ($(e, t, o, a, r), yield D(e, t, n, o, r), o);
+            return (
+              $({
+                handshakeID: r,
+                metrics: o,
+                result: a,
+                session: e,
+                socket: t,
+              }),
+              yield D(e, t, n, o, r),
+              o
+            );
           },
         )),
         T.apply(this, arguments)
@@ -211,20 +221,34 @@ __d(
               }
               a.receivedBytes += s.length;
               var u = e.performHandshake(m, s, m);
-              return ($(e, t, a, u, i), D(e, t, n, a, i));
+              return (
+                $({
+                  handshakeID: i,
+                  metrics: a,
+                  result: u,
+                  session: e,
+                  socket: t,
+                }),
+                D(e, t, n, a, i)
+              );
             }
           },
         )),
         x.apply(this, arguments)
       );
     }
-    function $(e, t, n, a, i) {
+    function $(e) {
+      var t = e.handshakeID,
+        n = e.metrics,
+        a = e.result,
+        i = e.session,
+        l = e.socket;
       ((n.handshakeSteps += 1),
         (n.finalAdditionalErrorCode = a.additionalErrorCode));
-      var l = e.getState();
+      var s = i.getState();
       if (
-        ((n.sentBytes += w(t, a.sendBuffer, i, n.handshakeSteps)),
-        l === o("WATheiaRaTls").WATheiaRaTlsState.ERROR.valueOf())
+        ((n.sentBytes += w(l, a.sendBuffer, t, n.handshakeSteps)),
+        s === o("WATheiaRaTls").WATheiaRaTlsState.ERROR.valueOf())
       )
         throw r("err")(
           "RA-TLS handshake failed with code " + String(a.additionalErrorCode),

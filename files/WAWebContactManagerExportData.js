@@ -1,6 +1,7 @@
 __d(
   "WAWebContactManagerExportData",
   [
+    "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
@@ -13,44 +14,53 @@ __d(
     }
     function s(e) {
       var t,
-        n = o("WAWebContactCollection").ContactCollection.get(e.chatJid),
-        r = o("WAWebNoteCollection").NoteCollection.maybeGetNoteByChatJid(
+        n,
+        r,
+        a = o("WAWebContactCollection").ContactCollection.get(e.chatJid),
+        i = o("WAWebNoteCollection").NoteCollection.maybeGetNoteByChatJid(
           e.chatJid,
         ),
-        a = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
+        l = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
           String(e.chatJid),
           o("WAWebListItemParentType").LabelItemParentType.Chat,
         ),
-        i = [];
-      for (var l of a) {
-        var s,
-          u =
-            (s = o("WAWebLabelCollection").LabelCollection.get(l)) == null
+        s = [];
+      for (var u of l) {
+        var c,
+          d =
+            (c = o("WAWebLabelCollection").LabelCollection.get(u)) == null
               ? void 0
-              : s.name;
-        u != null && i.push(u);
+              : c.name;
+        d != null && s.push(d);
       }
       return {
         displayName:
-          n != null ? o("WAWebFrontendContactGetters").getDisplayName(n) : "",
+          a != null ? o("WAWebFrontendContactGetters").getDisplayName(a) : "",
         phone:
-          n != null
-            ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(n)
+          a != null
+            ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(a)
                 .displayName
             : "",
         username:
-          n != null
-            ? o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(n)
+          a != null
+            ? o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(a)
             : "",
         email: e.email,
         leadStage: e.leadStage,
         acquisitionSource: e.acquisitionSource,
-        notes: (t = r == null ? void 0 : r.content) != null ? t : null,
+        notes: (t = i == null ? void 0 : i.content) != null ? t : null,
         birthday: e.birthday,
         lastOrder: e.lastOrder,
+        lastMessage:
+          (n =
+            (r = o("WAWebChatCollection").ChatCollection.get(e.chatJid)) == null
+              ? void 0
+              : r.t) != null
+            ? n
+            : null,
         address: e.address,
         altPhoneNumbers: e.altPhoneNumbers,
-        lists: i,
+        lists: s,
         createdAt: e.createdAt,
         modifiedAt: e.modifiedAt,
       };

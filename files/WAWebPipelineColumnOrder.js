@@ -3,6 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebChatCollection",
+    "WAWebContactGetters",
+    "WAWebContactManagerContactName",
     "WAWebCustomerContactResolver",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
@@ -52,8 +54,7 @@ __d(
         candidateLid: a.user,
         chatJid: e,
         lastMessageT: r == null ? void 0 : r.t,
-        sortName:
-          i != null ? o("WAWebFrontendContactGetters").getDisplayName(i) : "",
+        sortName: i != null ? p(i) : "",
       };
     }
     function m(t) {
@@ -73,6 +74,21 @@ __d(
           null
         );
       }
+    }
+    function p(e) {
+      var t,
+        n = o("WAWebFrontendContactGetters").getFormattedUserAndType(e),
+        r = n.displayName,
+        a = n.type;
+      return (t = o("WAWebContactManagerContactName").resolveContactManagerName(
+        {
+          displayName: r,
+          notifyName: o("WAWebContactGetters").getNotifyName(e),
+          type: a,
+        },
+      )) != null
+        ? t
+        : r;
     }
     ((l.comparePipelineSortKeys = u), (l.orderColumnMembers = c));
   },

@@ -17,25 +17,25 @@ __d(
       s = 2e3,
       u = 10,
       c = 100;
-    function d(e, t, n, r) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-                "WAWebSyncdNetCallbacksApi",
-              ).uploadSyncExternalPatch(e),
-              i = yield p(a, e);
-            return f({
-              externalMutations: i,
-              keyId: t,
-              patchMac: r,
-              snapshotMac: n,
-            });
-          },
-        )),
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.activeSyncKeyId,
+            n = e.mutationsBlob,
+            r = e.patchMac,
+            a = e.snapshotMac,
+            i = yield o("WAWebSyncdNetCallbacksApi").uploadSyncExternalPatch(n),
+            l = yield p(i, n);
+          return f({
+            externalMutations: l,
+            keyId: t,
+            patchMac: r,
+            snapshotMac: a,
+          });
+        })),
         m.apply(this, arguments)
       );
     }

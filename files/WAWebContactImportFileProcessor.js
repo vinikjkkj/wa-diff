@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebContactImportCSVParsingUtils",
+    "WAWebContactImportCSVValidation",
     "WAWebContactImportContactVerifier",
     "WAWebContactImportFileTypeValidator",
     "WAWebContactImportSmartColumnDetection",
@@ -84,32 +85,31 @@ __d(
       return t != null ? { data: t.data, index: t.index } : C(e, $);
     }
     function S(e, t) {
-      var n = [],
-        r = t(e);
-      if (r == null)
+      var n = [];
+      if (t == null)
         throw new (o(
           "WAWebContactImportTypedError",
         ).WAWebContactImportTypedError)(
           o("WAWebContactImportTypedError").FileError.FORMAT,
         );
-      for (var a = 0, i = r.index + 1; i < e.length; i++) {
-        var l = e[i],
-          s = R(l);
-        if (s !== 0) {
-          a = Math.max(a, s);
+      for (var r = 0, a = t.index + 1; a < e.length; a++) {
+        var i = e[a],
+          l = R(i);
+        if (l !== 0) {
+          r = Math.max(r, l);
           for (
-            var u = { data: {}, originalRowIndex: i }, c = 0;
-            c < r.data.length;
-            c++
+            var s = { data: {}, originalRowIndex: a }, u = 0;
+            u < t.data.length;
+            u++
           )
-            if (r.data[c]) {
-              var d = l[c];
-              u.data[r.data[c]] = d != null ? String(d) : "";
+            if (t.data[u]) {
+              var c = i[u];
+              s.data[t.data[u]] = c != null ? String(c) : "";
             }
-          n.push(u);
+          n.push(s);
         }
       }
-      return { rows: n, shape: { headerRow: r.data, maxPopulatedRowWidth: a } };
+      return { rows: n, shape: { headerRow: t.data, maxPopulatedRowWidth: r } };
     }
     function R(e) {
       for (var t = e.length - 1; t >= 0; t--) {
@@ -127,34 +127,65 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.arrayBuffer(),
             r = yield o("WAWebContactImportXLSXParsingUtils").loadXLSX(n);
-          return S(r, t);
+          return S(r, t(r));
         })),
         E.apply(this, arguments)
       );
     }
-    function k(e, t) {
+    function k(e, t, n, r) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.text(),
-            r = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(n);
-          return S(r.data, t);
-        })),
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield e.text(),
+              i = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(a),
+              l = i,
+              s = null;
+            if (n) {
+              var u =
+                r == null
+                  ? { result: i, separator: null }
+                  : yield o(
+                      "WAWebContactImportCSVValidation",
+                    ).recoverUndetectableCSVDelimiter(a, i, r);
+              ((l = u.result),
+                (s = u.separator),
+                o("WAWebContactImportCSVValidation").validateCSVParseResult(
+                  a,
+                  l,
+                ));
+            }
+            var c = t(l.data);
+            return (
+              n &&
+                c != null &&
+                o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
+                  a,
+                  l,
+                  c.index,
+                  s,
+                ),
+              S(l.data, c)
+            );
+          },
+        )),
         I.apply(this, arguments)
       );
     }
-    function T(e, t, n) {
+    function T(e, t, n, r, o) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return n === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
-            ? L(e, t)
-            : k(e, t);
-        })),
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            return n === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
+              ? L(e, t)
+              : k(e, t, r, a);
+          },
+        )),
         D.apply(this, arguments)
       );
     }
@@ -373,7 +404,7 @@ __d(
             t.size,
           );
           try {
-            var l;
+            var l, f;
             (h(t),
               o("WALogger").LOG(
                 s ||
@@ -385,8 +416,8 @@ __d(
                 i,
                 t.name,
               ));
-            var f = r.smartColumnDetectionEnabled === !0,
-              g = f
+            var g = r.smartColumnDetectionEnabled === !0,
+              b = g
                 ? v
                 : function (e) {
                     return C(
@@ -395,9 +426,15 @@ __d(
                         .isPhoneFieldName,
                     );
                   },
-              b = yield T(t, g, a),
-              S = b.rows,
-              R = b.shape;
+              S = yield T(
+                t,
+                b,
+                a,
+                r.rejectMalformedCSV === !0,
+                (l = r.findCSVHeaderForDelimiterRecovery) != null ? l : null,
+              ),
+              R = S.rows,
+              L = S.shape;
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -405,12 +442,12 @@ __d(
                   " rows (",
                   ")",
                 ])),
-              S.length,
+              R.length,
               i,
             ),
-              n.onFileShape == null || n.onFileShape(R));
-            var L = (l = r.fileRowLimit) != null ? l : r.recipientLimit;
-            (y(S, L),
+              n.onFileShape == null || n.onFileShape(L));
+            var E = (f = r.fileRowLimit) != null ? f : r.recipientLimit;
+            (y(R, E),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -418,11 +455,11 @@ __d(
                     "/",
                     "",
                   ])),
-                S.length,
-                L,
+                R.length,
+                E,
               ));
-            var E = f ? yield P(S, n) : S,
-              k = yield F(E);
+            var k = g ? yield P(R, n) : R,
+              I = yield F(k);
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -430,18 +467,18 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              k.validContacts.length,
-              k.errors.length,
+              I.validContacts.length,
+              I.errors.length,
             );
-            var I =
+            var D =
                 r.skipWhatsAppVerification === !0
                   ? {
                       nonWhatsAppUserErrors: [],
-                      verifiedContacts: k.validContacts,
+                      verifiedContacts: I.validContacts,
                     }
-                  : yield q(k.validContacts, r.verifyOptions),
-              D = I.nonWhatsAppUserErrors,
-              $ = I.verifiedContacts;
+                  : yield q(I.validContacts, r.verifyOptions),
+              $ = D.nonWhatsAppUserErrors,
+              N = D.verifiedContacts;
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -449,11 +486,11 @@ __d(
                   "+ ",
                   "-",
                 ])),
+              N.length,
               $.length,
-              D.length,
             );
-            var N = B([].concat(k.errors, D)),
-              M = N.map(function (e) {
+            var M = B([].concat(I.errors, $)),
+              w = M.map(function (e) {
                 return babelHelpers.extends({}, e, {
                   contactIndex: null,
                   type: "error",
@@ -468,14 +505,14 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              $.length,
-              M.length,
+              N.length,
+              w.length,
             ),
-              n.onComplete($, M));
+              n.onComplete(N, w));
           } catch (e) {
-            var w = e instanceof Error ? e.name : typeof e,
-              A = e instanceof Error ? e.message : String(e),
-              O =
+            var A = e instanceof Error ? e.name : typeof e,
+              O = e instanceof Error ? e.message : String(e),
+              W =
                 e instanceof
                 o("WAWebContactImportTypedError").WAWebContactImportTypedError
                   ? String(e.type)
@@ -493,9 +530,9 @@ __d(
                   ])),
                 i,
                 t.name,
-                w,
                 A,
                 O,
+                W,
               )
               .verbose()
               .sendLogs("contact-import-file-processing-failed", {

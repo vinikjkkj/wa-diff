@@ -230,15 +230,86 @@ __d(
             return s._(/*BTDS*/ "CCI copied");
           },
         }),
+        (e[
+          d(
+            c.UprPaymentAccountType.BANK_ACCOUNT,
+            c.UprIdentifierType.DOCUMENT_ID,
+          )
+        ] = {
+          label: function () {
+            return s._(/*BTDS*/ "Document ID");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy document ID");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "Document ID copied");
+          },
+        }),
+        (e[
+          d(
+            c.UprPaymentAccountType.BANK_ACCOUNT,
+            c.UprIdentifierType.NATIONAL_ID,
+          )
+        ] = {
+          label: function () {
+            return s._(/*BTDS*/ "National ID");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy national ID");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "National ID copied");
+          },
+        }),
+        (e[
+          d(
+            c.UprPaymentAccountType.BANK_ACCOUNT,
+            c.UprIdentifierType.BRANCH_CODE,
+          )
+        ] = {
+          label: function () {
+            return s._(/*BTDS*/ "Branch code");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy branch code");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "Branch code copied");
+          },
+        }),
+        (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.RUC)] = {
+          label: function () {
+            return s._(/*BTDS*/ "RUC");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy RUC");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "RUC copied");
+          },
+        }),
+        (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.RUT)] = {
+          label: function () {
+            return s._(/*BTDS*/ "RUT");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy RUT");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "RUT copied");
+          },
+        }),
         e),
       p = new Set();
     function _(e, t) {
-      var n = d(e, t),
-        r = m[n];
-      return r != null
-        ? r
-        : (p.has(n) ||
-            (p.add(n),
+      var n = t.toLowerCase(),
+        r = d(e, n),
+        a = m[r];
+      return a != null
+        ? a
+        : (p.has(r) ||
+            (p.add(r),
             o("WALogger")
               .WARN(
                 u ||
@@ -246,10 +317,10 @@ __d(
                     "[UPR] rendering unregistered payment method combo: ",
                     "",
                   ])),
-                n,
+                r,
               )
               .sendLogs("upr-unregistered-method-combo")),
-          f(t));
+          f(n));
     }
     function f(e) {
       var t = g(e),

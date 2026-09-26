@@ -249,34 +249,26 @@ __d(
     ((S.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
       (S.paramsToExecute = []));
-    function L(e) {
-      return o(
-        "WAWebBizBroadcastProUpdateCampaignAction",
-      ).cancelBizBroadcastProCampaign(e);
-    }
-    L.doc =
-      "Cancel (pause) a BB Pro scheduled campaign by id (server mutation)";
-    function E(e, t) {
+    function L(e, t) {
       return o(
         "WAWebBizBroadcastProUpdateCampaignAction",
       ).rescheduleBizBroadcastProCampaign(e, t);
     }
-    E.doc =
+    L.doc =
       "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";
-    var k = {
+    var E = {
       acceptBizBroadcastTos: u,
-      cancelBizBroadcastProCampaign: L,
       completeTestCampaignsForActiveChat: S,
       createBizBroadcastAudience: h,
       createTestProcessingCampaignForActiveChat: b,
       mockBizBroadcastProAudienceGraphQLResponses: p,
-      rescheduleBizBroadcastProCampaign: E,
+      rescheduleBizBroadcastProCampaign: L,
       restoreBizBroadcastProAudienceGraphQLResponses: _,
       setBizBroadcastDeviceCapability: s,
       setBizBroadcastProNuxEligible: c,
       setBizBroadcastProOnboarded: d,
     };
-    l.default = k;
+    l.default = E;
   },
   98,
 );

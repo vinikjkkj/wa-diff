@@ -5,16 +5,19 @@ __d(
     function e(e) {
       return typeof e == "number" && e === Math.floor(e);
     }
-    var s = function (n, r, a) {
+    var s = function (n) {
+        var t = n.id,
+          r = n.name,
+          a = n.type;
         if (
-          ((this.name = n),
-          (this.id = r),
+          ((this.name = r),
+          (this.id = t),
           (this.type = a),
           typeof a == "object")
         ) {
-          var t = new Set(Object.values(a));
+          var i = new Set(Object.values(a));
           this.validator = function (e) {
-            return t.has(e);
+            return i.has(e);
           };
         } else
           a === o("WAWebWamCodegenUtils").TYPES.INTEGER ||
@@ -25,7 +28,11 @@ __d(
       u = (function (e) {
         function t(t, n, r, o) {
           var a;
-          return ((a = e.call(this, t, n, r) || this), (a.channels = o), a);
+          return (
+            (a = e.call(this, { id: n, name: t, type: r }) || this),
+            (a.channels = o),
+            a
+          );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s),
@@ -48,7 +55,10 @@ __d(
               r = t.id,
               o = t.type,
               a = this.$3(e, n);
-            return (a in this.$1 || (this.$1[a] = new s(n, r, o)), this.$1[a]);
+            return (
+              a in this.$1 || (this.$1[a] = new s({ id: r, name: n, type: o })),
+              this.$1[a]
+            );
           }),
           (t.defineGlobal = function (t, n, o, a) {
             return (

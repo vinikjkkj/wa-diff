@@ -1,6 +1,6 @@
 __d(
   "MAWODSProxy",
-  ["CurrentMessengerUser", "ODS"],
+  ["CurrentMessengerUser", "ODS", "WAOdsEnums"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -15,7 +15,18 @@ __d(
         n,
       );
     }
-    l.odsBumpEntityKey = s;
+    function u(e) {
+      s({ entity: o("WAOdsEnums").Entity.MAW_BRIDGE_USAGE, key: e });
+    }
+    function c(e, t) {
+      s({
+        entity: o("WAOdsEnums").Entity.MAW_BRIDGE_USAGE_DETAIL,
+        key: e + "." + t,
+      });
+    }
+    ((l.odsBumpEntityKey = s),
+      (l.bumpBridgeRouteUsage = u),
+      (l.bumpBridgeRouteSubtypeUsage = c));
   },
   98,
 );

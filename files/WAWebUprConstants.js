@@ -26,6 +26,11 @@ __d(
         CBU: "cbu",
         CVU: "cvu",
         CCI: "cci",
+        BRANCH_CODE: "branch_code",
+        DOCUMENT_ID: "document_id",
+        NATIONAL_ID: "national_id",
+        RUC: "ruc",
+        RUT: "rut",
       }),
       d = e({
         PAYMENT_TYPE: "payment_type",
@@ -43,6 +48,8 @@ __d(
         IDENTIFIER_VALUE: "identifier_value",
         INSTITUTION_NAME: "institution_name",
         BENEFICIARY_NAME: "beneficiary_name",
+        ADDITIONAL_IDENTIFIERS: "additional_identifiers",
+        VALUE: "value",
         URI: "uri",
       });
     ((i.UPR_PAYMENT_TYPE = l),

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBizBroadcastProUpdateCampaignActionMutation.graphql",
+    "WAWebBizBroadcastProUpdateCampaignActionStopMutation.graphql",
     "WAWebFetchAdAccountToken",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -16,13 +17,27 @@ __d(
       d =
         e !== void 0
           ? e
-          : (e = n("WAWebBizBroadcastProUpdateCampaignActionMutation.graphql"));
-    function m(e) {
-      return p.apply(this, arguments);
+          : (e = n("WAWebBizBroadcastProUpdateCampaignActionMutation.graphql")),
+      m =
+        s !== void 0
+          ? s
+          : (s = n(
+              "WAWebBizBroadcastProUpdateCampaignActionStopMutation.graphql",
+            ));
+    function p(e) {
+      var t = e == null ? void 0 : e.id;
+      return t == null || t === ""
+        ? "empty_campaign_id"
+        : (e == null ? void 0 : e.bb_pro_can_stop) !== !1
+          ? "stop_not_applied"
+          : null;
     }
-    function p() {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
@@ -41,30 +56,10 @@ __d(
             throw r("err")("BB Pro update returned no campaign id");
           return i;
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
-      return (
-        o("WALogger")
-          .LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[bb-pro:update] cancel (pause) campaign ",
-                "",
-              ])),
-            e,
-          )
-          .sendLogs("bb-pro-update-cancel"),
-        m({
-          input: {
-            status: "PAUSED",
-            whats_app_business_mm_lite_campaign_id: e,
-          },
-        })
-      );
-    }
-    function f(e, t) {
+    function g(e, t) {
       var n = t + c;
       return (
         o("WALogger")
@@ -81,7 +76,7 @@ __d(
             n,
           )
           .sendLogs("bb-pro-update-reschedule"),
-        m({
+        _({
           input: {
             start_time: t,
             stop_time: n,
@@ -90,9 +85,9 @@ __d(
         })
       );
     }
-    ((l.updateBizBroadcastProCampaignMutation = d),
-      (l.cancelBizBroadcastProCampaign = _),
-      (l.rescheduleBizBroadcastProCampaign = f));
+    ((l.stopBizBroadcastProCampaignMutation = m),
+      (l.getStopFailureReason = p),
+      (l.rescheduleBizBroadcastProCampaign = g));
   },
   98,
 );

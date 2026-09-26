@@ -155,6 +155,8 @@ __d(
         SEND_CAMPAIGN_ACK: "send_campaign_ack",
         SEND_MSG_MULTI_MODAL: "send_msg_multi_modal",
         STAR_MESSAGE_BUTTON: "star_message_button",
+        STOP_BROADCAST_BUTTON: "stop_broadcast_button",
+        STOP_DIALOG: "stop_dialog",
         SUGGESTED_AUDIENCE_CARD_CLICK: "suggested_audience_card_click",
         SUGGESTED_AUDIENCE_CARD_ERROR: "suggested_audience_card_error",
         SUGGESTED_AUDIENCE_CARDS_IMPRESSION:

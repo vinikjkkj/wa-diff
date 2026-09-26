@@ -89,7 +89,6 @@ __d(
             : a.template_id,
         isProCampaign: !0,
         lastUpdatedTimestampMs: null,
-        lifecycleStatus: u.status,
         maxPrice: g(u.bid_amount_long, L),
         messageBody: S,
         msgType: null,
@@ -340,7 +339,8 @@ __d(
     ((l.requireProCampaignInsights = p),
       (l.deriveListItemFromProCampaign = _),
       (l.tryDeriveListItemFromProCampaign = h),
-      (l.getProCampaignMessageData = y));
+      (l.getProCampaignMessageData = y),
+      (l.normalizeCampaignDisplayStatus = I));
   },
   98,
 );

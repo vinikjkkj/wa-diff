@@ -542,6 +542,7 @@ __d(
               S = p === "mediaHub" ? b : v;
             C = new (o("WAWebActionToast.react").ActionType)(S, {
               actionText: s._(/*BTDS*/ "Undo"),
+              testid: "chat_thread_delete_msg_undo_button",
               actionHandler: (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
@@ -624,6 +625,7 @@ __d(
                     ),
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
+                      testid: "chat_thread_delete_msg_retry_button",
                       actionHandler: function () {
                         return ge(a, i, !1, f, t);
                       },

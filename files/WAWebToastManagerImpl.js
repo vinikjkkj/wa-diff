@@ -171,56 +171,67 @@ __d(
         if (r) {
           var p = r.action,
             _ = r.handler,
-            f = r.text,
-            g = f,
-            h = null,
-            y = !1;
+            f = r.testid,
+            g = r.text,
+            h = g,
+            y = null,
+            C = !1;
           (l
             .then(function (e) {
               e &&
-                ((g = e.text),
+                ((h = e.text),
                 e.action != null &&
                   e.handler != null &&
-                  (h = { label: e.action, handler: e.handler }));
+                  (y = {
+                    label: e.action,
+                    handler: e.handler,
+                    testid: e.testid,
+                  }));
             })
             .catch(function (e) {
               e != null &&
                 typeof e == "object" &&
                 e.name !== o("WAAbortError").ABORT_ERROR &&
                 (e == null ? void 0 : e.text) != null &&
-                ((g = String(e.text)),
+                ((h = String(e.text)),
                 (e == null ? void 0 : e.action) != null &&
                   (e == null ? void 0 : e.handler) != null &&
-                  (h = { label: e.action, handler: e.handler }));
+                  (y = {
+                    label: e.action,
+                    handler: e.handler,
+                    testid: e.testid,
+                  }));
             }),
             s({
               align: m,
               type: "loading",
               message: function (t) {
-                return t !== "loading" ? g : f;
+                return t !== "loading" ? h : g;
               },
               action: function (t) {
-                return t !== "loading" && h != null
+                return t !== "loading" && y != null
                   ? {
-                      label: h.label,
+                      label: y.label,
                       onPress: function () {
                         var e;
-                        y || ((y = !0), (e = h) == null || e.handler());
+                        C || ((C = !0), (e = y) == null || e.handler());
                       },
+                      testid: y.testid,
                     }
                   : t === "loading" && p != null && _ != null
                     ? {
                         label: p,
                         onPress: function () {
-                          y || ((y = !0), _());
+                          C || ((C = !0), _());
                         },
+                        testid: f,
                       }
                     : null;
               },
               process: l,
             }));
         } else {
-          var C = !1;
+          var b = !1;
           l.then(function (e) {
             e &&
               (e.action != null && e.handler != null
@@ -231,8 +242,9 @@ __d(
                     action: {
                       label: e.action,
                       onPress: function () {
-                        C || ((C = !0), e.handler == null || e.handler());
+                        b || ((b = !0), e.handler == null || e.handler());
                       },
+                      testid: e.testid,
                     },
                   })
                 : s({ align: m, type: "default", message: e.text }));
@@ -250,8 +262,9 @@ __d(
                     action: {
                       label: e.action,
                       onPress: function () {
-                        C || ((C = !0), e.handler == null || e.handler());
+                        b || ((b = !0), e.handler == null || e.handler());
                       },
+                      testid: e.testid,
                     },
                   })
                 : s({ align: m, type: "error", message: e.text }));

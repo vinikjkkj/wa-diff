@@ -76,8 +76,9 @@ __d(
           })()),
           (a.$4 = function (o) {
             var t = this,
-              a = this.$2.versionOrder.indexOf(o);
-            if (a === -1)
+              a = this.$2.versionOrder,
+              i = a.indexOf(o);
+            if (i === -1)
               throw r("FBLogger")(
                 "ReStoreVersionedSchemaProvider",
               ).mustfixThrow(
@@ -88,7 +89,7 @@ __d(
             return (e || (e = n("Promise"))).all(
               this.$2.versionOrder
                 .slice(
-                  a,
+                  i,
                   this.$2.versionOrder.indexOf(this.$2.targetVersion) + 1,
                 )
                 .map(

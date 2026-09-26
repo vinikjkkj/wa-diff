@@ -54,6 +54,33 @@ __d(
     }
     function f(t, n) {
       if ((e || (e = r("ExecutionEnvironment"))).isInBrowser) {
+        var o,
+          a = m();
+        if (
+          a == null ||
+          ((o = a.getTrace()) == null || (o = o.annotations.int) == null
+            ? void 0
+            : o[t]) != null
+        )
+          return;
+        (a.addAnnotationInt(t, 1), a.addMarkerPoint(n, "AppTiming"));
+      }
+    }
+    function g(e, t) {
+      var n = new Map();
+      e.forEach(function (e, t) {
+        n.has(e) || n.set(e, t);
+      });
+      var r = new Set();
+      return t.some(function (e, t) {
+        if (r.has(e)) return !1;
+        r.add(e);
+        var o = n.get(e);
+        return o != null && o !== t;
+      });
+    }
+    function h(t, n) {
+      if ((e || (e = r("ExecutionEnvironment"))).isInBrowser) {
         var o = m();
         o == null || o.addAnnotation(t, n);
       }
@@ -64,7 +91,9 @@ __d(
       (l.getPopoverTrace = m),
       (l.addPointToInteractionTracing = p),
       (l.addAnnotationIntToInteractionTracing = _),
-      (l.addAnnotationStringToInteractionTracing = f));
+      (l.flagPopoverTraceOnce = f),
+      (l.didAnyThreadMove = g),
+      (l.addAnnotationStringToInteractionTracing = h));
   },
   98,
 );

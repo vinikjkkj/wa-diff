@@ -148,7 +148,7 @@ __d(
                     l = babelHelpers.extends(
                       {
                         ctwaConversationDepth: f,
-                        ctwaLabelSignalVersion: 1,
+                        ctwaLabelSignalVersion: 2,
                         ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
                           .CTWA_LABEL_TARGET.CHAT,
                         ctwaLabelType: t,
@@ -173,7 +173,7 @@ __d(
                       var a = babelHelpers.extends(
                         {
                           ctwaConversationDepth: f,
-                          ctwaLabelSignalVersion: 1,
+                          ctwaLabelSignalVersion: 2,
                           ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
                             .CTWA_LABEL_TARGET.CHAT,
                           ctwaLabelType: o(

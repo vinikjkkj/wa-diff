@@ -54,14 +54,16 @@ __d(
       ($[($.ERROR = 4)] = "error"),
       ($[($.OFF = 5)] = "off"));
     var P = (function () {
-      function t(t, a, i) {
-        var l = this;
-        (i === void 0 && (i = void 0),
-          (this.localCursor = 0),
+      function t(t) {
+        var a = this,
+          i = t.logCapacityInDatabase,
+          l = t.logsDBProvider,
+          m = t.processTag;
+        ((this.localCursor = 0),
           (this.writeFrom = 0),
           (this.pending = void 0),
           (this.timer = new (o("WAShiftTimer").ShiftTimer)(function () {
-            return l.$1();
+            return a.$1();
           })),
           (this.runningTimestamp = 0),
           (this.isTakeOver = !1),
@@ -89,7 +91,7 @@ __d(
                   !(t === 0 || t == null))
                 ) {
                   if (
-                    ((l.$9 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
+                    ((a.$9 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
                   ) {
                     o("WALogger").LOG(
                       e ||
@@ -102,10 +104,10 @@ __d(
                   try {
                     var n = yield o("WAStorageEstimator").estimateStorage();
                     if (n.success) {
-                      var a = n.value,
-                        i = a.quota,
-                        m = a.usage,
-                        p = (i - m) / (1024 * 1024);
+                      var i = n.value,
+                        l = i.quota,
+                        m = i.usage,
+                        p = (l - m) / (1024 * 1024);
                       if (p < E) {
                         o("WALogger").LOG(
                           s ||
@@ -138,9 +140,9 @@ __d(
                     return;
                   }
                   var _ = Math.min(t, b);
-                  if (_ > l.logCapacityInDatabase) {
+                  if (_ > a.logCapacityInDatabase) {
                     var f = Date.now();
-                    (l.$11(_), l.$3 && _ === b && (l.$4 = S));
+                    (a.$11(_), a.$3 && _ === b && (a.$4 = S));
                     var g = Date.now() - f;
                     o("WALogger").LOG(
                       d ||
@@ -158,10 +160,10 @@ __d(
             }),
           )),
           (this.log = r("WAMemoizeConditionally")(
-            function (e, t, n, o, a) {
+            function (e, t, n, o, i) {
               return (
                 t === void 0 && (t = !1),
-                function (i) {
+                function (l) {
                   for (
                     var s = arguments.length,
                       u = new Array(s > 1 ? s - 1 : 0),
@@ -170,8 +172,8 @@ __d(
                     c++
                   )
                     u[c - 1] = arguments[c];
-                  var d = r("WAWebLoggerFormatMessage")(i, u, !t);
-                  return (l.logImpl(e, d, n, o, a), d);
+                  var d = r("WAWebLoggerFormatMessage")(l, u, !t);
+                  return (a.logImpl(e, d, n, o, i), d);
                 }
               );
             },
@@ -179,11 +181,11 @@ __d(
               return n || o ? null : String(e) + String(!!t) + String(!!r);
             },
           )),
-          (this.logsDBProvider = t),
-          (this.logCapacityInDatabase = a),
-          (this.logs = new Array(a)),
+          (this.logsDBProvider = l),
+          (this.logCapacityInDatabase = i),
+          (this.logs = new Array(i)),
           (this.microStep = 1 / this.logCapacityInDatabase),
-          (this.processTag = i));
+          (this.processTag = m));
       }
       var a = t.prototype;
       return (
@@ -542,9 +544,12 @@ __d(
         return;
       }
     }
-    var F = new P(function () {
-        return r("WAWebWAWCStorage").idb();
-      }, R),
+    var F = new P({
+        logCapacityInDatabase: R,
+        logsDBProvider: function () {
+          return r("WAWebWAWCStorage").idb();
+        },
+      }),
       O = F.log;
     ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = P), (l.Logger = F), (l.log = O));
   },

@@ -5,32 +5,45 @@ __d(
     "WAWebContactManagerExportColumns",
     "WAWebContactManagerExportCsvUtils",
     "WAWebContactManagerExportData",
+    "WAWebContactManagerUserPrefs",
     "WAWebFileSaver",
     "WAWebFileSaverTypes",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
+    function s(e, t) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          n === void 0 && (n = "all");
           try {
-            var n = o(
+            var r = o(
                 "WAWebContactManagerExportData",
               ).buildCustomerExportRecords(t),
-              r = o("WAWebContactManagerExportColumns").getExportHeaders(),
-              a = n.map(o("WAWebContactManagerExportColumns").getExportRow),
-              i = yield o(
+              a =
+                n === "all"
+                  ? o("WAWebContactManagerExportColumns").EXPORT_COLUMNS
+                  : o(
+                      "WAWebContactManagerExportColumns",
+                    ).getVisibleExportColumns(
+                      o("WAWebContactManagerUserPrefs").getColumnOrder(),
+                      o("WAWebContactManagerUserPrefs").getVisibleColumns(),
+                    ),
+              i = o("WAWebContactManagerExportColumns").getExportHeaders(a),
+              l = r.map(function (e) {
+                return o("WAWebContactManagerExportColumns").getExportRow(e, a);
+              }),
+              s = yield o(
                 "WAWebContactManagerExportCsvUtils",
-              ).buildContactManagerCsv(r, a),
-              l = new Blob(["\uFEFF" + i], { type: "text/csv;charset=utf-8" }),
-              s = new Date().toISOString().slice(0, 10);
+              ).buildContactManagerCsv(i, l),
+              u = new Blob(["\uFEFF" + s], { type: "text/csv;charset=utf-8" }),
+              c = new Date().toISOString().slice(0, 10);
             yield o("WAWebFileSaver").FileSaver.downloadData(
-              l,
-              "customer_manager_export_" + s,
+              u,
+              "customer_manager_export_" + c,
               o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
             );
           } catch (t) {

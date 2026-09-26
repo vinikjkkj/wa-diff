@@ -275,15 +275,20 @@ __d(
             b = k(C),
             v;
           o("WAWebSyncdMMSUpload").exceedInlineMutationCount(C)
-            ? (v = yield o("WAWebSyncdMMSUpload").uploadPatch(b, i.keyId, y, h))
+            ? (v = yield o("WAWebSyncdMMSUpload").uploadPatch({
+                activeSyncKeyId: i.keyId,
+                mutationsBlob: b,
+                patchMac: h,
+                snapshotMac: y,
+              }))
             : ((v = E(C, i.keyId, y, h)),
               o("WAWebSyncdMMSUpload").exceedPatchProtobufSize(v) &&
-                (v = yield o("WAWebSyncdMMSUpload").uploadPatch(
-                  b,
-                  i.keyId,
-                  y,
-                  h,
-                )));
+                (v = yield o("WAWebSyncdMMSUpload").uploadPatch({
+                  activeSyncKeyId: i.keyId,
+                  mutationsBlob: b,
+                  patchMac: h,
+                  snapshotMac: y,
+                })));
           var R = o("WAWap").wap("patch", null, v);
           return { patchNode: R, encryptedMutations: u, ltHash: f };
         })),

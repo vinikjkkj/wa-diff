@@ -34,7 +34,11 @@ __d(
           null
             ? e
             : []
-        ).filter(o("WAWebPaymentMethodTypeRegistry").isStoredUprKeyValid),
+        )
+          .filter(o("WAWebPaymentMethodTypeRegistry").isStoredUprKeyValid)
+          .map(
+            o("WAWebPaymentMethodTypeRegistry").withValidAdditionalIdentifiers,
+          ),
         l = (
           (n = a == null || (r = a.methods) == null ? void 0 : r.clabe) != null
             ? n
@@ -52,6 +56,7 @@ __d(
               key: e.key,
               institution_name: e.institution_name,
               full_name_on_account: e.full_name_on_account,
+              additionalIdentifiers: [],
               time_added: e.time_added,
               time_last_used: e.time_last_used,
             };

@@ -8,43 +8,51 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield e.equals(["from", "pendingReadReceipt"], [t, n], {
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.MessageTable,
+            n = e.chatId,
+            r = e.pendingReadReceiptType,
+            a = e.threadId,
+            i = yield t.equals(["from", "pendingReadReceipt"], [n, r], {
               shouldDecrypt: !1,
             });
-            return a.filter(function (e) {
-              return n ===
-                o("WAWebDBMsgUtils").PendingReadReceiptType.Message &&
-                e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN
-                ? !1
-                : r == null
-                  ? !0
-                  : o("WAWebDBMessageUtils").messageHasThreadId(e, r);
-            });
-          },
-        )),
+          return i.filter(function (e) {
+            return r === o("WAWebDBMsgUtils").PendingReadReceiptType.Message &&
+              e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN
+              ? !1
+              : a == null
+                ? !0
+                : o("WAWebDBMessageUtils").messageHasThreadId(e, a);
+          });
+        })),
         s.apply(this, arguments)
       );
     }
     function u(t, n, r) {
-      return e(t, n, o("WAWebDBMsgUtils").PendingReadReceiptType.Message, r);
+      return e({
+        MessageTable: t,
+        chatId: n,
+        pendingReadReceiptType:
+          o("WAWebDBMsgUtils").PendingReadReceiptType.Message,
+        threadId: r,
+      });
     }
     function c(e, t) {
       return u(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
     function d(t, n, r) {
-      return e(
-        t,
-        n,
-        o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
-        r,
-      );
+      return e({
+        MessageTable: t,
+        chatId: n,
+        pendingReadReceiptType:
+          o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
+        threadId: r,
+      });
     }
     function m(e, t) {
       return d(o("WAWebSchemaMessage").getMessageTable(), e, t);

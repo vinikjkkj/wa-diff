@@ -8,89 +8,105 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t, n, a, i;
+      var t = e.additional_identifiers;
+      return Array.isArray(t)
+        ? t.flatMap(function (e) {
+            var t = e == null ? void 0 : e.identifier_type,
+              n = e == null ? void 0 : e.value;
+            return typeof t == "string" &&
+              t.trim() !== "" &&
+              typeof n == "string" &&
+              n.trim() !== ""
+              ? [{ identifierType: t, value: n }]
+              : [];
+          })
+        : [];
+    }
+    function s(t) {
+      var n, a, i, l;
       if (
-        e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        e.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        e.nativeFlowName !==
+        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        t.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
-        !((t = e.interactivePayload) != null && t.buttons)
+        !((n = t.interactivePayload) != null && n.buttons)
       )
         return null;
-      var l =
-        (n = e.interactivePayload.buttons[0]) == null
+      var s =
+        (a = t.interactivePayload.buttons[0]) == null
           ? void 0
-          : n.buttonParamsJson;
-      if (l == null) return null;
-      var s;
+          : a.buttonParamsJson;
+      if (s == null) return null;
+      var u;
       try {
-        s = JSON.parse(l);
+        u = JSON.parse(s);
       } catch (e) {
         return null;
       }
       if (
-        s[o("WAWebUprConstants").UprWireFields.PAYMENT_TYPE] !==
+        u[o("WAWebUprConstants").UprWireFields.PAYMENT_TYPE] !==
         o("WAWebUprConstants").UPR_PAYMENT_TYPE
       )
         return null;
-      var u = s[o("WAWebUprConstants").UprWireFields.PAYMENT_SETTINGS];
-      if (!Array.isArray(u) || u.length === 0) return null;
-      var c = s[o("WAWebUprConstants").UprWireFields.TOTAL_AMOUNT],
-        d =
-          (c == null ? void 0 : c.value) != null &&
-          (c == null ? void 0 : c.offset) != null
-            ? c
+      var c = u[o("WAWebUprConstants").UprWireFields.PAYMENT_SETTINGS];
+      if (!Array.isArray(c) || c.length === 0) return null;
+      var d = u[o("WAWebUprConstants").UprWireFields.TOTAL_AMOUNT],
+        m =
+          (d == null ? void 0 : d.value) != null &&
+          (d == null ? void 0 : d.offset) != null
+            ? d
             : null,
-        m = [];
-      for (var p of u) {
-        var _ = p[o("WAWebUprConstants").UprWireFields.TYPE];
-        if (_ === o("WAWebUprConstants").UprPaymentSettingType.PAYMENT_LINK) {
-          var f,
-            g =
-              (f = p[o("WAWebUprConstants").UprWireFields.PAYMENT_LINK]) == null
+        p = [];
+      for (var _ of c) {
+        var f = _[o("WAWebUprConstants").UprWireFields.TYPE];
+        if (f === o("WAWebUprConstants").UprPaymentSettingType.PAYMENT_LINK) {
+          var g,
+            h =
+              (g = _[o("WAWebUprConstants").UprWireFields.PAYMENT_LINK]) == null
                 ? void 0
-                : f[o("WAWebUprConstants").UprWireFields.URI];
-          g != null && g !== "" && m.push({ kind: "payment_link", uri: g });
+                : g[o("WAWebUprConstants").UprWireFields.URI];
+          h != null && h !== "" && p.push({ kind: "payment_link", uri: h });
         } else if (
-          _ === o("WAWebUprConstants").UprPaymentSettingType.PAYMENT_ACCOUNT
+          f === o("WAWebUprConstants").UprPaymentSettingType.PAYMENT_ACCOUNT
         ) {
-          var h = p[o("WAWebUprConstants").UprWireFields.PAYMENT_ACCOUNT];
+          var y = _[o("WAWebUprConstants").UprWireFields.PAYMENT_ACCOUNT];
           if (
-            (h == null
+            (y == null
               ? void 0
-              : h[o("WAWebUprConstants").UprWireFields.IDENTIFIER_VALUE]) !=
+              : y[o("WAWebUprConstants").UprWireFields.IDENTIFIER_VALUE]) !=
             null
           ) {
-            var y, C;
-            m.push({
+            var C, b;
+            p.push({
               kind: "payment_account",
-              accountType: h[o("WAWebUprConstants").UprWireFields.ACCOUNT_TYPE],
+              accountType: y[o("WAWebUprConstants").UprWireFields.ACCOUNT_TYPE],
               identifierType:
-                h[o("WAWebUprConstants").UprWireFields.IDENTIFIER_TYPE],
+                y[o("WAWebUprConstants").UprWireFields.IDENTIFIER_TYPE],
               identifierValue:
-                h[o("WAWebUprConstants").UprWireFields.IDENTIFIER_VALUE],
+                y[o("WAWebUprConstants").UprWireFields.IDENTIFIER_VALUE],
               institutionName:
-                (y =
-                  h[o("WAWebUprConstants").UprWireFields.INSTITUTION_NAME]) !=
-                null
-                  ? y
-                  : "",
-              beneficiaryName:
                 (C =
-                  h[o("WAWebUprConstants").UprWireFields.BENEFICIARY_NAME]) !=
+                  y[o("WAWebUprConstants").UprWireFields.INSTITUTION_NAME]) !=
                 null
                   ? C
                   : "",
+              beneficiaryName:
+                (b =
+                  y[o("WAWebUprConstants").UprWireFields.BENEFICIARY_NAME]) !=
+                null
+                  ? b
+                  : "",
+              additionalIdentifiers: e(y),
             });
           }
         }
       }
-      if (m.length === 0) return null;
-      var b = s[o("WAWebUprConstants").UprWireFields.ORDER],
-        v = Array.isArray(
-          b == null ? void 0 : b[o("WAWebUprConstants").UprWireFields.ITEMS],
+      if (p.length === 0) return null;
+      var v = u[o("WAWebUprConstants").UprWireFields.ORDER],
+        S = Array.isArray(
+          v == null ? void 0 : v[o("WAWebUprConstants").UprWireFields.ITEMS],
         )
-          ? b[o("WAWebUprConstants").UprWireFields.ITEMS].map(function (e) {
+          ? v[o("WAWebUprConstants").UprWireFields.ITEMS].map(function (e) {
               return {
                 retailerId: e.retailer_id,
                 name: e.name,
@@ -101,19 +117,19 @@ __d(
           : null;
       return {
         referenceId:
-          (a = s[o("WAWebUprConstants").UprWireFields.REFERENCE_ID]) != null
-            ? a
-            : "",
-        currency:
-          (i = s[o("WAWebUprConstants").UprWireFields.CURRENCY]) != null
+          (i = u[o("WAWebUprConstants").UprWireFields.REFERENCE_ID]) != null
             ? i
             : "",
-        totalAmount: d,
-        paymentOptions: m,
-        items: v,
+        currency:
+          (l = u[o("WAWebUprConstants").UprWireFields.CURRENCY]) != null
+            ? l
+            : "",
+        totalAmount: m,
+        paymentOptions: p,
+        items: S,
       };
     }
-    l.parseUprPaymentInfo = e;
+    l.parseUprPaymentInfo = s;
   },
   98,
 );

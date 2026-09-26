@@ -872,6 +872,30 @@ __d(
               l,
             );
           }),
+          (t.stopBroadcastDialogViewed = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").stopBroadcastDialogViewed(this.$1, t, n);
+          }),
+          (t.broadcastStopConfirmed = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").broadcastStopConfirmed(this.$1, t, n);
+          }),
+          (t.stopBroadcastCancelClicked = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").stopBroadcastCancelClicked(
+              this.$1,
+              t,
+              n,
+            );
+          }),
+          (t.broadcastStopResult = function (t, n, r, a, i, l) {
+            o("WAWebBBInfoDrawerLogs").broadcastStopResult(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+              i,
+              l,
+            );
+          }),
           (t.renameBroadcastClicked = function (t) {
             o("WAWebBBInfoDrawerLogs").renameBroadcastClicked(this.$1, t);
           }),

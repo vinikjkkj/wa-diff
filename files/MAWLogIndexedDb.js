@@ -62,12 +62,12 @@ __d(
               f(e, t + 1) && n(e);
             }
           }),
-            (n.onsuccess = function (t) {
-              var n = t.target.result;
-              ((n.onversionchange = function () {
-                n.close();
+            (n.onsuccess = function () {
+              var t = n.result;
+              ((t.onversionchange = function () {
+                t.close();
               }),
-                (s = n),
+                (s = t),
                 e());
             }),
             (n.onerror = function () {

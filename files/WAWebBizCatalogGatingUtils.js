@@ -55,25 +55,42 @@ __d(
         )
           return !0;
       }
-      return C(t);
+      return S(t);
     }
     function g(e) {
-      return b(e, function () {
+      return E(e);
+    }
+    function h(e) {
+      return R(e, function () {
         return o("WAWebABProps").getABPropConfigValue(
           "smb_ecommerce_compliance_india_m4",
         );
       });
     }
-    function h(e) {
-      return b(e, function () {
+    function y(e) {
+      return L(e, function () {
+        return o("WAWebABProps").getABPropConfigValue(
+          "smb_ecommerce_compliance_india_m4",
+        );
+      });
+    }
+    function C(e) {
+      return R(e, function () {
         return o("WAWebABProps").getABPropConfigValue(
           "smb_ecommerce_compliance_india_m4_5",
         );
       });
     }
-    function y(e) {
+    function b(e) {
+      return L(e, function () {
+        return o("WAWebABProps").getABPropConfigValue(
+          "smb_ecommerce_compliance_india_m4_5",
+        );
+      });
+    }
+    function v(e) {
       var t,
-        n = b(e == null ? void 0 : e.id, function () {
+        n = R(e == null ? void 0 : e.id, function () {
           return o("WAWebABProps").getABPropConfigValue(
             "web_abprop_block_catalog_creation_ecommerce_compliance_india",
           );
@@ -86,17 +103,10 @@ __d(
           o("WAWebBusinessProfileTypes").CommerceExperienceTypes.NONE
       );
     }
-    function C(e) {
-      var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""),
-        n = o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA;
-      return (
-        t === n ||
-        o("WAWebClientFeatureFlags").isFeatureEnabled(
-          "skip_compliance_phone_check",
-        )
-      );
+    function S(e) {
+      return E(o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""));
     }
-    function b(e, t) {
+    function R(e, t) {
       t === void 0 && (t = o("WAWebBoolFunc").returnFalse);
       var n;
       if (e != null) {
@@ -110,7 +120,21 @@ __d(
         )
           return !0;
       }
-      return C(n) ? t() : !1;
+      return S(n) ? t() : !1;
+    }
+    function L(e, t) {
+      return (
+        t === void 0 && (t = o("WAWebBoolFunc").returnFalse),
+        E(e) ? t() : !1
+      );
+    }
+    function E(e) {
+      return (
+        e === o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA ||
+        o("WAWebClientFeatureFlags").isFeatureEnabled(
+          "skip_compliance_phone_check",
+        )
+      );
     }
     ((l.isPSForCatalogViewEnabled = e),
       (l.graphQLForGetProductListEnabled = s),
@@ -121,9 +145,14 @@ __d(
       (l.showImporterInformationInEditProductDrawer = p),
       (l.commerceFeaturesDisabledBySanctions = _),
       (l.canSeeECommerceComplianceIndiaSoftEnforcement = f),
-      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney = g),
-      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourney = h),
-      (l.blockCatalogCreationECommerceComplianceIndia = y));
+      (l.canSeeECommerceComplianceIndiaSoftEnforcementForCountry = g),
+      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney = h),
+      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourneyForCountry =
+        y),
+      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourney = C),
+      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourneyForCountry =
+        b),
+      (l.blockCatalogCreationECommerceComplianceIndia = v));
   },
   98,
 );

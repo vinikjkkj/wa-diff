@@ -12,14 +12,12 @@ __d(
     "use strict";
     function e(e) {
       var t = Object.values(e.tableNames).map(function (e) {
-        var t;
+        var t,
+          n = (t = e.indexPredicates) != null ? t : {};
         return babelHelpers.extends({}, e, {
-          indexPredicates: Object.entries(
-            (t = e.indexPredicates) != null ? t : {},
-          ).map(function (e) {
-            var t = e[0],
-              n = e[1];
-            return [t, n.toString()];
+          indexPredicates: Object.entries(n).map(function (e) {
+            var t = e[0];
+            return [t, n[t].toString()];
           }),
         });
       });
