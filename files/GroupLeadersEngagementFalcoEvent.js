@@ -1,0 +1,12 @@
+__d(
+  "GroupLeadersEngagementFalcoEvent",
+  ["FalcoLoggerInternal", "getFalcoLogPolicy_DO_NOT_USE"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = r("getFalcoLogPolicy_DO_NOT_USE")("1743660"),
+      s = o("FalcoLoggerInternal").create("group_leaders_engagement", e),
+      u = s;
+    l.default = u;
+  },
+  98,
+);

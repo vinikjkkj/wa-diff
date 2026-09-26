@@ -33,8 +33,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react"));
-    function c(e) {
+      u,
+      c = u || (u = o("react"));
+    function d(e) {
       var t,
         n,
         r = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
@@ -56,7 +57,7 @@ __d(
           };
       }
     }
-    function d(e) {
+    function m(e) {
       var t,
         n = e.surfaceId;
       if (
@@ -106,7 +107,7 @@ __d(
         }
       }
     }
-    function m(e) {
+    function p(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -123,7 +124,7 @@ __d(
         }
       }
     }
-    function p(e) {
+    function _(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -135,60 +136,21 @@ __d(
               type: "openCatalogBanner",
               onPrimaryClick: function () {
                 (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
-                  v(
+                  S(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                v(
+                S(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                v(
-                  n,
-                  i.data.campaignId,
-                  o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
-                );
-              },
-            };
-        }
-      }
-    }
-    function _(e) {
-      var t,
-        n = e.surfaceId;
-      if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
-        var a = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
-        if (a != null) {
-          var i = o("WAWebApiParse").parseAPICmd(a);
-          if (i.resultType === "BRAZIL_PAYMENTS")
-            return {
-              type: "paymentsBanner",
-              onPrimaryClick: function () {
-                (i.data.subType ===
-                o("WAWebApi").BrazilPaymentResultSubtype.PIX_ONBOARDING
-                  ? r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 })
-                  : o("WAWebExternalLink.react").openExternalLink(a),
-                  v(
-                    n,
-                    i.data.campaignId,
-                    o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
-                  ));
-              },
-              onImpression: function () {
-                v(
-                  n,
-                  i.data.campaignId,
-                  o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
-                );
-              },
-              onDismiss: function () {
-                v(
+                S(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -205,6 +167,45 @@ __d(
         var a = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
         if (a != null) {
           var i = o("WAWebApiParse").parseAPICmd(a);
+          if (i.resultType === "BRAZIL_PAYMENTS")
+            return {
+              type: "paymentsBanner",
+              onPrimaryClick: function () {
+                (i.data.subType ===
+                o("WAWebApi").BrazilPaymentResultSubtype.PIX_ONBOARDING
+                  ? r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 })
+                  : o("WAWebExternalLink.react").openExternalLink(a),
+                  S(
+                    n,
+                    i.data.campaignId,
+                    o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
+                  ));
+              },
+              onImpression: function () {
+                S(
+                  n,
+                  i.data.campaignId,
+                  o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
+                );
+              },
+              onDismiss: function () {
+                S(
+                  n,
+                  i.data.campaignId,
+                  o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
+                );
+              },
+            };
+        }
+      }
+    }
+    function g(e) {
+      var t,
+        n = e.surfaceId;
+      if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
+        var a = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
+        if (a != null) {
+          var i = o("WAWebApiParse").parseAPICmd(a);
           if (i.resultType === "BIZ_BROADCAST_AUDIENCE_MODAL")
             return {
               type: "bizBroadcastAudienceModal",
@@ -215,7 +216,7 @@ __d(
         }
       }
     }
-    function g(e) {
+    function h(e) {
       var t,
         n = e.surfaceId;
       if (
@@ -247,7 +248,7 @@ __d(
                     n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME,
                 }),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    v(
+                    S(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
@@ -262,7 +263,7 @@ __d(
                   u,
                 ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    v(
+                    S(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
@@ -277,7 +278,7 @@ __d(
                   u,
                 ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    v(
+                    S(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS
@@ -289,8 +290,8 @@ __d(
         }
       }
     }
-    var h = /^whatsapp-smb:\/\/biz-broadcast-create\/?(?:\?.*)?$/i;
-    function y(t) {
+    var y = /^whatsapp-smb:\/\/biz-broadcast-create\/?(?:\?.*)?$/i;
+    function C(t) {
       var n;
       if (
         o("WAWebMobilePlatforms").isSMB() &&
@@ -301,7 +302,7 @@ __d(
         var r = t.surfaceId;
         if (r === o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD) {
           var a = (n = t.data.primaryAction) == null ? void 0 : n.deepLink;
-          if (!(a == null || !a.match(h))) {
+          if (!(a == null || !a.match(y))) {
             var i = new URL(a),
               l = i.searchParams.get("source");
             return (
@@ -335,7 +336,7 @@ __d(
                           .SMB_FEATURE_NAME_ENUM.BUSINESS_BROADCAST,
                       ),
                     o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-                      u.jsx(
+                      c.jsx(
                         o("WAWebBizBroadcastNewBroadcastFlowLoadable")
                           .WAWebBizBroadcastNewBroadcastFlowLoadable,
                         {
@@ -360,7 +361,7 @@ __d(
         }
       }
     }
-    function C(e) {
+    function b(e) {
       var t,
         n = e.id,
         r = e.surfaceId;
@@ -386,7 +387,7 @@ __d(
                 o("WAWebNavBarTypes").NavBarItems.BizTools,
               ),
                 o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-                  u.jsx(o("WAWebBizToolsFlowLoadable").BizToolsFlowLoadable, {
+                  c.jsx(o("WAWebBizToolsFlowLoadable").BizToolsFlowLoadable, {
                     entryPoint: o("WAWebWamEnumBusinessToolsEntryPointType")
                       .BUSINESS_TOOLS_ENTRY_POINT_TYPE.ENTRY_DEEPLINK,
                     autoSelectStep: o("WAWebBizToolsFlowSteps").BizToolsSteps
@@ -402,28 +403,28 @@ __d(
           };
       }
     }
-    function b(e) {
+    function v(e) {
       var t = [],
-        n = c(e);
+        n = d(e);
       n && t.push(n);
-      var r = d(e);
+      var r = m(e);
       r && t.push(r);
-      var o = m(e);
+      var o = p(e);
       o && t.push(o);
-      var a = p(e);
+      var a = _(e);
       a && t.push(a);
-      var i = _(e);
+      var i = f(e);
       i && t.push(i);
-      var l = f(e);
+      var l = g(e);
       l && t.push(l);
-      var s = g(e);
+      var s = h(e);
       s && t.push(s);
-      var u = y(e);
+      var u = C(e);
       u && t.push(u);
-      var h = C(e);
-      return (h && t.push(h), t);
+      var c = b(e);
+      return (c && t.push(c), t);
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
         bannerType: o(
           "WAWebBizNativeAdsEntryPointUtils",
@@ -432,22 +433,49 @@ __d(
         bannerId: t,
       }).commit();
     }
-    function S(e, t) {
-      var n = b(e);
-      n.forEach(function (e) {
-        switch (t) {
-          case "primaryActionClick":
-            e.onPrimaryClick != null && e.onPrimaryClick();
-            break;
-          case "dismiss":
-            e.onDismiss != null && e.onDismiss();
-            break;
-          default:
-            e.onImpression != null && e.onImpression();
-        }
-      });
+    function R(e, t) {
+      var n = v(e);
+      (L(e, t, n),
+        n.forEach(function (e) {
+          switch (t) {
+            case "primaryActionClick":
+              e.onPrimaryClick != null && e.onPrimaryClick();
+              break;
+            case "dismiss":
+              e.onDismiss != null && e.onDismiss();
+              break;
+            default:
+              e.onImpression != null && e.onImpression();
+          }
+        }));
     }
-    l.maybeExecuteQuickPromotionCustomHandlingSpec = S;
+    function L(e, t, n) {
+      var r;
+      if (
+        !(
+          t !== "primaryActionClick" ||
+          e.surfaceId !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP ||
+          n.length !== 0
+        )
+      ) {
+        var a = (r = e.data.primaryAction) != null ? r : {},
+          i = a.deepLink,
+          l = i == null ? null : o("WAWebApiParse").parseAPICmd(i).resultType;
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[QP] primary action has no handler promotionId=",
+                " resultType=",
+                "",
+              ])),
+            e.id,
+            l,
+          )
+          .sendLogs("quick-promotion-primary-action-unhandled");
+      }
+    }
+    l.maybeExecuteQuickPromotionCustomHandlingSpec = R;
   },
   98,
 );
