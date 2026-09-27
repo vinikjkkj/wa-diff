@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizBroadcastProCreateCustomAudienceMutation.graphql",
     "WAWebContactImportFileProcessor",
+    "WAWebContactImportTemplateParsingUtils",
     "WAWebFetchAdAccountToken",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -27,6 +28,16 @@ __d(
           s = !l,
           u = s && r != null && r !== "" ? r : null,
           c = s && a != null && a !== "" ? a : null;
+        if (
+          u != null &&
+          c == null &&
+          o("WAWebContactImportTemplateParsingUtils").isCombinedNameRow(
+            e.rawRow,
+          )
+        ) {
+          var d = o("WAWebContactImportTemplateParsingUtils").splitFullName(u);
+          d.lastName !== "" && ((u = d.firstName), (c = d.lastName));
+        }
         return { first_name: u, last_name: c, phone: i };
       });
     }

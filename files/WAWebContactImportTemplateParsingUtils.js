@@ -76,12 +76,41 @@ __d(
       );
     }
     function k(e) {
-      return R(e, g);
+      return e == null
+        ? !1
+        : !Object.keys(e).some(function (e) {
+            return (
+              f.has(e.toLowerCase()) ||
+              y.has(e.toLowerCase()) ||
+              o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+                e,
+                o("WAWebContactImportSmartColumnDetection")
+                  .FIRST_NAME_HEADER_ALIASES,
+              ) ||
+              o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+                e,
+                o("WAWebContactImportSmartColumnDetection")
+                  .LAST_NAME_HEADER_ALIASES,
+              )
+            );
+          });
     }
     function I(e) {
+      var t = {};
+      for (var n in e)
+        if (n !== "originalRowIndex") {
+          var r = e[n];
+          r != null && (t[n] = String(r));
+        }
+      return t;
+    }
+    function T(e) {
+      return R(e, g);
+    }
+    function D(e) {
       return R(e, d);
     }
-    function T(e, t) {
+    function x(e, t) {
       if (e == null) return null;
       var n = new Set(
         t.map(function (e) {
@@ -95,13 +124,13 @@ __d(
         }
       return null;
     }
-    function D(e) {
+    function $(e) {
       return typeof e != "string" ? !1 : d.has(e.toLowerCase().trim());
     }
-    function x(e) {
+    function P(e) {
       return typeof e != "string" ? !1 : C.has(e.toLowerCase().trim());
     }
-    function $(e) {
+    function N(e) {
       var t = [],
         n = v(e),
         r = [];
@@ -171,21 +200,12 @@ __d(
               ? ((i = p !== "" ? p : void 0), (l = g !== "" ? g : void 0))
               : (i = r.value != null ? r.value : void 0));
         }
-        var b = {};
-        for (var v in a)
-          if (v !== "originalRowIndex") {
-            var R = a[v];
-            R != null && (b[v] = String(R));
-          }
-        var L = {
-          phone: r.value != null ? r.value : "",
-          rowIndex: t,
-          rawRow: b,
-        };
+        var b = I(a),
+          v = { phone: r.value != null ? r.value : "", rowIndex: t, rawRow: b };
         return (
-          i != null && (L.firstName = i),
-          l != null && (L.lastName = l),
-          L
+          i != null && (v.firstName = i),
+          l != null && (v.lastName = l),
+          v
         );
       });
       return { errors: t, validContacts: l };
@@ -194,12 +214,14 @@ __d(
       (l.FBT_NAME = u),
       (l.splitFullName = L),
       (l.isNameFieldKey = E),
-      (l.extractName = k),
-      (l.extractPhone = I),
-      (l.readRawRowColumn = T),
-      (l.isPhoneFieldName = D),
-      (l.isParsedNameOrPhoneFieldName = x),
-      (l.parseContactData = $));
+      (l.isCombinedNameRow = k),
+      (l.toContactRawRow = I),
+      (l.extractName = T),
+      (l.extractPhone = D),
+      (l.readRawRowColumn = x),
+      (l.isPhoneFieldName = $),
+      (l.isParsedNameOrPhoneFieldName = P),
+      (l.parseContactData = N));
   },
   226,
 );
