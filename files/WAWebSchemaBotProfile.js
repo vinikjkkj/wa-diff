@@ -30,6 +30,8 @@ __d(
           n("posingAsProfessional"),
           n("product"),
           n("isDeprecated"),
+          n("creatorLid"),
+          n("hcaEntrypointId"),
           n("isDeleted"),
           n("lastFetchedTimeMs"),
         ])

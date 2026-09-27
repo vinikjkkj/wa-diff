@@ -11,28 +11,32 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebBotStaticProfiles").isStaticProfile(t)) return !1;
-          var n = yield o("WAWebFetchWassBotProfileGQL").fetchWassBotProfileGQL(
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (
+            (n === void 0 && (n = !0),
+            o("WAWebBotStaticProfiles").isStaticProfile(t))
+          )
+            return !1;
+          var a = yield o("WAWebFetchWassBotProfileGQL").fetchWassBotProfileGQL(
               t.user,
             ),
-            a = !0;
+            i = !0;
           e: {
-            var i = n;
+            var l = a;
             if (
-              (((typeof i == "object" && i !== null) ||
-                typeof i == "function") &&
-                i.type === "error") ||
-              (((typeof i == "object" && i !== null) ||
-                typeof i == "function") &&
-                i.type === "graphql-error")
+              (((typeof l == "object" && l !== null) ||
+                typeof l == "function") &&
+                l.type === "error") ||
+              (((typeof l == "object" && l !== null) ||
+                typeof l == "function") &&
+                l.type === "graphql-error")
             ) {
-              ((a = !1),
+              ((i = !1),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -40,33 +44,35 @@ __d(
                         "[syncBotSupportFields] WASS fetch failed (",
                         ")",
                       ])),
-                    n.type,
+                    a.type,
                   )
                   .sendLogs("sbp-sync-fetch-failed"));
               break e;
             }
             if (
-              ((typeof i == "object" && i !== null) ||
-                typeof i == "function") &&
-              i.type === "exists" &&
-              "value" in i
+              ((typeof l == "object" && l !== null) ||
+                typeof l == "function") &&
+              l.type === "exists" &&
+              "value" in l
             ) {
-              var l = i.value;
+              var u = l.value;
               yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
-                name: l.name,
-                product: l.product,
-                isDeprecated: l.isDeprecated,
+                creatorLid: u.creatorLid,
+                hcaEntrypointId: u.hcaEntrypointId,
+                name: u.name,
+                product: u.product,
+                isDeprecated: u.isDeprecated,
                 isDeleted: !1,
                 lastFetchedTimeMs: Date.now(),
               });
-              var u = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
+              var c = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
                 t,
-                l.profilePicThumbUrl,
-                l.profilePicFullUrl,
+                u.profilePicThumbUrl,
+                u.profilePicFullUrl,
               );
-              u != null &&
+              c != null &&
                 o("WAWebDBBulkPersistProfilePic")
-                  .persistProfilePicBatched(u)
+                  .persistProfilePicBatched(c)
                   .catch(function (e) {
                     o("WALogger")
                       .WARN(
@@ -81,11 +87,12 @@ __d(
               break e;
             }
             if (
-              ((typeof i == "object" && i !== null) ||
-                typeof i == "function") &&
-              i.type === "deleted"
+              ((typeof l == "object" && l !== null) ||
+                typeof l == "function") &&
+              l.type === "deleted"
             ) {
-              o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
+              n &&
+                o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
                 (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
                   isDeleted: !0,
                   lastFetchedTimeMs: Date.now(),
@@ -94,10 +101,10 @@ __d(
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                i,
+                l,
             );
           }
-          return a;
+          return i;
         })),
         c.apply(this, arguments)
       );

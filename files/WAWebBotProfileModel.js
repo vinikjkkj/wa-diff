@@ -37,6 +37,8 @@ __d(
             (e.lastUpdateTs = o("WAWebBaseModel").prop()),
             (e.product = o("WAWebBaseModel").prop()),
             (e.isDeprecated = o("WAWebBaseModel").prop()),
+            (e.creatorLid = o("WAWebBaseModel").prop()),
+            (e.hcaEntrypointId = o("WAWebBaseModel").prop()),
             (e.isDeleted = o("WAWebBaseModel").prop()),
             (e.lastFetchedTimeMs = o("WAWebBaseModel").prop()),
             (e.contact = o("WAWebBaseModel").session()),

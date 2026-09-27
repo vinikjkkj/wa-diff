@@ -34,6 +34,8 @@ __d(
               n == null
                 ? null
                 : {
+                    creator_lid: n.creator_lid,
+                    hca_entrypoint_id: n.hca_entrypoint_id,
                     is_deprecated: n.is_deprecated,
                     name: n.name,
                     product: n.product,

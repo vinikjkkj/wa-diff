@@ -11,7 +11,9 @@ __d(
             ? o("WAWebBotProduct").BotProduct.META_AI_THREAD.valueOf()
             : e === "MANUS"
               ? o("WAWebBotProduct").BotProduct.MANUS.valueOf()
-              : e;
+              : e === "MUSE"
+                ? o("WAWebBotProduct").BotProduct.MUSE.valueOf()
+                : e;
     }
     function s(t) {
       var n;
@@ -20,6 +22,8 @@ __d(
         : {
             type: "exists",
             value: {
+              creatorLid: u(t.creator_lid),
+              hcaEntrypointId: u(t.hca_entrypoint_id),
               isDeprecated: (n = t.is_deprecated) != null ? n : null,
               name: u(t.name),
               product: e(t.product),

@@ -9,23 +9,23 @@ __d(
       var o = e.get(t);
       if (o != null && o.fired) return r("WAWebNoop");
       if (o == null) {
-        var a = { fired: !1, timer: null, activeHandler: null };
+        var a = { fired: !1, timer: null, handlers: [] };
         (e.set(t, a), (o = a));
       }
-      var i = o,
-        l = i.activeHandler;
+      var i = o;
       return (
-        (i.activeHandler = n),
+        i.handlers.push(n),
         i.timer == null &&
           (i.timer = window.setTimeout(function () {
             if (((i.timer = null), !i.fired)) {
               i.fired = !0;
-              var e = i.activeHandler;
-              ((i.activeHandler = null), e != null && e());
+              var e = i.handlers[i.handlers.length - 1];
+              ((i.handlers.length = 0), e != null && e());
             }
           }, s)),
         function () {
-          i.activeHandler === n && (i.activeHandler = l);
+          var e = i.handlers.lastIndexOf(n);
+          e !== -1 && i.handlers.splice(e, 1);
         }
       );
     }

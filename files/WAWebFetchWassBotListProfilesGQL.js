@@ -41,6 +41,12 @@ __d(
                 i === "" ||
                 t.push({
                   botFbid: i,
+                  creatorLid: o("WAWebWassBotProfileMapper").emptyToNull(
+                    n.creator_lid,
+                  ),
+                  hcaEntrypointId: o("WAWebWassBotProfileMapper").emptyToNull(
+                    n.hca_entrypoint_id,
+                  ),
                   name: o("WAWebWassBotProfileMapper").emptyToNull(n.name),
                   profilePicThumbUrl: o(
                     "WAWebWassBotProfileMapper",

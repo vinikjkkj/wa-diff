@@ -10,6 +10,7 @@ __d(
       SIDE_CHAT: "side_chat",
       MANUS: "manus",
       HATCH: "hatch",
+      MUSE: "muse",
       THIRD_PARTY: "3p_bot",
       SUPPORT: "wa_ias",
     });

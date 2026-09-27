@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastProCreateCustomAudienceMutation",
   [
     "WAWebBizBroadcastProCreateCustomAudienceMutation.graphql",
+    "WAWebContactImportFileProcessor",
     "WAWebFetchAdAccountToken",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -13,12 +14,28 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebBizBroadcastProCreateCustomAudienceMutation.graphql"));
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    function u(e) {
+      return e.map(function (e) {
+        var t,
+          n,
+          r = (t = e.firstName) == null ? void 0 : t.trim(),
+          a = (n = e.lastName) == null ? void 0 : n.trim(),
+          i = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+            e.phone,
+          ),
+          l = r != null && (r === e.phone.trim() || r === i),
+          s = !l,
+          u = s && r != null && r !== "" ? r : null,
+          c = s && a != null && a !== "" ? a : null;
+        return { first_name: u, last_name: c, phone: i };
+      });
     }
-    function c() {
+    function c(e, t, n) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
             i = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (i.type !== "success")
@@ -26,7 +43,16 @@ __d(
           var l = i.token,
             u = yield o("WAWebRelayClient").commitMutation(
               s,
-              { input: { subscriber_pool_id: e, name: t, phone_numbers: n } },
+              {
+                input: {
+                  name: t,
+                  phone_numbers: n.map(function (e) {
+                    return e.phone;
+                  }),
+                  recipients: null,
+                  subscriber_pool_id: e,
+                },
+              },
               {
                 accessToken: { type: "FB", token: l.token, bp_id: l.bp_id },
                 environmentType: "facebook",
@@ -40,10 +66,10 @@ __d(
           if (c == null) throw r("err")("Failed to create custom audience");
           return c;
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.createCustomAudienceList = u;
+    ((l.toAudienceRecipients = u), (l.createCustomAudienceList = c));
   },
   98,
 );
