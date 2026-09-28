@@ -7,11 +7,15 @@ __d(
       if (t != null) return t;
       var n = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return n == null ||
-        (n.product == null && n.isDeprecated == null && n.isDeleted == null)
+        (n.product == null &&
+          n.isDeprecated == null &&
+          n.hcaEntrypointId == null &&
+          n.isDeleted == null)
         ? null
         : {
             product: n.product,
             isDeprecated: n.isDeprecated,
+            hcaEntrypointId: n.hcaEntrypointId,
             isDeleted: n.isDeleted,
             isSynced: !0,
           };

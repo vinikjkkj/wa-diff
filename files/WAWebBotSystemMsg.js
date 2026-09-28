@@ -10,11 +10,12 @@ __d(
         templateParams: [],
       });
     }
-    function s(e, t) {
+    function s(e, t, n) {
       return o("WAWebContactSystemMsg").genNotificationMsg(e, {
         type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
         subtype: "bot_invoke_disclaimer",
+        botGroupParticipant: n,
         templateParams: [],
         t: t != null ? t : o("WATimeUtils").unixTime(),
       });

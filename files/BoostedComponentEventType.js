@@ -1606,10 +1606,6 @@ __d(
         "instant_ads_change_cta_in_goal_modal",
       INSTANT_ADS_SAVE_GOAL_FROM_MODAL: "instant_ads_save_goal_from_modal",
       INSTANT_ADS_CLICK_REGENERATE_ADS: "instant_ads_click_regenerate_ads",
-      INSTANT_ADS_CREATIVE_TILE_REGENERATE_TEXT:
-        "instant_ads_creative_tile_regenerate_text",
-      INSTANT_ADS_CREATIVE_TILE_REGENERATE_IMAGE:
-        "instant_ads_creative_tile_regenerate_image",
       INSTANT_ADS_CREATIVE_TILE_CHANGE_IMAGE:
         "instant_ads_creative_tile_change_image",
       INSTANT_ADS_CREATIVE_TILE_DELETE_AD:
@@ -1635,6 +1631,11 @@ __d(
         "instant_ads_generate_with_intentions_click",
       INSTANT_ADS_SUGGESTED_INTENTION_CHIP_CLICK:
         "instant_ads_suggested_intention_chip_click",
+      INSTANT_ADS_REGENERATE_WITH_INTENTION_SUCCESS:
+        "instant_ads_regenerate_with_intention_success",
+      INSTANT_ADS_REGENERATE_WITH_INTENTION_FAIL:
+        "instant_ads_regenerate_with_intention_fail",
+      INSTANT_ADS_PROMPT_DIALOG_OPEN: "instant_ads_prompt_dialog_open",
       INSTANT_ADS_EDIT_MODAL_FOCUS_EDIT_HEADLINE:
         "instant_ads_edit_modal_focus_edit_headline",
       INSTANT_ADS_EDIT_MODAL_FOCUS_EDIT_DESCRIPTION:
@@ -1645,15 +1646,12 @@ __d(
       INSTANT_ADS_CLICK_FOOTER_BACK: "instant_ads_click_footer_back",
       INSTANT_ADS_NUX_IMPRESSION: "instant_ads_nux_impression",
       INSTANT_ADS_NUX_DISMISS: "instant_ads_nux_dismiss",
-      INSTANT_ADS_NUX_TRY_NOW: "instant_ads_nux_try_now",
       INSTANT_ADS_PRODUCT_PICKER_IMPRESSION:
         "instant_ads_product_picker_impression",
       INSTANT_ADS_PRODUCT_PICKER_HOVER: "instant_ads_product_picker_hover",
-      INSTANT_ADS_PRODUCT_PICKER_CLICK: "instant_ads_product_picker_click",
       INSTANT_ADS_PRODUCT_CARD_IMPRESSION:
         "instant_ads_product_card_impression",
       INSTANT_ADS_PRODUCT_CARD_HOVER: "instant_ads_product_card_hover",
-      INSTANT_ADS_PRODUCT_CARD_CLICK: "instant_ads_product_card_click",
       INSTANT_ADS_PREGENERATE_INTENTION_WITH_PERSONAS:
         "instant_ads_pregenerate_intention_with_personas",
       INSTANT_ADS_PREGENERATE_FUNNEL_OUTCOME:

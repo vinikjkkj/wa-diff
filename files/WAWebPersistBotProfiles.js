@@ -7,33 +7,33 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["commands", "id", "prompts"],
-      s = ["name"];
+    var e = ["name"],
+      s = ["commands", "id", "prompts"];
     function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (yield o("WAWebSchemaBotProfile")
             .getBotProfileTable()
             .bulkCreateOrMerge(
-              t.map(function (t) {
-                var n = t.commands,
-                  r = t.id,
-                  o = t.prompts,
-                  a = babelHelpers.objectWithoutPropertiesLoose(t, e);
+              e.map(function (e) {
+                var t = e.commands,
+                  n = e.id,
+                  r = e.prompts,
+                  o = babelHelpers.objectWithoutPropertiesLoose(e, s);
                 return babelHelpers.extends(
                   {
-                    id: r.toString(),
-                    prompts: JSON.stringify(o),
-                    commands: JSON.stringify(n),
+                    id: n.toString(),
+                    prompts: JSON.stringify(r),
+                    commands: JSON.stringify(t),
                   },
-                  a,
+                  o,
                 );
               }),
             ),
-            t.forEach(function (e) {
+            e.forEach(function (e) {
               return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
                 babelHelpers.extends({ id: e.id }, e),
               );
@@ -94,29 +94,59 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.name,
-            r = babelHelpers.objectWithoutPropertiesLoose(t, s),
-            a =
-              n != null && n !== ""
-                ? babelHelpers.extends({}, r, { name: n })
-                : r;
-          (yield o("WAWebSchemaBotProfile")
-            .getBotProfileTable()
-            .bulkCreateOrMerge([babelHelpers.extends({ id: e.toString() }, a)]),
-            o("WAWebBotProfileCollection").BotProfileCollection.gadd(
-              babelHelpers.extends({ id: e }, a),
-            ));
+          return f([{ fields: t, wid: e }]);
         })),
         _.apply(this, arguments)
       );
     }
     function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length !== 0) {
+            var t = e.map(function (e) {
+              var t = e.fields,
+                n = e.wid;
+              return { fields: h(t), wid: n };
+            });
+            (yield o("WAWebSchemaBotProfile")
+              .getBotProfileTable()
+              .bulkCreateOrMerge(
+                t.map(function (e) {
+                  var t = e.fields,
+                    n = e.wid;
+                  return babelHelpers.extends({ id: n.toString() }, t);
+                }),
+              ),
+              t.forEach(function (e) {
+                var t = e.fields,
+                  n = e.wid;
+                return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
+                  babelHelpers.extends({ id: n }, t),
+                );
+              }));
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(t) {
+      var n = t.name,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return n != null && n !== ""
+        ? babelHelpers.extends({}, r, { name: n })
+        : r;
+    }
+    function y(e) {
       return o("WAWebBotProfileCollection").BotProfileCollection.get(e) != null;
     }
     ((l.persistBotProfiles = u),
       (l.setBotProfilePicUrls = d),
       (l.mergeBotSupportFields = p),
-      (l.isBotProfileCached = f));
+      (l.mergeBotSupportFieldsBatch = f),
+      (l.isBotProfileCached = y));
   },
   98,
 );

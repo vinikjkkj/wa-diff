@@ -42,7 +42,10 @@ __d(
                             );
                           })();
     }
-    l.isBotProductGateOn = e;
+    function s(e) {
+      return e === o("WAWebBotProduct").BotProduct.MUSE;
+    }
+    ((l.isBotProductGateOn = e), (l.isMuseProductGateOn = s));
   },
   98,
 );

@@ -11,9 +11,6 @@ __d(
     "WASmaxChatstateServerNotificationRPC",
     "WAWebAccountLinkingNotificationHandler",
     "WAWebAltDeviceLinkingHandleNotification",
-    "WAWebCoexV2BotWid",
-    "WAWebCoexV2ChatState",
-    "WAWebCoexV2GatingUtils",
     "WAWebCreateNackFromStanza",
     "WAWebDecodeJid",
     "WAWebHandleAboutNotification",
@@ -21,6 +18,7 @@ __d(
     "WAWebHandleBotProfileNotification",
     "WAWebHandleBusinessNotification",
     "WAWebHandleChatState",
+    "WAWebHandleCoexV2ChatState",
     "WAWebHandleCompanionReqRefreshNotification",
     "WAWebHandleContactNotification",
     "WAWebHandleDeviceNotification",
@@ -69,8 +67,7 @@ __d(
       d,
       m,
       p,
-      _,
-      f = o("WACreateHandleChatState").createHandleChatState({
+      _ = o("WACreateHandleChatState").createHandleChatState({
         groupMessage: {
           handleGroupChatState: o("WAWebHandleChatState").handleGroupChatState,
         },
@@ -79,12 +76,12 @@ __d(
             .handleIndividualChatState,
         },
       });
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.attrs;
           switch (e.tag) {
             case "receipt":
@@ -173,8 +170,8 @@ __d(
                   case "encrypt": {
                     var p = e.content;
                     if (!Array.isArray(p) || !p.length) break;
-                    var _ = p[0].tag;
-                    switch (_) {
+                    var f = p[0].tag;
+                    switch (f) {
                       case "count":
                       case "pq_count":
                         return yield r("WAWebHandlePreKeyLow")(e, t);
@@ -206,12 +203,12 @@ __d(
                     ) {
                       var g = e.content;
                       if (!Array.isArray(g) || !g.length) break;
-                      var h = g[0].tag;
-                      return h === "surfaces"
+                      var C = g[0].tag;
+                      return C === "surfaces"
                         ? yield o(
                             "WAWebHandleQPSurfacesNotification",
                           ).handleQPSurfacesNotification(e)
-                        : h === "reset_smb_last_qp_prefetch_timestamp"
+                        : C === "reset_smb_last_qp_prefetch_timestamp"
                           ? o(
                               "WAWebHandleQPPrefetchTimestampNotification",
                             ).handleQPPrefetchTimestampNotification(e)
@@ -266,7 +263,7 @@ __d(
                 if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
                   var b, v;
                   o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e);
-                  var R =
+                  var S =
                     (b = (v = n.type) == null ? void 0 : v.toString()) != null
                       ? b
                       : "[empty]";
@@ -279,10 +276,10 @@ __d(
                             " stanza: ",
                             "",
                           ])),
-                        R,
+                        S,
                         t,
                       )
-                      .sendLogs("failed-to-parse-notification-stanza-" + R, {
+                      .sendLogs("failed-to-parse-notification-stanza-" + S, {
                         sampling: 0.01,
                       }),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
@@ -293,22 +290,24 @@ __d(
                 }
                 return t instanceof
                   o("WAWebHandleMexNotification").MissingMEXNotificationHandler
-                  ? y(e)
+                  ? h(e)
                   : o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,
                       o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
                     );
               }
-              return y(e);
+              return h(e);
             case "chatstate": {
-              var L = C(e);
-              if (L != null) return L;
-              var E = S(e);
-              return E != null
-                ? E
+              var R = y(e);
+              if (R != null) return R;
+              var L = o(
+                "WAWebHandleCoexV2ChatState",
+              ).maybeHandleCoexV2ChatStateStanza(e);
+              return L != null
+                ? L
                 : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
                     e,
-                    f(e),
+                    _(e),
                   );
             }
             case "presence":
@@ -351,10 +350,10 @@ __d(
             )
           );
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(t) {
+    function h(t) {
       return (
         o("WALogger").DEV_XMPP(
           e ||
@@ -370,19 +369,19 @@ __d(
         )
       );
     }
-    function C(e) {
+    function y(e) {
       var t,
-        n = E((t = e.attrs.from) == null ? void 0 : t.toString());
+        n = v((t = e.attrs.from) == null ? void 0 : t.toString());
       if (n == null) return null;
       var r = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
-      return r == null ? null : b(e, r);
+      return r == null ? null : C(e, r);
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = o(
                 "WASmaxChatstateServerNotificationRPC",
@@ -413,67 +412,14 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e) {
-      var t,
-        n = E((t = e.attrs.from) == null ? void 0 : t.toString());
-      return n == null ||
-        !n.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
-        !o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
-        ? null
-        : R(e, n);
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n,
-              a = E((n = e.attrs.participant) == null ? void 0 : n.toString()),
-              i = o("WAWebCoexV2ChatState").normalizeCoexV2BotChatStateWid(
-                t,
-                a,
-              );
-            if (i == null) return "NO_ACK";
-            var l = o(
-                "WASmaxChatstateServerNotificationRPC",
-              ).receiveServerNotificationRPC(e),
-              s = l.parsedRequest.stateTypes,
-              u = o("WAHandleChatStateProtocol").parseChatStatus(s);
-            return (
-              yield o("WAWebHandleChatState").handleIndividualChatState({
-                jid: o("WAWebWidToJid").widToUserJid(i),
-                status: u,
-              }),
-              "NO_ACK"
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to handle CoEx v2 chatstate",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-chatstate-handle-fail", { sampling: 0.1 }),
-              "NO_ACK"
-            );
-          }
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
+    function v(e) {
       var t = o("WAWebDecodeJid").decodeJid(e);
       return t instanceof r("WAWebWid") ? t : null;
     }
-    l.handleLoggedInStanza = g;
+    l.handleLoggedInStanza = f;
   },
   98,
 );

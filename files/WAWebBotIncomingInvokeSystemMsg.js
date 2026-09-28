@@ -18,14 +18,19 @@ __d(
           var t = e.id.remote,
             n = e.t;
           if ((yield u(t)) !== !0 && !t.isBot()) {
-            var r = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
+            var r,
+              a = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
             if (
-              (r == null ? void 0 : r.isOpenBotGroup) === !0 ||
-              (r == null ? void 0 : r.isTeeBotGroup) === !0
+              (a == null ? void 0 : a.isOpenBotGroup) === !0 ||
+              (a == null ? void 0 : a.isTeeBotGroup) === !0
             )
               return null;
-            var a = o("WAWebBotSystemMsg").createBotInvokeSystemMsg(t, n);
-            return a;
+            var i = o("WAWebBotSystemMsg").createBotInvokeSystemMsg(
+              t,
+              n,
+              (r = e.botGroupParticipant) != null ? r : e.invokedBotWid,
+            );
+            return i;
           }
           return null;
         })),

@@ -79,12 +79,12 @@ __d(
           u = S(e, a),
           c = b({ botInfo: s, encs: a, msgMeta: u, node: e }),
           d = E(e, c),
-          m = I(e),
+          m = T(e),
           p = m.dehydratedPaymentNode,
           _ = m.paymentInfo,
-          f = k(e),
-          g = x(e),
-          h = $(e, a),
+          f = I(e),
+          g = $(e),
+          h = P(e, a),
           y =
             (t =
               (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
@@ -222,7 +222,7 @@ __d(
               o("WAWebHandleMsgCommon").MSG_CATEGORY,
             ),
             offline: l.maybeAttrString("offline"),
-            senderCountryCode: N(l.maybeChild("meta")),
+            senderCountryCode: M(l.maybeChild("meta")),
           },
           _ != null ? { serverStoreTimeMicros: _ } : null,
         ),
@@ -237,7 +237,7 @@ __d(
           : o("WAWebWidToJid").widToChatJid(
               o("WAWebWidFactory").asUserWidOrThrow(g),
             );
-        P({ chatJid: h, msgMeta: i, offline: f.offline, sts: _ });
+        N({ chatJid: h, msgMeta: i, offline: f.offline, sts: _ });
       }
       var y = l.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
@@ -289,11 +289,11 @@ __d(
         }
         var x = C(T, I),
           $ = x.chat,
-          M = x.metaFrom;
+          P = x.metaFrom;
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
           f,
-          { chat: $, author: g, metaFrom: M },
+          { chat: $, author: g, metaFrom: P },
         );
       }
       if (r && g.isPnBot() && I != null) {
@@ -774,11 +774,8 @@ __d(
       var n,
         r,
         a,
-        i,
-        l = !!(!(t == null || (n = t.author) == null) && n.isBot()),
-        s = !!(!(t == null || (r = t.chat) == null) && r.isBot()),
-        u = !s && l;
-      if (u)
+        i = !!(!(t == null || (n = t.author) == null) && n.isBot());
+      if (k(t))
         return {
           verifiedNameSerial: null,
           verifiedLevel: null,
@@ -787,71 +784,82 @@ __d(
           nativeFlowName: null,
           campaignId: null,
         };
-      var c = e.hasChild("verified_name")
+      var l = e.hasChild("verified_name")
           ? e.child("verified_name").contentBytes()
           : null,
-        d = e.maybeAttrEnum(
+        s = e.maybeAttrEnum(
           "verified_level",
           o("WAWebHandleMsgCommon").MSG_VERIFIED_LEVEL,
         ),
-        m = e.hasAttr("verified_name") ? e.attrInt("verified_name") : -1,
-        p = e.maybeChild("biz"),
-        _ = null;
-      if (p != null) {
-        var f = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
-            p.maybeAttrInt("actual_actors"),
+        u = e.hasAttr("verified_name") ? e.attrInt("verified_name") : -1,
+        c = e.maybeChild("biz"),
+        d = null;
+      if (c != null) {
+        var m = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+            c.maybeAttrInt("actual_actors"),
           ),
-          g = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
-            p.maybeAttrInt("host_storage"),
+          p = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+            c.maybeAttrInt("host_storage"),
           ),
-          h = p.maybeAttrInt("privacy_mode_ts");
-        f != null &&
-          g != null &&
-          h != null &&
-          !l &&
-          (_ = { actualActors: f, hostStorage: g, privacyModeTs: h });
+          _ = c.maybeAttrInt("privacy_mode_ts");
+        m != null &&
+          p != null &&
+          _ != null &&
+          !i &&
+          (d = { actualActors: m, hostStorage: p, privacyModeTs: _ });
       }
-      var y =
-          (a =
-            p == null ||
-            (i = p.maybeChild("interactive")) == null ||
-            (i = i.maybeChild("native_flow")) == null
+      var f =
+          (r =
+            c == null ||
+            (a = c.maybeChild("interactive")) == null ||
+            (a = a.maybeChild("native_flow")) == null
               ? void 0
-              : i.maybeAttrString("name")) != null
-            ? a
-            : p == null
+              : a.maybeAttrString("name")) != null
+            ? r
+            : c == null
               ? void 0
-              : p.maybeAttrString("native_flow_name"),
-        C = p == null ? void 0 : p.maybeChild("quality_control"),
-        b = C == null ? void 0 : C.maybeAttrString("decision_id"),
-        v = C == null ? void 0 : C.maybeAttrString("source_type"),
-        S = [];
-      C == null ||
-        C.forEachChildWithTag("decision_source", function (e) {
+              : c.maybeAttrString("native_flow_name"),
+        g = c == null ? void 0 : c.maybeChild("quality_control"),
+        h = g == null ? void 0 : g.maybeAttrString("decision_id"),
+        y = g == null ? void 0 : g.maybeAttrString("source_type"),
+        C = [];
+      g == null ||
+        g.forEachChildWithTag("decision_source", function (e) {
           var t = e.maybeAttrString("value");
-          t != null && S.push(t);
+          t != null && C.push(t);
         });
-      var R = p == null ? void 0 : p.maybeAttrString("campaign_id");
+      var b = c == null ? void 0 : c.maybeAttrString("campaign_id");
       return babelHelpers.extends(
         {
-          verifiedNameCert: c,
-          verifiedLevel: d,
-          verifiedNameSerial: m,
-          privacyMode: _,
-          nativeFlowName: y,
-          campaignId: R,
+          verifiedNameCert: l,
+          verifiedLevel: s,
+          verifiedNameSerial: u,
+          privacyMode: d,
+          nativeFlowName: f,
+          campaignId: b,
         },
-        p && {
-          verifiedButtonsEnvelope: p.hasChild("buttons"),
-          verifiedListEnvelope: p.hasChild("list"),
+        c && {
+          verifiedButtonsEnvelope: c.hasChild("buttons"),
+          verifiedListEnvelope: c.hasChild("list"),
           verifiedHsmEnvelope: e.hasChild("hsm"),
-          decisionId: b,
-          sourceType: v,
-          decisionSources: S.length > 0 ? S : void 0,
+          decisionId: h,
+          sourceType: y,
+          decisionSources: C.length > 0 ? C : void 0,
         },
       );
     }
     function k(e) {
+      var t, n;
+      return e == null
+        ? !1
+        : !!((t = e.author) != null && t.isBot()) &&
+            !((n = e.chat) != null && n.isBot()) &&
+            !o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
+              e.author,
+              e.metaFrom,
+            );
+    }
+    function I(e) {
       var t = e.maybeChild("hsm");
       if (t != null) {
         var n = t.maybeAttrString("tag"),
@@ -860,7 +868,7 @@ __d(
       }
       return null;
     }
-    function I(e) {
+    function T(e) {
       var t = null,
         n = null,
         r = e.hasChild("pay") ? e.child("pay") : null,
@@ -876,7 +884,7 @@ __d(
       if (a) {
         var s = o("WAWebPaymentNotificationParser").parseTransactionNode(a);
         s
-          ? T(i, l, o("WAWebWidFactory").createWid(s.receiver.toString()))
+          ? D(i, l, o("WAWebWidFactory").createWid(s.receiver.toString()))
             ? (t = {
                 receiverJid: s.receiver.toString(),
                 currency: s.currency,
@@ -920,7 +928,7 @@ __d(
               p = r.hasAttr("receiver")
                 ? r.attrString("receiver")
                 : e.attrString("recipient");
-            T(i, l, o("WAWebWidFactory").createWid(p))
+            D(i, l, o("WAWebWidFactory").createWid(p))
               ? (t = {
                   receiverJid: p,
                   currency: m,
@@ -947,7 +955,7 @@ __d(
       }
       return { paymentInfo: t, dehydratedPaymentNode: n };
     }
-    function T(e, t, n) {
+    function D(e, t, n) {
       return !(
         e &&
         t != null &&
@@ -956,7 +964,7 @@ __d(
         !o("WAWebUserPrefsMeUser").isMeAccount(n)
       );
     }
-    var D = new (r("WADeprecatedWapParser"))(
+    var x = new (r("WADeprecatedWapParser"))(
       "incomingMsgParserForAckOnly",
       function (e) {
         e.assertTag("message");
@@ -1004,7 +1012,7 @@ __d(
         };
       },
     );
-    function x(e) {
+    function $(e) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var t = e.maybeChild("reporting");
@@ -1019,7 +1027,7 @@ __d(
       }
       return (a != null && (n.reportingTag = a.contentBytes()), n);
     }
-    function $(e, t) {
+    function P(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var n = t.some(function (e) {
@@ -1070,7 +1078,7 @@ __d(
       }
       return l;
     }
-    function P(e) {
+    function N(e) {
       var t = e.chatJid,
         n = e.msgMeta,
         r = e.offline,
@@ -1085,7 +1093,7 @@ __d(
         i != null && a <= i.readSts && (n.isReadByPeer = !0);
       }
     }
-    function N(e) {
+    function M(e) {
       var t = e == null ? void 0 : e.maybeAttrString("sender_country_code");
       if (t != null)
         try {
@@ -1106,7 +1114,7 @@ __d(
               });
         }
     }
-    ((l.incomingMsgParser = y), (l.incomingMsgParserForAckOnly = D));
+    ((l.incomingMsgParser = y), (l.incomingMsgParserForAckOnly = x));
   },
   98,
 );

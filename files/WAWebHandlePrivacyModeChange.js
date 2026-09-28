@@ -5,6 +5,7 @@ __d(
     "WAWebApiVerifiedBusinessName",
     "WAWebBusinessProfileTypes",
     "WAWebCheckChatExistsOrCreate",
+    "WAWebCoexV2RepresentedIdentityFromMessage",
     "WAWebHandlePrivacyModeUpdateMsgAction",
     "WAWebMessageDestinationChat",
     "WAWebPrivacyModeSystemMsg",
@@ -20,45 +21,57 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.bizInfo,
-            r = t.chatWid,
-            a = t.msgInfo,
-            i = t.msgMeta,
-            l = t.msgs,
-            s = l[0],
-            u = o(
+          var n,
+            r = t.bizInfo,
+            a = t.chatWid,
+            i = t.msgInfo,
+            l = t.msgMeta,
+            s = t.msgs,
+            u = s[0],
+            d = o(
               "WAWebMessageDestinationChat",
             ).determineDestinationChatForIncomingMessage({
-              chat: r,
-              msg: s,
-              msgInfo: a,
+              chat: a,
+              msg: u,
+              msgInfo: i,
             }),
-            d = u.chatId,
-            m = yield c(d),
-            p = o("WAWebPrivacyModeSystemMsg").getLatestPrivacyMode(
-              n.privacyMode,
-              m.privacyMode,
-            ),
-            _ = yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate(
+            m = d.chatId,
+            p = o(
+              "WAWebCoexV2RepresentedIdentityFromMessage",
+            ).maybeResolveCoexV2RepresentedIdentityFromMessage(i, l),
+            _ =
+              p == null ||
+              ((n = p.representedIdentity) == null
+                ? void 0
+                : n.identitySource) === "sender",
+            f = yield c(m),
+            g = _
+              ? o("WAWebPrivacyModeSystemMsg").getLatestPrivacyMode(
+                  r.privacyMode,
+                  f.privacyMode,
+                )
+              : null,
+            h = yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate(
               {
-                destinationChat: u,
-                msgMeta: i,
-                options: { firstIncomingMsg: s, nextPrivacyMode: p },
+                destinationChat: d,
+                msgMeta: l,
+                options: { firstIncomingMsg: u, nextPrivacyMode: g },
                 chatOriginType: "createChatOnNewMsg",
               },
             ),
-            f =
-              _ !== !0 ||
-              m.verifiedLevel !==
-                o("WAWebBusinessProfileTypes").convertLevel(n.verifiedLevel);
+            y =
+              _ &&
+              (h !== !0 ||
+                f.verifiedLevel !==
+                  o("WAWebBusinessProfileTypes").convertLevel(r.verifiedLevel));
           try {
             return (
-              _ &&
-                p != null &&
+              h &&
+                g != null &&
                 (yield o(
                   "WAWebHandlePrivacyModeUpdateMsgAction",
-                ).handlePrivacyModeTransition(d, p, { shouldRunMATonWid: !1 })),
-              { shouldQueryContactInfo: f, latestPrivacyMode: p }
+                ).handlePrivacyModeTransition(m, g, { shouldRunMATonWid: !1 })),
+              { shouldQueryContactInfo: y, latestPrivacyMode: g }
             );
           } catch (t) {
             o("WALogger")
@@ -69,7 +82,7 @@ __d(
                     ", failed with error: ",
                     "",
                   ])),
-                d.toLogString(),
+                m.toLogString(),
                 t,
               )
               .tags("messaging", "non-sad")

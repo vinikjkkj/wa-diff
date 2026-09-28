@@ -9,7 +9,6 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebABProps",
-    "WAWebCoexV2BotWid",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebDeprecatedSendIqWorkerCompatible",
@@ -124,67 +123,12 @@ __d(
         );
       return o("WADeprecatedSendIq").deprecatedCastStanza(u);
     }
-    function g(e, t) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
-            to: o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
-            type: u.SENDER,
-            recipient: t,
-            groupedReceipt: new Map([[t, [e]]]),
-          });
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return S({
-            to: o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
-            type: u.DELIVERY,
-            recipient: t,
-            groupedReceipt: new Map([[t, [e]]]),
-          });
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.externalIds,
-            n = e.isReadSelf,
-            r = e.maxSts,
-            a = e.recipient,
-            i = e.t;
-          return S({
-            to: o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
-            type: n ? u.READ_SELF : u.READ,
-            recipient: a,
-            t: i,
-            groupedReceipt: new Map([[a, [].concat(t)]]),
-            maxStsByAuthor: r != null ? new Map([[a, r]]) : null,
-          });
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.groupedReceipt,
             a = t.isStatusReceipt,
             i = t.maxStsByAuthor,
@@ -403,17 +347,14 @@ __d(
             ),
           );
         })),
-        R.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.RECEIPT_TYPE = u),
       (l.ReceiptModeBitPosition = c),
       (l.genReceiptMetaModeNode = d),
       (l.sendBotInvokeResponseAcks = f),
-      (l.sendCoexV2SenderReceipt = g),
-      (l.sendCoexV2DeliveryReceipt = y),
-      (l.sendCoexV2ReadReceipt = b),
-      (l.sendAggregateReceipts = S));
+      (l.sendAggregateReceipts = g));
   },
   98,
 );

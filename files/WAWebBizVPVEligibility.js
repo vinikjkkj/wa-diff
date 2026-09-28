@@ -14,7 +14,9 @@ __d(
           o("WAWebMsgGetters").getType(a),
         )
         ? !1
-        : !!(t || o("WAWebMsgGetters").getIsMarketingMessage(a) || r);
+        : t || o("WAWebMsgGetters").getIsMarketingMessage(a) || r
+          ? !0
+          : o("WAWebMsgGetters").getIsCoexV2Relay(a);
     }
     l.isEligibleForBizVPV = e;
   },

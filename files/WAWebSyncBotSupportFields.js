@@ -91,12 +91,15 @@ __d(
                 typeof l == "function") &&
               l.type === "deleted"
             ) {
-              n &&
-                o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
-                (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
-                  isDeleted: !0,
-                  lastFetchedTimeMs: Date.now(),
-                }));
+              n
+                ? o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
+                  (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
+                    isDeleted: !0,
+                    lastFetchedTimeMs: Date.now(),
+                  }))
+                : yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
+                    lastFetchedTimeMs: Date.now(),
+                  });
               break e;
             }
             throw Error(

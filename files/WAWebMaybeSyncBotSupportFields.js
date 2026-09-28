@@ -2,6 +2,7 @@ __d(
   "WAWebMaybeSyncBotSupportFields",
   [
     "WALogger",
+    "WAWebBotGroupGatingUtils",
     "WAWebBotProfileCollection",
     "WAWebBotProfileFreshness",
     "WAWebBotStaticProfiles",
@@ -14,22 +15,24 @@ __d(
       u = new Set();
     function c(t, n) {
       var a = n === void 0 ? {} : n,
-        i = a.ttlMs;
+        i = a.tombstoneOnMissing,
+        l = i === void 0 ? !0 : i,
+        s = a.ttlMs;
       if (!(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t))) {
-        var l = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
-          s =
-            l == null
+        var c = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
+          d =
+            c == null
               ? null
               : {
-                  isDeleted: l.isDeleted,
-                  product: l.product,
-                  lastFetchedTimeMs: l.lastFetchedTimeMs,
+                  isDeleted: c.isDeleted,
+                  product: c.product,
+                  lastFetchedTimeMs: c.lastFetchedTimeMs,
                 };
-        o("WAWebBotProfileFreshness").isBotProfileStale(s, Date.now(), i) &&
+        o("WAWebBotProfileFreshness").isBotProfileStale(d, Date.now(), s) &&
           (u.has(t) ||
             (u.add(t),
             o("WAWebSyncBotSupportFields")
-              .syncBotSupportFields(t)
+              .syncBotSupportFields(t, l)
               .catch(function (t) {
                 o("WALogger")
                   .ERROR(
@@ -46,7 +49,17 @@ __d(
               })));
       }
     }
-    ((l.CHAT_OPEN_REFRESH_TTL_MS = s), (l.maybeSyncBotSupportFields = c));
+    function d(e, t) {
+      var n = t === void 0 ? {} : t,
+        r = n.ttlMs;
+      o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() &&
+        e.forEach(function (e) {
+          c(e, { ttlMs: r, tombstoneOnMissing: !1 });
+        });
+    }
+    ((l.CHAT_OPEN_REFRESH_TTL_MS = s),
+      (l.maybeSyncBotSupportFields = c),
+      (l.maybeSyncGroupBotSupportFields = d));
   },
   98,
 );

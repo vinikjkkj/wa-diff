@@ -17,6 +17,7 @@ __d(
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
     "WAWebL10N",
+    "WAWebResolveBotProfile",
     "WAWebSchemaGroupMetadata",
     "WAWebSendForNeededAddRequest",
     "WAWebUpdateSubgroupsCommunityAction",
@@ -187,20 +188,15 @@ __d(
           );
         }),
         (n.canPromote = function (t) {
-          var e,
-            n = this.getGroupMetadata();
+          var e = this.getGroupMetadata();
           return !(
-            (n == null ? void 0 : n.isSuspendedOrTerminated()) === !0 ||
+            (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
             !t ||
             o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
             !this.iAmAdmin() ||
             t.isAdmin ||
-            (n != null && o("WAWebGroupMetadataGetters").getIsCag(n)) ||
-            (o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled() &&
-              (e = t.id) != null &&
-              e.isBot())
+            (e != null && o("WAWebGroupMetadataGetters").getIsCag(e)) ||
+            s(t)
           );
         }),
         (n.canDemote = function (t) {
@@ -332,8 +328,21 @@ __d(
       );
     })(r("WAWebCollection"));
     ((e.model = r("WAWebGroupParticipantModel")),
-      (e.comparator = r("WAWebGroupParticipantComparator")),
-      (l.default = e));
+      (e.comparator = r("WAWebGroupParticipantComparator")));
+    function s(e) {
+      var t = e.id;
+      return t == null
+        ? !1
+        : (o(
+            "WAWebBotGroupGatingUtils",
+          ).isOpenGroupBotParticipantAddEnabled() &&
+            t.isBot()) ||
+            o("WAWebBotGroupGatingUtils").isGroupAgent(
+              o("WAWebResolveBotProfile").resolveBotSupportInput(t),
+              o("WAWebBotGroupGatingUtils").BotGroupContext.GROUP,
+            );
+    }
+    l.default = e;
   },
   98,
 );

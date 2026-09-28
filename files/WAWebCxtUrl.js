@@ -1,36 +1,29 @@
 __d(
   "WAWebCxtUrl",
-  ["WAWebL10N"],
+  ["WAWebFaqUrl"],
   function (t, n, r, o, a, i, l) {
-    var e = "https://faq.whatsapp.com";
-    function s(t) {
-      return (
-        e +
-        "/cxt/?entrypointid=" +
-        t +
-        "&platform=web&lang=" +
-        r("WAWebL10N").getNormalizedLocale()
-      );
+    function e(e) {
+      return o("WAWebFaqUrl").getCxtFaqUrl(e);
+    }
+    function s() {
+      return e("invite-via-link-unavailable");
     }
     function u() {
-      return s("invite-via-link-unavailable");
+      return e("community-no-longer-available");
     }
     function c() {
-      return s("community-no-longer-available");
+      return e("about-group-suspension-appeals");
     }
     function d() {
-      return s("about-group-suspension-appeals");
+      return e("about-community-suspension-appeals");
     }
-    function m() {
-      return s("about-community-suspension-appeals");
-    }
-    function p(e) {
+    function m(e) {
       var t = e.isCommunity;
-      return t ? m() : d();
+      return t ? d() : c();
     }
-    ((l.getGroupInviteGrowthLockedFaqUrl = u),
-      (l.getCommunityNotAvailableFaqUrl = c),
-      (l.getSuspensionAppealsFaqUrl = p));
+    ((l.getGroupInviteGrowthLockedFaqUrl = s),
+      (l.getCommunityNotAvailableFaqUrl = u),
+      (l.getSuspensionAppealsFaqUrl = m));
   },
   98,
 );

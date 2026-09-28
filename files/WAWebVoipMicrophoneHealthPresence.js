@@ -8,26 +8,36 @@ __d(
       s = new Set(),
       u = new Set();
     function c(e) {
-      var t = e.isCallActiveInPopoutWindow,
-        n = e.isContextInPopoutWindow,
-        r = e.isDocPip,
-        o = e.isDocPipOpen;
-      return o ? r : t ? n : !n && !r;
+      return e.isDocPip
+        ? "doc_pip"
+        : e.isContextInPopoutWindow && e.windowEl !== window
+          ? "popout_window"
+          : "main_window";
     }
-    function d(t, n) {
+    function d(e) {
+      var t = e.isCallActiveInPopoutWindow,
+        n = e.isDocPipOpen,
+        r = e.placement;
+      return n
+        ? r === "doc_pip"
+        : t
+          ? r === "popout_window"
+          : r === "main_window";
+    }
+    function m(t, n) {
       n ? e.add(t) : e.delete(t);
     }
-    function m() {
+    function p() {
       return e.size > 0;
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = s.size > 0;
       if ((t ? s.add(e) : s.delete(e), !n && s.size > 0)) for (var r of u) r();
     }
-    function _() {
+    function f() {
       return s.size > 0;
     }
-    function f(e) {
+    function g(e) {
       return (
         u.add(e),
         function () {
@@ -35,24 +45,25 @@ __d(
         }
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       t ? l.add(e) : l.delete(e);
     }
-    function h() {
+    function y() {
       return l.size > 0;
     }
-    function y() {
+    function C() {
       (e.clear(), l.clear(), s.clear(), u.clear());
     }
-    ((i.isMicrophoneObserverOwner = c),
-      (i.reportMicrophoneHealthArmed = d),
-      (i.isMicrophoneHealthArmed = m),
-      (i.reportMicrophoneHealthExperienceMounted = p),
-      (i.isMicrophoneHealthExperienceMounted = _),
-      (i.subscribeToMicrophoneHealthExperienceMount = f),
-      (i.reportMicrophoneUnavailableBannerVisible = g),
-      (i.isMicrophoneUnavailableBannerVisible = h),
-      (i.resetMicrophoneHealthPresenceForTesting = y));
+    ((i.getCallSurfacePlacement = c),
+      (i.isMicrophoneObserverOwner = d),
+      (i.reportMicrophoneHealthArmed = m),
+      (i.isMicrophoneHealthArmed = p),
+      (i.reportMicrophoneHealthExperienceMounted = _),
+      (i.isMicrophoneHealthExperienceMounted = f),
+      (i.subscribeToMicrophoneHealthExperienceMount = g),
+      (i.reportMicrophoneUnavailableBannerVisible = h),
+      (i.isMicrophoneUnavailableBannerVisible = y),
+      (i.resetMicrophoneHealthPresenceForTesting = C));
   },
   66,
 );

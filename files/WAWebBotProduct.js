@@ -16,7 +16,13 @@ __d(
     });
     function l(t) {
       var n;
-      return t == null ? null : (n = e.cast(t)) != null ? n : null;
+      return t == null
+        ? null
+        : t === "MUSE"
+          ? e.MUSE
+          : (n = e.cast(t)) != null
+            ? n
+            : null;
     }
     ((i.BotProduct = e), (i.botProductFromServerValue = l));
   },

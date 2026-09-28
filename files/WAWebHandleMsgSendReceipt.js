@@ -5,6 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2ReceiptRecipient",
+    "WAWebCoexV2SendReceipt",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgSendAck",
@@ -151,8 +152,7 @@ __d(
                   yield D({
                     errorReason: "coexv2-sender-receipt-error",
                     label: "sender",
-                    send: o("WAWebSendReceiptJobCommon")
-                      .sendCoexV2SenderReceipt,
+                    send: o("WAWebCoexV2SendReceipt").sendCoexV2SenderReceipt,
                   });
                   return;
                 }
@@ -160,8 +160,7 @@ __d(
                   yield D({
                     errorReason: "coexv2-delivery-receipt-error",
                     label: "delivery",
-                    send: o("WAWebSendReceiptJobCommon")
-                      .sendCoexV2DeliveryReceipt,
+                    send: o("WAWebCoexV2SendReceipt").sendCoexV2DeliveryReceipt,
                   });
                   return;
                 }

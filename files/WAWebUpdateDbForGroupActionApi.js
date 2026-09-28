@@ -31,6 +31,7 @@ __d(
     "WAWebNux",
     "WAWebQueryAndUpdateSubgroupSuggestionsJob",
     "WAWebSubgroupSuggestionsJob",
+    "WAWebSyncGroupBotSupportFields",
     "WAWebUpdateDbForCommunityAction",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
@@ -41,13 +42,13 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L, E, k;
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L, E, k, I;
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           (i === void 0 && (i = !1),
             o("WALogger")
               .LOG(
@@ -58,14 +59,14 @@ __d(
               )
               .tags("groups"));
           var l = t.chatId,
-            E = t.author,
-            I = t.pushname,
-            T = t.ts,
-            x = T === void 0 ? Date.now() / 1e3 : T;
-          E &&
-            !r("isStringNullOrEmpty")(I) &&
+            k = t.author,
+            T = t.pushname,
+            D = t.ts,
+            $ = D === void 0 ? Date.now() / 1e3 : D;
+          k &&
+            !r("isStringNullOrEmpty")(T) &&
             o("WAWebHandlePushnameUpdate")
-              .updatePushname(E, I, i)
+              .updatePushname(k, T, i)
               .catch(function (e) {
                 o("WALogger")
                   .WARN(
@@ -76,24 +77,24 @@ __d(
                   )
                   .catching(r("getErrorSafe")(e));
               });
-          var P = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l),
-            M = (P == null ? void 0 : P.isParentGroup) === !0,
-            w = !!t.isLidAddressingMode,
-            A = w !== !!(P != null && P.isLidAddressingMode),
-            F = [];
+          var N = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l),
+            w = (N == null ? void 0 : N.isParentGroup) === !0,
+            A = !!t.isLidAddressingMode,
+            F = A !== !!(N != null && N.isLidAddressingMode),
+            O = [];
           switch (
-            (M &&
-              A &&
-              (F.push(
+            (w &&
+              F &&
+              (O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
-                  { isLidAddressingMode: w },
+                  { isLidAddressingMode: A },
                   i,
                 ),
               ),
-              F.push(
+              O.push(
                 o("WAWebGroupParticipantsJob")
-                  .migrateParentGroupToLIDOrFallbackToPNJob(l.toString(), w)
+                  .migrateParentGroupToLIDOrFallbackToPNJob(l.toString(), A)
                   .catch(function () {
                     o("WALogger").ERROR(
                       u ||
@@ -101,7 +102,7 @@ __d(
                           "[parent-group] migrate to LID/PN failed; isLID=",
                           "",
                         ])),
-                      w,
+                      A,
                     );
                   }),
               )),
@@ -109,7 +110,7 @@ __d(
           ) {
             case o("WAWebGroupType").GROUP_ACTIONS.ADD:
               if (
-                (F.push(
+                (O.push(
                   o("WAWebGroupParticipantsJob")
                     .addParticipantsJob({
                       group: l,
@@ -127,12 +128,12 @@ __d(
                                 "addParticipants: out-of-sync group notification",
                               ])),
                           ),
-                            $(l, i));
+                            P(l, i));
                         },
                       ),
                     ),
                 ),
-                F.push(
+                O.push(
                   o(
                     "WAWebGroupMembershipApprovalRequestsJob",
                   ).removeMembershipApprovalRequestsJob(
@@ -143,12 +144,12 @@ __d(
                     i,
                   ),
                 ),
-                F.push(
+                O.push(
                   o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(l, {
-                    groupAdder: E == null ? void 0 : E.toString(),
+                    groupAdder: k == null ? void 0 : k.toString(),
                   }),
                 ),
-                F.push(
+                O.push(
                   o(
                     "WAWebGroupHistoryParticipantJob",
                   ).updateGroupHistoryParticipantMetadataOnJoin(
@@ -163,14 +164,14 @@ __d(
                     "WAWebBotGroupGatingUtils",
                   ).isTEEGroupBotParticipantAddEnabled())
               ) {
-                var O = o(
+                var B = o(
                   "WAWebBotUtils",
                 ).participantListIncludeOpenOrTeeGroupBotWid(a.participants);
                 (o(
                   "WAWebBotGroupGatingUtils",
                 ).isOpenGroupBotParticipantAddEnabled() &&
-                  O.includeOpenMetabot &&
-                  F.push(
+                  B.includeOpenMetabot &&
+                  O.push(
                     o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                       l,
                       { isOpenBotGroup: !0 },
@@ -180,8 +181,8 @@ __d(
                   o(
                     "WAWebBotGroupGatingUtils",
                   ).isTEEGroupBotParticipantAddEnabled() &&
-                    O.includeTeeMetabot &&
-                    F.push(
+                    B.includeTeeMetabot &&
+                    O.push(
                       o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                         l,
                         { isTeeBotGroup: !0 },
@@ -191,22 +192,22 @@ __d(
               }
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.REMOVE: {
-              var B = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l);
-              if (B == null) break;
-              var W =
+              var W = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l);
+              if (W == null) break;
+              var q =
                   a.reason !==
                     o("WAWebGroupType").REMOVE_REASON.DEFAULT_SUBGROUP_DEMOTE &&
                   a.participants.some(function (e) {
                     var t = e.id;
                     return o("WAWebUserPrefsMeUser").isMeAccount(t);
                   }) &&
-                  (yield o("WAWebDBCommunity").isLastJoinedSubgroup(B)),
-                q = function (n, r) {
+                  (yield o("WAWebDBCommunity").isLastJoinedSubgroup(W)),
+                U = function (n, r) {
                   return o("WAWebGroupParticipantsJob")
                     .removeParticipantsJob(
                       n,
                       a.participants,
-                      x,
+                      $,
                       t.author,
                       a.reason,
                       r,
@@ -222,14 +223,14 @@ __d(
                                 "removeParticipants: out-of-sync group notification",
                               ])),
                           ),
-                            $(n, i));
+                            P(n, i));
                         },
                       ),
                     );
                 };
               if (
-                (F.push(q(l, B)),
-                F.push(
+                (O.push(U(l, W)),
+                O.push(
                   o(
                     "WAWebGroupHistoryParticipantJob",
                   ).clearGroupHistoryParticipantStateOnRemove(
@@ -237,11 +238,11 @@ __d(
                     a.participants,
                   ),
                 ),
-                B.defaultSubgroup === !0 && B.parentGroup != null)
+                W.defaultSubgroup === !0 && W.parentGroup != null)
               ) {
-                var U = o("WAWebWidFactory").createWid(B.parentGroup),
-                  V = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(U);
-                V && F.push(q(U, V));
+                var V = o("WAWebWidFactory").createWid(W.parentGroup),
+                  H = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(V);
+                H && O.push(U(V, H));
               }
               if (
                 a.participants.find(function (e) {
@@ -249,20 +250,20 @@ __d(
                   return o("WAWebUserPrefsMeUser").isMeAccount(t);
                 })
               ) {
-                var H = yield o(
+                var G = yield o(
                   "WAWebUpdateDbForCommunityAction",
                 ).databaseUpdatesForSelfRemovedFromGroup(
                   l,
-                  B == null ? void 0 : B.parentGroup,
-                  W,
+                  W == null ? void 0 : W.parentGroup,
+                  q,
                 );
-                F.push.apply(F, H);
+                O.push.apply(O, G);
               }
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.DEMOTE: {
-              var G = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l);
-              if (G == null) break;
+              var z = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l);
+              if (z == null) break;
               (a.participants.find(function (e) {
                 var t = e.id;
                 return o("WAWebUserPrefsMeUser").isMeAccount(t);
@@ -271,15 +272,15 @@ __d(
                   l.toString(),
                   !1,
                 ),
-                F.push(
+                O.push(
                   o(
                     "WAWebApiMembershipApprovalRequestStore",
                   ).removeAllMembershipApprovalRequests(l),
                 ),
-                yield D(G, l)),
-                F.push(
+                yield x(z, l)),
+                O.push(
                   o("WAWebGroupParticipantsJob")
-                    .demoteParticipantsJob(l, a.participants, G, i)
+                    .demoteParticipantsJob(l, a.participants, z, i)
                     .catch(
                       o("WAFilteredCatch").filteredCatch(
                         o("WAWebDBParticipantTypes").GroupUnSyncedError,
@@ -290,7 +291,7 @@ __d(
                                 "removeParticipants: out-of-sync group notification",
                               ])),
                           ),
-                            $(l, i));
+                            P(l, i));
                         },
                       ),
                     ),
@@ -298,8 +299,8 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.PROMOTE: {
-              var z = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l);
-              if (z == null) break;
+              var j = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l);
+              if (j == null) break;
               if (
                 a.participants.find(function (e) {
                   var t = e.id;
@@ -307,24 +308,24 @@ __d(
                 })
               ) {
                 if (
-                  z != null &&
-                  o("WAWebGroupMetadataGetters").getGroupType(z) ===
+                  j != null &&
+                  o("WAWebGroupMetadataGetters").getGroupType(j) ===
                     o("WAWebGroupType").GroupType.COMMUNITY
                 ) {
-                  var j = o("WAWebNux").getCommunityAdminPromotionNuxKey(
-                    z.id.toString(),
+                  var K = o("WAWebNux").getCommunityAdminPromotionNuxKey(
+                    j.id.toString(),
                   );
-                  N(j);
+                  M(K);
                 }
                 (o("WAWebApiParticipantStore").setAdminshipCache(
                   l.toString(),
                   !0,
                 ),
-                  yield D(z, l));
+                  yield x(j, l));
               }
-              F.push(
+              O.push(
                 o("WAWebGroupParticipantsJob")
-                  .promoteParticipantsJob(l, a.participants, z, i)
+                  .promoteParticipantsJob(l, a.participants, j, i)
                   .catch(
                     o("WAFilteredCatch").filteredCatch(
                       o("WAWebDBParticipantTypes").GroupUnSyncedError,
@@ -335,7 +336,7 @@ __d(
                               "removeParticipants: out-of-sync group notification",
                             ])),
                         ),
-                          $(l, i));
+                          P(l, i));
                       },
                     ),
                   ),
@@ -344,14 +345,14 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_PROMOTE: {
               if (!a.jid) break;
-              var K = a.jid,
-                Q = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-                  K.toString(),
+              var Q = a.jid,
+                X = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+                  Q.toString(),
                 );
-              Q ||
-                F.push(
+              X ||
+                O.push(
                   o("WAWebGroupParticipantsJob")
-                    .promoteCommunityParticipantsJob(K, a.participants, i)
+                    .promoteCommunityParticipantsJob(Q, a.participants, i)
                     .catch(
                       o("WAFilteredCatch").filteredCatch(
                         o("WAWebDBParticipantTypes").GroupUnSyncedError,
@@ -362,7 +363,7 @@ __d(
                                 "linkedGroupPromote: out-of-sync group notification",
                               ])),
                           ),
-                            $(K, i));
+                            P(Q, i));
                         },
                       ),
                     ),
@@ -371,15 +372,15 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE: {
               if (!a.jid) break;
-              var X = a.jid,
-                Y = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-                  X.toString(),
+              var Y = a.jid,
+                J = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+                  Y.toString(),
                 );
-              Y ||
-                F.push(
+              J ||
+                O.push(
                   o("WAWebGroupParticipantsJob")
                     .demoteCommunityParticipantsJob({
-                      group: X,
+                      group: Y,
                       isOffline: i,
                       participants: a.participants,
                     })
@@ -393,7 +394,7 @@ __d(
                                 "linkedGroupDemote: out-of-sync group notification",
                               ])),
                           ),
-                            $(X, i));
+                            P(Y, i));
                         },
                       ),
                     ),
@@ -401,10 +402,10 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE: {
-              var J = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                Z = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
-                ee = E == null ? void 0 : E.toString();
-              if (r("isStringNullOrEmpty")(ee) || E == null) {
+              var Z = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                ee = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
+                te = k == null ? void 0 : k.toString();
+              if (r("isStringNullOrEmpty")(te) || k == null) {
                 o("WALogger").WARN(
                   g ||
                     (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -415,24 +416,24 @@ __d(
                 );
                 return;
               }
-              var te = o("WAWebUserPrefsMeUser").isMeAccount(E),
-                ne = [];
-              if (te)
-                ne = a.participants.map(function (e) {
+              var ne = o("WAWebUserPrefsMeUser").isMeAccount(k),
+                re = [];
+              if (ne)
+                re = a.participants.map(function (e) {
                   return {
-                    from: ee,
+                    from: te,
                     to: e.id.toString(),
                     groupId: l.toString(),
                     expiration: e.expiration,
                   };
                 });
               else {
-                var re,
-                  oe,
-                  ae = a.participants.find(function (e) {
+                var oe,
+                  ae,
+                  ie = a.participants.find(function (e) {
                     return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
                   });
-                if (!ae) {
+                if (!ie) {
                   o("WALogger")
                     .ERROR(
                       h ||
@@ -440,22 +441,22 @@ __d(
                           "[group-invites] revoke from ",
                           ", user not in list",
                         ])),
-                      ee,
+                      te,
                     )
                     .sendLogs("bad-revoke");
                   return;
                 }
-                var ie = o("WAWebWidFactory").asUserWidOrThrow(E),
-                  le =
-                    (re = o("WAWebLidMigrationUtils").toPn(ie)) == null
-                      ? void 0
-                      : re.toString(),
+                var le = o("WAWebWidFactory").asUserWidOrThrow(k),
                   se =
-                    (oe = o("WAWebLidMigrationUtils").toLid(ie)) == null
+                    (oe = o("WAWebLidMigrationUtils").toPn(le)) == null
                       ? void 0
-                      : oe.toString();
-                if (r("isStringNullOrEmpty")(se)) {
-                  var ue = o(
+                      : oe.toString(),
+                  ue =
+                    (ae = o("WAWebLidMigrationUtils").toLid(le)) == null
+                      ? void 0
+                      : ae.toString();
+                if (r("isStringNullOrEmpty")(ue)) {
+                  var ce = o(
                     "WAWebLid1X1MigrationGating",
                   ).Lid1X1MigrationUtils.isLidMigrated();
                   o("WALogger").LOG(
@@ -464,36 +465,36 @@ __d(
                         "[group-invites] isLidMigrated=",
                         ", revoke from other user",
                       ])),
-                    ue,
+                    ce,
                   );
-                  var ce =
+                  var de =
                     "[group-invites] failed to get lid mapping for *incoming* group invite *revoke*";
                   o("WALogger")
                     .ERROR(
                       C ||
                         (C = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                      ce,
+                      de,
                     )
-                    .sendLogs(ce);
+                    .sendLogs(de);
                 }
-                ((ne = [
+                ((re = [
                   {
-                    from: se != null ? se : "",
-                    to: Z,
+                    from: ue != null ? ue : "",
+                    to: ee,
                     groupId: l.toString(),
-                    expiration: ae.expiration,
+                    expiration: ie.expiration,
                   },
                 ]),
-                  J != null &&
-                    ne.push({
-                      from: le != null ? le : "",
-                      to: J.toString(),
+                  Z != null &&
+                    re.push({
+                      from: se != null ? se : "",
+                      to: Z.toString(),
                       groupId: l.toString(),
-                      expiration: ae.expiration,
+                      expiration: ie.expiration,
                     }));
               }
-              yield (k || (k = n("Promise"))).all(
-                ne.map(function (e) {
+              yield (I || (I = n("Promise"))).all(
+                re.map(function (e) {
                   return o("WAWebDBRevokeInviteV4").revokeGroupInviteV4({
                     expiration: e.expiration,
                     from: e.from,
@@ -516,11 +517,11 @@ __d(
                 );
                 break;
               }
-              F.push(
+              O.push(
                 o("WAWebGroupDatabaseJob")
                   .modifyGroupParticipantJob(
                     l,
-                    r("nullthrows")(E),
+                    r("nullthrows")(k),
                     a.participants[0].id,
                   )
                   .catch(
@@ -533,14 +534,14 @@ __d(
                               "modifyGroupParticipant: out-of-sync group notification",
                             ])),
                         ),
-                          $(l, i));
+                          P(l, i));
                       },
                     ),
                   ),
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SUBJECT:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { subject: a.subject },
@@ -549,21 +550,21 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.DESC_ADD:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   {
                     desc: a.desc,
                     descId: a.descId,
                     descTime: a.descTime,
-                    descOwner: E == null ? void 0 : E.toString(),
+                    descOwner: k == null ? void 0 : k.toString(),
                   },
                   i,
                 ),
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.DESC_REMOVE:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   {
@@ -577,7 +578,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.RESTRICT:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { restrict: !!a.value },
@@ -586,22 +587,22 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND: {
-              var de = !!a.value;
-              F.push(
+              var me = !!a.value;
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
-                  { suspended: de },
+                  { suspended: me },
                   i,
                 ),
               );
-              var me = yield o(
+              var pe = yield o(
                 "WAWebUpdateDbForCommunityAction",
-              ).maybeUpdateCommunitySuspendedStatus(l, de, i);
-              F.push.apply(F, me);
+              ).maybeUpdateCommunitySuspendedStatus(l, me, i);
+              O.push.apply(O, pe);
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   {
@@ -614,7 +615,7 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.ANNOUNCE:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { announce: !!a.value },
@@ -623,7 +624,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.NO_FORWARD:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { noFrequentlyForwarded: !!a.value },
@@ -632,23 +633,23 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL: {
-              var pe =
+              var _e =
                   o("WAWebAfterReadUtils").isAfterReadEnabled() &&
                   o("WAWebAfterReadUtils").isAfterReadDuration(a.duration),
-                _e = pe
+                fe = _e
                   ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
                   : a.duration,
-                fe = pe ? a.duration : null,
-                ge = o("WAWebEphemeralityUtils").getDisappearingModeTrigger(
+                ge = _e ? a.duration : null,
+                he = o("WAWebEphemeralityUtils").getDisappearingModeTrigger(
                   a.trigger,
                 );
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   {
-                    ephemeralDuration: _e,
-                    afterReadDuration: fe,
-                    disappearingModeTrigger: ge != null ? ge : void 0,
+                    ephemeralDuration: fe,
+                    afterReadDuration: ge,
+                    disappearingModeTrigger: he != null ? he : void 0,
                     disappearingModeInitiatedByMe: a.initiatedByMe,
                   },
                   i,
@@ -665,19 +666,19 @@ __d(
                 a.reason ===
                 o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
               ) {
-                var he = yield o(
+                var ye = yield o(
                   "WAWebUpdateDbForCommunityAction",
                 ).databaseUpdatesForIntegrityDeactivateCommunity(l, i);
-                F.push.apply(F, he);
+                O.push.apply(O, ye);
               } else if (
                 a.reason === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT
               ) {
-                var ye = yield o(
+                var Ce = yield o(
                   "WAWebUpdateDbForCommunityAction",
                 ).databaseUpdatesForDeactivateCommunity(l, i);
-                F.push.apply(F, ye);
+                O.push.apply(O, Ce);
               } else
-                F.push(
+                O.push(
                   o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                     l,
                     { terminated: !0 },
@@ -686,7 +687,7 @@ __d(
                 );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.GROWTH_UNLOCKED:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { growthLockExpiration: void 0, growthLockType: void 0 },
@@ -696,7 +697,7 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED:
               a.type === "invite" &&
-                F.push(
+                O.push(
                   o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                     l,
                     {
@@ -708,18 +709,18 @@ __d(
                 );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_LINK: {
-              var Ce = a.groupDatas[0].id;
-              F.push(
+              var be = a.groupDatas[0].id;
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
-                  { parentGroup: Ce.toString() },
+                  { parentGroup: be.toString() },
                   i,
                 ),
               );
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_LINK:
-              F.push(
+              O.push(
                 o("WAWebDBCommunity").persistCommunityLink({
                   action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SubGroupLink,
@@ -735,7 +736,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_LINK:
-              F.push(
+              O.push(
                 o("WAWebDBCommunity").persistCommunityLink({
                   action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SiblingGroupLink,
@@ -746,7 +747,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_UNLINK:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { parentGroup: void 0 },
@@ -755,7 +756,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_UNLINK:
-              F.push(
+              O.push(
                 o("WAWebDBCommunity").persistCommunityLink({
                   action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SubGroupUnlink,
@@ -766,7 +767,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_UNLINK:
-              F.push(
+              O.push(
                 o("WAWebDBCommunity").persistCommunityLink({
                   action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SiblingGroupUnlink,
@@ -777,7 +778,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_MODE:
-              (F.push(
+              (O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { membershipApprovalMode: a.value },
@@ -785,7 +786,7 @@ __d(
                 ),
               ),
                 a.value ||
-                  F.push(
+                  O.push(
                     o(
                       "WAWebApiMembershipApprovalRequestStore",
                     ).removeAllMembershipApprovalRequests(l),
@@ -794,7 +795,7 @@ __d(
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_REQUEST:
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   babelHelpers.extends(
@@ -806,7 +807,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { lastReportToAdminTimestamp: a.value },
@@ -816,7 +817,7 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS:
               {
-                F.push(
+                O.push(
                   o(
                     "WAWebApiMembershipApprovalRequestStore",
                   ).addMembershipApprovalRequests(
@@ -825,22 +826,22 @@ __d(
                       var t = e.wid;
                       return {
                         id: t,
-                        t: x,
-                        addedBy: r("nullthrows")(E),
+                        t: $,
+                        addedBy: r("nullthrows")(k),
                         requestMethod: a.requestMethod,
                         parentGroupId: a.parentGroupId,
                       };
                     }),
                   ),
                 );
-                var be = o(
+                var ve = o(
                   "WAWebNux",
                 ).getMembershipApprovalRequestsBannerNuxKey(l.toString());
-                N(be);
+                M(ve);
               }
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.REVOKED_MEMBERSHIP_REQUESTS:
-              F.push(
+              O.push(
                 o(
                   "WAWebGroupMembershipApprovalRequestsJob",
                 ).removeMembershipApprovalRequestsJob(l, a.requests, i),
@@ -848,7 +849,7 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS
               .ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { allowNonAdminSubGroupCreation: !!a.value },
@@ -858,8 +859,8 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS
               .CREATED_SUBGROUP_SUGGESTION: {
-              var ve;
-              F.push(
+              var Se;
+              O.push(
                 o("WAWebApiSubgroupSuggestionStore").addSubgroupSuggestions(l, [
                   {
                     id: a.id,
@@ -868,21 +869,21 @@ __d(
                     desc: a.description,
                     owner: a.owner,
                     t: a.t,
-                    isExistingGroup: (ve = a.isExistingGroup) != null ? ve : !1,
+                    isExistingGroup: (Se = a.isExistingGroup) != null ? Se : !1,
                     participantCount: a.participantCount,
                     hiddenSubgroup: a.hiddenSubgroup,
                   },
                 ]),
               );
-              var Se = o("WAWebNux").getSubgroupSuggestionsBannerNuxKey(
+              var Re = o("WAWebNux").getSubgroupSuggestionsBannerNuxKey(
                 l.toString(),
               );
-              N(Se);
+              M(Re);
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS
               .REVOKED_SUB_GROUP_SUGGESTIONS:
-              F.push(
+              O.push(
                 o("WAWebSubgroupSuggestionsJob").removeSubgroupSuggestionsJob(
                   a.subgroupSuggestions.map(function (e) {
                     var t = e.id,
@@ -895,7 +896,7 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS
               .SUBGROUP_SUGGESTIONS_CHANGE_NUMBER:
-              F.push(
+              O.push(
                 o(
                   "WAWebApiSubgroupSuggestionStore",
                 ).updateOwnerInSubgroupSuggestions({
@@ -907,7 +908,7 @@ __d(
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_ADD_MODE: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { memberAddMode: a.memberAddMode },
@@ -917,7 +918,7 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { memberLinkMode: a.value },
@@ -928,7 +929,7 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS
               .GENERAL_CHAT_AUTO_ADD_DISABLED: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { generalChatAutoAddDisabled: !0 },
@@ -938,7 +939,7 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.COMMUNITY_OWNER_UPDATE: {
-              F.push(
+              O.push(
                 o("WAWebGroupParticipantsJob")
                   .setGroupSuperAdminJob(l, a.newOwner)
                   .catch(
@@ -951,7 +952,7 @@ __d(
                               "communityOwnerUpdate: out-of-sync group notification",
                             ])),
                         ),
-                          $(l, i));
+                          P(l, i));
                       },
                     ),
                   ),
@@ -959,7 +960,7 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.HIDDEN_GROUP: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(l, {
                   hiddenSubgroup: !!a.value,
                 }),
@@ -967,7 +968,7 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(l, {
                   groupSafetyCheck: !!a.value,
                 }),
@@ -976,7 +977,7 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS
               .MEMBER_SHARE_GROUP_HISTORY_MODE: {
-              F.push(
+              O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { memberShareGroupHistoryMode: a.value },
@@ -1000,32 +1001,51 @@ __d(
           }
           (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
             t.hasIncompleteParticipantInformation === !0 &&
-            F.push(
+            O.push(
               o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                 l,
                 { hasIncompleteParticipantInformation: !0 },
                 i,
               ),
             ),
-            yield (k || (k = n("Promise"))).all(F),
+            yield (I || (I = n("Promise"))).all(O),
+            a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD &&
+              o("WAWebSyncGroupBotSupportFields")
+                .maybeLazySyncGroupBotSupportFields(
+                  a.participants.map(function (e) {
+                    var t = e.id;
+                    return t;
+                  }),
+                )
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      L ||
+                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                          "updateDBForGroupAction: failed to refresh added agent profiles",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("group-action-refresh-agent-profiles-error");
+                }),
             o("WALogger")
               .LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
                     "finished all storageTasks",
                   ])),
               )
               .tags("groups"));
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             e.isParentGroup === !0 &&
             e.allowNonAdminSubGroupCreation !== !0
@@ -1037,23 +1057,23 @@ __d(
               ).queryAndUpdateSubgroupSuggestions(t, n[0]);
           }
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             t === !0
               ? yield o("WAWebGroupDatabaseJob").markGroupParticipantStaleJob(e)
               : yield o("WAWebGroupQueryBridge").sendQueryGroup(e);
           } catch (e) {
             o("WALogger").WARN(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              k ||
+                (k = babelHelpers.taggedTemplateLiteralLoose([
                   "handleGroupUnsyncedError: failed: ",
                   "",
                 ])),
@@ -1061,18 +1081,18 @@ __d(
             );
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
+    function M(e) {
       o("WAWebBackendApi").frontendFireAndForget("resetNux", { key: e });
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
           return (
             r != null &&
@@ -1080,13 +1100,13 @@ __d(
               yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(e, {
                 disappearingModeTrigger: t,
               })),
-            (k || (k = n("Promise"))).resolve()
+            (I || (I = n("Promise"))).resolve()
           );
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    ((l.updateDBForGroupAction = I), (l.syncDisappearingModeTriggerToDB = M));
+    ((l.updateDBForGroupAction = T), (l.syncDisappearingModeTriggerToDB = w));
   },
   98,
 );

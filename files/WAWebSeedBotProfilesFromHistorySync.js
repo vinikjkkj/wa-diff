@@ -1,7 +1,6 @@
 __d(
   "WAWebSeedBotProfilesFromHistorySync",
   [
-    "Promise",
     "WALogger",
     "WAWebBotStaticProfiles",
     "WAWebPersistBotProfiles",
@@ -10,17 +9,19 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.filter(function (e) {
-            var t = e.wid;
-            return !o("WAWebBotStaticProfiles").isStaticProfile(t);
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = new Map();
+          t.forEach(function (e) {
+            o("WAWebBotStaticProfiles").isStaticProfile(e.wid) ||
+              n.set(e.wid.toString(), e);
           });
+          var a = Array.from(n.values());
           if (a.length !== 0)
             try {
               var i = yield o("WAWebSchemaBotProfile")
@@ -34,15 +35,14 @@ __d(
                 l = a.filter(function (e, t) {
                   return i[t] == null;
                 });
-              (yield (u || (u = n("Promise"))).all(
-                l.map(function (e) {
-                  var t = e.name,
-                    n = e.wid;
-                  return o("WAWebPersistBotProfiles").mergeBotSupportFields(n, {
-                    name: t,
-                  });
-                }),
-              ),
+              (l.length > 0 &&
+                (yield o("WAWebPersistBotProfiles").mergeBotSupportFieldsBatch(
+                  l.map(function (e) {
+                    var t = e.name,
+                      n = e.wid;
+                    return { fields: { name: t }, wid: n };
+                  }),
+                )),
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -63,10 +63,10 @@ __d(
                 .sendLogs("history-sync-seed-bot-profile-failed");
             }
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.seedBotProfilesFromHistorySync = c;
+    l.seedBotProfilesFromHistorySync = u;
   },
   98,
 );

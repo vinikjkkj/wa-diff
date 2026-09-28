@@ -12,6 +12,7 @@ __d(
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2ReceiptRecipient",
+    "WAWebCoexV2SendReceipt",
     "WAWebDBMessageUtils",
     "WAWebDBPendingReadReceiptQueries",
     "WAWebHandlePlaceholderWam",
@@ -486,7 +487,7 @@ __d(
             l = e.trusted;
           if (!(a == null || n.length === 0))
             try {
-              yield o("WAWebSendReceiptJobCommon").sendCoexV2ReadReceipt({
+              yield o("WAWebCoexV2SendReceipt").sendCoexV2ReadReceipt({
                 externalIds: n.map(function (e) {
                   return e.id;
                 }),

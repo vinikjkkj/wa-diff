@@ -16,51 +16,69 @@ __d(
           ? e
           : (e = n("WAWebBizBroadcastProCreateCustomAudienceMutation.graphql"));
     function u(e) {
+      var t = (e != null ? e : "").trim();
+      return t === "" ? null : t;
+    }
+    function c(e, t) {
       return e.map(function (e) {
-        var t,
-          n,
-          r = (t = e.firstName) == null ? void 0 : t.trim(),
-          a = (n = e.lastName) == null ? void 0 : n.trim(),
-          i = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+        var n,
+          r,
+          a = (n = e.firstName) == null ? void 0 : n.trim(),
+          i = (r = e.lastName) == null ? void 0 : r.trim(),
+          l = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
             e.phone,
           ),
-          l = r != null && (r === e.phone.trim() || r === i),
-          s = !l,
-          u = s && r != null && r !== "" ? r : null,
-          c = s && a != null && a !== "" ? a : null;
+          s = a != null && (a === e.phone.trim() || a === l),
+          u = !t && !s,
+          c = u && a != null && a !== "" ? a : null,
+          d = u && i != null && i !== "" ? i : null;
         if (
-          u != null &&
-          c == null &&
+          c != null &&
+          d == null &&
           o("WAWebContactImportTemplateParsingUtils").isCombinedNameRow(
             e.rawRow,
           )
         ) {
-          var d = o("WAWebContactImportTemplateParsingUtils").splitFullName(u);
-          d.lastName !== "" && ((u = d.firstName), (c = d.lastName));
+          var m = o("WAWebContactImportTemplateParsingUtils").splitFullName(c);
+          m.lastName !== "" && ((c = m.firstName), (d = m.lastName));
         }
-        return { first_name: u, last_name: c, phone: i };
+        return { first_name: c, last_name: d, phone: l };
       });
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    function d(e, t, n) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
             i = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (i.type !== "success")
             throw r("err")("Failed to fetch access token");
           var l = i.token,
-            u = yield o("WAWebRelayClient").commitMutation(
+            c = n.map(function (e) {
+              return {
+                first_name: u(e.first_name),
+                last_name: u(e.last_name),
+                phone: o(
+                  "WAWebContactImportFileProcessor",
+                ).normalizePhoneNumber(e.phone),
+              };
+            }),
+            d = c.some(function (e) {
+              return e.first_name != null || e.last_name != null;
+            }),
+            m = yield o("WAWebRelayClient").commitMutation(
               s,
               {
                 input: {
                   name: t,
-                  phone_numbers: n.map(function (e) {
-                    return e.phone;
-                  }),
-                  recipients: null,
+                  phone_numbers: d
+                    ? null
+                    : c.map(function (e) {
+                        return e.phone;
+                      }),
+                  recipients: d ? c : null,
                   subscriber_pool_id: e,
                 },
               },
@@ -69,18 +87,18 @@ __d(
                 environmentType: "facebook",
               },
             ),
-            c =
-              u == null ||
-              (a = u.create_wa_marketing_messages_custom_audience) == null
+            p =
+              m == null ||
+              (a = m.create_wa_marketing_messages_custom_audience) == null
                 ? void 0
                 : a.custom_audience_id;
-          if (c == null) throw r("err")("Failed to create custom audience");
-          return c;
+          if (p == null) throw r("err")("Failed to create custom audience");
+          return p;
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    ((l.toAudienceRecipients = u), (l.createCustomAudienceList = c));
+    ((l.toAudienceRecipients = c), (l.createCustomAudienceList = d));
   },
   98,
 );

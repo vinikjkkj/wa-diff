@@ -11,21 +11,21 @@ __d(
         ) === !0
       );
     }
-    function u(t, n, r) {
+    function u(t, n) {
       if (
         n !== e.GROUP ||
         (t == null ? void 0 : t.isDeprecated) === !0 ||
         (t == null ? void 0 : t.isDeleted) === !0
       )
         return !1;
-      var a = o("WAWebBotProduct").botProductFromServerValue(
+      var r = o("WAWebBotProduct").botProductFromServerValue(
           t == null ? void 0 : t.product,
         ),
-        i =
-          a === o("WAWebBotProduct").BotProduct.MUSE
+        a =
+          r === o("WAWebBotProduct").BotProduct.MUSE
             ? o("WAWebBotProduct").BotProduct.MUSE
             : null;
-      return i == null ? !1 : s() && r(i);
+      return a == null ? !1 : s();
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
