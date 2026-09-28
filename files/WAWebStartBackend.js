@@ -241,7 +241,8 @@ __d(
           (o(
             "WAWebUserPrefsWorkerCompatibleMainThread",
           ).initializeUserPrefsWorkerCompatibleMainThread(),
-            o("WAWebStartBackendWorker").startBackendWorker(),
+            o("WAWebCommsGating").isCommsInWorker() ||
+              o("WAWebStartBackendWorker").startBackendWorker(),
             k || I());
           var e = yield o(
             "WAWebSignalStoreApi",

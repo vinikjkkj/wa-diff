@@ -7,6 +7,7 @@ __d(
     "WAWebCallUserJourneyWamEvent",
     "WAWebUserJourneyEventMs",
     "WAWebWamEnumCallActionType",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -123,24 +124,25 @@ __d(
                 ).isCallUserJourneyLoggingEnabled()
               )
             ) {
-              var r = {
-                  appSessionId: o(
-                    "WAWebCallUserJourneyAppSessionId",
-                  ).callUserJourneyAppSessionId(e.appSessionId),
-                  callActionType: n.callActionType,
-                  callRandomId: t,
-                  isCallConnected: this.$2,
-                  isGroupCall: this.$3,
-                  isVideoCall: this.$4,
-                  uiSurface: n.uiSurface,
-                },
-                a = this.$5;
-              (a != null && (r.numConnectedParticipants = a),
-                n.subSurface != null && (r.subSurface = n.subSurface));
-              var i = o("WAWebUserJourneyEventMs").userJourneyEventMs();
-              (i != null && (r.userJourneyEventMs = i),
+              var a = {
+                appSessionId: o(
+                  "WAWebCallUserJourneyAppSessionId",
+                ).callUserJourneyAppSessionId(e.appSessionId),
+                callActionType: n.callActionType,
+                callRandomId: t,
+                isCallConnected: this.$2,
+                uiSurface: n.uiSurface,
+              };
+              if (r("justknobx")._("6022")) {
+                ((a.isGroupCall = this.$3), (a.isVideoCall = this.$4));
+                var i = this.$5;
+                i != null && (a.numConnectedParticipants = i);
+              }
+              n.subSurface != null && (a.subSurface = n.subSurface);
+              var l = o("WAWebUserJourneyEventMs").userJourneyEventMs();
+              (l != null && (a.userJourneyEventMs = l),
                 new (o("WAWebCallUserJourneyWamEvent").CallUserJourneyWamEvent)(
-                  r,
+                  a,
                 ).commit());
             }
           }),

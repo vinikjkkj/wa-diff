@@ -733,62 +733,64 @@ __d(
     function W(e) {
       var t = e.msgInfo,
         n = e.msgMeta,
-        r = e.placeholderAddReason,
-        a = e.placeholderType;
+        a = e.placeholderAddReason,
+        i = e.placeholderType;
       if (!B(t)) return null;
-      var i =
-          a === o("WAWebHandleMsgTypes.flow").PlaceholderType.E2E
+      var l =
+          i === o("WAWebHandleMsgTypes.flow").PlaceholderType.E2E
             ? void 0
-            : a ===
+            : i ===
                 o("WAWebHandleMsgTypes.flow").PlaceholderType
                   .BOT_UNAVAILABLE_FANOUT
               ? "bot_unavailable_fanout"
-              : a ===
+              : i ===
                   o("WAWebHandleMsgTypes.flow").PlaceholderType
                     .HOSTED_UNAVAILABLE_FANOUT
                 ? "hosted_unavailable_fanout"
-                : a ===
+                : i ===
                     o("WAWebHandleMsgTypes.flow").PlaceholderType
                       .VIEW_ONCE_UNAVAILABLE_FANOUT
                   ? "view_once_unavailable_fanout"
-                  : a ===
+                  : i ===
                       o("WAWebHandleMsgTypes.flow").PlaceholderType
                         .ACP_UNAVAILABLE_FANOUT
                     ? "acp_unavailable_fanout"
-                    : a === o("WAWebHandleMsgTypes.flow").PlaceholderType.FANOUT
+                    : i === o("WAWebHandleMsgTypes.flow").PlaceholderType.FANOUT
                       ? "fanout"
                       : (function () {
                           throw Error(
                             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              a,
+                              i,
                           );
                         })(),
-        l = n.isReadByPeer === !0,
-        s = babelHelpers.extends({}, V(t), {
+        s = n.isReadByPeer === !0,
+        u = n.isGroupStatus === !0 && r("justknobx")._("6035") ? !0 : void 0,
+        c = babelHelpers.extends({}, V(t), {
           type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
           kind: o("WAWebMsgType").MsgKind.Ciphertext,
-          subtype: i,
+          subtype: l,
           e2eSenderType: o("WAWebWamMsgUtils").getWamE2eSenderType(t.author),
-          placeholderAddReason: r,
+          placeholderAddReason: a,
           bclParticipants:
             t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
               ? t.bclParticipants
               : void 0,
-          read: l ? !0 : void 0,
+          read: s ? !0 : void 0,
+          isGroupStatus: u,
         });
-      l && (s.ack = o("WAWebAck").ACK.READ);
-      var u = o("WAWebHandleMsgMetaUtils").getMsgTypeFromMsgMeta(n);
-      return u != null
-        ? babelHelpers.extends({}, s, {
+      s && (c.ack = o("WAWebAck").ACK.READ);
+      var d = o("WAWebHandleMsgMetaUtils").getMsgTypeFromMsgMeta(n);
+      return d != null
+        ? babelHelpers.extends({}, c, {
             parentMsgKey: o("WAWebE2EProtoUtils").createMsgKeyFromThreadInfo({
               info: t,
               msgMeta: n,
-              realType: u,
+              realType: d,
             }),
             kind: o("WAWebMsgType").MsgKind.PlaceholderAddon,
-            realType: u,
+            realType: d,
           })
-        : babelHelpers.extends({}, s, {
+        : babelHelpers.extends({}, c, {
             kind: o("WAWebMsgType").MsgKind.PlaceholderMessage,
           });
     }

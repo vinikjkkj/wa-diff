@@ -1,12 +1,6 @@
 __d(
   "WAWebWebTPSensitive",
-  [
-    "fbt",
-    "WAWebABProps",
-    "WAWebEnvironment",
-    "WDSIconIcOpenInNew.react",
-    "react",
-  ],
+  ["fbt", "WAWebEnvironment", "WDSIconIcOpenInNew.react", "react"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
@@ -15,18 +9,7 @@ __d(
       return s._(/*BTDS*/ "Edit in Acrobat");
     }
     function d() {
-      return (function (e) {
-        if (e === 1)
-          return { subtitle: m(), title: s._(/*BTDS*/ "Edit text & images") };
-        {
-          var t = e;
-          return { title: c() };
-        }
-      })(
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_webtp_edit_menu_copy_variant",
-        ),
-      );
+      return { subtitle: m(), title: s._(/*BTDS*/ "Edit text & images") };
     }
     function m() {
       return r("WAWebEnvironment").isWindows

@@ -183,9 +183,7 @@ __d(
                       o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(n)
                     )
                   ) {
-                    if (
-                      o("WAWebBizAiAgentGating").isAiHubTapCtaShowAlertEnabled()
-                    ) {
+                    if (i) {
                       o("WAWebModalManager").ModalManager.open(
                         m.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
                       );

@@ -48,7 +48,10 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
+          if (
+            o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
+            !e.isPSA()
+          ) {
             var n = e.toString();
             if (!p(n)) {
               var r = o("WAWebContactCollection").ContactCollection.get(e),

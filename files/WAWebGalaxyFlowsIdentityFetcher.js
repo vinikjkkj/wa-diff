@@ -1,12 +1,6 @@
 __d(
   "WAWebGalaxyFlowsIdentityFetcher",
-  [
-    "Promise",
-    "WAWebGetIdentityKeysJob",
-    "WAWebLidMigrationUtils",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["Promise", "WAWebGetIdentityKeysJob", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 3e4,
@@ -24,36 +18,32 @@ __d(
         }
         var a = t.prototype;
         return (
-          (a.fetchIdentityFor = (function () {
+          (a.fetchIdentitiesFor = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                var n,
-                  r,
-                  a = e.isLid()
-                    ? (n =
-                        (r = o("WAWebLidMigrationUtils").toPn(e)) == null
-                          ? void 0
-                          : r.toString()) != null
-                      ? n
-                      : ""
-                    : e.toString(),
-                  i = this.$1.get(a);
-                if (i == null) {
-                  (this.$1.set(a, [t]), this.$2.set(a, Date.now()));
+                var n = e
+                    .map(function (e) {
+                      return e.toString();
+                    })
+                    .sort()
+                    .join(","),
+                  r = this.$1.get(n);
+                if (r == null) {
+                  (this.$1.set(n, [t]), this.$2.set(n, Date.now()));
                   try {
                     yield this.$5(e);
                   } catch (e) {
                     throw e;
                   } finally {
-                    var l = this.$1.get(a);
-                    (this.$1.delete(a),
-                      this.$2.delete(a),
-                      l != null &&
-                        l.forEach(function (e) {
+                    var o = this.$1.get(n);
+                    (this.$1.delete(n),
+                      this.$2.delete(n),
+                      o != null &&
+                        o.forEach(function (e) {
                           return e.onComplete();
                         }));
                   }
-                } else i.push(t);
+                } else r.push(t);
               },
             );
             function t(t, n) {
@@ -89,13 +79,20 @@ __d(
           (a.$6 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var a = new (e || (e = n("Promise")))(function (e, t) {
-                    window.setTimeout(function () {
+                var a = 0,
+                  i = new (e || (e = n("Promise")))(function (e, t) {
+                    a = window.setTimeout(function () {
                       return t(r("err")("Timeout"));
                     }, s);
                   }),
-                  i = o("WAWebGetIdentityKeysJob").getAndStoreIdentityKeys([t]);
-                yield e.race([i, a]);
+                  l = o("WAWebGetIdentityKeysJob").getAndStoreIdentityKeys(
+                    Array.from(t),
+                  );
+                try {
+                  yield (e || (e = n("Promise"))).race([l, i]);
+                } finally {
+                  window.clearTimeout(a);
+                }
               },
             );
             function a(e) {

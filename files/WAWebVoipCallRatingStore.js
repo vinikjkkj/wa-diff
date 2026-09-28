@@ -48,14 +48,15 @@ __d(
       } catch (e) {}
       return o("WAMd5").md5("payload:" + e);
     }
-    function m(e, t, n, r) {
-      var o = {
+    function m(e, t, n, r, o) {
+      var a = {
+        callFromUi: o,
         callRandomId: t,
         incomingCallUiAction: r,
         jsonDataStr: e,
         lobbyEntryPoint: n,
       };
-      return ((s = o), o);
+      return ((s = a), a);
     }
     function p() {
       return s;

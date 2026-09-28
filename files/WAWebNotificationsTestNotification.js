@@ -46,7 +46,7 @@ __d(
           (r.getBannerOptions = function () {
             var e = s._(/*BTDS*/ "WhatsApp").toString(),
               t = s
-                ._(/*BTDS*/ "Click here to complete notification verification")
+                ._(/*BTDS*/ "Click here to complete the notification test")
                 .toString();
             return babelHelpers.extends(
               {
@@ -72,7 +72,7 @@ __d(
         : {
             showViaServiceWorker: !0,
             actions: [
-              { action: e, title: r("fbs")._(/*BTDS*/ "Verify").toString() },
+              { action: e, title: r("fbs")._(/*BTDS*/ "Confirm").toString() },
             ],
           };
     }

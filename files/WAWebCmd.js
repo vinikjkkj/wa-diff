@@ -1086,10 +1086,8 @@ __d(
               );
               return;
             }
-            this.trigger(
-              "bot_toggle_plugin_search_details_for_target_id_" + t,
-              n,
-            );
+            var e = this;
+            e.trigger("bot_toggle_plugin_search_details_for_target_id_" + t, n);
           }),
           (i.rerenderApp = function () {
             this.trigger("rerender_app");

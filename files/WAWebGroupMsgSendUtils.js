@@ -8,6 +8,7 @@ __d(
     "WAWebGroupType",
     "WAWebGroupUtils",
     "WAWebMsgGetters",
+    "WAWebResolveGroupAgentParticipants",
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
     "WAWebWamGroupMetricUtils",
@@ -21,10 +22,11 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = yield o("WAWebSchemaGroupMetadata")
-            .getGroupMetadataTable()
-            .get(t);
-          a == null &&
+          var a,
+            i = yield o("WAWebSchemaGroupMetadata")
+              .getGroupMetadataTable()
+              .get(t);
+          i == null &&
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -33,7 +35,12 @@ __d(
                 ])),
               t,
             );
-          var i = {
+          var l = yield o(
+              "WAWebResolveGroupAgentParticipants",
+            ).resolveGroupAgentParticipants(
+              (a = n == null ? void 0 : n.participants) != null ? a : [],
+            ),
+            s = {
               groupId: t,
               amIAdmin: null,
               isCag: null,
@@ -46,36 +53,37 @@ __d(
               isCapiGroup: null,
               isOpenBotGroup: null,
               isTeeBotGroup: null,
+              groupAgentParticipants: l,
             },
-            l = (a == null ? void 0 : a.isLidAddressingMode) === !0;
-          if (a != null) {
-            var s = o("WAWebGroupMetadataGetters").getGroupType(a),
-              u = s === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
-            ((i.wamTypeOfGroup = o("WAWebGroupType").groupTypeToWamEnum(s)),
-              (i.isLid = u && (r == null ? void 0 : r.type) === "addon"),
-              (i.isCag = u),
-              (i.isLidAddressingMode = l),
-              (i.isCapiGroup = a.hasCapi === !0),
-              (i.isOpenBotGroup =
+            u = (i == null ? void 0 : i.isLidAddressingMode) === !0;
+          if (i != null) {
+            var c = o("WAWebGroupMetadataGetters").getGroupType(i),
+              d = c === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
+            ((s.wamTypeOfGroup = o("WAWebGroupType").groupTypeToWamEnum(c)),
+              (s.isLid = d && (r == null ? void 0 : r.type) === "addon"),
+              (s.isCag = d),
+              (s.isLidAddressingMode = u),
+              (s.isCapiGroup = i.hasCapi === !0),
+              (s.isOpenBotGroup =
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isOpenGroupBotParticipantAddEnabled() &&
-                a.isOpenBotGroup === !0),
-              (i.isTeeBotGroup =
+                i.isOpenBotGroup === !0),
+              (s.isTeeBotGroup =
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isTEEGroupBotParticipantAddEnabled() &&
-                a.isTeeBotGroup === !0));
+                i.isTeeBotGroup === !0));
           }
           if (n != null) {
-            var c = o("WAWebGroupUtils").amIGroupAdmin(n.admins);
-            ((i.amIAdmin = c),
+            var m = o("WAWebGroupUtils").amIGroupAdmin(n.admins);
+            ((s.amIAdmin = m),
               Object.assign(
-                i,
+                s,
                 o("WAWebWamGroupMetricUtils").getGroupMetricsFromDbRecord(n),
               ));
           }
-          return i;
+          return s;
         })),
         c.apply(this, arguments)
       );

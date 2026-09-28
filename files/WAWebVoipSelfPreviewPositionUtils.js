@@ -51,11 +51,12 @@ __d(
     }
     function d(e, t, n, r, o, a) {
       var i = t - r - a.right,
-        l = n - o - a.bottom;
+        l = n - o - a.bottom,
+        s = Math.max(0, Math.min(a.top, n - o));
       return e === "top-left"
-        ? { x: a.left, y: a.top }
+        ? { x: a.left, y: s }
         : e === "top-right"
-          ? { x: i, y: a.top }
+          ? { x: i, y: s }
           : e === "bottom-left"
             ? { x: a.left, y: l }
             : e === "bottom-right"

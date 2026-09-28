@@ -15,6 +15,7 @@ __d(
     "WAWebBrokerGlobalAppState",
     "WAWebBuildConstants",
     "WAWebCallsOnlyGating",
+    "WAWebCommsGating",
     "WAWebCoreActionsODS",
     "WAWebCryptoEncKeyHelper",
     "WAWebCurrentUser",
@@ -42,6 +43,7 @@ __d(
     "WAWebSocketLogoutJob",
     "WAWebSocketModel",
     "WAWebStartBackend",
+    "WAWebStartBackendWorker",
     "WAWebStatusStorage",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsIsLoggedIn",
@@ -143,6 +145,8 @@ __d(
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
           o("WAWebFtsClient").ftsClient.initialize(),
         o("WAWebStartBackend").setupStartBackendListeners(),
+        o("WAWebCommsGating").isCommsInWorker() &&
+          o("WAWebStartBackendWorker").startBackendWorker(),
         o("WAWebDbRolloutUtil")
           .loadSchemaVersions()
           .then(function () {

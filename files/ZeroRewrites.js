@@ -32,17 +32,17 @@ __d(
           return t === o || l.isRewritten(r);
         },
         isRewritten: function (t) {
+          var e = t.getQualifiedURI();
           if (
-            ((t = t.getQualifiedURI()),
             Object.keys(n("ZeroRewriteRules").rewrite_rules).length === 0 ||
-              !n("isFacebookURI")(t) ||
-              l._isWhitelisted(t))
+            !n("isFacebookURI")(e) ||
+            l._isWhitelisted(e)
           )
             return !1;
-          var e = t.getSubdomain(),
-            r = l._getCurrentURI(),
-            o = l._getRewrittenSubdomain(r);
-          return t.getDomain() !== r.getDomain() && e === o;
+          var r = e.getSubdomain(),
+            o = l._getCurrentURI(),
+            a = l._getRewrittenSubdomain(o);
+          return e.getDomain() !== o.getDomain() && r === a;
         },
         _isWhitelisted: function (t) {
           var e = t.getPath();

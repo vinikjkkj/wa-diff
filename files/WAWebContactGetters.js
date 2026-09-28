@@ -2,7 +2,6 @@ __d(
   "WAWebContactGetters",
   [
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebBotUtils",
     "WAWebBusinessProfileTypes",
     "WAWebGetters",
@@ -242,14 +241,8 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
-            a = e[2];
-          return !r("justknobx")._("2452") &&
-            o("WAWebABProps").getABPropConfigValue(
-              "wa_web_reduce_cascading_updates_chat_open",
-            ) &&
-            !a
-            ? !1
-            : !t && !n;
+            o = e[2];
+          return !r("justknobx")._("2452") && !o ? !1 : !t && !n;
         },
         [S, R, q],
       ),

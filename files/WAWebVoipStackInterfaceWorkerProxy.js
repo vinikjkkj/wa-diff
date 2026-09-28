@@ -1099,7 +1099,9 @@ __d(
           acceptCall: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+                (o(
+                  "WAWebVoipLobbyEntryPointStore",
+                ).resetLobbyEntryPointOnAccept(),
                   o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield be("acceptCall", {
                     isMicEnabled: e,
@@ -1125,10 +1127,11 @@ __d(
           endCall: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-                  o(
-                    "WAWebVoipWebTransportConnectionManager",
-                  ).prepareForEndCall();
+                (o("WAWebVoipLobbyEntryPointStore").endLobbyJoinWait(),
+                  o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                    o(
+                      "WAWebVoipWebTransportConnectionManager",
+                    ).prepareForEndCall());
                 try {
                   yield be("endCall", { endCallReason: e, sendTerminate: t });
                 } finally {
@@ -1187,6 +1190,7 @@ __d(
                 }
                 (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   g != null ? g : null,
+                  !_,
                 ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield be("joinOngoingCall", {

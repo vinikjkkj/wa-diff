@@ -536,17 +536,18 @@ __d(
               if (k) {
                 var I = g(k, R, E),
                   T = _(k, I, r, a, i);
-                if (((d = d || T !== I), T !== k))
-                  if (
-                    (S === v && (S = v.slice()),
-                    T.styleId ===
-                      o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
-                  ) {
-                    var D,
-                      x = T.getChildren_DEPRECATED();
-                    ((D = S).splice.apply(D, [E + L, 1].concat(x)),
-                      (L += x.length - 1));
-                  } else S[E + L] = T;
+                if (
+                  ((d = d || T !== I),
+                  T.styleId ===
+                    o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
+                ) {
+                  var D;
+                  S === v && (S = v.slice());
+                  var x = T.getChildren_DEPRECATED();
+                  ((D = S).splice.apply(D, [E + L, 1].concat(x)),
+                    (L += x.length - 1),
+                    (d = !0));
+                } else T !== k && (S === v && (S = v.slice()), (S[E + L] = T));
               }
             }
             S !== v && (l = u.applyWireAttribute(l, t, b, S));

@@ -151,20 +151,22 @@ __d(
               body: o("WAWebHatchJsonReaders").readField(n, "body"),
             },
           };
-        if (a === "error")
+        if (a === "error") {
+          var i = o("WAWebHatchJsonReaders").readField(n, "body");
           return {
             type: "res",
             requestId: t,
             response: {
               status: "error",
               method: r,
-              errorCode: o("WAWebHatchJsonReaders").readString(n, "error_code"),
+              errorCode: o("WAWebHatchJsonReaders").readString(i, "error_code"),
               errorMessage: o("WAWebHatchJsonReaders").readString(
-                n,
+                i,
                 "error_message",
               ),
             },
           };
+        }
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_STATUS,
         );

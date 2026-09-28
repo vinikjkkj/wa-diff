@@ -122,10 +122,11 @@ __d(
                   "voip: handleClickCallLink blocked \u2014 call links not enabled",
                 ])),
             ),
-              o("WAWebCallLinkAutoJoinConsent").reportAutoJoinRefusedByGate(l));
+              o("WAWebCallLinkAutoJoinConsent").reportAutoJoinRefusedByGate(l),
+              $());
             return;
           }
-          if ($(m)) {
+          if (P(m)) {
             o(
               "WAWebCallLinkAutoJoinConsent",
             ).reportAutoJoinRefusedByExistingCall(l);
@@ -181,8 +182,8 @@ __d(
             return;
           }
           var x = o("WAWebFrontendContactGetters").getMyUsername(),
-            P = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (P == null) {
+            N = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          if (N == null) {
             (o("WALogger").LOG(
               y ||
                 (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -222,32 +223,41 @@ __d(
               ));
             return;
           }
-          var N = yield P.previewCallLink(m, k, t, x, L === !0);
-          (i === !0 && P.type === "web" && (yield P.setCallMute(!0)),
+          var M = yield N.previewCallLink(m, k, t, x, L === !0);
+          (i === !0 && N.type === "web" && (yield N.setCallMute(!0)),
             E &&
-              P.type === "web" &&
-              (N === 0
+              N.type === "web" &&
+              (M === 0
                 ? (o("WAWebCallLinkAutoJoinConsent").reportAutoJoinAttempted(),
-                  yield P.joinCallLink())
+                  yield N.joinCallLink())
                 : o("WALogger").LOG(
                     v ||
                       (v = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: handleClickCallLink previewCallLink failed, skip join ",
                         "",
                       ])),
-                    String(N),
+                    String(M),
                   )));
         })),
         x.apply(this, arguments)
       );
     }
-    function $(t) {
+    function $() {
+      o("WAWebVoipNackHandlers").showErrorDialog(
+        s._(
+          /*BTDS*/ "Calling isn't available on WhatsApp Web right now. Try joining from WhatsApp on your phone.",
+        ),
+        void 0,
+        s._(/*BTDS*/ "Can't join call"),
+      );
+    }
+    function P(t) {
       var n = r("WAWebCallCollection").activeCall;
       if (n == null) return !1;
       var a = n.getState();
       return a == null || o("WAWebVoipCallStateUtils").isCallTerminal(a)
         ? !1
-        : n.isCallLink && n.callLinkToken === t && P(n)
+        : n.isCallLink && n.callLinkToken === t && N(n)
           ? !0
           : o("WAWebVoipCallStateUtils").isCallIncoming(a) && n.msg != null
             ? (o("WALogger").LOG(
@@ -267,7 +277,7 @@ __d(
               o("WAWebVoipCallBlockedModals").showEndCurrentCallToast(),
               !0);
     }
-    function P(e) {
+    function N(e) {
       if (
         o("WAWebVoipPopoutWindowState").getIsCallActiveInPopoutWindow() ||
         o("WAWebVoipUiDocPipPortalContainer.react").getIsDocPipWindowOpen()

@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseEach",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiChat",
     "WAWebApiChatCommon",
     "WAWebApiParticipantStore",
@@ -229,46 +228,29 @@ __d(
                 yield o("WAWebApiChat").injectAdditionalEphemeralInfoFromDB(a),
               l = [],
               s = [];
-            (o("WAWebABProps").getABPropConfigValue(
-              "web_anr_group_metadata_yield",
-            )
-              ? yield o("WAPromiseEach").promiseEach(
-                  i,
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        (o("WAWebBackendApi").frontendFireAndForget(
-                          "createOrUpdateGroupMetadataFromQuery",
-                          { groupInfo: e },
-                        ),
-                          t && T(e),
-                          l.push(
-                            o(
-                              "WAWebGroupQueryJob",
-                            ).maybeQueryAndUpdateMembershipApprovalRequests(e),
-                          ),
-                          yield o(
-                            "WAWebReleaseToEventLoop",
-                          ).releaseToEventLoop());
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                )
-              : i.forEach(function (e) {
-                  (o("WAWebBackendApi").frontendFireAndForget(
-                    "createOrUpdateGroupMetadataFromQuery",
-                    { groupInfo: e },
-                  ),
-                    t && T(e),
-                    l.push(
-                      o(
-                        "WAWebGroupQueryJob",
-                      ).maybeQueryAndUpdateMembershipApprovalRequests(e),
-                    ));
-                }),
+            (yield o("WAPromiseEach").promiseEach(
+              i,
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    (o("WAWebBackendApi").frontendFireAndForget(
+                      "createOrUpdateGroupMetadataFromQuery",
+                      { groupInfo: e },
+                    ),
+                      t && T(e),
+                      l.push(
+                        o(
+                          "WAWebGroupQueryJob",
+                        ).maybeQueryAndUpdateMembershipApprovalRequests(e),
+                      ),
+                      yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
               yield o(
                 "WAWebLidMappingUsernameLearnUtils",
               ).processParsedGroupInfosForLidMappingAndUsernames(i),

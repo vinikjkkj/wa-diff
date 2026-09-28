@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupParticipantCollection",
   [
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBotGroupGatingUtils",
     "WAWebChatCollection",
@@ -43,11 +42,7 @@ __d(
                 (e == null ||
                   e.contact.set(
                     { maybeCommonGroupChatModel: t },
-                    o("WAWebABProps").getABPropConfigValue(
-                      "web_anr_group_metadata_yield",
-                    )
-                      ? { silent: !0 }
-                      : { isSilent: !0 },
+                    { silent: !0 },
                   ));
             }
           }),

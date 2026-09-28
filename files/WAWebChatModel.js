@@ -847,14 +847,12 @@ __d(
             }
           }),
           (i.$ChatImpl$p_41 = function () {
-            if (o("WAWebABProps").getABPropConfigValue("web_anr_prune_cmc")) {
-              var e = this.msgs;
-              if (!(e.length <= o("WAWebCollectionConstants").PAGE_SIZE)) {
-                var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
-                  n = e.getModelsArray().slice(0, t);
-                (e.remove(n, { silent: !0 }, !0),
-                  (e.msgLoadState.noEarlierMsgs = !1));
-              }
+            var e = this.msgs;
+            if (!(e.length <= o("WAWebCollectionConstants").PAGE_SIZE)) {
+              var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
+                n = e.getModelsArray().slice(0, t);
+              (e.remove(n, { silent: !0 }, !0),
+                (e.msgLoadState.noEarlierMsgs = !1));
             }
           }),
           (i.$ChatImpl$p_42 = function () {

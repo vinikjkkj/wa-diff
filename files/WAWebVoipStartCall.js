@@ -37,6 +37,7 @@ __d(
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
     "WAWebVoipActivityTracker",
     "WAWebVoipCallBlockedModals",
+    "WAWebVoipCallFromUiStore",
     "WAWebVoipCallIdProvider",
     "WAWebVoipCancelOutgoingCall",
     "WAWebVoipGatingUtils",
@@ -432,6 +433,7 @@ __d(
                   : o("WAWebVoipCallIdProvider").consumeOrGenerateCallId();
             if (
               (o("WAWebVoipCallIdProvider").resetPendingCallId(),
+              o("WAWebVoipCallFromUiStore").setCallFromUi(i),
               yield o(
                 "WAWebVoipCallBlockedModals",
               ).showCallBlockedModalIfNeeded())
@@ -861,7 +863,8 @@ __d(
                 )
                 .color(ue));
             var u = o("WAWebVoipCallIdProvider").consumeOrGenerateCallId();
-            (o("WAWebVoipActivityTracker").startActivityTracking(),
+            (o("WAWebVoipCallFromUiStore").setCallFromUi(l),
+              o("WAWebVoipActivityTracker").startActivityTracking(),
               o("WAWebVoipActivityTracker").startUiActivityTracking(),
               o("WAWebVoipActivityTracker").trackActivity(
                 t

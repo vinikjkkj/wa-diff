@@ -26,6 +26,7 @@ __d(
       "ProductList",
       "Starred",
       "ChatTheme",
+      "HatchConnectors",
       "Kept",
       "ScheduledMessages",
       "GroupSettings",

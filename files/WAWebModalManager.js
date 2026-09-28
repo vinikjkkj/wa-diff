@@ -68,26 +68,59 @@ __d(
             });
           }),
           (o.setForceRequestFocusMedia = function (t, n) {
-            this.trigger("set_force_should_request_focus_" + n, t);
+            this.trigger(
+              n === "modal"
+                ? "set_force_should_request_focus_modal"
+                : n === "media"
+                  ? "set_force_should_request_focus_media"
+                  : n === "alert"
+                    ? "set_force_should_request_focus_alert"
+                    : n === "support"
+                      ? "set_force_should_request_focus_support"
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              n,
+                          );
+                        })(),
+              t,
+            );
           }),
           r
         );
       })(r("WAWebEventEmitter")),
       u = new s();
-    function c() {
-      u.close();
+    function c(e) {
+      return e === "modal"
+        ? "close_modal"
+        : e === "media"
+          ? "close_media"
+          : e === "alert"
+            ? "close_alert"
+            : e === "support"
+              ? "close_support"
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     function d() {
-      u.closeSupportOrModal();
+      u.close();
     }
     function m() {
+      u.closeSupportOrModal();
+    }
+    function p() {
       u.closeAlert();
     }
     ((l.ModalManagerImpl = s),
       (l.ModalManager = u),
-      (l.closeModalManager = c),
-      (l.closeSupportOrModal = d),
-      (l.closeAlertModal = m));
+      (l.getCloseEventForType = c),
+      (l.closeModalManager = d),
+      (l.closeSupportOrModal = m),
+      (l.closeAlertModal = p));
   },
   98,
 );
