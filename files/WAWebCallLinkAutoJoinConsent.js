@@ -16,7 +16,7 @@ __d(
         o("WAWebCallLinkODS").logCallLinkAutoJoinRecordFailedODS();
         return;
       }
-      var n = I();
+      var n = T();
       try {
         t.setItem(m, "" + Date.now() + _ + e);
       } catch (e) {
@@ -26,38 +26,43 @@ __d(
       (n && o("WAWebCallLinkODS").logCallLinkAutoJoinRecordDuplicatePressODS(),
         o("WAWebCallLinkODS").logCallLinkAutoJoinRecordedODS());
     }
-    function g(e) {
+    function g(e, t) {
       e === !0 &&
-        o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS("links-disabled");
+        (o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS("links-disabled"),
+        y(t));
     }
-    function h(e) {
+    function h(e, t) {
       e === !0 &&
-        o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS("existing-call");
+        (o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS("existing-call"),
+        y(t));
     }
-    function y() {
-      o("WAWebCallLinkODS").logCallLinkAutoJoinJoinAttemptedODS();
+    function y(e) {
+      D(E(), e) !== "token-mismatch" && L();
     }
     function C() {
-      I() && o("WAWebCallLinkODS").logCallLinkAutoJoinPendingAtStartupODS();
+      o("WAWebCallLinkODS").logCallLinkAutoJoinJoinAttemptedODS();
     }
     function b() {
-      (I() &&
+      T() && o("WAWebCallLinkODS").logCallLinkAutoJoinPendingAtStartupODS();
+    }
+    function v() {
+      (T() &&
         o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS(
           "not-call-link-launch",
         ),
-        R());
+        L());
     }
-    function v(e, t) {
+    function S(e, t) {
       if (e !== !0) return !1;
-      var n = T(L(), t);
+      var n = D(E(), t);
       return (
-        n !== "token-mismatch" && R(),
+        n !== "token-mismatch" && L(),
         n != null
-          ? (S(n), o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS(n), !1)
+          ? (R(n), o("WAWebCallLinkODS").logCallLinkAutoJoinRejectedODS(n), !1)
           : (o("WAWebCallLinkODS").logCallLinkAutoJoinGrantedODS(), !0)
       );
     }
-    function S(t) {
+    function R(t) {
       e: {
         if (t === "no-consent") {
           o("WALogger")
@@ -120,13 +125,13 @@ __d(
         );
       }
     }
-    function R() {
+    function L() {
       try {
         r("WAWebSessionStorage") == null ||
           r("WAWebSessionStorage").removeItem(m);
       } catch (e) {}
     }
-    function L() {
+    function E() {
       var e = r("WAWebSessionStorage");
       if (e == null) return { available: !1, raw: null };
       try {
@@ -135,44 +140,44 @@ __d(
         return { available: !1, raw: null };
       }
     }
-    function E(e) {
+    function k(e) {
       var t = e.indexOf(_);
       if (t < 0) return null;
       var n = parseInt(e.slice(0, t), 10);
       return Number.isNaN(n) ? null : { recordedAt: n, token: e.slice(t + 1) };
     }
-    function k(e) {
+    function I(e) {
       var t = Date.now() - e;
       return t >= 0 && t < p;
     }
-    function I() {
-      var e = L();
+    function T() {
+      var e = E();
       if (e.raw == null) return !1;
-      var t = E(e.raw);
-      return t != null && k(t.recordedAt);
+      var t = k(e.raw);
+      return t != null && I(t.recordedAt);
     }
-    function T(e, t) {
+    function D(e, t) {
       if (!e.available) return "storage-read-failed";
       var n = e.raw;
       if (n == null) return "no-consent";
-      var r = E(n);
+      var r = k(n);
       return r == null
         ? "malformed"
         : r.token !== t
           ? "token-mismatch"
-          : k(r.recordedAt)
+          : I(r.recordedAt)
             ? null
             : "expired";
     }
     ((l.AUTO_JOIN_CONSENT_TTL_MS = p),
       (l.recordAutoJoinConsent = f),
-      (l.reportAutoJoinRefusedByGate = g),
-      (l.reportAutoJoinRefusedByExistingCall = h),
-      (l.reportAutoJoinAttempted = y),
-      (l.reportAutoJoinPendingAtStartup = C),
-      (l.dropAutoJoinConsentAtLaunch = b),
-      (l.consumeAutoJoinConsent = v),
-      (l.clearAutoJoinConsent = R));
+      (l.dropAutoJoinConsentRefusedByGate = g),
+      (l.dropAutoJoinConsentRefusedByExistingCall = h),
+      (l.reportAutoJoinAttempted = C),
+      (l.reportAutoJoinPendingAtStartup = b),
+      (l.dropAutoJoinConsentAtLaunch = v),
+      (l.consumeAutoJoinConsent = S),
+      (l.clearAutoJoinConsent = L));
   },
   98,
 );

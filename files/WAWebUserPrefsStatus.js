@@ -431,28 +431,25 @@ __d(
         U.apply(this, arguments)
       );
     }
-    var V = {
-      setStatusPrivacyConfig: u,
-      calculateStatusPrivacyUpdateEntries: c,
-      getStatusPrivacySetting: d,
-      getStatusAllowList: p,
-      getStatusDenyList: f,
-      getShareToFB: C,
-      getShareToIG: v,
-      persistShareToFB: R,
-      persistShareToIG: E,
-      getStatusReshareAllowed: I,
-      persistStatusReshareAllowed: D,
-      getStatusSenderKeyMap: N,
-      getStatusSkDistribList: q,
-      markStatusHasSenderKey: w,
-      getStatusContacts: o("WAWebStatusContactUtils").getStatusContacts,
-      getStatusList: h,
-      getStatusPrivacySettingConfig: $,
-      markForgetStatusSenderKey: B,
-      markStatusSenderKeyRotate: F,
-    };
-    l.default = V;
+    ((l.getStatusContacts = o("WAWebStatusContactUtils").getStatusContacts),
+      (l.setStatusPrivacyConfig = u),
+      (l.calculateStatusPrivacyUpdateEntries = c),
+      (l.getStatusPrivacySetting = d),
+      (l.getStatusAllowList = p),
+      (l.getStatusDenyList = f),
+      (l.getStatusList = h),
+      (l.getShareToFB = C),
+      (l.getShareToIG = v),
+      (l.persistShareToFB = R),
+      (l.persistShareToIG = E),
+      (l.getStatusReshareAllowed = I),
+      (l.persistStatusReshareAllowed = D),
+      (l.getStatusPrivacySettingConfig = $),
+      (l.getStatusSenderKeyMap = N),
+      (l.markStatusHasSenderKey = w),
+      (l.markStatusSenderKeyRotate = F),
+      (l.markForgetStatusSenderKey = B),
+      (l.getStatusSkDistribList = q));
   },
   98,
 );

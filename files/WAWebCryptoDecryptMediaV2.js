@@ -7,6 +7,7 @@ __d(
     "WATypedArraysCast",
     "WAWebBackendWorkerClient",
     "WAWebCryptoDecryptMedia",
+    "WAWebMainThreadQplHandler",
     "WAWebMediaFileErrors",
     "asyncToGeneratorRuntime",
   ],
@@ -53,9 +54,10 @@ __d(
                 debugString: a,
               })
             );
-          var m = o("WATypedArraysCast").castTypedArrays(Uint8Array, n);
+          var m = o("WATypedArraysCast").castTypedArrays(Uint8Array, n),
+            p = null;
           try {
-            var p = yield d.sendAndReceive(
+            var _ = yield d.sendAndReceive(
               "media",
               "decryptMedia",
               {
@@ -64,12 +66,34 @@ __d(
                 macKey: c.macKey,
                 ciphertextHmac: m,
                 expectedPlaintextHash: l != null ? l : null,
+                serializedDownloadQpl:
+                  i == null
+                    ? null
+                    : o("WAWebMainThreadQplHandler").serializeQplForBridge(i),
               },
               !1,
-              void 0,
+              {
+                onSend: function () {
+                  ((p = self.performance.now()),
+                    i == null || i.addPoint("compound_bridge_roundtrip_start"));
+                },
+              },
               void 0,
               [m.buffer],
             );
+            if (p != null) {
+              var f = self.performance.now() - p;
+              i == null ||
+                i.addPoint("compound_bridge_roundtrip_end", {
+                  int: {
+                    bridge_duration_ms: Math.round(
+                      Math.max(0, f - _.workerDurationMs),
+                    ),
+                    bridge_round_trip_duration_ms: Math.round(f),
+                    worker_duration_ms: Math.round(_.workerDurationMs),
+                  },
+                });
+            }
             return (
               o("WALogger").LOG(
                 s ||
@@ -79,7 +103,7 @@ __d(
                   ])),
                 a,
               ),
-              p
+              _.plaintext
             );
           } catch (e) {
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(

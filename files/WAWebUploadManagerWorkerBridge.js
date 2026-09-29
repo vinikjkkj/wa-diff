@@ -10,7 +10,6 @@ __d(
     "WAWebMainThreadQplHandler",
     "WAWebMainThreadUploadManagerHandler",
     "WAWebMmsClient",
-    "WAWebMmsDownloadUploadCrashLogger",
     "WAWebUploadManagerBase",
     "asyncToGeneratorRuntime",
   ],
@@ -20,8 +19,6 @@ __d(
           return (
             e.call(this, {
               appTracker: o("WAWebAppTracker").AppTracker,
-              crashLogger: o("WAWebMmsDownloadUploadCrashLogger")
-                .downloadUploadCrashLogger,
               mmsClient: {
                 upload: function (t) {
                   return r("WAWebMmsClient").upload(t);

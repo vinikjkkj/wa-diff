@@ -1,11 +1,10 @@
 __d(
   "WAWebUIListener",
-  ["WAWebEventEmitter", "WAWebTypedEventEmitter"],
+  ["WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return (
         e instanceof r("WAWebEventEmitter") ||
-        e instanceof r("WAWebTypedEventEmitter") ||
         (typeof e.on == "function" && typeof e.off == "function")
       );
     }

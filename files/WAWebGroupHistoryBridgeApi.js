@@ -21,13 +21,13 @@ __d(
           i = t.uncountedCount;
         o(
           "WAWebGroupHistoryReceiverUserJourneyLogger",
-        ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoSucceeded(
-          e,
-          n,
-          r,
-          a,
-          i,
-        );
+        ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoSucceeded({
+          groupHistoryMessagesCount: n,
+          groupHistoryOutWindowPinsCount: r,
+          groupHistoryPinsCount: a,
+          groupHistoryReceiverGroupId: e,
+          groupHistoryUncountedMessagesCount: i,
+        });
       },
       logGroupHistoryParseHistoryProtoFailed: function (t) {
         var e = t.groupId,

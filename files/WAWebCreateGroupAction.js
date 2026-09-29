@@ -142,13 +142,13 @@ __d(
           }
           if (t != null && n != null)
             try {
-              yield o("WAWebProfilePicThumbAction").setProfilePic(
-                o(
+              yield o("WAWebProfilePicThumbAction").setProfilePic({
+                full: n,
+                profilePicThumb: o(
                   "WAWebProfilePicThumbCollection",
                 ).ProfilePicThumbCollection.gadd(s),
-                t,
-                n,
-              );
+                thumb: t,
+              });
             } catch (e) {
               o("WALogger")
                 .WARN(
@@ -433,7 +433,7 @@ __d(
                       "WAWebProfilePicThumbCollection",
                     ).ProfilePicThumbCollection.gadd(e.gid);
                     yield o("WAWebProfilePicThumbAction")
-                      .setProfilePic(d, _, m)
+                      .setProfilePic({ full: m, profilePicThumb: d, thumb: _ })
                       .then(function () {
                         return e.gid;
                       });

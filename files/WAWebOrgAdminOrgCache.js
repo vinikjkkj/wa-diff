@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebDBOrg",
     "WAWebLidAwareContactsDB",
     "WAWebOrgContactIdentityResolver",
@@ -18,38 +19,35 @@ __d(
       c,
       d,
       m,
-      p = function () {
-        return !0;
-      },
-      _ = (m || (m = n("Promise"))).resolve();
-    function f(e, t) {
+      p = (m || (m = n("Promise"))).resolve();
+    function _(e, t) {
       return (
-        t === void 0 && (t = p),
-        (_ = _.then(function () {
-          return C(e, t);
+        t === void 0 && (t = o("WAWebBoolFunc").returnTrue),
+        (p = p.then(function () {
+          return y(e, t);
         })),
-        _
+        p
+      );
+    }
+    function f(e) {
+      return (
+        (p = p.then(function () {
+          return b(e);
+        })),
+        p
       );
     }
     function g(e) {
-      return (
-        (_ = _.then(function () {
-          return v(e);
-        })),
-        _
-      );
+      return h.apply(this, arguments);
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = (yield o("WAWebDBOrg").getOrgContacts(e)).flatMap(
               function (e) {
                 if (e.role == null) return [];
-                var t = L(e.lid);
+                var t = R(e.lid);
                 return t == null ? [] : [{ jid: t, row: e }];
               },
             );
@@ -69,7 +67,7 @@ __d(
                 lid: r.lid,
                 memberTag: r.memberTag === "" ? null : r.memberTag,
                 phoneNumber: a.phoneNumber,
-                role: k(r.role),
+                role: E(r.role),
                 username: a.username,
               };
             });
@@ -89,18 +87,18 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (!t()) return;
-            var n = yield o("WAWebDBOrg").replaceOrgs(e.map(R), t);
+            var n = yield o("WAWebDBOrg").replaceOrgs(e.map(S), t);
             if (n == null) return;
             o("WALogger").LOG(
               u ||
@@ -124,17 +122,17 @@ __d(
               .sendLogs("org-admin-org-cache-write-failed");
           }
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            yield o("WAWebDBOrg").putOrgs([R(e)]);
+            yield o("WAWebDBOrg").putOrgs([S(e)]);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -147,10 +145,10 @@ __d(
               .sendLogs("org-admin-org-cache-write-failed");
           }
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R(e) {
+    function S(e) {
       return {
         description: e.description,
         iconFullUrl: e.iconURI,
@@ -160,10 +158,10 @@ __d(
         memberTagOptions: e.memberTagOptions,
         name: e.name,
         orgId: e.id,
-        viewerRole: e.viewerRole == null ? null : E(e.viewerRole),
+        viewerRole: e.viewerRole == null ? null : L(e.viewerRole),
       };
     }
-    function L(t) {
+    function R(t) {
       try {
         return o("WAWebWidFactory").createUserLidOrThrow(t, "lid").toJid();
       } catch (t) {
@@ -181,19 +179,19 @@ __d(
         );
       }
     }
-    function E(e) {
+    function L(e) {
       return o("WAWebSchemaOrg").OrgMemberRole.cast(e);
     }
-    function k(e) {
+    function E(e) {
       return e === o("WAWebSchemaOrg").OrgMemberRole.Creator
         ? "CREATOR"
         : e === o("WAWebSchemaOrg").OrgMemberRole.Admin
           ? "ADMIN"
           : "MEMBER";
     }
-    ((l.writeCachedOrgAdminOrgs = f),
-      (l.writeCachedOrgAdminOrg = g),
-      (l.readCachedOrgRoster = h));
+    ((l.writeCachedOrgAdminOrgs = _),
+      (l.writeCachedOrgAdminOrg = f),
+      (l.readCachedOrgRoster = g));
   },
   98,
 );

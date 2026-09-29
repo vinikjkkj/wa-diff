@@ -129,7 +129,7 @@ __d(
             );
             var L = r("getErrorSafe")(e);
             h.logDeleteStatusFailure(L == null ? void 0 : L.message);
-            var E = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting();
+            var E = yield o("WAWebUserPrefsStatus").getStatusPrivacySetting();
             o("WAWebPostSendStatusFailure").postStatusSendFailure(L, b, E);
           }
         })),

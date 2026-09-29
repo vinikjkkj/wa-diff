@@ -33,6 +33,7 @@ __d(
       CHAT_LIST: 27,
       ARCHIVED_CHATS: 28,
       NEWSLETTER_CREATION_CHAT_LIST: 29,
+      CHANNELS_MIGRATION: 30,
     });
     i.CHANNEL_ENTRY_POINT = e;
   },

@@ -889,13 +889,17 @@ __d(
               };
         }
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.PAYMENT_LINK: {
-          var l = n.uri;
-          return l == null
+          var l = n.psp,
+            u = n.uri;
+          return u == null
             ? null
             : {
-                label: s._(/*BTDS*/ "Open payment link"),
+                label:
+                  l === "mercadopago"
+                    ? s._(/*BTDS*/ "Open in Mercado Pago")
+                    : s._(/*BTDS*/ "Open payment link"),
                 onClick: function () {
-                  (o("WAWebExternalLink.react").openExternalLink(l),
+                  (o("WAWebExternalLink.react").openExternalLink(u),
                     o(
                       "WAWebPaymentRequestWamLogger",
                     ).logPaymentRequestInteractionWAMEvent(

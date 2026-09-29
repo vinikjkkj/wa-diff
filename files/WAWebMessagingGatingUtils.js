@@ -11,7 +11,7 @@ __d(
         : 1e5;
     }
     function s() {
-      return _() > 0;
+      return p() > 0;
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue("rt_sender_v3_hybrid_mode");
@@ -28,32 +28,29 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("rt_sync_reporting_tag");
     }
     function p() {
-      return o("WAWebABProps").getABPropConfigValue("rt_clean_reporting_token");
-    }
-    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "rt_sender_reporting_token_version",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("rt_web_delay_processing");
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "ft_validation_failure_drop_placeholder",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "visible_message_drop_placeholder_enabled_internal_only",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "rt_swapped_fallback_validation",
       );
     }
-    function C() {
+    function y() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_biz_simple_signal_enabled",
@@ -66,13 +63,12 @@ __d(
       (l.isReportingTokenReceivingEnabled = c),
       (l.isMissingReportingTokenDetectionEnabled = d),
       (l.isReportingTagSyncingEnabled = m),
-      (l.getReportingTokenCleanupDays = p),
-      (l.getSenderReportingTokenVersion = _),
-      (l.isWebReportingTokenDelayProcessingEnabled = f),
-      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = g),
-      (l.isMessageDropPlaceholderEnabled = h),
-      (l.isReportingTokenSwappedFallbackValidationEnabled = y),
-      (l.isSimpleSignalEnabled = C));
+      (l.getSenderReportingTokenVersion = p),
+      (l.isWebReportingTokenDelayProcessingEnabled = _),
+      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = f),
+      (l.isMessageDropPlaceholderEnabled = g),
+      (l.isReportingTokenSwappedFallbackValidationEnabled = h),
+      (l.isSimpleSignalEnabled = y));
   },
   98,
 );

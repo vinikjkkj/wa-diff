@@ -48,31 +48,31 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.crosspostingDestination,
-            a = t.errorType,
-            i = t.isSuccess,
-            l = t.mediaType,
-            u = t.sessionId,
-            c = t.statusMessageId,
-            d = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting(),
-            m = s(d);
+            r = t.errorType,
+            a = t.isSuccess,
+            i = t.mediaType,
+            l = t.sessionId,
+            u = t.statusMessageId,
+            c = yield o("WAWebUserPrefsStatus").getStatusPrivacySetting(),
+            d = s(c);
           new (o(
             "WAWebStatusCrosspostRequestWamEvent",
           ).StatusCrosspostRequestWamEvent)({
             crosspostDestination: e(n),
-            statusCrosspostResult: i
+            statusCrosspostResult: a
               ? o("WAWebWamEnumCrosspostResultType").CROSSPOST_RESULT_TYPE.OK
               : o("WAWebWamEnumCrosspostResultType").CROSSPOST_RESULT_TYPE
                   .ERROR,
-            crosspostErrorType: a,
-            statusId: c,
-            cacSessionId: u,
+            crosspostErrorType: r,
+            statusId: u,
+            cacSessionId: l,
             statusCrosspostShareType: o(
               "WAWebWamEnumStatusCrosspostShareTypeEnum",
             ).STATUS_CROSSPOST_SHARE_TYPE_ENUM.MANUAL,
-            statusCrosspostMediaType: l,
+            statusCrosspostMediaType: i,
             isAutoCrosspostEnabledInSettings: !1,
             isAutoCrossposted: !1,
-            defaultStatusPrivacySettings: m,
+            defaultStatusPrivacySettings: d,
           }).commit();
         })),
         c.apply(this, arguments)

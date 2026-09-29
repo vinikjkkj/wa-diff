@@ -1,10 +1,11 @@
 __d(
   "LSLogHistory",
-  ["FBLogger", "getErrorSafe"],
+  ["FBLogger", "getErrorSafe", "performanceAbsoluteNow"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = {},
-      s = {
+    var e,
+      s = {},
+      u = {
         client_init: 100,
         client_sync: 50,
         client_task: 20,
@@ -15,10 +16,10 @@ __d(
         maw_setup: 10,
         user_experience: 200,
       },
-      u = 10;
-    function c() {
+      c = 10;
+    function d() {
       try {
-        return Object.values(e)
+        return Object.values(s)
           .reduce(function (e, t) {
             return e.concat(t);
           }, [])
@@ -34,14 +35,14 @@ __d(
               e.args,
             ].join(" | ");
           });
-      } catch (e) {
+      } catch (t) {
         return (
           r("FBLogger")("messenger_web")
-            .catching(r("getErrorSafe")(e))
+            .catching(r("getErrorSafe")(t))
             .mustfix("getEntries failed"),
           [
             [
-              Date.now().toString(),
+              (e || (e = r("performanceAbsoluteNow")))().toString(),
               "error",
               "general",
               "lightspeed_log_event",
@@ -51,19 +52,19 @@ __d(
         );
       }
     }
-    function d() {
-      e = {};
+    function m() {
+      s = {};
     }
-    function m(t, n, r, o) {
-      var a;
-      (r === void 0 && (r = "general"),
-        o === void 0 && (o = "lightspeed_log_event"));
-      var i = Date.now();
-      (e[r] == null && (e[r] = []),
-        e[r].length >= ((a = s[r]) != null ? a : u) && e[r].shift(),
-        e[r].push({ args: t, category: r, date: i, event: o, level: n }));
+    function p(t, n, o, a) {
+      var i;
+      (o === void 0 && (o = "general"),
+        a === void 0 && (a = "lightspeed_log_event"));
+      var l = (e || (e = r("performanceAbsoluteNow")))();
+      (s[o] == null && (s[o] = []),
+        s[o].length >= ((i = u[o]) != null ? i : c) && s[o].shift(),
+        s[o].push({ args: t, category: o, date: l, event: a, level: n }));
     }
-    ((l.MAX_LIMIT = s), (l.getEntries = c), (l.clearEntries = d), (l.log = m));
+    ((l.MAX_LIMIT = u), (l.getEntries = d), (l.clearEntries = m), (l.log = p));
   },
   98,
 );

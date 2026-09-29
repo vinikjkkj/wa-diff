@@ -5,13 +5,15 @@ __d(
     function e(e) {
       var t = e.height,
         n = e.orderId,
-        r = e.token,
-        a = e.width;
+        r = e.sellerJid,
+        a = e.token,
+        i = e.width;
       return o("WAWebBizOrderBridge").queryOrder({
         height: t,
         orderId: n,
-        token: r,
-        width: a,
+        sellerJid: r,
+        token: a,
+        width: i,
       });
     }
     function s(e, t) {

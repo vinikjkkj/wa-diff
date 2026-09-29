@@ -38,52 +38,41 @@ __d(
       return s._(/*BTDS*/ "This group is no longer suspended");
     }
     function h() {
-      return s._(/*BTDS*/ "This community is no longer suspended");
-    }
-    function y() {
       return s._(/*BTDS*/ "Group suspended pending review");
     }
-    function C() {
-      return s._(/*BTDS*/ "Community suspended pending review");
-    }
-    function b() {
+    function y() {
       return s._(
         /*BTDS*/ "This group will remain suspended until the review is completed.",
       );
     }
-    function v() {
+    function C() {
       return s._(
         /*BTDS*/ "This community will remain suspended until the review is completed.",
       );
     }
-    function S() {
+    function b() {
       return s._(
         /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may get suspended.",
       );
     }
-    function R() {
+    function v() {
       return s._(
         /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may get suspended.",
       );
     }
-    function L() {
+    function S() {
       return s._(
         /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is no longer suspended.",
       );
     }
-    function E() {
+    function R() {
       return s._(
         /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is no longer suspended.",
       );
     }
-    function k() {
+    function L() {
       return s._(
         /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains suspended.",
-      );
-    }
-    function I() {
-      return s._(
-        /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community remains suspended.",
       );
     }
     ((l.groupSuspendedTitle = e),
@@ -95,17 +84,14 @@ __d(
       (l.groupE2eeFootnote = _),
       (l.communityE2eeFootnote = f),
       (l.groupApprovedTitle = g),
-      (l.communityApprovedTitle = h),
-      (l.groupInReviewTitle = y),
-      (l.communityInReviewTitle = C),
-      (l.groupInReviewBullet = b),
-      (l.communityInReviewBullet = v),
-      (l.groupSuspendedExplanation = S),
-      (l.communitySuspendedExplanation = R),
-      (l.groupAppealApprovedExplanation = L),
-      (l.communityAppealApprovedExplanation = E),
-      (l.groupAppealRejectedExplanation = k),
-      (l.communityAppealRejectedExplanation = I));
+      (l.groupInReviewTitle = h),
+      (l.groupInReviewBullet = y),
+      (l.communityInReviewBullet = C),
+      (l.groupSuspendedExplanation = b),
+      (l.communitySuspendedExplanation = v),
+      (l.groupAppealApprovedExplanation = S),
+      (l.communityAppealApprovedExplanation = R),
+      (l.groupAppealRejectedExplanation = L));
   },
   226,
 );

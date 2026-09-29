@@ -2,6 +2,7 @@ __d(
   "WAWebWamOfflineResumeReporter",
   [
     "$InternalEnum",
+    "QPLFlow",
     "WALogger",
     "WARandomHex",
     "WATimeUtils",
@@ -10,7 +11,6 @@ __d(
     "WAWebGetAllModelStorageTableNames",
     "WAWebOfflineResumeStageWamEvent",
     "WAWebOfflineResumeWamEvent",
-    "WAWebQplFlowWrapper",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMultiDevice",
     "WAWebWamEnumOfflineResumeModes",
@@ -43,41 +43,44 @@ __d(
         return (
           (t.start = function () {
             (this.drop(),
-              (this._qplEvent = o("WAWebQplFlowWrapper").QPL.markerStart(f, {
+              (this._qplFlow = o("QPLFlow").startQPLFlow(f, {
                 annotations: { string: { mode: h.getName(this._mode) } },
               })));
           }),
           (t.end = function () {
             var e;
-            (e = this._qplEvent) == null || e.end(2);
+            ((e = this._qplFlow) == null || e.endSuccess(),
+              (this._qplFlow = void 0));
           }),
           (t.drop = function () {
             var e;
-            ((e = this._qplEvent) == null || e.drop(),
-              (this._qplEvent = void 0));
+            ((e = this._qplFlow) == null || e.endCancel(4),
+              (this._qplFlow = void 0));
           }),
           (t._addPoint = function (t, n) {
-            var e,
-              r = n != null ? { data: n } : {};
-            (e = this._qplEvent) == null || e.addPoint(t, r);
+            var e;
+            (e = this._qplFlow) == null || e.addPoint(t, n);
           }),
           (t.markOfflinePreviewReceived = function () {
             this._addPoint("offlinePreviewReceived");
+          }),
+          (t.markProcessComplete = function () {
+            this._addPoint("processComplete");
           }),
           (t.markMainScreenLoad = function () {
             this._addPoint("mainScreenLoad");
           }),
           (t.setAnnotations = function (t) {
             var e;
-            (e = this._qplEvent) == null || e.annotate(t);
+            (e = this._qplFlow) == null || e.addAnnotations(t);
           }),
           (t.addPoint = function (t) {
             var e;
-            (e = this._qplEvent) == null || e.addPoint(t);
+            (e = this._qplFlow) == null || e.addPoint(t);
           }),
           (t.addAnnotations = function (t) {
             var e;
-            (e = this._qplEvent) == null || e.annotate(t);
+            (e = this._qplFlow) == null || e.addAnnotations(t);
           }),
           e
         );
@@ -268,7 +271,10 @@ __d(
                   (this.offlineResume.offlineNotificationCount =
                     t.notification),
                 ((o = this.offlineResume.offlineCallCount) != null ? o : 0) ===
-                  0 && (this.offlineResume.offlineCallCount = t.call)));
+                  0 && (this.offlineResume.offlineCallCount = t.call),
+                this.qpl.addAnnotations({
+                  int: { offlinePreviewCount: t.count },
+                })));
           }),
           (r.logOfflineDecryptionErrorCount = function (t) {
             (this.offlineStage.logOfflineDecryptionErrorCount(t),
@@ -304,6 +310,7 @@ __d(
             ((e = this.offlineResume) == null ? void 0 : e.lastStanzaT) ==
               null &&
               (this._logPerformanceT("lastStanzaT"),
+              this.qpl.markProcessComplete(),
               this.isInitialSync || this.offlineStage.logProcessComplete());
           }),
           (r.logMainScreenLoadT = function () {
@@ -324,9 +331,21 @@ __d(
                   !globalThis.document.hidden));
           }),
           (r.logSocketConnectT = function () {
-            (this.qpl.start(),
-              this._logPerformanceT("socketConnectT"),
-              this.isInitialSync || this.offlineStage.logSocketConnect());
+            (this._logPerformanceT("socketConnectT"),
+              this.isInitialSync ||
+                (this.$1(), this.offlineStage.logSocketConnect()));
+          }),
+          (r.$1 = function () {
+            var e;
+            this.qpl.start();
+            var t =
+              (e = this.offlineResume) == null
+                ? void 0
+                : e.isResumeStartedInForeground;
+            t != null &&
+              this.qpl.addAnnotations({
+                bool: { isResumeStartedInForeground: t },
+              });
           }),
           (r.logMissedOfflineComplete = function () {
             this.offlineResume &&

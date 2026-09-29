@@ -13,14 +13,12 @@ __d(
               ? s._(/*BTDS*/ "Converted")
               : e === 4
                 ? s._(/*BTDS*/ "Lost")
-                : e === 5
-                  ? s._(/*BTDS*/ "Not qualified")
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })();
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
     }
     function u(t, n) {
       return s._(/*BTDS*/ "{lead list name} \u00b7 {lead stage name}", [

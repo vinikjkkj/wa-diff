@@ -43,8 +43,11 @@ __d(
     var e = ["messageContextInfo"],
       s = ["messageContextInfo"],
       u = ["messageContextInfo"],
-      c;
-    function d(e, t, n) {
+      c = ["quotedMessage"],
+      d = ["participant", "remoteJid", "stanzaId"],
+      m = ["quotedMessage"],
+      p;
+    function _(e, t, n) {
       (!t && !n) ||
         (e.messageContextInfo = babelHelpers.extends({}, e.messageContextInfo, {
           deviceListMetadata: {
@@ -60,7 +63,7 @@ __d(
           deviceListMetadataVersion: 2,
         }));
     }
-    function m(e) {
+    function f(e) {
       return e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL
         ? {}
         : e.subtype === "app_state_sync_key_share"
@@ -110,15 +113,15 @@ __d(
                     }
                   : {};
     }
-    function p(e, t) {
+    function g(e, t) {
       var n,
-        r = y(e);
-      return h(r, t, (n = e.utm) != null ? n : void 0);
+        r = v(e);
+      return b(r, t, (n = e.utm) != null ? n : void 0);
     }
-    function _(e) {
-      return h(e);
+    function h(e) {
+      return b(e);
     }
-    function f(e, t) {
+    function y(e, t) {
       if (e.quotedMsg) {
         var n = e.quotedMsg.mentionedJidList,
           r = e.quotedMsg.groupMentions,
@@ -168,7 +171,7 @@ __d(
           url: e.quotedMsg.clientUrl || e.quotedMsg.deprecatedMms3Url,
           width: e.quotedMsg.width,
         };
-        t.quotedMessage = C(e.quotedMsg, s, l, void 0, "quoted");
+        t.quotedMessage = S(e.quotedMsg, s, l, void 0, "quoted");
       } else
         e.quotedRemoteJid && e.quotedGroupSubject && e.quotedParentGroupJid
           ? ((t.remoteJid = o("WAWebE2EProtoUtils").encodeJid(
@@ -183,7 +186,7 @@ __d(
               e.quotedRemoteJid,
             ));
     }
-    function g(e) {
+    function C(e) {
       var t = e.ephemeralDuration,
         n = e.afterReadDuration;
       return n == null &&
@@ -199,9 +202,9 @@ __d(
           }
         : { ephemeralDuration: t, afterReadDuration: n };
     }
-    function h(e, t, n) {
+    function b(e, t, n) {
       var a = {};
-      if ((f(e, a), e.mentionedJidList && e.mentionedJidList.length > 0)) {
+      if ((y(e, a), e.mentionedJidList && e.mentionedJidList.length > 0)) {
         var i = e.mentionedJidList;
         a.mentionedJid = i.map(o("WAWebE2EProtoUtils").encodeJid);
       }
@@ -221,7 +224,7 @@ __d(
         e.questionReplyQuotedMessage &&
           (a.questionReplyQuotedMessage = {
             serverQuestionId: e.questionReplyQuotedMessage.questionServerId,
-            quotedQuestion: C(
+            quotedQuestion: S(
               e.questionReplyQuotedMessage.quotedQuestion,
               void 0,
               {
@@ -234,7 +237,7 @@ __d(
               void 0,
               "quoted",
             ),
-            quotedResponse: C(
+            quotedResponse: S(
               e.questionReplyQuotedMessage.quotedResponse,
               void 0,
               void 0,
@@ -274,16 +277,16 @@ __d(
           creatorName: _,
         };
       }
-      var h = g(e),
-        y = h.afterReadDuration,
-        b = h.ephemeralDuration;
+      var f = C(e),
+        g = f.afterReadDuration,
+        h = f.ephemeralDuration;
       if (
-        (b != null && b > 0 && (a.expiration = b),
+        (h != null && h > 0 && (a.expiration = h),
         e.ephemeralSettingTimestamp &&
           (a.ephemeralSettingTimestamp = e.ephemeralSettingTimestamp),
-        y != null &&
+        g != null &&
           o("WAWebAfterReadUtils").isAfterReadEnabled() &&
-          ((a.afterReadDuration = y),
+          ((a.afterReadDuration = g),
           (a.expiration = o(
             "WAWebAfterReadUtils",
           ).getAfterReadFallbackDuration())),
@@ -317,24 +320,24 @@ __d(
           }),
         e.cannotBeRanked || e.canBeReshared)
       ) {
-        var v = {};
-        (e.cannotBeRanked && (v.cannotBeRanked = e.cannotBeRanked),
-          e.canBeReshared && (v.canBeReshared = e.canBeReshared),
-          (a.featureEligibilities = v));
+        var b = {};
+        (e.cannotBeRanked && (b.cannotBeRanked = e.cannotBeRanked),
+          e.canBeReshared && (b.canBeReshared = e.canBeReshared),
+          (a.featureEligibilities = b));
       }
       if (
         (e.limitSharing && (a.limitSharingV2 = e.limitSharing),
         Array.isArray(e.statusAttributions) && e.statusAttributions.length > 0)
       ) {
         a.statusAttributions = e.statusAttributions;
-        var S = e.statusAttributions.some(function (e) {
+        var v = e.statusAttributions.some(function (e) {
           return (
             e.type ===
             o("WAWebProtobufsStatusAttributions.pb").StatusAttribution$Type
               .RESHARE
           );
         });
-        S &&
+        v &&
           (a.statusAttributionType = o(
             "WAWebProtobufsE2E.pb",
           ).ContextInfo$StatusAttributionType.RESHARED_FROM_POST);
@@ -351,10 +354,10 @@ __d(
       );
       return (
         L != null && (a.pairedMediaType = L),
-        C(e, t, r("isEmptyObject")(a) ? void 0 : a)
+        S(e, t, r("isEmptyObject")(a) ? void 0 : a)
       );
     }
-    function y(e) {
+    function v(e) {
       var t = e.id,
         n = e.toJSON();
       (delete n.status,
@@ -378,28 +381,28 @@ __d(
       var i = r("WAWebConversionTupleCollection").get(t.remote);
       return (i && (n.conversionTuple = i.serialize()), n);
     }
-    function C(e, t, n, a, i) {
-      var l, s, u, d;
+    function S(e, t, n, a, i) {
+      var l, s, u, c;
       (t === void 0 && (t = {}), n === void 0 && (n = void 0));
-      var m = b(e, t, n, a, i);
+      var d = R(e, t, n, a, i);
       try {
-        var p = o(
+        var m = o(
           "WAWebAssociationProtoUtils",
         ).getValidatedOutgoingMessageAssociationContextInfo(
           e.associationType,
           e.parentMsgKey,
         );
-        p &&
-          (m.messageContextInfo = babelHelpers.extends(
+        m &&
+          (d.messageContextInfo = babelHelpers.extends(
             {},
-            m.messageContextInfo,
-            p,
+            d.messageContextInfo,
+            m,
           ));
       } catch (t) {
         o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "[getProtobufMessage] assoc ctx gen failed ",
                 "/",
                 ": ",
@@ -421,9 +424,9 @@ __d(
         ) &&
           e.messageSecret &&
           i !== "quoted" &&
-          (m.messageContextInfo = babelHelpers.extends(
+          (d.messageContextInfo = babelHelpers.extends(
             {},
-            m.messageContextInfo,
+            d.messageContextInfo,
             { messageSecret: e.messageSecret },
           )),
         o("WAWebBotBaseGating").isBotEnabled() ||
@@ -433,27 +436,27 @@ __d(
             o("WAWebBotUtils").isHatchBot(e.id.remote)))
       ) {
         var _,
-          f = (_ = m.messageContextInfo) == null ? void 0 : _.botMetadata,
+          f = (_ = d.messageContextInfo) == null ? void 0 : _.botMetadata,
           g = o("WAWebGenerateBotMetadata").mergeBotMetadata(
             f,
             o("WAWebGenerateBotMetadata").generateBotMetadata(e),
           );
         g != null &&
           g !== f &&
-          (m.messageContextInfo = babelHelpers.extends(
+          (d.messageContextInfo = babelHelpers.extends(
             {},
-            m.messageContextInfo,
+            d.messageContextInfo,
             { botMetadata: g },
           ));
       }
       if (!r("isArrayNullOrEmpty")(e.threadIds)) {
         var h = o("WAWebGenerateThreadIds").generateThreadIds(e);
-        m.messageContextInfo = babelHelpers.extends({}, m.messageContextInfo, {
+        d.messageContextInfo = babelHelpers.extends({}, d.messageContextInfo, {
           threadId: h,
         });
       }
       if (
-        ((m = x(m, e, n)),
+        ((d = N(d, e, n)),
         o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
           o(
             "WAWebMessagePluginGenerateReportingTokenContent",
@@ -461,10 +464,10 @@ __d(
           i !== "quoted")
       ) {
         var y, C;
-        m.messageContextInfo = babelHelpers.extends({}, m.messageContextInfo, {
+        d.messageContextInfo = babelHelpers.extends({}, d.messageContextInfo, {
           messageSecret:
             (y =
-              (C = m.messageContextInfo) == null ? void 0 : C.messageSecret) !=
+              (C = d.messageContextInfo) == null ? void 0 : C.messageSecret) !=
             null
               ? y
               : e.messageSecret,
@@ -472,23 +475,23 @@ __d(
       }
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.COMMENT &&
-          ((d = m.messageContextInfo) == null ? void 0 : d.messageSecret) !=
+          ((c = d.messageContextInfo) == null ? void 0 : c.messageSecret) !=
             null &&
-          (m.messageContextInfo = babelHelpers.extends(
+          (d.messageContextInfo = babelHelpers.extends(
             {},
-            m.messageContextInfo,
+            d.messageContextInfo,
             { messageSecret: null },
           )),
         e.limitSharing &&
-          (m.messageContextInfo = babelHelpers.extends(
+          (d.messageContextInfo = babelHelpers.extends(
             {},
-            m.messageContextInfo,
+            d.messageContextInfo,
             { limitSharingV2: e.limitSharing },
           )),
-        m
+        d
       );
     }
-    function b(e, t, n, r, a) {
+    function R(e, t, n, r, a) {
       (t === void 0 && (t = {}),
         n === void 0 && (n = void 0),
         r === void 0 && (r = {}));
@@ -509,17 +512,17 @@ __d(
               ? ((e.type = "chat"),
                 e.title && (e.body = "*" + e.title + "*\n" + e.body))
               : (e.type = e.subtype),
-            C(e, t, n, r)
+            S(e, t, n, r)
           );
       }
       return r;
     }
-    function v(e, t) {
+    function L(e, t) {
       return t.type === "ptt"
         ? { viewOnceMessageV2Extension: { message: e } }
         : { viewOnceMessage: { message: e } };
     }
-    function S(t) {
+    function E(t) {
       var n = t.messageContextInfo,
         r = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return babelHelpers.extends(
@@ -527,13 +530,13 @@ __d(
         n != null ? { messageContextInfo: n } : void 0,
       );
     }
-    function R(e) {
+    function k(e) {
       return { lottieStickerMessage: { message: e } };
     }
-    function L(e) {
+    function I(e) {
       return { groupMentionedMessage: { message: e } };
     }
-    function E(e) {
+    function T(e) {
       var t = e.messageContextInfo,
         n = babelHelpers.objectWithoutPropertiesLoose(e, s);
       return babelHelpers.extends(
@@ -541,13 +544,13 @@ __d(
         t != null ? { messageContextInfo: t } : void 0,
       );
     }
-    function k(e) {
+    function D(e) {
       return { questionMessage: { message: e } };
     }
-    function I(e) {
+    function x(e) {
       return { questionReplyMessage: { message: e } };
     }
-    function T(e) {
+    function $(e) {
       return {
         associatedChildMessage: {
           message: babelHelpers.extends({}, e, { messageContextInfo: void 0 }),
@@ -555,7 +558,7 @@ __d(
         messageContextInfo: e.messageContextInfo,
       };
     }
-    function D(e) {
+    function P(e) {
       var t = e.messageContextInfo,
         n = babelHelpers.objectWithoutPropertiesLoose(e, u);
       return {
@@ -563,7 +566,7 @@ __d(
         messageContextInfo: t,
       };
     }
-    function x(e, t, n) {
+    function N(e, t, n) {
       var a,
         i,
         l,
@@ -574,20 +577,20 @@ __d(
             ? babelHelpers.extends({}, e, { messageContextInfo: void 0 })
             : e;
       if (
-        ((n == null ? void 0 : n.isQuestion) === !0 && (c = k(c)),
-        n != null && n.questionReplyQuotedMessage && (c = I(c)),
+        ((n == null ? void 0 : n.isQuestion) === !0 && (c = D(c)),
+        n != null && n.questionReplyQuotedMessage && (c = x(c)),
         t.associationType != null &&
           (t.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
-            ? (c = D(c))
+            ? (c = P(c))
             : o("WAWebAssociationProtoUtils").shouldWrapAssociatedChildForType(
                 t.associationType,
               ) &&
               o(
                 "WAWebMessageAssociationGatingUtils",
               ).shouldWrapAssociatedChildOnSend() &&
-              (c = T(c))),
-        t.isViewOnce && (c = v(c, t)),
+              (c = $(c))),
+        t.isViewOnce && (c = L(c, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
           (c = o(
             "WAWebButtonsMessageProtoUtils",
@@ -595,12 +598,12 @@ __d(
         t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
           (a = c.documentMessage) != null &&
           a.caption &&
-          (c = S(c)),
+          (c = E(c)),
         t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
           (i = c.stickerMessage) != null &&
           i.isLottie &&
-          (c = R(c)),
-        n != null && (l = n.groupMentions) != null && l.length && (c = L(c)),
+          (c = k(c)),
+        n != null && (l = n.groupMentions) != null && l.length && (c = I(c)),
         !((s = t.invokedBotWid) != null && s.isFbidBot()) &&
           (((u = t.invokedBotWid) != null && u.isPnBot()) ||
             t.subtype === "bot_request_welcome") &&
@@ -621,7 +624,7 @@ __d(
       return (
         t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           t.isForwarded === !0 &&
-          (c = E(c)),
+          (c = T(c)),
         (n == null ? void 0 : n.isSpoiler) === !0 &&
           (c = o(
             "WAWebSpoilerFutureproofProtoUtils",
@@ -637,17 +640,18 @@ __d(
         c
       );
     }
-    function $(e) {
+    function M(e) {
       ((e.imageMessage = void 0),
         (e.videoMessage = void 0),
         (e.documentMessage = void 0),
         (e.audioMessage = void 0),
+        (e.ptvMessage = void 0),
         (e.stickerMessage = void 0),
         (e.lottieStickerMessage = void 0),
         (e.stickerPackMessage = void 0),
         (e.albumMessage = void 0));
     }
-    function P(e) {
+    function w(e) {
       return e == null
         ? !1
         : !!(
@@ -655,13 +659,14 @@ __d(
             e.videoMessage ||
             e.documentMessage ||
             e.audioMessage ||
+            e.ptvMessage ||
             e.stickerMessage ||
             e.lottieStickerMessage ||
             e.stickerPackMessage ||
             e.albumMessage
           );
     }
-    var N = [
+    var A = [
       "deviceSentMessage",
       "viewOnceMessage",
       "ephemeralMessage",
@@ -685,95 +690,147 @@ __d(
       "botForwardedMessage",
       "questionReplyMessage",
     ];
-    function M(e) {
+    function F(e) {
       var t = e;
-      (P(t) && $(t),
-        N.forEach(function (e) {
+      (w(t) && M(t),
+        A.forEach(function (e) {
           var n,
             r = (n = t[e]) == null ? void 0 : n.message;
-          r != null && P(r) && $(r);
+          r != null && w(r) && M(r);
         }));
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function O(e, t, n) {
+      var r;
+      if (e.quotedMessage == null) return e;
+      if (n) {
+        var a = e.quotedMessage,
+          i = babelHelpers.objectWithoutPropertiesLoose(e, c);
+        return i;
+      }
+      if (
+        e.participant == null ||
+        ((r = o("WAWebWidFactory").createWid(e.participant)) == null
+          ? void 0
+          : r.isBot()) === !0
+      )
+        return e;
+      var l = e.participant,
+        s = e.remoteJid,
+        u = e.stanzaId,
+        p = babelHelpers.objectWithoutPropertiesLoose(e, d);
+      if (t) return p;
+      var _ = p.quotedMessage,
+        f = babelHelpers.objectWithoutPropertiesLoose(p, m);
+      return f;
     }
-    function A() {
+    function B(e, t, n) {
+      var r,
+        o = e.botInvokeMessage,
+        a =
+          o == null || (r = o.message) == null ? void 0 : r.extendedTextMessage,
+        i = a == null ? void 0 : a.contextInfo;
+      if ((o == null ? void 0 : o.message) != null && a != null && i != null)
+        return babelHelpers.extends({}, e, {
+          botInvokeMessage: babelHelpers.extends({}, o, {
+            message: babelHelpers.extends({}, o.message, {
+              extendedTextMessage: babelHelpers.extends({}, a, {
+                contextInfo: O(i, t, n),
+              }),
+            }),
+          }),
+        });
+      var l = e.extendedTextMessage,
+        s = l == null ? void 0 : l.contextInfo;
+      return l == null || s == null
+        ? e
+        : babelHelpers.extends({}, e, {
+            extendedTextMessage: babelHelpers.extends({}, l, {
+              contextInfo: O(s, t, n),
+            }),
+          });
+    }
+    function W(e) {
+      return q.apply(this, arguments);
+    }
+    function q() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
-            i,
-            l,
-            s = e.botMessageSecret,
+            i = e.botMessageSecret,
+            l = e.isGroupAgentParticipantSend,
+            s = l === void 0 ? !1 : l,
             u = e.isOpenBotGroup,
             c = u === void 0 ? !1 : u,
             d = e.mentionedJidList,
             m = e.message,
-            p = r("WAWebStructuredClone")(m),
-            _ = !1;
-          (c === !0 &&
-            o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
-            (_ = !0),
-            _ === !0 && M(p),
-            (p.messageContextInfo = babelHelpers.extends(
-              {},
-              p.messageContextInfo,
-              { messageSecret: null },
-            )),
-            s &&
-              (p.messageContextInfo = babelHelpers.extends(
-                {},
-                p.messageContextInfo,
-                { botMessageSecret: s },
-              )));
-          var f =
-            (p == null ||
-            (t = p.botInvokeMessage) == null ||
-            (t = t.message) == null ||
-            (t = t.extendedTextMessage) == null
-              ? void 0
-              : t.contextInfo) ||
-            (p == null || (n = p.extendedTextMessage) == null
-              ? void 0
-              : n.contextInfo);
-          if ((f == null ? void 0 : f.quotedMessage) != null) {
+            p = e.messageSecret,
+            _ = r("WAWebStructuredClone")(m),
+            f = !1;
+          if (
+            (c === !0 &&
+              o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
+              (f = !0),
+            (f || s) && F(_),
+            s)
+          ) {
             var g;
-            f.participant != null &&
-              ((g = o("WAWebWidFactory").createWid(f.participant)) == null
-                ? void 0
-                : g.isBot()) !== !0 &&
-              (_ !== !0 && delete f.quotedMessage,
-              delete f.stanzaId,
-              delete f.remoteJid,
-              delete f.participant);
-          }
+            _.messageContextInfo = babelHelpers.extends(
+              {},
+              _.messageContextInfo,
+              {
+                botMessageSecret: null,
+                messageSecret:
+                  p != null
+                    ? p
+                    : (g = _.messageContextInfo) == null
+                      ? void 0
+                      : g.messageSecret,
+              },
+            );
+          } else
+            _.messageContextInfo = babelHelpers.extends(
+              {},
+              _.messageContextInfo,
+              { messageSecret: null },
+            );
+          (i &&
+            !s &&
+            (_.messageContextInfo = babelHelpers.extends(
+              {},
+              _.messageContextInfo,
+              { botMessageSecret: i },
+            )),
+            (_ = B(_, f, s)));
           var h =
-            p == null ||
-            (a = p.protocolMessage) == null ||
-            (a = a.botFeedbackMessage) == null
+            (t = _) == null ||
+            (t = t.protocolMessage) == null ||
+            (t = t.botFeedbackMessage) == null
               ? void 0
-              : a.messageKey;
+              : t.messageKey;
           h != null && h.remoteJid != null && delete h.remoteJid;
           var y =
-            (p == null || (i = p.protocolMessage) == null ? void 0 : i.type) ===
+            ((n = _) == null || (n = n.protocolMessage) == null
+              ? void 0
+              : n.type) ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
-              ? p == null || (l = p.protocolMessage) == null
+              ? (a = _) == null || (a = a.protocolMessage) == null
                 ? void 0
-                : l.key
+                : a.key
               : null;
           return (
             y != null && y.remoteJid != null && delete y.remoteJid,
             yield o(
               "WAWebBotReplaceMentionWidsWithPushnames",
-            ).replaceMentionWidsWithPushnames(p, d),
-            p
+            ).replaceMentionWidsWithPushnames(_, d),
+            _
           );
         })),
-        A.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function F(e) {
+    function U(e) {
       var t,
         n,
         a,
@@ -818,7 +875,7 @@ __d(
       }
       return i;
     }
-    function O(e) {
+    function V(e) {
       var t,
         n = e,
         a =
@@ -840,7 +897,7 @@ __d(
       }
       return n;
     }
-    function B(e) {
+    function H(e) {
       var t = e,
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
@@ -855,7 +912,7 @@ __d(
       }
       return t;
     }
-    function W(e) {
+    function G(e) {
       var t = r("WAWebStructuredClone")(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -864,12 +921,12 @@ __d(
         t
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function U() {
+    function j() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDebugInfo",
             {
@@ -891,21 +948,21 @@ __d(
             { supportPayload: JSON.stringify(n) },
           );
         })),
-        U.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    ((l.populateMessageContextInfo = d),
-      (l.createPeerMsgProtobuf = m),
-      (l.createMsgProtobuf = p),
-      (l.createAddonProtobuf = _),
-      (l.createProtobuf = h),
-      (l.getProtobufMessage = C),
-      (l.updateBotInvokeMsgProtoCopyForCapi = w),
-      (l.updateFbidBotProtobuf = F),
-      (l.updateFbidBotInvokeProtobuf = O),
-      (l.updateBotProtobuf = B),
-      (l.updateGroupMsgProtoWithCapiFlag = W),
-      (l.addDebugInfoSupportPayload = q));
+    ((l.populateMessageContextInfo = _),
+      (l.createPeerMsgProtobuf = f),
+      (l.createMsgProtobuf = g),
+      (l.createAddonProtobuf = h),
+      (l.createProtobuf = b),
+      (l.getProtobufMessage = S),
+      (l.updateBotInvokeMsgProtoCopyForCapi = W),
+      (l.updateFbidBotProtobuf = U),
+      (l.updateFbidBotInvokeProtobuf = V),
+      (l.updateBotProtobuf = H),
+      (l.updateGroupMsgProtoWithCapiFlag = G),
+      (l.addDebugInfoSupportPayload = z));
   },
   98,
 );

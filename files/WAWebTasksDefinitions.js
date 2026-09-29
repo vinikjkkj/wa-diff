@@ -33,7 +33,6 @@ __d(
     "WAWebInactiveGroupLidMigrationJob",
     "WAWebLogDailyStatsJob",
     "WAWebLogHistorySyncStatusAfterPairingJob",
-    "WAWebMessagingGatingUtils",
     "WAWebMetaAiBotSessionCleanupJob",
     "WAWebMetaAiHistoricalThreadMigrationJob",
     "WAWebMobilePlatforms",
@@ -758,8 +757,10 @@ __d(
                                                               "WAWebDBReportingTokenUtils",
                                                             ).cleanupReportingTokenAndContent(
                                                               o(
-                                                                "WAWebMessagingGatingUtils",
-                                                              ).getReportingTokenCleanupDays(),
+                                                                "WAWebABProps",
+                                                              ).getABPropConfigValue(
+                                                                "rt_clean_reporting_token",
+                                                              ),
                                                             ));
                                                         } catch (e) {
                                                           o("WALogger")

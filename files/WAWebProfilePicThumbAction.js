@@ -21,12 +21,16 @@ __d(
       c,
       d,
       m = d || (d = o("react"));
-    function p(e, t, n, r) {
+    function p(e) {
+      var t = e.full,
+        n = e.onDismiss,
+        r = e.profilePicThumb,
+        a = e.thumb;
       return f({
-        full: n,
-        onDismiss: r,
-        profilePicThumb: o("WAWebStateUtils").unproxy(e),
-        thumb: t,
+        full: t,
+        onDismiss: n,
+        profilePicThumb: o("WAWebStateUtils").unproxy(r),
+        thumb: a,
       });
     }
     function _(e, t) {

@@ -37,7 +37,13 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            return C(e, t, !0, n, r);
+            return C({
+              entryPoint: t,
+              isOutContactInvite: !0,
+              name: n,
+              onSendStart: r,
+              phoneNumber: e,
+            });
           },
         )),
         g.apply(this, arguments)
@@ -49,53 +55,61 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return C(e, t, !1, n);
+          return C({
+            entryPoint: t,
+            isOutContactInvite: !1,
+            name: n,
+            phoneNumber: e,
+          });
         })),
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = o("WAWebPhoneNumberSearch").stripInvisibleChars(e);
-            if (
-              !o(
-                "WAWebContactlessChatUtils",
-              ).PHONE_NUMBER_VALIDATION_REGEX.test(i)
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.entryPoint,
+            n = e.isOutContactInvite,
+            r = e.name,
+            a = e.onSendStart,
+            i = e.phoneNumber,
+            l = o("WAWebPhoneNumberSearch").stripInvisibleChars(i);
+          if (
+            !o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(
+              l,
             )
-              return (
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "sendInvite: invalid phone number format",
-                    ])),
-                ),
-                !1
-              );
-            var l =
-              n &&
-              o(
-                "WAWebOutContactServerSentInviteEligibility",
-              ).isServerSentInviteEligible(i);
-            if (
-              n &&
-              !l &&
-              !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
-            )
-              return !1;
-            if (n && l) {
-              var s = yield o(
-                "WAWebOutContactInviteConfirmDialog.react",
-              ).waitForOutContactInviteConfirmDialog(r != null ? r : i, i);
-              if (!s) return !1;
-            }
-            return (a == null || a(), l ? v(i, t, r != null ? r : i) : I(i, t));
-          },
-        )),
+          )
+            return (
+              o("WALogger").ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendInvite: invalid phone number format",
+                  ])),
+              ),
+              !1
+            );
+          var s =
+            n &&
+            o(
+              "WAWebOutContactServerSentInviteEligibility",
+            ).isServerSentInviteEligible(l);
+          if (
+            n &&
+            !s &&
+            !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
+          )
+            return !1;
+          if (n && s) {
+            var c = yield o(
+              "WAWebOutContactInviteConfirmDialog.react",
+            ).waitForOutContactInviteConfirmDialog(r != null ? r : l, l);
+            if (!c) return !1;
+          }
+          return (a == null || a(), s ? v(l, t, r != null ? r : l) : I(l, t));
+        })),
         b.apply(this, arguments)
       );
     }

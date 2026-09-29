@@ -46,13 +46,11 @@ __d(
           var t = e.map(function (e) {
             return o("WAWebWidFactory").createWid(e + "@c.us");
           });
-          return r("WAWebUserPrefsStatus") == null
-            ? void 0
-            : r("WAWebUserPrefsStatus").setStatusPrivacyConfig({
-                setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-                  .AllowList,
-                list: t,
-              });
+          return o("WAWebUserPrefsStatus").setStatusPrivacyConfig({
+            setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
+              .AllowList,
+            list: t,
+          });
         })),
         g.apply(this, arguments)
       );
@@ -169,8 +167,8 @@ __d(
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWid(e),
-            a = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: [t] });
-          if (a.length === 0) {
+            r = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: [t] });
+          if (r.length === 0) {
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -181,7 +179,7 @@ __d(
             );
             return;
           }
-          (yield r("WAWebUserPrefsStatus").markForgetStatusSenderKey(a),
+          (yield o("WAWebUserPrefsStatus").markForgetStatusSenderKey(r),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -190,33 +188,33 @@ __d(
                   ")",
                 ])),
               e,
-              a.length,
+              r.length,
             ));
-          var i = [],
-            l = [t];
+          var a = [],
+            i = [t];
           if (t.isUser()) {
-            var s = o("WAWebApiContact").getAlternateUserWid(
+            var l = o("WAWebApiContact").getAlternateUserWid(
               o("WAWebWidFactory").asUserWidOrThrow(t),
             );
-            s != null && l.push(s);
+            l != null && i.push(l);
           }
-          for (var p of l) {
-            var _ = yield o("WAWebApiDeviceList").getDeviceRecord(p);
-            if (_ != null && !_.deleted)
-              for (var f of _.devices)
-                i.push(
+          for (var s of i) {
+            var p = yield o("WAWebApiDeviceList").getDeviceRecord(s);
+            if (p != null && !p.deleted)
+              for (var _ of p.devices)
+                a.push(
                   o("WAWebSignalSessionApi").deleteDeviceSenderKey(
                     o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
+                      p.id,
                       _.id,
-                      f.id,
-                      f.isHosted,
+                      _.isHosted,
                     ),
                   ),
                 );
           }
-          (yield (m || (m = n("Promise"))).all(i),
+          (yield (m || (m = n("Promise"))).all(a),
             yield m.all(
-              a.map(function (e) {
+              r.map(function (e) {
                 return o("WAWebSignal").Session.deleteRemoteSession(e);
               }),
             ),
@@ -231,7 +229,7 @@ __d(
                   ")",
                 ])),
               e,
-              a.length,
+              r.length,
             ));
         })),
         T.apply(this, arguments)

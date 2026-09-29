@@ -137,7 +137,7 @@ __d(
                                             ],
                                           )),
                                     ),
-                                    yield r(
+                                    r(
                                       "WAWebSyncBootstrap",
                                     ).setSyncDCriticalDataSyncCompleted()),
                                   o("WALogger").LOG(

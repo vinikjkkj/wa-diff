@@ -2,7 +2,7 @@ __d(
   "WAWebVoipWindowConstants",
   [
     "WAWebCallCollection",
-    "WAWebTypedEventEmitter",
+    "WAWebEventEmitter",
     "WAWebVoipWindowConstants.stylex.const",
   ],
   function (t, n, r, o, a, i, l) {
@@ -12,12 +12,12 @@ __d(
       u = 200,
       c = 820,
       d = !1,
-      m = new (r("WAWebTypedEventEmitter"))();
+      m = new (r("WAWebEventEmitter"))();
     function p(e) {
       ((d = e), m.trigger("change", e));
     }
     var _ = !1,
-      f = new (r("WAWebTypedEventEmitter"))();
+      f = new (r("WAWebEventEmitter"))();
     function g(e) {
       e !== _ && ((_ = e), f.trigger("change", e));
     }

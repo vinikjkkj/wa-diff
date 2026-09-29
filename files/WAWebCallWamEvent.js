@@ -412,6 +412,8 @@ __d(
               bwaVidDisablingTxCandidateDuration: [1115, e.TYPES.TIMER],
               bweSlrOutputBps: [2461, e.TYPES.INTEGER],
               c50Linked: [3001, e.TYPES.BOOLEAN],
+              ca2dAbandonedCount: [3211, e.TYPES.INTEGER],
+              ca2dActiveDurationT: [3212, e.TYPES.TIMER],
               ca2dAttemptCount: [3093, e.TYPES.INTEGER],
               ca2dAvsyncAbsDeltaMsAvg: [3141, e.TYPES.NUMBER],
               ca2dAvsyncAbsDeltaMsP50: [3142, e.TYPES.NUMBER],

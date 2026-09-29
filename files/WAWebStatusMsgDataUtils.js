@@ -24,7 +24,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
-            ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
+            ? yield o("WAWebUserPrefsStatus").getStatusReshareAllowed()
             : !1;
         })),
         u.apply(this, arguments)

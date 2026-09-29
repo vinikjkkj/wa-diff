@@ -30,7 +30,6 @@ __d(
     "WAWebMediaHosts",
     "WAWebMediaHostsRawStateManager",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
-    "WAWebMmsDownloadUploadCrashLogger",
     "WAWebMsgKey",
     "WAWebNetworkStatusStateManager",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
@@ -67,17 +66,16 @@ __d(
       p,
       _,
       f,
-      g,
-      h = ["serializedError"],
-      y;
-    function C(e) {
+      g = ["serializedError"],
+      h;
+    function y(e) {
       throw new TypeError('"' + e + '" is read-only');
     }
-    var b = "WAWebBackendWorker-" + o("WAWebUserPrefsTabMutex").THIS_TAB,
-      v = "worker-killswitch-stolen",
-      S = r("qpl")._(891427260, "2714"),
-      R = new Map(),
-      L = {
+    var C = "WAWebBackendWorker-" + o("WAWebUserPrefsTabMutex").THIS_TAB,
+      b = "worker-killswitch-stolen",
+      v = r("qpl")._(891427260, "2714"),
+      S = new Map(),
+      R = {
         initScriptRouteBuilder: r(
           "WAXMultiSiteWebWorkerV4InitScriptControllerRouteBuilder",
         ),
@@ -85,7 +83,7 @@ __d(
           "WAXMultiSiteWebWorkerV4HasteResponseControllerRouteBuilder",
         ),
       };
-    function E(e) {
+    function L(e) {
       var t = null,
         n = {
           onmessage: t,
@@ -103,7 +101,7 @@ __d(
         n
       );
     }
-    function k() {
+    function E() {
       var t,
         a = o("WAWebBackendWorkerBridge").createBridge([
           {
@@ -325,7 +323,7 @@ __d(
             handlers: {
               logFBError: function (t) {
                 var e = t.serializedError,
-                  n = babelHelpers.objectWithoutPropertiesLoose(t, h),
+                  n = babelHelpers.objectWithoutPropertiesLoose(t, g),
                   a = r("err")(e.message);
                 ((a.stack = e.stack),
                   (a.name = e.name),
@@ -380,12 +378,12 @@ __d(
                   r = o(
                     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                   ).msgProcessReporter.startMarker(n);
-                r && R.set(e, r);
+                r && S.set(e, r);
               },
               endMarker: function (t) {
                 var e = t.markerId,
-                  n = R.get(e);
-                n && (n(), R.delete(e));
+                  n = S.get(e);
+                n && (n(), S.delete(e));
               },
               activate: function (t) {
                 var e = t.count;
@@ -552,35 +550,6 @@ __d(
             },
           },
           {
-            namespace: "mainthread_crashLogger",
-            handlers: {
-              mark: function (t) {
-                var e = t.mediaId,
-                  n = t.metadata,
-                  r = t.progressType,
-                  a = o("WAWebMmsDownloadUploadCrashLogger").ProgressType.cast(
-                    r,
-                  );
-                if (a == null) {
-                  o("WALogger")
-                    .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "Invalid progress type: ",
-                          "",
-                        ])),
-                      r,
-                    )
-                    .sendLogs("invalid-progress-type");
-                  return;
-                }
-                o(
-                  "WAWebMmsDownloadUploadCrashLogger",
-                ).downloadUploadCrashLogger.mark(e, a, n);
-              },
-            },
-          },
-          {
             namespace: "mainthread_uploadmanager",
             handlers: {
               handleEncryptionStart: (t = o(
@@ -649,7 +618,7 @@ __d(
                       a = e.socketId,
                       i = e.stanza,
                       l = yield o("WAWap").decodeStanza(i, function (e) {
-                        return (y || (y = n("Promise"))).resolve(e);
+                        return (h || (h = n("Promise"))).resolve(e);
                       }),
                       s = yield r("WAWebCommsHandleStanza")(l, a, t);
                     if (s instanceof o("WAWap").WapNode) {
@@ -705,10 +674,10 @@ __d(
         a
       );
     }
-    var I = null,
-      T = null,
-      D = null;
-    function x(e, t) {
+    var k = null,
+      I = null,
+      T = null;
+    function D(e, t) {
       if (e != null) {
         var n = o("WACrossWorkerPortal").rejectPendingRequests(
           e,
@@ -717,8 +686,8 @@ __d(
         );
         n > 0 &&
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[comms] failed ",
                 " in-flight request(s): ",
                 "",
@@ -728,21 +697,21 @@ __d(
           );
       }
     }
-    var $ = 3,
-      P = 10;
-    function N(e) {
-      return M.apply(this, arguments);
+    var x = 3,
+      $ = 10;
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
             i = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
             l =
               (a = e == null ? void 0 : e.qpl) != null
                 ? a
-                : o("QPLFlow").startQPLFlow(S, {
+                : o("QPLFlow").startQPLFlow(v, {
                     annotations: {
                       bool: {
                         wa_web_media_wasm_worker_split: r("gkx")("24042"),
@@ -761,24 +730,24 @@ __d(
                   115,
               u = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
                 r("WAWebBackendWorkerV2Resource"),
-                L,
-                b,
+                R,
+                C,
                 s,
               ),
               c = u.initReady,
-              d = u.worker;
+              g = u.worker;
             (l.addPoint("worker_connect_start"),
-              yield (y || (y = n("Promise"))).all([c, w(d)]),
+              yield (h || (h = n("Promise"))).all([c, M(g)]),
               l.addPoint("worker_connect_end"));
-            var h;
+            var y;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
-              ? (h = yield o(
+              ? (y = yield o(
                   "WAWebBackendWorkerClient",
                 ).getBackendWorkerBridge())
-              : (h = k());
-            var C = E(d),
-              R = D;
-            ((D = o("WAWebBackendWorkerBridge").attachBridgeToPortal(h, C, [
+              : (y = E());
+            var S = L(g),
+              N = T;
+            ((T = o("WAWebBackendWorkerBridge").attachBridgeToPortal(y, S, [
               "historySync",
               "deviceSync",
               "crypto",
@@ -791,17 +760,17 @@ __d(
               "networkStatusSync",
               "comms",
             ])),
-              x(R, "backend worker restarted"),
+              D(N, "backend worker restarted"),
               o("WAWebBackendWorkerClient")
                 .getBackendWorkerBridge()
                 .then(function (e) {
-                  (I == null || I(),
+                  (k == null || k(),
                     e.fireAndForget("mediaHostsSync", "snapshot", {
                       data: o(
                         "WAWebMediaHostsRawStateManager",
                       ).mediaHostsRawStateManager.get(),
                     }),
-                    (I = o(
+                    (k = o(
                       "WAWebMediaHostsRawStateManager",
                     ).mediaHostsRawStateManager.onSet(function (t) {
                       e.fireAndForget("mediaHostsSync", "snapshot", {
@@ -812,8 +781,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to set up media hosts sync: ",
                           "",
                         ])),
@@ -824,7 +793,7 @@ __d(
               o("WAWebBackendWorkerClient")
                 .getBackendWorkerBridge()
                 .then(function (e) {
-                  (T == null || T(),
+                  (I == null || I(),
                     e.fireAndForget(
                       "networkStatusSync",
                       "updateNetworkStatus",
@@ -834,7 +803,7 @@ __d(
                         ).networkStatusStateManager.get(),
                       },
                     ),
-                    (T = o(
+                    (I = o(
                       "WAWebNetworkStatusStateManager",
                     ).networkStatusStateManager.onSet(function (t) {
                       e.fireAndForget(
@@ -847,8 +816,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to set up network status sync: ",
                           "",
                         ])),
@@ -856,15 +825,15 @@ __d(
                     )
                     .sendLogs("network-status-sync-failed");
                 }),
-              o("WAWebBackendWorkerClient").setBackendWorkerBridge(h),
+              o("WAWebBackendWorkerClient").setBackendWorkerBridge(y),
               l.addPoint("init_data"),
               o("WAWebBackendWorkerInitState")
-                .sendInitState(h)
+                .sendInitState(y)
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to set worker init state: ",
                           "",
                         ])),
@@ -876,42 +845,42 @@ __d(
               l.addPoint("create_worker_end"),
               l.endSuccess(),
               o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "WAWebBackendWorker is initialised",
                   ])),
               ),
               globalThis.navigator.locks != null &&
                 globalThis.navigator.locks.request(
-                  b + "-kill-switch-lock",
+                  C + "-kill-switch-lock",
                   function () {
                     (o("WAWebCommsWorkerReady").setCommsWorkerReady(!1),
-                      x(D, "backend worker stopped"),
-                      i < P && N({ retryStart: i + 1 }));
+                      D(T, "backend worker stopped"),
+                      i < $ && P({ retryStart: i + 1 }));
                   },
                 ));
           } catch (t) {
-            var M;
+            var w;
             globalThis.navigator.locks != null &&
               (yield globalThis.navigator.locks.request(
-                b + "-kill-switch-lock",
+                C + "-kill-switch-lock",
                 { steal: !0 },
                 function () {
-                  return (y || (y = n("Promise"))).resolve();
+                  return (h || (h = n("Promise"))).resolve();
                 },
               ));
             var A = r("getErrorSafe")(t);
             if (
               (o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "WAWebBackendWorkerClient init fails",
                     ])),
                 )
                 .catching(A)
                 .sendLogs("main-thread-backend-worker-init-fails"),
-              A.message.includes(v))
+              A.message.includes(b))
             ) {
               l.endFail("error", {
                 string: {
@@ -920,9 +889,9 @@ __d(
               });
               return;
             }
-            var F = (M = e == null ? void 0 : e.retryInit) != null ? M : 0;
-            F < $ && globalThis.navigator.locks != null
-              ? (l.addPoint("retry_" + F), N({ qpl: l, retryInit: F + 1 }))
+            var F = (w = e == null ? void 0 : e.retryInit) != null ? w : 0;
+            F < x && globalThis.navigator.locks != null
+              ? (l.addPoint("retry_" + F), P({ qpl: l, retryInit: F + 1 }))
               : l.endFail("error", {
                   string: {
                     error: o("getSafeQplErrorMessage").getSafeQPLErrorMessage(
@@ -932,11 +901,11 @@ __d(
                 });
           }
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e) {
-      return new (y || (y = n("Promise")))(function (t, n) {
+    function M(e) {
+      return new (h || (h = n("Promise")))(function (t, n) {
         var r = function (a) {
           var o = a.data,
             i = o.message,
@@ -948,7 +917,7 @@ __d(
         e.addEventListener("message", r);
       });
     }
-    l.startBackendWorker = N;
+    l.startBackendWorker = P;
   },
   98,
 );

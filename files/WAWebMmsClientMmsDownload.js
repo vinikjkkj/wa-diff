@@ -213,7 +213,7 @@ __d(
               functionName: "mmsGetEncryptedMediaSize",
             }),
             s = l.headers.get("content-length");
-          if (!s)
+          if (s == null || s === "")
             throw new (o(
               "WAWebMediaLoadErrors",
             ).UnableToGetContentLengthError)();

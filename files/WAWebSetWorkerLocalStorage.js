@@ -12,45 +12,44 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = "push-offline-resume-treatment",
-      c = "treatment-v1";
-    function d() {
-      return m.apply(this, arguments);
+      s = "push-offline-resume-treatment",
+      u = "treatment-v1";
+    function c() {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = h(o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = g(o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow),
             t = e.itemsToWrite;
-          yield o("WAWebApiLocalStorage").updateLocalStorage(t, [u]);
+          yield o("WAWebApiLocalStorage").updateLocalStorage(t, [s]);
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e === void 0 && (e = !1);
-          var t = h(o("WAWebUserPrefsMeUser").getMaybeMeDisplayName),
+          var t = g(o("WAWebUserPrefsMeUser").getMaybeMeDisplayName),
             n = t.itemsToWrite,
             r = t.keysToRemove;
-          (e && n.push({ key: u, value: c }),
+          (e && n.push({ key: s, value: u }),
             yield o("WAWebApiLocalStorage").applyLocalStorageChanges(n, r));
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f() {
+    function _() {
       return o("WAWebApiLocalStorage").clearLocalStorage();
     }
-    function g() {
-      return o("WAWebApiLocalStorage").applyLocalStorageChanges([], [u]);
+    function f() {
+      return o("WAWebApiLocalStorage").applyLocalStorageChanges([], [s]);
     }
-    function h(t) {
+    function g(t) {
       var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
         a = [{ key: "lidDeviceJid", value: n.toString() }],
         i = [],
@@ -60,27 +59,19 @@ __d(
             key: o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME,
             value: l,
           })
-        : (i.push(o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME),
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[worker-local-storage] meDisplayName unavailable",
-                ])),
-            )
-            .sendLogs("worker-local-storage-missing-display-name"));
-      var u = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+        : i.push(o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME);
+      var s = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
       return (
-        u != null
+        s != null
           ? a.push({
               key: "deviceJid",
-              value: o("WAWebWidToJid").widToDeviceJid(u),
+              value: o("WAWebWidToJid").widToDeviceJid(s),
             })
           : (i.push("deviceJid"),
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[worker-local-storage] deviceJid unavailable: no phone-number wid",
                   ])),
               )
@@ -94,10 +85,10 @@ __d(
         { itemsToWrite: a, keysToRemove: i }
       );
     }
-    ((l.setWorkerLocalStorage = d),
-      (l.setWorkerLocalStorageForOfflineResume = p),
-      (l.clearWorkerLocalStorage = f),
-      (l.clearWorkerPushOfflineResumeTreatment = g));
+    ((l.setWorkerLocalStorage = c),
+      (l.setWorkerLocalStorageForOfflineResume = m),
+      (l.clearWorkerLocalStorage = _),
+      (l.clearWorkerPushOfflineResumeTreatment = f));
   },
   98,
 );

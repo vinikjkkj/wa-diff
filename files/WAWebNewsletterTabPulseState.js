@@ -1,10 +1,10 @@
 __d(
   "WAWebNewsletterTabPulseState",
   [
+    "WAWebEventEmitter",
     "WAWebNavBarTypes",
     "WAWebNotificationHelpers",
     "WAWebSideNavButtonsActivityModel",
-    "WAWebTypedEventEmitter",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 8e3,
@@ -63,7 +63,7 @@ __d(
           }),
           n
         );
-      })(r("WAWebTypedEventEmitter")),
+      })(r("WAWebEventEmitter")),
       u = new s(),
       c = u;
     l.default = c;

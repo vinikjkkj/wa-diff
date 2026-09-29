@@ -667,13 +667,6 @@ __d(
             throw r("err")("expected file to be a Blob or File");
           return o("WAWebFileUtils").typeFromMimetype(this.file.type);
         }),
-        (i.isViewableOnce = function () {
-          var e = new Set([
-            o("WAWebMsgType").MSG_TYPE.IMAGE,
-            o("WAWebMsgType").MSG_TYPE.VIDEO,
-          ]);
-          return e.has(this.type) && !this.isGif;
-        }),
         (i.delete = function () {
           (this.fullPreview && window.URL.revokeObjectURL(this.fullPreview),
             t.prototype.delete.call(this),

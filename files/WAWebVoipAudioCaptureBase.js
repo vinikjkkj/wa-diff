@@ -1946,7 +1946,7 @@ __d(
                     o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e),
                     o("WAWebAudioDeviceManager").AudioDeviceEvents.trigger(
                       "deviceSelectionChanged",
-                      [e],
+                      e,
                     ));
                 } catch (e) {
                   o("WALogger").WARN(

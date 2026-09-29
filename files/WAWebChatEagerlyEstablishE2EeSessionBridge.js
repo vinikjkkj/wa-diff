@@ -45,7 +45,7 @@ __d(
                 i.skDistribList.length + i.skList.length,
               )));
           } else if (t.id.isStatus()) {
-            var l = yield r("WAWebUserPrefsStatus").getStatusList();
+            var l = yield o("WAWebUserPrefsStatus").getStatusList();
             l.list = r("compactMap")(
               l.list,
               o("WAWebLidMigrationUtils").toUserLid,
@@ -64,7 +64,7 @@ __d(
                 void 0,
                 !0,
               ),
-              f = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(p, {
+              f = yield o("WAWebUserPrefsStatus").getStatusSkDistribList(p, {
                 isFullAudience: !1,
               }),
               g = f.skDistribList;

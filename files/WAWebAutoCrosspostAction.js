@@ -31,8 +31,8 @@ __d(
             o("WAWebAccountLinkingConstants").AccountLinkState.Active
           ) {
             var a = yield (u || (u = n("Promise"))).all([
-                r("WAWebUserPrefsStatus").getShareToFB(),
-                r("WAWebUserPrefsStatus").getShareToIG(),
+                o("WAWebUserPrefsStatus").getShareToFB(),
+                o("WAWebUserPrefsStatus").getShareToIG(),
               ]),
               i = a[0],
               l = a[1],

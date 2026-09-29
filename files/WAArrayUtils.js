@@ -7,8 +7,8 @@ __d(
       return e;
     }
     function l(e, t) {
-      var n = e.pop();
-      t < e.length && (e[t] = n);
+      var n = e[e.length - 1];
+      (e.pop(), t < e.length && (e[t] = n));
     }
     function* s(e, t) {
       for (var n = 0; n < e.length; n += t) yield e.slice(n, n + t);

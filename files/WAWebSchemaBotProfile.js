@@ -32,6 +32,7 @@ __d(
           n("isDeprecated"),
           n("creatorLid"),
           n("hcaEntrypointId"),
+          n("groupTosRequirements"),
           n("isDeleted"),
           n("lastFetchedTimeMs"),
         ])

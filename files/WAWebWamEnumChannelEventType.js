@@ -20,6 +20,10 @@ __d(
       ADMIN_PROFILE_DELETE: 15,
       ADMIN_PROFILE_SETTING_ENABLE: 16,
       ADMIN_PROFILE_SETTING_DISABLE: 17,
+      PIN: 18,
+      UNPIN: 19,
+      ARCHIVE: 20,
+      UNARCHIVE: 21,
     });
     i.CHANNEL_EVENT_TYPE = e;
   },

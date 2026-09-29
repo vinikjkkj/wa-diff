@@ -50,7 +50,6 @@ __d(
         e.longitude != null && (r.longitude = e.longitude),
         e.name != null && (r.address_string = e.name),
         e.countryCode != null && (r.country = e.countryCode),
-        e.countryName != null && (r.country_name = e.countryName),
         r
       );
     }

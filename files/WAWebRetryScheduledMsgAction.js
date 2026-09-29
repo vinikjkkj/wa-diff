@@ -71,13 +71,13 @@ __d(
             n,
           );
           try {
-            yield o("WAWebSendScheduledMsgAction").sendScheduledTextMsgToChat(
-              i,
-              l,
-              a.scheduledTimestampS,
-              {},
-              !1,
-            );
+            yield o("WAWebSendScheduledMsgAction").sendScheduledTextMsgToChat({
+              addSystemBubble: !1,
+              chat: i,
+              options: {},
+              scheduledTimestampS: a.scheduledTimestampS,
+              text: l,
+            });
           } catch (e) {
             throw (
               o("WALogger")

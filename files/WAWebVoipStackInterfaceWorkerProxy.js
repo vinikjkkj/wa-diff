@@ -26,6 +26,7 @@ __d(
     "WAWebVoipJsWorkerThread",
     "WAWebVoipJsonParsersWeb",
     "WAWebVoipLobbyEntryPointStore",
+    "WAWebVoipLocalCallStateStore",
     "WAWebVoipLogDrainer",
     "WAWebVoipMessagePortRpc",
     "WAWebVoipP2PConnectionManager",
@@ -43,6 +44,7 @@ __d(
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoWebCodecsRenderer",
+    "WAWebVoipWaCallEnums",
     "WAWebVoipWasmArtifactSkewErrors",
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
@@ -1101,7 +1103,10 @@ __d(
               function* (e, t) {
                 (o(
                   "WAWebVoipLobbyEntryPointStore",
-                ).resetLobbyEntryPointOnAccept(),
+                ).resetLobbyEntryPointOnAccept(
+                  o("WAWebVoipLocalCallStateStore").getLocalCallState() ===
+                    o("WAWebVoipWaCallEnums").CallState.Rejoining,
+                ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield be("acceptCall", {
                     isMicEnabled: e,
@@ -1127,11 +1132,10 @@ __d(
           endCall: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                (o("WAWebVoipLobbyEntryPointStore").endLobbyJoinWait(),
-                  o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-                    o(
-                      "WAWebVoipWebTransportConnectionManager",
-                    ).prepareForEndCall());
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                  o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).prepareForEndCall();
                 try {
                   yield be("endCall", { endCallReason: e, sendTerminate: t });
                 } finally {

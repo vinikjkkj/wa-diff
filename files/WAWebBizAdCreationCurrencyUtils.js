@@ -1,13 +1,13 @@
 __d(
   "WAWebBizAdCreationCurrencyUtils",
   [
-    "AdsCurrencyFormatter",
-    "Currency",
     "FBLogger",
-    "LWICometFormatCurrency",
     "WAWebBizAdsLocaleTag",
+    "WAWebBizCurrency",
     "WAWebBizNativeAdsGatingUtils",
+    "cr:16083",
     "getErrorSafe",
+    "intlNumUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -23,7 +23,7 @@ __d(
         : Math.round(Math.log(n) / Math.LN10);
     }
     function c(t, n, r) {
-      var a = o("Currency").getOffset(n) || e,
+      var a = o("WAWebBizCurrency").getOffset(n) || e,
         i = o("WAWebBizAdsLocaleTag").getWAWebBizAdsLocaleTag(),
         l = r.withDecimals ? u(i, n, a) : 0,
         s = r.withSymbol
@@ -41,21 +41,27 @@ __d(
               useGrouping: r.withNumberDelimiters,
             }).format(t / a);
       if (!r.withISO) return s;
-      var c = o("Currency").getISO(n);
+      var c = o("WAWebBizCurrency").getISO(n);
       return c != null && c !== "" ? s + " " + c : s;
     }
-    function d(e, t, n) {
-      var a,
-        i,
+    function d(t, n, a) {
+      var i = t / (o("WAWebBizCurrency").getOffset(n) || e);
+      return a.withNumberDelimiters
+        ? r("intlNumUtils").formatNumberWithThousandDelimiters(i, 0)
+        : r("intlNumUtils").formatNumber(i, 0);
+    }
+    function m(e, t, a) {
+      var i,
         l,
         s,
-        u = {
+        u,
+        m = {
           withDecimals:
-            (a = n == null ? void 0 : n.withDecimals) != null ? a : !1,
-          withISO: (i = n == null ? void 0 : n.withISO) != null ? i : !1,
+            (i = a == null ? void 0 : a.withDecimals) != null ? i : !1,
+          withISO: (l = a == null ? void 0 : a.withISO) != null ? l : !1,
           withNumberDelimiters:
-            (l = n == null ? void 0 : n.withNumberDelimiters) != null ? l : !0,
-          withSymbol: (s = n == null ? void 0 : n.withSymbol) != null ? s : !0,
+            (s = a == null ? void 0 : a.withNumberDelimiters) != null ? s : !0,
+          withSymbol: (u = a == null ? void 0 : a.withSymbol) != null ? u : !0,
         };
       if (
         o(
@@ -63,32 +69,35 @@ __d(
         ).nativeAdsCldrCurrencyFormattingEnabled()
       )
         try {
-          return c(e, t, u);
+          return c(e, t, m);
         } catch (e) {
           r("FBLogger")("wa_ctwa_web")
             .catching(r("getErrorSafe")(e))
             .info("CLDR currency formatting failed for " + t);
         }
-      return o("LWICometFormatCurrency").getLWIFormatCurrency(e, t, u);
+      return n("cr:16083") != null
+        ? n("cr:16083").formatCurrencyWithLegacyFormatter(e, t, m)
+        : d(e, t, m);
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       n === void 0 && (n = !1);
-      var r = o("Currency").getOffset(t),
+      var r = o("WAWebBizCurrency").getOffset(t),
         a = Math.round(e / r);
       return n ? a.toLocaleString() : String(a);
     }
-    function p(e, t) {
-      var n = o("AdsCurrencyFormatter").parseOptionalCurrency(t, e);
-      if (n == null || !Number.isFinite(n)) return null;
-      var r = o("Currency").getOffset(t),
-        a = Math.round(Math.abs(n) / r);
-      return a * r;
+    function _(e, t) {
+      var n = o("WAWebBizCurrency").getOffset(t),
+        a = r("intlNumUtils").parseNumber(e),
+        i = a == null ? null : Math.round(a * n);
+      if (i == null || !Number.isFinite(i)) return null;
+      var l = Math.round(Math.abs(i) / n);
+      return l * n;
     }
-    function _(t, n, r) {
-      var a = o("Currency").getOffset(n) || e;
-      return d(Math.round((t * a) / s), n, r);
+    function f(t, n, r) {
+      var a = o("WAWebBizCurrency").getOffset(n) || e;
+      return m(Math.round((t * a) / s), n, r);
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       var r = e != null && e.trim() !== "" ? Number(e) : null;
       return o(
         "WAWebBizNativeAdsGatingUtils",
@@ -96,13 +105,13 @@ __d(
         r != null &&
         Number.isFinite(r) &&
         t != null
-        ? _(r, t, { withDecimals: !0 })
+        ? f(r, t, { withDecimals: !0 })
         : n;
     }
-    function g(e) {
-      return o("Currency").getOffset(e);
-    }
     function h(e) {
+      return o("WAWebBizCurrency").getOffset(e);
+    }
+    function y(e) {
       if (
         o(
           "WAWebBizNativeAdsGatingUtils",
@@ -131,19 +140,19 @@ __d(
             .catching(r("getErrorSafe")(t))
             .info("CLDR currency affix lookup failed for " + e);
         }
-      return { prefix: o("Currency").getSymbol(e) || "", suffix: "" };
+      return { prefix: o("WAWebBizCurrency").getSymbol(e), suffix: "" };
     }
-    var y = {
-        formatCurrency: d,
-        formatCurrencyForInput: m,
-        formatPECurrencyAmount: _,
-        formatServerCurrencyAmount: f,
-        getCurrencyAffixes: h,
-        getCurrencyOffset: g,
-        parseCurrencyInput: p,
+    var C = {
+        formatCurrency: m,
+        formatCurrencyForInput: p,
+        formatPECurrencyAmount: f,
+        formatServerCurrencyAmount: g,
+        getCurrencyAffixes: y,
+        getCurrencyOffset: h,
+        parseCurrencyInput: _,
       },
-      C = y;
-    l.default = C;
+      b = C;
+    l.default = b;
   },
   98,
 );

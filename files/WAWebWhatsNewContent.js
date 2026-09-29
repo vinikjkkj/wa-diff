@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebABProps",
+    "WAWebChatThemeGatingUtils",
     "WAWebEnvironment",
     "WAWebMobilePlatforms",
     "WAWebVoipGatingUtils",
@@ -10,6 +11,7 @@ __d(
     "WDSIconIcDownload.react",
     "WDSIconIcHistory.react",
     "WDSIconIcMood.react",
+    "WDSIconIcPalette.react",
     "WDSIconIcPermMedia.react",
     "WDSIconIcShare.react",
     "WDSIconIcVideoCall.react",
@@ -121,12 +123,20 @@ __d(
       y = {
         description: function () {
           return s._(
+            /*BTDS*/ "Personalize your chats with colorful themes and custom wallpapers.",
+          );
+        },
+        Icon: r("WDSIconIcPalette.react"),
+      },
+      C = {
+        description: function () {
+          return s._(
             /*BTDS*/ "Export a chat as a file to save or share a copy of your conversation.",
           );
         },
         Icon: r("WDSIconIcDownload.react"),
       },
-      C = {
+      b = {
         description: function () {
           return s._(
             /*BTDS*/ "Write and edit broadcast messages faster with AI-powered suggestions.",
@@ -134,47 +144,53 @@ __d(
         },
         Icon: r("WDSIconWdsIcPencilAi.react"),
       };
-    function b() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_content_version",
       );
     }
-    function v() {
-      return b() >= 2;
-    }
     function S() {
-      return b() >= 3;
+      return v() >= 2;
     }
     function R() {
-      return b() === 3;
+      return v() >= 3;
     }
-    function L(e) {
+    function L() {
+      return v() === 3;
+    }
+    function E(e) {
       var t = e.bizAgentEligible,
-        n = b();
+        n = v();
       return n >= 4
-        ? E()
+        ? k()
         : n === 3
-          ? T(t)
+          ? D(t)
           : [].concat(u, [r("WAWebEnvironment").isWindows ? d : c]);
     }
-    function E() {
+    function k() {
       var e = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? I(e) : k(e);
-    }
-    function k(e) {
-      return e ? [m, y, p, f] : [y, p, f, _];
+      return o("WAWebMobilePlatforms").isSMB() ? T(e) : I(e);
     }
     function I(e) {
-      return e ? [m, C, y, p] : [C, y, p, f];
+      return o("WAWebChatThemeGatingUtils").isChatThemesEnabled()
+        ? e
+          ? [y, m, p, f]
+          : [y, p, f, _]
+        : e
+          ? [m, C, p, f]
+          : [C, p, f, _];
     }
     function T(e) {
-      var t = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? x(t, e) : D(t);
+      return e ? [m, b, C, p] : [b, C, p, f];
     }
-    function D(t) {
+    function D(e) {
+      var t = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
+      return o("WAWebMobilePlatforms").isSMB() ? $(t, e) : x(t);
+    }
+    function x(t) {
       return t ? [m, p, _, f] : [p, _, f, e];
     }
-    function x(t, n) {
+    function $(t, n) {
       var r = t ? [m, g, h, p] : [g, h, p, f];
       return n
         ? r
@@ -185,10 +201,10 @@ __d(
             [e],
           );
     }
-    ((l.hasWhatsNewContent = v),
-      (l.hasSmbWhatsNewContent = S),
-      (l.hasBizAgentWhatsNewHighlight = R),
-      (l.getWhatsNewFeatures = L));
+    ((l.hasWhatsNewContent = S),
+      (l.hasSmbWhatsNewContent = R),
+      (l.hasBizAgentWhatsNewHighlight = L),
+      (l.getWhatsNewFeatures = E));
   },
   226,
 );

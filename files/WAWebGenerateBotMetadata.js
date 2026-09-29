@@ -316,9 +316,9 @@ __d(
                         .RICH_RESPONSE_UR_ZEITGEIST_CAROUSEL,
                     ]
                   : [],
-                o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isRichResponseInlineLinksEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "ai_rich_response_inline_links_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType

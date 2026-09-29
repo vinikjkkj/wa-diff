@@ -25,6 +25,7 @@ __d(
               ? null
               : {
                   isDeleted: c.isDeleted,
+                  groupTosRequirements: c.groupTosRequirements,
                   product: c.product,
                   lastFetchedTimeMs: c.lastFetchedTimeMs,
                 };

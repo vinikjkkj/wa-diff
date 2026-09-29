@@ -22,21 +22,20 @@ __d(
       c,
       d,
       m,
-      p,
-      _ =
+      p =
         e !== void 0
           ? e
           : (e = n("WAWebBizAiSmartComposerSuggestionFetcherQuery.graphql")),
-      f = 2,
-      g = 250,
-      h = { ok: !1, code: "UNKNOWN" };
-    function y(e, t, a) {
-      var i = h;
+      _ = 2,
+      f = 250,
+      g = { ok: !1, code: "UNKNOWN" };
+    function h(e, t, a) {
+      var i = g;
       return o("WAExponentialBackoff")
         .exponentialBackoff(
           {
-            minTimeout: g,
-            retries: f,
+            minTimeout: f,
+            retries: _,
             signal: t,
             timeoutIncludesTaskDuration: !1,
           },
@@ -44,7 +43,7 @@ __d(
             var l = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (n) {
                 var l = !1,
-                  s = yield C(e, t, function () {
+                  s = yield y(e, t, function () {
                     ((l = !0), a == null || a.onAttemptStarted());
                   });
                 return (
@@ -70,13 +69,13 @@ __d(
           return i;
         });
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if ((t == null ? void 0 : t.aborted) === !0) return h;
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if ((t == null ? void 0 : t.aborted) === !0) return g;
           var a = !1,
             i;
           try {
@@ -87,8 +86,8 @@ __d(
               return (
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[SmartComposer] suggested-reply token fetch failed",
                       ])),
                   )
@@ -99,11 +98,11 @@ __d(
               (yield r("WAWebNetworkStatus").waitIfOffline(),
               (t == null ? void 0 : t.aborted) === !0)
             )
-              return h;
+              return g;
             ((a = !0),
               n == null || n(),
               (i = yield o("WAWebRelayClient").fetchQuery(
-                _,
+                p,
                 {
                   stanza_id: e.stanzaId,
                   consumer_lid: (l = e.consumerLid) != null ? l : "",
@@ -116,37 +115,37 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[SmartComposer] suggested-reply fetch failed",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("biz-ai-smart-composer-suggestion-fetch-fail"),
-              { ok: !1, code: a ? v(e) : "UNKNOWN" }
+              { ok: !1, code: a ? b(e) : "UNKNOWN" }
             );
           }
           try {
-            return S(i);
+            return v(i);
           } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[SmartComposer] suggested-reply response parsing failed",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("biz-ai-smart-composer-suggestion-parse-fail"),
-              h
+              g
             );
           }
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e) {
+    function b(e) {
       if (e instanceof TypeError) return "NETWORK_ERROR";
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t = e.source.httpStatus;
@@ -154,7 +153,7 @@ __d(
       }
       return "UNKNOWN";
     }
-    function S(e) {
+    function v(e) {
       var t,
         n = e == null ? void 0 : e.meta_ai_biz_agent_wa_suggested_reply;
       if (n == null) return { ok: !1, code: "INVALID_RESPONSE" };
@@ -163,29 +162,14 @@ __d(
           "WAWebBizAiSmartComposerErrorMapping",
         ).normalizeSuggestedReplyErrorCode(n.error_code);
         return (
-          o(
-            "WAWebBizAiSmartComposerErrorMapping",
-          ).isAutoRetryableSuggestedReplyError(r)
-            ? o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[SmartComposer] suggested-reply returned error code ",
-                      "",
-                    ])),
-                  r,
-                )
-                .sendLogs("biz-ai-smart-composer-suggestion-error-code")
-            : o("WALogger")
-                .LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[SmartComposer] suggested-reply returned error code ",
-                      "",
-                    ])),
-                  r,
-                )
-                .sendLogs("biz-ai-smart-composer-suggestion-error-code"),
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[SmartComposer] suggested-reply returned error code ",
+                "",
+              ])),
+            r,
+          ),
           { ok: !1, code: r }
         );
       }
@@ -195,7 +179,7 @@ __d(
         return { ok: !1, code: "INVALID_RESPONSE" };
       var l = {
         botResponseId: a,
-        product: R(n.product),
+        product: S(n.product),
         suggestionType: i,
         text: (t = n.text) != null ? t : null,
       };
@@ -205,8 +189,8 @@ __d(
         ).getSuggestionInsertText(l) === "" &&
           o("WALogger")
             .LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[SmartComposer] suggested-reply returned no content",
                 ])),
             )
@@ -214,7 +198,7 @@ __d(
         { ok: !0, suggestion: l }
       );
     }
-    function R(e) {
+    function S(e) {
       var t, n, o;
       return e == null
         ? null
@@ -226,7 +210,7 @@ __d(
             ),
           };
     }
-    l.fetchSuggestedReply = y;
+    l.fetchSuggestedReply = h;
   },
   98,
 );

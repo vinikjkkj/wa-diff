@@ -39,6 +39,7 @@ __d(
             (e.isDeprecated = o("WAWebBaseModel").prop()),
             (e.creatorLid = o("WAWebBaseModel").prop()),
             (e.hcaEntrypointId = o("WAWebBaseModel").prop()),
+            (e.groupTosRequirements = o("WAWebBaseModel").prop()),
             (e.isDeleted = o("WAWebBaseModel").prop()),
             (e.lastFetchedTimeMs = o("WAWebBaseModel").prop()),
             (e.contact = o("WAWebBaseModel").session()),

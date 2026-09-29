@@ -73,6 +73,7 @@ __d(
                 var l = yield o("WAWebBizOrderAction").queryOrder({
                   height: this.height,
                   orderId: r,
+                  sellerJid: a,
                   token: i,
                   width: this.width,
                 });

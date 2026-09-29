@@ -32,11 +32,11 @@ __d(
           }
           for (var i = 0; i < n; i++) {
             var l = o("WATimeUtils").futureUnixTime(r + i);
-            yield o("WAWebSendScheduledMsgAction").sendScheduledTextMsgToChat(
-              a,
-              "Debug-" + (i + 1),
-              l,
-            );
+            yield o("WAWebSendScheduledMsgAction").sendScheduledTextMsgToChat({
+              chat: a,
+              scheduledTimestampS: l,
+              text: "Debug-" + (i + 1),
+            });
           }
         })),
         u.apply(this, arguments)

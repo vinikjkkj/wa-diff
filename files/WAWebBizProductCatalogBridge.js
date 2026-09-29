@@ -44,7 +44,7 @@ __d(
     function C(e, t, n, a, i, l, s, u, c) {
       l === !0 &&
         o("WAWebBizLogQplEvents").qplPointProductView("datasource_start");
-      var d = r("WAWebQueryCatalogProduct")(e, t, n, a, i, void 0, s, u, c);
+      var d = r("WAWebQueryCatalogProduct")(e, t, n, a, i, s, u, c);
       return (
         d
           .then(function () {
@@ -70,7 +70,6 @@ __d(
         height: u,
         checkmarkCollectionId: c,
         allowShopSource: m,
-        directConnectionEncryptedInfo: void 0,
         variantInfoFields: p,
         variantThumbnailHeight: _,
         variantThumbnailWidth: f,
@@ -152,7 +151,6 @@ __d(
     function S(e) {
       return o("WAWebQueryCatalogHasCategories").queryCatalogHasCategories({
         catalogWid: e,
-        directConnectionEncryptedInfo: void 0,
       });
     }
     function R(e, t, n) {

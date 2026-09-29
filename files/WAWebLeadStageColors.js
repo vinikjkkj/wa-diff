@@ -13,14 +13,12 @@ __d(
               ? "#073D76"
               : e === 4
                 ? "#9D6C2C"
-                : e === 5
-                  ? "#C4532D"
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })();
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
     }
     i.getLeadStageDotColor = e;
   },

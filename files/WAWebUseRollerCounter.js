@@ -7,36 +7,36 @@ __d(
       u = s.useRef,
       c = s.useState,
       d = 50;
-    function m(e, t) {
-      var n = o("react-compiler-runtime").c(5),
-        a = c(t),
-        i = a[0],
-        l = a[1],
-        s = c(null),
-        m = s[0],
-        p = s[1],
-        _ = u(null);
-      _.current == null && (_.current = e);
-      var f;
-      n[0] !== t
-        ? ((f = function () {
-            (_.current != null && _.current !== t && (l(t), p(_.current)),
-              (_.current = null));
+    function m(e) {
+      var t = o("react-compiler-runtime").c(5),
+        n = c(e),
+        a = n[0],
+        i = n[1],
+        l = c(null),
+        s = l[0],
+        m = l[1],
+        p = u(null);
+      p.current == null && (p.current = a);
+      var _;
+      t[0] !== e
+        ? ((_ = function () {
+            (p.current != null && p.current !== e && (i(e), m(p.current)),
+              (p.current = null));
           }),
-          (n[0] = t),
-          (n[1] = f))
-        : (f = n[1]);
-      var g = r("useWAWebDebouncedCallback")(f, d);
-      t != null && g();
-      var h;
+          (t[0] = e),
+          (t[1] = _))
+        : (_ = t[1]);
+      var f = r("useWAWebDebouncedCallback")(_, d);
+      e != null && f();
+      var g;
       return (
-        n[2] !== i || n[3] !== m
-          ? ((h = { currentValueProp: i, previousValueProp: m }),
-            (n[2] = i),
-            (n[3] = m),
-            (n[4] = h))
-          : (h = n[4]),
-        h
+        t[2] !== a || t[3] !== s
+          ? ((g = { currentValueProp: a, previousValueProp: s }),
+            (t[2] = a),
+            (t[3] = s),
+            (t[4] = g))
+          : (g = t[4]),
+        g
       );
     }
     l.useRollerCounter = m;

@@ -1,9 +1,10 @@
 __d(
   "QualityScoreUtils",
-  ["PolynomialCurve"],
+  ["ExecutionEnvironment", "PolynomialCurve"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r) {
+    var e;
+    function s(e, t, n, r) {
       var a = e.map(function (e) {
           return new (o("PolynomialCurve").PolynomialControlPoint)(
             e.quality,
@@ -11,9 +12,9 @@ __d(
           );
         }),
         i = new (o("PolynomialCurve").PolynomialCurve)(a);
-      return i.interpolate(u(t, n, r));
+      return i.interpolate(c(t, n, r));
     }
-    function s(e) {
+    function u(e) {
       for (var t = e.split(","), n = [], r = 0; r < t.length; r++) {
         var o = t[r].split(":");
         if (o.length !== 2) return null;
@@ -25,22 +26,27 @@ __d(
       }
       return n;
     }
-    function u(e, t, n) {
-      var r = e.height,
-        o = e.width;
-      if (o === 0 || r === 0) return 0;
-      if (o < r) {
-        var a = o;
-        ((o = r), (r = a));
+    function c(t, n, o) {
+      var a = t.height,
+        i = t.width;
+      if (i === 0 || a === 0) return 0;
+      if (i < a) {
+        var l = i;
+        ((i = a), (a = l));
       }
-      var i = o / r;
-      if (i > 16 / 9) {
-        var l = n == null ? window.devicePixelRatio : n;
-        return t ? Math.round(o / (16 / 9)) * l : Math.round(o / (16 / 9));
+      var s = i / a,
+        u = 1;
+      if (
+        ((e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+          (u = window.devicePixelRatio),
+        s > 16 / 9)
+      ) {
+        var c = o != null ? o : u;
+        return n ? Math.round(i / (16 / 9)) * c : Math.round(i / (16 / 9));
       }
-      return t ? r * window.devicePixelRatio : r;
+      return n ? a * u : a;
     }
-    ((l.calculateQualityScore = e), (l.parseQualityScoreCurve = s));
+    ((l.calculateQualityScore = s), (l.parseQualityScoreCurve = u));
   },
   98,
 );

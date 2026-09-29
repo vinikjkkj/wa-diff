@@ -15,19 +15,28 @@ __d(
       );
     }
     function u() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "pinned_messages_remove_30_day_pins",
+        )
+      );
+    }
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "pinned_messages_m2_pin_max",
       );
     }
-    function c() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "pinned_message_banner_notch_animation_enabled",
       );
     }
     ((l.isPinnedMessagesInfiniteReceiverEnabled = e),
       (l.isPinnedMessagesInfiniteSenderEnabled = s),
-      (l.getMaxPins = u),
-      (l.isNotchIndicatorEnabled = c));
+      (l.isPinnedMessagesThirtyDayRemovalEnabled = u),
+      (l.getMaxPins = c),
+      (l.isNotchIndicatorEnabled = d));
   },
   98,
 );

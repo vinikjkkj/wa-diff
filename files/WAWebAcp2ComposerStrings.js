@@ -1,13 +1,16 @@
 __d(
   "WAWebAcp2ComposerStrings",
-  ["fbt"],
+  ["fbt", "WAWebFaqUrl"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(
-        /*BTDS*/ "You can't send messages in this restricted chat. To message here, use your primary phone.",
+        /*BTDS*/ "To send and receive new messages in this chat, use your primary phone.",
       );
     }
-    l.getAcp2ComposerNoticeText = e;
+    function u() {
+      return o("WAWebFaqUrl").getFullUrl(715385484388016);
+    }
+    ((l.getAcp2ComposerNoticeText = e), (l.getAcp2ComposerNoticeFaqUrl = u));
   },
   226,
 );

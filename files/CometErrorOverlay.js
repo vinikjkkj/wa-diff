@@ -1,30 +1,35 @@
 __d(
   "CometErrorOverlay",
-  ["ReactDOM", "react"],
+  ["ExecutionEnvironment", "ReactDOM", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react"));
-    function u() {
-      var e = document.body;
-      if (e == null) return null;
-      var t = document.createElement("div");
-      return (e.appendChild(t), t);
+      s,
+      u = s || (s = o("react"));
+    function c() {
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t = document.body;
+        if (t == null) return null;
+        var n = document.createElement("div");
+        return (t.appendChild(n), n);
+      }
+      return null;
     }
-    function c(e) {
-      var t = u();
-      if (t != null) {
-        var n = function () {
-            window.setTimeout(function () {
-              (r.unmount(), t.remove());
-            }, 0);
+    function d(t) {
+      var n = c();
+      if (n != null) {
+        var a = function () {
+            (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+              window.setTimeout(function () {
+                (i.unmount(), n.remove());
+              }, 0);
           },
-          r = o("ReactDOM").createRoot(t, { unstable_strictMode: !0 }),
-          a = e(n);
-        return (r.render(a), n);
+          i = o("ReactDOM").createRoot(n, { unstable_strictMode: !0 }),
+          l = t(a);
+        return (i.render(l), a);
       }
     }
-    l.injectComponent = c;
+    l.injectComponent = d;
   },
   98,
 );

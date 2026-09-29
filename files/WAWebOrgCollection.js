@@ -1,6 +1,11 @@
 __d(
   "WAWebOrgCollection",
-  ["WAWebBaseCollection", "WAWebCollectionUtils", "WAWebOrgModel"],
+  [
+    "WAWebBaseCollection",
+    "WAWebBoolFunc",
+    "WAWebCollectionUtils",
+    "WAWebOrgModel",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -9,9 +14,7 @@ __d(
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.allOrganizations = o("WAWebCollectionUtils").aggregated(
-            function () {
-              return !0;
-            },
+            o("WAWebBoolFunc").returnTrue,
           )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

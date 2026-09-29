@@ -1,9 +1,38 @@
 __d(
   "WAWebSocketLogoutUtils",
-  ["WAComms", "WALogger", "WAWebUnpairDeviceJob", "getErrorSafe"],
+  [
+    "WAComms",
+    "WALogger",
+    "WAWebLocalStorage",
+    "WAWebUnpairDeviceJob",
+    "WAWebUserPrefsKeys",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(t) {
+    function u() {
+      r("WAWebLocalStorage") == null ||
+        r("WAWebLocalStorage").setItem(
+          o("WAWebUserPrefsKeys").KEYS.LOGOUT_DIRTY_BIT,
+          "1",
+        );
+    }
+    function c() {
+      r("WAWebLocalStorage") == null ||
+        r("WAWebLocalStorage").removeItem(
+          o("WAWebUserPrefsKeys").KEYS.LOGOUT_DIRTY_BIT,
+        );
+    }
+    function d() {
+      return (
+        (r("WAWebLocalStorage") == null
+          ? void 0
+          : r("WAWebLocalStorage").getItem(
+              o("WAWebUserPrefsKeys").KEYS.LOGOUT_DIRTY_BIT,
+            )) === "1"
+      );
+    }
+    function m(t) {
       return o("WAWebUnpairDeviceJob")
         .unpairDevice(t)
         .then(function (t) {
@@ -31,7 +60,10 @@ __d(
             .verbose();
         });
     }
-    l.sendCurrentLogout = u;
+    ((l.setLogoutDirtyBit = u),
+      (l.removeLogoutDirtyBit = c),
+      (l.hasDirtyBitSet = d),
+      (l.sendCurrentLogout = m));
   },
   98,
 );

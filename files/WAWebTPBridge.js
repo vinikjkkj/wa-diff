@@ -4,9 +4,9 @@ __d(
     "SecureMessageListener",
     "SecurePostMessage",
     "WACustomError",
+    "WAWebEventEmitter",
     "WAWebNoop",
     "WAWebTPMessage",
-    "WAWebTypedEventEmitter",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -16,7 +16,7 @@ __d(
         ((this.$1 = !1),
           (this.$5 = new Set()),
           (this.$6 = new Set()),
-          (this.$7 = new (r("WAWebTypedEventEmitter"))()),
+          (this.$7 = new (r("WAWebEventEmitter"))()),
           (this.$9 = new Set()),
           (this.$2 = e),
           (this.$3 = t.endsWith("/") ? t.slice(0, -1) : t),
@@ -125,13 +125,11 @@ __d(
         (t.$10 = function (t) {
           var e = this;
           if (!(!this.$1 || t.origin !== this.$3 || t.source !== this.$2)) {
-            var n = t.data;
-            this.$7.trigger(
-              n.type,
-              o("WAWebTPMessage").decodeWAWebTPMessage(n),
-            );
-            for (var r of this.$5)
-              r.onMessage(n, function (t, n) {
+            var n = t.data,
+              r = this.$7;
+            r.trigger(n.type, o("WAWebTPMessage").decodeWAWebTPMessage(n));
+            for (var a of this.$5)
+              a.onMessage(n, function (t, n) {
                 return e.publish(t, n);
               });
           }

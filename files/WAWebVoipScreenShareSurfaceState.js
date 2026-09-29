@@ -1,9 +1,9 @@
 __d(
   "WAWebVoipScreenShareSurfaceState",
-  ["WAWebTypedEventEmitter"],
+  ["WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new (r("WAWebTypedEventEmitter"))(),
+    var e = new (r("WAWebEventEmitter"))(),
       s = null;
     function u(t) {
       var n =

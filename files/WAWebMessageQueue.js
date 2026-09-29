@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAPromiseQueue",
     "WAPromiseTimeout",
+    "WAWebABProps",
     "WAWebApiContact",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebEventsWaitForReadyForOffline",
@@ -15,7 +16,6 @@ __d(
     "WAWebPromiseQueue",
     "WAWebWaitForInitialChatsSynced",
     "asyncToGeneratorRuntime",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -43,32 +43,34 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
-            a = e.chatWid,
-            i = e.isOffline,
-            l = e.msgCategory,
-            u = e.skipOfflineWait,
-            d =
-              a.isRegularUser() && !a.isLid()
-                ? o("WAWebApiContact").getCurrentLid(a)
+            r = e.chatWid,
+            a = e.isOffline,
+            i = e.msgCategory,
+            l = e.skipOfflineWait,
+            u =
+              r.isRegularUser() && !r.isLid()
+                ? o("WAWebApiContact").getCurrentLid(r)
                 : null,
-            _ = (d != null ? d : a).toString();
+            d = (u != null ? u : r).toString();
           if (
-            (!r("gkx")("17199") &&
-              l !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
+            (i !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
               o(
                 "WAWebWaitForInitialChatsSynced",
               ).isWaitForInitialChatsSyncedPending() &&
+              !o("WAWebABProps").getABPropConfigValue(
+                "waweb_deprecate_initial_sync_ordering",
+              ) &&
               (yield o(
                 "WAWebWaitForInitialChatsSynced",
               ).waitForInitialChatsSynced()),
-            i &&
+            a &&
               !o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.isResumeFromRestartComplete())
           )
             return m.allChatQueue.enqueue(function () {
               return m.chatQueue.enqueue(
-                _,
+                d,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   return (
                     yield o(
@@ -96,21 +98,21 @@ __d(
               );
             });
           o("WAWebOfflineResumeCounters").maybeLogOfflineMsgRoutedToOnlineQueue(
-            i,
+            a,
           );
-          var f = function () {
-              return C(_, t);
+          var _ = function () {
+              return C(d, t);
             },
-            g = p;
-          return g != null
-            ? u === !0
-              ? f()
-              : h({ enqueue: f, onlineAdmissionQueue: g })
-            : (u !== !0 &&
+            f = p;
+          return f != null
+            ? l === !0
+              ? _()
+              : h({ enqueue: _, onlineAdmissionQueue: f })
+            : (l !== !0 &&
                 (yield o(
                   "WAWebEventsWaitForOfflineDeliveryEnd",
                 ).waitForOfflineDeliveryEnd()),
-              f());
+              _());
         })),
         g.apply(this, arguments)
       );

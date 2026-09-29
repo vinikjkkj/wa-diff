@@ -3,8 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebEventEmitter",
     "WAWebNoop",
-    "WAWebTypedEventEmitter",
     "WAWebUA",
     "WAWebUserPrefsVoip",
     "WAWebVoipPopoutWindowState",
@@ -93,7 +93,7 @@ __d(
           return e.apply(this, arguments) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(r("WAWebTypedEventEmitter")),
+      })(r("WAWebEventEmitter")),
       be = new Ce(),
       ve = new Set(),
       Se = 2e3,
@@ -386,7 +386,7 @@ __d(
                 (this.__updateFacingFromAcquiredTrack(k, i, D),
                   o("WAWebUA").UA.isFirefox &&
                     v != null &&
-                    (be.trigger("deviceListRefreshRequested", []),
+                    (be.trigger("deviceListRefreshRequested"),
                     o("WALogger").LOG(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -507,7 +507,7 @@ __d(
                 !this.__facingFlipActive &&
                   !r("isStringNullOrEmpty")(e) &&
                   o("WAWebUserPrefsVoip").setSelectedVideoInputDevice(e),
-                be.trigger("deviceSelectionChanged", [e]),
+                be.trigger("deviceSelectionChanged", e),
                 o("WALogger").LOG(
                   b ||
                     (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -530,7 +530,7 @@ __d(
                     : this.currentFacing;
             this.currentFacing !== a &&
               ((this.currentFacing = a),
-              be.trigger("facingChanged", [a]),
+              be.trigger("facingChanged", a),
               o("WALogger").LOG(
                 v ||
                   (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -1236,7 +1236,7 @@ __d(
                         "voip: [CameraHealthCheck] frame received",
                       ])),
                   ),
-                  be.trigger("cameraFrameReceived", []),
+                  be.trigger("cameraFrameReceived"),
                   b());
               },
               S = function () {
@@ -1283,7 +1283,7 @@ __d(
                       ])),
                     l.__healthCheckRetryCount,
                   ),
-                    be.trigger("cameraNotProducingFrames", []),
+                    be.trigger("cameraNotProducingFrames"),
                     b(),
                     l.__healthCheckRetryCount === 0
                       ? ((l.__healthCheckRetryCount = 1),
@@ -1300,7 +1300,7 @@ __d(
                               "voip: [CameraHealthCheck] retry exhausted, notifying UI",
                             ])),
                         ),
-                        be.trigger("cameraHealthCheckFailed", [])));
+                        be.trigger("cameraHealthCheckFailed")));
                 }
               };
             ((C = self.setTimeout(S, d)),
@@ -1418,7 +1418,7 @@ __d(
                     ),
                     this.currentFacing != null &&
                       ((this.currentFacing = null),
-                      be.trigger("facingChanged", [null])),
+                      be.trigger("facingChanged", null)),
                     this.__facingFlipActive && (this.currentDeviceId = null),
                     (this.__facingFlipActive = !1),
                     (this.__stopping = !1));
@@ -1498,7 +1498,7 @@ __d(
                       ])),
                     e,
                   ),
-                  be.trigger("cameraHealthCheckFailed", []),
+                  be.trigger("cameraHealthCheckFailed"),
                   !1
                 );
               }

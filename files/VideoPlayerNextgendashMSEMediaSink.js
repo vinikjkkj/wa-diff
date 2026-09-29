@@ -118,10 +118,14 @@ __d(
             if (
               t === "ManagedMediaSource" &&
               typeof ManagedMediaSource == "function"
-            )
-              return ManagedMediaSource.canConstructInDedicatedWorker === !0;
-            if (typeof MediaSource == "function")
-              return MediaSource.canConstructInDedicatedWorker === !0;
+            ) {
+              var e = ManagedMediaSource.canConstructInDedicatedWorker;
+              return e === !0;
+            }
+            if (typeof MediaSource == "function") {
+              var n = MediaSource.canConstructInDedicatedWorker;
+              return n === !0;
+            }
           } catch (e) {}
           return !1;
         },

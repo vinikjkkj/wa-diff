@@ -56,7 +56,6 @@ __d(
     "WAWebDebounce",
     "WAWebDecrementThreadUnreadCountsAction",
     "WAWebEventMsgsCollection",
-    "WAWebEventsWaitForBbEvent",
     "WAWebFavoriteCollection",
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
@@ -1451,21 +1450,6 @@ __d(
               .map(function (e) {
                 return e.msg;
               });
-          }),
-          (i.waitForChatLoading = function () {
-            var e = this,
-              t = (g || (g = n("Promise"))).resolve();
-            return (
-              this.pendingInitialLoading &&
-                (t = r("WAWebEventsWaitForBbEvent")(
-                  this,
-                  "change:pendingInitialLoading",
-                  function () {
-                    return !e.pendingInitialLoading;
-                  },
-                )),
-              t
-            );
           }),
           (i.$ChatImpl$p_11 = function () {
             o("WAWebChatShowUnreadInTitle").computeShowUnreadInTitle(this);

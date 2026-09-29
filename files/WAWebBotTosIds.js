@@ -9,50 +9,65 @@ __d(
       d = "20240729",
       m = new Set([e, s, u]);
     function p() {
+      var e = o("WAWebABProps")
+          .getABPropConfigValue("ai_pdfn_nux_ai_group_muse_initiator_notice_id")
+          .trim(),
+        t = o("WAWebABProps")
+          .getABPropConfigValue(
+            "ai_pdfn_nux_ai_group_muse_non_initiator_notice_id",
+          )
+          .trim();
+      return [e, t].filter(function (e) {
+        if (!/^\d+$/.test(e)) return !1;
+        var t = Number(e);
+        return Number.isSafeInteger(t) && t > 0;
+      });
+    }
+    function _() {
       var t = o("WAWebABProps")
           .getABPropConfigValue("ai_pdfn_tos_shortcut_notice_id")
           .trim(),
         n = t != null && t !== "" ? t : e;
       return n;
     }
-    function _() {
+    function f() {
       var e = o("WAWebABProps")
           .getABPropConfigValue("ai_pdfn_tos_shortcut_notice_id")
           .trim(),
         t = e != null && e !== "" ? e : u;
       return t;
     }
-    function f() {
+    function g() {
       var e = o("WAWebABProps")
           .getABPropConfigValue("ai_pdfn_tos_invoke_notice_id")
           .trim(),
         t = e != null && e !== "" ? e : s;
       return t;
     }
-    function g() {
+    function h() {
       return u;
     }
-    function h() {
+    function y() {
       return s;
     }
-    function y() {
+    function C() {
       return c;
     }
-    function C(e) {
+    function b(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       if (t != null) return t;
       switch (e) {
         case o("WAWebBotLogging").BotEntryPointType.Shortcut:
         case o("WAWebBotLogging").BotEntryPointType.Search:
-          return Number(_());
-        case o("WAWebBotLogging").BotEntryPointType.Invoke:
           return Number(f());
+        case o("WAWebBotLogging").BotEntryPointType.Invoke:
+          return Number(g());
       }
     }
-    function b() {
+    function v() {
       return d;
     }
-    function v() {
+    function S() {
       if (!o("WAWebMobilePlatforms").isSMB()) return null;
       var e = o("WAWebABProps")
         .getABPropConfigValue("smb_meta_ai_tos_notice_id")
@@ -62,15 +77,16 @@ __d(
       return Number.isSafeInteger(t) && t > 0 ? t : null;
     }
     ((l.supportedTosNoticeIds = m),
-      (l.getBotAgentTosId = p),
-      (l.getBotShortcutTosId = _),
-      (l.getBotInvokeTosId = f),
-      (l.getBotLegacyShortcutTosId = g),
-      (l.getBotLegacyInvokeTosId = h),
-      (l.getBizBotTosId = y),
-      (l.getApplicableBotNoticeId = C),
-      (l.getUgcAiStudioTosId = b),
-      (l.getBusinessAssistantLegacyNoticeId = v));
+      (l.getMuseGroupTosNoticeIds = p),
+      (l.getBotAgentTosId = _),
+      (l.getBotShortcutTosId = f),
+      (l.getBotInvokeTosId = g),
+      (l.getBotLegacyShortcutTosId = h),
+      (l.getBotLegacyInvokeTosId = y),
+      (l.getBizBotTosId = C),
+      (l.getApplicableBotNoticeId = b),
+      (l.getUgcAiStudioTosId = v),
+      (l.getBusinessAssistantLegacyNoticeId = S));
   },
   98,
 );

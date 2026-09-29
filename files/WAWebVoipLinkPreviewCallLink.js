@@ -6,9 +6,9 @@ __d(
     "WAWebCallCollection",
     "WAWebCallLinkAutoJoinConsent",
     "WAWebEnsureVoipInited",
+    "WAWebEventEmitter",
     "WAWebFrontendContactGetters",
     "WAWebPipController",
-    "WAWebTypedEventEmitter",
     "WAWebUserPrefsVoip",
     "WAWebVoipCallBlockedModals",
     "WAWebVoipCallLinkBundlePreloader",
@@ -41,7 +41,7 @@ __d(
       v,
       S = 22,
       R = { videoMuted: !1, audioMuted: !1 },
-      L = new (r("WAWebTypedEventEmitter"))();
+      L = new (r("WAWebEventEmitter"))();
     function E() {
       return R;
     }
@@ -122,14 +122,16 @@ __d(
                   "voip: handleClickCallLink blocked \u2014 call links not enabled",
                 ])),
             ),
-              o("WAWebCallLinkAutoJoinConsent").reportAutoJoinRefusedByGate(l),
+              o(
+                "WAWebCallLinkAutoJoinConsent",
+              ).dropAutoJoinConsentRefusedByGate(l, m),
               $());
             return;
           }
           if (P(m)) {
             o(
               "WAWebCallLinkAutoJoinConsent",
-            ).reportAutoJoinRefusedByExistingCall(l);
+            ).dropAutoJoinConsentRefusedByExistingCall(l, m);
             return;
           }
           var E = o("WAWebCallLinkAutoJoinConsent").consumeAutoJoinConsent(

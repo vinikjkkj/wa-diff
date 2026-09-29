@@ -34,32 +34,32 @@ __d(
               ])),
             t.length,
           );
-          var a,
+          var r,
+            a,
             i,
             l,
-            c,
-            m = yield o("WAPromiseMap").promiseMap(
+            c = yield o("WAPromiseMap").promiseMap(
               t,
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var t = e.msgKey,
-                      o = e.setting;
-                    switch (o) {
+                      s = e.setting;
+                    switch (s) {
                       case "denylist":
                         return (
-                          a == null &&
-                            (a = r("WAWebUserPrefsStatus")
+                          r == null &&
+                            (r = o("WAWebUserPrefsStatus")
                               .getStatusDenyList()
                               .then(function (e) {
                                 return new Set(e.map(String));
                               })),
-                          i == null &&
-                            (i = r("WAWebUserPrefsStatus").getStatusContacts()),
+                          a == null &&
+                            (a = o("WAWebUserPrefsStatus").getStatusContacts()),
                           {
                             msgKey: t,
                             receiverIds: yield (d || (d = n("Promise")))
-                              .all([i, a])
+                              .all([a, r])
                               .then(function (e) {
                                 var t = e[0],
                                   n = e[1];
@@ -71,23 +71,23 @@ __d(
                         );
                       case "allowlist":
                         return (
-                          l == null &&
-                            (l = r(
+                          i == null &&
+                            (i = o(
                               "WAWebUserPrefsStatus",
                             ).getStatusAllowList()),
-                          { msgKey: t, receiverIds: yield l }
+                          { msgKey: t, receiverIds: yield i }
                         );
                       case "contacts":
                         return (
-                          i == null &&
-                            (i = r("WAWebUserPrefsStatus").getStatusContacts()),
-                          { msgKey: t, receiverIds: yield i }
+                          a == null &&
+                            (a = o("WAWebUserPrefsStatus").getStatusContacts()),
+                          { msgKey: t, receiverIds: yield a }
                         );
                       default:
                         return (
-                          c == null &&
-                            (c = r("WAWebUserPrefsStatus").getStatusList()),
-                          { msgKey: t, receiverIds: (yield c).list }
+                          l == null &&
+                            (l = o("WAWebUserPrefsStatus").getStatusList()),
+                          { msgKey: t, receiverIds: (yield l).list }
                         );
                     }
                   },
@@ -97,11 +97,11 @@ __d(
                 };
               })(),
             ),
-            p = [];
+            m = [];
           return (
-            m.forEach(function (e) {
+            c.forEach(function (e) {
               e.receiverIds.forEach(function (t) {
-                p.push({
+                m.push({
                   msgKey: e.msgKey,
                   receiverId: o("WAWebLidStatusMigrationUtils").matWidConvert(
                     t,
@@ -115,16 +115,16 @@ __d(
                   "[updatePeerStatusReceiptInfoInBatch] updating ",
                   " records",
                 ])),
-              p.length,
+              m.length,
             ),
-            yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(p),
+            yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(m),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[updatePeerStatusReceiptInfoInBatch] updated ",
                   " records",
                 ])),
-              p.length,
+              m.length,
             ),
             t.map(function () {})
           );

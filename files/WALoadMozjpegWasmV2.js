@@ -26,7 +26,7 @@ __d(
                         "[MozjpegWasmV2] instantiateWasm failed with error: ",
                         "",
                       ])),
-                    n.toString(),
+                    String(n),
                   ),
                     t.reject(n));
                 }),
@@ -41,7 +41,7 @@ __d(
                   "[MozjpegWasmV2]initWasm failed with error: ",
                   "",
                 ])),
-              e.toString(),
+              String(e),
             ),
             t.reject(e),
             e

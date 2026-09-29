@@ -50,6 +50,7 @@ __d(
               participantCount: null,
               deviceCount: null,
               deviceSizeBucket: null,
+              isAnnouncementGroup: null,
               isCapiGroup: null,
               isOpenBotGroup: null,
               isTeeBotGroup: null,
@@ -62,6 +63,7 @@ __d(
             ((s.wamTypeOfGroup = o("WAWebGroupType").groupTypeToWamEnum(c)),
               (s.isLid = d && (r == null ? void 0 : r.type) === "addon"),
               (s.isCag = d),
+              (s.isAnnouncementGroup = i.announce),
               (s.isLidAddressingMode = u),
               (s.isCapiGroup = i.hasCapi === !0),
               (s.isOpenBotGroup =

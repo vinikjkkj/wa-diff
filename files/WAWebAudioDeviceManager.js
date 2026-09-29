@@ -85,7 +85,7 @@ __d(
         t != null &&
           (o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
             "deviceSelectionChanged",
-            [t],
+            t,
           ),
           o("WALogger").LOG(
             e ||
@@ -107,7 +107,7 @@ __d(
         e != null &&
           (o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
             "speakerDeviceSelectionChanged",
-            [e],
+            e,
           ),
           o("WALogger").LOG(
             s ||

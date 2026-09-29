@@ -6,11 +6,9 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizQueryOrderJobQuery.graphql",
-    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
-    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,19 +22,18 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.directConnectionEncryptedInfo,
-            r = t === void 0 ? null : t,
-            a = e.height,
-            i = e.orderId,
-            l = e.token,
-            s = e.width;
+          var t = e.height,
+            r = e.orderId,
+            a = e.sellerJid,
+            i = e.token,
+            l = e.width;
           return o(
             "WAWebBizCatalogGatingUtils",
           ).commerceFeaturesDisabledBySanctions()
             ? (u || (u = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").E451)(),
               )
-            : p(i, s, a, l, r);
+            : p(r, l, t, a, i);
         })),
         m.apply(this, arguments)
       );
@@ -48,39 +45,31 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
-            i === void 0 && (i = null);
             try {
-              var l, u, d, m, p, _;
+              var l, u, d, m, p;
               yield r("WAWebNetworkStatus").waitIfOffline();
-              var f = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                g = yield o("WAWebRelayClient").fetchQuery(
-                  c,
-                  {
-                    request: {
-                      order: {
-                        jid:
-                          (l = o(
-                            "WAWebGetFormattedCatalogJid",
-                          ).getFormattedCatalogJid(f)) != null
-                            ? l
-                            : f.toString(),
-                        token: { sensitive_string_value: a },
-                        id: e,
-                        image_dimensions: { height: n, width: t },
-                        direct_connection_encrypted_info: i,
-                      },
+              var _ = yield o("WAWebRelayClient").fetchQuery(
+                c,
+                {
+                  request: {
+                    order: {
+                      jid: a,
+                      token: { sensitive_string_value: i },
+                      id: e,
+                      image_dimensions: { height: n, width: t },
                     },
                   },
-                  { environmentType: "whatsapp_catalog" },
-                );
+                },
+                { environmentType: "whatsapp_catalog" },
+              );
               if (
-                (g == null || (u = g.xwa_checkout_get_order_info) == null
+                (_ == null || (l = _.xwa_checkout_get_order_info) == null
                   ? void 0
-                  : u.order) == null
+                  : l.order) == null
               )
                 throw new (o("WAWebBackendErrors").ServerStatusCodeError)(500);
-              var h = g.xwa_checkout_get_order_info.order,
-                y = ((d = h.products) != null ? d : []).map(function (e) {
+              var f = _.xwa_checkout_get_order_info.order,
+                g = ((u = f.products) != null ? u : []).map(function (e) {
                   var t,
                     n,
                     r,
@@ -118,23 +107,23 @@ __d(
                 });
               return {
                 createdAt:
-                  h.creation_time_stamp != null
-                    ? Number(h.creation_time_stamp)
+                  f.creation_time_stamp != null
+                    ? Number(f.creation_time_stamp)
                     : null,
-                currency: (m = h.price_details) == null ? void 0 : m.currency,
+                currency: (d = f.price_details) == null ? void 0 : d.currency,
                 subtotal:
-                  ((p = h.price_details) == null
+                  ((m = f.price_details) == null
                     ? void 0
-                    : p.subtotal_amount) != null
-                    ? parseInt(h.price_details.subtotal_amount, 10)
+                    : m.subtotal_amount) != null
+                    ? parseInt(f.price_details.subtotal_amount, 10)
                     : null,
                 tax: null,
                 total:
-                  ((_ = h.price_details) == null ? void 0 : _.total_amount) !=
+                  ((p = f.price_details) == null ? void 0 : p.total_amount) !=
                   null
-                    ? parseInt(h.price_details.total_amount, 10)
+                    ? parseInt(f.price_details.total_amount, 10)
                     : null,
-                products: y,
+                products: g,
               };
             } catch (e) {
               if (
@@ -146,12 +135,12 @@ __d(
                 ),
                 e instanceof o("WAWebGraphQLServerError").GraphQLServerError)
               ) {
-                var C,
-                  b = (C = e.source.errors[0]) == null ? void 0 : C.code;
-                throw b === 451
+                var h,
+                  y = (h = e.source.errors[0]) == null ? void 0 : h.code;
+                throw y === 451
                   ? new (o("WAWebBackendErrors").E451)()
                   : new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      b != null ? b : 500,
+                      y != null ? y : 500,
                     );
               }
               throw e;

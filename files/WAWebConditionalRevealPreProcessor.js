@@ -51,16 +51,19 @@ __d(
         revealKeyId: null,
         viewMode: null,
       };
-    function D(e, t, n) {
-      var r = o("WAWebWidFactory").createWid(t);
-      return n != null
+    function D(e) {
+      var t = e.bareMsgId,
+        n = e.chatId,
+        r = e.senderJid,
+        a = o("WAWebWidFactory").createWid(n);
+      return r != null
         ? o("WAWebScheduledMsgOutgoingMsgKey")
-            .buildScheduledMsgIncomingMsgKey(e, r, n)
+            .buildScheduledMsgIncomingMsgKey(t, a, r)
             .toString()
         : o("WAWebScheduledMsgOutgoingMsgKey")
             .buildScheduledMsgOutgoingMsgKey(
-              e,
-              r,
+              t,
+              a,
               o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             )
             .toString();
@@ -83,7 +86,7 @@ __d(
                 "[scheduled_msg] inline reveal key present in stanza meta, persisting encrypted payload",
               ])),
           );
-          var u = D(i, t, null);
+          var u = D({ bareMsgId: i, chatId: t, senderJid: null });
           try {
             var _ = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
               msgId: u,
@@ -267,7 +270,7 @@ __d(
             s = e.revealKeyId,
             u = e.senderJid,
             c = e.stanzaScheduledMsgMeta,
-            d = D(i, t, u);
+            d = D({ bareMsgId: i, chatId: t, senderJid: u });
           try {
             return (
               yield o("WAWebScheduledMsgRevealKeyStore").storeRevealKey({

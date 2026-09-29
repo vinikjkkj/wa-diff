@@ -274,6 +274,7 @@ __d(
       ADD_CONTACT_TO_GROUPS_PICKER: 270,
       CTWA_MIDSTAGE_COMPOSER: 271,
       LEAD_GEN: 272,
+      CHANNELS_MIGRATION: 273,
     });
     i.TS_SURFACE = e;
   },

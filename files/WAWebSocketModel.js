@@ -33,7 +33,6 @@ __d(
     "WAWebSubscribePushManagerAction",
     "WAWebSyncBootstrap",
     "WAWebUserPrefsAppStateSync",
-    "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "WAWebWindowsHybridBridgeInitiator",
@@ -222,28 +221,6 @@ __d(
           (i.takeover = function () {
             throw r("err")("Takeover called without conflict!");
           }),
-          (i.$SocketImpl$p_4 = function () {
-            r("WAWebLocalStorage") == null ||
-              r("WAWebLocalStorage").setItem(
-                o("WAWebUserPrefsKeys").KEYS.LOGOUT_DIRTY_BIT,
-                "1",
-              );
-          }),
-          (i.$SocketImpl$p_5 = function () {
-            r("WAWebLocalStorage") == null ||
-              r("WAWebLocalStorage").removeItem(
-                o("WAWebUserPrefsKeys").KEYS.LOGOUT_DIRTY_BIT,
-              );
-          }),
-          (i.$SocketImpl$p_6 = function () {
-            return (
-              (r("WAWebLocalStorage") == null
-                ? void 0
-                : r("WAWebLocalStorage").getItem(
-                    o("WAWebUserPrefsKeys").KEYS.LOGOUT_DIRTY_BIT,
-                  )) === "1"
-            );
-          }),
           (i.clearCredentialsAndStoredData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
@@ -281,14 +258,14 @@ __d(
                     }
                 }
                 (e != null && q.includes(e) && (a = !0),
-                  this.$SocketImpl$p_4());
+                  o("WAWebSocketLogoutUtils").setLogoutDirtyBit());
                 var s = z("clear_credentials", e);
                 try {
                   a = yield this.clearCredentials();
                 } finally {
                   self.clearTimeout(s);
                 }
-                if (this.$SocketImpl$p_6()) {
+                if (o("WAWebSocketLogoutUtils").hasDirtyBitSet()) {
                   a = !0;
                   var u = o("WALogger")
                     .ERROR(
@@ -306,7 +283,7 @@ __d(
                     "updatePeriodicBackgroundSyncRegistration",
                     { forceUnregister: !0 },
                   ),
-                  this.$SocketImpl$p_4());
+                  o("WAWebSocketLogoutUtils").setLogoutDirtyBit());
                 var c = z("destroy_storage", e);
                 try {
                   yield o("WAWebSocketLogoutStorageUtils").destroyStorage();
@@ -337,7 +314,7 @@ __d(
                 }
                 (o("WAWebABPropsCache").clearABPropConfigs(),
                   o("WAWebGroupABPropsCache").clearGroupABPropConfigs(),
-                  a || this.$SocketImpl$p_5(),
+                  a || o("WAWebSocketLogoutUtils").removeLogoutDirtyBit(),
                   o("WAWebReloadAfterLogout").reloadAfterLogout(a, e, t));
               },
             );

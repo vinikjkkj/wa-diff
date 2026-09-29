@@ -36,14 +36,13 @@ __d(
               c = t.allowShopSource,
               d = t.catalogWid,
               m = t.checkmarkCollectionId,
-              p = t.directConnectionEncryptedInfo,
-              _ = t.height,
-              f = t.limit,
-              g = t.variantInfoFields,
-              h = t.variantThumbnailHeight,
-              y = t.variantThumbnailWidth,
-              C = t.width,
-              b = yield o("WAWebRelayClient").fetchQuery(
+              p = t.height,
+              _ = t.limit,
+              f = t.variantInfoFields,
+              g = t.variantThumbnailHeight,
+              h = t.variantThumbnailWidth,
+              y = t.width,
+              C = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0 ? e : (e = n("WAWebQueryCatalogQuery.graphql")),
                 {
                   request: {
@@ -57,15 +56,14 @@ __d(
                       allow_shop_source: c
                         ? "ALLOWSHOPSOURCE_TRUE"
                         : "ALLOWSHOPSOURCE_FALSE",
-                      width: String(C),
-                      height: String(_),
-                      direct_connection_encrypted_info: p,
-                      limit: String(f),
+                      width: String(y),
+                      height: String(p),
+                      limit: String(_),
                       after: u,
                       catalog_session_id: m,
-                      variant_info_fields: g,
-                      variant_thumbnail_height: h != null ? String(h) : null,
-                      variant_thumbnail_width: y != null ? String(y) : null,
+                      variant_info_fields: f,
+                      variant_thumbnail_height: g != null ? String(g) : null,
+                      variant_thumbnail_width: h != null ? String(h) : null,
                     },
                   },
                 },
@@ -78,12 +76,12 @@ __d(
                   ),
                 },
               ),
-              v =
-                b == null ||
-                (a = b.xwa_product_catalog_get_product_catalog) == null
+              b =
+                C == null ||
+                (a = C.xwa_product_catalog_get_product_catalog) == null
                   ? void 0
                   : a.product_catalog;
-            if (v == null)
+            if (b == null)
               return {
                 data: [],
                 catalog_id: null,
@@ -91,17 +89,17 @@ __d(
                 catalog_type: null,
                 paging: { cursors: { after: "", before: "" } },
               };
-            var S = v.paging,
-              R = v.products;
+            var v = b.paging,
+              S = b.products;
             return {
-              data: R.map(o("WAWebBizParseProductGraphql").parseProductGraphQL),
+              data: S.map(o("WAWebBizParseProductGraphql").parseProductGraphQL),
               catalog_id: null,
               catalog_name: null,
               catalog_type: null,
               paging: {
                 cursors: {
-                  before: (i = S == null ? void 0 : S.before) != null ? i : "",
-                  after: (l = S == null ? void 0 : S.after) != null ? l : "",
+                  before: (i = v == null ? void 0 : v.before) != null ? i : "",
+                  after: (l = v == null ? void 0 : v.after) != null ? l : "",
                 },
               },
             };
@@ -132,21 +130,19 @@ __d(
             r = e.allowShopSource,
             a = e.catalogWid,
             i = e.checkmarkCollectionId,
-            l = e.directConnectionEncryptedInfo,
-            s = l === void 0 ? null : l,
-            c = e.height,
-            d = e.limit,
-            m = e.variantInfoFields,
-            p = e.variantThumbnailHeight,
-            _ = e.variantThumbnailWidth,
-            f = e.width;
+            l = e.height,
+            s = e.limit,
+            c = e.variantInfoFields,
+            d = e.variantThumbnailHeight,
+            m = e.variantThumbnailWidth,
+            p = e.width;
           if (
             o(
               "WAWebBizCatalogGatingUtils",
             ).commerceFeaturesDisabledBySanctions()
           )
             throw new (o("WAWebBackendErrors").E451)();
-          var g = yield o("WAWebBizCatalogManagementFetchCatalog").fetchCatalog(
+          var _ = yield o("WAWebBizCatalogManagementFetchCatalog").fetchCatalog(
             {
               product_catalog: {
                 jid:
@@ -156,35 +152,34 @@ __d(
                     ? t
                     : a.toJid(),
                 after: n,
-                limit: String(d),
-                width: String(f),
-                height: String(c),
+                limit: String(s),
+                width: String(p),
+                height: String(l),
                 belongs_to: { collection_id: i },
                 allow_shop_source: r,
-                direct_connection_encrypted_info: s,
-                variant_info_fields: m,
-                variant_thumbnail_height: p != null ? String(p) : null,
-                variant_thumbnail_width: _ != null ? String(_) : null,
+                variant_info_fields: c,
+                variant_thumbnail_height: d != null ? String(d) : null,
+                variant_thumbnail_width: m != null ? String(m) : null,
               },
               platform: "WEB",
             },
           );
-          if (g.type === "success") return g.catalog;
+          if (_.type === "success") return _.catalog;
           throw (
-            g.type === "graphql-error"
+            _.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
                 ).maybeThrowLocalErrorForCatalogQuery(
-                  g.error,
+                  _.error,
                   o("WAWebMaybeThrowCatalogErrors").ErrorSourceForCatalogQuery
                     .GET_PRODUCT_CATALOG_OWNER_GRAPHQL,
                 )
-              : g.type,
-            g.type === "recovery-required"
+              : _.type,
+            _.type === "recovery-required"
               ? new (o("WAWebBackendErrors").AdAccountRecoveryRequiredError)(
-                  g.emailMask,
+                  _.emailMask,
                 )
-              : g.type === "incorrect-nonce"
+              : _.type === "incorrect-nonce"
                 ? new (o("WAWebBackendErrors").CatalogIncorrectNonceError)()
                 : (o("WALogger").WARN(
                     u ||
@@ -192,14 +187,14 @@ __d(
                         "queryCatalogGraphQLByOwner: unhandled error ",
                         "",
                       ])),
-                    JSON.stringify(g),
+                    JSON.stringify(_),
                   ),
                   new (o("WAWebBackendErrors").CatalogUnknownError)(
-                    g.type === "auth-failure" ||
-                      g.type === "error" ||
-                      g.type === "timeout" ||
-                      g.type === "too-many-attempts"
-                      ? g.type
+                    _.type === "auth-failure" ||
+                      _.type === "error" ||
+                      _.type === "timeout" ||
+                      _.type === "too-many-attempts"
+                      ? _.type
                       : void 0,
                   ))
           );

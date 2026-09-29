@@ -15,52 +15,48 @@ __d(
       return s._(/*BTDS*/ "Turn on");
     }
     function d() {
-      return s._(/*BTDS*/ "Privacy screen settings");
-    }
-    function m() {
       return s._(/*BTDS*/ "Blur level for general items");
     }
-    function p() {
+    function m() {
       return s._(/*BTDS*/ "Blur level for media");
     }
-    function _() {
+    function p() {
       return s._(/*BTDS*/ "Off");
     }
-    function f() {
+    function _() {
       return s._(/*BTDS*/ "Light");
     }
-    function g() {
+    function f() {
       return s._(/*BTDS*/ "Medium");
     }
-    function h() {
+    function g() {
       return s._(/*BTDS*/ "Strong");
     }
-    function y() {
+    function h() {
       return s._(/*BTDS*/ "Privacy screen on");
     }
-    function C() {
+    function y() {
       return s._(/*BTDS*/ "Privacy screen off");
     }
-    function b() {
+    function C() {
       return s._(/*BTDS*/ "Undo");
     }
-    function v() {
+    function b() {
       return s._(/*BTDS*/ "Privacy screen is on. Click to turn off.");
     }
     ((l.privacyScreenModeTitle = e),
       (l.privacyScreenModeDescription = u),
       (l.privacyScreenUpsellCta = c),
-      (l.privacyModeCustomizeTitle = d),
-      (l.privacyModeGeneralLabel = m),
-      (l.privacyModeMediaLabel = p),
-      (l.privacyModePresetOff = _),
-      (l.privacyModePresetLight = f),
-      (l.privacyModePresetMedium = g),
-      (l.privacyModePresetStrong = h),
-      (l.privacyModeToastEnabled = y),
-      (l.privacyModeToastDisabled = C),
-      (l.privacyModeToastUndo = b),
-      (l.privacyModeIndicatorTooltip = v));
+      (l.privacyModeGeneralLabel = d),
+      (l.privacyModeMediaLabel = m),
+      (l.privacyModePresetOff = p),
+      (l.privacyModePresetLight = _),
+      (l.privacyModePresetMedium = f),
+      (l.privacyModePresetStrong = g),
+      (l.privacyModeToastEnabled = h),
+      (l.privacyModeToastDisabled = y),
+      (l.privacyModeToastUndo = C),
+      (l.privacyModeIndicatorTooltip = b));
   },
   226,
 );

@@ -14,6 +14,7 @@ __d(
     "WAWebChatConstants",
     "WAWebChatGetters",
     "WAWebCollectionConstants",
+    "WAWebEventsWaitForBbEvent",
     "WAWebGetNewsletterCursor",
     "WAWebMiscErrors",
     "WAWebMsgCollection",
@@ -95,7 +96,7 @@ __d(
             l = e.threadId,
             m = e.trigger,
             p = o("WAWebStateUtils").unproxy(t);
-          yield p.waitForChatLoading();
+          yield k(p);
           var _ = a,
             g =
               m != null
@@ -159,7 +160,7 @@ __d(
             }),
             L = R.hasMoreMsgs,
             E = R.msgs,
-            k = v();
+            I = v();
           return (
             r("gkx")("26259") &&
               o("WALogger").LOG(
@@ -176,19 +177,19 @@ __d(
                 E.length,
                 L,
                 b == null ? void 0 : b.id,
-                k != null,
+                I != null,
                 p.endOfHistoryTransferType,
                 o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled(),
               ),
-            k &&
+            I &&
               !L &&
-              ((k.msgLoadState.noEarlierMsgs =
+              ((I.msgLoadState.noEarlierMsgs =
                 p.endOfHistoryTransferType !==
                 o("WAWebChatConstants")
                   .ConversationEndOfHistoryTransferModelPropType.INCOMPLETE),
               o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() &&
-                (k.msgLoadState.noEarlierMsgs =
-                  k.msgLoadState.noEarlierMsgs &&
+                (I.msgLoadState.noEarlierMsgs =
+                  I.msgLoadState.noEarlierMsgs &&
                   p.endOfHistoryTransferType !==
                     o("WAWebChatConstants")
                       .ConversationEndOfHistoryTransferModelPropType
@@ -201,7 +202,7 @@ __d(
                       " (more=false, histType=",
                       ")",
                     ])),
-                  k.msgLoadState.noEarlierMsgs,
+                  I.msgLoadState.noEarlierMsgs,
                   p.endOfHistoryTransferType,
                 )),
             E
@@ -500,6 +501,20 @@ __d(
           : n === "before"
             ? (t.msgLoadState.isLoadingEarlierMsgs = !1)
             : n === "around" && (t.msgLoadState.isLoadingAroundMsgs = !1));
+    }
+    function k(e) {
+      var t = (f || (f = n("Promise"))).resolve();
+      return (
+        e.pendingInitialLoading &&
+          (t = r("WAWebEventsWaitForBbEvent")(
+            e,
+            "change:pendingInitialLoading",
+            function () {
+              return !e.pendingInitialLoading;
+            },
+          )),
+        t
+      );
     }
     ((l.loadRecentMsgs = g),
       (l.loadEarlierMsgs = C),

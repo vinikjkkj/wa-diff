@@ -3,6 +3,8 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBotGroupGatingUtils",
+    "WAWebBotUtils",
     "WAWebContactSystemMsg",
     "WAWebDBUpdateChatTable",
     "WAWebEphemeralitySystemMsg",
@@ -20,12 +22,34 @@ __d(
       c,
       d = (e = n("cr:37261")) != null ? e : {},
       m = d.opusProcessChat;
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
+    function p(e) {
+      var t, n;
+      if (
+        e.isCAG() ||
+        ((t = e.groupMetadata) == null ? void 0 : t.announce) === !0
+      )
+        return !1;
+      var r = (n = e.groupMetadata) == null ? void 0 : n.participants;
+      if (r == null) return !1;
+      var a = r.some(function (e) {
+        var t = e.id;
+        return (
+          t != null &&
+          t.isBot() &&
+          !o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(t) &&
+          !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t)
+        );
+      });
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        a && o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+      );
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             t.ephemeralDuration != null &&
             t.ephemeralDuration > 0 &&
@@ -70,10 +94,10 @@ __d(
           }
           return { msgData: t, systemMsgs: null };
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       var n;
       if (
         o("WAWebLimitSharingGatingUtils").isOpusEnabled() &&
@@ -114,7 +138,9 @@ __d(
       }
       return null;
     }
-    ((l.maybeDisableEphemeralityForMsg = p), (l.maybeGetOpusSystemMsg = f));
+    ((l.hasGroupAgentParticipant = p),
+      (l.maybeDisableEphemeralityForMsg = _),
+      (l.maybeGetOpusSystemMsg = g));
   },
   98,
 );

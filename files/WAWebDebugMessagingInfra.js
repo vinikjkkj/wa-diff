@@ -122,7 +122,7 @@ __d(
               .getPersistSignalProtocolStore()
               .cache_TESTONLY(),
             t = yield o("WAWebSignalStorage").getSessionTable().all(),
-            a = new Map();
+            r = new Map();
           (yield (J || (J = n("Promise"))).all(
             t.map(
               (function () {
@@ -131,8 +131,8 @@ __d(
                     var t = e.address,
                       n = e.session;
                     if (n != null) {
-                      var r = yield ne(n);
-                      a.set(t, r);
+                      var o = yield ne(n);
+                      r.set(t, o);
                     }
                   },
                 );
@@ -149,10 +149,10 @@ __d(
                     function* (e) {
                       var t = e[0],
                         n = e[1];
-                      if (n != null && n.deleted) a.delete(t);
+                      if (n != null && n.deleted) r.delete(t);
                       else if (n != null) {
-                        var r = yield ne(n.session);
-                        a.set(t, r);
+                        var o = yield ne(n.session);
+                        r.set(t, o);
                       }
                     },
                   );
@@ -162,11 +162,11 @@ __d(
                 })(),
               ),
             ),
-            (Z = a));
-          var i = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
-            l = new Map();
+            (Z = r));
+          var a = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
+            i = new Map();
           (yield J.all(
-            i.map(
+            a.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -174,7 +174,7 @@ __d(
                       n = e.senderKeyName;
                     if (t != null) {
                       var r = yield ne(t);
-                      l.set(n, r);
+                      i.set(n, r);
                     }
                   },
                 );
@@ -193,8 +193,8 @@ __d(
                         n = e[1];
                       if (n != null) {
                         var r = yield ne(n);
-                        l.set(t, r);
-                      } else l.delete(t);
+                        i.set(t, r);
+                      } else i.delete(t);
                     },
                   );
                   return function (t) {
@@ -203,9 +203,9 @@ __d(
                 })(),
               ),
             ),
-            (ee = l));
-          var s = yield r("WAWebUserPrefsStatus").getStatusSenderKeyMap();
-          ((te = new Set(s.senderKey)),
+            (ee = i));
+          var l = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
+          ((te = new Set(l.senderKey)),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -214,8 +214,8 @@ __d(
                   " sender key entries (IDB + cache overlay), ",
                   " status SK distrib entries",
                 ])),
-              a.size,
-              l.size,
+              r.size,
+              i.size,
               te.size,
             ));
         })),
@@ -244,10 +244,10 @@ __d(
             t = o("WAWebSignalProtocolStore")
               .getPersistSignalProtocolStore()
               .cache_TESTONLY(),
-            a = yield o("WAWebSignalStorage").getSessionTable().all(),
-            i = new Map();
+            r = yield o("WAWebSignalStorage").getSessionTable().all(),
+            a = new Map();
           (yield (J || (J = n("Promise"))).all(
-            a.map(
+            r.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -255,7 +255,7 @@ __d(
                       n = e.session;
                     if (n != null) {
                       var r = yield ne(n);
-                      i.set(t, r);
+                      a.set(t, r);
                     }
                   },
                 );
@@ -272,10 +272,10 @@ __d(
                     function* (e) {
                       var t = e[0],
                         n = e[1];
-                      if (n != null && n.deleted) i.delete(t);
+                      if (n != null && n.deleted) a.delete(t);
                       else if (n != null) {
                         var r = yield ne(n.session);
-                        i.set(t, r);
+                        a.set(t, r);
                       }
                     },
                   );
@@ -285,17 +285,17 @@ __d(
                 })(),
               ),
             ));
-          var l = [],
+          var i = [],
+            l = [],
             s = [],
-            u = [],
-            c = 0;
-          for (var d of i) {
-            var L = d[0],
-              E = d[1],
-              k = e.get(L);
-            k == null ? l.push(L) : k !== E ? u.push(L) : c++;
+            u = 0;
+          for (var c of a) {
+            var d = c[0],
+              L = c[1],
+              E = e.get(d);
+            E == null ? i.push(d) : E !== L ? s.push(d) : u++;
           }
-          for (var I of e.keys()) i.has(I) || s.push(I);
+          for (var k of e.keys()) a.has(k) || l.push(k);
           (o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -305,54 +305,54 @@ __d(
                 " modified, ",
                 " unchanged",
               ])),
+            i.length,
             l.length,
             s.length,
-            u.length,
-            c,
+            u,
           ),
-            l.length > 0 &&
+            i.length > 0 &&
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "  NEW: ",
                     "",
                   ])),
-                l.join(", "),
+                i.join(", "),
               ),
-            s.length > 0 &&
+            l.length > 0 &&
               o("WALogger").LOG(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
                     "  REMOVED: ",
                     "",
                   ])),
-                s.join(", "),
+                l.join(", "),
               ),
-            u.length > 0 &&
+            s.length > 0 &&
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
                     "  MODIFIED: ",
                     "",
                   ])),
-                u.join(", "),
+                s.join(", "),
               ));
-          var T = [].concat(
-              l.map(function (e) {
+          var I = [].concat(
+              i.map(function (e) {
                 return { change: "added", address: e };
               }),
-              s.map(function (e) {
+              l.map(function (e) {
                 return { change: "removed", address: e };
               }),
-              u.map(function (e) {
+              s.map(function (e) {
                 return { change: "modified", address: e };
               }),
             ),
-            D = ee != null ? ee : new Map(),
-            x = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
-            $ = new Map();
+            T = ee != null ? ee : new Map(),
+            D = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
+            x = new Map();
           (yield J.all(
-            x.map(
+            D.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -360,7 +360,7 @@ __d(
                       n = e.senderKeyName;
                     if (t != null) {
                       var r = yield ne(t);
-                      $.set(n, r);
+                      x.set(n, r);
                     }
                   },
                 );
@@ -379,8 +379,8 @@ __d(
                         n = e[1];
                       if (n != null) {
                         var r = yield ne(n);
-                        $.set(t, r);
-                      } else $.delete(t);
+                        x.set(t, r);
+                      } else x.delete(t);
                     },
                   );
                   return function (t) {
@@ -389,19 +389,19 @@ __d(
                 })(),
               ),
             ));
-          var P = [],
+          var $ = [],
+            P = [],
             N = [],
-            M = [],
-            w = 0;
-          for (var A of $) {
-            var F = A[0],
-              O = A[1];
+            M = 0;
+          for (var w of x) {
+            var A = w[0],
+              F = w[1];
             {
-              var B = D.get(F);
-              B == null ? P.push(F) : B !== O ? M.push(F) : w++;
+              var O = T.get(A);
+              O == null ? $.push(A) : O !== F ? N.push(A) : M++;
             }
           }
-          for (var W of D.keys()) $.has(W) || N.push(W);
+          for (var B of T.keys()) x.has(B) || P.push(B);
           (o("WALogger").LOG(
             h ||
               (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -411,57 +411,57 @@ __d(
                 " modified, ",
                 " unchanged",
               ])),
+            $.length,
             P.length,
             N.length,
-            M.length,
-            w,
+            M,
           ),
-            P.length > 0 &&
+            $.length > 0 &&
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
                     "  NEW: ",
                     "",
                   ])),
-                P.join(", "),
+                $.join(", "),
               ),
-            N.length > 0 &&
+            P.length > 0 &&
               o("WALogger").LOG(
                 C ||
                   (C = babelHelpers.taggedTemplateLiteralLoose([
                     "  REMOVED: ",
                     "",
                   ])),
-                N.join(", "),
+                P.join(", "),
               ),
-            M.length > 0 &&
+            N.length > 0 &&
               o("WALogger").LOG(
                 b ||
                   (b = babelHelpers.taggedTemplateLiteralLoose([
                     "  MODIFIED: ",
                     "",
                   ])),
-                M.join(", "),
+                N.join(", "),
               ));
-          var q = [].concat(
-              P.map(function (e) {
+          var W = [].concat(
+              $.map(function (e) {
                 return { change: "added", address: e };
               }),
-              N.map(function (e) {
+              P.map(function (e) {
                 return { change: "removed", address: e };
               }),
-              M.map(function (e) {
+              N.map(function (e) {
                 return { change: "modified", address: e };
               }),
             ),
-            U = yield r("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
-            V = new Set(U.senderKey),
-            H = te,
-            G = [],
-            z = [];
-          if (H != null) {
-            for (var j of V) H.has(j) || G.push(j);
-            for (var K of H) V.has(K) || z.push(K);
+            q = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
+            U = new Set(q.senderKey),
+            V = te,
+            H = [],
+            G = [];
+          if (V != null) {
+            for (var z of U) V.has(z) || H.push(z);
+            for (var j of V) U.has(j) || G.push(j);
           }
           (o("WALogger").LOG(
             v ||
@@ -470,41 +470,41 @@ __d(
                 " new, ",
                 " removed",
               ])),
+            H.length,
             G.length,
-            z.length,
           ),
-            G.length > 0 &&
+            H.length > 0 &&
               o("WALogger").LOG(
                 S ||
                   (S = babelHelpers.taggedTemplateLiteralLoose([
                     "  NEW: ",
                     "",
                   ])),
-                G.join(", "),
+                H.join(", "),
               ),
-            z.length > 0 &&
+            G.length > 0 &&
               o("WALogger").LOG(
                 R ||
                   (R = babelHelpers.taggedTemplateLiteralLoose([
                     "  REMOVED: ",
                     "",
                   ])),
-                z.join(", "),
+                G.join(", "),
               ));
-          var Q = [].concat(
-            G.map(function (e) {
+          var K = [].concat(
+            H.map(function (e) {
               return { change: "added", address: e };
             }),
-            z.map(function (e) {
+            G.map(function (e) {
               return { change: "removed", address: e };
             }),
           );
           return {
-            sessions: T,
-            senderKeys: q,
-            statusSkDistrib: Q,
-            unchanged: c,
-            skUnchanged: w,
+            sessions: I,
+            senderKeys: W,
+            statusSkDistrib: K,
+            unchanged: u,
+            skUnchanged: M,
           };
         })),
         le.apply(this, arguments)

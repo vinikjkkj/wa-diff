@@ -34,14 +34,13 @@ __d(
               i = t.afterCursor,
               l = t.catalogWid,
               u = t.collectionId,
-              c = t.directConnectionEncryptedInfo,
-              d = t.height,
-              m = t.limit,
-              p = t.variantInfoFields,
-              _ = t.variantThumbnailHeight,
-              f = t.variantThumbnailWidth,
-              g = t.width,
-              h = yield o("WAWebRelayClient").fetchQuery(
+              c = t.height,
+              d = t.limit,
+              m = t.variantInfoFields,
+              p = t.variantThumbnailHeight,
+              _ = t.variantThumbnailWidth,
+              f = t.width,
+              g = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryProductSingleCollectionQuery.graphql")),
@@ -55,14 +54,13 @@ __d(
                           ? r
                           : l.toString(),
                       id: u,
-                      limit: String(m),
+                      limit: String(d),
                       after: i,
-                      width: String(g),
-                      height: String(d),
-                      direct_connection_encrypted_info: c,
-                      variant_info_fields: p,
-                      variant_thumbnail_height: _ != null ? String(_) : null,
-                      variant_thumbnail_width: f != null ? String(f) : null,
+                      width: String(f),
+                      height: String(c),
+                      variant_info_fields: m,
+                      variant_thumbnail_height: p != null ? String(p) : null,
+                      variant_thumbnail_width: _ != null ? String(_) : null,
                     },
                   },
                 },
@@ -75,44 +73,44 @@ __d(
                   ),
                 },
               ),
-              y =
-                (h == null
+              h =
+                (g == null
                   ? void 0
-                  : h.xwa_product_catalog_get_single_collection) || {},
-              C = y.collection,
-              b = y.paging,
-              v = C || {},
-              S = v.id,
-              R = v.name,
-              L = v.products,
-              E = v.status_info,
-              k = E == null ? void 0 : E.status,
-              I =
+                  : g.xwa_product_catalog_get_single_collection) || {},
+              y = h.collection,
+              C = h.paging,
+              b = y || {},
+              v = b.id,
+              S = b.name,
+              R = b.products,
+              L = b.status_info,
+              E = L == null ? void 0 : L.status,
+              k =
                 (a =
-                  k != null
-                    ? o("WAWebProductTypes").asProductReviewType(k)
+                  E != null
+                    ? o("WAWebProductTypes").asProductReviewType(E)
                     : void 0) != null
                   ? a
                   : "APPROVED";
             return {
-              afterCursor: (b == null ? void 0 : b.after) || "",
+              afterCursor: (C == null ? void 0 : C.after) || "",
               catalog_type: null,
               collections: [
                 {
-                  id: S || "",
-                  name: R || "",
-                  canAppeal: (E == null ? void 0 : E.can_appeal) === "true",
+                  id: v || "",
+                  name: S || "",
+                  canAppeal: (L == null ? void 0 : L.can_appeal) === "true",
                   isHidden: !1,
-                  reviewStatus: I,
+                  reviewStatus: k,
                   totalItemsCount: 0,
                   products:
-                    L != null
-                      ? L.map(
+                    R != null
+                      ? R.map(
                           o("WAWebBizParseProductGraphql").parseProductGraphQL,
                         )
                       : [],
-                  rejectReason: E == null ? void 0 : E.reject_reason,
-                  commerceUrl: E == null ? void 0 : E.commerce_url,
+                  rejectReason: L == null ? void 0 : L.reject_reason,
+                  commerceUrl: L == null ? void 0 : L.commerce_url,
                 },
               ],
             };
@@ -148,14 +146,13 @@ __d(
           var n = e.afterCursor,
             r = e.catalogWid,
             a = e.collectionId,
-            i = e.directConnectionEncryptedInfo,
-            l = e.height,
-            s = e.limit,
-            c = e.variantInfoFields,
-            d = e.variantThumbnailHeight,
-            m = e.variantThumbnailWidth,
-            p = e.width,
-            _ = yield o(
+            i = e.height,
+            l = e.limit,
+            s = e.variantInfoFields,
+            c = e.variantThumbnailHeight,
+            d = e.variantThumbnailWidth,
+            m = e.width,
+            p = yield o(
               "WAWebBizCatalogManagementFetchSingleCollection",
             ).fetchSingleCollection({
               collection: {
@@ -166,30 +163,29 @@ __d(
                     ? t
                     : r.toJid(),
                 id: a,
-                limit: String(s),
+                limit: String(l),
                 after: n,
-                width: String(p),
-                height: String(l),
-                direct_connection_encrypted_info: i,
-                variant_info_fields: c,
-                variant_thumbnail_height: d != null ? String(d) : null,
-                variant_thumbnail_width: m != null ? String(m) : null,
+                width: String(m),
+                height: String(i),
+                variant_info_fields: s,
+                variant_thumbnail_height: c != null ? String(c) : null,
+                variant_thumbnail_width: d != null ? String(d) : null,
               },
             });
-          if (_.type === "success") return _.collectionsResult;
+          if (p.type === "success") return p.collectionsResult;
           throw (
-            _.type === "graphql-error"
+            p.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(_.error)
-              : _.type,
+                ).maybeThrowLocalErrorForCatalogQuery(p.error)
+              : p.type,
             o("WALogger").WARN(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "queryProductSingleCollectionGraphQLByOwner: unhandled err ",
                   "",
                 ])),
-              JSON.stringify(_),
+              JSON.stringify(p),
             ),
             new (o("WAWebBackendErrors").CatalogUnknownError)()
           );

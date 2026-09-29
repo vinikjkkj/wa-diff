@@ -7,7 +7,7 @@ __d(
       return e.startByte === t.startByte;
     }
     function l(e, t) {
-      return t.endByte === null ? !1 : e.startByte === t.endByte + 1;
+      return t.endByte == null ? !1 : e.startByte === t.endByte + 1;
     }
     function s(e, t) {
       return e.startByte < t.startByte

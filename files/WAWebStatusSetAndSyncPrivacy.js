@@ -25,12 +25,12 @@ __d(
             u = s
               ? a != null
                 ? a
-                : yield r("WAWebUserPrefsStatus").getShareToFB()
+                : yield o("WAWebUserPrefsStatus").getShareToFB()
               : void 0,
             c = s
               ? i != null
                 ? i
-                : yield r("WAWebUserPrefsStatus").getShareToIG()
+                : yield o("WAWebUserPrefsStatus").getShareToIG()
               : void 0,
             d = r(
               "WAWebStatusPrivacySettingSync",
@@ -54,10 +54,10 @@ __d(
               return (
                 s &&
                   (a != null &&
-                    (yield r("WAWebUserPrefsStatus").persistShareToFB(a)),
+                    (yield o("WAWebUserPrefsStatus").persistShareToFB(a)),
                   i != null &&
-                    (yield r("WAWebUserPrefsStatus").persistShareToIG(i))),
-                r("WAWebUserPrefsStatus").setStatusPrivacyConfig({
+                    (yield o("WAWebUserPrefsStatus").persistShareToIG(i))),
+                o("WAWebUserPrefsStatus").setStatusPrivacyConfig({
                   setting: l,
                   list: t,
                 })

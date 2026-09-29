@@ -40,10 +40,7 @@ __d(
     var e, s, u;
     function c() {
       if (r("gkx")("9512")) {
-        var e =
-          r("gkx")("7137") || r("gkx")("21918")
-            ? "ManagedMediaSource"
-            : "MediaSource";
+        var e = r("gkx")("7137") ? "ManagedMediaSource" : "MediaSource";
         if (n("cr:3020").mediaSourceCanConstructInDedicatedWorker(e))
           return r("gkx")("4484") ? "RealWorkerV2" : "RealWorker";
       }
@@ -266,10 +263,9 @@ __d(
         playheadPredictIntervalMs:
           r("gkx")("12741") || r("gkx")("17440") ? 3e3 : 0,
         playheadStallRecoveryEnabled: r("gkx")("15564"),
-        preferredMediaSourceAPIType:
-          r("gkx")("7137") || r("gkx")("21918")
-            ? "ManagedMediaSource"
-            : "MediaSource",
+        preferredMediaSourceAPIType: r("gkx")("7137")
+          ? "ManagedMediaSource"
+          : "MediaSource",
         prefetchResolutionThreshold: r("gkx")("16054")
           ? 1080
           : e.prefetchResolutionThreshold,

@@ -311,7 +311,7 @@ __d(
                   ])),
                 e,
               ));
-            var v = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting();
+            var v = yield o("WAWebUserPrefsStatus").getStatusPrivacySetting();
             return o("WAWebPostSendStatusFailure").postStatusSendFailure(
               b,
               n,

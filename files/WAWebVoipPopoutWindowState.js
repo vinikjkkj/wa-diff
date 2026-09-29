@@ -1,10 +1,10 @@
 __d(
   "WAWebVoipPopoutWindowState",
-  ["WALogger", "WAWebTypedEventEmitter"],
+  ["WALogger", "WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = new (r("WAWebTypedEventEmitter"))(),
+      s = new (r("WAWebEventEmitter"))(),
       u = "wa-web-main";
     function c(t, n, r) {
       try {

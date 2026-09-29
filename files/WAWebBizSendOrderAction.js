@@ -489,40 +489,40 @@ __d(
         R.apply(this, arguments)
       );
     }
-    var L = function (t, n, r, a, i, l) {
-      var e = t.items.map(function (e) {
+    function L(e, t, n, r, a, i) {
+      var l = e.items.map(function (e) {
           var t;
           return {
             retailer_id: e.id,
             name: e.name,
-            amount: { value: (t = e.amount) != null ? t : 0, offset: a },
+            amount: { value: (t = e.amount) != null ? t : 0, offset: r },
             quantity: e.quantity,
             isCustomItem: e.isCustomItem,
             isQuantitySet: e.isQuantitySet,
           };
         }),
         s = {
-          reference_id: r,
+          reference_id: n,
           payment_timestamp: o("WATimeUtils").unixTime(),
-          currency: t.currency,
-          payment_status: i,
-          total_amount: { value: t.totalAmount, offset: a },
+          currency: e.currency,
+          payment_status: a,
+          total_amount: { value: e.totalAmount, offset: r },
           order: {
-            status: n,
-            items: e,
-            subtotal: { value: Number(t.subtotal), offset: a },
-            tax: t.tax == null ? void 0 : { value: t.tax, offset: a },
+            status: t,
+            items: l,
+            subtotal: { value: Number(e.subtotal), offset: r },
+            tax: e.tax == null ? void 0 : { value: e.tax, offset: r },
             shipping:
-              t.shipping == null ? void 0 : { value: t.shipping, offset: a },
+              e.shipping == null ? void 0 : { value: e.shipping, offset: r },
             discount:
-              t.discount == null ? void 0 : { value: t.discount, offset: a },
+              e.discount == null ? void 0 : { value: e.discount, offset: r },
           },
         };
       return (
-        l != null && (s = babelHelpers.extends({}, s, { payment_method: l })),
+        i != null && (s = babelHelpers.extends({}, s, { payment_method: i })),
         s
       );
-    };
+    }
     function E(e) {
       return k.apply(this, arguments);
     }

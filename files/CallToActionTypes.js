@@ -164,6 +164,7 @@ __d(
       SHOP_ON_RETAILER: "SHOP_ON_RETAILER",
       WATCH_NOW: "WATCH_NOW",
       STREAM_NOW: "STREAM_NOW",
+      BUY_ACTIVITY_TICKETS: "BUY_ACTIVITY_TICKETS",
     });
     i.default = e;
   },

@@ -33,15 +33,14 @@ __d(
             var r,
               a = t.afterCursor,
               i = t.catalogWid,
-              l = t.directConnectionEncryptedInfo,
-              s = t.height,
-              c = t.limit,
-              d = t.productsCount,
-              m = t.variantInfoFields,
-              p = t.variantThumbnailHeight,
-              _ = t.variantThumbnailWidth,
-              f = t.width,
-              g = yield o("WAWebRelayClient").fetchQuery(
+              l = t.height,
+              s = t.limit,
+              c = t.productsCount,
+              d = t.variantInfoFields,
+              m = t.variantThumbnailHeight,
+              p = t.variantThumbnailWidth,
+              _ = t.width,
+              f = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryProductCollectionsQuery.graphql")),
@@ -54,15 +53,14 @@ __d(
                         ).getFormattedCatalogJid(i)) != null
                           ? r
                           : i.toString(),
-                      collection_limit: String(c),
-                      item_limit: String(d),
+                      collection_limit: String(s),
+                      item_limit: String(c),
                       after: a,
-                      width: String(f),
-                      height: String(s),
-                      direct_connection_encrypted_info: l,
-                      variant_info_fields: m,
-                      variant_thumbnail_height: p != null ? String(p) : null,
-                      variant_thumbnail_width: _ != null ? String(_) : null,
+                      width: String(_),
+                      height: String(l),
+                      variant_info_fields: d,
+                      variant_thumbnail_height: m != null ? String(m) : null,
+                      variant_thumbnail_width: p != null ? String(p) : null,
                     },
                   },
                 },
@@ -76,16 +74,16 @@ __d(
                 },
               );
             if (
-              (g == null ? void 0 : g.xwa_product_catalog_get_collections) ==
+              (f == null ? void 0 : f.xwa_product_catalog_get_collections) ==
               null
             )
               return { afterCursor: "", collections: [], catalog_type: null };
-            var h = g.xwa_product_catalog_get_collections,
-              y = h.collections,
-              C = h.paging;
+            var g = f.xwa_product_catalog_get_collections,
+              h = g.collections,
+              y = g.paging;
             return {
-              afterCursor: (C == null ? void 0 : C.after) || "",
-              collections: y.map(function (e) {
+              afterCursor: (y == null ? void 0 : y.after) || "",
+              collections: h.map(function (e) {
                 var t,
                   n = e.id,
                   r = e.name,
@@ -117,10 +115,10 @@ __d(
             };
           } catch (e) {
             if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var b,
-                v = ((b = e.source) == null ? void 0 : b.errors) || [],
-                S = v[0];
-              if ((S == null ? void 0 : S.code) === 2498052)
+              var C,
+                b = ((C = e.source) == null ? void 0 : C.errors) || [],
+                v = b[0];
+              if ((v == null ? void 0 : v.code) === 2498052)
                 return { collections: [], afterCursor: "", catalog_type: null };
               o(
                 "WAWebMaybeThrowCatalogErrors",
@@ -152,15 +150,14 @@ __d(
             throw new (o("WAWebBackendErrors").E451)();
           var n = e.afterCursor,
             r = e.catalogWid,
-            a = e.directConnectionEncryptedInfo,
-            i = e.height,
-            l = e.limit,
-            s = e.productsCount,
-            u = e.variantInfoFields,
-            d = e.variantThumbnailHeight,
-            m = e.variantThumbnailWidth,
-            p = e.width,
-            _ = yield o(
+            a = e.height,
+            i = e.limit,
+            l = e.productsCount,
+            s = e.variantInfoFields,
+            u = e.variantThumbnailHeight,
+            d = e.variantThumbnailWidth,
+            m = e.width,
+            p = yield o(
               "WAWebBizCatalogManagementFetchCollections",
             ).fetchCollections({
               collections: {
@@ -171,28 +168,27 @@ __d(
                     ? t
                     : r.toJid(),
                 after: n,
-                collection_limit: String(l),
-                item_limit: String(s),
-                width: String(p),
-                height: String(i),
-                direct_connection_encrypted_info: a,
-                variant_info_fields: u,
-                variant_thumbnail_height: d != null ? String(d) : null,
-                variant_thumbnail_width: m != null ? String(m) : null,
+                collection_limit: String(i),
+                item_limit: String(l),
+                width: String(m),
+                height: String(a),
+                variant_info_fields: s,
+                variant_thumbnail_height: u != null ? String(u) : null,
+                variant_thumbnail_width: d != null ? String(d) : null,
               },
             });
-          if (_.type === "success") return _.collectionsResult;
-          if (_.type === "graphql-error") {
-            var f;
+          if (p.type === "success") return p.collectionsResult;
+          if (p.type === "graphql-error") {
+            var _;
             if (
-              ((f = _.error.source.errors[0]) == null ? void 0 : f.code) ===
+              ((_ = p.error.source.errors[0]) == null ? void 0 : _.code) ===
               2498052
             )
               return { collections: [], afterCursor: "", catalog_type: null };
             o(
               "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(_.error);
-          } else _.type;
+            ).maybeThrowLocalErrorForCatalogQuery(p.error);
+          } else p.type;
           throw (
             o("WALogger").WARN(
               c ||
@@ -200,7 +196,7 @@ __d(
                   "queryCollectionsGraphQLByOwner: unhandled error ",
                   "",
                 ])),
-              JSON.stringify(_),
+              JSON.stringify(p),
             ),
             new (o("WAWebBackendErrors").CatalogUnknownError)()
           );

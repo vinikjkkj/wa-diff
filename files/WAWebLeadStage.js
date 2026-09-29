@@ -2,15 +2,8 @@ __d(
   "WAWebLeadStage",
   [],
   function (t, n, r, o, a, i) {
-    var e = {
-        NONE: 0,
-        INTAKE: 1,
-        QUALIFIED: 2,
-        CONVERTED: 3,
-        LOST: 4,
-        NOT_QUALIFIED: 5,
-      },
-      l = [e.INTAKE, e.QUALIFIED, e.CONVERTED, e.LOST, e.NOT_QUALIFIED],
+    var e = { NONE: 0, INTAKE: 1, QUALIFIED: 2, CONVERTED: 3, LOST: 4 },
+      l = [e.INTAKE, e.QUALIFIED, e.CONVERTED, e.LOST],
       s = [e.NONE].concat(l);
     function u(t) {
       return t === 0
@@ -23,9 +16,7 @@ __d(
               ? e.CONVERTED
               : t === 4
                 ? e.LOST
-                : t === 5
-                  ? e.NOT_QUALIFIED
-                  : null;
+                : null;
     }
     ((i.LeadStage = e),
       (i.LEAD_SUBSTAGE_ORDER = l),

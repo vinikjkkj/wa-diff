@@ -382,7 +382,8 @@ __d(
                 w(R, q.id);
                 continue;
               }
-              (c != null && I.push(A(q, c, D)),
+              (c != null &&
+                I.push(A({ index: D, parsedMsg: q, validationCtx: c })),
                 d.push(q),
                 m.push(
                   o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
@@ -640,45 +641,48 @@ __d(
     function w(e, t) {
       (e.count++, e.ids.length < k && e.ids.push(t.toString()));
     }
-    function A(e, t, n) {
+    function A(e) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = t.messageBytesArray[n];
-          if (a == null) return null;
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.index,
+            n = e.parsedMsg,
+            a = e.validationCtx,
+            i = a.messageBytesArray[t];
+          if (i == null) return null;
           try {
-            var i = yield o(
+            var l = yield o(
                 "WAWebGroupHistoryReportingTokenValidator",
-              ).validateAndBuildReportingInfoRow(e, a, t),
-              l = i.failureReason,
-              s = i.reportingTokenVersion,
-              u = i.row;
+              ).validateAndBuildReportingInfoRow(n, i, a),
+              s = l.failureReason,
+              u = l.reportingTokenVersion,
+              c = l.row;
             if (
-              l != null &&
+              s != null &&
               o(
                 "WAWebReportingTokenUtils",
-              ).showDebugPlaceholderForReportingTokenMismatch(s)
+              ).showDebugPlaceholderForReportingTokenMismatch(u)
             ) {
-              var c = o("WAWebReportingTokenUtils").genDebugMsgInfo(e);
+              var d = o("WAWebReportingTokenUtils").genDebugMsgInfo(n);
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
-                externalId: c.externalId,
+                externalId: d.externalId,
                 nackReason: o("WAWebCreateNackFromStanza").NackReason
                   .ParsingError,
-                msgInfo: c,
+                msgInfo: d,
                 offline: !1,
                 additionalInfo:
                   "[ghs] reporting token validation failed (reason " +
-                  l +
+                  s +
                   ") for msg " +
-                  e.id.toString(),
+                  n.id.toString(),
               });
             }
-            return u;
-          } catch (t) {
+            return c;
+          } catch (e) {
             return (
               o("WALogger").WARN(
                 b ||
@@ -687,8 +691,8 @@ __d(
                     ": ",
                     "",
                   ])),
-                e.id.toString(),
-                r("WAWebSerializeError")(t),
+                n.id.toString(),
+                r("WAWebSerializeError")(e),
               ),
               null
             );

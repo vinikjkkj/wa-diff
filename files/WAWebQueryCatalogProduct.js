@@ -38,14 +38,12 @@ __d(
             m = a[4],
             p = m === void 0 ? !1 : m,
             _ = a[5],
-            f = _ === void 0 ? null : _,
-            g = a[6],
-            h = a[7],
-            y = a[8];
+            f = a[6],
+            g = a[7];
           try {
-            var C,
-              b,
-              v = yield o("WAWebRelayClient").fetchQuery(
+            var h,
+              y,
+              C = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryCatalogProductQuery.graphql")),
@@ -53,19 +51,18 @@ __d(
                   request: {
                     product: {
                       jid:
-                        (C = o(
+                        (h = o(
                           "WAWebGetFormattedCatalogJid",
                         ).getFormattedCatalogJid(l)) != null
-                          ? C
+                          ? h
                           : l.toString(),
                       product_id: s,
                       width: String(c),
                       height: String(d),
                       fetch_compliance_info: String(p),
-                      direct_connection_encrypted_info: f,
-                      variant_info_fields: g,
-                      variant_thumbnail_height: h != null ? String(h) : null,
-                      variant_thumbnail_width: y != null ? String(y) : null,
+                      variant_info_fields: _,
+                      variant_thumbnail_height: f != null ? String(f) : null,
+                      variant_thumbnail_width: g != null ? String(g) : null,
                     },
                   },
                 },
@@ -78,24 +75,24 @@ __d(
                   ),
                 },
               ),
-              S = r("nullthrows")(
-                v == null ||
-                  (b = v.xwa_product_catalog_get_product) == null ||
-                  (b = b.product_catalog) == null
+              b = r("nullthrows")(
+                C == null ||
+                  (y = C.xwa_product_catalog_get_product) == null ||
+                  (y = y.product_catalog) == null
                   ? void 0
-                  : b.product,
+                  : y.product,
               );
             return {
-              data: o("WAWebBizParseProductGraphql").parseProductGraphQL(S),
+              data: o("WAWebBizParseProductGraphql").parseProductGraphQL(b),
               catalog_id: null,
               catalog_type: null,
             };
           } catch (e) {
             if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var R,
-                L = ((R = e.source) == null ? void 0 : R.errors) || [],
-                E = L[0];
-              if ((E == null ? void 0 : E.code) === 2498052)
+              var v,
+                S = ((v = e.source) == null ? void 0 : v.errors) || [],
+                R = S[0];
+              if ((R == null ? void 0 : R.code) === 2498052)
                 return { error: "NOT_FOUND" };
               o(
                 "WAWebMaybeThrowCatalogErrors",
@@ -134,11 +131,9 @@ __d(
             u = n[4],
             d = u === void 0 ? !1 : u,
             m = n[5],
-            p = m === void 0 ? null : m,
-            _ = n[6],
-            f = n[7],
-            g = n[8],
-            h = yield o("WAWebBizCatalogManagementFetchProduct").fetchProduct({
+            p = n[6],
+            _ = n[7],
+            f = yield o("WAWebBizCatalogManagementFetchProduct").fetchProduct({
               product: {
                 jid:
                   (e = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
@@ -149,31 +144,30 @@ __d(
                 product_id: i,
                 width: String(l),
                 height: String(s),
-                direct_connection_encrypted_info: p,
                 fetch_compliance_info: String(d),
-                variant_info_fields: _,
-                variant_thumbnail_height: f != null ? String(f) : null,
-                variant_thumbnail_width: g != null ? String(g) : null,
+                variant_info_fields: m,
+                variant_thumbnail_height: p != null ? String(p) : null,
+                variant_thumbnail_width: _ != null ? String(_) : null,
               },
             });
-          if (h.type === "success") return h.productResult;
-          if (h.type === "graphql-error") {
-            var y,
-              C = (y = h.error.source) == null ? void 0 : y.errors,
-              b = C[0];
-            if ((b == null ? void 0 : b.code) === 2498052)
+          if (f.type === "success") return f.productResult;
+          if (f.type === "graphql-error") {
+            var g,
+              h = (g = f.error.source) == null ? void 0 : g.errors,
+              y = h[0];
+            if ((y == null ? void 0 : y.code) === 2498052)
               return { error: "NOT_FOUND" };
             o(
               "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(h.error);
+            ).maybeThrowLocalErrorForCatalogQuery(f.error);
           } else {
-            if (h.type === "recovery-required")
+            if (f.type === "recovery-required")
               throw new (o(
                 "WAWebBackendErrors",
-              ).AdAccountRecoveryRequiredError)(h.emailMask);
-            if (h.type === "incorrect-nonce")
+              ).AdAccountRecoveryRequiredError)(f.emailMask);
+            if (f.type === "incorrect-nonce")
               throw new (o("WAWebBackendErrors").CatalogIncorrectNonceError)();
-            h.type;
+            f.type;
           }
           throw (
             o("WALogger").WARN(
@@ -182,7 +176,7 @@ __d(
                   "queryCatalogProductGraphQLByOwner: unhandled err ",
                   "",
                 ])),
-              JSON.stringify(h),
+              JSON.stringify(f),
             ),
             new (o("WAWebBackendErrors").CatalogUnknownError)()
           );

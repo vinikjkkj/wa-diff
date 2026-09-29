@@ -13,7 +13,6 @@ __d(
     "WAWebFileUtils",
     "WAWebMediaDebugString",
     "WAWebMmsClientErrors",
-    "WAWebMmsDownloadUploadCrashLogger",
     "WAWebMmsMediaTypes",
     "WAWebNullFunc",
     "asyncToGeneratorRuntime",
@@ -276,8 +275,7 @@ __d(
               };
             })(),
           )),
-          (this.deps = t),
-          t.crashLogger.init());
+          (this.deps = t));
       }
       var a = t.prototype;
       return (
@@ -317,11 +315,6 @@ __d(
                   var e = n + t.loaded;
                   x(e);
                 };
-              this.deps.crashLogger.mark(
-                P,
-                o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                  .UPLOAD_ENCRYPTION_STARTED,
-              );
               try {
                 var M = S(e),
                   w =
@@ -358,24 +351,9 @@ __d(
                   A = (C || (C = n("Promise")))
                     .resolve(i)
                     .then(function (e) {
-                      a.deps.crashLogger.mark(
-                        P,
-                        o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                          .UPLOAD_BLOB_TO_ARRAY_BUFFER_STARTED,
-                        { size: i instanceof Blob ? i.size : i.byteLength },
-                      );
-                      var t =
-                        e instanceof Blob
-                          ? o("WAWebFileUtils").blobToArrayBuffer(e)
-                          : e;
-                      return (
-                        a.deps.crashLogger.mark(
-                          P,
-                          o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                            .UPLOAD_BLOB_TO_ARRAY_BUFFER_FINISHED,
-                        ),
-                        t
-                      );
+                      return e instanceof Blob
+                        ? o("WAWebFileUtils").blobToArrayBuffer(e)
+                        : e;
                     })
                     .then(function (e) {
                       return (
@@ -401,21 +379,16 @@ __d(
                 var O = A.then(function (t) {
                     var n,
                       r = t.ciphertextHmac,
-                      i = t.firstFrameSidecar,
-                      u = t.hash,
-                      m = t.sidecar;
-                    (R(),
-                      a.deps.crashLogger.mark(
-                        P,
-                        o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                          .UPLOAD_ENCRYPTION_FINISHED,
-                      ));
-                    var p = e.mediaKey
+                      o = t.firstFrameSidecar,
+                      i = t.hash,
+                      u = t.sidecar;
+                    R();
+                    var m = e.mediaKey
                       ? a.getExistingOrUpload
                       : a.memoizedUpload;
-                    return p({
+                    return m({
                       ciphertextHmac: r,
-                      encFilehash: u,
+                      encFilehash: i,
                       type: d,
                       signal: c,
                       onCheckExistingSuccess: b,
@@ -428,15 +401,15 @@ __d(
                       onFinalize: s,
                       onStreamUploadStart: E,
                       mediaId: P,
-                      token: (n = e.token) != null ? n : u,
+                      token: (n = e.token) != null ? n : i,
                     }).then(function (e) {
                       return {
                         directPath: l ? L(e.directPath) : e.directPath,
-                        encFilehash: u,
+                        encFilehash: i,
                         mediaKey: M.mediaKey,
                         mediaKeyTimestamp: M.mediaKeyTimestamp,
-                        sidecar: m,
-                        firstFrameSidecar: i,
+                        sidecar: u,
+                        firstFrameSidecar: o,
                         url: e.url,
                         handle: e.handle,
                       };
@@ -449,11 +422,6 @@ __d(
                       (g = babelHelpers.taggedTemplateLiteralLoose([
                         "uploadManager.encryptAndUpload: success",
                       ])),
-                  ),
-                  this.deps.crashLogger.mark(
-                    P,
-                    o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                      .UPLOAD_FINISHED,
                   ),
                   e.uploadQpl.addPoint("upload_end"),
                   e.uploadQpl.endSuccess(),
@@ -482,11 +450,6 @@ __d(
                         "upload_failed",
                         r("getErrorSafe")(t).message,
                       )),
-                  this.deps.crashLogger.mark(
-                    P,
-                    o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                      .UPLOAD_ERROR,
-                  ),
                   T(r("getErrorSafe")(t)),
                   t
                 );

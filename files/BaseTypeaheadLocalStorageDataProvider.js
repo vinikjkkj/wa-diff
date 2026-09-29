@@ -7,18 +7,20 @@ __d(
     "Promise",
     "WebStorage",
     "getErrorSafe",
+    "performanceAbsoluteNow",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["storageKey", "storageTimespan"],
       s,
       u,
-      c = 864e5,
-      d = (function () {
+      c,
+      d = 864e5,
+      m = (function () {
         function t(t) {
           var n = t.storageKey,
             a = t.storageTimespan,
-            i = a === void 0 ? c : a,
+            i = a === void 0 ? d : a,
             l = babelHelpers.objectWithoutPropertiesLoose(t, e);
           ((this.$1 = new (r("BaseTypeaheadDataProvider"))(l)),
             (this.$3 =
@@ -38,7 +40,7 @@ __d(
             if (r != null) {
               var o = this.$2.build(),
                 a = o(t);
-              return (u || (u = n("Promise"))).resolve({
+              return (c || (c = n("Promise"))).resolve({
                 requestQueryVariables: a,
                 response: r,
               });
@@ -72,14 +74,14 @@ __d(
             if (a == null) return null;
             var i = a,
               l = i.queryVariables,
-              u = i.response,
-              c = i.timestamp,
-              d = this.$2.build(),
-              m = d(t);
-            if (JSON.stringify(l) !== JSON.stringify(m))
+              c = i.response,
+              d = i.timestamp,
+              m = this.$2.build(),
+              p = m(t);
+            if (JSON.stringify(l) !== JSON.stringify(p))
               return (n.removeItem(e), null);
-            var p = Date.now();
-            return c + Number(this.$4) >= p ? u : (n.removeItem(e), null);
+            var _ = (u || (u = r("performanceAbsoluteNow")))();
+            return d + Number(this.$4) >= _ ? c : (n.removeItem(e), null);
           }),
           (a.$6 = function (t, n) {
             var e = this.$3,
@@ -88,13 +90,13 @@ __d(
               var a = this.$2.build(),
                 i = a(t);
               try {
-                var l = Date.now(),
-                  u = JSON.stringify({
+                var l = (u || (u = r("performanceAbsoluteNow")))(),
+                  c = JSON.stringify({
                     queryVariables: i,
                     response: n,
                     timestamp: l,
                   });
-                o.setItem(e, u);
+                o.setItem(e, c);
               } catch (e) {
                 r("FBLogger")("search")
                   .catching(r("getErrorSafe")(e))
@@ -107,7 +109,7 @@ __d(
           t
         );
       })();
-    l.default = d;
+    l.default = m;
   },
   98,
 );

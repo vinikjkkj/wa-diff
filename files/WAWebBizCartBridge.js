@@ -20,7 +20,6 @@ __d(
         o("WAWebBizLogQplEvents").qplPointCartView("datasource_start");
       var s = o("WAWebBizRefreshCartJob").refreshCart({
         bizJID: t,
-        directConnectionEncryptedInfo: void 0,
         ids: r,
         imageHeight: i,
         imageWidth: a,

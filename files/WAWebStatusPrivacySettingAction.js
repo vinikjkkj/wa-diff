@@ -13,7 +13,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("WAWebUserPrefsStatus").getStatusPrivacySettingConfig();
+          return o("WAWebUserPrefsStatus").getStatusPrivacySettingConfig();
         })),
         s.apply(this, arguments)
       );

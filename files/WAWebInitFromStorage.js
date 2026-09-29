@@ -87,14 +87,14 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (c || (c = n("Promise"))).all([
-              r("WAWebUserPrefsStatus").getShareToFB(),
-              r("WAWebUserPrefsStatus").getShareToIG(),
+              o("WAWebUserPrefsStatus").getShareToFB(),
+              o("WAWebUserPrefsStatus").getShareToIG(),
             ]),
             t = e[0],
-            a = e[1];
+            r = e[1];
           o("WAWebBackendApi").frontendFireAndForget(
             "updateCrosspostAutoShareSettings",
-            { shareToFB: t, shareToIG: a },
+            { shareToFB: t, shareToIG: r },
           );
         })),
         g.apply(this, arguments)

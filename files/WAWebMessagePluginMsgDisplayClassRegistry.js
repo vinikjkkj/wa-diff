@@ -13,7 +13,6 @@ __d(
     "WAWebPollMsgDisplayClass",
     "WAWebPttMsgDisplayClass",
     "WAWebPtvMsgDisplayClass",
-    "WAWebRichResponseMsgDisplayClass",
     "WAWebStatusMentionMsgDisplayClass",
     "WAWebStickerMsgDisplayClass",
     "WAWebVcardMsgDisplayClass",
@@ -301,11 +300,7 @@ __d(
         { type: "request_phone_number", subtype: void 0, msgDisplayClass: e },
         { type: "revoked", subtype: "admin", msgDisplayClass: e },
         { type: "revoked", subtype: "sender", msgDisplayClass: e },
-        {
-          type: "rich_response",
-          subtype: void 0,
-          msgDisplayClass: r("WAWebRichResponseMsgDisplayClass"),
-        },
+        { type: "rich_response", subtype: void 0, msgDisplayClass: e },
         {
           type: "sharable_event_invite",
           subtype: void 0,

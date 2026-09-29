@@ -93,7 +93,11 @@ __d(
               var C = o(
                 "WAWebProfilePicThumbCollection",
               ).ProfilePicThumbCollection.gadd(y);
-              o("WAWebProfilePicThumbAction").setProfilePic(C, l, l);
+              o("WAWebProfilePicThumbAction").setProfilePic({
+                full: l,
+                profilePicThumb: C,
+                thumb: l,
+              });
             }
             if (i.length > 0) {
               var b = o("WAWebGroupCommunityJob")

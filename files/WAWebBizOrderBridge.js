@@ -13,21 +13,22 @@ __d(
     function s(t) {
       var r = t.height,
         a = t.orderId,
-        i = t.token,
-        l = t.width;
+        i = t.sellerJid,
+        l = t.token,
+        s = t.width;
       if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (e || (e = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );
       o("WAWebBizLogQplEvents").qplPointOrderView("datasource_start");
-      var s = o("WAWebBizQueryOrderJob").queryOrder({
-        directConnectionEncryptedInfo: void 0,
+      var u = o("WAWebBizQueryOrderJob").queryOrder({
         height: r,
         orderId: a,
-        token: i,
-        width: l,
+        sellerJid: i,
+        token: l,
+        width: s,
       });
-      return s.then(function (e) {
+      return u.then(function (e) {
         return (
           o("WAWebBizLogQplEvents").qplPointOrderView("datasource_end"),
           e
@@ -40,7 +41,7 @@ __d(
           new (o("WAWebBackendErrors").E451)(),
         );
       o("WAWebBizLogQplEvents").qplPointOrderCreate("datasource_start");
-      var a = o("WAWebBizCreateOrderJob").createOrderMD(t, r, void 0);
+      var a = o("WAWebBizCreateOrderJob").createOrderMD(t, r);
       return a.then(function (e) {
         return (
           o("WAWebBizLogQplEvents").qplPointOrderCreate("datasource_end"),

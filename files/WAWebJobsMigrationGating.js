@@ -1,6 +1,6 @@
 __d(
   "WAWebJobsMigrationGating",
-  ["gkx"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null,
@@ -25,9 +25,15 @@ __d(
         ? s
         : (e == null &&
             (e = {
-              queues: r("gkx")("17765"),
-              rest: r("gkx")("18085"),
-              serviced: r("gkx")("18244"),
+              queues: o("WAWebABProps").getABPropConfigValue(
+                "wa_web_jm_to_ts_queues",
+              ),
+              rest: o("WAWebABProps").getABPropConfigValue(
+                "wa_web_jm_to_ts_rest",
+              ),
+              serviced: o("WAWebABProps").getABPropConfigValue(
+                "wa_web_jm_to_ts_serviced",
+              ),
             }),
           e);
     }

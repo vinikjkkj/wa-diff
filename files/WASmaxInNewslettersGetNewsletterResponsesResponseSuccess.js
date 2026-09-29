@@ -4,6 +4,7 @@ __d(
     "WAResultOrError",
     "WASmaxInNewslettersQuestionResponseFlagsMixin",
     "WASmaxInNewslettersQuestionResponseMessageMixin",
+    "WASmaxInNewslettersQuestionResponseReactionsMixin",
     "WASmaxInNewslettersQuestionResponseSenderMixin",
     "WASmaxParseJid",
     "WASmaxParseReference",
@@ -22,11 +23,15 @@ __d(
       ).parseQuestionResponseSenderMixin(e);
       if (!r.success) return r;
       var a = o(
-        "WASmaxInNewslettersQuestionResponseFlagsMixin",
-      ).parseQuestionResponseFlagsMixin(e);
+          "WASmaxInNewslettersQuestionResponseFlagsMixin",
+        ).parseQuestionResponseFlagsMixin(e),
+        i = o(
+          "WASmaxInNewslettersQuestionResponseReactionsMixin",
+        ).parseQuestionResponseReactionsMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({}, n.value, r.value, {
           questionResponseFlagsMixin: a.success ? a.value : null,
+          questionResponseReactionsMixin: i.success ? i.value : null,
         }),
       );
     }

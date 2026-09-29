@@ -6,7 +6,6 @@ __d(
     "WAWebCryptoEncryptMedia",
     "WAWebCryptoEncryptMediaFromBlobLoadable",
     "WAWebMmsClient",
-    "WAWebMmsDownloadUploadCrashLogger",
     "WAWebUploadManagerBase",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,8 +14,6 @@ __d(
           return (
             e.call(this, {
               appTracker: o("WAWebAppTracker").AppTracker,
-              crashLogger: o("WAWebMmsDownloadUploadCrashLogger")
-                .downloadUploadCrashLogger,
               mmsClient: {
                 upload: function (t) {
                   return r("WAWebMmsClient").upload(t);

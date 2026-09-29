@@ -12,55 +12,53 @@ __d(
     var e,
       s = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l) {
-            var s,
-              u = yield o("WAWebBizGraphQLRefreshCartJob").RefreshCart({
+          function* (t, n, a, i) {
+            var l,
+              s = yield o("WAWebBizGraphQLRefreshCartJob").RefreshCart({
                 cart: {
                   jid:
-                    (s = o(
+                    (l = o(
                       "WAWebGetFormattedCatalogJid",
                     ).getFormattedCatalogJid(t)) != null
-                      ? s
+                      ? l
                       : t.toString(),
                   products: n.map(function (e) {
                     return { id: e };
                   }),
                   image_dimensions: { width: a, height: i },
-                  direct_connection_encrypted_info: l,
                   variant_info_fields: "variant_properties",
                 },
               });
-            if (u.type === "success") return u.cartResult;
+            if (s.type === "success") return s.cartResult;
             throw (
-              u.type,
+              s.type,
               o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "WAWebBizRefreshCart: error handling flow, Error Type ",
                     "",
                   ])),
-                JSON.stringify(u.type),
+                JSON.stringify(s.type),
               ),
               r("err")(
                 "refreshCartGraphQL: error handling flow, Error Type " +
-                  JSON.stringify(u.type),
+                  JSON.stringify(s.type),
               )
             );
           },
         );
-        return function (n, r, o, a, i) {
+        return function (n, r, o, a) {
           return t.apply(this, arguments);
         };
       })();
     function u(e) {
       var t,
         n = e.bizJID,
-        r = e.directConnectionEncryptedInfo,
-        a = e.ids,
-        i = e.imageHeight,
-        l = e.imageWidth,
-        u = (t = o("WAWebLidMigrationUtils").toPn(n)) != null ? t : n;
-      return s(u, a, l, i, r);
+        r = e.ids,
+        a = e.imageHeight,
+        i = e.imageWidth,
+        l = (t = o("WAWebLidMigrationUtils").toPn(n)) != null ? t : n;
+      return s(l, r, i, a);
     }
     l.refreshCart = u;
   },

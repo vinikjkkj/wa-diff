@@ -6,7 +6,6 @@ __d(
     "WAWebExperienceIdWamFields",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDownload2WamEvent",
-    "WAWebMmsDownloadUploadCrashLogger",
     "WAWebMmsMediaTypes",
     "WAWebWamEnumConnectionType",
     "WAWebWamEnumMediaDownloadResultType",
@@ -72,11 +71,6 @@ __d(
             (l == null ? void 0 : l.deviceCount) != null &&
               a.set({ deviceCount: l.deviceCount });
           }
-          o("WAWebMmsDownloadUploadCrashLogger").downloadUploadCrashLogger.mark(
-            r,
-            o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-              .DOWNLOAD_STARTED,
-          );
           var s = function (t) {
               var e = t.failCount,
                 n = t.hostClass,
@@ -88,21 +82,13 @@ __d(
               });
             },
             u = function (t) {
-              (a.set({
+              a.set({
                 overallMediaSize: t,
                 overallDownloadResult: o("WAWebWamEnumMediaDownloadResultType")
                   .MEDIA_DOWNLOAD_RESULT_TYPE.OK,
                 overallIsFinal: !0,
                 downloadHttpCode: 200,
-              }),
-                o(
-                  "WAWebMmsDownloadUploadCrashLogger",
-                ).downloadUploadCrashLogger.mark(
-                  r,
-                  o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                    .DOWNLOAD_FINISHED,
-                  { overallMediaSize: t },
-                ));
+              });
             },
             c = function (t, n) {
               var e = o(
@@ -183,7 +169,6 @@ __d(
               a.markDownloadNetworkT();
             };
           return {
-            mediaId: r,
             handleDownloadSuccess: u,
             handleDownloadHostFound: s,
             handleDownloadError: c,

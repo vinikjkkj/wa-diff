@@ -1,28 +1,31 @@
 __d(
   "WAWebMarkPlayedMsgAction",
   [
+    "Promise",
     "WALogger",
     "WAWebAck",
     "WAWebChatThreadLogging",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
-    "WAWebMsgMarkPlayedBridge",
+    "WAWebSendPlayedReceiptJob",
     "WAWebStateUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return d(o("WAWebStateUtils").unproxy(e));
-    }
+    var e, s, u;
     function c(e) {
       return m(o("WAWebStateUtils").unproxy(e));
     }
-    function d(t) {
-      m(t)
-        ? r("WAWebMsgMarkPlayedBridge")(
+    function d(e) {
+      return p(o("WAWebStateUtils").unproxy(e));
+    }
+    function m(t) {
+      p(t)
+        ? (r("WAWebSendPlayedReceiptJob")(
             t,
             o("WAWebFrontendMsgGetters").getChat(t).id,
-          )
+          ),
+          (u || (u = n("Promise")))
+            .resolve()
             .then(function () {
               ((t.ack = o("WAWebAck").ACK.PLAYED),
                 t.isViewOnce &&
@@ -45,7 +48,7 @@ __d(
                     ])),
                 )
                 .sendLogs("mark-played-failed");
-            })
+            }))
         : o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -53,13 +56,13 @@ __d(
               ])),
           );
     }
-    function m(e) {
+    function p(e) {
       return o("WAWebMsgGetters").getIsSentByMe(e) ||
         e.ack >= o("WAWebAck").ACK.PLAYED
         ? !1
         : o("WAWebMsgGetters").getIsAckPlayable(e) || e.isViewOnce;
     }
-    ((l.markPlayed = u), (l.canMarkPlayed = c));
+    ((l.markPlayed = c), (l.canMarkPlayed = d));
   },
   98,
 );

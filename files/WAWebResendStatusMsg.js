@@ -172,15 +172,15 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.deviceMsgType,
-            a = e.msgRecord,
-            i = e.sessionScope;
+            r = e.msgRecord,
+            a = e.sessionScope;
           yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
             identityChanged: !1,
-            sessionScope: i,
+            sessionScope: a,
             wids: [t],
           });
-          var l = a.data.id,
-            s = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+          var i = r.data.id,
+            l = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
           o("WALogger")
             .LOG(
               d ||
@@ -190,16 +190,16 @@ __d(
                   ", count: ",
                   "",
                 ])),
-              l.id,
+              i.id,
               t.toLogString(),
               n.retryCount,
             )
             .tags("messaging");
-          var u = yield r("WAWebUserPrefsStatus").getStatusSkDistribList([t], {
+          var s = yield o("WAWebUserPrefsStatus").getStatusSkDistribList([t], {
               isFullAudience: !1,
             }),
-            c = u.participantList,
-            p = u.skDistribList;
+            u = s.participantList,
+            c = s.skDistribList;
           return (
             o("WALogger").LOG(
               m ||
@@ -208,10 +208,10 @@ __d(
                   " participants=",
                   "",
                 ])),
-              p.length,
               c.length,
+              u.length,
             ),
-            { authorId: s, participantList: c, skDistribList: p }
+            { authorId: l, participantList: u, skDistribList: c }
           );
         })),
         y.apply(this, arguments)

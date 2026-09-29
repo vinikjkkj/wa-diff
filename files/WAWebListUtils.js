@@ -216,7 +216,8 @@ __d(
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.FAVORITES ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.COMMUNITY ||
-        e.filter === o("WAWebChatSearchFilters").SearchFilters.CHANNELS
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.CHANNELS ||
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.TO_YOU
         ? (n = t.get(String(e.filter))) != null
           ? n
           : 0
@@ -232,7 +233,8 @@ __d(
         a = 0,
         i = 0,
         l = 0,
-        s = 0;
+        s = 0,
+        u = 0;
       return (
         t.forEach(function (e) {
           n.set(e.id, 0);
@@ -243,6 +245,9 @@ __d(
             (o("WAWebChatMessageSearch").matchFilter(e, {
               kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
             }) && r++,
+            o("WAWebChatMessageSearch").matchFilter(e, {
+              kind: o("WAWebChatSearchFilters").SearchFilters.TO_YOU,
+            }) && s++,
             o("WAWebChatGetters").getHasUnread(e) &&
               (o("WAWebChatMessageSearch").matchFilter(e, {
                 kind: o("WAWebChatSearchFilters").SearchFilters.GROUP,
@@ -268,7 +273,8 @@ __d(
         n.set(String(e.SearchFilters.GROUP), a),
         n.set(String(e.SearchFilters.FAVORITES), i),
         n.set(String(e.SearchFilters.COMMUNITY), l),
-        n.set(String(e.SearchFilters.CHANNELS), s),
+        n.set(String(e.SearchFilters.CHANNELS), u),
+        n.set(String(e.SearchFilters.TO_YOU), s),
         n
       );
     }

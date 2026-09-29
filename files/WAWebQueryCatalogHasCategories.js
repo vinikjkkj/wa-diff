@@ -20,14 +20,13 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.catalogWid,
-            a = t.directConnectionEncryptedInfo,
-            i = t.imageDimensions,
-            l = i === void 0 ? { width: 100, height: 100 } : i,
-            s = t.sessionId;
+            a = t.imageDimensions,
+            i = a === void 0 ? { width: 100, height: 100 } : a,
+            l = t.sessionId;
           try {
-            var c,
-              d,
-              m = yield o("WAWebRelayClient").fetchQuery(
+            var s,
+              c,
+              d = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryCatalogHasCategoriesQuery.graphql")),
@@ -35,14 +34,13 @@ __d(
                   request: {
                     categories: {
                       biz_jid:
-                        (c = o(
+                        (s = o(
                           "WAWebGetFormattedCatalogJid",
                         ).getFormattedCatalogJid(r)) != null
-                          ? c
+                          ? s
                           : r.toString(),
-                      direct_connection_encrypted_info: a,
-                      image_dimensions: l,
-                      catalog_session_id: s,
+                      image_dimensions: i,
+                      catalog_session_id: l,
                     },
                   },
                 },
@@ -57,14 +55,14 @@ __d(
               );
             return !!(
               !(
-                m == null || (d = m.xwa_product_catalog_get_categories) == null
-              ) && d.categories.length
+                d == null || (c = d.xwa_product_catalog_get_categories) == null
+              ) && c.categories.length
             );
           } catch (e) {
             if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var p = e.source.errors || [],
-                _ = p[0];
-              if ((_ == null ? void 0 : _.code) === 2498052) return !1;
+              var m = e.source.errors || [],
+                p = m[0];
+              if ((p == null ? void 0 : p.code) === 2498052) return !1;
               o(
                 "WAWebMaybeThrowCatalogErrors",
               ).maybeThrowLocalErrorForCatalogQuery(e);

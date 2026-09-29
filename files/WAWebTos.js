@@ -114,6 +114,9 @@ __d(
             var e = new Set(this.$TosManagerImpl$p_1.concat(t));
             this.$TosManagerImpl$p_1 = Array.from(e);
           }),
+          (i.registerDisclosureNoticeIds = function (t) {
+            this.$TosManagerImpl$p_5(t);
+          }),
           (i.getLastAcceptedTime = function (t) {
             var e = this.$TosManagerImpl$p_6(t),
               n = r("WAWebUserPrefsStore").getUser(e);
@@ -190,7 +193,8 @@ __d(
                     ).isNewsletterEnabled() &&
                     !o(
                       "WAWebBusinessBroadcastsGatingUtils",
-                    ).isBizBroadcastSendWebEnabledNoExposure()
+                    ).isBizBroadcastSendWebEnabledNoExposure() &&
+                    this.$TosManagerImpl$p_1.length === 0
                   )
                 ) {
                   try {

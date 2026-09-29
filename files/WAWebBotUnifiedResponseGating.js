@@ -59,23 +59,18 @@ __d(
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ai_rich_response_inline_links_enabled",
+        "meta_ai_in_app_survey_enabled",
       );
     }
     function C() {
       return o("WAWebABProps").getABPropConfigValue(
-        "meta_ai_in_app_survey_enabled",
-      );
-    }
-    function b() {
-      return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_side_by_side_survey_enabled",
       );
     }
-    function v() {
+    function b() {
       return r("gkx")("6940");
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_rich_response_replying_enabled",
       );
@@ -91,11 +86,10 @@ __d(
       (l.isUrBloksEnabled = f),
       (l.isUrZeitgeistCitationsEnabled = g),
       (l.isUrZeitgeistCarouselEnabled = h),
-      (l.isRichResponseInlineLinksEnabled = y),
-      (l.isRichResponseInAppSurveyEnabled = C),
-      (l.isRichResponseSideBySideSurveyEnabled = b),
-      (l.isFoABloksNodeRendererEnabled = v),
-      (l.isReplyToRichResponseEnabled = S));
+      (l.isRichResponseInAppSurveyEnabled = y),
+      (l.isRichResponseSideBySideSurveyEnabled = C),
+      (l.isFoABloksNodeRendererEnabled = b),
+      (l.isReplyToRichResponseEnabled = v));
   },
   98,
 );

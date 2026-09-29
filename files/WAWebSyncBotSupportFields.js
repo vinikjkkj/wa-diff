@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBotStaticProfiles",
+    "WAWebBotTos",
     "WAWebDBBulkPersistProfilePic",
     "WAWebFetchWassBotProfileGQL",
     "WAWebPersistBotProfiles",
@@ -10,13 +11,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (
             (n === void 0 && (n = !0),
             o("WAWebBotStaticProfiles").isStaticProfile(t))
@@ -55,29 +56,45 @@ __d(
               l.type === "exists" &&
               "value" in l
             ) {
-              var u = l.value;
+              var c = l.value;
               yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
-                creatorLid: u.creatorLid,
-                hcaEntrypointId: u.hcaEntrypointId,
-                name: u.name,
-                product: u.product,
-                isDeprecated: u.isDeprecated,
+                creatorLid: c.creatorLid,
+                hcaEntrypointId: c.hcaEntrypointId,
+                groupTosRequirements: c.groupTosRequirements,
+                name: c.name,
+                product: c.product,
+                isDeprecated: c.isDeprecated,
                 isDeleted: !1,
                 lastFetchedTimeMs: Date.now(),
               });
-              var c = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
+              try {
+                yield o("WAWebBotTos").refreshBotTosRequirements(
+                  c.groupTosRequirements,
+                );
+              } catch (e) {
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[syncBotSupportFields] ToS state refresh failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("sbp-sync-tos-refresh-failed");
+              }
+              var d = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
                 t,
-                u.profilePicThumbUrl,
-                u.profilePicFullUrl,
+                c.profilePicThumbUrl,
+                c.profilePicFullUrl,
               );
-              c != null &&
+              d != null &&
                 o("WAWebDBBulkPersistProfilePic")
-                  .persistProfilePicBatched(c)
+                  .persistProfilePicBatched(d)
                   .catch(function (e) {
                     o("WALogger")
                       .WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "[syncBotSupportFields] failed to persist bot profile pic",
                           ])),
                       )
@@ -94,10 +111,12 @@ __d(
               n
                 ? o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
                   (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
+                    groupTosRequirements: null,
                     isDeleted: !0,
                     lastFetchedTimeMs: Date.now(),
                   }))
                 : yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
+                    groupTosRequirements: null,
                     lastFetchedTimeMs: Date.now(),
                   });
               break e;
@@ -109,10 +128,10 @@ __d(
           }
           return i;
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.syncBotSupportFields = u;
+    l.syncBotSupportFields = c;
   },
   98,
 );

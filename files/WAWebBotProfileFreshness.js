@@ -4,7 +4,11 @@ __d(
   function (t, n, r, o, a, i) {
     var e = 864e5;
     function l(t, n, r) {
-      if ((r === void 0 && (r = e), t == null)) return !0;
+      if (
+        (r === void 0 && (r = e),
+        t == null || t.groupTosRequirements === void 0)
+      )
+        return !0;
       var o = t.lastFetchedTimeMs;
       return o == null ? !0 : n - o > r;
     }

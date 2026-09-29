@@ -19,6 +19,7 @@ __d(
     "WAWebContactBlockedErrorAction",
     "WAWebContactCollection",
     "WAWebCreateNackFromStanza",
+    "WAWebDBProcessMessage",
     "WAWebDBUpdateMessageTable",
     "WAWebErrorType",
     "WAWebExternalCtxConfig",
@@ -32,12 +33,14 @@ __d(
     "WAWebMessageCappingWamEvent",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgCollection",
+    "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebMsgUtilsBridge",
     "WAWebNoop",
     "WAWebOutgoingMessageTone",
     "WAWebReactionsBEUtils",
+    "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgJob",
     "WAWebSendMsgMetricReporter",
     "WAWebSendMsgResultAction",
@@ -128,8 +131,8 @@ __d(
             l = r("nullthrows")(i.to),
             f = i.id,
             h = f.remote;
-          (r("WAWebWid").isGroup(l) &&
-            (yield r("WAWebGroupMetadataCollection").find(l)),
+          (r("WAWebWid").isGroup(h) &&
+            (yield r("WAWebGroupMetadataCollection").find(h)),
             t.isTrusted() ||
               r("WAWebSendNotSpamAction")(t).catch(r("WAWebNoop")));
           var y =
@@ -195,22 +198,37 @@ __d(
             };
           }
           var E;
-          return (
-            y ||
-              (E = new (o(
-                "WAWebWebcMessageSendWamEvent",
-              ).WebcMessageSendWamEvent)({
-                messageType: o("WAWebWamMsgUtils").getWamMessageType(i),
-                messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(i),
-                messageIsForward: !!i.isForwarded,
-              })),
+          (y ||
+            (E = new (o(
+              "WAWebWebcMessageSendWamEvent",
+            ).WebcMessageSendWamEvent)({
+              messageType: o("WAWebWamMsgUtils").getWamMessageType(i),
+              messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(i),
+              messageIsForward: !!i.isForwarded,
+            })),
             C ||
               o("WAWebUpdateUnreadChatAction").sendSeen({
                 chat: t,
                 threadId: o("WAWebBotGating").isAiChatThreadsEnabled()
                   ? o("WAWebThreadMsgUtils").getMsgAiThread(i)
                   : void 0,
-              }),
+              }));
+          var k;
+          if (
+            r("WAWebWid").isGroup(h) &&
+            i.messageSecret == null &&
+            o("WAWebSendMsgChatActionUtils").hasGroupAgentParticipant(t)
+          ) {
+            var I = self.crypto.getRandomValues(new Uint8Array(32));
+            e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
+              ? (e.data.set({ messageSecret: I }),
+                yield o("WAWebDBProcessMessage").updateExistingMessages(
+                  [o("WAWebMsgDataFromModel").msgDataFromMsgModel(e.data)],
+                  h,
+                ))
+              : (k = babelHelpers.extends({}, e.data, { messageSecret: I }));
+          }
+          return (
             e.type !== "addon" &&
               i.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT &&
               !C &&
@@ -221,7 +239,10 @@ __d(
               .then(function () {
                 return e.type === "message"
                   ? R(e.data, a)
-                  : o("WAWebAddonSendProcess").sendAddonProcess(e.data, a);
+                  : o("WAWebAddonSendProcess").sendAddonProcess(
+                      k != null ? k : e.data,
+                      a,
+                    );
               })
               .then(
                 (function () {

@@ -84,6 +84,7 @@ __d(
       STICKER_REACTION: 79,
       MUSIC: 80,
       POLL_ADD_OPTION: 81,
+      TEE_TOOL_RESPONSE: 82,
     });
     i.MEDIA_TYPE = e;
   },

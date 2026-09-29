@@ -141,7 +141,7 @@ __d(
           var T,
             x,
             $ = null,
-            P = yield r("WAWebUserPrefsStatus").getStatusList(),
+            P = yield o("WAWebUserPrefsStatus").getStatusList(),
             N = r("compactMap")(P.list, o("WAWebLidMigrationUtils").toUserLid);
           if (
             ((P.list = N.map(function (e) {
@@ -203,7 +203,7 @@ __d(
               O.length,
             ),
               L(O, "deviceList after fanout"));
-            var B = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(O, {
+            var B = yield o("WAWebUserPrefsStatus").getStatusSkDistribList(O, {
                 isFullAudience: x,
               }),
               W = B.participantList,
@@ -324,7 +324,7 @@ __d(
               ),
               yield Z(),
               (l = s.sendPerfReporter) == null || l.postWrittenWireStage(),
-              yield r("WAWebUserPrefsStatus").markStatusHasSenderKey(q));
+              yield o("WAWebUserPrefsStatus").markStatusHasSenderKey(q));
           }
         })),
         k.apply(this, arguments)

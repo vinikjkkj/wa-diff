@@ -127,6 +127,7 @@ __d(
       PCA_WS2_PE_FULL_FORMAT_LIQUIDITY_EXPERIMENT:
         "pca_ws2_pe_full_format_liquidity_experiment",
       PCAU_UNIFIED_FORMAT: "pcau_unified_format",
+      PE_APP_ADS_COTF: "pe_app_ads_cotf",
       PE_DATA_MODEL: "pe_data_model",
       PLAYABLE_APP_ADS: "playable_app_ads",
       QUALITY_PARITY_MEASUREMENT: "quality_parity_measurement",

@@ -11,20 +11,16 @@ __d(
     function u() {
       ((e = null), (l = !1));
     }
-    function c() {
-      (l || (e = null), (l = !1));
+    function c(t) {
+      ((!l || !t) && (e = null), (l = !1));
     }
     function d() {
-      l = !1;
-    }
-    function m() {
       return e;
     }
     ((i.setLobbyEntryPoint = s),
       (i.resetLobbyEntryPoint = u),
       (i.resetLobbyEntryPointOnAccept = c),
-      (i.endLobbyJoinWait = d),
-      (i.getCurrentLobbyEntryPoint = m));
+      (i.getCurrentLobbyEntryPoint = d));
   },
   66,
 );

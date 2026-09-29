@@ -22,7 +22,7 @@ __d(
       s,
       u,
       c = (function (t) {
-        function a() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -33,16 +33,16 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WAWebSyncdConst").Actions.StatusPrivacy;
           }),
-          (i.applyMutations = (function () {
+          (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 if (t.length !== 1)
@@ -62,95 +62,95 @@ __d(
                       };
                     })
                   );
-                var a = t[t.length - 1];
-                if (a.operation === "set")
+                var r = t[t.length - 1];
+                if (r.operation === "set")
                   try {
-                    var i = a.value,
-                      l = i.statusPrivacy;
-                    if (!l)
+                    var a = r.value,
+                      i = a.statusPrivacy;
+                    if (!i)
                       return [
                         o("WAWebSyncdIndexUtils").malformedActionValue(
                           this.collectionName,
                         ),
                       ];
-                    var c = l.mode,
-                      d = l.shareToFb,
-                      m = l.shareToIg,
-                      p = l.userJid;
-                    if (c == null)
+                    var l = i.mode,
+                      c = i.shareToFb,
+                      d = i.shareToIg,
+                      m = i.userJid;
+                    if (l == null)
                       return [
                         o("WAWebSyncdIndexUtils").malformedActionValue(
                           this.collectionName,
                         ),
                       ];
-                    var _ = [],
-                      f,
-                      g = [],
-                      h = [];
+                    var p = [],
+                      _,
+                      f = [],
+                      g = [];
                     e: {
                       if (
-                        c ===
+                        l ===
                         o("WAWebProtobufSyncAction.pb")
                           .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                           .CONTACTS
                       ) {
-                        ((f = o("WAWebUserPrefsStatusType")
+                        ((_ = o("WAWebUserPrefsStatusType")
                           .StatusPrivacySettingType.Contact),
-                          (_ = r(
+                          (p = o(
                             "WAWebUserPrefsStatus",
                           ).calculateStatusPrivacyUpdateEntries({
-                            setting: f,
+                            setting: _,
                           })));
                         break e;
                       }
                       if (
-                        c ===
+                        l ===
                         o("WAWebProtobufSyncAction.pb")
                           .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                           .ALLOW_LIST
                       ) {
-                        ((f = o("WAWebUserPrefsStatusType")
+                        ((_ = o("WAWebUserPrefsStatusType")
                           .StatusPrivacySettingType.AllowList),
-                          (g = p
+                          (f = m
                             .map(o("WAWebWidFactory").createWid)
                             .filter(function (e) {
                               return e.isUser();
                             })),
-                          (_ = r(
+                          (p = o(
                             "WAWebUserPrefsStatus",
                           ).calculateStatusPrivacyUpdateEntries({
-                            setting: f,
-                            allowList: g,
+                            setting: _,
+                            allowList: f,
                           })));
                         break e;
                       }
                       if (
-                        c ===
+                        l ===
                         o("WAWebProtobufSyncAction.pb")
                           .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                           .DENY_LIST
                       ) {
-                        ((f = o("WAWebUserPrefsStatusType")
+                        ((_ = o("WAWebUserPrefsStatusType")
                           .StatusPrivacySettingType.DenyList),
-                          (h = p
+                          (g = m
                             .map(o("WAWebWidFactory").createWid)
                             .filter(function (e) {
                               return e.isUser();
                             })),
-                          (_ = r(
+                          (p = o(
                             "WAWebUserPrefsStatus",
                           ).calculateStatusPrivacyUpdateEntries({
-                            setting: f,
-                            denyList: h,
+                            setting: _,
+                            denyList: g,
                           })));
                         break e;
                       }
                       if (
-                        c ===
+                        l ===
                           o("WAWebProtobufSyncAction.pb")
                             .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                             .CLOSE_FRIENDS ||
-                        c ===
+                        l ===
                           o("WAWebProtobufSyncAction.pb")
                             .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                             .CUSTOM_LIST
@@ -158,45 +158,45 @@ __d(
                         break e;
                       throw Error(
                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          c,
+                          l,
                       );
                     }
-                    var y = [];
+                    var h = [];
                     if (
                       o(
                         "WAWebCrosspostingBackendGatingUtils",
                       ).crosspostSettingsSyncReceiverEnabled()
                     ) {
-                      var C = [];
-                      (d != null &&
-                        C.push(r("WAWebUserPrefsStatus").persistShareToFB(d)),
-                        m != null &&
-                          C.push(r("WAWebUserPrefsStatus").persistShareToIG(m)),
-                        C.length > 0 &&
-                          y.push(
-                            (u || (u = n("Promise"))).all(C).then(function () {
+                      var y = [];
+                      (c != null &&
+                        y.push(o("WAWebUserPrefsStatus").persistShareToFB(c)),
+                        d != null &&
+                          y.push(o("WAWebUserPrefsStatus").persistShareToIG(d)),
+                        y.length > 0 &&
+                          h.push(
+                            (u || (u = n("Promise"))).all(y).then(function () {
                               o(
                                 "WAWebBackendEventBus",
                               ).BackendEventBus.triggerUpdateCrosspostAutoShareSettings(
-                                { shareToFB: d, shareToIG: m },
+                                { shareToFB: c, shareToIG: d },
                               );
                             }),
                           ));
                     }
                     return (
-                      _.length > 0 &&
-                        y.push(
+                      p.length > 0 &&
+                        h.push(
                           o("WAWebUserPrefsIndexedDBStorage")
-                            .userPrefsIdb.bulkSetItemsToIndexedDB(_)
+                            .userPrefsIdb.bulkSetItemsToIndexedDB(p)
                             .then(function () {
                               o(
                                 "WAWebBackendEventBus",
                               ).BackendEventBus.triggerUpdateStatusPrivacySettings(
-                                { setting: f, allowList: g, denyList: h },
+                                { setting: _, allowList: f, denyList: g },
                               );
                             }),
                         ),
-                      yield (u || (u = n("Promise"))).all(y),
+                      yield (u || (u = n("Promise"))).all(h),
                       [
                         {
                           actionState:
@@ -230,12 +230,12 @@ __d(
                 ];
               },
             );
-            function a(e) {
+            function r(e) {
               return t.apply(this, arguments);
             }
-            return a;
+            return r;
           })()),
-          (i.getStatusPrivacySettingMutation = function (t) {
+          (a.getStatusPrivacySettingMutation = function (t) {
             var e = t.list,
               n = t.setting,
               r = t.shareToFB,
@@ -283,7 +283,7 @@ __d(
               },
             });
           }),
-          a
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       d = new c();

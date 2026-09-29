@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipLobbyHeightUtils",
-  ["WAWebTypedEventEmitter"],
+  ["WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -19,7 +19,7 @@ __d(
         MAX_FULLY_VISIBLE_PARTICIPANTS: 3,
         PARTIAL_ROW_VISIBILITY: 0.5,
       },
-      s = new (r("WAWebTypedEventEmitter"))();
+      s = new (r("WAWebEventEmitter"))();
     function u(t, n, r) {
       var o = e.MAX_FULLY_VISIBLE_PARTICIPANTS,
         a = e.PARTIAL_ROW_VISIBILITY,

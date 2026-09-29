@@ -49,6 +49,7 @@ __d(
               (h = self.setTimeout(function () {
                 _ ||
                   (o("WAWebCoreActionsODS").logPageLoadErrorTimeout(),
+                  R(),
                   (_ = !0),
                   o("WAWebCoreActionsODS").markPageLoadComplete());
               }, y))),
@@ -67,37 +68,33 @@ __d(
       if (C()) {
         if (o("WAWebUserPrefsMultiDevice").isRegistered()) {
           var i = o("WAWebEncryptedRid").getEncryptedRid();
-          i != null && I({ encrypted_rid: i });
+          i != null && D({ encrypted_rid: i });
         }
-        var l = "";
-        r("WAWebEnvironment").isWindows
-          ? (l = "win_hybrid")
-          : r("WAWebEnvironment").isWeb && (l = "web");
-        var s = document.referrer;
-        if (r("WAWebEnvironment").isWeb && s != null && s !== "")
+        var l = document.referrer;
+        if (r("WAWebEnvironment").isWeb && l != null && l !== "")
           try {
-            s = new URL(s).hostname;
+            l = new URL(l).hostname;
           } catch (e) {
-            s = "INVALID";
+            l = "INVALID";
           }
-        var u = o("WAWebWaUlCookieUtils").getWaUlCookieIfLoggedOut(),
-          c = u != null ? r("WACyrb53Hash")(u) : null;
-        (I({
+        var s = o("WAWebWaUlCookieUtils").getWaUlCookieIfLoggedOut(),
+          u = s != null ? r("WACyrb53Hash")(s) : null;
+        (D({
           qr_screen: e,
           qr_screen_experience: t != null ? t : -1,
           is_foreground: !document.hidden,
           page_load_id: g,
-          sub_platform: l,
-          referrer: s,
-          random_user_id: c != null ? c : -1,
+          sub_platform: L(),
+          referrer: l,
+          random_user_id: u != null ? u : -1,
           locale: n != null ? n : void 0,
           touch_presence: o(
             "WAWebDeviceFeatures",
           ).getTouchPresenceForTouchOnlyCallers(),
         }),
-          x(),
-          $(),
-          v(D(f)),
+          P(),
+          N(),
+          v($(f)),
           (a = p) == null || a.end(2),
           (p = null),
           new (o("WAWebWebcPageLoad2WamEvent").WebcPageLoad2WamEvent)({
@@ -110,7 +107,7 @@ __d(
             ? o("WAWebCoreActionsODS").logPageLoadSuccessQr()
             : o("WAWebCoreActionsODS").logPageLoadSuccessMain(),
           o("WAWebCoreActionsODS").markPageLoadComplete(),
-          M(),
+          A(),
           o("WAWebABProps").getABPropConfigValue(
             "webc_page_load_early_commit_enabled",
           ) && o("WAWebWamPageLoadReporter").logWamPageLoad(),
@@ -121,12 +118,33 @@ __d(
           }, 1e4));
       }
     }
-    var R = new Set();
-    function L(e) {
-      (C(), b(e + "_start"), R.add(e));
+    function R() {
+      var e;
+      p != null &&
+        (D({
+          is_foreground: !document.hidden,
+          page_load_id: g,
+          sub_platform: L(),
+        }),
+        P(),
+        N(),
+        v($(f)),
+        (e = p) == null || e.end(113),
+        (p = null));
     }
-    function E(t) {
-      if (!R.has(t)) {
+    function L() {
+      return r("WAWebEnvironment").isWindows
+        ? "win_hybrid"
+        : r("WAWebEnvironment").isWeb
+          ? "web"
+          : "";
+    }
+    var E = new Set();
+    function k(e) {
+      (C(), b(e + "_start"), E.add(e));
+    }
+    function I(t) {
+      if (!E.has(t)) {
         o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -137,19 +155,19 @@ __d(
         );
         return;
       }
-      (C(), b(t + "_end"), R.delete(t));
+      (C(), b(t + "_end"), E.delete(t));
     }
-    function k(e) {
+    function T(e) {
       var t = Math.floor(self.performance.now());
-      (N(e, { qpl: t }), C(), b(e, { timestamp: t }));
-    }
-    function I(e) {
-      f = babelHelpers.extends({}, f, e);
-    }
-    function T() {
-      f.socket_error_count++;
+      (w(e, { qpl: t }), C(), b(e, { timestamp: t }));
     }
     function D(e) {
+      f = babelHelpers.extends({}, f, e);
+    }
+    function x() {
+      f.socket_error_count++;
+    }
+    function $(e) {
       var t = {};
       for (var n of Object.keys(e)) {
         var r = e[n];
@@ -162,7 +180,7 @@ __d(
       }
       return t;
     }
-    function x() {
+    function P() {
       var e;
       if (p != null) {
         var t =
@@ -183,12 +201,12 @@ __d(
           b("dom_complete", { timestamp: t.domComplete }));
       }
     }
-    function $() {
+    function N() {
       if (p != null) {
         var e = o("WAWebPageLoadTierStats").getTierStats(),
           t = e[0],
           n = e[1];
-        I(babelHelpers.extends({}, n));
+        D(babelHelpers.extends({}, n));
         for (var r of [
           "tierOne_start",
           "tierTwo_start",
@@ -203,27 +221,27 @@ __d(
           }
       }
     }
-    var P = { wamComplete: !1, qplComplete: !1, timestamps: new Map() };
-    function N(e, t) {
-      var n = P.timestamps.get(e);
-      (n == null && ((n = {}), P.timestamps.set(e, n)),
+    var M = { wamComplete: !1, qplComplete: !1, timestamps: new Map() };
+    function w(e, t) {
+      var n = M.timestamps.get(e);
+      (n == null && ((n = {}), M.timestamps.set(e, n)),
         n.qpl == null && t.qpl != null && (n.qpl = t.qpl),
         n.wam == null && t.wam != null && (n.wam = t.wam));
     }
-    function M() {
-      ((P.qplComplete = !0), B());
+    function A() {
+      ((M.qplComplete = !0), q());
     }
-    function w() {
-      ((P.wamComplete = !0), B());
+    function F() {
+      ((M.wamComplete = !0), q());
     }
-    var A = 20,
-      F = 9e4,
-      O = null;
-    function B() {
-      if (!(P.wamComplete && P.qplComplete)) {
-        O == null &&
-          (O = self.setTimeout(function () {
-            var e = P.wamComplete ? "qpl" : "wam",
+    var O = 20,
+      B = 9e4,
+      W = null;
+    function q() {
+      if (!(M.wamComplete && M.qplComplete)) {
+        W == null &&
+          (W = self.setTimeout(function () {
+            var e = M.wamComplete ? "qpl" : "wam",
               t = "page-load-validation-missing-" + e;
             if (e === "wam") {
               var n = o(
@@ -248,22 +266,22 @@ __d(
                     "ms",
                   ])),
                 e,
-                F,
+                B,
               )
               .sendLogs(t, { sampling: 0.01 });
-          }, F));
+          }, B));
         return;
       }
-      O != null && (self.clearTimeout(O), (O = null));
+      W != null && (self.clearTimeout(W), (W = null));
       var e = !1;
-      for (var t of P.timestamps.entries()) {
+      for (var t of M.timestamps.entries()) {
         var n = t[0],
           r = t[1],
           a = r.qpl,
           i = r.wam;
         a != null &&
           i != null &&
-          Math.abs(a - i) > A &&
+          Math.abs(a - i) > O &&
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -290,23 +308,23 @@ __d(
           )
           .sendLogs("page-load-validation", { sampling: 0.01 });
     }
-    function W() {
+    function U() {
       return null;
     }
-    function q() {
+    function V() {
       o("WAWebPageLoadLogging").setImpl({
         endPageLoadQpl: S,
-        endPageLoadQplMeasure: E,
-        startPageLoadQplMeasure: L,
-        addPageLoadQplPoint: k,
-        addPageLoadQplAnnotation: I,
-        incrementPageLoadQplSocketError: T,
-        addPageLoadValidationData: N,
-        setWamCompleteForValidation: w,
+        endPageLoadQplMeasure: I,
+        startPageLoadQplMeasure: k,
+        addPageLoadQplPoint: T,
+        addPageLoadQplAnnotation: D,
+        incrementPageLoadQplSocketError: x,
+        addPageLoadValidationData: w,
+        setWamCompleteForValidation: F,
         PAGE_LOAD_ID: g,
       });
     }
-    l.setPageLoadLoggingImpl = q;
+    l.setPageLoadLoggingImpl = V;
   },
   98,
 );

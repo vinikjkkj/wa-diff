@@ -1,6 +1,13 @@
 __d(
   "WebAsyncStorage",
-  ["Deferred", "Promise", "err", "mergeDeepInto", "mergeHelpers"],
+  [
+    "Deferred",
+    "Promise",
+    "err",
+    "getErrorSafe",
+    "mergeDeepInto",
+    "mergeHelpers",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -322,7 +329,7 @@ __d(
                   return { success: !0 };
                 })
                 .catch(function (e) {
-                  return { success: !1, error: e };
+                  return { success: !1, error: r("getErrorSafe")(e) };
                 });
         },
       },

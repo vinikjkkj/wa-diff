@@ -149,7 +149,7 @@ __d(
                 o(
                   "WAWebSendTcTokenWhenDeviceIdentityChange",
                 ).sendTcTokenWhenDeviceIdentityChange(n),
-                r("WAWebUserPrefsStatus").markStatusSenderKeyRotate([h]),
+                o("WAWebUserPrefsStatus").markStatusSenderKeyRotate([h]),
                 o(
                   "WAWebBroadcastSenderKeyManager",
                 ).markBroadcastSenderKeyRotateForUser(h),

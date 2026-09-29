@@ -174,7 +174,14 @@ __d(
             var s = yield o(
               "WAWebScheduledMsgRevealKeyStore",
             ).getRevealKeyByRevealKeyId(i);
-            s != null ? yield B(s, l, t, n) : yield q(i, l, n);
+            s != null
+              ? yield B({
+                  mexScheduledTimestampS: t,
+                  receiverEnabled: n,
+                  record: s,
+                  revealKey: l,
+                })
+              : yield q(i, l, n);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -208,44 +215,46 @@ __d(
         );
       }
     }
-    function B(e, t, n, r) {
+    function B(e) {
       return W.apply(this, arguments);
     }
     function W() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (e.senderJid == null) {
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] sender-originated record, skipping (Post handler owns cleanup), msgId=",
-                    "",
-                  ])),
-                e.msgId,
-              );
-              return;
-            }
-            if (!r) {
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] sender-only device with receiver record, skipping",
-                  ])),
-              );
-              return;
-            }
-            (o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][reveal] found matching record status=",
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.mexScheduledTimestampS,
+            n = e.receiverEnabled,
+            r = e.record,
+            a = e.revealKey;
+          if (r.senderJid == null) {
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][mex][reveal] sender-originated record, skipping (Post handler owns cleanup), msgId=",
                   "",
                 ])),
-              e.status,
-            ),
-              yield J(e, t, n));
-          },
-        )),
+              r.msgId,
+            );
+            return;
+          }
+          if (!n) {
+            o("WALogger").LOG(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][mex][reveal] sender-only device with receiver record, skipping",
+                ])),
+            );
+            return;
+          }
+          (o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][reveal] found matching record status=",
+                "",
+              ])),
+            r.status,
+          ),
+            yield J(r, a, t));
+        })),
         W.apply(this, arguments)
       );
     }

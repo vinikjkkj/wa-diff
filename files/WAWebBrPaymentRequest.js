@@ -56,7 +56,9 @@ __d(
           s === e.PAYMENT_LINK &&
           ((o = l.payment_link) == null ? void 0 : o.uri) != null
         )
-          u.uri = l.payment_link.uri;
+          ((u.uri = l.payment_link.uri),
+            typeof l.payment_link.psp == "string" &&
+              (u.psp = l.payment_link.psp));
         else if (
           s === e.OFFSITE_CARD_PAY &&
           ((a = l.offsite_card_pay) == null ? void 0 : a.last_four_digits) !=

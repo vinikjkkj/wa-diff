@@ -1,9 +1,9 @@
 __d(
   "WAWebPdfViewerEventEmitter",
-  ["WAWebTypedEventEmitter"],
+  ["WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new (r("WAWebTypedEventEmitter"))();
+    var e = new (r("WAWebEventEmitter"))();
     function s(t, n) {
       t != null &&
         e.trigger("annotation:command", {
