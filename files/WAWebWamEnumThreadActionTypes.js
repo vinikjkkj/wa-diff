@@ -26,6 +26,7 @@ __d(
       GREETING_RECEIVED: 21,
       CLICK_CHAT_INFO: 22,
       CREATION_SHEET_DISMISSED: 23,
+      TOP_NAV: 24,
     });
     i.THREAD_ACTION_TYPES = e;
   },

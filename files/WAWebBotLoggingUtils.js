@@ -655,12 +655,18 @@ __d(
                                                       ).THREAD_ACTION_TYPES
                                                         .CREATION_SHEET_DISMISSED
                                                     ? "CREATION_SHEET_DISMISSED"
-                                                    : (function () {
-                                                        throw Error(
-                                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                            e,
-                                                        );
-                                                      })();
+                                                    : e ===
+                                                        o(
+                                                          "WAWebWamEnumThreadActionTypes",
+                                                        ).THREAD_ACTION_TYPES
+                                                          .TOP_NAV
+                                                      ? "TOP_NAV"
+                                                      : (function () {
+                                                          throw Error(
+                                                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                              e,
+                                                          );
+                                                        })();
     }
     var v = null;
     function S(e) {

@@ -1,8 +1,13 @@
 __d(
   "WAWebOutContactInviteGatingUtils",
-  ["WAWebOutContactInviteGating", "WAWebOutContactServerSentInviteEligibility"],
+  [
+    "WAWebABProps",
+    "WAWebOutContactInviteGating",
+    "WAWebOutContactServerSentInviteEligibility",
+  ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e = 1;
+    function s() {
       return (
         o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
         (o(
@@ -13,7 +18,7 @@ __d(
           ).isServerSentInviteSenderPushNameEligible())
       );
     }
-    function s(e) {
+    function u(e) {
       return (
         o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
         o(
@@ -21,8 +26,27 @@ __d(
         ).isServerSentInviteEligible(e.phoneNumber)
       );
     }
-    ((l.canShow1to1OutContactsInSession = e),
-      (l.canShowOutContactFor1to1Invite = s));
+    function c(e) {
+      return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
+        ? d()
+        : o(
+            "WAWebOutContactServerSentInviteEligibility",
+          ).areServerSentInvitePrerequisitesMet(e) &&
+            d() &&
+            o(
+              "WAWebOutContactServerSentInviteEligibility",
+            ).isServerSentInviteAbPropEnabled();
+    }
+    function d() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "non_wa_contact_invite_cta_enabled",
+        ) === e
+      );
+    }
+    ((l.canShow1to1OutContactsInSession = s),
+      (l.canShowOutContactFor1to1Invite = u),
+      (l.isContactEditInviteCtaEnabled = c));
   },
   98,
 );

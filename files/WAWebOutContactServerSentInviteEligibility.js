@@ -13,52 +13,55 @@ __d(
       s = 1,
       u = "US";
     function c(e) {
-      return p() && g() && h(e) && y();
+      return d(e) && C();
     }
-    var d = null;
-    function m() {
-      d = null;
+    function d(e) {
+      return _() && h() && y(e);
     }
+    var m = null;
     function p() {
+      m = null;
+    }
+    function _() {
       var e;
-      if (d != null) return d;
+      if (m != null) return m;
       var t =
         (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
           ? void 0
           : e.user;
       if (t == null) return !1;
-      var n = b(t);
-      return ((d = n), n);
+      var n = v(t);
+      return ((m = n), n);
     }
-    var _ = null;
-    function f() {
-      _ = null;
-    }
+    var f = null;
     function g() {
-      if (_ != null) return _;
+      f = null;
+    }
+    function h() {
+      if (f != null) return f;
       var e = o("WAWebUserPrefsGeneral").getPushname();
       if (e == null || e === "") return !1;
-      var t = C(e);
-      return (t && (_ = t), t);
+      var t = b(e);
+      return (t && (f = t), t);
     }
-    function h(e) {
-      return b(e);
+    function y(e) {
+      return v(e);
     }
-    function y() {
+    function C() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "server_sent_invites_web_enabled",
         ) === s
       );
     }
-    function C(e) {
+    function b(e) {
       for (var t = 0; t < e.length; t++) {
         var n = e.charCodeAt(t);
         if (n < 32 || n > 126) return !1;
       }
       return !0;
     }
-    function b(t) {
+    function v(t) {
       try {
         return o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(t) === u;
       } catch (t) {
@@ -77,12 +80,13 @@ __d(
       }
     }
     ((l.isServerSentInviteEligible = c),
-      (l.clearIsServerSentInviteSenderEligibleCacheForTest = m),
-      (l.isServerSentInviteSenderEligible = p),
-      (l.clearIsServerSentInviteSenderPushNameEligibleCacheForTest = f),
-      (l.isServerSentInviteSenderPushNameEligible = g),
-      (l.isServerSentInviteReceiverEligible = h),
-      (l.isServerSentInviteAbPropEnabled = y));
+      (l.areServerSentInvitePrerequisitesMet = d),
+      (l.clearIsServerSentInviteSenderEligibleCacheForTest = p),
+      (l.isServerSentInviteSenderEligible = _),
+      (l.clearIsServerSentInviteSenderPushNameEligibleCacheForTest = g),
+      (l.isServerSentInviteSenderPushNameEligible = h),
+      (l.isServerSentInviteReceiverEligible = y),
+      (l.isServerSentInviteAbPropEnabled = C));
   },
   98,
 );

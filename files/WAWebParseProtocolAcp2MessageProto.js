@@ -13,45 +13,56 @@ __d(
     function e(e) {
       var t = e.baseMessage,
         n = e.messageProtobuf,
-        r = o(
+        r = e.msgContext,
+        a = o(
           "WAWebParseLimitSharingHistorySyncProto",
         ).getAcp2EnvelopeFromProtobuf(n);
       if (
         !(
-          (r == null ? void 0 : r.type) !==
+          (a == null ? void 0 : a.type) !==
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-              .ACP2_SETTING || !(r != null && r.acp2Setting)
+              .ACP2_SETTING || !(a != null && a.acp2Setting)
         )
       ) {
-        var a = r.acp2Setting;
+        var i = a.acp2Setting;
         if (
           !t.id.remote.isUser() ||
           !o("WAWebLimitSharingGatingUtils").isAcp2Enabled()
         )
-          return {
-            msgData: babelHelpers.extends({}, t, {
-              type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
-              subtype: "acp2_system_message",
-              kind: "protocol",
-              viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-            }),
-            contextInfo: void 0,
-          };
-        var i = o(
+          return s(t, r)
+            ? {
+                msgData: babelHelpers.extends({}, t, {
+                  type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+                  kind: "unknown",
+                  futureproofType: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+                  futureproofSubtype: "acp2_system_message",
+                }),
+                contextInfo: void 0,
+              }
+            : {
+                msgData: babelHelpers.extends({}, t, {
+                  type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
+                  subtype: "acp2_system_message",
+                  kind: "protocol",
+                  viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+                }),
+                contextInfo: void 0,
+              };
+        var l = o(
             "WAWebParseLimitSharingHistorySyncProto",
           ).getAcp2SettingFromEnvelope(
-            a,
+            i,
             o("WAWebWidFactory").createWid(t.from.toString()),
           ),
-          l = i.enabled;
+          u = l.enabled;
         return (
-          l != null &&
+          u != null &&
             o("WAWebLimitSharingPairDedup").recordAcp2ProtocolMessage(
               t.id.remote.toString(),
               {
-                enabled: l,
+                enabled: u,
                 fromMe: t.id.fromMe,
-                settingTimestamp: i.settingTimestamp,
+                settingTimestamp: l.settingTimestamp,
               },
             ),
           {
@@ -59,12 +70,19 @@ __d(
               type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
               subtype: "acp2_system_message",
               kind: "protocol",
-              acp2Setting: i,
+              acp2Setting: l,
             }),
             contextInfo: void 0,
           }
         );
       }
+    }
+    function s(e, t) {
+      return (
+        e.id.remote.isUser() &&
+        t === "relay" &&
+        o("WAWebLimitSharingGatingUtils").isAcp2FutureproofEnabled()
+      );
     }
     l.default = e;
   },

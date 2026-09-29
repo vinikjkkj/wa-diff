@@ -8,6 +8,7 @@ __d(
     "WAWebMexCreateInviteCodeJob",
     "WAWebMexGroupStoreAndSendInviteSmsJob",
     "WAWebOutContactInviteConfirmDialog.react",
+    "WAWebOutContactInviteFailureDialog.react",
     "WAWebOutContactInviteGating",
     "WAWebOutContactInviteJourney",
     "WAWebOutContactInviteUtils",
@@ -27,37 +28,38 @@ __d(
       c,
       d,
       m,
-      p = m || (m = o("react"));
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
+      p,
+      _ = p || (p = o("react"));
+    function f(e, t, n, r) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            return y(e, t, !0, n, r);
+            return C(e, t, !0, n, r);
           },
         )),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return y(e, t, !1, n);
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return C(e, t, !1, n);
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t, n, r, o) {
-      return C.apply(this, arguments);
+    function C(e, t, n, r, o) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             var i = o("WAWebPhoneNumberSearch").stripInvisibleChars(e);
             if (
@@ -91,105 +93,150 @@ __d(
               ).waitForOutContactInviteConfirmDialog(r != null ? r : i, i);
               if (!s) return !1;
             }
-            return (a == null || a(), l ? b(i, t) : L(i, t));
+            return (a == null || a(), l ? v(i, t, r != null ? r : i) : I(i, t));
           },
         )),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t, n) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n, r;
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r, a;
           try {
-            r = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+            a = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
               e,
               t.toString(),
               !0,
             );
-          } catch (n) {
-            return S(e, t, String(n));
+          } catch (r) {
+            return R(e, t, String(r), n);
           }
-          var a =
-              ((n = r) == null ? void 0 : n.errorReason) != null &&
-              r.errorReason !== ""
-                ? r.errorReason
+          var i =
+              ((r = a) == null ? void 0 : r.errorReason) != null &&
+              a.errorReason !== ""
+                ? a.errorReason
                 : null,
-            i = r != null && (r.code == null || r.code === "") && a == null;
-          return i
-            ? (o("WAWebToastManager").ToastManager.open(
-                p.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Invite sent"),
-                }),
-              ),
-              o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
-                entryPoint: t,
-                isServerSentInvite: !0,
-                validInviteCode: !0,
-              }),
-              o("WAWebOutContactInviteJourney").clearOutContactInviteJourney(),
-              !0)
-            : S(
-                e,
-                t,
-                a != null
-                  ? a
-                  : r == null
-                    ? "missing server response"
-                    : "invite code returned",
-              );
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+            l = a != null && (a.code == null || a.code === "") && i == null;
+          if (!l) {
+            var u;
+            return R(
+              e,
+              t,
+              i != null
+                ? i
+                : a == null
+                  ? "missing server response"
+                  : "invite code returned",
+              n,
+              (u = a) == null ? void 0 : u.code,
+            );
+          }
           return (
-            o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[out-contact-invite] Server-sent invite unsuccessful: ",
-                    "",
-                  ])),
-                n,
-              )
-              .sendLogs("out-contact-server-sent-invite-failed"),
-            o("WAWebOutContactInviteGating").isNativeSmsFallbackAvailable()
-              ? L(e, t, n)
-              : (o("WAWebToastManager").ToastManager.open(
-                  p.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Could not send invite"),
-                  }),
-                ),
-                o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
-                  entryPoint: t,
-                  inviteCodeError: n,
-                  isServerSentInvite: !0,
-                  validInviteCode: !1,
-                }),
-                o(
-                  "WAWebOutContactInviteJourney",
-                ).clearOutContactInviteJourney(),
-                !1)
+            o("WAWebToastManager").ToastManager.open(
+              _.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(/*BTDS*/ "Invite sent"),
+              }),
+            ),
+            o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+              entryPoint: t,
+              isServerSentInvite: !0,
+              validInviteCode: !0,
+            }),
+            o("WAWebOutContactInviteJourney").clearOutContactInviteJourney(),
+            !0
           );
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function R(e, t, n, r, o) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            if (
+              (o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[out-contact-invite] Server-sent invite unsuccessful: ",
+                      "",
+                    ])),
+                  n,
+                )
+                .sendLogs("out-contact-server-sent-invite-failed"),
+              o("WAWebOutContactInviteGating").isNativeSmsFallbackAvailable())
+            )
+              return I(e, t, n);
+            var i = yield E(e, t, a);
+            return (
+              o(
+                "WAWebOutContactInviteFailureDialog.react",
+              ).showOutContactInviteFailureDialog(r, i),
+              o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+                entryPoint: t,
+                inviteCodeError: n,
+                isServerSentInvite: !0,
+                validInviteCode: !1,
+              }),
+              o("WAWebOutContactInviteJourney").clearOutContactInviteJourney(),
+              !1
+            );
+          },
+        )),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t, n) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (n != null && n !== "")
+            return o("WAWebOutContactInviteUtils").getInviteUrl(n);
+          try {
+            var r = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+              e,
+              t.toString(),
+              !1,
+            );
+            return o("WAWebOutContactInviteUtils").getInviteUrl(
+              r == null ? void 0 : r.code,
+            );
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[out-contact-invite] Could not generate recovery invite link: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs(
+                  "out-contact-server-sent-invite-recovery-link-failed",
+                ),
+              o("WAWebOutContactInviteUtils").getInviteUrl()
+            );
+          }
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(e, t, n) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
             a = !1,
             i = n;
@@ -208,15 +255,15 @@ __d(
               : (r = o("WAWebOutContactInviteUtils").getInviteMessageText());
           } catch (e) {
             (o("WALogger").ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[out-contact-invite] MEX invite failed, fallback: ",
                   "",
                 ])),
               e,
             ),
               o("WAWebToastManager").ToastManager.open(
-                p.jsx(o("WAWebToast.react").Toast, {
+                _.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ "Could not generate invite link. Sending with default link.",
                   ),
@@ -232,26 +279,26 @@ __d(
           }),
             o("WAWebOutContactInviteJourney").clearOutContactInviteJourney());
           var c = encodeURIComponent(r),
-            m = window.open("sms:+" + e + "?body=" + c);
-          return (k(m == null), m != null);
+            d = window.open("sms:+" + e + "?body=" + c);
+          return (D(d == null), d != null);
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(e) {
+    function D(e) {
       e &&
         o("WAWebToastManager").ToastManager.open(
-          p.jsx(o("WAWebToast.react").Toast, {
+          _.jsx(o("WAWebToast.react").Toast, {
             msg: s._(/*BTDS*/ "Could not open SMS app"),
           }),
         );
     }
-    function I(e, t, n, r) {
+    function x(e, t, n, r) {
       return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
-        ? T(e, t, n, r)
+        ? $(e, t, n, r)
         : !1;
     }
-    function T(e, t, n, r) {
+    function $(e, t, n, r) {
       var a = e
         .map(function (e) {
           return o("WAWebPhoneNumberSearch").stripInvisibleChars(e);
@@ -279,14 +326,14 @@ __d(
           })
           .join(","),
         c = window.open("sms://open?addresses=" + u + "&body=" + l);
-      return (k(c == null), c != null);
+      return (D(c == null), c != null);
     }
-    function D(e, t, n) {
-      return x.apply(this, arguments);
+    function P(e, t, n) {
+      return N.apply(this, arguments);
     }
-    function x() {
+    function N() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = e
             .map(function (e) {
               return o("WAWebPhoneNumberSearch").stripInvisibleChars(e);
@@ -301,7 +348,7 @@ __d(
               "WAWebGroupServerSentInviteEligibility",
             ).isGroupServerSentInviteEligible(r)
           )
-            return I(r, t, n);
+            return x(r, t, n);
           var a = r[0],
             i = o(
               "WAWebOutContactInviteJourney",
@@ -325,7 +372,7 @@ __d(
           }
           return l
             ? (o("WAWebToastManager").ToastManager.open(
-                p.jsx(o("WAWebToast.react").Toast, {
+                _.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Invite sent"),
                 }),
               ),
@@ -336,12 +383,12 @@ __d(
               }),
               o("WAWebOutContactInviteJourney").clearOutContactInviteJourney(),
               !0)
-            : $(r, t, n, i, u);
+            : M(r, t, n, i, u);
         })),
-        x.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function $(t, n, r, a, i) {
+    function M(t, n, r, a, i) {
       return (
         o("WALogger")
           .ERROR(
@@ -354,9 +401,9 @@ __d(
           )
           .sendLogs("out-contact-group-server-sent-invite-failed"),
         o("WAWebOutContactInviteGating").isNativeSmsFallbackAvailable()
-          ? T(t, n, r, i)
+          ? $(t, n, r, i)
           : (o("WAWebToastManager").ToastManager.open(
-              p.jsx(o("WAWebToast.react").Toast, {
+              _.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Could not send invite"),
               }),
             ),
@@ -370,10 +417,10 @@ __d(
             !1)
       );
     }
-    ((l.sendInvite = _),
-      (l.sendDeactivatedUserInvite = g),
-      (l.sendMultiGroupInvite = I),
-      (l.sendServerSentGroupInvite = D));
+    ((l.sendInvite = f),
+      (l.sendDeactivatedUserInvite = h),
+      (l.sendMultiGroupInvite = x),
+      (l.sendServerSentGroupInvite = P));
   },
   226,
 );

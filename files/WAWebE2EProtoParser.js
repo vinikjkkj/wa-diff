@@ -655,46 +655,44 @@ __d(
             .sendLogs("parse-group-status-message-skipped");
     }
     function w(e, t, n) {
-      var a, i, l, s, u, c, d;
+      var a, i, l, s;
       if (t) {
         t.messageSecret != null &&
           n !== "quoted" &&
           n !== "history_quoted" &&
           (e.messageSecret = new Uint8Array(t.messageSecret));
-        var m =
-          o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
-          !(
-            ((a = e.id) != null && (a = a.participant) != null && a.isBot()) ||
-            ((i = e.id) != null && (i = i.remote) != null && i.isBot())
-          ) &&
+        var u =
+          ((a = e.id) == null || (a = a.participant) == null
+            ? void 0
+            : a.isBot()) === !0 ||
+          ((i = e.id) == null || (i = i.remote) == null
+            ? void 0
+            : i.isBot()) === !0;
+        if (
+          (u
+            ? o("WAWebBotMetadataProtoUtils").parseBotMetadataProto(e, t)
+            : A(e.id, t) &&
+              o("WAWebBotMetadataProtoUtils").parseBotMetadataProto(e, t, !0),
           (t == null || (l = t.botMetadata) == null
             ? void 0
-            : l.botGroupMetadata) != null;
-        if (
-          ((((s = e.id) != null && (s = s.participant) != null && s.isBot()) ||
-            ((u = e.id) != null && (u = u.remote) != null && u.isBot()) ||
-            m) &&
-            o("WAWebBotMetadataProtoUtils").parseBotMetadataProto(e, t, m),
-          (t == null || (c = t.botMetadata) == null
-            ? void 0
-            : c.verificationMetadata) != null &&
+            : l.verificationMetadata) != null &&
             (e.botSignatureVerificationMetadata =
               t.botMetadata.verificationMetadata),
           r("WAWebWid").isCAPISupportAccount(
-            e == null || (d = e.id) == null ? void 0 : d.remote,
+            e == null || (s = e.id) == null ? void 0 : s.remote,
           ) && (t == null ? void 0 : t.supportPayload) != null)
         ) {
-          var p = JSON.parse(t.supportPayload);
+          var c = JSON.parse(t.supportPayload);
           if (
-            (p.should_show_system_message != null &&
+            (c.should_show_system_message != null &&
               (e.shouldShowSupportAISystemMessage =
-                p.should_show_system_message),
-            p.is_ai_message != null &&
+                c.should_show_system_message),
+            c.is_ai_message != null &&
               o("WAWebABPropsSaga").getIsSagaProtobufAIStardustEnabled() &&
-              (e.isSupportAIMessage = p.is_ai_message),
-            Array.isArray(p.citation_items) &&
-              p.citation_items.length > 0 &&
-              (e.supportCitations = p.citation_items.map(function (e) {
+              (e.isSupportAIMessage = c.is_ai_message),
+            Array.isArray(c.citation_items) &&
+              c.citation_items.length > 0 &&
+              (e.supportCitations = c.citation_items.map(function (e) {
                 return {
                   title: e.title,
                   subtitle: e.subtitle,
@@ -702,29 +700,29 @@ __d(
                   imageUrl: e.image_url,
                 };
               })),
-            p.should_upload_client_logs === !0 &&
+            c.should_upload_client_logs === !0 &&
               o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled())
           )
-            if (p.ticket_id != null && p.ticket_id !== "no_ticket_created") {
-              var _ = 864e5;
+            if (c.ticket_id != null && c.ticket_id !== "no_ticket_created") {
+              var d = 864e5;
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
                     "InAppSupport: Uploading logs for ticketId=",
                     "",
                   ])),
-                p.ticket_id,
+                c.ticket_id,
               );
-              var f = {
+              var m = {
                 reason: o("WAWebCrashlog").SERVER_REQUESTED,
                 immediate: !0,
                 isHighPri: !0,
                 logType: o("WAWebCrashlog").LogType.SUPPORT,
-                ticketId: p.ticket_id,
-                fromTimestamp: Date.now() - _,
+                ticketId: c.ticket_id,
+                fromTimestamp: Date.now() - d,
               };
               o("WAWebCrashlog")
-                .upload(f)
+                .upload(m)
                 .then(function (e) {
                   e == null
                     ? o("WALogger").LOG(
@@ -733,7 +731,7 @@ __d(
                             "InAppSupport: Logs upload failed for ticketId=",
                             "",
                           ])),
-                        p.ticket_id,
+                        c.ticket_id,
                       )
                     : o("WALogger").LOG(
                         C ||
@@ -742,7 +740,7 @@ __d(
                             ", logsId=",
                             "",
                           ])),
-                        p.ticket_id,
+                        c.ticket_id,
                         e,
                       );
                 });
@@ -768,6 +766,21 @@ __d(
             "WAWebThreadsMetadataProtoUtils",
           ).maybeAddHistoricalAiThreadForMetaAi(e, n));
       }
+    }
+    function A(e, t) {
+      var n,
+        r,
+        a,
+        i = (n = t.botMetadata) == null ? void 0 : n.botGroupMetadata;
+      if (i == null) return !1;
+      var l = (r = i.participantsMetadata) != null ? r : [];
+      return (
+        (e == null || (a = e.remote) == null ? void 0 : a.isGroup()) === !0 &&
+        o("WAWebBotMetadataProtoUtils").hasGroupBotMetadata(
+          l,
+          o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled,
+        )
+      );
     }
     ((l.parseMsgProto = S),
       (l.parseContextInfo = D),

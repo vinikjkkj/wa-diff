@@ -16,7 +16,7 @@ __d(
                 : e;
     }
     function s(t) {
-      var n;
+      var n, r;
       return t == null
         ? { type: "deleted" }
         : {
@@ -24,7 +24,9 @@ __d(
             value: {
               creatorLid: u(t.creator_lid),
               hcaEntrypointId: u(t.hca_entrypoint_id),
-              isDeprecated: (n = t.is_deprecated) != null ? n : null,
+              groupTosRequirements:
+                t.tos == null ? null : (n = t.tos.group) != null ? n : [],
+              isDeprecated: (r = t.is_deprecated) != null ? r : null,
               name: u(t.name),
               product: e(t.product),
               profilePicThumbUrl: u(t.profile_pic_thumb_url),

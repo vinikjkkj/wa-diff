@@ -20,6 +20,9 @@ __d(
       UNKNOWN: 19,
       WAG: 20,
       CARPLAY: 21,
+      KITEFIN_M: 22,
+      KITEFIN_B: 23,
+      ORCA: 24,
     });
     i.PERIPHERAL_DEVICE_TYPE = e;
   },

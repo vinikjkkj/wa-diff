@@ -12,6 +12,7 @@ __d(
     "VirtualMessageChannel",
     "WorkerMessagePort",
     "err",
+    "getErrorSafe",
     "promiseDone",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -249,13 +250,14 @@ __d(
                     ? i.push({ message: a, transferList: l })
                     : o.postMessage(a, l)),
                 s.catch(function (e) {
+                  var n = r("getErrorSafe")(e);
                   r("FBLogger")("worker")
-                    .catching(e)
+                    .catching(n)
                     .mustfix(
                       "Error: channel %s, remote call of %s returned error %s",
                       t.name,
                       a.method,
-                      e.message,
+                      n.message,
                     );
                 }),
                 s

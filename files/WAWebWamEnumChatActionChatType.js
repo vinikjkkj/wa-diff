@@ -9,6 +9,7 @@ __d(
       BROADCAST_LIST: 4,
       CHANNEL: 5,
       META_AI: 6,
+      META_AI_THREAD: 7,
     });
     i.CHAT_ACTION_CHAT_TYPE = e;
   },

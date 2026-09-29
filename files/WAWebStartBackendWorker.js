@@ -686,8 +686,11 @@ __d(
         ]);
       return (
         a.setNamespaceHandler("event", function (e, t, n) {
-          (new Set(["updateChatLimitSharing", "chatCollectionAdd"]).has(e) &&
-            o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+          (new Set([
+            "updateChatLimitSharing",
+            "updateChatAcp2Setting",
+            "chatCollectionAdd",
+          ]).has(e) && o("WAWebApiHydrateWidsUtil").hydrateWids(t),
             n
               ? n(o("WAWebBackendApi").frontendSendAndReceive(e, t))
               : o("WAWebBackendApi").frontendFireAndForget(e, t));

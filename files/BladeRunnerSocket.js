@@ -348,7 +348,7 @@ __d(
                 };
               }
               (this.$7.publish(c, a, s).catch(function (t) {
-                e.$22(n, t, "Failed publishing to MQTT");
+                e.$22(n, r("getErrorSafe")(t), "Failed publishing to MQTT");
               }),
                 r("BladeRunnerLogger").bumpCounter("mqtt_publish_success"));
             } catch (e) {

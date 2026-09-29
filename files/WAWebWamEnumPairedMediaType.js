@@ -11,6 +11,8 @@ __d(
       MOTION_PHOTO_CHILD: 5,
       HEVC_VIDEO_PARENT: 6,
       HEVC_VIDEO_CHILD: 7,
+      AV1_VIDEO_PARENT: 8,
+      AV1_VIDEO_CHILD: 9,
     });
     i.PAIRED_MEDIA_TYPE = e;
   },

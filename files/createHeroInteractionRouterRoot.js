@@ -9,6 +9,7 @@ __d(
     "NavigationTracing",
     "promiseDone",
     "react",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -28,8 +29,9 @@ __d(
       var n = null,
         a = null;
       function l(e) {
-        var t = e.promise,
-          n = m(!0),
+        var t = e.promise;
+        r("vulture")("R9s63il61FRGmFtvfaEGGjMC_tw=");
+        var n = m(!0),
           o = n[0],
           a = n[1];
         return (
@@ -57,11 +59,9 @@ __d(
       }
       l.displayName = l.name + " [from " + i.id + "]";
       function s(e) {
-        var t,
-          o,
-          i,
-          s,
-          c = m({
+        var t, o, i, s;
+        r("vulture")("JHIwsoEJXjZ058m3EvvJBiKHZ_c=");
+        var c = m({
             interactionID: (t = a) == null ? void 0 : t.interactionID,
             tracePolicy:
               (o = (i = a) == null ? void 0 : i.tracePolicy) != null

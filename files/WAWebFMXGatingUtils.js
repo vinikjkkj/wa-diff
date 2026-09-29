@@ -3,9 +3,6 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebABProps").getABPropConfigValue("fmx_ctwa_kill_switch");
-    }
-    function s() {
       return (
         o("WAWebABProps").getABPropConfigValue("is_expand_fmx_mex_enabled") ||
         o("WAWebABProps").getABPropConfigValue(
@@ -13,7 +10,7 @@ __d(
         )
       );
     }
-    function u() {
+    function s() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_enabled_non_auto_expose",
@@ -23,7 +20,7 @@ __d(
         )
       );
     }
-    function c() {
+    function u() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_enabled_non_auto_expose",
@@ -33,12 +30,12 @@ __d(
         )
       );
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "fmx_persistent_country_trust_signal_enabled",
       );
     }
-    function m() {
+    function d() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_enabled_non_auto_expose",
@@ -48,12 +45,11 @@ __d(
         )
       );
     }
-    ((l.fmxCTWAKillSwitchEnabled = e),
-      (l.isExpandFmxMexEnabled = s),
-      (l.isExpandFmxAccountAgeUiEnabled = u),
-      (l.isSuspiciousFmxEnabled = c),
-      (l.isFmxPersistentCountryTrustSignalEnabled = d),
-      (l.isExpandFmxAccountAgeBoldedEnabled = m));
+    ((l.isExpandFmxMexEnabled = e),
+      (l.isExpandFmxAccountAgeUiEnabled = s),
+      (l.isSuspiciousFmxEnabled = u),
+      (l.isFmxPersistentCountryTrustSignalEnabled = c),
+      (l.isExpandFmxAccountAgeBoldedEnabled = d));
   },
   98,
 );

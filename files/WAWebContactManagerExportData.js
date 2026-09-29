@@ -50,6 +50,7 @@ __d(
         acquisitionSource: e.acquisitionSource,
         notes: (t = i == null ? void 0 : i.content) != null ? t : null,
         birthday: e.birthday,
+        birthdayIso: e.birthdayIso,
         lastOrder: e.lastOrder,
         lastMessage:
           (n =

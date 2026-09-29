@@ -35,13 +35,21 @@ __d(
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _ = 400,
+      f = 403;
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
             "WAWebBotGroupGatingUtils",
           ).isOpenGroupBotParticipantAddEnabled();
@@ -60,15 +68,19 @@ __d(
             if (
               !t &&
               n instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-              n.statusCode === 403
+              (n.statusCode === _ || n.statusCode === f)
             )
               return (
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "groupQueryJob: bot-inclusive query forbidden, retrying standard query",
-                    ])),
-                ),
+                o("WALogger")
+                  .LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "groupQueryJob: bot-inclusive query unavailable (",
+                        "), retrying standard query",
+                      ])),
+                    n.statusCode,
+                  )
+                  .sendLogs("group-info-bot-query-fallback"),
                 o("WAWebMexFetchGroupInfoJob").mexGetGroupInfo(
                   babelHelpers.extends({}, e),
                 )
@@ -76,10 +88,10 @@ __d(
             throw n;
           }
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(t, a) {
+    function y(t, a) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "queryGroup",
@@ -101,26 +113,26 @@ __d(
                 { status: "terminated_local" }
               );
             var m = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-              f = { groupId: t.toString(), queryContext: a };
+              _ = { groupId: t.toString(), queryContext: a };
             if (
               (d == null ? void 0 : d.hasIncompleteParticipantInformation) ===
                 !0 &&
               m
             )
-              f.queryContext = "missing_participant_identification";
+              _.queryContext = "missing_participant_identification";
             else if (a === "enter_group_info") {
-              var g = yield o(
+              var f = yield o(
                 "WAWebDBGroupParticipant",
               ).computeGroupParticipantsHash(t);
-              g != null && (f.participantsPhash = g);
+              f != null && (_.participantsPhash = f);
             }
-            var y = Date.now(),
-              C = null;
+            var h = Date.now(),
+              y = null;
             try {
-              C = yield _(f);
+              y = yield g(_);
             } catch (e) {
               if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-                if ((yield h(t, e), e.statusCode === 404))
+                if ((yield C(t, e), e.statusCode === 404))
                   return { status: "terminated" };
                 if (e.statusCode === 403) return { status: "not_member" };
               }
@@ -136,14 +148,14 @@ __d(
                 e
               );
             }
-            var b = (i = C) == null ? void 0 : i.groupInfo;
+            var b = (i = y) == null ? void 0 : i.groupInfo;
             if (b == null)
               throw r("err")(
                 "groupQueryJob: group " +
                   t.toString() +
                   " returned empty response",
               );
-            var v = ((l = C) == null ? void 0 : l.participantPhashMatch) === !0,
+            var v = ((l = y) == null ? void 0 : l.participantPhashMatch) === !0,
               S = b,
               R = S.creatorPn,
               L = S.creatorUsername,
@@ -322,7 +334,7 @@ __d(
               ).genAcp2SystemMessageOnPersistedChat({
                 chatWID: t,
                 enabled: A.acp2Enabled,
-                snapshotRequestedAtMs: y,
+                snapshotRequestedAtMs: h,
               }),
               { status: "success", groupInfo: b }
             );
@@ -333,12 +345,12 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -450,12 +462,12 @@ __d(
             throw t;
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.fetchGroupInfoWithBotFallback = _),
-      (l.queryGroupJob = g),
-      (l.handleGroupInfoError = h));
+    ((l.fetchGroupInfoWithBotFallback = g),
+      (l.queryGroupJob = y),
+      (l.handleGroupInfoError = C));
   },
   98,
 );

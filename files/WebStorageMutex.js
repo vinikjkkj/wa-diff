@@ -23,13 +23,13 @@ __d(
       var n = t.prototype;
       return (
         (n.$2 = function () {
-          var e = d();
-          if (!e) return c;
-          var t = e.getItem("mutex_" + this.name);
-          return (
-            (t = (t != null ? t : "").split(":")),
-            t && parseInt(t[1], 10) >= Date.now() ? t[0] : null
-          );
+          var e,
+            t = d();
+          if (!t) return c;
+          var n = (
+            (e = t.getItem("mutex_" + this.name)) != null ? e : ""
+          ).split(":");
+          return n && parseInt(n[1], 10) >= Date.now() ? n[0] : null;
         }),
         (n.$3 = function (n) {
           var t = d();

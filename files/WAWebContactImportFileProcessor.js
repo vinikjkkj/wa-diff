@@ -327,6 +327,7 @@ __d(
       return e.map(function (e) {
         return {
           errorType: e.errorType,
+          parsedContact: e.parsedContact,
           rowData: e.rowData || {},
           rowIndex: typeof e.rowIndex == "number" ? e.rowIndex : 0,
         };
@@ -366,11 +367,19 @@ __d(
                 l.push({
                   errorType: o("WAWebContactImportTypedError").PhoneError
                     .NOT_WHATSAPP_USER,
-                  rowData: {
+                  parsedContact: {
                     firstName: t.firstName,
                     lastName: t.lastName,
                     phone: t.phone,
                   },
+                  rowData:
+                    t.rawRow != null
+                      ? babelHelpers.extends({}, t.rawRow)
+                      : {
+                          firstName: t.firstName,
+                          lastName: t.lastName,
+                          phone: t.phone,
+                        },
                   rowIndex: t.rowIndex,
                 });
             }),

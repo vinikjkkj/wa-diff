@@ -28,21 +28,22 @@ __d(
           l = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
             e.phone,
           ),
-          s = a != null && (a === e.phone.trim() || a === l),
-          u = !t && !s,
-          c = u && a != null && a !== "" ? a : null,
-          d = u && i != null && i !== "" ? i : null;
+          s = function (n) {
+            return n != null && (n === e.phone.trim() || n === l);
+          },
+          u = !t && a != null && a !== "" && !s(a) ? a : null,
+          c = !t && i != null && i !== "" && !s(i) ? i : null;
         if (
-          c != null &&
-          d == null &&
+          u != null &&
+          c == null &&
           o("WAWebContactImportTemplateParsingUtils").isCombinedNameRow(
             e.rawRow,
           )
         ) {
-          var m = o("WAWebContactImportTemplateParsingUtils").splitFullName(c);
-          m.lastName !== "" && ((c = m.firstName), (d = m.lastName));
+          var d = o("WAWebContactImportTemplateParsingUtils").splitFullName(u);
+          d.lastName !== "" && ((u = d.firstName), (c = d.lastName));
         }
-        return { first_name: c, last_name: d, phone: l };
+        return { first_name: u, last_name: c, phone: l };
       });
     }
     function d(e, t, n) {

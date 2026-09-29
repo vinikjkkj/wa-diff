@@ -1,6 +1,7 @@
 __d(
   "oz-player/streams/OzMediaStreamLoopDriver",
   [
+    "getErrorSafe",
     "oz-player/shims/ozClearTimeout",
     "oz-player/shims/ozSetTimeoutAcrossTransitions",
     "oz-player/utils/OzErrorUtils",
@@ -28,7 +29,7 @@ __d(
                 t &&
                   t.then(n.$6).catch(function (e) {
                     n.$7();
-                    var t = n.$1.handleError(e);
+                    var t = n.$1.handleError(r("getErrorSafe")(e));
                     if (t)
                       n.$2 = r("oz-player/shims/ozSetTimeoutAcrossTransitions")(
                         n.$6,

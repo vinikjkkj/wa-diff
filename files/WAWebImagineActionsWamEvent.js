@@ -56,6 +56,7 @@ __d(
                 o("WAWebWamEnumImplementationType").IMPLEMENTATION_TYPE,
               ],
               isCancelled: [6, e.TYPES.BOOLEAN],
+              isCanonicalThread: [26, e.TYPES.BOOLEAN],
               isSent: [7, e.TYPES.BOOLEAN],
               isSuggestedPrompt: [21, e.TYPES.BOOLEAN],
               maxIndex: [9, e.TYPES.INTEGER],

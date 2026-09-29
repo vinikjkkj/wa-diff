@@ -9,6 +9,7 @@ __d(
       INTEROP: 4,
       INORGANIC_NOTIFICATION: 5,
       META_AI: 6,
+      META_AI_THREAD: 7,
     });
     i.MUTE_CHAT_TYPE = e;
   },

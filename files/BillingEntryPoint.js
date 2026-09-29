@@ -45,6 +45,7 @@ __d(
       DSL_CLOSE_TO_CAP: "dsl_close_to_cap",
       INTERN_FETCH_CHARGE_INFO: "intern_fetch_charge_info",
       LIVE_BOOSTING_EXCEPTION_BANNER: "live_boosting_exception_banner",
+      LEAD_DIRECT: "lead_direct",
       ADS_ECOSYSTEM_NAVIGATION_ADS_BILLING_TOOL_PLUGIN:
         "ads_ecosystem_navigation_ads_billing_tool_plugin",
       ENTERPRISE_ADMIN_CONSOLE_INVOICES: "enterprise_admin_console_invoices",

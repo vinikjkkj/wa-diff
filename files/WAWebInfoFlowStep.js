@@ -32,6 +32,7 @@ __d(
       "GroupSettings",
       "MediaGallery",
       "GroupInviteLink",
+      "GroupEmailInvites",
       "PendingParticipants",
       "Verification",
       "DefaultEphemerality",

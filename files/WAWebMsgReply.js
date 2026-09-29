@@ -2,13 +2,13 @@ __d(
   "WAWebMsgReply",
   [
     "WAWebBotGenTypingIndicatorMsg",
-    "WAWebBotUtils",
     "WAWebChatCommunityUtils",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebEnvironment",
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupAgentParticipant",
     "WAWebGroupMetadataGetters",
     "WAWebKeepInChatMsgUtils",
     "WAWebMiscGatingUtils",
@@ -74,9 +74,9 @@ __d(
       var t,
         n = o("WAWebStateUtils").unproxy(e),
         r = o("WAWebFrontendMsgGetters").getChat(n);
-      return (n.author != null &&
-        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.author)) ||
-        o("WAWebChatGetters").getIsNewsletter(r)
+      return o("WAWebGroupAgentParticipant").isBotAuthorDirectMessagingBlocked(
+        n.author,
+      ) || o("WAWebChatGetters").getIsNewsletter(r)
         ? !1
         : n.isCarouselCard
           ? n.isCarouselCard
@@ -120,8 +120,9 @@ __d(
         ) ||
         (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
           !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
-        (n.author != null &&
-          o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.author))
+        o("WAWebGroupAgentParticipant").isBotAuthorDirectMessagingBlocked(
+          n.author,
+        )
         ? !1
         : r.isAnnounceGrpRestrict === !0 &&
             !r.isReadOnly &&

@@ -13,6 +13,7 @@ __d(
           (t.email = o("WAWebBaseModel").prop()),
           (t.altPhoneNumbers = o("WAWebBaseModel").prop()),
           (t.birthday = o("WAWebBaseModel").prop()),
+          (t.birthdayIso = o("WAWebBaseModel").session(null)),
           (t.address = o("WAWebBaseModel").prop()),
           (t.acquisitionSource = o("WAWebBaseModel").prop()),
           (t.leadStage = o("WAWebBaseModel").prop()),

@@ -20,6 +20,9 @@ __d(
         IMPORT_DELETE_ALL_ERRORS_BUTTON: "import_delete_all_errors_button",
         IMPORT_DELETE_CONTACT_BUTTON: "import_delete_contact_button",
         IMPORT_DELETE_ERROR_BUTTON: "import_delete_error_button",
+        IMPORT_EXPORT_ERRORS_BUTTON: "import_export_errors_button",
+        IMPORT_FILE_ERRORS_CONTINUE_BUTTON:
+          "import_file_errors_continue_button",
         IMPORT_SAVE_BUTTON: "import_save_button",
         IMPORT_SAVE_TEMPLATE_LINK: "import_save_template_link",
         IMPORT_UPLOAD_FILE_BUTTON: "import_upload_file_button",
@@ -153,6 +156,64 @@ __d(
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_DELETE_ALL_ERRORS_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.viewImportDeleteAllErrors = function (t) {
+            this.$1({
+              extraAttributes: { error_count: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "import_delete_all_errors_modal",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.dismissImportDeleteAllErrors = function () {
+            this.$1({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "import_delete_all_errors_modal",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+            });
+          }),
+          (n.viewImportFileErrors = function (t) {
+            this.$1({
+              extraAttributes: { error_count: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "import_file_errors_modal",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.clickImportFileErrorsContinue = function (n) {
+            this.$1({
+              extraAttributes: { error_count: n },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_FILE_ERRORS_CONTINUE_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.dismissImportFileErrors = function (t) {
+            this.$1({
+              extraAttributes: { error_count: t },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "import_file_errors_modal",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+            });
+          }),
+          (n.clickImportExportErrors = function () {
+            this.$1({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_EXPORT_ERRORS_BUTTON,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });

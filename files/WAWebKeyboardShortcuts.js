@@ -215,7 +215,7 @@ __d(
         case o("WAWebActions").Action.TOGGLE_COMMAND_PALETTE:
           return [{ key: "k", webModifiers: c(), hybridModifiers: [s.Option] }];
         case o("WAWebActions").Action.LABEL_CHAT:
-          return [{ key: "Shift+L", hybridModifiers: [s.Control, s.Command] }];
+          return [{ key: "Shift+L", hybridModifiers: [s.Control, s.Option] }];
         case o("WAWebActions").Action.LOCK_SCREEN:
           return [{ key: "l", hybridModifiers: [s.Option] }];
         case o("WAWebActions").Action.TOGGLE_BOLD:
@@ -370,7 +370,7 @@ __d(
             {
               key: "ArrowUp",
               hybridKey: "ArrowUp",
-              webModifiers: { mac: [s.Command], windows: [s.Command] },
+              webModifiers: { mac: [s.Command], windows: [s.Control] },
               hybridModifiers: [s.Control],
             },
           ];

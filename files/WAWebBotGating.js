@@ -33,7 +33,12 @@ __d(
           : !1;
     }
     function s(e) {
-      return !o("WAWebBotBaseGating").isBotEnabled() ||
+      if (!o("WAWebBotBaseGating").isBotEnabled()) return !1;
+      var t = o("WAWebMsgGetters").getSender(e);
+      return (e.id.remote.isGroup() &&
+        t != null &&
+        t.isBot() &&
+        !o("WAWebBotUtils").isAnyMetaAiBot(t)) ||
         (o("WAWebMsgGetters").getUnifiedResponse(e) != null &&
           o("WAWebBotUnifiedResponseGating").isUnifiedResponseReceiverEnabled(
             e.t,

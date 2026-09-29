@@ -24,23 +24,36 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
-            var t = yield o("WAWebRelayClient").fetchQuery(
+            var t,
+              n = yield o("WAWebRelayClient").fetchQuery(
                 c,
                 { botFbid: e },
                 { environmentType: "whatsapp_web" },
               ),
-              n = t == null ? void 0 : t.get_wass_account_profile;
+              a = n == null ? void 0 : n.get_wass_account_profile;
             return o("WAWebWassBotProfileMapper").toWassBotProfileResult(
-              n == null
+              a == null
                 ? null
                 : {
-                    creator_lid: n.creator_lid,
-                    hca_entrypoint_id: n.hca_entrypoint_id,
-                    is_deprecated: n.is_deprecated,
-                    name: n.name,
-                    product: n.product,
-                    profile_pic_thumb_url: n.profile_pic_thumb_url,
-                    profile_pic_full_url: n.profile_pic_full_url,
+                    creator_lid: a.creator_lid,
+                    hca_entrypoint_id: a.hca_entrypoint_id,
+                    is_deprecated: a.is_deprecated,
+                    name: a.name,
+                    product: a.product,
+                    profile_pic_thumb_url: a.profile_pic_thumb_url,
+                    profile_pic_full_url: a.profile_pic_full_url,
+                    tos:
+                      a.tos == null
+                        ? null
+                        : {
+                            group: ((t = a.tos.group) != null ? t : []).map(
+                              function (e) {
+                                var t = e.blocking,
+                                  n = e.id;
+                                return { blocking: t, id: n };
+                              },
+                            ),
+                          },
                   },
             );
           } catch (e) {

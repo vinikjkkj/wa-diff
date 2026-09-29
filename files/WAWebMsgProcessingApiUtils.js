@@ -8,7 +8,6 @@ __d(
     "WAWebBackendJobs.flow",
     "WAWebBatchedStatusIdUtils",
     "WAWebBotGroupGatingUtils",
-    "WAWebBotUtils",
     "WAWebCTWAGatingUtils",
     "WAWebDBGroupsGroupMetadata",
     "WAWebDBMessageSerialization",
@@ -519,14 +518,8 @@ __d(
               E == null || (l = E.msgMeta) == null ? void 0 : l.targetSenderJid,
               E == null || (s = E.msgMeta) == null ? void 0 : s.targetId,
             ),
-            (o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled() ||
-              o(
-                "WAWebBotGroupGatingUtils",
-              ).isTEEGroupBotParticipantAddEnabled()) &&
-              (E == null || (u = E.msgMeta) == null ? void 0 : u.targetId) !=
-                null &&
+            (E == null || (u = E.msgMeta) == null ? void 0 : u.targetId) !=
+              null &&
               P != null &&
               r("WAWebWid").isGroup(P))
           )
@@ -922,8 +915,8 @@ __d(
                   c,
                 );
               if (
-                u != null &&
-                u.user === o("WAWebBotUtils").META_BOT_FBID_WID.user
+                t.isGroup() &&
+                o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(u)
               ) {
                 var p = e;
                 Object.assign(p, { botGroupParticipant: u });

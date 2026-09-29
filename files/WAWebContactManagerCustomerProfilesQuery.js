@@ -87,6 +87,7 @@ __d(
             birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
               n.dob,
             ),
+            birthdayIso: n.dob,
             chatJid: o("WAJids").toLidUserJid(a),
             email: n.email,
             lastOrder: o(

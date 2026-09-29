@@ -109,36 +109,52 @@ __d(
       return n !== void 0 ? r("isStringNotNullAndNotWhitespaceOnly")(n) : !0;
     }
     function y(e) {
-      var t = e.id,
-        n = p(function () {
-          return o("WAWebTextStatusCollection").TextStatusCollection.get(t);
-        }),
-        a = n[0],
-        i = n[1],
-        l = m(null);
+      var t = o("react-compiler-runtime").c(8),
+        n = e.id,
+        a;
+      t[0] !== n
+        ? ((a = function () {
+            return o("WAWebTextStatusCollection").TextStatusCollection.get(n);
+          }),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = p(a),
+        l = i[0],
+        s = i[1],
+        c = m(null),
+        f,
+        h;
+      if (
+        (t[2] !== n
+          ? ((f = function () {
+              var e = c.current;
+              if (((c.current = n), !r("WAWebWid").equals(n, e))) {
+                var t = o("WAWebContactCollection").ContactCollection.gadd(n);
+                s(t.getStatus());
+              }
+            }),
+            (h = [n]),
+            (t[2] = n),
+            (t[3] = f),
+            (t[4] = h))
+          : ((f = t[3]), (h = t[4])),
+        d(f, h),
+        !l)
+      )
+        return _;
+      var y;
       return (
-        d(function () {
-          if (!a) {
-            var e = o("WAWebContactCollection").ContactCollection.gadd(t);
-            i(e.getStatus());
-          }
-        }, []),
-        d(
-          function () {
-            var e = l.current;
-            if (((l.current = t), !r("WAWebWid").equals(t, e))) {
-              var n = o("WAWebContactCollection").ContactCollection.gadd(t);
-              i(n.getStatus());
-            }
-          },
-          [t],
-        ),
-        a ? u.jsx(g, { status: a, waitIdle: e.waitIdle }) : _
+        t[5] !== e.waitIdle || t[6] !== l
+          ? ((y = u.jsx(g, { status: l, waitIdle: e.waitIdle })),
+            (t[5] = e.waitIdle),
+            (t[6] = l),
+            (t[7] = y))
+          : (y = t[7]),
+        y
       );
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"),
-      (l.willStatusDisplayContent = h),
-      (l.StatusWrapper = y));
+    ((l.willStatusDisplayContent = h), (l.StatusWrapper = y));
   },
   226,
 );

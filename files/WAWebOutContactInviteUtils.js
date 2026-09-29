@@ -20,7 +20,7 @@ __d(
       );
     }
     function d(e) {
-      return u + "/code=" + e;
+      return e != null && e !== "" ? u + "/code=" + e : u;
     }
     function m(e) {
       var t = d(e);
@@ -83,6 +83,7 @@ __d(
       );
     }
     ((l.getInviteMessageText = c),
+      (l.getInviteUrl = d),
       (l.getInviteMessageTextWithCode = m),
       (l.getMultiGroupInviteMessageText = p),
       (l.getGroupInviteAddFailedToastText = _),

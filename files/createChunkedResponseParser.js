@@ -8,17 +8,18 @@ __d(
     function c(t, n) {
       var r = 0,
         o = function (a, i, l) {
+          var o = a;
           if (
-            (n && ((a = n(a)), a == null || typeof a == "string" || s(0, 4071)),
-            a)
+            (n && ((o = n(a)), o == null || typeof o == "string" || s(0, 4071)),
+            o)
           )
-            for (var o = a.length; r < o; ) {
-              var c = a.indexOf(e, r);
-              if (c < 0)
-                if (l) c = o;
+            for (var c = o.length; r < c; ) {
+              var d = o.indexOf(e, r);
+              if (d < 0)
+                if (l) d = c;
                 else break;
-              var d = a.slice(r, c);
-              ((r += d.length + u), t(d, i, l && r >= o));
+              var m = o.slice(r, d);
+              ((r += m.length + u), t(m, i, l && r >= c));
             }
           else l && t("", i, !0);
         };

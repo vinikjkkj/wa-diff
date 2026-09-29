@@ -1006,7 +1006,18 @@ __d(
                     s || (s = n("relay-runtime/store/RelayModernRecord"))
                   ).getValue(o, r)
                 : null;
-          return (a == null && this.$24("<abstract-type-hint>"), a);
+          if (a == null) {
+            var i;
+            if (
+              ((i = this.$8.node.operation.clientAbstractTypes) == null ||
+              (i = i[r]) == null
+                ? void 0
+                : i.includes(e)) === !0
+            )
+              return !0;
+            this.$24("<abstract-type-hint>");
+          }
+          return a;
         }),
         t
       );

@@ -5,6 +5,7 @@ __d(
     "WAWebContactImportTemplateParsingUtils",
     "WAWebContactManagerImportTemplateUtils",
     "WAWebCustomerProfileAcquisitionSourceNames",
+    "WAWebCustomerProfileBirthday",
     "WAWebLeadStage",
     "WAWebLeadStageNames",
     "err",
@@ -12,19 +13,15 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e;
     function u(e) {
-      return new Date(e * 1e3).toLocaleDateString(void 0, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZone: "UTC",
-      });
+      return new Date(e * 1e3).toISOString().slice(0, 10);
     }
     function c(e) {
-      return new Date(e * 1e3).toLocaleDateString(void 0, {
-        month: "long",
-        day: "numeric",
-        timeZone: "UTC",
-      });
+      return e.birthday == null
+        ? ""
+        : o("WAWebCustomerProfileBirthday").formatBirthdayToIso(
+            e.birthday,
+            e.birthdayIso,
+          );
     }
     function d(e) {
       var t = o("WAWebLeadStage").getLeadStageFromNumber(e);
@@ -100,9 +97,7 @@ __d(
       {
         id: "birthday",
         header: s._(/*BTDS*/ "Birthday").toString(),
-        getValue: function (t) {
-          return t.birthday == null ? "" : c(t.birthday);
-        },
+        getValue: c,
       },
       {
         id: "lastOrder",

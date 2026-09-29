@@ -24,6 +24,7 @@ __d(
                 o("WAWebWamEnumChatMuteNotificationChoice")
                   .CHAT_MUTE_NOTIFICATION_CHOICE,
               ],
+              conversationThreadId: [9, e.TYPES.STRING],
               dedupKey: [8, e.TYPES.INTEGER],
               muteChatType: [4, o("WAWebWamEnumMuteChatType").MUTE_CHAT_TYPE],
               muteDuration: [1, e.TYPES.TIMER],
@@ -32,6 +33,7 @@ __d(
                 o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT,
               ],
               muteGroupSize: [2, e.TYPES.INTEGER],
+              threadInboxPosition: [10, e.TYPES.INTEGER],
               waOfficialAccountName: [
                 7,
                 o("WAWebWamEnumWaOfficialAccountName").WA_OFFICIAL_ACCOUNT_NAME,

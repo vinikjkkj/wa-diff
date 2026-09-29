@@ -40,6 +40,7 @@ __d(
       IMAGINE_INTENTS: 35,
       AI_MEDIA_EDITOR: 36,
       CUSTOM_REACTIONS_SETTINGS: 37,
+      FOCUS_LISTS: 38,
     });
     i.WSUA_REFERRAL = e;
   },

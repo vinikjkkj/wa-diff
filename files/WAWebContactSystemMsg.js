@@ -2,9 +2,9 @@ __d(
   "WAWebContactSystemMsg",
   [
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebApiContact",
     "WAWebCommonMsgSubtypeTypes",
-    "WAWebFMXGatingUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
@@ -176,7 +176,7 @@ __d(
             (t.iAmStartingChat && !t.isFMXCtWA) ||
             (t.isFromCTWA &&
               !t.isFMXCtWA &&
-              o("WAWebFMXGatingUtils").fmxCTWAKillSwitchEnabled()) ||
+              o("WAWebABProps").getABPropConfigValue("fmx_ctwa_kill_switch")) ||
             e.isBot() ||
             e.isAiHub()
           )

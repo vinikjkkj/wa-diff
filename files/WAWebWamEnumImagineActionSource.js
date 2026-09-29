@@ -34,6 +34,7 @@ __d(
       NONE: 28,
       PRESETS: 29,
       SUGGESTED_EDIT_PROMPT: 30,
+      MUSE_SPARK_PROACTIVE_MESSAGE: 31,
     });
     i.IMAGINE_ACTION_SOURCE = e;
   },

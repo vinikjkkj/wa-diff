@@ -65,33 +65,34 @@ __d(
                     "",
                   ])),
                 e.join(","),
-              ),
-            o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled() &&
-              t === !0 &&
-              e.push(o("WAWebBotUtils").META_BOT_FBID_WID),
+              ));
+          var a = [].concat(e);
+          (o(
+            "WAWebBotGroupGatingUtils",
+          ).isOpenGroupBotParticipantAddEnabled() &&
+            t === !0 &&
+            a.push(o("WAWebBotUtils").META_BOT_FBID_WID),
             o(
               "WAWebBotGroupGatingUtils",
             ).isTEEGroupBotParticipantAddEnabled() &&
               n === !0 &&
-              e.push(o("WAWebBotUtils").META_BOT_TEE_FBID_WID));
+              a.push(o("WAWebBotUtils").META_BOT_TEE_FBID_WID));
           for (
-            var a = e
+            var i = a
                 .map(function (e) {
                   return e.toString({ legacy: !0, formatFull: !0 });
                 })
                 .sort()
                 .join(""),
-              i = [],
-              l = 0;
-            l < a.length;
-            l++
+              l = [],
+              u = 0;
+            u < i.length;
+            u++
           )
-            i.push(a.charCodeAt(l));
-          var u = new Uint8Array(i),
-            c = yield o("WACryptoSha256").sha256(u);
-          return "2:" + o("WABase64").encodeB64(c.slice(0, 6));
+            l.push(i.charCodeAt(u));
+          var c = new Uint8Array(l),
+            d = yield o("WACryptoSha256").sha256(c);
+          return "2:" + o("WABase64").encodeB64(d.slice(0, 6));
         })),
         m.apply(this, arguments)
       );

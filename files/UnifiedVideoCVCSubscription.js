@@ -8,37 +8,39 @@ __d(
     "XVideoUnifiedCVCControllerRouteBuilder",
     "clearTimeout",
     "cometAsyncFetch",
+    "performanceNow",
     "promiseDone",
     "setTimeout",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = Object.values(r("CVCv3DisabledPlayerOrigins")),
-      s = Object.values(r("CVCv3DisabledPlayerSubOrigins")),
-      u = 10,
-      c = (function () {
-        function t(t, n, o, a, i, l) {
-          var u = this;
-          ((this.$1 = new (r("CVCv3SubscriptionHelper"))(t, n, o)),
-            (this.$5 = i),
+    var e,
+      s = Object.values(r("CVCv3DisabledPlayerOrigins")),
+      u = Object.values(r("CVCv3DisabledPlayerSubOrigins")),
+      c = 10,
+      d = (function () {
+        function t(e, t, n, o, a, i) {
+          var l = this;
+          ((this.$1 = new (r("CVCv3SubscriptionHelper"))(e, t, n)),
+            (this.$5 = a),
             (this.$6 = null),
             (this.$9 = null),
             (this.$10 = !this.$1.isValidSubscription()),
             (this.$3 = null),
             (this.$2 = null));
-          var c = n != null ? e.includes(n) : !1,
-            d = o != null ? s.includes(o) : !1;
+          var c = t != null ? s.includes(t) : !1,
+            d = n != null ? u.includes(n) : !1;
           !c &&
             !d &&
-            ((this.$3 = a),
-            (this.$11 = l),
-            (this.$4 = a.subscribe(function () {
-              if (u.$3 == null) {
-                u.$1.logDebugInfo("empty_video_controller");
+            ((this.$3 = o),
+            (this.$11 = i),
+            (this.$4 = o.subscribe(function () {
+              if (l.$3 == null) {
+                l.$1.logDebugInfo("empty_video_controller");
                 return;
               }
-              var e = u.$3.getCurrentState();
-              e.playing ? u.$12(e) : u.$13();
+              var e = l.$3.getCurrentState();
+              e.playing ? l.$12(e) : l.$13();
             })));
         }
         var n = t.prototype;
@@ -80,65 +82,71 @@ __d(
           (n.$16 = function () {
             ((this.$9 = null), this.$15(), this.$14(0));
           }),
-          (n.$14 = function (t) {
-            var e = this;
+          (n.$14 = function (n) {
+            var t = this;
             this.$3 == null ||
               this.$8 != null ||
               this.$9 != null ||
               this.$10 ||
               (this.$8 = r("setTimeout")(function () {
-                e.$8 = null;
-                var t = e.$17();
-                if (t == null) {
-                  e.$1.logDebugInfo("empty_request");
+                t.$8 = null;
+                var n = t.$17();
+                if (n == null) {
+                  t.$1.logDebugInfo("empty_request");
                   return;
                 }
-                e.$9 = t;
-                var n = Date.now(),
-                  a = !1;
+                t.$9 = n;
+                var a = (e || (e = r("performanceNow")))(),
+                  i = !1;
                 (r("promiseDone")(
-                  t,
-                  function (r) {
-                    if (t === e.$9)
-                      if (((e.$9 = null), r != null)) {
-                        var o = e.$1.processUnifiedResponse(r);
-                        e.$18(o, n);
+                  n,
+                  function (o) {
+                    if (n === t.$9)
+                      if (((t.$9 = null), o != null)) {
+                        var i = t.$1.processUnifiedResponse(o);
+                        t.$18(i, a);
                       } else
-                        e.$1.logHttpResponseBad("null payload", Date.now() - n);
+                        t.$1.logHttpResponseBad(
+                          "null payload",
+                          (e || (e = r("performanceNow")))() - a,
+                        );
                   },
-                  function (t) {
-                    ((a = !0),
-                      e.$1.logHttpRequestFailure(
-                        t != null ? JSON.stringify(t) : null,
-                        Date.now() - n,
+                  function (n) {
+                    ((i = !0),
+                      t.$1.logHttpRequestFailure(
+                        n != null ? JSON.stringify(n) : null,
+                        (e || (e = r("performanceNow")))() - a,
                       ));
                   },
                 ),
-                  (e.$7 = r("setTimeout")(
+                  (t.$7 = r("setTimeout")(
                     function () {
-                      (a || e.$1.logHttpRequestTimeout(Date.now() - n),
-                        e.$16());
+                      (i ||
+                        t.$1.logHttpRequestTimeout(
+                          (e || (e = r("performanceNow")))() - a,
+                        ),
+                        t.$16());
                     },
-                    u * o("DateConsts").MS_PER_SEC,
+                    c * o("DateConsts").MS_PER_SEC,
                   )));
-              }, t));
+              }, n));
           }),
-          (n.$18 = function (t, n) {
+          (n.$18 = function (n, a) {
             this.$15();
-            var e = Date.now() - n;
+            var t = (e || (e = r("performanceNow")))() - a;
             if (
-              (t.d != null
-                ? (this.$1.logHttpRequestSuccess(e),
-                  this.$11 != null && this.$11(t.d))
-                : this.$1.logHttpResponseBad("no data field", e),
-              t.a != null)
+              (n.d != null
+                ? (this.$1.logHttpRequestSuccess(t),
+                  this.$11 != null && this.$11(n.d))
+                : this.$1.logHttpResponseBad("no data field", t),
+              n.a != null)
             ) {
-              var r = t.a.t;
-              switch (r) {
+              var i = n.a.t;
+              switch (i) {
                 case "p":
-                  var a = t.a.pi;
-                  (a == null && (a = u),
-                    this.$14(a * o("DateConsts").MS_PER_SEC));
+                  var l = n.a.pi;
+                  (l == null && (l = c),
+                    this.$14(l * o("DateConsts").MS_PER_SEC));
                   break;
                 case "s":
                   this.$10 = !0;
@@ -188,13 +196,13 @@ __d(
           (n.testing_makeUnifiedStateUpdate = function () {
             return this.$19();
           }),
-          (n.testing_handleUnifiedResponse = function (t) {
-            return this.$18(t, Date.now());
+          (n.testing_handleUnifiedResponse = function (n) {
+            return this.$18(n, (e || (e = r("performanceNow")))());
           }),
           t
         );
       })();
-    l.default = c;
+    l.default = d;
   },
   98,
 );

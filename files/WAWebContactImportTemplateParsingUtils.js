@@ -110,7 +110,25 @@ __d(
     function D(e) {
       return R(e, d);
     }
-    function x(e, t) {
+    function x(e) {
+      var t,
+        n,
+        r = [
+          (t = e.parsedContact) == null ? void 0 : t.firstName,
+          (n = e.parsedContact) == null ? void 0 : n.lastName,
+        ]
+          .filter(function (e) {
+            return e != null && e !== "";
+          })
+          .join(" ");
+      return r !== "" ? r : T(e.rowData);
+    }
+    function $(e) {
+      var t,
+        n = (t = e.parsedContact) == null ? void 0 : t.phone;
+      return n != null && n !== "" ? n : D(e.rowData);
+    }
+    function P(e, t) {
       if (e == null) return null;
       var n = new Set(
         t.map(function (e) {
@@ -124,13 +142,13 @@ __d(
         }
       return null;
     }
-    function $(e) {
+    function N(e) {
       return typeof e != "string" ? !1 : d.has(e.toLowerCase().trim());
     }
-    function P(e) {
+    function M(e) {
       return typeof e != "string" ? !1 : C.has(e.toLowerCase().trim());
     }
-    function N(e) {
+    function w(e) {
       var t = [],
         n = v(e),
         r = [];
@@ -218,10 +236,12 @@ __d(
       (l.toContactRawRow = I),
       (l.extractName = T),
       (l.extractPhone = D),
-      (l.readRawRowColumn = x),
-      (l.isPhoneFieldName = $),
-      (l.isParsedNameOrPhoneFieldName = P),
-      (l.parseContactData = N));
+      (l.getIssueName = x),
+      (l.getIssuePhone = $),
+      (l.readRawRowColumn = P),
+      (l.isPhoneFieldName = N),
+      (l.isParsedNameOrPhoneFieldName = M),
+      (l.parseContactData = w));
   },
   226,
 );

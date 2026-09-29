@@ -334,23 +334,17 @@ __d(
           ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(t);
     }
     function k(e, t) {
-      if (
-        !(
-          !o(
-            "WAWebBotGroupGatingUtils",
-          ).isOpenGroupBotParticipantAddEnabled() &&
-          !o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
-        )
-      ) {
-        var n = t.botGroupParticipant;
-        n != null &&
+      var n,
+        r = t.botGroupParticipant;
+      r != null &&
+        (((n = t.id.remote) == null ? void 0 : n.isGroup()) !== !0 ||
+          !o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(r) ||
           o(
             "WAWebMsmsgMsgSecretCache",
           ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
             e,
-            n,
-          );
-      }
+            r,
+          ));
     }
     function I(e) {
       return T.apply(this, arguments);

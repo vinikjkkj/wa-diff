@@ -11,6 +11,7 @@ __d(
       KEY_CORRUPTION: 6,
       PEER_COMPANION_UNPAIR: 7,
       OTHER_DEVICE_UNPAIR: 8,
+      ACP2_ENABLED: 9,
     });
     i.EXPIRY_REASON = e;
   },

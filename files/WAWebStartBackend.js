@@ -8,6 +8,7 @@ __d(
     "WAGzip",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebABProps",
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
     "WAWebAfterReadSendingRollbackListener",
@@ -343,6 +344,17 @@ __d(
             yield V(),
             A(),
             o("WAWebABPropsWamGlobals").setAbPropDependingGlobalWamAttributes(),
+            !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "web_org_admin_ui_enabled",
+              ) &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "bootstrapOrgDirectory",
+                {
+                  accountKey: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+                    .user,
+                },
+              ),
             o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled() &&
               (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                 o("WAWebUserPrefsKeys").KEYS.LANG_FROM_USER,

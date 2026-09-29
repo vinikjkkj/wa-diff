@@ -26,7 +26,7 @@ __d(
     }
     function m(e) {}
     function p(e) {
-      if (e && e in o("WAMp4CheckRepairUtil").namesToDesc) {
+      if (e != null && e !== "" && e in o("WAMp4CheckRepairUtil").namesToDesc) {
         var t = o("WAMp4CheckRepairUtil").namesToDesc[e];
         (delete o("WAMp4CheckRepairUtil").descToFakeFiles[t],
           delete o("WAMp4CheckRepairUtil").namesToDesc[e]);

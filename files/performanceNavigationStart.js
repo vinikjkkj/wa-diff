@@ -26,13 +26,14 @@ __d(
         }
         u.isPolyfilled = !0;
       }
-    else
-      ((u = function () {
+    else {
+      var d = function () {
         return 0;
-      }),
-        (u.isPolyfilled = !0));
-    var d = u;
-    l.default = d;
+      };
+      ((u = d), (d.isPolyfilled = !0));
+    }
+    var m = u;
+    l.default = m;
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebWamCodegenUtils",
     "WAWebWamEnumMediaType",
+    "WAWebWamEnumPairedMediaType",
     "WAWebWamEnumPlaybackOriginType",
     "WAWebWamEnumPlaybackStateType",
   ],
@@ -24,6 +25,10 @@ __d(
               mediaType: [3, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               overallPlayT: [10, e.TYPES.TIMER],
               overallT: [1, e.TYPES.TIMER],
+              pairedMediaType: [
+                21,
+                o("WAWebWamEnumPairedMediaType").PAIRED_MEDIA_TYPE,
+              ],
               playbackCount: [14, e.TYPES.INTEGER],
               playbackError: [17, e.TYPES.INTEGER],
               playbackOrigin: [
