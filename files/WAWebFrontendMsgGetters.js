@@ -296,25 +296,31 @@ __d(
       },
       T = function (t) {
         return E(t).get(r("WAWebMsgKey").from(t.id).remote);
-      },
-      D = p("carouselCards"),
-      x = m(
+      };
+    function D(e, t) {
+      var n = t
+        ? r("WAWebNewsletterCollection")
+        : o("WAWebChatCollection").ChatCollection;
+      return n.get(e.remote);
+    }
+    var x = p("carouselCards"),
+      $ = m(
         function (e) {
           var t = e[0];
           return t == null ? null : t.slice();
         },
-        [D],
+        [x],
       ),
-      $ = p("buttons"),
-      P = m(
+      P = p("buttons"),
+      N = m(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n != null && n.length > 0;
         },
-        [u.getIsFromTemplate, $],
+        [u.getIsFromTemplate, P],
       ),
-      N = m(
+      M = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -326,16 +332,16 @@ __d(
                 o("WAWebTemplateButtonSubtype").TEMPLATE_BUTTON_SUBTYPE
                   .QUICK_REPLY;
         },
-        [P, $],
+        [N, P],
       ),
-      M = m(
+      w = m(
         function (e) {
           var t = e[0];
           return t;
         },
         [u.getMsgUnsafe],
       ),
-      w = m(
+      A = m(
         function (e) {
           var t = e[0];
           return t.type === o("WAWebMsgType").MSG_TYPE.PRODUCT &&
@@ -346,9 +352,9 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType, u.getId],
+        [w, u.getType, u.getId],
       ),
-      A = m(
+      F = m(
         function (e) {
           var t = e[0];
           switch (t.type) {
@@ -358,33 +364,50 @@ __d(
               return null;
           }
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
-      F = m(
+      O = m(
         function (e) {
           var t = e[0];
           return t.type === o("WAWebMsgType").MSG_TYPE.BROADCAST_NOTIFICATION
             ? t
             : null;
         },
-        [M, u.getType],
-      ),
-      O = m(
-        function (e) {
-          var t = e[0];
-          return t.type === "product" ? t : null;
-        },
-        [M, u.getType],
+        [w, u.getType],
       ),
       B = m(
         function (e) {
           var t = e[0];
+          return t.type === "product" ? t : null;
+        },
+        [w, u.getType],
+      ),
+      W = m(
+        function (e) {
+          var t = e[0];
           return t.type === o("WAWebMsgType").MSG_TYPE.REVOKED ? t : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
-      W = p("associationType"),
       q = m(
+        function (e) {
+          var t = e[0],
+            n = e[1],
+            r = e[2];
+          return !t && !n && !r;
+        },
+        [u.getIsForwarded, W, u.getIsReply],
+      ),
+      U = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t > 0 && !n;
+        },
+        [u.getNumTimesForwarded, W],
+      ),
+      V = p("associationType"),
+      H = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -420,22 +443,22 @@ __d(
             : null;
         },
         [
-          M,
+          w,
           u.getType,
           u.getIsNotification,
           u.getCaption,
           u.getIsForwarded,
-          B,
+          W,
           u.getIsGif,
           u.getQuotedMsg,
-          W,
+          V,
           u.getCtwaContext,
           u.getIsViewOnce,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      U = m(
+      G = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -446,7 +469,7 @@ __d(
         },
         [u.getType, u.getSubtype],
       ),
-      V = m(
+      z = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -465,9 +488,9 @@ __d(
           }
           return a ? t : null;
         },
-        [M, u.getType, u.getIsViewOnce, U],
+        [w, u.getType, u.getIsViewOnce, G],
       ),
-      H = m(
+      j = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -502,10 +525,10 @@ __d(
             : null;
         },
         [
-          M,
+          w,
           u.getType,
           u.getIsNotification,
-          B,
+          W,
           u.getQuotedMsg,
           u.getCtwaContext,
           u.getIsNewsletterMsg,
@@ -513,63 +536,63 @@ __d(
           u.getHasOriginatedFromNewsletter,
         ],
       ),
-      G = m(
+      K = m(
         function (e) {
           var t = e[0],
             n = e[1];
           return t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ? t : null;
         },
-        [M, u.getType],
-      ),
-      z = m(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.IMAGE ? t : null;
-        },
-        [M, u.getType],
-      ),
-      j = m(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.VIDEO ? t : null;
-        },
-        [M, u.getType],
-      ),
-      K = m(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.AUDIO ? t : null;
-        },
-        [M, u.getType],
+        [w, u.getType],
       ),
       Q = m(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.PTT ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.IMAGE ? t : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
       X = m(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.PTV ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.VIDEO ? t : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
       Y = m(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.AUDIO ? t : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
       J = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t.type === o("WAWebMsgType").MSG_TYPE.PTT ? t : null;
+        },
+        [w, u.getType],
+      ),
+      Z = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t.type === o("WAWebMsgType").MSG_TYPE.PTV ? t : null;
+        },
+        [w, u.getType],
+      ),
+      ee = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ? t : null;
+        },
+        [w, u.getType],
+      ),
+      te = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -578,9 +601,9 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
-      Z = m(
+      ne = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -588,9 +611,9 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
-      ee = m(
+      re = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -598,58 +621,58 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType],
-      ),
-      te = m(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.ALBUM ? t : null;
-        },
-        [M, u.getType],
-      ),
-      ne = m(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ? t : null;
-        },
-        [M, u.getType],
-      ),
-      re = m(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? t : null;
-        },
-        [M, u.getType],
+        [w, u.getType],
       ),
       oe = m(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.ALBUM ? t : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
       ae = m(
         function (e) {
           var t = e[0],
             n = e[1];
-          return o("WAWebMsgModelUtils").typeIsMms(t) ? t : null;
+          return t.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ? t : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
       ie = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? t : null;
+        },
+        [w, u.getType],
+      ),
+      le = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE ? t : null;
+        },
+        [w, u.getType],
+      ),
+      se = m(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return o("WAWebMsgModelUtils").typeIsMms(t) ? t : null;
+        },
+        [w, u.getType],
+      ),
+      ue = m(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return o("WAWebMsgModelUtils").typeIsUrl(t) ? t : null;
         },
-        [M, u.getType, u.getSubtype],
+        [w, u.getType, u.getSubtype],
       ),
-      le = m(
+      ce = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -658,9 +681,9 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType],
+        [w, u.getType],
       ),
-      se = m(
+      de = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -668,9 +691,9 @@ __d(
             o = e[3];
           return (n != null || r != null) && o ? (n != null ? n : r) : null;
         },
-        [u.getType, le, Q, u.getIsViewOnce],
+        [u.getType, ce, J, u.getIsViewOnce],
       ),
-      ue = m(
+      me = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -681,15 +704,15 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType, u.getWaveform, u.getIsOpus],
+        [w, u.getType, u.getWaveform, u.getIsOpus],
       ),
-      ce = p("senderObj"),
-      de = p("mediaData"),
-      me = p("replyButtons"),
-      pe = p("pendingDeleteForMe", { default: !1 }),
-      _e = p("isFadingOut", { default: !1 }),
-      fe = p("botPluginType"),
-      ge = m(
+      pe = p("senderObj"),
+      _e = p("mediaData"),
+      fe = p("replyButtons"),
+      ge = p("pendingDeleteForMe", { default: !1 }),
+      he = p("isFadingOut", { default: !1 }),
+      ye = p("botPluginType"),
+      Ce = m(
         function (e) {
           var t,
             n = e[0],
@@ -707,9 +730,9 @@ __d(
             ? n
             : null;
         },
-        [M, fe, ce],
+        [w, ye, pe],
       ),
-      he = m(
+      be = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -719,9 +742,9 @@ __d(
             ? t
             : null;
         },
-        [M, u.getType, u.getRichResponse],
+        [w, u.getType, u.getRichResponse],
       ),
-      ye = m(
+      ve = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -729,7 +752,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      Ce = m(
+      Se = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -737,7 +760,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      be = m(
+      Re = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -745,9 +768,9 @@ __d(
             a = r != null;
           return t === o("WAWebMsgType").MSG_TYPE.CHAT && (n || a);
         },
-        [u.getType, ye, Ce],
+        [u.getType, ve, Se],
       ),
-      ve = m(
+      Le = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -779,14 +802,14 @@ __d(
           u.getType,
           u.getCtwaContext,
           u.getQuotedMsg,
-          be,
+          Re,
           u.getHasOriginatedFromNewsletter,
           u.getIsForwarded,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      Se = m(
+      Ee = m(
         function (e) {
           var t = e[0];
           if (t != null) {
@@ -799,7 +822,7 @@ __d(
         },
         [u.getBody],
       ),
-      Re = m(
+      ke = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -817,10 +840,10 @@ __d(
           u.getHasOriginatedFromNewsletter,
           u.getForwardedNewsletterMessageInfo,
           u.getId,
-          ce,
+          pe,
         ],
       ),
-      Le = m(
+      Ie = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -828,7 +851,7 @@ __d(
         },
         [u.getIsNewsletterMsg, u.getSender],
       ),
-      Ee = m(
+      Te = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -837,7 +860,7 @@ __d(
             a;
           return (n && (a = o == null ? void 0 : o.contact), a != null ? a : r);
         },
-        [M, u.getIsNewsletterMsg, ce],
+        [w, u.getIsNewsletterMsg, pe],
       );
     ((l.clearFrontendMsgGetterCacheFor = _),
       (l.getIsMms = f),
@@ -852,53 +875,57 @@ __d(
       (l.getCurrentChat = k),
       (l.getChat = I),
       (l.getMaybeChat = T),
-      (l.getCarouselCards = x),
-      (l.getButtons = $),
-      (l.getHasTemplateButtons = P),
-      (l.getIsQuickReply = N),
-      (l.getAsProductInquiry = w),
-      (l.getAsGroupNotification = A),
-      (l.getAsBroadcastNotification = F),
-      (l.getAsProduct = O),
-      (l.getAsRevoked = B),
-      (l.getAsAlbumAsset = q),
-      (l.getIsUrlMessage = U),
-      (l.getAsAutoDownloadableMedia = V),
-      (l.getAsGroupedSticker = H),
-      (l.getAsDoc = G),
-      (l.getAsImage = z),
-      (l.getAsVideo = j),
-      (l.getAsAudio = K),
-      (l.getAsPtt = Q),
-      (l.getAsPtv = X),
-      (l.getAsPollCreation = Y),
-      (l.getAsPoll = J),
-      (l.getAsEventCreation = Z),
-      (l.getAsSharableEventInvite = ee),
-      (l.getAsAlbum = te),
-      (l.getAsStickerPack = ne),
-      (l.getAsCallLog = re),
-      (l.getAsPollUpdate = oe),
-      (l.getAsMms = ae),
-      (l.getAsUrl = ie),
-      (l.getAsVisualMedia = le),
-      (l.getAsViewOnce = se),
-      (l.getAsPttLike = ue),
-      (l.getSenderObj = ce),
-      (l.getMediaData = de),
-      (l.getReplyButtons = me),
-      (l.getPendingDeleteForMe = pe),
-      (l.getIsFadingOut = _e),
-      (l.getAsBotPluginCarouselMsg = ge),
-      (l.getAsRichResponse = he),
-      (l.getIsAnimatedEmoji = ye),
-      (l.getIsSingleEmoji = Ce),
-      (l.getIsTransparentMsgEmoji = be),
-      (l.getIsTransparentMsg = ve),
-      (l.getJSONAssetForAnimatedEmoji = Se),
-      (l.getMsgSenderId = Re),
-      (l.getShouldDisplaySelf = Le),
-      (l.getSenderForReplyMsg = Ee));
+      (l.getMaybeChatByMsgKey = D),
+      (l.getCarouselCards = $),
+      (l.getButtons = P),
+      (l.getHasTemplateButtons = N),
+      (l.getIsQuickReply = M),
+      (l.getSafeMsg = w),
+      (l.getAsProductInquiry = A),
+      (l.getAsGroupNotification = F),
+      (l.getAsBroadcastNotification = O),
+      (l.getAsProduct = B),
+      (l.getAsRevoked = W),
+      (l.getIsMemberLabelEligible = q),
+      (l.getShouldShowForwarded = U),
+      (l.getAsAlbumAsset = H),
+      (l.getIsUrlMessage = G),
+      (l.getAsAutoDownloadableMedia = z),
+      (l.getAsGroupedSticker = j),
+      (l.getAsDoc = K),
+      (l.getAsImage = Q),
+      (l.getAsVideo = X),
+      (l.getAsAudio = Y),
+      (l.getAsPtt = J),
+      (l.getAsPtv = Z),
+      (l.getAsPollCreation = ee),
+      (l.getAsPoll = te),
+      (l.getAsEventCreation = ne),
+      (l.getAsSharableEventInvite = re),
+      (l.getAsAlbum = oe),
+      (l.getAsStickerPack = ae),
+      (l.getAsCallLog = ie),
+      (l.getAsPollUpdate = le),
+      (l.getAsMms = se),
+      (l.getAsUrl = ue),
+      (l.getAsVisualMedia = ce),
+      (l.getAsViewOnce = de),
+      (l.getAsPttLike = me),
+      (l.getSenderObj = pe),
+      (l.getMediaData = _e),
+      (l.getReplyButtons = fe),
+      (l.getPendingDeleteForMe = ge),
+      (l.getIsFadingOut = he),
+      (l.getAsBotPluginCarouselMsg = Ce),
+      (l.getAsRichResponse = be),
+      (l.getIsAnimatedEmoji = ve),
+      (l.getIsSingleEmoji = Se),
+      (l.getIsTransparentMsgEmoji = Re),
+      (l.getIsTransparentMsg = Le),
+      (l.getJSONAssetForAnimatedEmoji = Ee),
+      (l.getMsgSenderId = ke),
+      (l.getShouldDisplaySelf = Ie),
+      (l.getSenderForReplyMsg = Te));
   },
   98,
 );

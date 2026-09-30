@@ -32,9 +32,8 @@ __d(
               }),
             ),
             l = i.some(function (e) {
-              return (
-                (e == null ? void 0 : e.predefinedId) ===
-                o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
+              return o("WAWebLeadListConstants").isLeadListPredefinedId(
+                e == null ? void 0 : e.predefinedId,
               );
             });
           if (!l) return null;

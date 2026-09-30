@@ -7,12 +7,13 @@ __d(
       return [e.remote.toString({ legacy: !0 }), e.id, e.fromMe ? "1" : "0", t];
     }
     function l(e) {
-      var t = "0";
+      var t = "0",
+        n = e.participant;
       return (
-        e.participant &&
+        n &&
           !e.remote.isUser() &&
           !e.fromMe &&
-          (t = e.participant.toString({ legacy: !0 })),
+          (t = n.toString({ legacy: !0 })),
         t
       );
     }

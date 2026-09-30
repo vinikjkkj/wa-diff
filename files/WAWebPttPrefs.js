@@ -31,7 +31,7 @@ __d(
             this.isOocPlayerClosedByUser = !0;
           }),
           (a.initialize = function () {
-            (o("WAWebBaseModel").BaseModel.prototype.initialize.call(this),
+            (t.prototype.initialize.call(this),
               this._restorePlaybackRate(),
               this.on("change:playbackRate", function (e, t) {
                 o("WAWebUserPrefsGeneral").setPttPlaybackRate(t);

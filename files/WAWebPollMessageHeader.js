@@ -34,7 +34,7 @@ __d(
         selectIcon: { fill: "x2u7xp1", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(38),
+      var n = o("react-compiler-runtime").c(35),
         a = t.isPollEnded,
         i = t.isSentByMe,
         l = t.msg,
@@ -88,26 +88,23 @@ __d(
                 });
               },
             }));
-        var L;
-        n[13] !== l
-          ? ((L = l.unsafe()), (n[13] = l), (n[14] = L))
-          : (L = n[14]);
-        var E = l.id,
+        var L = l.id,
+          E = l.id,
           k;
-        n[15] === Symbol.for("react.memo_cache_sentinel")
+        n[13] === Symbol.for("react.memo_cache_sentinel")
           ? ((k = (e || (e = r("stylex"))).props(
               o("WDSPaddings.stylex").wdsPaddings.padding4,
             )),
-            (n[15] = k))
-          : (k = n[15]);
+            (n[13] = k))
+          : (k = n[13]);
         var I;
-        n[16] !== l
+        n[14] !== l
           ? ((I = o("WAWebMsgGetters").getInitialPageSize(l.unsafe())),
-            (n[16] = l),
-            (n[17] = I))
-          : (I = n[17]);
+            (n[14] = l),
+            (n[15] = I))
+          : (I = n[15]);
         var T;
-        n[18] !== i || n[19] !== l || n[20] !== s || n[21] !== g
+        n[16] !== i || n[17] !== l || n[18] !== s || n[19] !== g
           ? ((T = function (t) {
               var e = t.textLimit,
                 n = o("WAWebFormatConfigurationConversation").Conversation({
@@ -139,14 +136,14 @@ __d(
                 xstyle: [d.pollName, y],
               });
             }),
-            (n[18] = i),
-            (n[19] = l),
-            (n[20] = s),
-            (n[21] = g),
-            (n[22] = T))
-          : (T = n[22]);
+            (n[16] = i),
+            (n[17] = l),
+            (n[18] = s),
+            (n[19] = g),
+            (n[20] = T))
+          : (T = n[20]);
         var D;
-        (n[23] !== s || n[24] !== I || n[25] !== T
+        (n[21] !== s || n[22] !== I || n[23] !== T
           ? ((D = c.jsx(
               "div",
               babelHelpers.extends({}, k, {
@@ -157,27 +154,26 @@ __d(
                 }),
               }),
             )),
-            (n[23] = s),
-            (n[24] = I),
-            (n[25] = T),
-            (n[26] = D))
-          : (D = n[26]),
-          n[27] !== l.id || n[28] !== D || n[29] !== L
+            (n[21] = s),
+            (n[22] = I),
+            (n[23] = T),
+            (n[24] = D))
+          : (D = n[24]),
+          n[25] !== l.id || n[26] !== D
             ? ((S = c.jsx(r("WAWebMessageSpacerText.react"), {
-                msg: L,
+                msgKey: L,
                 spacer: !1,
                 "data-id": E,
                 children: D,
               })),
-              (n[27] = l.id),
-              (n[28] = D),
-              (n[29] = L),
-              (n[30] = S))
-            : (S = n[30]),
-          n[31] === Symbol.for("react.memo_cache_sentinel")
+              (n[25] = l.id),
+              (n[26] = D),
+              (n[27] = S))
+            : (S = n[27]),
+          n[28] === Symbol.for("react.memo_cache_sentinel")
             ? ((b = { className: "x78zum5 x6s0dn4 x1q0g3np x1a02dak" }),
-              (n[31] = b))
-            : (b = n[31]),
+              (n[28] = b))
+            : (b = n[28]),
           (v = R.map(function (e, t) {
             var n = e.key,
               r = e.render;
@@ -197,20 +193,20 @@ __d(
           (n[12] = S));
       } else ((b = n[10]), (v = n[11]), (S = n[12]));
       var x;
-      n[32] !== b || n[33] !== v
+      n[29] !== b || n[30] !== v
         ? ((x = c.jsx("div", babelHelpers.extends({}, b, { children: v }))),
-          (n[32] = b),
-          (n[33] = v),
-          (n[34] = x))
-        : (x = n[34]);
+          (n[29] = b),
+          (n[30] = v),
+          (n[31] = x))
+        : (x = n[31]);
       var $;
       return (
-        n[35] !== S || n[36] !== x
+        n[32] !== S || n[33] !== x
           ? (($ = c.jsxs(c.Fragment, { children: [S, x] })),
-            (n[35] = S),
-            (n[36] = x),
-            (n[37] = $))
-          : ($ = n[37]),
+            (n[32] = S),
+            (n[33] = x),
+            (n[34] = $))
+          : ($ = n[34]),
         $
       );
     }

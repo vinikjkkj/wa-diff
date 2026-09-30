@@ -12,6 +12,7 @@ __d(
     "WAWebEditLabelAssociationBridge",
     "WAWebLabelModel",
     "WAWebLabelPillColors",
+    "WAWebLeadListConstants",
     "WAWebListItemParentType",
     "WAWebListUtils",
     "WAWebListsGatingUtils",
@@ -73,6 +74,7 @@ __d(
         return (
           (e = t.call(this) || this),
           (e.$LabelCollectionImpl$p_1 = new Map()),
+          (e.$LabelCollectionImpl$p_2 = new Set()),
           e.listenTo(e, "remove", C),
           e
         );
@@ -86,7 +88,7 @@ __d(
               var n = t.type === o("WAWebSchemaLabel").ListType.SERVER_ASSIGNED;
               return (
                 n && e.addToServerAssignedLabelIdMap(t.id, t.predefinedId),
-                !n
+                !n && !e.hideIfLegacyLeadList(t)
               );
             }),
             r = n.map(function (e) {
@@ -168,7 +170,7 @@ __d(
                     [s._plural(n.length)],
                   ),
               C = o("WAWebEditLabelAssociationBridge")
-                .editLabelAssociation(this.$LabelCollectionImpl$p_2(n), a)
+                .editLabelAssociation(this.$LabelCollectionImpl$p_3(n), a)
                 .then(function () {
                   t.addOrRemoveLabelsMD(n, a);
                 });
@@ -224,7 +226,7 @@ __d(
             );
           }
         }),
-        (a.$LabelCollectionImpl$p_2 = function (t) {
+        (a.$LabelCollectionImpl$p_3 = function (t) {
           return t
             .map(function (e) {
               if (e.type === "remove") {
@@ -352,6 +354,15 @@ __d(
           return this.filter(function (e) {
             return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
           });
+        }),
+        (a.hideIfLegacyLeadList = function (t) {
+          return t.predefinedId !==
+            o("WAWebLeadListConstants").LEGACY_LEAD_LIST_PREDEFINED_ID
+            ? !1
+            : (this.$LabelCollectionImpl$p_2.add(t.id), this.remove(t.id), !0);
+        }),
+        (a.isLegacyLeadListId = function (t) {
+          return this.$LabelCollectionImpl$p_2.has(t);
         }),
         (a.getServerAssignedLabelIdMap = function () {
           return this.$LabelCollectionImpl$p_1;

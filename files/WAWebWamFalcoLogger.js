@@ -44,7 +44,13 @@ __d(
           r("WAWebODS").incr("web.falco.shadow." + e.name + ".commit")),
         o("WAWebWamFalcoABProps").shouldBufferFalcoEvent())
       ) {
-        o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(e);
+        o("WAWebWamFalcoABProps").shouldUseBanzaiOfflineQueue()
+          ? (r("WAWebODS").incr("web.falco.shadow.banzai_offline_queue"),
+            r("WAWebODS").incr(
+              "web.falco.shadow." + e.name + ".banzai_offline_queue",
+            ),
+            o("WAWebFalcoEventQueue").sendFalcoEventsNow([e]))
+          : o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(e);
         return;
       }
       if (e.critical === !0) {

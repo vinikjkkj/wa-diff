@@ -17,9 +17,10 @@ __d(
       var n = o(
           "WAWebSystemMessageGatingUtils",
         ).systemMessageActionTextStylingEnabled(),
-        r = e.body
-          ? o("WAWebContactCollection").ContactCollection.get(e.body)
-          : null,
+        r =
+          e.body != null && e.body !== ""
+            ? o("WAWebContactCollection").ContactCollection.get(e.body)
+            : null,
         a,
         i = e.devicesAdded === 1 && e.devicesRemoved === 0,
         l = e.devicesAdded === 0 && e.devicesRemoved === 1,

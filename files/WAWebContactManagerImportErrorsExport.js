@@ -13,44 +13,57 @@ __d(
     var e,
       u = "originalRowIndex";
     function c() {
+      return s._(/*BTDS*/ "Original row number").toString();
+    }
+    function d() {
       return s._(/*BTDS*/ "Error").toString();
     }
-    function d(e) {
-      var t = c();
-      if (!e.has(t)) return t;
-      for (var n = 2; e.has(t + " (" + n + ")"); ) n++;
-      return t + " (" + n + ")";
+    function m(e, t) {
+      if (!t.has(e)) return e;
+      for (var n = 2; t.has(e + " (" + n + ")"); ) n++;
+      return e + " (" + n + ")";
     }
-    function m(e) {
+    function p(e) {
       var t = [],
         n = new Set();
       for (var r of e)
         for (var a of Object.keys(r.rowData))
           a === u || n.has(a) || (n.add(a), t.push(a));
-      var i = e.map(function (e) {
-        var n = t.map(function (t) {
-          var n = e.rowData[t];
-          return n != null ? String(n) : "";
-        });
-        return (
-          n.push(
-            o(
-              "WAWebContactManagerImportErrorMessage",
-            ).getContactManagerImportErrorLabel(e.errorType),
-          ),
-          n
-        );
-      });
-      return { headers: [].concat(t, [d(n)]), rows: i };
+      var i = new Set(n),
+        l = m(c(), i);
+      i.add(l);
+      var s = m(d(), i),
+        p = []
+          .concat(e)
+          .sort(function (e, t) {
+            return e.rowIndex - t.rowIndex;
+          })
+          .map(function (e) {
+            var n = [String(e.rowIndex + 1)].concat(
+              t.map(function (t) {
+                var n = e.rowData[t];
+                return n != null ? String(n) : "";
+              }),
+            );
+            return (
+              n.push(
+                o(
+                  "WAWebContactManagerImportErrorMessage",
+                ).getContactManagerImportErrorLabel(e.errorType),
+              ),
+              n
+            );
+          });
+      return { headers: [l].concat(t, [s]), rows: p };
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = m(t),
+            var n = p(t),
               r = n.headers,
               a = n.rows,
               i = yield o(
@@ -82,10 +95,10 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.buildImportErrorsExportTable = m), (l.exportImportErrors = p));
+    ((l.buildImportErrorsExportTable = p), (l.exportImportErrors = _));
   },
   226,
 );

@@ -32,7 +32,7 @@ __d(
           d = i.mediaKey,
           m = i.url,
           p = o("WAWebMediaCleanFileName").cleanIncomingFilename(
-            a.fileName || a.title,
+            a.fileName != null && a.fileName !== "" ? a.fileName : a.title,
           ),
           _ = a.caption != null && a.caption !== "",
           f = _

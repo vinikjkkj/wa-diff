@@ -10,6 +10,7 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
+    "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
@@ -111,6 +112,9 @@ __d(
                                       customAudienceFbid: _,
                                       id: n,
                                       listName: m != null ? m : "",
+                                      shouldInsertInitialSystemMessages: o(
+                                        "WAWebUserPrefsHistorySync",
+                                      ).getInitialHistorySyncComplete(),
                                     }),
                                     {
                                       actionState:

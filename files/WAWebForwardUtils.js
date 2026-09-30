@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebActionToast.react",
-    "WAWebMsgGetters",
     "WAWebToast.react",
     "WAWebToastManager",
     "react",
@@ -13,7 +12,7 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      return o("WAWebMsgGetters").getIsFrequentlyForwarded(e)
+      return e
         ? s._(/*BTDS*/ "Forwarded many times")
         : s._(/*BTDS*/ "Forwarded");
     }

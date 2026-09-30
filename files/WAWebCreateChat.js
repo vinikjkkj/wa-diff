@@ -353,7 +353,7 @@ __d(
                   ])),
                 V.id.toLogString(),
               )
-              .catching(e)
+              .catching(r("getErrorSafe")(e))
               .sendLogs("createChat-lid-offline-resume-workaround-failed-chat");
           }
           var ce;

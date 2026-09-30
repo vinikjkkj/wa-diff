@@ -1,6 +1,6 @@
 __d(
   "WebBloksMinsPutByVal",
-  ["WebBloksErrors", "WebBloksUtils"],
+  ["WebBloksActionContainerUtils", "WebBloksErrors", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     var e = 4294967295;
     function s(t) {
@@ -25,16 +25,18 @@ __d(
         i === a.length ? a.push(r) : (a[i] = r);
         return;
       }
-      if (t != null && typeof t == "object") {
-        var l = o("WebBloksUtils").cast(t),
-          u = typeof n == "string" ? n : String(n);
-        l[u] = r;
-        return;
-      }
-      throw new (o("WebBloksErrors").WebBloksScriptError)(
-        "put_by_val 1st argument must be a container",
-        e,
-      );
+      if (t == null || typeof t != "object")
+        throw new (o("WebBloksErrors").WebBloksScriptError)(
+          "put_by_val 1st argument must be a container",
+          e,
+        );
+      var l = o("WebBloksActionContainerUtils").assertWebBloksPlainMap(
+          e,
+          t,
+          "put_by_val 1st argument must be a container",
+        ),
+        u = typeof n == "string" ? n : String(n);
+      o("WebBloksActionContainerUtils").writeWebBloksPlainMapValue(l, u, r);
     }
     l.default = u;
   },

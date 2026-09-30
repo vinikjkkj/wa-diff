@@ -14,6 +14,7 @@ __d(
           (t.labelId = o("WAWebBaseModel").prop()),
           (t.detectedOutcomeOriginalLabelPredefinedId =
             o("WAWebBaseModel").prop()),
+          (t.hasManualAssociation = o("WAWebBaseModel").prop(!1)),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

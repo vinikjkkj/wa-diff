@@ -7,6 +7,7 @@ __d(
     "WAWebChatMessageSearch",
     "WAWebChatSearchFilters",
     "WAWebConnModel",
+    "WAWebContactManagerGating",
     "WAWebFrontendChatGetters",
     "WAWebInboxFiltersGatingUtils",
     "WAWebLabelCollection",
@@ -84,7 +85,8 @@ __d(
     function C(e) {
       return (
         (e == null ? void 0 : e.predefinedId) ===
-        o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
+          o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID &&
+        o("WAWebContactManagerGating").contactManagerEnabled()
       );
     }
     function b(e) {

@@ -2,8 +2,11 @@ __d(
   "WAWebSyncLeadStageToProfile",
   [
     "WALogger",
+    "WAWebChatCollection",
+    "WAWebContactManagerGating",
     "WAWebCustomerDataFieldSaver",
     "WAWebLidMigrationUtils",
+    "WAWebWidFactory",
     "WAWebWidToJid",
     "getErrorSafe",
   ],
@@ -18,7 +21,16 @@ __d(
           : o("WAWebLidMigrationUtils").toUserLid(e.id);
       return n != null ? o("WAWebWidToJid").widToChatJid(n) : null;
     }
-    function m(t, n) {
+    function m(e) {
+      var t = o("WAWebWidFactory").createWid(e);
+      if (!o("WAWebContactManagerGating").isWidEligibleForCustomerFields(t))
+        return null;
+      var n = o("WAWebChatCollection").ChatCollection.get(e);
+      if (n != null) return d(n);
+      var r = o("WAWebLidMigrationUtils").toUserLid(t);
+      return r != null ? o("WAWebWidToJid").widToChatJid(r) : null;
+    }
+    function p(t, n) {
       if (t == null) {
         o("WALogger")
           .ERROR(
@@ -44,7 +56,7 @@ __d(
             .sendLogs("lead-stage-customer-profile-upsert-fail");
         });
     }
-    function p(e) {
+    function _(e) {
       if (e == null) {
         o("WALogger")
           .ERROR(
@@ -71,8 +83,9 @@ __d(
         });
     }
     ((l.getLeadProfileChatJid = d),
-      (l.syncLeadStageToProfile = m),
-      (l.clearLeadStageOnProfile = p));
+      (l.getLeadProfileChatJidForChatJid = m),
+      (l.syncLeadStageToProfile = p),
+      (l.clearLeadStageOnProfile = _));
   },
   98,
 );

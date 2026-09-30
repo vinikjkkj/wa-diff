@@ -11,14 +11,14 @@ __d(
       return {
         axis: s(r.axis),
         container: o("WAWebUimUtils").isCrossWindowHTMLElement(a) ? a : void 0,
-        delay: u(r.delay),
+        delay: c(r.delay),
         drag: r.drag === !0,
         duration: u(r.duration),
-        easing: c(r.easing),
-        offset: u(r.offset),
+        easing: d(r.easing),
+        offset: c(r.offset),
         progress: typeof n == "function" ? n : void 0,
         queue: typeof r.queue == "string" || r.queue === !1 ? r.queue : void 0,
-        stagger: u(r.stagger),
+        stagger: c(r.stagger),
       };
     }
     function s(e) {
@@ -26,14 +26,18 @@ __d(
       if (e === "y") return "y";
     }
     function u(e) {
-      return typeof e == "number" && Number.isFinite(e) ? e : void 0;
+      var t = c(e);
+      return t == null ? void 0 : Math.max(t, 0);
     }
     function c(e) {
+      return typeof e == "number" && Number.isFinite(e) ? e : void 0;
+    }
+    function d(e) {
       if (typeof e == "string") return e;
       if (Array.isArray(e) && (e.length === 2 || e.length === 4)) {
         var t = [];
         for (var n of e) {
-          var r = u(n);
+          var r = c(n);
           r != null && t.push(r);
         }
         return t.length === e.length ? t : void 0;

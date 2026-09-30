@@ -13,7 +13,7 @@ __d(
       s = e || (e = o("react"));
     function u(e, t, n) {
       var r = o("WAWebOrderDetails").getOrderInfo(e),
-        a = o("WAWebMsgGetters").getSender(e);
+        a = o("WAWebMsgGetters").getSender(e.unsafe());
       r == null ||
         a == null ||
         o("WAWebDrawerManager").DrawerManager.openDrawerRight(

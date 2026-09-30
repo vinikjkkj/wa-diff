@@ -51,17 +51,20 @@ __d(
       );
     }
     function p(e) {
-      var t, n;
+      return _(e.threadIds);
+    }
+    function _(e) {
+      var t;
       return (t =
-        (n = e.threadIds) == null
+        e == null
           ? void 0
-          : n.find(function (e) {
+          : e.find(function (e) {
               return e.type === o("WAWebThreadUtils").ThreadType.ViewAllReplies;
             })) != null
         ? t
         : null;
     }
-    function _(e, t) {
+    function f(e, t) {
       return t.key.equals(e.id);
     }
     ((l.isMsgInThread = s),
@@ -70,7 +73,8 @@ __d(
       (l.msgHasAiThread = d),
       (l.threadsContainAiThread = m),
       (l.getMsgViewAllRepliesThread = p),
-      (l.isMsgRootOfThread = _));
+      (l.getViewAllRepliesThreadId = _),
+      (l.isMsgRootOfThread = f));
   },
   98,
 );

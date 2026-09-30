@@ -53,27 +53,33 @@ __d(
       return e > 0 ? e : d;
     }
     function b() {
-      return !v() || !h() || !o("WAWebCanonicalGating").isCanonicalEnabled()
+      return !S() || !h() || !o("WAWebCanonicalGating").isCanonicalEnabled()
         ? !1
         : !r("WAWebNetworkStatus").online;
     }
     function v() {
       return (
-        o("WAWebABPropsCache").isABPropConfigsReady() &&
-        r("justknobx")._("1600") &&
-        o("WAWebCanonicalUtils").isCanonicalPresent() &&
-        L() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
+        L() === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING &&
+        r("MetaConfig")._("609")
       );
     }
     function S() {
       return (
         o("WAWebABPropsCache").isABPropConfigsReady() &&
-        R() === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
+        r("justknobx")._("1600") &&
+        o("WAWebCanonicalUtils").isCanonicalPresent() &&
+        E() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
       );
     }
     function R() {
+      return (
+        o("WAWebABPropsCache").isABPropConfigsReady() &&
+        L() === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
+      );
+    }
+    function L() {
       try {
-        return I(E());
+        return T(k());
       } catch (t) {
         return (
           o("WALogger").ERROR(
@@ -88,9 +94,9 @@ __d(
         );
       }
     }
-    function L() {
+    function E() {
       try {
-        return I(k());
+        return T(I());
       } catch (e) {
         return (
           o("WALogger").ERROR(
@@ -105,17 +111,17 @@ __d(
         );
       }
     }
-    function E() {
+    function k() {
       return o("WAWebUserPrefsGeneral").getWhatsAppWebExternalBetaJoinedIdb()
         ? r("MetaConfig")._("596", !0)
         : r("MetaConfig")._("371", !0);
     }
-    function k() {
+    function I() {
       return o("WAWebUserPrefsGeneral").getWhatsAppWebExternalBetaJoinedIdb()
         ? r("MetaConfig")._("597")
         : r("MetaConfig")._("410");
     }
-    function I(e) {
+    function T(e) {
       return e === o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         : e === o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING
@@ -136,7 +142,7 @@ __d(
                       ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_OR_FALCO
                       : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
     }
-    function T() {
+    function D() {
       if (m != null) return m;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
@@ -158,7 +164,7 @@ __d(
       }
       return m;
     }
-    function D() {
+    function x() {
       if (p != null) return p;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
@@ -180,10 +186,10 @@ __d(
       }
       return p;
     }
-    function x(e) {
-      return o("WAWebABPropsCache").isABPropConfigsReady() && D().has(e);
+    function $(e) {
+      return o("WAWebABPropsCache").isABPropConfigsReady() && x().has(e);
     }
-    function $() {
+    function P() {
       var e = r("MetaConfig")._("565", !0),
         t = _;
       if (t != null && t.raw === e) return t.eventNames;
@@ -193,12 +199,13 @@ __d(
     ((l.getCanonicalWamFalcoMaxBufferSize = y),
       (l.getWamFalcoFlushIntervalMs = C),
       (l.shouldBufferFalcoEvent = b),
-      (l.isFalcoLoggingEnabled = v),
-      (l.isWamLoggingDisabled = S),
-      (l.getWamFalcoMode = R),
-      (l.getShadowLoggingEventIds = T),
-      (l.isCriticalEvent = x),
-      (l.getWamFalcoBlocklistEventNames = $));
+      (l.shouldUseBanzaiOfflineQueue = v),
+      (l.isFalcoLoggingEnabled = S),
+      (l.isWamLoggingDisabled = R),
+      (l.getWamFalcoMode = L),
+      (l.getShadowLoggingEventIds = D),
+      (l.isCriticalEvent = $),
+      (l.getWamFalcoBlocklistEventNames = P));
   },
   98,
 );

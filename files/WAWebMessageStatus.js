@@ -25,7 +25,7 @@ __d(
     function d(e) {
       var t = o("react-compiler-runtime").c(24),
         n = e.associatedMessages,
-        a = e.msg,
+        a = e.msgKey,
         i;
       if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
         var l;
@@ -40,7 +40,7 @@ __d(
         ]),
           (t[0] = i));
       } else i = t[0];
-      var u = o("useWAWebMsgValues").useMsgValues(a.id, i),
+      var u = o("useWAWebMsgValues").useMsgValues(a, i),
         d = u[0],
         m = u[1],
         p = u[2],

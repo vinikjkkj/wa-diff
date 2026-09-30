@@ -376,7 +376,7 @@ __d(
           v &&
           u.jsx("div", {
             className: "x10l6tqk xxx7yvo xbfrwjf",
-            children: u.jsx(o("WAWebMessageMeta.react").Meta, { msg: c }),
+            children: u.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: c.id }),
           }),
         ie = u.jsxs(o("WAWebFlex.react").FlexRow, {
           xstyle: [

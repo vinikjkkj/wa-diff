@@ -14,8 +14,8 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = f(e),
-            n = yield h([t]),
+          var t = h(e),
+            n = yield C([t]),
             r = n[0],
             a = o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey(r);
           (yield o("WAWebSchemaLabelSublist")
@@ -35,7 +35,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [].concat(yield h([e]), [e]);
+          var t = [].concat(yield C([e]), [e]);
           yield o("WAWebSchemaLabelSublist")
             .getLabelSublistTable()
             .bulkRemove(t);
@@ -43,18 +43,40 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = (yield o("WAWebSchemaLabelSublist")
+            .getLabelSublistTable()
+            .all()).filter(function (t) {
+            return t.predefinedId === e;
+          });
+          return (
+            t.length > 0 &&
+              (yield o("WAWebSchemaLabelSublist")
+                .getLabelSublistTable()
+                .bulkRemove(t.map(h))),
+            t.length
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
               predefinedId: e,
               chatJid: t,
             }),
-            a = yield h([r]),
+            a = yield C([r]),
             i = a[0],
             l =
               (n = yield o("WAWebSchemaLabelSublist")
@@ -65,28 +87,28 @@ __d(
                     .getLabelSublistTable()
                     .get(r);
           if (l == null) return null;
-          var s = yield C([l]),
+          var s = yield v([l]),
             u = s[0];
           return u;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaLabelSublist")
-            .getLabelSublistTable()
-            .all();
-          return C(e);
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e) {
+    function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebSchemaLabelSublist")
+            .getLabelSublistTable()
+            .all();
+          return v(e);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
       var t = e.chatJid,
         n = e.predefinedId;
       return o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
@@ -94,17 +116,17 @@ __d(
         predefinedId: n,
       });
     }
-    function g(e) {
+    function y(e) {
       return e.filter(function (e) {
         return r("WAWebWid").isWid(e);
       });
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !o(
               "WAWebUserPrefsLabelAssociationsLidMigration",
@@ -114,7 +136,7 @@ __d(
           var t = yield o(
             "WAWebLidMigrationDbUtils",
           ).findAccountLidsForPnChatIds(
-            g(
+            y(
               Array.from(
                 new Set(
                   e.map(o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey),
@@ -136,15 +158,15 @@ __d(
                 });
           });
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !o(
               "WAWebUserPrefsLabelAssociationsLidMigration",
@@ -152,7 +174,7 @@ __d(
           )
             return e;
           var t = yield o("WAWebLidMigrationDbUtils").findChatIdsForAccountLids(
-            g(
+            y(
               Array.from(
                 new Set(
                   e.map(function (e) {
@@ -169,13 +191,14 @@ __d(
             });
           });
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.addOrEditLabelSublist = e),
       (l.removeLabelSublist = u),
-      (l.getLabelSublistByChat = d),
-      (l.getAllLabelSublist = p));
+      (l.removeLabelSublistsByPredefinedId = d),
+      (l.getLabelSublistByChat = p),
+      (l.getAllLabelSublist = f));
   },
   98,
 );

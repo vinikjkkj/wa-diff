@@ -9,22 +9,24 @@ __d(
     var e = r("JSResourceForInteraction")(
       "WAWebMaybeSyncBotSupportFields",
     ).__setRef("WAWebSyncGroupBotSupportFields");
-    function s(e) {
+    function s(e, t) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (
-            o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+            (n === void 0 && (n = []),
+            !!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
           ) {
-            var n = t.filter(function (e) {
+            var r = t.filter(function (e) {
               return e.isFbidBot();
             });
-            if (n.length !== 0) {
-              var r = yield e.load(),
-                a = r.maybeSyncGroupBotSupportFields;
-              a(n);
+            if (!(r.length === 0 && n.length === 0)) {
+              var a = yield e.load(),
+                i = a.maybeQueryGroupAgentRosters,
+                l = a.maybeSyncGroupBotSupportFields;
+              (l(r), i(n));
             }
           }
         })),

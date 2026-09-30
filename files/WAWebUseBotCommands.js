@@ -21,7 +21,7 @@ __d(
     }
     function s(e) {
       var t, n;
-      (o("WAWebMsgGetters").getIsGroupMsg(e) ||
+      (o("WAWebMsgGetters").getIsGroupMsg(e.unsafe()) ||
         (n = o("WAWebUserPrefsMeUser").isMeAccount(e.from) ? e.to : e.from),
         o("WAWebUseBusinessProfile.react").useBusinessProfile(n));
       var r =

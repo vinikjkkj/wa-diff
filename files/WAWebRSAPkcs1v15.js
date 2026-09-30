@@ -112,27 +112,28 @@ __d(
           var o = yield self.crypto.subtle.exportKey("jwk", t);
           if (o.n == null || o.e == null)
             throw r("err")("Invalid RSA public key: missing n or e");
-          var a = e(o.n),
-            i = e(o.e),
-            l = a.length,
-            s = n.length;
-          if (s > l - 11)
+          var a = o.e,
+            i = e(o.n),
+            l = e(a),
+            s = i.length,
+            u = n.length;
+          if (u > s - 11)
             throw r("err")("Message too long for RSA PKCS1v1.5 encryption");
-          var u = l - s - 3,
-            c = new Uint8Array(u);
-          self.crypto.getRandomValues(c);
-          for (var d = 0; d < u; d++)
-            for (; c[d] === 0; )
-              c[d] = self.crypto.getRandomValues(new Uint8Array(1))[0];
-          var m = new Uint8Array(l);
-          ((m[0] = 0),
-            (m[1] = 2),
-            m.set(c, 2),
-            (m[2 + u] = 0),
-            m.set(n, 3 + u));
-          var p = f(m, i, a),
-            _ = new Uint8Array(l);
-          return (_.set(p, l - p.length), _);
+          var c = s - u - 3,
+            d = new Uint8Array(c);
+          self.crypto.getRandomValues(d);
+          for (var m = 0; m < c; m++)
+            for (; d[m] === 0; )
+              d[m] = self.crypto.getRandomValues(new Uint8Array(1))[0];
+          var p = new Uint8Array(s);
+          ((p[0] = 0),
+            (p[1] = 2),
+            p.set(d, 2),
+            (p[2 + c] = 0),
+            p.set(n, 3 + c));
+          var _ = f(p, l, i),
+            g = new Uint8Array(s);
+          return (g.set(_, s - _.length), g);
         })),
         h.apply(this, arguments)
       );

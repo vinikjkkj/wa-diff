@@ -3,9 +3,10 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e() {
-      return navigator.connection != null &&
-        typeof navigator.connection.effectiveType == "string"
-        ? navigator.connection.effectiveType
+      var e = navigator;
+      return e.connection != null &&
+        typeof e.connection.effectiveType == "string"
+        ? e.connection.effectiveType
         : null;
     }
     i.getEffectiveNetworkType = e;

@@ -122,7 +122,8 @@ __d(
             var e = i.current;
             if (e != null) {
               var t = new ResizeObserver(function () {
-                (window.clearTimeout(l.current),
+                var e;
+                (window.clearTimeout((e = l.current) != null ? e : void 0),
                   (l.current = window.setTimeout(function () {
                     I(function () {
                       return R(v, b);
@@ -132,7 +133,9 @@ __d(
               return (
                 t.observe(e),
                 function () {
-                  (t.unobserve(e), window.clearTimeout(l.current));
+                  var n;
+                  (t.unobserve(e),
+                    window.clearTimeout((n = l.current) != null ? n : void 0));
                 }
               );
             }

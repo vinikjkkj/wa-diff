@@ -2,6 +2,7 @@ __d(
   "WAWebFutureproofProtoUtils",
   [
     "WAWebBotBaseGating",
+    "WAWebBotGroupGatingUtils",
     "WAWebMessageAssociationGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebSpoilerGating",
@@ -11,65 +12,70 @@ __d(
     function e(e) {
       var t = e.associatedChildMessage,
         n = e.botForwardedMessage,
-        r = e.botInvokeMessage,
-        a = e.documentWithCaptionMessage,
-        i = e.editedMessage,
-        l = e.ephemeralMessage,
-        s = e.groupMentionedMessage,
-        u = e.newsletterAdminProfileMessage,
-        c = e.newsletterScheduledMessage,
-        d = e.pollCreationMessageV4,
-        m = e.pollCreationOptionImageMessage,
-        p = e.questionMessage,
-        _ = e.questionReplyMessage,
-        f = e.spoilerMessage,
-        g = e.viewOnceMessage,
-        h = e.viewOnceMessageV2,
-        y = e.viewOnceMessageV2Extension;
-      return (
-        s ||
-        a ||
-        g ||
-        h ||
-        y ||
-        l ||
-        i ||
-        r ||
-        d ||
-        m ||
-        (t &&
-        o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isFutureproofAssociatedChildEnabled()
-          ? t
-          : p ||
-            _ ||
-            (f && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
-              ? f
-              : n &&
-                  o(
-                    "WAWebBotBaseGating",
-                  ).isRichResponseForwardReceivingEnabled()
-                ? n
-                : u ||
-                  (c &&
-                  o(
-                    "WAWebNewsletterGatingUtils",
-                  ).isSchedulingUpdatesReceiverEnabled()
-                    ? c
-                    : null)))
-      );
+        r = e.botGroupParticipantMessage,
+        a = e.botInvokeMessage,
+        i = e.documentWithCaptionMessage,
+        l = e.editedMessage,
+        s = e.ephemeralMessage,
+        u = e.groupMentionedMessage,
+        c = e.newsletterAdminProfileMessage,
+        d = e.newsletterScheduledMessage,
+        m = e.pollCreationMessageV4,
+        p = e.pollCreationOptionImageMessage,
+        _ = e.questionMessage,
+        f = e.questionReplyMessage,
+        g = e.spoilerMessage,
+        h = e.viewOnceMessage,
+        y = e.viewOnceMessageV2,
+        C = e.viewOnceMessageV2Extension;
+      return r &&
+        o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+        ? r
+        : u ||
+            i ||
+            h ||
+            y ||
+            C ||
+            s ||
+            l ||
+            a ||
+            m ||
+            p ||
+            (t &&
+            o(
+              "WAWebMessageAssociationGatingUtils",
+            ).isFutureproofAssociatedChildEnabled()
+              ? t
+              : _ ||
+                f ||
+                (g && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+                  ? g
+                  : n &&
+                      o(
+                        "WAWebBotBaseGating",
+                      ).isRichResponseForwardReceivingEnabled()
+                    ? n
+                    : c ||
+                      (d &&
+                      o(
+                        "WAWebNewsletterGatingUtils",
+                      ).isSchedulingUpdatesReceiverEnabled()
+                        ? d
+                        : null)));
     }
     function s(e) {
       var t = e.associatedChildMessage,
         n = e.botForwardedMessage,
-        r = e.spoilerMessage;
+        r = e.botGroupParticipantMessage,
+        a = e.spoilerMessage;
       return (
+        (r != null &&
+          !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()) ||
         (t != null &&
           !o(
             "WAWebMessageAssociationGatingUtils",
           ).isFutureproofAssociatedChildEnabled()) ||
-        (r != null && !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()) ||
+        (a != null && !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()) ||
         (n != null &&
           !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled())
       );

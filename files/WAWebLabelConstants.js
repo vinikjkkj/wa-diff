@@ -57,7 +57,6 @@ __d(
         LEAD: 8,
         DO_NEW_ORDER: 9,
         DO_LEAD: 10,
-        LEAD_LIST: 11,
       }),
       d = Object.freeze({
         NEW_CUSTOMER: "New customer",

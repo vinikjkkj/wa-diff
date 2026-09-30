@@ -307,7 +307,7 @@ __d(
       );
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(92),
+      var t = o("react-compiler-runtime").c(90),
         n = e.associatedMessages,
         a = e.displayAuthor,
         i = e.displayType,
@@ -481,31 +481,28 @@ __d(
         : (J = t[33]);
       var Z = d.isDynamicReplyButtonsMsg,
         ee = d.senderObj,
-        te;
-      t[34] !== d
-        ? ((te = d.unsafe()), (t[34] = d), (t[35] = te))
-        : (te = t[35]);
-      var ne;
-      t[36] !== i || t[37] !== d
+        te = d.id,
+        ne;
+      t[34] !== i || t[35] !== d
         ? ((ne =
             !d.ctwaContext &&
             m.jsx(o("WAWebBizSuspiciousLabel.react").SuspiciousLabel, {
               msg: d.unsafe(),
               displayType: i,
             })),
-          (t[36] = i),
-          (t[37] = d),
-          (t[38] = ne))
-        : (ne = t[38]);
+          (t[34] = i),
+          (t[35] = d),
+          (t[36] = ne))
+        : (ne = t[36]);
       var re;
-      t[39] !== l ||
-      t[40] !== A ||
-      t[41] !== d ||
-      t[42] !== G ||
-      t[43] !== C ||
-      t[44] !== b ||
-      t[45] !== v ||
-      t[46] !== D
+      t[37] !== l ||
+      t[38] !== A ||
+      t[39] !== d ||
+      t[40] !== G ||
+      t[41] !== C ||
+      t[42] !== b ||
+      t[43] !== v ||
+      t[44] !== D
         ? ((re = m.jsx(r("WAWebPollMessageHeader"), {
             isPollEnded: l,
             pollSelectableOptionsCount: v,
@@ -516,31 +513,31 @@ __d(
             isSentByMe: A,
             trusted: D,
           })),
-          (t[39] = l),
-          (t[40] = A),
-          (t[41] = d),
-          (t[42] = G),
-          (t[43] = C),
-          (t[44] = b),
-          (t[45] = v),
-          (t[46] = D),
-          (t[47] = re))
-        : (re = t[47]);
+          (t[37] = l),
+          (t[38] = A),
+          (t[39] = d),
+          (t[40] = G),
+          (t[41] = C),
+          (t[42] = b),
+          (t[43] = v),
+          (t[44] = D),
+          (t[45] = re))
+        : (re = t[45]);
       var oe;
-      t[48] === Symbol.for("react.memo_cache_sentinel")
+      t[46] === Symbol.for("react.memo_cache_sentinel")
         ? ((oe = (c || (c = r("stylex"))).props(
             o("WDSPaddings.stylex").wdsPaddings.padding4,
           )),
-          (t[48] = oe))
-        : (oe = t[48]);
+          (t[46] = oe))
+        : (oe = t[46]);
       var ae;
-      t[49] !== Y ||
-      t[50] !== d ||
-      t[51] !== p ||
-      t[52] !== Q ||
-      t[53] !== f ||
-      t[54] !== E ||
-      t[55] !== x
+      t[47] !== Y ||
+      t[48] !== d ||
+      t[49] !== p ||
+      t[50] !== Q ||
+      t[51] !== f ||
+      t[52] !== E ||
+      t[53] !== x
         ? ((ae = m.jsx(
             r("WAWebPollsOptions"),
             babelHelpers.extends(
@@ -556,17 +553,17 @@ __d(
               Q,
             ),
           )),
-          (t[49] = Y),
-          (t[50] = d),
-          (t[51] = p),
-          (t[52] = Q),
-          (t[53] = f),
-          (t[54] = E),
-          (t[55] = x),
-          (t[56] = ae))
-        : (ae = t[56]);
+          (t[47] = Y),
+          (t[48] = d),
+          (t[49] = p),
+          (t[50] = Q),
+          (t[51] = f),
+          (t[52] = E),
+          (t[53] = x),
+          (t[54] = ae))
+        : (ae = t[54]);
       var ie;
-      t[57] !== u || t[58] !== A
+      t[55] !== u || t[56] !== A
         ? ((ie =
             u &&
             m.jsxs(o("WAWebFlex.react").FlexRow, {
@@ -602,12 +599,12 @@ __d(
                 ),
               ],
             })),
-          (t[57] = u),
-          (t[58] = A),
-          (t[59] = ie))
-        : (ie = t[59]);
+          (t[55] = u),
+          (t[56] = A),
+          (t[57] = ie))
+        : (ie = t[57]);
       var le;
-      t[60] !== F || t[61] !== B
+      t[58] !== F || t[59] !== B
         ? ((le =
             F != null &&
             m.jsx(o("WAWebFlex.react").FlexRow, {
@@ -624,37 +621,37 @@ __d(
                     : s._(/*BTDS*/ "See the latest votes in the channel."),
               }),
             })),
-          (t[60] = F),
-          (t[61] = B),
-          (t[62] = le))
-        : (le = t[62]);
+          (t[58] = F),
+          (t[59] = B),
+          (t[60] = le))
+        : (le = t[60]);
       var se;
-      t[63] !== n || t[64] !== d
+      t[61] !== n || t[62] !== d.id
         ? ((se = m.jsx(o("WAWebFlex.react").FlexRow, {
             justify: "end",
             children: m.jsx(o("WAWebMessageMeta.react").Meta, {
-              msg: d,
+              msgKey: d.id,
               associatedMessages: n,
             }),
           })),
-          (t[63] = n),
-          (t[64] = d),
-          (t[65] = se))
-        : (se = t[65]);
+          (t[61] = n),
+          (t[62] = d.id),
+          (t[63] = se))
+        : (se = t[63]);
       var ue;
-      t[66] !== ae || t[67] !== ie || t[68] !== le || t[69] !== se
+      t[64] !== ae || t[65] !== ie || t[66] !== le || t[67] !== se
         ? ((ue = m.jsxs(
             "div",
             babelHelpers.extends({}, oe, { children: [ae, ie, le, se] }),
           )),
-          (t[66] = ae),
-          (t[67] = ie),
-          (t[68] = le),
-          (t[69] = se),
-          (t[70] = ue))
-        : (ue = t[70]);
+          (t[64] = ae),
+          (t[65] = ie),
+          (t[66] = le),
+          (t[67] = se),
+          (t[68] = ue))
+        : (ue = t[68]);
       var ce;
-      t[71] !== V || t[72] !== A || t[73] !== _ || t[74] !== k || t[75] !== q
+      t[69] !== V || t[70] !== A || t[71] !== _ || t[72] !== k || t[73] !== q
         ? ((ce =
             k &&
             m.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
@@ -673,43 +670,43 @@ __d(
                 },
               ],
             })),
-          (t[71] = V),
-          (t[72] = A),
-          (t[73] = _),
-          (t[74] = k),
-          (t[75] = q),
-          (t[76] = ce))
-        : (ce = t[76]);
+          (t[69] = V),
+          (t[70] = A),
+          (t[71] = _),
+          (t[72] = k),
+          (t[73] = q),
+          (t[74] = ce))
+        : (ce = t[74]);
       var de;
-      t[77] !== d.senderObj ||
-      t[78] !== R ||
-      t[79] !== te ||
-      t[80] !== ne ||
-      t[81] !== re ||
-      t[82] !== ue ||
-      t[83] !== ce
+      t[75] !== d.id ||
+      t[76] !== d.senderObj ||
+      t[77] !== R ||
+      t[78] !== ne ||
+      t[79] !== re ||
+      t[80] !== ue ||
+      t[81] !== ce
         ? ((de = m.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
             contact: ee,
-            msg: te,
+            msgKey: te,
             children: [ne, R, re, ue, ce],
           })),
-          (t[77] = d.senderObj),
-          (t[78] = R),
-          (t[79] = te),
-          (t[80] = ne),
-          (t[81] = re),
-          (t[82] = ue),
-          (t[83] = ce),
-          (t[84] = de))
-        : (de = t[84]);
+          (t[75] = d.id),
+          (t[76] = d.senderObj),
+          (t[77] = R),
+          (t[78] = ne),
+          (t[79] = re),
+          (t[80] = ue),
+          (t[81] = ce),
+          (t[82] = de))
+        : (de = t[82]);
       var me;
       return (
-        t[85] !== a ||
-        t[86] !== i ||
-        t[87] !== d ||
-        t[88] !== de ||
-        t[89] !== J ||
-        t[90] !== T
+        t[83] !== a ||
+        t[84] !== i ||
+        t[85] !== d ||
+        t[86] !== de ||
+        t[87] !== J ||
+        t[88] !== T
           ? ((me = m.jsx(r("WAWebMessageTextBubble.react"), {
               msg: d,
               displayType: i,
@@ -721,14 +718,14 @@ __d(
               testid: T,
               children: de,
             })),
-            (t[85] = a),
-            (t[86] = i),
-            (t[87] = d),
-            (t[88] = de),
-            (t[89] = J),
-            (t[90] = T),
-            (t[91] = me))
-          : (me = t[91]),
+            (t[83] = a),
+            (t[84] = i),
+            (t[85] = d),
+            (t[86] = de),
+            (t[87] = J),
+            (t[88] = T),
+            (t[89] = me))
+          : (me = t[89]),
         me
       );
     }

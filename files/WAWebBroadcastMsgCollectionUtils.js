@@ -4,14 +4,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
-      var n = u(e);
-      for (var r of t) u(r);
+      var n = c(e);
+      for (var r of t) c(r);
       return n;
     }
     function u(t) {
-      var n = new (o("WAWebMsgModel").Msg)(t);
-      o("WAWebMsgCollection").MsgCollection.add(n);
-      var r = o("WAWebChatCollection").ChatCollection.get(n.to);
+      o("WAWebMsgCollection").MsgCollection.add(t);
+      var n = o("WAWebChatCollection").ChatCollection.get(t.to);
       return (
         o("WALogger").LOG(
           e ||
@@ -20,14 +19,17 @@ __d(
               " ack=",
               "",
             ])),
-          n.id,
-          n.ack,
+          t.id,
+          t.ack,
         ),
-        r != null && r.msgs.add(n),
-        n
+        n != null && n.msgs.add(t),
+        t
       );
     }
-    l.addMsgsToCollections = s;
+    function c(e) {
+      return u(new (o("WAWebMsgModel").Msg)(e));
+    }
+    ((l.addMsgsToCollections = s), (l.addMsgModelToCollections = u));
   },
   98,
 );

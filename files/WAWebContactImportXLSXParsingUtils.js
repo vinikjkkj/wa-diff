@@ -44,7 +44,9 @@ __d(
             var a = n.read(t, { type: "array" }),
               i = a.SheetNames[0],
               l = a.Sheets[i],
-              d = n.utils
+              d = l["!ref"],
+              m = typeof d == "string" ? n.utils.decode_range(d).s.r : 0,
+              p = n.utils
                 .sheet_to_json(l, { header: 1, raw: !1 })
                 .map(function (e) {
                   return e.map(function (e) {
@@ -59,10 +61,10 @@ __d(
                     ' rows from sheet "',
                     '"',
                   ])),
-                d.length,
+                p.length,
                 i,
               ),
-              d
+              { data: p, rowOffset: m }
             );
           } catch (e) {
             throw (

@@ -286,6 +286,7 @@ __d(
             a("internalThreadIDs"),
             a("nonJidMentions"),
             a("botGroupParticipant"),
+            a("botGroupParticipants"),
             a("isScheduledMsg"),
             a("scheduledTimestampS"),
             a("serverStoreTimeMicros"),

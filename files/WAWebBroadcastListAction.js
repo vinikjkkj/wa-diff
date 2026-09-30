@@ -195,6 +195,7 @@ __d(
                     id: i,
                     isWebCreatedList: l,
                     listName: d,
+                    shouldInsertInitialSystemMessages: !0,
                     timestamp: o("WATimeUtils").castMilliSecondsToUnixTime(f),
                   },
                 ),

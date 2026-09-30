@@ -16,12 +16,16 @@ __d(
         o("WAWebUserPrefsMultiDeviceDebug").getLidMigrationDebugMode()
       );
     }
-    function u(t) {
-      return r("gkx")("26258") ? !1 : e(t.id.remote) || e(t.id.participant);
+    function u(e) {
+      return c(e.id);
+    }
+    function c(t) {
+      return r("gkx")("26258") ? !1 : e(t.remote) || e(t.participant);
     }
     ((l.getShouldShowLidDebugUI = e),
       (l.getShouldShowLidDebugUIForGroups = s),
-      (l.getShouldShowLidDebugUIForMsg = u));
+      (l.getShouldShowLidDebugUIForMsg = u),
+      (l.getShouldShowLidDebugUIForMsgKey = c));
   },
   98,
 );

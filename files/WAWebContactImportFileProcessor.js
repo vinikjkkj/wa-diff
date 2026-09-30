@@ -84,32 +84,33 @@ __d(
       }
       return t != null ? { data: t.data, index: t.index } : C(e, $);
     }
-    function S(e, t) {
-      var n = [];
+    function S(e, t, n) {
+      n === void 0 && (n = 0);
+      var r = [];
       if (t == null)
         throw new (o(
           "WAWebContactImportTypedError",
         ).WAWebContactImportTypedError)(
           o("WAWebContactImportTypedError").FileError.FORMAT,
         );
-      for (var r = 0, a = t.index + 1; a < e.length; a++) {
-        var i = e[a],
-          l = R(i);
-        if (l !== 0) {
-          r = Math.max(r, l);
+      for (var a = 0, i = t.index + 1; i < e.length; i++) {
+        var l = e[i],
+          s = R(l);
+        if (s !== 0) {
+          a = Math.max(a, s);
           for (
-            var s = { data: {}, originalRowIndex: a }, u = 0;
-            u < t.data.length;
-            u++
+            var u = { data: {}, originalRowIndex: n + i }, c = 0;
+            c < t.data.length;
+            c++
           )
-            if (t.data[u]) {
-              var c = i[u];
-              s.data[t.data[u]] = c != null ? String(c) : "";
+            if (t.data[c]) {
+              var d = l[c];
+              u.data[t.data[c]] = d != null ? String(d) : "";
             }
-          n.push(s);
+          r.push(u);
         }
       }
-      return { rows: n, shape: { headerRow: t.data, maxPopulatedRowWidth: r } };
+      return { rows: r, shape: { headerRow: t.data, maxPopulatedRowWidth: a } };
     }
     function R(e) {
       for (var t = e.length - 1; t >= 0; t--) {
@@ -119,15 +120,17 @@ __d(
       }
       return 0;
     }
-    function L(e, t) {
+    function L(e, t, n) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.arrayBuffer(),
-            r = yield o("WAWebContactImportXLSXParsingUtils").loadXLSX(n);
-          return S(r, t(r));
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield e.arrayBuffer(),
+            a = yield o("WAWebContactImportXLSXParsingUtils").loadXLSX(r),
+            i = a.data,
+            l = a.rowOffset;
+          return S(i, t(i), n ? l : 0);
         })),
         E.apply(this, arguments)
       );
@@ -174,16 +177,16 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T(e, t, n, r, o) {
+    function T(e, t, n, r, o, a) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
+          function* (e, t, n, r, a, i) {
             return n === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
-              ? L(e, t)
-              : k(e, t, r, a);
+              ? L(e, t, r)
+              : k(e, t, a, i);
           },
         )),
         D.apply(this, arguments)
@@ -302,23 +305,37 @@ __d(
         lastNameColumn: null,
       };
     }
-    function F(e) {
+    function F(e, t) {
       return O.apply(this, arguments);
     }
     function O() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-            return Object.keys(e.data).reduce(
-              function (t, n) {
-                return ((t[n] = e.data[n]), t);
-              },
-              { originalRowIndex: e.originalRowIndex },
-            );
-          });
-          return o("WAWebContactImportTemplateParsingUtils").parseContactData(
-            t,
-          );
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.map(function (e) {
+              return Object.keys(e.data).reduce(
+                function (t, n) {
+                  return ((t[n] = e.data[n]), t);
+                },
+                { originalRowIndex: e.originalRowIndex },
+              );
+            }),
+            r = o("WAWebContactImportTemplateParsingUtils").parseContactData(n);
+          if (!t) return r;
+          var a = function (n) {
+            var t, r;
+            return (t = (r = e[n]) == null ? void 0 : r.originalRowIndex) !=
+              null
+              ? t
+              : n;
+          };
+          return {
+            errors: r.errors.map(function (e) {
+              return babelHelpers.extends({}, e, { rowIndex: a(e.rowIndex) });
+            }),
+            validContacts: r.validContacts.map(function (e) {
+              return babelHelpers.extends({}, e, { rowIndex: a(e.rowIndex) });
+            }),
+          };
         })),
         O.apply(this, arguments)
       );
@@ -439,6 +456,7 @@ __d(
                 t,
                 b,
                 a,
+                r.preserveSourceRows === !0,
                 r.rejectMalformedCSV === !0,
                 (l = r.findCSVHeaderForDelimiterRecovery) != null ? l : null,
               ),
@@ -468,7 +486,7 @@ __d(
                 E,
               ));
             var k = g ? yield P(R, n) : R,
-              I = yield F(k);
+              I = yield F(k, r.preserveSourceRows === !0);
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([

@@ -97,22 +97,22 @@ __d(
               ((this.$1.extraHeader = t.newExtraHeader),
               (this.$1.headers = JSON.parse(t.newExtraHeader))),
             t.patchExtraHeader != null)
-          )
+          ) {
+            var e = t.patchExtraHeader;
             try {
-              var e = JSON.parse(t.patchExtraHeader),
-                n =
+              var n = JSON.parse(e),
+                o =
                   this.$1.extraHeader != null
                     ? JSON.parse(this.$1.extraHeader)
                     : {};
               this.$1.headers == null && (this.$1.headers = {});
-              var o = this.$1.headers;
-              for (var a of Object.keys(e)) ((o[a] = e[a]), (n[a] = e[a]));
-              this.$1.extraHeader = JSON.stringify(n);
-            } catch (e) {
-              r("BladeRunnerLogger").warn(
-                "Failed to patch header: " + t.patchExtraHeader,
-              );
+              var a = this.$1.headers;
+              for (var i of Object.keys(n)) ((a[i] = n[i]), (o[i] = n[i]));
+              this.$1.extraHeader = JSON.stringify(o);
+            } catch (t) {
+              r("BladeRunnerLogger").warn("Failed to patch header: " + e);
             }
+          }
         }),
         e
       );

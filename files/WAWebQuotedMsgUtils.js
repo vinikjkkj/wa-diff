@@ -89,7 +89,8 @@ __d(
         };
         l = a != null ? s(a) + " ~" + s(r) + "~" : s(r);
       } else
-        n &&
+        n != null &&
+          n !== "" &&
           (l = o("WAWebStringTruncation").truncateAtCodepoints(
             n,
             o("WAWebProductCatalogCatalogConstants")

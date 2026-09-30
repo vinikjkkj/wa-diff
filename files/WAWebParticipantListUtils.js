@@ -67,7 +67,7 @@ __d(
           return s._(/*BTDS*/ "You").toString();
       }
       var l = c(e, t);
-      if (l.length === 1) return l.pop();
+      if (l.length === 1) return l[0];
       var u = r("WAWebFbtIntlList")(
         l,
         r("WAWebFbtIntlList").CONJUNCTIONS.AND,

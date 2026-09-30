@@ -335,6 +335,8 @@ __d(
                                                                                                                     e ===
                                                                                                                       "botForwardedMessage" ||
                                                                                                                     e ===
+                                                                                                                      "botGroupParticipantMessage" ||
+                                                                                                                    e ===
                                                                                                                       "botInvokeMessage" ||
                                                                                                                     e ===
                                                                                                                       "botPlatformRegistrationSuccessMessage" ||

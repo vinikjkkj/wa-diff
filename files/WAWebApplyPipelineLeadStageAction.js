@@ -9,8 +9,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, n, a) {
-      o("WAWebApplyLeadStageSublistAction")
-        .applyLeadStageSublistForProfile(t, n, a)
+      return o("WAWebApplyLeadStageSublistAction")
+        .applyLeadStageSublistForProfile(t, n, a, { logLeadSignal: !0 })
         .then(function () {
           return o("WAWebSyncLeadStageToProfile").syncLeadStageToProfile(t, n);
         })

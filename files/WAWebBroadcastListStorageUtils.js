@@ -65,13 +65,14 @@ __d(
             a = e.customAudienceFbid,
             i = e.id,
             l = e.listName,
-            u = e.timestamp,
-            d = o("WAWebWidFactory").createWid(i),
-            m = yield o("WAWebAudienceResolver").resolveAudienceExpression(r),
-            p = c(r),
-            _ = { id: d, name: l },
-            f = !1,
-            g = a;
+            u = e.shouldInsertInitialSystemMessages,
+            d = e.timestamp,
+            m = o("WAWebWidFactory").createWid(i),
+            p = yield o("WAWebAudienceResolver").resolveAudienceExpression(r),
+            _ = c(r),
+            f = { id: m, name: l },
+            g = !1,
+            h = a;
           (yield o("WAWebSyncdCoreApi").lockForSync(
             ["chat", "broadcast-metadata", "contact"],
             t != null ? t : [],
@@ -80,48 +81,48 @@ __d(
                 function* (t) {
                   var n,
                     s,
+                    u,
                     c,
-                    d,
-                    h,
+                    m,
                     y = t[0],
                     C = t[1],
                     b = t[2],
                     v = yield y.get(i);
-                  (v == null && ((f = !0), (_.t = u)),
+                  (v == null && ((g = !0), (f.t = d)),
                     yield y.createOrMerge(
                       i,
-                      babelHelpers.extends({}, _, { id: i }),
+                      babelHelpers.extends({}, f, { id: i }),
                     ),
                     yield b.createOrMerge(i, { id: i, name: l }));
                   var S = yield o("WAWebSchemaBroadcastMetadata")
                     .getBroadcastMetadataTable()
                     .get(i);
-                  ((g =
+                  ((h =
                     (n = S == null ? void 0 : S.customAudienceFbid) != null
                       ? n
                       : a),
                     yield C.createOrReplace({
                       audienceExpression: r,
-                      customAudienceFbid: g,
+                      customAudienceFbid: h,
                       id: i,
                       isWebCreatedList:
                         (s =
-                          (c = e.isWebCreatedList) != null
-                            ? c
+                          (u = e.isWebCreatedList) != null
+                            ? u
                             : S == null
                               ? void 0
                               : S.isWebCreatedList) != null
                           ? s
                           : !1,
-                      labels: p,
-                      recipients: m,
+                      labels: _,
+                      recipients: p,
                       senderKeyDevices:
-                        (d = S == null ? void 0 : S.senderKeyDevices) != null
-                          ? d
+                        (c = S == null ? void 0 : S.senderKeyDevices) != null
+                          ? c
                           : [],
                       senderKeyRotate:
-                        (h = S == null ? void 0 : S.senderKeyRotate) != null
-                          ? h
+                        (m = S == null ? void 0 : S.senderKeyRotate) != null
+                          ? m
                           : !1,
                     }));
                 },
@@ -131,18 +132,18 @@ __d(
               };
             })(),
           ),
-            f && (yield s(d)),
+            g && u && (yield s(m)),
             o("WAWebBackendApi").frontendFireAndForget("updateBroadcastList", {
               broadcastMetadata: {
                 audienceExpression: r,
-                customAudienceFbid: g,
-                id: d,
-                recipients: m.map(function (e) {
+                customAudienceFbid: h,
+                id: m,
+                recipients: p.map(function (e) {
                   return { id: o("WAWebWidFactory").createWid(e) };
                 }),
               },
-              chat: _,
-              contact: { id: d, name: l },
+              chat: f,
+              contact: { id: m, name: l },
             }));
         })),
         m.apply(this, arguments)

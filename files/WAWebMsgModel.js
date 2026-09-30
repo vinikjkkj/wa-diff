@@ -476,6 +476,7 @@ __d(
             (e.botTargetSenderJid = o("WAWebBaseModel").prop()),
             (e.metaFrom = o("WAWebBaseModel").prop(null)),
             (e.botGroupParticipant = o("WAWebBaseModel").prop()),
+            (e.botGroupParticipants = o("WAWebBaseModel").prop()),
             (e.bizBotType = o("WAWebBaseModel").prop(null)),
             (e.botPersonaId = o("WAWebBaseModel").prop()),
             (e.botDeepLinkToken = o("WAWebBaseModel").prop(null)),

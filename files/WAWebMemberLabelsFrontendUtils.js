@@ -44,12 +44,11 @@ __d(
       return e != null && o("WAWebChatGetters").getIsGroup(e) && e.isTrusted();
     }
     function c(e) {
-      var t = e.unsafe(),
-        n = o("WAWebFrontendMsgGetters").getMaybeChat(t),
-        r = o("WAWebMsgGetters").getIsForwarded(t),
-        a = o("WAWebFrontendMsgGetters").getAsRevoked(t),
-        i = o("WAWebMsgGetters").getIsReply(t);
-      return !r && !a && !i && u(n);
+      var t = e.unsafe();
+      return (
+        o("WAWebFrontendMsgGetters").getIsMemberLabelEligible(t) &&
+        u(o("WAWebFrontendMsgGetters").getMaybeChat(t))
+      );
     }
     function d(e) {
       var t = r("WAWebMemberLabelCollection").get(e);

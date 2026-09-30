@@ -884,42 +884,64 @@ __d(
       return (
         (z = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
-            var i;
+            var i, l;
             if (!(n == null || a == null)) {
-              var l = n ? o("WAWebUserPrefsMeUser").isMeAccount(n) : !0,
-                s = { fromMe: l, remote: t, id: a },
-                u = null;
-              ((u = o(
-                "WAWebMsmsgMsgSecretCache",
-              ).msmsgBotGroupGossipDataCache.getMsmsgBotGroupGossipDataFromCache(
-                { fromMe: l, id: a, participant: n, remote: t },
-              )),
-                (s.participant =
-                  (i = o("WAWebLidMigrationUtils").toPn(n)) != null ? i : n));
-              var c = new (r("WAWebMsgKey"))(s).toString();
-              if (u == null) {
-                var d = yield o("WAWebSchemaMessage").getMessageTable().get(c);
-                if (d != null) {
-                  var m;
-                  u =
-                    (m = o("WAWebDBMessageSerialization").messageFromDbRow(
-                      d,
-                    )) == null
-                      ? void 0
-                      : m.botGroupParticipant;
+              var s = n ? o("WAWebUserPrefsMeUser").isMeAccount(n) : !0,
+                u = { fromMe: s, remote: t, id: a },
+                c = o(
+                  "WAWebMsmsgMsgSecretCache",
+                ).msmsgBotGroupGossipDataCache.getMsmsgBotGroupGossipDataFromCache(
+                  { fromMe: s, id: a, participant: n, remote: t },
+                );
+              u.participant =
+                (i = o("WAWebLidMigrationUtils").toPn(n)) != null ? i : n;
+              var d = new (r("WAWebMsgKey"))(u).toString();
+              if (c == null) {
+                var m = yield o("WAWebSchemaMessage").getMessageTable().get(d);
+                if (m != null) {
+                  var p = o("WAWebDBMessageSerialization").messageFromDbRow(m);
+                  c = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(
+                    p == null ? void 0 : p.botGroupParticipants,
+                    p == null ? void 0 : p.botGroupParticipant,
+                  );
                 }
               } else
-                o(
+                c.isLegacySingular &&
+                  o(
+                    "WAWebMsmsgMsgSecretCache",
+                  ).msmsgBotGroupGossipDataCache.deleteMsmsgBotGroupGossipDataFromCache(
+                    d,
+                  );
+              var _ = e.id.participant,
+                f = _ == null ? void 0 : _.user,
+                g =
+                  ((l = c) == null ? void 0 : l.isLegacySingular) === !1 &&
+                  _ != null &&
+                  _.isFbidBot() &&
+                  f != null &&
+                  c.participants.some(function (e) {
+                    return e.user === f;
+                  }),
+                h =
+                  g &&
+                  t.isGroup() &&
+                  o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(_),
+                y = o(
                   "WAWebMsmsgMsgSecretCache",
-                ).msmsgBotGroupGossipDataCache.deleteMsmsgBotGroupGossipDataFromCache(
-                  c,
-                );
+                ).getBotGroupParticipantForResponse(c, _, h);
               if (
                 t.isGroup() &&
-                o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(u)
+                o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(y)
               ) {
-                var p = e;
-                Object.assign(p, { botGroupParticipant: u });
+                var C,
+                  b = e;
+                Object.assign(b, {
+                  botGroupParticipant: y,
+                  botGroupParticipants:
+                    ((C = c) == null ? void 0 : C.isLegacySingular) === !1
+                      ? [].concat(c.participants)
+                      : null,
+                });
               }
             }
           },

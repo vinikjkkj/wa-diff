@@ -381,20 +381,23 @@ __d(
             a = o.read(n, { type: "array" }),
             i = a.SheetNames[0],
             l = a.Sheets[i],
-            s = o.utils
+            s = l["!ref"],
+            u =
+              typeof s == "string" ? o.utils.decode_range(s).s : { c: 0, r: 0 },
+            c = o.utils
               .sheet_to_json(l, { header: 1, raw: !1 })
               .map(function (e) {
                 return e.map(function (e) {
                   return e != null ? String(e) : "";
                 });
               }),
-            u = I(s);
-          if (u == null) return e;
-          o.utils.sheet_add_aoa(l, [[].concat(P(s[u.headerIndex], t))], {
-            origin: { c: 0, r: u.headerIndex },
+            d = I(c);
+          if (d == null) return e;
+          o.utils.sheet_add_aoa(l, [[].concat(P(c[d.headerIndex], t))], {
+            origin: { c: u.c, r: u.r + d.headerIndex },
           });
-          var c = o.write(a, { bookType: "xlsx", type: "array" });
-          return new File([c], e.name, {
+          var m = o.write(a, { bookType: "xlsx", type: "array" });
+          return new File([m], e.name, {
             type:
               e.type ||
               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

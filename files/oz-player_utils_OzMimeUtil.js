@@ -12,8 +12,9 @@ __d(
       return n;
     }
     function s(e) {
-      var t = e.split('codecs="').pop();
-      return t.split(".")[0].trim();
+      var t = e.split('codecs="'),
+        n = t[t.length - 1];
+      return n.split(".")[0].trim();
     }
     ((i.getMimeType = e),
       (i.getContainerType = l),

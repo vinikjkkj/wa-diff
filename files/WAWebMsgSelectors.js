@@ -1,12 +1,10 @@
 __d(
   "WAWebMsgSelectors",
-  ["WAWebFrontendMsgGetters", "WAWebMsgGetters", "WAWebStateUtils"],
+  ["WAWebFrontendMsgGetters", "WAWebStateUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("WAWebStateUtils").unproxy(e).unsafe();
-      return (
-        o("WAWebMsgGetters").getNumTimesForwarded(t) > 0 &&
-        !o("WAWebFrontendMsgGetters").getAsRevoked(t)
+      return o("WAWebFrontendMsgGetters").getShouldShowForwarded(
+        o("WAWebStateUtils").unproxy(e).unsafe(),
       );
     }
     l.showForwarded = e;

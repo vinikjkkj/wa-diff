@@ -411,7 +411,7 @@ __d(
           isTransparent: j,
           displayType: l,
           xstyle: z && x.groupHistoryMessage,
-          children: d.jsx(o("WAWebMessageMeta.react").Meta, { msg: m }),
+          children: d.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: m.id }),
         }),
         De = d.jsx(d.Fragment, {
           children:

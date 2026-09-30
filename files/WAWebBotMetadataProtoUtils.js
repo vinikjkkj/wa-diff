@@ -13,90 +13,91 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t, n) {
-      var a, i, l, s, m, p, _, f, g, h, y;
+      var a, i, l, s, m, _, f, g, h, y, C;
       n === void 0 && (n = !1);
-      var C =
+      var b =
           t == null || (a = t.botMetadata) == null
             ? void 0
             : a.botGroupMetadata,
-        b = (i = C == null ? void 0 : C.participantsMetadata) != null ? i : [],
-        v =
+        v = (i = b == null ? void 0 : b.participantsMetadata) != null ? i : [],
+        S =
           ((l = e.id) == null || (l = l.remote) == null
             ? void 0
             : l.isGroup()) === !0 &&
-          u(b, o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled);
-      if (C != null && v) {
-        var S,
-          R = (S = e.id) == null ? void 0 : S.participant,
-          L = [];
-        if (R != null && R.isFbidBot()) L.push(R);
+          u(v, o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled);
+      if (b != null && S) {
+        var R,
+          L = (R = e.id) == null ? void 0 : R.participant,
+          E = [];
+        if (L != null && L.isFbidBot()) E.push(L);
         else {
-          var E, k;
-          L.push.apply(
-            L,
-            (E =
-              (k = e.mentionedJidList) == null
+          var k, I;
+          E.push.apply(
+            E,
+            (k =
+              (I = e.mentionedJidList) == null
                 ? void 0
-                : k.filter(function (e) {
+                : I.filter(function (e) {
                     return e instanceof r("WAWebWid") && e.isFbidBot();
                   })) != null
-              ? E
+              ? k
               : [],
           );
         }
-        var I = c(b, L);
-        I != null && (e.botGroupParticipant = I);
+        var T = c(e, v),
+          D = d(T, E);
+        D != null && (e.botGroupParticipant = D);
       }
-      var T =
+      var x =
         t == null || (s = t.botMetadata) == null ? void 0 : s.botResponseId;
-      if ((T != null && (e.botResponseId = T), !n)) {
+      if ((x != null && (e.botResponseId = x), !n)) {
         ((t == null ||
         (m = t.botMetadata) == null ||
         (m = m.pluginMetadata) == null
           ? void 0
           : m.pluginType) != null
           ? (e.botPluginType = t.botMetadata.pluginMetadata.pluginType)
-          : (t == null || (p = t.botMetadata) == null
+          : (t == null || (_ = t.botMetadata) == null
               ? void 0
-              : p.pluginMetadata) != null && (e.botPluginMaybeParent = !0),
-          (t == null ||
-          (_ = t.botMetadata) == null ||
-          (_ = _.pluginMetadata) == null
-            ? void 0
-            : _.referenceIndex) != null &&
-            (e.botPluginReferenceIndex =
-              t.botMetadata.pluginMetadata.referenceIndex),
+              : _.pluginMetadata) != null && (e.botPluginMaybeParent = !0),
           (t == null ||
           (f = t.botMetadata) == null ||
           (f = f.pluginMetadata) == null
             ? void 0
-            : f.provider) != null &&
-            (e.botPluginSearchProvider = t.botMetadata.pluginMetadata.provider),
+            : f.referenceIndex) != null &&
+            (e.botPluginReferenceIndex =
+              t.botMetadata.pluginMetadata.referenceIndex),
           (t == null ||
           (g = t.botMetadata) == null ||
           (g = g.pluginMetadata) == null
             ? void 0
-            : g.searchProviderUrl) != null &&
-            (e.botPluginSearchUrl =
-              t.botMetadata.pluginMetadata.searchProviderUrl),
+            : g.provider) != null &&
+            (e.botPluginSearchProvider = t.botMetadata.pluginMetadata.provider),
           (t == null ||
           (h = t.botMetadata) == null ||
           (h = h.pluginMetadata) == null
             ? void 0
-            : h.thumbnailCdnUrl) != null &&
-            (e.botReelPluginThumbnailCdnUrl =
-              t.botMetadata.pluginMetadata.thumbnailCdnUrl),
+            : h.searchProviderUrl) != null &&
+            (e.botPluginSearchUrl =
+              t.botMetadata.pluginMetadata.searchProviderUrl),
           (t == null ||
           (y = t.botMetadata) == null ||
           (y = y.pluginMetadata) == null
             ? void 0
-            : y.searchQuery) != null &&
+            : y.thumbnailCdnUrl) != null &&
+            (e.botReelPluginThumbnailCdnUrl =
+              t.botMetadata.pluginMetadata.thumbnailCdnUrl),
+          (t == null ||
+          (C = t.botMetadata) == null ||
+          (C = C.pluginMetadata) == null
+            ? void 0
+            : C.searchQuery) != null &&
             (e.botPluginSearchQuery =
               t.botMetadata.pluginMetadata.searchQuery));
-        var D = o(
+        var $ = o(
           "WAWebParseAiMediaCollectionMetadata",
         ).parseAiMediaCollectionMetadata(t);
-        (D != null && (e.aiMediaCollectionInfo = D), d(e, t));
+        ($ != null && (e.aiMediaCollectionInfo = $), p(e, t));
       }
     }
     function u(e, t) {
@@ -110,42 +111,56 @@ __d(
         }
       });
     }
-    function c(t, n) {
-      var r = null,
-        a = function () {
-          var t = l.botFbid;
-          if (t == null || t === "") return 0;
-          try {
-            var a = o("WAWebWidFactory").createWid(t + "@bot"),
-              i = o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(a),
-              s = o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(a);
-            if (!o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(a))
-              return 0;
-            if (
-              (r == null && (i || s) && (r = a),
-              n.some(function (e) {
-                return e.equals(a);
-              }))
-            )
-              return { v: a };
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bot group] botGroupMetadata failed with error: ",
-                    "",
-                  ])),
-                t,
-              )
-              .sendLogs("failed-to-process-bot-group-meta");
-          }
-        },
-        i;
-      for (var l of t) if (((i = a()), i !== 0 && i)) return i.v;
-      return r;
+    function c(e, t) {
+      var n = [];
+      for (var r of t) {
+        var o = r.botFbid;
+        if (!(o == null || o === "")) {
+          var a = m(o);
+          a != null && n.push(a);
+        }
+      }
+      return (n.length > 0 && (e.botGroupParticipants = n), n);
     }
     function d(e, t) {
+      var n = null,
+        r = function (r) {
+          var e = o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(r),
+            a = o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(r);
+          if (!o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(r))
+            return 0;
+          if (
+            (n == null && (e || a) && (n = r),
+            t.some(function (e) {
+              return e.equals(r);
+            }))
+          )
+            return { v: r };
+        },
+        a;
+      for (var i of e) if (((a = r(i)), a !== 0 && a)) return a.v;
+      return n;
+    }
+    function m(t) {
+      try {
+        return o("WAWebWidFactory").createWid(t + "@bot");
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bot group] botGroupMetadata failed with error: ",
+                  "",
+                ])),
+              t,
+            )
+            .sendLogs("failed-to-process-bot-group-meta"),
+          null
+        );
+      }
+    }
+    function p(e, t) {
       var n,
         r = e.id.remote,
         a = o(

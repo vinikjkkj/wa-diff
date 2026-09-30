@@ -191,14 +191,16 @@ __d(
         ? ((I = { className: "x10l6tqk xtijo5x x1ey2m1c" }), (t[23] = I))
         : (I = t[23]);
       var T;
-      t[24] !== a
+      t[24] !== a.id
         ? ((T = u.jsx(
             "div",
             babelHelpers.extends({}, I, {
-              children: u.jsx(o("WAWebMessageMeta.react").Meta, { msg: a }),
+              children: u.jsx(o("WAWebMessageMeta.react").Meta, {
+                msgKey: a.id,
+              }),
             }),
           )),
-          (t[24] = a),
+          (t[24] = a.id),
           (t[25] = T))
         : (T = t[25]);
       var D = T,
@@ -263,43 +265,44 @@ __d(
           (t[35] = C),
           (t[36] = W))
         : (W = t[36]);
-      var q = a.id,
-        U;
+      var q = p.id,
+        U = a.id,
+        V;
       t[37] === Symbol.for("react.memo_cache_sentinel")
-        ? ((U = "x1m258z3 x12nagc"), (t[37] = U))
-        : (U = t[37]);
-      var V;
-      t[38] !== k || t[39] !== D || t[40] !== a.id || t[41] !== p
-        ? ((V = u.jsxs(r("WAWebMessageSpacerText.react"), {
-            msg: p,
-            "data-id": q,
-            className: U,
+        ? ((V = "x1m258z3 x12nagc"), (t[37] = V))
+        : (V = t[37]);
+      var H;
+      t[38] !== k || t[39] !== D || t[40] !== a.id || t[41] !== p.id
+        ? ((H = u.jsxs(r("WAWebMessageSpacerText.react"), {
+            msgKey: q,
+            "data-id": U,
+            className: V,
             children: [k, D],
           })),
           (t[38] = k),
           (t[39] = D),
           (t[40] = a.id),
-          (t[41] = p),
-          (t[42] = V))
-        : (V = t[42]);
-      var H = h && $() && O,
-        G;
+          (t[41] = p.id),
+          (t[42] = H))
+        : (H = t[42]);
+      var G = h && $() && O,
+        z;
       return (
-        t[43] !== n || t[44] !== a || t[45] !== W || t[46] !== V || t[47] !== H
-          ? ((G = u.jsxs(r("WAWebMessageTextBubble.react"), {
+        t[43] !== n || t[44] !== a || t[45] !== W || t[46] !== H || t[47] !== G
+          ? ((z = u.jsxs(r("WAWebMessageTextBubble.react"), {
               msg: a,
               displayAuthor: n,
               hideMeta: !0,
-              children: [W, V, H],
+              children: [W, H, G],
             })),
             (t[43] = n),
             (t[44] = a),
             (t[45] = W),
-            (t[46] = V),
-            (t[47] = H),
-            (t[48] = G))
-          : (G = t[48]),
-        G
+            (t[46] = H),
+            (t[47] = G),
+            (t[48] = z))
+          : (z = t[48]),
+        z
       );
     }
     l.default = c;

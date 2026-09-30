@@ -55,34 +55,34 @@ __d(
       }
       i.displayName = "lazyLoadComponent(" + t.getModuleId() + ")";
       var l = i;
-      if (n("cr:38536") != null) {
+      if (n("cr:38536") != null && r !== "no-error-boundary") {
         var u = function (t) {
             var e = o("react-compiler-runtime").c(6),
               n,
-              a;
+              r;
             e[0] !== t
-              ? ((a = t.ref),
+              ? ((r = t.ref),
                 (n = babelHelpers.objectWithoutPropertiesLoose(t, s)),
                 (e[0] = t),
                 (e[1] = n),
-                (e[2] = a))
-              : ((n = e[1]), (a = e[2]));
-            var l = a === void 0 ? void 0 : a,
-              u;
+                (e[2] = r))
+              : ((n = e[1]), (r = e[2]));
+            var a = r === void 0 ? void 0 : r,
+              l;
             return (
-              e[3] !== n || e[4] !== l
-                ? ((u = c.jsx(_, {
+              e[3] !== n || e[4] !== a
+                ? ((l = c.jsx(_, {
                     description: d,
                     fallback: g,
-                    fallbackComponent: r,
+                    fallbackComponent: f,
                     moduleName: d,
-                    children: c.jsx(i, babelHelpers.extends({}, n, { ref: l })),
+                    children: c.jsx(i, babelHelpers.extends({}, n, { ref: a })),
                   })),
                   (e[3] = n),
-                  (e[4] = l),
-                  (e[5] = u))
-                : (u = e[5]),
-              u
+                  (e[4] = a),
+                  (e[5] = l))
+                : (l = e[5]),
+              l
             );
           },
           d = t.getModuleId(),

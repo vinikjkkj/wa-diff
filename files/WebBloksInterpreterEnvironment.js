@@ -172,31 +172,33 @@ __d(
                 u = i;
                 var f = null;
                 c = o("WebBloksPayloadParser").parseAction(s, p, _, m, f);
-              } else if (l != null) {
-                var g = l[o("WebBloksConstants").BK_INTERNAL_ACTION];
-                ((u = g.handler),
-                  (c = o("WebBloksPayloadParser").parseTree(
-                    s,
-                    p,
-                    _,
-                    m,
-                    void 0,
-                  )));
-              } else
+              } else if (l != null)
+                ((c = o("WebBloksPayloadParser").parseTree(s, p, _, m, void 0)),
+                  (u = o("WebBloksUtils")
+                    .nullthrows(
+                      c.unboundModel.getExpression(
+                        o("WebBloksConstants").BK_INTERNAL_ACTION_HANDLER,
+                      ),
+                      "Expected a " +
+                        o("WebBloksConstants").BK_INTERNAL_ACTION +
+                        " handler in the action tree",
+                    )
+                    .getValue()));
+              else
                 throw new (o("WebBloksErrors").WebBloksError)(
                   "No bloks action found in response",
                 );
-              var h = o(
+              var g = o(
                   "WebBloksExternalVariables",
                 ).getProcessedDataPropEntries(c.resources),
-                y = o(
+                h = o(
                   "WebBloksExternalVariables",
-                ).getProcessedExternalVariables(n, h);
-              a.synchronouslyAddTreeResources(c, y);
-              var C = this.createBloksModelScopedContext(
+                ).getProcessedExternalVariables(n, g);
+              a.synchronouslyAddTreeResources(c, h);
+              var y = this.createBloksModelScopedContext(
                 o("WebBloksUtils").EMPTY_KEY_PATH,
               );
-              return C.execute(u, [this.bloksContext]);
+              return y.execute(u, [this.bloksContext]);
             } finally {
               a.endUpdates();
             }

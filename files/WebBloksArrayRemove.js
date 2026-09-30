@@ -1,11 +1,16 @@
 __d(
   "WebBloksArrayRemove",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WebBloksActionContainerUtils"],
+  function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      t.splice(n, 1);
+      var r = o("WebBloksActionContainerUtils").assertWebBloksArray(
+        e,
+        t,
+        "bk.action.array.Remove expects an array",
+      );
+      r.splice(n, 1);
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

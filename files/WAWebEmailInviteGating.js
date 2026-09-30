@@ -7,7 +7,13 @@ __d(
         "web_email_invites_group_info",
       );
     }
-    l.isEmailInviteEntryPointEnabled = e;
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_email_invites_server_send_enabled",
+      );
+    }
+    ((l.isEmailInviteEntryPointEnabled = e),
+      (l.isEmailInviteServerSendEnabled = s));
   },
   98,
 );

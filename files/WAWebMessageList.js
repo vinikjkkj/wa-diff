@@ -253,7 +253,7 @@ __d(
       }
       var R = c.jsx("div", {
           className: "x10l6tqk xtijo5x x1o583il",
-          children: c.jsx(o("WAWebMessageMeta.react").Meta, { msg: i }),
+          children: c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: i.id }),
         }),
         L = c.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
           items: [
@@ -284,7 +284,7 @@ __d(
               y,
               C,
               c.jsxs(r("WAWebMessageSpacerText.react"), {
-                msg: i.unsafe(),
+                msgKey: i.id,
                 "data-id": i.id,
                 children: [b, v, R],
               }),

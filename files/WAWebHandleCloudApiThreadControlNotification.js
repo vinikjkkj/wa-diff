@@ -12,44 +12,42 @@ __d(
     "use strict";
     var e, s, u;
     function c(t) {
-      var n = t.consumerLid,
-        r = t.consumerPhoneNumber,
-        a = t.senderNotificationTimestampMs,
-        i = t.shouldSuppressNotification,
-        l = t.status,
-        c = o("WALongInt").maybeNumber(a);
-      if (o("WAWebBizAiAgentGating").isAiBulkThreadControlEnabled()) {
-        var m,
-          p = o("WAWebBizAiThreadControlExtraJson").parseBulkThreadControl({
-            raw: (m = t.notificationContent) == null ? void 0 : m.extraJson,
-            isSmartComposerEnabled: o("WAWebBizAiAgentGating")
-              .isSmartComposerWebEnabled,
-            notificationTimestampMs: c,
-          });
-        if (p != null) {
-          (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[Biz AI] Received bulk thread control notification, count: ",
-                "",
-              ])),
-            p.length,
-          ),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "bulkUpdateChatCapiThreadControl",
-              { updates: p },
-            ));
-          return;
-        }
+      var n,
+        r = t.consumerLid,
+        a = t.consumerPhoneNumber,
+        i = t.senderNotificationTimestampMs,
+        l = t.shouldSuppressNotification,
+        c = t.status,
+        m = o("WALongInt").maybeNumber(i),
+        p = o("WAWebBizAiThreadControlExtraJson").parseBulkThreadControl({
+          raw: (n = t.notificationContent) == null ? void 0 : n.extraJson,
+          isSmartComposerEnabled: o("WAWebBizAiAgentGating")
+            .isSmartComposerWebEnabled,
+          notificationTimestampMs: m,
+        });
+      if (p != null) {
+        (o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[Biz AI] Received bulk thread control notification, count: ",
+              "",
+            ])),
+          p.length,
+        ),
+          o("WAWebBackendApi").frontendFireAndForget(
+            "bulkUpdateChatCapiThreadControl",
+            { updates: p },
+          ));
+        return;
       }
-      if (r == null && n == null) {
+      if (a == null && r == null) {
         o("WALogger").WARN(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
               "[Maiba] thread ctrl missing phone & lid, status=",
               "",
             ])),
-          l,
+          c,
         );
         return;
       }
@@ -59,17 +57,17 @@ __d(
             "[Biz AI] Received thread control notification, status: ",
             "",
           ])),
-        l,
+        c,
       ),
         o("WAWebBackendApi").frontendFireAndForget(
           "updateChatCapiThreadControl",
           {
-            consumerPhoneNumber: r,
-            consumerLid: n,
-            status: l,
-            timestampMs: c,
-            shouldSuppressNotification: i,
-            suggestedRepliesEnabled: d(t, l),
+            consumerPhoneNumber: a,
+            consumerLid: r,
+            status: c,
+            timestampMs: m,
+            shouldSuppressNotification: l,
+            suggestedRepliesEnabled: d(t, c),
           },
         ));
     }

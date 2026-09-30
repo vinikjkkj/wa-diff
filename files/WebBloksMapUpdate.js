@@ -1,11 +1,26 @@
 __d(
   "WebBloksMapUpdate",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WebBloksActionContainerUtils"],
+  function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      Object.assign(t, n);
+      var r = o("WebBloksActionContainerUtils").assertWebBloksPlainMap(
+          e,
+          t,
+          "bk.action.map.Update expects a plain target object",
+        ),
+        a = o("WebBloksActionContainerUtils").assertWebBloksPlainMap(
+          e,
+          n,
+          "bk.action.map.Update expects a plain source object",
+        );
+      for (var i of Object.keys(a))
+        o("WebBloksActionContainerUtils").writeWebBloksPlainMapValue(
+          r,
+          i,
+          a[i],
+        );
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

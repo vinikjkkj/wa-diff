@@ -61,8 +61,8 @@ __d(
           for (var e = 0; e < this.$4.length; e++) {
             var t = this.$4[e];
             if (t.queue.length) {
-              var n = t.queue.shift();
-              return (this.$5.delete(n), n);
+              var n = t.queue[0];
+              return (t.queue.shift(), this.$5.delete(n), n);
             }
           }
           return null;

@@ -24,7 +24,7 @@ __d(
             : o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE;
         },
         initOrUpdateTracking: function (t) {
-          (c && self.clearTimeout(c),
+          (c != null && c !== 0 && self.clearTimeout(c),
             (d = t),
             d !== o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE &&
               (c = self.setTimeout(function () {

@@ -1,6 +1,11 @@
 __d(
   "WAWebContactManagerGating",
-  ["WAWebABProps", "WAWebContactGetters", "WAWebMobilePlatforms"],
+  [
+    "WAWebABProps",
+    "WAWebContactGetters",
+    "WAWebMobilePlatforms",
+    "WAWebUserPrefsMeUser",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -58,17 +63,19 @@ __d(
     }
     function p(e) {
       var t = e.id;
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && _(t);
+    }
+    function _(e) {
       return (
-        t != null &&
-        t.isUser() &&
-        !o("WAWebContactGetters").getIsMe(e) &&
-        !t.isPSA() &&
-        !t.isOfficialBizAccount() &&
-        !t.isAiHub() &&
-        !t.isIAS() &&
-        !t.isSupportAccount() &&
-        !t.isCAPISupportAccount() &&
-        !t.isBot()
+        e.isUser() &&
+        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !e.isPSA() &&
+        !e.isOfficialBizAccount() &&
+        !e.isAiHub() &&
+        !e.isIAS() &&
+        !e.isSupportAccount() &&
+        !e.isCAPISupportAccount() &&
+        !e.isBot()
       );
     }
     ((l.contactManagerEnabled = e),
@@ -77,7 +84,8 @@ __d(
       (l.contactManagerImportExportEnabled = c),
       (l.contactManagerBulkEditEnabled = d),
       (l.contactManagerSublistEnabled = m),
-      (l.isEligibleForCustomerFields = p));
+      (l.isEligibleForCustomerFields = p),
+      (l.isWidEligibleForCustomerFields = _));
   },
   98,
 );

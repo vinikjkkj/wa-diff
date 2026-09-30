@@ -354,7 +354,8 @@ __d(
           Te,
           o("WAWebVoipSctpDataChannelThreadManager").getDataChannelThread,
         ),
-        t.connectionTimeout &&
+        t.connectionTimeout != null &&
+          t.connectionTimeout !== 0 &&
           (window.clearTimeout(t.connectionTimeout),
           (t.connectionTimeout = null)),
         o("WAWebVoipTsLogger").logIceConnectionComplete({
@@ -1140,7 +1141,8 @@ __d(
                 (a.relayId = e.relayId),
                 (a.relayIp = e.ip),
                 (a.relayPort = e.port),
-                a.connectionTimeout &&
+                a.connectionTimeout != null &&
+                  a.connectionTimeout !== 0 &&
                   (window.clearTimeout(a.connectionTimeout),
                   (a.connectionTimeout = null)),
                 o("WALogger").LOG(
@@ -1610,6 +1612,7 @@ __d(
               ).ConnectionState.Connecting),
               e.peerConnection)
             ) {
+              var i;
               (o("WALogger").LOG(
                 oe ||
                   (oe = babelHelpers.taggedTemplateLiteralLoose([
@@ -1618,23 +1621,25 @@ __d(
                   ])),
                 e.id,
               ),
-                window.clearTimeout(e.connectionTimeout),
+                window.clearTimeout(
+                  (i = e.connectionTimeout) != null ? i : void 0,
+                ),
                 (e.connectionTimeout = null),
                 o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(
                   e,
                 ));
-              var i = e.peerConnection;
-              i &&
+              var l = e.peerConnection;
+              l &&
                 (o(
                   "WAWebVoipSctpConnectionTeardown",
-                ).detachPeerConnectionHandlers(i),
-                i.close());
+                ).detachPeerConnectionHandlers(l),
+                l.close());
             }
             try {
               ((e.hasReceivedFirstPacket = !1), (e.sentMedia = !1));
-              var l = {};
+              var s = {};
               if (
-                ((l.certificates = [
+                ((s.certificates = [
                   yield o("WAWebVoipDtlsCertAcquire").acquireDtlsCert(
                     "ice_restart",
                   ),
@@ -1644,31 +1649,31 @@ __d(
                 ct(e, "cert_acquire", null);
                 return;
               }
-              var s = new RTCPeerConnection(l);
-              ((e.peerConnection = s),
+              var u = new RTCPeerConnection(s);
+              ((e.peerConnection = u),
                 (e.iceConnectedTime = 0),
                 e.dtlsStallTimeout != null &&
                   (window.clearTimeout(e.dtlsStallTimeout),
                   (e.dtlsStallTimeout = null)),
-                tt(s, e.id, "(ICE restart)"),
+                tt(u, e.id, "(ICE restart)"),
                 et({
                   connection: e,
                   context: "ICE restart",
-                  peerConnection: s,
+                  peerConnection: u,
                   relayConnectionInfo: n,
                 }),
                 (e.packetBuffer = a),
                 fe.recordAttempt(e.relayIp),
                 o("WAWebVoipSctpConnectionState").sctpConnections.set(e.id, e));
-              var u = yield s.createOffer({ iceRestart: !1 });
-              yield s.setLocalDescription(u);
-              var c = u.sdp || "",
-                d = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(c, n);
+              var c = yield u.createOffer({ iceRestart: !1 });
+              yield u.setLocalDescription(c);
+              var d = c.sdp || "",
+                m = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(d, n);
               if (
-                (yield s.setRemoteDescription({ sdp: d, type: "answer" }),
+                (yield u.setRemoteDescription({ sdp: m, type: "answer" }),
                 ut(e, t))
               ) {
-                ct(e, "negotiation", s);
+                ct(e, "negotiation", u);
                 return;
               }
               o("WALogger").LOG(
@@ -1736,7 +1741,8 @@ __d(
           (r.isReconnecting = !1),
           ke(t),
           o("WAWebVoipTransportFallbackTracker").notifySctpConnectionOpened(),
-          r.connectionTimeout &&
+          r.connectionTimeout != null &&
+            r.connectionTimeout !== 0 &&
             (window.clearTimeout(r.connectionTimeout),
             (r.connectionTimeout = null)),
           o("WAWebVoipSctpStatsInstrumentation").addConnectionSource(

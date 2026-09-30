@@ -553,17 +553,23 @@ __d(
     function ye() {
       return (
         (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebRelayClient").fetchQuery(
+          var t,
+            n = yield o("WAWebRelayClient").fetchQuery(
               M,
               { orgID: e },
               babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
             ),
-            n = t == null ? void 0 : t.xwa_org_managed_channels;
-          if (n == null || n.status !== "SUCCESS")
-            throw Oe(n == null ? void 0 : n.error_reason);
+            r = n == null ? void 0 : n.xwa_org_get,
+            a =
+              r == null ||
+              (t = r.org_info) == null ||
+              (t = t.managed_channels) == null
+                ? void 0
+                : t.nodes;
+          if (a == null) throw Oe(r == null ? void 0 : r.error_reason);
           return (
-            we("xwa_org_managed_channels", "channels=" + n.channels.length),
-            n.channels.flatMap(function (e) {
+            we("xwa_org_get.managed_channels", "channels=" + a.length),
+            a.flatMap(function (e) {
               var t;
               return ze(
                 e.id,
@@ -629,15 +635,21 @@ __d(
     function Se() {
       return (
         (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebRelayClient").fetchQuery(
+          var t,
+            n = yield o("WAWebRelayClient").fetchQuery(
               N,
               { orgID: e },
               babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
             ),
-            n = t == null ? void 0 : t.xwa_org_managed_groups;
-          if (n == null || n.status !== "SUCCESS")
-            throw Oe(n == null ? void 0 : n.error_reason);
-          var r = n.groups.flatMap(function (e) {
+            r = n == null ? void 0 : n.xwa_org_get,
+            a =
+              r == null ||
+              (t = r.org_info) == null ||
+              (t = t.managed_groups) == null
+                ? void 0
+                : t.nodes;
+          if (a == null) throw Oe(r == null ? void 0 : r.error_reason);
+          var i = a.flatMap(function (e) {
             var t;
             return Ke(
               e.gid,
@@ -650,7 +662,7 @@ __d(
               e.roster_partial,
             );
           });
-          return (we("xwa_org_managed_groups", "groups=" + r.length), r);
+          return (we("xwa_org_get.managed_groups", "groups=" + i.length), i);
         })),
         Se.apply(this, arguments)
       );
@@ -662,28 +674,28 @@ __d(
       return (
         (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            r = yield o("WAWebRelayClient").fetchQuery(
+            r,
+            a = yield o("WAWebRelayClient").fetchQuery(
               F,
               { orgID: e, gid: t },
               babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
             ),
-            a = r == null ? void 0 : r.xwa_org_managed_group;
-          if (a == null || a.status !== "SUCCESS")
-            throw Oe(a == null ? void 0 : a.error_reason);
-          var i = a.group;
-          if (i == null) throw Oe(null);
-          var l = Qe(
-            i.gid,
-            i.subject,
-            i.creation_timestamp_s,
-            i.participant_count,
-            ((n = i.participants) != null ? n : []).flatMap(function (e) {
+            i = a == null ? void 0 : a.xwa_org_get,
+            l =
+              i == null || (n = i.org_info) == null ? void 0 : n.managed_group;
+          if (l == null) throw Oe(i == null ? void 0 : i.error_reason);
+          var s = Qe(
+            l.gid,
+            l.subject,
+            l.creation_timestamp_s,
+            l.participant_count,
+            ((r = l.participants) != null ? r : []).flatMap(function (e) {
               return Ye(e.lid, e.role);
             }),
-            i.roster_partial,
+            l.roster_partial,
           );
-          if (l == null) throw Oe(null);
-          return (we("xwa_org_managed_group", "gid=" + l.gid), l);
+          if (s == null) throw Oe(null);
+          return (we("xwa_org_get.managed_group", "gid=" + s.gid), s);
         })),
         Le.apply(this, arguments)
       );

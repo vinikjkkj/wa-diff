@@ -269,7 +269,9 @@ __d(
       var a = r("nullthrows")(o),
         i = document.createElement("script");
       ((i.src = t.src),
-        t.d && (i.nonce = r("BootloaderConfig").nonce),
+        t.d &&
+          t.src.startsWith("data:") &&
+          (i.nonce = r("BootloaderConfig").nonce),
         (i.async = !0),
         r("BootloaderConfig").enableRetryOnStuckResource &&
           i.setAttribute("fetchPriority", "high"),

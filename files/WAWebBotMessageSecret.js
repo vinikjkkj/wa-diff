@@ -336,15 +336,26 @@ __d(
     function k(e, t) {
       var n,
         r = t.botGroupParticipant;
-      r != null &&
-        (((n = t.id.remote) == null ? void 0 : n.isGroup()) !== !0 ||
-          !o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(r) ||
+      if (
+        r != null &&
+        !(
+          ((n = t.id.remote) == null ? void 0 : n.isGroup()) !== !0 ||
+          !o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled(r)
+        )
+      ) {
+        var a = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(
+          t.botGroupParticipants,
+          r,
+        );
+        a != null &&
           o(
             "WAWebMsmsgMsgSecretCache",
           ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
             e,
-            r,
-          ));
+            a.participants,
+            a.isLegacySingular,
+          );
+      }
     }
     function I(e) {
       return T.apply(this, arguments);

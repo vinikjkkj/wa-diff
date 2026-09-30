@@ -11,9 +11,7 @@ __d(
           var n = null;
           try {
             if (
-              ((n = o("GHLServerJSParse").ghlParseServerJSPayload(
-                e.textContent,
-              )),
+              ((n = o("GHLServerJSParse").readBootPayload(e.textContent)),
               n == null)
             )
               throw r("err")(

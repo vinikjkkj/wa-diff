@@ -19,7 +19,7 @@ __d(
         c = function (o) {
           if (l) l.args.push(o);
           else {
-            var t,
+            var t = function () {},
               c = [o],
               d = new (e || (e = n("Promise")))(function (e) {
                 t = function () {

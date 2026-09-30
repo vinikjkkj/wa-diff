@@ -1,11 +1,16 @@
 __d(
   "WebBloksMapGet",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WebBloksActionContainerUtils"],
+  function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      return t[n];
+      var r = o("WebBloksActionContainerUtils").assertWebBloksPlainMap(
+        e,
+        t,
+        "bk.action.map.Get expects a plain object",
+      );
+      return Object.hasOwnProperty.call(r, n) ? r[n] : void 0;
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

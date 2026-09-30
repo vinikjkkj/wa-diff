@@ -1,9 +1,11 @@
 __d(
   "WAWebDBLabelAssociationDatabaseApi",
   [
+    "WAWebApiContact",
     "WAWebLidMigrationDbUtils",
     "WAWebSchemaLabelAssociation",
     "WAWebUserPrefsLabelAssociationsLidMigration",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,11 +18,11 @@ __d(
           var t = o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? [].concat(yield f(e), e)
+            ? [].concat(yield g(e), e)
             : e;
           yield o("WAWebSchemaLabelAssociation")
             .getLabelAssociationTable()
-            .bulkRemove(t);
+            .bulkRemove([].concat(t, f(e)));
         })),
         s.apply(this, arguments)
       );
@@ -34,7 +36,7 @@ __d(
           var t = o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? yield h(e)
+            ? yield y(e)
             : e;
           yield o("WAWebSchemaLabelAssociation")
             .getLabelAssociationTable()
@@ -55,7 +57,7 @@ __d(
           return o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? v(t)
+            ? S(t)
             : t;
         })),
         m.apply(this, arguments)
@@ -70,7 +72,7 @@ __d(
           var t = o(
               "WAWebUserPrefsLabelAssociationsLidMigration",
             ).isLabelAssociationsMigrationComplete()
-              ? yield C(e)
+              ? yield b(e)
               : e,
             n = yield o("WAWebSchemaLabelAssociation")
               .getLabelAssociationTable()
@@ -85,18 +87,43 @@ __d(
           return o(
             "WAWebUserPrefsLabelAssociationsLidMigration",
           ).isLabelAssociationsMigrationComplete()
-            ? v(n)
+            ? S(n)
             : n;
         })),
         _.apply(this, arguments)
       );
     }
     function f(e) {
-      return g.apply(this, arguments);
+      var t = [];
+      for (var n of e)
+        if (
+          o("WAWebSchemaLabelAssociation").getAssociationTypeFromPrimaryKey(
+            n,
+          ) === o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid
+        ) {
+          var r = o("WAWebWidFactory").createWid(
+            o("WAWebSchemaLabelAssociation").getAssociationIdFromPrimaryKey(n),
+          );
+          if (!(!r.isRegularUser() || !r.isLid())) {
+            var a = o("WAWebApiContact").getPnIfLidIsLatestMapping(
+              o("WAWebWidFactory").asUserLidOrThrow(r),
+            );
+            a != null &&
+              t.push(
+                o(
+                  "WAWebSchemaLabelAssociation",
+                ).replaceAssociationIdInPrimaryKey(n, a.toString()),
+              );
+          }
+        }
+      return t;
     }
-    function g() {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
               e
                 .filter(function (e) {
@@ -128,33 +155,33 @@ __d(
                 ).replaceAssociationIdInPrimaryKey(e, t);
           });
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(
               o("WAWebSchemaLabelAssociation").createLabelAssociationPrimaryKey,
             ),
-            n = yield f(t);
+            n = yield g(t);
           return n.map(
             o("WAWebSchemaLabelAssociation")
               .createLabelAssociationRowFromPrimaryKey,
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return o(
                 "WAWebSchemaLabelAssociation",
@@ -164,7 +191,7 @@ __d(
                 labelId: "1",
               });
             }),
-            n = yield f(t);
+            n = yield g(t);
           return n.map(function (e) {
             return {
               associationId: o(
@@ -176,15 +203,15 @@ __d(
             };
           });
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
               e
                 .filter(function (e) {
@@ -208,7 +235,7 @@ __d(
             });
           });
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
     ((l.removeLabelAssociations = e),

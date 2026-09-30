@@ -59,9 +59,11 @@ __d(
       }
       l.displayName = l.name + " [from " + i.id + "]";
       function s(e) {
-        var t, o, i, s;
-        r("vulture")("JHIwsoEJXjZ058m3EvvJBiKHZ_c=");
-        var c = m({
+        var t,
+          o,
+          i,
+          s,
+          c = m({
             interactionID: (t = a) == null ? void 0 : t.interactionID,
             tracePolicy:
               (o = (i = a) == null ? void 0 : i.tracePolicy) != null

@@ -94,18 +94,22 @@ __d(
                 ));
             }),
           );
-          for (var m of s)
-            o("WAWebBackendApi").frontendFireAndForget(
+          for (var m of s) {
+            var p = o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey(m);
+            (o("WAWebBackendApi").frontendFireAndForget(
               "removeLeadSublistFromCollection",
               {
-                chatJid: o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey(
-                  m,
-                ),
+                chatJid: p,
                 predefinedId: o(
                   "WAWebSchemaLabelSublist",
                 ).getPredefinedIdFromPrimaryKey(m),
               },
-            );
+            ),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "leadRemovedFromChat",
+                { chatJid: p },
+              ));
+          }
         })),
         p.apply(this, arguments)
       );
@@ -116,42 +120,44 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = [],
-            i = [],
-            l = yield (c || (c = n("Promise"))).all(
+          var a = yield (c || (c = n("Promise"))).all(
               e.map(function (e) {
                 var t = e.id;
                 return o("WAWebSchemaLabel").getLabelTable().get(t);
               }),
-            );
-          e.forEach(function (e, n) {
-            var s,
-              u = e.type;
-            if (
-              ((s = l[n]) == null ? void 0 : s.predefinedId) ===
-                o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID &&
-              u === "remove"
-            )
-              for (var c of t) {
-                var d = c.modelId;
-                (i.push(
-                  r("WAWebLabelSublistSync").getLabelSublistRemoveMutation({
+            ),
+            i = e.some(function (e, t) {
+              var n,
+                r = e.type;
+              return (
+                r === "remove" &&
+                o("WAWebLeadListConstants").isLeadListPredefinedId(
+                  (n = a[t]) == null ? void 0 : n.predefinedId,
+                )
+              );
+            });
+          if (!i) return { sublistLocalRemoves: [], sublistMutations: [] };
+          var l = t.map(function (e) {
+              var t = e.modelId;
+              return o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
+                predefinedId: o("WAWebLeadListConstants")
+                  .LEAD_LIST_PREDEFINED_ID,
+                chatJid: t,
+              });
+            }),
+            s = yield c.all(
+              t.map(function (e) {
+                var t = e.modelId;
+                return r("WAWebLabelSublistSync").getLabelSublistRemoveMutation(
+                  {
                     predefinedId: o("WAWebLeadListConstants")
                       .LEAD_LIST_PREDEFINED_ID,
-                    chatJid: d,
-                  }),
-                ),
-                  a.push(
-                    o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
-                      predefinedId: o("WAWebLeadListConstants")
-                        .LEAD_LIST_PREDEFINED_ID,
-                      chatJid: d,
-                    }),
-                  ));
-              }
-          });
-          var s = yield c.all(i);
-          return { sublistLocalRemoves: a, sublistMutations: s };
+                    chatJid: t,
+                  },
+                );
+              }),
+            );
+          return { sublistLocalRemoves: l, sublistMutations: s };
         })),
         f.apply(this, arguments)
       );

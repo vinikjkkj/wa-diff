@@ -8,8 +8,8 @@ __d(
     }
     function s(t) {
       return new (e || (e = n("Promise")))(function (e, n) {
-        ((t.onsuccess = function (t) {
-          e(t.target.result);
+        ((t.onsuccess = function () {
+          e(t.result);
         }),
           (t.onerror = function (e) {
             n(e.target.result);
