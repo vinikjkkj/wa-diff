@@ -185,7 +185,7 @@ __d(
         Planned: "PLANNED",
         Stopped: "STOPPED",
       }),
-      ce = e({ Copy: "COPY" }),
+      ce = e({ Copy: "COPY", Send: "SEND" }),
       de = e({
         ContextualQuery: "CONTEXTUAL_QUERY",
         WriteWithAi: "WRITE_WITH_AI",

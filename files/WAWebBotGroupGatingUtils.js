@@ -11,7 +11,13 @@ __d(
         ) === !0
       );
     }
-    function u(t, n) {
+    function u() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_3p_bot_enabled") === !0
+      );
+    }
+    function c(t, n) {
       if (
         n !== e.GROUP ||
         (t == null ? void 0 : t.isDeprecated) === !0 ||
@@ -27,7 +33,7 @@ __d(
             : null;
       return a == null ? !1 : s();
     }
-    function c() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -36,7 +42,7 @@ __d(
             "ai_group_participation_enabled",
           ) === !0;
     }
-    function d() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -45,35 +51,35 @@ __d(
             "ai_group_participation_add_tee_enabled",
           ) === !0;
     }
-    function m(e) {
+    function p(e) {
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-          ? c()
+          ? d()
           : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-            ? d()
+            ? m()
             : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function p(e) {
+    function _(e) {
       var t = e.authorWid,
         n = e.botGroupParticipant,
         r = e.chatWid,
         a = e.isBotInvoke;
-      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !m(n)
+      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !p(n)
         ? !1
         : !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(n) ||
             a ||
             (t == null ? void 0 : t.equals(n)) === !0;
     }
-    function _() {
+    function f() {
       return (
         o("WAWebABProps").getABPropConfigValue("web_ai_group_open_support") ===
         !0
       );
     }
-    function f() {
+    function g() {
       return (
-        _() &&
+        f() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_group_send_mentioned_pushname_enabled",
         )
@@ -81,13 +87,14 @@ __d(
     }
     ((l.BotGroupContext = e),
       (l.isStandardBotProfileGroupEnabled = s),
-      (l.isGroupAgent = u),
-      (l.isOpenGroupBotParticipantAddEnabled = c),
-      (l.isTEEGroupBotParticipantAddEnabled = d),
-      (l.isGroupBotParticipantEnabled = m),
-      (l.isGroupBotMessage = p),
-      (l.isOpenGroupBotSendEnabled = _),
-      (l.isGroupBotSendMentionedPushnameEnabled = f));
+      (l.isMuseGroupAgentRenderingEnabled = u),
+      (l.isGroupAgent = c),
+      (l.isOpenGroupBotParticipantAddEnabled = d),
+      (l.isTEEGroupBotParticipantAddEnabled = m),
+      (l.isGroupBotParticipantEnabled = p),
+      (l.isGroupBotMessage = _),
+      (l.isOpenGroupBotSendEnabled = f),
+      (l.isGroupBotSendMentionedPushnameEnabled = g));
   },
   98,
 );

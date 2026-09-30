@@ -148,9 +148,9 @@ __d(
         "fds-animation-move-out": "cubic-bezier(0.17, 0.17, 0, 1)",
         "fds-duration-extra-short-in": "200ms",
         "fds-duration-extra-short-out": "150ms",
-        "cds-close-handle": ["#748695", "#647685"],
+        "cds-close-handle": "#D1D3D5",
         "cds-overlay-alpha-80": "rgba(28, 43, 51, 0.80)",
-        "cds-surface-background": ["rgba(255, 255, 255)", "rgb(28, 43, 51)"],
+        "cds-surface-background": ["#FFFFFF", "#1F1F20"],
       },
       I = T(k);
     function T(e) {

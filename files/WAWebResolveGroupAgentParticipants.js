@@ -47,29 +47,18 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return [];
-          var t = yield f(e);
-          return t == null
-            ? e
-            : (o("WAWebBotTos").registerBotTosRequirements(
-                t.flatMap(function (e) {
-                  var t;
-                  return _(e)
-                    ? []
-                    : (t = e == null ? void 0 : e.groupTosRequirements) != null
-                      ? t
-                      : [];
-                }),
-              ),
-              e.filter(function (e, n) {
-                var r = t[n];
-                if (r == null) return !0;
-                if (_(r)) return o("WAWebBotTos").hasAcceptedMuseGroupTos();
-                var a = r.groupTosRequirements;
-                return (
-                  a == null || o("WAWebBotTos").hasAcceptedBlockingBotTos(a)
-                );
-              }));
+          var t,
+            n =
+              e.isCag === !0 || e.isAnnouncementGroup === !0
+                ? []
+                : (t = e.groupAgentParticipants) != null
+                  ? t
+                  : [],
+            r = n.length === 0 ? [] : yield m(n);
+          return {
+            configuredGroupAgentParticipants: n,
+            resolvedGroupAgentParticipants: r,
+          };
         })),
         d.apply(this, arguments)
       );
@@ -80,6 +69,39 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return [];
+          var t = yield h(e);
+          if (t == null) return [];
+          var n = t.some(g),
+            r = n && o("WAWebBotTos").hasAcceptedMuseGroupTos();
+          return (
+            o("WAWebBotTos").registerBotTosRequirements(
+              t.flatMap(function (e) {
+                var t;
+                return e == null || g(e)
+                  ? []
+                  : (t = e.groupTosRequirements) != null
+                    ? t
+                    : [];
+              }),
+            ),
+            e.filter(function (e, n) {
+              var a = t[n];
+              if (a == null || g(a)) return r;
+              var i = a.groupTosRequirements;
+              return i == null || o("WAWebBotTos").hasAcceptedBlockingBotTos(i);
+            })
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
             !e.isBot()
@@ -91,7 +113,7 @@ __d(
               babelHelpers.extends({}, t, { isSynced: !1 }),
               o("WAWebBotGroupGatingUtils").BotGroupContext.GROUP,
             );
-          var n = yield f([e]);
+          var n = yield h([e]);
           if (n == null) return !1;
           var r = n[0];
           return r == null
@@ -106,22 +128,21 @@ __d(
                 o("WAWebBotGroupGatingUtils").BotGroupContext.GROUP,
               );
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
+    function g(e) {
       return (
-        o("WAWebBotProduct").botProductFromServerValue(
-          e == null ? void 0 : e.product,
-        ) === o("WAWebBotProduct").BotProduct.MUSE
+        (e == null ? void 0 : e.product) == null ||
+        o("WAWebBotProduct").usesMuseGroupTosNotice(e.product)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             return yield o("WAWebSchemaBotProfile")
               .getBotProfileTable()
@@ -145,12 +166,13 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
     ((l.resolveGroupAgentParticipants = s),
-      (l.resolveGroupAgentFanoutParticipants = c),
-      (l.isGroupAgentProfile = m));
+      (l.resolveGroupAgentFanoutForGroupSend = c),
+      (l.resolveGroupAgentFanoutParticipants = m),
+      (l.isGroupAgentProfile = _));
   },
   98,
 );

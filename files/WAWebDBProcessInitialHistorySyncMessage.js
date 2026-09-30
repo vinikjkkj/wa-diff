@@ -253,11 +253,10 @@ __d(
             } else
               (i.forEach(function (e, t) {
                 var n,
-                  a,
-                  i = o("WAWebChatCollection").ChatCollection.get(
+                  a = o("WAWebChatCollection").ChatCollection.get(
                     o("WAWebWidFactory").createWid(t),
                   ),
-                  s = e.map(function (e) {
+                  i = e.map(function (e) {
                     var t = e.id,
                       n = e.timestamp;
                     return new (r("WAWebUnreadMentionModel"))({
@@ -265,22 +264,19 @@ __d(
                       timestamp: n,
                     });
                   }),
+                  s = a == null ? void 0 : a.unreadMentionMetadata,
                   u =
-                    i == null || (n = i.groupMetadata) == null
-                      ? void 0
-                      : n.unreadMentionMetadata,
-                  c =
-                    (a = u == null ? void 0 : u.pendingUnreadMentionCount) !=
+                    (n = s == null ? void 0 : s.pendingUnreadMentionCount) !=
                     null
-                      ? a
+                      ? n
                       : 0;
-                (u != null &&
-                  u.pendingUnreadMentionCount &&
-                  ((u.pendingUnreadMentionCount = Math.max(c - s.length, 0)),
-                  l.set(t, u.pendingUnreadMentionCount)),
-                  u == null ||
-                    u.addUnreadMentions(
-                      s,
+                (s != null &&
+                  s.pendingUnreadMentionCount &&
+                  ((s.pendingUnreadMentionCount = Math.max(u - i.length, 0)),
+                  l.set(t, s.pendingUnreadMentionCount)),
+                  s == null ||
+                    s.addUnreadMentions(
+                      i,
                       o("WAWebGroupUnreadMessageType").UnreadMessageType
                         .HISTORYC_SYNC_CHUNK,
                     ));

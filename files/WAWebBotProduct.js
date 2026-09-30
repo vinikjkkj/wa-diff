@@ -24,7 +24,12 @@ __d(
             ? n
             : null;
     }
-    ((i.BotProduct = e), (i.botProductFromServerValue = l));
+    function s(t) {
+      return l(t) === e.MUSE;
+    }
+    ((i.BotProduct = e),
+      (i.botProductFromServerValue = l),
+      (i.usesMuseGroupTosNotice = s));
   },
   66,
 );

@@ -20,31 +20,33 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.initWithError,
             a = t.onInvalidKeyError,
-            i = t.stackOverExistingModal,
-            l = t.username,
-            s = o("WAWebUsernameUtils").getLIDByUsername(l);
-          if (s) return s;
-          var c = i === !0;
+            i = t.searchLogContext,
+            l = t.stackOverExistingModal,
+            s = t.username,
+            c = o("WAWebUsernameUtils").getLIDByUsername(s);
+          if (c) return c;
+          var d = l === !0;
           return new (e || (e = n("Promise")))(function (e) {
             var t = function (n) {
-                (c && o("WAWebModalManager").ModalManager.closeSupportOrModal(),
+                (d && o("WAWebModalManager").ModalManager.closeSupportOrModal(),
                   e(n));
               },
               n = u.jsx(
                 o("WAWebUsernameKeyVerificationModalLoadable")
                   .UsernameKeyVerificationModalLoadable,
                 {
-                  username: l,
+                  username: s,
                   onKeyVerificationSuccess: t,
                   onKeyVerificationCancel: function () {
                     return t(null);
                   },
                   initWithError: r === !0,
                   onInvalidKeyError: a,
-                  dontCloseViaModalManager: c ? !0 : void 0,
+                  searchLogContext: i,
+                  dontCloseViaModalManager: d ? !0 : void 0,
                 },
               );
-            c
+            d
               ? o("WAWebModalManager").ModalManager.openSupportModal(n)
               : o("WAWebModalManager").ModalManager.open(n);
           });

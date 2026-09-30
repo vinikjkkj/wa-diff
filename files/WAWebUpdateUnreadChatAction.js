@@ -10,7 +10,6 @@ __d(
     "WAWebActionToast.react",
     "WAWebApiChat",
     "WAWebBackendErrors",
-    "WAWebChatGetters",
     "WAWebChatSeenBridge",
     "WAWebChatSendConversationSeen",
     "WAWebChatUnreadConstants",
@@ -482,10 +481,7 @@ __d(
         k("sendSeen: updated chat unread count to " + t.unreadCount));
     }
     function F(e) {
-      if (o("WAWebChatGetters").getIsGroup(e)) {
-        var t;
-        (t = e.groupMetadata) == null || t.unreadMentionMetadata.reset();
-      }
+      e.unreadMentionMetadata.reset();
     }
     function O(e) {
       r("gkx")("26258") ||

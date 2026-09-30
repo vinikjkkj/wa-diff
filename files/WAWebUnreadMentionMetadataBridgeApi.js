@@ -13,12 +13,11 @@ __d(
         return (
           e.forEach(function (e) {
             var t,
-              r,
-              a = o("WAWebChatCollection").ChatCollection.get(e);
+              r = o("WAWebChatCollection").ChatCollection.get(e);
             n.set(
               e,
               (t =
-                a == null || (r = a.groupMetadata) == null
+                r == null
                   ? void 0
                   : r.unreadMentionMetadata.pendingUnreadMentionCount) != null
                 ? t
@@ -35,30 +34,26 @@ __d(
         return (
           n.forEach(function (t, n) {
             var i,
-              l,
-              s = o("WAWebChatCollection").ChatCollection.get(n),
-              u = (i = e.get(n)) != null ? i : 0,
-              c =
-                s == null || (l = s.groupMetadata) == null
-                  ? void 0
-                  : l.unreadMentionMetadata;
+              l = o("WAWebChatCollection").ChatCollection.get(n),
+              s = (i = e.get(n)) != null ? i : 0,
+              u = l == null ? void 0 : l.unreadMentionMetadata;
             if (
-              (c == null ? void 0 : c.pendingUnreadMentionCount) === 0 ||
-              (s != null && s.hasChatBeenOpened)
+              (u == null ? void 0 : u.pendingUnreadMentionCount) === 0 ||
+              (l != null && l.hasChatBeenOpened)
             ) {
               a.push(n);
               return;
             }
-            if (c && c.pendingUnreadMentionCount > 0) {
-              c.pendingUnreadMentionCount = u;
-              var d = t.map(function (e) {
+            if (u && u.pendingUnreadMentionCount > 0) {
+              u.pendingUnreadMentionCount = s;
+              var c = t.map(function (e) {
                 return new (r("WAWebUnreadMentionModel"))({
                   id: e.id.toString(),
                   timestamp: e.timestamp,
                 });
               });
-              c.addUnreadMentions(
-                d,
+              u.addUnreadMentions(
+                c,
                 o("WAWebGroupUnreadMessageType").UnreadMessageType
                   .HISTORYC_SYNC_CHUNK,
               );
@@ -68,26 +63,22 @@ __d(
         );
       },
       updateUnreadMentionMetadataByAdding: function (t) {
-        var e,
-          n = t.chatId,
-          a = t.newUnreadMentions,
-          i = t.pendingUnreadMentionCount,
-          l = o("WAWebChatCollection").ChatCollection.get(n),
-          s =
-            l == null || (e = l.groupMetadata) == null
-              ? void 0
-              : e.unreadMentionMetadata,
-          u = a.map(function (e) {
+        var e = t.chatId,
+          n = t.newUnreadMentions,
+          a = t.pendingUnreadMentionCount,
+          i = o("WAWebChatCollection").ChatCollection.get(e),
+          l = i == null ? void 0 : i.unreadMentionMetadata,
+          s = n.map(function (e) {
             return new (r("WAWebUnreadMentionModel"))({
               id: e.id.toString(),
               timestamp: e.timestamp,
             });
           });
-        s &&
-          s.pendingUnreadMentionCount > 0 &&
-          ((s.pendingUnreadMentionCount = i),
-          s.addUnreadMentions(
-            u,
+        l &&
+          l.pendingUnreadMentionCount > 0 &&
+          ((l.pendingUnreadMentionCount = a),
+          l.addUnreadMentions(
+            s,
             o("WAWebGroupUnreadMessageType").UnreadMessageType
               .HISTORYC_SYNC_CHUNK,
           ));
@@ -97,16 +88,12 @@ __d(
           n = t.unreadMentionsToAdd;
         n.forEach(function (t, n) {
           var a,
-            i,
-            l = o("WAWebChatCollection").ChatCollection.get(n),
-            s =
-              l == null || (a = l.groupMetadata) == null
-                ? void 0
-                : a.unreadMentionMetadata,
-            u = (i = e.get(n)) != null ? i : 0;
-          if (s && s.pendingUnreadMentionCount > 0) {
-            s.pendingUnreadMentionCount = u;
-            var c = t.map(function (e) {
+            i = o("WAWebChatCollection").ChatCollection.get(n),
+            l = i == null ? void 0 : i.unreadMentionMetadata,
+            s = (a = e.get(n)) != null ? a : 0;
+          if (l && l.pendingUnreadMentionCount > 0) {
+            l.pendingUnreadMentionCount = s;
+            var u = t.map(function (e) {
               var t = e.id,
                 n = e.timestamp;
               return new (r("WAWebUnreadMentionModel"))({
@@ -114,8 +101,8 @@ __d(
                 timestamp: n,
               });
             });
-            s.addUnreadMentions(
-              c,
+            l.addUnreadMentions(
+              u,
               o("WAWebGroupUnreadMessageType").UnreadMessageType
                 .HISTORYC_SYNC_CHUNK,
             );

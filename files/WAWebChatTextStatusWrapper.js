@@ -39,7 +39,15 @@ __d(
         c = o("WAWebTextStatusUtils").isTextStatusNotFetched(l);
       if (!o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled())
         return !1;
-      if (o("WAWebTextStatusUtils").shouldDisplayTextStatus(a, i, l, s, u))
+      if (
+        o("WAWebTextStatusUtils").shouldDisplayTextStatus({
+          textStatusEmoji: i,
+          textStatusEphemeralDuration: u,
+          textStatusExpiryTs: s,
+          textStatusLastUpdateTime: l,
+          textStatusString: a,
+        })
+      )
         return !0;
       if (o("WAWebUserPrefsMeUser").isMeAccount(e)) return !1;
       if (
@@ -96,13 +104,13 @@ __d(
         k = v[4],
         I;
       t[3] !== R || t[4] !== k || t[5] !== E || t[6] !== L || t[7] !== S
-        ? ((I = o("WAWebTextStatusUtils").shouldDisplayTextStatus(
-            S,
-            R,
-            L,
-            E,
-            k,
-          )),
+        ? ((I = o("WAWebTextStatusUtils").shouldDisplayTextStatus({
+            textStatusEmoji: R,
+            textStatusEphemeralDuration: k,
+            textStatusExpiryTs: E,
+            textStatusLastUpdateTime: L,
+            textStatusString: S,
+          })),
           (t[3] = R),
           (t[4] = k),
           (t[5] = E),

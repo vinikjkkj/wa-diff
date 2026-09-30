@@ -3,22 +3,23 @@ __d(
   ["WebBloksErrors", "WebBloksUtils", "justknobx"],
   function (t, n, r, o, a, i, l) {
     var e = Object.getPrototypeOf({});
-    function s(t, n, a) {
-      if (!r("justknobx")._("6078")) return o("WebBloksUtils").cast(n);
-      if (n == null || typeof n != "object" || Array.isArray(n))
-        throw new (o("WebBloksErrors").WebBloksScriptError)(a, t);
-      var i = Object.getPrototypeOf(n);
-      if (i !== null && i !== e)
-        throw new (o("WebBloksErrors").WebBloksScriptError)(a, t);
-      return o("WebBloksUtils").cast(n);
+    function s(t) {
+      if (t == null || typeof t != "object" || Array.isArray(t)) return !1;
+      var n = Object.getPrototypeOf(t);
+      return n === null || n === e;
     }
     function u(e, t, n) {
+      if (!r("justknobx")._("6078")) return o("WebBloksUtils").cast(t);
+      if (!s(t)) throw new (o("WebBloksErrors").WebBloksScriptError)(n, e);
+      return o("WebBloksUtils").cast(t);
+    }
+    function c(e, t, n) {
       if (!r("justknobx")._("6078")) return o("WebBloksUtils").cast(t);
       if (!Array.isArray(t))
         throw new (o("WebBloksErrors").WebBloksScriptError)(n, e);
       return o("WebBloksUtils").cast(t);
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       t === "__proto__"
         ? Object.defineProperty(e, t, {
             configurable: !0,
@@ -28,9 +29,10 @@ __d(
           })
         : (e[t] = n);
     }
-    ((l.assertWebBloksPlainMap = s),
-      (l.assertWebBloksArray = u),
-      (l.writeWebBloksPlainMapValue = c));
+    ((l.isWebBloksPlainMap = s),
+      (l.assertWebBloksPlainMap = u),
+      (l.assertWebBloksArray = c),
+      (l.writeWebBloksPlainMapValue = d));
   },
   98,
 );

@@ -1,69 +1,77 @@
 __d(
   "WAWebUsernameKeyEntryErrors",
   [
-    "$InternalEnum",
     "WAWebABProps",
     "WAWebBackendErrors",
     "WAWebUsernameErrorUtils",
     "WAWebUsernameStringUtils",
+    "WAWebWamEnumKeyEntryErrorType",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum").Mirrored([
-      "INVALID_LENGTH",
-      "WRONG_KEY",
-      "REQUESTOR_RATE_LIMITED",
-      "REQUESTEE_RATE_LIMITED",
-      "GENERIC",
-    ]);
-    function s(t) {
-      return t instanceof o("WAWebBackendErrors").ServerStatusCodeError
-        ? (function (t) {
-            return t ===
+    function e(e) {
+      return e instanceof o("WAWebBackendErrors").ServerStatusCodeError
+        ? (function (e) {
+            return e ===
               o("WAWebUsernameErrorUtils").WAWebUsernameErrorCodes
                 .USERNAME_KEY_REQUESTOR_RATE_LIMITED
-              ? e.REQUESTOR_RATE_LIMITED
-              : t ===
+              ? o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                  .REQUESTOR_RATE_LIMITED
+              : e ===
                   o("WAWebUsernameErrorUtils").WAWebUsernameErrorCodes
                     .USERNAME_KEY_REQUESTEE_RATE_LIMITED
-                ? e.REQUESTEE_RATE_LIMITED
-                : e.GENERIC;
+                ? o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                    .REQUESTEE_RATE_LIMITED
+                : o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                    .SERVER_ERROR;
           })(
             o("WAWebUsernameErrorUtils").WAWebUsernameErrorCodes.cast(
-              t.statusCode,
+              e.statusCode,
             ),
           )
-        : e.GENERIC;
+        : o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE.SERVER_ERROR;
     }
-    function u(t) {
-      return t === e.INVALID_LENGTH
+    function s(e) {
+      return e ===
+        o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE.INVALID_LENGTH
         ? o("WAWebUsernameStringUtils").getUsernameKeyInvalidLengthMessage(
             o("WAWebABProps").getABPropConfigValue("username_key_min_length"),
             o("WAWebABProps").getABPropConfigValue("username_key_max_length"),
           )
-        : t === e.WRONG_KEY
+        : e ===
+              o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                .INVALID_FORMAT ||
+            e ===
+              o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE.WRONG_KEY
           ? o("WAWebUsernameStringUtils").getUsernameKeyWrongKeyMessage()
-          : t === e.REQUESTOR_RATE_LIMITED
+          : e ===
+              o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                .REQUESTOR_RATE_LIMITED
             ? o(
                 "WAWebUsernameStringUtils",
               ).getUsernameKeyRequestorRateLimitedMessage()
-            : t === e.REQUESTEE_RATE_LIMITED
+            : e ===
+                o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                  .REQUESTEE_RATE_LIMITED
               ? o(
                   "WAWebUsernameStringUtils",
                 ).getUsernameKeyRequesteeRateLimitedMessage()
-              : t === e.GENERIC
+              : e ===
+                    o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                      .NO_INTERNET ||
+                  e ===
+                    o("WAWebWamEnumKeyEntryErrorType").KEY_ENTRY_ERROR_TYPE
+                      .SERVER_ERROR
                 ? o(
                     "WAWebUsernameStringUtils",
                   ).getUsernameKeyUnexpectedErrorMessage()
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        t,
+                        e,
                     );
                   })();
     }
-    ((l.UsernameKeyEntryError = e),
-      (l.getUsernameKeyEntryError = s),
-      (l.getUsernameKeyEntryErrorMessage = u));
+    ((l.getUsernameKeyEntryError = e), (l.getUsernameKeyEntryErrorMessage = s));
   },
   98,
 );

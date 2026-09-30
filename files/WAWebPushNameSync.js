@@ -27,7 +27,8 @@ __d(
       g,
       h,
       y,
-      C = (function (t) {
+      C,
+      b = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -59,7 +60,7 @@ __d(
                 );
                 var a = 0,
                   i = 0,
-                  l = yield (y || (y = n("Promise"))).all(
+                  l = yield (C || (C = n("Promise"))).all(
                     t.map(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -74,12 +75,12 @@ __d(
                               if (e.operation === "set") {
                                 var t,
                                   l = e.value,
-                                  f =
+                                  g =
                                     (t = l.pushNameSetting) == null
                                       ? void 0
                                       : t.name;
                                 return (
-                                  (f == null || f === "") &&
+                                  (g == null || g === "") &&
                                     (a++,
                                     yield o(
                                       "WAWebSyncdCriticalBootstrapProcessingApi",
@@ -89,13 +90,13 @@ __d(
                                       ).BOOTSTRAP_APP_STATE_DATA_STAGE_CODE
                                         .PUSHNAME_INVALID,
                                     ),
-                                    (f = "")),
+                                    (g = "")),
                                   o(
                                     "WASendPresenceStatusProtocol",
-                                  ).sendPresenceStatusProtocol({ name: f }),
+                                  ).sendPresenceStatusProtocol({ name: g }),
                                   o(
                                     "WAWebSetPushnameLocallyAction",
-                                  ).setPushnameLocally(f),
+                                  ).setPushnameLocally(g),
                                   yield o(
                                     "WAWebSyncdCriticalBootstrapProcessingApi",
                                   ).logCriticalBootstrapStageIfNecessary(
@@ -149,7 +150,7 @@ __d(
                                           ],
                                         )),
                                   ),
-                                  (y || (y = n("Promise"))).resolve({
+                                  (C || (C = n("Promise"))).resolve({
                                     actionState:
                                       o("WAWebSyncdConst").SyncActionState
                                         .Success,
@@ -165,7 +166,7 @@ __d(
                                       ])),
                                 ),
                                 i++,
-                                (y || (y = n("Promise"))).resolve({
+                                (C || (C = n("Promise"))).resolve({
                                   actionState:
                                     o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
@@ -180,14 +181,28 @@ __d(
                                         "push name sync: error",
                                       ])),
                                 ),
-                                o(
-                                  "WAWebSyncdCriticalBootstrapProcessingApi",
-                                ).logCriticalBootstrapStageIfNecessary(
-                                  o(
-                                    "WAWebWamEnumBootstrapAppStateDataStageCode",
-                                  ).BOOTSTRAP_APP_STATE_DATA_STAGE_CODE
-                                    .PUSHNAME_INVALID,
-                                ),
+                                o("WAWebSyncdCriticalBootstrapProcessingApi")
+                                  .logCriticalBootstrapStageIfNecessary(
+                                    o(
+                                      "WAWebWamEnumBootstrapAppStateDataStageCode",
+                                    ).BOOTSTRAP_APP_STATE_DATA_STAGE_CODE
+                                      .PUSHNAME_INVALID,
+                                  )
+                                  .catch(function () {
+                                    o("WALogger")
+                                      .ERROR(
+                                        f ||
+                                          (f =
+                                            babelHelpers.taggedTemplateLiteralLoose(
+                                              [
+                                                "push name sync: bootstrap stage log failed",
+                                              ],
+                                            )),
+                                      )
+                                      .sendLogs(
+                                        "push-name-sync-bootstrap-stage-log-failed",
+                                      );
+                                  }),
                                 {
                                   actionState:
                                     o("WAWebSyncdConst").SyncActionState.Failed,
@@ -204,8 +219,8 @@ __d(
                   );
                 (a > 0 &&
                   o("WALogger").WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "push name sync: ",
                         " empty pushnames",
                       ])),
@@ -213,20 +228,20 @@ __d(
                   ),
                   i > 0 &&
                     o("WALogger").WARN(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
                           "push name sync: ",
                           " operations not supported",
                         ])),
                       i,
                     ));
-                var C = l.filter(function (e) {
+                var b = l.filter(function (e) {
                     return (
                       e.actionState ===
                       o("WAWebSyncdConst").SyncActionState.Success
                     );
                   }).length,
-                  b = l.filter(function (e) {
+                  v = l.filter(function (e) {
                     return (
                       e.actionState ===
                       o("WAWebSyncdConst").SyncActionState.Failed
@@ -234,8 +249,8 @@ __d(
                   }).length;
                 return (
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "push name sync: handler completed: mutations=",
                         ", success=",
                         ", failed=",
@@ -244,8 +259,8 @@ __d(
                         "",
                       ])),
                     t.length,
-                    C,
                     b,
+                    v,
                     i,
                     a,
                   ),
@@ -274,8 +289,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      b = new C();
-    l.default = b;
+      v = new b();
+    l.default = v;
   },
   98,
 );

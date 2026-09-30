@@ -5,7 +5,9 @@ __d(
     "use strict";
     function e() {
       return {
+        bandwidthDiagnosticsFallbackDefaultEstimate: null,
         blockDuplicatePrefetch: !1,
+        bufferAheadTargetNoMediaElementSec: 0,
         bufferAheadTargetPausedSec: 4,
         bufferingBeginBufferAheadSec: 0.1,
         bufferingEndBufferAheadSec: 1,

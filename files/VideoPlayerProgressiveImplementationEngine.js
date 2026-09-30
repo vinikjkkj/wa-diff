@@ -54,9 +54,56 @@ __d(
         g = { current: !1 },
         h = { current: null },
         y = { current: null },
-        C = a.loggingMetaData.instanceKey,
-        b = function () {
-          var t = D(),
+        C = { current: null },
+        b = { current: null },
+        v = function (t) {
+          C.current == null || C.current();
+          var e = function () {
+              b.current != null ||
+                t.paused ||
+                ((b.current = t.currentTime),
+                w.dispatch({
+                  payload: {
+                    bufferingType: w.getCurrentState().controlledState
+                      .waitingForDomPlaying
+                      ? "start/unpause"
+                      : "in_play",
+                  },
+                  type: "buffering_begin_requested",
+                }));
+            },
+            n = function (t) {
+              b.current != null &&
+                ((b.current = null),
+                w.dispatch({
+                  payload: { domEventPerfTimestamp: t.timeStamp },
+                  type: "buffering_end_requested",
+                }));
+            },
+            r = function () {
+              b.current != null && (b.current = t.currentTime);
+            },
+            o = function (r) {
+              var e = b.current;
+              e != null && t.currentTime > e && n(r);
+            };
+          (t.addEventListener("waiting", e),
+            t.addEventListener("playing", n),
+            t.addEventListener("pause", n),
+            t.addEventListener("seeking", r),
+            t.addEventListener("timeupdate", o),
+            (C.current = function () {
+              (t.removeEventListener("waiting", e),
+                t.removeEventListener("playing", n),
+                t.removeEventListener("pause", n),
+                t.removeEventListener("seeking", r),
+                t.removeEventListener("timeupdate", o),
+                (C.current = null));
+            }));
+        },
+        S = a.loggingMetaData.instanceKey,
+        R = function () {
+          var t = P(),
             i = l.current;
           if (!(t == null || i == null)) {
             var c = 0,
@@ -65,7 +112,7 @@ __d(
               _ = !1,
               C = null,
               b = 0,
-              v = function () {
+              S = function () {
                 (c === 0 && (b = t.currentTime), c++);
                 var e =
                   p != null
@@ -79,14 +126,14 @@ __d(
                       (document.visibilityState === "hidden" || !u(t))
                     ) {
                       ((h.current = null),
-                        C != null && $(C.implementationError, C.errorLocation));
+                        C != null && M(C.implementationError, C.errorLocation));
                       return;
                     }
                     h.current = null;
                     var e = function () {
                       !g.current &&
                         C != null &&
-                        $(C.implementationError, C.errorLocation);
+                        M(C.implementationError, C.errorLocation);
                     };
                     if (r("gkx")("25633")) {
                       var n =
@@ -120,7 +167,7 @@ __d(
                     }
                   }, e)));
               };
-            t.addEventListener("error", function (i) {
+            (t.addEventListener("error", function (i) {
               if (m) {
                 if (
                   ((m = !1),
@@ -130,10 +177,10 @@ __d(
                       o("VideoPlayerRetryConfig").PROGRESSIVE_RETRY_CONFIG
                         .retryCount)
                 ) {
-                  v();
+                  S();
                   return;
                 }
-                C != null && $(C.implementationError, C.errorLocation);
+                C != null && M(C.implementationError, C.errorLocation);
                 return;
               }
               var l = t.error,
@@ -238,83 +285,84 @@ __d(
                           o("VideoPlayerRetryConfig").PROGRESSIVE_RETRY_CONFIG
                             .retryCount)
                     ) {
-                      v();
+                      S();
                       return;
                     }
-                    $(e, t);
+                    M(e, t);
                   });
               } else {
-                var S = r("err").apply(void 0, [f].concat(g));
-                ((S.name = [u, h, "VIDEO_ELEMENT_SRC_EMPTY"]
+                var v = r("err").apply(void 0, [f].concat(g));
+                ((v.name = [u, h, "VIDEO_ELEMENT_SRC_EMPTY"]
                   .filter(Boolean)
                   .join("/")),
-                  $(S, "progressive_implementation_error_with_empty_src"));
+                  M(v, "progressive_implementation_error_with_empty_src"));
               }
-            });
+            }),
+              r("gkx")("26984") && v(t));
             try {
-              var S,
+              var R,
                 L = i.graphQLVideoDRMInfo,
                 E = i.videoFBID,
-                k = L && (S = L.fairplayCert) != null ? S : null;
-              if (n("cr:1680308") && L && k != null && E != null)
+                I = L && (R = L.fairplayCert) != null ? R : null;
+              if (n("cr:1680308") && L && I != null && E != null)
                 if (
                   ((f.current = n("cr:1680308").newIfSupported(
-                    k,
+                    I,
                     t,
                     E,
                     L.videoLicenseUriMap,
                   )),
                   f.current == null)
                 ) {
-                  var I = r("err")("Fairplay not supported");
-                  $(I, "progressive_player_fairplay_handler_missing");
+                  var T = r("err")("Fairplay not supported");
+                  M(T, "progressive_player_fairplay_handler_missing");
                 } else
                   f.current.addListener("error", function (e) {
                     var t = r("err")(e.error);
-                    $(t, "progressive_player_fairplay_handler_error");
+                    M(t, "progressive_player_fairplay_handler_error");
                   });
-              var M = r("gkx")("18183")
+              var D = r("gkx")("18183")
                 ? o("VideoPlayerImplementationEngineAPI").ensureVideoElementAPI(
-                    N,
+                    A,
                   )
-                : (N.current = o(
+                : (A.current = o(
                     "VideoPlayerImplementationEngineVideoElementAPI",
                   ).createVideoPlayerImplementationEngineVideoElementAPI(t));
               d.current = i;
               {
-                var w = T();
-                x({
+                var x = $();
+                N({
                   inbandCaptionsAutogeneratedFromManifest:
-                    R.getInbandCaptionsAutogeneratedFromManifest(),
+                    k.getInbandCaptionsAutogeneratedFromManifest(),
                   inbandCaptionsExpectedFromManifest:
-                    R.getInbandCaptionsExpectedFromManifest(),
+                    k.getInbandCaptionsExpectedFromManifest(),
                   inbandCaptionsExpectedFromProps:
-                    w == null ? void 0 : w.inbandCaptionsExpectedFromProps,
+                    x == null ? void 0 : x.inbandCaptionsExpectedFromProps,
                   representationCaptionsExpectedFromManifest:
-                    R.getRepresentationCaptionsExpectedFromManifest(),
+                    k.getRepresentationCaptionsExpectedFromManifest(),
                   sideLoadCaptionsExpectedFromProps:
-                    w == null ? void 0 : w.sideLoadCaptionsExpectedFromProps,
+                    x == null ? void 0 : x.sideLoadCaptionsExpectedFromProps,
                   sideLoadCaptionsUrlFromProps:
-                    w == null ? void 0 : w.sideLoadCaptionsUrlFromProps,
+                    x == null ? void 0 : x.sideLoadCaptionsUrlFromProps,
                 });
               }
-              P.dispatch({
+              w.dispatch({
                 payload: {
-                  selectedVideoQuality: R.getUserSelectedVideoQuality(),
-                  streamingFormat: R.getStreamType(),
+                  selectedVideoQuality: k.getUserSelectedVideoQuality(),
+                  streamingFormat: k.getStreamType(),
                 },
                 type: "implementation_engine_initialized",
               });
-              var A = function () {
-                M.setPlayheadPosition(a.coreVideoPlayerMetaData.startTimestamp);
+              var F = function () {
+                D.setPlayheadPosition(a.coreVideoPlayerMetaData.startTimestamp);
               };
-              A();
+              F();
             } catch (e) {
-              $(e, "progressive_player_create_exception");
+              M(e, "progressive_player_create_exception");
             }
           }
         },
-        v = function (t, n) {
+        L = function (t, n) {
           if (n == null) return !0;
           if (t.videoFBID !== n.videoFBID) {
             var e = 14;
@@ -338,7 +386,7 @@ __d(
             );
           } else return !1;
         },
-        S = function (t) {
+        E = function (t) {
           var e,
             n,
             a,
@@ -355,7 +403,7 @@ __d(
               sdSrc: t.sdSrc === "" ? null : (s = t.sdSrc) != null ? s : null,
               videoFBID: t.coreVideoPlayerMetaData.videoFBID,
             };
-          if (!v(u, i.current)) return !1;
+          if (!L(u, i.current)) return !1;
           var c = u.mediaStream != null;
           if (!c && u.hdSrc == null && u.sdSrc == null)
             throw r("FBLogger")("comet_video_player").mustfixThrow(
@@ -366,11 +414,11 @@ __d(
             (l.current = o(
               "VideoPlayerProgressiveImplementationEngineUtils",
             ).createResolvedVideoInfoProgressive(u)),
-            b(),
+            R(),
             !0
           );
         },
-        R = o(
+        k = o(
           "VideoPlayerProgressiveImplementationEngineExtrasAPI",
         ).createVideoPlayerProgressiveImplementationEngineExtrasAPI({
           getPlayingVideoInfo: function () {
@@ -379,7 +427,7 @@ __d(
                 t = d.current;
               if (!t) return null;
               var n =
-                (e = N.current) == null
+                (e = A.current) == null
                   ? void 0
                   : e.getUnderlyingVideoElement().currentSrc;
               return babelHelpers.extends({}, t, {
@@ -395,11 +443,11 @@ __d(
               );
             var n = o(
                 "VideoPlayerImplementationEngineAPI",
-              ).ensureVideoElementAPI(N),
+              ).ensureVideoElementAPI(A),
               i = n.getUnderlyingVideoElement();
             if (e.mediaStream != null) {
               (_(i, e.mediaStream),
-                P.dispatch({ payload: {}, type: "representation_changed" }));
+                w.dispatch({ payload: {}, type: "representation_changed" }));
               return;
             }
             d.current = o(
@@ -440,13 +488,13 @@ __d(
                   );
                   var u =
                     (s =
-                      P.getCurrentState().uncontrolledState
+                      w.getCurrentState().uncontrolledState
                         .videoElementPlayheadPosition) != null
                       ? s
                       : 0;
                   if (
                     (u > 0 && n.setPlayheadPosition(u),
-                    P.getCurrentState().controlledState.playbackState ===
+                    w.getCurrentState().controlledState.playbackState ===
                       "playing")
                   ) {
                     var c;
@@ -457,7 +505,7 @@ __d(
                           .warn("Failed to play video after quality change");
                       });
                   }
-                  P.dispatch({ payload: {}, type: "representation_changed" });
+                  w.dispatch({ payload: {}, type: "representation_changed" });
                 }
               })
               .catch(function (e) {
@@ -479,10 +527,10 @@ __d(
               });
           },
         }),
-        L = function () {
+        I = function () {
           f.current && (f.current.destroy(), (f.current = null));
         },
-        E = o(
+        T = o(
           "VideoPlayerImplementationEngineAPI",
         ).createVideoPlayerImplementationEngine({
           createDebugAPI: function (t) {
@@ -490,7 +538,7 @@ __d(
               r = t.loggerToVPL;
             return n("cr:4158")
               ? n("cr:4158").createVideoPlayerImplementationDebugAPI({
-                  engineExtrasAPI: R,
+                  engineExtrasAPI: k,
                   getVideoElementAPI: e,
                   loggerToVPL: r,
                 })
@@ -505,30 +553,31 @@ __d(
               h.current != null &&
                 (r("clearTimeout")(h.current), (h.current = null)),
               y.current != null && (y.current(), (y.current = null)),
-              L());
+              C.current == null || C.current(),
+              I());
           },
           engineCreateArgs: t,
-          engineExtrasAPI: R,
+          engineExtrasAPI: k,
           engineMetadata: {
             isAbrEnabled: !1,
-            playerInstanceKey: C,
+            playerInstanceKey: S,
             playerVersion: "comet_progressive",
             streamingFormat: "progressive",
           },
           handleVideoElementChanged: function (t) {
-            t != null && b();
+            t != null && R();
           },
-          handleVideoInfoChange: S,
+          handleVideoInfoChange: E,
         }),
-        k = E.debugLog,
-        I = E.engine,
-        T = E.getCaptionsInfo,
-        D = E.getVideoElement,
-        x = E.handleCaptionsInfoChange,
-        $ = E.handleFatalImplementationError,
-        P = E.machine,
-        N = E.videoElementAPIRef;
-      return I;
+        D = T.debugLog,
+        x = T.engine,
+        $ = T.getCaptionsInfo,
+        P = T.getVideoElement,
+        N = T.handleCaptionsInfoChange,
+        M = T.handleFatalImplementationError,
+        w = T.machine,
+        A = T.videoElementAPIRef;
+      return x;
     }
     function m(t, a) {
       return a && o("videoUrlUtils").isCdnUrlExpired(t)

@@ -2,6 +2,8 @@ __d(
   "WAWebSyncBotSupportFields",
   [
     "WALogger",
+    "WAWebBotGroupGatingUtils",
+    "WAWebBotProduct",
     "WAWebBotStaticProfiles",
     "WAWebBotTos",
     "WAWebDBBulkPersistProfilePic",
@@ -68,9 +70,14 @@ __d(
                 lastFetchedTimeMs: Date.now(),
               });
               try {
-                yield o("WAWebBotTos").refreshBotTosRequirements(
-                  c.groupTosRequirements,
-                );
+                o(
+                  "WAWebBotGroupGatingUtils",
+                ).isStandardBotProfileGroupEnabled() &&
+                o("WAWebBotProduct").usesMuseGroupTosNotice(c.product)
+                  ? yield o("WAWebBotTos").refreshMuseGroupTosNotices()
+                  : yield o("WAWebBotTos").refreshBotTosRequirements(
+                      c.groupTosRequirements,
+                    );
               } catch (e) {
                 o("WALogger")
                   .WARN(

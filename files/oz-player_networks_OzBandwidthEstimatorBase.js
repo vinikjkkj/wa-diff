@@ -102,20 +102,25 @@ __d(
               timeToFirstByteMsTotalWeight: a,
             };
           }),
-          (a.getDefaultEstimate = function (n) {
+          (a.getDefaultEstimate = function (n, r) {
             var t,
-              r,
-              o = this.$OzBandwidthEstimatorBase$p_1.getCachedBandwidth();
-            if (typeof o == "number" && o > 0) return o;
-            var a =
+              o,
+              a = this.$OzBandwidthEstimatorBase$p_1.getCachedBandwidth();
+            if (typeof a == "number" && a > 0) return a;
+            var i =
                 ((t =
-                  (r = window.navigator) == null || (r = r.connection) == null
+                  (o = window.navigator) == null || (o = o.connection) == null
                     ? void 0
-                    : r.downlink) != null
+                    : o.downlink) != null
                   ? t
                   : 0) * 1e6,
-              i = a > 0 ? a : n.getNumber("default_bandwidth_estimate", e);
-            return i;
+              l =
+                i > 0
+                  ? i
+                  : r != null
+                    ? r
+                    : n.getNumber("default_bandwidth_estimate", e);
+            return l;
           }),
           (a.$OzBandwidthEstimatorBase$p_3 = function (t) {
             return this.getBandwidth(t);

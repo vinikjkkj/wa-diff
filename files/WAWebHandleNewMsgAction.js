@@ -404,9 +404,9 @@ __d(
                 }
                 if (o("WAWebMsgGetters").getIsSentByMe(t)) {
                   if (e.unreadCount > 0 || e.markedUnread) {
-                    var k,
-                      I,
-                      T = e.id.toString() === t.id.remote.toString();
+                    var E,
+                      k,
+                      I = e.id.toString() === t.id.remote.toString();
                     o("WALogger").LOG(
                       y ||
                         (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -425,15 +425,15 @@ __d(
                       e.id.isLid(),
                       t.id.remote.toLogString(),
                       t.id.remote.isLid(),
-                      T,
+                      I,
                       e.unreadCount,
                       e.activeUnreadCount,
                       e.markedUnread,
-                      (k =
-                        (I = e.accountLid) == null
+                      (E =
+                        (k = e.accountLid) == null
                           ? void 0
-                          : I.toLogString()) != null
-                        ? k
+                          : k.toLogString()) != null
+                        ? E
                         : "none",
                     );
                   }
@@ -530,29 +530,27 @@ __d(
                         }),
                     o("WAWebMsgGetters").getIsImportantMessage(t))
                   ) {
-                    var R,
-                      L = new (r("WAWebUnreadMentionModel"))({
-                        id: t.id.toString(),
-                        timestamp: t.t,
-                      });
+                    var R = new (r("WAWebUnreadMentionModel"))({
+                      id: t.id.toString(),
+                      timestamp: t.t,
+                    });
                     if (
-                      ((R = e.groupMetadata) == null ||
-                        R.unreadMentionMetadata.addUnreadMentions(
-                          L,
-                          o("WAWebGroupUnreadMessageType").UnreadMessageType
-                            .NEW_MESSAGE,
-                        ),
+                      (e.unreadMentionMetadata.addUnreadMentions(
+                        R,
+                        o("WAWebGroupUnreadMessageType").UnreadMessageType
+                          .NEW_MESSAGE,
+                      ),
                       e.archiveAtMentionViewedInDrawer)
                     ) {
-                      var E = new Map();
-                      (E.set(e.id.toString(), !1),
+                      var L = new Map();
+                      (L.set(e.id.toString(), !1),
                         o("WALogger").LOG(
                           h ||
                             (h = babelHelpers.taggedTemplateLiteralLoose([
                               "handleNewMsgForChat: will mark chat for archive",
                             ])),
                         ),
-                        yield o("WAWebApiChat").updateChatArchiveDrawer(E),
+                        yield o("WAWebApiChat").updateChatArchiveDrawer(L),
                         (e.archiveAtMentionViewedInDrawer = !1));
                     }
                   }

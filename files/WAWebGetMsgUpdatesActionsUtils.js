@@ -8,6 +8,7 @@ __d(
     "WAWebButtonCollection",
     "WAWebButtonModel",
     "WAWebChatCollection",
+    "WAWebCoexV2RevokeAuthorization",
     "WAWebDBGroupParticipant",
     "WAWebEphemeralSyncResponse",
     "WAWebErrorType",
@@ -149,10 +150,21 @@ __d(
                                       )
                                     : null),
                               u)
-                            )
+                            ) {
+                              var m,
+                                p = o("WAWebMsgGetters").getSender(n),
+                                _ = o(
+                                  "WAWebCoexV2RevokeAuthorization",
+                                ).getCoexV2RevokeAuthorization(
+                                  u.senderWithDevice,
+                                  u.metaFrom,
+                                  (m = n.senderWithDevice) != null ? m : p,
+                                  !0,
+                                );
                               if (
-                                !o("WAWebMsgGetters").getIsGroupMsg(u) &&
-                                !o("WAWebMsgGetters").getIsNewsletterMsg(u)
+                                _ === !1 ||
+                                (!o("WAWebMsgGetters").getIsGroupMsg(u) &&
+                                  !o("WAWebMsgGetters").getIsNewsletterMsg(u))
                               )
                                 $++;
                               else if (
@@ -161,35 +173,33 @@ __d(
                                 P++;
                               else {
                                 (N++, M.length < 3 && M.push(u.id.toString()));
-                                var m = new (o("WAWebMsgModel").Msg)(n),
-                                  p = r("nullthrows")(
-                                    o("WAWebMsgGetters").getSender(m),
-                                  );
+                                var f = new (o("WAWebMsgModel").Msg)(n),
+                                  g = r("nullthrows")(p);
                                 if (o("WAWebMsgGetters").getIsGroupMsg(u)) {
-                                  var _ = r("nullthrows")(
+                                  var h = r("nullthrows")(
                                       o("WAWebFrontendMsgGetters").getChat(u)
                                         .groupMetadata,
                                     ),
-                                    f =
-                                      _.isLidAddressingMode === !0
-                                        ? o("WAWebLidMigrationUtils").toLid(p)
-                                        : o("WAWebLidMigrationUtils").toPn(p),
-                                    g =
-                                      f != null ? _.participants.get(f) : null;
-                                  if ((!g || !g.isAdmin) && f != null) {
+                                    y =
+                                      h.isLidAddressingMode === !0
+                                        ? o("WAWebLidMigrationUtils").toLid(g)
+                                        : o("WAWebLidMigrationUtils").toPn(g),
+                                    C =
+                                      y != null ? h.participants.get(y) : null;
+                                  if ((!C || !C.isAdmin) && y != null) {
                                     if (
-                                      (_.participants.add(
-                                        { id: f, isAdmin: !0 },
+                                      (h.participants.add(
+                                        { id: y, isAdmin: !0 },
                                         { merge: !0 },
                                       ),
-                                      !g)
+                                      !C)
                                     ) {
-                                      var h = {
+                                      var b = {
                                         actionType:
                                           o("WAWebGroupType").GROUP_ACTIONS.ADD,
                                         participants: [
                                           {
-                                            id: f,
+                                            id: y,
                                             isAdmin: !0,
                                             isSuperAdmin: !1,
                                           },
@@ -197,7 +207,7 @@ __d(
                                         reason: null,
                                       };
                                       w++;
-                                      var y = yield o(
+                                      var v = yield o(
                                         "WAWebGroupSystemMsg",
                                       ).genGroupNotificationMsg({
                                         meta: {
@@ -205,17 +215,17 @@ __d(
                                           chatId: o(
                                             "WAWebFrontendMsgGetters",
                                           ).getChat(u).id,
-                                          ts: m.t,
+                                          ts: f.t,
                                         },
-                                        action: h,
+                                        action: b,
                                         dbIsStale: !0,
                                       });
-                                      y &&
+                                      v &&
                                         o(
                                           "WAWebHandleSingleMsgWorkerCompatible",
                                         ).handleSingleMsg({
-                                          chatId: y.from,
-                                          newMsg: y,
+                                          chatId: v.from,
+                                          newMsg: v,
                                           handleSingleMsgOrigin:
                                             "handleGroupAction",
                                         });
@@ -244,94 +254,107 @@ __d(
                                   }
                                 }
                                 o("WAWebRevokeMsgAction").revoke(u, {
-                                  msgKey: m.id,
-                                  subtype: m.subtype,
-                                  sender: p,
-                                  revokeTimestamp: m.t,
-                                  viewMode: m.viewMode,
+                                  msgKey: f.id,
+                                  subtype: f.subtype,
+                                  sender: g,
+                                  revokeTimestamp: f.t,
+                                  viewMode: f.viewMode,
                                 });
                               }
+                            }
                             break;
                           }
                           case "sender_revoke": {
-                            var C,
-                              b = o(
+                            var S,
+                              R = o(
                                 "WAWebLidMigrationUtils",
                               ).getAlternateMsgKey(n.protocolMessageKey);
                             if (
                               ((u =
-                                (C = o("WAWebMsgCollection").MsgCollection.get(
+                                (S = o("WAWebMsgCollection").MsgCollection.get(
                                   n.protocolMessageKey,
                                 )) != null
-                                  ? C
-                                  : b != null
+                                  ? S
+                                  : R != null
                                     ? o("WAWebMsgCollection").MsgCollection.get(
-                                        b,
+                                        R,
                                       )
                                     : null),
                               u)
                             ) {
-                              var v,
-                                S,
-                                R = new (o("WAWebMsgModel").Msg)(n),
-                                E =
-                                  (v = u) == null
+                              var E,
+                                Y,
+                                J,
+                                Z = new (o("WAWebMsgModel").Msg)(n),
+                                ee =
+                                  (E = u) == null
                                     ? void 0
-                                    : v.botTargetSenderJid,
-                                Y = o("WAWebMsgGetters").getSender(R);
+                                    : E.botTargetSenderJid,
+                                te = o("WAWebMsgGetters").getSender(Z),
+                                ne = o(
+                                  "WAWebCoexV2RevokeAuthorization",
+                                ).getCoexV2RevokeAuthorization(
+                                  u.senderWithDevice,
+                                  u.metaFrom,
+                                  (Y = Z.senderWithDevice) != null ? Y : te,
+                                  !1,
+                                );
                               if (
-                                E != null &&
-                                (S = u.id.participant) != null &&
-                                S.isBot() &&
+                                ne == null &&
+                                ee != null &&
+                                (J = u.id.participant) != null &&
+                                J.isBot() &&
                                 r("WAWebWid").equals.apply(
                                   r("WAWebWid"),
                                   o(
                                     "WAWebLidMigrationUtils",
-                                  ).toCommonAddressingMode(E, Y),
+                                  ).toCommonAddressingMode(ee, te),
                                 ) &&
-                                Y != null
+                                te != null
                               )
                                 (A++,
                                   F.length < 3 && F.push(u.id.toString()),
                                   o("WAWebRevokeMsgAction").revoke(u, {
-                                    msgKey: R.id,
-                                    subtype: R.subtype,
-                                    sender: Y,
-                                    revokeTimestamp: R.t,
+                                    msgKey: Z.id,
+                                    subtype: Z.subtype,
+                                    sender: te,
+                                    revokeTimestamp: Z.t,
                                   }));
                               else if (
-                                r("WAWebWid").equals.apply(
-                                  r("WAWebWid"),
-                                  o(
-                                    "WAWebLidMigrationUtils",
-                                  ).toCommonAddressingMode(
-                                    o("WAWebMsgGetters").getIsGroupStatus(u)
-                                      ? u.id.participant
-                                      : o("WAWebMsgGetters").getSender(u),
-                                    Y,
-                                  ),
-                                ) &&
-                                Y != null
+                                te != null &&
+                                (ne === !0 ||
+                                  (ne == null &&
+                                    r("WAWebWid").equals.apply(
+                                      r("WAWebWid"),
+                                      o(
+                                        "WAWebLidMigrationUtils",
+                                      ).toCommonAddressingMode(
+                                        o("WAWebMsgGetters").getIsGroupStatus(u)
+                                          ? u.id.participant
+                                          : o("WAWebMsgGetters").getSender(u),
+                                        te,
+                                      ),
+                                    )))
                               ) {
                                 if (
                                   (O++,
                                   B.length < 3 && B.push(u.id.toString()),
                                   o("WAWebMsgGetters").getIsStatus(u))
                                 ) {
-                                  var J = u.getMsgChunk();
-                                  J && J.remove(u);
+                                  var re = u.getMsgChunk();
+                                  re && re.remove(u);
                                 }
                                 o("WAWebRevokeMsgAction").revoke(u, {
-                                  msgKey: R.id,
-                                  subtype: R.subtype,
-                                  sender: Y,
-                                  revokeTimestamp: R.t,
+                                  msgKey: Z.id,
+                                  subtype: Z.subtype,
+                                  sender: te,
+                                  revokeTimestamp: Z.t,
                                 });
                               } else
                                 (W++,
                                   q.length < 3 &&
                                     q.push(
-                                      R.id.toString() +
+                                      Z.id.toString() +
                                         " <> " +
                                         u.id.toString(),
                                     ));
@@ -353,30 +376,30 @@ __d(
                         !o("WAWebFrontendMsgGetters").getAsRevoked(u)
                       ) {
                         n.ack < u.ack && delete n.ack;
-                        for (var Z in n)
-                          Object.hasOwn(n, Z) &&
-                            typeof n[Z] == "undefined" &&
-                            delete n[Z];
+                        for (var oe in n)
+                          Object.hasOwn(n, oe) &&
+                            typeof n[oe] == "undefined" &&
+                            delete n[oe];
                         (u.type !== n.type && (n.subtype = n.subtype || void 0),
                           i.isHistory === !0 && (n.isNewMsg = !1));
-                        var ee = u.t
+                        var ae = u.t
                             ? r("omit")(n, ["t", "id", "from", "to"])
                             : n,
-                          te = u.applyUpdate(ee).then(function () {
+                          ie = u.applyUpdate(ae).then(function () {
                             return u;
                           });
                         if (
-                          (I.push(te), r("WAWebWid").isBroadcast(u.id.remote))
+                          (I.push(ie), r("WAWebWid").isBroadcast(u.id.remote))
                         ) {
-                          var ne =
+                          var le =
                             o("WAWebMsgModelUtils").getBroadcastFanoutKeys(u);
-                          ne &&
-                            ne.forEach(function (e) {
+                          le &&
+                            le.forEach(function (e) {
                               var t =
                                 o("WAWebMsgCollection").MsgCollection.get(e);
                               t &&
                                 I.push(
-                                  t.applyUpdate(ee).then(function () {
+                                  t.applyUpdate(ae).then(function () {
                                     return u;
                                   }),
                                 );
@@ -397,7 +420,7 @@ __d(
                               L.push({ id: u.id }))
                             : i.add === "search" && L.push({ id: u.id });
                       } else {
-                        var re;
+                        var se;
                         n.subtype === "payment_action_request_declined" ||
                         n.subtype === "payment_transaction_request_cancelled"
                           ? I.push(
@@ -412,11 +435,11 @@ __d(
                                 "WAWebPaymentRequestMsgAction",
                               ).fulfillPaymentRequest(n),
                             );
-                        var oe =
-                          (re = o("WAWebChatCollection").ChatCollection.get(
+                        var ue =
+                          (se = o("WAWebChatCollection").ChatCollection.get(
                             n.id.remote,
                           )) != null
-                            ? re
+                            ? se
                             : r("WAWebNewsletterCollection").get(n.id.remote);
                         if (
                           (i.add === "search" && (n.search = !0),
@@ -430,18 +453,18 @@ __d(
                           i.update !== !0 && L.push(n),
                           i.isHistory !== !0 &&
                             i.add !== "search" &&
-                            oe &&
-                            I.push(x(n, oe)),
+                            ue &&
+                            I.push(x(n, ue)),
                           n.ephemeralOutOfSync && (K++, Q.length < 3))
                         ) {
-                          var ae;
+                          var ce;
                           Q.push(
                             "msgId=" +
                               n.id.toString() +
                               " chatId=" +
-                              ((ae = oe == null ? void 0 : oe.id.toString()) !=
+                              ((ce = ue == null ? void 0 : ue.id.toString()) !=
                               null
-                                ? ae
+                                ? ce
                                 : "unknown"),
                           );
                         }

@@ -34,18 +34,23 @@ __d(
     function b(e) {
       return e != null && e !== y;
     }
-    function v(t, n, r, a, i) {
+    function v(t) {
+      var n = t.textStatusEmoji,
+        r = t.textStatusEphemeralDuration,
+        a = t.textStatusExpiryTs,
+        i = t.textStatusLastUpdateTime,
+        l = t.textStatusString;
       return !(
         !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() ||
-        r === e ||
-        r === d ||
-        r === s ||
+        i === e ||
+        i === d ||
+        i === s ||
         !C({
           textStatusEmoji: n,
-          textStatusEphemeralDuration: i,
+          textStatusEphemeralDuration: r,
           textStatusExpiryTs: a,
-          textStatusLastUpdateTime: r,
-          textStatusString: t,
+          textStatusLastUpdateTime: i,
+          textStatusString: l,
         })
       );
     }

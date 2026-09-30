@@ -99,7 +99,7 @@ __d(
       function b() {
         var e = new MessageChannel(),
           t = !1;
-        ((e.port1.onmessage = function (e) {
+        ((e.port1.onmessage = function () {
           ((t = !1), g());
         }),
           (c = function () {

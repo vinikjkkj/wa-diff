@@ -196,25 +196,21 @@ __d(
         r != null && y(e, t, r));
     }
     function y(e, t, n) {
-      var a;
       switch (n) {
         case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Added:
           if (e.isUnreadMsg(t)) {
-            var i,
-              l = new (r("WAWebUnreadMentionModel"))({
-                id: t.id,
-                timestamp: t.latestEditSenderTimestampMs,
-              });
-            (i = e.groupMetadata) == null ||
-              i.unreadMentionMetadata.addUnreadMentions(
-                [l],
-                o("WAWebGroupUnreadMessageType").UnreadMessageType.NEW_MESSAGE,
-              );
+            var a = new (r("WAWebUnreadMentionModel"))({
+              id: t.id,
+              timestamp: t.latestEditSenderTimestampMs,
+            });
+            e.unreadMentionMetadata.addUnreadMentions(
+              [a],
+              o("WAWebGroupUnreadMessageType").UnreadMessageType.NEW_MESSAGE,
+            );
           }
           break;
         case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Removed:
-          (a = e.groupMetadata) == null ||
-            a.unreadMentionMetadata.removeUnreadMentions(t.id.toString());
+          e.unreadMentionMetadata.removeUnreadMentions(t.id.toString());
           break;
       }
     }

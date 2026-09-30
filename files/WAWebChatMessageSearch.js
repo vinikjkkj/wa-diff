@@ -244,11 +244,7 @@ __d(
       [
         e.SearchFilters.TO_YOU,
         function (e) {
-          return (
-            o("WAWebContactGetters").getIsGroup(e.contact) &&
-            e.hasUnreadMention &&
-            !e.archive
-          );
+          return e.hasUnreadMention && !e.archive;
         },
       ],
     ]);

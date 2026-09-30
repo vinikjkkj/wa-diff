@@ -360,35 +360,43 @@ __d(
       return (
         e.forEach(function (e) {
           if (e.protocolMessageKey) {
-            var n = r("nullthrows")(e.t, "revoke timestamp is null");
+            var n,
+              a = r("nullthrows")(e.t, "revoke timestamp is null");
             t.push({
               revokeMsgKey: e.protocolMessageKey,
               newMsgKey: e.id,
-              timestamp: n,
+              timestamp: a,
               subtype: e.subtype,
+              authenticatedSender:
+                (n = e.senderWithDevice) != null
+                  ? n
+                  : o("WAWebMsgGetters").getSender(e),
               sender: o("WAWebMsgGetters").getSender(e),
-              revokeTimestamp: n,
+              revokeTimestamp: a,
               viewMode: e.viewMode,
             });
           }
         }),
         o("WAWebDBProcessRevokeMsgs")
-          .processRevokeMsgs(t)
+          .processRevokeMsgsAndGetCleanupEligibleKeys(t)
           .then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  if (t.length > 0) {
-                    var n = [],
-                      r = new Set();
-                    (t.forEach(function (e) {
-                      n.push(e.revokeMsgKey.toString());
+                  var n = t.filter(function (t) {
+                    return e.has(t.revokeMsgKey.toString());
+                  });
+                  if (n.length > 0) {
+                    var r = [],
+                      a = new Set();
+                    (n.forEach(function (e) {
+                      r.push(e.revokeMsgKey.toString());
                       var t = e.revokeMsgKey.remote.toString();
-                      r.add(t);
+                      a.add(t);
                     }),
                       yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
-                        Array.from(r.values()).join(","),
-                        n,
+                        Array.from(a.values()).join(","),
+                        r,
                       ));
                   }
                   return e;
@@ -665,7 +673,7 @@ __d(
           o("WAWebCommonMsgUtils").isSomewhatParsedRichResponseMsg(e))
       );
     }
-    ((l.storeMsgs = C), (l.classifyMsgs = E));
+    ((l.storeMsgs = C), (l.processOfflineRevokes = L), (l.classifyMsgs = E));
   },
   98,
 );

@@ -138,6 +138,7 @@ __d(
       ai_group_tee_history_share_enabled: [28278, "bool", !1, !1],
       ai_group_tee_require_additional_member_enabled: [33050, "bool", !1, !1],
       ai_groups_open_enabled: [22165, "bool", !1, !1],
+      ai_hatch_3p_bot_enabled: [37639, "bool", !1, !1],
       ai_hatch_3p_bot_group_add_companion_enabled: [37791, "bool", !1, !1],
       ai_hatch_3p_bot_group_add_enabled: [37767, "bool", !1, !1],
       ai_hatch_3p_bot_group_add_tee_removal_enabled: [37793, "bool", !1, !1],

@@ -24,6 +24,7 @@ __d(
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebClock",
+    "WAWebCoexV2RevokeAuthorization",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactGetters",
     "WAWebContactModel",
@@ -841,19 +842,19 @@ __d(
         o("WAWebBotSupportGating").isThirdPartyAgent(t)
       );
     }
-    function ee(e) {
-      var t;
-      if (J(e)) return !1;
-      var n = o("WAWebFrontendMsgGetters").getCurrentChat(e);
-      return o("WAWebChatGetters").getIsNewsletter(n)
+    function ee(e, t) {
+      var n;
+      if ((t === void 0 && (t = !1), J(e))) return !1;
+      var r = o("WAWebFrontendMsgGetters").getCurrentChat(e);
+      return o("WAWebChatGetters").getIsNewsletter(r)
         ? j(e)
-        : (o("WAWebChatGetters").getIsGroup(n) &&
-              !((t = n.groupMetadata) != null && t.participants.iAmMember())) ||
-            o("WAWebContactGetters").getIsMe(n.contact) ||
-            (n.contact.isEnterprise && !n.contact.id.isBot()) ||
-            o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n) ||
-            $(n) ||
-            Z(n.id)
+        : (o("WAWebChatGetters").getIsGroup(r) &&
+              !((n = r.groupMetadata) != null && n.participants.iAmMember())) ||
+            o("WAWebContactGetters").getIsMe(r.contact) ||
+            (r.contact.isEnterprise && !r.contact.id.isBot()) ||
+            o("WAWebFrontendChatGetters").getIsCapiHostedGroup(r) ||
+            $(r) ||
+            (!t && Z(r.id))
           ? !1
           : e.type === o("WAWebMsgType").MSG_TYPE.COMMENT
             ? e.ack != null && e.ack >= o("WAWebAck").ACK.SENT
@@ -900,12 +901,20 @@ __d(
       e instanceof o("WAWebMsgModel").Msg &&
         (t = o("WAWebStateUtils").unproxy(e));
       var n =
-        o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <=
-        o("WAWebRevokeMsgConstants").REVOKE_WINDOW;
-      return !ee(t) || !n
+          o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <=
+          o("WAWebRevokeMsgConstants").REVOKE_WINDOW,
+        r = o(
+          "WAWebCoexV2RevokeAuthorization",
+        ).getCoexV2RevokeAuthorizationForCurrentUser(
+          o("WAWebMsgGetters").getSenderWithDevice(t),
+          o("WAWebMsgGetters").getMetaFrom(t),
+        );
+      return !ee(t, r === !0) || !n
         ? !1
-        : (o("WAWebBotBaseGating").isBotEnabled() &&
-            o("WAWebMsgGetters").isMetaBotResponseToMyInvoke(t)) ||
+        : r != null
+          ? r
+          : (o("WAWebBotBaseGating").isBotEnabled() &&
+              o("WAWebMsgGetters").isMetaBotResponseToMyInvoke(t)) ||
             (!t.id.fromMe &&
               o("WAWebBotUtils").isHatchBot(
                 o("WAWebFrontendMsgGetters").getCurrentChat(t).id,

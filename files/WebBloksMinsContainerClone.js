@@ -1,17 +1,15 @@
 __d(
   "WebBloksMinsContainerClone",
-  ["WebBloksErrors"],
+  ["WebBloksActionContainerUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (Array.isArray(t)) return [].concat(t);
-      if (t != null && typeof t == "object") {
-        var n = t;
-        return babelHelpers.extends({}, n);
-      }
-      throw new (o("WebBloksErrors").WebBloksScriptError)(
-        "argument of container_clone must be a container",
+      var n = o("WebBloksActionContainerUtils").assertWebBloksPlainMap(
         e,
+        t,
+        "argument of container_clone must be a container",
       );
+      return babelHelpers.extends({}, n);
     }
     l.default = e;
   },

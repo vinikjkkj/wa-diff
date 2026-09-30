@@ -1,26 +1,22 @@
 __d(
   "WAWebChatUnreadMentions",
-  [
-    "WAWebChatGetters",
-    "WAWebGroupUnreadMessageType",
-    "WAWebUnreadMentionModel",
-  ],
+  ["WAWebGroupUnreadMessageType", "WAWebUnreadMentionModel"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    function e(e) {
       if (e.unreadMentionsOfMe) {
-        var n = new Map(
+        var t = new Map(
           e.unreadMentionsOfMe.map(function (e) {
             return [String(e.id), e];
           }),
         );
-        e.listenTo(e.msgs, "bulk_add", function (a) {
-          for (var i of a) {
-            var l = i.id.toString(),
-              s = n.get(l);
-            !s ||
-              !e.isUnreadMsg(i) ||
-              t.unreadMentionMetadata.addUnreadMentions(
-                [new (r("WAWebUnreadMentionModel"))(s)],
+        e.listenTo(e.msgs, "bulk_add", function (n) {
+          for (var a of n) {
+            var i = a.id.toString(),
+              l = t.get(i);
+            !l ||
+              !e.isUnreadMsg(a) ||
+              e.unreadMentionMetadata.addUnreadMentions(
+                [new (r("WAWebUnreadMentionModel"))(l)],
                 o("WAWebGroupUnreadMessageType").UnreadMessageType
                   .PERSISTANCE_LOAD,
               );
@@ -28,15 +24,12 @@ __d(
         });
       }
       (e.unreadMentionCount != null &&
-        (t.unreadMentionMetadata.pendingUnreadMentionCount =
+        (e.unreadMentionMetadata.pendingUnreadMentionCount =
           e.unreadMentionCount),
         s(e));
     }
     function s(e) {
-      o("WAWebChatGetters").getIsGroup(e) &&
-        e.groupMetadata &&
-        (e.hasUnreadMention =
-          e.groupMetadata.unreadMentionMetadata.getUnreadMentionCount() > 0);
+      e.hasUnreadMention = e.unreadMentionMetadata.getUnreadMentionCount() > 0;
     }
     ((l.initializeUnreadMentions = e), (l.handleUnreadMention = s));
   },

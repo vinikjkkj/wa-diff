@@ -236,9 +236,17 @@ __d(
           var r = yield o("WAWebSchemaMessageInfo")
               .getMessageInfoTable()
               .equals(["msgKey"], String(e)),
-            a = r.map(function (e) {
-              return o("WAWebWidFactory").createWid(e.receiverUserJid);
-            });
+            a = Array.from(
+              new Map(
+                r
+                  .map(function (e) {
+                    return o("WAWebWidFactory").createWid(e.receiverUserJid);
+                  })
+                  .map(function (e) {
+                    return [String(e), e];
+                  }),
+              ).values(),
+            );
           if (a.length === 0) return null;
           var i = t.skDistribList,
             l = t.skList,
@@ -254,7 +262,13 @@ __d(
               );
               return !s.has(String(e)) && !(t != null && s.has(String(t)));
             }),
-            d = n.normalizeAddressingModeFn(u).filter(Boolean);
+            d = n
+              .normalizeAddressingModeFn(
+                u.filter(function (e) {
+                  return !e.isFbidBot();
+                }),
+              )
+              .filter(Boolean);
           if (n.forceDirectMessage === !1 && d.length === 0) return null;
           var m = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: d });
           return { type: c.DIRECT, deviceList: [].concat(m, l, i) };

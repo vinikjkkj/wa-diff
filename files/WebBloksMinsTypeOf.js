@@ -1,25 +1,11 @@
 __d(
   "WebBloksMinsTypeOf",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WebBloksMinsUtils"],
+  function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      if (t == null) return 0;
-      if (Array.isArray(t)) return 6;
-      switch (typeof t) {
-        case "boolean":
-          return 1;
-        case "string":
-          return 2;
-        case "number":
-          return 4;
-        case "function":
-          return 8;
-        case "object":
-          return 7;
-      }
-      return -1;
+      return o("WebBloksMinsUtils").typeofNumber(t);
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

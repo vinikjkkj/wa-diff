@@ -1,16 +1,10 @@
 __d(
   "WebBloksMinsGetByValOr",
-  ["WebBloksErrors"],
+  ["WebBloksActionContainerUtils", "WebBloksErrors", "WebBloksMinsUtils"],
   function (t, n, r, o, a, i, l) {
-    var e = 4294967295;
-    function s(t) {
-      return typeof t != "number" || !Number.isInteger(t) || t < 0 || t > e
-        ? null
-        : t;
-    }
-    function u(e, t, n, r) {
+    function e(e, t, n, r) {
       if (Array.isArray(t)) {
-        var a = s(n);
+        var a = o("WebBloksMinsUtils").toVectorIndex(n);
         if (a == null)
           throw new (o("WebBloksErrors").WebBloksScriptError)(
             "invalid get_by_val_or vector index",
@@ -18,17 +12,15 @@ __d(
           );
         return a < t.length ? t[a] : r;
       }
-      if (t != null && typeof t == "object") {
-        var i = t,
-          l = typeof n == "string" ? n : String(n);
-        return Object.hasOwn(i, l) ? i[l] : r;
-      }
-      throw new (o("WebBloksErrors").WebBloksScriptError)(
-        "get_by_val_or 1st argument must be a container",
-        e,
-      );
+      var i = o("WebBloksActionContainerUtils").assertWebBloksPlainMap(
+          e,
+          t,
+          "get_by_val_or 1st argument must be a container",
+        ),
+        l = typeof n == "string" ? n : String(n);
+      return Object.hasOwnProperty.call(i, l) ? i[l] : r;
     }
-    l.default = u;
+    l.default = e;
   },
   98,
 );

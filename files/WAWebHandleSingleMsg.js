@@ -141,35 +141,40 @@ __d(
                             }
                           if (!L || p === !0)
                             if (I) {
-                              var _ = r("nullthrows")(
-                                T.t,
-                                "revoke timestamp is null",
-                              );
-                              (yield o(
-                                "WAWebDBProcessRevokeMsgs",
-                              ).processRevokeMsgs([
-                                {
-                                  revokeMsgKey: T.protocolMessageKey,
-                                  newMsgKey: T.id,
-                                  timestamp: _,
-                                  subtype: T.subtype,
-                                  sender: T.author,
-                                  revokeTimestamp: _,
-                                },
-                              ]),
-                                o("WAWebBackendApi").frontendFireAndForget(
-                                  "deleteModelsForLastAddOnPreview",
+                              var _,
+                                f = r("nullthrows")(
+                                  T.t,
+                                  "revoke timestamp is null",
+                                ),
+                                g = r("nullthrows")(
+                                  T.protocolMessageKey,
+                                  "revoke target is null",
+                                ),
+                                h = yield o(
+                                  "WAWebDBProcessRevokeMsgs",
+                                ).processRevokeMsgsAndGetCleanupEligibleKeys([
                                   {
-                                    messagesIds: [
-                                      T.protocolMessageKey.toString(),
-                                    ],
+                                    revokeMsgKey: g,
+                                    newMsgKey: T.id,
+                                    timestamp: f,
+                                    subtype: T.subtype,
+                                    authenticatedSender:
+                                      (_ = T.senderWithDevice) != null
+                                        ? _
+                                        : o("WAWebMsgGetters").getSender(T),
+                                    sender: T.author,
+                                    revokeTimestamp: f,
                                   },
+                                ]),
+                                y = g.toString();
+                              h.has(y) &&
+                                (o("WAWebBackendApi").frontendFireAndForget(
+                                  "deleteModelsForLastAddOnPreview",
+                                  { messagesIds: [y] },
                                 ),
                                 yield o(
                                   "WAWebRequestDeleteAddOns",
-                                ).requestDeleteAddOns(a.toString(), [
-                                  T.protocolMessageKey.toString(),
-                                ]));
+                                ).requestDeleteAddOns(a.toString(), [y]));
                             } else
                               try {
                                 (yield o("WAWebDBProcessMessage").storeMessages(
@@ -217,11 +222,11 @@ __d(
                             T.type ===
                             o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE
                           ) {
-                            var f = T.id.toString();
+                            var b = T.id.toString();
                             yield o(
                               "WAWebApiGroupInviteV4Store",
-                            ).persistGroupInviteV4Msg(f, {
-                              id: f,
+                            ).persistGroupInviteV4Msg(b, {
+                              id: b,
                               from: T.from.toString(),
                               to: T.to.toString(),
                               groupId: T.inviteGrp,

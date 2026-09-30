@@ -189,7 +189,7 @@ __d(
             a,
           );
         },
-        networkDiagnosticsReadBandwidth: function (t) {
+        networkDiagnosticsReadBandwidth: function (t, n) {
           var e = r(
             "oz-player/networks/OzBandwidthEstimator",
           ).getBandwidthDiagnostics(r("oz-player/configs/OzGlobalConfig"));
@@ -200,6 +200,7 @@ __d(
               ).createFallbackBandwidthDiagnostics(
                 r("oz-player/networks/OzBandwidthEstimator").getDefaultEstimate(
                   r("oz-player/configs/OzGlobalConfig"),
+                  n,
                 ),
               );
         },

@@ -23,7 +23,7 @@ __d(
           });
     }
     function u() {
-      return c() || g() || h();
+      return c() || v() || S();
     }
     function c() {
       return (
@@ -33,7 +33,7 @@ __d(
       );
     }
     function d(e) {
-      o("WAWebTos").TosManager.registerDisclosureNoticeIds(w(e));
+      o("WAWebTos").TosManager.registerDisclosureNoticeIds(W(e));
     }
     function m(e) {
       return p.apply(this, arguments);
@@ -41,7 +41,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = w(e);
+          var t = W(e);
           (o("WAWebTos").TosManager.registerDisclosureNoticeIds(t),
             t.some(function (e) {
               return o("WAWebTos").TosManager.getState(e) !== "ACCEPTED";
@@ -50,28 +50,55 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _() {
-      var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
+    var _ = null;
+    function f() {
       return (
-        o("WAWebTos").TosManager.registerDisclosureNoticeIds(e),
-        e.length > 0 &&
-          e.some(function (e) {
-            return o("WAWebTos").TosManager.getState(e) === "ACCEPTED";
-          })
+        _ != null ||
+          (_ = g().finally(function () {
+            _ = null;
+          })),
+        _
       );
     }
-    function f(e) {
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
+          (o("WAWebTos").TosManager.registerDisclosureNoticeIds(e),
+            e.length > 0 &&
+              !C(e) &&
+              (yield o("WAWebTos").TosManager.run({ singleRun: !0 })));
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y() {
+      var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
+      return (o("WAWebTos").TosManager.registerDisclosureNoticeIds(e), C(e));
+    }
+    function C(e) {
+      return (
+        e.length > 0 &&
+        e.some(function (e) {
+          return o("WAWebTos").TosManager.getState(e) === "ACCEPTED";
+        })
+      );
+    }
+    function b(e) {
       return e == null
         ? !0
         : e.every(function (e) {
             if (e.blocking === !1) return !0;
-            var t = A(e.id);
+            var t = q(e.id);
             return (
               t != null && o("WAWebTos").TosManager.getState(t) === "ACCEPTED"
             );
           });
     }
-    function g() {
+    function v() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotInvokeTosId(),
@@ -81,7 +108,7 @@ __d(
         ) === "ACCEPTED"
       );
     }
-    function h() {
+    function S() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotShortcutTosId(),
@@ -91,17 +118,17 @@ __d(
         ) === "ACCEPTED"
       );
     }
-    function y() {
+    function R() {
       var e = o("WAWebBotGating").getMasterBotNoticeId();
       return e == null
         ? !1
         : o("WAWebTos").TosManager.getState(String(e)) === "ACCEPTED";
     }
-    function C(t) {
+    function L(t) {
       if (
         (t === o("WAWebBotTypes").BizBotType.BIZ_1P &&
           !o("WAWebBotGating").isBizBotConsentRequired()) ||
-        b()
+        E()
       )
         return !0;
       var n = r("WAWebUserPrefsStore").getUser(e);
@@ -109,66 +136,66 @@ __d(
       var a = o("WAWebBotGating").bizBotConsentDismissalCooldown();
       return a < 0 ? !0 : a === 0 ? !1 : o("WATimeUtils").unixTime() - n < a;
     }
-    function b() {
+    function E() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBizBotTosId(),
         ) === "ACCEPTED"
       );
     }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield D(Number(o("WAWebBotTosIds").getBotAgentTosId()));
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield D(Number(o("WAWebBotTosIds").getBotInvokeTosId()));
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield D(Number(o("WAWebBotTosIds").getBotShortcutTosId()));
-        })),
-        k.apply(this, arguments)
-      );
+      return I.apply(this, arguments);
     }
     function I() {
-      return T.apply(this, arguments);
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield M(Number(o("WAWebBotTosIds").getBotAgentTosId()));
+        })),
+        I.apply(this, arguments)
+      );
     }
     function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield M(Number(o("WAWebBotTosIds").getBotInvokeTosId()));
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield M(Number(o("WAWebBotTosIds").getBotShortcutTosId()));
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P() {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebSetUserNoticeStageJob").setUserNoticeStage(
             Number(o("WAWebBotTosIds").getBizBotTosId()),
             o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
           );
         })),
-        T.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function x() {
+    function w() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o(
             "WAWebSetUserDisclosureStageAction",
           ).updateUserDisclosureStateAction(
@@ -176,36 +203,36 @@ __d(
             o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
           );
         })),
-        x.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function $(t) {
+    function A(t) {
       r("WAWebUserPrefsStore").setUser(e, t);
     }
-    function P(e) {
+    function F(e) {
       var t = o("WAWebBotGating").getNonBlockingBotNoticeIds();
       return t.length === 0 ? !1 : t.includes(Number(e));
     }
-    function N(e) {
+    function O(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null && e === t;
     }
-    function M(e) {
-      if (P(Number(e))) return !0;
+    function B(e) {
+      if (F(Number(e))) return !0;
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null ? !0 : o("WAWebBotTosIds").supportedTosNoticeIds.has(e);
     }
-    function w(e) {
+    function W(e) {
       var t = [];
       return (
         (e != null ? e : []).forEach(function (e) {
-          var n = A(e.id);
+          var n = q(e.id);
           n != null && t.push(n);
         }),
         t
       );
     }
-    function A(e) {
+    function q(e) {
       return e != null && Number.isSafeInteger(e) && e > 0 ? String(e) : null;
     }
     ((l.hasAcceptedNonBlockingBotTos = s),
@@ -213,21 +240,22 @@ __d(
       (l.hasSeenAgentTos = c),
       (l.registerBotTosRequirements = d),
       (l.refreshBotTosRequirements = m),
-      (l.hasAcceptedMuseGroupTos = _),
-      (l.hasAcceptedBlockingBotTos = f),
-      (l.hasSeenInvokeTos = g),
-      (l.hasSeenShortcutTos = h),
-      (l.hasSeenMasterBotTos = y),
-      (l.hasSeenBizBotTos = C),
-      (l.hasAcceptedBizBotTos = b),
-      (l.markSeenAgentTos = v),
-      (l.markSeenInvokeTos = R),
-      (l.markSeenShortcutTos = E),
-      (l.acceptBizBotTos = I),
-      (l.setBizBotTosDismissalTime = $),
-      (l.isNonBlockingBotNotice = P),
-      (l.isMasterBotTosNotice = N),
-      (l.canShowBotTos = M));
+      (l.refreshMuseGroupTosNotices = f),
+      (l.hasAcceptedMuseGroupTos = y),
+      (l.hasAcceptedBlockingBotTos = b),
+      (l.hasSeenInvokeTos = v),
+      (l.hasSeenShortcutTos = S),
+      (l.hasSeenMasterBotTos = R),
+      (l.hasSeenBizBotTos = L),
+      (l.hasAcceptedBizBotTos = E),
+      (l.markSeenAgentTos = k),
+      (l.markSeenInvokeTos = T),
+      (l.markSeenShortcutTos = x),
+      (l.acceptBizBotTos = P),
+      (l.setBizBotTosDismissalTime = A),
+      (l.isNonBlockingBotNotice = F),
+      (l.isMasterBotTosNotice = O),
+      (l.canShowBotTos = B));
   },
   98,
 );

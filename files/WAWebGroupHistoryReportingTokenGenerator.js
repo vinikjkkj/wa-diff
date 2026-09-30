@@ -109,7 +109,11 @@ __d(
             u = e.stanzaId,
             c = o("WAWebReportingTokenUtils").isSupportedReceiveVersion(l);
           if (u == null) return { info: null, isSupportedReceiveVersion: c };
-          var d = _(r.messageBytes, l, i);
+          var d = _({
+            messageBytes: r.messageBytes,
+            promoteEmptyContentToV3: i,
+            reportingTokenVersion: l,
+          });
           if (d == null)
             return {
               info: { stanzaId: u, reportingToken: null, version: null },
@@ -144,35 +148,38 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      if (e == null) {
-        var r = f(t, n)
+    function _(e) {
+      var t = e.messageBytes,
+        n = e.promoteEmptyContentToV3,
+        r = e.reportingTokenVersion;
+      if (t == null) {
+        var a = f(r, n)
           ? o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
-          : t;
-        return r < o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
+          : r;
+        return a < o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
           ? null
           : {
               content: o(
                 "WAWebReportingTokenConstants",
               ).GHS_NULL_REPORTING_TOKEN_CONTENT.slice(),
-              version: r,
+              version: a,
             };
       }
-      var a = new Uint8Array(e),
-        i = t,
-        l = o("WAWebReportingTokenContent").calculateReportingTokenContent(
-          a,
+      var i = new Uint8Array(t),
+        l = r,
+        s = o("WAWebReportingTokenContent").calculateReportingTokenContent(
           i,
+          l,
         );
       return (
-        l.length === 0 &&
-          f(i, n) &&
-          ((i = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3),
-          (l = o("WAWebReportingTokenContent").calculateReportingTokenContent(
-            a,
+        s.length === 0 &&
+          f(l, n) &&
+          ((l = o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3),
+          (s = o("WAWebReportingTokenContent").calculateReportingTokenContent(
             i,
+            l,
           ))),
-        l == null || l.length === 0 ? null : { content: l, version: i }
+        s == null || s.length === 0 ? null : { content: s, version: l }
       );
     }
     function f(e, t) {

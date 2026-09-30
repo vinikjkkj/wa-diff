@@ -2,6 +2,7 @@ __d(
   "WAWebMessagePluginParseProtobuf",
   [
     "WALogger",
+    "WAWebMsgType",
     "WAWebMultipleMessageParserPluginParseProtobuf",
     "WAWebProtobufsE2E.pb",
     "WAWebProtocolRevokeMessageUtils",
@@ -16,8 +17,9 @@ __d(
     var e,
       s,
       u,
-      c = (e = n("cr:37444")) != null ? e : [];
-    function d(e) {
+      c,
+      d = (e = n("cr:37444")) != null ? e : [];
+    function m(e) {
       var t,
         n,
         a = o(
@@ -34,14 +36,14 @@ __d(
           : t.type) ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
       ) {
-        var l, d;
+        var l, c;
         if (
           e.editAttr !== o("WAWebWamEnumEditType").EDIT_TYPE.EDITED &&
           r("isStringNullOrEmpty")(
             (l =
-              e == null || (d = e.msgBotInfo) == null
+              e == null || (c = e.msgBotInfo) == null
                 ? void 0
-                : d.botEditType) != null
+                : c.botEditType) != null
               ? l
               : "",
           )
@@ -58,17 +60,19 @@ __d(
             null
           );
       }
-      var m = a.pluginsMatched;
-      for (var p of c) {
-        var _ = p(e);
-        if (_ != null) {
-          var f;
+      var m = a.pluginsMatched,
+        f = [];
+      for (var g of d) {
+        var h = g(e);
+        if (h != null) {
+          var y;
           (m.push(
-            _.msgData.type +
+            h.msgData.type +
               ":" +
-              ((f = _.msgData.subtype) != null ? f : "null"),
+              ((y = h.msgData.subtype) != null ? y : "null"),
           ),
-            i == null && (i = _));
+            f.push(h),
+            i == null && (i = h));
         }
       }
       if (
@@ -89,21 +93,71 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_PROTOCOL_BUFFER,
         );
-      return m.length > 1
-        ? (o("WALogger")
-            .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "parseProtoPlugins: Matched more than 1 plugin types ",
-                  "",
-                ])),
-              m.join(","),
-            )
-            .sendLogs("parse-protobuf-unexpected-plugin-match"),
-          null)
-        : i;
+      if (m.length > 1) {
+        var C = p(e.msgContext, m, f);
+        return C != null
+          ? (_(e.msgContext, m, f, C), C)
+          : (o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "parseProtoPlugins: Matched more than 1 plugin types ",
+                    "",
+                  ])),
+                m.join(","),
+              )
+              .sendLogs("parse-protobuf-unexpected-plugin-match"),
+            null);
+      }
+      return i;
     }
-    l.parseProtobuf = d;
+    function p(e, t, n) {
+      if (
+        (e !== "quoted" && e !== "history_quoted") ||
+        t.length !== 2 ||
+        n.length !== 2
+      )
+        return null;
+      var a = n.filter(function (e) {
+        var t = e.msgData;
+        return t.type !== o("WAWebMsgType").MSG_TYPE.CHAT || t.subtype != null;
+      });
+      return a.length !== 1 || !r("gkx")("26022") ? null : a[0];
+    }
+    function _(e, t, n, r) {
+      var a = n.find(function (e) {
+          return e !== r;
+        }),
+        i = a != null ? a.msgData : null,
+        l =
+          i != null && i.type === o("WAWebMsgType").MSG_TYPE.CHAT
+            ? i.body
+            : null;
+      o("WALogger")
+        .WARN(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "parseProtoPlugins: kept one of two matches for quoted message, matched: ",
+              ", kept: ",
+              ", dropped: ",
+              ", droppedTextEmpty: ",
+              ", msgContext: ",
+              "",
+            ])),
+          t.join(","),
+          f(r),
+          a != null ? f(a) : "none",
+          l == null ? "n/a" : String(l === ""),
+          e,
+        )
+        .sendLogs("parse-protobuf-quoted-kept-one-of-two", { sampling: 0.01 });
+    }
+    function f(e) {
+      var t,
+        n = e.msgData;
+      return n.type + ":" + ((t = n.subtype) != null ? t : "null");
+    }
+    l.parseProtobuf = m;
   },
   98,
 );

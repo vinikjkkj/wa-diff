@@ -504,7 +504,26 @@ __d(
         R.apply(this, arguments)
       );
     }
-    l.processRevokeMsgs = S;
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (
+            yield S(e),
+            new Set(
+              e.map(function (e) {
+                return e.revokeMsgKey.toString();
+              }),
+            )
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    ((l.processRevokeMsgs = S),
+      (l.processRevokeMsgsAndGetCleanupEligibleKeys = L));
   },
   98,
 );

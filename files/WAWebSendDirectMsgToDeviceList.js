@@ -24,63 +24,67 @@ __d(
             l,
             s,
             u,
-            c = t.deviceList,
-            d = t.groupData,
-            m = t.metricReporter,
-            p = t.msgProtobuf,
-            _ = t.msgRecord,
-            f = t.option,
-            g = t.scheduledMsgMetadata,
-            h = _.data,
-            y = h.id,
-            C = h.to,
-            b = _.data.to,
-            v = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
+            c = t.additionalBotBody,
+            d = t.additionalBotShouldHaveIdentity,
+            m = t.deviceList,
+            p = t.groupData,
+            _ = t.metricReporter,
+            f = t.msgProtobuf,
+            g = t.msgRecord,
+            h = t.option,
+            y = t.scheduledMsgMetadata,
+            C = g.data,
+            b = C.id,
+            v = C.to,
+            S = g.data.to,
+            R = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
               {
-                chatId: b,
-                deviceList: c,
-                groupData: d,
-                metricReporter: m,
-                msgProtobuf: p,
-                msgRecord: _,
-                option: f,
-                scheduledMsgMetadata: g,
+                additionalBotBody: c,
+                additionalBotShouldHaveIdentity: d,
+                chatId: S,
+                deviceList: m,
+                groupData: p,
+                metricReporter: _,
+                msgProtobuf: f,
+                msgRecord: g,
+                option: h,
+                scheduledMsgMetadata: y,
               },
             ),
-            S = v.stanza;
+            L = R.stanza;
           (yield o("WAWebSignalProtocolStore")
             .getSignalProtocolStore()
             .flushBufferToDiskIfNotMemOnlyMode(),
-            (a = m.sendPerfReporter) == null || a.postReadyToSendStage(),
-            (i = m.sendPerfReporter) == null || i.startWrittenWireStage());
-          var R = yield o(
+            (a = _.sendPerfReporter) == null || a.postReadyToSendStage(),
+            (i = _.sendPerfReporter) == null || i.startWrittenWireStage());
+          var E = yield o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
-              S,
+              L,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: y.id,
+                id: b.id,
                 class: "message",
-                from: C,
+                from: v,
                 participant: null,
               }),
             ),
-            L = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(R);
-          return L.error
+            k = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(E);
+          return k.error
             ? (e || (e = n("Promise"))).reject(
                 r("err")(
                   "[messaging] encryptAndSendGroupDirectMsg: Invalid ack from server",
                 ),
               )
-            : ((l = m.sendReporter) == null ||
+            : ((l = _.sendReporter) == null ||
                 l.setMessageDistributionType(
                   o("WAWebWamEnumMessageDistributionEnumType")
                     .MESSAGE_DISTRIBUTION_ENUM_TYPE.DIRECT_MESSAGE,
                 ),
-              (s = m.sendPerfReporter) == null || s.postWrittenWireStage(),
-              (m.sendPerfReporter = null),
-              (u = m.sendReporter) == null || u.postSuccess(),
-              (m.sendReporter = null),
-              L.success);
+              (s = _.sendPerfReporter) == null || s.postWrittenWireStage(),
+              (_.sendPerfReporter = null),
+              (u = _.sendReporter) == null || u.postSuccess(),
+              (_.sendReporter = null),
+              k.success);
         })),
         u.apply(this, arguments)
       );

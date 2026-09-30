@@ -23,7 +23,6 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebSubgroupSuggestionCollection",
     "WAWebUnjoinedSubgroupMetadataCollection",
-    "WAWebUnreadMentionMetadataModel",
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
@@ -268,9 +267,6 @@ __d(
                 this.$GroupMetadata$p_6,
               ),
               (this.uniqueShortNameMap = new Map()),
-              (this.unreadMentionMetadata = new (r(
-                "WAWebUnreadMentionMetadataModel",
-              ))()),
               o("WAWebGroupMetadataGetters").getGroupType(this) ===
                 o("WAWebGroupType").GroupType.COMMUNITY &&
                 this.$GroupMetadata$p_4());

@@ -87,6 +87,7 @@ __d(
                 abrConfig: o,
                 bandwidthDiagnostics: i.networkDiagnosticsReadBandwidth(
                   a.enableBandwidthDiagnosticsFallback,
+                  a.bandwidthDiagnosticsFallbackDefaultEstimate,
                 ),
                 devicePixelRatio: m,
                 isDocumentHidden: p,

@@ -21,21 +21,18 @@ __d(
                 ? t
                 : r("WAWebNewsletterCollection").get(n);
           if (l != null) {
-            var s,
-              u,
-              c = i.map(function (e) {
-                return new (r("WAWebUnreadMentionModel"))({
-                  id: e.id,
-                  timestamp: e.timestamp,
-                });
+            var s = i.map(function (e) {
+              return new (r("WAWebUnreadMentionModel"))({
+                id: e.id,
+                timestamp: e.timestamp,
               });
-            ((s = l.groupMetadata) == null || s.unreadMentionMetadata.reset(),
-              (u = l.groupMetadata) == null ||
-                u.unreadMentionMetadata.addUnreadMentions(
-                  c,
-                  o("WAWebGroupUnreadMessageType").UnreadMessageType
-                    .PERSISTANCE_LOAD,
-                ),
+            });
+            (l.unreadMentionMetadata.reset(),
+              l.unreadMentionMetadata.addUnreadMentions(
+                s,
+                o("WAWebGroupUnreadMessageType").UnreadMessageType
+                  .PERSISTANCE_LOAD,
+              ),
               l.set({ unreadCount: a }));
           }
         }),

@@ -1,6 +1,6 @@
 __d(
   "WAWebUsernameSearchLogger",
-  ["WAWebContactSearchExperienceWamEvent"],
+  ["WAWebContactSearchExperienceWamEvent", "WAWebWamEnumSearchActionName"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
         function e() {}
@@ -12,6 +12,16 @@ __d(
             ).ContactSearchExperienceWamEvent)(t);
             (e.isUsernameSearch == null && (e.isUsernameSearch = !1),
               e.commit());
+          }),
+          (t.logKeyEntryErrorShown = function (t, n) {
+            this.log(
+              babelHelpers.extends({}, t, {
+                isUsernameSearch: !0,
+                searchActionName: o("WAWebWamEnumSearchActionName")
+                  .SEARCH_ACTION_NAME.PIN_VERFICATION_ERROR_SHOWN,
+                keyEntryErrorType: n,
+              }),
+            );
           }),
           e
         );

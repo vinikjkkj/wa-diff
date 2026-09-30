@@ -109,6 +109,7 @@ __d(
         if (L(e, t.prefetchKey, r)) return;
         var a = e.host.networkDiagnosticsReadBandwidth(
           e.config.enableBandwidthDiagnosticsFallback,
+          e.config.bandwidthDiagnosticsFallbackDefaultEstimate,
         );
         (w(
           e,
@@ -229,6 +230,7 @@ __d(
         var r = C(n.prefetchKey),
           a = t.host.networkDiagnosticsReadBandwidth(
             t.config.enableBandwidthDiagnosticsFallback,
+            t.config.bandwidthDiagnosticsFallbackDefaultEstimate,
           ),
           i = [],
           l = I(t, r, n.video, a);

@@ -39,13 +39,13 @@ __d(
         _ = u[4],
         f;
       t[2] !== d || t[3] !== _ || t[4] !== p || t[5] !== m || t[6] !== c
-        ? ((f = o("WAWebTextStatusUtils").shouldDisplayTextStatus(
-            c,
-            d,
-            m,
-            p,
-            _,
-          )),
+        ? ((f = o("WAWebTextStatusUtils").shouldDisplayTextStatus({
+            textStatusEmoji: d,
+            textStatusEphemeralDuration: _,
+            textStatusExpiryTs: p,
+            textStatusLastUpdateTime: m,
+            textStatusString: c,
+          })),
           (t[2] = d),
           (t[3] = _),
           (t[4] = p),

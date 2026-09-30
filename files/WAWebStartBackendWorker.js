@@ -33,6 +33,7 @@ __d(
     "WAWebMsgKey",
     "WAWebNetworkStatusStateManager",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+    "WAWebPageLoadLogging",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebRegisterPassiveTasksForConnect",
     "WAWebSyncdOrphanWorkerCompatible",
@@ -705,9 +706,9 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            a,
-            i = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
+          var t, a;
+          o("WAWebPageLoadLogging").startPageLoadQplMeasure("backendWorker");
+          var i = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
             l =
               (a = e == null ? void 0 : e.qpl) != null
                 ? a
@@ -737,7 +738,16 @@ __d(
               c = u.initReady,
               g = u.worker;
             (l.addPoint("worker_connect_start"),
-              yield (h || (h = n("Promise"))).all([c, M(g)]),
+              l.addPoint("worker_init_start"),
+              l.addPoint("worker_ready_start"),
+              yield (h || (h = n("Promise"))).all([
+                c.then(function () {
+                  l.addPoint("worker_init_end");
+                }),
+                M(g).then(function () {
+                  l.addPoint("worker_ready_end");
+                }),
+              ]),
               l.addPoint("worker_connect_end"));
             var y;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
@@ -844,6 +854,7 @@ __d(
               o("WAWebCommsWorkerProxy").rebuildCommsInRestartedWorker(),
               l.addPoint("create_worker_end"),
               l.endSuccess(),
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure("backendWorker"),
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
