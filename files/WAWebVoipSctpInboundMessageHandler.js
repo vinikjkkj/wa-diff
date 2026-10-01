@@ -33,41 +33,43 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = o("WAWebVoipSctpConnectionState").sctpConnections.get(n.id),
-            i = r("nullthrows")(
+          var a = o("WAWebVoipSctpConnectionState").sctpConnections.get(n.id);
+          if ((a == null ? void 0 : a.isWebTransportWarmStandby) !== !0) {
+            var i = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             );
-          if (i.type === "web" && a) {
-            var l = yield o("WAWebVoipRelayConnectionUtils").dataToArrayBuffer(
-              t.data,
-            );
-            if (l == null) {
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] Unexpected data type: ",
+            if (i.type === "web" && a) {
+              var l = yield o(
+                "WAWebVoipRelayConnectionUtils",
+              ).dataToArrayBuffer(t.data);
+              if (l == null) {
+                o("WALogger").ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [SctpConnectionManager] Unexpected data type: ",
+                      "",
+                    ])),
+                  typeof t.data,
+                );
+                return;
+              }
+              (a.stats.receivedPackets++,
+                (a.stats.receivedBytes += l.byteLength),
+                a.stats.firstResponseRecvTime === 0 &&
+                  (a.stats.firstResponseRecvTime = Date.now()),
+                (a.lastRxPacketTime = Date.now()),
+                a.hasReceivedFirstPacket || (a.hasReceivedFirstPacket = !0),
+                yield i.handleOnTransportMessage(l, n.ip, u(n)));
+            } else
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SctpConnectionManager] conn not found for ",
                     "",
                   ])),
-                typeof t.data,
+                n.id,
               );
-              return;
-            }
-            (a.stats.receivedPackets++,
-              (a.stats.receivedBytes += l.byteLength),
-              a.stats.firstResponseRecvTime === 0 &&
-                (a.stats.firstResponseRecvTime = Date.now()),
-              (a.lastRxPacketTime = Date.now()),
-              a.hasReceivedFirstPacket || (a.hasReceivedFirstPacket = !0),
-              yield i.handleOnTransportMessage(l, n.ip, u(n)));
-          } else
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpConnectionManager] conn not found for ",
-                  "",
-                ])),
-              n.id,
-            );
+          }
         })),
         d.apply(this, arguments)
       );

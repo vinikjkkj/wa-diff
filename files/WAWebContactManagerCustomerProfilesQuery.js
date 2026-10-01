@@ -23,7 +23,7 @@ __d(
           ? e
           : (e = n("WAWebContactManagerCustomerProfilesQuery.graphql")),
       c = 50,
-      d = 20,
+      d = 21,
       m = { cursor: null, records: [] };
     function p(e) {
       return _.apply(this, arguments);
@@ -31,48 +31,71 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.candidateLids != null && e.candidateLids.length === 0) return m;
-          var t = yield C(e);
-          return { cursor: t == null ? void 0 : t.cursor, records: y(t) };
+          var t;
+          return (t = yield f(e)) != null ? t : m;
         })),
         _.apply(this, arguments)
       );
     }
     function f(e) {
-      return g(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []);
+      return g.apply(this, arguments);
     }
-    function g(e, t, n, r) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield p(babelHelpers.extends({}, e, { cursor: t }));
-            return (
-              r.push.apply(r, a.records),
-              a.cursor == null
-                ? r
-                : n + 1 >= d
-                  ? (o("WALogger")
-                      .WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[ContactManager] fetchCustomerProfileRecords: stopped at ",
-                            " pages with a cursor still open",
-                          ])),
-                        d,
-                      )
-                      .sendLogs("customer_manager_profiles_page_cap_hit"),
-                    r)
-                  : g(e, a.cursor, n + 1, r)
-            );
-          },
-        )),
-        h.apply(this, arguments)
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.candidateLids != null && e.candidateLids.length === 0) return m;
+          var t = yield S(e);
+          return t == null ? null : { cursor: t.cursor, records: v(t) };
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return C(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+        function (e) {
+          return e.records;
+        },
       );
     }
     function y(e) {
+      return C(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+        function (e) {
+          return e.isComplete ? e.records : null;
+        },
+      );
+    }
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield f(babelHelpers.extends({}, e, { cursor: t }));
+            return a == null
+              ? { isComplete: !1, records: r }
+              : (r.push.apply(r, a.records),
+                a.cursor == null
+                  ? { isComplete: !0, records: r }
+                  : n + 1 >= d
+                    ? (o("WALogger")
+                        .WARN(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[ContactManager] fetchCustomerProfileRecords: stopped at ",
+                              " pages with a cursor still open",
+                            ])),
+                          d,
+                        )
+                        .sendLogs("customer_manager_profiles_page_cap_hit"),
+                      { isComplete: !1, records: r })
+                    : C(e, a.cursor, n + 1, r));
+          },
+        )),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
       var t = [];
       for (var n of (r = e == null ? void 0 : e.profiles) != null ? r : []) {
         var r,
@@ -109,12 +132,12 @@ __d(
       }
       return t;
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
@@ -146,14 +169,14 @@ __d(
               { accessToken: n.token, environmentType: "facebook" },
             );
           } catch (e) {
-            throw (v(e, "read"), e);
+            throw (L(e, "read"), e);
           }
           return (t = a) == null ? void 0 : t.xfb_wa_customer_profiles;
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v(e, t) {
+    function L(e, t) {
       o("WAWebGraphQLServerError").isRateLimitError(e) &&
         o("WAWebFBLogger")
           .WAWebFBLogger()
@@ -164,8 +187,9 @@ __d(
           );
     }
     ((l.fetchCustomerProfilePage = p),
-      (l.fetchCustomerProfileRecords = f),
-      (l.logIfRateLimited = v));
+      (l.fetchCustomerProfileRecords = h),
+      (l.fetchCompleteCustomerProfileRecords = y),
+      (l.logIfRateLimited = L));
   },
   98,
 );

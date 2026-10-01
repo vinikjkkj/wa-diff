@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebCmd",
+    "WAWebCoreActionsODS",
     "WAWebDrawerManager",
     "WAWebNotificationBackend",
     "WAWebNotificationConstants",
@@ -50,7 +51,8 @@ __d(
                 initialStep:
                   o("WAWebSettingsConst").SettingsSteps.Notifications,
               }),
-        ));
+        ),
+        o("WAWebCoreActionsODS").logNotificationTestCompleted());
     }
     function y() {
       return C.apply(this, arguments);

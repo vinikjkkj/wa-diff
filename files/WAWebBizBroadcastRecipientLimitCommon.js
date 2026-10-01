@@ -12,6 +12,11 @@ __d(
       u = 1e4,
       c = 2;
     function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_business_broadcast_pro_min_audience_recipients",
+      );
+    }
+    function m() {
       if (o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser())
         return u;
       var t = o(
@@ -30,7 +35,8 @@ __d(
     }
     ((l.BB_PRO_RECIPIENTS_LIMIT = u),
       (l.MIN_RECIPIENTS = c),
-      (l.getRecipientLimit = d));
+      (l.getBizBroadcastProMinAudienceRecipients = d),
+      (l.getRecipientLimit = m));
   },
   98,
 );

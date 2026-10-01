@@ -15,8 +15,9 @@ __d(
       }
     }
     function s() {
-      var e = navigator.globalPrivacyControl;
-      return e != null ? e : !1;
+      var e = navigator,
+        t = e.globalPrivacyControl;
+      return t != null ? t : !1;
     }
     ((l.mapToAccountLinkState = e), (l.checkGPCSetting = s));
   },

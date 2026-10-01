@@ -310,6 +310,7 @@ __d(
       PRIORITY_QUEUE: "priority_queue",
       EMBER_ADMIN_HOME: "ember_admin_home",
       EMBER_TOOLS_AND_SETTINGS: "ember_tools_and_settings",
+      EMBER_REVIEW_QUEUE: "ember_review_queue",
       GROUP_MALL: "groups_mall",
       MEMBER_REQUESTS_COMET: "member_requests_comet",
       MEMBER_REQUESTS_IOS: "member_requests",

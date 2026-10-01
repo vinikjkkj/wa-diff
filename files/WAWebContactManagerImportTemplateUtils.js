@@ -17,7 +17,9 @@ __d(
       p = s._(/*BTDS*/ "Lead stage").toString(),
       _ = s._(/*BTDS*/ "Source").toString(),
       f = s._(/*BTDS*/ "Notes").toString(),
-      g = [
+      g = s._(/*BTDS*/ "Birthday").toString(),
+      h = s._(/*BTDS*/ "Last order").toString(),
+      y = [
         s
           ._(/*BTDS*/ "Enter each customer's info on a separate row.")
           .toString(),
@@ -39,12 +41,12 @@ __d(
         s
           ._(
             /*BTDS*/ "Lead stage must be one of: {lead stage values}. Leave it blank to import someone with no stage set.",
-            [s._param("lead stage values", S())],
+            [s._param("lead stage values", L())],
           )
           .toString(),
         s
           ._(/*BTDS*/ "Source must be one of: {source values}.", [
-            s._param("source values", R()),
+            s._param("source values", E()),
           ])
           .toString(),
         s
@@ -63,21 +65,21 @@ __d(
           )
           .toString(),
       ];
-    function h(e) {
+    function C(e) {
       return '"' + e.replace(/\"/g, '""') + '"';
     }
-    var y = [
+    var b = [
         "Ada Lovelace",
         "4155550123",
         "ada",
         "ada@example.com",
-        h("12 Baker St, London"),
-        h(
+        C("12 Baker St, London"),
+        C(
           o("WAWebLeadStageNames")
             .getLeadStageName(o("WAWebLeadStage").LeadStage.QUALIFIED)
             .toString(),
         ),
-        h(
+        C(
           (e =
             (u = o(
               "WAWebCustomerProfileAcquisitionSourceNames",
@@ -92,7 +94,7 @@ __d(
         ),
         "Met at the trade show",
       ].join(","),
-      C = [
+      v = [
         o("WAWebContactImportTemplateParsingUtils").FBT_NAME,
         o("WAWebContactImportTemplateParsingUtils").FBT_PHONE,
         c,
@@ -102,23 +104,23 @@ __d(
         _,
         f,
       ]
-        .map(h)
+        .map(C)
         .join(","),
-      b = g.map(h).join("\n") + "\n" + y + "\n\n" + C + "\n";
-    function v() {
+      S = y.map(C).join("\n") + "\n" + b + "\n\n" + v + "\n";
+    function R() {
       return {
         download: "customer_manager_import_template.csv",
-        href: "data:application/csv," + encodeURI(b),
+        href: "data:application/csv," + encodeURI(S),
       };
     }
-    function S() {
+    function L() {
       return o("WAWebLeadStage")
         .ALL_LEAD_STAGES.map(function (e) {
           return o("WAWebLeadStageNames").getLeadStageName(e).toString();
         })
         .join(", ");
     }
-    function R() {
+    function E() {
       var e = [];
       return (
         o(
@@ -138,7 +140,9 @@ __d(
       (l.FBT_LEAD_STAGE = p),
       (l.FBT_ACQUISITION_SOURCE = _),
       (l.FBT_NOTES = f),
-      (l.getTemplateLinkProps = v));
+      (l.FBT_BIRTHDAY = g),
+      (l.FBT_LAST_ORDER = h),
+      (l.getTemplateLinkProps = R));
   },
   226,
 );

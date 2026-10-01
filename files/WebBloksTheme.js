@@ -10,28 +10,29 @@ __d(
       m = u.useLayoutEffect,
       p = u.useMemo,
       _ = { light: "light", dark: "dark" },
-      f = 0;
-    function g(e) {
-      if (!(f > 0)) {
+      f = 0,
+      g = null;
+    function h(e) {
+      if (((g = e), !(f > 0))) {
         var t = document.documentElement;
         if (t != null)
-          switch ((t.classList.remove(L, E), e)) {
+          switch ((t.classList.remove(E, k), e)) {
             case "dark":
-              t.classList.add(E);
+              t.classList.add(k);
               break;
             case "light":
-              t.classList.add(L);
+              t.classList.add(E);
               break;
           }
       }
     }
-    var h = {
+    var y = {
         getTheme: function () {
           return _.light;
         },
       },
-      y = s.createContext(h);
-    function C(e) {
+      C = s.createContext(y);
+    function b(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.children,
         r = e.initialTheme,
@@ -40,7 +41,7 @@ __d(
         l;
       (t[0] !== a
         ? ((i = function () {
-            g(a);
+            h(a);
           }),
           (l = [a]),
           (t[0] = a),
@@ -62,7 +63,7 @@ __d(
         m;
       return (
         t[5] !== n || t[6] !== c
-          ? ((m = s.jsx(y.Provider, { value: c, children: n })),
+          ? ((m = s.jsx(C.Provider, { value: c, children: n })),
             (t[5] = n),
             (t[6] = c),
             (t[7] = m))
@@ -70,11 +71,11 @@ __d(
         m
       );
     }
-    function b() {
-      return c(y);
+    function v() {
+      return c(C);
     }
-    function v(e) {
-      var t = e != null ? S(e) : null;
+    function S(e) {
+      var t = e != null ? R(e) : null;
       m(
         function () {
           if (t != null) {
@@ -83,9 +84,11 @@ __d(
             e.classList.add(t);
             var n = e.style.backgroundColor;
             return (
-              (e.style.backgroundColor = I["screen-wrapper-bg"]),
+              (e.style.backgroundColor = T["screen-wrapper-bg"]),
               function () {
                 (e.classList.remove(t), (e.style.backgroundColor = n), f--);
+                var r = g;
+                f === 0 && r != null && h(r);
               }
             );
           }
@@ -93,10 +96,10 @@ __d(
         [t],
       );
     }
-    function S(e) {
-      return e === _.dark ? E : L;
-    }
     function R(e) {
+      return e === _.dark ? k : E;
+    }
+    function L(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.children,
         r = e.theme,
@@ -114,7 +117,7 @@ __d(
         l;
       return (
         t[2] !== n || t[3] !== i
-          ? ((l = s.jsx(y.Provider, { value: i, children: n })),
+          ? ((l = s.jsx(C.Provider, { value: i, children: n })),
             (t[2] = n),
             (t[3] = i),
             (t[4] = l))
@@ -122,9 +125,9 @@ __d(
         l
       );
     }
-    var L,
-      E,
-      k = {
+    var E,
+      k,
+      I = {
         "error-or-destructive": ["rgb(237, 73, 86)", "rgb(237, 73, 86)"],
         "navbar-bg": ["#ffffff", "#000000"],
         "screen-wrapper-bg": ["#ffffff", "#000000"],
@@ -152,8 +155,8 @@ __d(
         "cds-overlay-alpha-80": "rgba(28, 43, 51, 0.80)",
         "cds-surface-background": ["#FFFFFF", "#1F1F20"],
       },
-      I = T(k);
-    function T(e) {
+      T = D(I);
+    function D(e) {
       var t = {},
         n = {},
         r = {};
@@ -166,15 +169,15 @@ __d(
           (n[i] = Array.isArray(a) ? a[1] : a));
       });
       var a = o("WebBloksStyle").createStyles({ lightTheme: t, darkTheme: n });
-      return ((L = a.lightTheme), (E = a.darkTheme), r);
+      return ((E = a.lightTheme), (k = a.darkTheme), r);
     }
     ((l.THEME = _),
-      (l.WebBloksThemeProvider = C),
-      (l.useTheme = b),
-      (l.useDocumentThemeOverride = v),
-      (l.getThemeCssClass = S),
-      (l.WebBloksScopedThemeProvider = R),
-      (l.WebBloksThemeVars = I));
+      (l.WebBloksThemeProvider = b),
+      (l.useTheme = v),
+      (l.useDocumentThemeOverride = S),
+      (l.getThemeCssClass = R),
+      (l.WebBloksScopedThemeProvider = L),
+      (l.WebBloksThemeVars = T));
   },
   98,
 );

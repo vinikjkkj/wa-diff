@@ -14,7 +14,6 @@ __d(
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebFbtCommon",
-    "WAWebFrontendContactGetters",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWidToJid",
@@ -210,8 +209,10 @@ __d(
         if (t.length >= 3) break;
         var r = o("WAWebBizBroadcastsRecipientUtils").getContactByUserId(n);
         if (r != null) {
-          var a = o("WAWebFrontendContactGetters").getDisplayName(r);
-          a != null && a !== "" && t.push(a);
+          var a = o(
+            "WAWebBizBroadcastsRecipientUtils",
+          ).getRecipientPickerDisplayName(r);
+          a !== "" && t.push(a);
         }
       }
       if (t.length === 0) return "";

@@ -1,6 +1,7 @@
 __d(
   "WAWebContactManagerLocalSearch",
   [
+    "WAJids",
     "WALogger",
     "WAWebContactCollection",
     "WAWebContactManagerProfileQueryPlan",
@@ -48,7 +49,32 @@ __d(
         }
       return n;
     }
-    ((l.findMatchingContactIds = s), (l.toCandidateLids = u));
+    function c(e, t) {
+      var n = new Set();
+      for (var r of t)
+        for (var a of (i = e.get(r)) != null ? i : []) {
+          var i,
+            l = a.candidateLid;
+          n.add(o("WAJids").toLidUserJid(l));
+        }
+      return n;
+    }
+    function d(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = n[0],
+          a = n[1];
+        for (var i of a) {
+          var l = i.candidateLid;
+          t.set(o("WAJids").toLidUserJid(l), r);
+        }
+      }
+      return t;
+    }
+    ((l.findMatchingContactIds = s),
+      (l.toCandidateLids = u),
+      (l.getLeadStageContactIds = c),
+      (l.getLeadStageByContactId = d));
   },
   98,
 );

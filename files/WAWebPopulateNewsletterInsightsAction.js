@@ -73,21 +73,25 @@ __d(
               m = n.map(function (e) {
                 return e.process(d);
               }),
-              p = {
-                id: t.id,
-                rangeStart: o(
-                  "WAWebNewsletterMetricUtils",
-                ).getInsightPeriodStart(c),
-                rangeEnd: c,
-                dataStatus: u,
-              };
-            (Object.assign.apply(Object, [p].concat(m)),
-              yield o(
-                "WAWebNewsletterBridgeApi",
-              ).NewsletterBridgeApi.updateNewsletterInsights({
-                newsletter: t,
-                insights: p,
-              }));
+              p = m.reduce(
+                function (e, t) {
+                  return babelHelpers.extends({}, e, t);
+                },
+                {
+                  id: t.id,
+                  rangeStart: o(
+                    "WAWebNewsletterMetricUtils",
+                  ).getInsightPeriodStart(c),
+                  rangeEnd: c,
+                  dataStatus: u,
+                },
+              );
+            yield o(
+              "WAWebNewsletterBridgeApi",
+            ).NewsletterBridgeApi.updateNewsletterInsights({
+              newsletter: t,
+              insights: p,
+            });
           }
         })),
         d.apply(this, arguments)

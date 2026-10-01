@@ -466,7 +466,7 @@ __d(
                 ),
                 {
                   children: d.jsx(r("WAWebMessageAuthor.react"), {
-                    msg: m,
+                    msgKey: m.id,
                     contact: H,
                     displayType: l,
                   }),

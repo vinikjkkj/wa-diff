@@ -17,13 +17,13 @@ __d(
         (o.onload = function () {
           (m && m.status === 204 && (p = !0), g(t));
         }),
-        (m.onerror = function () {
+        (o.onerror = function () {
           h(t, n);
         }),
-        (m.ontimeout = function () {
+        (o.ontimeout = function () {
           h(t, n);
         }),
-        m.send());
+        o.send());
     }
     function f() {
       ((m = null), (u = 100), (d = 0), r("clearTimeout")(c));

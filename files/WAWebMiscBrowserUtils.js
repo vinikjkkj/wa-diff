@@ -19,43 +19,47 @@ __d(
       return (self.crypto.getRandomValues(e), o("WABase64").encodeB64(e));
     }
     var m = {
-      id: function () {
-        var e = o("WAWebUserPrefsGeneral").getBrowserId();
-        if (e != null) return e;
-        var t = d();
-        return (o("WAWebUserPrefsGeneral").setBrowserId(t), t);
+        id: function () {
+          var e = o("WAWebUserPrefsGeneral").getBrowserId();
+          if (e != null) return e;
+          var t = d();
+          return (o("WAWebUserPrefsGeneral").setBrowserId(t), t);
+        },
+        persistentExpiringId: function () {
+          var e = o("WAWebUserPrefsGeneral").getPersistentExpiringId();
+          if (e != null) {
+            var t = o("WATimeUtils").unixTime() - e.ts >= c;
+            if (!t) return e.value;
+          }
+          var n = { ts: o("WATimeUtils").unixTime(), value: d() };
+          return (
+            o("WAWebUserPrefsGeneral").setPersistentExpiringId(n),
+            n.value
+          );
+        },
+        hardRefresh: function () {
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[reload] hardRefresh",
+              ])),
+          ),
+            m.promptUnloadGuards++,
+            location.reload(!1));
+        },
+        startDownloading: function () {
+          ((s = !0), u());
+        },
+        clearDownloading: function () {
+          s = !1;
+        },
+        isDownloading: function () {
+          return s;
+        },
+        promptUnloadGuards: 0,
       },
-      persistentExpiringId: function () {
-        var e = o("WAWebUserPrefsGeneral").getPersistentExpiringId();
-        if (e != null) {
-          var t = o("WATimeUtils").unixTime() - e.ts >= c;
-          if (!t) return e.value;
-        }
-        var n = { ts: o("WATimeUtils").unixTime(), value: d() };
-        return (o("WAWebUserPrefsGeneral").setPersistentExpiringId(n), n.value);
-      },
-      hardRefresh: function () {
-        (o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[reload] hardRefresh",
-            ])),
-        ),
-          this.promptUnloadGuards++,
-          location.reload(!1));
-      },
-      startDownloading: function () {
-        ((s = !0), u());
-      },
-      clearDownloading: function () {
-        s = !1;
-      },
-      isDownloading: function () {
-        return s;
-      },
-      promptUnloadGuards: 0,
-    };
-    l.default = m;
+      p = m;
+    l.default = p;
   },
   98,
 );

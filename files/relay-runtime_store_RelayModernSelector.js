@@ -18,7 +18,7 @@ __d(
       p = s.ID_KEY,
       _ = s.PARENT_CLIENT_EDGE;
     function f(e, t) {
-      (typeof t == "object" && t !== null && !Array.isArray(t)) ||
+      (typeof t != "object" || t === null || Array.isArray(t)) &&
         l(0, 4618, e.name, JSON.stringify(t));
       var n = t[p],
         r = t[m],
@@ -59,8 +59,7 @@ __d(
         : e.metadata && e.metadata.plural === !0
           ? (Array.isArray(t) || l(0, 13882, e.name, JSON.stringify(t), e.name),
             g(e, t))
-          : (!Array.isArray(t) ||
-              l(0, 13879, e.name, JSON.stringify(t), e.name),
+          : (Array.isArray(t) && l(0, 13879, e.name, JSON.stringify(t), e.name),
             f(e, t));
     }
     function y(e, t) {

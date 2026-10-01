@@ -4,15 +4,15 @@ __d(
   function (t, n, r, o, a, i) {
     function e(e) {
       return e === 0
-        ? "#9BA6FF"
+        ? "#D1C4FF"
         : e === 1
-          ? "#B460D6"
+          ? "#FFABC7"
           : e === 2
-            ? "#06CF9C"
+            ? "#03776D"
             : e === 3
-              ? "#073D76"
+              ? "#0451A3"
               : e === 4
-                ? "#9D6C2C"
+                ? "#CBB699"
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

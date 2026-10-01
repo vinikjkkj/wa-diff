@@ -8,6 +8,15 @@ __d(
         t = [
           {
             alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "lid",
+            storageKey: null,
+          },
+        ],
+        r = [
+          {
+            alias: null,
             args: [{ kind: "Variable", name: "inputs", variableName: "input" }],
             concreteType: "XFBWAUpsertCustomerProfilesResponse",
             kind: "LinkedField",
@@ -21,15 +30,17 @@ __d(
                 kind: "LinkedField",
                 name: "profiles",
                 plural: !0,
-                selections: [
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
-                    name: "lid",
-                    storageKey: null,
-                  },
-                ],
+                selections: t,
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "XFBWACustomerProfileConflict",
+                kind: "LinkedField",
+                name: "conflicts",
+                plural: !0,
+                selections: t,
                 storageKey: null,
               },
             ],
@@ -42,7 +53,7 @@ __d(
           kind: "Fragment",
           metadata: null,
           name: "WAWebContactManagerCustomerProfileUpsertMutation",
-          selections: t,
+          selections: r,
           type: "Mutation",
           abstractKey: null,
         },
@@ -51,7 +62,7 @@ __d(
           argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebContactManagerCustomerProfileUpsertMutation",
-          selections: t,
+          selections: r,
         },
         params: {
           id: n(

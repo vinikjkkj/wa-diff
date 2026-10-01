@@ -11,7 +11,6 @@ __d(
           (t === void 0 && (t = e.subtle),
             (this.kdf_id = o("Hpke").KdfID.KdfHkdfSha256Id),
             (this.nH = 32),
-            (this.internalCryptoProvider = null),
             (this.internalCryptoProvider = t));
         }
         var r = t.prototype;

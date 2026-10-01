@@ -4,30 +4,26 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = { defaultValue: null, kind: "LocalArgument", name: "after" },
-        t = { defaultValue: null, kind: "LocalArgument", name: "first" },
-        n = { defaultValue: null, kind: "LocalArgument", name: "orgID" },
-        r = [{ kind: "Variable", name: "org_id", variableName: "orgID" }],
-        o = {
+      var e = { defaultValue: null, kind: "LocalArgument", name: "first" },
+        t = { defaultValue: null, kind: "LocalArgument", name: "orgID" },
+        n = [{ kind: "Variable", name: "org_id", variableName: "orgID" }],
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "status",
           storageKey: null,
         },
-        a = {
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "error_reason",
           storageKey: null,
         },
-        i = {
+        a = {
           alias: null,
-          args: [
-            { kind: "Variable", name: "after", variableName: "after" },
-            { kind: "Variable", name: "first", variableName: "first" },
-          ],
+          args: [{ kind: "Variable", name: "first", variableName: "first" }],
           concreteType: "XWAOrgMembersConnection",
           kind: "LinkedField",
           name: "members",
@@ -48,13 +44,6 @@ __d(
               name: "page_info",
               plural: !1,
               selections: [
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "end_cursor",
-                  storageKey: null,
-                },
                 {
                   alias: null,
                   args: null,
@@ -123,21 +112,21 @@ __d(
         };
       return {
         fragment: {
-          argumentDefinitions: [e, t, n],
+          argumentDefinitions: [e, t],
           kind: "Fragment",
           metadata: null,
           name: "WAWebOrgAdminGraphQLDirectoryPageQuery",
           selections: [
             {
               alias: null,
-              args: r,
+              args: n,
               concreteType: "XWAOrgGetResponse",
               kind: "LinkedField",
               name: "xwa_org_get",
               plural: !1,
               selections: [
+                r,
                 o,
-                a,
                 {
                   alias: null,
                   args: null,
@@ -145,7 +134,7 @@ __d(
                   kind: "LinkedField",
                   name: "org_info",
                   plural: !1,
-                  selections: [i],
+                  selections: [a],
                   storageKey: null,
                 },
               ],
@@ -157,20 +146,20 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [n, e, t],
+          argumentDefinitions: [t, e],
           kind: "Operation",
           name: "WAWebOrgAdminGraphQLDirectoryPageQuery",
           selections: [
             {
               alias: null,
-              args: r,
+              args: n,
               concreteType: "XWAOrgGetResponse",
               kind: "LinkedField",
               name: "xwa_org_get",
               plural: !1,
               selections: [
+                r,
                 o,
-                a,
                 {
                   alias: null,
                   args: null,
@@ -179,7 +168,7 @@ __d(
                   name: "org_info",
                   plural: !1,
                   selections: [
-                    i,
+                    a,
                     {
                       alias: null,
                       args: null,
@@ -196,7 +185,7 @@ __d(
           ],
         },
         params: {
-          id: "28535112302815446",
+          id: "28428616673445598",
           metadata: {},
           name: "WAWebOrgAdminGraphQLDirectoryPageQuery",
           operationKind: "query",

@@ -1033,6 +1033,9 @@ __d(
       MDA_PIXEL_SETUP_IMPRESSION: "mda_pixel_setup_impression",
       MDA_PIXEL_SETUP_CLICKED: "mda_pixel_setup_clicked",
       MDA_PIXEL_SETUP_COMPLETED: "mda_pixel_setup_completed",
+      MADA_PIXEL_SETUP_NOTICE_IMPRESSION: "mada_pixel_setup_notice_impression",
+      MADA_PIXEL_SETUP_NOTICE_CTA_CLICKED:
+        "mada_pixel_setup_notice_cta_clicked",
       PRODUCT_EXTENSION_AD_CREATED: "product_extension_ad_created",
       PRODUCT_EXTENSION_ELIGIBLE_AD_CREATED_WITHOUT_PE:
         "product_extension_eligible_ad_created_without_pe",

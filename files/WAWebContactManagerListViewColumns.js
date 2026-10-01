@@ -1173,10 +1173,11 @@ __d(
             .contactManagerColumnWidths.notes,
         },
         {
-          cell: function (n) {
+          cell: function (o) {
             return c.jsx(r("WAWebContactManagerActionsCell.react"), {
-              chatJid: n.item.chatJid,
+              chatJid: o.item.chatJid,
               onChatClick: e,
+              onDeleteContact: t,
             });
           },
           key: "actions",

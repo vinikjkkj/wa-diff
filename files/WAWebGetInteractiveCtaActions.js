@@ -220,6 +220,7 @@ __d(
             data: { label: R, signupId: S.signupId },
           };
         }
+        case r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT:
         case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
         case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS:

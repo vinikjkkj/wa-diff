@@ -11,11 +11,13 @@ __d(
     "WAWebMsgGetters",
     "WAWebOrderDetails",
     "WAWebOrderStatus",
+    "WAWebPrimaryFeaturesGetters",
     "WAWebShowMessageActionFallbackErrorAction",
     "react",
     "useWAWebConversationPanelCanCompose",
     "useWAWebMsgValues",
     "useWAWebOrderPaymentStatus",
+    "useWAWebPrimaryFeaturesValues",
     "useWAWebUIM",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,8 +37,11 @@ __d(
           t.getSignupCtaTapped,
         ]),
         d = c[0],
-        m = c[1],
-        p = o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
+        m = c[1];
+      o("useWAWebPrimaryFeaturesValues").usePrimaryFeaturesValues([
+        o("WAWebPrimaryFeaturesGetters").getCustomPaymentMethodsSyncSupport,
+      ]);
+      var p = o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
         _ = r("useWAWebConversationPanelCanCompose")(p),
         f = _[0],
         g = f || o("WAWebChatGetters").getIsBroadcast(p),

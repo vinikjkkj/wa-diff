@@ -9,7 +9,7 @@ __d(
     "WAWebPixLogoIcon.react",
     "WAWebText.react",
     "WAWebUserPrefsTypes",
-    "WAWebWdsSmbPaymentsPixFilledIcon.react",
+    "WDSIconWdsSmbPaymentsPixFilled.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "WDSText.react",
@@ -127,11 +127,12 @@ __d(
       t[8] === Symbol.for("react.memo_cache_sentinel")
         ? ((L = "xh8yej3"),
           (E = m()
-            ? u.jsx(
-                o("WAWebWdsSmbPaymentsPixFilledIcon.react")
-                  .WdsSmbPaymentsPixFilledIcon,
-                { height: 24, width: 24, xstyle: d.pixIcon },
-              )
+            ? u.jsx(r("WDSIconWdsSmbPaymentsPixFilled.react"), {
+                testid: "wds-smb-payments-pix-filled",
+                height: 24,
+                width: 24,
+                xstyle: d.pixIcon,
+              })
             : u.jsx(o("WAWebPixLogoIcon.react").PixLogoIcon, {
                 height: 48,
                 innerStyles: {

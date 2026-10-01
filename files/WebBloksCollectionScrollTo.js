@@ -31,10 +31,11 @@ __d(
         p = u == null ? void 0 : u.current;
       if (!(m == null || p == null)) {
         var _ = m.children.item(r),
-          f = d
-            ? { top: _ == null ? void 0 : _.offsetTop }
-            : { left: _ == null ? void 0 : _.offsetLeft };
-        p.scrollTo(babelHelpers.extends({}, f, { behavior: s(a) }));
+          f = _ instanceof HTMLElement ? _ : null,
+          g = d
+            ? { top: f == null ? void 0 : f.offsetTop }
+            : { left: f == null ? void 0 : f.offsetLeft };
+        p.scrollTo(babelHelpers.extends({}, g, { behavior: s(a) }));
       }
     }
     function c(t, n) {

@@ -22,7 +22,7 @@ __d(
           this.$1.addEventListener(t, n);
         }),
         (t.removeEventListener = function (t, n) {
-          this.$1.addEventListener(t, n);
+          this.$1.removeEventListener(t, n);
         }),
         e
       );

@@ -15,8 +15,12 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "278f74eb84fe3a8a499abdb0270df9c7ff06df48608aed618035f245d2e66a57",
+      c = "b9ddd8dfe71ca2caa645ab34962cb6f8e1ea6c6ea2f68700d12d6ae0568a338a",
       d = {
+        b9ddd8dfe71ca2caa645ab34962cb6f8e1ea6c6ea2f68700d12d6ae0568a338a:
+          function () {
+            return r("bx")("110375");
+          },
         "278f74eb84fe3a8a499abdb0270df9c7ff06df48608aed618035f245d2e66a57":
           function () {
             return r("bx")("110372");
@@ -77,12 +81,8 @@ __d(
           function () {
             return r("bx")("90786");
           },
-        "0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f":
-          function () {
-            return r("bx")("90779");
-          },
       },
-      m = d["278f74eb84fe3a8a499abdb0270df9c7ff06df48608aed618035f245d2e66a57"],
+      m = d.b9ddd8dfe71ca2caa645ab34962cb6f8e1ea6c6ea2f68700d12d6ae0568a338a,
       p = null,
       _ = null;
     try {
@@ -91,6 +91,10 @@ __d(
       p = e;
     }
     var f = {
+        b9ddd8dfe71ca2caa645ab34962cb6f8e1ea6c6ea2f68700d12d6ae0568a338a:
+          function () {
+            return r("bx")("110374");
+          },
         "278f74eb84fe3a8a499abdb0270df9c7ff06df48608aed618035f245d2e66a57":
           function () {
             return r("bx")("110371");
@@ -151,16 +155,12 @@ __d(
           function () {
             return r("bx")("90785");
           },
-        "0f00bc08503e7d9191002b8574fa4610ee1e0964ab8fa1c0ca951480c5f9838f":
-          function () {
-            return r("bx")("90778");
-          },
       },
-      g = f["278f74eb84fe3a8a499abdb0270df9c7ff06df48608aed618035f245d2e66a57"],
+      g = f.b9ddd8dfe71ca2caa645ab34962cb6f8e1ea6c6ea2f68700d12d6ae0568a338a,
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1790662652707" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1790749682060" });
     } catch (e) {
       h = e;
     }
@@ -199,7 +199,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/278f74eb84fe3a8a499abdb0270df9c7ff06df48608aed618035f245d2e66a57/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/b9ddd8dfe71ca2caa645ab34962cb6f8e1ea6c6ea2f68700d12d6ae0568a338a/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -924,10 +924,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1370255: function () {
+          1371343: function () {
             return Date.now();
           },
-          1370278: function (t, n) {
+          1371366: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7701,27 +7701,27 @@ __d(
             gethostbyname: gi,
             invoke_d: Qu,
             invoke_diii: ec,
-            invoke_fi: Xs,
+            invoke_fi: Ys,
             invoke_fii: ys,
             invoke_fiii: Zu,
-            invoke_fiiiiii: Hs,
+            invoke_fiiiiii: Gs,
             invoke_i: El,
-            invoke_id: Js,
+            invoke_id: Zs,
             invoke_ii: Il,
             invoke_iid: Hu,
             invoke_iidi: Xu,
-            invoke_iidii: Qs,
+            invoke_iidii: Xs,
             invoke_iidjjjidjjjdjjji: ss,
             invoke_iidjjjii: gs,
             invoke_iidjjjiii: cs,
             invoke_iiffiii: bs,
             invoke_iiffiiiii: Cs,
-            invoke_iifi: ru,
+            invoke_iifi: ou,
             invoke_iifii: Cu,
-            invoke_iifiii: Ys,
+            invoke_iifiii: Js,
             invoke_iii: Tl,
             invoke_iiid: bu,
-            invoke_iiifi: Gs,
+            invoke_iiifi: zs,
             invoke_iiii: xl,
             invoke_iiiidd: Wu,
             invoke_iiiifiii: Es,
@@ -7733,7 +7733,7 @@ __d(
             invoke_iiiiiiiddiiid: Uu,
             invoke_iiiiiiii: Bl,
             invoke_iiiiiiiidi: Vu,
-            invoke_iiiiiiiifii: Vs,
+            invoke_iiiiiiiifii: Hs,
             invoke_iiiiiiiii: wl,
             invoke_iiiiiiiiii: Ol,
             invoke_iiiiiiiiiiffiii: vs,
@@ -7745,13 +7745,13 @@ __d(
             invoke_iiiiiiiiiiiiiiffiiiii: ks,
             invoke_iiiiiiiiiiiiiii: Ms,
             invoke_iiiiiiiiiiiiiiiffiiiii: Ss,
-            invoke_iiiiiiiiiiiiiiii: js,
+            invoke_iiiiiiiiiiiiiiii: Ks,
             invoke_iiiiiiiiiiiiiiiiiffiiiii: Rs,
             invoke_iiiiiiiiiiiiiiiiii: jl,
             invoke_iiiiiiiiiiji: ts,
             invoke_iiiiiiiiij: xu,
             invoke_iiiiiiiij: Iu,
-            invoke_iiiiiiij: Ks,
+            invoke_iiiiiiij: Qs,
             invoke_iiiiiiijjii: hu,
             invoke_iiiiiij: Tu,
             invoke_iiiiiijiiii: $u,
@@ -7767,44 +7767,44 @@ __d(
             invoke_iiiijiiji: is,
             invoke_iiiijjii: hs,
             invoke_iiiijjiii: ds,
-            invoke_iiij: Os,
-            invoke_iiijddddddd: iu,
+            invoke_iiij: Bs,
+            invoke_iiijddddddd: lu,
             invoke_iiiji: es,
             invoke_iiijii: Jl,
             invoke_iiijiiji: as,
             invoke_iiijji: os,
-            invoke_iiijjiiii: uu,
+            invoke_iiijjiiii: cu,
             invoke_iij: Ps,
             invoke_iiji: Pu,
             invoke_iijii: Du,
-            invoke_iijiii: Ws,
+            invoke_iijiii: qs,
             invoke_iijijijiji: qu,
-            invoke_iijj: du,
-            invoke_iijjjiiii: lu,
-            invoke_iijjjj: ou,
-            invoke_iijjjji: au,
+            invoke_iijj: mu,
+            invoke_iijjjiiii: su,
+            invoke_iijjjj: au,
+            invoke_iijjjji: iu,
             invoke_ij: wu,
             invoke_iji: Bu,
             invoke_j: Kl,
             invoke_ji: Yl,
-            invoke_jii: Us,
+            invoke_jii: Vs,
             invoke_jiii: Al,
             invoke_jiiii: Ju,
             invoke_jiiiii: Mu,
             invoke_jiiiiiiii: ku,
             invoke_jiiiiiji: Nu,
-            invoke_jiij: mu,
-            invoke_jij: ws,
+            invoke_jiij: pu,
+            invoke_jij: As,
             invoke_jj: zu,
             invoke_v: Dl,
             invoke_vd: Ku,
             invoke_vi: Pl,
             invoke_vid: vu,
-            invoke_viddjjii: su,
-            invoke_vif: qs,
+            invoke_viddjjii: uu,
+            invoke_vif: Us,
             invoke_viff: Su,
             invoke_vii: kl,
-            invoke_viid: tu,
+            invoke_viid: nu,
             invoke_viif: Lu,
             invoke_viii: Ll,
             invoke_viiii: Nl,
@@ -7819,25 +7819,25 @@ __d(
             invoke_viiiiiiiiiiii: Ru,
             invoke_viiiiiiiiiiiii: Fu,
             invoke_viiiiiiiiiiiiiii: tc,
-            invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: nu,
+            invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: ru,
             invoke_viiiiiiij: Au,
-            invoke_viiiiij: Zs,
+            invoke_viiiiij: eu,
             invoke_viiiiiji: Gu,
-            invoke_viiiij: eu,
+            invoke_viiiij: tu,
             invoke_viiiijiiii: Ts,
-            invoke_viiij: zs,
+            invoke_viiij: js,
             invoke_viiiji: ls,
-            invoke_viij: Fs,
-            invoke_viiji: pu,
-            invoke_viijii: _u,
+            invoke_viij: Os,
+            invoke_viiji: _u,
+            invoke_viijii: ws,
             invoke_viijiiii: gu,
             invoke_viijj: Ou,
             invoke_viijjdiii: us,
             invoke_vij: $s,
-            invoke_viji: Bs,
+            invoke_viji: Ws,
             invoke_vijiiiii: Ql,
-            invoke_vijj: As,
-            invoke_vijji: cu,
+            invoke_vijj: Fs,
+            invoke_vijji: du,
             invoke_vjiiiiii: Xl,
             is_participant_known_contact_js: ot,
             llvm_eh_typeid_for: hi,
@@ -7921,8 +7921,8 @@ __d(
           Cl = (v.___get_exception_message = Ne("__get_exception_message")),
           bl = Ne("__cxa_can_catch"),
           vl = Ne("__cxa_is_pointer_type"),
-          Sl = (v.___start_em_js = 1364268),
-          Rl = (v.___stop_em_js = 1370255);
+          Sl = (v.___start_em_js = 1365356),
+          Rl = (v.___stop_em_js = 1371343);
         function Ll(e, t, n, r) {
           var o = fl();
           try {
@@ -8645,22 +8645,22 @@ __d(
             cl(1, 0);
           }
         }
-        function ws(e, t, n) {
+        function ws(e, t, n, r, o, a) {
+          var i = fl();
+          try {
+            fn(e)(t, n, r, o, a);
+          } catch (e) {
+            if ((gl(i), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function As(e, t, n) {
           var r = fl();
           try {
             return fn(e)(t, n);
           } catch (e) {
             if ((gl(r), !(e instanceof Me))) throw e;
             return (cl(1, 0), BigInt(0));
-          }
-        }
-        function As(e, t, n, r) {
-          var o = fl();
-          try {
-            fn(e)(t, n, r);
-          } catch (e) {
-            if ((gl(o), !(e instanceof Me))) throw e;
-            cl(1, 0);
           }
         }
         function Fs(e, t, n, r) {
@@ -8675,7 +8675,7 @@ __d(
         function Os(e, t, n, r) {
           var o = fl();
           try {
-            return fn(e)(t, n, r);
+            fn(e)(t, n, r);
           } catch (e) {
             if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
@@ -8684,148 +8684,13 @@ __d(
         function Bs(e, t, n, r) {
           var o = fl();
           try {
-            fn(e)(t, n, r);
+            return fn(e)(t, n, r);
           } catch (e) {
             if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
-        function Ws(e, t, n, r, o, a) {
-          var i = fl();
-          try {
-            return fn(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((gl(i), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function qs(e, t, n) {
-          var r = fl();
-          try {
-            fn(e)(t, n);
-          } catch (e) {
-            if ((gl(r), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Us(e, t, n) {
-          var r = fl();
-          try {
-            return fn(e)(t, n);
-          } catch (e) {
-            if ((gl(r), !(e instanceof Me))) throw e;
-            return (cl(1, 0), BigInt(0));
-          }
-        }
-        function Vs(e, t, n, r, o, a, i, l, s, u, c) {
-          var d = fl();
-          try {
-            return fn(e)(t, n, r, o, a, i, l, s, u, c);
-          } catch (e) {
-            if ((gl(d), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Hs(e, t, n, r, o, a, i) {
-          var l = fl();
-          try {
-            return fn(e)(t, n, r, o, a, i);
-          } catch (e) {
-            if ((gl(l), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Gs(e, t, n, r, o) {
-          var a = fl();
-          try {
-            return fn(e)(t, n, r, o);
-          } catch (e) {
-            if ((gl(a), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function zs(e, t, n, r, o) {
-          var a = fl();
-          try {
-            fn(e)(t, n, r, o);
-          } catch (e) {
-            if ((gl(a), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function js(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
-          var g = fl();
-          try {
-            return fn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
-          } catch (e) {
-            if ((gl(g), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Ks(e, t, n, r, o, a, i, l) {
-          var s = fl();
-          try {
-            return fn(e)(t, n, r, o, a, i, l);
-          } catch (e) {
-            if ((gl(s), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Qs(e, t, n, r, o) {
-          var a = fl();
-          try {
-            return fn(e)(t, n, r, o);
-          } catch (e) {
-            if ((gl(a), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Xs(e, t) {
-          var n = fl();
-          try {
-            return fn(e)(t);
-          } catch (e) {
-            if ((gl(n), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Ys(e, t, n, r, o, a) {
-          var i = fl();
-          try {
-            return fn(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((gl(i), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Js(e, t) {
-          var n = fl();
-          try {
-            return fn(e)(t);
-          } catch (e) {
-            if ((gl(n), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function Zs(e, t, n, r, o, a, i) {
-          var l = fl();
-          try {
-            fn(e)(t, n, r, o, a, i);
-          } catch (e) {
-            if ((gl(l), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function eu(e, t, n, r, o, a) {
-          var i = fl();
-          try {
-            fn(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((gl(i), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function tu(e, t, n, r) {
+        function Ws(e, t, n, r) {
           var o = fl();
           try {
             fn(e)(t, n, r);
@@ -8834,7 +8699,151 @@ __d(
             cl(1, 0);
           }
         }
-        function nu(
+        function qs(e, t, n, r, o, a) {
+          var i = fl();
+          try {
+            return fn(e)(t, n, r, o, a);
+          } catch (e) {
+            if ((gl(i), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Us(e, t, n) {
+          var r = fl();
+          try {
+            fn(e)(t, n);
+          } catch (e) {
+            if ((gl(r), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Vs(e, t, n) {
+          var r = fl();
+          try {
+            return fn(e)(t, n);
+          } catch (e) {
+            if ((gl(r), !(e instanceof Me))) throw e;
+            return (cl(1, 0), BigInt(0));
+          }
+        }
+        function Hs(e, t, n, r, o, a, i, l, s, u, c) {
+          var d = fl();
+          try {
+            return fn(e)(t, n, r, o, a, i, l, s, u, c);
+          } catch (e) {
+            if ((gl(d), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Gs(e, t, n, r, o, a, i) {
+          var l = fl();
+          try {
+            return fn(e)(t, n, r, o, a, i);
+          } catch (e) {
+            if ((gl(l), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function zs(e, t, n, r, o) {
+          var a = fl();
+          try {
+            return fn(e)(t, n, r, o);
+          } catch (e) {
+            if ((gl(a), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function js(e, t, n, r, o) {
+          var a = fl();
+          try {
+            fn(e)(t, n, r, o);
+          } catch (e) {
+            if ((gl(a), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Ks(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+          var g = fl();
+          try {
+            return fn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
+          } catch (e) {
+            if ((gl(g), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Qs(e, t, n, r, o, a, i, l) {
+          var s = fl();
+          try {
+            return fn(e)(t, n, r, o, a, i, l);
+          } catch (e) {
+            if ((gl(s), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Xs(e, t, n, r, o) {
+          var a = fl();
+          try {
+            return fn(e)(t, n, r, o);
+          } catch (e) {
+            if ((gl(a), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Ys(e, t) {
+          var n = fl();
+          try {
+            return fn(e)(t);
+          } catch (e) {
+            if ((gl(n), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Js(e, t, n, r, o, a) {
+          var i = fl();
+          try {
+            return fn(e)(t, n, r, o, a);
+          } catch (e) {
+            if ((gl(i), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function Zs(e, t) {
+          var n = fl();
+          try {
+            return fn(e)(t);
+          } catch (e) {
+            if ((gl(n), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function eu(e, t, n, r, o, a, i) {
+          var l = fl();
+          try {
+            fn(e)(t, n, r, o, a, i);
+          } catch (e) {
+            if ((gl(l), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function tu(e, t, n, r, o, a) {
+          var i = fl();
+          try {
+            fn(e)(t, n, r, o, a);
+          } catch (e) {
+            if ((gl(i), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function nu(e, t, n, r) {
+          var o = fl();
+          try {
+            fn(e)(t, n, r);
+          } catch (e) {
+            if ((gl(o), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function ru(
           e,
           t,
           n,
@@ -8908,7 +8917,7 @@ __d(
             cl(1, 0);
           }
         }
-        function ru(e, t, n, r) {
+        function ou(e, t, n, r) {
           var o = fl();
           try {
             return fn(e)(t, n, r);
@@ -8917,7 +8926,7 @@ __d(
             cl(1, 0);
           }
         }
-        function ou(e, t, n, r, o, a) {
+        function au(e, t, n, r, o, a) {
           var i = fl();
           try {
             return fn(e)(t, n, r, o, a);
@@ -8926,7 +8935,7 @@ __d(
             cl(1, 0);
           }
         }
-        function au(e, t, n, r, o, a, i) {
+        function iu(e, t, n, r, o, a, i) {
           var l = fl();
           try {
             return fn(e)(t, n, r, o, a, i);
@@ -8935,7 +8944,7 @@ __d(
             cl(1, 0);
           }
         }
-        function iu(e, t, n, r, o, a, i, l, s, u, c) {
+        function lu(e, t, n, r, o, a, i, l, s, u, c) {
           var d = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8944,7 +8953,7 @@ __d(
             cl(1, 0);
           }
         }
-        function lu(e, t, n, r, o, a, i, l, s) {
+        function su(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s);
@@ -8953,7 +8962,7 @@ __d(
             cl(1, 0);
           }
         }
-        function su(e, t, n, r, o, a, i, l) {
+        function uu(e, t, n, r, o, a, i, l) {
           var s = fl();
           try {
             fn(e)(t, n, r, o, a, i, l);
@@ -8962,7 +8971,7 @@ __d(
             cl(1, 0);
           }
         }
-        function uu(e, t, n, r, o, a, i, l, s) {
+        function cu(e, t, n, r, o, a, i, l, s) {
           var u = fl();
           try {
             return fn(e)(t, n, r, o, a, i, l, s);
@@ -8971,21 +8980,12 @@ __d(
             cl(1, 0);
           }
         }
-        function cu(e, t, n, r, o) {
+        function du(e, t, n, r, o) {
           var a = fl();
           try {
             fn(e)(t, n, r, o);
           } catch (e) {
             if ((gl(a), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function du(e, t, n, r) {
-          var o = fl();
-          try {
-            return fn(e)(t, n, r);
-          } catch (e) {
-            if ((gl(o), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }
@@ -8995,24 +8995,24 @@ __d(
             return fn(e)(t, n, r);
           } catch (e) {
             if ((gl(o), !(e instanceof Me))) throw e;
+            cl(1, 0);
+          }
+        }
+        function pu(e, t, n, r) {
+          var o = fl();
+          try {
+            return fn(e)(t, n, r);
+          } catch (e) {
+            if ((gl(o), !(e instanceof Me))) throw e;
             return (cl(1, 0), BigInt(0));
           }
         }
-        function pu(e, t, n, r, o) {
+        function _u(e, t, n, r, o) {
           var a = fl();
           try {
             fn(e)(t, n, r, o);
           } catch (e) {
             if ((gl(a), !(e instanceof Me))) throw e;
-            cl(1, 0);
-          }
-        }
-        function _u(e, t, n, r, o, a) {
-          var i = fl();
-          try {
-            fn(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((gl(i), !(e instanceof Me))) throw e;
             cl(1, 0);
           }
         }

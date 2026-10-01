@@ -11,8 +11,9 @@ __d(
       s = e.Mirrored(["INVALID", "EMPTY"]),
       u = e.Mirrored(["DUPLICATE", "MISMATCH", "REQUIRES_PHONE"]),
       c = e.Mirrored(["ALREADY_EXISTS"]),
-      d = e.Mirrored(["TYPE", "FORMAT", "TOO_MANY_ITEMS", "TOO_MANY_ERRORS"]),
-      m = (function (e) {
+      d = e.Mirrored(["INVALID_DATE"]),
+      m = e.Mirrored(["TYPE", "FORMAT", "TOO_MANY_ITEMS", "TOO_MANY_ERRORS"]),
+      p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -28,8 +29,9 @@ __d(
       (i.NameError = s),
       (i.UsernameError = u),
       (i.ExistingContactError = c),
-      (i.FileError = d),
-      (i.WAWebContactImportTypedError = m));
+      (i.DateError = d),
+      (i.FileError = m),
+      (i.WAWebContactImportTypedError = p));
   },
   66,
 );

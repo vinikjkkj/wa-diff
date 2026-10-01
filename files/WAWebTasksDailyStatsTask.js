@@ -391,25 +391,29 @@ __d(
           }
           var k = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
           if (k) {
-            var T, x;
+            var T, x, $, P;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
-              totalNotifShown: (T = k.totalNotifShown) != null ? T : 0,
-              totalNotifTapToOpen: (x = k.totalNotifTapToOpen) != null ? x : 0,
+              totalNotifRtcVoipAccept:
+                (T = k.totalNotifRtcVoipAccept) != null ? T : 0,
+              totalNotifRtcVoipDecline:
+                (x = k.totalNotifRtcVoipDecline) != null ? x : 0,
+              totalNotifShown: ($ = k.totalNotifShown) != null ? $ : 0,
+              totalNotifTapToOpen: (P = k.totalNotifTapToOpen) != null ? P : 0,
             }).commit(),
               o("WAWebUserPrefsGeneral").clearNotificationContentEngagement());
           }
           o("WAWebWamPrivateStatsUtils").logDailyPrivateStatsTestEvents();
-          var $ = o("WAWebDailyAggregatedStatsCollection")
+          var N = o("WAWebDailyAggregatedStatsCollection")
             .DailyAggregatedStatsCollection.toArray()
             .filter(function (e) {
               return e.shouldBeSubmitted();
             });
           (o(
             "WAWebDailyAggregatedStatsCollection",
-          ).DailyAggregatedStatsCollection.remove($),
-            $.forEach(function (e) {
+          ).DailyAggregatedStatsCollection.remove(N),
+            N.forEach(function (e) {
               var t = new (o("WAWebPttDailyWamEvent").PttDailyWamEvent)({
                 pttCancelBroadcast: e.pttCancelBroadcast,
                 pttCancelGroup: e.pttCancelGroup,

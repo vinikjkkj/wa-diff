@@ -34,67 +34,67 @@ __d(
         l = e.externalVariables,
         u = e.node,
         _ = e.params,
-        C = _ === void 0 ? o("WebBloksUtils").EMPTY_OBJECT : _,
-        b = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        v = r("useWebBloksAccessibilityModule")(),
-        S = v.FocusAppWrapper,
-        R = p(function () {
+        b = _ === void 0 ? o("WebBloksUtils").EMPTY_OBJECT : _,
+        v = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        S = r("useWebBloksAccessibilityModule")(),
+        R = S.FocusAppWrapper,
+        L = p(function () {
           var e;
           return (
             i != null
               ? (e = i)
-              : ((e = new (r("WebBloksObjectSet"))(b)), f(e, a, u, C)),
+              : ((e = new (r("WebBloksObjectSet"))(v)), f(e, a, u, b)),
             n && (n.current = e),
             e
           );
         }),
-        L = R[0];
+        E = L[0];
       c(
         function () {
           i != null && i.navigationManager.attachAndTriggerPopStateHandler();
         },
         [i],
       );
-      var E = p(function () {
-          return L.navigationManager.getVisibleScreens();
+      var k = p(function () {
+          return E.navigationManager.getVisibleScreens();
         }),
-        k = E[0],
-        I = k.modal,
-        T = k.screens,
-        D = E[1];
+        I = k[0],
+        T = I.modal,
+        D = I.screens,
+        x = k[1];
       c(
         function () {
           return (
-            L.navigationManager.attachNavigationListeners(),
-            L.navigationManager.screenChangeListener.on(D),
+            E.navigationManager.attachNavigationListeners(),
+            E.navigationManager.screenChangeListener.on(x),
             function () {
-              (L.navigationManager.screenChangeListener.off(D),
-                L.navigationManager.destroy());
+              (E.navigationManager.screenChangeListener.off(x),
+                E.navigationManager.destroy());
             }
           );
         },
-        [L],
+        [E],
       );
-      var x = m(!0);
+      var $ = m(!0);
       (c(
         function () {
-          if (x.current) x.current = !1;
+          if ($.current) $.current = !1;
           else {
             if (i != null) return;
-            f(L, a, u, C);
+            f(E, a, u, b);
           }
         },
-        [L, a, u, C, i],
+        [E, a, u, b, i],
       ),
-        r("useWebBloksRefreshListener")(L));
-      var $ = {};
-      b.isRtl && ($ = { direction: "rtl", textAlign: "right" });
-      var P = r("useFoldingAddressBar")(T),
-        N = d(
+        r("useWebBloksRefreshListener")(E));
+      var P = {};
+      v.isRtl && (P = { direction: "rtl", textAlign: "right" });
+      var N = r("useFoldingAddressBar")(D),
+        M = d(
           function () {
-            return b.embedded === !0
+            return v.embedded === !0
               ? g.bloksAppEmbedded
-              : P
+              : N
                 ? o("WebBloksStyle").classNames(
                     g.bloksAppFoldingAddressBar,
                     y.bloksAppFoldingAddressBarDVH,
@@ -102,13 +102,14 @@ __d(
                 : o("WebBloksStyle").classNames(
                     g.bloksAppFullscreen,
                     h.bloksAppFullscreenDVH,
+                    v.nonFABViewportFit ? C.nonFABViewportFitRoot : null,
                   );
           },
-          [b.embedded, P],
+          [v.embedded, v.nonFABViewportFit, N],
         ),
-        M = d(
+        w = d(
           function () {
-            return T.map(function (e) {
+            return D.map(function (e) {
               var t;
               return s.jsx(
                 o("WebBloksScreenWrapper").ScreenWrapper,
@@ -117,43 +118,43 @@ __d(
               );
             });
           },
-          [T, l],
+          [D, l],
         ),
-        w = s.jsx(S, {
+        A = s.jsx(R, {
           children: s.jsxs("div", {
             style: babelHelpers.extends(
               {
                 fontFamily: o("WebBloksUtils").getWrapperFontFamily(
-                  b.fontFamilyMappings,
+                  v.fontFamilyMappings,
                 ),
               },
-              $,
-              P ? { WebkitOverflowScrolling: "touch" } : null,
+              P,
+              N ? { WebkitOverflowScrolling: "touch" } : null,
             ),
             "data-testid": void 0,
             className: o("WebBloksStyle").classNames(
               o("WebBloksAppAccessibilityStyles").ACCESSIBILITY_STYLES.outlines,
-              N,
+              M,
             ),
             children: [
-              M,
-              I &&
+              w,
+              T &&
                 s.jsx(
                   r("WebBloksModalWrapper"),
-                  { modal: I, externalVariables: l },
-                  (t = I.screenIdWithStackIndex) != null ? t : I.screenId,
+                  { modal: T, externalVariables: l },
+                  (t = T.screenIdWithStackIndex) != null ? t : T.screenId,
                 ),
-              s.jsx(r("WebBloksToastPresenter"), { objectSet: L }),
+              s.jsx(r("WebBloksToastPresenter"), { objectSet: E }),
             ],
           }),
         });
       return (
-        L.environment.disableErrorBoundary !== !0 &&
-          (w = s.jsx(r("WebBloksErrorBoundary"), {
-            logger: L.environment.logger,
-            children: w,
+        E.environment.disableErrorBoundary !== !0 &&
+          (A = s.jsx(r("WebBloksErrorBoundary"), {
+            logger: E.environment.logger,
+            children: A,
           })),
-        w
+        A
       );
     }
     _.displayName = _.name + " [from " + i.id + "]";
@@ -194,10 +195,19 @@ __d(
         { key: "min-height", value: "100dvh", type: "regular" },
         { bloksAppFoldingAddressBarDVH: { minHeight: "100dvh !important" } },
       ),
-      C = { width: "100%", height: "100%" };
+      C = o("WebBloksStyle").createStylesIfSupported(
+        { key: "height", value: "100svh", type: "regular" },
+        {
+          nonFABViewportFitRoot: {
+            height: "100svh !important",
+            overflow: "hidden",
+          },
+        },
+      ),
+      b = { width: "100%", height: "100%" };
     ((l.WebBloksApp = _),
       (l.createInitialScreenForObjectSet = f),
-      (l.bloksRootStyles = C));
+      (l.bloksRootStyles = b));
   },
   98,
 );

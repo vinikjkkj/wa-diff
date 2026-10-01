@@ -18,6 +18,8 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebFrontendPollVoteGetters",
+    "WAWebGroupAgentProfileRouting",
+    "WAWebOpenGroupAgentProfile.react",
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteModel",
     "WAWebTextSizeUtils",
@@ -158,30 +160,43 @@ __d(
           ),
         k = E
           ? function () {
-              var t = o("WAWebChatGetters").getIsGroup(L)
-                ? o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
-                    _,
-                    "poll_voter_row",
+              var t = ++m;
+              if (
+                !(
+                  o("WAWebChatGetters").getIsGroup(L) &&
+                  o("WAWebOpenGroupAgentProfile.react").openGroupAgentProfile(
+                    o(
+                      "WAWebGroupAgentProfileRouting",
+                    ).getGroupAgentProfileDestination(_, L),
+                    s,
+                    L,
+                    "pollVoterRow",
                   )
-                : _;
-              if (t != null) {
-                var n = ++m;
-                o("WAWebFindChatAction")
-                  .findOrCreateLatestChat(t, "pollVoterRow")
-                  .then(function (e) {
-                    var t = e.chat;
-                    n === m && (a == null || a(t));
-                  })
-                  .catch(function () {
-                    return o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "[polls] failed to open voter contact info",
-                          ])),
-                      )
-                      .sendLogs("polls-voter-open-contact-info");
-                  });
+                )
+              ) {
+                var n = o("WAWebChatGetters").getIsGroup(L)
+                  ? o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
+                      _,
+                      "poll_voter_row",
+                    )
+                  : _;
+                n != null &&
+                  o("WAWebFindChatAction")
+                    .findOrCreateLatestChat(n, "pollVoterRow")
+                    .then(function (e) {
+                      var n = e.chat;
+                      t === m && (a == null || a(n));
+                    })
+                    .catch(function () {
+                      return o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[polls] failed to open voter contact info",
+                            ])),
+                        )
+                        .sendLogs("polls-voter-open-contact-info");
+                    });
               }
             }
           : null,

@@ -7,56 +7,65 @@ __d(
         var e = u;
         return (u++, e);
       },
-      u = 0;
-    function c(t) {
+      u = 0,
+      c = [];
+    function d() {
+      for (var e = 0, t = 0; t < c.length; t++) {
+        var n = c[t];
+        ((e += n.size), n.clear());
+      }
+      return e;
+    }
+    function m(t) {
       var n = t || {},
         a = n.root,
         i = n.rootEqualityCheck,
         l = n.createCache,
-        u = l === void 0 ? R : l,
-        c = u(),
-        p = s(),
-        _ = function () {
-          var e = f;
-          return (f++, e);
-        },
-        f = 0,
-        g = [],
-        h = !1,
-        y = function () {
+        u = l === void 0 ? E : l,
+        d = u();
+      c.push(d);
+      var m = s(),
+        f = function () {
           var e = g;
+          return (g++, e);
+        },
+        g = 0,
+        h = [],
+        y = !1,
+        C = function () {
+          var e = h;
           if (
             e != null &&
-            ((g = null),
-            (h = o("WAWebABProps").getABPropConfigValue(
+            ((h = null),
+            (y = o("WAWebABProps").getABPropConfigValue(
               "web_getters_lazy_slot_allocation",
             )),
-            !h)
+            !y)
           )
-            for (var t = 0; t < e.length; t++) C(e[t], _());
+            for (var t = 0; t < e.length; t++) v(e[t], f());
         },
         b = function () {
           var t = {
             prevResultIndex: e,
             changedAtIndex: e,
             checkedAtIndex: e,
-            allocateGetterId: _,
-            resolveAllocationOrder: y,
+            allocateGetterId: f,
+            resolveAllocationOrder: C,
           };
-          return (g != null ? g.push(t) : h || C(t, _()), t);
+          return (h != null ? h.push(t) : y || v(t, f()), t);
         },
-        v =
+        S =
           a != null
             ? a
-            : m({
-                getterGroupId: p,
+            : _({
+                getterGroupId: m,
                 slots: b(),
-                resultEqualityCheck: i != null ? i : S,
-                cache: c,
+                resultEqualityCheck: i != null ? i : L,
+                cache: d,
               });
-      if (v.kind !== "identity")
+      if (S.kind !== "identity")
         throw r("err")(
-          "root must be an identity getter but got kind " + v.kind,
+          "root must be an identity getter but got kind " + S.kind,
         );
       return {
         field: function (t, n) {
@@ -64,7 +73,7 @@ __d(
             r = e.default,
             o = e.getDefault,
             a = e.resultEqualityCheck,
-            i = a === void 0 ? S : a,
+            i = a === void 0 ? L : a,
             l;
           return (
             o != null
@@ -83,38 +92,38 @@ __d(
                       o = n[0];
                     return (e = o[t]) != null ? e : r;
                   }),
-            d({
-              getterGroupId: p,
+            p({
+              getterGroupId: m,
               slots: b(),
-              root: v,
-              cache: c,
+              root: S,
+              cache: d,
               resultFunc: l,
               resultEqualityCheck: i,
-              props: { kind: "field", dependencyKey: t, dependencies: [v] },
+              props: { kind: "field", dependencyKey: t, dependencies: [S] },
             })
           );
         },
         computed: function (t, n, r) {
           var e = r || {},
             o = e.resultEqualityCheck,
-            a = o === void 0 ? S : o;
-          return d({
-            getterGroupId: p,
+            a = o === void 0 ? L : o;
+          return p({
+            getterGroupId: m,
             slots: b(),
-            root: v,
-            cache: c,
+            root: S,
+            cache: d,
             resultFunc: t,
             resultEqualityCheck: a,
             props: { kind: "computed", dependencies: n },
           });
         },
-        unsafeIdentityGetter: v,
+        unsafeIdentityGetter: S,
         clearCacheFor: function (t) {
-          c.delete(L(t));
+          d.delete(k(t));
         },
       };
     }
-    function d(e) {
+    function p(e) {
       var t = e.cache,
         n = e.getterGroupId,
         o = e.props,
@@ -124,14 +133,14 @@ __d(
         s = e.slots,
         u = o.dependencies,
         c = u.length;
-      return p({
+      return f({
         getterGroupId: n,
         slots: s,
         root: l,
         cache: t,
         props: babelHelpers.extends({}, o, { resultFunc: i }),
         recomputeIfNeeded: function (t, o, l) {
-          y(s);
+          b(s);
           var e = s.changedAtIndex,
             d = s.checkedAtIndex,
             m = s.prevResultIndex,
@@ -142,40 +151,40 @@ __d(
             if (f === o) return _;
             if (f != null && c > 0) {
               for (var g = !1, h = 0; h < c; h++) {
-                var C = u[h],
-                  b = C.$$extractChangedAt(l[C.$$getterGroupId]);
-                if (((g = b == null || b > f), g)) break;
+                var y = u[h],
+                  C = y.$$extractChangedAt(l[y.$$getterGroupId]);
+                if (((g = C == null || C > f), g)) break;
               }
               if (!g) return ((p[d] = o), _);
             }
           }
-          for (var S = new Array(c), R = 0; R < c; R++) {
-            var L = u[R],
-              k = L.$$extractResult(l[L.$$getterGroupId]);
-            if (k === void 0) throw r("err")("No result was stored");
-            S[R] = E(k);
+          for (var v = new Array(c), S = 0; S < c; S++) {
+            var L = u[S],
+              E = L.$$extractResult(l[L.$$getterGroupId]);
+            if (E === void 0) throw r("err")("No result was stored");
+            v[S] = I(E);
           }
-          var I = i(S),
+          var k = i(v),
             T = p[m];
-          return _ != null && T !== void 0 && a(I, E(T))
+          return _ != null && T !== void 0 && a(k, I(T))
             ? ((p[d] = o), _)
-            : ((p[m] = I === void 0 ? v : I), (p[e] = o), (p[d] = o), o);
+            : ((p[m] = k === void 0 ? R : k), (p[e] = o), (p[d] = o), o);
         },
       });
     }
-    function m(e) {
+    function _(e) {
       var t = e.cache,
         n = e.getterGroupId,
         r = e.resultEqualityCheck,
         o = e.slots;
-      return p({
+      return f({
         getterGroupId: n,
         slots: o,
         root: null,
         cache: t,
         props: { kind: "identity", dependencies: [] },
         recomputeIfNeeded: function (t, a, i) {
-          y(o);
+          b(o);
           var e = o.changedAtIndex,
             l = o.checkedAtIndex,
             s = o.prevResultIndex,
@@ -184,13 +193,13 @@ __d(
             d = t,
             m = u[l],
             p = t == null ? 0 : t.revisionNumber || 0;
-          if (c !== void 0 && m === p && r(d, E(c))) return a;
+          if (c !== void 0 && m === p && r(d, I(c))) return a;
           var _ = a + 1;
-          return ((u[s] = d === void 0 ? v : d), (u[e] = _), (u[l] = p), _);
+          return ((u[s] = d === void 0 ? R : d), (u[e] = _), (u[l] = p), _);
         },
       });
     }
-    function p(e) {
+    function f(e) {
       for (
         var t,
           n = e.cache,
@@ -201,10 +210,10 @@ __d(
           s = e.slots,
           u = a.dependencies,
           c = function (t) {
-            y(s);
-            for (var e = L(t), n = {}, a = 0; a < h.length; a++) {
+            b(s);
+            for (var e = k(t), n = {}, a = 0; a < h.length; a++) {
               var i = h[a],
-                l = g[i],
+                l = f[i],
                 u = l.get(e);
               (u == null && ((u = {}), l.set(e, u)), (n[i] = u));
             }
@@ -216,16 +225,16 @@ __d(
               d = n[o],
               _ = d[s.checkedAtIndex];
             if (_ == null || c > _)
-              for (var f = 0; f < m.length; f++) {
-                for (var C = _ != null, b = m[f], v = 0; v < b.length; v++) {
-                  var S = b[v].$$recomputeIfNeeded(t, c, n);
-                  (_ == null || S > _) && (C = !1);
+              for (var g = 0; g < m.length; g++) {
+                for (var y = _ != null, C = m[g], v = 0; v < C.length; v++) {
+                  var S = C[v].$$recomputeIfNeeded(t, c, n);
+                  (_ == null || S > _) && (y = !1);
                 }
-                if (C) break;
+                if (y) break;
               }
             var R = d[s.prevResultIndex];
             if (R === void 0) throw r("err")("No result was stored");
-            return E(R);
+            return I(R);
           },
           d = Object.assign(c, {
             kind: a.kind,
@@ -243,32 +252,32 @@ __d(
               return t[s.prevResultIndex];
             },
           }),
-          m = _(d),
+          m = g(d),
           p = d.$$root,
-          f = 0;
-        f < u.length;
-        f++
+          _ = 0;
+        _ < u.length;
+        _++
       )
-        if (u[f].$$root !== p)
+        if (u[_].$$root !== p)
           throw r("err")(
             "Getter created with multiple roots. This means you used getters that came from different `createGetterFactories()` calls as dependencies in a `computed()` getter. If you want to do this, you must pass the identity getter created by one of the `createGetterFactories()` calls as the `root` option to the other.",
           );
       for (
-        var g = ((t = {}), (t[p.$$getterGroupId] = p.$$cache), t),
+        var f = ((t = {}), (t[p.$$getterGroupId] = p.$$cache), t),
           h = [p.$$getterGroupId],
-          C = 0;
-        C < m.length;
-        C++
+          y = 0;
+        y < m.length;
+        y++
       )
-        for (var b = 0; b < m[C].length; b++) {
-          var v = m[C][b],
+        for (var C = 0; C < m[y].length; C++) {
+          var v = m[y][C],
             S = v.$$cache,
             R = v.$$getterGroupId;
-          g[R] == null && (h.push(R), (g[R] = S));
+          f[R] == null && (h.push(R), (f[R] = S));
         }
       return d;
     }
-    function _(e) {
+    function g(e) {
       for (var t = [e], n = 0; n < t.length; n++) {
         var r = t[n];
         r.dependencies != null && t.push.apply(t, r.dependencies);
@@ -299,26 +308,26 @@ __d(
         return e.length > 0;
       });
     }
-    var f = function (t) {
+    var h = function (t) {
         return 3 * t;
       },
-      g = function (t) {
+      y = function (t) {
         return 3 * t + 1;
       },
-      h = function (t) {
+      C = function (t) {
         return 3 * t + 2;
       };
-    function y(t) {
+    function b(t) {
       t.prevResultIndex === e &&
         (t.resolveAllocationOrder(),
-        t.prevResultIndex === e && C(t, t.allocateGetterId()));
+        t.prevResultIndex === e && v(t, t.allocateGetterId()));
     }
-    function C(e, t) {
-      ((e.prevResultIndex = f(t)),
-        (e.changedAtIndex = g(t)),
-        (e.checkedAtIndex = h(t)));
+    function v(e, t) {
+      ((e.prevResultIndex = h(t)),
+        (e.changedAtIndex = y(t)),
+        (e.checkedAtIndex = C(t)));
     }
-    var b = (function () {
+    var S = (function () {
         function e() {}
         var t = e.prototype;
         return (
@@ -328,14 +337,14 @@ __d(
           e
         );
       })(),
-      v = new b();
-    function S(e, t) {
+      R = new S();
+    function L(e, t) {
       return e === t;
     }
-    function R() {
+    function E() {
       return new Map();
     }
-    function L(e) {
+    function k(e) {
       if (e == null)
         throw r("err")("Getter was called with " + String(e) + " data.");
       var t = e.id;
@@ -346,10 +355,10 @@ __d(
         );
       return t.toString();
     }
-    function E(e) {
-      return e === v ? void 0 : e;
+    function I(e) {
+      return e === R ? void 0 : e;
     }
-    l.createGetterFactories = c;
+    ((l.clearAllGetterCaches = d), (l.createGetterFactories = m));
   },
   98,
 );

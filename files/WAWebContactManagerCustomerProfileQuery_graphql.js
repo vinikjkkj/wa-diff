@@ -18,6 +18,13 @@ __d(
                 alias: null,
                 args: null,
                 kind: "ScalarField",
+                name: "etag",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
                 name: "name",
                 storageKey: null,
               },

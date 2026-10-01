@@ -86,6 +86,13 @@ __d(
                   name: "phone_number",
                   storageKey: null,
                 },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "member_lid",
+                  storageKey: null,
+                },
               ],
               storageKey: null,
             },
@@ -158,7 +165,7 @@ __d(
           ],
         },
         params: {
-          id: "28625796647045484",
+          id: "28588811080804291",
           metadata: {},
           name: "WAWebOrgAdminGraphQLAdminRosterQuery",
           operationKind: "query",

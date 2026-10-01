@@ -38,7 +38,11 @@ __d(
                 try {
                   return yield e();
                 } catch (e) {
-                  (this.closeDBConnection(), e == null || e.stack);
+                  (this.closeDBConnection(),
+                    typeof e == "object" &&
+                      e != null &&
+                      "stack" in e &&
+                      e.stack);
                   var a = r("getErrorSafe")(e);
                   if ((a == null || a.stack, !this.$RSTIndexedDBSafe$p_4(a)))
                     try {

@@ -514,11 +514,11 @@ __d(
     }
     dt.displayName = dt.name + " [from " + i.id + "]";
     function mt() {
-      return s._(/*BTDS*/ "Broadcast settings");
+      return s._(/*BTDS*/ "Advanced settings");
     }
     mt.displayName = mt.name + " [from " + i.id + "]";
     function pt() {
-      return s._(/*BTDS*/ "Business broadcasts settings");
+      return s._(/*BTDS*/ "Advanced settings");
     }
     pt.displayName = pt.name + " [from " + i.id + "]";
     function _t() {

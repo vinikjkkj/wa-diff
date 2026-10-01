@@ -32,7 +32,9 @@ __d(
             (this.$1 =
               "" +
               o("WARandomHex").randomHex(4) +
-              o("WATimeUtils").unixTimeWithoutClockSkewCorrection()),
+              o("WATimeUtils")
+                .unixTimeWithoutClockSkewCorrection()
+                .toString(10)),
             (this.$2 = o(
               "WAWebWamEnumOfflineProcessRunReasons",
             ).OFFLINE_PROCESS_RUN_REASONS.PUSH_NOTIFICATION),

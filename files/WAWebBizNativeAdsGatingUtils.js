@@ -86,6 +86,9 @@ __d(
       return r("justknobx")._("5312");
     }
     function b() {
+      return r("justknobx")._("6091");
+    }
+    function v() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -93,7 +96,7 @@ __d(
         )
       );
     }
-    function v() {
+    function S() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -101,7 +104,7 @@ __d(
         )
       );
     }
-    function S() {
+    function R() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -109,7 +112,7 @@ __d(
         )
       );
     }
-    function R() {
+    function L() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -117,18 +120,18 @@ __d(
         )
       );
     }
-    function L() {
+    function E() {
       return r("justknobx")._("458");
     }
-    function E() {
+    function k() {
       return r("justknobx")._("5502");
     }
-    function k() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_web_native_ads_sabr_enabled",
       );
     }
-    function I() {
+    function T() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -136,19 +139,19 @@ __d(
         )
       );
     }
-    function T() {
+    function D() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        (k() ||
+        (I() ||
           o("WAWebABProps").getABPropConfigValue(
             "ctwa_web_native_ads_budget_recommendation_enabled",
           ))
       );
     }
-    function D() {
-      return k() || r("justknobx")._("1666");
-    }
     function x() {
+      return I() || r("justknobx")._("1666");
+    }
+    function $() {
       var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_native_ads_inline_notice_modules")
         .split(",");
@@ -168,17 +171,18 @@ __d(
       (l.nativeAdsWebAdvertiseBadgeEnabled = h),
       (l.nativeAdsLiveAdDetailsStatusTextEnabled = y),
       (l.nativeAdsHideViewResultsWhenDetailsOpenEnabled = C),
-      (l.nativeAdsCreationHawkToolEnabled = b),
-      (l.nativeAdsCreationTargetingModalHawkToolEnabled = v),
-      (l.nativeAdsMvpQE1Enabled = S),
-      (l.nativeAdsMvpQE1EnabledNoExposure = R),
-      (l.sendRunContinuouslyEnabled = L),
-      (l.nativeAdsCldrCurrencyFormattingEnabled = E),
-      (l.tempSabrQABackdoor = k),
-      (l.ctwaSabrEnabled = I),
-      (l.ctwaBudgetRecommendationEnabled = T),
-      (l.inlineNoticePartitionEnabled = D),
-      (l.ctwaInlineNoticeModules = x));
+      (l.nativeAdsStackAwareManageAdsNavigationEnabled = b),
+      (l.nativeAdsCreationHawkToolEnabled = v),
+      (l.nativeAdsCreationTargetingModalHawkToolEnabled = S),
+      (l.nativeAdsMvpQE1Enabled = R),
+      (l.nativeAdsMvpQE1EnabledNoExposure = L),
+      (l.sendRunContinuouslyEnabled = E),
+      (l.nativeAdsCldrCurrencyFormattingEnabled = k),
+      (l.tempSabrQABackdoor = I),
+      (l.ctwaSabrEnabled = T),
+      (l.ctwaBudgetRecommendationEnabled = D),
+      (l.inlineNoticePartitionEnabled = x),
+      (l.ctwaInlineNoticeModules = $));
   },
   98,
 );

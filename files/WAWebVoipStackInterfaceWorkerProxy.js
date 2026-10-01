@@ -35,6 +35,7 @@ __d(
     "WAWebVoipPthreadHardening",
     "WAWebVoipPthreadWorkerFields",
     "WAWebVoipQplHelpers",
+    "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipRelayOverrides",
     "WAWebVoipSctpConnectionManager",
@@ -703,12 +704,13 @@ __d(
                   o(
                     "WAWebVoipWebTransportConnectionManager",
                   ).registerFallbackHandler(function (e) {
-                    (o("WALogger").LOG(
-                      E ||
-                        (E = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [WebTransport] Falling back to SCTP after connect failure (worker proxy)",
-                        ])),
-                    ),
+                    if (
+                      (o("WALogger").LOG(
+                        E ||
+                          (E = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [WebTransport] Falling back to SCTP after connect failure (worker proxy)",
+                          ])),
+                      ),
                       o(
                         "WAWebVoipSctpConnectionManager",
                       ).markSctpEnteredViaWebTransportFallback(),
@@ -719,24 +721,39 @@ __d(
                       o(
                         "WAWebVoipWebTransportConnectionManager",
                       ).closeAllConnections(!1),
-                      e != null
-                        ? (o(
-                            "WAWebVoipTransportFallbackTracker",
-                          ).markFallbackSctpStarted(),
-                          o(
-                            "WAWebVoipSctpConnectionManager",
-                          ).handleRelayListUpdate(e, {
-                            bypassConnectionStagger: o(
-                              "WAWebVoipGatingUtils",
-                            ).isWebTransportFastSetupEnabled(),
-                          }))
-                        : o("WALogger").WARN(
-                            k ||
-                              (k = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [WebTransport] Fallback handler had no cached relay list to replay",
-                              ])),
-                          ));
+                      e != null)
+                    ) {
+                      o(
+                        "WAWebVoipTransportFallbackTracker",
+                      ).markFallbackSctpStarted();
+                      var t = o(
+                        "WAWebVoipSctpConnectionManager",
+                      ).activateWebTransportSctpWarmStandbyForRelayList(e);
+                      (t &&
+                        o(
+                          "WAWebVoipRelayConnectQpl",
+                        ).markVoipRelayConnectQplMeasured(),
+                        o(
+                          "WAWebVoipSctpConnectionManager",
+                        ).handleRelayListUpdate(e, {
+                          bypassConnectionStagger: o(
+                            "WAWebVoipGatingUtils",
+                          ).isWebTransportFastSetupEnabled(),
+                        }));
+                    } else
+                      o("WALogger").WARN(
+                        k ||
+                          (k = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [WebTransport] Fallback handler had no cached relay list to replay",
+                          ])),
+                      );
                   }),
+                  o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).registerHealthyHandler(
+                    o("WAWebVoipSctpConnectionManager")
+                      .cleanupWebTransportSctpWarmStandby,
+                  ),
                   o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                     o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                       .LOG_RING_BUFFER,
@@ -976,14 +993,8 @@ __d(
               (me = !1),
               (de = !1),
               o("WAWebVoipLogDrainer").stopLogDrainer(),
-              o("WAWebVoipGatingUtils").isWebTransportEnabled()
-                ? o(
-                    "WAWebVoipWebTransportConnectionManager",
-                  ).closeAllConnections()
-                : (o(
-                    "WAWebVoipWebTransportConnectionManager",
-                  ).closeAllConnections(),
-                  o("WAWebVoipSctpConnectionManager").cleanupAllConnections()),
+              o("WAWebVoipWebTransportConnectionManager").closeAllConnections(),
+              o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
               o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
               o("WAWebVoipTransportFallbackTracker").resetFallbackTracker(),
               o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),

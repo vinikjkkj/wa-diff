@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebContactImportTemplateParsingUtils",
     "WAWebContactManagerCreateCustomerRecord",
+    "WAWebContactManagerImportDateParsingUtils",
     "WAWebContactManagerImportTemplateUtils",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebLeadStageNames",
@@ -35,7 +36,7 @@ __d(
           yield o(
             "WAWebContactManagerCreateCustomerRecord",
           ).createCustomerRecord({
-            acquisitionSource: _(e),
+            acquisitionSource: f(e),
             address:
               (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
                 e.rawRow,
@@ -46,6 +47,7 @@ __d(
               )) != null
                 ? t
                 : "",
+            birthday: p(e, "birthday"),
             chatJid: o("WAWebWidToJid").widToChatJid(a),
             email:
               (n = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
@@ -59,7 +61,8 @@ __d(
                 : "",
             firstName: e.firstName,
             lastName: e.lastName,
-            leadStage: p(e),
+            leadStage: _(e),
+            lastOrder: p(e, "lastOrder"),
             note: o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
               e.rawRow,
               ["Notes", o("WAWebContactManagerImportTemplateUtils").FBT_NOTES],
@@ -77,7 +80,29 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e) {
+    function p(e, t) {
+      var n =
+          t === "birthday"
+            ? [
+                "Birthday",
+                o("WAWebContactManagerImportTemplateUtils").FBT_BIRTHDAY,
+              ]
+            : [
+                "Last order",
+                o("WAWebContactManagerImportTemplateUtils").FBT_LAST_ORDER,
+              ],
+        r = o(
+          "WAWebContactManagerImportDateParsingUtils",
+        ).parseContactManagerImportDate(
+          o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+            e.rawRow,
+            n,
+          ),
+          t,
+        );
+      return r.type === "valid" ? r.value : void 0;
+    }
+    function _(e) {
       var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         [
@@ -89,7 +114,7 @@ __d(
         ? o("WAWebLeadStageNames").getLeadStageFromName(t)
         : null;
     }
-    function _(e) {
+    function f(e) {
       var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         [
@@ -104,7 +129,7 @@ __d(
           ).getProfileAcquisitionSourceIdFromLabel(t)
         : null;
     }
-    function f(t, n, a) {
+    function g(t, n, a) {
       return n.reduce(function (n, a, i) {
         return a.status === "fulfilled"
           ? babelHelpers.extends({}, n, { successCount: n.successCount + 1 })
@@ -122,12 +147,12 @@ __d(
             babelHelpers.extends({}, n, { failureCount: n.failureCount + 1 }));
       }, a);
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (t >= e.length) return r;
           var o = e.slice(t, t + c),
             a = yield (u || (u = n("Promise"))).allSettled(
@@ -135,18 +160,18 @@ __d(
                 return d(e);
               }),
             );
-          return g(e, t + c, f(o, a, r));
+          return h(e, t + c, g(o, a, r));
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(e, 0, { failureCount: 0, successCount: 0 });
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield h(e, 0, { failureCount: 0, successCount: 0 });
           return (
             o("WALogger")
               .LOG(
@@ -163,10 +188,10 @@ __d(
             t
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.saveImportedContacts = y;
+    l.saveImportedContacts = C;
   },
   98,
 );

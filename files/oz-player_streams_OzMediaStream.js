@@ -388,15 +388,12 @@ __d(
               n = this.$OzMediaStream$p_26.computeBufferTarget();
             if (n <= 0) return null;
             var r = null;
-            if (
-              (t && (r = this.$OzMediaStream$p_8.getCustomFieldFirstSegment()),
-              !r &&
-                this.$OzMediaStream$p_8.canPredict() &&
-                this.$OzMediaStream$p_36 != null)
-            ) {
-              var a =
+            t && (r = this.$OzMediaStream$p_8.getCustomFieldFirstSegment());
+            var a = this.$OzMediaStream$p_36;
+            if (!r && this.$OzMediaStream$p_8.canPredict() && a != null) {
+              var i =
                 this.$OzMediaStream$p_35 && this.$OzMediaStream$p_7.isPlaying();
-              return this.$OzMediaStream$p_36.getSegment(
+              return a.getSegment(
                 this.$OzMediaStream$p_8,
                 this.$OzMediaStream$p_7,
                 n,
@@ -404,7 +401,7 @@ __d(
                 this.$OzMediaStream$p_9,
                 this.$OzMediaStream$p_10,
                 this.$OzMediaStream$p_1,
-                a,
+                i,
                 this.$OzMediaStream$p_21,
               );
             } else if (
@@ -421,28 +418,28 @@ __d(
                 )),
               this.$OzMediaStream$p_8.canPredict())
             ) {
-              var i =
+              var l =
                   (this.$OzMediaStream$p_10 &&
                     this.$OzMediaStream$p_10.getSequenceNumber()) ||
                   0,
-                l = (r && r.getSequenceNumber()) || 0;
-              if (r && this.$OzMediaStream$p_10 && i >= l) {
-                var s = o(
+                s = (r && r.getSequenceNumber()) || 0;
+              if (r && this.$OzMediaStream$p_10 && l >= s) {
+                var u = o(
                   "oz-player/streams/OzSegmentLocator",
                 ).getEndingSequenceNumber(this.$OzMediaStream$p_8);
-                return (s || 0) >= i ? this.$OzMediaStream$p_10 : null;
+                return (u || 0) >= l ? this.$OzMediaStream$p_10 : null;
               }
             }
             if (!r && !this.$OzMediaStream$p_56()) {
-              var u = this.$OzMediaStream$p_8.getEndingSegment();
-              if (u && this.$OzMediaStream$p_8.isEndingSegment(u)) {
-                var c = u.getTimeRange().endTime,
-                  d = o("oz-player/streams/OzSegmentLocator").getTimeToQuery(
+              var c = this.$OzMediaStream$p_8.getEndingSegment();
+              if (c && this.$OzMediaStream$p_8.isEndingSegment(c)) {
+                var d = c.getTimeRange().endTime,
+                  m = o("oz-player/streams/OzSegmentLocator").getTimeToQuery(
                     this.$OzMediaStream$p_7,
                     e,
                     this.$OzMediaStream$p_9,
                   );
-                d >= c && !this.$OzMediaStream$p_56() && (r = u);
+                m >= d && !this.$OzMediaStream$p_56() && (r = c);
               }
             }
             return r;

@@ -13,9 +13,11 @@ __d(
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebSwNotificationBannerRegistry",
+    "WAWebUserPrefsGeneral",
     "WAWebVoipNotificationActionBus",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,22 +27,23 @@ __d(
       c,
       d,
       m,
-      p = r("requireDeferred")("WAWebPipVideoStreaming").__setRef(
+      p,
+      _ = r("requireDeferred")("WAWebPipVideoStreaming").__setRef(
         "WAWebSWBusInit",
       );
-    function _() {
-      return f.apply(this, arguments);
-    }
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (yield p.load()).handleVideoStreamingRequest;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (yield _.load()).handleVideoStreamingRequest;
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
     if (r("WAWebFeatureDetectionSwSupport").supported) {
-      var g = function () {
+      var h = function () {
         try {
           var t = navigator.serviceWorker;
           t != null &&
@@ -69,10 +72,10 @@ __d(
         }
       };
       try {
-        var h = navigator.serviceWorker;
-        h &&
-          h.addEventListener("controllerchange", function (e) {
-            g();
+        var y = navigator.serviceWorker;
+        y &&
+          y.addEventListener("controllerchange", function (e) {
+            h();
           });
       } catch (e) {
         o("WALogger").WARN(
@@ -85,9 +88,9 @@ __d(
         );
       }
       try {
-        var y = navigator.serviceWorker;
-        y &&
-          y.addEventListener("error", function (e) {
+        var C = navigator.serviceWorker;
+        C &&
+          C.addEventListener("error", function (e) {
             o("WAWebSocketModel").Socket.state !==
               o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED &&
               o("WALogger").WARN(
@@ -109,14 +112,14 @@ __d(
           e,
         );
       }
-      g();
-      var C = function (t, n) {
+      h();
+      var b = function (t, n) {
           t.buffer.forEach(function (e) {
             var t,
               r = (t = e.message[0]) != null ? t : "",
               a = "ServiceWorker (" + n + "): " + r,
               i = e.level.match(/^(.*?)(?:Verbose)?$/i),
-              l = S(i[1]);
+              l = R(i[1]);
             o("WAWebLoggerImpl").Logger.logImpl(
               l,
               a,
@@ -126,7 +129,7 @@ __d(
             );
           });
         },
-        b = new (r("WAWebSWBus"))(function (e) {
+        v = new (r("WAWebSWBus"))(function (e) {
           var t,
             a = e.action,
             i = e.message,
@@ -136,7 +139,7 @@ __d(
             case r("WAWebSWBusActions").EXP_BACKOFF:
             case r("WAWebSWBusActions").REQUEST_RMR:
             case r("WAWebSWBusActions").SEND_STREAMING_CHUNK:
-              return (t = _()) == null
+              return (t = f()) == null
                 ? void 0
                 : t.then(function (e) {
                     return e == null ? void 0 : e({ action: a, message: i });
@@ -145,10 +148,10 @@ __d(
               return o("WAWebSocketModel").Socket.state ===
                 o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED
                 ? void 0
-                : (i && C(i, l), { test: !0 });
+                : (i && b(i, l), { test: !0 });
             case r("WAWebSWBusActions").UPLOAD_LOGS:
               return (
-                i && C(i, l),
+                i && b(i, l),
                 o("WAWebCrashlog")
                   .upload({ reason: "Requested by Service Worker" })
                   .then(r("WAWebNoop"))
@@ -156,9 +159,9 @@ __d(
             case r("WAWebSWBusActions").HEARTBEAT:
               return i;
             case r("WAWebSWBusActions").ACCEPT_CALL_FROM_NOTIFICATION:
-              return { handled: v("accept_call", i) };
+              return { handled: S("accept_call", i) };
             case r("WAWebSWBusActions").DECLINE_CALL_FROM_NOTIFICATION:
-              return { handled: v("decline_call", i) };
+              return { handled: S("decline_call", i) };
             case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLICKED:
               return {
                 handled: o(
@@ -176,12 +179,12 @@ __d(
                 ),
               };
             default:
-              return (m || (m = n("Promise"))).reject(
+              return (p || (p = n("Promise"))).reject(
                 r("err")("Invalid Action: " + a),
               );
           }
         });
-      (b.init(),
+      (v.init(),
         o("WAWebCmd").Cmd.on("logout_from_bridge", function () {
           var e = navigator.serviceWorker;
           e != null &&
@@ -191,7 +194,7 @@ __d(
               .catch(r("WAWebNoop"));
         }));
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = !1;
       return (
         r("WAWebVoipNotificationActionBus").trigger(e, {
@@ -200,10 +203,30 @@ __d(
             return n ? !1 : ((n = !0), !0);
           },
         }),
+        n &&
+          o("WAWebUserPrefsGeneral")
+            .addToNotificationEngagement(
+              e === "accept_call"
+                ? { totalNotifRtcVoipAccept: 1 }
+                : { totalNotifRtcVoipDecline: 1 },
+            )
+            .catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sw] failed to count call notification action ",
+                      "",
+                    ])),
+                  e,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("count-call-notification-action-failed");
+            }),
         n
       );
     }
-    function S(e) {
+    function R(e) {
       switch (e) {
         case "info":
           return 1;

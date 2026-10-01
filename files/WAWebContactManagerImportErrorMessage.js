@@ -18,7 +18,9 @@ __d(
           ? s._(/*BTDS*/ "Unknown lead stage").toString()
           : t === e.INVALID_ACQUISITION_SOURCE
             ? s._(/*BTDS*/ "Unknown source").toString()
-            : null;
+            : t === o("WAWebContactImportTypedError").DateError.INVALID_DATE
+              ? s._(/*BTDS*/ "Invalid date").toString()
+              : null;
     }
     function d(e) {
       return e === o("WAWebContactImportTypedError").PhoneError.DUPLICATE

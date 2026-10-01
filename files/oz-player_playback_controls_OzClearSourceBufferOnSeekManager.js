@@ -172,6 +172,7 @@ __d(
             o = t && typeof t.set == "function" ? t.set : null,
             a = n && typeof n.get == "function" ? n.get : null;
           if (r && o && a && Object.defineProperty) {
+            var i = this.$1;
             try {
               (Object.defineProperty(this.$1, "currentTime", {
                 get: function () {
@@ -183,15 +184,15 @@ __d(
                 configurable: !0,
                 enumerable: !0,
               }),
-                Object.defineProperty(this.$1, "seeking", {
+                Object.defineProperty(i, "seeking", {
                   get: function () {
                     return e.$15(a);
                   },
                   configurable: !0,
                   enumerable: !0,
                 }));
-              var i = this.$1.currentTime;
-              ((this.$1.currentTime = i), this.$1.seeking);
+              var l = this.$1.currentTime;
+              ((this.$1.currentTime = l), this.$1.seeking);
             } catch (e) {}
             this.$17(function () {
               (e.getCurrentTimePropertyOverwriteSuccess() &&
@@ -202,7 +203,7 @@ __d(
                   enumerable: !0,
                 }),
                 e.getSeekingPropertyOverwriteSuccess() &&
-                  Object.defineProperty(e.$1, "seeking", {
+                  Object.defineProperty(i, "seeking", {
                     get: a,
                     configurable: !0,
                     enumerable: !0,

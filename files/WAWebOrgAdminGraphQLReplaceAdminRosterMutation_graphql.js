@@ -110,6 +110,13 @@ __d(
                             name: "phone_number",
                             storageKey: null,
                           },
+                          {
+                            alias: null,
+                            args: null,
+                            kind: "ScalarField",
+                            name: "member_lid",
+                            storageKey: null,
+                          },
                         ],
                         storageKey: null,
                       },
@@ -141,7 +148,7 @@ __d(
           selections: n,
         },
         params: {
-          id: "38389150840730215",
+          id: "28419705454357517",
           metadata: {},
           name: "WAWebOrgAdminGraphQLReplaceAdminRosterMutation",
           operationKind: "mutation",

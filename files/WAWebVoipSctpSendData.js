@@ -34,6 +34,10 @@ __d(
           r instanceof SharedArrayBuffer ? new Uint8Array(r).slice().buffer : r,
         _ = m.byteLength,
         f = o("WAWebVoipRelayConnectionUtils").inspectPacketType(m);
+      if (d.isWebTransportWarmStandby === !0) {
+        o("WAWebVoipSctpPacketBuffering").bufferPacketForConnection(d, m);
+        return;
+      }
       if (
         f === o("WAWebVoipRelayConnectionUtils").PacketType.STUN_ALLOC &&
         d.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&

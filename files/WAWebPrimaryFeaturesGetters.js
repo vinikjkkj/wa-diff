@@ -6,16 +6,18 @@ __d(
         createCache: o("WAWebGettersCaches").createPrimaryFeaturesCache,
       }),
       s = e.field,
-      u = s("isAccountIntegrityStatePending"),
-      c = s("isAccountIntegrityStateTimelock"),
-      d = s("isContactsBackupOn"),
-      m = s("primaryHasAddressbookPermission"),
-      p = s("primaryHasAgreedToNativeContactsNux");
-    ((l.getIsAccountIntegrityStatePending = u),
-      (l.getIsAccountIntegrityStateTimelock = c),
-      (l.getIsContactsBackupOn = d),
-      (l.getPrimaryHasAddressbookPermission = m),
-      (l.getPrimaryHasAgreedToNativeContactsNux = p));
+      u = s("customPaymentMethodsSyncSupport"),
+      c = s("isAccountIntegrityStatePending"),
+      d = s("isAccountIntegrityStateTimelock"),
+      m = s("isContactsBackupOn"),
+      p = s("primaryHasAddressbookPermission"),
+      _ = s("primaryHasAgreedToNativeContactsNux");
+    ((l.getCustomPaymentMethodsSyncSupport = u),
+      (l.getIsAccountIntegrityStatePending = c),
+      (l.getIsAccountIntegrityStateTimelock = d),
+      (l.getIsContactsBackupOn = m),
+      (l.getPrimaryHasAddressbookPermission = p),
+      (l.getPrimaryHasAgreedToNativeContactsNux = _));
   },
   98,
 );

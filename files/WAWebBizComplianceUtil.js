@@ -57,7 +57,7 @@ __d(
       );
     }
     var c = function (t, n) {
-      return !!(t || n);
+      return (t != null && t !== "") || (n != null && n !== "");
     };
     function d(e) {
       return !!(e != null && e.trim());

@@ -401,9 +401,7 @@ __d(
         (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield o("WAPromiseDelays").withTimeout(
-              e.then(function () {
-                return !0;
-              }),
+              e.then(o("WAWebBoolFunc").returnTrue),
               ae,
               function () {
                 return (

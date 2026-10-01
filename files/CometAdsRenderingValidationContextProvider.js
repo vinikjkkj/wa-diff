@@ -11,49 +11,99 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = e,
-      c = u.useMemo,
-      d = u.useReducer,
-      m = { logs: [] };
-    function p(e) {
-      var t = o("react-compiler-runtime").c(10),
+      c = u.useCallback,
+      d = u.useMemo,
+      m = u.useRef,
+      p = { hasImpressionEnded: !1, logs: [] };
+    function _(e) {
+      var t = o("react-compiler-runtime").c(12),
         n = e.adClientToken,
         a = e.adId,
         i = e.children,
         l = e.postRenderingLoggers,
-        u = d(o("CometAdsRenderingValidationReducer").reducer, m),
-        c = u[0],
-        p = u[1],
+        u = m(p),
+        c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = new Set()), (t[0] = c))
+        : (c = t[0]);
+      var d = m(c),
         _;
-      t[0] !== n || t[1] !== a || t[2] !== l
-        ? ((_ = { adClientToken: n, adId: a, postRenderingLoggers: l }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = l),
-          (t[3] = _))
-        : (_ = t[3]);
-      var f;
-      t[4] !== c || t[5] !== _
-        ? ((f = { dispatcher: p, sponsoredData: _, state: c }),
-          (t[4] = c),
-          (t[5] = _),
-          (t[6] = f))
-        : (f = t[6]);
-      var g = f,
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = function (t) {
+            u.current = o("CometAdsRenderingValidationReducer").reducer(
+              u.current,
+              t,
+            );
+          }),
+          (t[1] = _))
+        : (_ = t[1]);
+      var g = _,
         h;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = function () {
+            d.current.forEach(f);
+          }),
+          (t[2] = h))
+        : (h = t[2]);
+      var y = h,
+        C;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = function () {
+            return u.current;
+          }),
+          (t[3] = C))
+        : (C = t[3]);
+      var b = C,
+        v;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = function (t) {
+            return (
+              d.current.add(t),
+              function () {
+                d.current.delete(t);
+              }
+            );
+          }),
+          (t[4] = v))
+        : (v = t[4]);
+      var S = v,
+        R;
+      t[5] !== n || t[6] !== a || t[7] !== l
+        ? ((R = {
+            dispatcher: g,
+            finalizePendingLogs: y,
+            getCurrentState: b,
+            registerPendingLogsFinalizer: S,
+            sponsoredData: {
+              adClientToken: n,
+              adId: a,
+              postRenderingLoggers: l,
+            },
+          }),
+          (t[5] = n),
+          (t[6] = a),
+          (t[7] = l),
+          (t[8] = R))
+        : (R = t[8]);
+      var L = R,
+        E;
       return (
-        t[7] !== i || t[8] !== g
-          ? ((h = s.jsx(r("CometAdsRenderingValidationContext").Provider, {
-              value: g,
+        t[9] !== i || t[10] !== L
+          ? ((E = s.jsx(r("CometAdsRenderingValidationContext").Provider, {
+              value: L,
               children: i,
             })),
-            (t[7] = i),
-            (t[8] = g),
-            (t[9] = h))
-          : (h = t[9]),
-        h
+            (t[9] = i),
+            (t[10] = L),
+            (t[11] = E))
+          : (E = t[11]),
+        E
       );
     }
-    l.default = p;
+    function f(e) {
+      e();
+    }
+    l.default = _;
   },
   98,
 );

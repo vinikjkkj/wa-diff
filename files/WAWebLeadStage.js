@@ -2,12 +2,12 @@ __d(
   "WAWebLeadStage",
   [],
   function (t, n, r, o, a, i) {
-    var e = { NONE: 0, INTAKE: 1, QUALIFIED: 2, CONVERTED: 3, LOST: 4 },
+    var e = { LEAD: 0, INTAKE: 1, QUALIFIED: 2, CONVERTED: 3, LOST: 4 },
       l = [e.INTAKE, e.QUALIFIED, e.CONVERTED, e.LOST],
-      s = [e.NONE].concat(l);
+      s = [e.LEAD].concat(l);
     function u(t) {
       return t === 0
-        ? e.NONE
+        ? e.LEAD
         : t === 1
           ? e.INTAKE
           : t === 2

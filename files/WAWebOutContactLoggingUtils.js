@@ -60,7 +60,9 @@ __d(
     }
     function u(e) {
       var t = e.entryPoint,
-        n = o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
+        n = e.isServerSentInvite,
+        r = n === void 0 ? !1 : n,
+        a = o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
@@ -68,13 +70,16 @@ __d(
           {},
           p(),
           {
-            companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
-              .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
+            companionInviteMethod: r
+              ? o("WAWebWamEnumCompanionInviteMethodType")
+                  .COMPANION_INVITE_METHOD_TYPE.SERVER_SMS
+              : o("WAWebWamEnumCompanionInviteMethodType")
+                  .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
             companionInviteOrigin: t,
             companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
               .COMPANION_INVITE_ACTION_TYPE.IMPRESSION,
           },
-          n != null ? { companionInviteSessionId: n } : {},
+          a != null ? { companionInviteSessionId: a } : {},
         ),
       ).commit();
     }

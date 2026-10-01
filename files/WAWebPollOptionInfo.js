@@ -268,7 +268,7 @@ __d(
         b = p === "polls_sender" ? c.pollsSender : c.pollsReceiver,
         v;
       t[2] !== n
-        ? ((v = o("WAWebMsgGetters").getPollHideVoterNames(n)),
+        ? ((v = o("WAWebMsgGetters").getPollHideVoterNames(n.unsafe())),
           (t[2] = n),
           (t[3] = v))
         : (v = t[3]);
@@ -343,7 +343,7 @@ __d(
         : (P = t[20]);
       var N;
       t[21] !== n
-        ? ((N = o("WAWebMsgGetters").getIsNewsletterMsg(n)),
+        ? ((N = o("WAWebMsgGetters").getIsNewsletterMsg(n.unsafe())),
           (t[21] = n),
           (t[22] = N))
         : (N = t[22]);

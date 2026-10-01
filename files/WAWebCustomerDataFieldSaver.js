@@ -74,6 +74,7 @@ __d(
           ).upsertCustomerProfileToServer(t, {
             acquisitionSource: a == null ? void 0 : a.acquisitionSource,
             address: a == null ? void 0 : a.address,
+            birthday: a == null ? void 0 : a.birthday,
             email: a == null ? void 0 : a.email,
             lastOrder: a == null ? void 0 : a.lastOrder,
             leadStage: n,

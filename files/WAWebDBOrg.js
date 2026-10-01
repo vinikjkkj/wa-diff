@@ -23,8 +23,8 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e.length !== 0 &&
-            (yield o("WAWebModelStorageUtils")
+          if (e.length !== 0) {
+            var t = o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
                 [s],
@@ -40,7 +40,7 @@ __d(
                         );
                       yield r.bulkCreateOrReplace(
                         e.map(function (e, t) {
-                          return D(e, o[t]);
+                          return $(e, o[t]);
                         }),
                       );
                     },
@@ -49,18 +49,20 @@ __d(
                     return t.apply(this, arguments);
                   };
                 })(),
-              ));
+              );
+            yield t;
+          }
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = null;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = 0;
           return (
             yield o("WAWebModelStorageUtils")
               .getStorage()
@@ -69,45 +71,43 @@ __d(
                 (function () {
                   var o = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (o) {
-                      var i = o[0],
-                        l = o[1],
+                      var a = o[0],
+                        i = o[1],
+                        l = a,
                         s = i,
-                        u = l,
-                        c = yield s.all();
-                      if (r()) {
-                        var d = new Set(
-                            t.map(function (e) {
-                              return e.orgId;
-                            }),
-                          ),
-                          m = new Map(
-                            c.map(function (e) {
-                              return [e.orgId, e];
-                            }),
-                          ),
-                          p = c
-                            .map(function (e) {
-                              return e.orgId;
-                            })
-                            .filter(function (e) {
-                              return !d.has(e);
-                            });
-                        (t.length > 0 &&
-                          (yield s.bulkCreateOrReplace(
-                            t.map(function (e) {
-                              return D(e, m.get(e.orgId));
-                            }),
-                          )),
-                          yield (e || (e = n("Promise"))).all(
-                            p.map(function (t) {
-                              return (e || (e = n("Promise"))).all([
-                                s.remove(t),
-                                k(u, t),
-                              ]);
-                            }),
-                          ),
-                          (a = p.length));
-                      }
+                        u = yield l.all(),
+                        c = new Set(
+                          t.map(function (e) {
+                            return e.orgId;
+                          }),
+                        ),
+                        d = new Map(
+                          u.map(function (e) {
+                            return [e.orgId, e];
+                          }),
+                        ),
+                        m = u
+                          .map(function (e) {
+                            return e.orgId;
+                          })
+                          .filter(function (e) {
+                            return !c.has(e);
+                          });
+                      (t.length > 0 &&
+                        (yield l.bulkCreateOrReplace(
+                          t.map(function (e) {
+                            return $(e, d.get(e.orgId));
+                          }),
+                        )),
+                        yield (e || (e = n("Promise"))).all(
+                          m.map(function (t) {
+                            return (e || (e = n("Promise"))).all([
+                              l.remove(t),
+                              T(s, t),
+                            ]);
+                          }),
+                        ),
+                        (r = m.length));
                     },
                   );
                   return function (e) {
@@ -115,7 +115,7 @@ __d(
                   };
                 })(),
               ),
-            a
+            r
           );
         })),
         g.apply(this, arguments)
@@ -138,7 +138,7 @@ __d(
                       r = t[1],
                       o = n,
                       a = r;
-                    (yield o.remove(e), yield k(a, e));
+                    (yield o.remove(e), yield T(a, e));
                   },
                 );
                 return function (e) {
@@ -162,57 +162,101 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [s, u],
-                (function () {
-                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var o = n[0],
-                        l = n[1],
-                        s = o,
-                        u = l,
-                        c = yield s.bulkGet([e]),
-                        d = c[0];
-                      if (d == null)
-                        throw r("err")(
-                          "Cannot complete roster for missing org " + e,
-                        );
-                      (yield k(u, e),
-                        yield u.bulkCreateOrReplace(
-                          t.map(function (t) {
-                            return T(babelHelpers.extends({}, t, { orgId: e }));
-                          }),
-                        ),
-                        yield s.bulkCreateOrReplace([
-                          babelHelpers.extends({}, d, {
-                            directoryIsComplete: i,
-                            memberCount: a,
-                          }),
-                        ]));
-                    },
-                  );
-                  return function (e) {
-                    return o.apply(this, arguments);
-                  };
-                })(),
-              );
+            return (
+              yield o("WAWebModelStorageUtils")
+                .getStorage()
+                .lock(
+                  [s, u],
+                  (function () {
+                    var o = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (n) {
+                        var o = n[0],
+                          l = n[1],
+                          s = o,
+                          u = l,
+                          c = yield s.bulkGet([e]),
+                          d = c[0];
+                        if (d == null)
+                          throw r("err")(
+                            "Cannot complete roster for missing org " + e,
+                          );
+                        (yield T(u, e),
+                          yield u.bulkCreateOrReplace(
+                            t.map(function (t) {
+                              return x(
+                                babelHelpers.extends({}, t, { orgId: e }),
+                              );
+                            }),
+                          ),
+                          yield s.bulkCreateOrReplace([
+                            babelHelpers.extends({}, d, {
+                              directoryIsComplete: i,
+                              memberCount: a,
+                            }),
+                          ]));
+                      },
+                    );
+                    return function (e) {
+                      return o.apply(this, arguments);
+                    };
+                  })(),
+                ),
+              !0
+            );
           },
         )),
         v.apply(this, arguments)
       );
     }
-    function S(e, t, n, r) {
+    function S(e) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = Array.from(e.keys());
+          if (t.length === 0) return [];
+          var r = Array.from(e).flatMap(function (e) {
+            var t = e[0],
+              n = e[1];
+            return n.map(function (e) {
+              return x(babelHelpers.extends({}, e, { lid: t }));
+            });
+          });
+          return (
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                [u],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var n = e[0],
+                        o = n;
+                      (yield o.bulkRemoveByIndex(["lid"], t),
+                        r.length > 0 && (yield o.bulkCreateOrReplace(r)));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            r
+          );
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e, t, n, r) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
-            var i = !1;
-            return (
-              yield o("WAWebModelStorageUtils")
+            var i = !1,
+              l = o("WAWebModelStorageUtils")
                 .getStorage()
                 .lock(
                   [s, u],
@@ -249,23 +293,21 @@ __d(
                       return o.apply(this, arguments);
                     };
                   })(),
-                ),
-              i
-            );
+                );
+            return (yield l, i);
           },
         )),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = !1;
-          return (
-            yield o("WAWebModelStorageUtils")
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = !1,
+            i = o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
                 [s, u],
@@ -290,6 +332,7 @@ __d(
                           ? yield l.createOrReplace(
                               babelHelpers.extends({}, u, {
                                 directoryIsComplete: !1,
+                                memberCount: r,
                               }),
                             )
                           : u != null &&
@@ -311,25 +354,24 @@ __d(
                     return o.apply(this, arguments);
                   };
                 })(),
-              ),
-            a
-          );
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield e.bulkDeleteRange(["orgId", "lid"], [t, c], [t, d]);
+              );
+          return (yield i, a);
         })),
         I.apply(this, arguments)
       );
     }
-    function T(e) {
+    function T(e, t) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield e.bulkDeleteRange(["orgId", "lid"], [t, c], [t, d]);
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e) {
       var t = {
         orgId: e.orgId,
         lid: e.lid,
@@ -343,7 +385,7 @@ __d(
         t
       );
     }
-    function D(e, t) {
+    function $(e, t) {
       var n,
         r,
         a = {
@@ -388,8 +430,9 @@ __d(
       (l.removeOrg = h),
       (l.getOrgContacts = C),
       (l.replaceCompleteOrgRoster = b),
-      (l.updateOrgMemberRole = S),
-      (l.removeOrgMember = L));
+      (l.replaceOrgMembershipsForLids = S),
+      (l.updateOrgMemberRole = L),
+      (l.removeOrgMember = k));
   },
   98,
 );

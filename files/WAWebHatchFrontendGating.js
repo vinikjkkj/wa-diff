@@ -35,6 +35,14 @@ __d(
     function d() {
       return (
         e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_secure_credentials_enabled",
+        )
+      );
+    }
+    function m() {
+      return (
+        e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_manage_subscription_enabled",
@@ -45,7 +53,8 @@ __d(
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
       (l.isHatchIdeasEnabled = c),
-      (l.isHatchManageSubscriptionEnabled = d));
+      (l.isHatchSecureCredentialsEnabled = d),
+      (l.isHatchManageSubscriptionEnabled = m));
   },
   98,
 );

@@ -46,7 +46,7 @@ __d(
             if (d.containsFile(n)) {
               if (l) return [o("WASISnapshotPreview1").RESULT.ENOTDIR];
               if (s) return [o("WASISnapshotPreview1").RESULT.EEXIST];
-              var m = d.get(n);
+              var m = d.dir[d.fullPath(n)];
               return this.$1(m, u, a);
             } else if (this.$3(d, n)) {
               if (n === ".") return this.$2(this.fs, "/");

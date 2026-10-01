@@ -7,6 +7,7 @@ __d(
     "WAWebAppTracker",
     "WAWebBackendApi",
     "WAWebEnvironment",
+    "WAWebGettersMemoryPressure",
     "WAWebLidAwareContactsDB",
     "WAWebMemoryStatWamEvent",
     "WAWebRuntimeEnvironmentUtils",
@@ -143,16 +144,22 @@ __d(
       ((T = new (o("WAShiftTimer").ShiftTimer)(function () {
         var e = h();
         (e != null &&
-          Math.abs(e.usedJsHeapSize - f) > _ &&
-          ((f = e.usedJsHeapSize),
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[MemoryStat] js heap size: ",
-                "Gb",
-              ])),
-            (e.usedJsHeapSize / 1024).toFixed(2),
-          )),
+          (Math.abs(e.usedJsHeapSize - f) > _ &&
+            ((f = e.usedJsHeapSize),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MemoryStat] js heap size: ",
+                  "Gb",
+                ])),
+              (e.usedJsHeapSize / 1024).toFixed(2),
+            )),
+          o(
+            "WAWebGettersMemoryPressure",
+          ).maybeClearGetterCachesForMemoryPressure({
+            jsHeapSizeLimitMb: e.jsHeapSizeLimit,
+            usedJsHeapSizeMb: e.usedJsHeapSize,
+          })),
           L === o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE &&
             I !== 0 &&
             I % S === 0 &&

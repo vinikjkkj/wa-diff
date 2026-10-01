@@ -11,8 +11,14 @@ __d(
             "CometAdsRenderingValidationLoggingContext is not initialized with a valid dispatcher",
           );
         },
+        finalizePendingLogs: function () {},
+        getCurrentState: function () {
+          return null;
+        },
+        registerPendingLogsFinalizer: function (t) {
+          return function () {};
+        },
         sponsoredData: null,
-        state: null,
       });
     l.default = u;
   },

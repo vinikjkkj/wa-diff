@@ -25,7 +25,7 @@ __d(
               encodedProtobuf: yield o(
                 "WAWebPollsProtobufConversion",
               ).protobufFromVote(e, t.pollOptions),
-              isOneOnOne: o("WAWebMsgGetters").getRemote(t).isUser(),
+              isOneOnOne: o("WAWebMsgGetters").getRemote(t.unsafe()).isUser(),
               iv: a,
               messageSecret: r("nullthrows")(
                 t.messageSecret,

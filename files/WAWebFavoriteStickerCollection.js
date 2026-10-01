@@ -20,18 +20,18 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f;
-    function g(e, t) {
+    var e, s, u, c, d, m, p, _, f, g;
+    function h(e, t) {
       return e.timestamp < t.timestamp ? 1 : -1;
     }
-    var h = (function (e) {
+    var y = (function (e) {
       function t() {
         for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t._comparator = function (e, t) {
-            return g(e, t);
+            return h(e, t);
           }),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
@@ -39,15 +39,15 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WAWebBaseCollection").BaseCollection);
-    h.model = r("WAWebFavoriteStickerModel");
-    var y = (function (t) {
+    y.model = r("WAWebFavoriteStickerModel");
+    var C = (function (t) {
       function a() {
         for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
         return (
           (e = t.call.apply(t, [this].concat(r)) || this),
           (e._comparator = function (e, t) {
-            return g(e, t);
+            return h(e, t);
           }),
           (e._emojiToCollection = new Map()),
           (e._hasInitializedFromCache = !1),
@@ -93,7 +93,7 @@ __d(
             t.prototype.reset.call(this));
         }),
         (i._addSaveTask = function () {
-          var e = this;
+          var t = this;
           (!this._idleTaskId ||
             !o("WAWebIdleTaskRunner").IdleCallbackTasks.isInQueue(
               this._idleTaskId,
@@ -101,12 +101,23 @@ __d(
             (this._idleTaskId = o(
               "WAWebIdleTaskRunner",
             ).IdleCallbackTasks.enqueue(function () {
-              e._saveToDb();
+              t._saveToDb().catch(function (t) {
+                var n = r("getErrorSafe")(t);
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "FavoriteStickerCollection attempt to save to database failed",
+                      ])),
+                  )
+                  .catching(n)
+                  .sendLogs("favorite-sticker-save-to-db-failed");
+              });
             }));
         }),
         (i._saveToDb = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t = this.toArray().map(function (e) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = this.toArray().map(function (e) {
               var t = e.sticker.toDbData();
               return {
                 id: e.id,
@@ -131,53 +142,53 @@ __d(
               };
             });
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[FavStickers] saving to DB, count=",
                   "",
                 ])),
-              t.length,
+              e.length,
             );
             try {
-              var n = o(
+              var t = o(
                   "WAWebSchemaFavoriteStickers",
                 ).getFavoriteStickersTable(),
-                a = yield n.count();
+                n = yield t.count();
               (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[FavStickers] before save, DB count=",
                     "",
                   ])),
-                a,
+                n,
               ),
-                yield n.clear(),
-                yield n.bulkCreateOrReplace(t),
-                (a = yield n.count()),
+                yield t.clear(),
+                yield t.bulkCreateOrReplace(e),
+                (n = yield t.count()),
                 o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "Favorite Stickers: after save, stickers in DB with length: ",
                       "",
                     ])),
-                  a,
+                  n,
                 ));
             } catch (e) {
-              var i = r("getErrorSafe")(e);
+              var a = r("getErrorSafe")(e);
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "FavoriteStickerCollection attempt to save to database failed",
                     ])),
                 )
-                .sendLogs(i.message);
+                .sendLogs(a.message);
             }
           });
-          function a() {
-            return t.apply(this, arguments);
+          function t() {
+            return e.apply(this, arguments);
           }
-          return a;
+          return t;
         })()),
         (i._dbDataToModel = function (t) {
           return new (r("WAWebFavoriteStickerModel"))({
@@ -222,8 +233,8 @@ __d(
               });
               if (
                 (o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "Favorite Stickers: length of stickers will be enqueued: ",
                       "",
                     ])),
@@ -231,7 +242,7 @@ __d(
                 ),
                 l.length !== 0)
               ) {
-                var s = yield (f || (f = n("Promise"))).all(
+                var s = yield (g || (g = n("Promise"))).all(
                   l.map(
                     (function () {
                       var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -259,8 +270,8 @@ __d(
                 (this.addAndSort(s),
                   this._hasInitializedFromCache &&
                     (o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "Favorite Stickers: need to save collection to DB.",
                         ])),
                     ),
@@ -282,8 +293,8 @@ __d(
           return (
             e.length &&
               (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "Favorite Stickers: length of stickers will be removed: ",
                     "",
                   ])),
@@ -296,8 +307,8 @@ __d(
         (i.initializeFromCache = function (t) {
           var e = this;
           o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[FavStickers] init from DB, count=",
                 "",
               ])),
@@ -341,9 +352,9 @@ __d(
         a
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    y.model = r("WAWebFavoriteStickerModel");
-    var C = new y();
-    l.FavoriteStickerCollection = C;
+    C.model = r("WAWebFavoriteStickerModel");
+    var b = new C();
+    l.FavoriteStickerCollection = b;
   },
   98,
 );

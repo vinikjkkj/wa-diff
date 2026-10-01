@@ -280,14 +280,14 @@ __d(
               )
               .then(function (e) {
                 var t,
-                  n =
-                    e instanceof ArrayBuffer || e == null ? void 0 : e.sessions;
-                if (n) {
-                  for (var r in n)
-                    if (n[r].indexInfo.closed === -1)
-                      return n[r].registrationId;
+                  n = e instanceof ArrayBuffer ? void 0 : e,
+                  r = n == null ? void 0 : n.sessions;
+                if (r) {
+                  for (var o in r)
+                    if (r[o].indexInfo.closed === -1)
+                      return r[o].registrationId;
                 }
-                return e == null || (t = e.remote) == null ? void 0 : t.regId;
+                return n == null || (t = n.remote) == null ? void 0 : t.regId;
               });
       });
       return (y || (y = n("Promise"))).all(t);

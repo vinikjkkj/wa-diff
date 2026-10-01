@@ -10,11 +10,12 @@ __d(
           totalFrames: t.totalVideoFrames,
         };
       }
-      var n = e.webkitDroppedFrameCount,
-        r = e.webkitDecodedFrameCount;
+      var n = e,
+        r = n.webkitDroppedFrameCount,
+        o = n.webkitDecodedFrameCount;
       return {
-        droppedFrames: typeof n == "number" ? n : 0,
-        totalFrames: typeof r == "number" ? r : 0,
+        droppedFrames: typeof r == "number" ? r : 0,
+        totalFrames: typeof o == "number" ? o : 0,
       };
     }
     function l(t) {

@@ -22,46 +22,63 @@ __d(
           babelHelpers.inheritsLoose(t, e),
           (t.match = function (t, n) {
             if (!n) return [];
-            var e = n.groupMetadata,
-              a = n.isDraftMessage,
-              i = n.mentions;
-            if (a === !0) {
+            var e = n.fromChatWid,
+              a = n.groupMetadata,
+              i = n.isDraftMessage,
+              l = n.mentions;
+            if (i === !0) {
               for (
-                var l = r("WAWebExtractRangesUsingRegex")(
+                var s = r("WAWebExtractRangesUsingRegex")(
                     t,
                     new RegExp(
                       o("WAWebRichTextInputConst").userJidRegexStr,
                       "g",
                     ),
                   ),
-                  s = [],
-                  u = 0;
-                u < l.length;
-                ++u
+                  u = [],
+                  d = 0;
+                d < s.length;
+                ++d
               ) {
-                var d = l[u],
-                  m = d[4][1],
-                  p = o("WAWebWidFactory").createUserWidOrThrow(m),
-                  _ = o("WAWebContactCollection").ContactCollection.get(p);
-                if (_ == null) return [];
-                s.push([
-                  d[0],
-                  d[1],
-                  d[2],
-                  d[3],
-                  { contact: _, groupMetadata: e },
+                var m = s[d],
+                  p = m[4][1],
+                  _ = o("WAWebWidFactory").createUserWidOrThrow(p),
+                  f = o("WAWebContactCollection").ContactCollection.get(_);
+                if (f == null) return [];
+                u.push([
+                  m[0],
+                  m[1],
+                  m[2],
+                  m[3],
+                  { contact: f, fromChatWid: e, groupMetadata: a },
                 ]);
               }
-              return s;
+              return u;
             }
-            if (!i || r("isEmptyObject")(i)) return [];
+            if (!l || r("isEmptyObject")(l)) return [];
             for (
-              var f = c(i), g = r("WAWebExtractRangesUsingRegex")(t, f), h = 0;
-              h < g.length;
-              ++h
-            )
-              g[h][4] = { contact: i[g[h][4][0]], groupMetadata: e };
-            return g;
+              var g = c(l),
+                h = r("WAWebExtractRangesUsingRegex")(t, g),
+                y = [],
+                C = 0;
+              C < h.length;
+              ++C
+            ) {
+              var b = h[C],
+                v = b[0],
+                S = b[1],
+                R = b[2],
+                L = b[3],
+                E = b[4];
+              y.push([
+                v,
+                S,
+                R,
+                L,
+                { contact: l[E[0]], fromChatWid: e, groupMetadata: a },
+              ]);
+            }
+            return y;
           }),
           (t.jsx = function (t, n, o) {
             var e = o.lastMessage,

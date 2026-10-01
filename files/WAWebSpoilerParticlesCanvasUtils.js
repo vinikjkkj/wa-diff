@@ -9,30 +9,33 @@ __d(
         o = e.revealed;
       return n && !r && (!o || t);
     }
-    function l(e, t, n) {
-      var r,
-        o = e.getContext("2d");
-      if (o == null) return n;
-      var a = (r = t.textContent) != null ? r : "",
-        i = window.getComputedStyle(t);
-      o.font =
-        i.fontStyle +
+    function l(e) {
+      var t,
+        n = e.canvas,
+        r = e.sourceRects,
+        o = e.textSpan,
+        a = n.getContext("2d");
+      if (a == null) return r;
+      var i = (t = o.textContent) != null ? t : "",
+        l = window.getComputedStyle(o);
+      a.font =
+        l.fontStyle +
         " " +
-        i.fontWeight +
+        l.fontWeight +
         " " +
-        i.fontSize +
+        l.fontSize +
         " " +
-        i.fontFamily;
-      var l = o.measureText(a),
-        s = l.fontBoundingBoxAscent + l.fontBoundingBoxDescent;
-      return !Number.isFinite(s) || s <= 0
-        ? n
-        : n.map(function (e) {
+        l.fontFamily;
+      var s = a.measureText(i),
+        u = s.fontBoundingBoxAscent + s.fontBoundingBoxDescent;
+      return !Number.isFinite(u) || u <= 0
+        ? r
+        : r.map(function (e) {
             return {
               left: e.left,
-              top: e.top + (e.height - s) / 2,
+              top: e.top + (e.height - u) / 2,
               width: e.width,
-              height: s,
+              height: u,
             };
           });
     }

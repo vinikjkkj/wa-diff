@@ -99,9 +99,10 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
-                "WAWebContactManagerCustomerProfilesQuery",
-              ).fetchCustomerProfileRecords({ candidateLids: e }),
-              n = new Set();
+              "WAWebContactManagerCustomerProfilesQuery",
+            ).fetchCompleteCustomerProfileRecords({ candidateLids: e });
+            if (t == null) return null;
+            var n = new Set();
             return (
               t.forEach(function (e) {
                 var t = m(e.chatJid);

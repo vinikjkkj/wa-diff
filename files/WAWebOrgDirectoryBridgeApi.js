@@ -18,11 +18,10 @@ __d(
         "OrgDirectoryBootstrap",
       ),
       u = {
-        bootstrapOrgDirectory: function (n) {
-          var t = n.accountKey;
+        bootstrapOrgDirectory: function () {
           s()
             .then(function (e) {
-              return e.bootstrapOrgDirectory(t);
+              return e.bootstrapOrgDirectory();
             })
             .catch(function (t) {
               o("WALogger")

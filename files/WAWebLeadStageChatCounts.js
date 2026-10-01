@@ -20,7 +20,7 @@ __d(
     }
     function s(t) {
       var n = new Map(
-        [[o("WAWebLeadStage").LeadStage.NONE, 0]].concat(
+        [[o("WAWebLeadStage").LeadStage.LEAD, 0]].concat(
           o("WAWebLeadStage").LEAD_SUBSTAGE_ORDER.map(function (e) {
             return [e, 0];
           }),
@@ -34,12 +34,22 @@ __d(
               r.id.toString(),
             )) != null
               ? a
-              : o("WAWebLeadStage").LeadStage.NONE;
+              : o("WAWebLeadStage").LeadStage.LEAD;
         n.set(l, ((i = n.get(l)) != null ? i : 0) + 1);
       }
       return n;
     }
-    function u(t, n) {
+    function u(t) {
+      var n = new Set();
+      for (var r of e(t)) n.add(r.id.toString());
+      return (
+        t.labelItemCollection.forEach(function (e) {
+          e != null && n.add(e.parentId);
+        }),
+        Array.from(n)
+      );
+    }
+    function c(t, n) {
       return e(t).filter(function (e) {
         var t;
         return (
@@ -47,11 +57,13 @@ __d(
             e.id.toString(),
           )) != null
             ? t
-            : o("WAWebLeadStage").LeadStage.NONE) === n
+            : o("WAWebLeadStage").LeadStage.LEAD) === n
         );
       });
     }
-    ((l.getLeadStageChatCounts = s), (l.getLeadListChatsAtStage = u));
+    ((l.getLeadStageChatCounts = s),
+      (l.getLeadListMemberJids = u),
+      (l.getLeadListChatsAtStage = c));
   },
   98,
 );

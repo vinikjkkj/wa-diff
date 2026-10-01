@@ -305,13 +305,13 @@ __d(
         lastNameColumn: null,
       };
     }
-    function F(e, t) {
+    function F(e, t, n) {
       return O.apply(this, arguments);
     }
     function O() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.map(function (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = e.map(function (e) {
               return Object.keys(e.data).reduce(
                 function (t, n) {
                   return ((t[n] = e.data[n]), t);
@@ -319,9 +319,17 @@ __d(
                 { originalRowIndex: e.originalRowIndex },
               );
             }),
-            r = o("WAWebContactImportTemplateParsingUtils").parseContactData(n);
-          if (!t) return r;
-          var a = function (n) {
+            a =
+              n == null
+                ? o("WAWebContactImportTemplateParsingUtils").parseContactData(
+                    r,
+                  )
+                : o("WAWebContactImportTemplateParsingUtils").parseContactData(
+                    r,
+                    n,
+                  );
+          if (!t) return a;
+          var i = function (n) {
             var t, r;
             return (t = (r = e[n]) == null ? void 0 : r.originalRowIndex) !=
               null
@@ -329,11 +337,11 @@ __d(
               : n;
           };
           return {
-            errors: r.errors.map(function (e) {
-              return babelHelpers.extends({}, e, { rowIndex: a(e.rowIndex) });
+            errors: a.errors.map(function (e) {
+              return babelHelpers.extends({}, e, { rowIndex: i(e.rowIndex) });
             }),
-            validContacts: r.validContacts.map(function (e) {
-              return babelHelpers.extends({}, e, { rowIndex: a(e.rowIndex) });
+            validContacts: a.validContacts.map(function (e) {
+              return babelHelpers.extends({}, e, { rowIndex: i(e.rowIndex) });
             }),
           };
         })),
@@ -486,7 +494,7 @@ __d(
                 E,
               ));
             var k = g ? yield P(R, n) : R,
-              I = yield F(k, r.preserveSourceRows === !0);
+              I = yield F(k, r.preserveSourceRows === !0, r.validateRow);
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([

@@ -1,6 +1,8 @@
 __d(
   "WAWebContactManagerCreateCustomerRecord",
   [
+    "WAWebContactManagerCustomerProfileQuery",
+    "WAWebContactManagerCustomerProfileUpsertMutation",
     "WAWebCustomerDataFieldSaver",
     "WAWebFindChatAction",
     "WAWebNoteAction",
@@ -14,7 +16,16 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n, r, a, i, l, s;
+          var t, n, r, a, i, l, s, c, d;
+          o(
+            "WAWebContactManagerCustomerProfileUpsertMutation",
+          ).assertPersistableLastOrderDate(e.lastOrder);
+          var m =
+            e.birthday != null
+              ? yield o(
+                  "WAWebContactManagerCustomerProfileQuery",
+                ).fetchCustomerProfile(e.chatJid)
+              : null;
           (yield u(e),
             yield o("WAWebFindChatAction").findOrCreateLatestChat(
               e.profileWid,
@@ -30,24 +41,36 @@ __d(
                   (n = (r = e.address) == null ? void 0 : r.trim()) != null
                     ? n
                     : "",
-                altPhoneNumbers: "",
+                birthday:
+                  e.birthday != null
+                    ? {
+                        ifMatch:
+                          (a = m == null ? void 0 : m.etag) != null ? a : "",
+                        storedDob:
+                          (i = m == null ? void 0 : m.birthdayIso) != null
+                            ? i
+                            : null,
+                        value: e.birthday,
+                      }
+                    : void 0,
                 email:
-                  (a = (i = e.email) == null ? void 0 : i.trim()) != null
-                    ? a
+                  (l = (s = e.email) == null ? void 0 : s.trim()) != null
+                    ? l
                     : "",
+                lastOrder: e.lastOrder,
               },
             ));
-          var c = (l = e.note) == null ? void 0 : l.trim();
-          c != null &&
-            c !== "" &&
-            ((s = e.shouldWriteNote == null ? void 0 : e.shouldWriteNote()) ==
+          var p = (c = e.note) == null ? void 0 : c.trim();
+          p != null &&
+            p !== "" &&
+            ((d = e.shouldWriteNote == null ? void 0 : e.shouldWriteNote()) ==
               null ||
-              s) &&
+              d) &&
             (yield o("WAWebNoteAction").addOrEditNoteAction({
               actionType: "add",
               noteType: "unstructured",
               chatJid: e.chatJid,
-              content: c,
+              content: p,
             }));
         })),
         s.apply(this, arguments)

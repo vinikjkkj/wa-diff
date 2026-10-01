@@ -148,54 +148,40 @@ __d(
     function M(e) {
       return typeof e != "string" ? !1 : C.has(e.toLowerCase().trim());
     }
-    function w(e) {
-      var t = [],
-        n = v(e),
-        r = [];
-      e.forEach(function (e, n) {
-        var a = S(e, d),
-          i = o(
-            "WAWebContactImportValidationUtils",
-          ).validateAndFormatPhoneNumber(String(a));
-        if (
-          i.status ===
-          o("WAWebContactImportValidationUtils").ValidationStatus.INVALID
-        ) {
-          t.push({ errorType: i.type, rowData: e, rowIndex: n });
-          return;
-        }
-        r.push({ originalIndex: n, phoneResult: i, row: e });
-      });
-      var a = new Map(),
-        i = [];
-      r.forEach(function (e) {
-        var n = e.originalIndex,
-          r = e.phoneResult,
-          l = e.row,
-          s = r.value;
-        s != null && a.has(s)
-          ? t.push({
-              errorType: o("WAWebContactImportTypedError").PhoneError.DUPLICATE,
-              rowData: l,
-              rowIndex: n,
-            })
-          : s != null &&
-            (a.set(s, n), i.push({ originalIndex: n, phoneResult: r, row: l }));
-      });
-      var l = i.map(function (e) {
+    function w(e, t) {
+      var n = [],
+        r = v(e),
+        a = A(e, t, n),
+        i = new Map(),
+        l = [];
+      a.forEach(function (e) {
         var t = e.originalIndex,
           r = e.phoneResult,
           a = e.row,
+          s = r.value;
+        s != null && i.has(s)
+          ? n.push({
+              errorType: o("WAWebContactImportTypedError").PhoneError.DUPLICATE,
+              rowData: a,
+              rowIndex: t,
+            })
+          : s != null &&
+            (i.set(s, t), l.push({ originalIndex: t, phoneResult: r, row: a }));
+      });
+      var s = l.map(function (e) {
+        var t = e.originalIndex,
+          n = e.phoneResult,
+          a = e.row,
           i = void 0,
           l = void 0;
-        if (n === "single") {
+        if (r === "single") {
           var s = S(a, _),
             u = o("WAWebContactImportValidationUtils").sanitizeName(s),
             c = "";
           (u.status ===
           o("WAWebContactImportValidationUtils").ValidationStatus.VALID
             ? (c = u.value != null ? u.value : "")
-            : (c = r.value != null ? r.value : ""),
+            : (c = n.value != null ? n.value : ""),
             (i = c !== "" ? c : void 0));
         } else {
           var d = S(a, f),
@@ -216,17 +202,46 @@ __d(
                 (g = C.value != null ? C.value : "")),
             p !== "" || g !== ""
               ? ((i = p !== "" ? p : void 0), (l = g !== "" ? g : void 0))
-              : (i = r.value != null ? r.value : void 0));
+              : (i = n.value != null ? n.value : void 0));
         }
         var b = I(a),
-          v = { phone: r.value != null ? r.value : "", rowIndex: t, rawRow: b };
+          v = { phone: n.value != null ? n.value : "", rowIndex: t, rawRow: b };
         return (
           i != null && (v.firstName = i),
           l != null && (v.lastName = l),
           v
         );
       });
-      return { errors: t, validContacts: l };
+      return { errors: n, validContacts: s };
+    }
+    function A(e, t, n) {
+      var r = [];
+      return (
+        e.forEach(function (e, a) {
+          var i = S(e, d),
+            l = o(
+              "WAWebContactImportValidationUtils",
+            ).validateAndFormatPhoneNumber(String(i));
+          if (
+            l.status ===
+            o("WAWebContactImportValidationUtils").ValidationStatus.INVALID
+          ) {
+            n.push({ errorType: l.type, rowData: e, rowIndex: a });
+            return;
+          }
+          if (t != null) {
+            var s = I(e),
+              u = t(s);
+            if (u != null) {
+              var c = babelHelpers.extends({}, s);
+              n.push({ errorType: u, rowData: c, rowIndex: a });
+              return;
+            }
+          }
+          r.push({ originalIndex: a, phoneResult: l, row: e });
+        }),
+        r
+      );
     }
     ((l.FBT_PHONE = e),
       (l.FBT_NAME = u),

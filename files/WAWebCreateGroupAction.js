@@ -22,6 +22,7 @@ __d(
     "WAWebModalManager",
     "WAWebModifyParticipantsRateLimitText",
     "WAWebNoop",
+    "WAWebOrgGatingUtils",
     "WAWebOutContactInviteAction",
     "WAWebOutContactInviteUtils",
     "WAWebOutContactSmsInviteConfirmModal.react",
@@ -76,7 +77,7 @@ __d(
           if (
             (t === void 0 && (t = null),
             n === void 0 && (n = null),
-            !o("WAWebABProps").getABPropConfigValue("web_org_admin_ui_enabled"))
+            !o("WAWebOrgGatingUtils").isOrgHubEnabled())
           )
             throw r("err")("Org admin UI is disabled");
           var a = Date.now();

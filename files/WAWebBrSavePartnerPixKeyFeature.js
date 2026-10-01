@@ -24,25 +24,38 @@ __d(
           : e.pix) != null
       );
     }
-    function d(e, t, n) {
-      var r,
-        a,
-        i = function () {
+    function d(e, t) {
+      var n;
+      m(
+        "chat",
+        "chat",
+        {
+          keyType: e.keyType,
+          name: (n = e.holderName) != null ? n : void 0,
+          value: e.keyValue,
+        },
+        t,
+      );
+    }
+    function m(e, t, n, r) {
+      var a,
+        i,
+        l = function () {
           o("WAWebAddEditPixFeature").openPixCredentialManagementModal(e, t, n);
         },
-        l = n == null ? void 0 : n.value;
-      if (n == null || l == null || l === "" || c()) {
-        i();
+        d = n == null ? void 0 : n.value;
+      if (n == null || d == null || d === "" || c()) {
+        l();
         return;
       }
-      var d =
-          (r = n.keyType) != null
-            ? r
+      var m =
+          (a = n.keyType) != null
+            ? a
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
-        m =
-          d === o("WAWebUserPrefsTypes").PixKeyType.PHONE && l.startsWith(u)
-            ? l.slice(u.length)
-            : l;
+        p =
+          m === o("WAWebUserPrefsTypes").PixKeyType.PHONE && d.startsWith(u)
+            ? d.slice(u.length)
+            : d;
       o("WAWebModalManager").ModalManager.open(
         s.jsx(
           o("WAWebBrSavePartnerPixKeyModalLoadable")
@@ -50,21 +63,22 @@ __d(
           {
             bankId: n.bankId,
             bankName: n.bankName,
-            displayName: (a = n.name) != null ? a : "",
+            displayName: (i = n.name) != null ? i : "",
             onClose: function () {
               o("WAWebModalManager").ModalManager.close();
             },
             onOpenForm: function () {
-              (o("WAWebModalManager").ModalManager.close(), i());
+              (o("WAWebModalManager").ModalManager.close(), l());
             },
-            pixKey: m,
-            pixKeyType: d,
+            pixKey: p,
+            pixKeyType: m,
             referral: t,
+            resolvedAttribution: r,
           },
         ),
       );
     }
-    l.openAddPixKeyDeepLinkScreen = d;
+    ((l.openAddPixKeyMessageScreen = d), (l.openAddPixKeyDeepLinkScreen = m));
   },
   98,
 );

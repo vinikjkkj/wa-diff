@@ -36,8 +36,16 @@ __d(
             ? (u || (u = n("Promise"))).reject(
                 r("err")("Failed to create canvas from lottie sticker"),
               )
-            : new (u || (u = n("Promise")))(function (t) {
-                return e.toBlob(t, "image/png", 1);
+            : new (u || (u = n("Promise")))(function (t, n) {
+                return e.toBlob(
+                  function (e) {
+                    e == null
+                      ? n(r("err")("Failed to convert canvas to PNG blob"))
+                      : t(e);
+                  },
+                  "image/png",
+                  1,
+                );
               });
         }),
         i = new window.ClipboardItem({ "image/png": a });

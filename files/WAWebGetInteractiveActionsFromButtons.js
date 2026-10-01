@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebBizAiAgentGating",
     "WAWebBizAiHubDeeplinkScheme",
+    "WAWebBizAiHubReplyButtonUtils",
     "WAWebBizAiKnowledgeReviewDrawerLoadable.react",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebBizMessageOpenCallModal",
@@ -123,6 +124,8 @@ __d(
             case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
               i = b(a, t);
               break;
+            case r("WAWebInteractiveMessagesNativeFlowName")
+              .OFFER_PAYMENT_ACCOUNT:
             case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS:
@@ -487,23 +490,34 @@ __d(
           o("WAWebCarouselMsgUtils").isOutgoingBizBotMessage(a),
         l = o(
           "WAWebSendNativeFlowMenuOptionsResponse",
-        ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName);
+        ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName),
+        s =
+          e.data.selectionId != null &&
+          o("WAWebBizAiHubReplyButtonUtils").isPrimaryOnlyBizAiHubReplyButton(
+            e.data.selectionId,
+          );
       return {
         label: e.data.label,
         Icon: l ? void 0 : r("WDSIconIcReply.react"),
         disabled: i,
         onClick: function () {
+          if (s && o("WAWebContactGetters").getIsAiHub(n.contact)) {
+            o("WAWebModalManager").ModalManager.open(
+              m.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+            );
+            return;
+          }
           if (t.isCarouselCard) D(e, a);
           else if (l) {
-            var r, i;
+            var i, c;
             o(
               "WAWebSendNativeFlowMenuOptionsResponse",
             ).sendNativeFlowMenuOptionsResponse(n, a, {
-              label: (r = e.data) == null ? void 0 : r.label,
-              selectionId: (i = e.data) == null ? void 0 : i.selectionId,
+              label: (i = e.data) == null ? void 0 : i.label,
+              selectionId: (c = e.data) == null ? void 0 : c.selectionId,
             });
           } else {
-            var s, c;
+            var d, p;
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -512,11 +526,11 @@ __d(
             ),
               o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
                 n,
-                (s = e.data) == null ? void 0 : s.label,
+                (d = e.data) == null ? void 0 : d.label,
                 {
                   quotedMsg: a,
                   selectedIndex: e.index,
-                  selectedId: (c = e.data) == null ? void 0 : c.selectionId,
+                  selectedId: (p = e.data) == null ? void 0 : p.selectionId,
                 },
               ));
           }
@@ -537,11 +551,11 @@ __d(
               messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
                 .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
-          var d = o("WAWebMsgCollection").MsgCollection.get(t.id);
-          d != null &&
+          var _ = o("WAWebMsgCollection").MsgCollection.get(t.id);
+          _ != null &&
             o(
               "WAWebBizInteractiveMessageQuickReplyAction",
-            ).markInteractiveButtonClicked(d, e.index);
+            ).markInteractiveButtonClicked(_, e.index);
         },
       };
     }

@@ -3,6 +3,7 @@ __d(
   ["$InternalEnum"],
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum")({
+        OFFER_PAYMENT_ACCOUNT: "offer_payment_account",
         BOOKING_CONFIRMATION: "booking_confirmation",
         ORDER_DETAILS: "order_details",
         ORDER_STATUS: "order_status",

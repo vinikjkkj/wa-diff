@@ -57,7 +57,7 @@ __d(
     }
     function S(e) {
       return s._(
-        /*BTDS*/ '_j{"*":"Preparing your file \\u00b7 {percentage}\\u0025"}',
+        /*BTDS*/ '_j{"*":"Preparing your file \\u2022 {percentage}\\u0025"}',
         [s._param("percentage", e, [0])],
       );
     }
@@ -65,18 +65,15 @@ __d(
       return s._(/*BTDS*/ "Your file is ready");
     }
     function L() {
-      return s._(/*BTDS*/ "You can keep browsing while we get it ready.");
-    }
-    function E() {
       return s._(/*BTDS*/ "Couldn't prepare your file");
     }
-    function k() {
+    function E() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
-    function I() {
+    function k() {
       return s._(/*BTDS*/ "Download");
     }
-    function T() {
+    function I() {
       return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
     }
     ((l.getDownloadRecipientsModalTitle = e),
@@ -95,11 +92,10 @@ __d(
       (l.getCustomerBaseLoadingLabel = v),
       (l.getPreparingFileLabel = S),
       (l.getFileReadyLabel = R),
-      (l.getFilePreparingSublabel = L),
-      (l.getFileFailedLabel = E),
-      (l.getFileFailedSublabel = k),
-      (l.getDownloadActionLabel = I),
-      (l.getSaveFailedToastLabel = T));
+      (l.getFileFailedLabel = L),
+      (l.getFileFailedSublabel = E),
+      (l.getDownloadActionLabel = k),
+      (l.getSaveFailedToastLabel = I));
   },
   226,
 );

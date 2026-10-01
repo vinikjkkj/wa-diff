@@ -43,64 +43,79 @@ __d(
       R,
       L,
       E,
-      k = e !== void 0 ? e : (e = n("WAWebOrgAdminGraphQLOrgsQuery.graphql")),
-      I =
+      k = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            (n =
+              e.call(
+                this,
+                "Organization roster exceeds the supported member limit",
+              ) || this),
+            (n.name = "OrgAdminRosterTooLargeError"),
+            (n.memberCount = t),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error)),
+      I = e !== void 0 ? e : (e = n("WAWebOrgAdminGraphQLOrgsQuery.graphql")),
+      T =
         s !== void 0
           ? s
           : (s = n("WAWebOrgAdminGraphQLUpdateOrgMutation.graphql")),
-      T =
+      D =
         u !== void 0
           ? u
           : (u = n("WAWebOrgAdminGraphQLSetMemberRoleMutation.graphql")),
-      D =
+      x =
         c !== void 0
           ? c
           : (c = n("WAWebOrgAdminGraphQLRemoveMemberMutation.graphql")),
-      x =
+      $ =
         d !== void 0
           ? d
           : (d = n("WAWebOrgAdminGraphQLAdminRosterQuery.graphql")),
-      $ =
+      P =
         m !== void 0
           ? m
           : (m = n("WAWebOrgAdminGraphQLReplaceAdminRosterMutation.graphql")),
-      P =
+      N =
         p !== void 0
           ? p
           : (p = n("WAWebOrgAdminGraphQLAppendAdminRosterMutation.graphql")),
-      N =
+      M =
         _ !== void 0
           ? _
           : (_ = n("WAWebOrgAdminGraphQLManagedGroupsQuery.graphql")),
-      M =
+      w =
         f !== void 0
           ? f
           : (f = n("WAWebOrgAdminGraphQLManagedChannelsQuery.graphql")),
-      w =
+      A =
         g !== void 0
           ? g
           : (g = n("WAWebOrgAdminGraphQLDirectoryPageQuery.graphql")),
-      A =
+      F =
         h !== void 0
           ? h
           : (h = n("WAWebOrgAdminGraphQLMemberSearchQuery.graphql")),
-      F = y !== void 0 ? y : (y = n("WAWebOrgAdminGraphQLGroupQuery.graphql")),
-      O =
+      O = y !== void 0 ? y : (y = n("WAWebOrgAdminGraphQLGroupQuery.graphql")),
+      B =
         C !== void 0
           ? C
           : (C = n("WAWebOrgAdminGraphQLAddGroupMutation.graphql")),
-      B =
+      W =
         b !== void 0
           ? b
           : (b = n("WAWebOrgAdminGraphQLAddChannelMutation.graphql")),
-      W =
+      q =
         v !== void 0
           ? v
           : (v = n("WAWebOrgAdminGraphQLInviteMembersMutation.graphql")),
-      q = { environmentType: "whatsapp_web" },
-      U = 120,
-      V = 1e4,
-      H = Math.ceil(V / U),
+      U = { environmentType: "whatsapp_web" },
+      V = 5e3,
+      H = 84,
       G = 25,
       z = 100,
       j = new Set([
@@ -116,15 +131,15 @@ __d(
       return (
         (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebRelayClient").fetchQuery(
-              k,
+              I,
               {},
-              babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
+              babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
             ),
             t = e == null ? void 0 : e.xwa_org_list;
-          if (t == null) throw Oe(null);
+          if (t == null) throw We(null);
           var n = t.orgs.flatMap(function (e) {
             var t;
-            return qe(
+            return Ve(
               e.id,
               e.name,
               e.description,
@@ -135,7 +150,7 @@ __d(
               e.viewer_role,
             );
           });
-          return (we("xwa_org_list", "orgs=" + n.length), n);
+          return (Fe("xwa_org_list", "orgs=" + n.length), n);
         })),
         Q.apply(this, arguments)
       );
@@ -153,12 +168,12 @@ __d(
               member_tag_options: t.memberTagOptions,
               org_id: e,
             },
-            a = yield o("WAWebRelayClient").commitMutation(I, { input: r }, q),
+            a = yield o("WAWebRelayClient").commitMutation(T, { input: r }, U),
             i = a == null ? void 0 : a.xwa_org_update,
             l = i == null ? void 0 : i.org;
           if (i == null || i.status !== "SUCCESS" || l == null)
-            throw Oe(i == null ? void 0 : i.error_reason);
-          var s = Ue(
+            throw We(i == null ? void 0 : i.error_reason);
+          var s = He(
             l.id,
             l.name,
             l.description,
@@ -168,8 +183,8 @@ __d(
             l.is_member_directory_enabled,
             l.viewer_role,
           );
-          if (s == null || s.id !== e) throw Oe(Pe);
-          return (we("xwa_org_update", "id=" + s.id), s);
+          if (s == null || s.id !== e) throw We(Me);
+          return (Fe("xwa_org_update", "id=" + s.id), s);
         })),
         Y.apply(this, arguments)
       );
@@ -182,9 +197,9 @@ __d(
         (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebRelayClient").fetchQuery(
-              x,
+              $,
               { orgID: e },
-              babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
+              babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
             ),
             a = n == null ? void 0 : n.xwa_org_get,
             i = a == null || (t = a.org_info) == null ? void 0 : t.admin_roster;
@@ -196,7 +211,7 @@ __d(
                 : "NOT_FOUND_OR_UNAVAILABLE",
             );
           }
-          var s = Ve(i);
+          var s = Ge(i);
           if (s == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
           return s;
         })),
@@ -220,16 +235,16 @@ __d(
               };
             }),
             l = yield o("WAWebRelayClient").commitMutation(
-              $,
+              P,
               { input: { entries: i, org_id: e } },
-              q,
+              U,
             ),
             s = l == null ? void 0 : l.xwa_org_admin_roster_replace;
           if (s == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
           if (s.status !== "SUCCESS") {
             var u,
               c = (u = s.error_reason) != null ? u : "NOT_FOUND_OR_UNAVAILABLE";
-            if (Ge(c)) {
+            if (je(c)) {
               var d;
               return {
                 errorReason: c,
@@ -243,7 +258,7 @@ __d(
           if (m == null) return { status: "success_needs_refresh" };
           if (m.is_truncated == null)
             return { status: "success_needs_refresh" };
-          var p = Ve(m);
+          var p = Ge(m);
           return p == null
             ? { status: "success_needs_refresh" }
             : babelHelpers.extends({}, p, {
@@ -404,16 +419,16 @@ __d(
               };
             }),
             a = yield o("WAWebRelayClient").commitMutation(
-              P,
+              N,
               { input: { entries: n, org_id: e } },
-              q,
+              U,
             ),
             i = a == null ? void 0 : a.xwa_org_admin_roster_append;
           if (i == null) throw r("err")("NOT_FOUND_OR_UNAVAILABLE");
           if (i.status !== "SUCCESS") {
             var l,
               s = (l = i.error_reason) != null ? l : "NOT_FOUND_OR_UNAVAILABLE";
-            if (Ge(s)) {
+            if (je(s)) {
               var u;
               return {
                 errorReason: s,
@@ -447,9 +462,9 @@ __d(
         (me = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
             var a = yield o("WAWebRelayClient").commitMutation(
-                T,
+                D,
                 { input: { member_lid: t, org_id: e, role: n } },
-                q,
+                U,
               ),
               i = a == null ? void 0 : a.xwa_org_member_set_role;
             if (i == null || i.status !== "SUCCESS") {
@@ -476,9 +491,9 @@ __d(
       return (
         (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebRelayClient").commitMutation(
-              D,
+              x,
               { input: { member_lid: t, org_id: e } },
-              q,
+              U,
             ),
             a = n == null ? void 0 : n.xwa_org_member_remove;
           if (a == null || a.status !== "SUCCESS") {
@@ -509,15 +524,15 @@ __d(
               l,
               s,
               u = yield o("WAWebRelayClient").fetchQuery(
-                A,
+                F,
                 { after: r, first: G, memberTag: n, orgID: e, query: t.trim() },
-                babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
+                babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
               ),
               c = u == null ? void 0 : u.xwa_org_member_search;
-            if (c == null) throw Fe("xwa_org_member_search", null);
+            if (c == null) throw Be("xwa_org_member_search", null);
             var d = c.page_info;
             return (
-              we(
+              Fe(
                 "xwa_org_member_search",
                 "count=" + ((a = c.count) != null ? a : 0),
               ),
@@ -531,7 +546,7 @@ __d(
                   var t = e.member;
                   return t == null
                     ? []
-                    : Xe(
+                    : Je(
                         t.lid,
                         t.display_name,
                         t.role,
@@ -555,9 +570,9 @@ __d(
         (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebRelayClient").fetchQuery(
-              M,
+              w,
               { orgID: e },
-              babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
+              babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
             ),
             r = n == null ? void 0 : n.xwa_org_get,
             a =
@@ -566,12 +581,12 @@ __d(
               (t = t.managed_channels) == null
                 ? void 0
                 : t.nodes;
-          if (a == null) throw Oe(r == null ? void 0 : r.error_reason);
+          if (a == null) throw We(r == null ? void 0 : r.error_reason);
           return (
-            we("xwa_org_get.managed_channels", "channels=" + a.length),
+            Fe("xwa_org_get.managed_channels", "channels=" + a.length),
             a.flatMap(function (e) {
               var t;
-              return ze(
+              return Ke(
                 e.id,
                 e.name,
                 e.description,
@@ -590,31 +605,27 @@ __d(
     function be() {
       return (
         (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = yield o("WAWebRelayClient").fetchQuery(
-              w,
-              { after: t, first: U, orgID: e },
-              babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
+          var n;
+          if (t != null && t > V)
+            return { memberCount: t, status: "roster_too_large" };
+          var r = yield o("WAWebRelayClient").fetchQuery(
+              A,
+              { first: V, orgID: e },
+              babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
             ),
-            i = a == null ? void 0 : a.xwa_org_get;
-          if (i == null || i.status !== "SUCCESS")
-            throw Oe(i == null ? void 0 : i.error_reason);
-          var l = (n = i.org_info) == null ? void 0 : n.members;
-          if (l == null) throw Oe(Ne);
-          var s = l.page_info;
-          if (
-            s == null ||
-            s.has_next_page == null ||
-            (s.has_next_page && s.end_cursor == null)
-          )
-            throw Fe("xwa_org_get", Pe);
-          return {
-            count: l.count,
-            endCursor: (r = s.end_cursor) != null ? r : null,
-            hasNextPage: s.has_next_page,
-            members: l.nodes.flatMap(function (e) {
-              return Xe(
+            a = r == null ? void 0 : r.xwa_org_get;
+          if (a == null || a.status !== "SUCCESS")
+            throw We(a == null ? void 0 : a.error_reason);
+          var i = (n = a.org_info) == null ? void 0 : n.members;
+          if (i == null) throw We(we);
+          var l = i.page_info;
+          if (l == null || l.has_next_page == null) throw Be("xwa_org_get", Me);
+          var s = i.count;
+          if (s == null || (l.has_next_page && s <= V))
+            throw Be("xwa_org_get", Me);
+          if (s > V) return { memberCount: s, status: "roster_too_large" };
+          var u = i.nodes.flatMap(function (e) {
+              return Je(
                 e.lid,
                 e.display_name,
                 e.role,
@@ -623,23 +634,48 @@ __d(
                 e.phone_number,
               );
             }),
-            receivedMemberCount: l.nodes.length,
-          };
+            c = new Set(
+              u.map(function (e) {
+                return e.lid;
+              }),
+            ).size;
+          if (u.length !== i.nodes.length || c !== u.length || u.length !== s)
+            throw Be("xwa_org_get", Me);
+          return { memberCount: s, members: u, status: "success" };
         })),
         be.apply(this, arguments)
       );
     }
-    function ve(e) {
+    function ve(e, t) {
       return Se.apply(this, arguments);
     }
     function Se() {
       return (
-        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield Ce(e, null);
+          if (n.status === "roster_too_large") throw new k(n.memberCount);
+          return {
+            count: n.memberCount,
+            endCursor: null,
+            hasNextPage: !1,
+            members: n.members,
+            receivedMemberCount: n.members.length,
+          };
+        })),
+        Se.apply(this, arguments)
+      );
+    }
+    function Re(e) {
+      return Le.apply(this, arguments);
+    }
+    function Le() {
+      return (
+        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebRelayClient").fetchQuery(
-              N,
+              M,
               { orgID: e },
-              babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
+              babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
             ),
             r = n == null ? void 0 : n.xwa_org_get,
             a =
@@ -648,54 +684,21 @@ __d(
               (t = t.managed_groups) == null
                 ? void 0
                 : t.nodes;
-          if (a == null) throw Oe(r == null ? void 0 : r.error_reason);
+          if (a == null) throw We(r == null ? void 0 : r.error_reason);
           var i = a.flatMap(function (e) {
             var t;
-            return Ke(
+            return Xe(
               e.gid,
               e.subject,
               e.creation_timestamp_s,
               e.participant_count,
               ((t = e.participants) != null ? t : []).flatMap(function (e) {
-                return Ye(e.lid, e.role);
+                return Ze(e.lid, e.role);
               }),
               e.roster_partial,
             );
           });
-          return (we("xwa_org_get.managed_groups", "groups=" + i.length), i);
-        })),
-        Se.apply(this, arguments)
-      );
-    }
-    function Re(e, t) {
-      return Le.apply(this, arguments);
-    }
-    function Le() {
-      return (
-        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = yield o("WAWebRelayClient").fetchQuery(
-              F,
-              { orgID: e, gid: t },
-              babelHelpers.extends({}, q, { fetchPolicy: "network-only" }),
-            ),
-            i = a == null ? void 0 : a.xwa_org_get,
-            l =
-              i == null || (n = i.org_info) == null ? void 0 : n.managed_group;
-          if (l == null) throw Oe(i == null ? void 0 : i.error_reason);
-          var s = Qe(
-            l.gid,
-            l.subject,
-            l.creation_timestamp_s,
-            l.participant_count,
-            ((r = l.participants) != null ? r : []).flatMap(function (e) {
-              return Ye(e.lid, e.role);
-            }),
-            l.roster_partial,
-          );
-          if (s == null) throw Oe(null);
-          return (we("xwa_org_get.managed_group", "gid=" + s.gid), s);
+          return (Fe("xwa_org_get.managed_groups", "groups=" + i.length), i);
         })),
         Le.apply(this, arguments)
       );
@@ -706,24 +709,29 @@ __d(
     function ke() {
       return (
         (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebRelayClient").commitMutation(
+          var n,
+            r,
+            a = yield o("WAWebRelayClient").fetchQuery(
               O,
               { orgID: e, gid: t },
-              q,
+              babelHelpers.extends({}, U, { fetchPolicy: "network-only" }),
             ),
-            r = n == null ? void 0 : n.xwa_org_managed_group_add;
-          if (r == null || r.status !== "SUCCESS")
-            throw Oe(r == null ? void 0 : r.error_reason);
-          var a = r.group;
-          if (a == null) throw Oe(null);
-          var i = Qe(
-            a.gid,
-            a.subject,
-            a.creation_timestamp_s,
-            a.participant_count,
+            i = a == null ? void 0 : a.xwa_org_get,
+            l =
+              i == null || (n = i.org_info) == null ? void 0 : n.managed_group;
+          if (l == null) throw We(i == null ? void 0 : i.error_reason);
+          var s = Ye(
+            l.gid,
+            l.subject,
+            l.creation_timestamp_s,
+            l.participant_count,
+            ((r = l.participants) != null ? r : []).flatMap(function (e) {
+              return Ze(e.lid, e.role);
+            }),
+            l.roster_partial,
           );
-          if (i == null) throw Oe(null);
-          return (we("xwa_org_managed_group_add", "gid=" + i.gid), i);
+          if (s == null) throw We(null);
+          return (Fe("xwa_org_get.managed_group", "gid=" + s.gid), s);
         })),
         ke.apply(this, arguments)
       );
@@ -734,26 +742,24 @@ __d(
     function Te() {
       return (
         (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = yield o("WAWebRelayClient").commitMutation(
+          var n = yield o("WAWebRelayClient").commitMutation(
               B,
-              { channelID: t, orgID: e },
-              q,
+              { orgID: e, gid: t },
+              U,
             ),
-            a = r == null ? void 0 : r.xwa_org_managed_channel_add;
-          if (a == null || a.status !== "SUCCESS")
-            throw Oe(a == null ? void 0 : a.error_reason);
-          var i = a.channel;
-          if (i == null) throw Oe(null);
-          var l = je(
-            i.id,
-            i.name,
-            i.description,
-            i.invite_code,
-            (n = i.picture) == null ? void 0 : n.uri,
+            r = n == null ? void 0 : n.xwa_org_managed_group_add;
+          if (r == null || r.status !== "SUCCESS")
+            throw We(r == null ? void 0 : r.error_reason);
+          var a = r.group;
+          if (a == null) throw We(null);
+          var i = Ye(
+            a.gid,
+            a.subject,
+            a.creation_timestamp_s,
+            a.participant_count,
           );
-          if (l == null) throw Oe(null);
-          return (we("xwa_org_managed_channel_add", "id=" + l.id), l);
+          if (i == null) throw We(null);
+          return (Fe("xwa_org_managed_group_add", "gid=" + i.gid), i);
         })),
         Te.apply(this, arguments)
       );
@@ -764,15 +770,45 @@ __d(
     function xe() {
       return (
         (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebRelayClient").commitMutation(
+          var n,
+            r = yield o("WAWebRelayClient").commitMutation(
               W,
-              { orgID: e, emails: t },
+              { channelID: t, orgID: e },
+              U,
+            ),
+            a = r == null ? void 0 : r.xwa_org_managed_channel_add;
+          if (a == null || a.status !== "SUCCESS")
+            throw We(a == null ? void 0 : a.error_reason);
+          var i = a.channel;
+          if (i == null) throw We(null);
+          var l = Qe(
+            i.id,
+            i.name,
+            i.description,
+            i.invite_code,
+            (n = i.picture) == null ? void 0 : n.uri,
+          );
+          if (l == null) throw We(null);
+          return (Fe("xwa_org_managed_channel_add", "id=" + l.id), l);
+        })),
+        xe.apply(this, arguments)
+      );
+    }
+    function $e(e, t) {
+      return Pe.apply(this, arguments);
+    }
+    function Pe() {
+      return (
+        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebRelayClient").commitMutation(
               q,
+              { orgID: e, emails: t },
+              U,
             ),
             r = n == null ? void 0 : n.xwa_org_invite_members;
           if ((r == null ? void 0 : r.status) === "SUCCESS")
             return (
-              we("xwa_org_invite_members", "emails=" + t.length),
+              Fe("xwa_org_invite_members", "emails=" + t.length),
               "success"
             );
           if ((r == null ? void 0 : r.error_reason) === "INVALID_EMAIL_BATCH")
@@ -785,16 +821,16 @@ __d(
               ),
               "invalid_email_batch"
             );
-          throw Oe(r == null ? void 0 : r.error_reason);
+          throw We(r == null ? void 0 : r.error_reason);
         })),
-        xe.apply(this, arguments)
+        Pe.apply(this, arguments)
       );
     }
-    var $e = "NOT_FOUND_OR_UNAVAILABLE",
-      Pe = "MALFORMED_SUCCESS_RESPONSE",
-      Ne = "MISSING_MEMBERS_CONNECTION",
-      Me = new WeakSet();
-    function we(e, t) {
+    var Ne = "NOT_FOUND_OR_UNAVAILABLE",
+      Me = "MALFORMED_SUCCESS_RESPONSE",
+      we = "MISSING_MEMBERS_CONNECTION",
+      Ae = new WeakSet();
+    function Fe(e, t) {
       o("WALogger").LOG(
         S ||
           (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -806,8 +842,8 @@ __d(
         t,
       );
     }
-    function Ae(e, t) {
-      var n = t != null ? t : $e;
+    function Oe(e, t) {
+      var n = t != null ? t : Ne;
       return (
         o("WALogger")
           .ERROR(
@@ -824,28 +860,28 @@ __d(
         n
       );
     }
-    function Fe(e, t) {
-      return Be(Ae(e, t));
-    }
-    function Oe(e) {
-      return Be(e != null ? e : $e);
-    }
-    function Be(e) {
-      var t = r("err")(e);
-      return (Me.add(t), t);
+    function Be(e, t) {
+      return qe(Oe(e, t));
     }
     function We(e) {
+      return qe(e != null ? e : Ne);
+    }
+    function qe(e) {
+      var t = r("err")(e);
+      return (Ae.add(t), t);
+    }
+    function Ue(e) {
       return e instanceof o("WAWebGraphQLServerError").GraphQLServerError
         ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
-        : e instanceof Error && Me.has(e)
+        : e instanceof Error && Ae.has(e)
           ? e.message
           : "non_server_error";
     }
-    function qe(e, t, n, r, o, a, i, l) {
-      var s = Ue(e, t, n, r, o, a, i, l);
+    function Ve(e, t, n, r, o, a, i, l) {
+      var s = He(e, t, n, r, o, a, i, l);
       return s == null ? [] : [s];
     }
-    function Ue(e, t, n, r, o, a, i, l) {
+    function He(e, t, n, r, o, a, i, l) {
       return e == null || t == null
         ? null
         : {
@@ -859,13 +895,20 @@ __d(
             viewerRole: l != null ? l : null,
           };
     }
-    function Ve(e) {
+    function Ge(e) {
       var t = e.entries;
       if (!Array.isArray(t)) return null;
       var n = [];
       for (var r of t) {
         if (r == null) return null;
-        var o = He(r.id, r.name, r.member_tag, r.email_address, r.phone_number);
+        var o = ze(
+          r.id,
+          r.name,
+          r.member_tag,
+          r.email_address,
+          r.phone_number,
+          r.member_lid,
+        );
         if (o == null) return null;
         n.push(o);
       }
@@ -883,16 +926,24 @@ __d(
         totalCount: i != null ? i : l ? null : n.length,
       };
     }
-    function He(e, t, n, r, o) {
+    function ze(e, t, n, r, o, a) {
       return typeof e != "string" ||
         typeof t != "string" ||
         (n != null && typeof n != "string") ||
         (r != null && typeof r != "string") ||
-        (o != null && typeof o != "string")
+        (o != null && typeof o != "string") ||
+        (a != null && typeof a != "string")
         ? null
-        : { emailAddress: r, id: e, memberTag: n, name: t, phoneNumber: o };
+        : {
+            emailAddress: r,
+            id: e,
+            memberLID: a,
+            memberTag: n,
+            name: t,
+            phoneNumber: o,
+          };
     }
-    function Ge(e) {
+    function je(e) {
       return (
         e === "INVALID_ROSTER_ENTRY" ||
         e === "DUPLICATE_ROSTER_CONTACT" ||
@@ -900,11 +951,11 @@ __d(
         e === "TOO_MANY_ROSTER_ENTRIES"
       );
     }
-    function ze(e, t, n, r, o) {
-      var a = je(e, t, n, r, o);
+    function Ke(e, t, n, r, o) {
+      var a = Qe(e, t, n, r, o);
       return a == null ? [] : [a];
     }
-    function je(e, t, n, r, o) {
+    function Qe(e, t, n, r, o) {
       return e == null || t == null
         ? null
         : {
@@ -915,11 +966,11 @@ __d(
             pictureURI: o != null ? o : null,
           };
     }
-    function Ke(e, t, n, r, o, a) {
-      var i = Qe(e, t, n, r, o, a);
+    function Xe(e, t, n, r, o, a) {
+      var i = Ye(e, t, n, r, o, a);
       return i == null ? [] : [i];
     }
-    function Qe(e, t, n, r, o, a) {
+    function Ye(e, t, n, r, o, a) {
       if (e == null || t == null || n == null || r == null) return null;
       var i = {
         gid: e,
@@ -936,7 +987,7 @@ __d(
         ? l
         : babelHelpers.extends({}, l, { rosterPartial: a });
     }
-    function Xe(e, t, n, r, o, a) {
+    function Je(e, t, n, r, o, a) {
       return e == null || t == null || n == null
         ? []
         : [
@@ -950,10 +1001,12 @@ __d(
             },
           ];
     }
-    function Ye(e, t) {
+    function Ze(e, t) {
       return e == null || t == null ? [] : [{ lid: e, role: t }];
     }
-    ((l.ORG_DIRECTORY_SYNC_PAGE_LIMIT = H),
+    ((l.OrgAdminRosterTooLargeError = k),
+      (l.MAX_ORG_DIRECTORY_MEMBERS = V),
+      (l.ORG_DIRECTORY_SYNC_PAGE_LIMIT = H),
       (l.ORG_ADMIN_ROSTER_APPEND_BATCH_SIZE = z),
       (l.loadOrgAdminOrgs = K),
       (l.updateOrgAdminSettings = X),
@@ -964,13 +1017,14 @@ __d(
       (l.removeOrgAdminMember = pe),
       (l.loadOrgAdminMemberSearchPage = fe),
       (l.loadOrgAdminChannels = he),
-      (l.loadOrgAdminDirectoryPage = Ce),
-      (l.loadOrgAdminManagedGroups = ve),
-      (l.loadOrgAdminGroup = Re),
-      (l.addOrgManagedGroup = Ee),
-      (l.addOrgManagedChannel = Ie),
-      (l.inviteOrgMembers = De),
-      (l.getOrgAdminServerFailureReason = We));
+      (l.loadOrgAdminDirectory = Ce),
+      (l.loadOrgAdminDirectoryPage = ve),
+      (l.loadOrgAdminManagedGroups = Re),
+      (l.loadOrgAdminGroup = Ee),
+      (l.addOrgManagedGroup = Ie),
+      (l.addOrgManagedChannel = De),
+      (l.inviteOrgMembers = $e),
+      (l.getOrgAdminServerFailureReason = Ue));
   },
   98,
 );

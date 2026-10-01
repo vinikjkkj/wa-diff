@@ -48,7 +48,7 @@ __d(
             a.type === o("WAWebMsgType").MSG_TYPE.VIDEO &&
             a.isGif !== !0 &&
             !o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
-              a,
+              a.unsafe(),
             )
           ) {
             yield o("WAWebDownloadVideoThumbnail").downloadVideoThumbnail({

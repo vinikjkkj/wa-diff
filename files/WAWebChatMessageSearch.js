@@ -270,7 +270,7 @@ __d(
             e.id.toString(),
           )) != null
             ? n
-            : o("WAWebLeadStage").LeadStage.NONE) === t.leadStage;
+            : o("WAWebLeadStage").LeadStage.LEAD) === t.leadStage;
     }
     ((l.getSearchContext = s),
       (l.fts = u),

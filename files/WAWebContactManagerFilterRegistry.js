@@ -10,30 +10,30 @@ __d(
     "WAWebContactManagerSearchUtils",
     "WAWebLabelCollection",
     "WAWebLeadListConstants",
-    "WAWebLeadStage",
     "WAWebListItemParentType",
     "WAWebNullFunc",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = [
-      "leadStage",
-      "acquisitionSource",
-      "label",
-      "lastMessage",
-      "lastMessageCustomRange",
-    ];
-    function s(e) {
+    var e,
+      s = [
+        "leadStage",
+        "acquisitionSource",
+        "label",
+        "lastMessage",
+        "lastMessageCustomRange",
+      ];
+    function u(e) {
       return e === "leadStage"
-        ? u
+        ? c
         : e === "acquisitionSource"
-          ? c
+          ? d
           : e === "label"
-            ? d
+            ? m
             : e === "lastMessage"
-              ? m
+              ? p
               : e === "lastMessageCustomRange"
-                ? p
+                ? _
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -41,31 +41,14 @@ __d(
                     );
                   })();
     }
-    var u = {
-        isClientActive: function (t) {
-          return (
-            t.leadStages.length > 1 ||
-            (t.leadStages.length === 1 &&
-              o(
-                "WAWebContactManagerCustomerProfileDecoders",
-              ).toLeadStageFilterText(t.leadStages[0]) == null)
-          );
+    var c = {
+        isClientActive: o("WAWebBoolFunc").returnFalse,
+        matcher: function () {
+          return o("WAWebBoolFunc").returnTrue;
         },
-        matcher: function (t) {
-          return function (e) {
-            var n = o("WAWebLeadStage").getLeadStageFromNumber(e.leadStage);
-            return n != null && t.leadStages.includes(n);
-          };
-        },
-        serverFilter: function (t) {
-          if (t.leadStages.length !== 1) return null;
-          var e = o(
-            "WAWebContactManagerCustomerProfileDecoders",
-          ).toLeadStageFilterText(t.leadStages[0]);
-          return e == null ? null : { fieldName: "lead_stage", filterText: e };
-        },
+        serverFilter: (e = o("WAWebNullFunc")).returnNull,
       },
-      c = {
+      d = {
         isClientActive: o("WAWebBoolFunc").returnFalse,
         matcher: function () {
           return o("WAWebBoolFunc").returnTrue;
@@ -80,13 +63,13 @@ __d(
             : { fieldName: "acquisition_source", filterText: e };
         },
       },
-      d = {
+      m = {
         isClientActive: function (t) {
-          return t.labelId != null && !f(t);
+          return t.labelId != null && !g(t);
         },
         matcher: function (t) {
           var e = t.labelId;
-          if (e == null || f(t)) return o("WAWebBoolFunc").returnTrue;
+          if (e == null || g(t)) return o("WAWebBoolFunc").returnTrue;
           var n = new Set();
           if (
             e === o("WAWebContactManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
@@ -122,9 +105,9 @@ __d(
                 : r.includes(e);
           };
         },
-        serverFilter: o("WAWebNullFunc").returnNull,
+        serverFilter: e.returnNull,
       },
-      m = {
+      p = {
         isClientActive: function (t) {
           return t.lastMessageRange != null;
         },
@@ -137,13 +120,13 @@ __d(
             r = n.endSec,
             a = n.startSec;
           return function (e) {
-            var t = _(e);
+            var t = f(e);
             return t != null && t >= a && (r == null || t <= r);
           };
         },
-        serverFilter: o("WAWebNullFunc").returnNull,
+        serverFilter: e.returnNull,
       },
-      p = {
+      _ = {
         isClientActive: function (t) {
           return t.lastMessageCustomRange != null;
         },
@@ -156,20 +139,20 @@ __d(
             r = n.endSec,
             a = n.startSec;
           return function (e) {
-            var t = _(e);
+            var t = f(e);
             return t != null && t >= a && t <= r;
           };
         },
-        serverFilter: o("WAWebNullFunc").returnNull,
+        serverFilter: e.returnNull,
       };
-    function _(e) {
+    function f(e) {
       var t;
       return (t = o("WAWebChatCollection").ChatCollection.get(e.chatJid)) ==
         null
         ? void 0
         : t.t;
     }
-    function f(e) {
+    function g(e) {
       var t,
         n = e.labelId;
       return (
@@ -181,7 +164,7 @@ __d(
           o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
       );
     }
-    ((l.CONTACT_MANAGER_FILTER_KEYS = e), (l.getFilterSpec = s));
+    ((l.CONTACT_MANAGER_FILTER_KEYS = s), (l.getFilterSpec = u));
   },
   98,
 );

@@ -11,9 +11,10 @@ __d(
       var t = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
       if (
         !(
-          !t ||
+          t == null ||
           t.state !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Open ||
-          !t.channel
+          t.isWebTransportWarmStandby === !0 ||
+          t.channel == null
         )
       ) {
         for (var n = t.channel; t.packetBuffer.packets.length > 0; ) {

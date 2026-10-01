@@ -130,7 +130,7 @@ __d(
       );
     }
     function b(t, n, a, i) {
-      var l = v(t, n, a);
+      var l = v({ approvalId: n, body: t, requestedPaymentId: a });
       return l.kind === "mismatch"
         ? (o("WALogger")
             .ERROR(
@@ -164,18 +164,21 @@ __d(
             null)
           : l.paymentId;
     }
-    function v(e, t, n) {
-      var r,
-        a = S(e, "approval_id");
-      if (a != null && a !== t) return { kind: "mismatch", ackApprovalId: a };
-      var i =
-        (r = S(
-          o("WAWebHatchJsonReaders").readField(e, "payment_selection"),
+    function v(e) {
+      var t,
+        n = e.approvalId,
+        r = e.body,
+        a = e.requestedPaymentId,
+        i = S(r, "approval_id");
+      if (i != null && i !== n) return { kind: "mismatch", ackApprovalId: i };
+      var l =
+        (t = S(
+          o("WAWebHatchJsonReaders").readField(r, "payment_selection"),
           "payment_id",
         )) != null
-          ? r
-          : S(e, "payment_id");
-      return { kind: "confirmed", paymentId: i != null ? i : n };
+          ? t
+          : S(r, "payment_id");
+      return { kind: "confirmed", paymentId: l != null ? l : a };
     }
     function S(e, t) {
       var n = o("WAWebHatchJsonReaders").readString(e, t);

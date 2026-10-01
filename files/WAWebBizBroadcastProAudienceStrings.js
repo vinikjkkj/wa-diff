@@ -53,62 +53,117 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C() {
-      return s._(/*BTDS*/ "Go back");
+      return s._(/*BTDS*/ "Your audience is too small");
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b() {
-      return s._(/*BTDS*/ "Choose recipients to add");
+      return s._(/*BTDS*/ "broadcast settings");
     }
     b.displayName = b.name + " [from " + i.id + "]";
-    function v() {
-      return s._(/*BTDS*/ "Choose recipients to remove");
+    function v(e, t) {
+      return s._(
+        /*BTDS*/ '_j{"*":"Select at least {number} recipients to continue. If you need to create smaller audiences, turn off advanced tools in {broadcast_settings}.","_1":"Select at least 1 recipient to continue. If you need to create smaller audiences, turn off advanced tools in {broadcast_settings}."}',
+        [s._plural(e, "number"), s._param("broadcast_settings", t)],
+      );
     }
     v.displayName = v.name + " [from " + i.id + "]";
-    function S(e) {
+    function S() {
+      return s._(/*BTDS*/ "OK");
+    }
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R(e, t) {
+      return s._(
+        /*BTDS*/ '_j{"*":"Upload a file with at least {number} recipients to continue. If you need to create smaller audiences, turn off advanced tools in {broadcast_settings}.","_1":"Upload a file with at least 1 recipient to continue. If you need to create smaller audiences, turn off advanced tools in {broadcast_settings}."}',
+        [s._plural(e, "number"), s._param("broadcast_settings", t)],
+      );
+    }
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L() {
+      return s._(/*BTDS*/ "Upload new file");
+    }
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E() {
+      return s._(/*BTDS*/ "Cancel");
+    }
+    E.displayName = E.name + " [from " + i.id + "]";
+    function k(e, t) {
+      return s._(
+        /*BTDS*/ '_j{"*":"Upload a CSV or Excel file with at least {number} recipients\' names and phone numbers. For best results, {template_link}.","_1":"Upload a CSV or Excel file with at least 1 recipient\'s name and phone number. For best results, {template_link}."}',
+        [s._plural(e, "number"), s._param("template_link", t)],
+      );
+    }
+    k.displayName = k.name + " [from " + i.id + "]";
+    function I() {
+      return s._(/*BTDS*/ "Go back");
+    }
+    function T() {
+      return s._(/*BTDS*/ "Choose recipients to add");
+    }
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D() {
+      return s._(/*BTDS*/ "Choose recipients to remove");
+    }
+    D.displayName = D.name + " [from " + i.id + "]";
+    function x(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} selected","_1":"1 selected"}', [
         s._plural(e, "number"),
       ]);
     }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R() {
+    x.displayName = x.name + " [from " + i.id + "]";
+    function $() {
       return s._(/*BTDS*/ "Search name or number");
     }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L() {
+    $.displayName = $.name + " [from " + i.id + "]";
+    function P() {
       return s._(/*BTDS*/ "Search number");
     }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E() {
+    P.displayName = P.name + " [from " + i.id + "]";
+    function N() {
       return s._(/*BTDS*/ "Contact list");
     }
-    function k(e) {
+    function M(e) {
       return s._(/*BTDS*/ "Select recipient {recipient phone number}", [
         s._param("recipient phone number", e),
       ]);
     }
-    function I() {
+    function w() {
       return s._(/*BTDS*/ "Load more");
     }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T() {
+    w.displayName = w.name + " [from " + i.id + "]";
+    function A() {
       return s._(/*BTDS*/ "Loading\u2026");
     }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D(e) {
+    A.displayName = A.name + " [from " + i.id + "]";
+    function F(e) {
       return s._(/*BTDS*/ "Delete {audience name}?", [
         s._param("audience name", e),
       ]);
     }
-    D.displayName = D.name + " [from " + i.id + "]";
-    function x() {
+    F.displayName = F.name + " [from " + i.id + "]";
+    function O() {
       return s._(
         /*BTDS*/ "This audience and its thread will be permanently deleted and cannot be restored.",
       );
     }
-    x.displayName = x.name + " [from " + i.id + "]";
-    function $() {
+    O.displayName = O.name + " [from " + i.id + "]";
+    function B() {
       return s._(/*BTDS*/ "Audience deleted");
     }
-    (($.displayName = $.name + " [from " + i.id + "]"),
+    B.displayName = B.name + " [from " + i.id + "]";
+    function W() {
+      return s._(/*BTDS*/ "Processing your audience\u2026");
+    }
+    W.displayName = W.name + " [from " + i.id + "]";
+    function q() {
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
+    }
+    q.displayName = q.name + " [from " + i.id + "]";
+    function U() {
+      return s._(
+        /*BTDS*/ "Your edits are processing. We'll update you when they're complete.",
+      );
+    }
+    ((U.displayName = U.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -118,19 +173,30 @@ __d(
       (l.getRemoveRecipientsButtonLabel = g),
       (l.getEditAudienceFailureToastMessage = h),
       (l.getCreateAudienceFailureToastMessage = y),
-      (l.getGoBackAriaLabel = C),
-      (l.getChooseRecipientsToAddHeader = b),
-      (l.getChooseRecipientsToRemoveHeader = v),
-      (l.getSelectedCountSubtitle = S),
-      (l.getSearchPlaceholder = R),
-      (l.getSearchByNumberPlaceholder = L),
-      (l.getContactListAriaLabel = E),
-      (l.getSelectRecipientAriaLabel = k),
-      (l.getLoadMorePaginationLabel = I),
-      (l.getLoadingPaginationLabel = T),
-      (l.getDeleteAudienceModalTitle = D),
-      (l.getDeleteAudienceModalBody = x),
-      (l.getAudienceDeletedToastMessage = $));
+      (l.getAudienceTooSmallTitle = C),
+      (l.getBroadcastSettingsReference = b),
+      (l.getAudienceTooSmallSelectBody = v),
+      (l.getAudienceTooSmallDismissLabel = S),
+      (l.getAudienceTooSmallUploadBody = R),
+      (l.getAudienceTooSmallUploadNewFileLabel = L),
+      (l.getAudienceTooSmallCancelLabel = E),
+      (l.getImportAudienceMinRecipientsDescription = k),
+      (l.getGoBackAriaLabel = I),
+      (l.getChooseRecipientsToAddHeader = T),
+      (l.getChooseRecipientsToRemoveHeader = D),
+      (l.getSelectedCountSubtitle = x),
+      (l.getSearchPlaceholder = $),
+      (l.getSearchByNumberPlaceholder = P),
+      (l.getContactListAriaLabel = N),
+      (l.getSelectRecipientAriaLabel = M),
+      (l.getLoadMorePaginationLabel = w),
+      (l.getLoadingPaginationLabel = A),
+      (l.getDeleteAudienceModalTitle = F),
+      (l.getDeleteAudienceModalBody = O),
+      (l.getAudienceDeletedToastMessage = B),
+      (l.getAudienceProcessingTitle = W),
+      (l.getAudienceProcessingSubtitle = q),
+      (l.getAudienceEditsProcessingMessage = U));
   },
   226,
 );

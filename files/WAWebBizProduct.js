@@ -250,7 +250,7 @@ __d(
         ? u.jsx("div", {
             className: "xyqdw3p x1icxu4v xs9asl8 x25sj25",
             children: u.jsx(r("WAWebMessageAuthor.react"), {
-              msg: c,
+              msgKey: c.id,
               contact: w,
               displayType: i,
             }),

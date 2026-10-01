@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebBrAddPixKeyMessageGating",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
   ],
@@ -29,80 +30,85 @@ __d(
         s.FORM_MESSAGE,
       ];
     function m(e) {
-      return e === "review_and_pay"
-        ? r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-        : e === "payment_info"
-          ? r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
-          : e === "review_order" || e === "order_status"
-            ? r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
-            : e === "payment_status"
-              ? r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
-              : e === "payment_method"
-                ? r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
-                : e === "open_webview"
-                  ? r("WAWebInteractiveMessagesNativeFlowName")
-                      .MESSAGE_WITH_LINK
-                  : e === "message_with_link_status"
+      return e === "offer_payment_account"
+        ? o("WAWebBrAddPixKeyMessageGating").isAddPixKeyMessageEnabled()
+          ? r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT
+          : null
+        : e === "review_and_pay"
+          ? r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+          : e === "payment_info"
+            ? r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
+            : e === "review_order" || e === "order_status"
+              ? r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+              : e === "payment_status"
+                ? r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
+                : e === "payment_method"
+                  ? r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
+                  : e === "open_webview"
                     ? r("WAWebInteractiveMessagesNativeFlowName")
-                        .MESSAGE_WITH_LINK_STATUS
-                    : e === "cta_url"
-                      ? r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
-                      : e === "cta_call"
-                        ? r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL
-                        : e === "quick_reply"
-                          ? r("WAWebInteractiveMessagesNativeFlowName")
-                              .QUICK_REPLY
-                          : e === "catalog_message"
+                        .MESSAGE_WITH_LINK
+                    : e === "message_with_link_status"
+                      ? r("WAWebInteractiveMessagesNativeFlowName")
+                          .MESSAGE_WITH_LINK_STATUS
+                      : e === "cta_url"
+                        ? r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
+                        : e === "cta_call"
+                          ? r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL
+                          : e === "quick_reply"
                             ? r("WAWebInteractiveMessagesNativeFlowName")
-                                .CATALOG_MESSAGE
-                            : e === "cta_catalog"
+                                .QUICK_REPLY
+                            : e === "catalog_message"
                               ? r("WAWebInteractiveMessagesNativeFlowName")
-                                  .CTA_CATALOG
-                              : e === "cta_copy"
+                                  .CATALOG_MESSAGE
+                              : e === "cta_catalog"
                                 ? r("WAWebInteractiveMessagesNativeFlowName")
-                                    .CTA_COPY_CODE
-                                : e === "galaxy_message"
+                                    .CTA_CATALOG
+                                : e === "cta_copy"
                                   ? r("WAWebInteractiveMessagesNativeFlowName")
-                                      .CTA_FLOW
-                                  : e === "payment_reminder"
+                                      .CTA_COPY_CODE
+                                  : e === "galaxy_message"
                                     ? r(
                                         "WAWebInteractiveMessagesNativeFlowName",
-                                      ).PAYMENT_REMINDER
-                                    : e === "booking_confirmation"
+                                      ).CTA_FLOW
+                                    : e === "payment_reminder"
                                       ? r(
                                           "WAWebInteractiveMessagesNativeFlowName",
-                                        ).BOOKING_CONFIRMATION
-                                      : e === "call_permission_request"
+                                        ).PAYMENT_REMINDER
+                                      : e === "booking_confirmation"
                                         ? r(
                                             "WAWebInteractiveMessagesNativeFlowName",
-                                          ).CALL_PERMISSION_REQUEST
-                                        : e === "payment_request"
+                                          ).BOOKING_CONFIRMATION
+                                        : e === "call_permission_request"
                                           ? r(
                                               "WAWebInteractiveMessagesNativeFlowName",
-                                            ).PAYMENT_REQUEST
-                                          : e === "api_signup"
+                                            ).CALL_PERMISSION_REQUEST
+                                          : e === "payment_request"
                                             ? r(
                                                 "WAWebInteractiveMessagesNativeFlowName",
-                                              ).API_SIGNUP
-                                            : e === "inapp_signup"
+                                              ).PAYMENT_REQUEST
+                                            : e === "api_signup"
                                               ? r(
                                                   "WAWebInteractiveMessagesNativeFlowName",
-                                                ).INAPP_SIGNUP
-                                              : e === "cta_app"
+                                                ).API_SIGNUP
+                                              : e === "inapp_signup"
                                                 ? r(
                                                     "WAWebInteractiveMessagesNativeFlowName",
-                                                  ).CTA_APP
-                                                : e === "form_message"
-                                                  ? o(
-                                                      "WAWebABProps",
-                                                    ).getABPropConfigValue(
-                                                      "im_nfm_multi_step_form_killswitch",
-                                                    )
-                                                    ? null
-                                                    : r(
-                                                        "WAWebInteractiveMessagesNativeFlowName",
-                                                      ).FORM_MESSAGE
-                                                  : void 0;
+                                                  ).INAPP_SIGNUP
+                                                : e === "cta_app"
+                                                  ? r(
+                                                      "WAWebInteractiveMessagesNativeFlowName",
+                                                    ).CTA_APP
+                                                  : e === "form_message"
+                                                    ? o(
+                                                        "WAWebABProps",
+                                                      ).getABPropConfigValue(
+                                                        "im_nfm_multi_step_form_killswitch",
+                                                      )
+                                                      ? null
+                                                      : r(
+                                                          "WAWebInteractiveMessagesNativeFlowName",
+                                                        ).FORM_MESSAGE
+                                                    : void 0;
     }
     function p(e, t, n) {
       return o("WAWebMsgGetters").isBizSourceFromMarketingMessage(n)

@@ -3,8 +3,10 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebApiContact",
     "WAWebBizLabelUtils",
     "WAWebChatCollection",
+    "WAWebContactCollection",
     "WAWebFindChatAction",
     "WAWebLabelCollection",
     "WAWebLabelSublistSync",
@@ -69,7 +71,7 @@ __d(
                         );
                       });
               c != null &&
-                (p(c, u) ||
+                (h(c, u) ||
                   (o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
                     [{ id: u.id, type: "add" }],
                     [c],
@@ -98,30 +100,84 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = _(e);
-            return a == null ||
-              !o("WAWebLeadSublistGating").isChatEligibleForLeadSublist(a)
-              ? !1
-              : (yield u(
-                  o("WAJids").unsafeCoerceToChatJid(a.id.toString()),
-                  t,
-                  n,
-                  r,
-                ),
-                !0);
+            var a = y(e);
+            return a == null
+              ? p(e, t, n)
+              : o("WAWebLeadSublistGating").isChatEligibleForLeadSublist(a)
+                ? (yield u(
+                    o("WAJids").unsafeCoerceToChatJid(a.id.toString()),
+                    t,
+                    n,
+                    r,
+                  ),
+                  !0)
+                : !1;
           },
         )),
         m.apply(this, arguments)
       );
     }
-    function p(e, t) {
+    function p(e, t, n) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = o("WAWebLabelCollection").LabelCollection.findFirst(
+              function (e) {
+                return (
+                  e.predefinedId ===
+                  o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID
+                );
+              },
+            ),
+            i = g(e);
+          return a == null ||
+            i == null ||
+            !o("WAWebLeadSublistGating").isContactEligibleForLeadSublist(i) ||
+            !f(e, a)
+            ? !1
+            : ((n == null || t !== n) &&
+                (yield r("WAWebLabelSublistSync").sendLabelSublistUpdate(
+                  o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
+                  e,
+                  t,
+                )),
+              !0);
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
+      return [
+        o("WAWebListItemParentType").LabelItemParentType.Chat,
+        o("WAWebListItemParentType").LabelItemParentType.Contact,
+      ].some(function (n) {
+        return o("WAWebBizLabelUtils")
+          .getLabelsForModelAnyAddressingMode(e, n)
+          .includes(t.id);
+      });
+    }
+    function g(e) {
+      var t,
+        n = o("WAWebWidFactory").createWid(e);
+      if (!n.isUser()) return null;
+      var r = o("WAWebWidFactory").asUserWidOrThrow(n),
+        a = o("WAWebApiContact").getAlternateUserWid(r);
+      return (t = o("WAWebContactCollection").ContactCollection.get(r)) != null
+        ? t
+        : a != null
+          ? o("WAWebContactCollection").ContactCollection.get(a)
+          : null;
+    }
+    function h(e, t) {
       return o("WAWebBizLabelUtils").hasManualLabelAssociation(
         t,
         e.id.toString(),
         o("WAWebListItemParentType").LabelItemParentType.Chat,
       );
     }
-    function _(e) {
+    function y(e) {
       var t = o("WAWebWidFactory").createWid(e);
       if (!t.isUser()) return null;
       var n = o("WAWebLidMigrationUtils").toUserLid(t);

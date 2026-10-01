@@ -17,23 +17,21 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ai_hatch_3p_bot_enabled") === !0
       );
     }
-    function c(t, n) {
-      if (
-        n !== e.GROUP ||
-        (t == null ? void 0 : t.isDeprecated) === !0 ||
-        (t == null ? void 0 : t.isDeleted) === !0
-      )
-        return !1;
-      var r = o("WAWebBotProduct").botProductFromServerValue(
-          t == null ? void 0 : t.product,
-        ),
-        a =
-          r === o("WAWebBotProduct").BotProduct.MUSE
-            ? o("WAWebBotProduct").BotProduct.MUSE
-            : null;
-      return a == null ? !1 : s();
+    function c(e) {
+      return (
+        o("WAWebBotProduct").botProductFromServerValue(e) ===
+        o("WAWebBotProduct").BotProduct.MUSE
+      );
     }
-    function d() {
+    function d(t, n) {
+      return n !== e.GROUP ||
+        (t == null ? void 0 : t.isDeprecated) === !0 ||
+        (t == null ? void 0 : t.isDeleted) === !0 ||
+        !c(t == null ? void 0 : t.product)
+        ? !1
+        : s();
+    }
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -42,7 +40,7 @@ __d(
             "ai_group_participation_enabled",
           ) === !0;
     }
-    function m() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -51,35 +49,35 @@ __d(
             "ai_group_participation_add_tee_enabled",
           ) === !0;
     }
-    function p(e) {
+    function _(e) {
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-          ? d()
+          ? m()
           : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-            ? m()
+            ? p()
             : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function _(e) {
+    function f(e) {
       var t = e.authorWid,
         n = e.botGroupParticipant,
         r = e.chatWid,
         a = e.isBotInvoke;
-      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !p(n)
+      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !_(n)
         ? !1
         : !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(n) ||
             a ||
             (t == null ? void 0 : t.equals(n)) === !0;
     }
-    function f() {
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue("web_ai_group_open_support") ===
         !0
       );
     }
-    function g() {
+    function h() {
       return (
-        f() &&
+        g() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_group_send_mentioned_pushname_enabled",
         )
@@ -88,13 +86,14 @@ __d(
     ((l.BotGroupContext = e),
       (l.isStandardBotProfileGroupEnabled = s),
       (l.isMuseGroupAgentRenderingEnabled = u),
-      (l.isGroupAgent = c),
-      (l.isOpenGroupBotParticipantAddEnabled = d),
-      (l.isTEEGroupBotParticipantAddEnabled = m),
-      (l.isGroupBotParticipantEnabled = p),
-      (l.isGroupBotMessage = _),
-      (l.isOpenGroupBotSendEnabled = f),
-      (l.isGroupBotSendMentionedPushnameEnabled = g));
+      (l.isGroupAgentProduct = c),
+      (l.isGroupAgent = d),
+      (l.isOpenGroupBotParticipantAddEnabled = m),
+      (l.isTEEGroupBotParticipantAddEnabled = p),
+      (l.isGroupBotParticipantEnabled = _),
+      (l.isGroupBotMessage = f),
+      (l.isOpenGroupBotSendEnabled = g),
+      (l.isGroupBotSendMentionedPushnameEnabled = h));
   },
   98,
 );

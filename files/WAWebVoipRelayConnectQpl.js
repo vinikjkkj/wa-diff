@@ -7,15 +7,21 @@ __d(
       s = 6e4,
       u = null,
       c = !1;
-    function d() {
-      u == null &&
-        !c &&
-        (u = o("WAWebQplFlow").startQplFlow(e, { timeoutInMs: s }));
+    function d(t) {
+      (t === void 0 && (t = !0),
+        t &&
+          u == null &&
+          !c &&
+          (u = o("WAWebQplFlow").startQplFlow(e, { timeoutInMs: s })));
     }
     function m() {
-      u != null && (u.endSuccess(), (u = null), (c = !0));
+      c = !0;
     }
-    function p() {
+    function p(e) {
+      (e === void 0 && (e = !0),
+        e && u != null && (u.endSuccess(), (u = null), (c = !0)));
+    }
+    function _() {
       var e;
       ((e = u) == null ||
         e.endCancel(void 0, { string: { cancel_reason: "call_ended" } }),
@@ -23,8 +29,9 @@ __d(
         (c = !1));
     }
     ((l.maybeStartVoipRelayConnectQpl = d),
-      (l.endVoipRelayConnectQplSuccess = m),
-      (l.resetVoipRelayConnectQpl = p));
+      (l.markVoipRelayConnectQplMeasured = m),
+      (l.endVoipRelayConnectQplSuccess = p),
+      (l.resetVoipRelayConnectQpl = _));
   },
   98,
 );

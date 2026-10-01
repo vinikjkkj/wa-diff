@@ -4,12 +4,10 @@ __d(
     "WAJids",
     "WAWebChatGetters",
     "WAWebContactGetters",
-    "WAWebFrontendMsgGetters",
     "WAWebLidMigrationUtils",
     "WAWebMemberLabelCollection",
     "WAWebMemberLabelGating",
     "WAWebMemberLabelHooks",
-    "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
   ],
@@ -32,23 +30,16 @@ __d(
     }
     function s(t) {
       var n, r;
-      if (t.from === "message") {
-        var a = t.message.unsafe();
-        ((n = o("WAWebFrontendMsgGetters").getMaybeChat(a)),
-          (r = o("WAWebMsgGetters").getSender(a)));
-      } else if (t.from === "chat_and_member") ((n = t.chat), (r = t.member));
+      if (t.from === "message") ((n = t.chat), (r = t.sender));
+      else if (t.from === "chat_and_member") ((n = t.chat), (r = t.member));
       else return null;
       return e(n, r);
     }
     function u(e) {
       return e != null && o("WAWebChatGetters").getIsGroup(e) && e.isTrusted();
     }
-    function c(e) {
-      var t = e.unsafe();
-      return (
-        o("WAWebFrontendMsgGetters").getIsMemberLabelEligible(t) &&
-        u(o("WAWebFrontendMsgGetters").getMaybeChat(t))
-      );
+    function c(e, t) {
+      return e && u(t);
     }
     function d(e) {
       var t = r("WAWebMemberLabelCollection").get(e);

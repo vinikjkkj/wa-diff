@@ -25,7 +25,7 @@ __d(
     }
     function d(e) {
       var t = o("WAWebLeadStage").getLeadStageFromNumber(e);
-      return t == null || t === o("WAWebLeadStage").LeadStage.NONE
+      return t == null
         ? ""
         : o("WAWebLeadStageNames").getLeadStageName(t).toString();
     }
@@ -94,14 +94,10 @@ __d(
           return (e = t.notes) != null ? e : "";
         },
       },
-      {
-        id: "birthday",
-        header: s._(/*BTDS*/ "Birthday").toString(),
-        getValue: c,
-      },
+      { id: "birthday", header: e.FBT_BIRTHDAY, getValue: c },
       {
         id: "lastOrder",
-        header: s._(/*BTDS*/ "Last order").toString(),
+        header: e.FBT_LAST_ORDER,
         getValue: function (t) {
           return t.lastOrder == null ? "" : u(t.lastOrder);
         },

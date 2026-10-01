@@ -12,12 +12,13 @@ __d(
     var e = n("$InternalEnum")({ M1_WINNER: 1 });
     function s() {
       if (o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe()) {
-        var t = window.parent.linkDeviceVariant,
-          n = e.cast(t);
-        return n != null ? n : u();
+        var t = window.parent,
+          n = t.linkDeviceVariant,
+          r = e.cast(n);
+        return r != null ? r : u();
       }
-      var r = u();
-      return ((window.linkDeviceVariant = r), r);
+      var a = u();
+      return ((window.linkDeviceVariant = a), a);
     }
     function u() {
       return e.M1_WINNER;

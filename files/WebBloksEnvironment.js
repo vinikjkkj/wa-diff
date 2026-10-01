@@ -33,6 +33,7 @@ __d(
         allowScreenOverflow: !1,
         allowFoldingAddressBar: !1,
         enableScrollRestoration: !1,
+        nonFABViewportFit: !1,
         enableBindSubtreeReuse: !1,
         enableNoOpVariableWriteFilter: !1,
         enableBindInstrumentation: !1,
@@ -182,7 +183,8 @@ __d(
         T,
         D,
         x,
-        $;
+        $,
+        P;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -225,49 +227,51 @@ __d(
               (m = t.enableScrollRestoration) != null
                 ? m
                 : e.enableScrollRestoration,
+            nonFABViewportFit:
+              (p = t.nonFABViewportFit) != null ? p : e.nonFABViewportFit,
             enableBindSubtreeReuse:
-              (p = t.enableBindSubtreeReuse) != null
-                ? p
+              (_ = t.enableBindSubtreeReuse) != null
+                ? _
                 : e.enableBindSubtreeReuse,
             enableNoOpVariableWriteFilter:
-              (_ = t.enableNoOpVariableWriteFilter) != null
-                ? _
+              (f = t.enableNoOpVariableWriteFilter) != null
+                ? f
                 : e.enableNoOpVariableWriteFilter,
             enableDeterministicTextSize:
-              (f = t.enableDeterministicTextSize) != null
-                ? f
+              (h = t.enableDeterministicTextSize) != null
+                ? h
                 : e.enableDeterministicTextSize,
             enableBindInstrumentation:
-              (h = t.enableBindInstrumentation) != null
-                ? h
+              (y = t.enableBindInstrumentation) != null
+                ? y
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (y = t.loadingFallback) != null ? y : e.loadingFallback,
+              (C = t.loadingFallback) != null ? C : e.loadingFallback,
             dataModulesStore: g(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (C = t.navigationTrackingUtils) != null
-                ? C
+              (b = t.navigationTrackingUtils) != null
+                ? b
                 : e.navigationTrackingUtils,
-            logger: (b = t.logger) != null ? b : e.logger,
+            logger: (v = t.logger) != null ? v : e.logger,
             disableErrorBoundary:
-              (v = t.disableErrorBoundary) != null ? v : e.disableErrorBoundary,
-            AssetRenderer: (S = t.AssetRenderer) != null ? S : e.AssetRenderer,
-            staticAssets: (R = t.staticAssets) != null ? R : e.staticAssets,
+              (S = t.disableErrorBoundary) != null ? S : e.disableErrorBoundary,
+            AssetRenderer: (R = t.AssetRenderer) != null ? R : e.AssetRenderer,
+            staticAssets: (L = t.staticAssets) != null ? L : e.staticAssets,
             globalStateStore:
-              (L = t.globalStateStore) != null ? L : e.globalStateStore,
+              (E = t.globalStateStore) != null ? E : e.globalStateStore,
             fontFamilyMappings:
-              (E = t.fontFamilyMappings) != null ? E : e.fontFamilyMappings,
-            timeoutIDS: (k = t.timeoutIDS) != null ? k : e.timeoutIDS,
+              (k = t.fontFamilyMappings) != null ? k : e.fontFamilyMappings,
+            timeoutIDS: (I = t.timeoutIDS) != null ? I : e.timeoutIDS,
             screenQueryTemplate:
-              (I = t.screenQueryTemplate) != null ? I : e.screenQueryTemplate,
+              (T = t.screenQueryTemplate) != null ? T : e.screenQueryTemplate,
             accessibilityModule:
-              (T = t.accessibilityModule) != null ? T : e.accessibilityModule,
-            gkx: (D = t.gkx) != null ? D : e.gkx,
+              (D = t.accessibilityModule) != null ? D : e.accessibilityModule,
+            gkx: (x = t.gkx) != null ? x : e.gkx,
             controllerNavigationLogger:
-              (x = t.controllerNavigationLogger) != null
-                ? x
+              ($ = t.controllerNavigationLogger) != null
+                ? $
                 : e.controllerNavigationLogger,
-            versioningID: ($ = t.versioningID) != null ? $ : e.versioningID,
+            versioningID: (P = t.versioningID) != null ? P : e.versioningID,
           }
         : e;
     }

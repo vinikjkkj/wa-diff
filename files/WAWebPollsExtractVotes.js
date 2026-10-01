@@ -77,34 +77,35 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebAddonEncryptionError").getValidatedMessageSecret(
+          var n,
+            a = o("WAWebAddonEncryptionError").getValidatedMessageSecret(
               o("WAWebMsgType").MsgKind.PollVoteEncrypted,
               t,
             ),
-            a = r("nullthrows")(t.pollSelectableOptionsCount),
-            i = r("nullthrows")(t.pollOptions),
-            l = r("nullthrows")(e.encPollVote),
-            s = o("WAWebWidFactory").asUserWidOrThrow(
-              o("WAWebMsgGetters").getSender(e),
+            i = (n = r("nullthrows"))(t.pollSelectableOptionsCount),
+            l = n(t.pollOptions),
+            s = n(e.encPollVote),
+            u = o("WAWebWidFactory").asUserWidOrThrow(
+              n(o("WAWebMsgGetters").getSender(e)),
             ),
-            u = yield o("WAWebPollsVoteEncryption").decryptVote({
-              encryptedVote: l.encPayload,
-              iv: l.encIv,
-              messageSecret: n,
+            c = yield o("WAWebPollsVoteEncryption").decryptVote({
+              encryptedVote: s.encPayload,
+              iv: s.encIv,
+              messageSecret: a,
               stanzaId: t.id.id,
               pollCreationOriginalSender:
                 o("WAWebMsgGetters").getOriginalSender(t),
-              voteSender: s,
+              voteSender: u,
               isOneOnOne: o("WAWebMsgGetters").getRemote(t).isUser(),
             }),
-            c = u.selectedOptions.length;
-          if (c > i.length || (a !== 0 && c > a))
+            d = c.selectedOptions.length;
+          if (d > l.length || (i !== 0 && d > i))
             throw new (o("WAWebPollsValidationError").PollVoteValidationError)(
               o("WAWebPollsValidationError").PollVoteValidationErrorCode
                 .INVALID_OPTIONS_COUNT,
             );
           if (
-            u.selectedOptions.some(function (e) {
+            c.selectedOptions.some(function (e) {
               return e.byteLength !== 32;
             })
           )
@@ -112,24 +113,24 @@ __d(
               o("WAWebPollsValidationError").PollVoteValidationErrorCode
                 .INVALID_OPTION,
             );
-          var d = yield o(
+          var m = yield o(
             "WAWebPollsCreateOptionLocalIdMap",
-          ).createOptionLocalIdMap(i);
-          if (!d.includesHashes(u.selectedOptions))
+          ).createOptionLocalIdMap(l);
+          if (!m.includesHashes(c.selectedOptions))
             throw new (o("WAWebPollsValidationError").PollVoteValidationError)(
               o("WAWebPollsValidationError").PollVoteValidationErrorCode
                 .OPTION_NOT_FOUND,
             );
           return o("WAWebPollsProtobufConversion").voteFromProtobuf({
-            voteProtobuf: u,
+            voteProtobuf: c,
             pollVoteMsgKey: e.id,
             parentMsgKey: e.pollUpdateParentKey,
-            sender: s,
+            sender: u,
             senderTimestampMs: e.senderTimestampMs,
             t: r("nullthrows")(e.t),
-            optionLocalIdMap: d,
+            optionLocalIdMap: m,
             ack: e.ack,
-            read: o("WAWebUserPrefsMeUser").isMeAccount(s),
+            read: o("WAWebUserPrefsMeUser").isMeAccount(u),
           });
         })),
         p.apply(this, arguments)

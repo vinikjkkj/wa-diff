@@ -138,7 +138,12 @@ __d(
               ]
             : null,
           a
-            ? [[r("WAWebMentionFormatMutator"), { mentions: a, selectable: m }]]
+            ? [
+                [
+                  r("WAWebMentionFormatMutator"),
+                  { mentions: a, selectable: m, fromChatWid: h },
+                ],
+              ]
             : null,
           [
             [

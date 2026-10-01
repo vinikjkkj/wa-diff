@@ -45,48 +45,54 @@ __d(
       }
       return null;
     }
-    function h(e, t, n) {
-      var r = e.get(t);
-      return r == null || r === "" || r.length > n || m.test(r) || p.test(r)
-        ? null
-        : r;
+    function h(e, t) {
+      return e !== "" && e.length <= t && !m.test(e) && !p.test(e);
     }
-    function y(e) {
+    function y(e, t, n) {
+      var r = e.get(t);
+      return r != null && h(r, n) ? r : null;
+    }
+    function C(e) {
       var t = e.get("type");
       return t == null || t === ""
         ? null
         : o("WAWebUserPrefsTypes").PixKeyType.cast(t.toUpperCase());
     }
-    function C(e, t) {
-      var n = d.get(t),
-        r = g(e, "value");
-      return n == null ||
-        r == null ||
-        r.length > n.maxLength ||
-        m.test(r) ||
-        _.test(r) ||
-        !n.shape.test(r)
-        ? null
-        : r;
-    }
     function b(e, t) {
+      var n = d.get(t);
+      return (
+        n != null &&
+        e.length <= n.maxLength &&
+        !m.test(e) &&
+        !_.test(e) &&
+        n.shape.test(e)
+      );
+    }
+    function v(e, t) {
+      var n = g(e, "value");
+      return n != null && b(n, t) ? n : null;
+    }
+    function S(e, t) {
       var n,
         r,
         o,
-        a = y(e);
+        a = C(e);
       if (a == null) return null;
-      var i = C(t, a);
+      var i = v(t, a);
       return i == null
         ? null
         : {
-            bankId: (n = h(e, "bankid", c)) != null ? n : void 0,
-            bankName: (r = h(e, "bankname", u)) != null ? r : void 0,
+            bankId: (n = y(e, "bankid", c)) != null ? n : void 0,
+            bankName: (r = y(e, "bankname", u)) != null ? r : void 0,
             keyType: a,
-            name: (o = h(e, "name", s)) != null ? o : void 0,
+            name: (o = y(e, "name", s)) != null ? o : void 0,
             value: i,
           };
     }
-    l.parseAddPixKeyPrefill = b;
+    ((l.MAX_NAME_LENGTH = s),
+      (l.isAcceptableCappedText = h),
+      (l.isAcceptablePixKeyValue = b),
+      (l.parseAddPixKeyPrefill = S));
   },
   98,
 );

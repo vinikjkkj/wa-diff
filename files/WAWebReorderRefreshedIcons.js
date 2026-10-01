@@ -1,6 +1,6 @@
 __d(
   "WAWebReorderRefreshedIcons",
-  ["WAWebTransferRefreshedIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcSyncAlt.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -13,18 +13,22 @@ __d(
       t[0] !== e.xstyle
         ? ((n = [e.xstyle, u.rotated]), (t[0] = e.xstyle), (t[1] = n))
         : (n = t[1]);
-      var r;
+      var a;
       return (
         t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebTransferRefreshedIcon.react").TransferRefreshedIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
+          ? ((a = s.jsx(
+              r("WDSIconIcSyncAlt.react"),
+              babelHelpers.extends(
+                { testid: "transfer-refreshed", height: 24, width: 24 },
+                e,
+                { xstyle: n },
+              ),
             )),
             (t[2] = e),
             (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+            (t[4] = a))
+          : (a = t[4]),
+        a
       );
     }
     l.default = c;

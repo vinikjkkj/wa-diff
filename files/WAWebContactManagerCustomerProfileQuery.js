@@ -33,42 +33,55 @@ __d(
             );
           yield r("WAWebNetworkStatus").waitIfOffline();
           var a = yield o("WAWebRelayClient").fetchQuery(
-              s,
-              { lid: t },
-              { accessToken: n.token, environmentType: "facebook" },
+            s,
+            { lid: t },
+            { accessToken: n.token, environmentType: "facebook" },
+          );
+          if (a == null)
+            throw r("err")(
+              "[ContactManager] fetchCustomerProfile: incomplete response",
+            );
+          var i = a.xfb_wa_customer_profile;
+          if (i === void 0)
+            throw r("err")(
+              "[ContactManager] fetchCustomerProfile: incomplete response",
+            );
+          if (i == null) return null;
+          var l = i.etag;
+          if (l == null || l === "")
+            throw r("err")(
+              "[ContactManager] fetchCustomerProfile: missing profile etag",
+            );
+          return {
+            acquisitionDate: o(
+              "WAWebContactManagerCustomerProfileDecoders",
+            ).toOptionalUnixTime(i.acquisition_date),
+            acquisitionSource: o(
+              "WAWebContactManagerCustomerProfileDecoders",
+            ).toProfileAcquisitionSourceId(i.acquisition_source),
+            address: i.address,
+            birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
+              i.dob,
             ),
-            i = a == null ? void 0 : a.xfb_wa_customer_profile;
-          return i == null
-            ? null
-            : {
-                acquisitionDate: o(
-                  "WAWebContactManagerCustomerProfileDecoders",
-                ).toOptionalUnixTime(i.acquisition_date),
-                acquisitionSource: o(
-                  "WAWebContactManagerCustomerProfileDecoders",
-                ).toProfileAcquisitionSourceId(i.acquisition_source),
-                address: i.address,
-                birthday: o(
-                  "WAWebCustomerProfileBirthday",
-                ).parseBirthdayFromIso(i.dob),
-                birthdayIso: i.dob,
-                email: i.email,
-                lastOrder: o(
-                  "WAWebContactManagerCustomerProfileDecoders",
-                ).toOptionalUnixTime(i.last_order_date),
-                leadStage: o(
-                  "WAWebContactManagerCustomerProfileDecoders",
-                ).toLeadStageType(i.lead_stage),
-                modifiedAt: o(
-                  "WAWebContactManagerCustomerProfileDecoders",
-                ).latestUpdateTs(
-                  i.last_updates.map(function (e) {
-                    var t = e.ts;
-                    return t;
-                  }),
-                ),
-                name: i.name,
-              };
+            birthdayIso: i.dob,
+            etag: l,
+            email: i.email,
+            lastOrder: o(
+              "WAWebContactManagerCustomerProfileDecoders",
+            ).toOptionalUnixTime(i.last_order_date),
+            leadStage: o(
+              "WAWebContactManagerCustomerProfileDecoders",
+            ).toLeadStageType(i.lead_stage),
+            modifiedAt: o(
+              "WAWebContactManagerCustomerProfileDecoders",
+            ).latestUpdateTs(
+              i.last_updates.map(function (e) {
+                var t = e.ts;
+                return t;
+              }),
+            ),
+            name: i.name,
+          };
         })),
         c.apply(this, arguments)
       );

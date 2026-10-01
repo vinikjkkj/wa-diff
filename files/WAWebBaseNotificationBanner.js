@@ -441,25 +441,14 @@ __d(
           (a.increaseNotificationEngagement = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t,
-                  n,
-                  r = e === void 0 ? {} : e,
-                  a = r.isClick,
-                  i = a === void 0 ? !1 : a,
-                  l = r.isShow,
-                  s = l === void 0 ? !1 : l,
-                  u = yield o(
-                    "WAWebUserPrefsGeneral",
-                  ).getNotificationEngagement();
-                o("WAWebUserPrefsGeneral").setNotificationContentEngagement({
-                  totalNotifShown:
-                    ((t = u == null ? void 0 : u.totalNotifShown) != null
-                      ? t
-                      : 0) + (s ? 1 : 0),
-                  totalNotifTapToOpen:
-                    ((n = u == null ? void 0 : u.totalNotifTapToOpen) != null
-                      ? n
-                      : 0) + (i ? 1 : 0),
+                var t = e === void 0 ? {} : e,
+                  n = t.isClick,
+                  r = n === void 0 ? !1 : n,
+                  a = t.isShow,
+                  i = a === void 0 ? !1 : a;
+                yield o("WAWebUserPrefsGeneral").addToNotificationEngagement({
+                  totalNotifShown: i ? 1 : 0,
+                  totalNotifTapToOpen: r ? 1 : 0,
                 });
               },
             );

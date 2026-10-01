@@ -214,11 +214,14 @@ __d(
         (r === !0 && (s.subType = "paid_change"), u(s, t));
       }
     }
-    var m = function (t, n, r) {
-        var e = "label_chat";
-        t.forEach(function (t) {
-          n.forEach(function (n) {
-            c(n, t, e, r);
+    var m = function (t) {
+        var e = t.chats,
+          n = t.isDataSharingEnabled,
+          r = t.labelIds,
+          o = "label_chat";
+        e.forEach(function (e) {
+          r.forEach(function (t) {
+            c(t, e, o, n);
           });
         });
       },
@@ -248,7 +251,7 @@ __d(
           r.length > 0 &&
           i.length > 0 &&
           o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
-          m(i, r, n),
+          m({ chats: i, isDataSharingEnabled: n, labelIds: r }),
           t != null &&
             t.length > 0 &&
             i.length > 0 &&

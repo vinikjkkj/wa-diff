@@ -36,6 +36,9 @@ __d(
         (n.removeByOrgId = function (t) {
           this.remove(this.getByOrgId(t));
         }),
+        (n.removeByLid = function (t) {
+          this.remove(this.getByLid(t));
+        }),
         t
       );
     })(o("WAWebBaseCollection").BaseCollection);
