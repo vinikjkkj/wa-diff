@@ -6,7 +6,6 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterModelUtils",
-    "WAWebNewsletterPinGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -85,12 +84,7 @@ __d(
               newsletterReactionCodesSettingMetadataMixin:
                 Z != null ? h(Z) : void 0,
             },
-            oe != null &&
-              o(
-                "WAWebNewsletterPinGatingUtils",
-              ).isChannelMessagePinReadEnabled() && {
-                newsletterPinnedMessagesMetadataMixin: y(oe),
-              },
+            oe != null && { newsletterPinnedMessagesMetadataMixin: y(oe) },
           );
         return (
           o("WAWebNewsletterGatingUtils").isWamoSubExperienceEnabled() &&

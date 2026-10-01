@@ -46,11 +46,11 @@ __d(
             )) == null
               ? void 0
               : n[0].value;
-          if (a == null) return { accountsReached: r };
+          if (a == null) return { accountsReachedChannels: r };
           var i = r - a,
             l =
               i === 0 ? o("WAWebNewsletterMetricUtils").DELTA_INFINITE : a / i;
-          return { accountsReached: r, reachDelta: l };
+          return { accountsReachedChannels: r, reachDeltaChannels: l };
         },
       },
       s = {

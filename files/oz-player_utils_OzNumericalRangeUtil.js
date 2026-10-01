@@ -106,7 +106,9 @@ __d(
         a++
       ) {
         for (var i = e[a], l = a; l < t.length; l++) {
-          var s = t[l];
+          var s = t[l],
+            u = i.rangeEnd,
+            c = s.rangeEnd;
           if (
             o("oz-player/utils/OzNumericalHelper").equalTo(
               i.rangeStart,
@@ -131,18 +133,15 @@ __d(
             r = { rangeStart: s.rangeStart, rangeEnd: s.rangeEnd };
             break;
           } else if (
-            s.rangeEnd != null &&
-            i.rangeEnd != null &&
+            c != null &&
+            u != null &&
             o("oz-player/utils/OzNumericalHelper").equalTo(
               i.rangeStart,
               s.rangeStart,
             ) &&
-            !o("oz-player/utils/OzNumericalHelper").equalTo(
-              i.rangeEnd,
-              s.rangeEnd,
-            )
+            !o("oz-player/utils/OzNumericalHelper").equalTo(u, c)
           ) {
-            r = { rangeStart: i.rangeEnd, rangeEnd: s.rangeEnd };
+            r = { rangeStart: u, rangeEnd: c };
             break;
           }
         }

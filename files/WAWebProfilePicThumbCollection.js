@@ -9,7 +9,6 @@ __d(
     "WAWebApiContact",
     "WAWebBackendErrors",
     "WAWebBaseCachePolicy",
-    "WAWebBizAiAssetResolver",
     "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -25,6 +24,7 @@ __d(
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebStaleBaseCollection",
+    "WAWebThemeSession",
     "WAWebUnjoinedSubgroupMetadataCollection",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
@@ -440,13 +440,11 @@ __d(
     function y() {
       var e = new g();
       return (
-        o("WAWebBizAiAssetResolver").registerAiHubProfileThemeChangeHandler(
-          function (t) {
-            e.getModelsArray().forEach(function (e) {
-              e.id.isAiHub() && e.set({ aiHubProfileIsDarkTheme: t });
-            });
-          },
-        ),
+        o("WAWebThemeSession").subscribeToThemeChanges(function (t) {
+          e.getModelsArray().forEach(function (e) {
+            e.id.isAiHub() && e.set({ isDarkTheme: t });
+          });
+        }),
         e
       );
     }

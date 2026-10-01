@@ -26,9 +26,6 @@ __d(
         _require_closure_react || (_require_closure_react = require("react")),
       s = _require_closure_react;
     function x(e) {
-      var t = new URL("https://lexical.dev/docs/error"),
-        n = new URLSearchParams();
-      n.append("code", e);
       for (
         var _len = arguments.length,
           r = new Array(_len > 1 ? _len - 1 : 0),
@@ -38,17 +35,31 @@ __d(
       ) {
         r[_key - 1] = arguments[_key];
       }
-      for (var _e of r) n.append("v", _e);
-      throw (
-        (t.search = n.toString()),
-        Error(
-          "Minified Lexical error #" +
-            e +
-            "; visit " +
-            t.toString() +
-            " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
-        )
-      );
+      throw function (e) {
+        var n = new URL("https://lexical.dev/docs/error"),
+          t = new URLSearchParams();
+        t.append("code", e);
+        for (
+          var _len2 = arguments.length,
+            r = new Array(_len2 > 1 ? _len2 - 1 : 0),
+            _key2 = 1;
+          _key2 < _len2;
+          _key2++
+        ) {
+          r[_key2 - 1] = arguments[_key2];
+        }
+        for (var _e of r) t.append("v", _e);
+        return (
+          (n.search = t.toString()),
+          new Error(
+            "Minified Lexical error #" +
+              e +
+              "; visit " +
+              n.toString() +
+              " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+          )
+        );
+      }.apply(void 0, [e].concat(Array.from(r)));
     }
     function d(_ref) {
       var e = _ref.editor,
@@ -67,10 +78,10 @@ __d(
             },
             [e],
           ),
-          t = _o$useMemo[0],
-          n = _o$useMemo[1],
-          c = o.useSyncExternalStore(t, n, n),
-          a = (function (e) {
+          n = _o$useMemo[0],
+          t = _o$useMemo[1],
+          c = o.useSyncExternalStore(n, t, t),
+          u = (function (e) {
             var _o$useMemo2 = o.useMemo(
                 function () {
                   return [
@@ -81,31 +92,31 @@ __d(
                 [e],
               ),
               r = _o$useMemo2[0],
-              t = _o$useMemo2[1];
-            return o.useSyncExternalStore(r, t, t);
+              n = _o$useMemo2[1];
+            return o.useSyncExternalStore(r, n, n);
           })(e);
         return o.useMemo(
           function () {
-            var t = function t(r) {
+            var n = function n(r) {
                 return e._onError(r);
               },
-              n = [];
-            for (var _a in c) {
-              var _u = e.getElementByKey(_a);
-              if (null !== _u) {
+              t = [];
+            for (var _u in c) {
+              var _a = e.getElementByKey(_u);
+              if (null !== _a) {
                 var _e2 = s.jsx(r, {
-                  onError: t,
+                  onError: n,
                   children: s.jsx(o.Suspense, {
                     fallback: null,
-                    children: c[_a],
+                    children: c[_u],
                   }),
                 });
-                n.push(require("ReactDOM").createPortal(_e2, _u, _a));
+                t.push(require("ReactDOM").createPortal(_e2, _a, _u));
               }
             }
-            return n;
+            return t;
           },
-          [r, c, e, a],
+          [r, c, e, u],
         );
       })(e, r);
     }
@@ -141,22 +152,22 @@ __d(
       );
     }
     function g(_ref3) {
-      var t = _ref3.content;
+      var n = _ref3.content;
       var _e$useLexicalComposer =
           require("LexicalComposerContext").useLexicalComposerContext(),
-        n = _e$useLexicalComposer[0],
+        t = _e$useLexicalComposer[0],
         i = (function (e) {
           var _o$useState = o.useState(function () {
               return L(e);
             }),
             r = _o$useState[0],
-            t = _o$useState[1];
+            n = _o$useState[1];
           return (
             E(
               function () {
                 function r() {
                   var r = L(e);
-                  t(r);
+                  n(r);
                 }
                 return (
                   r(),
@@ -174,15 +185,15 @@ __d(
             ),
             r
           );
-        })(n),
+        })(t),
         s = require("useLexicalEditable").useLexicalEditable();
-      return i ? ("function" == typeof t ? t(s) : t) : null;
+      return i ? ("function" == typeof n ? n(s) : n) : null;
     }
     exports.PlainTextPlugin = function (_ref4) {
       var r = _ref4.contentEditable,
         _ref4$placeholder = _ref4.placeholder,
-        t = _ref4$placeholder === void 0 ? null : _ref4$placeholder,
-        n = _ref4.ErrorBoundary;
+        n = _ref4$placeholder === void 0 ? null : _ref4$placeholder,
+        t = _ref4.ErrorBoundary;
       var _e$useLexicalComposer2 =
           require("LexicalComposerContext").useLexicalComposerContext(),
         o = _e$useLexicalComposer2[0];
@@ -201,8 +212,8 @@ __d(
         s.jsxs(s.Fragment, {
           children: [
             r,
-            s.jsx(g, { content: t }),
-            s.jsx(f, { editor: o, ErrorBoundary: n }),
+            s.jsx(g, { content: n }),
+            s.jsx(f, { editor: o, ErrorBoundary: t }),
           ],
         })
       );

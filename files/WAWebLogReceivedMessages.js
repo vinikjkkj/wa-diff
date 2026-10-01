@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
     "WAWebAfterReadUtils",
     "WAWebApiBulkGetChats",
@@ -491,6 +492,7 @@ __d(
               }
             }
           }
+          var u = D(e);
           return {
             activityType: e.id.fromMe ? "msgSend" : "msgReceive",
             ts: e.t,
@@ -502,7 +504,10 @@ __d(
               "WAWebChatThreadLoggingUtils",
             ).isCommerceMessage(e),
             isReply: o("WAWebMsgGetters").getIsReply(e),
-            isEdit: o("WAWebMsgGetters").getIsEditProtocolMsg(e),
+            isEdit:
+              o("WAWebMsgGetters").getIsEditProtocolMsg(e) ||
+              (u && e.subtype === "message_edit"),
+            isExcludedModification: u,
             isBot:
               o("WAWebMsgGetters").getIsBotQuery(e) ||
               o("WAWebMsgGetters").getIsMetaBotResponse(e),
@@ -519,6 +524,18 @@ __d(
       );
     }
     function D(e) {
+      return (
+        !e.id.fromMe &&
+        (e.subtype === "message_edit" ||
+          o("WAWebMsgGetters").getIsRevoke(e) ||
+          o("WAWebMsgGetters").getType(e) ===
+            o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "thread_interactions_received_excludes_edits_web_enabled",
+        ) === !0
+      );
+    }
+    function x(e) {
       for (var t of e)
         if (
           t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
@@ -558,7 +575,7 @@ __d(
           }
         }
     }
-    function x(e) {
+    function $(e) {
       (d || (d = n("Promise")))
         .all(
           e
@@ -569,7 +586,7 @@ __d(
         )
         .then(o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging);
     }
-    function $(e) {
+    function P(e) {
       e.filter(o("WAWebMsgGetters").getIsAuthenticationMessage).forEach(
         function (e) {
           o("WAWebBackendApi").frontendFireAndForget(
@@ -579,15 +596,15 @@ __d(
         },
       );
     }
-    function P(t) {
+    function N(t) {
       var r = t.msgs;
       v(r)
         .then(function (e) {
           return (d || (d = n("Promise"))).all([
             f(t, e.chatData, e.contactData),
             R(r, e.contactData),
-            x(r),
             $(r),
+            P(r),
             p(r),
             o(
               "WAWebGalaxyFlowWamLoggerUtils",
@@ -605,7 +622,7 @@ __d(
               r,
               e.chatData,
             ),
-            D(r),
+            x(r),
             o("WAWebUprReceivedWamLogger").logUprReceivedWAMEvent(r),
           ]);
         })
@@ -620,7 +637,7 @@ __d(
           );
         });
     }
-    function N(e) {
+    function M(e) {
       var t = e.chatWid,
         n = e.clientReceivedTsMillis,
         r = e.msgProcessStartTsMillis,
@@ -654,8 +671,8 @@ __d(
         );
       }
     }
-    ((l.logReceivedMessagesInWAM = P),
-      (l.logConditionalRevealMessageReceive = N));
+    ((l.logReceivedMessagesInWAM = N),
+      (l.logConditionalRevealMessageReceive = M));
   },
   98,
 );

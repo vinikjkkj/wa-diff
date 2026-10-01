@@ -20,9 +20,6 @@ __d(
     "use strict";
     var _require_Lexical;
     function c(e) {
-      var n = new URL("https://lexical.dev/docs/error"),
-        o = new URLSearchParams();
-      o.append("code", e);
       for (
         var _len = arguments.length,
           t = new Array(_len > 1 ? _len - 1 : 0),
@@ -32,17 +29,31 @@ __d(
       ) {
         t[_key - 1] = arguments[_key];
       }
-      for (var _e2 of t) o.append("v", _e2);
-      throw (
-        (n.search = o.toString()),
-        Error(
-          "Minified Lexical error #" +
-            e +
-            "; visit " +
-            n.toString() +
-            " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
-        )
-      );
+      throw function (e) {
+        var n = new URL("https://lexical.dev/docs/error"),
+          o = new URLSearchParams();
+        o.append("code", e);
+        for (
+          var _len2 = arguments.length,
+            t = new Array(_len2 > 1 ? _len2 - 1 : 0),
+            _key2 = 1;
+          _key2 < _len2;
+          _key2++
+        ) {
+          t[_key2 - 1] = arguments[_key2];
+        }
+        for (var _e2 of t) o.append("v", _e2);
+        return (
+          (n.search = o.toString()),
+          new Error(
+            "Minified Lexical error #" +
+              e +
+              "; visit " +
+              n.toString() +
+              " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+          )
+        );
+      }.apply(void 0, [e].concat(Array.from(t)));
     }
     var l;
     function u(e, t) {
@@ -222,7 +233,7 @@ __d(
         return t instanceof e;
       };
     }
-    function A(e, _ref) {
+    function w(e, _ref) {
       var t = _ref.nodes;
       if ("*" === t) return C;
       var n = {};
@@ -247,7 +258,7 @@ __d(
             })
       );
     }
-    function w(e) {
+    function A(e) {
       return function (t, n, o) {
         return e(t, o);
       };
@@ -422,7 +433,7 @@ __d(
               [].concat(Array.from(r), Array.from(o), Array.from(n))
             );
           })(n)) {
-            var _t7 = A(o, _e1);
+            var _t7 = w(o, _e1);
             for (var _n7 in s) q(s, _n7, _t7, _e1[_n7]);
           }
           return s;
@@ -433,8 +444,8 @@ __d(
           e.dom,
         );
       return (
-        Y(o, "$createDOM", s, B, w),
-        Y(o, "$exportDOM", s, B, w),
+        Y(o, "$createDOM", s, B, A),
+        Y(o, "$exportDOM", s, B, A),
         Y(o, "$extractWithChild", s, j, P),
         Y(o, "$getDOMSlot", s, W, U),
         Y(o, "$shouldExclude", s, H, F),
@@ -634,21 +645,21 @@ __d(
         }),
         (_ref3.classAll = function classAll() {
           for (
-            var _len2 = arguments.length, e = new Array(_len2), _key2 = 0;
-            _key2 < _len2;
-            _key2++
-          ) {
-            e[_key2] = arguments[_key2];
-          }
-          return s(ie(e));
-        }),
-        (_ref3.classAny = function classAny() {
-          for (
             var _len3 = arguments.length, e = new Array(_len3), _key3 = 0;
             _key3 < _len3;
             _key3++
           ) {
             e[_key3] = arguments[_key3];
+          }
+          return s(ie(e));
+        }),
+        (_ref3.classAny = function classAny() {
+          for (
+            var _len4 = arguments.length, e = new Array(_len4), _key4 = 0;
+            _key4 < _len4;
+            _key4++
+          ) {
+            e[_key4] = arguments[_key4];
           }
           return s(
             (function (e) {
@@ -758,11 +769,11 @@ __d(
     }
     function pe() {
       for (
-        var _len4 = arguments.length, e = new Array(_len4), _key4 = 0;
-        _key4 < _len4;
-        _key4++
+        var _len5 = arguments.length, e = new Array(_len5), _key5 = 0;
+        _key5 < _len5;
+        _key5++
       ) {
-        e[_key4] = arguments[_key4];
+        e[_key5] = arguments[_key5];
       }
       e.length > 0 || c(363);
       var t = new Set();
@@ -980,7 +991,7 @@ __d(
         (require("Lexical").$isDecoratorNode(e) && !e.isInline())
       );
     }
-    function Ae(e, n) {
+    function we(e, n) {
       if (!require("Lexical").isHTMLElement(n)) return e;
       var o = n.style.textAlign;
       if (!Ue(o)) return e;
@@ -990,7 +1001,7 @@ __d(
           _n14.setFormat(o);
       return e;
     }
-    function we(e, n, o) {
+    function Ae(e, n, o) {
       1 === e.length && require("Lexical").$isLineBreakNode(e[0]) && (e = []);
       var r = require("Lexical").$createParagraphNode();
       if (require("Lexical").isHTMLElement(o)) {
@@ -999,7 +1010,7 @@ __d(
       }
       return [r.splice(0, 0, e)];
     }
-    var Fe = { $accepts: be, $packageRun: we, name: "BlockSchema" },
+    var Fe = { $accepts: be, $packageRun: Ae, name: "BlockSchema" },
       Le = {
         $accepts: function $accepts(e) {
           return !be(e);
@@ -1013,7 +1024,7 @@ __d(
         },
         name: "NestedBlockSchema",
       },
-      Be = { $accepts: be, $packageRun: we, name: "RootSchema" },
+      Be = { $accepts: be, $packageRun: Ae, name: "RootSchema" },
       He = me,
       We = new Set(["center", "end", "justify", "left", "right", "start"]);
     function Ue(e) {
@@ -1306,7 +1317,7 @@ __d(
         {
           $import: function $import(e, n, o) {
             return require("Lexical").isBlockDomNode(n)
-              ? Ae(e.$importChildren(n, { schema: Fe }), n)
+              ? we(e.$importChildren(n, { schema: Fe }), n)
               : o();
           },
           match: He.any(),
@@ -1927,7 +1938,7 @@ __d(
       (exports.$getSessionDOMRenderConfig = v),
       (exports.$inlineStylesFromStyleSheets = y),
       (exports.$isBlockLevel = be),
-      (exports.$propagateTextAlignToBlockChildren = Ae),
+      (exports.$propagateTextAlignToBlockChildren = we),
       (exports.$setRenderContextValue = function (e, n, o) {
         if (o === void 0) {
           o = require("Lexical").$getEditor();

@@ -21,11 +21,9 @@ __d(
         var l;
         e.points.push(i);
       }
-      return (
-        (e.annotations = (o = e.annotations) != null ? o : {}),
-        Object.assign(e.annotations, (a = t.annotations) != null ? a : {}),
-        !0
-      );
+      var s = (o = e.annotations) != null ? o : {},
+        u = (a = t.annotations) != null ? a : {};
+      return ((e.annotations = babelHelpers.extends({}, s, u)), !0);
     }
     var p = (function () {
         function e() {
@@ -148,7 +146,7 @@ __d(
             }, 3e3);
           }),
           (o.stopSendingTraces = function () {
-            this.timer && clearTimeout(this.timer);
+            this.timer != null && this.timer !== 0 && clearTimeout(this.timer);
           }),
           (o.obtainTraces = function () {
             return {

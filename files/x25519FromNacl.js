@@ -95,7 +95,8 @@ __d(
       var r = e(),
         o;
       for (o = 0; o < 16; o++) r[o] = n[o];
-      for (o = 253; o >= 0; o--) (R(r, r), o !== 2 && o !== 4 && S(r, r, n));
+      for (var a = 253; a >= 0; a--)
+        (R(r, r), a !== 2 && a !== 4 && S(r, r, n));
       for (o = 0; o < 16; o++) t[o] = r[o];
     }
     function E(t, n, r) {

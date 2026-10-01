@@ -24,6 +24,7 @@ __d(
                   .MD_BOOTSTRAP_PAYLOAD_TYPE,
               ],
               mdRegAttemptId: [3, e.TYPES.STRING],
+              mdRegAttemptIdPn: [7, e.TYPES.STRING],
               mdSessionId: [4, e.TYPES.STRING],
               mdTimestamp: [5, e.TYPES.INTEGER],
             },

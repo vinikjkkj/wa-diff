@@ -87,6 +87,7 @@ __d(
         BizAiSettingsNudge: "biz_ai_settings_nudge",
         WasaRootSecret: "wasa_root_secret",
         GroupHistoryToggle: "group_history_toggle",
+        BBProPendingCustomerBaseAction: "bb_pro_pending_customer_base_action",
       }),
       y = e({
         Regular: "regular",

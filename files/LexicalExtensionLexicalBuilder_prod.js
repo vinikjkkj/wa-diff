@@ -16,9 +16,6 @@ __d(
     "use strict";
     var _excluded = ["$initialEditorState", "onError", "onWarn"];
     function i(t) {
-      var n = new URL("https://lexical.dev/docs/error"),
-        i = new URLSearchParams();
-      i.append("code", t);
       for (
         var _len = arguments.length,
           e = new Array(_len > 1 ? _len - 1 : 0),
@@ -28,17 +25,31 @@ __d(
       ) {
         e[_key - 1] = arguments[_key];
       }
-      for (var _t of e) i.append("v", _t);
-      throw (
-        (n.search = i.toString()),
-        Error(
-          "Minified Lexical error #" +
-            t +
-            "; visit " +
-            n.toString() +
-            " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
-        )
-      );
+      throw function (t) {
+        var n = new URL("https://lexical.dev/docs/error"),
+          i = new URLSearchParams();
+        i.append("code", t);
+        for (
+          var _len2 = arguments.length,
+            e = new Array(_len2 > 1 ? _len2 - 1 : 0),
+            _key2 = 1;
+          _key2 < _len2;
+          _key2++
+        ) {
+          e[_key2 - 1] = arguments[_key2];
+        }
+        for (var _t of e) i.append("v", _t);
+        return (
+          (n.search = i.toString()),
+          new Error(
+            "Minified Lexical error #" +
+              t +
+              "; visit " +
+              n.toString() +
+              " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+          )
+        );
+      }.apply(void 0, [t].concat(Array.from(e)));
     }
     function s() {
       var t;
@@ -537,11 +548,11 @@ __d(
     ((exports.LexicalBuilder = _x),
       (exports.buildEditorFromExtensions = function () {
         for (
-          var _len2 = arguments.length, t = new Array(_len2), _key2 = 0;
-          _key2 < _len2;
-          _key2++
+          var _len3 = arguments.length, t = new Array(_len3), _key3 = 0;
+          _key3 < _len3;
+          _key3++
         ) {
-          t[_key2] = arguments[_key2];
+          t[_key3] = arguments[_key3];
         }
         return _x.fromExtensions(t).buildEditor();
       }),

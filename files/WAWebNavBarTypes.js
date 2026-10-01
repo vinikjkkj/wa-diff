@@ -24,6 +24,7 @@ __d(
       MeTab: "meTab",
       ContactManager: "contactManager",
       OrgAdmin: "orgAdmin",
+      GroupAdmin: "groupAdmin",
     });
     i.NavBarItems = e;
   },

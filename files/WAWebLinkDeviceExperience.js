@@ -8,6 +8,7 @@ __d(
     "WAWebDeviceFeatures",
     "WAWebHybridRegGating",
     "WAWebLinkDeviceScreenGatedUtils",
+    "WAWebLoggedOutSeparationGating",
     "WAWebNativeCameraQRLinkedDeviceUtils",
     "WAWebWamEnumWebcNativeUpsellCtaQrScreenExperimentGroup",
   ],
@@ -41,6 +42,8 @@ __d(
         AppleTouchscreenOverlay: new e(17),
         HybridRegControl: new e(18),
         HybridRegTest: new e(19),
+        LoggedOutSeparationControl: new e(20),
+        LoggedOutSeparationTest: new e(21),
       };
     function u() {
       return (
@@ -159,6 +162,24 @@ __d(
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             m,
+        );
+      }
+      var p = o(
+        "WAWebLoggedOutSeparationGating",
+      ).getLoggedOutSeparationExperiment();
+      e: {
+        if (p === "control") {
+          t.set(s.LoggedOutSeparationControl.getIndex());
+          break e;
+        }
+        if (p === "test") {
+          t.set(s.LoggedOutSeparationTest.getIndex());
+          break e;
+        }
+        if (p === "none") break e;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            p,
         );
       }
       return t.toNumber();

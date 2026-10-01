@@ -316,14 +316,17 @@ __d(
         }),
         c = u.renderHeight,
         d = u.renderWidth;
-      (t.save(),
-        t.clearRect(0, 0, e.width, e.height),
-        t.translate(e.width / 2, e.height / 2),
-        t.scale(a ? -1 : 1, 1),
-        t.rotate((Math.PI * (o.valueOf() - 1)) / 2),
-        t.translate(-d / 2, -c / 2),
-        t.drawImage(l, 0, 0, d, c),
-        t.restore());
+      t.save();
+      try {
+        (t.clearRect(0, 0, e.width, e.height),
+          t.translate(e.width / 2, e.height / 2),
+          t.scale(a ? -1 : 1, 1),
+          t.rotate((Math.PI * (o.valueOf() - 1)) / 2),
+          t.translate(-d / 2, -c / 2),
+          t.drawImage(l, 0, 0, d, c));
+      } finally {
+        t.restore();
+      }
     }
     function C(e) {
       var t = e.canvasHeight,

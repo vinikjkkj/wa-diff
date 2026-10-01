@@ -45,6 +45,7 @@ __d(
               ],
               mdHsOldestMessageTimestamp: [11, e.TYPES.INTEGER],
               mdRegAttemptId: [12, e.TYPES.STRING],
+              mdRegAttemptIdPn: [23, e.TYPES.STRING],
               mdSessionId: [1, e.TYPES.STRING],
               mdStorageQuotaBytes: [9, e.TYPES.INTEGER],
               mdStorageQuotaUsedBytes: [10, e.TYPES.INTEGER],

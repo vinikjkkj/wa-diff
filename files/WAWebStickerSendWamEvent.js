@@ -14,6 +14,7 @@ __d(
             1840,
             {
               dedupKey: [16, e.TYPES.INTEGER],
+              stickerHasSound: [17, e.TYPES.BOOLEAN],
               stickerIsAi: [7, e.TYPES.BOOLEAN],
               stickerIsAnimated: [3, e.TYPES.BOOLEAN],
               stickerIsAvatar: [6, e.TYPES.BOOLEAN],

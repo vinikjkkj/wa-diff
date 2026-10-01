@@ -10,7 +10,8 @@ __d(
       return d(e) ? "membrane" : m(e) ? "oauth" : "credentials";
     }
     function c(e) {
-      return m(e) && e.authorizationParams.length > 0
+      return m(e) &&
+        (e.authorizationParams.length > 0 || e.urlTemplateParams.length > 0)
         ? "oauth-with-params"
         : m(e)
           ? "oauth"
@@ -38,7 +39,8 @@ __d(
               : t === "GENERIC_WITH_NUX"
                 ? { kind: "show-nux", templateType: "GENERIC_WITH_NUX" }
                 : t === "GENERIC_WITHOUT_NUX" &&
-                    e.authorizationParams.length > 0
+                    (e.authorizationParams.length > 0 ||
+                      e.urlTemplateParams.length > 0)
                   ? { kind: "authorize" }
                   : null;
           })((t = e.template) == null ? void 0 : t.templateType);

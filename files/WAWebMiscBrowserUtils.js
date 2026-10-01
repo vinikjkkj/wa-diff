@@ -45,7 +45,7 @@ __d(
               ])),
           ),
             m.promptUnloadGuards++,
-            location.reload(!1));
+            location.reload());
         },
         startDownloading: function () {
           ((s = !0), u());

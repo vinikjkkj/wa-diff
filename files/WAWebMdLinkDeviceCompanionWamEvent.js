@@ -29,6 +29,7 @@ __d(
               ],
               mdLinkDeviceExperienceId: [11, e.TYPES.INTEGER],
               mdRegAttemptId: [9, e.TYPES.STRING],
+              mdRegAttemptIdPn: [17, e.TYPES.STRING],
               mdSessionId: [1, e.TYPES.STRING],
               mdTimestampS: [7, e.TYPES.INTEGER],
               mdWasUpgraded: [5, e.TYPES.BOOLEAN],

@@ -99,45 +99,40 @@ __d(
     }
     function R() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_3pd_data_sharing_title_change",
-      );
-    }
-    function L() {
-      return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_post_dc_depth_limit",
       );
     }
-    function E() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue("utm_tracking_enabled");
     }
-    function k() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 0;
     }
-    function I() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 1;
     }
-    function T() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 2;
     }
-    function D() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
     }
-    function x() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_tos_filtering_enabled",
       );
     }
-    function $() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "cci_compliance_ctwa_learn_more_hyperlink",
       );
     }
-    function P() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ctx_disclosure_update_enabled",
       );
     }
-    function N() {
+    function P() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -145,17 +140,17 @@ __d(
         ) === !1
       );
     }
-    function M() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_push_wait_timeout_web",
       );
     }
-    function w() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_retries_max_web",
       );
     }
-    var A = [
+    var w = [
       ".whatsapp.net",
       ".whatsapp.com",
       ".fbcdn.net",
@@ -163,7 +158,7 @@ __d(
       ".instagram.com",
       ".cdninstagram.com",
     ];
-    function F() {
+    function A() {
       var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_external_ad_reply_url_allowlist_domains")
         .split(",")
@@ -173,7 +168,7 @@ __d(
         .filter(function (e) {
           return e.length > 1 && e.startsWith(".") && !e.includes("*");
         });
-      return e.length > 0 ? e : A;
+      return e.length > 0 ? e : w;
     }
     ((l.isCtwaAgmReportingEnabled = e),
       (l.isAdsAttributionEnabled = s),
@@ -191,20 +186,19 @@ __d(
       (l.isCtwaConversionCreationFromDelayEnabled = b),
       (l.isDownload3PDSignalsEnabled = v),
       (l.isCTWA3pdOptOutCounterOptimizationEnabled = S),
-      (l.isCTWA3pdDataSharingTitleChangeEnabled = R),
-      (l.get3pdPostDcDepthLimit = L),
-      (l.isUtmTrackingEnabled = E),
-      (l.isUpdatedConsumerDisclosureUiRowEnabled = k),
-      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = I),
-      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = T),
-      (l.showCTWACCICompliantUI = D),
-      (l.isCTWATosFilteringEnabled = x),
-      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = $),
-      (l.shouldShowMetaAdSourceCopy = P),
-      (l.adAccountTokenStoringEnabled = N),
-      (l.adAccountTokenNoncePushWaitTimeoutSeconds = M),
-      (l.adAccountTokenNonceMaxRetries = w),
-      (l.getCtwaAdImageUrlAllowlist = F));
+      (l.get3pdPostDcDepthLimit = R),
+      (l.isUtmTrackingEnabled = L),
+      (l.isUpdatedConsumerDisclosureUiRowEnabled = E),
+      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = k),
+      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = I),
+      (l.showCTWACCICompliantUI = T),
+      (l.isCTWATosFilteringEnabled = D),
+      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = x),
+      (l.shouldShowMetaAdSourceCopy = $),
+      (l.adAccountTokenStoringEnabled = P),
+      (l.adAccountTokenNoncePushWaitTimeoutSeconds = N),
+      (l.adAccountTokenNonceMaxRetries = M),
+      (l.getCtwaAdImageUrlAllowlist = A));
   },
   98,
 );

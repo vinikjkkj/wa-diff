@@ -38,7 +38,10 @@ __d(
                 usage: p(a),
                 quota: p(r),
                 idb: p(l),
-                pct: r > 0 ? Math.round((a / r) * 100) : null,
+                pct:
+                  r !== void 0 && r > 0
+                    ? Math.round(((a === void 0 ? NaN : a) / r) * 100)
+                    : null,
               }),
             );
           } catch (t) {

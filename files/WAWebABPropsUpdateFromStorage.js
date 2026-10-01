@@ -47,6 +47,7 @@ __d(
                   ),
                   (n = !1));
             }
+            o("WAWebABPropsCache").recordABPropsServedDevDefaults(n);
             var i = yield o("WAWebApiAbPropConfig").getABPropConfigs(),
               l = [],
               d = 0,

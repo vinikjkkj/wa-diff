@@ -251,12 +251,15 @@ __d(
             m,
             _,
           ),
-          o("WAWebLimitSharingGatingUtils").isAcp2Enabled() &&
-            o("WAWebLimitSharingProtoUtils").parseAcp2SettingFromMessage(
-              d,
-              m,
-              _,
-            ),
+          o("WAWebLimitSharingGatingUtils").isAcp2Enabled()
+            ? o("WAWebLimitSharingProtoUtils").parseAcp2SettingFromMessage(
+                d,
+                m,
+                _,
+              )
+            : o(
+                "WAWebLimitSharingProtoUtils",
+              ).updateExistingAcp2SettingFromMessage(d, m, _),
           T(S.msgData),
           S
         );

@@ -2,11 +2,11 @@ __d(
   "WAWebProfilePicThumbModel",
   [
     "WAWebBaseModel",
-    "WAWebBizAiAssetResolver",
     "WAWebChatCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbGetters",
     "WAWebProfilePicThumbHostUtils",
+    "WAWebThemeSession",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "isStringNullOrEmpty",
@@ -32,8 +32,8 @@ __d(
           (t.timestamp = o("WAWebBaseModel").session()),
           (t.hostRetryCount = o("WAWebBaseModel").session(0)),
           (t.lastHostUsed = o("WAWebBaseModel").session()),
-          (t.aiHubProfileIsDarkTheme = o("WAWebBaseModel").session(
-            o("WAWebBizAiAssetResolver").getAiHubProfileIsDarkTheme,
+          (t.isDarkTheme = o("WAWebBaseModel").session(
+            o("WAWebThemeSession").getIsDarkTheme,
           )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

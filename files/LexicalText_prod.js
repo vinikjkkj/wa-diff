@@ -43,9 +43,6 @@ __d(
       return !0;
     }
     function o(t) {
-      var n = new URL("https://lexical.dev/docs/error"),
-        r = new URLSearchParams();
-      r.append("code", t);
       for (
         var _len = arguments.length,
           e = new Array(_len > 1 ? _len - 1 : 0),
@@ -55,17 +52,31 @@ __d(
       ) {
         e[_key - 1] = arguments[_key];
       }
-      for (var _t of e) r.append("v", _t);
-      throw (
-        (n.search = r.toString()),
-        Error(
-          "Minified Lexical error #" +
-            t +
-            "; visit " +
-            n.toString() +
-            " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
-        )
-      );
+      throw function (t) {
+        var n = new URL("https://lexical.dev/docs/error"),
+          r = new URLSearchParams();
+        r.append("code", t);
+        for (
+          var _len2 = arguments.length,
+            e = new Array(_len2 > 1 ? _len2 - 1 : 0),
+            _key2 = 1;
+          _key2 < _len2;
+          _key2++
+        ) {
+          e[_key2 - 1] = arguments[_key2];
+        }
+        for (var _t of e) r.append("v", _t);
+        return (
+          (n.search = r.toString()),
+          new Error(
+            "Minified Lexical error #" +
+              t +
+              "; visit " +
+              n.toString() +
+              " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+          )
+        );
+      }.apply(void 0, [t].concat(Array.from(e)));
     }
     ((exports.$canShowPlaceholder = r),
       (exports.$canShowPlaceholderCurry = function (t) {
@@ -129,29 +140,29 @@ __d(
           e.registerNodeTransform(require("Lexical").TextNode, function (e) {
             if (!e.isSimpleText()) return;
             var r,
-              c = e.getPreviousSibling(),
-              u = e.getTextContent(),
+              u = e.getPreviousSibling(),
+              c = e.getTextContent(),
               f = e;
-            if (require("Lexical").$isTextNode(c)) {
-              var _t5 = c.getTextContent(),
-                _r3 = n(_t5 + u);
-              if (s(c)) {
+            if (require("Lexical").$isTextNode(u)) {
+              var _t5 = u.getTextContent(),
+                _r3 = n(_t5 + c);
+              if (s(u)) {
                 if (
                   null === _r3 ||
                   0 !==
                     (function (t) {
                       return t.getLatest().__mode;
-                    })(c)
+                    })(u)
                 )
-                  return void l(c);
+                  return void l(u);
                 {
                   var _n3 = _r3.end - _t5.length;
                   if (_n3 > 0) {
-                    var _r4 = _t5 + u.slice(0, _n3);
-                    if ((c.select(), c.setTextContent(_r4), _n3 === u.length))
+                    var _r4 = _t5 + c.slice(0, _n3);
+                    if ((u.select(), u.setTextContent(_r4), _n3 === c.length))
                       e.remove();
                     else {
-                      var _t6 = u.slice(_n3);
+                      var _t6 = c.slice(_n3);
                       e.setTextContent(_t6);
                     }
                     return;
@@ -162,10 +173,10 @@ __d(
             var a = 0;
             for (;;) {
               var _f$splitText, _f$splitText2;
-              var _e4 = u;
+              var _e4 = c;
               r = n(_e4);
               var d = null === r ? "" : _e4.slice(r.end);
-              if (((u = d), "" === d)) {
+              if (((c = d), "" === d)) {
                 var _o = f.getNextSibling();
                 if (require("Lexical").$isTextNode(_o)) {
                   var _t7 = _e4 + _o.getTextContent(),
@@ -177,8 +188,8 @@ __d(
               if (null === r) return;
               if (
                 0 === r.start &&
-                require("Lexical").$isTextNode(c) &&
-                c.isTextEntity()
+                require("Lexical").$isTextNode(u) &&
+                u.isTextEntity()
               ) {
                 a += r.end;
                 continue;
@@ -204,7 +215,7 @@ __d(
                 null == f)
               )
                 return;
-              ((a = 0), (c = x));
+              ((a = 0), (u = x));
             }
           }),
           e.registerNodeTransform(r, function (e) {
@@ -216,10 +227,10 @@ __d(
             require("Lexical").$isTextNode(i) &&
               i.isTextEntity() &&
               (l(i), l(e));
-            var c = e.getNextSibling();
-            require("Lexical").$isTextNode(c) &&
-              c.isTextEntity() &&
-              (l(c), s(e) && l(e));
+            var u = e.getNextSibling();
+            require("Lexical").$isTextNode(u) &&
+              u.isTextEntity() &&
+              (l(u), s(e) && l(e));
           }),
         ];
       }));

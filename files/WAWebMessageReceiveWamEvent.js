@@ -144,6 +144,7 @@ __d(
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
               stanzaProcessCount: [48, e.TYPES.INTEGER],
+              stickerHasSound: [69, e.TYPES.BOOLEAN],
               stickerIsAi: [29, e.TYPES.BOOLEAN],
               stickerIsFromStickerMaker: [31, e.TYPES.BOOLEAN],
               stickerIsPremium: [60, e.TYPES.BOOLEAN],

@@ -272,7 +272,9 @@ __d(
                         .RICH_RESPONSE_UR_IMAGINE,
                     ]
                   : [],
-                o("WAWebBotUnifiedResponseGating").isUrImagineVideoEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "wa_web_ur_imagine_video_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType

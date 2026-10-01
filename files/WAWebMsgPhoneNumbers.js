@@ -29,6 +29,11 @@ __d(
       return [c, s];
     }
     function s(t, n) {
+      var r = e({ content: t, cachedValue: [], endIndex: n }),
+        o = r[0];
+      return o;
+    }
+    function u(t, n) {
       var r = o("WAWebStateUtils").unproxy(t),
         a = n != null ? n : o("WAWebMsgGetters").getInitialPageSize(r) + 1,
         i = o("WAWebFrontendMsgGetters").getText(r);
@@ -44,31 +49,31 @@ __d(
         u = l[1];
       return ((r.phoneNumbersIndexParsed = u), r.setRawPhoneNumbers(s), s);
     }
-    function u(t, n) {
+    function c(t, n) {
       if (t.getRawHeaderPhoneNumbers().length > 0)
         return t.getRawHeaderPhoneNumbers();
       var r = e({ content: n, cachedValue: t.getRawHeaderPhoneNumbers() }),
         o = r[0];
       return (t.setRawHeaderPhoneNumbers(o), o);
     }
-    function c(e) {
+    function d(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       if (o("WAWebMsgLinks").shouldDisplayHeaderLinks(n, !0)) {
         var r;
-        return u(n, ((r = n.list) == null ? void 0 : r.title) || "");
+        return c(n, ((r = n.list) == null ? void 0 : r.title) || "");
       } else {
         if (o("WAWebMsgLinks").shouldDisplayHeaderLinks(n, !1))
-          return u(n, n.title);
+          return c(n, n.title);
         if (
           n.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
           ((t = n.interactiveHeader) == null ? void 0 : t.title) != null
         )
-          return u(n, n.interactiveHeader.title);
+          return c(n, n.interactiveHeader.title);
       }
       return [];
     }
-    function d(t) {
+    function m(t) {
       var n,
         r = o("WAWebStateUtils").unproxy(t);
       if (
@@ -86,9 +91,10 @@ __d(
       return (r.setRawFooterPhoneNumbers(i), i);
     }
     ((l.getPhoneNumbersFromMsgImpl = e),
-      (l.getPhoneNumbersFromMsg = s),
-      (l.getHeaderPhoneNumbersFromMsg = c),
-      (l.getFooterPhoneNumbersFromMsg = d));
+      (l.getPhoneNumbersFromText = s),
+      (l.getPhoneNumbersFromMsg = u),
+      (l.getHeaderPhoneNumbersFromMsg = d),
+      (l.getFooterPhoneNumbersFromMsg = m));
   },
   98,
 );

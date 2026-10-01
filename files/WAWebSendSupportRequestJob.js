@@ -12,48 +12,49 @@ __d(
       u,
       c,
       d = 864e5;
-    function m(e, t) {
+    function m(e, t, n) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = yield o(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            a,
+            i = yield o(
               "WAWebSupportContactFormSubmitMutation",
             ).submitContactFormGraphQL({
               description: e,
               debug_info_json: t,
               context_flow: "GENERAL",
+              bot_fbid: n,
             });
-          if (a.success === !0) {
-            var i, l;
+          if (i.success === !0) {
+            var l, s;
             return {
               type: "success",
               message: "",
-              ticketId: (i = a.ticket_id) != null ? i : "",
-              groupId: (l = a.support_phone_number_jid) != null ? l : "",
+              ticketId: (l = i.ticket_id) != null ? l : "",
+              groupId: (s = i.support_phone_number_jid) != null ? s : "",
             };
           }
           return {
             type: "error",
-            errorCode: (n = a.error_code) != null ? n : 500,
-            errorText: (r = a.error_message) != null ? r : "GraphQL error",
+            errorCode: (r = i.error_code) != null ? r : 500,
+            errorText: (a = i.error_message) != null ? a : "GraphQL error",
           };
         })),
         p.apply(this, arguments)
       );
     }
-    function _(e, t) {
+    function _(e, t, n) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = yield m(t, n);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          var a = yield m(t, n, r);
           return (
-            r.type === "error"
+            a.type === "error"
               ? o("WALogger")
                   .WARN(
                     e ||
@@ -62,20 +63,20 @@ __d(
                         " message=",
                         "",
                       ])),
-                    r.errorCode,
-                    r.errorText,
+                    a.errorCode,
+                    a.errorText,
                   )
                   .sendLogs("supportRequest")
               : n != null &&
-                r.ticketId !== "no_ticket_created" &&
-                r.ticketId !== "" &&
+                a.ticketId !== "no_ticket_created" &&
+                a.ticketId !== "" &&
                 (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "InAppSupport: Uploading logs for ticketId=",
                       "",
                     ])),
-                  r.ticketId,
+                  a.ticketId,
                 ),
                 o("WAWebCrashlog")
                   .upload({
@@ -83,7 +84,7 @@ __d(
                     immediate: !0,
                     isHighPri: !0,
                     logType: o("WAWebCrashlog").LogType.SUPPORT,
-                    ticketId: r.ticketId,
+                    ticketId: a.ticketId,
                     fromTimestamp: Date.now() - d,
                   })
                   .then(function (e) {
@@ -94,7 +95,7 @@ __d(
                               "InAppSupport: Logs upload failed for ticketId=",
                               "",
                             ])),
-                          r.ticketId,
+                          a.ticketId,
                         )
                       : o("WALogger").LOG(
                           c ||
@@ -103,11 +104,11 @@ __d(
                               ", logsId=",
                               "",
                             ])),
-                          r.ticketId,
+                          a.ticketId,
                           e,
                         );
                   })),
-            r
+            a
           );
         })),
         f.apply(this, arguments)

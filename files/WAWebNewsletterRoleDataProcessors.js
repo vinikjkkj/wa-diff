@@ -26,14 +26,14 @@ __d(
               .UniqueVisitorOverPeriodByRole,
           );
         return {
-          followersReached:
+          followersReachedChannels:
             r == null ||
             (e = r.find(function (e) {
               return e.role === "SUBSCRIBER";
             })) == null
               ? void 0
               : e.value,
-          nonFollowersReached:
+          nonFollowersReachedChannels:
             r == null ||
             (n = r.find(function (e) {
               return e.role === "GUEST";

@@ -3,8 +3,8 @@ __d(
   [
     "WAWebAllMediaCollection",
     "WAWebAllMsgTypeCollectionUtils",
-    "WAWebMsgCollection",
     "WAWebMsgLinks",
+    "WAWebMsgQueryUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,7 +24,7 @@ __d(
             var e = t.count,
               n = t.direction,
               r = t.msgKeyAnchor;
-            return o("WAWebMsgCollection").MsgCollection.queryMedia(
+            return o("WAWebMsgQueryUtils").queryMedia(
               void 0,
               Math.min(
                 o("WAWebAllMsgTypeCollectionUtils").HARD_LIMIT_MAX_COUNT,

@@ -1,8 +1,8 @@
 __d(
   "WAWebThemeContext",
   [
-    "WAWebBizAiAssetResolver",
     "WAWebSystemTheme",
+    "WAWebThemeSession",
     "WAWebUserPrefsGeneral",
     "bx",
     "react",
@@ -108,7 +108,7 @@ __d(
         n = e === "dark";
       (t == null || t.classList.toggle("dark", n),
         g(),
-        o("WAWebBizAiAssetResolver").applyAiHubProfileTheme(n));
+        o("WAWebThemeSession").updateIsDarkTheme(n));
     }
     function g() {
       var e = getComputedStyle(document.body).getPropertyValue(

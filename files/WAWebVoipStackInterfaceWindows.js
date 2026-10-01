@@ -20,6 +20,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:16754",
     "err",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -88,11 +89,10 @@ __d(
                 .ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "WAWebVoipStackInterfaceWindows: setSelfCountryCode failed: ",
-                      "",
+                      "WAWebVoipStackInterfaceWindows: setSelfCountryCode failed",
                     ])),
-                  String(e),
                 )
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("voip-windows-set-self-country-code-failed");
             }
         },
@@ -226,14 +226,14 @@ __d(
             try {
               a.simulateNativeAnr(t, n);
             } catch (e) {
-              o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "simulateNativeAnr: failed: ",
-                    "",
-                  ])),
-                e,
-              );
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "simulateNativeAnr: failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e));
             }
           else
             o("WALogger").ERROR(

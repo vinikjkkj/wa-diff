@@ -32,7 +32,6 @@ __d(
       MSGROC: 38,
       MSGRM: 43,
       IGDM: 44,
-      WEARM: 45,
       CAPI: 46,
       XR: 47,
       MACOS: 48,

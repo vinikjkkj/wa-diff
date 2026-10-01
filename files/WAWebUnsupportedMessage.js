@@ -7,9 +7,9 @@ __d(
     "WAWebMessageTextBubble.react",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebUnknownIcon.react",
     "WAWebUpdater",
     "WAWebUpdaterUpdateApp",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -74,25 +74,29 @@ __d(
     function p(e) {
       var t,
         n,
-        a = e.customPlaceholderIconProps,
-        i = e.customUpdateButtonFbt,
-        l = e.displayAuthor,
-        s = e.hideUpdateButton,
-        c = e.msg;
+        o = e.customPlaceholderIconProps,
+        a = e.customUpdateButtonFbt,
+        i = e.displayAuthor,
+        l = e.hideUpdateButton,
+        s = e.msg;
       return u.jsx(r("WAWebMessageTextBubble.react"), {
-        msg: c,
-        displayAuthor: l,
+        msg: s,
+        displayAuthor: i,
         children: u.jsxs(r("WAWebMessagePlaceholder.react"), {
           Icon:
-            (t = a == null ? void 0 : a.icon) != null
+            (t = o == null ? void 0 : o.icon) != null
               ? t
-              : u.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {}),
-          msg: c.unsafe(),
-          theme: (n = a == null ? void 0 : a.theme) != null ? n : void 0,
+              : u.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                  testid: "unknown",
+                  height: 24,
+                  width: 24,
+                }),
+          msg: s.unsafe(),
+          theme: (n = o == null ? void 0 : o.theme) != null ? n : void 0,
           children: [
-            r("WAWebFormatMsgText")({ msg: c.unsafe() }),
+            r("WAWebFormatMsgText")({ msg: s.unsafe() }),
             " ",
-            s ? null : u.jsx(m, { msg: c, customUpdateButtonFbt: i }),
+            l ? null : u.jsx(m, { msg: s, customUpdateButtonFbt: a }),
           ],
         }),
       });

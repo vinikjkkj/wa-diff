@@ -24,9 +24,11 @@ __d(
     "WAWebMaybeGetAppendedAiThreadAttributes",
     "WAWebMaybeGetAppendedViewRepliesThreadId",
     "WAWebMaybeGetBotModeSelection",
+    "WAWebMessagePluginGenerateReportingTokenContent",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessagingGatingUtils",
     "WAWebMiscErrors",
     "WAWebMsgCollection",
     "WAWebMsgInfoUtils",
@@ -48,7 +50,7 @@ __d(
       return C(o("WAWebStateUtils").unproxy(e), t, n);
     }
     function g(e, t) {
-      return v(o("WAWebStateUtils").unproxy(e), t);
+      return R(o("WAWebStateUtils").unproxy(e), t);
     }
     function h(e, t) {
       return y.apply(this, arguments);
@@ -84,7 +86,7 @@ __d(
                 return e.apply(this, arguments);
               };
             })();
-            return b(a, l(i));
+            return S(a, l(i));
           }
           return (_ || (_ = n("Promise"))).resolve(null);
         })),
@@ -135,13 +137,13 @@ __d(
                   t,
                   babelHelpers.extends({}, e, { threadIds: y }),
                 );
-                var b =
+                var v =
                     (a = e.botModeSelection) != null
                       ? a
                       : o(
                           "WAWebMaybeGetBotModeSelection",
                         ).maybeGetBotModeSelection(t, e),
-                  v =
+                  S =
                     (i =
                       (l = e.botModeOverride) != null
                         ? l
@@ -150,14 +152,9 @@ __d(
                           ).maybeGetBotDynamicModeSelection(t, e)) != null
                       ? i
                       : void 0,
-                  S = o("WAWebBotLoggingUtils").maybeGetBotMetricsMetadata(e),
-                  R =
-                    e.messageSecret == null &&
-                    (yield o(
-                      "WAWebCoexV2RelayEligibility",
-                    ).genIsCoexV2RelayEligibleSend(t.id)),
+                  R = o("WAWebBotLoggingUtils").maybeGetBotMetricsMetadata(e),
                   L = babelHelpers.extends({}, e, {
-                    messageSecret: R
+                    messageSecret: (yield b(t, e))
                       ? self.crypto.getRandomValues(new Uint8Array(32))
                       : e.messageSecret,
                     agentId: o("WAWebBizAgentAction").getAgentId(e),
@@ -170,9 +167,9 @@ __d(
                         ? _
                         : y,
                     aiThreadInfo: C,
-                    botModeSelection: b,
-                    botModeOverride: v,
-                    botMetricsMetadata: S,
+                    botModeSelection: v,
+                    botModeOverride: S,
+                    botMetricsMetadata: R,
                   });
                 g && (L.privacyModeWhenSent = g);
                 var E = yield o(
@@ -328,16 +325,36 @@ __d(
             };
           })(),
         ),
-        f = b(t, l),
+        f = S(t, l),
         g = i
           ? f.then(i).then(function () {
               return f;
             })
           : f,
-        h = v(t, g);
+        h = R(t, g);
       return [f, h];
     }
     function b(e, t) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return t.messageSecret != null
+            ? !1
+            : o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
+                o(
+                  "WAWebMessagePluginGenerateReportingTokenContent",
+                ).isMsgTypeReportingTokenCompatible(t.type, t.subtype)
+              ? !0
+              : o("WAWebCoexV2RelayEligibility").genIsCoexV2RelayEligibleSend(
+                  e.id,
+                );
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e, t) {
       return e.addQueue
         .enqueue(t)
         .then(
@@ -384,7 +401,7 @@ __d(
           );
         });
     }
-    function v(e, t) {
+    function R(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "sendMessage",

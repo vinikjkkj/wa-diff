@@ -145,6 +145,8 @@ __d(
             TOS_STATE_FETCH_ITERATION: "ToSStateFetchIteration",
             NUX_LIST: "WANuxList",
             NUX_DATA: "WANuxData",
+            BB_PRO_PENDING_CUSTOMER_BASE_ACTIONS:
+              "WABBProPendingCustomerBaseActions",
             ACTIVE_USAGE_DAYS_SINCE_DIALOG_OPENED:
               "WAActiveUsageDaysSinceDialogOpened",
             BANNER_STATES: "WABannerStates",

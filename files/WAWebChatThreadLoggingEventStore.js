@@ -178,27 +178,10 @@ __d(
                               (d.addEventResponseMessagesSent += 1),
                             e.isAfterRead === !0 &&
                               (d.afterReadMessagesSent += 1),
-                            g(d, e.isAfterRead));
+                            h(d, e.isAfterRead));
                           break;
                         case "msgReceive":
-                          ((d.addMsgsReceived += 1),
-                            e.isViewOnce && (d.addViewOnceMsgsReceived += 1),
-                            e.isCommerceMessage === !0 &&
-                              (d.addCommerceMsgsReceived += 1),
-                            e.isReaction && (d.addReactionsReceived += 1),
-                            e.isForwarded &&
-                              (d.addForwardMessagesReceived += 1),
-                            e.isBot &&
-                              (e.isEdit
-                                ? (d.addBotMessagesEdited += 1)
-                                : (d.addBotMessagesReceived += 1)),
-                            e.isEventCreation &&
-                              (d.addEventCreationMessagesReceived += 1),
-                            e.isEventResponse &&
-                              (d.addEventResponseMessagesReceived += 1),
-                            e.isAfterRead === !0 &&
-                              (d.afterReadMessagesReceived += 1),
-                            g(d, e.isAfterRead));
+                          g(d, e);
                           break;
                         case "msgRead":
                           d.addMsgsRead += e.readCount;
@@ -832,6 +815,25 @@ __d(
         );
       })();
     function g(e, t) {
+      if (t.isExcludedModification === !0) {
+        t.isBot && t.isEdit && (e.addBotMessagesEdited += 1);
+        return;
+      }
+      ((e.addMsgsReceived += 1),
+        t.isViewOnce && (e.addViewOnceMsgsReceived += 1),
+        t.isCommerceMessage === !0 && (e.addCommerceMsgsReceived += 1),
+        t.isReaction && (e.addReactionsReceived += 1),
+        t.isForwarded && (e.addForwardMessagesReceived += 1),
+        t.isBot &&
+          (t.isEdit
+            ? (e.addBotMessagesEdited += 1)
+            : (e.addBotMessagesReceived += 1)),
+        t.isEventCreation && (e.addEventCreationMessagesReceived += 1),
+        t.isEventResponse && (e.addEventResponseMessagesReceived += 1),
+        t.isAfterRead === !0 && (e.afterReadMessagesReceived += 1),
+        h(e, t.isAfterRead));
+    }
+    function h(e, t) {
       t === !0 ? (e.afterReadTurnedOn = !0) : (e.afterReadTurnedOff = !0);
     }
     l.ChatThreadLoggingEventStoreImpl = f;

@@ -39,7 +39,7 @@ __d(
       k = y("previewDirectPath"),
       I = y("filehash"),
       T = y("lastHostUsed"),
-      D = y("aiHubProfileIsDarkTheme"),
+      D = y("isDarkTheme"),
       x = d("id"),
       $ = f(
         function (e) {

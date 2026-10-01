@@ -1,10 +1,6 @@
 __d(
   "WAWebForwardedBotMessageUtils",
-  [
-    "WAWebABProps",
-    "WAWebBotSignatureVerificationGating",
-    "WAWebUnifiedResponseUtils",
-  ],
+  ["WAWebABProps", "WAWebUnifiedResponseUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       return e === "download_consent_accepted"
@@ -16,9 +12,9 @@ __d(
           ? "masked"
           : o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(n) &&
               !t &&
-              o(
-                "WAWebBotSignatureVerificationGating",
-              ).isUnknownSenderPreviewEnabled()
+              o("WAWebABProps").getABPropConfigValue(
+                "ai_rich_response_unknown_sender_preview_enabled",
+              )
             ? "preview"
             : "normal";
     }

@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebMexClient",
     "WAWebMexFetchNewsletterDehydratedJobQuery.graphql",
-    "WAWebNewsletterPinGatingUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
   ],
@@ -24,9 +23,7 @@ __d(
             c = {
               input: { key: t, type: u, view_role: a },
               fetch_wamo_sub: i.fetchWamoSub === !0,
-              fetch_pinned_messages: o(
-                "WAWebNewsletterPinGatingUtils",
-              ).isChannelMessagePinReadEnabled(),
+              fetch_pinned_messages: !0,
             },
             d = yield o("WAWebMexClient").fetchQuery(l, c);
           return (

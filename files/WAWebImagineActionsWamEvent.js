@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumImagineActionTarget",
     "WAWebWamEnumImagineActionThreadType",
     "WAWebWamEnumImagineBlockReason",
+    "WAWebWamEnumImagineErrorReason",
     "WAWebWamEnumImagineMediaType",
     "WAWebWamEnumImplementationType",
     "WAWebWamEnumTextModalityType",
@@ -47,6 +48,12 @@ __d(
                 20,
                 o("WAWebWamEnumImagineBlockReason").IMAGINE_BLOCK_REASON,
               ],
+              imagineErrorReason: [
+                27,
+                o("WAWebWamEnumImagineErrorReason").IMAGINE_ERROR_REASON,
+              ],
+              imagineImagesRequested: [28, e.TYPES.INTEGER],
+              imagineImagesSucceeded: [29, e.TYPES.INTEGER],
               imagineMediaType: [
                 12,
                 o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE,

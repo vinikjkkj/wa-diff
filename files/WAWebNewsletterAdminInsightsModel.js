@@ -21,11 +21,11 @@ __d(
             return o("WAWebNewsletterInsightUtils").NewsletterInsightDataStatus
               .Available;
           })),
-          (t.accountsReached = o("WAWebModelUtils").prop()),
-          (t.reachDelta = o("WAWebModelUtils").prop()),
-          (t.followersReached = o("WAWebModelUtils").prop()),
-          (t.nonFollowersReached = o("WAWebModelUtils").prop()),
-          (t.reachByCountry = o("WAWebModelUtils").prop(function () {
+          (t.accountsReachedChannels = o("WAWebModelUtils").prop()),
+          (t.reachDeltaChannels = o("WAWebModelUtils").prop()),
+          (t.followersReachedChannels = o("WAWebModelUtils").prop()),
+          (t.nonFollowersReachedChannels = o("WAWebModelUtils").prop()),
+          (t.reachByCountryChannels = o("WAWebModelUtils").prop(function () {
             return [];
           })),
           (t.followers = o("WAWebModelUtils").prop()),

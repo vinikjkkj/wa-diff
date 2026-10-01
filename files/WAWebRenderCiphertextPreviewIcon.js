@@ -2,8 +2,8 @@ __d(
   "WAWebRenderCiphertextPreviewIcon",
   [
     "WAWebMsgGetters",
-    "WAWebUnknownIcon.react",
     "WDSIconIcSchedule.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "WDSIconWdsIcViewOnce.react",
     "react",
     "react-compiler-runtime",
@@ -30,7 +30,8 @@ __d(
         var c;
         return (
           t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((c = s.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {
+            ? ((c = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                testid: "unknown",
                 width: 20,
                 height: 20,
                 "aria-hidden": !0,

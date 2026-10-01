@@ -33,7 +33,7 @@ __d(
             (l ||
               !o(
                 "WAWebMediaCryptoEligibilityUtils",
-              ).isMediaCryptoExpectedForMsg(a))
+              ).isMediaCryptoExpectedForMsg(a.unsafe()))
           ) {
             yield o(
               "WAWebDownloadProgressiveJpegThumbnail",
@@ -60,10 +60,10 @@ __d(
             !r("isStringNullOrEmpty")(c) &&
             !r("isStringNullOrEmpty")(s) &&
             (!r("isStringNullOrEmpty")(u) ||
-              (o("WAWebMsgGetters").getIsNewsletterMsg(a) &&
+              (o("WAWebMsgGetters").getIsNewsletterMsg(a.unsafe()) &&
                 !o(
                   "WAWebMediaCryptoEligibilityUtils",
-                ).isMediaCryptoExpectedForMsg(a)))
+                ).isMediaCryptoExpectedForMsg(a.unsafe())))
           ) {
             yield r("WAWebMediaDownloadMmsThumbnail")({
               msg: a,

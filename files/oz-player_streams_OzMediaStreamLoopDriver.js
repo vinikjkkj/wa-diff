@@ -66,7 +66,8 @@ __d(
             (this.$5 = null));
         }),
         (t.$7 = function () {
-          this.$2 &&
+          this.$2 != null &&
+            this.$2 !== 0 &&
             (r("oz-player/shims/ozClearTimeout")(this.$2), (this.$2 = null));
         }),
         e

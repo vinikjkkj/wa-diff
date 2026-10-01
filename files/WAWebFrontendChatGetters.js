@@ -23,6 +23,7 @@ __d(
     "WAWebGroupType",
     "WAWebHistorySyncUtils",
     "WAWebLastAddOnDBSerialization",
+    "WAWebLimitSharingGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPrivacyModeSystemMsg",
@@ -316,28 +317,42 @@ __d(
               n = e[1],
               r = e[2],
               a = e[3],
-              i =
+              i = e[4],
+              l =
                 o("WAWebBotUtils").isMetaAiBot(a) &&
                 o("WAWebBotGating").isDefaultThreadRoutingEnabled(),
-              l = i
+              s = l
                 ? o("WAWebAiThreadCreationUtils").getHistoricalMetaAiThreadId()
                 : null,
-              s = t.length - 1;
-            s >= 0;
-            s--
+              u = be(a, i),
+              c = t.length - 1;
+            c >= 0;
+            c--
           ) {
-            var u = t.at(s);
-            if (u && o("WAWebChatModelDerivedMethods").isPreviewMessage(u)) {
-              if (l != null && !o("WAWebThreadMsgUtils").isMsgInThread(u, l))
+            var d = t.at(c);
+            if (d && ve(d, u)) {
+              if (s != null && !o("WAWebThreadMsgUtils").isMsgInThread(d, s))
                 continue;
-              return u;
+              return d;
             }
           }
           if (t.length > 0) return t.last();
         },
-        [P, M, q, s.getId],
-      ),
-      be = d(
+        [P, M, q, s.getId, Y],
+      );
+    function be(e, t) {
+      return (
+        (t == null ? void 0 : t.enabled) === !0 &&
+        o("WAWebLimitSharingGatingUtils").isAcp2EnabledForWid(e)
+      );
+    }
+    function ve(e, t) {
+      return (
+        o("WAWebChatModelDerivedMethods").isPreviewMessage(e) ||
+        (t && o("WAWebChatModelDerivedMethods").isAcp2RestrictionNotice(e))
+      );
+    }
+    var Se = d(
         function (e) {
           for (var t = e[0], n = e[1], r = t.length - 1; r >= 0; r--) {
             var a = t.at(r);
@@ -356,7 +371,7 @@ __d(
         },
         [P, M],
       ),
-      ve = d(
+      Re = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -392,7 +407,7 @@ __d(
         },
         [P, M, w, s.getEndOfHistoryTransferType],
       ),
-      Se = d(
+      Le = d(
         function (e) {
           var t = e[0];
           return o(
@@ -401,7 +416,7 @@ __d(
         },
         [P, M],
       ),
-      Re = d(
+      Ee = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -420,7 +435,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      Le = d(
+      ke = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -483,11 +498,11 @@ __d(
       (l.getShouldBroadcastAppearInList = he),
       (l.getShouldAppearInList = ye),
       (l.getPreviewMessage = Ce),
-      (l.getLastScheduledCreatedMsg = be),
-      (l.getShareableHistoryInfo = ve),
-      (l.getLatestJoinTimeByParticipant = Se),
-      (l.getShowChangeNumberNotification = Re),
-      (l.getDerivedLastAddOnPreview = Le));
+      (l.getLastScheduledCreatedMsg = Se),
+      (l.getShareableHistoryInfo = Re),
+      (l.getLatestJoinTimeByParticipant = Le),
+      (l.getShowChangeNumberNotification = Ee),
+      (l.getDerivedLastAddOnPreview = ke));
   },
   98,
 );

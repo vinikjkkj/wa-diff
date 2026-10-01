@@ -1,7 +1,7 @@
 __d(
   "WAWebChatComparator",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebChatSortTime"],
+  function (t, n, r, o, a, i, l) {
     var e = function (t, n) {
         var e = t.pin || 0,
           r = n.pin || 0;
@@ -13,28 +13,18 @@ __d(
             : t.id.toString() < n.id.toString()
               ? -1
               : 1;
-        var o = Math.max(
-            t.previewT || 0,
-            t.draftMessageSortTs || 0,
-            t.draftAttachMediaContentsSortTs || 0,
-            t.t || 0,
-          ),
-          a = Math.max(
-            n.previewT || 0,
-            n.draftMessageSortTs || 0,
-            n.draftAttachMediaContentsSortTs || 0,
-            n.t || 0,
-          );
-        return o !== a
-          ? o > a
+        var a = o("WAWebChatSortTime").getChatSortTime(t),
+          i = o("WAWebChatSortTime").getChatSortTime(n);
+        return a !== i
+          ? a > i
             ? -1
             : 1
           : t.id.toString() < n.id.toString()
             ? -1
             : 1;
       },
-      l = e;
-    i.default = l;
+      s = e;
+    l.default = s;
   },
-  66,
+  98,
 );

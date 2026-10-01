@@ -31,6 +31,7 @@ __d(
         enableCombinedInitSidxFetch: !1,
         enableDisposalResourceCleanup: !1,
         enableDynamicBufferWatermarks: !1,
+        enableEMSSApplyVideoEditList: !0,
         enableEMSSHonestElementSnapshot: !0,
         enableEMSSImmediateMintOnNoOpSeek: !0,
         enableEMSSLayoutSettleOffTimerPath: !0,

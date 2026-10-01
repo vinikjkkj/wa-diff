@@ -4,8 +4,8 @@ __d(
     "fbt",
     "WAWebAcp2PlaceholderStrings",
     "WAWebFaqUrl",
-    "WAWebUnknownIcon.react",
     "WDSIconIcSchedule.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "WDSIconWdsIcViewOnce.react",
     "react",
   ],
@@ -25,7 +25,11 @@ __d(
             ? ((n = s._(
                 /*BTDS*/ "This message can't be displayed here. Please open WhatsApp on your phone to view the message.",
               )),
-              (i = u.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {})))
+              (i = u.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                testid: "unknown",
+                height: 24,
+                width: 24,
+              })))
             : e === "view_once_unavailable_fanout"
               ? (t === !0
                   ? (n = s._(
@@ -44,7 +48,11 @@ __d(
                   (a = o(
                     "WAWebAcp2PlaceholderStrings",
                   ).getAcp2PlaceholderFaqUrl()),
-                  (i = u.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {})))
+                  (i = u.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                    testid: "unknown",
+                    height: 24,
+                    width: 24,
+                  })))
                 : ((n = s._(
                     /*BTDS*/ "Waiting for this message. This may take a while.",
                   )),

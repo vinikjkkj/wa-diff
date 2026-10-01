@@ -67,7 +67,12 @@ __d(
       }
       return r;
     };
-    function u(t, n) {
+    function u(t, n, r) {
+      var o = e({ content: t, sender: n, endIndex: r }),
+        a = o[0];
+      return a;
+    }
+    function c(t, n) {
       var r = o("WAWebStateUtils").unproxy(t),
         a =
           n != null
@@ -88,7 +93,7 @@ __d(
         u = l[1];
       return ((r.linksIndexParsed = u), r.setRawLinks(s), s);
     }
-    function c(t, n) {
+    function d(t, n) {
       var r,
         a = o("WAWebStateUtils").unproxy(t);
       if (a.pollOptions == null) return null;
@@ -110,7 +115,7 @@ __d(
       }
       return (r = a.getRawPollOptionsToLinks()) == null ? void 0 : r.get(n);
     }
-    function d(e, t) {
+    function m(e, t) {
       if (t) {
         var n, r;
         return (
@@ -123,7 +128,7 @@ __d(
       }
       return e.isDynamicReplyButtonsMsg === !0 && e.title != null;
     }
-    function m(t, n) {
+    function p(t, n) {
       if (t.getRawHeaderLinks().length > 0) return t.getRawHeaderLinks();
       var r = e({
           content: n,
@@ -133,23 +138,23 @@ __d(
         a = r[0];
       return (a.length > 0 && t.setRawHeaderLinks(a), a);
     }
-    function p(e) {
+    function _(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
-      if (d(n, !0)) {
+      if (m(n, !0)) {
         var r;
-        return m(n, ((r = n.list) == null ? void 0 : r.title) || "");
+        return p(n, ((r = n.list) == null ? void 0 : r.title) || "");
       } else {
-        if (d(n, !1)) return m(n, n.title);
+        if (m(n, !1)) return p(n, n.title);
         if (
           n.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
           ((t = n.interactiveHeader) == null ? void 0 : t.title) != null
         )
-          return m(n, n.interactiveHeader.title);
+          return p(n, n.interactiveHeader.title);
       }
       return [];
     }
-    function _(t) {
+    function f(t) {
       var n = o("WAWebStateUtils").unproxy(t),
         r = n.footer;
       if (!o("WAWebMsgGetters").getSupportsMessageFooterLinks(n) || r == null)
@@ -163,37 +168,40 @@ __d(
         i = a[0];
       return (i.length > 0 && n.setRawFooterLinks(i), i);
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return {
-        galleryLinks: g(t),
+        galleryLinks: h(t),
         shouldRenderMessageBubble: o("WAWebMsgGetters").getLinkPreview(t),
       };
     }
-    function g(e) {
+    function h(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return r("uniqueBy")(u(t), function (e) {
+      return r("uniqueBy")(c(t), function (e) {
         return e.href;
       }).filter(function (e) {
         return e.isHttp;
       });
     }
-    function h(e) {
+    function y(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return u(t).filter(function (e) {
-        var t;
-        return (t = e.suspiciousCharacters) == null ? void 0 : t.size;
-      });
+      return o("WAWebFrontendMsgGetters")
+        .getLinksInFullText(t)
+        .filter(function (e) {
+          var t;
+          return (t = e.suspiciousCharacters) == null ? void 0 : t.size;
+        });
     }
     ((l.getLinksFromMsgImpl = e),
-      (l.getLinksFromMsg = u),
-      (l.getPollOptionLinks = c),
-      (l.shouldDisplayHeaderLinks = d),
-      (l.getHeaderLinks = p),
-      (l.getFooterLinks = _),
-      (l.getLinkGalleryRenderState = f),
-      (l.getGalleryLinks = g),
-      (l.getSuspiciousLinks = h));
+      (l.getLinksFromText = u),
+      (l.getLinksFromMsg = c),
+      (l.getPollOptionLinks = d),
+      (l.shouldDisplayHeaderLinks = m),
+      (l.getHeaderLinks = _),
+      (l.getFooterLinks = f),
+      (l.getLinkGalleryRenderState = g),
+      (l.getGalleryLinks = h),
+      (l.getSuspiciousLinks = y));
   },
   98,
 );

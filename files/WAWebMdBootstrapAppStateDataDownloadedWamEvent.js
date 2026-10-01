@@ -40,6 +40,7 @@ __d(
                 o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT,
               ],
               mdRegAttemptId: [10, e.TYPES.STRING],
+              mdRegAttemptIdPn: [19, e.TYPES.STRING],
               mdSessionId: [1, e.TYPES.STRING],
               mdStorageQuotaBytes: [8, e.TYPES.INTEGER],
               mdStorageQuotaUsedBytes: [9, e.TYPES.INTEGER],

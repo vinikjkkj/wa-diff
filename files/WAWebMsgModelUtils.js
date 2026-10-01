@@ -154,7 +154,9 @@ __d(
       return ((a.fromQuotedMsg = !0), a);
     }
     function v(e) {
-      var t = new (o("WAWebMsgModel").Msg)(e.toJSON());
+      var t = new (o("WAWebMsgModel").Msg)(
+        babelHelpers.extends({}, e.toJSON(), { local: e.local }),
+      );
       return (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE && S(t), t);
     }
     function S(e) {

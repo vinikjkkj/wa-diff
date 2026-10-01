@@ -8,6 +8,7 @@ __d(
     "WAWebMediaInMemoryBlobCache",
     "WAWebMiscErrors",
     "WAWebMsgActionCapability",
+    "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgType",
     "WAWebNetworkStatus",
@@ -26,42 +27,58 @@ __d(
     function u() {
       return s._(/*BTDS*/ "Something went wrong. Try again.");
     }
-    function c(t) {
-      var a = o("WAWebFrontendMsgGetters").getText(t),
-        i = o("WAWebMsgLinks").getLinksFromMsg(t),
-        l = new Map();
+    function c(e) {
+      var t,
+        n = o("WAWebFrontendMsgGetters").getText(e);
+      return d({
+        imageFilehash:
+          e.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
+          o("WAWebMsgActionCapability").canWamoSubMsgBeSharedByUser(
+            e.unsafe(),
+            o("WAWebFrontendMsgGetters").getChat(e),
+          )
+            ? (t = e.mediaData) == null
+              ? void 0
+              : t.filehash
+            : null,
+        msgText: n,
+        msgUrls:
+          n == null
+            ? []
+            : o("WAWebMsgLinks").getLinksFromText(
+                n,
+                o("WAWebMsgGetters").getSender(e),
+                o("WAWebMsgGetters").getInitialPageSize(e) + 1,
+              ),
+      });
+    }
+    function d(t) {
+      var a = t.imageFilehash,
+        i = t.msgText,
+        l = t.msgUrls,
+        s = new Map();
       if (
-        i.length > 0 &&
+        l.length > 0 &&
         o("WAWebSTWGatingUtils").isSearchTheWebURLSearchEnabled()
       ) {
-        var s = i[0].href;
-        l.set(o("WAWebSearchTheWebCommonUtils").SearchType.URL, {
+        var c = l[0].href;
+        s.set(o("WAWebSearchTheWebCommonUtils").SearchType.URL, {
           handleSearchAction: function (t) {
             (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
               o("WAWebExternalLink.react").openExternalLink(
-                o("WAWebSTWText").createUrlSearchLink(s),
+                o("WAWebSTWText").createUrlSearchLink(c),
               ));
           },
         });
       }
-      if (
-        t.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
-        o("WAWebMsgActionCapability").canWamoSubMsgBeSharedByUser(
-          t.unsafe(),
-          o("WAWebFrontendMsgGetters").getChat(t),
-        )
-      ) {
-        var c,
-          m = (c = t.mediaObject) == null ? void 0 : c.filehash;
-        if (
-          m != null &&
-          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(m)
-        ) {
+      if (a != null) {
+        var d = a;
+        if (o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(d)) {
           var p = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            m,
+            d,
           );
           p != null &&
-            l.set(o("WAWebSearchTheWebCommonUtils").SearchType.IMAGE, {
+            s.set(o("WAWebSearchTheWebCommonUtils").SearchType.IMAGE, {
               handleSearchAction: function (a) {
                 o("WAWebSearchTheWebEventLogger").logSTWEvent(a);
                 function t(e) {
@@ -133,21 +150,21 @@ __d(
         }
       }
       return (
-        a != null &&
+        i != null &&
           o("WAWebSTWGatingUtils").isSearchTheWebTextSearchEnabled() &&
-          d(a, i) &&
-          l.set(o("WAWebSearchTheWebCommonUtils").SearchType.TEXT, {
+          m(i, l) &&
+          s.set(o("WAWebSearchTheWebCommonUtils").SearchType.TEXT, {
             handleSearchAction: function (t) {
               (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
                 o("WAWebExternalLink.react").openExternalLink(
-                  o("WAWebSTWText").createTextSearchLink(a),
+                  o("WAWebSTWText").createTextSearchLink(i),
                 ));
             },
           }),
-        l
+        s
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       if (t.length === 0) return !0;
       var n = e;
       return (
@@ -158,7 +175,7 @@ __d(
         n.trim() !== ""
       );
     }
-    l.getSupportedSearchOptions = c;
+    ((l.getSupportedSearchOptions = c), (l.getSupportedSearchOptionsFor = d));
   },
   226,
 );

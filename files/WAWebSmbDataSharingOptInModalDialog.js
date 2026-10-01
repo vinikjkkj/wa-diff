@@ -247,9 +247,9 @@ __d(
         : (m = t[3]);
       var _;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = o(
-            "WAWebCTWAGatingUtils",
-          ).isCTWA3pdDataSharingTitleChangeEnabled()
+        ? ((_ = o("WAWebABProps").getABPropConfigValue(
+            "ctwa_3pd_data_sharing_title_change",
+          )
             ? s._(
                 /*BTDS*/ "Improve your ads by sharing customer-related activities",
               )

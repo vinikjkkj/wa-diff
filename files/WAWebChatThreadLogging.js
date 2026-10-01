@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebChatThreadLoggingUtils",
+    "WAWebDbEncryptionKey",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -148,7 +149,12 @@ __d(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
               var t;
-              yield (t = R()) == null ? void 0 : t.eventUploader.uploadEvents();
+              (yield o(
+                "WAWebDbEncryptionKey",
+              ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
+                yield (t = R()) == null
+                  ? void 0
+                  : t.eventUploader.uploadEvents());
             } catch (e) {
               o("WALogger")
                 .ERROR(

@@ -23,7 +23,15 @@ __d(
       p = u.useMemo,
       _ = u.useRef,
       f = u.useState,
-      g = c({
+      g = {
+        docs: o("WAWebAllDocsCollection").AllDocsCollection,
+        links: o("WAWebAllLinksCollection").AllLinksCollection,
+        media: o("WAWebAllMediaCollection").AllMediaCollection,
+      },
+      h = c({
+        collections: g,
+        showCloseButton: !0,
+        title: null,
         searchQuery: "",
         setSearchQuery: r("WAWebNoop"),
         sortOrder: "desc",
@@ -48,10 +56,10 @@ __d(
         contextMenuMsg: null,
         setContextMenuMsg: r("WAWebNoop"),
       });
-    function h() {
-      return m(g);
+    function y() {
+      return m(h);
     }
-    function y(e) {
+    function C(e) {
       return e === "media"
         ? o("WAWebWamEnumSurfaceCode").SURFACE_CODE.MEDIA
         : e === "links"
@@ -65,76 +73,82 @@ __d(
                 );
               })();
     }
-    function C(e) {
-      var t = o("react-compiler-runtime").c(34),
+    function b(e) {
+      var t = o("react-compiler-runtime").c(38),
         n = e.children,
-        a = e.initialTab,
-        i;
+        a = e.collections,
+        i = e.initialTab,
+        l = e.showCloseButton,
+        u = e.title,
+        c = a === void 0 ? g : a,
+        d = l === void 0 ? !0 : l,
+        m = u === void 0 ? null : u,
+        p;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = []), (t[0] = i))
-        : (i = t[0]);
-      var l = f(i),
-        u = l[0],
-        c = l[1],
-        d = f(""),
-        m = d[0],
-        p = d[1],
-        h = f("desc"),
-        C = h[0],
-        R = h[1],
-        L = f("all"),
-        E = L[0],
-        k = L[1],
-        I;
-      t[1] !== a
-        ? ((I = function () {
-            switch (a) {
+        ? ((p = []), (t[0] = p))
+        : (p = t[0]);
+      var y = f(p),
+        b = y[0],
+        L = y[1],
+        E = f(""),
+        k = E[0],
+        I = E[1],
+        T = f("desc"),
+        D = T[0],
+        x = T[1],
+        $ = f("all"),
+        P = $[0],
+        N = $[1],
+        M;
+      t[1] !== i
+        ? ((M = function () {
+            switch (i) {
               case "docs":
               case "links":
               case "media":
-                return a;
+                return i;
               default:
                 return "media";
             }
           }),
-          (t[1] = a),
-          (t[2] = I))
-        : (I = t[2]);
-      var T = I,
-        D;
-      t[3] !== T ? ((D = T()), (t[3] = T), (t[4] = D)) : (D = t[4]);
-      var x = f(D),
-        $ = x[0],
-        P = x[1],
-        N = f(!1),
-        M = N[0],
-        w = N[1],
-        A = f(null),
-        F = A[0],
-        O = A[1],
-        B = f(null),
-        W = B[0],
-        q = B[1],
-        U = f(null),
-        V = U[0],
-        H = U[1],
-        G;
+          (t[1] = i),
+          (t[2] = M))
+        : (M = t[2]);
+      var w = M,
+        A;
+      t[3] !== w ? ((A = w()), (t[3] = w), (t[4] = A)) : (A = t[4]);
+      var F = f(A),
+        O = F[0],
+        B = F[1],
+        W = f(!1),
+        q = W[0],
+        U = W[1],
+        V = f(null),
+        H = V[0],
+        G = V[1],
+        z = f(null),
+        j = z[0],
+        K = z[1],
+        Q = f(null),
+        X = Q[0],
+        Y = Q[1],
+        J;
       t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((G = new (r("WAWebMultiSelection"))([], S)), (t[5] = G))
-        : (G = t[5]);
-      var z = _(G),
-        j;
+        ? ((J = new (r("WAWebMultiSelection"))([], R)), (t[5] = J))
+        : (J = t[5]);
+      var Z = _(J),
+        ee;
       t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((j = function () {
-            (z.current.unsetAll(), c([]));
+        ? ((ee = function () {
+            (Z.current.unsetAll(), L([]));
           }),
-          (t[6] = j))
-        : (j = t[6]);
-      var K = j,
-        Q;
+          (t[6] = ee))
+        : (ee = t[6]);
+      var te = ee,
+        ne;
       t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Q = function (t) {
-            k(t);
+        ? ((ne = function (t) {
+            N(t);
             var e =
               t === "all"
                 ? "all"
@@ -153,12 +167,12 @@ __d(
               customFields: { filter_value: e },
             });
           }),
-          (t[7] = Q))
-        : (Q = t[7]);
-      var X = Q,
-        Y;
+          (t[7] = ne))
+        : (ne = t[7]);
+      var re = ne,
+        oe;
       t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Y = function (t, n, r, o) {
+        ? ((oe = function (t, n, r, o) {
             if (!(!n || !t)) {
               var e = t.indexOf(n),
                 a = t.indexOf(r);
@@ -168,19 +182,19 @@ __d(
                   u <= l;
                   u++
                 ) {
-                  var d = t.at(u);
-                  d != null && (z.current.setVal(d, o), s.push(d));
+                  var c = t.at(u);
+                  c != null && (Z.current.setVal(c, o), s.push(c));
                 }
                 s.length > 0 &&
-                  c(function (e) {
+                  L(function (e) {
                     if (o) {
-                      var t = new Set(e.map(v)),
+                      var t = new Set(e.map(S)),
                         n = s.filter(function (e) {
                           return !t.has(e.id.toString());
                         });
                       return n.length > 0 ? [].concat(e, n) : e;
                     }
-                    var r = new Set(s.map(b));
+                    var r = new Set(s.map(v));
                     return e.filter(function (e) {
                       return !r.has(e.id.toString());
                     });
@@ -188,161 +202,157 @@ __d(
               }
             }
           }),
-          (t[8] = Y))
-        : (Y = t[8]);
-      var J = Y,
-        Z;
+          (t[8] = oe))
+        : (oe = t[8]);
+      var ae = oe,
+        ie;
       t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Z = function (t) {
-            (R(t),
+        ? ((ie = function (t) {
+            (x(t),
               o("WAWebMediaHubLogger").logMediaHubAction({
                 action: o("WAWebWamEnumActionCode").ACTION_CODE.SORT,
               }));
           }),
-          (t[9] = Z))
-        : (Z = t[9]);
-      var ee;
-      t[10] !== C
-        ? ((ee = function (t) {
-            (P(t),
-              o("WAWebMediaHubLogger").logMediaHubAction({ surface: y(t) }),
-              t === "links" && C === "fileSizeDesc" && R("desc"),
-              K());
+          (t[9] = ie))
+        : (ie = t[9]);
+      var le;
+      t[10] !== D
+        ? ((le = function (t) {
+            (B(t),
+              o("WAWebMediaHubLogger").logMediaHubAction({ surface: C(t) }),
+              t === "links" && D === "fileSizeDesc" && x("desc"),
+              te());
           }),
-          (t[10] = C),
-          (t[11] = ee))
-        : (ee = t[11]);
-      var te;
+          (t[10] = D),
+          (t[11] = le))
+        : (le = t[11]);
+      var se;
       t[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((te = function (t) {
-            (w(t), K());
+        ? ((se = function (t) {
+            (U(t), te());
           }),
-          (t[12] = te))
-        : (te = t[12]);
-      var ne;
-      t[13] !== $
-        ? ((ne = function (t, n) {
-            var e = z.current.isSelected(t),
-              r = z.current.getSelected().pop(),
+          (t[12] = se))
+        : (se = t[12]);
+      var ue;
+      t[13] !== c || t[14] !== O
+        ? ((ue = function (t, n) {
+            var e = Z.current.isSelected(t),
+              r = Z.current.getSelected().pop(),
               a = (n == null ? void 0 : n.shiftKey) === !0;
             (e
-              ? (c(function (e) {
+              ? (L(function (e) {
                   return e.filter(function (e) {
                     return e.id !== t.id;
                   });
                 }),
-                z.current.setVal(t, !1))
-              : (c(function (e) {
+                Z.current.setVal(t, !1))
+              : (L(function (e) {
                   return [].concat(e, [t]);
                 }),
-                z.current.setVal(t, !0),
+                Z.current.setVal(t, !0),
                 o("WAWebMediaHubLogger").logMediaHubAction({
                   action: o("WAWebWamEnumActionCode").ACTION_CODE.MULTISELECT,
                 })),
               a &&
                 r &&
-                ($ === "media"
-                  ? J(o("WAWebAllMediaCollection").AllMediaCollection, r, t, !e)
-                  : $ === "links"
-                    ? J(
-                        o("WAWebAllLinksCollection").AllLinksCollection,
-                        r,
-                        t,
-                        !e,
-                      )
-                    : $ === "docs" &&
-                      J(
-                        o("WAWebAllDocsCollection").AllDocsCollection,
-                        r,
-                        t,
-                        !e,
-                      )));
+                (O === "media"
+                  ? ae(c.media, r, t, !e)
+                  : O === "links"
+                    ? ae(c.links, r, t, !e)
+                    : O === "docs" && ae(c.docs, r, t, !e)));
           }),
-          (t[13] = $),
-          (t[14] = ne))
-        : (ne = t[14]);
-      var re;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((re = function () {
-            return z.current;
+          (t[13] = c),
+          (t[14] = O),
+          (t[15] = ue))
+        : (ue = t[15]);
+      var ce;
+      t[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ce = function () {
+            return Z.current;
           }),
-          (t[15] = re))
-        : (re = t[15]);
-      var oe;
-      t[16] !== M
-        ? ((oe = function (t) {
-            M ||
-              (H(t),
+          (t[16] = ce))
+        : (ce = t[16]);
+      var de;
+      t[17] !== q
+        ? ((de = function (t) {
+            q ||
+              (Y(t),
               t != null &&
                 o("WAWebMediaHubLogger").logMediaHubAction({
                   action: o("WAWebWamEnumActionCode").ACTION_CODE.OPEN_MENU,
                 }));
           }),
-          (t[16] = M),
-          (t[17] = oe))
-        : (oe = t[17]);
-      var ae;
-      t[18] !== V ||
-      t[19] !== E ||
-      t[20] !== M ||
-      t[21] !== m ||
-      t[22] !== F ||
-      t[23] !== W ||
-      t[24] !== u ||
-      t[25] !== C ||
-      t[26] !== ne ||
-      t[27] !== oe ||
-      t[28] !== ee ||
-      t[29] !== $
-        ? ((ae = {
-            searchStatusCaption: F,
-            setSearchStatusCaption: O,
-            searchStatusSender: W,
-            setSearchStatusSender: q,
-            searchQuery: m,
-            setSearchQuery: p,
-            sortOrder: C,
-            setSortOrder: Z,
-            filters: E,
-            setFilters: X,
-            tab: $,
-            setTab: ee,
-            isSelectMode: M,
-            setIsSelectMode: te,
-            onMessageSelect: ne,
-            getMultiSelection: re,
-            selectedMsgs: u,
-            contextMenuMsg: V,
-            setContextMenuMsg: oe,
+          (t[17] = q),
+          (t[18] = de))
+        : (de = t[18]);
+      var me;
+      t[19] !== c ||
+      t[20] !== X ||
+      t[21] !== P ||
+      t[22] !== q ||
+      t[23] !== k ||
+      t[24] !== H ||
+      t[25] !== j ||
+      t[26] !== b ||
+      t[27] !== d ||
+      t[28] !== D ||
+      t[29] !== le ||
+      t[30] !== ue ||
+      t[31] !== de ||
+      t[32] !== O ||
+      t[33] !== m
+        ? ((me = {
+            collections: c,
+            showCloseButton: d,
+            title: m,
+            searchStatusCaption: H,
+            setSearchStatusCaption: G,
+            searchStatusSender: j,
+            setSearchStatusSender: K,
+            searchQuery: k,
+            setSearchQuery: I,
+            sortOrder: D,
+            setSortOrder: ie,
+            filters: P,
+            setFilters: re,
+            tab: O,
+            setTab: le,
+            isSelectMode: q,
+            setIsSelectMode: se,
+            onMessageSelect: ue,
+            getMultiSelection: ce,
+            selectedMsgs: b,
+            contextMenuMsg: X,
+            setContextMenuMsg: de,
           }),
-          (t[18] = V),
-          (t[19] = E),
-          (t[20] = M),
-          (t[21] = m),
-          (t[22] = F),
-          (t[23] = W),
-          (t[24] = u),
-          (t[25] = C),
-          (t[26] = ne),
-          (t[27] = oe),
-          (t[28] = ee),
-          (t[29] = $),
-          (t[30] = ae))
-        : (ae = t[30]);
-      var ie = ae,
-        le;
+          (t[19] = c),
+          (t[20] = X),
+          (t[21] = P),
+          (t[22] = q),
+          (t[23] = k),
+          (t[24] = H),
+          (t[25] = j),
+          (t[26] = b),
+          (t[27] = d),
+          (t[28] = D),
+          (t[29] = le),
+          (t[30] = ue),
+          (t[31] = de),
+          (t[32] = O),
+          (t[33] = m),
+          (t[34] = me))
+        : (me = t[34]);
+      var pe = me,
+        _e;
       return (
-        t[31] !== n || t[32] !== ie
-          ? ((le = s.jsx(g.Provider, { value: ie, children: n })),
-            (t[31] = n),
-            (t[32] = ie),
-            (t[33] = le))
-          : (le = t[33]),
-        le
+        t[35] !== n || t[36] !== pe
+          ? ((_e = s.jsx(h.Provider, { value: pe, children: n })),
+            (t[35] = n),
+            (t[36] = pe),
+            (t[37] = _e))
+          : (_e = t[37]),
+        _e
       );
-    }
-    function b(e) {
-      return e.id.toString();
     }
     function v(e) {
       return e.id.toString();
@@ -350,7 +360,10 @@ __d(
     function S(e) {
       return e.id.toString();
     }
-    ((l.useWAWebMediaHubContext = h), (l.WAWebMediaHubContextProvider = C));
+    function R(e) {
+      return e.id.toString();
+    }
+    ((l.useWAWebMediaHubContext = y), (l.WAWebMediaHubContextProvider = b));
   },
   98,
 );

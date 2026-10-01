@@ -102,7 +102,7 @@ __d(
             )) != null
               ? n
               : [];
-          return { reachByCountry: p(a, r) };
+          return { reachByCountryChannels: p(a, r) };
         },
       },
       f = {

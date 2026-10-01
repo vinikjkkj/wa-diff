@@ -556,55 +556,75 @@ __d(
     }
     bt.displayName = bt.name + " [from " + i.id + "]";
     function vt() {
-      return s._(/*BTDS*/ "Unsubscribe recipients");
+      return s._(/*BTDS*/ "Manage your customer base in advanced settings");
     }
     vt.displayName = vt.name + " [from " + i.id + "]";
     function St() {
       return s._(
-        /*BTDS*/ "Remove recipients from receiving broadcast messages.",
+        /*BTDS*/ "Download subscribed recipients in advanced settings",
       );
     }
     St.displayName = St.name + " [from " + i.id + "]";
     function Rt() {
-      return s._(/*BTDS*/ "Download subscribed recipients");
+      return s._(
+        /*BTDS*/ "Remove recipients from data sharing in advanced settings",
+      );
     }
     Rt.displayName = Rt.name + " [from " + i.id + "]";
     function Lt() {
-      return s._(/*BTDS*/ "Download CSV file with subscribed recipients.");
+      return s._(/*BTDS*/ "View");
     }
     Lt.displayName = Lt.name + " [from " + i.id + "]";
     function Et() {
-      return s._(/*BTDS*/ "Message limits");
+      return s._(/*BTDS*/ "Unsubscribe recipients");
     }
     Et.displayName = Et.name + " [from " + i.id + "]";
-    function kt(e) {
+    function kt() {
+      return s._(
+        /*BTDS*/ "Remove recipients from receiving broadcast messages.",
+      );
+    }
+    kt.displayName = kt.name + " [from " + i.id + "]";
+    function It() {
+      return s._(/*BTDS*/ "Download subscribed recipients");
+    }
+    It.displayName = It.name + " [from " + i.id + "]";
+    function Tt() {
+      return s._(/*BTDS*/ "Download CSV file with subscribed recipients.");
+    }
+    Tt.displayName = Tt.name + " [from " + i.id + "]";
+    function Dt() {
+      return s._(/*BTDS*/ "Message limits");
+    }
+    Dt.displayName = Dt.name + " [from " + i.id + "]";
+    function xt(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{conversations} daily conversations","_1":"1 daily conversation"}',
         [s._plural(e, "conversations")],
       );
     }
-    kt.displayName = kt.name + " [from " + i.id + "]";
-    function It() {
-      return s._(/*BTDS*/ "Unlimited daily conversations");
-    }
-    It.displayName = It.name + " [from " + i.id + "]";
-    function Tt() {
-      return s._(/*BTDS*/ "Message limit");
-    }
-    Tt.displayName = Tt.name + " [from " + i.id + "]";
-    function Dt() {
-      return s._(/*BTDS*/ "Daily conversations");
-    }
-    Dt.displayName = Dt.name + " [from " + i.id + "]";
-    function xt() {
-      return s._(/*BTDS*/ "Sent");
-    }
     xt.displayName = xt.name + " [from " + i.id + "]";
     function $t() {
-      return s._(/*BTDS*/ "Remaining");
+      return s._(/*BTDS*/ "Unlimited daily conversations");
     }
     $t.displayName = $t.name + " [from " + i.id + "]";
-    function Pt(e) {
+    function Pt() {
+      return s._(/*BTDS*/ "Message limit");
+    }
+    Pt.displayName = Pt.name + " [from " + i.id + "]";
+    function Nt() {
+      return s._(/*BTDS*/ "Daily conversations");
+    }
+    Nt.displayName = Nt.name + " [from " + i.id + "]";
+    function Mt() {
+      return s._(/*BTDS*/ "Sent");
+    }
+    Mt.displayName = Mt.name + " [from " + i.id + "]";
+    function wt() {
+      return s._(/*BTDS*/ "Remaining");
+    }
+    wt.displayName = wt.name + " [from " + i.id + "]";
+    function At(e) {
       var t;
       return (
         (t = s._plural(e, "conversations")),
@@ -623,8 +643,8 @@ __d(
         )
       );
     }
-    Pt.displayName = Pt.name + " [from " + i.id + "]";
-    function Nt() {
+    At.displayName = At.name + " [from " + i.id + "]";
+    function Ft() {
       return s._(
         /*BTDS*/ "You can start unlimited daily conversations. {=m2}",
         [
@@ -638,30 +658,30 @@ __d(
         ],
       );
     }
-    Nt.displayName = Nt.name + " [from " + i.id + "]";
-    function Mt() {
+    Ft.displayName = Ft.name + " [from " + i.id + "]";
+    function Ot() {
       return s._(/*BTDS*/ "Unlimited");
     }
-    Mt.displayName = Mt.name + " [from " + i.id + "]";
-    function wt() {
+    Ot.displayName = Ot.name + " [from " + i.id + "]";
+    function Bt() {
       return s._(/*BTDS*/ "Message limits aren't available right now.");
     }
-    wt.displayName = wt.name + " [from " + i.id + "]";
-    function At() {
+    Bt.displayName = Bt.name + " [from " + i.id + "]";
+    function Wt() {
       return s._(/*BTDS*/ "Unlock your message limit");
     }
-    At.displayName = At.name + " [from " + i.id + "]";
-    function Ft() {
+    Wt.displayName = Wt.name + " [from " + i.id + "]";
+    function qt() {
       return s._(
         /*BTDS*/ "Complete these requirements to unlock your message limit.",
       );
     }
-    Ft.displayName = Ft.name + " [from " + i.id + "]";
-    function Ot() {
+    qt.displayName = qt.name + " [from " + i.id + "]";
+    function Ut() {
       return s._(/*BTDS*/ "Switch to primary phone");
     }
-    Ot.displayName = Ot.name + " [from " + i.id + "]";
-    function Bt() {
+    Ut.displayName = Ut.name + " [from " + i.id + "]";
+    function Vt() {
       return s._(/*BTDS*/ "Get verified on your primary phone. {=m2}", [
         s._implicitParam(
           "=m2",
@@ -672,16 +692,16 @@ __d(
         ),
       ]);
     }
-    Bt.displayName = Bt.name + " [from " + i.id + "]";
-    function Wt() {
+    Vt.displayName = Vt.name + " [from " + i.id + "]";
+    function Ht() {
       return s._(/*BTDS*/ "Scan code with your camera");
     }
-    Wt.displayName = Wt.name + " [from " + i.id + "]";
-    function qt() {
+    Ht.displayName = Ht.name + " [from " + i.id + "]";
+    function Gt() {
       return s._(/*BTDS*/ "Send high-quality messages");
     }
-    qt.displayName = qt.name + " [from " + i.id + "]";
-    function Ut(e, t, n) {
+    Gt.displayName = Gt.name + " [from " + i.id + "]";
+    function zt(e, t, n) {
       var a;
       return (
         (a = s._plural(n, "days")),
@@ -705,7 +725,7 @@ __d(
         )
       );
     }
-    ((Ut.displayName = Ut.name + " [from " + i.id + "]"),
+    ((zt.displayName = zt.name + " [from " + i.id + "]"),
       (l.getBroadcastColumnHeader = d),
       (l.getAudienceColumnHeader = m),
       (l.getStatusColumnHeader = p),
@@ -824,28 +844,32 @@ __d(
       (l.getAdvancedToolsOffDescription = yt),
       (l.getAdvancedToolsLearnMoreLabel = Ct),
       (l.getManageCustomerBaseSectionLabel = bt),
-      (l.getUnsubscribeRecipientsLabel = vt),
-      (l.getUnsubscribeRecipientsSublabel = St),
-      (l.getDownloadSubscribedRecipientsLabel = Rt),
-      (l.getDownloadSubscribedRecipientsSublabel = Lt),
-      (l.getMessageLimitsLabel = Et),
-      (l.getMessageLimitsSublabel = kt),
-      (l.getUnlimitedMessageLimitsSublabel = It),
-      (l.getMessageLimitPanelTitle = Tt),
-      (l.getDailyConversationsLabel = Dt),
-      (l.getDailyConversationsSentLabel = xt),
-      (l.getDailyConversationsRemainingLabel = $t),
-      (l.getDailyConversationsCaption = Pt),
-      (l.getUnlimitedDailyConversationsCaption = Nt),
-      (l.getUnlimitedMessageLimitLabel = Mt),
-      (l.getMessageLimitsUnavailableLabel = wt),
-      (l.getUnlockMessageLimitLabel = At),
-      (l.getUnlockMessageLimitSublabel = Ft),
-      (l.getVerifyOnPhoneTitle = Ot),
-      (l.getVerifyOnPhoneSubtitle = Bt),
-      (l.getScanQrCodeCaption = Wt),
-      (l.getSendHighQualityMessagesLabel = qt),
-      (l.getSendHighQualityMessagesProgressSublabel = Ut));
+      (l.getManageCustomerBaseReminderToast = vt),
+      (l.getDownloadSubscribedRecipientsReminderToast = St),
+      (l.getRemoveFromDataSharingReminderToast = Rt),
+      (l.getReminderToastActionLabel = Lt),
+      (l.getUnsubscribeRecipientsLabel = Et),
+      (l.getUnsubscribeRecipientsSublabel = kt),
+      (l.getDownloadSubscribedRecipientsLabel = It),
+      (l.getDownloadSubscribedRecipientsSublabel = Tt),
+      (l.getMessageLimitsLabel = Dt),
+      (l.getMessageLimitsSublabel = xt),
+      (l.getUnlimitedMessageLimitsSublabel = $t),
+      (l.getMessageLimitPanelTitle = Pt),
+      (l.getDailyConversationsLabel = Nt),
+      (l.getDailyConversationsSentLabel = Mt),
+      (l.getDailyConversationsRemainingLabel = wt),
+      (l.getDailyConversationsCaption = At),
+      (l.getUnlimitedDailyConversationsCaption = Ft),
+      (l.getUnlimitedMessageLimitLabel = Ot),
+      (l.getMessageLimitsUnavailableLabel = Bt),
+      (l.getUnlockMessageLimitLabel = Wt),
+      (l.getUnlockMessageLimitSublabel = qt),
+      (l.getVerifyOnPhoneTitle = Ut),
+      (l.getVerifyOnPhoneSubtitle = Vt),
+      (l.getScanQrCodeCaption = Ht),
+      (l.getSendHighQualityMessagesLabel = Gt),
+      (l.getSendHighQualityMessagesProgressSublabel = zt));
   },
   226,
 );

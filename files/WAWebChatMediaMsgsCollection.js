@@ -11,6 +11,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModel",
+    "WAWebMsgQueryUtils",
     "WAWebNoop",
     "WAWebThreadMsgUtils",
     "WAWebViewMode.flow",
@@ -59,7 +60,7 @@ __d(
                 if (s == null) return 0;
                 try {
                   var u,
-                    d = yield o("WAWebMsgCollection").MsgCollection.queryMedia(
+                    d = yield o("WAWebMsgQueryUtils").queryMedia(
                       s.id.remote,
                       1 / 0,
                       "before",
@@ -206,8 +207,8 @@ __d(
             if (this.queryMediaBefore) return this.queryMediaBefore;
             var g = 0;
             return (
-              (this.queryMediaBefore = o("WAWebMsgCollection")
-                .MsgCollection.queryMedia(
+              (this.queryMediaBefore = o("WAWebMsgQueryUtils")
+                .queryMedia(
                   l.id.remote,
                   o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
                   d,
@@ -242,8 +243,8 @@ __d(
           } else if (l && d === u.after)
             return this.queryMediaAfter
               ? this.queryMediaAfter
-              : (this.queryMediaAfter = o("WAWebMsgCollection")
-                  .MsgCollection.queryMedia(
+              : (this.queryMediaAfter = o("WAWebMsgQueryUtils")
+                  .queryMedia(
                     l.id.remote,
                     o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
                     d,

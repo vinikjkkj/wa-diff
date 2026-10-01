@@ -169,6 +169,7 @@ __d(
     }
     ((l.getAppointmentConnectorNuxBullets = p),
       (l.getAppointmentConnectorValuePropBullets = _),
+      (l.wrapServerText = g),
       (l.wrapServerMarkdown = h));
   },
   226,

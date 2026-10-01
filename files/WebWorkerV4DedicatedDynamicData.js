@@ -6,61 +6,82 @@ __d(
     var e,
       s = 1e4,
       u = new Map();
-    function c(e, t, n) {
-      n === void 0 && (n = !1);
-      var r = e.name,
-        o = t.getPath() + ":" + r,
-        a = u.get(o);
-      if (a == null || n) {
-        var i = Math.floor(+Date.now() / 1e3),
-          l = d(e, t, n).then(function (e) {
-            return { time: i, data: e };
+    function c(e, t, n, r) {
+      r === void 0 && (r = !1);
+      var o = e.name,
+        a = t.getPath() + ":" + o,
+        i = u.get(a);
+      if (i == null || r) {
+        var l = Math.floor(+Date.now() / 1e3),
+          s = d(e, t, r, n).then(function (e) {
+            return { time: l, data: e };
           });
-        (l.catch(function () {
-          u.get(o) === l && u.delete(o);
+        (s.catch(function () {
+          u.get(a) === s && u.delete(a);
         }),
-          u.set(o, l),
-          (a = l));
+          u.set(a, s),
+          (i = s));
       }
-      return a;
+      return i;
     }
-    function d(t, o, a) {
-      var i = t.name,
-        l = t.v4HasteResponsePreloader;
-      if (l == null || a) return m(i, o, a);
-      var u = null,
-        c = function () {
-          return (u == null && (u = m(i, o, a)), u);
+    function d(t, o, a, i) {
+      var l = t.name,
+        u = t.v4HasteResponsePreloader;
+      if (u == null || a)
+        return (
+          i == null || i.addPoint("worker_fetch_hrp_start"),
+          m(l, o, a).then(function (e) {
+            return (i == null || i.addPoint("worker_fetch_hrp_end"), e);
+          })
+        );
+      var c = null,
+        d = function () {
+          return (
+            c == null &&
+              (i == null || i.addPoint("worker_fallback_fetch_hrp_start"),
+              (c = m(l, o, a).then(function (e) {
+                return (
+                  i == null || i.addPoint("worker_fallback_fetch_hrp_end"),
+                  e
+                );
+              }))),
+            c
+          );
         },
-        d = !1,
-        p = new (e || (e = n("Promise")))(function (e) {
-          l.onLoaded(function (t) {
+        p = !1;
+      i == null || i.addPoint("worker_preloader_hrp_start");
+      var _ = new (e || (e = n("Promise")))(function (e) {
+          u.onLoaded(function (t) {
             var n = t.data;
-            if (((d = !0), n == null || n.hrp == null)) {
+            if (
+              (i == null || i.addPoint("worker_preloader_hrp_end"),
+              (p = !0),
+              n == null || n.hrp == null)
+            ) {
               (r("FBLogger")("worker").mustfix(
                 "Preloaded data for V4 dedicated worker %s is missing haste response, preload data keys: %s",
-                i,
+                l,
                 n == null ? "null" : Object.keys(n).join(", "),
               ),
-                e(c()));
+                e(d()));
               return;
             }
             e(n);
           }).onError(function () {
-            ((d = !0),
+            ((p = !0),
               r("FBLogger")("worker").mustfix(
                 "Preloader for V4 dedicated worker %s errored, falling back to HTTP",
-                i,
+                l,
               ),
-              e(c()));
+              e(d()));
           });
         }),
-        _ = new e(function (e) {
+        f = new e(function (e) {
           window.setTimeout(function () {
-            d || e(c());
+            p || e(d());
           }, s);
         });
-      return e.race([p, _]);
+      return e.race([_, f]);
     }
     function m(e, t, n) {
       var o = null;

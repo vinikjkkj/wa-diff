@@ -14,6 +14,7 @@ __d(
     "WAWebDBProcessMessage",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
+    "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebMessageDestinationChat",
     "WAWebMessageProcessorCache",
     "WAWebMsgProcessingApiUtils",
@@ -137,26 +138,35 @@ __d(
             var g = _;
             if (g.length === 0) return !1;
             if (t.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
+              var h = yield o(
+                "WAWebLimitSharingAcp2HideReceivedMsgs",
+              ).hideMsgsReceivedInAcp2RestrictedChat({
+                messageType: a.type,
+                msgs: g,
+              });
+              if (h.length === 0) return !1;
+            }
+            if (t.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
               if (i.isUser()) {
-                var h = g[0],
-                  y = o(
+                var y = g[0],
+                  C = o(
                     "WAWebMessageDestinationChat",
                   ).determineDestinationChatForIncomingMessage({
                     chat: i,
-                    msg: h,
+                    msg: y,
                     msgInfo: a,
                   });
                 yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate(
                   {
-                    destinationChat: y,
+                    destinationChat: C,
                     msgMeta: t.msgMeta,
-                    options: { firstIncomingMsg: h },
+                    options: { firstIncomingMsg: y },
                     chatOriginType: "createChatOnNewMsg",
                   },
                 );
               }
             } else t.type;
-            var C = o("WAWebMessageProcessorCache")
+            var b = o("WAWebMessageProcessorCache")
                 .messageProcessorCache.addMessages(
                   g.map(function (e) {
                     return { msg: e };
@@ -168,11 +178,11 @@ __d(
                     "WAWebWamWorkerOfflineProcessReporter",
                   ).WorkerOfflineResumeReporter.updateProcessedMessageCount();
                 }),
-              b = !1;
+              v = !1;
             return (
               o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
                 (o("WAWebBackendEventBus").BackendEventBus
-                  .isOfflineDeliveryEnd && (yield C),
+                  .isOfflineDeliveryEnd && (yield b),
                 yield (u || (u = n("Promise"))).all(
                   g.map(
                     (function () {
@@ -184,7 +194,7 @@ __d(
                             (!i.isStatus() ||
                               o("WAWebCurrentUser").isEmployee());
                           if (t) {
-                            b = !0;
+                            v = !0;
                             var n = e.id.remote;
                             yield o("WAWebBackendApi").frontendSendAndReceive(
                               "updateMessageUI",
@@ -199,7 +209,7 @@ __d(
                     })(),
                   ),
                 )),
-              b
+              v
             );
           } catch (e) {
             return (

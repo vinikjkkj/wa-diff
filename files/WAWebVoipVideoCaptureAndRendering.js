@@ -238,9 +238,12 @@ __d(
       );
     }
     function T() {
-      o(
+      (o(
         "WAWebVoipVideoDesktopCapture",
-      ).WAWebVoipVideoDesktopCapture.releaseDesktopStream();
+      ).WAWebVoipVideoDesktopCapture.releasePreflightDesktopStream(),
+        o(
+          "WAWebVoipVideoDesktopCapture",
+        ).WAWebVoipVideoDesktopCapture.releaseDesktopStream());
     }
     ((l.startVideoCaptureJS = h),
       (l.stopVideoCaptureJS = C),

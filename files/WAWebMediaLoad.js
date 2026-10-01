@@ -344,7 +344,7 @@ __d(
       }
     }
     function D(e, t) {
-      var a = t || e.type;
+      var a = t != null && t !== "" ? t : e.type;
       if (o("WAWebMimeTypes").isOpus(a) && !C) {
         if (e.size <= y) {
           var i = new (r("WAOpusRecorderPlayer"))(e);

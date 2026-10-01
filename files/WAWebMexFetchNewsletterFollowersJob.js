@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebApiContactUsernameFields",
     "WAWebDBCreateLidPnMappings",
     "WAWebLidMigrationUtils",
@@ -12,7 +13,6 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebSetUsernameJob",
     "WAWebUsernameTypes",
-    "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -48,9 +48,9 @@ __d(
           if (((n = c.followers) == null ? void 0 : n.edges) == null)
             return { followers: [] };
           var d = _(c.followers.edges),
-            p = o(
-              "WAWebUsernameWorkerCompatibleGatingUtils",
-            ).isNewsletterUsernamePnPrivacyEnabled();
+            p = o("WAWebABProps").getABPropConfigValue(
+              "username_channels_pn_privacy_enabled",
+            );
           try {
             (yield m(d), p && (yield f(d)));
           } catch (e) {

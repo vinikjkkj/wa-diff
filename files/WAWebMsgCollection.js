@@ -445,47 +445,6 @@ __d(
             }
             return t;
           })()),
-          (i.queryMedia = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, a) {
-                var i =
-                    o("WATypeUtils").isNumber(t) && t !== 0
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  l = n || "before",
-                  s = { add: "search" },
-                  u = yield o("WAWebDBMessageFindLocal").msgFindMedia({
-                    count: i,
-                    mediaType: a,
-                    direction: l,
-                    chat: e,
-                    anchor: r,
-                  });
-                return Array.isArray(u)
-                  ? this.processMultipleMessages(
-                      void 0,
-                      u,
-                      { add: "search" },
-                      "msgCollectionQueryMedia",
-                    )
-                  : o("WAPromiseProps").promiseProps({
-                      docCount: u.docCount,
-                      linkCount: u.linkCount,
-                      mediaCount: u.mediaCount,
-                      messages: this.processMultipleMessages(
-                        void 0,
-                        u.messages,
-                        s,
-                        "msgCollectionQueryMedia",
-                      ),
-                    });
-              },
-            );
-            function t(t, n, r, o, a) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           (i.getContext = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {

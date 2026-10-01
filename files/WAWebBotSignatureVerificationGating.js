@@ -17,15 +17,9 @@ __d(
     function u() {
       return s() !== e.NONE;
     }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_rich_response_unknown_sender_preview_enabled",
-      );
-    }
     ((l.BotSignatureVerificationEnforcementLevel = e),
       (l.getForwardVerificationEnforcementLevel = s),
-      (l.isForwardVerificationEnabled = u),
-      (l.isUnknownSenderPreviewEnabled = c));
+      (l.isForwardVerificationEnabled = u));
   },
   98,
 );

@@ -17,14 +17,14 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = t.xwa2_notify_group_on_prop_change,
-            a = o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
-              ? (n = r.properties.limit_sharing) == null
+            a =
+              (n = r.properties.limit_sharing) == null
                 ? void 0
-                : n.limit_companion_sharing_enabled
-              : void 0;
+                : n.limit_companion_sharing_enabled;
           if (a != null) {
             var i,
-              l = {
+              l = e.from.toString(),
+              s = {
                 enabled: a,
                 trigger: o(
                   "WAWebLimitSharingPropMappingUtils",
@@ -36,31 +36,35 @@ __d(
                 settingTimestamp: Number(r.update_time),
                 initiatedBy: o("WAWebWidFactory").createWid(r.updated_by.id),
               };
-            yield o("WAWebLimitSharingProtoUtils").updateChatWithAcp2IfNewer(
-              e.from.toString(),
-              l,
-              "onValueChange",
-            );
+            yield o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
+              ? o("WAWebLimitSharingProtoUtils").updateChatWithAcp2IfNewer(
+                  l,
+                  s,
+                  "onValueChange",
+                )
+              : o(
+                  "WAWebLimitSharingProtoUtils",
+                ).updateExistingAcp2SettingIfNewer(l, s);
           }
           if (!o("WAWebLimitSharingGatingUtils").isOpusEnabled()) {
-            var s,
-              u,
+            var u,
               c,
-              d = {
+              d,
+              m = {
                 initiatedBy: o("WAWebWidFactory").createWid(r.updated_by.id),
                 sharingLimited:
-                  (s =
-                    (u = r.properties.limit_sharing) == null
+                  (u =
+                    (c = r.properties.limit_sharing) == null
                       ? void 0
-                      : u.limit_sharing_enabled) != null
-                    ? s
+                      : c.limit_sharing_enabled) != null
+                    ? u
                     : !1,
                 trigger: o(
                   "WAWebLimitSharingPropMappingUtils",
                 ).getLimitSharingTriggerFromGroupSettingsChange(
-                  (c = r.properties.limit_sharing) == null
+                  (d = r.properties.limit_sharing) == null
                     ? void 0
-                    : c.limit_sharing_trigger,
+                    : d.limit_sharing_trigger,
                 ),
                 limitSharingSettingTimestamp: Number(r.update_time),
               };
@@ -68,7 +72,7 @@ __d(
               "WAWebLimitSharingProtoUtils",
             ).updateChatWithLimitSharingIfNewer(
               e.from.toString(),
-              d,
+              m,
               "onValueChange",
             );
           }

@@ -5,8 +5,8 @@ __d(
     "WAWebDBMessageFindLocal",
     "WAWebFrontendMsgGetters",
     "WAWebFtsMsgsChatlessCollection",
-    "WAWebMsgCollection",
     "WAWebMsgGetters",
+    "WAWebMsgQueryUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "asyncToGeneratorRuntime",
@@ -38,7 +38,7 @@ __d(
                 var t = e.count,
                   n = e.direction,
                   r = e.msgKeyAnchor;
-                return o("WAWebMsgCollection").MsgCollection.queryMedia(
+                return o("WAWebMsgQueryUtils").queryMedia(
                   void 0,
                   Math.min(
                     o("WAWebAllMsgTypeCollectionUtils").HARD_LIMIT_MAX_COUNT,

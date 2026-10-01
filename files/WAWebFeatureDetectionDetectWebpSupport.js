@@ -14,7 +14,7 @@ __d(
       u = o("WAPromiseTimeout")
         .promiseTimeout(
           new (e || (e = n("Promise")))(function (e) {
-            o("WAWebMediaLoad")
+            return o("WAWebMediaLoad")
               .loadImage(s)
               .then(function (t) {
                 return e(t.height === 2);

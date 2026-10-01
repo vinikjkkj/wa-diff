@@ -8,13 +8,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n = o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e) != null,
+      var n =
+          o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e.unsafe()) !=
+          null,
         a = t
-          ? o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(t) != null
+          ? o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(t.unsafe()) !=
+            null
           : !1;
       if (n && !a) {
-        var i = o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e),
-          l = o("WAWebMsgGetters").getGroupHistoryBundleSender(e);
+        var i = o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(
+            e.unsafe(),
+          ),
+          l = o("WAWebMsgGetters").getGroupHistoryBundleSender(e.unsafe());
         if (
           l != null &&
           i != null &&

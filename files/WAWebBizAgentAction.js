@@ -93,7 +93,9 @@ __d(
             "WAWebMdExpansionAgentBrowserMdIdWamEvent",
           ).MdExpansionAgentBrowserMdIdWamEvent)(
             babelHelpers.extends({ agentId: d }, e),
-          ).commitAndWaitForFlush(t));
+          )
+            .commitAndWaitForFlush(t)
+            .catch(function (e) {}));
     }
     function p(e) {
       var t = o("WAWebBizAgentLoginState").getAgentLoginPayload();

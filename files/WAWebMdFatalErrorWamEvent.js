@@ -83,6 +83,7 @@ __d(
                   .MD_SYNCD_FATAL_ERROR_CODE,
               ],
               mdRegAttemptId: [44, e.TYPES.STRING],
+              mdRegAttemptIdPn: [53, e.TYPES.STRING],
               patchSnapshotMutationCount: [9, e.TYPES.INTEGER],
               patchVersion: [5, e.TYPES.INTEGER],
               recoveryRequestDurationMs: [50, e.TYPES.INTEGER],

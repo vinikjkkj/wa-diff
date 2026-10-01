@@ -9,6 +9,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgCollection",
     "WAWebMsgModel",
+    "WAWebMsgQueryUtils",
     "WAWebNoop",
     "WAWebThreadMsgUtils",
     "asyncToGeneratorRuntime",
@@ -48,9 +49,7 @@ __d(
                   if (s == null) return 0;
                   try {
                     var u,
-                      d = yield o(
-                        "WAWebMsgCollection",
-                      ).MsgCollection.queryMedia(
+                      d = yield o("WAWebMsgQueryUtils").queryMedia(
                         s.id.remote,
                         1 / 0,
                         "before",
@@ -121,8 +120,8 @@ __d(
             var e = this;
             if (a) {
               if (this.queryDocBefore) return this.queryDocBefore;
-              var i = (this.queryDocBefore = o("WAWebMsgCollection")
-                .MsgCollection.queryMedia(
+              var i = (this.queryDocBefore = o("WAWebMsgQueryUtils")
+                .queryMedia(
                   a.id.remote,
                   o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
                   "before",

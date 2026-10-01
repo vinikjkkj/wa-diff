@@ -6,11 +6,6 @@ __d(
       return r("WAWebEnvironment").isWindows === !0;
     }
     function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "hybrid_nux_beta_50_enabled",
-      );
-    }
-    function u() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -18,17 +13,17 @@ __d(
         ) === !0
       );
     }
-    function c() {
+    function u() {
       return typeof showSaveFilePicker == "function";
     }
-    function d() {
+    function c() {
       return (
         e() &&
-        c() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue("enable_fsa_save_as") === !0
       );
     }
-    function m() {
+    function d() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -36,7 +31,7 @@ __d(
         ) === !0
       );
     }
-    function p() {
+    function m() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -45,12 +40,11 @@ __d(
       );
     }
     ((l.isWindowsHybridEnabled = e),
-      (l.isHybridNuxBeta50Enabled = s),
-      (l.isWindowsShareSheetEnabled = u),
-      (l.hasFsaSaveFilePickerSupport = c),
-      (l.isFsaSaveAsEnabled = d),
-      (l.isOpenWithSharedBufferEnabled = m),
-      (l.isSaveAsSharedBufferEnabled = p));
+      (l.isWindowsShareSheetEnabled = s),
+      (l.hasFsaSaveFilePickerSupport = u),
+      (l.isFsaSaveAsEnabled = c),
+      (l.isOpenWithSharedBufferEnabled = d),
+      (l.isSaveAsSharedBufferEnabled = m));
   },
   98,
 );

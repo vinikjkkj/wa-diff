@@ -643,6 +643,7 @@ __d(
         !1,
       ],
       cap_context_info_max_array_length: [33504, "bool", !0, !0],
+      capi_messaging_pairs_client_enabled: [38129, "bool", !1, !1],
       carousel_message_client_enabled: [4668, "bool", !1, !0],
       catalog_categories_enabled: [1514, "bool", !1, !0],
       cci_compliance_ctwa: [24983, "bool", !1, !1],

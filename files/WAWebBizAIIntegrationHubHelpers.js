@@ -6,9 +6,13 @@ __d(
     "WAWebBizAiAppointmentConnectorPolicy",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum").Mirrored(["Main", "AppDetail"]);
+    var e = n("$InternalEnum").Mirrored([
+      "Main",
+      "AppDetail",
+      "ConnectorParameters",
+    ]);
     function s(e) {
-      var t;
+      var t, n, r, a, i;
       if (
         !o(
           "WAWebBizAiAppointmentConnectorPolicy",
@@ -25,16 +29,22 @@ __d(
         )
       )
         return null;
-      var n = o(
+      var l = o(
         "WAWebBizAiAppointmentConnectorPolicy",
       ).getAppointmentConnectorSelectionAction(e);
-      return n == null || n.kind === "continue"
+      if (l == null || l.kind === "continue") return null;
+      var s = o(
+        "WAWebBizAiAppointmentConnectorPolicy",
+      ).getAppointmentConnectorConnectAction(e);
+      return s === "api-key" &&
+        ((n = (r = e.authorizationParams) == null ? void 0 : r.length) != null
+          ? n
+          : 0) === 0 &&
+        ((a = (i = e.urlTemplateParams) == null ? void 0 : i.length) != null
+          ? a
+          : 0) === 0
         ? null
-        : o(
-              "WAWebBizAiAppointmentConnectorPolicy",
-            ).getAppointmentConnectorConnectAction(e) === "oauth"
-          ? "oauth"
-          : null;
+        : s;
     }
     ((l.IntegrationHubStep = e), (l.getIntegrationHubConnectAction = s));
   },

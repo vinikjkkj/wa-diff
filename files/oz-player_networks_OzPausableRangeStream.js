@@ -63,11 +63,12 @@ __d(
                       u.$12 && u.$12.resolve("stream_done");
                     })
                     .catch(function (e) {
-                      u.$12 &&
-                        !u.$12.isSettled() &&
+                      var n = u.$12;
+                      n &&
+                        !n.isSettled() &&
                         (u.$16 && e === t.STREAM_PAUSED
-                          ? u.$12.resolve("stream_paused")
-                          : u.$12.reject(e));
+                          ? n.resolve("stream_paused")
+                          : n.reject(e));
                     }),
                   (u.$12 = new (r("oz-player/shims/OzDeferred"))(
                     r("oz-player/shims/OzMaybeNativePromise"),

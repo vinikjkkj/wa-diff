@@ -14,6 +14,7 @@ __d(
     "WAWebStickerGetters",
     "WAWebStickerModel",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -28,8 +29,10 @@ __d(
       g,
       h,
       y,
-      C = 32,
-      b = (function (t) {
+      C,
+      b,
+      v = 32,
+      S = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -100,7 +103,7 @@ __d(
             });
           }),
           (i._addSaveTask = function () {
-            var e = this;
+            var t = this;
             (!this._idleTaskId ||
               !o("WAWebIdleTaskRunner").IdleCallbackTasks.isInQueue(
                 this._idleTaskId,
@@ -108,12 +111,22 @@ __d(
               (this._idleTaskId = o(
                 "WAWebIdleTaskRunner",
               ).IdleCallbackTasks.enqueue(function () {
-                e._saveToDb();
+                t._saveToDb().catch(function (t) {
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "RecentStickerCollection attempt to save to database failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("recent-sticker-save-failed");
+                });
               }));
           }),
           (i._saveToDb = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t = this.toArray().map(function (e) {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this.toArray().map(function (e) {
                 var t = e.sticker.toDbData();
                 return {
                   id: e.id,
@@ -139,50 +152,50 @@ __d(
                 };
               });
               o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Recent Stickers: need to save stickers in DB with length: ",
                     "",
                   ])),
-                t.length,
+                e.length,
               );
               try {
-                var n = o("WAWebSchemaRecentStickers").getRecentStickersTable(),
-                  r = yield n.count();
+                var t = o("WAWebSchemaRecentStickers").getRecentStickersTable(),
+                  n = yield t.count();
                 (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: before save, stickers in DB with length: ",
                       "",
                     ])),
-                  r,
+                  n,
                 ),
-                  yield n.clear(),
-                  yield n.bulkCreateOrReplace(t),
-                  (r = yield n.count()),
+                  yield t.clear(),
+                  yield t.bulkCreateOrReplace(e),
+                  (n = yield t.count()),
                   o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "Recent Stickers: after save, stickers in DB with length: ",
                         "",
                       ])),
-                    r,
+                    n,
                   ));
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "RecentStickerCollection attempt to save to database failed",
                       ])),
                   )
                   .sendLogs(String(e));
               }
             });
-            function r() {
-              return t.apply(this, arguments);
+            function t() {
+              return e.apply(this, arguments);
             }
-            return r;
+            return t;
           })()),
           (i.addStickerWithMediaData = function (t) {
             var e = t.encFilehash,
@@ -221,8 +234,8 @@ __d(
             if (
               (n === void 0 && (n = !1),
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "Recent Stickers: length of stickers will be enqueued: ",
                     "",
                   ])),
@@ -283,8 +296,8 @@ __d(
               }),
                 l.length > 0 &&
                   (o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "Recent Stickers: adjust weight and resort stickers.",
                       ])),
                   ),
@@ -292,8 +305,8 @@ __d(
                   this.addAndSort(i),
                   this._hasInitializedFromCache &&
                     (o("WALogger").LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "Recent Stickers: need to save collection to DB.",
                         ])),
                     ),
@@ -320,8 +333,8 @@ __d(
                 this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
                 this._addSaveTask())
               : o("WALogger").ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "updateDirectPaths: stickerId not found in collection",
                     ])),
                 );
@@ -351,23 +364,20 @@ __d(
           (i.associateStickerWithMsg = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                var n,
-                  r = yield o(
+                var n = yield o(
                     "WAWebMsgCollection",
                   ).MsgCollection.getMessagesById([t]),
-                  a = r.messages,
-                  i =
-                    ((n = e.mediaObject) == null
-                      ? void 0
-                      : n.associatedMsgs()) || [];
-                e.mediaObject &&
+                  r = n.messages,
+                  a = e.mediaObject,
+                  i = (a == null ? void 0 : a.associatedMsgs()) || [];
+                a &&
                   (i.length === 0 ||
-                    !a.some(function (e) {
+                    !r.some(function (e) {
                       return i.includes(e);
                     })) &&
                   o("WAWebMediaStorage").associateMediaWithMsg(
-                    e.mediaObject,
-                    a[a.length - 1],
+                    a,
+                    r[r.length - 1],
                   );
               },
             );
@@ -383,45 +393,57 @@ __d(
                 var n = e._dbDataToModel(t);
                 return (
                   n.msgId != null &&
-                    e.associateStickerWithMsg(n.sticker, n.msgId),
+                    e
+                      .associateStickerWithMsg(n.sticker, n.msgId)
+                      .catch(function (e) {
+                        o("WALogger")
+                          .ERROR(
+                            g ||
+                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                                "RecentStickerCollection attempt to associate sticker with message failed",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("recent-sticker-associate-msg-failed");
+                      }),
                   n
                 );
               }),
-              r = this.toArray();
+              a = this.toArray();
             if (
-              (r.length > 0 &&
+              (a.length > 0 &&
                 n.forEach(function (e) {
                   return (e.weight = Number(
-                    (e.weight * Math.pow(0.9, r.length)).toFixed(2),
+                    (e.weight * Math.pow(0.9, a.length)).toFixed(2),
                   ));
                 }),
               this.addAndSort(n),
-              r.length)
+              a.length)
             ) {
-              var o = new Set(
+              var i = new Set(
                 n.map(function (e) {
                   return e.id;
                 }),
               );
-              r.some(function (e) {
-                return !o.has(e);
+              a.some(function (e) {
+                return !i.has(e);
               }) && this._addSaveTask();
             }
           }),
           (i.addAndSort = function (t) {
             (this.add(t),
               this.sort(),
-              this.length > C &&
+              this.length > v &&
                 this._hasInitializedFromCache &&
                 (o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: stickers length ",
                       " is over the limit.",
                     ])),
                   this.length,
                 ),
-                this.set(this.toArray().slice(0, C))));
+                this.set(this.toArray().slice(0, v))));
           }),
           (i.removeAndSave = function (t, n) {
             n === void 0 && (n = {});
@@ -429,8 +451,8 @@ __d(
             return (
               e.length && this._addSaveTask(),
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "Recent Stickers: stickers length ",
                     " after remove.",
                   ])),
@@ -445,15 +467,15 @@ __d(
             });
             return e.length === 0
               ? (o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: no avatar stickers found, skip removing.",
                     ])),
                 ),
                 [])
               : (o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: removing all ",
                       " avatar stickers.",
                     ])),
@@ -481,9 +503,9 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    b.model = r("WAWebRecentStickerModel");
-    var v = new b();
-    l.RecentStickerCollectionMd = v;
+    S.model = r("WAWebRecentStickerModel");
+    var R = new S();
+    l.RecentStickerCollectionMd = R;
   },
   98,
 );

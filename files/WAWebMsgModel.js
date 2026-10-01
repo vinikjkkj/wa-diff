@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WATypeUtils",
     "WAWebAck",
     "WAWebBaseModel",
     "WAWebBizBotProfileUtils",
@@ -1278,7 +1277,7 @@ __d(
                     ).fixStatusReceiptKeys([a]);
                     a = i[0];
                   }
-                  o("WATypeUtils").isNumber(e) &&
+                  typeof e == "number" &&
                   (n === void 0 || e > n || e === o("WAWebAck").ACK.FAILED)
                     ? ((this.ack = e),
                       t ||

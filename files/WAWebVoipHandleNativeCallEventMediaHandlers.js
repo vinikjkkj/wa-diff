@@ -235,7 +235,9 @@ __d(
                       o("WAWebVoipWaCallEnums").ScreenShareVersion.Version3,
                     ),
               ),
-              n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
+              (n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
+                n.state ===
+                  o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
                 o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
                 (o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
                 o(

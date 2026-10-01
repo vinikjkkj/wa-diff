@@ -463,46 +463,46 @@ __d(
     }
     function I(t) {
       var n,
-        r,
         a,
         i,
         l,
         s,
         u,
-        c = {
+        c,
+        d = {
           id: t.id.toString(),
           accountLid: (n = t.accountLid) == null ? void 0 : n.toString(),
           t: t.t,
           isAutoMuted: !1,
-          unreadCount: (r = t.unreadCount) != null ? r : 0,
+          unreadCount: (a = t.unreadCount) != null ? a : 0,
           notSpam: t.notSpam,
           ephemeralDuration: t.ephemeralDuration,
           ephemeralSettingTimestamp: t.ephemeralSettingTimestamp,
           disappearingModeInitiator:
             (t.disappearingModeInitiator != null, t.disappearingModeInitiator),
-          tcToken: (a = t.tcToken) != null ? a : void 0,
-          tcTokenTimestamp: (i = t.tcTokenTimestamp) != null ? i : void 0,
+          tcToken: (i = t.tcToken) != null ? i : void 0,
+          tcTokenTimestamp: (l = t.tcTokenTimestamp) != null ? l : void 0,
           tcTokenSenderTimestamp:
-            (l = t.tcTokenSenderTimestamp) != null ? l : void 0,
+            (s = t.tcTokenSenderTimestamp) != null ? s : void 0,
           bizBotSystemMsgType: t.bizBotSystemMsgType,
           lidOriginType: t.lidOriginType,
-          createdLocally: (s = t.createdLocally) != null ? s : !1,
+          createdLocally: (u = t.createdLocally) != null ? u : !1,
         };
-      ((c.disappearingModeTrigger =
+      ((d.disappearingModeTrigger =
         (t.disappearingModeTrigger != null, t.disappearingModeTrigger)),
-        (c.disappearingModeInitiatedByMe =
-          (u = t.disappearingModeInitiatedByMe) != null ? u : void 0));
-      var d = t;
-      (d.isUsernameThreadAtCreation != null &&
-        (c.isUsernameThreadAtCreation = d.isUsernameThreadAtCreation),
-        d.isSenderNewAccount != null &&
-          (c.isSenderNewAccount = d.isSenderNewAccount),
-        t.name != null && (c.name = t.name),
-        t.isReadOnly != null && (c.isReadOnly = t.isReadOnly),
-        t.muteExpiration != null && (c.muteExpiration = t.muteExpiration));
+        (d.disappearingModeInitiatedByMe =
+          (c = t.disappearingModeInitiatedByMe) != null ? c : void 0));
+      var m = t;
+      (m.isUsernameThreadAtCreation != null &&
+        (d.isUsernameThreadAtCreation = m.isUsernameThreadAtCreation),
+        m.isSenderNewAccount != null &&
+          (d.isSenderNewAccount = m.isSenderNewAccount),
+        t.name != null && (d.name = t.name),
+        t.isReadOnly != null && (d.isReadOnly = t.isReadOnly),
+        t.muteExpiration != null && (d.muteExpiration = t.muteExpiration));
       try {
-        var m = t;
-        m.originalLid != null && (c.originalLid = m.originalLid.toString());
+        var p = t;
+        p.originalLid != null && (d.originalLid = p.originalLid.toString());
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -511,12 +511,12 @@ __d(
                 "createChatObjectForStorage: failed",
               ])),
           )
-          .catching(t)
+          .catching(r("getErrorSafe")(t))
           .sendLogs(
             "createChat-lid-offline-resume-workaround-failed-conversion",
           );
       }
-      return c;
+      return d;
     }
     function T(e) {
       return o("WAFilterObjectNullishProps").filterObjectNullishProps(I(e));

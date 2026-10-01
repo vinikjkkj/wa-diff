@@ -5,6 +5,7 @@ __d(
     "WAWebAppMutex",
     "WAWebAppScreenTypes",
     "WAWebBizBroadcastProDownloadProgressHost.react",
+    "WAWebBizBroadcastProReminderHost.react",
     "WAWebConflict.react",
     "WAWebConnModel",
     "WAWebContextMenuManager.react",
@@ -297,6 +298,14 @@ __d(
                   "bb-pro-download-progress-host",
                 ),
                 errorBoundaryName: "bb-pro-download-progress-host",
+              },
+              {
+                ui: u.jsx(
+                  r("WAWebBizBroadcastProReminderHost.react"),
+                  {},
+                  "bb-pro-reminder-host",
+                ),
+                errorBoundaryName: "bb-pro-reminder-host",
               },
               {
                 ui: u.jsx(

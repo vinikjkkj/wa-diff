@@ -31,7 +31,15 @@ __d(
         ? !1
         : s();
     }
-    function m() {
+    function m(e, t) {
+      return t
+        ? !1
+        : o("WAWebBotUtils").isMetaAiBot(e) ||
+            o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
+          ? !0
+          : s();
+    }
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -40,7 +48,7 @@ __d(
             "ai_group_participation_enabled",
           ) === !0;
     }
-    function p() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -49,35 +57,35 @@ __d(
             "ai_group_participation_add_tee_enabled",
           ) === !0;
     }
-    function _(e) {
+    function f(e) {
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-          ? m()
+          ? p()
           : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-            ? p()
+            ? _()
             : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function f(e) {
+    function g(e) {
       var t = e.authorWid,
         n = e.botGroupParticipant,
         r = e.chatWid,
         a = e.isBotInvoke;
-      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !_(n)
+      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !f(n)
         ? !1
         : !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(n) ||
             a ||
             (t == null ? void 0 : t.equals(n)) === !0;
     }
-    function g() {
+    function h() {
       return (
         o("WAWebABProps").getABPropConfigValue("web_ai_group_open_support") ===
         !0
       );
     }
-    function h() {
+    function y() {
       return (
-        g() &&
+        h() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_group_send_mentioned_pushname_enabled",
         )
@@ -88,12 +96,13 @@ __d(
       (l.isMuseGroupAgentRenderingEnabled = u),
       (l.isGroupAgentProduct = c),
       (l.isGroupAgent = d),
-      (l.isOpenGroupBotParticipantAddEnabled = m),
-      (l.isTEEGroupBotParticipantAddEnabled = p),
-      (l.isGroupBotParticipantEnabled = _),
-      (l.isGroupBotMessage = f),
-      (l.isOpenGroupBotSendEnabled = g),
-      (l.isGroupBotSendMentionedPushnameEnabled = h));
+      (l.isGroupBotInvokeAllowed = m),
+      (l.isOpenGroupBotParticipantAddEnabled = p),
+      (l.isTEEGroupBotParticipantAddEnabled = _),
+      (l.isGroupBotParticipantEnabled = f),
+      (l.isGroupBotMessage = g),
+      (l.isOpenGroupBotSendEnabled = h),
+      (l.isGroupBotSendMentionedPushnameEnabled = y));
   },
   98,
 );

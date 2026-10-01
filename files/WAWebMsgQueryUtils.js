@@ -1,6 +1,8 @@
 __d(
   "WAWebMsgQueryUtils",
   [
+    "WAPromiseProps",
+    "WATypeUtils",
     "WAWebCollectionConstants",
     "WAWebDBGetGroupMemberUpdateMessages",
     "WAWebDBMessageFindLocal",
@@ -132,11 +134,57 @@ __d(
         g.apply(this, arguments)
       );
     }
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            var i =
+                o("WATypeUtils").isNumber(t) && t !== 0
+                  ? t
+                  : o("WAWebCollectionConstants").PAGE_SIZE,
+              l = n || "before",
+              s = { add: "search" },
+              u = yield o("WAWebDBMessageFindLocal").msgFindMedia({
+                count: i,
+                mediaType: a,
+                direction: l,
+                chat: e,
+                anchor: r,
+              });
+            return Array.isArray(u)
+              ? o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
+                  void 0,
+                  u,
+                  { add: "search" },
+                  "msgCollectionQueryMedia",
+                )
+              : o("WAPromiseProps").promiseProps({
+                  docCount: u.docCount,
+                  linkCount: u.linkCount,
+                  mediaCount: u.mediaCount,
+                  messages: o(
+                    "WAWebMsgCollection",
+                  ).MsgCollection.processMultipleMessages(
+                    void 0,
+                    u.messages,
+                    s,
+                    "msgCollectionQueryMedia",
+                  ),
+                });
+          },
+        )),
+        y.apply(this, arguments)
+      );
+    }
     ((l.getStarred = e),
       (l.getEventMsgs = u),
       (l.getGroupMemberUpdateMsgs = d),
       (l.getVoipCallLogMsgs = p),
-      (l.getAllDocsMsgs = f));
+      (l.getAllDocsMsgs = f),
+      (l.queryMedia = h));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAIOAuthPopup",
-  ["WAWebURLUtils"],
+  ["WAWebExternalLink.react", "WAWebURLUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "wa_web_biz_ai_oauth_popup",
@@ -24,10 +24,15 @@ __d(
     function d() {
       return window.open("", e, c());
     }
-    function m(e, t) {
-      return t == null || !r("WAWebURLUtils").isHttps(t)
+    function m(t, n) {
+      return n == null || !r("WAWebURLUtils").isHttps(n) || t.closed
         ? !1
-        : ((e.location.href = t), !0);
+        : (o("WAWebExternalLink.react").openExternalLink(n, {
+            allowReferrer: !0,
+            noApiCmdHandling: !0,
+            targetName: e,
+          }),
+          !0);
     }
     ((l.openBlankOAuthPopup = d), (l.navigateOAuthPopup = m));
   },

@@ -34,6 +34,7 @@ __d(
       BUSINESS_FOLDER: 28,
       TO_YOU: 29,
       META_AI: 30,
+      ONE_ON_ONE: 31,
     });
     i.CHAT_FILTER_TYPES = e;
   },

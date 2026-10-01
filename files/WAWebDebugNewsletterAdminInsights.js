@@ -22,11 +22,11 @@ __d(
         id: n.id,
         rangeStart: o("WATimeUtils").unixTime() - 2628e3,
         rangeEnd: o("WATimeUtils").unixTime(),
-        accountsReached: 5924187,
-        reachDelta: 0.107,
-        followersReached: 42e5,
-        nonFollowersReached: 1724187,
-        reachByCountry: [
+        accountsReachedChannels: 5924187,
+        reachDeltaChannels: 0.107,
+        followersReachedChannels: 42e5,
+        nonFollowersReachedChannels: 1724187,
+        reachByCountryChannels: [
           { label: "Colombia", percentage: 0.401, value: 23e5 },
           { label: "Brazil", percentage: 0.201, value: 11e5 },
           { label: "Peru", percentage: 0.153, value: 902e3 },

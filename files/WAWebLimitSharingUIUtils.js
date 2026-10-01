@@ -126,7 +126,6 @@ __d(
     function C(e) {
       return (
         o("WAWebLimitSharingGatingUtils").isAcp2EnabledForChat(e) &&
-        (e == null ? void 0 : e.acp2Setting) != null &&
         e.hasCapi !== !0 &&
         !e.id.isBot() &&
         !r("WAWebWid").isPSA(e.contact.id) &&

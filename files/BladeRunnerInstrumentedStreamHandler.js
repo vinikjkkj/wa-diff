@@ -78,7 +78,7 @@ __d(
                   ".s",
               );
             }
-            clearTimeout(this.$BladeRunnerInstrumentedStreamHandler$p_5);
+            window.clearTimeout(this.$BladeRunnerInstrumentedStreamHandler$p_5);
           }),
           n
         );

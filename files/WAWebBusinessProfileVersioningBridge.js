@@ -19,9 +19,7 @@ __d(
         t & n
       );
     }
-    ((l.DIRECT_CONNECTION_FLAG = m),
-      (l.getBusinessProfileQueryVersion = _),
-      (l.getBusinessProfileQueryVersionWithCustomBizProfileOptions = f));
+    l.getBusinessProfileQueryVersion = _;
   },
   98,
 );

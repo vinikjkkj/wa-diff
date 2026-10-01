@@ -204,6 +204,7 @@ __d(
               sharedPhoneNumberContactSize: [77, e.TYPES.INTEGER],
               sharedPhoneNumberWithUsernameContactSize: [78, e.TYPES.INTEGER],
               sharedUsernameContactSize: [79, e.TYPES.INTEGER],
+              stickerHasSound: [99, e.TYPES.BOOLEAN],
               stickerIsAi: [50, e.TYPES.BOOLEAN],
               stickerIsAvatar: [38, e.TYPES.BOOLEAN],
               stickerIsFirstParty: [18, e.TYPES.BOOLEAN],

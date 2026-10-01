@@ -1,14 +1,13 @@
 __d(
   "meta-brand-discs-stacked-outline-20",
-  ["ix", "cr:25146", "cr:28117", "fbicon"],
-  function (t, n, r, o, a, i, l, s) {
+  ["MetaBrandDiscsStackedOutline20Icon.react"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("cr:25146") != null ? n("cr:25146") : n("cr:28117"),
-      u = e != null ? [e, 20] : null,
-      c = u != null ? u : o("fbicon")._(s("688901"), 20),
-      d = u != null ? u : o("fbicon")._(s("688901"), 20);
-    ((l.metaBrandDiscsStackedOutline20 = c),
-      (l.metaBrandDiscsStackedCoinStackOutline20 = d));
+    var e = [r("MetaBrandDiscsStackedOutline20Icon.react"), 20],
+      s = e,
+      u = e;
+    ((l.metaBrandDiscsStackedOutline20 = s),
+      (l.metaBrandDiscsStackedCoinStackOutline20 = u));
   },
   98,
 );

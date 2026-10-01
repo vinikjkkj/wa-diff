@@ -84,7 +84,7 @@ __d(
           ((e[n][2] -= a), (e[n][3] -= a));
           var i = e[n][5];
           ((i.href = i.href.slice(0, -a)),
-            (i.path = i.path && i.path.slice(0, -a)),
+            (i.path = i.path == null ? i.path : i.path.slice(0, -a)),
             (i.url = i.url.slice(0, -a)),
             r++,
             n++);

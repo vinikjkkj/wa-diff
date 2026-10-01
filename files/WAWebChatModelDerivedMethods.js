@@ -62,6 +62,18 @@ __d(
       );
     }
     function u(e) {
+      var t;
+      return (
+        e.subtype === "acp2_system_message" &&
+        ((t = e.acp2Setting) == null ? void 0 : t.enabled) === !0 &&
+        !e.pendingDeleteForMe &&
+        o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+          o("WAWebViewMode.flow").ViewModeSurface.CHAT_LIST,
+          e.viewMode,
+        )
+      );
+    }
+    function c(e) {
       if (
         o("WAWebChatGetters").getIsBroadcast(e) ||
         o("WAWebChatGetters").getIsMetaAiBot(e) ||
@@ -82,7 +94,8 @@ __d(
     }
     ((l.getMdChatAssignmentChatTypeFn = e),
       (l.isPreviewMessage = s),
-      (l.canSendPolls = u));
+      (l.isAcp2RestrictionNotice = u),
+      (l.canSendPolls = c));
   },
   98,
 );

@@ -1,7 +1,7 @@
 __d(
   "WAWebPrivacyModeUtils",
-  ["WAWebPrivacyModeBlurConfig", "WAWebPrivacyModeSettingsFBT"],
-  function (t, n, r, o, a, i, l) {
+  ["fbt", "WAWebPrivacyModeBlurConfig", "WAWebPrivacyModeSettingsFBT"],
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
       return e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Off
@@ -9,10 +9,10 @@ __d(
         : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Light
           ? o("WAWebPrivacyModeSettingsFBT").privacyModePresetLight()
           : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Medium
-            ? o("WAWebPrivacyModeSettingsFBT").privacyModePresetMedium()
+            ? s._(/*BTDS*/ "Medium")
             : o("WAWebPrivacyModeSettingsFBT").privacyModePresetStrong();
     }
     l.getPresetLabel = e;
   },
-  98,
+  226,
 );

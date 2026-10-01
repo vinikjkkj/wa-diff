@@ -20,7 +20,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaChat").getChatTable().get(e);
+          return o("WAWebSchemaChat").getChatTable().get(e, !1);
         })),
         u.apply(this, arguments)
       );

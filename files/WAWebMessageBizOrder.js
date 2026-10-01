@@ -38,271 +38,228 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(49),
-        n = e.displayAuthor,
-        a = e.msg,
-        i,
-        l;
-      if (t[0] !== a) {
-        var c;
-        ((i = o("WAWebUserPrefsMeUser").getMaybeMePnUser()),
-          (l =
-            (c = o("WAWebMsgGetters").getSender(a)) == null
-              ? void 0
-              : c.equals(i)),
-          (t[0] = a),
-          (t[1] = i),
-          (t[2] = l));
-      } else ((i = t[1]), (l = t[2]));
-      var d = l === !0,
+      var t,
+        n = o("react-compiler-runtime").c(32),
+        a = e.displayAuthor,
+        i = e.msg,
+        l = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+        c = i.unsafe(),
+        d =
+          ((t = o("WAWebMsgGetters").getSender(c)) == null
+            ? void 0
+            : t.equals(l)) === !0,
         m = r("useWAWebUIM")(),
-        p,
-        _,
-        f;
-      t[3] !== a
-        ? ((p = a.unsafe()),
-          (_ = r("useWAWebConversationPanelCanCompose")),
-          (f = o("WAWebFrontendMsgGetters").getChat(p)),
-          (t[3] = a),
-          (t[4] = p),
-          (t[5] = _),
-          (t[6] = f))
-        : ((p = t[4]), (_ = t[5]), (f = t[6]));
-      var g = _(f),
-        h = g[0],
-        y;
-      t[7] !== h ||
-      t[8] !== i ||
-      t[9] !== a ||
-      t[10] !== p ||
-      t[11] !== m ||
-      t[12] !== d
-        ? ((y = function (t) {
-            if ((t && t.stopPropagation(), !!h)) {
-              new (o(
-                "WAWebOrderDetailsActionsSmbWamEvent",
-              ).OrderDetailsActionsSmbWamEvent)({
-                orderDetailsCreationAction: o(
-                  "WAWebWamEnumOrderDetailsCreationAction",
-                ).ORDER_DETAILS_CREATION_ACTION.CLICK_VIEW_RECEIVED_CART,
-                actionCategory: String(
-                  r("WAWebOrderDetailsActionCategory").RECEIVED_CART,
+        p = r("useWAWebConversationPanelCanCompose")(
+          o("WAWebFrontendMsgGetters").getChat(c),
+        ),
+        _ = p[0],
+        f = function (t) {
+          if ((t && t.stopPropagation(), !!_)) {
+            new (o(
+              "WAWebOrderDetailsActionsSmbWamEvent",
+            ).OrderDetailsActionsSmbWamEvent)({
+              orderDetailsCreationAction: o(
+                "WAWebWamEnumOrderDetailsCreationAction",
+              ).ORDER_DETAILS_CREATION_ACTION.CLICK_VIEW_RECEIVED_CART,
+              actionCategory: String(
+                r("WAWebOrderDetailsActionCategory").RECEIVED_CART,
+              ),
+              orderDetailEntryPoint: String(r("WAWebBizEntryPoint").FROM_CART),
+              hasCatalog:
+                l != null &&
+                o("WAWebBusinessProfileUtils").hasCatalog(
+                  o(
+                    "WAWebBusinessProfileCollection",
+                  ).BusinessProfileCollection.get(l),
                 ),
-                orderDetailEntryPoint: String(
-                  r("WAWebBizEntryPoint").FROM_CART,
-                ),
-                hasCatalog:
-                  i != null &&
-                  o("WAWebBusinessProfileUtils").hasCatalog(
-                    o(
-                      "WAWebBusinessProfileCollection",
-                    ).BusinessProfileCollection.get(i),
+            }).commit();
+            var e = i.orderId,
+              n = i.sellerJid,
+              a = i.token;
+            if (e != null && n != null && a != null) {
+              if (
+                o("WAWebOrderGatingUtils").isBuyerOrderRevampEnabled() &&
+                i.status != null &&
+                i.status !==
+                  o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
+                    .INQUIRY
+              )
+                return;
+              var s = o(
+                "WAWebProductCatalogContext",
+              ).buildProductCatalogContext(
+                new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
+                o("WAWebContactUtils").getMaybeBizPlatformForLogging(n),
+                o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
+                  .CATALOG_ENTRY_POINT_ORDER_MESSAGE,
+              );
+              (o("WAWebOrderLogEvents").logOrderMessageClick({
+                catalogContext: s,
+                catalogOwnerJid: n,
+              }),
+                i.orderId != null &&
+                  (o("WAWebMessageLogQplEvents").qplStartOrderView(
+                    !!o("WAWebOrderCollection").OrderCollection.get(e),
                   ),
-              }).commit();
-              var e = a.orderId,
-                n = a.sellerJid,
-                l = a.token;
-              if (e != null && n != null && l != null) {
-                if (
-                  o("WAWebOrderGatingUtils").isBuyerOrderRevampEnabled() &&
-                  a.status != null &&
-                  a.status !==
-                    o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
-                      .INQUIRY
-                )
-                  return;
-                var s = o(
-                  "WAWebProductCatalogContext",
-                ).buildProductCatalogContext(
-                  new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
-                  o("WAWebContactUtils").getMaybeBizPlatformForLogging(n),
-                  o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
-                    .CATALOG_ENTRY_POINT_ORDER_MESSAGE,
-                );
-                (o("WAWebOrderLogEvents").logOrderMessageClick({
-                  catalogContext: s,
-                  catalogOwnerJid: n,
-                }),
-                  a.orderId != null &&
-                    (o("WAWebMessageLogQplEvents").qplStartOrderView(
-                      !!o("WAWebOrderCollection").OrderCollection.get(e),
+                  o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+                    u.jsx(
+                      o("WAWebProductDetailsFlowLoadable")
+                        .ProductDetailsFlowLoadable,
+                      {
+                        chat: o("WAWebFrontendMsgGetters").getChat(c),
+                        orderMessage: i,
+                        orderId: e,
+                        token: a,
+                        userIsCartOwner: d,
+                        sellerJid: n,
+                      },
                     ),
-                    o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                      u.jsx(
-                        o("WAWebProductDetailsFlowLoadable")
-                          .ProductDetailsFlowLoadable,
-                        {
-                          chat: o("WAWebFrontendMsgGetters").getChat(p),
-                          orderMessage: a,
-                          orderId: e,
-                          token: l,
-                          userIsCartOwner: d,
-                          sellerJid: n,
-                        },
-                      ),
-                      { transition: "slide-left", uim: m, newDrawerContext: s },
-                    )));
-              }
+                    { transition: "slide-left", uim: m, newDrawerContext: s },
+                  )));
             }
-          }),
-          (t[7] = h),
-          (t[8] = i),
-          (t[9] = a),
-          (t[10] = p),
-          (t[11] = m),
-          (t[12] = d),
-          (t[13] = y))
-        : (y = t[13]);
-      var C = y,
-        b = a.message,
-        v;
-      t[14] !== a
-        ? ((v = o("WAWebFrontendMsgGetters").getRtl(a)),
-          (t[14] = a),
-          (t[15] = v))
-        : (v = t[15]);
-      var S;
-      t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = r("WAWebL10N").isRTL()), (t[16] = S))
-        : (S = t[16]);
-      var R = v !== S,
-        L;
-      t[17] !== a
-        ? ((L = o("WAWebFrontendMsgGetters").getDir(a)),
-          (t[17] = a),
-          (t[18] = L))
-        : (L = t[18]);
-      var E;
-      t[19] !== a.message || t[20] !== R || t[21] !== L
-        ? ((E = u.jsx(o("WAWebEmojiText.react").EmojiText, {
-            text: b,
-            dirMismatch: R,
-            direction: L,
+          }
+        },
+        g = o("WAWebEmojiText.react").EmojiText,
+        h = i.message,
+        y = o("WAWebFrontendMsgGetters").getRtl(c),
+        C;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = r("WAWebL10N").isRTL()), (n[0] = C))
+        : (C = n[0]);
+      var b = y !== C,
+        v = o("WAWebFrontendMsgGetters").getDir(c),
+        S;
+      n[1] !== g || n[2] !== i.message || n[3] !== b || n[4] !== v
+        ? ((S = u.jsx(g, {
+            text: h,
+            dirMismatch: b,
+            direction: v,
             inferLinesDirection: !0,
           })),
-          (t[19] = a.message),
-          (t[20] = R),
-          (t[21] = L),
-          (t[22] = E))
-        : (E = t[22]);
-      var k = E,
-        I;
-      t[23] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = { className: "x10l6tqk xtijo5x x1ey2m1c" }), (t[23] = I))
-        : (I = t[23]);
-      var T;
-      t[24] !== a.id
-        ? ((T = u.jsx(
+          (n[1] = g),
+          (n[2] = i.message),
+          (n[3] = b),
+          (n[4] = v),
+          (n[5] = S))
+        : (S = n[5]);
+      var R = S,
+        L;
+      n[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = { className: "x10l6tqk xtijo5x x1ey2m1c" }), (n[6] = L))
+        : (L = n[6]);
+      var E;
+      n[7] !== i.id
+        ? ((E = u.jsx(
             "div",
-            babelHelpers.extends({}, I, {
+            babelHelpers.extends({}, L, {
               children: u.jsx(o("WAWebMessageMeta.react").Meta, {
-                msgKey: a.id,
+                msgKey: i.id,
               }),
             }),
           )),
-          (t[24] = a.id),
-          (t[25] = T))
-        : (T = t[25]);
-      var D = T,
-        x;
-      t[26] !== a.status
-        ? ((x = function () {
+          (n[7] = i.id),
+          (n[8] = E))
+        : (E = n[8]);
+      var k = E,
+        I;
+      n[9] !== i.status
+        ? ((I = function () {
             return o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
-              ? a.status == null ||
-                  a.status ===
+              ? i.status == null ||
+                  i.status ===
                     o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
                       .INQUIRY
               : !0;
           }),
-          (t[26] = a.status),
-          (t[27] = x))
-        : (x = t[27]);
-      var $ = x,
-        P;
-      t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((P = o("WAWebOrderGatingUtils").isBuyerOrderRequestVariantEnabled()
+          (n[9] = i.status),
+          (n[10] = I))
+        : (I = n[10]);
+      var T = I,
+        D;
+      n[11] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = o("WAWebOrderGatingUtils").isBuyerOrderRequestVariantEnabled()
             ? s._(/*BTDS*/ "View details")
             : s._(/*BTDS*/ "View sent cart")),
-          (t[28] = P))
-        : (P = t[28]);
-      var N = P,
-        M;
-      t[29] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
+          (n[11] = D))
+        : (D = n[11]);
+      var x = D,
+        $;
+      n[12] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
             ? s._(/*BTDS*/ "View order request")
             : s._(/*BTDS*/ "View received cart")),
-          (t[29] = M))
-        : (M = t[29]);
-      var w = M,
-        A = d ? N : w,
-        F;
-      t[30] !== C || t[31] !== A
-        ? ((F = u.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
-            items: [{ label: A, testid: "view-cart-button", onClick: C }],
+          (n[12] = $))
+        : ($ = n[12]);
+      var P = $,
+        N = d ? x : P,
+        M;
+      n[13] !== f || n[14] !== N
+        ? ((M = u.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
+            items: [{ label: N, testid: "view-cart-button", onClick: f }],
           })),
-          (t[30] = C),
-          (t[31] = A),
-          (t[32] = F))
-        : (F = t[32]);
-      var O = F,
-        B;
-      t[33] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-          (t[33] = B))
-        : (B = t[33]);
-      var W;
-      t[34] !== p || t[35] !== C
-        ? ((W = u.jsx(
+          (n[13] = f),
+          (n[14] = N),
+          (n[15] = M))
+        : (M = n[15]);
+      var w = M,
+        A;
+      n[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+          (n[16] = A))
+        : (A = n[16]);
+      var F;
+      n[17] !== c || n[18] !== f
+        ? ((F = u.jsx(
             "div",
-            babelHelpers.extends({}, B, {
+            babelHelpers.extends({}, A, {
               children: u.jsx(o("WAWebBizOrderPreview.react").OrderPreview, {
-                msg: p,
-                onClick: C,
+                msg: c,
+                onClick: f,
               }),
             }),
           )),
-          (t[34] = p),
-          (t[35] = C),
-          (t[36] = W))
-        : (W = t[36]);
-      var q = p.id,
-        U = a.id,
-        V;
-      t[37] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = "x1m258z3 x12nagc"), (t[37] = V))
-        : (V = t[37]);
-      var H;
-      t[38] !== k || t[39] !== D || t[40] !== a.id || t[41] !== p.id
-        ? ((H = u.jsxs(r("WAWebMessageSpacerText.react"), {
-            msgKey: q,
-            "data-id": U,
-            className: V,
-            children: [k, D],
+          (n[17] = c),
+          (n[18] = f),
+          (n[19] = F))
+        : (F = n[19]);
+      var O = c.id,
+        B = i.id,
+        W;
+      n[20] === Symbol.for("react.memo_cache_sentinel")
+        ? ((W = "x1m258z3 x12nagc"), (n[20] = W))
+        : (W = n[20]);
+      var q;
+      n[21] !== R || n[22] !== k || n[23] !== i.id || n[24] !== c.id
+        ? ((q = u.jsxs(r("WAWebMessageSpacerText.react"), {
+            msgKey: O,
+            "data-id": B,
+            className: W,
+            children: [R, k],
           })),
-          (t[38] = k),
-          (t[39] = D),
-          (t[40] = a.id),
-          (t[41] = p.id),
-          (t[42] = H))
-        : (H = t[42]);
-      var G = h && $() && O,
-        z;
+          (n[21] = R),
+          (n[22] = k),
+          (n[23] = i.id),
+          (n[24] = c.id),
+          (n[25] = q))
+        : (q = n[25]);
+      var U = _ && T() && w,
+        V;
       return (
-        t[43] !== n || t[44] !== a || t[45] !== W || t[46] !== H || t[47] !== G
-          ? ((z = u.jsxs(r("WAWebMessageTextBubble.react"), {
-              msg: a,
-              displayAuthor: n,
+        n[26] !== a || n[27] !== i || n[28] !== F || n[29] !== q || n[30] !== U
+          ? ((V = u.jsxs(r("WAWebMessageTextBubble.react"), {
+              msg: i,
+              displayAuthor: a,
               hideMeta: !0,
-              children: [W, H, G],
+              children: [F, q, U],
             })),
-            (t[43] = n),
-            (t[44] = a),
-            (t[45] = W),
-            (t[46] = H),
-            (t[47] = G),
-            (t[48] = z))
-          : (z = t[48]),
-        z
+            (n[26] = a),
+            (n[27] = i),
+            (n[28] = F),
+            (n[29] = q),
+            (n[30] = U),
+            (n[31] = V))
+          : (V = n[31]),
+        V
       );
     }
     l.default = c;

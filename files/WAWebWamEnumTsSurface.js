@@ -275,6 +275,7 @@ __d(
       CTWA_MIDSTAGE_COMPOSER: 271,
       LEAD_GEN: 272,
       CHANNELS_MIGRATION: 273,
+      CHANNEL_RESPONSE_VIEWER: 274,
     });
     i.TS_SURFACE = e;
   },

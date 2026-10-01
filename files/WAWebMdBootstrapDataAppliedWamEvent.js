@@ -55,6 +55,7 @@ __d(
               ],
               mdDroppedMsgType: [19, e.TYPES.STRING],
               mdRegAttemptId: [9, e.TYPES.STRING],
+              mdRegAttemptIdPn: [28, e.TYPES.STRING],
               mdSessionId: [1, e.TYPES.STRING],
               mdSyncFailureReason: [20, e.TYPES.STRING],
               mdTimestamp: [4, e.TYPES.INTEGER],

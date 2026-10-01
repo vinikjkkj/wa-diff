@@ -15,10 +15,10 @@ __d(
     "WAWebOnKeyDownPlugin",
     "WAWebRichTextInput.react",
     "WAWebSearchFilterChip.react",
-    "WAWebSearchRefreshedThinIcon.react",
     "WAWebSpinner.react",
     "WDSIconIcArrowBack.react",
     "WDSIconIcClose.react",
+    "WDSIconIcSearch.react",
     "WDSPaddings.stylex",
     "nullthrows",
     "react",
@@ -293,10 +293,12 @@ __d(
       var ce = null,
         de;
       t[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((de = u.jsx(
-            o("WAWebSearchRefreshedThinIcon.react").SearchRefreshedThinIcon,
-            { xstyle: p.iconColorRefreshed },
-          )),
+        ? ((de = u.jsx(r("WDSIconIcSearch.react"), {
+            testid: "search-refreshed-thin",
+            height: 20,
+            width: 20,
+            iconXstyle: p.iconColorRefreshed,
+          })),
           (t[20] = de))
         : (de = t[20]);
       var me = de,

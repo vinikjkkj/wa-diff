@@ -15,32 +15,34 @@ __d(
       s = e || (e = o("react")),
       u = function (t) {
         return function (e) {
-          var n = e.currentTime,
-            a = e.getZoomNode,
-            i = e.highlightedMsgIds,
-            l = e.msg,
-            u = e.shouldShowAllMedia,
-            c = e.shouldShowNumberText;
-          o("WAWebMsgCollection").MsgCollection.get(l.id)
+          var n = e.allMediaCollection,
+            a = e.currentTime,
+            i = e.getZoomNode,
+            l = e.highlightedMsgIds,
+            u = e.msg,
+            c = e.shouldShowAllMedia,
+            d = e.shouldShowNumberText;
+          o("WAWebMsgCollection").MsgCollection.get(u.id)
             ? o("WAWebModalManager").ModalManager.openMedia(
                 s.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
                   name: "media-viewer-flow",
                   children: s.jsx(
                     o("WAWebMediaViewerFlow.react").MediaViewerFlow,
                     {
-                      msg: l,
-                      startTime: n,
-                      getZoomNode: a,
-                      highlightedMsgIds: i,
-                      shouldShowNumberText: c,
-                      shouldShowAllMedia: u,
+                      msg: u,
+                      startTime: a,
+                      getZoomNode: i,
+                      highlightedMsgIds: l,
+                      shouldShowNumberText: d,
+                      shouldShowAllMedia: c,
+                      allMediaCollection: n,
                     },
                   ),
                 }),
                 { transition: "media-viewer", uim: r("nullthrows")(t) },
               )
             : o("WAWebModalManager").ModalManager.open(
-                s.jsx(r("WAWebMediaMissingModal.react"), { msg: l }),
+                s.jsx(r("WAWebMediaMissingModal.react"), { msg: u }),
               );
         };
       };

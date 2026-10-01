@@ -1,6 +1,6 @@
 __d(
   "WAWebRenderDebugPlaceholderPreviewIcon",
-  ["WAWebUnknownIcon.react", "react", "react-compiler-runtime"],
+  ["WDSIconWdsIcUnsupportedMessage.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -9,7 +9,8 @@ __d(
         n;
       return (
         t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {
+          ? ((n = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+              testid: "unknown",
               width: 20,
               height: 20,
               "aria-hidden": !0,

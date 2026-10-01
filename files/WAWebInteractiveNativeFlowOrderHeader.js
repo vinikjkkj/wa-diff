@@ -127,7 +127,7 @@ __d(
             var g = i.currency,
               h;
             (t[4] !== a
-              ? ((h = o("WAWebMsgGetters").getIsSentByMe(a)),
+              ? ((h = o("WAWebMsgGetters").getIsSentByMe(a.unsafe())),
                 (t[4] = a),
                 (t[5] = h))
               : (h = t[5]),
@@ -182,7 +182,7 @@ __d(
               I = i.items.length,
               T;
             t[8] !== a
-              ? ((T = o("WAWebMsgGetters").getIsSentByMe(a)),
+              ? ((T = o("WAWebMsgGetters").getIsSentByMe(a.unsafe())),
                 (t[8] = a),
                 (t[9] = T))
               : (T = t[9]);

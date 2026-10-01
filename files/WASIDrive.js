@@ -134,10 +134,10 @@ __d(
             if (t === n) return o("WASISnapshotPreview1").RESULT.SUCCESS;
             this.close(n);
             var e = this.openMap.get(t);
-            return (
-              this.openMap.set(n, e),
-              o("WASISnapshotPreview1").RESULT.SUCCESS
-            );
+            return e == null
+              ? o("WASISnapshotPreview1").RESULT.EBADF
+              : (this.openMap.set(n, e),
+                o("WASISnapshotPreview1").RESULT.SUCCESS);
           }),
           (t.unlink = function (t, n) {
             var e = this.openMap.get(t);

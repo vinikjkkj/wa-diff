@@ -96,26 +96,27 @@ __d(
             l = i === void 0 ? {} : i,
             s = t.searchTerm,
             u = t.direction,
-            c = s + "__" + (l.label || (l.kind && l.kind) || "");
+            c = l.kind != null ? l.kind : "",
+            d = s + "__" + (l.label != null && l.label !== "" ? l.label : c);
           this.currentLabelSearch = l.label;
-          var d = !1,
-            m = s !== this.searchTerm;
+          var m = !1,
+            p = s !== this.searchTerm;
           if (
-            (this.searchTerm !== c
+            (this.searchTerm !== d
               ? (this.searchTerm && s.indexOf(this.searchTerm) === 0
-                  ? (d = !0)
-                  : ((this.searchTerm = c), this.delete()),
-                m && ((this.resultPage = 0), (this.hasMoreMsgs = !0)))
-              : (d = !0),
+                  ? (m = !0)
+                  : ((this.searchTerm = d), this.delete()),
+                p && ((this.resultPage = 0), (this.hasMoreMsgs = !0)))
+              : (m = !0),
             this.searchPromise)
           ) {
-            var p;
-            if (this.searchTerm === c) return this.searchPromise;
-            (p = this.searchAbortController) == null || p.abort();
+            var _;
+            if (this.searchTerm === d) return this.searchPromise;
+            (_ = this.searchAbortController) == null || _.abort();
           }
           this.searchAbortController = new AbortController();
-          var _ = this.searchAbortController.signal,
-            f = this.searchImpl({
+          var f = this.searchAbortController.signal,
+            g = this.searchImpl({
               chat: n,
               count: a,
               direction: u,
@@ -124,12 +125,12 @@ __d(
               searchTerm: s,
             });
           return (
-            (this.searchPromise = r("WAPromiseRaceAbort")(f, _)
+            (this.searchPromise = r("WAPromiseRaceAbort")(g, f)
               .then(function (t) {
                 return (
                   t.eof && (e.hasMoreMsgs = !1),
-                  e.searchTerm !== c && m && e.delete(),
-                  (e.searchTerm = c),
+                  e.searchTerm !== d && p && e.delete(),
+                  (e.searchTerm = d),
                   t.messages &&
                     ((l.kind || l.label != null) &&
                       (t.messages = t.messages.filter(function (e) {
@@ -152,7 +153,7 @@ __d(
                         );
                       }),
                     )),
-                  e.onSeachPromiseComplete(d),
+                  e.onSeachPromiseComplete(m),
                   t
                 );
               })

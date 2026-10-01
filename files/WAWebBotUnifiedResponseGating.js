@@ -36,41 +36,36 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_ur_imagine_video_enabled",
-      );
-    }
-    function _() {
-      return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_grid_image_enabled",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_ur_bloks_enabled");
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_post_citations_enabled",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_zeitgeist_carousel_enabled",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "meta_ai_in_app_survey_enabled",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_side_by_side_survey_enabled",
       );
     }
-    function b() {
+    function C() {
       return r("gkx")("6940");
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_rich_response_replying_enabled",
       );
@@ -81,15 +76,14 @@ __d(
       (l.isUnifiedResponseSendingEnabled = c),
       (l.isUnifiedResponseMutationEnabled = d),
       (l.isImagineUrEnabled = m),
-      (l.isUrImagineVideoEnabled = p),
-      (l.isRichResponseGridImageEnabled = _),
-      (l.isUrBloksEnabled = f),
-      (l.isUrZeitgeistCitationsEnabled = g),
-      (l.isUrZeitgeistCarouselEnabled = h),
-      (l.isRichResponseInAppSurveyEnabled = y),
-      (l.isRichResponseSideBySideSurveyEnabled = C),
-      (l.isFoABloksNodeRendererEnabled = b),
-      (l.isReplyToRichResponseEnabled = v));
+      (l.isRichResponseGridImageEnabled = p),
+      (l.isUrBloksEnabled = _),
+      (l.isUrZeitgeistCitationsEnabled = f),
+      (l.isUrZeitgeistCarouselEnabled = g),
+      (l.isRichResponseInAppSurveyEnabled = h),
+      (l.isRichResponseSideBySideSurveyEnabled = y),
+      (l.isFoABloksNodeRendererEnabled = C),
+      (l.isReplyToRichResponseEnabled = b));
   },
   98,
 );

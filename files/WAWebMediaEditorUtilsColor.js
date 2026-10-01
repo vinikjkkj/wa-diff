@@ -67,9 +67,9 @@ __d(
             else {
               var s = r < 0.5 ? r * (1 + o) : r + o - r * o,
                 u = 2 * r - s;
-              ((a = c(u, s, t + 0.3333333333333333)),
-                (i = c(u, s, t)),
-                (l = c(u, s, t - 0.3333333333333333)));
+              ((a = c({ hue: t + 0.3333333333333333, m1: u, m2: s })),
+                (i = c({ hue: t, m1: u, m2: s })),
+                (l = c({ hue: t - 0.3333333333333333, m1: u, m2: s })));
             }
             return new e(
               Math.round(a * 255),
@@ -231,18 +231,21 @@ __d(
         1,
         o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
       )));
-    function c(e, t, n) {
-      var r = n;
+    function c(e) {
+      var t = e.hue,
+        n = e.m1,
+        r = e.m2,
+        o = t;
       return (
-        r < 0 && (r += 1),
-        r > 1 && (r -= 1),
-        r < 1 / 6
-          ? e + (t - e) * 6 * r
-          : r < 1 / 2
-            ? t
-            : r < 2 / 3
-              ? e + (t - e) * (2 / 3 - r) * 6
-              : e
+        o < 0 && (o += 1),
+        o > 1 && (o -= 1),
+        o < 1 / 6
+          ? n + (r - n) * 6 * o
+          : o < 1 / 2
+            ? r
+            : o < 2 / 3
+              ? n + (r - n) * (2 / 3 - o) * 6
+              : n
       );
     }
     function d(e, t) {

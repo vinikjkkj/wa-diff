@@ -4,10 +4,12 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebChatThreadLoggingUtils",
     "WAWebThreadLoggingAi",
     "WAWebThreadLoggingBiz",
     "WAWebThreadLoggingCoreConsumer",
+    "WAWebThreadLoggingFalco",
     "WAWebThreadLoggingIntegrity",
     "WAWebThreadLoggingNotification",
     "WAWebThreadLoggingVoip",
@@ -66,11 +68,12 @@ __d(
                     );
                   this.secret = m;
                 }
-                var _ = yield this.eventStore.getBeforeInclusive(d);
+                var _ = yield this.eventStore.getBeforeInclusive(d),
+                  f = !0;
                 try {
-                  yield p(_, r("nullthrows")(this.secret));
+                  f = yield p(_, r("nullthrows")(this.secret));
                 } catch (e) {
-                  o("WALogger")
+                  (o("WALogger")
                     .ERROR(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -78,11 +81,12 @@ __d(
                         ])),
                     )
                     .catching(r("getErrorSafe")(e))
-                    .sendLogs("ctlv2-upload-failure");
+                    .sendLogs("ctlv2-upload-failure"),
+                    (f = !1));
                 }
-                if (i) {
-                  var f = yield this.eventStore.deleteBeforeInclusive(d);
-                  f !== _.length &&
+                if (i && f) {
+                  var g = yield this.eventStore.deleteBeforeInclusive(d);
+                  g !== _.length &&
                     o("WALogger").ERROR(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -91,7 +95,7 @@ __d(
                           " mismatch!",
                         ])),
                       _.length,
-                      f,
+                      g,
                     );
                 }
                 return (
@@ -140,18 +144,33 @@ __d(
               })(),
             ),
           );
-          (o(
-            "WAWebThreadLoggingCoreConsumer",
-          ).ThreadInteractionCoreConsumerWamTrigger(r),
-            o("WAWebThreadLoggingVoip").ThreadInteractionVoipWamTrigger(r),
-            o("WAWebThreadLoggingBiz").ThreadInteractionBizWamTrigger(r),
-            o("WAWebThreadLoggingAi").ThreadInteractionAiWamTrigger(r),
-            o(
-              "WAWebThreadLoggingNotification",
-            ).ThreadInteractionNotificationWamTrigger(r),
-            o(
-              "WAWebThreadLoggingIntegrity",
-            ).ThreadInteractionIntegrityWamTrigger(r));
+          if (r.length === 0) return !0;
+          var a = o("WAWebABProps").getABPropConfigValue(
+            "thread_interactions_falco_native_logging_enabled",
+          );
+          return a &&
+            !(yield o(
+              "WAWebThreadLoggingFalco",
+            ).canLoadThreadLoggingFalcoCanonicals())
+            ? !1
+            : (yield d.all([
+                o(
+                  "WAWebThreadLoggingCoreConsumer",
+                ).ThreadInteractionCoreConsumerWamTrigger(r, a),
+                o("WAWebThreadLoggingVoip").ThreadInteractionVoipWamTrigger(
+                  r,
+                  a,
+                ),
+                o("WAWebThreadLoggingBiz").ThreadInteractionBizWamTrigger(r, a),
+                o("WAWebThreadLoggingAi").ThreadInteractionAiWamTrigger(r, a),
+                o(
+                  "WAWebThreadLoggingNotification",
+                ).ThreadInteractionNotificationWamTrigger(r, a),
+                o(
+                  "WAWebThreadLoggingIntegrity",
+                ).ThreadInteractionIntegrityWamTrigger(r, a),
+              ]),
+              !0);
         })),
         _.apply(this, arguments)
       );

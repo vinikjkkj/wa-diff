@@ -791,20 +791,13 @@ __d(
               )
               .tags("history-sync");
           }
-          var ue = yield o(
-            "WAWebLimitSharingProtoUtils",
-          ).selectNewerAcp2HistorySyncAdoptions(F);
           (yield o(
             "WAWebSeedBotProfilesFromHistorySync",
           ).seedBotProfilesFromHistorySync(q),
-            yield r("WAWebHandleAddChats")(
-              w.map(function (e) {
-                var t = ue.get(e.id.toString());
-                return t != null
-                  ? babelHelpers.extends({}, e, { acp2Setting: t })
-                  : e;
-              }),
-            ),
+            yield r("WAWebHandleAddChats")(w),
+            yield o(
+              "WAWebLimitSharingProtoUtils",
+            ).applyAcp2HistorySyncAdoptions(F),
             yield V(_),
             yield o("WAWebApiHistorySyncNotification").updateCurrentlyProcessed(
               a.msgKey,

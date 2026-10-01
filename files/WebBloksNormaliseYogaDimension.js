@@ -35,57 +35,58 @@ __d(
       L = s.defineWebBloksAttributeKey("+"),
       E = s.defineWebBloksAttributeKey(")"),
       k = "bk.style.Base",
-      I = s.defineWebBloksAttributeKey("?"),
-      T = s.defineWebBloksAttributeKey("#"),
-      D = s.defineWebBloksAttributeKey(")"),
-      x = s.defineWebBloksAttributeKey("6"),
-      $ = s.defineWebBloksAttributeKey(":");
-    function P(e, t, n) {
+      I = s.defineWebBloksAttributeKey("="),
+      T = s.defineWebBloksAttributeKey("?"),
+      D = s.defineWebBloksAttributeKey("#"),
+      x = s.defineWebBloksAttributeKey(")"),
+      $ = s.defineWebBloksAttributeKey("6"),
+      P = s.defineWebBloksAttributeKey(":");
+    function N(e, t, n) {
       if ((n === void 0 && (n = !1), !(n || !u.has(e.styleId)))) {
         var r = e.getSubNode(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY),
-          a = q(r, "width"),
-          i = q(r, "height"),
-          l = q(r, "position_type"),
+          a = U(r, "width"),
+          i = U(r, "height"),
+          l = U(r, "position_type"),
           s = t[t.length - 2];
         if (
-          (a === void 0 && H(e) && !o("WebBloksUtils").cast(e).get(p)
-            ? (s != null && O(s, "width")
-                ? V(e, "grow", 1)
-                : V(e, "width", "100%"),
-              w(t, t.length - 1, "width", "100%"))
+          (a === void 0 && G(e) && !o("WebBloksUtils").cast(e).get(p)
+            ? (s != null && B(s, "width")
+                ? H(e, "grow", 1)
+                : H(e, "width", "100%"),
+              A(t, t.length - 1, "width", "100%"))
             : e.styleId === o("WebBloksConstants").BK_SLIDER
-              ? w(t, t.length - 1, "width", "100%")
+              ? A(t, t.length - 1, "width", "100%")
               : typeof a == "string" &&
                 a.endsWith("%") &&
-                w(t, t.length - 1, "width", a),
-          !(a != null && q(r, "aspect_ratio")))
+                A(t, t.length - 1, "width", a),
+          !(a != null && U(r, "aspect_ratio")))
         ) {
           if (
             i === void 0 &&
             e.styleId === o("WebBloksConstants").BK_COLLECTION &&
             !o("WebBloksUtils").cast(e).get(p)
           )
-            (s != null && O(s, "height")
-              ? V(e, "grow", 1)
-              : V(e, "height", "100%"),
-              w(t, t.length - 1, "height", "100%"));
+            (s != null && B(s, "height")
+              ? H(e, "grow", 1)
+              : H(e, "height", "100%"),
+              A(t, t.length - 1, "height", "100%"));
           else if (typeof i == "string" && i.endsWith("%") && l !== "absolute")
-            if (W(s, "height") == null) {
-              var m = N(t, "height");
-              m ? V(s, "height", "100%") : w(t, t.length - 1, "height", i);
-            } else w(t, t.length - 1, "height", i);
+            if (q(s, "height") == null) {
+              var m = M(t, "height");
+              m ? H(s, "height", "100%") : A(t, t.length - 1, "height", i);
+            } else A(t, t.length - 1, "height", i);
         }
         (e.set(c, void 0), e.set(d, void 0));
       }
     }
-    function N(e, t) {
+    function M(e, t) {
       for (var n = e.length - 2; n >= 0; n--) {
         var r = e[n];
-        if (!B(e[n + 1], r) || !M(r)) return null;
-        if (W(r, t) != null) return r;
+        if (!W(e[n + 1], r) || !w(r)) return null;
+        if (q(r, t) != null) return r;
       }
     }
-    function M(e) {
+    function w(e) {
       var t;
       return (
         e != null &&
@@ -94,7 +95,7 @@ __d(
           : t.length) === 1
       );
     }
-    function w(e, t, n, r) {
+    function A(e, t, n, r) {
       var a,
         i = e[t],
         l = e[t - 1],
@@ -106,7 +107,7 @@ __d(
           s === o("WebBloksConstants").BK_SCREEN_WRAPPER_LEGACY ||
           s === o("WebBloksConstants").BK_SCREEN_WRAPPER)
       )
-        return w(e, t - 2, n, r);
+        return A(e, t - 2, n, r);
       if (
         l &&
         s === o("WebBloksConstants").BK_COLLECTION &&
@@ -123,96 +124,103 @@ __d(
       if (
         !l ||
         s !== o("WebBloksConstants").BK_FLEXBOX ||
-        W(l, n) != null ||
-        W(l, "grow") === 0
+        q(l, n) != null ||
+        q(l, "grow") === 0
       )
-        return (V(i, n, r), !0);
+        return (H(i, n, r), !0);
       var c = o("WebBloksUtils").cast(l),
         d =
           ((a = c.get(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY)) == null
             ? void 0
             : a.length) === 1,
-        p = O(c, n);
+        p = B(c, n);
       if (d) {
-        var _ = w(e, t - 1, n, r);
+        var _ = A(e, t - 1, n, r);
         return (
           _
-            ? (W(i, n) != null && V(i, n, void 0),
-              p && W(i, "grow") == null && V(i, "grow", 1))
-            : V(i, n, r),
+            ? (q(i, n) != null && H(i, n, void 0),
+              p && q(i, "grow") == null && H(i, "grow", 1))
+            : H(i, n, r),
           !0
         );
       }
       return p
-        ? (V(i, n, r), A(e, t - 1, n), !0)
-        : B(i, c)
-          ? (A(e, t - 1, n), !1)
-          : (V(i, n, r), A(e, t - 1, n), !0);
+        ? (H(i, n, r), F(e, t - 1, n), !0)
+        : W(i, c)
+          ? (F(e, t - 1, n), !1)
+          : (H(i, n, r), F(e, t - 1, n), !0);
     }
-    function A(e, t, n) {
+    function F(e, t, n) {
       for (var r = t; r >= 0; r--) {
         var a = e[r],
           i = a.styleId;
         if (
           i !== o("WebBloksConstants").BK_FLEXBOX ||
-          W(a, n) !== null ||
-          W(a, "grow") === 0 ||
+          q(a, n) !== null ||
+          q(a, "grow") === 0 ||
           a.getUntyped(n === "width" ? c : d)
         )
           break;
         a.set(n === "width" ? c : d, !0);
         var l = e[r - 1];
         if (l) {
-          if (O(o("WebBloksUtils").cast(l), n)) {
-            W(a, "grow") == null &&
-              (V(a, "grow", 1), V(a, "justify_content", "inherit"));
+          if (B(o("WebBloksUtils").cast(l), n)) {
+            q(a, "grow") == null &&
+              (H(a, "grow", 1), H(a, "justify_content", "inherit"));
             continue;
-          } else if (B(a, l)) continue;
+          } else if (W(a, l)) continue;
         }
-        V(a, n, "100%");
+        H(a, n, "100%");
       }
     }
-    function F(e) {
+    function O(e) {
       var t = e.styleId;
       if (t !== o("WebBloksConstants").BK_FLEXBOX) return !1;
       var n = o("WebBloksUtils").cast(e);
       return n.get(f) === "column" || n.get(f) === "column_reverse";
     }
-    function O(e, t) {
-      var n = F(e);
+    function B(e, t) {
+      var n = O(e);
       return (n && t === "height") || (!n && t === "width");
     }
-    function B(e, t) {
+    function W(e, t) {
       var n,
         r,
         a,
-        i = t == null ? void 0 : t.styleId;
-      if (!t || i !== o("WebBloksConstants").BK_FLEXBOX) return !1;
-      var l = o("WebBloksUtils").cast(t);
+        i,
+        l,
+        s = t == null ? void 0 : t.styleId;
+      if (!t || s !== o("WebBloksConstants").BK_FLEXBOX) return !1;
+      var u = o("WebBloksUtils").cast(t);
       return (
         ((n =
           (r =
-            (a = e.getStyle(o("WebBloksConstants").BK_FLEX)) == null
-              ? void 0
-              : a.get(g)) != null
+            (a =
+              (i = e.getStyle(o("WebBloksConstants").BK_FLEX)) == null
+                ? void 0
+                : i.get(g)) != null
+              ? a
+              : (l = e.getStyle(k)) == null
+                ? void 0
+                : l.get(I)) != null
             ? r
-            : l.get(_)) != null
+            : u.get(_)) != null
           ? n
           : "stretch") === "stretch"
       );
     }
-    function W(e, t) {
+    function q(e, t) {
       var n,
         r =
           e == null
             ? void 0
             : e.getSubNode(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
-      return (n = q(r, t)) != null ? n : null;
-    }
-    function q(e, t) {
-      if (e != null) return e.getUntyped(U(e, t));
+      return (n = U(r, t)) != null ? n : null;
     }
     function U(e, t) {
+      if (e != null) return e.getUntyped(V(e, t));
+    }
+    function V(e, t) {
       return e.styleId === S
         ? t === "width"
           ? E
@@ -223,15 +231,15 @@ __d(
               : o("WebBloksConstants").YOGA_JUSTIFY_CONTENT_ATTRIBUTE_KEY
         : e.styleId === k
           ? t === "width"
-            ? $
+            ? P
             : t === "height"
-              ? D
+              ? x
               : t === "grow"
-                ? I
+                ? T
                 : t === "position_type"
-                  ? x
+                  ? $
                   : t === "aspect_ratio"
-                    ? T
+                    ? D
                     : o("WebBloksConstants").YOGA_JUSTIFY_CONTENT_ATTRIBUTE_KEY
           : t === "width"
             ? v
@@ -245,10 +253,10 @@ __d(
                     ? h
                     : o("WebBloksConstants").YOGA_JUSTIFY_CONTENT_ATTRIBUTE_KEY;
     }
-    function V(e, t, n) {
+    function H(e, t, n) {
       var r = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
       if (r) {
-        var a = U(r, t),
+        var a = V(r, t),
           i = r.getUntyped(a);
         if (i !== n) {
           var l = r.makeCopy();
@@ -279,11 +287,11 @@ __d(
         );
       }
     }
-    function H(e) {
+    function G(e) {
       var t = e.styleId;
       return t === o("WebBloksConstants").BK_COLLECTION;
     }
-    function G(e, t, n, r) {
+    function z(e, t, n, r) {
       (n === void 0 && (n = []), r === void 0 && (r = !1), n.push(e));
       var a = e.styleId,
         i = t[a];
@@ -294,7 +302,7 @@ __d(
           for (var u of s) {
             var c = e.getSubNode(u);
             if (c != null) {
-              var d = G(c, t, n, r);
+              var d = z(c, t, n, r);
               e.set(u, d);
             }
           }
@@ -306,15 +314,15 @@ __d(
                 e.set(
                   m,
                   p.map(function (e) {
-                    return G(e, t, n, r);
+                    return z(e, t, n, r);
                   }),
                 );
             }
         }
       }
-      return (P(e, n, r), n.pop(), e);
+      return (N(e, n, r), n.pop(), e);
     }
-    ((l.normaliseYogaDimensions = P), (l.normaliseBoundModel = G));
+    ((l.normaliseYogaDimensions = N), (l.normaliseBoundModel = z));
   },
   98,
 );

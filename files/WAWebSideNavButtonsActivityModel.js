@@ -103,6 +103,7 @@ __d(
           case o("WAWebNavBarTypes").NavBarItems.MeTab:
           case o("WAWebNavBarTypes").NavBarItems.ContactManager:
           case o("WAWebNavBarTypes").NavBarItems.OrgAdmin:
+          case o("WAWebNavBarTypes").NavBarItems.GroupAdmin:
             break;
         }
       }

@@ -4,7 +4,6 @@ __d(
     "fbt",
     "Promise",
     "WALogger",
-    "WATypeUtils",
     "WAWeb-moment",
     "WAWebActionToast.react",
     "WAWebAlarm",
@@ -110,7 +109,7 @@ __d(
             y = h === void 0 ? !0 : h,
             C = a.toastId,
             v = i;
-          if (!o("WATypeUtils").isNumber(v))
+          if (typeof v != "number")
             return (
               o("WALogger").LOG(
                 e ||
@@ -303,7 +302,7 @@ __d(
         (i.muteCall = function (t) {
           var e = this,
             a = t;
-          if (!o("WATypeUtils").isNumber(a))
+          if (typeof a != "number")
             return (
               o("WALogger").LOG(
                 p ||

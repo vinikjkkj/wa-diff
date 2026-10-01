@@ -49,7 +49,7 @@ __d(
                     e.$5,
                     e.$4,
                   );
-                  (e.$8 == null || e.$8(t.encryptedChunk), e.$11(t, a));
+                  (e.$8 == null || e.$8(t.encryptedChunk), yield e.$11(t, a));
                 }),
               ));
           }),
@@ -78,7 +78,7 @@ __d(
                     c = yield o("WAMediaCalculateFilehash").calculateFilehash(
                       u,
                     );
-                  (n = this.$9) == null || n.call(this, s, c);
+                  yield (n = this.$9) == null ? void 0 : n.call(this, s, c);
                 }
               },
             );
