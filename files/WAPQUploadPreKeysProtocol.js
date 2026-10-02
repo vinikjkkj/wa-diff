@@ -25,8 +25,9 @@ __d(
       f,
       g,
       h,
-      y = o("WATagsLogger").TAGS(["pqUploadPreKeysProtocol"]);
-    function C(t, r) {
+      y = o("WATagsLogger").TAGS(["pqUploadPreKeysProtocol"]),
+      C = { category: "client-precondition", code: null };
+    function b(t, r) {
       var a =
         o("WACryptoLibraryConfig").getCryptoLibraryConfig()
           .isPqKeysUploadEnabled === !0;
@@ -49,7 +50,7 @@ __d(
       var i = {
           identityKeyOrPQKeyBundleMixinGroupArgs: {
             pQKeyBundle: {
-              keyArgs: t.map(v),
+              keyArgs: t.map(S),
               keyIDMixinArgs: {
                 idElementValue: o("WAWap").BIG_ENDIAN_CONTENT(r.id, 3),
               },
@@ -113,13 +114,13 @@ __d(
         });
       return (l.start(), l.promise());
     }
-    function b(e) {
+    function v(e) {
       if (
         o("WACryptoLibraryConfig").getCryptoLibraryConfig()
           .isPqKeysUploadEnabled !== !0
       )
         return (h || (h = n("Promise"))).resolve(
-          o("WAResultOrError").makeError("request-error"),
+          o("WAResultOrError").makeError(C),
         );
       if (e.length === 0)
         return (
@@ -129,11 +130,9 @@ __d(
                 "No PQ prekeys to add",
               ])),
           ),
-          (h || (h = n("Promise"))).resolve(
-            o("WAResultOrError").makeError("request-error"),
-          )
+          (h || (h = n("Promise"))).resolve(o("WAResultOrError").makeError(C))
         );
-      var t = { pQPreKeyListMixinArgs: { keyArgs: e.map(v) } },
+      var t = { pQPreKeyListMixinArgs: { keyArgs: e.map(S) } },
         r = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           name: "addPQKeys",
           timer: o("WARetryUtils").fibonacciBackoff(!1),
@@ -161,13 +160,25 @@ __d(
                     return;
                   }
                   case "AddResponseRequestError": {
+                    var a = r.value.errorRequestErrors,
+                      i = a.name,
+                      l = a.value;
                     (y.WARN(
                       f ||
                         (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "PQ add request error",
+                          "PQ add request error: ",
+                          " (",
+                          ")",
                         ])),
+                      i,
+                      l.code,
                     ),
-                      n(o("WAResultOrError").makeError("request-error")));
+                      n(
+                        o("WAResultOrError").makeError({
+                          category: i,
+                          code: l.code,
+                        }),
+                      ));
                     return;
                   }
                   default:
@@ -191,7 +202,7 @@ __d(
         });
       return (r.start(), r.promise());
     }
-    function v(e) {
+    function S(e) {
       return {
         keyIDMixinArgs: {
           idElementValue: o("WAWap").BIG_ENDIAN_CONTENT(e.id, 3),
@@ -200,7 +211,7 @@ __d(
         signatureElementValue: e.signature,
       };
     }
-    ((l.uploadPQPreKeysProtocol = C), (l.addPQPreKeysProtocol = b));
+    ((l.uploadPQPreKeysProtocol = b), (l.addPQPreKeysProtocol = v));
   },
   98,
 );

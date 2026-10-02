@@ -762,11 +762,11 @@ __d(
         case "MESSAGE_YOURSELF": {
           try {
             var Se = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
-            o("WAWebOpenChatWithContactAction").openChatWithContact(
-              Se,
-              "newChatFlow",
-              o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
-            );
+            o("WAWebOpenChatWithContactAction").openChatWithContact({
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
+              findChatOrigin: "newChatFlow",
+              targetId: Se,
+            });
           } catch (e) {
             o("WALogger").ERROR(
               p ||

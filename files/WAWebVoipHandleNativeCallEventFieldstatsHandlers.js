@@ -262,13 +262,19 @@ __d(
             n = o(
               "WAWebVoipWebTransportCallSummary",
             ).getWtCurrentCallTelemetry(),
-            r = o("WAWebVoipCallRatingStore").setPendingFieldstatsJsonStr(
-              e,
-              o("WAWebCallRandomIdStore").getCurrentCallRandomId(),
-              o("WAWebVoipLobbyEntryPointStore").getCurrentLobbyEntryPoint(),
-              o("WAWebVoipIncomingCallUiActionStore").getIncomingCallUiAction(),
-              o("WAWebVoipCallFromUiStore").getCallFromUi(),
-            );
+            r = o("WAWebVoipCallRatingStore").setPendingFieldstatsJsonStr({
+              callFromUi: o("WAWebVoipCallFromUiStore").getCallFromUi(),
+              callRandomId: o(
+                "WAWebCallRandomIdStore",
+              ).getCurrentCallRandomId(),
+              incomingCallUiAction: o(
+                "WAWebVoipIncomingCallUiActionStore",
+              ).getIncomingCallUiAction(),
+              jsonDataStr: e,
+              lobbyEntryPoint: o(
+                "WAWebVoipLobbyEntryPointStore",
+              ).getCurrentLobbyEntryPoint(),
+            });
           ((Z = r), n != null && X.set(r, n), ve(r));
           var a = oe(e);
           a && ye(r);

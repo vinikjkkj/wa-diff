@@ -38,11 +38,11 @@ __d(
               "handle_open_contact_chat",
             );
           r != null &&
-            o("WAWebOpenChatWithContactAction").openChatWithContact(
-              r,
-              "msgHandlerOpenContact",
-              n,
-            );
+            o("WAWebOpenChatWithContactAction").openChatWithContact({
+              chatEntryPoint: n,
+              findChatOrigin: "msgHandlerOpenContact",
+              targetId: r,
+            });
         },
         a = function () {
           o("WAWebModalManager").ModalManager.open(

@@ -64,9 +64,9 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-              "WAWebStickerPackUtils",
-            ).generateStickerPackThumbnail(),
+          var e = yield o("WAWebStickerPackUtils").generateStickerPackThumbnail(
+              {},
+            ),
             t = yield o("WAWebCanvasUtils").canvasToBlob(e, "image/png");
           yield o("WAWebFileSaver").FileSaver.downloadData(
             t,
@@ -113,11 +113,13 @@ __d(
             return;
           }
           var l = yield o("WAWebStickerPackUtils").generateStickerPackThumbnail(
-              t,
-              o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
-              o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
-              o("WAWebStickerPackConstants").IMAGE_LENGTH,
-              o("WAWebStickerPackConstants").IMAGE_WIDTH,
+              {
+                count: t,
+                imageL: o("WAWebStickerPackConstants").IMAGE_LENGTH,
+                imageW: o("WAWebStickerPackConstants").IMAGE_WIDTH,
+                thumbL: o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
+                thumbW: o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
+              },
             ),
             c = yield o("WAWebCanvasUtils").canvasToBlob(l, "image/png");
           (yield i.processAttachmentsForChat(

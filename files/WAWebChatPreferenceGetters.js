@@ -10,19 +10,23 @@ __d(
       c = s,
       d = u("autoplayAnimatedImages"),
       m = u("chatThemeValue"),
-      p = u("enterIsSend"),
-      _ = u("hdMediaEnabled"),
-      f = u("spellcheck"),
-      g = u("transformTextEmoji"),
-      h = u("wallpaperValue");
+      p = u("chatlistDensity"),
+      _ = u("chatlistShowParentName"),
+      f = u("enterIsSend"),
+      g = u("hdMediaEnabled"),
+      h = u("spellcheck"),
+      y = u("transformTextEmoji"),
+      C = u("wallpaperValue");
     ((l.clearChatPreferenceGetterCacheFor = c),
       (l.getAutoplayAnimatedImages = d),
       (l.getChatThemeValue = m),
-      (l.getEnterIsSend = p),
-      (l.getHdMediaEnabled = _),
-      (l.getSpellcheck = f),
-      (l.getTransformTextEmoji = g),
-      (l.getWallpaperValue = h));
+      (l.getChatlistDensity = p),
+      (l.getChatlistShowParentName = _),
+      (l.getEnterIsSend = f),
+      (l.getHdMediaEnabled = g),
+      (l.getSpellcheck = h),
+      (l.getTransformTextEmoji = y),
+      (l.getWallpaperValue = C));
   },
   98,
 );

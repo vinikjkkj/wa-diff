@@ -189,7 +189,7 @@ __d(
                         a.push({ product: C(r, e.id), cartItem: n }));
                     } else ((l = !1), i.push(n.id));
                   })
-                : r("WAWebBizClearCartAction")(e),
+                : yield r("WAWebBizClearCartAction")(e),
             l ||
               (i.length && e.cartItemCollection.remove(i),
               e.trigger("change:cartItemCollection"),

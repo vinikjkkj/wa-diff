@@ -2669,6 +2669,7 @@ __d(
         !1,
         !0,
       ],
+      smb_qp_bb_chat_list_banner: [20172, "bool", !1, !1],
       smb_qp_conversion_tracking_infra: [26331, "bool", !1, !1],
       smb_qp_emergency_force_fetch_nonce: [27115, "string", "", ""],
       smb_qp_web_debug_recunit: [31009, "bool", !1, !1],
@@ -3379,6 +3380,12 @@ __d(
       wa_web_meta_one_biz_ai_entry_point_enabled: [37987, "bool", !1, !1],
       wa_web_meta_one_biz_tools_entry_point_enabled: [37912, "bool", !1, !1],
       wa_web_meta_one_dev: [37481, "bool", !1, !1],
+      wa_web_meta_one_subscription_notifications_enabled: [
+        38221,
+        "bool",
+        !1,
+        !1,
+      ],
       wa_web_multi_ppl_typing_indicator_for_chatlist_groups_variant: [
         24560,
         "int",

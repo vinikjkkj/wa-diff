@@ -3,57 +3,93 @@ __d(
   ["WAWebNewsletterGatingUtils", "WAWebNewsletterMetricUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = {
+    var e;
+    function s(e, t, n, r) {
+      return {
         getMetrics: function () {
           return [
-            {
-              id: o("WAWebNewsletterMetricUtils").NewsletterInsightMetricQuery
-                .UniqueVisitorsOverPeriod,
-              type: "UNIQUE_VISITORS",
-              group_by: {
-                number_of_days: o("WAWebNewsletterMetricUtils")
-                  .INSIGHT_DAYS_COVERED,
+            babelHelpers.extends(
+              {
+                id: t,
+                type: "UNIQUE_VISITORS",
+                group_by: {
+                  number_of_days: o("WAWebNewsletterMetricUtils")
+                    .INSIGHT_DAYS_COVERED,
+                },
               },
-            },
+              e === "CHANNEL" ? {} : { surface: e },
+            ),
             o("WAWebNewsletterGatingUtils").shouldHideProducerInsightsDeltas()
               ? null
-              : {
-                  id: o("WAWebNewsletterMetricUtils")
-                    .NewsletterInsightMetricQuery.NewUniqueVisitorsOverPeriod,
-                  type: "NEW_UNIQUE_VISITORS",
-                  group_by: {
-                    number_of_days: o("WAWebNewsletterMetricUtils")
-                      .INSIGHT_DAYS_COVERED,
+              : babelHelpers.extends(
+                  {
+                    id: n,
+                    type: "NEW_UNIQUE_VISITORS",
+                    group_by: {
+                      number_of_days: o("WAWebNewsletterMetricUtils")
+                        .INSIGHT_DAYS_COVERED,
+                    },
                   },
-                },
+                  e === "CHANNEL" ? {} : { surface: e },
+                ),
           ].filter(Boolean);
         },
-        process: function (t) {
+        process: function (a) {
           var e,
-            n,
-            r =
-              (e = t.get(
-                o("WAWebNewsletterMetricUtils").NewsletterInsightMetricQuery
-                  .UniqueVisitorsOverPeriod,
-              )) == null
-                ? void 0
-                : e[0].value;
-          if (r == null) return {};
-          var a =
-            (n = t.get(
-              o("WAWebNewsletterMetricUtils").NewsletterInsightMetricQuery
-                .NewUniqueVisitorsOverPeriod,
-            )) == null
-              ? void 0
-              : n[0].value;
-          if (a == null) return { accountsReachedChannels: r };
-          var i = r - a,
-            l =
-              i === 0 ? o("WAWebNewsletterMetricUtils").DELTA_INFINITE : a / i;
-          return { accountsReachedChannels: r, reachDeltaChannels: l };
+            i,
+            l = (e = a.get(t)) == null || (e = e[0]) == null ? void 0 : e.value;
+          if (l == null) return {};
+          var s =
+              (i = a.get(n)) == null || (i = i[0]) == null ? void 0 : i.value,
+            u;
+          if (s == null) u = null;
+          else {
+            var c = l - s;
+            c < 0
+              ? (u = null)
+              : c === 0
+                ? (u = o("WAWebNewsletterMetricUtils").DELTA_INFINITE)
+                : (u = s / c);
+          }
+          return r(l, u);
         },
-      },
-      s = {
+      };
+    }
+    var u = s(
+        "CHANNEL",
+        (e = o("WAWebNewsletterMetricUtils")).NewsletterInsightMetricQuery
+          .UniqueVisitorsOverPeriod,
+        e.NewsletterInsightMetricQuery.NewUniqueVisitorsOverPeriod,
+        function (e, t) {
+          return babelHelpers.extends(
+            { accountsReachedChannels: e },
+            t == null ? {} : { reachDeltaChannels: t },
+          );
+        },
+      ),
+      c = s(
+        "ALL",
+        e.NewsletterInsightMetricQuery.UniqueVisitorsAllOverPeriod,
+        e.NewsletterInsightMetricQuery.NewUniqueVisitorsAllOverPeriod,
+        function (e, t) {
+          return babelHelpers.extends(
+            { accountsReachedAll: e },
+            t == null ? {} : { reachDeltaAll: t },
+          );
+        },
+      ),
+      d = s(
+        "CHANNEL_STATUS",
+        e.NewsletterInsightMetricQuery.UniqueVisitorsChannelStatusOverPeriod,
+        e.NewsletterInsightMetricQuery.NewUniqueVisitorsChannelStatusOverPeriod,
+        function (e, t) {
+          return babelHelpers.extends(
+            { accountsReachedChannelStatus: e },
+            t == null ? {} : { reachDeltaChannelStatus: t },
+          );
+        },
+      ),
+      m = {
         getMetrics: function () {
           var e;
           return [
@@ -92,7 +128,7 @@ __d(
           return { followers: r, netFollows: a, followersDelta: i };
         },
       },
-      u = {
+      p = {
         getMetrics: function () {
           return [
             {
@@ -118,9 +154,11 @@ __d(
           return { netFollows: n };
         },
       };
-    ((l.REACH_WITH_DELTA_PROCESSOR = e),
-      (l.FOLLOWER_WITH_DELTA_PROCESSOR = s),
-      (l.NET_FOLLOWS_PROCESSOR = u));
+    ((l.REACH_WITH_DELTA_PROCESSOR = u),
+      (l.REACH_ALL_WITH_DELTA_PROCESSOR = c),
+      (l.REACH_CHANNEL_STATUS_WITH_DELTA_PROCESSOR = d),
+      (l.FOLLOWER_WITH_DELTA_PROCESSOR = m),
+      (l.NET_FOLLOWS_PROCESSOR = p));
   },
   98,
 );

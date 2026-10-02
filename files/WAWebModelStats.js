@@ -17,9 +17,10 @@ __d(
       return (
         Object.entries(r("WAWebDevStore")).forEach(function (o) {
           var a = o[0],
-            i = o[1],
-            l = i instanceof r("WAWebEventEmitter");
-          !e.includes(a) && l && (u(i) ? (t[a] = i) : (n[a] = i));
+            i = o[1];
+          !e.includes(a) &&
+            i instanceof r("WAWebEventEmitter") &&
+            (u(i) ? (t[a] = i) : (n[a] = i));
         }),
         { collections: d(t, p), models: d(n, m) }
       );

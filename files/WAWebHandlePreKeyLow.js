@@ -88,7 +88,9 @@ __d(
                 .uploadPreKeys()
                 .then(function () {
                   return (
-                    o("WAWebPQGatingUtils").isPqKeysUploadEnabled() && S(),
+                    a.hasPqCount &&
+                      o("WAWebPQGatingUtils").isPqKeysUploadEnabled() &&
+                      S(),
                     i
                   );
                 })
@@ -198,8 +200,12 @@ __d(
                 .WARN(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "replenishPQPreKeys: upload rejected",
+                      "replenishPQPreKeys: upload rejected: ",
+                      " (",
+                      ")",
                     ])),
+                  k.error.category,
+                  k.error.code,
                 )
                 .sendLogs("pq-replenish-upload-fail");
               var I = yield (p || (p = n("Promise"))).allSettled(

@@ -63,15 +63,16 @@ __d(
                 );
               else {
                 var f;
-                (yield _.handleIncomingSignalingMessage(
-                  r,
-                  t.peer_platform,
-                  t.peer_app_version,
-                  t.e,
-                  t.t,
-                  (f = t.is_offline) != null ? f : !1,
-                  t.peer_jid.toString(),
-                ),
+                (yield _.handleIncomingSignalingMessage({
+                  msgE: t.e,
+                  msgOffline: (f = t.is_offline) != null ? f : !1,
+                  msgPlatform: t.peer_platform,
+                  msgT: t.t,
+                  msgVersion: t.peer_app_version,
+                  peerJid: t.peer_jid.toString(),
+                  tcToken: void 0,
+                  xmlNode: r,
+                }),
                   o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([

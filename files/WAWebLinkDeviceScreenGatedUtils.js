@@ -42,12 +42,23 @@ __d(
           (e = o(
             "isWAWebFeatureDetectionAndroidTablet",
           ).isWAWebFeatureDetectionAndroidTablet()),
-        !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
-          e &&
-          r("gkx")("17669")
+        d() && e && r("gkx")("27147")
       );
     }
     function p() {
+      return !d() ||
+        o(
+          "isWAWebFeatureDetectionAndroidTablet",
+        ).isWAWebFeatureDetectionAndroidTabletClientHintResolutionRequired() ||
+        !o(
+          "isWAWebFeatureDetectionAndroidTablet",
+        ).isWAWebFeatureDetectionAndroidTablet()
+        ? "none"
+        : m(!0)
+          ? "test"
+          : "control";
+    }
+    function _() {
       return (
         r("isWAWebFeatureDetectionAppleTouchscreen")() && r("gkx")("20339")
       );
@@ -57,7 +68,8 @@ __d(
       (l.getOptimizedRegFromWebVariant = c),
       (l.isAndroidTabletOverlayPotentiallyEnabled = d),
       (l.isAndroidTabletOverlayEnabled = m),
-      (l.isAppleTouchscreenOverlayEnabled = p));
+      (l.getAndroidTabletOverlayExperiment = p),
+      (l.isAppleTouchscreenOverlayEnabled = _));
   },
   98,
 );

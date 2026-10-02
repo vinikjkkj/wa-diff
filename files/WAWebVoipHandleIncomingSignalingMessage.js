@@ -30,16 +30,16 @@ __d(
                 i = yield o("WAWebVoipPeerTcToken").fetchPeerTcToken(
                   e.peer_jid,
                 );
-              yield r.handleIncomingSignalingMessage(
-                t,
-                e.peer_platform,
-                e.peer_app_version,
-                e.e,
-                e.t,
-                (a = e.isContact) != null ? a : !1,
-                e.peer_jid.toString(),
-                i,
-              );
+              yield r.handleIncomingSignalingMessage({
+                msgE: e.e,
+                msgOffline: (a = e.isContact) != null ? a : !1,
+                msgPlatform: e.peer_platform,
+                msgT: e.t,
+                msgVersion: e.peer_app_version,
+                peerJid: e.peer_jid.toString(),
+                tcToken: i,
+                xmlNode: t,
+              });
               return;
             }
             o("WALogger").LOG(

@@ -166,7 +166,7 @@ __d(
             var k = o(
               "WAWebEphemeralKeepInChat",
             ).parseKeepInChatHistorySyncMessage(t);
-            k != null && Object.assign(L, k);
+            k != null && (L = babelHelpers.extends({}, L, k));
           } catch (e) {
             o("WALogger").WARN(
               s ||

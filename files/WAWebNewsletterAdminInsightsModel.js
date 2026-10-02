@@ -21,13 +21,29 @@ __d(
             return o("WAWebNewsletterInsightUtils").NewsletterInsightDataStatus
               .Available;
           })),
+          (t.accountsReachedAll = o("WAWebModelUtils").prop()),
           (t.accountsReachedChannels = o("WAWebModelUtils").prop()),
+          (t.accountsReachedChannelStatus = o("WAWebModelUtils").prop()),
+          (t.reachDeltaAll = o("WAWebModelUtils").prop()),
           (t.reachDeltaChannels = o("WAWebModelUtils").prop()),
+          (t.reachDeltaChannelStatus = o("WAWebModelUtils").prop()),
+          (t.followersReachedAll = o("WAWebModelUtils").prop()),
           (t.followersReachedChannels = o("WAWebModelUtils").prop()),
+          (t.followersReachedChannelStatus = o("WAWebModelUtils").prop()),
+          (t.nonFollowersReachedAll = o("WAWebModelUtils").prop()),
           (t.nonFollowersReachedChannels = o("WAWebModelUtils").prop()),
+          (t.nonFollowersReachedChannelStatus = o("WAWebModelUtils").prop()),
+          (t.reachByCountryAll = o("WAWebModelUtils").prop(function () {
+            return [];
+          })),
           (t.reachByCountryChannels = o("WAWebModelUtils").prop(function () {
             return [];
           })),
+          (t.reachByCountryChannelStatus = o("WAWebModelUtils").prop(
+            function () {
+              return [];
+            },
+          )),
           (t.followers = o("WAWebModelUtils").prop()),
           (t.followersDelta = o("WAWebModelUtils").prop()),
           (t.followersByCountry = o("WAWebModelUtils").prop(function () {

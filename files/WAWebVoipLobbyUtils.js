@@ -75,26 +75,28 @@ __d(
         i = o("WAWebVoipCallStateUtils").isCallConnecting(t);
       return n || i ? r : a;
     }
-    function y(e, t, n, a) {
-      if (
-        (t === void 0 && (t = !1),
-        o("WAWebVoipCallStateUtils").isCallConnecting(a))
-      )
+    function y(e) {
+      var t = e.callCreatorName,
+        n = e.callLogMsg,
+        a = e.callState,
+        i = e.isCallOutgoing,
+        l = i === void 0 ? !1 : i;
+      if (o("WAWebVoipCallStateUtils").isCallConnecting(a))
         return u.jsx(r("WAWebVoipConnectingStatus.react"), {});
-      if (e != null) {
-        var i = e.isVideoCall,
-          l = i ? s._(/*BTDS*/ "Video call") : s._(/*BTDS*/ "Voice call");
-        if (!t && n != null) {
-          var c = s._(/*BTDS*/ "From {call_creator_name}", [
-            s._param("call_creator_name", n),
+      if (n != null) {
+        var c = n.isVideoCall,
+          d = c ? s._(/*BTDS*/ "Video call") : s._(/*BTDS*/ "Voice call");
+        if (!l && t != null) {
+          var m = s._(/*BTDS*/ "From {call_creator_name}", [
+            s._param("call_creator_name", t),
           ]);
           return r("WAWebFbtIntlList")(
-            [l, c],
+            [d, m],
             r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
             r("WAWebFbtIntlList").DELIMITERS.BULLET,
           );
         }
-        return l;
+        return d;
       }
       return s._(/*BTDS*/ "Group call");
     }

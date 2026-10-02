@@ -167,45 +167,53 @@ __d(
       var t = e.priority * Math.pow(2, 24);
       return "candidate:1 1 UDP " + t + " " + e.ip + " " + e.port + " typ host";
     }
-    function Ke(t, n, r, a, i, l, c, d) {
-      var m = t;
-      ((m = o("WAWebVoipRelayConnectionUtils").replaceIceCredentials(m, n, r)),
-        (m = o("WAWebVoipRelayConnectionUtils").replaceDtlsFingerprint(
-          m,
-          a,
+    function Ke(t) {
+      var n = t.asCaller,
+        r = t.localTemplate,
+        a = t.peerIsWebBrowser,
+        i = t.remoteAlgo,
+        l = t.remoteCandidates,
+        c = t.remoteFp,
+        d = t.remotePwd,
+        m = t.remoteUfrag,
+        p = r;
+      ((p = o("WAWebVoipRelayConnectionUtils").replaceIceCredentials(p, m, d)),
+        (p = o("WAWebVoipRelayConnectionUtils").replaceDtlsFingerprint(
+          p,
           i,
+          c,
         )),
-        d
-          ? c
+        a
+          ? n
             ? (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] SDP: setting remote setup=passive (caller, local DTLS role=active/client)",
                   ])),
               ),
-              (m = m.replace(/a=setup:[^\r\n]+/g, "a=setup:passive")))
+              (p = p.replace(/a=setup:[^\r\n]+/g, "a=setup:passive")))
             : (o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] SDP: setting remote setup=active (callee, local DTLS role=passive/server)",
                   ])),
               ),
-              (m = m.replace(/a=setup:[^\r\n]+/g, "a=setup:active")))
+              (p = p.replace(/a=setup:[^\r\n]+/g, "a=setup:active")))
           : (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [P2PConnectionManager] SDP: setting remote setup=active (peer is native, local DTLS role=passive/server)",
                 ])),
             ),
-            (m = m.replace(/a=setup:[^\r\n]+/g, "a=setup:active"))),
-        (m = o("WAWebVoipRelayConnectionUtils").removeIceCandidates(m)));
-      var p = l
+            (p = p.replace(/a=setup:[^\r\n]+/g, "a=setup:active"))),
+        (p = o("WAWebVoipRelayConnectionUtils").removeIceCandidates(p)));
+      var _ = l
           .map(function (e) {
             return "a=" + e.candidate + "\r\n";
           })
           .join(""),
-        _ = m.replace(/\s+$/, "\r\n");
-      return _ + p;
+        f = p.replace(/\s+$/, "\r\n");
+      return f + _;
     }
     function Qe(e) {
       ((pe = e), Oe != null && Oe(e));
@@ -315,7 +323,16 @@ __d(
             $e = !0;
             try {
               if (_e) {
-                var t = Ke(Me, Ee, ke, Ie, Te, [], !0, fe);
+                var t = Ke({
+                  asCaller: !0,
+                  localTemplate: Me,
+                  peerIsWebBrowser: fe,
+                  remoteAlgo: Ie,
+                  remoteCandidates: [],
+                  remoteFp: Te,
+                  remotePwd: ke,
+                  remoteUfrag: Ee,
+                });
                 (o("WALogger").LOG(
                   M ||
                     (M = babelHelpers.taggedTemplateLiteralLoose([
@@ -325,7 +342,16 @@ __d(
                   yield e.setRemoteDescription({ sdp: t, type: "answer" }));
               } else {
                 var n,
-                  r = Ke(Me, Ee, ke, Ie, Te, [], !1, fe);
+                  r = Ke({
+                    asCaller: !1,
+                    localTemplate: Me,
+                    peerIsWebBrowser: fe,
+                    remoteAlgo: Ie,
+                    remoteCandidates: [],
+                    remoteFp: Te,
+                    remotePwd: ke,
+                    remoteUfrag: Ee,
+                  });
                 (o("WALogger").LOG(
                   w ||
                     (w = babelHelpers.taggedTemplateLiteralLoose([

@@ -21,8 +21,9 @@ __d(
       f,
       g,
       h,
-      y = "no_reschedule",
-      C = (function () {
+      y,
+      C = "no_reschedule",
+      b = (function () {
         function t(e) {
           ((this.$1 = !1),
             (this.$2 = {}),
@@ -47,114 +48,127 @@ __d(
               );
               return;
             }
-            this.$6.get(r).then(function (e) {
-              var i = e == null,
-                l = !i && e === o("WATimeUtils").DEFAULT_UNIXTIME;
-              if (l) {
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Task ",
-                      " deactivated",
-                    ])),
-                  r,
-                );
-                return;
-              }
-              var f = e == null ? 0 : e * 1e3 - o("WATimeUtils").unixTimeMs();
-              ((f = Math.max(0, f)),
-                (f = Math.min(f, 2147483647)),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Scheduling task ",
-                      " in ",
-                      "ms",
-                    ])),
-                  r,
-                  f,
-                ),
-                (t.$4[r] = setTimeout(function () {
-                  (delete t.$4[r],
-                    o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "Firing task ",
-                          "",
-                        ])),
-                      r,
-                    ),
-                    a(i)
-                      .then(function (e) {
-                        if (e === "no_reschedule")
-                          return new (h || (h = n("Promise")))(function () {});
-                        var a;
-                        return (
-                          e === o("WATimeUtils").DEFAULT_UNIXTIME
-                            ? (o("WALogger").LOG(
-                                d ||
-                                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                                    "Task ",
-                                    " complete, deactivating",
-                                  ])),
-                                r,
-                              ),
-                              delete t.$3[r],
-                              (a = o("WATimeUtils").DEFAULT_UNIXTIME))
-                            : e >= 0
+            var i = function (t) {
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "taskScheduler: failed to get scheduled time for task ",
+                        "",
+                      ])),
+                    r,
+                  )
+                  .sendLogs("task-scheduler-get-scheduled-time-failed");
+              },
+              l = function (i) {
+                var e = i == null,
+                  l = !e && i === o("WATimeUtils").DEFAULT_UNIXTIME;
+                if (l) {
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Task ",
+                        " deactivated",
+                      ])),
+                    r,
+                  );
+                  return;
+                }
+                var s = i == null ? 0 : i * 1e3 - o("WATimeUtils").unixTimeMs();
+                ((s = Math.max(0, s)),
+                  (s = Math.min(s, ~(1 << 31))),
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "Scheduling task ",
+                        " in ",
+                        "ms",
+                      ])),
+                    r,
+                    s,
+                  ),
+                  (t.$4[r] = setTimeout(function () {
+                    (delete t.$4[r],
+                      o("WALogger").LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "Firing task ",
+                            "",
+                          ])),
+                        r,
+                      ),
+                      a(e)
+                        .then(function (e) {
+                          if (e === "no_reschedule")
+                            return new (y || (y = n("Promise")))(
+                              function () {},
+                            );
+                          var a;
+                          return (
+                            e === o("WATimeUtils").DEFAULT_UNIXTIME
                               ? (o("WALogger").LOG(
                                   m ||
                                     (m =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "Task ",
-                                        " complete, waiting ",
-                                        "",
+                                        " complete, deactivating",
                                       ])),
                                   r,
-                                  e,
                                 ),
                                 delete t.$3[r],
-                                (a = o("WATimeUtils").futureUnixTime(e)))
-                              : (o("WALogger").LOG(
-                                  p ||
-                                    (p =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "Task ",
-                                        " will try again later",
-                                      ])),
-                                  r,
-                                ),
-                                (a = t.$8(r))),
-                          t.$6.set(r, a)
-                        );
-                      })
-                      .then(function () {
-                        (t.$7(r),
-                          t.$2[r] &&
-                            (t.$2[r].forEach(function (e) {
-                              return e();
-                            }),
-                            delete t.$2[r]));
-                      })
-                      .catch(function (e) {
-                        return (
-                          o("WALogger").LOG(
-                            _ ||
-                              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                                "Task ",
-                                " failed, try again later: ",
-                                "",
-                              ])),
-                            r,
-                            e,
-                          ),
-                          t.$6.set(r, t.$8(r)).then(function () {
-                            t.$7(r);
-                          })
-                        );
-                      }));
-                }, f)));
-            });
+                                (a = o("WATimeUtils").DEFAULT_UNIXTIME))
+                              : e >= 0
+                                ? (o("WALogger").LOG(
+                                    p ||
+                                      (p =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          ["Task ", " complete, waiting ", ""],
+                                        )),
+                                    r,
+                                    e,
+                                  ),
+                                  delete t.$3[r],
+                                  (a = o("WATimeUtils").futureUnixTime(e)))
+                                : (o("WALogger").LOG(
+                                    _ ||
+                                      (_ =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          ["Task ", " will try again later"],
+                                        )),
+                                    r,
+                                  ),
+                                  (a = t.$8(r))),
+                            t.$6.set(r, a)
+                          );
+                        })
+                        .then(function () {
+                          (t.$7(r),
+                            t.$2[r] &&
+                              (t.$2[r].forEach(function (e) {
+                                return e();
+                              }),
+                              delete t.$2[r]));
+                        })
+                        .catch(function (e) {
+                          return (
+                            o("WALogger").LOG(
+                              f ||
+                                (f = babelHelpers.taggedTemplateLiteralLoose([
+                                  "Task ",
+                                  " failed, try again later: ",
+                                  "",
+                                ])),
+                              r,
+                              String(e),
+                            ),
+                            t.$6.set(r, t.$8(r)).then(function () {
+                              t.$7(r);
+                            })
+                          );
+                        }));
+                  }, s)));
+              };
+            this.$6.get(r).then(l).catch(i);
           }),
           (r.$8 = function (t) {
             return (
@@ -172,7 +186,7 @@ __d(
           }),
           (r.awaitTaskPromise = function (t) {
             var e = this;
-            return new (h || (h = n("Promise")))(function (n) {
+            return new (y || (y = n("Promise")))(function (n) {
               e.$9(t, n);
             });
           }),
@@ -192,33 +206,33 @@ __d(
           t
         );
       })(),
-      b = null,
-      v = new (o("WAResolvable").Resolvable)();
-    function S(e) {
+      v = null,
+      S = new (o("WAResolvable").Resolvable)();
+    function R(e) {
       (o("WALogger").LOG(
-        f ||
-          (f = babelHelpers.taggedTemplateLiteralLoose([
+        g ||
+          (g = babelHelpers.taggedTemplateLiteralLoose([
             "startScheduler invoked",
           ])),
       ),
-        b || ((b = new C(e)), v.resolve()));
-    }
-    function R(e, t) {
-      var n = I("reschedule");
-      n.reschedule(e, t);
+        v || ((v = new b(e)), S.resolve()));
     }
     function L(e, t) {
-      v.resolveWasCalled()
-        ? R(e, t)
-        : v.promise
+      var n = T("reschedule");
+      n.reschedule(e, t);
+    }
+    function E(e, t) {
+      S.resolveWasCalled()
+        ? L(e, t)
+        : S.promise
             .then(function () {
-              R(e, t);
+              L(e, t);
             })
             .catch(function (t) {
               o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "taskScheduler: reschedule eventually failed for task ",
                       "",
                     ])),
@@ -227,22 +241,22 @@ __d(
                 .sendLogs("task-scheduler-reschedule-failed");
             });
     }
-    function E(e) {
-      L(e, o("WATimeUtils").unixTime());
+    function k(e) {
+      E(e, o("WATimeUtils").unixTime());
     }
-    function k(e, t) {
-      var n = I("registerTask");
+    function I(e, t) {
+      var n = T("registerTask");
       n.registerTask(e, t);
     }
-    function I(e) {
-      if (b) return b;
+    function T(e) {
+      if (v) return v;
       throw r("err")("TaskScheduler::" + e + " called before startScheduler");
     }
-    ((l.DO_NOT_RESCHEDULE = y),
-      (l.startScheduler = S),
-      (l.reschedule = L),
-      (l.rescheduleNow = E),
-      (l.registerTask = k));
+    ((l.DO_NOT_RESCHEDULE = C),
+      (l.startScheduler = R),
+      (l.reschedule = E),
+      (l.rescheduleNow = k),
+      (l.registerTask = I));
   },
   98,
 );

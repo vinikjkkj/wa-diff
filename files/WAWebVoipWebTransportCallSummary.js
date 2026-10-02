@@ -29,6 +29,7 @@ __d(
         SendOnFailedConnection: 10,
         GroupCallDisabled: 11,
         NoReadyAfterAcceptTimeout: 12,
+        NoReadyDuringRingingTimeout: 13,
       }),
       c = (function () {
         function t() {

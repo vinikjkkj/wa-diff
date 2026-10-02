@@ -22,7 +22,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebInitializeBotContact",
     "WAWebL10N",
-    "WAWebListsGatingUtils",
     "WAWebOptOutListCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebTextStatusCollection",
@@ -210,9 +209,7 @@ __d(
                 this.listenTo(this, "change:name", this.$Contact$p_6),
                 this.listenTo(this, "change:name", this.updateName),
                 (this.pendingAction = 0),
-                (o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
-                  o("WAWebListsGatingUtils").isListsEnabled()) &&
-                  o("WAWebBizLabelUtils").initializeLabels(this));
+                o("WAWebBizLabelUtils").initializeLabels(this));
               var n = this.id;
               if (n.isLid()) {
                 var a =

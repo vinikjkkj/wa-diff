@@ -583,7 +583,7 @@ __d(
               (Ce(), t && (yield a.wait()), Ce());
               var o = yield ye(),
                 i = o.rpc;
-              return (Ce(), i.invoke(e, n, r));
+              return (Ce(), i.invoke({ args: n, method: e, transferList: r }));
             },
           )),
           Re.apply(this, arguments)
@@ -1403,26 +1403,34 @@ __d(
           })(),
           handleIncomingSignalingMessage: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a, i, l, s, u) {
-                var c = e.node();
+              function* (e) {
+                var t = e.msgE,
+                  n = e.msgOffline,
+                  a = e.msgPlatform,
+                  i = e.msgT,
+                  l = e.msgVersion,
+                  s = e.peerJid,
+                  u = e.tcToken,
+                  c = e.xmlNode,
+                  d = c.node();
                 r("justknobx")._("360") &&
-                  o("WAWebVoipRelayOverrides").overrideRelayIp(c);
-                var d = o("WABase64").encodeB64(o("WAWap").encodeStanza(c)),
-                  m = a != null ? String(a) : "0",
-                  p = i != null ? String(i) : "0";
+                  o("WAWebVoipRelayOverrides").overrideRelayIp(d);
+                var m = o("WABase64").encodeB64(o("WAWap").encodeStanza(d)),
+                  p = t != null ? String(t) : "0",
+                  _ = i != null ? String(i) : "0";
                 yield be("handleIncomingSignalingMessage", {
-                  b64Stanza: d,
-                  msgPlatform: t,
-                  msgVersion: n,
-                  msgEStr: m,
-                  msgTStr: p,
-                  msgOffline: l,
+                  b64Stanza: m,
+                  msgPlatform: a,
+                  msgVersion: l,
+                  msgEStr: p,
+                  msgTStr: _,
+                  msgOffline: n,
                   peerJid: s,
                   tcToken: u,
                 });
               },
             );
-            function t(t, n, r, o, a, i, l, s) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

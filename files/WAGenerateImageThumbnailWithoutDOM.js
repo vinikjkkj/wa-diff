@@ -1,6 +1,6 @@
 __d(
   "WAGenerateImageThumbnailWithoutDOM",
-  ["Promise", "WAOffscreenCanvasUtils", "asyncToGeneratorRuntime"],
+  ["Promise", "WAOffscreenCanvasUtils", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,29 +11,31 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = yield self.createImageBitmap(t),
-              u = l.width,
-              c = l.height,
-              m = d(c, u, r),
-              p = new OffscreenCanvas(m.width, m.height),
-              _ = p.getContext("2d");
+          function* (t, a, i, l) {
+            var u = yield self.createImageBitmap(t),
+              c = u.width,
+              m = u.height,
+              p = d(m, c, a),
+              _ = new OffscreenCanvas(p.width, p.height),
+              f = _.getContext("2d");
+            if (!f)
+              throw r("err")("Failed to get 2D context from offscreen canvas");
             (o("WAOffscreenCanvasUtils").fillOffscreenCanvasBackgroundWithGray(
-              p,
+              _,
             ),
-              _.drawImage(l, 0, 0, m.width, m.height));
-            var f = yield o("WAOffscreenCanvasUtils").offscreenCanvasToBlob(
-              p,
+              f.drawImage(u, 0, 0, p.width, p.height));
+            var g = yield o("WAOffscreenCanvasUtils").offscreenCanvasToBlob(
+              _,
               s,
               !0,
               void 0,
-              a,
               i,
+              l,
             );
             return (e || (e = n("Promise"))).resolve({
-              blob: f,
-              height: m.height,
-              width: m.width,
+              blob: g,
+              height: p.height,
+              width: p.width,
             });
           },
         )),

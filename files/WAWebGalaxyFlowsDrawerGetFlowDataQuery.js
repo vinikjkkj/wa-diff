@@ -29,7 +29,10 @@ __d(
         p = t.signal;
       (o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataStart(),
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataAnnotate(
-          o("WAWebGalaxyFlowQPLLoggerUtils").getWaeMetadataAnnotations(m, d),
+          o("WAWebGalaxyFlowQPLLoggerUtils").getWaeMetadataAnnotations(
+            m.unsafe(),
+            d,
+          ),
         ));
       var _ =
         ((a = d.flowMetadata) == null ? void 0 : a.data_api_version) != null;
@@ -213,7 +216,7 @@ __d(
               ).logStructuredMessageInteractionWAMEvent(
                 d,
                 u,
-                m,
+                m.unsafe(),
                 o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_ERROR,
                 o("WAWebGalaxyFlowQPLLoggerUtils")
                   .WaeScreenNavigationQPLErrorTypes

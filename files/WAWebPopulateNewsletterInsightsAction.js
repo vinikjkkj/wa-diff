@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebChatGetters",
     "WAWebNewsletterBridgeApi",
+    "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterGrowthChartProcessors",
     "WAWebNewsletterInsightCountryDataProcessors",
@@ -19,13 +20,35 @@ __d(
     "use strict";
     var e;
     function s(e) {
-      return c(e, [
-        o("WAWebNewsletterInsightDeltaProcessors").REACH_WITH_DELTA_PROCESSOR,
+      return m(e, function () {
+        return u(e);
+      });
+    }
+    function u(e) {
+      var t = o(
+        "WAWebNewsletterExtendedGatingUtils",
+      ).isNewsletterStatusAdminInsightsEnabled(e.newsletterMetadata)
+        ? [
+            o("WAWebNewsletterInsightDeltaProcessors")
+              .REACH_WITH_DELTA_PROCESSOR,
+            o("WAWebNewsletterInsightDeltaProcessors")
+              .REACH_ALL_WITH_DELTA_PROCESSOR,
+          ]
+        : [
+            o("WAWebNewsletterInsightDeltaProcessors")
+              .REACH_WITH_DELTA_PROCESSOR,
+          ];
+      return [].concat(t, [
         o("WAWebNewsletterInsightDeltaProcessors").NET_FOLLOWS_PROCESSOR,
       ]);
     }
-    function u(e) {
-      return c(e, [
+    function c(e) {
+      return m(e, function () {
+        return d(e);
+      });
+    }
+    function d(e) {
+      var t = [
         o("WAWebNewsletterInsightDeltaProcessors").REACH_WITH_DELTA_PROCESSOR,
         o("WAWebNewsletterRoleDataProcessors").REACH_BY_ROLE_PROCESSOR,
         o("WAWebNewsletterInsightCountryDataProcessors")
@@ -35,14 +58,33 @@ __d(
         o("WAWebNewsletterInsightCountryDataProcessors")
           .FOLLOWER_BY_COUNTRY_PROCESSOR,
         o("WAWebNewsletterGrowthChartProcessors").FOLLOWER_GROWTH_PROCESSOR,
-      ]);
-    }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+      ];
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        o(
+          "WAWebNewsletterExtendedGatingUtils",
+        ).isNewsletterStatusAdminInsightsEnabled(e.newsletterMetadata) &&
+          t.push(
+            o("WAWebNewsletterInsightDeltaProcessors")
+              .REACH_ALL_WITH_DELTA_PROCESSOR,
+            o("WAWebNewsletterRoleDataProcessors").REACH_ALL_BY_ROLE_PROCESSOR,
+            o("WAWebNewsletterInsightCountryDataProcessors")
+              .REACH_ALL_BY_COUNTRY_PROCESSOR,
+            o("WAWebNewsletterInsightDeltaProcessors")
+              .REACH_CHANNEL_STATUS_WITH_DELTA_PROCESSOR,
+            o("WAWebNewsletterRoleDataProcessors")
+              .REACH_CHANNEL_STATUS_BY_ROLE_PROCESSOR,
+            o("WAWebNewsletterInsightCountryDataProcessors")
+              .REACH_CHANNEL_STATUS_BY_COUNTRY_PROCESSOR,
+          ),
+        t
+      );
+    }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             throw (
               o("WALogger")
@@ -61,19 +103,20 @@ __d(
               t.newsletterMetadata,
             )
           ) {
-            var a = o("WAWebNewsletterMetricUtils").getUniqueMetricRequests(n),
-              i = o("WAJids").toNewsletterJid(t.id.toJid()),
-              l = { newsletterJid: i, requestedMetrics: a },
-              s = yield o("WAWebNewsletterInsightsJob").getNewsletterInsights(
-                l,
+            var a = n(),
+              i = o("WAWebNewsletterMetricUtils").getUniqueMetricRequests(a),
+              l = o("WAJids").toNewsletterJid(t.id.toJid()),
+              s = { newsletterJid: l, requestedMetrics: i },
+              u = yield o("WAWebNewsletterInsightsJob").getNewsletterInsights(
+                s,
               ),
-              u = s.dataStatus,
-              c = s.lastUpdateTime,
-              d = s.metricValueMap,
-              m = n.map(function (e) {
-                return e.process(d);
+              c = u.dataStatus,
+              d = u.lastUpdateTime,
+              m = u.metricValueMap,
+              p = a.map(function (e) {
+                return e.process(m);
               }),
-              p = m.reduce(
+              _ = p.reduce(
                 function (e, t) {
                   return babelHelpers.extends({}, e, t);
                 },
@@ -81,24 +124,24 @@ __d(
                   id: t.id,
                   rangeStart: o(
                     "WAWebNewsletterMetricUtils",
-                  ).getInsightPeriodStart(c),
-                  rangeEnd: c,
-                  dataStatus: u,
+                  ).getInsightPeriodStart(d),
+                  rangeEnd: d,
+                  dataStatus: c,
                 },
               );
             yield o(
               "WAWebNewsletterBridgeApi",
             ).NewsletterBridgeApi.updateNewsletterInsights({
               newsletter: t,
-              insights: p,
+              insights: _,
             });
           }
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
     ((l.populateNewsletterTileInsights = s),
-      (l.populateNewsletterTabInsights = u));
+      (l.populateNewsletterTabInsights = c));
   },
   98,
 );

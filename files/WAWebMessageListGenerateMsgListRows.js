@@ -39,7 +39,7 @@ __d(
         var L = g;
         (y || s.push({ type: "date", msg: L, count: b++ }),
           L === a && e.unread && s.push({ type: "unread", unreadCount: i }));
-        var E = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(L),
+        var E = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(L.unsafe()),
           k =
             (S != null && S.equals(E)) ||
             (E != null && R != null && E.key.equals(R));

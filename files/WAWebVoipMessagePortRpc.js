@@ -67,29 +67,32 @@ __d(
             }),
               this.$4.start());
           }),
-          (a.invoke = function (t, o, a) {
+          (a.invoke = function (t) {
             var e = this,
-              i = this.$2++;
-            return new (m || (m = n("Promise")))(function (n, l) {
+              o = t.args,
+              a = t.method,
+              i = t.transferList,
+              l = this.$2++;
+            return new (m || (m = n("Promise")))(function (t, n) {
               var s = window.setTimeout(function () {
-                (e.$3.delete(i),
-                  l(
+                (e.$3.delete(l),
+                  n(
                     r("err")(
-                      "voip: [RPC] timeout for " + t + " (id=" + i + ")",
+                      "voip: [RPC] timeout for " + a + " (id=" + l + ")",
                     ),
                   ));
               }, 3e4);
-              (e.$3.set(i, {
-                resolve: function (t) {
-                  (window.clearTimeout(s), n(t));
+              (e.$3.set(l, {
+                resolve: function (n) {
+                  (window.clearTimeout(s), t(n));
                 },
                 reject: function (t) {
-                  (window.clearTimeout(s), l(t));
+                  (window.clearTimeout(s), n(t));
                 },
               }),
                 e.$4.postMessage(
-                  { id: i, method: t, args: o },
-                  a != null ? a : [],
+                  { id: l, method: a, args: o },
+                  i != null ? i : [],
                 ));
             });
           }),

@@ -169,6 +169,9 @@ __d(
         case o("WAWebCommonNewsletterEnums").NewsletterCapability
           .CHANNEL_STATUS_API:
           return "CHANNEL_STATUS_API";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .CHANNEL_STATUS_ADMIN_INSIGHTS:
+          return "CHANNEL_STATUS_ADMIN_INSIGHTS";
       }
     }
     ((l.mapMembershipTypeToViewRole = s),

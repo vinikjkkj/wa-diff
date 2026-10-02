@@ -7,6 +7,7 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWeb-dexie",
+    "WAWebDexieObservability",
     "WAWebIndexedDBPurge",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUA",
@@ -44,6 +45,7 @@ __d(
           chromeTransactionDurability: "relaxed",
           addons: [],
         })),
+        o("WAWebDexieObservability").dropDexieObservability(this._db),
         this._db.on("versionchange", function (n) {
           (t._db.close(),
             o("WALogger").LOG(

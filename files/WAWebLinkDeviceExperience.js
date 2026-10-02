@@ -44,6 +44,8 @@ __d(
         HybridRegTest: new e(19),
         LoggedOutSeparationControl: new e(20),
         LoggedOutSeparationTest: new e(21),
+        AndroidTabletOverlayControl: new e(22),
+        AndroidTabletOverlayTest: new e(23),
       };
     function u() {
       return (
@@ -131,8 +133,8 @@ __d(
       c
         ? t.set(s.OptimizedRegistrationTest.getIndex())
         : l === "control" && t.set(s.OptimizedRegistrationControl.getIndex());
-      var d = o("WAWebArkoseExpUtils").getArkoseVariant();
-      switch (d) {
+      var m = o("WAWebArkoseExpUtils").getArkoseVariant();
+      switch (m) {
         case o("WAWebArkoseExpUtils").ArkoseVariantType.CONTROL:
           t.set(s.ArkoseControl.getIndex());
           break;
@@ -148,32 +150,14 @@ __d(
           "WAWebLinkDeviceScreenGatedUtils",
         ).isAppleTouchscreenOverlayEnabled() &&
           t.set(s.AppleTouchscreenOverlay.getIndex()));
-      var m = o("WAWebHybridRegGating").getHybridRegExperiment();
+      var p = o("WAWebHybridRegGating").getHybridRegExperiment();
       e: {
-        if (m === "control") {
+        if (p === "control") {
           t.set(s.HybridRegControl.getIndex());
           break e;
         }
-        if (m === "test") {
-          t.set(s.HybridRegTest.getIndex());
-          break e;
-        }
-        if (m === "none") break e;
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            m,
-        );
-      }
-      var p = o(
-        "WAWebLoggedOutSeparationGating",
-      ).getLoggedOutSeparationExperiment();
-      e: {
-        if (p === "control") {
-          t.set(s.LoggedOutSeparationControl.getIndex());
-          break e;
-        }
         if (p === "test") {
-          t.set(s.LoggedOutSeparationTest.getIndex());
+          t.set(s.HybridRegTest.getIndex());
           break e;
         }
         if (p === "none") break e;
@@ -182,7 +166,41 @@ __d(
             p,
         );
       }
-      return t.toNumber();
+      var _ = o(
+        "WAWebLoggedOutSeparationGating",
+      ).getLoggedOutSeparationExperiment();
+      e: {
+        if (_ === "control") {
+          t.set(s.LoggedOutSeparationControl.getIndex());
+          break e;
+        }
+        if (_ === "test") {
+          t.set(s.LoggedOutSeparationTest.getIndex());
+          break e;
+        }
+        if (_ === "none") break e;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            _,
+        );
+      }
+      return (d(t), t.toNumber());
+    }
+    function d(e) {
+      var t = (function (e) {
+        if (e === "control") return s.AndroidTabletOverlayControl;
+        if (e === "test") return s.AndroidTabletOverlayTest;
+        if (e === "none") return null;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(
+        o(
+          "WAWebLinkDeviceScreenGatedUtils",
+        ).getAndroidTabletOverlayExperiment(),
+      );
+      t != null && e.set(t.getIndex());
     }
     l.getWebCompanionLinkDeviceExperienceId = c;
   },

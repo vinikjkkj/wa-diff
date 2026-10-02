@@ -21,6 +21,10 @@ __d(
         DEBUG_ERROR_TOAST_ENABLED: "WADebugErrorToastEnabled",
         DEBUG_SHOW_HIDDEN_BOT_CHATS: "WADebugShowHiddenBotChats",
         DEBUG_VPV_OVERLAY_ENABLED: "WADebugVPVOverlayEnabled",
+        DEBUG_HATCH_MUSE_ABRA_TOKEN: "WADebugHatchMuseAbraToken",
+        DEBUG_HATCH_MUSE_VM_ID: "WADebugHatchMuseVmId",
+        DEBUG_HATCH_MUSE_VM_AUTH_TOKEN: "WADebugHatchMuseVmAuthToken",
+        DEBUG_HATCH_MUSE_NOTARY_TOKEN: "WADebugHatchMuseNotaryToken",
       }),
       l = e;
     i.default = l;

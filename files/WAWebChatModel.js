@@ -49,7 +49,6 @@ __d(
     "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactCollection",
-    "WAWebContactGetters",
     "WAWebDBEphemeralMessage",
     "WAWebDBUpdateChatTable",
     "WAWebDBUpdateContactTable",
@@ -62,16 +61,13 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
-    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupSafetyCheckUtils",
-    "WAWebGroupType",
     "WAWebHandleNewMsgAction",
     "WAWebKeepInChatMsgUtils",
     "WAWebKeptMsgCollection",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingModelUtils",
-    "WAWebListsGatingUtils",
     "WAWebMedia",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
@@ -532,9 +528,7 @@ __d(
                   "locale_change",
                   this.$ChatImpl$p_10,
                 ),
-              (o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
-                o("WAWebListsGatingUtils").isListsEnabled()) &&
-                o("WAWebBizLabelUtils").initializeLabels(this),
+              o("WAWebBizLabelUtils").initializeLabels(this),
               o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
                 this.$ChatImpl$p_34(),
               o("WAWebChatShowUnreadInTitle").computeShowUnreadInTitle(this),
@@ -947,34 +941,7 @@ __d(
             return !1;
           }),
           (i.canToggleFavorite = function () {
-            var e, t;
-            return o("WAWebListsGatingUtils").isListsEnabled() ||
-              this.isFavorite
-              ? !0
-              : ((o("WAWebChatGetters").getIsGroup(this) &&
-                  o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
-                    this.groupMetadata,
-                  ) !== o("WAWebGroupType").GroupType.COMMUNITY &&
-                  o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
-                    this.groupMetadata,
-                  ) !==
-                    o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-                  ((e = this.groupMetadata) == null
-                    ? void 0
-                    : e.participants.iAmMember()) &&
-                  !(
-                    (t = this.groupMetadata) != null &&
-                    t.isSuspendedOrTerminated()
-                  )) ||
-                  (o("WAWebFrontendChatGetters").getKind(this) ===
-                    o("WAWebChatFlowTypes").ChatKindType.Chat &&
-                    this.contact != null &&
-                    o("WAWebFrontendContactGetters").getIsMyContact(
-                      this.contact,
-                    ) &&
-                    !o("WAWebContactGetters").getId(this.contact).isBot() &&
-                    !o("WAWebContactGetters").getIsMe(this.contact))) &&
-                  this.trusted;
+            return !0;
           }),
           (i.title = function () {
             var e;

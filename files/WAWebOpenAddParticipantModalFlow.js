@@ -30,30 +30,27 @@ __d(
       var n = t.chat,
         a = t.communityName,
         i = t.groupMetadata,
-        l = t.handleClearSelectedContacts,
-        u = t.onBack,
-        m = t.reopenAddGroupFlowCallback,
-        p = t.selectedContactsMap,
-        _ = t.updateSelectedContactsState,
-        f = o("WAWebMiscGatingUtils").getGroupSizeLimit(
+        l = t.onBack,
+        u = t.reopenAddGroupFlowCallback,
+        m = o("WAWebMiscGatingUtils").getGroupSizeLimit(
           o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(i),
         ),
-        g = o("WAWebWidFactory").asGroupWidOrThrow(n.id),
-        h = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(g)
+        p = o("WAWebWidFactory").asGroupWidOrThrow(n.id),
+        _ = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(p)
           ? o("WATimeUtils").unixTime()
           : null,
-        y =
-          h != null
+        f =
+          _ != null
             ? o(
                 "WAWebGetGroupHistoryBundleMessagesCount",
               ).getGroupHistoryBundleMessageCount({
-                groupWid: g,
-                targetStartMessageTime: h,
+                groupWid: p,
+                targetStartMessageTime: _,
               })
             : null;
       if (
-        (y != null &&
-          y
+        (f != null &&
+          f
             .then(function (e) {
               return o(
                 "WAWebGroupHistorySenderUserJourneyLogger",
@@ -76,33 +73,30 @@ __d(
                   "group-history-add-member-selectable-messages-load-failed",
                 );
             }),
-        (i == null ? void 0 : i.participants.length) >= f)
+        (i == null ? void 0 : i.participants.length) >= m)
       ) {
-        var C = s._(/*BTDS*/ "Can't add more than {max} members", [
-          s._param("max", f),
+        var g = s._(/*BTDS*/ "Can't add more than {max} members", [
+          s._param("max", m),
         ]);
         o("WAWebToastManager").ToastManager.open(
-          c.jsx(o("WAWebToast.react").Toast, { msg: C, id: d }),
+          c.jsx(o("WAWebToast.react").Toast, { msg: g, id: d }),
         );
       } else {
-        var b = c.jsx(
+        var h = c.jsx(
           r("WAWebAddGroupParticipantGroupHistoryContextProvider.react"),
           {
             chat: n,
-            enterFlowTimestamp: h,
-            messageCountPromise: y,
+            enterFlowTimestamp: _,
+            messageCountPromise: f,
             children: c.jsx(r("WAWebAddGroupParticipantFlow.react"), {
               chat: o("WAWebStateUtils").unproxy(n),
               communityName: a,
-              onBack: u,
-              selectedContactsMap: p,
-              updateSelectedContactsState: _,
-              reopenAddGroupFlowCallback: m,
-              handleClearSelectedContacts: l,
+              onBack: l,
+              reopenAddGroupFlowCallback: u,
             }),
           },
         );
-        o("WAWebModalManager").ModalManager.open(b, {
+        o("WAWebModalManager").ModalManager.open(h, {
           transition: "modal-flow",
         });
       }

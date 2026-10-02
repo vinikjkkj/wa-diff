@@ -54,12 +54,16 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      h = function (r, a, i, l) {
-        var t = this;
+      h = function (r) {
+        var t = this,
+          a = r.continuousPlay,
+          i = a === void 0 ? !1 : a,
+          l = r.msgKey,
+          h = r.prioritizeInitialStatus,
+          y = h === void 0 ? !1 : h,
+          C = r.status;
         if (
-          (a === void 0 && (a = !1),
-          l === void 0 && (l = !1),
-          (this.$2 = function (e, n) {
+          ((this.$2 = function (e, n) {
             var r = t.$6().map(function (e) {
                 return t.$4(e);
               }),
@@ -368,31 +372,31 @@ __d(
               return e.apply(this, arguments);
             };
           })()),
-          i)
+          l)
         ) {
-          var h = r.msgs.getModelsArray().find(function (e) {
-            return i && e.id.toString() === i.toString();
+          var b = C.msgs.getModelsArray().find(function (e) {
+            return l && e.id.toString() === l.toString();
           });
-          if (!h) throw new g();
+          if (!b) throw new g();
           this.statuses = [
             {
-              status: r,
+              status: C,
               totalCount: 1,
               unreadCount: 0,
-              msgs: [h],
-              readMsgKeys: this.$1([h]),
+              msgs: [b],
+              readMsgKeys: this.$1([b]),
             },
           ];
         } else
-          a &&
-          (!o("WAWebContactGetters").getIsMe(r.contact) || l) &&
-          !o("WAWebContactGetters").getCalculatedStatusMute(r.contact)
+          i &&
+          (!o("WAWebContactGetters").getIsMe(C.contact) || y) &&
+          !o("WAWebContactGetters").getCalculatedStatusMute(C.contact)
             ? (this.statuses =
-                r.unreadCount > 0 &&
-                !o("WAWebContactGetters").getIsMe(r.contact)
-                  ? this.$2(r, l)
-                  : this.$3(r, l))
-            : (this.statuses = [this.$4(r)]);
+                C.unreadCount > 0 &&
+                !o("WAWebContactGetters").getIsMe(C.contact)
+                  ? this.$2(C, y)
+                  : this.$3(C, y))
+            : (this.statuses = [this.$4(C)]);
         this.$5();
       };
     ((l.InvalidStatusIterator = _),

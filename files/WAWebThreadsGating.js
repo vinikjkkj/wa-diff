@@ -10,55 +10,40 @@ __d(
     });
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "view_replies_infra_enabled",
-      );
-    }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_follow_up_reply_icon",
       );
     }
-    function c(e) {
+    function u(e) {
       return !o("WAWebChatGetters").getIsUser(e) &&
         !o("WAWebChatGetters").getIsGroup(e)
         ? !1
         : !o("WAWebChatGetters").getIsBot(e);
     }
-    function d(t) {
-      if (!c(t)) return !1;
+    function c(t) {
+      if (!u(t)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
       return n === e.LABEL_ONLY || n === e.LABEL_AND_CONTEXT_MENU;
     }
-    function m(t) {
-      if (!c(t)) return !1;
+    function d(t) {
+      if (!u(t)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
       return n === e.LABEL_AND_CONTEXT_MENU || n === e.CONTEXT_MENU_ONLY;
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "view_replies_is_composer_enabled",
       );
     }
-    function _() {
-      return (
-        s() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "view_replies_with_threadid_enabled",
-        )
-      );
-    }
     ((l.ViewRepliesEntryPoint = e),
-      (l.isViewRepliesInfraEnabled = s),
-      (l.isFollowUpReplyEnabled = u),
-      (l.isViewRepliesSupportedChat = c),
-      (l.isViewRepliesEntryPointEnabled = d),
-      (l.isViewRepliesContextMenuEnabled = m),
-      (l.isViewRepliesComposerEnabled = p),
-      (l.isViewRepliesThreadIdEnabled = _));
+      (l.isFollowUpReplyEnabled = s),
+      (l.isViewRepliesSupportedChat = u),
+      (l.isViewRepliesEntryPointEnabled = c),
+      (l.isViewRepliesContextMenuEnabled = d),
+      (l.isViewRepliesComposerEnabled = m));
   },
   98,
 );

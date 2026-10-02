@@ -127,9 +127,10 @@ __d(
           ((i = document.createElement("video")),
             i.setAttribute("crossOrigin", "anonymous"),
             (i.volume = 0),
-            (i.muted = !0),
-            (i.playsinline = !0));
-          var p = function () {
+            (i.muted = !0));
+          var p = i;
+          p.playsinline = !0;
+          var _ = function () {
             m && d && n();
           };
           if (
@@ -148,7 +149,7 @@ __d(
               ),
                 (i.onloadedmetadata = null),
                 (d = !0),
-                p());
+                _());
             }),
             (i.oncanplaythrough = function () {
               (o("WALogger").LOG(
@@ -165,7 +166,7 @@ __d(
               ),
                 (i.oncanplaythrough = null),
                 (i.onseeked = function () {
-                  ((m = !0), (i.onseeked = null), p());
+                  ((m = !0), (i.onseeked = null), _());
                 }),
                 (i.currentTime = 0));
             }),
@@ -201,10 +202,10 @@ __d(
             o("WAWebUA").UA.isSafari)
           ) {
             a = document.createElement("div");
-            var _ = a;
-            ((_.style = "opacity: 0.004"),
-              _.appendChild(i),
-              document.body && document.body.appendChild(_));
+            var g = a;
+            ((g.style = "opacity: 0.004"),
+              g.appendChild(i),
+              document.body && document.body.appendChild(g));
           }
           (i.load(), (i.currentTime = 1));
         }).finally(function () {

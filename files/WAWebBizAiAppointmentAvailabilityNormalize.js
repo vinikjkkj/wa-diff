@@ -42,7 +42,7 @@ __d(
       }
       return { invalidCount: r, ranges: n };
     }
-    i.normalizeAvailabilityRanges = u;
+    ((i.MINUTES_IN_DAY = e), (i.normalizeAvailabilityRanges = u));
   },
   66,
 );

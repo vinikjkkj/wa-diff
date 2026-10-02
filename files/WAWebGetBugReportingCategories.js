@@ -65,6 +65,12 @@ __d(
           return { title: "Integrity", subtitle: "Account Defense" };
         case "messaging":
           return { title: "1:1 Messaging", subtitle: "1:1 Chats" };
+        case "music":
+          return {
+            title: "Music",
+            subtitle:
+              "Music on Status, music messages in Chats, music stickers, music picker/search, music playback",
+          };
         case "new_devices":
           return {
             title: "Companion Devices",

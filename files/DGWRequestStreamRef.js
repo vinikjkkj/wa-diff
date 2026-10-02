@@ -425,12 +425,13 @@ __d(
                 "RequestStreamSingleChannelSingleChannelRequestStreamSerializers",
               ).serializePayload,
             ),
-            d = Date.now();
-          if (this.$27() && this.$10 != null) {
-            var m, p, _, h;
+            d = Date.now(),
+            m = this.$10;
+          if (this.$27() && m != null) {
+            var p, _, h, y;
             return (
-              n && (h = this.$19.add(l)),
-              this.$10
+              n && (y = this.$19.add(l)),
+              m
                 .send(c)
                 .then(function (e) {
                   var t;
@@ -455,27 +456,27 @@ __d(
                     ),
                     a.$19.reject(l, e));
                 }),
-              (m = this.$5) == null ||
-                m.logE2EEvent(
+              (p = this.$5) == null ||
+                p.logE2EEvent(
                   r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
                   r("RequestStreamE2EClientLoggerEvent").SENT,
                   {
                     data_size:
-                      (p =
-                        t == null || (_ = t.length) == null
+                      (_ =
+                        t == null || (h = t.length) == null
                           ? void 0
-                          : _.toString()) != null
-                        ? p
+                          : h.toString()) != null
+                        ? _
                         : "0",
                   },
                   l,
                 ),
-              { promise: h }
+              { promise: y }
             );
           } else {
-            var y;
-            (y = this.$5) == null ||
-              y.logE2EEvent(
+            var C;
+            (C = this.$5) == null ||
+              C.logE2EEvent(
                 r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
                 r("RequestStreamE2EClientLoggerEvent").FAILURE,
                 { reason: "not_started" },

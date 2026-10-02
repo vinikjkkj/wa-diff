@@ -18,8 +18,6 @@ __d(
     "WAWebDropdownItemSeparator.react",
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-    "WAWebListsGatingUtils",
-    "WAWebMobilePlatforms",
     "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WDSIconIcCancel.react",
@@ -61,31 +59,15 @@ __d(
             "Pin",
           ),
         ];
-      o("WAWebChatAssignmentUtils").canAssignChats() &&
-        p.push(
-          u.jsx(r("WDSMenuItem.react"), {
-            Icon: r("WDSIconWdsIcTransferOwnership.react"),
-            title: s._(/*BTDS*/ "Assign chat"),
-            onPress: t,
-            testid: "mi-assign-chat",
-          }),
-        );
-      var _ = o("WAWebListsGatingUtils").isListsEnabled();
       if (
-        (o("WAWebMobilePlatforms").isSMB() &&
-          !_ &&
+        (o("WAWebChatAssignmentUtils").canAssignChats() &&
           p.push(
-            u.jsx(
-              o("WAWebChatContextMenuItemEditLabel.react")
-                .WAWebChatContextMenuItemEditLabel,
-              {
-                chat: i,
-                searchQuery: d,
-                selectableState: m,
-                multiSelection: l,
-                onStartMultiSelect: c,
-              },
-            ),
+            u.jsx(r("WDSMenuItem.react"), {
+              Icon: r("WDSIconWdsIcTransferOwnership.react"),
+              title: s._(/*BTDS*/ "Assign chat"),
+              onPress: t,
+              testid: "mi-assign-chat",
+            }),
           ),
         p.push(
           u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), { chat: i }),
@@ -93,28 +75,28 @@ __d(
         i.canToggleFavorite() &&
           o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
       ) {
-        var f, g;
+        var _, f;
         (i.isFavorite
-          ? ((g = o(
+          ? ((f = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Remove from favourites")
               : s._(/*BTDS*/ "Remove from Favorites")),
-            (f = o(
+            (_ = o(
               "WAWebUnfavoriteRefreshedIcon.react",
             ).UnfavoriteRefreshedIcon))
-          : ((g = o(
+          : ((f = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Add to favourites")
               : s._(/*BTDS*/ "Add to Favorites")),
-            (f = r("WDSIconIcFavorite.react"))),
+            (_ = r("WDSIconIcFavorite.react"))),
           p.push(
             u.jsx(
               r("WDSMenuItem.react"),
               {
-                Icon: f,
-                title: g,
+                Icon: _,
+                title: f,
                 onPress: function () {
                   return o("WAWebCmd").Cmd.favoriteChat(
                     i,
@@ -129,57 +111,51 @@ __d(
             ),
           ));
       }
-      if (
-        (i.active &&
-          (n("cr:23046") == null
-            ? void 0
-            : n("cr:23046").isWindowsHybridEnabled()) === !0 &&
-          p.push(
-            u.jsx(
-              r("WDSMenuItem.react"),
-              {
-                title: s._(/*BTDS*/ "Close chat"),
-                onPress: function () {
-                  return o("WAWebCmd").Cmd.closeChat(i);
-                },
-                testid: "mi-close-chat",
-                Icon: r("WDSIconIcCancel.react"),
-              },
-              "close-chat",
-            ),
-          ),
-        _)
-      ) {
-        var h = function () {
-          o("WAWebChatContextMenuItemEditLabel.react").handleLabelMenuItemClick(
-            {
-              chat: i,
-              multiSelection: l,
-              onStartMultiSelect: c,
-              searchQuery: d,
-              selectableState: m,
-            },
-          );
-        };
+      i.active &&
+        (n("cr:23046") == null
+          ? void 0
+          : n("cr:23046").isWindowsHybridEnabled()) === !0 &&
         p.push(
-          u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-            chat: i,
-            displayContext: "chat-list",
-            onSMBLabelMenuItemClick: h,
-          }),
+          u.jsx(
+            r("WDSMenuItem.react"),
+            {
+              title: s._(/*BTDS*/ "Close chat"),
+              onPress: function () {
+                return o("WAWebCmd").Cmd.closeChat(i);
+              },
+              testid: "mi-close-chat",
+              Icon: r("WDSIconIcCancel.react"),
+            },
+            "close-chat",
+          ),
         );
-      }
-      (p.push(u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
+      var g = function () {
+        o("WAWebChatContextMenuItemEditLabel.react").handleLabelMenuItemClick({
+          chat: i,
+          multiSelection: l,
+          onStartMultiSelect: c,
+          searchQuery: d,
+          selectableState: m,
+        });
+      };
+      (p.push(
+        u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
+          chat: i,
+          displayContext: "chat-list",
+          onSMBLabelMenuItemClick: g,
+        }),
+      ),
+        p.push(u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
         i.id.isBot() ||
           p.push(u.jsx(r("WAWebChatContextMenuItemBlock.react"), { chat: i })));
-      var y = s._(/*BTDS*/ "Clear chat");
+      var h = s._(/*BTDS*/ "Clear chat");
       return (
         p.push(
           u.jsx(
             r("WDSMenuItem.react"),
             {
               Icon: r("WDSIconIcDoNotDisturbOn.react"),
-              title: y,
+              title: h,
               onPress: function () {
                 return o("WAWebCmd").Cmd.clearChat(i);
               },

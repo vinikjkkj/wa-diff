@@ -414,6 +414,9 @@ __d(
         case "CHANNEL_STATUS_API":
           return o("WAWebCommonNewsletterEnums").NewsletterCapability
             .CHANNEL_STATUS_API;
+        case "CHANNEL_STATUS_ADMIN_INSIGHTS":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .CHANNEL_STATUS_ADMIN_INSIGHTS;
         default:
           return (
             o("WALogger")

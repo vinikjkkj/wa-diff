@@ -26,13 +26,17 @@ __d(
         INVALID_FILE_LENGTH: "invalid_file_length",
       }),
       c = (function (e) {
-        function t(t, n, r, o) {
-          var a,
-            i = String(n) + " for " + t + " message";
+        function t(t) {
+          var n,
+            r = t.e2eFailureReason,
+            o = t.errorCode,
+            a = t.expectedType,
+            i = t.options,
+            l = String(o) + " for " + a + " message";
           return (
-            (a = e.call(this, i, r, o) || this),
-            (a.name = "MediaMessageValidationError"),
-            a
+            (n = e.call(this, l, r, i) || this),
+            (n.name = "MediaMessageValidationError"),
+            n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
@@ -82,55 +86,55 @@ __d(
         };
       if (!r("WAWebNewsletterIsNewsletterMsg")(n)) {
         if (p == null)
-          throw new c(
-            i,
-            u.MISSING_MEDIA_KEY,
-            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-              .INVALID_IMAGE_MEDIA_KEY,
-          );
+          throw new c({
+            e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+              .E2E_FAILURE_REASON.INVALID_IMAGE_MEDIA_KEY,
+            errorCode: u.MISSING_MEDIA_KEY,
+            expectedType: i,
+          });
         if (p.byteLength !== 32)
-          throw new c(
-            i,
-            u.INVALID_MEDIA_KEY,
-            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-              .INVALID_IMAGE_MEDIA_KEY,
-          );
+          throw new c({
+            e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+              .E2E_FAILURE_REASON.INVALID_IMAGE_MEDIA_KEY,
+            errorCode: u.INVALID_MEDIA_KEY,
+            expectedType: i,
+          });
         if (l != null && l.byteLength !== 32)
-          throw new c(
-            i,
-            u.INVALID_ENC_SHA256,
-            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-              .INVALID_IMAGE_FILE_SHA256,
-          );
+          throw new c({
+            e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+              .E2E_FAILURE_REASON.INVALID_IMAGE_FILE_SHA256,
+            errorCode: u.INVALID_ENC_SHA256,
+            expectedType: i,
+          });
       }
       if ((m == null ? void 0 : m.byteLength) !== 32)
-        throw new c(
-          i,
-          u.INVALID_SHA256,
-          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+        throw new c({
+          e2eFailureReason: o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_IMAGE_FILE_SHA256,
-        );
+          errorCode: u.INVALID_SHA256,
+          expectedType: i,
+        });
       if (g != null && !o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(g))
-        throw new c(
-          i,
-          u.INVALID_URL,
-          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+        throw new c({
+          e2eFailureReason: o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_IMAGE_MEDIA_URL,
-        );
+          errorCode: u.INVALID_URL,
+          expectedType: i,
+        });
       if (i === o("WAWebMsgType").MSG_TYPE.STICKER_PACK && _ != null)
-        throw new c(
-          i,
-          u.INVALID_MIME_TYPE,
-          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+        throw new c({
+          e2eFailureReason: o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_IMAGE_MIME_TYPE,
-        );
+          errorCode: u.INVALID_MIME_TYPE,
+          expectedType: i,
+        });
       if (_ == null && i !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK)
-        throw new c(
-          i,
-          u.INVALID_MIME_TYPE,
-          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+        throw new c({
+          e2eFailureReason: o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_IMAGE_MIME_TYPE,
-        );
+          errorCode: u.INVALID_MIME_TYPE,
+          expectedType: i,
+        });
       var y = o("WAWebMmsMediaTypes").getValidMimeTypes(i);
       if (_ != null && y != null && !y.has(_))
         throw (
@@ -144,12 +148,12 @@ __d(
             _,
             i,
           ),
-          new c(
-            i,
-            u.INVALID_MIME_TYPE,
-            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-              .INVALID_IMAGE_MIME_TYPE,
-          )
+          new c({
+            e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+              .E2E_FAILURE_REASON.INVALID_IMAGE_MIME_TYPE,
+            errorCode: u.INVALID_MIME_TYPE,
+            expectedType: i,
+          })
         );
       var C,
         b = !1;
@@ -180,13 +184,15 @@ __d(
             typeof d,
             i,
           ),
-          new c(
-            i,
-            u.INVALID_FILE_LENGTH,
-            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
-              .INVALID_IMAGE_FILE_LENGTH,
-            { sendLogs: i === o("WAWebMsgType").MSG_TYPE.IMAGE ? 0.01 : !0 },
-          )
+          new c({
+            e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+              .E2E_FAILURE_REASON.INVALID_IMAGE_FILE_LENGTH,
+            errorCode: u.INVALID_FILE_LENGTH,
+            expectedType: i,
+            options: {
+              sendLogs: i === o("WAWebMsgType").MSG_TYPE.IMAGE ? 0.01 : !0,
+            },
+          })
         );
       return {
         mediaKey: p,

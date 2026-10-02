@@ -7,30 +7,31 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 10,
-      s = 10;
-    function u() {
-      return c.apply(this, arguments);
-    }
+    var e,
+      s = 10,
+      u = 10;
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebCountriesUtils").getCountries({
             filter: o("WAWebCountriesUtils").COUNTRY_FILTER_TYPE
               .WHATSAPP_REGISTRATION,
           });
           return new Map(e);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u(),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield c(),
             n = e.reduce(function (e, n) {
               var r = n.countryCode,
                 o = n.percentage,
@@ -43,16 +44,16 @@ __d(
             }, []);
           return n;
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = e.reduce(function (e, n) {
         var r = n.country,
           o = n.value;
         return (
           r == null ||
-            o < s ||
+            o < u ||
             e.push({
               countryCode: r.toUpperCase(),
               percentage: o / t,
@@ -65,61 +66,88 @@ __d(
         return t.value - e.value;
       });
     }
-    var _ = {
+    function f(e, t, n, r) {
+      return {
         getMetrics: function () {
-          var t;
           return [
-            {
-              id: (t = o("WAWebNewsletterMetricUtils"))
-                .NewsletterInsightMetricQuery.UniqueVisitorsOverPeriod,
-              type: "UNIQUE_VISITORS",
-              group_by: { number_of_days: t.INSIGHT_DAYS_COVERED },
-            },
-            {
-              id: t.NewsletterInsightMetricQuery
-                .UniqueVisitorOverPeriodByCountry,
-              type: "UNIQUE_VISITORS",
-              group_by: { number_of_days: t.INSIGHT_DAYS_COVERED, country: !0 },
-              limit: e,
-            },
+            babelHelpers.extends(
+              {
+                id: t,
+                type: "UNIQUE_VISITORS",
+                group_by: {
+                  number_of_days: o("WAWebNewsletterMetricUtils")
+                    .INSIGHT_DAYS_COVERED,
+                },
+              },
+              e === "CHANNEL" ? {} : { surface: e },
+            ),
+            babelHelpers.extends(
+              {
+                id: n,
+                type: "UNIQUE_VISITORS",
+                group_by: {
+                  number_of_days: o("WAWebNewsletterMetricUtils")
+                    .INSIGHT_DAYS_COVERED,
+                  country: !0,
+                },
+                limit: s,
+              },
+              e === "CHANNEL" ? {} : { surface: e },
+            ),
           ];
         },
-        process: function (t) {
+        process: function (o) {
           var e,
-            n,
-            r =
-              (e = t.get(
-                o("WAWebNewsletterMetricUtils").NewsletterInsightMetricQuery
-                  .UniqueVisitorsOverPeriod,
-              )) == null
-                ? void 0
-                : e[0].value;
-          if (r == null) return {};
-          var a =
-            (n = t.get(
-              o("WAWebNewsletterMetricUtils").NewsletterInsightMetricQuery
-                .UniqueVisitorOverPeriodByCountry,
-            )) != null
-              ? n
-              : [];
-          return { reachByCountryChannels: p(a, r) };
+            a,
+            i = (e = o.get(t)) == null || (e = e[0]) == null ? void 0 : e.value;
+          if (i == null) return {};
+          var l = (a = o.get(n)) != null ? a : [],
+            s = _(l, i);
+          return r(s);
         },
-      },
-      f = {
+      };
+    }
+    var g = f(
+        "CHANNEL",
+        (e = o("WAWebNewsletterMetricUtils")).NewsletterInsightMetricQuery
+          .UniqueVisitorsOverPeriod,
+        e.NewsletterInsightMetricQuery.UniqueVisitorOverPeriodByCountry,
+        function (e) {
+          return { reachByCountryChannels: e };
+        },
+      ),
+      h = f(
+        "ALL",
+        e.NewsletterInsightMetricQuery.UniqueVisitorsAllOverPeriod,
+        e.NewsletterInsightMetricQuery.UniqueVisitorAllOverPeriodByCountry,
+        function (e) {
+          return { reachByCountryAll: e };
+        },
+      ),
+      y = f(
+        "CHANNEL_STATUS",
+        e.NewsletterInsightMetricQuery.UniqueVisitorsChannelStatusOverPeriod,
+        e.NewsletterInsightMetricQuery
+          .UniqueVisitorChannelStatusOverPeriodByCountry,
+        function (e) {
+          return { reachByCountryChannelStatus: e };
+        },
+      ),
+      C = {
         getMetrics: function () {
-          var t;
+          var e;
           return [
             {
-              id: (t = o("WAWebNewsletterMetricUtils"))
+              id: (e = o("WAWebNewsletterMetricUtils"))
                 .NewsletterInsightMetricQuery.FollowersOverPeriod,
               type: "FOLLOWER",
-              group_by: { number_of_days: t.INSIGHT_DAYS_COVERED },
+              group_by: { number_of_days: e.INSIGHT_DAYS_COVERED },
             },
             {
-              id: t.NewsletterInsightMetricQuery.FollowersOverPeriodByCountry,
+              id: e.NewsletterInsightMetricQuery.FollowersOverPeriodByCountry,
               type: "FOLLOWER",
-              group_by: { number_of_days: t.INSIGHT_DAYS_COVERED, country: !0 },
-              limit: e,
+              group_by: { number_of_days: e.INSIGHT_DAYS_COVERED, country: !0 },
+              limit: s,
             },
           ];
         },
@@ -141,12 +169,14 @@ __d(
             )) != null
               ? n
               : [];
-          return { followersByCountry: p(a, r) };
+          return { followersByCountry: _(a, r) };
         },
       };
-    ((l.getCountryBarValues = d),
-      (l.REACH_BY_COUNTRY_PROCESSOR = _),
-      (l.FOLLOWER_BY_COUNTRY_PROCESSOR = f));
+    ((l.getCountryBarValues = m),
+      (l.REACH_BY_COUNTRY_PROCESSOR = g),
+      (l.REACH_ALL_BY_COUNTRY_PROCESSOR = h),
+      (l.REACH_CHANNEL_STATUS_BY_COUNTRY_PROCESSOR = y),
+      (l.FOLLOWER_BY_COUNTRY_PROCESSOR = C));
   },
   98,
 );

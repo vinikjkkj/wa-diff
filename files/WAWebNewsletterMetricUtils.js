@@ -20,6 +20,14 @@ __d(
       FollowersOverPeriodByCountry: 7,
       FollowsPerDay: 8,
       UnfollowsPerDay: 9,
+      UniqueVisitorsAllOverPeriod: 10,
+      NewUniqueVisitorsAllOverPeriod: 11,
+      UniqueVisitorAllOverPeriodByRole: 12,
+      UniqueVisitorAllOverPeriodByCountry: 13,
+      UniqueVisitorsChannelStatusOverPeriod: 14,
+      NewUniqueVisitorsChannelStatusOverPeriod: 15,
+      UniqueVisitorChannelStatusOverPeriodByRole: 16,
+      UniqueVisitorChannelStatusOverPeriodByCountry: 17,
     });
     function m(e) {
       var t = e.flatMap(function (e) {

@@ -930,27 +930,30 @@ __d(
           return t;
         })(),
         handleIncomingSignalingMessage: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r, a, i, s, u) {
-              var c = yield l,
-                d = o("WABase64").encodeB64(o("WAWap").encodeStanza(e.node())),
-                m = V(c, u),
-                p = r != null ? String(r) : "0",
-                _ = a != null ? String(a) : "0";
-              try {
-                c.handleIncomingSignalingMessage(d, t, n, p, _, i, s, m);
-              } catch (e) {
-                throw (
-                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    c,
-                    e,
-                  ),
-                  e
-                );
-              }
-            },
-          );
-          function t(t, n, r, o, a, i, l, s) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.msgE,
+              n = e.msgOffline,
+              r = e.msgPlatform,
+              a = e.msgT,
+              i = e.msgVersion,
+              s = e.peerJid,
+              u = e.tcToken,
+              c = e.xmlNode,
+              d = yield l,
+              m = o("WABase64").encodeB64(o("WAWap").encodeStanza(c.node())),
+              p = V(d, u),
+              _ = t != null ? String(t) : "0",
+              f = a != null ? String(a) : "0";
+            try {
+              d.handleIncomingSignalingMessage(m, r, i, _, f, n, s, p);
+            } catch (e) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(d, e),
+                e
+              );
+            }
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

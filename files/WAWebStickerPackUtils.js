@@ -200,55 +200,60 @@ __d(
         return i;
       }
     }
-    function h(e, t, n, r, o) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            (t === void 0 &&
-              (t = o("WAWebStickerPackConstants").THUMBNAIL_LENGTH),
-              n === void 0 &&
-                (n = o("WAWebStickerPackConstants").THUMBNAIL_WIDTH),
-              r === void 0 && (r = o("WAWebStickerPackConstants").IMAGE_LENGTH),
-              a === void 0 && (a = o("WAWebStickerPackConstants").IMAGE_WIDTH));
-            var i = o("WAWebCanvasUtils").createCanvas(t, n),
-              l = i.getContext("2d");
-            ((l.fillStyle = "#FFFFFF"), l.fillRect(0, 0, t, n));
-            var s = o(
-                "WAWebRecentStickerCollectionMd",
-              ).RecentStickerCollectionMd.map(function (e) {
-                return e.sticker;
-              }),
-              u = Math.min(s.length, e != null ? e : 4),
-              c = o("WAWebStickerPackConstants").PADDING,
-              d = o("WAWebStickerPackConstants").PADDING;
-            switch (u) {
-              case 1:
-                ((c = t / 2 - r / 2), (d = n / 2 - a / 2));
-                break;
-              case 2:
-                d = n / 2 - a / 2;
-                break;
-            }
-            return (
-              yield _({
-                context: l,
-                gap: o("WAWebStickerPackConstants").PADDING,
-                imageL: r,
-                imageW: a,
-                recentStickers: s,
-                stickerCount: u,
-                thumbL: t,
-                thumbW: n,
-                x: c,
-                y: d,
-              }),
-              i
-            );
-          },
-        )),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.count,
+            n = e.imageL,
+            r = n === void 0 ? o("WAWebStickerPackConstants").IMAGE_LENGTH : n,
+            a = e.imageW,
+            i = a === void 0 ? o("WAWebStickerPackConstants").IMAGE_WIDTH : a,
+            l = e.thumbL,
+            s =
+              l === void 0
+                ? o("WAWebStickerPackConstants").THUMBNAIL_LENGTH
+                : l,
+            u = e.thumbW,
+            c =
+              u === void 0 ? o("WAWebStickerPackConstants").THUMBNAIL_WIDTH : u,
+            d = o("WAWebCanvasUtils").createCanvas(s, c),
+            m = d.getContext("2d");
+          ((m.fillStyle = "#FFFFFF"), m.fillRect(0, 0, s, c));
+          var p = o(
+              "WAWebRecentStickerCollectionMd",
+            ).RecentStickerCollectionMd.map(function (e) {
+              return e.sticker;
+            }),
+            f = Math.min(p.length, t != null ? t : 4),
+            g = o("WAWebStickerPackConstants").PADDING,
+            h = o("WAWebStickerPackConstants").PADDING;
+          switch (f) {
+            case 1:
+              ((g = s / 2 - r / 2), (h = c / 2 - i / 2));
+              break;
+            case 2:
+              h = c / 2 - i / 2;
+              break;
+          }
+          return (
+            yield _({
+              context: m,
+              gap: o("WAWebStickerPackConstants").PADDING,
+              imageL: r,
+              imageW: i,
+              recentStickers: p,
+              stickerCount: f,
+              thumbL: s,
+              thumbW: c,
+              x: g,
+              y: h,
+            }),
+            d
+          );
+        })),
         y.apply(this, arguments)
       );
     }

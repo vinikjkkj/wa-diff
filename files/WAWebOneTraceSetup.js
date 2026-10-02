@@ -5,6 +5,7 @@ __d(
     "OneTraceQPLLogger",
     "WAWebEncryptedRid",
     "WAWebEnvironment",
+    "WAWebLoggedOutSeparationGating",
     "WAWebUserPrefsIndexedDBStorage",
     "gkx",
     "justknobx",
@@ -57,6 +58,9 @@ __d(
                     .loadedUserPrefs != null
                     ? o("WAWebEncryptedRid").getEncryptedRid()
                     : "",
+                logged_out_separation: o(
+                  "WAWebLoggedOutSeparationGating",
+                ).getLoggedOutSeparationExperiment(),
               },
               bool: { is_compiler_enabled: r("gkx")("7685") },
             }),

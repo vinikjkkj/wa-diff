@@ -9,13 +9,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, n, a, i) {
+    function s(t) {
+      var n = t.chatEntryPoint,
+        a = t.findChatOrigin,
+        i = t.opts,
+        l = t.targetId;
       return o("WAWebFindChatAction")
-        .findOrCreateLatestChat(t, n)
+        .findOrCreateLatestChat(l, a)
         .then(function (e) {
           var t = e.chat;
           return o("WAWebCmd")
-            .Cmd.openChatFromUnread({ chat: t, chatEntryPoint: a })
+            .Cmd.openChatFromUnread({ chat: t, chatEntryPoint: n })
             .then(function (e) {
               e &&
                 ((i == null ? void 0 : i.skipComposeBoxFocus) !== !0 &&
@@ -32,7 +36,7 @@ __d(
                 ])),
             )
             .catching(r("getErrorSafe")(t))
-            .sendLogs("open-chat-with-contact-failed-" + a);
+            .sendLogs("open-chat-with-contact-failed-" + n);
         });
     }
     l.openChatWithContact = s;

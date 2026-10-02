@@ -7,28 +7,33 @@ __d(
       s = 90,
       u = 98,
       c = 0.035;
-    function d(t, n, r, a, i) {
-      var l = Math.max(
+    function d(t) {
+      var n = t.containerSize,
+        r = t.isCallLinkLobby,
+        a = t.isPopout,
+        i = t.isVideoMuted,
+        l = t.selfPreviewSize,
+        d = Math.max(
           e,
-          Math.floor(Math.sqrt(c * t.width * t.height * 1.7777777777777777)),
+          Math.floor(Math.sqrt(c * n.width * n.height * (16 / 9))),
         ),
-        d = n ? u : s,
-        m = Math.max(d, Math.floor(l * (9 / 16))),
-        p = a ? Math.min(l, m) : l,
-        _ = a ? Math.min(l, m) : m,
-        f = o("WAWebVoipSelfPreviewPositionUtils").getSelfPreviewInsets(r),
-        g = Math.max(0, t.width - f.left - f.right),
-        h = Math.max(0, t.height - f.top - f.bottom),
-        y =
-          i === "enlarged"
+        m = r ? u : s,
+        p = Math.max(m, Math.floor(d * (9 / 16))),
+        _ = i ? Math.min(d, p) : d,
+        f = i ? Math.min(d, p) : p,
+        g = o("WAWebVoipSelfPreviewPositionUtils").getSelfPreviewInsets(a),
+        h = Math.max(0, n.width - g.left - g.right),
+        y = Math.max(0, n.height - g.top - g.bottom),
+        C =
+          l === "enlarged"
             ? o("WAWebVoIPSelfPreviewConsts").SELF_PREVIEW_ENLARGED_SCALE
             : 1,
-        C = Math.max(1, Math.min(y, g / p, h / _));
+        b = Math.max(1, Math.min(C, h / _, y / f));
       return {
-        centeredSelfPreviewHeight: m * 2,
-        centeredSelfPreviewWidth: l * 2,
-        selfPreviewHeight: Math.floor(m * C),
-        selfPreviewWidth: Math.floor(l * C),
+        centeredSelfPreviewHeight: p * 2,
+        centeredSelfPreviewWidth: d * 2,
+        selfPreviewHeight: Math.floor(p * b),
+        selfPreviewWidth: Math.floor(d * b),
       };
     }
     l.computeSelfPreviewDimensions = d;

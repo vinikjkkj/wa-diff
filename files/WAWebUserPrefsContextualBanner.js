@@ -23,19 +23,17 @@ __d(
           o("WAWebUserPrefsKeys").KEYS.BANNER_STATES,
         );
       if (a == null || typeof a != "object") {
-        var i;
+        var i,
+          l = { state: (t == null, t) };
         r("WAWebUserPrefsStore").setUser(
           o("WAWebUserPrefsKeys").KEYS.BANNER_STATES,
-          ((i = {}), (i[String(e)] = { state: t }), i),
+          ((i = {}), (i[String(e)] = l), i),
         );
       }
+      var s = { state: (t == null, t) };
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.BANNER_STATES,
-        babelHelpers.extends(
-          {},
-          a,
-          ((n = {}), (n[String(e)] = { state: t }), n),
-        ),
+        babelHelpers.extends({}, a, ((n = {}), (n[String(e)] = s), n)),
       );
     }
     function c(e) {

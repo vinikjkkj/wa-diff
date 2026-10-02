@@ -8,7 +8,7 @@ __d(
         r = e.playedBefore;
       return o("WAWebFrontendMsgGetters").getAsPttLike(n.unsafe()) == null
         ? !1
-        : !o("WAWebMsgGetters").getIsSentByMe(n) ||
+        : !o("WAWebMsgGetters").getIsSentByMe(n.unsafe()) ||
             o("WAWebMsgGetters").getIsSentByMe(t)
           ? !0
           : !!r;

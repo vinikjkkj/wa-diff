@@ -81,7 +81,7 @@ __d(
             } catch (e) {
               S = !1;
             }
-          S || (t = r("json5").parseText("//x\n" + m));
+          S || (t = r("json5").readText("\n//x\n" + m));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
@@ -98,7 +98,7 @@ __d(
         t
       );
     }
-    l.readBootPayload = m;
+    l.decodeBootScript = m;
   },
   98,
 );

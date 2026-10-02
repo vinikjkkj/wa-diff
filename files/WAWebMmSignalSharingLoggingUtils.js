@@ -159,7 +159,12 @@ __d(
           }
           var x = u.type === o("WAWebWamEnumSignalType").SIGNAL_TYPE.MM_CLICK;
           if (x) {
-            var $ = b(i, l, _, u);
+            var $ = b({
+              chat: i,
+              isUserDisclosed: _,
+              linkOptions: l,
+              signal: u,
+            });
             if (
               (D(!0, $.onePdReason, $.spReason, $.sharingStatus),
               u.canceledReason == null &&
@@ -478,11 +483,15 @@ __d(
         u = L(i.sharingStatus, n, l, s);
       return { onePdReason: l, spReason: s, sharingStatus: u };
     }
-    function b(e, t, n, r) {
-      var o = r.canceledReason != null ? void 0 : v(e, t, n),
-        a = o == null || r.canceledReason != null ? void 0 : S(t),
-        i = L(r.sharingStatus, !0, o, a);
-      return { onePdReason: o, spReason: a, sharingStatus: i };
+    function b(e) {
+      var t = e.chat,
+        n = e.isUserDisclosed,
+        r = e.linkOptions,
+        o = e.signal,
+        a = o.canceledReason != null ? void 0 : v(t, r, n),
+        i = a == null || o.canceledReason != null ? void 0 : S(r),
+        l = L(o.sharingStatus, !0, a, i);
+      return { onePdReason: a, spReason: i, sharingStatus: l };
     }
     function v(e, t, n) {
       if (

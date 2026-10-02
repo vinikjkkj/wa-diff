@@ -48,7 +48,7 @@ __d(
         ? c(e)
         : e.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK
           ? !0
-          : o("WAWebMsgGetters").getIsStatus(e)
+          : o("WAWebMsgGetters").getIsStatus(e.unsafe())
             ? m(e)
             : !1;
     }

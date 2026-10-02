@@ -676,7 +676,12 @@ __d(
             )
               return !1;
             (this.$41 === 0 && this.$42(), this.$41++);
-            var e = this.$17.observe(n, a, i, l),
+            var e = this.$17.observe({
+                isKeyFrame: i,
+                nowMs: l,
+                rtpTimestamp: a,
+                source: n,
+              }),
               s = e.episodeStarted,
               u = e.outOfOrder;
             return (

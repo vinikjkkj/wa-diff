@@ -244,7 +244,7 @@ __d(
             var c = new Uint8Array(n),
               d =
                 e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
-                  ? b(c, u, r)
+                  ? b({ height: r, nv12Buffer: c, width: u })
                   : e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
                     ? c
                     : null;
@@ -357,39 +357,45 @@ __d(
         { renderWidth: _, renderHeight: f }
       );
     }
-    function b(e, t, n) {
+    function b(e) {
       for (
-        var r = new Uint8Array(t * n * 4), o = t * n, a = o, i = 0;
-        i < n;
-        i++
+        var t = e.height,
+          n = e.nv12Buffer,
+          r = e.width,
+          o = new Uint8Array(r * t * 4),
+          a = r * t,
+          i = a,
+          l = 0;
+        l < t;
+        l++
       )
-        for (var l = 0; l < t; l++) {
-          var s = i * t + l,
-            u = s * 4,
-            c = e[s],
-            d = Math.floor(i / 2),
+        for (var s = 0; s < r; s++) {
+          var u = l * r + s,
+            c = u * 4,
+            d = n[u],
             m = Math.floor(l / 2),
-            p = a + d * t + m * 2,
-            _ = void 0,
-            f = void 0;
-          p + 1 >= e.length || p < a
-            ? ((_ = 128), (f = 128))
-            : ((_ = e[p]), (f = e[p + 1]));
-          var g = c - 16,
-            h = _ - 128,
+            p = Math.floor(s / 2),
+            _ = i + m * r + p * 2,
+            f = void 0,
+            g = void 0;
+          _ + 1 >= n.length || _ < i
+            ? ((f = 128), (g = 128))
+            : ((f = n[_]), (g = n[_ + 1]));
+          var h = d - 16,
             y = f - 128,
-            C = Math.round((298 * g + 409 * y) / 256),
-            b = Math.round((298 * g - 100 * h - 208 * y) / 256),
-            v = Math.round((298 * g + 516 * h) / 256);
-          ((C = Math.max(0, Math.min(255, C))),
-            (b = Math.max(0, Math.min(255, b))),
+            C = g - 128,
+            b = Math.round((298 * h + 409 * C) / 256),
+            v = Math.round((298 * h - 100 * y - 208 * C) / 256),
+            S = Math.round((298 * h + 516 * y) / 256);
+          ((b = Math.max(0, Math.min(255, b))),
             (v = Math.max(0, Math.min(255, v))),
-            (r[u] = C),
-            (r[u + 1] = b),
-            (r[u + 2] = v),
-            (r[u + 3] = 255));
+            (S = Math.max(0, Math.min(255, S))),
+            (o[c] = b),
+            (o[c + 1] = v),
+            (o[c + 2] = S),
+            (o[c + 3] = 255));
         }
-      return r;
+      return o;
     }
     ((l.WAWebVoipVideoFrameRenderer = g), (l.WAWebVoipVideoRasterRenderer = h));
   },

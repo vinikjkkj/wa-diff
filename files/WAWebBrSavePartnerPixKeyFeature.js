@@ -64,9 +64,7 @@ __d(
             bankId: n.bankId,
             bankName: n.bankName,
             displayName: (i = n.name) != null ? i : "",
-            onClose: function () {
-              o("WAWebModalManager").ModalManager.close();
-            },
+            onClose: o("WAWebModalManager").closeModalManager,
             onOpenForm: function () {
               (o("WAWebModalManager").ModalManager.close(), l());
             },

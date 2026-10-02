@@ -7,6 +7,7 @@ __d(
     "WAWeb-dexie",
     "WAWebAppTracker",
     "WAWebDexieCastTypes",
+    "WAWebDexieObservability",
     "WAWebGlobals",
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
@@ -1363,6 +1364,7 @@ __d(
               chromeTransactionDurability: "relaxed",
               addons: [],
             })),
+            o("WAWebDexieObservability").dropDexieObservability(this.db),
             (this.packColumns = !!(t != null && t.packColumns)));
         }
         var t = e.prototype;

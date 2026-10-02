@@ -17,9 +17,8 @@ __d(
         e.__id != null || s(0, 56278);
         var t = o("WAWebInvocationId").extractInvocationId(e.__id);
         (t != null && Object.hasOwn(e, "__result")) || s(0, 56331);
-        var n = e,
-          r = n.__result;
-        return { result: r, invocationId: t };
+        var n = e.__result;
+        return { result: n, invocationId: t };
       }
     }
     ((l.buildResponsePayload = e), (l.unwrapResponsePayload = u));

@@ -318,14 +318,22 @@ __d(
             ? void 0
             : m.handleIncomingSignalingOffer(t, n, a, i, l, s, u, c, d, p);
         },
-        handleIncomingSignalingMessage: function (t, n, a, i, l, s, u, c) {
-          var e;
+        handleIncomingSignalingMessage: function (t) {
+          var e,
+            n = t.msgE,
+            a = t.msgOffline,
+            i = t.msgPlatform,
+            l = t.msgT,
+            s = t.msgVersion,
+            u = t.peerJid,
+            c = t.tcToken,
+            d = t.xmlNode;
           return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
             r("WAWebWindowsHybridBridgeInitiator")
               .WAWebVoipStackInterfaceWindows,
           )) == null || (e = e.voip) == null
             ? void 0
-            : e.handleIncomingSignalingMessage(t, n, a, i, l, s, u, c);
+            : e.handleIncomingSignalingMessage(d, i, s, n, l, a, u, c);
         },
         handleIncomingSignalingAck: function (t) {
           var e,

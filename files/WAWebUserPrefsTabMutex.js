@@ -15,7 +15,7 @@ __d(
       );
     }
     function u(t) {
-      var n = t && e + ":" + t;
+      var n = t != null && t !== "" ? e + ":" + t : t;
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.WHATSAPP_MUTEX,
         n,

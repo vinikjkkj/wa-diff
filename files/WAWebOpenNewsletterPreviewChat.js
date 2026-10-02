@@ -17,6 +17,7 @@ __d(
     "WAWebPDFNModal.react",
     "WAWebSideNavButtonsActivityModel",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -102,11 +103,11 @@ __d(
                 "WAWebNewsletterGatingUtils",
               ).isNewsletterOpenQPLImprovementsEnabled()
             ) {
-              var r;
+              var i;
               ((e = new (o(
                 "WAWebNewsletterOpenQPLLogger",
               ).WAWebNewsletterOpenQPLLogger)()),
-                (r = e) == null || r.annotate(n, t));
+                (i = e) == null || i.annotate(n, t));
             } else e = m;
             (o(
               "WAWebSideNavButtonsActivityModel",
@@ -125,7 +126,8 @@ __d(
                 })
                 .catch(function (t) {
                   var n;
-                  ((n = e) == null || n.end({ success: !1 }), a && a(t));
+                  ((n = e) == null || n.end({ success: !1 }),
+                    a && a(r("getErrorSafe")(t)));
                 }));
           },
         }),

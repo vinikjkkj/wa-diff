@@ -20,26 +20,30 @@ __d(
           (t.setOrderingMode = function (t) {
             this.$7 = t;
           }),
-          (t.observe = function (t, n, r, o) {
-            var e = this.$8(t);
-            if (r)
+          (t.observe = function (t) {
+            var e = t.isKeyFrame,
+              n = t.nowMs,
+              r = t.rtpTimestamp,
+              o = t.source,
+              a = this.$8(o);
+            if (e)
               return (
-                this.$9(e, o),
-                (e.lastRtpTimestamp = n),
+                this.$9(a, n),
+                (a.lastRtpTimestamp = r),
                 { outOfOrder: !1, episodeStarted: !1 }
               );
-            var a = e.lastRtpTimestamp;
-            if (a == null || u(n, a) > 0)
+            var i = a.lastRtpTimestamp;
+            if (i == null || u(r, i) > 0)
               return (
-                (e.lastRtpTimestamp = n),
+                (a.lastRtpTimestamp = r),
                 { outOfOrder: !1, episodeStarted: !1 }
               );
             this.$2++;
-            var i = !1;
+            var l = !1;
             return (
-              e.brokenSinceMs == null &&
-                ((e.brokenSinceMs = o), this.$3++, (i = !0)),
-              { outOfOrder: !0, episodeStarted: i }
+              a.brokenSinceMs == null &&
+                ((a.brokenSinceMs = n), this.$3++, (l = !0)),
+              { outOfOrder: !0, episodeStarted: l }
             );
           }),
           (t.markRendered = function (t, n) {

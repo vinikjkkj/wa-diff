@@ -1,6 +1,7 @@
 __d(
   "WAWebMmSignalSharingModelUtils",
   [
+    "WAWebABProps",
     "WAWebHandleMsgTypes.flow",
     "WAWebMmSignalSharingContextInfo",
     "WAWebMmSignalSharingExpirationWindowUtils",
@@ -28,9 +29,9 @@ __d(
             o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook &&
             o("WAWebMsgGetters").getIsMarketingTemplateTag(t)) ||
             (u(t) === !0 &&
-              o(
-                "WAWebMmSignalSharingGatingUtils",
-              ).isMmSignalSharingDisclosureEnabledFromCompanionHistorySync())
+              o("WAWebABProps").getABPropConfigValue(
+                "mm_data_sharing_disclosure_enabled_companion_history_sync",
+              ))
         : !1;
     }
     function u(t) {

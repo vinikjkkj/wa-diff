@@ -41,21 +41,25 @@ __d(
         s.get(n) === t && s.delete(n);
       }
     }
-    function p(e, t, n, r) {
-      var a,
-        i = c(e);
+    function p(e) {
+      var t,
+        n = e.existingCallOutcome,
+        r = e.expectedPendingOutcome,
+        a = e.msgKey,
+        i = e.requestedCallOutcome,
+        l = c(a);
       if (r != null) {
-        if (i !== r) return { type: "skip", reason: "consumed" };
+        if (l !== r) return { type: "skip", reason: "consumed" };
         if (
-          t !== o("WAWebCallLogMsgData.flow").CallOutcome.Missed &&
-          t !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
+          n !== o("WAWebCallLogMsgData.flow").CallOutcome.Missed &&
+          n !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
         )
-          return (m(e, r), { type: "skip", reason: "terminal" });
+          return (m(a, r), { type: "skip", reason: "terminal" });
       }
       return {
         type: "apply",
-        callOutcome: (a = r == null ? void 0 : r.callOutcome) != null ? a : n,
-        pendingOutcome: i,
+        callOutcome: (t = r == null ? void 0 : r.callOutcome) != null ? t : i,
+        pendingOutcome: l,
       };
     }
     function _() {

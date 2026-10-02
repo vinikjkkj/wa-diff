@@ -621,65 +621,70 @@ __d(
         X.apply(this, arguments)
       );
     }
-    function Y(e, t, n, r, o, a, i) {
+    function Y(e) {
       return J.apply(this, arguments);
     }
     function J() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s, u) {
-            if (
-              u &&
-              o("WAWebVoipGatingUtils").isGroupCallMessage(e) &&
-              !o("WAWebVoipGatingUtils").isGroupCallingEnabled()
-            ) {
-              var c,
-                d =
-                  e.group_jid != null
-                    ? { isGroup: !0, groupJid: e.group_jid }
-                    : { isGroup: !0, groupJid: null };
-              return (
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "generateCallLogOfferNotice",
-                  babelHelpers.extends(
-                    {
-                      callCreatorWid: e.call_creator,
-                      offerTime: e.t,
-                      isVideo: (c = e.isVideoCall) != null ? c : !1,
-                      callId: e.call_id,
-                      isOffline: e.is_offline,
-                      callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
-                        .Missed,
-                    },
-                    d,
-                  ),
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.canUseVoipStack,
+            a = e.from,
+            i = e.message,
+            l = e.node,
+            s = e.payloadTag,
+            u = e.stanzaId,
+            c = e.voipNode;
+          if (
+            t &&
+            o("WAWebVoipGatingUtils").isGroupCallMessage(i) &&
+            !o("WAWebVoipGatingUtils").isGroupCallingEnabled()
+          ) {
+            var d,
+              m =
+                i.group_jid != null
+                  ? { isGroup: !0, groupJid: i.group_jid }
+                  : { isGroup: !0, groupJid: null };
+            return (
+              o("WAWebBackendApi").frontendFireAndForget(
+                "generateCallLogOfferNotice",
+                babelHelpers.extends(
+                  {
+                    callCreatorWid: i.call_creator,
+                    offerTime: i.t,
+                    isVideo: (d = i.isVideoCall) != null ? d : !1,
+                    callId: i.call_id,
+                    isOffline: i.is_offline,
+                    callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
+                      .Missed,
+                  },
+                  m,
                 ),
-                (x || (x = n("Promise"))).resolve("NO_ACK")
+              ),
+              (x || (x = n("Promise"))).resolve("NO_ACK")
+            );
+          }
+          if (z(i.type)) return Q(i, a, u, c, t);
+          switch (i.type) {
+            case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:
+              return r("WAWebEnvironment").isWindows &&
+                !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+                ? (o("WALogger").ERROR(
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                        "handleVoipIncomingSignalingMessage: offer notice unsupported on win",
+                      ])),
+                  ),
+                  (x || (x = n("Promise"))).resolve("NO_ACK"))
+                : r("WAWebHandleVoipOfferNotice")(l);
+            default:
+              return (
+                yield o(
+                  "WAWebVoipHandleIncomingSignalingMessage",
+                ).handleVoipIncomingSignalingMessage(i, c, t),
+                ne({ ackString: s, from: a, stanzaId: u })
               );
-            }
-            if (z(e.type)) return Q(e, t, a, i, u);
-            switch (e.type) {
-              case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:
-                return r("WAWebEnvironment").isWindows &&
-                  !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
-                  ? (o("WALogger").ERROR(
-                      k ||
-                        (k = babelHelpers.taggedTemplateLiteralLoose([
-                          "handleVoipIncomingSignalingMessage: offer notice unsupported on win",
-                        ])),
-                    ),
-                    (x || (x = n("Promise"))).resolve("NO_ACK"))
-                  : r("WAWebHandleVoipOfferNotice")(s);
-              default:
-                return (
-                  yield o(
-                    "WAWebVoipHandleIncomingSignalingMessage",
-                  ).handleVoipIncomingSignalingMessage(e, i, u),
-                  ne({ ackString: l, from: t, stanzaId: a })
-                );
-            }
-          },
-        )),
+          }
+        })),
         J.apply(this, arguments)
       );
     }
@@ -763,7 +768,15 @@ __d(
                 l,
               ),
               "NO_ACK")
-            : Y(i, a, u, c, l, e, d === "available");
+            : Y({
+                canUseVoipStack: d === "available",
+                from: a,
+                message: i,
+                node: e,
+                payloadTag: l,
+                stanzaId: u,
+                voipNode: c,
+              });
         })),
         ee.apply(this, arguments)
       );

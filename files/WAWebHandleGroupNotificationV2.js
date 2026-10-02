@@ -175,9 +175,9 @@ __d(
                         action: r,
                       }))
                     ) {
-                      o("WAWebGroupDatabaseJob").markGroupParticipantStaleJob(
-                        e.chatId,
-                      );
+                      yield o(
+                        "WAWebGroupDatabaseJob",
+                      ).markGroupParticipantStaleJob(e.chatId);
                       return;
                     }
                     yield o(

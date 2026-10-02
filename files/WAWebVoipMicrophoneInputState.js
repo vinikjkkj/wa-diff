@@ -274,7 +274,7 @@ __d(
       var o = t >= s ? e.consecutiveCredibleWindows + 1 : 0,
         a = o >= u,
         i = h(t, e.smoothedLevel),
-        l = H(r, a, i, n);
+        l = H({ hasCredibleSignal: a, now: n, smoothedLevel: i, snapshot: r });
       return {
         consecutiveCredibleWindows: o,
         lastLevelAt: n,
@@ -282,17 +282,21 @@ __d(
         snapshot: j(r, l) ? r : l,
       };
     }
-    function H(e, t, n, r) {
-      var o = t && e.status === "unavailable",
-        a = e.status === "unavailable" && !o;
-      return babelHelpers.extends({}, e, {
-        status: o ? "active" : e.status,
-        failureReason: o ? null : e.failureReason,
-        level: a ? 0 : G(n),
+    function H(e) {
+      var t = e.hasCredibleSignal,
+        n = e.now,
+        r = e.smoothedLevel,
+        o = e.snapshot,
+        a = t && o.status === "unavailable",
+        i = o.status === "unavailable" && !a;
+      return babelHelpers.extends({}, o, {
+        status: a ? "active" : o.status,
+        failureReason: a ? null : o.failureReason,
+        level: i ? 0 : G(r),
         isLevelStale: !1,
-        levelFreshSinceAt: e.isLevelStale ? r : e.levelFreshSinceAt,
+        levelFreshSinceAt: o.isLevelStale ? n : o.levelFreshSinceAt,
         hasCredibleSignal: t,
-        lastCredibleSignalAt: z(e.lastCredibleSignalAt, t, r),
+        lastCredibleSignalAt: z(o.lastCredibleSignalAt, t, n),
       });
     }
     function G(e) {

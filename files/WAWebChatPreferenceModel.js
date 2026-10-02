@@ -8,7 +8,9 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = "defaultPreference",
-      s = (function (e) {
+      s = "comfortable",
+      u = !0,
+      c = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -23,6 +25,8 @@ __d(
             (t.enterIsSend = o("WAWebBaseModel").prop()),
             (t.autoplayAnimatedImages = o("WAWebBaseModel").prop()),
             (t.hdMediaEnabled = o("WAWebBaseModel").prop()),
+            (t.chatlistDensity = o("WAWebBaseModel").prop()),
+            (t.chatlistShowParentName = o("WAWebBaseModel").prop()),
             (t.chatThemeId = o("WAWebBaseModel").prop()),
             (t.colorSchemeId = o("WAWebBaseModel").prop()),
             (t.stockWallpaperImageId = o("WAWebBaseModel").prop()),
@@ -47,11 +51,14 @@ __d(
           t
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((s.Proxy = "chatPreference"),
-      (s.idClass = r("WAWebWid")),
-      (s.allowedIds = [e]));
-    var u = o("WAWebBaseModel").defineModel(s);
-    ((l.DEFAULT_PREFERENCE = e), (l.ChatPreference = u));
+    ((c.Proxy = "chatPreference"),
+      (c.idClass = r("WAWebWid")),
+      (c.allowedIds = [e]));
+    var d = o("WAWebBaseModel").defineModel(c);
+    ((l.DEFAULT_PREFERENCE = e),
+      (l.DEFAULT_CHATLIST_DENSITY = s),
+      (l.DEFAULT_CHATLIST_SHOW_PARENT_NAME = u),
+      (l.ChatPreference = d));
   },
   98,
 );

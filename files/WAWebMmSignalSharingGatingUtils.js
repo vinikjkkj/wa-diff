@@ -21,37 +21,32 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "mm_data_sharing_disclosure_enabled_companion_history_sync",
-      );
-    }
-    function p() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "data_sharing_transparency_indicator_duration",
           )
         : 0;
     }
-    function _() {
+    function p() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue("ctwa_tos_filtering_enabled")
         : !1;
     }
-    function f() {
+    function _() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "disclosure_for_the_marketing_message_body_links_enabled",
           )
         : !1;
     }
-    function g() {
+    function f() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "optimized_delivery_signal_collection_enabled",
           )
         : !1;
     }
-    function h() {
+    function g() {
       var t = {
         store_consented_token_enabled: !1,
         store_non_consented_token_enabled: !1,
@@ -82,14 +77,14 @@ __d(
         );
       }
     }
-    function y() {
+    function h() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "optimized_delivery_multiple_collection_windows_enabled",
           )
         : !1;
     }
-    function C() {
+    function y() {
       var e = 168,
         t = Object.keys(o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE).map(
           function (e) {
@@ -123,19 +118,19 @@ __d(
         );
       }
     }
-    function b() {
+    function C() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_signal_sharing_verification_system_lid_enabled",
           )
         : !1;
     }
-    function v(e) {
+    function b(e) {
       return e == null || !r("WAWebWid").isRegularUserNoImply(e)
         ? !1
-        : c() && g();
+        : c() && f();
     }
-    function S() {
+    function v() {
       var e = Object.values(
         o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT,
       ).map(Number);
@@ -164,9 +159,9 @@ __d(
         );
       }
     }
-    function R() {
+    function S() {
       var e = 0xefe90a1c4672;
-      if (!E()) return e;
+      if (!L()) return e;
       var t = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "mm_disclosure_learn_more_article_id",
@@ -175,83 +170,82 @@ __d(
       );
       return Number.isNaN(t) ? e : t;
     }
-    function L() {
+    function R() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_signal_sharing_verification_new_signal_type_origin",
           )
         : !1;
     }
-    function E() {
+    function L() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue("cci_compliance_mm")
         : !1;
     }
-    function k() {
+    function E() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_data_sharing_disclosure_enabled_additional_transparency_large_screens",
           )
         : !1;
     }
-    function I() {
+    function k() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_optimized_delivery_replacing_shimmed_links_enabled",
           )
         : !1;
     }
-    function T() {
+    function I() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_optimized_delivery_app_cta_enabled",
           )
         : !1;
     }
-    function D() {
+    function T() {
       return c()
         ? o("WAWebABProps").getABPropConfigValue(
             "mm_1pd_post_dc_new_schema_enabled",
           )
         : !1;
     }
-    function x() {
+    function D() {
       return c()
         ? !o("WAWebABProps").getABPropConfigValue(
             "mm_1pd_post_dc_old_schema_disabled",
           )
         : !1;
     }
-    function $(e, t) {
-      var n = C(),
+    function x(e, t) {
+      var n = y(),
         r = n.consented_types_allowlist,
         o = n.non_consented_types_allowlist;
       return t ? r.includes(e) : o.includes(e);
     }
     ((l.isMmSignalSharingDisclosureEnabled = c),
       (l.isMmSignalSharingContextInfoMaxArrayLengthCapEnabled = d),
-      (l.isMmSignalSharingDisclosureEnabledFromCompanionHistorySync = m),
-      (l.getMmSignalSharingCollectionWindow = p),
-      (l.getMmSignalSharingTosFiltering = _),
-      (l.isMmSignalSharingDisclosureForMarketingMessageBodyLinksEnabled = f),
-      (l.getMmSignalSharingOptimizedDeliverySignalCollectionEnabled = g),
-      (l.getMmSignalSharingOptimizedDeliveryTokensStorageConfig = h),
+      (l.getMmSignalSharingCollectionWindow = m),
+      (l.getMmSignalSharingTosFiltering = p),
+      (l.isMmSignalSharingDisclosureForMarketingMessageBodyLinksEnabled = _),
+      (l.getMmSignalSharingOptimizedDeliverySignalCollectionEnabled = f),
+      (l.getMmSignalSharingOptimizedDeliveryTokensStorageConfig = g),
       (l.isMmSignalSharingOptimizedDeliveryMultipleCollectionWindowsEnabled =
-        y),
-      (l.getMmSignalSharingOptimizedDeliverySignalCollectionConfig = C),
-      (l.getMmSignalSharingVerificationSystemLidEnabled = b),
-      (l.isMmSignalSharingCollectionEnabled = v),
-      (l.getMmSignalSharingBlockAndReportEntryPointsAllowlist = S),
-      (l.getMmDisclosureLearnMoreArticleId = R),
-      (l.isMmSignalSharingVerificationNewSignalTypeOriginEnabled = L),
-      (l.isCCIComplianceEnabled = E),
+        h),
+      (l.getMmSignalSharingOptimizedDeliverySignalCollectionConfig = y),
+      (l.getMmSignalSharingVerificationSystemLidEnabled = C),
+      (l.isMmSignalSharingCollectionEnabled = b),
+      (l.getMmSignalSharingBlockAndReportEntryPointsAllowlist = v),
+      (l.getMmDisclosureLearnMoreArticleId = S),
+      (l.isMmSignalSharingVerificationNewSignalTypeOriginEnabled = R),
+      (l.isCCIComplianceEnabled = L),
       (l.isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens =
-        k),
-      (l.isMmSignalSharingReplacingShimmedLinksEnabled = I),
-      (l.isMmSignalSharingAppCtaEnabled = T),
-      (l.isMmSignalSharingPostDcNewSchemaEnabled = D),
-      (l.isMmSignalSharingPostDcOldSchemaEnabled = x),
-      (l.isSignalTypeAllowlisted = $));
+        E),
+      (l.isMmSignalSharingReplacingShimmedLinksEnabled = k),
+      (l.isMmSignalSharingAppCtaEnabled = I),
+      (l.isMmSignalSharingPostDcNewSchemaEnabled = T),
+      (l.isMmSignalSharingPostDcOldSchemaEnabled = D),
+      (l.isSignalTypeAllowlisted = x));
   },
   98,
 );

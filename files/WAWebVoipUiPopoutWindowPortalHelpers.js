@@ -61,13 +61,16 @@ __d(
       }
       return e;
     }
-    function k(e, t, n) {
+    function k(e) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          if (!o("WAWebUA").UA.isSafari || !n || !a) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.needsAudio,
+            a = t.needsVideo,
+            i = t.targetWindow;
+          if (!o("WAWebUA").UA.isSafari || !a || !n) {
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -77,23 +80,23 @@ __d(
                   "",
                 ])),
               String(o("WAWebUA").UA.isSafari),
-              String(n),
               String(a),
+              String(n),
             );
             return;
           }
           try {
-            var i,
-              l = (i = t.navigator) == null ? void 0 : i.mediaDevices;
-            if (l == null) return;
+            var l,
+              d = (l = i.navigator) == null ? void 0 : l.mediaDevices;
+            if (d == null) return;
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip][popout] priming Safari cam+mic perm",
                 ])),
             );
-            var d = yield l.getUserMedia({ audio: !0, video: !0 });
-            (d.getTracks().forEach(function (e) {
+            var m = yield d.getUserMedia({ audio: !0, video: !0 });
+            (m.getTracks().forEach(function (e) {
               e.stop();
             }),
               o("WALogger").LOG(

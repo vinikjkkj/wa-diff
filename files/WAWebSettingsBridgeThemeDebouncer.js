@@ -162,7 +162,16 @@ __d(
     }
     function k(e) {
       var t = r("WAWebChatPreferenceCollection").getDefault();
-      P(e) && t.set("chatThemeValue", N(t.chatThemeValue, null, e, !1));
+      P(e) &&
+        t.set(
+          "chatThemeValue",
+          N({
+            buffer: e,
+            canInheritTheme: !1,
+            current: t.chatThemeValue,
+            currentWallpaper: null,
+          }),
+        );
       var n = e.wallpaperRepresentation;
       if (n != null && n.kind === "solid") {
         (e.doodle != null &&
@@ -324,19 +333,23 @@ __d(
     function P(e) {
       return e.chatThemeId != null || e.colorSchemeId != null;
     }
-    function N(e, t, n, r) {
-      var a = F(n.chatThemeId, e == null ? void 0 : e.chatThemeId),
-        i = F(n.colorSchemeId, e == null ? void 0 : e.colorSchemeId),
-        l = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
-          { chatThemeId: a, colorSchemeId: i },
-          e,
+    function N(e) {
+      var t = e.buffer,
+        n = e.canInheritTheme,
+        r = e.current,
+        a = e.currentWallpaper,
+        i = F(t.chatThemeId, r == null ? void 0 : r.chatThemeId),
+        l = F(t.colorSchemeId, r == null ? void 0 : r.colorSchemeId),
+        s = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
+          { chatThemeId: i, colorSchemeId: l },
+          r,
         );
       return (
-        O("chatThemeId", n.chatThemeId, l.chatThemeId),
-        O("colorSchemeId", n.colorSchemeId, l.colorSchemeId),
-        r && w(e, t, n, l)
-          ? babelHelpers.extends({}, l, { inheritsTheme: !0 })
-          : l
+        O("chatThemeId", t.chatThemeId, s.chatThemeId),
+        O("colorSchemeId", t.colorSchemeId, s.colorSchemeId),
+        n && w(r, a, t, s)
+          ? babelHelpers.extends({}, s, { inheritsTheme: !0 })
+          : s
       );
     }
     function M(e, t) {
@@ -351,7 +364,12 @@ __d(
           ? { write: !0, value: A(e.chatThemeValue) }
           : { write: !1 };
       }
-      var a = N(e.chatThemeValue, e.wallpaperValue, t, !0);
+      var a = N({
+        buffer: t,
+        canInheritTheme: !0,
+        current: e.chatThemeValue,
+        currentWallpaper: e.wallpaperValue,
+      });
       return { write: !0, value: r ? A(a) : a };
     }
     function w(e, t, n, r) {

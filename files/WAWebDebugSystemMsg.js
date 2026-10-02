@@ -21,7 +21,7 @@ __d(
         kind: o("WAWebMsgType").MsgKind.Debug,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         from: e,
-        to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         body: t,
         caption: n,
       };

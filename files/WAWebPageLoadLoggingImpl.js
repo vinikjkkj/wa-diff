@@ -9,6 +9,7 @@ __d(
     "WAWebEncryptedRid",
     "WAWebEnvironment",
     "WAWebForceFlushWamBuffers",
+    "WAWebLoggedOutSeparationGating",
     "WAWebPageLoadLogging",
     "WAWebPageLoadTierStats",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -42,6 +43,11 @@ __d(
             ((p = o("WAWebQplFlowWrapper").QPL.markerStart(m, {
               annotations: {
                 bool: { wa_web_media_wasm_worker_split: r("gkx")("24042") },
+                string: {
+                  logged_out_separation: o(
+                    "WAWebLoggedOutSeparationGating",
+                  ).getLoggedOutSeparationExperiment(),
+                },
               },
               timestamp: 0,
             })),

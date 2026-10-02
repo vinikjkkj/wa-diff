@@ -49,22 +49,28 @@ __d(
             ? "bottom-left"
             : "bottom-right";
     }
-    function d(e, t, n, r, o, a) {
-      var i = t - r - a.right,
-        l = n - o - a.bottom,
-        s = Math.max(0, Math.min(a.top, n - o));
-      return e === "top-left"
-        ? { x: a.left, y: s }
-        : e === "top-right"
-          ? { x: i, y: s }
-          : e === "bottom-left"
-            ? { x: a.left, y: l }
-            : e === "bottom-right"
-              ? { x: i, y: l }
+    function d(e) {
+      var t = e.containerHeight,
+        n = e.containerWidth,
+        r = e.corner,
+        o = e.insets,
+        a = e.previewHeight,
+        i = e.previewWidth,
+        l = n - i - o.right,
+        s = t - a - o.bottom,
+        u = Math.max(0, Math.min(o.top, t - a));
+      return r === "top-left"
+        ? { x: o.left, y: u }
+        : r === "top-right"
+          ? { x: l, y: u }
+          : r === "bottom-left"
+            ? { x: o.left, y: s }
+            : r === "bottom-right"
+              ? { x: l, y: s }
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
+                      r,
                   );
                 })();
     }

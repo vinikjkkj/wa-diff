@@ -17,23 +17,26 @@ __d(
         stencil: !1,
         antialias: !1,
       };
-    function d(e, t, n) {
-      var o = e.createShader(t);
-      if (!o) throw r("err")("Failed to create enhancement shader");
+    function d(e) {
+      var t = e.gl,
+        n = e.source,
+        o = e.type,
+        a = t.createShader(o);
+      if (!a) throw r("err")("Failed to create enhancement shader");
       if (
-        (e.shaderSource(o, n),
-        e.compileShader(o),
-        !e.getShaderParameter(o, e.COMPILE_STATUS))
+        (t.shaderSource(a, n),
+        t.compileShader(a),
+        !t.getShaderParameter(a, t.COMPILE_STATUS))
       ) {
-        var a = e.getShaderInfoLog(o);
+        var i = t.getShaderInfoLog(a);
         throw (
-          e.deleteShader(o),
+          t.deleteShader(a),
           r("err")(
-            "Failed to compile enhancement shader: " + (a != null ? a : ""),
+            "Failed to compile enhancement shader: " + (i != null ? i : ""),
           )
         );
       }
-      return o;
+      return a;
     }
     var m = (function () {
       function t() {
@@ -50,8 +53,8 @@ __d(
           if (((a = n.createProgram()), !a))
             throw r("err")("Failed to create enhancement program");
           if (
-            ((i = d(n, n.VERTEX_SHADER, s)),
-            (l = d(n, n.FRAGMENT_SHADER, u)),
+            ((i = d({ gl: n, source: s, type: n.VERTEX_SHADER })),
+            (l = d({ gl: n, source: u, type: n.FRAGMENT_SHADER })),
             n.attachShader(a, i),
             n.attachShader(a, l),
             n.linkProgram(a),

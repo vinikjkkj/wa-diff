@@ -53,10 +53,7 @@ __d(
                   participants_phash: r,
                 },
                 n = o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
-                  ? yield o("WAWebMexClient").fetchQuery(
-                      f,
-                      babelHelpers.extends({}, e, { include_acp2: !0 }),
-                    )
+                  ? yield o("WAWebMexClient").fetchQuery(f, e)
                   : yield o("WAWebMexClient").fetchQuery(_, e);
               return (
                 o("WALogger")

@@ -1600,7 +1600,12 @@ __d(
             }
         }),
         (t.$18 = function (t, n, r) {
-          this.$25(t, n, r, "replacement");
+          this.$25({
+            audioContext: t,
+            audioStream: r,
+            logContext: "replacement",
+            mediaStreamSource: n,
+          });
         }),
         (t.$26 = function (t, n) {
           return (
@@ -1609,14 +1614,18 @@ __d(
             !1
           );
         }),
-        (t.$25 = function (t, n, r, a) {
-          (this.$22(n),
-            this.$23(r),
-            r != null &&
-              (at(r)
-                ? o("WAWebVoipMicStreamBackstop").trackMicStream(r)
-                : o("WAWebVoipMicStreamBackstop").untrackMicStream(r)),
-            this.$24(t, a));
+        (t.$25 = function (t) {
+          var e = t.audioContext,
+            n = t.audioStream,
+            r = t.logContext,
+            a = t.mediaStreamSource;
+          (this.$22(a),
+            this.$23(n),
+            n != null &&
+              (at(n)
+                ? o("WAWebVoipMicStreamBackstop").trackMicStream(n)
+                : o("WAWebVoipMicStreamBackstop").untrackMicStream(n)),
+            this.$24(e, r));
         }),
         (t.$27 = function () {
           return {
@@ -1685,12 +1694,12 @@ __d(
             return (
               this.$8(!1),
               yield this.$31(),
-              this.$25(
-                t.audioContext,
-                t.mediaStreamSource,
-                t.audioStream,
-                "old",
-              ),
+              this.$25({
+                audioContext: t.audioContext,
+                audioStream: t.audioStream,
+                logContext: "old",
+                mediaStreamSource: t.mediaStreamSource,
+              }),
               this.$28(t),
               yield new (Je || (Je = n("Promise")))(function (e) {
                 return window.setTimeout(e, 200);
@@ -1930,7 +1939,12 @@ __d(
                   n)
                 )
                   try {
-                    this.$25(d, m, p, "old");
+                    this.$25({
+                      audioContext: d,
+                      audioStream: p,
+                      logContext: "old",
+                      mediaStreamSource: m,
+                    });
                   } catch (e) {
                     o("WALogger").WARN(
                       ze ||

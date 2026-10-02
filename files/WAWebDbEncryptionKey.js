@@ -10,6 +10,7 @@ __d(
     "WAWeb-dexie",
     "WAWebDbErrors",
     "WAWebDexieCastTypes",
+    "WAWebDexieObservability",
     "WAWebPageLoadLogging",
     "asyncToGeneratorRuntime",
     "err",
@@ -275,6 +276,7 @@ __d(
               chromeTransactionDurability: "relaxed",
               addons: [],
             })),
+              o("WAWebDexieObservability").dropDexieObservability(this.$1),
               this.$13()
                 .version(1)
                 .stores(

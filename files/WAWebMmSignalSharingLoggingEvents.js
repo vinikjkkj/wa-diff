@@ -693,19 +693,30 @@ __d(
         r = e.messageOriginGroupsCount,
         o = e.source,
         a = u[String(r)];
-      return a ? $(a, t, n, o) : null;
+      return a
+        ? $({
+            isContinuation: t,
+            isNewMessagefromMe: n,
+            signalConfig: a,
+            source: o,
+          })
+        : null;
     }
-    function $(e, t, n, r) {
-      var o,
-        a,
-        i = n ? e.fromUser : e.fromBusiness;
-      return t
-        ? (o = i(r)) == null
+    function $(e) {
+      var t,
+        n,
+        r = e.isContinuation,
+        o = e.isNewMessagefromMe,
+        a = e.signalConfig,
+        i = e.source,
+        l = o ? a.fromUser : a.fromBusiness;
+      return r
+        ? (t = l(i)) == null
           ? void 0
-          : o[1]
-        : (a = i(r)) == null
+          : t[1]
+        : (n = l(i)) == null
           ? void 0
-          : a[0];
+          : n[0];
     }
     function P(e) {
       var t,
