@@ -502,6 +502,7 @@ __d(
       payments_br_payment_links_buyer_logging: [27027, "bool", !1, !0],
       payments_br_pix_on_web: [16156, "bool", !1, !1],
       pending_group_requests_persistent_banner: [20545, "bool", !1, !0],
+      pibx_max_fave_chats_in_imp_list: [38169, "int", 0, 0],
       pibx_vip_max_fave_list_len: [38109, "int", 20, 20],
       poll_add_option_creator_enabled: [35771, "bool", !1, !1],
       poll_add_option_enabled: [24517, "bool", !1, !1],

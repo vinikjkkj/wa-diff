@@ -64,7 +64,8 @@ __d(
           }),
           (r.pausedExpiryCheckpoint = function (n) {
             var t = this;
-            self.clearTimeout(this._fakePausedCompletionTimeout);
+            this._fakePausedCompletionTimeout != null &&
+              self.clearTimeout(this._fakePausedCompletionTimeout);
             var r = this.remainingPausedSeconds;
             if (r != null) {
               var a = r - n;

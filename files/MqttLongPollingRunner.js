@@ -167,15 +167,18 @@ __d(
             return this.$24(t, n);
           }),
           (a.$24 = function (r, a) {
-            return o("MqttEnv").Env.genGk(
-              o("MqttEnv").MqttGkNames.mqtt_enable_publish_over_polling,
-            ) &&
-              this.$14 &&
-              this.$14.isTopicSupported(r)
-              ? typeof a == "string"
-                ? this.$14.publish(r, a)
-                : this.$14.publishBinary(r, a)
-              : (e || (e = n("Promise"))).reject();
+            if (
+              o("MqttEnv").Env.genGk(
+                o("MqttEnv").MqttGkNames.mqtt_enable_publish_over_polling,
+              )
+            ) {
+              var t = this.$14;
+              if (t && t.isTopicSupported(r))
+                return typeof a == "string"
+                  ? t.publish(r, a)
+                  : t.publishBinary(r, a);
+            }
+            return (e || (e = n("Promise"))).reject();
           }),
           (a.onConnectAttempt = function () {}),
           (a.onConnectFailure = function () {

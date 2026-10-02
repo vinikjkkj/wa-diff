@@ -530,7 +530,7 @@ __d(
                         (r("DTSGParser").updateFromAsyncResponse(e),
                           (i = r("RelayGraphQLRequestUtils").parsePayload(e)));
                       } catch (e) {
-                        return d.error(e);
+                        return d.error(r("getErrorSafe")(e));
                       }
                       if (!i)
                         return d.error(

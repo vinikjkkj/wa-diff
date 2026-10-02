@@ -150,7 +150,7 @@ __d(
             : s._(/*BTDS*/ "Product");
         }
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
-          return o("WAWebFormatOversizedMsg").formatOversizedMsgText(l);
+          return o("WAWebFormatOversizedMsg").formatOversizedMsgText();
         case o("WAWebMsgType").MSG_TYPE.INTERACTIVE: {
           var T = l;
           return o("WAWebBizFormatInteractiveMsg").formatInteractive(T, {

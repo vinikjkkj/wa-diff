@@ -41,6 +41,7 @@ __d(
             (e.hcaEntrypointId = o("WAWebBaseModel").prop()),
             (e.groupTosRequirements = o("WAWebBaseModel").prop()),
             (e.isDeleted = o("WAWebBaseModel").prop()),
+            (e.fetchPauseUntilMs = o("WAWebBaseModel").prop()),
             (e.lastFetchedTimeMs = o("WAWebBaseModel").prop()),
             (e.contact = o("WAWebBaseModel").session()),
             babelHelpers.assertThisInitialized(e) ||

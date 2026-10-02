@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebContactGetters",
-    "WAWebContactManagerContactName",
     "WAWebCustomerContactResolver",
+    "WAWebCustomerManagerContactName",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
@@ -80,13 +80,13 @@ __d(
         n = o("WAWebFrontendContactGetters").getFormattedUserAndType(e),
         r = n.displayName,
         a = n.type;
-      return (t = o("WAWebContactManagerContactName").resolveContactManagerName(
-        {
-          displayName: r,
-          notifyName: o("WAWebContactGetters").getNotifyName(e),
-          type: a,
-        },
-      )) != null
+      return (t = o(
+        "WAWebCustomerManagerContactName",
+      ).resolveCustomerManagerName({
+        displayName: r,
+        notifyName: o("WAWebContactGetters").getNotifyName(e),
+        type: a,
+      })) != null
         ? t
         : r;
     }

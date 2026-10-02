@@ -4,12 +4,16 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [{ defaultValue: null, kind: "LocalArgument", name: "botFbid" }],
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "botFbid" },
+          { defaultValue: null, kind: "LocalArgument", name: "groupJid" },
+        ],
         t = [
           {
             alias: null,
             args: [
               { kind: "Variable", name: "bot_fbid", variableName: "botFbid" },
+              { kind: "Variable", name: "group_jid", variableName: "groupJid" },
             ],
             concreteType: "WASSProfile",
             kind: "LinkedField",
@@ -123,7 +127,7 @@ __d(
           selections: t,
         },
         params: {
-          id: "28560677563625703",
+          id: "38799514653026858",
           metadata: {},
           name: "WAWebFetchWassBotProfileGQLQuery",
           operationKind: "query",

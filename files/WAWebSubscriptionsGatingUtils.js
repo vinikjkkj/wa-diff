@@ -1,6 +1,11 @@
 __d(
   "WAWebSubscriptionsGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms", "WAWebPrimaryFeatures"],
+  [
+    "WAWebABProps",
+    "WAWebMetaOneGating",
+    "WAWebMobilePlatforms",
+    "WAWebPrimaryFeatures",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -9,7 +14,12 @@ __d(
       );
     }
     function s() {
-      return u() || e();
+      return (
+        u() ||
+        e() ||
+        (o("WAWebMobilePlatforms").isSMB() &&
+          o("WAWebMetaOneGating").isMetaOneRolloutEnabled())
+      );
     }
     function u() {
       return o("WAWebMobilePlatforms").isSMB()

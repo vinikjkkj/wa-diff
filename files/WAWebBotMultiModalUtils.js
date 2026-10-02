@@ -4,7 +4,7 @@ __d(
     "WAWebBotGating",
     "WAWebBotMultiModalToasts",
     "WAWebFileUtils",
-    "WAWebMediaGatingUtils",
+    "WAWebResolveSupportedMediaTypes",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -124,11 +124,9 @@ __d(
     }
     function h(e, t, n) {
       var r = o("WAWebFileUtils").typeFromMimetype(e[0].file.type),
-        a = o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
-          e.length,
-          t,
-          r,
-        );
+        a = o(
+          "WAWebResolveSupportedMediaTypes",
+        ).resolveMaxNumberSelectableMedia(e.length, t, r);
       return e.length <= a
         ? e
         : (r === o("WAWebFileUtils").FILETYPE.IMAGE ||

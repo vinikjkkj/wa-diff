@@ -70,15 +70,15 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
-          var t = yield h(e);
+          var t = yield C(e);
           if (t == null) return [];
-          var n = t.some(g),
+          var n = t.some(y),
             r = n && o("WAWebBotTos").hasAcceptedMuseGroupTos();
           return (
             o("WAWebBotTos").registerBotTosRequirements(
               t.flatMap(function (e) {
                 var t;
-                return e == null || g(e)
+                return e == null || y(e)
                   ? []
                   : (t = e.groupTosRequirements) != null
                     ? t
@@ -87,7 +87,7 @@ __d(
             ),
             e.filter(function (e, n) {
               var a = t[n];
-              if (a == null || g(a)) return r;
+              if (a == null || y(a)) return r;
               var i = a.groupTosRequirements;
               return i == null || o("WAWebBotTos").hasAcceptedBlockingBotTos(i);
             })
@@ -102,6 +102,19 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return !1;
+          var t = yield C(e);
+          return t != null && t.some(y);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
             !e.isBot()
@@ -113,7 +126,7 @@ __d(
               babelHelpers.extends({}, t, { isSynced: !1 }),
               o("WAWebBotGroupGatingUtils").BotGroupContext.GROUP,
             );
-          var n = yield h([e]);
+          var n = yield C([e]);
           if (n == null) return !1;
           var r = n[0];
           return r == null
@@ -128,21 +141,21 @@ __d(
                 o("WAWebBotGroupGatingUtils").BotGroupContext.GROUP,
               );
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e) {
+    function y(e) {
       return (
         (e == null ? void 0 : e.product) == null ||
         o("WAWebBotProduct").usesMuseGroupTosNotice(e.product)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             return yield o("WAWebSchemaBotProfile")
               .getBotProfileTable()
@@ -166,13 +179,14 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.resolveGroupAgentParticipants = s),
       (l.resolveGroupAgentFanoutForGroupSend = c),
       (l.resolveGroupAgentFanoutParticipants = m),
-      (l.isGroupAgentProfile = _));
+      (l.hasMuseNoticeGroupAgent = _),
+      (l.isGroupAgentProfile = g));
   },
   98,
 );

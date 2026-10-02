@@ -20,7 +20,7 @@ __d(
         o("WAWebGetInteractiveFooterText").getInteractiveFooterText(e) != null
       )
         return !1;
-      var i = o("WAWebFrontendMsgGetters").getText(e),
+      var i = o("WAWebFrontendMsgGetters").getText(e.unsafe()),
         l = !r("isStringNullOrEmpty")(i) && i !== t.fallback;
       return !l;
     }

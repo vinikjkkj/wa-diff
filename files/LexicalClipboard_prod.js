@@ -429,7 +429,7 @@ __d(
         var o;
       })(r);
       if (null === i) return !1;
-      var s = (function (t, n) {
+      var c = (function (t, n) {
         var o = l(t.clientX, t.clientY, n.getRootElement());
         if (null === o) return null;
         var r = require("Lexical").$getNearestNodeFromDOMNode(o.node);
@@ -447,11 +447,11 @@ __d(
               "next",
             );
       })(t, n);
-      if (null === s) return !1;
-      var c = i.editorKey === n.getKey(),
-        a = require("Lexical").$getSelection();
-      if (c) {
-        if (!require("Lexical").$isRangeSelection(a) || a.isCollapsed())
+      if (null === c) return !1;
+      var a = i.editorKey === n.getKey(),
+        u = require("Lexical").$getSelection();
+      if (a) {
+        if (!require("Lexical").$isRangeSelection(u) || u.isCollapsed())
           return !1;
         if (
           (function (t, n) {
@@ -467,33 +467,28 @@ __d(
               require("Lexical").$comparePointCaretNext(h(o), i) <= 0 &&
               require("Lexical").$comparePointCaretNext(i, h(r)) <= 0
             );
-          })(s, a)
+          })(c, u)
         )
           return (t.preventDefault(), !0);
       }
-      var u = require("Lexical").$normalizeCaret(s),
-        f = require("Lexical").$isTextPointCaret(u)
-          ? require("Lexical").$splitAtPointCaretNext(u)
-          : u;
-      if (null === f) return !1;
-      var p = f.getFlipped();
-      c && require("Lexical").$isRangeSelection(a) && a.removeText();
-      var d = f.origin.isAttached() ? f : p;
+      var f = require("Lexical").$normalizeCaret(c),
+        p = require("Lexical").$isTextPointCaret(f)
+          ? require("Lexical").$splitAtPointCaretNext(f)
+          : f;
+      if (null === p) return !1;
+      var d = p.getFlipped();
+      a && require("Lexical").$isRangeSelection(u) && u.removeText();
+      var g = p.origin.isAttached() ? p : d;
       if (
-        (d.origin.isAttached() ||
-          (function () {
-            throw new Error(
-              "$doDrop: drop position was removed by source deletion",
-            );
-          })(),
+        (g.origin.isAttached() || s(438),
         o(
           r,
           require("Lexical").$setSelectionFromCaretRange(
-            require("Lexical").$getCollapsedCaretRange(d),
+            require("Lexical").$getCollapsedCaretRange(g),
           ),
           n,
         ),
-        !c)
+        !a)
       ) {
         var _t5 = n.getRootElement(),
           _o7 = _t5 ? _t5.ownerDocument : null,
@@ -656,17 +651,17 @@ __d(
           !require("Lexical").isSelectionWithinEditor(t, _l3, _s2)
         )
           return !1;
-        o = O(_r8);
+        o = w(_r8);
       }
       n.preventDefault();
       var r = n.clipboardData;
       return null !== r && (F(r, o), !0);
     }
-    var w = [
+    var O = [
       ["text/html", $],
       ["application/x-lexical-editor", y],
     ];
-    function O(t) {
+    function w(t) {
       if (t === void 0) {
         t = require("Lexical").$getSelection();
       }
@@ -684,7 +679,7 @@ __d(
       })(I(), t);
     }
     function F(e, t) {
-      for (var _ref6 of w) {
+      for (var _ref6 of O) {
         var _n1 = _ref6[0];
         void 0 === t[_n1] && e.setData(_n1, "");
       }
@@ -760,7 +755,7 @@ __d(
     }),
       (exports.$generateJSONFromSelectedNodes = M),
       (exports.$generateNodesFromSerializedNodes = R),
-      (exports.$getClipboardDataFromSelection = O),
+      (exports.$getClipboardDataFromSelection = w),
       (exports.$getHtmlContent = $),
       (exports.$getLexicalContent = y),
       (exports.$handlePlainTextDrop = function (e, t) {

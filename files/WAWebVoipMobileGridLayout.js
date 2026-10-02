@@ -29,10 +29,7 @@ __d(
           ? (e - (u - 1) * n) / u
           : (e - u * n) / (u + d);
     }
-    ((i.MOBILE_GRID_COLUMNS = e),
-      (i.MOBILE_GRID_SINGLE_MAX = l),
-      (i.MOBILE_GRID_OVERFLOW_FIXED = s),
-      (i.MOBILE_SCROLL_WHOLE_TILES = u),
+    ((i.MOBILE_SCROLL_WHOLE_TILES = u),
       (i.MOBILE_SCROLL_VISIBLE_RATIO = c),
       (i.MOBILE_SCROLL_PEEK_FRACTION = d),
       (i.mobileGridShape = m),

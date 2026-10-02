@@ -140,13 +140,29 @@ __d(
         : r;
     }
     function y(e) {
-      return o("WAWebBotProfileCollection").BotProfileCollection.get(e) != null;
+      return e != null && (e.name != null || e.lastFetchedTimeMs != null);
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return y(
+            yield o("WAWebSchemaBotProfile")
+              .getBotProfileTable()
+              .get(e.toString()),
+          );
+        })),
+        b.apply(this, arguments)
+      );
     }
     ((l.persistBotProfiles = u),
       (l.setBotProfilePicUrls = d),
       (l.mergeBotSupportFields = p),
       (l.mergeBotSupportFieldsBatch = f),
-      (l.isBotProfileCached = y));
+      (l.isStoredBotProfile = y),
+      (l.hasStoredBotProfile = C));
   },
   98,
 );

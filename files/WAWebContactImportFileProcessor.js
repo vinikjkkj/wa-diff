@@ -135,58 +135,60 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e, t, n, r) {
+    function k(e, t, n, r, o) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield e.text(),
-              i = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(a),
-              l = i,
-              s = null;
+          function* (e, t, n, r, a) {
+            var i = yield e.text(),
+              l = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(i),
+              s = l,
+              u = null;
             if (n) {
-              var u =
+              var c =
                 r == null
-                  ? { result: i, separator: null }
+                  ? { result: l, separator: null }
                   : yield o(
                       "WAWebContactImportCSVValidation",
-                    ).recoverUndetectableCSVDelimiter(a, i, r);
-              ((l = u.result),
-                (s = u.separator),
+                    ).recoverUndetectableCSVDelimiter(i, l, r, {
+                      fullFileProbe: a,
+                    });
+              ((s = c.result),
+                (u = c.separator),
                 o("WAWebContactImportCSVValidation").validateCSVParseResult(
-                  a,
-                  l,
+                  i,
+                  s,
                 ));
             }
-            var c = t(l.data);
+            var d = t(s.data);
             return (
               n &&
-                c != null &&
+                d != null &&
                 o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
-                  a,
-                  l,
-                  c.index,
+                  i,
                   s,
+                  d.index,
+                  u,
                 ),
-              S(l.data, c)
+              S(s.data, d)
             );
           },
         )),
         I.apply(this, arguments)
       );
     }
-    function T(e, t, n, r, o, a) {
+    function T(e, t, n, r, o, a, i) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
+          function* (e, t, n, r, a, i, l) {
             return n === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
               ? L(e, t, r)
-              : k(e, t, a, i);
+              : k(e, t, a, i, l);
           },
         )),
         D.apply(this, arguments)
@@ -467,6 +469,7 @@ __d(
                 r.preserveSourceRows === !0,
                 r.rejectMalformedCSV === !0,
                 (l = r.findCSVHeaderForDelimiterRecovery) != null ? l : null,
+                r.fullFileCSVDelimiterProbe === !0,
               ),
               R = S.rows,
               L = S.shape;

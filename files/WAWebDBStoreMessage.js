@@ -188,7 +188,7 @@ __d(
         .then(function (e) {
           (d.done(),
             r("WAWeb-dexie").ignoreTransaction(function () {
-              o("WAWebSchemaFtsIndexingQueue")
+              return o("WAWebSchemaFtsIndexingQueue")
                 .getFtsIndexingQueueTable()
                 .bulkCreateOrReplace(
                   e.map(function (e) {

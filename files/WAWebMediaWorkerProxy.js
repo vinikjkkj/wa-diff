@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaWorkerProxy",
-  ["asyncToGeneratorRuntime", "cr:36997"],
+  ["WAWebABProps", "asyncToGeneratorRuntime", "cr:36997"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -53,7 +53,13 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").kaleidoscopeClassifyInWorker(e);
+          return n("cr:36997").kaleidoscopeClassifyInWorker(
+            babelHelpers.extends({}, e, {
+              strictOggOpusValidationEnabled: o(
+                "WAWebABProps",
+              ).getABPropConfigValue("ks_ogg_opus_strict_validation_enabled"),
+            }),
+          );
         })),
         g.apply(this, arguments)
       );

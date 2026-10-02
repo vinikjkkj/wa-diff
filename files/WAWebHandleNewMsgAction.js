@@ -328,6 +328,7 @@ __d(
                       conversionData: t.ctwaContext.conversionData,
                       conversionSource: t.ctwaContext.conversionSource,
                       ctwaSignals: t.ctwaContext.ctwaSignals,
+                      fromMe: t.id.fromMe,
                     }),
                     o(
                       "WAWebCommonCTWALogging",

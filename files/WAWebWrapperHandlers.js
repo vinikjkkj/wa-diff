@@ -5,13 +5,13 @@ __d(
     "WAWebAfterReadUtils",
     "WAWebBizCoexStringUtils",
     "WAWebBizPrivacyUtils",
-    "WAWebChatGroupUtils",
     "WAWebCmd",
     "WAWebConfirmPopup.react",
     "WAWebEphemeralFbtKic",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupAgentOneToOneContact",
     "WAWebMarketingMessagesUserControlsPopupLoadable",
     "WAWebModalManager",
     "WAWebOpenChatWithContactAction",
@@ -30,8 +30,11 @@ __d(
         },
         n = function (n) {
           var t = e.author,
-            r = o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
+            r = o(
+              "WAWebGroupAgentOneToOneContact",
+            ).getGroupAgentAwareOneToOneContact(
               t,
+              o("WAWebFrontendMsgGetters").getChat(e),
               "handle_open_contact_chat",
             );
           r != null &&

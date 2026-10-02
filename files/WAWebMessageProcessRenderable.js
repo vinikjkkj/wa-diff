@@ -316,7 +316,9 @@ __d(
                 }
                 if (
                   (o("WAWebSyncGroupBotSupportFields")
-                    .maybeLazySyncGroupBotSupportFields($, x)
+                    .maybeLazySyncGroupBotSupportFields($, x, {
+                      sourceGroupWid: y.isGroup() ? y : void 0,
+                    })
                     .catch(function (e) {
                       o("WALogger")
                         .ERROR(

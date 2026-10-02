@@ -1,14 +1,21 @@
 __d(
   "WAWebCustomerManagerGating",
-  ["WAWebABProps", "WAWebContactGetters", "WAWebMobilePlatforms"],
+  [
+    "WAWebABProps",
+    "WAWebContactGetters",
+    "WAWebMobilePlatforms",
+    "WAWebUserPrefsMeUser",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("lists_smb_web_enabled") &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_web_customer_management_enabled",
-        )
+        (o("WAWebABProps").getABPropConfigValue(
+          "contact_manager_mvp_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "smb_web_customer_management_enabled",
+          ))
       );
     }
     function s() {
@@ -31,29 +38,54 @@ __d(
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
+          "smb_web_customer_management_import_export",
+        )
+      );
+    }
+    function d() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_bulk_edit_enabled",
         )
       );
     }
-    function d(e) {
-      var t = e.id;
+    function m() {
       return (
-        t != null &&
-        t.isUser() &&
-        !o("WAWebContactGetters").getIsMe(e) &&
-        !t.isPSA() &&
-        !t.isOfficialBizAccount() &&
-        !t.isIAS() &&
-        !t.isSupportAccount() &&
-        !t.isCAPISupportAccount() &&
-        !t.isBot()
+        e() &&
+        (o("WAWebABProps").getABPropConfigValue(
+          "contact_manager_mvp_enabled",
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "smb_contact_manager_sublist_enabled",
+          ))
+      );
+    }
+    function p(e) {
+      var t = e.id;
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && _(t);
+    }
+    function _(e) {
+      return (
+        e.isUser() &&
+        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !e.isPSA() &&
+        !e.isOfficialBizAccount() &&
+        !e.isAiHub() &&
+        !e.isIAS() &&
+        !e.isSupportAccount() &&
+        !e.isCAPISupportAccount() &&
+        !e.isBot()
       );
     }
     ((l.customerManagerEnabled = e),
       (l.customerManagerDateRangeFilterEnabled = s),
       (l.customerManagerExportEnabled = u),
-      (l.customerManagerBulkEditEnabled = c),
-      (l.isEligibleForCustomerFields = d));
+      (l.customerManagerImportExportEnabled = c),
+      (l.customerManagerBulkEditEnabled = d),
+      (l.customerManagerSublistEnabled = m),
+      (l.isEligibleForCustomerFields = p),
+      (l.isWidEligibleForCustomerFields = _));
   },
   98,
 );

@@ -36,215 +36,246 @@ __d(
       r === void 0 && (r = null);
       var i = o("WebBloksEnvironmentContext").useDataBloksName(),
         l = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        u = l.extensionHandlers,
-        d = o("WebBloksComponentContext").useWebBloksContext(),
-        S = o("WebBloksTheme").useTheme().getTheme(),
-        R = e.getStyle(f),
-        k = e.getStyle(g),
-        I =
-          (a = R == null ? void 0 : R.get(y)) != null
+        u = l.cssOnlyAspectRatio,
+        d = l.extensionHandlers,
+        S = o("WebBloksComponentContext").useWebBloksContext(),
+        R = o("WebBloksTheme").useTheme().getTheme(),
+        L = e.getStyle(f),
+        T = e.getStyle(g),
+        D =
+          (a = L == null ? void 0 : L.get(y)) != null
             ? a
-            : k == null
+            : T == null
               ? void 0
-              : k.get(C),
-        T = null,
-        D = e.getStyle(h),
-        x =
-          (D == null ? void 0 : D.get(b)) != null ||
-          (D == null ? void 0 : D.get(v)) != null,
-        $ = e.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
-        P = m(
+              : T.get(C),
+        x = null,
+        $ = e.getStyle(h),
+        P =
+          ($ == null ? void 0 : $.get(b)) != null ||
+          ($ == null ? void 0 : $.get(v)) != null,
+        N = e.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
+        M = m(
           function () {
-            return o("WebBloksExtensions").processExtensions($, u);
+            return o("WebBloksExtensions").processExtensions(N, d);
           },
-          [u, $],
+          [d, N],
         ),
-        N = p(e);
-      ((N.current = e),
+        w = p(e);
+      ((w.current = e),
         c(function () {
-          if (!(!P || P.length === 0)) {
+          if (!(!M || M.length === 0)) {
             var e = [],
               t = function (n) {
-                var t = u.get(n.getWireStyleId()),
+                var t = d.get(n.getWireStyleId()),
                   o = t == null ? void 0 : t.onMount;
                 if (o != null) {
                   var a = function () {
-                    return o(n, N, d, r);
+                    return o(n, w, S, r);
                   };
                   e.push(a);
                 }
               };
-            for (var n of P) t(n);
+            for (var n of M) t(n);
             if (e.length !== 0)
               return (
-                d.bloksContext.objectSet.mountEffectsQueue.enqueue(
-                  N.current.clientId,
+                S.bloksContext.objectSet.mountEffectsQueue.enqueue(
+                  w.current.clientId,
                   e,
                 ),
                 function () {
-                  d.bloksContext.objectSet.mountEffectsQueue.dispose(
-                    N.current.clientId,
+                  S.bloksContext.objectSet.mountEffectsQueue.dispose(
+                    w.current.clientId,
                   );
                 }
               );
           }
         }, []));
-      var M = I != null || x || !!(P && P.length > 0),
-        w = babelHelpers.extends({}, i(e.styleId), {
+      var A = D != null || P || !!(M && M.length > 0),
+        F = babelHelpers.extends({}, i(e.styleId), {
           ref: n,
           id: e.get(o("WebBloksConstants").HTML_ID_ATTRIBUTE_KEY),
         });
-      if (!M)
+      if (!A)
         return {
           hasWrapper: !1,
           wrapper: _,
-          wrapperProps: w,
-          stylesFromExtensions: T,
+          wrapperProps: F,
+          stylesFromExtensions: x,
         };
-      var A = I != null;
-      if (P)
-        for (var F of P) {
-          var O = u.get(F.getWireStyleId());
-          O &&
-            (O.hasLayoutWrapper != null && O.hasLayoutWrapper(F) && (A = !0),
-            O.getStyles && (T = babelHelpers.extends({}, T, O.getStyles(F, S))),
-            (w = babelHelpers.extends(
+      var O = D != null;
+      if (M)
+        for (var B of M) {
+          var W = d.get(B.getWireStyleId());
+          W &&
+            (W.hasLayoutWrapper != null && W.hasLayoutWrapper(B) && (O = !0),
+            W.getStyles && (x = babelHelpers.extends({}, x, W.getStyles(B, R))),
+            (F = babelHelpers.extends(
               {},
-              w,
-              O.getProps == null ? void 0 : O.getProps(F, e, d),
+              F,
+              W.getProps == null ? void 0 : W.getProps(B, e, S),
             )));
         }
-      var B = function (a) {
+      var q = function (a) {
         var r = a,
           i = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY);
         if (
-          (I != null && (r = s.jsx(L, { aspectRatio: I, children: r })),
-          x &&
+          (D != null &&
+            (r = s.jsx(k, {
+              aspectRatio: D,
+              hideSizerWhereSupported: u && !E(M, d),
+              children: r,
+            })),
+          P &&
             i != null &&
-            (r = s.jsx(E, {
+            (r = s.jsx(I, {
               style: i,
               contextNode: e,
               elementRef: n,
               children: r,
             })),
-          P)
+          M)
         )
-          for (var l of P) {
-            var c = u.get(l.getWireStyleId());
+          for (var l of M) {
+            var c = d.get(l.getWireStyleId());
             if (c) {
-              var d = c.wrap;
-              d && (r = d(l, r, e, n));
+              var m = c.wrap;
+              m && (r = m(l, r, e, n));
             }
           }
-        return A
+        return O
           ? s.jsx("div", {
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: babelHelpers.extends({}, t, { aspectRatio: I }),
+              style: babelHelpers.extends({}, t, { aspectRatio: D }),
               children: r,
             })
           : r;
       };
       return {
-        hasWrapper: A,
-        wrapper: B,
-        wrapperProps: w,
-        stylesFromExtensions: T,
+        hasWrapper: O,
+        wrapper: q,
+        wrapperProps: F,
+        stylesFromExtensions: x,
       };
     }
     var R = o("WebBloksStyle").createStyles({
-      aspectRatioContainer: {
-        width: "100%",
-        pointerEvents: "none",
-        overflow: "hidden",
-      },
-      aspectRatioContent: {
-        bottom: 0,
-        left: 0,
-        overflow: "hidden",
-        position: "absolute",
-        right: 0,
-        top: 0,
-        padding: "inherit",
-      },
-      aspectRatioSVG: { height: "100%", width: "100%", display: "flex" },
-    });
-    function L(e) {
-      var t = o("react-compiler-runtime").c(17),
+        aspectRatioContainer: {
+          width: "100%",
+          pointerEvents: "none",
+          overflow: "hidden",
+        },
+        aspectRatioContent: {
+          bottom: 0,
+          left: 0,
+          overflow: "hidden",
+          position: "absolute",
+          right: 0,
+          top: 0,
+          padding: "inherit",
+        },
+        aspectRatioSVG: { height: "100%", width: "100%", display: "flex" },
+      }),
+      L = o("WebBloksStyle").createStylesIfSupported(
+        { type: "regular", key: "aspect-ratio", value: "1" },
+        { sizerHidden: { display: "none" } },
+      );
+    function E(e, t) {
+      return e == null
+        ? !1
+        : e.some(function (e) {
+            var n = t.get(e.getWireStyleId());
+            return (
+              (n == null ? void 0 : n.wrap) != null &&
+              (n.hasLayoutWrapper == null ? void 0 : n.hasLayoutWrapper(e)) ===
+                !0
+            );
+          });
+    }
+    function k(e) {
+      var t = o("react-compiler-runtime").c(20),
         n = e.aspectRatio,
         r = e.children,
-        a = o("WebBloksEnvironmentContext").useDataBloksName(),
-        i;
-      t[0] !== a
-        ? ((i = a("bk.components.AspectRatio")), (t[0] = a), (t[1] = i))
-        : (i = t[1]);
-      var l, u;
-      t[2] !== n
-        ? ((l = { aspectRatio: n }),
-          (u = s.jsx("svg", {
+        a = e.hideSizerWhereSupported,
+        i = o("WebBloksEnvironmentContext").useDataBloksName(),
+        l;
+      t[0] !== i
+        ? ((l = i("bk.components.AspectRatio")), (t[0] = i), (t[1] = l))
+        : (l = t[1]);
+      var u = a && L.sizerHidden,
+        c;
+      t[2] !== u
+        ? ((c = o("WebBloksStyle").classNames(R.aspectRatioContainer, u)),
+          (t[2] = u),
+          (t[3] = c))
+        : (c = t[3]);
+      var d, m;
+      t[4] !== n
+        ? ((d = { aspectRatio: n }),
+          (m = s.jsx("svg", {
             "aria-hidden": "true",
             xmlns: "http://www.w3.org/2000/svg",
             height: 1,
             width: n,
             className: R.aspectRatioSVG,
           })),
-          (t[2] = n),
-          (t[3] = l),
-          (t[4] = u))
-        : ((l = t[3]), (u = t[4]));
-      var c;
-      t[5] !== i || t[6] !== l || t[7] !== u
-        ? ((c = s.jsx(
+          (t[4] = n),
+          (t[5] = d),
+          (t[6] = m))
+        : ((d = t[5]), (m = t[6]));
+      var p;
+      t[7] !== l || t[8] !== c || t[9] !== d || t[10] !== m
+        ? ((p = s.jsx(
             "div",
-            babelHelpers.extends({}, i, {
-              className: R.aspectRatioContainer,
-              style: l,
-              children: u,
+            babelHelpers.extends({}, l, {
+              className: c,
+              style: d,
+              children: m,
             }),
           )),
-          (t[5] = i),
-          (t[6] = l),
-          (t[7] = u),
-          (t[8] = c))
-        : (c = t[8]);
-      var d;
-      t[9] !== a
-        ? ((d = a("bk.components.AspectRatio")), (t[9] = a), (t[10] = d))
-        : (d = t[10]);
-      var m;
-      t[11] !== r || t[12] !== d
-        ? ((m = s.jsx(
+          (t[7] = l),
+          (t[8] = c),
+          (t[9] = d),
+          (t[10] = m),
+          (t[11] = p))
+        : (p = t[11]);
+      var _;
+      t[12] !== i
+        ? ((_ = i("bk.components.AspectRatio")), (t[12] = i), (t[13] = _))
+        : (_ = t[13]);
+      var f;
+      t[14] !== r || t[15] !== _
+        ? ((f = s.jsx(
             "div",
-            babelHelpers.extends({}, d, {
+            babelHelpers.extends({}, _, {
               className: R.aspectRatioContent,
               children: r,
             }),
           )),
-          (t[11] = r),
-          (t[12] = d),
-          (t[13] = m))
-        : (m = t[13]);
-      var p;
+          (t[14] = r),
+          (t[15] = _),
+          (t[16] = f))
+        : (f = t[16]);
+      var g;
       return (
-        t[14] !== c || t[15] !== m
-          ? ((p = s.jsxs(s.Fragment, { children: [c, m] })),
-            (t[14] = c),
-            (t[15] = m),
-            (t[16] = p))
-          : (p = t[16]),
-        p
+        t[17] !== p || t[18] !== f
+          ? ((g = s.jsxs(s.Fragment, { children: [p, f] })),
+            (t[17] = p),
+            (t[18] = f),
+            (t[19] = g))
+          : (g = t[19]),
+        g
       );
     }
-    function E(e) {
+    function I(e) {
       var t = e.children,
         n = e.contextNode,
         r = e.elementRef,
         a = e.style;
       return o("WebBloksSSRUtils").canUseDOM
-        ? s.jsx(k, { contextNode: n, style: a, elementRef: r, children: t })
+        ? s.jsx(T, { contextNode: n, style: a, elementRef: r, children: t })
         : t;
     }
-    E.displayName = E.name + " [from " + i.id + "]";
-    function k(e) {
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(e) {
       var t = o("react-compiler-runtime").c(14),
         n = e.children,
         r = e.contextNode,

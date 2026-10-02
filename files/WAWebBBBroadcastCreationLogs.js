@@ -166,14 +166,18 @@ __d(
         userActionTarget: n,
       });
     }
-    function S(e, t, n, r) {
-      var a = {};
-      (n != null && (a.attachmentExt = n),
-        r != null && (a.attachmentFileSize = r),
-        e({
+    function S(e) {
+      var t = e.entryPoint,
+        n = e.fileExt,
+        r = e.fileSize,
+        a = e.log,
+        i = {};
+      (n != null && (i.attachmentExt = n),
+        r != null && (i.attachmentFileSize = r),
+        a({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
           entryPoint: t,
-          extraAttributes: a,
+          extraAttributes: i,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget

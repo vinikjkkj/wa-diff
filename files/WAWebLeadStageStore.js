@@ -98,7 +98,7 @@ __d(
               .WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ContactManager] lead stage store read failed",
+                    "[CustomerManager] lead stage store read failed",
                   ])),
               )
               .catching(r("getErrorSafe")(t))

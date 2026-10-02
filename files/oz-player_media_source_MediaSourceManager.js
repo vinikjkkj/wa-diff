@@ -538,7 +538,8 @@ __d(
             this.$31());
         }),
         (t.detach = function () {
-          (this.$18 &&
+          (this.$18 != null &&
+            this.$18 &&
             (r("oz-player/shims/ozClearTimeout")(this.$18), (this.$18 = null)),
             this.$5
               .getOperationLogger("source_buffer_detach")

@@ -98,7 +98,8 @@ __d(
       if (
         e.from.isBot() ||
         ((n = e.id.participant) == null ? void 0 : n.isBot()) === !0 ||
-        ((r = e.author) == null ? void 0 : r.isBot()) === !0
+        ((r = e.author) == null ? void 0 : r.isBot()) === !0 ||
+        e.from.isAiHub()
       )
         return !0;
       var o = t.contextInfo;

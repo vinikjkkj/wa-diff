@@ -63,10 +63,11 @@ __d(
       );
     }
     function _(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = t.unsafe();
       return (
-        (t.type = o("WAWebMsgType").MSG_TYPE.UNKNOWN),
-        (t.subtype = o(
+        (n.type = o("WAWebMsgType").MSG_TYPE.UNKNOWN),
+        (n.subtype = o(
           "WAWebCommonMsgSubtypeTypes",
         ).MsgSubtype.PhoneOnlyFeature),
         t

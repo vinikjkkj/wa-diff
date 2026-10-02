@@ -17,6 +17,9 @@ __d(
     "WAWebFormatUnknownMsg",
     "WAWebFrontendContactGetters",
     "WAWebGroupConstants",
+    "WAWebLimitSharingAIGroupBlock",
+    "WAWebLimitSharingBlockedDueToAIAgent.react",
+    "WAWebLimitSharingBlockedDueToAIGroup.react",
     "WAWebLimitSharingDisableConfirmationPopup.react",
     "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingInvokeBlockedPopup.react",
@@ -52,6 +55,25 @@ __d(
       return o("WAWebFaqUrl").getFullUrl(715385484388016);
     }
     function p(e) {
+      var t = o("WAWebLimitSharingAIGroupBlock").getLimitSharingAIGroupBlock(e);
+      if (
+        t ===
+        o("WAWebLimitSharingAIGroupBlock").LimitSharingAIGroupBlock.GROUP_AGENT
+      ) {
+        o("WAWebModalManager").ModalManager.open(
+          c.jsx(r("WAWebLimitSharingBlockedDueToAIAgent.react"), {}),
+        );
+        return;
+      }
+      if (
+        t ===
+        o("WAWebLimitSharingAIGroupBlock").LimitSharingAIGroupBlock.META_AI
+      ) {
+        o("WAWebModalManager").ModalManager.open(
+          c.jsx(r("WAWebLimitSharingBlockedDueToAIGroup.react"), {}),
+        );
+        return;
+      }
       o("WAWebCmd").Cmd.limitSharingDrawer(e);
     }
     function _(e) {

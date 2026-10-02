@@ -8,9 +8,9 @@ __d(
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebFileUtils",
-    "WAWebMediaGatingUtils",
     "WAWebMimeTypes",
     "WAWebModalManager",
+    "WAWebResolveSupportedMediaTypes",
     "WAWebSendMsgResultAction",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -68,8 +68,8 @@ __d(
                         i,
                       );
                       var p = o(
-                          "WAWebMediaGatingUtils",
-                        ).getMaxNumberSelectableMedia(
+                          "WAWebResolveSupportedMediaTypes",
+                        ).resolveMaxNumberSelectableMedia(
                           l.getPreviewableMedias().length,
                           i.id,
                         ),

@@ -173,10 +173,9 @@ __d(
                   s =
                     r != null
                       ? r
-                      : o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
-                          e.length + l,
-                          n.id,
-                        ),
+                      : o(
+                          "WAWebResolveSupportedMediaTypes",
+                        ).resolveMaxNumberSelectableMedia(e.length + l, n.id),
                   u = null;
                 o("WAWebBotUtils").isHatchBot(n.id)
                   ? (u =

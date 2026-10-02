@@ -70,13 +70,16 @@ __d(
       return e instanceof r("WAWebWid") && e.isFbidBot() && !D(e) && !x(e);
     }
     function P(e) {
+      return e instanceof r("WAWebWid") && e.isFbidBot();
+    }
+    function N(e) {
       return o("WAWebDebugHiddenBotChats").isShowHiddenBotChatsEnabled()
         ? !1
         : e instanceof r("WAWebWid")
           ? e.equals(p) || R(e) || e.equals(C)
           : !1;
     }
-    function N(t) {
+    function M(t) {
       var n = !1;
       for (var r of t) {
         var a = D(r.id),
@@ -120,8 +123,9 @@ __d(
       (l.isWidOpenGroupMetaBotFbidWid = D),
       (l.isWidTeeGroupMetaBotFbidWid = x),
       (l.isWidStandardGroupAgentFbidWid = $),
-      (l.isHiddenBotWid = P),
-      (l.participantListIncludeOpenOrTeeGroupBotWid = N));
+      (l.isWidGroupAgentFbidWid = P),
+      (l.isHiddenBotWid = N),
+      (l.participantListIncludeOpenOrTeeGroupBotWid = M));
   },
   98,
 );

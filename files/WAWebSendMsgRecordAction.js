@@ -25,6 +25,7 @@ __d(
     "WAWebExternalCtxConfig",
     "WAWebExternalEntryPointPrefs",
     "WAWebFindChatAction",
+    "WAWebGroupAgentNonInitiatorNux",
     "WAWebGroupMetadataCollection",
     "WAWebHandleMsgError",
     "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
@@ -96,7 +97,7 @@ __d(
             var l = o("WAWebUpdateUtmAction").getUtmForChat(a);
             l != null && o("WAWebUtmBizUtils").isUtmValid(i, l) && (t.utm = l);
           }
-          return ((t.isNewMsg = !0), v({ type: "message", data: t }, i, r));
+          return ((t.isNewMsg = !0), S({ type: "message", data: t }, i, r));
         })),
         y.apply(this, arguments)
       );
@@ -116,17 +117,25 @@ __d(
               e.id.remote,
               "sendMsgRecord",
             );
-          return v({ type: "addon", data: e }, n, t);
+          return S({ type: "addon", data: e }, n, t);
         })),
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
-    }
-    function S() {
+    function v(e, t) {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        r("WAWebWid").isGroup(t) &&
+        e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
+        e.data.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+        e.data.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT
+      );
+    }
+    function S(e, t, n) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = e.data,
             l = r("nullthrows")(i.to),
             f = i.id,
@@ -143,14 +152,14 @@ __d(
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               i.subtype ===
                 o("WAWebCommonMsgSubtypeTypes").MsgSubtype.EphemeralSetting,
-            v =
+            S =
               o("WAWebMsgGetters").getIsReaction(i) &&
               i.reactionText ===
                 o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT;
           if (
             !o("WAWebMsgGetters").getIsGroupMsg(i) &&
             !y &&
-            !v &&
+            !S &&
             o("WAWebBlocklistCollection").BlocklistCollection.get(l)
           )
             return (g || (g = n("Promise"))).reject(
@@ -160,7 +169,7 @@ __d(
               ),
             );
           if (o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t)) {
-            var S;
+            var R;
             if (
               (o("WALogger").WARN(
                 s ||
@@ -170,8 +179,8 @@ __d(
                   ])),
                 i.id.toString(),
               ),
-              (S = a.sendReporter) == null ||
-                S.postFailure({
+              (R = a.sendReporter) == null ||
+                R.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_SEND_PRECONDITION_FAILED,
                   isTerminal: !0,
@@ -180,26 +189,26 @@ __d(
               (a.sendReporter = null),
               e.type === "message")
             ) {
-              var L = {
+              var E = {
                 isSendFailure: !0,
                 ack: o("WAWebAck").ACK.FAILED,
                 errorCode:
                   o("WAWebErrorType").SendFailureErrorCode.Acp2Restricted,
               };
-              (o("WAWebDBUpdateMessageTable").updateMessageTable(f, L),
-                e.data.set(L),
+              (o("WAWebDBUpdateMessageTable").updateMessageTable(f, E),
+                e.data.set(E),
                 o(
                   "WAWebAddOnsUpdateSendStatesAction",
-                ).updateAddOnSendStatesForMsgAction(e.data, L));
+                ).updateAddOnSendStatesForMsgAction(e.data, E));
             } else yield o("WAWebAddonSendProcess").markAddonSendFailed(e.data);
             return {
               messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                 .ERROR_UNKNOWN,
             };
           }
-          var E;
+          var k;
           (y ||
-            (E = new (o(
+            (k = new (o(
               "WAWebWebcMessageSendWamEvent",
             ).WebcMessageSendWamEvent)({
               messageType: o("WAWebWamMsgUtils").getWamMessageType(i),
@@ -212,21 +221,25 @@ __d(
                 threadId: o("WAWebBotGating").isAiChatThreadsEnabled()
                   ? o("WAWebThreadMsgUtils").getMsgAiThread(i)
                   : void 0,
-              }));
-          var k;
+              }),
+            v(e, h) &&
+              o(
+                "WAWebGroupAgentNonInitiatorNux",
+              ).maybeShowGroupAgentNonInitiatorNux(t));
+          var I;
           if (
             r("WAWebWid").isGroup(h) &&
             i.messageSecret == null &&
             o("WAWebSendMsgChatActionUtils").hasGroupAgentParticipant(t)
           ) {
-            var I = self.crypto.getRandomValues(new Uint8Array(32));
+            var T = self.crypto.getRandomValues(new Uint8Array(32));
             e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-              ? (e.data.set({ messageSecret: I }),
+              ? (e.data.set({ messageSecret: T }),
                 yield o("WAWebDBProcessMessage").updateExistingMessages(
                   [o("WAWebMsgDataFromModel").msgDataFromMsgModel(e.data)],
                   h,
                 ))
-              : (k = babelHelpers.extends({}, e.data, { messageSecret: I }));
+              : (I = babelHelpers.extends({}, e.data, { messageSecret: T }));
           }
           return (
             e.type !== "addon" &&
@@ -238,9 +251,9 @@ __d(
               .resolve()
               .then(function () {
                 return e.type === "message"
-                  ? R(e.data, a)
+                  ? L(e.data, a)
                   : o("WAWebAddonSendProcess").sendAddonProcess(
-                      k != null ? k : e.data,
+                      I != null ? I : e.data,
                       a,
                     );
               })
@@ -261,7 +274,7 @@ __d(
                         o(
                           "WAWebBotGenTypingIndicatorMsg",
                         ).maybeGenBotTypingIndicatorMessage(t, i),
-                        E && (E.markMessageSendT(), E.commit()),
+                        k && (k.markMessageSendT(), k.commit()),
                         y ||
                           o(
                             "WAWebSingleEmojiDailyUtils",
@@ -491,15 +504,15 @@ __d(
               })
           );
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           e.isForwarded &&
             (n = o("WAWebMsgUtilsBridge").createMessageForwardMetric(e));
@@ -574,7 +587,7 @@ __d(
             );
           }
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
     ((l.sendMsgRecord = h), (l.sendAddonRecord = C));

@@ -1,6 +1,13 @@
 __d(
   "WAWebFormatRemoveNotification",
-  ["fbt", "WAWebLidMigrationUtils", "WAWebSystemMessagesUtils", "WAWebWid"],
+  [
+    "fbt",
+    "WAWebBotGroupGatingUtils",
+    "WAWebBotUtils",
+    "WAWebLidMigrationUtils",
+    "WAWebSystemMessagesUtils",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.author,
@@ -32,7 +39,13 @@ __d(
                   ])
         : o("WAWebSystemMessagesUtils").isMe(i)
           ? s._(/*BTDS*/ "You were removed")
-          : s._(/*BTDS*/ "{user_name} was removed", [s._param("user_name", l)]);
+          : i != null &&
+              o("WAWebBotUtils").isWidGroupAgentFbidWid(i) &&
+              o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+            ? s._(/*BTDS*/ "{agent_name} left", [s._param("agent_name", l)])
+            : s._(/*BTDS*/ "{user_name} was removed", [
+                s._param("user_name", l),
+              ]);
     }
     l.formatRemoveNotification = e;
   },

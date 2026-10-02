@@ -45,9 +45,7 @@ __d(
         e
       );
     })();
-    ((i.BROWSER_MUTE_FLOOR_MULTIPLIER = e),
-      (i.BROWSER_MUTE_FLOOR_TOLERANCE_MS = l),
-      (i.BROWSER_MUTE_WARMUP_SAMPLES = s),
+    ((i.BROWSER_MUTE_WARMUP_SAMPLES = s),
       (i.BROWSER_MUTE_MIN_CONSECUTIVE_SAMPLES = u),
       (i.getBrowserMuteFloorMs = c),
       (i.isAtBrowserMuteFloor = d),

@@ -335,6 +335,9 @@ __d(
             : "SANITIZE_AUDIENCE";
     }
     function z(e) {
+      return e.length === 0 ? s._(/*BTDS*/ "Not declared") : j(e);
+    }
+    function j(e) {
       var t = e.length;
       switch (t) {
         case 0:
@@ -368,7 +371,8 @@ __d(
       (l.getRestrictedCategories = V),
       (l.hasRestrictedRegulatedCategories = H),
       (l.getActionAfterUpdateRegulatedCategories = G),
-      (l.getRegulatedCategoriesSelectedLabel = z));
+      (l.getRegulatedCategoriesDeclarationLabel = z),
+      (l.getRegulatedCategoriesSelectedLabel = j));
   },
   226,
 );

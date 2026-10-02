@@ -103,8 +103,9 @@ __d(
     }
     function p() {
       ["getSelection", "open", "focus"].forEach(function (e) {
-        var t = Object.getPrototypeOf(window)[e];
-        o("WATypeUtils").isFunction(t) && window[e] !== t && (window[e] = t);
+        var t = Object.getPrototypeOf(window),
+          n = t[e];
+        o("WATypeUtils").isFunction(n) && window[e] !== n && (window[e] = n);
       });
     }
     l.configureWindowEvents = m;

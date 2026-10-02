@@ -18,11 +18,14 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BB,
       });
     }
-    function u(e, t, n) {
-      e({
+    function u(e) {
+      var t = e.entryPoint,
+        n = e.extraAttributes,
+        r = e.log;
+      r({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        entryPoint: n,
-        extraAttributes: t,
+        entryPoint: t,
+        extraAttributes: n,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.CONTACT_IMPORT_PROMPT,
       });
     }

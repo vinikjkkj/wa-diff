@@ -43,41 +43,45 @@ __d(
         );
       }
     }
-    function m(e, t, n) {
-      var r, a;
-      if (!o("WAWebMobilePlatforms").isSMB()) return t;
-      var i = e == null ? void 0 : e.previewMetadata;
-      if (i == null) return t;
-      var l = i.isBusinessVerified,
-        u = (r = i.providerName) == null ? void 0 : r.trim();
-      if (!c(l, u, e, n)) return t;
-      var d = t == null || (a = t.provider) == null ? void 0 : a.paramsJson;
+    function m(e) {
+      var t,
+        n,
+        r = e.linkPreviewData,
+        a = e.links,
+        i = e.paymentLinkMetadata;
+      if (!o("WAWebMobilePlatforms").isSMB()) return i;
+      var l = r == null ? void 0 : r.previewMetadata;
+      if (l == null) return i;
+      var u = l.isBusinessVerified,
+        d = (t = l.providerName) == null ? void 0 : t.trim();
+      if (!c(u, d, r, a)) return i;
+      var m = i == null || (n = i.provider) == null ? void 0 : n.paramsJson;
       try {
-        var m = d == null ? null : JSON.parse(d);
-        if (l != null) {
-          var p;
-          m = babelHelpers.extends({}, m, {
-            meta_tags: babelHelpers.extends(
-              {},
-              (p = m) == null ? void 0 : p.meta_tags,
-              { is_business_verified: l },
-            ),
-          });
-        }
-        if (u != null && u.length > 0) {
+        var p = m == null ? null : JSON.parse(m);
+        if (u != null) {
           var _;
-          m = babelHelpers.extends({}, m, {
+          p = babelHelpers.extends({}, p, {
             meta_tags: babelHelpers.extends(
               {},
-              (_ = m) == null ? void 0 : _.meta_tags,
-              { provider_name: u },
+              (_ = p) == null ? void 0 : _.meta_tags,
+              { is_business_verified: u },
             ),
           });
         }
-        return m == null
-          ? t
-          : babelHelpers.extends({}, t, {
-              provider: { paramsJson: JSON.stringify(m) },
+        if (d != null && d.length > 0) {
+          var f;
+          p = babelHelpers.extends({}, p, {
+            meta_tags: babelHelpers.extends(
+              {},
+              (f = p) == null ? void 0 : f.meta_tags,
+              { provider_name: d },
+            ),
+          });
+        }
+        return p == null
+          ? i
+          : babelHelpers.extends({}, i, {
+              provider: { paramsJson: JSON.stringify(p) },
             });
       } catch (e) {
         return (
@@ -89,7 +93,7 @@ __d(
               ])),
             e,
           ),
-          t
+          i
         );
       }
     }

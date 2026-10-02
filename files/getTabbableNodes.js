@@ -46,9 +46,10 @@ __d(
       });
       var u = o[0],
         c = o[o.length - 1],
-        d = o.indexOf(n),
-        m = null;
-      return (d !== -1 && (m = o[d]), [o, u, c, d, m]);
+        d = o,
+        m = d.indexOf(n),
+        p = null;
+      return (m !== -1 && (p = o[m]), [o, u, c, m, p]);
     }
     i.default = e;
   },

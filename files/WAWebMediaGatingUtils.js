@@ -22,10 +22,8 @@ __d(
         return o("WAWebHatchGating").getHatchMediaUploadCountLimit();
       var r = o("WAWebBotUtils").isBusinessAssistantBot(t);
       if (o("WAWebBotUtils").isMetaAiBot(t) || r) {
-        if (n === "document")
-          return o("WAWebBotGating").getMetaAiFileUploadCountLimit();
-        if (n === "image") return o("WAWebBotGating").getMetaAiImageSendLimit();
-        if (n === "video") return 1;
+        var a = g(n);
+        if (a != null) return a;
         if (r) return o("WAWebBotGating").getMetaAiImageSendLimit();
       }
       if (
@@ -36,11 +34,11 @@ __d(
         !o("WAWebNewsletterGatingUtils").isNewsletterAlbumsV2SenderEnabled()
       )
         return 1;
-      var a = o("WAWebABProps").getABPropConfigValue(
+      var i = o("WAWebABProps").getABPropConfigValue(
         "media_picker_select_limit",
       );
-      return e <= a
-        ? a
+      return e <= i
+        ? i
         : o("WAWebABProps").getABPropConfigValue(
             "media_picker_select_limit_new",
           );
@@ -55,11 +53,7 @@ __d(
         ? o("WAWebHatchGating").getHatchMediaUploadCountLimit() > 1
         : o("WAWebBotUtils").isMetaAiBot(e) ||
             o("WAWebBotUtils").isBusinessAssistantBot(e)
-          ? t === "document"
-            ? o("WAWebBotGating").getMetaAiFileUploadCountLimit() > 1
-            : t === "image"
-              ? o("WAWebBotGating").getMetaAiImageSendLimit() > 1
-              : !1
+          ? h(t)
           : e.isNewsletter()
             ? t === "document"
               ? !0
@@ -151,55 +145,68 @@ __d(
           n
         );
       }
-      if (
-        o("WAWebChatGetters").getIsMetaAiBot(o("WAWebStateUtils").unproxy(e))
-      ) {
-        var r = new Set();
-        return (
-          o("WAWebBotGating").isMetaAiImageInputEnabled() &&
-            r.add(o("WAWebMsgType").MSG_TYPE.IMAGE),
-          o("WAWebBotGating").isMetaAiVideoInputEnabled() &&
-            r.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
-          o("WAWebBotGating").isMetaAiDocUploadEnabled() &&
-            r.add(o("WAWebMsgType").MSG_TYPE.DOCUMENT),
-          r
-        );
-      }
+      if (o("WAWebChatGetters").getIsMetaAiBot(o("WAWebStateUtils").unproxy(e)))
+        return y();
       if (
         o("WAWebChatGetters").getIsBotChannel(o("WAWebStateUtils").unproxy(e))
       ) {
-        var a = new Set([
+        var r = new Set([
           o("WAWebMsgType").MSG_TYPE.DOCUMENT,
           o("WAWebMsgType").MSG_TYPE.IMAGE,
         ]);
         return (
           (!o("WAWebBotUtils").isHatchBot(e.id) ||
             o("WAWebHatchGating").isHatchVideoUploadEnabled()) &&
-            a.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
-          a.add(o("WAWebMsgType").MSG_TYPE.VCARD),
-          a.add(o("WAWebMsgType").MSG_TYPE.MULTI_VCARD),
-          a
+            r.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
+          r.add(o("WAWebMsgType").MSG_TYPE.VCARD),
+          r.add(o("WAWebMsgType").MSG_TYPE.MULTI_VCARD),
+          r
         );
       }
       return o("WAWebMsgType").ALL_MSG_TYPES_SET;
     }
-    function g() {
-      return typeof self.BigInt == "function";
+    function g(e) {
+      return e === "document"
+        ? o("WAWebBotGating").getMetaAiFileUploadCountLimit()
+        : e === "image"
+          ? o("WAWebBotGating").getMetaAiImageSendLimit()
+          : e === "video"
+            ? 1
+            : null;
     }
     function h(e) {
-      var t = e.type.startsWith("video/");
-      return t && g();
+      var t = g(e);
+      return t != null && t > 1;
     }
-    function y(e) {
+    function y() {
+      var e = new Set();
+      return (
+        o("WAWebBotGating").isMetaAiImageInputEnabled() &&
+          e.add(o("WAWebMsgType").MSG_TYPE.IMAGE),
+        o("WAWebBotGating").isMetaAiVideoInputEnabled() &&
+          e.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
+        o("WAWebBotGating").isMetaAiDocUploadEnabled() &&
+          e.add(o("WAWebMsgType").MSG_TYPE.DOCUMENT),
+        e
+      );
+    }
+    function C() {
+      return typeof self.BigInt == "function";
+    }
+    function b(e) {
+      var t = e.type.startsWith("video/");
+      return t && C();
+    }
+    function v(e) {
       var t = o("WAWebMmsMediaTypes").msgToMediaType({
         type: e.type,
         isGif: e.isGif,
         interactiveHeader: e.interactiveHeader,
         isNewsletter: r("WAWebWid").isNewsletter(e.to),
       });
-      return C(t);
+      return S(t);
     }
-    function C(e) {
+    function S(e) {
       switch (e) {
         case o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_IMAGE:
         case o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_VIDEO:
@@ -208,39 +215,39 @@ __d(
           return !1;
       }
     }
-    function b() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_video_comet_video_player_enabled",
       );
     }
-    function v() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
-    function S() {
+    function E() {
       return (
-        v() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
+        L() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
       );
     }
-    function R() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_video");
     }
-    function L() {
+    function I() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "media_quality_auto_download_settings_enabled",
-        ) && R()
+        ) && k()
       );
     }
-    function E() {
+    function T() {
       var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
       return e ===
         o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
-        !L()
+        !I()
         ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
             .STANDARD
         : e;
     }
-    function k() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
@@ -253,16 +260,19 @@ __d(
       (l.isStickyHQPhotoSettingEnabled = m),
       (l.getUploadLimit = _),
       (l.getSupportedMediaTypesForChat = f),
-      (l.shouldUseWasmMediaWorkerForFile = h),
-      (l.isThumbnailGenerationForMsgOnServerEnabled = y),
-      (l.isThumbnailGenerationOnServerEnabledForMediaType = C),
-      (l.isVideoCometVideoPlayerEnabled = b),
-      (l.isHdImageDualUploadConsumptionEnabled = v),
-      (l.isHdImageDualUploadSendEnabled = S),
-      (l.isHdVideoDualUploadConsumptionEnabled = R),
-      (l.isMediaAutoDownloadQualityAutoEnabled = L),
-      (l.resolveEffectiveAutoDownloadMediaQuality = E),
-      (l.getHQImageThumbnailInChatScans = k));
+      (l.getMetaAiMaxNumberSelectableMedia = g),
+      (l.metaAiSupportsMultipleUploads = h),
+      (l.getSupportedMediaTypesForMetaAiChat = y),
+      (l.shouldUseWasmMediaWorkerForFile = b),
+      (l.isThumbnailGenerationForMsgOnServerEnabled = v),
+      (l.isThumbnailGenerationOnServerEnabledForMediaType = S),
+      (l.isVideoCometVideoPlayerEnabled = R),
+      (l.isHdImageDualUploadConsumptionEnabled = L),
+      (l.isHdImageDualUploadSendEnabled = E),
+      (l.isHdVideoDualUploadConsumptionEnabled = k),
+      (l.isMediaAutoDownloadQualityAutoEnabled = I),
+      (l.resolveEffectiveAutoDownloadMediaQuality = T),
+      (l.getHQImageThumbnailInChatScans = D));
   },
   98,
 );

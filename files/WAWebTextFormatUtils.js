@@ -419,16 +419,23 @@ __d(
       var n = [];
       return (
         t.forEach(function (t) {
-          if (
-            o("Lexical").$isTextNode(t) &&
-            (["Bold", "Italic", "Strikethrough"].forEach(function (o) {
-              t.hasFormat(o.toLowerCase()) &&
-                n.push(r("nullthrows")(e.cast(o)));
-            }),
-            t.hasFormat("code"))
-          ) {
-            var a = t.getStyle().includes("border-radius");
-            n.push(a ? e.InlineCode : e.Code);
+          if (o("Lexical").$isTextNode(t)) {
+            var a = [
+              ["Bold", "bold"],
+              ["Italic", "italic"],
+              ["Strikethrough", "strikethrough"],
+            ];
+            if (
+              (a.forEach(function (o) {
+                var a = o[0],
+                  i = o[1];
+                t.hasFormat(i) && n.push(r("nullthrows")(e.cast(a)));
+              }),
+              t.hasFormat("code"))
+            ) {
+              var i = t.getStyle().includes("border-radius");
+              n.push(i ? e.InlineCode : e.Code);
+            }
           }
         }),
         n

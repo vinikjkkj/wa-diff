@@ -20,6 +20,7 @@ __d(
     "WAWebDBThreadMetadataBulkHelper",
     "WAWebHandleMsgValidate",
     "WAWebLidMigrationUtils",
+    "WAWebMaibaAiHubSettledProgressEdit",
     "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
     "WAWebMessagingGatingUtils",
@@ -152,7 +153,7 @@ __d(
                   return e.parentMsg;
                 }),
             ),
-            yield F(e)),
+            yield O(e)),
             t.length &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "updateEditedMessagesAction",
@@ -468,7 +469,7 @@ __d(
           o("WAWebMessageEditUtils").getMsgEditType(e.type),
           "Unsupported message type for edits",
         ),
-        l = A(e, t, i);
+        l = F(e, t, i);
       o("WAWebMsgGetters").getIsSentByMe(e) &&
         t.count != null &&
         (l.count = t.count);
@@ -504,6 +505,7 @@ __d(
           e.botEditType != null) &&
           ((l.botEditType = t.botEditType),
           (l.botEditTargetId = t.botEditTargetId)),
+        N(e, t, l),
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e))
       ) {
         var g = o("WAWebMsgGetters").getGroupHistoryIndividualMessageInfo(e);
@@ -520,7 +522,13 @@ __d(
         mentionOfMe: p,
       };
     }
-    function N(e) {
+    function N(e, t, n) {
+      var r = o(
+        "WAWebMaibaAiHubSettledProgressEdit",
+      ).getMaibaAiHubSettledProgressEditViewMode(e, t);
+      r != null && (n.viewMode = r);
+    }
+    function M(e) {
       return babelHelpers.extends(
         { aiThreadInfo: e.aiThreadInfo },
         e.botResponseId != null ? { botResponseId: e.botResponseId } : null,
@@ -536,7 +544,7 @@ __d(
         },
       );
     }
-    function M(e) {
+    function w(e) {
       var t;
       return {
         deprecatedMms3Url: e.deprecatedMms3Url,
@@ -564,7 +572,7 @@ __d(
         kind: "image",
       };
     }
-    function w(e) {
+    function A(e) {
       return {
         deprecatedMms3Url: e.deprecatedMms3Url,
         directPath: e.directPath,
@@ -593,7 +601,7 @@ __d(
         kind: "video",
       };
     }
-    function A(e, t, n) {
+    function F(e, t, n) {
       var r = babelHelpers.extends(
         {
           latestEditMsgKey: t.latestEditMsgKey,
@@ -617,7 +625,7 @@ __d(
             s,
             u,
             c = !!t.matchedText || !!t.description || !!t.title;
-          return babelHelpers.extends({}, r, N(t), {
+          return babelHelpers.extends({}, r, M(t), {
             subtype: c ? "url" : void 0,
             body: t.body,
             mentionedJidList: t.mentionedJidList,
@@ -662,7 +670,7 @@ __d(
         case o("WAWebMessageEditUtils").MsgEditType.PollEdit:
           return babelHelpers.extends({}, r, { pollName: t.pollName });
         case o("WAWebMessageEditUtils").MsgEditType.RichResponseEdit:
-          return babelHelpers.extends({}, r, N(t), {
+          return babelHelpers.extends({}, r, M(t), {
             richResponse: t.richResponse,
             unifiedResponse: t.unifiedResponse,
             unifiedResponseRawData: t.unifiedResponseRawData,
@@ -673,20 +681,20 @@ __d(
           var d = t.mimetype;
           if (d != null) {
             if (d.startsWith("image"))
-              return babelHelpers.extends({}, r, N(t), M(t), { subtype: null });
+              return babelHelpers.extends({}, r, M(t), w(t), { subtype: null });
             if (d.startsWith("video"))
-              return babelHelpers.extends({}, r, N(t), w(t), { subtype: null });
+              return babelHelpers.extends({}, r, M(t), A(t), { subtype: null });
           }
-          return babelHelpers.extends({}, r, N(t), { type: "loading_media" });
+          return babelHelpers.extends({}, r, M(t), { type: "loading_media" });
         }
       }
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
             n = new Map();
           for (var r of e) {
@@ -714,7 +722,7 @@ __d(
             n.size &&
               (yield o("WAWebApiChatUnreadMention").addUnreadMentionChat(n)));
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
     ((l.EditedMentionOfMe = y),

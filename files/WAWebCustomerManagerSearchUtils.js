@@ -1,10 +1,12 @@
 __d(
   "WAWebCustomerManagerSearchUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebLeadListConstants"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "__no_label__";
-    function l(e) {
+    var e = "__no_label__",
+      s = "__no_other_list__",
+      u = new Set([o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID]);
+    function c(e) {
       return (
         e.query.trim() !== "" ||
         e.leadStages.length > 0 ||
@@ -14,7 +16,10 @@ __d(
         e.lastMessageCustomRange != null
       );
     }
-    ((i.NO_LABEL_FILTER_ID = e), (i.hasActiveFilter = l));
+    ((l.NO_LABEL_FILTER_ID = e),
+      (l.NO_OTHER_LIST_FILTER_ID = s),
+      (l.BOARD_STRUCTURAL_PREDEFINED_IDS = u),
+      (l.hasActiveFilter = c));
   },
-  66,
+  98,
 );

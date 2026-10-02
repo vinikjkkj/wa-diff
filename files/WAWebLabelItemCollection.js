@@ -3,7 +3,7 @@ __d(
   [
     "WAWebBaseCollection",
     "WAWebBizLabelUtils",
-    "WAWebContactManagerGating",
+    "WAWebCustomerManagerGating",
     "WAWebLabelItemModel",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +38,7 @@ __d(
       });
     }
     function d(e) {
-      if (o("WAWebContactManagerGating").contactManagerEnabled())
+      if (o("WAWebCustomerManagerGating").customerManagerEnabled())
         return o("WAWebBizLabelUtils").getParentModelsAnyAddressingMode(
           e.parentId,
           e.parentType,

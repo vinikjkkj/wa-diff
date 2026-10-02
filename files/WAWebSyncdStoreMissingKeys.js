@@ -137,7 +137,7 @@ __d(
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.MissingKeyStore;
-          (clearTimeout(S), (S = null));
+          (clearTimeout(S != null ? S : void 0), (S = null));
           var n = yield t.getAll();
           if (n.length !== 0) {
             o("WALogger").LOG(

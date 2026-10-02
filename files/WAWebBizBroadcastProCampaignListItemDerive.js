@@ -58,6 +58,8 @@ __d(
           first_customer_reply: u.first_customer_reply,
           quick_reply_clicks: u.quick_reply_clicks,
           read: u.read,
+          read_rate: u.read_rate,
+          reply_rate: u.reply_rate,
           sent: u.sent,
         }),
         _ = c * d,

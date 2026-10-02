@@ -22,8 +22,7 @@ __d(
         targetChatJid: t == null ? void 0 : t.targetChatJid,
       });
     }
-    ((l.maybeResolveCoexV2RepresentedIdentityFromMessage = e),
-      (l.getCoexV2RepresentedIdentityFromMessage = s));
+    l.maybeResolveCoexV2RepresentedIdentityFromMessage = e;
   },
   98,
 );

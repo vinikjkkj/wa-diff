@@ -6,8 +6,8 @@ __d(
     "WAWebChatCollection",
     "WAWebChatModel",
     "WAWebContactCollection",
-    "WAWebContactManagerGating",
     "WAWebContactModel",
+    "WAWebCustomerManagerGating",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebListItemParentType",
@@ -20,7 +20,7 @@ __d(
     function u(e) {
       var t = y(e),
         n = e.id.toString();
-      e.labels = o("WAWebContactManagerGating").contactManagerEnabled()
+      e.labels = o("WAWebCustomerManagerGating").customerManagerEnabled()
         ? c(n, t)
         : o("WAWebLabelCollection").LabelCollection.getLabelsForModel(n, t);
     }
@@ -186,7 +186,7 @@ __d(
         );
         return;
       }
-      var i = o("WAWebContactManagerGating").contactManagerEnabled()
+      var i = o("WAWebCustomerManagerGating").customerManagerEnabled()
           ? p(e)
           : null,
         l = i != null ? [e, i.toString()] : [e];

@@ -39,11 +39,11 @@ __d(
         case o("WAWebBizContentPlaceholderMsgData.flow")
           .BizContentPlaceholderType.MASK_LINKED_DEVICES:
           return s.jsx(r("WAWebMessageTextBubble.react"), {
-            msg: n,
+            msgKey: n.id,
             displayAuthor: t,
             children: s.jsxs(r("WAWebMessagePlaceholder.react"), {
               Icon: s.jsx(r("WDSIconIcKey.react"), {}),
-              msg: n.unsafe(),
+              msgKey: n.id,
               children: [r("WAWebFormatMsgText")({ msg: n.unsafe() }), " ", c],
             }),
           });

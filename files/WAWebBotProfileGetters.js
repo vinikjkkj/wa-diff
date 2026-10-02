@@ -10,20 +10,22 @@ __d(
       m = s("posingAsProfessional"),
       p = s("id"),
       _ = s("lastFetchedTimeMs"),
-      f = s("product"),
-      g = s("isDeprecated"),
-      h = s("creatorLid"),
-      y = s("isDeleted");
+      f = s("name"),
+      g = s("product"),
+      h = s("isDeprecated"),
+      y = s("creatorLid"),
+      C = s("isDeleted");
     ((l.getPrompts = u),
       (l.getCommands = c),
       (l.getIsDefault = d),
       (l.getPosingAsProfessional = m),
       (l.getId = p),
       (l.getLastFetchedTimeMs = _),
-      (l.getProduct = f),
-      (l.getIsDeprecated = g),
-      (l.getCreatorLid = h),
-      (l.getIsDeleted = y));
+      (l.getName = f),
+      (l.getProduct = g),
+      (l.getIsDeprecated = h),
+      (l.getCreatorLid = y),
+      (l.getIsDeleted = C));
   },
   98,
 );

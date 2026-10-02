@@ -4,7 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebChatCollection",
-    "WAWebContactManagerGating",
+    "WAWebCustomerManagerGating",
     "WAWebLazyLoadedRetriable",
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
@@ -36,7 +36,7 @@ __d(
     }
     function p(e) {
       var t = o("WAWebWidFactory").createWid(e);
-      if (!o("WAWebContactManagerGating").isWidEligibleForCustomerFields(t))
+      if (!o("WAWebCustomerManagerGating").isWidEligibleForCustomerFields(t))
         return null;
       var n = o("WAWebChatCollection").ChatCollection.get(e);
       if (n != null) return m(n);

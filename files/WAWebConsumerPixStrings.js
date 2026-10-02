@@ -111,68 +111,65 @@ __d(
       return s._(/*BTDS*/ "Share your Pix");
     }
     function M() {
-      return s._(/*BTDS*/ "Delete Pix key");
-    }
-    function w() {
       return s._(/*BTDS*/ "Delete Pix key?");
     }
-    function A() {
+    function w() {
       return s._(
         /*BTDS*/ "You'll always be able to add a Pix key later if you delete it.",
       );
     }
-    function F() {
+    function A() {
       return s._(/*BTDS*/ "Delete");
     }
-    function O() {
+    function F() {
       return s._(/*BTDS*/ "Pix key deleted");
     }
-    function B() {
+    function O() {
       return s._(/*BTDS*/ "Couldn't delete Pix key. Please try again.");
     }
-    function W(e) {
+    function B(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{number} contacts excluded","_1":"1 contact excluded"}',
         [s._plural(e, "number")],
       );
     }
-    function q() {
+    function W() {
       return s._(/*BTDS*/ "Transactions");
     }
-    function U() {
+    function q() {
       return s._(/*BTDS*/ "See all");
     }
-    function V() {
+    function U() {
       return s._(/*BTDS*/ "Completed");
     }
-    function H() {
+    function V() {
       return s._(/*BTDS*/ "Pending");
     }
-    function G() {
+    function H() {
       return s._(/*BTDS*/ "Failed");
     }
-    function z() {
+    function G() {
       return s._(/*BTDS*/ "You requested");
     }
-    function j() {
+    function z() {
       return s._(/*BTDS*/ "They requested");
     }
-    function K() {
+    function j() {
       return s._(/*BTDS*/ "No transactions yet");
     }
-    function Q() {
+    function K() {
       return s._(/*BTDS*/ "All");
     }
-    function X() {
+    function Q() {
       return s._(/*BTDS*/ "You requested");
     }
-    function Y() {
+    function X() {
       return s._(/*BTDS*/ "Others requested");
     }
-    function J() {
+    function Y() {
       return s._(/*BTDS*/ "From");
     }
-    function Z() {
+    function J() {
       return s._(/*BTDS*/ "To");
     }
     ((l.getConsumerPixKeyTypeOptions = e),
@@ -201,26 +198,25 @@ __d(
       (l.getConsumerSharePixViewInChat = $),
       (l.getConsumerSharePixDone = P),
       (l.getConsumerSharePixRowLabel = N),
-      (l.getConsumerPixDeleteKeyButton = M),
-      (l.getConsumerPixDeleteKeyConfirmTitle = w),
-      (l.getConsumerPixDeleteKeyConfirmBody = A),
-      (l.getConsumerPixDeleteKeyConfirmCta = F),
-      (l.getConsumerPixDeleteKeyDeletedToast = O),
-      (l.getConsumerPixDeleteKeyErrorToast = B),
-      (l.getConsumerPixContactsExcludedCount = W),
-      (l.getConsumerTransactionsHeader = q),
-      (l.getConsumerTransactionsSeeAll = U),
-      (l.getConsumerTransactionStatusCompleted = V),
-      (l.getConsumerTransactionStatusPending = H),
-      (l.getConsumerTransactionStatusFailed = G),
-      (l.getConsumerTransactionStatusRequestedByYou = z),
-      (l.getConsumerTransactionStatusRequestedByThem = j),
-      (l.getConsumerTransactionsEmpty = K),
-      (l.getConsumerTransactionsTabAll = Q),
-      (l.getConsumerTransactionsTabYouRequested = X),
-      (l.getConsumerTransactionsTabTheyRequested = Y),
-      (l.getConsumerTransactionsDateFrom = J),
-      (l.getConsumerTransactionsDateTo = Z));
+      (l.getConsumerPixDeleteKeyConfirmTitle = M),
+      (l.getConsumerPixDeleteKeyConfirmBody = w),
+      (l.getConsumerPixDeleteKeyConfirmCta = A),
+      (l.getConsumerPixDeleteKeyDeletedToast = F),
+      (l.getConsumerPixDeleteKeyErrorToast = O),
+      (l.getConsumerPixContactsExcludedCount = B),
+      (l.getConsumerTransactionsHeader = W),
+      (l.getConsumerTransactionsSeeAll = q),
+      (l.getConsumerTransactionStatusCompleted = U),
+      (l.getConsumerTransactionStatusPending = V),
+      (l.getConsumerTransactionStatusFailed = H),
+      (l.getConsumerTransactionStatusRequestedByYou = G),
+      (l.getConsumerTransactionStatusRequestedByThem = z),
+      (l.getConsumerTransactionsEmpty = j),
+      (l.getConsumerTransactionsTabAll = K),
+      (l.getConsumerTransactionsTabYouRequested = Q),
+      (l.getConsumerTransactionsTabTheyRequested = X),
+      (l.getConsumerTransactionsDateFrom = Y),
+      (l.getConsumerTransactionsDateTo = J));
   },
   226,
 );

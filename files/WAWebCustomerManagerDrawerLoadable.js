@@ -20,7 +20,7 @@ __d(
             .load();
           return e;
         }),
-        "CustomerManagerDrawer",
+        "ContactManagerDrawer",
       ),
       c = r("WAWebLoadable")({
         loader: u,

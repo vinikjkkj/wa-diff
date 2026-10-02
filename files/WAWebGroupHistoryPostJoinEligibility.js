@@ -3,9 +3,9 @@ __d(
   [
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebBotUtils",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
+    "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
@@ -70,10 +70,7 @@ __d(
     }
     function f(e, t) {
       var n;
-      if (
-        o("WAWebBotUtils").isMetaAiBot(e.id) ||
-        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)
-      )
+      if (o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid(e.id))
         return { eligible: !1, reason: "bot" };
       var r = (n = e.joinTime) != null ? n : t;
       if (r == null) return { eligible: !1, reason: "no_join_time" };

@@ -25,7 +25,12 @@ __d(
             i = t.fileName,
             l = yield o(
               "WAKaleidoscopeClassify",
-            ).kaleidoscopeClassifyByMediaType(a, "document", "application/pdf");
+            ).kaleidoscopeClassifyByMediaType(
+              a,
+              "document",
+              "application/pdf",
+              !1,
+            );
           if (
             !l.success ||
             l.value.mimetype !== "application/pdf" ||

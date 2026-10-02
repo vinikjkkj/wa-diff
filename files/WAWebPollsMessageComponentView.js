@@ -307,7 +307,7 @@ __d(
       );
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(91),
+      var t = o("react-compiler-runtime").c(92),
         n = e.associatedMessages,
         a = e.displayAuthor,
         i = e.displayType,
@@ -448,7 +448,8 @@ __d(
           (t[24] = X))
         : (X = t[24]);
       var Y = X,
-        J;
+        J = d.id,
+        Z;
       t[25] !== l ||
       t[26] !== A ||
       t[27] !== d ||
@@ -457,7 +458,7 @@ __d(
       t[30] !== C ||
       t[31] !== b ||
       t[32] !== w
-        ? ((J = I({
+        ? ((Z = I({
             authorDisplayName: o("WAWebMsgModelUtils").getMsgDisplayName(
               d.unsafe(),
             ),
@@ -477,14 +478,14 @@ __d(
           (t[30] = C),
           (t[31] = b),
           (t[32] = w),
-          (t[33] = J))
-        : (J = t[33]);
-      var Z = d.isDynamicReplyButtonsMsg,
-        ee = d.senderObj,
-        te = d.id,
-        ne;
+          (t[33] = Z))
+        : (Z = t[33]);
+      var ee = d.isDynamicReplyButtonsMsg,
+        te = d.senderObj,
+        ne = d.id,
+        re;
       t[34] !== i || t[35] !== d.ctwaContext || t[36] !== d.id
-        ? ((ne =
+        ? ((re =
             !d.ctwaContext &&
             m.jsx(o("WAWebBizSuspiciousLabel.react").SuspiciousLabel, {
               msgKey: d.id,
@@ -493,9 +494,9 @@ __d(
           (t[34] = i),
           (t[35] = d.ctwaContext),
           (t[36] = d.id),
-          (t[37] = ne))
-        : (ne = t[37]);
-      var re;
+          (t[37] = re))
+        : (re = t[37]);
+      var oe;
       t[38] !== l ||
       t[39] !== A ||
       t[40] !== d ||
@@ -504,7 +505,7 @@ __d(
       t[43] !== b ||
       t[44] !== v ||
       t[45] !== D
-        ? ((re = m.jsx(r("WAWebPollMessageHeader"), {
+        ? ((oe = m.jsx(r("WAWebPollMessageHeader"), {
             isPollEnded: l,
             pollSelectableOptionsCount: v,
             pollEndTime: C,
@@ -522,16 +523,16 @@ __d(
           (t[43] = b),
           (t[44] = v),
           (t[45] = D),
-          (t[46] = re))
-        : (re = t[46]);
-      var oe;
+          (t[46] = oe))
+        : (oe = t[46]);
+      var ae;
       t[47] === Symbol.for("react.memo_cache_sentinel")
-        ? ((oe = (c || (c = r("stylex"))).props(
+        ? ((ae = (c || (c = r("stylex"))).props(
             o("WDSPaddings.stylex").wdsPaddings.padding4,
           )),
-          (t[47] = oe))
-        : (oe = t[47]);
-      var ae;
+          (t[47] = ae))
+        : (ae = t[47]);
+      var ie;
       t[48] !== Y ||
       t[49] !== d ||
       t[50] !== p ||
@@ -539,7 +540,7 @@ __d(
       t[52] !== f ||
       t[53] !== E ||
       t[54] !== x
-        ? ((ae = m.jsx(
+        ? ((ie = m.jsx(
             r("WAWebPollsOptions"),
             babelHelpers.extends(
               {
@@ -561,11 +562,11 @@ __d(
           (t[52] = f),
           (t[53] = E),
           (t[54] = x),
-          (t[55] = ae))
-        : (ae = t[55]);
-      var ie;
+          (t[55] = ie))
+        : (ie = t[55]);
+      var le;
       t[56] !== u || t[57] !== A
-        ? ((ie =
+        ? ((le =
             u &&
             m.jsxs(o("WAWebFlex.react").FlexRow, {
               xstyle: [
@@ -602,11 +603,11 @@ __d(
             })),
           (t[56] = u),
           (t[57] = A),
-          (t[58] = ie))
-        : (ie = t[58]);
-      var le;
+          (t[58] = le))
+        : (le = t[58]);
+      var se;
       t[59] !== F || t[60] !== B
-        ? ((le =
+        ? ((se =
             F != null &&
             m.jsx(o("WAWebFlex.react").FlexRow, {
               xstyle: [
@@ -624,11 +625,11 @@ __d(
             })),
           (t[59] = F),
           (t[60] = B),
-          (t[61] = le))
-        : (le = t[61]);
-      var se;
+          (t[61] = se))
+        : (se = t[61]);
+      var ue;
       t[62] !== n || t[63] !== d.id
-        ? ((se = m.jsx(o("WAWebFlex.react").FlexRow, {
+        ? ((ue = m.jsx(o("WAWebFlex.react").FlexRow, {
             justify: "end",
             children: m.jsx(o("WAWebMessageMeta.react").Meta, {
               msgKey: d.id,
@@ -637,23 +638,23 @@ __d(
           })),
           (t[62] = n),
           (t[63] = d.id),
-          (t[64] = se))
-        : (se = t[64]);
-      var ue;
-      t[65] !== ae || t[66] !== ie || t[67] !== le || t[68] !== se
-        ? ((ue = m.jsxs(
-            "div",
-            babelHelpers.extends({}, oe, { children: [ae, ie, le, se] }),
-          )),
-          (t[65] = ae),
-          (t[66] = ie),
-          (t[67] = le),
-          (t[68] = se),
-          (t[69] = ue))
-        : (ue = t[69]);
+          (t[64] = ue))
+        : (ue = t[64]);
       var ce;
+      t[65] !== ie || t[66] !== le || t[67] !== se || t[68] !== ue
+        ? ((ce = m.jsxs(
+            "div",
+            babelHelpers.extends({}, ae, { children: [ie, le, se, ue] }),
+          )),
+          (t[65] = ie),
+          (t[66] = le),
+          (t[67] = se),
+          (t[68] = ue),
+          (t[69] = ce))
+        : (ce = t[69]);
+      var de;
       t[70] !== V || t[71] !== A || t[72] !== _ || t[73] !== k || t[74] !== q
-        ? ((ce =
+        ? ((de =
             k &&
             m.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
               theme: A
@@ -676,58 +677,60 @@ __d(
           (t[72] = _),
           (t[73] = k),
           (t[74] = q),
-          (t[75] = ce))
-        : (ce = t[75]);
-      var de;
+          (t[75] = de))
+        : (de = t[75]);
+      var me;
       t[76] !== d.id ||
       t[77] !== d.senderObj ||
       t[78] !== R ||
-      t[79] !== ne ||
-      t[80] !== re ||
-      t[81] !== ue ||
-      t[82] !== ce
-        ? ((de = m.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
-            contact: ee,
-            msgKey: te,
-            children: [ne, R, re, ue, ce],
+      t[79] !== re ||
+      t[80] !== oe ||
+      t[81] !== ce ||
+      t[82] !== de
+        ? ((me = m.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
+            contact: te,
+            msgKey: ne,
+            children: [re, R, oe, ce, de],
           })),
           (t[76] = d.id),
           (t[77] = d.senderObj),
           (t[78] = R),
-          (t[79] = ne),
-          (t[80] = re),
-          (t[81] = ue),
-          (t[82] = ce),
-          (t[83] = de))
-        : (de = t[83]);
-      var me;
+          (t[79] = re),
+          (t[80] = oe),
+          (t[81] = ce),
+          (t[82] = de),
+          (t[83] = me))
+        : (me = t[83]);
+      var pe;
       return (
         t[84] !== a ||
         t[85] !== i ||
-        t[86] !== d ||
-        t[87] !== de ||
-        t[88] !== J ||
-        t[89] !== T
-          ? ((me = m.jsx(r("WAWebMessageTextBubble.react"), {
-              msg: d,
+        t[86] !== d.id ||
+        t[87] !== d.isDynamicReplyButtonsMsg ||
+        t[88] !== me ||
+        t[89] !== Z ||
+        t[90] !== T
+          ? ((pe = m.jsx(r("WAWebMessageTextBubble.react"), {
+              msgKey: J,
               displayType: i,
               displayAuthor: a,
               authorRole: "button",
               hideMeta: !0,
-              ariaLabel: J,
-              useFixedWidth: Z,
+              ariaLabel: Z,
+              useFixedWidth: ee,
               testid: T,
-              children: de,
+              children: me,
             })),
             (t[84] = a),
             (t[85] = i),
-            (t[86] = d),
-            (t[87] = de),
-            (t[88] = J),
-            (t[89] = T),
-            (t[90] = me))
-          : (me = t[90]),
-        me
+            (t[86] = d.id),
+            (t[87] = d.isDynamicReplyButtonsMsg),
+            (t[88] = me),
+            (t[89] = Z),
+            (t[90] = T),
+            (t[91] = pe))
+          : (pe = t[91]),
+        pe
       );
     }
     function S(e) {

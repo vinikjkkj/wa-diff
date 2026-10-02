@@ -9,65 +9,73 @@ __d(
       d = "20240729",
       m = new Set([e, s, u]);
     function p() {
-      var e = o("WAWebABProps")
-          .getABPropConfigValue("ai_pdfn_nux_ai_group_muse_initiator_notice_id")
-          .trim(),
-        t = o("WAWebABProps")
-          .getABPropConfigValue(
-            "ai_pdfn_nux_ai_group_muse_non_initiator_notice_id",
-          )
-          .trim();
-      return [e, t].filter(function (e) {
-        if (!/^\d+$/.test(e)) return !1;
-        var t = Number(e);
-        return Number.isSafeInteger(t) && t > 0;
-      });
+      return [f(), _()].filter(Boolean);
     }
     function _() {
+      return g(
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_pdfn_nux_ai_group_muse_non_initiator_notice_id",
+        ),
+      );
+    }
+    function f() {
+      return g(
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_pdfn_nux_ai_group_muse_initiator_notice_id",
+        ),
+      );
+    }
+    function g(e) {
+      var t = e.trim();
+      if (!/^\d+$/.test(t)) return null;
+      var n = Number(t);
+      return Number.isSafeInteger(n) && n > 0 ? t : null;
+    }
+    function h() {
       var t = o("WAWebABProps")
           .getABPropConfigValue("ai_pdfn_tos_shortcut_notice_id")
           .trim(),
         n = t != null && t !== "" ? t : e;
       return n;
     }
-    function f() {
+    function y() {
       var e = o("WAWebABProps")
           .getABPropConfigValue("ai_pdfn_tos_shortcut_notice_id")
           .trim(),
         t = e != null && e !== "" ? e : u;
       return t;
     }
-    function g() {
+    function C() {
       var e = o("WAWebABProps")
           .getABPropConfigValue("ai_pdfn_tos_invoke_notice_id")
           .trim(),
         t = e != null && e !== "" ? e : s;
       return t;
     }
-    function h() {
+    function b() {
       return u;
     }
-    function y() {
+    function v() {
       return s;
     }
-    function C() {
+    function S() {
       return c;
     }
-    function b(e) {
+    function R(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       if (t != null) return t;
       switch (e) {
         case o("WAWebBotLogging").BotEntryPointType.Shortcut:
         case o("WAWebBotLogging").BotEntryPointType.Search:
-          return Number(f());
+          return Number(y());
         case o("WAWebBotLogging").BotEntryPointType.Invoke:
-          return Number(g());
+          return Number(C());
       }
     }
-    function v() {
+    function L() {
       return d;
     }
-    function S() {
+    function E() {
       if (!o("WAWebMobilePlatforms").isSMB()) return null;
       var e = o("WAWebABProps")
         .getABPropConfigValue("smb_meta_ai_tos_notice_id")
@@ -78,15 +86,16 @@ __d(
     }
     ((l.supportedTosNoticeIds = m),
       (l.getMuseGroupTosNoticeIds = p),
-      (l.getBotAgentTosId = _),
-      (l.getBotShortcutTosId = f),
-      (l.getBotInvokeTosId = g),
-      (l.getBotLegacyShortcutTosId = h),
-      (l.getBotLegacyInvokeTosId = y),
-      (l.getBizBotTosId = C),
-      (l.getApplicableBotNoticeId = b),
-      (l.getUgcAiStudioTosId = v),
-      (l.getBusinessAssistantLegacyNoticeId = S));
+      (l.getMuseGroupNonInitiatorNoticeId = _),
+      (l.getBotAgentTosId = h),
+      (l.getBotShortcutTosId = y),
+      (l.getBotInvokeTosId = C),
+      (l.getBotLegacyShortcutTosId = b),
+      (l.getBotLegacyInvokeTosId = v),
+      (l.getBizBotTosId = S),
+      (l.getApplicableBotNoticeId = R),
+      (l.getUgcAiStudioTosId = L),
+      (l.getBusinessAssistantLegacyNoticeId = E));
   },
   98,
 );

@@ -45,11 +45,11 @@ __d(
           n,
           r,
         )),
-        (n = o("WAWebPaymentLinkPreviewWithTrustSignalsFeature").setMetadata(
-          e,
-          n,
-          r,
-        )),
+        (n = o("WAWebPaymentLinkPreviewWithTrustSignalsFeature").setMetadata({
+          linkPreviewData: e,
+          links: r,
+          paymentLinkMetadata: n,
+        })),
         (n = o("WAWebPaymentLinkPreviewWithAmountFeature").setAmountMetadata(
           e,
           n,

@@ -1,35 +1,32 @@
 __d(
   "WAWebGroupHistoryRestrictionHelper",
-  ["WAWebBotUtils", "WAWebWidFactory"],
+  ["WAWebBotGroupGatingUtils", "WAWebBotUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return (
-        o("WAWebBotUtils").isMetaAiBot(e.id) ||
-        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)
-      );
-    }
-    function s(e) {
-      return (
-        o("WAWebBotUtils").isMetaAiBot(e) ||
+      return o("WAWebBotUtils").isMetaAiBot(e) ||
         o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-      );
+        ? !0
+        : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) &&
+            o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
     }
-    function u(e) {
-      var t = [],
-        n = [];
-      for (var r of e)
-        s(r)
-          ? n.push(o("WAWebWidFactory").asUserWidOrThrow(r))
-          : t.push(o("WAWebWidFactory").asUserWidOrThrow(r));
-      return { historyReceivers: t, nonHistoryReceivers: n };
+    function s(t) {
+      var n = [],
+        r = [];
+      for (var a of t)
+        e(a)
+          ? r.push(o("WAWebWidFactory").asUserWidOrThrow(a))
+          : n.push(o("WAWebWidFactory").asUserWidOrThrow(a));
+      return { historyReceivers: n, nonHistoryReceivers: r };
     }
-    function c(t) {
+    function u(t) {
       return t.some(function (t) {
-        return !e(t);
+        return !e(t.id);
       });
     }
-    ((l.filterParticipants = u), (l.hasUnrestrictedParticipants = c));
+    ((l.isHistoryRestrictedWid = e),
+      (l.filterParticipants = s),
+      (l.hasUnrestrictedParticipants = u));
   },
   98,
 );

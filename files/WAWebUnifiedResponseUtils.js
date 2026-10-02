@@ -143,6 +143,30 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
+    function E(e) {
+      var t;
+      if (e == null || k(e)) return !1;
+      var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
+      return n.length > 0 && n.every(I);
+    }
+    function k(e) {
+      var t, n;
+      return (
+        ((t = e.nested_responses) != null ? t : []).length > 0 ||
+        ((n = e.embedded_screens) != null ? n : []).length > 0
+      );
+    }
+    function I(e) {
+      var t = u(e.view_model);
+      return t.length > 0 && t.every(T);
+    }
+    function T(e) {
+      return (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.__typename === "GenAIBotProgressStatusPrimitive" &&
+        e.is_in_progress === !1
+      );
+    }
     ((l.UnifiedResponseQPLLogger = s),
       (l.getPrimitives = u),
       (l.getImaginePrimitives = c),
@@ -155,7 +179,8 @@ __d(
       (l.buildUnifiedResponseFromRawData = v),
       (l.unifiedResponseHasMediaContent = S),
       (l.getMetaAiEmbeddedSources = R),
-      (l.stripEmbeddedScreens = L));
+      (l.stripEmbeddedScreens = L),
+      (l.isSettledProgressStatusOnly = E));
   },
   98,
 );

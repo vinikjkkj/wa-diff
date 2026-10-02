@@ -1,0 +1,136 @@
+__d(
+  "WAWebCustomerManagerProfileQueryPlan",
+  [
+    "WAWebCustomerManagerCustomerProfileDecoders",
+    "WAWebCustomerManagerFilterRegistry",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = ["query"],
+      s = 2,
+      u = 5e3,
+      c = {
+        acquisitionSource: null,
+        labelId: null,
+        lastMessageCustomRange: null,
+        lastMessageRange: null,
+        leadStages: [],
+      },
+      d = { clientFilterKeys: [], options: c },
+      m = /[\s+().\-\u2010-\u2015]/g,
+      p = /^[0-9]+$/;
+    function _(t, n, r) {
+      var a = t.query,
+        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        l = [],
+        s = [];
+      for (var u of o("WAWebCustomerManagerFilterRegistry")
+        .CUSTOMER_MANAGER_FILTER_KEYS) {
+        var c = o("WAWebCustomerManagerFilterRegistry").getFilterSpec(u),
+          d = c.serverFilter(i);
+        (d != null && l.push(d), c.isClientActive(i) && s.push(u));
+      }
+      var m = { clientFilterKeys: s, options: i },
+        p = S(n == null ? void 0 : n.key);
+      return {
+        candidateLids: r,
+        filters: l,
+        requiresFullScan: y(m) || C(n, p),
+        residual: m,
+        sortColumn: p,
+        sortDescending: (n == null ? void 0 : n.direction) === "desc",
+      };
+    }
+    function f(e) {
+      var t = e.trim();
+      if (t.length < s) return !1;
+      var n = t.replace(m, "");
+      return p.test(n) ? n.length >= s : !0;
+    }
+    function g(e, t, n) {
+      var r = _(e, null, t),
+        a = [].concat(
+          r.filters.filter(function (e) {
+            var t = e.fieldName;
+            return t !== "lead_stage";
+          }),
+          [
+            {
+              fieldName: "lead_stage",
+              filterText: o(
+                "WAWebCustomerManagerCustomerProfileDecoders",
+              ).toLeadStageFilterText(n),
+            },
+          ],
+        ),
+        i = babelHelpers.extends({}, r.residual, {
+          clientFilterKeys: r.residual.clientFilterKeys.filter(function (e) {
+            return e !== "leadStage";
+          }),
+        });
+      return babelHelpers.extends({}, r, {
+        filters: a,
+        requiresFullScan: y(i),
+        residual: i,
+      });
+    }
+    function h(e, t) {
+      return e.filters.length > 0 || y(e.residual)
+        ? !1
+        : t == null ||
+            t === "customer" ||
+            t === "phone" ||
+            t === "username" ||
+            t === "address" ||
+            t === "birthday" ||
+            t === "lastMessage" ||
+            t === "list"
+          ? !0
+          : t === "email" || t === "acquisitionSource" || t === "lastOrder"
+            ? !1
+            : t === "select" || t === "actions" || t === "notes"
+              ? !0
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
+    }
+    function y(e) {
+      return e.clientFilterKeys.length > 0;
+    }
+    function C(e, t) {
+      return e == null ? !1 : t == null || e.key === "customer";
+    }
+    function b() {
+      return d;
+    }
+    function v(e) {
+      return JSON.stringify([
+        e.candidateLids,
+        e.filters.map(function (e) {
+          var t = e.fieldName,
+            n = e.filterText;
+          return [t, n];
+        }),
+        e.sortColumn,
+        e.sortDescending,
+        e.requiresFullScan,
+      ]);
+    }
+    function S(e) {
+      return e === "customer" ? "name" : e === "email" ? "email" : null;
+    }
+    ((l.MIN_SEARCH_QUERY_LENGTH = s),
+      (l.MAX_CANDIDATE_LIDS = u),
+      (l.buildProfileQueryPlan = _),
+      (l.isSearchQueryActive = f),
+      (l.buildPipelineColumnPlan = g),
+      (l.canPageLocally = h),
+      (l.hasResidual = y),
+      (l.emptyProfileQueryResidual = b),
+      (l.profileQueryPlanKey = v));
+  },
+  98,
+);

@@ -990,10 +990,13 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function We(e) {
+    function We(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_THREAD,
-        extraAttributes: { is_within_editing_window: e },
+        extraAttributes: {
+          discovery_tooltip_was_viewed: t,
+          is_within_editing_window: e,
+        },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         stickyEntryPoint: !1,

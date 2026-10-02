@@ -3,39 +3,27 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e(e) {
-      var t,
-        n,
-        r,
-        o,
-        a,
-        i,
-        u,
-        c,
-        d = (t = (n = e.sent) == null ? void 0 : n.count) != null ? t : 0,
-        m =
-          (r = (o = e.ads_delivered) == null ? void 0 : o.count) != null
-            ? r
-            : 0,
-        p = (a = (i = e.read) == null ? void 0 : i.count) != null ? a : 0,
-        _ =
-          (u = (c = e.first_customer_reply) == null ? void 0 : c.count) != null
-            ? u
-            : 0;
+      var t, n, r, o, a, i, s, u;
       return {
-        customReplyClickCount: s(e.quick_reply_clicks),
-        deliveredCount: m,
-        readCount: p,
-        readRatePercentage: l(p, m),
-        replyCount: _,
-        replyRatePercentage: l(_, m),
-        sentCount: d,
-        websiteClickCount: s(e.cta_url_clicks),
+        customReplyClickCount: l(e.quick_reply_clicks),
+        deliveredCount:
+          (t = (n = e.ads_delivered) == null ? void 0 : n.count) != null
+            ? t
+            : 0,
+        readCount:
+          (r = (o = e.read) == null ? void 0 : o.count) != null ? r : 0,
+        readRatePercentage: e.read_rate,
+        replyCount:
+          (a = (i = e.first_customer_reply) == null ? void 0 : i.count) != null
+            ? a
+            : 0,
+        replyRatePercentage: e.reply_rate,
+        sentCount:
+          (s = (u = e.sent) == null ? void 0 : u.count) != null ? s : 0,
+        websiteClickCount: l(e.cta_url_clicks),
       };
     }
-    function l(e, t) {
-      return t > 0 ? Math.trunc((e * 100) / t) : null;
-    }
-    function s(e) {
+    function l(e) {
       if (e == null) return null;
       var t = 0;
       for (var n of e) {
@@ -48,7 +36,7 @@ __d(
       }
       return t;
     }
-    ((i.deriveProInsightMetrics = e), (i.computeProRatePercentage = l));
+    i.deriveProInsightMetrics = e;
   },
   66,
 );

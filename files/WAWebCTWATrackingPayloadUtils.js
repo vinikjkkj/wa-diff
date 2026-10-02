@@ -21,6 +21,7 @@ __d(
           chat: e,
           conversionData: t.conversionData,
           conversionSource: t.conversionSource,
+          fromMe: !0,
         }));
     }
     l.handleChatConversationOpenedWithNewMessage = e;

@@ -76,6 +76,7 @@ __d(
         r = o("WAWebFrontendMsgGetters").getChat(n);
       return o("WAWebGroupAgentParticipant").isBotAuthorDirectMessagingBlocked(
         n.author,
+        r,
       ) || o("WAWebChatGetters").getIsNewsletter(r)
         ? !1
         : n.isCarouselCard
@@ -122,6 +123,7 @@ __d(
           !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
         o("WAWebGroupAgentParticipant").isBotAuthorDirectMessagingBlocked(
           n.author,
+          r,
         )
         ? !1
         : r.isAnnounceGrpRestrict === !0 &&

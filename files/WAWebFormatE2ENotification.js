@@ -137,7 +137,8 @@ __d(
                     enumType: o("WAWebWamEnumSystemMessageTypeType")
                       .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
                   }
-            : o("WAWebMsgGetters").getIsCAPISupport(t) || c.isSupportAgentBot()
+            : o("WAWebMsgGetters").getIsCAPISupport(t.unsafe()) ||
+                c.isSupportAgentBot()
               ? {
                   text: o("WAWebSupportChatStrings").SupportChatSystemMessage(),
                 }

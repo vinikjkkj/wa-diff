@@ -34,6 +34,7 @@ __d(
           n("hcaEntrypointId"),
           n("groupTosRequirements"),
           n("isDeleted"),
+          n("fetchPauseUntilMs"),
           n("lastFetchedTimeMs"),
         ])
         .view(function (e) {

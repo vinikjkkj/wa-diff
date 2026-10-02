@@ -19,131 +19,141 @@ __d(
       p = "input",
       _ = "output",
       f = "/" + p,
-      g = "/" + _;
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+      g = "/" + _,
+      h = 1048576;
+    function y(e, t, n, r) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          e: {
-            if (t === "audio") return yield R(e);
-            if (t === "sticker-pack") return yield E(e);
-            if (t === "image") return yield v(e);
-            if (t === "video" || t === "gif") return yield C(e);
-            if (t === "document") {
-              var r = n != null ? [n] : [];
-              return yield I({
-                input: e,
-                allowedMimeTypes: r,
-                withEnforceStrictMimetypeMatch: !1,
-                withMimetypeIgnoreParameters: !1,
-                withMimetypeFuzzyMatch: !1,
-              });
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            e: {
+              if (t === "audio") return yield L(e, r);
+              if (t === "sticker-pack") return yield k(e, r);
+              if (t === "image") return yield S(e, r);
+              if (t === "video" || t === "gif") return yield b(e, r);
+              if (t === "document") {
+                var o = n != null ? [n] : [];
+                return yield T({
+                  input: e,
+                  allowedMimeTypes: o,
+                  withEnforceStrictMimetypeMatch: !1,
+                  withMimetypeIgnoreParameters: !1,
+                  withMimetypeFuzzyMatch: !1,
+                  strictOggOpusValidationEnabled: r,
+                });
+              }
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  t,
+              );
             }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                t,
-            );
-          }
-        })),
-        y.apply(this, arguments)
+          },
+        )),
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = ["video/mp4", "video/quicktime"];
-          return yield I({
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = ["video/mp4", "video/quicktime"];
+          return yield T({
             input: e,
-            allowedMimeTypes: t,
+            allowedMimeTypes: n,
             withEnforceStrictMimetypeMatch: !0,
             withMimetypeIgnoreParameters: !0,
             withMimetypeFuzzyMatch: !1,
+            strictOggOpusValidationEnabled: t,
           });
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-          return yield I({
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+          return yield T({
             input: e,
-            allowedMimeTypes: t,
+            allowedMimeTypes: n,
             withEnforceStrictMimetypeMatch: !0,
             withMimetypeIgnoreParameters: !0,
             withMimetypeFuzzyMatch: !1,
+            strictOggOpusValidationEnabled: t,
           });
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = ["audio/ogg; codecs=opus", "audio/m4a", "audio/x-m4a"];
-          return yield I({
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = ["audio/ogg; codecs=opus", "audio/m4a", "audio/x-m4a"];
+          return yield T({
             input: e,
-            allowedMimeTypes: t,
+            allowedMimeTypes: n,
             withEnforceStrictMimetypeMatch: !1,
             withMimetypeIgnoreParameters: !1,
             withMimetypeFuzzyMatch: !0,
+            strictOggOpusValidationEnabled: t,
           });
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = ["application/zip", "image/webp", "application/was"];
-          return yield I({
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = ["application/zip", "image/webp", "application/was"];
+          return yield T({
             input: e,
-            allowedMimeTypes: t,
+            allowedMimeTypes: n,
             withEnforceStrictMimetypeMatch: !0,
             withMimetypeIgnoreParameters: !0,
             withMimetypeFuzzyMatch: !1,
+            strictOggOpusValidationEnabled: t,
           });
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a,
             i,
             l,
             p = t.allowedMimeTypes,
             _ = t.input,
-            f = t.withEnforceStrictMimetypeMatch,
-            h = t.withMimetypeFuzzyMatch,
-            y = t.withMimetypeIgnoreParameters,
-            C = o("WASI").createWasi(
-              D({
+            f = t.strictOggOpusValidationEnabled,
+            h = t.withEnforceStrictMimetypeMatch,
+            y = t.withMimetypeFuzzyMatch,
+            C = t.withMimetypeIgnoreParameters,
+            b = o("WASI").createWasi(
+              x({
                 input: _,
                 mimetypeHints: p,
-                withEnforceStrictMimetypeMatch: f,
-                withMimetypeIgnoreParameters: y,
-                withMimetypeFuzzyMatch: h,
+                strictOggOpusValidationEnabled: f,
+                withEnforceStrictMimetypeMatch: h,
+                withMimetypeIgnoreParameters: C,
+                withMimetypeFuzzyMatch: y,
                 withStreamCheck: !1,
                 stderr: function (n) {
                   o("WAKaleidoscopeLogger")
@@ -165,14 +175,14 @@ __d(
                 },
               }),
             ),
-            b = C.getImportObject,
-            v = C.start,
-            S = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-            R = yield WebAssembly.instantiate(S, b()),
-            L = v(R),
-            E = L.exitCode,
-            k = L.fs;
-          if (E !== 0)
+            v = b.getImportObject,
+            S = b.start,
+            R = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+            L = yield WebAssembly.instantiate(R, v()),
+            E = S(L),
+            k = E.exitCode,
+            I = E.fs;
+          if (k !== 0)
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -182,12 +192,12 @@ __d(
                       "classifyWithMediaType failed with exit code ",
                       "",
                     ])),
-                  E,
+                  k,
                 ),
               o("WAResultOrError").makeError("wasm-runtime-error")
             );
-          var I = (n = k[g]) == null ? void 0 : n.content;
-          if (typeof I != "string")
+          var T = (n = I[g]) == null ? void 0 : n.content;
+          if (typeof T != "string")
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -199,9 +209,9 @@ __d(
                 ),
               o("WAResultOrError").makeError("wasm-result-not-json")
             );
-          var T = {};
+          var D = {};
           try {
-            T = JSON.parse(I);
+            D = JSON.parse(T);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -216,7 +226,7 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json")
             );
           }
-          return typeof ((a = T) == null ? void 0 : a.score) != "number"
+          return typeof ((a = D) == null ? void 0 : a.score) != "number"
             ? (o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .MUSTFIX(
@@ -228,36 +238,39 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json"))
             : o("WAResultOrError").makeResult({
                 mimetype:
-                  ((i = T) == null ? void 0 : i.mimetype) ||
+                  ((i = D) == null ? void 0 : i.mimetype) ||
                   "application/octet-stream",
-                extension: ((l = T) == null ? void 0 : l.extension) || null,
-                score: T.score,
+                extension: ((l = D) == null ? void 0 : l.extension) || null,
+                score: D.score,
               });
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
+    function x(e) {
       var t,
         n = e.input,
         r = e.mimetypeHints,
         o = e.stderr,
         a = e.stdout,
-        i = e.withEnforceStrictMimetypeMatch,
-        l = e.withMimetypeFuzzyMatch,
-        s = e.withMimetypeIgnoreParameters,
-        u = e.withStreamCheck,
-        c = ["kaleidoscope", "classify"];
-      (c.push("--json-report=" + _),
-        l && c.push("--with-mimetype-fuzzy-match"),
-        i && c.push("--with-enforce-strict-mimetype-match"),
-        s && c.push("--with-mimetype-ignore-parameters"),
-        u && c.push("--with-stream-check"));
-      for (var d of r) (c.push("--mimetype-hints"), c.push(d));
+        i = e.strictOggOpusValidationEnabled,
+        l = e.withEnforceStrictMimetypeMatch,
+        s = e.withMimetypeFuzzyMatch,
+        u = e.withMimetypeIgnoreParameters,
+        c = e.withStreamCheck,
+        d = ["kaleidoscope"];
+      (i && d.push("--flags=" + h),
+        d.push("classify"),
+        d.push("--json-report=" + _),
+        s && d.push("--with-mimetype-fuzzy-match"),
+        l && d.push("--with-enforce-strict-mimetype-match"),
+        u && d.push("--with-mimetype-ignore-parameters"),
+        c && d.push("--with-stream-check"));
+      for (var m of r) (d.push("--mimetype-hints"), d.push(m));
       return (
-        c.push(p),
+        d.push(p),
         {
-          args: c,
+          args: d,
           fs:
             ((t = {}),
             (t[f] = {
@@ -287,8 +300,8 @@ __d(
         }
       );
     }
-    ((l.kaleidoscopeClassifyByMediaType = h),
-      (l.kaleidoscopeClassifyVideo = C));
+    ((l.kaleidoscopeClassifyByMediaType = y),
+      (l.kaleidoscopeClassifyVideo = b));
   },
   98,
 );

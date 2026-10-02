@@ -40,7 +40,7 @@ __d(
       var i = a,
         l = n != null ? n : i;
       if (
-        o("WAWebMsgGetters").getIsSentByMe(r) ||
+        o("WAWebMsgGetters").getIsSentByMe(r.unsafe()) ||
         !r.subtype ||
         r.futureproofType === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT ||
         (r.futureproofType === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -80,7 +80,7 @@ __d(
         l = e.hideUpdateButton,
         s = e.msg;
       return u.jsx(r("WAWebMessageTextBubble.react"), {
-        msg: s,
+        msgKey: s.id,
         displayAuthor: i,
         children: u.jsxs(r("WAWebMessagePlaceholder.react"), {
           Icon:
@@ -91,7 +91,7 @@ __d(
                   height: 24,
                   width: 24,
                 }),
-          msg: s.unsafe(),
+          msgKey: s.id,
           theme: (n = o == null ? void 0 : o.theme) != null ? n : void 0,
           children: [
             r("WAWebFormatMsgText")({ msg: s.unsafe() }),

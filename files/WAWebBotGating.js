@@ -59,14 +59,14 @@ __d(
     }
     function d() {
       return (
-        E() &&
+        k() &&
         o("WAWebABProps").getABPropConfigValue(
           "bonsai_chat_list_entry_point_enabled",
         )
       );
     }
     function m() {
-      return E() && !d();
+      return k() && !d();
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue("wabai_consent_cooldown");
@@ -98,12 +98,12 @@ __d(
             o("WAWebRichResponse.flow").RichResponseParseState.Unparsed;
     }
     function C(e) {
-      return !(
-        e.type === o("WAWebMsgType").MSG_TYPE.REVOKED ||
-        !o("WAWebMsgGetters").getIsBotSearchResponse(e)
-      );
+      return b(e.type, o("WAWebMsgGetters").getIsBotSearchResponse(e));
     }
-    function b() {
+    function b(e, t) {
+      return e !== o("WAWebMsgType").MSG_TYPE.REVOKED && t;
+    }
+    function v() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_pdfn_tos_non_blocking_notices",
       );
@@ -117,7 +117,7 @@ __d(
         })
         .map(Number);
     }
-    function v() {
+    function S() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_pdfn_tos_inline_notices",
       );
@@ -131,30 +131,30 @@ __d(
         })
         .map(Number);
     }
-    function S() {
+    function R() {
       if (o("WAWebMobilePlatforms").isSMB()) {
-        var e = R(
+        var e = L(
           o("WAWebABProps").getABPropConfigValue(
             "smb_web_ai_tos_master_notice_id",
           ),
         );
         if (e != null) return e;
       }
-      return R(
+      return L(
         o("WAWebABProps").getABPropConfigValue("ai_pdfn_tos_master_notice_id"),
       );
     }
-    function R(e) {
+    function L(e) {
       if (e.trim() === "") return null;
       var t = Number(e);
       return isNaN(t) ? null : t;
     }
-    function L() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_migrate_away_from_inline_tos_enabled",
       );
     }
-    function E() {
+    function k() {
       return !(
         o("WAWebMobilePlatforms").isSMB() ||
         !o("WAWebBotBaseGating").isBotEnabled() ||
@@ -164,15 +164,15 @@ __d(
           ))
       );
     }
-    function k() {
+    function I() {
       return (
-        E() &&
+        k() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_search_ask_button_web_enabled",
         )
       );
     }
-    function I() {
+    function T() {
       var e =
         o("WAWebUserPrefsBot").getPrimaryAiThreadSupportLevelFromLocalStorage();
       return (
@@ -184,58 +184,58 @@ __d(
             .DeviceCapabilities$AiThread$SupportLevel.FULL
       );
     }
-    function T() {
-      return (
-        I() &&
-        o("WAWebABProps").getABPropConfigValue("ai_chat_threads_web_enabled")
-      );
-    }
     function D() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_meta_ai_thread_rendering_enabled",
+      return (
+        T() &&
+        o("WAWebABProps").getABPropConfigValue("ai_chat_threads_web_enabled")
       );
     }
     function x() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ai_chat_thread_capability_enabled",
+        "ai_meta_ai_thread_rendering_enabled",
       );
     }
     function $() {
-      return (
-        E() &&
-        o("WAWebABProps").getABPropConfigValue("ai_web_ask_meta_ai_enabled")
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_chat_thread_capability_enabled",
       );
     }
     function P() {
       return (
-        $() &&
+        k() &&
+        o("WAWebABProps").getABPropConfigValue("ai_web_ask_meta_ai_enabled")
+      );
+    }
+    function N() {
+      return (
+        P() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_web_ask_meta_ai_improvement_enabled",
         )
       );
     }
-    function N() {
+    function M() {
       return (
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled() &&
         o("WAWebABProps").getABPropConfigValue("is_ai_mode_selector_visible")
       );
     }
-    function M() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_dynamic_mode_selector_ttl_seconds",
       );
     }
-    function w() {
+    function A() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_search_null_state_convo_starter_suggestions_update_interval",
       );
     }
-    function A() {
+    function F() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_search_null_state_convo_starter_gql_enabled",
       );
     }
-    function F() {
+    function O() {
       return (
         o("WAWebBotBaseGating").isBotEnabled() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -243,7 +243,7 @@ __d(
         )
       );
     }
-    function O() {
+    function B() {
       var e;
       return !o("WAWebBotBaseGating").isBotEnabled() ||
         !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -258,7 +258,7 @@ __d(
             "ai_web_meta_ai_image_input_enabled",
           );
     }
-    function B() {
+    function W() {
       var e;
       return !o("WAWebMobilePlatforms").isSMB() ||
         !o("WAWebBotBaseGating").isBotEnabled()
@@ -271,14 +271,14 @@ __d(
               : "",
           );
     }
-    function W(e) {
+    function q(e) {
       return o("WAWebBotUtils").isMetaAiBot(e)
-        ? O() || q() || U()
+        ? G()
         : o("WAWebBotUtils").isBusinessAssistantBot(e)
-          ? B()
+          ? W()
           : !1;
     }
-    function q() {
+    function U() {
       var e;
       return o("WAWebBotBaseGating").isBotEnabled()
         ? o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -293,7 +293,7 @@ __d(
             )
         : !1;
     }
-    function U() {
+    function V() {
       var e;
       return !o("WAWebBotBaseGating").isBotEnabled() ||
         !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -308,38 +308,41 @@ __d(
             "ai_web_meta_ai_pdf_document_input_enabled",
           );
     }
-    function V() {
-      return O() || q();
+    function H() {
+      return B() || U();
     }
-    var H = "pdf";
     function G() {
+      return H() || V();
+    }
+    var z = "pdf";
+    function j() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_supported_file_types",
       );
-      return e !== "" ? e : H;
+      return e !== "" ? e : z;
     }
-    function z() {
+    function K() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_count_limit",
       );
     }
-    function j() {
+    function Q() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_send_image_limit",
       );
     }
-    function K() {
+    function X() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_document_ocr_image_conversion_enabled",
       );
     }
-    function Q(e, t) {
-      return t != null && o("WAWebBotUtils").isMetaAiBot(e) && T();
+    function Y(e, t) {
+      return t != null && o("WAWebBotUtils").isMetaAiBot(e) && D();
     }
-    function X(e) {
-      return o("WAWebBotUtils").isMetaAiBot(e) && T();
+    function J(e) {
+      return o("WAWebBotUtils").isMetaAiBot(e) && D();
     }
-    function Y() {
+    function Z() {
       var e,
         t = o("WAWebABProps").getABPropConfigValue(
           "ai_chat_threads_implicit_routing_strategy",
@@ -351,45 +354,45 @@ __d(
         : o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
             .NewThread;
     }
-    function J() {
+    function ee() {
       return (
-        Y() !==
+        Z() !==
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .NewThread
       );
     }
-    function Z() {
+    function te() {
       return (
-        Y() ===
+        Z() ===
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .DefaultThread
       );
     }
-    function ee() {
+    function ne() {
       return (
-        T() &&
+        D() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_chat_threads_pin_enabled",
         ) === !0
       );
     }
-    function te() {
+    function re() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_pin_max_count",
       );
     }
-    function ne() {
+    function oe() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_bot_orphan_logic_enabled",
       );
     }
-    function re() {
+    function ae() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function oe() {
+    function ie() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_video_upload_size_limit_mb",
       );
@@ -408,43 +411,45 @@ __d(
       (l.isAiAsContactEnabled = h),
       (l.shouldRenderStructuredRichResponseMsg = y),
       (l.showBotSearchPlugin = C),
-      (l.getNonBlockingBotNoticeIds = b),
-      (l.getInlineBotNoticeIds = v),
-      (l.getMasterBotNoticeId = S),
-      (l.isMigrateAwayFromInlineBotTosEnabled = L),
-      (l.isMetaAIChatInteractionEnabled = E),
-      (l.isAiSearchAskButtonEnabled = k),
-      (l.isAiChatThreadsEnabled = T),
-      (l.isMetaAiThreadRenderingEnabled = D),
-      (l.isAiThreadCapabilityEnabled = x),
-      (l.isAskMetaAiEnabled = $),
-      (l.isAskMetaAiImprovementEnabled = P),
-      (l.isAiModeSelectorInteractive = N),
-      (l.getAiDynamicModeSelectorTtlSeconds = M),
-      (l.getMetaAiNullStatePromptsUpdateIntervalSeconds = w),
-      (l.isMetaAiNullStatePromptsGqlFetchEnabled = A),
-      (l.isAiChatThreadsHistoricalMessageMigrationEnabled = F),
-      (l.isMetaAiImageInputEnabled = O),
-      (l.isBusinessAssistantImageInputEnabled = B),
-      (l.isMediaInputEnabledForAssistantBotChat = W),
-      (l.isMetaAiVideoInputEnabled = q),
-      (l.isMetaAiDocUploadEnabled = U),
-      (l.isAnyMetaAiMediaInputEnabled = V),
-      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = H),
-      (l.getMetaAiSupportedFileTypes = G),
-      (l.getMetaAiFileUploadCountLimit = z),
-      (l.getMetaAiImageSendLimit = j),
-      (l.isMetaAiDocumentOcrImageConversionEnabled = K),
-      (l.shouldSkipMetaAiChatlistHighlight = Q),
-      (l.isMetaAiChatInThreadsMode = X),
-      (l.getImplicitThreadRoutingStrategy = Y),
-      (l.isImplicitThreadRoutingEnabled = J),
-      (l.isDefaultThreadRoutingEnabled = Z),
-      (l.isAiThreadPinEnabled = ee),
-      (l.getAiThreadPinMaxCount = te),
-      (l.isBotOrphanMsgEnabled = ne),
-      (l.getMetaAiDocumentUploadSizeLimitBytes = re),
-      (l.getMetaAiVideoUploadSizeLimitBytes = oe));
+      (l.showBotSearchPluginFor = b),
+      (l.getNonBlockingBotNoticeIds = v),
+      (l.getInlineBotNoticeIds = S),
+      (l.getMasterBotNoticeId = R),
+      (l.isMigrateAwayFromInlineBotTosEnabled = E),
+      (l.isMetaAIChatInteractionEnabled = k),
+      (l.isAiSearchAskButtonEnabled = I),
+      (l.isAiChatThreadsEnabled = D),
+      (l.isMetaAiThreadRenderingEnabled = x),
+      (l.isAiThreadCapabilityEnabled = $),
+      (l.isAskMetaAiEnabled = P),
+      (l.isAskMetaAiImprovementEnabled = N),
+      (l.isAiModeSelectorInteractive = M),
+      (l.getAiDynamicModeSelectorTtlSeconds = w),
+      (l.getMetaAiNullStatePromptsUpdateIntervalSeconds = A),
+      (l.isMetaAiNullStatePromptsGqlFetchEnabled = F),
+      (l.isAiChatThreadsHistoricalMessageMigrationEnabled = O),
+      (l.isMetaAiImageInputEnabled = B),
+      (l.isBusinessAssistantImageInputEnabled = W),
+      (l.isMediaInputEnabledForAssistantBotChat = q),
+      (l.isMetaAiVideoInputEnabled = U),
+      (l.isMetaAiDocUploadEnabled = V),
+      (l.isAnyMetaAiMediaInputEnabled = H),
+      (l.isAnyMetaAiAttachmentInputEnabled = G),
+      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = z),
+      (l.getMetaAiSupportedFileTypes = j),
+      (l.getMetaAiFileUploadCountLimit = K),
+      (l.getMetaAiImageSendLimit = Q),
+      (l.isMetaAiDocumentOcrImageConversionEnabled = X),
+      (l.shouldSkipMetaAiChatlistHighlight = Y),
+      (l.isMetaAiChatInThreadsMode = J),
+      (l.getImplicitThreadRoutingStrategy = Z),
+      (l.isImplicitThreadRoutingEnabled = ee),
+      (l.isDefaultThreadRoutingEnabled = te),
+      (l.isAiThreadPinEnabled = ne),
+      (l.getAiThreadPinMaxCount = re),
+      (l.isBotOrphanMsgEnabled = oe),
+      (l.getMetaAiDocumentUploadSizeLimitBytes = ae),
+      (l.getMetaAiVideoUploadSizeLimitBytes = ie));
   },
   98,
 );

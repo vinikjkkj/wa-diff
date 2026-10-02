@@ -16,25 +16,36 @@ __d(
       u = r("JSResourceForInteraction")(
         "WAWebMaybeSyncBotSupportFields",
       ).__setRef("WAWebSyncGroupBotSupportFields");
-    function c(e, t) {
+    function c(e, t, n) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          t === void 0 && (t = []);
+          var r = n === void 0 ? {} : n,
+            a = r.endFetchPause,
+            i = a === void 0 ? !1 : a,
+            l = r.sourceGroupWid;
           if (
-            (t === void 0 && (t = []),
-            !!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
+            o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
           ) {
-            var n = e.filter(function (e) {
+            var s = e.filter(function (e) {
                 return e.isFbidBot();
               }),
-              r = yield m(t);
-            if (!(n.length === 0 && r.length === 0)) {
-              var a = yield u.load(),
-                i = a.maybeQueryGroupAgentRosters,
-                l = a.maybeSyncGroupBotSupportFields;
-              (n.length > 0 && l(n), r.length > 0 && i(r));
+              c = yield m(t);
+            if (!(s.length === 0 && c.length === 0)) {
+              var d = yield u.load(),
+                p = d.maybeQueryGroupAgentRosters,
+                _ = d.maybeSyncGroupBotSupportFields;
+              (s.length > 0 &&
+                _(
+                  s,
+                  l == null
+                    ? { endFetchPause: i }
+                    : { endFetchPause: i, sourceGroupWid: l },
+                ),
+                c.length > 0 && p(c));
             }
           }
         })),

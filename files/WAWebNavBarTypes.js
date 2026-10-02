@@ -22,7 +22,7 @@ __d(
       MediaHub: "mediaHub",
       MetaAI: "metaAI",
       MeTab: "meTab",
-      ContactManager: "contactManager",
+      CustomerManager: "contactManager",
       OrgAdmin: "orgAdmin",
       GroupAdmin: "groupAdmin",
     });

@@ -5,8 +5,8 @@ __d(
     "WALogger",
     "WAWebApplyLeadStageSublistAction",
     "WAWebContactCollection",
-    "WAWebContactManagerApplyLeadLabelAction",
     "WAWebContactManagerCustomerProfileUpsertMutation",
+    "WAWebCustomerManagerApplyLeadLabelAction",
     "WAWebCustomerProfileChangeNotifier",
     "WAWebFrontendContactGetters",
     "asyncToGeneratorRuntime",
@@ -23,7 +23,7 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (!t.endsWith(o("WAJids").LID_DOMAIN))
             throw r("err")(
-              '[ContactManager] upsertAsCustomer: chatJid must be LID-based, got "' +
+              '[CustomerManager] upsertAsCustomer: chatJid must be LID-based, got "' +
                 t +
                 '"',
             );
@@ -31,21 +31,21 @@ __d(
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ContactManager] upsertAsCustomer: chatJid ",
+                  "[CustomerManager] upsertAsCustomer: chatJid ",
                   ", leadStage ",
                   "",
                 ])),
               t,
               String(n),
             ),
-            o("WAWebContactManagerApplyLeadLabelAction")
-              .contactManagerApplyLeadLabelToChat(t)
+            o("WAWebCustomerManagerApplyLeadLabelAction")
+              .customerManagerApplyLeadLabelToChat(t)
               .catch(function (e) {
                 o("WALogger")
                   .WARN(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ContactManager] Failed to auto-apply Lead label: ",
+                        "[CustomerManager] Failed to auto-apply Lead label: ",
                         "",
                       ])),
                     String(e),
@@ -63,7 +63,7 @@ __d(
                 .WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ContactManager] Failed to write lead stage sub-list",
+                      "[CustomerManager] Failed to write lead stage sub-list",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))

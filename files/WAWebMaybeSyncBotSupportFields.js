@@ -2,43 +2,57 @@ __d(
   "WAWebMaybeSyncBotSupportFields",
   [
     "WALogger",
+    "WATimeUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebBotProfileCollection",
+    "WAWebBotProfileFetchPause",
     "WAWebBotProfileFreshness",
     "WAWebBotStaticProfiles",
     "WAWebGroupQueryGroupJob",
+    "WAWebPersistBotProfiles",
     "WAWebSyncBotSupportFields",
+    "WAWebWidToJid",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 6e4,
-      c = 100,
-      d = new Set(),
+      u,
+      c = 6e4,
+      d = 100,
       m = new Set(),
-      p = new Map();
-    function _(t, n) {
+      p = new Set(),
+      _ = new Map();
+    function f(t, n) {
       var a = n === void 0 ? {} : n,
-        i = a.tombstoneOnMissing,
-        l = i === void 0 ? !0 : i,
-        s = a.ttlMs;
+        i = a.sourceGroupWid,
+        l = a.tombstoneOnMissing,
+        s = l === void 0 ? !0 : l,
+        u = a.ttlMs;
       if (!(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t))) {
-        var u = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
-          c =
-            u == null
+        var c = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
+          d =
+            c == null
               ? null
               : {
-                  isDeleted: u.isDeleted,
-                  groupTosRequirements: u.groupTosRequirements,
-                  product: u.product,
-                  lastFetchedTimeMs: u.lastFetchedTimeMs,
+                  isDeleted: c.isDeleted,
+                  groupTosRequirements: c.groupTosRequirements,
+                  product: c.product,
+                  lastFetchedTimeMs: c.lastFetchedTimeMs,
                 };
-        o("WAWebBotProfileFreshness").isBotProfileStale(c, Date.now(), s) &&
-          (d.has(t) ||
-            (d.add(t),
+        o("WAWebBotProfileFreshness").isBotProfileStale(
+          d,
+          o("WATimeUtils").unixTimeMs(),
+          u,
+        ) &&
+          (m.has(t) ||
+            (m.add(t),
             o("WAWebSyncBotSupportFields")
-              .syncBotSupportFields(t, l)
+              .syncBotSupportFields(
+                t,
+                s,
+                i == null ? null : o("WAWebWidToJid").widToGroupJid(i),
+              )
               .catch(function (t) {
                 o("WALogger")
                   .ERROR(
@@ -51,21 +65,21 @@ __d(
                   .sendLogs("sbp-maybe-sync-error");
               })
               .finally(function () {
-                d.delete(t);
+                m.delete(t);
               })));
       }
     }
-    function f(e) {
+    function g(e) {
       e.forEach(function (e) {
         var t,
           n = e.groupWid,
           r = e.missingAgentWids;
         if (r.length === 0) {
-          p.delete(n);
+          _.delete(n);
           return;
         }
-        if (!m.has(n)) {
-          var o = (t = p.get(n)) != null ? t : new Set(),
+        if (!p.has(n)) {
+          var o = (t = _.get(n)) != null ? t : new Set(),
             a = r.filter(function (e) {
               return !o.has(e);
             });
@@ -73,8 +87,8 @@ __d(
             (a.forEach(function (e) {
               return o.add(e);
             }),
-            g(n, o),
-            h(n, function () {
+            h(n, o),
+            y(n, function () {
               a.forEach(function (e) {
                 return o.delete(e);
               });
@@ -82,14 +96,14 @@ __d(
         }
       });
     }
-    function g(e, t) {
-      if ((p.delete(e), p.set(e, t), p.size > c)) {
-        var n = p.keys().next().value;
-        n != null && p.delete(n);
+    function h(e, t) {
+      if ((_.delete(e), _.set(e, t), _.size > d)) {
+        var n = _.keys().next().value;
+        n != null && _.delete(n);
       }
     }
-    function h(e, t) {
-      (m.add(e),
+    function y(e, t) {
+      (p.add(e),
         o("WAWebGroupQueryGroupJob")
           .queryGroupJob(e, "out_of_sync_update", {
             preserveLocalMembership: !0,
@@ -111,21 +125,47 @@ __d(
                 .sendLogs("sbp-group-agent-roster-query-error"));
           })
           .finally(function () {
-            m.delete(e);
+            p.delete(e);
           }));
     }
-    function y(e, t) {
+    function C(e, t) {
       var n = t === void 0 ? {} : t,
-        r = n.ttlMs;
-      o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() &&
+        a = n.endFetchPause,
+        i = a === void 0 ? !1 : a,
+        l = n.sourceGroupWid,
+        s = n.ttlMs;
+      if (o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()) {
+        var c = o("WATimeUtils").unixTimeMs();
         e.forEach(function (e) {
-          _(e, { ttlMs: r, tombstoneOnMissing: !1 });
+          var t = o("WAWebBotProfileCollection").BotProfileCollection.get(e),
+            n = t == null ? void 0 : t.fetchPauseUntilMs,
+            a = n != null,
+            d = o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(n, c);
+          (d && !i) ||
+            (d &&
+              t != null &&
+              (t.set({ fetchPauseUntilMs: null }),
+              o("WAWebPersistBotProfiles")
+                .mergeBotSupportFields(e, { fetchPauseUntilMs: null })
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[maybeSyncGroupBotSupportFields] failed to end fetch pause",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("sbp-end-fetch-pause-error");
+                })),
+            f(e, { sourceGroupWid: l, ttlMs: a ? 0 : s }));
         });
+      }
     }
-    ((l.CHAT_OPEN_REFRESH_TTL_MS = u),
-      (l.maybeSyncBotSupportFields = _),
-      (l.maybeQueryGroupAgentRosters = f),
-      (l.maybeSyncGroupBotSupportFields = y));
+    ((l.CHAT_OPEN_REFRESH_TTL_MS = c),
+      (l.maybeSyncBotSupportFields = f),
+      (l.maybeQueryGroupAgentRosters = g),
+      (l.maybeSyncGroupBotSupportFields = C));
   },
   98,
 );

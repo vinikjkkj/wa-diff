@@ -2,7 +2,7 @@ __d(
   "WAWebLeadSublistGating",
   [
     "WAWebChatGetters",
-    "WAWebContactManagerGating",
+    "WAWebCustomerManagerGating",
     "WAWebEnvironment",
     "WAWebMobilePlatforms",
   ],
@@ -14,17 +14,17 @@ __d(
         !r("WAWebEnvironment").isGuest &&
         !o("WAWebChatGetters").getIsBroadcast(e) &&
         t != null &&
-        o("WAWebContactManagerGating").isEligibleForCustomerFields(t) &&
+        o("WAWebCustomerManagerGating").isEligibleForCustomerFields(t) &&
         !e.id.isAiHub() &&
-        o("WAWebContactManagerGating").contactManagerEnabled()
+        o("WAWebCustomerManagerGating").customerManagerEnabled()
       );
     }
     function s(e) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         !r("WAWebEnvironment").isGuest &&
-        o("WAWebContactManagerGating").isEligibleForCustomerFields(e) &&
-        o("WAWebContactManagerGating").contactManagerEnabled()
+        o("WAWebCustomerManagerGating").isEligibleForCustomerFields(e) &&
+        o("WAWebCustomerManagerGating").customerManagerEnabled()
       );
     }
     ((l.isChatEligibleForLeadSublist = e),

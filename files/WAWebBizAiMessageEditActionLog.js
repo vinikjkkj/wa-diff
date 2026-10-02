@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBizAILargeScreensLogEvents",
+    "WAWebBizAiMessageEditEducationState",
     "WAWebMsgActionCapability",
     "getErrorSafe",
   ],
@@ -14,6 +15,7 @@ __d(
         if (!o("WAWebMsgActionCapability").shouldCoachAgentEdit(t)) return;
         o("WAWebBizAILargeScreensLogEvents").logClickBizAiMessageEditAction(
           o("WAWebMsgActionCapability").shouldDeliverAgentEditToRecipient(t),
+          o("WAWebBizAiMessageEditEducationState").hasViewedDiscoveryTooltip(),
         );
       } catch (t) {
         o("WALogger")

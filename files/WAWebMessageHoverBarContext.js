@@ -6,6 +6,7 @@ __d(
       s = e || (e = o("react")),
       u = e.createContext,
       c = {
+        isAvailable: !1,
         onHoverStart: function () {},
         onHoverEnd: function () {},
         onFocusStart: function () {},

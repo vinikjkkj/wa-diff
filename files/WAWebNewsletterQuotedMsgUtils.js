@@ -31,7 +31,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!o("WAWebMsgGetters").getIsNewsletterMsg(t))
+          if (!o("WAWebMsgGetters").getIsNewsletterMsg(t.unsafe()))
             return {
               quotedMsgKey: t.id,
               msgInStore: o("WAWebMsgCollection").MsgCollection.get(t.id),

@@ -8,7 +8,8 @@ __d(
     "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = new WeakSet();
+    function s(e) {
       var t;
       if (!((t = e.contact) != null && t.isBusiness)) return !1;
       var n = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
@@ -18,7 +19,7 @@ __d(
       ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
       return !(!r && n == null);
     }
-    function s() {
+    function u() {
       return (
         !o(
           "WAWebCTWAGatingUtils",
@@ -29,41 +30,57 @@ __d(
           ).isUpdatedConsumerDisclosureUiBrazilEnabled())
       );
     }
-    function u(e) {
-      var t,
-        n = e.chat,
-        r = e.conversionData,
-        a = e.conversionSource,
-        i = e.ctwaSignals;
-      if (!(r == null || a == null)) {
+    function c(e) {
+      var t = e.chat,
+        n = e.conversionData,
+        r = e.conversionSource,
+        a = e.ctwaSignals,
+        i = e.fromMe;
+      if (!(n == null || r == null)) {
         var l = o(
           "WAWebGetCTWAEligibilityFromConversion",
         ).getCTWAEligibilityFromConversion({
-          conversionData: r,
-          conversionSource: a,
-          ctwaSignals: i,
+          conversionData: n,
+          conversionSource: r,
+          ctwaSignals: a,
         });
-        if (
-          (l == null ? void 0 : l.is3pdag) !== !0 &&
-          (t = n.contact) != null &&
-          t.isBusiness
-        ) {
-          var s = o(
-            "WAWebConsumerTransparencyInfoIconModel",
-          ).ConsumerTransparencyInfoIconModel.shouldShowIcon(n.id);
-          s ||
-            (o(
-              "WAWebConsumerTransparencyInfoIconModel",
-            ).ConsumerTransparencyInfoIconModel.add(n.id),
-            o(
-              "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
-            ).maybeInsertCtwaConsumerDisclosureMsg(n));
+        if ((l == null ? void 0 : l.is3pdag) !== !0) {
+          var s = t.contact;
+          if (s != null) {
+            if (s.isBusiness === !0) {
+              m(t);
+              return;
+            }
+            i && d(t, s);
+          }
         }
       }
     }
-    ((l.shouldShowConsumerTransparencyDisclosure = e),
-      (l.shouldShowROWConsumerDisclosure = s),
-      (l.handleConsumerTransparencyForNewMsg = u));
+    function d(t, n) {
+      if (!e.has(n)) {
+        e.add(n);
+        var r = function () {
+          n.isBusiness === !0 &&
+            (n.off("change:isBusiness", r), e.delete(n), m(t));
+        };
+        n.on("change:isBusiness", r);
+      }
+    }
+    function m(e) {
+      var t = o(
+        "WAWebConsumerTransparencyInfoIconModel",
+      ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
+      t ||
+        (o(
+          "WAWebConsumerTransparencyInfoIconModel",
+        ).ConsumerTransparencyInfoIconModel.add(e.id),
+        o(
+          "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
+        ).maybeInsertCtwaConsumerDisclosureMsg(e));
+    }
+    ((l.shouldShowConsumerTransparencyDisclosure = s),
+      (l.shouldShowROWConsumerDisclosure = u),
+      (l.handleConsumerTransparencyForNewMsg = c));
   },
   98,
 );

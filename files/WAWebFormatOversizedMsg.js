@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
-    function c(e) {
+    function c() {
       return s._(
         /*BTDS*/ "This message can't be viewed in {=m1}. View it on your phone instead.",
         [

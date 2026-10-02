@@ -40,7 +40,7 @@ __d(
       return s._(/*BTDS*/ "Existing audiences");
     }
     function b() {
-      return s._(/*BTDS*/ "Select who you want to reach with your audience");
+      return s._(/*BTDS*/ "Select who you want to reach with your broadcast.");
     }
     function v() {
       return s._(/*BTDS*/ "Selected audiences");

@@ -229,11 +229,11 @@ __d(
             o("WAWebBBAudienceLogs").createAudienceViewed(this.$1, t, n);
           }),
           (t.createAudienceContactCheckboxClicked = function (t, n) {
-            o("WAWebBBAudienceLogs").createAudienceContactCheckboxClicked(
-              this.$1,
-              t,
-              n,
-            );
+            o("WAWebBBAudienceLogs").createAudienceContactCheckboxClicked({
+              entryPoint: n,
+              log: this.$1,
+              totalSelectedCount: t,
+            });
           }),
           (t.createAudienceBackClicked = function (t) {
             o("WAWebBBAudienceLogs").createAudienceBackClicked(this.$1, t);
@@ -310,10 +310,18 @@ __d(
               n,
             );
           }),
-          (t.attachmentPreviewSaveButtonClicked = function (t, n, r) {
+          (t.attachmentPreviewSaveButtonClicked = function (t) {
+            var e = t.entryPoint,
+              n = t.fileExt,
+              r = t.fileSize;
             o(
               "WAWebBBBroadcastCreationLogs",
-            ).attachmentPreviewSaveButtonClicked(this.$1, t, n, r);
+            ).attachmentPreviewSaveButtonClicked({
+              entryPoint: e,
+              fileExt: n,
+              fileSize: r,
+              log: this.$1,
+            });
           }),
           (t.attachmentPreviewButtonClicked = function (t) {
             var e = t.entryPoint,
@@ -523,11 +531,11 @@ __d(
             o("WAWebBBContactImportLogs").importAudienceClicked(this.$1, t);
           }),
           (t.contactImportPromptViewed = function (t, n) {
-            o("WAWebBBContactImportLogs").contactImportPromptViewed(
-              this.$1,
-              t,
-              n,
-            );
+            o("WAWebBBContactImportLogs").contactImportPromptViewed({
+              entryPoint: n,
+              extraAttributes: t,
+              log: this.$1,
+            });
           }),
           (t.templateSaveClicked = function (t) {
             o("WAWebBBContactImportLogs").templateSaveClicked(this.$1, t);
@@ -999,7 +1007,12 @@ __d(
             o("WAWebBBGenAILogs").genAICustomizeOpened(this.$1, t);
           }),
           (t.genAICustomizeUseMessage = function (t, n, r) {
-            o("WAWebBBGenAILogs").genAICustomizeUseMessage(this.$1, t, n, r);
+            o("WAWebBBGenAILogs").genAICustomizeUseMessage({
+              cardIndex: n,
+              isOriginal: r,
+              log: this.$1,
+              refinementCount: t,
+            });
           }),
           (t.genAIRefinementLoading = function () {
             o("WAWebBBGenAILogs").genAIRefinementLoading(this.$1);

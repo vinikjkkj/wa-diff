@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebBotUtils",
     "WAWebDetailImage.react",
     "WAWebFlex.react",
     "WAWebFrontendContactGetters",
@@ -84,8 +83,7 @@ __d(
         ).isPostJoinHistoryGroupStructurallyEligible(
           o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(e),
         ) &&
-        !o("WAWebBotUtils").isMetaAiBot(n.id) &&
-        !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.id) &&
+        !o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid(n.id) &&
         !e.participants.isParticipantWidOrAlternateWidValid(
           o("WAWebWidFactory").asUserWidOrThrow(n.id),
           function (e) {

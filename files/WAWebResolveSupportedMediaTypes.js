@@ -29,10 +29,22 @@ __d(
         o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
       );
     }
+    function d(e, t, n) {
+      return o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(e, t, n);
+    }
+    function m(e) {
+      return o("WAWebMediaGatingUtils").hasBotMediaSelectionLimit(e);
+    }
+    function p(e, t) {
+      return o("WAWebMediaGatingUtils").supportsMultipleUploads(e, t);
+    }
     ((l.resolveSupportedMediaTypesForChat = e),
       (l.resolveBot3pSupportedMediaTypes = s),
       (l.isBot3pMediaInputEnabled = u),
-      (l.resolveBot3pMediaMode = c));
+      (l.resolveBot3pMediaMode = c),
+      (l.resolveMaxNumberSelectableMedia = d),
+      (l.resolveHasBotMediaSelectionLimit = m),
+      (l.resolveSupportsMultipleUploads = p));
   },
   98,
 );

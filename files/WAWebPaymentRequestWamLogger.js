@@ -35,12 +35,13 @@ __d(
       g = "payment_request_text_cta",
       h = "receiver_log_key",
       y = "buyer_order_fs_log",
-      C = "individual",
-      b = "group",
-      v = "broadcast",
-      S = "newsletter",
-      R = "BRL",
-      L = new Map([
+      C = "cpx",
+      b = "individual",
+      v = "group",
+      S = "broadcast",
+      R = "newsletter",
+      L = "BRL",
+      E = new Map([
         [m, o("WAWebWamEnumInteractionType").INTERACTION_TYPE.COPY_PIX_CODE],
         [
           (d = o("WAWebBrPaymentRequest")).PaymentRequestCtaType.BOLETO,
@@ -51,15 +52,15 @@ __d(
           o("WAWebWamEnumInteractionType").INTERACTION_TYPE.USER_PAY_NOW,
         ],
       ]),
-      E = new Map([
+      k = new Map([
         [d.PaymentRequestCtaType.PIX_DYNAMIC_CODE, m],
         [d.PaymentRequestCtaType.OFFSITE_CARD_PAY, p],
       ]);
-    function k(e) {
-      var t;
-      return (t = E.get(e)) != null ? t : e;
-    }
     function I(e) {
+      var t;
+      return (t = k.get(e)) != null ? t : e;
+    }
+    function T(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
         e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
@@ -67,37 +68,37 @@ __d(
           r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST
       );
     }
-    function T(e) {
+    function D(e) {
       var t,
         n = (t = e.interactivePayload) == null ? void 0 : t.buttons;
       if (n == null) return [];
       var r = [];
       for (var a of n) {
         var i = o("WAWebBrPaymentRequest").parsePaymentRequestButton(a);
-        i != null && r.push(k(i.paymentType));
+        i != null && r.push(I(i.paymentType));
       }
       return r;
     }
-    function D(e) {
+    function x(e) {
       var t, n, r;
       return ((t = e.from) == null ? void 0 : t.isGroup()) === !0
-        ? b
+        ? v
         : ((n = e.broadcastId) == null ? void 0 : n.isBroadcast()) === !0
-          ? v
+          ? S
           : ((r = e.from) == null ? void 0 : r.isNewsletter()) === !0
-            ? S
-            : C;
+            ? R
+            : b;
     }
-    function x(e) {
+    function $(e) {
       var t;
       return (t = o("WAWebMsgGetters").getSender(e)) == null ? void 0 : t.user;
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
               e,
               t,
@@ -106,31 +107,32 @@ __d(
             a = r.funnel_id;
           return a;
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.templateId != null,
-            r = e.id.id + e.to.toJid(),
-            a = yield $(h, r),
-            i = yield $(a, y),
-            l = T(e),
-            s = {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = e.templateId != null,
+            a = e.id.id + e.to.toJid(),
+            i = yield P(h, a),
+            l = yield P(i, y),
+            s = D(e),
+            u = G(e, t),
+            c = {
               cta: _,
-              p2m_flow: n ? f : g,
+              p2m_flow: r ? f : g,
               accepted_payment_method:
-                l.length > 0 ? JSON.stringify(l) : void 0,
-              order_funnel_id: a,
-              chat_type: D(e),
+                s.length > 0 ? JSON.stringify(s) : void 0,
+              order_funnel_id: i,
+              chat_type: x(e),
             };
-          (n ||
-            (s.is_payment_cta_shown = o(
+          (r ||
+            (c.is_payment_cta_shown = o(
               "WAWebBrPaymentRequest",
             ).isPaymentDetectionEnhancementEnabled()
               ? "1"
@@ -138,41 +140,51 @@ __d(
             new (o(
               "WAWebStructuredMessageReceiveWamEvent",
             ).StructuredMessageReceiveWamEvent)({
+              bizPlatform: u,
               messageClass: o("WAWebWamEnumStructuredMessageClass")
                 .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
               messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
                 .INTERACTIVE_NFM,
-              businessOwnerJid: x(e),
-              messageClassAttributes: JSON.stringify(s),
-              templateId: (t = e.templateId) != null ? t : void 0,
+              businessOwnerJid: $(e),
+              messageClassAttributes: JSON.stringify(
+                babelHelpers.extends({}, c, { is_template: r, platform: C }),
+              ),
+              templateId: (n = e.templateId) != null ? n : void 0,
             }).commit());
-          var u = babelHelpers.extends({}, s, { order_funnel_id: i });
+          var d = babelHelpers.extends({}, c, { order_funnel_id: l });
           new (o(
             "WAWebStructuredMessageBuyerReceiveWamEvent",
           ).StructuredMessageBuyerReceiveWamEvent)({
+            bizPlatform: u,
             messageClass: o("WAWebWamEnumStructuredMessageClass")
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
               .INTERACTIVE_NFM,
-            messageClassAttributes: JSON.stringify(u),
+            messageClassAttributes: JSON.stringify(d),
           }).commit();
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield (c || (c = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    I(e) &&
-                      (yield N(e).catch(function (e) {
+                    if (T(e)) {
+                      var n,
+                        r =
+                          (n = o("WAWebMsgGetters").getSender(e)) == null
+                            ? void 0
+                            : n.toJid(),
+                        a = r != null ? t.get(r) : null;
+                      yield M(e, a).catch(function (e) {
                         o("WALogger").WARN(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -181,7 +193,8 @@ __d(
                             ])),
                           e,
                         );
-                      }));
+                      });
+                    }
                   },
                 );
                 return function (t) {
@@ -191,11 +204,11 @@ __d(
             ),
           );
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(t, n) {
-      O(t, n).catch(function (t) {
+    function O(t, n) {
+      B(t, n).catch(function (t) {
         o("WALogger")
           .WARN(
             e ||
@@ -207,17 +220,17 @@ __d(
           .sendLogs("payment-request-interaction-log-failed");
       });
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a = e.templateId != null,
-            i = k(t),
-            l = yield W(e),
+            i = I(t),
+            l = yield q(e),
             s = {
               cta: _,
               p2m_flow: a ? f : g,
@@ -229,7 +242,7 @@ __d(
           ).PsStructuredMessageInteractionWamEvent)(
             babelHelpers.extends(
               {},
-              V(e, {
+              H(e, {
                 attributes: s,
                 normalizedPaymentMethod: i,
                 psFunnelId: l,
@@ -237,7 +250,7 @@ __d(
               {
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-                messageMediaType: U(a),
+                messageMediaType: V(a),
                 businessOwnerJid:
                   (n = e.senderObj) == null || (n = n.id) == null
                     ? void 0
@@ -246,18 +259,18 @@ __d(
               },
             ),
           ).commit(),
-            yield G(s, a, l != null ? l : ""));
+            yield j(s, a, l != null ? l : ""));
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield $(h, e.id.id + e.to.toJid()).catch(function (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield P(h, e.id.id + e.to.toJid()).catch(function (e) {
             return (
               o("WALogger")
                 .WARN(
@@ -273,38 +286,50 @@ __d(
           });
           return t === "" ? void 0 : t;
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
+    function V(e) {
       return e
         ? o("WAWebWamEnumMediaType").MEDIA_TYPE.TEMPLATE
         : o("WAWebWamEnumMediaType").MEDIA_TYPE.INTERACTIVE_NFM;
     }
-    function V(e, t) {
+    function H(e, t) {
       var n,
         r = t.attributes,
         a = t.normalizedPaymentMethod,
         i = t.psFunnelId,
-        l = T(e);
+        l = D(e);
       return {
-        bizPlatform: H(e),
+        bizPlatform: z(e),
         messageClassAttributes: JSON.stringify(
           babelHelpers.extends({}, r, {
             accepted_payment_method: l.length > 0 ? JSON.stringify(l) : void 0,
             order_funnel_id: i,
-            chat_type: D(e),
+            chat_type: x(e),
             is_cta_available: !0,
-            currency: R,
+            currency: L,
           }),
         ),
         messageInteraction:
-          (n = L.get(a)) != null
+          (n = E.get(a)) != null
             ? n
             : o("WAWebWamEnumInteractionType").INTERACTION_TYPE.USER_START,
       };
     }
-    function H(e) {
+    function G(e, t) {
+      var n;
+      if ((t == null ? void 0 : t.isApi) !== !0)
+        return o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN;
+      var r = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
+        (n = e.privacyModeWhenSent) != null ? n : t.storedPrivacyMode,
+      );
+      return r === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE ||
+        r === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP
+        ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT
+        : o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI;
+    }
+    function z(e) {
       var t = e.senderObj;
       if ((t == null ? void 0 : t.isEnterprise) !== !0)
         return o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI;
@@ -316,13 +341,13 @@ __d(
         ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT
         : o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI;
     }
-    function G(e, t, n) {
-      return z.apply(this, arguments);
+    function j(e, t, n) {
+      return K.apply(this, arguments);
     }
-    function z() {
+    function K() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield $(n, y);
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield P(n, y);
           new (o(
             "WAWebStructuredMessageBuyerInteractionWamEvent",
           ).StructuredMessageBuyerInteractionWamEvent)({
@@ -330,17 +355,18 @@ __d(
               .INTERACTION_TYPE.USER_START,
             messageClass: o("WAWebWamEnumStructuredMessageClass")
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-            messageMediaType: U(t),
+            messageMediaType: V(t),
             messageClassAttributes: JSON.stringify(
               babelHelpers.extends({}, e, { order_funnel_id: r }),
             ),
           }).commit();
         })),
-        z.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    ((l.logPaymentRequestReceivedWAMEvent = w),
-      (l.logPaymentRequestInteractionWAMEvent = F));
+    ((l.isPaymentRequestMsg = T),
+      (l.logPaymentRequestReceivedWAMEvent = A),
+      (l.logPaymentRequestInteractionWAMEvent = O));
   },
   98,
 );

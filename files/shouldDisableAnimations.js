@@ -1,17 +1,17 @@
 __d(
   "shouldDisableAnimations",
-  [],
-  function (t, n, r, o, a, i) {
+  ["ExecutionEnvironment"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 4;
-    function l() {
-      return (
-        navigator != null &&
-        navigator.hardwareConcurrency != null &&
-        navigator.hardwareConcurrency < e
-      );
+    var e,
+      s = 4;
+    function u() {
+      return (e || (e = r("ExecutionEnvironment"))).canUseDOM
+        ? navigator.hardwareConcurrency != null &&
+            navigator.hardwareConcurrency < s
+        : !1;
     }
-    i.default = l;
+    l.default = u;
   },
-  66,
+  98,
 );

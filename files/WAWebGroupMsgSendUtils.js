@@ -80,10 +80,11 @@ __d(
           if (n != null) {
             var m = o("WAWebGroupUtils").amIGroupAdmin(n.admins);
             ((s.amIAdmin = m),
-              Object.assign(
+              (s = babelHelpers.extends(
+                {},
                 s,
                 o("WAWebWamGroupMetricUtils").getGroupMetricsFromDbRecord(n),
-              ));
+              )));
           }
           return s;
         })),

@@ -36,6 +36,7 @@ __d(
         nonFABViewportFit: !1,
         enableBindSubtreeReuse: !1,
         enableNoOpVariableWriteFilter: !1,
+        cssOnlyAspectRatio: !1,
         enableBindInstrumentation: !1,
         enableDeterministicTextSize: !1,
         appLoader: null,
@@ -184,7 +185,8 @@ __d(
         D,
         x,
         $,
-        P;
+        P,
+        N;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -237,41 +239,43 @@ __d(
               (f = t.enableNoOpVariableWriteFilter) != null
                 ? f
                 : e.enableNoOpVariableWriteFilter,
+            cssOnlyAspectRatio:
+              (h = t.cssOnlyAspectRatio) != null ? h : e.cssOnlyAspectRatio,
             enableDeterministicTextSize:
-              (h = t.enableDeterministicTextSize) != null
-                ? h
+              (y = t.enableDeterministicTextSize) != null
+                ? y
                 : e.enableDeterministicTextSize,
             enableBindInstrumentation:
-              (y = t.enableBindInstrumentation) != null
-                ? y
+              (C = t.enableBindInstrumentation) != null
+                ? C
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (C = t.loadingFallback) != null ? C : e.loadingFallback,
+              (b = t.loadingFallback) != null ? b : e.loadingFallback,
             dataModulesStore: g(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (b = t.navigationTrackingUtils) != null
-                ? b
+              (v = t.navigationTrackingUtils) != null
+                ? v
                 : e.navigationTrackingUtils,
-            logger: (v = t.logger) != null ? v : e.logger,
+            logger: (S = t.logger) != null ? S : e.logger,
             disableErrorBoundary:
-              (S = t.disableErrorBoundary) != null ? S : e.disableErrorBoundary,
-            AssetRenderer: (R = t.AssetRenderer) != null ? R : e.AssetRenderer,
-            staticAssets: (L = t.staticAssets) != null ? L : e.staticAssets,
+              (R = t.disableErrorBoundary) != null ? R : e.disableErrorBoundary,
+            AssetRenderer: (L = t.AssetRenderer) != null ? L : e.AssetRenderer,
+            staticAssets: (E = t.staticAssets) != null ? E : e.staticAssets,
             globalStateStore:
-              (E = t.globalStateStore) != null ? E : e.globalStateStore,
+              (k = t.globalStateStore) != null ? k : e.globalStateStore,
             fontFamilyMappings:
-              (k = t.fontFamilyMappings) != null ? k : e.fontFamilyMappings,
-            timeoutIDS: (I = t.timeoutIDS) != null ? I : e.timeoutIDS,
+              (I = t.fontFamilyMappings) != null ? I : e.fontFamilyMappings,
+            timeoutIDS: (T = t.timeoutIDS) != null ? T : e.timeoutIDS,
             screenQueryTemplate:
-              (T = t.screenQueryTemplate) != null ? T : e.screenQueryTemplate,
+              (D = t.screenQueryTemplate) != null ? D : e.screenQueryTemplate,
             accessibilityModule:
-              (D = t.accessibilityModule) != null ? D : e.accessibilityModule,
-            gkx: (x = t.gkx) != null ? x : e.gkx,
+              (x = t.accessibilityModule) != null ? x : e.accessibilityModule,
+            gkx: ($ = t.gkx) != null ? $ : e.gkx,
             controllerNavigationLogger:
-              ($ = t.controllerNavigationLogger) != null
-                ? $
+              (P = t.controllerNavigationLogger) != null
+                ? P
                 : e.controllerNavigationLogger,
-            versioningID: (P = t.versioningID) != null ? P : e.versioningID,
+            versioningID: (N = t.versioningID) != null ? N : e.versioningID,
           }
         : e;
     }

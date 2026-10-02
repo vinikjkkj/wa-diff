@@ -4,7 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendApi",
-    "WAWebContactManagerGating",
+    "WAWebCustomerManagerGating",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBLabelSublistDatabaseApi",
     "WAWebLabelJidSync",
@@ -54,7 +54,7 @@ __d(
               t,
               a,
             ),
-            l = o("WAWebContactManagerGating").contactManagerEnabled()
+            l = o("WAWebCustomerManagerGating").customerManagerEnabled()
               ? yield _(t, a)
               : { sublistLocalRemoves: [], sublistMutations: [] },
             s = l.sublistLocalRemoves,

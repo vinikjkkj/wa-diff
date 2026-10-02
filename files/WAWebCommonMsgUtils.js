@@ -50,18 +50,20 @@ __d(
       return e === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE;
     }
     function _(e) {
-      var t;
-      if (!p(e.type)) return !1;
-      var n = (t = e.richResponse) == null ? void 0 : t.parseState;
+      return f(e.type, e.richResponse);
+    }
+    function f(e, t) {
+      if (!p(e)) return !1;
+      var n = t == null ? void 0 : t.parseState;
       return (
         n === o("WAWebRichResponse.flow").RichResponseParseState.Partial ||
         n === o("WAWebRichResponse.flow").RichResponseParseState.Parsed
       );
     }
-    function f(e) {
+    function g(e) {
       return e === o("WAWebMsgType").MSG_TYPE.CALL_LOG;
     }
-    function g(t) {
+    function h(t) {
       var n = [],
         r = 0;
       (t.forEach(function (e) {
@@ -88,8 +90,9 @@ __d(
       (l.isFutureproofMsg = m),
       (l.isRichResponseMsg = p),
       (l.isSomewhatParsedRichResponseMsg = _),
-      (l.isCallLogMsg = f),
-      (l.logUndefinedMessage = g));
+      (l.isSomewhatParsedRichResponse = f),
+      (l.isCallLogMsg = g),
+      (l.logUndefinedMessage = h));
   },
   98,
 );

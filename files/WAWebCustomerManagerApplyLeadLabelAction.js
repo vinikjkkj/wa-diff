@@ -43,7 +43,7 @@ __d(
                 : yield o("WAWebFindChatAction")
                     .findOrCreateLatestChat(
                       o("WAWebWidFactory").createWid(t),
-                      "customerManager",
+                      "contactManager",
                     )
                     .then(function (e) {
                       return e.chat;

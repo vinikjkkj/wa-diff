@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebApiChat",
     "WAWebBotFrontendUtils",
     "WAWebBotGating",
     "WAWebBotTypes",
@@ -23,12 +24,13 @@ __d(
     "WAWebNotificationController",
     "WAWebThreadMsgUtils",
     "WAWebUnreadMentionModel",
+    "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t) {
+    var e, s, u, c, d;
+    function m(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
       e.unreadEditTimestampMs = n;
       var r = o("WAWebThreadMsgUtils").getMsgAiThread(t);
@@ -38,24 +40,24 @@ __d(
         i != null && i.set({ unreadEditTimestampMs: n });
       }
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield (c || (c = n("Promise"))).all(
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield (d || (d = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     try {
-                      yield _(e);
+                      yield f(e);
                     } catch (t) {
                       o("WALogger")
                         .ERROR(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "[message-edit] failed to apply edit for ",
                               "",
                             ])),
@@ -79,15 +81,15 @@ __d(
               }),
             ));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.editedMsgData,
             n = e.mentionOfMe,
             a = e.parentMsg,
@@ -104,79 +106,113 @@ __d(
             var u = new (o("WAWebMsgNotification").WAMsgNotification)({
               msg: l,
             }).buildKey();
-            (a.type === o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
+            a.type === o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
               t.type !== o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
-              (yield l.registerAndPrepMedia(t)),
-              l.set(t));
-            var c = t.unifiedResponse;
+              (yield l.registerAndPrepMedia(t));
+            var c = h(l, t.viewMode);
+            (l.set(t), y(c));
+            var d = t.unifiedResponse;
             if (
               o("WAWebHatchFrontendGating").isHatchIntegrationEnabled() &&
               o("WAWebBotUtils").isHatchBot(a.id.remote) &&
-              c != null
+              d != null
             ) {
-              var d = a.id.remote.toString();
+              var m = a.id.remote.toString();
               t.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST ||
               t.botEditType === o("WAWebBotTypes").BotMsgEditType.INNER
-                ? r("WAWebHatchAboutManager").feedUnifiedResponse(d, c)
+                ? r("WAWebHatchAboutManager").feedUnifiedResponse(m, d)
                 : t.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
-                  r("WAWebHatchAboutManager").clearAboutText(d);
+                  r("WAWebHatchAboutManager").clearAboutText(m);
             }
-            var m = o("WAWebFrontendMsgGetters").getMaybeChat(l);
-            (m != null &&
-              (o("WAWebChatMessageSearch").clearFtsCache(m),
-              g(l, m, u, n),
-              h(m, l, i, n)),
+            var p = o("WAWebFrontendMsgGetters").getMaybeChat(l);
+            (p != null &&
+              (o("WAWebChatMessageSearch").clearFtsCache(p),
+              C(l, p, u, n),
+              b(p, l, i, n)),
               l.clearRawLinks(),
               l.clearRawPhoneNumbers());
-            var p = o("WAWebMsgCollection").MsgCollection.get(i.id);
-            (p &&
-              p.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
-              p.delete(),
+            var _ = o("WAWebMsgCollection").MsgCollection.get(i.id);
+            (_ &&
+              _.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
+              _.delete(),
               o("WAWebMsgInfoCollection").MsgInfoCollection.remove(l.id));
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(t, n, a, i) {
-      var l = o(
-          "WAWebNotificationController",
-        ).WANotificationController.getNotification(a),
-        u = new (o("WAWebMsgNotification").WAMsgNotification)({ msg: t });
-      if (l && o("WAWebMsgGetters").getIsMetaBotResponse(t)) {
-        t.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
-          o(
-            "WAWebNotificationController",
-          ).WANotificationController.triggerNotification(u);
-        return;
-      }
-      if (
-        (l &&
-          o("WAWebNotificationController")
-            .WANotificationController.triggerNotification(u)
+    function h(e, t) {
+      var n = o("WAWebFrontendMsgGetters").getMaybeChat(e);
+      return n == null || t !== o("WAWebViewMode.flow").ViewModeType.HIDDEN
+        ? null
+        : {
+            chat: n,
+            isActiveUnread: n.isActiveUnreadMsg(e),
+            isUnread: n.isUnreadMsg(e),
+          };
+    }
+    function y(t) {
+      if (t != null) {
+        var n = t.chat,
+          a = t.isActiveUnread,
+          i = t.isUnread;
+        (i &&
+          ((n.unreadCount = Math.max(n.unreadCount - 1, 0)),
+          o("WAWebApiChat")
+            .reduceChatUnreadCount(n.id.toString(), 1, !1)
             .catch(function (t) {
               o("WALogger")
                 .ERROR(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[message-edit] failed to trigger notification for edited msg",
+                      "[message-edit] failed to reduce unread count for hidden msg",
                     ])),
                 )
                 .catching(r("getErrorSafe")(t))
+                .sendLogs("update-edited-message-hidden-unread-failed");
+            })),
+          a && (n.activeUnreadCount = Math.max(n.activeUnreadCount - 1, 0)));
+      }
+    }
+    function C(e, t, n, a) {
+      var i = o(
+          "WAWebNotificationController",
+        ).WANotificationController.getNotification(n),
+        l = new (o("WAWebMsgNotification").WAMsgNotification)({ msg: e });
+      if (i && o("WAWebMsgGetters").getIsMetaBotResponse(e)) {
+        e.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
+          o(
+            "WAWebNotificationController",
+          ).WANotificationController.triggerNotification(l);
+        return;
+      }
+      if (
+        (i &&
+          o("WAWebNotificationController")
+            .WANotificationController.triggerNotification(l)
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[message-edit] failed to trigger notification for edited msg",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("update-edited-message-notification-failed");
             }),
-        o("WAWebMuteGetters").getIsMuted(n.mute) && i != null)
+        o("WAWebMuteGetters").getIsMuted(t.mute) && a != null)
       )
-        switch (i) {
+        switch (a) {
           case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Added:
-            n.isUnreadMsg(t) &&
+            t.isUnreadMsg(e) &&
               o("WAWebNotificationController")
-                .WANotificationController.triggerNotification(u)
+                .WANotificationController.triggerNotification(l)
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[message-edit] failed to trigger notification for added mention of me",
                         ])),
                     )
@@ -187,15 +223,15 @@ __d(
                 });
             break;
           case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Removed:
-            l == null || l.closeBanner();
+            i == null || i.closeBanner();
             break;
         }
     }
-    function h(e, t, n, r) {
-      (o("WAWebMsgGetters").getIsSentByMe(n) || d(e, t),
-        r != null && y(e, t, r));
+    function b(e, t, n, r) {
+      (o("WAWebMsgGetters").getIsSentByMe(n) || m(e, t),
+        r != null && v(e, t, r));
     }
-    function y(e, t, n) {
+    function v(e, t, n) {
       switch (n) {
         case o("WAWebDBProcessEditProtocolMsgs").EditedMentionOfMe.Added:
           if (e.isUnreadMsg(t)) {
@@ -214,7 +250,7 @@ __d(
           break;
       }
     }
-    l.updateEditedMessagesAction = m;
+    l.updateEditedMessagesAction = p;
   },
   98,
 );

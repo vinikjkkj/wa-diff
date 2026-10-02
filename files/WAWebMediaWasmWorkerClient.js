@@ -457,54 +457,56 @@ __d(
             n = e.input,
             r = e.mediaType,
             a = e.rawMimeType,
-            i = U();
+            i = e.strictOggOpusValidationEnabled,
+            l = U();
           N().INFO(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classify in worker, requestId: ",
                 "",
               ])),
-            i,
+            l,
           );
-          var l = yield W(t);
-          if (!l.success)
+          var s = yield W(t);
+          if (!s.success)
             return {
               transferredBuffer: n,
-              result: o("WAResultOrError").makeError({ errorName: l.error }),
+              result: o("WAResultOrError").makeError({ errorName: s.error }),
             };
-          var s = l.value,
-            u = s.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
-              return e.requestId === i;
+          var u = s.value,
+            c = u.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
+              return e.requestId === l;
             });
-          (s.postMessage(
+          (u.postMessage(
             {
               mediaType: r,
               rawMimeType: a,
+              strictOggOpusValidationEnabled: i,
               input: n,
-              requestId: i,
+              requestId: l,
               type: "kaleidoscopeClassifyRequest",
             },
             [n],
           ),
             t.addPoint("sent_request_to_media_worker_start"));
-          var c = yield u,
-            d = c.output,
-            m = c.transferredBuffer;
-          return d.success
+          var d = yield c,
+            m = d.output,
+            p = d.transferredBuffer;
+          return m.success
             ? (N().INFO(
                 I ||
                   (I = babelHelpers.taggedTemplateLiteralLoose([
                     "received output from worker, requestId: ",
                     "",
                   ])),
-                i,
+                l,
               ),
               t == null || t.addPoint("sent_request_to_media_worker_end"),
-              { transferredBuffer: m, result: d })
+              { transferredBuffer: p, result: m })
             : (t.addPoint("sent_request_to_media_worker_fail"),
               {
-                transferredBuffer: m,
-                result: o("WAResultOrError").makeError({ errorName: d.error }),
+                transferredBuffer: p,
+                result: o("WAResultOrError").makeError({ errorName: m.error }),
               });
         })),
         J.apply(this, arguments)

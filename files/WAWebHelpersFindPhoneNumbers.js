@@ -182,10 +182,11 @@ __d(
         n = 0;
       try {
         for (var a, i = e.length; n < i; ) {
-          var l = e.codePointAt(n),
-            s = E(l);
-          if (b(t) && (l < 48 || l > 57)) {
-            if (l === 45)
+          var l,
+            s = (l = e.codePointAt(n)) != null ? l : NaN,
+            C = E(s);
+          if (b(t) && (s < 48 || s > 57)) {
+            if (s === 45)
               t.phoneNumberParenthesesDepth === 0
                 ? t.phoneNumberLastSignificantCodePoint === 45
                   ? R(t, n)
@@ -193,7 +194,7 @@ __d(
                     ? h(t, n)
                     : p(t)
                 : h(t, n);
-            else if (l === 46)
+            else if (s === 46)
               t.phoneNumberParenthesesDepth === 0
                 ? t.phoneNumberLastSignificantCodePoint === 46
                   ? R(t, n)
@@ -201,17 +202,17 @@ __d(
                     ? h(t, n)
                     : m(t)
                 : h(t, n);
-            else if (l !== 40)
-              if (l === 41) L(t, n);
-              else if (l === 32)
+            else if (s !== 40)
+              if (s === 41) L(t, n);
+              else if (s === 32)
                 if (t.phoneNumberLastSignificantCodePoint === 32) h(t, n);
                 else {
-                  var C = v(t, n);
-                  C || _(t);
+                  var S = v(t, n);
+                  S || _(t);
                 }
               else R(t, n);
           }
-          switch (l) {
+          switch (s) {
             case 48:
             case 49:
             case 50:
@@ -223,10 +224,11 @@ __d(
             case 56:
             case 57: {
               if (n !== 0) {
-                var S = e.codePointAt(n - 1);
-                if ((S >= 65 && S <= 90) || (S >= 97 && S <= 122)) break;
+                var k,
+                  I = (k = e.codePointAt(n - 1)) != null ? k : NaN;
+                if ((I >= 65 && I <= 90) || (I >= 97 && I <= 122)) break;
               }
-              (b(t) || (t || (t = c(e)), g(t, n)), f(t, l));
+              (b(t) || (t || (t = c(e)), g(t, n)), f(t, s));
               break;
             }
             case 43:
@@ -236,7 +238,7 @@ __d(
               (b(t) || (t || (t = c(e)), g(t, n)), y(t, n));
               break;
           }
-          n += s;
+          n += C;
         }
         return (
           t && t.openings != null && R(t, e.length),
@@ -249,7 +251,7 @@ __d(
             : []
         );
       } catch (e) {
-        var k = e instanceof Error ? e : r("err")(String(e));
+        var T = e instanceof Error ? e : r("err")(String(e));
         return (
           o("WALogger")
             .ERROR(
@@ -258,7 +260,7 @@ __d(
                   "findPhoneNumbers parse error",
                 ])),
             )
-            .catching(k)
+            .catching(T)
             .sendLogs("findPhoneNumbers-error"),
           []
         );

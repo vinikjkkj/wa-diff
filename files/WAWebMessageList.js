@@ -276,7 +276,7 @@ __d(
         c.jsx("div", {
           className: "x1n2onr6 x1vjfegm x9f619 x3orp4s x193iq5w",
           children: c.jsxs(r("WAWebMessageTextBubble.react"), {
-            msg: i,
+            msgKey: i.id,
             displayAuthor: a,
             hideMeta: !0,
             children: [

@@ -4,6 +4,7 @@ __d(
     "invariant",
     "WALogger",
     "WASmaxOfflineBatchRPC",
+    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebBackendEventBus",
     "WAWebEventsWaitForReadyForOffline",
@@ -376,9 +377,9 @@ __d(
     function T(e) {
       return !(
         e >=
-        o(
-          "WAWebHandleOfflineAbProps",
-        ).getNonBlockingOfflineResumeMaxMessageCount()
+        o("WAWebABProps").getABPropConfigValue(
+          "web_non_blocking_offline_resume_max_message_count",
+        )
       );
     }
     var D = new E();

@@ -2,8 +2,8 @@ __d(
   "WAWebContactManagerCustomerProfileQuery",
   [
     "WAJids",
-    "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfileQuery.graphql",
+    "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
@@ -27,7 +27,7 @@ __d(
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
             throw r("err")(
-              "[ContactManager] fetchCustomerProfile: no access token (" +
+              "[CustomerManager] fetchCustomerProfile: no access token (" +
                 n.type +
                 ")",
             );
@@ -39,25 +39,25 @@ __d(
           );
           if (a == null)
             throw r("err")(
-              "[ContactManager] fetchCustomerProfile: incomplete response",
+              "[CustomerManager] fetchCustomerProfile: incomplete response",
             );
           var i = a.xfb_wa_customer_profile;
           if (i === void 0)
             throw r("err")(
-              "[ContactManager] fetchCustomerProfile: incomplete response",
+              "[CustomerManager] fetchCustomerProfile: incomplete response",
             );
           if (i == null) return null;
           var l = i.etag;
           if (l == null || l === "")
             throw r("err")(
-              "[ContactManager] fetchCustomerProfile: missing profile etag",
+              "[CustomerManager] fetchCustomerProfile: missing profile etag",
             );
           return {
             acquisitionDate: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toOptionalUnixTime(i.acquisition_date),
             acquisitionSource: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toProfileAcquisitionSourceId(i.acquisition_source),
             address: i.address,
             birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
@@ -67,13 +67,13 @@ __d(
             etag: l,
             email: i.email,
             lastOrder: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toOptionalUnixTime(i.last_order_date),
             leadStage: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toLeadStageType(i.lead_stage),
             modifiedAt: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).latestUpdateTs(
               i.last_updates.map(function (e) {
                 var t = e.ts;
@@ -89,7 +89,7 @@ __d(
     function d(e) {
       if (!e.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
-          "[ContactManager] fetchCustomerProfile: chatJid must be a LID-based JID",
+          "[CustomerManager] fetchCustomerProfile: chatJid must be a LID-based JID",
         );
       return e.slice(0, -o("WAJids").LID_DOMAIN.length);
     }

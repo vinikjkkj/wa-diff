@@ -151,19 +151,27 @@ __d(
         u = s[0],
         c = E(r, l.length);
       l.splice(c, 0, u);
-      var d = R(e, l, c, i);
+      var d = R({ collection: e, from: i, landed: c, reordered: l });
       return d === i ? null : { fromIndex: i, toIndex: d };
     }
-    function R(e, t, n, r) {
-      for (var o = n - 1; o >= 0; o--) {
-        var a = L(e, t[o]);
-        if (a != null) return r < a ? a : a + 1;
+    function R(e) {
+      for (
+        var t = e.collection,
+          n = e.from,
+          r = e.landed,
+          o = e.reordered,
+          a = r - 1;
+        a >= 0;
+        a--
+      ) {
+        var i = L(t, o[a]);
+        if (i != null) return n < i ? i : i + 1;
       }
-      for (var i = n + 1; i < t.length; i++) {
-        var l = L(e, t[i]);
-        if (l != null) return r < l ? l - 1 : l;
+      for (var l = r + 1; l < o.length; l++) {
+        var s = L(t, o[l]);
+        if (s != null) return n < s ? s - 1 : s;
       }
-      return r;
+      return n;
     }
     function L(e, t) {
       var n = t.attachMedia;

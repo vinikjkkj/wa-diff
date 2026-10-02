@@ -15,29 +15,26 @@ __d(
       );
     }
     function u() {
-      return o("WAWebABProps").getABPropConfigValue("ai_hatch_revoke_enabled");
-    }
-    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_video_upload_enabled",
       );
     }
-    function d() {
+    function c() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    var m = 1;
-    function p() {
+    var d = 1;
+    function m() {
       return Math.max(
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_media_upload_count_limit",
         ),
-        m,
+        d,
       );
     }
-    function _() {
+    function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -50,7 +47,7 @@ __d(
         }
       return "";
     }
-    function f() {
+    function _() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -65,12 +62,11 @@ __d(
     }
     ((l.isHatchIntegrationEnabledForPrimaryFeature = e),
       (l.isHatchCommandsEnabled = s),
-      (l.isHatchRevokeEnabled = u),
-      (l.isHatchVideoUploadEnabled = c),
-      (l.getHatchDocumentUploadSizeLimitBytes = d),
-      (l.getHatchMediaUploadCountLimit = p),
-      (l.getHatchBotName = _),
-      (l.getHatchBotProfileThumb = f));
+      (l.isHatchVideoUploadEnabled = u),
+      (l.getHatchDocumentUploadSizeLimitBytes = c),
+      (l.getHatchMediaUploadCountLimit = m),
+      (l.getHatchBotName = p),
+      (l.getHatchBotProfileThumb = _));
   },
   98,
 );

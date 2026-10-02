@@ -12,11 +12,14 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.PAGE,
       });
     }
-    function s(e, t, n) {
-      e({
+    function s(e) {
+      var t = e.entryPoint,
+        n = e.log,
+        r = e.totalSelectedCount;
+      n({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: n,
-        extraAttributes: { total_selected_count: t },
+        entryPoint: t,
+        extraAttributes: { total_selected_count: r },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_RECIPIENT_PICKER,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.CONTACT_CHECKBOX,

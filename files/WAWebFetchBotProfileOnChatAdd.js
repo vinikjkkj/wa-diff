@@ -2,7 +2,10 @@ __d(
   "WAWebFetchBotProfileOnChatAdd",
   [
     "WALogger",
+    "WATimeUtils",
+    "WAWebBotProfileFetchPause",
     "WAWebBotStaticProfiles",
+    "WAWebPersistBotProfiles",
     "WAWebSchemaBotProfile",
     "WAWebSyncBotSupportFields",
     "asyncToGeneratorRuntime",
@@ -20,10 +23,15 @@ __d(
             !(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t))
           )
             try {
+              var n = yield o("WAWebSchemaBotProfile")
+                .getBotProfileTable()
+                .get(t.toString());
               if (
-                (yield o("WAWebSchemaBotProfile")
-                  .getBotProfileTable()
-                  .get(t.toString())) != null
+                o("WAWebPersistBotProfiles").isStoredBotProfile(n) ||
+                o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(
+                  n == null ? void 0 : n.fetchPauseUntilMs,
+                  o("WATimeUtils").unixTimeMs(),
+                )
               )
                 return;
               yield o("WAWebSyncBotSupportFields").syncBotSupportFields(t);

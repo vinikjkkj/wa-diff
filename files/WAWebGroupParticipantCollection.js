@@ -8,6 +8,7 @@ __d(
     "WAWebContactCollection",
     "WAWebDebounce",
     "WAWebFrontendContactGetters",
+    "WAWebGroupAgentProfileRouting",
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataTypeUtils",
@@ -16,7 +17,6 @@ __d(
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
     "WAWebL10N",
-    "WAWebResolveBotProfile",
     "WAWebSchemaGroupMetadata",
     "WAWebSendForNeededAddRequest",
     "WAWebUpdateSubgroupsCommunityAction",
@@ -223,15 +223,22 @@ __d(
         }),
         (n.canRemove = function (t) {
           var e = this.getGroupMetadata();
-          return !(
-            (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
+          return (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
             !t ||
-            o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
-            !this.iAmAdmin() ||
-            (e != null &&
-              o("WAWebGroupMetadataGetters").getIsCag(e) &&
-              (t.isAdmin || t.isSuperAdmin))
-          );
+            o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+            ? !1
+            : this.iAmAdmin()
+              ? !(
+                  e != null &&
+                  o("WAWebGroupMetadataGetters").getIsCag(e) &&
+                  (t.isAdmin || t.isSuperAdmin)
+                )
+              : this.iAmMember() &&
+                o(
+                  "WAWebGroupAgentProfileRouting",
+                ).getGroupAgentProfileDestination(t.id, this.getChat()) ===
+                  o("WAWebGroupAgentProfileRouting")
+                    .GroupAgentProfileDestination.OWNER_CARD;
         }),
         (n.canVerifyIdentity = function (t) {
           var e, n;
@@ -328,14 +335,11 @@ __d(
       var t = e.id;
       return t == null
         ? !1
-        : (o(
-            "WAWebBotGroupGatingUtils",
-          ).isOpenGroupBotParticipantAddEnabled() &&
-            t.isBot()) ||
-            o("WAWebBotGroupGatingUtils").isGroupAgent(
-              o("WAWebResolveBotProfile").resolveBotSupportInput(t),
-              o("WAWebBotGroupGatingUtils").BotGroupContext.GROUP,
-            );
+        : o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
+            t.isBot()
+          ? !0
+          : t.isFbidBot() &&
+            o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
     }
     l.default = e;
   },

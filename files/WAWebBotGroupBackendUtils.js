@@ -1,39 +1,23 @@
 __d(
   "WAWebBotGroupBackendUtils",
   [
+    "WATimeUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebContactSystemMsg",
+    "WAWebGroupAgentRemovalSystemMsgs",
     "WAWebGroupSystemMsg",
+    "WAWebGroupType",
+    "WAWebGroupsParticipantsApi",
     "WAWebHandleSingleMsgWorkerCompatible",
+    "WAWebMsgKey",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled() === !0
-          ) {
-            var t = o(
-              "WAWebContactSystemMsg",
-            ).genEncryptNotificationMsgAfterBotRemoved(e);
-            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-              chatId: e,
-              newMsg: t,
-              handleSingleMsgOrigin: "botGroup",
-            });
-          }
-        })),
-        s.apply(this, arguments)
-      );
-    }
+    var e = "encryptnow",
+      s = 1;
     function u(e) {
       return c.apply(this, arguments);
     }
@@ -46,8 +30,8 @@ __d(
             ).isOpenGroupBotParticipantAddEnabled() === !0
           ) {
             var t = o(
-              "WAWebGroupSystemMsg",
-            ).genGroupTransitionToBotGroupNotificationMsg(e);
+              "WAWebContactSystemMsg",
+            ).genEncryptNotificationMsgAfterBotRemoved(e);
             yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: t,
@@ -67,11 +51,11 @@ __d(
           if (
             o(
               "WAWebBotGroupGatingUtils",
-            ).isTEEGroupBotParticipantAddEnabled() === !0
+            ).isOpenGroupBotParticipantAddEnabled() === !0
           ) {
             var t = o(
               "WAWebGroupSystemMsg",
-            ).genGroupTransitionToTeeBotGroupNotificationMsg(e);
+            ).genGroupTransitionToBotGroupNotificationMsg(e);
             yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: t,
@@ -88,16 +72,20 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.currentIsOpenBotGroupState,
-            n = e.groupWid,
-            r = e.prevIsOpenBotGroupState;
-          return o(
-            "WAWebBotGroupGatingUtils",
-          ).isOpenGroupBotParticipantAddEnabled() !== !0 || t == null
-            ? !1
-            : r === !1 && (t != null ? t : !1) === !0
-              ? (yield u(n), !0)
-              : !1;
+          if (
+            o(
+              "WAWebBotGroupGatingUtils",
+            ).isTEEGroupBotParticipantAddEnabled() === !0
+          ) {
+            var t = o(
+              "WAWebGroupSystemMsg",
+            ).genGroupTransitionToTeeBotGroupNotificationMsg(e);
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+              chatId: e,
+              newMsg: t,
+              handleSingleMsgOrigin: "botGroup",
+            });
+          }
         })),
         _.apply(this, arguments)
       );
@@ -108,14 +96,14 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.currentIsTeeBotGroupState,
+          var t = e.currentIsOpenBotGroupState,
             n = e.groupWid,
-            r = e.prevIsTeeBotGroupState;
+            r = e.prevIsOpenBotGroupState;
           return o(
             "WAWebBotGroupGatingUtils",
-          ).isTEEGroupBotParticipantAddEnabled() !== !0 || t == null
+          ).isOpenGroupBotParticipantAddEnabled() !== !0 || t == null
             ? !1
-            : r === !1 && t === !0
+            : r === !1 && (t != null ? t : !1) === !0
               ? (yield d(n), !0)
               : !1;
         })),
@@ -127,12 +115,32 @@ __d(
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.currentIsOpenBotGroupState,
-            r = t.currentIsTeeBotGroupState,
-            a = t.groupWid,
-            i = t.prevIsOpenBotGroupState,
-            l = t.prevIsTeeBotGroupState;
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.currentIsTeeBotGroupState,
+            n = e.groupWid,
+            r = e.prevIsTeeBotGroupState;
+          return o(
+            "WAWebBotGroupGatingUtils",
+          ).isTEEGroupBotParticipantAddEnabled() !== !0 || t == null
+            ? !1
+            : r === !1 && t === !0
+              ? (yield p(n), !0)
+              : !1;
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.currentIsOpenBotGroupState,
+            n = e.currentIsTeeBotGroupState,
+            r = e.groupWid,
+            a = e.prevIsOpenBotGroupState,
+            i = e.prevIsTeeBotGroupState;
           if (
             (!o(
               "WAWebBotGroupGatingUtils",
@@ -140,17 +148,128 @@ __d(
               !o(
                 "WAWebBotGroupGatingUtils",
               ).isTEEGroupBotParticipantAddEnabled()) ||
-            (n == null && r == null)
+            (t == null && n == null)
           )
             return !1;
-          var s = !!i || !!l,
-            u = !(n != null && n) && !(r != null && r);
-          return s && u ? (yield e(a), !0) : !1;
+          var l = !!a || !!i,
+            s = !(t != null && t) && !(n != null && n);
+          return l && s
+            ? (o(
+                "WAWebBotGroupGatingUtils",
+              ).isStandardBotProfileGroupEnabled() || (yield u(r)),
+              !0)
+            : !1;
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.actions,
+            a = t.meta,
+            i = n.flatMap(function (e) {
+              return e.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE
+                ? e.participants.map(function (e) {
+                    var t = e.id;
+                    return t;
+                  })
+                : [];
+            });
+          if (!i.some(o("WAWebBotUtils").isWidGroupAgentFbidWid)) return null;
+          var l = yield o("WAWebGroupsParticipantsApi").getParticipants(
+            a.chatId,
+          );
+          if (l == null) return null;
+          var u = new Set(
+              i.map(function (e) {
+                return e.toString();
+              }),
+            ),
+            c = l.participants.filter(function (e) {
+              return !u.has(e);
+            });
+          if (
+            !k(l.participants) ||
+            k(c) ||
+            !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+          )
+            return null;
+          var d = o(
+              "WAWebContactSystemMsg",
+            ).genEncryptNotificationMsgAfterBotRemoved(a.chatId),
+            m = a.externalId,
+            p = a.ts;
+          return m == null
+            ? d
+            : babelHelpers.extends({}, d, {
+                id: new (r("WAWebMsgKey"))({
+                  fromMe: d.id.fromMe,
+                  remote: a.chatId,
+                  id:
+                    "" +
+                    m +
+                    o("WAWebGroupAgentRemovalSystemMsgs").toSystemMsgIdPart(e) +
+                    (p != null ? p : ""),
+                }),
+                t: p == null ? d.t : o("WATimeUtils").castToUnixTime(p + s),
+              });
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.currentParticipants,
+            n = e.groupWid,
+            r = e.prevParticipantIds,
+            a = e.responseListsAgents;
+          return !a ||
+            r == null ||
+            !E(r, t) ||
+            !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+            ? !1
+            : (yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                chatId: n,
+                newMsg: o(
+                  "WAWebContactSystemMsg",
+                ).genEncryptNotificationMsgAfterBotRemoved(n),
+                handleSingleMsgOrigin: "botGroup",
+              }),
+              !0);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t) {
+      var n = e
+        .map(function (e) {
+          return o("WAWebWidFactory").createWid(e);
+        })
+        .filter(o("WAWebBotUtils").isWidGroupAgentFbidWid);
+      return n.length === 0 ||
+        t.some(function (e) {
+          var t = e.id;
+          return o("WAWebBotUtils").isWidGroupAgentFbidWid(t);
+        })
+        ? !1
+        : n.every(o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled);
+    }
+    function k(e) {
+      return e.some(function (e) {
+        return o("WAWebBotUtils").isWidGroupAgentFbidWid(
+          o("WAWebWidFactory").createWid(e),
+        );
+      });
+    }
+    function I(e) {
       if (
         !o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
         !o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
@@ -175,10 +294,12 @@ __d(
       });
       return t;
     }
-    ((l.addGroupChangedToOpenBotGroupSystemMsgIfRequired = p),
-      (l.addGroupChangedToTeeBotGroupSystemMsgIfRequired = f),
-      (l.addBotGroupChangedToE2EEFSystemMsgIfRequired = h),
-      (l.injectBotParticipantState = C));
+    ((l.addGroupChangedToOpenBotGroupSystemMsgIfRequired = f),
+      (l.addGroupChangedToTeeBotGroupSystemMsgIfRequired = h),
+      (l.addBotGroupChangedToE2EEFSystemMsgIfRequired = C),
+      (l.genE2EENoticeMsgAfterLastAgentRemoved = v),
+      (l.addE2EESystemMsgAfterLastAgentRemovedIfRequired = R),
+      (l.injectBotParticipantState = I));
   },
   98,
 );

@@ -26,87 +26,88 @@ __d(
             ? void 0
             : a.supports("border-end-end-radius: initial"),
         f = "randomUUID" in crypto,
-        g =
+        g = navigator,
+        h =
           "downlinkMax" in
-          (((i = navigator.connection) == null ? void 0 : i.prototype) || {}),
-        h = "setAppBadge" in Navigator.prototype,
-        y = function (t) {
+          (((i = g.connection) == null ? void 0 : i.prototype) || {}),
+        y = "setAppBadge" in Navigator.prototype,
+        C = function (t) {
           return t in window;
         },
-        C = function (t, n) {
+        b = function (t, n) {
           return t ? n : !1;
         },
-        b =
+        v =
           ((l = {}),
           (l[o("WAWebFPUtils").Platforms.ANDROID] = [
-            C(p, y("BarcodeDetector")),
-            C(d, y("ContentIndex")),
-            C(u, y("ContactsManager")),
-            g,
-            C(f, !y("EyeDropper")),
-            C(m, !y("FileSystemWritableFileStream")),
-            C(_, !(y("HID") && y("HIDDevice"))),
-            C(_, !(y("Serial") && y("SerialPort"))),
-            !y("SharedWorker"),
-            y("ontouchstart") && y("TouchEvent"),
-            C(c, !h),
+            b(p, C("BarcodeDetector")),
+            b(d, C("ContentIndex")),
+            b(u, C("ContactsManager")),
+            h,
+            b(f, !C("EyeDropper")),
+            b(m, !C("FileSystemWritableFileStream")),
+            b(_, !(C("HID") && C("HIDDevice"))),
+            b(_, !(C("Serial") && C("SerialPort"))),
+            !C("SharedWorker"),
+            C("ontouchstart") && C("TouchEvent"),
+            b(c, !y),
           ]),
           (l[o("WAWebFPUtils").Platforms.CHROME_OS] = [
-            C(p, y("BarcodeDetector")),
-            C(d, !y("ContentIndex")),
-            C(u, !y("ContactsManager")),
-            g,
-            C(f, y("EyeDropper")),
-            C(m, y("FileSystemWritableFileStream")),
-            C(_, y("HID") && y("HIDDevice")),
-            C(_, y("Serial") && y("SerialPort")),
-            y("SharedWorker"),
-            C(c, !h),
+            b(p, C("BarcodeDetector")),
+            b(d, !C("ContentIndex")),
+            b(u, !C("ContactsManager")),
+            h,
+            b(f, C("EyeDropper")),
+            b(m, C("FileSystemWritableFileStream")),
+            b(_, C("HID") && C("HIDDevice")),
+            b(_, C("Serial") && C("SerialPort")),
+            C("SharedWorker"),
+            b(c, !y),
           ]),
           (l[o("WAWebFPUtils").Platforms.WINDOWS] = [
-            C(p, !y("BarcodeDetector")),
-            C(d, !y("ContentIndex")),
-            C(u, !y("ContactsManager")),
-            !g,
-            C(f, y("EyeDropper")),
-            C(m, y("FileSystemWritableFileStream")),
-            C(_, y("HID") && y("HIDDevice")),
-            C(_, y("Serial") && y("SerialPort")),
-            y("SharedWorker"),
-            C(c, h),
+            b(p, !C("BarcodeDetector")),
+            b(d, !C("ContentIndex")),
+            b(u, !C("ContactsManager")),
+            !h,
+            b(f, C("EyeDropper")),
+            b(m, C("FileSystemWritableFileStream")),
+            b(_, C("HID") && C("HIDDevice")),
+            b(_, C("Serial") && C("SerialPort")),
+            C("SharedWorker"),
+            b(c, y),
           ]),
           (l[o("WAWebFPUtils").Platforms.MAC] = [
-            C(p, y("BarcodeDetector")),
-            C(d, !y("ContentIndex")),
-            C(u, !y("ContactsManager")),
-            !g,
-            C(f, y("EyeDropper")),
-            C(m, y("FileSystemWritableFileStream")),
-            C(_, y("HID") && y("HIDDevice")),
-            C(_, y("Serial") && y("SerialPort")),
-            y("SharedWorker"),
-            !(y("ontouchstart") && y("TouchEvent")),
-            C(c, h),
+            b(p, C("BarcodeDetector")),
+            b(d, !C("ContentIndex")),
+            b(u, !C("ContactsManager")),
+            !h,
+            b(f, C("EyeDropper")),
+            b(m, C("FileSystemWritableFileStream")),
+            b(_, C("HID") && C("HIDDevice")),
+            b(_, C("Serial") && C("SerialPort")),
+            C("SharedWorker"),
+            !(C("ontouchstart") && C("TouchEvent")),
+            b(c, y),
           ]),
           (l[o("WAWebFPUtils").Platforms.LINUX] = [
-            C(p, !y("BarcodeDetector")),
-            C(d, !y("ContentIndex")),
-            C(u, !y("ContactsManager")),
-            !g,
-            C(f, y("EyeDropper")),
-            C(m, y("FileSystemWritableFileStream")),
-            C(_, y("HID") && y("HIDDevice")),
-            C(_, y("Serial") && y("SerialPort")),
-            y("SharedWorker"),
-            !(y("ontouchstart") && y("TouchEvent")),
-            C(c, !h),
+            b(p, !C("BarcodeDetector")),
+            b(d, !C("ContentIndex")),
+            b(u, !C("ContactsManager")),
+            !h,
+            b(f, C("EyeDropper")),
+            b(m, C("FileSystemWritableFileStream")),
+            b(_, C("HID") && C("HIDDevice")),
+            b(_, C("Serial") && C("SerialPort")),
+            C("SharedWorker"),
+            !(C("ontouchstart") && C("TouchEvent")),
+            b(c, !y),
           ]),
           (l[o("WAWebFPUtils").Platforms.UNKNOWN] = [!1]),
           l),
-        v = Object.keys(b).reduce(function (e, t) {
+        S = Object.keys(v).reduce(function (e, t) {
           var n,
             a =
-              b[
+              v[
                 (n = o("WAWebFPUtils").Platforms.cast(t)) != null
                   ? n
                   : o("WAWebFPUtils").Platforms.UNKNOWN
@@ -117,11 +118,11 @@ __d(
             ).toFixed(2);
           return ((e[t] = i), e);
         }, {}),
-        S = Object.keys(v).reduce(function (e, t) {
-          return v[e] > v[t] ? e : t;
+        R = Object.keys(S).reduce(function (e, t) {
+          return S[e] > S[t] ? e : t;
         });
       return o("WAWebFPUtils").castPlatformNameToWamEnum(
-        (s = o("WAWebFPUtils").Platforms.cast(S)) != null
+        (s = o("WAWebFPUtils").Platforms.cast(R)) != null
           ? s
           : o("WAWebFPUtils").Platforms.UNKNOWN,
       );

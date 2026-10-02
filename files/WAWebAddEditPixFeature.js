@@ -1,7 +1,6 @@
 __d(
   "WAWebAddEditPixFeature",
   [
-    "WAWebABProps",
     "WAWebBusinessAddPixModalLoadable",
     "WAWebModalManager",
     "WAWebPaymentOnboardingFlowLoadable",
@@ -11,10 +10,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web");
-    }
-    function c(e, t, n) {
+    function u(e, t, n) {
       o("WAWebPixPaymentRequestFeature").isPixPaymentRequestEnabled()
         ? o("WAWebModalManager").ModalManager.open(
             s.jsx(
@@ -32,7 +28,7 @@ __d(
             ),
           );
     }
-    ((l.isAddEditPixEnabled = u), (l.openPixCredentialManagementModal = c));
+    l.openPixCredentialManagementModal = u;
   },
   98,
 );

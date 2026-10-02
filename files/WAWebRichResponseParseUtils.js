@@ -235,7 +235,10 @@ __d(
             )
             .tags("wa-web-ai-logging")
             .sendLogs("unified-response-parsing-error"),
-          r("err")("parseUnifiedResponse: Error parsing unified response: " + e)
+          r("err")(
+            "parseUnifiedResponse: Error parsing unified response: " +
+              String(e),
+          )
         );
       }
     }

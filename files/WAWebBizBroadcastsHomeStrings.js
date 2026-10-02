@@ -4,48 +4,47 @@ __d(
     "fbt",
     "WAWebBroadcastConsts",
     "WAWebFaqUrl",
+    "WAWebL10N",
     "WDSTextualLink.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u = e || (e = o("react")),
-      c =
-        "https://developers.facebook.com/documentation/business-messaging/whatsapp/messaging-limits#messaging";
-    function d() {
+      u = e || (e = o("react"));
+    function c() {
       return s._(/*BTDS*/ "Broadcasts");
+    }
+    c.displayName = c.name + " [from " + i.id + "]";
+    function d() {
+      return s._(/*BTDS*/ "Audience");
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m() {
-      return s._(/*BTDS*/ "Audience");
+      return s._(/*BTDS*/ "Status");
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p() {
-      return s._(/*BTDS*/ "Status");
+      return s._(/*BTDS*/ "Read rate");
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      return s._(/*BTDS*/ "Read rate");
+      return s._(/*BTDS*/ "Reply rate");
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      return s._(/*BTDS*/ "Reply rate");
+      return s._(/*BTDS*/ "Audience name");
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g() {
-      return s._(/*BTDS*/ "Audience name");
+      return s._(/*BTDS*/ "Recipients");
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      return s._(/*BTDS*/ "Recipients");
-    }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y() {
       return s._(/*BTDS*/ "Last broadcast");
     }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C(e) {
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e) {
       return (function (e) {
         return e === "ACTIVE"
           ? s._(/*BTDS*/ "Active")
@@ -68,264 +67,271 @@ __d(
                           : null;
       })(e == null ? null : String(e));
     }
-    function b() {
+    function C() {
       return s._(/*BTDS*/ "In review");
+    }
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b() {
+      return s._(/*BTDS*/ "This can take a few minutes or up to 3 hours.");
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v() {
-      return s._(/*BTDS*/ "This can take a few minutes or up to 3 hours.");
+      return s._(/*BTDS*/ "Scheduled to send");
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S() {
-      return s._(/*BTDS*/ "Scheduled to send");
+      return s._(/*BTDS*/ "Scheduled");
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R() {
-      return s._(/*BTDS*/ "Scheduled");
+      return s._(/*BTDS*/ "Completed");
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L() {
-      return s._(/*BTDS*/ "Completed");
+      return s._(/*BTDS*/ "Delivering\u2026");
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E() {
-      return s._(/*BTDS*/ "Delivering\u2026");
+      return s._(/*BTDS*/ "Broadcast couldn't send");
     }
     E.displayName = E.name + " [from " + i.id + "]";
     function k() {
-      return s._(/*BTDS*/ "Broadcast couldn't send");
+      return s._(/*BTDS*/ "Couldn't send");
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I() {
-      return s._(/*BTDS*/ "Couldn't send");
-    }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T() {
       return s._(
         /*BTDS*/ "Something went wrong while sending your broadcast. Please retry sending it.",
       );
     }
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T() {
+      return s._(/*BTDS*/ "Draft");
+    }
     T.displayName = T.name + " [from " + i.id + "]";
     function D() {
-      return s._(/*BTDS*/ "Draft");
+      return s._(/*BTDS*/ "Couldn't load broadcasts. Try again later.");
     }
     D.displayName = D.name + " [from " + i.id + "]";
     function x() {
-      return s._(/*BTDS*/ "Couldn't load broadcasts. Try again later.");
+      return s._(/*BTDS*/ "Couldn't load audiences. Try again later.");
     }
     x.displayName = x.name + " [from " + i.id + "]";
-    function $() {
-      return s._(/*BTDS*/ "Couldn't load audiences. Try again later.");
+    function $(e) {
+      return s._(/*BTDS*/ "Sent {date}", [s._param("date", e)]);
     }
     $.displayName = $.name + " [from " + i.id + "]";
     function P(e) {
-      return s._(/*BTDS*/ "Sent {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "Created on {date}", [s._param("date", e)]);
     }
     P.displayName = P.name + " [from " + i.id + "]";
     function N(e) {
-      return s._(/*BTDS*/ "Created on {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "Sent {date}", [s._param("date", e)]);
     }
     N.displayName = N.name + " [from " + i.id + "]";
     function M(e) {
-      return s._(/*BTDS*/ "Sent {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "For {date}", [s._param("date", e)]);
     }
     M.displayName = M.name + " [from " + i.id + "]";
-    function w(e) {
-      return s._(/*BTDS*/ "For {date}", [s._param("date", e)]);
+    function w() {
+      return s._(/*BTDS*/ "Business broadcasts");
     }
     w.displayName = w.name + " [from " + i.id + "]";
     function A() {
-      return s._(/*BTDS*/ "Business broadcasts");
+      return s._(/*BTDS*/ "Create broadcast");
     }
     A.displayName = A.name + " [from " + i.id + "]";
     function F() {
-      return s._(/*BTDS*/ "Create broadcast");
+      return s._(/*BTDS*/ "Broadcasts");
     }
     F.displayName = F.name + " [from " + i.id + "]";
     function O() {
-      return s._(/*BTDS*/ "Broadcasts");
+      return s._(/*BTDS*/ "Audiences");
     }
     O.displayName = O.name + " [from " + i.id + "]";
     function B() {
-      return s._(/*BTDS*/ "Audiences");
+      return s._(/*BTDS*/ "Connect in more ways with business broadcasts");
     }
     B.displayName = B.name + " [from " + i.id + "]";
     function W() {
-      return s._(/*BTDS*/ "Connect in more ways with business broadcasts");
-    }
-    W.displayName = W.name + " [from " + i.id + "]";
-    function q() {
       return s._(
         /*BTDS*/ "Add buttons so customers can respond instantly and track performance to optimize results.",
       );
     }
-    q.displayName = q.name + " [from " + i.id + "]";
-    function U() {
+    W.displayName = W.name + " [from " + i.id + "]";
+    function q() {
       return s._(/*BTDS*/ "Business broadcasts with advanced tools");
     }
-    U.displayName = U.name + " [from " + i.id + "]";
-    function V() {
+    q.displayName = q.name + " [from " + i.id + "]";
+    function U() {
       return s._(
         /*BTDS*/ "A new way to send customized messages to your customers at scale.",
       );
     }
+    U.displayName = U.name + " [from " + i.id + "]";
+    function V() {
+      return s._(/*BTDS*/ "Learn more");
+    }
     V.displayName = V.name + " [from " + i.id + "]";
     function H() {
-      return s._(/*BTDS*/ "Learn more");
+      return s._(/*BTDS*/ "Broadcast details");
     }
     H.displayName = H.name + " [from " + i.id + "]";
     function G() {
-      return s._(/*BTDS*/ "Broadcast details");
+      return s._(/*BTDS*/ "Broadcast preview");
     }
     G.displayName = G.name + " [from " + i.id + "]";
     function z() {
-      return s._(/*BTDS*/ "Broadcast preview");
+      return s._(/*BTDS*/ "Rename broadcast");
     }
     z.displayName = z.name + " [from " + i.id + "]";
     function j() {
-      return s._(/*BTDS*/ "Rename broadcast");
+      return s._(/*BTDS*/ "Rename audience");
     }
     j.displayName = j.name + " [from " + i.id + "]";
     function K() {
-      return s._(/*BTDS*/ "Rename audience");
+      return s._(/*BTDS*/ "Preview");
     }
     K.displayName = K.name + " [from " + i.id + "]";
     function Q() {
-      return s._(/*BTDS*/ "Preview");
+      return s._(/*BTDS*/ "Duplicate");
     }
     Q.displayName = Q.name + " [from " + i.id + "]";
     function X() {
-      return s._(/*BTDS*/ "Duplicate");
-    }
-    X.displayName = X.name + " [from " + i.id + "]";
-    function Y() {
       return s._(
         /*BTDS*/ "This broadcast couldn't load. Open the broadcast on your phone to view it.",
       );
     }
+    X.displayName = X.name + " [from " + i.id + "]";
+    function Y() {
+      return s._(/*BTDS*/ "Duplicate broadcast");
+    }
     Y.displayName = Y.name + " [from " + i.id + "]";
     function J() {
-      return s._(/*BTDS*/ "Duplicate broadcast");
+      return s._(/*BTDS*/ "Performance");
     }
     J.displayName = J.name + " [from " + i.id + "]";
     function Z() {
-      return s._(/*BTDS*/ "Performance");
+      return s._(/*BTDS*/ "Performance insights");
     }
     Z.displayName = Z.name + " [from " + i.id + "]";
     function ee() {
-      return s._(/*BTDS*/ "Performance insights");
+      return s._(/*BTDS*/ "Status");
     }
     ee.displayName = ee.name + " [from " + i.id + "]";
     function te() {
-      return s._(/*BTDS*/ "Status");
+      return s._(/*BTDS*/ "Delivered");
     }
     te.displayName = te.name + " [from " + i.id + "]";
     function ne() {
-      return s._(/*BTDS*/ "Delivered");
+      return s._(/*BTDS*/ "Sent");
     }
     ne.displayName = ne.name + " [from " + i.id + "]";
     function re() {
-      return s._(/*BTDS*/ "Sent");
+      return s._(/*BTDS*/ "Custom reply clicks");
     }
     re.displayName = re.name + " [from " + i.id + "]";
     function oe() {
-      return s._(/*BTDS*/ "Custom reply clicks");
+      return s._(/*BTDS*/ "Website clicks");
     }
     oe.displayName = oe.name + " [from " + i.id + "]";
     function ae() {
-      return s._(/*BTDS*/ "Website clicks");
+      return s._(/*BTDS*/ "Amount spent");
     }
     ae.displayName = ae.name + " [from " + i.id + "]";
     function ie() {
-      return s._(/*BTDS*/ "Amount spent");
+      return s._(/*BTDS*/ "Maximum price");
     }
     ie.displayName = ie.name + " [from " + i.id + "]";
     function le() {
-      return s._(/*BTDS*/ "Maximum price");
+      return s._(/*BTDS*/ "Budget");
     }
     le.displayName = le.name + " [from " + i.id + "]";
     function se() {
-      return s._(/*BTDS*/ "Budget");
+      return s._(/*BTDS*/ "Read");
     }
     se.displayName = se.name + " [from " + i.id + "]";
     function ue() {
-      return s._(/*BTDS*/ "Read");
+      return s._(/*BTDS*/ "Reads");
     }
     ue.displayName = ue.name + " [from " + i.id + "]";
     function ce() {
-      return s._(/*BTDS*/ "Reads");
+      return s._(/*BTDS*/ "Replies");
     }
     ce.displayName = ce.name + " [from " + i.id + "]";
     function de() {
-      return s._(/*BTDS*/ "Replies");
+      return s._(/*BTDS*/ "Details");
     }
     de.displayName = de.name + " [from " + i.id + "]";
     function me() {
-      return s._(/*BTDS*/ "Details");
+      return s._(/*BTDS*/ "Delete broadcast");
     }
     me.displayName = me.name + " [from " + i.id + "]";
     function pe() {
-      return s._(/*BTDS*/ "Delete broadcast");
+      return s._(/*BTDS*/ "Broadcast deleted");
     }
     pe.displayName = pe.name + " [from " + i.id + "]";
     function _e() {
-      return s._(/*BTDS*/ "Broadcast deleted");
+      return s._(/*BTDS*/ "Something went wrong. Try again.");
     }
     _e.displayName = _e.name + " [from " + i.id + "]";
     function fe() {
-      return s._(/*BTDS*/ "Something went wrong. Try again.");
+      return s._(/*BTDS*/ "Delete broadcast?");
     }
     fe.displayName = fe.name + " [from " + i.id + "]";
     function ge() {
-      return s._(/*BTDS*/ "Delete broadcast?");
-    }
-    ge.displayName = ge.name + " [from " + i.id + "]";
-    function he() {
       return s._(
         /*BTDS*/ "This broadcast message will be deleted only for you. Your contacts will still see the message you sent them. This can't be undone and you'll lose performance details for this broadcast.",
       );
     }
+    ge.displayName = ge.name + " [from " + i.id + "]";
+    function he() {
+      return s._(/*BTDS*/ "Status unavailable");
+    }
     he.displayName = he.name + " [from " + i.id + "]";
     function ye() {
-      return s._(/*BTDS*/ "Status unavailable");
+      return s._(/*BTDS*/ "Stop");
     }
     ye.displayName = ye.name + " [from " + i.id + "]";
     function Ce() {
-      return s._(/*BTDS*/ "Stop");
+      return s._(/*BTDS*/ "Stop broadcast?");
     }
     Ce.displayName = Ce.name + " [from " + i.id + "]";
     function be() {
-      return s._(/*BTDS*/ "Stop broadcast?");
+      return s._(/*BTDS*/ "This broadcast will stop being sent.");
     }
     be.displayName = be.name + " [from " + i.id + "]";
     function ve() {
-      return s._(/*BTDS*/ "This broadcast will stop being sent.");
+      return s._(/*BTDS*/ "Stop broadcast");
     }
     ve.displayName = ve.name + " [from " + i.id + "]";
     function Se() {
-      return s._(/*BTDS*/ "Stop broadcast");
+      return s._(/*BTDS*/ "Broadcast stopped");
     }
     Se.displayName = Se.name + " [from " + i.id + "]";
     function Re() {
-      return s._(/*BTDS*/ "Broadcast stopped");
-    }
-    Re.displayName = Re.name + " [from " + i.id + "]";
-    function Le() {
       return s._(
         /*BTDS*/ "Couldn't confirm this broadcast stopped. Check its status.",
       );
     }
-    Le.displayName = Le.name + " [from " + i.id + "]";
-    function Ee() {
+    Re.displayName = Re.name + " [from " + i.id + "]";
+    function Le() {
       return s._(/*BTDS*/ "Cancel");
     }
-    Ee.displayName = Ee.name + " [from " + i.id + "]";
-    function ke(e) {
+    Le.displayName = Le.name + " [from " + i.id + "]";
+    function Ee(e) {
       return s._(/*BTDS*/ '_j{"*":"{percentage}\\u0025"}', [
         s._param("percentage", e, [0]),
       ]);
     }
-    ke.displayName = ke.name + " [from " + i.id + "]";
+    Ee.displayName = Ee.name + " [from " + i.id + "]";
+    function ke(e) {
+      return r("WAWebL10N").n(e / 100, void 0, {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+        style: "percent",
+      });
+    }
     function Ie() {
       return s._(/*BTDS*/ "Broadcast name updated");
     }
@@ -576,13 +582,11 @@ __d(
     }
     Lt.displayName = Lt.name + " [from " + i.id + "]";
     function Et() {
-      return s._(/*BTDS*/ "Unsubscribe recipients");
+      return s._(/*BTDS*/ "Customer base");
     }
     Et.displayName = Et.name + " [from " + i.id + "]";
     function kt() {
-      return s._(
-        /*BTDS*/ "Remove recipients from receiving broadcast messages.",
-      );
+      return s._(/*BTDS*/ "Unsubscribe recipients");
     }
     kt.displayName = kt.name + " [from " + i.id + "]";
     function It() {
@@ -590,98 +594,63 @@ __d(
     }
     It.displayName = It.name + " [from " + i.id + "]";
     function Tt() {
-      return s._(/*BTDS*/ "Download CSV file with subscribed recipients.");
-    }
-    Tt.displayName = Tt.name + " [from " + i.id + "]";
-    function Dt() {
       return s._(/*BTDS*/ "Message limits");
     }
-    Dt.displayName = Dt.name + " [from " + i.id + "]";
-    function xt(e) {
+    Tt.displayName = Tt.name + " [from " + i.id + "]";
+    function Dt(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{conversations} daily conversations","_1":"1 daily conversation"}',
         [s._plural(e, "conversations")],
       );
     }
+    Dt.displayName = Dt.name + " [from " + i.id + "]";
+    function xt() {
+      return s._(/*BTDS*/ "Unlimited daily conversations");
+    }
     xt.displayName = xt.name + " [from " + i.id + "]";
     function $t() {
-      return s._(/*BTDS*/ "Unlimited daily conversations");
+      return s._(/*BTDS*/ "Message limit");
     }
     $t.displayName = $t.name + " [from " + i.id + "]";
     function Pt() {
-      return s._(/*BTDS*/ "Message limit");
-    }
-    Pt.displayName = Pt.name + " [from " + i.id + "]";
-    function Nt() {
       return s._(/*BTDS*/ "Daily conversations");
     }
+    Pt.displayName = Pt.name + " [from " + i.id + "]";
+    function Nt(e, t) {
+      return s._(
+        /*BTDS*/ '_j{"*":"{daily conversations sent} of {daily conversation limit} sent"}',
+        [
+          s._param("daily conversation limit", t, [0]),
+          s._param("daily conversations sent", e),
+        ],
+      );
+    }
     Nt.displayName = Nt.name + " [from " + i.id + "]";
-    function Mt() {
-      return s._(/*BTDS*/ "Sent");
+    function Mt(e) {
+      return s._(/*BTDS*/ "{daily conversations sent} of unlimited sent", [
+        s._param("daily conversations sent", e),
+      ]);
     }
     Mt.displayName = Mt.name + " [from " + i.id + "]";
     function wt() {
-      return s._(/*BTDS*/ "Remaining");
+      return s._(/*BTDS*/ "Message limits aren't available right now.");
     }
     wt.displayName = wt.name + " [from " + i.id + "]";
-    function At(e) {
-      var t;
-      return (
-        (t = s._plural(e, "conversations")),
-        s._(
-          /*BTDS*/ '_j{"*":"You can start {conversations} daily conversations. {=m4}","_1":"You can start 1 daily conversation. {=m4}"}',
-          [
-            t,
-            s._implicitParam(
-              "=m4",
-              u.jsx(r("WDSTextualLink.react"), {
-                href: c,
-                children: s._(/*BTDS*/ '_j{"*":"Learn more"}', [t]),
-              }),
-            ),
-          ],
-        )
-      );
+    function At() {
+      return s._(/*BTDS*/ "Unlock your message limit");
     }
     At.displayName = At.name + " [from " + i.id + "]";
     function Ft() {
       return s._(
-        /*BTDS*/ "You can start unlimited daily conversations. {=m2}",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(r("WDSTextualLink.react"), {
-              href: c,
-              children: s._(/*BTDS*/ "Learn more"),
-            }),
-          ),
-        ],
+        /*BTDS*/ "Complete these requirements to unlock your message limit.",
       );
     }
     Ft.displayName = Ft.name + " [from " + i.id + "]";
     function Ot() {
-      return s._(/*BTDS*/ "Unlimited");
+      return s._(/*BTDS*/ "Switch to primary phone");
     }
     Ot.displayName = Ot.name + " [from " + i.id + "]";
     function Bt() {
-      return s._(/*BTDS*/ "Message limits aren't available right now.");
-    }
-    Bt.displayName = Bt.name + " [from " + i.id + "]";
-    function Wt() {
-      return s._(/*BTDS*/ "Unlock your message limit");
-    }
-    Wt.displayName = Wt.name + " [from " + i.id + "]";
-    function qt() {
-      return s._(
-        /*BTDS*/ "Complete these requirements to unlock your message limit.",
-      );
-    }
-    qt.displayName = qt.name + " [from " + i.id + "]";
-    function Ut() {
-      return s._(/*BTDS*/ "Switch to primary phone");
-    }
-    Ut.displayName = Ut.name + " [from " + i.id + "]";
-    function Vt() {
       return s._(/*BTDS*/ "Get verified on your primary phone. {=m2}", [
         s._implicitParam(
           "=m2",
@@ -692,110 +661,117 @@ __d(
         ),
       ]);
     }
-    Vt.displayName = Vt.name + " [from " + i.id + "]";
-    function Ht() {
+    Bt.displayName = Bt.name + " [from " + i.id + "]";
+    function Wt() {
       return s._(/*BTDS*/ "Scan code with your camera");
     }
-    Ht.displayName = Ht.name + " [from " + i.id + "]";
-    function Gt() {
+    Wt.displayName = Wt.name + " [from " + i.id + "]";
+    function qt() {
       return s._(/*BTDS*/ "Send high-quality messages");
     }
-    Gt.displayName = Gt.name + " [from " + i.id + "]";
-    function zt(e, t, n) {
-      var a;
-      return (
-        (a = s._plural(n, "days")),
-        s._(
-          /*BTDS*/ '_j{"*":"{sent} of {target} sent in the last {days} days. {=m6}","_1":"{sent} of {target} sent in the last day. {=m6}"}',
-          [
-            a,
-            s._param("sent", e),
-            s._param("target", t),
-            s._implicitParam(
-              "=m6",
-              u.jsx(r("WDSTextualLink.react"), {
-                href: o("WAWebBroadcastConsts").HIGH_QUALITY_MESSAGES_DOC_URL,
-                children: s._(
-                  /*BTDS*/ '_j{"*":"What are high quality messages?"}',
-                  [a],
-                ),
-              }),
-            ),
-          ],
-        )
+    qt.displayName = qt.name + " [from " + i.id + "]";
+    function Ut(e, t, n, a) {
+      if ((a === void 0 && (a = !1), a)) {
+        var i;
+        return (
+          (i = s._plural(n, "days")),
+          s._(
+            /*BTDS*/ '_j{"*":"{sent} of {target} sent in the last {days} days. {=m6}","_1":"{sent} of {target} sent in the last day. {=m6}"}',
+            [
+              i,
+              s._param("sent", e),
+              s._param("target", t),
+              s._implicitParam(
+                "=m6",
+                u.jsx(r("WDSTextualLink.react"), {
+                  href: o("WAWebBroadcastConsts").HIGH_QUALITY_MESSAGES_DOC_URL,
+                  children: s._(
+                    /*BTDS*/ '_j{"*":"What are high quality messages?"}',
+                    [i],
+                  ),
+                }),
+              ),
+            ],
+          )
+        );
+      }
+      return s._(
+        /*BTDS*/ '_j{"*":"{sent} of {target} sent in the last {days} days.","_1":"{sent} of {target} sent in the last day."}',
+        [s._plural(n, "days"), s._param("sent", e), s._param("target", t)],
       );
     }
-    ((zt.displayName = zt.name + " [from " + i.id + "]"),
-      (l.getBroadcastColumnHeader = d),
-      (l.getAudienceColumnHeader = m),
-      (l.getStatusColumnHeader = p),
-      (l.getReadRateColumnHeader = _),
-      (l.getReplyRateColumnHeader = f),
-      (l.getAudienceNameColumnHeader = g),
-      (l.getRecipientsColumnHeader = h),
-      (l.getLastBroadcastColumnHeader = y),
-      (l.getProDisplayStatusLabel = C),
-      (l.getProcessingStatusLabel = b),
-      (l.getProcessingStatusSublabel = v),
-      (l.getScheduledStatusLabel = S),
-      (l.getScheduledTableStatusLabel = R),
-      (l.getSentStatusLabel = L),
-      (l.getDeliveringStatusLabel = E),
-      (l.getFailedStatusLabel = k),
-      (l.getFailedTableStatusLabel = I),
-      (l.getFailedStatusSublabel = T),
-      (l.getDraftStatusLabel = D),
-      (l.getBroadcastProLoadFailedInlineMessage = x),
-      (l.getAudienceProLoadFailedInlineMessage = $),
-      (l.getSentDateText = P),
-      (l.getCreatedDateText = N),
-      (l.getCompletedStatusSublabel = M),
-      (l.getScheduledForDateSublabel = w),
-      (l.getBusinessBroadcastsTitle = A),
-      (l.getCreateBroadcastButtonLabel = F),
-      (l.getBroadcastsTabTitle = O),
-      (l.getAudiencesTabTitle = B),
-      (l.getEmptyStateTitle = W),
-      (l.getEmptyStateSubtitle = q),
-      (l.getProEmptyStateTitle = U),
-      (l.getProEmptyStateSubtitle = V),
-      (l.getEmptyStateLearnMoreLinkText = H),
-      (l.getBroadcastDetailsTitle = G),
-      (l.getBroadcastPreviewTitle = z),
-      (l.getRenameBroadcastActionLabel = j),
-      (l.getRenameAudienceActionLabel = K),
-      (l.getPreviewActionLabel = Q),
-      (l.getDuplicateActionLabel = X),
-      (l.getBroadcastMessageUnavailableToast = Y),
-      (l.getDuplicateBroadcastActionLabel = J),
-      (l.getPerformanceSectionTitle = Z),
-      (l.getPerformanceInsightsSectionTitle = ee),
-      (l.getStatusSectionTitle = te),
-      (l.getDeliveredLabel = ne),
-      (l.getSentLabel = re),
-      (l.getCustomReplyClicksLabel = oe),
-      (l.getWebsiteClicksLabel = ae),
-      (l.getAmountSpentLabel = ie),
-      (l.getMaximumPriceLabel = le),
-      (l.getBudgetLabel = se),
-      (l.getReadSublabel = ue),
-      (l.getReadsLabel = ce),
-      (l.getRepliesSublabel = de),
-      (l.getDetailsSectionTitle = me),
-      (l.getDeleteBroadcastLabel = pe),
-      (l.getBroadcastDeletedToastMessage = _e),
-      (l.getBroadcastActionFailedToastMessage = fe),
-      (l.getDeleteBroadcastModalTitle = ge),
-      (l.getDeleteBroadcastModalBody = he),
-      (l.getBroadcastStatusUnavailableLabel = ye),
-      (l.getStopBroadcastButtonLabel = Ce),
-      (l.getStopBroadcastModalTitle = be),
-      (l.getStopBroadcastModalBody = ve),
-      (l.getStopBroadcastConfirmLabel = Se),
-      (l.getBroadcastStoppedToastMessage = Re),
-      (l.getBroadcastStopUnconfirmedToastMessage = Le),
-      (l.getCancelButtonLabel = Ee),
-      (l.getPercentageLabel = ke),
+    ((Ut.displayName = Ut.name + " [from " + i.id + "]"),
+      (l.getBroadcastColumnHeader = c),
+      (l.getAudienceColumnHeader = d),
+      (l.getStatusColumnHeader = m),
+      (l.getReadRateColumnHeader = p),
+      (l.getReplyRateColumnHeader = _),
+      (l.getAudienceNameColumnHeader = f),
+      (l.getRecipientsColumnHeader = g),
+      (l.getLastBroadcastColumnHeader = h),
+      (l.getProDisplayStatusLabel = y),
+      (l.getProcessingStatusLabel = C),
+      (l.getProcessingStatusSublabel = b),
+      (l.getScheduledStatusLabel = v),
+      (l.getScheduledTableStatusLabel = S),
+      (l.getSentStatusLabel = R),
+      (l.getDeliveringStatusLabel = L),
+      (l.getFailedStatusLabel = E),
+      (l.getFailedTableStatusLabel = k),
+      (l.getFailedStatusSublabel = I),
+      (l.getDraftStatusLabel = T),
+      (l.getBroadcastProLoadFailedInlineMessage = D),
+      (l.getAudienceProLoadFailedInlineMessage = x),
+      (l.getSentDateText = $),
+      (l.getCreatedDateText = P),
+      (l.getCompletedStatusSublabel = N),
+      (l.getScheduledForDateSublabel = M),
+      (l.getBusinessBroadcastsTitle = w),
+      (l.getCreateBroadcastButtonLabel = A),
+      (l.getBroadcastsTabTitle = F),
+      (l.getAudiencesTabTitle = O),
+      (l.getEmptyStateTitle = B),
+      (l.getEmptyStateSubtitle = W),
+      (l.getProEmptyStateTitle = q),
+      (l.getProEmptyStateSubtitle = U),
+      (l.getEmptyStateLearnMoreLinkText = V),
+      (l.getBroadcastDetailsTitle = H),
+      (l.getBroadcastPreviewTitle = G),
+      (l.getRenameBroadcastActionLabel = z),
+      (l.getRenameAudienceActionLabel = j),
+      (l.getPreviewActionLabel = K),
+      (l.getDuplicateActionLabel = Q),
+      (l.getBroadcastMessageUnavailableToast = X),
+      (l.getDuplicateBroadcastActionLabel = Y),
+      (l.getPerformanceSectionTitle = J),
+      (l.getPerformanceInsightsSectionTitle = Z),
+      (l.getStatusSectionTitle = ee),
+      (l.getDeliveredLabel = te),
+      (l.getSentLabel = ne),
+      (l.getCustomReplyClicksLabel = re),
+      (l.getWebsiteClicksLabel = oe),
+      (l.getAmountSpentLabel = ae),
+      (l.getMaximumPriceLabel = ie),
+      (l.getBudgetLabel = le),
+      (l.getReadSublabel = se),
+      (l.getReadsLabel = ue),
+      (l.getRepliesSublabel = ce),
+      (l.getDetailsSectionTitle = de),
+      (l.getDeleteBroadcastLabel = me),
+      (l.getBroadcastDeletedToastMessage = pe),
+      (l.getBroadcastActionFailedToastMessage = _e),
+      (l.getDeleteBroadcastModalTitle = fe),
+      (l.getDeleteBroadcastModalBody = ge),
+      (l.getBroadcastStatusUnavailableLabel = he),
+      (l.getStopBroadcastButtonLabel = ye),
+      (l.getStopBroadcastModalTitle = Ce),
+      (l.getStopBroadcastModalBody = be),
+      (l.getStopBroadcastConfirmLabel = ve),
+      (l.getBroadcastStoppedToastMessage = Se),
+      (l.getBroadcastStopUnconfirmedToastMessage = Re),
+      (l.getCancelButtonLabel = Le),
+      (l.getPercentageLabel = Ee),
+      (l.getBBProRatePercentageLabel = ke),
       (l.getBroadcastRenamedToastMessage = Ie),
       (l.getBroadcastRenameFailedToastMessage = Te),
       (l.getAudienceRenamedToastMessage = De),
@@ -848,28 +824,24 @@ __d(
       (l.getDownloadSubscribedRecipientsReminderToast = St),
       (l.getRemoveFromDataSharingReminderToast = Rt),
       (l.getReminderToastActionLabel = Lt),
-      (l.getUnsubscribeRecipientsLabel = Et),
-      (l.getUnsubscribeRecipientsSublabel = kt),
+      (l.getCustomerBaseIdentityLabel = Et),
+      (l.getUnsubscribeRecipientsLabel = kt),
       (l.getDownloadSubscribedRecipientsLabel = It),
-      (l.getDownloadSubscribedRecipientsSublabel = Tt),
-      (l.getMessageLimitsLabel = Dt),
-      (l.getMessageLimitsSublabel = xt),
-      (l.getUnlimitedMessageLimitsSublabel = $t),
-      (l.getMessageLimitPanelTitle = Pt),
-      (l.getDailyConversationsLabel = Nt),
-      (l.getDailyConversationsSentLabel = Mt),
-      (l.getDailyConversationsRemainingLabel = wt),
-      (l.getDailyConversationsCaption = At),
-      (l.getUnlimitedDailyConversationsCaption = Ft),
-      (l.getUnlimitedMessageLimitLabel = Ot),
-      (l.getMessageLimitsUnavailableLabel = Bt),
-      (l.getUnlockMessageLimitLabel = Wt),
-      (l.getUnlockMessageLimitSublabel = qt),
-      (l.getVerifyOnPhoneTitle = Ut),
-      (l.getVerifyOnPhoneSubtitle = Vt),
-      (l.getScanQrCodeCaption = Ht),
-      (l.getSendHighQualityMessagesLabel = Gt),
-      (l.getSendHighQualityMessagesProgressSublabel = zt));
+      (l.getMessageLimitsLabel = Tt),
+      (l.getMessageLimitsSublabel = Dt),
+      (l.getUnlimitedMessageLimitsSublabel = xt),
+      (l.getMessageLimitPanelTitle = $t),
+      (l.getDailyConversationsLabel = Pt),
+      (l.getDailyConversationsUsageLabel = Nt),
+      (l.getUnlimitedDailyConversationsUsageLabel = Mt),
+      (l.getMessageLimitsUnavailableLabel = wt),
+      (l.getUnlockMessageLimitLabel = At),
+      (l.getUnlockMessageLimitSublabel = Ft),
+      (l.getVerifyOnPhoneTitle = Ot),
+      (l.getVerifyOnPhoneSubtitle = Bt),
+      (l.getScanQrCodeCaption = Wt),
+      (l.getSendHighQualityMessagesLabel = qt),
+      (l.getSendHighQualityMessagesProgressSublabel = Ut));
   },
   226,
 );

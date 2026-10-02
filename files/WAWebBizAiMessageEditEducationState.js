@@ -17,36 +17,50 @@ __d(
       s,
       u,
       c,
-      d = n("$InternalEnum").Mirrored(["BizAiMessageEditEducationState"]),
+      d = n("$InternalEnum").Mirrored([
+        "BizAiMessageEditEducationState",
+        "BizAiMessageEditDiscoveryTooltipViewed",
+      ]),
       m = "edit_started",
       p = new (r("WAWebEventEmitter"))(),
       _ = d.BizAiMessageEditEducationState,
-      f = null,
+      f = d.BizAiMessageEditDiscoveryTooltipViewed,
       g = null,
       h = null,
       y = null,
-      C = !1,
+      C = null,
       b = !1,
-      v = new Set();
-    function S() {
+      v = !1,
+      S = new Set();
+    function R() {
       return r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null
-        ? q()
-        : $(r("WAWebUserPrefsStore").getUser(_));
+        ? H()
+        : M(r("WAWebUserPrefsStore").getUser(_));
     }
-    function R(e) {
+    function L(e) {
       return (
         e === void 0 && (e = o("WATimeUtils").unixTime()),
-        W(
+        V(
           o(
             "WAWebBizAiMessageEditEducationPolicy",
-          ).withDiscoveryTooltipDismissed(S(), e),
+          ).withDiscoveryTooltipDismissed(R(), e),
         )
       );
     }
-    function L(e, t, n, a) {
+    function E() {
+      r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+        r("WAWebUserPrefsStore").setUser(f, !0);
+    }
+    function k() {
+      return (
+        r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+        r("WAWebUserPrefsStore").getUser(f) === !0
+      );
+    }
+    function I(e, t, n, a) {
       a === void 0 && (a = o("WATimeUtils").unixTime());
       var i = r("WAWebUserPrefsStore").getMaybeMeDevicePn();
-      if (i == null) return q();
+      if (i == null) return H();
       var l = {
           chatId: e.id.remote,
           didSendEdit: t,
@@ -56,22 +70,22 @@ __d(
         },
         s = e.getCollection(),
         u = function (n) {
-          n.id.equals(e.id) && T(l);
+          n.id.equals(e.id) && $(l);
         },
         c = function () {
-          T(l);
+          $(l);
         },
         d = !1,
         m = !1,
         p = function () {
           (d &&
             ((d = !1),
-            O(function () {
+            q(function () {
               s.off("remove", u);
             })),
             m &&
               ((m = !1),
-              O(function () {
+              q(function () {
                 e.off("revoked", c);
               })));
         };
@@ -81,67 +95,68 @@ __d(
           s.on("remove", u),
           (m = !0),
           e.on("revoked", c),
-          P(l, a, i.toString(), p)
+          w(l, a, i.toString(), p)
         );
       } catch (e) {
-        throw (f === l ? T(l) : p(), e);
+        throw (g === l ? $(l) : p(), e);
       }
     }
-    function E(e) {
+    function T(e) {
       return (
         e === void 0 && (e = o("WATimeUtils").unixTime()),
-        f == null ||
         g == null ||
-        g !== B() ||
+        h == null ||
+        h !== U() ||
         o("WAWebBizAiMessageEditEducationPolicy").isActivePostEditHintExpired(
-          f,
+          g,
           e,
         )
           ? null
-          : f
+          : g
       );
     }
-    function k(e) {
+    function D(e) {
       return (
-        v.add(e),
+        S.add(e),
         function () {
-          v.delete(e);
+          S.delete(e);
         }
       );
     }
-    function I() {
-      M(null);
-    }
-    function T(e) {
-      f === e && I();
-    }
-    function D(e) {
-      return E() !== e || C ? null : ((C = !0), e.isWithinEditingWindow);
-    }
     function x() {
-      (r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
-        r("WAWebUserPrefsStore").setUser(_, null),
-        I());
+      F(null);
     }
     function $(e) {
+      g === e && x();
+    }
+    function P(e) {
+      return T() !== e || b ? null : ((b = !0), e.isWithinEditingWindow);
+    }
+    function N() {
+      (r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+        (r("WAWebUserPrefsStore").setUser(_, null),
+        r("WAWebUserPrefsStore").setUser(f, null)),
+        x());
+    }
+    function M(e) {
       return e == null || typeof e != "object" || Array.isArray(e)
-        ? q()
+        ? H()
         : {
-            hintLastShownAtSeconds: U(e.hintLastShownAtSeconds),
-            tooltipLastDismissedAtSeconds: U(e.tooltipLastDismissedAtSeconds),
+            hintLastShownAtSeconds: G(e.hintLastShownAtSeconds),
+            tooltipLastDismissedAtSeconds: G(e.tooltipLastDismissedAtSeconds),
           };
     }
-    function P(t, n, a, i) {
-      (i === void 0 && (i = null), N());
-      var l = S(),
-        s = W(
+    function w(t, n, a, i) {
+      (i === void 0 && (i = null), A());
+      var l = R(),
+        s = V(
           o("WAWebBizAiMessageEditEducationPolicy").withPostEditHintShown(l, n),
         );
       try {
-        M(t, a, i);
+        F(t, a, i);
       } catch (t) {
         try {
-          W(l);
+          V(l);
         } catch (t) {
           o("WALogger")
             .ERROR(
@@ -157,27 +172,27 @@ __d(
       }
       return s;
     }
-    function N() {
-      b || (o("WAWebCmd").Cmd.on("logout_from_bridge", I), (b = !0));
+    function A() {
+      v || (o("WAWebCmd").Cmd.on("logout_from_bridge", x), (v = !0));
     }
-    function M(e, t, n) {
+    function F(e, t, n) {
       if (
         (t === void 0 && (t = null),
         n === void 0 && (n = null),
-        !(f === e && g === t))
+        !(g === e && h === t))
       ) {
-        var r = w(e),
-          o = h,
-          a = y;
-        ((h = n), (f = e), (g = t), (y = r), (C = !1), O(o), A(a), F());
+        var r = O(e),
+          o = y,
+          a = C;
+        ((y = n), (g = e), (h = t), (C = r), (b = !1), q(o), B(a), W());
       }
     }
-    function w(e) {
+    function O(e) {
       return e == null
         ? null
         : r("WAWebAlarm").setGlobalTimeout(
             function () {
-              return T(e);
+              return $(e);
             },
             o("WATimeUtils").castUnixTimeToMillisTime(
               o("WATimeUtils").castToUnixTime(
@@ -188,7 +203,7 @@ __d(
             ),
           );
     }
-    function A(e) {
+    function B(e) {
       if (e != null)
         try {
           r("WAWebAlarm").clearTimeout(e);
@@ -204,8 +219,8 @@ __d(
             .sendLogs("biz-ai-message-edit-education-expiry-cleanup-fail");
         }
     }
-    function F() {
-      v.forEach(function (e) {
+    function W() {
+      S.forEach(function (e) {
         try {
           e();
         } catch (e) {
@@ -221,7 +236,7 @@ __d(
         }
       });
     }
-    function O(e) {
+    function q(e) {
       try {
         e == null || e();
       } catch (e) {
@@ -236,7 +251,7 @@ __d(
           .sendLogs("biz-ai-message-edit-education-cleanup-fail");
       }
     }
-    function B() {
+    function U() {
       var e, t;
       return (e =
         (t = r("WAWebUserPrefsStore").getMaybeMeDevicePn()) == null
@@ -245,36 +260,38 @@ __d(
         ? e
         : null;
     }
-    function W(e) {
-      if (r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null) return q();
-      var t = $(e);
+    function V(e) {
+      if (r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null) return H();
+      var t = M(e);
       return (r("WAWebUserPrefsStore").setUser(_, t), t);
     }
-    function q() {
+    function H() {
       return {
         hintLastShownAtSeconds: null,
         tooltipLastDismissedAtSeconds: null,
       };
     }
-    function U(e) {
-      return V(e) ? e : null;
+    function G(e) {
+      return z(e) ? e : null;
     }
-    function V(e) {
+    function z(e) {
       return typeof e == "number" && Number.isSafeInteger(e) && e >= 0;
     }
     ((l.BizAiMessageEditEducationUserPrefs = d),
       (l.BIZ_AI_MESSAGE_EDIT_STARTED_EVENT = m),
       (l.BizAiMessageEditEducationEventBus = p),
-      (l.loadMessageEditEducationState = S),
-      (l.recordDiscoveryTooltipDismissed = R),
-      (l.recordPostEditHintShownForMessage = L),
-      (l.getActivePostEditHint = E),
-      (l.subscribeToActivePostEditHint = k),
-      (l.clearActivePostEditHint = I),
-      (l.clearActivePostEditHintIfCurrent = T),
-      (l.takeActivePostEditHintViewIfCurrent = D),
-      (l.clearMessageEditEducationState = x),
-      (l.normalizeMessageEditEducationState = $));
+      (l.loadMessageEditEducationState = R),
+      (l.recordDiscoveryTooltipDismissed = L),
+      (l.recordDiscoveryTooltipViewed = E),
+      (l.hasViewedDiscoveryTooltip = k),
+      (l.recordPostEditHintShownForMessage = I),
+      (l.getActivePostEditHint = T),
+      (l.subscribeToActivePostEditHint = D),
+      (l.clearActivePostEditHint = x),
+      (l.clearActivePostEditHintIfCurrent = $),
+      (l.takeActivePostEditHintViewIfCurrent = P),
+      (l.clearMessageEditEducationState = N),
+      (l.normalizeMessageEditEducationState = M));
   },
   98,
 );

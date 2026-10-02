@@ -144,10 +144,14 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CUSTOMIZE_OPENED,
       });
     }
-    function R(e, t, n, r) {
-      e({
+    function R(e) {
+      var t = e.cardIndex,
+        n = e.isOriginal,
+        r = e.log,
+        a = e.refinementCount;
+      r({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        extraAttributes: { card_index: n, is_original: r, refinement_count: t },
+        extraAttributes: { card_index: t, is_original: n, refinement_count: a },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CUSTOMIZE_USE_MESSAGE,

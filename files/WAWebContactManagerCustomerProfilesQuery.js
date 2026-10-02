@@ -3,8 +3,8 @@ __d(
   [
     "WAJids",
     "WALogger",
-    "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
+    "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerProfileBirthday",
     "WAWebFBLogger",
     "WAWebFetchAdAccountToken",
@@ -82,7 +82,7 @@ __d(
                         .WARN(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "[ContactManager] fetchCustomerProfileRecords: stopped at ",
+                              "[CustomerManager] fetchCustomerProfileRecords: stopped at ",
                               " pages with a cursor still open",
                             ])),
                           d,
@@ -104,7 +104,7 @@ __d(
           a === "" ||
           t.push({
             acquisitionSource: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toProfileAcquisitionSourceId(n.acquisition_source),
             address: n.address,
             birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
@@ -114,13 +114,13 @@ __d(
             chatJid: o("WAJids").toLidUserJid(a),
             email: n.email,
             lastOrder: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toOptionalUnixTime(n.last_order_date),
             leadStage: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).toLeadStageType(n.lead_stage),
             modifiedAt: o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).latestUpdateTs(
               n.last_updates.map(function (e) {
                 var t = e.ts;
@@ -142,7 +142,7 @@ __d(
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
             throw r("err")(
-              "[ContactManager] fetchCustomerProfiles: no access token (" +
+              "[CustomerManager] fetchCustomerProfiles: no access token (" +
                 n.type +
                 ")",
             );
@@ -182,7 +182,7 @@ __d(
           .WAWebFBLogger()
           .catching(r("getErrorSafe")(e))
           .warn(
-            "[ContactManager] customer profile %s rate limited (customer_manager_profiles_rate_limited)",
+            "[CustomerManager] customer profile %s rate limited (customer_manager_profiles_rate_limited)",
             t,
           );
     }

@@ -2,7 +2,6 @@ __d(
   "WAWebPixAttachmentTrayFeature",
   [
     "WAWebABProps",
-    "WAWebAddEditPixFeature",
     "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactGetters",
@@ -24,7 +23,7 @@ __d(
       var n =
           o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
           o("WAWebPixFeature").isPixEnabled() &&
-          o("WAWebAddEditPixFeature").isAddEditPixEnabled() &&
+          o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web") &&
           e(),
         r =
           !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&

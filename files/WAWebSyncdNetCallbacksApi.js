@@ -19,7 +19,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = function (t) {
+      s,
+      u = function (t) {
         var e = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
           entryPoint: "SyncdNetCallbacks",
           mediaType: "md-app-state",
@@ -55,25 +56,25 @@ __d(
             };
           });
       };
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
             entryPoint: "SyncdNetCallbacks",
           });
           i.addAnnotations({ string: { syncdBlobType: n } });
           var l = t.directPath,
-            s = t.fileEncSha256,
-            u = t.fileSha256,
-            c = t.mediaKey,
-            d = {
+            u = t.fileEncSha256,
+            c = t.fileSha256,
+            d = t.mediaKey,
+            m = {
               directPath: l,
-              encFilehash: o("WABase64").encodeB64(s),
-              filehash: o("WABase64").encodeB64(u),
-              mediaKey: o("WABase64").encodeB64(c),
+              encFilehash: o("WABase64").encodeB64(u),
+              filehash: o("WABase64").encodeB64(c),
+              mediaKey: o("WABase64").encodeB64(d),
               type: "md-app-state",
               userDownloadAttemptCount: 0,
               downloadOrigin: o("WAWebWamEnumDownloadOriginType")
@@ -81,18 +82,18 @@ __d(
             };
           i.addPoint("download_options_ready");
           try {
-            var m = yield o(
+            var p = yield o(
               "WAWebDownloadManager",
             ).downloadManager.downloadAndMaybeDecrypt(
               babelHelpers.extends(
                 { signal: new AbortController().signal, downloadQpl: i },
-                d,
+                m,
               ),
             );
-            return (i.endSuccess(), m);
+            return (i.endSuccess(), p);
           } catch (l) {
             i.endFailWithError("download_failed", r("getErrorSafe")(l).message);
-            var p = o("WABase64").encodeB64(t.fileEncSha256).length;
+            var _ = o("WABase64").encodeB64(t.fileEncSha256).length;
             throw (
               o("WALogger").LOG(
                 e ||
@@ -105,12 +106,12 @@ __d(
                   ])),
                 n,
                 t.fileSizeBytes,
-                p,
+                _,
                 a,
               ),
               l instanceof o("WAWebMmsClientErrors").MediaNotFoundError
-                ? (o("WAWebSyncdUploadFatalErrorMetric").uploadFatalErrorMetric(
-                    {
+                ? (o("WAWebSyncdUploadFatalErrorMetric")
+                    .uploadFatalErrorMetric({
                       collection: a,
                       mdFatalErrorCode:
                         n === "patch"
@@ -118,8 +119,18 @@ __d(
                               .MD_SYNCD_FATAL_ERROR_CODE.EXTERNAL_PATCH_EXPIRED
                           : o("WAWebWamEnumMdSyncdFatalErrorCode")
                               .MD_SYNCD_FATAL_ERROR_CODE.SNAPSHOT_EXPIRED,
-                    },
-                  ),
+                    })
+                    .catch(function (e) {
+                      o("WALogger")
+                        .ERROR(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[syncd] upload fatal error metric failed",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("syncd-fatal-error-metric-upload-failed");
+                    }),
                   new (o("WAWebSyncdError").SyncdFatalError)(
                     "external patch expired",
                   ))
@@ -127,10 +138,10 @@ __d(
             );
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    ((l.uploadSyncExternalPatch = s), (l.downloadSyncBlob = u));
+    ((l.uploadSyncExternalPatch = u), (l.downloadSyncBlob = c));
   },
   98,
 );

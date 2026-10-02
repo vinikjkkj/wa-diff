@@ -103,7 +103,9 @@ __d(
             p = s !== this.searchTerm;
           if (
             (this.searchTerm !== d
-              ? (this.searchTerm && s.indexOf(this.searchTerm) === 0
+              ? (this.searchTerm != null &&
+                this.searchTerm !== "" &&
+                s.indexOf(this.searchTerm) === 0
                   ? (m = !0)
                   : ((this.searchTerm = d), this.delete()),
                 p && ((this.resultPage = 0), (this.hasMoreMsgs = !0)))

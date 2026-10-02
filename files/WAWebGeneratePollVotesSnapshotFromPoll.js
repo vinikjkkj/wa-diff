@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = o("WAWebMsgGetters").getIsNewsletterMsg(e);
+      var t = o("WAWebMsgGetters").getIsNewsletterMsg(e.unsafe());
       return t ? s(e) : u(e);
     }
     function s(e) {

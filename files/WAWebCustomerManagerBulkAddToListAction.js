@@ -21,7 +21,7 @@ __d(
                 return o("WAWebFindChatAction")
                   .findOrCreateLatestChat(
                     o("WAWebWidFactory").createWid(e),
-                    "customerManager",
+                    "contactManager",
                   )
                   .then(function (e) {
                     var t = e.chat;

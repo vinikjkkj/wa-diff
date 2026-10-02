@@ -13,20 +13,23 @@ __d(
       s = "upr_attachment_tray",
       u = "upr_send",
       c = "pux";
-    function d(e, t, n) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.country,
+            n = e.eventParams,
+            r = e.queryParams;
           new (o("WAWebPaymentsUserActionWamEvent").PaymentsUserActionWamEvent)(
-            babelHelpers.extends({}, t, {
-              paymentsCountryCode: e.toUpperCase(),
+            babelHelpers.extends({}, n, {
+              paymentsCountryCode: t.toUpperCase(),
               paymentsEventId: yield o(
                 "WAWebSyncdMdSyncFieldstatMeta",
               ).MdSyncFieldStatsMeta.getMdSessionId(),
               queryParams: JSON.stringify(
-                babelHelpers.extends({}, n, { platform: "upr" }),
+                babelHelpers.extends({}, r, { platform: "upr" }),
               ),
             }),
           ).commit();
@@ -40,11 +43,14 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d(t, {
-            paymentActionType: o("WAWebWamEnumPaymentActionTypes")
-              .PAYMENT_ACTION_TYPES.VIEW,
-            referral: e,
-            screen: s,
+          yield d({
+            country: t,
+            eventParams: {
+              paymentActionType: o("WAWebWamEnumPaymentActionTypes")
+                .PAYMENT_ACTION_TYPES.VIEW,
+              referral: e,
+              screen: s,
+            },
           });
         })),
         _.apply(this, arguments)
@@ -56,13 +62,16 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d(t, {
-            actionTarget: o("WAWebWamEnumPaymentActionTargets")
-              .PAYMENT_ACTION_TARGETS.PAYMENT_KEY_BUTTON,
-            paymentActionType: o("WAWebWamEnumPaymentActionTypes")
-              .PAYMENT_ACTION_TYPES.CLICK,
-            referral: e,
-            screen: s,
+          yield d({
+            country: t,
+            eventParams: {
+              actionTarget: o("WAWebWamEnumPaymentActionTargets")
+                .PAYMENT_ACTION_TARGETS.PAYMENT_KEY_BUTTON,
+              paymentActionType: o("WAWebWamEnumPaymentActionTypes")
+                .PAYMENT_ACTION_TYPES.CLICK,
+              referral: e,
+              screen: s,
+            },
           });
         })),
         g.apply(this, arguments)
@@ -74,16 +83,16 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d(
-            t,
-            {
+          yield d({
+            country: t,
+            eventParams: {
               paymentActionType: o("WAWebWamEnumPaymentActionTypes")
                 .PAYMENT_ACTION_TYPES.VIEW,
               referral: e,
               screen: u,
             },
-            { flow_type: c },
-          );
+            queryParams: { flow_type: c },
+          });
         })),
         y.apply(this, arguments)
       );
@@ -101,9 +110,9 @@ __d(
               ? (r != null && (l.account_type = r),
                 a != null && (l.identifier_type = a))
               : (l.account_count = n),
-              yield d(
-                t,
-                {
+              yield d({
+                country: t,
+                eventParams: {
                   actionTarget: i
                     ? o("WAWebWamEnumPaymentActionTargets")
                         .PAYMENT_ACTION_TARGETS.SUMMARY_CARD_SINGLE
@@ -114,8 +123,8 @@ __d(
                   referral: e,
                   screen: u,
                 },
-                l,
-              ));
+                queryParams: l,
+              }));
           },
         )),
         b.apply(this, arguments)
@@ -127,9 +136,9 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          yield d(
-            t,
-            {
+          yield d({
+            country: t,
+            eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
                 .PAYMENT_ACTION_TARGETS.SEND_BUTTON,
               paymentActionType: o("WAWebWamEnumPaymentActionTypes")
@@ -137,11 +146,11 @@ __d(
               referral: e,
               screen: u,
             },
-            babelHelpers.extends(
+            queryParams: babelHelpers.extends(
               { flow_type: c },
               n == null ? {} : { order_amount: String(n) },
             ),
-          );
+          });
         })),
         S.apply(this, arguments)
       );
@@ -152,9 +161,9 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield d(
-            t,
-            {
+          yield d({
+            country: t,
+            eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
                 .PAYMENT_ACTION_TARGETS.CLOSE_BUTTON,
               paymentActionType: o("WAWebWamEnumPaymentActionTypes")
@@ -162,8 +171,8 @@ __d(
               referral: e,
               screen: u,
             },
-            { flow_type: c },
-          );
+            queryParams: { flow_type: c },
+          });
         })),
         L.apply(this, arguments)
       );
@@ -174,9 +183,9 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          yield d(
-            t,
-            {
+          yield d({
+            country: t,
+            eventParams: {
               actionTarget: o("WAWebWamEnumPaymentActionTargets")
                 .PAYMENT_ACTION_TARGETS.SEND_BUTTON,
               paymentActionType: o("WAWebWamEnumPaymentActionTypes")
@@ -184,8 +193,8 @@ __d(
               referral: e,
               screen: u,
             },
-            { flow_type: c, result: n },
-          );
+            queryParams: { flow_type: c, result: n },
+          });
         })),
         k.apply(this, arguments)
       );

@@ -3,12 +3,12 @@ __d(
   [
     "WATimeUtils",
     "WAWebChatEntryPoint",
-    "WAWebChatGroupUtils",
     "WAWebChatThreadLogging",
     "WAWebCmd",
     "WAWebComposeBoxActions",
     "WAWebFindChatAction",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupAgentOneToOneContact",
     "WAWebMsgModelUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -21,8 +21,11 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(e.author),
-            n = o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
+            n = o(
+              "WAWebGroupAgentOneToOneContact",
+            ).getGroupAgentAwareOneToOneContact(
               t,
+              o("WAWebFrontendMsgGetters").getChat(e),
               "private_reply",
             );
           if (n != null) {

@@ -40,7 +40,8 @@ __d(
     }
     ((l.isMetaOneBizAiEntryPointEnabled = e),
       (l.isMetaOneBusinessToolsEntryPointEnabled = s),
-      (l.isMetaOneSettingsEntryPointEnabled = u));
+      (l.isMetaOneSettingsEntryPointEnabled = u),
+      (l.isMetaOneRolloutEnabled = c));
   },
   98,
 );

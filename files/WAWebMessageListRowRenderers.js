@@ -199,7 +199,9 @@ __d(
         historyBundleInfo: function (n, a) {
           var t,
             i = e.msgs.find(function (e) {
-              var t = o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e);
+              var t = o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(
+                e.unsafe(),
+              );
               return (
                 a != null &&
                 (t == null ? void 0 : t.id) === (a == null ? void 0 : a.id)

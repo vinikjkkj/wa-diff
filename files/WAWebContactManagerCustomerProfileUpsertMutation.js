@@ -4,10 +4,10 @@ __d(
     "WAJids",
     "WALogger",
     "WATimeUtils",
-    "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfileQuery",
     "WAWebContactManagerCustomerProfileUpsertMutation.graphql",
     "WAWebContactManagerCustomerProfilesQuery",
+    "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
@@ -54,14 +54,14 @@ __d(
             ) {
               if (a === 3)
                 throw r("err")(
-                  "[ContactManager] customer profile birthday changed during save",
+                  "[CustomerManager] customer profile birthday changed during save",
                 );
               var s = yield o(
                 "WAWebContactManagerCustomerProfileQuery",
               ).fetchCustomerProfile(e);
               if (s == null && n.ifMatch !== "")
                 throw r("err")(
-                  "[ContactManager] customer profile birthday could not be verified after conflict",
+                  "[CustomerManager] customer profile birthday could not be verified after conflict",
                 );
               yield p(
                 e,
@@ -93,7 +93,7 @@ __d(
     function h(e) {
       if (e === 0)
         throw r("err")(
-          "[ContactManager] customer profile last order date cannot be Unix epoch zero",
+          "[CustomerManager] customer profile last order date cannot be Unix epoch zero",
         );
     }
     function y(e, t) {
@@ -106,7 +106,7 @@ __d(
           var n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
             throw r("err")(
-              "[ContactManager] customer profile upsert: no access token (" +
+              "[CustomerManager] customer profile upsert: no access token (" +
                 n.type +
                 ")",
             );
@@ -130,7 +130,7 @@ __d(
             ) {
               if (t.if_match == null)
                 throw r("err")(
-                  "[ContactManager] customer profile upsert: conflict without version precondition",
+                  "[CustomerManager] customer profile upsert: conflict without version precondition",
                 );
               return !1;
             }
@@ -138,7 +138,7 @@ __d(
               (d == null || (l = d.profiles) == null ? void 0 : l.length) !== 1
             )
               throw r("err")(
-                "[ContactManager] customer profile upsert: no confirmed profile write",
+                "[CustomerManager] customer profile upsert: no confirmed profile write",
               );
           } catch (e) {
             throw (
@@ -153,7 +153,7 @@ __d(
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ContactManager] customer profile upsert: synced ",
+                  "[CustomerManager] customer profile upsert: synced ",
                   "",
                 ])),
               e,
@@ -228,7 +228,7 @@ __d(
         ) {
           var m = r.value,
             p = o(
-              "WAWebContactManagerCustomerProfileDecoders",
+              "WAWebCustomerManagerCustomerProfileDecoders",
             ).fromProfileAcquisitionSourceId(m);
           m == null
             ? (n.acquisition_source = null)
@@ -238,7 +238,7 @@ __d(
                   .WARN(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ContactManager] customer profile upsert: acquisition source ",
+                        "[CustomerManager] customer profile upsert: acquisition source ",
                         " has no server enum member; leaving the stored value unchanged",
                       ])),
                     m,
@@ -271,14 +271,14 @@ __d(
         r.ifMatch != null && (n.if_match = r.ifMatch)),
         t.lastOrder != null && (n.last_order_date = t.lastOrder));
       var a = o(
-        "WAWebContactManagerCustomerProfileDecoders",
+        "WAWebCustomerManagerCustomerProfileDecoders",
       ).fromProfileAcquisitionSourceId(t.acquisitionSource);
       return (a != null && (n.acquisition_source = a), n);
     }
     function R(e) {
       if (!e.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
-          '[ContactManager] customer profile upsert: chatJid must be a LID-based JID, got "' +
+          '[CustomerManager] customer profile upsert: chatJid must be a LID-based JID, got "' +
             e +
             '"',
         );
