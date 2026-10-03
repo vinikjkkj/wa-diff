@@ -95,6 +95,28 @@ __d(
         : n.notSpam;
     }
     function d(e) {
+      var t = e.chatContactVerifiedLevel,
+        n = e.chatNotSpam,
+        r = e.chatTrusted,
+        a = e.isCAPISupport,
+        i = e.isChatGroup,
+        l = e.isChatNewsletter,
+        s = e.isFromTemplate,
+        u = e.isPSA,
+        c = e.isSenderMe,
+        d = e.isSenderMyContact;
+      return c || d || l
+        ? !0
+        : i
+          ? r === !0
+          : u ||
+              a ||
+              s === !0 ||
+              t === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH
+            ? !0
+            : n === !0;
+    }
+    function m(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return (
@@ -103,7 +125,10 @@ __d(
           : t.participants.iAmMember()) === !0
       );
     }
-    ((l.hasSymbol = u), (l.isTrusted = c), (l.iAmGroupParticipant = d));
+    ((l.hasSymbol = u),
+      (l.isTrusted = c),
+      (l.isTrustedFor = d),
+      (l.iAmGroupParticipant = m));
   },
   98,
 );

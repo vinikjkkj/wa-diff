@@ -245,18 +245,15 @@ __d(
     }
     function B() {
       var e;
-      return !o("WAWebBotBaseGating").isBotEnabled() ||
-        !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
-          (e = o("WAWebABProps").getABPropConfigValue(
-            "ai_metabot_image_input_languages",
-          )) != null
-            ? e
-            : "en",
-        )
-        ? !1
-        : o("WAWebABProps").getABPropConfigValue(
-            "ai_web_meta_ai_image_input_enabled",
-          );
+      return o("WAWebBotBaseGating").isBotEnabled()
+        ? o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
+            (e = o("WAWebABProps").getABPropConfigValue(
+              "ai_metabot_image_input_languages",
+            )) != null
+              ? e
+              : "en",
+          )
+        : !1;
     }
     function W() {
       var e;

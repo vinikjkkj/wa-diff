@@ -217,14 +217,8 @@ __d(
                       (l[r] = S(l[r], s)),
                       l.deviceDelivered.add(c));
                   else {
-                    var d;
-                    e.set(
-                      i,
-                      ((d = {}),
-                      (d[r] = s),
-                      (d.deviceDelivered = new Set([c])),
-                      d),
-                    );
+                    var d = { deviceDelivered: new Set([c]) };
+                    ((d[r] = s), e.set(i, d));
                   }
                 });
               }),
@@ -270,7 +264,7 @@ __d(
                   l = yield o("WAWebModelStorageUtils")
                     .getStorage()
                     .lock(
-                      ["message-info", "message", "chat"],
+                      ["message-info", "message", "chat", "participant"],
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var l = yield (f || (f = n("Promise"))).all([

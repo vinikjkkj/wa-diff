@@ -28,7 +28,9 @@ __d(
             i = a === void 0 ? !1 : a,
             l = t.isOffline,
             m = l === void 0 ? !1 : l,
-            p = t.meta;
+            p = t.meta,
+            _ = t.suppressInitialE2EENotice,
+            f = _ === void 0 ? !1 : _;
           o("WALogger")
             .LOG(
               e ||
@@ -37,22 +39,22 @@ __d(
                 ])),
             )
             .tags("groups");
-          var _ = p.author,
-            f = p.chatId,
-            g = p.pushname,
-            h = r.creation,
-            y = r.hasCapi,
-            C = r.id,
-            b = r.participants,
-            v = r.subject;
+          var g = p.author,
+            h = p.chatId,
+            y = p.pushname,
+            C = r.creation,
+            b = r.hasCapi,
+            v = r.id,
+            S = r.participants,
+            R = r.subject;
           ((p.author == null ||
             !o("WAWebUserPrefsMeUser").isMeAccount(p.author)) &&
             new (o("WAWebGroupJoinCWamEvent").GroupJoinCWamEvent)().commit(),
-            _ &&
-              g != null &&
-              g !== "" &&
+            g &&
+              y != null &&
+              y !== "" &&
               o("WAWebHandlePushnameUpdate")
-                .updatePushname(_, g, m)
+                .updatePushname(g, y, m)
                 .catch(function (e) {
                   o("WALogger").WARN(
                     s ||
@@ -66,8 +68,8 @@ __d(
             yield (d || (d = n("Promise"))).all([
               o("WAWebGroupDatabaseJob").updateGroupMetadataTableJob([r]),
               o("WAWebGroupParticipantsJob").updateParticipantsJob({
-                group: C,
-                participants: b,
+                group: v,
+                participants: S,
                 isOffline: m,
                 groupInfo: r,
               }),
@@ -80,24 +82,24 @@ __d(
                   ])),
               )
               .tags("groups"),
-            (yield o("WAWebApiChatCommon").getChatRecord(f)) != null
+            (yield o("WAWebApiChatCommon").getChatRecord(h)) != null
               ? o("WAWebBackendApi").frontendFireAndForget(
                   "updateGroupSubject",
-                  { id: f, subject: v },
+                  { id: h, subject: R },
                 )
               : (yield o(
                   "WAWebGroupHistoryParticipantJob",
-                ).clearGroupHistoryParticipantStateForGroup(C),
+                ).clearGroupHistoryParticipantStateForGroup(v),
                 yield o("WAWebCreateChat").createChat({
                   createChatOrigin: "groupCreation",
-                  destination: { chatId: f },
+                  destination: { chatId: h },
                   initialProps: babelHelpers.extends(
-                    { t: h, pendingInitialLoading: !1, createdLocally: !1 },
+                    { t: C, pendingInitialLoading: !1, createdLocally: !1 },
                     i === !0 && { notSpam: !0 },
                   ),
                   options: babelHelpers.extends(
-                    { createdOffline: m },
-                    y === !0 && {
+                    { createdOffline: m, suppressInitialE2EENotice: f },
+                    b === !0 && {
                       nextPrivacyMode: {
                         actualActors: o("WAWebHandleMsgTypes.flow")
                           .ActualActorsEnumType.Capi,
@@ -118,11 +120,11 @@ __d(
                   .tags("groups"),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateGroupSubject",
-                  { id: C, subject: v },
+                  { id: v, subject: R },
                 )),
             o("WAWebBackendApi").frontendFireAndForget("setGroupMetadata", r),
             o("WAWebBackendApi").frontendFireAndForget("markProfilePicStale", {
-              profilePicThumbWid: C,
+              profilePicThumbWid: v,
             }));
         })),
         p.apply(this, arguments)

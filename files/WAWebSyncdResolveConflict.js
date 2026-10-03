@@ -121,7 +121,32 @@ __d(
         d.apply(this, arguments)
       );
     }
-    l.resolveConflict = c;
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+              "WAWebGetPendingMutation",
+            ).getSyncPendingMutationsByCollectionInTransaction(e),
+            a = new Map(
+              t.map(function (e) {
+                return [e.index, e];
+              }),
+            );
+          return r("compactMap")(n, function (e) {
+            var t = a.get(e.index);
+            return t == null ||
+              !t.actionHandler.shouldDropPendingMutationForRemoteRemove(e, t)
+              ? null
+              : e.id;
+          });
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    ((l.resolveConflict = c), (l.resolveRemoveConflicts = m));
   },
   98,
 );

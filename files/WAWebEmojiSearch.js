@@ -1,9 +1,7 @@
 __d(
   "WAWebEmojiSearch",
   [
-    "WALogger",
     "WATrie",
-    "WAWebABProps",
     "WAWebEmoji",
     "WAWebRecentEmojiCollection",
     "asyncToGeneratorRuntime",
@@ -13,11 +11,10 @@ __d(
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = r("requireDeferred")("WAFtsMultiLangTokenizer").__setRef(
+    var e = r("requireDeferred")("WAFtsMultiLangTokenizer").__setRef(
         "WAWebEmojiSearch",
       ),
-      u = [
+      s = [
         "\uD83D\uDE02",
         "\uD83E\uDD23",
         "\u2764",
@@ -69,7 +66,7 @@ __d(
         "\uD83E\uDD74",
         "\uD83D\uDE33",
       ],
-      c = [
+      u = [
         "SMILEYS_PEOPLE",
         "ANIMALS_NATURE",
         "FOOD_DRINK",
@@ -80,21 +77,21 @@ __d(
         "FLAGS",
         "VARIATION",
       ],
-      d = 36,
-      m = 50,
-      p = 1841,
-      _ = 1e8,
-      f = 1e6,
-      g = 1e4;
-    function h(e, t) {
+      c = 36,
+      d = 50,
+      m = 1841,
+      p = 1e8,
+      _ = 1e6,
+      f = 1e4;
+    function g(e, t) {
       var n = [];
       if (e) {
-        var r = L(e.toLowerCase(), t);
+        var r = S(e.toLowerCase(), t);
         n = Array.from(new Set(r));
       }
       return n;
     }
-    function y(e, t) {
+    function h(e, t) {
       if (!t) return [];
       if (e.length <= 5) return t.getMatches(e);
       var n = e.substring(0, 5).trim(),
@@ -106,10 +103,10 @@ __d(
         r
       );
     }
-    function C(e) {
+    function y(e) {
       return r("compactMap")(e, o("WAWebEmoji").EmojiUtil.normalizeEmoji);
     }
-    function b(e) {
+    function C(e) {
       var t,
         n,
         r,
@@ -121,15 +118,15 @@ __d(
         u = Math.min(Math.max(s, 0), 99),
         c = (t = i.get(o)) != null ? t : 0,
         d = Math.min(Math.max(c, 0), 99),
-        m = (n = l.get(o)) != null ? n : 0,
-        h = Math.min(Math.max(m, 0), 99),
-        y = (r = a.get(o)) != null ? r : p,
-        C = Math.min(Math.max(p - y, 1), 9999);
-      return u * _ + d * f + h * g + C;
+        g = (n = l.get(o)) != null ? n : 0,
+        h = Math.min(Math.max(g, 0), 99),
+        y = (r = a.get(o)) != null ? r : m,
+        C = Math.min(Math.max(m - y, 1), 9999);
+      return u * p + d * _ + h * f + C;
     }
-    function v() {
+    function b() {
       var e = new Map(),
-        t = C(
+        t = y(
           o("WAWebRecentEmojiCollection").RecentEmojiCollection.map(
             function (e) {
               return e.id;
@@ -138,30 +135,30 @@ __d(
         );
       return (
         t.forEach(function (t, n) {
-          e.set(t, d - n);
+          e.set(t, c - n);
         }),
         e
       );
     }
-    var S = r("once")(function () {
+    var v = r("once")(function () {
       var e = new Map(),
-        t = C(u);
+        t = y(s);
       return (
         t.forEach(function (t, n) {
-          e.set(t, m - n);
+          e.set(t, d - n);
         }),
         e
       );
     });
-    function R(e, t) {
+    function S(e, t) {
       var n = e.split(" ").filter(function (e) {
         return e.length > 0;
       });
       if (n.length === 0) return [];
       var r = new Map();
       for (var o of n) {
-        var a = y(o, t),
-          i = C(
+        var a = h(o, t),
+          i = y(
             a.flatMap(function (e) {
               return e.value;
             }),
@@ -173,21 +170,21 @@ __d(
           r.set(s, c + 1);
         }
       }
-      var d = v(),
-        m = S(),
-        p = E(),
+      var d = b(),
+        m = v(),
+        p = R(),
         _ = [];
       for (var f of r) {
         var g = f[0],
-          h = f[1],
-          R = b({
+          S = f[1],
+          L = C({
             emoji: g,
             emojiToPickerPosition: p,
             recentEmojiToRank: d,
             top50EmojiToRank: m,
-            wordMatchCount: h,
+            wordMatchCount: S,
           });
-        _.push({ emoji: g, rank: R });
+        _.push({ emoji: g, rank: L });
       }
       return (
         _.sort(function (e, t) {
@@ -198,108 +195,35 @@ __d(
         })
       );
     }
-    function L(t, n) {
-      if (o("WAWebABProps").getABPropConfigValue("emoji_search_cldr"))
-        return R(t, n);
-      var a,
-        i = s.getModuleIfRequireable();
-      i
-        ? (a = new i())
-        : o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "WAFtsMultiLangTokenizer not loaded",
-                ])),
-            )
-            .sendLogs("WAFtsMultiLangTokenizer not loaded");
-      var l;
-      if (a && r("justknobx")._("2148")) {
-        var c = Array.from(a.tokenize(t)),
-          d = c.map(function (e) {
-            return y(e, n);
-          });
-        d.length === 0
-          ? (l = [])
-          : d.length === 1
-            ? (l = d[0])
-            : (l = d.reduce(function (e, t) {
-                return e.filter(function (e) {
-                  return t
-                    .map(function (e) {
-                      return e.value;
-                    })
-                    .includes(e.value);
-                });
-              }, d[0]));
-      } else l = y(t, n);
-      var m = C(
-          l.flatMap(function (e) {
-            return e.value;
-          }),
-        ),
-        p = C(
-          l
-            .filter(function (e) {
-              return e.keyword === t;
-            })
-            .flatMap(function (e) {
-              return e.value;
-            }),
-        ),
-        _ = x(
-          C(
-            o("WAWebRecentEmojiCollection").RecentEmojiCollection.map(
-              function (e) {
-                return e.id;
-              },
-            ),
-          ),
-          m,
-        ),
-        f = x(C(u), m),
-        g = x($(_, f), p);
-      return $(g, k(p), _, f, k(m));
-    }
-    var E = r("once")(function () {
+    var R = r("once")(function () {
       var e = new Map(),
         t = 0;
-      for (var n of c) {
+      for (var n of u) {
         var r = o("WAWebEmoji").EmojiUtil.getEmojisInCategory(n);
         for (var a of r) (e.set(a, t), t++);
       }
       return e;
     });
-    function k(e) {
-      var t = E();
-      return e.toSorted(function (e, n) {
-        var r,
-          o,
-          a = (r = t.get(e)) != null ? r : Number.MAX_SAFE_INTEGER,
-          i = (o = t.get(n)) != null ? o : Number.MAX_SAFE_INTEGER;
-        return a - i;
-      });
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
+    function E() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return D([], "shortKeyword");
-          var t = e[0];
-          e.length > 1 && (t = babelHelpers.extends({}, t, e[1]));
-          var n = yield s.load(),
-            o = new n(),
-            a;
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t.length === 0) return k([], "shortKeyword");
+          var n = t[0];
+          t.length > 1 && (n = babelHelpers.extends({}, n, t[1]));
+          var o = yield e.load(),
+            a = new o(),
+            i;
           return (
             r("justknobx")._("2148")
-              ? (a = Object.entries(t).flatMap(function (e) {
+              ? (i = Object.entries(n).flatMap(function (e) {
                   var t = e[0],
                     n = e[1],
                     r = t.toLowerCase(),
-                    a = Array.from(o.tokenize(r));
-                  return a.map(function (e) {
+                    o = Array.from(a.tokenize(r));
+                  return o.map(function (e) {
                     return {
                       value: n,
                       keyword: e,
@@ -307,20 +231,20 @@ __d(
                     };
                   });
                 }))
-              : (a = Object.entries(t).flatMap(function (e) {
+              : (i = Object.entries(n).flatMap(function (e) {
                   var t = e[0],
                     n = e[1],
                     r = t.toLowerCase(),
                     o = r.substring(0, 5);
                   return { value: n, keyword: r, shortKeyword: o };
                 })),
-            D(a, "shortKeyword")
+            k(i, "shortKeyword")
           );
         })),
-        T.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function D(e, t) {
+    function k(e, t) {
       var n = r("WATrie").fromForwardsStrings(
         e.map(function (e) {
           return e[t];
@@ -333,25 +257,7 @@ __d(
         },
       };
     }
-    function x() {
-      for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
-        t[n] = arguments[n];
-      return t.length === 0
-        ? []
-        : t.length === 1
-          ? t[0]
-          : t.reduce(function (e, t) {
-              return e.filter(function (e) {
-                return t.includes(e);
-              });
-            }, t[0]);
-    }
-    function $() {
-      for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
-        t[n] = arguments[n];
-      return Array.from(new Set(t.flat(1)));
-    }
-    ((l.emojiSearch = h), (l.emojiLocaleDictsToTrie = I));
+    ((l.emojiSearch = g), (l.emojiLocaleDictsToTrie = L));
   },
   98,
 );

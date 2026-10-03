@@ -11,6 +11,8 @@ __d(
     "WAWebBotUtils",
     "WAWebCommsWapMd",
     "WAWebGetMessageCache",
+    "WAWebGroupAgentAddSystemMsgs",
+    "WAWebGroupAgentPrivacyNotice",
     "WAWebGroupAgentRemovalSystemMsgs",
     "WAWebGroupDatabaseJob",
     "WAWebGroupHistoryParticipantJob",
@@ -297,53 +299,52 @@ __d(
                 return !t.isLid() || n != null;
               });
             if (a.length > 0) {
-              if (
-                (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[system message][v2] eligibleParticipants = ",
-                      " - ADD",
-                    ])),
-                  a.length,
-                ),
-                (n = [
-                  yield o("WAWebGroupSystemMsg").genGroupNotificationMsg({
-                    meta: e,
-                    action: babelHelpers.extends({}, t, { participants: a }),
-                    dbIsStale: !0,
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[system message][v2] eligibleParticipants = ",
+                    " - ADD",
+                  ])),
+                a.length,
+              );
+              var i = yield o(
+                  "WAWebGroupAgentPrivacyNotice",
+                ).genGroupAgentPrivacyNoticeMsgsForAdd({
+                  chatId: e.chatId,
+                  addedParticipantIds: a.map(function (e) {
+                    var t = e.id;
+                    return t;
                   }),
-                ]),
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isOpenGroupBotParticipantAddEnabled() &&
-                  o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
-                    a,
-                  ).includeOpenMetabot)
-              ) {
-                var i = yield o(
-                  "WAWebGroupSystemMsg",
-                ).genGroupTransitionToBotGroupNotificationMsg(e.chatId);
-                n.push(i);
-              }
+                  meta: e,
+                }),
+                l = yield o(
+                  "WAWebGroupAgentAddSystemMsgs",
+                ).genGroupAddNotificationMsgs({
+                  meta: e,
+                  action: babelHelpers.extends({}, t, { participants: a }),
+                  dbIsStale: !0,
+                });
               if (
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isTEEGroupBotParticipantAddEnabled() &&
-                o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(a)
-                  .includeTeeMetabot
-              ) {
-                var l = yield o(
-                  "WAWebGroupSystemMsg",
-                ).genGroupTransitionToTeeBotGroupNotificationMsg(e.chatId);
-                n.push(l);
-              }
-              if (
+                ((n = o(
+                  "WAWebGroupAgentPrivacyNotice",
+                ).orderGroupAgentNoticesAndRows(
+                  [].concat(
+                    i,
+                    yield o(
+                      "WAWebGroupAgentPrivacyNotice",
+                    ).genMetaAiGroupNoticeMsgsForAdd({
+                      addedParticipants: a,
+                      meta: e,
+                    }),
+                  ),
+                  l,
+                )),
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isOpenGroupBotParticipantAddEnabled() ||
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isTEEGroupBotParticipantAddEnabled()
+                  o(
+                    "WAWebBotGroupGatingUtils",
+                  ).isTEEGroupBotParticipantAddEnabled())
               ) {
                 var s =
                   o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(

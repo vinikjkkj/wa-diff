@@ -60,7 +60,7 @@ __d(
     function C(e, t, n, r) {
       return (
         n === void 0 && (n = y),
-        S({
+        R({
           createGroupArgs: e,
           groupCreateEntryPoint: r,
           outContacts: n,
@@ -68,124 +68,140 @@ __d(
         })
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    var b = {
+      announce: !1,
+      memberAddMode: !1,
+      memberLinkMode: null,
+      memberShareGroupHistoryMode: !1,
+      membershipApprovalMode: !1,
+      restrict: !1,
+    };
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (
-            (t === void 0 && (t = null),
-            n === void 0 && (n = null),
-            !o("WAWebOrgGatingUtils").isOrgHubEnabled())
-          )
-            throw r("err")("Org admin UI is disabled");
-          var a = Date.now();
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[org-admin][group] create started",
-              ])),
-          );
-          var i = {
-              title: e,
-              thumb: null,
-              full: null,
-              restrict: !1,
-              announce: !1,
-              membershipApprovalMode: !1,
-              memberAddMode: !1,
-              memberShareGroupHistoryMode: !1,
-            },
-            l,
-            s;
-          try {
-            ((l = yield o("WAWebGroupCreateJob").createGroup(i, [], [])),
-              (s = o("WAWebWidFactory").asGroupWidOrThrow(l.wid)));
-          } catch (e) {
-            throw (
-              o("WAWebCoreActionsODS").logGroupCreateError(),
-              o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[org-admin][group] create failed after ",
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            if (
+              (t === void 0 && (t = null),
+              n === void 0 && (n = null),
+              a === void 0 && (a = b),
+              !o("WAWebOrgGatingUtils").isOrgHubEnabled())
+            )
+              throw r("err")("Org admin UI is disabled");
+            var i = Date.now();
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-admin][group] create started",
+                ])),
+            );
+            var l = babelHelpers.extends(
+                {
+                  title: e,
+                  thumb: null,
+                  full: null,
+                  restrict: a.restrict,
+                  announce: a.announce,
+                  membershipApprovalMode: a.membershipApprovalMode,
+                  memberAddMode: a.memberAddMode,
+                  memberShareGroupHistoryMode: a.memberShareGroupHistoryMode,
+                },
+                a.memberLinkMode == null
+                  ? {}
+                  : { memberLinkMode: a.memberLinkMode },
+              ),
+              s,
+              f;
+            try {
+              ((s = yield o("WAWebGroupCreateJob").createGroup(l, [], [])),
+                (f = o("WAWebWidFactory").asGroupWidOrThrow(s.wid)));
+            } catch (e) {
+              throw (
+                o("WAWebCoreActionsODS").logGroupCreateError(),
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[org-admin][group] create failed after ",
+                      "ms",
+                    ])),
+                  Date.now() - i,
+                ),
+                e
+              );
+            }
+            (o("WAWebCoreActionsODS").logGroupCreate(),
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-admin][group] create succeeded after ",
                     "ms",
                   ])),
-                Date.now() - a,
-              ),
-              e
-            );
-          }
-          (o("WAWebCoreActionsODS").logGroupCreate(),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[org-admin][group] create succeeded after ",
-                  "ms",
-                ])),
-              Date.now() - a,
-            ));
-          try {
-            yield o("WAWebFindChatAction").findOrCreateLatestChat(
-              s,
-              "createGroupAction",
-            );
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "createOrgAdminGroup local chat hydration dropped",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("org-admin-group-local-hydration-failed");
-          }
-          if (t != null && n != null)
+                Date.now() - i,
+              ));
             try {
-              yield o("WAWebProfilePicThumbAction").setProfilePic({
-                full: n,
-                profilePicThumb: o(
-                  "WAWebProfilePicThumbCollection",
-                ).ProfilePicThumbCollection.gadd(s),
-                thumb: t,
-              });
+              yield o("WAWebFindChatAction").findOrCreateLatestChat(
+                f,
+                "createGroupAction",
+              );
             } catch (e) {
               o("WALogger")
                 .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "createOrgAdminGroup group photo update dropped",
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "createOrgAdminGroup local chat hydration dropped",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
-                .sendLogs("org-admin-group-photo-update-failed");
+                .sendLogs("org-admin-group-local-hydration-failed");
             }
-          return (
-            o("WAWebGroupQueryBridge")
-              .sendQueryGroup(s)
-              .catch(function (e) {
+            if (t != null && n != null)
+              try {
+                yield o("WAWebProfilePicThumbAction").setProfilePic({
+                  full: n,
+                  profilePicThumb: o(
+                    "WAWebProfilePicThumbCollection",
+                  ).ProfilePicThumbCollection.gadd(f),
+                  thumb: t,
+                });
+              } catch (e) {
                 o("WALogger")
                   .WARN(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "createOrgAdminGroup metadata hydration dropped",
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "createOrgAdminGroup group photo update dropped",
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))
-                  .sendLogs("org-admin-group-metadata-hydration-failed");
-              }),
-            {
-              gid: s,
-              participants: R(l.participants),
-              invitedOutContacts: l.invitedOutContacts,
-            }
-          );
-        })),
-        v.apply(this, arguments)
+                  .sendLogs("org-admin-group-photo-update-failed");
+              }
+            return (
+              o("WAWebGroupQueryBridge")
+                .sendQueryGroup(f)
+                .catch(function (e) {
+                  o("WALogger")
+                    .WARN(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "createOrgAdminGroup metadata hydration dropped",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("org-admin-group-metadata-hydration-failed");
+                }),
+              {
+                gid: f,
+                participants: L(s.participants),
+                invitedOutContacts: s.invitedOutContacts,
+              }
+            );
+          },
+        )),
+        S.apply(this, arguments)
       );
     }
-    function S(t) {
+    function R(t) {
       var a = t.createGroupArgs,
         i = t.groupCreateEntryPoint,
         l = t.outContacts,
@@ -226,7 +242,7 @@ __d(
                 }).commit(),
               {
                 gid: t,
-                participants: R(e.participants),
+                participants: L(e.participants),
                 invitedOutContacts: e.invitedOutContacts,
               }
             );
@@ -234,7 +250,7 @@ __d(
         v = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Creating group"),
         ),
-        E = b
+        S = b
           .then(function (e) {
             return new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Created group"),
@@ -318,7 +334,7 @@ __d(
               {
                 actionText: s._(/*BTDS*/ "Try again."),
                 actionHandler: function () {
-                  return S({
+                  return R({
                     createGroupArgs: a,
                     groupCreateEntryPoint: i,
                     outContacts: l,
@@ -334,7 +350,7 @@ __d(
           h.jsx(o("WAWebActionToast.react").ActionToast, {
             id: d,
             initialAction: v,
-            pendingAction: E,
+            pendingAction: S,
           }),
         ),
         b
@@ -394,7 +410,7 @@ __d(
                         );
                         return;
                       }
-                      L(u);
+                      E(u);
                     };
                   if (
                     (a
@@ -489,7 +505,7 @@ __d(
           )
       );
     }
-    function R(e) {
+    function L(e) {
       return e.map(function (e) {
         return {
           userWid: e.wid,
@@ -500,7 +516,7 @@ __d(
         };
       });
     }
-    function L(e) {
+    function E(e) {
       e !== 0 &&
         o("WAWebToastManager").ToastManager.open(
           h.jsx(o("WAWebToast.react").Toast, {
@@ -510,7 +526,9 @@ __d(
           }),
         );
     }
-    ((l.createGroup = C), (l.createOrgAdminGroup = b));
+    ((l.createGroup = C),
+      (l.DEFAULT_ORG_ADMIN_GROUP_PERMISSIONS = b),
+      (l.createOrgAdminGroup = v));
   },
   226,
 );

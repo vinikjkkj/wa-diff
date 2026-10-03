@@ -138,6 +138,7 @@ __d(
     ((l.usePinExclusionRef = f),
       (l.useLinkPinExclusionRef = h),
       (l.useInteractionPinReasonRef = C),
+      (l.getInteractionPinDecision = v),
       (l.isInteractionExcludedFromPin = S),
       (l.isNonInteractiveClickExcludedFromPin = L),
       (l.getInteractionPinReason = E),

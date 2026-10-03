@@ -12,7 +12,6 @@ __d(
     "WAWebCurrentUser",
     "WAWebGetCollectionVersion",
     "WAWebGetMissingKey",
-    "WAWebGetPendingMutation",
     "WAWebGetSyncAction",
     "WAWebMdSyncDownloadFailureReason",
     "WAWebProtobufSyncAction.pb",
@@ -43,7 +42,6 @@ __d(
     "WAWebSyncdWamReportingUtils",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "asyncToGeneratorRuntime",
-    "compactMap",
     "countWhere",
     "decodeProtobuf",
     "getErrorSafe",
@@ -2048,7 +2046,7 @@ __d(
                 );
               }),
               x = yield Je(e, D, s),
-              $ = x.pendingRemoveMutationsToDrop;
+              $ = x.pendingMutationsToDrop;
             o("WALogger").LOG(
               ie ||
                 (ie = babelHelpers.taggedTemplateLiteralLoose([
@@ -2555,28 +2553,13 @@ __d(
       return (
         (Ze = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
-            var a = et(t),
-              i = a.supportedMutations,
-              l = rt(i),
-              s = new Set(
-                t.map(function (e) {
-                  return e.index;
-                }),
-              ),
-              u = (yield o(
-                "WAWebGetPendingMutation",
-              ).getSyncPendingMutationsByCollectionInTransaction(e)).filter(
-                function (e) {
-                  return (
-                    e.operation ===
-                      o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.REMOVE && s.has(e.index)
-                  );
-                },
-              ),
-              c = r("compactMap")(u, function (e) {
-                return e.id;
-              });
+            var r = et(t),
+              a = r.supportedMutations,
+              i = rt(a),
+              l = yield o("WAWebSyncdResolveConflict").resolveRemoveConflicts(
+                e,
+                a,
+              );
             o("WALogger").LOG(
               be ||
                 (be = babelHelpers.taggedTemplateLiteralLoose([
@@ -2587,10 +2570,10 @@ __d(
               n,
               e,
             );
-            for (var d = 0; d < l.length; d++) {
-              var m = l[d][0].actionHandler;
-              yield m.applyMutations(
-                l[d].map(function (t) {
+            for (var s = 0; s < i.length; s++) {
+              var u = i[s][0].actionHandler;
+              yield u.applyMutations(
+                i[s].map(function (t) {
                   return { operation: "remove", indexParts: it(e, t.index) };
                 }),
                 {
@@ -2618,7 +2601,7 @@ __d(
                   ". mutation count: " +
                   t.length,
               ),
-              { pendingRemoveMutationsToDrop: c }
+              { pendingMutationsToDrop: l }
             );
           },
         )),

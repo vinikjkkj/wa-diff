@@ -29,6 +29,7 @@ __d(
     "WAWebFormatRestrictNotification",
     "WAWebFormatSubjectNotification",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupAgentAddAttribution",
     "WAWebGroupMetadataGetters",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
     "WAWebMessageCommunityEmptySubgroupWelcome.react",
@@ -124,9 +125,13 @@ __d(
             ).formatAddNotification({
               author: c,
               authorClickable: b,
+              museAgentAddAttribution: o(
+                "WAWebGroupAgentAddAttribution",
+              ).groupAgentAddAttributionFromBody(_),
               subject: v,
               subjectClickable: S,
               participantsClickable: R,
+              recipients: g,
             }),
             isBodyTextClickable: !!b || !!S || !!R,
           };

@@ -19,36 +19,38 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d(t, n) {
-      var a = n.delivery,
-        i = n.deliveryPrivacyMode,
-        l = n.deliveryRemaining,
-        s = n.played,
-        u = n.playedRemaining,
-        c = n.read,
-        d = n.readRemaining,
-        m = {
+      var a = n.countedAgents,
+        i = n.delivery,
+        l = n.deliveryPrivacyMode,
+        s = n.deliveryRemaining,
+        u = n.played,
+        c = n.playedRemaining,
+        d = n.read,
+        m = n.readRemaining,
+        p = {
           id: t,
-          read: c.map(function (e) {
+          read: d.map(function (e) {
             return babelHelpers.extends({}, e);
           }),
-          readRemaining: d,
-          played: s.map(function (e) {
+          readRemaining: m,
+          played: u.map(function (e) {
             return babelHelpers.extends({}, e);
           }),
-          playedRemaining: u,
-          delivery: a.map(function (e) {
+          playedRemaining: c,
+          delivery: i.map(function (e) {
             return babelHelpers.extends({}, e);
           }),
-          deliveryRemaining: l,
+          deliveryRemaining: s,
+          countedAgents: a,
         };
-      if (i != null) {
-        var p = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
-            i.hostStorage,
+      if (l != null) {
+        var _ = o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
+            l.hostStorage,
           ),
-          _ = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
-            i.actualActors,
+          f = o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
+            l.actualActors,
           );
-        if (_ == null || p == null)
+        if (f == null || _ == null)
           throw (
             o("WALogger")
               .ERROR(
@@ -62,14 +64,14 @@ __d(
               "queryMsgInfo: got unsupported host storage or actual actors",
             )
           );
-        var f = {
-          hostStorage: p,
-          privacyModeTs: i.privacyModeTs,
-          actualActors: _,
+        var g = {
+          hostStorage: _,
+          privacyModeTs: l.privacyModeTs,
+          actualActors: f,
         };
-        m.deliveryPrivacyMode = f;
+        p.deliveryPrivacyMode = g;
       }
-      return m;
+      return p;
     }
     var m = (function (e) {
       function t() {

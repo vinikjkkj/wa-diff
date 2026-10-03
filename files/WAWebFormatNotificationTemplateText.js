@@ -7,6 +7,8 @@ __d(
     "WAWebBizBroadcastFormatStatusText",
     "WAWebBotBaseGating",
     "WAWebBotExposedName",
+    "WAWebBotGroupGatingUtils",
+    "WAWebBotProfileCollection",
     "WAWebBotSupportGating",
     "WAWebBotTypes",
     "WAWebBotUtils",
@@ -25,6 +27,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetBusinessNameFromMsg",
+    "WAWebGroupAgentPrivacyNoticeKind",
     "WAWebHostedGroupUtils",
     "WAWebLabelConstants",
     "WAWebLimitSharingUIUtils",
@@ -32,6 +35,7 @@ __d(
     "WAWebOrderGatingUtils",
     "WAWebResolveBotProfile",
     "WAWebSupportChatStrings",
+    "WAWebSystemMessageGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "WAWebWidToFormattedNameOrNumber",
@@ -929,8 +933,8 @@ __d(
                                                                                                                                                                                                                                         ? c()
                                                                                                                                                                                                                                         : i ===
                                                                                                                                                                                                                                             "group_transition_to_bot_group"
-                                                                                                                                                                                                                                          ? s._(
-                                                                                                                                                                                                                                              /*BTDS*/ "A group member added Meta AI to this chat. Meta can read new messages. Group admins can remove Meta AI at any time. Click to learn more.",
+                                                                                                                                                                                                                                          ? J(
+                                                                                                                                                                                                                                              a,
                                                                                                                                                                                                                                             )
                                                                                                                                                                                                                                           : i ===
                                                                                                                                                                                                                                               "biz_broadcast_status"
@@ -1496,7 +1500,84 @@ __d(
         ? o("WAWebFormatChangeLidTemplateText").formatChangeLidCtaTemplateText(
             e,
           )
-        : null;
+        : t === "group_transition_to_bot_group" && Y(e.templateParams)
+          ? s._(/*BTDS*/ "Learn more")
+          : null;
+    }
+    function Y(e) {
+      var t = o("WAWebGroupAgentPrivacyNoticeKind").getGroupAgentPrivacyNotice(
+          e,
+        ),
+        n = t.kind;
+      return (
+        (n ===
+          o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
+            .MUSE ||
+          n ===
+            o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
+              .GENERIC) &&
+        o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageActionTextStylingEnabled()
+      );
+    }
+    function J(e) {
+      var t = o("WAWebGroupAgentPrivacyNoticeKind").getGroupAgentPrivacyNotice(
+          e,
+        ),
+        n = t.agent,
+        r = t.kind,
+        a = Y(e);
+      return r ===
+        o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
+          .THIRD_PARTY && n != null
+        ? te(n)
+        : r ===
+              o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
+                .MUSE &&
+            o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled()
+          ? Z(a)
+          : r ===
+                o("WAWebGroupAgentPrivacyNoticeKind")
+                  .GroupAgentPrivacyNoticeKind.MUSE ||
+              r ===
+                o("WAWebGroupAgentPrivacyNoticeKind")
+                  .GroupAgentPrivacyNoticeKind.GENERIC
+            ? ee(a)
+            : s._(
+                /*BTDS*/ "A group member added Meta AI to this chat. Meta can read new messages. Group admins can remove Meta AI at any time. Click to learn more.",
+              );
+    }
+    function Z(e) {
+      return e
+        ? s._(
+            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime",
+          )
+        : s._(
+            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime. Learn more",
+          );
+    }
+    function ee(e) {
+      return e
+        ? s._(
+            /*BTDS*/ "A member added an AI agent to this chat. Messages are sent through a secure Meta service. Admins can remove it anytime",
+          )
+        : s._(
+            /*BTDS*/ "A member added an AI agent to this chat. Messages are sent through a secure Meta service. Admins can remove it anytime. Learn more",
+          );
+    }
+    function te(e) {
+      var t,
+        n =
+          (t = o("WAWebBotProfileCollection").BotProfileCollection.get(e)) ==
+          null
+            ? void 0
+            : t.name,
+        r = n != null && n !== "" ? n : s._(/*BTDS*/ "Unknown account");
+      return s._(
+        /*BTDS*/ "A group member added {agent_name} to this chat. Meta can read new messages. Group admins can remove {agent_name_repeat} at any time.",
+        [s._param("agent_name", r), s._param("agent_name_repeat", r)],
+      );
     }
     l.default = e;
   },

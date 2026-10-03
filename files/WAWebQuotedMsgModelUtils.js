@@ -16,7 +16,7 @@ __d(
     var e, s;
     function u(e) {
       var t = c(e);
-      return t ? o("WAWebMsgGetters").getIsSentByMe(t) : !1;
+      return t ? o("WAWebMsgGetters").getIsSentByMe(t.unsafe()) : !1;
     }
     function c(t) {
       var n = o("WAWebStateUtils").unproxy(t);

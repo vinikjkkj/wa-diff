@@ -4,6 +4,7 @@ __d(
     "WAJids",
     "WAWebContactManagerCustomerProfileQuery.graphql",
     "WAWebCustomerManagerCustomerProfileDecoders",
+    "WAWebCustomerOrderPreferences",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
@@ -81,6 +82,9 @@ __d(
               }),
             ),
             name: i.name,
+            orderPreferences: o(
+              "WAWebCustomerOrderPreferences",
+            ).toOrderPreferences(i.order_preferences),
           };
         })),
         c.apply(this, arguments)

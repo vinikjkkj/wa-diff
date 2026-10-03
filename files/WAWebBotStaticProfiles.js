@@ -32,10 +32,15 @@ __d(
       return c(e) != null;
     }
     function m(e) {
+      return e.isFbidBot() || d(e);
+    }
+    function p(e) {
       var t = c(e);
       return t == null ? null : { product: t.valueOf(), isDeprecated: !1 };
     }
-    ((l.isStaticProfile = d), (l.getStaticBotSupportInput = m));
+    ((l.isStaticProfile = d),
+      (l.isBotSupportClassifiable = m),
+      (l.getStaticBotSupportInput = p));
   },
   98,
 );

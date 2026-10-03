@@ -44,10 +44,11 @@ __d(
           ? u
           : 1e3,
       b =
-        (c = (m || (m = r("AnalyticsCoreData")))
+        (_ || (_ = r("ExecutionEnvironment"))).canUseDOM &&
+        ((c = (m || (m = r("AnalyticsCoreData")))
           .defer_size_flush_until_br_init) != null
           ? c
-          : !1,
+          : !1),
       v = "falco:",
       S = new (r("Queue"))(),
       R = 5e3,
@@ -84,7 +85,8 @@ __d(
     function K() {
       return (
         (m || (m = r("AnalyticsCoreData"))).enable_bladerunner &&
-        !(_ || (_ = r("ExecutionEnvironment"))).isInWorker
+        !(_ || (_ = r("ExecutionEnvironment"))).isInWorker &&
+        (_ || (_ = r("ExecutionEnvironment"))).canUseDOM
       );
     }
     function Q() {
@@ -110,7 +112,9 @@ __d(
           Y()));
     }
     function Z() {
-      (clearTimeout(W), (W = setTimeout(J, C)));
+      (_ || (_ = r("ExecutionEnvironment"))).canUseDOM &&
+        b &&
+        (clearTimeout(W), (W = setTimeout(J, C)));
     }
     function ee() {
       (X(), (B = !0), Y());

@@ -90,7 +90,17 @@ __d(
                 e == null || (n = e.xfb_wa_biz_linked_accounts) == null
                   ? void 0
                   : n.linked_accounts;
-              if (!a) return null;
+              if (!a)
+                return (
+                  o(
+                    "WAWebAdvertiseEntryPointQplHelpers",
+                  ).advertiseEntryPointQplRecordFailureReason(
+                    (e == null ? void 0 : e.xfb_wa_biz_linked_accounts) == null
+                      ? "linked_accounts_root_null"
+                      : "linked_accounts_missing",
+                  ),
+                  null
+                );
               var i = [];
               if ((r = a.fb_page) != null && r.ad_status) {
                 var l,
@@ -129,6 +139,11 @@ __d(
             })
             .catch(function (e) {
               throw (
+                o(
+                  "WAWebAdvertiseEntryPointQplHelpers",
+                ).advertiseEntryPointQplRecordFailureReason(
+                  "linked_accounts_query_threw",
+                ),
                 t &&
                   o(
                     "WAWebAdvertiseEntryPointQplHelpers",

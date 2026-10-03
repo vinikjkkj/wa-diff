@@ -2,7 +2,6 @@ __d(
   "WAWebNotificationsMsgNotification",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendMsgGetters",
     "WAWebGetNotificationStrings",
@@ -29,12 +28,7 @@ __d(
           (t = s._(/*BTDS*/ "Replied to you").toString()),
         o("WAWebMsgGetters").getHasMentionAll(e) &&
           (t = s._(/*BTDS*/ "Mentioned all").toString()),
-        t != null &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_important_msg_notification",
-        )
-          ? t
-          : null
+        t
       );
     }
     function _(e) {

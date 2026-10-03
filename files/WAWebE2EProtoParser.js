@@ -2,7 +2,6 @@ __d(
   "WAWebE2EProtoParser",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebABPropsSaga",
     "WAWebAfterReadUtils",
     "WAWebAssociationProtoUtils",
@@ -449,13 +448,7 @@ __d(
         (e.isSpoiler = t.isSpoiler),
         (e.forwardingScore = t.forwardingScore),
         o("WAWebExperienceIdReceive").maybeStampExperienceIds(e, t, n),
-        (e.nonJidMentions =
-          t.nonJidMentions != null &&
-          o("WAWebABProps").getABPropConfigValue(
-            "enable_mention_everyone_receiver_web",
-          )
-            ? t.nonJidMentions
-            : void 0),
+        (e.nonJidMentions = t.nonJidMentions),
         t.expiration != null && (e.ephemeralDuration = t.expiration),
         t.ephemeralSettingTimestamp != null &&
           (e.ephemeralSettingTimestamp = t.ephemeralSettingTimestamp),

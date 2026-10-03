@@ -3,12 +3,14 @@ __d(
   [
     "fbt",
     "WATimeUtils",
+    "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebContactGetters",
     "WAWebContactSearchGatingUtils",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
+    "WAWebResolveBotProfile",
     "WAWebSearchModel",
     "WAWebSearchUtils",
   ],
@@ -131,7 +133,13 @@ __d(
           var a = o("WAWebSearchUtils").filterPaginate(
               this.$WAWebNonContactPushNameSearchModel$p_3(),
               function (t) {
-                return e.$WAWebNonContactPushNameSearchModel$p_6(t, r);
+                return (
+                  !o("WAWebBotUtils").isHiddenBotWid(t.id) &&
+                  !o(
+                    "WAWebResolveBotProfile",
+                  ).shouldHideMuseBotFromCachedProfile(t.id) &&
+                  e.$WAWebNonContactPushNameSearchModel$p_6(t, r)
+                );
               },
               n == null ? void 0 : n.pagination,
             ),

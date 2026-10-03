@@ -109,7 +109,9 @@ __d(
             b = l.firstIncomingMsg,
             v = l.forceUsync,
             S = v === void 0 ? !1 : v,
-            L = l.nextPrivacyMode;
+            L = l.nextPrivacyMode,
+            E = l.suppressInitialE2EENotice,
+            k = E === void 0 ? !1 : E;
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -118,19 +120,19 @@ __d(
               ])),
             t,
           );
-          var E = n.chatId,
-            k = E;
-          if (E.isLid()) {
+          var T = n.chatId,
+            $ = T;
+          if (T.isLid()) {
             r("nullthrows")(
               a == null ? void 0 : a.lidOriginType,
               "Origin type is missing when creating LID chat",
             );
-            var T = o("WAWebApiContact").getPhoneNumber(E),
-              $ = !o("WAWebChatOriginTypes").VALID_LID_ORIGINS.has(t),
-              N =
+            var N = o("WAWebApiContact").getPhoneNumber(T),
+              M = !o("WAWebChatOriginTypes").VALID_LID_ORIGINS.has(t),
+              w =
                 o("WAWebChatOriginTypes").VALID_USERNAME_ORIGINS.has(t) &&
-                T != null;
-            N &&
+                N != null;
+            w &&
             !o(
               "WAWebLid1X1MigrationGating",
             ).Lid1X1MigrationUtils.isLidMigrated()
@@ -144,8 +146,8 @@ __d(
                     t,
                   )
                   .sendLogs("unexpected-username-lid-chat"),
-                T != null && (k = T))
-              : $ &&
+                N != null && ($ = N))
+              : M &&
                 !o(
                   "WAWebLid1X1MigrationGating",
                 ).Lid1X1MigrationUtils.isLidMigrated() &&
@@ -169,56 +171,56 @@ __d(
                     t,
                   )
                   .sendLogs("unexpected-lid-chat"));
-            var M = yield o("WAWebApiContact").getContactRecord(
+            var A = yield o("WAWebApiContact").getContactRecord(
               o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             );
             t === "username_contactless_search" &&
-              (M == null ? void 0 : M.username) == null &&
+              (A == null ? void 0 : A.username) == null &&
               (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob([
-                { lid: E, data: { shareOwnPn: !0 } },
+                { lid: T, data: { shareOwnPn: !0 } },
               ]));
           }
-          var w =
-              k.isUser() && S
+          var F =
+              $.isUser() && S
                 ? yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
                     "getOrQueryUsyncInfo",
-                    { wid: k, forceUsync: !0 },
+                    { wid: $, forceUsync: !0 },
                   )
                 : null,
-            A = w == null ? k : w.wid;
-          if (!k.equals(A)) {
-            var F = yield o("WAWebApiChatCommon").getChatRecord(A);
-            if (F != null) return;
+            O = F == null ? $ : F.wid;
+          if (!$.equals(O)) {
+            var B = yield o("WAWebApiChatCommon").getChatRecord(O);
+            if (B != null) return;
           }
-          var O = !1,
-            B = !1,
-            W = null;
-          if ((w == null ? void 0 : w.bizInfo) != null) {
-            var q, U;
-            ((O = (q = w.bizInfo) == null ? void 0 : q.verifiedName.isApi),
-              (B = (U = w.bizInfo) == null ? void 0 : U.verifiedName.isSmb),
-              (W = o(
+          var W = !1,
+            q = !1,
+            U = null;
+          if ((F == null ? void 0 : F.bizInfo) != null) {
+            var V, H;
+            ((W = (V = F.bizInfo) == null ? void 0 : V.verifiedName.isApi),
+              (q = (H = F.bizInfo) == null ? void 0 : H.verifiedName.isSmb),
+              (U = o(
                 "WAWebPrivacyModeSystemMsg",
-              ).getPrivacyModeFromQueryExistResponse(w)));
-          } else if (w == null) {
-            var V = yield o(
+              ).getPrivacyModeFromQueryExistResponse(F)));
+          } else if (F == null) {
+            var G = yield o(
               "WAWebApiVerifiedBusinessName",
-            ).getVerifiedBusinessNameRecordLidAware(A);
-            V != null &&
-              ((B = V.isSmb),
-              (O = V.isApi),
-              (W =
-                V.privacyMode != null
+            ).getVerifiedBusinessNameRecordLidAware(O);
+            G != null &&
+              ((q = G.isSmb),
+              (W = G.isApi),
+              (U =
+                G.privacyMode != null
                   ? o(
                       "WAWebApiVerifiedBusinessName",
-                    ).convertPrivacyModeFromStorageType(V.privacyMode)
+                    ).convertPrivacyModeFromStorageType(G.privacyMode)
                   : null));
           }
-          var H =
-            a != null ? babelHelpers.extends({}, a, { id: A }) : { id: A };
-          if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(A)) {
-            var G, z, j;
-            ((H.accountLid = r("nullthrows")(
+          var z =
+            a != null ? babelHelpers.extends({}, a, { id: O }) : { id: O };
+          if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(O)) {
+            var j, K, Q;
+            ((z.accountLid = r("nullthrows")(
               n.accountLid,
               "account lid not provided for one on one chat creation",
             )),
@@ -230,46 +232,46 @@ __d(
                     " pn=",
                     "",
                   ])),
-                A.toLogString(),
-                (G = H.accountLid) == null ? void 0 : G.toLogString(),
-                (z =
-                  (j = o("WAWebLidMigrationUtils").toPn(A)) == null
+                O.toLogString(),
+                (j = z.accountLid) == null ? void 0 : j.toLogString(),
+                (K =
+                  (Q = o("WAWebLidMigrationUtils").toPn(O)) == null
                     ? void 0
-                    : j.toLogString()) != null
-                  ? z
+                    : Q.toLogString()) != null
+                  ? K
                   : "n/a",
               ));
           }
-          var K = A.isUser() && !A.isBot() ? yield x(A, O, b) : null;
-          K != null &&
+          var X = O.isUser() && !O.isBot() ? yield x(O, W, b) : null;
+          X != null &&
             (o("WALogger").LOG(
               _ ||
                 (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[DMResolve] DM settings found for new chat",
                 ])),
             ),
-            (H.ephemeralDuration = K.duration),
-            (H.ephemeralSettingTimestamp = K.settingTimestamp),
-            (H.disappearingModeInitiator = K.initiator),
-            (H.disappearingModeTrigger = K.disappearingModeTrigger),
-            (H.disappearingModeInitiatedByMe = K.initiatedByMe),
-            K.afterReadDuration != null &&
-              (H.afterReadDuration = K.afterReadDuration));
-          var Q = o("WAWebPrivacyModeSystemMsg").getLatestPrivacyMode(L, W);
-          A.isUser() &&
+            (z.ephemeralDuration = X.duration),
+            (z.ephemeralSettingTimestamp = X.settingTimestamp),
+            (z.disappearingModeInitiator = X.initiator),
+            (z.disappearingModeTrigger = X.disappearingModeTrigger),
+            (z.disappearingModeInitiatedByMe = X.initiatedByMe),
+            X.afterReadDuration != null &&
+              (z.afterReadDuration = X.afterReadDuration));
+          var Y = o("WAWebPrivacyModeSystemMsg").getLatestPrivacyMode(L, U);
+          O.isUser() &&
             o("WAWebBackendApi").frontendFireAndForget("updateBusinessInfo", {
-              contactId: A,
-              businessInfo: { privacyMode: Q },
+              contactId: O,
+              businessInfo: { privacyMode: Y },
             });
-          var X;
+          var J;
           (b == null ? void 0 : b.subtype) !== "ephemeral_setting" &&
-            (X = D(
-              A,
-              K == null ? void 0 : K.duration,
-              K == null ? void 0 : K.initiator,
-              K == null ? void 0 : K.afterReadDuration,
+            (J = D(
+              O,
+              X == null ? void 0 : X.duration,
+              X == null ? void 0 : X.initiator,
+              X == null ? void 0 : X.afterReadDuration,
             ));
-          var Y =
+          var Z =
               (b == null ? void 0 : b.ctwaContext) != null
                 ? o(
                     "WAWebGetCTWAEligibilityFromConversion",
@@ -279,70 +281,74 @@ __d(
                     ctwaSignals: b.ctwaContext.ctwaSignals,
                   })
                 : null,
-            J = b == null ? void 0 : b.ctwaContext,
-            Z =
-              (J == null ? void 0 : J.sourceApp) !==
+            ee = b == null ? void 0 : b.ctwaContext,
+            te =
+              (ee == null ? void 0 : ee.sourceApp) !==
               o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.WHATSAPP,
-            ee = t === "signupAGM",
-            te = J != null && Y != null && !Y.is3pdag,
-            ne = b == null || b.id.fromMe,
-            re = J != null && Z,
-            oe = yield o("WAWebContactSystemMsg").genContactInfoCardMsg(A, {
-              isSmb: B,
+            ne = t === "signupAGM",
+            re = ee != null && Z != null && !Z.is3pdag,
+            oe = b == null || b.id.fromMe,
+            ae = ee != null && te,
+            ie = yield o("WAWebContactSystemMsg").genContactInfoCardMsg(O, {
+              isSmb: q,
               isEnterprise:
-                O ||
+                W ||
                 (b == null ? void 0 : b.senderOrRecipientAccountTypeHosted) ===
                   !0,
-              iAmStartingChat: ne,
-              isWASupportStartingChat: b != null && A.isCAPISupportAccount(),
-              isFromCTWA: te,
-              isFMXCtWA: re,
-              isSignupDeeplink: ee,
+              iAmStartingChat: oe,
+              isWASupportStartingChat: b != null && O.isCAPISupportAccount(),
+              isFromCTWA: re,
+              isFMXCtWA: ae,
+              isSignupDeeplink: ne,
             });
-          (A.isUser() && ne && !re && (H.notSpam = !0),
-            oe != null &&
+          (O.isUser() && oe && !ae && (z.notSpam = !0),
+            ie != null &&
               new (o("WAWebPsFmxActionWamEvent").PsFmxActionWamEvent)({
                 fmxEntryPoint: o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT
                   .FMX_CARD,
                 fmxEvent: o("WAWebWamEnumFmxEvent").FMX_EVENT.FMX_CARD_INSERTED,
-                isSenderSmb: B,
+                isSenderSmb: q,
               }).commit());
-          var ae;
-          (B || O) && (ae = yield P(A));
-          var ie = yield r("WAWebInitialSystemMsg")(A, Q, ae);
-          ie.some(function (e) {
+          var le;
+          (q || W) && (le = yield P(O));
+          var se = (yield r("WAWebInitialSystemMsg")(O, Y, le)).filter(
+            function (e) {
+              return !k || e.subtype !== "encrypt";
+            },
+          );
+          se.some(function (e) {
             return e.subtype === "biz_bot_3p_disclosure";
           })
-            ? (H.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_3P)
-            : ie.some(function (e) {
+            ? (z.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_3P)
+            : se.some(function (e) {
                 return e.subtype === "biz_bot_1p_disclosure";
               }) &&
-              (H.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P);
-          var le = yield o("WAWebApiOrphanTcToken").getOrphanTcToken(A);
-          if (le) {
-            var se, ue;
+              (z.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P);
+          var ue = yield o("WAWebApiOrphanTcToken").getOrphanTcToken(O);
+          if (ue) {
+            var ce, de;
             (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
                   "createChat: found orphan tc token for ",
                   "",
                 ])),
-              A.toLogString(),
+              O.toLogString(),
             ),
-              (H.tcToken = (se = le.tcToken) != null ? se : null),
-              (H.tcTokenTimestamp =
-                (ue = le.tcTokenTimestamp) != null ? ue : null),
-              yield o("WAWebApiOrphanTcToken").removeOrphanTcToken(A));
+              (z.tcToken = (ce = ue.tcToken) != null ? ce : null),
+              (z.tcTokenTimestamp =
+                (de = ue.tcTokenTimestamp) != null ? de : null),
+              yield o("WAWebApiOrphanTcToken").removeOrphanTcToken(O));
           }
           try {
             if (
               !o(
                 "WAWebLid1X1MigrationGating",
               ).Lid1X1MigrationUtils.isLidMigrated() &&
-              H.id.isRegularUserPn()
+              z.id.isRegularUserPn()
             ) {
-              var ce = o("WAWebApiContact").getCurrentLid(H.id);
-              ce != null && (H.originalLid = ce);
+              var me = o("WAWebApiContact").getCurrentLid(z.id);
+              me != null && (z.originalLid = me);
             }
           } catch (e) {
             o("WALogger")
@@ -352,54 +358,54 @@ __d(
                     "createChat: failed to get lid for ",
                     "",
                   ])),
-                H.id.toLogString(),
+                z.id.toLogString(),
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("createChat-lid-offline-resume-workaround-failed-chat");
           }
-          var de;
+          var pe;
           if (
-            A.isLid() &&
+            O.isLid() &&
             o(
               "WAWebUsernameGatingUtils",
             ).usernameAdoptionAndEngagementMonitoringEnabled()
           ) {
-            var me = o("WAWebLidMigrationUtils").toPn(A) != null;
-            if (me) H.isUsernameThreadAtCreation = !1;
+            var _e = o("WAWebLidMigrationUtils").toPn(O) != null;
+            if (_e) z.isUsernameThreadAtCreation = !1;
             else {
-              var pe;
-              ((de = yield o("WAWebApiContact").getContactRecord(A)),
-                (H.isUsernameThreadAtCreation =
-                  ((pe = de) == null ? void 0 : pe.username) != null));
+              var fe;
+              ((pe = yield o("WAWebApiContact").getContactRecord(O)),
+                (z.isUsernameThreadAtCreation =
+                  ((fe = pe) == null ? void 0 : fe.username) != null));
             }
           }
           if (
             (yield o("WAWebBackendApi").frontendFireAndForget(
               "chatCollectionGadd",
-              { chat: H },
+              { chat: z },
             ),
-            yield o("WAWebApiChat").createChatRecord(A, I(H)),
-            oe != null &&
-              !B &&
-              !O &&
+            yield o("WAWebApiChat").createChatRecord(O, I(z)),
+            ie != null &&
+              !q &&
+              !W &&
               o("WAWebFMXGatingUtils").isExpandFmxMexEnabled())
           ) {
-            var _e = o(
+            var ge = o(
               "WAWebFetchAndSetIntegritySignals",
-            ).fetchAndSetIntegritySignals(A);
+            ).fetchAndSetIntegritySignals(O);
             o("WAWebBackendApi").frontendFireAndForget("chatCollectionUpdate", {
-              updates: [{ id: A, integritySignalsPromise: _e }],
+              updates: [{ id: O, integritySignalsPromise: ge }],
             });
           }
-          var fe = o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
+          var he = o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
               .NO_OVERWRITE,
-            ge = !1,
-            he = [].concat(ie, [oe, X]).filter(Boolean);
+            ye = !1,
+            Ce = [].concat(se, [ie, J]).filter(Boolean);
           if (C)
             o("WAWebGetMessageCache")
               .getMessageCache()
               .addMessages(
-                he.map(function (e) {
+                Ce.map(function (e) {
                   return { msg: e };
                 }),
                 !1,
@@ -423,38 +429,38 @@ __d(
                   " messages to chat ",
                   "",
                 ])),
-              he.length,
-              A.toLogString(),
+              Ce.length,
+              O.toLogString(),
             );
-            for (var ye of he)
+            for (var be of Ce)
               yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-                chatId: A,
-                newMsg: ye,
+                chatId: O,
+                newMsg: be,
                 handleSingleMsgOrigin: "createChat",
-                messageOverwriteOption: fe,
-                preserveOrder: ge,
+                messageOverwriteOption: he,
+                preserveOrder: ye,
               });
           }
           if (n.chatId.isUser()) {
-            var Ce = o("WAWebWidFactory").createUserWidOrThrow(
+            var ve = o("WAWebWidFactory").createUserWidOrThrow(
                 n.chatId.toString(),
               ),
-              be = Ce.toJid(),
-              ve = o("WAWebApiContact").getContactHash(be),
-              Se = { id: be, contactHash: ve },
-              Re;
+              Se = ve.toJid(),
+              Re = o("WAWebApiContact").getContactHash(Se),
+              Le = { id: Se, contactHash: Re },
+              Ee;
             if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-              var Le, Ee;
-              ((Re =
-                (Le = (Ee = de) == null ? void 0 : Ee.usernameCountryCode) !=
+              var ke, Ie;
+              ((Ee =
+                (ke = (Ie = pe) == null ? void 0 : Ie.usernameCountryCode) !=
                 null
-                  ? Le
+                  ? ke
                   : yield o(
                       "WAWebApiContactUsernameFields",
-                    ).getOrFetchContactUsernameCountryCode(A)),
-                Re != null && (Se.usernameCountryCode = Re));
+                    ).getOrFetchContactUsernameCountryCode(O)),
+                Ee != null && (Le.usernameCountryCode = Ee));
             }
-            yield r("WAWebLidAwareContactsDB").createOrMerge(be, Se);
+            yield r("WAWebLidAwareContactsDB").createOrMerge(Se, Le);
           }
           R(n.chatId);
         })),

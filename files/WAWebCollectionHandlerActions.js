@@ -19,6 +19,7 @@ __d(
     "WAWebChatAssignmentSync",
     "WAWebChatLockSettingsSync",
     "WAWebClearChatSync",
+    "WAWebContactManagerMetadataSync",
     "WAWebContactSync",
     "WAWebCtwaPerCustomerDataSharingSync",
     "WAWebCustomPaymentMethodsSync",
@@ -75,6 +76,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = [
       r("WAWebStarMessageSync"),
+      r("WAWebContactManagerMetadataSync"),
       r("WAWebContactSync"),
       r("WAWebMuteChatSync"),
       r("WAWebLabelSync"),

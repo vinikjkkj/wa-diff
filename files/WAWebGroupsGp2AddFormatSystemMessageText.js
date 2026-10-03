@@ -5,6 +5,7 @@ __d(
     "WAWebFormatAddNotification",
     "WAWebFormatParticipantNames",
     "WAWebFrontendContactGetters",
+    "WAWebGroupAgentAddAttribution",
     "WAWebMsgModelUtils",
     "WAWebWidFormat",
   ],
@@ -27,9 +28,13 @@ __d(
         o("WAWebFormatAddNotification").formatAddNotification({
           author: r,
           authorClickable: n,
+          museAgentAddAttribution: o(
+            "WAWebGroupAgentAddAttribution",
+          ).groupAgentAddAttributionFromBody(t.get("body")),
           subject: l,
           subjectClickable: u,
           participantsClickable: i,
+          recipients: a,
         })
       );
     }

@@ -26,6 +26,7 @@ __d(
     "WAWebFormatSubjectNotification",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupAgentAddAttribution",
     "WAWebL10N",
     "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
     "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
@@ -68,9 +69,13 @@ __d(
           a = o("WAWebFormatAddNotification").formatAddNotification({
             author: c,
             authorClickable: u,
+            museAgentAddAttribution: o(
+              "WAWebGroupAgentAddAttribution",
+            ).groupAgentAddAttributionFromBody(d),
             subject: h,
             subjectClickable: C,
             participantsClickable: g,
+            recipients: f,
           });
           break;
         case "remove":

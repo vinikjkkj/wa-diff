@@ -28,42 +28,45 @@ __d(
             n.delivery.add({ id: r, t: a }));
     }
     function u(e, t, n, r) {
-      var a,
-        i = o("WAWebAck").ACK.CLOCK;
+      var a = o("WAWebAck").ACK.CLOCK;
       if (
         (e.played.get(n)
-          ? (i = o("WAWebAck").ACK.PLAYED)
+          ? (a = o("WAWebAck").ACK.PLAYED)
           : e.read.get(n)
-            ? (i = o("WAWebAck").ACK.READ)
-            : e.delivery.get(n) && (i = o("WAWebAck").ACK.RECEIVED),
-        !(t <= i))
+            ? (a = o("WAWebAck").ACK.READ)
+            : e.delivery.get(n) && (a = o("WAWebAck").ACK.RECEIVED),
+        !(t <= a))
       ) {
+        var i = c(e, n) ? 1 : 0;
         if (t > o("WAWebAck").ACK.RECEIVED) {
           var l = e.delivery.get(n);
-          l ? e.delivery.remove(l) : (e.deliveryRemaining -= 1);
+          l ? e.delivery.remove(l) : (e.deliveryRemaining -= i);
         }
         if (t > o("WAWebAck").ACK.READ) {
           var s = e.read.get(n);
-          s ? e.read.remove(s) : (e.readRemaining -= 1);
+          s ? e.read.remove(s) : (e.readRemaining -= i);
         }
-        (t === o("WAWebAck").ACK.READ &&
-          e != null &&
-          (a = e.id) != null &&
-          (a = a.remote) != null &&
-          a.isGroup() &&
-          n != null &&
-          n.isBot() &&
-          (e.readRemaining += 1),
-          t === o("WAWebAck").ACK.PLAYED
-            ? (e.played.get(n) || (e.playedRemaining -= 1),
-              e.played.add({ id: n, t: r }))
-            : t === o("WAWebAck").ACK.READ
-              ? (e.read.get(n) || (e.readRemaining -= 1),
-                e.read.add({ id: n, t: r }))
-              : t === o("WAWebAck").ACK.RECEIVED &&
-                (e.delivery.get(n) || (e.deliveryRemaining -= 1),
-                e.delivery.add({ id: n, t: r })));
+        t === o("WAWebAck").ACK.PLAYED
+          ? (e.played.get(n) || (e.playedRemaining -= i),
+            e.played.add({ id: n, t: r }))
+          : t === o("WAWebAck").ACK.READ
+            ? (e.read.get(n) || (e.readRemaining -= i),
+              e.read.add({ id: n, t: r }))
+            : t === o("WAWebAck").ACK.RECEIVED &&
+              (e.delivery.get(n) || (e.deliveryRemaining -= i),
+              e.delivery.add({ id: n, t: r }));
       }
+    }
+    function c(e, t) {
+      var n;
+      return (
+        !t.isBot() ||
+        ((n = e.countedAgents) == null
+          ? void 0
+          : n.some(function (e) {
+              return e.equals(t);
+            })) === !0
+      );
     }
     l.updateMsgInfo = e;
   },

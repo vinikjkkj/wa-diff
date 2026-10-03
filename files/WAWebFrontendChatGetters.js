@@ -2,7 +2,6 @@ __d(
   "WAWebFrontendChatGetters",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebAiThreadCreationUtils",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBotFrontendGating",
@@ -100,12 +99,13 @@ __d(
       }),
       ne = m("isFavorite", { default: !1 }),
       re = m("trusted"),
-      oe = m("active"),
-      ae = m("pendingAction"),
-      ie = m("pttRecordingSession"),
-      le = m("unopenedByAssignedAgent", { default: !1 }),
-      se = m("mmSignalSharingExpirationWindow"),
-      ue = d(
+      oe = m("notSpam"),
+      ae = m("active"),
+      ie = m("pendingAction"),
+      le = m("pttRecordingSession"),
+      se = m("unopenedByAssignedAgent", { default: !1 }),
+      ue = m("mmSignalSharingExpirationWindow"),
+      ce = d(
         function (t) {
           var n = t[0],
             r = t[1],
@@ -138,7 +138,7 @@ __d(
           O,
         ],
       ),
-      ce = d(
+      de = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -148,7 +148,7 @@ __d(
         },
         [s.getIsGroup, O],
       ),
-      de = d(
+      me = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -156,14 +156,14 @@ __d(
         },
         [s.getIsGroup, O],
       ),
-      me = d(
+      pe = d(
         function (e) {
           var t = e[0];
           return t === !0;
         },
         [B],
       ),
-      pe = d(
+      _e = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -180,9 +180,9 @@ __d(
           }
           return n.isHosted !== !0;
         },
-        [ue, g],
+        [ce, g],
       ),
-      _e = d(
+      fe = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -192,7 +192,7 @@ __d(
         },
         [s.getUnreadCount, E],
       ),
-      fe = d(
+      ge = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -221,7 +221,7 @@ __d(
         },
         [s.getUnreadCount, k, P],
       ),
-      ge = d(
+      he = d(
         function (e) {
           var t,
             n = e[0],
@@ -231,7 +231,7 @@ __d(
         },
         [s.getDraftMessage, U],
       ),
-      he = d(
+      ye = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -249,7 +249,7 @@ __d(
         },
         [s.getId, s.getIsBroadcast, s.getBBProEntrypointEnabled, F],
       ),
-      ye = d(
+      Ce = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -286,15 +286,12 @@ __d(
           )
             return !1;
           var _ = u.some(function (e) {
-              return (
-                o("WAWebMsgGetters").isRealMessage(e) ||
-                o("WAWebMsgGetters").getIsVisibleCallLog(e)
-              );
-            }),
-            f = o("WAWebABProps").getABPropConfigValue(
-              "chatlist_show_draft_for_empty_chat",
+            return (
+              o("WAWebMsgGetters").isRealMessage(e) ||
+              o("WAWebMsgGetters").getIsVisibleCallLog(e)
             );
-          return c !== !0 || _ || (f && m);
+          });
+          return c !== !0 || _ || m;
         },
         [
           s.getId,
@@ -306,11 +303,11 @@ __d(
           P,
           W,
           N,
-          ge,
           he,
+          ye,
         ],
       ),
-      Ce = d(
+      be = d(
         function (e) {
           for (
             var t = e[0],
@@ -324,13 +321,13 @@ __d(
               s = l
                 ? o("WAWebAiThreadCreationUtils").getHistoricalMetaAiThreadId()
                 : null,
-              u = be(a, i),
+              u = ve(a, i),
               c = t.length - 1;
             c >= 0;
             c--
           ) {
             var d = t.at(c);
-            if (d && ve(d, u)) {
+            if (d && Se(d, u)) {
               if (s != null && !o("WAWebThreadMsgUtils").isMsgInThread(d, s))
                 continue;
               return d;
@@ -340,19 +337,19 @@ __d(
         },
         [P, M, q, s.getId, Y],
       );
-    function be(e, t) {
+    function ve(e, t) {
       return (
         (t == null ? void 0 : t.enabled) === !0 &&
         o("WAWebLimitSharingGatingUtils").isAcp2EnabledForWid(e)
       );
     }
-    function ve(e, t) {
+    function Se(e, t) {
       return (
         o("WAWebChatModelDerivedMethods").isPreviewMessage(e) ||
         (t && o("WAWebChatModelDerivedMethods").isAcp2RestrictionNotice(e))
       );
     }
-    var Se = d(
+    var Re = d(
         function (e) {
           for (var t = e[0], n = e[1], r = t.length - 1; r >= 0; r--) {
             var a = t.at(r);
@@ -371,7 +368,7 @@ __d(
         },
         [P, M],
       ),
-      Re = d(
+      Le = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -407,7 +404,7 @@ __d(
         },
         [P, M, w, s.getEndOfHistoryTransferType],
       ),
-      Le = d(
+      Ee = d(
         function (e) {
           var t = e[0];
           return o(
@@ -416,7 +413,7 @@ __d(
         },
         [P, M],
       ),
-      Ee = d(
+      ke = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -435,7 +432,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      ke = d(
+      Ie = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -482,27 +479,28 @@ __d(
       (l.getPromises = te),
       (l.getIsFavorite = ne),
       (l.getTrusted = re),
-      (l.getActive = oe),
-      (l.getPendingAction = ae),
-      (l.getPttRecordingSession = ie),
-      (l.getUnopenedByAssignedAgent = le),
-      (l.getMmSignalSharingExpirationWindow = se),
-      (l.getKind = ue),
-      (l.getIsCAG = ce),
-      (l.getIsCommunity = de),
-      (l.getIsCapiHostedGroup = me),
-      (l.getIsE2ee = pe),
-      (l.getOptimisticUnreadCount = _e),
-      (l.getShouldShowUnreadDivider = fe),
-      (l.getHasDraftMessage = ge),
-      (l.getShouldBroadcastAppearInList = he),
-      (l.getShouldAppearInList = ye),
-      (l.getPreviewMessage = Ce),
-      (l.getLastScheduledCreatedMsg = Se),
-      (l.getShareableHistoryInfo = Re),
-      (l.getLatestJoinTimeByParticipant = Le),
-      (l.getShowChangeNumberNotification = Ee),
-      (l.getDerivedLastAddOnPreview = ke));
+      (l.getNotSpam = oe),
+      (l.getActive = ae),
+      (l.getPendingAction = ie),
+      (l.getPttRecordingSession = le),
+      (l.getUnopenedByAssignedAgent = se),
+      (l.getMmSignalSharingExpirationWindow = ue),
+      (l.getKind = ce),
+      (l.getIsCAG = de),
+      (l.getIsCommunity = me),
+      (l.getIsCapiHostedGroup = pe),
+      (l.getIsE2ee = _e),
+      (l.getOptimisticUnreadCount = fe),
+      (l.getShouldShowUnreadDivider = ge),
+      (l.getHasDraftMessage = he),
+      (l.getShouldBroadcastAppearInList = ye),
+      (l.getShouldAppearInList = Ce),
+      (l.getPreviewMessage = be),
+      (l.getLastScheduledCreatedMsg = Re),
+      (l.getShareableHistoryInfo = Le),
+      (l.getLatestJoinTimeByParticipant = Ee),
+      (l.getShowChangeNumberNotification = ke),
+      (l.getDerivedLastAddOnPreview = Ie));
   },
   98,
 );

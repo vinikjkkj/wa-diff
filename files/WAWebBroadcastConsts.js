@@ -17,6 +17,8 @@ __d(
       h =
         "whatsapp-smb://marketingmessages?destination=bb_pro_nux&entry_point=bb_web_pro_nux",
       y =
+        "whatsapp-smb://marketingmessages?destination=bb_settings&entry_point=bb_web_settings",
+      C =
         "whatsapp-smb://marketingmessages?destination=bb_pro_message_limit&entry_point=bb_web_message_limit";
     ((i.MIN_BROADCAST_RECIPIENTS = e),
       (i.MS_PER_SEC = l),
@@ -30,7 +32,8 @@ __d(
       (i.WHATSAPP_BUSINESS_POLICY_URL = f),
       (i.CAMPAIGN_MSG_UNAVAILABLE_ERROR = g),
       (i.BB_PRO_ONBOARDING_DEEPLINK = h),
-      (i.BB_PRO_MESSAGE_LIMIT_DEEPLINK = y));
+      (i.BB_PRO_SETTINGS_DEEPLINK = y),
+      (i.BB_PRO_MESSAGE_LIMIT_DEEPLINK = C));
   },
   66,
 );

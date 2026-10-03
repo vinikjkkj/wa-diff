@@ -4,10 +4,13 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WASmaxBizCtwaAdAccountNonceNotificationRPC",
+    "WASmaxParseUtils",
+    "WASmaxSmbMeteredMessagesCampaignBbProCampaignStatusNotificationRPC",
     "WASmaxSmbMeteredMessagesCampaignCampaignStateChangedNotificationRPC",
     "WAWap",
     "WAWebBackendJobsCommon",
     "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
+    "WAWebBizBroadcastProCampaignInvalidationEmitter",
     "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCTWAGatingUtils",
@@ -26,11 +29,13 @@ __d(
     "WAWebProductTypes",
     "WAWebSubscriptions",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = new (r("WADeprecatedWapParser"))(
+      s,
+      u = new (r("WADeprecatedWapParser"))(
         "businessNotificationParser",
         function (e) {
           e.assertTag("notification");
@@ -78,13 +83,13 @@ __d(
             );
           if (e.hasChild("profile")) {
             var s = e.child("profile"),
-              c = s.maybeAttrString("hash");
-            return r("isStringNullOrEmpty")(c)
+              u = s.maybeAttrString("hash");
+            return r("isStringNullOrEmpty")(u)
               ? babelHelpers.extends({ type: "profile" }, i)
-              : babelHelpers.extends({ type: "profile_hash", hash: c }, i);
+              : babelHelpers.extends({ type: "profile_hash", hash: u }, i);
           } else {
             if (e.hasChild("product_catalog"))
-              return u(e.child("product_catalog"), i);
+              return c(e.child("product_catalog"), i);
             if (e.hasChild("subscriptions")) {
               var d = o(
                   "WAWebParseSubscriptionNotification",
@@ -148,12 +153,28 @@ __d(
                   },
                   i,
                 );
+            } else if (
+              o("WASmaxParseUtils").flattenedChildWithTag(
+                e.node(),
+                "bb_pro_campaign",
+              ).success
+            ) {
+              var C = o(
+                "WASmaxSmbMeteredMessagesCampaignBbProCampaignStatusNotificationRPC",
+              ).receiveBbProCampaignStatusNotificationRPC(e.node());
+              return babelHelpers.extends(
+                {
+                  type: "bb_pro_campaign",
+                  campaignId: C.parsedRequest.bbProCampaignCampaignId,
+                },
+                i,
+              );
             }
           }
           return babelHelpers.extends({ type: "unknown" }, i);
         },
       );
-    function u(e, t) {
+    function c(e, t) {
       if (e.hasChild("product")) {
         var n = [];
         return (
@@ -201,7 +222,7 @@ __d(
       }
       return babelHelpers.extends({ type: "unknown" }, t);
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       return n
         ? o("WAWap").wap(
             "ack",
@@ -220,13 +241,13 @@ __d(
             type: "business",
           });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = s.parse(t);
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = u.parse(t);
           if (n.error)
             throw (
               o("WALogger").ERROR(
@@ -239,114 +260,135 @@ __d(
               ),
               n.error
             );
-          var r = n.success;
-          switch (r.type) {
+          var a = n.success;
+          switch (a.type) {
             case "verified_name_hash": {
-              var a = yield o(
+              var i = yield o(
                 "WAWebHandleBusinessNameChange",
-              ).handleVerifiedBusinessNameNotificationHash(r);
-              return c(r.stanzaId, r.from, !a);
+              ).handleVerifiedBusinessNameNotificationHash(a);
+              return d(a.stanzaId, a.from, !i);
             }
             case "verified_name_jid":
               return (
                 yield o(
                   "WAWebHandleBusinessNameChange",
-                ).handleVerifiedBusinessNameNotificationContact(r),
-                c(r.stanzaId, r.from, !1)
+                ).handleVerifiedBusinessNameNotificationContact(a),
+                d(a.stanzaId, a.from, !1)
               );
             case "remove_hash": {
-              var i = yield o(
+              var l = yield o(
                 "WAWebHandleBusinessRemoval",
-              ).handleBusinessRemovalNotificationHash(r);
-              return c(r.stanzaId, r.from, !i);
+              ).handleBusinessRemovalNotificationHash(a);
+              return d(a.stanzaId, a.from, !l);
             }
             case "remove_jid":
               return (
                 yield o(
                   "WAWebHandleBusinessRemoval",
-                ).handleBusinessRemovalNotificationContact(r),
-                c(r.stanzaId, r.from, !1)
+                ).handleBusinessRemovalNotificationContact(a),
+                d(a.stanzaId, a.from, !1)
               );
             case "profile":
               return (
-                yield o("WAWebHandleBusinessProfile").handleBusinessProfile(r),
-                c(r.stanzaId, r.from, !1)
+                yield o("WAWebHandleBusinessProfile").handleBusinessProfile(a),
+                d(a.stanzaId, a.from, !1)
               );
             case "profile_hash": {
-              var l = yield o(
+              var c = yield o(
                 "WAWebHandleBusinessProfile",
-              ).handleBusinessProfileHash(r);
-              return c(r.stanzaId, r.from, !l);
+              ).handleBusinessProfileHash(a);
+              return d(a.stanzaId, a.from, !c);
             }
             case "product":
               return (
                 yield o(
                   "WAWebHandleBusinessProductCatalogNotification",
-                ).handleProductNotification(r.productsIds),
-                c(r.stanzaId, r.from, !1)
+                ).handleProductNotification(a.productsIds),
+                d(a.stanzaId, a.from, !1)
               );
             case "collection":
               return (
                 yield o(
                   "WAWebHandleBusinessProductCatalogNotification",
-                ).handleCollectionNotification(r),
-                c(r.stanzaId, r.from, !1)
+                ).handleCollectionNotification(a),
+                d(a.stanzaId, a.from, !1)
               );
             case "subscriptions":
               return (
                 yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-                  r.subscriptions,
-                  r.featureFlags,
+                  a.subscriptions,
+                  a.featureFlags,
                   "update",
                 ),
-                c(r.stanzaId, r.from, !1)
+                d(a.stanzaId, a.from, !1)
               );
             case "ctwa_suggestion":
               return (
                 yield o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
-                  r.suggestion,
+                  a.suggestion,
                 ),
-                c(r.stanzaId, r.from, !1)
+                d(a.stanzaId, a.from, !1)
               );
             case "privacy":
               return (
                 o(
                   "WAWebHandlePrivacySettingsNotification",
                 ).handleSmbDataSharingSettingNotification(
-                  r.privacy.smbDataSharingSetting,
-                  r.privacy.smbDataSharingVersion,
+                  a.privacy.smbDataSharingSetting,
+                  a.privacy.smbDataSharingVersion,
                 ),
-                c(r.stanzaId, r.from, !1)
+                d(a.stanzaId, a.from, !1)
               );
             case "wa_ad_account_nonce":
               return (
                 o(
                   "WAWebCTWABizAccessTokenNonceManager",
-                ).setNonceFromPushNotification(r.nonce),
-                c(r.stanzaId, r.from, !1)
+                ).setNonceFromPushNotification(a.nonce),
+                d(a.stanzaId, a.from, !1)
               );
             case "mm_campaign":
               return (
                 o(
                   "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
                 ).marketingCampaignNotificationEmitter.emit({
-                  adCreativeId: r.adCreativeId,
-                  adGroupId: r.adGroupId,
-                  adId: r.adId,
-                  status: r.status,
-                  timestamp: r.ts,
+                  adCreativeId: a.adCreativeId,
+                  adGroupId: a.adGroupId,
+                  adId: a.adId,
+                  status: a.status,
+                  timestamp: a.ts,
                   backgroundSendHandling: !1,
                 }),
-                c(r.stanzaId, r.from, !1)
+                d(a.stanzaId, a.from, !1)
               );
+            case "bb_pro_campaign": {
+              try {
+                o(
+                  "WAWebBizBroadcastProCampaignInvalidationEmitter",
+                ).bbProCampaignInvalidationEmitter.trigger(
+                  "invalidate",
+                  a.campaignId,
+                );
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to invalidate BB Pro campaign",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("bb-pro-campaign-invalidation-listener-error");
+              }
+              return d(a.stanzaId, a.from, !1);
+            }
             default:
-              return (r.type, c(r.stanzaId, r.from, !1));
+              return (a.type, d(a.stanzaId, a.from, !1));
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -354,13 +396,13 @@ __d(
         .createNonPersistedJob(
           "handleBusinessNotification",
           function (e) {
-            return d(e.node);
+            return m(e.node);
           },
           { priority: t },
         )
         .waitUntilCompleted({ node: e });
     }
-    ((l.handleBusinessNotification = d), (l.handleBusinessNotificationJob = p));
+    ((l.handleBusinessNotification = m), (l.handleBusinessNotificationJob = _));
   },
   98,
 );

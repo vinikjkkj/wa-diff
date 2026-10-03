@@ -5,12 +5,15 @@ __d(
     "WAWebAlphaRegex",
     "WAWebApiContact",
     "WAWebBotGroupGatingUtils",
+    "WAWebBotProduct",
+    "WAWebBotProfileCollection",
     "WAWebBotUtils",
     "WAWebCompactMapString",
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
+    "WAWebGroupAgentProfileRouting",
     "WAWebMiscGatingUtils",
     "WAWebWidFactory",
     "WAWebWidFormat",
@@ -160,7 +163,77 @@ __d(
         a = n[0];
       return r("WAWebAlphaRegex").exec(a) ? a : t;
     }
-    function m(e, t) {
+    function m(e) {
+      var t, n;
+      return (t = (n = _(e)) == null ? void 0 : n.indicator) != null ? t : null;
+    }
+    function p(e, t) {
+      var n = _(
+        e.map(function (e) {
+          return e.id;
+        }),
+      );
+      return n == null
+        ? f(e, t)
+        : [n.label].concat(
+            f(
+              e.filter(function (e) {
+                return !n.replacedAgentIds.has(e.id);
+              }),
+              t,
+            ),
+          );
+    }
+    function _(e) {
+      if (
+        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
+        !o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled()
+      )
+        return null;
+      var t = [],
+        n = [];
+      return (
+        e.forEach(function (e) {
+          if (o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)) {
+            n.push(e);
+            return;
+          }
+          if (o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e)) {
+            var r = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
+            if (
+              !(
+                (r == null ? void 0 : r.lastFetchedTimeMs) == null ||
+                r.isDeleted === !0 ||
+                r.isDeprecated === !0
+              )
+            ) {
+              var a = o("WAWebBotProduct").botProductFromServerValue(r.product);
+              o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileProduct(
+                e,
+                a,
+              )
+                ? t.push(e)
+                : a === o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
+                  n.push(e);
+            }
+          }
+        }),
+        t.length === 0
+          ? null
+          : n.length === 0
+            ? {
+                indicator: "muse",
+                label: s._(/*BTDS*/ "Muse").toString(),
+                replacedAgentIds: new Set(t),
+              }
+            : {
+                indicator: "aiAgents",
+                label: s._(/*BTDS*/ "AI agents").toString(),
+                replacedAgentIds: new Set([].concat(t, n)),
+              }
+      );
+    }
+    function f(e, t) {
       var n = e,
         a = r("partitionArray")(n, function (e) {
           return o("WAWebContactGetters").getIsMe(e.contact);
@@ -217,13 +290,13 @@ __d(
         return r("isStringNullOrEmpty")(i) ? "" : i;
       });
     }
-    function p(e) {
-      return m(e.participants.toArray(), e);
+    function g(e) {
+      return p(e.participants.toArray(), e);
     }
-    function _(e) {
-      return m(e.participants.getAdmins(), e);
+    function h(e) {
+      return f(e.participants.getAdmins(), e);
     }
-    function f(e, t) {
+    function y(e, t) {
       t === void 0 && (t = !0);
       var n = e.length;
       if (n === 0) return s._(/*BTDS*/ "Group call").toString();
@@ -303,9 +376,10 @@ __d(
       (l.calculateUnnamedGroupFullParticipantsList = u),
       (l.getUnnamedGroupParticipantNames = c),
       (l.getFirstNameForContact = d),
-      (l.calculateParticipantsList = p),
-      (l.calculateAdminsList = _),
-      (l.formatParticipantWidsPreserveOrder = f));
+      (l.getGroupAgentIndicator = m),
+      (l.calculateParticipantsList = g),
+      (l.calculateAdminsList = h),
+      (l.formatParticipantWidsPreserveOrder = y));
   },
   226,
 );

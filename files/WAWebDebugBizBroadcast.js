@@ -41,14 +41,18 @@ __d(
     ((u.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
       (u.paramsToExecute = []));
     function c() {
-      o(
-        "WAWebBizBroadcastProOnboardingStatus",
-      ).debugSetBizBroadcastProOnboardingStatus(
-        o("WAWebBizBroadcastProOnboardingStatus").BBProOnboardingStatus
-          .ELIGIBLE_TO_ONBOARD,
-      );
+      (o(
+        "WAWebBizBroadcastDeviceCapabilityCommon",
+      ).saveBizBroadcastProCapabilityToStorage(!0),
+        o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).debugSetBizBroadcastProOnboardingStatus(
+          o("WAWebBizBroadcastProOnboardingStatus").BBProOnboardingStatus
+            .ELIGIBLE_TO_ONBOARD,
+        ));
     }
-    ((c.doc = "Force BB Pro onboarding status to eligible_to_onboard (E2E)"),
+    ((c.doc =
+      "Force BB Pro capability and onboarding status to eligible_to_onboard (E2E)"),
       (c.paramsToExecute = []));
     function d() {
       (o(
@@ -64,21 +68,42 @@ __d(
     ((d.doc =
       "Force BB Pro capability and onboarding status to onboarded (E2E)"),
       (d.paramsToExecute = []));
-    var m = null;
+    function m() {
+      (d(), S("empty"));
+    }
+    ((m.doc =
+      "Set up an onboarded BB Pro account with no campaigns or audiences (E2E)"),
+      (m.paramsToExecute = []));
     function p() {
-      if (m == null) {
-        var t = self.fetch.bind(self),
-          r = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
-        m = function () {
-          Reflect.set(self, "fetch", t);
+      (d(), S("audience_only"));
+    }
+    ((p.doc =
+      "Set up an onboarded BB Pro account with an audience and no campaigns (E2E)"),
+      (p.paramsToExecute = []));
+    var _ = "1234567890123456",
+      f = "1234567890123457",
+      g = "1234567890123458",
+      h = "1234567890123459",
+      y = 25,
+      C = null,
+      b = "empty";
+    function v() {
+      S("empty");
+    }
+    function S(t) {
+      if (((b = t), C == null)) {
+        var r = self.fetch.bind(self),
+          a = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
+        C = function () {
+          Reflect.set(self, "fetch", r);
         };
-        var a = 0;
-        Reflect.set(self, "fetch", function (o, i) {
-          var l = o instanceof Request ? o.url : String(o);
-          if (l !== r) return t(o, i);
-          var s = "234567890123456" + String(a);
+        var i = 0;
+        Reflect.set(self, "fetch", function (t, o) {
+          var l = t instanceof Request ? t.url : String(t);
+          if (l !== a) return r(t, o);
+          var s = "234567890123456" + String(i);
           return (
-            (a += 1),
+            (i += 1),
             (e || (e = n("Promise"))).resolve(
               new Response(
                 JSON.stringify({
@@ -88,13 +113,39 @@ __d(
                     },
                     viewer: {
                       backing_waba: {
-                        id: "1234567890123456",
-                        wa_bb_pro_custom_audiences: { edges: [] },
+                        id: _,
+                        is_custom_param_restricted_for_first_party_paid_messaging:
+                          !1,
+                        name: "BB Pro test business",
+                        owner_business: {
+                          id: f,
+                          marketing_message_whatsapp_event_sharing_consent:
+                            null,
+                        },
+                        wa_bb_pro_campaigns: {
+                          edges: [],
+                          page_info: { end_cursor: null, has_next_page: !1 },
+                        },
+                        wa_bb_pro_custom_audiences: {
+                          edges:
+                            b === "audience_only"
+                              ? [
+                                  {
+                                    node: {
+                                      id: h,
+                                      name: "Recording audience",
+                                      operation_status: {
+                                        status_code: "NO_STATUS",
+                                      },
+                                      subscriber_size: y,
+                                    },
+                                  },
+                                ]
+                              : [],
+                        },
                       },
                     },
-                    xfb_whatsapp_bb_pro: {
-                      default_subscriber_pool: { id: "1234567890123456" },
-                    },
+                    xfb_whatsapp_bb_pro: { default_subscriber_pool: { id: g } },
                   },
                 }),
                 {
@@ -107,15 +158,15 @@ __d(
         });
       }
     }
-    ((p.doc = "Mock BB Pro audience GraphQL responses (E2E)"),
-      (p.paramsToExecute = []));
-    function _() {
-      (m == null || m(), (m = null));
+    ((v.doc = "Mock BB Pro audience GraphQL responses (E2E)"),
+      (v.paramsToExecute = []));
+    function R() {
+      (C == null || C(), (C = null));
     }
-    ((_.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
-      (_.paramsToExecute = []));
-    var f = 1e4;
-    function g(t) {
+    ((R.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
+      (R.paramsToExecute = []));
+    var L = 1e4;
+    function E(t) {
       var a = o("WAWebWidFactory").createWid(t);
       return o("WAWebChatCollection").ChatCollection.get(a) != null
         ? (e || (e = n("Promise"))).resolve()
@@ -131,20 +182,20 @@ __d(
                     "Broadcast chat " +
                       t +
                       " never reached ChatCollection within " +
-                      f +
+                      L +
                       "ms",
                   ),
                 ));
-            }, f),
+            }, L),
               o("WAWebChatCollection").ChatCollection.on("add", i));
           });
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function y() {
+    function I() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             t.length < o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS
           )
@@ -164,24 +215,24 @@ __d(
               }),
             },
           );
-          return (yield g(n), n);
+          return (yield E(n), n);
         })),
-        y.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    h.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
-    function C() {
+    k.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
+    function T() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e == null) throw r("err")("No active chat");
       return o("WAWebWidToJid").widToBroadcastJid(e.id);
     }
-    function b() {
-      return v.apply(this, arguments);
+    function D() {
+      return x.apply(this, arguments);
     }
-    function v() {
+    function x() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = C(),
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = T(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
             n = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
@@ -205,19 +256,19 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(e));
         })),
-        v.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((b.doc =
+    ((D.doc =
       "Create a test PROCESSING campaign for the active broadcast chat (E2E)"),
-      (b.paramsToExecute = []));
-    function S() {
-      return R.apply(this, arguments);
+      (D.paramsToExecute = []));
+    function $() {
+      return P.apply(this, arguments);
     }
-    function R() {
+    function P() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = C(),
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = T(),
             r = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t);
@@ -243,32 +294,34 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(t));
         })),
-        R.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((S.doc =
+    (($.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
-      (S.paramsToExecute = []));
-    function L(e, t) {
+      ($.paramsToExecute = []));
+    function N(e, t) {
       return o(
         "WAWebBizBroadcastProUpdateCampaignAction",
       ).rescheduleBizBroadcastProCampaign(e, t);
     }
-    L.doc =
+    N.doc =
       "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";
-    var E = {
+    var M = {
       acceptBizBroadcastTos: u,
-      completeTestCampaignsForActiveChat: S,
-      createBizBroadcastAudience: h,
-      createTestProcessingCampaignForActiveChat: b,
-      mockBizBroadcastProAudienceGraphQLResponses: p,
-      rescheduleBizBroadcastProCampaign: L,
-      restoreBizBroadcastProAudienceGraphQLResponses: _,
+      completeTestCampaignsForActiveChat: $,
+      createBizBroadcastAudience: k,
+      createTestProcessingCampaignForActiveChat: D,
+      mockBizBroadcastProAudienceGraphQLResponses: v,
+      rescheduleBizBroadcastProCampaign: N,
+      restoreBizBroadcastProAudienceGraphQLResponses: R,
       setBizBroadcastDeviceCapability: s,
       setBizBroadcastProNuxEligible: c,
       setBizBroadcastProOnboarded: d,
+      setupBizBroadcastProAudienceOnlyHome: p,
+      setupBizBroadcastProEmptyHome: m,
     };
-    l.default = E;
+    l.default = M;
   },
   98,
 );

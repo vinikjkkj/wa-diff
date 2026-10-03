@@ -208,23 +208,27 @@ __d(
         a,
         i,
         l,
-        s = e.scheduledMessageMetadata;
-      if (!(s == null || t == null)) {
-        var c = s.revealKey,
-          d = s.revealKeyId,
-          m = s.scheduledTime;
-        if (!(c == null || d == null || m == null)) {
-          var p = (n = t.id) == null ? void 0 : n.remote,
-            _ =
-              ((a = t.id) == null ? void 0 : a.id) != null
+        s,
+        c = e.scheduledMessageMetadata;
+      if (
+        !(c == null || t == null) &&
+        ((n = e.key) == null ? void 0 : n.fromMe) === !0
+      ) {
+        var d = c.revealKey,
+          m = c.revealKeyId,
+          p = c.scheduledTime;
+        if (!(d == null || m == null || p == null)) {
+          var _ = (a = t.id) == null ? void 0 : a.remote,
+            g =
+              ((i = t.id) == null ? void 0 : i.id) != null
                 ? t.id.toString()
                 : null;
-          if (!(p == null || _ == null)) {
-            var g = o("WAWebWidToJid").widToChatJid(p),
-              h = typeof t.body == "string" ? t.body : null,
-              y = o("WATimeUtils").castToUnixTime(Number(m)),
-              C = new Uint8Array(c),
-              b = {
+          if (!(_ == null || g == null)) {
+            var h = o("WAWebWidToJid").widToChatJid(_),
+              y = typeof t.body == "string" ? t.body : null,
+              C = o("WATimeUtils").castToUnixTime(Number(p)),
+              b = new Uint8Array(d),
+              v = {
                 ephemeralDuration:
                   typeof t.ephemeralDuration == "number"
                     ? t.ephemeralDuration
@@ -239,19 +243,19 @@ __d(
                     : null,
                 disappearingModeInitiator:
                   typeof t.disappearingModeInitiator == "string" &&
-                  (i = o(
+                  (l = o(
                     "WAWebEphemeralityTypes",
                   ).DisappearingModeInitiator.cast(
                     t.disappearingModeInitiator,
                   )) != null
-                    ? i
+                    ? l
                     : null,
                 disappearingModeTrigger:
                   typeof t.disappearingModeTrigger == "string" &&
-                  (l = o("WAWebEphemeralityTypes").DisappearingModeTrigger.cast(
+                  (s = o("WAWebEphemeralityTypes").DisappearingModeTrigger.cast(
                     t.disappearingModeTrigger,
                   )) != null
-                    ? l
+                    ? s
                     : null,
                 disappearingModeInitiatedByMe:
                   typeof t.disappearingModeInitiatedByMe == "boolean"
@@ -259,13 +263,14 @@ __d(
                     : null,
               };
             (f({
-              msgId: _,
-              chatId: g,
-              revealKeyId: d,
-              revealKey: C,
-              scheduledTimestampS: y,
-              body: h,
-              ephemeral: b,
+              msgId: g,
+              chatId: h,
+              revealKeyId: m,
+              revealKey: b,
+              scheduledTimestampS: C,
+              body: y,
+              ephemeral: v,
+              sourceProto: e.message,
             }).catch(function (e) {
               o("WALogger")
                 .ERROR(
@@ -274,7 +279,7 @@ __d(
                       "[scheduled_msg][history_sync] persist failed msg=",
                       "",
                     ])),
-                  _,
+                  g,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("scheduled-msg-history-sync-persist-failed");
@@ -359,7 +364,11 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
               "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
-            ).buildHistorySyncInnerProto(e.body, e.ephemeral),
+            ).buildHistorySyncInnerProto({
+              body: e.body,
+              ephemeral: e.ephemeral,
+              sourceProto: e.sourceProto,
+            }),
             n = o("encodeProtobuf")
               .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, t)
               .readByteArrayView(),

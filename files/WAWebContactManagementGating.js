@@ -16,27 +16,22 @@ __d(
         o("WAWebABProps").getABPropConfigValue("web_group_bulk_add_contact")
       );
     }
-    function c(t) {
-      if (!e()) return !1;
-      var n = o("WAWebABProps").getABPropConfigValue("web_add_contact");
-      return n.split(",").includes(t);
+    function c() {
+      return e();
     }
     function d() {
-      return c("chat_header");
+      return e();
     }
     function m() {
-      return c("chat_list");
+      return e();
     }
     function p() {
-      return c("group_member");
+      return e();
     }
     function _() {
-      return c("fmx_card");
+      return e();
     }
-    function f() {
-      return c("new_chat_drawer");
-    }
-    function g(e, t, n) {
+    function f(e, t, n) {
       return (
         e.isRegularUser() &&
         !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -47,7 +42,7 @@ __d(
         n
       );
     }
-    function h() {
+    function g() {
       var e = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "native_contact_companion_nux_learn_more_article_id",
@@ -58,13 +53,13 @@ __d(
     }
     ((l.contactManagementEnabled = e),
       (l.bulkAddContactGroupInfoEnabled = u),
-      (l.addContactChatHeaderEnabled = d),
-      (l.addContactChatListEnabled = m),
-      (l.addContactGroupMemberEnabled = p),
-      (l.addContactFMXCardEnabled = _),
-      (l.addContactNewChatDrawerEnabled = f),
-      (l.shouldShowAddContactButton = g),
-      (l.getNativeContactLearnMoreArticleId = h));
+      (l.addContactChatHeaderEnabled = c),
+      (l.addContactChatListEnabled = d),
+      (l.addContactGroupMemberEnabled = m),
+      (l.addContactFMXCardEnabled = p),
+      (l.addContactNewChatDrawerEnabled = _),
+      (l.shouldShowAddContactButton = f),
+      (l.getNativeContactLearnMoreArticleId = g));
   },
   98,
 );

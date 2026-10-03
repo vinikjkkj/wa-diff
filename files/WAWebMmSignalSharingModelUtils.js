@@ -9,6 +9,7 @@ __d(
     "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebURLUtils",
     "WAWebWamEnumDisclosureEventType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -59,7 +60,7 @@ __d(
       ) {
         var l,
           u,
-          c = (l = R(i, t)) != null ? l : {},
+          c = (l = E(i, t)) != null ? l : {},
           d = c.consentedUrl,
           m = c.originalUrl,
           p = c.unconsentedUrl;
@@ -79,16 +80,16 @@ __d(
       }
       if (s(n, i) && a) {
         var y,
-          C = (y = R(i, t)) != null ? y : {},
+          C = (y = E(i, t)) != null ? y : {},
           b = C.consentedUrl,
           S = C.originalUrl,
-          L = C.unconsentedUrl;
+          R = C.unconsentedUrl;
         return v({
           chat: n,
           consentedUrl: b,
           defaultUrl: r,
           originalUrl: S,
-          unconsentedUrl: L,
+          unconsentedUrl: R,
         });
       }
       return r;
@@ -118,56 +119,33 @@ __d(
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingReplacingShimmedLinksEnabled()
-      ) {
+      )
+        return R({
+          chat: r,
+          defaultUrl: a,
+          isMmSignalSharingDisclosureTosAccepted: i,
+          msg: l,
+          urlTrackingMapElements: u,
+        });
+      if (s(r, l) && i) {
         var c = 0;
         for (var d of u) {
           var m = d.consentedUsersUrl,
             p = d.originalUrl,
             _ = d.unconsentedUsersUrl;
-          if (S(p) === S(a)) {
-            var f = void 0;
-            if (i) {
-              var g;
-              if (
-                o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
-                (g = r.contact) != null &&
-                g.isContactBlocked
-              ) {
-                var h;
-                f = (h = _ != null ? _ : p) != null ? h : a;
-              } else {
-                var y, C;
-                f =
-                  (y = (C = m != null ? m : _) != null ? C : p) != null ? y : a;
-              }
-            } else {
-              var b;
-              f = (b = _ != null ? _ : p) != null ? b : a;
-            }
-            return { link: f, index: c };
-          }
-          c++;
-        }
-        return { link: a, index: void 0 };
-      }
-      if (s(r, l) && i) {
-        var R = 0;
-        for (var L of u) {
-          var E = L.consentedUsersUrl,
-            k = L.originalUrl,
-            I = L.unconsentedUsersUrl;
-          if (S(k) === S(a))
-            return {
+          if (S(p) === S(a))
+            return L({
+              defaultUrl: a,
+              index: c,
               link: v({
                 chat: r,
-                consentedUrl: E,
+                consentedUrl: m,
                 defaultUrl: a,
-                originalUrl: k,
-                unconsentedUrl: I,
+                originalUrl: p,
+                unconsentedUrl: _,
               }),
-              index: R,
-            };
-          R++;
+            });
+          c++;
         }
       }
       return { link: a, index: void 0 };
@@ -181,13 +159,13 @@ __d(
         switch (e) {
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .CTA_URL_CLICK:
-            return R(t, n);
+            return E(t, n);
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .CTA_APP_CLICK:
-            return R(t, n);
+            return E(t, n);
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .BODY_URL_CLICK:
-            return L(t, n);
+            return k(t, n);
           default:
             return null;
         }
@@ -214,7 +192,7 @@ __d(
         var a,
           i,
           l,
-          s = (l = R(e, r)) != null ? l : {},
+          s = (l = E(e, r)) != null ? l : {},
           u = s.consentedUrl;
         if (u != null) return !0;
       }
@@ -450,7 +428,52 @@ __d(
     function S(e) {
       return e == null ? "" : e.replace(/\/$/, "");
     }
-    function R(e, t) {
+    function R(e) {
+      var t = e.chat,
+        n = e.defaultUrl,
+        r = e.isMmSignalSharingDisclosureTosAccepted,
+        a = e.msg,
+        i = e.urlTrackingMapElements;
+      if (!s(t, a)) return { link: n, index: void 0 };
+      var l = 0;
+      for (var u of i) {
+        var c = u.consentedUsersUrl,
+          d = u.originalUrl,
+          m = u.unconsentedUsersUrl;
+        if (S(d) === S(n)) {
+          var p = void 0;
+          if (r) {
+            var _;
+            if (
+              o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
+              (_ = t.contact) != null &&
+              _.isContactBlocked
+            ) {
+              var f;
+              p = (f = m != null ? m : d) != null ? f : n;
+            } else {
+              var g, h;
+              p = (g = (h = c != null ? c : m) != null ? h : d) != null ? g : n;
+            }
+          } else {
+            var y;
+            p = (y = m != null ? m : d) != null ? y : n;
+          }
+          return L({ defaultUrl: n, index: l, link: p });
+        }
+        l++;
+      }
+      return { link: n, index: void 0 };
+    }
+    function L(e) {
+      var t = e.defaultUrl,
+        n = e.index,
+        o = e.link;
+      return o == null || !r("WAWebURLUtils").isHttp(o.trim())
+        ? { link: t, index: void 0 }
+        : { link: o, index: n };
+    }
+    function E(e, t) {
       if (t != null) {
         var n,
           r,
@@ -471,7 +494,7 @@ __d(
         }
       }
     }
-    function L(e, t) {
+    function k(e, t) {
       if (t != null) {
         var n,
           r,

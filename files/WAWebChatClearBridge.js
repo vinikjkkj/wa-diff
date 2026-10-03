@@ -9,6 +9,7 @@ __d(
     "WAWebClearChatSync",
     "WAWebDBQueryAndRemoveMessageHistory",
     "WAWebDBReportingTokenUtils",
+    "WAWebGroupAgentPrivacyNotice",
     "WAWebMessageRangeUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebRequestDeleteAddOns",
@@ -67,6 +68,9 @@ __d(
             yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
               o("WAWebWidToJid").widToChatJid(t.id),
             ),
+            yield o(
+              "WAWebGroupAgentPrivacyNotice",
+            ).insertGroupAgentPrivacyNoticeAfterClearIfRequired(t.id),
             { result: d }
           );
         })),

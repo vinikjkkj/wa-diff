@@ -1,15 +1,64 @@
 __d(
   "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
-  ["WAWebAfterReadUtils", "WAWebE2EProtoUtils"],
+  ["WALogger", "WAWebAfterReadUtils", "WAWebE2EProtoUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      var n = e != null ? e : "",
-        r = s(t);
-      return r == null
-        ? { conversation: n }
-        : { extendedTextMessage: { text: n, contextInfo: r } };
-    }
+    var e;
     function s(e) {
+      var t = e.body,
+        n = e.ephemeral,
+        r = e.sourceProto,
+        o = u(r);
+      if (o != null) return o;
+      var a = m(r) && t != null ? t : "",
+        i = p(n);
+      return i == null
+        ? { conversation: a }
+        : { extendedTextMessage: { text: a, contextInfo: i } };
+    }
+    function u(e) {
+      var t = e != null ? e : {},
+        n = t.imageMessage,
+        r = t.videoMessage;
+      return n != null
+        ? { imageMessage: n }
+        : r != null
+          ? { videoMessage: r }
+          : null;
+    }
+    var c = 3;
+    function d(e) {
+      for (var t = e, n = 0; n < c; n++) {
+        var r,
+          o,
+          a = t,
+          i = a.botInvokeMessage,
+          l = a.ephemeralMessage,
+          s = a.groupMentionedMessage,
+          u =
+            (r = (o = i != null ? i : s) != null ? o : l) == null
+              ? void 0
+              : r.message;
+        if (u == null) return t;
+        t = u;
+      }
+      return t;
+    }
+    function m(t) {
+      if (t == null) return !0;
+      var n = d(t);
+      return n.conversation != null || n.extendedTextMessage != null
+        ? !0
+        : (o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][history_sync] unsupported scheduled content, revealing empty body",
+                ])),
+            )
+            .sendLogs("scheduled-msg-history-sync-unsupported-content"),
+          !1);
+    }
+    function p(e) {
       var t = e.afterReadDuration,
         n = e.disappearingModeInitiatedByMe,
         r = e.disappearingModeInitiator,
@@ -43,7 +92,7 @@ __d(
         u
       );
     }
-    l.buildHistorySyncInnerProto = e;
+    l.buildHistorySyncInnerProto = s;
   },
   98,
 );

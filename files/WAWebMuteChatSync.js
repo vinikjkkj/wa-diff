@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WALongInt",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaChat",
@@ -99,9 +98,6 @@ __d(
                               ),
                               y;
                             h != null &&
-                              o("WAWebABProps").getABPropConfigValue(
-                                "enable_mention_everyone_receiver_web",
-                              ) &&
                               (h > o("WATimeUtils").unixTimeMs()
                                 ? (y = Math.floor(h / 1e3))
                                 : h > 0
@@ -189,9 +185,6 @@ __d(
                 var s = { muted: a, muteEndTimestamp: l };
                 r("WAWebWid").isGroup(e) &&
                   n != null &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "enable_mention_everyone_syncd_sender",
-                  ) &&
                   (n > 0
                     ? (s.muteEveryoneMentionEndTimestamp = n * 1e3)
                     : (s.muteEveryoneMentionEndTimestamp = n));

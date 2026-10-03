@@ -4,8 +4,8 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBotBaseGating",
-    "WAWebL10NCountryCodes",
     "WAWebMexGetWoasAgeSignal",
     "WAWebSubscriptionAgeGatingPrefs",
     "WAWebSubscriptionWaffleAgeCheck",
@@ -19,54 +19,49 @@ __d(
       s,
       u,
       c,
-      d = ["US", "BR"],
-      m = 86400,
-      p = 120,
-      _ = 1440 * 60,
-      f = null,
+      d = 86400,
+      m = 120,
+      p = 1440 * 60,
+      _ = null,
+      f = 0,
       g = 0,
-      h = 0,
-      y = 0;
+      h = 0;
+    function y() {
+      return Math.min(m * Math.pow(2, g++), p);
+    }
     function C() {
-      return Math.min(p * Math.pow(2, h++), _);
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_consumer_subscription_u18_gating_enabled",
+      );
     }
     function b() {
-      var e,
-        t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-          (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-            ? void 0
-            : e.user,
-        );
-      return t === "" || d.includes(t);
-    }
-    function v() {
-      if (!b()) return !0;
+      if (!C()) return !0;
       var e = o("WAWebSubscriptionAgeGatingPrefs").getSubscriptionAgeVerdict();
       return e == null || e.expiresAtSec <= o("WATimeUtils").unixTime()
-        ? (S(), !1)
+        ? (v(), !1)
         : e.isEligible;
     }
-    function S(t) {
-      if ((t === void 0 && (t = {}), f != null && t.force !== !0)) return f;
-      if (t.force !== !0 && o("WATimeUtils").unixTime() < g)
+    function v(t) {
+      if ((t === void 0 && (t = {}), _ != null && t.force !== !0)) return _;
+      if (t.force !== !0 && o("WATimeUtils").unixTime() < f)
         return (c || (c = n("Promise"))).resolve();
-      var a = ++y,
-        i = R()
+      var a = ++h,
+        i = S()
           .then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  if (a === y) {
+                  if (a === h) {
                     if (e == null) {
-                      g = o("WATimeUtils").unixTime() + C();
+                      f = o("WATimeUtils").unixTime() + y();
                       return;
                     }
-                    ((g = 0),
-                      (h = 0),
+                    ((f = 0),
+                      (g = 0),
                       yield o(
                         "WAWebSubscriptionAgeGatingPrefs",
                       ).setSubscriptionAgeVerdict(e),
-                      a !== y &&
+                      a !== h &&
                         (yield o(
                           "WAWebSubscriptionAgeGatingPrefs",
                         ).clearSubscriptionAgeVerdict()));
@@ -79,7 +74,7 @@ __d(
             })(),
           )
           .catch(function (t) {
-            (a === y && (g = o("WATimeUtils").unixTime() + C()),
+            (a === h && (f = o("WATimeUtils").unixTime() + y()),
               o("WALogger")
                 .WARN(
                   e ||
@@ -93,17 +88,17 @@ __d(
                 }));
           })
           .finally(function () {
-            f === i && (f = null);
+            _ === i && (_ = null);
           });
-      return ((f = i), i);
+      return ((_ = i), i);
+    }
+    function S() {
+      return R.apply(this, arguments);
     }
     function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!b()) return null;
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!C()) return null;
           yield o(
             "WAWebSubscriptionAgeGatingPrefs",
           ).initSubscriptionAgeVerdictStore();
@@ -118,7 +113,7 @@ __d(
             return t == null
               ? null
               : {
-                  expiresAtSec: o("WATimeUtils").unixTime() + m,
+                  expiresAtSec: o("WATimeUtils").unixTime() + d,
                   isEligible: t,
                   source: "waffle",
                 };
@@ -135,16 +130,16 @@ __d(
                 source: "woas",
               };
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
+    function L() {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!(!o("WAWebBotBaseGating").isAiSubscriptionEnabled() || !b()))
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!(!o("WAWebBotBaseGating").isAiSubscriptionEnabled() || !C()))
             try {
               yield o(
                 "WAWebSubscriptionAgeGatingPrefs",
@@ -154,7 +149,7 @@ __d(
               ).getSubscriptionAgeVerdict();
               if (e != null && e.expiresAtSec > o("WATimeUtils").unixTime())
                 return;
-              yield S();
+              yield v();
             } catch (e) {
               o("WALogger")
                 .WARN(
@@ -169,16 +164,16 @@ __d(
                 });
             }
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
+    function k() {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (y++, (g = 0), (h = 0), (f = null));
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (h++, (f = 0), (g = 0), (_ = null));
           try {
             yield o(
               "WAWebSubscriptionAgeGatingPrefs",
@@ -197,14 +192,14 @@ __d(
               });
           }
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    ((l.isInGatedCountry = b),
-      (l.isEligibleForSubscriptionsByAge = v),
-      (l.refreshSubscriptionAgeVerdict = S),
-      (l.maybeWarmSubscriptionAgeVerdict = E),
-      (l.invalidateSubscriptionAgeVerdict = I));
+    ((l.isInGatedCountry = C),
+      (l.isEligibleForSubscriptionsByAge = b),
+      (l.refreshSubscriptionAgeVerdict = v),
+      (l.maybeWarmSubscriptionAgeVerdict = L),
+      (l.invalidateSubscriptionAgeVerdict = k));
   },
   98,
 );

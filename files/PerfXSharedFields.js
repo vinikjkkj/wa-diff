@@ -7,10 +7,11 @@ __d(
         addCommonValues: function (n) {
           var t = e == null ? void 0 : e.navigator;
           try {
-            (t &&
+            t &&
               typeof t.hardwareConcurrency == "number" &&
-              (n.num_cores = Math.floor(t.hardwareConcurrency)),
-              t && t.deviceMemory && (n.ram_gb = t.deviceMemory),
+              (n.num_cores = Math.floor(t.hardwareConcurrency));
+            var a = t;
+            (a && a.deviceMemory && (n.ram_gb = a.deviceMemory),
               t &&
                 t.connection &&
                 (typeof t.connection.downlink == "number" &&

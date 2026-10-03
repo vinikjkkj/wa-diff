@@ -8,6 +8,7 @@ __d(
     "WAWebCTWAGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDecodeJid",
+    "WAWebGroupAgentPrivacyNoticeParams",
     "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingPropMappingUtils",
     "WAWebMsgKey",
@@ -1057,7 +1058,14 @@ __d(
             if (
               o(
                 "WAWebBotGroupGatingUtils",
-              ).isOpenGroupBotParticipantAddEnabled()
+              ).isOpenGroupBotParticipantAddEnabled() ||
+              (o(
+                "WAWebBotGroupGatingUtils",
+              ).isStandardBotProfileGroupEnabled() &&
+                o(
+                  "WAWebGroupAgentPrivacyNoticeParams",
+                ).getSyncedGroupAgentPrivacyNoticeAgent(t.templateParams) !=
+                  null)
             ) {
               ((t.subtype = "group_transition_to_bot_group"),
                 (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),

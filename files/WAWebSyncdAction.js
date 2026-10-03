@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebProtobufsServerSync.pb",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
@@ -36,6 +37,13 @@ __d(
               : (u || (u = n("Promise"))).resolve(
                   o("WAWebSyncdConst").ConflictResolutionState.SkipRemote,
                 );
+          }),
+          (a.shouldDropPendingMutationForRemoteRemove = function (t, n) {
+            return (
+              t.operation ===
+              o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
+                .REMOVE
+            );
           }),
           (a.dropMutationDueToCrossIndexConflict = function (t, r) {
             return (u || (u = n("Promise"))).resolve(!1);

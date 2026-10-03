@@ -618,6 +618,9 @@ __d(
     function Yn() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(204);
     }
+    function Jn() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(205);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -822,7 +825,8 @@ __d(
       (l.chatAddAiHandoffRemovalExpiry = Kn),
       (l.orgCreateTable = Qn),
       (l.orgContactCreateTable = Xn),
-      (l.coexV2BotSecretCreateTable = Yn));
+      (l.coexV2BotSecretCreateTable = Yn),
+      (l.contactManagerMetadataCreateTable = Jn));
   },
   98,
 );

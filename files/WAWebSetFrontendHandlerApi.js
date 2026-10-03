@@ -18,6 +18,7 @@ __d(
     "WAWebClockBridgeApi",
     "WAWebCommunityActivityBridgeApi",
     "WAWebContactBridgeApi",
+    "WAWebContactManagerMetadataBridgeApi",
     "WAWebCustomPaymentMethodsSyncBridgeApi",
     "WAWebCustomerDataBridgeApi",
     "WAWebDataSharing3pdLidBridgeApi",
@@ -90,6 +91,8 @@ __d(
             o("WAWebLabelsBridgeApi").LabelsBridgeApi,
             o("WAWebMemberLabelBridgeApi").MemberLabelBridgeApi,
             o("WAWebContactBridgeApi").ContactBridgeApi,
+            o("WAWebContactManagerMetadataBridgeApi")
+              .ContactManagerMetadataBridgeApi,
             o("WAWebChatBridgeApi").ChatBridgeApi,
             o("WAWebClockBridgeApi").ClockBridgeApi,
             o("WAWebCTWABridgeApi").CTWABridgeApi,

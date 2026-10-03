@@ -4,11 +4,14 @@ __d(
     "Promise",
     "WALogger",
     "WAWebContactImportTemplateParsingUtils",
+    "WAWebCustomerDataFieldSaver",
     "WAWebCustomerManagerCreateCustomerRecord",
     "WAWebCustomerManagerImportDateParsingUtils",
+    "WAWebCustomerManagerImportEmailWarnings",
     "WAWebCustomerManagerImportTemplateUtils",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebLeadStageNames",
+    "WAWebSaveContactAction",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -19,68 +22,79 @@ __d(
     var e,
       s,
       u,
-      c = 10;
-    function d(e) {
-      return m.apply(this, arguments);
+      c,
+      d,
+      m = 10,
+      p = 50;
+    function _(e) {
+      var t;
+      if (e.lid == null)
+        throw r("err")("Imported contact missing lid; cannot resolve chatJid");
+      var n = o("WAWebWidFactory").createUserWidOrThrow(e.lid);
+      return {
+        acquisitionSource: S(e),
+        address:
+          (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+            e.rawRow,
+            [
+              "Address",
+              o("WAWebCustomerManagerImportTemplateUtils").FBT_ADDRESS,
+            ],
+          )) != null
+            ? t
+            : "",
+        birthday: b(e, "birthday"),
+        chatJid: o("WAWebWidToJid").widToChatJid(n),
+        email: C(e),
+        firstName: e.firstName,
+        lastName: e.lastName,
+        leadStage: v(e),
+        lastOrder: b(e, "lastOrder"),
+        note: o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+          e.rawRow,
+          ["Notes", o("WAWebCustomerManagerImportTemplateUtils").FBT_NOTES],
+        ),
+        phoneNumber: h(e),
+        profileWid: n,
+        username: y(e),
+      };
     }
-    function m() {
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
-          if (e.lid == null)
-            throw r("err")(
-              "Imported contact missing lid; cannot resolve chatJid",
-            );
-          var a = o("WAWebWidFactory").createUserWidOrThrow(e.lid),
-            i = e.phone.replace(/\D/g, "");
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o(
             "WAWebCustomerManagerCreateCustomerRecord",
-          ).createCustomerRecord({
-            acquisitionSource: f(e),
-            address:
-              (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-                e.rawRow,
-                [
-                  "Address",
-                  o("WAWebCustomerManagerImportTemplateUtils").FBT_ADDRESS,
-                ],
-              )) != null
-                ? t
-                : "",
-            birthday: p(e, "birthday"),
-            chatJid: o("WAWebWidToJid").widToChatJid(a),
-            email:
-              (n = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-                e.rawRow,
-                [
-                  "Email",
-                  o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL,
-                ],
-              )) != null
-                ? n
-                : "",
-            firstName: e.firstName,
-            lastName: e.lastName,
-            leadStage: _(e),
-            lastOrder: p(e, "lastOrder"),
-            note: o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-              e.rawRow,
-              ["Notes", o("WAWebCustomerManagerImportTemplateUtils").FBT_NOTES],
-            ),
-            phoneNumber: i,
-            profileWid: a,
-            username: o(
-              "WAWebContactImportTemplateParsingUtils",
-            ).readRawRowColumn(e.rawRow, [
-              "Username",
-              o("WAWebCustomerManagerImportTemplateUtils").FBT_USERNAME,
-            ]),
-          });
+          ).createCustomerRecord(_(e));
         })),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function p(e, t) {
+    function h(e) {
+      return e.phone.replace(/\D/g, "");
+    }
+    function y(e) {
+      return o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+        e.rawRow,
+        ["Username", o("WAWebCustomerManagerImportTemplateUtils").FBT_USERNAME],
+      );
+    }
+    function C(e) {
+      var t,
+        n =
+          (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+            e.rawRow,
+            ["Email", o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL],
+          )) != null
+            ? t
+            : "";
+      return o("WAWebCustomerManagerImportEmailWarnings").isValidImportEmail(n)
+        ? n
+        : "";
+    }
+    function b(e, t) {
       var n =
           t === "birthday"
             ? [
@@ -102,7 +116,7 @@ __d(
         );
       return r.type === "valid" ? r.value : void 0;
     }
-    function _(e) {
+    function v(e) {
       var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         [
@@ -114,7 +128,7 @@ __d(
         ? o("WAWebLeadStageNames").getLeadStageFromName(t)
         : null;
     }
-    function f(e) {
+    function S(e) {
       var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         [
@@ -129,7 +143,7 @@ __d(
           ).getProfileAcquisitionSourceIdFromLabel(t)
         : null;
     }
-    function g(t, n, a) {
+    function R(t, n, a) {
       return n.reduce(function (n, a, i) {
         return a.status === "fulfilled"
           ? babelHelpers.extends({}, n, { successCount: n.successCount + 1 })
@@ -147,51 +161,334 @@ __d(
             babelHelpers.extends({}, n, { failureCount: n.failureCount + 1 }));
       }, a);
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function L(e, t, n, r, o) {
+      return E.apply(this, arguments);
     }
-    function y() {
+    function E() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          if (t >= e.length) return r;
-          var o = e.slice(t, t + c),
-            a = yield (u || (u = n("Promise"))).allSettled(
-              o.map(function (e) {
-                return d(e);
-              }),
-            );
-          return h(e, t + c, g(o, a, r));
-        })),
-        y.apply(this, arguments)
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, o) {
+            if (r >= e.length) return o;
+            var a = e.slice(r, r + t),
+              i = yield n(a);
+            return L(e, t, n, r + t, [].concat(o, i));
+          },
+        )),
+        E.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    function k(e) {
+      var t = [],
+        n = [];
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h(e, 0, { failureCount: 0, successCount: 0 });
+        e.forEach(function (e) {
+          var r,
+            o,
+            a,
+            i,
+            l = (r = (o = y(e)) == null ? void 0 : o.trim()) != null ? r : "";
+          if (
+            l !== "" ||
+            h(e) === "" ||
+            ((a = (i = e.firstName) == null ? void 0 : i.trim()) != null
+              ? a
+              : "") === ""
+          ) {
+            n.push(e);
+            return;
+          }
+          try {
+            t.push({ contact: e, input: _(e) });
+          } catch (t) {
+            n.push(e);
+          }
+        }),
+        { batchable: t, individual: n }
+      );
+    }
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return [];
+          try {
+            yield o("WAWebSaveContactAction").saveContactBatchAction(
+              e.map(function (e) {
+                var t,
+                  n,
+                  r,
+                  o = e.input;
+                return {
+                  firstName: (t = o.firstName) != null ? t : "",
+                  lastName: (n = o.lastName) != null ? n : "",
+                  phoneNumber: (r = o.phoneNumber) != null ? r : "",
+                  syncToAddressbook: !1,
+                };
+              }),
+            );
+          } catch (t) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] batched contact save failed for ",
+                      " rows; retrying them per row",
+                    ])),
+                  e.length,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("cm-import-save-batch-fallback"),
+              L(
+                e,
+                m,
+                function (e) {
+                  return (d || (d = n("Promise"))).allSettled(
+                    e.map(function (e) {
+                      var t = e.input;
+                      return o(
+                        "WAWebCustomerManagerCreateCustomerRecord",
+                      ).saveCustomerContact(t);
+                    }),
+                  );
+                },
+                0,
+                [],
+              )
+            );
+          }
+          return e.map(function () {
+            return { status: "fulfilled", value: void 0 };
+          });
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return [];
+          try {
+            yield o("WAWebCustomerDataFieldSaver").upsertAsCustomers(e);
+          } catch (t) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] batched profile upsert failed for ",
+                      " rows",
+                    ])),
+                  e.length,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("cm-import-save-profile-batch-failed"),
+              e.map(function () {
+                return { status: "rejected", reason: t };
+              })
+            );
+          }
+          return e.map(function () {
+            return { status: "fulfilled", value: void 0 };
+          });
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return L(
+        e,
+        m,
+        function (e) {
+          return (d || (d = n("Promise"))).allSettled(
+            e.map(function (e) {
+              var t = e.input;
+              return o(
+                "WAWebCustomerManagerCreateCustomerRecord",
+              ).readProfileForGuardedBirthday(t);
+            }),
+          );
+        },
+        0,
+        [],
+      );
+    }
+    function P(e, t) {
+      return {
+        chatJid: e.input.chatJid,
+        extraFields: o(
+          "WAWebCustomerManagerCreateCustomerRecord",
+        ).buildCustomerProfileFields(
+          e.input,
+          t.status === "fulfilled" ? t.value : null,
+        ),
+        leadStage: e.input.leadStage,
+      };
+    }
+    function N(e, t) {
+      return e.filter(function (e, n) {
+        return t[n].status === "fulfilled";
+      });
+    }
+    function M(e, t, n) {
+      var r = [].concat(e);
+      return (
+        t.forEach(function (e, t) {
+          r[e] = n[t];
+        }),
+        r
+      );
+    }
+    function w(e) {
+      return e.map(function (e) {
+        return e.status === "fulfilled"
+          ? { status: "fulfilled", value: void 0 }
+          : { status: "rejected", reason: e.reason };
+      });
+    }
+    function A(e, t) {
+      return L(
+        e,
+        m,
+        function (e) {
+          return (d || (d = n("Promise"))).allSettled(
+            e.map(function (e) {
+              var n = e.input;
+              return t(n);
+            }),
+          );
+        },
+        0,
+        [],
+      );
+    }
+    function F(e, t) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield t(e.indexes);
+          return {
+            indexes: N(e.indexes, n),
+            results: M(e.results, e.indexes, n),
+          };
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    function B(e) {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield $(e),
+            n = {
+              indexes: N(
+                e.map(function (e, t) {
+                  return t;
+                }),
+                t,
+              ),
+              results: w(t),
+            },
+            r = yield F(n, function (t) {
+              return I(
+                t.map(function (t) {
+                  return e[t];
+                }),
+              );
+            }),
+            a = yield F(r, function (t) {
+              return A(
+                t.map(function (t) {
+                  return e[t];
+                }),
+                o("WAWebCustomerManagerCreateCustomerRecord")
+                  .createCustomerChat,
+              );
+            }),
+            i = yield F(a, function (n) {
+              return D(
+                n.map(function (n) {
+                  return P(e[n], t[n]);
+                }),
+              );
+            }),
+            l = yield F(i, function (t) {
+              return A(
+                t.map(function (t) {
+                  return e[t];
+                }),
+                o("WAWebCustomerManagerCreateCustomerRecord").writeCustomerNote,
+              );
+            });
+          return l.results;
+        })),
+        W.apply(this, arguments)
+      );
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = k(e),
+            r = t.batchable,
+            a = t.individual,
+            i = yield L(r, p, B, 0, []),
+            l = yield L(
+              a,
+              m,
+              function (e) {
+                return (d || (d = n("Promise"))).allSettled(
+                  e.map(function (e) {
+                    return f(e);
+                  }),
+                );
+              },
+              0,
+              [],
+            ),
+            s = R(
+              a,
+              l,
+              R(
+                r.map(function (e) {
+                  var t = e.contact;
+                  return t;
+                }),
+                i,
+                { failureCount: 0, successCount: 0 },
+              ),
+            );
           return (
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[cm:import] save complete: ",
                     " ok, ",
                     " failed",
                   ])),
-                t.successCount,
-                t.failureCount,
+                s.successCount,
+                s.failureCount,
               )
               .sendLogs("cm-import-save-complete"),
-            t
+            s
           );
         })),
-        b.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    l.saveImportedContacts = C;
+    l.saveImportedContacts = q;
   },
   98,
 );

@@ -807,14 +807,8 @@ __d(
           "admin_only_mention_everyone_group_size",
         ),
         s = (t = r.participants.iAmAdmin()) != null ? t : !1,
-        u = (n = r.participants.length) != null ? n : 0,
-        c = u < l || s;
-      return (
-        c &&
-        o("WAWebABProps").getABPropConfigValue(
-          "enable_mention_everyone_sender_web",
-        )
-      );
+        u = (n = r.participants.length) != null ? n : 0;
+      return u < l || s;
     }
     l.default = E;
   },

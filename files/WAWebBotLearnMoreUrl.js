@@ -1,6 +1,7 @@
 __d(
   "WAWebBotLearnMoreUrl",
   [
+    "WAWebBotGroupGatingUtils",
     "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProduct",
     "WAWebBotSupportGating",
@@ -23,7 +24,18 @@ __d(
         ? o("WAWebFaqUrl").getHatchLearnMoreUrl()
         : t === o("WAWebBotProduct").BotProduct.MANUS
           ? o("WAWebFaqUrl").getManusLearnMoreUrl()
-          : null;
+          : t === o("WAWebBotProduct").BotProduct.MUSE
+            ? u(e)
+            : null;
+    }
+    function u(e) {
+      var t = e == null ? void 0 : e.hcaEntrypointId;
+      return t == null ||
+        t === "" ||
+        (e == null ? void 0 : e.isDeleted) === !0 ||
+        !o("WAWebBotGroupGatingUtils").isMuseProductSupported()
+        ? o("WAWebFaqUrl").getStandardBotProfileLearnMoreUrl()
+        : o("WAWebFaqUrl").getCxtFaqUrl(t);
     }
     ((l.getBotSupportLearnMoreUrl = e), (l.getBotChannelLearnMoreUrl = s));
   },

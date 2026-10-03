@@ -440,6 +440,7 @@ __d(
             )
           : null,
         groupInfo: v,
+        isNewGroup: m,
       };
     }
     var $ = new (r("WADeprecatedWapParser"))(

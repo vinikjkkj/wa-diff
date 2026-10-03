@@ -229,19 +229,19 @@ __d(
       );
     }
     ((E.doc =
-      "Pin the Hatch linked status: hatchSetLinked(true) reports an ACTIVE paired channel, hatchSetLinked(false) reports none. Notifies subscribers, so the composer and the disconnect button update without a reload. Holds across later re-fetches, but only until the backend restarts (a 515/516 stream-error reconnect re-registers the real fetcher) \u2014 and a fetch already in flight when you call this can still land after it. Call it again to re-pin."),
+      "hatchSetLinked registers a debug fetcher for later linked-status requests.\nhatchSetLinked(true) returns an ACTIVE paired status.\nhatchSetLinked(false) returns a status with hasChannel and isPaired set to false.\nThe debug fetcher updates the composer and disconnect button after the request resolves.\nA 515 or 516 stream-error reconnect replaces the debug fetcher with the server fetcher.\nRegistering the debug fetcher during an active request invalidates that response and starts a replacement request.\nCalling hatchSetLinked again replaces the debug fetcher with the new return value."),
       (E.paramsToExecute = [!0]));
     function k() {
       var e;
       return {
-        isKnownLinked: (e = r("WAWebHatchLinkedStatusManager")).isKnownLinked(),
-        isLinked: e.isLinked(),
-        isOptimisticallyUnlinked: e.isOptimisticallyUnlinked(),
+        isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
+        isUnlinked: e.isUnlinked(),
+        linkedStatusState: e.getLinkedStatusState(),
         status: e.getLinkedStatus(),
       };
     }
     ((k.doc =
-      "Report the Hatch linked state: the fetched status plus what the three readers make of it. `isLinked` fails open and answers true while the status is still unknown \u2014 the composer and the disconnect button read it. `isKnownLinked` fails closed and gates the channel.bootstrap send. `isOptimisticallyUnlinked` is true between a local unlink and the next fetch, and only the disconnect button reads it."),
+      "Report the latest Hatch linked-status fetch result and the last confirmed status."),
       (k.paramsToExecute = []));
     var I = {
       hatchClearPayloads: h,

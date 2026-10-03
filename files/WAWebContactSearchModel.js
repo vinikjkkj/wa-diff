@@ -5,6 +5,7 @@ __d(
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebPhoneNumberSearch",
+    "WAWebResolveBotProfile",
     "WAWebSearchModel",
     "WAWebSearchUtils",
   ],
@@ -32,7 +33,10 @@ __d(
                 filterFn: function (t) {
                   return (
                     o("WAWebContactGetters").getIsUser(t) &&
-                    !o("WAWebBotUtils").isHiddenBotWid(t.id)
+                    !o("WAWebBotUtils").isHiddenBotWid(t.id) &&
+                    !o(
+                      "WAWebResolveBotProfile",
+                    ).shouldHideMuseBotFromCachedProfile(t.id)
                   );
                 },
               },

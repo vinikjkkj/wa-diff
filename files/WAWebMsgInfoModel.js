@@ -93,6 +93,7 @@ __d(
           (t.readRemaining = o("WAWebBaseModel").prop(0)),
           (t.deliveryRemaining = o("WAWebBaseModel").prop(0)),
           (t.deliveryPrivacyMode = o("WAWebBaseModel").prop()),
+          (t.countedAgents = o("WAWebBaseModel").prop()),
           (t.played = o("WAWebBaseModel").collection(c)),
           (t.read = o("WAWebBaseModel").collection(c)),
           (t.delivery = o("WAWebBaseModel").collection(c)),

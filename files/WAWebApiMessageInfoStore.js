@@ -4,11 +4,13 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebAck",
+    "WAWebBotUtils",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebSchemaMessage",
     "WAWebSchemaMessageInfo",
+    "WAWebSchemaParticipant",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "WAWebWidFactory",
@@ -240,107 +242,66 @@ __d(
                   }),
                 ),
               n = new Map(),
-              a = new Map(),
-              i = 0;
-            i < e.length;
-            i++
+              a = yield T(e),
+              i = new Map(),
+              l = 0;
+            l < e.length;
+            l++
           ) {
-            var l,
-              s,
-              u = e[i].toString(),
-              c =
-                (l = (s = t[i]) == null ? void 0 : s.latestEditMsgKey) != null
-                  ? l
-                  : u;
-            a.set(c, u);
-            var d = {
+            var s,
+              u,
+              c = e[l].toString(),
+              d =
+                (s = (u = t[l]) == null ? void 0 : u.latestEditMsgKey) != null
+                  ? s
+                  : c;
+            i.set(d, c);
+            var m = {
               messageInfoRecords: [],
-              ackReceiver: t[i] ? t[i].count : null,
+              ackReceiver: t[l] ? t[l].count : null,
+              groupParticipantJids: a.get(e[l].remote.toString()),
             };
-            if ((n.set(c, d), e[i].remote.isUser() || e[i].remote.isStatus())) {
-              var m,
-                p =
-                  (m = o("WAWebLidMigrationUtils").getAlternateMsgKey(
-                    r("WAWebMsgKey").from(c),
+            if ((n.set(d, m), e[l].remote.isUser() || e[l].remote.isStatus())) {
+              var p,
+                _ =
+                  (p = o("WAWebLidMigrationUtils").getAlternateMsgKey(
+                    r("WAWebMsgKey").from(d),
                   )) == null
                     ? void 0
-                    : m.toString();
-              p != null && (a.set(p, u), n.set(p, d));
+                    : p.toString();
+              _ != null && (i.set(_, c), n.set(_, m));
             }
           }
-          var _ = yield o("WAWebSchemaMessageInfo")
+          var f = yield o("WAWebSchemaMessageInfo")
             .getMessageInfoTable()
             .anyOf(["msgKey"], Array.from(n.keys()));
-          _.forEach(function (e) {
+          f.forEach(function (e) {
             var t;
             (t = n.get(e.msgKey)) == null || t.messageInfoRecords.push(e);
           });
-          var f = R(n),
-            g = new Map();
-          for (var h of f) {
-            var y = h[0],
-              C = h[1];
+          var g = R(n),
+            h = new Map();
+          for (var y of g) {
+            var C = y[0],
+              b = y[1];
             {
-              var b = a.get(y);
-              b != null && g.set(b, C);
+              var v = i.get(C);
+              v != null && h.set(v, b);
             }
           }
-          return g;
+          return h;
         })),
         S.apply(this, arguments)
       );
     }
     function R(t) {
       var n = new Map(),
-        a = [],
-        i = function () {
-          var e = l[0],
-            t = l[1],
-            i = t.ackReceiver,
-            s = t.messageInfoRecords,
-            u = 0,
-            c = {
-              delivery: [],
-              deliveryRemaining: 0,
-              played: [],
-              playedRemaining: 0,
-              read: [],
-              readRemaining: 0,
-            },
-            d = !1;
-          s.forEach(function (t) {
-            var n = o("WAWebWidFactory").createWid(t.receiverUserJid);
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
-              L(t);
-              for (var a = 0; a < m.length; a++) {
-                var i = m[a],
-                  l = t[i];
-                if (l != null) {
-                  c[i].push({ id: n, t: l });
-                  var s = r("WAWebWid").isGroup(
-                    r("WAWebMsgKey").fromString(e).remote,
-                  );
-                  if (
-                    (s && i === "read" && n != null && n.isBot() && (d = !0), s)
-                  )
-                    break;
-                }
-              }
-              (t.delivery != null &&
-                t.deliveryPrivacyMode != null &&
-                (c.deliveryPrivacyMode = t.deliveryPrivacyMode),
-                (u += 1));
-            }
-          });
-          var p = i != null && i !== 0 ? i : u;
-          (d && p++,
-            a.length < 3 && a.push(e),
-            (c.playedRemaining = p - c.played.length),
-            (c.readRemaining = c.playedRemaining - c.read.length),
-            (c.deliveryRemaining = c.readRemaining - c.delivery.length),
-            n.set(e, c));
-        };
-      for (var l of t.entries()) i();
+        r = [];
+      for (var a of t.entries()) {
+        var i = a[0],
+          l = a[1];
+        (r.length < 3 && r.push(i), n.set(i, L(i, l)));
+      }
       return (
         n.size > 0 &&
           o("WALogger").LOG(
@@ -351,21 +312,147 @@ __d(
                 "",
               ])),
             n.size,
-            a,
+            r,
           ),
         n
       );
     }
-    function L(e) {
+    function L(e, t) {
+      var n = t.ackReceiver,
+        a = t.groupParticipantJids,
+        i = t.messageInfoRecords,
+        l = r("WAWebWid").isGroup(r("WAWebMsgKey").fromString(e).remote),
+        s = {
+          delivery: [],
+          deliveryRemaining: 0,
+          played: [],
+          playedRemaining: 0,
+          read: [],
+          readRemaining: 0,
+        },
+        u = [];
+      i.forEach(function (e) {
+        var t = o("WAWebWidFactory").createWid(e.receiverUserJid);
+        o("WAWebUserPrefsMeUser").isMeAccount(t) ||
+          (x(e),
+          E(s, e, t, l),
+          e.delivery != null &&
+            e.deliveryPrivacyMode != null &&
+            (s.deliveryPrivacyMode = e.deliveryPrivacyMode),
+          u.push(t));
+      });
+      var c = u.filter(function (e) {
+          return !l || !e.isBot();
+        }).length,
+        d = n != null && n !== 0 ? n : I(c, a),
+        m = l
+          ? k({
+              agentReceiverWids: u.filter(function (e) {
+                return e.isBot();
+              }),
+              groupParticipantJids: a,
+              humanTotal: d,
+              isSendingDevice: n != null,
+            })
+          : [],
+        p = new Set(m.map(String)),
+        _ = function (t) {
+          return t.filter(function (e) {
+            var t = e.id;
+            return !l || !t.isBot() || p.has(String(t));
+          }).length;
+        };
+      return (
+        (s.playedRemaining = d + m.length - _(s.played)),
+        (s.readRemaining = s.playedRemaining - _(s.read)),
+        (s.deliveryRemaining = s.readRemaining - _(s.delivery)),
+        m.length > 0 && (s.countedAgents = m),
+        s
+      );
+    }
+    function E(e, t, n, r) {
+      for (var o of m) {
+        var a = t[o];
+        if (a != null && (e[o].push({ id: n, t: a }), r)) return;
+      }
+    }
+    function k(e) {
+      var t = e.agentReceiverWids,
+        n = e.groupParticipantJids,
+        r = e.humanTotal,
+        a = e.isSendingDevice,
+        i = (n != null ? n : [])
+          .filter(function (e) {
+            return e.endsWith("@bot");
+          })
+          .map(function (e) {
+            return o("WAWebWidFactory").createUserWidOrThrow(e);
+          }),
+        l = new Map(),
+        s = function (t) {
+          l.set(String(t), t);
+        };
+      return (
+        i.filter(o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid).forEach(s),
+        a && t.forEach(s),
+        l.size === 0 && r === 0 && i.forEach(s),
+        Array.from(l.values())
+      );
+    }
+    function I(e, t) {
+      return e > 0 || t == null
+        ? e
+        : t.filter(function (e) {
+            return (
+              !e.endsWith("@bot") &&
+              !o("WAWebUserPrefsMeUser").isMeAccount(
+                o("WAWebWidFactory").createWid(e),
+              )
+            );
+          }).length;
+    }
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = Array.from(
+              new Set(
+                e
+                  .filter(function (e) {
+                    return e.remote.isGroup();
+                  })
+                  .map(function (e) {
+                    return e.remote.toString();
+                  }),
+              ),
+            ),
+            n = new Map();
+          if (t.length === 0) return n;
+          var r = yield o("WAWebSchemaParticipant")
+            .getParticipantTable()
+            .bulkGet(t);
+          return (
+            r.forEach(function (e, r) {
+              e != null && n.set(t[r], e.participants);
+            }),
+            n
+          );
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e) {
       var t = e.read;
       t != null && (e.delivery == null || e.delivery > t) && (e.delivery = t);
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function k() {
+    function P() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
             n = yield v(e);
           for (var r of e) {
@@ -384,7 +471,7 @@ __d(
           }
           return t;
         })),
-        k.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     ((l.RetryEligibilityResult = p),
@@ -393,7 +480,7 @@ __d(
       (l.isRetryEligible = h),
       (l.queryMsgInfo = C),
       (l.queryMsgInfos = v),
-      (l.getHighestMsgAcks = E));
+      (l.getHighestMsgAcks = $));
   },
   98,
 );

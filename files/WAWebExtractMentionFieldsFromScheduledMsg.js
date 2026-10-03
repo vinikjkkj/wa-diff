@@ -1,6 +1,6 @@
 __d(
   "WAWebExtractMentionFieldsFromScheduledMsg",
-  ["WAWebABProps", "WAWebDecodeJid", "WAWebGetScheduledMsgContextInfo"],
+  ["WAWebDecodeJid", "WAWebGetScheduledMsgContextInfo"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WAWebGetScheduledMsgContextInfo").getScheduledMsgContextInfo(
@@ -27,14 +27,7 @@ __d(
         }
         d.length > 0 && (n.groupMentions = d);
       }
-      return (
-        i != null &&
-          o("WAWebABProps").getABPropConfigValue(
-            "enable_mention_everyone_receiver_web",
-          ) &&
-          (n.nonJidMentions = i),
-        n
-      );
+      return (i != null && (n.nonJidMentions = i), n);
     }
     function s(e) {
       var t = o("WAWebDecodeJid").decodeJid(e);

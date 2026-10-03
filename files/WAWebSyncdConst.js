@@ -11,9 +11,10 @@ __d(
       m = 0,
       p = 3,
       _ = 1,
-      f = 7,
-      g = 0,
-      h = (e = n("$InternalEnum"))({
+      f = 1,
+      g = 7,
+      h = 0,
+      y = (e = n("$InternalEnum"))({
         Star: "star",
         Contact: "contact",
         Mute: "mute",
@@ -81,6 +82,7 @@ __d(
         SettingsSync: "settings_sync",
         NctSaltSync: "nct_salt_sync",
         BusinessBroadcastInsights: "business_broadcast_insights_sync",
+        ContactManagerMetadata: "contact_manager_metadata",
         CustomerData: "customer_data",
         OutContact: "out_contact",
         SubscriptionsSyncV2: "subscriptions_sync_v2",
@@ -89,14 +91,14 @@ __d(
         GroupHistoryToggle: "group_history_toggle",
         BBProPendingCustomerBaseAction: "bb_pro_pending_customer_base_action",
       }),
-      y = e({
+      C = e({
         Regular: "regular",
         RegularLow: "regular_low",
         RegularHigh: "regular_high",
         CriticalBlock: "critical_block",
         CriticalUnblockLow: "critical_unblock_low",
       }),
-      C = e.Mirrored([
+      b = e.Mirrored([
         "Success",
         "SuccessHasMore",
         "Conflict",
@@ -105,14 +107,14 @@ __d(
         "ErrorFatal",
         "Blocked",
       ]),
-      b = e.Mirrored([
+      v = e.Mirrored([
         "UpToDate",
         "Dirty",
         "FailingFiniteRetry",
         "Fatal",
         "Blocked",
       ]),
-      v = e.Mirrored([
+      S = e.Mirrored([
         "Success",
         "Malformed",
         "Orphan",
@@ -120,7 +122,7 @@ __d(
         "Skipped",
         "Failed",
       ]),
-      S = e.Mirrored([
+      R = e.Mirrored([
         "Msg",
         "Chat",
         "Agent",
@@ -130,12 +132,12 @@ __d(
         "FavoriteSticker",
         "Thread",
       ]),
-      R = e.Mirrored([
+      L = e.Mirrored([
         "ApplyRemoteAndDropLocal",
         "SkipRemote",
         "SkipRemoteAndDropLocal",
       ]),
-      L = e.Mirrored(["Patch", "Snapshot", "Local"]);
+      E = e.Mirrored(["Patch", "Snapshot", "Local"]);
     ((l.BACKOFF_MIN_TIMEOUT = s),
       (l.BACKOFF_MAX_TIMEOUT = u),
       (l.BACKOFF_BASE = c),
@@ -143,16 +145,17 @@ __d(
       (l.DEFAULT_COLLECTION_VERSION = m),
       (l.LABEL_ASSOCIATION_SYNC_VERSION = p),
       (l.LABEL_SUBLIST_SYNC_VERSION = _),
-      (l.CHAT_ASSIGNMENT_SYNC_VERSION = f),
-      (l.MUTATION_NAME_INDEX = g),
-      (l.Actions = h),
-      (l.CollectionName = y),
-      (l.CollectionState = C),
-      (l.CollectionSyncState = b),
-      (l.SyncActionState = v),
-      (l.SyncModelType = S),
-      (l.ConflictResolutionState = R),
-      (l.SyncDataType = L));
+      (l.CONTACT_MANAGER_METADATA_SYNC_VERSION = f),
+      (l.CHAT_ASSIGNMENT_SYNC_VERSION = g),
+      (l.MUTATION_NAME_INDEX = h),
+      (l.Actions = y),
+      (l.CollectionName = C),
+      (l.CollectionState = b),
+      (l.CollectionSyncState = v),
+      (l.SyncActionState = S),
+      (l.SyncModelType = R),
+      (l.ConflictResolutionState = L),
+      (l.SyncDataType = E));
   },
   98,
 );
