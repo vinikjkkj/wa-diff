@@ -19,6 +19,7 @@ __d(
         BUSINESS_SETTINGS: "business_settings",
         CONDITIONAL_CREATE: "conditional_create",
         ENCRYPTED_BACKUPS: "encrypted_backups",
+        HOUSE_AD: "house_ad",
         LOGIN_FLOW: "login_flow",
         MEGAPHONE: "megaphone",
         MIGRATION_MOMENT_NUX: "migration_moment_nux",

@@ -9,11 +9,11 @@ __d(
     "FBLogger",
     "I64",
     "LSDatabaseSingleton",
-    "QPLUserFlow",
     "ReQL",
     "WAHashStringToNumber",
     "WAJids",
     "WAResultOrError",
+    "WMIQplFlow",
     "XPlatRelayEnvironment",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -75,30 +75,29 @@ __d(
           if (!c && !r("gkx")("16464"))
             return o("WAResultOrError").makeError("unsupported-mailbox");
           var h =
-            l != null ? o("WAHashStringToNumber").hashStringToNumber(l) : ++f;
-          try {
-            var y, C;
-            r("QPLUserFlow").start(r("qpl")._(521476771, "2454"), {
+              l != null ? o("WAHashStringToNumber").hashStringToNumber(l) : ++f,
+            y = o("WMIQplFlow").startQplFlow(r("qpl")._(521476771, "2454"), {
               annotations: { int: { number_of_messages: u } },
               instanceKey: h,
             });
-            var b = o("XPlatRelayEnvironment").getRelayEnvironment(),
-              v = t === "after" ? "AFTER" : "BEFORE";
-            r("QPLUserFlow").addPoint(
-              r("qpl")._(521476771, "2454"),
+          try {
+            var C,
+              b,
+              v = o("XPlatRelayEnvironment").getRelayEnvironment(),
+              S = t === "after" ? "AFTER" : "BEFORE";
+            y.addPoint(
               o("EBAPIQPLPoints").EBMessageMetadataQPLPoints
                 .GRAPHQL_QUERY_START,
-              { instanceKey: h },
             );
-            var S = yield p(g),
-              R = yield o("relay-runtime")
+            var R = yield p(g),
+              L = yield o("relay-runtime")
                 .fetchQuery(
-                  b,
+                  v,
                   d,
                   {
                     data: {
                       act_thread_id: g,
-                      direction: v,
+                      direction: S,
                       include_anonymized_messages: i,
                       reference_timestamp:
                         _ == null
@@ -107,7 +106,7 @@ __d(
                               _,
                             ),
                       requested_messages: u,
-                      server_thread_key: S,
+                      server_thread_key: R,
                     },
                   },
                   {
@@ -116,22 +115,20 @@ __d(
                   },
                 )
                 .toPromise();
-            r("QPLUserFlow").addPoint(
-              r("qpl")._(521476771, "2454"),
+            y.addPoint(
               o("EBAPIQPLPoints").EBMessageMetadataQPLPoints.GRAPHQL_QUERY_END,
-              { instanceKey: h },
             );
-            var L =
-                (y =
-                  R == null ||
-                  (C = R.viewer) == null ||
-                  (C = C.encrypted_backup) == null ||
-                  (C = C.mailbox) == null
+            var E =
+                (C =
+                  L == null ||
+                  (b = L.viewer) == null ||
+                  (b = b.encrypted_backup) == null ||
+                  (b = b.mailbox) == null
                     ? void 0
-                    : C.deanon_messages_metadata) != null
-                  ? y
+                    : b.deanon_messages_metadata) != null
+                  ? C
                   : [],
-              E = L.map(function (e) {
+              k = E.map(function (e) {
                 var t = e.admin_message,
                   n = e.is_admin_message,
                   r = e.offline_threading_id,
@@ -147,25 +144,19 @@ __d(
                 return i;
               });
             return (
-              r("QPLUserFlow").endSuccess(r("qpl")._(521476771, "2454"), {
-                instanceKey: h,
-              }),
-              o("WAResultOrError").makeResult({ instanceKey: l, messages: E })
+              y.endSuccess(),
+              o("WAResultOrError").makeResult({ instanceKey: l, messages: k })
             );
           } catch (e) {
-            var k = r("getErrorSafe")(e);
+            var I = r("getErrorSafe")(e);
             return (
               r("FBLogger")("wmi_eb")
-                .catching(k)
+                .catching(I)
                 .mustfix(
                   "Error querying messaging metadata from EBMessageMetadataQuery",
                 ),
-              r("QPLUserFlow").endFailure(
-                r("qpl")._(521476771, "2454"),
-                "error",
-                { error: k, instanceKey: h },
-              ),
-              o("WAResultOrError").DEPRECATED_makeError("error", k)
+              y.endFail("error"),
+              o("WAResultOrError").DEPRECATED_makeError("error", I)
             );
           }
         })),

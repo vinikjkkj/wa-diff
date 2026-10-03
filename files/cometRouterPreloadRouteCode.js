@@ -18,15 +18,17 @@ __d(
     function s(t, n) {
       var r = n == null ? void 0 : n.entryPoint;
       if (n == null || t == null || r == null) return;
-      function o(r) {
-        var o = e.getModuleIfRequireable();
-        if (o) {
-          var a = { routeParams: t.params, routeProps: n.props };
-          o.fetchPredictedEntryPointResources(r, a);
+      var o = t,
+        a = n;
+      function i(t) {
+        var n = e.getModuleIfRequireable();
+        if (n) {
+          var r = { routeParams: o.params, routeProps: a.props };
+          n.fetchPredictedEntryPointResources(t, r);
         }
       }
-      var a = r.getModuleIfRequireable();
-      a ? o(a) : r.onReady(o);
+      var l = r.getModuleIfRequireable();
+      l ? i(l) : r.onReady(i);
     }
     function u(e, t, n, a, i, l) {
       var u = r("normalizeCometRouterUrl")(e);

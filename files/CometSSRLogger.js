@@ -164,7 +164,9 @@ __d(
               c.forEach(function (e) {
                 var t,
                   r = (t = e.id) != null ? t : "global_failure";
-                n.addMetadata("ssr_status_" + r, e.status);
+                (n.addMetadata("ssr_status_" + r, e.status),
+                  e.reason != null &&
+                    n.addMetadata("ssr_fail_reason_" + r, e.reason));
               }),
             n.addMetadata("ssr_is_injected", d === "INJECTED" ? 1 : 0),
             d === "INJECTED" && (m || a(), i()));

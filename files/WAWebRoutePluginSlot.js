@@ -33,9 +33,9 @@ __d(
         },
       };
     }
-    var f = function (t) {
+    function f(e) {
       return r("WAWebNoop");
-    };
+    }
     function g(e) {
       var t,
         n,

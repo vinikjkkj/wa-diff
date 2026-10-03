@@ -19,61 +19,27 @@ __d(
       );
     }
     function s(e, t) {
-      var n,
-        r = o("IGDInstamadilloUtils").isInstamadilloCutover(e),
-        a = o("IGDInstamadilloUtils").isInstamadilloTransportEnabled(e),
-        i = o("IGDInstamadilloUtils").isIGDDisappearingModeEnabled(e);
-      (t.addAnnotationBoolean("is_instamadillo", a),
-        t.addAnnotationBoolean("is_instamadillo_tlc", r),
-        t.addAnnotationBoolean("is_dm", i),
+      var n = o("IGDInstamadilloUtils").isInstamadilloCutover(e),
+        r = o("IGDInstamadilloUtils").isInstamadilloTransportEnabled(e),
+        a = o("IGDInstamadilloUtils").isIGDDisappearingModeEnabled(e);
+      (t.addAnnotationBoolean("is_instamadillo", r),
+        t.addAnnotationBoolean("is_instamadillo_tlc", n),
+        t.addAnnotationBoolean("is_dm", a),
         t.addAnnotationBoolean(
           "is_instamadillo_ttlc",
-          (n = o("IGDThreadTTLCUtils")).isIGDTTLCEnabledForThread(e),
+          o("IGDThreadTTLCUtils").isIGDTTLCEnabledForThread(e),
         ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_audio",
-          n.isInstamadilloTTLCAudioEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_clip",
-          n.isInstamadilloTTLCClipEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_generic_xma",
-          n.isInstamadilloTTLCGenericXmaEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_image",
-          n.isInstamadilloTTLCImageEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_link",
-          n.isInstamadilloTTLCLinkEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_media_share",
-          n.isInstamadilloTTLCMediaShareEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_profile",
-          n.isInstamadilloTTLCProfileEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_reel_share",
-          n.isInstamadilloTTLCReelShareEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_story_share",
-          n.isInstamadilloTTLCStoryShareEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_text",
-          n.isInstamadilloTTLCTextEnabled(e),
-        ),
-        t.addAnnotationBoolean(
-          "is_instamadillo_ttlc_video",
-          n.isInstamadilloTTLCVideoEnabled(e),
-        ));
+        t.addAnnotationBoolean("is_instamadillo_ttlc_audio", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_clip", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_generic_xma", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_image", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_link", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_media_share", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_profile", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_reel_share", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_story_share", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_text", !1),
+        t.addAnnotationBoolean("is_instamadillo_ttlc_video", !1));
     }
     ((l.getInstamadilloBooleanAnnotations = e),
       (l.addInstamadilloAnnotationsToInteractionTrace = s));

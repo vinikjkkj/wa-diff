@@ -5,6 +5,7 @@ __d(
     "EBMinosLogger",
     "EBMinosMessageEncryptionVersion",
     "EBMinosMessageMetadataVersion",
+    "EBMinosServerOriginGating",
     "EBMinosTypes",
     "MSGDataclassTypes.flow",
     "MpsTypes",
@@ -13,8 +14,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g, h, y, C;
-    function b(t) {
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b;
+    function v(t) {
       var n = t != null ? t : {},
         r = n.actor_token,
         a = n.encrypted_protobuf,
@@ -25,8 +26,9 @@ __d(
         m = n.message_metadata_version,
         p = n.protobuf_timestamp,
         _ = n.reporting_tag,
-        f = n.transport_sender_message_signature,
-        g = n.transport_sender_signing_pk;
+        f = n.server_origin_content_type,
+        g = n.transport_sender_message_signature,
+        h = n.transport_sender_signing_pk;
       if (
         (d == null &&
           o("EBMinosLogger").minosLogger.ERROR(
@@ -42,14 +44,14 @@ __d(
           l == null ||
           c == null ||
           p == null ||
-          f == null ||
-          g == null)
+          g == null ||
+          h == null)
       )
         return o("WAResultOrError").makeError("top-level-missing-fields");
-      var h = o(
+      var y = o(
         "EBMinosMessageEncryptionVersion",
       ).MinosMessageEncryptionVersion.cast(d);
-      if (h == null)
+      if (y == null)
         return (
           o("EBMinosLogger").minosLogger.ERROR(
             s ||
@@ -61,10 +63,10 @@ __d(
           ),
           o("WAResultOrError").makeError("invalid-message-encryption-version")
         );
-      var y = o(
+      var C = o(
         "EBMinosMessageMetadataVersion",
       ).MinosMessageMetadataVersion.cast(m);
-      return y == null
+      return C == null
         ? (o("EBMinosLogger").minosLogger.ERROR(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,8 +91,8 @@ __d(
             mekId: o("EBMinosTypes").unsafeCastToMekId(
               o("Base64Utils").toArrayBuffer(c),
             ),
-            messageEncryptionVersion: h,
-            messageMetadataVersion: y,
+            messageEncryptionVersion: y,
+            messageMetadataVersion: C,
             protobufTimestamp: o("MpsTypes").toTimestamp(parseInt(p, 10)),
             reportingTag:
               _ != null
@@ -98,17 +100,18 @@ __d(
                     new Uint8Array(o("Base64Utils").toArrayBuffer(_)),
                   )
                 : null,
+            serverOriginContentType: f,
             transportSenderMessageSignature: o(
               "EBMinosTypes",
             ).unsafeCastToEncryptedMessageSignature(
-              o("Base64Utils").toArrayBuffer(f),
+              o("Base64Utils").toArrayBuffer(g),
             ),
             transportSenderSigningPk: o(
               "EBMinosTypes",
-            ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(g)),
+            ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(h)),
           });
     }
-    function v(e) {
+    function S(e) {
       return e === "PHOTO"
         ? o("MSGDataclassTypes.flow").MpsMessageTag.Photo
         : e === "PERMANENT"
@@ -164,11 +167,11 @@ __d(
                                                     .MpsMessageTag.ActionLog
                                                 : null;
     }
-    function S(e) {
+    function R(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
-        var r = v(n);
+        var r = S(n);
         r == null
           ? o("EBMinosLogger").minosLogger.ERROR(
               c ||
@@ -182,7 +185,7 @@ __d(
       }
       return t;
     }
-    function R(e) {
+    function L(e) {
       var t = e != null ? e : {},
         n = t.actor_token,
         r = t.encrypted_protobuf,
@@ -282,107 +285,142 @@ __d(
             ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(y)),
           };
     }
-    function L(e) {
-      return e == null
-        ? []
-        : e
-            .map(function (e) {
-              var t = e.echo_document,
-                n = e.otid,
-                r = e.protobuf_stanzas;
-              if (n == null)
-                return (
+    function E(e, t) {
+      if (e == null) return [];
+      var n = new Set(),
+        r = 0,
+        a = 0,
+        i = e
+          .map(function (e) {
+            var t = e.echo_document,
+              i = e.otid,
+              l = e.protobuf_stanzas;
+            if (i == null)
+              return (
+                o("EBMinosLogger").minosLogger.ERROR(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "processMinosMessages: otid is null",
+                    ])),
+                ),
+                null
+              );
+            if (l == null)
+              return (
+                t == null &&
                   o("EBMinosLogger").minosLogger.ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "processMinosMessages: otid is null",
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "processMinosMessages: protobuf_stanzas and echo_documents are null",
                       ])),
                   ),
-                  null
-                );
-              if (r == null)
-                return (
-                  t == null &&
-                    o("EBMinosLogger").minosLogger.ERROR(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "processMinosMessages: protobuf_stanzas and echo_documents are null",
+                null
+              );
+            var s = l.message_tags,
+              u = l.supplemental_protobufs_v2,
+              c = u === void 0 ? [] : u,
+              d = l.top_level_protobuf_v2;
+            if (d == null) return null;
+            var m = o("EBMinosServerOriginGating").classifyServerOriginContent(
+                d.server_origin_content_type,
+              ),
+              p = o("EBMinosServerOriginGating").serverOriginContentTypeName(
+                d.server_origin_content_type,
+              );
+            if ((p != null && n.add(p), m === "unsupported"))
+              return (
+                a++,
+                o("EBMinosLogger").minosLogger.ERROR(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "processMinosMessages: dropping server-origin content of unsupported type",
+                    ])),
+                ),
+                null
+              );
+            m === "supported" && r++;
+            var b = v(d);
+            if (!b.success)
+              return (
+                o("EBMinosLogger").minosLogger.ERROR(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "processMinosMessages: top_level_protobuf_v2 conversion failed",
+                    ])),
+                ),
+                null
+              );
+            var S = c
+                .map(function (e) {
+                  var t = e == null ? void 0 : e.supplemental_key,
+                    n = L(e);
+                  if (t == null) {
+                    o("EBMinosLogger").minosLogger.LOG(
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                          "processMinosMessages: minos supplementalKey is null",
                         ])),
-                    ),
-                  null
-                );
-              var a = r.message_tags,
-                i = r.supplemental_protobufs_v2,
-                l = i === void 0 ? [] : i,
-                s = r.top_level_protobuf_v2;
-              if (s == null) return null;
-              var u = b(s);
-              if (!u.success)
-                return (
-                  o("EBMinosLogger").minosLogger.ERROR(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "processMinosMessages: top_level_protobuf_v2 conversion failed",
-                      ])),
-                  ),
-                  null
-                );
-              var c = l
-                  .map(function (e) {
-                    var t = e == null ? void 0 : e.supplemental_key,
-                      n = R(e);
-                    if (t == null) {
-                      o("EBMinosLogger").minosLogger.LOG(
-                        h ||
-                          (h = babelHelpers.taggedTemplateLiteralLoose([
-                            "processMinosMessages: minos supplementalKey is null",
-                          ])),
-                      );
-                      return;
-                    }
-                    if (n == null) {
-                      o("EBMinosLogger").minosLogger.LOG(
-                        y ||
-                          (y = babelHelpers.taggedTemplateLiteralLoose([
-                            "processMinosMessages: minosSupplementalProtobuf is null",
-                          ])),
-                      );
-                      return;
-                    }
-                    return n;
-                  })
-                  .filter(Boolean),
-                d = o("MpsTypes").toMessageId(n);
-              return {
-                messageTags: S(a),
-                otid: d,
-                supplementalProtobufsV2: c,
-                topLevelProtobufV2: u.value,
-              };
-            })
-            .filter(Boolean);
+                    );
+                    return;
+                  }
+                  if (n == null) {
+                    o("EBMinosLogger").minosLogger.LOG(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "processMinosMessages: minosSupplementalProtobuf is null",
+                        ])),
+                    );
+                    return;
+                  }
+                  return n;
+                })
+                .filter(Boolean),
+              E = o("MpsTypes").toMessageId(i);
+            return {
+              messageTags: R(s),
+              otid: E,
+              supplementalProtobufsV2: S,
+              topLevelProtobufV2: b.value,
+            };
+          })
+          .filter(Boolean);
+      return (
+        t != null &&
+          (t.addAnnotations({
+            bool: { has_server_origin_content: n.size > 0 },
+          }),
+          n.size > 0 &&
+            t.addAnnotations({
+              int: {
+                server_origin_content_accepted: r,
+                server_origin_content_dropped: a,
+              },
+              string_array: { server_origin_content_types: Array.from(n) },
+            })),
+        i
+      );
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       return t ===
         o("EBMinosMessageMetadataVersion").MinosMessageMetadataVersion.V1
         ? e
         : isNaN(n)
           ? (o("EBMinosLogger").minosLogger.ERROR(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "createMessageTimestamp: otid is not a number",
                 ])),
             ),
             o("MpsTypes").toTimestamp(0))
-          : k(n);
+          : I(n);
     }
-    function k(e) {
+    function I(e) {
       return o("MpsTypes").toTimestamp(Number(BigInt(e) >> BigInt(22)));
     }
-    ((l.convertArrayToMpsMessageTags = S),
-      (l.processMinosMessages = L),
-      (l.createMessageTimestamp = E),
-      (l.extractTimestampFromOtid = k));
+    ((l.convertArrayToMpsMessageTags = R),
+      (l.processMinosMessages = E),
+      (l.createMessageTimestamp = k),
+      (l.extractTimestampFromOtid = I));
   },
   98,
 );

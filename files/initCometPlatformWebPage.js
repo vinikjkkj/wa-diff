@@ -8,6 +8,7 @@ __d(
     "CometTimeSpentBitArrayLogger",
     "CometTimeSpentNavigationLogger",
     "CometVisitationManager",
+    "ExecutionEnvironment",
     "FBLogger",
     "HostnameRewriter",
     "WebPerformanceDeviceInfo",
@@ -16,6 +17,7 @@ __d(
     "cr:1132918",
     "cr:20588",
     "cr:2654",
+    "cr:6036",
     "cr:9830",
     "initCometTimeSpentLogger",
     "requireDeferred",
@@ -23,48 +25,55 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("requireDeferred")("CometBrowserDimensionsLogger").__setRef(
+    var e,
+      s = r("requireDeferred")("CometBrowserDimensionsLogger").__setRef(
         "initCometPlatformWebPage",
       ),
-      s = r("requireDeferred")("CometChromeDome").__setRef(
+      u = r("requireDeferred")("CometChromeDome").__setRef(
         "initCometPlatformWebPage",
       );
-    function u(t, a, i) {
+    function c(t, a, i) {
       var l,
-        u = a.disableTimeSpentLogging,
-        c = a.disableWebDevicePerfLogging,
-        d = a.productAttribution,
-        m = a.timeSpentMetadata,
-        p = a.timeSpentRoute;
+        c = a.disableTimeSpentLogging,
+        d = a.disableWebDevicePerfLogging,
+        m = a.productAttribution,
+        p = a.timeSpentMetadata,
+        _ = a.timeSpentRoute,
+        f = a.traceAPI;
       if (
         (o("CometErrorSystem").init(t),
         !((l = i == null ? void 0 : i.disableDevTools) != null && l))
       ) {
-        var _;
+        var g;
         n("cr:2654") &&
           n("cr:2654").init({
             connectFromIFrame:
-              (_ = i == null ? void 0 : i.connectFromIFrame) != null ? _ : !1,
+              (g = i == null ? void 0 : i.connectFromIFrame) != null ? g : !1,
           });
       }
       (n("cr:20588") == null || n("cr:20588").init(),
         n("cr:9830") && n("cr:9830")(),
         r("CometJSUsage") == null ||
           r("CometJSUsage").setupCometJSUsageLogging(),
-        s.onReady(function (e) {
+        u.onReady(function (e) {
           return e.init();
         }),
-        c !== !0 &&
+        d !== !0 &&
           o("WebPerformanceDeviceInfo").initWebDevicePerfLoggingPassive(),
-        e.onReady(function (e) {
+        s.onReady(function (e) {
           return e.init();
         }),
         r("CometClientConsistency").init(),
         o("CometPixelRatioDetector").initDetecting(),
-        u !== !0 &&
-          (o("CometVisitationManager").init(p.tracePolicy),
-          o("CometTimeSpentNavigationLogger").init(p, m, d),
-          o("CometTimeSpentBitArrayLogger").init(p.tracePolicy),
+        c !== !0 &&
+          (n("cr:6036") == null ||
+            n("cr:6036").registerTimeSpentStartupTrace(
+              f,
+              r("shouldUseNonReactTSListeners"),
+            ),
+          o("CometVisitationManager").init(_.tracePolicy),
+          o("CometTimeSpentNavigationLogger").init(_, p, m),
+          o("CometTimeSpentBitArrayLogger").init(_.tracePolicy),
           r("shouldUseNonReactTSListeners") && r("initCometTimeSpentLogger")()),
         n("cr:1132918") && n("cr:1132918").handleServerErrors(),
         n("cr:1033").onReady(function (e) {
@@ -72,14 +81,15 @@ __d(
         }),
         n("cr:11192") && n("cr:11192").init(),
         o("HostnameRewriter").maybeRegisterFilters(),
-        window.addEventListener("DOMContentLoaded", function () {
-          document.getElementById("has-finished-comet-page") == null &&
-            r("FBLogger")("comet_infra").warn(
-              "Comet page did not finish loading correctly.",
-            );
-        }));
+        (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+          window.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("has-finished-comet-page") == null &&
+              r("FBLogger")("comet_infra").warn(
+                "Comet page did not finish loading correctly.",
+              );
+          }));
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

@@ -52,7 +52,7 @@ __d(
           return (u || (u = r("isPromise")))(a)
             ? a.catch(function (e) {
                 r("FBLogger")("messenger_web")
-                  .catching(e)
+                  .catching(r("getErrorSafe")(e))
                   .mustfix("error in ReStore subscription async handler");
               })
             : a;
@@ -132,11 +132,15 @@ __d(
           m =
             a == null
               ? void 0
-              : o("ReStoreUtils").searchKey(t.tableNames[n], a, l),
+              : l == null
+                ? o("ReStoreUtils").searchKey(t.tableNames[n], a, null)
+                : o("ReStoreUtils").searchKey(t.tableNames[n], a, l),
           p =
             i == null
               ? void 0
-              : o("ReStoreUtils").searchKey(t.tableNames[n], i, l);
+              : l == null
+                ? o("ReStoreUtils").searchKey(t.tableNames[n], i, null)
+                : o("ReStoreUtils").searchKey(t.tableNames[n], i, l);
         if (p == null && m != null)
           return u(m, { operation: "delete", prevValue: r("nullthrows")(a) });
         if (m == null && p != null)

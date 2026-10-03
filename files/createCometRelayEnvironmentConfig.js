@@ -15,6 +15,7 @@ __d(
     "cr:1121434",
     "cr:13458",
     "cr:1467370",
+    "cr:16041",
     "cr:17286",
     "cr:21303",
     "cr:534",
@@ -41,8 +42,9 @@ __d(
     }
     function s(e) {
       var t = r("gkx")("3367") ? r("RelayAPIConfig").customHeaders : {},
-        n = e != null ? e() : {};
-      return babelHelpers.extends({}, t, n);
+        o = n("cr:16041") != null ? n("cr:16041")() : {},
+        a = e != null ? e() : {};
+      return babelHelpers.extends({}, t, o, a);
     }
     function u(e, t) {
       var a = {

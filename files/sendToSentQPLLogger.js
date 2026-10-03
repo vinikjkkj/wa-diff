@@ -236,14 +236,23 @@ __d(
       );
     }
     function E(e) {
-      if ((u || (u = o("QPLEvent"))).getSamplingMethod(p) !== 1 || !k(e))
+      if ((u || (u = o("QPLEvent"))).getSamplingMethod(p) !== 1 || !I(e))
         return p;
       var t = (u || (u = o("QPLEvent"))).getSampleRate(p),
         n = r("justknobx")._("3946"),
-        a = Math.max(1, Math.min(n, t));
-      return { i: u.getMarkerId(p), m: u.getSamplingMethod(p), r: a };
+        a = Math.ceil(n / k(e)),
+        i = Math.max(1, Math.min(a, t));
+      return { i: u.getMarkerId(p), m: u.getSamplingMethod(p), r: i };
     }
     function k(e) {
+      return e === o("MWMsgMediaTypeLogUtils").AttachmentType.Audio ||
+        e === o("MWMsgMediaTypeLogUtils").AttachmentType.Gif ||
+        e === o("MWMsgMediaTypeLogUtils").AttachmentType.Sticker ||
+        e === o("MWMsgMediaTypeLogUtils").AttachmentType.Video
+        ? 4
+        : 1;
+    }
+    function I(e) {
       return (
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Application ||
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Audio ||
@@ -256,7 +265,7 @@ __d(
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Share
       );
     }
-    function I(e) {
+    function T(e) {
       (r("QPLUserFlow").endSuccess(p, {
         annotations: {
           bool: {
@@ -269,7 +278,7 @@ __d(
       }),
         S(e));
     }
-    function T(e, t, n, a, i, l) {
+    function D(e, t, n, a, i, l) {
       i === void 0 && (i = !0);
       var s = L(i);
       if (e == null) return s;
@@ -292,7 +301,7 @@ __d(
         s
       );
     }
-    var D = (function () {
+    var x = (function () {
       var e = n("asyncToGeneratorRuntime").asyncToGenerator(
         function* (e, t, n) {
           var o = e + "_start",
@@ -311,9 +320,9 @@ __d(
       (l.markSendToSentFail = h),
       (l.markSendToSentPoint = y),
       (l.markSendToSentStart = L),
-      (l.markSendToSentSuccess = I),
-      (l.markSendToSentStartWithAnnotation = T),
-      (l.measureSendToSentPerformance = D));
+      (l.markSendToSentSuccess = T),
+      (l.markSendToSentStartWithAnnotation = D),
+      (l.measureSendToSentPerformance = x));
   },
   98,
 );

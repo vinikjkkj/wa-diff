@@ -13,7 +13,6 @@ __d(
     "MAWCurrentUser",
     "MAWDbMedia",
     "MAWInit",
-    "MAWJobActionsV2",
     "MAWMIC",
     "MAWReportSendMessageSuccessResult",
     "MAWThreadCutover",
@@ -23,6 +22,7 @@ __d(
     "QPLUserFlow",
     "WAExceededStorageQuota",
     "WAJids",
+    "WALRUMap",
     "justknobx",
     "requireDeferred",
     "shouldUseMAWSharedWorker",
@@ -37,8 +37,9 @@ __d(
       m = r("requireDeferred")("MAWMainThreadLogger").__setRef(
         "MAWCommonSetupBridge",
       ),
-      p = new Set([25312111, 25311870]),
-      _ = new Map([
+      p = new (o("WALRUMap").LRUMap)({ max: 100 }),
+      _ = new Set([25312111, 25311870]),
+      f = new Map([
         [(d = o("MAWDbMedia")).MEDIA_TYPE.IMAGE, 8],
         [d.MEDIA_TYPE.VIDEO, 10],
         [d.MEDIA_TYPE.GIF, 6],
@@ -46,8 +47,8 @@ __d(
         [d.MEDIA_TYPE.PTT, 11],
         [d.MEDIA_TYPE.DOCUMENT_FILE, 9],
       ]),
-      f = new Set([25312150, 25313100, 1056840931]);
-    function g(e, t, n) {
+      g = new Set([25312150, 25313100, 1056840931]);
+    function h(e, t, n) {
       return (s || (s = o("LSDatabaseSingleton"))).LSDatabaseSingleton.then(
         function (a) {
           return o("MAWThreadCutover")
@@ -62,13 +63,13 @@ __d(
         },
       );
     }
-    var h = /[^a-zA-Z0-9._-]/g,
-      y = /[.]+/g,
-      C = /[\s_.-]+/g;
-    function b(e) {
-      return e.replace(C, ".").replace(h, "").replace(y, ".");
+    var y = /[^a-zA-Z0-9._-]/g,
+      C = /[.]+/g,
+      b = /[\s_.-]+/g;
+    function v(e) {
+      return e.replace(b, ".").replace(y, "").replace(C, ".");
     }
-    var v = {
+    var S = {
         broadcastChannelFallback: function (t) {
           var e = t.event,
             n = t.namespace;
@@ -107,8 +108,8 @@ __d(
             case "count":
               ((u || (u = o("ODS"))).bumpEntityKey(
                 3185,
-                b("e2ee." + (a ? r.join(".") : n)),
-                b("count." + (a ? n + "." + i : i)),
+                v("e2ee." + (a ? r.join(".") : n)),
+                v("count." + (a ? n + "." + i : i)),
                 1,
               ),
                 m.onReadyImmediately(function (e) {
@@ -168,10 +169,7 @@ __d(
         onJobFinished: function (t) {
           t.type === "createGroup" &&
             t.originalArgs.key != null &&
-            o("MAWJobActionsV2").recentFinishedJobsCache.set(
-              t.originalArgs.key,
-              t.result,
-            );
+            p.set(t.originalArgs.key, t.result);
         },
         qplEvent: function (a) {
           var t,
@@ -181,20 +179,20 @@ __d(
             u = a.error,
             d = a.event,
             m = a.instanceKey,
-            _ = a.timeoutInMs,
-            h = a.timestamp;
+            p = a.timeoutInMs,
+            f = a.timestamp;
           if (
             !(
               !r("CurrentUser").isEmployee() &&
-              p.has((c || (c = o("QPLEvent"))).getMarkerId(d))
+              _.has((c || (c = o("QPLEvent"))).getMarkerId(d))
             )
           ) {
             var y = m || 0,
               C = l == null || (t = l.string) == null ? void 0 : t.jid,
               b = C != null ? o("WAJids").validateChatJid(C) : void 0,
               v =
-                f.has((c || (c = o("QPLEvent"))).getMarkerId(d)) && b != null
-                  ? g(b, d, y)
+                g.has((c || (c = o("QPLEvent"))).getMarkerId(d)) && b != null
+                  ? h(b, d, y)
                   : (e || (e = n("Promise"))).resolve();
             switch (i.type) {
               case "start":
@@ -215,8 +213,8 @@ __d(
                     ),
                   }),
                   instanceKey: y,
-                  timeoutInMs: _,
-                  timestamp: h,
+                  timeoutInMs: p,
+                  timestamp: f,
                 });
                 break;
               case "success": {
@@ -236,7 +234,7 @@ __d(
                     r("QPLUserFlow").endSuccess(d, {
                       annotations: l,
                       instanceKey: y,
-                      timestamp: h,
+                      timestamp: f,
                     });
                   }));
                 break;
@@ -259,7 +257,7 @@ __d(
                       annotations: l,
                       cancelReason: i.cancelReason,
                       instanceKey: y,
-                      timestamp: h,
+                      timestamp: f,
                     });
                   }));
                 break;
@@ -267,10 +265,10 @@ __d(
               case "point":
                 (l && r("QPLUserFlow").addAnnotations(d, l, { instanceKey: y }),
                   (c || (c = o("QPLEvent"))).getMarkerId(d) === 1056839232
-                    ? o("MAWMIC").addPoint(i.name, h)
+                    ? o("MAWMIC").addPoint(i.name, f)
                     : r("QPLUserFlow").addPoint(d, i.name, {
                         instanceKey: y,
-                        timestamp: h,
+                        timestamp: f,
                       }));
                 break;
               case "annotations":
@@ -296,7 +294,7 @@ __d(
                     r("QPLUserFlow").endFailure(d, i.name, {
                       annotations: l,
                       instanceKey: y,
-                      timestamp: h,
+                      timestamp: f,
                     });
                   }));
                 break;
@@ -315,19 +313,19 @@ __d(
           }
         },
       },
-      S = function (t, n) {
+      R = function (t, n) {
         return (t.push(n), t);
       },
-      R = function (t) {
+      L = function (t) {
         var e = t.customizeEventHandlers,
           n = t.worker;
         o("MAWInit").MAWInit.logPoint("bridge_setup_start");
         var a = o("MAWBridge").getBridge();
-        a.setHandlers("event", babelHelpers.extends({}, v, e));
+        a.setHandlers("event", babelHelpers.extends({}, S, e));
         var i = o("MAWCrossWorkerPortal").getOrCreateCrossWorkerPortal(
           a,
           ["backend", "kt", "mps", "waapi", "ebsmapi"],
-          S,
+          R,
           {
             bridgeBatcherMaxTokens: Number.MAX_SAFE_INTEGER,
             portalCacheSize: r("justknobx")._("3092"),
@@ -340,7 +338,7 @@ __d(
           a
         );
       };
-    ((l.MEDIA_TYPE_TO_ATTACHMENT_TYPE = _), (l.initBridge = R));
+    ((l.MEDIA_TYPE_TO_ATTACHMENT_TYPE = f), (l.initBridge = L));
   },
   98,
 );

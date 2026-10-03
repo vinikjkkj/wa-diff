@@ -8,32 +8,38 @@ __d(
     "PinnedCommentEventsConnectionHandler",
     "UFI2CommentsConnectionHandler",
     "VideoTimestampedCommentsConnectionHandler",
-    "WmiIrisInactiveSeqIdHandler",
     "WorkNotificationsThinClientConnectionHandler",
     "relay-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      switch (e) {
+    var e = { update: o("VideoTimestampedCommentsConnectionHandler").update },
+      s = { update: o("PinnedCommentEventsConnectionHandler").update },
+      u = { update: o("UFI2CommentsConnectionHandler").update },
+      c = { update: o("CometNewsFeedConnectionHandler").update },
+      d = { update: o("CometNotificationsThinClientConnectionHandler").update },
+      m = {
+        update: o("BizKitNotificationsThinClientConnectionHandler").update,
+      },
+      p = { update: o("WorkNotificationsThinClientConnectionHandler").update };
+    function _(t) {
+      switch (t) {
         case "connection":
           return o("relay-runtime").ConnectionHandler;
         case "video_timestamped_comments":
-          return o("VideoTimestampedCommentsConnectionHandler");
+          return e;
         case "pinned_comment_events":
-          return o("PinnedCommentEventsConnectionHandler");
+          return s;
         case "ufi2_comments":
-          return o("UFI2CommentsConnectionHandler");
+          return u;
         case "comet_news_feed":
-          return o("CometNewsFeedConnectionHandler");
+          return c;
         case "comet_notifications_thin_client":
-          return o("CometNotificationsThinClientConnectionHandler");
+          return d;
         case "bizkit_notifications_thin_client":
-          return o("BizKitNotificationsThinClientConnectionHandler");
+          return m;
         case "work_notifications_thin_client":
-          return o("WorkNotificationsThinClientConnectionHandler");
-        case "wmi_iris_inactive_seq_id":
-          return r("WmiIrisInactiveSeqIdHandler");
+          return p;
         case "deleteRecord":
           return o("relay-runtime").MutationHandlers.DeleteRecordHandler;
         case "appendEdge":
@@ -49,10 +55,10 @@ __d(
       }
       throw r("FBLogger")("comet_ui").mustfixThrow(
         "RelayCometEnvironment: No handler defined for `%s`.",
-        e,
+        t,
       );
     }
-    l.default = e;
+    l.default = _;
   },
   98,
 );

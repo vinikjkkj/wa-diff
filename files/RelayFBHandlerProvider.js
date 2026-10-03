@@ -7,14 +7,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      switch (e) {
+    var e = { update: o("UFI2CommentsConnectionHandler").update },
+      s = {
+        update: o("BizKitNotificationsThinClientConnectionHandler").update,
+      };
+    function u(t) {
+      switch (t) {
         case "connection":
           return o("relay-runtime").ConnectionHandler;
         case "ufi2_comments":
-          return o("UFI2CommentsConnectionHandler");
+          return e;
         case "bizkit_notifications_thin_client":
-          return o("BizKitNotificationsThinClientConnectionHandler");
+          return s;
         case "deleteRecord":
           return o("relay-runtime").MutationHandlers.DeleteRecordHandler;
         case "deleteEdge":
@@ -28,12 +32,12 @@ __d(
         case "prependNode":
           return o("relay-runtime").MutationHandlers.PrependNodeHandler;
       }
-      var t = new Error(
-        "RelayFBHandlerProvider: No handler defined for `" + e + "`.",
+      var n = new Error(
+        "RelayFBHandlerProvider: No handler defined for `" + t + "`.",
       );
-      throw (t.stack, t);
+      throw (n.stack, n);
     }
-    l.default = e;
+    l.default = u;
   },
   98,
 );

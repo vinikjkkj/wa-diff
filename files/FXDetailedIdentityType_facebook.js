@@ -11,6 +11,8 @@ __d(
         "FB_PAGE",
         "FB_USER",
         "FCA_USER",
+        "GIZMO_USER",
+        "GLAM_USER",
         "IG_BUSINESS",
         "IG_CREATOR",
         "IG_PERSONAL",

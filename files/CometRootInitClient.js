@@ -4,6 +4,7 @@ __d(
     "CometProductAttribution",
     "ErrorGuard",
     "cr:2694",
+    "cr:5833",
     "extractTimeSpentFromCometRoute",
     "initCometPlatformWebPage",
     "requireDeferred",
@@ -17,25 +18,34 @@ __d(
       u = r("requireDeferred")("addCometProfileSwitchAnnotation").__setRef(
         "CometRootInitClient",
       );
-    function c(e) {
-      var t = e.client_id,
-        a = e.initialRoute,
-        i = e.timeSpentMetadata,
-        l = e.traceAPI;
-      (r("initCometPlatformWebPage")(t, {
-        disableTimeSpentLogging: !1,
-        productAttribution: o(
-          "CometProductAttribution",
-        ).getProductAttributionFromRoute(a, "via_cold_start"),
-        timeSpentMetadata: i,
-        timeSpentRoute: r("extractTimeSpentFromCometRoute")(a),
-      }),
+    function c(t) {
+      var a = t.client_id,
+        i = t.initialRoute,
+        l = t.timeSpentMetadata,
+        c = t.traceAPI;
+      (n("cr:5833") != null &&
+        (e || (e = r("ErrorGuard"))).applyWithGuard(
+          function () {
+            return n("cr:5833").registerCometRHCInitialLoadTrace(c);
+          },
+          null,
+          [],
+        ),
+        r("initCometPlatformWebPage")(a, {
+          disableTimeSpentLogging: !1,
+          productAttribution: o(
+            "CometProductAttribution",
+          ).getProductAttributionFromRoute(i, "via_cold_start"),
+          timeSpentMetadata: l,
+          timeSpentRoute: r("extractTimeSpentFromCometRoute")(i),
+          traceAPI: c,
+        }),
         s.onReady(function (e) {
-          return e(l);
+          return e(c);
         }),
         n("cr:2694") != null && n("cr:2694")(),
         u.onReady(function (e) {
-          return e(l);
+          return e(c);
         }));
     }
     function d(t, n) {

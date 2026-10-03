@@ -19,7 +19,10 @@ __d(
     var e = r("json-bigint")({ storeAsString: !0 }),
       s = new Set(),
       u = new Set(),
-      c = new Set(["bizweb.pageIGLinking.startLinking"]),
+      c = new Set([
+        "bizkit.ig_claim.commit",
+        "bizweb.pageIGLinking.startLinking",
+      ]),
       d = new Set([
         "bai_permissions.invite_flow.submit",
         "bai_permissions.update_user_permission_on_asset_flow.save",
@@ -118,8 +121,14 @@ __d(
               n = (t = e.getTrace()) == null ? void 0 : t.tracePolicy;
             n != null &&
               (c.has(n)
-                ? e.cancelTrace("dropped", !0)
-                : d.has(n) && e.forceCompleteTrace());
+                ? (e.addAnnotation("reauth_intercepted", "secured_action_drop"),
+                  e.cancelTrace("dropped", !0))
+                : d.has(n) &&
+                  (e.addAnnotation(
+                    "reauth_intercepted",
+                    "secured_action_force_complete",
+                  ),
+                  e.forceCompleteTrace()));
           }),
         u.add({ onError: a, onSuccess: t }),
         s.has(g))

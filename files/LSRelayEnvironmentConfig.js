@@ -13,37 +13,44 @@ __d(
       var s = new (o("ReactiveQueryExecutionNode_EXPERIMENTAL").Executor)(
         new (r("ReactiveQueryExecutionStore_EXPERIMENTAL"))(t, n, a),
       );
-      function u(t, n, a, u, c, d, m, p) {
-        if (t.metadata.is_ls_relay_request !== !0)
-          return e.execute.apply(null, arguments);
-        var _ = {
-          kind: "Request",
-          operation: r("nullthrows")(t.metadata.operation),
-          params: t,
-        };
+      function u(e, t, n, r, o, a, i, l) {
+        return d(e, t, n, r, o, a, i, l, null);
+      }
+      function c(e, t, n, r, o) {
+        return d(e, t, n, null, null, null, null, o, r);
+      }
+      function d(t, n, a, u, c, d, m, p, _) {
+        var f = t.metadata.is_ls_relay_request === !0,
+          g = t.metadata.operation;
+        if (!f && g == null)
+          return _ != null ? _ : e.execute(t, n, a, u, c, d, m, p);
+        var h = { kind: "Request", operation: r("nullthrows")(g), params: t };
         return o("relay-runtime").Observable.create(function (r) {
           var f,
-            g = t.id == null && t.text == null;
-          if (!g && p != null) {
-            var h = p.checkOperation,
-              y = p.parentOperation;
-            y != null && (g = h(y).status === "available");
+            g = _ == null && t.id == null && t.text == null;
+          if (_ == null && !g && p != null) {
+            var y = p.checkOperation,
+              C = p.parentOperation;
+            C != null &&
+              (g =
+                h.operation.has_server_to_client_resolvers !== !0 &&
+                y(C).status === "available");
           }
-          var C =
+          var b =
             i ||
-            ((f = _.operation.use_network_normalization_provider) == null
+            ((f = h.operation.use_network_normalization_provider) == null
               ? void 0
               : f.get()) === !0 ||
-            _.operation.has_server_to_client_resolvers === !0 ||
-            _.operation.has_client_to_server_resolvers === !0;
-          if (g && !C) {
-            var b = o("relay-runtime").__internal.getOperationVariables(
-                _.operation,
-                _.params.providedVariables,
+            h.operation.has_server_to_client_resolvers === !0 ||
+            h.operation.has_client_to_server_resolvers === !0;
+          if (g && !b) {
+            var v = o("relay-runtime").__internal.getOperationVariables(
+                h.operation,
+                h.params.providedVariables,
                 n,
               ),
-              v = s
-                .execute(o("relay-runtime").createRequestDescriptor(_, b))
+              S = s
+                .execute(o("relay-runtime").createRequestDescriptor(h, v))
                 .subscribe({
                   complete: r.complete,
                   error: r.error,
@@ -58,26 +65,28 @@ __d(
                     }
                   },
                 }),
-              S = v.unsubscribe;
+              R = S.unsubscribe;
             return function () {
-              S();
+              R();
             };
           }
-          var R = o("relay-runtime").__internal.getOperationVariables(
-            _.operation,
-            _.params.providedVariables,
+          var L = o("relay-runtime").__internal.getOperationVariables(
+            h.operation,
+            h.params.providedVariables,
             n,
           );
-          if (C) {
-            var L = g
+          if (b) {
+            var E = g
                 ? o("relay-runtime").Observable.create(function (e) {
                     e.complete();
                   })
-                : e.execute(t, n, a, u, c, d, m),
-              E = s
+                : _ != null
+                  ? _
+                  : e.execute(t, n, a, u, c, d, m),
+              k = s
                 .executeWithNetwork(
-                  o("relay-runtime").createRequestDescriptor(_, R),
-                  L,
+                  o("relay-runtime").createRequestDescriptor(h, L),
+                  E,
                   {
                     checkOperation: p == null ? void 0 : p.checkOperation,
                     network: e,
@@ -91,34 +100,33 @@ __d(
                   error: r.error,
                   next: r.next,
                 }),
-              k = E.unsubscribe;
+              I = k.unsubscribe;
             return function () {
-              return k();
+              return I();
             };
           }
-          var I = !1;
-          function T() {
-            I ? r.complete() : (I = !0);
+          var T = !1;
+          function D() {
+            T ? r.complete() : (T = !0);
           }
-          var D = !1,
-            x = null,
-            $ = null;
-          function P() {
-            D || ((D = !0), x == null || x(), $ == null || $());
+          var x = !1,
+            $ = null,
+            P = null;
+          function N() {
+            x || ((x = !0), $ == null || $(), P == null || P());
           }
-          function N(e) {
-            D || (r.error(e), P());
+          function M(e) {
+            x || (r.error(e), N());
           }
-          var M = e
-              .execute(t, n, a, u, c, d, m)
-              .subscribe({ complete: T, error: N, next: r.next }),
-            w = M.unsubscribe;
-          if (((x = w), D)) return P;
-          var A = s
-              .execute(o("relay-runtime").createRequestDescriptor(_, R))
+          var w = _ != null ? _ : e.execute(t, n, a, u, c, d, m),
+            A = w.subscribe({ complete: D, error: M, next: r.next }),
+            F = A.unsubscribe;
+          if ((($ = F), x)) return N;
+          var O = s
+              .execute(o("relay-runtime").createRequestDescriptor(h, L))
               .subscribe({
-                complete: T,
-                error: N,
+                complete: D,
+                error: M,
                 next: function (t) {
                   if (t.kind !== "WAITING") {
                     var e = t.payload,
@@ -127,11 +135,11 @@ __d(
                   }
                 },
               }),
-            F = A.unsubscribe;
-          return (($ = F), P);
+            B = O.unsubscribe;
+          return ((P = B), N);
         });
       }
-      return { execute: u };
+      return { execute: u, executeWithPreloadedSource: c };
     }
     var s = function (t) {
       var e, n;

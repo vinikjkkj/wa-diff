@@ -3,47 +3,51 @@ __d(
   ["FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      var n = function (n) {
-          var e, o, a;
+    var e = ["log", "error", "info", "debug", "warn"];
+    function s(t, n) {
+      var o = function (o) {
+          var t, a, i;
           if (
-            typeof n.data == "object" &&
-            ((e = n.data) == null ? void 0 : e.type) === "console" &&
-            typeof ((o = n.data) == null ? void 0 : o.response) == "object" &&
-            ((a = n.data) == null ? void 0 : a.response) != null
+            typeof o.data == "object" &&
+            ((t = o.data) == null ? void 0 : t.type) === "console" &&
+            typeof ((a = o.data) == null ? void 0 : a.response) == "object" &&
+            ((i = o.data) == null ? void 0 : i.response) != null
           ) {
-            var i = n.data.response,
-              l = i.args,
-              s = i.method;
-            if (
-              typeof s != "string" ||
-              !["log", "error", "info", "debug", "warn"].includes(s)
-            ) {
+            var l = o.data.response,
+              s = l.args,
+              u = l.method,
+              c =
+                typeof u == "string"
+                  ? e.find(function (e) {
+                      return e === u;
+                    })
+                  : void 0;
+            if (c == null) {
               r("FBLogger")("worker").mustfix(
                 "Unexpected console method: %s",
-                String(s),
+                String(u),
               );
               return;
             }
-            if (!Array.isArray(l)) {
+            if (!Array.isArray(s)) {
               r("FBLogger")("worker").mustfix(
                 'Expected console args "%s" to be an array',
-                JSON.stringify(l),
+                JSON.stringify(s),
               );
               return;
             }
-            t({ method: s, args: l });
+            n({ method: c, args: s });
           }
         },
-        o = e.port;
+        a = t.port;
       return (
-        o.addEventListener("message", n),
+        a.addEventListener("message", o),
         function () {
-          return o.removeEventListener("message", n);
+          return a.removeEventListener("message", o);
         }
       );
     }
-    function s(e, t) {
+    function u(e, t) {
       var n = function (n) {
           var e;
           if (
@@ -79,63 +83,6 @@ __d(
         r.addEventListener("message", n),
         function () {
           return r.removeEventListener("message", n);
-        }
-      );
-    }
-    function u(e, t, n) {
-      var o = function (o) {
-          var e;
-          if (
-            typeof o.data == "object" &&
-            ((e = o.data) == null ? void 0 : e.type) === "sw-get-rev" &&
-            typeof o.data.response == "object"
-          ) {
-            var a, i;
-            t == null || t.markPoint("get_worker_rev_ack_received");
-            var l =
-                typeof o.data == "object" &&
-                typeof ((a = o.data) == null ? void 0 : a.response) == "object"
-                  ? (i = o.data) == null
-                    ? void 0
-                    : i.response
-                  : {},
-              s = l == null ? void 0 : l.workerRevision,
-              u = l == null ? void 0 : l.spinTime,
-              c = l == null ? void 0 : l.workerChecksum;
-            if (s == null || typeof s != "number") {
-              (t == null ||
-                t.addAnnotations({
-                  string: { malformedData: "rev is non-number" },
-                }),
-                r("FBLogger")("worker").mustfix(
-                  "Expected worker rev to be non-null number, but instead received: %s",
-                  String(s),
-                ));
-              return;
-            }
-            if (u == null || typeof u != "number") {
-              (t == null ||
-                t.addAnnotations({
-                  string: { malformedData: "spin_time is non-number" },
-                }),
-                r("FBLogger")("worker").mustfix(
-                  "Expected worker spin time to be non-null number, but instead received: %s",
-                  String(u),
-                ));
-              return;
-            }
-            n({
-              rev: s,
-              spinTime: u,
-              workerChecksum: typeof c == "string" ? c : void 0,
-            });
-          }
-        },
-        a = e.port;
-      return (
-        a.addEventListener("message", o),
-        function () {
-          return a.removeEventListener("message", o);
         }
       );
     }
@@ -462,10 +409,7 @@ __d(
         args: [{ reason: r, upgrade: o }],
       });
     }
-    function y(e) {
-      e.port.postMessage({ type: "sw-get-rev", args: [] });
-    }
-    function C(e, t) {
+    function y(e, t) {
       var n = t != null ? t : {},
         r = n.isDev,
         o = n.jsModuleResource;
@@ -474,8 +418,8 @@ __d(
         args: [o != null ? o : {}, r],
       });
     }
-    var b = ["no-hrp", "initialized", "processed"];
-    function v(e, t, n) {
+    var C = ["no-hrp", "initialized", "processed"];
+    function b(e, t, n) {
       var r = function (a) {
           var o, i, l;
           if (
@@ -512,7 +456,11 @@ __d(
                 ? void 0
                 : m.from,
               p,
-              _ != null && b.includes(_) ? _ : void 0,
+              _ != null
+                ? C.find(function (e) {
+                    return e === _;
+                  })
+                : void 0,
             ),
               (n == null ? void 0 : n.once) === !0 &&
                 e.port.removeEventListener("message", r));
@@ -526,7 +474,7 @@ __d(
         }
       );
     }
-    function S(e, t) {
+    function v(e, t) {
       var n = function (n) {
           t(n.data);
         },
@@ -538,10 +486,10 @@ __d(
         }
       );
     }
-    function R(e) {
+    function S(e) {
       e.port.postMessage({ type: "ww-connection-ack" });
     }
-    function L(e, t, n) {
+    function R(e, t, n) {
       var r = t.hrp,
         o = t.isDev,
         a = t.js_env;
@@ -553,21 +501,21 @@ __d(
         tiered: !0,
       });
     }
-    function E(e, t) {
+    function L(e, t) {
       var n = t.trackerID;
       e.port.postMessage({
         type: "sw-uptime-tracking",
         args: { trackerID: n },
       });
     }
-    function k(t) {
-      var n = e(t, function (e) {
+    function E(e) {
+      var t = s(e, function (e) {
           var t,
             n = e.args,
             r = e.method;
           (t = console)[r].apply(t, n);
         }),
-        o = s(t, function (e) {
+        n = u(e, function (e) {
           var t = e.error,
             n = e.errorObject;
           t != null
@@ -583,12 +531,11 @@ __d(
               );
         });
       return function () {
-        (n(), o());
+        (t(), n());
       };
     }
-    ((l.registerLogFowardingListener = e),
-      (l.registerUncaughtErrorForwardingListener = s),
-      (l.registerGetWorkerRevListener = u),
+    ((l.registerLogFowardingListener = s),
+      (l.registerUncaughtErrorForwardingListener = u),
       (l.registerWorkerShutdownListener = c),
       (l.registerUptimeTrackerListener = d),
       (l.registerExecuteWorkerAckListener = m),
@@ -597,14 +544,13 @@ __d(
       (l.registerWorkerInitPointsListener = f),
       (l.registerWorkerSelfTerminationListener = g),
       (l.emitWorkerShutdown = h),
-      (l.emitGetRev = y),
-      (l.emitExecuteWorker = C),
-      (l.registerConnectionAckListener = v),
-      (l.registerAnyMessageListener = S),
-      (l.emitConnectionAckRequest = R),
-      (l.emitHrpInit = L),
-      (l.emitUptimeTracking = E),
-      (l.registerForwardListeners = k));
+      (l.emitExecuteWorker = y),
+      (l.registerConnectionAckListener = b),
+      (l.registerAnyMessageListener = v),
+      (l.emitConnectionAckRequest = S),
+      (l.emitHrpInit = R),
+      (l.emitUptimeTracking = L),
+      (l.registerForwardListeners = E));
   },
   98,
 );

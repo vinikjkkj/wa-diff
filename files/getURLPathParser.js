@@ -35,16 +35,13 @@ __d(
           getParams: function (n) {
             var t = l.exec(n.getPath());
             return i.reduce(function (n, o, a) {
-              var i,
-                l = t == null ? void 0 : t[a + 1];
-              return Object.assign(
-                n,
-                ((i = {}),
-                (i[o] =
-                  l != null
-                    ? (e || (e = r("PHPQuerySerializer"))).decodeComponent(l)
-                    : l),
-                i),
+              var i = t == null ? void 0 : t[a + 1];
+              return (
+                (n[o] =
+                  i != null
+                    ? (e || (e = r("PHPQuerySerializer"))).decodeComponent(i)
+                    : i),
+                n
               );
             }, {});
           },

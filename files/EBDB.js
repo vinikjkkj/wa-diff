@@ -4,9 +4,9 @@ __d(
     "$InternalEnum",
     "FBLogger",
     "Promise",
-    "QPLFlow",
     "WALogger",
     "WAResolvable",
+    "WMIQplFlow",
     "Worm",
     "WormEarAsync",
     "WormIDbDriverEarAsync",
@@ -46,7 +46,7 @@ __d(
           function* (t, n, a, i, l) {
             var s,
               u = (s = a == null ? void 0 : a.byteLength) != null ? s : 0,
-              _ = o("QPLFlow").startQPLFlow(n, {
+              _ = o("WMIQplFlow").startQplFlow(n, {
                 annotations: {
                   int: { env: i },
                   string: { operationType: "initEBDB" },

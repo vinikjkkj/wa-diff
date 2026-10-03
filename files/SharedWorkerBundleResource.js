@@ -12,7 +12,6 @@ __d(
     "SharedWorkerMigrationUtils",
     "SharedWorkerStorageManager",
     "SharedWorkerUptimeTracker",
-    "SharedWorkerV2ResourceExperimental",
     "SiteData",
     "StaticSiteData",
     "WebWorkerV2DynamicData",
@@ -20,11 +19,9 @@ __d(
     "buildSharedWorkerInitQPLLogger",
     "buildSharedWorkerTerminateQPLLogger",
     "createSharedWorkerV2BundleUrl",
-    "createSharedWorkerV2BundleUrlExperimental",
     "err",
     "getErrorSafe",
     "gkx",
-    "handleWorkerWriteError",
     "justknobx",
     "logSharedWorkerInitStep",
     "pageID",
@@ -183,17 +180,6 @@ __d(
       );
     }
     function _(e, t, n, a) {
-      o("SharedWorkerMigrationUtils").shouldCheckForDynamicStringWorker(t) &&
-        (a == null || a.markEventStart("dynamic_string_worker_check"),
-        r("promiseDone")(
-          o("SharedWorkerMigrationUtils").maybeTerminateDynamicStringWorker(t),
-          function (e) {
-            a == null ||
-              a.markEventEnd("dynamic_string_worker_check", {
-                bool: { didTerminateDynamicStringWorker: e },
-              });
-          },
-        ));
       var i = m(e, t, a);
       o("SharedWorkerEventManager").registerConnectionAckListener(
         i,
@@ -222,7 +208,7 @@ __d(
         o("SharedWorkerEventManager").emitConnectionAckRequest(i),
         a == null || a.markPoint("read_dynamic_data"),
         r("promiseDone")(
-          w(n, !1, a).then(
+          I(n, !1, a).then(
             function (e) {
               var t = e.hrp;
               (a == null || a.markEventStart("hrp_init"),
@@ -265,66 +251,7 @@ __d(
         })
       );
     }
-    function f(e, t, n, a, i, l) {
-      var s = new (r("Deferred"))();
-      return (
-        o("SharedWorkerEventManager").registerGetWorkerRevListener(
-          e,
-          l,
-          function (e) {
-            var u = e.rev,
-              c = e.spinTime;
-            r("promiseDone")(
-              o("SharedWorkerStorageManager")
-                .saveSharedWorkerReference(
-                  n,
-                  {
-                    url: t,
-                    rev: u,
-                    spin_time: c,
-                    version: i.version,
-                    rsrcBundleUrl: i.getJSModuleBundleResource().url,
-                    sandboxOnlyChecksum: i.sandboxOnlyChecksum,
-                  },
-                  l,
-                )
-                .then(function () {
-                  return o(
-                    "SharedWorkerStorageManager",
-                  ).getSharedWorkerReference(n, l);
-                })
-                .then(function (e) {
-                  r("logSharedWorkerInitStep")(
-                    n,
-                    e,
-                    i.resourceUrlForLogging,
-                    "after_worker_reference_save",
-                  );
-                }),
-              function () {
-                (l.markEventEnd("get_worker_rev", {
-                  bool: { successfullySavedWorkerRef: !0 },
-                }),
-                  s.resolve(),
-                  a());
-              },
-              function (e) {
-                (l.markEventEnd("get_worker_rev", {
-                  bool: { successfullySavedWorkerRef: !1 },
-                }),
-                  s.reject(e),
-                  r("handleWorkerWriteError")(e),
-                  a());
-              },
-            );
-          },
-        ),
-        l.markEventStart("get_worker_rev"),
-        o("SharedWorkerEventManager").emitGetRev(e),
-        s.getPromise()
-      );
-    }
-    function g(e, t, n) {
+    function f(e, t, n) {
       var a = [],
         i = function (r, i, l) {
           (a.forEach(function (e) {
@@ -340,12 +267,8 @@ __d(
             function (e) {
               var t = e.reason,
                 r = e.workerID;
-              o("SharedWorkerLoggingUtils").logShutdown(n, null, t, r);
-              var a =
-                t === "dynamic_string_worker_rollback"
-                  ? "requested-upgrade"
-                  : t;
-              i(a, r, "sw-shutdown");
+              (o("SharedWorkerLoggingUtils").logShutdown(n, null, t, r),
+                i(t, r, "sw-shutdown"));
             },
           ),
         ),
@@ -361,176 +284,54 @@ __d(
         o("SharedWorkerUptimeTracker").startUptimeTracking(e, n),
         r("logSharedWorkerInitStep")(n, null, null, "create_worker_end"));
     }
-    function h(e, t, n, r, o, a) {
-      return y.apply(this, arguments);
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            (l.addAnnotations({ string: { initFlow: "use_existing_ref" } }),
-              r("logSharedWorkerInitStep")(
-                e,
-                null,
-                null,
-                "using_existing_worker_ref",
-              ));
-            var s = o("SharedWorkerMigrationUtils").isLegacyWorkerURL(t.url),
-              u = yield t.version === 2
-                ? s
-                  ? _(t.url, e, n.getJSModuleBundleResource(), l)
-                  : o("SharedWorkerV2ResourceExperimental").startV2Worker(
-                      t.url,
-                      e,
-                      n.getJSModuleBundleResource(),
-                      l,
-                    )
-                : d(t.url, e, n.getJSModuleBundleResource(), l),
-              c = u.worker;
-            return (
-              a(),
-              t.version === 2 && !s && f(c, t.url, e, a, n, l),
-              g(c, i, e),
-              c
-            );
-          },
-        )),
-        y.apply(this, arguments)
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          n.markPoint("terminate_on_upgrade");
+          var a = o("SharedWorkerMigrationUtils").isStatusLockHeld(e);
+          if (self.BroadcastChannel != null) {
+            var i = L(e);
+            (i.postMessage({
+              type: "terminate",
+              reason: "requested-upgrade",
+              pageID: r("pageID"),
+            }),
+              n.addAnnotations({ string: { oldWorkerShutdown: "broadcast" } }));
+          } else if (yield a) {
+            var l;
+            (t.version === 2 && r("supportsModuleWorker")(!0)
+              ? (l = new SharedWorker(t.url, { name: e, type: "module" }))
+              : (l = new SharedWorker(t.url, e)),
+              o("SharedWorkerEventManager").registerWorkerShutdownListener(
+                l,
+                function (e) {
+                  var t = e.isInitialized,
+                    r = e.workerID;
+                  (n.markEventEnd("old_worker_shutdown", {
+                    string: { oldWorkerID: r },
+                    bool: { oldWorkerWasInitialized: t },
+                  }),
+                    n.addAnnotations({
+                      string: { oldWorkerShutdown: "success" },
+                    }));
+                },
+                { once: !0 },
+              ),
+              n.markEventStart("old_worker_shutdown"),
+              l.port.start(),
+              o("SharedWorkerEventManager").emitWorkerShutdown(l, {
+                upgrade: !0,
+              }));
+          } else
+            n.addAnnotations({ string: { oldWorkerShutdown: "not_needed" } });
+        })),
+        h.apply(this, arguments)
       );
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            n.markPoint("terminate_on_upgrade");
-            var i = new (r("Deferred"))(),
-              l = o("SharedWorkerMigrationUtils").isStatusLockHeld(e);
-            if (
-              (yield o(
-                "SharedWorkerMigrationUtils",
-              ).isDynamicStringWorkerRunning(e)) &&
-              r("supportsNativeWebLock")() &&
-              a === !1
-            )
-              (i.resolve(),
-                n.addAnnotations({
-                  string: {
-                    oldWorkerShutdown: "not_needed_for_dynamic_string",
-                  },
-                }));
-            else if (self.BroadcastChannel != null) {
-              var s = P(e);
-              (s.postMessage({
-                type: "terminate",
-                reason: "requested-upgrade",
-                pageID: r("pageID"),
-              }),
-                i.resolve(),
-                n.addAnnotations({
-                  string: { oldWorkerShutdown: "broadcast" },
-                }));
-            } else if (yield l) {
-              var u;
-              (t.version === 2 && r("supportsModuleWorker")(!0)
-                ? (u = new SharedWorker(t.url, { name: e, type: "module" }))
-                : (u = new SharedWorker(t.url, e)),
-                o("SharedWorkerEventManager").registerWorkerShutdownListener(
-                  u,
-                  function (e) {
-                    var t = e.isInitialized,
-                      l = e.workerID;
-                    (a
-                      ? r("setTimeout")(function () {
-                          (n.markEventEnd("old_worker_shutdown", {
-                            string: { oldWorkerID: l },
-                            bool: { oldWorkerWasInitialized: t },
-                          }),
-                            i.resolve());
-                        }, o("SharedWorkerV2ResourceExperimental").DELAY_FOR_WORKER_SHUTDOWN_MS)
-                      : (n.markEventEnd("old_worker_shutdown", {
-                          string: { oldWorkerID: l },
-                          bool: { oldWorkerWasInitialized: t },
-                        }),
-                        i.resolve()),
-                      n.addAnnotations({
-                        string: { oldWorkerShutdown: "success" },
-                      }));
-                  },
-                  { once: !0 },
-                ),
-                n.markEventStart("old_worker_shutdown"),
-                u.port.start(),
-                o("SharedWorkerEventManager").emitWorkerShutdown(u, {
-                  upgrade: !0,
-                }));
-            } else
-              (i.resolve(),
-                n.addAnnotations({
-                  string: { oldWorkerShutdown: "not_needed" },
-                }));
-            a === !0 ? yield i.getPromise() : i.resolve();
-          },
-        )),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e, t, n, r, o, a, i) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o, a, i) {
-            return (
-              a.addAnnotations({ string: { initFlow: "upgrade_worker_ref" } }),
-              yield C(e, t, a, i),
-              L(e, n, r, o, a, "upgrading_worker_ref")
-            );
-          },
-        )),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t, n, r, o) {
-      return (
-        o.addAnnotations({ string: { initFlow: "new_worker_ref" } }),
-        L(e, t, n, r, o, "new_worker_ref")
-      );
-    }
-    function L(e, t, n, r, o, a) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            (r("logSharedWorkerInitStep")(e, null, null, l),
-              (yield o("SharedWorkerMigrationUtils").isStatusLockHeld(e)) &&
-                r("FBLogger")("worker").info(
-                  "Trying to create a worker %s while old one is still running",
-                  e,
-                ));
-            var s = yield t.createSharedWorker(),
-              u = s[0],
-              c = s[1].worker;
-            return (
-              l === "upgrading_worker_ref" &&
-                (yield o(
-                  "SharedWorkerStorageManager",
-                ).removeSharedWorkerReference(e, i)),
-              yield f(c, u, e, n, t, i),
-              g(c, a, e),
-              c
-            );
-          },
-        )),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t) {
+    function y(e, t) {
       var n = o("SharedWorkerDevChangeManager").shouldUseStorageWorkerForDev(
           e.name,
           { storageWorkerResource: t, tabResource: e },
@@ -545,81 +346,46 @@ __d(
         n
       );
     }
-    function I(e, t, n, r, o, a) {
-      return T.apply(this, arguments);
+    function C(e, t, n, r, o) {
+      return b.apply(this, arguments);
     }
-    function T() {
+    function b() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i) {
             a.markEventStart("create_worker");
-            var s = e.name;
-            (o("SharedWorkerUptimeTracker").stopUptimeTracking(s),
+            var l = e.name;
+            return (
+              o("SharedWorkerUptimeTracker").stopUptimeTracking(l),
               a.addAnnotations({
                 bool: {
                   workerAlreadyRunning: r("supportsNativeWebLock")()
-                    ? yield o("SharedWorkerMigrationUtils").isStatusLockHeld(s)
+                    ? yield o("SharedWorkerMigrationUtils").isStatusLockHeld(l)
                     : null,
                 },
-              }));
-            var u = r("supportsNativeWebLock")()
-              ? yield o("SharedWorkerMigrationUtils").isStatusLockHeld(s)
-              : !0;
-            if (!i && e.version === 2) return W(e, t, n, a, l);
-            var c = yield o(
-              "SharedWorkerStorageManager",
-            ).getSharedWorkerReference(s, a);
-            r("logSharedWorkerInitStep")(
-              s,
-              c,
-              e.resourceUrlForLogging,
-              "create_worker_start",
-            );
-            var d =
-                c != null &&
-                o("SharedWorkerMigrationUtils").isLegacyWorkerURL(
-                  c == null ? void 0 : c.url,
-                ),
-              m = i && u === !1 && d;
-            if (c == null || m) return R(s, e, t, n, a);
-            var p = c.rev,
-              _ = c.spin_time,
-              f = c.version;
-            return (
-              a.addAnnotations({
-                int: {
-                  storageWorkerSpinTime: _,
-                  storageWorkerVersion: f,
-                  storageWorkerRev: p,
-                },
               }),
-              k(e, c) ? h(s, c, e, t, n, a) : v(s, c, e, t, n, a, i)
+              P(e, t, n, a, i)
             );
           },
         )),
-        T.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function D(t, a, i, l) {
+    function v(t, a, i, l) {
       l === void 0 && (l = 0);
       var s = t.name,
         u = i != null ? i : {},
         d = u.onQPLEvent,
         m = u.reason,
         p = r("buildSharedWorkerInitQPLLogger")(d);
-      (p.start({
-        version: 2,
-        workerName: s,
-        callReason: m,
-        experimental_init: i == null ? void 0 : i.useDynamicStringInit,
-      }),
+      (p.start({ version: 2, workerName: s, callReason: m }),
         p.addAnnotations({
           bool: { usingModuleWorker: r("supportsModuleWorker")(!0) },
         }));
       var f = new (r("Deferred"))(),
-        g = function (u) {
+        g = function (i) {
           r("promiseDone")(
-            I(
+            C(
               {
                 name: s,
                 version: 2,
@@ -627,34 +393,24 @@ __d(
                   return t;
                 },
                 sandboxOnlyChecksum: t.sandboxOnlyChecksum,
-                createSharedWorker:
-                  (i == null ? void 0 : i.useDynamicStringInit) === !0
-                    ? n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          var e = r(
-                            "createSharedWorkerV2BundleUrlExperimental",
-                          )(s);
-                          return [
-                            e,
-                            yield o(
-                              "SharedWorkerV2ResourceExperimental",
-                            ).startV2Worker(e, s, t, p),
-                          ];
-                        },
-                      )
-                    : n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          var e = o(
-                            "createSharedWorkerV2BundleUrl",
-                          ).createSharedWorkerV2BundleUrl();
-                          return [e, yield _(e, s, t, p)];
-                        },
-                      ),
+                createSharedWorker: (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      var e = o(
+                        "createSharedWorkerV2BundleUrl",
+                      ).createSharedWorkerV2BundleUrl();
+                      return [e, yield _(e, s, t, p)];
+                    },
+                  );
+                  function r() {
+                    return e.apply(this, arguments);
+                  }
+                  return r;
+                })(),
               },
-              u,
+              i,
               a,
               p,
-              (i == null ? void 0 : i.useDynamicStringInit) === !0,
               l,
             ),
             function (e) {
@@ -662,7 +418,7 @@ __d(
             },
             function (e) {
               var t = typeof e == "string" ? r("err")(e) : e;
-              (f.reject(t), u());
+              (f.reject(t), i());
             },
           );
         };
@@ -686,27 +442,28 @@ __d(
               new (e || (e = n("Promise")))(function (e, n) {
                 r("setTimeout")(
                   function () {
-                    r("promiseDone")(D(t, a, i, l + 1), e, n);
+                    r("promiseDone")(v(t, a, i, l + 1), e, n);
                   },
                   l === 0 ? 200 : 500,
                 );
               })
             );
+          var s = r("getErrorSafe")(o);
           throw (
             p.endFailure("worker_init_failure", {
-              string: { workerInitFailureReason: o.message, errorName: o.name },
+              string: { workerInitFailureReason: s.message, errorName: s.name },
             }),
             o
           );
         })
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function $() {
+    function R() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           var l = a != null ? a : t.name,
             u = new (r("Deferred"))(),
             c = r("buildSharedWorkerTerminateQPLLogger")();
@@ -725,7 +482,7 @@ __d(
             }),
             self.BroadcastChannel != null)
           ) {
-            var m = P(l);
+            var m = L(l);
             return (
               m.postMessage({
                 type: "terminate",
@@ -759,30 +516,19 @@ __d(
                         }),
                         r != null)
                       ) {
-                        var a = o(
-                          "SharedWorkerMigrationUtils",
-                        ).isLegacyWorkerURL(r.url);
-                        c.addAnnotations({ bool: { isLegacy: a } });
-                        var i =
+                        var o =
                             r.version === 2
-                              ? a
-                                ? _(r.url, l, t, void 0).then(function (e) {
-                                    var t = e.worker;
-                                    return t;
-                                  })
-                                : o("SharedWorkerV2ResourceExperimental")
-                                    .startV2Worker(r.url, l, t, void 0)
-                                    .then(function (e) {
-                                      var t = e.worker;
-                                      return t;
-                                    })
+                              ? _(r.url, l, t, void 0).then(function (e) {
+                                  var t = e.worker;
+                                  return t;
+                                })
                               : d(r.url, l, t).then(function (e) {
                                   var t = e.worker;
                                   return t;
                                 }),
-                          s = (e || (e = n("Promise"))).resolve(null);
-                        return s.then(function () {
-                          return i;
+                          a = (e || (e = n("Promise"))).resolve(null);
+                        return a.then(function () {
+                          return o;
                         });
                       }
                       return (c.markPoint("storage_resource_empty"), null);
@@ -831,10 +577,11 @@ __d(
                           reason: i,
                         }));
                     } catch (e) {
+                      var t = r("getErrorSafe")(e);
                       (c.endFailure("terminate_worker_failure", {
-                        string: { workerTerminateFailReason: e.message },
+                        string: { workerTerminateFailReason: t.message },
                       }),
-                        u.reject(e.message));
+                        u.reject(t.message));
                     }
                   },
                   function (e) {
@@ -857,32 +604,32 @@ __d(
             u.getPromise()
           );
         })),
-        $.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function P(e) {
+    function L(e) {
       return new self.BroadcastChannel(u + "_" + e);
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function M() {
+    function k() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "SharedWorkerStorageManager",
           ).getSharedWorkerReference(e.name);
           return t != null;
         })),
-        M.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function A() {
+    function T() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a;
           n == null || n.markEventStart("load_hrp");
           var i = yield o("WebWorkerV2DynamicData").readDynamicDataForWorker(
@@ -928,23 +675,23 @@ __d(
             }
           );
         })),
-        A.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function F(e, t, n, a) {
+    function D(e, t, n, a) {
       return o("SharedWorkerStorageManager").getOrUpdateWorkerReference(
         e.name,
         function (o) {
           if ((n.markPoint("worker_reference_retrieved"), o == null)) return t;
           var i = a != null && a > 0 && r("gkx")("6579");
-          return !i && k(e, o) ? o : (C(e.name, o, n, !1), t);
+          return !i && y(e, o) ? o : (g(e.name, o, n), t);
         },
         n,
       );
     }
-    function O(e, t) {
+    function x(e, t) {
       if (self.BroadcastChannel != null) {
-        var n = P(e),
+        var n = L(e),
           o = function (n) {
             var e = n.data;
             if (
@@ -967,7 +714,7 @@ __d(
       }
       return function () {};
     }
-    function B(e, t, n, a) {
+    function $(e, t, n, a) {
       var i = new (r("Deferred"))();
       return (
         o("SharedWorkerStorageManager")
@@ -984,19 +731,19 @@ __d(
         i.getPromise()
       );
     }
-    function W(e, t, n, r, o) {
-      return q.apply(this, arguments);
+    function P(e, t, n, r, o) {
+      return N.apply(this, arguments);
     }
-    function q() {
+    function N() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, s) {
             if (t.version !== 2) throw r("err")("Worker version must be 2");
             var u = t.name,
-              d = yield w(t.getJSModuleBundleResource(), !1, l),
+              d = yield I(t.getJSModuleBundleResource(), !1, l),
               _ = d.rev;
             if (_ == null) throw r("err")("HRP rev or spin time is null");
-            var f = {
+            var g = {
                 url: o(
                   "createSharedWorkerV2BundleUrl",
                 ).createSharedWorkerV2BundleUrl(),
@@ -1014,12 +761,12 @@ __d(
                 (y.reject(t), h.reject(t));
               };
               (C.push(
-                O(u, function (e) {
+                x(u, function (e) {
                   b(new c("broadcast-" + e));
                 }),
               ),
                 l == null || l.markEventStart("get_worker_reference"));
-              var v = yield F(t, f, l, s);
+              var v = yield D(t, g, l, s);
               l == null || l.markEventEnd("get_worker_reference");
               var S = m(v.url, u, l);
               (C.push(
@@ -1077,10 +824,10 @@ __d(
                 L = R.hrpStatus;
               if ((l.markEventEnd("worker_connection"), L === "no-hrp")) {
                 l == null || l.markPoint("read_dynamic_data");
-                var E = f.rev >= v.rev,
+                var E = g.rev >= v.rev,
                   k = E
                     ? (e || (e = n("Promise"))).resolve(d)
-                    : w(t.getJSModuleBundleResource(), !0, l);
+                    : I(t.getJSModuleBundleResource(), !0, l);
                 r("promiseDone")(
                   k.then(
                     function (e) {
@@ -1132,17 +879,17 @@ __d(
               ),
                 l == null || l.markEventStart("execute_worker"),
                 o("SharedWorkerEventManager").emitExecuteWorker(S));
-              var I = yield y.getPromise(),
-                T = I.workerRev,
-                D = I.workerSpinTime;
+              var T = yield y.getPromise(),
+                P = T.workerRev,
+                N = T.workerSpinTime;
               l == null || l.markEventStart("update_worker_ref");
-              var x = yield B(u, v.url, T, D);
+              var M = yield $(u, v.url, P, N);
               if (
                 (l == null ||
                   l.markEventEnd("update_worker_ref", {
-                    string: { updateWorkerRef: x },
+                    string: { updateWorkerRef: M },
                   }),
-                x === "url-was-changed")
+                M === "url-was-changed")
               )
                 throw (
                   o("SharedWorkerEventManager").emitWorkerShutdown(S, {
@@ -1150,7 +897,7 @@ __d(
                   }),
                   new c("url-was-changed")
                 );
-              return (a(), g(S, i, u), S);
+              return (a(), f(S, i, u), S);
             } finally {
               C.forEach(function (e) {
                 return e();
@@ -1158,14 +905,14 @@ __d(
             }
           },
         )),
-        q.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
     ((l.SHARED_WORKER_BROADCAST_CHANNEL = u),
       (l.SelfTerminationError = c),
-      (l.createPushSafeSharedWebWorkerV2Async = D),
-      (l.terminateSharedWorker = x),
-      (l.doesSharedWorkerReferenceExist = N));
+      (l.createPushSafeSharedWebWorkerV2Async = v),
+      (l.terminateSharedWorker = S),
+      (l.doesSharedWorkerReferenceExist = E));
   },
   98,
 );

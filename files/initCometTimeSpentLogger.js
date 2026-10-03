@@ -1,6 +1,6 @@
 __d(
   "initCometTimeSpentLogger",
-  ["CometTimeSpentBitArrayLoggerUpdater"],
+  ["CometTimeSpentBitArrayLoggerUpdater", "cr:6036"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -43,7 +43,13 @@ __d(
       window.addEventListener(i, n, r);
     }
     function d() {
-      s !== !0 && (u(), (s = !0));
+      s !== !0 &&
+        (u(),
+        (s = !0),
+        n("cr:6036") == null ||
+          n("cr:6036").addTimeSpentStartupPoint(
+            "time_spent_activity_listeners_ready",
+          ));
     }
     l.default = d;
   },

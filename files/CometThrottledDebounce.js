@@ -1,39 +1,40 @@
 __d(
   "CometThrottledDebounce",
-  ["clearTimeout", "setTimeout"],
+  ["clearTimeout", "performanceAbsoluteNow", "setTimeout"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
-      var o = 0,
-        a = 0,
-        i = null,
-        l,
+    var e;
+    function s(t, n, o) {
+      var a = 0,
+        i = 0,
+        l = null,
         s,
-        u = function () {
-          i != null && (r("clearTimeout")(i), (i = null));
-        },
+        u,
         c = function () {
-          var c = Array.from(arguments),
-            d = Date.now();
-          ((l = this), (s = c), (o = d));
-          var m = function () {
-            (s != null && e.apply(l, s),
-              (l = s = null),
-              (a = Date.now()),
-              (i = null));
+          l != null && (r("clearTimeout")(l), (l = null));
+        },
+        d = function () {
+          var d = Array.from(arguments),
+            m = (e || (e = r("performanceAbsoluteNow")))();
+          ((s = this), (u = d), (a = m));
+          var p = function () {
+            (u != null && t.apply(s, u),
+              (s = u = null),
+              (i = (e || (e = r("performanceAbsoluteNow")))()),
+              (l = null));
           };
-          a + n < d
-            ? (u(), m())
-            : o + t > d && (u(), (i = r("setTimeout")(m, t)));
+          i + o < m
+            ? (c(), p())
+            : a + n > m && (c(), (l = r("setTimeout")(p, n)));
         };
       return (
-        (c.cancel = function () {
-          ((s = l = null), u());
+        (d.cancel = function () {
+          ((u = s = null), c());
         }),
-        c
+        d
       );
     }
-    l.default = e;
+    l.default = s;
   },
   98,
 );

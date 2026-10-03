@@ -68,16 +68,17 @@ __d(
     }
     function g(e, t, n) {
       return b(n, e, function (e) {
-        var n = e.onCancel,
-          r = e.onExit,
-          o = e.onFailure,
-          a = e.onSuccess,
-          i = t.challenge_type;
-        switch (i) {
+        var n = e.onBack,
+          r = e.onCancel,
+          o = e.onExit,
+          a = e.onFailure,
+          i = e.onSuccess,
+          l = t.challenge_type;
+        switch (l) {
           case "reauth":
-            return h(i, t, r, a);
+            return h(l, t, o, i);
           default:
-            return y(i, t, r, a, n, o);
+            return y(l, t, o, i, r, a, n);
         }
       });
     }
@@ -106,11 +107,11 @@ __d(
       });
     }
     h.displayName = h.name + " [from " + i.id + "]";
-    function y(e, t, n, a, i, l) {
-      var s = o(
+    function y(e, t, n, a, i, l, s) {
+      var c = o(
         "securedActionChallengeToEntrypoints",
       ).securedActionChallengeToEntrypointsWithAccountID(e);
-      if (s === null)
+      if (c === null)
         throw (
           n(),
           r("FBLogger")("secured_action").mustfixThrow(
@@ -123,7 +124,8 @@ __d(
         accountType: t.account_type,
         categoryName: t.category_name,
         context: t.context,
-        entrypoint: p(s, t),
+        entrypoint: p(c, t),
+        onBack: s,
         onCancel: i,
         onExit: n,
         onFailure: l,
@@ -158,18 +160,25 @@ __d(
       });
     }
     function b(e, t, n) {
-      var a = t.onCancel,
-        i = t.onExit,
-        l = t.onFailure,
-        s = t.onSuccess;
+      var a = t.onBack,
+        i = t.onCancel,
+        l = t.onExit,
+        s = t.onFailure,
+        c = t.onSuccess;
       return o("CometErrorOverlay").injectComponent(function (t) {
-        var c =
-          o(
-            "CometThemeInfraUtils",
-          ).enableCometThemeInfraThemeInXMDSComponents() === !0 &&
-          e != null &&
-          r("CometThemeInfraBaseThemeGated.react") != null;
-        return c
+        var d =
+            a == null
+              ? null
+              : function () {
+                  (a(), t());
+                },
+          m =
+            o(
+              "CometThemeInfraUtils",
+            ).enableCometThemeInfraThemeInXMDSComponents() === !0 &&
+            e != null &&
+            r("CometThemeInfraBaseThemeGated.react") != null;
+        return m
           ? u.jsx(r("CometRelayEnvironmentProvider"), {
               children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
                 children:
@@ -179,17 +188,18 @@ __d(
                     themes: e,
                     children: u.jsx(r("CometTransientDialogProvider.react"), {
                       children: n({
+                        onBack: d,
                         onCancel: function () {
-                          a == null || a();
+                          i == null || i();
                         },
                         onExit: function () {
-                          (i(), t());
+                          (l(), t());
                         },
                         onFailure: function () {
-                          l == null || l();
+                          s == null || s();
                         },
                         onSuccess: function () {
-                          (s(), t());
+                          (c(), t());
                         },
                       }),
                     }),
@@ -200,17 +210,18 @@ __d(
               children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
                 children: u.jsx(r("CometTransientDialogProvider.react"), {
                   children: n({
+                    onBack: d,
                     onCancel: function () {
-                      a == null || a();
+                      i == null || i();
                     },
                     onExit: function () {
-                      (i(), t());
+                      (l(), t());
                     },
                     onFailure: function () {
-                      l == null || l();
+                      s == null || s();
                     },
                     onSuccess: function () {
-                      (s(), t());
+                      (c(), t());
                     },
                   }),
                 }),

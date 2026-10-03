@@ -3,10 +3,11 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e() {
-      return "state-key-" + Date.now();
+    var e = 0;
+    function l() {
+      return "state-key-" + Date.now() + "-" + e++;
     }
-    i.default = e;
+    i.default = l;
   },
   66,
 );

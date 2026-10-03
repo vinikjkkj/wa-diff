@@ -255,6 +255,8 @@ __d(
           return "IG";
         case "VR_PROFILE":
           return "FRL";
+        case "GIZMO_USER":
+          return "POCKET";
         case "ABRA_USER":
           return "META_AI";
         case "WA_USER":

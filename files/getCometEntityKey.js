@@ -8,8 +8,9 @@ __d(
       return t == null ? null : l(t, e);
     }
     function l(e, t) {
-      var n = {};
-      for (var r in e) n[r] = u(e[r], t);
+      var n = {},
+        r = e;
+      for (var o in e) n[o] = u(r[o], t);
       return n;
     }
     function s(e, t) {

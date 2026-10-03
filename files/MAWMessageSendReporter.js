@@ -7,6 +7,7 @@ __d(
     "MAWSetupWorkerAuxStateForLogging",
     "MWLogSendToSentFailedError",
     "QPLUserFlow",
+    "WAJids",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "getSafeQplErrorMessage",
@@ -45,6 +46,17 @@ __d(
               (r("QPLUserFlow").addPoint(c, "send_to_worker_start", {
                 instanceKey: d,
               }),
+                e != null &&
+                  r("QPLUserFlow").addAnnotations(
+                    c,
+                    {
+                      bool: {
+                        is_group_thread:
+                          o("WAJids").validateGroupJid(e.chatJid) != null,
+                      },
+                    },
+                    { instanceKey: d },
+                  ),
                 p != null &&
                   r("QPLUserFlow").addAnnotations(
                     c,

@@ -6,7 +6,9 @@ __d(
     "LSAuthorityLevel",
     "LSIntEnum",
     "LSVerifyE2EEMetadataThreadExistsV2StoredProcedure",
+    "clearTimeout",
     "isOfflineThreadingId",
+    "setTimeout",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,10 +24,10 @@ __d(
         );
         return;
       }
-      (u.has(e) && (window.clearTimeout(u.get(e)), u.delete(e)),
+      (u.has(e) && (r("clearTimeout")(u.get(e)), u.delete(e)),
         u.set(
           e,
-          window.setTimeout(function () {
+          r("setTimeout")(function () {
             u.delete(e);
           }, c),
         ));

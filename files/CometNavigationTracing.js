@@ -10,6 +10,7 @@ __d(
     "CometNavigationTracingQPLEvents",
     "CometOfflineTracing",
     "Env",
+    "ExecutionEnvironment",
     "FBLogger",
     "InteractionTracingMetrics",
     "NavigationTracing",
@@ -35,8 +36,9 @@ __d(
     var e,
       u,
       c,
-      d = r("gkx")("7024");
-    function m(e, t) {
+      d,
+      m = r("gkx")("7024");
+    function p(e, t) {
       Object.keys(t).forEach(function (n) {
         t[n].forEach(function (t) {
           r("InteractionTracingMetrics").addImagePreloader(e, t.name, {
@@ -48,35 +50,36 @@ __d(
         });
       });
     }
-    function p(e) {
-      for (
-        var t = {},
-          n = new Set(),
-          o = document.querySelectorAll(
-            "link[rel=preload][as=image][data-preloader]",
-          ),
-          a = 0;
-        a < o.length;
-        a++
-      ) {
-        var i = o[a],
-          l = i.getAttribute("href");
-        if (l != null) {
-          var s = r("vc-tracker").trimHash(l);
-          if (!e.has(s) || n.has(s)) continue;
-          n.add(s);
-          var u = i.dataset.preloader,
-            c = e.get(s);
-          c != null && (u in t ? t[u].push(c) : (t[u] = [c]));
+    function _(t) {
+      var n = {};
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM)
+        for (
+          var o = new Set(),
+            a = document.querySelectorAll(
+              "link[rel=preload][as=image][data-preloader]",
+            ),
+            i = 0;
+          i < a.length;
+          i++
+        ) {
+          var l = a[i],
+            s = l.getAttribute("href");
+          if (s != null) {
+            var u = r("vc-tracker").trimHash(s);
+            if (!t.has(u) || o.has(u)) continue;
+            o.add(u);
+            var c = l.dataset.preloader,
+              d = t.get(u);
+            d != null && (c in n ? n[c].push(d) : (n[c] = [d]));
+          }
         }
-      }
-      return t;
+      return n;
     }
-    function _(e) {
-      var t = p(o("CometAddInlineTiming").getResourceTimingMap());
-      t !== void 0 && m(e, t);
+    function f(e) {
+      var t = _(o("CometAddInlineTiming").getResourceTimingMap());
+      t !== void 0 && p(e, t);
     }
-    var f = {
+    var g = {
       Emoji: "emoji",
       PredictedSpritable: "predictedSpritable",
       PredictedUnspritable: "predictedUnspritable",
@@ -86,11 +89,11 @@ __d(
       UnpredictedUnspritable: "unpredictedUnspritable",
       Unspritable: "unspritable",
     };
-    function g(t) {
-      if (typeof (e || (e = r("performance"))).getEntriesByType != "function")
+    function h(e) {
+      if (typeof (u || (u = r("performance"))).getEntriesByType != "function")
         return {};
-      var n = s.getAllPaths(),
-        o = Object.values(f).reduce(function (e, t) {
+      var t = s.getAllPaths(),
+        n = Object.values(g).reduce(function (e, t) {
           return (
             (e[t] = {
               cacheCount: 0,
@@ -103,53 +106,53 @@ __d(
             e
           );
         }, {});
-      function a(e, t) {
-        var n = t.decodedBodySize,
-          r = t.encodedBodySize,
+      function o(e, t) {
+        var r = t.decodedBodySize,
+          o = t.encodedBodySize,
           a = t.transferSize;
-        ((o[e].totalCount += 1),
-          (o[e].transferSize += a),
-          (o[e].encodedBodySize += r),
-          (o[e].decodedBodySize += n),
-          (o[e].cacheCount += a === 0 ? 1 : 0));
+        ((n[e].totalCount += 1),
+          (n[e].transferSize += a),
+          (n[e].encodedBodySize += o),
+          (n[e].decodedBodySize += r),
+          (n[e].cacheCount += a === 0 ? 1 : 0));
       }
-      var i = (e || (e = r("performance")))
+      var a = (u || (u = r("performance")))
         .getEntriesByType("resource")
-        .filter(function (e) {
-          return t == null ? !0 : e.startTime >= t;
+        .filter(function (t) {
+          return e == null ? !0 : t.startTime >= e;
         });
       return (
-        i.forEach(function (e) {
+        a.forEach(function (e) {
           if (!(e.name.contains(".js") || e.name.contains(".css")))
             if (e.name.contains("rsrc") && e.name.contains(".png")) {
-              var t = null;
-              (n.has(e.name) ? (t = f.Spritable) : (t = f.Unspritable),
-                a(t, e),
+              var n = null;
+              (t.has(e.name) ? (n = g.Spritable) : (n = g.Unspritable),
+                o(n, e),
                 e.initiator === "link"
-                  ? a(
-                      t === f.Spritable
-                        ? f.PredictedSpritable
-                        : f.PredictedUnspritable,
+                  ? o(
+                      n === g.Spritable
+                        ? g.PredictedSpritable
+                        : g.PredictedUnspritable,
                       e,
                     )
-                  : a(
-                      t === f.Spritable
-                        ? f.UnpredictedSpritable
-                        : f.UnpredictedUnspritable,
+                  : o(
+                      n === g.Spritable
+                        ? g.UnpredictedSpritable
+                        : g.UnpredictedUnspritable,
                       e,
                     ));
             } else
               e.name.contains("emoji") && e.name.contains(".png")
-                ? a(f.Emoji, e)
+                ? o(g.Emoji, e)
                 : e.name.contains("scontent") &&
                   !e.name.contains(".kf") &&
-                  a(f.Scontent, e);
+                  o(g.Scontent, e);
         }),
-        o
+        n
       );
     }
-    function h(e, t) {
-      var n = g(t),
+    function y(e, t) {
+      var n = h(t),
         o = function (o) {
           var t = n[o];
           (t.totalCount > 0 &&
@@ -164,7 +167,7 @@ __d(
         };
       for (var a in n) o(a);
     }
-    function y(e, t) {
+    function C(e, t) {
       var n = r("__getModuleTimeDetails")(),
         o = [];
       if (
@@ -199,7 +202,7 @@ __d(
           ));
       }
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = r("qplAnnotationsIntServerJS")();
       if (n != null) {
         var o = n[t + "-server"];
@@ -211,7 +214,7 @@ __d(
           );
       }
     }
-    function b(e, t) {
+    function v(e, t) {
       var n = r("qplAnnotationsStringServerJS")();
       if (n != null) {
         var o = n[t + "-server"];
@@ -222,136 +225,138 @@ __d(
           });
       }
     }
-    function v(t) {
-      if (typeof (e || (e = r("performance"))).getEntriesByType == "function") {
-        var n = (e || (e = r("performance"))).getEntriesByType("navigation")[0];
-        if (!(n == null || Object.keys(n).length === 0)) {
-          var o = n.serverTiming;
-          if (o != null)
-            for (var a of o)
-              a.name.startsWith("slb_") &&
+    function S(e) {
+      if (typeof (u || (u = r("performance"))).getEntriesByType == "function") {
+        var t = (u || (u = r("performance"))).getEntriesByType("navigation")[0];
+        if (t != null) {
+          var n = t.serverTiming;
+          if (n != null)
+            for (var o of n)
+              o.name.startsWith("slb_") &&
                 r("InteractionTracingMetrics").addAnnotationInt(
-                  t,
-                  a.name,
-                  Math.round(a.duration),
+                  e,
+                  o.name,
+                  Math.round(o.duration),
                 );
         }
       }
     }
-    function S(e, t) {
+    function R(e, t) {
       e == null &&
         r("FBLogger")("comet_infra", "qpl_initial_load_undefined").info(
           "No INITIAL_LOAD QPL event set for trace policy '%s'. Falling back to default.",
           t,
         );
     }
-    function R(e, t, a, i, l, s, m, p, f) {
-      var g = (u || (u = r("performanceNow")))();
-      n("cr:719780") && n("cr:719780").init(t);
-      var h =
-        s != null ? s : r("CometNavigationTracingQPLEvents").initialLoadClient;
+    function L(t, a, i, l, s, u, p, _, g) {
+      var h = (c || (c = r("performanceNow")))();
+      n("cr:719780") && n("cr:719780").init(a);
+      var y =
+        u != null ? u : r("CometNavigationTracingQPLEvents").initialLoadClient;
       (o("QuickMarkersComet").mark("NavigationTracingStart"),
-        S(s, a != null ? a : ""),
+        R(u, i != null ? i : ""),
         o("NavigationTracing").traceInitialLoad(
           {
-            VCConfigOverride: p,
-            cfg: m,
-            instanceIdentifier: i,
+            VCConfigOverride: _,
+            cfg: p,
+            instanceIdentifier: l,
             interactionClass: "contingent",
-            interactionID: e,
-            qplEvent: h,
+            interactionID: t,
+            qplEvent: y,
             startTime: 0,
-            tracePolicy: a,
-            traceStartTime: g,
+            tracePolicy: i,
+            traceStartTime: h,
             traceType: "INITIAL_LOAD",
             tracingConfig: o("CometInteractionTracingConfig").tracingConfig,
           },
-          function (a) {
+          function (i) {
             (o("QuickMarkersComet").mark("InteractionTracingStart"),
-              a.onCompleteSync(function () {
+              i.onCompleteSync(function () {
                 o("QuickMarkersComet").mark("InteractionTracingComplete");
               }));
-            var i = (c || (c = r("Env"))).brsid;
-            (i != null && a.addAnnotation("brsid", "" + i),
-              a.addAnnotation("host", window.location.hostname),
-              navigator.storage != null &&
-                typeof navigator.storage.estimate == "function" &&
-                r("promiseDone")(
-                  o("WebStorageEstimator")
-                    .estimateStorage()
-                    .then(function (e) {
-                      ((e == null ? void 0 : e.quota) != null &&
-                        a.addAnnotationInt("storageQuota", e.quota),
-                        (e == null ? void 0 : e.usage) != null &&
-                          a.addAnnotationInt("storageUsage", e.usage));
-                    }),
-                ),
-              a.onComplete(function (i) {
-                var l;
+            var l = (d || (d = r("Env"))).brsid;
+            (l != null && i.addAnnotation("brsid", "" + l),
+              (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+                (i.addAnnotation("host", window.location.hostname),
+                navigator.storage != null &&
+                  typeof navigator.storage.estimate == "function" &&
+                  r("promiseDone")(
+                    o("WebStorageEstimator")
+                      .estimateStorage()
+                      .then(function (e) {
+                        ((e == null ? void 0 : e.quota) != null &&
+                          i.addAnnotationInt("storageQuota", e.quota),
+                          (e == null ? void 0 : e.usage) != null &&
+                            i.addAnnotationInt("storageUsage", e.usage));
+                      }),
+                  )),
+              i.onComplete(function (l) {
+                var s;
                 if (
                   (o("QuickMarkersComet").mark("InitialLoadComplete"),
-                  _(e),
-                  o("CometAddInlineTiming").addInlineTiming(e, t, 0),
+                  f(t),
+                  o("CometAddInlineTiming").addInlineTiming(t, a, 0),
                   r("Network").containsNetworkInformation())
                 ) {
-                  var s = r("Network").getRTT();
-                  s != null && a.addAnnotationInt("network_RTT", s);
-                  var u = r("Network").getEffectiveType();
-                  u != null &&
-                    a.addAnnotation(
+                  var u = r("Network").getRTT();
+                  u != null && i.addAnnotationInt("network_RTT", u);
+                  var c = r("Network").getEffectiveType();
+                  c != null &&
+                    i.addAnnotation(
                       "network_connectivityEffectiveType",
-                      String(u),
+                      String(c),
                     );
-                  var c = r("Network").getBandwidth();
-                  c != null && a.addAnnotationInt("network_bandwidth", c);
-                  var m = r("Network").getType();
-                  m != null &&
-                    a.addAnnotation("network_connectivityType", String(m));
+                  var d = r("Network").getBandwidth();
+                  d != null && i.addAnnotationInt("network_bandwidth", d);
+                  var p = r("Network").getType();
+                  p != null &&
+                    i.addAnnotation("network_connectivityType", String(p));
                 }
-                (window.navigator &&
+                ((e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+                  window.navigator &&
                   window.navigator.hardwareConcurrency &&
-                  a.addAnnotationInt(
+                  i.addAnnotationInt(
                     "hardwareConcurrency",
                     window.navigator.hardwareConcurrency,
                   ),
-                  o("CometAddInlineTiming").addServerAnnotationsInt(e, t),
-                  C(e, t),
-                  b(e, t),
-                  v(e),
-                  o("CometAddInlineTiming").addServerTags(e),
-                  r("gkx")("23406") && y(e, g),
+                  o("CometAddInlineTiming").addServerAnnotationsInt(t, a),
+                  b(t, a),
+                  v(t, a),
+                  S(t),
+                  o("CometAddInlineTiming").addServerTags(t),
+                  r("gkx")("23406") && C(t, h),
                   r("InteractionTracingMetrics").addMetadata(
-                    e,
+                    t,
                     "pkg_cohort",
                     r("SiteData").pkg_cohort,
                   ),
                   r("InteractionTracingMetrics").addMetadata(
-                    e,
+                    t,
                     "comet_env",
                     r("SiteData").comet_env,
                   ),
-                  f != null &&
+                  g != null &&
                     r("InteractionTracingMetrics").addMetadata(
-                      e,
+                      t,
                       "canonical_route",
-                      f,
+                      g,
                     ),
                   o("WorkPWAUtil").isBrowserPWA() &&
-                    r("InteractionTracingMetrics").addMetadata(e, "is_pwa", !0),
-                  a.addMetadata("is_mobile", r("gkx")("22968")),
+                    r("InteractionTracingMetrics").addMetadata(t, "is_pwa", !0),
+                  i.addMetadata("is_mobile", r("gkx")("22968")),
                   n("cr:719780") && n("cr:719780").log(),
-                  d && L(e),
+                  m && E(t),
                   o("CometCurrentInitialLoadVC").setInitialLoadVC(
-                    (l = i.markerPoints.visuallyComplete) == null
+                    (s = l.markerPoints.visuallyComplete) == null
                       ? void 0
-                      : l.timestamp,
+                      : s.timestamp,
                   ),
-                  a.addAnnotationInt(
+                  i.addAnnotationInt(
                     o("CometOfflineTracing").OFFLINE_NETWORK_STATUS_ANNOTATION,
                     o("CometOfflineTracing").getOfflineCount(),
                   ),
                   r("ifRequired")("CometBTManifestLoader", function (e) {
-                    a.addAnnotationBoolean(
+                    i.addAnnotationBoolean(
                       "longtail_needed",
                       o(
                         "BootloaderEvents",
@@ -359,20 +364,20 @@ __d(
                     );
                   }));
               }),
-              l(a));
+              s(i));
           },
         ));
     }
-    function L(e, t) {
+    function E(e, t) {
       (r("InteractionTracingMetrics").addMetadata(
         e,
         "hasExtraResourceMetadata",
         1,
       ),
-        h(e, t));
+        y(e, t));
     }
-    function E(e, t, n, a, i, l, s, u) {
-      var m;
+    function k(e, t, n, a, i, l, s, u) {
+      var c;
       i === void 0 && (i = r("uuidv4")());
       var p = o("CometEventTimings").getCurrentQueueTime(n),
         _ = p[0],
@@ -387,15 +392,15 @@ __d(
           qplEvent: l,
           startTime: _,
           tracePolicy:
-            (m = t == null ? void 0 : t.tracePolicy) != null ? m : null,
+            (c = t == null ? void 0 : t.tracePolicy) != null ? c : null,
           traceType: "NAVIGATION",
           tracingConfig: o("CometInteractionTracingConfig").tracingConfig,
         },
         function (e) {
           (e.onComplete(function () {
-            var n = (c || (c = r("Env"))).brsid;
+            var n = (d || (d = r("Env"))).brsid;
             (n != null && e.addAnnotation("brsid", "" + n),
-              d && L(i, _),
+              m && E(i, _),
               o("CometAddInlineTiming").addServerTags(i),
               e.addMetadata("is_mobile", r("gkx")("22968")),
               o("WorkPWAUtil").isBrowserPWA() && e.addMetadata("is_pwa", !0),
@@ -413,9 +418,9 @@ __d(
         },
       );
     }
-    ((l.addSlbServerTimingAnnotations = v),
-      (l.traceInitialLoad = R),
-      (l.traceNavigation = E));
+    ((l.addSlbServerTimingAnnotations = S),
+      (l.traceInitialLoad = L),
+      (l.traceNavigation = k));
   },
   98,
 );

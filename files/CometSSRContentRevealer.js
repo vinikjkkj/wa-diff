@@ -28,7 +28,9 @@ __d(
           (n.addAnnotationInt("enable_caa_welcome_screen_delay", 1),
           s != null && window.clearTimeout(s),
           (s = window.setTimeout(function () {
-            (window.clearTimeout(s), (s = null), u && h(t));
+            (window.clearTimeout(s != null ? s : void 0),
+              (s = null),
+              u && h(t));
           }, 2e3)));
       }
     }

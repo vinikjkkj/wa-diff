@@ -62,7 +62,10 @@ __d(
                       m === _ && (_ = null));
                   }
                   return (
-                    d &&
+                    d != null &&
+                      p != null &&
+                      m != null &&
+                      d &&
                       p &&
                       m &&
                       n("cr:7269")(
@@ -121,9 +124,9 @@ __d(
             r.path[1] === "news_feed" &&
             r.path[2] === "edges"
           ) {
-            var a,
-              i = t == null || (a = t.viewer) == null ? void 0 : a.news_feed,
-              l = i == null ? void 0 : i.edges;
+            var a = t == null ? void 0 : t.viewer,
+              i = typeof a == "object" && a != null ? a.news_feed : void 0,
+              l = typeof i == "object" && i != null ? i.edges : void 0;
             if (
               i != null &&
               (l == null || (Array.isArray(l) && l.length === 0))

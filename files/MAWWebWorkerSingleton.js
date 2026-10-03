@@ -12,7 +12,6 @@ __d(
     "Promise",
     "SharedWorkerBundleResource",
     "SharedWorkerMigrationUtils",
-    "SharedWorkerV2ResourceExperimental",
     "SharedWorkerV4MigrationUtils",
     "SharedWorkerV4Resource",
     "WAResolvable",
@@ -117,12 +116,14 @@ __d(
       p = null;
     }
     function h(e) {
-      return p
+      var t = p;
+      return t
         ? (o("MAWMIC").addPoint(e + "_wait_on_worker_creation"),
           o("MAWInit").MAWInit.logPoint(e + "_wait_on_worker_creation"),
-          p)
+          t)
         : (o("MAWInit").MAWInit.logPoint(e + "_create_worker_start"),
           o("MAWMIC").addPoint(e + "_create_worker_start"),
+          r("gkx")("4766"),
           (p = (
             o("shouldUseMAWSharedWorker").shouldUseMAWSharedWorker()
               ? y(e)
@@ -202,29 +203,16 @@ __d(
                     .mustfix("shared worker v4 init failed"));
               }
             }
-            var m = r("gkx")("7313");
-            (o("MAWMIC").addBoolAnnotation("migrationEnabled", m),
-              yield o(
-                "SharedWorkerV4MigrationUtils",
-              ).detectAndTerminateV4Worker(n("cr:6600").name));
-            var p = m
-              ? o(
-                  "SharedWorkerV2ResourceExperimental",
-                ).createPushSafeSharedWebWorkerV2Async(n("cr:6600"), t, {
-                  migratedWorker: !0,
-                  onQPLEvent: o("MAWStartupLoggingUtils")
-                    .logSharedWorkerQPLEvents,
-                  reason: e,
-                })
-              : o(
-                  "SharedWorkerBundleResource",
-                ).createPushSafeSharedWebWorkerV2Async(n("cr:6600"), t, {
-                  onQPLEvent: o("MAWStartupLoggingUtils")
-                    .logSharedWorkerQPLEvents,
-                  reason: e,
-                  useDynamicStringInit: r("gkx")("8737"),
-                });
-            return p.then(function (e) {
+            yield o("SharedWorkerV4MigrationUtils").detectAndTerminateV4Worker(
+              n("cr:6600").name,
+            );
+            var m = o(
+              "SharedWorkerBundleResource",
+            ).createPushSafeSharedWebWorkerV2Async(n("cr:6600"), t, {
+              onQPLEvent: o("MAWStartupLoggingUtils").logSharedWorkerQPLEvents,
+              reason: e,
+            });
+            return m.then(function (e) {
               (u(e), o("MAWMIC").addPoint("shared_worker_bundle_created"));
               var t = r("setTimeout")(function () {
                   (o("MAWMIC").addPoint("shared_worker_connection_ack_timeout"),

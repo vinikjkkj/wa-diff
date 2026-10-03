@@ -1,6 +1,6 @@
 __d(
   "LSSuspense",
-  ["PromiseAnnotate"],
+  ["PromiseAnnotate", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -18,7 +18,7 @@ __d(
               return ((t.current = { state: "Done", value: e }), e);
             })
             .catch(function (e) {
-              t.current = { error: e, state: "Error" };
+              t.current = { error: r("getErrorSafe")(e), state: "Error" };
             }),
           state: "Loading",
         },
@@ -36,31 +36,31 @@ __d(
     function p(e) {
       return m(e.current);
     }
-    function _(t, n, r) {
-      var a = t.get(n);
-      if (a != null) return m(a);
-      var i = r(),
-        l = {
-          promise: i
+    function _(t, n, a) {
+      var i = t.get(n);
+      if (i != null) return m(i);
+      var l = a(),
+        s = {
+          promise: l
             .then(function (e) {
               return (t.set(n, { state: "Done", value: e }), e);
             })
             .catch(function (e) {
-              t.set(n, { error: e, state: "Error" });
+              t.set(n, { error: r("getErrorSafe")(e), state: "Error" });
             }),
           state: "Loading",
         },
-        s = l.promise;
-      if (s) {
-        var u;
+        u = s.promise;
+      if (u) {
+        var c;
         (e || (e = o("PromiseAnnotate"))).setDisplayName(
-          s,
-          (u = (e || (e = o("PromiseAnnotate"))).getDisplayName(i)) != null
-            ? u
+          u,
+          (c = (e || (e = o("PromiseAnnotate"))).getDisplayName(l)) != null
+            ? c
             : "LSCollection",
         );
       }
-      return (t.set(n, l), m(l));
+      return (t.set(n, s), m(s));
     }
     var f = {
       getFromCollection: _,

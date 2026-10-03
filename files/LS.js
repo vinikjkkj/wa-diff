@@ -27,7 +27,6 @@ __d(
     "err",
     "gkx",
     "isPromise",
-    "justknobx",
     "qpl",
     "setTimeout",
   ],
@@ -235,7 +234,6 @@ __d(
                 e.apply(void 0, [i, t].concat(l)),
               );
               return (m || (m = r("isPromise")))(s) &&
-                r("justknobx")._("3895") &&
                 (f || (f = r("ExecutionEnvironment"))).isInBrowser
                 ? Promise.race([
                     s,

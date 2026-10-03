@@ -67,7 +67,7 @@ __d(
         L
       );
     }
-    ((i.ActionType = e), (i.getActionType = l));
+    i.getActionType = l;
   },
   66,
 );

@@ -4,6 +4,7 @@ __d(
     "FBLogger",
     "ProfileCometSession",
     "Random",
+    "UplLoggerHelper",
     "filterObject",
     "getCometEntityKey",
     "getUserIDFromRoute",
@@ -28,7 +29,7 @@ __d(
         case "uint32":
           return o("Random").uint32().toString();
         case "upl":
-          return ["upl", Date.now(), r("uuidv4")()].join("_");
+          return o("UplLoggerHelper").generateUplSessionId();
         case "bigint":
           return (
             "" +

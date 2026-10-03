@@ -24,7 +24,9 @@ __d(
           o = {
             flushes: [],
             hasteResponseLogEvents: [],
-            isExecTime: t.params.metadata.is_ls_relay_request === !0,
+            isExecTime:
+              t.params.metadata.is_ls_relay_request === !0 ||
+              t.params.metadata.operation != null,
             isPreloaded: !1,
             name: t.params.name,
             networkStart: n,
@@ -54,7 +56,7 @@ __d(
                   (a.end = (e || (e = r("performanceNow")))());
               }
               a.flushes.push({
-                label: (t = n.label) != null ? t : "root",
+                label: (t = "label" in n ? n.label : null) != null ? t : "root",
                 time: (e || (e = r("performanceNow")))(),
               });
             };

@@ -9,6 +9,7 @@ __d(
     "TimeSpentWWWCometConfig.experimental",
     "WebSession",
     "WebTimeSpentBitArrayFalcoEvent",
+    "cr:6036",
     "isInIframe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -61,25 +62,29 @@ __d(
     function f(t) {
       if (!(r("isInIframe")() && !_(t))) {
         u = t;
-        var n = Date.now();
-        (o("TimeSpentArray").init(
-          c,
-          r("TimeSpentWWWCometConfig.experimental").CONFIG,
-          n,
-          d,
-          m,
-        ),
+        var a = Date.now();
+        (n("cr:6036") == null ||
+          n("cr:6036").addTimeSpentStartupPoint("time_spent_array_init_start"),
+          o("TimeSpentArray").init(
+            c,
+            r("TimeSpentWWWCometConfig.experimental").CONFIG,
+            a,
+            d,
+            m,
+          ),
+          n("cr:6036") == null ||
+            n("cr:6036").addTimeSpentStartupPoint("time_spent_array_init_end"),
           (s = p()),
           r("TimeSpentImmediateActiveSecondsLogger").maybeReportActiveSecond(
-            n,
+            a,
           ));
-        var a = 772;
-        o("Random").coinflip(a) &&
+        var i = 772;
+        o("Random").coinflip(i) &&
           (e || (e = o("ODS"))).bumpEntityKey(
             2966,
             "ms.time_spent.qa.www",
             "time_spent.bits.js_initialized",
-            a,
+            i,
           );
       }
     }

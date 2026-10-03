@@ -63,12 +63,7 @@ __d(
         })
         .join(",");
     }
-    function f(e) {
-      return e.filter(function (e) {
-        return u.includes(e.selector);
-      });
-    }
-    function g(e, t) {
+    function f(e, t) {
       var n;
       return (n = e.find(function (e) {
         return e.selector === t;
@@ -76,7 +71,7 @@ __d(
         ? void 0
         : n.mode;
     }
-    function h(e, t, n) {
+    function g(e, t, n) {
       if (
         !e.some(function (e) {
           return e.selector === t;
@@ -89,7 +84,7 @@ __d(
         return e.selector === t ? { mode: n, selector: t } : e;
       });
     }
-    function y(e) {
+    function h(e) {
       return e.length === 0
         ? null
         : e.map(function (e) {
@@ -101,10 +96,9 @@ __d(
       (l.parseRules = m),
       (l.hasV2Rules = p),
       (l.serializeRules = _),
-      (l.getRenderableRules = f),
-      (l.getMode = g),
-      (l.applyMode = h),
-      (l.toMutationInput = y));
+      (l.getMode = f),
+      (l.applyMode = g),
+      (l.toMutationInput = h));
   },
   98,
 );

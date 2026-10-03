@@ -32,7 +32,7 @@ __d(
         n === "XFBWearablesOrchestratorDeliverable" ||
         n === "ArtemisTaskAnalysisFeedback"
       )
-        return t.id == null ? null : n + ":" + t.id;
+        return t.id == null ? null : n + ":" + String(t.id);
       if (n === "XFBABTestLaunchProposalReviewChecklistGuidelineResult") {
         var r = t.entry_key,
           o = r == null ? t.id : r;

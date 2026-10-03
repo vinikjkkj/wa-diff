@@ -1,15 +1,18 @@
 __d(
   "MAWSetupWorkerAuxStateForLogging",
-  ["nullthrows"],
+  ["nullthrows", "performanceAbsoluteNow"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = [],
-      s = 3,
-      u = {
+    var e,
+      s = [],
+      u = 3,
+      c = {
         getWorkerAge: function () {
-          if (u.workerStartTime != null)
+          if (c.workerStartTime != null)
             return Math.floor(
-              (Date.now() - r("nullthrows")(u.workerStartTime)) / 1e3,
+              ((e || (e = r("performanceAbsoluteNow")))() -
+                r("nullthrows")(c.workerStartTime)) /
+                1e3,
             );
         },
         restartMessageTypes: [],
@@ -17,19 +20,19 @@ __d(
         workerStartTime: null,
         workerTerminatedPermanently: !1,
       };
-    function c() {
-      u.workerStartTime = Date.now();
+    function d() {
+      c.workerStartTime = (e || (e = r("performanceAbsoluteNow")))();
     }
-    function d(t) {
-      (e.push(t), e.length > s && e.shift());
+    function m(e) {
+      (s.push(e), s.length > u && s.shift());
     }
-    function m() {
-      return e.join(",");
+    function p() {
+      return s.join(",");
     }
-    ((l.WorkerLifeCycleState = u),
-      (l.resetWorkerCreationTime = c),
-      (l.addWorkerHeartbeatToHistory = d),
-      (l.getHeartbeatHistoryAsString = m));
+    ((l.WorkerLifeCycleState = c),
+      (l.resetWorkerCreationTime = d),
+      (l.addWorkerHeartbeatToHistory = m),
+      (l.getHeartbeatHistoryAsString = p));
   },
   98,
 );

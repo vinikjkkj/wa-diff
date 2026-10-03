@@ -31,9 +31,7 @@ __d(
         _.DOCUMENT_FILE,
         _.RECEIVER_FETCH,
       ]);
-    ((l.isMAWSupportedMediaType = e),
-      (l.EPHEMERAL_SCREENSHOT_ACTION = s),
-      (l.MSG_TYPE = _));
+    ((l.isMAWSupportedMediaType = e), (l.MSG_TYPE = _));
   },
   98,
 );

@@ -285,7 +285,7 @@ __d(
                       t = !0;
                       var r = s.map(function (e) {
                         var t = e.start;
-                        return t[0];
+                        return t == null ? void 0 : t[0];
                       });
                       return (e = u == null ? i : i.index(u)).get
                         .apply(e, r)

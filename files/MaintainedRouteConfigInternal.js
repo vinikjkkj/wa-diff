@@ -26,6 +26,7 @@ __d(
           maintainRouteForMs: 1200 * 1e3,
           maintainRouteWhenJSHeapBelow: s,
         },
+        basel_effects_create: { maintained: !0, maintainRouteForMs: 300 * 1e3 },
         comet_test_maintained_one: {
           maintained: !0,
           maintainRouteForMs: 300 * 1e3,

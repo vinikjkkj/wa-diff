@@ -869,7 +869,6 @@ __d(
     ((l.sentinelDeleted = c),
       (l.isDeletedValue = b),
       (l.ReStoreDbStoreTable = S),
-      (l.ReStoreDbStoreTransaction = L),
       (l.createDbStore = E));
   },
   98,

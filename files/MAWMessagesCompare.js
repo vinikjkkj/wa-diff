@@ -36,8 +36,7 @@ __d(
         desc: s,
       });
     }
-    ((l.makeCompareMessageMetadataForDescOrderFn = e),
-      (l.getSortComparisonFunctionForDirection = c));
+    l.getSortComparisonFunctionForDirection = c;
   },
   98,
 );

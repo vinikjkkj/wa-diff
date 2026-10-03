@@ -264,7 +264,7 @@ __d(
             r("FBLogger")("comet_infra").mustfix(
               "Unable to parse /ajax/route-definition/ response %s, %s",
               l,
-              e,
+              String(e),
             ),
             t({ error: !0 }));
           return;

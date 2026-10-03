@@ -1,6 +1,6 @@
 __d(
   "MAWDbMedia",
-  ["MAWMsgType", "WAMediaUtils", "WAResultOrError"],
+  ["MAWMsgType"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -18,20 +18,9 @@ __d(
     function c(e) {
       return e;
     }
-    function d(e, t) {
-      var n = e.mediaEntries.get(t);
-      if (n == null)
-        return o("WAResultOrError").makeError("missing-media-entry");
-      var r = o("WAMediaUtils").decodeMediaEntryData(n),
-        a = r.serverMediaType;
-      return a == null
-        ? o("WAResultOrError").makeError("missing-server-media-type")
-        : o("WAResultOrError").makeResult(a);
-    }
     ((l.MEDIA_TYPE = s),
       (l.convertNumberToMediaId = u),
-      (l.convertToMediaId64 = c),
-      (l.getServerMediaType = d));
+      (l.convertToMediaId64 = c));
   },
   98,
 );

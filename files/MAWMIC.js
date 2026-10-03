@@ -34,19 +34,26 @@ __d(
       );
     }
     function h() {
+      var e =
+        n("cr:34940") == null
+          ? void 0
+          : n("cr:34940").getRemainingRequiredEvents();
+      return e != null ? Array.from(e).sort() : [];
+    }
+    function y() {
       var e;
       return (e =
         n("cr:34940") == null ? void 0 : n("cr:34940").endReasonMIC()) != null
         ? e
         : "end_reason_not_available";
     }
-    function y() {
+    function C() {
       n("cr:34940") == null || n("cr:34940").onConnectToExistingWorker();
     }
-    function C() {
+    function b() {
       n("cr:34940") == null || n("cr:34940").startMAWMICFlow();
     }
-    function b() {
+    function v() {
       var t;
       return (t = n("cr:34940") == null ? void 0 : n("cr:34940").getState()) !=
         null
@@ -62,10 +69,11 @@ __d(
       (l.addStringArrayAnnotation = _),
       (l.addIntArrayAnnotation = f),
       (l.duringMIC = g),
-      (l.endReasonMIC = h),
-      (l.onConnectToExistingWorker = y),
-      (l.startMAWMICFlow = C),
-      (l.getState = b));
+      (l.getRemainingRequiredEvents = h),
+      (l.endReasonMIC = y),
+      (l.onConnectToExistingWorker = C),
+      (l.startMAWMICFlow = b),
+      (l.getState = v));
   },
   98,
 );

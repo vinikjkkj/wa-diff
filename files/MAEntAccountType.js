@@ -22,10 +22,12 @@ __d(
       WA_BUSINESS_PROFILE: 17,
       MESSENGER_KID: 18,
       NISABA: 19,
+      GLAM: 20,
       META_ACCOUNT: 100,
       DO_NOT_USE: 1e4,
       EXAMPLE: 10001,
       SOLO: 10002,
+      GLAM_DO_NOT_USE: 10003,
     });
     i.default = e;
   },

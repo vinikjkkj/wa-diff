@@ -65,8 +65,7 @@ __d(
         }),
           p(r("Bootloader"), l, function (e) {
             (Array.from(a.entries()).forEach(function (t, n) {
-              var r = t[0],
-                o = t[1];
+              var r = t[0];
               u[r] = e[n];
             }),
               t());
@@ -138,8 +137,7 @@ __d(
         var _ = p(r("Bootloader"), s, function (e) {
             (r("clearTimeout")(f),
               Array.from(l.entries()).forEach(function (t, n) {
-                var r = t[0],
-                  o = t[1];
+                var r = t[0];
                 u[r] = e[n];
               }),
               t());

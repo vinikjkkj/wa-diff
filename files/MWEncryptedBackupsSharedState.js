@@ -5,6 +5,7 @@ __d(
     "ReQL",
     "ReQLSuspense",
     "WebStorage",
+    "getErrorSafe",
     "getMWEncryptedBackupsIsLocalStorageSupported",
     "promiseDone",
     "react",
@@ -32,7 +33,7 @@ __d(
         "readwrite",
         "background",
         void 0,
-        i.id + ":38",
+        i.id + ":39",
       );
     }
     function m(t) {
@@ -98,7 +99,7 @@ __d(
         "readwrite",
         "background",
         void 0,
-        i.id + ":132",
+        i.id + ":133",
       );
     }
     function h(e) {
@@ -113,7 +114,7 @@ __d(
                 .getKeyRange(e);
             },
             [a.tables.experiences_shared_state, e],
-            i.id + ":143",
+            i.id + ":144",
           )) == null
             ? void 0
             : t.stateValue,
@@ -203,7 +204,7 @@ __d(
                     })();
             return u(t.toString()).catch(function (t) {
               r("FBLogger")("messenger_web_trust")
-                .catching(t)
+                .catching(r("getErrorSafe")(t))
                 .warn("Failed to set timestamp in shared state for key %s", e);
             });
           }),

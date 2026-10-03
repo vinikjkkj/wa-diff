@@ -13,6 +13,8 @@ __d(
         "FB_USER",
         "FCA_USER",
         "FRL_USER",
+        "GIZMO_USER",
+        "GLAM_USER",
         "IG_PROFESSIONAL",
         "IG_USER",
         "MESSENGER_KID",

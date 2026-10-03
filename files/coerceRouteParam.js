@@ -128,21 +128,20 @@ __d(
       return { valid: !1 };
     }
     function g(e, t, n) {
-      if (typeof n == "object" || Array.isArray(n)) {
-        var r = {};
-        for (var o of Object.entries(n != null ? n : {})) {
-          var a = o[0],
-            i = o[1];
-          if (i !== null) {
-            var l = e(a),
-              s = t(i);
-            if (l === null || s === null) return { valid: !1 };
-            r[l] = s;
-          }
+      if (typeof n != "object") return { valid: !1 };
+      var r = {},
+        o = n == null ? [] : Object.entries(n);
+      for (var a of o) {
+        var i = a[0],
+          l = a[1];
+        if (l !== null) {
+          var s = e(i),
+            u = t(l);
+          if (s === null || u === null) return { valid: !1 };
+          r[s] = u;
         }
-        return { valid: !0, value: r };
       }
-      return { valid: !1 };
+      return { valid: !0, value: r };
     }
     function h(e, t) {
       return e(t);

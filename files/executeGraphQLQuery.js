@@ -24,7 +24,7 @@ __d(
                 .catch(function (e) {
                   throw r("FBLogger")("messenger_web").mustfixThrow(
                     "executeGraphQLQuery: Failed to get DTSG token from the main thread",
-                    e,
+                    String(e),
                   );
                 })),
               l == null || l === "" || typeof l != "string")
