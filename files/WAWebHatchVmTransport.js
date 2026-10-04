@@ -48,6 +48,21 @@ __d(
         );
       },
       CONNECTORS_LIST: "/api/connectors",
+      CREDENTIALS_CAPTURE: "/v1/credentials/capture",
+      CREDENTIALS_CATALOG: function (n) {
+        return (
+          "/v1/credentials/catalog?credential_type=browser&limit=200" +
+          (n == null ? "" : "&cursor=" + encodeURIComponent(n))
+        );
+      },
+      CREDENTIALS_CATALOG_DELETE: "/v1/credentials/catalog/delete",
+      CREDENTIALS_CATALOG_DETAILS: function (n) {
+        return (
+          "/v1/credentials/catalog/details?credential_type=browser&id=" +
+          encodeURIComponent(n)
+        );
+      },
+      CREDENTIALS_CATALOG_UPDATE: "/v1/credentials/catalog/update",
       OAUTH_CALLBACK: "/oauth/callback",
     });
     function s(e) {

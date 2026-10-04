@@ -93,14 +93,13 @@ __d(
                 ? (s || (s = n("Promise"))).resolve(t)
                 : new (s || (s = n("Promise")))(function (e) {
                     var n = new Image();
-                    ((n.onload = function (t) {
-                      var n = t.target,
-                        r = document.createElement("canvas"),
-                        o = r.getContext("2d");
-                      ((r.width = n.naturalWidth),
-                        (r.height = n.naturalHeight),
-                        o.drawImage(n, 0, 0),
-                        r.toBlob(e, "image/png", 1));
+                    ((n.onload = function () {
+                      var t = document.createElement("canvas"),
+                        r = t.getContext("2d");
+                      ((t.width = n.naturalWidth),
+                        (t.height = n.naturalHeight),
+                        r.drawImage(n, 0, 0),
+                        t.toBlob(e, "image/png", 1));
                     }),
                       (n.src = URL.createObjectURL(t)));
                   }),

@@ -238,25 +238,19 @@ __d(
               i = r
                 .filter(function (e) {
                   return (
-                    e.messageType ===
-                    o("MqttProtocolCodec").MESSAGE_TYPE.PUBLISH
+                    e instanceof o("MqttProtocolCodec").WireMessage.Publish
                   );
                 })
                 .map(function (t) {
-                  if (
-                    !(t instanceof o("MqttProtocolCodec").WireMessage.Publish)
-                  )
-                    return {};
-                  var n = t;
                   return (
-                    n.qos === 1 &&
-                      n.messageIdentifier != null &&
-                      (e.$16.push(n.messageIdentifier),
+                    t.qos === 1 &&
+                      t.messageIdentifier != null &&
+                      (e.$16.push(t.messageIdentifier),
                       e.$17 == null &&
                         (e.$17 = o("MqttEnv").Env.setTimeout(function () {
                           e.$22();
                         }, C))),
-                    { topic: n.topic, payload: n.payloadMessage, qos: n.qos }
+                    { topic: t.topic, payload: t.payloadMessage, qos: t.qos }
                   );
                 });
             for (var l of i) {

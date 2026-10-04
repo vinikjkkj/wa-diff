@@ -82,6 +82,46 @@ __d(
             },
           );
         }),
+        (r.credentialCatalog = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG(t),
+            { service: "authd" },
+          );
+        }),
+        (r.credentialDetails = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_DETAILS(
+              t,
+            ),
+            { service: "authd" },
+          );
+        }),
+        (r.credentialCapture = function (t) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CAPTURE,
+            { body: d(t), service: "authd" },
+          );
+        }),
+        (r.credentialUpdate = function (t) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_UPDATE,
+            { body: d(t), service: "authd" },
+          );
+        }),
+        (r.credentialDelete = function (t) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_DELETE,
+            {
+              body: d({ credential_type: "browser", id: t }),
+              service: "authd",
+            },
+          );
+        }),
         (r.connectorAccounts = function (t, n) {
           return this.request(
             "GET",

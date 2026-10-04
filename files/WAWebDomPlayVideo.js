@@ -4,8 +4,9 @@ __d(
   function (t, n, r, o, a, i) {
     var e;
     function l(t) {
-      if (t.__playPromise) return t.__playPromise;
-      var r = new (e || (e = n("Promise")))(function (e, n) {
+      var r = t.__playPromise;
+      if (r && r != null) return r;
+      var o = new (e || (e = n("Promise")))(function (e, n) {
         function r(n) {
           (t.removeEventListener("playing", r),
             t.removeEventListener("error", o),
@@ -32,7 +33,7 @@ __d(
               (delete t.__playPromise, n(e));
             }));
       });
-      return ((t.__playPromise = r), r);
+      return ((t.__playPromise = o), o);
     }
     function s(e) {
       return e && typeof e.then == "function";

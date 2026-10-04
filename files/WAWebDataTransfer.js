@@ -49,7 +49,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = yield this.$2(e);
-                return t ? t.replace(l, "\n") : null;
+                return t != null && t !== "" ? t.replace(l, "\n") : null;
               },
             );
             function t(t) {

@@ -29,11 +29,12 @@ __d(
       return { timeoutDelayMap: b, nextDelay: v, timeoutInSeconds: p };
     }
     function E() {
-      if (u) {
-        var e = Date.now();
-        e > f && (h = Math.min(s, Math.ceil(e / 1e3 - _)));
-        var t = x();
-        t && u(t, v);
+      var e = u;
+      if (e) {
+        var t = Date.now();
+        t > f && (h = Math.min(s, Math.ceil(t / 1e3 - _)));
+        var n = x();
+        n && e(n, v);
       }
       D();
     }

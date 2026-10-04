@@ -52,12 +52,10 @@ __d(
         isNaN(r) || (n = r * 1024 * 1024 * 1024);
       }
       if (e()) {
-        var o, a;
+        var o;
         m != null && t.runGC && m();
-        var i =
-            (o = (a = window.performance) == null ? void 0 : a.memory) != null
-              ? o
-              : {},
+        var a = window.performance,
+          i = (o = a == null ? void 0 : a.memory) != null ? o : {},
           s = i.jsHeapSizeLimit,
           u = i.totalJSHeapSize,
           c = i.usedJSHeapSize;

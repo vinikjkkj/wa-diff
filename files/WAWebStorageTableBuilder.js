@@ -88,7 +88,7 @@ __d(
                 return t < n;
               }),
             a = r.pop();
-          if (!a && a !== 0) return null;
+          if (a == null || Number.isNaN(a)) return null;
           var i = a;
           return (
             this.versions.get(i) ||

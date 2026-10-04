@@ -16,7 +16,6 @@ __d(
     "WAWebHistorySyncLidChatGating",
     "WAWebHistorySyncNotificationCommonUtils",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessage",
     "WAWebSyncGatingUtils",
@@ -235,16 +234,10 @@ __d(
                         ? void 0
                         : ae.commentParentKey) == null &&
                       (C.has(ce.id.toString()) &&
-                        o(
-                          "WAWebMessageAssociationGatingUtils",
-                        ).isMessageAssociationInfraEnabled() &&
                         C.delete(ce == null ? void 0 : ce.id.toString()),
                       l.push(ce)),
                     ce != null &&
-                      o("WAWebMessageAssociation.flow").isAssociatedMsg(ce) &&
-                      o(
-                        "WAWebMessageAssociationGatingUtils",
-                      ).isMessageAssociationInfraEnabled())
+                      o("WAWebMessageAssociation.flow").isAssociatedMsg(ce))
                   ) {
                     var me = ce.parentMsgKey.toString();
                     (C.add(me), h.push(ce));

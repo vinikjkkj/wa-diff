@@ -89,7 +89,7 @@ __d(
                 " filehash",
               ])),
             n.id.toString(),
-            u.filehash ? "changed" : "added",
+            u.filehash != null && u.filehash !== "" ? "changed" : "added",
           ),
           o("WAWebMediaStorage").disassociateMediaFromMsg(u, n),
           (u = o("WAWebMediaStorage").getOrCreateMediaObject(d)),

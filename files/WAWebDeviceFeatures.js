@@ -19,11 +19,11 @@ __d(
         : e * window.outerWidth + "x" + e * window.outerHeight;
     }
     function m() {
-      var e, t;
-      return (e =
-        (t = navigator) == null || (t = t.connection) == null
-          ? void 0
-          : t.rtt) != null
+      var e,
+        t,
+        n = navigator;
+      return (e = n == null || (t = n.connection) == null ? void 0 : t.rtt) !=
+        null
         ? e
         : -1;
     }

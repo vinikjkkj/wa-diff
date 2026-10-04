@@ -2,7 +2,6 @@ __d(
   "WAWebVoipActionWriteCallLogOfferNotice",
   [
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -24,9 +23,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebVoipPhaseTracker").beginPostCallWork();
           try {
-            o("WAWebABProps").getABPropConfigValue(
-              "enable_web_voip_anr_optimizations",
-            ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+            yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
             var n = e.callCreatorWid,
               a = e.callId,
               i = e.callOutcome,

@@ -387,10 +387,12 @@ __d(
                 .sendLogs("presence-chat-active-update-failed");
             }
           else
-            (this.withholdDisplayTimer &&
+            (this.withholdDisplayTimer != null &&
+              this.withholdDisplayTimer !== 0 &&
               (self.clearTimeout(this.withholdDisplayTimer),
               (this.withholdDisplayTimer = void 0)),
-              this.forceDisplayTimer &&
+              this.forceDisplayTimer != null &&
+                this.forceDisplayTimer !== 0 &&
                 (self.clearTimeout(this.forceDisplayTimer),
                 (this.forceDisplayTimer = void 0)));
         }),

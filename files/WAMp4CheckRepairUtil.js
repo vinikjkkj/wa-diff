@@ -228,8 +228,8 @@ __d(
       }
     }
     function b(e) {
-      for (var t = [], r = n("WAMedia.compiled").HEAPU8; r[e]; e++)
-        t.push(r[e]);
+      for (var t = [], r = n("WAMedia.compiled").HEAPU8, o = e; r[o]; o++)
+        t.push(r[o]);
       return String.fromCharCode.apply(String, t);
     }
     function v(e, t) {

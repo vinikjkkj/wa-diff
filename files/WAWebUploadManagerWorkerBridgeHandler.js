@@ -37,39 +37,28 @@ __d(
                   t.fireAndForget("mainthread_appTracker", "stop", { type: n });
                 },
               },
-              g = {
-                init: r("WAWebNoop"),
-                mark: function (n, r, o) {
-                  t.fireAndForget("mainthread_crashLogger", "mark", {
-                    mediaId: n,
-                    progressType: r,
-                    metadata: o,
-                  });
-                },
-              },
-              h = o(
+              g = o(
                 "WAWebMmsClientUsingDependencies",
               ).createPartialMmsClientUsingDependencies({
                 mediaHosts: a,
                 networkStatus: i,
               }),
-              y = new (o(
+              h = new (o(
                 "WAWebUploadManagerWorkerHandler",
               ).UploadManagerWorkerHandler)({
                 appTracker: f,
-                crashLogger: g,
-                mmsClient: h,
+                mmsClient: g,
                 encryptMedia: o("WAWebCryptoEncryptMediaLocal")
                   .encryptMediaLocal,
                 encryptMediaFromBlob: r("WAWebCryptoEncryptMediaFromBlob"),
               }),
-              C = babelHelpers.extends({}, d, {
+              y = babelHelpers.extends({}, d, {
                 fileOrigin: null,
                 signal: m.signal,
                 uploadQpl: _,
               });
             try {
-              return yield y.encryptAndUpload(C, p);
+              return yield h.encryptAndUpload(y, p);
             } finally {
               l.delete(u);
             }
@@ -146,16 +135,20 @@ __d(
             { uploadId: t },
           );
         },
-        handleUploadAttemptError: function (r, o, a, i) {
+        handleUploadAttemptError: function (r) {
+          var n = r.error,
+            o = r.failCount,
+            a = r.overallLastUploadRetryPhase,
+            i = r.overallT;
           e.fireAndForget(
             "mainthread_uploadmanager",
             "handleUploadAttemptError",
             {
               uploadId: t,
-              error: u(r),
-              overallT: o,
-              failCount: a,
-              retryPhase: i,
+              error: u(n),
+              overallT: i,
+              failCount: o,
+              retryPhase: a,
             },
           );
         },

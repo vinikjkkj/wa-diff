@@ -1046,17 +1046,11 @@ __d(
                         })),
                   a());
               };
-              if (
-                o("WAWebABProps").getABPropConfigValue(
-                  "enable_web_voip_anr_optimizations",
-                )
-              )
-                try {
-                  u.setTimeout(c, 0);
-                } catch (e) {
-                  window.setTimeout(c, 0);
-                }
-              else c();
+              try {
+                u.setTimeout(c, 0);
+              } catch (e) {
+                window.setTimeout(c, 0);
+              }
             };
             ((this.visibilityChangeListener = function () {
               l("visibilitychange");

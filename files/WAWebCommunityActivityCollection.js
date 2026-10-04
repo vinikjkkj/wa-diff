@@ -90,7 +90,7 @@ __d(
                       var u,
                         c,
                         d = o("WAWebWidFactory").createWidFromWidLike(
-                          (u = t.templateParams) == null ? void 0 : u[0],
+                          ((u = t.templateParams) != null ? u : [])[0],
                         ),
                         m =
                           (c = o("WAWebChatCollection").ChatCollection.get(

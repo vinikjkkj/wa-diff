@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAResolvable",
-    "WAWebABProps",
     "WAWebCallLogMsgData.flow",
     "WAWebChatGetExistingBridge",
     "WAWebCmd",
@@ -85,11 +84,7 @@ __d(
               chatWid: i,
               isOffline: !1,
               msgCategory: null,
-              skipOfflineWait:
-                l != null ||
-                o("WAWebABProps").getABPropConfigValue(
-                  "enable_web_voip_anr_optimizations",
-                ),
+              skipOfflineWait: !0,
               action: (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
@@ -316,9 +311,7 @@ __d(
                   chatWid: e,
                   isOffline: a,
                   msgCategory: null,
-                  skipOfflineWait: o("WAWebABProps").getABPropConfigValue(
-                    "enable_web_voip_anr_optimizations",
-                  ),
+                  skipOfflineWait: !0,
                   action: (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
