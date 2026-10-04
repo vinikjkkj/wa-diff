@@ -26,17 +26,18 @@ __d(
       u,
       c,
       d,
-      m = n("$InternalEnum")({
+      m,
+      p = n("$InternalEnum")({
         MEDIA: "media",
         MMS_THUMBNAIL: "mms_thumbnail",
         PJPEG_THUMBNAIL: "pjpeg_thumbnail",
       }),
-      p = 32 * 1024 * 1024,
-      _ = 512 * 1024,
-      f = 5,
-      g = 512,
-      h = 500 * 1024;
-    function y(e) {
+      _ = 32 * 1024 * 1024,
+      f = 512 * 1024,
+      g = 5,
+      h = 512,
+      y = 500 * 1024;
+    function C(e) {
       var t =
         e.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
         e.mimetype ===
@@ -45,7 +46,7 @@ __d(
         e.isAnimated === !0;
       return t || o("WAWebMsgModelPropUtils").isTrusted(e.unsafe());
     }
-    function C(e) {
+    function b(e) {
       if (
         !o(
           "WAWebDualUploadsAutoDownloadPolicy",
@@ -61,7 +62,7 @@ __d(
           return o("WAWebUserPrefsGeneral").getAutoDownloadPhotos();
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
         case o("WAWebMsgType").MSG_TYPE.PTV:
-          return e.isGif && e.size < h
+          return e.isGif && e.size < y
             ? o("WAWebUserPrefsGeneral").getAutoDownloadPhotos()
             : o("WAWebUserPrefsGeneral").getAutoDownloadVideos();
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
@@ -69,24 +70,24 @@ __d(
       }
       return !1;
     }
-    function b(e) {
+    function v(e) {
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.IMAGE:
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
         case o("WAWebMsgType").MSG_TYPE.PTV:
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-          return e.size <= p;
+          return e.size <= _;
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
         case o("WAWebMsgType").MSG_TYPE.PTT:
-          return e.size < _;
+          return e.size < f;
         case o("WAWebMsgType").MSG_TYPE.STICKER:
           return !0;
       }
       return !1;
     }
-    var v = (function () {
+    var S = (function () {
         function t() {
-          this.$1 = new (r("WAConcurrentPriorityPromiseQueue"))(f, {
+          this.$1 = new (r("WAConcurrentPriorityPromiseQueue"))(g, {
             photos: 2,
             videos: 1,
             audio: 1,
@@ -105,7 +106,7 @@ __d(
           (a.$2 = function () {
             return (
               o("WAWebUserPrefsGeneral").getAutoDownloadPhotos() &&
-              this.getEnqueuedTasksCount() < g
+              this.getEnqueuedTasksCount() < h
             );
           }),
           (a.enqueue = function (n, r, a) {
@@ -113,13 +114,13 @@ __d(
               return this.$2() ? (this.$3({ sticker: n }), !0) : !1;
             var t = n,
               i =
-                r === m.MEDIA &&
+                r === p.MEDIA &&
                 !o("WAWebMsgGetters").getIsNewsletterMsg(t) &&
-                y(t) &&
-                t.isNewMsg &&
                 C(t) &&
+                t.isNewMsg &&
                 b(t) &&
-                this.getEnqueuedTasksCount() < g;
+                v(t) &&
+                this.getEnqueuedTasksCount() < h;
             if (i)
               switch (t.type) {
                 case o("WAWebMsgType").MSG_TYPE.AUDIO:
@@ -144,12 +145,25 @@ __d(
                 case o("WAWebMsgType").MSG_TYPE.IMAGE:
                 case o("WAWebMsgType").MSG_TYPE.STICKER:
                   return (
-                    this.$4({ message: t, group: "photos", chat: a }),
+                    this.$4({ message: t, group: "photos", chat: a }).catch(
+                      function (e) {
+                        o("WALogger")
+                          .ERROR(
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                                "auto-download media enqueue failed ",
+                                "",
+                              ])),
+                            e,
+                          )
+                          .sendLogs("auto-download media enqueue failed");
+                      },
+                    ),
                     !0
                   );
                 case o("WAWebMsgType").MSG_TYPE.VIDEO:
                 case o("WAWebMsgType").MSG_TYPE.PTV:
-                  return t.isGif && t.size < h
+                  return t.isGif && t.size < y
                     ? (this.$4({ message: t, group: "photos", chat: a }), !0)
                     : (this.$4({ message: t, group: "videos", chat: a }), !0);
                 case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
@@ -158,7 +172,7 @@ __d(
                     !0
                   );
               }
-            if (r === m.MMS_THUMBNAIL) {
+            if (r === p.MMS_THUMBNAIL) {
               if (
                 t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ||
                 o("WAWebMsgModelUtils").typeIsUrl(t)
@@ -177,7 +191,7 @@ __d(
               )
                 return (this.$6({ message: t, group: "mms_thumbnail" }), !0);
             }
-            return r === m.PJPEG_THUMBNAIL &&
+            return r === p.PJPEG_THUMBNAIL &&
               t.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
               !o("WAWebDualUploadsAutoDownloadPolicy").isDualUploadHdChildMsg(t)
               ? (this.$7({ message: t, group: "mms_thumbnail" }), !0)
@@ -190,8 +204,8 @@ __d(
                 if (!t.mediaObject) {
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Sticker mediaObject missing at enqueue ",
                           "",
                         ])),
@@ -207,8 +221,8 @@ __d(
                     if (!t.mediaObject) {
                       o("WALogger")
                         .ERROR(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "Sticker mediaObject missing at download ",
                               "",
                             ])),
@@ -238,8 +252,8 @@ __d(
                 if (!a.mediaObject) {
                   o("WALogger")
                     .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "mediaObject does not exist for media at enqueue time ",
                           "",
                         ])),
@@ -255,8 +269,8 @@ __d(
                     if (!a.mediaObject) {
                       o("WALogger")
                         .ERROR(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "mediaObject does not exist for media at download time ",
                               "",
                             ])),
@@ -268,7 +282,7 @@ __d(
                         );
                       return;
                     }
-                    C(a) &&
+                    b(a) &&
                       (yield a.downloadMedia({
                         downloadEvenIfExpensive: !1,
                         rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
@@ -354,14 +368,14 @@ __d(
           t
         );
       })(),
-      S = new v();
-    ((l.AutoDownloadTypes = m),
-      (l.MAX_AUTO_DOWNLOAD_SIZE = p),
-      (l.AUDIO_AUTO_DOWNLOAD_SIZE_LIMIT = _),
-      (l.shouldTrustMedia = y),
-      (l.shouldAutoDownloadMedia = C),
-      (l.validateMediaSize = b),
-      (l.AutoDownloadQueue = S));
+      R = new S();
+    ((l.AutoDownloadTypes = p),
+      (l.MAX_AUTO_DOWNLOAD_SIZE = _),
+      (l.AUDIO_AUTO_DOWNLOAD_SIZE_LIMIT = f),
+      (l.shouldTrustMedia = C),
+      (l.shouldAutoDownloadMedia = b),
+      (l.validateMediaSize = v),
+      (l.AutoDownloadQueue = R));
   },
   98,
 );

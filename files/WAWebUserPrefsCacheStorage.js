@@ -57,7 +57,10 @@ __d(
                     ((t = yield m.doGet(e)), (this.$1[e] = t));
                   } catch (e) {}
                 if (t == null)
-                  return (this.removeItemFromCacheStorage(e), null);
+                  return (
+                    this.removeItemFromCacheStorage(e).catch(function (e) {}),
+                    null
+                  );
                 var n = o("WAWebUserPrefsPostProcessors").postProcessUserPref(
                   e,
                   t,

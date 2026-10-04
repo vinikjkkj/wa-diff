@@ -38,7 +38,6 @@ __d(
     "gkx",
     "nullthrows",
     "omit",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L, E;
@@ -80,8 +79,7 @@ __d(
                     function* (n) {
                       var a, s;
                       (n.id instanceof r("WAWebMsgKey") ||
-                        (n.self != null &&
-                          r("vulture")("X8gT5EynTHw_I5RNAG6VZDmVN0Q="),
+                        (n.self != null,
                         X++,
                         (n.id = new (r("WAWebMsgKey"))({
                           from: n.from,

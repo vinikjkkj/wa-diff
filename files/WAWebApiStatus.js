@@ -119,7 +119,9 @@ __d(
                     var f = _[0],
                       g = _[1],
                       h = r("countWhere")(g, function (e) {
-                        return e.ack < o("WAWebAck").ACK.READ;
+                        return (
+                          e.ack !== void 0 && e.ack < o("WAWebAck").ACK.READ
+                        );
                       }),
                       y = g[g.length - 1].t;
                     p.push({

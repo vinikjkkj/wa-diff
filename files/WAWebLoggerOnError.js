@@ -185,11 +185,13 @@ __d(
           o("WAWebCoreActionsODS").isPageLoadComplete() ||
             o("WAWebCoreActionsODS").logPageLoadErrorJsException(),
           u &&
-            o("WAWebCrashlog").upload({
-              reason: "script-error",
-              hasTaggedMessage: !0,
-              sendLogsType: o("WALogger").SendLogsType.UNCAUGHT_EXCEPTION,
-            }),
+            o("WAWebCrashlog")
+              .upload({
+                reason: "script-error",
+                hasTaggedMessage: !0,
+                sendLogsType: o("WALogger").SendLogsType.UNCAUGHT_EXCEPTION,
+              })
+              .catch(r("WAWebNoop")),
           !1
         );
       var d =

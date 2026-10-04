@@ -103,22 +103,23 @@ __d(
                 }));
           }),
           (t.$7 = function () {
-            var e = this,
-              t = this.$1;
-            if (t != null) {
+            var e,
+              t = this,
+              n = this.$1;
+            if (n != null) {
               if (
-                (window.clearTimeout(t.timeoutID),
+                (window.clearTimeout((e = n.timeoutID) != null ? e : void 0),
                 (this.$3 = !0),
                 this.$8(),
-                t.type === "bloksModel")
+                n.type === "bloksModel")
               ) {
-                var n = t.options.onDismiss;
-                n != null && t.context.executeCatch(n, []);
+                var r = n.options.onDismiss;
+                r != null && n.context.executeCatch(r, []);
               }
-              ((t.timeoutID = window.setTimeout(function () {
-                ((e.$3 = !1), (e.$1 = null), e.$8(), e.$6());
-              }, t.options.dismissAnimationDurationMs)),
-                (this.$1 = t));
+              ((n.timeoutID = window.setTimeout(function () {
+                ((t.$3 = !1), (t.$1 = null), t.$8(), t.$6());
+              }, n.options.dismissAnimationDurationMs)),
+                (this.$1 = n));
             }
           }),
           (t.$6 = function () {

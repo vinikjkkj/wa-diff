@@ -67,7 +67,7 @@ __d(
                 },
               ),
             );
-          a != null && t.consolidate(a);
+          a != null && t.consolidate(babelHelpers.extends({}, a));
         })),
         c.apply(this, arguments)
       );

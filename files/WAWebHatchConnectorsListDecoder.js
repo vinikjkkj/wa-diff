@@ -29,6 +29,11 @@ __d(
             iconUrl: c(e),
             state: d(e),
             managementKind: m(e),
+            supportsMultipleAccounts:
+              o("WAWebHatchJsonReaders").readBool(
+                e,
+                "supports_multiple_accounts",
+              ) === !0,
             consent: p(e),
           };
     }

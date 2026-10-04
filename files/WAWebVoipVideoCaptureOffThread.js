@@ -875,11 +875,10 @@ __d(
           (a.$25 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = "voip: stopVideoCapture (offthread)";
-              if (
-                (o("WALogger").LOG(
-                  M || (M = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                  e,
-                ),
+              (o("WALogger").LOG(
+                M || (M = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                e,
+              ),
                 (this.$10 = !0),
                 (this.$5 = !1),
                 this.$9 != null &&
@@ -901,15 +900,15 @@ __d(
                     "popoutWindowVisibilityChanged",
                     this.$15,
                   ),
-                  (this.$15 = null)),
-                this.$3 != null)
-              ) {
-                window.removeEventListener("orientationchange", this.$3);
+                  (this.$15 = null)));
+              var t = this.$3;
+              if (t != null) {
+                window.removeEventListener("orientationchange", t);
                 try {
-                  var t;
-                  (t = screen) == null ||
-                    (t = t.orientation) == null ||
-                    t.removeEventListener("change", this.$3);
+                  var n;
+                  (n = screen) == null ||
+                    (n = n.orientation) == null ||
+                    n.removeEventListener("change", t);
                 } catch (e) {}
                 this.$3 = null;
               }

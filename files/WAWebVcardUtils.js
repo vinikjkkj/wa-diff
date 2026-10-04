@@ -116,16 +116,16 @@ __d(
         return !!e;
       });
       return e.length
-        ? t
-          ? e.length === 1
+        ? t == null || t === ""
+          ? s._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
+              s._plural(e.length, "count"),
+            ])
+          : e.length === 1
             ? t
             : s._(
                 /*BTDS*/ '_j{"*":"{contactName} and {count} other contacts","_1":"{contactName} and 1 other contact"}',
                 [s._plural(e.length - 1, "count"), s._param("contactName", t)],
               )
-          : s._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
-              s._plural(e.length, "count"),
-            ])
         : s._(/*BTDS*/ "No contacts");
     }
     function m(e) {

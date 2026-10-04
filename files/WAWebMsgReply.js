@@ -24,7 +24,7 @@ __d(
     function e(e) {
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
-      return n != null ? o("WAWebMsgGetters").getIsStatus(n) : !1;
+      return n != null ? o("WAWebMsgGetters").getIsStatus(n.unsafe()) : !1;
     }
     function s(e) {
       var t = o("WAWebStateUtils").unproxy(e),

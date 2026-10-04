@@ -956,9 +956,9 @@ __d(
               var a = o / 1e3,
                 i = e.getSourceBufferState(),
                 l = i.getBufferedRanges(),
-                s = l.length >= 1 ? l[l.length - 1].endTime : t;
-              ((n = [{ fromTime: 0, toTime: Math.max(0, t - a) }]),
-                t + a < s && n.push({ fromTime: t + a, toTime: s }));
+                s = l.length >= 1 ? l[l.length - 1].endTime : t,
+                u = { fromTime: 0, toTime: Math.max(0, t - a) };
+              ((n = [u]), t + a < s && n.push({ fromTime: t + a, toTime: s }));
             }
             return e.clearRangeWithWait(n);
           }),

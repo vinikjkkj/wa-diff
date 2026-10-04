@@ -35,11 +35,9 @@ __d(
       if (e.userJid != null)
         return o("WAJids").defaultDeviceJidForUser(e.userJid) === t;
       if (e.deviceJid != null) {
-        var n = e.deviceJid;
-        return (
-          o("WAJids").extractDeviceId(n) === 0 &&
-          o("WAJids").extractUserJid(n) === t
-        );
+        var n = e.deviceJid,
+          r = o("WAJids").extractDeviceId(n);
+        return r === 0 && o("WAJids").extractUserJid(n) === t;
       }
       return !1;
     }

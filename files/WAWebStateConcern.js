@@ -28,11 +28,10 @@ __d(
           },
         },
         l = function (r) {
-          var n = {};
-          ((n.enumerable = !0),
-            (n.get = function () {
-              return this.$ProxyState$state.get(r);
-            }),
+          var n = { enumerable: !0 };
+          ((n.get = function () {
+            return this.$ProxyState$state.get(r);
+          }),
             (n.set = function () {
               o("WALogger").ERROR(
                 e ||

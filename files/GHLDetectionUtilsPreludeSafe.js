@@ -51,92 +51,96 @@ __d(
       if (!(_ != null && f != null)) {
         var t = null;
         try {
-          var n, o, a;
+          var n, o, a, i;
           if (((S = null), !(e || (e = r("ExecutionEnvironment"))).canUseDOM)) {
             r("FBLogger")("ad_blocker_defense_ghost_owl").info(
               "Environment does not support DOM",
             );
             return;
           }
-          var i = window.Env,
-            l = document.body,
-            s = l || document.documentElement;
-          if (s == null) return;
+          var l = window.Env,
+            s = document.body,
+            u = s || document.documentElement;
+          if (u == null) return;
           ((t = document.createElement("iframe")), (t.style.display = "none"));
-          var u = i != null && "h4npx7qw" in i;
-          ((v = u),
-            u
+          var c = l != null && "h4npx7qw" in l;
+          ((v = c),
+            c
               ? (t.src = "about:blank#g")
-              : i != null &&
-                "p9fk3wmn" in i &&
+              : l != null &&
+                "p9fk3wmn" in l &&
                 ((t.src = "about:blank"), (t.srcdoc = "")));
-          var c = s.firstElementChild,
-            d = i != null && "f2yq8vnd" in i && "createElement" in document,
-            m = i != null && "t5nd8vqc" in i && "createComment" in document,
-            L = i != null && "m8r3kp6w" in i && "createRange" in document,
-            E = i != null && "b3xk8fqm" in i && c != null && "before" in c,
-            k = i != null && "q4v7nx3k" in i && c != null && "after" in c,
-            I = i != null && "r7c2m9xk" in i && "prepend" in s,
-            T = i != null && "z2ht6xqp" in i && "append" in s,
-            D = i != null && "k7q3nv9d" in i,
-            x = i != null && "w6jt4rnq" in i,
-            $ = i != null && "w8kq3zmt" in i && "replaceChild" in s,
-            P = i != null && "b7xr2qnf" in i && "replaceChildren" in s,
-            N = d ? document.createElement("span") : null,
-            w = P ? document.createElement("div") : null,
-            A = $ ? document.createElement("span") : null,
-            F = m ? document.createComment("") : null,
-            O = L ? document.createRange() : null;
-          N != null && "replaceWith" in N
-            ? (s.appendChild(N), N.replaceWith(t))
-            : w != null
-              ? ((w.style.display = "none"),
-                s.appendChild(w),
-                w.replaceChildren(t),
-                (S = w))
-              : A != null
-                ? (s.appendChild(A), s.replaceChild(t, A))
-                : F != null && "replaceWith" in F
-                  ? (s.appendChild(F), F.replaceWith(t))
-                  : O != null
-                    ? (O.setStart(s, s.childNodes.length), O.insertNode(t))
-                    : k && c != null
-                      ? c.after(t)
-                      : E && c != null
-                        ? c.before(t)
-                        : I
-                          ? s.prepend(t)
-                          : T
-                            ? s.append(t)
-                            : D
-                              ? s.insertBefore(t, null)
-                              : x
-                                ? s.insertAdjacentElement("beforeend", t)
-                                : s.appendChild(t);
-          var B = t.contentWindow;
-          _ = B == null ? void 0 : B.String;
+          var d = u.firstElementChild,
+            m = l != null && "f2yq8vnd" in l && "createElement" in document,
+            L = l != null && "t5nd8vqc" in l && "createComment" in document,
+            E = l != null && "m8r3kp6w" in l && "createRange" in document,
+            k = l != null && "b3xk8fqm" in l && d != null && "before" in d,
+            I = l != null && "q4v7nx3k" in l && d != null && "after" in d,
+            T = l != null && "r7c2m9xk" in l && "prepend" in u,
+            D = l != null && "z2ht6xqp" in l && "append" in u,
+            x = l != null && "k7q3nv9d" in l,
+            $ = l != null && "w6jt4rnq" in l,
+            P = l != null && "w8kq3zmt" in l && "replaceChild" in u,
+            N = l != null && "b7xr2qnf" in l && "replaceChildren" in u,
+            w = m ? document.createElement("span") : null,
+            A = N ? document.createElement("div") : null,
+            F = P ? document.createElement("span") : null,
+            O = L ? document.createComment("") : null,
+            B = E ? document.createRange() : null;
+          w != null && "replaceWith" in w
+            ? (u.appendChild(w), w.replaceWith(t))
+            : A != null
+              ? ((A.style.display = "none"),
+                u.appendChild(A),
+                A.replaceChildren(t),
+                (S = A))
+              : F != null
+                ? (u.appendChild(F), u.replaceChild(t, F))
+                : O != null && "replaceWith" in O
+                  ? (u.appendChild(O), O.replaceWith(t))
+                  : B != null
+                    ? (B.setStart(u, u.childNodes.length), B.insertNode(t))
+                    : I && d != null
+                      ? d.after(t)
+                      : k && d != null
+                        ? d.before(t)
+                        : T
+                          ? u.prepend(t)
+                          : D
+                            ? u.append(t)
+                            : x
+                              ? u.insertBefore(t, null)
+                              : $
+                                ? u.insertAdjacentElement("beforeend", t)
+                                : u.appendChild(t);
           var W = t.contentWindow;
+          _ = W == null ? void 0 : W.String;
+          var q = t.contentWindow;
           f =
-            W == null || (n = W.Function) == null || (n = n.prototype) == null
+            q == null || (n = q.Function) == null || (n = n.prototype) == null
               ? void 0
               : n.call;
-          var q = t.contentWindow;
-          g = q == null || (o = q.JSON) == null ? void 0 : o.parse;
           var U = t.contentWindow;
+          g = U == null || (o = U.JSON) == null ? void 0 : o.parse;
+          var V = t.contentWindow;
           h =
-            U == null || (a = U.Function) == null || (a = a.prototype) == null
+            V == null || (a = V.Function) == null || (a = a.prototype) == null
               ? void 0
               : a.toString;
-          var V = t.contentWindow.Object.getOwnPropertyDescriptor,
-            H = t.contentWindow.XMLHttpRequest.prototype,
-            G = V(H, "response"),
-            z = V(H, "responseText");
-          (G != null && G.get && (y = G.get),
-            z != null && z.get && (C = z.get));
+          var H = t.contentWindow.Object.getOwnPropertyDescriptor,
+            G = t.contentWindow,
+            z =
+              G == null || (i = G.XMLHttpRequest) == null
+                ? void 0
+                : i.prototype,
+            j = H(z, "response"),
+            K = H(z, "responseText");
+          (j != null && j.get && (y = j.get),
+            K != null && K.get && (C = K.get));
           try {
-            var j,
-              K = t.contentWindow;
-            b = M(K == null || (j = K.JSON) == null ? void 0 : j.parse(p));
+            var Q,
+              X = t.contentWindow;
+            b = M(X == null || (Q = X.JSON) == null ? void 0 : Q.parse(p));
           } catch (e) {
             b = !0;
           }

@@ -70,7 +70,7 @@ __d(
             o.add(u);
             var c = l.dataset.preloader,
               d = t.get(u);
-            d != null && (c in n ? n[c].push(d) : (n[c] = [d]));
+            d != null && c != null && (c in n ? n[c].push(d) : (n[c] = [d]));
           }
         }
       return n;

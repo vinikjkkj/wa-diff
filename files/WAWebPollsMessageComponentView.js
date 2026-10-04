@@ -199,7 +199,7 @@ __d(
       n[20] !== a || n[21] !== f
         ? ((M =
             a.pollType !== o("WAWebPollCreationUtils").PollType.QUIZ ||
-            !o("WAWebMsgGetters").getIsSentByMe(a)
+            !o("WAWebMsgGetters").getIsSentByMe(a.unsafe())
               ? f
               : null),
           (n[20] = a),

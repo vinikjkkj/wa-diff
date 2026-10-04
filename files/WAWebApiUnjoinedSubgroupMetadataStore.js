@@ -12,16 +12,15 @@ __d(
       var n,
         r,
         o,
-        a = {},
-        i = t.defaultSubgroup,
-        l = t.generalSubgroup,
-        s = t.parentGroupId,
-        u = babelHelpers.objectWithoutPropertiesLoose(t, e);
+        a = t.defaultSubgroup,
+        i = t.generalSubgroup,
+        l = t.parentGroupId,
+        s = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        u = a != null ? { defaultSubgroup: a } : {};
       return (
-        i != null && (a.defaultSubgroup = i),
-        l != null && (a.generalSubgroup = l),
-        s != null && (a.parentGroup = s.toString()),
-        babelHelpers.extends({}, u, a, {
+        i != null && (u.generalSubgroup = i),
+        l != null && (u.parentGroup = l.toString()),
+        babelHelpers.extends({}, s, u, {
           id: t.id.toString(),
           hiddenSubgroup: (n = t.hiddenSubgroup) != null ? n : !1,
           membershipApprovalMode:

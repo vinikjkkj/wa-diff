@@ -35,9 +35,9 @@ __d(
           if (!n || !a || !i)
             throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
               "createKeys fail: !!mediakey: " +
-                !!n +
+                String(!!n) +
                 " info: " +
-                a +
+                String(a) +
                 " type: " +
                 t,
             );

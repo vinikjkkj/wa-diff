@@ -158,7 +158,11 @@ __d(
         },
         requestPictureInPicture: function () {
           typeof t.requestPictureInPicture == "function" &&
-            t.requestPictureInPicture();
+            t.requestPictureInPicture().catch(function (e) {
+              r("FBLogger")("comet_video_player")
+                .catching(r("getErrorSafe")(e))
+                .mustfix("Failed to enter picture-in-picture mode");
+            });
         },
         setDuration: function (n) {
           t.duration = n;

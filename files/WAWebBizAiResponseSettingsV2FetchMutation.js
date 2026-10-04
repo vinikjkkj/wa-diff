@@ -56,10 +56,7 @@ __d(
             };
           }),
         );
-      if (
-        !o("WAWebBizAiResponseSettingsV2Model").hasV2Rules(a) ||
-        a.length < r.length
-      )
+      if (a.length === 0 || a.length < r.length)
         return (
           r.length === 0
             ? o("WALogger")

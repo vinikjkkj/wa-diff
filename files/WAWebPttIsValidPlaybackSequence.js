@@ -9,7 +9,7 @@ __d(
       return o("WAWebFrontendMsgGetters").getAsPttLike(n.unsafe()) == null
         ? !1
         : !o("WAWebMsgGetters").getIsSentByMe(n.unsafe()) ||
-            o("WAWebMsgGetters").getIsSentByMe(t)
+            o("WAWebMsgGetters").getIsSentByMe(t.unsafe())
           ? !0
           : !!r;
     }

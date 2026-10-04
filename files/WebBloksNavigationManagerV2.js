@@ -304,7 +304,7 @@ __d(
               (e == null ? void 0 : e.uri) !== t &&
                 window.history.replaceState(
                   babelHelpers.extends({}, e != null ? e : {}, { uri: t }),
-                  null,
+                  "",
                   t,
                 );
             }
@@ -568,8 +568,8 @@ __d(
                 key: (t = window.history.state) == null ? void 0 : t.key,
               };
               r
-                ? window.history.replaceState(l, null, a)
-                : window.history.pushState(l, null, a);
+                ? window.history.replaceState(l, "", a)
+                : window.history.pushState(l, "", a);
             }
           }),
           (n.$25 = function (t) {

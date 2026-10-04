@@ -9,9 +9,8 @@ __d(
       return navigator.platform;
     }
     function c() {
-      return navigator.deviceMemory === void 0
-        ? "undefined"
-        : "" + navigator.deviceMemory;
+      var e = navigator;
+      return e.deviceMemory === void 0 ? "undefined" : "" + e.deviceMemory;
     }
     function d() {
       var e = window.devicePixelRatio;

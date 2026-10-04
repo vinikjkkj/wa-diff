@@ -73,15 +73,16 @@ __d(
           if (typeof window.VideoEncoder != "function") return !1;
           try {
             var e = yield window.VideoEncoder.isConfigSupported({
-              codec: c,
-              width: 320,
-              height: 240,
-              hardwareAcceleration: "prefer-hardware",
-              latencyMode: "realtime",
-              bitrateMode: "variable",
-              avc: { format: "annexb" },
-            });
-            return e.supported === !0;
+                codec: c,
+                width: 320,
+                height: 240,
+                hardwareAcceleration: "prefer-hardware",
+                latencyMode: "realtime",
+                bitrateMode: "variable",
+                avc: { format: "annexb" },
+              }),
+              t = e.supported;
+            return typeof t == "boolean" && t;
           } catch (e) {
             return (
               o("WALogger").LOG(

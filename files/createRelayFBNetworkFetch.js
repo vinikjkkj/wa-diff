@@ -350,7 +350,8 @@ __d(
       });
     }
     function v(e, t, n, r, a, i, l, s) {
-      return i.liveConfigId != null &&
+      var c = i.liveConfigId;
+      return c != null &&
         (o("RelayWWWInitialRolloutResolver").disableWWWInitial(e.name) ||
           s == null)
         ? (l != null || u(0, 112734),
@@ -358,7 +359,7 @@ __d(
             e,
             t,
             babelHelpers.extends(
-              { actor_id: n, config_id: i.liveConfigId },
+              { actor_id: n, config_id: c },
               a !== !0 && { access_token: r },
             ),
           ))

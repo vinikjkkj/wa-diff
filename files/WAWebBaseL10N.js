@@ -51,7 +51,7 @@ __d(
             for (var r = e; r; ) {
               r = r.split("_").slice(0, -1).join("_");
               var o = r && this.$WAWebBaseL10n$p_2(r);
-              if (o) return o;
+              if (o != null && o !== "") return o;
             }
           }),
           (a.isLocaleSupported = function (t) {

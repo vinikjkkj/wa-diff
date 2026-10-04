@@ -10,9 +10,10 @@ __d(
       return window.navigator && window.navigator.deviceMemory;
     }
     function s() {
+      var e = window.performance;
       return (
         window.performance &&
-        typeof window.performance.measureUserAgentSpecificMemory == "function"
+        typeof e.measureUserAgentSpecificMemory == "function"
       );
     }
     function u(e) {

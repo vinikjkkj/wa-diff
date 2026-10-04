@@ -158,20 +158,18 @@ __d(
                   }
                   if (o.triggerOnRepeats === !1 && n.repeat === !0) return !1;
                   if (i != null) {
+                    var s = o.command;
                     if (
-                      o.command != null &&
+                      s != null &&
                       C(n.target, o) &&
                       l.getModifiedKeyboardShortcutsPreference() === 4
                     )
-                      return (
-                        S.current(o.command, o.singleCharDescription),
-                        !0
-                      );
-                    var s = l && l.getAreSingleKeysDisabled(),
-                      u = r("isSingleCharKey")(t);
-                    return s === !0 && u
+                      return (S.current(s, o.singleCharDescription), !0);
+                    var u = l && l.getAreSingleKeysDisabled(),
+                      d = r("isSingleCharKey")(t);
+                    return u === !0 && d
                       ? !0
-                      : s === null && u
+                      : u === null && d
                         ? (c.current(t, o.singleCharDescription), !0)
                         : (i(), o.shouldStopPropagation !== !1);
                   }

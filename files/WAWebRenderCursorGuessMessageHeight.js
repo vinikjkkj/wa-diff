@@ -16,7 +16,11 @@ __d(
         a = 0;
       if (!t) return a;
       if (o("WAWebMsgGetters").getIsBotPluginCarouselMsg(t)) return e;
-      switch ((t.quotedMsg && (a += 54), t.caption && (a += 31), t.type)) {
+      switch (
+        (t.quotedMsg && (a += 54),
+        t.caption != null && t.caption !== "" && (a += 31),
+        t.type)
+      ) {
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION:
         case o("WAWebMsgType").MSG_TYPE.GP2:
         case o("WAWebMsgType").MSG_TYPE.BROADCAST_NOTIFICATION:

@@ -136,14 +136,15 @@ __d(
     }
     x.displayName = x.name + " [from " + i.id + "]";
     function $(e, t, n, r) {
-      var a;
+      var a,
+        i = e[0];
       return (
-        e[0] != null &&
-          typeof e[0] == "string" &&
-          !S(e[0]) &&
+        i != null &&
+          typeof i == "string" &&
+          !S(i) &&
           (a = o(
             "WAWebFormatParticipantNames",
-          ).getClickableDeactivatedCommunityName(e[0], r)),
+          ).getClickableDeactivatedCommunityName(i, r)),
         a != null && t != null
           ? v(n)
             ? (o("WALogger").LOG(

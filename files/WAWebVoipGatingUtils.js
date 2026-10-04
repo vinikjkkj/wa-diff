@@ -284,19 +284,13 @@ __d(
       );
     }
     function B() {
-      return (
-        r("WAWebEnvironment").isWindows ||
-        T() ||
-        (S() &&
-          o("WAWebABProps").getABPropConfigValue("enable_web_group_calling"))
-      );
+      return S();
     }
     function W() {
       return (
         !r("WAWebEnvironment").isWindows &&
         !v() &&
-        o("WAWebABProps").getABPropConfigValue("enable_web_calling") &&
-        o("WAWebABProps").getABPropConfigValue("enable_web_group_calling")
+        o("WAWebABProps").getABPropConfigValue("enable_web_calling")
       );
     }
     function q() {
@@ -466,9 +460,7 @@ __d(
       );
     }
     function ge() {
-      var e = o("WAWebABProps").getABPropConfigValue("enable_web_calling"),
-        t = o("WAWebABProps").getABPropConfigValue("enable_web_group_calling");
-      return !r("WAWebEnvironment").isWindows && e ? t : !0;
+      return !0;
     }
     function he() {
       return o("WAWebABProps").getABPropConfigValue(

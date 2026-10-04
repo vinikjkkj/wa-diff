@@ -107,20 +107,21 @@ __d(
               o,
               a = this.$OzBandwidthEstimatorBase$p_1.getCachedBandwidth();
             if (typeof a == "number" && a > 0) return a;
-            var i =
+            var i = window.navigator,
+              l =
                 ((t =
-                  (o = window.navigator) == null || (o = o.connection) == null
+                  i == null || (o = i.connection) == null
                     ? void 0
                     : o.downlink) != null
                   ? t
                   : 0) * 1e6,
-              l =
-                i > 0
-                  ? i
+              s =
+                l > 0
+                  ? l
                   : r != null
                     ? r
                     : n.getNumber("default_bandwidth_estimate", e);
-            return l;
+            return s;
           }),
           (a.$OzBandwidthEstimatorBase$p_3 = function (t) {
             return this.getBandwidth(t);

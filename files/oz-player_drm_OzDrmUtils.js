@@ -9,7 +9,9 @@ __d(
         });
       },
       l = function (t) {
-        return window.btoa(String.fromCharCode.apply(null, new Uint8Array(t)));
+        return window.btoa(
+          String.fromCharCode.apply(String, new Uint8Array(t)),
+        );
       };
     ((i.base64ToUint8Array = e), (i.arrayBufferToBase64 = l));
   },

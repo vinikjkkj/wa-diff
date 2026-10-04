@@ -3,10 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = Element.prototype,
-      l =
-        Element.prototype.matches ||
-        e.msMatchesSelector ||
-        Element.prototype.webkitMatchesSelector;
+      l = e.matches || e.msMatchesSelector || e.webkitMatchesSelector;
     function s(e, t) {
       return e instanceof HTMLElement ? l.call(e, t) : !1;
     }

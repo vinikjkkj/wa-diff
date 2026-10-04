@@ -40,7 +40,7 @@ __d(
         ).logStructuredMessageInteractionWAMEvent(
           i,
           a,
-          l,
+          l.unsafe(),
           o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_SUCCESS,
         );
         var _ =

@@ -68,7 +68,7 @@ __d(
         if (f) {
           var y;
           t[2] !== i
-            ? ((y = o("WAWebMsgGetters").getIsSentByMe(i)),
+            ? ((y = o("WAWebMsgGetters").getIsSentByMe(i.unsafe())),
               (t[2] = i),
               (t[3] = y))
             : (y = t[3]);
@@ -134,7 +134,7 @@ __d(
             : (D = t[22]),
             (u = [D]));
           var x = S == null ? void 0 : S.type;
-          if (!o("WAWebMsgGetters").getIsSentByMe(i)) {
+          if (!o("WAWebMsgGetters").getIsSentByMe(i.unsafe())) {
             var $ = o("WAWebGetQuickPayAction").getQuickPayAction(i, x, !L);
             $ && u.push($);
           }
@@ -173,9 +173,9 @@ __d(
               : c.jsx(o("WAWebEmojiText.react").EmojiText, {
                   text: i.title,
                   selectable: o("WAWebMsgModelPropUtils").isTrusted(i.unsafe()),
-                  direction: o("WAWebFrontendMsgGetters").getDir(i),
+                  direction: o("WAWebFrontendMsgGetters").getDir(i.unsafe()),
                   dirMismatch:
-                    o("WAWebFrontendMsgGetters").getRtl(i) !==
+                    o("WAWebFrontendMsgGetters").getRtl(i.unsafe()) !==
                     r("WAWebL10N").isRTL(),
                   inferLinesDirection: !0,
                   xstyle: [d.marginBottom6, m.headerTitle],
@@ -302,7 +302,7 @@ __d(
     }
     function y(t) {
       var n;
-      if (!o("WAWebMsgGetters").getIsSentByMe(t)) {
+      if (!o("WAWebMsgGetters").getIsSentByMe(t.unsafe())) {
         var a = r("WAWebPonyfillsCryptoRandomUUID")(),
           i = (n = t.senderObj) == null ? void 0 : n.id.toJid(),
           l = o("WAWebContactUtils").getMaybeBizPlatformForLogging(i),

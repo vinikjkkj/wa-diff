@@ -197,8 +197,8 @@ __d(
               null &&
             A.push(x.ctwaContext.greetingMessageBody),
             !c.has(t.type) &&
-              (T = N.currentMsg) != null &&
-              T.body &&
+              ((T = N.currentMsg) == null ? void 0 : T.body) != null &&
+              N.currentMsg.body !== "" &&
               A.push(N.currentMsg.body),
             d.has(t.type) && x.footer && A.push(x.footer));
           var F = (D = x.bloksWidget) == null ? void 0 : D.fallback;

@@ -45,6 +45,20 @@ __d(
             n,
           );
         }),
+        (r.connectorSetPermissions = function (t, n) {
+          return this.request(
+            "PATCH",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
+            { body: d({ connector: t, methods: n }), service: "sentinel" },
+          );
+        }),
+        (r.connectorScopeLink = function (t, n) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_SCOPE_LINK(t, n),
+            { body: d({}) },
+          );
+        }),
         (r.connectorConnectInfo = function (t) {
           return this.request(
             "GET",
@@ -68,10 +82,11 @@ __d(
             },
           );
         }),
-        (r.connectorAccounts = function (t) {
+        (r.connectorAccounts = function (t, n) {
           return this.request(
             "GET",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_ACCOUNTS(t),
+            n,
           );
         }),
         (r.connectorAccountsLink = function (t) {

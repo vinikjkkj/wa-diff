@@ -14,17 +14,19 @@ __d(
             ? o("WAWebWidFactory").createWid(u)
             : void 0,
         d = o("WAWebWidFactory").createWid(l);
-      return (
-        (d.isGroup() || d.isBroadcast()) &&
-          n &&
-          (c = o("WAWebUserPrefsMeUser").getMaybeMePnUser()),
-        new (r("WAWebMsgKey"))({
-          fromMe: n,
-          id: a,
-          participant: c,
-          remote: o("WAWebWidFactory").createWid(l),
-        })
-      );
+      if ((d.isGroup() || d.isBroadcast()) && n) {
+        var m;
+        c =
+          (m = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
+            ? m
+            : void 0;
+      }
+      return new (r("WAWebMsgKey"))({
+        fromMe: n,
+        id: a,
+        participant: c,
+        remote: o("WAWebWidFactory").createWid(l),
+      });
     }
     function u(e) {
       var t;

@@ -11,13 +11,11 @@ __d(
         (t.createStyleSheet = function (t) {
           var e = t != null && t !== "" ? t : r("uniqueID")("dynamic-style-"),
             n = document.createElement("style");
-          return (
-            (n.id = e),
+          ((n.id = e),
             (n.type = "text/css"),
-            document.head && document.head.appendChild(n),
-            (n = n.sheet),
-            n
-          );
+            document.head && document.head.appendChild(n));
+          var o = n.sheet;
+          return o;
         }),
         (t.addRule = function (t, n) {
           var e = this.styleSheet.cssRules.length,

@@ -68,7 +68,7 @@ __d(
           l = n[i];
         r[i] = l !== void 0 ? l : t[i];
       }
-      (!r.mimetype &&
+      ((r.mimetype == null || r.mimetype === "") &&
         r.type === o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE &&
         (n.mimetype = r.mimetype = "image/jpeg"),
         t.on(c, d),

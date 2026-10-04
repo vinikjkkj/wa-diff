@@ -363,12 +363,14 @@ __d(
           }),
           (t.sync = function () {
             if (this.isDirty) {
-              if (((this.isDirty = !1), this.file.mode === "binary")) {
-                this.file.content = new Uint8Array(this.buffer);
+              this.isDirty = !1;
+              var e = this.file;
+              if (e.mode === "binary") {
+                e.content = new Uint8Array(this.buffer);
                 return;
               }
-              var e = o("WATextEncoding").newTextDecoder();
-              this.file.content = e.decode(this.buffer);
+              var t = o("WATextEncoding").newTextDecoder();
+              e.content = t.decode(this.buffer);
             }
           }),
           (t.seek = function (t, n) {

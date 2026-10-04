@@ -54,16 +54,13 @@ __d(
       return n;
     }
     function p(e) {
-      return e.length > 0;
-    }
-    function _(e) {
       return e
         .map(function (e) {
           return e.selector + ":" + e.mode;
         })
         .join(",");
     }
-    function f(e, t) {
+    function _(e, t) {
       var n;
       return (n = e.find(function (e) {
         return e.selector === t;
@@ -71,7 +68,7 @@ __d(
         ? void 0
         : n.mode;
     }
-    function g(e, t, n) {
+    function f(e, t, n) {
       if (
         !e.some(function (e) {
           return e.selector === t;
@@ -84,7 +81,7 @@ __d(
         return e.selector === t ? { mode: n, selector: t } : e;
       });
     }
-    function h(e) {
+    function g(e) {
       return e.length === 0
         ? null
         : e.map(function (e) {
@@ -94,11 +91,10 @@ __d(
     ((l.NO_RULES = s),
       (l.RENDERED_SELECTORS = u),
       (l.parseRules = m),
-      (l.hasV2Rules = p),
-      (l.serializeRules = _),
-      (l.getMode = f),
-      (l.applyMode = g),
-      (l.toMutationInput = h));
+      (l.serializeRules = p),
+      (l.getMode = _),
+      (l.applyMode = f),
+      (l.toMutationInput = g));
   },
   98,
 );

@@ -82,7 +82,7 @@ __d(
                   type: "set",
                   to: t.S_WHATSAPP_NET,
                 },
-                t.wap("delete", { id: e }),
+                t.wap("delete", { id: t.CUSTOM_STRING(e) }),
               );
             yield o("WADeprecatedSendIq").deprecatedSendIq(a, n);
           }

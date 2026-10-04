@@ -3,7 +3,7 @@ __d(
   [
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
-    "WAWebReceiptIcon.react",
+    "WDSIconIcReceipt.react",
     "WDSIconWdsIcUnsupportedMessage.react",
     "react",
     "react-compiler-runtime",
@@ -33,11 +33,12 @@ __d(
         var c;
         return (
           t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((c = s.jsx(o("WAWebReceiptIcon.react").ReceiptIcon, {
+            ? ((c = s.jsx(r("WDSIconIcReceipt.react"), {
                 xstyle: [u.container, u.marginTop2],
                 width: 13,
-                height: 14,
+                height: 13,
                 "aria-hidden": !0,
+                testid: "order_details_preview_icon",
               })),
               (t[1] = c))
             : (c = t[1]),

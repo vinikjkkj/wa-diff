@@ -224,7 +224,7 @@ __d(
       }
     }
     function y(t) {
-      if (!t)
+      if (t == null || t === "")
         return o("WAWebWamEnumBackendStoreType").BACKEND_STORE_TYPE
           .NON_DIRECT_PATH;
       switch (t.slice(0, 2).toLowerCase()) {

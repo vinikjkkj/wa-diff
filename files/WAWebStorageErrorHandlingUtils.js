@@ -92,14 +92,18 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAStorageEstimator").estimateStorage(),
-            t = e.success,
-            n = e.value;
-          if (!t || !n || n.quota <= 0) return !1;
-          var r = n.usage / n.quota,
-            a = n.quota - n.usage,
-            i = 5 * _;
-          return r >= 0.95 || a < i;
+          var e,
+            t,
+            n = yield o("WAStorageEstimator").estimateStorage(),
+            r = n.success,
+            a = n.value;
+          if (!r || !a || a.quota <= 0) return !1;
+          var i =
+              ((e = a.usage) != null ? e : NaN) /
+              ((t = a.quota) != null ? t : NaN),
+            l = a.quota - a.usage,
+            s = 5 * _;
+          return i >= 0.95 || l < s;
         })),
         S.apply(this, arguments)
       );

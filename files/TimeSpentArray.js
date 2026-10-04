@@ -50,16 +50,16 @@ __d(
       m && (r("clearTimeout")(m), (m = null));
     }
     function T(t, n) {
-      ((_ = t), (f = _ * 1e3), (g = [1]));
-      for (var r = 1; r < e; r++) g.push(0);
-      ((h = 1), (y += 1), (C += 1));
-      var o = C.toString() + "_delay";
-      ((v = b[o]), v === void 0 && (v = b.delay));
-      var a = C.toString() + "_timeout",
-        i = b[a];
-      (i === void 0 && (i = b.timeout),
-        (i = Math.min(i, s)),
-        (p = i || s),
+      ((_ = t), (f = _ * 1e3));
+      for (var r = [1], o = 1; o < e; o++) r.push(0);
+      ((g = r), (h = 1), (y += 1), (C += 1));
+      var a = C.toString() + "_delay";
+      ((v = b[a]), v === void 0 && (v = b.delay));
+      var i = C.toString() + "_timeout",
+        l = b[i];
+      (l === void 0 && (l = b.timeout),
+        (l = Math.min(l, s)),
+        (p = l || s),
         (S = d ? d() : null),
         (R = n),
         k());

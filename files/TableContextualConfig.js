@@ -27,14 +27,24 @@ __d(
       c = (function () {
         function e(e, t) {
           (u(e), (this.globalContextProviders = babelHelpers.extends({}, t)));
-          var n = r("ContextualConfigParseOutputParams")(e.outputs);
-          ((this.contexts = r("ContextualConfigParseContexts")(e.contexts)),
-            (this.defaults = r("ContextualConfigParseDefaults")(n, e.defaults)),
+          var n = r("ContextualConfigParseOutputParams")(
+            e == null ? void 0 : e.outputs,
+          );
+          ((this.contexts = r("ContextualConfigParseContexts")(
+            e == null ? void 0 : e.contexts,
+          )),
+            (this.defaults = r("ContextualConfigParseDefaults")(
+              n,
+              e == null ? void 0 : e.defaults,
+            )),
             (this.monitors =
-              e.monitors != null
+              (e == null ? void 0 : e.monitors) != null
                 ? r("ContextualConfigParseMonitors")(e.monitors)
                 : []),
-            (this.table = r("ContextualConfigParseTable")(n, e.table)));
+            (this.table = r("ContextualConfigParseTable")(
+              n,
+              e == null ? void 0 : e.table,
+            )));
         }
         var t = e.prototype;
         return (

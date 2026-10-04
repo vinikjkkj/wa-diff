@@ -9,15 +9,14 @@ __d(
       var t = e.prototype;
       return (
         (t.sendViaController = function () {
-          if (
-            !(!navigator.serviceWorker || !navigator.serviceWorker.controller)
-          ) {
-            var e = new self.MessageChannel();
-            (this.$3 && (e.port1.onmessage = this.$3),
-              navigator.serviceWorker.controller.postMessage(
-                { command: this.$1, data: this.$2 },
-                [e.port2],
-              ));
+          var e = navigator.serviceWorker;
+          if (e) {
+            var t = e.controller;
+            if (t) {
+              var n = new self.MessageChannel();
+              (this.$3 && (n.port1.onmessage = this.$3),
+                t.postMessage({ command: this.$1, data: this.$2 }, [n.port2]));
+            }
           }
         }),
         e

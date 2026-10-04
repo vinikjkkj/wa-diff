@@ -78,7 +78,8 @@ __d(
           n,
         );
       if (u)
-        d &&
+        d != null &&
+          d !== "" &&
           d !== u.filehash &&
           (o("WALogger").LOG(
             s ||

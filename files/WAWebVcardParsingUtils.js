@@ -198,7 +198,7 @@ __d(
             var k = R ? c : d,
               I = E,
               T = E,
-              D = void 0,
+              D = {},
               x = void 0;
             if (k[I]) {
               var $ = k[I],

@@ -31,8 +31,8 @@ __d(
               r("RSTConfig").INDEX_DB_NAME,
               r("RSTConfig").INDEX_DB_VERSION,
             );
-            ((o.onupgradeneeded = function (e) {
-              ((t.$1 = e.target.result),
+            ((o.onupgradeneeded = function () {
+              ((t.$1 = o.result),
                 t.$2(),
                 t.$3(),
                 t.$4(r("RSTConfig").INDEX_DB_TABLE_NAME, !0));

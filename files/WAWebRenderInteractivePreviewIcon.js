@@ -5,7 +5,7 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
-    "WAWebReceiptIcon.react",
+    "WDSIconIcReceipt.react",
     "WDSIconIcShoppingBagFill.react",
     "WDSIconWdsIcUnsupportedMessage.react",
     "react",
@@ -57,10 +57,11 @@ __d(
           t[2] !== c
             ? ((m =
                 c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-                  ? s.jsx(o("WAWebReceiptIcon.react").ReceiptIcon, {
+                  ? s.jsx(r("WDSIconIcReceipt.react"), {
                       xstyle: [u.container, u.marginTop2],
                       width: 13,
-                      height: 14,
+                      height: 13,
+                      testid: "order_details_preview_icon",
                     })
                   : c ===
                       r("WAWebInteractiveMessagesNativeFlowName")

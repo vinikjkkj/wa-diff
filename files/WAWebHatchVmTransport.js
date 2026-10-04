@@ -35,6 +35,18 @@ __d(
       CONNECTOR_PERMISSIONS: function (n) {
         return "/connectors/" + encodeURIComponent(n) + "/permissions";
       },
+      CONNECTOR_POLICY: function (n) {
+        return "/permissions/connectors/" + encodeURIComponent(n);
+      },
+      CONNECTOR_SCOPE_LINK: function (n, r) {
+        return (
+          "/connectors/" +
+          encodeURIComponent(n) +
+          "/scopes/" +
+          encodeURIComponent(r) +
+          "/link"
+        );
+      },
       CONNECTORS_LIST: "/api/connectors",
       OAUTH_CALLBACK: "/oauth/callback",
     });

@@ -9,8 +9,8 @@ __d(
       });
     function c() {
       for (; s.length > 0; ) {
-        var e = s.shift();
-        e();
+        var e = s[0];
+        (s.shift(), e());
       }
     }
     function d() {
