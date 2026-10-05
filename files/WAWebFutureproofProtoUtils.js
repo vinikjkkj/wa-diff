@@ -5,7 +5,6 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebMessageAssociationGatingUtils",
     "WAWebNewsletterGatingUtils",
-    "WAWebSpoilerGating",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,18 +23,17 @@ __d(
         p = e.pollCreationOptionImageMessage,
         _ = e.questionMessage,
         f = e.questionReplyMessage,
-        g = e.spoilerMessage,
-        h = e.viewOnceMessage,
-        y = e.viewOnceMessageV2,
-        C = e.viewOnceMessageV2Extension;
+        g = e.viewOnceMessage,
+        h = e.viewOnceMessageV2,
+        y = e.viewOnceMessageV2Extension;
       return r &&
         o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? r
         : u ||
             i ||
+            g ||
             h ||
             y ||
-            C ||
             s ||
             l ||
             a ||
@@ -48,20 +46,16 @@ __d(
               ? t
               : _ ||
                 f ||
-                (g && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
-                  ? g
-                  : n &&
-                      o(
-                        "WAWebBotBaseGating",
-                      ).isRichResponseForwardReceivingEnabled()
-                    ? n
-                    : c ||
-                      (d &&
-                      o(
-                        "WAWebNewsletterGatingUtils",
-                      ).isSchedulingUpdatesReceiverEnabled()
-                        ? d
-                        : null)));
+                (n &&
+                o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
+                  ? n
+                  : c ||
+                    (d &&
+                    o(
+                      "WAWebNewsletterGatingUtils",
+                    ).isSchedulingUpdatesReceiverEnabled()
+                      ? d
+                      : null)));
     }
     function s(e) {
       var t = e.associatedChildMessage,
@@ -75,7 +69,7 @@ __d(
           !o(
             "WAWebMessageAssociationGatingUtils",
           ).isFutureproofAssociatedChildEnabled()) ||
-        (a != null && !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()) ||
+        a != null ||
         (n != null &&
           !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled())
       );

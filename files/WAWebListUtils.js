@@ -55,11 +55,11 @@ __d(
             return { hexColor: e, originalIndex: t };
           });
     }
-    var _ = function (t, n) {
-      var e = parseInt(t.id, 10),
-        r = parseInt(n.id, 10);
-      return Number.isNaN(e) || Number.isNaN(r) ? 0 : e - r;
-    };
+    function _(e, t) {
+      var n = parseInt(e.id, 10),
+        r = parseInt(t.id, 10);
+      return Number.isNaN(n) || Number.isNaN(r) ? 0 : n - r;
+    }
     function f(e) {
       e.sort(function (e, t) {
         var n = e.orderIndex - t.orderIndex;

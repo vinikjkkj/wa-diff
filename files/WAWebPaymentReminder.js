@@ -35,20 +35,20 @@ __d(
       }
     }
     function s(t) {
-      var n, a;
+      var n,
+        a = t.interactivePayload,
+        i = t.interactiveType,
+        l = t.nativeFlowName,
+        s = t.type;
       if (
-        t.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER ||
-        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !((n = t.interactivePayload) != null && n.buttons)
+        l !== r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER ||
+        s !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        i !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !(a != null && a.buttons)
       )
         return null;
-      var i =
-        (a = t.interactivePayload.buttons[0]) == null
-          ? void 0
-          : a.buttonParamsJson;
-      return i == null ? null : e(i);
+      var u = (n = a.buttons[0]) == null ? void 0 : n.buttonParamsJson;
+      return u == null ? null : e(u);
     }
     function u(t) {
       if (
@@ -59,7 +59,7 @@ __d(
       var n = t.buttonParamsJson;
       return n == null ? null : e(n);
     }
-    ((l.getPaymentReminderInfo = s), (l.parsePaymentReminderButton = u));
+    ((l.getPaymentReminderInfoFor = s), (l.parsePaymentReminderButton = u));
   },
   98,
 );

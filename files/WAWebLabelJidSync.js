@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebCTWAAeDetectionGating",
@@ -62,9 +63,9 @@ __d(
               u == null ||
               !a ||
               r("WAWebSyncBootstrap").isSyncDBootstrapInProcess() ||
-              !o(
-                "WAWebCTWAAeDetectionGating",
-              ).isCtwa3pdConversionOnAeDetectionEnabled()
+              !o("WAWebABProps").getABPropConfigValue(
+                "ctwa_3pd_conversion_on_ae_detection",
+              )
             )
           ) {
             var p = JSON.stringify([l, d]);

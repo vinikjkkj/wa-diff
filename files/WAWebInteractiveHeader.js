@@ -119,23 +119,25 @@ __d(
               o("WAWebOrderStatus").isPaymentRequest(f, C)))
           : d.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER
-            ? (L = u.jsx(r("WAWebPaymentReminderHeader.react"), { msg: d }))
+            ? (L = u.jsx(r("WAWebPaymentReminderHeader.react"), {
+                msgKey: d.id,
+              }))
             : d.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
               ? (L = u.jsx(r("WAWebBookingConfirmationHeader.react"), {
-                  msg: d,
+                  msgKey: d.id,
                 }))
               : d.nativeFlowName ===
                   r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
                 ? (L = u.jsx(r("WAWebInAppSignupConfirmationHeader.react"), {
-                    msg: d,
+                    msgKey: d.id,
                   }))
                 : d.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP &&
                     b != null
                   ? ((L = u.jsx(r("WAWebInAppSignupPromptHeader.react"), {
                       info: b,
-                      msg: d,
+                      msgKey: d.id,
                     })),
                     (T = !0))
                   : d.nativeFlowName ===
@@ -147,17 +149,19 @@ __d(
                         d.isFromTemplate,
                       ) &&
                       ((L = u.jsx(r("WAWebPaymentRequestHeader.react"), {
-                        msg: d,
+                        msgKey: d.id,
                       })),
                       (I = !0))
                     : S &&
                       (S.title != null || S.subtitle != null) &&
                       (L = E
-                        ? u.jsx(r("WAWebInteractiveTitleHeader"), { msg: d })
+                        ? u.jsx(r("WAWebInteractiveTitleHeader"), {
+                            msgKey: d.id,
+                          })
                         : u.jsx("div", {
                             className: "x1k70j0n",
                             children: u.jsx(r("WAWebInteractiveTitleHeader"), {
-                              msg: d,
+                              msgKey: d.id,
                             }),
                           })));
       var D = S == null ? void 0 : S.mediaType;

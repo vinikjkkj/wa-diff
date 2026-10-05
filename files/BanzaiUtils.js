@@ -62,10 +62,13 @@ __d(
         resetPostStatus: function (r) {
           r.__meta.status = (e || (e = n("BanzaiConsts"))).POST_READY;
         },
-        retryPost: function (r, o, a) {
+        retryPost: function (r, o, a, i) {
           var t = r;
+          if (((t[3] = (t[3] || 0) + 1), i != null && t[3] > i)) {
+            t.__meta.status = (e || (e = n("BanzaiConsts"))).POST_SENT;
+            return;
+          }
           ((t.__meta.status = (e || (e = n("BanzaiConsts"))).POST_READY),
-            (t[3] = (t[3] || 0) + 1),
             t.__meta.retry !== !0 && o >= 400 && o < 600 && a.push(r));
         },
         wrapData: function (r, o, a, i, l) {

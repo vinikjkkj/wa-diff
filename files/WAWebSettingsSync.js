@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebEnvironment",
     "WAWebPrimaryFeatures",
     "WAWebProtobufSyncAction.pb",
@@ -25,8 +24,7 @@ __d(
       return (
         o("WAWebPrimaryFeatures").primaryFeatureEnabled(
           "settings_sync_enabled",
-        ) === !0 &&
-        o("WAWebABProps").getABPropConfigValue("settings_sync_enabled") === !0
+        ) === !0
       );
     }
     var y = (function (t) {

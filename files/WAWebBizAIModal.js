@@ -13,6 +13,7 @@ __d(
       o("WAWebModalManager").ModalManager.open(
         s.jsx(o("WAWebModal.react").Modal, {
           ariaLabel: t,
+          autoHeight: !0,
           type: o("WAWebModal.react").ModalTheme.Auto,
           children: s.jsx(r("WAWebBizAIRelayBoundary.react"), { children: e }),
         }),

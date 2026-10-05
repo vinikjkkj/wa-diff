@@ -1224,6 +1224,7 @@ __d(
     "WDSIconWdsIcLogoFacebook.react",
     "WDSIconWdsIcLogoFacebookFill.react",
     "WDSIconWdsIcLogoGooglePhotos.react",
+    "WDSIconWdsIcLogoHatchFilled.react",
     "WDSIconWdsIcLogoHorizon.react",
     "WDSIconWdsIcLogoInstagram.react",
     "WDSIconWdsIcLogoMessenger.react",
@@ -5684,6 +5685,10 @@ __d(
         {
           Component: r("WDSIconWdsIcLogoGooglePhotos.react"),
           name: "WDSIconWdsIcLogoGooglePhotos",
+        },
+        {
+          Component: r("WDSIconWdsIcLogoHatchFilled.react"),
+          name: "WDSIconWdsIcLogoHatchFilled",
         },
         {
           Component: r("WDSIconWdsIcLogoHorizon.react"),

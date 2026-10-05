@@ -98,13 +98,15 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.currentIsOpenBotGroupState,
             n = e.groupWid,
-            r = e.prevIsOpenBotGroupState;
+            r = e.prevIsOpenBotGroupState,
+            a = e.skipSystemMsg,
+            i = a === void 0 ? !1 : a;
           return o(
             "WAWebBotGroupGatingUtils",
           ).isOpenGroupBotParticipantAddEnabled() !== !0 || t == null
             ? !1
             : r === !1 && (t != null ? t : !1) === !0
-              ? (yield d(n), !0)
+              ? (i || (yield d(n)), !0)
               : !1;
         })),
         g.apply(this, arguments)
@@ -118,13 +120,15 @@ __d(
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.currentIsTeeBotGroupState,
             n = e.groupWid,
-            r = e.prevIsTeeBotGroupState;
+            r = e.prevIsTeeBotGroupState,
+            a = e.skipSystemMsg,
+            i = a === void 0 ? !1 : a;
           return o(
             "WAWebBotGroupGatingUtils",
           ).isTEEGroupBotParticipantAddEnabled() !== !0 || t == null
             ? !1
             : r === !1 && t === !0
-              ? (yield p(n), !0)
+              ? (i || (yield p(n)), !0)
               : !1;
         })),
         y.apply(this, arguments)

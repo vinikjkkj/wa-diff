@@ -52,20 +52,23 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e, t, n) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.editedMsg,
+            n = e.parent,
+            r = e.timestamp;
           o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
-            parentTsInSeconds: e.t,
-            editTsInSeconds: n,
-            msgKey: e.id,
+            parentTsInSeconds: n.t,
+            editTsInSeconds: r,
+            msgKey: n.id,
           })
             ? yield L(t, o("WAWebErrorType").SendFailureErrorCode.NoError)
             : (yield L(
-                e,
+                n,
                 o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
               ),
               yield L(
@@ -313,7 +316,7 @@ __d(
               (e.isSendFailure = !0));
             return;
           }
-          (yield d(e, t, i),
+          (yield d({ editedMsg: t, parent: e, timestamp: i }),
             yield p(e, r),
             e.updateAck(t.ack),
             (e.isSendFailure =

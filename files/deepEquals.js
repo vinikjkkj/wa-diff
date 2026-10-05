@@ -32,10 +32,7 @@ __d(
     }
     function d(t, n) {
       if (t === n) return !0;
-      if (
-        r("isPrimitive")(t) ||
-        Object.prototype.toString.call(t) !== Object.prototype.toString.call(n)
-      )
+      if (r("isPrimitive")(t) || {}.toString.call(t) !== {}.toString.call(n))
         return !1;
       if (Array.isArray(t)) return t.length === n.length && t.every(e(n));
       if (t instanceof Set) return u(t, n);

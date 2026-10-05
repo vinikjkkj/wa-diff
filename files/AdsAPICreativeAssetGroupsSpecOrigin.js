@@ -104,6 +104,7 @@ __d(
       PA_DYNAMIC_HEADER: "pa_dynamic_header",
       PA_NON_DHO: "pa_non_dho",
       PA_SINGLE_HEADER: "pa_single_header",
+      PA_SUSPECTED: "pa_suspected",
       PAC: "placement_asset_customization",
       PAC_BAU: "pac_bau",
       PAC_SHOPS_ADS: "pac_shops_ads",

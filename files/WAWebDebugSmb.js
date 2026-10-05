@@ -105,23 +105,26 @@ __d(
       );
     }
     T.doc = "create label";
-    function x(e, t, n, r, o) {
+    function x(e) {
       return $.apply(this, arguments);
     }
     function $() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = { id: e, shortcut: t, count: r, message: n, keywords: a };
-            (yield o("WAWebSchemaQuickReply")
-              .getQuickReplyTable()
-              .createOrReplace(i),
-              o("WAWebQuickReplyCollection").QuickReplyCollection.add(
-                { id: e, shortcut: t, message: n, keywords: a, count: r },
-                { merge: !0 },
-              ));
-          },
-        )),
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.count,
+            n = e.id,
+            r = e.keywords,
+            a = e.message,
+            i = e.shortcut,
+            l = { id: n, shortcut: i, count: t, message: a, keywords: r };
+          (yield o("WAWebSchemaQuickReply")
+            .getQuickReplyTable()
+            .createOrReplace(l),
+            o("WAWebQuickReplyCollection").QuickReplyCollection.add(
+              { id: n, shortcut: i, message: a, keywords: r, count: t },
+              { merge: !0 },
+            ));
+        })),
         $.apply(this, arguments)
       );
     }

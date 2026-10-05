@@ -2,6 +2,7 @@ __d(
   "WAWebWriteHatchConnectors",
   [
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebHatchConnectInfoDecoder",
     "WAWebHatchConnectorAccountsDecoder",
     "WAWebHatchJsonReaders",
@@ -67,16 +68,11 @@ __d(
     function _(e) {
       return o("WAWebRequestHatchConnectors")
         .requestHatchConnectors()
-        .then(
-          function (t) {
-            return t.some(function (t) {
-              return t.id === e && t.state === "connected";
-            });
-          },
-          function () {
-            return !0;
-          },
-        );
+        .then(function (t) {
+          return t.some(function (t) {
+            return t.id === e && t.state === "connected";
+          });
+        }, o("WAWebBoolFunc").returnTrue);
     }
     function f(e) {
       return g.apply(this, arguments);
@@ -126,16 +122,11 @@ __d(
     function C(e, t) {
       return o("WAWebRequestHatchConnectors")
         .requestHatchConnectorAccounts(e)
-        .then(
-          function (e) {
-            return e.some(function (e) {
-              return e.accountId === t;
-            });
-          },
-          function () {
-            return !0;
-          },
-        );
+        .then(function (e) {
+          return e.some(function (e) {
+            return e.accountId === t;
+          });
+        }, o("WAWebBoolFunc").returnTrue);
     }
     function b(e, t, n) {
       return v.apply(this, arguments);
@@ -157,20 +148,15 @@ __d(
     function S(e, t, n) {
       return o("WAWebRequestHatchConnectors")
         .requestHatchConnectorPermissions(e)
-        .then(
-          function (e) {
-            return e.some(function (e) {
-              return e.groups.some(function (e) {
-                return e.methods.some(function (e) {
-                  return e.key === t && e.mode === n;
-                });
+        .then(function (e) {
+          return e.some(function (e) {
+            return e.groups.some(function (e) {
+              return e.methods.some(function (e) {
+                return e.key === t && e.mode === n;
               });
             });
-          },
-          function () {
-            return !1;
-          },
-        );
+          });
+        }, o("WAWebBoolFunc").returnFalse);
     }
     function R(e, t) {
       return L.apply(this, arguments);

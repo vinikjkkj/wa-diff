@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaUrlAllowlist",
-  ["WALogger", "WAWebMediaUrlAllowlistGating", "WAWebURLUtils"],
+  ["WALogger", "WAWebABProps", "WAWebURLUtils"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
@@ -11,9 +11,9 @@ __d(
     function u(t) {
       return t == null || t === ""
         ? null
-        : o(
-              "WAWebMediaUrlAllowlistGating",
-            ).isMediaUrlAllowlistValidationEnabled()
+        : o("WAWebABProps").getABPropConfigValue(
+              "web_validate_media_url_allowlist_enabled",
+            )
           ? s(t)
             ? t
             : (o("WALogger")

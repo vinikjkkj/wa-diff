@@ -4,6 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebBizAiLargeScreensGateModel",
     "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
+    "WAWebBizAiWebEditingCoachingGateModel",
     "WAWebBizAiWebSmartComposerAiListsGateModel",
     "justknobx",
   ],
@@ -53,6 +54,9 @@ __d(
     function f() {
       return (
         o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled() &&
+        o(
+          "WAWebBizAiWebEditingCoachingGateModel",
+        ).isBizAiWebEditingCoachingGateEnabled() &&
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_agent_ai_editing_enabled",
         )

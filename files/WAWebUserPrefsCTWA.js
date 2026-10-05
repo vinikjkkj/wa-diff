@@ -68,7 +68,12 @@ __d(
         ? null
         : ((t == null || typeof t != "string") && (t = ""),
           (n == null || typeof n != "string") && (n = null),
-          o("WAWebCommonAdsTypes").asAdAccountToken(e, t, "WAA", d(n)));
+          o("WAWebCommonAdsTypes").asAdAccountToken({
+            bp_id: t,
+            token: e,
+            tokenStrength: d(n),
+            type: "WAA",
+          }));
     }
     function p(e) {
       o("WAWebCTWAGatingUtils").adAccountTokenStoringEnabled() &&
@@ -121,7 +126,11 @@ __d(
         t == null ||
         typeof t != "string"
         ? null
-        : o("WAWebCommonAdsTypes").asAdAccountToken(e, t, "FB");
+        : o("WAWebCommonAdsTypes").asAdAccountToken({
+            bp_id: t,
+            token: e,
+            type: "FB",
+          });
     }
     function h(e) {
       (r("WAWebUserPrefsStore").setUser(

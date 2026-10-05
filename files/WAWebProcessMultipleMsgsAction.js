@@ -56,7 +56,12 @@ __d(
             m = t.meta,
             p = t.msgObjs,
             f = t.processMessageOrigin,
-            g = yield r("WAWebGetMsgUpdatesActionsUtils")(i, p, m, l),
+            g = yield r("WAWebGetMsgUpdatesActionsUtils")({
+              chatId: i,
+              chatMsgsCollection: l,
+              meta: m,
+              msgObjs: p,
+            }),
             y = g.filteredRecs,
             b = g.reorderRecs,
             v = g.updates,

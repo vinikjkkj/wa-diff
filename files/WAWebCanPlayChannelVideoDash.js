@@ -10,7 +10,7 @@ __d(
         (n != null || t) &&
         o(
           "WAWebNewsletterVideoPlayerGating",
-        ).shouldRenderNewsletterVideoInCometPlayer(r) &&
+        ).isNewsletterVideoWithPlaybackLogging(r) &&
         (t ||
           o("WAWebNewsletterGatingUtils").isChannelVideoDashPlaybackEnabled())
       );

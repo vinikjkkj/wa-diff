@@ -10,34 +10,39 @@ __d(
     "WAWebODS",
     "WAWebPdfViewerAnrTracker",
     "WAWebVoipAnrTracker",
+    "WAWebWindowsHybridBridgeInitiator",
+    "cr:17219",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 5e3,
-      c = 10 * 1e3,
-      d = 15 * 1e3,
-      m = 30 * 1e3;
-    function p(e) {
-      return e > d ? "15s+" : e > c ? "10s-15s" : e > u ? "5s-10s" : "0s-5s";
+      u,
+      c = (e = n("cr:17219")) != null ? e : {},
+      d = c.getWindowsBridge,
+      m = 5 * 1e3,
+      p = 10 * 1e3,
+      _ = 15 * 1e3,
+      f = 30 * 1e3;
+    function g(e) {
+      return e > _ ? "15s+" : e > p ? "10s-15s" : e > m ? "5s-10s" : "0s-5s";
     }
-    function _(e, t) {
-      return e < u
+    function h(e, t) {
+      return e < m
         ? (r("WAWebODS").incr("web.perf.anr.skipped.too_short"), !0)
-        : e > m
+        : e > f
           ? (r("WAWebODS").incr("web.perf.anr.skipped.too_long"), !0)
           : !t.isDocumentVisible() || !t.isWindowInFocus()
             ? (r("WAWebODS").incr("web.perf.anr.skipped.not_visible"), !0)
             : !1;
     }
-    function f(e) {
-      e > d
+    function y(e) {
+      e > _
         ? r("WAWebODS").incr("web.perf.anr.bucket.15s_plus")
-        : e > c
+        : e > p
           ? r("WAWebODS").incr("web.perf.anr.bucket.10s_15s")
           : r("WAWebODS").incr("web.perf.anr.bucket.5s_10s");
     }
-    function g(e) {
+    function C(e) {
       var t = e.includes(String(o("WAWebAppTracker").AppTrackerType.VoipAudio)),
         n = e.includes(String(o("WAWebAppTracker").AppTrackerType.VoipVideo)),
         a = t || n;
@@ -55,15 +60,28 @@ __d(
         isVoipAnr: !0,
       };
     }
-    function h(t) {
-      var n = t.durationMs,
-        a = t.endTime,
-        i = t.source,
-        l = t.visibility;
-      if (!_(n, l)) {
-        var u = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(n, a);
+    function b() {
+      var e;
+      if (r("WAWebEnvironment").isWindows) {
+        var t =
+          d == null ||
+          (e = d(
+            r("WAWebWindowsHybridBridgeInitiator").WAWebMainThreadStallReporter,
+          )) == null
+            ? void 0
+            : e.voip;
+        t == null || t.reportWebAnr == null || t.reportWebAnr();
+      }
+    }
+    function v(e) {
+      var t = e.durationMs,
+        n = e.endTime,
+        a = e.source,
+        i = e.visibility;
+      if (!h(t, i)) {
+        var l = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(t, n);
         if (
-          u.includes(
+          l.includes(
             String(o("WAWebAppTracker").AppTrackerType.ClosingBrowserTab),
           )
         ) {
@@ -71,31 +89,32 @@ __d(
           return;
         }
         (r("WAWebODS").incr("web.perf.anr.count"),
-          i === "heartbeat"
+          a === "heartbeat"
             ? r("WAWebODS").incr("web.perf.anr.source.heartbeat")
             : r("WAWebODS").incr("web.perf.anr.source.longtask"),
-          f(n),
+          y(t),
           o("WAWebLowEndDeviceApi").isLowEndDevice() &&
             r("WAWebODS").incr("web.perf.anr.low_end_device"),
-          o("WAWebCrashContextUtils").recordHangEvent(a, n));
-        var c = g(u),
+          o("WAWebCrashContextUtils").recordHangEvent(n, t),
+          b());
+        var c = C(l),
           d = c.callLog,
           m = c.isVoipAnr;
         o("WAWebPdfViewerAnrTracker").isPdfViewerAnrTrackingActive() &&
           o("WAWebPdfViewerAnrTracker").incrementPdfViewerAnrCount();
-        var h = a - n;
+        var p = n - t;
         (o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[longtask] entryStartTime: ",
               "s ago",
             ])),
-          ((h - self.performance.now()) / 1e3).toFixed(0),
+          ((p - self.performance.now()) / 1e3).toFixed(0),
         ),
           o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[longtask][",
                   "] entryDuration:",
                   "ms lowEndDevice:",
@@ -103,10 +122,10 @@ __d(
                   "",
                   "",
                 ])),
-              p(n),
-              n,
+              g(t),
+              t,
               o("WAWebLowEndDeviceApi").isLowEndDevice(),
-              u || "none",
+              l || "none",
               d,
             )
             .sendLogs("[performance observer] longtask", {
@@ -116,7 +135,7 @@ __d(
             }));
       }
     }
-    l.reportMainThreadStall = h;
+    l.reportMainThreadStall = v;
   },
   98,
 );

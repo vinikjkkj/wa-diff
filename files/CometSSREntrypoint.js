@@ -17,7 +17,8 @@ __d(
           e.variables,
           e.parameters.params.providedVariables,
           t,
-        );
+        ),
+        p = e.parameters.params.id;
       return {
         actor_id:
           (n =
@@ -25,6 +26,7 @@ __d(
           null
             ? n
             : null,
+        cache_id: p == null ? e.parameters.params.cacheID : void 0,
         exclude_from_ssr:
           (a =
             (i = e.environmentProviderOptions) == null
@@ -39,7 +41,7 @@ __d(
               : s.graphQLEnvOverrideRef) != null
             ? l
             : null,
-        id: e.parameters.params.id,
+        id: p,
         name: e.parameters.params.name,
         num_connections_for_ssr:
           (u =

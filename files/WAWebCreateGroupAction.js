@@ -442,7 +442,12 @@ __d(
                     (a
                       ? o(
                           "WAWebSendForNeededAddRequest",
-                        ).sendForNeededAddRequest(e, f, void 0, c)
+                        ).sendForNeededAddRequest({
+                          groupAddResponse: e,
+                          groupDesc: void 0,
+                          onFinish: c,
+                          subject: f,
+                        })
                       : c(),
                     p == null &&
                       e.gid &&

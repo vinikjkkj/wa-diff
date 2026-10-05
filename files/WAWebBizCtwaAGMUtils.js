@@ -58,8 +58,7 @@ __d(
           n = o("WAWebCtwaAGMUtils").extractAGMPayload(t);
         return (n == null ? void 0 : n.ctaType) ===
           o("WAWebCtwaAGMUtils").AGM_CTA_TYPE.FLOW
-          ? o("WAWebABProps").getABPropConfigValue("flows_wa_web") &&
-              o("WAWebABProps").getABPropConfigValue("enable_agm_flow_cta") &&
+          ? o("WAWebABProps").getABPropConfigValue("enable_agm_flow_cta") &&
               o("WAWebABProps").getABPropConfigValue("flows_wa_web_agm_cta") &&
               o("WAWebABProps").getABPropConfigValue(
                 "flows_wa_web_responses_download",

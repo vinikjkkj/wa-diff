@@ -15,6 +15,7 @@ __d(
     "WAWebDBGroupParticipant",
     "WAWebDBGroupsGroupMetadata",
     "WAWebEnvironment",
+    "WAWebGroupAgentDeletedChat",
     "WAWebGroupAgentPrivacyNotice",
     "WAWebGroupAgentRemovalSystemMsgs",
     "WAWebGroupsParticipantsApi",
@@ -247,45 +248,58 @@ __d(
                   });
               }));
             var U = !1;
-            (o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled() ||
+            if (
               o(
                 "WAWebBotGroupGatingUtils",
-              ).isTEEGroupBotParticipantAddEnabled()) &&
+              ).isOpenGroupBotParticipantAddEnabled() ||
+              o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
+            ) {
+              var V = yield o(
+                "WAWebGroupAgentDeletedChat",
+              ).isBotGroupStateChangeInDeletedGroupChat({
+                chatId: t,
+                currentIsOpenBotGroupState: T.isOpenBotGroup,
+                currentIsTeeBotGroupState: T.isTeeBotGroup,
+                prevIsOpenBotGroupState: f == null ? void 0 : f.isOpenBotGroup,
+                prevIsTeeBotGroupState: f == null ? void 0 : f.isTeeBotGroup,
+              });
               ((U = yield o(
                 "WAWebBotGroupBackendUtils",
               ).addGroupChangedToOpenBotGroupSystemMsgIfRequired({
                 currentIsOpenBotGroupState: T.isOpenBotGroup,
                 groupWid: t,
                 prevIsOpenBotGroupState: f == null ? void 0 : f.isOpenBotGroup,
+                skipSystemMsg: V,
               })),
-              (U =
-                (yield o(
-                  "WAWebBotGroupBackendUtils",
-                ).addGroupChangedToTeeBotGroupSystemMsgIfRequired({
-                  currentIsTeeBotGroupState: T.isTeeBotGroup,
-                  groupWid: t,
-                  prevIsTeeBotGroupState: f == null ? void 0 : f.isTeeBotGroup,
-                })) || U));
-            var V =
+                (U =
+                  (yield o(
+                    "WAWebBotGroupBackendUtils",
+                  ).addGroupChangedToTeeBotGroupSystemMsgIfRequired({
+                    currentIsTeeBotGroupState: T.isTeeBotGroup,
+                    groupWid: t,
+                    prevIsTeeBotGroupState:
+                      f == null ? void 0 : f.isTeeBotGroup,
+                    skipSystemMsg: V,
+                  })) || U));
+            }
+            var H =
                 k && D !== !0
                   ? yield o("WAWebSchemaParticipant")
                       .getParticipantTable()
                       .get(t.toString())
                   : null,
-              H = yield o("WAWebApiChat").injectAdditionalEphemeralInfoFromDB([
+              G = yield o("WAWebApiChat").injectAdditionalEphemeralInfoFromDB([
                 T,
               ]),
-              G = H[0],
-              z = yield (g || (g = n("Promise"))).all([
+              z = G[0],
+              j = yield (g || (g = n("Promise"))).all([
                 D === !0
                   ? o("WAWebDBGroupParticipant").getGroupParticipant({
                       groupWid: t,
                     })
                   : null,
                 o("WAWebDBGroupsGroupMetadata").updateGroupMetadataTable({
-                  groupInfos: [G],
+                  groupInfos: [z],
                 }),
                 D !== !0 &&
                   o("WAWebGroupsParticipantsApi").updateParticipants({
@@ -300,24 +314,32 @@ __d(
                   q.length > 0 &&
                   o("WAWebSetUsernameJob").setUsernamesJob(q),
               ]),
-              j = z[0];
+              K = j[0],
+              Q = yield o(
+                "WAWebGroupAgentDeletedChat",
+              ).getPrevParticipantIdsForMetadataAgentRows({
+                chatId: t,
+                currentParticipantIds: A.map(function (e) {
+                  var t = e.id;
+                  return t;
+                }),
+                prevParticipantIds: H == null ? void 0 : H.participants,
+              });
             try {
-              var K,
-                Q,
-                X = yield o(
+              var X,
+                Y = yield o(
                   "WAWebGroupAgentRemovalSystemMsgs",
                 ).genGroupAgentRemovalMsgsForMetadata({
                   currentParticipants: A,
                   groupWid: t,
                   isLidAddressingMode:
-                    (K = f == null ? void 0 : f.isLidAddressingMode) != null
-                      ? K
+                    (X = f == null ? void 0 : f.isLidAddressingMode) != null
+                      ? X
                       : T.isLidAddressingMode,
-                  previousParticipantIds:
-                    (Q = V == null ? void 0 : V.participants) != null ? Q : [],
+                  previousParticipantIds: Q != null ? Q : [],
                 });
               yield (g || (g = n("Promise"))).all(
-                X.map(function (e) {
+                Y.map(function (e) {
                   return o(
                     "WAWebHandleSingleMsgWorkerCompatible",
                   ).handleSingleMsg({
@@ -370,7 +392,7 @@ __d(
                     return t;
                   }),
                   groupWid: t,
-                  prevParticipantIds: V == null ? void 0 : V.participants,
+                  prevParticipantIds: Q,
                 })
                 .catch(function (e) {
                   o("WALogger")
@@ -387,7 +409,7 @@ __d(
                 .addE2EESystemMsgAfterLastAgentRemovedIfRequired({
                   currentParticipants: A,
                   groupWid: t,
-                  prevParticipantIds: V == null ? void 0 : V.participants,
+                  prevParticipantIds: Q,
                   responseListsAgents: k,
                 })
                 .catch(function (e) {
@@ -401,9 +423,9 @@ __d(
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("group-query-agent-removal-notice-error");
                 }),
-              j != null &&
+              K != null &&
                 (T = babelHelpers.extends({}, T, {
-                  participants: j.participants,
+                  participants: K.participants,
                 })),
               o("WAWebSyncGroupBotSupportFields")
                 .maybeLazySyncGroupBotSupportFields(
@@ -432,14 +454,14 @@ __d(
                 "WAWebLimitSharingModelUtils",
               ).genLimitSharingSystemMessageOnPersistedChat({
                 chatWID: t,
-                sharingLimited: G.limitSharingEnabled,
-                acp2Enabled: G.acp2Enabled,
+                sharingLimited: z.limitSharingEnabled,
+                acp2Enabled: z.acp2Enabled,
               }),
               o(
                 "WAWebLimitSharingModelUtils",
               ).genAcp2SystemMessageOnPersistedChat({
                 chatWID: t,
-                enabled: G.acp2Enabled,
+                enabled: z.acp2Enabled,
                 snapshotRequestedAtMs: R,
               }),
               { status: "success", groupInfo: T }

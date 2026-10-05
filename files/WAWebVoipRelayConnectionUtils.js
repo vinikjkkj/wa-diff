@@ -191,16 +191,19 @@ __d(
         N.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
-      var r =
+    function M(e) {
+      var t = e.customSdp,
+        n = e.ip,
+        r = e.port,
+        o =
           "a=candidate:2 1 udp 2122262783 " +
-          e +
+          n +
           " " +
-          t +
+          r +
           " typ host generation 0 network-cost 5",
-        o = [r, "a=end-of-candidates"].join("\r\n"),
-        a = $(n);
-      return ((a += o + "\r\n"), a);
+        a = [o, "a=end-of-candidates"].join("\r\n"),
+        i = $(t);
+      return ((i += a + "\r\n"), i);
     }
     function w(e, t) {
       var n,
@@ -221,7 +224,7 @@ __d(
           /a=max-message-size:[^\r\n]+/g,
           "a=max-message-size:1500",
         )),
-        (o = M(t.ip, t.port.toString(), o)),
+        (o = M({ customSdp: o, ip: t.ip, port: t.port.toString() })),
         o
       );
     }

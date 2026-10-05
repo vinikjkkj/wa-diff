@@ -853,47 +853,50 @@ __d(
         O.apply(this, arguments)
       );
     }
-    function B(e, t, n, r, o) {
+    function B(e) {
       return W.apply(this, arguments);
     }
     function W() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            (o("WALogger").LOG(
-              N ||
-                (N = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync] processing history non blocking data",
-                ])),
-            ),
-              o(
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chunkDownloadFinishTimestamp,
+            n = e.chunkInfo,
+            r = e.historySyncDataAppliedMetric,
+            a = e.historySyncDownloadMetric,
+            i = e.proto;
+          (o("WALogger").LOG(
+            N ||
+              (N = babelHelpers.taggedTemplateLiteralLoose([
+                "[history sync] processing history non blocking data",
+              ])),
+          ),
+            o(
+              "WAWebHistorySyncNotificationUtils",
+            ).commitHistoryDownloadedMetric({
+              chunkDownloadFinishTimestamp: t,
+              historySyncDownloadMetric: a,
+              isSuccess: !0,
+              startTs: n.historySyncStepStartedTs,
+            }),
+            i.pastParticipants != null &&
+              i.pastParticipants.length > 0 &&
+              (yield o(
                 "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric({
-                chunkDownloadFinishTimestamp: a,
-                historySyncDownloadMetric: n,
-                isSuccess: !0,
-                startTs: t.historySyncStepStartedTs,
-              }),
-              e.pastParticipants != null &&
-                e.pastParticipants.length > 0 &&
-                (yield o(
-                  "WAWebHistorySyncNotificationUtils",
-                ).processPastParticipants(e, t)),
-              e.callLogRecords != null &&
-                e.callLogRecords.length > 0 &&
-                (yield q(e, t)),
-              e.conversations != null &&
-                (yield o("WAWebMemberLabelHistorySync").processMemberLabels(e)),
-              o("WAWebHistorySyncStickers").processRecentStickers(e, t),
-              o(
-                "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDataAppliedMetric({
-                historySyncDataAppliedMetric: r,
-                startTs: t.historySyncStepStartedTs,
-                isSuccess: !0,
-              }));
-          },
-        )),
+              ).processPastParticipants(i, n)),
+            i.callLogRecords != null &&
+              i.callLogRecords.length > 0 &&
+              (yield q(i, n)),
+            i.conversations != null &&
+              (yield o("WAWebMemberLabelHistorySync").processMemberLabels(i)),
+            o("WAWebHistorySyncStickers").processRecentStickers(i, n),
+            o(
+              "WAWebHistorySyncNotificationUtils",
+            ).commitHistoryDataAppliedMetric({
+              historySyncDataAppliedMetric: r,
+              startTs: n.historySyncStepStartedTs,
+              isSuccess: !0,
+            }));
+        })),
         W.apply(this, arguments)
       );
     }

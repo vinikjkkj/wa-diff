@@ -14,16 +14,17 @@ __d(
       s = (function () {
         function t(t, n) {
           var a = this;
-          ((this.handleVoipReady = function () {
-            var e;
-            (o("WAWebBackendApi").frontendFireAndForget(
-              "addStartingLogoutListener",
-              function () {
-                return a.handleSignOut();
-              },
-            ),
-              (e = a.$3) == null || e.onVoipReady());
-          }),
+          ((this.reportWebAnr = null),
+            (this.handleVoipReady = function () {
+              var e;
+              (o("WAWebBackendApi").frontendFireAndForget(
+                "addStartingLogoutListener",
+                function () {
+                  return a.handleSignOut();
+                },
+              ),
+                (e = a.$3) == null || e.onVoipReady());
+            }),
             (this.sendSignalingXmpp = function (t) {
               var n,
                 r = t.callId,

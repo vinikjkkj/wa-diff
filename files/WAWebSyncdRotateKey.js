@@ -8,7 +8,7 @@ __d(
     "WAJids",
     "WASyncdKeyTypes",
     "WATimeUtils",
-    "WAWebSyncdGatingUtils",
+    "WAWebABProps",
     "WAWebSyncdKeyManagementUtils",
     "equalsSet",
   ],
@@ -20,7 +20,10 @@ __d(
       var n = t.timestamp,
         r = Math.min(
           s,
-          Math.max(e, o("WAWebSyncdGatingUtils").getSyncdKeyMaxUseDays()),
+          Math.max(
+            e,
+            o("WAWebABProps").getABPropConfigValue("syncd_key_max_use_days"),
+          ),
         ),
         a = r * o("WATimeUtils").DAY_MILLISECONDS,
         i = o("WATimeUtils").unixTimeMs() - n;

@@ -21,40 +21,40 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t, n, r, o, a, i, l) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t, n, r, o, a, i, l) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, s, c, d, p) {
-            (s === void 0 &&
-              (s = o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED),
-              d === void 0 && (d = !1));
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l, u, d, m, _) {
+            (u === void 0 &&
+              (u = o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED),
+              m === void 0 && (m = !1));
             try {
-              var _ = yield o("WAWebSignal").Cipher.encryptSignalProto(
+              var f = yield o("WAWebSignal").Cipher.encryptSignalProto(
                   t,
                   o("WAWebSendMsgCommonApi").encodeAndPad(i),
-                  c,
                   d,
+                  m,
                 ),
-                f = _.ciphertext,
-                g = _.type;
+                g = f.ciphertext,
+                h = f.type;
               return (
                 o(
                   "WAWebPostE2eMessageSendMetric",
                 ).postSuccessDirectE2eMessageSendMetric({
                   to: t,
                   retryCount: a,
-                  type: g,
+                  type: h,
                   msg: l,
-                  editType: s,
-                  sessionScope: c,
-                  coexV2SelfHosted: p,
-                  isPq: m(f),
+                  editType: u,
+                  sessionScope: d,
+                  coexV2SelfHosted: _,
+                  isPq: p(g),
                 }),
-                { type: g, ciphertext: f }
+                { type: h, ciphertext: g }
               );
             } catch (i) {
               return (
@@ -70,18 +70,33 @@ __d(
                     r("getErrorSafe")(i),
                   )
                   .tags("messaging"),
-                o("WAWebSignalSessionApi").maybeDeleteUnconvertedSession(t),
+                o("WAWebSignalSessionApi")
+                  .maybeDeleteUnconvertedSession(t)
+                  .catch(function (e) {
+                    o("WALogger")
+                      .WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "maybeDeleteUnconvertedSession: cleanup failed for ",
+                            ", ",
+                            "",
+                          ])),
+                        t.toString(),
+                        r("getErrorSafe")(e),
+                      )
+                      .tags("messaging");
+                  }),
                 o(
                   "WAWebPostE2eMessageSendMetric",
                 ).postFailureDirectE2eMessageSendMetric({
                   to: t,
                   retryCount: a,
                   msg: l,
-                  editType: s,
-                  sessionScope: c,
-                  coexV2SelfHosted: p,
+                  editType: u,
+                  sessionScope: d,
+                  coexV2SelfHosted: _,
                 }),
-                (u || (u = n("Promise"))).reject(
+                (c || (c = n("Promise"))).reject(
                   r("err")(
                     "[messaging] encryptMsgProtobuf: encryption fail for " +
                       t.toString() +
@@ -93,23 +108,23 @@ __d(
             }
           },
         )),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
+    function p(e) {
       if (e.byteLength === 0) return !1;
       var t = new Uint8Array(e, 0, 1)[0];
       return t >>> 4 === 4;
     }
-    function p(e, t, n, r) {
-      return _.apply(this, arguments);
+    function _(e, t, n, r) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l,
-              c,
+              s,
               d = new (o("WAWebE2eMessageSendWamEvent").E2eMessageSendWamEvent)(
                 {
                   e2eSuccessful: !0,
@@ -126,7 +141,7 @@ __d(
                   retryCount: 0,
                   isLid:
                     !!i.isLid || ((l = e.author) == null ? void 0 : l.isLid()),
-                  typeOfGroup: (c = i.wamTypeOfGroup) != null ? c : void 0,
+                  typeOfGroup: (s = i.wamTypeOfGroup) != null ? s : void 0,
                   editType: o("WAWebMsgGetters").getWamEditType(e),
                   localAddressingMode: o(
                     "WAWebWamAddressingModeUtils",
@@ -151,8 +166,8 @@ __d(
                 (d.weight = 1),
                 o("WALogger")
                   .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "encryptMsgSenderKey: encryption fail for ",
                         ", ",
                         "",
@@ -161,7 +176,7 @@ __d(
                     r("getErrorSafe")(e),
                   )
                   .tags("messaging"),
-                (u || (u = n("Promise"))).reject(
+                (c || (c = n("Promise"))).reject(
                   r("err")(
                     "[messaging] encryptMsgSenderKey: encryption fail for " +
                       t.toString() +
@@ -175,12 +190,12 @@ __d(
             }
           },
         )),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.encryptMsgProtobuf = c),
-      (l.isPqxdhCiphertext = m),
-      (l.encryptMsgSenderKey = p));
+    ((l.encryptMsgProtobuf = d),
+      (l.isPqxdhCiphertext = p),
+      (l.encryptMsgSenderKey = _));
   },
   98,
 );

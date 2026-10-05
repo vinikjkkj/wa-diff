@@ -7,13 +7,14 @@ __d(
       if (e && e.length)
         for (var t of e) {
           var n;
-          o("RelayPrefetchedStreamCache").registerPreloader(
-            t.preloaderID,
-            t.queryID,
-            t.variables,
-            (n = t.actorID) != null ? n : r("RelayAPIConfig").actorID,
-            t.queryName,
-          );
+          t.hasServerSource !== !1 &&
+            o("RelayPrefetchedStreamCache").registerPreloader(
+              t.preloaderID,
+              t.queryID,
+              t.variables,
+              (n = t.actorID) != null ? n : r("RelayAPIConfig").actorID,
+              t.queryName,
+            );
         }
     }
     l.initPreloaders = e;

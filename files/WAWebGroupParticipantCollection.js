@@ -90,15 +90,15 @@ __d(
                       : l.name) != null
                   ? r
                   : "";
-            o("WAWebSendForNeededAddRequest").sendForNeededAddRequest(
-              {
+            o("WAWebSendForNeededAddRequest").sendForNeededAddRequest({
+              groupAddResponse: {
                 participants: e,
                 gid: o("WAWebWidFactory").asGroupWidOrThrow(a.parent.id),
               },
-              c,
-              u,
-              t,
-            );
+              groupDesc: u,
+              onFinish: t,
+              subject: c,
+            });
           }),
           a.listenTo(a, "change:contact.name", a.$ParticipantCollection$p_1),
           a.listenTo(

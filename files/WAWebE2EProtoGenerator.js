@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATypeUtils",
+    "WAWebABProps",
     "WAWebABPropsSaga",
     "WAWebAfterReadUtils",
     "WAWebAssociationProtoUtils",
@@ -19,7 +20,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingGatingUtils",
     "WAWebMessageAssociation.flow",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessagePluginGenerateProtobuf",
     "WAWebMessagePluginGenerateReportingTokenContent",
     "WAWebMessagingGatingUtils",
@@ -585,9 +585,9 @@ __d(
             : o("WAWebAssociationProtoUtils").shouldWrapAssociatedChildForType(
                 t.associationType,
               ) &&
-              o(
-                "WAWebMessageAssociationGatingUtils",
-              ).shouldWrapAssociatedChildOnSend() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "wa_web_wrap_associated_child_message_enabled",
+              ) &&
               (c = x(c))),
         t.isViewOnce && (c = R(c, t)),
         t.isDynamicReplyButtonsMsg === !0 &&

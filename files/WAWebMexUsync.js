@@ -27,25 +27,34 @@ __d(
                 include_username: e.fetch.username === !0,
                 include_about_status: e.fetch.about_status === !0,
                 include_country_code: e.fetch.country_code === !0,
+                include_orgs: e.fetch.orgs === !0,
               });
               if (n.xwa2_fetch_wa_users != null)
                 return { response: n.xwa2_fetch_wa_users, error: null };
             }
             return {
               response: null,
-              error: { code: 500, text: "xwa2_fetch_wa_users null" },
+              error: d(500, "xwa2_fetch_wa_users null", !0, null),
             };
           } catch (e) {
-            if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError)
+            if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
+              var r =
+                e instanceof o("WAWebBackendErrors").MexServerStatusCodeError
+                  ? { backoffMs: e.backoffMs, retryable: e.retryable !== !1 }
+                  : { backoffMs: null, retryable: !0 };
               return {
                 response: null,
-                error: { code: e.statusCode, text: e.message },
+                error: d(e.statusCode, e.message, r.retryable, r.backoffMs),
               };
+            }
             throw e;
           }
         })),
         c.apply(this, arguments)
       );
+    }
+    function d(e, t, n, r) {
+      return { backoffMs: r, code: e, retryable: n, text: t };
     }
     l.mexUsyncQuery = u;
   },

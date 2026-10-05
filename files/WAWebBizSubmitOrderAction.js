@@ -21,14 +21,14 @@ __d(
             e.cartItemCollection.toArray(),
           );
           return (
-            yield r("WAWebSendOrderChatAction")(
-              t,
-              a,
-              e.itemCount,
-              u(e),
-              e.message,
-              n == null ? void 0 : n.getCatalogType(),
-            ),
+            yield r("WAWebSendOrderChatAction")({
+              catalogType: n == null ? void 0 : n.getCatalogType(),
+              chat: t,
+              itemCount: e.itemCount,
+              message: e.message,
+              order: a,
+              thumbnail: u(e),
+            }),
             o("WAWebBizCartBridge").updateCart(e),
             a.id
           );

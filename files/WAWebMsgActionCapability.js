@@ -357,9 +357,7 @@ __d(
       return (
         r("WAWebWid").isPSA(e.id.remote) &&
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        e.nativeFlowName ===
-          r("WAWebInteractiveMessagesNativeFlowName").CTA_URL &&
-        o("WAWebABProps").getABPropConfigValue("web_chatpsa_forwarding")
+        e.nativeFlowName === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
       );
     }
     function D(e) {

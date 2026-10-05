@@ -22,14 +22,16 @@ __d(
         UNABLE_TO_CREATE: "ERROR",
         UNKNOWN: "UNKNOWN",
       };
-    function s(t, n, r, o) {
-      return (
-        r === void 0 && (r = "WAA"),
-        o === void 0 && (o = e.STRONG),
-        r === "FB"
-          ? { bp_id: n, token: t, type: r }
-          : { bp_id: n, token: t, tokenStrength: o, type: r }
-      );
+    function s(t) {
+      var n = t.bp_id,
+        r = t.token,
+        o = t.tokenStrength,
+        a = o === void 0 ? e.STRONG : o,
+        i = t.type,
+        l = i === void 0 ? "WAA" : i;
+      return l === "FB"
+        ? { bp_id: n, token: r, type: l }
+        : { bp_id: n, token: r, tokenStrength: a, type: l };
     }
     ((i.WAAIdentityTokenStrengthEnum = e),
       (i.BoostingStatus = l),

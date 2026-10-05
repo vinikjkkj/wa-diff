@@ -1,6 +1,8 @@
 __d(
   "WAWebChangePresenceHandlerAction",
   [
+    "WAWebBotGroupGatingUtils",
+    "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebLimitSharingGatingUtils",
     "WAWebPresenceCollection",
@@ -33,36 +35,47 @@ __d(
         (e.type = t.isOnline ? "available" : "unavailable");
     }
     function d(t, n) {
-      var r = !1;
+      var r = n.type === "typing",
+        a = !1;
       (typeof n.type == "undefined"
         ? (n.type = t.chatstate.type || "unavailable")
         : n.type === "idle" &&
-          ((r = !0), (n.type = t.isOnline ? "available" : "unavailable")),
+          ((a = !0), (n.type = t.isOnline ? "available" : "unavailable")),
         o("WAWebPresenceGetters").getIsGroup(t) &&
           n.type !== "available" &&
-          !r &&
+          !a &&
           (n.updateTime = Date.now()));
-      var a;
+      var i;
       if (o("WAWebPresenceGetters").getIsGroup(t)) {
-        var i = n.participant;
-        if (i == null) return;
-        var l = n.id,
-          s = o("WAWebChatCollection").ChatCollection.get(l);
-        if (s == null) return;
-        ((n.id = i), (n.participant = void 0), (a = t.chatstates.gadd(n.id)));
-      } else a = t.chatstate;
-      ((!r || a.type === "typing" || a.type === "recording_audio") && a.set(n),
-        a.expireTimerId != null && self.clearTimeout(a.expireTimerId),
-        a.type === "typing" || a.type === "recording_audio"
-          ? (a.expireTimerId = self.setTimeout(function () {
-              return c(a, t);
+        var l = n.participant;
+        if (l == null) return;
+        var s = n.id,
+          u = o("WAWebChatCollection").ChatCollection.get(s);
+        if (u == null || (r && m(l, u))) return;
+        ((n.id = l), (n.participant = void 0), (i = t.chatstates.gadd(n.id)));
+      } else i = t.chatstate;
+      ((!a || i.type === "typing" || i.type === "recording_audio") && i.set(n),
+        i.expireTimerId != null && self.clearTimeout(i.expireTimerId),
+        i.type === "typing" || i.type === "recording_audio"
+          ? (i.expireTimerId = self.setTimeout(function () {
+              return c(i, t);
             }, e))
-          : (a.expireTimerId = void 0));
-      var u =
+          : (i.expireTimerId = void 0));
+      var d =
         t.forceDisplay ||
         t.isOnline ||
         (o("WAWebPresenceGetters").getIsUser(t) && !t.chatstate.deny);
-      t.set({ hasData: !0, isSubscribed: !0, forceDisplay: u });
+      t.set({ hasData: !0, isSubscribed: !0, forceDisplay: d });
+    }
+    function m(e, t) {
+      var n = t.groupMetadata;
+      return (
+        o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) &&
+        n != null &&
+        !n.stale &&
+        n.participants.get(e) == null &&
+        o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+      );
     }
     l.default = s;
   },

@@ -114,7 +114,7 @@ __d(
                           var n = t;
                           if (
                             d &&
-                            W({ downloadOrigin: l, partialVideoOpts: u }) &&
+                            q({ downloadOrigin: l, partialVideoOpts: u }) &&
                             (yield o(
                               "WAWebKaleidoscopeWasmFeatureSupport",
                             ).checkKaleidoscopeWasmFeatureSupport())
@@ -192,7 +192,16 @@ __d(
                                         : m.error.errorName,
                                   },
                                 }),
-                                s.addPoint("kaleidoscope_classify_fail"));
+                                s.addPoint("kaleidoscope_classify_fail"),
+                                B(a.type) &&
+                                  (s.addPoint(
+                                    "kaleidoscope_classify_fail_warned",
+                                  ),
+                                  a.onSuspiciousContent == null ||
+                                    a.onSuspiciousContent(
+                                      o("WAWebSuspiciousContent")
+                                        .WAWebSuspiciousContent.YES_KEEP,
+                                    )));
                             }
                           }
                           return n;
@@ -248,7 +257,7 @@ __d(
                     t.loadSequence.getRunningTasksCount(),
                 },
               }),
-              W({ downloadOrigin: r, partialVideoOpts: i }) && B(l, s),
+              q({ downloadOrigin: r, partialVideoOpts: i }) && W(l, s),
               t.$1(e)
             );
           });
@@ -833,7 +842,19 @@ __d(
             o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP)
           : o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO;
     }
-    function B(e, t) {
+    function B(e) {
+      return (
+        (e === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT ||
+          e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_DOCUMENT) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "document_format_verification_enabled",
+        ) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "document_format_verification_enforcement_enabled",
+        )
+      );
+    }
+    function W(e, t) {
       var n = o("WAWebMmsMediaTypes").mediaTypeToMsgTypeSupportedByAllowlist(e),
         r = !1;
       if (n != null) {
@@ -889,7 +910,7 @@ __d(
           t,
         );
     }
-    function W(e) {
+    function q(e) {
       var t = e.downloadOrigin,
         n = e.partialVideoOpts;
       switch (t) {
@@ -906,8 +927,8 @@ __d(
       }
       return n == null;
     }
-    var q = new D();
-    ((l.enforceKaleidoscopeScore = O), (l.downloadManager = q));
+    var U = new D();
+    ((l.enforceKaleidoscopeScore = O), (l.downloadManager = U));
   },
   98,
 );

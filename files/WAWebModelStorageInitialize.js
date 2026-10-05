@@ -42,6 +42,7 @@ __d(
     "WAWebSchemaDirectConnectionKeys",
     "WAWebSchemaDownload3PDSignals",
     "WAWebSchemaEncryptedMutations",
+    "WAWebSchemaExperienceId",
     "WAWebSchemaFavorite",
     "WAWebSchemaFavoriteStickers",
     "WAWebSchemaFeatureFlag",
@@ -244,6 +245,7 @@ __d(
               o("WAWebSchemaGroupHistoryParticipant").addTable(),
               o("WAWebSchemaOrg").addTable(),
               o("WAWebSchemaOrgContact").addTable(),
+              o("WAWebSchemaExperienceId").addTable(),
               (s = o("WAWebModelStorageUtils")
                 .getStorage()
                 .initialize()

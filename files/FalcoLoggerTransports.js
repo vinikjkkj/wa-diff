@@ -397,7 +397,7 @@ __d(
     }
     function he(e) {
       S.start(function (t) {
-        return t({
+        var n = {
           log: function (n, o) {
             ce("event.info.streaming.queue_processing", n);
             var t = JSON.stringify(ie(n));
@@ -432,13 +432,14 @@ __d(
                 ),
                 o(!1));
           },
-          logImmediately: function (t, n) {
-            this.log(t, n);
+          logImmediately: function (t, r) {
+            n.log(t, r);
           },
-          logCritical: function (t, n) {
-            this.log(t, n);
+          logCritical: function (t, r) {
+            n.log(t, r);
           },
-        });
+        };
+        t(n);
       });
     }
     function ye() {

@@ -141,54 +141,56 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = o("WAWebStateUtils").unproxy(e),
-              i = p(),
-              l = i.defaultErrorAction,
-              s = i.exitedAction,
-              u = i.initialAction,
-              d = o(
-                "WAWebSubgroupSuggestionCreateJob",
-              ).createNewGroupSubgroupSuggestion({
-                announce: t.announce,
-                description: t.description,
-                memberAddMode: t.memberAddMode,
-                memberShareGroupHistoryMode: t.memberShareGroupHistoryMode,
-                membershipApprovalMode: t.membershipApprovalMode,
-                parentGroupId: a.id,
-                restrict: t.restrict,
-                subject: t.subject,
-              }),
-              m = d
-                .then(function (e) {
-                  return (C(a, e), r == null || r(), s);
-                })
-                .catch(
-                  o("WAFilteredCatch").filteredCatch(
-                    o("WAWebBackendErrors").ServerStatusCodeError,
-                    function (e) {
-                      return _(e, n);
-                    },
-                  ),
-                )
-                .catch(function () {
-                  return (n(), l);
-                });
-            (o("WAWebToastManager").ToastManager.open(
-              c.jsx(o("WAWebActionToast.react").ActionToast, {
-                initialAction: u,
-                pendingAction: m,
-              }),
-            ),
-              yield d);
-          },
-        )),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.onBack,
+            n = e.onEnd,
+            r = e.parentGroupChat,
+            a = e.subgroupSuggestion,
+            i = o("WAWebStateUtils").unproxy(r),
+            l = p(),
+            s = l.defaultErrorAction,
+            u = l.exitedAction,
+            d = l.initialAction,
+            m = o(
+              "WAWebSubgroupSuggestionCreateJob",
+            ).createNewGroupSubgroupSuggestion({
+              announce: a.announce,
+              description: a.description,
+              memberAddMode: a.memberAddMode,
+              memberShareGroupHistoryMode: a.memberShareGroupHistoryMode,
+              membershipApprovalMode: a.membershipApprovalMode,
+              parentGroupId: i.id,
+              restrict: a.restrict,
+              subject: a.subject,
+            }),
+            f = m
+              .then(function (e) {
+                return (C(i, e), n == null || n(), u);
+              })
+              .catch(
+                o("WAFilteredCatch").filteredCatch(
+                  o("WAWebBackendErrors").ServerStatusCodeError,
+                  function (e) {
+                    return _(e, t);
+                  },
+                ),
+              )
+              .catch(function () {
+                return (t(), s);
+              });
+          (o("WAWebToastManager").ToastManager.open(
+            c.jsx(o("WAWebActionToast.react").ActionToast, {
+              initialAction: d,
+              pendingAction: f,
+            }),
+          ),
+            yield m);
+        })),
         y.apply(this, arguments)
       );
     }

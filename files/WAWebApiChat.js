@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWeb-dexie",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebBackendApi",
     "WAWebBotUtils",
@@ -23,6 +24,8 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
+    "WAWebNewsletterDBUtils",
+    "WAWebNewsletterValidationUtils",
     "WAWebSchemaChat",
     "WAWebThreadId",
     "WAWebThreadMetadataBulkJob",
@@ -55,7 +58,8 @@ __d(
       I,
       T,
       D,
-      x = (function (e) {
+      x,
+      $ = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -68,15 +72,15 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
-            b ||
-              (b = babelHelpers.taggedTemplateLiteralLoose([
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
                 "createChatRecord ",
                 "",
               ])),
@@ -95,47 +99,47 @@ __d(
               ? n
               : (o("WALogger")
                   .ERROR(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "createChatRecord: create chat table failed",
                       ])),
                   )
                   .verbose(),
                 n instanceof r("WAWeb-dexie").ConstraintError
-                  ? (yield j(e, t), new x())
+                  ? (yield J(e, t), new $())
                   : r("err")("create chat table failed"));
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaChat")
             .getChatTable()
             .get(e.toString(), !1);
           return t
             ? { unreadCount: t.unreadCount, timestamp: t.t }
             : (o("WALogger").ERROR(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "chat with id ",
                     " is not found",
                   ])),
                 e.toString(),
               ),
-              (D || (D = n("Promise"))).reject(
+              (x || (x = n("Promise"))).reject(
                 r("err")("Failed to find row in chat table"),
               ));
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(t) {
+    function A(t) {
       return (
         o("WALogger").LOG(
           e ||
@@ -187,207 +191,266 @@ __d(
           )
       );
     }
-    function A(e) {
-      var t = e.chatId,
-        a = e.keepChatUnread,
-        i = e.lastReadRowId,
-        l = e.readAt,
-        s = e.threadId;
-      o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose([
-            "markMessageAndChatAsRead: ",
-          ])),
-      );
-      var u = o("WAWebWidFactory").createWid(t),
-        p = o("WAWebBotUtils").isMetaAiBot(u),
-        _ = p ? ["message", "chat", "thread-metadata"] : ["message", "chat"];
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(
-          _,
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var u = e[0],
-                  c = e[1],
-                  _ = e[2],
-                  f = yield o(
-                    "WAWebDBPendingReadReceiptQueries",
-                  ).queryPendingReadReceiptMsgRowsWithTable(
-                    u,
-                    t,
-                    p ? s : void 0,
-                  ),
-                  g = [],
-                  h = [],
-                  y = 0,
-                  C = [],
-                  b = new Set(),
-                  v = [],
-                  S = 0;
-                (f.forEach(function (e) {
-                  e.hsmTag ===
-                    o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.AUTHENTICATION &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "logOTPMessageReadActions",
-                      { msgRow: e },
-                    );
-                  var t = i == null || (e.rowId != null && e.rowId > i);
-                  if (t) {
-                    if ((y++, o("WAWebMsgGetters").getIsImportantMessage(e))) {
-                      var n = { id: e.id, timestamp: e.t };
-                      C.push(n);
-                    }
-                    return;
-                  }
-                  var r = e.ack;
-                  g.push({
-                    id: e.id,
-                    ack: Math.max(r, o("WAWebAck").ACK.READ),
-                    pendingReadReceipt: null,
-                  });
-                  var a = e.afterReadDuration;
-                  if (
-                    a != null &&
-                    a > 0 &&
-                    (r == null || r < o("WAWebAck").ACK.READ) &&
-                    !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState)
-                  ) {
-                    var u = l != null ? l : o("WATimeUtils").unixTime();
-                    if (
-                      (h.push({ id: e.id, expiredTimestamp: u + a }),
-                      S++,
-                      v.length < 3)
-                    ) {
-                      var c;
-                      v.push(
-                        e == null || (c = e.id) == null ? void 0 : c.toString(),
+    function F(e) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatId,
+            a = e.keepChatUnread,
+            i = e.lastReadRowId,
+            l = e.readAt,
+            s = e.threadId;
+          o("WALogger").LOG(
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
+                "markMessageAndChatAsRead: ",
+              ])),
+          );
+          var u = o("WAWebWidFactory").createWid(t),
+            c = o("WAWebBotUtils").isMetaAiBot(u),
+            d = c
+              ? ["message", "chat", "thread-metadata"]
+              : ["message", "chat"],
+            m =
+              u.isNewsletter() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "thread_interactions_channel_reads_aligned_web_enabled",
+              ) === !0,
+            p = m && (yield W(t));
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              d,
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var u,
+                      d = e[0],
+                      _ = e[1],
+                      f = e[2],
+                      g = yield o(
+                        "WAWebDBPendingReadReceiptQueries",
+                      ).queryPendingReadReceiptMsgRowsWithTable(
+                        d,
+                        t,
+                        c ? s : void 0,
+                      ),
+                      h = m
+                        ? B(
+                            p,
+                            (u = yield _.get(t)) == null
+                              ? void 0
+                              : u.unreadCount,
+                          )
+                        : null,
+                      y = [],
+                      C = [],
+                      b = 0,
+                      R = [],
+                      L = new Set(),
+                      E = [],
+                      k = 0;
+                    (g.forEach(function (e) {
+                      e.hsmTag ===
+                        o("WAWebBusinessHSMTypes").HSM_TAG_TYPE
+                          .AUTHENTICATION &&
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "logOTPMessageReadActions",
+                          { msgRow: e },
+                        );
+                      var t = i == null || (e.rowId != null && e.rowId > i);
+                      if (t) {
+                        if (
+                          (b++, o("WAWebMsgGetters").getIsImportantMessage(e))
+                        ) {
+                          var n = { id: e.id, timestamp: e.t };
+                          R.push(n);
+                        }
+                        return;
+                      }
+                      var r = e.ack;
+                      y.push({
+                        id: e.id,
+                        ack: Math.max(r, o("WAWebAck").ACK.READ),
+                        pendingReadReceipt: null,
+                      });
+                      var a = e.afterReadDuration;
+                      if (
+                        a != null &&
+                        a > 0 &&
+                        (r == null || r < o("WAWebAck").ACK.READ) &&
+                        !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState)
+                      ) {
+                        var u = l != null ? l : o("WATimeUtils").unixTime();
+                        if (
+                          (C.push({ id: e.id, expiredTimestamp: u + a }),
+                          k++,
+                          E.length < 3)
+                        ) {
+                          var d;
+                          E.push(
+                            e == null || (d = e.id) == null
+                              ? void 0
+                              : d.toString(),
+                          );
+                        }
+                      }
+                      if (c)
+                        for (var m of o(
+                          "WAWebDBMessageUtils",
+                        ).getThreadIdsFromMessage(e))
+                          (s == null || m.equals(s)) && L.add(m.toString());
+                    }),
+                      k > 0 &&
+                        o("WALogger")
+                          .LOG(
+                            v ||
+                              (v = babelHelpers.taggedTemplateLiteralLoose([
+                                "[markMessageAndChatAsRead] expiry set ",
+                                " msgs => ",
+                                " (source: ",
+                                ")",
+                              ])),
+                            k,
+                            E,
+                            l != null ? "peer-read" : "local-read",
+                          )
+                          .tags("after-read"));
+                    var I = [],
+                      T = null,
+                      D = c && s != null;
+                    if (D) {
+                      if (y.length > 0) {
+                        var $ = r("WAWebCompactSet")(y, function (e) {
+                          return e.id;
+                        });
+                        T = yield o(
+                          "WAWebDBPendingReadReceiptQueries",
+                        ).updateChatUnreadCountForReadMessages(_, t, $);
+                      }
+                    } else {
+                      var P = b === 0 && a ? -1 : b;
+                      I.push(
+                        _.merge(t, {
+                          id: t,
+                          unreadCount: P,
+                          unreadDividerOffset: 0,
+                          unreadMentionsOfMe: R,
+                          unreadMentionCount: 0,
+                        }),
                       );
                     }
-                  }
-                  if (p)
-                    for (var d of o(
-                      "WAWebDBMessageUtils",
-                    ).getThreadIdsFromMessage(e))
-                      (s == null || d.equals(s)) && b.add(d.toString());
-                }),
-                  S > 0 &&
-                    o("WALogger")
-                      .LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[markMessageAndChatAsRead] expiry set ",
-                            " msgs => ",
-                            " (source: ",
-                            ")",
-                          ])),
-                        S,
-                        v,
-                        l != null ? "peer-read" : "local-read",
-                      )
-                      .tags("after-read"));
-                var R = [],
-                  L = null,
-                  E = p && s != null;
-                if (E) {
-                  if (g.length > 0) {
-                    var k = r("WAWebCompactSet")(g, function (e) {
-                      return e.id;
+                    if (
+                      (y.length > 0 &&
+                        (o("WALogger")
+                          .LOG(
+                            S ||
+                              (S = babelHelpers.taggedTemplateLiteralLoose([
+                                "markMessageAndChatAsRead: bulkCreateOrMerge",
+                              ])),
+                          )
+                          .tags("missing-lid"),
+                        I.push(
+                          d.bulkCreateOrMerge(y).then(function () {
+                            return o(
+                              "WAWebChatThreadLogging",
+                            ).handleActivitiesForChatThreadLogging([
+                              {
+                                activityType: "msgRead",
+                                ts: o("WATimeUtils").unixTime(),
+                                chatId: o("WAWebWidFactory").createWid(t),
+                                readCount:
+                                  h == null ? y.length : Math.min(y.length, h),
+                              },
+                            ]);
+                          }),
+                        ),
+                        C.length > 0 &&
+                          I.push(
+                            d.bulkCreateOrMerge(C).then(function () {
+                              var e = C.map(function (e) {
+                                return {
+                                  id: r("WAWebMsgKey").fromString(e.id),
+                                  expiredTimestamp: e.expiredTimestamp,
+                                };
+                              });
+                              o("WAWebBackendApi").frontendFireAndForget(
+                                "updateMsgExpiredTimestamps",
+                                { updates: e },
+                              );
+                            }),
+                          )),
+                      yield (x || (x = n("Promise"))).all(I),
+                      c && s != null && L.add(s.toString()),
+                      L.size === 0)
+                    )
+                      return { fullyReadThreadIds: [] };
+                    var N = Array.from(L).map(function (e) {
+                      return r("WAWebThreadId").from(e);
                     });
-                    L = yield o(
-                      "WAWebDBPendingReadReceiptQueries",
-                    ).updateChatUnreadCountForReadMessages(c, t, k);
-                  }
-                } else {
-                  var I = y === 0 && a ? -1 : y;
-                  R.push(
-                    c.merge(t, {
-                      id: t,
-                      unreadCount: I,
-                      unreadDividerOffset: 0,
-                      unreadMentionsOfMe: C,
-                      unreadMentionCount: 0,
-                    }),
-                  );
-                }
-                if (
-                  (g.length > 0 &&
-                    (o("WALogger")
-                      .LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "markMessageAndChatAsRead: bulkCreateOrMerge",
-                          ])),
-                      )
-                      .tags("missing-lid"),
-                    R.push(
-                      u.bulkCreateOrMerge(g).then(function () {
-                        return o(
-                          "WAWebChatThreadLogging",
-                        ).handleActivitiesForChatThreadLogging([
-                          {
-                            activityType: "msgRead",
-                            ts: o("WATimeUtils").unixTime(),
-                            chatId: o("WAWebWidFactory").createWid(t),
-                            readCount: g.length,
-                          },
-                        ]);
-                      }),
-                    ),
-                    h.length > 0 &&
-                      R.push(
-                        u.bulkCreateOrMerge(h).then(function () {
-                          var e = h.map(function (e) {
-                            return {
-                              id: r("WAWebMsgKey").fromString(e.id),
-                              expiredTimestamp: e.expiredTimestamp,
-                            };
-                          });
-                          o("WAWebBackendApi").frontendFireAndForget(
-                            "updateMsgExpiredTimestamps",
-                            { updates: e },
-                          );
+                    return (
+                      yield o(
+                        "WAWebThreadMetadataBulkJob",
+                      ).bulkUpdateThreadUnreadCountWithTable(
+                        f,
+                        N.map(function (e) {
+                          return { threadId: e, unreadCount: 0 };
                         }),
-                      )),
-                  yield (D || (D = n("Promise"))).all(R),
-                  p && s != null && b.add(s.toString()),
-                  b.size === 0)
-                )
-                  return { fullyReadThreadIds: [] };
-                var T = Array.from(b).map(function (e) {
-                  return r("WAWebThreadId").from(e);
-                });
-                return (
-                  yield o(
-                    "WAWebThreadMetadataBulkJob",
-                  ).bulkUpdateThreadUnreadCountWithTable(
-                    _,
-                    T.map(function (e) {
-                      return { threadId: e, unreadCount: 0 };
-                    }),
-                  ),
-                  {
-                    fullyReadThreadIds: T,
-                    chatUnreadUpdate: L != null ? L : void 0,
-                  }
+                      ),
+                      {
+                        fullyReadThreadIds: N,
+                        chatUnreadUpdate: T != null ? T : void 0,
+                      }
+                    );
+                  },
                 );
-              },
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
             );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        );
+        })),
+        O.apply(this, arguments)
+      );
     }
-    function F(e) {
+    function B(e, t) {
+      return e ? 0 : Math.max(t != null ? t : 0, 0);
+    }
+    function W(e) {
+      return q.apply(this, arguments);
+    }
+    function q() {
+      return (
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            return yield o("WAWebNewsletterDBUtils").isPreviewNewsletter(
+              o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(e),
+            );
+          } catch (e) {
+            return (
+              o("WALogger").WARN(
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                    "markMessageAndChatAsRead: newsletter membership lookup failed",
+                  ])),
+              ),
+              !1
+            );
+          }
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    function U(e) {
       var t = e.chatId,
         a = e.readMsgKeys,
         i = e.threadId,
         l = t.toString();
       o("WALogger").LOG(
-        p ||
-          (p = babelHelpers.taggedTemplateLiteralLoose([
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
             "markEditedMessageAndChatAsRead: ",
           ])),
       );
@@ -397,11 +460,11 @@ __d(
           }),
         ),
         u = o("WAWebBotUtils").isMetaAiBot(t),
-        c = u ? ["message", "chat", "thread-metadata"] : ["message"];
+        m = u ? ["message", "chat", "thread-metadata"] : ["message"];
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
-          c,
+          m,
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
@@ -411,25 +474,25 @@ __d(
                   c = yield o(
                     "WAWebDBPendingReadReceiptQueries",
                   ).queryUnreadEditedMsgRowsWithTable(t, l, u ? i : void 0),
-                  d = c.filter(function (e) {
+                  m = c.filter(function (e) {
                     var t = r("WAWebMsgKey").fromString(e.latestEditMsgKey).id;
                     return s.has(t);
                   });
-                if (d.length === 0) return { fullyReadThreadIds: [] };
-                var m = new Set();
+                if (m.length === 0) return { fullyReadThreadIds: [] };
+                var p = new Set();
                 if (u)
-                  for (var p of d)
+                  for (var _ of m)
                     for (var f of o(
                       "WAWebDBMessageUtils",
-                    ).getThreadIdsFromMessage(p))
-                      (i == null || f.equals(i)) && m.add(f.toString());
-                var g = d.map(function (e) {
+                    ).getThreadIdsFromMessage(_))
+                      (i == null || f.equals(i)) && p.add(f.toString());
+                var g = m.map(function (e) {
                   return { id: e.id, pendingReadReceipt: null };
                 });
                 (o("WALogger")
                   .LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "markEditedMessageAndChatAsRead: bulkCreateOrMerge",
                       ])),
                   )
@@ -444,9 +507,9 @@ __d(
                     "WAWebDBPendingReadReceiptQueries",
                   ).updateChatUnreadCountForReadMessages(n, l, y);
                 }
-                if ((u && i != null && m.add(i.toString()), m.size === 0))
+                if ((u && i != null && p.add(i.toString()), p.size === 0))
                   return { fullyReadThreadIds: [] };
-                var C = Array.from(m).map(function (e) {
+                var C = Array.from(p).map(function (e) {
                   return r("WAWebThreadId").from(e);
                 });
                 return (
@@ -479,12 +542,12 @@ __d(
           })(),
         );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function B() {
+    function H() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgKeys,
             a = e.readAt,
             i = yield o("WAWebModelStorageUtils")
@@ -517,8 +580,8 @@ __d(
                         i.length === 0 ||
                           (o("WALogger")
                             .LOG(
-                              R ||
-                                (R = babelHelpers.taggedTemplateLiteralLoose([
+                              L ||
+                                (L = babelHelpers.taggedTemplateLiteralLoose([
                                   "[tightenAfterReadExpirationFromPeerReceipt] ",
                                   " msgs tightened",
                                 ])),
@@ -548,14 +611,14 @@ __d(
             );
           }
         })),
-        B.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function W(e) {
+    function G(e) {
       return (
         o("WALogger").LOG(
-          f ||
-            (f = babelHelpers.taggedTemplateLiteralLoose([
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
               "updateChatArchiveDrawer",
             ])),
         ),
@@ -564,7 +627,7 @@ __d(
           .lock(["chat"], function (t) {
             var r = t[0],
               a = Array.from(e.keys());
-            if (a.length === 0) return (D || (D = n("Promise"))).resolve();
+            if (a.length === 0) return (x || (x = n("Promise"))).resolve();
             var i = a.map(function (t) {
               var n,
                 r = (n = e.get(t)) != null ? n : !1;
@@ -573,8 +636,8 @@ __d(
             return (
               o("WALogger")
                 .LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "updateChatArchiveDrawer: bulkCreateOrMerge",
                     ])),
                 )
@@ -584,7 +647,7 @@ __d(
           })
       );
     }
-    function q(e, t, r) {
+    function z(e, t, r) {
       return (
         t === void 0 && (t = 1),
         r === void 0 && (r = !0),
@@ -600,8 +663,8 @@ __d(
                     l = yield i.get(e);
                   if (l == null) {
                     o("WALogger").ERROR(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "reduceChatUnreadCount: could not find chat with id ",
                           "",
                         ])),
@@ -624,10 +687,10 @@ __d(
           )
       );
     }
-    function U() {
+    function j() {
       o("WALogger").LOG(
-        y ||
-          (y = babelHelpers.taggedTemplateLiteralLoose([
+        f ||
+          (f = babelHelpers.taggedTemplateLiteralLoose([
             "pruneExpiredTcTokens",
           ])),
       );
@@ -650,8 +713,8 @@ __d(
                   return (
                     o("WALogger")
                       .LOG(
-                        C ||
-                          (C = babelHelpers.taggedTemplateLiteralLoose([
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
                             "pruneExpiredTcTokens: bulkCreateOrMerge",
                           ])),
                       )
@@ -667,7 +730,7 @@ __d(
           })(),
         );
     }
-    function V() {
+    function K() {
       var e = o("WAWebTrustedContactsUtils").tokenExpirationCutoff(
           o("WAWebTrustedContactsUtils").TcTokenMode.Receiver,
         ),
@@ -696,7 +759,7 @@ __d(
           })(),
         );
     }
-    function H() {
+    function Q() {
       return o("WAWebSchemaChat")
         .getChatTable()
         .all()
@@ -706,12 +769,12 @@ __d(
           });
         });
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function X(e) {
+      return Y.apply(this, arguments);
     }
-    function z() {
+    function Y() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return e.id.toString();
             }),
@@ -737,22 +800,22 @@ __d(
             });
           return r;
         })),
-        z.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function j(e, t) {
-      return K.apply(this, arguments);
+    function J(e, t) {
+      return Z.apply(this, arguments);
     }
-    function K() {
+    function Z() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(e)) {
               if (
                 (o("WALogger")
                   .LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
+                    E ||
+                      (E = babelHelpers.taggedTemplateLiteralLoose([
                         "createChatRecord: tried to create chat ",
                         "",
                       ])),
@@ -768,8 +831,8 @@ __d(
                 if (r.length === 0)
                   o("WALogger")
                     .LOG(
-                      E ||
-                        (E = babelHelpers.taggedTemplateLiteralLoose([
+                      k ||
+                        (k = babelHelpers.taggedTemplateLiteralLoose([
                           "createChatRecord: no chat with the same accountLid ",
                           "",
                         ])),
@@ -780,8 +843,8 @@ __d(
                   var a = o("WAWebWidFactory").createWid(r[0].id).toLogString();
                   o("WALogger")
                     .LOG(
-                      k ||
-                        (k = babelHelpers.taggedTemplateLiteralLoose([
+                      I ||
+                        (I = babelHelpers.taggedTemplateLiteralLoose([
                           "createChatRecord: dup accountLid ",
                           " chatId=",
                           "",
@@ -795,8 +858,8 @@ __d(
             } else
               o("WALogger")
                 .LOG(
-                  I ||
-                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                  T ||
+                    (T = babelHelpers.taggedTemplateLiteralLoose([
                       "createChatRecord: no account lid provided",
                     ])),
                 )
@@ -804,30 +867,30 @@ __d(
           } catch (e) {
             o("WALogger")
               .LOG(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
                     "createChatRecord: failed debugging duplicate record",
                   ])),
               )
               .tags("missing-lid");
           }
         })),
-        K.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    ((l.CreateChatDuplicateError = x),
-      (l.createChatRecord = $),
-      (l.getChatMeta = N),
-      (l.updateChatForMarkAsReadSync = w),
-      (l.markMessageAndChatAsRead = A),
-      (l.markEditedMessageAndChatAsRead = F),
-      (l.tightenAfterReadExpirationFromPeerReceipt = O),
-      (l.updateChatArchiveDrawer = W),
-      (l.reduceChatUnreadCount = q),
-      (l.pruneExpiredTcTokens = U),
-      (l.pruneExpiredOrphanTcTokens = V),
-      (l.getAllChatsDeserialized = H),
-      (l.injectAdditionalEphemeralInfoFromDB = G));
+    ((l.CreateChatDuplicateError = $),
+      (l.createChatRecord = P),
+      (l.getChatMeta = M),
+      (l.updateChatForMarkAsReadSync = A),
+      (l.markMessageAndChatAsRead = F),
+      (l.markEditedMessageAndChatAsRead = U),
+      (l.tightenAfterReadExpirationFromPeerReceipt = V),
+      (l.updateChatArchiveDrawer = G),
+      (l.reduceChatUnreadCount = z),
+      (l.pruneExpiredTcTokens = j),
+      (l.pruneExpiredOrphanTcTokens = K),
+      (l.getAllChatsDeserialized = Q),
+      (l.injectAdditionalEphemeralInfoFromDB = X));
   },
   98,
 );

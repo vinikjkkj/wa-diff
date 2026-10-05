@@ -3,7 +3,10 @@ __d(
   [
     "fbt",
     "JSResourceForInteraction",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
+    "WAWebComposeBoxActions",
+    "WAWebFindChatAction",
     "WAWebModalManager",
     "WAWebNoop",
     "WDSIconIcGroup.react",
@@ -89,7 +92,9 @@ __d(
             var e = t.chat;
             o("WAWebCmd").Cmd.communityAddNewGroup(
               e.id,
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {}),
+              function (t) {
+                return d(e.id, t);
+              },
               void 0,
             );
           },
@@ -111,9 +116,39 @@ __d(
             o("WAWebCmd").Cmd.communityAddExistingGroup(e.id);
           },
         },
-      ],
-      d = c;
-    l.default = d;
+      ];
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          try {
+            n = yield t;
+          } catch (e) {
+            return;
+          }
+          if (n != null) {
+            o("WAWebCmd").Cmd.openCommunityHome(e);
+            var r = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+                n,
+                "communityHome",
+              ),
+              a = r.chat,
+              i = yield o("WAWebCmd").Cmd.openChatBottom({
+                chat: a,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .CommunityNewGroupCreation,
+              });
+            i && o("WAWebComposeBoxActions").ComposeBoxActions.focus(a);
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    var p = c;
+    l.default = p;
   },
   226,
 );

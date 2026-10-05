@@ -34,7 +34,7 @@ __d(
       );
     }
     function c(e) {
-      return String.fromCharCode.apply(null, new Uint8Array(e));
+      return String.fromCharCode.apply(String, new Uint8Array(e));
     }
     var d = 8388607;
     function m(e, t) {

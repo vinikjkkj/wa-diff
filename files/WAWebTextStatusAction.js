@@ -96,82 +96,91 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r, o) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i, l) {
-            if (
-              (i === void 0 && (i = o("WAWebActionToast.react").genId()),
-              l === void 0 && (l = !1),
-              !!o("WAWebTextStatusGatingUtils").sendTextStatusEnabled())
-            ) {
-              var u = o(
-                "WAWebContactCollection",
-              ).ContactCollection.getMeContact();
-              if (u) {
-                var d = !t && !r,
-                  m = o("WAWebContactTextStatusBridge").setTextStatus(t, r, a),
-                  p = s._(/*BTDS*/ "Updating About"),
-                  _ = s._(/*BTDS*/ "Couldn't update About"),
-                  f = new (o("WAWebActionToast.react").ActionType)(p),
-                  g = u.textStatusEmoji,
-                  y = u.textStatusEphemeralDuration,
-                  C = u.textStatusString,
-                  b = m
-                    .then(function (c) {
-                      if (c.result === "SUCCESS") {
-                        o(
-                          "WAWebUpdateTextStatusForContact",
-                        ).updateTextStatusForContact({
-                          contactId: u.id,
-                          textString: t,
-                          emoji: r,
-                          ephemeralDuration: a,
-                          newUpdateTime: d ? 0 : o("WATimeUtils").unixTime(),
-                          source: "set-self",
-                        });
-                        var m = l
-                          ? void 0
-                          : {
-                              actionText: s._(/*BTDS*/ "Undo"),
-                              actionHandler: function () {
-                                return C != null && y != null
-                                  ? h(C, g, y, i, !0)
-                                  : (e || (e = n("Promise"))).resolve();
-                              },
-                            };
-                        return new (o("WAWebActionToast.react").ActionType)(
-                          p,
-                          m,
-                        );
-                      } else if (c.result === "FAILURE")
-                        return new (o("WAWebActionToast.react").ActionType)(_);
-                    })
-                    .catch(function (e) {
-                      throw new (o("WAWebActionToast.react").ActionType)(_, {
-                        actionText: s._(/*BTDS*/ "Try again."),
-                        actionHandler: function () {
-                          return h(t, r, a, i);
-                        },
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.duration,
+            a = t.emoji,
+            i = t.isUndoAction,
+            l = i === void 0 ? !1 : i,
+            u = t.text,
+            d = t.toastId,
+            m = d === void 0 ? o("WAWebActionToast.react").genId() : d;
+          if (o("WAWebTextStatusGatingUtils").sendTextStatusEnabled()) {
+            var p = o(
+              "WAWebContactCollection",
+            ).ContactCollection.getMeContact();
+            if (p) {
+              var _ = !u && !a,
+                f = o("WAWebContactTextStatusBridge").setTextStatus(u, a, r),
+                g = s._(/*BTDS*/ "Updating About"),
+                y = s._(/*BTDS*/ "Couldn't update About"),
+                C = new (o("WAWebActionToast.react").ActionType)(g),
+                b = p.textStatusEmoji,
+                v = p.textStatusEphemeralDuration,
+                S = p.textStatusString,
+                R = f
+                  .then(function (t) {
+                    if (t.result === "SUCCESS") {
+                      o(
+                        "WAWebUpdateTextStatusForContact",
+                      ).updateTextStatusForContact({
+                        contactId: p.id,
+                        textString: u,
+                        emoji: a,
+                        ephemeralDuration: r,
+                        newUpdateTime: _ ? 0 : o("WATimeUtils").unixTime(),
+                        source: "set-self",
                       });
+                      var i = l
+                        ? void 0
+                        : {
+                            actionText: s._(/*BTDS*/ "Undo"),
+                            actionHandler: function () {
+                              return S != null && v != null
+                                ? h({
+                                    duration: v,
+                                    emoji: b,
+                                    isUndoAction: !0,
+                                    text: S,
+                                    toastId: m,
+                                  })
+                                : (e || (e = n("Promise"))).resolve();
+                            },
+                          };
+                      return new (o("WAWebActionToast.react").ActionType)(g, i);
+                    } else if (t.result === "FAILURE")
+                      return new (o("WAWebActionToast.react").ActionType)(y);
+                  })
+                  .catch(function (e) {
+                    throw new (o("WAWebActionToast.react").ActionType)(y, {
+                      actionText: s._(/*BTDS*/ "Try again."),
+                      actionHandler: function () {
+                        return h({
+                          duration: r,
+                          emoji: a,
+                          text: u,
+                          toastId: m,
+                        });
+                      },
                     });
-                return (
-                  o("WAWebToastManager").ToastManager.open(
-                    c.jsx(o("WAWebActionToast.react").ActionToast, {
-                      id: i,
-                      initialAction: f,
-                      pendingAction: b,
-                    }),
-                  ),
-                  b
-                );
-              }
+                  });
+              return (
+                o("WAWebToastManager").ToastManager.open(
+                  c.jsx(o("WAWebActionToast.react").ActionToast, {
+                    id: m,
+                    initialAction: C,
+                    pendingAction: R,
+                  }),
+                ),
+                R
+              );
             }
-          },
-        )),
+          }
+        })),
         y.apply(this, arguments)
       );
     }

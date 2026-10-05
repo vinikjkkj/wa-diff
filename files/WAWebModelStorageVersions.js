@@ -621,6 +621,9 @@ __d(
     function Jn() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(205);
     }
+    function Zn() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(206);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -826,7 +829,8 @@ __d(
       (l.orgCreateTable = Qn),
       (l.orgContactCreateTable = Xn),
       (l.coexV2BotSecretCreateTable = Yn),
-      (l.contactManagerMetadataCreateTable = Jn));
+      (l.contactManagerMetadataCreateTable = Jn),
+      (l.experienceIdCreateTable = Zn));
   },
   98,
 );

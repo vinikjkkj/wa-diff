@@ -124,113 +124,113 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a, i, l, s, u, m, f, g, h, y, C, b, v, S, R, L, E, k, I, T, D;
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n, a, i, l, s, u, m, f, g, h, y, C, b, v, S, R, L, E, k, I, T;
           if (t == null || !p(t)) return null;
-          var x = yield o("WAWebSchemaMessage")
+          var D = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .postflightDecryptSingleRecord(t),
-            $ = r("nullthrows")(r("WAWebParseMsgKeyString")(x.id)),
-            P = $.remote;
-          if (P === "status@broadcast") return null;
-          var N = o("decodeProtobuf").decodeProtobuf(
+            x = r("nullthrows")(r("WAWebParseMsgKeyString")(D.id)),
+            $ = x.remote;
+          if ($ === "status@broadcast") return null;
+          var P = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb")
                 .MsgRowOpaqueDataSpec,
-              x.msgRowOpaqueData,
+              D.msgRowOpaqueData,
             ),
+            N =
+              (n = (a = P.currentMsg) == null ? void 0 : a.pollOptions) != null
+                ? n
+                : [],
             M =
-              (a = (i = N.currentMsg) == null ? void 0 : i.pollOptions) != null
-                ? a
-                : [],
-            w =
-              (l =
-                (s = N.currentMsg) == null || (s = s.pollVotesSnapshot) == null
+              (i =
+                (l = P.currentMsg) == null || (l = l.pollVotesSnapshot) == null
                   ? void 0
-                  : s.pollVotes) != null
-                ? l
+                  : l.pollVotes) != null
+                ? i
                 : [],
-            A = [
-              (u = N.currentMsg) == null ? void 0 : u.title,
-              (m = N.currentMsg) == null ? void 0 : m.description,
-              (f = N.currentMsg) == null ? void 0 : f.caption,
-              (g = N.currentMsg) == null ? void 0 : g.vcardFormattedName,
-              (h = N.currentMsg) == null || (h = h.list) == null
+            w = [
+              (s = P.currentMsg) == null ? void 0 : s.title,
+              (u = P.currentMsg) == null ? void 0 : u.description,
+              (m = P.currentMsg) == null ? void 0 : m.caption,
+              (f = P.currentMsg) == null ? void 0 : f.vcardFormattedName,
+              (g = P.currentMsg) == null || (g = g.list) == null
                 ? void 0
-                : h.title,
-              (y = N.currentMsg) == null || (y = y.list) == null
+                : g.title,
+              (h = P.currentMsg) == null || (h = h.list) == null
                 ? void 0
-                : y.description,
-              (C = N.currentMsg) == null ? void 0 : C.pollName,
-              (b = N.currentMsg) == null ? void 0 : b.eventName,
-              (v = N.currentMsg) == null ? void 0 : v.sharableEventInviteTitle,
-              (S = N.currentMsg) == null
+                : h.description,
+              (y = P.currentMsg) == null ? void 0 : y.pollName,
+              (C = P.currentMsg) == null ? void 0 : C.eventName,
+              (b = P.currentMsg) == null ? void 0 : b.sharableEventInviteTitle,
+              (v = P.currentMsg) == null
                 ? void 0
-                : S.sharableEventInviteCaption,
+                : v.sharableEventInviteCaption,
             ]
               .concat(
-                M.map(function (e) {
+                N.map(function (e) {
                   return e.name;
                 }),
-                w.map(function (e) {
+                M.map(function (e) {
                   var t = e.option;
                   return t == null ? void 0 : t.name;
                 }),
                 [
-                  x.vcardFormattedName,
-                  x.message,
-                  (R = x.list) == null ? void 0 : R.title,
-                  (L = x.list) == null ? void 0 : L.description,
-                  (E = x.interactiveHeader) == null ? void 0 : E.title,
-                  (k = x.interactiveHeader) == null ? void 0 : k.subtitle,
-                  x.filename,
-                  x.stickerPackPublisher,
+                  D.vcardFormattedName,
+                  D.message,
+                  (S = D.list) == null ? void 0 : S.title,
+                  (R = D.list) == null ? void 0 : R.description,
+                  (L = D.interactiveHeader) == null ? void 0 : L.title,
+                  (E = D.interactiveHeader) == null ? void 0 : E.subtitle,
+                  D.filename,
+                  D.stickerPackPublisher,
                 ],
               )
               .filter(Boolean);
           (t.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-            ((I = x.ctwaContext) == null ? void 0 : I.greetingMessageBody) !=
+            ((k = D.ctwaContext) == null ? void 0 : k.greetingMessageBody) !=
               null &&
-            A.push(x.ctwaContext.greetingMessageBody),
+            w.push(D.ctwaContext.greetingMessageBody),
             !c.has(t.type) &&
-              ((T = N.currentMsg) == null ? void 0 : T.body) != null &&
-              N.currentMsg.body !== "" &&
-              A.push(N.currentMsg.body),
-            d.has(t.type) && x.footer && A.push(x.footer));
-          var F = (D = x.bloksWidget) == null ? void 0 : D.fallback;
+              ((I = P.currentMsg) == null ? void 0 : I.body) != null &&
+              P.currentMsg.body !== "" &&
+              w.push(P.currentMsg.body),
+            d.has(t.type) && D.footer && w.push(D.footer));
+          var A = (T = D.bloksWidget) == null ? void 0 : T.fallback;
           if (
-            (F != null && F !== "" && A.push(F),
-            x.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              x.nativeFlowName ===
+            (A != null && A !== "" && w.push(A),
+            D.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+              D.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS)
           ) {
-            var O = o("WAWebOrderStatusButton").getOrderStatusButton(x);
-            if (O != null) {
-              var B, W;
-              A.push.apply(
-                A,
+            var F = o("WAWebOrderStatusButton").getOrderStatusButton(D);
+            if (F != null) {
+              var O, B;
+              w.push.apply(
+                w,
                 [
-                  O.reference_id,
-                  O.order.status,
-                  O.order.shipping_method,
-                  (B = O.order.tracking) == null ? void 0 : B.courier_name,
-                  (W = O.order.tracking) == null ? void 0 : W.tracking_ref,
+                  F.reference_id,
+                  F.order.status,
+                  F.order.shipping_method,
+                  (O = F.order.tracking) == null ? void 0 : O.courier_name,
+                  (B = F.order.tracking) == null ? void 0 : B.tracking_ref,
                 ].filter(Boolean),
               );
             }
           }
           if (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
-            if (x.unifiedResponse != null) {
-              var q = r("getPlainTextFromUnifiedResponse")(x.unifiedResponse);
-              q !== "" && A.push(q);
+            if (D.unifiedResponse != null) {
+              var W = r("getPlainTextFromUnifiedResponse")(D.unifiedResponse);
+              W !== "" && w.push(W);
             }
-            if (x.richResponse != null) {
-              var U = r("WAWebCompactMapString")(
-                x.richResponse.fragments,
+            if (D.richResponse != null) {
+              var q = r("WAWebCompactMapString")(
+                D.richResponse.fragments,
                 function (e) {
                   return e.type ===
                     o("WAWebRichResponse.flow").RichResponseFragmentType.Text
@@ -246,65 +246,62 @@ __d(
                       : null;
                 },
               );
-              U.length > 0 && A.push(U.join("\n"));
+              q.length > 0 && w.push(q.join("\n"));
             }
           }
-          if (n)
-            try {
-              var V = yield _(x);
-              if (V != null)
-                for (var H = 0; H < A.length; H++) {
-                  var G = A[H];
-                  for (var z of Object.keys(V)) G = G.replaceAll(z, V[z]);
-                  A[H] = G;
-                }
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[fts] Failed to resolve @mention replacements: ",
-                      "",
-                    ])),
-                  t,
-                )
-                .sendLogs("mention-search");
-            }
-          return A.length === 0
+          try {
+            var U = yield _(D);
+            if (U != null)
+              for (var V = 0; V < w.length; V++) {
+                var H = w[V];
+                for (var G of Object.keys(U)) H = H.replaceAll(G, U[G]);
+                w[V] = H;
+              }
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[fts] Failed to resolve @mention replacements: ",
+                    "",
+                  ])),
+                t,
+              )
+              .sendLogs("mention-search");
+          }
+          return w.length === 0
             ? null
             : {
-                id: String(x.rowId),
-                chatId: P,
-                timestamp: x.t,
-                textFragments: A,
+                id: String(D.rowId),
+                chatId: $,
+                timestamp: D.t,
+                textFragments: w,
               };
         })),
         h.apply(this, arguments)
       );
     }
-    function y(e, t) {
+    function y(e) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          for (var n = [], r = 0; r < e.length; r++) {
-            var a = yield g(e[r], t);
-            (n.push(a),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          for (var t = [], n = 0; n < e.length; n++) {
+            var r = yield g(e[n]);
+            (t.push(r),
               yield o("WAAsyncSleep").asyncSleepAfterGivenLoopIteration(
-                r,
+                n,
                 100,
               ));
           }
-          return n;
+          return t;
         })),
         C.apply(this, arguments)
       );
     }
     var b = (function () {
-      function e(e) {
-        this.$1 = e;
-      }
+      function e() {}
       var t = e.prototype;
       return (
         (t.getBacklogged = (function () {
@@ -323,7 +320,7 @@ __d(
               a = yield o("WAWebSchemaMessage")
                 .getMessageTable()
                 .anyOf(["rowId"], n, { shouldDecrypt: !1 }),
-              i = yield y(a, this.$1),
+              i = yield y(a),
               l = yield m(i);
             return (
               l.forEach(function (e) {
@@ -378,7 +375,7 @@ __d(
                     shouldDecrypt: n,
                   });
               if (r.length === 0) return null;
-              var a = yield y(r, this.$1);
+              var a = yield y(r);
               return m(a);
             },
           );
@@ -398,7 +395,7 @@ __d(
                   shouldDecrypt: t,
                 });
             if (n.length === 0) return null;
-            var r = yield y(n, this.$1);
+            var r = yield y(n);
             return m(r);
           });
           function t(t) {

@@ -1,6 +1,7 @@
 __d(
   "WASmaxOutSpamStatusReportRequest",
   [
+    "WASmaxChildren",
     "WASmaxJsx",
     "WASmaxMixins",
     "WASmaxOutSpamBaseIQSetRequestMixin",
@@ -15,18 +16,29 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t,
-        n = e.fRXMixinArgs,
-        r = e.isKnownChatMixinArgs,
-        a = e.spamListJid,
-        i = e.bizOptOutMixinArgs,
-        l = e.bizReportMixinArgs,
-        s = e.messageFrom,
-        u = e.messageMixinArgs,
-        c = e.messageRecipientMixinArgs,
-        d = (t = o("WASmaxMixins")).optionalMerge(
+      var t = e.messageFrom,
+        n = e.messageRecipientMixinArgs,
+        r = o("WASmaxMixins").optionalMerge(
+          o("WASmaxOutSpamMessageRecipientMixin").mergeMessageRecipientMixin,
+          o("WASmaxOutSpamMessageMixin").mergeMessageMixin(
+            o("WASmaxJsx").smax("message", { from: o("WAWap").JID(t) }),
+            e,
+          ),
+          n,
+        );
+      return r;
+    }
+    function s(t) {
+      var n,
+        r = t.messageArgs,
+        a = t.fRXMixinArgs,
+        i = t.isKnownChatMixinArgs,
+        l = t.spamListJid,
+        s = t.bizOptOutMixinArgs,
+        u = t.bizReportMixinArgs,
+        c = (n = o("WASmaxMixins")).optionalMerge(
           o("WASmaxOutSpamIsKnownChatMixin").mergeIsKnownChatMixin,
-          t.optionalMerge(
+          n.optionalMerge(
             o("WASmaxOutSpamFRXMixin").mergeFRXMixin,
             o("WASmaxOutSpamBaseReportMixin").mergeBaseReportMixin(
               o(
@@ -35,40 +47,31 @@ __d(
                 o("WASmaxJsx").smax(
                   "iq",
                   null,
-                  t.optionalMerge(
+                  n.optionalMerge(
                     o("WASmaxOutSpamBizReportMixin").mergeBizReportMixin,
-                    t.optionalMerge(
+                    n.optionalMerge(
                       o("WASmaxOutSpamBizOptOutMixin").mergeBizOptOutMixin,
                       o("WASmaxJsx").smax(
                         "spam_list",
-                        { jid: o("WAWap").JID(a) },
-                        t.optionalMerge(
-                          o("WASmaxOutSpamMessageRecipientMixin")
-                            .mergeMessageRecipientMixin,
-                          o("WASmaxOutSpamMessageMixin").mergeMessageMixin(
-                            o("WASmaxJsx").smax("message", {
-                              from: o("WAWap").JID(s),
-                            }),
-                            u,
-                          ),
-                          c,
-                        ),
+                        { jid: o("WAWap").JID(l) },
+                        o("WASmaxChildren").REPEATED_CHILD(e, r, 1, 2),
                       ),
-                      i,
+                      s,
                     ),
-                    l,
+                    u,
                   ),
                 ),
               ),
-              e,
+              t,
             ),
-            n,
+            a,
           ),
-          r,
+          i,
         );
-      return d;
+      return c;
     }
-    l.makeStatusReportRequest = e;
+    ((l.makeStatusReportRequestSpamListMessage = e),
+      (l.makeStatusReportRequest = s));
   },
   98,
 );

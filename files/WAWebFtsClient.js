@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebEnvironment",
     "WAWebFtsClientMessageIdResolver",
@@ -72,13 +71,7 @@ __d(
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.FTSIndex,
               ),
-              this.$6({
-                operation: "start-indexer",
-                isMentionSearchEnabled:
-                  o("WAWebABProps").getABPropConfigValue(
-                    "wa_web_mention_search",
-                  ) === !0,
-              }).finally(function () {
+              this.$6({ operation: "start-indexer" }).finally(function () {
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.FTSIndex,
                 );

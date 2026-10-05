@@ -25,7 +25,7 @@ __d(
                     },
                   ],
                   telemetry: { context: "INTERACTIVE" },
-                  fetch: { username: !0 },
+                  fetch: { orgs: !0, username: !0 },
                 }
               : t;
           o("WALogger").LOG(

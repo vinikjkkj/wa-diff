@@ -11,23 +11,26 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c = 1e3;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = new (o("WAWebMexLogging").MexPerfTracker)(!0);
           a.start();
           try {
-            var i = p(t),
+            var i = f(t),
               l = i.params;
             (a.setQueryId(l.id), a.setOperationName(l.name));
             var c = { metadata: { mexPerfTracker: a } },
               d = yield o("WAWebMexRelayEnvironment").fetchFunc(i.params, n, c),
-              _ = m(d, a);
-            return (a.setHasData(!0), a.stop(), a.logEvent(), _.data);
+              m = _(d, a);
+            return (a.setHasData(!0), a.stop(), a.logEvent(), m.data);
           } catch (n) {
             if (
               n instanceof o("WAWebMexRelayEnvironment").MexIqError ||
@@ -76,15 +79,19 @@ __d(
                         "[MEX][",
                         "] fetch query error",
                       ])),
-                    f(t),
+                    h(t),
                   )
                   .tags("GQL", "MEX"),
               n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError)
             ) {
-              var h = n.error.extensions.error_code;
-              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(h),
-                "MexFatalExtensionError: " + f(t) + ": " + n.error.message,
+              var y = n.error.extensions,
+                C = y.backoff_sec,
+                b = y.error_code,
+                v = y.is_retryable;
+              throw new (o("WAWebBackendErrors").MexServerStatusCodeError)(
+                Number(b),
+                "MexFatalExtensionError: " + h(t) + ": " + n.error.message,
+                { backoffMs: p(C), retryable: v },
               );
             }
             throw n instanceof o("WAWebMexRelayEnvironment").MexIqError
@@ -95,10 +102,13 @@ __d(
               : n;
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function p(e) {
+      return e != null && Number.isFinite(e) && e > 0 ? e * c : null;
+    }
+    function _(e, t) {
       if (e.data != null) return { data: e.data };
       if (Array.isArray(e)) {
         var n = "mex response is an array";
@@ -115,9 +125,9 @@ __d(
         new (o("WAWebMexRelayEnvironment").MexPayloadParsingError)(r("err")(a))
       );
     }
-    function p(e) {
+    function f(e) {
       var t,
-        n = _(e);
+        n = g(e);
       if (n != null) return n;
       var r = e.default != null ? e.default.kind : e.kind;
       throw new (o("WACustomError").CustomError)(
@@ -126,18 +136,18 @@ __d(
           " is not 'Request'",
       );
     }
-    function _(e) {
+    function g(e) {
       return e.kind === "Request" && e.default == null
         ? e
         : e.default != null && e.default.kind === "Request"
           ? e.default
           : null;
     }
-    function f(e) {
-      var t = _(e);
+    function h(e) {
+      var t = g(e);
       return t != null ? t.params.name : "unknown-operation";
     }
-    l.fetchQuery = c;
+    l.fetchQuery = d;
   },
   98,
 );

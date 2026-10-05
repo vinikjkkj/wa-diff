@@ -9,7 +9,6 @@ __d(
     "WAWebMessageAssociationGatingUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebSpoilerGating",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -27,26 +26,23 @@ __d(
     function c(e) {
       if (e == null) return null;
       var t = e.associatedChildMessage,
-        n = e.groupMentionedMessage,
-        r = e.spoilerMessage;
+        n = e.groupMentionedMessage;
       return t != null &&
         o(
           "WAWebMessageAssociationGatingUtils",
         ).isFutureproofAssociatedChildEnabled()
         ? t.message
-        : r != null && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
-          ? r.message
-          : n == null
-            ? void 0
-            : n.message;
+        : n == null
+          ? void 0
+          : n.message;
     }
     function d(e) {
-      var t, n;
-      if (o("WAWebSpoilerGating").isSpoilerReceiverEnabled()) return !1;
-      var r =
-        (t = e.spoilerMessage) == null || (t = t.message) == null
-          ? void 0
-          : t.protocolMessage;
+      var t,
+        n,
+        r =
+          (t = e.spoilerMessage) == null || (t = t.message) == null
+            ? void 0
+            : t.protocolMessage;
       if (
         (r == null ? void 0 : r.type) ===
         o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT

@@ -266,7 +266,7 @@ __d(
         l && d.push("--with-enforce-strict-mimetype-match"),
         u && d.push("--with-mimetype-ignore-parameters"),
         c && d.push("--with-stream-check"));
-      for (var m of r) (d.push("--mimetype-hints"), d.push(m));
+      for (var m of r) d.push("--mimetype-hints=" + m);
       return (
         d.push(p),
         {

@@ -11,6 +11,7 @@ __d(
       WWW_MO: 5,
       WINDOWS_START: 6,
       MOBILE_LANDING: 7,
+      GUEST_CALLING: 13,
     });
     i.WhatsappGrowthInvites_SignUpViaWebRequestEntryPoint = e;
   },

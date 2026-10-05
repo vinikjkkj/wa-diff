@@ -72,28 +72,39 @@ __d(
       }
     }
     function p(e) {
-      var t, n;
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : _({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          });
+    }
+    function _(e) {
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowName,
+        i = e.type;
       if (
-        e.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST ||
-        e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        e.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !((t = e.interactivePayload) != null && t.buttons)
+        a !== r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST ||
+        i !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        n !== r("WAWebInteractiveMessageType").NATIVE_FLOW
       )
         return null;
-      var a = (n = e.interactivePayload) == null ? void 0 : n.buttons;
-      if (a == null) return null;
-      for (var i = [], l = 0; l < a.length; l++) {
-        var s = a[l],
-          u = s == null ? void 0 : s.buttonParamsJson;
-        if (u != null) {
-          var c = m(u);
-          c != null && i.push(c);
+      var l = t == null ? void 0 : t.buttons;
+      if (l == null) return null;
+      for (var s = [], u = 0; u < l.length; u++) {
+        var c = l[u],
+          d = c == null ? void 0 : c.buttonParamsJson;
+        if (d != null) {
+          var p = m(d);
+          p != null && s.push(p);
         }
       }
-      return i.length > 0 ? i : null;
+      return s.length > 0 ? s : null;
     }
-    function _(t) {
+    function f(t) {
       var n;
       if (
         t.nativeFlowName !==
@@ -105,10 +116,10 @@ __d(
         ? !1
         : o.some(function (t) {
             var n = t == null ? void 0 : t.buttonParamsJson;
-            return n != null && f(n) === e.OFFSITE_CARD_PAY;
+            return n != null && g(n) === e.OFFSITE_CARD_PAY;
           });
     }
-    function f(t) {
+    function g(t) {
       try {
         var n,
           r = JSON.parse(t);
@@ -117,7 +128,7 @@ __d(
         return null;
       }
     }
-    function g(e) {
+    function h(e) {
       if (
         (e == null ? void 0 : e.name) !==
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST
@@ -131,8 +142,9 @@ __d(
       (l.isPaymentRequestFeatureEnabled = c),
       (l.shouldShowPaymentRequestPayWithHeader = d),
       (l.getPaymentRequestInfo = p),
-      (l.hasPaymentRequestOffsiteCardPay = _),
-      (l.parsePaymentRequestButton = g));
+      (l.getPaymentRequestInfoFor = _),
+      (l.hasPaymentRequestOffsiteCardPay = f),
+      (l.parsePaymentRequestButton = h));
   },
   98,
 );

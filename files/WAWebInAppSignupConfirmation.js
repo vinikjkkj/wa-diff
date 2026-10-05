@@ -24,23 +24,33 @@ __d(
         return null;
       }
     }
-    function s(t) {
-      var n, a;
+    function s(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : u({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          });
+    }
+    function u(t) {
+      var n,
+        a = t.interactivePayload,
+        i = t.interactiveType,
+        l = t.nativeFlowName,
+        s = t.type;
       if (
-        t.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP ||
-        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !((n = t.interactivePayload) != null && n.buttons)
+        l !== r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP ||
+        s !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        i !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !(a != null && a.buttons)
       )
         return null;
-      var i =
-        (a = t.interactivePayload.buttons[0]) == null
-          ? void 0
-          : a.buttonParamsJson;
-      return i == null ? null : e(i);
+      var u = (n = a.buttons[0]) == null ? void 0 : n.buttonParamsJson;
+      return u == null ? null : e(u);
     }
-    function u(e) {
+    function c(e) {
       if (e == null) return null;
       try {
         var t = JSON.parse(e),
@@ -51,7 +61,7 @@ __d(
       }
       return null;
     }
-    function c(e) {
+    function d(e) {
       if (e == null) return null;
       try {
         var t = JSON.parse(e),
@@ -62,7 +72,7 @@ __d(
       }
       return null;
     }
-    function d(e, t) {
+    function m(e, t) {
       if (t == null || t === "" || e.includes("*" + t + "*")) return e;
       var n = e.indexOf(t);
       return n < 0
@@ -70,9 +80,10 @@ __d(
         : e.slice(0, n) + ("*" + t + "*") + e.slice(n + t.length);
     }
     ((l.getInAppSignupConfirmationInfo = s),
-      (l.parseInAppSignupPromoCode = u),
-      (l.parseInAppSignupWebsiteUrl = c),
-      (l.applyBoldToPromoCode = d));
+      (l.getInAppSignupConfirmationInfoFor = u),
+      (l.parseInAppSignupPromoCode = c),
+      (l.parseInAppSignupWebsiteUrl = d),
+      (l.applyBoldToPromoCode = m));
   },
   98,
 );

@@ -86,23 +86,34 @@ __d(
         return null;
       }
     }
-    function s(t) {
-      var n, a;
-      if (
-        t.nativeFlowName !==
-          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
-        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !((n = t.interactivePayload) != null && n.buttons)
-      )
-        return null;
-      var i =
-        (a = t.interactivePayload.buttons[0]) == null
-          ? void 0
-          : a.buttonParamsJson;
-      return i == null ? null : e(i);
+    function s(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : u({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          });
     }
     function u(t) {
+      var n,
+        a = t.interactivePayload,
+        i = t.interactiveType,
+        l = t.nativeFlowName,
+        s = t.type;
+      if (
+        l !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
+        s !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        i !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !(a != null && a.buttons)
+      )
+        return null;
+      var u = (n = a.buttons[0]) == null ? void 0 : n.buttonParamsJson;
+      return u == null ? null : e(u);
+    }
+    function c(t) {
       if (
         (t == null ? void 0 : t.name) !==
         r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
@@ -112,7 +123,8 @@ __d(
       return n == null ? null : e(n);
     }
     ((l.getBookingConfirmationInfo = s),
-      (l.parseBookingConfirmationButton = u));
+      (l.getBookingConfirmationInfoFor = u),
+      (l.parseBookingConfirmationButton = c));
   },
   98,
 );

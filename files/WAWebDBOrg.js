@@ -40,7 +40,7 @@ __d(
                         );
                       yield r.bulkCreateOrReplace(
                         e.map(function (e, t) {
-                          return $(e, o[t]);
+                          return P(e, o[t]);
                         }),
                       );
                     },
@@ -96,14 +96,14 @@ __d(
                       (t.length > 0 &&
                         (yield l.bulkCreateOrReplace(
                           t.map(function (e) {
-                            return $(e, d.get(e.orgId));
+                            return P(e, d.get(e.orgId));
                           }),
                         )),
                         yield (e || (e = n("Promise"))).all(
                           m.map(function (t) {
                             return (e || (e = n("Promise"))).all([
                               l.remove(t),
-                              T(s, t),
+                              D(s, t),
                             ]);
                           }),
                         ),
@@ -138,7 +138,7 @@ __d(
                       r = t[1],
                       o = n,
                       a = r;
-                    (yield o.remove(e), yield T(a, e));
+                    (yield o.remove(e), yield D(a, e));
                   },
                 );
                 return function (e) {
@@ -155,12 +155,17 @@ __d(
         .getOrgContactTable()
         .between(["orgId", "lid"], [e, c], [e, d]);
     }
-    function b(e, t, n, r) {
-      return v.apply(this, arguments);
+    function b(t) {
+      return t.length === 0
+        ? (e || (e = n("Promise"))).resolve([])
+        : o("WAWebSchemaOrgContact").getOrgContactTable().anyOf(["lid"], t);
     }
-    function v() {
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             return (
               yield o("WAWebModelStorageUtils")
@@ -180,10 +185,10 @@ __d(
                           throw r("err")(
                             "Cannot complete roster for missing org " + e,
                           );
-                        (yield T(u, e),
+                        (yield D(u, e),
                           yield u.bulkCreateOrReplace(
                             t.map(function (t) {
-                              return x(
+                              return $(
                                 babelHelpers.extends({}, t, { orgId: e }),
                               );
                             }),
@@ -205,22 +210,22 @@ __d(
             );
           },
         )),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = Array.from(e.keys());
           if (t.length === 0) return [];
           var r = Array.from(e).flatMap(function (e) {
             var t = e[0],
               n = e[1];
             return n.map(function (e) {
-              return x(babelHelpers.extends({}, e, { lid: t }));
+              return $(babelHelpers.extends({}, e, { lid: t }));
             });
           });
           return (
@@ -245,15 +250,15 @@ __d(
             r
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t, n, r) {
-      return E.apply(this, arguments);
+    function E(e, t, n, r) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = !1,
               l = o("WAWebModelStorageUtils")
@@ -297,15 +302,15 @@ __d(
             return (yield l, i);
           },
         )),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = !1,
             i = o("WAWebModelStorageUtils")
               .getStorage()
@@ -357,21 +362,21 @@ __d(
               );
           return (yield i, a);
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield e.bulkDeleteRange(["orgId", "lid"], [t, c], [t, d]);
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
+    function $(e) {
       var t = {
         orgId: e.orgId,
         lid: e.lid,
@@ -385,7 +390,7 @@ __d(
         t
       );
     }
-    function $(e, t) {
+    function P(e, t) {
       var n,
         r,
         a = {
@@ -429,10 +434,11 @@ __d(
       (l.replaceOrgs = f),
       (l.removeOrg = h),
       (l.getOrgContacts = C),
-      (l.replaceCompleteOrgRoster = b),
-      (l.replaceOrgMembershipsForLids = S),
-      (l.updateOrgMemberRole = L),
-      (l.removeOrgMember = k));
+      (l.getOrgContactsByLids = b),
+      (l.replaceCompleteOrgRoster = v),
+      (l.replaceOrgMembershipsForLids = R),
+      (l.updateOrgMemberRole = E),
+      (l.removeOrgMember = I));
   },
   98,
 );

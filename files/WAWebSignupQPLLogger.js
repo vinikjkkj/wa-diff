@@ -1,6 +1,6 @@
 __d(
   "WAWebSignupQPLLogger",
-  ["WALogger", "WAWebABProps", "WAWebQplFlowWrapper", "getErrorSafe", "qpl"],
+  ["WALogger", "WAWebQplFlowWrapper", "getErrorSafe", "qpl"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -17,106 +17,84 @@ __d(
     function f(e) {
       p.delete(e);
     }
-    function g() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "inapp_signup_qpl_logging_enabled",
-        ) === !0
-      );
+    function g(e) {
+      o("WAWebQplFlowWrapper").QPL.markerStart(u, {
+        annotations: { string: { signup_id: e } },
+        cancelOnUnload: !0,
+        instanceKey: _(e),
+      });
     }
     function h(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerStart(u, {
-          annotations: { string: { signup_id: e } },
-          cancelOnUnload: !0,
-          instanceKey: _(e),
-        });
+      o("WAWebQplFlowWrapper").QPL.markerPoint(u, "metadata_fetch_start", {
+        instanceKey: _(e),
+      });
     }
     function y(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerPoint(u, "metadata_fetch_start", {
-          instanceKey: _(e),
-        });
+      o("WAWebQplFlowWrapper").QPL.markerPoint(u, "metadata_fetch_end", {
+        instanceKey: _(e),
+      });
     }
     function C(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerPoint(u, "metadata_fetch_end", {
-          instanceKey: _(e),
-        });
+      (o("WAWebQplFlowWrapper").QPL.markerEnd(u, 2, { instanceKey: _(e) }),
+        f(e));
     }
     function b(e) {
-      g() &&
-        (o("WAWebQplFlowWrapper").QPL.markerEnd(u, 2, { instanceKey: _(e) }),
+      (o("WAWebQplFlowWrapper").QPL.markerEnd(u, 4, { instanceKey: _(e) }),
         f(e));
     }
-    function v(e) {
-      g() &&
-        (o("WAWebQplFlowWrapper").QPL.markerEnd(u, 4, { instanceKey: _(e) }),
+    function v(e, t) {
+      var n = _(e);
+      (o("WAWebQplFlowWrapper").QPL.markerAnnotate(
+        u,
+        { string: { error_type: t } },
+        { instanceKey: n },
+      ),
+        o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3, { instanceKey: n }),
         f(e));
     }
-    function S(e, t) {
-      if (g()) {
-        var n = _(e);
-        (o("WAWebQplFlowWrapper").QPL.markerAnnotate(
-          u,
-          { string: { error_type: t } },
-          { instanceKey: n },
-        ),
-          o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3, { instanceKey: n }),
-          f(e));
-      }
+    function S(e) {
+      o("WAWebQplFlowWrapper").QPL.markerStart(c, {
+        annotations: { string: { signup_id: e } },
+        cancelOnUnload: !0,
+        instanceKey: _(e),
+      });
     }
     function R(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerStart(c, {
-          annotations: { string: { signup_id: e } },
-          cancelOnUnload: !0,
-          instanceKey: _(e),
-        });
+      o("WAWebQplFlowWrapper").QPL.markerPoint(c, "iq_start", {
+        instanceKey: _(e),
+      });
     }
     function L(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerPoint(c, "iq_start", {
-          instanceKey: _(e),
-        });
+      o("WAWebQplFlowWrapper").QPL.markerPoint(c, "iq_end", {
+        instanceKey: _(e),
+      });
     }
     function E(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerPoint(c, "iq_end", {
-          instanceKey: _(e),
-        });
-    }
-    function k(e) {
-      g() &&
-        (o("WAWebQplFlowWrapper").QPL.markerEnd(c, 2, { instanceKey: _(e) }),
+      (o("WAWebQplFlowWrapper").QPL.markerEnd(c, 2, { instanceKey: _(e) }),
         f(e));
     }
-    function I(e, t) {
-      if (g()) {
-        var n = _(e);
-        (o("WAWebQplFlowWrapper").QPL.markerAnnotate(
-          c,
-          { string: { error_type: t } },
-          { instanceKey: n },
-        ),
-          o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3, { instanceKey: n }),
-          f(e));
-      }
+    function k(e, t) {
+      var n = _(e);
+      (o("WAWebQplFlowWrapper").QPL.markerAnnotate(
+        c,
+        { string: { error_type: t } },
+        { instanceKey: n },
+      ),
+        o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3, { instanceKey: n }),
+        f(e));
+    }
+    function I(e) {
+      o("WAWebQplFlowWrapper").QPL.markerStart(d, {
+        annotations: { string: { signup_id: e } },
+        cancelOnUnload: !0,
+        instanceKey: _(e),
+      });
     }
     function T(e) {
-      g() &&
-        o("WAWebQplFlowWrapper").QPL.markerStart(d, {
-          annotations: { string: { signup_id: e } },
-          cancelOnUnload: !0,
-          instanceKey: _(e),
-        });
-    }
-    function D(e) {
-      g() &&
-        (o("WAWebQplFlowWrapper").QPL.markerEnd(d, 2, { instanceKey: _(e) }),
+      (o("WAWebQplFlowWrapper").QPL.markerEnd(d, 2, { instanceKey: _(e) }),
         f(e));
     }
-    function x(t) {
+    function D(t) {
       o("WALogger")
         .ERROR(
           e ||
@@ -127,7 +105,7 @@ __d(
         .catching(r("getErrorSafe")(t))
         .sendLogs("inapp_signup_confirmation_parse_failure");
     }
-    function $() {
+    function x() {
       o("WALogger")
         .ERROR(
           s ||
@@ -137,21 +115,21 @@ __d(
         )
         .sendLogs("inapp_signup_confirmation_missing_params");
     }
-    ((l.deepLinkStart = h),
-      (l.deepLinkMetadataFetchStart = y),
-      (l.deepLinkMetadataFetchEnd = C),
-      (l.deepLinkSuccess = b),
-      (l.deepLinkCancel = v),
-      (l.deepLinkFail = S),
-      (l.userRequestStart = R),
-      (l.userRequestIqStart = L),
-      (l.userRequestIqEnd = E),
-      (l.userRequestSuccess = k),
-      (l.userRequestFail = I),
-      (l.confirmationStart = T),
-      (l.confirmationSuccess = D),
-      (l.confirmationParseFailure = x),
-      (l.confirmationMissingParams = $));
+    ((l.deepLinkStart = g),
+      (l.deepLinkMetadataFetchStart = h),
+      (l.deepLinkMetadataFetchEnd = y),
+      (l.deepLinkSuccess = C),
+      (l.deepLinkCancel = b),
+      (l.deepLinkFail = v),
+      (l.userRequestStart = S),
+      (l.userRequestIqStart = R),
+      (l.userRequestIqEnd = L),
+      (l.userRequestSuccess = E),
+      (l.userRequestFail = k),
+      (l.confirmationStart = I),
+      (l.confirmationSuccess = T),
+      (l.confirmationParseFailure = D),
+      (l.confirmationMissingParams = x));
   },
   98,
 );

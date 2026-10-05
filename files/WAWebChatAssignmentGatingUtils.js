@@ -27,17 +27,12 @@ __d(
           );
     }
     function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_ai_agents_web_chat_assignment_interop_enabled",
-      );
-    }
-    function d() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
       );
     }
-    function m() {
+    function d() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -48,9 +43,8 @@ __d(
     ((l.chatAssignmentEnabled = e),
       (l.chatAssignmentMaxNuxImpressions = s),
       (l.shouldReorderChatOnAssignment = u),
-      (l.isBizAiChatAssignmentInteropTosEnabled = c),
-      (l.isBizAIToolsSettingsEnabled = d),
-      (l.isMultiDeviceMessageAttributionEnabled = m));
+      (l.isBizAIToolsSettingsEnabled = c),
+      (l.isMultiDeviceMessageAttributionEnabled = d));
   },
   98,
 );

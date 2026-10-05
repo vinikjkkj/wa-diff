@@ -628,7 +628,12 @@ __d(
                 !1
               );
             this.$28(n);
-            var a = yield this.$29(t, r, n, e);
+            var a = yield this.$29({
+              audioContext: t,
+              audioContextOutputSink: r,
+              audioWorkletNode: n,
+              isStartCancelled: e,
+            });
             return (
               a &&
                 o("WALogger").LOG(
@@ -661,31 +666,33 @@ __d(
             (this.isMediaElementOutputForced = !1));
         }),
         (a.$29 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r) {
-              var a = yield o(
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.audioContext,
+              n = e.audioContextOutputSink,
+              r = e.audioWorkletNode,
+              a = e.isStartCancelled,
+              i = yield o(
                 "WAWebAudioDeviceManager",
               ).applyPreferredAudioOutputSink(
-                t,
+                n,
                 "AV:SharedBuffer:Playback:AudioContext",
               );
-              return r()
-                ? !1
-                : (n.connect(e.destination),
-                  (this.playbackOutputSink = t),
-                  (this.playbackOutputRoute = "direct_audio_context"),
-                  o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:SharedBuffer:Playback] connected worklet directly to AudioContext.destination, setSinkIdApplied=",
-                        "",
-                      ])),
-                    String(a),
-                  ),
-                  !0);
-            },
-          );
-          function t(t, n, r, o) {
+            return a()
+              ? !1
+              : (r.connect(t.destination),
+                (this.playbackOutputSink = n),
+                (this.playbackOutputRoute = "direct_audio_context"),
+                o("WALogger").LOG(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Playback] connected worklet directly to AudioContext.destination, setSinkIdApplied=",
+                      "",
+                    ])),
+                  String(i),
+                ),
+                !0);
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;
@@ -759,7 +766,12 @@ __d(
                 ),
                 !a && n != null && r != null)
               ) {
-                yield this.$29(e, n, r, t);
+                yield this.$29({
+                  audioContext: e,
+                  audioContextOutputSink: n,
+                  audioWorkletNode: r,
+                  isStartCancelled: t,
+                });
                 return;
               }
               ((this.isMediaElementOutputForced = a && n != null),

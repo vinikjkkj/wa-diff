@@ -105,7 +105,12 @@ __d(
         s = t && l,
         u = !t && !l;
       if (s || u) return (d || (d = n("Promise"))).resolve();
-      var c = b(e, t ? "block" : "unblock", r, a).then(
+      var c = b({
+          action: t ? "block" : "unblock",
+          bizOptOutArgs: a,
+          contact: e,
+          entryPoint: r,
+        }).then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
@@ -212,38 +217,40 @@ __d(
         }),
       );
     }
-    function b(e, t, n, r) {
+    function b(e) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (e.id.isPSA()) {
-              var a = yield o("WAWebBlockUserJob").blockUnblockPSAUser(t);
-              return a != null && a.errorCode ? a : { targetWid: e.id };
-            }
-            if (o("WAWebBlocklistMigration").isBlocklistMigrated()) {
-              var i = S(e, n),
-                l = yield o("WAWebBlockUserJob").blockUnblockUser({
-                  lid: i,
-                  action: t,
-                  bizOptOutArgs: r,
-                });
-              return l != null && l.errorCode ? l : { targetWid: i };
-            }
-            var s = e.id,
-              u = e.phoneNumber,
-              c = t === "block" && s.isLid(),
-              d = c && u != null ? u : s,
-              m = yield o("WAWebBlockUserJob").blockUnblockUser({
-                wid: d,
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.action,
+            n = e.bizOptOutArgs,
+            r = e.contact,
+            a = e.entryPoint;
+          if (r.id.isPSA()) {
+            var i = yield o("WAWebBlockUserJob").blockUnblockPSAUser(t);
+            return i != null && i.errorCode ? i : { targetWid: r.id };
+          }
+          if (o("WAWebBlocklistMigration").isBlocklistMigrated()) {
+            var l = S(r, a),
+              s = yield o("WAWebBlockUserJob").blockUnblockUser({
+                lid: l,
                 action: t,
-                bizOptOutArgs: r,
+                bizOptOutArgs: n,
               });
-            return m != null && m.errorCode ? m : { targetWid: d };
-          },
-        )),
+            return s != null && s.errorCode ? s : { targetWid: l };
+          }
+          var u = r.id,
+            c = r.phoneNumber,
+            d = t === "block" && u.isLid(),
+            m = d && c != null ? c : u,
+            p = yield o("WAWebBlockUserJob").blockUnblockUser({
+              wid: m,
+              action: t,
+              bizOptOutArgs: n,
+            });
+          return p != null && p.errorCode ? p : { targetWid: m };
+        })),
         v.apply(this, arguments)
       );
     }

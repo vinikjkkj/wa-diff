@@ -25,6 +25,7 @@ __d(
           "import_file_errors_continue_button",
         IMPORT_SAVE_BUTTON: "import_save_button",
         IMPORT_SAVE_TEMPLATE_LINK: "import_save_template_link",
+        IMPORT_UNDO_BUTTON: "import_undo_button",
         IMPORT_UPLOAD_FILE_BUTTON: "import_upload_file_button",
         LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
         LEAD_STAGE_FILTER_CHIP: "lead_stage_filter_chip",
@@ -238,6 +239,26 @@ __d(
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_SAVE_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
+          (n.clickImportUndo = function (n) {
+            this.$1({
+              extraAttributes: { total_count: n },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_UNDO_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.importUndoResult = function (n, r) {
+            this.$1({
+              extraAttributes: { failure_count: r, success_count: n },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_UNDO_BUTTON,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.VIEW,
             });

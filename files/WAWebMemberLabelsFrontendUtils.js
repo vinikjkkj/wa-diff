@@ -6,7 +6,6 @@ __d(
     "WAWebContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebMemberLabelCollection",
-    "WAWebMemberLabelGating",
     "WAWebMemberLabelHooks",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
@@ -68,19 +67,14 @@ __d(
     function g(e, t) {
       return (
         o("WAWebContactGetters").getIsMe(e) &&
-        m({ from: "chat_and_member", chat: t, member: e.id }) &&
-        o("WAWebMemberLabelGating").isMemberLabelSenderEnabled()
+        m({ from: "chat_and_member", chat: t, member: e.id })
       );
     }
     function h(e, t) {
       if (e == null || t == null || !o("WAWebChatGetters").getIsGroup(e))
         return !1;
       var n = m({ from: "chat_and_member", chat: e, member: t });
-      return (
-        !n &&
-        o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-        o("WAWebMemberLabelGating").isMemberLabelSenderEnabled()
-      );
+      return !n && o("WAWebUserPrefsMeUser").isMeAccount(t);
     }
     ((l.memberLabelKeyFrom = s),
       (l.shouldShowMemberLabelForChat = u),

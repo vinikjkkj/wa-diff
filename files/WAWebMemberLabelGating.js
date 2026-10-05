@@ -8,12 +8,7 @@ __d(
         "member_name_tag_db_enabled",
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "member_name_tag_web_sender_enabled",
-      );
-    }
-    ((l.isMemberLabelInfraEnabled = e), (l.isMemberLabelSenderEnabled = s));
+    l.isMemberLabelInfraEnabled = e;
   },
   98,
 );

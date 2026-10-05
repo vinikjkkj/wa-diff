@@ -128,7 +128,7 @@ __d(
             (p != null &&
               (o("WAWebChatMessageSearch").clearFtsCache(p),
               C(l, p, u, n),
-              b(p, l, i, n)),
+              b({ chat: p, mentionOfMe: n, msg: l, protocolMsg: i })),
               l.clearRawLinks(),
               l.clearRawPhoneNumbers());
             var _ = o("WAWebMsgCollection").MsgCollection.get(i.id);
@@ -227,9 +227,13 @@ __d(
             break;
         }
     }
-    function b(e, t, n, r) {
-      (o("WAWebMsgGetters").getIsSentByMe(n) || m(e, t),
-        r != null && v(e, t, r));
+    function b(e) {
+      var t = e.chat,
+        n = e.mentionOfMe,
+        r = e.msg,
+        a = e.protocolMsg;
+      (o("WAWebMsgGetters").getIsSentByMe(a) || m(t, r),
+        n != null && v(t, r, n));
     }
     function v(e, t, n) {
       switch (n) {

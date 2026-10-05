@@ -345,9 +345,9 @@ __d(
                         .RICH_RESPONSE_IN_APP_SURVEY,
                     ]
                   : [],
-                o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isRichResponseSideBySideSurveyEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "ai_rich_response_side_by_side_survey_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType

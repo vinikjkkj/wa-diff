@@ -1,7 +1,6 @@
 __d(
   "WAWebGenerateInteractiveResponseMessageProto",
   [
-    "WAWebABProps",
     "WAWebE2EProtoUtils",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebProtobufsE2E.pb",
@@ -23,8 +22,7 @@ __d(
           ),
         m =
           u.name ===
-            String(r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW) &&
-          o("WAWebABProps").getABPropConfigValue("flows_wa_web");
+          String(r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW);
       if (m) return d({ json: i, contextInfo: a });
       var p =
         ((n = { body: { text: i.body } }), (n[c] = u), (n.contextInfo = a), n);

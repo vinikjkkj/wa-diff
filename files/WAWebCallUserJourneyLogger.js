@@ -7,7 +7,6 @@ __d(
     "WAWebCallUserJourneyWamEvent",
     "WAWebUserJourneyEventMs",
     "WAWebWamEnumCallActionType",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -124,7 +123,7 @@ __d(
                 ).isCallUserJourneyLoggingEnabled()
               )
             ) {
-              var a = {
+              var r = {
                 appSessionId: o(
                   "WAWebCallUserJourneyAppSessionId",
                 ).callUserJourneyAppSessionId(e.appSessionId),
@@ -133,16 +132,18 @@ __d(
                 isCallConnected: this.$2,
                 uiSurface: n.uiSurface,
               };
-              if (r("justknobx")._("6022")) {
-                ((a.isGroupCall = this.$3), (a.isVideoCall = this.$4));
-                var i = this.$5;
-                i != null && (a.numConnectedParticipants = i);
+              if (
+                o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled()
+              ) {
+                ((r.isGroupCall = this.$3), (r.isVideoCall = this.$4));
+                var a = this.$5;
+                a != null && (r.numConnectedParticipants = a);
               }
-              n.subSurface != null && (a.subSurface = n.subSurface);
-              var l = o("WAWebUserJourneyEventMs").userJourneyEventMs();
-              (l != null && (a.userJourneyEventMs = l),
+              n.subSurface != null && (r.subSurface = n.subSurface);
+              var i = o("WAWebUserJourneyEventMs").userJourneyEventMs();
+              (i != null && (r.userJourneyEventMs = i),
                 new (o("WAWebCallUserJourneyWamEvent").CallUserJourneyWamEvent)(
-                  a,
+                  r,
                 ).commit());
             }
           }),

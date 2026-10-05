@@ -17,35 +17,31 @@ __d(
       s,
       u = "for (;;);",
       c = n("$InternalEnum")({ SENT: 1, ERROR: 2 });
-    function d(e) {
+    function d(e, t) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            var n = r("WAXWhatsAppWebRegistrationControllerRouteBuilder")
+            var a = r("WAXWhatsAppWebRegistrationControllerRouteBuilder")
                 .buildUri({
                   phone: t,
                   step: "otp",
                   locale: r("WAWebL10N").getLocale(),
-                  source: r("WAWebEnvironment").isWindows
-                    ? o("WAWebSignUpViaWebRequestEntryPoint")
-                        .WhatsappGrowthInvites_SignUpViaWebRequestEntryPoint
-                        .WINDOWS
-                    : void 0,
+                  source: p(n),
                   exp_bucket: o(
                     "WAWebLandingPromoGating",
                   ).getLandingPromoExpBucket(),
                 })
                 .toString()
                 .concat("&__a=1"),
-              a = yield window.fetch(n, {
+              i = yield window.fetch(a, {
                 headers: { "Content-Type": "application/json" },
               }),
-              i = yield a.text();
-            i.startsWith(u) && (i = i.substring(u.length));
-            var l = JSON.parse(i).payload;
+              l = yield i.text();
+            l.startsWith(u) && (l = l.substring(u.length));
+            var d = JSON.parse(l).payload;
             return (
               o("WALogger").LOG(
                 e ||
@@ -53,7 +49,7 @@ __d(
                     "[WAWebSmsRegistrationSendSmsCall] sendSmsCall +",
                   ])),
               ),
-              l
+              d
             );
           } catch (e) {
             o("WALogger")
@@ -75,6 +71,12 @@ __d(
         })),
         m.apply(this, arguments)
       );
+    }
+    function p(e) {
+      if (e != null) return e;
+      if (r("WAWebEnvironment").isWindows)
+        return o("WAWebSignUpViaWebRequestEntryPoint")
+          .WhatsappGrowthInvites_SignUpViaWebRequestEntryPoint.WINDOWS;
     }
     ((l.WhatsappGrowthInvites_SignUpViaWebResponseStatus = c),
       (l.sendSmsCall = d));

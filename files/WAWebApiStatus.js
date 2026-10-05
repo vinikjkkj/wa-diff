@@ -152,8 +152,7 @@ __d(
     }
     function _() {
       try {
-        if (r("justknobx")._("550"))
-          return o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper();
+        return o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper();
       } catch (e) {
         o("WALogger")
           .ERROR(

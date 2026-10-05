@@ -5,10 +5,16 @@ __d(
     "use strict";
     var e = 40,
       l = 5;
-    function s(t, n, r, o, a, i) {
-      if (t !== "speaker" || !n || !r || o <= 0) return !1;
-      var s = a + e;
-      return i ? o < s + l : o < s;
+    function s(t) {
+      var n = t.dominantHeight,
+        r = t.hasStrip,
+        o = t.isInPopout,
+        a = t.layoutMode,
+        i = t.previouslyTooSmall,
+        s = t.stripTilePx;
+      if (a !== "speaker" || !o || !r || n <= 0) return !1;
+      var u = s + e;
+      return i ? n < u + l : n < u;
     }
     ((i.DOMINANT_TOO_SMALL_BUFFER_PX = e),
       (i.DOMINANT_TOO_SMALL_HYSTERESIS_PX = l),

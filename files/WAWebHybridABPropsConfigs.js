@@ -66,6 +66,7 @@ __d(
         "agent.meta.ai",
         "agent.meta.ai",
       ],
+      ai_hatch_whatsapp_connector_enabled: [38409, "bool", !1, !1],
       ai_maiba_wass_migration_receiving: [27083, "bool", !1, !1],
       ai_maiba_wass_migration_sending: [27084, "bool", !1, !0],
       ai_search_experience_enabled: [8025, "bool", !1, !1],

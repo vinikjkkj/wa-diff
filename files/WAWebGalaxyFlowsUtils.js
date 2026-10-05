@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WABase64",
     "WAFlowsExpiredCacheCleaner",
-    "WAWebABProps",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebGalaxyFlowQPLLoggerUtils",
     "WAWebInteractiveMessageType",
@@ -23,10 +22,9 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebABProps").getABPropConfigValue("flows_wa_web"))
-            try {
-              yield o("WAFlowsExpiredCacheCleaner").clearExpiredCachedStates();
-            } catch (e) {}
+          try {
+            yield o("WAFlowsExpiredCacheCleaner").clearExpiredCachedStates();
+          } catch (e) {}
         })),
         c.apply(this, arguments)
       );
@@ -77,8 +75,7 @@ __d(
       var t;
       return (
         ((t = e.nativeFlowResponseMessage) == null ? void 0 : t.name) ===
-          String(r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW) &&
-        o("WAWebABProps").getABPropConfigValue("flows_wa_web")
+        String(r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW)
       );
     }
     function g(e) {
@@ -154,7 +151,6 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!o("WAWebABProps").getABPropConfigValue("flows_wa_web")) return t;
           var a = t.filter(function (e) {
             return (
               e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&

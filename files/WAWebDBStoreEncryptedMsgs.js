@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAPromiseMap",
     "WAWeb-dexie",
+    "WAWebDBExperienceIdStore",
     "WAWebDBMessageUtils",
     "WAWebDBMsgUtils",
     "WAWebDBStoreMessage",
@@ -307,7 +308,7 @@ __d(
           .then(function (t) {
             t &&
               t.length > 0 &&
-              r("WAWeb-dexie").ignoreTransaction(
+              (r("WAWeb-dexie").ignoreTransaction(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   (a &&
                     o("WALogger").LOG(
@@ -340,7 +341,8 @@ __d(
                       ),
                     I == null || I.index().catch(r("WAWebNoop")));
                 }),
-              );
+              ),
+              o("WAWebDBExperienceIdStore").recordReceivedExperienceIds(t));
           })
       );
     }

@@ -168,10 +168,7 @@ __d(
                       return b == null
                         ? void 0
                         : b(e, {
-                            localAddressingMode: r("nullthrows")(
-                              i.get(e.toString()),
-                              "missing local addressing mode for group",
-                            ),
+                            localAddressingMode: i.get(e.toString()),
                             serverAddressingMode: r("nullthrows")(
                               t.get(e.toString()),
                               "missing server addressing mode for group",

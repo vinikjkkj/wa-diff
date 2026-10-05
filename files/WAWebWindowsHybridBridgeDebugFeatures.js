@@ -86,22 +86,6 @@ __d(
         }
         var a = t.prototype;
         return (
-          (a.startHangsMonitor = function () {
-            var e = this;
-            (r("WAWebODS").incr(
-              "web.hybrid.bridge.debug.send.start_hangs_monitor",
-            ),
-              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                {
-                  bridge: "debugFeatures",
-                  method: "startHangsMonitor",
-                  type: "async",
-                },
-                function () {
-                  return e.$1.startHangsMonitor();
-                },
-              ));
-          }),
           (a.saveNativeLogs = function () {
             var e = this;
             (r("WAWebODS").incr(

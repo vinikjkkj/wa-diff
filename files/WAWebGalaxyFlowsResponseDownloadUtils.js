@@ -100,24 +100,30 @@ __d(
       var t = /[\[\]{}|<>?\/\"\':;()+*#@$%&~`^=!\\]/g;
       return e.replace(t, "");
     }
-    function p(e, t, n, r, o, a) {
-      var i = m(t != null ? t : e),
-        l = (i.length > 0 ? i : e) + ".csv",
-        s = a(),
-        u = d({
-          flowId: e,
-          flowResponseMessage: n,
-          phoneNumber: r,
-          timestamp: o,
+    function p(e) {
+      var t = e.flowId,
+        n = e.flowName,
+        r = e.flowResponseMessage,
+        o = e.getDownloadFileRef,
+        a = e.phoneNumber,
+        i = e.timestamp,
+        l = m(n != null ? n : t),
+        s = (l.length > 0 ? l : t) + ".csv",
+        u = o(),
+        c = d({
+          flowId: t,
+          flowResponseMessage: r,
+          phoneNumber: a,
+          timestamp: i,
         }),
-        c = new Blob([u], { type: "text/csv;charset=utf-8;" });
-      if ((s == null ? void 0 : s.download) !== void 0) {
-        var p = URL.createObjectURL(c);
-        (s.setAttribute("href", p),
-          s.setAttribute("download", l),
-          s.click(),
-          s.removeAttribute("href"),
-          s.removeAttribute("download"));
+        p = new Blob([c], { type: "text/csv;charset=utf-8;" });
+      if ((u == null ? void 0 : u.download) !== void 0) {
+        var _ = URL.createObjectURL(p);
+        (u.setAttribute("href", _),
+          u.setAttribute("download", s),
+          u.click(),
+          u.removeAttribute("href"),
+          u.removeAttribute("download"));
       }
     }
     ((l.generateCsv = d),

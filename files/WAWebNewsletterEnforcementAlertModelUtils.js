@@ -95,11 +95,15 @@ __d(
         i
       );
     }
-    function c(t, n, r, a) {
-      var i = new Map();
-      t.map(function (t) {
-        var l = t.violatingContentData,
-          u = s(l, n, r),
+    function c(t) {
+      var n = t.hideChannelAlerts,
+        r = t.msgModelMap,
+        a = t.newsletterJid,
+        i = t.statusModelMap,
+        l = new Map();
+      n.map(function (t) {
+        var n = t.violatingContentData,
+          u = s(n, r, i),
           c = u.msgData,
           d = u.serverId,
           m = {
@@ -118,45 +122,45 @@ __d(
             countryCode: null,
             lastUpdated: Date.now(),
             msgData: c,
-            violatingContentData: l,
+            violatingContentData: n,
           };
-        i.set(e(l.contentType) + "_" + d, m);
+        l.set(e(n.contentType) + "_" + d, m);
       });
-      var l = t[0];
-      if (l == null) return null;
-      var u = l.violatingContentData,
-        c = s(u, n, r),
-        d = c.msgData;
+      var u = n[0];
+      if (u == null) return null;
+      var c = u.violatingContentData,
+        d = s(c, r, i),
+        m = d.msgData;
       return {
-        id: l.enforcementId,
+        id: u.enforcementId,
         chatId: o("WAWebWidFactory").createWid(a),
-        enforcementCreationTime: l.enforcementCreationTime,
-        enforcementViolationCategory: l.enforcementViolationCategory,
-        enforcementType: l.enforcementType,
-        enforcementId: l.enforcementId,
-        enforcementExtraData: l.enforcementExtraData,
-        enforcementPolicyInformation: l.enforcementPolicyInformation,
-        targetMsgMapForEvidence: i,
+        enforcementCreationTime: u.enforcementCreationTime,
+        enforcementViolationCategory: u.enforcementViolationCategory,
+        enforcementType: u.enforcementType,
+        enforcementId: u.enforcementId,
+        enforcementExtraData: u.enforcementExtraData,
+        enforcementPolicyInformation: u.enforcementPolicyInformation,
+        targetMsgMapForEvidence: l,
         lastUpdated: Date.now(),
-        enforcementSource: l.enforcementSource,
+        enforcementSource: u.enforcementSource,
         countryCodes: [],
         appeal: {
-          id: l.enforcementId,
+          id: u.enforcementId,
           chatId: o("WAWebWidFactory").createWid(a),
-          appealReasonOptions: l.appealReasonOptions,
-          enforcementViolationCategory: l.enforcementViolationCategory,
-          enforcementType: l.enforcementType,
-          enforcementId: l.enforcementId,
-          enforcementExtraData: l.enforcementExtraData,
-          enforcementPolicyInformation: l.enforcementPolicyInformation,
-          enforcementSource: l.enforcementSource,
-          appealCreationTime: l.appealCreationTime,
-          appealState: l.appealState,
+          appealReasonOptions: u.appealReasonOptions,
+          enforcementViolationCategory: u.enforcementViolationCategory,
+          enforcementType: u.enforcementType,
+          enforcementId: u.enforcementId,
+          enforcementExtraData: u.enforcementExtraData,
+          enforcementPolicyInformation: u.enforcementPolicyInformation,
+          enforcementSource: u.enforcementSource,
+          appealCreationTime: u.appealCreationTime,
+          appealState: u.appealState,
           appealReason: null,
           countryCode: null,
           lastUpdated: Date.now(),
-          msgData: d,
-          violatingContentData: u,
+          msgData: m,
+          violatingContentData: c,
         },
       };
     }
@@ -348,7 +352,12 @@ __d(
           o.push.apply(o, m(e == null ? void 0 : e.adminProfiles, r)),
         (e == null ? void 0 : e.violatingMessages) != null)
       ) {
-        var a = c(e == null ? void 0 : e.violatingMessages, t, n, r);
+        var a = c({
+          hideChannelAlerts: e == null ? void 0 : e.violatingMessages,
+          msgModelMap: t,
+          newsletterJid: r,
+          statusModelMap: n,
+        });
         a != null && o.push(a);
       }
       return o;

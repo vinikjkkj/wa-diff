@@ -234,16 +234,19 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e, t, r) {
-      var a = e.map(function (e) {
-        return _(
-          e,
-          t,
-          r,
-          o("WAWebEphemeralityTypes").DisappearingModeTrigger.BulkChange,
-        );
-      });
-      return (u || (u = n("Promise"))).allSettled(a);
+    function g(e) {
+      var t = e.chats,
+        r = e.entryPoint,
+        a = e.newDuration,
+        i = t.map(function (e) {
+          return _(
+            e,
+            a,
+            r,
+            o("WAWebEphemeralityTypes").DisappearingModeTrigger.BulkChange,
+          );
+        });
+      return (u || (u = n("Promise"))).allSettled(i);
     }
     ((l.changeEphemeralDuration = _), (l.bulkChangeEphemeralDuration = g));
   },

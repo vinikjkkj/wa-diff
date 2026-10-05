@@ -185,7 +185,7 @@ __d(
         o = e.stderr,
         a = e.stdout,
         i = ["kaleidoscope", "provenance", "--json-report=" + _];
-      for (var l of n) (i.push("--mimetype-hints"), i.push(l));
+      for (var l of n) i.push("--mimetype-hints=" + l);
       return (
         i.push(p),
         {

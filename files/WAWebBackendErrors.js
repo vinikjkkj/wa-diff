@@ -22,6 +22,19 @@ __d(
         function t(t, n, r) {
           var o;
           return (
+            (o = e.call(this, t, n) || this),
+            (o.backoffMs = r.backoffMs),
+            (o.name = "MexServerStatusCodeError"),
+            (o.retryable = r.retryable),
+            o
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(u),
+      d = (function (e) {
+        function t(t, n, r) {
+          var o;
+          return (
             (o = e.call(this, r != null ? r : "") || this),
             (o.name = "CatalogEditServerError"),
             (o.errors = n),
@@ -32,7 +45,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      d = (function (e) {
+      m = (function (e) {
         function t(t) {
           var n;
           return (
@@ -44,7 +57,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      m = (function (e) {
+      p = (function (e) {
         function t() {
           var t;
           return (
@@ -55,7 +68,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      p = (function (e) {
+      _ = (function (e) {
         function t() {
           var t;
           return (
@@ -66,14 +79,14 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(u),
-      _ = (function (e) {
+      f = (function (e) {
         function t(t) {
           var n;
           return ((n = e.call(this, 404, t) || this), (n.name = "E404"), n);
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(u),
-      f = (function (e) {
+      g = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -85,7 +98,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(u),
-      g = (function (e) {
+      h = (function (e) {
         function t(t) {
           var n;
           return (
@@ -96,7 +109,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      h = (function (e) {
+      y = (function (e) {
         function t(t) {
           var n;
           return (
@@ -106,8 +119,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(g),
-      y = (function (e) {
+      })(h),
+      C = (function (e) {
         function t(t) {
           var n;
           return (
@@ -117,8 +130,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(g);
-    function C(t, n) {
+      })(h);
+    function b(t, n) {
       return t.catch(function (t) {
         throw (
           o("WALogger")
@@ -133,7 +146,7 @@ __d(
         );
       });
     }
-    var b = (function (e) {
+    var v = (function (e) {
         function t(t, n, r) {
           var o;
           return (
@@ -146,7 +159,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      v = (function (e) {
+      S = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -158,7 +171,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      S = (function (e) {
+      R = (function (e) {
         function t(t, n, r) {
           var o;
           return (
@@ -171,7 +184,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      R = (function (e) {
+      L = (function (e) {
         function t(t, n, r, o) {
           var a;
           return (
@@ -185,7 +198,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      L = (function (e) {
+      E = (function (e) {
         function t(t) {
           var n;
           return (
@@ -197,7 +210,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      E = (function (e) {
+      k = (function (e) {
         function t(t) {
           var n;
           return (
@@ -208,7 +221,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError),
-      k = (function (e) {
+      I = (function (e) {
         function t(t) {
           var n;
           return (
@@ -220,22 +233,23 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(s.CustomError);
     ((l.ServerStatusCodeError = u),
-      (l.CatalogEditServerError = c),
-      (l.CatalogUnknownError = d),
-      (l.CollectionReorderError = m),
-      (l.E451 = p),
-      (l.E404 = _),
-      (l.E507 = f),
-      (l.LogoutDrop = h),
-      (l.EphemeralDrop = y),
-      (l.attachErrorLogger = C),
-      (l.UnexpectedJoinGroupViaInviteResponse = b),
-      (l.UnexpectedJoinSubgroupResponse = v),
-      (l.GroupAddParticipantCountRateLimitServerError = S),
-      (l.GroupAddParticipantTimeRateLimitServerError = R),
-      (l.AdAccountRecoveryRequiredError = L),
-      (l.AdAccountRecoveryRequiredEmailMaskEmptyError = E),
-      (l.CatalogIncorrectNonceError = k));
+      (l.MexServerStatusCodeError = c),
+      (l.CatalogEditServerError = d),
+      (l.CatalogUnknownError = m),
+      (l.CollectionReorderError = p),
+      (l.E451 = _),
+      (l.E404 = f),
+      (l.E507 = g),
+      (l.LogoutDrop = y),
+      (l.EphemeralDrop = C),
+      (l.attachErrorLogger = b),
+      (l.UnexpectedJoinGroupViaInviteResponse = v),
+      (l.UnexpectedJoinSubgroupResponse = S),
+      (l.GroupAddParticipantCountRateLimitServerError = R),
+      (l.GroupAddParticipantTimeRateLimitServerError = L),
+      (l.AdAccountRecoveryRequiredError = E),
+      (l.AdAccountRecoveryRequiredEmailMaskEmptyError = k),
+      (l.CatalogIncorrectNonceError = I));
   },
   98,
 );

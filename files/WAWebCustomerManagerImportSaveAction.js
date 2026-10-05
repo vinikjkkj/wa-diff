@@ -3,13 +3,16 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebContactCollection",
     "WAWebContactImportTemplateParsingUtils",
     "WAWebCustomerDataFieldSaver",
     "WAWebCustomerManagerCreateCustomerRecord",
     "WAWebCustomerManagerImportDateParsingUtils",
     "WAWebCustomerManagerImportEmailWarnings",
+    "WAWebCustomerManagerImportExistingCustomerDetector",
     "WAWebCustomerManagerImportTemplateUtils",
     "WAWebCustomerProfileAcquisitionSourceNames",
+    "WAWebFrontendContactGetters",
     "WAWebLeadStageNames",
     "WAWebSaveContactAction",
     "WAWebWidFactory",
@@ -24,15 +27,17 @@ __d(
       u,
       c,
       d,
-      m = 10,
-      p = 50;
-    function _(e) {
+      m,
+      p,
+      _ = 10,
+      f = 50;
+    function g(e) {
       var t;
       if (e.lid == null)
         throw r("err")("Imported contact missing lid; cannot resolve chatJid");
       var n = o("WAWebWidFactory").createUserWidOrThrow(e.lid);
       return {
-        acquisitionSource: S(e),
+        acquisitionSource: L(e),
         address:
           (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
             e.rawRow,
@@ -43,45 +48,45 @@ __d(
           )) != null
             ? t
             : "",
-        birthday: b(e, "birthday"),
+        birthday: S(e, "birthday"),
         chatJid: o("WAWebWidToJid").widToChatJid(n),
-        email: C(e),
+        email: v(e),
         firstName: e.firstName,
         lastName: e.lastName,
-        leadStage: v(e),
-        lastOrder: b(e, "lastOrder"),
+        leadStage: R(e),
+        lastOrder: S(e, "lastOrder"),
         note: o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
           e.rawRow,
           ["Notes", o("WAWebCustomerManagerImportTemplateUtils").FBT_NOTES],
         ),
-        phoneNumber: h(e),
+        phoneNumber: C(e),
         profileWid: n,
-        username: y(e),
+        username: b(e),
       };
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o(
             "WAWebCustomerManagerCreateCustomerRecord",
-          ).createCustomerRecord(_(e));
+          ).createCustomerRecord(g(e));
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e) {
+    function C(e) {
       return e.phone.replace(/\D/g, "");
     }
-    function y(e) {
+    function b(e) {
       return o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         ["Username", o("WAWebCustomerManagerImportTemplateUtils").FBT_USERNAME],
       );
     }
-    function C(e) {
+    function v(e) {
       var t,
         n =
           (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
@@ -94,7 +99,7 @@ __d(
         ? n
         : "";
     }
-    function b(e, t) {
+    function S(e, t) {
       var n =
           t === "birthday"
             ? [
@@ -116,7 +121,7 @@ __d(
         );
       return r.type === "valid" ? r.value : void 0;
     }
-    function v(e) {
+    function R(e) {
       var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         [
@@ -128,7 +133,7 @@ __d(
         ? o("WAWebLeadStageNames").getLeadStageFromName(t)
         : null;
     }
-    function S(e) {
+    function L(e) {
       var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e.rawRow,
         [
@@ -143,41 +148,158 @@ __d(
           ).getProfileAcquisitionSourceIdFromLabel(t)
         : null;
     }
-    function R(t, n, a) {
-      return n.reduce(function (n, a, i) {
-        return a.status === "fulfilled"
-          ? babelHelpers.extends({}, n, { successCount: n.successCount + 1 })
-          : (o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[cm:import] save failed for row ",
-                    "",
-                  ])),
-                t[i].rowIndex,
-              )
-              .catching(r("getErrorSafe")(a.reason))
-              .sendLogs("cm-import-save-row-failed"),
-            babelHelpers.extends({}, n, { failureCount: n.failureCount + 1 }));
-      }, a);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function L(e, t, n, r, o) {
-      return E.apply(this, arguments);
-    }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(
+              o("WAWebCustomerManagerImportExistingCustomerDetector")
+                .resolveBareLid,
+            ),
+            n = yield T(t),
+            r = new Map();
+          return (
+            e.forEach(function (e, a) {
+              var i = e.lid;
+              i == null ||
+                t[a] == null ||
+                r.set(e, {
+                  chatJid: o("WAWebWidToJid").widToChatJid(
+                    o("WAWebWidFactory").createUserWidOrThrow(i),
+                  ),
+                  wasNewContact: I(e, i),
+                  wasNewProfile: x(t[a], n),
+                });
+            }),
+            r
+          );
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(t, n) {
+      var a = C(t);
+      try {
+        var i = [o("WAWebWidFactory").createUserWidOrThrow(n)];
+        return (
+          a !== "" &&
+            i.push(o("WAWebWidFactory").createUserWidOrThrow(a + "@c.us")),
+          i.every(function (e) {
+            var t = o("WAWebContactCollection").ContactCollection.get(e);
+            return (
+              t == null || !o("WAWebFrontendContactGetters").getIsMyContact(t)
+            );
+          })
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] contact snapshot unreadable, treating as pre-existing",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("cm-import-snapshot-unreadable"),
+          !1
+        );
+      }
+    }
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = new Set();
+          if (
+            (e.forEach(function (e) {
+              e != null && t.add(e);
+            }),
+            t.size === 0)
+          )
+            return null;
+          try {
+            return yield o(
+              "WAWebCustomerManagerImportExistingCustomerDetector",
+            ).fetchExistingProfileLids(Array.from(t));
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] profile existence lookup failed for ",
+                      " candidates; undo will keep their profiles",
+                    ])),
+                  t.size,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("cm-import-profile-existence-lookup-failed"),
+              null
+            );
+          }
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e, t) {
+      return t != null && e != null && !t.has(e);
+    }
+    function $(e, t, n, a) {
+      var i = [],
+        l = a.failureCount,
+        u = a.successCount;
+      return (
+        t.forEach(function (t, a) {
+          var c = e[a],
+            d = c.rowIndex;
+          if (t.status === "fulfilled") {
+            var m = n.get(c);
+            (m != null && i.push(babelHelpers.extends({}, m, { rowIndex: d })),
+              (u += 1));
+            return;
+          }
+          (o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] save failed for row ",
+                  "",
+                ])),
+              d,
+            )
+            .catching(r("getErrorSafe")(t.reason))
+            .sendLogs("cm-import-save-row-failed"),
+            (l += 1));
+        }),
+        {
+          failureCount: l,
+          savedContacts: [].concat(a.savedContacts, i),
+          successCount: u,
+        }
+      );
+    }
+    function P(e, t, n, r, o) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, o) {
             if (r >= e.length) return o;
             var a = e.slice(r, r + t),
               i = yield n(a);
-            return L(e, t, n, r + t, [].concat(o, i));
+            return P(e, t, n, r + t, [].concat(o, i));
           },
         )),
-        E.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function k(e) {
+    function M(e) {
       var t = [],
         n = [];
       return (
@@ -186,10 +308,10 @@ __d(
             o,
             a,
             i,
-            l = (r = (o = y(e)) == null ? void 0 : o.trim()) != null ? r : "";
+            l = (r = (o = b(e)) == null ? void 0 : o.trim()) != null ? r : "";
           if (
             l !== "" ||
-            h(e) === "" ||
+            C(e) === "" ||
             ((a = (i = e.firstName) == null ? void 0 : i.trim()) != null
               ? a
               : "") === ""
@@ -198,7 +320,7 @@ __d(
             return;
           }
           try {
-            t.push({ contact: e, input: _(e) });
+            t.push({ contact: e, input: g(e) });
           } catch (t) {
             n.push(e);
           }
@@ -206,12 +328,12 @@ __d(
         { batchable: t, individual: n }
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function T() {
+    function A() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
           try {
             yield o("WAWebSaveContactAction").saveContactBatchAction(
@@ -232,8 +354,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] batched contact save failed for ",
                       " rows; retrying them per row",
                     ])),
@@ -241,11 +363,11 @@ __d(
                 )
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("cm-import-save-batch-fallback"),
-              L(
+              P(
                 e,
-                m,
+                _,
                 function (e) {
-                  return (d || (d = n("Promise"))).allSettled(
+                  return (p || (p = n("Promise"))).allSettled(
                     e.map(function (e) {
                       var t = e.input;
                       return o(
@@ -263,15 +385,15 @@ __d(
             return { status: "fulfilled", value: void 0 };
           });
         })),
-        T.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function x() {
+    function O() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
           try {
             yield o("WAWebCustomerDataFieldSaver").upsertAsCustomers(e);
@@ -279,8 +401,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] batched profile upsert failed for ",
                       " rows",
                     ])),
@@ -297,15 +419,15 @@ __d(
             return { status: "fulfilled", value: void 0 };
           });
         })),
-        x.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function $(e) {
-      return L(
+    function B(e) {
+      return P(
         e,
-        m,
+        _,
         function (e) {
-          return (d || (d = n("Promise"))).allSettled(
+          return (p || (p = n("Promise"))).allSettled(
             e.map(function (e) {
               var t = e.input;
               return o(
@@ -318,7 +440,7 @@ __d(
         [],
       );
     }
-    function P(e, t) {
+    function W(e, t) {
       return {
         chatJid: e.input.chatJid,
         extraFields: o(
@@ -330,12 +452,12 @@ __d(
         leadStage: e.input.leadStage,
       };
     }
-    function N(e, t) {
+    function q(e, t) {
       return e.filter(function (e, n) {
         return t[n].status === "fulfilled";
       });
     }
-    function M(e, t, n) {
+    function U(e, t, n) {
       var r = [].concat(e);
       return (
         t.forEach(function (e, t) {
@@ -344,19 +466,19 @@ __d(
         r
       );
     }
-    function w(e) {
+    function V(e) {
       return e.map(function (e) {
         return e.status === "fulfilled"
           ? { status: "fulfilled", value: void 0 }
           : { status: "rejected", reason: e.reason };
       });
     }
-    function A(e, t) {
-      return L(
+    function H(e, t) {
+      return P(
         e,
-        m,
+        _,
         function (e) {
-          return (d || (d = n("Promise"))).allSettled(
+          return (p || (p = n("Promise"))).allSettled(
             e.map(function (e) {
               var n = e.input;
               return t(n);
@@ -367,46 +489,46 @@ __d(
         [],
       );
     }
-    function F(e, t) {
-      return O.apply(this, arguments);
+    function G(e, t) {
+      return z.apply(this, arguments);
     }
-    function O() {
+    function z() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield t(e.indexes);
           return {
-            indexes: N(e.indexes, n),
-            results: M(e.results, e.indexes, n),
+            indexes: q(e.indexes, n),
+            results: U(e.results, e.indexes, n),
           };
         })),
-        O.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function B(e) {
-      return W.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function W() {
+    function K() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield $(e),
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield B(e),
             n = {
-              indexes: N(
+              indexes: q(
                 e.map(function (e, t) {
                   return t;
                 }),
                 t,
               ),
-              results: w(t),
+              results: V(t),
             },
-            r = yield F(n, function (t) {
-              return I(
+            r = yield G(n, function (t) {
+              return w(
                 t.map(function (t) {
                   return e[t];
                 }),
               );
             }),
-            a = yield F(r, function (t) {
-              return A(
+            a = yield G(r, function (t) {
+              return H(
                 t.map(function (t) {
                   return e[t];
                 }),
@@ -414,15 +536,15 @@ __d(
                   .createCustomerChat,
               );
             }),
-            i = yield F(a, function (n) {
-              return D(
+            i = yield G(a, function (n) {
+              return F(
                 n.map(function (n) {
-                  return P(e[n], t[n]);
+                  return W(e[n], t[n]);
                 }),
               );
             }),
-            l = yield F(i, function (t) {
-              return A(
+            l = yield G(i, function (t) {
+              return H(
                 t.map(function (t) {
                   return e[t];
                 }),
@@ -431,64 +553,71 @@ __d(
             });
           return l.results;
         })),
-        W.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    function U() {
+    function X() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = k(e),
-            r = t.batchable,
-            a = t.individual,
-            i = yield L(r, p, B, 0, []),
-            l = yield L(
-              a,
-              m,
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield E(e),
+            r = M(e),
+            a = r.batchable,
+            i = r.individual,
+            l = yield P(a, f, j, 0, []),
+            s = yield P(
+              i,
+              _,
               function (e) {
-                return (d || (d = n("Promise"))).allSettled(
+                return (p || (p = n("Promise"))).allSettled(
                   e.map(function (e) {
-                    return f(e);
+                    return h(e);
                   }),
                 );
               },
               0,
               [],
             ),
-            s = R(
-              a,
-              l,
-              R(
-                r.map(function (e) {
+            u = $(
+              i,
+              s,
+              t,
+              $(
+                a.map(function (e) {
                   var t = e.contact;
                   return t;
                 }),
-                i,
-                { failureCount: 0, successCount: 0 },
+                l,
+                t,
+                { failureCount: 0, savedContacts: [], successCount: 0 },
               ),
             );
           return (
             o("WALogger")
               .LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[cm:import] save complete: ",
                     " ok, ",
                     " failed",
                   ])),
-                s.successCount,
-                s.failureCount,
+                u.successCount,
+                u.failureCount,
               )
               .sendLogs("cm-import-save-complete"),
-            s
+            babelHelpers.extends({}, u, {
+              savedContacts: [].concat(u.savedContacts).sort(function (e, t) {
+                return e.rowIndex - t.rowIndex;
+              }),
+            })
           );
         })),
-        U.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    l.saveImportedContacts = q;
+    l.saveImportedContacts = Q;
   },
   98,
 );

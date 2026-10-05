@@ -14,7 +14,16 @@ __d(
         )
       );
     }
-    l.isCallUserJourneyLoggingEnabled = e;
+    function s() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_calling_call_user_journey_logging_m2_enabled",
+        )
+      );
+    }
+    ((l.isCallUserJourneyLoggingEnabled = e),
+      (l.isCallUserJourneyM2Enabled = s));
   },
   98,
 );

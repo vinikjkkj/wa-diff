@@ -18,7 +18,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(d),
+          var t = e.map(p),
             n = new Set(),
             r = [];
           if (
@@ -28,7 +28,7 @@ __d(
             r.length === 0)
           )
             return { errorList: [], validContacts: e };
-          var a = yield p(r);
+          var a = yield d(r);
           if (a == null) return { errorList: [], validContacts: e };
           var i = [],
             l = [];
@@ -60,7 +60,35 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(t) {
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            return yield f(e);
+          } catch (t) {
+            return (
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] existing-customer lookup failed for ",
+                      " candidates; importing without duplicate detection",
+                    ])),
+                  e.length,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("cm-import-existing-customer-lookup-failed"),
+              null
+            );
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(t) {
       if (t.lid == null) return null;
       var n;
       try {
@@ -83,54 +111,39 @@ __d(
           null
         );
       }
-      return m(n);
+      return _(n);
     }
-    function m(e) {
+    function _(e) {
       var t = String(e);
       return t.endsWith(o("WAJids").LID_DOMAIN)
         ? t.slice(0, -o("WAJids").LID_DOMAIN.length)
         : null;
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o(
-              "WAWebContactManagerCustomerProfilesQuery",
-            ).fetchCompleteCustomerProfileRecords({ candidateLids: e });
-            if (t == null) return null;
-            var n = new Set();
-            return (
-              t.forEach(function (e) {
-                var t = m(e.chatJid);
-                t != null && n.add(t);
-              }),
-              n
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] existing-customer lookup failed for ",
-                      " candidates; importing without duplicate detection",
-                    ])),
-                  e.length,
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("cm-import-existing-customer-lookup-failed"),
-              null
-            );
-          }
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebContactManagerCustomerProfilesQuery",
+          ).fetchCompleteCustomerProfileRecords({ candidateLids: e });
+          if (t == null) return null;
+          var n = new Set();
+          return (
+            t.forEach(function (e) {
+              var t = _(e.chatJid);
+              t != null && n.add(t);
+            }),
+            n
+          );
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.detectExistingCustomers = u;
+    ((l.detectExistingCustomers = u),
+      (l.resolveBareLid = p),
+      (l.fetchExistingProfileLids = f));
   },
   98,
 );

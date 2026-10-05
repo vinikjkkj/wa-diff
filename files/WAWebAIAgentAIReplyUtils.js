@@ -75,73 +75,88 @@ __d(
           ? (s || (s = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
             f(t, function () {
-              return h(e, t, e.unreadCount, r, a);
+              return h({
+                chat: e,
+                previousAiHandoffStartedAt: a,
+                previousIsAiHandoff: r,
+                previousUnreadCount: e.unreadCount,
+                state: t,
+              });
             }).finally(function () {
               t.inFlight = !1;
             }))
       );
     }
-    function h(e, t, n, r, o) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l) {
-            if (n.desired === n.serverConfirmed) return !0;
-            var s = n.desired,
-              u = !1,
-              m = null;
-            try {
-              var p = yield o(
-                "WAWebAiAgentAutoReplyControlMutation",
-              ).changeAiReplyStatus(
-                t.id,
-                s ===
-                  o("WAWebProtobufsE2E.pb")
-                    .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                    .CONTROL_TAKEN
-                  ? "ENABLED"
-                  : "MUTED",
-              );
-              ((u = p.isSuccess === !0),
-                p.isSuccess === !0 && (m = p.updateTimestampMs));
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Maiba] mutateAiReplyStatus failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("maiba-mutate-ai-reply-fail");
-            }
-            return u
-              ? ((n.serverConfirmed = s),
-                m != null && (n.watermarkMs = Math.max(n.watermarkMs, m)),
-                h(t, n, a, i, l))
-              : ((n.desired = n.serverConfirmed),
-                (t.unreadCount = a),
-                (t.isAiHandoff = i),
-                (t.aiHandoffStartedAt = l),
-                o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
-                  t,
-                  n.serverConfirmed,
-                  d,
-                ),
-                o("WAWebModalManager").ModalManager.open(
-                  c.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
-                    isTurnOn:
-                      s ===
-                      o("WAWebProtobufsE2E.pb")
-                        .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                        .CONTROL_TAKEN,
-                  }),
-                ),
-                !1);
-          },
-        )),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.chat,
+            a = t.previousAiHandoffStartedAt,
+            i = t.previousIsAiHandoff,
+            l = t.previousUnreadCount,
+            s = t.state;
+          if (s.desired === s.serverConfirmed) return !0;
+          var u = s.desired,
+            m = !1,
+            p = null;
+          try {
+            var _ = yield o(
+              "WAWebAiAgentAutoReplyControlMutation",
+            ).changeAiReplyStatus(
+              n.id,
+              u ===
+                o("WAWebProtobufsE2E.pb")
+                  .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                  .CONTROL_TAKEN
+                ? "ENABLED"
+                : "MUTED",
+            );
+            ((m = _.isSuccess === !0),
+              _.isSuccess === !0 && (p = _.updateTimestampMs));
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Maiba] mutateAiReplyStatus failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("maiba-mutate-ai-reply-fail");
+          }
+          return m
+            ? ((s.serverConfirmed = u),
+              p != null && (s.watermarkMs = Math.max(s.watermarkMs, p)),
+              h({
+                chat: n,
+                previousAiHandoffStartedAt: a,
+                previousIsAiHandoff: i,
+                previousUnreadCount: l,
+                state: s,
+              }))
+            : ((s.desired = s.serverConfirmed),
+              (n.unreadCount = l),
+              (n.isAiHandoff = i),
+              (n.aiHandoffStartedAt = a),
+              o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
+                n,
+                s.serverConfirmed,
+                d,
+              ),
+              o("WAWebModalManager").ModalManager.open(
+                c.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
+                  isTurnOn:
+                    u ===
+                    o("WAWebProtobufsE2E.pb")
+                      .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                      .CONTROL_TAKEN,
+                }),
+              ),
+              !1);
+        })),
         y.apply(this, arguments)
       );
     }

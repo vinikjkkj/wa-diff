@@ -93,8 +93,7 @@ __d(
       return !1;
     }
     function p(e, t, n) {
-      if (!o("WAWebABProps").getABPropConfigValue("flows_wa_web") || m(e, n))
-        return !1;
+      if (m(e, n)) return !1;
       var r = n != null ? n.galaxyFlowDisabled !== void 0 : !1;
       if (
         !r &&

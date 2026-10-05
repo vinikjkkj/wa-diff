@@ -25,11 +25,11 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             var a = yield r("WAWebGetAccessTokenFromOIDCCode")(e, t),
-              i = o("WAWebCommonAdsTypes").asAdAccountToken(
-                a.token,
-                a.bp_id,
-                "FB",
-              );
+              i = o("WAWebCommonAdsTypes").asAdAccountToken({
+                bp_id: a.bp_id,
+                token: a.token,
+                type: "FB",
+              });
             (o("WAWebBizNativeAdsStoredFBIdentityStore").storeFBIdentity(i),
               o(
                 "WAWebResolveAccountTypeAndAdPage",

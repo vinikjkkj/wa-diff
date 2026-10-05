@@ -12,8 +12,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t) {
-      var o = new (r("WAWebFtsV3MessageSource"))(t);
+    function s() {
+      var t = new (r("WAWebFtsV3MessageSource"))();
       return {
         indexers: {
           1: function (o) {
@@ -21,38 +21,38 @@ __d(
             return (e || (e = n("Promise"))).resolve(t);
           },
           3: function (a) {
-            var t = new (r("WAFtsV3Indexer"))(
+            var o = new (r("WAFtsV3Indexer"))(
               a,
-              r("nullthrows")(o),
+              r("nullthrows")(t),
               new (r("WAWebFtsV3IndexTableAdapter"))(),
             );
             return (
-              t.setSignaller(new (r("WAWebFtsV3Signaller"))()),
-              (e || (e = n("Promise"))).resolve(t)
+              o.setSignaller(new (r("WAWebFtsV3Signaller"))()),
+              (e || (e = n("Promise"))).resolve(o)
             );
           },
           3.1: function (a) {
-            var t = new (r("WAFtsV3Indexer"))(
+            var o = new (r("WAFtsV3Indexer"))(
               a,
-              r("nullthrows")(o),
+              r("nullthrows")(t),
               new (r("WAWebFtsV3IndexTableAdapter"))(),
               6,
             );
             return (
-              t.setSignaller(new (r("WAWebFtsV3Signaller"))()),
-              (e || (e = n("Promise"))).resolve(t)
+              o.setSignaller(new (r("WAWebFtsV3Signaller"))()),
+              (e || (e = n("Promise"))).resolve(o)
             );
           },
           3.2: function (a) {
-            var t = new (r("WAFtsV3Indexer"))(
+            var o = new (r("WAFtsV3Indexer"))(
               a,
-              r("nullthrows")(o),
+              r("nullthrows")(t),
               new (r("WAWebFtsV3IndexTableAdapter"))(),
               6,
             );
             return (
-              t.setSignaller(new (r("WAWebFtsV3Signaller"))()),
-              (e || (e = n("Promise"))).resolve(t)
+              o.setSignaller(new (r("WAWebFtsV3Signaller"))()),
+              (e || (e = n("Promise"))).resolve(o)
             );
           },
         },

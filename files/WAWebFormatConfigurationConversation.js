@@ -9,7 +9,6 @@ __d(
     "WAWebBulletedListItemFormatMutator",
     "WAWebCodeFormatMutator",
     "WAWebEmojiFormatMutator",
-    "WAWebFormatConfiguration",
     "WAWebGroupMentionFormatMutator",
     "WAWebHeadingFormatMutator",
     "WAWebHighlightFormatMutator",
@@ -56,13 +55,10 @@ __d(
         D = T === void 0 ? r("WAWebNoop") : T,
         x = t.terms,
         $ = x === void 0 ? null : x,
-        P = t.messageHasSpoiler,
-        N = P === void 0 ? !1 : P,
-        M = t.spoilerInteractive,
-        w = t.boldXstyle,
-        A = t.codeXstyle,
-        F = t.linkXstyle,
-        O =
+        P = t.boldXstyle,
+        N = t.codeXstyle,
+        M = t.linkXstyle,
+        w =
           _ && d != null && d.length > 0
             ? [
                 [
@@ -71,13 +67,13 @@ __d(
                 ],
               ]
             : null,
-        B;
+        A;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
           C &&
           C.length > 0 &&
-          (B = [
+          (A = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
               { commands: C, selectable: m },
@@ -87,14 +83,14 @@ __d(
           [
             [
               o("WAWebCodeFormatMutator").Code,
-              { selectable: m, codeXstyle: A },
+              { selectable: m, codeXstyle: N },
             ],
           ],
           v
             ? [
                 [
                   r("WAWebInlineCodeFormatMutator"),
-                  { selectable: m, codeXstyle: A },
+                  { selectable: m, codeXstyle: N },
                 ],
               ]
             : null,
@@ -124,16 +120,11 @@ __d(
               ]
             : null,
           R ? [[r("WAWebNumberedListFormatMutator"), { selectable: m }]] : null,
-          o("WAWebFormatConfiguration").spoilerMutatorEntry({
-            messageHasSpoiler: N,
-            selectable: m,
-            spoilerInteractive: M,
-          }),
           _
             ? [
                 [
                   r("WAWebLinkFormatMutator"),
-                  { links: u, selectable: m, onLinkClick: D, linkXstyle: F },
+                  { links: u, selectable: m, onLinkClick: D, linkXstyle: M },
                 ],
               ]
             : null,
@@ -163,9 +154,9 @@ __d(
               ]
             : null,
           !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(m) : null,
-          O,
+          w,
           [
-            [r("WAWebBoldFormatMutator"), { selectable: m, boldXstyle: w }],
+            [r("WAWebBoldFormatMutator"), { selectable: m, boldXstyle: P }],
             [r("WAWebItalicFormatMutator"), { selectable: m }],
             [r("WAWebStrikethroughFormatMutator"), { selectable: m }],
           ],
@@ -178,7 +169,7 @@ __d(
                 ],
               ]
             : null,
-          B,
+          A,
           $ != null
             ? [
                 [

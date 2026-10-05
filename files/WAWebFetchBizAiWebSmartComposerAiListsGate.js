@@ -29,94 +29,98 @@ __d(
           ? e
           : (e = n("WAWebFetchBizAiWebSmartComposerAiListsGateQuery.graphql")),
       h = "biz_ai_web_smart_composer_ai_lists_gate",
-      y = 360 * 60,
-      C = 1e4,
-      b = 2;
-    function v(e) {
+      y = "biz_ai_web_editing_coaching_gate",
+      C = 360 * 60,
+      b = 1e4,
+      v = 2;
+    function S(e) {
       o("WAWebBackendApi").frontendFireAndForget(
         "loadedBizAiWebSmartComposerAiListsGate",
         { enabled: e },
       );
     }
-    function S() {
-      var e = r("WAWebUserPrefsStore").getUser(h);
-      if (e == null || typeof e != "object") return null;
-      var t = e.enabled,
-        n = e.ts;
-      if (typeof t != "boolean" || typeof n != "number") return null;
-      var a = !o("WATimeUtils").isInFuture(
-        o("WATimeUtils").futureUnixTime(y, o("WATimeUtils").castToUnixTime(n)),
-      );
-      return a ? null : t;
-    }
     function R(e) {
-      r("WAWebUserPrefsStore").setUser(h, {
-        enabled: e,
+      o("WAWebBackendApi").frontendFireAndForget(
+        "loadedBizAiWebEditingCoachingGate",
+        { enabled: e },
+      );
+    }
+    function L(e) {
+      var t = r("WAWebUserPrefsStore").getUser(e);
+      if (t == null || typeof t != "object") return null;
+      var n = t.enabled,
+        a = t.ts;
+      if (typeof n != "boolean" || typeof a != "number") return null;
+      var i = !o("WATimeUtils").isInFuture(
+        o("WATimeUtils").futureUnixTime(C, o("WATimeUtils").castToUnixTime(a)),
+      );
+      return i ? null : n;
+    }
+    function E(e, t) {
+      r("WAWebUserPrefsStore").setUser(e, {
+        enabled: t,
         ts: o("WATimeUtils").unixTime(),
       });
     }
-    function L() {
+    function k() {
       return (
-        b *
+        v *
         (o(
           "WAWebFetchAdAccountToken",
         ).getMaximumAdAccountFetchTimeoutSeconds() *
           1e3 +
-          C)
+          b)
       );
     }
-    function E(e) {
+    function I(e) {
       if (!o("WAWebMobilePlatforms").isSMB())
         return (f || (f = n("Promise"))).resolve();
-      if (e !== "debug") {
-        var t = S();
-        if (t != null)
-          return (
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[BizAI] Smart Composer and AI Lists gate cache hit enabled=",
-                  "",
-                ])),
-              t,
-            ),
-            v(t),
-            (f || (f = n("Promise"))).resolve()
-          );
-      }
-      return (
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[BizAI] fetchBizAiWebSmartComposerAiListsGate reason=",
-              "",
-            ])),
-          e,
-        ),
-        r("WAWebNetworkStatus")
-          .waitIfOffline()
-          .then(function () {
-            return o("WAPromiseTimeout").promiseTimeout(k(), L());
-          })
-          .then(T)
-          .catch(function (e) {
-            T(
-              e instanceof o("WACustomError").TimeoutError
-                ? { type: "timeout" }
-                : { type: "network-failed" },
-            );
-          })
-      );
+      var t = e === "debug" ? null : L(h),
+        a = e === "debug" ? null : L(y);
+      return e !== "debug" &&
+        (t != null && S(t), a != null && R(a), t != null && a != null)
+        ? (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] Web experiment gate caches hit",
+              ])),
+          ),
+          (f || (f = n("Promise"))).resolve())
+        : (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] fetchBizAiWebSmartComposerAiListsGate reason=",
+                "",
+              ])),
+            e,
+          ),
+          r("WAWebNetworkStatus")
+            .waitIfOffline()
+            .then(function () {
+              return o("WAPromiseTimeout").promiseTimeout(T(), k());
+            })
+            .then(function (e) {
+              return x(e, t, a);
+            })
+            .catch(function (e) {
+              x(
+                e instanceof o("WACustomError").TimeoutError
+                  ? { type: "timeout" }
+                  : { type: "network-failed" },
+                t,
+                a,
+              );
+            }));
     }
-    function k() {
+    function T() {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (e) {
           return e.type !== "success"
             ? { type: "token-failed" }
-            : I(e.token).then(function (e) {
+            : D(e.token).then(function (e) {
                 return e.type === "ok"
-                  ? { enabled: e.enabled, type: "enabled" }
+                  ? babelHelpers.extends({}, e, { type: "enabled" })
                   : e.type === "error"
                     ? { type: "network-failed" }
                     : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
@@ -125,9 +129,11 @@ __d(
                         .then(function (e) {
                           return e.type !== "success"
                             ? { type: "token-failed" }
-                            : I(e.token).then(function (e) {
+                            : D(e.token).then(function (e) {
                                 return e.type === "ok"
-                                  ? { enabled: e.enabled, type: "enabled" }
+                                  ? babelHelpers.extends({}, e, {
+                                      type: "enabled",
+                                    })
                                   : e.type === "auth"
                                     ? (o(
                                         "WAWebFetchAdAccountToken",
@@ -139,19 +145,25 @@ __d(
               });
         });
     }
-    function I(e) {
+    function D(e) {
       return o("WAWebRelayClient")
         .fetchQuery(g, {}, { accessToken: e, environmentType: "facebook" })
         .then(function (e) {
-          var t;
+          var t, n;
           return {
-            enabled:
+            editingCoachingEnabled:
               (e == null ||
-              (t =
-                e.xfb_meta_ai_biz_agent_wa_web_smart_composer_ai_lists_gate) ==
+              (t = e.xfb_meta_ai_biz_agent_wa_web_ai_editing_coaching_gate) ==
                 null
                 ? void 0
                 : t.value) === !0,
+            enabled:
+              (e == null ||
+              (n =
+                e.xfb_meta_ai_biz_agent_wa_web_smart_composer_ai_lists_gate) ==
+                null
+                ? void 0
+                : n.value) === !0,
             type: "ok",
           };
         })
@@ -161,30 +173,32 @@ __d(
             : { type: "error" };
         });
     }
-    function T(e) {
+    function x(e, t, n) {
       e: {
-        var t = e;
+        var r = e;
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "enabled" &&
-          "enabled" in t
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "enabled" &&
+          "editingCoachingEnabled" in r &&
+          "enabled" in r
         ) {
-          var n = t.enabled;
-          (R(n),
+          var a = r.editingCoachingEnabled,
+            i = r.enabled;
+          (E(h, i),
+            E(y, a),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[BizAI] Smart Composer and AI Lists gate enabled=",
-                  "",
+                  "[BizAI] Web experiment gates loaded",
                 ])),
-              n,
             ),
-            v(n));
+            S(i),
+            R(a));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "timeout"
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "timeout"
         ) {
           (o("WALogger")
             .WARN(
@@ -194,12 +208,13 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-smart-composer-ai-lists-gate-fetch-timeout"),
-            v(!1));
+            S(t != null ? t : !1),
+            R(n != null ? n : !1));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "auth-failed"
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "auth-failed"
         ) {
           (o("WALogger")
             .WARN(
@@ -211,12 +226,13 @@ __d(
             .sendLogs(
               "maiba-web-smart-composer-ai-lists-gate-fetch-failed-auth",
             ),
-            v(!1));
+            S(t != null ? t : !1),
+            R(n != null ? n : !1));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "network-failed"
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "network-failed"
         ) {
           (o("WALogger")
             .WARN(
@@ -228,12 +244,13 @@ __d(
             .sendLogs(
               "maiba-web-smart-composer-ai-lists-gate-fetch-failed-network",
             ),
-            v(!1));
+            S(t != null ? t : !1),
+            R(n != null ? n : !1));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "token-failed"
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.type === "token-failed"
         ) {
           (o("WALogger")
             .WARN(
@@ -245,16 +262,17 @@ __d(
             .sendLogs(
               "maiba-web-smart-composer-ai-lists-gate-token-fetch-failed",
             ),
-            v(!1));
+            S(t != null ? t : !1),
+            R(n != null ? n : !1));
           break e;
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
+            r,
         );
       }
     }
-    l.fetchBizAiWebSmartComposerAiListsGate = E;
+    l.fetchBizAiWebSmartComposerAiListsGate = I;
   },
   98,
 );

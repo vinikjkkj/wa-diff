@@ -19,11 +19,7 @@ __d(
         var n = t.prototype;
         return (
           (n.isLoggingAllowed = function (t) {
-            return o("WAWebABProps").getABPropConfigValue(
-              "web_biz_quality_telemetry_enabled",
-            )
-              ? !!this.getBusinessContactType(t)
-              : !1;
+            return !!this.getBusinessContactType(t);
           }),
           (n.log = function (t) {
             this.isLoggingAllowed(this.chat) && t(this.sharedFields);

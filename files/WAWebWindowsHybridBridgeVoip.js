@@ -713,6 +713,17 @@ __d(
                 },
               ));
           }),
+          (a.reportWebAnr = function () {
+            var e = this;
+            (r("WAWebODS").incr("web.hybrid.bridge.voip.send.report_web_anr"),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                { bridge: "voip", method: "reportWebAnr", type: "async" },
+                function () {
+                  var t;
+                  return (t = e.$1) == null ? void 0 : t.reportWebAnr();
+                },
+              ));
+          }),
           (a.requestCallInfo = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this;

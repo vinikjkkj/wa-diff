@@ -1,10 +1,6 @@
 __d(
   "WAWebACSNetwork",
   [
-    "WABase64",
-    "WAWebABProps",
-    "WAWebACSClient",
-    "WAWebCanonicalUtils",
     "WAWebHttpExtendedFetch",
     "WAWebRedeemACSCredential",
     "asyncToGeneratorRuntime",
@@ -36,28 +32,9 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "acs_use_graphql_issuance",
-            ) &&
-            o("WAWebCanonicalUtils").isCanonicalPresent()
-          ) {
-            var n = yield o("WAWebACSClient").redeemWithAPTClient(e);
-            return (
-              t.set(
-                "acs_token",
-                o("WABase64").encodeB64UrlSafe(n.credential, !0) +
-                  "+" +
-                  o("WABase64").encodeB64UrlSafe(n.tag, !0),
-              ),
-              t.set("acs_project", e),
-              t.set("acs_config_id", n.serverConfigId),
-              t
-            );
-          }
-          var a = yield o("WAWebRedeemACSCredential").redeemACSCredential(e);
-          if (a == null) throw r("err")("Failed to redeem ACS credential");
-          return (t.set("acs_token", a), t.set("acs_project", e), t);
+          var n = yield o("WAWebRedeemACSCredential").redeemACSCredential(e);
+          if (n == null) throw r("err")("Failed to redeem ACS credential");
+          return (t.set("acs_token", n), t.set("acs_project", e), t);
         })),
         c.apply(this, arguments)
       );

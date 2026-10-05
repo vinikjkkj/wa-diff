@@ -247,47 +247,43 @@ __d(
           (a[14] = M))
         : (M = a[14]);
       var w;
-      if (
-        (a[15] !== N || a[16] !== M
-          ? ((w = u.jsx(
-              r("WDSMenuItem.react"),
-              {
-                Icon: r("WDSIconIcInfo.react"),
-                title: N,
-                onPress: M,
-                testid: "menu-item-chat-info",
-              },
-              "info",
-            )),
-            (a[15] = N),
-            (a[16] = M),
-            (a[17] = w))
-          : (w = a[17]),
-        v.push(w),
-        o("WAWebABProps").getABPropConfigValue("wa_web_chat_search_entrypoint"))
-      ) {
-        var A;
-        a[18] === Symbol.for("react.memo_cache_sentinel")
-          ? ((A = s._(/*BTDS*/ "Search")), (a[18] = A))
-          : (A = a[18]);
-        var F = A,
-          O;
-        (a[19] !== p
-          ? ((O = u.jsx(
-              r("WDSMenuItem.react"),
-              {
-                Icon: r("WDSIconIcSearch.react"),
-                title: F,
-                onPress: p,
-                testid: "mi-search-chat",
-              },
-              "search",
-            )),
-            (a[19] = p),
-            (a[20] = O))
-          : (O = a[20]),
-          v.push(O));
-      }
+      (a[15] !== N || a[16] !== M
+        ? ((w = u.jsx(
+            r("WDSMenuItem.react"),
+            {
+              Icon: r("WDSIconIcInfo.react"),
+              title: N,
+              onPress: M,
+              testid: "menu-item-chat-info",
+            },
+            "info",
+          )),
+          (a[15] = N),
+          (a[16] = M),
+          (a[17] = w))
+        : (w = a[17]),
+        v.push(w));
+      var A;
+      a[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = s._(/*BTDS*/ "Search")), (a[18] = A))
+        : (A = a[18]);
+      var F = A,
+        O;
+      (a[19] !== p
+        ? ((O = u.jsx(
+            r("WDSMenuItem.react"),
+            {
+              Icon: r("WDSIconIcSearch.react"),
+              title: F,
+              onPress: p,
+              testid: "mi-search-chat",
+            },
+            "search",
+          )),
+          (a[19] = p),
+          (a[20] = O))
+        : (O = a[20]),
+        v.push(O));
       var B;
       a[21] === Symbol.for("react.memo_cache_sentinel")
         ? ((B = s._(/*BTDS*/ "Select messages")), (a[21] = B))

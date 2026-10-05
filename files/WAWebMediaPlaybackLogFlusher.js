@@ -3,9 +3,7 @@ __d(
   [
     "WAWebCrashlog",
     "WAWebMediaPlaybackEventLogger",
-    "WAWebNewsletterGatingUtils",
     "WAWebPsChannelsSnaplEventWamEvent",
-    "WAWebStatusGatingUtils",
     "WAWebWamEnumMessageType",
     "err",
   ],
@@ -19,15 +17,10 @@ __d(
       return (
         (t.flushLogs = function (t) {
           var e = this.$1.consumeLoggerEvents(),
-            n = e;
-          if (
-            ((o("WAWebNewsletterGatingUtils").isCometVideoPlayerEnabled() ||
-              o("WAWebStatusGatingUtils").isStatusCometVideoPlayerEnabled()) &&
-              (n = e.filter(function (e) {
-                return e.required_metadata.persistent_id != null;
-              })),
-            n.length !== 0)
-          )
+            n = e.filter(function (e) {
+              return e.required_metadata.persistent_id != null;
+            });
+          if (n.length !== 0)
             switch (this.$2) {
               case o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL:
                 n.forEach(function (e) {

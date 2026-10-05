@@ -10,6 +10,7 @@ __d(
     "WAWebAck",
     "WAWebAfterReadUtils",
     "WAWebCommonMsgUtils",
+    "WAWebDBExperienceIdStore",
     "WAWebDBGroupHistoryPreProcessor",
     "WAWebDBMessageRangeIndex",
     "WAWebDBMessageSerialization",
@@ -195,7 +196,8 @@ __d(
                     return { id: String(e.rowId) };
                   }),
                 );
-            }));
+            }),
+            o("WAWebDBExperienceIdStore").recordReceivedExperienceIds(e));
         });
     }
     function f(e, t) {

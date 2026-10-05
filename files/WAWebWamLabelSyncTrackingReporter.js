@@ -2,7 +2,6 @@ __d(
   "WAWebWamLabelSyncTrackingReporter",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebMdLabelSyncTrackingWamEvent",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsMultiDevice",
@@ -35,12 +34,7 @@ __d(
       return c;
     }
     function f() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_label_sync_critical_event_logging",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function g() {
       if (d != null) return d;

@@ -58,11 +58,6 @@ __d(
       );
     }
     function y() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_rich_response_side_by_side_survey_enabled",
-      );
-    }
-    function C() {
       return r("gkx")("6940");
     }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
@@ -76,8 +71,7 @@ __d(
       (l.isUrZeitgeistCitationsEnabled = f),
       (l.isUrZeitgeistCarouselEnabled = g),
       (l.isRichResponseInAppSurveyEnabled = h),
-      (l.isRichResponseSideBySideSurveyEnabled = y),
-      (l.isFoABloksNodeRendererEnabled = C));
+      (l.isFoABloksNodeRendererEnabled = y));
   },
   98,
 );

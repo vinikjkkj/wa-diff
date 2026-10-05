@@ -32,24 +32,10 @@ __d(
         ? !0
         : (o("WAWebWWAILogging").logTransportMissingOnce(), !1);
     }
-    function s() {
-      try {
-        return (
-          e() &&
-          o("WAWebABProps").getABPropConfigValue(
-            "ai_contextual_writing_help_enabled",
-          ) === !0
-        );
-      } catch (e) {
-        return !1;
-      }
-    }
-    function u(t) {
+    function s(t) {
       return r("WAWebWid").isNewsletter(t) ? !1 : e();
     }
-    ((l.isWWAIEnabled = e),
-      (l.isContextualWritingHelpEnabled = s),
-      (l.isWWAIEnabledForChat = u));
+    ((l.isWWAIEnabled = e), (l.isWWAIEnabledForChat = s));
   },
   98,
 );

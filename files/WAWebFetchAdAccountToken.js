@@ -125,12 +125,12 @@ __d(
                   e.name,
                   C(),
                   {
-                    token: o("WAWebCommonAdsTypes").asAdAccountToken(
-                      e.value.accessTokenElementValue,
-                      e.value.businessPersonId,
-                      "WAA",
-                      s(e.value.tokenType),
-                    ),
+                    token: o("WAWebCommonAdsTypes").asAdAccountToken({
+                      bp_id: e.value.businessPersonId,
+                      token: e.value.accessTokenElementValue,
+                      tokenStrength: s(e.value.tokenType),
+                      type: "WAA",
+                    }),
                     type: "success",
                   }
                 );

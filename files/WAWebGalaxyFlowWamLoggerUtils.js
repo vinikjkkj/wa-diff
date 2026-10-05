@@ -29,7 +29,6 @@ __d(
     var e, s;
     function u(e) {
       return (
-        o("WAWebABProps").getABPropConfigValue("flows_wa_web") &&
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
         e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
         e.nativeFlowName ===

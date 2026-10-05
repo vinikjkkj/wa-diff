@@ -7,13 +7,15 @@ __d(
       s,
       u = ((e = r("justknobx")._("3655")) != null ? e : 0) / 10,
       c = (s = r("justknobx")._("3657")) != null ? s : 0;
-    function d(e, t, n) {
-      var r = n ? 1 : u,
-        o = n ? u : 1;
+    function d(e, t, n, r) {
+      var o = n ? 1 : u,
+        a = n ? u : 1,
+        i = Math.min(e * a, t),
+        l = Math.min(e * o, t);
       return {
-        bottomMax: Math.min(e * o, t),
+        bottomMax: r != null && !n ? r : i,
         lowerBound: t / c,
-        topMax: Math.min(e * r, t),
+        topMax: r != null && n ? r : l,
       };
     }
     function m(e, t, n) {

@@ -4,6 +4,10 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBotGroupGatingUtils",
+    "WAWebBotProduct",
+    "WAWebBotProfileCollection",
+    "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebChatStateBridge",
     "WAWebContactPresenceBridge",
@@ -19,32 +23,83 @@ __d(
       d,
       m,
       p = 2500,
-      _ = 1e4;
-    function f(e) {
+      _ = 1e4,
+      f = new WeakMap();
+    function g(e, t) {
       if (
         !(
           o("WAWebChatGetters").getIsNewsletter(e) ||
           e.id.isBot() ||
           o("WAWebChatGetters").getIsBroadcast(e)
         )
+      ) {
+        var n = o("WAWebStateUtils").unproxy(e);
+        return E(n, h(n, t));
+      }
+    }
+    function h(e, t) {
+      var n,
+        r,
+        a = (n = e.groupMetadata) == null ? void 0 : n.participants;
+      if (
+        a == null ||
+        t == null ||
+        t.some(function (e) {
+          return (
+            o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e) ||
+            o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
+          );
+        })
       )
-        return v(o("WAWebStateUtils").unproxy(e));
+        return null;
+      var i = t.filter(function (e) {
+          return (
+            o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) &&
+            a.get(e) != null
+          );
+        }),
+        l = (r = i.find(C)) != null ? r : y(i);
+      return l == null
+        ? null
+        : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+          ? l
+          : null;
     }
-    function g(e) {
+    function y(e) {
+      var t = e[0];
+      return t == null ||
+        e.some(function (e) {
+          return !e.equals(t);
+        })
+        ? null
+        : t;
+    }
+    function C(e) {
+      var t;
+      return (
+        o("WAWebBotProduct").botProductFromServerValue(
+          (t = o("WAWebBotProfileCollection").BotProfileCollection.get(e)) ==
+            null
+            ? void 0
+            : t.product,
+        ) === o("WAWebBotProduct").BotProduct.MUSE
+      );
+    }
+    function b(e) {
       if (!(o("WAWebChatGetters").getIsNewsletter(e) || e.id.isBot()))
-        return S(o("WAWebStateUtils").unproxy(e));
+        return k(o("WAWebStateUtils").unproxy(e));
     }
-    function h(e) {
+    function v(e) {
       if (!(o("WAWebChatGetters").getIsNewsletter(e) || e.id.isBot()))
-        return R(o("WAWebStateUtils").unproxy(e));
+        return D(o("WAWebStateUtils").unproxy(e));
     }
-    function y() {
+    function S() {
       o("WAWebContactPresenceBridge").setPresenceAvailable();
     }
-    function C() {
+    function R() {
       o("WAWebContactPresenceBridge").setPresenceUnavailable();
     }
-    function b(t) {
+    function L(t) {
       if (!o("WAWebLidMigrationUtils").shouldHaveAccountLid(t.id)) return t.id;
       if (t.accountLid == null) {
         var n =
@@ -61,11 +116,12 @@ __d(
       }
       return t.accountLid;
     }
-    function v(e) {
-      if (!e.typing) {
-        var t = b(e);
-        (o("WAWebChatStateBridge")
-          .sendChatStateComposing(t)
+    function E(e, t) {
+      var n = !I(f.get(e), t);
+      if ((T(e, t), !e.typing || n)) {
+        var r = L(e);
+        o("WAWebChatStateBridge")
+          .sendChatStateComposing(r, t)
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
@@ -77,24 +133,25 @@ __d(
                         "models:chat send presence composing error ",
                         "",
                       ])),
-                    t.toLogString(),
+                    r.toLogString(),
                   );
               },
             ),
-          ),
-          (e.presenceResendTimerId = self.setTimeout(function () {
-            return L(e);
-          }, _)));
+          );
       }
-      ((e.typing = !0),
+      (e.typing ||
+        (e.presenceResendTimerId = self.setTimeout(function () {
+          return x(e);
+        }, _)),
+        (e.typing = !0),
         e.pausedTimerId && self.clearTimeout(e.pausedTimerId),
         (e.pausedTimerId = self.setTimeout(function () {
-          return S(e);
+          return k(e);
         }, p)));
     }
-    function S(e) {
+    function k(e) {
       if (e.typing || e.recording) {
-        var t = b(e);
+        var t = L(e);
         o("WAWebChatStateBridge")
           .sendChatStatePaused(t)
           .catch(
@@ -119,11 +176,18 @@ __d(
         e.unset("presenceResendTimerId")),
         e.pausedTimerId &&
           (self.clearTimeout(e.pausedTimerId), e.unset("pausedTimerId")),
-        (e.typing = e.recording = !1));
+        (e.typing = e.recording = !1),
+        f.delete(e));
     }
-    function R(e) {
+    function I(e, t) {
+      return e == null || t == null ? e == null && t == null : e.equals(t);
+    }
+    function T(e, t) {
+      t == null ? f.delete(e) : f.set(e, t);
+    }
+    function D(e) {
       if (!e.recording) {
-        var t = b(e);
+        var t = L(e);
         (o("WAWebChatStateBridge")
           .sendChatStateRecording(t)
           .catch(
@@ -143,7 +207,7 @@ __d(
             ),
           ),
           (e.presenceResendTimerId = self.setTimeout(function () {
-            return L(e);
+            return x(e);
           }, _)));
       }
       (e.pausedTimerId &&
@@ -151,8 +215,8 @@ __d(
         (e.recording = !0),
         (e.typing = !1));
     }
-    function L(e) {
-      var t = b(e);
+    function x(e) {
+      var t = L(e);
       if (e.recording)
         o("WAWebChatStateBridge")
           .sendChatStateRecording(t)
@@ -174,7 +238,7 @@ __d(
           );
       else if (e.typing)
         o("WAWebChatStateBridge")
-          .sendChatStateComposing(t)
+          .sendChatStateComposing(t, f.get(e))
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
@@ -196,31 +260,32 @@ __d(
         return;
       }
       e.presenceResendTimerId = self.setTimeout(function () {
-        return L(e);
+        return x(e);
       }, _);
     }
-    function E(e) {
+    function $(e) {
       e.presence.isOnline
-        ? L(e)
+        ? x(e)
         : e.presenceResendTimerId &&
           (self.clearTimeout(e.presenceResendTimerId),
           e.unset("presenceResendTimerId"));
     }
-    function k(e) {
+    function P(e) {
       (e.presenceResendTimerId &&
         (self.clearTimeout(e.presenceResendTimerId),
         e.unset("presenceResendTimerId")),
         e.pausedTimerId &&
           (self.clearTimeout(e.pausedTimerId), e.unset("pausedTimerId")),
+        f.delete(o("WAWebStateUtils").unproxy(e)),
         (e.typing = !1));
     }
-    ((l.markComposing = f),
-      (l.markPaused = g),
-      (l.markRecording = h),
-      (l.sendPresenceAvailable = y),
-      (l.sendPresenceUnavailable = C),
-      (l.presenceOnlineChanged = E),
-      (l.clearPresence = k));
+    ((l.markComposing = g),
+      (l.markPaused = b),
+      (l.markRecording = v),
+      (l.sendPresenceAvailable = S),
+      (l.sendPresenceUnavailable = R),
+      (l.presenceOnlineChanged = $),
+      (l.clearPresence = P));
   },
   98,
 );

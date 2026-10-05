@@ -94,7 +94,10 @@ __d(
       Ue = {},
       Ve = {},
       He = {},
-      Ge = {};
+      Ge = {},
+      ze = {},
+      je = {},
+      Ke = {};
     ((s.name = "MinosMessageMetadata"),
       (s.internalSpec = {
         mekId: [1, (e = o("WAProtoConst")).FLAGS.REQUIRED | e.TYPES.BYTES],
@@ -609,6 +612,7 @@ __d(
         mandrakeValidateNewMmkFromDetachedDevice: [28, e.TYPES.MESSAGE, Oe],
         deriveMessagingMailboxKeypairs: [29, e.TYPES.MESSAGE, We],
         decryptSelfMmkDistribution: [30, e.TYPES.MESSAGE, Ve],
+        mandrakeValidateAndDecryptSelfMmk: [31, e.TYPES.MESSAGE, ze],
         __oneofs__: {
           commandInput: [
             "encryptAndSignMessage",
@@ -640,6 +644,7 @@ __d(
             "mandrakeValidateNewMmkFromDetachedDevice",
             "deriveMessagingMailboxKeypairs",
             "decryptSelfMmkDistribution",
+            "mandrakeValidateAndDecryptSelfMmk",
           ],
         },
       }),
@@ -662,7 +667,7 @@ __d(
       (Ve.internalSpec = {
         encryptedMmk: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         exportRootKey: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
-        mailboxHeadHash: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        mmkPublicData: [3, e.FLAGS.REQUIRED | e.TYPES.MESSAGE, ue],
       }),
       (He.name = "DecryptSelfMmkDistributionResult"),
       (He.internalSpec = {
@@ -672,6 +677,29 @@ __d(
       }),
       (Ge.name = "DecryptSelfMmkDistributionSuccess"),
       (Ge.internalSpec = { mmkSeed: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES] }),
+      (ze.name = "MandrakeValidateAndDecryptSelfMmkInput"),
+      (ze.internalSpec = {
+        newMmk: [1, e.FLAGS.REQUIRED | e.TYPES.MESSAGE, ue],
+        signature: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        existingMmk: [3, e.TYPES.MESSAGE, ue],
+        exportRootKey: [4, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        epochNumber: [5, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        expectedEpochHead: [6, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        encryptedMmk: [7, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        version: [8, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        latestStoredMmk: [9, e.TYPES.MESSAGE, ue],
+      }),
+      (je.name = "MandrakeValidateAndDecryptSelfMmkResult"),
+      (je.internalSpec = {
+        success: [1, e.TYPES.MESSAGE, Ke],
+        errorMessage: [2, e.TYPES.STRING],
+        __oneofs__: { result: ["success", "errorMessage"] },
+      }),
+      (Ke.name = "MandrakeValidateAndDecryptSelfMmkSuccess"),
+      (Ke.internalSpec = {
+        mmkSeed: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        mailboxHeadHash: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+      }),
       (l.MinosMessageMetadataSpec = s),
       (l.MinosClientConfigSpec = u),
       (l.MinosEncryptAndSignMessageInputSpec = c),
@@ -765,7 +793,10 @@ __d(
       (l.DeriveMessagingMailboxKeypairsSuccessSpec = Ue),
       (l.DecryptSelfMmkDistributionInputSpec = Ve),
       (l.DecryptSelfMmkDistributionResultSpec = He),
-      (l.DecryptSelfMmkDistributionSuccessSpec = Ge));
+      (l.DecryptSelfMmkDistributionSuccessSpec = Ge),
+      (l.MandrakeValidateAndDecryptSelfMmkInputSpec = ze),
+      (l.MandrakeValidateAndDecryptSelfMmkResultSpec = je),
+      (l.MandrakeValidateAndDecryptSelfMmkSuccessSpec = Ke));
   },
   98,
 );

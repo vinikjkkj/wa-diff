@@ -5,6 +5,7 @@ __d(
     "WAAckLevel",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebChatGetters",
     "WAWebCoreActionsODS",
     "WAWebDBProcessEditProtocolMsgs",
@@ -21,6 +22,7 @@ __d(
     "WAWebMsgModelFromData",
     "WAWebMsgRcatUtils",
     "WAWebMsgType",
+    "WAWebMsgUtilsBridge",
     "WAWebNewsletterCollection",
     "WAWebNewsletterErrors",
     "WAWebNewsletterExtendedGatingUtils",
@@ -43,16 +45,17 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g;
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = o("WAWebStateUtils").unproxy(e);
           if (!o("WAWebChatGetters").getIsNewsletter(a))
             throw new (o(
@@ -70,20 +73,20 @@ __d(
           );
           var l = new (o("WAWebMsgModel").Msg)(i),
             s = n.linkPreview ? "media" : "text";
-          return P({ chat: a, msg: l, type: s });
+          return N({ chat: a, msg: l, type: s });
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
+    function b(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
       return o("WAWebFrontendMsgGetters").getAsMms(e)
-        ? (g || (g = n("Promise"))).resolve()
-        : P({ chat: t, msg: e, type: "text" });
+        ? (h || (h = n("Promise"))).resolve()
+        : N({ chat: t, msg: e, type: "text" });
     }
-    function b(e, t, r) {
+    function v(e, t, r) {
       if (!o("WAWebChatGetters").getIsNewsletter(e))
-        return (g || (g = n("Promise"))).reject(
+        return (h || (h = n("Promise"))).reject(
           new (o("WAWebNewsletterErrors").UnexpectedNonNewsletterChatError)(),
         );
       var a =
@@ -92,10 +95,10 @@ __d(
           : new (o("WAWebMsgModel").Msg)(t);
       return (
         (a.local = !0),
-        P({ chat: e, msg: a, type: "media", uploadMediaMsg: r })
+        N({ chat: e, msg: a, type: "media", uploadMediaMsg: r })
       );
     }
-    function v(e) {
+    function S(e) {
       ((e.wamMessageSendReporter = new (o(
         "WAWebMessageSendReporter",
       ).MessageSendReporter)(e, {
@@ -110,52 +113,52 @@ __d(
           messageType: o("WAWebWamMsgUtils").getWamMessageType(e),
         })));
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             yield o("WAWebDBProcessEditProtocolMsgs").generateMessageEdit(
+              o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
               o("WAWebMsgDataFromModel").msgDataFromMsgModel(t),
-              o("WAWebMsgDataFromModel").msgDataFromMsgModel(n),
             );
-            var r = o("WAWebMsgGetters").getIsMedia(t),
-              a = o("WAWebMsgGetters").getLinkPreview(t),
-              i = o("WAWebMsgRcatUtils").getContentIdString(t, !0),
-              l =
-                i != null &&
+            var n = o("WAWebMsgGetters").getIsMedia(e),
+              r = o("WAWebMsgGetters").getLinkPreview(e),
+              a = o("WAWebMsgRcatUtils").getContentIdString(e, !0),
+              i =
+                a != null &&
                 o("WAWebNewsletterGatingUtils").isRCATFieldGenerationEnabled()
-                  ? i
+                  ? a
                   : null,
-              s = yield o(
+              l = yield o(
                 "WAWebNewsletterSendMessageJob",
               ).sendNewsletterMessageJob({
                 type: "edit",
-                editType: r || a ? "media" : "text",
-                msg: t,
+                editType: n || r ? "media" : "text",
+                msg: e,
                 newsletterJid: o(
                   "WAWebNewsletterValidationUtils",
-                ).toNewsletterJidOrThrow(t.id.remote.toJid()),
-                contentId: l,
+                ).toNewsletterJidOrThrow(e.id.remote.toJid()),
+                contentId: i,
               });
             return (
-              n.updateAck(o("WAAckLevel").ACK.SENT),
+              t.updateAck(o("WAAckLevel").ACK.SENT),
               {
-                t: s.ack.t,
+                t: l.ack.t,
                 messageSendResult:
-                  s.success === !0
+                  l.success === !0
                     ? o("WAWebSendMsgResultAction").SendMsgResult.OK
                     : o("WAWebSendMsgResultAction").SendMsgResult.ERROR_NETWORK,
               }
             );
-          } catch (t) {
+          } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[newsletter] Failed to edit message",
                     ])),
                 )
@@ -168,43 +171,43 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msgData,
             r = new (o("WAWebMsgModel").Msg)(n),
-            a = yield P({ chat: t, msg: r, type: "pollCreation" });
+            a = yield N({ chat: t, msg: r, type: "pollCreation" });
           return [r, a];
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msg;
-          return P({ chat: t, msg: n, type: "text" });
+          return N({ chat: t, msg: n, type: "text" });
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msgData;
           if (
@@ -213,8 +216,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[newsletter] Poll forwarding is not enabled",
                     ])),
                 )
@@ -223,23 +226,23 @@ __d(
               r("err")("Poll forwarding is not enabled")
             );
           var a = new (o("WAWebMsgModel").Msg)(n),
-            i = yield P({ chat: t, msg: a, type: "pollResultSnapshot" });
+            i = yield N({ chat: t, msg: a, type: "pollResultSnapshot" });
           return [a, i];
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebFrontendMsgGetters").getIsMms(t))
             return (
               o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[newsletter] Forwarding MMS messages is not supported",
                   ])),
               ),
@@ -251,7 +254,7 @@ __d(
           var n = yield o(
             "WAWebNewsletterSendMsgActionUtils",
           ).prepMsgDataForForward(t);
-          return P({
+          return N({
             chat: e,
             msg: o("WAWebMsgModelFromData").msgModelFromMsgData(n),
             type:
@@ -261,15 +264,15 @@ __d(
                 : "text",
           });
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             r,
             a = e.chat,
@@ -281,10 +284,10 @@ __d(
               "WAWebNewsletterExtendedGatingUtils",
             ).isNewsletterAdminProfilesSenderEnabled(a.newsletterMetadata)
           ) {
-            var u, _, f;
+            var u, c, f;
             s.newsletterAdminProfile =
               (u =
-                (_ = a.newsletterMetadata) == null ? void 0 : _.adminProfile) !=
+                (c = a.newsletterMetadata) == null ? void 0 : c.adminProfile) !=
               null
                 ? u
                 : {
@@ -301,10 +304,10 @@ __d(
                     pictureId: null,
                   };
           }
-          (v(s),
+          (S(s),
             (t = s.wamMessageSendPerfReporter) == null ||
               t.startRenderedStage(),
-            yield a.addQueue.enqueue((g || (g = n("Promise"))).resolve(s)).then(
+            yield a.addQueue.enqueue((h || (h = n("Promise"))).resolve(s)).then(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -325,7 +328,7 @@ __d(
             (r = s.wamMessageSendPerfReporter) == null ||
               r.postRenderedStage());
           try {
-            var h, y, C, b;
+            var g, y, C, b;
             try {
               l != null && (s = yield l(s));
             } catch (e) {
@@ -333,9 +336,9 @@ __d(
                 "WAWebNewsletterErrors",
               ).NewsletterMediaUploadError)();
             }
-            (h = s.wamMessageSendPerfReporter) == null ||
-              h.startReadyToSendStage();
-            var S = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            (g = s.wamMessageSendPerfReporter) == null ||
+              g.startReadyToSendStage();
+            var v = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 a.id.toJid(),
               ),
               R = o("WAWebMsgRcatUtils").getContentIdString(s, !0),
@@ -344,7 +347,7 @@ __d(
                   ? {
                       msg: s,
                       type: i,
-                      newsletterJid: S,
+                      newsletterJid: v,
                       mediaHandle: s.mediaHandle,
                       contentId:
                         R != null &&
@@ -354,7 +357,7 @@ __d(
                           ? o("WAWebMsgRcatUtils").getContentIdString(s, !0)
                           : null,
                     }
-                  : { msg: s, type: i, newsletterJid: S };
+                  : { msg: s, type: i, newsletterJid: v };
             ((y = s.wamMessageSendPerfReporter) == null ||
               y.postReadyToSendStage(),
               (C = s.wamMessageSendPerfReporter) == null ||
@@ -377,7 +380,8 @@ __d(
                   ).MissingNewsletterServerIdError)();
                 ((s.serverId = E.serverId),
                   (s.t = E.ack.t),
-                  s.updateAck(o("WAAckLevel").ACK.SENT, !0));
+                  s.updateAck(o("WAAckLevel").ACK.SENT, !0),
+                  w(s));
                 try {
                   var T, D;
                   ((T = s.wamMessageSendPerfReporter) == null ||
@@ -390,8 +394,8 @@ __d(
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "[newsletter] Failed to persist sent message on db",
                         ])),
                     )
@@ -412,8 +416,8 @@ __d(
                 return (
                   o("WALogger")
                     .ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "[newsletter] Failed to send message, ",
                           " from server",
                         ])),
@@ -442,8 +446,8 @@ __d(
               o("WAWebNewsletterErrors").MissingNewsletterServerIdError
                 ? o("WALogger")
                     .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "[newsletter] Empty serverId returned from server",
                         ])),
                     )
@@ -451,8 +455,8 @@ __d(
                     .sendLogs("newsletter-empty-server-id")
                 : o("WALogger")
                     .WARN(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "[newsletter] Failed to send message",
                         ])),
                     )
@@ -484,15 +488,43 @@ __d(
               (s.wamMessageSendPerfReporter = null));
           }
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function w(t) {
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "thread_interactions_channel_own_posts_sent_web_enabled",
+        ) === !0
+      ) {
+        var n = function (n) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter:ctl] channel post send logging failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("newsletter-ctl-own-post-send-fail");
+        };
+        try {
+          o("WAWebMsgUtilsBridge")
+            .logMessageSendForChatThreadLogging(
+              o("WAWebMsgDataFromModel").msgDataFromMsgModel(t),
+            )
+            .catch(n);
+        } catch (e) {
+          n(e);
+        }
+      }
     }
-    function w() {
+    function A(e, t) {
+      return F.apply(this, arguments);
+    }
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.base64Thumb,
             a = t.invitee,
             i = t.inviteMessage,
@@ -546,8 +578,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[sendNewsletterAdminInviteMessage] Failed to send message ",
                       "",
                     ])),
@@ -562,15 +594,15 @@ __d(
             );
           }
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
+    function O(e, t) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.base64Thumb,
             a = t.inviteMessage,
             i = t.newsletterWid;
@@ -614,8 +646,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[sendNewsletterFollowerInviteMessage] send failed ",
                       "",
                     ])),
@@ -630,19 +662,19 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    ((l.sendNewsletterTextMsg = h),
-      (l.resendNewsletterMsg = C),
-      (l.sendNewsletterMediaMsg = b),
-      (l.sendNewsletterEditMsg = S),
-      (l.sendNewsletterPollCreationMsg = L),
-      (l.sendNewsletterAlbumMsg = k),
-      (l.sendNewsletterPollResultSnapshotMsg = T),
-      (l.forwardNewsletterMessage = x),
-      (l.sendNewsletterAdminInviteMessage = M),
-      (l.sendNewsletterFollowerInviteMessage = A));
+    ((l.sendNewsletterTextMsg = y),
+      (l.resendNewsletterMsg = b),
+      (l.sendNewsletterMediaMsg = v),
+      (l.sendNewsletterEditMsg = R),
+      (l.sendNewsletterPollCreationMsg = E),
+      (l.sendNewsletterAlbumMsg = I),
+      (l.sendNewsletterPollResultSnapshotMsg = D),
+      (l.forwardNewsletterMessage = $),
+      (l.sendNewsletterAdminInviteMessage = A),
+      (l.sendNewsletterFollowerInviteMessage = O));
   },
   98,
 );

@@ -216,38 +216,33 @@ __d(
       }
     }
     function R() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_video_comet_video_player_enabled",
-      );
-    }
-    function L() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
-    function E() {
+    function L() {
       return (
-        L() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
+        R() && o("WAWebABProps").getABPropConfigValue("wa_web_send_hd_photo")
       );
     }
-    function k() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_video");
     }
-    function I() {
+    function k() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "media_quality_auto_download_settings_enabled",
-        ) && k()
+        ) && E()
       );
     }
-    function T() {
+    function I() {
       var e = o("WAWebUserPrefsGeneral").resolveAutoDownloadMediaQuality();
       return e ===
         o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality.AUTO &&
-        !I()
+        !k()
         ? o("WAWebMediaAutoDownloadQuality.flow").MediaAutoDownloadQuality
             .STANDARD
         : e;
     }
-    function D() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
@@ -266,13 +261,12 @@ __d(
       (l.shouldUseWasmMediaWorkerForFile = b),
       (l.isThumbnailGenerationForMsgOnServerEnabled = v),
       (l.isThumbnailGenerationOnServerEnabledForMediaType = S),
-      (l.isVideoCometVideoPlayerEnabled = R),
-      (l.isHdImageDualUploadConsumptionEnabled = L),
-      (l.isHdImageDualUploadSendEnabled = E),
-      (l.isHdVideoDualUploadConsumptionEnabled = k),
-      (l.isMediaAutoDownloadQualityAutoEnabled = I),
-      (l.resolveEffectiveAutoDownloadMediaQuality = T),
-      (l.getHQImageThumbnailInChatScans = D));
+      (l.isHdImageDualUploadConsumptionEnabled = R),
+      (l.isHdImageDualUploadSendEnabled = L),
+      (l.isHdVideoDualUploadConsumptionEnabled = E),
+      (l.isMediaAutoDownloadQualityAutoEnabled = k),
+      (l.resolveEffectiveAutoDownloadMediaQuality = I),
+      (l.getHQImageThumbnailInChatScans = T));
   },
   98,
 );

@@ -16,64 +16,68 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e, t, n, r, o, a) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l, u) {
-            var c = yield d({
-              catalogType: u,
-              chat: t,
-              itemCount: a,
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.catalogType,
+            a = t.chat,
+            i = t.itemCount,
+            l = t.message,
+            u = t.order,
+            c = t.thumbnail,
+            m = yield d({
+              catalogType: n,
+              chat: a,
+              itemCount: i,
               message: l,
-              order: n,
-              thumbnail: i,
+              order: u,
+              thumbnail: c,
             });
-            if (o("WAWebUserPrefsMeUser").isMeAccount(t.id))
-              return o("WAWebSendMsgChatAction")
-                .addAndSendMsgToChat(t, c)[0]
-                .then(r("WAWebNoop"))
-                .catch(function (t) {
-                  throw (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "Order message send to chat failure: ",
-                          "",
-                        ])),
-                      t,
-                    ),
-                    t
-                  );
-                });
-            try {
-              var m = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
-                t,
-                c,
-              )[1];
-              if (
-                !m ||
-                m.messageSendResult !==
-                  o("WAWebSendMsgResultAction").SendMsgResult.OK
-              )
-                throw r("err")("Order message SendMsgResult failure status");
-            } catch (e) {
-              throw (
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Order message send to chat failure: ",
-                      "",
-                    ])),
-                  e,
-                ),
-                e
-              );
-            }
-          },
-        )),
+          if (o("WAWebUserPrefsMeUser").isMeAccount(a.id))
+            return o("WAWebSendMsgChatAction")
+              .addAndSendMsgToChat(a, m)[0]
+              .then(r("WAWebNoop"))
+              .catch(function (t) {
+                throw (
+                  o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Order message send to chat failure: ",
+                        "",
+                      ])),
+                    t,
+                  ),
+                  t
+                );
+              });
+          try {
+            var p = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+              a,
+              m,
+            )[1];
+            if (
+              !p ||
+              p.messageSendResult !==
+                o("WAWebSendMsgResultAction").SendMsgResult.OK
+            )
+              throw r("err")("Order message SendMsgResult failure status");
+          } catch (e) {
+            throw (
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Order message send to chat failure: ",
+                    "",
+                  ])),
+                e,
+              ),
+              e
+            );
+          }
+        })),
         c.apply(this, arguments)
       );
     }

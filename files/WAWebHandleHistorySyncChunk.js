@@ -509,7 +509,13 @@ __d(
                   o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                     .NON_BLOCKING_DATA
                 ? yield o("WAWebHistoryMsgHandlerAction")
-                    .handleNonBlockingData(ie, e, J, K, de)
+                    .handleNonBlockingData({
+                      chunkDownloadFinishTimestamp: de,
+                      chunkInfo: e,
+                      historySyncDataAppliedMetric: K,
+                      historySyncDownloadMetric: J,
+                      proto: ie,
+                    })
                     .catch(function (e) {
                       throw (
                         o("WALogger")

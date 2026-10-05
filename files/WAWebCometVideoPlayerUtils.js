@@ -7,7 +7,6 @@ __d(
     "WAWebStatusLoggingUtils",
     "WAWebWamEnumMessageType",
     "WAWebWamMsgUtils",
-    "videoPlayerUniqueID",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -32,19 +31,6 @@ __d(
       }
     }
     function s(e) {
-      var t = { height: e.clientHeight, width: e.clientWidth };
-      return {
-        accessToken: null,
-        dimensions: t,
-        productAttribution: null,
-        downstreamShareSignalTracking: null,
-        trackingNodes: "",
-        trackingDataEncrypted: "",
-        playerImplementationInstanceCountRef: { current: 1 },
-        instanceKey: r("videoPlayerUniqueID")(),
-      };
-    }
-    function u(e) {
       if (
         o("WAWebWamMsgUtils").getWamMessageType(e) ===
         o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL
@@ -83,7 +69,7 @@ __d(
       }
       return { mediaId: null, mediaIdString: null };
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       var r = o("WAWebStatusLoggingUtils").channelStatusCid(e.id.remote);
       if (r == null) return { mediaId: null, mediaIdString: null };
       if (t) return { mediaId: n, mediaIdString: null };
@@ -97,14 +83,14 @@ __d(
             mediaIdString: "cs_" + r + "_" + a,
           };
     }
-    function d(e, t, n) {
+    function c(e, t, n) {
       if (
         o("WAWebMsgGetters").getIsNewsletterStatus(e) &&
         o(
           "WAWebNewsletterGatingUtils",
         ).isNewsletterVideoPlaybackLoggingEnabled()
       ) {
-        var r = c(e, t, n);
+        var r = u(e, t, n);
         return {
           mediaId: r.mediaId,
           mediaIdString: r.mediaIdString,
@@ -120,10 +106,9 @@ __d(
       };
     }
     ((l.getCurrentWatchingModule = e),
-      (l.getInitialMetadata = s),
-      (l.getChannelMediaMetadataForSNAPL = u),
-      (l.getNewsletterStatusSNAPLMetadata = c),
-      (l.getStatusSNAPLParams = d));
+      (l.getChannelMediaMetadataForSNAPL = s),
+      (l.getNewsletterStatusSNAPLMetadata = u),
+      (l.getStatusSNAPLParams = c));
   },
   98,
 );

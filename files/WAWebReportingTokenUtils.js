@@ -11,6 +11,7 @@ __d(
     "WATimeUtils",
     "WAUseCaseSecret",
     "WAWap",
+    "WAWebABProps",
     "WAWebApiContact",
     "WAWebCreateNackFromStanza",
     "WAWebCriticalEventWamEvent",
@@ -649,9 +650,9 @@ __d(
     }
     function H(e) {
       return G(e)
-        ? o(
-            "WAWebMessagingGatingUtils",
-          ).isReportingTokenValidationFailureDebugPlaceholderEnabled()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "ft_validation_failure_drop_placeholder",
+          )
         : !1;
     }
     function G(e) {

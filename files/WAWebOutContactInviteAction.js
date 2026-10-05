@@ -7,6 +7,7 @@ __d(
     "WAWebGroupServerSentInviteEligibility",
     "WAWebMexCreateInviteCodeJob",
     "WAWebMexGroupStoreAndSendInviteSmsJob",
+    "WAWebMexLogServerSentInviteIntentJob",
     "WAWebOutContactInviteConfirmDialog.react",
     "WAWebOutContactInviteFailureDialog.react",
     "WAWebOutContactInviteGating",
@@ -103,6 +104,9 @@ __d(
           )
             return !1;
           if (n && s) {
+            o(
+              "WAWebMexLogServerSentInviteIntentJob",
+            ).mexLogServerSentInviteIntent(l, t.toString());
             var c = yield o(
               "WAWebOutContactInviteConfirmDialog.react",
             ).waitForOutContactInviteConfirmDialog(r != null ? r : l, l);
