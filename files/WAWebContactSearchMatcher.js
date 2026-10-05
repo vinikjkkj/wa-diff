@@ -12,7 +12,6 @@ __d(
     "WAWebFuzzyMatcher",
     "WAWebFuzzySearchMatchResult",
     "WAWebL10NAccentFold",
-    "WAWebListsGatingUtils",
     "WAWebPrefixSearchMatchResult",
     "WAWebSearchMatchStrategies",
     "WAWebTrunkPrefixUtils",
@@ -98,10 +97,7 @@ __d(
     }
     function f(e, t, n, a, i) {
       var l = o("WAWebFrontendContactGetters").getSearchName(e);
-      if (
-        o("WAWebListsGatingUtils").isListsEnabled() &&
-        !r("isStringNullOrEmpty")(a)
-      ) {
+      if (!r("isStringNullOrEmpty")(a)) {
         var u,
           d = o("WAWebUsernameTypes").serializeMaybeUsername(
             o("WAWebFrontendContactGetters").getUsername(e),

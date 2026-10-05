@@ -1,12 +1,6 @@
 __d(
   "WAWebVoipRelayConnectionUtils",
-  [
-    "$InternalEnum",
-    "WALogger",
-    "WAWebABProps",
-    "WAWebUA",
-    "asyncToGeneratorRuntime",
-  ],
+  ["$InternalEnum", "WALogger", "WAWebUA", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -150,11 +144,7 @@ __d(
       return a;
     }
     function R() {
-      if (!o("WAWebUA").UA.isSafari) return 0;
-      var e = o("WAWebABProps").getABPropConfigValue(
-        "web_voip_sctp_worker_safari_exp",
-      );
-      return e === 1 ? 1 : 0;
+      return o("WAWebUA").UA.isSafari ? 1 : 0;
     }
     function L() {
       return o("WAWebUA").UA.isFirefox ? 1 : 0;

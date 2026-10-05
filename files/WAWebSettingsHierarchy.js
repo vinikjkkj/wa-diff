@@ -328,9 +328,9 @@ __d(
             id: "business_tools_labels",
             isAvailable: t,
             searchCriteria: String(
-              o("WAWebSettingsFBT").businessToolsLabelsTitle(),
+              o("WAWebSettingsFBT").businessToolsListsTitle(),
             ),
-            title: o("WAWebSettingsFBT").businessToolsLabelsTitle,
+            title: o("WAWebSettingsFBT").businessToolsListsTitle,
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,

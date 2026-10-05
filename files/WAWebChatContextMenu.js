@@ -91,8 +91,7 @@ __d(
         _.push(
           u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), { chat: i }),
         ),
-        i.canToggleFavorite() &&
-          o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
+        o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
       ) {
         var f, g;
         (i.isFavorite

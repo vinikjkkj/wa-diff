@@ -144,17 +144,14 @@ __d(
           var t = this;
           if (!(n.length === 0 || a.length === 0)) {
             var l = i == null ? void 0 : i.listUpdateMode,
-              d = (i == null ? void 0 : i.suppressSuccessToast) === !0,
-              m = o("WAWebListsGatingUtils").isListsEnabled(),
-              p =
-                m &&
-                n.every(function (e) {
-                  return e.type === "add";
-                }),
-              f = a.some(function (e) {
+              s = (i == null ? void 0 : i.suppressSuccessToast) === !0,
+              d = n.every(function (e) {
+                return e.type === "add";
+              }),
+              m = a.some(function (e) {
                 return e instanceof r("WAWebContactModel");
               });
-            f &&
+            m &&
               o("WALogger")
                 .ERROR(
                   e ||
@@ -163,19 +160,14 @@ __d(
                     ])),
                 )
                 .sendLogs("contact model is invalid for editLabelAssociation");
-            var y = m
-                ? h(g.ERROR, p, l)
-                : s._(
-                    /*BTDS*/ '_j{"*":"Some labels could not be updated","_1":"The label could not be updated"}',
-                    [s._plural(n.length)],
-                  ),
-              C = o("WAWebEditLabelAssociationBridge")
+            var p = h(g.ERROR, d, l),
+              f = o("WAWebEditLabelAssociationBridge")
                 .editLabelAssociation(this.$LabelCollectionImpl$p_3(n), a)
                 .then(function () {
                   t.addOrRemoveLabelsMD(n, a);
                 });
-            if (d) {
-              C.catch(function (e) {
+            if (s) {
+              f.catch(function (e) {
                 (o("WALogger").WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -183,45 +175,37 @@ __d(
                     ])),
                 ),
                   o("WAWebToastManager").ToastManager.open(
-                    _.jsx(o("WAWebToast.react").Toast, { msg: y }),
+                    _.jsx(o("WAWebToast.react").Toast, { msg: p }),
                   ));
               });
               return;
             }
-            var b = o("WAWebActionToast.react").genId(),
-              v = new (o("WAWebActionToast.react").ActionType)(
-                m
-                  ? h(g.IN_PROGRESS, p, l)
-                  : s._(
-                      /*BTDS*/ '_j{"*":"Changing {count} labels","_1":"Changing {count} label"}',
-                      [s._plural(n.length), s._param("count", n.length)],
-                    ),
+            var y = o("WAWebActionToast.react").genId(),
+              C = new (o("WAWebActionToast.react").ActionType)(
+                h(g.IN_PROGRESS, d, l),
               ),
-              S = C.then(function () {
-                return new (o("WAWebActionToast.react").ActionType)(
-                  m
-                    ? h(g.SUCCESS, p, l)
-                    : s._(
-                        /*BTDS*/ '_j{"*":"{count} labels changed","_1":"1 label changed"}',
-                        [s._plural(n.length, "count")],
-                      ),
-                );
-              }).catch(function (e) {
-                return (
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "addingNewLabel dropped",
-                      ])),
-                  ),
-                  new (o("WAWebActionToast.react").ActionType)(y)
-                );
-              });
+              b = f
+                .then(function () {
+                  return new (o("WAWebActionToast.react").ActionType)(
+                    h(g.SUCCESS, d, l),
+                  );
+                })
+                .catch(function (e) {
+                  return (
+                    o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "addingNewLabel dropped",
+                        ])),
+                    ),
+                    new (o("WAWebActionToast.react").ActionType)(p)
+                  );
+                });
             o("WAWebToastManager").ToastManager.open(
               _.jsx(o("WAWebActionToast.react").ActionToast, {
-                id: b,
-                initialAction: v,
-                pendingAction: S,
+                id: y,
+                initialAction: C,
+                pendingAction: b,
               }),
             );
           }

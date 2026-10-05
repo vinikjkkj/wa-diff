@@ -1,14 +1,8 @@
 __d(
   "WAWebListsLabelGatingUtils",
-  ["WAWebABProps", "WAWebListsGatingUtils", "WAWebMobilePlatforms"],
+  ["WAWebABProps", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() ||
-        o("WAWebListsGatingUtils").isListsEnabled()
-      );
-    }
-    function s() {
       return (
         (o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebABProps").getABPropConfigValue("smart_filters_enabled")) ||
@@ -18,14 +12,12 @@ __d(
           ))
       );
     }
-    function u() {
+    function s() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
     }
-    ((l.labelsEditingEnabled = e),
-      (l.smartFiltersEnabled = s),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = u));
+    ((l.smartFiltersEnabled = e), (l.isCTWASMBLabelChatHeaderEnabledWeb = s));
   },
   98,
 );

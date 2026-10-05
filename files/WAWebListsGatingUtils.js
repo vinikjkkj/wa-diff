@@ -3,9 +3,6 @@ __d(
   ["WAWebABProps", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return !0;
-    }
-    function s() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -13,18 +10,17 @@ __d(
         )
       );
     }
-    function u() {
+    function s() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled2")
         : o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled");
     }
-    function c() {
-      return o("WAWebMobilePlatforms").isSMB() ? !0 : u();
+    function u() {
+      return o("WAWebMobilePlatforms").isSMB() ? !0 : s();
     }
-    ((l.isListsEnabled = e),
-      (l.isListsChatListRowPillEnabled = s),
-      (l.isListsM2Enabled = u),
-      (l.isLabelReorderEnabled = c));
+    ((l.isListsChatListRowPillEnabled = e),
+      (l.isListsM2Enabled = s),
+      (l.isLabelReorderEnabled = u));
   },
   98,
 );

@@ -14,7 +14,6 @@ __d(
     "WAWebFbtCommon",
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-    "WAWebListsGatingUtils",
     "WAWebModalManager",
     "WAWebSyncdCoreApi",
     "WAWebToastManager",
@@ -26,30 +25,18 @@ __d(
       u,
       c = u || (u = o("react"));
     function d() {
-      return o("WAWebListsGatingUtils").isListsEnabled()
-        ? o(
-            "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-          ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Adding to Favourites list")
-          : s._(/*BTDS*/ "Adding to Favorites list")
-        : o(
-              "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-            ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Adding to Favourites")
-          : s._(/*BTDS*/ "Adding to Favorites");
+      return o(
+        "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+      ).isUsingSupportedBritishEnglishLocale()
+        ? s._(/*BTDS*/ "Adding to Favourites list")
+        : s._(/*BTDS*/ "Adding to Favorites list");
     }
     function m() {
-      return o("WAWebListsGatingUtils").isListsEnabled()
-        ? o(
-            "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-          ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Added to Favourites list")
-          : s._(/*BTDS*/ "Added to Favorites list")
-        : o(
-              "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-            ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Added to Favourites")
-          : s._(/*BTDS*/ "Added to Favorites");
+      return o(
+        "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+      ).isUsingSupportedBritishEnglishLocale()
+        ? s._(/*BTDS*/ "Added to Favourites list")
+        : s._(/*BTDS*/ "Added to Favorites list");
     }
     function p(e) {
       o("WAWebModalManager").ModalManager.open(

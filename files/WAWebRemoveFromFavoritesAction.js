@@ -12,7 +12,6 @@ __d(
     "WAWebFavoritesSync",
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-    "WAWebListsGatingUtils",
     "WAWebSyncdCoreApi",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -23,30 +22,18 @@ __d(
       u,
       c = u || (u = o("react"));
     function d() {
-      return o("WAWebListsGatingUtils").isListsEnabled()
-        ? o(
-            "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-          ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Removing from Favourites list")
-          : s._(/*BTDS*/ "Removing from Favorites list")
-        : o(
-              "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-            ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Removing from Favourites")
-          : s._(/*BTDS*/ "Removing from Favorites");
+      return o(
+        "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+      ).isUsingSupportedBritishEnglishLocale()
+        ? s._(/*BTDS*/ "Removing from Favourites list")
+        : s._(/*BTDS*/ "Removing from Favorites list");
     }
     function m() {
-      return o("WAWebListsGatingUtils").isListsEnabled()
-        ? o(
-            "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-          ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Removed from Favourites list")
-          : s._(/*BTDS*/ "Removed from Favorites list")
-        : o(
-              "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-            ).isUsingSupportedBritishEnglishLocale()
-          ? s._(/*BTDS*/ "Removed from Favourites")
-          : s._(/*BTDS*/ "Removed from Favorites");
+      return o(
+        "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+      ).isUsingSupportedBritishEnglishLocale()
+        ? s._(/*BTDS*/ "Removed from Favourites list")
+        : s._(/*BTDS*/ "Removed from Favorites list");
     }
     function p(e, t) {
       return _.apply(this, arguments);

@@ -12,15 +12,7 @@ __d(
     function u() {
       return e;
     }
-    function c(t) {
-      var n, r;
-      return (n =
-        (r = e) == null || (r = r.watermarks) == null ? void 0 : r.get(t)) !=
-        null
-        ? n
-        : null;
-    }
-    function d() {
+    function c() {
       var t,
         n = (t = e) == null ? void 0 : t.chatTimestamp;
       (n != null &&
@@ -31,8 +23,7 @@ __d(
     }
     ((l.setOfflineThreadMeta = s),
       (l.getOfflineThreadMetaPreview = u),
-      (l.getPeerWatermark = c),
-      (l.resetThreadMeta = d));
+      (l.resetThreadMeta = c));
   },
   98,
 );

@@ -24,21 +24,25 @@ __d(
         TRANSPORT_FLUSH_FAILED: "transport_flush_failed",
         UNSUPPORTED_OPERATION: "unsupported_operation",
       });
-    function m(e, t, n, r) {
-      var a = {
-        actionTarget: e,
-        customPaymentMethodsSyncStatus: t,
-        paymentActionType: o("WAWebWamEnumPaymentActionTypes")
-          .PAYMENT_ACTION_TYPES.API,
-        paymentsCountryCode: u,
-        screen: s,
-      };
-      (n != null && (a.paymentsErrorCode = n),
-        (r == null ? void 0 : r.referral) != null && (a.referral = r.referral),
-        (r == null ? void 0 : r.referralContext) != null &&
-          (a.referralContext = r.referralContext),
+    function m(e) {
+      var t = e.actionTarget,
+        n = e.attribution,
+        r = e.errorCode,
+        a = e.status,
+        i = {
+          actionTarget: t,
+          customPaymentMethodsSyncStatus: a,
+          paymentActionType: o("WAWebWamEnumPaymentActionTypes")
+            .PAYMENT_ACTION_TYPES.API,
+          paymentsCountryCode: u,
+          screen: s,
+        };
+      (r != null && (i.paymentsErrorCode = r),
+        (n == null ? void 0 : n.referral) != null && (i.referral = n.referral),
+        (n == null ? void 0 : n.referralContext) != null &&
+          (i.referralContext = n.referralContext),
         new (o("WAWebPaymentsUserActionWamEvent").PaymentsUserActionWamEvent)(
-          a,
+          i,
         ).commit());
     }
     ((l.SYNC_ACTION_TARGETS = c),

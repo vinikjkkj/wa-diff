@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWap",
-    "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -193,27 +192,19 @@ __d(
           var n = o("WAWap").decodeAsString(t);
           if (E(n)) {
             if (e.attrs.category === "peer") {
-              if (
-                o(
-                  "WAWebBeyondPhoneNumberGatingUtils",
-                ).peerMessageLidMigrationOutgoingEnabled()
-              ) {
-                var r = R(n);
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[stanza-validation] pnless-stanza: peer <",
-                        "> to=",
-                        " is PN",
-                      ])),
-                    e.tag,
-                    r,
-                  )
-                  .sendLogs(
-                    "stanza-validation-pnless-to-pn-leak-peer-" + e.tag,
-                  );
-              }
+              var r = R(n);
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[stanza-validation] pnless-stanza: peer <",
+                      "> to=",
+                      " is PN",
+                    ])),
+                  e.tag,
+                  r,
+                )
+                .sendLogs("stanza-validation-pnless-to-pn-leak-peer-" + e.tag);
               return;
             }
             if (!L(e)) {

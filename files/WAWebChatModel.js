@@ -940,9 +940,6 @@ __d(
             }
             return !1;
           }),
-          (i.canToggleFavorite = function () {
-            return !0;
-          }),
           (i.title = function () {
             var e;
             return o("WAWebChatGetters").getIsGroup(this)

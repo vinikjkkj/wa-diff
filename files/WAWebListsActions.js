@@ -60,13 +60,8 @@ __d(
       S,
       R,
       L,
-      E,
-      k,
-      I,
-      T,
-      D,
-      x = D || (D = o("react"));
-    function $(e, t) {
+      E = L || (L = o("react"));
+    function k(e, t) {
       if (e.length !== 0) {
         var n =
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
@@ -83,7 +78,7 @@ __d(
           ));
       }
     }
-    function P(t, n) {
+    function I(t, n) {
       var r = n.customListTitle,
         a = n.entryPoint,
         i = n.listId,
@@ -146,33 +141,24 @@ __d(
         };
       for (var c of t) u(c);
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function M() {
+    function D() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chats,
             n = e.color,
             r = e.entryPoint,
-            a = e.name;
-          if (!o("WAWebListsGatingUtils").isListsEnabled()) {
-            o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] createNewList: lists not enabled",
-                ])),
-            );
-            return;
-          }
-          var i;
+            a = e.name,
+            i;
           try {
             i = yield o("WAWebBizLabelEditingAction").labelAddAction(a, n);
           } catch (e) {
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[Lists] createNewList: failed to add new empty list",
                   ])),
               )
@@ -194,8 +180,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[Lists] createNewList: failed to assign label to chats",
                     ])),
                 )
@@ -237,16 +223,16 @@ __d(
                 void 0,
                 o("WAWebWamEnumLabelTargets").LABEL_TARGETS.LABEL,
               ),
-              P(t, {
+              I(t, {
                 entryPoint: r,
                 listId: i,
                 customListTitle: a,
                 listsApplied: String(i),
               }),
-              $(t, i)),
+              k(t, i)),
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[Lists] created list id=",
                   " color=",
                   " chats=",
@@ -259,30 +245,21 @@ __d(
             i
           );
         })),
-        M.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function A() {
+    function $() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entryPoint,
             n = e.labelModel,
             r = e.newColor,
             a = e.newName,
-            i = e.updatedAssociatedChats;
-          if (!o("WAWebListsGatingUtils").isListsEnabled()) {
-            o("WALogger").ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] editListAction: lists not enabled",
-                ])),
-            );
-            return;
-          }
-          var l = n.name !== a,
+            i = e.updatedAssociatedChats,
+            l = n.name !== a,
             s = n.colorIndex !== r;
           try {
             (l || s) &&
@@ -297,8 +274,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[Lists] editListAction: failed to edit list properties",
                   ])),
               )
@@ -309,32 +286,32 @@ __d(
           var u = o("WAWebListsUtil").getAllChatsInList(n),
             c = o("WAWebListsUtil").getTwoArraysDifference(u, i),
             d = c.addedItems,
-            m = c.removedItems,
-            h = l || s,
-            y = d.length > 0,
-            C = m.length > 0;
+            f = c.removedItems,
+            g = l || s,
+            h = d.length > 0,
+            y = f.length > 0;
           try {
-            if (y) {
-              var b = { id: String(n.id), type: "add" };
+            if (h) {
+              var C = { id: String(n.id), type: "add" };
               o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [b],
+                [C],
                 d,
-                { suppressSuccessToast: h || C },
+                { suppressSuccessToast: g || y },
               );
             }
-            if (C) {
-              var v = { id: String(n.id), type: "remove" };
+            if (y) {
+              var b = { id: String(n.id), type: "remove" };
               o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [v],
-                m,
-                { suppressSuccessToast: h },
+                [b],
+                f,
+                { suppressSuccessToast: g },
               );
             }
           } catch (e) {
             o("WALogger")
               .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[Lists] editListAction: failed to edit list chats",
                   ])),
               )
@@ -363,7 +340,7 @@ __d(
                 updateEntryPoint: t,
                 listId: Number(n.id),
               }),
-            d.length !== 0 || m.length !== 0)
+            d.length !== 0 || f.length !== 0)
           ) {
             o("WAWebListsLogging").logListUpdate({
               listId: Number(n.id),
@@ -372,23 +349,23 @@ __d(
               entryPoint: t,
               chatsBeforeUpdate: u,
               addedChats: d,
-              removedChats: m,
+              removedChats: f,
             });
-            var S = Number(n.id),
-              R = String(S);
-            (P(d, {
+            var v = Number(n.id),
+              S = String(v);
+            (I(d, {
               entryPoint: t,
-              listId: S,
+              listId: v,
               customListTitle: n.name,
-              listsApplied: R,
+              listsApplied: S,
             }),
-              P(m, {
+              I(f, {
                 entryPoint: t,
-                listId: S,
+                listId: v,
                 customListTitle: n.name,
-                listsRemoved: R,
+                listsRemoved: S,
               }),
-              $(d, S));
+              k(d, v));
           }
           ((l || s) &&
             o("WAWebWamLabelEventReporter").logLabelOperationEvent(
@@ -397,8 +374,8 @@ __d(
               o("WAWebWamEnumLabelTargets").LABEL_TARGETS.EDIT_LABEL_DIALOG,
             ),
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[Lists] saved list id=",
                   " color=",
                   " chats=",
@@ -409,46 +386,36 @@ __d(
               i.length,
             ));
         })),
-        A.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function P(e, t, n) {
+      return N.apply(this, arguments);
     }
-    function O() {
+    function N() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          if (!o("WAWebListsGatingUtils").isListsEnabled())
-            return (
-              o("WALogger").ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] deleteListAction: lists not enabled",
-                  ])),
-              ),
-              (T || (T = n("Promise"))).resolve()
-            );
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           try {
             var a,
               i = o("WAWebLabelCollection").LabelCollection.get(e);
             if (i == null)
               return (
                 o("WALogger").WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[Lists] deleteListAction: label not found id=",
                       "",
                     ])),
                   e,
                 ),
-                (T || (T = n("Promise"))).resolve()
+                (R || (R = n("Promise"))).resolve()
               );
             if (o("WAWebListUtils").hasFixedIdentity(i))
               return (
                 o("WALogger")
                   .ERROR(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "[Lists] deleteListAction: refusing to delete app-owned list id=",
                         " type=",
                         "",
@@ -458,7 +425,7 @@ __d(
                   )
                   .tags("lists")
                   .sendLogs("delete-app-owned-list-blocked"),
-                (T || (T = n("Promise"))).resolve()
+                (R || (R = n("Promise"))).resolve()
               );
             (yield o("WAWebBizLabelEditingAction").labelDeleteAction({
               color: i.colorIndex,
@@ -479,13 +446,13 @@ __d(
                 predefinedId: (a = i.predefinedId) != null ? a : void 0,
               }),
               o("WAWebToastManager").ToastManager.open(
-                x.jsx(o("WAWebToast.react").Toast, {
+                E.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "List deleted"),
                 }),
               ),
               o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     '[Lists] Successfully deleted list: id: "',
                     '"',
                   ])),
@@ -494,8 +461,8 @@ __d(
           } catch (t) {
             (o("WALogger")
               .ERROR(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     '[Lists] deleteListAction: Failed deleting list with id:"',
                     '"',
                   ])),
@@ -504,7 +471,7 @@ __d(
               .tags("lists")
               .sendLogs("delete-list-failed"),
               o("WAWebToastManager").ToastManager.open(
-                x.jsx(o("WAWebToast.react").Toast, {
+                E.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Couldn't delete list"),
                 }),
               ));
@@ -512,24 +479,15 @@ __d(
             t();
           }
         })),
-        O.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function B(e) {
-      return W.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function W() {
+    function w() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebListsGatingUtils").isListsEnabled()) {
-            o("WALogger").ERROR(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] activatePresetList: lists not enabled",
-                ])),
-            );
-            return;
-          }
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o(
               "WAWebLabelCollection",
@@ -544,49 +502,40 @@ __d(
             ),
               (e.orderIndex = t),
               o("WAWebToastManager").ToastManager.open(
-                x.jsx(o("WAWebToast.react").Toast, {
+                E.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "List enabled"),
                 }),
               ));
           } catch (e) {
             (o("WALogger")
               .ERROR(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[Lists] activatePresetList: failed to activate preset list",
                   ])),
               )
               .tags("lists")
               .sendLogs("activate-preset-list-failed"),
               o("WAWebToastManager").ToastManager.open(
-                x.jsx(o("WAWebToast.react").Toast, {
+                E.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Couldn't enable list"),
                 }),
               ));
           }
         })),
-        W.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function U() {
+    function F() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebListsGatingUtils").isListsEnabled()) {
-            o("WALogger").ERROR(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] deactivatePresetList: lists not enabled",
-                ])),
-            );
-            return;
-          }
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebListUtils").isDisableablePresetList(e.type)) {
             o("WALogger").ERROR(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "[Lists] deactivatePresetList: not a disableable preset list",
                 ])),
             );
@@ -603,36 +552,36 @@ __d(
               e.type,
             ),
               o("WAWebToastManager").ToastManager.open(
-                x.jsx(o("WAWebToast.react").Toast, {
+                E.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "List disabled"),
                 }),
               ));
           } catch (e) {
             (o("WALogger")
               .ERROR(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "[Lists] deactivatePresetList: deactivate failed",
                   ])),
               )
               .tags("lists")
               .sendLogs("deactivate-preset-list-failed"),
               o("WAWebToastManager").ToastManager.open(
-                x.jsx(o("WAWebToast.react").Toast, {
+                E.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Couldn't disable list"),
                 }),
               ));
           }
         })),
-        U.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function H() {
+    function B() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebListsGatingUtils").isLabelReorderEnabled() &&
             e.length !== 0
@@ -681,14 +630,14 @@ __d(
               }),
                 o("WAWebLabelCollection").LabelCollection.trigger("reorder"),
                 o("WAWebToastManager").ToastManager.open(
-                  x.jsx(o("WAWebToast.react").Toast, {
+                  E.jsx(o("WAWebToast.react").Toast, {
                     msg: s._(/*BTDS*/ "Could not reorder lists"),
                   }),
                 ),
                 o("WALogger")
                   .ERROR(
-                    I ||
-                      (I = babelHelpers.taggedTemplateLiteralLoose([
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
                         "[Lists] persistLabelReorder: failed to persist order",
                       ])),
                   )
@@ -696,17 +645,17 @@ __d(
             }
           }
         })),
-        H.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    ((l.logCtwaSignalsForChats = $),
-      (l.logUpdateMembersPerChat = P),
-      (l.createNewListAction = N),
-      (l.editListAction = w),
-      (l.deleteListAction = F),
-      (l.activatePresetList = B),
-      (l.deactivatePresetList = q),
-      (l.persistLabelReorder = V));
+    ((l.logCtwaSignalsForChats = k),
+      (l.logUpdateMembersPerChat = I),
+      (l.createNewListAction = T),
+      (l.editListAction = x),
+      (l.deleteListAction = P),
+      (l.activatePresetList = M),
+      (l.deactivatePresetList = A),
+      (l.persistLabelReorder = O));
   },
   226,
 );

@@ -632,6 +632,10 @@ __d(
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",
       AD_CENTER_IG_PAGE_LOAD_ELIGIBILITY: "ad_center_ig_page_load_eligibility",
+      IG_IABP_FB_PLACEMENT_IN_GK_NO_PLACEMENT:
+        "ig_iabp_fb_placement_in_gk_no_placement",
+      IG_REVIEW_FB_PUBLISHER_PLATFORM_DECISION:
+        "ig_review_fb_publisher_platform_decision",
       STALE_IG_ACTOR_HEAL_PBIA_TO_REAL: "stale_ig_actor_heal_pbia_to_real",
       STALE_IG_ACTOR_HEAL_REAL_TO_REAL: "stale_ig_actor_heal_real_to_real",
       STALE_IG_ACTOR_OUT_OF_SYNC_DETECTED:

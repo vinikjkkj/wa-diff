@@ -176,9 +176,7 @@ __d(
     }
     function x(e) {
       var t = e.labels;
-      return t == null ||
-        t.length === 0 ||
-        !o("WAWebListsGatingUtils").isListsEnabled()
+      return t == null || t.length === 0
         ? !1
         : t.some(function (e) {
             var t = o("WAWebLabelCollection").LabelCollection.get(e);

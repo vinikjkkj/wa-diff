@@ -61,9 +61,7 @@ __d(
                   .sendLogs("key-share-non-peer");
                 return;
               }
-              var f = o(
-                "WAWebUserPrefsMeUser",
-              ).getMeDeviceForOutgoingPeerMessage();
+              var f = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
               i = [
                 o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
                   f.user,

@@ -21,7 +21,7 @@ __d(
             e.time + u < Date.now() && c.delete(e.observabilityID);
           }),
             c.size === 0 &&
-              ((d = !1), m && (window.clearInterval(m), (m = null))));
+              ((d = !1), m != null && (window.clearInterval(m), (m = null))));
         }, 15e3)));
     }
     function _(e) {

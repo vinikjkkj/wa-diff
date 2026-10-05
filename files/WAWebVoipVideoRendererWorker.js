@@ -36,13 +36,13 @@ __d(
         }),
         h.addMessageListener("registerCanvas", function (e) {
           try {
-            b.registerCanvas(
-              e.rendererId,
-              e.generation,
-              e.offscreenCanvas,
-              e.rendererType,
-              e.portalMode,
-            );
+            b.registerCanvas({
+              canvas: e.offscreenCanvas,
+              generation: e.generation,
+              portalMode: e.portalMode,
+              rendererId: e.rendererId,
+              rendererType: e.rendererType,
+            });
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               s ||
@@ -189,43 +189,48 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.registerCanvas = function (t, n, a, i, l) {
-            var e = this;
-            if (!this.$1.has(t)) {
-              var s =
-                i ===
+          (t.registerCanvas = function (t) {
+            var e = this,
+              n = t.canvas,
+              a = t.generation,
+              i = t.portalMode,
+              l = t.rendererId,
+              s = t.rendererType;
+            if (!this.$1.has(l)) {
+              var u =
+                s ===
                 o("WAWebVoipVideoRendererInterface").WAWebVoipVideoRendererType
                   .WEBCODECS_H264
                   ? new (o(
                       "WAWebVoipVideoWebCodecsRenderer",
-                    ).WAWebVoipVideoWebCodecsRenderer)(a)
-                  : i ===
+                    ).WAWebVoipVideoWebCodecsRenderer)(n)
+                  : s ===
                       o("WAWebVoipVideoRendererInterface")
                         .WAWebVoipVideoRendererType.WEBGPU
-                    ? new (r("WAWebVoipVideoWebGPURenderer"))(a)
-                    : i ===
+                    ? new (r("WAWebVoipVideoWebGPURenderer"))(n)
+                    : s ===
                         o("WAWebVoipVideoRendererInterface")
                           .WAWebVoipVideoRendererType.WEBGL
-                      ? new (r("WAWebVoipVideoWebGLRenderer"))(a)
-                      : i ===
+                      ? new (r("WAWebVoipVideoWebGLRenderer"))(n)
+                      : s ===
                           o("WAWebVoipVideoRendererInterface")
                             .WAWebVoipVideoRendererType.VIDEOFRAME
                         ? new (o(
                             "WAWebVoipVideoRasterRenderer",
-                          ).WAWebVoipVideoFrameRenderer)(a)
+                          ).WAWebVoipVideoFrameRenderer)(n)
                         : new (o(
                             "WAWebVoipVideoRasterRenderer",
-                          ).WAWebVoipVideoRasterRenderer)(a);
-              (s.setRenderCallback(function () {
-                e.$2(t);
+                          ).WAWebVoipVideoRasterRenderer)(n);
+              (u.setRenderCallback(function () {
+                e.$2(l);
               }),
-                this.$1.set(t, {
-                  renderer: s,
-                  canvas: a,
-                  generation: n,
+                this.$1.set(l, {
+                  renderer: u,
+                  canvas: n,
+                  generation: a,
                   hasReportedFirstFrame: !1,
                   isResetting: !1,
-                  portalMode: l,
+                  portalMode: i,
                 }));
             }
           }),

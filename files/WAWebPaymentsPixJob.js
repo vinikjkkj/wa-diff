@@ -196,11 +196,12 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o(
             "WAWebCustomPaymentMethodsSyncLogger",
-          ).logCustomPaymentMethodsSyncEvent(
-            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
-              .SEND_REMOVE,
-            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.ATTEMPT,
-          );
+          ).logCustomPaymentMethodsSyncEvent({
+            actionTarget: o("WAWebCustomPaymentMethodsSyncLogger")
+              .SYNC_ACTION_TARGETS.SEND_REMOVE,
+            status: o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+              .ATTEMPT,
+          });
           var e = { customPaymentMethods: [] };
           try {
             var t = yield r(
@@ -214,11 +215,11 @@ __d(
             throw (
               (a = o(
                 "WAWebCustomPaymentMethodsSyncLogger",
-              )).logCustomPaymentMethodsSyncEvent(
-                a.SYNC_ACTION_TARGETS.SEND_REMOVE,
-                a.SYNC_STATUS.FAILURE,
-                a.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
-              ),
+              )).logCustomPaymentMethodsSyncEvent({
+                actionTarget: a.SYNC_ACTION_TARGETS.SEND_REMOVE,
+                errorCode: a.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+                status: a.SYNC_STATUS.FAILURE,
+              }),
               e
             );
           }
@@ -232,11 +233,12 @@ __d(
             .sendLogs("payment-brazil"),
             o(
               "WAWebCustomPaymentMethodsSyncLogger",
-            ).logCustomPaymentMethodsSyncEvent(
-              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
-                .SEND_REMOVE,
-              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.SUCCESS,
-            ),
+            ).logCustomPaymentMethodsSyncEvent({
+              actionTarget: o("WAWebCustomPaymentMethodsSyncLogger")
+                .SYNC_ACTION_TARGETS.SEND_REMOVE,
+              status: o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                .SUCCESS,
+            }),
             o("WAWebBackendApi").frontendFireAndForget(
               "setCustomPaymentMethods",
               { customPaymentMethods: [] },
@@ -254,13 +256,13 @@ __d(
           var a, i, l, s;
           o(
             "WAWebCustomPaymentMethodsSyncLogger",
-          ).logCustomPaymentMethodsSyncEvent(
-            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
-              .SEND_STORE,
-            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.ATTEMPT,
-            void 0,
-            t,
-          );
+          ).logCustomPaymentMethodsSyncEvent({
+            actionTarget: o("WAWebCustomPaymentMethodsSyncLogger")
+              .SYNC_ACTION_TARGETS.SEND_STORE,
+            attribution: t,
+            status: o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+              .ATTEMPT,
+          });
           var u =
               ((a = e.value) == null ||
               (a = a.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
@@ -326,12 +328,12 @@ __d(
             throw (
               (f = o(
                 "WAWebCustomPaymentMethodsSyncLogger",
-              )).logCustomPaymentMethodsSyncEvent(
-                f.SYNC_ACTION_TARGETS.SEND_STORE,
-                f.SYNC_STATUS.FAILURE,
-                f.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
-                t,
-              ),
+              )).logCustomPaymentMethodsSyncEvent({
+                actionTarget: f.SYNC_ACTION_TARGETS.SEND_STORE,
+                attribution: t,
+                errorCode: f.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+                status: f.SYNC_STATUS.FAILURE,
+              }),
               e
             );
           }
@@ -345,13 +347,13 @@ __d(
             .sendLogs("payment-brazil"),
             o(
               "WAWebCustomPaymentMethodsSyncLogger",
-            ).logCustomPaymentMethodsSyncEvent(
-              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
-                .SEND_STORE,
-              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.SUCCESS,
-              void 0,
-              t,
-            ),
+            ).logCustomPaymentMethodsSyncEvent({
+              actionTarget: o("WAWebCustomPaymentMethodsSyncLogger")
+                .SYNC_ACTION_TARGETS.SEND_STORE,
+              attribution: t,
+              status: o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                .SUCCESS,
+            }),
             o("WAWebBackendApi").frontendFireAndForget(
               "setCustomPaymentMethods",
               { customPaymentMethods: p.customPaymentMethods },

@@ -18,7 +18,6 @@ __d(
     "WAWebFtsClient",
     "WAWebGroupHistoryParticipantJob",
     "WAWebLabelJidSync",
-    "WAWebListsGatingUtils",
     "WAWebMessageRangeUtils",
     "WAWebMobilePlatforms",
     "WAWebModelStorageUtils",
@@ -157,17 +156,12 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebMobilePlatforms").isSMB() ||
-            o("WAWebListsGatingUtils").isListsEnabled()
-          ) {
-            var t = yield f(e),
-              n = t.labelsToUpdate,
-              r = t.modelRecords;
-            yield o(
-              "WAWebEditLabelAssociationBridge",
-            ).editLocalLabelAssociationMD(n, r);
-          }
+          var t = yield f(e),
+            n = t.labelsToUpdate,
+            r = t.modelRecords;
+          yield o(
+            "WAWebEditLabelAssociationBridge",
+          ).editLocalLabelAssociationMD(n, r);
         })),
         m.apply(this, arguments)
       );
@@ -354,17 +348,10 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              o("WAWebMobilePlatforms").isSMB() ||
-              o("WAWebListsGatingUtils").isListsEnabled()
-            )
-          )
-            return [];
           var t = yield f(e),
             n = t.labelsToUpdate,
-            a = t.modelRecords;
-          return r("WAWebLabelJidSync").createLabelAssociationMutations(n, a);
+            o = t.modelRecords;
+          return r("WAWebLabelJidSync").createLabelAssociationMutations(n, o);
         })),
         b.apply(this, arguments)
       );

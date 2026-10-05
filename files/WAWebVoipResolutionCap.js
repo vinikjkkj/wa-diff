@@ -5,14 +5,11 @@ __d(
     "use strict";
     var e = 6;
     function s(t) {
-      var n, r, a, i;
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "enable_web_voip_video_resolution_cap",
-        ) !== !0
-      )
-        return t;
-      var l = o("WAWebBrowserApi").getNumCpu(),
+      var n,
+        r,
+        a,
+        i,
+        l = o("WAWebBrowserApi").getNumCpu(),
         s = o("WAWebBrowserApi").getMemClass(),
         u = s != null ? Math.round(s / 1e3) : null,
         c = o("WAWebVoipDeviceClassUtils").computeDeviceClass(l, u),

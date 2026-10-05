@@ -443,43 +443,45 @@ __d(
         Je.apply(this, arguments)
       );
     }
-    function Ze(e, t, n, r) {
+    function Ze(e) {
       return et.apply(this, arguments);
     }
     function et() {
       return (
-        (et = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a,
-              i = yield lt(!1, n, r);
-            if (!i || !e || fe())
-              return { canJoin: i, reason: null, videoMuted: !1 };
-            var l = yield je();
-            if (tt(n, r)) return { canJoin: !1, reason: null, videoMuted: !1 };
-            if (l === "denied")
-              return { canJoin: !0, reason: "camera_denied", videoMuted: !0 };
-            var s =
-                (a = t == null ? void 0 : t.cameraTimeoutMs) != null
-                  ? a
-                  : l === "prompt" && !o("WAWebUA").UA.isSafari
-                    ? Ie
-                    : ke,
-              u = yield ut({
-                captureTypeOverride: o("WAWebMediaCaptureStreamType")
-                  .WAWebMediaCaptureStreamType.CAMERA,
-                checkVideo: !0,
-                showFailureModal: !1,
-                timeoutLimitOverride: s,
-                originatingCall: n,
-                abortSignal: r,
-              });
-            return tt(n, r)
-              ? { canJoin: !1, reason: null, videoMuted: !1 }
-              : u === "granted"
-                ? { canJoin: !0, reason: null, videoMuted: !1 }
-                : { canJoin: !0, reason: yield Ye(u), videoMuted: !0 };
-          },
-        )),
+        (et = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.abortSignal,
+            r = e.checkVideo,
+            a = e.options,
+            i = e.originatingCall,
+            l = yield lt(!1, i, n);
+          if (!l || !r || fe())
+            return { canJoin: l, reason: null, videoMuted: !1 };
+          var s = yield je();
+          if (tt(i, n)) return { canJoin: !1, reason: null, videoMuted: !1 };
+          if (s === "denied")
+            return { canJoin: !0, reason: "camera_denied", videoMuted: !0 };
+          var u =
+              (t = a == null ? void 0 : a.cameraTimeoutMs) != null
+                ? t
+                : s === "prompt" && !o("WAWebUA").UA.isSafari
+                  ? Ie
+                  : ke,
+            c = yield ut({
+              captureTypeOverride: o("WAWebMediaCaptureStreamType")
+                .WAWebMediaCaptureStreamType.CAMERA,
+              checkVideo: !0,
+              showFailureModal: !1,
+              timeoutLimitOverride: u,
+              originatingCall: i,
+              abortSignal: n,
+            });
+          return tt(i, n)
+            ? { canJoin: !1, reason: null, videoMuted: !1 }
+            : c === "granted"
+              ? { canJoin: !0, reason: null, videoMuted: !1 }
+              : { canJoin: !0, reason: yield Ye(c), videoMuted: !0 };
+        })),
         et.apply(this, arguments)
       );
     }

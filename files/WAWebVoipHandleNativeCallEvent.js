@@ -1148,9 +1148,7 @@ __d(
                 b = o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_proxy_and_sctp_workers",
                 ),
-                v = o("WAWebABProps").getABPropConfigValue(
-                  "enable_web_voip_dynamic_fps_throttle",
-                ),
+                v = !0,
                 S = o("WAWebABProps").getABPropConfigValue(
                   "web_calling_perf_optimizations_bitmask",
                 ),

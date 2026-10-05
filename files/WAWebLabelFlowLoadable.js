@@ -4,7 +4,6 @@ __d(
     "fbt",
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
-    "WAWebListsGatingUtils",
     "WAWebLoadingDrawer.react",
     "asyncToGeneratorRuntime",
     "react",
@@ -26,9 +25,7 @@ __d(
         loader: c,
         loading: function (t) {
           return u.jsx(r("WAWebLoadingDrawer.react"), {
-            title: o("WAWebListsGatingUtils").isListsEnabled()
-              ? s._(/*BTDS*/ "Lists")
-              : s._(/*BTDS*/ "Labels"),
+            title: s._(/*BTDS*/ "Lists"),
             error: !!t.error,
           });
         },

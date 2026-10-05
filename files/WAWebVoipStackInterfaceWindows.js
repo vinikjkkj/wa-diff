@@ -333,7 +333,16 @@ __d(
               .WAWebVoipStackInterfaceWindows,
           )) == null || (e = e.voip) == null
             ? void 0
-            : e.handleIncomingSignalingMessage(d, i, s, n, l, a, u, c);
+            : e.handleIncomingSignalingMessage({
+                msgE: n,
+                msgOffline: a,
+                msgPlatform: i,
+                msgT: l,
+                msgVersion: s,
+                peerJid: u,
+                tcToken: c,
+                xmlNode: d,
+              });
         },
         handleIncomingSignalingAck: function (t) {
           var e,

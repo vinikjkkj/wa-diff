@@ -601,11 +601,7 @@ __d(
                       yield o("WAWebBackendApi").frontendSendAndReceive(
                         "initializeVoipWasm",
                       ),
-                    O =
-                      o("WAWebABProps").getABPropConfigValue(
-                        "enable_web_voip_dynamic_fps_throttle",
-                      ) === !0,
-                    B = (function () {
+                    O = (function () {
                       var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (e) {
                           if (!u.isCaptureInProgress) {
@@ -648,21 +644,19 @@ __d(
                                 throw r("err")(
                                   "Video element not ready for capture",
                                 );
-                              if (O) {
-                                var l = o(
-                                  "WAWebVoipEncodeTargetFpsState",
-                                ).getEncodeTargetFps();
-                                if (l > 0) {
-                                  var s = Math.max(K, Math.min(Q, l + X)),
-                                    c = (1e3 / s) * Y,
-                                    p = self.performance.now(),
-                                    _ = p - u.lastCaptureTime;
-                                  if (_ < c) {
-                                    e(i);
-                                    return;
-                                  }
-                                  u.lastCaptureTime = p;
+                              var l = o(
+                                "WAWebVoipEncodeTargetFpsState",
+                              ).getEncodeTargetFps();
+                              if (l > 0) {
+                                var s = Math.max(K, Math.min(Q, l + X)),
+                                  c = (1e3 / s) * Y,
+                                  p = self.performance.now(),
+                                  _ = p - u.lastCaptureTime;
+                                if (_ < c) {
+                                  e(i);
+                                  return;
                                 }
+                                u.lastCaptureTime = p;
                               }
                               var f = A;
                               try {
@@ -770,15 +764,15 @@ __d(
                                   }
                                   if (u.isStopped || !u.converter) return;
                                 } else if ($) {
-                                  var B, W;
+                                  var O, B;
                                   if (
                                     ((f = yield createImageBitmap(
                                       A,
-                                      (B = y == null ? void 0 : y.x) != null
-                                        ? B
+                                      (O = y == null ? void 0 : y.x) != null
+                                        ? O
                                         : 0,
-                                      (W = y == null ? void 0 : y.y) != null
-                                        ? W
+                                      (B = y == null ? void 0 : y.y) != null
+                                        ? B
                                         : 0,
                                       D,
                                       x,
@@ -788,9 +782,9 @@ __d(
                                     return;
                                 }
                                 if (!u.converter) return;
-                                var q;
+                                var W;
                                 try {
-                                  q = yield u.converter.convertVideoToNV12(f);
+                                  W = yield u.converter.convertVideoToNV12(f);
                                 } catch (t) {
                                   yield u.handleCaptureError({
                                     error: t,
@@ -801,7 +795,7 @@ __d(
                                   return;
                                 }
                                 u.consecutiveErrors = 0;
-                                var U = o("WAWebVoipMediaEnums").Orientation
+                                var q = o("WAWebVoipMediaEnums").Orientation
                                   .Normal;
                                 if (
                                   (u.$1 < 3 &&
@@ -821,28 +815,28 @@ __d(
                                           )),
                                       T,
                                       u.$1,
-                                      U,
+                                      q,
                                       n,
                                       a,
                                     )),
                                   !(yield u.ensureVideoBufferCapacity(
-                                    q.byteLength,
+                                    W.byteLength,
                                     T,
                                   )))
                                 )
                                   return;
                                 if (u.videoBuffer != null) {
-                                  var V = u.videoBuffer;
-                                  (F.GROWABLE_HEAP_U8().set(q, V),
+                                  var U = u.videoBuffer;
+                                  (F.GROWABLE_HEAP_U8().set(W, U),
                                     F[m](
-                                      V,
-                                      q.length,
+                                      U,
+                                      W.length,
                                       n,
                                       a,
                                       d,
                                       o("WAWebVoipMediaEnums")
                                         .WAWebVoipVideoFormat.NV12,
-                                      U,
+                                      q,
                                     ));
                                 } else
                                   o("WALogger")
@@ -860,7 +854,7 @@ __d(
                                     .sendLogs(
                                       "voip: wasm: video buffer not initialized",
                                     );
-                                var H = o(
+                                var V = o(
                                   "WAWebVoipVideoRenderSource",
                                 ).WAWebVoipVideoRenderSource.self(
                                   m === "onDesktopCaptureDataFromJs" &&
@@ -875,11 +869,11 @@ __d(
                                 (o(
                                   "WAWebVoipVideoRendererRegistry",
                                 ).videoRendererRegistry.onVideoFrameWasmToJs(
-                                  H,
-                                  q.buffer,
+                                  V,
+                                  W.buffer,
                                   n,
                                   a,
-                                  U,
+                                  q,
                                   o("WAWebVoipMediaEnums").WAWebVoipVideoFormat
                                     .NV12,
                                   0,
@@ -916,13 +910,13 @@ __d(
                     })();
                   A && A.readyState >= A.HAVE_CURRENT_DATA
                     ? window.setTimeout(function () {
-                        return u.$9(B);
+                        return u.$9(O);
                       }, 0)
                     : A &&
                       A.addEventListener(
                         "loadeddata",
                         function () {
-                          return u.$9(B);
+                          return u.$9(O);
                         },
                         { once: !0 },
                       );

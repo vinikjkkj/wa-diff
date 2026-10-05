@@ -283,9 +283,7 @@ __d(
             i = a.fanout,
             l = a.msgId;
           if (i) {
-            var s = o(
-                "WAWebUserPrefsMeUser",
-              ).getMeDeviceForOutgoingPeerMessage(),
+            var s = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
               u = { wids: [s] },
               c = yield o("WAWebDBDeviceListFanout").getFanOutList(u),
               d = yield (b || (b = n("Promise"))).all(

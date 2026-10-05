@@ -9,7 +9,6 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebLabelCollection",
     "WAWebListUtils",
-    "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
     "WAWebListsLogging",
     "WAWebWamEnumChatFilterActionTypes",
@@ -86,12 +85,9 @@ __d(
               },
             ));
         }
-        if (
-          a != null &&
+        if (a != null) {
           (a.predefinedId != null && (e.predefinedId = a.predefinedId),
-          a.name != null && (e.labelName = a.name),
-          o("WAWebListsGatingUtils").isListsEnabled())
-        ) {
+            a.name != null && (e.labelName = a.name));
           var l = parseInt(a.id, 10);
           isNaN(l) || (e.listId = l);
           var s = o("WAWebListsLogging").getListType(a.type);

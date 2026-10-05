@@ -108,24 +108,24 @@ __d(
                     if (
                       (o(
                         "WAWebCustomPaymentMethodsSyncLogger",
-                      ).logCustomPaymentMethodsSyncEvent(
-                        l,
-                        o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
-                          .ATTEMPT,
-                      ),
+                      ).logCustomPaymentMethodsSyncEvent({
+                        actionTarget: l,
+                        status: o("WAWebCustomPaymentMethodsSyncLogger")
+                          .SYNC_STATUS.ATTEMPT,
+                      }),
                       e.operation !== "set")
                     )
                       return (
                         a++,
                         o(
                           "WAWebCustomPaymentMethodsSyncLogger",
-                        ).logCustomPaymentMethodsSyncEvent(
-                          l,
-                          o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
-                            .FAILURE,
-                          o("WAWebCustomPaymentMethodsSyncLogger").SyncErrorCode
-                            .UNSUPPORTED_OPERATION,
-                        ),
+                        ).logCustomPaymentMethodsSyncEvent({
+                          actionTarget: l,
+                          errorCode: o("WAWebCustomPaymentMethodsSyncLogger")
+                            .SyncErrorCode.UNSUPPORTED_OPERATION,
+                          status: o("WAWebCustomPaymentMethodsSyncLogger")
+                            .SYNC_STATUS.FAILURE,
+                        }),
                         {
                           actionState:
                             o("WAWebSyncdConst").SyncActionState.Unsupported,
@@ -136,13 +136,13 @@ __d(
                         i++,
                         o(
                           "WAWebCustomPaymentMethodsSyncLogger",
-                        ).logCustomPaymentMethodsSyncEvent(
-                          l,
-                          o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
-                            .FAILURE,
-                          o("WAWebCustomPaymentMethodsSyncLogger").SyncErrorCode
-                            .MALFORMED_MUTATION,
-                        ),
+                        ).logCustomPaymentMethodsSyncEvent({
+                          actionTarget: l,
+                          errorCode: o("WAWebCustomPaymentMethodsSyncLogger")
+                            .SyncErrorCode.MALFORMED_MUTATION,
+                          status: o("WAWebCustomPaymentMethodsSyncLogger")
+                            .SYNC_STATUS.FAILURE,
+                        }),
                         o("WAWebSyncdIndexUtils").malformedActionValue(
                           n.collectionName,
                         )
@@ -156,24 +156,24 @@ __d(
                       throw (
                         o(
                           "WAWebCustomPaymentMethodsSyncLogger",
-                        ).logCustomPaymentMethodsSyncEvent(
-                          l,
-                          o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
-                            .FAILURE,
-                          o("WAWebCustomPaymentMethodsSyncLogger").SyncErrorCode
-                            .FRONTEND_DISPATCH_FAILED,
-                        ),
+                        ).logCustomPaymentMethodsSyncEvent({
+                          actionTarget: l,
+                          errorCode: o("WAWebCustomPaymentMethodsSyncLogger")
+                            .SyncErrorCode.FRONTEND_DISPATCH_FAILED,
+                          status: o("WAWebCustomPaymentMethodsSyncLogger")
+                            .SYNC_STATUS.FAILURE,
+                        }),
                         e
                       );
                     }
                     return (
                       o(
                         "WAWebCustomPaymentMethodsSyncLogger",
-                      ).logCustomPaymentMethodsSyncEvent(
-                        l,
-                        o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
-                          .SUCCESS,
-                      ),
+                      ).logCustomPaymentMethodsSyncEvent({
+                        actionTarget: l,
+                        status: o("WAWebCustomPaymentMethodsSyncLogger")
+                          .SYNC_STATUS.SUCCESS,
+                      }),
                       {
                         actionState:
                           o("WAWebSyncdConst").SyncActionState.Success,

@@ -55,7 +55,7 @@ __d(
       return s._(/*BTDS*/ "Quick replies");
     }
     function R() {
-      return s._(/*BTDS*/ "Labels");
+      return s._(/*BTDS*/ "Lists");
     }
     function L() {
       return s._(/*BTDS*/ "Business Help Center");
@@ -370,7 +370,7 @@ __d(
       (l.businessToolsOrdersTitle = b),
       (l.businessToolsAdvertiseTitle = v),
       (l.businessToolsQuickRepliesTitle = S),
-      (l.businessToolsLabelsTitle = R),
+      (l.businessToolsListsTitle = R),
       (l.businessToolsHelpCenterTitle = L),
       (l.notificationsTitle = E),
       (l.notificationsSecondaryTitle = k),

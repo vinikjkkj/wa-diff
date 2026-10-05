@@ -38,20 +38,21 @@ __d(
         );
       });
     }
-    function c(e, t) {
-      var n = t.trim();
-      if (n === "") return e;
-      var r = n.toLowerCase(),
-        o = n.replace(/\D/g, "");
+    function c(e, t, n) {
+      n === void 0 && (n = !1);
+      var r = t.trim();
+      if (r === "") return e;
+      var o = r.toLowerCase(),
+        a = r.replace(/\D/g, "");
       return e.filter(function (e) {
-        var t, n;
+        var t, r;
         return (
-          s(e).toLowerCase().includes(r) ||
-          (o !== "" &&
-            ((t = (n = f(e)) == null ? void 0 : n.user) != null
+          (!n && s(e).toLowerCase().includes(o)) ||
+          (a !== "" &&
+            ((t = (r = f(e)) == null ? void 0 : r.user) != null
               ? t
               : ""
-            ).includes(o))
+            ).includes(a))
         );
       });
     }

@@ -8,13 +8,7 @@ __d(
         r("justknobx")._("1500")
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "peer_message_lid_migration_outgoing",
-      );
-    }
-    ((l.removePnDependenciesEnabled = e),
-      (l.peerMessageLidMigrationOutgoingEnabled = s));
+    l.removePnDependenciesEnabled = e;
   },
   98,
 );

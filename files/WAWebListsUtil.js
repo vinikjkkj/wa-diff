@@ -174,14 +174,14 @@ __d(
         }),
       );
     }
-    function h(e) {
+    function h() {
       o("WAWebModalManager").ModalManager.openAlert(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: function () {
             return o("WAWebModalManager").ModalManager.closeAlert();
           },
           okText: r("WAWebFbtCommon")("OK"),
-          children: o("WAWebListUtils").getReachMaxLabelCountText(e),
+          children: o("WAWebListUtils").getReachMaxLabelCountText(),
         }),
       );
     }

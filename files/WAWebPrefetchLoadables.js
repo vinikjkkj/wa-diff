@@ -33,7 +33,6 @@ __d(
     "WAWebInfoFlowLoadable",
     "WAWebLabelFlowLoadable",
     "WAWebListSubmenuContentLoadable",
-    "WAWebListsGatingUtils",
     "WAWebLottieAnimationLoadable",
     "WAWebManageCommunityGroupsFlowLoadable",
     "WAWebManageLabelFlowLoadable",
@@ -133,9 +132,7 @@ __d(
               o("WAWebCartFlowLoadable").requireBundle(),
               o("WAWebLabelFlowLoadable").requireBundle(),
               o("WAWebManageLabelFlowLoadable").requireBundle(),
-              o("WAWebListsGatingUtils").isListsEnabled()
-                ? o("WAWebListSubmenuContentLoadable").requireBundle()
-                : null,
+              o("WAWebListSubmenuContentLoadable").requireBundle(),
               o("WAWebAddContactToGroupFlowLoadable").requireBundle(),
               o("WAWebSendPaymentRequestFlowLoadable").requireBundle(),
               o("WAWebSettingsFlowLoadable").requireBundle(),

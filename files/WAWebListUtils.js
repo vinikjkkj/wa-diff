@@ -190,24 +190,14 @@ __d(
       );
       return e >= D();
     }
-    function $(e) {
-      var t = D();
-      return e
-        ? s._(/*BTDS*/ "You can't add more than {max_count} lists", [
-            s._param("max_count", t),
-          ])
-        : s._(/*BTDS*/ "You can't add more than {max_count} labels", [
-            s._param("max_count", t),
-          ]);
+    function $() {
+      var e = D();
+      return s._(/*BTDS*/ "You can't add more than {max_count} lists", [
+        s._param("max_count", e),
+      ]);
     }
-    function P(e) {
-      var t = s._(/*BTDS*/ "You\u2019ve created the maximum number of lists."),
-        n = D();
-      return e
-        ? t
-        : s._(/*BTDS*/ "You can't add more than {max_count} labels", [
-            s._param("max_count", n),
-          ]);
+    function P() {
+      return s._(/*BTDS*/ "You\u2019ve created the maximum number of lists.");
     }
     function N(e) {
       return typeof e == "function" ? e() : e;
