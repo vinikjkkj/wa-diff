@@ -131,10 +131,15 @@ __d(
                 : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
                   ? s._(/*BTDS*/ "AI responding")
                   : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
-                    ? s._(/*BTDS*/ "To you")
+                    ? s._(/*BTDS*/ "Mentions and replies")
                     : null;
     }
     function k(e) {
+      return e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
+        ? s._(/*BTDS*/ "Mentions\u2026")
+        : null;
+    }
+    function I(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(
             /*BTDS*/ "This list automatically updates with your unread chats.",
@@ -165,44 +170,55 @@ __d(
                       )
                     : null;
     }
-    function I(e, t) {
-      return (h(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || y(t)
-        ? s._(/*BTDS*/ "{listName} (preset)", [s._param("listName", e)])
-        : e;
+    function T(e, t) {
+      if ((h(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || y(t)) {
+        var n;
+        return s._(/*BTDS*/ "{listName} (preset)", [
+          s._param("listName", (n = E(t)) != null ? n : e),
+        ]);
+      }
+      return e;
     }
-    function T(e) {
+    function D(e) {
       return e === "AI_HANDOFF"
         ? s._(/*BTDS*/ "AI handoff").toString()
         : s._(/*BTDS*/ "AI responding").toString();
     }
-    function D() {
+    function x() {
       return o(
         "WAWebLabelCollection",
       ).LabelCollection.getServerAssignedLabelIdMap().size > 0
         ? c
         : u;
     }
-    function x() {
+    function $() {
       var e = o("WAWebLabelCollection").LabelCollection.countWhere(
         function (e) {
           return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
         },
       );
-      return e >= D();
+      return e >= x();
     }
-    function $() {
-      var e = D();
+    function P() {
+      var e = x();
       return s._(/*BTDS*/ "You can't add more than {max_count} lists", [
         s._param("max_count", e),
       ]);
     }
-    function P() {
+    function N() {
       return s._(/*BTDS*/ "You\u2019ve created the maximum number of lists.");
     }
-    function N(e) {
+    function M(e) {
       return typeof e == "function" ? e() : e;
     }
-    function M(e, t) {
+    function w(e, t) {
+      if (!t) {
+        var n = k(e.listType);
+        if (n != null) return n;
+      }
+      return M(e.getLabel);
+    }
+    function A(e, t) {
       var n, r;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
@@ -217,7 +233,7 @@ __d(
           ? r
           : 0;
     }
-    function w() {
+    function F() {
       var e,
         t = o("WAWebLabelCollection").LabelCollection.toArray(),
         n = new Map(),
@@ -270,7 +286,7 @@ __d(
         n
       );
     }
-    function A(e) {
+    function O(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -289,7 +305,7 @@ __d(
             return null;
         }
     }
-    function F(e) {
+    function B(e) {
       var t;
       if (
         (e.label != null
@@ -313,10 +329,10 @@ __d(
       }
       return null;
     }
-    function O() {
+    function W() {
       return s._(/*BTDS*/ "Lead stage");
     }
-    function B() {
+    function q() {
       return s._(/*BTDS*/ "Lead stage (preset)");
     }
     ((l.getAllLabelColors = d),
@@ -332,19 +348,21 @@ __d(
       (l.shouldShowListIcon = R),
       (l.isDisableablePresetList = L),
       (l.getPresetListLocalizedName = E),
-      (l.getPresetListHelperText = k),
-      (l.getListDisplayName = I),
-      (l.getExpectedAiLabelName = T),
-      (l.isListFlowMaxListsCountReached = x),
-      (l.getReachMaxLabelCountTextForBizLabelDrawer = $),
-      (l.getReachMaxLabelCountText = P),
-      (l.resolvePillLabel = N),
-      (l.getUnreadChatsCountForFilter = M),
-      (l.getListsUnreadChatCountMap = w),
-      (l.getListTypeFromFilter = A),
-      (l.getManageListInfo = F),
-      (l.getLeadStageListName = O),
-      (l.getLeadListManagerDisplayName = B));
+      (l.getPresetListShortName = k),
+      (l.getPresetListHelperText = I),
+      (l.getListDisplayName = T),
+      (l.getExpectedAiLabelName = D),
+      (l.isListFlowMaxListsCountReached = $),
+      (l.getReachMaxLabelCountTextForBizLabelDrawer = P),
+      (l.getReachMaxLabelCountText = N),
+      (l.resolvePillLabel = M),
+      (l.resolvePillLabelForState = w),
+      (l.getUnreadChatsCountForFilter = A),
+      (l.getListsUnreadChatCountMap = F),
+      (l.getListTypeFromFilter = O),
+      (l.getManageListInfo = B),
+      (l.getLeadStageListName = W),
+      (l.getLeadListManagerDisplayName = q));
   },
   226,
 );

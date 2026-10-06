@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WASmaxGroupsAcknowledgeGroupRPC",
     "WAWebChatGetters",
+    "WAWebFrontendContactGetters",
     "WAWebNoop",
     "WAWebSendNotSpamAction",
     "WAWebWidToJid",
@@ -11,7 +12,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      return !e.trusted;
+      return (
+        !e.trusted &&
+        !o("WAWebFrontendContactGetters").getIsMyContact(e.contact)
+      );
     }
     function u(t) {
       (r("WAWebSendNotSpamAction")(t, !0).catch(r("WAWebNoop")),

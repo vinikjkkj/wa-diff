@@ -124,21 +124,30 @@ __d(
       var c = [];
       (n && c.push(o("WAWebPathfinderTraceEnvelope").CLIP_REASON_RING_CAPACITY),
         a > 0 && c.push(h));
-      var d = T(l, i, r, c);
+      var d = T({ anchorMs: r, clipReasons: c, dropped: i, records: l });
       for (
-        d.length > p && l.length > 1 && (c.push(y), (d = T(l, i, r, c)));
+        d.length > p &&
+        l.length > 1 &&
+        (c.push(y),
+        (d = T({ anchorMs: r, clipReasons: c, dropped: i, records: l })));
         d.length > p && l.length > 1;
       )
-        (l.shift(), i++, (d = T(l, i, r, c)));
+        (l.shift(),
+          i++,
+          (d = T({ anchorMs: r, clipReasons: c, dropped: i, records: l })));
       return d;
     }
-    function T(e, t, n, r) {
-      var o = "#pathfinder end=" + n + " cols=" + f;
-      r.length > 0 && (o += " " + g + "=" + r.join(","));
-      var a = [o];
+    function T(e) {
+      var t = e.anchorMs,
+        n = e.clipReasons,
+        r = e.dropped,
+        o = e.records,
+        a = "#pathfinder end=" + t + " cols=" + f;
+      n.length > 0 && (a += " " + g + "=" + n.join(","));
+      var i = [a];
       return (
-        t > 0 && a.push("#" + t + " older events dropped"),
-        a.concat(e).join("\n")
+        r > 0 && i.push("#" + r + " older events dropped"),
+        i.concat(o).join("\n")
       );
     }
     function D(e, t) {

@@ -30,7 +30,9 @@ __d(
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "escapeRegex",
     "fbs",
+    "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -39,18 +41,11 @@ __d(
         o("WAWebMediaTypes").MediaDataStage.UPLOADING,
       ]);
     function c(e, t) {
-      var n = e;
-      return (
-        Object.entries(t).forEach(function (e) {
-          var t = e[0],
-            r = e[1];
-          n = n.replaceAll(
-            t,
-            o("WAWebFrontendContactGetters").getDisplayName(r),
-          );
-        }),
-        n
-      );
+      if (r("isEmptyObject")(t)) return e;
+      var n = Object.keys(t).map(r("escapeRegex")).join("|");
+      return e.replace(new RegExp("(" + n + ")(?!\\d)", "g"), function (e) {
+        return o("WAWebFrontendContactGetters").getDisplayName(t[e]);
+      });
     }
     function d(e) {
       return e == null

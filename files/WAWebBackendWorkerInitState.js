@@ -23,6 +23,7 @@ __d(
         dbInit: new u.Resolvable(),
         dbFinalKey: new u.Resolvable(),
         eventBusSyncState: new u.Resolvable(),
+        jidsReady: new u.Resolvable(),
       },
       d = null;
     function m(t) {
@@ -60,15 +61,19 @@ __d(
     function f(e) {
       c.eventBusSyncState.resolveWasCalled() || c.eventBusSyncState.resolve(e);
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function g() {
+      c.jidsReady.resolveWasCalled() || c.jidsReady.resolve();
     }
-    function h() {
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield (s || (s = n("Promise"))).all([
               c.dbInit.promise,
               c.eventBusSyncState.promise,
+              c.jidsReady.promise,
             ]),
             r = t[0],
             a = t[1],
@@ -106,14 +111,15 @@ __d(
               e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
             }));
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
     ((l.recordInitAbProps = m),
       (l.recordInitDbInit = p),
       (l.recordInitDbFinalKey = _),
       (l.recordInitEventBusSyncState = f),
-      (l.sendInitState = g));
+      (l.resolveJidsReady = g),
+      (l.sendInitState = h));
   },
   98,
 );

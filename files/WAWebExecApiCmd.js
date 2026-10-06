@@ -30,6 +30,7 @@ __d(
     "WAWebBusinessBroadcastHomeFlowLoadable",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebCTWATrackingPayloadUtils",
+    "WAWebCallUserJourneyGating",
     "WAWebCatalogManagementFlowLoadable",
     "WAWebChatEntryPoint",
     "WAWebChatSearchFilters",
@@ -94,6 +95,7 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipOutgoingCallConsent",
     "WAWebVoipStartCall",
+    "WAWebWamEnumCallFromUi",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumCommunityCreationCurrentScreenType",
     "WAWebWamEnumDeepLinkAction",
@@ -282,7 +284,12 @@ __d(
               yield o("WAWebVoipStartCall").startWAWebVoipCall(
                 n,
                 t,
-                0,
+                o(
+                  "WAWebCallUserJourneyGating",
+                ).isCallUserJourneyLoggingEnabled()
+                  ? o("WAWebWamEnumCallFromUi").CALL_FROM_UI
+                      .CALL_PHONE_NUMBER_DEEPLINK
+                  : 0,
                 0,
                 null,
                 { entryTrust: "user_gesture" },

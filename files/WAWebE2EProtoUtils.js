@@ -17,7 +17,6 @@ __d(
     "WAWebDecodeJid",
     "WAWebEphemeralityTypes",
     "WAWebHandleMsgCommon",
-    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebInteractiveResponseMessageType",
@@ -449,14 +448,6 @@ __d(
       return null;
     }
     function w(e) {
-      switch (e) {
-        case r("WAWebInteractiveResponseMessageType").NATIVE_FLOW:
-          return o(
-            "WAWebHsmGatingUtils",
-          ).interactiveNativeFlowResponseMessagesEnabled();
-      }
-    }
-    function A(e) {
       var t = e.bizInfo,
         n = e.message,
         o = e.msgContext,
@@ -483,21 +474,21 @@ __d(
         }
       }
     }
+    function A(e, t) {
+      if (e != null) {
+        var n = e.id;
+        if (n != null)
+          return B(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon);
+      }
+    }
     function F(e, t) {
       if (e != null) {
         var n = e.id;
         if (n != null)
-          return W(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon);
+          return B(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message);
       }
     }
-    function O(e, t) {
-      if (e != null) {
-        var n = e.id;
-        if (n != null)
-          return W(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message);
-      }
-    }
-    function B(e) {
+    function O(e) {
       var t = e.info,
         n = e.msgMeta,
         a = e.realType,
@@ -511,7 +502,7 @@ __d(
         participant: s,
       });
     }
-    function W(e, t, n, a) {
+    function B(e, t, n, a) {
       var i, l, c, d;
       if (n != null && (i = n.id) != null && i.fromMe)
         if (
@@ -599,7 +590,7 @@ __d(
         participant: c,
       });
     }
-    function q(e) {
+    function W(e) {
       return e == null ||
         e === "" ||
         o("WAWebMobilePlatforms").getMobilePlatform() ===
@@ -609,25 +600,25 @@ __d(
             "WAWebConvertToTextWithoutSpecialEmojis",
           ).convertToTextWithoutSpecialEmojis(e);
     }
-    function U(e) {
+    function q(e) {
       var t = { fromMe: e.fromMe, id: e.id },
-        n = V(e.remote),
-        r = V(e.participant);
+        n = U(e.remote),
+        r = U(e.participant);
       return (
         o("WATypeUtils").isString(n) && (t.remoteJid = n),
         o("WATypeUtils").isString(r) && (t.participant = r),
         t
       );
     }
-    function V(e) {
+    function U(e) {
       if (e instanceof r("WAWebWid")) return e.toString({ legacy: !0 });
       if (o("WATypeUtils").isString(e))
         return e.replace(/@c.us$/, "@s.whatsapp.net");
     }
-    function H(e) {
+    function V(e) {
       return e != null && e !== "" ? o("WABase64").decodeB64(e) : void 0;
     }
-    function G(e, t, n) {
+    function H(e, t, n) {
       t.viewOnce ||
         (t.directPath == null &&
           t.staticUrl == null &&
@@ -678,7 +669,7 @@ __d(
             )
             .sendLogs("outgoing-" + e + "-message-missing-mms3-url"));
     }
-    function z(e, t, n) {
+    function G(e, t, n) {
       var r, a, i;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeInitiator
@@ -733,7 +724,7 @@ __d(
         { initiator: r, trigger: a, initiatedByMe: i }
       );
     }
-    function j(e) {
+    function z(e) {
       return e;
     }
     ((l.typeAttributeFromProtobuf = g),
@@ -752,19 +743,18 @@ __d(
       (l.isSupportedInteractiveMessageVersion = P),
       (l.getInteractiveResponseMessageFieldNameForType = N),
       (l.getInteractiveResponseMessageTypeForProto = M),
-      (l.isInteractiveResponseMessageTypeEnabled = w),
-      (l.getInteractiveResponsePayload = A),
-      (l.translateAddonMessageKeyToLocalReference = F),
-      (l.translateRegularMessageKeyToLocalReference = O),
-      (l.createMsgKeyFromThreadInfo = B),
-      (l.translateKeyToLocalReference = W),
-      (l.convertToTextWithoutSpecialEmojis = q),
-      (l.encodeKey = U),
-      (l.encodeJid = V),
-      (l.encodeBytes = H),
-      (l.validateOutgoingRequiredMediaProperties = G),
-      (l.disappearingModeInitiatorToProto = z),
-      (l.getMutableMessageProtobuf = j));
+      (l.getInteractiveResponsePayload = w),
+      (l.translateAddonMessageKeyToLocalReference = A),
+      (l.translateRegularMessageKeyToLocalReference = F),
+      (l.createMsgKeyFromThreadInfo = O),
+      (l.translateKeyToLocalReference = B),
+      (l.convertToTextWithoutSpecialEmojis = W),
+      (l.encodeKey = q),
+      (l.encodeJid = U),
+      (l.encodeBytes = V),
+      (l.validateOutgoingRequiredMediaProperties = H),
+      (l.disappearingModeInitiatorToProto = G),
+      (l.getMutableMessageProtobuf = z));
   },
   98,
 );

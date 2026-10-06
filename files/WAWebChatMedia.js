@@ -40,7 +40,8 @@ __d(
       return (
         o("WAWebMsgGetters").getIsMedia(e) &&
         !e.isViewOnce &&
-        e.viewMode !== o("WAWebViewMode.flow").ViewModeType.HIDDEN
+        e.viewMode !== o("WAWebViewMode.flow").ViewModeType.HIDDEN &&
+        e.viewMode !== o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
       );
     }
     function d(e, t, n) {

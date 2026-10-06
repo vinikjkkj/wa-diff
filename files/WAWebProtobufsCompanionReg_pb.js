@@ -32,6 +32,8 @@ __d(
         WAIL: 25,
         WASS: 26,
         BUSINESS_BACK_OFFICE: 27,
+        WAIL_WAI: 28,
+        WAIL_ALEXA: 29,
       }),
       u = {},
       c = {},
@@ -78,6 +80,8 @@ __d(
         supportedBotChannelFbids: [23, e.FLAGS.REPEATED | e.TYPES.STRING],
         supportInlineContacts: [24, e.TYPES.BOOL],
         supportNewsletter: [25, e.TYPES.BOOL],
+        supportUniversalReachChat: [26, e.TYPES.BOOL],
+        supportOmittedConversationIndex: [27, e.TYPES.BOOL],
       }),
       (d.name = "DeviceProps$AppVersion"),
       (d.internalSpec = {

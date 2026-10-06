@@ -8,6 +8,7 @@ __d(
     "WAWap",
     "WAWebABProps",
     "WAWebBackendApi",
+    "WAWebCallUserJourneyGating",
     "WAWebCoreActionsODS",
     "WAWebCountryCodeUtils",
     "WAWebCrashAnnotations",
@@ -19,6 +20,7 @@ __d(
     "WAWebVoipABPropConfig",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipCallIdProvider",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipExperimentTargetSample",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitializationBarrier",
@@ -50,6 +52,7 @@ __d(
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
     "WAWebVoipWebTransportConnectionManager",
+    "WAWebWamEnumLobbyEntryPointType",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -1111,13 +1114,27 @@ __d(
           })(),
           acceptCall: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
+              function* (e, t, n) {
+                var r = o("WAWebVoipLocalCallStateStore").getLocalCallState();
                 (o(
                   "WAWebVoipLobbyEntryPointStore",
                 ).resetLobbyEntryPointOnAccept(
-                  o("WAWebVoipLocalCallStateStore").getLocalCallState() ===
-                    o("WAWebVoipWaCallEnums").CallState.Rejoining,
+                  r === o("WAWebVoipWaCallEnums").CallState.Rejoining,
                 ),
+                  o("WAWebVoipCallStateUtils").isCallIncoming(r) &&
+                    o("WAWebVoipGatingUtils").isCurrentCallGroup() &&
+                    o(
+                      "WAWebCallUserJourneyGating",
+                    ).isCallUserJourneyLoggingEnabled() &&
+                    o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                      n ===
+                        o("WAWebWamEnumLobbyEntryPointType")
+                          .LOBBY_ENTRY_POINT_TYPE.NOTIFICATION_BUTTON
+                        ? o("WAWebWamEnumLobbyEntryPointType")
+                            .LOBBY_ENTRY_POINT_TYPE.NOTIFICATION_BUTTON
+                        : o("WAWebWamEnumLobbyEntryPointType")
+                            .LOBBY_ENTRY_POINT_TYPE.OPEN_FOR_RINGING,
+                    ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId(),
                   yield be("acceptCall", {
                     isMicEnabled: e,
@@ -1125,7 +1142,7 @@ __d(
                   }));
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;

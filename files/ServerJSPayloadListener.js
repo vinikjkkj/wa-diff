@@ -11,7 +11,7 @@ __d(
           var n = null;
           try {
             if (
-              ((n = o("GHLServerJSParse").decodeBootScript(e.textContent)),
+              ((n = o("GHLServerJSParse").hydrateBootData(e.textContent)),
               n == null)
             )
               throw r("err")(

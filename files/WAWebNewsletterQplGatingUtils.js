@@ -1,22 +1,10 @@
 __d(
   "WAWebNewsletterQplGatingUtils",
-  [
-    "WAWebABProps",
-    "WAWebNewsletterGatingUtils",
-    "WAWebQplQuickPerformanceLoggerMarkerIds",
-  ],
+  ["WAWebABProps", "WAWebNewsletterGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e = new Map([
-      [
-        o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-          .CHANNEL_UNFOLLOW,
-        "1",
-      ],
-      [
-        o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-          .CHANNEL_FOLLOW,
-        "1",
-      ],
+      [1026957851, "1"],
+      [1026960759, "1"],
     ]);
     function s(t) {
       if (!o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled())

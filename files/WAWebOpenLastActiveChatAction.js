@@ -12,38 +12,50 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
-    }
+    var e,
+      s = 0;
     function u() {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = o("WAWebSideNavButtonsActivityModel").getLastActiveChat();
           try {
             var r =
               t != null ? o("WAWebChatCollection").ChatCollection.get(t) : null;
-            return (
-              o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
-              r != null && !r.isLocked
-                ? o("WAWebBotUtils").isMetaAiBot(r.id) &&
-                  o("WAWebBotGating").isAiChatThreadsEnabled()
-                  ? !1
-                  : o("WAWebCmd").Cmd.openChatFromUnread({
-                      chat: r,
-                      chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                        .ChatsTab,
-                    })
-                : (e || (e = n("Promise"))).resolve(!1)
-            );
+            if (
+              (o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
+              r != null && !r.isLocked)
+            ) {
+              if (
+                o("WAWebBotUtils").isMetaAiBot(r.id) &&
+                o("WAWebBotGating").isAiChatThreadsEnabled()
+              )
+                return !1;
+              var a = ++s;
+              return o("WAWebCmd").Cmd.openChatFromUnread({
+                chat: r,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .ChatsTab,
+                isSuperseded: function () {
+                  return a !== s;
+                },
+              });
+            }
+            return (e || (e = n("Promise"))).resolve(!1);
           } catch (t) {
             return (e || (e = n("Promise"))).resolve(!1);
           }
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.openLastActiveChatIfNotLocked = s;
+    function d() {
+      s++;
+    }
+    ((l.openLastActiveChatIfNotLocked = u),
+      (l.cancelPendingLastActiveChatRestore = d));
   },
   98,
 );

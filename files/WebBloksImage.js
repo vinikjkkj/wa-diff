@@ -59,66 +59,67 @@ __d(
         T = I.style,
         D = I.wrapper,
         x = I.wrapperProps,
-        $ = o("WebBloksTheme").useTheme().getTheme(),
-        P = r.get(h);
-      T.position === "absolute" &&
-        T.left === "0px" &&
-        T.right === "0px" &&
-        (T.width = "100%");
-      var N =
-          T.position === "absolute" && T.top === "0px" && T.bottom === "0px"
-            ? babelHelpers.extends({}, T, { height: "100%" })
-            : T,
-        M = S(i),
-        w = {};
+        $ = babelHelpers.extends({}, T),
+        P = o("WebBloksTheme").useTheme().getTheme(),
+        N = r.get(h);
+      $.position === "absolute" &&
+        $.left === "0px" &&
+        $.right === "0px" &&
+        ($.width = "100%");
+      var M =
+          $.position === "absolute" && $.top === "0px" && $.bottom === "0px"
+            ? babelHelpers.extends({}, $, { height: "100%" })
+            : $,
+        w = S(i),
+        A = {};
       if (u != null && l != null) {
-        var A = M === "fill" ? "100% 100%" : M;
-        w = {
+        var F = w === "fill" ? "100% 100%" : w;
+        A = {
           WebkitMaskImage: "url(" + l + ")",
-          WebkitMaskSize: A,
+          WebkitMaskSize: F,
           maskImage: "url(" + l + ")",
-          maskSize: A,
-          backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(u, $),
+          maskSize: F,
+          backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(u, P),
           objectPosition: "10000px 10000px",
         };
       }
-      var F = function (t) {
+      var O = function (t) {
         b != null && k(r, b, [t, Date.now(), E]);
       };
       c(function () {
-        F("ImageRequested");
+        O("ImageRequested");
       }, []);
-      var O = P == null ? void 0 : P.get(v);
-      if (O != null) {
-        var B = O.charAt(0),
-          W = "";
-        switch (B) {
+      var B = N == null ? void 0 : N.get(v);
+      if (B != null) {
+        var W = B.charAt(0),
+          q = "";
+        switch (W) {
           case "/":
-            W = "jpg";
+            q = "jpg";
             break;
           case "i":
-            W = "png";
+            q = "png";
             break;
           case "R":
-            W = "gif";
+            q = "gif";
             break;
           case "U":
-            W = "webp";
+            q = "webp";
             break;
           case "P":
-            W = "svg";
+            q = "svg";
             break;
         }
-        O = "data:image/" + W + ";base64," + O;
+        B = "data:image/" + q + ";base64," + B;
       }
-      var q = $ === o("WebBloksTheme").THEME.light || a == null ? l : a,
-        U = typeof q == "string" && q ? q.replace(/\\/g, "") : null,
-        V = O != null ? O : U,
-        H = babelHelpers.extends({}, x, {
+      var U = P === o("WebBloksTheme").THEME.light || a == null ? l : a,
+        V = typeof U == "string" && U ? U.replace(/\\/g, "") : null,
+        H = B != null ? B : V,
+        G = babelHelpers.extends({}, x, {
           "aria-label": null,
           alt: (t = x == null ? void 0 : x["aria-label"]) != null ? t : "",
         }),
-        G = d(
+        z = d(
           function () {
             return C != null && u == null ? R(C) : void 0;
           },
@@ -129,23 +130,23 @@ __d(
           "img",
           babelHelpers.extends(
             {},
-            H,
+            G,
             {
-              src: V,
+              src: H,
               onLoad: function () {
-                return F("ImageFinalRendered");
+                return O("ImageFinalRendered");
               },
               onError: function () {
-                return F("ImageFailed");
+                return O("ImageFailed");
               },
             },
             o("WebBloksStyle").getStyleProps(
               babelHelpers.extends(
                 {},
-                N,
-                w,
-                { objectFit: M },
-                G != null ? { objectPosition: G } : null,
+                M,
+                A,
+                { objectFit: w },
+                z != null ? { objectPosition: z } : null,
                 { overflow: "hidden" },
               ),
             ),

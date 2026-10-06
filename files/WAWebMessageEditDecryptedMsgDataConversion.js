@@ -54,6 +54,7 @@ __d(
           r("WAWebParseProtocolMessageEditProto")({
             messageProtobuf: {
               protocolMessage: {
+                additionalPromptIds: [],
                 editedMessage: u,
                 key: i.key,
                 type: i.type,

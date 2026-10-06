@@ -429,11 +429,12 @@ __d(
             var t = this,
               a = r.chat,
               i = r.chatEntryPoint,
-              l = r.msgContext,
-              u = r.threadId,
-              c = this.$CmdImpl$p_1 != null && this.$CmdImpl$p_1 === a.id;
+              l = r.isSuperseded,
+              u = r.msgContext,
+              c = r.threadId,
+              d = this.$CmdImpl$p_1 != null && this.$CmdImpl$p_1 === a.id;
             return (
-              c
+              d
                 ? o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -450,9 +451,10 @@ __d(
               new (y || (y = n("Promise")))(function (e) {
                 t.trigger("open_chat", {
                   chat: a,
-                  msgContext: l,
+                  msgContext: u,
                   chatEntryPoint: i,
-                  threadId: u,
+                  isSuperseded: l,
+                  threadId: c,
                   onComplete: (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (t) {
@@ -624,12 +626,13 @@ __d(
             var e = this,
               a = t.chat,
               i = t.chatEntryPoint,
-              l = t.threadId,
-              s = o("WAWebStateUtils").unproxy(a);
+              l = t.isSuperseded,
+              s = t.threadId,
+              c = o("WAWebStateUtils").unproxy(a);
             if (!r("gkx")("26258")) {
-              window.chat = s;
-              var c =
-                (s.unreadMsgAnchor && s.unreadMsgAnchor.id.toString()) ||
+              window.chat = c;
+              var d =
+                (c.unreadMsgAnchor && c.unreadMsgAnchor.id.toString()) ||
                 "No unreadMsgAnchor found";
               o("WALogger").LOG(
                 u ||
@@ -638,30 +641,31 @@ __d(
                     " unread=",
                     "",
                   ])),
-                c,
-                s.unreadCount,
+                d,
+                c.unreadCount,
               );
             }
-            var d,
-              m = o("WAWebThreadModelResolver").resolveThreadOrChat(s, l);
+            var m,
+              p = o("WAWebThreadModelResolver").resolveThreadOrChat(c, s);
             if (
-              (m.unreadMsgAnchor &&
-                (d = {
-                  collection: m.unreadMsgAnchor.getMsgChunk(
-                    m !== s ? l : void 0,
+              (p.unreadMsgAnchor &&
+                (m = {
+                  collection: p.unreadMsgAnchor.getMsgChunk(
+                    p !== c ? s : void 0,
                   ),
                   promise: (y || (y = n("Promise"))).resolve(),
-                  msg: m.unreadMsgAnchor,
-                  isUnreadDivider: s.shouldShowUnreadDivider(),
+                  msg: p.unreadMsgAnchor,
+                  isUnreadDivider: c.shouldShowUnreadDivider(),
                 }),
-              d || s.unreadCount > 0)
+              m || c.unreadCount > 0)
             ) {
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0);
-              var p = this.$CmdImpl$p_3({
-                chat: s,
-                msgContext: d,
+              var _ = this.$CmdImpl$p_3({
+                chat: c,
+                msgContext: m,
                 chatEntryPoint: i,
-                threadId: l,
+                isSuperseded: l,
+                threadId: s,
               })
                 .then(function () {
                   return e.$CmdImpl$p_4({ pos: "top", offset: -120 });
@@ -671,27 +675,32 @@ __d(
                   o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
                 );
               return (
-                p.finally(function () {
+                _.finally(function () {
                   o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
                 }),
-                p
+                _
               );
             }
-            return this.openChatBottom({ chat: s, chatEntryPoint: i });
+            return this.openChatBottom({
+              chat: c,
+              chatEntryPoint: i,
+              isSuperseded: l,
+            });
           }),
           (i.openChatBottom = function (t) {
             var e = this,
               n = t.chat,
               r = t.chatEntryPoint,
-              a = t.threadId,
-              i = o("WAWebStateUtils").unproxy(n);
+              a = t.isSuperseded,
+              i = t.threadId,
+              l = o("WAWebStateUtils").unproxy(n);
             (o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "openChatBottom",
                 ])),
             ),
-              i.id.isLid() &&
+              l.id.isLid() &&
                 o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -701,25 +710,26 @@ __d(
                   r,
                 ),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0));
-            var l,
-              s = o("WAWebThreadModelResolver").resolveThreadOrChat(i, a),
-              u = s.msgs;
-            if (u.length > 0) {
-              var m;
-              (s !== i
-                ? (m = u.last())
-                : a != null
-                  ? (m = i.msgs.findLast(function (e) {
-                      return o("WAWebThreadMsgUtils").isMsgInThread(e, a);
+            var s,
+              u = o("WAWebThreadModelResolver").resolveThreadOrChat(l, i),
+              m = u.msgs;
+            if (m.length > 0) {
+              var p;
+              (u !== l
+                ? (p = m.last())
+                : i != null
+                  ? (p = l.msgs.findLast(function (e) {
+                      return o("WAWebThreadMsgUtils").isMsgInThread(e, i);
                     }))
-                  : (m = i.msgs.last()),
-                (l = { collection: u, msg: m, isUnreadDivider: !1 }));
+                  : (p = l.msgs.last()),
+                (s = { collection: m, msg: p, isUnreadDivider: !1 }));
             }
-            var p = this.$CmdImpl$p_3({
-              chat: i,
-              msgContext: l,
+            var _ = this.$CmdImpl$p_3({
+              chat: l,
+              msgContext: s,
               chatEntryPoint: r,
-              threadId: a,
+              isSuperseded: a,
+              threadId: i,
             })
               .then(function () {
                 return e.scrollChatToBottom({ isChatOpen: !0 });
@@ -729,10 +739,10 @@ __d(
                 o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
               );
             return (
-              p.finally(function () {
+              _.finally(function () {
                 o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
               }),
-              p
+              _
             );
           }),
           (i.$CmdImpl$p_4 = function (t) {

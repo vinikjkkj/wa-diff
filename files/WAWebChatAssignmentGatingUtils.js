@@ -27,10 +27,7 @@ __d(
           );
     }
     function c() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function d() {
       return (

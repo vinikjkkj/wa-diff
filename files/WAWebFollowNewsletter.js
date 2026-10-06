@@ -13,7 +13,6 @@ __d(
     "WAWebNewsletterSubscribeAction",
     "WAWebPDFNGatingUtils",
     "WAWebPDFNModal.react",
-    "WAWebQplQuickPerformanceLoggerMarkerIds",
     "WAWebToast.react",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -70,8 +69,7 @@ __d(
           var r = new (o(
               "WAWebNewsletterFollowQPLLogger",
             ).WAWebNewsletterFollowQPLLogger)({
-              markerId: o("WAWebQplQuickPerformanceLoggerMarkerIds")
-                .QuickLogMarkerId.CHANNEL_FOLLOW,
+              markerId: 1026960759,
               eventSurface: t.eventSurface,
               discoverySurface: t.discoverySurface,
               eventUnit: t.eventUnit,
@@ -127,8 +125,7 @@ __d(
           var r = new (o(
               "WAWebNewsletterFollowQPLLogger",
             ).WAWebNewsletterFollowQPLLogger)({
-              markerId: o("WAWebQplQuickPerformanceLoggerMarkerIds")
-                .QuickLogMarkerId.CHANNEL_FOLLOW,
+              markerId: 1026960759,
               eventSurface: t.eventSurface,
               discoverySurface: t.discoverySurface,
               eventUnit: t.eventUnit,

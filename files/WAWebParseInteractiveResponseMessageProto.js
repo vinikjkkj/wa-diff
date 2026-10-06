@@ -6,7 +6,6 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebGalaxyFlowMessageInteractiveResponseMessageParser",
     "WAWebGalaxyFlowsUtils",
-    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
     "WAWebViewMode.flow",
@@ -23,13 +22,7 @@ __d(
       if (s != null) {
         var u =
           o("WAWebE2EProtoUtils").getInteractiveResponseMessageTypeForProto(s);
-        if (
-          !o(
-            "WAWebHsmGatingUtils",
-          ).interactiveNativeFlowResponseMessagesEnabled() ||
-          !u ||
-          !o("WAWebE2EProtoUtils").isInteractiveResponseMessageTypeEnabled(u)
-        )
+        if (!u)
           return {
             msgData: babelHelpers.extends({}, n, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,

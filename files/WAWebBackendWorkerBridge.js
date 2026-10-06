@@ -20,6 +20,7 @@ __d(
           return (e.push(t), e);
         },
         "d1923",
+        { bridgeBatcherMaxTokens: Number.MAX_SAFE_INTEGER },
       );
       return (r.setPort(t), r);
     }

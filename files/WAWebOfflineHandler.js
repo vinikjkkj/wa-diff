@@ -13,6 +13,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebQplFlowWrapper",
     "WAWebRuntimeEnvironmentUtils",
+    "WAWebWamOfflineResumeReporter",
     "asyncToGeneratorRuntime",
     "qpl",
   ],
@@ -48,7 +49,8 @@ __d(
             (this.$7 = C),
             (this.$8 = 0),
             (this.$9 = !1),
-            (this.$10 = 0));
+            (this.$10 = 0),
+            (this.$11 = null));
         }
         var r = t.prototype;
         return (
@@ -78,7 +80,7 @@ __d(
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.OfflineResume,
               ),
-              this.$12(),
+              this.$13(),
               (this.$9 = !o("WAWebRuntimeEnvironmentUtils").isServiceWorker()),
               this.$1 != null)
             ) {
@@ -116,7 +118,7 @@ __d(
           (r.processMessageDecryptResult = function (t) {
             (this.offlineResumeManager.processDecryptResult(t),
               (this.$3 -= 1),
-              this.$13());
+              this.$14());
           }),
           (r.addOfflinePendingMessage = function () {
             this.isResumeFromRestartComplete() || (this.$3 += 1);
@@ -124,11 +126,12 @@ __d(
           (r.newOfflineStanza = function (t, n, r) {
             var e = this;
             return (
+              this.$15(),
               (this.$4 = !1),
               (this.$8 = Math.max(this.$8, r)),
               this.$6 == null &&
                 (this.$6 = self.setTimeout(function () {
-                  (e.$13(),
+                  (e.$14(),
                     (e.$6 = null),
                     o("WALogger").LOG(
                       d ||
@@ -198,14 +201,47 @@ __d(
           (r.getResumeType = function () {
             return this.offlineResumeManager.resumeType;
           }),
-          (r.$12 = function () {
-            ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0));
+          (r.$13 = function () {
+            ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0), (this.$11 = null));
           }),
-          (r.$14 = function (t, n) {
+          (r.$16 = function () {
+            ((this.$11 = self.performance.now()),
+              o(
+                "WAWebWamOfflineResumeReporter",
+              ).OfflineResumeReporter.logOfflineBatchRequest());
+          }),
+          (r.$15 = function () {
+            var e = this.$11;
+            e != null &&
+              ((this.$11 = null),
+              o(
+                "WAWebWamOfflineResumeReporter",
+              ).OfflineResumeReporter.logOfflineBatchArrival(
+                self.performance.now() - e,
+              ));
+          }),
+          (r.$17 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = self.performance.now();
+              (yield o(
+                "WAWebEventsWaitForReadyForOffline",
+              ).waitForOfflineProcessReady(),
+                o(
+                  "WAWebWamOfflineResumeReporter",
+                ).OfflineResumeReporter.logOfflineBatchReadyWait(
+                  self.performance.now() - e,
+                ));
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.$18 = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = n === !0 || this.$10 === 0;
-            (this.$11 != null && self.clearTimeout(this.$11),
+            (this.$12 != null && self.clearTimeout(this.$12),
               r
                 ? (o("WALogger").LOG(
                     m ||
@@ -218,15 +254,16 @@ __d(
                   o("WASmaxOfflineBatchRPC").sendBatchRPC({
                     offlineBatchCount: t,
                   }),
+                  this.$16(),
                   (this.$10 = Date.now()),
                   (this.$8 = 0),
                   (this.$4 = !0),
                   (this.$5 = !1))
-                : (this.$11 = self.setTimeout(function () {
-                    e.$15();
+                : (this.$12 = self.setTimeout(function () {
+                    e.$19();
                   }, S)));
           }),
-          (r.$15 = (function () {
+          (r.$19 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 e === void 0 && (e = !1);
@@ -267,11 +304,9 @@ __d(
                       ])),
                   ),
                     (this.$5 = !0),
-                    yield o(
-                      "WAWebEventsWaitForReadyForOffline",
-                    ).waitForOfflineProcessReady());
+                    yield this.$17());
                   var r = C;
-                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$14(r, n));
+                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$18(r, n));
                 }
               },
             );
@@ -280,10 +315,10 @@ __d(
             }
             return t;
           })()),
-          (r.$13 = (function () {
+          (r.$14 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                if ((e === void 0 && (e = !1), this.$9)) return this.$15(e);
+                if ((e === void 0 && (e = !1), this.$9)) return this.$19(e);
                 if (this.isResumeComplete() || this.$4 || this.$5) {
                   this.isResumeComplete() ||
                     o("WALogger").LOG(
@@ -308,12 +343,11 @@ __d(
                       ])),
                   ),
                   (this.$5 = !0),
-                  yield o(
-                    "WAWebEventsWaitForReadyForOffline",
-                  ).waitForOfflineProcessReady(),
+                  yield this.$17(),
                   o("WASmaxOfflineBatchRPC").sendBatchRPC({
                     offlineBatchCount: C,
                   }),
+                  this.$16(),
                   (this.$5 = !1),
                   (this.$4 = !0),
                   o("WALogger").LOG(

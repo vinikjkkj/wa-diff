@@ -1,7 +1,6 @@
 __d(
   "WAWebPdfViewerAppConfig",
   [
-    "WAWebABProps",
     "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebEnvironment",
@@ -40,9 +39,6 @@ __d(
         showSavePreferenceCheckbox: o(
           "WAWebTPPdfViewerGatingUtils",
         ).isWebTPSharerSavePreferenceEnabled(),
-        useUpdatedPdfSharerConsentCopy: o("WAWebABProps").getABPropConfigValue(
-          "wa_webtp_pdf_sharer_consent_copy_v2",
-        ),
       };
     }
     l.getWebTPAppConfig = s;

@@ -34,8 +34,9 @@ __d(
       var i = o("WebBloksTheme").useTheme().getTheme(),
         l = e == null ? void 0 : e.get(_),
         T = r("WebBloksDrawable")(l, a, { enabled: t != null ? t : void 0 }),
-        D = e == null ? void 0 : e.get(h),
-        x = u(
+        D = babelHelpers.extends({}, T),
+        x = e == null ? void 0 : e.get(h),
+        $ = u(
           function () {
             var t = e == null ? void 0 : e.get(g),
               n = e == null ? void 0 : e.get(f);
@@ -47,102 +48,102 @@ __d(
           },
           [e, i],
         ),
-        $ = x != null && x[3] < 1;
-      if (D != null && x != null && !$) {
-        var P,
-          N = o("WebBloksUtils").toPx(D),
-          M = o("WebBloksUtils").convertRGBArrToString(x),
-          w = e == null ? void 0 : e.get(C),
-          A = (P = o("WebBloksUtils").cast(w)) == null ? void 0 : P.get(I);
-        if (A != null && A.length > 0)
-          for (var F of A)
+        P = $ != null && $[3] < 1;
+      if (x != null && $ != null && !P) {
+        var N,
+          M = o("WebBloksUtils").toPx(x),
+          w = o("WebBloksUtils").convertRGBArrToString($),
+          A = e == null ? void 0 : e.get(C),
+          F = (N = o("WebBloksUtils").cast(A)) == null ? void 0 : N.get(I);
+        if (F != null && F.length > 0)
+          for (var O of F)
             e: {
-              if (F === "top") {
-                T.borderTop = N + " solid " + M;
+              if (O === "top") {
+                D.borderTop = M + " solid " + w;
                 break e;
               }
-              if (F === "right") {
-                T.borderRight = N + " solid " + M;
+              if (O === "right") {
+                D.borderRight = M + " solid " + w;
                 break e;
               }
-              if (F === "bottom") {
-                T.borderBottom = N + " solid " + M;
+              if (O === "bottom") {
+                D.borderBottom = M + " solid " + w;
                 break e;
               }
-              if (F === "left") {
-                T.borderLeft = N + " solid " + M;
+              if (O === "left") {
+                D.borderLeft = M + " solid " + w;
                 break e;
               }
               break e;
             }
-        else T.border = N + " solid " + M;
+        else D.border = M + " solid " + w;
       }
-      var O = u(
+      var B = u(
           function () {
-            if (D == null || x == null || !$) return null;
-            var e = o("WebBloksUtils").toPx(D),
+            if (x == null || $ == null || !P) return null;
+            var e = o("WebBloksUtils").toPx(x),
               t = {
                 position: "absolute",
                 pointerEvents: "none",
                 inset: 0,
                 borderRadius: "inherit",
                 border:
-                  e + " solid " + o("WebBloksUtils").convertRGBArrToString(x),
+                  e + " solid " + o("WebBloksUtils").convertRGBArrToString($),
               };
             return s.jsx("div", { style: t });
           },
-          [D, x, $],
+          [x, $, P],
         ),
-        B = e == null ? void 0 : e.get(L),
-        W = e == null ? void 0 : e.get(k);
-      if (W != null || B != null) {
-        var q,
-          U,
+        W = e == null ? void 0 : e.get(L),
+        q = e == null ? void 0 : e.get(k);
+      if (q != null || W != null) {
+        var U,
           V,
-          H = p;
-        if (W != null) {
-          var G = o("WebBloksUtils").convertThemedColorToArr(W, i),
-            z = G[0],
-            j = G[1],
-            K = G[2],
-            Q = G[3],
-            X = Q * (B != null ? B : 1);
-          H = o("WebBloksUtils").convertRGBArrToString([z, j, K, X]);
+          H,
+          G = p;
+        if (q != null) {
+          var z = o("WebBloksUtils").convertThemedColorToArr(q, i),
+            j = z[0],
+            K = z[1],
+            Q = z[2],
+            X = z[3],
+            Y = X * (W != null ? W : 1);
+          G = o("WebBloksUtils").convertRGBArrToString([j, K, Q, Y]);
         }
-        var Y = (q = e == null ? void 0 : e.get(R)) != null ? q : c,
-          J = (U = e == null ? void 0 : e.get(S)) != null ? U : d,
-          Z = (V = e == null ? void 0 : e.get(E)) != null ? V : m;
-        T.boxShadow = Y + "px " + J + "px " + Z + "px " + H;
+        var J = (U = e == null ? void 0 : e.get(R)) != null ? U : c,
+          Z = (V = e == null ? void 0 : e.get(S)) != null ? V : d,
+          ee = (H = e == null ? void 0 : e.get(E)) != null ? H : m;
+        D.boxShadow = J + "px " + Z + "px " + ee + "px " + G;
       }
-      var ee = e == null ? void 0 : e.get(y);
-      (o("WebBloksBooleanUtils").isTrue(ee) && (T.overflow = "hidden"),
+      var te = e == null ? void 0 : e.get(y);
+      (o("WebBloksBooleanUtils").isTrue(te) && (D.overflow = "hidden"),
         n &&
           !o("WebBloksBooleanUtils").isFalse(t) &&
-          ((T.cursor = "pointer"), (T.pointerEvents = "auto")));
-      var te = e == null ? void 0 : e.get(b);
-      if (te != null) {
-        var ne = e == null ? void 0 : e.get(v);
-        if (ne != null && ne.length > 0)
-          for (var re of ne)
-            switch (re) {
+          ((D.cursor = "pointer"), (D.pointerEvents = "auto")));
+      var ne = e == null ? void 0 : e.get(b);
+      if (ne != null) {
+        var re = e == null ? void 0 : e.get(v);
+        if (re != null && re.length > 0)
+          for (var oe of re)
+            switch (oe) {
               case "top_left":
-                T.borderTopLeftRadius = o("WebBloksUtils").toPx(te);
+                D.borderTopLeftRadius = o("WebBloksUtils").toPx(ne);
                 break;
               case "top_right":
-                T.borderTopRightRadius = o("WebBloksUtils").toPx(te);
+                D.borderTopRightRadius = o("WebBloksUtils").toPx(ne);
                 break;
               case "bottom_right":
-                T.borderBottomRightRadius = o("WebBloksUtils").toPx(te);
+                D.borderBottomRightRadius = o("WebBloksUtils").toPx(ne);
                 break;
               case "bottom_left":
-                T.borderBottomLeftRadius = o("WebBloksUtils").toPx(te);
+                D.borderBottomLeftRadius = o("WebBloksUtils").toPx(ne);
                 break;
               default:
                 break;
             }
-        else T.borderRadius = o("WebBloksUtils").toPx(te);
+        else D.borderRadius = o("WebBloksUtils").toPx(ne);
       }
-      return [T, O];
+      return [D, B];
     }
     l.default = T;
   },

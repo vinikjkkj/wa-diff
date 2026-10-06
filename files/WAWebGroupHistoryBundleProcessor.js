@@ -521,7 +521,7 @@ __d(
                       : f.message,
                     {
                       protocolMessage: babelHelpers.extends(
-                        {},
+                        { additionalPromptIds: [] },
                         (g = t.message) == null ||
                           (g = g.editedMessage) == null ||
                           (g = g.message) == null
@@ -542,7 +542,7 @@ __d(
             var h;
             t.message = babelHelpers.extends({}, t.message, {
               protocolMessage: babelHelpers.extends(
-                {},
+                { additionalPromptIds: [] },
                 (h = t.message) == null ? void 0 : h.protocolMessage,
                 { key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(p) },
               ),

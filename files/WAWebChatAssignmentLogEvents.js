@@ -121,34 +121,37 @@ __d(
           }).commit();
       }
     }
-    function p(t, n, a) {
-      var i,
-        l,
-        s,
-        u = e(),
-        c = o("WAWebAgentCollection").AgentCollection.get(n),
-        d = o("WAWebUserPrefsMeUser")
+    function p(t) {
+      var n,
+        a,
+        i,
+        l = t.assigneeId,
+        s = t.chat,
+        u = t.props,
+        c = e(),
+        d = o("WAWebAgentCollection").AgentCollection.get(l),
+        m = o("WAWebUserPrefsMeUser")
           .getMeDevicePnOrThrow_DO_NOT_USE()
           .getDeviceId(),
-        m = n === (u == null ? void 0 : u.id);
+        p = l === (c == null ? void 0 : c.id);
       return new (o("WAWebMdChatAssignmentWamEvent").MdChatAssignmentWamEvent)(
         babelHelpers.extends(
           {
-            assignerAgentId: (i = u == null ? void 0 : u.id) != null ? i : "",
+            assignerAgentId: (n = c == null ? void 0 : c.id) != null ? n : "",
             assignerBrowserId: r(
               "WAWebMiscBrowserUtils",
             ).persistentExpiringId(),
-            assignerMdId: d,
+            assignerMdId: m,
             chatAssignmentAgentId:
-              (l = c == null ? void 0 : c.id) != null ? l : "",
-            chatAssignmentBrowserId: m
+              (a = d == null ? void 0 : d.id) != null ? a : "",
+            chatAssignmentBrowserId: p
               ? r("WAWebMiscBrowserUtils").persistentExpiringId()
               : "",
-            chatAssignmentChatType: g(t),
+            chatAssignmentChatType: g(s),
             chatAssignmentMdId:
-              (s = c == null ? void 0 : c.deviceId) != null ? s : -1,
+              (i = d == null ? void 0 : d.deviceId) != null ? i : -1,
           },
-          a,
+          u,
         ),
       );
     }
@@ -183,10 +186,14 @@ __d(
                 .CHAT_ASSIGNMENT_ACTION_TYPE.ACTION_REASSIGNED)
             : (i = o("WAWebWamEnumChatAssignmentActionType")
                 .CHAT_ASSIGNMENT_ACTION_TYPE.ACTION_ASSIGNED),
-          p(e, t, {
-            chatAssignmentAction: i,
-            chatAssignmentEntryPoint: _(r),
-            chatsCnt: a,
+          p({
+            assigneeId: t,
+            chat: e,
+            props: {
+              chatAssignmentAction: i,
+              chatAssignmentEntryPoint: _(r),
+              chatsCnt: a,
+            },
           }).commit());
       }
     }

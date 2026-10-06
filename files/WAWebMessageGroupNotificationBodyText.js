@@ -30,6 +30,7 @@ __d(
     "WAWebFormatSubjectNotification",
     "WAWebFrontendMsgGetters",
     "WAWebGroupAgentAddAttribution",
+    "WAWebGroupAgentProfileRouting",
     "WAWebGroupMetadataGetters",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
     "WAWebMessageCommunityEmptySubgroupWelcome.react",
@@ -68,6 +69,10 @@ __d(
       return (
         r &&
         n &&
+        o("WAWebGroupAgentProfileRouting").getGroupAgentProfileDestination(
+          r,
+          t,
+        ) == null &&
         (!r.isUser() ||
           !o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
             t,
@@ -113,7 +118,11 @@ __d(
             (!o(
               "WAWebBotGroupGatingUtils",
             ).isOpenGroupBotParticipantAddEnabled() ||
-              !g[0].isBot()),
+              !g[0].isBot()) &&
+            o("WAWebGroupAgentProfileRouting").getGroupAgentProfileDestination(
+              g[0],
+              y,
+            ) == null,
           void 0,
           "0",
         );

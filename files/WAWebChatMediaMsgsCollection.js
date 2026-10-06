@@ -27,7 +27,8 @@ __d(
         o("WAWebMsgGetters").getIsMedia(e) &&
         !e.isViewOnce &&
         o("WAWebMessageAssociationUIUtils").shouldDisplayOrphanMessage(e) &&
-        e.viewMode !== o("WAWebViewMode.flow").ViewModeType.HIDDEN
+        e.viewMode !== o("WAWebViewMode.flow").ViewModeType.HIDDEN &&
+        e.viewMode !== o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
       );
     }
     var d = (function (t) {

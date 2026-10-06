@@ -31,6 +31,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebNux",
     "WAWebQueryAndUpdateSubgroupSuggestionsJob",
+    "WAWebRemoveStoredMuseAgentRequests",
     "WAWebSubgroupSuggestionsJob",
     "WAWebSyncGroupBotSupportFields",
     "WAWebUpdateDbForCommunityAction",
@@ -231,6 +232,21 @@ __d(
                 };
               if (
                 (B.push(V(l, q)),
+                a.reason !==
+                  o("WAWebGroupType").REMOVE_REASON.DEFAULT_SUBGROUP_DEMOTE &&
+                  B.push(
+                    o(
+                      "WAWebRemoveStoredMuseAgentRequests",
+                    ).removeStoredMuseAgentRequestsOfRemovedMembers(
+                      l,
+                      a.participants.flatMap(function (e) {
+                        var t = e.id,
+                          n = e.lid;
+                        return n == null ? [t] : [t, n];
+                      }),
+                      i,
+                    ),
+                  ),
                 B.push(
                   o(
                     "WAWebGroupHistoryParticipantJob",

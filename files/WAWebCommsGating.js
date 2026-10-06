@@ -1,12 +1,18 @@
 __d(
   "WAWebCommsGating",
-  ["qex"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      var e = r("qex")._("5241");
-      return e === "worker" || e === "worker_hrp" || e === "worker_hrp_bundle";
+    var e;
+    function s() {
+      return (
+        e == null &&
+          (e = o("WAWebABProps").getABPropConfigValue(
+            "waweb_comms_in_backend_worker",
+          )),
+        e != null ? e : !1
+      );
     }
-    l.isCommsInWorker = e;
+    l.isCommsInWorker = s;
   },
   98,
 );

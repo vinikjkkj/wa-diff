@@ -7,12 +7,12 @@ __d(
     function u(e, t) {
       return o(
         "WAWebBizAIAppointmentEditorState",
-      ).getCreateAppointmentEditorInitialState(
-        t.availability,
-        e.calendars,
-        e.isNativeCalendar,
-        d(t.timezoneId),
-      );
+      ).getCreateAppointmentEditorInitialState({
+        availability: t.availability,
+        calendars: e.calendars,
+        isNativeCalendar: e.isNativeCalendar,
+        timeZoneId: d(t.timezoneId),
+      });
     }
     function c(e, t) {
       return {

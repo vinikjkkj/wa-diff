@@ -282,7 +282,7 @@ __d(
                 "[scheduled_msg][mex][reveal] no record for rkid, storing orphan",
               ])),
           ),
-            yield oe(e, t));
+            yield ae(e, t));
         })),
         V.apply(this, arguments)
       );
@@ -559,7 +559,9 @@ __d(
                     scheduledTimestampS: u,
                     innerProto: m,
                   };
-                var y = re(g),
+                var y = babelHelpers.extends({}, oe(g), {
+                    messageSecret: te(m, e.outerMessageSecret),
+                  }),
                   C = yield o(
                     "WAWebLimitSharingAcp2HideReceivedMsgs",
                   ).hideMsgsReceivedInAcp2RestrictedChat({
@@ -582,7 +584,7 @@ __d(
                   return;
                 }
                 (yield Y(f, y, i),
-                  yield te(y, e, p, m),
+                  yield ne(y, e, p),
                   o("WALogger").LOG(
                     P ||
                       (P = babelHelpers.taggedTemplateLiteralLoose([
@@ -596,44 +598,45 @@ __d(
         ee.apply(this, arguments)
       );
     }
-    function te(e, t, n, r) {
-      return ne.apply(this, arguments);
+    function te(e, t) {
+      var n,
+        r = (n = e.messageContextInfo) == null ? void 0 : n.messageSecret;
+      return r != null ? new Uint8Array(r) : t != null ? t : void 0;
     }
-    function ne() {
+    function ne(e, t, n) {
+      return re.apply(this, arguments);
+    }
+    function re() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a,
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            var r,
+              a,
               i,
-              l,
-              s,
-              u = t.reportingTag;
-            if (u != null) {
-              var c =
-                  (a = r.messageContextInfo) == null ? void 0 : a.messageSecret,
-                d = babelHelpers.extends({}, e, {
-                  plainProtobufBytes: n,
-                  messageSecret: c != null ? new Uint8Array(c) : void 0,
-                  reportingTokenInfo: {
-                    reportingTag: u,
-                    reportingToken: (i = t.reportingToken) != null ? i : void 0,
-                    version: (l = t.reportingTokenVersion) != null ? l : void 0,
-                    stanzaTs: (s = t.reportingStanzaTs) != null ? s : void 0,
-                  },
-                });
+              l = t.reportingTag;
+            if (l != null) {
+              var s = babelHelpers.extends({}, e, {
+                plainProtobufBytes: n,
+                reportingTokenInfo: {
+                  reportingTag: l,
+                  reportingToken: (r = t.reportingToken) != null ? r : void 0,
+                  version: (a = t.reportingTokenVersion) != null ? a : void 0,
+                  stanzaTs: (i = t.reportingStanzaTs) != null ? i : void 0,
+                },
+              });
               yield o(
                 "WAWebHandleMsgValidate",
               ).validateAndProcessReportingTokenInfo({
                 forceDualEncryptedValidation: !0,
-                renderableMsgs: [d],
+                renderableMsgs: [s],
               });
             }
           },
         )),
-        ne.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function re(e) {
+    function oe(e) {
       var t = e.chatWid,
         n = e.innerProto,
         a = e.msgId,
@@ -695,12 +698,12 @@ __d(
         h,
       );
     }
-    function oe(e, t) {
-      return ae.apply(this, arguments);
+    function ae(e, t) {
+      return ie.apply(this, arguments);
     }
-    function ae() {
+    function ie() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
             N ||
               (N = babelHelpers.taggedTemplateLiteralLoose([
@@ -721,7 +724,7 @@ __d(
                 ])),
             ));
         })),
-        ae.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
     l.mexHandleScheduledMsgReveal = w;

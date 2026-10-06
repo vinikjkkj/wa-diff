@@ -11,6 +11,7 @@ __d(
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebEventsWaitForReadyForOffline",
     "WAWebHandleMsgCommon",
+    "WAWebMessageDeliveryCounters",
     "WAWebOfflineHandler",
     "WAWebOfflineResumeCounters",
     "WAWebPromiseQueue",
@@ -30,30 +31,31 @@ __d(
         allChatQueue: new (o("WAWebPromiseQueue").PromiseQueue)(),
         chatQueue: new (o("WAPromiseQueue").PromiseQueueMap)(),
       },
-      p = null;
-    function _(e) {
+      p = null,
+      _ = { offline: 0, online: 0 };
+    function f(e) {
       e
         ? p != null || (p = new (o("WAWebPromiseQueue").PromiseQueue)())
         : (p = null);
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
-            r = e.chatWid,
-            a = e.isOffline,
-            i = e.msgCategory,
-            l = e.skipOfflineWait,
-            u =
-              r.isRegularUser() && !r.isLid()
-                ? o("WAWebApiContact").getCurrentLid(r)
+            n = e.chatWid,
+            r = e.isOffline,
+            a = e.msgCategory,
+            i = e.skipOfflineWait,
+            l =
+              n.isRegularUser() && !n.isLid()
+                ? o("WAWebApiContact").getCurrentLid(n)
                 : null,
-            d = (u != null ? u : r).toString();
-          if (
-            (i !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
+            s = (l != null ? l : n).toString();
+          return (
+            a !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
               o(
                 "WAWebWaitForInitialChatsSynced",
               ).isWaitForInitialChatsSyncedPending() &&
@@ -63,66 +65,97 @@ __d(
               (yield o(
                 "WAWebWaitForInitialChatsSynced",
               ).waitForInitialChatsSynced()),
-            a &&
-              !o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.isResumeFromRestartComplete())
-          )
-            return m.allChatQueue.enqueue(function () {
-              return m.chatQueue.enqueue(
-                d,
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  return (
-                    yield o(
-                      "WAWebEventsWaitForReadyForOffline",
-                    ).waitForOfflineProcessReady(),
-                    o("WAPromiseTimeout")
-                      .promiseTimeout(t(), c)
-                      .catch(function (e) {
-                        if (e instanceof o("WACustomError").TimeoutError)
-                          return (
-                            o("WALogger")
-                              .LOG(
-                                s ||
-                                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                                    "Offline chat queue MAX_MESSAGE_DELAY exceeded",
-                                  ])),
-                              )
-                              .tags("messaging"),
-                            null
-                          );
-                        throw e;
-                      })
-                  );
-                }),
-              );
-            });
-          o("WAWebOfflineResumeCounters").maybeLogOfflineMsgRoutedToOnlineQueue(
-            a,
+            r &&
+            !o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.isResumeFromRestartComplete()
+              ? C("offline", b(s, t))
+              : (o(
+                  "WAWebOfflineResumeCounters",
+                ).maybeLogOfflineMsgRoutedToOnlineQueue(r),
+                C("online", v({ action: t, keyChatId: s, skipOfflineWait: i })))
           );
-          var _ = function () {
-              return C(d, t);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y() {
+      return babelHelpers.extends({}, _);
+    }
+    function C(e, t) {
+      return (
+        _[e]++,
+        t.finally(function () {
+          _[e]--;
+        })
+      );
+    }
+    function b(t, r) {
+      return m.allChatQueue.enqueue(function () {
+        return m.chatQueue.enqueue(
+          t,
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return (
+              yield o(
+                "WAWebEventsWaitForReadyForOffline",
+              ).waitForOfflineProcessReady(),
+              o("WAPromiseTimeout")
+                .promiseTimeout(r(), c)
+                .catch(function (t) {
+                  if (t instanceof o("WACustomError").TimeoutError)
+                    return (
+                      o("WALogger")
+                        .LOG(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "Offline chat queue MAX_MESSAGE_DELAY exceeded",
+                            ])),
+                        )
+                        .tags("messaging"),
+                      o("WAWebMessageDeliveryCounters").logMessageQueueTimeout(
+                        "offline",
+                      ),
+                      null
+                    );
+                  throw t;
+                })
+            );
+          }),
+        );
+      });
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.action,
+            n = e.keyChatId,
+            r = e.skipOfflineWait,
+            a = function () {
+              return E(n, t);
             },
-            f = p;
-          return f != null
-            ? l === !0
-              ? _()
-              : h({ enqueue: _, onlineAdmissionQueue: f })
-            : (l !== !0 &&
+            i = p;
+          return i != null
+            ? r === !0
+              ? a()
+              : R({ enqueue: a, onlineAdmissionQueue: i })
+            : (r !== !0 &&
                 (yield o(
                   "WAWebEventsWaitForOfflineDeliveryEnd",
                 ).waitForOfflineDeliveryEnd()),
-              _());
+              a());
         })),
-        g.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function y() {
+    function L() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.enqueue,
             r = e.onlineAdmissionQueue,
             a = o(
@@ -138,55 +171,59 @@ __d(
             i
           );
         })),
-        y.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function C(t, n) {
+    function E(e, t) {
       return d.allChatQueue.enqueue(function () {
-        return d.chatQueue.enqueue(t, function () {
+        return d.chatQueue.enqueue(e, function () {
           return o("WAPromiseTimeout")
-            .promiseTimeout(n(), c)
-            .catch(function (t) {
-              if (t instanceof o("WACustomError").TimeoutError)
+            .promiseTimeout(t(), c)
+            .catch(function (e) {
+              if (e instanceof o("WACustomError").TimeoutError)
                 return (
                   o("WALogger")
                     .LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "Online chat queue MAX_MESSAGE_DELAY exceeded",
                         ])),
                     )
                     .tags("messaging"),
+                  o("WAWebMessageDeliveryCounters").logMessageQueueTimeout(
+                    "online",
+                  ),
                   null
                 );
-              throw t;
+              throw e;
             });
         });
       });
     }
-    function b() {
+    function k() {
       return m.allChatQueue.wait();
     }
-    function v() {
+    function I() {
       return d.allChatQueue.wait();
     }
-    function S() {
+    function T() {
       return p != null;
     }
-    function R() {
+    function D() {
       var e = p;
       return e == null
-        ? v()
+        ? I()
         : e.enqueue(function () {
             return d.allChatQueue.wait();
           });
     }
-    ((l.configureWorkerOnlineMessageQueueTracking = _),
-      (l.onMessageQueue = f),
-      (l.waitForOfflineMessageQueue = b),
-      (l.waitForOnlineMessageQueue = v),
-      (l.isWorkerOnlineMessageQueueTrackingEnabled = S),
-      (l.waitForWorkerOnlineMessageQueueAfterOfflineDeliveryEnd = R));
+    ((l.configureWorkerOnlineMessageQueueTracking = f),
+      (l.onMessageQueue = g),
+      (l.getMessageQueueDepth = y),
+      (l.waitForOfflineMessageQueue = k),
+      (l.waitForOnlineMessageQueue = I),
+      (l.isWorkerOnlineMessageQueueTrackingEnabled = T),
+      (l.waitForWorkerOnlineMessageQueueAfterOfflineDeliveryEnd = D));
   },
   98,
 );

@@ -18,7 +18,6 @@ __d(
     "WAWebNewsletterStorageUtils",
     "WAWebNewsletterUnsubscribeJob",
     "WAWebQplFlowWrapper",
-    "WAWebQplQuickPerformanceLoggerMarkerIds",
     "WAWebSimilarNewsletterLogging",
     "WAWebWamEnumBannerStatusReason",
     "WAWebWamEnumChannelEventType",
@@ -42,10 +41,7 @@ __d(
           (o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
             !o(
               "WAWebNewsletterQplGatingUtils",
-            ).isNewsletterQplLoggingEnabledForMarkerId(
-              o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-                .CHANNEL_UNFOLLOW,
-            ) &&
+            ).isNewsletterQplLoggingEnabledForMarkerId(1026957851) &&
             (a = o("WAWebQplFlowWrapper").QPL.markerStart(c)),
             (r = a) == null ||
               r.annotate({
@@ -54,8 +50,7 @@ __d(
           var i = new (o(
             "WAWebNewsletterFollowQPLLogger",
           ).WAWebNewsletterFollowQPLLogger)({
-            markerId: o("WAWebQplQuickPerformanceLoggerMarkerIds")
-              .QuickLogMarkerId.CHANNEL_UNFOLLOW,
+            markerId: 1026957851,
             eventSurface: n.eventSurface,
             discoverySurface: n.discoverySurface,
             eventUnit: n.eventUnit,

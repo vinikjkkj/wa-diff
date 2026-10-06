@@ -6,6 +6,7 @@ __d(
     "WAWap",
     "WAWebABPropsCache",
     "WAWebAppSwInitializer",
+    "WAWebBackendWorkerInitState",
     "WAWebBrokerBackendInterface",
     "WAWebBuildConstants",
     "WAWebCacheStoreGatingUtil",
@@ -172,6 +173,7 @@ __d(
             myJids: g,
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
           }),
+            g != null && o("WAWebBackendWorkerInitState").resolveJidsReady(),
             o("WAWebCacheStoreGatingUtil").initStorageOptimizationFlags(),
             o("WAWebAppSwInitializer").initializeSw({
               swScriptPath: "/sw.js",

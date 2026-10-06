@@ -91,7 +91,8 @@ __d(
               T =
                 (i == null || (k = i.id) == null ? void 0 : k.remote) != null &&
                 (o("WAWebBotUtils").isAnyMetaAiBot(i.id.remote) ||
-                  o("WAWebMaibaWASSMigration").isMaibaAiHubLid(i.id.remote)),
+                  o("WAWebMaibaWASSMigration").isMaibaAiHubLid(i.id.remote) ||
+                  i.id.remote.isSupportAgentBot()),
               D =
                 T ||
                 o("WAWebE2EProtoUtils").isValidNativeFlowName({

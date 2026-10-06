@@ -3,7 +3,6 @@ __d(
   [
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebDrawerManager",
-    "WAWebKeyboardTabUtils",
     "WAWebStatusDrawerFlowLoadable",
     "react",
   ],
@@ -18,7 +17,7 @@ __d(
               onBack: o("WAWebDrawerManager").closeDrawerLeft,
             }),
         {
-          focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+          disableRotateFocus: !0,
           transition: "pop-drawer-fast",
           focusOnUnMount: !0,
         },

@@ -425,11 +425,14 @@ __d(
               i = n.version,
               l = { msg: e, reportingTokenVersion: i };
             if (a == null)
-              return {
-                res: !0,
-                reportingTokenContent: null,
-                reportingTokenKey: null,
-              };
+              return (
+                yield V(e, t, n.validationPolicy),
+                {
+                  res: !0,
+                  reportingTokenContent: null,
+                  reportingTokenKey: null,
+                }
+              );
             if (
               !o(
                 "WAWebMessagePluginGenerateReportingTokenContent",
@@ -443,7 +446,7 @@ __d(
             var s;
             if (
               (o("WAWebMsgGetters").getIsEdited(e) &&
-                (s = yield j(e.protocolMessageKey)),
+                (s = yield X(e.protocolMessageKey)),
               (s = s != null ? s : e.messageSecret),
               s == null)
             )
@@ -502,7 +505,7 @@ __d(
                   "WAWebWamReportingTokenMismatchReporter",
                 ).logReportingTokenValidationEvent(
                   babelHelpers.extends({}, l, {
-                    reason: G(i)
+                    reason: K(i)
                       ? o("WAWebWamEnumReportingTokenValidationFailureReason")
                           .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
                           .EMPTY_REPORTING_TOKEN_CONTENT
@@ -517,7 +520,7 @@ __d(
                   reportingTokenKey: null,
                 }
               );
-            var _ = yield U({
+            var _ = yield G({
               messageSecret: s,
               msg: e,
               receivedReportingToken: a,
@@ -546,7 +549,7 @@ __d(
                 "WAWebWamReportingTokenMismatchReporter",
               ).logReportingTokenValidationEvent({
                 msg: e,
-                reason: G(i)
+                reason: K(i)
                   ? o("WAWebWamEnumReportingTokenValidationFailureReason")
                       .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
                       .MISMATCH_REPORTING_TOKEN
@@ -555,9 +558,9 @@ __d(
                       .UNSUPPORTED_VERSION,
                 reportingTokenVersion: i,
               }),
-              H(i))
+              j(i))
             ) {
-              var f = z(e);
+              var f = Q(e);
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
@@ -592,12 +595,70 @@ __d(
         q.apply(this, arguments)
       );
     }
-    function U(e) {
-      return V.apply(this, arguments);
+    function U(e, t) {
+      return t !==
+        o("WAWebReportingTokenConstants").ReportingTokenValidationPolicy
+          .LogMissingReportingToken ||
+        e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN
+        ? !1
+        : o(
+            "WAWebMessagePluginGenerateReportingTokenContent",
+          ).isMsgTypeReportingTokenCompatible(e.type, e.subtype);
     }
-    function V() {
+    function V(e, t, n) {
+      return H.apply(this, arguments);
+    }
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (
+            !(
+              !U(e, n) ||
+              !o(
+                "WAWebMessagingGatingUtils",
+              ).isMissingReportingTokenDetectionEnabled()
+            )
+          ) {
+            var r = o(
+                "WAWebReportingTokenContent",
+              ).getLatestReportingTokenExclusionVersion(),
+              a = o(
+                "WAWebReportingTokenContent",
+              ).calculateReportingTokenContent(t, r);
+            if (a.length !== 0) {
+              var i = null;
+              if (o("WAWebMsgGetters").getIsEdited(e)) {
+                var l = yield J(e.protocolMessageKey);
+                if (l == null) return;
+                i = l.messageSecret;
+              }
+              var s = i != null ? i : e.messageSecret;
+              o(
+                "WAWebWamReportingTokenMismatchReporter",
+              ).logReportingTokenValidationEvent({
+                msg: e,
+                reason:
+                  s != null
+                    ? o("WAWebWamEnumReportingTokenValidationFailureReason")
+                        .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                        .MISSING_REPORTING_TOKEN
+                    : o("WAWebWamEnumReportingTokenValidationFailureReason")
+                        .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                        .MISSING_REPORTING_TOKEN_SECRET,
+                reportingTokenVersion: r,
+              });
+            }
+          }
+        })),
+        H.apply(this, arguments)
+      );
+    }
+    function G(e) {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.derivedReportingTokenContent,
             n = e.messageSecret,
             r = e.msg,
@@ -645,17 +706,17 @@ __d(
           }
           return { res: !1, reportingTokenContent: t, reportingTokenKey: l };
         })),
-        V.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function H(e) {
-      return G(e)
+    function j(e) {
+      return K(e)
         ? o("WAWebABProps").getABPropConfigValue(
             "ft_validation_failure_drop_placeholder",
           )
         : !1;
     }
-    function G(e) {
+    function K(e) {
       return e == null
         ? !1
         : e < o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3
@@ -665,7 +726,7 @@ __d(
               "WAWebReportingTokenContent",
             ).getLatestReportingTokenExclusionVersion();
     }
-    function z(e) {
+    function Q(e) {
       var t,
         n,
         a = e.id.id + "DEBUG",
@@ -689,21 +750,33 @@ __d(
             type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT,
           });
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    function X(e) {
+      return Y.apply(this, arguments);
     }
-    function K() {
+    function Y() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield J(e);
+          return t == null ? void 0 : t.messageSecret;
+        })),
+        Y.apply(this, arguments)
+      );
+    }
+    function J(e) {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return null;
           var t = yield o("WAWebSchemaMessage")
             .getMessageTable()
             .get(e.toString());
-          if (t == null) return null;
-          var n = o("WAWebDBMessageSerialization").messageFromDbRow(t);
-          return n.messageSecret;
+          return t != null
+            ? o("WAWebDBMessageSerialization").messageFromDbRow(t)
+            : null;
         })),
-        K.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
     ((l.REPORTING_TOKEN_SIZE = _),
@@ -719,9 +792,9 @@ __d(
       (l.genReportingTokenBodyForStanza = w),
       (l.genClientReportingTokenMixinArgs = F),
       (l.validateReportingTokenInfo = W),
-      (l.showDebugPlaceholderForReportingTokenMismatch = H),
-      (l.isSupportedReceiveVersion = G),
-      (l.genDebugMsgInfo = z));
+      (l.showDebugPlaceholderForReportingTokenMismatch = j),
+      (l.isSupportedReceiveVersion = K),
+      (l.genDebugMsgInfo = Q));
   },
   98,
 );

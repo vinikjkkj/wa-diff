@@ -49,19 +49,25 @@ __d(
       return o("WAMd5").md5("payload:" + e);
     }
     function m(e) {
-      var t = e.callFromUi,
-        n = e.callRandomId,
-        r = e.incomingCallUiAction,
-        o = e.jsonDataStr,
-        a = e.lobbyEntryPoint,
-        i = {
-          callFromUi: t,
-          callRandomId: n,
-          incomingCallUiAction: r,
-          jsonDataStr: o,
-          lobbyEntryPoint: a,
+      var t = e.calleeOfferToRingT,
+        n = e.callEnterPipModeCount,
+        r = e.callFromUi,
+        o = e.callRandomId,
+        a = e.incomingCallUiAction,
+        i = e.isAppInBgWhenCallStarts,
+        l = e.jsonDataStr,
+        u = e.lobbyEntryPoint,
+        c = {
+          calleeOfferToRingT: t,
+          callEnterPipModeCount: n,
+          callFromUi: r,
+          callRandomId: o,
+          incomingCallUiAction: a,
+          isAppInBgWhenCallStarts: i,
+          jsonDataStr: l,
+          lobbyEntryPoint: u,
         };
-      return ((s = i), i);
+      return ((s = c), c);
     }
     function p() {
       return s;

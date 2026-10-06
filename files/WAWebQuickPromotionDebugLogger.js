@@ -23,14 +23,10 @@ __d(
     function _() {
       return e.slice();
     }
-    function f() {
-      ((e.length = 0), (s = ""), (u = ""));
-    }
     ((l.isDebugEnabledForSurface = d),
       (l.startQPDebugSession = m),
       (l.qpLog = p),
-      (l.getQPDebugLogs = _),
-      (l.clearQPDebugLogs = f));
+      (l.getQPDebugLogs = _));
   },
   98,
 );

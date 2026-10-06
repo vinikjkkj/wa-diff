@@ -1,11 +1,19 @@
 __d(
   "WACryptoPrimitives",
-  ["WACryptoDependencies", "asyncToGeneratorRuntime", "cr:8712", "gkx"],
+  [
+    "WACryptoDependencies",
+    "WAHex",
+    "asyncToGeneratorRuntime",
+    "cr:8712",
+    "gkx",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = null,
-      u = {
+      s = 256,
+      u = new WeakMap(),
+      c = null,
+      d = {
         scalarbase: (e = n("cr:8712")).lowlevel.scalarbase,
         crypto_hash: e.lowlevel.crypto_hash,
         modL: e.lowlevel.modL,
@@ -22,38 +30,59 @@ __d(
         add: e.lowlevel.add,
         scalarmult: e.lowlevel.scalarmult,
       };
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function d() {
+    function p() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = o("WACryptoDependencies").getCrypto().subtle,
             l = i.verify;
-          if (!r("gkx")("6446") || s === i || l == null)
+          if (!r("gkx")("6446") || c === i || l == null)
             return n("cr:8712").sign.detached.verify(e, t, a);
           try {
-            var u = yield i.importKey("raw", a, { name: "Ed25519" }, !1, [
-              "verify",
-            ]);
-            return yield l.call(i, { name: "Ed25519" }, u, t, e);
+            var s = yield _(i, a);
+            return yield l.call(i, { name: "Ed25519" }, s, t, e);
           } catch (r) {
             return (
               r instanceof DOMException &&
                 r.name === "NotSupportedError" &&
-                (s = i),
+                (c = i),
               n("cr:8712").sign.detached.verify(e, t, a)
             );
           }
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.lowlevel = u),
+    function _(e, t) {
+      if (!r("gkx")("6446") || !r("gkx")("27245")) return f(e, t);
+      var n = u.get(e),
+        a = n != null ? n : new Map();
+      n == null && u.set(e, a);
+      var i = o("WAHex").toHex(t),
+        l = a.get(i);
+      if (l != null) return (a.delete(i), a.set(i, l), l);
+      var c = f(e, t);
+      if ((a.set(i, c), a.size > s)) {
+        var d = a.keys().next().value;
+        d != null && a.delete(d);
+      }
+      return (
+        c.catch(function () {
+          a.get(i) === c && a.delete(i);
+        }),
+        c
+      );
+    }
+    function f(e, t) {
+      return e.importKey("raw", t, { name: "Ed25519" }, !1, ["verify"]);
+    }
+    ((l.lowlevel = d),
       (l.keypairFromSecretKey = e.box.keyPair.fromSecretKey),
       (l.keyPair = e.box.keyPair),
       (l.signDetachedVerify = e.sign.detached.verify),
-      (l.signDetachedVerifyAsync = c),
+      (l.signDetachedVerifyAsync = m),
       (l.hash = e.hash),
       (l.scalarMult = e.scalarMult),
       (l.secretbox = e.secretbox),

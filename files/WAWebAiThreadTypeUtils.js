@@ -43,12 +43,17 @@ __d(
                   o("WAWebProtobufsAICommon.pb")
                     .AIThreadInfo$AIThreadClientInfo$AIThreadType.SIDE_CHAT
                 ? e.SideChat
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        t,
-                    );
-                  })();
+                : t ===
+                    o("WAWebProtobufsAICommon.pb")
+                      .AIThreadInfo$AIThreadClientInfo$AIThreadType
+                      .PRIVATE_SEARCH_CHAT
+                  ? e.Unknown
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          t,
+                      );
+                    })();
     }
     function c(t) {
       e: {

@@ -93,8 +93,9 @@ __d(
               iv: s.encIv,
               messageSecret: a,
               stanzaId: t.id.id,
-              pollCreationOriginalSender:
+              pollCreationOriginalSender: n(
                 o("WAWebMsgGetters").getOriginalSender(t),
+              ),
               voteSender: u,
               isOneOnOne: o("WAWebMsgGetters").getRemote(t).isUser(),
             }),

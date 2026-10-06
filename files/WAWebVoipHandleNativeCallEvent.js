@@ -10,10 +10,13 @@ __d(
     "WAWebCallUserJourneyLogger",
     "WAWebCoreActionsODS",
     "WAWebReleaseToEventLoop",
+    "WAWebVoipAppInBgWhenCallStartsStore",
     "WAWebVoipAudioCaptureBase",
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
+    "WAWebVoipCallEnterPipModeCountStore",
     "WAWebVoipCallStateUtils",
+    "WAWebVoipCalleeOfferToRingStore",
     "WAWebVoipContactUtils",
     "WAWebVoipCrashRecovery",
     "WAWebVoipDtlsCertCallRegistration",
@@ -1000,9 +1003,16 @@ __d(
               "WAWebVoipWebTransportConnectionManager",
             ).resetFallbackStateForNewCall(),
             o("WAWebCallRandomIdStore").clearCurrentCallRandomId(),
+            o("WAWebVoipIncomingCallUiActionStore").resetIncomingCallUiAction(),
             o(
-              "WAWebVoipIncomingCallUiActionStore",
-            ).resetIncomingCallUiAction()),
+              "WAWebVoipAppInBgWhenCallStartsStore",
+            ).resetAppInBgWhenCallStarts(),
+            o(
+              "WAWebVoipCallEnterPipModeCountStore",
+            ).resetCallEnterPipModeCount()),
+            o(
+              "WAWebVoipAppInBgWhenCallStartsStore",
+            ).maybeRecordAppInBgWhenCallStarts(u, l),
             o("WAWebVoipCallStateUtils").isCallTerminal(l)
               ? (Ce = null)
               : be(typeof s.callId == "string" ? s.callId : null),
@@ -1033,9 +1043,12 @@ __d(
               "WAWebCallUserJourneyLogger",
             ).CallUserJourneyLogger.setConnectedParticipants(Le(s)),
             o("WAWebVoipCallStateUtils").isCallTerminal(l) ||
-              o("WAWebVoipDtlsCertCallRegistration").syncDtlsCertCall(
+              (o("WAWebVoipDtlsCertCallRegistration").syncDtlsCertCall(
                 s.callId,
-              ));
+              ),
+              o(
+                "WAWebVoipCalleeOfferToRingStore",
+              ).dropCalleeOfferToRingOfOtherCall(s.callId)));
           var d = o("WAWebVoipGatingUtils").isWebTransportEnabled();
           o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
             s.isGroupCall === !0,

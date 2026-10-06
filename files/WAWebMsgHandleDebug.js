@@ -17,7 +17,7 @@ __d(
       f,
       g = !1,
       h;
-    function y(t, n) {
+    function y(t, n, r) {
       return g !== !1
         ? (o("WALogger").LOG(
             e ||
@@ -36,7 +36,7 @@ __d(
                 ])),
               t,
             ),
-              n(t),
+              n(t, r),
               (h = null));
           }),
           typeof g == "number"

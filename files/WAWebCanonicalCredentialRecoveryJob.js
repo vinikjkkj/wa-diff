@@ -61,7 +61,7 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebCanonicalGating").isCachedNonceRecoveryEnabled()) {
+          if (o("WAWebCanonicalGating").isCanonicalRecoveryEnabled()) {
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([

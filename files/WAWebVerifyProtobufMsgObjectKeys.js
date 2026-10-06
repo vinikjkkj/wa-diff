@@ -369,6 +369,8 @@ __d(
                                                                                                                     e ===
                                                                                                                       "groupStatusMessageV2" ||
                                                                                                                     e ===
+                                                                                                                      "instantImageMessage" ||
+                                                                                                                    e ===
                                                                                                                       "invoiceMessage" ||
                                                                                                                     e ===
                                                                                                                       "lottieStickerMessage" ||
@@ -386,6 +388,8 @@ __d(
                                                                                                                       "pollCreationOptionImageMessage" ||
                                                                                                                     e ===
                                                                                                                       "pollAddOptionMessage" ||
+                                                                                                                    e ===
+                                                                                                                      "requestLocationMessage" ||
                                                                                                                     e ===
                                                                                                                       "scheduledCallCreationMessage" ||
                                                                                                                     e ===

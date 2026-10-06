@@ -95,7 +95,7 @@ __d(
     u.compatibility = !0;
     function c(e) {
       var t = Object.keys(e).map(r("escapeRegex")).join("|");
-      return new RegExp("(" + t + ")", "g");
+      return new RegExp("(" + t + ")(?!\\d)", "g");
     }
     l.default = u;
   },

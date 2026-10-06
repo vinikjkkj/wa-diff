@@ -5,6 +5,7 @@ __d(
     "WAWebAdvSignatureApi",
     "WAWebBackendJobs.flow",
     "WAWebHandleMsgTypes.flow",
+    "WAWebMessageReceiveFlow",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgProcessingDecryptEnc",
     "WAWebMsgProcessingDecryptionHandler",
@@ -64,86 +65,99 @@ __d(
             v = !1,
             S = o(
               "WAWebMsgProcessingDecryptionHandler",
-            ).createDecryptionHandler(e);
-          for (var R of i)
-            try {
-              if (!S.canDecryptNext(R)) continue;
-              var L = o(
-                  "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-                ).msgProcessReporter.startMarker(
-                  o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
-                    .msgProcessReporter.stage.Decryption,
-                ),
-                E = yield o("WAWebMsgProcessingDecryptEnc").decryptEnc({
-                  enc: R,
-                  from: y,
-                  parsedMsgPayload: e,
-                  participant: m.author,
-                  sessionScope: n,
-                });
-              (L == null || L(),
-                o("WALogger")
-                  .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "decryptE2EPayload: msgId::",
-                        " e2eType:",
-                        " done",
-                      ])),
-                    m.externalId,
-                    R.e2eType,
-                  )
-                  .tags("messaging"),
-                o(
-                  "WAWebPostE2eMessageRecvMetric",
-                ).postSuccessE2eMessageRecvMetric({
-                  enc: R,
-                  from: y,
-                  msgMeta: _,
-                  msgInfo: m,
-                  msgBotInfo: d,
-                  error: null,
-                }));
-              var k = {
-                  retryCount: R.retryCount,
-                  e2eType: R.e2eType,
-                  encMediaType: R.encMediaType,
-                  hideFail: R.hideFail,
-                  isPq: R.sessionType === "pq",
-                },
-                I = yield t({
-                  decrypted: E,
-                  info: m,
-                  paymentInfo: f,
-                  e2eInfo: k,
-                  bizInfo: r,
-                  hsmInfo: l,
-                  msgMeta: _,
-                  rcat: g,
-                  msgBotInfo: d,
-                  reportingTokenInfo: h,
-                });
-              (I.hasInactiveMsg && (b = !0),
-                I.isOrphanAddon === !0 && (v = !0),
-                o("WALogger")
-                  .LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "processDecryptedProto: msgId::",
-                        " e2eType:",
-                        " done",
-                      ])),
-                    m.externalId,
-                    R.e2eType,
-                  )
-                  .tags("messaging"));
-            } catch (e) {
-              S.handleError(R, e);
-            }
+            ).createDecryptionHandler(e),
+            R = o("WAWebMessageReceiveFlow").startMessageReceiveDecryptTimer(
+              m.externalId,
+              !!m.offline,
+            ),
+            L = function* (i) {
+              try {
+                if (!S.canDecryptNext(i)) return 1;
+                var a = o(
+                    "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+                  ).msgProcessReporter.startMarker(
+                    o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
+                      .msgProcessReporter.stage.Decryption,
+                  ),
+                  s = yield R.timeDecrypt(function () {
+                    return o("WAWebMsgProcessingDecryptEnc").decryptEnc({
+                      enc: i,
+                      from: y,
+                      parsedMsgPayload: e,
+                      participant: m.author,
+                      sessionScope: n,
+                    });
+                  });
+                (a == null || a(),
+                  o("WALogger")
+                    .LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "decryptE2EPayload: msgId::",
+                          " e2eType:",
+                          " done",
+                        ])),
+                      m.externalId,
+                      i.e2eType,
+                    )
+                    .tags("messaging"),
+                  o(
+                    "WAWebPostE2eMessageRecvMetric",
+                  ).postSuccessE2eMessageRecvMetric({
+                    enc: i,
+                    from: y,
+                    msgMeta: _,
+                    msgInfo: m,
+                    msgBotInfo: d,
+                    error: null,
+                  }));
+                var p = {
+                    retryCount: i.retryCount,
+                    e2eType: i.e2eType,
+                    encMediaType: i.encMediaType,
+                    hideFail: i.hideFail,
+                    isPq: i.sessionType === "pq",
+                  },
+                  C = yield R.timeProcess(function () {
+                    return t({
+                      decrypted: s,
+                      info: m,
+                      paymentInfo: f,
+                      e2eInfo: p,
+                      bizInfo: r,
+                      hsmInfo: l,
+                      msgMeta: _,
+                      rcat: g,
+                      msgBotInfo: d,
+                      reportingTokenInfo: h,
+                    });
+                  });
+                (C.hasInactiveMsg && (b = !0),
+                  C.isOrphanAddon === !0 && (v = !0),
+                  o("WALogger")
+                    .LOG(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "processDecryptedProto: msgId::",
+                          " e2eType:",
+                          " done",
+                        ])),
+                      m.externalId,
+                      i.e2eType,
+                    )
+                    .tags("messaging"));
+              } catch (e) {
+                S.handleError(i, e);
+              }
+            };
+          for (var E of i) yield* L(E);
           return (
-            yield o("WAWebSignalProtocolStore")
-              .getSignalProtocolStore()
-              .flushBufferToDiskIfNotMemOnlyMode(),
+            yield R.timeSignalFlush(function () {
+              return o("WAWebSignalProtocolStore")
+                .getSignalProtocolStore()
+                .flushBufferToDiskIfNotMemOnlyMode();
+            }),
+            R.finish(),
             S.getResult(b, v)
           );
         })),

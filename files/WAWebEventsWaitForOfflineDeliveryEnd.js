@@ -7,6 +7,7 @@ __d(
     "WAResolvable",
     "WAWebBackendEventBus",
     "WAWebEventsWaitForBbEvent",
+    "WAWebMessageDeliveryCounters",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -61,7 +62,7 @@ __d(
               yield o("WAPromiseTimeout").promiseTimeout(l.promise, u);
             } catch (t) {
               if (t instanceof o("WACustomError").TimeoutError) {
-                o("WALogger")
+                (o("WALogger")
                   .ERROR(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -70,7 +71,10 @@ __d(
                   )
                   .sendLogs("offline-resume-promise-unresolved", {
                     sampling: 0.01,
-                  });
+                  }),
+                  o(
+                    "WAWebMessageDeliveryCounters",
+                  ).logOfflineDeliveryWaitTimeout());
                 return;
               }
               throw t;

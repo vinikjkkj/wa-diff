@@ -27,6 +27,7 @@ __d(
     "WAWebPaymentNotificationParser",
     "WAWebPaymentStatusUtils",
     "WAWebProtobufsWeb.pb",
+    "WAWebReportingTokenConstants",
     "WAWebScheduledMsgConstants",
     "WAWebSessionScope",
     "WAWebSimpleSignalPNToFBIDMigration",
@@ -49,7 +50,8 @@ __d(
       f,
       g,
       h,
-      y = new (r("WADeprecatedWapParser"))("incomingMsgParser", function (e) {
+      y,
+      C = new (r("WADeprecatedWapParser"))("incomingMsgParser", function (e) {
         var t, n;
         e.assertTag("message");
         var r = e.maybeChild("plaintext");
@@ -73,16 +75,16 @@ __d(
           }),
           i = e.maybeChild("device-identity"),
           l = i ? i.contentBytes() : null,
-          s = L(e),
-          u = S(e, a),
-          c = b({ botInfo: s, encs: a, msgMeta: u, node: e }),
-          d = E(e, c),
-          m = T(e),
+          s = E(e),
+          u = R(e, a),
+          c = v({ botInfo: s, encs: a, msgMeta: u, node: e }),
+          d = k(e, c),
+          m = D(e),
           p = m.dehydratedPaymentNode,
           _ = m.paymentInfo,
-          f = I(e),
-          g = $(e),
-          h = P(e, a),
+          f = T(e),
+          g = P(e),
+          h = N(e, a),
           y =
             (t =
               (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
@@ -104,7 +106,7 @@ __d(
           ghsReportingTokenInfos: h,
         };
       });
-    function C(e, t) {
+    function b(e, t) {
       var n = o("WAWebUserPrefsMeUser").isMeAccount(e),
         r =
           e != null &&
@@ -138,7 +140,7 @@ __d(
         );
       return { chat: i, metaFrom: e };
     }
-    function b(t) {
+    function v(t) {
       var n,
         r = t.botInfo,
         a = t.encs,
@@ -220,7 +222,7 @@ __d(
               o("WAWebHandleMsgCommon").MSG_CATEGORY,
             ),
             offline: l.maybeAttrString("offline"),
-            senderCountryCode: N(l.maybeChild("meta")),
+            senderCountryCode: M(l.maybeChild("meta")),
           },
           _ != null ? { serverStoreTimeMicros: _ } : null,
         ),
@@ -235,19 +237,19 @@ __d(
         y = l.hasAttr("recipient")
           ? o("WAWebJidToWid").userJidToUserWid(l.attrUserJid("recipient"))
           : null,
-        b = !!(
+        C = !!(
           h != null &&
           h.isHosted() &&
           (g.isStatus() || g.isGroup() || g.isBroadcast())
         );
-      if (b)
+      if (C)
         throw new (o("WAParsableWapNode").XmppParsingFailure)(
           "incomingMsgParser",
           "" +
             o("WAWebCreateNackFromStanza").NackReason
               .InvalidHostedCompanionStanza,
         );
-      var S = a.every(function (e) {
+      var v = a.every(function (e) {
           return e.e2eType !== o("WAWebBackendJobs.flow").CiphertextType.Skmsg;
         }),
         R = a.some(function (e) {
@@ -256,7 +258,7 @@ __d(
         L = g.isGroup() || g.isBroadcast() ? h : g;
       if (y != null && L != null && !o("WAWebUserPrefsMeUser").isMeAccount(L))
         return l.throw("Invalid recipient from non peer device");
-      var E = v(l),
+      var E = S(l),
         k = i == null ? void 0 : i.targetChatJid,
         I = i == null ? void 0 : i.from;
       if (g.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) {
@@ -275,7 +277,7 @@ __d(
               { chat: k, author: g, metaFrom: T },
             );
         }
-        var D = C(I, k),
+        var D = b(I, k),
           x = D.chat,
           $ = D.metaFrom;
         return babelHelpers.extends(
@@ -298,7 +300,7 @@ __d(
           },
         );
       } else if (r && g.isFbidBot() && k != null) {
-        var M = o("WAWebWidFactory").asUserWidOrThrow(k);
+        var N = o("WAWebWidFactory").asUserWidOrThrow(k);
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
           f,
@@ -306,8 +308,8 @@ __d(
             chat: o(
               "WAWebLid1X1MigrationGating",
             ).Lid1X1MigrationUtils.isLidMigrated()
-              ? M
-              : o("WAWebLidMigrationUtils").toPnOrThrow(M),
+              ? N
+              : o("WAWebLidMigrationUtils").toPnOrThrow(N),
             author: g,
             botParticipant: g,
           },
@@ -431,7 +433,7 @@ __d(
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP },
           f,
-          { chat: g, author: h, isDirect: S, addressingMode: W },
+          { chat: g, author: h, isDirect: v, addressingMode: W },
         );
       } else {
         if (g.isBroadcast() && !g.isStatus())
@@ -449,7 +451,7 @@ __d(
                     {
                       chat: g,
                       author: h,
-                      isDirect: S,
+                      isDirect: v,
                       bclParticipants: E != null ? E : [],
                       bclHashValidated: !1,
                     },
@@ -463,7 +465,7 @@ __d(
                   {
                     chat: g,
                     author: h,
-                    isDirect: S,
+                    isDirect: v,
                     ephSetting: l.maybeAttrString("eph_setting"),
                   },
                 );
@@ -477,7 +479,7 @@ __d(
                 : U.maybeAttrString("status_setting")) != null
               ? q
               : void 0;
-          if (o("WAWebUserPrefsMeUser").isMeAccount(h) && S) {
+          if (o("WAWebUserPrefsMeUser").isMeAccount(h) && v) {
             if (E == null)
               return babelHelpers.extends(
                 {
@@ -485,7 +487,7 @@ __d(
                     .DIRECT_PEER_STATUS,
                 },
                 f,
-                { chat: g, author: h, isDirect: S, statusSetting: V },
+                { chat: g, author: h, isDirect: v, statusSetting: V },
               );
             var H = E.map(function (e) {
               return e.wid;
@@ -508,13 +510,13 @@ __d(
           return babelHelpers.extends(
             { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS },
             f,
-            { chat: g, author: h, isDirect: S, statusSetting: V },
+            { chat: g, author: h, isDirect: v, statusSetting: V },
           );
         }
       }
       return l.throw("Unrecognized message type");
     }
-    function v(e) {
+    function S(e) {
       var t = e.maybeChild("participants");
       if (!t) return null;
       var n = [],
@@ -554,7 +556,7 @@ __d(
         n
       );
     }
-    function S(e, t) {
+    function R(e, t) {
       var n = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
         a = e.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
@@ -698,7 +700,7 @@ __d(
             "parseMessageMeta",
             "scheduled_message stanza missing st/key/rkid",
           );
-        var v = R(C.contentBytes());
+        var v = L(C.contentBytes());
         if (v == null)
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
             "parseMessageMeta",
@@ -712,7 +714,7 @@ __d(
       }
       return g;
     }
-    function R(e) {
+    function L(e) {
       if (
         e.length ===
         o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_BYTES
@@ -733,7 +735,7 @@ __d(
         } catch (e) {}
       return null;
     }
-    function L(e) {
+    function E(e) {
       var t = e.maybeChild("bot");
       if (t) {
         var n = t.maybeAttrString("sender_timestamp_ms"),
@@ -758,12 +760,12 @@ __d(
         return s;
       }
     }
-    function E(e, t) {
+    function k(e, t) {
       var n,
         r,
         a,
         i = !!(!(t == null || (n = t.author) == null) && n.isBot());
-      if (k(t))
+      if (I(t))
         return {
           verifiedNameSerial: null,
           verifiedLevel: null,
@@ -836,7 +838,7 @@ __d(
         },
       );
     }
-    function k(e) {
+    function I(e) {
       var t, n;
       return e == null
         ? !1
@@ -847,7 +849,7 @@ __d(
               e.metaFrom,
             );
     }
-    function I(e) {
+    function T(e) {
       var t = e.maybeChild("hsm");
       if (t != null) {
         var n = t.maybeAttrString("tag"),
@@ -856,7 +858,7 @@ __d(
       }
       return null;
     }
-    function T(e) {
+    function D(e) {
       var t = null,
         n = null,
         r = e.hasChild("pay") ? e.child("pay") : null,
@@ -872,7 +874,7 @@ __d(
       if (a) {
         var s = o("WAWebPaymentNotificationParser").parseTransactionNode(a);
         s
-          ? D(i, l, o("WAWebWidFactory").createWid(s.receiver.toString()))
+          ? x(i, l, o("WAWebWidFactory").createWid(s.receiver.toString()))
             ? (t = {
                 receiverJid: s.receiver.toString(),
                 currency: s.currency,
@@ -916,7 +918,7 @@ __d(
               p = r.hasAttr("receiver")
                 ? r.attrString("receiver")
                 : e.attrString("recipient");
-            D(i, l, o("WAWebWidFactory").createWid(p))
+            x(i, l, o("WAWebWidFactory").createWid(p))
               ? (t = {
                   receiverJid: p,
                   currency: m,
@@ -943,7 +945,7 @@ __d(
       }
       return { paymentInfo: t, dehydratedPaymentNode: n };
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       return !(
         e &&
         t != null &&
@@ -952,7 +954,7 @@ __d(
         !o("WAWebUserPrefsMeUser").isMeAccount(n)
       );
     }
-    var x = new (r("WADeprecatedWapParser"))(
+    var $ = new (r("WADeprecatedWapParser"))(
       "incomingMsgParserForAckOnly",
       function (e) {
         e.assertTag("message");
@@ -975,7 +977,7 @@ __d(
         } catch (e) {}
         var r = null;
         try {
-          r = b({ botInfo: L(e), encs: [], node: e });
+          r = v({ botInfo: E(e), encs: [], node: e });
         } catch (e) {
           o("WALogger").WARN(
             g ||
@@ -1000,7 +1002,7 @@ __d(
         };
       },
     );
-    function $(e) {
+    function P(e) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var t = e.maybeChild("reporting");
@@ -1013,9 +1015,26 @@ __d(
         ((n.reportingToken = r.contentBytes()),
           (n.version = (i = r.maybeAttrInt("v")) != null ? i : void 0));
       }
-      return (a != null && (n.reportingTag = a.contentBytes()), n);
+      a != null && (n.reportingTag = a.contentBytes());
+      var l = t.maybeAttrString("validation_policy");
+      if (l != null) {
+        var s = o(
+          "WAWebReportingTokenConstants",
+        ).ReportingTokenValidationPolicy.cast(l);
+        s != null
+          ? (n.validationPolicy = s)
+          : o("WALogger").WARN(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "parseReportingTokenInfo: unknown validation_policy ",
+                  "",
+                ])),
+              l,
+            );
+      }
+      return n;
     }
-    function P(e, t) {
+    function N(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var n = t.some(function (e) {
@@ -1066,7 +1085,7 @@ __d(
       }
       return l;
     }
-    function N(e) {
+    function M(e) {
       var t = e == null ? void 0 : e.maybeAttrString("sender_country_code");
       if (t != null)
         try {
@@ -1075,8 +1094,8 @@ __d(
           o("WAWebCurrentUser").isEmployee() &&
             o("WALogger")
               .ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "Failed to parse sender country code: ",
                     "",
                   ])),
@@ -1087,7 +1106,7 @@ __d(
               });
         }
     }
-    ((l.incomingMsgParser = y), (l.incomingMsgParserForAckOnly = x));
+    ((l.incomingMsgParser = C), (l.incomingMsgParserForAckOnly = $));
   },
   98,
 );

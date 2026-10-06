@@ -54,12 +54,16 @@ __d(
           (t = Math.floor(t / 32)));
       return ((n += String.fromCharCode(t + 63)), n);
     }
-    function R(e, t, n, r) {
-      var o = (2 * Math.PI * c) / 256,
-        a = Math.cos((t * Math.PI) / 180),
-        i = Math.min(n, r),
-        l = Math.floor(Math.log2((i * o * a) / (2.5 * e)));
-      return Math.max(1, Math.min(l, s));
+    function R(e) {
+      var t = e.lat,
+        n = e.mapHeight,
+        r = e.mapWidth,
+        o = e.radiusMeters,
+        a = (2 * Math.PI * c) / 256,
+        i = Math.cos((t * Math.PI) / 180),
+        l = Math.min(r, n),
+        u = Math.floor(Math.log2((l * a * i) / (2.5 * o)));
+      return Math.max(1, Math.min(u, s));
     }
     function L(t) {
       var n = t.lat,
@@ -100,7 +104,11 @@ __d(
         S = "color:red|" + y,
         L = c + "x" + f,
         E;
-      _ != null ? (E = _) : i != null && i > 0 ? (E = R(i, o, c, f)) : (E = s);
+      _ != null
+        ? (E = _)
+        : i != null && i > 0
+          ? (E = R({ lat: o, mapHeight: f, mapWidth: c, radiusMeters: i }))
+          : (E = s);
       var I = { zoom: E.toString(), size: L, scale: g.toString(), language: h };
       ((I.key = r("WAWebURLUtils").GSM_API_KEY),
         l ? (I.markers = S) : (I.center = y));

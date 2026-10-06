@@ -10,68 +10,77 @@ __d(
     exports,
   ) {
     "use strict";
-    var n = new Set([
+    var o = new Set([
+        "Alt",
+        "AltGraph",
+        "CapsLock",
+        "Control",
+        "Fn",
+        "Meta",
+        "Shift",
+      ]),
+      i = new Set([
         require("Lexical").SKIP_SELECTION_FOCUS_TAG,
         require("Lexical").SKIP_SCROLL_INTO_VIEW_TAG,
       ]),
       r = {
-        build: function build(e, t, n) {
+        build: function build(e, t, o) {
           return require("LexicalExtensionNamedSignals").namedSignals(t);
         },
         config: {
           $fixFocusOverselection: function $fixFocusOverselection() {
-            var i = require("Lexical").$getSelection();
-            if (require("Lexical").$isRangeSelection(i) && !i.isCollapsed()) {
+            var n = require("Lexical").$getSelection();
+            if (require("Lexical").$isRangeSelection(n) && !n.isCollapsed()) {
               var _t = require("Lexical").$getCaretRangeInDirection(
-                require("Lexical").$caretRangeFromSelection(i),
+                require("Lexical").$caretRangeFromSelection(n),
                 "next",
               );
-              var _r = _t.focus;
+              var _o = _t.focus;
               for (
-                require("Lexical").$isTextPointCaret(_r) &&
-                  _t.anchor.origin !== _r.origin &&
-                  0 === _r.offset &&
-                  (_r = require("Lexical").$rewindSiblingCaret(
-                    _r.getSiblingCaret(),
+                require("Lexical").$isTextPointCaret(_o) &&
+                  _t.anchor.origin !== _o.origin &&
+                  0 === _o.offset &&
+                  (_o = require("Lexical").$rewindSiblingCaret(
+                    _o.getSiblingCaret(),
                   )),
-                  require("Lexical").$isSiblingCaret(_r) &&
-                    _t.anchor.origin !== _r.origin &&
-                    require("Lexical").$isLineBreakNode(_r.origin) &&
-                    (_r = require("Lexical").$rewindSiblingCaret(_r));
-                require("Lexical").$isChildCaret(_r) &&
-                _t.anchor.origin !== _r.origin;
+                  require("Lexical").$isSiblingCaret(_o) &&
+                    _t.anchor.origin !== _o.origin &&
+                    require("Lexical").$isLineBreakNode(_o.origin) &&
+                    (_o = require("Lexical").$rewindSiblingCaret(_o));
+                require("Lexical").$isChildCaret(_o) &&
+                _t.anchor.origin !== _o.origin;
               )
-                _r = require("Lexical").$rewindSiblingCaret(
-                  require("Lexical").$getSiblingCaret(_r.origin, "next"),
+                _o = require("Lexical").$rewindSiblingCaret(
+                  require("Lexical").$getSiblingCaret(_o.origin, "next"),
                 );
               if (
-                (require("Lexical").$isSiblingCaret(_r) &&
-                  require("Lexical").$isElementNode(_r.origin) &&
-                  (_r = require("Lexical")
+                (require("Lexical").$isSiblingCaret(_o) &&
+                  require("Lexical").$isElementNode(_o.origin) &&
+                  (_o = require("Lexical")
                     .$normalizeCaret(
-                      require("Lexical").$getChildCaret(_r.origin, "previous"),
+                      require("Lexical").$getChildCaret(_o.origin, "previous"),
                     )
                     .getFlipped()),
-                (_r = require("Lexical").$normalizeCaret(_r)),
-                !_r.isSamePointCaret(_t.focus))
+                (_o = require("Lexical").$normalizeCaret(_o)),
+                !_o.isSamePointCaret(_t.focus))
               ) {
-                var _i = require("Lexical").$setSelectionFromCaretRange(
-                    require("Lexical").$getCaretRange(_t.anchor, _r),
+                var _n = require("Lexical").$setSelectionFromCaretRange(
+                    require("Lexical").$getCaretRange(_t.anchor, _o),
                   ),
-                  o = require("Lexical").$getEditor().getRootElement(),
-                  a =
-                    o &&
+                  _r = require("Lexical").$getEditor().getRootElement(),
+                  l =
+                    _r &&
                     require("Lexical").getDOMSelection(
-                      o.ownerDocument.defaultView,
+                      _r.ownerDocument.defaultView,
                     );
-                a &&
+                l &&
                   require("Lexical").$updateDOMSelection(
                     require("Lexical").$getPreviousSelection(),
-                    _i,
+                    _n,
                     require("Lexical").$getEditor(),
-                    a,
-                    n,
-                    o,
+                    l,
+                    i,
+                    _r,
                   );
               }
             }
@@ -83,38 +92,100 @@ __d(
           thresholdMsec: 100,
         },
         name: "@lexical/NormalizeTripleClickSelection",
-        register: function register(i, n, r) {
+        register: function register(n, i, r) {
           return require("LexicalExtensionSignals").effect(function () {
             var t = r.getOutput();
             if (!t.disabled.value)
-              return i.registerRootListener(function (n) {
-                if (!n) return;
-                var r = 0;
-                var o = function o(e) {
-                  if (e ? e.detail > 2 : r > 0) {
-                    var _i2 = t.dateNow.peek()();
-                    r =
-                      (e && "mousedown" === e.type) ||
-                      _i2 - r <= t.thresholdMsec.peek()
-                        ? _i2
-                        : 0;
-                  }
-                  return r;
-                };
+              return n.registerRootListener(function (i) {
+                if (!i) return;
+                var r = null,
+                  l = null;
+                var s = function s() {
+                    ((r = null), (l = null));
+                  },
+                  a = function a() {
+                    var n = require("Lexical").getDOMSelection(
+                      i.ownerDocument.defaultView,
+                    );
+                    if (null === n)
+                      return {
+                        anchorNode: null,
+                        anchorOffset: 0,
+                        focusNode: null,
+                        focusOffset: 0,
+                      };
+                    var _e$getDOMSelectionPoi =
+                        require("Lexical").getDOMSelectionPoints(n, i),
+                      t = _e$getDOMSelectionPoi.anchorNode,
+                      o = _e$getDOMSelectionPoi.anchorOffset,
+                      r = _e$getDOMSelectionPoi.focusNode,
+                      l = _e$getDOMSelectionPoi.focusOffset;
+                    return {
+                      anchorNode: t,
+                      anchorOffset: o,
+                      focusNode: r,
+                      focusOffset: l,
+                    };
+                  };
                 return require("Lexical").mergeRegister(
-                  i.registerCommand(
+                  n.registerCommand(
                     require("Lexical").SELECTION_CHANGE_COMMAND,
                     function () {
                       return (
-                        o(null) && ((r = 0), t.$fixFocusOverselection.peek()()),
+                        null === r ||
+                          (r.defaultPrevented
+                            ? s()
+                            : (function () {
+                                  var t = require("Lexical").$getSelection(),
+                                    o =
+                                      require("Lexical").$createRangeSelectionFromDom(
+                                        require("Lexical").getDOMSelection(
+                                          i.ownerDocument.defaultView,
+                                        ),
+                                        n,
+                                      );
+                                  return (
+                                    require("Lexical").$isRangeSelection(t) &&
+                                    null !== o &&
+                                    t.anchor.is(o.anchor) &&
+                                    t.focus.is(o.focus)
+                                  );
+                                })()
+                              ? (s(), t.$fixFocusOverselection.peek()())
+                              : null === l && (l = a())),
                         !1
                       );
                     },
                     require("Lexical").COMMAND_PRIORITY_BEFORE_CRITICAL,
                   ),
+                  n.registerUpdateListener(function () {
+                    var e, n;
+                    null !== r &&
+                      null !== l &&
+                      (r.eventPhase === Event.NONE &&
+                      ((e = l),
+                      (n = a()),
+                      e.anchorNode !== n.anchorNode ||
+                        e.anchorOffset !== n.anchorOffset ||
+                        e.focusNode !== n.focusNode ||
+                        e.focusOffset !== n.focusOffset)
+                        ? s()
+                        : (l = null));
+                  }),
                   require("Lexical").registerEventListeners(
-                    n,
-                    { mousedown: o, mouseup: o },
+                    i.ownerDocument,
+                    {
+                      keydown: function keydown(e) {
+                        o.has(e.key) || s();
+                      },
+                      mousedown: function mousedown(e) {
+                        (s(),
+                          e.detail > 2 &&
+                            e.composedPath().includes(i) &&
+                            (r = e));
+                      },
+                      pointerdown: s,
+                    },
                     !0,
                   ),
                 );

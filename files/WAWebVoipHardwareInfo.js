@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipHardwareInfo",
-  ["Promise", "WAPromiseDelays", "WAWebBackendApi", "WAWebBrowserApi"],
+  [
+    "Promise",
+    "WAPromiseDelays",
+    "WAWebBackendApi",
+    "WAWebBrowserApi",
+    "WAWebNullFunc",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -62,13 +68,9 @@ __d(
           .withTimeout(
             o("WAWebBackendApi")
               .frontendSendAndReceive("detectGpuInfo")
-              .catch(function () {
-                return null;
-              }),
+              .catch(o("WAWebNullFunc").returnNull),
             s,
-            function () {
-              return null;
-            },
+            o("WAWebNullFunc").returnNull,
           )
           .then(function (e) {
             if (e != null) {

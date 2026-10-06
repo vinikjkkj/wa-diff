@@ -13,6 +13,7 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebMessageInsertDeferredPlaceholder",
+    "WAWebMessageReceiveFlow",
     "WAWebMsgKey",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgType",
@@ -75,8 +76,14 @@ __d(
                 nackReason: o("WAWebCreateNackFromStanza").NackReason
                   .UnhandledError,
               };
-          (o("WAWebHandleMsgSendReceipt")
-            .sendReceipt(l, c, m, { canNack: t })
+          (o("WAWebMessageReceiveFlow")
+            .trackMessageReceiveReceipt(
+              l.externalId,
+              o("WAWebHandleMsgSendReceipt").sendReceipt(l, c, m, {
+                canNack: t,
+              }),
+              n.result,
+            )
             .catch(function (e) {
               o("WALogger")
                 .ERROR(

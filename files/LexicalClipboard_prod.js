@@ -228,10 +228,26 @@ __d(
       };
     function p(e, t, n, o) {
       if (!e) return !1;
-      var _r3 = function r(i) {
-        return !!e[i] && e[i](t, n, _r3.bind(null, i - 1), o);
+      var _r3 = function r(t, n, i) {
+        return (
+          !!e[t] &&
+          e[t](
+            n,
+            i,
+            function (e, o) {
+              if (e === void 0) {
+                e = n;
+              }
+              if (o === void 0) {
+                o = i;
+              }
+              return _r3(t - 1, e, o);
+            },
+            o,
+          )
+        );
       };
-      return _r3(e.length - 1);
+      return _r3(e.length - 1, t, n);
     }
     function d(e, t, n) {
       var o = t.getData("text/plain");

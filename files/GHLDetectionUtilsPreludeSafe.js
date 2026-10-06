@@ -30,7 +30,7 @@ __d(
         m +
         '],"require":[' +
         m +
-        '],"k4":"' +
+        '],"w7":"' +
         u(16) +
         '","extensions":{"is_final":true}' +
         c(4079) +

@@ -61,7 +61,12 @@ __d(
           [d, N],
         ),
         w = p(e);
-      ((w.current = e),
+      (c(
+        function () {
+          w.current = e;
+        },
+        [e],
+      ),
         c(function () {
           if (!(!M || M.length === 0)) {
             var e = [],

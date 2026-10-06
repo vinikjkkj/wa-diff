@@ -134,13 +134,18 @@ __d(
     }
     function R() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_per_group_toggle_md_sync",
+        "group_history_send_default_on",
       );
     }
     function L() {
-      return r("justknobx")._("5870");
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_per_group_toggle_md_sync",
+      );
     }
     function E() {
+      return r("justknobx")._("5870");
+    }
+    function k() {
       return r("justknobx")._("5932");
     }
     ((l.isGroupHistoryReceiverEnabled = e),
@@ -157,9 +162,10 @@ __d(
       (l.isGroupHistoryPostJoinSenderPrerequisitesEnabled = b),
       (l.isGroupHistoryReceiverDedupEnabled = v),
       (l.isGroupHistorySendOnceDefaultOnEnabled = S),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = R),
-      (l.shouldSkipUnsupportedMessagesFromBundle = L),
-      (l.isSystemMessageDotClarificationEnabled = E));
+      (l.isGroupHistorySendDefaultOnEnabled = R),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = L),
+      (l.shouldSkipUnsupportedMessagesFromBundle = E),
+      (l.isSystemMessageDotClarificationEnabled = k));
   },
   98,
 );

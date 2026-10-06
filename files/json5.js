@@ -264,7 +264,7 @@ __d(
         }
       );
     })()),
-      (e.readText = e.parse),
+      (e.fromText = e.parse),
       (e.stringify = function (t, n, r) {
         if (n && typeof n != "function" && !s(n))
           throw new Error("Replacer must be a function or an array");

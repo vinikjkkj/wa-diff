@@ -4,7 +4,6 @@ __d(
     "WAWebEncryptedRid",
     "WAWebNewsletterQplGatingUtils",
     "WAWebQplFlowWrapper",
-    "WAWebQplQuickPerformanceLoggerMarkerIds",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,12 +28,7 @@ __d(
                 },
               },
               u = Math.round(Math.random() * 1e9),
-              c =
-                i ===
-                o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-                  .CHANNEL_FOLLOW
-                  ? e
-                  : s;
+              c = i === 1026960759 ? e : s;
             this.$1 = o("WAWebQplFlowWrapper").QPL.markerStart(c, {
               annotations: l,
               instanceKey: u,

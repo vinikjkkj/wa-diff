@@ -11,6 +11,7 @@ __d(
     "WAWebGlobals",
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
+    "WAWebIdbTransactionCounter",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -1365,6 +1366,9 @@ __d(
               addons: [],
             })),
             o("WAWebDexieObservability").dropDexieObservability(this.db),
+            this.db.use(
+              o("WAWebIdbTransactionCounter").idbTransactionCounterMiddleware,
+            ),
             (this.packColumns = !!(t != null && t.packColumns)));
         }
         var t = e.prototype;

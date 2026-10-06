@@ -214,6 +214,7 @@ __d(
               ).maybePreProcessConditionalRevealForReceive({
                 conditionalRevealMessage: w,
                 msgId: c.externalId,
+                outerMessageContextInfo: $.messageContextInfo,
                 rawChatJid: K,
                 reportingTokenInfo: T,
                 senderJid: X,

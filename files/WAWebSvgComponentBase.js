@@ -1,13 +1,6 @@
 __d(
   "WAWebSvgComponentBase",
-  [
-    "Locale",
-    "WAWebClassnames",
-    "err",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["Locale", "err", "react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e = ["children"],
       s = [
@@ -28,7 +21,7 @@ __d(
         inline: { display: "x1rg5ohu", verticalAlign: "x16dsc37", $$css: !0 },
       };
     function p(t) {
-      var n = o("react-compiler-runtime").c(36),
+      var n = o("react-compiler-runtime").c(26),
         a,
         i;
       if (
@@ -74,90 +67,59 @@ __d(
           (h = n[10]),
           (y = n[11]),
           (C = n[12]));
-      var v, S, R, L, E, k;
-      if (
-        n[13] !== l ||
-        n[14] !== c ||
-        n[15] !== p ||
-        n[16] !== _ ||
-        n[17] !== f ||
-        n[18] !== g ||
-        n[19] !== y ||
-        n[20] !== C
-      ) {
-        var I;
-        y != null
-          ? (I = y === "rtl")
-          : (I = p === !0 ? o("Locale").isRTL() : !1);
-        var T = (u || (u = r("stylex")))(
-            I && m.reverse,
+      var v;
+      if (n[13] !== p || n[14] !== _ || n[15] !== y || n[16] !== C) {
+        var S;
+        (y != null
+          ? (S = y === "rtl")
+          : (S = p === !0 ? o("Locale").isRTL() : !1),
+          (v = (u || (u = r("stylex"))).props(
+            S && m.reverse,
             _ === !0 && m.inline,
             C,
-          ),
-          D = f === !1 ? !1 : l == null;
-        ((v = g),
-          (S = D),
-          (R = l),
-          (L = c),
-          (E = g),
-          (k = o("WAWebClassnames").classnamesConvertMeToStylexPlease(T)),
-          (n[13] = l),
-          (n[14] = c),
-          (n[15] = p),
-          (n[16] = _),
-          (n[17] = f),
-          (n[18] = g),
-          (n[19] = y),
-          (n[20] = C),
-          (n[21] = v),
-          (n[22] = S),
-          (n[23] = R),
-          (n[24] = L),
-          (n[25] = E),
-          (n[26] = k));
-      } else
-        ((v = n[21]),
-          (S = n[22]),
-          (R = n[23]),
-          (L = n[24]),
-          (E = n[25]),
-          (k = n[26]));
-      var x;
+          )),
+          (n[13] = p),
+          (n[14] = _),
+          (n[15] = y),
+          (n[16] = C),
+          (n[17] = v));
+      } else v = n[17];
+      var R = v,
+        L = f === !1 ? !1 : l == null,
+        E;
       return (
-        n[27] !== a ||
-        n[28] !== h ||
-        n[29] !== v ||
-        n[30] !== S ||
-        n[31] !== R ||
-        n[32] !== L ||
-        n[33] !== E ||
-        n[34] !== k
-          ? ((x = d.jsx(
+        n[18] !== L ||
+        n[19] !== l ||
+        n[20] !== a ||
+        n[21] !== c ||
+        n[22] !== g ||
+        n[23] !== h ||
+        n[24] !== R
+          ? ((E = d.jsx(
               "span",
               babelHelpers.extends(
                 {
-                  "data-testid": v,
-                  "aria-hidden": S,
-                  "aria-label": R,
-                  ref: L,
-                  "data-icon": E,
-                  className: k,
+                  "data-testid": g,
+                  "aria-hidden": L,
+                  "aria-label": l,
+                  ref: c,
+                  "data-icon": g,
                 },
+                R,
                 h,
                 { children: a },
               ),
             )),
-            (n[27] = a),
-            (n[28] = h),
-            (n[29] = v),
-            (n[30] = S),
-            (n[31] = R),
-            (n[32] = L),
-            (n[33] = E),
-            (n[34] = k),
-            (n[35] = x))
-          : (x = n[35]),
-        x
+            (n[18] = L),
+            (n[19] = l),
+            (n[20] = a),
+            (n[21] = c),
+            (n[22] = g),
+            (n[23] = h),
+            (n[24] = R),
+            (n[25] = E))
+          : (E = n[25]),
+        E
       );
     }
     l.BaseSvgSpan = p;

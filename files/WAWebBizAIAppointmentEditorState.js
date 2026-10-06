@@ -96,21 +96,25 @@ __d(
                   );
                 })();
     }
-    function y(e, t, n, r) {
-      var o,
-        a,
-        i = n ? null : w(t);
+    function y(e) {
+      var t,
+        n,
+        r = e.availability,
+        o = e.calendars,
+        a = e.isNativeCalendar,
+        i = e.timeZoneId,
+        l = a ? null : w(o);
       return {
-        availability: e,
-        calendarId: i,
+        availability: r,
+        calendarId: l,
         calendarName:
-          (o =
-            (a = t.find(function (e) {
-              return e.id === i;
+          (t =
+            (n = o.find(function (e) {
+              return e.id === l;
             })) == null
               ? void 0
-              : a.name) != null
-            ? o
+              : n.name) != null
+            ? t
             : null,
         canEditAvailability: !1,
         customDurationHours: "",
@@ -123,7 +127,7 @@ __d(
         inPersonLocation: "",
         locationTypes: ["PHONE_CALL"],
         locationTypesWereRepaired: !1,
-        timeZoneId: r,
+        timeZoneId: i,
         timeZoneWasMissing: !1,
         title: "",
       };

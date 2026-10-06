@@ -228,7 +228,7 @@ __d(
                 a.$L10n$p_1,
               ),
               (a.$L10n$p_2 = h)),
-            a.applyMomentLocale(h),
+            a.applyMomentLocale(a.$L10n$p_2),
             a
           );
         }

@@ -330,14 +330,18 @@ __d(
           (n.footerDisplayed = function (t) {
             var e = t.groupHistoryMessagesCount,
               n = t.isGroupHistoryToggledOn,
-              r = t.uiSurface;
+              r = t.toggleActivation,
+              a = t.uiSurface;
             this.$1({
               groupHistoryMessagesCount: e,
               groupHistorySenderActionType: o(
                 "WAWebWamEnumGroupHistorySenderActionType",
               ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_FOOTER_DISPLAYED,
               isGroupHistoryToggledOn: n,
-              uiSurface: r,
+              toggleDefaultOn: r.toggleDefaultOn,
+              togglePerGroupUsageActivated: r.togglePerGroupUsageActivated,
+              toggleUserActivated: r.toggleUserActivated,
+              uiSurface: a,
             });
           }),
           (n.groupHistoryToggleOn = function (t) {

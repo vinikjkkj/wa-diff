@@ -1,6 +1,7 @@
 __d(
   "WAWebInMemoryLottieStickerCache",
   [
+    "WAWebABProps",
     "WAWebLruCacheMap",
     "WAWebMediaMmsV4Download",
     "WAWebStickerErrorWamEvent",
@@ -15,7 +16,10 @@ __d(
       u = new (o("WAWebLruCacheMap").LruCacheMap)({ sizeLimit: e });
     function c(e, t, n) {
       return (
-        n === o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM &&
+        (o("WAWebABProps").getABPropConfigValue(
+          "enable_advanced_sticker_testing",
+        ) ||
+          n === o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM) &&
         t === o("WAWebStickerMimeUtils").WhatsAppLottieStickerMimeType &&
         s.has(e) &&
         u.has(e)

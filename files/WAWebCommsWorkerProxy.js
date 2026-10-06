@@ -165,12 +165,16 @@ __d(
           (t.callStanza = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                return (
-                  yield o("WAWebCommsWorkerReady").waitForCommsWorker(),
-                  this.$1.sendAndReceive("comms", "callStanza", {
-                    stanza: o("WAWap").encodeStanza(e),
-                    flags: t,
-                  })
+                yield o("WAWebCommsWorkerReady").waitForCommsWorker();
+                var n = o("WAWap").encodeStanza(e);
+                return this.$1.sendAndReceive(
+                  "comms",
+                  "callStanza",
+                  { stanza: n, flags: t },
+                  !0,
+                  void 0,
+                  void 0,
+                  [n.buffer],
                 );
               },
             );
@@ -182,12 +186,16 @@ __d(
           (t.castStanza = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                return (
-                  yield o("WAWebCommsWorkerReady").waitForCommsWorker(),
-                  this.$1.sendAndReceive("comms", "castStanza", {
-                    stanza: o("WAWap").encodeStanza(e),
-                    flags: t,
-                  })
+                yield o("WAWebCommsWorkerReady").waitForCommsWorker();
+                var n = o("WAWap").encodeStanza(e);
+                return this.$1.sendAndReceive(
+                  "comms",
+                  "castStanza",
+                  { stanza: n, flags: t },
+                  !0,
+                  void 0,
+                  void 0,
+                  [n.buffer],
                 );
               },
             );

@@ -200,8 +200,8 @@ __d(
     function N(e, t, n) {
       return $(E, e, t, n);
     }
-    var I = N("root", Boolean),
-      M = N("isExport", Boolean);
+    var M = N("root", Boolean),
+      I = N("isExport", Boolean);
     function R(e) {
       var t =
         require("LexicalExtensionGetPeerDependencyFromEditor").getPeerDependencyFromEditor(
@@ -940,10 +940,10 @@ __d(
         : !require("Lexical").isBlockDomNode(e) &&
             require("Lexical").isInlineDomNode(e);
     }
-    var Ie = Te("whitespaceConfig", function () {
+    var Me = Te("whitespaceConfig", function () {
         return { isInline: Ne, preservesWhitespace: Ce };
       }),
-      Me = Te("importOverlays", function () {
+      Ie = Te("importOverlays", function () {
         return [];
       });
     var _Re = (function () {
@@ -1202,7 +1202,7 @@ __d(
         $import: function $import(e, n) {
           var o = e.get(Oe),
             r = e.get(De),
-            s = e.get(Ie);
+            s = e.get(Me);
           if (
             (function (e, t) {
               var n = e.parentNode;
@@ -1578,7 +1578,7 @@ __d(
                         {
                           dispatch: e,
                           editor: n,
-                          overlays: r.get(Me).map(function (e) {
+                          overlays: r.get(Ie).map(function (e) {
                             return e.dispatch;
                           }),
                           session: r,
@@ -1627,17 +1627,9 @@ __d(
         name: "@lexical/html/CoreImport",
       },
       gt = [et],
-      xt = {
-        dependencies: [
-          require("LexicalExtensionHorizontalRuleExtension")
-            .HorizontalRuleExtension,
-          mt,
-        ],
-        name: "@lexical/html/HorizontalRuleImport",
-      },
-      $t = { any: fe, comment: de, css: ye, tag: pe, text: he },
-      yt = new Set(["STYLE", "SCRIPT"]);
-    function Tt(e, n, o) {
+      xt = { any: fe, comment: de, css: ye, tag: pe, text: he },
+      $t = new Set(["STYLE", "SCRIPT"]);
+    function yt(e, n, o) {
       if (n === void 0) {
         n = null;
       }
@@ -1645,7 +1637,7 @@ __d(
         o = require("Lexical").$getEditor();
       }
       return k(
-        [m(M, !0)],
+        [m(I, !0)],
         o,
       )(function () {
         var r = require("Lexical").$getRoot(),
@@ -1656,11 +1648,11 @@ __d(
           ? i
           : r
         ).getChildren())
-          St(o, _e30, c, n, s);
+          Tt(o, _e30, c, n, s);
         return e;
       });
     }
-    function St(n, o, r, s, i) {
+    function Tt(n, o, r, s, i) {
       if (s === void 0) {
         s = null;
       }
@@ -1698,7 +1690,7 @@ __d(
         $ = m.append.bind(m);
       var y = null;
       for (var _e31 of g) {
-        var _t22 = St(n, _e31, $, x, i);
+        var _t22 = Tt(n, _e31, $, x, i);
         (_t22 && (y = _e31),
           !c && _t22 && i.$extractWithChild(o, _e31, s, "html", n) && (c = !0));
       }
@@ -1737,13 +1729,13 @@ __d(
       } else r(m);
       return c;
     }
-    function Et(e, n, o, r, s, i) {
+    function St(e, n, o, r, s, i) {
       var _l2;
       if (s === void 0) {
         s = new Map();
       }
       var c = [];
-      if (yt.has(e.nodeName)) return c;
+      if ($t.has(e.nodeName)) return c;
       var l = null;
       var u = (function (e, t) {
           var n = e.nodeName,
@@ -1783,7 +1775,7 @@ __d(
         var _p;
         (_p = p).push.apply(
           _p,
-          Array.from(Et(d[_e35], n, o, h, new Map(s), l)),
+          Array.from(St(d[_e35], n, o, h, new Map(s), l)),
         );
       }
       if (
@@ -1844,7 +1836,7 @@ __d(
       if (o === void 0) {
         o = null;
       }
-      return St(e, t, n.append.bind(n), o, v(e));
+      return Tt(e, t, n.append.bind(n), o, v(e));
     }),
       (exports.$distributeInlineWrapper = function e(n, o) {
         var r = [];
@@ -1862,19 +1854,19 @@ __d(
           } else s.push(_c3);
         return (i(), r);
       }),
-      (exports.$generateDOMFromNodes = Tt),
+      (exports.$generateDOMFromNodes = yt),
       (exports.$generateDOMFromRoot = function (e, n) {
         if (n === void 0) {
           n = require("Lexical").$getRoot();
         }
         var o = require("Lexical").$getEditor();
         return k(
-          [m(M, !0), m(I, !0)],
+          [m(I, !0), m(M, !0)],
           o,
         )(function () {
           var t = v(o),
             r = e.append.bind(e);
-          return (St(o, n, r, null, t), e);
+          return (Tt(o, n, r, null, t), e);
         });
       }),
       (exports.$generateHtmlFromNodes = function (e, n) {
@@ -1886,7 +1878,7 @@ __d(
             ("undefined" == typeof window && void 0 === global.window)) &&
             c(338),
           require("Lexical").$assumeActiveEditor(e),
-          Tt(require("Lexical").$getDocument().createElement("div"), n, e)
+          yt(require("Lexical").$getDocument().createElement("div"), n, e)
             .innerHTML
         );
       }),
@@ -1898,8 +1890,8 @@ __d(
           r = [],
           s = [];
         for (var _t26 of o)
-          if (!yt.has(_t26.nodeName)) {
-            var _n22 = Et(_t26, e, s, !1);
+          if (!$t.has(_t26.nodeName)) {
+            var _n22 = St(_t26, e, s, !1);
             if (null !== _n22) for (var _e39 of _n22) r.push(_e39);
           }
         return (
@@ -1960,18 +1952,17 @@ __d(
       (exports.CoreImportRules = tt),
       (exports.DOMImportExtension = ht),
       (exports.DOMRenderExtension = ne),
-      (exports.HorizontalRuleImportExtension = xt),
       (exports.HorizontalRuleImportRules = gt),
-      (exports.ImportOverlays = Me),
+      (exports.ImportOverlays = Ie),
       (exports.ImportSource = Se),
       (exports.ImportSourceDataTransfer = Ee),
       (exports.ImportTextFormat = Oe),
       (exports.ImportTextStyle = De),
-      (exports.ImportWhitespaceConfig = Ie),
+      (exports.ImportWhitespaceConfig = Me),
       (exports.InlineSchema = Le),
       (exports.NestedBlockSchema = Pe),
-      (exports.RenderContextExport = M),
-      (exports.RenderContextRoot = I),
+      (exports.RenderContextExport = I),
+      (exports.RenderContextRoot = M),
       (exports.RootSchema = Be),
       (exports.contextUpdater = function (e, t) {
         return { cfg: e, updater: t };
@@ -1997,7 +1988,7 @@ __d(
         );
       }),
       (exports.parseSelector = ye),
-      (exports.sel = $t));
+      (exports.sel = xt));
   },
   null,
 );

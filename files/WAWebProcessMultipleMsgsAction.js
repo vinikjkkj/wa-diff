@@ -22,6 +22,7 @@ __d(
     "WAWebMediaLinkPreviewUtils",
     "WAWebMediaTypes",
     "WAWebMessageAssociationUIUtils",
+    "WAWebMessageRenderQpl",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
@@ -99,6 +100,7 @@ __d(
                 );
               }, []);
             });
+          o("WAWebMessageRenderQpl").startMessageRenderFlows(i, p, y);
           var k = self.performance.now(),
             I,
             T = p[0];
@@ -207,6 +209,11 @@ __d(
               resetMostRecentMsgs: U,
               threadOrChat: j,
             }),
+            o("WAWebMessageRenderQpl").markMessageRenderAddedToChat(
+              A.map(function (e) {
+                return e.id;
+              }),
+            ),
             F - k >= 500 &&
               o("WALogger").LOG(
                 u ||

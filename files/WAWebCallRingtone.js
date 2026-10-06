@@ -4,6 +4,7 @@ __d(
     "WAWebAuraRingtonePlayback",
     "WAWebCallCollection",
     "WAWebNoop",
+    "WAWebVoipCalleeOfferToRingStore",
     "WAWebVoipWaCallEnums",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,7 +59,13 @@ __d(
             l
               .play()
               .then(function () {
-                s !== t && m(l);
+                if (s !== t) {
+                  m(l);
+                  return;
+                }
+                o("WAWebVoipCalleeOfferToRingStore").recordCalleeRing(
+                  n == null ? void 0 : n.id,
+                );
               })
               .catch(r("WAWebNoop")));
         }

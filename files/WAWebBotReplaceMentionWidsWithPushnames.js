@@ -9,6 +9,7 @@ __d(
     "WAWebSchemaBotProfile",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "escapeRegex",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -121,16 +122,17 @@ __d(
       ];
     function m(e, t) {
       if (e === "" || t.size === 0) return e;
-      var n = e,
-        r = [].concat(Array.from(t.keys())).sort(function (e, t) {
+      var n = [].concat(Array.from(t.keys())).sort(function (e, t) {
           return t.length - e.length;
-        });
-      for (var o of r) {
-        var a,
-          i = (a = t.get(o)) != null ? a : "";
-        n = n.split(o).join(i);
-      }
-      return n;
+        }),
+        o = new RegExp(
+          "(" + n.map(r("escapeRegex")).join("|") + ")(?!\\d)",
+          "g",
+        );
+      return e.replace(o, function (e) {
+        var n;
+        return (n = t.get(e)) != null ? n : e;
+      });
     }
     function p(e, t, n) {
       return _.apply(this, arguments);

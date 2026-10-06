@@ -73,7 +73,7 @@ __d(
             );
           }
         }
-        var C = f(d, t);
+        var C = f(d, t, r.searchParams.get("message_id"));
         if (C != null) return C;
         var b = f(m, t);
         return b != null ? b : null;
@@ -81,24 +81,28 @@ __d(
         return null;
       }
     }
-    function f(t, n) {
-      var r = n.match(t);
-      if (r) {
-        var a = r[2];
-        return a === u
+    function f(t, n, r) {
+      var a = n.match(t);
+      if (a) {
+        var i = a[2],
+          l = r == null ? null : parseInt(r, 10);
+        return i === u
           ? { type: "create", url: n }
-          : a === c
+          : i === c
             ? { type: "directory", url: n }
-            : {
-                identifier: r[2],
-                url: r[1] || "/",
-                identifierType: e.InviteCode,
-                type: "view",
-                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                  .Deeplink,
-                discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
-                  .CHANNEL_LINK,
-              };
+            : babelHelpers.extends(
+                {
+                  identifier: a[2],
+                  url: a[1] || "/",
+                  identifierType: e.InviteCode,
+                  type: "view",
+                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                    .Deeplink,
+                  discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                    .CHANNEL_LINK,
+                },
+                l != null && !Number.isNaN(l) && { serverId: l },
+              );
       }
       return null;
     }

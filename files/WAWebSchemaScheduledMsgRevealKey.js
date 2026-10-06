@@ -37,6 +37,7 @@ __d(
             n("reportingTokenVersion"),
             n("reportingStanzaId"),
             n("reportingStanzaTs"),
+            n("outerMessageSecret"),
           ],
         )
         .view(function (e) {

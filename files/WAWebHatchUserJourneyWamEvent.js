@@ -2,6 +2,8 @@ __d(
   "WAWebHatchUserJourneyWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumConnectorPermissionFlow",
+    "WAWebWamEnumConnectorType",
     "WAWebWamEnumHatchActionType",
     "WAWebWamEnumHitlLegalLinkType",
   ],
@@ -13,6 +15,18 @@ __d(
             7806,
             {
               aiSessionId: [1, e.TYPES.STRING],
+              connectorId: [12, e.TYPES.STRING],
+              connectorPermissionDecisionType: [13, e.TYPES.STRING],
+              connectorPermissionFlow: [
+                14,
+                o("WAWebWamEnumConnectorPermissionFlow")
+                  .CONNECTOR_PERMISSION_FLOW,
+              ],
+              connectorPermissionType: [15, e.TYPES.STRING],
+              connectorType: [
+                16,
+                o("WAWebWamEnumConnectorType").CONNECTOR_TYPE,
+              ],
               dedupKey: [11, e.TYPES.INTEGER],
               hatchActionType: [
                 3,

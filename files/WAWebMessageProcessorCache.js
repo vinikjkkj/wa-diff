@@ -11,6 +11,9 @@ __d(
     "WAWebGroupDatabaseJob",
     "WAWebHandleMessageTypes",
     "WAWebHandleMsgCommon",
+    "WAWebIdbTransactionCounter",
+    "WAWebMessageReceiveFlow",
+    "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPromiseQueue",
     "WAWebSendOfflineDeliveryReceiptJob",
     "WAWebSignalProtocolStore",
@@ -206,16 +209,45 @@ __d(
             }
             return r("nullthrows")(this.$6.get(t)).promise;
           }),
-          (t.$10 = function (t) {
-            var e = [];
-            return (
-              t.forEach(function (t) {
-                var n = t.msg;
-                n != null && e.push(n);
-              }),
-              o("WAWebStoreMsgs").storeMsgs(e)
+          (t.$10 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var n = [];
+                e.forEach(function (e) {
+                  var t = e.msg;
+                  t != null && n.push(t);
+                });
+                var r = o(
+                    "WAWebIdbTransactionCounter",
+                  ).getIdbTransactionCount(),
+                  a = o("WAWebABProps").getABPropConfigValue(
+                    "wmi_wa_web_message_delivery_qpl_instrumentation",
+                  )
+                    ? o(
+                        "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+                      ).msgProcessReporter.startMarker(
+                        o(
+                          "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+                        ).msgProcessReporter.stage.DBStoring,
+                      )
+                    : null;
+                (yield o("WAWebStoreMsgs").storeMsgs(n),
+                  a == null || a(),
+                  o(
+                    "WAWebMessageReceiveFlow",
+                  ).annotateMessageReceiveStorageCommit(t, {
+                    batchSize: n.length,
+                    transactionCount:
+                      o("WAWebIdbTransactionCounter").getIdbTransactionCount() -
+                      r,
+                  }));
+              },
             );
-          }),
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (t.$9 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
@@ -292,14 +324,25 @@ __d(
                       .generateSnapshotThrottled()
                   : o("WAWebSignalProtocolStore")
                       .getSignalProtocolStore()
-                      .generateSnapshot();
+                      .generateSnapshot(),
+                v = k(a);
               (this.$3.enqueue(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   try {
-                    (yield (y || (y = n("Promise"))).all([
-                      r.$10(a),
-                      o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
-                    ]),
+                    (o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
+                      v.all,
+                      "storage_commit_start",
+                    ),
+                      yield (y || (y = n("Promise"))).all([
+                        r.$10(a, v.all),
+                        o(
+                          "WAWebDBCreateLidPnMappings",
+                        ).flushLidPnMappingsToDb(),
+                      ]),
+                      o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
+                        v.all,
+                        "storage_commit_end",
+                      ),
                       o("WALogger").LOG(
                         m ||
                           (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -311,8 +354,14 @@ __d(
                         s,
                       ));
                     var e = yield b;
-                    (e != null &&
-                      (yield o("WAWebSignalStorageUtils")
+                    e != null &&
+                      (o(
+                        "WAWebMessageReceiveFlow",
+                      ).markMessageReceiveCheckpoint(
+                        v.all,
+                        "checkpoint_signal_write_start",
+                      ),
+                      yield o("WAWebSignalStorageUtils")
                         .getStorage()
                         .lock(
                           [
@@ -356,6 +405,10 @@ __d(
                             },
                           ),
                         ),
+                      o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
+                        v.all,
+                        "checkpoint_signal_write_end",
+                      ),
                       o("WALogger").LOG(
                         p ||
                           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -365,10 +418,19 @@ __d(
                           ])),
                         l,
                         s,
-                      )),
-                      yield o(
-                        "WAWebSendOfflineDeliveryReceiptJob",
-                      ).sendAggregateOfflineReceipts(a),
+                      ));
+                    var t = yield o(
+                      "WAWebSendOfflineDeliveryReceiptJob",
+                    ).sendAggregateOfflineReceipts(a);
+                    (o("WAWebMessageReceiveFlow").endMessageReceiveWithNack(t),
+                      o(
+                        "WAWebMessageReceiveFlow",
+                      ).endMessageReceiveWithAggregatedReceipt(
+                        v.aggregatedReceipts.filter(function (e) {
+                          return !t.includes(e);
+                        }),
+                        { batchSize: a.length, signalDirtyCount: I(e) },
+                      ),
                       o("WALogger").LOG(
                         _ ||
                           (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -403,6 +465,9 @@ __d(
                       s,
                       e,
                     ),
+                      o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(
+                        v.all,
+                      ),
                       u(e));
                     return;
                   }
@@ -422,6 +487,39 @@ __d(
         );
       })(),
       E = new L();
+    function k(e) {
+      var t = new Set(),
+        n = new Set();
+      return (
+        e.forEach(function (e) {
+          var r,
+            o,
+            a = e.duplicateMsgReceiptInfo,
+            i = e.msg,
+            l = e.receiptInfo,
+            s =
+              (r = l == null ? void 0 : l.externalId) != null
+                ? r
+                : a == null
+                  ? void 0
+                  : a.externalId;
+          s != null && (n.add(s), t.add(s));
+          var u = i == null || (o = i.id) == null ? void 0 : o.id;
+          u != null && t.add(u);
+        }),
+        { all: Array.from(t), aggregatedReceipts: Array.from(n) }
+      );
+    }
+    function I(e) {
+      return e == null
+        ? 0
+        : e.sessionUpdate.length +
+            e.identityUpdate.length +
+            e.senderKeyUpdate.length +
+            e.preKeyRemove.length +
+            e.sessionRemove.length +
+            e.identityRemove.length;
+    }
     l.messageProcessorCache = E;
   },
   98,

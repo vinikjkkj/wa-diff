@@ -18,7 +18,9 @@ __d(
         ((this.element = null),
           (this.percentVisible = null),
           (this.state = null),
-          Object.assign(this, t));
+          (this.element = t.element),
+          (this.percentVisible = t.percentVisible),
+          (this.state = t.state));
       };
     function _(e) {
       var t = o("react-compiler-runtime").c(6),

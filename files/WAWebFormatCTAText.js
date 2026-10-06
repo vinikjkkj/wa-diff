@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebFbtCommon",
+    "WAWebGroupAgentAddedRowProfile",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinSubtype",
     "WAWebGroupType",
@@ -97,9 +98,23 @@ __d(
         d = e.subtype,
         p = e.templateParams;
       if (
+        o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
+          d,
+          u,
+          n,
+        ) != null
+      )
+        return null;
+      if (
         o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(d)
       ) {
-        var _ = m(u, n, l, c, i);
+        var _ = m({
+          chat: n,
+          latestJoinTimeByRecipient: i,
+          msgT: l,
+          recipients: u,
+          shareableHistoryInfo: c,
+        });
         if (_ != null) return _;
       }
       switch (d) {
@@ -138,62 +153,67 @@ __d(
           return null;
       }
     }
-    function m(e, t, n, r, a) {
-      if (e == null || t == null) return null;
-      var i = t.groupMetadata;
-      if (i == null) return null;
-      var l = function (t) {
-        return a == null || a.get(t.toString()) === n;
+    function m(e) {
+      var t = e.chat,
+        n = e.latestJoinTimeByRecipient,
+        r = e.msgT,
+        a = e.recipients,
+        i = e.shareableHistoryInfo;
+      if (a == null || t == null) return null;
+      var l = t.groupMetadata;
+      if (l == null) return null;
+      var s = function (t) {
+        return n == null || n.get(t.toString()) === r;
       };
-      if (e.length > 1) {
+      if (a.length > 1) {
         if (
           !o(
             "WAWebGroupHistoryPostJoinEligibility",
-          ).hasResolvableNonSelfRecipient(e, n, a)
+          ).hasResolvableNonSelfRecipient(a, r, n)
         )
           return null;
-        var s = o(
+        var u = o(
           "WAWebGroupHistoryPostJoinEligibility",
-        ).groupContextFromMetadata(i);
+        ).groupContextFromMetadata(l);
         if (
           !o(
             "WAWebGroupHistoryPostJoinEligibility",
-          ).isPostJoinHistoryGroupEligible(s)
+          ).isPostJoinHistoryGroupEligible(u)
         )
           return null;
-        var u = e.some(function (e) {
-          if (e == null || o("WAWebUserPrefsMeUser").isMeAccount(e) || !l(e))
+        var c = a.some(function (e) {
+          if (e == null || o("WAWebUserPrefsMeUser").isMeAccount(e) || !s(e))
             return !1;
-          var t = i.participants.get(e);
+          var t = l.participants.get(e);
           return (
             t != null &&
             o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).canSendPostJoinHistoryToParticipant(t, s, n, r)
+            ).canSendPostJoinHistoryToParticipant(t, u, r, i)
           );
         });
-        return u &&
+        return c &&
           o(
             "WAWebGroupHistoryPostJoinEligibility",
-          ).isPostJoinHistoryExperimentArmEnabled(i.id)
+          ).isPostJoinHistoryExperimentArmEnabled(l.id)
           ? p()
           : null;
       }
-      if (e.length !== 1 || e[0] == null) return null;
-      var c = e[0];
-      if (o("WAWebUserPrefsMeUser").isMeAccount(c) || !l(c)) return null;
-      var d = i.participants.get(c);
-      return d == null
+      if (a.length !== 1 || a[0] == null) return null;
+      var d = a[0];
+      if (o("WAWebUserPrefsMeUser").isMeAccount(d) || !s(d)) return null;
+      var m = l.participants.get(d);
+      return m == null
         ? null
         : o(
               "WAWebGroupHistoryPostJoinEligibility",
             ).shouldOfferPostJoinHistoryToParticipant(
-              d,
+              m,
               o(
                 "WAWebGroupHistoryPostJoinEligibility",
-              ).groupContextFromMetadata(i),
-              n,
+              ).groupContextFromMetadata(l),
               r,
+              i,
             )
           ? p()
           : null;

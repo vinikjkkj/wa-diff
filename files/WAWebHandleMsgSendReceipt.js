@@ -16,7 +16,6 @@ __d(
     "WAWebSendReceiptJobCommon",
     "WAWebSendRetryReceiptJob",
     "WAWebSessionScopeWamUtils",
-    "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -69,10 +68,7 @@ __d(
               L = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
               E = !t.chat.isBot() && t.author.isBot(),
               k = C.isStatus() || a.isGroupStatus === !0,
-              I =
-                k && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
-                  ? "status"
-                  : void 0;
+              I = a.isStatusStanza === !0 ? "status" : void 0;
             if (i.result == null)
               return (
                 o("WALogger")

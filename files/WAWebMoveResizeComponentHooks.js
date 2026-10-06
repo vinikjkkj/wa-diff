@@ -147,58 +147,62 @@ __d(
       var k = E;
       return k;
     }
-    function m(e, t, n, a, i) {
-      var l = o("react-compiler-runtime").c(12),
-        s = e.componentRef,
+    function m(e) {
+      var t = o("react-compiler-runtime").c(12),
+        n = e.componentRef,
+        a = e.setBottom,
+        i = e.setHeight,
+        l = e.setLeft,
+        s = e.setWidth,
         u = e.unmountSignal,
         c;
-      l[0] !== a || l[1] !== n || l[2] !== i || l[3] !== t
-        ? ((c = function (r) {
-            (r.width != null && t(r.width),
-              r.height != null && n(r.height),
-              r.bottom != null && a(r.bottom),
-              r.left != null && i(r.left));
+      t[0] !== a || t[1] !== i || t[2] !== l || t[3] !== s
+        ? ((c = function (t) {
+            (t.width != null && s(t.width),
+              t.height != null && i(t.height),
+              t.bottom != null && a(t.bottom),
+              t.left != null && l(t.left));
           }),
-          (l[0] = a),
-          (l[1] = n),
-          (l[2] = i),
-          (l[3] = t),
-          (l[4] = c))
-        : (c = l[4]);
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = l),
+          (t[3] = s),
+          (t[4] = c))
+        : (c = t[4]);
       var d = c,
         m;
-      l[5] !== s || l[6] !== u || l[7] !== d
-        ? ((m = function (t, n) {
-            if (s.current == null) {
-              d(n);
+      t[5] !== n || t[6] !== u || t[7] !== d
+        ? ((m = function (t, a) {
+            if (n.current == null) {
+              d(a);
               return;
             }
-            var e = r("WAWebVelocityAnimate")(s.current, t, {
+            var e = r("WAWebVelocityAnimate")(n.current, t, {
               duration: o("WAWebMoveResizeConstants")
                 .MIN_HEIGHT_CHANGE_ANIMATION_DURATION,
               easing: o("WAWebMoveResizeConstants")
                 .MIN_HEIGHT_CHANGE_ANIMATION_TYPE,
             });
             e.then(function () {
-              u.aborted || d(n);
+              u.aborted || d(a);
             }).catch(function () {
-              u.aborted || d(n);
+              u.aborted || d(a);
             });
           }),
-          (l[5] = s),
-          (l[6] = u),
-          (l[7] = d),
-          (l[8] = m))
-        : (m = l[8]);
+          (t[5] = n),
+          (t[6] = u),
+          (t[7] = d),
+          (t[8] = m))
+        : (m = t[8]);
       var p = m,
         _;
       return (
-        l[9] !== p || l[10] !== d
+        t[9] !== p || t[10] !== d
           ? ((_ = { updateDimensionState: d, animateDimensionChange: p }),
-            (l[9] = p),
-            (l[10] = d),
-            (l[11] = _))
-          : (_ = l[11]),
+            (t[9] = p),
+            (t[10] = d),
+            (t[11] = _))
+          : (_ = t[11]),
         _
       );
     }

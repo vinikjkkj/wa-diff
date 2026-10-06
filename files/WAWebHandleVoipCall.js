@@ -14,11 +14,14 @@ __d(
     "WAWebHandleVoipOfferNotice",
     "WAWebJidToWid",
     "WAWebVoipBackendLoadable",
+    "WAWebVoipCallStateUtils",
+    "WAWebVoipCalleeOfferToRingStore",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
     "WAWebVoipHandleIncomingSignalingMessage",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipLidUtils",
+    "WAWebVoipLocalCallStateStore",
     "WAWebVoipSendGroupCallRekeyRetryReceiptJob",
     "WAWebVoipSignalingEnums",
     "WAWebVoipWaCallEnums",
@@ -703,6 +706,13 @@ __d(
             s = t.senderLid,
             u = t.stanzaId,
             c = t.voipNode;
+          i.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
+            o("WAWebVoipCallStateUtils").isCallTerminal(
+              o("WAWebVoipLocalCallStateStore").getLocalCallState(),
+            ) &&
+            o("WAWebVoipCalleeOfferToRingStore").recordCalleeOfferReceived(
+              i.call_id,
+            );
           try {
             (s != null &&
               (a.isLid() &&

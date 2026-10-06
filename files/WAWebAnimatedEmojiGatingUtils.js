@@ -14,13 +14,8 @@ __d(
       );
     }
     function u() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "animated_soccer_ball_prod_enabled",
-        ) ||
-        o("WAWebABProps").getABPropConfigValue(
-          "animated_soccer_ball_test_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "animated_soccer_ball_prod_enabled",
       );
     }
     ((l.isAnimatedEmojiEnabled = e),

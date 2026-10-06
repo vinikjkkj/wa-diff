@@ -128,6 +128,7 @@ __d(
     "cr:17219",
     "cr:37961",
     "getErrorSafe",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -242,7 +243,7 @@ __d(
           (o(
             "WAWebUserPrefsWorkerCompatibleMainThread",
           ).initializeUserPrefsWorkerCompatibleMainThread(),
-            o("WAWebCommsGating").isCommsInWorker() ||
+            r("gkx")("27242") ||
               o("WAWebStartBackendWorker").startBackendWorker(),
             k || I());
           var e = yield o(
@@ -570,6 +571,9 @@ __d(
             }),
             o("WAWebCommsGating").isCommsInWorker())
           ) {
+            o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
+              comms_in_worker: !0,
+            });
             var s = yield o(
               "WAWebBackendWorkerClient",
             ).getBackendWorkerBridge();

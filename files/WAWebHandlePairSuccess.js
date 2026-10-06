@@ -16,6 +16,7 @@ __d(
     "WAWebAltDeviceLinkingApi",
     "WAWebAltDeviceLinkingQpl",
     "WAWebAppTracker",
+    "WAWebBackendWorkerInitState",
     "WAWebBizAgentLoginState",
     "WAWebBizCoexGatingUtils",
     "WAWebBotBaseGating",
@@ -148,6 +149,7 @@ __d(
                 o("WAWebUserPrefsMeUser").setMeLid(
                   o("WAWebJidToWid").deviceJidToDeviceWid(C),
                 ),
+                o("WAWebBackendWorkerInitState").resolveJidsReady(),
                 _ && (yield v(_)));
               var R = o("decodeProtobuf").decodeProtobuf(
                   o("WAWebProtobufsAdv.pb").ADVSignedDeviceIdentityHMACSpec,
