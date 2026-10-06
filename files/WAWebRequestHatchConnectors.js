@@ -6,7 +6,7 @@ __d(
     "WAWebHatchConnectorAccountsDecoder",
     "WAWebHatchConnectorPermissionsDecoder",
     "WAWebHatchConnectorsListDecoder",
-    "WAWebHatchVmSession",
+    "WAWebHatchVmConnection",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -90,7 +90,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
+          var n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (n == null) throw C(t + "_no_session", null);
           var r = yield e(n);
           if ((r.kind === "Failure" && (r = yield e(n)), r.kind !== "Ok"))

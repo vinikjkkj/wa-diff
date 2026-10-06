@@ -6,7 +6,6 @@ __d(
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
     "WAWebBotStaticProfiles",
-    "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebHatchFrontendGating",
     "WAWebUserPrefsMeUser",
@@ -20,41 +19,46 @@ __d(
       s = n("$InternalEnum")({ HATCH_CHAT: "hatch_chat", NONE: "none" });
     function u(t, n, r) {
       var a;
-      if ((r === void 0 && (r = f(t)), !g(t, n))) return null;
-      var i = h(r);
-      return (i != null && !C(t, i)) ||
+      if ((r === void 0 && (r = g(t)), !h(t, n))) return null;
+      var i = y(r);
+      return (i != null && !b(t, i)) ||
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? null
-        : b(t, i, (a = r) == null ? void 0 : a.creatorLid)
+        : v(t, i, (a = r) == null ? void 0 : a.creatorLid)
           ? e.OWNER_CARD
           : e.BASIC_CARD;
     }
     function c(e, t) {
+      if (!h(e, t)) return !1;
+      var n = g(e);
+      return S(e, y(n), n == null ? void 0 : n.creatorLid);
+    }
+    function d(e, t) {
       var n = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       if (
         (n == null ? void 0 : n.lastFetchedTimeMs) == null ||
         n.isDeleted === !0 ||
         n.isDeprecated === !0 ||
-        !g(e, t)
+        !h(e, t)
       )
         return !1;
       var r = o("WAWebBotProduct").botProductFromServerValue(n.product);
       return r != null &&
         r !== o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
-        !C(e, r)
+        !b(e, r)
         ? !1
         : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
     }
-    function d(e, t, n) {
-      return m(u(e, t), n);
+    function m(e, t, n) {
+      return p(u(e, t), n);
     }
-    function m(t, n) {
+    function p(t, n) {
       return t == null ? null : { info: t === e.OWNER_CARD, remove: n };
     }
-    function p(e) {
+    function _(e) {
       return e.info || e.remove;
     }
-    function _(t, n) {
+    function f(t, n) {
       return (function (t) {
         if (t === e.OWNER_CARD) return s.HATCH_CHAT;
         if (t === e.BASIC_CARD) return s.NONE;
@@ -65,7 +69,7 @@ __d(
         );
       })(u(t, n));
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return t == null
         ? null
@@ -77,48 +81,49 @@ __d(
             product: t.product,
           };
     }
-    function g(e, t) {
+    function h(e, t) {
       return t == null
         ? !1
         : o("WAWebChatGetters").getIsGroup(t) &&
             e.isFbidBot() &&
             !o("WAWebBotStaticProfiles").isStaticProfile(e);
     }
-    function h(e) {
+    function y(e) {
       return e == null || e.lastFetchedTimeMs == null
         ? null
         : o("WAWebBotProduct").botProductFromServerValue(e.product);
     }
-    function y(e, t) {
+    function C(e, t) {
+      return o("WAWebBotProduct").isMuseAgentProduct(e, t);
+    }
+    function b(e, t) {
+      return C(e, t);
+    }
+    function v(e, t, n) {
       return (
-        t === o("WAWebBotProduct").BotProduct.MUSE ||
-        (t === o("WAWebBotProduct").BotProduct.HATCH &&
-          !e.equals(o("WAWebBotUtils").HATCH_BOT_FBID_WID))
+        S(e, t, n) && o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
       );
     }
-    function C(e, t) {
-      return y(e, t);
-    }
-    function b(e, t, n) {
+    function S(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return (
-        y(e, t) &&
+        C(e, t) &&
         n != null &&
         r != null &&
         n === r.user &&
-        o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled() &&
-        o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
+        o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled()
       );
     }
     ((l.GroupAgentProfileDestination = e),
       (l.GroupAgentOneToOneTarget = s),
       (l.getGroupAgentProfileDestination = u),
-      (l.isOpenGroupAiAgent = c),
-      (l.getGroupAgentParticipantActions = d),
-      (l.getGroupAgentParticipantActionsForDestination = m),
-      (l.hasGroupAgentParticipantAction = p),
-      (l.getGroupAgentOneToOneTarget = _),
-      (l.isMuseGroupAgentProfileProduct = y));
+      (l.isViewerOwnMuseGroupAgent = c),
+      (l.isOpenGroupAiAgent = d),
+      (l.getGroupAgentParticipantActions = m),
+      (l.getGroupAgentParticipantActionsForDestination = p),
+      (l.hasGroupAgentParticipantAction = _),
+      (l.getGroupAgentOneToOneTarget = f),
+      (l.isMuseGroupAgentProfileProduct = C));
   },
   98,
 );

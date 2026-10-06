@@ -15,6 +15,7 @@ __d(
       CAMPAIGN_REPLIES: 9,
       SERVER_ASSIGNED: 10,
       TO_YOU: 11,
+      ONE_ON_ONE: 12,
     });
     i.LIST_TYPE = e;
   },

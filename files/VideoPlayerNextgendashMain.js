@@ -1664,6 +1664,14 @@ __d(
             t.data.metadata.manifestIsMixedCodecAudio;
     }
     function J(e) {
+      var t, n;
+      return (t =
+        (n = X(e)) == null ? void 0 : n.data.metadata.manifestIdentifier) !=
+        null
+        ? t
+        : null;
+    }
+    function Z(e) {
       var t = X(e);
       return t == null
         ? null
@@ -1674,11 +1682,11 @@ __d(
             );
           });
     }
-    function Z(e) {
+    function ee(e) {
       var t = e.state;
       return t.state === "linked_to_worker" ? t.playerStateFromWorker : null;
     }
-    function ee(e) {
+    function te(e) {
       var t = e.state;
       return t.state !== "__null__" &&
         t.state !== "__disposed__" &&
@@ -1691,7 +1699,7 @@ __d(
           )
         : null;
     }
-    function te(e) {
+    function ne(e) {
       var t,
         n = X(e);
       return (t = n == null ? void 0 : n.data.manifestRepresentations.video) !=
@@ -1699,7 +1707,7 @@ __d(
         ? t
         : [];
     }
-    function ne(e) {
+    function re(e) {
       var t,
         n = X(e);
       return (t = n == null ? void 0 : n.data.manifestRepresentations.audio) !=
@@ -1707,10 +1715,10 @@ __d(
         ? t
         : [];
     }
-    function re(e, t) {
+    function oe(e, t) {
       var n,
         r,
-        o = Z(e),
+        o = ee(e),
         a = new Set(
           (n =
             o == null || (r = o.blockedRepresentationIds) == null
@@ -1723,13 +1731,13 @@ __d(
         return !a.has(e.representationId);
       });
     }
-    function oe(e) {
-      return re(e, te(e));
+    function ae(e) {
+      return oe(e, ne(e));
     }
-    function ae(e, t) {
+    function ie(e, t) {
       var n,
         r,
-        o = Z(e),
+        o = ee(e),
         a = new Set(
           (n =
             o == null || (r = o.blockedRepresentationIds) == null
@@ -1742,13 +1750,13 @@ __d(
         return !a.has(e.representationId);
       });
     }
-    function ie(e) {
-      return ae(e, ne(e));
+    function le(e) {
+      return ie(e, re(e));
     }
-    function le(e, t) {
+    function se(e, t) {
       var n,
         r,
-        o = Z(e),
+        o = ee(e),
         a = new Set(
           (n =
             o == null || (r = o.targetVariantRepresentationIds) == null
@@ -1761,60 +1769,60 @@ __d(
         return a.has(e.representationId);
       });
     }
-    function se(e, t, n) {
+    function ue(e, t, n) {
       return o(
         "VideoPlayerNextgendashMediaUtils",
       ).findTimeRangeAnnotationAtMediaTime(e, t, n);
     }
-    function ue(e) {
+    function ce(e) {
       var t,
-        n = Z(e),
-        r = ee(e),
-        o = se(
+        n = ee(e),
+        r = te(e),
+        o = ue(
           r,
           n == null || (t = n.bufferedRangesWithRepIds) == null
             ? void 0
             : t.audio,
           n == null ? void 0 : n.targetRepresentationId.audio,
         ),
-        a = ne(e).find(function (e) {
+        a = re(e).find(function (e) {
           return e.representationId === o;
         });
       return a;
     }
-    function ce(e) {
+    function de(e) {
       var t,
-        n = Z(e),
-        r = ee(e),
-        o = se(
+        n = ee(e),
+        r = te(e),
+        o = ue(
           r,
           n == null || (t = n.bufferedRangesWithRepIds) == null
             ? void 0
             : t.video,
           n == null ? void 0 : n.targetRepresentationId.video,
         ),
-        a = te(e).find(function (e) {
+        a = ne(e).find(function (e) {
           return e.representationId === o;
         });
       return a;
     }
-    function de(e) {
-      var t = Z(e),
-        n = t == null ? void 0 : t.targetRepresentationId.audio,
-        r = ne(e).find(function (e) {
-          return e.representationId === n;
-        });
-      return r;
-    }
     function me(e) {
-      var t = Z(e),
-        n = t == null ? void 0 : t.targetRepresentationId.video,
-        r = te(e).find(function (e) {
+      var t = ee(e),
+        n = t == null ? void 0 : t.targetRepresentationId.audio,
+        r = re(e).find(function (e) {
           return e.representationId === n;
         });
       return r;
     }
     function pe(e) {
+      var t = ee(e),
+        n = t == null ? void 0 : t.targetRepresentationId.video,
+        r = ne(e).find(function (e) {
+          return e.representationId === n;
+        });
+      return r;
+    }
+    function _e(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -1822,7 +1830,7 @@ __d(
             : t.selectedMediaVariant;
       return n;
     }
-    function _e(e) {
+    function fe(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -1848,16 +1856,17 @@ __d(
       (l.internal_getLiveStreamWindow = K),
       (l.internal_computeLiveStartPositionSec = Q),
       (l.getIsMixedCodecManifest = Y),
-      (l.getIsPredictiveDash = J),
-      (l.getAvailableVideoRepresentations = oe),
-      (l.getAvailableAudioRepresentations = ie),
-      (l.filterVideoRepresentationsByTargetVariant = le),
-      (l.getCurrentPlayingAudioRepresentation = ue),
-      (l.getCurrentPlayingVideoRepresentation = ce),
-      (l.getCurrentTargetAudioRepresentation = de),
-      (l.getCurrentTargetVideoRepresentation = me),
-      (l.getSelectedMediaVariant = pe),
-      (l.getSelectedVideoQualityDisplayLabel = _e));
+      (l.getManifestIdentifier = J),
+      (l.getIsPredictiveDash = Z),
+      (l.getAvailableVideoRepresentations = ae),
+      (l.getAvailableAudioRepresentations = le),
+      (l.filterVideoRepresentationsByTargetVariant = se),
+      (l.getCurrentPlayingAudioRepresentation = ce),
+      (l.getCurrentPlayingVideoRepresentation = de),
+      (l.getCurrentTargetAudioRepresentation = me),
+      (l.getCurrentTargetVideoRepresentation = pe),
+      (l.getSelectedMediaVariant = _e),
+      (l.getSelectedVideoQualityDisplayLabel = fe));
   },
   98,
 );

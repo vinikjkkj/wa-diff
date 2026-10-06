@@ -17,31 +17,33 @@ __d(
       u = 3e4,
       c = null,
       d = 0,
-      m = null;
-    function p() {
+      m = null,
+      p = null;
+    function _() {
       var t = c;
       (t != null && t.isActive() && t.endCancel(),
         (d = 0),
         (m = null),
+        (p = null),
         (c = o("WAWebQplFlow").startQplFlow(r("qpl")._(1029384627, "3661"), {
           annotations: { string: { surface: s } },
           timeoutInMs: u,
         })),
-        f(e.PROVIDER_MOUNT));
+        g(e.PROVIDER_MOUNT));
     }
-    function _() {
+    function f() {
       return ((d += 1), d === 1);
     }
-    function f(e) {
+    function g(e) {
       var t;
       (t = c) == null || t.addPoint(e);
     }
-    function g(e) {
-      m = e;
+    function h(e, t) {
+      ((m = e), (p = t != null ? t : null));
     }
-    function h(t) {
+    function y(t) {
       var n;
-      (f(e.ENTRY_POINT_RENDERED),
+      (g(e.ENTRY_POINT_RENDERED),
         (n = c) == null ||
           n.endSuccess({
             int: { attempt_count: d },
@@ -49,26 +51,24 @@ __d(
           }),
         (c = null));
     }
-    function y(e) {
-      var t, n;
-      ((t = c) == null ||
-        t.addAnnotations({
-          int: { attempt_count: d },
-          string: babelHelpers.extends(
-            { outcome: "suppressed" },
-            m != null ? { failure_reason: m } : null,
-          ),
-        }),
+    function C(e) {
+      var t,
+        n,
+        r = { outcome: "suppressed" };
+      (m != null && (r.failure_reason = m),
+        p != null && (r.failure_detail = p),
+        (t = c) == null ||
+          t.addAnnotations({ int: { attempt_count: d }, string: r }),
         (n = c) == null || n.endFail(e),
         (c = null));
     }
     ((l.AdvertiseEntryPointQplPoint = e),
-      (l.startAdvertiseEntryPointQpl = p),
-      (l.advertiseEntryPointQplBeginAttempt = _),
-      (l.advertiseEntryPointQplAddPoint = f),
-      (l.advertiseEntryPointQplRecordFailureReason = g),
-      (l.endAdvertiseEntryPointQplVisible = h),
-      (l.endAdvertiseEntryPointQplSuppressed = y));
+      (l.startAdvertiseEntryPointQpl = _),
+      (l.advertiseEntryPointQplBeginAttempt = f),
+      (l.advertiseEntryPointQplAddPoint = g),
+      (l.advertiseEntryPointQplRecordFailureReason = h),
+      (l.endAdvertiseEntryPointQplVisible = y),
+      (l.endAdvertiseEntryPointQplSuppressed = C));
   },
   98,
 );

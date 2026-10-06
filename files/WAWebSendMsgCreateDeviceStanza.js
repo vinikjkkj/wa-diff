@@ -27,6 +27,7 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMsgType",
     "WAWebPQSessionScope",
+    "WAWebRemoveQuotedAttachmentMediaFields",
     "WAWebReportingTokenUtils",
     "WAWebResolveGroupAgentParticipants",
     "WAWebSendMsgCommonApi",
@@ -155,27 +156,42 @@ __d(
               d.type === c.Retry && (a = l.data.botGroupParticipants) != null
                 ? a
                 : C,
-            S = babelHelpers.extends({}, h, { groupAgentParticipants: C }),
-            R = o("WAWebGenerateBotMetadata").addGroupAgentBotMetadata(i, v),
-            L = o("WAWebUserPrefsMeUser").isMeAccount(m)
+            S =
+              m.equals(o("WAWebBotUtils").META_BOT_FBID_WID) &&
+              (yield o(
+                "WAWebResolveGroupAgentParticipants",
+              ).hasMuseNoticeGroupAgent(y)),
+            R = babelHelpers.extends({}, h, { groupAgentParticipants: C }),
+            L = o("WAWebGenerateBotMetadata").addGroupAgentBotMetadata(
+              o(
+                "WAWebRemoveQuotedAttachmentMediaFields",
+              ).isGroupWithAgentParticipant(h)
+                ? o(
+                    "WAWebRemoveQuotedAttachmentMediaFields",
+                  ).removeQuotedAttachmentMediaFields(i)
+                : i,
+              v,
+            ),
+            E = o("WAWebUserPrefsMeUser").isMeAccount(m)
               ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
-                  R,
+                  L,
                   p,
                 )
-              : R;
+              : L;
           return (
             yield o("WAWebICDCMetaApi").populateICDCMeta(
               o("WAWebWidFactory").asUserWidOrThrow(m),
-              L,
+              E,
             ),
             g({
-              msgProtobuf: L,
+              msgProtobuf: E,
               msgRecord: l,
               params: babelHelpers.extends(
                 {
                   type: "group",
-                  groupData: S,
+                  groupData: R,
                   groupAgentPolicyParticipants: v,
+                  groupHasMuseAgent: S,
                 },
                 s,
               ),
@@ -277,9 +293,12 @@ __d(
                   message: _,
                   messageSecret: y.messageSecret,
                   botMessageSecret: C,
+                  groupHasMuseAgent:
+                    h.type === "group" && h.groupHasMuseAgent === !0,
                   hasGroupAgentTarget: O,
                   hasOpenBotTarget: F,
                   isGroupAgentParticipantSend: A,
+                  isGroupMsg: h.type === "group",
                   isOpenBotGroup: B,
                   mentionedJidList: O && !F ? null : y.mentionedJidList,
                 })

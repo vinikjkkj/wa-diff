@@ -281,6 +281,7 @@ __d(
                   : c.jsx(
                       o("WAWebMentionsPluginResult.react").UserResult,
                       {
+                        chat: i,
                         contact: t.contact,
                         term: t.query,
                         theme: null,

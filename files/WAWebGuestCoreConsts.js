@@ -165,6 +165,7 @@ __d(
         "GuestVerifiedPn",
         "GuestDeviceCountry",
         "GuestCampaign",
+        "GuestEventsPushEndpoint",
       ]),
       p = 720 * 60 * 1e3,
       _ = 3,

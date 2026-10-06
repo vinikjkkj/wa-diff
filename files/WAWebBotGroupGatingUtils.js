@@ -85,7 +85,12 @@ __d(
         !0
       );
     }
-    function C() {
+    function C(e) {
+      return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
+        ? y()
+        : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
+    }
+    function b() {
       return (
         y() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -105,7 +110,8 @@ __d(
       (l.isGroupBotParticipantEnabled = g),
       (l.isGroupBotMessage = h),
       (l.isOpenGroupBotSendEnabled = y),
-      (l.isGroupBotSendMentionedPushnameEnabled = C));
+      (l.isGroupRevokeAgentTarget = C),
+      (l.isGroupBotSendMentionedPushnameEnabled = b));
   },
   98,
 );

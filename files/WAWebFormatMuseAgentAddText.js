@@ -27,9 +27,12 @@ __d(
         return null;
       var c = o("WAWebBotProfileCollection").BotProfileCollection.get(u);
       if (
-        o("WAWebBotProduct").botProductFromServerValue(
-          c == null ? void 0 : c.product,
-        ) !== o("WAWebBotProduct").BotProduct.MUSE
+        !o("WAWebBotProduct").isMuseAgentProduct(
+          u,
+          o("WAWebBotProduct").botProductFromServerValue(
+            c == null ? void 0 : c.product,
+          ),
+        )
       )
         return null;
       if (a == null)
@@ -37,13 +40,12 @@ __d(
           s._param("agent_name", n),
         ]);
       var d =
-        r != null
-          ? r ===
-            o("WAWebGroupAgentAddAttribution").GroupAgentAddAttribution.OWNER
-          : (c == null ? void 0 : c.creatorLid) != null &&
-            ((t = o("WAWebLidMigrationUtils").toUserLid(a)) == null
-              ? void 0
-              : t.user) === c.creatorLid;
+        r ===
+          o("WAWebGroupAgentAddAttribution").GroupAgentAddAttribution.OWNER ||
+        ((c == null ? void 0 : c.creatorLid) != null &&
+          ((t = o("WAWebLidMigrationUtils").toUserLid(a)) == null
+            ? void 0
+            : t.user) === c.creatorLid);
       return o("WAWebSystemMessagesUtils").isMe(a)
         ? d
           ? s._(/*BTDS*/ "You added {agent_name}, your Muse agent", [

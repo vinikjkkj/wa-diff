@@ -6560,10 +6560,21 @@ __d(
           },
         }),
       ),
-      je = Object.freeze({
+      je = Object.freeze(
+        babelHelpers.extends({}, ze, {
+          p2p_opg_transfers: {
+            autoIncrement: !1,
+            defaults: {},
+            id: 354,
+            indexes: {},
+            primaryKey: { fields: ["transferId"], ignoreNulls: [] },
+          },
+        }),
+      ),
+      Ke = Object.freeze({
         afterUpgrade: o("LSDbV1.upgrade").afterUpgrade,
-        revision: 92,
-        tables: ze,
+        revision: 93,
+        tables: je,
         upgrade: {
           1: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -8616,9 +8627,35 @@ __d(
             }
             return t;
           })(),
+          93: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
+                    je,
+                  ),
+                  n = t.defaults,
+                  r = t.tableData;
+                (yield o(
+                  "ReStoreIndicesMigration",
+                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
+                  yield o(
+                    "ReStoreDefaultValueMigration",
+                  ).runMigrationForTableDefaultValuesIfNeeded(
+                    e.transaction,
+                    r,
+                    !1,
+                    n,
+                  ));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
         },
       });
-    l.LSDbV1 = je;
+    l.LSDbV1 = Ke;
   },
   98,
 );

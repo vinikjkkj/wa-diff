@@ -1,12 +1,9 @@
 __d(
   "WAWebSettingGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms"],
+  ["WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return (
-        !o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("wa_web_me_tab")
-      );
+      return !o("WAWebMobilePlatforms").isSMB();
     }
     l.isMeTabEnabled = e;
   },

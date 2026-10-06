@@ -189,7 +189,7 @@ __d(
             return (r("vulture")("tR5ZngRK5SqGSWsrK0VQglhS2Ps="), !1);
           },
           getManifestIdentifier: function () {
-            return null;
+            return o("VideoPlayerNextgendashMain").getManifestIdentifier(a);
           },
           getMpdValidationErrors: function () {
             return null;

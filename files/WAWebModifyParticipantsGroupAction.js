@@ -8,8 +8,9 @@ __d(
     "WAWebActionToast.react",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
+    "WAWebGroupAddResultDialogs.react",
+    "WAWebGroupAgentConflictAddResult",
     "WAWebGroupAgentRemoveNotFoundJob",
-    "WAWebGroupIncompatibleDeviceAddPopup.react",
     "WAWebGroupIncompatibleDeviceAddResult",
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
@@ -157,18 +158,17 @@ __d(
             N = v
               .then(function (e) {
                 var t,
-                  n = o(
-                    "WAWebGroupIncompatibleDeviceAddResult",
-                  ).splitIncompatibleDeviceRejections(e, i),
-                  a = n.hasIncompatibleDeviceRejection,
-                  c = n.reportedResponse;
+                  n = $(e, i),
+                  a = n.agentConflictWids,
+                  c = n.hasIncompatibleDeviceRejection,
+                  d = n.reportedResponse;
                 D(l, e);
-                var d = (t = e.invitedOutContacts) != null ? t : [],
-                  m = e.participants.some(function (e) {
+                var m = (t = e.invitedOutContacts) != null ? t : [],
+                  _ = e.participants.some(function (e) {
                     return e.code === "403";
                   }),
-                  _ = new Set(
-                    d
+                  f = new Set(
+                    m
                       .filter(function (e) {
                         return e.code !== "200";
                       })
@@ -176,30 +176,30 @@ __d(
                         return e.phoneNumberWid.toString();
                       }),
                   ),
-                  f = p.filter(function (e) {
-                    return _.has(
+                  h = p.filter(function (e) {
+                    return f.has(
                       o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
                     );
                   }),
-                  h = r("countWhere")(d, function (e) {
+                  y = r("countWhere")(m, function (e) {
                     return e.code !== "200";
                   }),
-                  y =
+                  b =
                     p.length > 0
                       ? function () {
-                          if (f.length > 0) {
+                          if (h.length > 0) {
                             o("WAWebModalManager").ModalManager.open(
                               C.jsx(
                                 r("WAWebOutContactSmsInviteConfirmModal.react"),
                                 {
-                                  names: f.map(function (e) {
+                                  names: h.map(function (e) {
                                     return e.getName();
                                   }),
                                   onConfirm: function () {
                                     (o(
                                       "WAWebOutContactInviteAction",
                                     ).sendMultiGroupInvite(
-                                      f.map(function (e) {
+                                      h.map(function (e) {
                                         return e.phoneNumber;
                                       }),
                                       o("WAWebWidToJid").widToGroupJid(l.id),
@@ -218,33 +218,36 @@ __d(
                             );
                             return;
                           }
-                          (L || x(h),
+                          (L || x(y),
                             o("WAWebModalManager").closeModalManager());
                         }
                       : r("WAWebNoop");
-                $(a, function () {
-                  m
-                    ? g.sendForNeededAddRequest(e.participants, y)
-                    : y == null || y();
-                });
-                var b = e.participants.filter(function (e) {
+                o("WAWebGroupAddResultDialogs.react").runAfterAddResultDialogs(
+                  { agentConflictWids: a, hasIncompatibleDeviceRejection: c },
+                  function () {
+                    _
+                      ? g.sendForNeededAddRequest(e.participants, b)
+                      : b == null || b();
+                  },
+                );
+                var v = e.participants.filter(function (e) {
                   return e.code === "417";
                 });
-                if (b.length > 0) {
-                  var v = s._(
+                if (v.length > 0) {
+                  var S = s._(
                       /*BTDS*/ '_j{"*":"{participant_count} participants can\'t be added to the community. You can invite them privately to join this group through its invite link.","_1":"1 participant can\'t be added to the community. You can invite them privately to join this group through its invite link."}',
-                      [s._plural(b.length, "participant_count")],
+                      [s._plural(v.length, "participant_count")],
                     ),
-                    S = e.participants.some(function (e) {
+                    R = e.participants.some(function (e) {
                       return e.code === "200";
                     });
-                  if (!S) throw new (o("WAWebActionToast.react").ActionType)(v);
-                  return new (o("WAWebActionToast.react").ActionType)(v);
+                  if (!R) throw new (o("WAWebActionToast.react").ActionType)(S);
+                  return new (o("WAWebActionToast.react").ActionType)(S);
                 }
                 if (L) {
-                  if (f.length > 0) {
-                    var R = r("WAWebFbtIntlList")(
-                      f.map(function (e) {
+                  if (h.length > 0) {
+                    var E = r("WAWebFbtIntlList")(
+                      h.map(function (e) {
                         return e.getName();
                       }),
                       r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
@@ -252,20 +255,21 @@ __d(
                     ).toString();
                     return new (o("WAWebActionToast.react").ActionType)(
                       o("WAWebGroupStringsAction").addSuccessString(
-                        R,
-                        f.length,
+                        E,
+                        h.length,
                       ),
                     );
                   }
                   throw new (o("WAWebActionToast.react").ActionType)(
                     o(
                       "WAWebOutContactInviteUtils",
-                    ).getGroupInviteAddFailedToastText(h),
+                    ).getGroupInviteAddFailedToastText(y),
                   );
                 }
-                if (a && c.participants.length === 0) return null;
-                var E = o("WAWebGroupStringsAction").formatResult(
-                    c,
+                if ((c || a.length > 0) && d.participants.length === 0)
+                  return null;
+                var k = o("WAWebGroupStringsAction").formatResult(
+                    d,
                     o("WAWebGroupStringsAction").addSuccessString,
                     function (e, t, n) {
                       return o("WAWebGroupStringsAction").addFailedString({
@@ -277,11 +281,11 @@ __d(
                     o("WAWebGroupStringsAction").addPartialFailedString,
                     u,
                   ),
-                  k = c.participants.some(function (e) {
+                  I = d.participants.some(function (e) {
                     return e.code === "200";
                   });
-                if (!k) throw new (o("WAWebActionToast.react").ActionType)(E);
-                return new (o("WAWebActionToast.react").ActionType)(E);
+                if (!I) throw new (o("WAWebActionToast.react").ActionType)(k);
+                return new (o("WAWebActionToast.react").ActionType)(k);
               })
               .catch(function (e) {
                 if (e instanceof o("WAWebActionToast.react").ActionType)
@@ -398,25 +402,33 @@ __d(
         );
     }
     function $(e, t) {
-      if (!e) {
-        t();
-        return;
-      }
-      o("WAWebModalManager").ModalManager.open(
-        C.jsx(r("WAWebGroupIncompatibleDeviceAddPopup.react"), {}),
-      );
-      var n = {},
-        a = function () {
-          o("WAWebModalManager").ModalManager.off(null, null, n);
-        };
-      (o("WAWebModalManager").ModalManager.once(
-        "close_modal",
-        function () {
-          (a(), t());
-        },
-        n,
-      ),
-        o("WAWebModalManager").ModalManager.once("open_modal", a, n));
+      var n = o(
+          "WAWebGroupIncompatibleDeviceAddResult",
+        ).splitIncompatibleDeviceRejections(e, t),
+        r = n.hasIncompatibleDeviceRejection,
+        a = n.reportedResponse,
+        i = o("WAWebGroupAgentConflictAddResult").getAgentConflictRejectedWids(
+          a.participants,
+        );
+      return i.length === 0
+        ? {
+            agentConflictWids: i,
+            hasIncompatibleDeviceRejection: r,
+            reportedResponse: a,
+          }
+        : {
+            agentConflictWids: i,
+            hasIncompatibleDeviceRejection: r,
+            reportedResponse: babelHelpers.extends({}, a, {
+              participants: a.participants.filter(function (e) {
+                var t = e.code,
+                  n = e.userWid;
+                return !o(
+                  "WAWebGroupAgentConflictAddResult",
+                ).isAgentConflictRejection(t, n);
+              }),
+            }),
+          };
     }
     function P(e, t, n) {
       return N.apply(this, arguments);

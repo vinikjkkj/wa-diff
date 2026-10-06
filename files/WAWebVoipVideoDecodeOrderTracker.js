@@ -33,7 +33,7 @@ __d(
                 { outOfOrder: !1, episodeStarted: !1 }
               );
             var i = a.lastRtpTimestamp;
-            if (i == null || u(r, i) > 0)
+            if (i == null || u(r, i) >= 0)
               return (
                 (a.lastRtpTimestamp = r),
                 { outOfOrder: !1, episodeStarted: !1 }

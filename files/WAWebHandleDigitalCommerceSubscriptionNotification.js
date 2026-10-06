@@ -7,6 +7,7 @@ __d(
     "WAWebBackendJobsCommon",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebParseSubscriptionNotification",
+    "WAWebSubscriptionNotificationDelivery",
     "WAWebSubscriptions",
     "asyncToGeneratorRuntime",
   ],
@@ -23,7 +24,15 @@ __d(
             ).parseSubscriptionsAndFeatureFlags(e),
             a = r.featureFlags,
             i = r.subscriptions;
-          return { stanzaId: t, from: n, subscriptions: i, featureFlags: a };
+          return {
+            stanzaId: t,
+            from: n,
+            subscriptions: i,
+            featureFlags: a,
+            uiNotification: o(
+              "WAWebParseSubscriptionNotification",
+            ).parseSubscriptionNotification(e),
+          };
         },
       );
     function u(e, t) {
@@ -54,12 +63,17 @@ __d(
               n.error
             );
           var r = n.success;
+          yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
+            r.subscriptions,
+            r.featureFlags,
+            "update",
+          );
+          var a = r.uiNotification;
           return (
-            yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-              r.subscriptions,
-              r.featureFlags,
-              "update",
-            ),
+            a != null &&
+              o(
+                "WAWebSubscriptionNotificationDelivery",
+              ).deliverSubscriptionNotification(a),
             u(r.stanzaId, r.from)
           );
         })),

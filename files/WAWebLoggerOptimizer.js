@@ -4,41 +4,41 @@ __d(
   function (t, n, r, o, a, i) {
     var e = "==================================================EOU",
       l = 4e3;
-    function s(e, t, n) {
+    function s(e, t, n, r) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          (n === void 0 && (n = 0), r === void 0 && (r = !1));
-          var o = [];
-          if (r)
-            for (
-              var a = yield t.logs
-                  .orderBy("timestamp")
-                  .filter(function (e) {
-                    return e.timestamp >= n;
-                  })
-                  .reverse()
-                  .until(function (e) {
-                    return e.log.includes("[sendlogs]");
-                  }, !0)
-                  .toArray(),
-                i = a.length - 1;
-              i >= 0 && (c(a[i], o), !a[i].log.includes(e));
-              i--
-            );
-          else
-            yield t.logs
-              .orderBy("timestamp")
-              .filter(function (e) {
-                return e.timestamp >= n;
-              })
-              .each(function (e) {
-                c(e, o);
-              });
-          return o;
-        })),
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, n, r, o) {
+            (n === void 0 && (n = 0),
+              r === void 0 && (r = !1),
+              o === void 0 && (o = 1 / 0));
+            var a = [];
+            if (r)
+              for (
+                var i = yield t.logs
+                    .where("timestamp")
+                    .between(n, o)
+                    .reverse()
+                    .until(function (e) {
+                      return e.log.includes("[sendlogs]");
+                    }, !0)
+                    .toArray(),
+                  l = i.length - 1;
+                l >= 0 && (c(i[l], a), !i[l].log.includes(e));
+                l--
+              );
+            else
+              yield t.logs
+                .where("timestamp")
+                .between(n, o)
+                .each(function (e) {
+                  c(e, a);
+                });
+            return a;
+          },
+        )),
         u.apply(this, arguments)
       );
     }

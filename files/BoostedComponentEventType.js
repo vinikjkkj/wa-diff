@@ -620,6 +620,8 @@ __d(
       HAWK_SEGMENT_WORKSPACE_TOOL_IMPRESSION:
         "hawk_segment_workspace_tool_impression",
       HAWK_SEGMENT_WORKSPACE_TOOL_CLICK: "hawk_segment_workspace_tool_click",
+      HAWK_SEGMENT_WORKSPACE_FILTER_CLICK:
+        "hawk_segment_workspace_filter_click",
       HAWK_PAC_GUIDANCE_CARD_RESET_TOOL_IMPRESSION:
         "hawk_pac_guidance_card_reset_tool_impression",
       HAWK_PAC_GUIDANCE_CARD_RESET_TOOL_CLICK:

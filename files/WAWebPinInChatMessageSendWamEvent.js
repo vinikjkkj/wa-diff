@@ -15,6 +15,7 @@ __d(
             4438,
             {
               dedupKey: [10, e.TYPES.INTEGER],
+              groupId: [11, e.TYPES.STRING],
               groupRole: [1, o("WAWebWamEnumGroupRoleType").GROUP_ROLE_TYPE],
               groupTypeClient: [
                 2,

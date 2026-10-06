@@ -32,7 +32,9 @@ __d(
         : n.length === 1 && n[0] === s.META_AI_OPEN
           ? e.META_AI
           : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-            ? n.length === 1 && n[0] === s.MUSE
+            ? n.every(function (e) {
+                return e === s.MUSE;
+              })
               ? e.MUSE
               : e.GENERIC
             : null;

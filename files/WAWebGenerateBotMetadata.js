@@ -265,7 +265,9 @@ __d(
                   .BotCapabilityMetadata$BotCapabilityType
                   .RICH_RESPONSE_UR_INLINE_REELS_ENABLED,
               ].concat(
-                o("WAWebBotUnifiedResponseGating").isImagineUrEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "wa_web_imagine_ur_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType
@@ -281,9 +283,9 @@ __d(
                         .RICH_RESPONSE_UR_IMAGINE_VIDEO,
                     ]
                   : [],
-                o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isRichResponseGridImageEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "ai_rich_response_grid_image_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType
@@ -336,9 +338,9 @@ __d(
                         .RICH_RESPONSE_UR_MEDIA_GRID_ENABLED,
                     ]
                   : [],
-                o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isRichResponseInAppSurveyEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "meta_ai_in_app_survey_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType

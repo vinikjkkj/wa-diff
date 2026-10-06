@@ -1,6 +1,7 @@
 __d(
   "MediaPlaybackCompoundEventStateMachineLogger",
   [
+    "ExecutionEnvironment",
     "MediaPlaybackTagMetadataHighFrequencyCategory",
     "NetworkStatus",
     "SiteData",
@@ -12,53 +13,55 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 6e4,
-      u = 1e3,
-      c = Object.freeze([
+      s,
+      u = 6e4,
+      c = 1e3,
+      d = Object.freeze([
         "paused",
         "completed",
         "cancelled",
         "error",
         "heartbeat",
       ]),
-      d = (e = r("emptyFunction")),
-      m = e,
-      p = e,
-      _ = e,
-      f = !1;
+      m = (s = r("emptyFunction")),
+      p = s,
+      _ = s,
+      f = s,
+      g = !1;
     r("gkx")("494") &&
-      ((f = !0),
-      (d = function (t, n) {
-        try {
-          for (
-            var e,
-              r = arguments.length,
-              o = new Array(r > 2 ? r - 2 : 0),
-              a = 2;
-            a < r;
-            a++
-          )
-            o[a - 2] = arguments[a];
-          (e = window.console).info.apply(
-            e,
-            ["[" + t + "][SNAPL]" + n].concat(o),
-          );
-        } catch (e) {}
+      ((g = !0),
+      (m = function (n, o) {
+        if ((e || (e = r("ExecutionEnvironment"))).canUseDOM)
+          try {
+            for (
+              var t,
+                a = arguments.length,
+                i = new Array(a > 2 ? a - 2 : 0),
+                l = 2;
+              l < a;
+              l++
+            )
+              i[l - 2] = arguments[l];
+            (t = window.console).info.apply(
+              t,
+              ["[" + n + "][SNAPL]" + o].concat(i),
+            );
+          } catch (e) {}
       }),
-      (m = function (t, n, r, o) {
-        d(t, "[handleMetaData]", {
+      (p = function (t, n, r, o) {
+        m(t, "[handleMetaData]", {
           loggingMetaData: r,
           loggingMetaDataPrevious: n,
           trackedChanges: o,
         });
       }),
-      (p = function (t, n, r, o) {
-        d(t, "[handleStateMachine]", { prevState: n, state: r, action: o });
+      (_ = function (t, n, r, o) {
+        m(t, "[handleStateMachine]", { prevState: n, state: r, action: o });
       }),
-      (_ = function (t, n) {
-        d(t, "[setAdditionalLogData(SNAPL)]", { values: n });
+      (f = function (t, n) {
+        m(t, "[setAdditionalLogData(SNAPL)]", { values: n });
       }));
-    function g() {
+    function h() {
       return {
         bufferingSequenceStartClockTimestamp: null,
         canLogPausedOrFinishedPlaying: !1,
@@ -93,29 +96,29 @@ __d(
         },
       };
     }
-    function h(e) {
+    function y(e) {
       var t = {},
         n = e.initialLoggingMetaData,
         o = e.initialCoreVideoPlayerMetaData,
         a = [],
-        i = g(),
+        i = h(),
         l = [],
-        h = {};
+        s = {};
       function y(t) {
         var r,
           l,
-          s = t.events,
-          u = t.state,
-          c = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, h),
-          m =
+          u = t.events,
+          c = t.state,
+          d = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, s),
+          p =
             (r =
               (l = e.metadataProvider) == null
                 ? void 0
                 : l.getRequiredMetadata({
                     coreVideoPlayerMetaData: o,
-                    logDataAdditions: c,
+                    logDataAdditions: d,
                     loggingMetaData: n,
-                    state: u,
+                    state: c,
                   })) != null
               ? r
               : {
@@ -123,19 +126,19 @@ __d(
                   media_id: "",
                   tracking_type: "none",
                 },
-          p = { events: s, required_metadata: m };
-        (a.push(p),
-          f &&
-            d(
+          _ = { events: u, required_metadata: p };
+        (a.push(_),
+          g &&
+            m(
               e.debugLogId,
               "[_push] " +
-                p.events
+                _.events
                   .map(function (e) {
                     return e.event_name;
                   })
                   .join(","),
               {
-                loggedEvent: p,
+                loggedEvent: _,
                 loggerEventsLength: a.length,
                 loggingState: JSON.stringify(i),
               },
@@ -146,13 +149,13 @@ __d(
           o = n.state;
         if (
           (l.push(r),
-          f &&
-            d(e.debugLogId, "[_addEvent] " + r.event_name, {
+          g &&
+            m(e.debugLogId, "[_addEvent] " + r.event_name, {
               event: r,
               eventsListLength: l.length,
               loggingState: JSON.stringify(i),
             }),
-          c.includes(r.event_name))
+          d.includes(r.event_name))
         ) {
           var a = [].concat(l);
           ((l = []), y({ events: a, state: o }));
@@ -188,9 +191,9 @@ __d(
           var r = t.payload,
             a = r.coreVideoPlayerMetaData,
             i = r.loggingMetaData;
-          if (f) {
+          if (g) {
             var l = a.initialTracePolicy !== o.initialTracePolicy;
-            m(e.debugLogId, n, i, { initialTracePolicyChanged: l });
+            p(e.debugLogId, n, i, { initialTracePolicyChanged: l });
           }
           ((n = i), (o = a));
         }
@@ -228,8 +231,8 @@ __d(
       }
       function E(r, a) {
         var i,
-          l = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, h),
-          s =
+          l = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, s),
+          u =
             (i = e.metadataProvider) == null
               ? void 0
               : i.getTagMetadata({
@@ -238,12 +241,12 @@ __d(
                   loggingMetaData: n,
                   state: r,
                 });
-        if (Object.keys(s != null ? s : {}).length > 0) {
-          a && (s = babelHelpers.extends({}, s, a));
-          var u = babelHelpers.extends({}, v(r, "tags_changed"), {
-            tag_metadata: s,
+        if (Object.keys(u != null ? u : {}).length > 0) {
+          a && (u = babelHelpers.extends({}, u, a));
+          var c = babelHelpers.extends({}, v(r, "tags_changed"), {
+            tag_metadata: u,
           });
-          C({ event: u, state: r });
+          C({ event: c, state: r });
         }
         return t;
       }
@@ -397,9 +400,9 @@ __d(
       function A(a, l, s) {
         if (
           s.type === "error_recovery_attempt" &&
-          i.errorRecoveryAttemptState.eventsLogged < u
+          i.errorRecoveryAttemptState.eventsLogged < c
         ) {
-          var c,
+          var u,
             d = s.payload.recoverableError;
           if (
             d != null &&
@@ -409,9 +412,9 @@ __d(
             return t;
           var m = babelHelpers.extends(
               {},
-              (c = e.metadataProvider) == null
+              (u = e.metadataProvider) == null
                 ? void 0
-                : c.getErrorMetadata({
+                : u.getErrorMetadata({
                     action: s,
                     coreVideoPlayerMetaData: o,
                     loggingMetaData: n,
@@ -484,16 +487,16 @@ __d(
           ? (i.nextHeartbeatTime = null)
           : o !== "stalling" &&
             i.nextHeartbeatTime == null &&
-            (i.nextHeartbeatTime = n.uncontrolledState.clockTimestamp + s);
+            (i.nextHeartbeatTime = n.uncontrolledState.clockTimestamp + u);
         var a = i.nextHeartbeatTime;
         if (a != null) {
           var l = n.uncontrolledState.clockTimestamp;
           if (l >= a) {
             if (o !== "stalling") {
-              var u = v(n, "heartbeat");
-              C({ event: u, state: n });
+              var s = v(n, "heartbeat");
+              C({ event: s, state: n });
             }
-            i.nextHeartbeatTime = l + s;
+            i.nextHeartbeatTime = l + u;
           }
         }
         return t;
@@ -547,39 +550,39 @@ __d(
         }
         return t;
       }
-      function V(a, l, s) {
-        var u,
-          c = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, h),
-          d = i.lastLoggedTagMetadata,
-          m =
-            (u = e.metadataProvider) == null
+      function V(a, l, u) {
+        var c,
+          d = babelHelpers.extends({}, o.loggingToSNAPLAdditionalData, s),
+          m = i.lastLoggedTagMetadata,
+          p =
+            (c = e.metadataProvider) == null
               ? void 0
-              : u.getTagMetadata({
+              : c.getTagMetadata({
                   coreVideoPlayerMetaData: o,
-                  logDataAdditions: c,
+                  logDataAdditions: d,
                   loggingMetaData: n,
                   state: l,
                 });
-        if (m && JSON.stringify(m) !== JSON.stringify(d)) {
-          var p = {};
-          Object.keys(m).forEach(function (e) {
-            if (m[e] !== d[e]) {
+        if (p && JSON.stringify(p) !== JSON.stringify(m)) {
+          var _ = {};
+          Object.keys(p).forEach(function (e) {
+            if (p[e] !== m[e]) {
               var t;
-              p = babelHelpers.extends({}, p, ((t = {}), (t[e] = m[e]), t));
+              _ = babelHelpers.extends({}, _, ((t = {}), (t[e] = p[e]), t));
             }
           });
-          var _ = Object.values(
+          var f = Object.values(
               r("MediaPlaybackTagMetadataHighFrequencyCategory"),
             ),
-            f = Object.keys(p).every(function (e) {
-              return _.includes(e);
+            g = Object.keys(_).every(function (e) {
+              return f.includes(e);
             });
-          if (f) return t;
-          var g = babelHelpers.extends({}, v(l, "tags_changed"), {
-            tag_metadata: p,
+          if (g) return t;
+          var h = babelHelpers.extends({}, v(l, "tags_changed"), {
+            tag_metadata: _,
           });
-          (C({ event: g, state: l }),
-            (i.lastLoggedTagMetadata = babelHelpers.extends({}, d, m)));
+          (C({ event: h, state: l }),
+            (i.lastLoggedTagMetadata = babelHelpers.extends({}, m, p)));
         }
         return t;
       }
@@ -594,7 +597,7 @@ __d(
           (a.forEach(function (e) {
             e(n, r, o);
           }),
-            f && p(e.debugLogId, n, r, o),
+            g && _(e.debugLogId, n, r, o),
             (t === "paused" || t === "ended") && (i.canLogPlayingEvent = !0),
             o.type === "controller_pause_requested" &&
               (i.shouldIgnoreDomPause = !0),
@@ -607,12 +610,12 @@ __d(
           k(t);
         },
         setLoggingToSNAPLAdditionalData: function (n) {
-          ((h = babelHelpers.extends({}, h, n)), f && _(e.debugLogId, n));
+          ((s = babelHelpers.extends({}, s, n)), g && f(e.debugLogId, n));
         },
       };
     }
-    ((l.HEARTBEAT_INTERVAL = s),
-      (l.createMediaPlaybackCompoundEventStateMachineLogger = h));
+    ((l.HEARTBEAT_INTERVAL = u),
+      (l.createMediaPlaybackCompoundEventStateMachineLogger = y));
   },
   98,
 );

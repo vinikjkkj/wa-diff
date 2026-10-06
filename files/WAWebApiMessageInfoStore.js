@@ -381,22 +381,22 @@ __d(
         n = e.groupParticipantJids,
         r = e.humanTotal,
         a = e.isSendingDevice,
-        i = (n != null ? n : [])
-          .filter(function (e) {
-            return e.endsWith("@bot");
-          })
-          .map(function (e) {
-            return o("WAWebWidFactory").createUserWidOrThrow(e);
-          }),
-        l = new Map(),
-        s = function (t) {
-          l.set(String(t), t);
+        i = new Map(),
+        l = function (t) {
+          i.set(String(t), t);
         };
+      if (a) return (t.forEach(l), Array.from(i.values()));
+      var s = (n != null ? n : [])
+        .filter(function (e) {
+          return e.endsWith("@bot");
+        })
+        .map(function (e) {
+          return o("WAWebWidFactory").createUserWidOrThrow(e);
+        });
       return (
-        i.filter(o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid).forEach(s),
-        a && t.forEach(s),
-        l.size === 0 && r === 0 && i.forEach(s),
-        Array.from(l.values())
+        s.filter(o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid).forEach(l),
+        i.size === 0 && r === 0 && s.forEach(l),
+        Array.from(i.values())
       );
     }
     function I(e, t) {

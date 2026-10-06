@@ -1,11 +1,11 @@
 __d(
   "WAWebDownloadWebLogs",
   [
-    "JSResourceForInteraction",
     "Promise",
+    "WALogger",
+    "WATimeUtils",
     "WAWebCallCollection",
-    "WAWebFileSaver",
-    "WAWebFileSaverTypes",
+    "WAWebDownloadLogFile",
     "WAWebLid1X1MigrationGating",
     "WAWebLoggerImpl",
     "WAWebPrimaryVersion",
@@ -14,21 +14,21 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "gkx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react")),
-      c = 1e6,
-      d = 100;
-    function m() {
-      return (e || (e = n("Promise")))
-        .all([
-          o("WAWebLoggerImpl").Logger.getLogs(),
-          o("WAWebPrimaryVersion").getPrimaryCurrentVersion(),
-        ])
+      u,
+      c,
+      d = c || (c = o("react")),
+      m = 100;
+    function p(e, t) {
+      var a = o("WAWebLoggerImpl").Logger.getLogs(!1, e, t);
+      return (u || (u = n("Promise")))
+        .all([a, o("WAWebPrimaryVersion").getPrimaryCurrentVersion()])
         .then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -90,128 +90,196 @@ __d(
           })(),
         );
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = {});
-          var t = yield r("JSResourceForInteraction")("WAGzip")
-            .__setRef("WAWebDownloadWebLogs")
-            .load();
-          return t.createDeflate(e);
-        })),
-        _.apply(this, arguments)
-      );
+    function _(e) {
+      e: {
+        if (e === "all") {
+          g();
+          break e;
+        }
+        if (e === "this_session") {
+          b(
+            o("WAWebLoggerImpl").Logger.getSessionStartTime(),
+            "web_client_log_session",
+            "Downloading logs since this page loaded...",
+          );
+          break e;
+        }
+        if (e === "previous_session") {
+          C();
+          break e;
+        }
+        if (e === "last_call") {
+          h();
+          break e;
+        }
+        if (e === "last_5_minutes") {
+          y(5);
+          break e;
+        }
+        if (e === "last_15_minutes") {
+          y(15);
+          break e;
+        }
+        if (e === "last_60_minutes") {
+          y(60);
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
     }
     function f() {
-      o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: "The download process has started. It might take longer for larger web log files.",
-        }),
-      );
-      var t = new Date().toISOString().replace(/:/g, "-"),
-        r = "web_client_log_" + t;
-      (e || (e = n("Promise")))
-        .all([p(), m()])
-        .then(function (e) {
-          var t = e[0],
-            n = e[1],
-            r = new Blob([n], { type: "text/plain" });
-          if (r.size > 10 * c) {
-            t.push(n, !0);
-            var o = new Blob([t.result()], { type: "application/zip" });
-            return o;
-          }
-          return r;
+      o("WAWebLoggerImpl")
+        .Logger.clearLogs()
+        .then(function () {
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Logs cleared from the download logs dialog",
+              ])),
+          ),
+            o("WAWebToastManager").ToastManager.open(
+              d.jsx(o("WAWebToast.react").Toast, { msg: "Logs cleared" }),
+            ));
         })
-        .then(function (e) {
-          return o("WAWebFileSaver").FileSaver.downloadData(
-            e,
-            e.type === "text/plain" ? r : r + ".txt",
-            e.type === "text/plain"
-              ? o("WAWebFileSaverTypes").AllowedFileExtensions.TXT
-              : o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
-          );
-        })
-        .catch(function () {
-          o("WAWebToastManager").ToastManager.open(
-            u.jsx(o("WAWebToast.react").Toast, {
-              msg: "Failed to download logs. Please try again.",
-            }),
-          );
+        .catch(function (e) {
+          (o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Failed to clear logs from the download logs dialog",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("download-logs-clear-failed"),
+            o("WAWebToastManager").ToastManager.open(
+              d.jsx(o("WAWebToast.react").Toast, {
+                msg: "Failed to clear logs. Please try again.",
+              }),
+            ));
         });
     }
     function g() {
-      var t,
-        a,
-        i,
-        l =
-          (t =
-            (a = r("WAWebCallCollection").activeCall) == null
+      o("WAWebToastManager").ToastManager.open(
+        d.jsx(o("WAWebToast.react").Toast, {
+          msg: "The download process has started. It might take longer for larger web log files.",
+        }),
+      );
+      var e =
+        "web_client_log_" + o("WAWebDownloadLogFile").getLogFileTimestamp();
+      v(
+        p().then(function (t) {
+          return { filebase: e, contents: t };
+        }),
+        "Failed to download logs. Please try again.",
+      );
+    }
+    function h() {
+      var e,
+        t,
+        n,
+        a =
+          (e =
+            (t = r("WAWebCallCollection").activeCall) == null
               ? void 0
-              : a.id) != null
-            ? t
-            : (i = r("WAWebCallCollection").lastActiveCall) == null
+              : t.id) != null
+            ? e
+            : (n = r("WAWebCallCollection").lastActiveCall) == null
               ? void 0
-              : i.id;
-      if (l == null) {
+              : n.id;
+      if (a == null) {
         (o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
+          d.jsx(o("WAWebToast.react").Toast, {
             msg: "No recent call found. Downloading all available logs instead.",
           }),
         ),
-          f());
+          g());
         return;
       }
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
+        d.jsx(o("WAWebToast.react").Toast, {
           msg: "Downloading last call log...",
         }),
       );
-      var s = new Date().toISOString().replace(/:/g, "-"),
-        _ = l.slice(0, 8),
-        g = "voip_call_log_" + _ + "_" + s;
-      (e || (e = n("Promise")))
-        .all([p(), m()])
-        .then(function (e) {
-          var t = e[0],
-            n = e[1],
-            r = h(n, l, d),
-            a = r.callIdFound,
-            i = r.filteredLog;
-          a ||
+      var i = o("WAWebDownloadLogFile").getLogFileTimestamp();
+      v(
+        p().then(function (e) {
+          var t = S(e, a, m),
+            n = t.callIdFound,
+            r = t.filteredLog;
+          n ||
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
+              d.jsx(o("WAWebToast.react").Toast, {
                 msg: "Call log entries not found in current logs. Downloading all available logs.",
               }),
             );
-          var m = a ? g : "web_client_log_" + s,
-            p = new Blob([i], { type: "text/plain" }),
-            _ = p;
-          return (
-            p.size > 10 * c &&
-              (t.push(i, !0),
-              (_ = new Blob([t.result()], { type: "application/zip" }))),
-            o("WAWebFileSaver").FileSaver.downloadData(
-              _,
-              _.type === "text/plain" ? m : m + ".txt",
-              _.type === "text/plain"
-                ? o("WAWebFileSaverTypes").AllowedFileExtensions.TXT
-                : o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
-            )
-          );
-        })
-        .catch(function () {
-          o("WAWebToastManager").ToastManager.open(
-            u.jsx(o("WAWebToast.react").Toast, {
-              msg: "Failed to download call log. Please try again.",
-            }),
-          );
-        });
+          var l = n
+            ? "voip_call_log_" + a.slice(0, 8) + "_" + i
+            : "web_client_log_" + i;
+          return { filebase: l, contents: r };
+        }),
+        "Failed to download call log. Please try again.",
+      );
     }
-    function h(e, t, n) {
+    function y(e) {
+      b(
+        Date.now() - e * o("WATimeUtils").MINUTE_MILLISECONDS,
+        "web_client_log_last_" + e + "m",
+        "Downloading logs from the last " + e + " minutes...",
+      );
+    }
+    function C() {
+      var e = o("WAWebLoggerImpl").Logger.getPreviousSessionTimeRange();
+      if (e == null) {
+        (o("WAWebToastManager").ToastManager.open(
+          d.jsx(o("WAWebToast.react").Toast, {
+            msg: "No earlier session in this tab. Downloading all available logs instead.",
+          }),
+        ),
+          g());
+        return;
+      }
+      o("WAWebToastManager").ToastManager.open(
+        d.jsx(o("WAWebToast.react").Toast, {
+          msg: "Downloading logs from the previous session...",
+        }),
+      );
+      var t =
+        "web_client_log_previous_session_" +
+        o("WAWebDownloadLogFile").getLogFileTimestamp();
+      v(
+        p(e.fromTimestamp, e.toTimestamp).then(function (e) {
+          return { filebase: t, contents: e };
+        }),
+        "Failed to download logs. Please try again.",
+      );
+    }
+    function b(e, t, n) {
+      o("WAWebToastManager").ToastManager.open(
+        d.jsx(o("WAWebToast.react").Toast, { msg: n }),
+      );
+      var r = t + "_" + o("WAWebDownloadLogFile").getLogFileTimestamp();
+      v(
+        p(e).then(function (e) {
+          return { filebase: r, contents: e };
+        }),
+        "Failed to download logs. Please try again.",
+      );
+    }
+    function v(e, t) {
+      e.then(function (e) {
+        var t = e.contents,
+          n = e.filebase;
+        return o("WAWebDownloadLogFile").downloadLogFile(t, n);
+      }).catch(function () {
+        o("WAWebToastManager").ToastManager.open(
+          d.jsx(o("WAWebToast.react").Toast, { msg: t }),
+        );
+      });
+    }
+    function S(e, t, n) {
       var r = e.indexOf(t),
         o = r !== -1,
         a = 0;
@@ -224,10 +292,12 @@ __d(
       }
       return { filteredLog: e.substring(a), callIdFound: o };
     }
-    ((l.getWebLogs = m),
-      (l.createDownloadDataForMdWebLogs = f),
-      (l.createDownloadDataForLastCallLog = g),
-      (l.extractLogsForCall = h));
+    ((l.getWebLogs = p),
+      (l.downloadWebLogs = _),
+      (l.clearWebLogs = f),
+      (l.createDownloadDataForMdWebLogs = g),
+      (l.createDownloadDataForLastCallLog = h),
+      (l.extractLogsForCall = S));
   },
   98,
 );

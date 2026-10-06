@@ -164,8 +164,16 @@ __d(
       return r("WAWebAlphaRegex").exec(a) ? a : t;
     }
     function m(e) {
-      var t, n;
-      return (t = (n = _(e)) == null ? void 0 : n.indicator) != null ? t : null;
+      var t = f(e);
+      return t == null
+        ? null
+        : t.museAgentIds.length > 0
+          ? t.otherAgentIds.length === 0
+            ? "muse"
+            : "aiAgents"
+          : t.hasThirdPartyAgent
+            ? "aiAgents"
+            : null;
     }
     function p(e, t) {
       var n = _(
@@ -174,9 +182,9 @@ __d(
         }),
       );
       return n == null
-        ? f(e, t)
+        ? g(e, t)
         : [n.label].concat(
-            f(
+            g(
               e.filter(function (e) {
                 return !n.replacedAgentIds.has(e.id);
               }),
@@ -185,13 +193,31 @@ __d(
           );
     }
     function _(e) {
+      var t = f(e);
+      if (t == null) return null;
+      var n = t.museAgentIds,
+        r = t.otherAgentIds;
+      return n.length === 0
+        ? null
+        : r.length === 0
+          ? {
+              label: s._(/*BTDS*/ "Muse").toString(),
+              replacedAgentIds: new Set(n),
+            }
+          : {
+              label: s._(/*BTDS*/ "AI agents").toString(),
+              replacedAgentIds: new Set([].concat(n, r)),
+            };
+    }
+    function f(e) {
       if (
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
         !o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled()
       )
         return null;
       var t = [],
-        n = [];
+        n = [],
+        r = !1;
       return (
         e.forEach(function (e) {
           if (o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)) {
@@ -199,41 +225,29 @@ __d(
             return;
           }
           if (o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e)) {
-            var r = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
+            var a = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
             if (
               !(
-                (r == null ? void 0 : r.lastFetchedTimeMs) == null ||
-                r.isDeleted === !0 ||
-                r.isDeprecated === !0
+                (a == null ? void 0 : a.lastFetchedTimeMs) == null ||
+                a.isDeleted === !0 ||
+                a.isDeprecated === !0
               )
             ) {
-              var a = o("WAWebBotProduct").botProductFromServerValue(r.product);
+              var i = o("WAWebBotProduct").botProductFromServerValue(a.product);
               o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileProduct(
                 e,
-                a,
+                i,
               )
                 ? t.push(e)
-                : a === o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
-                  n.push(e);
+                : i === o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
+                  (n.push(e), (r = !0));
             }
           }
         }),
-        t.length === 0
-          ? null
-          : n.length === 0
-            ? {
-                indicator: "muse",
-                label: s._(/*BTDS*/ "Muse").toString(),
-                replacedAgentIds: new Set(t),
-              }
-            : {
-                indicator: "aiAgents",
-                label: s._(/*BTDS*/ "AI agents").toString(),
-                replacedAgentIds: new Set([].concat(t, n)),
-              }
+        { hasThirdPartyAgent: r, museAgentIds: t, otherAgentIds: n }
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = e,
         a = r("partitionArray")(n, function (e) {
           return o("WAWebContactGetters").getIsMe(e.contact);
@@ -290,13 +304,13 @@ __d(
         return r("isStringNullOrEmpty")(i) ? "" : i;
       });
     }
-    function g(e) {
+    function h(e) {
       return p(e.participants.toArray(), e);
     }
-    function h(e) {
-      return f(e.participants.getAdmins(), e);
+    function y(e) {
+      return g(e.participants.getAdmins(), e);
     }
-    function y(e, t) {
+    function C(e, t) {
       t === void 0 && (t = !0);
       var n = e.length;
       if (n === 0) return s._(/*BTDS*/ "Group call").toString();
@@ -377,9 +391,9 @@ __d(
       (l.getUnnamedGroupParticipantNames = c),
       (l.getFirstNameForContact = d),
       (l.getGroupAgentIndicator = m),
-      (l.calculateParticipantsList = g),
-      (l.calculateAdminsList = h),
-      (l.formatParticipantWidsPreserveOrder = y));
+      (l.calculateParticipantsList = h),
+      (l.calculateAdminsList = y),
+      (l.formatParticipantWidsPreserveOrder = C));
   },
   226,
 );

@@ -420,7 +420,7 @@ __d(
                 );
                 (e == null ? void 0 : e.product) == null || e.product === ""
                   ? (a = !0)
-                  : r === o("WAWebBotProduct").BotProduct.MUSE
+                  : o("WAWebBotProduct").isMuseAgentProduct(t[n], r)
                     ? (i = !0)
                     : r === o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
                       l == null &&

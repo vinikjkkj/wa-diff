@@ -14,9 +14,12 @@ __d(
     "WAWebComposeBoxActions",
     "WAWebCoreActionsODS",
     "WAWebFindChatAction",
+    "WAWebGroupAddResultDialogs.react",
+    "WAWebGroupAgentConflictAddResult",
     "WAWebGroupCreateJob",
     "WAWebGroupCreateWamEvent",
     "WAWebGroupGatingUtils",
+    "WAWebGroupIncompatibleDeviceAddResult",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupQueryBridge",
@@ -63,7 +66,7 @@ __d(
     function b(e, t, n, r) {
       return (
         n === void 0 && (n = C),
-        E({
+        k({
           createGroupArgs: e,
           groupCreateEntryPoint: r,
           outContacts: n,
@@ -218,7 +221,7 @@ __d(
                 }),
               {
                 gid: C,
-                participants: k(y.participants),
+                participants: I(y.participants),
                 invitedOutContacts: y.invitedOutContacts,
               }
             );
@@ -227,7 +230,17 @@ __d(
         L.apply(this, arguments)
       );
     }
-    function E(t) {
+    function E(e) {
+      var t = o("WAWebWidFactory").asUserWidOrThrow(e.id);
+      return t.isFbidBot()
+        ? { phoneNumber: t }
+        : o("WAWebGroupMutationParticipantUtils").getGroupMutationParticipant(
+            e,
+            !0,
+            "createGroup",
+          );
+    }
+    function k(t) {
       var a = t.createGroupArgs,
         i = t.groupCreateEntryPoint,
         l = t.outContacts,
@@ -240,11 +253,7 @@ __d(
         f = a.title,
         h;
       try {
-        h = u.map(function (e) {
-          return o(
-            "WAWebGroupMutationParticipantUtils",
-          ).getGroupMutationParticipant(e, !0, "createGroup");
-        });
+        h = u.map(E);
       } catch (e) {
         return (
           o("WAWebCoreActionsODS").logGroupCreateError(),
@@ -268,7 +277,7 @@ __d(
                 }).commit(),
               {
                 gid: t,
-                participants: k(e.participants),
+                participants: I(e.participants),
                 invitedOutContacts: e.invitedOutContacts,
               }
             );
@@ -360,7 +369,7 @@ __d(
               {
                 actionText: s._(/*BTDS*/ "Try again."),
                 actionHandler: function () {
-                  return E({
+                  return k({
                     createGroupArgs: a,
                     groupCreateEntryPoint: i,
                     outContacts: l,
@@ -436,19 +445,33 @@ __d(
                         );
                         return;
                       }
-                      I(u);
+                      T(u);
                     };
                   if (
-                    (a
-                      ? o(
-                          "WAWebSendForNeededAddRequest",
-                        ).sendForNeededAddRequest({
-                          groupAddResponse: e,
-                          groupDesc: void 0,
-                          onFinish: c,
-                          subject: f,
-                        })
-                      : c(),
+                    (o(
+                      "WAWebGroupAddResultDialogs.react",
+                    ).runAfterAddResultDialogs(
+                      {
+                        agentConflictWids: o(
+                          "WAWebGroupAgentConflictAddResult",
+                        ).getAgentConflictRejectedWids(e.participants),
+                        hasIncompatibleDeviceRejection: o(
+                          "WAWebGroupIncompatibleDeviceAddResult",
+                        ).hasAgentIncompatibleDeviceRejection(e.participants),
+                      },
+                      function () {
+                        a
+                          ? o(
+                              "WAWebSendForNeededAddRequest",
+                            ).sendForNeededAddRequest({
+                              groupAddResponse: e,
+                              groupDesc: void 0,
+                              onFinish: c,
+                              subject: f,
+                            })
+                          : c();
+                      },
+                    ),
                     p == null &&
                       e.gid &&
                       o("WAWebFindChatAction")
@@ -536,7 +559,7 @@ __d(
           )
       );
     }
-    function k(e) {
+    function I(e) {
       return e.map(function (e) {
         return {
           userWid: e.wid,
@@ -547,7 +570,7 @@ __d(
         };
       });
     }
-    function I(e) {
+    function T(e) {
       e !== 0 &&
         o("WAWebToastManager").ToastManager.open(
           y.jsx(o("WAWebToast.react").Toast, {

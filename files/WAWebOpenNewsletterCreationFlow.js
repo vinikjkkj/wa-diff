@@ -1,9 +1,9 @@
 __d(
   "WAWebOpenNewsletterCreationFlow",
   [
+    "WAWebBoolFunc",
     "WAWebModalManager",
     "WAWebNewsletterAdminFunnelLogging",
-    "WAWebNewsletterGatingUtils",
     "WAWebPDFNGatingUtils",
     "WAWebPDFNModal.react",
     "WAWebWamEnumAdminFlowType",
@@ -29,8 +29,7 @@ __d(
             pdfnId: o(
               "WAWebPDFNGatingUtils",
             ).getNewsletterProducerDisclosureId(),
-            verifyTosAccepted: o("WAWebNewsletterGatingUtils")
-              .shouldHideProducerNewsletterDisclosure,
+            verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
             runIfTosAccepted: function () {
               t(n);
             },

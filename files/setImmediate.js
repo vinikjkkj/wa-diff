@@ -8,7 +8,7 @@ __d(
           r("TimerStorage").unset(r("TimerStorage").IMMEDIATE, t);
           for (var n = arguments.length, o = new Array(n), a = 0; a < n; a++)
             o[a] = arguments[a];
-          Function.prototype.apply.call(e, this, o);
+          e.apply(this, o);
         };
       r("TimeSlice").copyGuardForWrapper(e, n);
       for (

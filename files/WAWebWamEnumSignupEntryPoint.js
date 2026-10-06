@@ -13,6 +13,8 @@ __d(
       MESSENGER: 7,
       THREADS: 8,
       CTWA_THREAD: 9,
+      CTWA_SIGNUP_MANUAL: 10,
+      CTWA_SIGNUP_AGENTIC: 11,
     });
     i.SIGNUP_ENTRY_POINT = e;
   },

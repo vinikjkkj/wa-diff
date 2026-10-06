@@ -8,6 +8,7 @@ __d(
     "WAWebSchemaFeatureFlag",
     "WAWebSchemaSubscription",
     "WAWebSubscriptionCollection",
+    "WAWebSubscriptionNotificationStore",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -129,6 +130,11 @@ __d(
               e,
           );
         }
+      },
+      showSubscriptionNotification: function (t) {
+        o("WAWebSubscriptionNotificationStore").updateSubscriptionNotification(
+          t,
+        );
       },
     };
     l.SubscriptionsBridgeApi = m;

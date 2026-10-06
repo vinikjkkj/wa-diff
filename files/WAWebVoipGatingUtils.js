@@ -453,28 +453,26 @@ __d(
       );
     }
     function fe() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_voip_video_drop_out_of_order_frames",
-        ) === !0
-      );
-    }
-    function ge() {
       return !0;
     }
-    function he() {
+    function ge() {
       return o("WAWebABProps").getABPropConfigValue(
         "gc_device_switching_killswitch",
       );
     }
-    function ye() {
+    function he() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_1on1",
       );
     }
-    function Ce() {
+    function ye() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_lgc",
+      );
+    }
+    function Ce() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "call_info_optimizations_ahgc_call_link",
       );
     }
     function be() {
@@ -482,44 +480,39 @@ __d(
         "call_info_optimizations_ahgc_call_link",
       );
     }
-    function ve() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "call_info_optimizations_ahgc_call_link",
-      );
-    }
-    function Se(e) {
+    function ve(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? ve() : t ? be() : r ? Ce() : ye();
+      return n === !0 ? be() : t ? Ce() : r ? ye() : he();
     }
-    function Re() {
+    function Se() {
       return (
-        ye() &&
+        he() &&
         o("WAWebABProps").getABPropConfigValue(
           "call_info_optimizations_1on1_context_menu",
         )
       );
     }
-    function Le(e) {
+    function Re(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? ve() : t ? be() : r ? Ce() : Re();
+      return n === !0 ? be() : t ? Ce() : r ? ye() : Se();
     }
-    function Ee() {
+    function Le() {
       return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
     }
-    function ke() {
+    function Ee() {
       return o("WAWebUA").UA.isSafari;
     }
-    function Ie() {
+    function ke() {
       return (
         "documentPictureInPicture" in window && !o("WAWebUA").UA.isBrokenDocPip
       );
     }
-    function Te() {
-      return r("justknobx")._("4943");
+    function Ie() {
+      return S() && r("justknobx")._("4943");
     }
     ((l.isWebKitBrowser = g),
       (l.shouldUsePortalModeForSafari = y),
@@ -568,20 +561,19 @@ __d(
       (l.shouldSkipEagerSctpPrewarm = me),
       (l.isAdaptiveSctpPrewarmV2Enabled = pe),
       (l.isAvSyncStrictFifoDrainEnabled = _e),
-      (l.isDropOutOfOrderVideoFramesEnabled = fe),
-      (l.isWinHybridJoinableCallsEnabled = ge),
-      (l.isDeviceSwitchingEnabled = he),
-      (l.isCallInfoOptimizationsEnabledFor1to1 = ye),
-      (l.isCallInfoOptimizationsEnabledForLGC = Ce),
-      (l.isCallInfoOptimizationsEnabledForAHGC = be),
-      (l.isCallInfoOptimizationsEnabledForCallLink = ve),
-      (l.isCallInfoOptimizationsEnabledForCallType = Se),
-      (l.isCallInfoOptimizations1to1ContextMenuEnabled = Re),
-      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = Le),
-      (l.isPopoutReuseCaptureEnabled = Ee),
-      (l.doesPopoutEndMainWindowScreenShare = ke),
-      (l.isDocPipEnabled = Ie),
-      (l.areRichCallNotificationsEnabled = Te));
+      (l.isWinHybridJoinableCallsEnabled = fe),
+      (l.isDeviceSwitchingEnabled = ge),
+      (l.isCallInfoOptimizationsEnabledFor1to1 = he),
+      (l.isCallInfoOptimizationsEnabledForLGC = ye),
+      (l.isCallInfoOptimizationsEnabledForAHGC = Ce),
+      (l.isCallInfoOptimizationsEnabledForCallLink = be),
+      (l.isCallInfoOptimizationsEnabledForCallType = ve),
+      (l.isCallInfoOptimizations1to1ContextMenuEnabled = Se),
+      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = Re),
+      (l.isPopoutReuseCaptureEnabled = Le),
+      (l.doesPopoutEndMainWindowScreenShare = Ee),
+      (l.isDocPipEnabled = ke),
+      (l.areRichCallNotificationsEnabled = Ie));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebHatchNoiseVmTransport",
   [
     "Promise",
+    "WAWebBoolFunc",
     "WAWebHatchNoiseFramer",
     "WAWebHatchNoiseServiceCodec",
     "WAWebHatchVmTransport",
@@ -138,14 +139,12 @@ __d(
           var e = this.$4.get(t);
           return e == null ? !1 : ((e.isWritten = !0), !0);
         }),
-        (a.$11 = function (t, n, r, o) {
+        (a.$11 = function (t, n, r, a) {
           var e = this;
           this.$14(
             n,
-            { kind: "reset", streamId: t, value: { code: r, reason: o } },
-            function () {
-              return !0;
-            },
+            { kind: "reset", streamId: t, value: { code: r, reason: a } },
+            o("WAWebBoolFunc").returnTrue,
           ).catch(function () {
             return e.$8("Noise reset send failed");
           });

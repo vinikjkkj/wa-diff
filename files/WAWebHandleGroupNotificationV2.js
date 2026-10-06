@@ -139,12 +139,24 @@ __d(
         writeSystemMessages: (function () {
           var o = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (o, i) {
-              (yield (m || (m = n("Promise"))).all(
-                r.map(function (e) {
-                  return e.writeSystemMessages(i);
-                }),
-              ),
-                a && o != null && (yield y(e, t, o)));
+              var l = yield (m || (m = n("Promise"))).all(
+                  r.map(function (e) {
+                    return e.writeSystemMessages(i);
+                  }),
+                ),
+                s =
+                  a && o != null
+                    ? y(e, t, o)
+                    : (m || (m = n("Promise"))).resolve();
+              yield m.all(
+                [].concat(
+                  l.map(function (e) {
+                    var t = e.written;
+                    return t;
+                  }),
+                  [s],
+                ),
+              );
             },
           );
           function i(e, t) {
@@ -224,11 +236,14 @@ __d(
                         },
                         systemMessages: i,
                       });
-                    l &&
-                      r.actionType ===
-                        o("WAWebHandleGroupNotificationConst")
-                          .GROUP_NOTIFICATION_TAG.REMOVE &&
-                      (a = !0);
+                    return (
+                      l.inserted &&
+                        r.actionType ===
+                          o("WAWebHandleGroupNotificationConst")
+                            .GROUP_NOTIFICATION_TAG.REMOVE &&
+                        (a = !0),
+                      l
+                    );
                   },
                 );
                 function l(e) {
@@ -246,22 +261,24 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           try {
-            yield k({
-              chatId: e.chatId,
-              shouldProcessOffline: t,
-              shouldSkip: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    return !1;
-                  },
-                );
-                function t() {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
-              systemMessages: [r],
-            });
+            var a = yield k({
+                chatId: e.chatId,
+                shouldProcessOffline: t,
+                shouldSkip: (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      return !1;
+                    },
+                  );
+                  function t() {
+                    return e.apply(this, arguments);
+                  }
+                  return t;
+                })(),
+                systemMessages: [r],
+              }),
+              i = a.written;
+            yield i;
           } catch (e) {
             o("WALogger")
               .LOG(
@@ -460,8 +477,9 @@ __d(
         a = e.shouldSkip,
         i = e.systemMessages,
         l = function () {},
-        s = new (m || (m = n("Promise")))(function (e) {
-          return (l = e);
+        s = function () {},
+        u = new (m || (m = n("Promise")))(function (e, t) {
+          ((l = e), (s = t));
         });
       return (
         o("WAWebMessageQueue").onMessageQueue({
@@ -470,14 +488,24 @@ __d(
           msgCategory: null,
           action: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (yield a()) {
-                l(!1);
+              var e;
+              try {
+                if (yield a()) {
+                  l({
+                    inserted: !1,
+                    written: (m || (m = n("Promise"))).resolve(),
+                  });
+                  return;
+                }
+                e = c(i);
+              } catch (e) {
+                s(e);
                 return;
               }
-              var e = u(i).then(function () {
-                l(i.length > 0);
-              });
-              return r ? (m || (m = n("Promise"))).resolve() : e;
+              return (
+                l({ inserted: i.length > 0, written: e }),
+                r ? (m || (m = n("Promise"))).resolve() : e
+              );
             });
             function t() {
               return e.apply(this, arguments);
@@ -485,49 +513,40 @@ __d(
             return t;
           })(),
         }),
-        s
+        u
       );
-      function u(e) {
-        return c.apply(this, arguments);
-      }
-      function c() {
-        return (
-          (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (e.length !== 0) {
-              if (r)
-                return (
-                  o("WAWebBackendEventBus").BackendEventBus
-                    .isMainStreamReadyMd &&
-                    e.forEach(function (e) {
-                      o("WAWebBackendApi").frontendFireAndForget(
-                        "updateMessageUI",
-                        { chatId: e.id.remote, msg: e },
-                      );
-                    }),
-                  o("WAWebGetMessageCache")
-                    .getMessageCache()
-                    .addMessages(
-                      e.map(function (e) {
-                        return { msg: e };
-                      }),
-                      !1,
-                    )
-                );
-              yield (m || (m = n("Promise"))).all(
-                e.map(function (e) {
-                  return o(
-                    "WAWebHandleSingleMsgWorkerCompatible",
-                  ).handleSingleMsg({
-                    chatId: e.from,
-                    newMsg: e,
-                    handleSingleMsgOrigin: "handleGroupNotificationV2",
-                  });
+      function c(e) {
+        return e.length === 0
+          ? (m || (m = n("Promise"))).resolve()
+          : r
+            ? (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
+                e.forEach(function (e) {
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "updateMessageUI",
+                    { chatId: e.id.remote, msg: e },
+                  );
                 }),
-              );
-            }
-          })),
-          c.apply(this, arguments)
-        );
+              o("WAWebGetMessageCache")
+                .getMessageCache()
+                .addMessages(
+                  e.map(function (e) {
+                    return { msg: e };
+                  }),
+                  !1,
+                ))
+            : (m || (m = n("Promise")))
+                .all(
+                  e.map(function (e) {
+                    return o(
+                      "WAWebHandleSingleMsgWorkerCompatible",
+                    ).handleSingleMsg({
+                      chatId: e.from,
+                      newMsg: e,
+                      handleSingleMsgOrigin: "handleGroupNotificationV2",
+                    });
+                  }),
+                )
+                .then(function () {});
       }
     }
     ((l.isGroupNotificationOptimizationEligible = p),

@@ -2,7 +2,8 @@ __d(
   "WAWebBizAiResponseSettingsV2Labels",
   ["fbt", "WAWebBizAiResponseSettingsV2Model", "err"],
   function (t, n, r, o, a, i, l, s) {
-    function e(e) {
+    var e = 0x4b645b3cace4e;
+    function u(e) {
       return e === "CONTACTS"
         ? s._(/*BTDS*/ "My contacts")
         : e === "ADS"
@@ -16,7 +17,7 @@ __d(
                 );
               })();
     }
-    function u(e) {
+    function c(e) {
       var t = o("WAWebBizAiResponseSettingsV2Model").getMode(e, "CONTACTS"),
         n = o("WAWebBizAiResponseSettingsV2Model").getMode(e, "ADS"),
         a = o("WAWebBizAiResponseSettingsV2Model").getMode(e, "ALL");
@@ -143,7 +144,7 @@ __d(
                                                               /*BTDS*/ "Off for your contacts, people from ads and everyone else.",
                                                             );
     }
-    function c(e) {
+    function d(e) {
       return e === "UNMUTED"
         ? s._(/*BTDS*/ "AI responds")
         : e === "SUGGESTED_REPLIES"
@@ -157,7 +158,7 @@ __d(
                 );
               })();
     }
-    function d(e) {
+    function m(e) {
       return e === "UNMUTED"
         ? s._(/*BTDS*/ "Sends replies automatically")
         : e === "SUGGESTED_REPLIES"
@@ -171,7 +172,7 @@ __d(
                 );
               })();
     }
-    function m(e) {
+    function p(e) {
       return e === "CONTACTS"
         ? s._(/*BTDS*/ "When your contacts message you")
         : e === "ADS"
@@ -185,7 +186,7 @@ __d(
                 );
               })();
     }
-    function p(e) {
+    function _(e) {
       return e === "CONTACTS"
         ? s._(/*BTDS*/ "Applies even if they first messaged you from an ad.")
         : e === "ADS"
@@ -201,12 +202,13 @@ __d(
                 );
               })();
     }
-    ((l.getAudienceLabel = e),
-      (l.getStatusSummary = u),
-      (l.getModeLabel = c),
-      (l.getModeDescription = d),
-      (l.getModePickerHeader = m),
-      (l.getModePickerFooter = p));
+    ((l.DISCONNECT_AI_FAQ_ARTICLE_ID = e),
+      (l.getAudienceLabel = u),
+      (l.getStatusSummary = c),
+      (l.getModeLabel = d),
+      (l.getModeDescription = m),
+      (l.getModePickerHeader = p),
+      (l.getModePickerFooter = _));
   },
   226,
 );

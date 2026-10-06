@@ -213,18 +213,20 @@ __d(
           });
     }
     function b(e) {
-      var t, n;
+      var t,
+        n,
+        r = e.unsafe();
       return {
         isCallLink:
-          (t = o("WAWebMsgGetters").getIsCallLink(e)) != null ? t : !1,
-        sender: o("WAWebMsgGetters").getSender(e),
-        to: o("WAWebMsgGetters").getTo(e),
-        isVideoCall: o("WAWebMsgGetters").getIsVideoCall(e),
-        isSentByMe: o("WAWebMsgGetters").getIsSentByMe(e),
-        isGroupCall: o("WAWebMsgGetters").getIsGroupCall(e),
-        isMissedCall: o("WAWebMsgGetters").getIsMissedCall(e),
-        isCallSilenced: o("WAWebMsgGetters").getIsCallSilenced(e),
-        t: o("WAWebMsgGetters").getT(e),
+          (t = o("WAWebMsgGetters").getIsCallLink(r)) != null ? t : !1,
+        sender: o("WAWebMsgGetters").getSender(r),
+        to: o("WAWebMsgGetters").getTo(r),
+        isVideoCall: o("WAWebMsgGetters").getIsVideoCall(r),
+        isSentByMe: o("WAWebMsgGetters").getIsSentByMe(r),
+        isGroupCall: o("WAWebMsgGetters").getIsGroupCall(r),
+        isMissedCall: o("WAWebMsgGetters").getIsMissedCall(r),
+        isCallSilenced: o("WAWebMsgGetters").getIsCallSilenced(r),
+        t: o("WAWebMsgGetters").getT(r),
         participantWids:
           (n = e.callParticipants) == null
             ? void 0

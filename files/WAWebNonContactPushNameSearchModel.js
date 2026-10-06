@@ -189,6 +189,7 @@ __d(
     ((l.NON_CONTACT_PUSHNAME_SEARCH_DEBOUNCE_MS = e),
       (l.EMPTY_NON_CONTACT_PUSHNAMES = d),
       (l.getNonContactPushNameHeader = m),
+      (l.canonicalDedupeId = p),
       (l.dedupeNonContactPushnames = _),
       (l.WAWebNonContactPushNameSearchModel = f),
       (l.getNonContactPushNameSearch = h),

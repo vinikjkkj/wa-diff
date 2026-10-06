@@ -25,23 +25,24 @@ __d(
       },
       u = (function () {
         function t(e) {
-          if (
-            ((this.$1 = ""),
+          ((this.$1 = ""),
             (this.$2 = !1),
             (this.$4 = n("emptyFunction")),
-            (this.$6 = !1),
-            e &&
-              typeof e.__html == "string" &&
+            (this.$6 = !1));
+          var r = e;
+          if (
+            (r &&
+              typeof r.__html == "string" &&
               (n("FBLogger")("html").warn("HTML: Superfluous HTML() call."),
-              (e = e.__html)),
+              (r = r.__html)),
             !(this instanceof t))
           )
-            return e instanceof t ? e : new t(e);
-          if (e) {
-            var r = typeof e;
-            r === "string" || l(0, 277, r);
+            return r instanceof t ? r : new t(r);
+          if (r) {
+            var o = typeof r;
+            o === "string" || l(0, 277, o);
           }
-          ((this.$1 = e || ""),
+          ((this.$1 = r || ""),
             (this.$2 = !1),
             (this.$3 = null),
             (this.$4 = n("emptyFunction")),

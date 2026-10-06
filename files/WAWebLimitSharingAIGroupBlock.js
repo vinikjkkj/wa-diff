@@ -14,7 +14,7 @@ __d(
       META_AI: "meta_ai",
     });
     function u(t) {
-      return d(t)
+      return m(t)
         ? e.GROUP_AGENT
         : (o(
               "WAWebBotGroupGatingUtils",
@@ -28,11 +28,14 @@ __d(
           : null;
     }
     function c() {
+      return s._(/*BTDS*/ "Advanced chat privacy and AI agents");
+    }
+    function d() {
       return s._(
-        /*BTDS*/ "To turn on advanced chat privacy, any AI agents must first be removed from the group.",
+        /*BTDS*/ "AI agents are in this chat. To turn on advanced chat privacy, AI agents must first be removed from this chat.",
       );
     }
-    function d(e) {
+    function m(e) {
       var t;
       if (e == null) return !1;
       var n =
@@ -51,7 +54,8 @@ __d(
     }
     ((l.LimitSharingAIGroupBlock = e),
       (l.getLimitSharingAIGroupBlock = u),
-      (l.getLimitSharingBlockedByGroupAgentText = c));
+      (l.getLimitSharingBlockedByGroupAgentTitle = c),
+      (l.getLimitSharingBlockedByGroupAgentText = d));
   },
   226,
 );

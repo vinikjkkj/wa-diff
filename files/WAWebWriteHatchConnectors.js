@@ -6,7 +6,7 @@ __d(
     "WAWebHatchConnectInfoDecoder",
     "WAWebHatchConnectorAccountsDecoder",
     "WAWebHatchJsonReaders",
-    "WAWebHatchVmSession",
+    "WAWebHatchVmConnection",
     "WAWebRequestHatchConnectors",
     "asyncToGeneratorRuntime",
     "err",
@@ -135,7 +135,7 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
-            a = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
+            a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (a == null) throw I("set_permissions_no_session");
           var i = yield a.connectorSetPermissions(e, ((r = {}), (r[t] = n), r));
           if (i.kind === "Rejected") throw I("set_permissions_rejected");
@@ -182,7 +182,7 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
+          var n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (n == null) throw I(t + "_no_session");
           var r = yield e(n);
           if (r.kind !== "Ok") throw I(t + "_" + r.kind.toLowerCase());

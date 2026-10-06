@@ -14,6 +14,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgRcatUtils",
     "WAWebProtobufsE2E.pb",
+    "WAWebRemoveQuotedAttachmentMediaFields",
     "WAWebResolveGroupAgentParticipants",
     "WAWebSendGroupDirectJob",
     "WAWebSendGroupMsgJob",
@@ -170,7 +171,7 @@ __d(
                 I,
               );
             }
-            var W = p(m.botGroupParticipants, I, R != null),
+            var W = R != null ? p(T, m.botGroupParticipants, I) : [],
               q;
             (R != null
               ? (q = {
@@ -198,7 +199,13 @@ __d(
                     )
                   : i,
               V = o("WAWebGenerateBotMetadata").addGroupAgentBotMetadata(
-                U,
+                o(
+                  "WAWebRemoveQuotedAttachmentMediaFields",
+                ).isGroupWithAgentParticipant(I)
+                  ? o(
+                      "WAWebRemoveQuotedAttachmentMediaFields",
+                    ).removeQuotedAttachmentMediaFields(U)
+                  : U,
                 (v = I.groupAgentParticipants) != null ? v : [],
               );
             if ($.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.DIRECT) {
@@ -210,7 +217,9 @@ __d(
                         configuredGroupAgentParticipants: W,
                         encMediaType: null,
                         groupAgentParticipants: W,
-                        isOpenBotGroupSend: !1,
+                        isOpenBotGroupSend: W.some(
+                          o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid,
+                        ),
                         isScheduledMessage: !1,
                         msg: m,
                         msgProtobuf: V,
@@ -257,16 +266,21 @@ __d(
       );
     }
     function p(e, t, n) {
-      return !n ||
-        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-        t.isAnnouncementGroup === !0 ||
-        t.isCag === !0
-        ? []
-        : (e != null ? e : []).filter(function (e) {
-            return (
-              e.isUser() && o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e)
-            );
-          });
+      if (
+        n.isCag === !0 ||
+        (n.isAnnouncementGroup === !0 &&
+          !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
+      )
+        return [];
+      var r = new Map();
+      return (
+        [].concat(e, t != null ? t : []).forEach(function (e) {
+          e.isUser() &&
+            o("WAWebBotGroupGatingUtils").isGroupRevokeAgentTarget(e) &&
+            r.set(e.toString(), e);
+        }),
+        Array.from(r.values())
+      );
     }
     function _(e) {
       return f.apply(this, arguments);

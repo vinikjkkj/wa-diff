@@ -18,20 +18,21 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = "agentleft",
-      u = "removedhumans",
-      c = "removedme",
-      d = "removedothers",
-      m = /_/g;
-    function p(e) {
-      return _.apply(this, arguments);
+      u = "agentremoved",
+      c = "removedhumans",
+      d = "removedme",
+      m = "removedothers",
+      p = /_/g;
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.action,
             i = t.dbIsStale,
             l = t.isAdmin,
-            c = t.meta,
+            u = t.meta,
             d = a.participants.filter(function (e) {
               var t = e.id;
               return o("WAWebBotUtils").isWidGroupAgentFbidWid(t);
@@ -41,7 +42,7 @@ __d(
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
           )
             return null;
-          var m = c.author,
+          var m = u.author,
             p = a.participants.filter(function (e) {
               var t = e.id;
               return !o("WAWebBotUtils").isWidGroupAgentFbidWid(t);
@@ -57,30 +58,36 @@ __d(
                     );
                   });
           if (m != null && _.length === 0)
-            return C({ action: a, dbIsStale: i, meta: c });
+            return b({
+              action: a,
+              agents: d,
+              dbIsStale: i,
+              humans: p,
+              meta: u,
+            });
           var f = p.filter(function (e) {
               return !_.includes(e);
             }),
             g = yield (e || (e = n("Promise"))).all([
-              v({
+              S({
                 action: a,
                 dbIsStale: i,
                 isAdmin: l,
                 leavingHumans: _,
-                meta: c,
+                meta: u,
               }),
               f.length === 0
                 ? null
                 : o("WAWebGroupSystemMsg").genGroupNotificationMsg({
-                    meta: h(c, u),
+                    meta: y(u, c),
                     action: babelHelpers.extends({}, a, { participants: f }),
                     dbIsStale: i,
                   }),
             ]),
-            y = yield e.all(
+            h = yield e.all(
               d.map(function (e) {
                 return o("WAWebGroupSystemMsg").genGroupNotificationMsg({
-                  meta: babelHelpers.extends({}, h(c, "" + s + e.id.user), {
+                  meta: babelHelpers.extends({}, y(u, "" + s + e.id.user), {
                     author: null,
                   }),
                   action: babelHelpers.extends({}, a, { participants: [e] }),
@@ -88,18 +95,18 @@ __d(
                 });
               }),
             ),
-            b = [].concat(g, y).filter(Boolean);
-          return b.length === 0 ? null : b;
+            C = [].concat(g, h).filter(Boolean);
+          return C.length === 0 ? null : C;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.currentParticipants,
             n = e.groupWid,
             r = e.isLidAddressingMode,
@@ -124,7 +131,7 @@ __d(
                 return { id: e, isAdmin: !1, isSuperAdmin: !1 };
               });
           if (l.length === 0) return [];
-          var s = yield p({
+          var s = yield _({
             meta: {
               chatId: n,
               author: null,
@@ -141,10 +148,10 @@ __d(
           });
           return s != null ? s : [];
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function y(e, t) {
       var n;
       return babelHelpers.extends({}, e, {
         externalId:
@@ -152,72 +159,85 @@ __d(
           ((n = e.externalId) != null
             ? n
             : r("WAWebMsgKey").newId_DEPRECATED()) +
-          y(t),
+          C(t),
       });
     }
-    function y(e) {
-      return e.replace(m, "");
-    }
     function C(e) {
-      return b.apply(this, arguments);
+      return e.replace(p, "");
     }
-    function b() {
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.action,
-            a = t.dbIsStale,
-            i = t.meta,
-            l = r.participants.find(function (e) {
+            a = t.agents,
+            i = t.dbIsStale,
+            l = t.humans,
+            s = t.meta;
+          if (l.length === 0) return null;
+          var p = l.find(function (e) {
               var t = e.id;
               return o("WAWebUserPrefsMeUser").isMeAccount(t);
-            });
-          if (l == null) return null;
-          var s = yield (e || (e = n("Promise"))).all([
-              o("WAWebGroupSystemMsg").genGroupNotificationMsg({
-                meta: h(i, c),
-                action: babelHelpers.extends({}, r, { participants: [l] }),
-                dbIsStale: a,
-              }),
-              o("WAWebGroupSystemMsg").genGroupNotificationMsg({
-                meta: h(i, d),
-                action: babelHelpers.extends({}, r, {
-                  participants: r.participants.filter(function (e) {
-                    return e !== l;
-                  }),
+            }),
+            _ = l.filter(function (e) {
+              return e !== p;
+            }),
+            f = yield (e || (e = n("Promise"))).all(
+              [
+                p == null
+                  ? null
+                  : o("WAWebGroupSystemMsg").genGroupNotificationMsg({
+                      meta: y(s, d),
+                      action: babelHelpers.extends({}, r, {
+                        participants: [p],
+                      }),
+                      dbIsStale: i,
+                    }),
+                _.length === 0
+                  ? null
+                  : o("WAWebGroupSystemMsg").genGroupNotificationMsg({
+                      meta: y(s, p == null ? c : m),
+                      action: babelHelpers.extends({}, r, { participants: _ }),
+                      dbIsStale: i,
+                    }),
+              ].concat(
+                a.map(function (e) {
+                  return o("WAWebGroupSystemMsg").genGroupNotificationMsg({
+                    meta: y(s, "" + u + e.id.user),
+                    action: babelHelpers.extends({}, r, { participants: [e] }),
+                    dbIsStale: i,
+                  });
                 }),
-                dbIsStale: a,
-              }),
-            ]),
-            u = s.filter(Boolean);
-          return u.length === 0 ? null : u;
+              ),
+            ),
+            g = f.filter(Boolean);
+          return g.length === 0 ? null : g;
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             n = e.dbIsStale,
             r = e.isAdmin,
             a = e.leavingHumans,
             i = e.meta,
             l = i.author;
-          if (
-            a.length === 0 ||
-            l == null ||
-            o("WAWebUserPrefsMeUser").isMeAccount(l)
-          )
-            return null;
+          if (a.length === 0 || l == null) return null;
           var s =
-            r != null
+            o("WAWebUserPrefsMeUser").isMeAccount(l) ||
+            (r != null
               ? r
               : yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
                   i.chatId.toString(),
-                );
+                ));
           return s
             ? o("WAWebGroupSystemMsg").genGroupNotificationMsg({
                 meta: i,
@@ -228,13 +248,13 @@ __d(
               })
             : null;
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.genGroupAgentRemovalMsgs = p),
-      (l.genGroupAgentRemovalMsgsForMetadata = f),
-      (l.withSystemMsgIdSuffix = h),
-      (l.toSystemMsgIdPart = y));
+    ((l.genGroupAgentRemovalMsgs = _),
+      (l.genGroupAgentRemovalMsgsForMetadata = g),
+      (l.withSystemMsgIdSuffix = y),
+      (l.toSystemMsgIdPart = C));
   },
   98,
 );

@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebHatchJsonReaders",
     "WAWebHatchSecureCredentialDecoder",
-    "WAWebHatchVmSession",
+    "WAWebHatchVmConnection",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -151,7 +151,7 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = !1);
-          var r = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
+          var r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           if (r == null) throw L(t + "_no_session");
           var a = yield e(r);
           if ((n && a.kind === "Failure" && (a = yield e(r)), a.kind === "Ok"))

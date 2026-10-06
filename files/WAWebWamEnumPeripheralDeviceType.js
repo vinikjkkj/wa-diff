@@ -23,6 +23,9 @@ __d(
       KITEFIN_M: 22,
       KITEFIN_B: 23,
       ORCA: 24,
+      CHROMEBOOKS: 25,
+      GOOGLEBOOKS: 26,
+      FIRE_TABLETS: 27,
     });
     i.PERIPHERAL_DEVICE_TYPE = e;
   },

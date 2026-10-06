@@ -39,40 +39,37 @@ __d(
       return s._(/*BTDS*/ "Edit your Pix key");
     }
     function g() {
-      return s._(/*BTDS*/ "Pix area");
-    }
-    function h() {
       return s._(
         /*BTDS*/ "This feature is only available to contacts in Brazil.",
       );
     }
-    function y(e) {
+    function h(e) {
       return s._(
         /*BTDS*/ "{recipient_name} will be able to copy your Pix key or code from the chat.",
         [s._param("recipient_name", e)],
       );
     }
-    function C() {
+    function y() {
       return s._(/*BTDS*/ "Request payment");
     }
-    function b(e) {
+    function C(e) {
       return s._(
         /*BTDS*/ "{customer_name} will be able to copy your Pix key from the chat.",
         [s._param("customer_name", e)],
       );
     }
-    function v() {
+    function b() {
       return s._(/*BTDS*/ "Send Pix key");
     }
-    function S() {
+    function v() {
       return s._(
         /*BTDS*/ "Everyone in this group will be able to copy your Pix key from the chat.",
       );
     }
-    function R(e) {
+    function S(e) {
       return e ? s._(/*BTDS*/ "Pix code sent") : s._(/*BTDS*/ "Pix key sent");
     }
-    function L(e, t) {
+    function R(e, t) {
       return t
         ? s._(/*BTDS*/ "Your Pix code was sent to {recipient_name}.", [
             s._param("recipient_name", e),
@@ -81,75 +78,75 @@ __d(
             s._param("recipient_name", e),
           ]);
     }
-    function E() {
+    function L() {
       return s._(/*BTDS*/ "View in chat");
     }
-    function k() {
+    function E() {
       return s._(/*BTDS*/ "Done");
     }
-    function I() {
+    function k() {
       return s._(/*BTDS*/ "Share your Pix");
     }
-    function T() {
+    function I() {
       return s._(/*BTDS*/ "Delete Pix key?");
     }
-    function D() {
+    function T() {
       return s._(
         /*BTDS*/ "You'll always be able to add a Pix key later if you delete it.",
       );
     }
-    function x() {
+    function D() {
       return s._(/*BTDS*/ "Delete");
     }
-    function $() {
+    function x() {
       return s._(/*BTDS*/ "Pix key deleted");
     }
-    function P() {
+    function $() {
       return s._(/*BTDS*/ "Couldn't delete Pix key. Please try again.");
     }
-    function N(e) {
+    function P(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{number} contacts excluded","_1":"1 contact excluded"}',
         [s._plural(e, "number")],
       );
     }
-    function M() {
+    function N() {
       return s._(/*BTDS*/ "Transactions");
     }
-    function w() {
+    function M() {
       return s._(/*BTDS*/ "See all");
     }
-    function A() {
+    function w() {
       return s._(/*BTDS*/ "Completed");
     }
-    function F() {
+    function A() {
       return s._(/*BTDS*/ "Pending");
     }
-    function O() {
+    function F() {
       return s._(/*BTDS*/ "Failed");
     }
-    function B() {
+    function O() {
       return s._(/*BTDS*/ "You requested");
     }
-    function W() {
+    function B() {
       return s._(/*BTDS*/ "They requested");
     }
-    function q() {
+    function W() {
       return s._(/*BTDS*/ "No transactions yet");
     }
-    function U() {
+    function q() {
       return s._(/*BTDS*/ "All");
     }
-    function V() {
+    function U() {
       return s._(/*BTDS*/ "You requested");
     }
-    function H() {
+    function V() {
       return s._(/*BTDS*/ "Others requested");
     }
-    function G() {
+    function H() {
       return s._(/*BTDS*/ "From");
     }
-    function z() {
+    function G() {
       return s._(/*BTDS*/ "To");
     }
     ((l.getConsumerPixKeyTypeOptions = e),
@@ -160,37 +157,36 @@ __d(
       (l.getConsumerPixVisibilityNobody = p),
       (l.getConsumerPixVisibilityLabel = _),
       (l.getConsumerPixEditKeyAriaLabel = f),
-      (l.getConsumerPixAreaHeader = g),
-      (l.getConsumerSharePixBrazilOnlyBanner = h),
-      (l.getConsumerSendPixDescription = y),
-      (l.getSendPixRequestPaymentTitle = C),
-      (l.getSmbSendPixDescription = b),
-      (l.getConsumerSendPixGroupTitle = v),
-      (l.getConsumerSendPixGroupDescription = S),
-      (l.getConsumerSharePixSentTitle = R),
-      (l.getConsumerSharePixSentBody = L),
-      (l.getConsumerSharePixViewInChat = E),
-      (l.getConsumerSharePixDone = k),
-      (l.getConsumerSharePixRowLabel = I),
-      (l.getConsumerPixDeleteKeyConfirmTitle = T),
-      (l.getConsumerPixDeleteKeyConfirmBody = D),
-      (l.getConsumerPixDeleteKeyConfirmCta = x),
-      (l.getConsumerPixDeleteKeyDeletedToast = $),
-      (l.getConsumerPixDeleteKeyErrorToast = P),
-      (l.getConsumerPixContactsExcludedCount = N),
-      (l.getConsumerTransactionsHeader = M),
-      (l.getConsumerTransactionsSeeAll = w),
-      (l.getConsumerTransactionStatusCompleted = A),
-      (l.getConsumerTransactionStatusPending = F),
-      (l.getConsumerTransactionStatusFailed = O),
-      (l.getConsumerTransactionStatusRequestedByYou = B),
-      (l.getConsumerTransactionStatusRequestedByThem = W),
-      (l.getConsumerTransactionsEmpty = q),
-      (l.getConsumerTransactionsTabAll = U),
-      (l.getConsumerTransactionsTabYouRequested = V),
-      (l.getConsumerTransactionsTabTheyRequested = H),
-      (l.getConsumerTransactionsDateFrom = G),
-      (l.getConsumerTransactionsDateTo = z));
+      (l.getConsumerSharePixBrazilOnlyBanner = g),
+      (l.getConsumerSendPixDescription = h),
+      (l.getSendPixRequestPaymentTitle = y),
+      (l.getSmbSendPixDescription = C),
+      (l.getConsumerSendPixGroupTitle = b),
+      (l.getConsumerSendPixGroupDescription = v),
+      (l.getConsumerSharePixSentTitle = S),
+      (l.getConsumerSharePixSentBody = R),
+      (l.getConsumerSharePixViewInChat = L),
+      (l.getConsumerSharePixDone = E),
+      (l.getConsumerSharePixRowLabel = k),
+      (l.getConsumerPixDeleteKeyConfirmTitle = I),
+      (l.getConsumerPixDeleteKeyConfirmBody = T),
+      (l.getConsumerPixDeleteKeyConfirmCta = D),
+      (l.getConsumerPixDeleteKeyDeletedToast = x),
+      (l.getConsumerPixDeleteKeyErrorToast = $),
+      (l.getConsumerPixContactsExcludedCount = P),
+      (l.getConsumerTransactionsHeader = N),
+      (l.getConsumerTransactionsSeeAll = M),
+      (l.getConsumerTransactionStatusCompleted = w),
+      (l.getConsumerTransactionStatusPending = A),
+      (l.getConsumerTransactionStatusFailed = F),
+      (l.getConsumerTransactionStatusRequestedByYou = O),
+      (l.getConsumerTransactionStatusRequestedByThem = B),
+      (l.getConsumerTransactionsEmpty = W),
+      (l.getConsumerTransactionsTabAll = q),
+      (l.getConsumerTransactionsTabYouRequested = U),
+      (l.getConsumerTransactionsTabTheyRequested = V),
+      (l.getConsumerTransactionsDateFrom = H),
+      (l.getConsumerTransactionsDateTo = G));
   },
   226,
 );

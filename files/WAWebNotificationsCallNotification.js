@@ -224,7 +224,8 @@ __d(
           return o(
             "WAWebVoipGatingUtils",
           ).isWinHybridPlusIncomingPopoutEnabled() ||
-            o("WAWebNotificationHelpers").appIsActive() ||
+            (o("WAWebNotificationHelpers").appIsActive() &&
+              !o("WAWebVoipGatingUtils").isCallingEnabled()) ||
             !e.prototype.shouldShowBanner.call(this)
             ? !1
             : o(
@@ -271,7 +272,6 @@ __d(
       var e;
       return (
         o("WAWebVoipGatingUtils").areRichCallNotificationsEnabled() &&
-        o("WAWebVoipGatingUtils").isCallingEnabled() &&
         o("WAWebPushNotificationsGatingUtils").canSupportNotificationActions(
           2,
         ) &&

@@ -350,10 +350,12 @@ __d(
         Deeplink: "DEEPLINK",
         Dismiss: "DISMISS",
         FollowUpPrompt: "FOLLOW_UP_PROMPT",
+        OpenMuse: "OPEN_MUSE",
       }),
       Ge = e({ Primary: "PRIMARY", Secondary: "SECONDARY" }),
       ze = e({
         LoginRequired: "LOGIN_REQUIRED",
+        MuseUpsell: "MUSE_UPSELL",
         VibesVideoBlock: "VIBES_VIDEO_BLOCK",
       }),
       je = e({

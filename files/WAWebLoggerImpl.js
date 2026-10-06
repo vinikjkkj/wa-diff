@@ -14,6 +14,7 @@ __d(
     "WAWebLowEndDeviceApi",
     "WAWebNoop",
     "WAWebNormalizeStack",
+    "WAWebSessionStorage",
     "WAWebWAWCStorage",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -41,19 +42,20 @@ __d(
       E = 1024,
       k = 500,
       I = 200,
-      T = "LTSXOo+_*-=.<^!#?".split("");
-    function D() {
-      return T[Math.round(Math.random() * (T.length - 1))];
+      T = "wa_web_logger_session_start",
+      D = "LTSXOo+_*-=.<^!#?".split("");
+    function x() {
+      return D[Math.round(Math.random() * (D.length - 1))];
     }
-    var x = D() + D() + D() + D(),
-      $ = {};
-    (($[($.ALL = 0)] = "all"),
-      ($[($.INFO = 1)] = "info"),
-      ($[($.LOG = 2)] = "log"),
-      ($[($.WARN = 3)] = "warn"),
-      ($[($.ERROR = 4)] = "error"),
-      ($[($.OFF = 5)] = "off"));
-    var P = (function () {
+    var $ = x() + x() + x() + x(),
+      P = {};
+    ((P[(P.ALL = 0)] = "all"),
+      (P[(P.INFO = 1)] = "info"),
+      (P[(P.LOG = 2)] = "log"),
+      (P[(P.WARN = 3)] = "warn"),
+      (P[(P.ERROR = 4)] = "error"),
+      (P[(P.OFF = 5)] = "off"));
+    var N = (function () {
       function t(t) {
         var a = this,
           i = t.logCapacityInDatabase,
@@ -69,13 +71,15 @@ __d(
           (this.isTakeOver = !1),
           (this.shouldSkipLoggingForProdLowEndDevice = !1),
           (this.$2 = !1),
-          (this.$3 = r("gkx")("16623")),
-          (this.$4 = L),
-          (this.$5 = 0),
-          (this.$6 = new Array(k)),
+          (this.$3 = Date.now()),
+          (this.$4 = r("gkx")("26258") ? null : F(this.$3)),
+          (this.$5 = r("gkx")("16623")),
+          (this.$6 = L),
           (this.$7 = 0),
-          (this.$8 = 0),
-          (this.$9 = !1),
+          (this.$8 = new Array(k)),
+          (this.$9 = 0),
+          (this.$10 = 0),
+          (this.$11 = !1),
           (this.maybeUpdateLogCapacityFromABProp = r("WAOnceWithReset")(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (r("gkx")("26258")) {
@@ -91,7 +95,7 @@ __d(
                   !(t === 0 || t == null))
                 ) {
                   if (
-                    ((a.$9 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
+                    ((a.$11 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
                   ) {
                     o("WALogger").LOG(
                       e ||
@@ -142,7 +146,7 @@ __d(
                   var _ = Math.min(t, b);
                   if (_ > a.logCapacityInDatabase) {
                     var f = Date.now();
-                    (a.$11(_), a.$3 && _ === b && (a.$4 = S));
+                    (a.$13(_), a.$5 && _ === b && (a.$6 = S));
                     var g = Date.now() - f;
                     o("WALogger").LOG(
                       d ||
@@ -202,7 +206,7 @@ __d(
             ),
             (this.shouldSkipLoggingForProdLowEndDevice = e));
         }),
-        (a.$11 = function (t) {
+        (a.$13 = function (t) {
           if (!(t <= this.logCapacityInDatabase)) {
             this.$2 = !0;
             try {
@@ -234,60 +238,60 @@ __d(
             }
           }
         }),
-        (a.$12 = function (t) {
+        (a.$14 = function (t) {
           if (t.e === !0) {
-            var e = this.$6[this.$7];
-            (e != null && this.$13(-e.m.length),
-              (this.$6[this.$7] = t),
-              this.$13(t.m.length),
-              (this.$7 = (this.$7 + 1) % k),
-              this.$8 < k && this.$8++);
+            var e = this.$8[this.$9];
+            (e != null && this.$15(-e.m.length),
+              (this.$8[this.$9] = t),
+              this.$15(t.m.length),
+              (this.$9 = (this.$9 + 1) % k),
+              this.$10 < k && this.$10++);
           }
         }),
-        (a.$13 = function (t) {
-          this.$3 && (this.$5 += t);
+        (a.$15 = function (t) {
+          this.$5 && (this.$7 += t);
         }),
-        (a.$14 = function (t, n) {
+        (a.$16 = function (t, n) {
           var e = this.logs[t];
           e != null &&
-            (n && this.$9 && this.$12(e),
-            this.$13(-e.m.length),
+            (n && this.$11 && this.$14(e),
+            this.$15(-e.m.length),
             (this.logs[t] = void 0));
         }),
-        (a.$15 = function () {
-          if (this.$8 !== 0) {
-            var e = (this.$7 - this.$8 + k) % k,
-              t = this.$6[e];
-            (t != null && (this.$13(-t.m.length), (this.$6[e] = void 0)),
-              this.$8--);
+        (a.$17 = function () {
+          if (this.$10 !== 0) {
+            var e = (this.$9 - this.$10 + k) % k,
+              t = this.$8[e];
+            (t != null && (this.$15(-t.m.length), (this.$8[e] = void 0)),
+              this.$10--);
           }
         }),
-        (a.$16 = function () {
-          if (!(!this.$3 || this.$5 <= this.$4)) {
+        (a.$18 = function () {
+          if (!(!this.$5 || this.$7 <= this.$6)) {
             for (
               var e =
                 (this.localCursor - 1 + this.logCapacityInDatabase) %
                 this.logCapacityInDatabase;
-              this.$5 > this.$4 &&
+              this.$7 > this.$6 &&
               this.logs[this.writeFrom] != null &&
               this.writeFrom !== e;
             )
-              (this.$14(this.writeFrom, !0),
+              (this.$16(this.writeFrom, !0),
                 (this.writeFrom =
                   (this.writeFrom + 1) % this.logCapacityInDatabase));
-            for (; this.$5 > this.$4 && this.$8 > 0; ) this.$15();
+            for (; this.$7 > this.$6 && this.$10 > 0; ) this.$17();
           }
         }),
         (a.logImpl = function (t, n, a, i, l) {
           if (
             !this.$2 &&
-            !(t <= $.LOG && this.shouldSkipLoggingForProdLowEndDevice)
+            !(t <= P.LOG && this.shouldSkipLoggingForProdLowEndDevice)
           ) {
             var e = Date.now(),
-              s = M(e);
+              s = w(e);
             if (!r("gkx")("26258"))
               try {
-                t === $.ERROR && this.$10 && this.$10(n);
+                t === P.ERROR && this.$12 && this.$12(n);
               } catch (e) {}
             var u = "";
             a &&
@@ -295,7 +299,7 @@ __d(
                 ? (u = "\n" + a.stack.split("\n").slice(3).join("\n"))
                 : (u = "\n" + o("WAWebNormalizeStack").normalizeStack(a, !0)));
             var c = [
-                N(t),
+                M(t),
                 i === !0 && !o("WAWebLoggerUtils").isWaitingForUpload()
                   ? "sendlogs"
                   : null,
@@ -306,19 +310,19 @@ __d(
                   return "[" + e + "]";
                 })
                 .join(""),
-              d = x + " " + s + (c ? c + " " : "") + n + u;
+              d = $ + " " + s + (c ? c + " " : "") + n + u;
             this.logs[this.localCursor] != null &&
-              this.$14(this.localCursor, !0);
-            var m = t === $.ERROR;
+              this.$16(this.localCursor, !0);
+            var m = t === P.ERROR;
             ((this.logs[this.localCursor] = m
               ? { m: d, t: e, e: !0 }
               : { m: d, t: e }),
-              this.$13(d.length),
+              this.$15(d.length),
               (this.localCursor =
                 (this.localCursor + 1) % this.logCapacityInDatabase),
               this.logs[this.localCursor] != null &&
                 (this.writeFrom = this.localCursor),
-              this.$16(),
+              this.$18(),
               !this.isTakeOver && this.timer.debounceAndCap(250, 1e3));
           }
         }),
@@ -342,7 +346,7 @@ __d(
                       e.logs[e.writeFrom] != null;
                     ) {
                       var i = e.logs[e.writeFrom];
-                      (e.$14(e.writeFrom, !1),
+                      (e.$16(e.writeFrom, !1),
                         (e.writeFrom =
                           (e.writeFrom + 1) % e.logCapacityInDatabase),
                         (e.runningTimestamp =
@@ -364,58 +368,71 @@ __d(
               })
               .catch(function (t) {
                 !r("gkx")("26258") &&
-                  e.$10 &&
-                  e.$10(r("getErrorSafe")(t).message);
+                  e.$12 &&
+                  e.$12(r("getErrorSafe")(t).message);
               })
               .finally(function () {
                 e.pending = void 0;
               }));
         }),
-        (a.getLogs = function (t, a) {
+        (a.getSessionStartTime = function () {
+          return this.$3;
+        }),
+        (a.getPreviousSessionTimeRange = function () {
+          var e = this.$4,
+            t = this.$3;
+          return e == null || e >= t
+            ? null
+            : { fromTimestamp: e, toTimestamp: t };
+        }),
+        (a.getLogs = function (t, a, i) {
           var e = this;
-          (t === void 0 && (t = !1), a === void 0 && (a = Date.now() - h));
-          var i = Math.max(a, Date.now() - y),
-            l = [];
+          (t === void 0 && (t = !1),
+            a === void 0 && (a = Date.now() - h),
+            i === void 0 && (i = 1 / 0));
+          var l = Math.max(a, Date.now() - y),
+            s = [];
           return (
-            this.pending && l.push(this.pending),
+            this.pending && s.push(this.pending),
             this.timer.isScheduled() &&
-              (this.timer.forceRunNow(), this.pending && l.push(this.pending)),
+              (this.timer.forceRunNow(), this.pending && s.push(this.pending)),
             (p || (p = n("Promise")))
-              .all(l)
+              .all(s)
               .then(function () {
                 return e.logsDBProvider();
               })
               .then(function (e) {
                 return o("WAWebLoggerOptimizer").getTimeboxedAndTrimmedLogs(
                   e,
-                  i,
+                  l,
                   t,
+                  i,
                 );
               })
               .then(function (t) {
                 var n = [];
-                if (e.$8 > 0)
-                  for (var r = (e.$7 - e.$8 + k) % k, o = 0; o < e.$8; o++) {
-                    var a = e.$6[(r + o) % k];
-                    a != null && a.t >= i && n.push(a);
+                if (e.$10 > 0)
+                  for (var r = (e.$9 - e.$10 + k) % k, o = 0; o < e.$10; o++) {
+                    var a = e.$8[(r + o) % k];
+                    a != null && O(a.t, l, i) && n.push(a);
                   }
                 if (n.length === 0)
                   return t.map(function (e) {
                     return e.log;
                   });
-                for (var l = [], s = 0, u = 0; s < n.length && u < t.length; )
-                  n[s].t <= t[u].timestamp
-                    ? (l.push(n[s].m), s++)
-                    : (l.push(t[u].log), u++);
-                for (; s < n.length; ) (l.push(n[s].m), s++);
-                for (; u < t.length; ) (l.push(t[u].log), u++);
-                return l;
+                for (var s = [], u = 0, c = 0; u < n.length && c < t.length; )
+                  n[u].t <= t[c].timestamp
+                    ? (s.push(n[u].m), u++)
+                    : (s.push(t[c].log), c++);
+                for (; u < n.length; ) (s.push(n[u].m), u++);
+                for (; c < t.length; ) (s.push(t[c].log), c++);
+                return s;
               })
               .catch(function (t) {
                 return (
                   !r("gkx")("26258") &&
-                    e.$10 &&
-                    e.$10(r("getErrorSafe")(t).message),
+                    e.$12 &&
+                    e.$12(r("getErrorSafe")(t).message),
                   e.logs.filter(Boolean).map(function (e) {
                     return e.m;
                   })
@@ -443,8 +460,8 @@ __d(
               ((e.localCursor = 0),
                 (e.writeFrom = 0),
                 (e.logs = new Array(e.logCapacityInDatabase)),
-                e.$3 &&
-                  ((e.$6 = new Array(k)), (e.$7 = 0), (e.$8 = 0), (e.$5 = 0)));
+                e.$5 &&
+                  ((e.$8 = new Array(k)), (e.$9 = 0), (e.$10 = 0), (e.$7 = 0)));
             });
         }),
         (a.logUncaughtError = function (t, n) {
@@ -469,17 +486,17 @@ __d(
               var i = Reflect.get(t, "methodName");
               i != null && (o += "; methodName: " + String(i));
             } catch (e) {}
-            var l = A(t);
+            var l = B(t);
             l != null &&
               ((o += "; error: " + l), l.endsWith(g + ")") && (o = f));
           }
           if (
-            (this.logImpl($.ERROR, o, e, !0, ["uncaught"]),
+            (this.logImpl(P.ERROR, o, e, !0, ["uncaught"]),
             r("gkx")("26258") || e != null,
             n != null)
           ) {
             var s = String(n);
-            (this.logImpl($.WARN, s), r("gkx")("26258"));
+            (this.logImpl(P.WARN, s), r("gkx")("26258"));
           }
           return o;
         }),
@@ -487,14 +504,14 @@ __d(
           this.isTakeOver = !0;
         }),
         (a.registerErrorNotificationListener = function (t) {
-          this.$10 = t;
+          this.$12 = t;
         }),
         t
       );
     })();
-    function N(e) {
+    function M(e) {
       return e === 1 || e === 2 || e === 3 || e === 4
-        ? $[e]
+        ? P[e]
         : (function () {
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -502,14 +519,14 @@ __d(
             );
           })();
     }
-    function M(e) {
+    function w(e) {
       var t = new Date(e),
-        n = w(t.getMonth() + 1, 2),
-        r = w(t.getDate(), 2),
-        o = w(t.getHours(), 2),
-        a = w(t.getMinutes(), 2),
-        i = w(t.getSeconds(), 2),
-        l = w(t.getMilliseconds(), 3);
+        n = A(t.getMonth() + 1, 2),
+        r = A(t.getDate(), 2),
+        o = A(t.getHours(), 2),
+        a = A(t.getMinutes(), 2),
+        i = A(t.getSeconds(), 2),
+        l = A(t.getMilliseconds(), 3);
       return (
         t.getFullYear() +
         "-" +
@@ -527,10 +544,31 @@ __d(
         ":"
       );
     }
-    function w(e, t) {
+    function A(e, t) {
       return String(e).padStart(t, "0");
     }
-    function A(e) {
+    function F(e) {
+      try {
+        var t =
+          r("WAWebSessionStorage") == null
+            ? void 0
+            : r("WAWebSessionStorage").getItem(T);
+        if (
+          (r("WAWebSessionStorage") == null ||
+            r("WAWebSessionStorage").setItem(T, String(e)),
+          t == null)
+        )
+          return null;
+        var n = parseInt(t, 10);
+        return Number.isNaN(n) ? null : n;
+      } catch (e) {
+        return null;
+      }
+    }
+    function O(e, t, n) {
+      return e >= t && e < n;
+    }
+    function B(e) {
       try {
         if (!Object.hasOwn(e, "parameters")) return;
         var t = Reflect.get(e, "parameters");
@@ -544,14 +582,14 @@ __d(
         return;
       }
     }
-    var F = new P({
+    var W = new N({
         logCapacityInDatabase: R,
         logsDBProvider: function () {
           return r("WAWebWAWCStorage").idb();
         },
       }),
-      O = F.log;
-    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = P), (l.Logger = F), (l.log = O));
+      q = W.log;
+    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = N), (l.Logger = W), (l.log = q));
   },
   98,
 );

@@ -234,11 +234,10 @@ __d(
                   (t.isAdmin || t.isSuperAdmin)
                 )
               : this.iAmMember() &&
-                o(
-                  "WAWebGroupAgentProfileRouting",
-                ).getGroupAgentProfileDestination(t.id, this.getChat()) ===
-                  o("WAWebGroupAgentProfileRouting")
-                    .GroupAgentProfileDestination.OWNER_CARD;
+                o("WAWebGroupAgentProfileRouting").isViewerOwnMuseGroupAgent(
+                  t.id,
+                  this.getChat(),
+                );
         }),
         (n.canVerifyIdentity = function (t) {
           var e, n;

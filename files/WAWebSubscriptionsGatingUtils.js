@@ -36,11 +36,23 @@ __d(
         "profile_edit_for_mv_users_enabled",
       );
     }
+    function m() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_meta_one_subscription_notifications_enabled",
+        ) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_meta_one_subscription_notifications_enabled",
+        )
+      );
+    }
     ((l.billingEnabled = e),
       (l.subscriptionFetchEnabled = s),
       (l.isMetaVerifiedEnabled = u),
       (l.isMetaVerifiedContextCardEnabled = c),
-      (l.isMetaVerifiedLockedProfileEditingV1Enabled = d));
+      (l.isMetaVerifiedLockedProfileEditingV1Enabled = d),
+      (l.isMetaOneSubscriptionNotificationsEnabled = m));
   },
   98,
 );

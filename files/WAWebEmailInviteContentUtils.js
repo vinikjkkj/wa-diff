@@ -4,39 +4,39 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       if (t == null) {
-        var r = s._(/*BTDS*/ "Join me on WhatsApp").toString(),
+        var r = s._(/*BTDS*/ "Join me on WhatsApp!").toString(),
           o = s
-            ._(/*BTDS*/ "Download WhatsApp to chat with me: {inviteLink}", [
-              s._param("inviteLink", e),
-            ])
+            ._(
+              /*BTDS*/ "Hey, I'm inviting you to chat with me on WhatsApp! Tap the link below to download the app.",
+            )
             .toString();
-        return { body: o, subject: r };
+        return { body: u(o, e, n), subject: r };
       }
       var a = s
-        ._(/*BTDS*/ 'Join the "{groupName}" group chat on WhatsApp!', [
-          s._param("groupName", t),
-        ])
-        .toString();
-      return { body: u(t, e, n), subject: a };
-    }
-    function u(e, t, n) {
-      var r = s
+          ._(/*BTDS*/ 'Join the "{groupName}" group chat on WhatsApp!', [
+            s._param("groupName", t),
+          ])
+          .toString(),
+        i = s
           ._(
             /*BTDS*/ 'Hey, you\'re invited to the "{groupName}" group chat on WhatsApp! Tap the link below to join.',
-            [s._param("groupName", e)],
+            [s._param("groupName", t)],
           )
-          .toString(),
-        o = s._(/*BTDS*/ "See you there!").toString(),
-        a = [r, "", t, "", o];
+          .toString();
+      return { body: u(i, e, n), subject: a };
+    }
+    function u(e, t, n) {
+      var r = s._(/*BTDS*/ "See you there!").toString(),
+        o = [e, "", t, "", r];
       return (
         n != null &&
           n !== "" &&
-          a.push(
+          o.push(
             s
               ._(/*BTDS*/ "\u2013 {senderName}", [s._param("senderName", n)])
               .toString(),
           ),
-        a.join("\n")
+        o.join("\n")
       );
     }
     function c(e, t, n) {
@@ -51,14 +51,15 @@ __d(
       );
     }
     function d(e, t, n) {
-      var r = e.map(m).join(",");
+      var r = e.map(m).join(","),
+        o = n.replace(/\r?\n/g, "\r\n");
       return (
         "mailto:" +
         r +
         "?subject=" +
         encodeURIComponent(t) +
         "&body=" +
-        encodeURIComponent(n)
+        encodeURIComponent(o)
       );
     }
     function m(e) {

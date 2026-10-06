@@ -19,6 +19,7 @@ __d(
     "WAWebMediaStore",
     "WAWebMediaTypes",
     "WAWebModalManager",
+    "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebNoop",
     "WAWebShowMediaNotReadableModal",
@@ -94,74 +95,71 @@ __d(
     }
     function H(e) {
       var t,
-        n,
-        r = o("react-compiler-runtime").c(9),
-        a = O(!1),
-        i = a[0],
-        l = a[1],
-        s =
-          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(
-            e.mediaData,
-            [
-              o("WAWebMediaDataGetters").getMediaStage,
-              o("WAWebMediaDataGetters").getFilehash,
-            ],
-          )) != null
+        n = o("react-compiler-runtime").c(10),
+        r = O(!1),
+        a = r[0],
+        i = r[1],
+        l;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [o("WAWebFrontendMsgGetters").getMediaData]), (n[0] = l))
+        : (l = n[0]);
+      var s = o("useWAWebMsgValues").useMsgValues(e, l),
+        u = s[0],
+        c =
+          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(u, [
+            o("WAWebMediaDataGetters").getMediaStage,
+            o("WAWebMediaDataGetters").getFilehash,
+          ])) != null
             ? t
             : [null, null],
-        u = s[0],
-        c = s[1],
-        d;
-      r[0] !== c || r[1] !== u
-        ? ((d = function () {
-            c == null ||
-              u !== o("WAWebMediaTypes").MediaDataStage.INIT ||
+        d = c[0],
+        m = c[1],
+        p;
+      n[1] !== m || n[2] !== d
+        ? ((p = function () {
+            m == null ||
+              d !== o("WAWebMediaTypes").MediaDataStage.INIT ||
               o("WAWebMediaStore")
-                .LruMediaStore.has(c)
+                .LruMediaStore.has(m)
                 .then(function (e) {
-                  return l(e);
+                  return i(e);
                 })
                 .catch(G);
           }),
-          (r[0] = c),
-          (r[1] = u),
-          (r[2] = d))
-        : (d = r[2]);
-      var m = d,
-        p;
-      if (
-        r[3] !== m ||
-        r[4] !== ((n = e.mediaData) == null ? void 0 : n.mediaStage)
-      ) {
-        var _;
-        ((p = function () {
-          var t;
-          (((t = e.mediaData) == null ? void 0 : t.mediaStage) ===
-            o("WAWebMediaTypes").MediaDataStage.INIT && l(null),
-            m());
-        }),
-          (r[3] = m),
-          (r[4] = (_ = e.mediaData) == null ? void 0 : _.mediaStage),
-          (r[5] = p));
-      } else p = r[5];
-      o("useWAWebListener").useListener(
-        e.mediaData,
-        "change:filehash change:mediaStage",
-        p,
-      );
-      var f, g;
+          (n[1] = m),
+          (n[2] = d),
+          (n[3] = p))
+        : (p = n[3]);
+      var _ = p,
+        f;
+      (n[4] !== _ || n[5] !== (u == null ? void 0 : u.mediaStage)
+        ? ((f = function () {
+            ((u == null ? void 0 : u.mediaStage) ===
+              o("WAWebMediaTypes").MediaDataStage.INIT && i(null),
+              _());
+          }),
+          (n[4] = _),
+          (n[5] = u == null ? void 0 : u.mediaStage),
+          (n[6] = f))
+        : (f = n[6]),
+        o("useWAWebListener").useListener(
+          u,
+          "change:filehash change:mediaStage",
+          f,
+        ));
+      var g, h;
       return (
-        r[6] !== m
-          ? ((f = function () {
-              m();
+        n[7] !== _
+          ? ((g = function () {
+              _();
             }),
-            (g = [m]),
-            (r[6] = m),
-            (r[7] = f),
-            (r[8] = g))
-          : ((f = r[7]), (g = r[8])),
-        F(f, g),
-        i
+            (h = [_]),
+            (n[7] = _),
+            (n[8] = g),
+            (n[9] = h))
+          : ((g = n[8]), (h = n[9])),
+        F(g, h),
+        a
       );
     }
     function G(t) {
@@ -179,25 +177,28 @@ __d(
         r = O(null),
         a = r[0],
         i = r[1],
-        l =
-          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(
-            e.mediaData,
-            [o("WAWebMediaDataGetters").getFilehash],
-          )) != null
+        l = o("useWAWebMsgValues").useMsgValues(e, [
+          o("WAWebFrontendMsgGetters").getMediaData,
+        ]),
+        s = l[0],
+        p =
+          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(s, [
+            o("WAWebMediaDataGetters").getFilehash,
+          ])) != null
             ? t
             : [null],
-        s = l[0],
-        p = A(
+        _ = p[0],
+        f = A(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             if (n("cr:7565") == null) {
               i(null);
               return;
             }
-            if (e.mediaData == null) {
+            if (s == null) {
               i(null);
               return;
             }
-            if (s == null) {
+            if (_ == null) {
               i(null);
               return;
             }
@@ -208,12 +209,17 @@ __d(
                   " hash=",
                   "",
                 ])),
-              e.id.toString(),
-              s,
+              e.toString(),
+              _,
             );
+            var t = o("WAWebMsgCollection").MsgCollection.get(e);
+            if (t == null) {
+              i(null);
+              return;
+            }
             try {
-              var t = yield n("cr:7565").isMediaFileSaved(e);
-              i(t);
+              var r = yield n("cr:7565").isMediaFileSaved(t);
+              i(r);
             } catch (t) {
               (o("WALogger").ERROR(
                 c ||
@@ -222,24 +228,20 @@ __d(
                     ": ",
                     "",
                   ])),
-                e.id.toString(),
+                e.toString(),
                 t,
               ),
                 i(null));
             }
           }),
-          [e, s],
+          [s, e, _],
         );
       return (
+        o("useWAWebListener").useListener(s, "change:filehash", function () {
+          f();
+        }),
         o("useWAWebListener").useListener(
-          e.mediaData,
-          "change:filehash",
-          function () {
-            p();
-          },
-        ),
-        o("useWAWebListener").useListener(
-          e.mediaData,
+          s,
           "mediaFileSavedOnFileSystem",
           function () {
             (o("WALogger").LOG(
@@ -248,13 +250,13 @@ __d(
                   "[useIsFileSavedOnFileSystem] file saved event ",
                   "",
                 ])),
-              e.id.toString(),
+              e.toString(),
             ),
               i(!0));
           },
         ),
         o("useWAWebListener").useListener(
-          e.mediaData,
+          s,
           "mediaFileSavingFailed",
           function () {
             (o("WALogger").LOG(
@@ -263,16 +265,16 @@ __d(
                   "[useIsFileSavedOnFileSystem] file saving failed event ",
                   "",
                 ])),
-              e.id.toString(),
+              e.toString(),
             ),
               i(!1));
           },
         ),
         F(
           function () {
-            p();
+            f();
           },
-          [p, e.id],
+          [f, e],
         ),
         a
       );
@@ -282,8 +284,8 @@ __d(
       var a = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "wa_web_loader_button_uix_improvement",
         ),
-        i = H(e),
-        l = z(e),
+        i = H(e.id),
+        l = z(e.id),
         u = o("useWAWebMsgValues").useMsgValues(e.id, [
           o("WAWebMsgGetters").getIsVcardOverMmsDocument,
           o("WAWebMsgGetters").getIsFailed,

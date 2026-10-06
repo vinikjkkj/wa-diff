@@ -30,34 +30,19 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_imagine_ur_enabled",
-      );
-    }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_rich_response_grid_image_enabled",
-      );
-    }
-    function _() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_ur_bloks_enabled");
     }
-    function f() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_post_citations_enabled",
       );
     }
-    function g() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_zeitgeist_carousel_enabled",
       );
     }
-    function h() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "meta_ai_in_app_survey_enabled",
-      );
-    }
-    function y() {
+    function f() {
       return r("gkx")("6940");
     }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
@@ -65,13 +50,10 @@ __d(
       (l.isAiRichResponseForwardingSenderEnabled = u),
       (l.isUnifiedResponseSendingEnabled = c),
       (l.isUnifiedResponseMutationEnabled = d),
-      (l.isImagineUrEnabled = m),
-      (l.isRichResponseGridImageEnabled = p),
-      (l.isUrBloksEnabled = _),
-      (l.isUrZeitgeistCitationsEnabled = f),
-      (l.isUrZeitgeistCarouselEnabled = g),
-      (l.isRichResponseInAppSurveyEnabled = h),
-      (l.isFoABloksNodeRendererEnabled = y));
+      (l.isUrBloksEnabled = m),
+      (l.isUrZeitgeistCitationsEnabled = p),
+      (l.isUrZeitgeistCarouselEnabled = _),
+      (l.isFoABloksNodeRendererEnabled = f));
   },
   98,
 );

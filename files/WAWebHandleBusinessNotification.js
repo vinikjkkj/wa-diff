@@ -27,6 +27,7 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebParseSubscriptionNotification",
     "WAWebProductTypes",
+    "WAWebSubscriptionNotificationDelivery",
     "WAWebSubscriptions",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -97,7 +98,14 @@ __d(
                 m = d.featureFlags,
                 p = d.subscriptions;
               return babelHelpers.extends(
-                { type: "subscriptions", subscriptions: p, featureFlags: m },
+                {
+                  type: "subscriptions",
+                  subscriptions: p,
+                  featureFlags: m,
+                  uiNotification: o(
+                    "WAWebParseSubscriptionNotification",
+                  ).parseSubscriptionNotification(e),
+                },
                 i,
               );
             } else if (e.hasChild("ctwa_suggestion")) {
@@ -313,15 +321,21 @@ __d(
                 ).handleCollectionNotification(a),
                 d(a.stanzaId, a.from, !1)
               );
-            case "subscriptions":
+            case "subscriptions": {
+              yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
+                a.subscriptions,
+                a.featureFlags,
+                "update",
+              );
+              var m = a.uiNotification;
               return (
-                yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-                  a.subscriptions,
-                  a.featureFlags,
-                  "update",
-                ),
+                m != null &&
+                  o(
+                    "WAWebSubscriptionNotificationDelivery",
+                  ).deliverSubscriptionNotification(m),
                 d(a.stanzaId, a.from, !1)
               );
+            }
             case "ctwa_suggestion":
               return (
                 yield o("WAWebHandleCTWASuggestion").handleCTWASuggestion(

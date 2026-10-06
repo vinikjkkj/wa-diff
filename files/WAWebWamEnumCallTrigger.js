@@ -7,6 +7,7 @@ __d(
       OFFLINE_STANZA: 1,
       FCM_PUSH_PAYLOAD: 2,
       FBNS_PUSH_PAYLOAD: 3,
+      ADM_PUSH_PAYLOAD: 4,
     });
     i.CALL_TRIGGER = e;
   },

@@ -1,7 +1,7 @@
 __d(
   "WAWebBotProduct",
-  ["$InternalEnum"],
-  function (t, n, r, o, a, i) {
+  ["$InternalEnum", "WAWebBotUtils"],
+  function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
       META_AI: "meta_ai",
       META_AI_THREAD: "meta_ai_thread",
@@ -14,7 +14,7 @@ __d(
       THIRD_PARTY: "3p_bot",
       SUPPORT: "wa_ias",
     });
-    function l(t) {
+    function s(t) {
       var n;
       return t == null
         ? null
@@ -24,12 +24,19 @@ __d(
             ? n
             : null;
     }
-    function s(t) {
-      return l(t) === e.MUSE;
+    function u(t) {
+      return s(t) === e.MUSE;
     }
-    ((i.BotProduct = e),
-      (i.botProductFromServerValue = l),
-      (i.usesMuseGroupTosNotice = s));
+    function c(t, n) {
+      return (
+        n === e.MUSE ||
+        (n === e.HATCH && !t.equals(o("WAWebBotUtils").HATCH_BOT_FBID_WID))
+      );
+    }
+    ((l.BotProduct = e),
+      (l.botProductFromServerValue = s),
+      (l.usesMuseGroupTosNotice = u),
+      (l.isMuseAgentProduct = c));
   },
-  66,
+  98,
 );

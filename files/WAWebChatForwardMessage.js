@@ -13,6 +13,7 @@ __d(
     "WAWebCryptoRandomMediaKey",
     "WAWebForwardAssociatedChildren",
     "WAWebForwardAssociationConfig",
+    "WAWebForwardMuseGroupGeneratedMediaAction",
     "WAWebForwardRichResponseHandler",
     "WAWebFrontendMsgGetters",
     "WAWebGeneratePollVotesSnapshotFromPoll",
@@ -35,11 +36,15 @@ __d(
     "WAWebMsgModelFromData",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
+    "WAWebMuseGroupRichResponseForward",
     "WAWebNewsletterSendMsgAction",
     "WAWebSendMsgChatAction",
+    "WAWebSendTextMsgChatAction",
     "WAWebWid",
     "asyncToGeneratorRuntime",
+    "err",
     "filterObject",
+    "isStringNullOrEmpty",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -47,71 +52,79 @@ __d(
       s,
       u,
       c,
-      d;
-    function m(e) {
+      d,
+      m;
+    function p(e) {
       return !!(o("WAWebFrontendMsgGetters").getAsMms(e) && !e.ctwaContext);
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.appendedText,
             i = t.associationOptions,
             l = t.chat,
             u = t.includeCaption,
             c = u === void 0 ? !1 : u,
-            m = t.msg,
+            d = t.msg,
             p = t.multicast,
             _ = p === void 0 ? !1 : p,
-            g = t.pairedMediaType;
-          if (o("WAWebMsgActionCapability").isForwardedAsMedia(m))
+            f = t.pairedMediaType;
+          if (o("WAWebMsgActionCapability").isForwardedAsMedia(d))
             return o("WAWebMediaForwardMediaMsg").forwardMediaMsg({
               appendedText: a,
               chat: l,
               includeCaption: c,
-              msg: m,
+              msg: d,
               multicast: _,
-              pairedMediaType: g,
+              pairedMediaType: f,
               associationOptions: i,
             });
-          var h = R(m, l);
-          if (v(m) && (h.body == null || h.body === ""))
+          var h = yield g({ appendedText: a, chat: l, msg: d, multicast: _ });
+          if (h != null) return h;
+          var C = T(d, l);
+          if (k(d) && r("isStringNullOrEmpty")(C.body)) {
+            if (L(d))
+              throw r("err")(
+                "Muse group generated media forward failed with no text fallback",
+              );
             return (
               o("WALogger")
                 .LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[chat forward message] skipping Hatch forward with empty body",
+                      "[chat forward message] skipping plain-text rich response forward with empty body",
                     ])),
                 )
-                .sendLogs("forward-hatch-empty-body"),
+                .sendLogs("forward-plain-text-rich-response-empty-body"),
               null
             );
+          }
           if (
             o("WAWebBotUtils").isMetaAiBot(l.id) &&
             (a != null &&
               a !== "" &&
-              (h.body = o(
+              (C.body = o(
                 "WAWebMetaAiForwardedText",
-              ).composeMetaAiForwardedText(h.body, a)),
+              ).composeMetaAiForwardedText(C.body, a)),
             o("WAWebBotGating").isAiChatThreadsEnabled())
           )
             return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
               type: "MetaAiForward",
-              query: h.body,
+              query: C.body,
             });
-          var y = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, m.type),
-            C = y.type,
-            b = babelHelpers.objectWithoutPropertiesLoose(y, e),
-            S = babelHelpers.extends({}, h, b, {
+          var b = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, d.type),
+            v = b.type,
+            S = babelHelpers.objectWithoutPropertiesLoose(b, e),
+            R = babelHelpers.extends({}, C, S, {
               participant: void 0,
               star: !1,
-              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(m),
+              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(d),
               forwardedFromWeb: !0,
               forwardingScore:
-                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(m),
+                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(d),
               multicast: _,
               messageSecret:
                 o(
@@ -126,31 +139,81 @@ __d(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).maybeStripNewsletterForwardMetadata({
                 isQuestionOrQuestionReply:
-                  m.isQuestion || m.questionReplyQuotedMessage != null,
-                forwardable: S,
+                  d.isQuestion || d.questionReplyQuotedMessage != null,
+                forwardable: R,
                 destination: l.id,
-                source: m.id.remote,
-                isOriginalMsgForwarded: m.isForwarded,
+                source: d.id.remote,
+                isOriginalMsgForwarded: d.isForwarded,
               }),
             );
-          var L = yield f(S),
-            E = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, L),
-            k = E[0],
-            I = E[1],
-            T = yield (d || (d = n("Promise"))).all([k, I]),
-            D = T[0],
-            x = T[1];
-          return babelHelpers.extends({}, x, { msg: D });
+          var E = yield y(R),
+            I = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, E),
+            D = I[0],
+            x = I[1],
+            $ = yield (m || (m = n("Promise"))).all([D, x]),
+            P = $[0],
+            N = $[1];
+          return babelHelpers.extends({}, N, { msg: P });
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.appendedText,
+            n = e.chat,
+            a = e.msg,
+            i = e.multicast;
+          if (
+            !o(
+              "WAWebMuseGroupRichResponseForward",
+            ).isMuseGroupAgentRichResponse(a)
+          )
+            return null;
+          var l = o(
+            "WAWebMuseGroupRichResponseForward",
+          ).getMuseGroupForwardMedia(a);
+          if (l == null) return null;
+          var s = yield o(
+            "WAWebForwardMuseGroupGeneratedMediaAction",
+          ).forwardMuseGroupGeneratedMedia({
+            chat: n,
+            media: l,
+            msg: a,
+            multicast: i,
+          });
+          if (
+            s != null &&
+            o("WAWebBotUtils").isMetaAiBot(n.id) &&
+            !r("isStringNullOrEmpty")(t)
+          )
+            try {
+              yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(n, t);
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[chat forward message] appended text after a Muse group media forward failed",
+                    ])),
+                )
+                .sendLogs("forward-muse-media-appended-text-failed");
+            }
+          return s;
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFrontendMsgGetters").getAsUrl(
             o("WAWebMsgModelFromData").msgModelFromMsgData(e),
           );
@@ -177,7 +240,7 @@ __d(
               s = l.filehash,
               u = l.mediaEntry;
             return (u == null ? void 0 : u.getMediaKey()) == null
-              ? h(e)
+              ? b(e)
               : babelHelpers.extends({}, e, {
                   thumbnailDirectPath: u == null ? void 0 : u.directPath,
                   thumbnailSha256: s,
@@ -190,13 +253,13 @@ __d(
                     u == null ? void 0 : u.getMediaKeyTimestamp(),
                 });
           } catch (t) {
-            return h(e);
+            return b(e);
           }
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h(e) {
+    function b(e) {
       return babelHelpers.extends({}, e, {
         thumbnailHQ: void 0,
         thumbnailDirectPath: void 0,
@@ -208,26 +271,26 @@ __d(
         thumbnailWidth: void 0,
       });
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.appendedText,
             n = e.chat,
             a = e.includeCaption,
             i = a === void 0 ? !1 : a,
             l = e.msgs,
             s = e.multicast,
-            d = s === void 0 ? !1 : s,
+            u = s === void 0 ? !1 : s,
             m = n.contact;
           if (o("WAWebContactGetters").getIsUser(m) && m.isContactBlocked)
             throw new (r("WAWebContactBlockedErrorAction"))(
               "Forwarded to contact is blocked",
               m,
             );
-          var _ = [];
+          var p = [];
           for (var f of l) {
             var g = i || o("WAWebMsgGetters").getHasOriginatedFromNewsletter(f);
             try {
@@ -239,7 +302,7 @@ __d(
                 ),
                 y = h.droppedPairedTypes,
                 C = h.forwardable,
-                v =
+                b =
                   o(
                     "WAWebForwardAssociatedChildren",
                   ).areForwardPairLabelsEnabled() &&
@@ -248,13 +311,13 @@ __d(
                   )
                     ? f.pairedMediaType
                     : void 0,
-                S = yield p({
+                v = yield _({
                   chat: n,
                   msg: f,
-                  multicast: d,
+                  multicast: u,
                   includeCaption: g,
                   appendedText: t,
-                  pairedMediaType: v,
+                  pairedMediaType: b,
                 });
               (o(
                 "WAWebIncrementNewsletterForwardCounterAction",
@@ -264,16 +327,16 @@ __d(
                     chat: n,
                     children: C,
                     droppedPairedTypes: y,
-                    multicast: d,
+                    multicast: u,
                     includeCaption: g,
-                    forwardedParent: S == null ? void 0 : S.msg,
-                    sendChild: p,
+                    forwardedParent: v == null ? void 0 : v.msg,
+                    sendChild: _,
                   })
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
                             "[chat forward message] error forwarding associated children",
                           ])),
                       )
@@ -281,33 +344,49 @@ __d(
                   }));
             } catch (e) {
               (o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[chat forward message] error during forwarding message",
                   ])),
               ),
-                b(f) && _.push(f));
+                R(f) && p.push(f));
             }
           }
-          return _;
+          return p;
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e) {
+    function R(e) {
       return (
-        m(e) ||
-        o("WAWebForwardAssociationConfig").isForwardContainerMsgType(e.type)
+        p(e) ||
+        o("WAWebForwardAssociationConfig").isForwardContainerMsgType(e.type) ||
+        L(e)
       );
     }
-    function v(e) {
+    function L(e) {
+      return (
+        o("WAWebMuseGroupRichResponseForward").isMuseGroupAgentRichResponse(
+          e,
+        ) &&
+        o("WAWebMuseGroupRichResponseForward").getMuseGroupForwardMedia(e) !=
+          null
+      );
+    }
+    function E(e) {
       if (e.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) return !1;
       var t = o("WAWebMsgGetters").getSender(e);
       return t != null && o("WAWebBotUtils").isHatchBot(t);
     }
-    function S(e, t) {
+    function k(e) {
+      return (
+        E(e) ||
+        o("WAWebMuseGroupRichResponseForward").isMuseGroupAgentRichResponse(e)
+      );
+    }
+    function I(e, t) {
       var n;
-      return v(e)
+      return k(e)
         ? ((t.body =
             (n = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e, {
               includeBodyFallback: !1,
@@ -323,7 +402,7 @@ __d(
           !0)
         : !1;
     }
-    function R(e, t) {
+    function T(e, t) {
       var n,
         a,
         i,
@@ -424,7 +503,7 @@ __d(
           ).generatePollVotesSnapshotFromPoll(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))));
-      var m = S(e, d);
+      var m = I(e, d);
       (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
         !m &&
         o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, d),
@@ -473,7 +552,7 @@ __d(
       }
       return d;
     }
-    ((l.forwardMessages = y), (l.getForwardedMessageFields = R));
+    ((l.forwardMessages = v), (l.getForwardedMessageFields = T));
   },
   98,
 );

@@ -12,6 +12,7 @@ __d(
           MdLinkDeviceCompanion: [
             2576,
             {
+              appCampaignDownloadSource: [18, e.TYPES.STRING],
               appContext: [13, e.TYPES.STRING],
               appContextBitfield: [14, e.TYPES.INTEGER],
               applicationState: [

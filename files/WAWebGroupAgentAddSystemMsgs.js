@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupAgentAddSystemMsgs",
   [
+    "$InternalEnum",
     "Promise",
     "WALogger",
     "WAWebBotGroupGatingUtils",
@@ -20,13 +21,22 @@ __d(
     var e,
       s,
       u,
-      c = "agentadded";
-    function d(e) {
-      return m.apply(this, arguments);
+      c,
+      d = "agentadded",
+      m = new Set([
+        (c = o("WAWebBotProduct")).BotProduct.META_AI,
+        c.BotProduct.META_AI_THREAD,
+        c.BotProduct.SIDE_CHAT,
+        c.BotProduct.MANUS,
+        c.BotProduct.SUPPORT,
+      ]),
+      p = n("$InternalEnum").Mirrored(["Combined", "Muse", "Separate"]);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function m() {
+    function f() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             r = e.dbIsStale,
             a = e.meta,
@@ -77,14 +87,14 @@ __d(
                 }),
               ),
             ];
-          var s = yield C(t.participants),
+          var s = yield S(t.participants),
             u = s.agents,
             c = s.humans;
           if (u.length === 0) return l();
           if (u.length === 1 && c.length === 0)
-            return [yield v(yield i(u), u[0], a.author)];
-          var d = yield h(u, function (e) {
-            return f({ action: t, agent: e, dbIsStale: r, meta: a });
+            return [yield T(yield i(u), u[0], a.author)];
+          var d = yield b(u, function (e) {
+            return y({ action: t, agent: e, dbIsStale: r, meta: a });
           });
           return d.length === 0 ||
             d.some(function (e) {
@@ -95,37 +105,44 @@ __d(
               ? d
               : [].concat(d, [yield i(c)]);
         })),
-        m.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function _() {
+    function h() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.meta,
-            n = e.participants,
-            r = e.prevParticipantIds,
-            a = e.reason;
+            r = e.participants,
+            a = e.prevParticipantIds,
+            i = e.reason;
           if (
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
             t.author == null ||
-            a != null
+            i != null
           )
             return [];
-          var i = new Set(r),
-            l = E(
-              n.filter(function (e) {
+          var l = new Set(a),
+            s = r.filter(function (e) {
+              var t = e.id;
+              return (
+                o("WAWebBotUtils").isWidGroupAgentFbidWid(t) &&
+                !l.has(t.toString())
+              );
+            }),
+            c = yield (u || (u = n("Promise"))).all(
+              s.map(function (e) {
                 var t = e.id;
-                return (
-                  o("WAWebBotUtils").isWidGroupAgentFbidWid(t) &&
-                  !i.has(t.toString())
-                );
+                return L(t);
               }),
             ),
-            s = yield h(l, function (e) {
-              return f({
+            d = s.filter(function (e, t) {
+              return c[t];
+            }),
+            m = yield b(d, function (e) {
+              return y({
                 action: {
                   actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
                   participants: [e],
@@ -136,17 +153,17 @@ __d(
                 meta: t,
               });
             });
-          return s.filter(Boolean);
+          return m.filter(Boolean);
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function g() {
+    function C() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             n = e.agent,
             r = e.dbIsStale,
@@ -154,22 +171,22 @@ __d(
             i = yield o("WAWebGroupSystemMsg").genGroupNotificationMsg({
               meta: o("WAWebGroupAgentRemovalSystemMsgs").withSystemMsgIdSuffix(
                 a,
-                "" + c + n.id.user,
+                "" + d + n.id.user,
               ),
               action: babelHelpers.extends({}, t, { participants: [n] }),
               dbIsStale: r,
             });
-          return v(i, n, a.author);
+          return T(i, n, a.author);
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function y() {
+    function v() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           var i = yield (u || (u = n("Promise"))).allSettled(t.map(a));
           return i.flatMap(function (t) {
             return t.status === "fulfilled"
@@ -186,36 +203,24 @@ __d(
                 []);
           });
         })),
-        y.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield (u || (u = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var t = e.id;
-                    if (!o("WAWebBotUtils").isWidGroupAgentFbidWid(t))
-                      return !1;
-                    if (
-                      o(
-                        "WAWebBotGroupGatingUtils",
-                      ).isMuseGroupAgentRenderingEnabled() ||
-                      !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(t)
-                    )
-                      return !0;
-                    var n = yield R(t);
                     return (
-                      !(n instanceof Error) &&
-                      o("WAWebBotProduct").botProductFromServerValue(
-                        n == null ? void 0 : n.product,
-                      ) === o("WAWebBotProduct").BotProduct.THIRD_PARTY
+                      o("WAWebBotUtils").isWidGroupAgentFbidWid(t) &&
+                      (yield L(t))
                     );
                   },
                 );
@@ -226,37 +231,84 @@ __d(
             ),
           );
           return {
-            agents: E(
-              e.filter(function (e, n) {
-                return t[n];
-              }),
-            ),
+            agents: e.filter(function (e, n) {
+              return t[n];
+            }),
             humans: e.filter(function (e, n) {
               return !t[n];
             }),
           };
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (function (e) {
+            if (e === p.Combined) return !1;
+            if (e === p.Muse)
+              return o(
+                "WAWebBotGroupGatingUtils",
+              ).isMuseGroupAgentRenderingEnabled();
+            if (e === p.Separate) return !0;
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          })(yield k(e));
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e))
+            return p.Combined;
+          var t = yield x(e),
+            n =
+              t instanceof Error
+                ? null
+                : o("WAWebBotProduct").botProductFromServerValue(
+                    t == null ? void 0 : t.product,
+                  );
+          return m.has(n)
+            ? p.Combined
+            : o("WAWebBotProduct").isMuseAgentProduct(e, n)
+              ? p.Muse
+              : p.Separate;
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e, t, n) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r;
           if (
             e == null ||
             !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(t.id)
           )
             return e;
-          var a = yield R(t.id);
+          var a = yield x(t.id);
           if (a instanceof Error) return e;
           var i =
-            o("WAWebBotProduct").botProductFromServerValue(
-              a == null ? void 0 : a.product,
-            ) === o("WAWebBotProduct").BotProduct.MUSE &&
+            o("WAWebBotProduct").isMuseAgentProduct(
+              t.id,
+              o("WAWebBotProduct").botProductFromServerValue(
+                a == null ? void 0 : a.product,
+              ),
+            ) &&
             (a == null ? void 0 : a.creatorLid) != null &&
             n != null &&
             ((r = o("WAWebLidMigrationUtils").toUserLid(n)) == null
@@ -271,15 +323,15 @@ __d(
             ).valueOf(),
           });
         })),
-        S.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function L() {
+    function $() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             return yield o("WAWebSchemaBotProfile")
               .getBotProfileTable()
@@ -300,25 +352,10 @@ __d(
             );
           }
         })),
-        L.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function E(e) {
-      var t = function (t) {
-        var e = t.id;
-        return (
-          o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e) ||
-          o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-        );
-      };
-      return [].concat(
-        e.filter(t),
-        e.filter(function (e) {
-          return !t(e);
-        }),
-      );
-    }
-    ((l.genGroupAddNotificationMsgs = d), (l.genGroupCreateAgentAddMsgs = p));
+    ((l.genGroupAddNotificationMsgs = _), (l.genGroupCreateAgentAddMsgs = g));
   },
   98,
 );

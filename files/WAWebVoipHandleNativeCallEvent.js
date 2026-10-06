@@ -25,6 +25,7 @@ __d(
     "WAWebVoipHandleNativeCallEventCallLogHandlers",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipHandleNativeCallEventMediaHandlers",
+    "WAWebVoipHardwareInfo",
     "WAWebVoipIncomingCallUiActionStore",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipP2PConnectionManager",
@@ -989,7 +990,8 @@ __d(
             o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
             !o("WAWebVoipCallStateUtils").isCallTerminal(l);
           (c &&
-            (o("WAWebVoipErrorLogUpload").resetReconnectingStateForNewCall(),
+            (o("WAWebVoipHardwareInfo").ensureHardwareInfoDetected(),
+            o("WAWebVoipErrorLogUpload").resetReconnectingStateForNewCall(),
             o("WAWebVoipTransportFallbackTracker").resetFallbackTracker(),
             o(
               "WAWebVoipSctpConnectionManager",

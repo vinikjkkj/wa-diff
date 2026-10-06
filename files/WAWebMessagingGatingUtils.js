@@ -41,11 +41,6 @@ __d(
       );
     }
     function g() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "rt_swapped_fallback_validation",
-      );
-    }
-    function h() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_biz_simple_signal_enabled",
@@ -61,8 +56,7 @@ __d(
       (l.getSenderReportingTokenVersion = p),
       (l.isWebReportingTokenDelayProcessingEnabled = _),
       (l.isMessageDropPlaceholderEnabled = f),
-      (l.isReportingTokenSwappedFallbackValidationEnabled = g),
-      (l.isSimpleSignalEnabled = h));
+      (l.isSimpleSignalEnabled = g));
   },
   98,
 );

@@ -2,9 +2,12 @@ __d(
   "WAWebNotificationsMsgNotification",
   [
     "fbt",
+    "WAWebBotProfileCollection",
+    "WAWebContactGetters",
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendMsgGetters",
     "WAWebGetNotificationStrings",
+    "WAWebGroupAgentAuthorName",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
@@ -31,7 +34,30 @@ __d(
         t
       );
     }
-    function _(e) {
+    function _(e, t) {
+      var n = o("WAWebMsgGetters").getSender(e);
+      if (n == null) return null;
+      var r = o("WAWebBotProfileCollection").BotProfileCollection.get(n);
+      if (
+        !o("WAWebGroupAgentAuthorName").shouldUseGroupAgentAuthorName({
+          agentWid: n,
+          chat: t,
+          product: r == null ? void 0 : r.product,
+          profileName: r == null ? void 0 : r.name,
+        })
+      )
+        return null;
+      var a = e.senderObj;
+      return o("WAWebGroupAgentAuthorName").getGroupAgentAuthorName({
+        contactName: a == null ? void 0 : a.name,
+        notifyName:
+          a == null ? null : o("WAWebContactGetters").getNotifyName(a),
+        product: r == null ? void 0 : r.product,
+        profileName: r == null ? void 0 : r.name,
+        pushname: e.notifyName,
+      });
+    }
+    function f(e) {
       var t,
         n = null,
         r = o("WAWebFrontendMsgGetters").getChat(e),
@@ -39,17 +65,21 @@ __d(
         i = o("WAWebMsgGetters").getNewsletterAdminProfile(e),
         l;
       if (
-        (o("WAWebMsgGetters").getIsGroupMsg(e) ||
+        o("WAWebMsgGetters").getIsGroupMsg(e) ||
         o("WAWebMsgGetters").getIsMetaBotInvokeResponse(e)
-          ? (l = o("WAWebMsgModelUtils").getMsgDisplayName(e, {
-              withPushName: a,
-              withPushNameOnly: a,
-              newPushNameFormatting: a,
-              showVerifiedName: a,
-            }))
-          : i && (l = i.name),
-        r.isLocked)
-      )
+      ) {
+        var u;
+        l =
+          (u = _(e, r)) != null
+            ? u
+            : o("WAWebMsgModelUtils").getMsgDisplayName(e, {
+                withPushName: a,
+                withPushNameOnly: a,
+                newPushNameFormatting: a,
+                showVerifiedName: a,
+              });
+      } else i && (l = i.name);
+      if (r.isLocked)
         return {
           body: o("WAWebGetNotificationStrings")
             .getPluralMessageNotificationBody(r.unreadCount)
@@ -59,10 +89,10 @@ __d(
         e.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
         !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
       ) {
-        var u,
-          m = (u = d == null ? void 0 : d()) != null ? u : null;
-        m != null
-          ? (n = m)
+        var m,
+          f = (m = d == null ? void 0 : d()) != null ? m : null;
+        f != null
+          ? (n = f)
           : o("WAWebMsgGetters").getIsGroupMsg(e)
             ? l != null
               ? ((n = s._(/*BTDS*/ "Message from {name}", [
@@ -82,32 +112,32 @@ __d(
           : (n = o("WAWebGetNotificationStrings").getNotificationMessageBody(
               e,
             ));
-      var _ = (t = c == null ? void 0 : c(r.unreadCount)) != null ? t : null,
-        f = p(e);
+      var g = (t = c == null ? void 0 : c(r.unreadCount)) != null ? t : null,
+        h = p(e);
       return (
-        f != null &&
+        h != null &&
           (l != null
-            ? (l = f + ": " + l)
+            ? (l = h + ": " + l)
             : n != null &&
               (n = s._(/*BTDS*/ "{mention-label}: {message-body}", [
-                s._param("mention-label", f),
+                s._param("mention-label", h),
                 s._param("message-body", n),
               ]))),
         babelHelpers.extends(
           { body: n.toString(), author: l },
-          _ != null && { footer: _.toString() },
+          g != null && { footer: g.toString() },
         )
       );
     }
-    function f() {
+    function g() {
       return (
         o("WAWebUA").UA.isBlink &&
         o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC
       );
     }
     ((l.eligibleMessagesForNotificationRetriggering = m),
-      (l.getNotificationParts = _),
-      (l.shouldReplaceMsgNotificationManually = f));
+      (l.getNotificationParts = f),
+      (l.shouldReplaceMsgNotificationManually = g));
   },
   226,
 );

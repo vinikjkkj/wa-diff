@@ -141,7 +141,7 @@ __d(
         o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa()
       );
     }
-    l.initializeSw = d;
+    ((l.initializeSw = d), (l.shouldDisableSwForSafariPwa = f));
   },
   98,
 );

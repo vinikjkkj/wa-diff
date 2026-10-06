@@ -22,10 +22,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = new TextEncoder(),
-      u = function (t) {
-        return s.encode(t).buffer;
-      };
+      s = new TextEncoder();
+    function u(e) {
+      return s.encode(e).buffer;
+    }
     function c(e, t) {
       return d.apply(this, arguments);
     }
