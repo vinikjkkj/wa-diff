@@ -10,16 +10,17 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = 25,
-      u = 10,
-      c = 60,
-      d = new Set(["address", "email", "name", "phone_number"]),
-      m = n("$InternalEnum")({
+      u = 4,
+      c = 10,
+      d = 60,
+      m = new Set(["address", "email", "name", "phone_number"]),
+      p = n("$InternalEnum")({
         Title: "title",
         DurationLocation: "duration-location",
         CalendarAvailability: "calendar-availability",
         CustomerInfo: "customer-info",
       });
-    function p(e) {
+    function _(e) {
       for (
         var t = new Set(
             e.map(function (e) {
@@ -32,14 +33,14 @@ __d(
         n += 1;
       return "custom-" + n;
     }
-    function _(e) {
-      return e === m.Title
+    function f(e) {
+      return e === p.Title
         ? 1
-        : e === m.DurationLocation
+        : e === p.DurationLocation
           ? 2
-          : e === m.CalendarAvailability
+          : e === p.CalendarAvailability
             ? 3
-            : e === m.CustomerInfo
+            : e === p.CustomerInfo
               ? 4
               : (function () {
                   throw Error(
@@ -48,14 +49,14 @@ __d(
                   );
                 })();
     }
-    function f(e) {
-      return e === m.Title
+    function g(e) {
+      return e === p.Title
         ? "title"
-        : e === m.DurationLocation
+        : e === p.DurationLocation
           ? "duration-location"
-          : e === m.CalendarAvailability
+          : e === p.CalendarAvailability
             ? "calendar-availability"
-            : e === m.CustomerInfo
+            : e === p.CustomerInfo
               ? "customer-info"
               : (function () {
                   throw Error(
@@ -64,31 +65,15 @@ __d(
                   );
                 })();
     }
-    function g(e) {
-      return e === m.Title
-        ? null
-        : e === m.DurationLocation
-          ? m.Title
-          : e === m.CalendarAvailability
-            ? m.DurationLocation
-            : e === m.CustomerInfo
-              ? m.CalendarAvailability
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
-    }
     function h(e) {
-      return e === m.Title
-        ? m.DurationLocation
-        : e === m.DurationLocation
-          ? m.CalendarAvailability
-          : e === m.CalendarAvailability
-            ? m.CustomerInfo
-            : e === m.CustomerInfo
-              ? null
+      return e === p.Title
+        ? null
+        : e === p.DurationLocation
+          ? p.Title
+          : e === p.CalendarAvailability
+            ? p.DurationLocation
+            : e === p.CustomerInfo
+              ? p.CalendarAvailability
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -97,13 +82,29 @@ __d(
                 })();
     }
     function y(e) {
+      return e === p.Title
+        ? p.DurationLocation
+        : e === p.DurationLocation
+          ? p.CalendarAvailability
+          : e === p.CalendarAvailability
+            ? p.CustomerInfo
+            : e === p.CustomerInfo
+              ? null
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
+    }
+    function C(e) {
       var t,
         n,
         r = e.availability,
         o = e.calendars,
         a = e.isNativeCalendar,
         i = e.timeZoneId,
-        l = a ? null : w(o);
+        l = a ? null : A(o);
       return {
         availability: r,
         calendarId: l,
@@ -119,7 +120,7 @@ __d(
         canEditAvailability: !1,
         customDurationHours: "",
         customDurationMinutes: "",
-        customerFields: A(),
+        customerFields: F(),
         customerFieldsWereRepaired: !1,
         customLocation: "",
         durationNeedsRepair: !1,
@@ -132,16 +133,16 @@ __d(
         title: "",
       };
     }
-    function C(e) {
+    function b(e) {
       var t,
         n,
-        r = V(e.availability),
-        o = b(e.durationMinutes),
-        a = O(e.fields),
+        r = H(e.availability),
+        o = v(e.durationMinutes),
+        a = B(e.fields),
         i = a.customerFields,
         l = a.repaired,
-        s = v(e.locationTypes, e.locationTypesHadUnknownValues === !0),
-        u = S(e.timezoneId);
+        s = S(e.locationTypes, e.locationTypesHadUnknownValues === !0),
+        u = R(e.timezoneId);
       return {
         availability: r,
         calendarId: e.calendarId,
@@ -162,8 +163,8 @@ __d(
         title: e.title,
       };
     }
-    function b(e) {
-      if (e == null || e < u)
+    function v(e) {
+      if (e == null || e < c)
         return {
           customDurationHours: "",
           customDurationMinutes: "",
@@ -174,15 +175,15 @@ __d(
           e,
           o("WAWebBizAiAppointmentAvailabilityNormalize").MINUTES_IN_DAY,
         ),
-        n = N(t);
+        n = M(t);
       return {
-        customDurationHours: n === "custom" ? String(Math.floor(t / c)) : "",
-        customDurationMinutes: n === "custom" ? String(t % c) : "",
+        customDurationHours: n === "custom" ? String(Math.floor(t / d)) : "",
+        customDurationMinutes: n === "custom" ? String(t % d) : "",
         durationNeedsRepair: !1,
         durationOption: n,
       };
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = Array.from(new Set(e));
       return {
         locationTypes: n.length === 0 ? ["PHONE_CALL"] : n,
@@ -190,13 +191,13 @@ __d(
           !t && (n.length === 0 || n.length !== e.length),
       };
     }
-    function S(e) {
+    function R(e) {
       return e == null || e.trim() === ""
-        ? { timeZoneId: $(), timeZoneWasMissing: !0 }
+        ? { timeZoneId: P(), timeZoneWasMissing: !0 }
         : { timeZoneId: e, timeZoneWasMissing: !1 };
     }
-    function R(e, t) {
-      var n = E(
+    function L(e, t) {
+      var n = k(
         e.durationOption,
         e.customDurationHours,
         e.customDurationMinutes,
@@ -204,11 +205,11 @@ __d(
       return {
         customerFields:
           e.customerFieldsWereRepaired ||
-          !W(e.customerFields, t.customerFields),
+          !q(e.customerFields, t.customerFields),
         duration: e.durationNeedsRepair || n !== t.durationMinutes,
         location:
           e.locationTypesWereRepaired ||
-          !q(e.locationTypes, t.locationTypes) ||
+          !U(e.locationTypes, t.locationTypes) ||
           o("WAWebBizAiAppointmentLocationUtils").getSelectedLocationText(
             e.locationTypes,
             "CUSTOM_LOCATION",
@@ -223,24 +224,24 @@ __d(
           e.canEditAvailability &&
           (e.timeZoneWasMissing ||
             e.timeZoneId !== t.timeZoneId ||
-            !U(e.availability, t.availability)),
+            !V(e.availability, t.availability)),
         title: e.title.trim() !== t.title.trim(),
       };
     }
-    function L(e) {
+    function E(e) {
       var t = e.filter(function (e) {
           return e.enabled;
         }),
         n = t
           .filter(function (e) {
-            return d.has(e.id);
+            return m.has(e.id);
           })
           .map(function (e) {
             return e.id;
           });
       return { builtInFieldIds: n, customFieldCount: t.length - n.length };
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       return e === "15"
         ? 15
         : e === "30"
@@ -248,7 +249,7 @@ __d(
           : e === "60"
             ? 60
             : e === "custom"
-              ? M(t) * c + M(n)
+              ? w(t) * d + w(n)
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -256,23 +257,23 @@ __d(
                   );
                 })();
     }
-    function k(e) {
+    function I(e) {
       return e > o("WAWebBizAiAppointmentAvailabilityNormalize").MINUTES_IN_DAY
         ? s._(/*BTDS*/ "Duration cannot exceed 24 hours")
-        : e > 0 && e < u
+        : e > 0 && e < c
           ? s._(/*BTDS*/ "Duration must be at least 10 minutes")
           : null;
     }
-    function I(e, t, n, r) {
-      return e < u ||
+    function T(e, t, n, r) {
+      return e < c ||
         e > o("WAWebBizAiAppointmentAvailabilityNormalize").MINUTES_IN_DAY ||
         t.length === 0 ||
         (t.includes("IN_PERSON") && n.trim() === "")
         ? !1
         : !(t.includes("CUSTOM_LOCATION") && r.trim() === "");
     }
-    function T(e) {
-      var t = V(e),
+    function D(e) {
+      var t = H(e),
         n = function (n) {
           for (
             var e = t
@@ -304,13 +305,13 @@ __d(
         if (((r = n(a)), r)) return r.v;
       return !0;
     }
-    function D(e, t) {
-      return !e.canEditAvailability || U(e.availability, t) || T(t);
+    function x(e, t) {
+      return !e.canEditAvailability || V(e.availability, t) || D(t);
     }
-    function x(e) {
+    function $(e) {
       return typeof e.label == "string" ? e.label : e.label.toString();
     }
-    function $() {
+    function P() {
       try {
         var e = Intl.DateTimeFormat().resolvedOptions().timeZone;
         return e == null || e === "" ? "UTC" : e;
@@ -318,20 +319,20 @@ __d(
         return "UTC";
       }
     }
-    function P(e, t) {
+    function N(e, t) {
       return e.includes(t)
         ? e.filter(function (e) {
             return e !== t;
           })
         : [].concat(e, [t]);
     }
-    function N(e) {
+    function M(e) {
       return e === 15 ? "15" : e === 30 ? "30" : e === 60 ? "60" : "custom";
     }
-    function M(e) {
+    function w(e) {
       return /^\d+$/.test(e) ? Number.parseInt(e, 10) : 0;
     }
-    function w(e) {
+    function A(e) {
       var t,
         n,
         r,
@@ -349,9 +350,9 @@ __d(
           ? void 0
           : r.id;
     }
-    function A() {
+    function F() {
       return [
-        F(),
+        O(),
         {
           enabled: !0,
           id: "name",
@@ -375,7 +376,7 @@ __d(
         },
       ];
     }
-    function F() {
+    function O() {
       return {
         enabled: !0,
         id: "phone_number",
@@ -384,8 +385,8 @@ __d(
         omitIdOnSubmit: !1,
       };
     }
-    function O(e) {
-      if (e.length === 0) return { customerFields: A(), repaired: !0 };
+    function B(e) {
+      if (e.length === 0) return { customerFields: F(), repaired: !0 };
       var t = !1,
         n = !1,
         r = new Set(
@@ -405,7 +406,7 @@ __d(
           var s = e.id === "",
             u = e.id === "phone_number";
           ((t = t || u), (n = n || (u && !e.enabled)));
-          var c = s ? B(i, r) : e.id;
+          var c = s ? W(i, r) : e.id;
           (r.add(c),
             e.id !== "" && o.add(e.id),
             a.push({
@@ -418,14 +419,14 @@ __d(
         }),
         t
           ? { customerFields: a, repaired: n }
-          : { customerFields: [F()].concat(a), repaired: !0 }
+          : { customerFields: [O()].concat(a), repaired: !0 }
       );
     }
-    function B(e, t) {
+    function W(e, t) {
       for (var n = e; t.has("persisted-custom-" + n); ) n++;
       return "persisted-custom-" + n;
     }
-    function W(e, t) {
+    function q(e, t) {
       return (
         e.length === t.length &&
         e.every(function (e, n) {
@@ -434,13 +435,13 @@ __d(
             r != null &&
             e.enabled === r.enabled &&
             e.id === r.id &&
-            x(e) === x(r) &&
+            $(e) === $(r) &&
             e.omitIdOnSubmit === r.omitIdOnSubmit
           );
         })
       );
     }
-    function q(e, t) {
+    function U(e, t) {
       var n = new Set(e),
         r = new Set(t);
       return (
@@ -452,10 +453,10 @@ __d(
         })
       );
     }
-    function U(e, t) {
+    function V(e, t) {
       if (e.length !== t.length) return !1;
-      var n = V(e).sort(H),
-        r = V(t).sort(H);
+      var n = H(e).sort(G),
+        r = H(t).sort(G);
       return n.every(function (e, t) {
         var n = r[t];
         return (
@@ -466,7 +467,7 @@ __d(
         );
       });
     }
-    function V(e) {
+    function H(e) {
       return e.map(function (e) {
         return e.endTimeMinutes === 0
           ? babelHelpers.extends({}, e, {
@@ -476,7 +477,7 @@ __d(
           : e;
       });
     }
-    function H(e, t) {
+    function G(e, t) {
       return (
         e.dayOfWeek - t.dayOfWeek ||
         e.startTimeMinutes - t.startTimeMinutes ||
@@ -484,25 +485,26 @@ __d(
       );
     }
     ((l.CUSTOMER_FIELD_MAX_LENGTH = e),
-      (l.AppointmentCreateStep = m),
-      (l.getNextCustomFieldId = p),
-      (l.getStepNumber = _),
-      (l.getStepName = f),
-      (l.getPreviousStep = g),
-      (l.getNextStep = h),
-      (l.getCreateAppointmentEditorInitialState = y),
-      (l.getEditAppointmentEditorInitialState = C),
-      (l.getAppointmentUpdateMask = R),
-      (l.getAppointmentCustomerFieldLogData = L),
-      (l.getDurationMinutes = E),
-      (l.getDurationError = k),
-      (l.isDurationAndLocationValid = I),
-      (l.isAppointmentAvailabilityValid = T),
-      (l.isAppointmentAvailabilityValidForEdit = D),
-      (l.getCustomerFieldLabelText = x),
-      (l.getLocalTimeZoneId = $),
-      (l.toggleArrayValue = P),
-      (l.getDefaultCalendarId = w));
+      (l.TOTAL_APPOINTMENT_DETAILS_STEPS = u),
+      (l.AppointmentCreateStep = p),
+      (l.getNextCustomFieldId = _),
+      (l.getStepNumber = f),
+      (l.getStepName = g),
+      (l.getPreviousStep = h),
+      (l.getNextStep = y),
+      (l.getCreateAppointmentEditorInitialState = C),
+      (l.getEditAppointmentEditorInitialState = b),
+      (l.getAppointmentUpdateMask = L),
+      (l.getAppointmentCustomerFieldLogData = E),
+      (l.getDurationMinutes = k),
+      (l.getDurationError = I),
+      (l.isDurationAndLocationValid = T),
+      (l.isAppointmentAvailabilityValid = D),
+      (l.isAppointmentAvailabilityValidForEdit = x),
+      (l.getCustomerFieldLabelText = $),
+      (l.getLocalTimeZoneId = P),
+      (l.toggleArrayValue = N),
+      (l.getDefaultCalendarId = A));
   },
   226,
 );

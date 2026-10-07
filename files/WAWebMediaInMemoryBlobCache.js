@@ -94,6 +94,13 @@ __d(
           (n.put = function (t, n) {
             (this.$1.put(t, n), this.$8());
           }),
+          (n.replace = function (t, n) {
+            var e = this.$3.get(t);
+            (e != null && this.$7(t) === 0
+              ? this.revokeURL(t, e)
+              : this.$3.delete(t),
+              this.put(t, n));
+          }),
           (n.delete = function (t) {
             (this.$1.delete(t), this.$8());
           }),

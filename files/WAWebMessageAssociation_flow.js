@@ -11,6 +11,7 @@ __d(
       "HD_VIDEO_DUAL_UPLOAD",
       "HD_IMAGE_DUAL_UPLOAD",
       "HEVC_VIDEO_DUAL_UPLOAD",
+      "AV1_VIDEO_DUAL_UPLOAD",
       "POLL_ADD_OPTION",
     ]);
     function l(e) {

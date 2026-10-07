@@ -72,18 +72,23 @@ __d(
                                                         .BUSINESS_AI_TOOLS_NUX
                                                     ? o("WAWebNux").NuxSyncKey
                                                         .BUSINESS_AI_TOOLS_NUX
-                                                    : o(
-                                                          "WAWebNux",
-                                                        ).isCommunityAdminPromotionNuxKey(
-                                                          e,
-                                                        ) ||
-                                                        o(
-                                                          "WAWebNux",
-                                                        ).isChatAutoMutedNuxKey(
-                                                          e,
-                                                        )
-                                                      ? e
-                                                      : null;
+                                                    : e ===
+                                                        o("WAWebNux").NUX
+                                                          .TEE_CHAT_NOT_AVAILABLE_ON_WEB
+                                                      ? o("WAWebNux").NuxSyncKey
+                                                          .TEE_CHAT_NOT_AVAILABLE_ON_WEB
+                                                      : o(
+                                                            "WAWebNux",
+                                                          ).isCommunityAdminPromotionNuxKey(
+                                                            e,
+                                                          ) ||
+                                                          o(
+                                                            "WAWebNux",
+                                                          ).isChatAutoMutedNuxKey(
+                                                            e,
+                                                          )
+                                                        ? e
+                                                        : null;
     }
     l.getNuxSyncKey = e;
   },

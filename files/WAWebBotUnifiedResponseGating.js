@@ -30,19 +30,16 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue("wa_web_ur_bloks_enabled");
-    }
-    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_post_citations_enabled",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_zeitgeist_carousel_enabled",
       );
     }
-    function f() {
+    function _() {
       return r("gkx")("6940");
     }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
@@ -50,10 +47,9 @@ __d(
       (l.isAiRichResponseForwardingSenderEnabled = u),
       (l.isUnifiedResponseSendingEnabled = c),
       (l.isUnifiedResponseMutationEnabled = d),
-      (l.isUrBloksEnabled = m),
-      (l.isUrZeitgeistCitationsEnabled = p),
-      (l.isUrZeitgeistCarouselEnabled = _),
-      (l.isFoABloksNodeRendererEnabled = f));
+      (l.isUrZeitgeistCitationsEnabled = m),
+      (l.isUrZeitgeistCarouselEnabled = p),
+      (l.isFoABloksNodeRendererEnabled = _));
   },
   98,
 );

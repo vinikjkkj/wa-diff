@@ -5,37 +5,22 @@ __d(
     "WAWebBizSetMerchantComplianceMutation.graphql",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
+    "WAWebMerchantComplianceUtils",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      if (e == null) return "Other";
-      switch (e) {
-        case "SOLE_PROPRIETORSHIP":
-          return "Sole proprietorship";
-        case "PARTNERSHIP":
-          return "Partnership";
-        case "PRIVATE_COMPANY":
-          return "Private Company";
-        case "PUBLIC_COMPANY":
-          return "Public Company";
-        case "LIMITED_LIABILITY_PARTNERSHIP":
-          return "Limited liability partnership";
-        case "OTHER":
-          return "Other";
-        default:
-          return "Other";
-      }
-    }
-    var m = { type: "error" },
-      p =
+    var e,
+      s,
+      u,
+      c,
+      d = { type: "error" },
+      m =
         e !== void 0
           ? e
           : (e = n("WAWebBizSetMerchantComplianceMutation.graphql"));
-    function _(e) {
-      return f(e).then(function (e) {
+    function p(e) {
+      return _(e).then(function (e) {
         return e.type === "success"
           ? (o("WALogger").LOG(
               s ||
@@ -56,12 +41,12 @@ __d(
             e);
       });
     }
-    function f(e) {
+    function _(e) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (t) {
           return t.type === "success"
-            ? g(t.token, e).then(function (e) {
+            ? f(t.token, e).then(function (e) {
                 return (
                   e.type !== "success" && e.type === "auth-failure"
                     ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
@@ -72,64 +57,66 @@ __d(
             : (t.type, t);
         });
     }
-    function g(e, t) {
+    function f(e, t) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAWebRelayClient").commitMutation(
-            p,
+            m,
             { input: t },
             { environmentType: "facebook", accessToken: e },
           );
         })
         .then(function (e) {
-          var t, n, r, o, a, i, l, s;
-          if (e == null) return m;
-          var u =
+          var t, n, r, a, i, l, s, u;
+          if (e == null) return d;
+          var c =
             (t = e.xfb_whatsapp_biz_merchant_set_compliance_info) == null
               ? void 0
               : t.merchant_info;
-          if (u == null) return m;
-          var c = [
+          if (c == null) return d;
+          var m = [
             {
-              entity_name: u.entity_name || "",
-              entity_type: d(u.entity_type),
-              is_registered: u.is_registered || !1,
-              entity_type_custom: u.entity_type_custom || "",
+              entity_name: c.entity_name || "",
+              entity_type: o(
+                "WAWebMerchantComplianceUtils",
+              ).mapEntityTypeToBusinessTypeOption(c.entity_type),
+              is_registered: c.is_registered || !1,
+              entity_type_custom: c.entity_type_custom || "",
               customer_care_details: {
                 email:
-                  ((n = u.customer_care_details) == null ? void 0 : n.email) ||
+                  ((n = c.customer_care_details) == null ? void 0 : n.email) ||
                   "",
                 landline_number:
-                  ((r = u.customer_care_details) == null
+                  ((r = c.customer_care_details) == null
                     ? void 0
                     : r.landline_number) || "",
                 mobile_number:
-                  ((o = u.customer_care_details) == null
+                  ((a = c.customer_care_details) == null
                     ? void 0
-                    : o.mobile_number) || "",
+                    : a.mobile_number) || "",
               },
               grievance_officer_details: {
                 name:
-                  ((a = u.grievance_officer_details) == null
+                  ((i = c.grievance_officer_details) == null
                     ? void 0
-                    : a.name) || "",
+                    : i.name) || "",
                 email:
-                  ((i = u.grievance_officer_details) == null
+                  ((l = c.grievance_officer_details) == null
                     ? void 0
-                    : i.email) || "",
+                    : l.email) || "",
                 landline_number:
-                  ((l = u.grievance_officer_details) == null
+                  ((s = c.grievance_officer_details) == null
                     ? void 0
-                    : l.landline_number) || "",
+                    : s.landline_number) || "",
                 mobile_number:
-                  ((s = u.grievance_officer_details) == null
+                  ((u = c.grievance_officer_details) == null
                     ? void 0
-                    : s.mobile_number) || "",
+                    : u.mobile_number) || "",
               },
             },
           ];
-          return { type: "success", merchant_info: c };
+          return { type: "success", merchant_info: m };
         })
         .catch(function (e) {
           return (
@@ -143,11 +130,11 @@ __d(
               ? { type: "auth-failure" }
               : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                 ? { type: "graphql-error", error: e }
-                : m
+                : d
           );
         });
     }
-    ((l.mapEntityTypeToBusinessTypeOption = d), (l.setMerchantCompliance = _));
+    l.setMerchantCompliance = p;
   },
   98,
 );

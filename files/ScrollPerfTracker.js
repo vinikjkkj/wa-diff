@@ -202,16 +202,22 @@ __d(
     }
     function v(e, t) {
       r("addAnnotations")(e.annotations, {
-        int: { longAnimationFrameCount: t.length },
+        int: {
+          loafSupported: o("LongAnimationFrameObserver")
+            .canUseLongAnimationFrameAPI
+            ? 1
+            : 0,
+          longAnimationFrameCount: t.length,
+        },
       });
       var n = e.endTime;
       if (!(n == null || n <= e.startTime)) {
-        var o = 0,
-          a = 0,
+        var a = 0,
           i = 0,
           l = 0,
           s = 0,
-          u = 0;
+          u = 0,
+          c = 0;
         t.forEach(function (t) {
           if (!(t.startTime + t.duration < e.startTime)) {
             var n =
@@ -219,34 +225,34 @@ __d(
                 ? t.duration + t.startTime - e.startTime
                 : t.duration;
             if (
-              (t.startTime >= e.startTime && (i += t.blockingDuration),
-              n >= m && s++,
-              (o += n),
-              n > l && (l = n),
+              (t.startTime >= e.startTime && (l += t.blockingDuration),
+              n >= m && u++,
+              (a += n),
+              n > s && (s = n),
               !(n <= d))
             ) {
               var r = (n - d) / m;
-              u += r;
-              var c = (n - d) / d;
-              a += c;
+              c += r;
+              var o = (n - d) / d;
+              i += o;
             }
           }
         });
-        var c = (n - e.startTime) / 6e4,
-          p = c <= 0 ? 0 : Math.floor(u / c),
-          _ = c <= 0 ? 0 : Math.floor(a / c),
-          f = t.length === 0 ? 0 : o / t.length;
+        var p = (n - e.startTime) / 6e4,
+          _ = p <= 0 ? 0 : Math.floor(c / p),
+          f = p <= 0 ? 0 : Math.floor(i / p),
+          g = t.length === 0 ? 0 : a / t.length;
         r("addAnnotations")(e.annotations, {
           int: {
-            avgLoAFDuration: f,
-            frameDropPerMinute: _,
-            maxLoAFDuration: l,
-            largeFrameDropsPerMinute: p,
-            largeLoAFCount: s,
-            totalFrameDrops: a,
-            totalLargeFrameDrops: u,
-            totalLoAFBlockingTime: i,
-            totalLoAFDuration: o,
+            avgLoAFDuration: g,
+            frameDropPerMinute: f,
+            maxLoAFDuration: s,
+            largeFrameDropsPerMinute: _,
+            largeLoAFCount: u,
+            totalFrameDrops: i,
+            totalLargeFrameDrops: c,
+            totalLoAFBlockingTime: l,
+            totalLoAFDuration: a,
           },
         });
       }

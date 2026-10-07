@@ -6,7 +6,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWap",
-    "WAWebAdvHandlerApi",
+    "WAWebAdvDeviceUpdateNotificationApi",
     "WAWebApiContact",
     "WAWebApiPendingDeviceSync",
     "WAWebCommsWapMd",
@@ -204,7 +204,7 @@ __d(
                       else if (a.type === g.add)
                         try {
                           yield o(
-                            "WAWebAdvHandlerApi",
+                            "WAWebAdvDeviceUpdateNotificationApi",
                           ).handleADVDeviceNotification({
                             wid: l,
                             devices: t,
@@ -223,7 +223,7 @@ __d(
                       else if (a.type === g.remove)
                         try {
                           yield o(
-                            "WAWebAdvHandlerApi",
+                            "WAWebAdvDeviceUpdateNotificationApi",
                           ).handleADVDeviceNotification({
                             wid: l,
                             devices: t,

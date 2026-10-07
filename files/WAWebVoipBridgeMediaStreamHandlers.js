@@ -1,6 +1,7 @@
 __d(
   "WAWebVoipBridgeMediaStreamHandlers",
   [
+    "WAWebMediaPermissionsUtils",
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipBridgeMediaStreamHelpers",
     "WAWebVoipCameraPrewarm",
@@ -41,11 +42,11 @@ __d(
       })(),
       getVoipMicPermissionGranted: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebVoipAcquireMediaStream").queryPermissionStatus(
-              !1,
-            ),
-            t = e.micPermission;
-          return s(t);
+          return s(
+            yield o(
+              "WAWebMediaPermissionsUtils",
+            ).queryMediaPermissionStateStrict("microphone"),
+          );
         });
         function t() {
           return e.apply(this, arguments);
@@ -67,7 +68,11 @@ __d(
       })(),
     };
     function s(e) {
-      return e === "granted" ? !0 : e === "denied" ? !1 : null;
+      return e === "granted"
+        ? !0
+        : e === "denied" || e === "prompt"
+          ? !1
+          : null;
     }
     l.VoipBridgeMediaStreamHandlers = e;
   },

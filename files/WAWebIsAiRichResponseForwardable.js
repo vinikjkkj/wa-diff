@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBotTypes",
     "WAWebBotUnifiedResponseGating",
+    "WAWebBotUtils",
     "WAWebFrontendMsgGetters",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
@@ -25,7 +26,8 @@ __d(
         ) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasConnectorActionCard(
           t.unifiedResponse,
-        )
+        ) ||
+        s(e, t.unifiedResponse)
       )
         return !1;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) return !0;
@@ -40,6 +42,16 @@ __d(
                 o("WAWebRichResponse.flow").RichResponseFragmentType.Table
             );
           });
+    }
+    function s(e, t) {
+      return (
+        o(
+          "WAWebUnifiedResponseUtils",
+        ).unifiedResponseHasSecureCredentialRequest(t) ||
+        (t != null &&
+          o("WAWebBotUtils").isHatchBot(e.id.remote) &&
+          o("WAWebUnifiedResponseUtils").hasNestedOrEmbeddedContent(t))
+      );
     }
     l.isAiRichResponseForwardable = e;
   },

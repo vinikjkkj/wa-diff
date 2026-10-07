@@ -8,6 +8,7 @@ __d(
       NATIVE: 2,
       DEVICE: 3,
       CUSTOM: 4,
+      FIRST_PARTY: 5,
     });
     i.CONNECTOR_TYPE = e;
   },

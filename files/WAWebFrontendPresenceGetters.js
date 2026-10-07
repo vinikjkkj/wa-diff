@@ -13,17 +13,19 @@ __d(
       m = u("forceDisplay"),
       p = u("groupOnlineCount"),
       _ = u("hasData"),
-      f = u("recordingUserIds"),
-      g = u("typingUserIds"),
-      h = u("withholdDisplayStage");
+      f = u("isOnline"),
+      g = u("recordingUserIds"),
+      h = u("typingUserIds"),
+      y = u("withholdDisplayStage");
     ((l.clearFrontendPresenceGetterCacheFor = c),
       (l.getChatstate = d),
       (l.getForceDisplay = m),
       (l.getGroupOnlineCount = p),
       (l.getHasData = _),
-      (l.getRecordingUserIds = f),
-      (l.getTypingUserIds = g),
-      (l.getWithholdDisplayStage = h));
+      (l.getIsOnline = f),
+      (l.getRecordingUserIds = g),
+      (l.getTypingUserIds = h),
+      (l.getWithholdDisplayStage = y));
   },
   98,
 );

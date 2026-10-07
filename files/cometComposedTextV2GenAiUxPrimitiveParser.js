@@ -21,6 +21,7 @@ __d(
     "cometComposedTextV2GenAiProductItemCardPrimitiveParser",
     "cometComposedTextV2GenAiReelUxPrimitiveParser",
     "cometComposedTextV2GenAiSearchResultPrimitiveParser",
+    "cometComposedTextV2GenAiSecureCredentialRequestPrimitiveParser",
     "cometComposedTextV2GenAiSpacerPrimitiveParser",
     "cometComposedTextV2GenAiTableUxPrimitiveParser",
     "cometComposedTextV2GenAiTaskPrimitiveParser",
@@ -93,6 +94,10 @@ __d(
         if (e.__typename === "GenAIMuseConnectorActionCardPrimitive")
           return r(
             "cometComposedTextV2GenAiMuseConnectorActionCardPrimitiveParser",
+          )(e);
+        if (e.__typename === "GenAISecureCredentialRequestPrimitive")
+          return r(
+            "cometComposedTextV2GenAiSecureCredentialRequestPrimitiveParser",
           )(e);
       }
       return o("cometComposedTextV2NodeBuilders")

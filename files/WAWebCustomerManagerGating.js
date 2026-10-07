@@ -46,11 +46,19 @@ __d(
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
-          "smb_web_customer_manager_bulk_edit_enabled",
+          "smb_web_customer_management_custom_fields",
         )
       );
     }
     function m() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_web_customer_manager_bulk_edit_enabled",
+        )
+      );
+    }
+    function p() {
       return (
         e() &&
         (o("WAWebABProps").getABPropConfigValue(
@@ -61,11 +69,11 @@ __d(
           ))
       );
     }
-    function p(e) {
-      var t = e.id;
-      return t != null && !o("WAWebContactGetters").getIsMe(e) && _(t);
-    }
     function _(e) {
+      var t = e.id;
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && f(t);
+    }
+    function f(e) {
       return (
         e.isUser() &&
         !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -82,10 +90,11 @@ __d(
       (l.customerManagerDateRangeFilterEnabled = s),
       (l.customerManagerExportEnabled = u),
       (l.customerManagerImportExportEnabled = c),
-      (l.customerManagerBulkEditEnabled = d),
-      (l.customerManagerSublistEnabled = m),
-      (l.isEligibleForCustomerFields = p),
-      (l.isWidEligibleForCustomerFields = _));
+      (l.customerManagerCustomFieldsEnabled = d),
+      (l.customerManagerBulkEditEnabled = m),
+      (l.customerManagerSublistEnabled = p),
+      (l.isEligibleForCustomerFields = _),
+      (l.isWidEligibleForCustomerFields = f));
   },
   98,
 );

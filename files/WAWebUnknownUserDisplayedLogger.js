@@ -71,7 +71,9 @@ __d(
     }
     function f(e) {
       if (
-        o("WAWebUsernameGatingUtils").unknownUserTargetRidLoggingEnabled() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "unknown_user_target_rid_logging",
+        ) &&
         (e.isLid() || e.isRegularUserPn())
       ) {
         var t;

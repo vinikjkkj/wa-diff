@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
     "WAWebCustomerManagerCustomerProfileDecoders",
+    "WAWebCustomerManagerRequestErrors",
     "WAWebCustomerProfileBirthday",
     "WAWebFBLogger",
     "WAWebFetchAdAccountToken",
@@ -44,7 +45,7 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.candidateLids != null && e.candidateLids.length === 0) return m;
-          var t = yield S(e);
+          var t = yield R(e);
           return t == null ? null : { cursor: t.cursor, records: v(t) };
         })),
         g.apply(this, arguments)
@@ -112,6 +113,7 @@ __d(
             ),
             birthdayIso: n.dob,
             chatJid: o("WAJids").toLidUserJid(a),
+            customFieldValues: S(n.custom_field_values),
             email: n.email,
             lastOrder: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
@@ -133,11 +135,45 @@ __d(
       return t;
     }
     function S(e) {
-      return R.apply(this, arguments);
+      var t = [];
+      for (var n of e != null ? e : []) {
+        var r,
+          a,
+          i = n.custom_field_definition,
+          l = i == null ? void 0 : i.id,
+          s = i == null ? void 0 : i.name,
+          u = i == null ? void 0 : i.field_type;
+        i == null ||
+          l == null ||
+          s == null ||
+          u == null ||
+          t.push({
+            currency: i.currency,
+            fieldId: l,
+            fieldName: s,
+            value: o(
+              "WAWebCustomerManagerCustomerProfileDecoders",
+            ).formatCustomFieldValue({
+              currencyDecimalPlaces: i.currency_decimal_places,
+              dateValue: n.date_value,
+              enumLabels: (r = i.enum_values) != null ? r : [],
+              enumOptionKey: n.enum_option_key,
+              enumOptionKeys: (a = i.enum_option_keys) != null ? a : [],
+              fieldType: u,
+              moneyAmount: n.money_amount,
+              numericValue: n.numeric_value,
+              textValue: n.text_value,
+            }),
+          });
+      }
+      return t;
     }
-    function R() {
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
@@ -165,18 +201,24 @@ __d(
                   page_size: c,
                   cursor: e.cursor,
                 },
+                includeCustomFields: e.includeCustomFields === !0,
               },
               { accessToken: n.token, environmentType: "facebook" },
             );
           } catch (e) {
-            throw (L(e, "read"), e);
+            throw (
+              E(e, "read"),
+              o(
+                "WAWebCustomerManagerRequestErrors",
+              ).asCustomerManagerRequestError(e)
+            );
           }
           return (t = a) == null ? void 0 : t.xfb_wa_customer_profiles;
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
+    function E(e, t) {
       o("WAWebGraphQLServerError").isRateLimitError(e) &&
         o("WAWebFBLogger")
           .WAWebFBLogger()
@@ -189,7 +231,7 @@ __d(
     ((l.fetchCustomerProfilePage = p),
       (l.fetchCustomerProfileRecords = h),
       (l.fetchCompleteCustomerProfileRecords = y),
-      (l.logIfRateLimited = L));
+      (l.logIfRateLimited = E));
   },
   98,
 );

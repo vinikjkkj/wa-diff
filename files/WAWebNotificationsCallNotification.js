@@ -26,6 +26,7 @@ __d(
     "WAWebSWBusActions",
     "WAWebUA",
     "WAWebUserPrefsMeUser",
+    "WAWebVoipCallEmoji",
     "WAWebVoipCallsTabOpenCallInfo",
     "WAWebVoipGatingUtils",
     "WAWebWamEnumNotificationTypeEnum",
@@ -489,11 +490,7 @@ __d(
       return !o("WAWebUA").UA.hasEmoji ||
         !o("WAWebVoipGatingUtils").areCallNotificationIconsEnabled()
         ? ""
-        : t
-          ? "\u260E\uFE0F "
-          : e
-            ? "\uD83D\uDD14\uD83D\uDCF9 "
-            : "\uD83D\uDD14\uD83D\uDCDE ";
+        : o("WAWebVoipCallEmoji").getCallEmoji(e, t) + " ";
     }
     function v(e, t) {
       if (e != null) {

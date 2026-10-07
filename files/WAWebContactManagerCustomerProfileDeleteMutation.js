@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebContactManagerCustomerProfileDeleteMutation.graphql",
     "WAWebContactManagerCustomerProfilesQuery",
+    "WAWebCustomerManagerRequestErrors",
     "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
@@ -47,7 +48,9 @@ __d(
                 e,
                 "write",
               ),
-              e
+              o(
+                "WAWebCustomerManagerRequestErrors",
+              ).asCustomerManagerRequestError(e)
             );
           }
           if (

@@ -278,6 +278,7 @@ __d(
                     this.$14(
                       o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE,
                     ),
+                    o("WAWebThreadMetadata").resetThreadMeta(),
                     o(
                       "WAWebBackendEventBus",
                     ).BackendEventBus.triggerOfflineDeliveryEnd(),

@@ -10,42 +10,41 @@ __d(
         return e.dayOfWeek === t;
       });
     }
-    function m(e) {
-      return e.length === 0
-        ? s._(/*BTDS*/ "Closed")
-        : []
-            .concat(e)
-            .sort(function (e, t) {
-              return e.startTimeMinutes - t.startTimeMinutes;
-            })
-            .map(function (e, t) {
-              return u.jsxs(
-                u.Fragment,
-                {
-                  children: [
-                    t === 0 ? null : u.jsx("br", {}),
-                    s._(/*BTDS*/ "{start time} - {end time}", [
-                      s._param(
-                        "start time",
-                        o("WAWebSmbUtilsTimeUtils").minutesToTime(
-                          e.startTimeMinutes,
-                        ),
-                      ),
-                      s._param(
-                        "end time",
-                        o("WAWebSmbUtilsTimeUtils").minutesToTime(
-                          e.endTimeMinutes,
-                        ),
-                      ),
-                    ]),
-                  ],
-                },
-                e.startTimeMinutes + "-" + e.endTimeMinutes,
-              );
-            });
+    function m(e, t) {
+      return (
+        t === void 0 && (t = ""),
+        e.length === 0
+          ? s._(/*BTDS*/ "Closed")
+          : []
+              .concat(e)
+              .sort(function (e, t) {
+                return e.startTimeMinutes - t.startTimeMinutes;
+              })
+              .map(function (e, n) {
+                return u.jsxs(
+                  u.Fragment,
+                  { children: [n === 0 ? null : u.jsx("br", {}), p(e, t)] },
+                  e.startTimeMinutes + "-" + e.endTimeMinutes,
+                );
+              })
+      );
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e, t) {
+      var n = o("WAWebSmbUtilsTimeUtils").minutesToTime(e.startTimeMinutes),
+        r = o("WAWebSmbUtilsTimeUtils").minutesToTime(e.endTimeMinutes);
+      return t === ""
+        ? s._(/*BTDS*/ "{start time} - {end time}", [
+            s._param("start time", n),
+            s._param("end time", r),
+          ])
+        : s._(/*BTDS*/ "{start time} - {end time} {time zone abbreviation}", [
+            s._param("start time", n),
+            s._param("end time", r),
+            s._param("time zone abbreviation", t),
+          ]);
+    }
+    function _(e, t) {
       if (e == null || e === "") return "";
       try {
         var n,
@@ -68,7 +67,7 @@ __d(
     ((l.DAYS_IN_WEEK = c),
       (l.getAvailabilityForDay = d),
       (l.formatAvailability = m),
-      (l.getTimeZoneAbbreviation = p));
+      (l.getTimeZoneAbbreviation = _));
   },
   226,
 );

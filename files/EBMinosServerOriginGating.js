@@ -15,11 +15,23 @@ __d(
         : "unknown";
     }
     function c(t) {
-      if (t == null) return "notServerOrigin";
+      if (t == null) return { verdict: "notServerOrigin" };
       var n = r("MinosServerOriginContentType").cast(t);
-      return n != null && s() && e.has(n) ? "supported" : "unsupported";
+      return n == null
+        ? { reason: "server_origin_type_unknown", verdict: "unsupported" }
+        : e.has(n)
+          ? s()
+            ? { verdict: "supported" }
+            : { reason: "server_origin_gk_disabled", verdict: "unsupported" }
+          : {
+              reason: "server_origin_type_not_allowlisted",
+              verdict: "unsupported",
+            };
     }
     function d(e) {
+      return c(e).verdict;
+    }
+    function m(e) {
       return e.xmatThreadNickname != null
         ? 1
         : e.xmatThreadQuickReaction != null
@@ -38,14 +50,15 @@ __d(
                       ? 8
                       : null;
     }
-    function m(e) {
-      var t = d(e);
-      return t != null && c(t) === "supported";
+    function p(e) {
+      var t = m(e);
+      return t != null && d(t) === "supported";
     }
     ((l.isServerOriginAdminMessageEnabled = s),
       (l.serverOriginContentTypeName = u),
-      (l.classifyServerOriginContent = c),
-      (l.isSupportedServerOriginAdminMessage = m));
+      (l.classifyServerOriginContentWithReason = c),
+      (l.classifyServerOriginContent = d),
+      (l.isSupportedServerOriginAdminMessage = p));
   },
   98,
 );

@@ -1,29 +1,27 @@
 __d(
   "WAWebMessageRenderQpl",
-  ["QPLFlow", "WAWebABProps", "WAWebChatCollection", "qpl"],
+  ["QPLFlow", "WAWebChatCollection", "gkx", "qpl"],
   function (t, n, r, o, a, i, l) {
     var e = r("qpl")._(891426174, "3263"),
       s = 60 * 1e3,
       u = 200,
       c = new Map();
-    function d(t, n, r) {
-      var a;
+    function d(t, n, a) {
+      var i;
       if (
-        o("WAWebABProps").getABPropConfigValue(
-          "wmi_wa_web_message_delivery_qpl_instrumentation",
-        ) &&
-        ((a = o("WAWebChatCollection").ChatCollection.get(t)) == null
+        r("gkx")("20665") &&
+        ((i = o("WAWebChatCollection").ChatCollection.get(t)) == null
           ? void 0
-          : a.active) === !0
+          : i.active) === !0
       ) {
-        var i = t.isGroup(),
-          l = new Set(
-            r.map(function (e) {
+        var l = t.isGroup(),
+          u = new Set(
+            a.map(function (e) {
               return String(e.id);
             }),
           );
         n.filter(function (e) {
-          return e.isNewMsg === !0 && !e.id.fromMe && l.has(e.id.toString());
+          return e.isNewMsg === !0 && !e.id.fromMe && u.has(e.id.toString());
         }).forEach(function (t) {
           var n,
             r = t.id.toString();
@@ -33,7 +31,7 @@ __d(
               r,
               o("QPLFlow").startQPLFlow(e, {
                 annotations: {
-                  bool: { is_group: i },
+                  bool: { is_group: l },
                   string: { msg_type: (n = t.type) != null ? n : "unknown" },
                 },
                 timeoutInMs: s,

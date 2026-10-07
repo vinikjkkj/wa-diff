@@ -63,13 +63,53 @@ __d(
       for (var n of e) n != null && n > t && (t = n);
       return o("WATimeUtils").castToUnixTime(t);
     }
+    function _(e) {
+      var t, n;
+      return e.fieldType === "TEXT"
+        ? (t = e.textValue) != null
+          ? t
+          : ""
+        : e.fieldType === "DATE"
+          ? (n = e.dateValue) != null
+            ? n
+            : ""
+          : e.fieldType === "NUMERIC"
+            ? e.numericValue != null
+              ? String(e.numericValue)
+              : ""
+            : e.fieldType === "MONEY"
+              ? g(e)
+              : e.fieldType === "ENUM"
+                ? f(e)
+                : "";
+    }
+    function f(e) {
+      var t,
+        n = e.enumLabels,
+        r = e.enumOptionKey,
+        o = e.enumOptionKeys;
+      return r == null ? "" : (t = n[o.indexOf(r)]) != null ? t : "";
+    }
+    function g(e) {
+      var t = e.currencyDecimalPlaces,
+        n = e.moneyAmount;
+      if (n == null || t == null) return "";
+      var r = n < 0 ? "-" : "";
+      return "" + r + h(Math.abs(n), t);
+    }
+    function h(e, t) {
+      if (t <= 0) return String(e);
+      var n = String(e).padStart(t + 1, "0");
+      return n.slice(0, -t) + "." + n.slice(-t);
+    }
     ((l.toLeadStageType = e),
       (l.toLeadStageFilterText = s),
       (l.toAcquisitionSourceFilterText = u),
       (l.toProfileAcquisitionSourceId = c),
       (l.fromProfileAcquisitionSourceId = d),
       (l.toOptionalUnixTime = m),
-      (l.latestUpdateTs = p));
+      (l.latestUpdateTs = p),
+      (l.formatCustomFieldValue = _));
   },
   98,
 );

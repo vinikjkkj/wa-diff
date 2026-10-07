@@ -18,6 +18,7 @@ __d(
               dbMainThreadDurationT: [40, e.TYPES.TIMER],
               dbMainThreadReadsCount: [41, e.TYPES.INTEGER],
               dbMainThreadWritesCount: [42, e.TYPES.INTEGER],
+              dbOperationCountsByDatabase: [59, e.TYPES.STRING],
               dbReadsCount: [43, e.TYPES.INTEGER],
               dbWritesCount: [44, e.TYPES.INTEGER],
               dedupKey: [58, e.TYPES.INTEGER],

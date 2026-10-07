@@ -29,7 +29,10 @@ __d(
               a,
               "document",
               "application/pdf",
-              !1,
+              {
+                strictOggOpusValidationEnabled: !1,
+                strictMp4ValidationEnabled: !1,
+              },
             );
           if (
             !l.success ||

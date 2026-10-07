@@ -271,21 +271,29 @@ __d(
                 .sendLogs("getUserSubtitleText-not-user"),
               null
             );
-          var e = this.chatstate;
-          switch (e.type) {
+          switch (this.chatstate.type) {
             case "available":
-              return s._(/*BTDS*/ "online");
+              return T();
             case "typing":
-              return t ? s._(/*BTDS*/ "online") : s._(/*BTDS*/ "typing\u2026");
+              return t
+                ? this.$PresenceImpl$p_4()
+                : s._(/*BTDS*/ "typing\u2026");
             case "recording_audio":
               return t
-                ? s._(/*BTDS*/ "online")
+                ? this.$PresenceImpl$p_4()
                 : s._(/*BTDS*/ "recording audio\u2026");
             case "unavailable":
-              return e.deny || e.t == null
-                ? null
-                : o("WAWebClock").Clock.lastSeenStr(e.t);
+              return this.$PresenceImpl$p_5();
           }
+        }),
+        (a.$PresenceImpl$p_4 = function () {
+          return this.isOnline ? T() : this.$PresenceImpl$p_5();
+        }),
+        (a.$PresenceImpl$p_5 = function () {
+          var e = this.chatstate,
+            t = e.deny,
+            n = e.t;
+          return t || n == null ? null : o("WAWebClock").Clock.lastSeenStr(n);
         }),
         (a.getFormattedString = function (t) {
           if (this.hasData) {
@@ -376,7 +384,7 @@ __d(
           var e = this.chatActive;
           if (e)
             try {
-              this.$PresenceImpl$p_4();
+              this.$PresenceImpl$p_6();
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -399,7 +407,7 @@ __d(
                 (self.clearTimeout(this.forceDisplayTimer),
                 (this.forceDisplayTimer = void 0)));
         }),
-        (a.$PresenceImpl$p_4 = function () {
+        (a.$PresenceImpl$p_6 = function () {
           var e = this;
           o("WAWebPresenceGetters").getIsGroup(this) &&
             this.$PresenceImpl$p_1();
@@ -411,7 +419,7 @@ __d(
             n = this.$PresenceImpl$p_3(),
             r = n && o("WAWebContactGetters").getIsMe(n),
             a = [],
-            i = this.$PresenceImpl$p_5();
+            i = this.$PresenceImpl$p_7();
           if (i != null && o("WAWebChatGetters").getIsGroup(i))
             a = this.getGroupStages(i);
           else if (r === !0)
@@ -531,7 +539,7 @@ __d(
         (a.getCollection = function () {
           return o("WAWebPresenceCollection").PresenceCollection;
         }),
-        (a.$PresenceImpl$p_5 = function () {
+        (a.$PresenceImpl$p_7 = function () {
           if (o("WAWebPresenceGetters").getIsGroup(this))
             return o("WAWebChatCollection").ChatCollection.get(this.id);
           if (
@@ -668,6 +676,9 @@ __d(
       }
       var i = o("WAWebFrontendContactGetters").getFormattedShortName(n);
       return { name: i, accessibleName: i };
+    }
+    function T() {
+      return s._(/*BTDS*/ "online");
     }
     ((l.processStagesRecursively = S), (l.Presence = L), (l.Chatstate = h));
   },

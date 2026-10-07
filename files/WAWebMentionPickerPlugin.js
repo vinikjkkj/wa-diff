@@ -6,6 +6,7 @@ __d(
     "LexicalComposerContext",
     "WAWebABProps",
     "WAWebBotDisclaimerManager",
+    "WAWebBotGroupGatingUtils",
     "WAWebBotInvokeUpsellRow.react",
     "WAWebBotLogging",
     "WAWebBotTos",
@@ -103,35 +104,35 @@ __d(
         d = o("LexicalComposerContext").useLexicalComposerContext(),
         m = d[0],
         E = i.groupMetadata,
-        w = p(!1),
-        A = w[0],
-        F = w[1],
-        O;
-      a[0] !== E ? ((O = R(E)), (a[0] = E), (a[1] = O)) : (O = a[1]);
-      var B = O,
-        W;
-      a[2] !== E ? ((W = L(E)), (a[2] = E), (a[3] = W)) : (W = a[3]);
-      var q = W,
-        U = B || q,
-        V;
-      a[4] !== U
-        ? ((V = { enabled: U, maxQueryLength: C, boundary: !0 }),
-          (a[4] = U),
-          (a[5] = V))
-        : (V = a[5]);
-      var H = o("useWAWebLexicalTypeAhead").useTypeAhead(
+        A = p(!1),
+        F = A[0],
+        O = A[1],
+        B;
+      a[0] !== E ? ((B = R(E)), (a[0] = E), (a[1] = B)) : (B = a[1]);
+      var W = B,
+        q;
+      a[2] !== E ? ((q = L(E)), (a[2] = E), (a[3] = q)) : (q = a[3]);
+      var U = q,
+        V = W || U,
+        H;
+      a[4] !== V
+        ? ((H = { enabled: V, maxQueryLength: C, boundary: !0 }),
+          (a[4] = V),
+          (a[5] = H))
+        : (H = a[5]);
+      var G = o("useWAWebLexicalTypeAhead").useTypeAhead(
           m,
           o("WAWebRichTextInputConst").AT_SYMBOL,
-          V,
+          H,
         ),
-        G = H.leadOffset,
-        z = H.omitQuery,
-        j = H.query,
-        K = H.replaceQuery,
-        Q;
-      a[6] !== K
-        ? ((Q = function (t) {
-            K(
+        z = G.leadOffset,
+        j = G.omitQuery,
+        K = G.query,
+        Q = G.replaceQuery,
+        X;
+      a[6] !== Q
+        ? ((X = function (t) {
+            Q(
               function () {
                 return new (o("Lexical").TextNode)(
                   o("WAWebMentionSuggestionsUtils").formatMention(t),
@@ -140,20 +141,20 @@ __d(
               { trailingSpace: !0 },
             );
           }),
-          (a[6] = K),
-          (a[7] = Q))
-        : (Q = a[7]);
-      var X = Q,
-        Y;
-      a[8] !== i || a[9] !== K || a[10] !== u
-        ? ((Y = (function () {
+          (a[6] = Q),
+          (a[7] = X))
+        : (X = a[7]);
+      var Y = X,
+        J;
+      a[8] !== i || a[9] !== Q || a[10] !== u
+        ? ((J = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               (u !== "forward-append-message" &&
                 o("WAWebComposeBoxActions").ComposeBoxActions.setNonJidMentions(
                   i,
                   1,
                 ),
-                K(P, { trailingSpace: !0 }),
+                Q(P, { trailingSpace: !0 }),
                 o(
                   "WAWebMentionPickerActionLoggingUtils",
                 ).logMentionPickerAction(
@@ -166,17 +167,17 @@ __d(
             };
           })()),
           (a[8] = i),
-          (a[9] = K),
+          (a[9] = Q),
           (a[10] = u),
-          (a[11] = Y))
-        : (Y = a[11]);
-      var J = Y,
-        Z = $,
-        ee;
-      a[12] !== i || a[13] !== X || a[14] !== J
-        ? ((ee = function (t) {
+          (a[11] = J))
+        : (J = a[11]);
+      var Z = J,
+        ee = $,
+        te;
+      a[12] !== i || a[13] !== Y || a[14] !== Z
+        ? ((te = function (t) {
             if (t.type === "mention_all") {
-              J();
+              Z();
               return;
             }
             if (t.type === "contact" || t.type === "group")
@@ -189,7 +190,7 @@ __d(
                   "WAWebLimitSharingUIUtils",
                 ).showLimitSharingInvokeBlockedPopup(i);
               else {
-                X(t.id);
+                Y(t.id);
                 var e =
                   t.type === "contact"
                     ? o("WAWebWamEnumMentionType").MENTION_TYPE.REGULAR_USER
@@ -200,29 +201,28 @@ __d(
               }
           }),
           (a[12] = i),
-          (a[13] = X),
-          (a[14] = J),
-          (a[15] = ee))
-        : (ee = a[15]);
-      var te = ee,
-        ne;
-      a[16] !== i || a[17] !== E || a[18] !== te
-        ? ((ne = function (t) {
+          (a[13] = Y),
+          (a[14] = Z),
+          (a[15] = te))
+        : (te = a[15]);
+      var ne = te,
+        re;
+      a[16] !== i || a[17] !== E || a[18] !== ne
+        ? ((re = function (t) {
             if (
               !(
                 t.type === "contact" &&
                 o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t.id)
               ) &&
-              Z(t)
+              ee(t)
             ) {
               if (t.type === "mention_all") {
-                te(t);
+                ne(t);
                 return;
               }
               if (t.type !== "contact" && t.type !== "group") return;
-              var e = t,
-                n = e.id.isBot();
-              n
+              var e = t;
+              N(e.id)
                 ? o("WAWebBotDisclaimerManager")
                     .enterBotTosFlow({
                       noticeId: String(
@@ -241,30 +241,30 @@ __d(
                               .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_1ON1,
                     })
                     .then(function () {
-                      te(e);
+                      ne(e);
                     })
                     .catch(r("WAWebNoop"))
-                : te(e);
+                : ne(e);
             }
           }),
           (a[16] = i),
           (a[17] = E),
-          (a[18] = te),
-          (a[19] = ne))
-        : (ne = a[19]);
-      var re = ne,
-        oe;
-      a[20] !== z
-        ? ((oe = function () {
-            z();
+          (a[18] = ne),
+          (a[19] = re))
+        : (re = a[19]);
+      var oe = re,
+        ae;
+      a[20] !== j
+        ? ((ae = function () {
+            j();
           }),
-          (a[20] = z),
-          (a[21] = oe))
-        : (oe = a[21]);
-      var ae = oe,
-        ie;
-      a[22] !== i || a[23] !== m || a[24] !== l || a[25] !== X
-        ? ((ie = function (n, a) {
+          (a[20] = j),
+          (a[21] = ae))
+        : (ae = a[21]);
+      var ie = ae,
+        le;
+      a[22] !== i || a[23] !== m || a[24] !== l || a[25] !== Y
+        ? ((le = function (n, a) {
             switch (n.type) {
               case "contact": {
                 var t = n,
@@ -273,7 +273,7 @@ __d(
                     "WAWebLimitSharingUIUtils",
                   ).isLimitSharingReceiverEnabledForUsers(i, [t.id]),
                   p = u || d;
-                return t.id.isBot() &&
+                return N(t.id) &&
                   !o("WAWebBotTos").hasSeenMasterBotTos() &&
                   !o("WAWebBotTos").hasSeenInvokeTos() &&
                   !p
@@ -287,7 +287,7 @@ __d(
                         theme: null,
                         selected: a,
                         disabled: p,
-                        disabledCTA: N(u, d),
+                        disabledCTA: M(u, d),
                         elevatedPushNamesEnabled: l,
                       },
                       t.contact.id.toString(),
@@ -323,8 +323,8 @@ __d(
                     selected: a,
                     elevatedPushNamesEnabled: l,
                     onAddConfirmed: function (t) {
-                      (F(!1),
-                        X(t.id),
+                      (O(!1),
+                        Y(t.id),
                         o(
                           "WAWebMentionPickerActionLoggingUtils",
                         ).logMentionPickerAction(
@@ -335,10 +335,10 @@ __d(
                         ));
                     },
                     onAddCancelled: function () {
-                      (F(!1), m.focus());
+                      (O(!1), m.focus());
                     },
                     onAddDialogShown: function () {
-                      F(!0);
+                      O(!0);
                     },
                   },
                   g.contact.id.toString(),
@@ -373,349 +373,349 @@ __d(
           (a[22] = i),
           (a[23] = m),
           (a[24] = l),
-          (a[25] = X),
-          (a[26] = ie))
-        : (ie = a[26]);
-      var le = ie,
-        se;
+          (a[25] = Y),
+          (a[26] = le))
+        : (le = a[26]);
+      var se = le,
+        ue;
       e: {
-        var ue = o(
+        var ce = o(
           "WAWebTextStatusGatingUtils",
         ).receiveTextStatusForNewSurfacesEnabled()
           ? h
           : g;
-        if (j == null) {
-          se = null;
+        if (K == null) {
+          ue = null;
           break e;
         }
         if (E == null) {
-          se = null;
+          ue = null;
           break e;
         }
-        var ce = m.getEditorState().read(x);
-        if (ce) {
-          se = null;
+        var de = m.getEditorState().read(x);
+        if (de) {
+          ue = null;
           break e;
         }
-        var de;
+        var me;
         if (
-          a[27] !== q ||
+          a[27] !== U ||
           a[28] !== E ||
-          a[29] !== j ||
+          a[29] !== K ||
           a[30] !== u ||
-          a[31] !== B
+          a[31] !== W
         ) {
-          de = [];
-          var me = B && q;
+          me = [];
+          var pe = W && U;
           if (
             (E == null ? void 0 : E.id) != null &&
-            M({ groupMetadata: E, query: j, source: u })
+            w({ groupMetadata: E, query: K, source: u })
           ) {
-            var pe;
-            (a[33] !== E.id || a[34] !== de.length || a[35] !== j
-              ? ((pe = {
+            var _e;
+            (a[33] !== E.id || a[34] !== me.length || a[35] !== K
+              ? ((_e = {
                   type: "mention_all",
                   selectable: !0,
-                  index: de.length,
+                  index: me.length,
                   itemKey: "mention-all",
-                  height: ue,
-                  contentKey: j,
+                  height: ce,
+                  contentKey: K,
                   id: E.id,
-                  query: j,
+                  query: K,
                 }),
                 (a[33] = E.id),
-                (a[34] = de.length),
-                (a[35] = j),
-                (a[36] = pe))
-              : (pe = a[36]),
-              de.push(pe));
+                (a[34] = me.length),
+                (a[35] = K),
+                (a[36] = _e))
+              : (_e = a[36]),
+              me.push(_e));
           }
-          var _e = [];
-          B &&
-            ((_e = o("WAWebMentionsPluginUtil").getUserResults(j, E)),
-            u === "forward-append-message" && (_e = _e.filter(D)));
           var fe = [];
-          q &&
+          W &&
+            ((fe = o("WAWebMentionsPluginUtil").getUserResults(K, E)),
+            u === "forward-append-message" && (fe = fe.filter(D)));
+          var ge = [];
+          U &&
             E != null &&
-            (fe = o("WAWebMentionsPluginUtil").getSubgroupResults(j, E));
-          var ge = Math.min(fe.length, S),
-            he = me && ge !== 0 ? 1 : 0,
-            ye = v - de.length - ge - he,
-            Ce = me && _e.length !== 0 && ye > 1 ? 1 : 0,
-            be = Math.max(0, ye - Ce),
-            ve = _e.slice(0, be);
-          if (ve.length !== 0) {
-            var Se;
-            if (Ce !== 0) {
-              var Re;
-              (a[37] !== de.length
-                ? ((Re = {
-                    index: de.length,
+            (ge = o("WAWebMentionsPluginUtil").getSubgroupResults(K, E));
+          var he = Math.min(ge.length, S),
+            ye = pe && he !== 0 ? 1 : 0,
+            Ce = v - me.length - he - ye,
+            be = pe && fe.length !== 0 && Ce > 1 ? 1 : 0,
+            ve = Math.max(0, Ce - be),
+            Se = fe.slice(0, ve);
+          if (Se.length !== 0) {
+            var Re;
+            if (be !== 0) {
+              var Le;
+              (a[37] !== me.length
+                ? ((Le = {
+                    index: me.length,
                     itemKey: "section-contacts",
                     type: "contact_header",
                     selectable: !1,
                     height: f,
                   }),
-                  (a[37] = de.length),
-                  (a[38] = Re))
-                : (Re = a[38]),
-                de.push(Re));
+                  (a[37] = me.length),
+                  (a[38] = Le))
+                : (Le = a[38]),
+                me.push(Le));
             }
-            var Le = de.length,
-              Ee;
-            (a[39] !== Le || a[40] !== j
-              ? ((Ee = function (t, n) {
+            var Ee = me.length,
+              ke;
+            (a[39] !== Ee || a[40] !== K
+              ? ((ke = function (t, n) {
                   return {
                     type: "contact",
                     selectable: !0,
                     contact: t,
                     id: t.id,
-                    height: ue,
+                    height: ce,
                     itemKey: t.id.toString(),
-                    contentKey: j,
-                    index: Le + n,
-                    query: j,
+                    contentKey: K,
+                    index: Ee + n,
+                    query: K,
                   };
                 }),
-                (a[39] = Le),
-                (a[40] = j),
-                (a[41] = Ee))
-              : (Ee = a[41]),
-              (Se = de).push.apply(Se, ve.map(Ee)));
+                (a[39] = Ee),
+                (a[40] = K),
+                (a[41] = ke))
+              : (ke = a[41]),
+              (Re = me).push.apply(Re, Se.map(ke)));
           }
-          var ke = Math.max(0, v - de.length - he),
-            Ie = fe.slice(0, ke);
-          if (Ie.length !== 0) {
-            var Te;
-            if (he !== 0) {
-              var De;
-              (a[42] !== de.length
-                ? ((De = {
-                    index: de.length,
+          var Ie = Math.max(0, v - me.length - ye),
+            Te = ge.slice(0, Ie);
+          if (Te.length !== 0) {
+            var De;
+            if (ye !== 0) {
+              var xe;
+              (a[42] !== me.length
+                ? ((xe = {
+                    index: me.length,
                     itemKey: "section-groups",
                     type: "group_header",
                     selectable: !1,
                     height: f,
                   }),
-                  (a[42] = de.length),
-                  (a[43] = De))
-                : (De = a[43]),
-                de.push(De));
+                  (a[42] = me.length),
+                  (a[43] = xe))
+                : (xe = a[43]),
+                me.push(xe));
             }
-            var xe = de.length,
-              $e;
-            (a[44] !== j || a[45] !== xe
-              ? (($e = function (t, n) {
+            var $e = me.length,
+              Pe;
+            (a[44] !== K || a[45] !== $e
+              ? ((Pe = function (t, n) {
                   return {
                     type: "group",
                     selectable: !0,
                     groupMetadata: t,
                     id: t.id,
-                    height: ue,
+                    height: ce,
                     itemKey: t.id.toString(),
-                    contentKey: j,
-                    index: xe + n,
-                    query: j,
+                    contentKey: K,
+                    index: $e + n,
+                    query: K,
                   };
                 }),
-                (a[44] = j),
-                (a[45] = xe),
-                (a[46] = $e))
-              : ($e = a[46]),
-              (Te = de).push.apply(Te, Ie.map($e)));
+                (a[44] = K),
+                (a[45] = $e),
+                (a[46] = Pe))
+              : (Pe = a[46]),
+              (De = me).push.apply(De, Te.map(Pe)));
           }
-          ((a[27] = q),
+          ((a[27] = U),
             (a[28] = E),
-            (a[29] = j),
+            (a[29] = K),
             (a[30] = u),
-            (a[31] = B),
-            (a[32] = de));
-        } else de = a[32];
-        se = de.length ? de : null;
+            (a[31] = W),
+            (a[32] = me));
+        } else me = a[32];
+        ue = me.length ? me : null;
       }
-      var Pe = se,
-        Ne;
+      var Ne = ue,
+        Me;
       e: {
         if (
           !o("WAWebABProps").getABPropConfigValue(
             "enhanced_mention_suggestions_non_group_members_enabled",
           )
         ) {
-          Ne = !1;
+          Me = !1;
           break e;
         }
         if (E == null) {
-          Ne = !1;
+          Me = !1;
           break e;
         }
         if (u !== "chat-composer") {
-          Ne = !1;
+          Me = !1;
           break e;
         }
         if (
           o("WAWebGroupMetadataGetters").getGroupType(E) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
         ) {
-          Ne = !1;
+          Me = !1;
           break e;
         }
         if (!E.participants.canAdd()) {
-          Ne = !1;
+          Me = !1;
           break e;
         }
-        var Me = E.parentGroup;
-        if (Me != null && !E.participants.iAmAdmin()) {
-          var we = r("WAWebGroupMetadataCollection").get(Me),
-            Ae = o(
+        var we = E.parentGroup;
+        if (we != null && !E.participants.iAmAdmin()) {
+          var Ae = r("WAWebGroupMetadataCollection").get(we),
+            Fe = o(
               "WAWebCommunityAnnouncementGroupUtils",
-            ).getCommunityAnnouncementGroup(we);
+            ).getCommunityAnnouncementGroup(Ae);
           if (
-            Ae != null &&
-            Ae.memberAddMode !==
+            Fe != null &&
+            Fe.memberAddMode !==
               o("WAWebSchemaGroupMetadata").MemberAddMode.ALL_MEMBER_ADD
           ) {
-            Ne = !1;
+            Me = !1;
             break e;
           }
         }
-        Ne = !0;
+        Me = !0;
       }
-      var Fe = Ne,
-        Oe;
+      var Oe = Me,
+        Be;
       e: {
-        if (j == null || !Fe) {
-          Oe = !1;
+        if (K == null || !Oe) {
+          Be = !1;
           break e;
         }
-        var Be = r("countWhere")(Pe != null ? Pe : [], T);
-        if (Be > 0) {
-          Oe = !1;
-          break e;
-        }
-        var We = o("WAWebABProps").getABPropConfigValue(
-          "enhanced_mention_limit",
-        );
-        if (We <= 0) {
-          Oe = !1;
+        var We = r("countWhere")(Ne != null ? Ne : [], T);
+        if (We > 0) {
+          Be = !1;
           break e;
         }
         var qe = o("WAWebABProps").getABPropConfigValue(
+          "enhanced_mention_limit",
+        );
+        if (qe <= 0) {
+          Be = !1;
+          break e;
+        }
+        var Ue = o("WAWebABProps").getABPropConfigValue(
           "enhanced_mention_suggestions_min_mention_char_count",
         );
-        if (qe > 0 && j.length < qe) {
-          Oe = !1;
+        if (Ue > 0 && K.length < Ue) {
+          Be = !1;
           break e;
         }
-        Oe = !0;
+        Be = !0;
       }
-      var Ue = Oe,
-        Ve;
+      var Ve = Be,
+        He;
       e: {
-        if (!Ue || E == null) {
-          Ve = null;
+        if (!Ve || E == null) {
+          He = null;
           break e;
         }
-        var He;
+        var Ge;
         (a[47] !== E
-          ? ((He = o("WAWebMentionsPluginUtil").getNonParticipantCandidates(E)),
+          ? ((Ge = o("WAWebMentionsPluginUtil").getNonParticipantCandidates(E)),
             (a[47] = E),
-            (a[48] = He))
-          : (He = a[48]),
-          (Ve = He));
+            (a[48] = Ge))
+          : (Ge = a[48]),
+          (He = Ge));
       }
-      var Ge = Ve,
-        ze;
-      if (a[49] !== Ge || a[50] !== j) {
+      var ze = He,
+        je;
+      if (a[49] !== ze || a[50] !== K) {
         e: {
-          if (j == null || Ge == null) {
-            ze = null;
+          if (K == null || ze == null) {
+            je = null;
             break e;
           }
-          var je = o("WAWebABProps").getABPropConfigValue(
+          var Ke = o("WAWebABProps").getABPropConfigValue(
             "enhanced_mention_limit",
           );
-          if (je <= 0) {
-            ze = null;
+          if (Ke <= 0) {
+            je = null;
             break e;
           }
-          var Ke = o("WAWebMentionsPluginUtil").filterContactsByQuery(j, Ge);
-          if (Ke.length === 0) {
-            ze = null;
+          var Qe = o("WAWebMentionsPluginUtil").filterContactsByQuery(K, ze);
+          if (Qe.length === 0) {
+            je = null;
             break e;
           }
-          var Qe = o(
+          var Xe = o(
               "WAWebTextStatusGatingUtils",
             ).receiveTextStatusForNewSurfacesEnabled()
               ? h
               : g,
-            Xe = [],
-            Ye;
+            Ye = [],
+            Je;
           (a[52] === Symbol.for("react.memo_cache_sentinel")
-            ? ((Ye = {
+            ? ((Je = {
                 index: 0,
                 itemKey: "section-non-participants-separator",
                 type: "non_participant_separator",
                 selectable: !1,
                 height: y,
               }),
-              (a[52] = Ye))
-            : (Ye = a[52]),
-            Xe.push(Ye));
-          var Je;
-          a[53] !== j
-            ? ((Je = function (t, n) {
+              (a[52] = Je))
+            : (Je = a[52]),
+            Ye.push(Je));
+          var Ze;
+          a[53] !== K
+            ? ((Ze = function (t, n) {
                 return {
                   type: "non_participant_contact",
                   selectable: !0,
                   contact: t,
                   id: t.id,
-                  height: Qe,
+                  height: Xe,
                   itemKey: "non-participant-" + t.id.toString(),
-                  contentKey: j,
+                  contentKey: K,
                   index: n + 1,
-                  query: j,
+                  query: K,
                 };
               }),
-              (a[53] = j),
-              (a[54] = Je))
-            : (Je = a[54]);
-          var Ze = Ke.slice(0, je).map(Je);
-          (Xe.push.apply(Xe, Ze), (ze = Xe));
+              (a[53] = K),
+              (a[54] = Ze))
+            : (Ze = a[54]);
+          var et = Qe.slice(0, Ke).map(Ze);
+          (Ye.push.apply(Ye, et), (je = Ye));
         }
-        ((a[49] = Ge), (a[50] = j), (a[51] = ze));
-      } else ze = a[51];
-      var et = ze,
-        tt;
+        ((a[49] = ze), (a[50] = K), (a[51] = je));
+      } else je = a[51];
+      var tt = je,
+        nt;
       e: {
-        if (Pe == null && et == null) {
-          tt = null;
+        if (Ne == null && tt == null) {
+          nt = null;
           break e;
         }
-        var nt;
-        if (a[55] !== et || a[56] !== Pe) {
-          if (((nt = []), Pe != null)) {
-            var rt;
-            (rt = nt).push.apply(rt, Pe);
+        var rt;
+        if (a[55] !== tt || a[56] !== Ne) {
+          if (((rt = []), Ne != null)) {
+            var ot;
+            (ot = rt).push.apply(ot, Ne);
           }
-          if (et != null) {
-            var ot, at;
-            a[58] !== et
-              ? ((at = et.filter(I)), (a[58] = et), (a[59] = at))
-              : (at = a[59]);
-            var it = at;
-            (ot = nt).push.apply(ot, it);
+          if (tt != null) {
+            var at, it;
+            a[58] !== tt
+              ? ((it = tt.filter(I)), (a[58] = tt), (a[59] = it))
+              : (it = a[59]);
+            var lt = it;
+            (at = rt).push.apply(at, lt);
           }
-          ((a[55] = et), (a[56] = Pe), (a[57] = nt));
-        } else nt = a[57];
-        tt = nt.length > 0 ? nt : null;
+          ((a[55] = tt), (a[56] = Ne), (a[57] = rt));
+        } else rt = a[57];
+        nt = rt.length > 0 ? rt : null;
       }
-      var lt = tt,
-        st,
-        ut;
-      a[60] !== lt || a[61] !== le || a[62] !== re || a[63] !== A
-        ? ((st = A
+      var st = nt,
+        ut,
+        ct;
+      a[60] !== st || a[61] !== se || a[62] !== oe || a[63] !== F
+        ? ((ut = F
             ? []
-            : (lt != null ? lt : []).map(function (e) {
+            : (st != null ? st : []).map(function (e) {
                 var t =
                   e.type === "contact_header" ||
                   e.type === "group_header" ||
@@ -724,10 +724,10 @@ __d(
                     o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id));
                 return {
                   renderFn: function (n) {
-                    return le(e, n);
+                    return se(e, n);
                   },
                   onSelect: function () {
-                    return re(e);
+                    return oe(e);
                   },
                   width: 360,
                   height: r("nullthrows")(e.height),
@@ -735,31 +735,31 @@ __d(
                   disabled: t,
                 };
               })),
-          (ut = st.findIndex(k)),
-          (a[60] = lt),
-          (a[61] = le),
-          (a[62] = re),
-          (a[63] = A),
-          (a[64] = st),
-          (a[65] = ut))
-        : ((st = a[64]), (ut = a[65]));
-      var ct = ut,
-        dt;
+          (ct = ut.findIndex(k)),
+          (a[60] = st),
+          (a[61] = se),
+          (a[62] = oe),
+          (a[63] = F),
+          (a[64] = ut),
+          (a[65] = ct))
+        : ((ut = a[64]), (ct = a[65]));
+      var dt = ct,
+        mt;
       return (
-        a[66] !== ct || a[67] !== ae || a[68] !== st || a[69] !== G
-          ? ((dt = c.jsx(r("WAWebLexicalTypeAheadList.react"), {
-              leadOffset: G,
-              items: st,
-              onCancel: ae,
-              startingIndex: ct,
+        a[66] !== dt || a[67] !== ie || a[68] !== ut || a[69] !== z
+          ? ((mt = c.jsx(r("WAWebLexicalTypeAheadList.react"), {
+              leadOffset: z,
+              items: ut,
+              onCancel: ie,
+              startingIndex: dt,
             })),
-            (a[66] = ct),
-            (a[67] = ae),
-            (a[68] = st),
-            (a[69] = G),
-            (a[70] = dt))
-          : (dt = a[70]),
-        dt
+            (a[66] = dt),
+            (a[67] = ie),
+            (a[68] = ut),
+            (a[69] = z),
+            (a[70] = mt))
+          : (mt = a[70]),
+        mt
       );
     }
     function k(e) {
@@ -790,7 +790,13 @@ __d(
         text: "@all",
       });
     }
-    function N(e, t) {
+    function N(e) {
+      return e.isBot()
+        ? o("WAWebBotUtils").isMetaAiBot(e) ||
+            !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+        : !1;
+    }
+    function M(e, t) {
       return e
         ? c.jsx("div", {
             className: "xhslqc4",
@@ -803,8 +809,8 @@ __d(
             })
           : null;
     }
-    N.displayName = N.name + " [from " + i.id + "]";
-    function M(e) {
+    M.displayName = M.name + " [from " + i.id + "]";
+    function w(e) {
       var t,
         n,
         r = e.groupMetadata,

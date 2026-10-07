@@ -58,6 +58,9 @@ __d(
               strictOggOpusValidationEnabled: o(
                 "WAWebABProps",
               ).getABPropConfigValue("ks_ogg_opus_strict_validation_enabled"),
+              strictMp4ValidationEnabled: o(
+                "WAWebABProps",
+              ).getABPropConfigValue("ks_mp4_strict_validation_enabled"),
             }),
           );
         })),

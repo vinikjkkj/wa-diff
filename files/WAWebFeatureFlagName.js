@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum").Mirrored([
       "ADS_CREDIT",
+      "BIZ_WA_CONTACT_MANAGER",
       "BUSINESS_BROADCAST",
       "BUSINESS_SEARCH",
       "CHAT_ASSIGNMENT",

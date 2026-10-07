@@ -45,7 +45,14 @@ __d(
         i = o.timestamp;
       return { mediaKey: a, mediaKeyTimestamp: i };
     }
-    var R = (function () {
+    function R(e, t) {
+      if (e !== o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT) return !1;
+      var n = o("WAWebABProps").getABPropConfigValue(
+        "web_streaming_document_encrypt_min_bytes",
+      );
+      return n > 0 && t.size >= n;
+    }
+    var L = (function () {
       function t(t) {
         var a = this;
         ((this.$1 = r("WAMemoizeConcurrent")(
@@ -301,31 +308,24 @@ __d(
                 _ = t.handleCheckExistingError,
                 b = t.handleCheckExistingSuccess,
                 v = t.handleEncryptionStart,
-                R = t.handleEncryptionSuccess,
-                E = t.handleStreamUploadStart,
-                k = t.handleUploadAttemptError,
-                I = t.handleUploadAttemptSuccess,
-                T = t.handleUploadError,
-                D = t.handleUploadHostFound,
-                x = t.handleUploadProgress,
-                $ = t.handleUploadSuccess,
-                P = t.mediaId,
-                N = function (t, n) {
+                L = t.handleEncryptionSuccess,
+                k = t.handleStreamUploadStart,
+                I = t.handleUploadAttemptError,
+                T = t.handleUploadAttemptSuccess,
+                D = t.handleUploadError,
+                x = t.handleUploadHostFound,
+                $ = t.handleUploadProgress,
+                P = t.handleUploadSuccess,
+                N = t.mediaId,
+                M = function (t, n) {
                   u == null || u(t, n);
                   var e = n + t.loaded;
-                  x(e);
+                  $(e);
                 };
               try {
-                var M = S(e),
-                  w =
-                    d === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
-                    i instanceof Blob
-                      ? o("WAWebABProps").getABPropConfigValue(
-                          "web_streaming_document_encrypt_min_bytes",
-                        )
-                      : 0,
+                var w = S(e),
                   A;
-                if (w > 0 && i instanceof Blob && i.size >= w) {
+                if (i instanceof Blob && R(d, i)) {
                   var F = i;
                   A = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
@@ -338,7 +338,7 @@ __d(
                         return yield a.deps.encryptMediaFromBlob({
                           type: d,
                           blob: F,
-                          mediaKey: M.mediaKey,
+                          mediaKey: w.mediaKey,
                         });
                       } finally {
                         a.deps.appTracker.stop(
@@ -366,7 +366,7 @@ __d(
                           .encryptMedia({
                             type: d,
                             plaintext: e,
-                            mediaKey: M.mediaKey,
+                            mediaKey: w.mediaKey,
                           })
                           .finally(function () {
                             a.deps.appTracker.stop(
@@ -382,7 +382,7 @@ __d(
                       o = t.firstFrameSidecar,
                       i = t.hash,
                       u = t.sidecar;
-                    R();
+                    L();
                     var m = e.mediaKey
                       ? a.getExistingOrUpload
                       : a.memoizedUpload;
@@ -393,21 +393,21 @@ __d(
                       signal: c,
                       onCheckExistingSuccess: b,
                       onCheckExistingError: _,
-                      onUploadHostFound: D,
-                      onUploadAttemptSuccess: I,
-                      onUploadAttemptError: k,
-                      onUploadSuccess: $,
-                      onProgress: N,
+                      onUploadHostFound: x,
+                      onUploadAttemptSuccess: T,
+                      onUploadAttemptError: I,
+                      onUploadSuccess: P,
+                      onProgress: M,
                       onFinalize: s,
-                      onStreamUploadStart: E,
-                      mediaId: P,
+                      onStreamUploadStart: k,
+                      mediaId: N,
                       token: (n = e.token) != null ? n : i,
                     }).then(function (e) {
                       return {
-                        directPath: l ? L(e.directPath) : e.directPath,
+                        directPath: l ? E(e.directPath) : e.directPath,
                         encFilehash: i,
-                        mediaKey: M.mediaKey,
-                        mediaKeyTimestamp: M.mediaKeyTimestamp,
+                        mediaKey: w.mediaKey,
+                        mediaKeyTimestamp: w.mediaKeyTimestamp,
                         sidecar: u,
                         firstFrameSidecar: o,
                         url: e.url,
@@ -450,7 +450,7 @@ __d(
                         "upload_failed",
                         r("getErrorSafe")(t).message,
                       )),
-                  T(r("getErrorSafe")(t)),
+                  D(r("getErrorSafe")(t)),
                   t
                 );
               }
@@ -464,7 +464,7 @@ __d(
         t
       );
     })();
-    function L(e) {
+    function E(e) {
       var t = e.split("?"),
         n = t[0],
         r = t[1],
@@ -472,7 +472,9 @@ __d(
         i = o("WATimeUtils").unixTime();
       return (a.set("_nc_hot", String(i)), n + "?" + a.toString());
     }
-    ((l.getNextUploadId = v), (l.UploadManagerBase = R));
+    ((l.getNextUploadId = v),
+      (l.shouldStreamEncrypt = R),
+      (l.UploadManagerBase = L));
   },
   98,
 );

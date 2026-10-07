@@ -38,7 +38,8 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-            r = babelHelpers.extends(
+            r = o("WAWebUserPrefsGeneral").getPushname(),
+            a = babelHelpers.extends(
               {},
               yield f(t),
               {
@@ -49,6 +50,7 @@ __d(
                 lidDbMigrated: o(
                   "WAWebLid1X1MigrationGating",
                 ).Lid1X1MigrationUtils.isLidMigrated(),
+                pushName: r != null && r !== "" ? r : void 0,
               },
               s,
             );
@@ -64,7 +66,7 @@ __d(
               )
               .tags("launch-socket-chat"),
             o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, r)
+              .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, a)
               .readByteArrayView()
           );
         })),

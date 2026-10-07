@@ -2,6 +2,7 @@ __d(
   "WAWebQbmMessageLevelActionWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumContactType",
     "WAWebWamEnumMessageActionEntryPoint",
     "WAWebWamEnumMessageLevelAction",
@@ -20,6 +21,10 @@ __d(
               bodyUrlCountInt: [23, e.TYPES.INTEGER],
               bodyUrlUniqueCountInt: [24, e.TYPES.INTEGER],
               buttonValueJsonArray: [16, e.TYPES.STRING],
+              chatsFolderType: [
+                40,
+                o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE,
+              ],
               contactType: [2, o("WAWebWamEnumContactType").CONTACT_TYPE],
               ctaUrlUniqueCountInt: [25, e.TYPES.INTEGER],
               decisionId: [13, e.TYPES.STRING],

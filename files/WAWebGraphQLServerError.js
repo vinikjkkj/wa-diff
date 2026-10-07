@@ -5,6 +5,7 @@ __d(
     var e = n("$InternalEnum")({
         INVALID_ACCESS_TOKEN: 190,
         RATE_LIMIT_EXCEEDED: 1675004,
+        CONTACT_MANAGER_SUBSCRIPTION_REQUIRED: 2494193,
         BUSINESS_BANHAMMERED: 2859017,
         AD_ACCOUNT_LINKING_DISABLED: 2859050,
       }),
@@ -20,19 +21,25 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function s(t) {
-      var n, r;
+    function s(t, n) {
+      var r, o;
       return t instanceof l
-        ? ((n = (r = t.source) == null ? void 0 : r.errors) != null
-            ? n
+        ? ((r = (o = t.source) == null ? void 0 : o.errors) != null
+            ? r
             : []
           ).some(function (t) {
-            var n = t.code;
-            return e.cast(n) === e.RATE_LIMIT_EXCEEDED;
+            var r = t.code;
+            return e.cast(r) === n;
           })
         : !1;
     }
-    function u(e) {
+    function u(t) {
+      return s(t, e.RATE_LIMIT_EXCEEDED);
+    }
+    function c(t) {
+      return s(t, e.CONTACT_MANAGER_SUBSCRIPTION_REQUIRED);
+    }
+    function d(e) {
       var t,
         n,
         r = (t = (n = e.source) == null ? void 0 : n.errors) != null ? t : [];
@@ -50,8 +57,9 @@ __d(
     }
     ((i.GraphQLErrorCode = e),
       (i.GraphQLServerError = l),
-      (i.isRateLimitError = s),
-      (i.formatGraphQLServerError = u));
+      (i.isRateLimitError = u),
+      (i.isContactManagerSubscriptionRequiredError = c),
+      (i.formatGraphQLServerError = d));
   },
   66,
 );

@@ -190,7 +190,8 @@ __d(
       );
     }
     ((l.genGroupHistoryReportingTokens = u),
-      (l.computeReportingTokenForMessage = m));
+      (l.computeReportingTokenForMessage = m),
+      (l.deriveReportingTokenContent = _));
   },
   98,
 );

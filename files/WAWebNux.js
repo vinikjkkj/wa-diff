@@ -60,6 +60,7 @@ __d(
         "business_ai_message_editing_discovery_tooltip",
       BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
       CALLS_TAB_NOTIFICATIONS_OFF_BANNER: "calls_tab_notifications_off_banner",
+      TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -114,6 +115,7 @@ __d(
         BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
         PRIVACY_SCREEN_UPSELL_BANNER: "privacy_screen_upsell_banner",
         WEB_CALLING_ACTIVATION_BANNER: "web_calling_activation_banner",
+        TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
       }),
       f = {
         COOL_OFF_NUX: {
@@ -179,6 +181,7 @@ __d(
           BUSINESS_AI_MESSAGE_EDITING_DISCOVERY_TOOLTIP:
             "business_ai_message_editing_discovery_tooltip",
           BUSINESS_ADVERTISE_ENTRY_POINT: "business_advertise_entry_point",
+          TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
         },
       },
       g = {

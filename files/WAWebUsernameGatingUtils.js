@@ -56,20 +56,10 @@ __d(
     }
     function C() {
       return o("WAWebABProps").getABPropConfigValue(
-        "username_key_upsell_max_numbers",
-      );
-    }
-    function b() {
-      return o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
-    function v() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "unknown_user_target_rid_logging",
-      );
-    }
-    function S() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "unknown_user_recovery_enabled",
       );
@@ -85,10 +75,8 @@ __d(
       (l.usernameContactUiVcardEnabled = g),
       (l.usernameGlobalSearchEnabled = h),
       (l.usernameSearchRequiresAtSign = y),
-      (l.usernameKeyUpsellMaxNumbers = C),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = b),
-      (l.unknownUserTargetRidLoggingEnabled = v),
-      (l.unknownUserRecoveryEnabled = S));
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = C),
+      (l.unknownUserRecoveryEnabled = b));
   },
   98,
 );

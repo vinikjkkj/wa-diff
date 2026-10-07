@@ -14,27 +14,29 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 3e7,
-      c = (function (t) {
-        function a(a) {
-          var i;
-          ((i = t.call(this) || this),
-            (i._queueMap = new (o("WAPromiseQueue").PromiseQueueMap)()),
-            (i.updateMaxSizeInterval = null),
-            (i._dispose = function (e, t) {
-              return i._bufferStore.del(e);
+      u = (function (t) {
+        function a(i) {
+          var l;
+          ((l = t.call(this) || this),
+            (l._queueMap = new (o("WAPromiseQueue").PromiseQueueMap)()),
+            (l.updateMaxSizeInterval = null),
+            (l._dispose = function (e, t) {
+              return l._bufferStore.del(e);
             }),
-            (i.doPut = function (t, a) {
-              return i._queueMap.enqueue(
+            (l.doPut = function (t, i) {
+              return l._queueMap.enqueue(
                 t,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  if (a.byteLength > i.$LruMediaStore$p_1() || a.byteLength > u)
-                    return a;
-                  var n = { id: t, timestamp: Date.now(), size: a.byteLength };
+                  if (
+                    i.byteLength > l.$LruMediaStore$p_1() ||
+                    i.byteLength > a.SINGLE_ITEM_SIZE_LIMIT_IN_BYTES
+                  )
+                    return i;
+                  var n = { id: t, timestamp: Date.now(), size: i.byteLength };
                   try {
                     return (
-                      yield i._metaInfoStore.putObject(n),
-                      i._bufferStore.put(t, a)
+                      yield l._metaInfoStore.putObject(n),
+                      l._bufferStore.put(t, i)
                     );
                   } catch (t) {
                     if (
@@ -47,13 +49,13 @@ __d(
                             "[LruMediaStore] QuotaExceededError, shrinking",
                           ])),
                       ),
-                        i.setMaxSize(r("nullthrows")(i.getCurrentSize()) / 2),
+                        l.setMaxSize(r("nullthrows")(l.getCurrentSize()) / 2),
                         o(
                           "WAWebStorageErrorHandlingUtils",
                         ).reportQuotaExceededError(t, {
                           op: "put",
                           db: "lru-media-store",
-                          writeSize: a.byteLength,
+                          writeSize: i.byteLength,
                         }));
                       return;
                     }
@@ -62,21 +64,21 @@ __d(
                 }),
               );
             }),
-            (i.doDel = function (e) {
-              return i._queueMap.enqueue(e, function () {
-                return i._metaInfoStore.del(e);
+            (l.doDel = function (e) {
+              return l._queueMap.enqueue(e, function () {
+                return l._metaInfoStore.del(e);
               });
             }));
-          var l = a.arrayBufferStore,
-            s = a.maxSize;
+          var s = i.arrayBufferStore,
+            u = i.maxSize;
           return (
-            (i.name = l.name),
-            (i._bufferStore = l),
-            (i._metaInfoStore = new (r("WAWebMediaStoreMetaInfo"))(
-              s,
-              i._dispose,
+            (l.name = s.name),
+            (l._bufferStore = s),
+            (l._metaInfoStore = new (r("WAWebMediaStoreMetaInfo"))(
+              u,
+              l._dispose,
             )),
-            i
+            l
           );
         }
         babelHelpers.inheritsLoose(a, t);
@@ -145,7 +147,7 @@ __d(
           a
         );
       })(r("WAWebAbstractStore"));
-    l.default = c;
+    ((u.SINGLE_ITEM_SIZE_LIMIT_IN_BYTES = 3e7), (l.default = u));
   },
   98,
 );

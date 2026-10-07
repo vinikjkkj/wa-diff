@@ -25,10 +25,19 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
       );
     }
+    function d() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_secure_credentials_enabled",
+        )
+      );
+    }
     ((l.HATCH_PRIMARY_FEATURE = e),
       (l.isHatchIntegrationEnabledOnBackend = s),
       (l.isHatchApprovalNotificationEnabledOnBackend = u),
-      (l.isHatchConnectorsEnabledOnBackend = c));
+      (l.isHatchConnectorsEnabledOnBackend = c),
+      (l.isHatchSecureCredentialsEnabledOnBackend = d));
   },
   98,
 );

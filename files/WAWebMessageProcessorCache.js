@@ -24,6 +24,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:13546",
+    "gkx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -217,12 +218,10 @@ __d(
                   var t = e.msg;
                   t != null && n.push(t);
                 });
-                var r = o(
+                var a = o(
                     "WAWebIdbTransactionCounter",
                   ).getIdbTransactionCount(),
-                  a = o("WAWebABProps").getABPropConfigValue(
-                    "wmi_wa_web_message_delivery_qpl_instrumentation",
-                  )
+                  i = r("gkx")("20665")
                     ? o(
                         "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                       ).msgProcessReporter.startMarker(
@@ -232,14 +231,14 @@ __d(
                       )
                     : null;
                 (yield o("WAWebStoreMsgs").storeMsgs(n),
-                  a == null || a(),
+                  i == null || i(),
                   o(
                     "WAWebMessageReceiveFlow",
                   ).annotateMessageReceiveStorageCommit(t, {
                     batchSize: n.length,
                     transactionCount:
                       o("WAWebIdbTransactionCounter").getIdbTransactionCount() -
-                      r,
+                      a,
                   }));
               },
             );

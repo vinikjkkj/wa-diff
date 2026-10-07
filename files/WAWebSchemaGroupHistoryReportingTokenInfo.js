@@ -25,6 +25,7 @@ __d(
             r("sendTs"),
             r("addedTs"),
             r("isSend"),
+            r("validationPolicy"),
             a("addedTs"),
             a("bundleMsgKey"),
           ],

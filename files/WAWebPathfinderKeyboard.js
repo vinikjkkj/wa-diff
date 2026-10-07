@@ -1,6 +1,10 @@
 __d(
   "WAWebPathfinderKeyboard",
-  ["WAWebPathfinderLogger", "WAWebPathfinderScreenName"],
+  [
+    "WAWebPathfinderLogger",
+    "WAWebPathfinderPIIFilter",
+    "WAWebPathfinderScreenName",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = new Set(["INPUT", "TEXTAREA"]);
     function s(t) {
@@ -11,22 +15,32 @@ __d(
     function d(e) {
       for (var t of c) {
         var n = e.getAttribute(t);
-        if (n != null && n !== "") return t + "=" + n;
+        if (n != null && n !== "")
+          return o("WAWebPathfinderPIIFilter").hasUnsafePathfinderTrackingId(n)
+            ? null
+            : t + "=" + n;
       }
-      for (var r = 0, o = e.parentElement; o != null && r < 5; ) {
+      for (var r = 0, a = e.parentElement; a != null && r < 5; ) {
         r++;
-        for (var a of c) {
-          var i = o.getAttribute(a);
-          if (i != null && i !== "") return a + "=" + i + "@" + String(r);
+        for (var i of c) {
+          var l = a.getAttribute(i);
+          if (l != null && l !== "")
+            return o("WAWebPathfinderPIIFilter").hasUnsafePathfinderTrackingId(
+              l,
+            )
+              ? null
+              : i + "=" + l + "@" + String(r);
         }
-        o = o.parentElement;
+        a = a.parentElement;
       }
       return m(e);
     }
     function m(e) {
       var t = e.getAttribute("name");
       return t != null && t !== ""
-        ? "tag=" + e.tagName + ";name=" + t
+        ? o("WAWebPathfinderPIIFilter").hasUnsafePathfinderTrackingId(t)
+          ? null
+          : "tag=" + e.tagName + ";name=" + t
         : "tag=" + e.tagName;
     }
     var p = null,
@@ -67,7 +81,8 @@ __d(
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
-        p !== n &&
+        n != null &&
+          p !== n &&
           ((p = n),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "BEGIN_EDITING",
@@ -81,6 +96,10 @@ __d(
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
+        if (n == null) {
+          p = null;
+          return;
+        }
         p === n &&
           ((p = null),
           o("WAWebPathfinderLogger").emitPathfinderEvent({

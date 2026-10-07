@@ -6,10 +6,7 @@ __d(
     function e() {
       return s._(/*BTDS*/ "Add media");
     }
-    function u() {
-      return s._(/*BTDS*/ "Uploading media...");
-    }
-    ((l.getAddMediaNoticeTitle = e), (l.getUploadingMediaNoticeTitle = u));
+    l.getAddMediaNoticeTitle = e;
   },
   226,
 );

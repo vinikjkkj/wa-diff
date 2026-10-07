@@ -3,7 +3,7 @@ __d(
   [
     "WAWebBizLogQplEvents",
     "WAWebBusinessProfileJob",
-    "WAWebMerchantComplianceJob",
+    "WAWebSetMerchantComplianceJob",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -18,7 +18,7 @@ __d(
       return n;
     }
     function s(e) {
-      return o("WAWebMerchantComplianceJob").setMerchantCompliance(e);
+      return o("WAWebSetMerchantComplianceJob").setMerchantCompliance(e);
     }
     ((l.editBusinessProfile = e), (l.editBusinessCompliance = s));
   },

@@ -61,14 +61,19 @@ __d(
       );
     }
     var p = (function () {
-      function e(e, t, n, r, a) {
-        (a === void 0 && (a = !1),
-          (this.componentName = e),
-          (this.name = t),
-          (this.$1 = r),
-          (this.keys = n));
-        var i = o("WAWebProxyStateFactory").ProxyStates[t];
-        (i ||
+      function e(e) {
+        var t = e.componentName,
+          n = e.isReadOnly,
+          r = n === void 0 ? !1 : n,
+          a = e.isStrong,
+          i = e.keys,
+          l = e.name;
+        ((this.componentName = t),
+          (this.name = l),
+          (this.$1 = a),
+          (this.keys = i));
+        var u = o("WAWebProxyStateFactory").ProxyStates[l];
+        (u ||
           o("WALogger")
             .ERROR(
               s ||
@@ -76,11 +81,11 @@ __d(
                   'Unknown StateHOC concern type "',
                   '"',
                 ])),
-              t,
+              l,
             )
             .sendLogs("state-hoc-error"),
-          (this.$2 = i),
-          (this.$3 = m(e, i, n, a)));
+          (this.$2 = u),
+          (this.$3 = m(t, u, i, r)));
       }
       var t = e.prototype;
       return (

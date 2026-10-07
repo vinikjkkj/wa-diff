@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebContactImportTemplateParsingUtils",
+    "WAWebCustomerManagerImportMappingUtils",
     "WAWebCustomerManagerImportTemplateUtils",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebCustomerProfileBirthday",
@@ -164,13 +165,66 @@ __d(
       );
     }
     function g(e) {
+      var t = new Map();
+      for (var n of e)
+        for (var r of n.customFieldValues)
+          t.has(r.fieldId) || t.set(r.fieldId, h(r));
+      return Array.from(t.keys())
+        .sort(C)
+        .map(function (e) {
+          var n;
+          return {
+            header: (n = t.get(e)) != null ? n : "",
+            getValue: function (n) {
+              var t, r;
+              return (t =
+                (r = n.customFieldValues.find(function (t) {
+                  return t.fieldId === e;
+                })) == null
+                  ? void 0
+                  : r.value) != null
+                ? t
+                : "";
+            },
+          };
+        });
+    }
+    function h(e) {
+      var t =
+        e.currency != null
+          ? e.fieldName + " (" + e.currency + ")"
+          : e.fieldName;
+      return y(t)
+        ? s
+            ._(/*BTDS*/ "{custom field name} (custom field)", [
+              s._param("custom field name", t),
+            ])
+            .toString()
+        : t;
+    }
+    function y(e) {
+      return (
+        _().includes(e) ||
+        Object.values(
+          o("WAWebCustomerManagerImportMappingUtils").suggestImportMapping([e]),
+        ).some(function (e) {
+          return e != null;
+        })
+      );
+    }
+    function C(e, t) {
+      return e.length !== t.length
+        ? e.length - t.length
+        : e.localeCompare(t, "en");
+    }
+    function b(e) {
       var t = p.find(function (t) {
         return t.id === e;
       });
       if (t == null) throw r("err")("Unknown export column id");
       return t;
     }
-    function h(e) {
+    function v(e) {
       return e === "select" || e === "actions"
         ? null
         : e === "customer"
@@ -202,7 +256,7 @@ __d(
                                   );
                                 })();
     }
-    function y(e, t) {
+    function S(e, t) {
       var n = new Set(t),
         r = ["customer"].concat(
           e.filter(function (e) {
@@ -212,16 +266,17 @@ __d(
         o = [];
       for (var a of r)
         if (a === "customer" || n.has(a)) {
-          var i = h(a);
-          i != null && o.push(g(i));
+          var i = v(a);
+          i != null && o.push(b(i));
         }
       return o;
     }
     ((l.EXPORT_COLUMNS = p),
       (l.getExportHeaders = _),
       (l.getExportRow = f),
-      (l.getExportColumnById = g),
-      (l.getVisibleExportColumns = y));
+      (l.getCustomFieldExportColumns = g),
+      (l.getExportColumnById = b),
+      (l.getVisibleExportColumns = S));
   },
   226,
 );

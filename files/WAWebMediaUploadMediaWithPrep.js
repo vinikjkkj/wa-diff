@@ -18,6 +18,7 @@ __d(
     "WAWebMediaUploadMmsThumbnail",
     "WAWebMmsMediaTypes",
     "WAWebMsgType",
+    "WAWebNullFunc",
     "WAWebURLUtils",
     "WAWebWamEnumUploadOriginType",
     "asyncToGeneratorRuntime",
@@ -200,9 +201,7 @@ __d(
             var z = yield w({
               key: H.getMediaKey(),
               timestamp: H.getMediaKeyTimestamp(),
-            }).catch(function () {
-              return null;
-            });
+            }).catch(o("WAWebNullFunc").returnNull);
             (z == null ? void 0 : z.kind) ===
             o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS
               ? (V = z)

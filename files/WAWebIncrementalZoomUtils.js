@@ -170,17 +170,11 @@ __d(
         ? e.metaKey
         : e.ctrlKey;
     }
-    function y() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "waweb_enable_legacy_image_zoom",
-      );
-    }
     ((l.useCursorStyles = p),
       (l.THUMBNAIL_SECTION_HEIGHT = _),
       (l.useThumbnailOverflow = f),
       (l.usePreventDefaultZoom = g),
-      (l.isPrimaryZoomKey = h),
-      (l.isLegacyImageZoomEnabled = y));
+      (l.isPrimaryZoomKey = h));
   },
   98,
 );

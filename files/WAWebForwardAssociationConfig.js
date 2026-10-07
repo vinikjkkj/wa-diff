@@ -46,6 +46,9 @@ __d(
                 .HEVC_VIDEO_DUAL_UPLOAD ||
             e ===
               o("WAWebMessageAssociation.flow").MessageAssociationType
+                .AV1_VIDEO_DUAL_UPLOAD ||
+            e ===
+              o("WAWebMessageAssociation.flow").MessageAssociationType
                 .MEDIA_POLL ||
             e ===
               o("WAWebMessageAssociation.flow").MessageAssociationType

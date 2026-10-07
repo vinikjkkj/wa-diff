@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAComms",
     "WALogger",
-    "WAWebABProps",
     "WAWebABPropsUpdateFromStorage",
     "WAWebApiContact",
     "WAWebBackendApi",
@@ -76,12 +75,10 @@ __d(
       _,
       f,
       g,
-      h,
-      y,
-      C = r("requireDeferred")("WAWebSetFrontendHandlerApi").__setRef(
+      h = r("requireDeferred")("WAWebSetFrontendHandlerApi").__setRef(
         "WAWebLaunchSocket",
       ),
-      b = r("requireDeferred")("WAWebSetWorkerSafeHandlerApi").__setRef(
+      y = r("requireDeferred")("WAWebSetWorkerSafeHandlerApi").__setRef(
         "WAWebLaunchSocket",
       );
     o("WAWebBackendEventBus").BackendEventBus.onReconnectSocket(function () {
@@ -93,7 +90,7 @@ __d(
       ),
         o("WAComms").closeSocketAndResume());
     });
-    function v(e) {
+    function C(e) {
       (o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(
         o("WAWebBackendEventBus").BackendEventBus,
       ),
@@ -119,33 +116,15 @@ __d(
             ])),
           e == null ? "NULL" : "not null",
         ),
-        r("gkx")("26258") ||
-          (e != null
-            ? o("WALogger")
-                .LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket] entered eager launchSocket flow",
-                    ])),
-                )
-                .sendLogs("intern-launchSocket-eager", { sampling: 0 })
-            : o("WALogger")
-                .LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket] entered legacy launchSocket flow",
-                    ])),
-                )
-                .sendLogs("intern-launchSocket-legacy", { sampling: 0 })),
         o("WAWebPageLoadLogging").startPageLoadQplMeasure("launchSocket"));
       var t = o("WAWebBridgeInitialization").makeBridge();
       return (
         o("WAWebBackendApi").setApi(t),
-        C.load().then(function (e) {
+        h.load().then(function (e) {
           var n = e.setFrontendHandlers;
           return n(t);
         }),
-        b.load().then(function (e) {
+        y.load().then(function (e) {
           var n = e.setWorkerSafeHandlers;
           return n(t);
         }),
@@ -160,7 +139,7 @@ __d(
         o("WAWebDbRolloutUtil")
           .loadSchemaVersions()
           .then(function () {
-            return R();
+            return v();
           })
           .then(function () {
             return o("WAWebCryptoEncKeyHelper").initEncSalt();
@@ -172,7 +151,7 @@ __d(
             return o("WAWebSignalStorage").initialize();
           })
           .then(function () {
-            return (y || (y = n("Promise"))).all([
+            return (g || (g = n("Promise"))).all([
               o("WAWebModelStorage").initialize(),
               e,
             ]);
@@ -182,10 +161,10 @@ __d(
               return o("WAWebStatusStorage").initialize();
           })
           .then(function () {
-            return L();
+            return S();
           })
           .then(function () {
-            return (y || (y = n("Promise"))).all([
+            return (g || (g = n("Promise"))).all([
               o("WAWebUserPrefsGeneral").getLogoutReason(),
               o("WAWebWorkerStorage").initialize(),
               o("WAWebUserPrefsGeneral").setAppVersionBase(
@@ -214,8 +193,8 @@ __d(
               throw r("err")("aborting launchSocket due to logout");
             return o("WAWebUserPrefsMultiDevice").isRegistered()
               ? (o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[socket] launchSocket for login",
                     ])),
                 ),
@@ -235,7 +214,7 @@ __d(
                     ).BackendEventBus.triggerStorageInitializationError(e);
                   })
                   .then(function () {
-                    return (y || (y = n("Promise"))).all([
+                    return (g || (g = n("Promise"))).all([
                       o(
                         "WAWebABPropsUpdateFromStorage",
                       ).updateABPropsFromStorage(),
@@ -253,14 +232,14 @@ __d(
                     (o(
                       "WAWebBackendEventBus",
                     ).BackendEventBus.triggerAbPropsLoaded(),
-                      k(),
+                      L(),
                       o("WAWebInitFromStorage")
                         .restoreImportantMetaData()
                         .catch(function (e) {
                           o("WALogger")
                             .ERROR(
-                              m ||
-                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                              c ||
+                                (c = babelHelpers.taggedTemplateLiteralLoose([
                                   "[socket] restoreImportantMetaData failed",
                                 ])),
                             )
@@ -285,11 +264,11 @@ __d(
                           );
                         },
                         t = o("WAWebBlocklistMigration").applyBlocklistV2Rules()
-                          ? (y || (y = n("Promise"))).resolve()
+                          ? (g || (g = n("Promise"))).resolve()
                           : o("WAWebBackendApi").frontendSendAndReceive(
                               "restoreBlocklist",
                             );
-                      yield (y || (y = n("Promise"))).all([
+                      yield (g || (g = n("Promise"))).all([
                         o("WAWebBackendApi").frontendSendAndReceive(
                           "restoreOptOutList",
                           {},
@@ -325,8 +304,8 @@ __d(
                         .catch(function (e) {
                           o("WALogger")
                             .ERROR(
-                              p ||
-                                (p = babelHelpers.taggedTemplateLiteralLoose([
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
                                   "[socket] startBackend failed",
                                 ])),
                             )
@@ -335,8 +314,8 @@ __d(
                         }));
                   }))
               : (o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[socket] launchSocket for registration",
                     ])),
                 ),
@@ -351,7 +330,7 @@ __d(
                   o(
                     "WAWebWaitForInitialChatsSynced",
                   ).initWaitForInitialChatsSynced(),
-                (y || (y = n("Promise")))
+                (g || (g = n("Promise")))
                   .all([
                     o("WAWebRegistration").refreshNoiseCredentials(),
                     o("WAWebRegistration").refreshSignalCredentials(),
@@ -365,8 +344,8 @@ __d(
                         .catch(function (e) {
                           o("WALogger")
                             .ERROR(
-                              f ||
-                                (f = babelHelpers.taggedTemplateLiteralLoose([
+                              p ||
+                                (p = babelHelpers.taggedTemplateLiteralLoose([
                                   "[socket] startCommsAndHandleRequests failed",
                                 ])),
                             )
@@ -377,29 +356,29 @@ __d(
           })
       );
     }
-    function S() {
+    function b() {
       var e = o("WAWebPageLoadLogging").getPageLoadId();
       return e === "0" ? null : e;
     }
-    function R() {
+    function v() {
       o("WALogger").LOG(
-        g ||
-          (g = babelHelpers.taggedTemplateLiteralLoose([
+        _ ||
+          (_ = babelHelpers.taggedTemplateLiteralLoose([
             "[storage] send schema versions to fts worker",
           ])),
       );
       var e = o("WAWebSchemaVersions").getSchemaVersions();
       o("WAWebInvocationInterface").get().setSchemaVersions(e);
     }
-    function L() {
-      return E.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function E() {
+    function R() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[storage] send schema versions to fts worker",
               ])),
           );
@@ -411,13 +390,11 @@ __d(
               salt: t,
             });
         })),
-        E.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function k() {
-      o("WAWebABProps").getABPropConfigValue(
-        "wmi_wa_web_message_delivery_qpl_instrumentation",
-      ) &&
+    function L() {
+      r("gkx")("20665") &&
         (o("WAWebMessageDeliveryCounters").setMessageDeliveryCounters(
           o("WAWebMessageDeliveryODS").messageDeliveryODSCounters,
         ),
@@ -427,9 +404,9 @@ __d(
         o("WAWebLongTaskAccumulator").startLongTaskAccumulator(),
         o(
           "WAWebWamOfflineResumeReporter",
-        ).OfflineResumeReporter.setPageLoadIdProvider(S));
+        ).OfflineResumeReporter.setPageLoadIdProvider(b));
     }
-    l.launchSocket = v;
+    l.launchSocket = C;
   },
   98,
 );

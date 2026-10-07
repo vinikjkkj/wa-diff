@@ -33,11 +33,15 @@ __d(
       ]);
     function m(e) {
       var t = o("WAWebMessageAssociation.flow").MessageAssociationType.cast(
-          o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType.getName(
-            e,
-          ),
-        ),
-        n = r("justknobx")._("4912");
+        o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType.getName(e),
+      );
+      if (
+        t ===
+        o("WAWebMessageAssociation.flow").MessageAssociationType
+          .AV1_VIDEO_DUAL_UPLOAD
+      )
+        return o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN;
+      var n = r("justknobx")._("4912");
       return t != null &&
         o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(t) &&
         !n
@@ -53,6 +57,8 @@ __d(
           .HD_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HEVC_VIDEO_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .AV1_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
           throw r("err")("Invalid outgoing association type");
@@ -81,6 +87,8 @@ __d(
           .HD_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HEVC_VIDEO_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .AV1_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
           return !1;

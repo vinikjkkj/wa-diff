@@ -8,6 +8,7 @@ __d(
     "WAWebContactManagerCustomerProfileUpsertMutation.graphql",
     "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerCustomerProfileDecoders",
+    "WAWebCustomerManagerRequestErrors",
     "WAWebCustomerOrderPreferences",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
@@ -183,7 +184,9 @@ __d(
                 e,
                 "write",
               ),
-              e
+              o(
+                "WAWebCustomerManagerRequestErrors",
+              ).asCustomerManagerRequestError(e)
             );
           }
           return (

@@ -5,7 +5,7 @@ __d(
     "use strict";
     function e(e) {
       return e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Off
-        ? o("WAWebPrivacyModeSettingsFBT").privacyModePresetOff()
+        ? s._(/*BTDS*/ "Off")
         : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Light
           ? o("WAWebPrivacyModeSettingsFBT").privacyModePresetLight()
           : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Medium

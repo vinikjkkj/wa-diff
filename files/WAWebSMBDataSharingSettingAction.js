@@ -12,15 +12,15 @@ __d(
       s,
       u = r("requireDeferred")("WAWebCTWABizDataSharingJob").__setRef(
         "WAWebSMBDataSharingSettingAction",
-      ),
-      c = function () {
-        var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
-        return e
-          ? (s || (s = n("Promise"))).resolve(e)
-          : o(
-              "WAWebCommonCTWADataSharing",
-            ).fetchDataSharingSettingAndUpdateModel();
-      };
+      );
+    function c() {
+      var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
+      return e
+        ? (s || (s = n("Promise"))).resolve(e)
+        : o(
+            "WAWebCommonCTWADataSharing",
+          ).fetchDataSharingSettingAndUpdateModel();
+    }
     function d(t, n) {
       return u
         .load()

@@ -3,9 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebBizGetMerchantComplianceQuery.graphql",
-    "WAWebBizSetMerchantCompliance",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
+    "WAWebMerchantComplianceUtils",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
   ],
@@ -63,7 +63,7 @@ __d(
             {
               entity_name: c.entity_name || "",
               entity_type: o(
-                "WAWebBizSetMerchantCompliance",
+                "WAWebMerchantComplianceUtils",
               ).mapEntityTypeToBusinessTypeOption(c.entity_type),
               is_registered: c.is_registered || !1,
               entity_type_custom: c.entity_type_custom || "",

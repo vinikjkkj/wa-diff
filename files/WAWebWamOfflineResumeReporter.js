@@ -6,12 +6,12 @@ __d(
     "WALogger",
     "WARandomHex",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebDBTableUsage",
     "WAWebGetAllModelStorageTableNames",
     "WAWebLongTaskAccumulator",
     "WAWebMessageReceiveFlow",
+    "WAWebNullFunc",
     "WAWebOfflineResumeStageWamEvent",
     "WAWebOfflineResumeWamEvent",
     "WAWebUserPrefsGeneral",
@@ -243,14 +243,12 @@ __d(
     var S = (function () {
       function t() {
         ((this.offlineBatch = v()),
-          (this.getPageLoadId = function () {
-            return null;
-          }),
+          (this.getPageLoadId = o("WAWebNullFunc").returnNull),
           this._initEvents(h.ResumeFromRestart));
       }
-      var r = t.prototype;
+      var a = t.prototype;
       return (
-        (r._initEvents = function (t) {
+        (a._initEvents = function (t) {
           ((this.isInitialSync = !1),
             (this.oldestStanzaTs = 0),
             (this.offlineResume = new b()),
@@ -280,13 +278,13 @@ __d(
               offlineSessionId: e,
             })));
         }),
-        (r.logOldestStanzaTime = function (t) {
+        (a.logOldestStanzaTime = function (t) {
           (this.offlineStage.logOldestStanzaTime(t),
             this.offlineResume != null &&
               (this.oldestStanzaTs === 0 || this.oldestStanzaTs > t) &&
               (this.oldestStanzaTs = t));
         }),
-        (r.logOfflineCount = function (t) {
+        (a.logOfflineCount = function (t) {
           var e, n, r, o;
           (this.offlineStage.logOfflineCount(t),
             this.offlineStage.logOfflinePreview(),
@@ -306,65 +304,65 @@ __d(
                 int: { offlinePreviewCount: t.count },
               })));
         }),
-        (r.logOfflineDecryptionErrorCount = function (t) {
+        (a.logOfflineDecryptionErrorCount = function (t) {
           (this.offlineStage.logOfflineDecryptionErrorCount(t),
             this.offlineResume &&
               (this.offlineResume.offlineDecryptErrorCount = t));
         }),
-        (r.logAddOfflineSizeBytes = function (t) {
+        (a.logAddOfflineSizeBytes = function (t) {
           this.offlineResume && (this.offlineResume.offlineSizeBytes += t);
         }),
-        (r.logOfflineChatThreadCount = function (t) {
+        (a.logOfflineChatThreadCount = function (t) {
           this.offlineStage.logOfflineChatThreadCount(t);
           var e = L(t, 10);
           this.offlineResume && (this.offlineResume.chatThreadCount = e);
         }),
-        (r.logOfflinePreackCount = function (t, n) {
+        (a.logOfflinePreackCount = function (t, n) {
           (n === void 0 && (n = !1),
             this.offlineResume &&
               (n === !0
                 ? (this.offlineResume.preackMessageCount += t)
                 : (this.offlineResume.preackReceiptCount += t)));
         }),
-        (r.logOfflineBatchRequest = function () {
+        (a.logOfflineBatchRequest = function () {
           this.offlineBatch.requestCount++;
         }),
-        (r.logOfflineBatchReadyWait = function (t) {
+        (a.logOfflineBatchReadyWait = function (t) {
           this.offlineBatch.readyWaitMs += t;
         }),
-        (r.logOfflineBatchArrival = function (t) {
+        (a.logOfflineBatchArrival = function (t) {
           ((this.offlineBatch.waitMs += t),
             (this.offlineBatch.maxWaitMs = Math.max(
               this.offlineBatch.maxWaitMs,
               t,
             )));
         }),
-        (r.logOfflinePassiveT = function () {
+        (a.logOfflinePassiveT = function () {
           var e;
           ((e = this.offlineResume) == null ? void 0 : e.passiveModeT) ==
             null && this._logPerformanceT("passiveModeT");
         }),
-        (r._logPerformanceT = function (t) {
+        (a._logPerformanceT = function (t) {
           var e = Math.floor(self.performance.now());
           this.offlineResume != null && (this.offlineResume[t] = e);
         }),
-        (r.logLastStanzaT = function () {
+        (a.logLastStanzaT = function () {
           var e;
           ((e = this.offlineResume) == null ? void 0 : e.lastStanzaT) == null &&
             (this._logPerformanceT("lastStanzaT"),
             this.qpl.markProcessComplete(),
             this.isInitialSync || this.offlineStage.logProcessComplete());
         }),
-        (r.logMainScreenLoadT = function () {
+        (a.logMainScreenLoadT = function () {
           (this._logPerformanceT("mainScreenLoadT"),
             this.qpl.markMainScreenLoad(),
             this.isInitialSync || this.offlineStage.logScreenLoad());
         }),
-        (r.logOfflinePreviewT = function () {
+        (a.logOfflinePreviewT = function () {
           (this._logPerformanceT("offlinePreviewT"),
             this.qpl.markOfflinePreviewReceived());
         }),
-        (r.logOfflineStartT = function () {
+        (a.logOfflineStartT = function () {
           (this._logPerformanceT("pageLoadT"),
             this.offlineStage.logOfflineStart(),
             globalThis.document != null &&
@@ -372,12 +370,12 @@ __d(
               (this.offlineResume.isResumeStartedInForeground =
                 !globalThis.document.hidden));
         }),
-        (r.logSocketConnectT = function () {
+        (a.logSocketConnectT = function () {
           (this._logPerformanceT("socketConnectT"),
             this.isInitialSync ||
               (this.$1(), this.offlineStage.logSocketConnect()));
         }),
-        (r.$1 = function () {
+        (a.$1 = function () {
           var e;
           this.qpl.start();
           var t =
@@ -391,20 +389,20 @@ __d(
           var n = this.getPageLoadId();
           n != null && this.qpl.addAnnotations({ string: { page_load_id: n } });
         }),
-        (r.setPageLoadIdProvider = function (t) {
+        (a.setPageLoadIdProvider = function (t) {
           this.getPageLoadId = t;
         }),
-        (r.logMissedOfflineComplete = function () {
+        (a.logMissedOfflineComplete = function () {
           this.offlineResume &&
             (this.offlineResume.isOfflineCompleteMissed = !0);
         }),
-        (r.setIsInitialSync = function () {
+        (a.setIsInitialSync = function () {
           this.isInitialSync = !0;
         }),
-        (r.setLastPushCompleteTimestamp = function () {
+        (a.setLastPushCompleteTimestamp = function () {
           return this.offlineStage.setLastPushCompleteTimestamp();
         }),
-        (r.isBlockingOfflineResume = function (t) {
+        (a.isBlockingOfflineResume = function (t) {
           return t.lastStanzaT != null && t.mainScreenLoadT != null
             ? t.lastStanzaT < t.mainScreenLoadT
             : t.socketConnectT != null &&
@@ -417,7 +415,7 @@ __d(
                 ? !1
                 : null;
         }),
-        (r.commit = (function () {
+        (a.commit = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t = this.offlineResume;
             if (t) {
@@ -502,8 +500,8 @@ __d(
                   n,
                   t.mailboxAge,
                 ));
-              var r = t.offlinePreviewCount === 0;
-              if (!this.isInitialSync && !r) {
+              var a = t.offlinePreviewCount === 0;
+              if (!this.isInitialSync && !a) {
                 (t.commit(),
                   this.qpl.setAnnotations({
                     int: {
@@ -521,15 +519,14 @@ __d(
                       isBlockingOfflineResume: n,
                     },
                   }),
-                  o("WAWebABProps").getABPropConfigValue(
-                    "wmi_wa_web_message_delivery_qpl_instrumentation",
-                  ) && this.qpl.addAnnotations(R(this.offlineBatch)),
+                  r("gkx")("20665") &&
+                    this.qpl.addAnnotations(R(this.offlineBatch)),
                   this.qpl.end(),
                   this.endTableUsageMetric());
-                var a = 120 * 1e3,
-                  i = 10,
-                  l = Math.max(t.mainScreenLoadT, t.lastStanzaT);
-                (l - t.socketConnectT > a &&
+                var i = 120 * 1e3,
+                  l = 10,
+                  f = Math.max(t.mainScreenLoadT, t.lastStanzaT);
+                (f - t.socketConnectT > i &&
                   o("WALogger")
                     .ERROR(
                       d ||
@@ -540,7 +537,7 @@ __d(
                       t.mainScreenLoadT,
                     )
                     .sendLogs("slow-offline-resume", { sampling: g }),
-                  t.offlineDecryptErrorCount > i &&
+                  t.offlineDecryptErrorCount > l &&
                     o("WALogger")
                       .ERROR(
                         m ||
@@ -559,7 +556,7 @@ __d(
                           "[offline-resume] skip: initial sync",
                         ])),
                     )
-                  : r &&
+                  : a &&
                     o("WALogger").LOG(
                       _ ||
                         (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -570,16 +567,16 @@ __d(
               this.offlineResume = null;
             }
           });
-          function r() {
+          function a() {
             return t.apply(this, arguments);
           }
-          return r;
+          return a;
         })()),
-        (r.resetEvent = function () {
+        (a.resetEvent = function () {
           this.offlineResume == null &&
             (this._initEvents(h.ResumeFromOpentab), this.logOfflineStartT());
         }),
-        (r._generateOfflineSessionId = function () {
+        (a._generateOfflineSessionId = function () {
           return (
             "" +
             o("WARandomHex").randomHex(4) +

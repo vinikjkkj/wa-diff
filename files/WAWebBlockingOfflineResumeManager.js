@@ -17,6 +17,7 @@ __d(
     "WAWebOfflineResumeUtils",
     "WAWebPageLoadLogging",
     "WAWebSignalProtocolStore",
+    "WAWebThreadMetadata",
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumWebcScenarioType",
     "WAWebWamMemoryStat",
@@ -289,6 +290,7 @@ __d(
                     this.$11(
                       o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE,
                     ),
+                    o("WAWebThreadMetadata").resetThreadMeta(),
                     o(
                       "WAWebBackendEventBus",
                     ).BackendEventBus.triggerOfflineDeliveryEnd(),
@@ -502,6 +504,7 @@ __d(
                 o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                   "loadMainScreen",
                 ),
+                o("WAWebThreadMetadata").resetThreadMeta(),
                 o(
                   "WAWebBackendEventBus",
                 ).BackendEventBus.triggerOfflineDeliveryEnd(),

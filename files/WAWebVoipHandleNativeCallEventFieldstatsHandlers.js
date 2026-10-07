@@ -415,7 +415,6 @@ __d(
     function ge(e, t) {
       t != null &&
         ye(e.fieldStatsRowType) &&
-        he(e) &&
         o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled() &&
         (e.callEnterPipModeCount = t);
     }

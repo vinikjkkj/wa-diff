@@ -77,7 +77,7 @@ __d(
       }
     }
     var D = function () {
-      var t = this;
+      var e = this;
       ((this.preloader = new (r("WAConcurrentPriorityPromiseQueue"))(10, {
         thumbnail: 4,
         histSyncChunk: 3,
@@ -92,154 +92,64 @@ __d(
             return o("WAWebDownloadAndDecryptCache").getLRUStoreKey(e);
           },
           new (o("WAWebDownloadAndDecryptCache").DownloadAndDecryptCache)(),
-          function (a) {
-            var i,
-              l = a.downloadOrigin,
-              s = a.downloadQpl,
-              u = a.partialVideoOpts,
-              c = (i = a.mimetype) != null ? i : "application/octet-stream",
-              d = o("WAWebABProps").getABPropConfigValue(
+          function (t) {
+            var n,
+              r = t.downloadOrigin,
+              a = t.downloadQpl,
+              i = t.partialVideoOpts,
+              l = (n = t.mimetype) != null ? n : "application/octet-stream",
+              s = o("WAWebABProps").getABPropConfigValue(
                 "web_use_kaleidoscope_media_check_enabled",
               ),
-              m = function () {
+              u = function () {
                 return (
-                  s.addPoint("download_and_decrypt_start"),
-                  x(a).then(
-                    (function () {
-                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (t) {
-                          s.addPoint("download_and_decrypt_end", {
-                            int: { byteLength: t.byteLength },
-                          });
-                          var n = t;
-                          if (
-                            d &&
-                            q({ downloadOrigin: l, partialVideoOpts: u }) &&
-                            (yield o(
-                              "WAWebKaleidoscopeWasmFeatureSupport",
-                            ).checkKaleidoscopeWasmFeatureSupport())
-                          ) {
-                            s.addPoint("kaleidoscope_classify_start");
-                            var i = yield o("WAWebMediaWorkerProxy")
-                              .kaleidoscopeClassifyInWorker({
-                                mediaType: o(
-                                  "WAWebMmsMediaTypes",
-                                ).mediaTypeToKaleidoscopeMediaType(a.type),
-                                rawMimeType: c,
-                                input: t,
-                                eventFlow: s,
-                              })
-                              .catch(function (e) {
-                                return {
-                                  transferredBuffer: t,
-                                  result: o("WAResultOrError").makeError({
-                                    errorName:
-                                      "worker-connection-runtime-error",
-                                    errorMessage: r("getErrorSafe")(e).message,
-                                  }),
-                                };
-                              });
-                            n = i.transferredBuffer;
-                            var m = i.result;
-                            if (m.success) {
-                              var p = m.value,
-                                _ = p.mimetype,
-                                f = p.score;
-                              s.addPoint("kaleidoscope_classify_end", {
-                                string: { ksMimeType: _ },
-                                int: { ksScore: f },
-                              });
-                              var g = O({
-                                ksScore: f,
-                                ksMimeType: _,
-                                rawMimeType: c,
-                                mediaType: a.type,
-                              });
-                              if (
-                                g ===
-                                o("WAWebSuspiciousContent")
-                                  .WAWebSuspiciousContent.YES
-                              )
-                                throw new (o(
-                                  "WAWebMediaFileErrors",
-                                ).InvalidMediaFileType)(
-                                  "Kaleidoscope dangerous score " +
-                                    f +
-                                    " for media type " +
-                                    a.type,
-                                  a.type,
-                                  c,
-                                );
-                              a.onSuspiciousContent == null ||
-                                a.onSuspiciousContent(g);
-                            } else {
-                              var h;
-                              (o("WALogger").WARN(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "kaleidoscopeClassifiyInWorker failed. errorName: ",
-                                    ", errorMessage: ",
-                                    "",
-                                  ])),
-                                m.error.errorName,
-                                m.error.errorMessage,
-                              ),
-                                s.addPoint(m.error.errorName, {
-                                  string: {
-                                    ksFailReason:
-                                      (h = m.error.errorMessage) != null
-                                        ? h
-                                        : m.error.errorName,
-                                  },
-                                }),
-                                s.addPoint("kaleidoscope_classify_fail"),
-                                B(a.type) &&
-                                  (s.addPoint(
-                                    "kaleidoscope_classify_fail_warned",
-                                  ),
-                                  a.onSuspiciousContent == null ||
-                                    a.onSuspiciousContent(
-                                      o("WAWebSuspiciousContent")
-                                        .WAWebSuspiciousContent.YES_KEEP,
-                                    )));
-                            }
-                          }
-                          return n;
-                        },
-                      );
-                      return function (e) {
-                        return t.apply(this, arguments);
-                      };
-                    })(),
-                  )
+                  a.addPoint("download_and_decrypt_start"),
+                  x(t).then(function (e) {
+                    return (
+                      a.addPoint("download_and_decrypt_end", {
+                        int: { byteLength: e.byteLength },
+                      }),
+                      G({ downloadOrigin: r, partialVideoOpts: i })
+                        ? W({
+                            input: e,
+                            type: t.type,
+                            rawMimeType: l,
+                            downloadQpl: a,
+                            ksClassifyEnabled: s,
+                            failClosed: !1,
+                            onSuspiciousContent: t.onSuspiciousContent,
+                          })
+                        : e
+                    );
+                  })
                 );
               },
-              p = {
-                priority: -T(a.type),
+              c = {
+                priority: -T(t.type),
                 group:
-                  a.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.HISTORY_SYNC
+                  t.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.HISTORY_SYNC
                     ? "histSyncChunk"
                     : "thumbnail",
-                signal: a.signal,
+                signal: t.signal,
               };
-            return a.isPreload === !0
-              ? t.preloader.enqueue(m, p)
-              : a.shouldSequenceDownload === !0
-                ? t.loadSequence.enqueue(
-                    m,
-                    babelHelpers.extends({}, p, { group: "thumbnail" }),
+            return t.isPreload === !0
+              ? e.preloader.enqueue(u, c)
+              : t.shouldSequenceDownload === !0
+                ? e.loadSequence.enqueue(
+                    u,
+                    babelHelpers.extends({}, c, { group: "thumbnail" }),
                   )
-                : m();
+                : u();
           },
         )),
         (this.downloadAndMaybeDecrypt = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n,
-              r = e.downloadOrigin,
-              a = e.downloadQpl,
-              i = e.partialVideoOpts,
-              l = e.type,
-              s = (n = e.mimetype) != null ? n : "application/octet-stream",
+              r = t.downloadOrigin,
+              a = t.downloadQpl,
+              i = t.partialVideoOpts,
+              l = t.type,
+              s = (n = t.mimetype) != null ? n : "application/octet-stream",
               u = o("WAWebABProps").getABPropConfigValue(
                 "web_use_kaleidoscope_media_check_enabled",
               );
@@ -253,16 +163,16 @@ __d(
                 },
                 int: {
                   activeDownloadCount:
-                    t.preloader.getRunningTasksCount() +
-                    t.loadSequence.getRunningTasksCount(),
+                    e.preloader.getRunningTasksCount() +
+                    e.loadSequence.getRunningTasksCount(),
                 },
               }),
-              q({ downloadOrigin: r, partialVideoOpts: i }) && W(l, s),
-              t.$1(e)
+              G({ downloadOrigin: r, partialVideoOpts: i }) && H(l, s),
+              e.$1(t)
             );
           });
-          return function (t) {
-            return e.apply(this, arguments);
+          return function (e) {
+            return t.apply(this, arguments);
           };
         })()),
         (this.rmr = r("WAMemoizeConcurrent")(function (e) {
@@ -290,7 +200,7 @@ __d(
             u = e.experienceIds,
             c = e.filehash,
             d = e.imageDimensions,
-            m = e.isViewOnce,
+            C = e.isViewOnce,
             b = e.mediaKey,
             v = e.mediaKeyTimestamp,
             S = e.mode,
@@ -308,8 +218,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[DownloadManager] expected media key for media type ",
                       "",
                     ])),
@@ -326,8 +236,8 @@ __d(
               throw (
                 o("WALogger")
                   .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[DownloadManager] expected encFilehash for media type ",
                         "",
                       ])),
@@ -343,8 +253,8 @@ __d(
               throw (
                 o("WALogger")
                   .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[DownloadManager] product media missing encFilehash and directPath/staticUrl",
                       ])),
                   )
@@ -368,7 +278,7 @@ __d(
               downloadOrigin: i,
               type: D,
               userDownloadAttemptCount: x,
-              isViewOnce: m,
+              isViewOnce: C,
               downloadMode: S,
               isPrefetch: I != null && !N,
               imageDimensions: d,
@@ -390,8 +300,8 @@ __d(
             K = o("WAWebMediaDebugString").getDebugString(c),
             Q = { directPath: a, encFilehash: s, staticUrl: T, type: D };
           o("WALogger").LOG(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "downloadManager.download: [",
                 "] start",
               ])),
@@ -533,8 +443,8 @@ __d(
             }
             return (
               o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "downloadManager.download: [",
                     "] success",
                   ])),
@@ -549,8 +459,8 @@ __d(
                 ? (W(t, !!e.isFinalRmrRetry),
                   o("WALogger")
                     .LOG(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose(
                           [
                             "downloadManager.download: [",
                             "] expected error\n",
@@ -569,8 +479,8 @@ __d(
                 : (W(r("getErrorSafe")(t), !0),
                   o("WALogger")
                     .WARN(
-                      C ||
-                        (C = babelHelpers.taggedTemplateLiteralLoose(
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose(
                           ["downloadManager.download: [", "] error\n", ""],
                           ["downloadManager.download: [", "] error\\n", ""],
                         )),
@@ -596,8 +506,8 @@ __d(
             n = o("WAWebMediaDebugString").getDebugString(t.filehash),
             a = { filehash: t.filehash, type: t.type };
           (o("WALogger").LOG(
-            b ||
-              (b = babelHelpers.taggedTemplateLiteralLoose([
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
                 "downloadManager.rmr: [",
                 "] start",
               ])),
@@ -633,8 +543,8 @@ __d(
             c = window.setTimeout(function () {
               o("WALogger")
                 .ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "downloadManager.rmr: [",
                       "] RMR still pending after ",
                       "ms, type ",
@@ -651,8 +561,8 @@ __d(
             if (
               ((l.webcRmrStatusCode = m),
               o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "downloadManager.rmr: [",
                     "] status ",
                     "",
@@ -683,8 +593,8 @@ __d(
                     })
                   : o("WALogger")
                       .WARN(
-                        R ||
-                          (R = babelHelpers.taggedTemplateLiteralLoose(
+                        S ||
+                          (S = babelHelpers.taggedTemplateLiteralLoose(
                             [
                               "downloadManager.rmr: [",
                               "] error RMRNotSupportedOnNewsletterMessagesError",
@@ -709,8 +619,8 @@ __d(
               throw (
                 o("WALogger")
                   .LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose(
                         [
                           "downloadManager.rmr: [",
                           "] error MediaNotOnPhone\n",
@@ -732,8 +642,8 @@ __d(
             throw (
               o("WALogger")
                 .WARN(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose(
                       ["downloadManager.rmr: [", "] error ", "\n", ""],
                       ["downloadManager.rmr: [", "] error ", "\\n", ""],
                     )),
@@ -802,47 +712,174 @@ __d(
       });
     }
     function O(e) {
-      var t = e.ksMimeType,
-        n = e.ksScore,
-        r = e.mediaType,
-        a = e.rawMimeType;
-      return n >= 90
+      return B.apply(this, arguments);
+    }
+    function B() {
+      return (
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.downloadOrigin,
+            n = e.downloadQpl,
+            r = e.input,
+            a = e.mimetype,
+            i = e.onSuspiciousContent,
+            l = e.type;
+          if (!G({ downloadOrigin: t, partialVideoOpts: null })) return r;
+          var s = a != null ? a : "application/octet-stream";
+          return (
+            H(l, s),
+            W({
+              input: r,
+              type: l,
+              rawMimeType: s,
+              downloadQpl: n,
+              ksClassifyEnabled: o("WAWebABProps").getABPropConfigValue(
+                "web_use_kaleidoscope_media_check_enabled",
+              ),
+              failClosed: !0,
+              onSuspiciousContent: i,
+            })
+          );
+        })),
+        B.apply(this, arguments)
+      );
+    }
+    function W(e) {
+      return q.apply(this, arguments);
+    }
+    function q() {
+      return (
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.downloadQpl,
+            n = e.failClosed,
+            a = e.input,
+            i = e.ksClassifyEnabled,
+            l = e.onSuspiciousContent,
+            s = e.rawMimeType,
+            u = e.type;
+          if (
+            !i ||
+            !(yield o(
+              "WAWebKaleidoscopeWasmFeatureSupport",
+            ).checkKaleidoscopeWasmFeatureSupport())
+          )
+            return a;
+          t.addPoint("kaleidoscope_classify_start");
+          var c = yield o("WAWebMediaWorkerProxy")
+              .kaleidoscopeClassifyInWorker({
+                mediaType:
+                  o("WAWebMmsMediaTypes").mediaTypeToKaleidoscopeMediaType(u),
+                rawMimeType: s,
+                input: a,
+                eventFlow: t,
+              })
+              .catch(function (e) {
+                return {
+                  transferredBuffer: a,
+                  result: o("WAResultOrError").makeError({
+                    errorName: "worker-connection-runtime-error",
+                    errorMessage: r("getErrorSafe")(e).message,
+                  }),
+                };
+              }),
+            d = c.result;
+          if (d.success) {
+            var m = d.value,
+              p = m.mimetype,
+              _ = m.score;
+            t.addPoint("kaleidoscope_classify_end", {
+              string: { ksMimeType: p },
+              int: { ksScore: _ },
+            });
+            var f = U({
+              ksScore: _,
+              ksMimeType: p,
+              rawMimeType: s,
+              mediaType: u,
+            });
+            if (f === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
+              throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
+                "Kaleidoscope dangerous score " + _ + " for media type " + u,
+                u,
+                s,
+              );
+            l == null || l(f);
+          } else {
+            var g;
+            if (
+              (o("WALogger").WARN(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "kaleidoscopeClassifiyInWorker failed. errorName: ",
+                    ", errorMessage: ",
+                    "",
+                  ])),
+                d.error.errorName,
+                d.error.errorMessage,
+              ),
+              t.addPoint(d.error.errorName, {
+                string: {
+                  ksFailReason:
+                    (g = d.error.errorMessage) != null ? g : d.error.errorName,
+                },
+              }),
+              t.addPoint("kaleidoscope_classify_fail"),
+              n)
+            )
+              throw r("err")(
+                "kaleidoscope classify failed: " + d.error.errorName,
+              );
+            V(u) &&
+              (t.addPoint("kaleidoscope_classify_fail_warned"),
+              l == null ||
+                l(o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP));
+          }
+          return c.transferredBuffer;
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    function U(t) {
+      var n = t.ksMimeType,
+        r = t.ksScore,
+        a = t.mediaType,
+        i = t.rawMimeType;
+      return r >= 90
         ? (o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[DownloadManager] Kaleidoscope dangerous score ",
                   " for media type ",
                   " (detected ",
                   ", declared ",
                   ")",
                 ])),
-              n,
               r,
-              t,
               a,
+              n,
+              i,
             )
             .tags("media", "security"),
           o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
-        : n >= 80
+        : r >= 80
           ? (o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[DownloadManager] Kaleidoscope suspicious score ",
                   " for media type ",
                   " (detected ",
                   ", declared ",
                   ")",
                 ])),
-              n,
               r,
-              t,
               a,
+              n,
+              i,
             ),
             o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP)
           : o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO;
     }
-    function B(e) {
+    function V(e) {
       return (
         (e === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT ||
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_DOCUMENT) &&
@@ -854,7 +891,7 @@ __d(
         )
       );
     }
-    function W(e, t) {
+    function H(e, t) {
       var n = o("WAWebMmsMediaTypes").mediaTypeToMsgTypeSupportedByAllowlist(e),
         r = !1;
       if (n != null) {
@@ -862,8 +899,8 @@ __d(
         a == null
           ? (o("WALogger")
               .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[DownloadManager] no mime type allowlist for msg type ",
                     " (media type ",
                     ")",
@@ -877,8 +914,8 @@ __d(
           : a.has(t) ||
             (o("WALogger")
               .WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[DownloadManager] unexpected mimetype ",
                     " for media type ",
                     "",
@@ -893,8 +930,8 @@ __d(
         t.toLowerCase() === "image/svg+xml" &&
           (o("WALogger")
             .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[DownloadManager] blocked SVG mimetype for media type ",
                   "",
                 ])),
@@ -910,7 +947,7 @@ __d(
           t,
         );
     }
-    function q(e) {
+    function G(e) {
       var t = e.downloadOrigin,
         n = e.partialVideoOpts;
       switch (t) {
@@ -927,8 +964,10 @@ __d(
       }
       return n == null;
     }
-    var U = new D();
-    ((l.enforceKaleidoscopeScore = O), (l.downloadManager = U));
+    var z = new D();
+    ((l.screenDecryptedMedia = O),
+      (l.enforceKaleidoscopeScore = U),
+      (l.downloadManager = z));
   },
   98,
 );

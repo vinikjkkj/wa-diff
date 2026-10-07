@@ -8,7 +8,10 @@ __d(
     "WAWebGroupHistoryReportingTokenDBUtils",
     "WAWebGroupHistoryReportingTokenGenerator",
     "WAWebMessagingGatingUtils",
+    "WAWebMsgType",
     "WAWebProtobufsGroupHistory.pb",
+    "WAWebReportingTokenConstants",
+    "WAWebReportingTokenContent",
     "WAWebReportingTokenUtils",
     "WAWebWamEnumReportingTokenValidationFailureReason",
     "WAWebWamReportingTokenMismatchReporter",
@@ -17,43 +20,43 @@ __d(
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
+    var e, s, u, c, d, m;
+    function p(e) {
       return e.type === "revoked" && e.protocolMessageKey != null
         ? e.protocolMessageKey.id
         : e.id.id;
     }
-    function p(e) {
+    function _(e) {
       return e.type === "revoked" && e.protocolMessageKey != null
         ? e.protocolMessageKey.toString()
         : e.id.toString();
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            r = t.bundleMessageSecret,
-            a = t.bundleMsgId,
-            i = t.bundleMsgTimestamp,
-            l = t.bundleSenderWid,
-            u = t.groupWid,
-            c = t.inflatedBytes,
-            d = a.toString(),
-            m = a.id;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.bundleMessageSecret,
+            r = e.bundleMsgId,
+            a = e.bundleMsgTimestamp,
+            i = e.bundleSenderWid,
+            l = e.groupWid,
+            c = e.inflatedBytes,
+            d = r.toString(),
+            m = r.id;
           if (
             !o(
               "WAWebGroupHistoryGating",
             ).isGroupHistoryReceiverReportingTokenEnabled()
           )
             return null;
-          if (l == null)
+          if (i == null)
             return (
               o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[group-history] Missing bundle sender for ",
                     "",
                   ])),
@@ -67,8 +70,8 @@ __d(
           if (p == null || p.length === 0)
             return (
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[group-history] No stored reporting tokens found for bundle ",
                     "",
                   ])),
@@ -90,178 +93,275 @@ __d(
             receivedTokenMap: _,
             messageBytesArray: [].concat(
               y.messages,
-              (n = y.outOfWindowPinnedMessages) != null ? n : [],
+              (t = y.outOfWindowPinnedMessages) != null ? t : [],
             ),
-            bundleMessageSecret: r,
-            senderJid: o("WAWebWidToJid").widToUserJid(l),
-            groupJid: o("WAWebWidToJid").widToGroupJid(u),
+            bundleMessageSecret: n,
+            senderJid: o("WAWebWidToJid").widToUserJid(i),
+            groupJid: o("WAWebWidToJid").widToGroupJid(l),
             bundleMsgKey: d,
             bundleMsgStanzaId: m,
-            bundleMsgTimestamp: i,
+            bundleMsgTimestamp: a,
           };
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
-            a = m(e),
+            a = p(e),
             i = n.receivedTokenMap.get(a);
-          if (i == null || i.length === 0) {
-            var l = o(
-              "WAWebMessagingGatingUtils",
-            ).getSenderReportingTokenVersion();
+          if (i == null || i.length === 0)
             return (
               o("WALogger")
                 .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[group-history] msg ",
                       " missing from public stanza",
                     ])),
                   a,
                 )
                 .tags("messaging"),
-              o(
-                "WAWebWamReportingTokenMismatchReporter",
-              ).logReportingTokenValidationEvent({
-                msg: e,
-                reason: o("WAWebWamEnumReportingTokenValidationFailureReason")
+              b(
+                e,
+                n,
+                o("WAWebWamEnumReportingTokenValidationFailureReason")
                   .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
                   .GROUP_HISTORY_MESSAGE_MISSING_FROM_PUBLIC_STANZA,
-                reportingTokenVersion: l,
-                isPartOfGroupHistory: !0,
-                groupHistoryBundleMessageId: n.bundleMsgStanzaId,
-              }),
-              {
-                row: null,
-                failureReason: o(
-                  "WAWebWamEnumReportingTokenValidationFailureReason",
-                ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
-                  .GROUP_HISTORY_MESSAGE_MISSING_FROM_PUBLIC_STANZA,
-                reportingTokenVersion: l,
-              }
+                o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion(),
+              )
             );
+          var l =
+              (r = i.reduce(function (e, t) {
+                return e != null ? e : t.version;
+              }, null)) != null
+                ? r
+                : o(
+                    "WAWebMessagingGatingUtils",
+                  ).getSenderReportingTokenVersion(),
+            s = yield v(t, n, a, l, i);
+          if (!C(s == null ? void 0 : s.match)) {
+            var u = L(e, t, i, n);
+            if (u != null)
+              return {
+                row: R(e, n, a, u.tokenlessEntry),
+                failureReason: null,
+                reportingTokenVersion: u.version,
+              };
           }
-          var s =
-            (r = i.reduce(function (e, t) {
-              return e != null ? e : t.version;
-            }, null)) != null
-              ? r
-              : o("WAWebMessagingGatingUtils").getSenderReportingTokenVersion();
-          if (n.bundleMessageSecret == null)
+          if (s == null)
             return (
               o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[group-history] Missing message secret for message ",
                       "",
                     ])),
                   a,
                 )
                 .tags("messaging"),
-              o(
-                "WAWebWamReportingTokenMismatchReporter",
-              ).logReportingTokenValidationEvent({
-                msg: e,
-                reason: o("WAWebWamEnumReportingTokenValidationFailureReason")
+              b(
+                e,
+                n,
+                o("WAWebWamEnumReportingTokenValidationFailureReason")
                   .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
                   .MISSING_MESSAGE_SECRET,
-                reportingTokenVersion: s,
-                isPartOfGroupHistory: !0,
-                groupHistoryBundleMessageId: n.bundleMsgStanzaId,
-              }),
-              {
-                row: null,
-                failureReason: o(
-                  "WAWebWamEnumReportingTokenValidationFailureReason",
-                ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
-                  .MISSING_MESSAGE_SECRET,
-                reportingTokenVersion: s,
-              }
-            );
-          var _ = yield o(
-              "WAWebGroupHistoryReportingTokenGenerator",
-            ).computeReportingTokenForMessage({
-              bundleMessageSecret: n.bundleMessageSecret,
-              groupJid: n.groupJid,
-              msgInfo: t,
-              reportingTokenVersion: s,
-              senderJid: n.senderJid,
-              stanzaId: a,
-            }),
-            f = _.info,
-            g = _.isSupportedReceiveVersion,
-            h = y(f, i),
-            C = h.failureReason,
-            b = h.isValid,
-            v = h.receivedInfo,
-            S =
-              C != null && !g
-                ? o("WAWebWamEnumReportingTokenValidationFailureReason")
-                    .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
-                    .UNSUPPORTED_VERSION
-                : C;
-          if (v == null)
-            return { row: null, failureReason: S, reportingTokenVersion: s };
-          S != null &&
-            (o("WALogger")
-              .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] token validation failed for msg ",
-                    "",
-                  ])),
-                a,
+                l,
               )
-              .tags("messaging"),
-            o(
-              "WAWebWamReportingTokenMismatchReporter",
-            ).logReportingTokenValidationEvent({
-              msg: e,
-              reason: S,
-              reportingTokenVersion: s,
-              isPartOfGroupHistory: !0,
-              groupHistoryBundleMessageId: n.bundleMsgStanzaId,
-            }));
-          var R = v.reportingTag;
-          if (R == null)
-            return { row: null, failureReason: S, reportingTokenVersion: s };
-          var L = {
-            msgKey: p(e),
-            stanzaId: a,
-            reportingTag: R,
-            msgTs: n.bundleMsgTimestamp,
-            receivedTs: o("WATimeUtils").unixTimeMs(),
-            reportingTagParticipant: n.senderJid,
-          };
-          return (
-            v.reportingToken != null &&
-              ((L.reportingToken = v.reportingToken.slice(
-                0,
-                b
-                  ? o("WAWebReportingTokenUtils").REPORTING_TOKEN_STORAGE_SIZE
-                  : o("WAWebReportingTokenUtils")
-                      .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
-              )),
-              (L.version = v.version),
-              (f == null ? void 0 : f.reportingTokenContent) != null &&
-                (L.reportingTokenContentOpaqueData = f.reportingTokenContent),
-              (f == null ? void 0 : f.reportingTokenKey) != null &&
-                (L.reportingTokenKey = f.reportingTokenKey)),
-            { row: L, failureReason: S, reportingTokenVersion: s }
-          );
+            );
+          var _ = s.computedInfo,
+            f = s.match,
+            g = f.failureReason,
+            h = f.isValid,
+            y = f.receivedInfo;
+          return y == null
+            ? { row: null, failureReason: g, reportingTokenVersion: l }
+            : (g != null &&
+                (o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[group-history] token validation failed for msg ",
+                        "",
+                      ])),
+                    a,
+                  )
+                  .tags("messaging"),
+                o(
+                  "WAWebWamReportingTokenMismatchReporter",
+                ).logReportingTokenValidationEvent({
+                  msg: e,
+                  reason: g,
+                  reportingTokenVersion: l,
+                  isPartOfGroupHistory: !0,
+                  groupHistoryBundleMessageId: n.bundleMsgStanzaId,
+                })),
+              {
+                row: R(e, n, a, y, h, _),
+                failureReason: g,
+                reportingTokenVersion: l,
+              });
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t) {
+    function C(e) {
+      var t;
+      return (
+        (e == null ? void 0 : e.isValid) === !0 &&
+        ((t = e.receivedInfo) == null ? void 0 : t.reportingToken) != null
+      );
+    }
+    function b(e, t, n, r) {
+      return (
+        o(
+          "WAWebWamReportingTokenMismatchReporter",
+        ).logReportingTokenValidationEvent({
+          msg: e,
+          reason: n,
+          reportingTokenVersion: r,
+          isPartOfGroupHistory: !0,
+          groupHistoryBundleMessageId: t.bundleMsgStanzaId,
+        }),
+        { row: null, failureReason: n, reportingTokenVersion: r }
+      );
+    }
+    function v(e, t, n, r, o) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            if (t.bundleMessageSecret == null) return null;
+            var i = yield o(
+                "WAWebGroupHistoryReportingTokenGenerator",
+              ).computeReportingTokenForMessage({
+                bundleMessageSecret: t.bundleMessageSecret,
+                groupJid: t.groupJid,
+                msgInfo: e,
+                reportingTokenVersion: r,
+                senderJid: t.senderJid,
+                stanzaId: n,
+              }),
+              l = i.info,
+              s = i.isSupportedReceiveVersion,
+              u = k(l, a);
+            return u.failureReason != null && !s
+              ? {
+                  computedInfo: l,
+                  match: babelHelpers.extends({}, u, {
+                    failureReason: o(
+                      "WAWebWamEnumReportingTokenValidationFailureReason",
+                    ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                      .UNSUPPORTED_VERSION,
+                  }),
+                }
+              : { computedInfo: l, match: u };
+          },
+        )),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t, n, r, a, i) {
+      (a === void 0 && (a = !0), i === void 0 && (i = null));
+      var l = r.reportingTag;
+      if (l == null) return null;
+      var s = {
+        msgKey: _(e),
+        stanzaId: n,
+        reportingTag: l,
+        msgTs: t.bundleMsgTimestamp,
+        receivedTs: o("WATimeUtils").unixTimeMs(),
+        reportingTagParticipant: t.senderJid,
+      };
+      if (r.reportingToken != null) {
+        var u, c;
+        ((s.reportingToken = r.reportingToken.slice(
+          0,
+          a
+            ? o("WAWebReportingTokenUtils").REPORTING_TOKEN_STORAGE_SIZE
+            : o("WAWebReportingTokenUtils")
+                .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
+        )),
+          (s.version = r.version),
+          ((u = i) == null ? void 0 : u.reportingTokenContent) != null &&
+            (s.reportingTokenContentOpaqueData = i.reportingTokenContent),
+          ((c = i) == null ? void 0 : c.reportingTokenKey) != null &&
+            (s.reportingTokenKey = i.reportingTokenKey));
+      }
+      return s;
+    }
+    function L(t, n, r, a) {
+      var i = r.find(function (e) {
+        return (
+          e.reportingToken == null &&
+          e.reportingTag != null &&
+          e.validationPolicy ===
+            o("WAWebReportingTokenConstants").ReportingTokenValidationPolicy
+              .LogMissingReportingToken
+        );
+      });
+      if (
+        i == null ||
+        t.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN ||
+        !o(
+          "WAWebMessagingGatingUtils",
+        ).isMissingReportingTokenDetectionEnabled()
+      )
+        return null;
+      var l = E(n);
+      return l == null
+        ? null
+        : (o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[group-history] msg ",
+                  " has no reporting token",
+                ])),
+              i.stanzaId,
+            )
+            .tags("messaging"),
+          o(
+            "WAWebWamReportingTokenMismatchReporter",
+          ).logReportingTokenValidationEvent({
+            msg: t,
+            reason:
+              a.bundleMessageSecret != null
+                ? o("WAWebWamEnumReportingTokenValidationFailureReason")
+                    .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                    .MISSING_REPORTING_TOKEN
+                : o("WAWebWamEnumReportingTokenValidationFailureReason")
+                    .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                    .MISSING_REPORTING_TOKEN_SECRET,
+            reportingTokenVersion: l,
+            isPartOfGroupHistory: !0,
+            groupHistoryBundleMessageId: a.bundleMsgStanzaId,
+          }),
+          { tokenlessEntry: i, version: l });
+    }
+    function E(e) {
+      var t;
+      return (t = o(
+        "WAWebGroupHistoryReportingTokenGenerator",
+      ).deriveReportingTokenContent({
+        messageBytes: e.messageBytes,
+        promoteEmptyContentToV3: !1,
+        reportingTokenVersion: o(
+          "WAWebReportingTokenContent",
+        ).getLatestReportingTokenExclusionVersion(),
+      })) == null
+        ? void 0
+        : t.version;
+    }
+    function k(e, t) {
       var n;
       if (
         (e == null ? void 0 : e.reportingToken) == null ||
@@ -302,8 +402,8 @@ __d(
               .MISMATCH_REPORTING_TOKEN,
           };
     }
-    ((l.prepareValidationContext = _),
-      (l.validateAndBuildReportingInfoRow = g));
+    ((l.prepareValidationContext = f),
+      (l.validateAndBuildReportingInfoRow = h));
   },
   98,
 );

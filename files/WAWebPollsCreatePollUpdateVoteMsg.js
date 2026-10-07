@@ -31,9 +31,10 @@ __d(
                 t.messageSecret,
                 "Poll creation missing message secret",
               ),
-              pollCreationOriginalSender: o(
-                "WAWebMsgGetters",
-              ).getOriginalSender(t.unsafe()),
+              pollCreationOriginalSender: r("nullthrows")(
+                o("WAWebMsgGetters").getOriginalSender(t.unsafe()),
+                "Poll creation missing original sender",
+              ),
               stanzaId: t.id.id,
               voteSender: e.sender,
             }),

@@ -11,6 +11,8 @@ __d(
       ["MOTION_PHOTO_CHILD", "MOTION_PHOTO_CHILD"],
       ["HEVC_VIDEO_PARENT", "HEVC_VIDEO_PARENT"],
       ["HEVC_VIDEO_CHILD", "HEVC_VIDEO_CHILD"],
+      ["AV1_VIDEO_PARENT", "AV1_VIDEO_PARENT"],
+      ["AV1_VIDEO_CHILD", "AV1_VIDEO_CHILD"],
     ]);
     function l(t) {
       return e.get(t);

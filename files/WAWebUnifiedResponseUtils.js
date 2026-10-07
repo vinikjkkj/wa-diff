@@ -167,6 +167,19 @@ __d(
       });
     }
     function T(e) {
+      return e == null
+        ? !1
+        : E(e).some(function (e) {
+            return u(e.view_model).some(D);
+          });
+    }
+    function D(e) {
+      return (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.__typename === "GenAISecureCredentialRequestPrimitive"
+      );
+    }
+    function x(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -184,29 +197,29 @@ __d(
         }
       return n;
     }
-    function D(e) {
+    function $(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
-    function x(e) {
+    function P(e) {
       var t;
-      if (e == null || $(e)) return !1;
+      if (e == null || N(e)) return !1;
       var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
-      return n.length > 0 && n.every(P);
+      return n.length > 0 && n.every(M);
     }
-    function $(e) {
+    function N(e) {
       var t, n;
       return (
         ((t = e.nested_responses) != null ? t : []).length > 0 ||
         ((n = e.embedded_screens) != null ? n : []).length > 0
       );
     }
-    function P(e) {
+    function M(e) {
       var t = u(e.view_model);
-      return t.length > 0 && t.every(N);
+      return t.length > 0 && t.every(w);
     }
-    function N(e) {
+    function w(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBotProgressStatusPrimitive" &&
@@ -225,9 +238,12 @@ __d(
       (l.buildUnifiedResponseFromRawData = v),
       (l.unifiedResponseHasMediaContent = S),
       (l.unifiedResponseHasConnectorActionCard = R),
-      (l.getMetaAiEmbeddedSources = T),
-      (l.stripEmbeddedScreens = D),
-      (l.isSettledProgressStatusOnly = x));
+      (l.unifiedResponseHasSecureCredentialRequest = T),
+      (l.isSecureCredentialRequest = D),
+      (l.getMetaAiEmbeddedSources = x),
+      (l.stripEmbeddedScreens = $),
+      (l.isSettledProgressStatusOnly = P),
+      (l.hasNestedOrEmbeddedContent = N));
   },
   98,
 );

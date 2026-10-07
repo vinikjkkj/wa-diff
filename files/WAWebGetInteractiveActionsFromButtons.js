@@ -14,13 +14,16 @@ __d(
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBrPaymentRequest",
     "WAWebCarouselMsgUtils",
+    "WAWebChatGetters",
     "WAWebCloudApiSignalLogger",
+    "WAWebConfirmPopup.react",
     "WAWebContactGetters",
     "WAWebCopyTextWithToast",
     "WAWebCouponCodeHelper",
     "WAWebDrawerManager",
     "WAWebExternalLink.react",
     "WAWebExternalLinkPopup.react",
+    "WAWebFbtCommon",
     "WAWebFrontendMsgGetters",
     "WAWebGetGalaxyFlowsActionFromButton",
     "WAWebInAppSignupConfirmation",
@@ -491,7 +494,7 @@ __d(
         l = o(
           "WAWebSendNativeFlowMenuOptionsResponse",
         ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName),
-        s =
+        c =
           e.data.selectionId != null &&
           o("WAWebBizAiHubReplyButtonUtils").isPrimaryOnlyBizAiHubReplyButton(
             e.data.selectionId,
@@ -501,7 +504,22 @@ __d(
         Icon: l ? void 0 : r("WDSIconIcReply.react"),
         disabled: i,
         onClick: function () {
-          if (s && o("WAWebContactGetters").getIsAiHub(n.contact)) {
+          if (a.id.fromMe && o("WAWebChatGetters").getIsBroadcast(n)) {
+            o("WAWebModalManager").ModalManager.openAlert(
+              m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                okText: r("WAWebFbtCommon")("OK"),
+                onOK: function () {
+                  return o("WAWebModalManager").ModalManager.closeAlert();
+                },
+                testid: "broadcast_quick_reply_info_alert",
+                children: s._(
+                  /*BTDS*/ "When your receiver taps this button, they'll send you a reply message with the same text.",
+                ),
+              }),
+            );
+            return;
+          }
+          if (c && o("WAWebContactGetters").getIsAiHub(n.contact)) {
             o("WAWebModalManager").ModalManager.open(
               m.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
             );
@@ -509,15 +527,15 @@ __d(
           }
           if (t.isCarouselCard) D(e, a);
           else if (l) {
-            var i, c;
+            var i, d;
             o(
               "WAWebSendNativeFlowMenuOptionsResponse",
             ).sendNativeFlowMenuOptionsResponse(n, a, {
               label: (i = e.data) == null ? void 0 : i.label,
-              selectionId: (c = e.data) == null ? void 0 : c.selectionId,
+              selectionId: (d = e.data) == null ? void 0 : d.selectionId,
             });
           } else {
-            var d, p;
+            var p, _;
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -526,11 +544,11 @@ __d(
             ),
               o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
                 n,
-                (d = e.data) == null ? void 0 : d.label,
+                (p = e.data) == null ? void 0 : p.label,
                 {
                   quotedMsg: a,
                   selectedIndex: e.index,
-                  selectedId: (p = e.data) == null ? void 0 : p.selectionId,
+                  selectedId: (_ = e.data) == null ? void 0 : _.selectionId,
                 },
               ));
           }
@@ -551,11 +569,11 @@ __d(
               messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
                 .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
-          var _ = o("WAWebMsgCollection").MsgCollection.get(t.id);
-          _ != null &&
+          var f = o("WAWebMsgCollection").MsgCollection.get(t.id);
+          f != null &&
             o(
               "WAWebBizInteractiveMessageQuickReplyAction",
-            ).markInteractiveButtonClicked(_, e.index);
+            ).markInteractiveButtonClicked(f, e.index);
         },
       };
     }

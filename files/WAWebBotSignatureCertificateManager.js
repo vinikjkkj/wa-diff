@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebBotCertificateCachingSystem",
     "WAWebBotCertificateRevocationService",
+    "WAWebBotCertificateUtils",
     "WAWebBotSignatureRootCertificate",
     "WAWebCertificateUtils",
     "asyncToGeneratorRuntime",
@@ -111,24 +112,26 @@ __d(
               atTimeMs: a,
             });
           if (l != null) return l;
-          var s = yield o("WAWebCertificateUtils").parseCertificateChain(e);
+          var s = yield o("WAWebBotCertificateUtils").parseCertificateChain(e);
           if (s.length === 0) throw new h("Certificate chain is empty");
           var u = s[0];
-          if (!o("WAWebCertificateUtils").isCertificateValidAtTime(u, r))
+          if (!o("WAWebBotCertificateUtils").isCertificateValidAtTime(u, r))
             throw new g("Leaf cert expired at serverTime");
           for (
             var c = [].concat(s, [t]),
               d = function* () {
                 var e = c[m],
                   t = c[m + 1];
-                if (!o("WAWebCertificateUtils").isCertificateValidAtTime(t, r))
+                if (
+                  !o("WAWebBotCertificateUtils").isCertificateValidAtTime(t, r)
+                )
                   throw new g("Issuer cert at pos " + (m + 1) + " expired");
                 var n = yield L(e, t);
                 if (!n)
                   throw new y("Signature verification failed at pos " + m);
-                var i = o("WAWebCertificateUtils").getCertificateSerialNumber(
-                  e,
-                );
+                var i = o(
+                  "WAWebBotCertificateUtils",
+                ).getCertificateSerialNumber(e);
                 if (i == null)
                   throw new h("Failed to extract serial number at pos " + m);
                 var l = o(

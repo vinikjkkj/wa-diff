@@ -4,6 +4,7 @@ __d(
     "WAJids",
     "WAWebContactManagerCustomerProfileQuery.graphql",
     "WAWebCustomerManagerCustomerProfileDecoders",
+    "WAWebCustomerManagerRequestErrors",
     "WAWebCustomerOrderPreferences",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
@@ -33,11 +34,18 @@ __d(
                 ")",
             );
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var a = yield o("WAWebRelayClient").fetchQuery(
-            s,
-            { lid: t },
-            { accessToken: n.token, environmentType: "facebook" },
-          );
+          var a;
+          try {
+            a = yield o("WAWebRelayClient").fetchQuery(
+              s,
+              { lid: t },
+              { accessToken: n.token, environmentType: "facebook" },
+            );
+          } catch (e) {
+            throw o(
+              "WAWebCustomerManagerRequestErrors",
+            ).asCustomerManagerRequestError(e);
+          }
           if (a == null)
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: incomplete response",

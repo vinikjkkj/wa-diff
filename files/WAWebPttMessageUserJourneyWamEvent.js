@@ -4,7 +4,10 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumChatbarInitialState",
     "WAWebWamEnumPttMessageUserJourneyAction",
+    "WAWebWamEnumPttMessageUserJourneyCancelReason",
+    "WAWebWamEnumPttMessageUserJourneyDraftSavedReason",
     "WAWebWamEnumPttMessageUserJourneyFailureReason",
+    "WAWebWamEnumPttMessageUserJourneyPauseReason",
     "WAWebWamEnumPttMessageUserJourneyStage",
     "WAWebWamEnumPttWaveformResult",
     "WAWebWamEnumTsSurface",
@@ -30,11 +33,26 @@ __d(
                 o("WAWebWamEnumPttMessageUserJourneyAction")
                   .PTT_MESSAGE_USER_JOURNEY_ACTION,
               ],
+              pttMessageUserJourneyCancelReason: [
+                16,
+                o("WAWebWamEnumPttMessageUserJourneyCancelReason")
+                  .PTT_MESSAGE_USER_JOURNEY_CANCEL_REASON,
+              ],
               pttMessageUserJourneyContainsQuotedItem: [11, e.TYPES.BOOLEAN],
+              pttMessageUserJourneyDraftSavedReason: [
+                17,
+                o("WAWebWamEnumPttMessageUserJourneyDraftSavedReason")
+                  .PTT_MESSAGE_USER_JOURNEY_DRAFT_SAVED_REASON,
+              ],
               pttMessageUserJourneyFailureReason: [
                 9,
                 o("WAWebWamEnumPttMessageUserJourneyFailureReason")
                   .PTT_MESSAGE_USER_JOURNEY_FAILURE_REASON,
+              ],
+              pttMessageUserJourneyPauseReason: [
+                18,
+                o("WAWebWamEnumPttMessageUserJourneyPauseReason")
+                  .PTT_MESSAGE_USER_JOURNEY_PAUSE_REASON,
               ],
               pttMessageUserJourneyStage: [
                 3,

@@ -86,6 +86,11 @@ __d(
                 30,
                 o("WAWebWamEnumNetworkStackType").NETWORK_STACK_TYPE,
               ],
+              nonStreamingFallbackReason: [
+                74,
+                o("WAWebWamEnumHashVerificationFailureType")
+                  .HASH_VERIFICATION_FAILURE_TYPE,
+              ],
               overallAttemptCount: [4, e.TYPES.INTEGER],
               overallBackendStore: [
                 39,

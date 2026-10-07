@@ -4,7 +4,7 @@ __d(
     "WAHex",
     "WALruCache",
     "WAWebBotCertificateRevocationService",
-    "WAWebCertificateUtils",
+    "WAWebBotCertificateUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,7 +62,7 @@ __d(
               m = new Date(c.notBefore.value).getTime();
             if (!Number.isFinite(d) || !Number.isFinite(m)) return;
             (d < l && (l = d), m > u && (u = m));
-            var _ = o("WAWebCertificateUtils").getCertificateSerialNumber(c);
+            var _ = o("WAWebBotCertificateUtils").getCertificateSerialNumber(c);
             _ != null && i.push(_);
           }
           var f = yield p(n, a);

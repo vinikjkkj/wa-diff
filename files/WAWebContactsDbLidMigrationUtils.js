@@ -8,7 +8,6 @@ __d(
     "WAWebWidFactory",
     "WAWebWidValidator",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["phoneNumber", "phoneNumberCreatedAt", "pnContactHash"],
@@ -29,18 +28,10 @@ __d(
         "pnContactHash",
         "statusMute",
       ],
-      d = [
-        "contactHash",
-        "id",
-        "phoneNumber",
-        "phoneNumberCreatedAt",
-        "pnContactHash",
-        "statusMute",
-      ],
+      d,
       m,
-      p,
-      _;
-    function f(e) {
+      p;
+    function _(e) {
       return e.map(function (e) {
         try {
           var t,
@@ -61,8 +52,8 @@ __d(
           return (
             o("WALogger")
               .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "maybeReplacePhoneNumbersWithLatestLids: ",
                     "",
                   ])),
@@ -74,20 +65,19 @@ __d(
         }
       });
     }
-    function g(t, n) {
+    function f(t, n) {
       var r = t.phoneNumber,
         o = t.phoneNumberCreatedAt,
         a = t.pnContactHash,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return babelHelpers.extends({}, i, { id: n, contactHash: a });
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (r("justknobx")._("3044")) return C(e);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
             n = new Map();
           return (
@@ -138,71 +128,10 @@ __d(
             Array.from(t.values())
           );
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map(),
-            n = new Map();
-          e == null ||
-            e.forEach(function (e) {
-              !r("WAWebWid").isStringLid(e.id) && n.set(e.id, e);
-            });
-          var a = [];
-          return (
-            e == null ||
-              e.forEach(function (e) {
-                if (r("WAWebWid").isStringLid(e.id)) {
-                  var i = e.contactHash,
-                    l = e.id,
-                    s = e.phoneNumber,
-                    u = e.phoneNumberCreatedAt,
-                    c = e.pnContactHash,
-                    m = e.statusMute,
-                    p = babelHelpers.objectWithoutPropertiesLoose(e, d);
-                  a.push(e);
-                  var _ = o("WAWebApiContact").getPnIfLidIsLatestMapping(
-                    o("WAWebWidFactory").createUserLidOrThrow(l),
-                  );
-                  if (_ != null) {
-                    var f,
-                      g = _.toJid(),
-                      h = n.get(g);
-                    t.set(
-                      g,
-                      babelHelpers.extends({}, p, {
-                        id: g,
-                        contactHash: e.pnContactHash,
-                        statusMute:
-                          (f = h == null ? void 0 : h.statusMute) != null
-                            ? f
-                            : !1,
-                      }),
-                    );
-                  }
-                }
-              }),
-            t.forEach(function (e) {
-              return a.push(e);
-            }),
-            e == null ||
-              e.forEach(function (e) {
-                return (
-                  !r("WAWebWid").isStringLid(e.id) && !t.has(e.id) && a.push(e)
-                );
-              }),
-            a
-          );
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e, t) {
+    function y(e, t) {
       var n = t.contactHash,
         r = t.statusMute,
         a = babelHelpers.objectWithoutPropertiesLoose(t, s),
@@ -215,7 +144,7 @@ __d(
           })
         : babelHelpers.extends({}, a, { id: i });
     }
-    function S(e, t) {
+    function C(e, t) {
       var n = t.contactHash,
         r = t.displayNameLID,
         o = t.phoneNumber,
@@ -228,15 +157,15 @@ __d(
         ? babelHelpers.extends({}, s, { contactHash: i, id: c })
         : babelHelpers.extends({}, s, { id: c });
     }
-    function R(e, t) {
+    function b(e, t) {
       try {
         var n = o("WAWebWidFactory").createUserWidOrThrow(e);
         if (n.isLid()) {
           var r = o("WAWebApiContact").getPnIfLidIsLatestMapping(n);
-          return r != null ? S(r, t) : null;
+          return r != null ? C(r, t) : null;
         }
         var a = o("WAWebApiContact").getCurrentLid(n);
-        return a != null ? v(a, t) : null;
+        return a != null ? y(a, t) : null;
       } catch (t) {
         if (t instanceof o("WAWebWidError").InvalidWidError) {
           var i = "@" + o("WAWebWidValidator").Domains.S_WHATSAPP_NET;
@@ -246,8 +175,8 @@ __d(
               return (
                 o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "getAlternateRowUpdates failed: invalid PN length ",
                         "",
                       ])),
@@ -260,8 +189,8 @@ __d(
         }
         o("WALogger")
           .ERROR(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "Failed to get alternate row updates ",
                 "",
               ])),
@@ -271,11 +200,11 @@ __d(
       }
       return null;
     }
-    ((l.maybeReplacePhoneNumbersWithLatestLids = f),
-      (l.removeLidOnlyCols = g),
-      (l.replacePnRowsWithLidData = h),
-      (l.createContactLidRowFromPnRow = v),
-      (l.getAlternateRowUpdates = R));
+    ((l.maybeReplacePhoneNumbersWithLatestLids = _),
+      (l.removeLidOnlyCols = f),
+      (l.replacePnRowsWithLidData = g),
+      (l.createContactLidRowFromPnRow = y),
+      (l.getAlternateRowUpdates = b));
   },
   98,
 );

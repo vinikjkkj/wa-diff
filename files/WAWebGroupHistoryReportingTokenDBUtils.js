@@ -36,6 +36,7 @@ __d(
                 reportingTokenVersion: e.version,
                 reportingTag: e.reportingTag,
                 sendTs: e.sendTs,
+                validationPolicy: e.validationPolicy,
                 addedTs: o("WATimeUtils").unixTimeMs(),
                 isSend: r,
               };
@@ -83,6 +84,7 @@ __d(
               stanzaId: e.stanzaId,
               reportingTag: e.reportingTag,
               sendTs: e.sendTs,
+              validationPolicy: e.validationPolicy,
             };
             return e.reportingToken != null && e.reportingTokenVersion != null
               ? babelHelpers.extends({}, t, {

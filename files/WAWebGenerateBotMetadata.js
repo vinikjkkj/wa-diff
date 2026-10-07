@@ -71,9 +71,9 @@ __d(
         r = t.botPersonaId != null ? t.botPersonaId : void 0,
         a = h(t),
         i = t.aiThreadInfo != null ? e(t) : void 0,
-        l = L(t.botModeSelection, t.botModeOverride),
+        l = E(t.botModeSelection, t.botModeOverride),
         c = s(t),
-        d = R(t.type),
+        d = L(t.type),
         p = u(t),
         _ =
           t.unifiedResponseMutationMediaList != null
@@ -94,7 +94,7 @@ __d(
         return {
           personaId: r,
           invokerJid: a,
-          capabilityMetadata: t.id ? S(t.id.remote, t.subtype) : void 0,
+          capabilityMetadata: t.id ? R(t.id.remote, t.subtype) : void 0,
           botThreadInfo: i,
           botGroupMetadata: g(t.botGroupParticipant),
           botModeSelectionMetadata: l,
@@ -234,6 +234,14 @@ __d(
           ];
     }
     function S(e, t) {
+      return (
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
+        t !== o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotRequestWelcome &&
+        o("WAWebHatchBackendGating").isHatchSecureCredentialsEnabledOnBackend()
+      );
+    }
+    function R(e, t) {
       var n,
         r = [
           (n = o("WAWebProtobufsAICommon.pb"))
@@ -305,7 +313,9 @@ __d(
                         .RICH_RESPONSE_GRID_IMAGE_3P,
                     ]
                   : [],
-                o("WAWebBotUnifiedResponseGating").isUrBloksEnabled()
+                o("WAWebABProps").getABPropConfigValue(
+                  "wa_web_ur_bloks_enabled",
+                )
                   ? [
                       o("WAWebProtobufsAICommon.pb")
                         .BotCapabilityMetadata$BotCapabilityType
@@ -401,10 +411,17 @@ __d(
               ]
             : [],
           v(e, t),
+          S(e, t)
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .HATCH_SECURE_CREDENTIAL_CARD_ENABLED,
+              ]
+            : [],
         );
       return r.length === 0 ? void 0 : { capabilities: r };
     }
-    function R(e) {
+    function L(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -414,7 +431,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function L(e, t) {
+    function E(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -433,8 +450,8 @@ __d(
       (l.generateBotMetadata = c),
       (l.mergeBotMetadata = p),
       (l.addGroupAgentBotMetadata = _),
-      (l.generateBotCapabilityMetadata = S),
-      (l.generateBotModeSelectionMetadata = L));
+      (l.generateBotCapabilityMetadata = R),
+      (l.generateBotModeSelectionMetadata = E));
   },
   98,
 );

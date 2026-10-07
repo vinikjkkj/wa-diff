@@ -93,18 +93,27 @@ __d(
         emojiRawFallback: { color: "x14ug900", $$css: !0 },
       },
       c = (function (t) {
-        function n(e, n, r, o) {
-          var a;
+        function n(e) {
+          var n,
+            r = e.emoji,
+            o = e.emojiSize,
+            a = e.key,
+            i = e.textEmoji;
           return (
-            (a = t.call(this, e, o) || this),
-            (a.__textEmoji = n),
-            (a.__emojiSize = r),
-            a
+            (n = t.call(this, r, a) || this),
+            (n.__textEmoji = i),
+            (n.__emojiSize = o),
+            n
           );
         }
         (babelHelpers.inheritsLoose(n, t),
           (n.clone = function (t) {
-            return new n(t.__text, t.__textEmoji, t.__emojiSize, t.__key);
+            return new n({
+              emoji: t.__text,
+              emojiSize: t.__emojiSize,
+              key: t.__key,
+              textEmoji: t.__textEmoji,
+            });
           }),
           (n.getType = function () {
             return "emoji";
@@ -180,7 +189,7 @@ __d(
         n = e.emojiSize,
         r = n === void 0 ? s.Small : n,
         o = e.textEmoji;
-      return new c(t, o, r).setMode("token");
+      return new c({ emoji: t, emojiSize: r, textEmoji: o }).setMode("token");
     }
     function m(e) {
       return e instanceof c;
