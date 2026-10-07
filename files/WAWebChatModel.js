@@ -1426,8 +1426,7 @@ __d(
             (t.star && o("WAWebStarredMsgCollection").removeStarredMsgs([t]),
               o("WAWebMsgGetters").getIsMedia(t) && this.mediaMsgs
                 ? this.mediaMsgs.remove(t)
-                : o("WAWebMsgLinks").getLinksFromMsg(t).length > 0 &&
-                    this.linkMsgs
+                : o("WAWebMsgLinks").hasLinkGalleryLinks(t) && this.linkMsgs
                   ? this.linkMsgs.remove(t)
                   : o("WAWebFrontendMsgGetters").getAsDoc(t) && this.docMsgs
                     ? this.docMsgs.remove(t)

@@ -1,12 +1,14 @@
 __d(
   "WAWebBrAddPixKeyMessageGating",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebABProps"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return !1;
+      return o("WAWebABProps").getABPropConfigValue(
+        "br_payments_add_pix_key_message_enabled",
+      );
     }
-    i.isAddPixKeyMessageEnabled = e;
+    l.isAddPixKeyMessageEnabled = e;
   },
-  66,
+  98,
 );

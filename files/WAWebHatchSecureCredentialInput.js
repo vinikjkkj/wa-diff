@@ -8,26 +8,20 @@ __d(
     function s(e) {
       var t,
         n = e.trim();
-      if (n === "" || /^[/.?#]/.test(n) || n.includes("\\")) return null;
-      var r = /^https?:\/\//i.test(n);
-      if (!r && /^[a-z][a-z0-9+.-]*:(?!\d)/i.test(n)) return null;
-      var o = r ? n : "https://" + n,
-        a =
-          (t = o.slice(o.indexOf("://") + 3).split(/[/?#]/, 1)[0]) != null
+      if (n === "" || /\s/.test(n) || n.includes("\\")) return null;
+      var r = /^[a-z][a-z0-9+.-]*:\/\//i.test(n) ? n : "https://" + n,
+        o =
+          (t = r.slice(r.indexOf("://") + 3).split(/[/?#]/, 1)[0]) != null
             ? t
             : "";
-      if (a === "" || a.includes("@") || /\s/.test(a)) return null;
-      var i;
+      if (o === "" || o.includes("@")) return null;
+      var a;
       try {
-        i = new URL(o);
+        a = new URL(r);
       } catch (e) {
         return null;
       }
-      return i.hostname === "" ||
-        /^\.+$/.test(i.hostname) ||
-        (!r && !i.hostname.includes("."))
-        ? null
-        : ((i.protocol = "https:"), i.href);
+      return a.protocol !== "https:" || a.hostname === "" ? null : r;
     }
     function u(t) {
       return m(t) > e;

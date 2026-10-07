@@ -6,6 +6,7 @@ __d(
     "WAWebBizFrontendGatingUtils",
     "WAWebBizOrderDetailAction",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
+    "WAWebBrAddPixKeyMessageGating",
     "WAWebBrAddPixKeyMessageOffer",
     "WAWebBrSavePartnerPixKeyFeature",
     "WAWebBrSenderPixKeyAttribution",
@@ -190,12 +191,13 @@ __d(
         : {
             label: s._(/*BTDS*/ "Add Pix key"),
             onClick: function () {
-              o("WAWebBrSavePartnerPixKeyFeature").openAddPixKeyMessageScreen(
-                t,
-                o(
-                  "WAWebBrSenderPixKeyAttribution",
-                ).resolveSenderPixKeyAttribution(e.senderObj),
-              );
+              o("WAWebBrAddPixKeyMessageGating").isAddPixKeyMessageEnabled() &&
+                o("WAWebBrSavePartnerPixKeyFeature").openAddPixKeyMessageScreen(
+                  t,
+                  o(
+                    "WAWebBrSenderPixKeyAttribution",
+                  ).resolveSenderPixKeyAttribution(e.senderObj),
+                );
             },
             testid: "br_add_pix_key_message_action",
           };

@@ -121,6 +121,52 @@ __d(
       return !1;
     }
     function R(e) {
+      return e == null
+        ? !1
+        : E(e).some(function (e) {
+            return u(e.view_model).some(L);
+          });
+    }
+    function L(e) {
+      return (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.__typename === "GenAIMuseConnectorActionCardPrimitive"
+      );
+    }
+    function E(e) {
+      var t;
+      return [].concat(
+        k(e),
+        ((t = e.nested_responses) != null ? t : []).flatMap(k),
+      );
+    }
+    function k(e) {
+      var t, n, r;
+      return [].concat(
+        (t = e.sections) != null ? t : [],
+        (n = e.footer_sections) != null ? n : [],
+        ((r = e.embedded_screens) != null ? r : []).flatMap(I),
+      );
+    }
+    function I(e) {
+      var t;
+      return ((t = e.content) != null ? t : []).flatMap(function (e) {
+        if ("view_model" in e) return [e];
+        if ("sections" in e) {
+          var t;
+          return (t = e.sections) != null ? t : [];
+        }
+        if ("tabs" in e) {
+          var n;
+          return ((n = e.tabs) != null ? n : []).flatMap(function (e) {
+            var t;
+            return (t = e.sections) != null ? t : [];
+          });
+        }
+        return [];
+      });
+    }
+    function T(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -138,29 +184,29 @@ __d(
         }
       return n;
     }
-    function L(e) {
+    function D(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
-    function E(e) {
+    function x(e) {
       var t;
-      if (e == null || k(e)) return !1;
+      if (e == null || $(e)) return !1;
       var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
-      return n.length > 0 && n.every(I);
+      return n.length > 0 && n.every(P);
     }
-    function k(e) {
+    function $(e) {
       var t, n;
       return (
         ((t = e.nested_responses) != null ? t : []).length > 0 ||
         ((n = e.embedded_screens) != null ? n : []).length > 0
       );
     }
-    function I(e) {
+    function P(e) {
       var t = u(e.view_model);
-      return t.length > 0 && t.every(T);
+      return t.length > 0 && t.every(N);
     }
-    function T(e) {
+    function N(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBotProgressStatusPrimitive" &&
@@ -178,9 +224,10 @@ __d(
       (l.getQuotaUpsellBenefitType = C),
       (l.buildUnifiedResponseFromRawData = v),
       (l.unifiedResponseHasMediaContent = S),
-      (l.getMetaAiEmbeddedSources = R),
-      (l.stripEmbeddedScreens = L),
-      (l.isSettledProgressStatusOnly = E));
+      (l.unifiedResponseHasConnectorActionCard = R),
+      (l.getMetaAiEmbeddedSources = T),
+      (l.stripEmbeddedScreens = D),
+      (l.isSettledProgressStatusOnly = x));
   },
   98,
 );

@@ -24,20 +24,19 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e, u, c;
-    function d(e, t) {
-      return m.apply(this, arguments);
+    var e, u, c, d, m;
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           var i,
             l,
-            d,
-            m,
             p,
-            _ = t.mediaObject;
-          (_ ||
+            _,
+            f = t.mediaObject;
+          (f ||
             o("WALogger")
               .ERROR(
                 e ||
@@ -46,57 +45,57 @@ __d(
                   ])),
               )
               .sendLogs("media-fault: incorrect media object for created msg"),
-            _ || s(0, 56330));
-          var f = o("WAWebMmsMediaTypes").getMsgMediaType(t),
-            g,
-            h = (i = a.canEnableFastForward) != null ? i : !0;
-          h === !0 &&
-            (g = _.entries.getUploadEntry(
+            f || s(0, 56330));
+          var g = o("WAWebMmsMediaTypes").getMsgMediaType(t),
+            h,
+            y = (i = a.canEnableFastForward) != null ? i : !0;
+          y === !0 &&
+            (h = f.entries.getUploadEntry(
               a.isMediaCryptoExpectedForChat === !0,
             ));
-          var y =
-              g instanceof o("WAWebMediaEntry").EncryptedMediaEntry
-                ? { key: g.mediaKey, timestamp: g.mediaKeyTimestamp }
+          var C =
+              h instanceof o("WAWebMediaEntry").EncryptedMediaEntry
+                ? { key: h.mediaKey, timestamp: h.mediaKeyTimestamp }
                 : r("WAWebCryptoRandomMediaKey")(),
-            C = _.contentInfo,
-            b = C.fullPreviewData,
-            v = C.fullPreviewSize,
-            S = t.safe(),
-            R = o("WAWebMediaPrepHelpers").shouldUploadThumbnail(S),
-            L = o("WAWebABProps").getABPropConfigValue(
+            b = f.contentInfo,
+            v = b.fullPreviewData,
+            S = b.fullPreviewSize,
+            R = t.safe(),
+            L = o("WAWebMediaPrepHelpers").shouldUploadThumbnail(R),
+            E = o("WAWebABProps").getABPropConfigValue(
               "wa_web_enable_status_hq_thumbnail",
             ),
-            E = !1,
-            k = !1;
-          L
-            ? ((E =
-                (!b ||
-                  b.size() >
+            k = !1,
+            I = !1;
+          E
+            ? ((k =
+                (!v ||
+                  v.size() >
                     o("WAWebMediaConstants")
                       .MICRO_THUMBNAIL_MAX_FILE_SIZE_BYTES) &&
-                R),
-              (k = S.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK && R))
-            : ((E = !b && R), (k = R));
-          var I = !v && R,
-            T = t.body;
-          if ((E || I || k) && _.contentInfo.preview)
+                L),
+              (I = R.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK && L))
+            : ((k = !v && L), (I = L));
+          var T = !S && L,
+            D = t.body;
+          if ((k || T || I) && f.contentInfo.preview)
             try {
-              var D = yield o("WAWebImageUtils").base64ImageToCanvas(
-                  _.contentInfo.preview.url(),
+              var x = yield o("WAWebImageUtils").base64ImageToCanvas(
+                  f.contentInfo.preview.url(),
                 ),
-                x = E
+                $ = k
                   ? o("WAWebABProps").getABPropConfigValue(
                       "web_pdf_thumbnail_size_in_bytes",
                     )
                   : o("WAWebMediaConstants")
                       .MICRO_THUMBNAIL_MAX_FILE_SIZE_BYTES,
-                $ = yield o("WAWebCanvasUtils").generateMicroThumb(D, x, {
+                P = yield o("WAWebCanvasUtils").generateMicroThumb(x, $, {
                   mimetype: "image/jpeg",
                   maxAttempts: 10,
                 });
-              ((b = _.contentInfo.preview),
-                (v = { width: $.width, height: $.height }),
-                (T = r("WAWebURLUtils").parseDataURL($.dataUrl).data));
+              ((v = f.contentInfo.preview),
+                (S = { width: P.width, height: P.height }),
+                (D = r("WAWebURLUtils").parseDataURL(P.dataUrl).data));
             } catch (e) {
               o("WALogger")
                 .WARN(
@@ -109,93 +108,138 @@ __d(
                 )
                 .sendLogs("media-microthumb-generation-failed");
             }
-          var P = b && v && R,
-            N =
-              b && P === !0
+          var N = v && S && L,
+            M = v && N === !0 ? v : null,
+            w = function (i) {
+              var e;
+              return M != null
                 ? r("WAWebMediaUploadMmsThumbnail")({
-                    thumbnail: b,
-                    mediaKeyInfo: y,
+                    thumbnail: M,
+                    mediaKeyInfo: i,
                     mediaType: r("nullthrows")(
-                      o("WAWebMediaPrepHelpers").getMediaTypeForThumbnails(S),
+                      o("WAWebMediaPrepHelpers").getMediaTypeForThumbnails(R),
                     ),
                     uploadOrigin:
-                      (l = a.uploadOriginForChat) != null
-                        ? l
+                      (e = a.uploadOriginForChat) != null
+                        ? e
                         : o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE
                             .UNKNOWN,
                     fileOrigin: a.fileOrigin,
                     forwardedFromWeb: !!t.forwardedFromWeb,
                     isViewOnce: !!t.isViewOnce,
                   })
-                : (c || (c = n("Promise"))).resolve(null),
-            M = {
+                : (m || (m = n("Promise"))).resolve(null);
+            },
+            A = w(C),
+            F = {
               mimetype: t.mimetype,
               canEnableFastForward: a.canEnableFastForward,
-              mediaObject: _,
-              mediaType: f,
+              mediaObject: f,
+              mediaType: g,
               forwardedFromWeb: !!t.forwardedFromWeb,
               uploadOrigin:
-                (d = a.uploadOriginForChat) != null
-                  ? d
+                (l = a.uploadOriginForChat) != null
+                  ? l
                   : o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE
                       .UNKNOWN,
               fileOrigin: a.fileOrigin,
               isViewOnce: !!t.isViewOnce,
               earlyUpload: a.earlyUpload,
             },
-            w =
+            O =
               a.isMediaCryptoExpectedForChat === !0
                 ? o("WAWebMediaMmsV4Upload").uploadMedia(
-                    babelHelpers.extends({}, M, { mediaKeyInfo: y }),
+                    babelHelpers.extends({}, F, { mediaKeyInfo: C }),
                   )
                 : o("WAWebMediaMmsV4Upload").uploadUnencryptedMedia(
-                    babelHelpers.extends({}, M, {
+                    babelHelpers.extends({}, F, {
                       calculateToken: o("WAMediaCalculateFilehash")
                         .getRandomFilehash,
                     }),
                   ),
-            A = _.filehash;
+            B = f.filehash;
           o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-            A != null &&
-            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.put(A, y);
-          var F = yield (c || (c = n("Promise"))).all([w, N]),
-            O = F[0],
-            B = F[1];
-          r("WAWebMediaGatingShouldClearUploadedBlobs")(f) &&
-            _.clearBlob({ reset: !0 });
-          var W = O.mediaEntry;
-          if (!W)
+            B != null &&
+            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.put(B, C);
+          var W = yield (m || (m = n("Promise"))).all([O, A]),
+            q = W[0],
+            U = W[1],
+            V = U;
+          r("WAWebMediaGatingShouldClearUploadedBlobs")(g) &&
+            f.clearBlob({ reset: !0 });
+          var H = q.mediaEntry;
+          if (!H)
             return {
-              mediaResult: O,
+              mediaResult: q,
               mmsThumbnailData: null,
-              body: T,
+              body: D,
               fbid: null,
             };
           o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-            A != null &&
-            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(A);
-          var q =
-              (m = o("WAWebMediaPrepHelpers").maybeGetThumbnailData({
-                uploadThumbnailResult: B,
-                mediaResultEntry: W,
-                uploadEncryptedThumbnail: P,
-                mediaObject: _,
-                fullPreviewSize: v,
-                mediaType: f,
+            B != null &&
+            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(B);
+          var G = N;
+          if (
+            M != null &&
+            H instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
+            H.getMediaKey() !== C.key &&
+            o("WAWebABProps").getABPropConfigValue(
+              "wa_web_media_thumbnail_key_match_enabled",
+            )
+          ) {
+            o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[media] media key of the upload differs from the thumbnail's, uploading the thumbnail again, type: ",
+                    "",
+                  ])),
+                g,
+              )
+              .sendLogs("media-thumbnail-key-mismatch");
+            var z = yield w({
+              key: H.getMediaKey(),
+              timestamp: H.getMediaKeyTimestamp(),
+            }).catch(function () {
+              return null;
+            });
+            (z == null ? void 0 : z.kind) ===
+            o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS
+              ? (V = z)
+              : (o("WALogger")
+                  .WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[media] thumbnail re-upload failed, sending without it, type: ",
+                        "",
+                      ])),
+                    g,
+                  )
+                  .sendLogs("media-thumbnail-key-mismatch-reupload-failed"),
+                (G = !1));
+          }
+          var j =
+              (p = o("WAWebMediaPrepHelpers").maybeGetThumbnailData({
+                uploadThumbnailResult: V,
+                mediaResultEntry: H,
+                uploadEncryptedThumbnail: G,
+                mediaObject: f,
+                fullPreviewSize: S,
+                mediaType: g,
               })) != null
-                ? m
-                : {},
-            U =
-              W instanceof o("WAWebMediaEntry").UnencryptedMediaEntry &&
-              (p = W.fbid) != null
                 ? p
+                : {},
+            K =
+              H instanceof o("WAWebMediaEntry").UnencryptedMediaEntry &&
+              (_ = H.fbid) != null
+                ? _
                 : null;
-          return { mediaResult: O, mmsThumbnailData: q, body: T, fbid: U };
+          return { mediaResult: q, mmsThumbnailData: j, body: D, fbid: K };
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.uploadMediaWithPrep = d;
+    l.uploadMediaWithPrep = p;
   },
   98,
 );

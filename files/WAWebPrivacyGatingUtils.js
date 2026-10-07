@@ -7,13 +7,7 @@ __d(
         "data_privacy_phase_2_enabled",
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_iq",
-      );
-    }
-    ((l.isDataPrivacyPhase2Enabled = e),
-      (l.isProfileScrappingProtectionInMexFetchEnabled = s));
+    l.isDataPrivacyPhase2Enabled = e;
   },
   98,
 );

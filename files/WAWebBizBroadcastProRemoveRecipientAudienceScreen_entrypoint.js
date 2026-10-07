@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WAWebBizBroadcastProRemoveRecipientAudienceScreenQuery$Parameters",
+    "WAWebBizBroadcastsAudiencePaginationConstants",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,7 +16,11 @@ __d(
               parameters: r(
                 "WAWebBizBroadcastProRemoveRecipientAudienceScreenQuery$Parameters",
               ),
-              variables: { caId: t.caId, first: 20 },
+              variables: {
+                caId: t.caId,
+                first: o("WAWebBizBroadcastsAudiencePaginationConstants")
+                  .AUDIENCE_PAGE_SIZE,
+              },
             },
           },
         };

@@ -197,8 +197,8 @@ __d(
               return !u.has(e);
             });
           if (
-            !k(l.participants) ||
-            k(c) ||
+            !I(l.participants) ||
+            I(c) ||
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
           )
             return null;
@@ -264,18 +264,25 @@ __d(
           return o("WAWebBotUtils").isWidGroupAgentFbidWid(t);
         })
         ? !1
-        : n.every(o("WAWebBotGroupGatingUtils").isGroupBotParticipantEnabled);
+        : n.every(k);
     }
     function k(e) {
+      return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
+        ? o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled()
+        : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
+          ? o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
+          : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
+    }
+    function I(e) {
       return e.some(function (e) {
         return o("WAWebBotUtils").isWidGroupAgentFbidWid(
           o("WAWebWidFactory").createWid(e),
         );
       });
     }
-    function I(e) {
+    function T(e) {
       if (
-        !o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
+        !o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
         !o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
       )
         return e;
@@ -285,7 +292,7 @@ __d(
             e.participants,
           );
         return (
-          o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
+          o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
             (t = babelHelpers.extends({}, t, {
               isOpenBotGroup: n.includeOpenMetabot,
             })),
@@ -303,7 +310,7 @@ __d(
       (l.addBotGroupChangedToE2EEFSystemMsgIfRequired = C),
       (l.genE2EENoticeMsgAfterLastAgentRemoved = v),
       (l.addE2EESystemMsgAfterLastAgentRemovedIfRequired = R),
-      (l.injectBotParticipantState = I));
+      (l.injectBotParticipantState = T));
   },
   98,
 );

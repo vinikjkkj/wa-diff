@@ -1,26 +1,24 @@
 __d(
   "WAWebGroupHistoryToggleModeStore",
-  ["WAWebDBGroupsGroupMetadata", "asyncToGeneratorRuntime"],
+  ["WAPromiseQueue", "WAWebDBGroupsGroupMetadata", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-          return (n == null ? void 0 : n.shouldDefaultGroupHistoryShareOn) === t
+    var e = new (o("WAPromiseQueue").PromiseQueueMap)();
+    function s(t, r) {
+      return e.enqueue(
+        t.toString(),
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
+          return (e == null ? void 0 : e.shouldDefaultGroupHistoryShareOn) === r
             ? !1
-            : (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(e, {
-                shouldDefaultGroupHistoryShareOn: t,
+            : (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(t, {
+                shouldDefaultGroupHistoryShareOn: r,
               }),
               !0);
-        })),
-        s.apply(this, arguments)
+        }),
       );
     }
-    l.setGroupHistoryToggleMode = e;
+    l.setGroupHistoryToggleMode = s;
   },
   98,
 );

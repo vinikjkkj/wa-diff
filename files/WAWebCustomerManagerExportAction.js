@@ -5,6 +5,7 @@ __d(
     "WAWebCustomerManagerExportColumns",
     "WAWebCustomerManagerExportCsvUtils",
     "WAWebCustomerManagerExportData",
+    "WAWebCustomerManagerSearchNoteContents",
     "WAWebCustomerManagerUserPrefs",
     "WAWebFileSaver",
     "WAWebFileSaverTypes",
@@ -20,10 +21,7 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           n === void 0 && (n = "all");
           try {
-            var r = o(
-                "WAWebCustomerManagerExportData",
-              ).buildCustomerExportRecords(t),
-              a =
+            var r =
                 n === "all"
                   ? o("WAWebCustomerManagerExportColumns").EXPORT_COLUMNS
                   : o(
@@ -32,21 +30,36 @@ __d(
                       o("WAWebCustomerManagerUserPrefs").getColumnOrder(),
                       o("WAWebCustomerManagerUserPrefs").getVisibleColumns(),
                     ),
-              i = o("WAWebCustomerManagerExportColumns").getExportHeaders(a),
-              l = r.map(function (e) {
+              a = r.some(function (e) {
+                return e.id === "notes";
+              })
+                ? yield o(
+                    "WAWebCustomerManagerSearchNoteContents",
+                  ).loadCustomerSearchNoteContents(
+                    t.map(function (e) {
+                      return String(e.chatJid);
+                    }),
+                  )
+                : o("WAWebCustomerManagerSearchNoteContents")
+                    .EMPTY_SEARCH_NOTE_CONTENTS,
+              i = o(
+                "WAWebCustomerManagerExportData",
+              ).buildCustomerExportRecords(t, a),
+              l = o("WAWebCustomerManagerExportColumns").getExportHeaders(r),
+              s = i.map(function (e) {
                 return o("WAWebCustomerManagerExportColumns").getExportRow(
                   e,
-                  a,
+                  r,
                 );
               }),
-              s = yield o(
+              u = yield o(
                 "WAWebCustomerManagerExportCsvUtils",
-              ).buildCustomerManagerCsv(i, l),
-              u = new Blob(["\uFEFF" + s], { type: "text/csv;charset=utf-8" }),
-              c = new Date().toISOString().slice(0, 10);
+              ).buildCustomerManagerCsv(l, s),
+              c = new Blob(["\uFEFF" + u], { type: "text/csv;charset=utf-8" }),
+              d = new Date().toISOString().slice(0, 10);
             yield o("WAWebFileSaver").FileSaver.downloadData(
-              u,
-              "customer_manager_export_" + c,
+              c,
+              "customer_manager_export_" + d,
               o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
             );
           } catch (t) {

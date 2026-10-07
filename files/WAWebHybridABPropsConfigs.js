@@ -144,6 +144,7 @@ __d(
       calling_rust_migration_bitmap: [17954, "int", 0, 0],
       calling_rust_migration_incoming_ack_stanza_bitmap: [28434, "int", 0, 0],
       calling_rust_migration_incoming_stanza_bitmap: [26876, "int", 0, 0],
+      calling_rust_migration_scope1_bitmap: [38516, "int", 0, 0],
       calling_screen_share_milestone_version: [30350, "int", 2, 2],
       calling_ux_logging_bitmap: [8175, "int", 0, 0],
       calling_voicemail_attached_icce_enabled: [30383, "int", 0, 0],

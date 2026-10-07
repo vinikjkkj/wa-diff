@@ -18,32 +18,50 @@ __d(
       c = null,
       d = 0,
       m = null,
-      p = null;
-    function _() {
+      p = null,
+      _ = null,
+      f = null,
+      g = null,
+      h = 0;
+    function y() {
       var t = c;
       (t != null && t.isActive() && t.endCancel(),
+        (h += 1),
         (d = 0),
         (m = null),
         (p = null),
+        (_ = null),
+        (f = null),
+        (g = null),
         (c = o("WAWebQplFlow").startQplFlow(r("qpl")._(1029384627, "3661"), {
           annotations: { string: { surface: s } },
           timeoutInMs: u,
         })),
-        g(e.PROVIDER_MOUNT));
+        b(e.PROVIDER_MOUNT));
     }
-    function f() {
+    function C() {
       return ((d += 1), d === 1);
     }
-    function g(e) {
+    function b(e) {
       var t;
       (t = c) == null || t.addPoint(e);
     }
-    function h(e, t) {
-      ((m = e), (p = t != null ? t : null));
+    function v(e, t, n) {
+      var r, o;
+      ((m = e),
+        (p = t != null ? t : null),
+        (_ = (r = n == null ? void 0 : n.elapsedMs) != null ? r : null),
+        (f = (o = n == null ? void 0 : n.isOnline) != null ? o : null));
     }
-    function y(t) {
+    function S() {
+      return c == null || g != null ? null : ((g = "pending"), h);
+    }
+    function R(e, t) {
+      e === h && (g = t);
+    }
+    function L(t) {
       var n;
-      (g(e.ENTRY_POINT_RENDERED),
+      (b(e.ENTRY_POINT_RENDERED),
         (n = c) == null ||
           n.endSuccess({
             int: { attempt_count: d },
@@ -51,24 +69,31 @@ __d(
           }),
         (c = null));
     }
-    function C(e) {
+    function E(e) {
       var t,
         n,
         r = { outcome: "suppressed" };
       (m != null && (r.failure_reason = m),
         p != null && (r.failure_detail = p),
+        g != null && (r.network_probe = g),
         (t = c) == null ||
-          t.addAnnotations({ int: { attempt_count: d }, string: r }),
+          t.addAnnotations({
+            bool: { is_online: f },
+            int: { attempt_count: d, failure_elapsed_ms: _ },
+            string: r,
+          }),
         (n = c) == null || n.endFail(e),
         (c = null));
     }
     ((l.AdvertiseEntryPointQplPoint = e),
-      (l.startAdvertiseEntryPointQpl = _),
-      (l.advertiseEntryPointQplBeginAttempt = f),
-      (l.advertiseEntryPointQplAddPoint = g),
-      (l.advertiseEntryPointQplRecordFailureReason = h),
-      (l.endAdvertiseEntryPointQplVisible = y),
-      (l.endAdvertiseEntryPointQplSuppressed = C));
+      (l.startAdvertiseEntryPointQpl = y),
+      (l.advertiseEntryPointQplBeginAttempt = C),
+      (l.advertiseEntryPointQplAddPoint = b),
+      (l.advertiseEntryPointQplRecordFailureReason = v),
+      (l.advertiseEntryPointQplStartNetworkProbe = S),
+      (l.advertiseEntryPointQplRecordNetworkProbe = R),
+      (l.endAdvertiseEntryPointQplVisible = L),
+      (l.endAdvertiseEntryPointQplSuppressed = E));
   },
   98,
 );

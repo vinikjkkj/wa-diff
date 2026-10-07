@@ -16,7 +16,7 @@ __d(
         lastMessageRange: null,
         leadStages: [],
       },
-      d = { clientFilterKeys: [], options: c },
+      d = { clientFilterKeys: [], options: c, query: "" },
       m = /[\s+().\-\u2010-\u2015]/g,
       p = /^[0-9]+$/;
     function _(t, n, r) {
@@ -30,7 +30,7 @@ __d(
           d = c.serverFilter(i);
         (d != null && l.push(d), c.isClientActive(i) && s.push(u));
       }
-      var m = { clientFilterKeys: s, options: i },
+      var m = { clientFilterKeys: s, options: i, query: f(a) ? a : "" },
         p = S(n == null ? void 0 : n.key);
       return {
         candidateLids: r,
@@ -98,7 +98,7 @@ __d(
                 })();
     }
     function y(e) {
-      return e.clientFilterKeys.length > 0;
+      return e.clientFilterKeys.length > 0 || f(e.query);
     }
     function C(e, t) {
       return e == null ? !1 : t == null || e.key === "customer";

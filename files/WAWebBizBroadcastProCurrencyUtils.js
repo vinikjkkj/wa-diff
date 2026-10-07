@@ -56,6 +56,14 @@ __d(
     function y(e) {
       return g(e) + h;
     }
+    function C(e, t) {
+      var n = String(Math.abs(e)).split("e"),
+        r = n[0],
+        o = n[1],
+        a = o === void 0 ? "0" : o,
+        i = Math.round(+(r + "e" + (Number(a) + t)));
+      return ((Math.sign(e) * i) / Math.pow(10, t)).toFixed(t);
+    }
     ((l.getCurrencySymbol = e),
       (l.getCurrencyISO = s),
       (l.formatCurrencyAmount = u),
@@ -66,7 +74,8 @@ __d(
       (l.budgetToFundCount = f),
       (l.getCurrencyDecimalPlaces = g),
       (l.BID_EXTRA_PRECISION = h),
-      (l.getBidDecimalPlaces = y));
+      (l.getBidDecimalPlaces = y),
+      (l.toFixedHalfUp = C));
   },
   98,
 );

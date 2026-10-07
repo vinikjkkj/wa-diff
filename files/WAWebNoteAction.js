@@ -137,6 +137,11 @@ __d(
                   return e.id;
                 }),
               ),
+            o("WAWebNoteCollection").NoteCollection.removeNotesByIds(
+              n.map(function (e) {
+                return String(e.id);
+              }),
+            ),
             o("WAWebNoteCollection").NoteCollection.purgeNotesByChatJid(t));
           var r = yield o("WAWebDBNoteDatabaseApi").getNotesByChatJid(e);
           if (r.length !== 0) {

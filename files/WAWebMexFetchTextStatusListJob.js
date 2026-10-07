@@ -7,7 +7,6 @@ __d(
     "WAWebGroupsPrivacyTokenUtils",
     "WAWebMexClient",
     "WAWebMexFetchTextStatusListJobQuery.graphql",
-    "WAWebPrivacyGatingUtils",
     "WAWebTrustedContactsUtils",
     "WAWebWid",
     "WAWebWidFactory",
@@ -36,39 +35,34 @@ __d(
               var i = a.wid.toJid();
               t.has(i) || (t.add(i), n.push(a));
             }
-            var l = n.map(function (e) {
-                return o("WAWebWidFactory").asUserWidOrThrow(e.wid);
-              }),
-              u = n.map(function (e) {
-                var t;
-                return {
-                  jid: e.wid.toJid(),
-                  last_update_time:
-                    (t = e.lastUpdateTime) == null ? void 0 : t.toString(),
-                };
-              });
-            if (
-              o(
-                "WAWebPrivacyGatingUtils",
-              ).isProfileScrappingProtectionInMexFetchEnabled()
-            )
-              for (
-                var d = yield o(
-                    "WAWebGroupsPrivacyTokenUtils",
-                  ).getPermissionTokenMapForChatIds(l),
-                  m = 0;
-                m < n.length;
-                m++
-              ) {
-                var p,
-                  _ = (p = d.get(l[m])) == null ? void 0 : p.anyElementValue;
-                _ != null &&
-                  (u[m].privacy_token = {
-                    tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
-                      _.buffer,
-                    ),
-                  });
-              }
+            for (
+              var l = n.map(function (e) {
+                  return o("WAWebWidFactory").asUserWidOrThrow(e.wid);
+                }),
+                u = n.map(function (e) {
+                  var t;
+                  return {
+                    jid: e.wid.toJid(),
+                    last_update_time:
+                      (t = e.lastUpdateTime) == null ? void 0 : t.toString(),
+                  };
+                }),
+                d = yield o(
+                  "WAWebGroupsPrivacyTokenUtils",
+                ).getPermissionTokenMapForChatIds(l),
+                m = 0;
+              m < n.length;
+              m++
+            ) {
+              var p,
+                _ = (p = d.get(l[m])) == null ? void 0 : p.anyElementValue;
+              _ != null &&
+                (u[m].privacy_token = {
+                  tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
+                    _.buffer,
+                  ),
+                });
+            }
             var f = { input: u };
             yield o("WAComms").waitForConnection();
             var g = yield o("WAWebMexClient").fetchQuery(c, f),

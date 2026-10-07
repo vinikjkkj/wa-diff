@@ -14,6 +14,7 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebEphemeralDecodeBroadcastSetting",
+    "WAWebGroupAgentReceipts",
     "WAWebHandleMsgError",
     "WAWebKyberPreKeyStore",
     "WAWebPQGatingUtils",
@@ -61,61 +62,62 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.externalId,
-            i = t.isPeer,
-            l = i === void 0 ? !1 : i,
-            u = t.isStateless,
-            d = u === void 0 ? !1 : u,
-            m = t.participant,
-            p = t.rawTs,
-            _ = t.receiptModeBitmask,
-            g = t.recipient,
-            h = t.retryCount,
-            y = t.retryReason,
-            C = t.to;
+            i = t.failedEncType,
+            l = t.isPeer,
+            u = l === void 0 ? !1 : l,
+            d = t.isStateless,
+            m = d === void 0 ? !1 : d,
+            p = t.participant,
+            _ = t.rawTs,
+            g = t.receiptModeBitmask,
+            h = t.recipient,
+            y = t.retryCount,
+            C = t.retryReason,
+            b = t.to;
           if (
             (r("gkx")("26258") ||
               n("cr:10198") == null ||
               n("cr:10198").injectDebug(
-                C,
+                b,
                 "RetryReceiptSent",
                 "externalId:" + a,
               ),
             !r("gkx")("26258"))
           ) {
-            var b =
+            var v =
               n("cr:4533") == null
                 ? void 0
                 : n("cr:4533").getDebugDoNotSendRetryReceipt();
-            if (b != null && b > 0)
+            if (v != null && v > 0)
               return (
                 n("cr:4533") == null ||
-                  n("cr:4533").setDebugDoNotSendRetryReceipt(b - 1),
+                  n("cr:4533").setDebugDoNotSendRetryReceipt(v - 1),
                 (c || (c = n("Promise"))).resolve()
               );
           }
           try {
-            var v = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
-              S = yield (c || (c = n("Promise"))).all([
-                v.getLocalRegistrationId(),
-                v.getIdentityKeyPair(),
+            var S = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
+              R = yield (c || (c = n("Promise"))).all([
+                S.getLocalRegistrationId(),
+                S.getIdentityKeyPair(),
               ]),
-              R = S[0],
-              L = S[1];
-            if (R == null || L == null)
+              L = R[0],
+              E = R[1];
+            if (L == null || E == null)
               throw r("err")("No registration info found");
-            var E =
-                C.isUser() &&
-                !C.isBot() &&
+            var k =
+                b.isUser() &&
+                !b.isBot() &&
                 !o("WAWebUserPrefsMeUser").isMeAccount(
-                  o("WAWebWidFactory").asUserWidOrThrow(C),
+                  o("WAWebWidFactory").asUserWidOrThrow(b),
                 ),
-              k;
+              I;
             try {
-              k = yield f(
-                h,
-                o("WAWebCryptoCurve25519").toCurveKeyPair(L),
-                d,
-                E,
+              I = yield f(
+                y,
+                o("WAWebCryptoCurve25519").toCurveKeyPair(E),
+                m,
+                k,
               );
             } catch (t) {
               o("WALogger")
@@ -131,32 +133,40 @@ __d(
                   "sendRetryReceipt: error while creating key section in retry receipt",
                 );
             }
-            var I = !C.isBot() && !!(m != null && m.isBot());
-            if (I) return;
-            var T = o("WAWap").DROP_ATTR,
-              D = o("WAWap").DROP_ATTR,
-              x = o("WAWap").DROP_ATTR,
-              $,
-              P = !1;
+            var T = !b.isBot() && !!(p != null && p.isBot());
             if (
-              C.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+              T &&
+              !o("WAWebGroupAgentReceipts").shouldSendGroupAgentRetryReceipt(
+                b,
+                p,
+                i,
+              )
+            )
+              return;
+            var D = o("WAWap").DROP_ATTR,
+              x = o("WAWap").DROP_ATTR,
+              $ = o("WAWap").DROP_ATTR,
+              P,
+              N = !1;
+            if (
+              b.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
               o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
             ) {
-              $ = o("WAWebCommsWapMd").USER_JID(C);
-              var N =
-                g != null
-                  ? o("WAWebCoexV2ReceiptRecipient").toCoexV2ReceiptRecipient(g)
+              P = o("WAWebCommsWapMd").USER_JID(b);
+              var M =
+                h != null
+                  ? o("WAWebCoexV2ReceiptRecipient").toCoexV2ReceiptRecipient(h)
                   : null;
-              N != null && (D = o("WAWebCommsWapMd").USER_JID(N));
-            } else if (C.isUser()) {
+              M != null && (x = o("WAWebCommsWapMd").USER_JID(M));
+            } else if (b.isUser()) {
               if (
-                (($ = o("WAWebCommsWapMd").DEVICE_JID(C)),
+                ((P = o("WAWebCommsWapMd").DEVICE_JID(b)),
                 o("WAWebUserPrefsMeUser").isMeAccount(
-                  o("WAWebWidFactory").asUserWidOrThrow(C),
+                  o("WAWebWidFactory").asUserWidOrThrow(b),
                 ))
               )
-                if (l) ((T = "peer"), (P = !0));
-                else if (g) D = o("WAWebCommsWapMd").USER_JID(g);
+                if (u) ((D = "peer"), (N = !0));
+                else if (h) x = o("WAWebCommsWapMd").USER_JID(h);
                 else
                   return (c || (c = n("Promise"))).reject(
                     r("err")(
@@ -164,49 +174,49 @@ __d(
                     ),
                   );
             } else
-              (($ = o("WAWebCommsWapMd").CHAT_JID(C)),
-                (x = m
-                  ? o("WAWebCommsWapMd").DEVICE_JID(m)
+              ((P = o("WAWebCommsWapMd").CHAT_JID(b)),
+                ($ = p
+                  ? o("WAWebCommsWapMd").DEVICE_JID(p)
                   : o("WAWap").DROP_ATTR));
-            var M = P
+            var w = N
                 ? null
                 : o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(
-                    _ != null ? _ : 0,
+                    g != null ? g : 0,
                   ),
-              w = o("WAWap").wap(
+              A = o("WAWap").wap(
                 "receipt",
                 {
                   id: o("WAWap").CUSTOM_STRING(a),
-                  to: $,
-                  participant: x,
-                  recipient: D,
+                  to: P,
+                  participant: $,
+                  recipient: x,
                   type: "retry",
-                  category: T,
+                  category: D,
                 },
                 o("WAWap").wap("retry", {
                   v: "1",
-                  count: o("WAWap").INT(h),
+                  count: o("WAWap").INT(y),
                   id: o("WAWap").CUSTOM_STRING(a),
-                  t: o("WAWap").CUSTOM_STRING(p),
-                  error: y != null ? o("WAWap").INT(y) : o("WAWap").DROP_ATTR,
+                  t: o("WAWap").CUSTOM_STRING(_),
+                  error: C != null ? o("WAWap").INT(C) : o("WAWap").DROP_ATTR,
                 }),
                 o("WAWap").wap(
                   "registration",
                   null,
-                  o("WAWap").BIG_ENDIAN_CONTENT(R),
+                  o("WAWap").BIG_ENDIAN_CONTENT(L),
                 ),
-                k,
-                M,
+                I,
+                w,
               );
             return o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
-              w,
+              A,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "receipt",
-                from: C,
-                participant: m,
+                from: b,
+                participant: p,
                 type: "retry",
               }),
             );

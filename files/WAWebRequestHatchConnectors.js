@@ -6,6 +6,7 @@ __d(
     "WAWebHatchConnectorAccountsDecoder",
     "WAWebHatchConnectorPermissionsDecoder",
     "WAWebHatchConnectorsListDecoder",
+    "WAWebHatchGating",
     "WAWebHatchVmConnection",
     "asyncToGeneratorRuntime",
     "err",
@@ -20,14 +21,15 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield h(function (e) {
-              return e.connectors({ timeoutMs: s });
+          var e = o("WAWebHatchGating").getHatchSupportedConnectActions(),
+            t = yield h(function (t) {
+              return t.connectors(e, { timeoutMs: s });
             }, "catalog"),
-            t = o("WAWebHatchConnectorsListDecoder").decodeHatchConnectorsList(
-              e,
+            n = o("WAWebHatchConnectorsListDecoder").decodeHatchConnectorsList(
+              t,
             );
-          if (t == null) throw C("malformed_catalog", e);
-          return t;
+          if (n == null) throw C("malformed_catalog", t);
+          return n;
         })),
         c.apply(this, arguments)
       );

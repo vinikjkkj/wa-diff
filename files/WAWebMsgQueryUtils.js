@@ -5,6 +5,7 @@ __d(
     "WATypeUtils",
     "WAWebCollectionConstants",
     "WAWebDBGetGroupMemberUpdateMessages",
+    "WAWebDBGroupAgentRichResponseLinkBackfill",
     "WAWebDBMessageFindLocal",
     "WAWebMsgCollection",
     "asyncToGeneratorRuntime",
@@ -134,12 +135,33 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r, o) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebDBGroupAgentRichResponseLinkBackfill",
+          ).backfillGroupAgentRichResponseLinkIndex(e);
+          return t.length === 0
+            ? []
+            : o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
+                void 0,
+                t,
+                { add: "search" },
+                "msgCollectionQueryMedia",
+              );
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, n, r, o) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             var i =
                 o("WATypeUtils").isNumber(t) && t !== 0
@@ -176,7 +198,7 @@ __d(
                 });
           },
         )),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.getStarred = e),
@@ -184,7 +206,8 @@ __d(
       (l.getGroupMemberUpdateMsgs = d),
       (l.getVoipCallLogMsgs = p),
       (l.getAllDocsMsgs = f),
-      (l.queryMedia = h));
+      (l.backfillGroupAgentRichResponseLinks = h),
+      (l.queryMedia = C));
   },
   98,
 );

@@ -160,7 +160,10 @@ __d(
                   });
                   return;
                 }
-                if (E) {
+                if (
+                  E &&
+                  (l == null ? void 0 : l.sendsGroupAgentDeliveryReceipt) !== !0
+                ) {
                   var $, P, N;
                   return (
                     t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
@@ -194,6 +197,9 @@ __d(
                   receiptModeBitmask: T,
                   recipient: b,
                   response: i,
+                  sendsGroupAgentDeliveryReceipt:
+                    (l == null ? void 0 : l.sendsGroupAgentDeliveryReceipt) ===
+                    !0,
                   to: C,
                 });
               }
@@ -230,6 +236,7 @@ __d(
                   retryReason: i.retryReason,
                   isStateless: (C == null ? void 0 : C.isHosted()) === !0,
                   receiptModeBitmask: T,
+                  failedEncType: i.failedEncType,
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",

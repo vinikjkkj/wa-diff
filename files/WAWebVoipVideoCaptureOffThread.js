@@ -1485,7 +1485,9 @@ __d(
           );
         });
     }
-    ((l.CaptureInitState = le),
+    ((l.WORKER_LOG = te),
+      (l.WORKER_ERROR = ne),
+      (l.CaptureInitState = le),
       (l.WAWebVoipVideoCaptureOffThread = se),
       (l.updateDeviceOrientationInWorker = Ce),
       (l.encodedFrameOrientations = be),

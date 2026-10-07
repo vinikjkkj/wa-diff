@@ -55,7 +55,7 @@ __d(
         !o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)
       )
         return null;
-      var n = o("WAWebUnifiedResponseUtils").getImaginePrimitives(t).find(y);
+      var n = C(t);
       if (n == null) return null;
       var r = n.media,
         a = r.height,
@@ -64,11 +64,11 @@ __d(
         s = r.width;
       return l == null || l === ""
         ? null
-        : o("WAWebUnifiedResponseUtils").isAnimateImagineType(n.imagine_type)
-          ? s == null || s === 0 || a == null || a === 0
+        : n.kind === "image"
+          ? { kind: "image", mimetype: R(i, "image", u), url: l }
+          : s == null || s === 0 || a == null || a === 0
             ? null
-            : { kind: "video", mimetype: h(i, "video", c), url: l }
-          : { kind: "image", mimetype: h(i, "image", u), url: l };
+            : { kind: "video", mimetype: R(i, "video", c), url: l };
     }
     function f(e) {
       var t;
@@ -82,23 +82,75 @@ __d(
       var n = Array.from(f(t));
       return n.length <= e ? n.join("") : n.slice(0, e).join("") + s;
     }
-    function h(e, t, n) {
-      return e != null && e.startsWith(t + "/") ? e : n;
+    function h(e) {
+      return m(e) && _(e) != null;
     }
     function y(e) {
+      if (!m(e)) return null;
+      var t = _(e);
+      if (t == null) return null;
+      var n = g(e);
+      return n === "" ? null : { caption: n, kind: t.kind };
+    }
+    function C(e) {
+      for (var t of e.sections)
+        for (var n of o("WAWebUnifiedResponseUtils").getPrimitives(
+          t.view_model,
+        )) {
+          var r = b(n);
+          if (r != null) return r;
+        }
+      return null;
+    }
+    function b(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.__typename === "GenAIImagePrimitive"
+        ) {
+          var t = e;
+          return v(t.full_image);
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.__typename === "GenAIImaginePrimitive"
+        ) {
+          var n = e;
+          return L(n)
+            ? {
+                kind: o("WAWebUnifiedResponseUtils").isAnimateImagineType(
+                  n.imagine_type,
+                )
+                  ? "video"
+                  : "image",
+                media: n.media,
+              }
+            : null;
+        }
+        return null;
+      })(e);
+    }
+    function v(e) {
+      return e != null && S(e) ? { kind: "image", media: e } : null;
+    }
+    function S(e) {
+      return (e == null ? void 0 : e.url) != null && e.url !== "";
+    }
+    function R(e, t, n) {
+      return e != null && e.startsWith(t + "/") ? e : n;
+    }
+    function L(e) {
       var t,
         n = (t = e.status) == null ? void 0 : t.status;
-      return (
-        (n == null || String(n) === d) &&
-        e.media.url != null &&
-        e.media.url !== ""
-      );
+      return (n == null || String(n) === d) && S(e.media);
     }
     ((l.isMuseGroupAgentRichResponse = m),
       (l.canForwardMuseGroupRichResponse = p),
       (l.getMuseGroupForwardMedia = _),
       (l.getMuseGroupForwardText = f),
-      (l.getMuseGroupForwardCaption = g));
+      (l.getMuseGroupForwardCaption = g),
+      (l.hasMuseGroupForwardMedia = h),
+      (l.getMuseGroupForwardCaptionPreview = y));
   },
   98,
 );

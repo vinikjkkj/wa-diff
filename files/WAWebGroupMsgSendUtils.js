@@ -67,9 +67,7 @@ __d(
               (s.isLidAddressingMode = u),
               (s.isCapiGroup = i.hasCapi === !0),
               (s.isOpenBotGroup =
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isOpenGroupBotParticipantAddEnabled() &&
+                o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                 i.isOpenBotGroup === !0),
               (s.isTeeBotGroup =
                 o(

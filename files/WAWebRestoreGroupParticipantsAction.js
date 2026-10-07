@@ -142,7 +142,7 @@ __d(
                                     return (
                                       o(
                                         "WAWebBotGroupGatingUtils",
-                                      ).isOpenGroupBotParticipantAddEnabled() &&
+                                      ).isOpenGroupBotSendEnabled() &&
                                         o(
                                           "WAWebBotUtils",
                                         ).isWidOpenGroupMetaBotFbidWid(a) &&

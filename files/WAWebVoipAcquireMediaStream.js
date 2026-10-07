@@ -454,7 +454,9 @@ __d(
             r = e.checkVideo,
             a = e.options,
             i = e.originatingCall,
-            l = yield lt(!1, i, n);
+            l = yield lt(!1, i, n, {
+              suppressPromptGuide: a == null ? void 0 : a.suppressPromptGuide,
+            });
           if (!l || !r || fe())
             return { canJoin: l, reason: null, videoMuted: !1 };
           var s = yield je();
@@ -565,20 +567,21 @@ __d(
               .PERMISSION_REQUEST_MIC_END,
       );
     }
-    function lt(e, t, n) {
+    function lt(e, t, n, r) {
       return st.apply(this, arguments);
     }
     function st() {
       return (
         (st = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var r = yield ut({
+          function* (e, t, n, r) {
+            var o = yield ut({
               checkVideo: e,
               showFailureModal: !0,
+              suppressPromptGuide: r == null ? void 0 : r.suppressPromptGuide,
               originatingCall: t,
               abortSignal: n,
             });
-            return r === "granted";
+            return o === "granted";
           },
         )),
         st.apply(this, arguments)
@@ -595,52 +598,53 @@ __d(
             a = e.checkVideo,
             i = e.originatingCall,
             l = e.showFailureModal,
-            s = e.timeoutLimitOverride;
+            s = e.suppressPromptGuide,
+            u = e.timeoutLimitOverride;
           if (
             r("WAWebEnvironment").isWindows &&
             !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
           )
             return ((Re.microphone = !0), (Re.camera = !0), "granted");
-          var u = a && !fe(),
-            c = o(
+          var c = a && !fe(),
+            d = o(
               "WAWebVoipPermissionCheckCaptureOwner",
             ).getPermissionCheckOwner(i),
-            d = yield Qe(a);
+            m = yield Qe(a);
           if (mt(i, t)) return "unavailable";
-          var m =
+          var p =
               n != null
                 ? n
-                : u
+                : c
                   ? o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                       .CAMERA_AND_MICROPHONE
                   : o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                       .MICROPHONE,
-            p =
-              m ===
+            _ =
+              p ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA,
-            _ =
-              m ===
+            f =
+              p ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA_AND_MICROPHONE;
           try {
-            it(p, _, !0);
-            var f = yield Et(m, u, c, t, l, s);
+            it(_, f, !0);
+            var g = yield Et(p, c, d, t, l, u, s);
             return (
-              ht(f, m, d),
-              dt(f, {
+              ht(g, p, m),
+              dt(g, {
                 abortSignal: t,
-                isCameraOnly: p,
+                isCameraOnly: _,
                 originatingCall: i,
-                shouldCheckVideo: u,
+                shouldCheckVideo: c,
               })
             );
           } catch (e) {
             return pt(i, e, t)
               ? "unavailable"
-              : (gt(e, m, d), Ct(e, m, u, d, l), ot(e));
+              : (gt(e, p, m), Ct(e, p, c, m, l), ot(e));
           } finally {
-            it(p, _, !1);
+            it(_, f, !1);
           }
         })),
         ct.apply(this, arguments)
@@ -864,23 +868,24 @@ __d(
           : o("WAWebGuidePopup.react").Messaging
               .CAMERA_AND_MIC_BLOCKED_BY_SYSTEM;
     }
-    function Et(e, t, n, r, o, a) {
+    function Et(e, t, n, r, o, a, i) {
       return kt.apply(this, arguments);
     }
     function kt() {
       return (
         (kt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            var s = o(
+          function* (e, t, n, a, i, l, s) {
+            var u = o(
                 "WAWebVoipPermissionCheckCaptureOwner",
               ).registerPermissionCheckCaptureForKeys(
                 n.registryKeys,
                 r("WAWebNoop"),
               ),
-              u = i != null ? i : !0,
-              c = l != null ? l : Ae(t) ? Number.POSITIVE_INFINITY : void 0,
-              d = l == null ? null : Date.now() + l,
-              m = Dt(
+              c = i != null ? i : !0,
+              d = s === !0 || !c,
+              m = l != null ? l : Ae(t) ? Number.POSITIVE_INFINITY : void 0,
+              p = l == null ? null : Date.now() + l,
+              _ = Dt(
                 t,
                 e !==
                   o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
@@ -888,9 +893,9 @@ __d(
               );
             try {
               try {
-                return yield It(e, c, n.registryKeys, m, a, !u, l);
+                return yield It(e, m, n.registryKeys, _, a, d, l);
               } catch (t) {
-                if (m == null || !xt(t)) throw t;
+                if (_ == null || !xt(t)) throw t;
                 if ((a == null ? void 0 : a.aborted) === !0)
                   return (
                     o("WALogger").LOG(
@@ -901,7 +906,7 @@ __d(
                     ),
                     "not_acquired"
                   );
-                if (s.wasReleased())
+                if (u.wasReleased())
                   return (
                     o("WALogger").LOG(
                       W ||
@@ -933,21 +938,21 @@ __d(
                     ])),
                   String(t),
                 );
-                var p = d == null ? void 0 : Math.max(0, d - Date.now());
-                return p === 0
+                var f = p == null ? void 0 : Math.max(0, p - Date.now());
+                return f === 0
                   ? "timed_out"
                   : yield It(
                       e,
-                      p != null ? p : c,
+                      f != null ? f : m,
                       n.registryKeys,
                       void 0,
                       a,
-                      !u,
-                      p,
+                      d,
+                      f,
                     );
               }
             } finally {
-              s.release();
+              u.release();
             }
           },
         )),

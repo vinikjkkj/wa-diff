@@ -6,6 +6,7 @@ __d(
     "WAWebLinkify",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebMuseGroupRichResponseLinks",
     "WAWebProtobufsE2E.pb",
     "WAWebStateUtils",
     "uniqueBy",
@@ -177,6 +178,12 @@ __d(
     }
     function h(e) {
       var t = o("WAWebStateUtils").unproxy(e);
+      if (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
+        var n = o(
+          "WAWebMuseGroupRichResponseLinks",
+        ).getMuseGroupRichResponseGalleryLinks(t);
+        if (n.length > 0) return n;
+      }
       return r("uniqueBy")(c(t), function (e) {
         return e.href;
       }).filter(function (e) {
@@ -184,6 +191,20 @@ __d(
       });
     }
     function y(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      return (
+        c(t).length > 0 ||
+        (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+          o(
+            "WAWebMuseGroupRichResponseLinks",
+          ).getMuseGroupRichResponseGalleryLinks(t).length > 0)
+      );
+    }
+    function C(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      return t.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE || y(t);
+    }
+    function b(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return o("WAWebFrontendMsgGetters")
         .getLinksInFullText(t)
@@ -201,7 +222,9 @@ __d(
       (l.getFooterLinks = f),
       (l.getLinkGalleryRenderState = g),
       (l.getGalleryLinks = h),
-      (l.getSuspiciousLinks = y));
+      (l.hasLinkGalleryLinks = y),
+      (l.shouldListLinkIndexMsg = C),
+      (l.getSuspiciousLinks = b));
   },
   98,
 );

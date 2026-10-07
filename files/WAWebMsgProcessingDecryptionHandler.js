@@ -6,9 +6,11 @@ __d(
     "WATimeUtils",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
+    "WAWebBotMsgDecryptError",
     "WAWebBotMsgSecretError",
     "WAWebCreateNackFromStanza",
     "WAWebEphemeralDecodeBroadcastSetting",
+    "WAWebGroupAgentReceipts",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
     "WAWebHandleMsgProcess",
@@ -53,6 +55,7 @@ __d(
         "BroadcastEphSettings",
         "OrphanBotMsg",
         "BotMsgMissingSecret",
+        "BotMsgDecryptFailure",
         "Unknown",
       ]),
       S = new Set([v.SignalRetryable]);
@@ -82,7 +85,9 @@ __d(
                       ? v.OrphanBotMsg
                       : e instanceof r("WAWebBotMsgSecretError")
                         ? v.BotMsgMissingSecret
-                        : v.Unknown;
+                        : e instanceof r("WAWebBotMsgDecryptError")
+                          ? v.BotMsgDecryptFailure
+                          : v.Unknown;
     }
     function E(e) {
       var t = {
@@ -96,11 +101,11 @@ __d(
           (r.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
             ? (t.skMsgFailedEnc = { enc: r, error: a, errorType: n })
             : (t.pkOrMsgFailedEnc = { enc: r, error: a, errorType: n }),
-            $(e, { enc: r, error: a, errorType: n }));
+            P(e, { enc: r, error: a, errorType: n }));
         },
         canDecryptNext: function (n) {
           var e;
-          r("gkx")("26258") || N();
+          r("gkx")("26258") || M();
           var o = (e = t.pkOrMsgFailedEnc) == null ? void 0 : e.errorType;
           return o != null && S.has(o)
             ? !1
@@ -152,7 +157,7 @@ __d(
               hasInactiveMsg: a,
               isOrphanAddon: i,
             };
-          (x(l, n), P(l, n));
+          ($(l, n), N(l, n));
           var c = s.enc,
             d = s.error,
             m = s.errorType,
@@ -205,6 +210,7 @@ __d(
                   retryReason: _,
                   placeholderCreated: p,
                   isOrphanAddon: i,
+                  failedEncType: c.e2eType,
                 }
               : m === v.SignalDuplicateMessage
                 ? {
@@ -261,17 +267,23 @@ __d(
                                   .E2EProcessResult.PARSE_ERROR,
                                 nackReason: D(),
                               }
-                            : m === v.Unknown
+                            : m === v.BotMsgDecryptFailure
                               ? {
                                   result: o("WAWebHandleMsgTypes.flow")
                                     .E2EProcessResult.PARSE_ERROR,
+                                  nackReason: x(l),
                                 }
-                              : (function () {
-                                  throw Error(
-                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                      m,
-                                  );
-                                })()
+                              : m === v.Unknown
+                                ? {
+                                    result: o("WAWebHandleMsgTypes.flow")
+                                      .E2EProcessResult.PARSE_ERROR,
+                                  }
+                                : (function () {
+                                    throw Error(
+                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                        m,
+                                    );
+                                  })()
           );
         })),
         T.apply(this, arguments)
@@ -282,7 +294,12 @@ __d(
         ? o("WAWebCreateNackFromStanza").NackReason.MissingMessageSecret
         : void 0;
     }
-    function x(e, t) {
+    function x(e) {
+      return o("WAWebGroupAgentReceipts").isGroupAgentMsmsgDecryptNackEnabled(e)
+        ? o("WAWebCreateNackFromStanza").NackReason.MissingMessageSecret
+        : void 0;
+    }
+    function $(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = e.msgInfo,
@@ -330,6 +347,7 @@ __d(
             break;
           }
           case v.BotMsgMissingSecret:
+          case v.BotMsgDecryptFailure:
           case v.Unknown:
             o(
               "WAWebPostIncomingMessageDropMetric",
@@ -341,7 +359,7 @@ __d(
         }
       }
     }
-    function $(t, n) {
+    function P(t, n) {
       var a,
         i = t.msgBotInfo,
         l = t.msgInfo,
@@ -534,6 +552,7 @@ __d(
             .sendLogs("handleMsg: bot message secret missing");
           break;
         }
+        case v.BotMsgDecryptFailure:
         case v.Unknown: {
           o("WALogger")
             .WARN(
@@ -552,7 +571,7 @@ __d(
         }
       }
     }
-    function P(e, t) {
+    function N(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = r != null ? r : n;
@@ -583,6 +602,14 @@ __d(
                   : o("WAWebCreateNackFromStanza").NackReason.ParsingError;
               break;
             }
+            case v.BotMsgDecryptFailure: {
+              var u;
+              l =
+                (u = x(e)) != null
+                  ? u
+                  : o("WAWebCreateNackFromStanza").NackReason.ParsingError;
+              break;
+            }
             case v.HsmMismatch:
             case v.Unknown: {
               l = o("WAWebCreateNackFromStanza").NackReason.ParsingError;
@@ -590,7 +617,7 @@ __d(
             }
           }
           if (l != null) {
-            var u = e.msgInfo.externalId;
+            var c = e.msgInfo.externalId;
             (o("WALogger")
               .WARN(
                 y ||
@@ -599,7 +626,7 @@ __d(
                     ", reason: ",
                     "",
                   ])),
-                u,
+                c,
                 a.errorType,
               )
               .tags("messaging"),
@@ -612,7 +639,7 @@ __d(
         }
       }
     }
-    function N() {
+    function M() {
       if (!r("gkx")("26258")) {
         var e,
           t =

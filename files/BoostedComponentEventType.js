@@ -1869,6 +1869,7 @@ __d(
       SGC_TOGGLE_IMPRESSION: "sgc_toggle_impression",
       SGC_TOGGLE_INTERACTION: "sgc_toggle_interaction",
       SGC_TOGGLE_MOUNT: "sgc_toggle_mount",
+      SGC_STICKY_SEED_APPLIED: "sgc_sticky_seed_applied",
       SGC_CARD_IMPRESSION: "sgc_card_impression",
       SGC_CARD_DISMISS_CLICK: "sgc_card_dismiss_click",
       SGC_CARD_DISMISS_VIA_TOGGLE: "sgc_card_dismiss_via_toggle",

@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupAgentAuthorName",
   [
+    "fbt",
     "WAWebBotExposedName",
     "WAWebBotFrontendUtils",
     "WAWebBotGroupGatingUtils",
@@ -9,11 +10,12 @@ __d(
     "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebGroupAgentProfileRouting",
-    "WAWebInitializeBotContact",
     "isStringNullOrEmpty",
   ],
-  function (t, n, r, o, a, i, l) {
-    function e(e) {
+  function (t, n, r, o, a, i, l, s) {
+    var e =
+      /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]+$/;
+    function u(e) {
       var t = e.agentWid,
         n = e.chat,
         a = e.product,
@@ -21,13 +23,14 @@ __d(
       if (
         n == null ||
         !o("WAWebChatGetters").getIsGroup(n) ||
-        !u(t) ||
+        !m(t) ||
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
       )
         return !1;
       var l = o("WAWebBotProduct").botProductFromServerValue(a);
       return l == null ||
-        r("isStringNullOrEmpty")(i == null ? void 0 : i.trim())
+        r("isStringNullOrEmpty")(i == null ? void 0 : i.trim()) ||
+        d(t, l, i)
         ? !0
         : o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled() &&
             o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileProduct(
@@ -35,35 +38,28 @@ __d(
               l,
             );
     }
-    function s(e) {
-      var t = e.contactName,
-        n = e.notifyName,
-        a = e.product,
-        i = e.profileName,
-        l = e.pushname,
-        s = i == null ? void 0 : i.trim();
-      if (
-        o("WAWebBotProduct").botProductFromServerValue(a) != null &&
-        !r("isStringNullOrEmpty")(s)
-      )
-        return s;
-      var u = o("WAWebInitializeBotContact").getBotPlaceholderName(),
-        c = o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName(),
-        d = o("WAWebBotExposedName").getUnknownAccountName();
-      for (var m of [t, n, l]) {
-        var p = m == null ? void 0 : m.trim();
-        if (
-          !r("isStringNullOrEmpty")(p) &&
-          p !== u &&
-          p !== c &&
-          p !== "Meta AI" &&
-          p !== d
-        )
-          return p;
-      }
-      return d;
+    function c(e) {
+      var t = e.agentWid,
+        n = e.product,
+        a = e.profileName,
+        i = e.pushname,
+        l = o("WAWebBotProduct").botProductFromServerValue(n);
+      if (d(t, l, a)) return s._(/*BTDS*/ "Muse").toString();
+      var u = a == null ? void 0 : a.trim();
+      if (l != null && !r("isStringNullOrEmpty")(u)) return u;
+      var c = i == null ? void 0 : i.trim();
+      return !r("isStringNullOrEmpty")(c) &&
+        c !== "Meta AI" &&
+        c !== o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName()
+        ? c
+        : o("WAWebBotExposedName").getUnknownAccountName();
     }
-    function u(e) {
+    function d(t, n, r) {
+      return (
+        o("WAWebBotProduct").isMuseAgentProduct(t, n) && r != null && e.test(r)
+      );
+    }
+    function m(e) {
       return (
         o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) &&
         !o("WAWebBotUtils").isAnyMetaAiBot(e) &&
@@ -71,7 +67,7 @@ __d(
         !o("WAWebBotStaticProfiles").isStaticProfile(e)
       );
     }
-    ((l.shouldUseGroupAgentAuthorName = e), (l.getGroupAgentAuthorName = s));
+    ((l.shouldUseGroupAgentAuthorName = u), (l.getGroupAgentAuthorName = c));
   },
-  98,
+  226,
 );

@@ -53,14 +53,14 @@ __d(
           )
             return null;
           try {
-            var l = yield o(
-              "WAWebAccountLinkingCryptoUtils",
-            ).wrapPayloadWithRSAAESEncryption({
-              access_token: a,
-              op: u,
-              timestamp: Math.floor(Date.now() / 1e3),
-              version: c,
-            });
+            var l = yield o("WAWebAccountLinkingCryptoUtils").wrapWafflePayload(
+              {
+                access_token: a,
+                op: u,
+                timestamp: Math.floor(Date.now() / 1e3),
+                version: c,
+              },
+            );
             return o(
               "WAWebAccountLinkingCryptoUtils",
             ).serializeWaffleEncryptedEnvelope(l);

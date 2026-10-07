@@ -18,6 +18,7 @@ __d(
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreMessageOrphans",
     "WAWebDBThreadMetadataBulkHelper",
+    "WAWebGroupAgentRichResponseLinkIndex",
     "WAWebHandleMsgValidate",
     "WAWebLidMigrationUtils",
     "WAWebMaibaAiHubSettledProgressEdit",
@@ -371,9 +372,7 @@ __d(
                           m.push(
                             i.bulkCreateOrMerge(
                               u.map(function (e) {
-                                return o(
-                                  "WAWebDBMessageSerialization",
-                                ).dbRowFromMessage(e);
+                                return W(e);
                               }),
                             ),
                           ),
@@ -724,6 +723,16 @@ __d(
         })),
         B.apply(this, arguments)
       );
+    }
+    function W(e) {
+      var t = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
+        n = e.rowId;
+      return n == null ||
+        !o(
+          "WAWebGroupAgentRichResponseLinkIndex",
+        ).shouldIndexGroupAgentRichResponseLink(e, e.id.remote.toString())
+        ? t
+        : babelHelpers.extends({}, t, { hasLink: n });
     }
     ((l.EditedMentionOfMe = y),
       (l.processEditProtocolMsgs = C),

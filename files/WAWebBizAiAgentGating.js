@@ -154,6 +154,13 @@ __d(
           .toUpperCase(),
       );
     }
+    function N() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "biz_ai_web_onboarding_notification_dispatch_enabled",
+        ) === !0
+      );
+    }
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isSmartComposerWebEnabled = s),
       (l.isSmartComposerCoachingEnabled = u),
@@ -179,7 +186,8 @@ __d(
       (l.isGoogleDriveEnabled = D),
       (l.isIntegrationHubEnabled = x),
       (l.isAppointmentsEnabled = $),
-      (l.getResponseSettingsV2TriState = P));
+      (l.getResponseSettingsV2TriState = P),
+      (l.isWebOnboardingNotificationDispatchEnabled = N));
   },
   98,
 );

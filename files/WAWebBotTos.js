@@ -3,6 +3,7 @@ __d(
   [
     "WAComms",
     "WAExponentialBackoff",
+    "WALogger",
     "WAPromiseTimeout",
     "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
     "WATimeUtils",
@@ -18,15 +19,18 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "BIZ_BOT_TOS_DISMISSED_AT",
-      s = {
+    var e,
+      s = "BIZ_BOT_TOS_DISMISSED_AT",
+      u = {
         minTimeout: 1e3,
         maxTimeout: 4e3,
         retries: 3,
         signal: new AbortController().signal,
       },
-      u = 3e4;
-    function c() {
+      c = 3e4,
+      d = 3e3,
+      m = 3e4;
+    function p() {
       var e;
       return (e = o("WAWebBotGating").getNonBlockingBotNoticeIds()) == null
         ? void 0
@@ -34,116 +38,214 @@ __d(
             return o("WAWebTos").TosManager.getState(String(e)) === "ACCEPTED";
           });
     }
-    function d() {
-      return m() || R() || L();
+    function _() {
+      return f() || V() || H();
     }
-    function m() {
+    function f() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotAgentTosId(),
         ) === "ACCEPTED"
       );
     }
-    function p(e) {
-      o("WAWebTos").TosManager.registerDisclosureNoticeIds(U(e));
+    function g(e) {
+      o("WAWebTos").TosManager.registerDisclosureNoticeIds(se(e));
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function f() {
+    function y() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = U(e);
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = se(e);
           (o("WAWebTos").TosManager.registerDisclosureNoticeIds(t),
             t.some(function (e) {
               return o("WAWebTos").TosManager.getState(e) !== "ACCEPTED";
             }) && (yield o("WAWebTos").TosManager.run({ singleRun: !0 })));
         })),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    var g = null;
-    function h() {
-      return (
-        g != null ||
-          (g = y().finally(function () {
-            g = null;
-          })),
-        g
-      );
-    }
-    function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
-          if (
-            (o("WAWebTos").TosManager.registerDisclosureNoticeIds(e),
-            !(e.length === 0 || v(e)))
-          ) {
-            var t = o("WATimeUtils").unixTime(),
-              a = yield o("WAExponentialBackoff").exponentialBackoff(
-                s,
-                (function () {
-                  var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      try {
-                        yield o("WAPromiseTimeout").promiseTimeout(
-                          o("WAComms").waitForConnection(),
-                          u,
-                          "waitForConnection timed out",
-                        );
-                        var a = yield o(
-                          "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
-                        ).sendGetDisclosureStageByIdsRPC({
-                          getDisclosureStageByIdArgs: e.map(function (e) {
-                            return {
-                              getDisclosureStageByIdId: Number(e),
-                              getDisclosureStageByIdT: t,
-                            };
-                          }),
-                        });
-                        if (
-                          a.name !==
-                          "GetDisclosureStageByIdsResponseClientSuccess"
-                        )
-                          throw r("err")(
-                            "Muse notice stage query failed: " + a.name,
-                          );
-                        return a;
-                      } catch (e) {
-                        return n(e instanceof Error ? e : r("err")(String(e)));
-                      }
-                    },
-                  );
-                  return function (e) {
-                    return a.apply(this, arguments);
-                  };
-                })(),
-              );
-            a.value.notice
-              .filter(function (t) {
-                return (
-                  e.includes(String(t.id)) &&
-                  (t.stage === o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED ||
-                    t.stage === o("WAWebPDFNTypes").DISCLOSURE_STAGE.OK)
-                );
-              })
-              .forEach(function (e) {
-                o("WAWebTos").TosManager.setState(String(e.id), "ACCEPTED", t);
-              });
-          }
-        })),
-        C.apply(this, arguments)
-      );
-    }
+    var C = null;
     function b() {
-      var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
-      return (o("WAWebTos").TosManager.registerDisclosureNoticeIds(e), v(e));
+      return (
+        C != null ||
+          (C = v().finally(function () {
+            C = null;
+          })),
+        C
+      );
     }
-    function v(e) {
+    function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
+          (o("WAWebTos").TosManager.registerDisclosureNoticeIds(e),
+            !(e.length === 0 || q(e)) && (yield O(e)));
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    var R = null,
+      L = null;
+    function E() {
+      return (
+        R != null ||
+          (R = k().finally(function () {
+            R = null;
+          })),
+        R
+      );
+    }
+    function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId();
+          e == null ||
+            D() ||
+            T() ||
+            ((L = o("WATimeUtils").monotonicTime()), yield O([e]));
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T() {
+      return L != null && o("WATimeUtils").monotonicTimeSince(L) < m;
+    }
+    function D() {
+      var e = o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId();
+      return e == null
+        ? !0
+        : (o("WAWebTos").TosManager.registerDisclosureNoticeIds([e]),
+          o("WAWebTos").TosManager.getState(e) === "ACCEPTED");
+    }
+    function x() {
+      return o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId() != null && D();
+    }
+    function $() {
+      return N(o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId());
+    }
+    function P() {
+      return N(o("WAWebBotTosIds").getMetaAiTeeGroupNoticeId());
+    }
+    function N(e) {
+      return M.apply(this, arguments);
+    }
+    function M() {
+      return (
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t == null) return !1;
+          o("WAWebTos").TosManager.registerDisclosureNoticeIds([t]);
+          try {
+            yield o("WAPromiseTimeout").promiseTimeout(
+              w(t),
+              d,
+              "Group notice refresh timed out",
+            );
+          } catch (t) {
+            return (
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Group notice refresh before confirmation failed: ",
+                    "",
+                  ])),
+                String(t),
+              ),
+              !1
+            );
+          }
+          return F(t);
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          F(e) || (yield O([e]));
+        })),
+        A.apply(this, arguments)
+      );
+    }
+    function F(e) {
+      return o("WAWebTos").TosManager.getState(e) === "ACCEPTED";
+    }
+    function O(e) {
+      return B.apply(this, arguments);
+    }
+    function B() {
+      return (
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WATimeUtils").unixTime(),
+            a = yield o("WAExponentialBackoff").exponentialBackoff(
+              u,
+              (function () {
+                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (n) {
+                    try {
+                      yield o("WAPromiseTimeout").promiseTimeout(
+                        o("WAComms").waitForConnection(),
+                        c,
+                        "waitForConnection timed out",
+                      );
+                      var a = yield o(
+                        "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
+                      ).sendGetDisclosureStageByIdsRPC({
+                        getDisclosureStageByIdArgs: e.map(function (e) {
+                          return {
+                            getDisclosureStageByIdId: Number(e),
+                            getDisclosureStageByIdT: t,
+                          };
+                        }),
+                      });
+                      if (
+                        a.name !==
+                        "GetDisclosureStageByIdsResponseClientSuccess"
+                      )
+                        throw r("err")(
+                          "Group notice stage query failed: " + a.name,
+                        );
+                      return a;
+                    } catch (e) {
+                      return n(e instanceof Error ? e : r("err")(String(e)));
+                    }
+                  },
+                );
+                return function (e) {
+                  return a.apply(this, arguments);
+                };
+              })(),
+            );
+          a.value.notice
+            .filter(function (t) {
+              return (
+                e.includes(String(t.id)) &&
+                (t.stage === o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED ||
+                  t.stage === o("WAWebPDFNTypes").DISCLOSURE_STAGE.OK)
+              );
+            })
+            .forEach(function (e) {
+              o("WAWebTos").TosManager.setState(String(e.id), "ACCEPTED", t);
+            });
+        })),
+        B.apply(this, arguments)
+      );
+    }
+    function W() {
+      var e = o("WAWebBotTosIds").getMuseGroupTosNoticeIds();
+      return (o("WAWebTos").TosManager.registerDisclosureNoticeIds(e), q(e));
+    }
+    function q(e) {
       return (
         e.length > 0 &&
         e.some(function (e) {
@@ -151,18 +253,18 @@ __d(
         })
       );
     }
-    function S(e) {
+    function U(e) {
       return e == null
         ? !0
         : e.every(function (e) {
             if (e.blocking === !1) return !0;
-            var t = V(e.id);
+            var t = ue(e.id);
             return (
               t != null && o("WAWebTos").TosManager.getState(t) === "ACCEPTED"
             );
           });
     }
-    function R() {
+    function V() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotInvokeTosId(),
@@ -172,7 +274,7 @@ __d(
         ) === "ACCEPTED"
       );
     }
-    function L() {
+    function H() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotShortcutTosId(),
@@ -182,84 +284,84 @@ __d(
         ) === "ACCEPTED"
       );
     }
-    function E() {
+    function G() {
       var e = o("WAWebBotGating").getMasterBotNoticeId();
       return e == null
         ? !1
         : o("WAWebTos").TosManager.getState(String(e)) === "ACCEPTED";
     }
-    function k(t) {
+    function z(e) {
       if (
-        (t === o("WAWebBotTypes").BizBotType.BIZ_1P &&
+        (e === o("WAWebBotTypes").BizBotType.BIZ_1P &&
           !o("WAWebBotGating").isBizBotConsentRequired()) ||
-        I()
+        j()
       )
         return !0;
-      var n = r("WAWebUserPrefsStore").getUser(e);
-      if (typeof n != "number") return !1;
-      var a = o("WAWebBotGating").bizBotConsentDismissalCooldown();
-      return a < 0 ? !0 : a === 0 ? !1 : o("WATimeUtils").unixTime() - n < a;
+      var t = r("WAWebUserPrefsStore").getUser(s);
+      if (typeof t != "number") return !1;
+      var n = o("WAWebBotGating").bizBotConsentDismissalCooldown();
+      return n < 0 ? !0 : n === 0 ? !1 : o("WATimeUtils").unixTime() - t < n;
     }
-    function I() {
+    function j() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBizBotTosId(),
         ) === "ACCEPTED"
       );
     }
-    function T() {
-      return D.apply(this, arguments);
+    function K() {
+      return Q.apply(this, arguments);
     }
-    function D() {
+    function Q() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield A(Number(o("WAWebBotTosIds").getBotAgentTosId()));
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield ne(Number(o("WAWebBotTosIds").getBotAgentTosId()));
         })),
-        D.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function x() {
-      return $.apply(this, arguments);
+    function X() {
+      return Y.apply(this, arguments);
     }
-    function $() {
+    function Y() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield A(Number(o("WAWebBotTosIds").getBotInvokeTosId()));
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield ne(Number(o("WAWebBotTosIds").getBotInvokeTosId()));
         })),
-        $.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function P() {
-      return N.apply(this, arguments);
+    function J() {
+      return Z.apply(this, arguments);
     }
-    function N() {
+    function Z() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield A(Number(o("WAWebBotTosIds").getBotShortcutTosId()));
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield ne(Number(o("WAWebBotTosIds").getBotShortcutTosId()));
         })),
-        N.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function M() {
-      return w.apply(this, arguments);
+    function ee() {
+      return te.apply(this, arguments);
     }
-    function w() {
+    function te() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebSetUserNoticeStageJob").setUserNoticeStage(
             Number(o("WAWebBotTosIds").getBizBotTosId()),
             o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
           );
         })),
-        w.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function ne(e) {
+      return re.apply(this, arguments);
     }
-    function F() {
+    function re() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o(
             "WAWebSetUserDisclosureStageAction",
           ).updateUserDisclosureStateAction(
@@ -267,59 +369,66 @@ __d(
             o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
           );
         })),
-        F.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function O(t) {
-      r("WAWebUserPrefsStore").setUser(e, t);
+    function oe(e) {
+      r("WAWebUserPrefsStore").setUser(s, e);
     }
-    function B(e) {
+    function ae(e) {
       var t = o("WAWebBotGating").getNonBlockingBotNoticeIds();
       return t.length === 0 ? !1 : t.includes(Number(e));
     }
-    function W(e) {
+    function ie(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null && e === t;
     }
-    function q(e) {
-      if (B(Number(e))) return !0;
+    function le(e) {
+      if (ae(Number(e))) return !0;
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null ? !0 : o("WAWebBotTosIds").supportedTosNoticeIds.has(e);
     }
-    function U(e) {
+    function se(e) {
       var t = [];
       return (
         (e != null ? e : []).forEach(function (e) {
-          var n = V(e.id);
+          var n = ue(e.id);
           n != null && t.push(n);
         }),
         t
       );
     }
-    function V(e) {
+    function ue(e) {
       return e != null && Number.isSafeInteger(e) && e > 0 ? String(e) : null;
     }
-    ((l.hasAcceptedNonBlockingBotTos = c),
-      (l.hasSeenBotTos = d),
-      (l.hasSeenAgentTos = m),
-      (l.registerBotTosRequirements = p),
-      (l.refreshBotTosRequirements = _),
-      (l.refreshMuseGroupTosNotices = h),
-      (l.hasAcceptedMuseGroupTos = b),
-      (l.hasAcceptedBlockingBotTos = S),
-      (l.hasSeenInvokeTos = R),
-      (l.hasSeenShortcutTos = L),
-      (l.hasSeenMasterBotTos = E),
-      (l.hasSeenBizBotTos = k),
-      (l.hasAcceptedBizBotTos = I),
-      (l.markSeenAgentTos = T),
-      (l.markSeenInvokeTos = x),
-      (l.markSeenShortcutTos = P),
-      (l.acceptBizBotTos = M),
-      (l.setBizBotTosDismissalTime = O),
-      (l.isNonBlockingBotNotice = B),
-      (l.isMasterBotTosNotice = W),
-      (l.canShowBotTos = q));
+    ((l.GROUP_NOTICE_CONFIRMATION_TIMEOUT_MS = d),
+      (l.META_AI_OPEN_GROUP_NOTICE_REFRESH_COOLDOWN_MS = m),
+      (l.hasAcceptedNonBlockingBotTos = p),
+      (l.hasSeenBotTos = _),
+      (l.hasSeenAgentTos = f),
+      (l.registerBotTosRequirements = g),
+      (l.refreshBotTosRequirements = h),
+      (l.refreshMuseGroupTosNotices = b),
+      (l.refreshMetaAiOpenGroupNotice = E),
+      (l.hasAcceptedMetaAiOpenGroupNotice = D),
+      (l.hasConfirmedMetaAiOpenGroupNoticeAcceptance = x),
+      (l.refreshAndConfirmMetaAiOpenGroupNoticeAcceptance = $),
+      (l.refreshAndConfirmMetaAiTeeGroupNoticeAcceptance = P),
+      (l.hasAcceptedMuseGroupTos = W),
+      (l.hasAcceptedBlockingBotTos = U),
+      (l.hasSeenInvokeTos = V),
+      (l.hasSeenShortcutTos = H),
+      (l.hasSeenMasterBotTos = G),
+      (l.hasSeenBizBotTos = z),
+      (l.hasAcceptedBizBotTos = j),
+      (l.markSeenAgentTos = K),
+      (l.markSeenInvokeTos = X),
+      (l.markSeenShortcutTos = J),
+      (l.acceptBizBotTos = ee),
+      (l.setBizBotTosDismissalTime = oe),
+      (l.isNonBlockingBotNotice = ae),
+      (l.isMasterBotTosNotice = ie),
+      (l.canShowBotTos = le));
   },
   98,
 );

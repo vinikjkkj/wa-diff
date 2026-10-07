@@ -278,7 +278,7 @@ __d(
                 captionComponent: u.jsx(r("WAWebBizProductInfo.react"), {
                   trusted: y,
                   onClick: q,
-                  msg: c,
+                  msgKey: c.id,
                   displayType: i,
                 }),
                 thumbClassName:

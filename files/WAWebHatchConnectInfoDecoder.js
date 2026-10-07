@@ -3,7 +3,8 @@ __d(
   ["WAWebHatchJsonReaders"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e = new Set(["oauth"]);
+    function s(e) {
       var t,
         n =
           (t = o("WAWebHatchJsonReaders").readObject(e, "result")) != null
@@ -14,11 +15,11 @@ __d(
       if (o("WAWebHatchJsonReaders").isBlankText(a)) return null;
       if (a !== "oauth") return { kind: "unsupported", wireType: a };
       var i = o("WAWebHatchJsonReaders").readTrimmedString(r, "url");
-      return s(i)
+      return u(i)
         ? { kind: "oauth", url: i }
         : { kind: "unsupported", wireType: a };
     }
-    function s(e) {
+    function u(e) {
       var t;
       try {
         t = new URL(e);
@@ -27,7 +28,9 @@ __d(
       }
       return t.protocol === "https:" && t.username === "" && t.password === "";
     }
-    ((l.decodeHatchConnectAction = e), (l.isUsableHttpsUrl = s));
+    ((l.RUNNABLE_CONNECT_ACTION_TYPES = e),
+      (l.decodeHatchConnectAction = s),
+      (l.isUsableHttpsUrl = u));
   },
   98,
 );

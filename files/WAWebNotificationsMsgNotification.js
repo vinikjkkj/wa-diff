@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebBotProfileCollection",
-    "WAWebContactGetters",
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendMsgGetters",
     "WAWebGetNotificationStrings",
@@ -35,27 +34,23 @@ __d(
       );
     }
     function _(e, t) {
-      var n = o("WAWebMsgGetters").getSender(e);
-      if (n == null) return null;
-      var r = o("WAWebBotProfileCollection").BotProfileCollection.get(n);
-      if (
-        !o("WAWebGroupAgentAuthorName").shouldUseGroupAgentAuthorName({
-          agentWid: n,
-          chat: t,
-          product: r == null ? void 0 : r.product,
-          profileName: r == null ? void 0 : r.name,
-        })
-      )
-        return null;
-      var a = e.senderObj;
-      return o("WAWebGroupAgentAuthorName").getGroupAgentAuthorName({
-        contactName: a == null ? void 0 : a.name,
-        notifyName:
-          a == null ? null : o("WAWebContactGetters").getNotifyName(a),
-        product: r == null ? void 0 : r.product,
-        profileName: r == null ? void 0 : r.name,
-        pushname: e.notifyName,
-      });
+      var n,
+        r = o("WAWebMsgGetters").getSender(e);
+      if (r == null) return null;
+      var a = o("WAWebBotProfileCollection").BotProfileCollection.get(r);
+      return o("WAWebGroupAgentAuthorName").shouldUseGroupAgentAuthorName({
+        agentWid: r,
+        chat: t,
+        product: a == null ? void 0 : a.product,
+        profileName: a == null ? void 0 : a.name,
+      })
+        ? o("WAWebGroupAgentAuthorName").getGroupAgentAuthorName({
+            agentWid: r,
+            product: a == null ? void 0 : a.product,
+            profileName: a == null ? void 0 : a.name,
+            pushname: (n = e.senderObj) == null ? void 0 : n.pushname,
+          })
+        : null;
     }
     function f(e) {
       var t,

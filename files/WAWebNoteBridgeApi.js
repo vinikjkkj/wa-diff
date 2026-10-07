@@ -5,7 +5,7 @@ __d(
     var e = {
       removeNotes: function (t) {
         var e = t.noteIds;
-        o("WAWebNoteCollection").NoteCollection.remove(e);
+        o("WAWebNoteCollection").NoteCollection.removeNotesByIds(e);
       },
       updateNoteJidAction: function (t) {
         var e = t.newJid,

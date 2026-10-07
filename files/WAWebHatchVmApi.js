@@ -24,11 +24,16 @@ __d(
             o("WAWebHatchVmTransport").JarvisPaths.ARTIFACTS_LIST,
           );
         }),
-        (r.connectors = function (t) {
-          return this.request(
-            "GET",
-            o("WAWebHatchVmTransport").JarvisPaths.CONNECTORS_LIST,
-            t,
+        (r.connectors = function (t, n) {
+          return (
+            t === void 0 && (t = []),
+            this.request(
+              "GET",
+              o("WAWebHatchVmTransport").JarvisPaths.CONNECTORS_LIST_SUPPORTING(
+                t,
+              ),
+              n,
+            )
           );
         }),
         (r.connector = function (t, n) {
@@ -50,6 +55,16 @@ __d(
             "PATCH",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
             { body: d({ connector: t, methods: n }), service: "sentinel" },
+          );
+        }),
+        (r.connectorResetPermissions = function (t) {
+          return this.request(
+            "DELETE",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
+            {
+              body: d({ reason: "settings_permissions_connector_reset" }),
+              service: "sentinel",
+            },
           );
         }),
         (r.connectorScopeLink = function (t, n) {

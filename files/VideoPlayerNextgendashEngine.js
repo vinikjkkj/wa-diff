@@ -353,7 +353,8 @@ __d(
         ) || P.mediaSinkType === "EMSS"),
         P.mediaSinkType === "EMSS" &&
           ((P.disableBufferGapSkipping = !0),
-          (P.enableDisposalResourceCleanup = !0)),
+          (P.enableDisposalResourceCleanup = !0),
+          (P.bufferAheadTargetNoMediaElementSec = 9.9)),
         (P.sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime = o(
           "VideoPlayerNextgendashEngineConfig",
         ).isVideoPlayerNextgendashVODOnlyConfigEnabled(

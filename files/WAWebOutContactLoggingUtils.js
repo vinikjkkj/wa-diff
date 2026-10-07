@@ -77,7 +77,7 @@ __d(
                   .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
             companionInviteOrigin: t,
             companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
-              .COMPANION_INVITE_ACTION_TYPE.IMPRESSION,
+              .COMPANION_INVITE_ACTION_TYPE.INVITE_INTENT,
           },
           a != null ? { companionInviteSessionId: a } : {},
         ),
@@ -159,7 +159,7 @@ __d(
     }
     ((l.getOutContactEntryPoint = e),
       (l.logOneToOneInviteContact = s),
-      (l.logOutContactImpression = u),
+      (l.logOutContactInviteIntent = u),
       (l.logMultiGroupInviteContacts = c),
       (l.logGroupInviteContact = m));
   },

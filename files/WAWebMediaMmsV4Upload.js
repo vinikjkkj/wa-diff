@@ -441,7 +441,7 @@ __d(
             );
           })
           .finally(function () {
-            v.clearUploadPromise(S);
+            v.clearUploadPromise(S, $);
           })
           .catch(
             o("WAFilteredCatch").filteredCatch(

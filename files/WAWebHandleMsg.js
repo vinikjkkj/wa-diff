@@ -12,6 +12,7 @@ __d(
     "WAWebCreateNackFromStanza",
     "WAWebDBReportingTokenUtils",
     "WAWebGetMessageCache",
+    "WAWebGroupAgentReceipts",
     "WAWebGroupHistoryReportingTokenDBUtils",
     "WAWebHandleDeferredBotOrphan",
     "WAWebHandleMsgCommon",
@@ -552,9 +553,12 @@ __d(
                 o("WAWebHandleMsgProcess").processDecryptedMessageProto,
                 j,
               );
-              return Q.result ===
+              if (
+                Q.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.DEFERRED
-                ? (o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({
+              )
+                return (
+                  o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({
                     msgKey: w,
                     stanzaId: U.externalId,
                     msgTs: U.ts,
@@ -568,106 +572,108 @@ __d(
                     input: O,
                     node: t,
                   }),
-                  null)
-                : (U.offline != null &&
-                    o(
-                      "WAWebOfflineHandler",
-                    ).OfflineMessageHandler.processMessageDecryptResult(
-                      Q.result,
-                    ),
-                  Q.result !==
-                    o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
-                    o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({
-                      msgKey: w,
-                      stanzaId: U.externalId,
-                      msgTs: U.ts,
-                      incomingMsgReportingTokenInfo: O.reportingTokenInfo,
-                    }),
-                  Q.result ===
-                    o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                      .SIGNAL_OLD_COUNTER_ERROR && I(O)
-                    ? o("WAWebGetMessageCache")
+                  null
+                );
+              (U.offline != null &&
+                o(
+                  "WAWebOfflineHandler",
+                ).OfflineMessageHandler.processMessageDecryptResult(Q.result),
+                Q.result !==
+                  o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
+                  o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({
+                    msgKey: w,
+                    stanzaId: U.externalId,
+                    msgTs: U.ts,
+                    incomingMsgReportingTokenInfo: O.reportingTokenInfo,
+                  }));
+              var X =
+                Q.result ===
+                  o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
+                o(
+                  "WAWebGroupAgentReceipts",
+                ).shouldSendGroupAgentDeliveryReceipt(O);
+              return (
+                Q.result ===
+                  o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                    .SIGNAL_OLD_COUNTER_ERROR && I(O)
+                  ? o("WAWebGetMessageCache")
+                      .getMessageCache()
+                      .addMessages(
+                        [
+                          {
+                            duplicateMsgReceiptInfo: {
+                              externalId: U.externalId,
+                              from: o("WAWebMsgProcessingApiUtils").getFrom(U),
+                              author: U.author,
+                              msgInfo: U,
+                              msgMeta: V,
+                              enc: Q.failedEnc || B[0],
+                              hasHideFailEnc: B.some(function (e) {
+                                return e.hideFail;
+                              }),
+                              msgReceivedTimes: H,
+                            },
+                          },
+                        ],
+                        U.offline == null,
+                      )
+                  : U.offline == null ||
+                      U.category ===
+                        o("WAWebHandleMsgCommon").MSG_CATEGORY.peer ||
+                      o(
+                        "WAWebHandleMsgSendReceipt",
+                      ).isCoexV2SenderReceiptMessage(U) ||
+                      o(
+                        "WAWebHandleMsgSendReceipt",
+                      ).isCoexV2PeerDeliveryReceiptMessage(U) ||
+                      V.type ===
+                        o("WAWebHandleMsgCommon").STANZA_MSG_TYPES
+                          .medianotify ||
+                      X ||
+                      (Q.result !==
+                        o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                          .SUCCESS &&
+                        Q.result !==
+                          o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                            .SIGNAL_OLD_COUNTER_ERROR)
+                    ? o("WAWebMessageReceiveFlow")
+                        .trackMessageReceiveReceipt(
+                          z,
+                          o("WAWebHandleMsgSendReceipt").sendReceipt(U, V, Q, {
+                            canNack: I(O),
+                            sendsGroupAgentDeliveryReceipt: X,
+                          }),
+                          Q.result,
+                        )
+                        .catch(function (e) {
+                          o("WALogger")
+                            .ERROR(
+                              b ||
+                                (b = babelHelpers.taggedTemplateLiteralLoose([
+                                  "sendReceipt failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("send-receipt-error", { sampling: 0.01 });
+                        })
+                    : o("WAWebGetMessageCache")
                         .getMessageCache()
                         .addMessages(
                           [
                             {
-                              duplicateMsgReceiptInfo: {
+                              receiptInfo: {
                                 externalId: U.externalId,
                                 from: o("WAWebMsgProcessingApiUtils").getFrom(
                                   U,
                                 ),
                                 author: U.author,
-                                msgInfo: U,
-                                msgMeta: V,
-                                enc: Q.failedEnc || B[0],
-                                hasHideFailEnc: B.some(function (e) {
-                                  return e.hideFail;
-                                }),
-                                msgReceivedTimes: H,
                               },
                             },
                           ],
-                          U.offline == null,
-                        )
-                    : U.offline == null ||
-                        U.category ===
-                          o("WAWebHandleMsgCommon").MSG_CATEGORY.peer ||
-                        o(
-                          "WAWebHandleMsgSendReceipt",
-                        ).isCoexV2SenderReceiptMessage(U) ||
-                        o(
-                          "WAWebHandleMsgSendReceipt",
-                        ).isCoexV2PeerDeliveryReceiptMessage(U) ||
-                        V.type ===
-                          o("WAWebHandleMsgCommon").STANZA_MSG_TYPES
-                            .medianotify ||
-                        (Q.result !==
-                          o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                            .SUCCESS &&
-                          Q.result !==
-                            o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                              .SIGNAL_OLD_COUNTER_ERROR)
-                      ? o("WAWebMessageReceiveFlow")
-                          .trackMessageReceiveReceipt(
-                            z,
-                            o("WAWebHandleMsgSendReceipt").sendReceipt(
-                              U,
-                              V,
-                              Q,
-                              { canNack: I(O) },
-                            ),
-                            Q.result,
-                          )
-                          .catch(function (e) {
-                            o("WALogger")
-                              .ERROR(
-                                b ||
-                                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                                    "sendReceipt failed",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e))
-                              .sendLogs("send-receipt-error", {
-                                sampling: 0.01,
-                              });
-                          })
-                      : o("WAWebGetMessageCache")
-                          .getMessageCache()
-                          .addMessages(
-                            [
-                              {
-                                receiptInfo: {
-                                  externalId: U.externalId,
-                                  from: o("WAWebMsgProcessingApiUtils").getFrom(
-                                    U,
-                                  ),
-                                  author: U.author,
-                                },
-                              },
-                            ],
-                            !1,
-                          ),
-                  null);
+                          !1,
+                        ),
+                null
+              );
             }),
           );
         })),

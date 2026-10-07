@@ -1,12 +1,16 @@
 __d(
   "WAWebHatchConnectorDetail",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebHatchConnectorsEligibility"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return e.consent != null || e.description != null;
+      return (
+        e.consent != null ||
+        e.description != null ||
+        o("WAWebHatchConnectorsEligibility").isHatchPermissionsOnlyConnector(e)
+      );
     }
-    i.hasHatchConnectorDetail = e;
+    l.hasHatchConnectorDetail = e;
   },
-  66,
+  98,
 );

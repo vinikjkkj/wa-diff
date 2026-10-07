@@ -88,7 +88,7 @@ __d(
           if (k(d) && r("isStringNullOrEmpty")(C.body)) {
             if (L(d))
               throw r("err")(
-                "Muse group generated media forward failed with no text fallback",
+                "Muse group media forward failed with no text fallback",
               );
             return (
               o("WALogger")

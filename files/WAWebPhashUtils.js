@@ -67,9 +67,7 @@ __d(
                 e.join(","),
               ));
           var a = [].concat(e);
-          (o(
-            "WAWebBotGroupGatingUtils",
-          ).isOpenGroupBotParticipantAddEnabled() &&
+          (o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
             t === !0 &&
             a.push(o("WAWebBotUtils").META_BOT_FBID_WID),
             o(

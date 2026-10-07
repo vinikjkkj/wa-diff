@@ -63,7 +63,7 @@ __d(
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-          ? _()
+          ? y()
           : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
             ? f()
             : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();

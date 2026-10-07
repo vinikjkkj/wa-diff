@@ -425,7 +425,7 @@ __d(
                   ? ((f = !0),
                     (i = o(
                       "WAWebBotGroupGatingUtils",
-                    ).isOpenGroupBotParticipantAddEnabled()))
+                    ).isOpenGroupBotSendEnabled()))
                   : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(y) &&
                     ((g = !0),
                     (l = o(

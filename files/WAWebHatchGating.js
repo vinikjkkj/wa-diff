@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchGating",
-  ["WAWebABProps"],
+  ["WAWebABProps", "WAWebHatchConnectInfoDecoder"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.primaryAiHatchIntegrationEnabled;
@@ -36,6 +36,23 @@ __d(
     }
     function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_connectors_supported_types",
+        ),
+        t = e
+          .toLowerCase()
+          .split(",")
+          .map(function (e) {
+            return e.trim();
+          })
+          .filter(function (e) {
+            return o(
+              "WAWebHatchConnectInfoDecoder",
+            ).RUNNABLE_CONNECT_ACTION_TYPES.has(e);
+          });
+      return Array.from(new Set(t));
+    }
+    function _() {
+      var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
       if (e !== "")
@@ -47,7 +64,7 @@ __d(
         }
       return "";
     }
-    function _() {
+    function f() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -65,8 +82,9 @@ __d(
       (l.isHatchVideoUploadEnabled = u),
       (l.getHatchDocumentUploadSizeLimitBytes = c),
       (l.getHatchMediaUploadCountLimit = m),
-      (l.getHatchBotName = p),
-      (l.getHatchBotProfileThumb = _));
+      (l.getHatchSupportedConnectActions = p),
+      (l.getHatchBotName = _),
+      (l.getHatchBotProfileThumb = f));
   },
   98,
 );

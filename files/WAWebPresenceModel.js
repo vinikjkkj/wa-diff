@@ -24,6 +24,8 @@ __d(
     "WAWebGroupPresenceUtils",
     "WAWebGroupType",
     "WAWebLid1X1MigrationGating",
+    "WAWebOrgGatingUtils",
+    "WAWebOrgLidEligibility",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
     "WAWebPresenceGetters",
@@ -240,7 +242,7 @@ __d(
               null
                 ? r
                 : !1;
-          return S({
+          return E({
             chatstateType: this.chatstate.type,
             elevatedPushNamesEnabled: a,
             groupOnlineCount: this.groupOnlineCount,
@@ -387,10 +389,11 @@ __d(
                 .sendLogs("presence-chat-active-update-failed");
             }
           else
-            (this.withholdDisplayTimer != null &&
-              this.withholdDisplayTimer !== 0 &&
-              (self.clearTimeout(this.withholdDisplayTimer),
-              (this.withholdDisplayTimer = void 0)),
+            (b.delete(this),
+              this.withholdDisplayTimer != null &&
+                this.withholdDisplayTimer !== 0 &&
+                (self.clearTimeout(this.withholdDisplayTimer),
+                (this.withholdDisplayTimer = void 0)),
               this.forceDisplayTimer != null &&
                 this.forceDisplayTimer !== 0 &&
                 (self.clearTimeout(this.forceDisplayTimer),
@@ -409,69 +412,121 @@ __d(
             r = n && o("WAWebContactGetters").getIsMe(n),
             a = [],
             i = this.$PresenceImpl$p_5();
-          (i != null && o("WAWebChatGetters").getIsGroup(i)
-            ? (a = this.getGroupStages(i))
-            : r === !0
-              ? (o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
-                  i != null &&
-                  o("WAWebFrontendChatGetters").getIsE2ee(i) &&
-                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE),
-                a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Self),
-                b(this, a))
-              : this.hasData
-                ? (o("WAWebChatAssignmentUtils").canAssignChat(i) &&
-                    t &&
-                    a.push(
-                      o("WAWebPresenceEnum").WithholdDisplayStage
-                        .ChatAssignment,
-                    ),
-                  (n == null ? void 0 : n.isBusiness) === !0 &&
-                    a.push(
-                      o("WAWebPresenceEnum").WithholdDisplayStage.Business,
-                    ),
-                  o(
-                    "WAWebTextStatusGatingUtils",
-                  ).receiveTextStatusForNewSurfacesEnabled() &&
-                    a.push(
-                      o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
-                    ),
-                  a.length > 0 ||
-                    (o(
-                      "WAWebTextStatusGatingUtils",
-                    ).receiveTextStatusForNewSurfacesEnabled() &&
-                      a.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
-                      )),
-                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None))
-                : (o("WAWebChatAssignmentUtils").canAssignChat(i) &&
-                    t &&
-                    a.push(
-                      o("WAWebPresenceEnum").WithholdDisplayStage
-                        .ChatAssignment,
-                    ),
-                  (n == null ? void 0 : n.isBusiness) === !0 &&
-                    a.push(
-                      o("WAWebPresenceEnum").WithholdDisplayStage.Business,
-                    ),
-                  o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
-                  i != null &&
-                  o("WAWebFrontendChatGetters").getIsE2ee(i)
-                    ? a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE)
-                    : a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Info),
-                  o(
-                    "WAWebTextStatusGatingUtils",
-                  ).receiveTextStatusForNewSurfacesEnabled() &&
-                    a.push(
-                      o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
-                    ),
-                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None)),
-            b(this, a),
+          if (i != null && o("WAWebChatGetters").getIsGroup(i))
+            a = this.getGroupStages(i);
+          else if (r === !0)
+            (o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
+              i != null &&
+              o("WAWebFrontendChatGetters").getIsE2ee(i) &&
+              a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE),
+              a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Self),
+              S(this, a));
+          else {
+            var l =
+                o("WAWebOrgLidEligibility").getWAWebOrgLid(
+                  i == null ? void 0 : i.id,
+                ) != null,
+              s =
+                n != null &&
+                o("WAWebContactGetters").getIsDisplayNameApproved(n) &&
+                n.verifiedName != null &&
+                n.verifiedName !== "",
+              u = l && !s && o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled(),
+              c = u;
+            if (this.hasData)
+              (o("WAWebChatAssignmentUtils").canAssignChat(i) &&
+                t &&
+                a.push(
+                  o("WAWebPresenceEnum").WithholdDisplayStage.ChatAssignment,
+                ),
+                (n == null ? void 0 : n.isBusiness) === !0 &&
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Business),
+                o(
+                  "WAWebTextStatusGatingUtils",
+                ).receiveTextStatusForNewSurfacesEnabled() &&
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen),
+                a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None));
+            else {
+              (o("WAWebChatAssignmentUtils").canAssignChat(i) &&
+                t &&
+                a.push(
+                  o("WAWebPresenceEnum").WithholdDisplayStage.ChatAssignment,
+                ),
+                (n == null ? void 0 : n.isBusiness) === !0 &&
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Business));
+              var d =
+                o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
+                i != null &&
+                o("WAWebFrontendChatGetters").getIsE2ee(i);
+              (d
+                ? (a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE),
+                  (c = !1))
+                : a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Info),
+                o(
+                  "WAWebTextStatusGatingUtils",
+                ).receiveTextStatusForNewSurfacesEnabled() &&
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen),
+                a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None));
+            }
+            c && (a = R(a));
+          }
+          (S(this, a),
             (this.forceDisplayTimer = self.setTimeout(function () {
               e.set({ forceDisplay: !0, forceDisplayTimer: void 0 });
             }, f)));
         }),
         (a.subscribe = function () {
           return this.getCollection().find(this.id);
+        }),
+        (a.restartOrgMemberTagStage = function () {
+          if (this.chatActive) {
+            var e = v(this);
+            if (
+              this.withholdDisplayStage ===
+                o("WAWebPresenceEnum").WithholdDisplayStage.E2EE &&
+              this.withholdDisplayTimer != null
+            ) {
+              (self.clearTimeout(this.withholdDisplayTimer),
+                S(
+                  this,
+                  [o("WAWebPresenceEnum").WithholdDisplayStage.E2EE].concat(e),
+                ));
+              return;
+            }
+            if (
+              this.withholdDisplayStage ===
+                o("WAWebPresenceEnum").WithholdDisplayStage.Business &&
+              this.withholdDisplayTimer != null
+            ) {
+              (self.clearTimeout(this.withholdDisplayTimer),
+                S(
+                  this,
+                  [
+                    o("WAWebPresenceEnum").WithholdDisplayStage.OrgMemberTag,
+                    o("WAWebPresenceEnum").WithholdDisplayStage.Business,
+                  ].concat(e),
+                ));
+              return;
+            }
+            if (
+              this.withholdDisplayStage !==
+                o("WAWebPresenceEnum").WithholdDisplayStage.None &&
+              this.withholdDisplayStage !==
+                o("WAWebPresenceEnum").WithholdDisplayStage.OrgMemberTag &&
+              this.withholdDisplayTimer != null
+            ) {
+              b.set(this, R(e));
+              return;
+            }
+            (this.withholdDisplayTimer != null &&
+              self.clearTimeout(this.withholdDisplayTimer),
+              S(
+                this,
+                [
+                  o("WAWebPresenceEnum").WithholdDisplayStage.OrgMemberTag,
+                ].concat(e),
+              ));
+          }
         }),
         (a.getCollection = function () {
           return o("WAWebPresenceCollection").PresenceCollection;
@@ -505,37 +560,56 @@ __d(
       );
     })(m.BaseModel);
     ((C.Proxy = "presence"), (C.idClass = r("WAWebWid")));
-    function b(e, t) {
+    var b = new WeakMap();
+    function v(e) {
+      var t,
+        n = ((t = b.get(e)) != null ? t : []).filter(function (e) {
+          return e !== o("WAWebPresenceEnum").WithholdDisplayStage.OrgMemberTag;
+        });
+      return n.length === 0
+        ? [o("WAWebPresenceEnum").WithholdDisplayStage.None]
+        : n;
+    }
+    function S(e, t) {
       if (t.length !== 0) {
         var n = t[0],
           r = babelHelpers.arrayLikeToArray(t).slice(1);
-        e.set({
-          withholdDisplayStage: n,
-          withholdDisplayTimer:
-            n === o("WAWebPresenceEnum").WithholdDisplayStage.None
-              ? null
-              : self.setTimeout(
-                  function () {
-                    b(e, r);
-                  },
-                  n === o("WAWebPresenceEnum").WithholdDisplayStage.Business
-                    ? _
-                    : p,
-                ),
-        });
+        (b.set(e, r),
+          e.set({
+            withholdDisplayStage: n,
+            withholdDisplayTimer:
+              n === o("WAWebPresenceEnum").WithholdDisplayStage.None
+                ? null
+                : self.setTimeout(
+                    function () {
+                      var t;
+                      S(e, (t = b.get(e)) != null ? t : []);
+                    },
+                    n === o("WAWebPresenceEnum").WithholdDisplayStage.Business
+                      ? _
+                      : p,
+                  ),
+          }));
       }
     }
-    var v = m.defineModel(C);
-    function S(e) {
+    function R(e) {
+      return e.includes(
+        o("WAWebPresenceEnum").WithholdDisplayStage.OrgMemberTag,
+      )
+        ? Array.from(e)
+        : [o("WAWebPresenceEnum").WithholdDisplayStage.OrgMemberTag].concat(e);
+    }
+    var L = m.defineModel(C);
+    function E(e) {
       var t = e.chatstateType,
         n = e.elevatedPushNamesEnabled,
         r = e.groupOnlineCount,
         o = e.isTypingIndicatorMessageBubbleEnabled,
         a = e.recordingUserIds,
         i = e.typingUserIds;
-      if (!o && t === "typing" && i.length > 0) return R(i, n);
+      if (!o && t === "typing" && i.length > 0) return k(i, n);
       if (!o && t === "recording_audio" && a.length > 0) {
-        var l = L(a[a.length - 1], n),
+        var l = I(a[a.length - 1], n),
           u = l.accessibleName,
           c = l.name;
         return {
@@ -555,10 +629,10 @@ __d(
       }
       return null;
     }
-    function R(e, t) {
+    function k(e, t) {
       var n = e.length;
       if (n === 1) {
-        var r = L(e[e.length - 1], t),
+        var r = I(e[e.length - 1], t),
           o = r.accessibleName,
           a = r.name;
         return {
@@ -579,7 +653,7 @@ __d(
         ]),
       };
     }
-    function L(e, t) {
+    function I(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e);
       if (n == null) {
         var r = o("WAWebWidFormat").widToFormattedUser(e);
@@ -595,7 +669,7 @@ __d(
       var i = o("WAWebFrontendContactGetters").getFormattedShortName(n);
       return { name: i, accessibleName: i };
     }
-    ((l.processStagesRecursively = b), (l.Presence = v), (l.Chatstate = h));
+    ((l.processStagesRecursively = S), (l.Presence = L), (l.Chatstate = h));
   },
   226,
 );

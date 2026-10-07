@@ -152,6 +152,18 @@ __d(
       );
     }
     function y(e) {
+      return new (o(
+        "CometComposedTextV2CustomNode.react",
+      ).CometComposedTextV2CustomNode)(
+        {
+          key: r("cometComposedTextV2NodeKey")(),
+          rendererArgs: e,
+          rendererKey: "connectorActionCard",
+        },
+        r("CometComposedTextV2CustomNodeRenderer.react"),
+      );
+    }
+    function C(e) {
       return (
         e === void 0 && (e = 8),
         new (o(
@@ -162,7 +174,7 @@ __d(
         )
       );
     }
-    function C() {
+    function b() {
       return new (o(
         "CometComposedTextV2GridNode.react",
       ).CometComposedTextV2GridNode)(
@@ -170,7 +182,7 @@ __d(
         r("CometComposedTextV2GridNodeRenderer.react"),
       );
     }
-    function b() {
+    function v() {
       return new (o(
         "CometComposedTextV2GridNode.react",
       ).CometComposedTextV2GridNode)(
@@ -178,7 +190,7 @@ __d(
         r("CometComposedTextV2ImageGridNodeRenderer.react"),
       );
     }
-    function v(e, t) {
+    function S(e, t) {
       return new (o(
         "CometComposedTextV2CustomNode.react",
       ).CometComposedTextV2CustomNode)(
@@ -194,7 +206,7 @@ __d(
         r("CometComposedTextV2CustomNodeRenderer.react"),
       );
     }
-    function S(e, t, n, a) {
+    function R(e, t, n, a) {
       return new (o(
         "CometComposedTextV2LinkNode.react",
       ).CometComposedTextV2LinkNode)(
@@ -208,7 +220,7 @@ __d(
         r("CometComposedTextV2LinkNodeRenderer.react"),
       );
     }
-    function R(e) {
+    function L(e) {
       return new (o(
         "CometComposedTextV2MathNode.react",
       ).CometComposedTextV2MathNode)(
@@ -216,7 +228,7 @@ __d(
         r("CometComposedTextV2MathNodeRenderer.react"),
       );
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       return new (o(
         "CometComposedTextV2ContentViewerNode.react",
       ).CometComposedTextV2ContentViewerNode)(
@@ -229,7 +241,7 @@ __d(
         r("CometComposedTextV2ContentViewerNodeRenderer.react"),
       );
     }
-    function E() {
+    function k() {
       return new (o(
         "CometComposedTextV2NewLineNode.react",
       ).CometComposedTextV2NewLineNode)(
@@ -237,7 +249,7 @@ __d(
         r("CometComposedTextV2NewLineNodeRenderer.react"),
       );
     }
-    function k() {
+    function I() {
       return new (o(
         "CometComposedTextV2ParagraphNode.react",
       ).CometComposedTextV2ParagraphNode)(
@@ -245,7 +257,7 @@ __d(
         r("CometComposedTextV2ParagraphNodeRenderer.react"),
       );
     }
-    function I(e, t, n, a, i) {
+    function T(e, t, n, a, i) {
       return new (o(
         "CometComposedTextV2ProgressStatusNode.react",
       ).CometComposedTextV2ProgressStatusNode)(
@@ -260,7 +272,7 @@ __d(
         r("CometComposedTextV2ProgressStatusNodeRenderer.react"),
       );
     }
-    function T() {
+    function D() {
       return new (o(
         "CometComposedTextV2RootNode.react",
       ).CometComposedTextV2RootNode)(
@@ -268,7 +280,7 @@ __d(
         r("CometComposedTextV2RootNodeRenderer.react"),
       );
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       return (
         t === void 0 && (t = 0),
         new (o(
@@ -284,7 +296,7 @@ __d(
         )
       );
     }
-    function x() {
+    function $() {
       return new (o(
         "CometComposedTextV2ThematicBreakNode.react",
       ).CometComposedTextV2ThematicBreakNode)(
@@ -301,19 +313,20 @@ __d(
       (l.buildProductItemCardNode = f),
       (l.buildTaskNode = g),
       (l.buildFileNode = h),
-      (l.buildHScrollNode = y),
-      (l.buildGridNode = C),
-      (l.buildImageGridNode = b),
-      (l.buildImageNode = v),
-      (l.buildLinkNode = S),
-      (l.buildMathNode = R),
-      (l.buildContentViewerNode = L),
-      (l.buildNewLineNode = E),
-      (l.buildParagraphNode = k),
-      (l.buildProgressStatusNode = I),
-      (l.buildRootNode = T),
-      (l.buildTextNode = D),
-      (l.buildThematicBreakNode = x));
+      (l.buildConnectorActionCardNode = y),
+      (l.buildHScrollNode = C),
+      (l.buildGridNode = b),
+      (l.buildImageGridNode = v),
+      (l.buildImageNode = S),
+      (l.buildLinkNode = R),
+      (l.buildMathNode = L),
+      (l.buildContentViewerNode = E),
+      (l.buildNewLineNode = k),
+      (l.buildParagraphNode = I),
+      (l.buildProgressStatusNode = T),
+      (l.buildRootNode = D),
+      (l.buildTextNode = x),
+      (l.buildThematicBreakNode = $));
   },
   98,
 );

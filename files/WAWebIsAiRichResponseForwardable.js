@@ -20,7 +20,12 @@ __d(
         o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
           t.unifiedResponse,
         ) ||
-        o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(t.unifiedResponse)
+        o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(
+          t.unifiedResponse,
+        ) ||
+        o("WAWebUnifiedResponseUtils").unifiedResponseHasConnectorActionCard(
+          t.unifiedResponse,
+        )
       )
         return !1;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) return !0;

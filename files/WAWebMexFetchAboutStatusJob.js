@@ -6,7 +6,6 @@ __d(
     "WAWebBackendErrors",
     "WAWebMexClient",
     "WAWebMexFetchAboutStatusJobQuery.graphql",
-    "WAWebPrivacyGatingUtils",
     "WAWebTrustedContactsUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -42,9 +41,6 @@ __d(
                 : (e = n("WAWebMexFetchAboutStatusJobQuery.graphql")),
             d = { user_id: i.user };
           a != null &&
-            o(
-              "WAWebPrivacyGatingUtils",
-            ).isProfileScrappingProtectionInMexFetchEnabled() &&
             (d.privacy_token = {
               tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(a),
             });

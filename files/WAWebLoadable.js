@@ -9,10 +9,12 @@ __d(
     function d(t) {
       var n = t.loader,
         a = t.loading,
-        i = r("react-loadable")({
+        i = t.renderLoadingImmediately,
+        l = i === void 0 ? !1 : i,
+        u = r("react-loadable")({
           loader: n,
           loading: function (t) {
-            return t.pastDelay ? a(t) : null;
+            return !t.pastDelay && !l ? null : a(t);
           },
           render: function (n, r) {
             var t = r.forwardedRefDoNotUse,
@@ -20,7 +22,7 @@ __d(
             return c.jsx(n, babelHelpers.extends({ ref: t }, o));
           },
         });
-      function l(e) {
+      function d(e) {
         var t = o("react-compiler-runtime").c(6),
           n,
           r;
@@ -35,7 +37,7 @@ __d(
         return (
           t[3] !== n || t[4] !== r
             ? ((a = c.jsx(
-                i,
+                u,
                 babelHelpers.extends({ forwardedRefDoNotUse: r }, n),
               )),
               (t[3] = n),
@@ -45,7 +47,7 @@ __d(
           a
         );
       }
-      return l;
+      return d;
     }
     l.default = d;
   },

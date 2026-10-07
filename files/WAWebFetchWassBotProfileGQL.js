@@ -3,6 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebFetchWassBotProfileGQLQuery.graphql",
+    "WAWebFetchWassBotProfileGQLWithoutGroupQuery.graphql",
+    "WAWebFetchWassBotProfileGQL_profile.graphql",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
@@ -14,40 +16,82 @@ __d(
     var e,
       s,
       u,
-      c =
-        e !== void 0 ? e : (e = n("WAWebFetchWassBotProfileGQLQuery.graphql"));
-    function d(e, t) {
-      return m.apply(this, arguments);
+      c,
+      d,
+      m,
+      p =
+        e !== void 0 ? e : (e = n("WAWebFetchWassBotProfileGQLQuery.graphql")),
+      _ =
+        s !== void 0
+          ? s
+          : (s = n("WAWebFetchWassBotProfileGQLWithoutGroupQuery.graphql")),
+      f =
+        u !== void 0
+          ? u
+          : (u = n("WAWebFetchWassBotProfileGQL_profile.graphql"));
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function m() {
+    function h() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t === void 0 && (t = null),
             yield r("WAWebNetworkStatus").waitIfOffline());
           try {
             var n,
-              a = yield o("WAWebRelayClient").fetchQuery(
-                c,
-                { botFbid: e, groupJid: t },
-                { environmentType: "whatsapp_web" },
-              ),
-              i = a == null ? void 0 : a.get_wass_account_profile;
+              a,
+              i = function (t) {
+                a = t;
+              },
+              l =
+                t == null
+                  ? yield o("WAWebRelayClient").fetchQuery(
+                      _,
+                      { botFbid: e },
+                      {
+                        environmentType: "whatsapp_web",
+                        getInlineDataReader: i,
+                      },
+                    )
+                  : yield o("WAWebRelayClient").fetchQuery(
+                      p,
+                      { botFbid: e, groupJid: t },
+                      {
+                        environmentType: "whatsapp_web",
+                        getInlineDataReader: i,
+                      },
+                    ),
+              s = l == null ? void 0 : l.get_wass_account_profile,
+              u = a;
+            if (s != null && u == null)
+              return (
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fetchWassBotProfileGQL] inline data reader unavailable",
+                      ])),
+                  )
+                  .sendLogs("sbp-fetch-wass-bot-profile-no-reader"),
+                { type: "error" }
+              );
+            var g = s == null || u == null ? null : u(f, s);
             return o("WAWebWassBotProfileMapper").toWassBotProfileResult(
-              i == null
+              g == null
                 ? null
                 : {
-                    creator_lid: i.creator_lid,
-                    hca_entrypoint_id: i.hca_entrypoint_id,
-                    is_deprecated: i.is_deprecated,
-                    name: i.name,
-                    product: i.product,
-                    profile_pic_thumb_url: i.profile_pic_thumb_url,
-                    profile_pic_full_url: i.profile_pic_full_url,
+                    creator_lid: g.creator_lid,
+                    hca_entrypoint_id: g.hca_entrypoint_id,
+                    is_deprecated: g.is_deprecated,
+                    name: g.name,
+                    product: g.product,
+                    profile_pic_thumb_url: g.profile_pic_thumb_url,
+                    profile_pic_full_url: g.profile_pic_full_url,
                     tos:
-                      i.tos == null
+                      g.tos == null
                         ? null
                         : {
-                            group: ((n = i.tos.group) != null ? n : []).map(
+                            group: ((n = g.tos.group) != null ? n : []).map(
                               function (e) {
                                 var t = e.blocking,
                                   n = e.id;
@@ -61,8 +105,8 @@ __d(
             return e instanceof o("WAWebGraphQLServerError").GraphQLServerError
               ? (o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[fetchWassBotProfileGQL] GraphQL error fetching WASS bot profile",
                       ])),
                   )
@@ -71,8 +115,8 @@ __d(
                 { type: "graphql-error", error: e })
               : (o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[fetchWassBotProfileGQL] failed to fetch WASS bot profile",
                       ])),
                   )
@@ -81,10 +125,10 @@ __d(
                 { type: "error" });
           }
         })),
-        m.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.fetchWassBotProfileGQL = d;
+    l.fetchWassBotProfileGQL = g;
   },
   98,
 );

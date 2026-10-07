@@ -27,6 +27,7 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebCurrentUser",
     "WAWebDBCreateLidPnMappings",
+    "WAWebDBDrainBotOrphansForHistoryMsgs",
     "WAWebDBProcessInitialHistorySyncMessage",
     "WAWebEphemeralityTypes",
     "WAWebEphemeralityUtils",
@@ -1012,6 +1013,15 @@ __d(
             r,
             Object.keys(t),
             a,
+          );
+        })
+        .then(function () {
+          return o(
+            "WAWebDBDrainBotOrphansForHistoryMsgs",
+          ).drainBotOrphansForHistoryMsgs(
+            Object.keys(t).flatMap(function (e) {
+              return t[e].msgs;
+            }),
           );
         })
         .then(function () {

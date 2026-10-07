@@ -71,9 +71,9 @@ __d(
         r = t.botPersonaId != null ? t.botPersonaId : void 0,
         a = h(t),
         i = t.aiThreadInfo != null ? e(t) : void 0,
-        l = R(t.botModeSelection, t.botModeOverride),
+        l = L(t.botModeSelection, t.botModeOverride),
         c = s(t),
-        d = S(t.type),
+        d = R(t.type),
         p = u(t),
         _ =
           t.unifiedResponseMutationMediaList != null
@@ -94,7 +94,7 @@ __d(
         return {
           personaId: r,
           invokerJid: a,
-          capabilityMetadata: t.id ? v(t.id.remote, t.subtype) : void 0,
+          capabilityMetadata: t.id ? S(t.id.remote, t.subtype) : void 0,
           botThreadInfo: i,
           botGroupMetadata: g(t.botGroupParticipant),
           botModeSelectionMetadata: l,
@@ -224,6 +224,16 @@ __d(
       );
     }
     function v(e, t) {
+      return !C(e, t) ||
+        !o("WAWebHatchBackendGating").isHatchConnectorsEnabledOnBackend()
+        ? []
+        : [
+            o("WAWebProtobufsAICommon.pb")
+              .BotCapabilityMetadata$BotCapabilityType
+              .HATCH_CONNECTOR_ACTION_CARD_ENABLED,
+          ];
+    }
+    function S(e, t) {
       var n,
         r = [
           (n = o("WAWebProtobufsAICommon.pb"))
@@ -390,10 +400,11 @@ __d(
                   .HATCH_NOTIFICATION_METADATA_EVENT_ENABLED,
               ]
             : [],
+          v(e, t),
         );
       return r.length === 0 ? void 0 : { capabilities: r };
     }
-    function S(e) {
+    function R(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -403,7 +414,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function R(e, t) {
+    function L(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -422,8 +433,8 @@ __d(
       (l.generateBotMetadata = c),
       (l.mergeBotMetadata = p),
       (l.addGroupAgentBotMetadata = _),
-      (l.generateBotCapabilityMetadata = v),
-      (l.generateBotModeSelectionMetadata = R));
+      (l.generateBotCapabilityMetadata = S),
+      (l.generateBotModeSelectionMetadata = L));
   },
   98,
 );

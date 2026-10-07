@@ -16,11 +16,12 @@ __d(
           p = t.msgId,
           _ = t.onClick,
           f = t.renotify,
-          g = t.showViaServiceWorker,
-          h = t.suppressBanner,
-          y = t.tag,
-          C = t.title,
-          b = t.wid;
+          g = t.requireInteraction,
+          h = t.showViaServiceWorker,
+          y = t.suppressBanner,
+          C = t.tag,
+          b = t.title,
+          v = t.wid;
         return (
           e.call(this, {
             key: m,
@@ -37,12 +38,13 @@ __d(
               notification: window.Notification,
               onClick: _,
               renotify: f,
-              showViaServiceWorker: g,
-              suppressBanner: h,
-              title: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(C),
+              requireInteraction: g,
+              showViaServiceWorker: h,
+              suppressBanner: y,
+              title: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(b),
             },
-            tag: y,
-            wid: b,
+            tag: C,
+            wid: v,
           }) || this
         );
       }

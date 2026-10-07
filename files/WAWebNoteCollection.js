@@ -24,6 +24,14 @@ __d(
             n != null &&
               this.add(new (o("WAWebNoteModel").Note)(n), { merge: !0 }));
         }),
+        (n.removeNotesByIds = function (t) {
+          var e = this,
+            n = t.filter(function (t) {
+              return e.get(t) == null;
+            });
+          (this.remove(t),
+            n.length > 0 && this.trigger("remove_uncached_notes", n));
+        }),
         (n.purgeNotesByChatJid = function (t) {
           var e = this.where({ chatJid: t });
           (this.remove(e), this.queriedChatJids.delete(t));

@@ -10,6 +10,7 @@ __d(
       "LastSeen",
       "E2EE",
       "Self",
+      "OrgMemberTag",
       "CommunityName",
       "OnlyAdminsCanSend",
     ]);

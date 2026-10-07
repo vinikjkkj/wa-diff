@@ -2,6 +2,7 @@ __d(
   "WAWebBotComposerTreatment",
   [
     "WAWebBotComposerSupport",
+    "WAWebBotGroupGatingUtils",
     "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
     "WAWebBotStaticProfiles",
@@ -16,7 +17,7 @@ __d(
       return o("WAWebMuseBotIdentity").isMuseBotProfileProduct(
         e,
         t == null ? void 0 : t.product,
-      )
+      ) && o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? o("WAWebBotComposerSupport").BotComposerTreatment.DEPRECATED
         : o("WAWebBotComposerSupport").getBotComposerTreatment({
             input: t,

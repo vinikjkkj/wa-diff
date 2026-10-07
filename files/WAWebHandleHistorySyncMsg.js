@@ -8,6 +8,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebCallsOnlyGating",
     "WAWebCheckUpdateOrphanReactions",
+    "WAWebDBDrainBotOrphansForHistoryMsgs",
     "WAWebDBProcessRecentAndFullHistorySyncMessage",
     "WAWebNoop",
     "WAWebSyncdOrphanWorkerCompatible",
@@ -79,6 +80,11 @@ __d(
                   return o(
                     "WAWebSyncdOrphanWorkerCompatible",
                   ).checkOrphanMutations(t, e, n);
+                })
+                .then(function () {
+                  return o(
+                    "WAWebDBDrainBotOrphansForHistoryMsgs",
+                  ).drainBotOrphansForHistoryMsgs(p);
                 })
                 .then(function () {
                   return (c || (c = n("Promise"))).all(g).then(function (e) {

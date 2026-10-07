@@ -29,21 +29,24 @@ __d(
             u = s === void 0 ? 0 : s,
             d = t.recipient,
             m = t.response,
-            p = t.to,
-            _ =
-              (p.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(p)) ||
+            p = t.sendsGroupAgentDeliveryReceipt,
+            _ = p === void 0 ? !1 : p,
+            f = t.to,
+            g =
+              (f.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(f)) ||
               (l != null && o("WAWebUserPrefsMeUser").isMeAccount(l)),
-            f = m.hasInactiveMsg === !0 && !_,
-            g = !f;
+            h = m.hasInactiveMsg === !0 && !g,
+            y = !h;
           c({
             externalId: i,
-            isActiveReceipt: g,
-            isFromPeer: _,
+            isActiveReceipt: y,
+            isFromPeer: g,
             isPeerMsg: n,
             isStatusContext: a === !0,
             participant: l,
             recipient: d,
-            to: p,
+            sendsGroupAgentDeliveryReceipt: _,
+            to: f,
             receiptModeBitmask: u,
           }).catch(function (t) {
             o("WALogger")
@@ -74,47 +77,49 @@ __d(
             l = e.participant,
             s = e.receiptModeBitmask,
             u = e.recipient,
-            c = e.to,
-            d = o("WAWap").DROP_ATTR;
+            c = e.sendsGroupAgentDeliveryReceipt,
+            d = e.to,
+            m = o("WAWap").DROP_ATTR;
           a
-            ? (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG)
+            ? (m = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG)
             : r
-              ? (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
-              : n || (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
-          var m = i ? o("WAWap").CUSTOM_STRING("status") : o("WAWap").DROP_ATTR,
-            p = o("WAJids").extractJidFromJidWithType(
-              o("WAWebWidToJid").widToJidWithType(c),
+              ? (m = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
+              : n || (m = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
+          var p = i ? o("WAWap").CUSTOM_STRING("status") : o("WAWap").DROP_ATTR,
+            _ = o("WAJids").extractJidFromJidWithType(
+              o("WAWebWidToJid").widToJidWithType(d),
             ),
-            _ =
-              d === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER ||
-              d === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG,
-            f = _
+            f =
+              m === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER ||
+              m === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG,
+            g = f
               ? null
               : o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(s),
-            g = o("WAWap").wap(
+            h = o("WAWap").wap(
               "receipt",
               {
                 id: o("WAWap").CUSTOM_STRING(t),
-                to: o("WAWap").JID(p),
+                to: o("WAWap").JID(_),
                 participant:
-                  (c.isGroup() || c.isBroadcast()) && l
+                  (d.isGroup() || d.isBroadcast()) && l
                     ? o("WAWebCommsWapMd").DEVICE_JID(l)
                     : o("WAWap").DROP_ATTR,
                 recipient:
                   !a && r && u
                     ? o("WAWebCommsWapMd").USER_JID(u)
                     : o("WAWap").DROP_ATTR,
-                type: d,
-                class: m,
+                type: m,
+                class: p,
               },
-              f,
+              g,
             );
           (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts(
-            c,
-            l || c,
+            d,
+            l || d,
             t,
+            { sendsGroupAgentDeliveryReceipt: c },
           ),
-            o("WADeprecatedSendIq").deprecatedCastStanza(g));
+            o("WADeprecatedSendIq").deprecatedCastStanza(h));
         })),
         d.apply(this, arguments)
       );

@@ -159,9 +159,7 @@ __d(
                     a.participants,
                   ),
                 ),
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isOpenGroupBotParticipantAddEnabled() ||
+                o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() ||
                   o(
                     "WAWebBotGroupGatingUtils",
                   ).isTEEGroupBotParticipantAddEnabled())
@@ -169,9 +167,7 @@ __d(
                 var W = o(
                   "WAWebBotUtils",
                 ).participantListIncludeOpenOrTeeGroupBotWid(a.participants);
-                (o(
-                  "WAWebBotGroupGatingUtils",
-                ).isOpenGroupBotParticipantAddEnabled() &&
+                (o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                   W.includeOpenMetabot &&
                   B.push(
                     o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
@@ -244,6 +240,17 @@ __d(
                           n = e.lid;
                         return n == null ? [t] : [t, n];
                       }),
+                      i,
+                    ),
+                  ),
+                o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
+                  o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
+                    a.participants,
+                  ).includeOpenMetabot &&
+                  B.push(
+                    o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                      l,
+                      { isOpenBotGroup: !1 },
                       i,
                     ),
                   ),

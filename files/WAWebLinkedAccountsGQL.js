@@ -4,14 +4,17 @@ __d(
     "FBLogger",
     "WAWebAdvertiseEntryPointQplHelpers",
     "WAWebFetchAdAccountToken",
+    "WAWebGraphQLConstants",
     "WAWebGraphQLServerError",
     "WAWebLinkedAccountsGQLQuery.graphql",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e,
+      s = 1e4;
+    function u(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t,
           n,
@@ -32,12 +35,61 @@ __d(
       }
       return e instanceof Error ? e.name : typeof e;
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
     function c() {
+      if (r("justknobx")._("6227")) {
+        var e = o(
+          "WAWebAdvertiseEntryPointQplHelpers",
+        ).advertiseEntryPointQplStartNetworkProbe();
+        if (e != null) {
+          var t = new AbortController(),
+            n = self.setTimeout(function () {
+              return t.abort();
+            }, s);
+          d(t.signal)
+            .then(function (t) {
+              return o(
+                "WAWebAdvertiseEntryPointQplHelpers",
+              ).advertiseEntryPointQplRecordNetworkProbe(e, t);
+            })
+            .finally(function () {
+              return self.clearTimeout(n);
+            });
+        }
+      }
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            return (
+              yield self.fetch(
+                o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
+                {
+                  cache: "no-store",
+                  credentials: "omit",
+                  method: "HEAD",
+                  mode: "no-cors",
+                  signal: e,
+                },
+              ),
+              "reachable"
+            );
+          } catch (t) {
+            return e.aborted ? "timeout" : "unreachable";
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e &&
             o(
               "WAWebAdvertiseEntryPointQplHelpers",
@@ -64,15 +116,15 @@ __d(
               );
           }
         })),
-        c.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    var d = (function () {
+    var f = (function () {
       var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         var t = o(
             "WAWebAdvertiseEntryPointQplHelpers",
           ).advertiseEntryPointQplBeginAttempt(),
-          a = yield u(t);
+          a = yield p(t);
         if (a.type !== "success")
           return (
             o(
@@ -92,7 +144,8 @@ __d(
             o("WAWebAdvertiseEntryPointQplHelpers").AdvertiseEntryPointQplPoint
               .LINKED_ACCOUNTS_QUERY_START,
           );
-        var l = !1;
+        var l = !1,
+          s = self.performance.now();
         return o("WAWebRelayClient")
           .fetchQuery(
             e !== void 0 ? e : (e = n("WAWebLinkedAccountsGQLQuery.graphql")),
@@ -166,8 +219,13 @@ __d(
                 "WAWebAdvertiseEntryPointQplHelpers",
               ).advertiseEntryPointQplRecordFailureReason(
                 "linked_accounts_query_threw",
-                (l ? "response_handler_" : "") + s(e),
+                (l ? "response_handler_" : "") + u(e),
+                {
+                  elapsedMs: Math.round(self.performance.now() - s),
+                  isOnline: self.navigator.onLine,
+                },
               ),
+              !l && e instanceof TypeError && c(),
               t &&
                 o(
                   "WAWebAdvertiseEntryPointQplHelpers",
@@ -183,7 +241,7 @@ __d(
         return t.apply(this, arguments);
       };
     })();
-    l.queryLinkedAccountsGQL = d;
+    l.queryLinkedAccountsGQL = f;
   },
   98,
 );

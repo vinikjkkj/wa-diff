@@ -103,7 +103,14 @@ __d(
             !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
           )
             return !1;
-          if (n && s) {
+          if (
+            (n &&
+              o("WAWebOutContactLoggingUtils").logOutContactInviteIntent({
+                entryPoint: t,
+                isServerSentInvite: s,
+              }),
+            n && s)
+          ) {
             o(
               "WAWebMexLogServerSentInviteIntentJob",
             ).mexLogServerSentInviteIntent(l, t.toString());

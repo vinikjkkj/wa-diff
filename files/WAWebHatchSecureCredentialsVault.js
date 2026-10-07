@@ -67,26 +67,27 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield S(function (t) {
-              return t.credentialCapture({
-                fields: [
-                  { name: "username", protected: !0, value: e.username },
-                  { name: "password", protected: !0, value: e.password },
-                ],
+          var t = [];
+          (e.username != null &&
+            t.push({ name: "username", protected: !0, value: e.username }),
+            t.push({ name: "password", protected: !0, value: e.password }));
+          var n = yield S(function (n) {
+              return n.credentialCapture({
+                fields: t,
                 idempotency_key: e.idempotencyKey,
                 label: null,
                 lifetime: "persist",
                 page_url: e.pageUrl,
               });
             }, "capture"),
-            n =
-              t.kind === "ok"
+            r =
+              n.kind === "ok"
                 ? o(
                     "WAWebHatchSecureCredentialDecoder",
-                  ).decodeHatchSecureCredentialCaptureId(t.value)
+                  ).decodeHatchSecureCredentialCaptureId(n.value)
                 : null;
-          if (n == null) throw L("capture_malformed");
-          return n;
+          if (r == null) throw L("capture_malformed");
+          return r;
         })),
         g.apply(this, arguments)
       );

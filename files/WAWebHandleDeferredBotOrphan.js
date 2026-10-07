@@ -34,6 +34,8 @@ __d(
           "bot reply deferred: waiting for the message it replies to",
         "placeholder-target-row":
           "bot reply deferred: the message it replies to has not decrypted yet",
+        "secretless-target-row":
+          "bot reply deferred: the message it replies to has no message secret",
         "wasa-root-secret-missing":
           "bot reply deferred: no Hatch key here and syncd had none to restore",
       };
@@ -149,11 +151,13 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield b(e.targetMsgKey);
-          t != null &&
-            (yield o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(
-              t,
-            ));
+          if (e.deferReason !== "secretless-target-row") {
+            var t = yield b(e.targetMsgKey);
+            t != null &&
+              (yield o(
+                "WAWebDBProcessOrphansForNewMsg",
+              ).processOrphansForNewMsg(t));
+          }
         })),
         C.apply(this, arguments)
       );

@@ -117,7 +117,10 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.$4 = function (t) {
+          (t.$4 = function () {
+            this.$2 != null && (window.clearTimeout(this.$2), (this.$2 = null));
+          }),
+          (t.$5 = function (t) {
             if (!this.$3()) {
               if (!g(this.$1, t)) {
                 var e = d[this.$1.state],
@@ -141,13 +144,13 @@ __d(
                     var i = t.rootComponent,
                       l = t.rootOptions,
                       s = t.ssrData;
-                    t.cometHydrationRoot = this.$5(i, s, l != null ? l : {});
+                    t.cometHydrationRoot = this.$6(i, s, l != null ? l : {});
                   }
                   (t.cometHydrationRoot != null &&
                     t.state === c.SSR_SUCCESS &&
                     r("maybeScheduleFeedHydration")(t.cometHydrationRoot),
                     t.state === c.SSR_SUCCESS &&
-                      (this.$6("", "INJECTED"),
+                      (this.$7("", "INJECTED"),
                       o("CometSSRMergedContentInjector").markSSRComplete()));
                   break;
                 case c.CLIENT_RENDER:
@@ -156,8 +159,8 @@ __d(
                     p = t.rootComponent,
                     h = t.rootElementID,
                     y = t.rootOptions;
-                  (this.$7(p, h, y != null ? y : {}, u),
-                    this.$6(
+                  (this.$8(p, h, y != null ? y : {}, u),
+                    this.$7(
                       "Switched to Client Side Rendering from state: " +
                         this.$1.state +
                         ". Check state history for transition details.",
@@ -168,20 +171,20 @@ __d(
                   break;
               }
               if (((this.$1 = t), m(this.$1), _(this.$1), this.$3())) {
-                window.clearTimeout(this.$2);
+                this.$4();
                 var C = this.$1;
                 (C.state === c.SSR_SUCCESS || C.state === c.CLIENT_RENDER) &&
                   (C.rootComponent = null);
               }
             }
           }),
-          (t.$5 = function (t, n, r) {
+          (t.$6 = function (t, n, r) {
             o("CometSSRClientInjector").unhideElement(n.eid);
             var e = o("CometClientRootRendererUtils").getOrCreateRootElement(
               n.eid,
             );
             if (n.gks.comet_ssr_wait_for_dev) {
-              window.clearTimeout(this.$2);
+              this.$4();
               var a = window;
               a.__comet_ssr_continue = function () {
                 return o("ReactDOM").hydrateRoot(
@@ -203,7 +206,7 @@ __d(
                 }),
               );
           }),
-          (t.$7 = function (t, n, r, a) {
+          (t.$8 = function (t, n, r, a) {
             if (a != null) {
               a.render(t);
               return;
@@ -221,7 +224,7 @@ __d(
             switch (this.$1.state) {
               case c.HYDRATION:
               case c.SSR_READY:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: this.$1.cometHydrationRoot,
                   rootComponent: this.$1.rootComponent,
                   rootElementID: this.$1.ssrData.eid,
@@ -230,7 +233,7 @@ __d(
                 });
                 break;
               case c.CLIENT_RENDER:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: this.$1.cometHydrationRoot,
                   rootComponent: this.$1.rootComponent,
                   rootElementID: this.$1.rootElementID,
@@ -239,7 +242,7 @@ __d(
                 });
                 break;
               case c.HAVE_ROOT_COMPONENT:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: null,
                   rootComponent: this.$1.rootComponent,
                   rootElementID: this.$1.rootElementID,
@@ -248,14 +251,14 @@ __d(
                 });
                 break;
               default:
-                this.$4({ state: c.SSR_DISABLED });
+                this.$5({ state: c.SSR_DISABLED });
                 break;
             }
           }),
           (t.onRootComponentLoaded = function (t, n, r, o) {
             switch (this.$1.state) {
               case c.LAST_PAYLOAD_RECEIVED:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: null,
                   rootComponent: n,
                   rootOptions: r,
@@ -264,7 +267,7 @@ __d(
                 });
                 break;
               case c.PAYLOAD_RECEIVED:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: null,
                   rootComponent: n,
                   rootOptions: r,
@@ -273,7 +276,7 @@ __d(
                 });
                 break;
               case c.START_STATE:
-                this.$4({
+                this.$5({
                   rootComponent: n,
                   rootElementID: t,
                   rootOptions: r,
@@ -281,7 +284,7 @@ __d(
                 });
                 break;
               case c.SSR_INIT:
-                this.$4({
+                this.$5({
                   rootComponent: n,
                   rootOptions: r,
                   ssrData: this.$1.ssrData,
@@ -289,7 +292,7 @@ __d(
                 });
                 break;
               case c.SSR_DISABLED:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: null,
                   rootComponent: n,
                   rootElementID: t,
@@ -302,12 +305,15 @@ __d(
             }
           }),
           (t.onSSRInit = function (t) {
-            switch (this.$1.state) {
+            switch (
+              ((!t.enabled || !t.gks.mwp_ssr_enabled) && this.$4(),
+              this.$1.state)
+            ) {
               case c.START_STATE:
-                this.$4({ ssrData: t, state: c.SSR_INIT });
+                this.$5({ ssrData: t, state: c.SSR_INIT });
                 break;
               case c.HAVE_ROOT_COMPONENT:
-                this.$4({
+                this.$5({
                   rootComponent: this.$1.rootComponent,
                   rootOptions: this.$1.rootOptions,
                   ssrData: t,
@@ -315,7 +321,7 @@ __d(
                 });
                 break;
               case c.SSR_DISABLED:
-                this.$4({ state: c.SSR_DISABLED });
+                this.$5({ state: c.SSR_DISABLED });
                 break;
               default:
                 break;
@@ -327,18 +333,18 @@ __d(
               return;
             }
             if (t.payloadType === "LAST") {
-              this.$8(t);
+              this.$9(t);
               return;
             }
             switch (this.$1.state) {
               case c.SSR_INIT:
-                this.$4({
+                this.$5({
                   ssrData: this.$1.ssrData,
                   state: c.PAYLOAD_RECEIVED,
                 });
                 break;
               case c.SSR_READY:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: null,
                   rootComponent: this.$1.rootComponent,
                   rootOptions: this.$1.rootOptions,
@@ -347,7 +353,7 @@ __d(
                 });
                 break;
               case c.HYDRATION:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: this.$1.cometHydrationRoot,
                   rootComponent: this.$1.rootComponent,
                   rootOptions: this.$1.rootOptions,
@@ -360,17 +366,17 @@ __d(
                 break;
             }
           }),
-          (t.$8 = function (t) {
+          (t.$9 = function (t) {
             switch (this.$1.state) {
               case c.PAYLOAD_RECEIVED:
               case c.SSR_INIT:
-                this.$4({
+                this.$5({
                   ssrData: this.$1.ssrData,
                   state: c.LAST_PAYLOAD_RECEIVED,
                 });
                 break;
               case c.SSR_READY:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: null,
                   rootComponent: this.$1.rootComponent,
                   rootOptions: this.$1.rootOptions,
@@ -379,7 +385,7 @@ __d(
                 });
                 break;
               case c.HYDRATION:
-                this.$4({
+                this.$5({
                   cometHydrationRoot: this.$1.cometHydrationRoot,
                   rootComponent: this.$1.rootComponent,
                   rootOptions: this.$1.rootOptions,
@@ -391,7 +397,7 @@ __d(
                 break;
             }
           }),
-          (t.$6 = function (t, n) {
+          (t.$7 = function (t, n) {
             o("CometSSRClientInjector").logSSRInjection(t, n);
           }),
           (t.$3 = function () {

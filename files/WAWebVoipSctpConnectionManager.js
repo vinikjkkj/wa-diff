@@ -1385,7 +1385,10 @@ __d(
     function tt(e, t) {
       return Ye(e) || _e !== t;
     }
-    function nt(e, t, n) {
+    function nt(e) {
+      var t = e.connection,
+        n = e.replacementPeerConnection,
+        r = e.stage;
       if (
         (o("WALogger").WARN(
           x ||
@@ -1394,22 +1397,22 @@ __d(
               " at ",
               "",
             ])),
-          e.id,
-          t,
+          t.id,
+          r,
         ),
-        o("WAWebCoreActionsODS").logCallSctpIceRestartAbortedStale(t),
-        (e.isReconnecting = !1),
-        o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(e),
-        o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id) === e)
+        o("WAWebCoreActionsODS").logCallSctpIceRestartAbortedStale(r),
+        (t.isReconnecting = !1),
+        o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(t),
+        o("WAWebVoipSctpConnectionState").sctpConnections.get(t.id) === t)
       ) {
-        (Je(e.id), rt(e.id));
+        (Je(t.id), rt(t.id));
         return;
       }
-      (o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(e),
+      (o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(t),
         n != null &&
           (o("WAWebVoipSctpConnectionTeardown").detachPeerConnectionHandlers(n),
           n.close()),
-        (e.peerConnection = null));
+        (t.peerConnection = null));
     }
     function rt(e) {
       var t = o("WAWebVoipSctpConnectionState").currentRelayState.get(e);
@@ -1552,7 +1555,11 @@ __d(
                 ]),
                 tt(e, t))
               ) {
-                nt(e, "cert_acquire", null);
+                nt({
+                  connection: e,
+                  replacementPeerConnection: null,
+                  stage: "cert_acquire",
+                });
                 return;
               }
               var u = new RTCPeerConnection(s);
@@ -1582,7 +1589,11 @@ __d(
                 (yield u.setRemoteDescription({ sdp: m, type: "answer" }),
                 tt(e, t))
               ) {
-                nt(e, "negotiation", u);
+                nt({
+                  connection: e,
+                  replacementPeerConnection: u,
+                  stage: "negotiation",
+                });
                 return;
               }
               o("WALogger").LOG(

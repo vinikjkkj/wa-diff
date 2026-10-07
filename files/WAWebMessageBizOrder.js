@@ -209,17 +209,17 @@ __d(
           (n[16] = F))
         : (F = n[16]);
       var O;
-      n[17] !== c || n[18] !== f
+      n[17] !== c.id || n[18] !== f
         ? ((O = u.jsx(
             "div",
             babelHelpers.extends({}, F, {
               children: u.jsx(o("WAWebBizOrderPreview.react").OrderPreview, {
-                msg: c,
+                msgKey: c.id,
                 onClick: f,
               }),
             }),
           )),
-          (n[17] = c),
+          (n[17] = c.id),
           (n[18] = f),
           (n[19] = O))
         : (O = n[19]);

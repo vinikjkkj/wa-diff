@@ -17,6 +17,7 @@ __d(
     "WAWebDBMessageUtils",
     "WAWebDBMsgUtils",
     "WAWebDBStoreMessageAssociations",
+    "WAWebGroupAgentRichResponseLinkIndex",
     "WAWebLinkify",
     "WAWebModelStorageUtils",
     "WAWebMsgDataUtils",
@@ -296,11 +297,16 @@ __d(
           ? i.t
           : u,
         p = i.type === "chat" && n,
-        _ = babelHelpers.extends({}, i, {
+        _ =
+          p ||
+          o(
+            "WAWebGroupAgentRichResponseLinkIndex",
+          ).shouldIndexGroupAgentRichResponseLink(i, t),
+        f = babelHelpers.extends({}, i, {
           vcardWAids: i.vcardWAids || o("WAWebDBMessageUtils").getVcardWids(i),
           id: i.id.toString(),
           isStarred: i.star ? m : void 0,
-          hasLink: p ? u : void 0,
+          hasLink: _ ? u : void 0,
           isMediaMsg: c ? u : void 0,
           isDocMsg: i.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ? u : void 0,
           isCallLogMsg:
@@ -310,46 +316,46 @@ __d(
             i.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ? u : void 0,
           expiredTimestamp: y(i),
         }),
-        f =
+        g =
           t != null &&
           !r("WAWebWid").isStatus(t) &&
           !r("WAWebWid").isNewsletter(t) &&
           i.isGroupStatus !== !0;
-      if (f) {
-        var g = h(i.type, p);
-        g != null && (_.typeFlag = g);
+      if (g) {
+        var C = h(i.type, p);
+        C != null && (f.typeFlag = C);
       }
-      if ((u != null && (_.rowId = u), a != null)) {
-        var C = o("WAWebDBMessageUtils").getPrefixForInternalId(i);
-        _.internalId = o("WAWebDBMessageUtils").craftInternalId({
+      if ((u != null && (f.rowId = u), a != null)) {
+        var b = o("WAWebDBMessageUtils").getPrefixForInternalId(i);
+        f.internalId = o("WAWebDBMessageUtils").craftInternalId({
           chatId: t,
           inChatMsgId: a,
-          internalIdPrefix: C,
+          internalIdPrefix: b,
         });
       }
       (a != null &&
         i.threadIds != null &&
-        (_.internalThreadIDs = i.threadIds.map(function (e) {
+        (f.internalThreadIDs = i.threadIds.map(function (e) {
           return o("WAWebDBMessageUtils").craftInternalThreadId(a, e);
         })),
         l &&
           t !== o("WAJids").STATUS_JID &&
-          (_.pendingReadReceipt =
+          (f.pendingReadReceipt =
             o("WAWebDBMsgUtils").PendingReadReceiptType.Message));
-      var b = i.c2sTimestamp;
+      var v = i.c2sTimestamp;
       if (i.id.fromMe) {
-        var v;
-        b = (v = i.c2sTimestamp) != null ? v : i.t;
-      } else b = i.t;
+        var S;
+        v = (S = i.c2sTimestamp) != null ? S : i.t;
+      } else v = i.t;
       try {
         i.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
-          (_.messageRangeIndex = o(
+          (f.messageRangeIndex = o(
             "WAWebDBMessageRangeIndex",
           ).craftMessageRangeIndex(
             t,
             !r("WAWebMsgKey").fromString(i.id).fromMe,
             o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(i.type),
-            b,
+            v,
           ));
       } catch (e) {
         o("WALogger").ERROR(
@@ -361,7 +367,7 @@ __d(
           e,
         );
       }
-      return _;
+      return f;
     }
     function b(e) {
       var t = 5e3,

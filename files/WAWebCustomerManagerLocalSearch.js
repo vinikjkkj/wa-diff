@@ -3,7 +3,6 @@ __d(
   [
     "WAJids",
     "WALogger",
-    "WAWebContactCollection",
     "WAWebCustomerContactResolver",
     "WAWebCustomerManagerChatJid",
     "WAWebCustomerManagerChatResolver",
@@ -21,19 +20,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(e, t) {
-      if (!o("WAWebCustomerManagerProfileQueryPlan").isSearchQueryActive(e))
-        return null;
-      var n = o("WAWebL10NAccentFold").accentFold(e.trim()),
-        r = o("WAWebPhoneNumberSearch").numberSearch(n) || null,
-        a = [];
-      for (var i of t != null ? t : []) {
-        var l = o("WAWebContactCollection").ContactCollection.get(i);
-        l != null && l.searchMatchExact(n, r) != null && a.push(i);
-      }
-      return a;
-    }
-    function u(e, t, n) {
+    function s(e, t, n) {
       if (!o("WAWebCustomerManagerProfileQueryPlan").isSearchQueryActive(t))
         return !0;
       var r = o("WAWebL10NAccentFold").accentFold(t.trim()),
@@ -47,16 +34,16 @@ __d(
               );
       return (l == null ? void 0 : l.searchMatchExact(r, a)) != null
         ? !0
-        : c(e, l, n).some(function (e) {
+        : u(e, l, n).some(function (e) {
             return f(e, r, a);
           }) || p(e, r, a);
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       var r = [];
       if (
         (_(r, e.email),
         _(r, e.address),
-        _(r, e.altPhoneNumbers),
+        c(r, e.altPhoneNumbers),
         _(r, n),
         e.acquisitionSource != null)
       ) {
@@ -66,6 +53,22 @@ __d(
         a != null && _(r, String(a));
       }
       return (d(r, e.leadStage), m(r, t, String(e.chatJid)), r);
+    }
+    function c(e, t) {
+      if (!(t == null || t === "")) {
+        var n;
+        try {
+          n = JSON.parse(t);
+        } catch (n) {
+          _(e, t);
+          return;
+        }
+        if (!Array.isArray(n)) {
+          _(e, t);
+          return;
+        }
+        for (var r of n) typeof r == "string" && _(e, r);
+      }
     }
     function d(e, t) {
       var n = o("WAWebLeadStage").getLeadStageFromNumber(t);
@@ -204,8 +207,7 @@ __d(
       }
       return t;
     }
-    ((l.findMatchingContactIds = s),
-      (l.matchesCustomerSearchQuery = u),
+    ((l.matchesCustomerSearchQuery = s),
       (l.toCandidateLids = y),
       (l.getLeadStageContactIds = C),
       (l.getLeadStageByContactId = b));

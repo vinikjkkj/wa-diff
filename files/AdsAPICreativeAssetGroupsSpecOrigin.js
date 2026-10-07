@@ -95,6 +95,7 @@ __d(
       MARKETPLACE_COMMERCE_OPTIMIZATION: "marketplace_commerce_optimization",
       MEDIA_RECOMPOSITION: "media_recomposition",
       MULTI_MEDIA_CUSTOMIZATION_MVP: "multi_media_customization_mvp",
+      MULTI_MEDIA_DA_INTRO_CARD: "multi_media_da_intro_card",
       MULTI_POST_TO_SINGLE_POST_PRE_TEST: "multi_post_to_single_post_pre_test",
       NPVO_PARITY: "npvo_parity",
       ORGANIC_FLEX_POSITIVE_TEST: "organic_flex_positive_test",

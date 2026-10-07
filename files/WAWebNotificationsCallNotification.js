@@ -24,6 +24,7 @@ __d(
     "WAWebPushNotificationsGatingUtils",
     "WAWebSWBus",
     "WAWebSWBusActions",
+    "WAWebUA",
     "WAWebUserPrefsMeUser",
     "WAWebVoipCallsTabOpenCallInfo",
     "WAWebVoipGatingUtils",
@@ -39,8 +40,15 @@ __d(
       u = r("bx").getURL(r("bx")("9555")),
       c = new Map();
     function d(e) {
-      var t = e.wid.toString();
+      var t = e.wid.toString(),
+        n = c.get(t);
       return (
+        n != null &&
+          n !== e.msgId &&
+          (o(
+            "WAWebNotificationController",
+          ).WANotificationController.closeOrCancelNotification("call:" + t),
+          h(n)),
         c.set(t, e.msgId),
         g(e.msgId),
         o(
@@ -57,16 +65,15 @@ __d(
         ),
         o("WAWebCallRingtone").stopCallRingtone());
     }
-    function p(e) {
+    function p(e, t) {
       if (e) {
-        o(
+        var n = e.toString(),
+          r = c.get(n);
+        if (t != null && r != null && t !== r) return;
+        (o(
           "WAWebNotificationController",
-        ).WANotificationController.closeOrCancelNotification(
-          "call:" + e.toString(),
-        );
-        var t = e.toString(),
-          n = c.get(t);
-        n != null && (h(n), c.delete(t));
+        ).WANotificationController.closeOrCancelNotification("call:" + n),
+          r != null && (h(r), c.delete(n)));
       }
       o("WAWebCallRingtone").stopCallRingtone();
     }
@@ -135,7 +142,7 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return v({
+            return S({
               abortSignal: this.abortController.signal,
               groupCallParticipants: this.groupCallParticipants,
               groupJid: this.groupJid,
@@ -160,9 +167,11 @@ __d(
             .toString();
           return (
             o("WAWebVoipGatingUtils").isCallingEnabled() &&
-              (n = this.isVideo
-                ? r("fbs")._(/*BTDS*/ "Incoming video call").toString()
-                : r("fbs")._(/*BTDS*/ "Incoming voice call").toString()),
+              (n =
+                b(this.isVideo, !1) +
+                (this.isVideo
+                  ? r("fbs")._(/*BTDS*/ "Incoming video call").toString()
+                  : r("fbs")._(/*BTDS*/ "Incoming voice call").toString())),
             babelHelpers.extends(
               {
                 wid: this.wid,
@@ -170,6 +179,9 @@ __d(
                 tag: this.msgId,
                 title: t,
                 body: n,
+                requireInteraction: o(
+                  "WAWebVoipGatingUtils",
+                ).areRichCallNotificationsEnabled(),
               },
               this.$WACallNotification$p_2(),
             )
@@ -197,18 +209,20 @@ __d(
         }),
         (a.$WACallNotification$p_1 = function (t) {
           var e,
-            n = b(this.groupJid, this.groupCallParticipants).toString(),
-            r = this.isVideo
-              ? s
-                  ._(/*BTDS*/ "Incoming video call from {caller_name}", [
-                    s._param("caller_name", t),
-                  ])
-                  .toString()
-              : s
-                  ._(/*BTDS*/ "Incoming voice call from {caller_name}", [
-                    s._param("caller_name", t),
-                  ])
-                  .toString();
+            n = v(this.groupJid, this.groupCallParticipants).toString(),
+            r =
+              b(this.isVideo, !1) +
+              (this.isVideo
+                ? s
+                    ._(/*BTDS*/ "Incoming video call from {caller_name}", [
+                      s._param("caller_name", t),
+                    ])
+                    .toString()
+                : s
+                    ._(/*BTDS*/ "Incoming voice call from {caller_name}", [
+                      s._param("caller_name", t),
+                    ])
+                    .toString());
           return babelHelpers.extends(
             {
               wid: (e = this.groupJid) != null ? e : this.wid,
@@ -216,6 +230,9 @@ __d(
               tag: this.msgId,
               title: n,
               body: r,
+              requireInteraction: o(
+                "WAWebVoipGatingUtils",
+              ).areRichCallNotificationsEnabled(),
             },
             this.$WACallNotification$p_2(),
           );
@@ -245,9 +262,12 @@ __d(
             : o("WAWebNotificationTone").playNotification();
         }),
         (a.afterBannerShown = function (n) {
+          var t = this;
           (e.prototype.afterBannerShown.call(this, n),
             n.waitForClose().then(function () {
-              o("WAWebCallRingtone").stopCallRingtone();
+              var e = c.get(t.wid.toString());
+              (e == null || e === t.msgId) &&
+                o("WAWebCallRingtone").stopCallRingtone();
             }));
         }),
         (a.getNotificationDeliveryWamEventData = (function () {
@@ -366,7 +386,7 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return v({
+            return S({
               abortSignal: this.abortController.signal,
               groupCallParticipants: this.groupCallParticipants,
               groupJid: this.groupJid,
@@ -386,18 +406,20 @@ __d(
               : o("WAWebWidFormat").widToFormattedUser(this.wid);
           if (this.isGroup) {
             var n,
-              a = b(this.groupJid, this.groupCallParticipants).toString(),
-              i = this.isVideo
-                ? s
-                    ._(/*BTDS*/ "Missed video call from {caller_name}", [
-                      s._param("caller_name", t),
-                    ])
-                    .toString()
-                : s
-                    ._(/*BTDS*/ "Missed voice call from {caller_name}", [
-                      s._param("caller_name", t),
-                    ])
-                    .toString();
+              a = v(this.groupJid, this.groupCallParticipants).toString(),
+              i =
+                b(this.isVideo, !0) +
+                (this.isVideo
+                  ? s
+                      ._(/*BTDS*/ "Missed video call from {caller_name}", [
+                        s._param("caller_name", t),
+                      ])
+                      .toString()
+                  : s
+                      ._(/*BTDS*/ "Missed voice call from {caller_name}", [
+                        s._param("caller_name", t),
+                      ])
+                      .toString());
             return {
               wid: (n = this.groupJid) != null ? n : this.wid,
               msgId: this.msgId,
@@ -408,9 +430,11 @@ __d(
               onClick: this.$WAMissedCallNotification$p_1,
             };
           }
-          var l = this.isVideo
-            ? r("fbs")._(/*BTDS*/ "Missed video call").toString()
-            : r("fbs")._(/*BTDS*/ "Missed voice call").toString();
+          var l =
+            b(this.isVideo, !0) +
+            (this.isVideo
+              ? r("fbs")._(/*BTDS*/ "Missed video call").toString()
+              : r("fbs")._(/*BTDS*/ "Missed voice call").toString());
           return {
             wid: this.wid,
             msgId: this.msgId,
@@ -462,6 +486,16 @@ __d(
       ).WANotificationController.triggerNotification(new y(e));
     }
     function b(e, t) {
+      return !o("WAWebUA").UA.hasEmoji ||
+        !o("WAWebVoipGatingUtils").areCallNotificationIconsEnabled()
+        ? ""
+        : t
+          ? "\u260E\uFE0F "
+          : e
+            ? "\uD83D\uDD14\uD83D\uDCF9 "
+            : "\uD83D\uDD14\uD83D\uDCDE ";
+    }
+    function v(e, t) {
       if (e != null) {
         var n = r("WAWebGroupMetadataCollection").get(e);
         if ((n == null ? void 0 : n.subject) != null && n.subject !== "")
@@ -480,7 +514,7 @@ __d(
           )
         : r("fbs")._(/*BTDS*/ "Group call");
     }
-    function v(t) {
+    function S(t) {
       var r = t.abortSignal,
         a = t.groupCallParticipants,
         i = t.groupJid,

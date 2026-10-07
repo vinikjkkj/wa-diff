@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebBotBaseGating",
+    "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebPrimaryFeaturesModel",
   ],
@@ -32,7 +33,15 @@ __d(
         e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_ideas_enabled")
       );
     }
-    function d() {
+    function d(t) {
+      return (
+        t != null &&
+        o("WAWebBotUtils").isHatchBot(t) &&
+        e() &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
+      );
+    }
+    function m() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -40,7 +49,7 @@ __d(
         )
       );
     }
-    function m() {
+    function p() {
       return (
         e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
@@ -53,8 +62,9 @@ __d(
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
       (l.isHatchIdeasEnabled = c),
-      (l.isHatchSecureCredentialsEnabled = d),
-      (l.isHatchManageSubscriptionEnabled = m));
+      (l.isHatchBrowserEnabled = d),
+      (l.isHatchSecureCredentialsEnabled = m),
+      (l.isHatchManageSubscriptionEnabled = p));
   },
   98,
 );

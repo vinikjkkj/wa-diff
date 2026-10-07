@@ -4,8 +4,10 @@ __d(
     "Promise",
     "WALogger",
     "WAShiftTimer",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebCryptoCreateMediaKeys",
+    "WAWebCryptoMediaTypeInfo",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebMedia",
     "WAWebMediaCryptoEligibilityUtils",
@@ -38,7 +40,7 @@ __d(
           var e = this;
           ((this.msgs = []),
             (this.$1 = new (o("WAShiftTimer").ShiftTimer)(function () {
-              (L(e), N(e));
+              (E(e), M(e));
             })),
             (this.callOnConsolidate = null),
             (this.$2 = null),
@@ -53,7 +55,7 @@ __d(
             (this.hashMismatchRetryCount = 0),
             (this.$4 = null),
             (this.$5 = null),
-            (this.$6 = null),
+            (this.$6 = new Map()),
             (this.$7 = null),
             (this.mediaBlob = null),
             (this.size = void 0),
@@ -283,9 +285,9 @@ __d(
           })()),
           (a.msgProps = function (t) {
             var e = {};
-            (E(e, this, o("WAWebMediaTypes").FIELDS.RAW),
-              E(e, this.contentInfo, this.contentFields()),
-              E(e, t, o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS),
+            (k(e, this, o("WAWebMediaTypes").FIELDS.RAW),
+              k(e, this.contentInfo, this.contentFields()),
+              k(e, t, o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS),
               (e.preview = this.contentInfo._preview));
             var n = {};
             for (var r in e) {
@@ -420,25 +422,35 @@ __d(
             return o(
               "WAWebMediaCryptoEligibilityUtils",
             ).isMediaCryptoExpectedForMediaType(t)
-              ? this.$6
+              ? this.$6.get(v(t))
               : this.$7;
           }),
           (a.setUploadPromise = function (t, n) {
             o(
               "WAWebMediaCryptoEligibilityUtils",
             ).isMediaCryptoExpectedForMediaType(n)
-              ? (this.$6 = t)
+              ? this.$6.set(v(n), t)
               : (this.$7 = t);
           }),
-          (a.clearUploadPromise = function (t) {
-            o(
-              "WAWebMediaCryptoEligibilityUtils",
-            ).isMediaCryptoExpectedForMediaType(t)
-              ? (this.$6 = null)
-              : (this.$7 = null);
+          (a.clearUploadPromise = function (t, n) {
+            var e = this;
+            if (
+              o(
+                "WAWebMediaCryptoEligibilityUtils",
+              ).isMediaCryptoExpectedForMediaType(t)
+            ) {
+              var r,
+                a =
+                  (r = Array.from(this.$6.keys()).find(function (t) {
+                    return e.$6.get(t) === n;
+                  })) != null
+                    ? r
+                    : v(t);
+              this.$6.delete(a);
+            } else this.$7 = null;
           }),
           (a.getUploadPromises = function () {
-            return [this.$6, this.$7];
+            return [].concat(Array.from(this.$6.values()), [this.$7]);
           }),
           (a.getDownloadPromise = function (t) {
             return o(
@@ -481,7 +493,7 @@ __d(
     function b(e, t) {
       var n = e.contentInfo,
         a = !1,
-        i = v(t.type);
+        i = S(t.type);
       i && !e.type && ((e.type = i), (a = !0));
       var l = t.downloadStage,
         s = t.uploadStage;
@@ -531,7 +543,7 @@ __d(
                   ),
                   _.retain(),
                   (n.preview = _))
-                : e.runProcessIfNotRunBefore("preview", D, _),
+                : e.runProcessIfNotRunBefore("preview", x, _),
                 (n._preview = _),
                 (a = !0));
             }
@@ -572,11 +584,27 @@ __d(
           n.fullHeight !== 0
             ? ((n.aspectRatio = n.fullWidth / n.fullHeight), (a = !0))
             : n.preview &&
-              e.runProcessIfNotRunBefore("aspectRatio", $, n.preview)),
+              e.runProcessIfNotRunBefore("aspectRatio", P, n.preview)),
         a
       );
     }
     function v(e) {
+      if (
+        !o("WAWebABProps").getABPropConfigValue(
+          "wa_web_media_thumbnail_key_match_enabled",
+        )
+      )
+        return "encrypted";
+      try {
+        var t;
+        return (t = o("WAWebCryptoMediaTypeInfo").getMediaTypeInfo(e)) != null
+          ? t
+          : e;
+      } catch (t) {
+        return e;
+      }
+    }
+    function S(e) {
       switch (e) {
         case o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE:
         case o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT:
@@ -595,7 +623,7 @@ __d(
           return;
       }
     }
-    function S(e) {
+    function R(e) {
       switch (e) {
         case "VIDEO":
         case "PTV":
@@ -616,7 +644,7 @@ __d(
           throw r("err")("web media type is invalid: " + e);
       }
     }
-    function R(e) {
+    function L(e) {
       var t;
       if (((t = e.interactiveHeader) == null ? void 0 : t.mediaType) != null)
         switch (e.interactiveHeader.mediaType) {
@@ -634,10 +662,10 @@ __d(
             return o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT;
         }
     }
-    function L(e) {
+    function E(e) {
       var t = {};
-      (E(t, e, o("WAWebMediaTypes").FIELDS.RAW),
-        E(t, e.contentInfo, e.contentFields()),
+      (k(t, e, o("WAWebMediaTypes").FIELDS.RAW),
+        k(t, e.contentInfo, e.contentFields()),
         e.mediaBlob && (t.renderableUrl = e.mediaBlob.url()));
       for (var n = e.msgs, r = n.length, a = 0; a < r; a++) {
         var i = n[a],
@@ -645,7 +673,7 @@ __d(
           s = i[1];
         if (l != null && !s) {
           if (l.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
-            t.mediaStage = k(l, e);
+            t.mediaStage = I(l, e);
             for (
               var u = 0;
               u < o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS.length;
@@ -663,7 +691,7 @@ __d(
               l.isAiSticker !== !0 &&
               l.set("isAiSticker", !0),
               t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-                (t.type = R(l)));
+                (t.type = L(l)));
           } else {
             delete t.mediaStage;
             for (
@@ -685,13 +713,13 @@ __d(
         })),
         e.saveMedia && e.saveMedia(e));
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       for (var r = 0; r < n.length; r++) {
         var o = n[r];
         e[o] = t[o];
       }
     }
-    function k(e, t) {
+    function I(e, t) {
       if (t.filehash) {
         if (e.id.fromMe && e.ack < o("WAWebAck").ACK.SENT)
           return (
@@ -704,12 +732,12 @@ __d(
                     ])),
                 )
                 .sendLogs("media-fault: unsent media system message not local"),
-            T(t)
+            D(t)
           );
       } else return o("WAWebMediaTypes").MediaDataStage.PREPARING;
-      return I(t);
+      return T(t);
     }
-    function I(e) {
+    function T(e) {
       return e.downloadStage === o("WAWebMediaTypes").DownloadStage.INIT
         ? o("WAWebMediaTypes").MediaDataStage.INIT
         : e.downloadStage === o("WAWebMediaTypes").DownloadStage.EXISTS
@@ -744,7 +772,7 @@ __d(
                               );
                             })();
     }
-    function T(e) {
+    function D(e) {
       switch (e.uploadStage) {
         case o("WAWebMediaTypes").UploadStage.INIT:
           return o("WAWebMediaTypes").MediaDataStage.PREPARING;
@@ -770,38 +798,38 @@ __d(
           return o("WAWebMediaTypes").MediaDataStage.FINALIZING;
       }
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("WAWebMediaOpaqueData").createFromBase64Preview(e);
           return (t.autorelease(), { resolvedPreview: t });
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebMediaDataUtils").getImageWidthHeight(e),
             n = t.height,
             r = t.width;
           return { aspectRatio: r / n };
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
+    function M(e) {
       var t = {};
-      (E(t, e, o("WAWebMediaTypes").FIELDS.RAW),
-        E(t, e.contentInfo, e.contentFields()),
+      (k(t, e, o("WAWebMediaTypes").FIELDS.RAW),
+        k(t, e.contentInfo, e.contentFields()),
         e.mediaBlob && (t.renderableUrl = e.mediaBlob.url()));
-      var n = I(e);
+      var n = T(e);
       ((e.stickers = e.stickers.filter(function (e) {
         var t = e[0],
           n = e[1];
@@ -821,8 +849,8 @@ __d(
     }
     ((l.MediaObject = C),
       (l.consolidate = b),
-      (l.webMediaTypeToWamMediaType = S),
-      (l.getInteractiveMsgMediaType = R));
+      (l.webMediaTypeToWamMediaType = R),
+      (l.getInteractiveMsgMediaType = L));
   },
   98,
 );

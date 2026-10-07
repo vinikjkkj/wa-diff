@@ -48,6 +48,11 @@ __d(
         );
       },
       CONNECTORS_LIST: "/api/connectors",
+      CONNECTORS_LIST_SUPPORTING: function (n) {
+        return n.length === 0
+          ? "/api/connectors"
+          : "/api/connectors?supports=" + n.map(encodeURIComponent).join(",");
+      },
       CREDENTIALS_CAPTURE: "/v1/credentials/capture",
       CREDENTIALS_CATALOG: function (n) {
         return (
