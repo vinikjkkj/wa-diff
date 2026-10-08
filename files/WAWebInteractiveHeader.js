@@ -242,7 +242,7 @@ __d(
             o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.IMAGE
           ? u.jsx(r("WAWebInteractiveImageHeader"), {
-              msg: s,
+              msgKey: s.id,
               displayType: e != null ? e : void 0,
               isMsgVisible: l,
               pictureRef: t != null ? t : r("WAWebNoop"),
@@ -264,7 +264,7 @@ __d(
                     .InteractiveMessageHeaderMediaType.PRODUCT
                 ? u.jsx(r("WAWebBizProduct"), {
                     displayAuthor: !1,
-                    msg: s,
+                    msgKey: s.id,
                     displayType: e != null ? e : void 0,
                     trusted: o("WAWebMsgModelPropUtils").isTrusted(s.unsafe()),
                     isCarouselCard: !0,

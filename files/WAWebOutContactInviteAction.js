@@ -31,15 +31,16 @@ __d(
       m,
       p,
       _ = p || (p = o("react"));
-    function f(e, t, n, r) {
+    function f(e, t, n, r, o) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
+          function* (e, t, n, r, o) {
             return C({
               entryPoint: t,
+              isNewContact: o,
               isOutContactInvite: !0,
               name: n,
               onSendStart: r,
@@ -73,14 +74,15 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entryPoint,
-            n = e.isOutContactInvite,
-            r = e.name,
-            a = e.onSendStart,
-            i = e.phoneNumber,
-            l = o("WAWebPhoneNumberSearch").stripInvisibleChars(i);
+            n = e.isNewContact,
+            r = e.isOutContactInvite,
+            a = e.name,
+            i = e.onSendStart,
+            l = e.phoneNumber,
+            s = o("WAWebPhoneNumberSearch").stripInvisibleChars(l);
           if (
             !o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(
-              l,
+              s,
             )
           )
             return (
@@ -92,34 +94,38 @@ __d(
               ),
               !1
             );
-          var s =
-            n &&
+          var c =
+            r &&
             o(
               "WAWebOutContactServerSentInviteEligibility",
-            ).isServerSentInviteEligible(l);
+            ).isServerSentInviteEligible(s);
           if (
-            n &&
-            !s &&
+            r &&
+            !c &&
             !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
           )
             return !1;
           if (
-            (n &&
+            (r &&
               o("WAWebOutContactLoggingUtils").logOutContactInviteIntent({
                 entryPoint: t,
-                isServerSentInvite: s,
+                isServerSentInvite: c,
               }),
-            n && s)
+            r && c)
           ) {
             o(
               "WAWebMexLogServerSentInviteIntentJob",
-            ).mexLogServerSentInviteIntent(l, t.toString());
-            var c = yield o(
-              "WAWebOutContactInviteConfirmDialog.react",
-            ).waitForOutContactInviteConfirmDialog(r != null ? r : l, l);
-            if (!c) return !1;
+            ).mexLogServerSentInviteIntent(s, t.toString());
+            var d = yield n === !0
+              ? o(
+                  "WAWebOutContactInviteConfirmDialog.react",
+                ).waitForOutContactInviteConfirmDialog(a != null ? a : s, s, !0)
+              : o(
+                  "WAWebOutContactInviteConfirmDialog.react",
+                ).waitForOutContactInviteConfirmDialog(a != null ? a : s, s);
+            if (!d) return !1;
           }
-          return (a == null || a(), s ? v(l, t, r != null ? r : l) : I(l, t));
+          return (i == null || i(), c ? v(s, t, a != null ? a : s) : I(s, t));
         })),
         b.apply(this, arguments)
       );

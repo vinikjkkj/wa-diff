@@ -17,6 +17,7 @@ __d(
         ADD_AUDIENCE_BUTTON: "add_audience_button",
         ADD_CTA_BUTTON: "add_cta_button",
         ADD_FUNDS_WIZARD: "add_funds_wizard",
+        ADVANCED_TOOLS_TOGGLE: "advanced_tools_toggle",
         ATTACHMENT_CATALOG_FULL_CATALOG_SELECTED:
           "attachment_catalog_full_catalog_selected",
         ATTACHMENT_CATALOG_PREVIEW_BUTTON: "attachment_catalog_preview_button",

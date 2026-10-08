@@ -488,9 +488,8 @@ __d(
                               "WAWebPollsGatingUtils",
                             ).getMaxPollNameLength(),
                             maxVisibleLines: 5,
-                            maxCodeUnits: o(
-                              "WAWebPollsGatingUtils",
-                            ).getMaxPollNameLengthForIncomingMessages(),
+                            maxCodeUnits: o("WAWebPollsGatingUtils")
+                              .MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES,
                             onChange: ye,
                             placeholder: s._(/*BTDS*/ "Ask question"),
                           }),

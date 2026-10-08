@@ -5,6 +5,7 @@ __d(
     "WAJobOrchestratorTypes",
     "WALogger",
     "WATimeUtils",
+    "WAWebBotGroupGatingUtils",
     "WAWebChatGetters",
     "WAWebCodeFormatMutator",
     "WAWebCoexEditDeleteAlertUtils",
@@ -136,107 +137,115 @@ __d(
     }
     function h(e) {
       var t,
-        n = e.msg,
-        a = e.options,
-        i = e.text,
-        l = o("WAWebFrontendMsgGetters").getChat(n),
-        s = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
-          l,
+        n,
+        a = e.msg,
+        i = e.options,
+        l = e.text,
+        s = o("WAWebFrontendMsgGetters").getChat(a),
+        u = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
+          s,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
         ),
-        u = o("WAWebChatGetters").getIsGroup(l)
-          ? o("WAWebWidFactory").asUserWidOrThrow(s)
+        c = o("WAWebChatGetters").getIsGroup(s)
+          ? o("WAWebWidFactory").asUserWidOrThrow(u)
           : void 0,
-        c = new (r("WAWebMsgKey"))({
+        d = new (r("WAWebMsgKey"))({
           id: r("WAWebMsgKey").newId_DEPRECATED(),
-          remote: n.id.remote,
+          remote: a.id.remote,
           fromMe: !0,
-          participant: u,
+          participant: c,
         }),
-        d = a.groupMentions,
-        m = a.linkPreview,
-        p = a.mentionedJidList,
-        _ = {
-          id: c,
-          from: s,
-          to: n.id.remote,
+        m = i.groupMentions,
+        p = i.linkPreview,
+        _ = i.mentionedJidList,
+        f = {
+          id: d,
+          from: u,
+          to: a.id.remote,
           type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
           kind: o("WAWebMsgType").MsgKind.Protocol,
           subtype: "message_edit",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          protocolMessageKey: n.id,
+          protocolMessageKey: a.id,
           local: !0,
           t: o("WATimeUtils").unixTime(),
-          mentionedJidList: p,
-          groupMentions: d,
-          latestEditMsgKey: c,
+          mentionedJidList: _,
+          groupMentions: m,
+          latestEditMsgKey: d,
           latestEditSenderTimestampMs: o("WATimeUtils").unixTimeMs(),
-          editMsgType: n.type,
+          editMsgType: a.type,
           errorCode: o("WAWebErrorType").SendFailureErrorCode.NoError,
           messageSecret: o(
             "WAWebMessagingGatingUtils",
           ).isReportingTokenSendingEnabled()
-            ? n.messageSecret
+            ? a.messageSecret
             : null,
-          aiProvenance:
-            o("WAWebMsgGetters").getIsNewsletterMsg(n) &&
-            o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled() &&
-            (t = n.aiProvenance) != null
+          botGroupParticipant:
+            o("WAWebChatGetters").getIsGroup(s) &&
+            (t = o("WAWebBotGroupGatingUtils").getSendGroupBotParticipant(
+              s.groupMetadata,
+            )) != null
               ? t
+              : void 0,
+          aiProvenance:
+            o("WAWebMsgGetters").getIsNewsletterMsg(a) &&
+            o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled() &&
+            (n = a.aiProvenance) != null
+              ? n
               : void 0,
         };
       switch (
-        r("nullthrows")(o("WAWebMessageEditUtils").getMsgEditType(n.type))
+        r("nullthrows")(o("WAWebMessageEditUtils").getMsgEditType(a.type))
       ) {
         case o("WAWebMessageEditUtils").MsgEditType.TextEdit: {
-          var f,
-            g,
+          var g,
             h,
             y,
             C,
             b,
-            v = i.trim();
-          _ = babelHelpers.extends({}, _, {
-            body: v,
+            v,
+            S = l.trim();
+          f = babelHelpers.extends({}, f, {
+            body: S,
             isSpoiler:
-              o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(v) &&
+              o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(S) &&
               o("WAWebSpoilerGating").isSpoilerSenderEnabled(),
-            title: (f = m == null ? void 0 : m.title) != null ? f : void 0,
+            title: (g = p == null ? void 0 : p.title) != null ? g : void 0,
             matchedText:
-              (g = m == null ? void 0 : m.matchedText) != null ? g : void 0,
-            description: m == null ? void 0 : m.description,
+              (h = p == null ? void 0 : p.matchedText) != null ? h : void 0,
+            description: p == null ? void 0 : p.description,
             thumbnail:
-              (h = m == null ? void 0 : m.thumbnail) != null ? h : void 0,
-            richPreviewType: m == null ? void 0 : m.richPreviewType,
-            doNotPlayInline: m == null ? void 0 : m.doNotPlayInline,
-            inviteGrpType: m == null ? void 0 : m.inviteGrpType,
-            thumbnailDirectPath: m == null ? void 0 : m.thumbnailDirectPath,
-            thumbnailSha256: m == null ? void 0 : m.thumbnailSha256,
-            thumbnailEncSha256: m == null ? void 0 : m.thumbnailEncSha256,
-            thumbnailHeight: m == null ? void 0 : m.thumbnailHeight,
-            thumbnailWidth: m == null ? void 0 : m.thumbnailWidth,
+              (y = p == null ? void 0 : p.thumbnail) != null ? y : void 0,
+            richPreviewType: p == null ? void 0 : p.richPreviewType,
+            doNotPlayInline: p == null ? void 0 : p.doNotPlayInline,
+            inviteGrpType: p == null ? void 0 : p.inviteGrpType,
+            thumbnailDirectPath: p == null ? void 0 : p.thumbnailDirectPath,
+            thumbnailSha256: p == null ? void 0 : p.thumbnailSha256,
+            thumbnailEncSha256: p == null ? void 0 : p.thumbnailEncSha256,
+            thumbnailHeight: p == null ? void 0 : p.thumbnailHeight,
+            thumbnailWidth: p == null ? void 0 : p.thumbnailWidth,
             mediaKey:
-              (y = m == null ? void 0 : m.mediaKey) != null ? y : void 0,
+              (C = p == null ? void 0 : p.mediaKey) != null ? C : void 0,
             mediaKeyTimestamp:
-              (C = m == null ? void 0 : m.mediaKeyTimestamp) != null
-                ? C
+              (b = p == null ? void 0 : p.mediaKeyTimestamp) != null
+                ? b
                 : void 0,
             paymentLinkMetadata:
-              (b = o("WAWebPaymentLink").getPaymentLinkMessageMetadata(
-                m,
-                o("WAWebCodeFormatMutator").removeCodeBlocks(i),
+              (v = o("WAWebPaymentLink").getPaymentLinkMessageMetadata(
+                p,
+                o("WAWebCodeFormatMutator").removeCodeBlocks(l),
               )) != null
-                ? b
+                ? v
                 : void 0,
           });
           break;
         }
         case o("WAWebMessageEditUtils").MsgEditType.CaptionEdit: {
-          var S = i.trim();
-          _ = babelHelpers.extends({}, _, {
-            caption: S,
+          var R = l.trim();
+          f = babelHelpers.extends({}, f, {
+            caption: R,
             isSpoiler:
-              o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(S) &&
+              o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(R) &&
               o("WAWebSpoilerGating").isSpoilerSenderEnabled(),
           });
           break;
@@ -247,7 +256,7 @@ __d(
         case o("WAWebMessageEditUtils").MsgEditType.LoadingMediaEdit:
           break;
       }
-      return _;
+      return f;
     }
     function y(e, t, n, r, o) {
       return C.apply(this, arguments);

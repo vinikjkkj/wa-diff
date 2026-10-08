@@ -5,10 +5,11 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react"));
-    function u(e, t) {
+    function u(e, t, n) {
       o("WDSDialogBridge").openWDSDialog(
         s.jsx(r("WAWebHatchSecureCredentialAddDialog.react"), {
-          initialWebsite: t,
+          featureEntryPoint: t,
+          initialWebsite: n,
           onClose: o("WDSDialogBridge").closeWDSDialog,
           onSaved: e,
         }),

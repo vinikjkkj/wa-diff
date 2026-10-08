@@ -48,6 +48,7 @@ __d(
     ((i.groupEligibleHatchConnectors = u),
       (i.listEligibleHatchWalletConnectors = c),
       (i.isHatchPermissionsOnlyConnector = d),
+      (i.isHatchWalletConnector = m),
       (i.isManageableHatchConnector = _));
   },
   66,

@@ -17,7 +17,7 @@ __d(
     "WAWebE2EProtoGenerator",
     "WAWebE2EProtoUtils",
     "WAWebEncryptMsgProtobuf",
-    "WAWebGenerateBotMetadata",
+    "WAWebGenerateBotGroupMetadata",
     "WAWebGroupMsgSendUtils",
     "WAWebHandleMsgCommon",
     "WAWebICDCMetaApi",
@@ -162,7 +162,7 @@ __d(
                 "WAWebResolveGroupAgentParticipants",
               ).hasMuseNoticeGroupAgent(y)),
             R = babelHelpers.extends({}, h, { groupAgentParticipants: C }),
-            L = o("WAWebGenerateBotMetadata").addGroupAgentBotMetadata(
+            L = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
               o(
                 "WAWebRemoveQuotedAttachmentMediaFields",
               ).isGroupWithAgentParticipant(h)

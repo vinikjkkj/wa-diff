@@ -3,21 +3,38 @@ __d(
   ["WAWebMediaUrlAllowlist", "WAWebMsgGetters", "WAWebMsgType"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (!s(e)) return null;
-      var t = e.dashManifestUrl;
-      return t == null ||
+      return s({
+        dashManifestUrl: e.dashManifestUrl,
+        isNewsletterMsg: o("WAWebMsgGetters").getIsNewsletterMsg(e),
+        type: e.type,
+      });
+    }
+    function s(e) {
+      var t = e.dashManifestUrl,
+        n = e.isNewsletterMsg,
+        r = e.type;
+      return !c({ isNewsletterMsg: n, type: r }) ||
+        t == null ||
         t === "" ||
         !o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(t)
         ? null
         : t;
     }
-    function s(e) {
-      return (
-        o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
-        e.type === o("WAWebMsgType").MSG_TYPE.VIDEO
-      );
+    function u(e) {
+      return c({
+        isNewsletterMsg: o("WAWebMsgGetters").getIsNewsletterMsg(e),
+        type: e.type,
+      });
     }
-    ((l.getChannelVideoDashManifestUrl = e), (l.getIsChannelVideoMsg = s));
+    function c(e) {
+      var t = e.isNewsletterMsg,
+        n = e.type;
+      return t && n === o("WAWebMsgType").MSG_TYPE.VIDEO;
+    }
+    ((l.getChannelVideoDashManifestUrl = e),
+      (l.getChannelVideoDashManifestUrlFor = s),
+      (l.getIsChannelVideoMsg = u),
+      (l.getIsChannelVideoMsgFor = c));
   },
   98,
 );

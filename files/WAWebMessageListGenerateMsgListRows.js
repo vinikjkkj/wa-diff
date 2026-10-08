@@ -7,7 +7,6 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMaybeInsertHistoryBundleInfo",
     "WAWebMessageListAlbums",
-    "WAWebMessageListBotCarousel",
     "WAWebMessageListDayOfMsg",
     "WAWebMsgGetters",
     "WAWebThreadMsgUtils",
@@ -20,175 +19,174 @@ __d(
     function c(e, t) {
       return t != null && e != null && e.id.equals(t.id);
     }
-    function d(e, t, n, a, i, l) {
+    function d(e, t) {
+      return t.botResponseTargetId === e.botResponseTargetId;
+    }
+    function m(e, t, n, a, i, l) {
       var s = [],
-        d = 0,
-        g;
-      for (d = 0; !g && d < t.length; d++) g = t[d];
-      d--;
+        m = 0,
+        h;
+      for (m = 0; !h && m < t.length; m++) h = t[m];
+      m--;
       for (
-        var h = !1,
-          y = !1,
-          C = g ? r("WAWebMessageListDayOfMsg")(g) : 0,
-          b = 0,
-          v = d,
-          S = null,
-          R = null;
-        g;
+        var y = !1,
+          C = !1,
+          b = h ? r("WAWebMessageListDayOfMsg")(h) : 0,
+          v = 0,
+          S = m,
+          R = null,
+          L = null;
+        h;
       ) {
-        var L = g;
-        (y || s.push({ type: "date", msg: L, count: b++ }),
-          L === a && e.unread && s.push({ type: "unread", unreadCount: i }));
-        var E = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(L.unsafe()),
-          k =
-            (S != null && S.equals(E)) ||
-            (E != null && R != null && E.key.equals(R));
-        ((S = E), (R = L.id));
-        for (var I = void 0, T = d + 1; !I && T < t.length; T++) I = t[T];
-        var D = void 0,
-          x = void 0,
+        var E = h;
+        (C || s.push({ type: "date", msg: E, count: v++ }),
+          E === a && e.unread && s.push({ type: "unread", unreadCount: i }));
+        var k = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(E.unsafe()),
+          I =
+            (R != null && R.equals(k)) ||
+            (k != null && L != null && k.key.equals(L));
+        ((R = k), (L = E.id));
+        for (var T = void 0, D = m + 1; !T && D < t.length; D++) T = t[D];
+        var x = void 0,
           $ = void 0,
-          P = [],
+          P = void 0,
           N = [],
-          M = !1,
+          M = [],
           w = !1,
-          A = void 0,
-          F = !1,
-          O = null,
-          B = o("WAWebFrontendMsgGetters").getAsGroupedSticker(L.unsafe());
-        if (B && !p(L, l)) {
-          (P.push(B), (F = c(L, n)), (O = 0), (v = d + 1));
-          var W = t[v],
-            q =
-              W != null
-                ? o("WAWebFrontendMsgGetters").getAsGroupedSticker(W.unsafe())
+          A = !1,
+          F = void 0,
+          O = !1,
+          B = null,
+          W = o("WAWebFrontendMsgGetters").getAsGroupedSticker(E.unsafe());
+        if (W && !_(E, l)) {
+          (N.push(W), (O = c(E, n)), (B = 0), (S = m + 1));
+          var q = t[S],
+            U =
+              q != null
+                ? o("WAWebFrontendMsgGetters").getAsGroupedSticker(q.unsafe())
                 : null;
-          q &&
-            o("WAWebMessageListAlbums").canBeGroupedAsAlbum(L, W) &&
-            W !== a &&
-            !p(W, l) &&
-            (P.push(q),
-            (I = t[v + 1]),
-            (w = !0),
+          U &&
+            o("WAWebMessageListAlbums").canBeGroupedAsAlbum(E, q) &&
+            q !== a &&
+            !_(q, l) &&
+            (N.push(U),
+            (T = t[S + 1]),
             (A = !0),
-            c(W, n) && ((F = !0), (O = 1)));
+            (F = !0),
+            c(q, n) && ((O = !0), (B = 1)));
         }
-        var U = !1,
-          V = o("WAWebFrontendMsgGetters").getAsBotPluginCarouselMsg(
-            L.unsafe(),
+        var V = !1,
+          H = o("WAWebFrontendMsgGetters").getAsBotPluginCarouselMsg(
+            E.unsafe(),
           );
-        if (V) {
-          ((U = c(L, n)), N.push(V));
-          var H = g,
-            G = void 0;
-          for (v = d; v < t.length - 1 && N.length < u; v++) {
-            ((H = t[v]), (G = t[v + 1]));
-            var z =
-              G != null
+        if (H) {
+          ((V = c(E, n)), M.push(H));
+          var G = h,
+            z = void 0;
+          for (S = m; S < t.length - 1 && M.length < u; S++) {
+            ((G = t[S]), (z = t[S + 1]));
+            var j =
+              z != null
                 ? o("WAWebFrontendMsgGetters").getAsBotPluginCarouselMsg(
-                    G.unsafe(),
+                    z.unsafe(),
                   )
                 : null;
-            if (
-              z &&
-              o("WAWebMessageListBotCarousel").canBeGroupedAsBotCarousel(H, G)
-            )
-              (N.push(G), c(G, n) && (U = !0));
+            if (j && d(G, z)) (M.push(z), c(z, n) && (V = !0));
             else break;
           }
-          N.length >= 1 && ((M = !0), (I = t[v + 1]));
+          M.length >= 1 && ((w = !0), (T = t[S + 1]));
         }
-        if (M) {
-          var j;
+        if (w) {
+          var K;
           (s.push({
             type: "botPluginCarousel",
-            botPluginCarouselId: (j = N[0].id) == null ? void 0 : j.id,
-            msgs: N,
-            isFocused: U,
+            botPluginCarouselId: (K = M[0].id) == null ? void 0 : K.id,
+            msgs: M,
+            isFocused: V,
           }),
-            (d = v + 1),
-            (g = t[d]),
-            (h = !1));
+            (m = S + 1),
+            (h = t[m]),
+            (y = !1));
           continue;
         }
-        var K = o("WAWebFrontendMsgGetters").getAsAlbumAsset(L.unsafe());
-        if (K && !p(L, l)) {
-          P.push(K);
-          var Q = g,
-            X = void 0;
+        var Q = o("WAWebFrontendMsgGetters").getAsAlbumAsset(E.unsafe());
+        if (Q && !_(E, l)) {
+          N.push(Q);
+          var X = h,
+            Y = void 0;
           for (
-            F = c(g, n), v = d;
-            v < t.length - 1 &&
-            P.length < o("WAWebMessageListAlbums").ALBUM_MAX_SIZE;
-            v++
+            O = c(h, n), S = m;
+            S < t.length - 1 &&
+            N.length < o("WAWebMessageListAlbums").ALBUM_MAX_SIZE;
+            S++
           ) {
-            ((Q = t[v]), (X = t[v + 1]));
-            var Y =
-              X != null
-                ? o("WAWebFrontendMsgGetters").getAsAlbumAsset(X.unsafe())
+            ((X = t[S]), (Y = t[S + 1]));
+            var J =
+              Y != null
+                ? o("WAWebFrontendMsgGetters").getAsAlbumAsset(Y.unsafe())
                 : null;
             if (
-              Y &&
-              o("WAWebMessageListAlbums").canBeGroupedAsAlbum(Q, X) &&
-              X !== a &&
-              !p(X, l)
+              J &&
+              o("WAWebMessageListAlbums").canBeGroupedAsAlbum(X, Y) &&
+              Y !== a &&
+              !_(Y, l)
             )
-              (P.push(Y), c(X, n) && (F = !0));
+              (N.push(J), c(Y, n) && (O = !0));
             else break;
           }
-          P.length >= o("WAWebMessageListAlbums").ALBUM_MIN_SIZE &&
-            ((w = !0), (A = !1), (I = t[v + 1]));
+          N.length >= o("WAWebMessageListAlbums").ALBUM_MIN_SIZE &&
+            ((A = !0), (F = !1), (T = t[S + 1]));
         }
-        if (I) {
-          var J = I;
-          (($ = r("WAWebMessageListDayOfMsg")(I)),
-            (x = $ === C),
-            (D =
-              x &&
-              o("WAWebMessageListAlbums").canBeGroupedWithNext(L, J) &&
-              I !== a),
-            x || f(C, $));
-        } else ((D = !1), (x = !1), ($ = 0));
-        if (w) {
-          var Z = void 0;
-          (A === !0
-            ? (Z = P.reduce(function (e, t) {
+        if (T) {
+          var Z = T;
+          ((P = r("WAWebMessageListDayOfMsg")(T)),
+            ($ = P === b),
+            (x =
+              $ &&
+              o("WAWebMessageListAlbums").canBeGroupedWithNext(E, Z) &&
+              T !== a),
+            $ || g(b, P));
+        } else ((x = !1), ($ = !1), (P = 0));
+        if (A) {
+          var ee = void 0;
+          (F === !0
+            ? (ee = N.reduce(function (e, t) {
                 return e + "-" + t.id.id;
               }, "grouped-sticker-"))
-            : (Z = _(P)),
+            : (ee = f(N)),
             s.push({
               type: "album",
-              msgs: P,
-              albumId: Z,
-              groupedWithPrev: h,
-              groupedWithNext: D,
-              isFocusedAlbum: F,
-              focusedMsgIndex: O,
+              msgs: N,
+              albumId: ee,
+              groupedWithPrev: y,
+              groupedWithNext: x,
+              isFocusedAlbum: O,
+              focusedMsgIndex: B,
             }));
-          var ee = P[P.length - 1],
-            te = r("WAWebMaybeInsertHistoryBundleInfo")(ee, I);
-          (te != null && s.push(te),
-            (d = v + 1),
-            (g = t[d]),
-            (h = D),
+          var te = N[N.length - 1],
+            ne = r("WAWebMaybeInsertHistoryBundleInfo")(te, T);
+          (ne != null && s.push(ne),
+            (m = S + 1),
+            (h = t[m]),
             (y = x),
-            (C = $));
+            (C = $),
+            (b = P));
           continue;
         }
         s.push({
           type: "msg",
-          msg: L,
-          isFocused: c(L, n),
-          groupedWithPrev: h,
-          groupedWithNext: D,
-          isFollowUpReply: k,
+          msg: E,
+          isFocused: c(E, n),
+          groupedWithPrev: y,
+          groupedWithNext: x,
+          isFollowUpReply: I,
         });
-        var ne = r("WAWebMaybeInsertHistoryBundleInfo")(L, I);
-        (ne != null && s.push(ne), d++, (h = D), (y = x), (C = $), (g = I));
+        var re = r("WAWebMaybeInsertHistoryBundleInfo")(E, T);
+        (re != null && s.push(re), m++, (y = x), (C = $), (b = P), (h = T));
       }
-      return m(s, e);
+      return p(s, e);
     }
-    function m(e, t) {
+    function p(e, t) {
       var n = t.botPluginCarousel,
         a = t.date,
         i = t.historyBundleInfo,
@@ -235,22 +233,22 @@ __d(
         }
       return c;
     }
-    function p(e, t) {
+    function _(e, t) {
       return t == null ? !0 : e.t > t.t;
     }
-    function _(e) {
+    function f(e) {
       var t = e.length,
         n = e[0] ? e[0].id.id : "",
         r = e[t - 1] ? e[t - 1].id.id : "";
       return "album-" + n + "-" + r + "-" + t;
     }
-    function f(e, t) {
+    function g(e, t) {
       if (!(e <= t)) {
         var n = Math.floor((e - t) / o("WATimeUtils").DAY_SECONDS);
-        n >= 2 && g(e, t, n);
+        n >= 2 && h(e, t, n);
       }
     }
-    var g = o("WAThrottle").throttle(
+    var h = o("WAThrottle").throttle(
       function (t, n, r) {
         return o("WALogger").WARN(
           e ||
@@ -268,7 +266,7 @@ __d(
       o("WATimeUtils").MINUTE_MILLISECONDS,
       { leading: !0, trailing: !1 },
     );
-    l.default = d;
+    l.default = m;
   },
   98,
 );

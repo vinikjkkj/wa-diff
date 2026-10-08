@@ -8,12 +8,9 @@ __d(
         getSize: function (t) {
           return 1;
         },
-      };
-    function u() {
-      return !0;
-    }
-    var c = new (o("WALruCache").LruCache)(s);
-    ((l.shouldUseMediaKeyCache = u), (l.MediaKeyCache = c));
+      },
+      u = new (o("WALruCache").LruCache)(s);
+    l.MediaKeyCache = u;
   },
   98,
 );

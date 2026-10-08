@@ -21,11 +21,11 @@ __d(
         !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(n) ||
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? !1
-        : (i != null && d(u(i))) || (a != null && d(c(a)));
+        : (i != null && m(u(i))) || (a != null && m(c(a)));
     }
     function u(e) {
       var t = [];
-      for (var n of e.sections)
+      for (var n of d(e))
         for (var r of o("WAWebUnifiedResponseUtils").getPrimitives(
           n.view_model,
         )) {
@@ -39,7 +39,7 @@ __d(
             ) {
               var t = e.text,
                 n = e.inline_entities;
-              return m(t, n != null ? n : []);
+              return p(t, n != null ? n : []);
             }
             return null;
           })(r);
@@ -61,12 +61,17 @@ __d(
       return t.join("\n");
     }
     function d(e) {
+      var t = e.footer_sections,
+        n = e.sections;
+      return [].concat(Array.isArray(n) ? n : [], Array.isArray(t) ? t : []);
+    }
+    function m(e) {
       return (
         e !== "" &&
         o("WAWebLinkify").findLink({ httpOnly: !0, text: e }) != null
       );
     }
-    function m(t, n) {
+    function p(t, n) {
       return t.replace(e, function (e, t) {
         var r;
         return (function (e) {

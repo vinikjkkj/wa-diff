@@ -6,11 +6,11 @@ __d(
     function u(e) {
       return e === "offline"
         ? s._(
-            /*BTDS*/ "Couldn't load network members. Check your internet connection.",
+            /*BTDS*/ "Couldn't load organization members. Check your internet connection.",
           )
         : e === "unavailable"
           ? s._(
-              /*BTDS*/ "Can't search for network members right now. Try again later.",
+              /*BTDS*/ "Can't search for organization members right now. Try again later.",
             )
           : (function () {
               throw Error(
@@ -25,7 +25,7 @@ __d(
       ]);
     }
     function d() {
-      return s._(/*BTDS*/ "Searching for network members");
+      return s._(/*BTDS*/ "Searching for organization members");
     }
     function m() {
       return s._(/*BTDS*/ "Try again");

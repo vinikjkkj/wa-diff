@@ -7,7 +7,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-      getPreloadProps: function () {
+      getPreloadProps: function (t) {
+        var e = t.audienceId;
         return {
           queries: {
             queryReference: {
@@ -15,7 +16,11 @@ __d(
               parameters: r(
                 "WAWebBizBroadcastProNewBroadcastFlowQuery$Parameters",
               ),
-              variables: {},
+              variables: {
+                audienceId: e,
+                fetchInitialAudience: e != null,
+                first: 1,
+              },
             },
           },
         };

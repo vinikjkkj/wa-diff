@@ -164,6 +164,9 @@ __d(
           (t.dataSharingClicked = function (t) {
             o("WAWebBBHomeLogs").dataSharingClicked(this.$1, t);
           }),
+          (t.advancedToolsToggleClicked = function (t, n, r) {
+            o("WAWebBBHomeLogs").advancedToolsToggleClicked(this.$1, t, n, r);
+          }),
           (t.homeAudiencesTabClicked = function (t) {
             o("WAWebBBHomeLogs").homeAudiencesTabClicked(this.$1, t);
           }),

@@ -2,6 +2,7 @@ __d(
   "WAWebBizProduct",
   [
     "fbt",
+    "WALogger",
     "WAWebBizProductInfo.react",
     "WAWebCatalogCollection",
     "WAWebContactUtils",
@@ -15,6 +16,7 @@ __d(
     "WAWebMessageMeta.react",
     "WAWebMessagePicture.react",
     "WAWebMessageSpacerText.react",
+    "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgPhoneNumbers",
@@ -34,16 +36,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react")),
-      c = e,
-      d = c.useCallback,
-      m = c.useEffect,
-      p = c.useMemo,
-      _ = {
+      u,
+      c = u || (u = o("react")),
+      d = u,
+      m = d.useCallback,
+      p = d.useEffect,
+      _ = d.useMemo,
+      f = {
         paddingTop7: { paddingTop: "xm7lytj", $$css: !0 },
         paddingBottom10: { paddingBottom: "x1a8lsjc", $$css: !0 },
       },
-      f = {
+      g = {
         productCta: {
           display: "x1lliihq",
           fontSize: "x1f6kntn",
@@ -71,126 +74,149 @@ __d(
         },
         footerMargin: { marginTop: "x1gslohp", $$css: !0 },
       };
-    function g(e) {
-      var t,
-        n,
-        a = e.displayAuthor,
-        i = e.displayType,
-        l = e.isCarouselCard,
-        c = e.msg,
-        g = e.onProductClick,
-        h = e.quotedMsg,
-        y = e.trusted,
-        C = r("useWAWebUIM")(),
-        b = p(function () {
+    function h(t) {
+      var n,
+        a,
+        i = t.displayAuthor,
+        l = t.displayType,
+        u = t.isCarouselCard,
+        d = t.msgKey,
+        h = t.onProductClick,
+        y = t.quotedMsg,
+        C = t.trusted,
+        b = r("useWAWebUIM")(),
+        v = _(function () {
           return new (o("WAWebProductCatalogSession").ProductCatalogSession)();
         }, []),
-        v = o("WAWebDisplayType").isWideDisplay(i),
-        S = o("useWAWebMsgValues").useMsgValues(c.id, [
-          (t = o("WAWebMsgGetters")).getBusinessOwnerJid,
-          t.getCaption,
-          (n = o("WAWebFrontendMsgGetters")).getDir,
-          t.getFooter,
-          t.getId,
-          t.getIsGroupMsg,
-          n.getAsProductInquiry,
-          n.getMediaData,
-          t.getProductId,
-          t.getProductImageCount,
-          t.getRetailerId,
-          n.getRtl,
-          n.getSenderObj,
-          t.getT,
-          t.getTitle,
-          t.getType,
-          t.getUrl,
+        S = o("WAWebDisplayType").isWideDisplay(l),
+        R = o("useWAWebMsgValues").useMsgValues(d, [
+          (n = o("WAWebMsgGetters")).getBusinessOwnerJid,
+          n.getCaption,
+          (a = o("WAWebFrontendMsgGetters")).getDir,
+          n.getFooter,
+          n.getId,
+          n.getIsGroupMsg,
+          a.getAsProductInquiry,
+          a.getMediaData,
+          n.getProductId,
+          n.getProductImageCount,
+          n.getRetailerId,
+          a.getRtl,
+          a.getSenderObj,
+          n.getT,
+          n.getTitle,
+          n.getType,
+          n.getUrl,
+          n.getSender,
+          n.getSupportsMessageFooterLinks,
+          n.getIsNewsletterMsg,
         ]),
-        R = S[0],
-        L = S[1],
-        E = S[2],
-        k = S[3],
-        I = S[4],
-        T = S[5],
-        D = S[6],
-        x = S[7],
-        $ = S[8],
-        P = S[9],
-        N = S[10],
-        M = S[11],
-        w = S[12],
-        A = S[13],
-        F = S[14],
-        O = S[15],
-        B = S[16];
-      m(function () {
-        var e = R != null && o("WAWebWidFactory").createWid(R);
-        e != null &&
-          o("WAWebCatalogCollection").CatalogCollection.addMsgAsProduct(
-            o("WAWebStateUtils").unproxy(c.unsafe()),
-          );
+        L = R[0],
+        E = R[1],
+        k = R[2],
+        I = R[3],
+        T = R[4],
+        D = R[5],
+        x = R[6],
+        $ = R[7],
+        P = R[8],
+        N = R[9],
+        M = R[10],
+        w = R[11],
+        A = R[12],
+        F = R[13],
+        O = R[14],
+        B = R[15],
+        W = R[16],
+        q = R[17],
+        U = R[18],
+        V = R[19];
+      p(function () {
+        var e = L != null && o("WAWebWidFactory").createWid(L);
+        if (e != null) {
+          var t = o("WAWebMsgCollection").MsgCollection.get(d);
+          t != null &&
+            o("WAWebCatalogCollection").CatalogCollection.addMsgAsProduct(t);
+        }
       }, []);
-      var W = n.getChat(c.unsafe()),
-        q = d(
-          function (e) {
-            if ((e && e.stopPropagation(), !($ == null || R == null))) {
+      var H = m(
+          function (t) {
+            if ((t && t.stopPropagation(), !(P == null || L == null))) {
               o("WAWebUtilsLogQplEvents").qplStartProductView("Message");
-              var t = r("WAWebProductCatalogGetLatestProduct")({
-                productId: $,
-                businessOwnerJid: R,
-                msgT: A,
+              var n = r("WAWebProductCatalogGetLatestProduct")({
+                productId: P,
+                businessOwnerJid: L,
+                msgT: F,
               });
-              if (!t) {
+              if (!n) {
                 o("WAWebUtilsLogQplEvents").qplDropProductView();
                 return;
               }
-              var n = o(
+              var a = o(
                 "WAWebProductCatalogContext",
               ).buildProductCatalogContext(
-                b,
-                o("WAWebContactUtils").getMaybeBizPlatformForLogging(R),
+                v,
+                o("WAWebContactUtils").getMaybeBizPlatformForLogging(L),
                 o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
                   .CATALOG_ENTRY_POINT_MESSAGE,
               );
               o("WAWebProductCatalogLogEvents").logProductMsgClick({
-                product: o("WAWebStateUtils").unproxy(t),
-                catalogContext: n,
+                product: o("WAWebStateUtils").unproxy(n),
+                catalogContext: a,
               });
-              var a = o(
+              var i = o(
                 "WAWebProductCatalogSession",
               ).ProductCatalogSession.toString();
-              g
-                ? g(t, a)
-                : o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                    u.jsx(
-                      o("WAWebProductDetailsFlowLoadable")
-                        .ProductDetailsFlowLoadable,
-                      { refreshCarousel: !0, chat: W, product: t },
-                    ),
-                    { transition: "slide-left", uim: C, newDrawerContext: n },
-                  );
+              if (h) {
+                h(n, i);
+                return;
+              }
+              var l = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(d, V);
+              if (l == null) {
+                (o("WAWebUtilsLogQplEvents").qplDropProductView(),
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[product-msg] no chat for the product message",
+                        ])),
+                    )
+                    .sendLogs("biz-product-missing-chat"));
+                return;
+              }
+              o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+                c.jsx(
+                  o("WAWebProductDetailsFlowLoadable")
+                    .ProductDetailsFlowLoadable,
+                  { refreshCarousel: !0, chat: l, product: n },
+                ),
+                { transition: "slide-left", uim: b, newDrawerContext: a },
+              );
             }
           },
-          [$, R, g, A, W, b, C],
+          [P, L, h, F, d, V, v, b],
         ),
-        U = (L != null && L !== "") || k != null,
-        V = U || l,
-        H;
-      if (U) {
-        var G = {
-          selectable: y,
-          dirMismatch: M !== r("WAWebL10N").isRTL(),
-          direction: E,
+        G = (E != null && E !== "") || I != null,
+        z = G || u,
+        j;
+      if (G) {
+        var K = {
+          selectable: C,
+          dirMismatch: w !== r("WAWebL10N").isRTL(),
+          direction: k,
           inferLinesDirection: !0,
           formatters: o("WAWebFormatConfigurationConversation").Conversation({
-            links: o("WAWebMsgLinks").getFooterLinks(c.unsafe()),
-            phoneNumbers: o(
-              "WAWebMsgPhoneNumbers",
-            ).getFooterPhoneNumbersFromMsg(c.unsafe()),
-            trusted: y,
-            fromMe: I.fromMe,
+            links:
+              U && I != null ? o("WAWebMsgLinks").getLinksFromText(I, q) : [],
+            phoneNumbers:
+              U && I != null
+                ? o("WAWebMsgPhoneNumbers").getPhoneNumbersFromText(I)
+                : [],
+            trusted: C,
+            fromMe: T.fromMe,
           }),
         };
-        H = u.jsxs(
+        j = c.jsxs(
           "div",
           babelHelpers.extends(
             {},
@@ -203,30 +229,30 @@ __d(
             }[!!r("WAWebL10N").isRTL() << 0],
             {
               children: [
-                L != null
-                  ? u.jsx(r("WAWebMessageSpacerText.react"), {
-                      msgKey: c.id,
+                E != null
+                  ? c.jsx(r("WAWebMessageSpacerText.react"), {
+                      msgKey: d,
                       spacer: !1,
-                      children: u.jsx(
+                      children: c.jsx(
                         o("WAWebEmojiText.react").EmojiText,
-                        babelHelpers.extends({}, G, {
-                          text: L,
-                          xstyle: f.caption,
+                        babelHelpers.extends({}, K, {
+                          text: E,
+                          xstyle: g.caption,
                           element: "p",
                         }),
                       ),
                     })
                   : null,
-                k != null
-                  ? u.jsx(
+                I != null
+                  ? c.jsx(
                       o("WAWebEmojiText.react").EmojiText,
-                      babelHelpers.extends({}, G, {
-                        text: k,
-                        xstyle: [f.footer, L != null && f.footerMargin],
+                      babelHelpers.extends({}, K, {
+                        text: I,
+                        xstyle: [g.footer, E != null && g.footerMargin],
                       }),
                     )
                   : null,
-                u.jsx(
+                c.jsx(
                   "div",
                   babelHelpers.extends(
                     {},
@@ -235,8 +261,8 @@ __d(
                       1: { className: "x10l6tqk x1o583il xwukr4l" },
                     }[!!r("WAWebL10N").isRTL() << 0],
                     {
-                      children: u.jsx(o("WAWebMessageMeta.react").Meta, {
-                        msgKey: c.id,
+                      children: c.jsx(o("WAWebMessageMeta.react").Meta, {
+                        msgKey: d,
                       }),
                     },
                   ),
@@ -246,58 +272,58 @@ __d(
           ),
         );
       }
-      var z = a
-        ? u.jsx("div", {
+      var Q = i
+        ? c.jsx("div", {
             className: "xyqdw3p x1icxu4v xs9asl8 x25sj25",
-            children: u.jsx(r("WAWebMessageAuthor.react"), {
-              msgKey: c.id,
-              contact: w,
-              displayType: i,
+            children: c.jsx(r("WAWebMessageAuthor.react"), {
+              msgKey: d,
+              contact: A,
+              displayType: l,
             }),
           })
         : null;
-      return u.jsxs(
+      return c.jsxs(
         "div",
         babelHelpers.extends(
           {},
           {
             0: { className: "x1n2onr6 x1vjfegm x9f619 x13nahy2" },
             1: { className: "x1n2onr6 x1vjfegm x9f619 xmewjk2" },
-          }[!!v << 0],
+          }[!!S << 0],
           {
             children: [
-              z,
-              u.jsx(o("WAWebMessagePicture.react").ImageMessage, {
-                msg: c,
-                mediaData: c.mediaData,
-                hideMeta: V,
-                trusted: y,
+              Q,
+              c.jsx(o("WAWebMessagePicture.react").ImageMessage, {
+                msgKey: d,
+                mediaData: $,
+                hideMeta: z,
+                trusted: C,
                 displayAuthor: !1,
-                displayType: i,
+                displayType: l,
                 contentContainerClassName: "x1n2onr6 x6ikm8r x10wlt62",
-                captionComponent: u.jsx(r("WAWebBizProductInfo.react"), {
-                  trusted: y,
-                  onClick: q,
-                  msgKey: c.id,
-                  displayType: i,
+                captionComponent: c.jsx(r("WAWebBizProductInfo.react"), {
+                  trusted: C,
+                  onClick: H,
+                  msgKey: d,
+                  displayType: l,
                 }),
                 thumbClassName:
                   "x1n2onr6 x78zum5 x6s0dn4 xl56j7k x193iq5w x6ikm8r x10wlt62 x1ypdohk x1i282gy xx9ypkp",
-                onThumbClick: q,
-                quotedMsg: h,
+                onThumbClick: H,
+                quotedMsg: y,
               }),
-              H,
-              u.jsx(o("WAWebEmojiText.react").EmojiText, {
+              j,
+              c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 xstyle: [
-                  f.productCta,
-                  f.productCtaColorV2,
-                  U && f.btnBorder,
-                  _.paddingTop7,
-                  l
+                  g.productCta,
+                  g.productCtaColorV2,
+                  G && g.btnBorder,
+                  f.paddingTop7,
+                  u
                     ? o("WDSPaddings.stylex").wdsPaddings.paddingBottom0
-                    : _.paddingBottom10,
+                    : f.paddingBottom10,
                 ],
-                onClick: q,
+                onClick: H,
                 text: s._(/*BTDS*/ "View"),
               }),
             ],
@@ -305,7 +331,7 @@ __d(
         ),
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   226,
 );

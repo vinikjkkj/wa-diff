@@ -3,45 +3,35 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebBackendErrors",
-    "WAWebBotGating",
     "WAWebBotProfileCategory",
     "WAWebBotTypes",
-    "WAWebContactSyncErrorCodes",
-    "WAWebContactSyncLogger",
     "WAWebFetchBotProfilesGQL",
-    "WAWebUsync",
-    "WAWebUsyncUser",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return e.length === 0 ? [] : m(e);
+        })),
+        d.apply(this, arguments)
+      );
+    }
     function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return e.length === 0
-            ? []
-            : o("WAWebBotGating").isBotProfileGqlMigrationEnabled()
-              ? _(e)
-              : v(e);
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = g(t);
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = _(t);
           if (a.length === 0)
-            return (d || (d = n("Promise"))).reject(
+            return (u || (u = n("Promise"))).reject(
               r("err")("no status data returned for user"),
             );
           var i = a.map(function (e) {
@@ -78,27 +68,27 @@ __d(
                 ? l.error
                 : r("err")("bot profile GQL fetch failed")
             );
-          var u = h(a, l.value);
-          return u.length === 0
-            ? (d || (d = n("Promise"))).reject(
+          var c = f(a, l.value);
+          return c.length === 0
+            ? (u || (u = n("Promise"))).reject(
                 r("err")("no status data returned for user"),
               )
-            : u;
+            : c;
         })),
-        f.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function g(e) {
+    function _(e) {
       var t = [];
       for (var n of e) {
-        var r = b(n.id, n.personaId);
+        var r = y(n.id, n.personaId);
         r != null &&
           r !== "" &&
           t.push({ fbid: r, id: n.id, isDefault: n.isDefault });
       }
       return t;
     }
-    function h(e, t) {
+    function f(e, t) {
       var n = new Map(
           t.map(function (e) {
             return [e.personaId, e];
@@ -108,11 +98,11 @@ __d(
       for (var o of e) {
         var a = n.get(o.fbid);
         a != null &&
-          r.push(y({ gqlProfile: a, isDefault: o.isDefault, wid: o.id }));
+          r.push(g({ gqlProfile: a, isDefault: o.isDefault, wid: o.id }));
       }
       return r;
     }
-    function y(e) {
+    function g(e) {
       var t = e.gqlProfile,
         n = e.isDefault,
         r = e.wid;
@@ -133,10 +123,10 @@ __d(
         creatorName: t.creatorName,
         creatorProfileUrl: t.creatorProfileUrl,
         lastUpdateTs: Date.now(),
-        posingAsProfessional: C(t.posingAsProfessional),
+        posingAsProfessional: h(t.posingAsProfessional),
       };
     }
-    function C(e) {
+    function h(e) {
       return e == null
         ? null
         : (function (e) {
@@ -150,7 +140,7 @@ __d(
             }
           })(e.toLowerCase());
     }
-    function b(e, t) {
+    function y(e, t) {
       if (t != null && t !== "") {
         var n = t.indexOf("$"),
           r = n === -1 ? t : t.substring(0, n);
@@ -158,131 +148,7 @@ __d(
       }
       return e.isFbidBot() ? e.user : null;
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new (o("WAWebUsync").USyncQuery)()
-            .withContext("interactive")
-            .withMode("query")
-            .withBotProfileProtocol();
-          e.forEach(function (e) {
-            var n = e.id,
-              r = e.personaId;
-            t.withUser(
-              new (o("WAWebUsyncUser").USyncUser)().withId(n).withPersonaId(r),
-            );
-          });
-          var a = o(
-              "WAWebContactSyncLogger",
-            ).contactSyncLogger.createEventContext({
-              syncType: o("WAWebContactSyncLogger").getSyncTypeString(
-                "interactive",
-                "query",
-              ),
-              requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
-                .BOT_REQUEST,
-              requestedCount: e.length,
-              protocols: t.protocols,
-            }),
-            i;
-          try {
-            i = yield o(
-              "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(
-              a,
-              function () {
-                return t.execute();
-              },
-              o("WAWebContactSyncErrorCodes").BOT_PROFILE,
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bot] requestBotProfiles usync error",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("bot-profile-usync-parse-error"),
-              e
-            );
-          }
-          var l = i.error.all || i.error.status;
-          if (l)
-            throw (
-              o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                a,
-                l.errorCode,
-                i,
-                o("WAWebContactSyncErrorCodes").BOT_PROFILE,
-              ),
-              new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                l.errorCode,
-                l.errorText,
-              )
-            );
-          var s = i.list;
-          if (!s.length) {
-            var m = e.map(function (e) {
-              return e.id.toString();
-            });
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "Bot ids ",
-                      "",
-                    ])),
-                  m.join(", "),
-                )
-                .sendLogs("noStatusDataForBots"),
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
-              (d || (d = n("Promise"))).reject(
-                r("err")("no status data returned for user"),
-              )
-            );
-          }
-          return (
-            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
-            s.map(function (e) {
-              var t,
-                n = e.bot,
-                r = e.id;
-              return {
-                id: r,
-                name: n.name,
-                attrs: n.attributes,
-                description: n.description,
-                category:
-                  (t = o("WAWebBotProfileCategory").BotProfileCategory.cast(
-                    n.category,
-                  )) != null
-                    ? t
-                    : o("WAWebBotProfileCategory").BotProfileCategory.SYNTHETIC,
-                isDefault: n.isDefault,
-                prompts: n.prompts,
-                personaId: n.personaId,
-                commands: n.commands,
-                commandsDescription: n.commandsDescription,
-                isMetaCreated: n.isMetaCreated,
-                creatorName: n.creatorName,
-                creatorProfileUrl: n.creatorProfileUrl,
-                posingAsProfessional: n.posingAsProfessional,
-                lastUpdateTs: Date.now(),
-              };
-            })
-          );
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    l.requestBotProfiles = m;
+    l.requestBotProfiles = c;
   },
   98,
 );

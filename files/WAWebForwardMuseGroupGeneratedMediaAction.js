@@ -19,17 +19,49 @@ __d(
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.chat,
-            a = t.media,
-            i = t.msg,
-            l = t.multicast,
-            s = yield m(a.url);
-          if (s == null) return null;
-          var u = yield r("WAWebMediaOpaqueData").createFromData(s, a.mimetype),
-            c = o("WAWebPrepRawMedia").prepRawMedia(u, {});
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.media,
+            r = e.msg,
+            a = e.multicast,
+            i = yield _(n.url);
+          if (i == null) return null;
+          var l = yield m(i, n.mimetype);
+          return l == null
+            ? null
+            : l.sendToChat({
+                chat: t,
+                options: {
+                  caption: o(
+                    "WAWebMuseGroupRichResponseForward",
+                  ).getMuseGroupForwardCaption(r),
+                  forwardedAiBotMessageInfo: o(
+                    "WAWebGetAiBotContextForForwardedMsg",
+                  ).getAiBotContextForForwardedMsg(r),
+                  forwardedFromWeb: !0,
+                  forwardingScore:
+                    o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(
+                      r,
+                    ),
+                  isForwarded:
+                    o("WAWebMsgGetters").getShouldDisplayAsForwarded(r),
+                  multicast: a,
+                },
+              });
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            yield c.waitForPrep();
+            var a = yield r("WAWebMediaOpaqueData").createFromData(t, n),
+              i = o("WAWebPrepRawMedia").prepRawMedia(a, {});
+            return (yield i.waitForPrep(), i);
           } catch (t) {
             return (
               o("WALogger")
@@ -44,32 +76,16 @@ __d(
               null
             );
           }
-          return c.sendToChat({
-            chat: n,
-            options: {
-              caption: o(
-                "WAWebMuseGroupRichResponseForward",
-              ).getMuseGroupForwardCaption(i),
-              forwardedAiBotMessageInfo: o(
-                "WAWebGetAiBotContextForForwardedMsg",
-              ).getAiBotContextForForwardedMsg(i),
-              forwardedFromWeb: !0,
-              forwardingScore:
-                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(i),
-              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(i),
-              multicast: l,
-            },
-          });
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield r("WAWebPonyfillsFetch")(e);
             return t.ok
@@ -100,7 +116,7 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
     l.forwardMuseGroupGeneratedMedia = c;

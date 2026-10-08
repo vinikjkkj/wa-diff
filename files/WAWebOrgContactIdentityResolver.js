@@ -1,37 +1,32 @@
 __d(
   "WAWebOrgContactIdentityResolver",
-  ["WAWebBusinessProfileTypes", "WAWebUsernameTypes"],
+  ["WAWebOrgMemberDisplayName", "WAWebUsernameTypes"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n;
+      var n,
+        r =
+          (n = o("WAWebOrgMemberDisplayName").resolveWAWebOrgMemberDisplayName({
+            memberName: t.memberName,
+            pushName: e == null ? void 0 : e.pushname,
+            savedName: e == null ? void 0 : e.name,
+          })) != null
+            ? n
+            : t.memberName;
       if (e == null) {
-        var r, a;
+        var a, i;
         return {
-          displayName: t.memberName,
-          phoneNumber: (r = t.phoneNumber) != null ? r : null,
+          displayName: r,
+          phoneNumber: (a = t.phoneNumber) != null ? a : null,
           username:
-            (a = o("WAWebUsernameTypes").serializeMaybeUsername(t.username)) !=
+            (i = o("WAWebUsernameTypes").serializeMaybeUsername(t.username)) !=
             null
-              ? a
+              ? i
               : null,
         };
       }
-      return {
-        displayName: (n = s(e)) != null ? n : t.memberName,
-        phoneNumber: null,
-        username: u(e),
-      };
+      return { displayName: r, phoneNumber: null, username: s(e) };
     }
     function s(e) {
-      return e.name !== ""
-        ? e.name
-        : e.verifiedLevel ===
-              o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
-            e.verifiedName !== ""
-          ? e.verifiedName
-          : null;
-    }
-    function u(e) {
       if (e.usernameSoftDeleted === !0) return null;
       var t = e.username;
       return o("WAWebUsernameTypes").isPresentUsername(t)

@@ -23,15 +23,12 @@ __d(
           var r = t.chat,
             a = t.msg,
             i = t.readSource;
-          o("WAWebABProps").getABPropConfigValue(
-            "web_biz_quality_telemetry_message_reads_enabled",
+          (o("WAWebABProps").getABPropConfigValue(
+            "inapp_signup_m1_logging_enabled",
           ) &&
-            (o("WAWebABProps").getABPropConfigValue(
-              "inapp_signup_m1_logging_enabled",
-            ) &&
-              (yield o(
-                "WAWebInAppSignupInfoStore",
-              ).ensureInAppSignupInfoHydrated()),
+            (yield o(
+              "WAWebInAppSignupInfoStore",
+            ).ensureInAppSignupInfoHydrated()),
             new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(a, r)
               .addCommonFields()
               .addAttributionFields()

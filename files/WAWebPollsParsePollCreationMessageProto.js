@@ -93,7 +93,7 @@ __d(
       if (
         b.length === 0 ||
         b.length >
-          o("WAWebPollsGatingUtils").getMaxPollNameLengthForIncomingMessages()
+          o("WAWebPollsGatingUtils").MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES
       )
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode

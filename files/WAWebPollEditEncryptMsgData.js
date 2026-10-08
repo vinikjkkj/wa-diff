@@ -5,6 +5,7 @@ __d(
     "WAWebAck",
     "WAWebAddonEncryption",
     "WAWebE2EProtoUtils",
+    "WAWebMessageEditBotGroupMetadata",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -127,6 +128,11 @@ __d(
               messageSecret: _,
               reportingTokenContentInfo: S,
             },
+            t.id.remote.isGroup()
+              ? yield o(
+                  "WAWebMessageEditBotGroupMetadata",
+                ).getOwnEditBotGroupMetadata(t)
+              : null,
           );
         })),
         p.apply(this, arguments)

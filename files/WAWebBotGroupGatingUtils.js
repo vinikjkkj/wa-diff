@@ -19,21 +19,33 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ai_hatch_3p_bot_enabled") === !0
       );
     }
-    function d(e) {
+    function d() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_3p_bot_group_add_companion_enabled",
+        ) === !0 &&
+        s() &&
+        c() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_3p_bot_group_add_enabled",
+        ) === !0
+      );
+    }
+    function m(e) {
       return (
         o("WAWebBotProduct").botProductFromServerValue(e) ===
         o("WAWebBotProduct").BotProduct.MUSE
       );
     }
-    function m(t, n) {
+    function p(t, n) {
       return n !== e.GROUP ||
         (t == null ? void 0 : t.isDeprecated) === !0 ||
         (t == null ? void 0 : t.isDeleted) === !0 ||
-        !d(t == null ? void 0 : t.product)
+        !m(t == null ? void 0 : t.product)
         ? !1
         : s();
     }
-    function p(e, t) {
+    function _(e, t) {
       return t
         ? !1
         : o("WAWebBotUtils").isMetaAiBot(e) ||
@@ -41,7 +53,7 @@ __d(
           ? !0
           : s();
     }
-    function _() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -50,7 +62,7 @@ __d(
             "ai_group_participation_enabled",
           ) === !0;
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -59,40 +71,47 @@ __d(
             "ai_group_participation_add_tee_enabled",
           ) === !0;
     }
-    function g(e) {
+    function h(e) {
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-          ? y()
+          ? C()
           : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-            ? f()
+            ? g()
             : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function h(e) {
+    function y(e) {
       var t = e.authorWid,
         n = e.botGroupParticipant,
         r = e.chatWid,
         a = e.isBotInvoke;
-      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !g(n)
+      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !h(n)
         ? !1
         : !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(n) ||
             a ||
             (t == null ? void 0 : t.equals(n)) === !0;
     }
-    function y() {
+    function C() {
       return (
         o("WAWebABProps").getABPropConfigValue("web_ai_group_open_support") ===
         !0
       );
     }
-    function C(e) {
+    function b(e) {
+      return C() && (e == null ? void 0 : e.isOpenBotGroup) === !0
+        ? o("WAWebBotUtils").META_BOT_FBID_WID
+        : g() && (e == null ? void 0 : e.isTeeBotGroup) === !0
+          ? o("WAWebBotUtils").META_BOT_TEE_FBID_WID
+          : null;
+    }
+    function v(e) {
       return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-        ? y()
+        ? C()
         : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function b() {
+    function S() {
       return (
-        y() &&
+        C() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_group_send_mentioned_pushname_enabled",
         )
@@ -102,16 +121,18 @@ __d(
       (l.isStandardBotProfileGroupEnabled = s),
       (l.isMuseGroupAgentRenderingEnabled = u),
       (l.isMuseProductSupported = c),
-      (l.isGroupAgentProduct = d),
-      (l.isGroupAgent = m),
-      (l.isGroupBotInvokeAllowed = p),
-      (l.isOpenGroupBotParticipantAddEnabled = _),
-      (l.isTEEGroupBotParticipantAddEnabled = f),
-      (l.isGroupBotParticipantEnabled = g),
-      (l.isGroupBotMessage = h),
-      (l.isOpenGroupBotSendEnabled = y),
-      (l.isGroupRevokeAgentTarget = C),
-      (l.isGroupBotSendMentionedPushnameEnabled = b));
+      (l.isMuseGroupAddEnabled = d),
+      (l.isGroupAgentProduct = m),
+      (l.isGroupAgent = p),
+      (l.isGroupBotInvokeAllowed = _),
+      (l.isOpenGroupBotParticipantAddEnabled = f),
+      (l.isTEEGroupBotParticipantAddEnabled = g),
+      (l.isGroupBotParticipantEnabled = h),
+      (l.isGroupBotMessage = y),
+      (l.isOpenGroupBotSendEnabled = C),
+      (l.getSendGroupBotParticipant = b),
+      (l.isGroupRevokeAgentTarget = v),
+      (l.isGroupBotSendMentionedPushnameEnabled = S));
   },
   98,
 );

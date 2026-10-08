@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBrPaymentMethodSurface",
     "WAWebBrPaymentRequest",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -207,35 +208,38 @@ __d(
         F.apply(this, arguments)
       );
     }
-    function O(t, n) {
-      B(t, n).catch(function (t) {
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAM:PAYMENT_REQUEST] structured msg interaction log err",
-              ])),
-          )
-          .catching(r("getErrorSafe")(t))
-          .sendLogs("payment-request-interaction-log-failed");
-      });
+    function O(t, n, a) {
+      (a === void 0 &&
+        (a = o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface
+          .INLINE_CTA),
+        B(t, n, a).catch(function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAM:PAYMENT_REQUEST] structured msg interaction log err",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("payment-request-interaction-log-failed");
+        }));
     }
-    function B(e, t) {
+    function B(e, t, n) {
       return W.apply(this, arguments);
     }
     function W() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = e.templateId != null,
-            i = I(t),
-            l = yield q(e),
-            s = {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            a,
+            i = e.templateId != null,
+            l = I(t),
+            s = yield q(e),
+            u = {
               cta: _,
-              p2m_flow: a ? f : g,
-              is_template: a,
-              payment_method_choice: i,
+              p2m_flow: i ? f : g,
+              is_template: i,
+              payment_method_choice: l,
             };
           (new (o(
             "WAWebPsStructuredMessageInteractionWamEvent",
@@ -243,23 +247,24 @@ __d(
             babelHelpers.extends(
               {},
               H(e, {
-                attributes: s,
-                normalizedPaymentMethod: i,
-                psFunnelId: l,
+                attributes: u,
+                normalizedPaymentMethod: l,
+                psFunnelId: s,
+                surface: n,
               }),
               {
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-                messageMediaType: V(a),
+                messageMediaType: V(i),
                 businessOwnerJid:
-                  (n = e.senderObj) == null || (n = n.id) == null
+                  (r = e.senderObj) == null || (r = r.id) == null
                     ? void 0
-                    : n.user,
-                templateId: (r = e.templateId) != null ? r : void 0,
+                    : r.user,
+                templateId: (a = e.templateId) != null ? a : void 0,
               },
             ),
           ).commit(),
-            yield j(s, a, l != null ? l : ""));
+            yield j(u, i, s != null ? s : ""));
         })),
         W.apply(this, arguments)
       );
@@ -299,16 +304,18 @@ __d(
         r = t.attributes,
         a = t.normalizedPaymentMethod,
         i = t.psFunnelId,
-        l = D(e);
+        l = t.surface,
+        s = D(e);
       return {
         bizPlatform: z(e),
         messageClassAttributes: JSON.stringify(
           babelHelpers.extends({}, r, {
-            accepted_payment_method: l.length > 0 ? JSON.stringify(l) : void 0,
+            accepted_payment_method: s.length > 0 ? JSON.stringify(s) : void 0,
             order_funnel_id: i,
             chat_type: x(e),
             is_cta_available: !0,
             currency: L,
+            payment_method_surface: l,
           }),
         ),
         messageInteraction:

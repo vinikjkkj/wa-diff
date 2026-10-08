@@ -14,9 +14,7 @@ __d(
         500,
       );
     }
-    function s() {
-      return 5e3;
-    }
+    var s = 5e3;
     function u() {
       return Math.min(
         o("WAWebABProps").getABPropConfigValue("poll_option_length"),
@@ -112,7 +110,7 @@ __d(
       return !1;
     }
     ((l.getMaxPollNameLength = e),
-      (l.getMaxPollNameLengthForIncomingMessages = s),
+      (l.MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES = s),
       (l.getMaxPollOptionLength = u),
       (l.getMaxPollOptionLengthForIncomingMessages = c),
       (l.getMaxPollOptionCount = d),

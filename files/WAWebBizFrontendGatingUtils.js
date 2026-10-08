@@ -80,9 +80,11 @@ __d(
     function f() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_smb_lists_dropdown_application_fix_enabled",
-        )
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+          .customPaymentMethodsSyncSupport &&
+        o(
+          "WAWebUprPaymentKeySyncGating",
+        ).isCustomPaymentMethodsSyncEnabledForCountry("MX")
       );
     }
     function g() {
@@ -92,20 +94,10 @@ __d(
           .customPaymentMethodsSyncSupport &&
         o(
           "WAWebUprPaymentKeySyncGating",
-        ).isCustomPaymentMethodsSyncEnabledForCountry("MX")
-      );
-    }
-    function h() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-          .customPaymentMethodsSyncSupport &&
-        o(
-          "WAWebUprPaymentKeySyncGating",
         ).isCustomPaymentMethodsSyncEnabledForCountry("ID")
       );
     }
-    function y(e) {
+    function h(e) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -115,7 +107,7 @@ __d(
         ).isCustomPaymentMethodsSyncEnabledForCountry(e)
       );
     }
-    function C() {
+    function y() {
       var e,
         t =
           (e = o("WAWebABProps").getABPropConfigValue(
@@ -136,8 +128,8 @@ __d(
               }),
           );
     }
-    function b(e) {
-      return e == null || e === "" ? !1 : C().has(e.toUpperCase());
+    function C(e) {
+      return e == null || e === "" ? !1 : y().has(e.toUpperCase());
     }
     ((l.isOrderDetailsPaymentInstructionsSyncEnabled = e),
       (l.isCustomPaymentMethodsSyncEnabled = s),
@@ -147,11 +139,10 @@ __d(
       (l.isCopyPixCodeBuyerLoggingEnabled = m),
       (l.isPixOnWebEnabled = p),
       (l.isCTWASMBListsMultiSelectEnabled = _),
-      (l.isCTWASMBListsDropdownApplicationFixEnabled = f),
-      (l.isClabeSyncEnabled = g),
-      (l.isIdPaymentAccountSyncEnabled = h),
-      (l.isUprSendEnabledForCountry = y),
-      (l.isUprAttachmentTrayEnabled = b));
+      (l.isClabeSyncEnabled = f),
+      (l.isIdPaymentAccountSyncEnabled = g),
+      (l.isUprSendEnabledForCountry = h),
+      (l.isUprAttachmentTrayEnabled = C));
   },
   98,
 );

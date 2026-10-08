@@ -56,7 +56,10 @@ __d(
     }
     function d(t, n, r) {
       return (
-        o("WAWebBotProduct").isMuseAgentProduct(t, n) && r != null && e.test(r)
+        o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled() &&
+        o("WAWebBotProduct").isMuseAgentProduct(t, n) &&
+        r != null &&
+        e.test(r)
       );
     }
     function m(e) {

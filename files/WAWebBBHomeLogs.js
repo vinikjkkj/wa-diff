@@ -86,13 +86,17 @@ __d(
             .REMOVE_RECIPIENTS_FROM_DATA_SHARING,
       });
     }
-    function g(e, t) {
+    function g(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        bbTier: r,
         entryPoint: t,
+        extraAttributes: {
+          direction: n === "TURN_OFF" ? "turn_off" : "turn_on",
+        },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCES_TAB_BUTTON,
+          o("WAWebBBLoggerTypes").UserActionTarget.ADVANCED_TOOLS_TOGGLE,
       });
     }
     function h(e, t) {
@@ -101,10 +105,19 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCES_TAB_BUTTON,
+      });
+    }
+    function y(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.BROADCASTS_TAB_BUTTON,
       });
     }
-    function y(e, t, n, r) {
+    function C(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -115,7 +128,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARDS_IMPRESSION,
       });
     }
-    function C(e, t) {
+    function b(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -125,7 +138,7 @@ __d(
         userActionTarget: n.UserActionTarget.CHAT_LIST_CONTEXT_MENU,
       });
     }
-    function b(e) {
+    function v(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -134,7 +147,7 @@ __d(
         userActionTarget: t.UserActionTarget.MESSAGE_CONTEXT_MENU,
       });
     }
-    function v(e, t) {
+    function S(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -144,7 +157,7 @@ __d(
         userActionTarget: n.UserActionTarget.CONVERSATION_HEADER_MENU,
       });
     }
-    function S(e) {
+    function R(e) {
       var t,
         n = e.broadcastChatCount,
         r = e.hasBroadcastWithNonZeroRecipients,
@@ -166,7 +179,7 @@ __d(
         userActionTarget: t.UserActionTarget.BROADCAST_CHAT_LIST_STATE,
       });
     }
-    function R(e, t) {
+    function L(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -176,7 +189,7 @@ __d(
         userActionTarget: n.UserActionTarget.PAGE,
       });
     }
-    function L(e) {
+    function E(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -185,7 +198,7 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function E(e) {
+    function k(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -194,7 +207,7 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function k(e, t) {
+    function I(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -204,7 +217,7 @@ __d(
             .BROADCAST_ITEM_OVERFLOW_BUTTON,
       });
     }
-    function I(e, t, n, r) {
+    function T(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: n,
@@ -214,7 +227,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ELIGIBILITY_GATE,
       });
     }
-    function T(e, t, n, r, a) {
+    function D(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: a,
@@ -229,7 +242,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARD_CLICK,
       });
     }
-    function D(e, t, n, r, a) {
+    function x(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
@@ -252,20 +265,21 @@ __d(
       (l.dataSharingClicked = p),
       (l.downloadSubscribedRecipientsClicked = _),
       (l.removeRecipientsFromDataSharingClicked = f),
-      (l.homeAudiencesTabClicked = g),
-      (l.homeBroadcastsTabClicked = h),
-      (l.suggestedAudienceCardsViewed = y),
-      (l.chatListContextMenuOpened = C),
-      (l.messageContextMenuOpened = b),
-      (l.conversationHeaderMenuOpened = v),
-      (l.broadcastChatListItemViewed = S),
-      (l.broadcastThreadViewed = R),
-      (l.tosReviewBannerViewed = L),
-      (l.tosReviewBannerClicked = E),
-      (l.broadcastItemOverflowClicked = k),
-      (l.eligibilityCheckResult = I),
-      (l.suggestedAudienceCardClicked = T),
-      (l.suggestedAudienceCardError = D));
+      (l.advancedToolsToggleClicked = g),
+      (l.homeAudiencesTabClicked = h),
+      (l.homeBroadcastsTabClicked = y),
+      (l.suggestedAudienceCardsViewed = C),
+      (l.chatListContextMenuOpened = b),
+      (l.messageContextMenuOpened = v),
+      (l.conversationHeaderMenuOpened = S),
+      (l.broadcastChatListItemViewed = R),
+      (l.broadcastThreadViewed = L),
+      (l.tosReviewBannerViewed = E),
+      (l.tosReviewBannerClicked = k),
+      (l.broadcastItemOverflowClicked = I),
+      (l.eligibilityCheckResult = T),
+      (l.suggestedAudienceCardClicked = D),
+      (l.suggestedAudienceCardError = x));
   },
   98,
 );

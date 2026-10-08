@@ -9,7 +9,8 @@ __d(
       if (
         t == null ||
         (!o("WAWebContactGetters").getIsEnterprise(t) &&
-          !o("WAWebContactGetters").getIsSmb(t))
+          !o("WAWebContactGetters").getIsSmb(t)) ||
+        o("WAWebContactGetters").getId(t).isBot()
       )
         return e;
       var r = (

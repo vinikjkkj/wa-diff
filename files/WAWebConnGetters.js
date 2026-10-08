@@ -21,10 +21,7 @@ __d(
         },
         [m],
       );
-    ((l.clearConnGetterCacheFor = d),
-      (l.getPlatform = m),
-      (l.getPushname = p),
-      (l.getIsSMB = _));
+    ((l.clearConnGetterCacheFor = d), (l.getPushname = p), (l.getIsSMB = _));
   },
   98,
 );

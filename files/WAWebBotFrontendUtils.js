@@ -64,9 +64,7 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g() {
-      return "";
-    }
+    var g = "";
     function h(e) {
       var t,
         n = o("WAWebFrontendMsgGetters").getAsRichResponse(e);
@@ -313,7 +311,7 @@ __d(
     }
     ((l.openMetaBotChat = m),
       (l.sendMetaBotQuery = _),
-      (l.metaAiLlamaVersionTitleFbs = g),
+      (l.META_AI_LLAMA_VERSION_TITLE = g),
       (l.getBotMsgBodyLength = h),
       (l.isMetaAiChatEmpty = y),
       (l.maybeGetTopMetaAiRow = b),

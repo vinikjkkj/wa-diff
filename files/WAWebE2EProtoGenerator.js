@@ -15,6 +15,7 @@ __d(
     "WAWebButtonsMessageProtoUtils",
     "WAWebConversionTupleCollection",
     "WAWebE2EProtoUtils",
+    "WAWebGenerateBotGroupMetadata",
     "WAWebGenerateBotMetadata",
     "WAWebGenerateThreadIds",
     "WAWebLidMigrationUtils",
@@ -438,7 +439,7 @@ __d(
       ) {
         var _,
           f = (_ = d.messageContextInfo) == null ? void 0 : _.botMetadata,
-          g = o("WAWebGenerateBotMetadata").mergeBotMetadata(
+          g = o("WAWebGenerateBotGroupMetadata").mergeBotMetadata(
             f,
             o("WAWebGenerateBotMetadata").generateBotMetadata(e),
           );

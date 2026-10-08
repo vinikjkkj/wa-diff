@@ -12,7 +12,6 @@ __d(
     "stylex",
     "uniqueID",
     "useLazyRef",
-    "useWAWebABPropConfigValue",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
@@ -83,27 +82,24 @@ __d(
         a = function (n, r) {
           r ? t.current.set(n, r) : t.current.delete(n);
         },
-        i = o("useWAWebABPropConfigValue").useABPropConfigValue(
-          "wds_web_toast",
-        ),
-        l = o("WDSToast.react").useWDSToast(),
-        s = l.showToast,
-        c = r("useLazyRef")(function () {
+        i = o("WDSToast.react").useWDSToast(),
+        l = i.showToast,
+        s = r("useLazyRef")(function () {
           return new (r("WAWebSetRefCache"))(a);
         }),
-        m = f(!1),
-        C = g({}),
-        S = C[0],
-        R = C[1],
-        L = f(null);
-      function E(e, t) {
+        c = f(!1),
+        m = g({}),
+        C = m[0],
+        S = m[1],
+        R = f(null);
+      function L(e, t) {
         var n = e.action,
           r = e.duration,
           a = e.id,
-          l = e.msg,
-          u = e.visible;
-        if (i === !1 || u === !1 || (r != null && r !== 4e3)) return !1;
-        var c =
+          i = e.msg,
+          s = e.visible;
+        if (s === !1 || (r != null && r !== 4e3)) return !1;
+        var u =
             t === o("WAWebToastManager").ToastPosition.LEFT || t === void 0
               ? "start"
               : t === o("WAWebToastManager").ToastPosition.CENTER
@@ -116,73 +112,73 @@ __d(
                           t,
                       );
                     })(),
-          d = Array.isArray(n) ? n[0] : n;
+          c = Array.isArray(n) ? n[0] : n;
         return (
-          (d == null ? void 0 : d.onAction) != null
-            ? s({
+          (c == null ? void 0 : c.onAction) != null
+            ? l({
                 testid: "toast-body",
-                align: c,
+                align: u,
                 type: "default",
-                message: l,
+                message: i,
                 dedupId: a,
                 action: {
-                  label: d.actionText,
+                  label: c.actionText,
                   onPress: function () {
-                    d.onAction();
+                    c.onAction();
                   },
-                  testid: d.testid,
+                  testid: c.testid,
                 },
               })
-            : s({
+            : l({
                 testid: "toast-body",
-                align: c,
+                align: u,
                 type: "default",
-                message: l,
+                message: i,
                 dedupId: a,
               }),
           !0
         );
       }
-      function k(e, t) {
+      function E(e, t) {
         var n = e.id,
           r = e.initialAction,
           a = e.onDismiss,
-          l = e.pendingAction,
-          u = e.settleDuration,
-          c = e.toastPosition;
-        if (i === !1 || (u != null && u !== 5e3)) return !1;
-        var d = c != null ? c : t,
-          m =
-            d === o("WAWebToastManager").ToastPosition.LEFT ||
-            d === "LEFT" ||
-            d === void 0
+          i = e.pendingAction,
+          s = e.settleDuration,
+          u = e.toastPosition;
+        if (s != null && s !== 5e3) return !1;
+        var c = u != null ? u : t,
+          d =
+            c === o("WAWebToastManager").ToastPosition.LEFT ||
+            c === "LEFT" ||
+            c === void 0
               ? "start"
-              : d === o("WAWebToastManager").ToastPosition.CENTER
+              : c === o("WAWebToastManager").ToastPosition.CENTER
                 ? "center"
-                : d === o("WAWebToastManager").ToastPosition.RIGHT ||
-                    d === "RIGHT"
+                : c === o("WAWebToastManager").ToastPosition.RIGHT ||
+                    c === "RIGHT"
                   ? "end"
                   : (function () {
                       throw Error(
                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          d,
+                          c,
                       );
                     })();
         if (r) {
-          var p = r.action,
-            _ = r.handler,
-            f = r.testid,
-            g = r.text,
-            h = g,
-            y = null,
-            C = !1;
-          (l
+          var m = r.action,
+            p = r.handler,
+            _ = r.testid,
+            f = r.text,
+            g = f,
+            h = null,
+            y = !1;
+          (i
             .then(function (e) {
               e &&
-                ((h = e.text),
+                ((g = e.text),
                 e.action != null &&
                   e.handler != null &&
-                  (y = {
+                  (h = {
                     label: e.action,
                     handler: e.handler,
                     testid: e.testid,
@@ -193,61 +189,61 @@ __d(
                 typeof e == "object" &&
                 e.name !== o("WAAbortError").ABORT_ERROR &&
                 (e == null ? void 0 : e.text) != null &&
-                ((h = String(e.text)),
+                ((g = String(e.text)),
                 (e == null ? void 0 : e.action) != null &&
                   (e == null ? void 0 : e.handler) != null &&
-                  (y = {
+                  (h = {
                     label: e.action,
                     handler: e.handler,
                     testid: e.testid,
                   }));
             }),
-            s({
-              align: m,
+            l({
+              align: d,
               type: "loading",
               message: function (t) {
-                return t !== "loading" ? h : g;
+                return t !== "loading" ? g : f;
               },
               action: function (t) {
-                return t !== "loading" && y != null
+                return t !== "loading" && h != null
                   ? {
-                      label: y.label,
+                      label: h.label,
                       onPress: function () {
                         var e;
-                        C || ((C = !0), (e = y) == null || e.handler());
+                        y || ((y = !0), (e = h) == null || e.handler());
                       },
-                      testid: y.testid,
+                      testid: h.testid,
                     }
-                  : t === "loading" && p != null && _ != null
+                  : t === "loading" && m != null && p != null
                     ? {
-                        label: p,
+                        label: m,
                         onPress: function () {
-                          C || ((C = !0), _());
+                          y || ((y = !0), p());
                         },
-                        testid: f,
+                        testid: _,
                       }
                     : null;
               },
-              process: l,
+              process: i,
             }));
         } else {
-          var b = !1;
-          l.then(function (e) {
+          var C = !1;
+          i.then(function (e) {
             e &&
               (e.action != null && e.handler != null
-                ? s({
-                    align: m,
+                ? l({
+                    align: d,
                     type: "default",
                     message: e.text,
                     action: {
                       label: e.action,
                       onPress: function () {
-                        b || ((b = !0), e.handler == null || e.handler());
+                        C || ((C = !0), e.handler == null || e.handler());
                       },
                       testid: e.testid,
                     },
                   })
-                : s({ align: m, type: "default", message: e.text }));
+                : l({ align: d, type: "default", message: e.text }));
           }).catch(function (e) {
             e != null &&
               typeof e == "object" &&
@@ -255,33 +251,33 @@ __d(
               (e == null ? void 0 : e.text) != null &&
               ((e == null ? void 0 : e.action) != null &&
               (e == null ? void 0 : e.handler) != null
-                ? s({
-                    align: m,
+                ? l({
+                    align: d,
                     type: "error",
                     message: e.text,
                     action: {
                       label: e.action,
                       onPress: function () {
-                        b || ((b = !0), e.handler == null || e.handler());
+                        C || ((C = !0), e.handler == null || e.handler());
                       },
                       testid: e.testid,
                     },
                   })
-                : s({ align: m, type: "error", message: e.text }));
+                : l({ align: d, type: "error", message: e.text }));
           });
         }
         return !0;
       }
-      var I = function (n, r) {
+      var k = function (n, r) {
           var e,
             o = !1,
             a = n.props;
-          if (("pendingAction" in a ? (o = k(a, r)) : (o = E(a, r)), !o)) {
+          if (("pendingAction" in a ? (o = E(a, r)) : (o = L(a, r)), !o)) {
             var i = (e = a.id) != null ? e : v(),
               l = t.current.get(i);
             l
               ? l.restartDelay == null || l.restartDelay()
-              : R(function (e) {
+              : S(function (e) {
                   var t;
                   return babelHelpers.extends(
                     {},
@@ -291,9 +287,9 @@ __d(
                 });
           }
         },
-        T = function (t) {
-          S[t] &&
-            R(function (e) {
+        I = function (t) {
+          C[t] &&
+            S(function (e) {
               var n = e[t],
                 r = babelHelpers.objectWithoutPropertiesLoose(e, [t].map(u));
               return r;
@@ -302,25 +298,25 @@ __d(
       (o("useWAWebListener").useListener(
         o("WAWebToastManager").ToastManager,
         "open_toast",
-        I,
+        k,
       ),
         o("useWAWebListener").useListener(
           o("WAWebToastManager").ToastManager,
           "close_toast",
-          T,
+          I,
         ),
         _(
           function () {
-            var e = L.current;
-            ((L.current = S),
-              (m.current =
+            var e = R.current;
+            ((R.current = C),
+              (c.current =
                 Object.keys(e != null ? e : {}).length >
-                Object.keys(S).length));
+                Object.keys(C).length));
           },
-          [S],
+          [C],
         ));
-      var D = m.current,
-        x = Object.values(S)
+      var T = c.current,
+        D = Object.values(C)
           .sort(b)
           .map(function (t, n) {
             var a = t.id,
@@ -334,7 +330,7 @@ __d(
                   h.wrapper,
                   i === o("WAWebToastManager").ToastPosition.CENTER && h.center,
                   i === o("WAWebToastManager").ToastPosition.RIGHT && h.right,
-                  n === 0 && D && h.slide0,
+                  n === 0 && T && h.slide0,
                   n === 1 && h.slide1,
                   n === 2 && h.slide2,
                   n >= y && h.slide3,
@@ -352,7 +348,7 @@ __d(
                       ),
                       {
                         children: p(l, {
-                          ref: c.current.getRefSetter(a),
+                          ref: s.current.getRefSetter(a),
                           id: a,
                         }),
                       },
@@ -365,10 +361,10 @@ __d(
           });
       return d.jsxs(d.Fragment, {
         children: [
-          n("cr:782") != null && d.jsx(n("cr:782"), { openToast: I }),
+          n("cr:782") != null && d.jsx(n("cr:782"), { openToast: k }),
           d.jsx(r("WAWebVelocityTransitionGroup"), {
             transitionName: "fade_sifo",
-            children: x,
+            children: D,
           }),
         ],
       });

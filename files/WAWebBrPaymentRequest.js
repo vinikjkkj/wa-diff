@@ -51,7 +51,9 @@ __d(
           s === e.PIX_DYNAMIC_CODE &&
           ((r = l.pix_dynamic_code) == null ? void 0 : r.code) != null
         )
-          u.code = l.pix_dynamic_code.code;
+          ((u.code = l.pix_dynamic_code.code),
+            typeof l.pix_dynamic_code.flow_type == "string" &&
+              (u.pixFlowType = l.pix_dynamic_code.flow_type));
         else if (
           s === e.PAYMENT_LINK &&
           ((o = l.payment_link) == null ? void 0 : o.uri) != null

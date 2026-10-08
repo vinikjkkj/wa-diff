@@ -1,17 +1,15 @@
 __d(
   "WAWebMediaDisplaySurface",
-  ["WAWebDisplayType", "WAWebGetDisplayType", "WAWebTypesMedia"],
+  ["WAWebDisplayType", "WAWebTypesMedia"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      var n = t.displayTheme,
-        r = t.displayType,
-        a = t.hasOverlay;
+    function e(e) {
+      var t = e.displayTheme,
+        n = e.displayType,
+        r = e.hasOverlay;
       return (
-        o("WAWebDisplayType").isConversationDisplay(
-          r != null ? r : o("WAWebGetDisplayType").getDisplayType(e.unsafe()),
-        ) &&
-        n !== o("WAWebTypesMedia").DisplayTheme.PhotoPoll &&
-        !a
+        o("WAWebDisplayType").isConversationDisplay(n) &&
+        t !== o("WAWebTypesMedia").DisplayTheme.PhotoPoll &&
+        !r
       );
     }
     l.isPairedMediaSurface = e;

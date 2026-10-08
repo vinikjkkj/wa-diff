@@ -4,6 +4,7 @@ __d(
     "WALongInt",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
+    "WAWebMessageEditBotGroupMetadata",
     "WAWebMessageEditValidationError",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -99,6 +100,11 @@ __d(
             isSpoiler: p.isSpoiler === !0,
             botEditType: t.botEditType,
           },
+          o("WAWebMessageEditBotGroupMetadata").getReceivedEditBotGroupMetadata(
+            t,
+            e,
+            p.mentionedJidList,
+          ),
         )
       );
     }

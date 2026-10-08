@@ -147,11 +147,7 @@ __d(
         a = t.encs,
         i = t.msgMeta,
         l = t.node,
-        _ = o("WAWebABProps").getABPropConfigValue(
-          "web_read_self_watermark_receive_store_ts",
-        )
-          ? l.maybeAttrInt("sts")
-          : null,
+        _ = l.maybeAttrInt("sts"),
         f = babelHelpers.extends(
           {
             externalId: l.attrString("id"),

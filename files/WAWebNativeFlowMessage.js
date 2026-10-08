@@ -41,136 +41,145 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react")),
-      d = { marginBottom6: { marginBottom: "xzueoph", $$css: !0 } },
-      m = {
+      u = ["menu"],
+      c,
+      d = c || (c = o("react")),
+      m = { marginBottom6: { marginBottom: "xzueoph", $$css: !0 } },
+      p = {
         headerTitle: { fontSize: "x6prxxf", fontWeight: "xk50ysn", $$css: !0 },
       };
-    function p(e) {
-      var t = o("react-compiler-runtime").c(38),
+    function _(e) {
+      var t = o("react-compiler-runtime").c(40),
         n = e.displayAuthor,
         a = e.displayType,
         i = e.msg,
         l,
-        u;
+        c;
       if (
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       ) {
-        var p;
+        var _;
         t[0] !== i
-          ? ((p = o("WAWebOrderDetails").getOrderInfo(i)),
+          ? ((_ = o("WAWebOrderDetails").getOrderInfo(i)),
             (t[0] = i),
-            (t[1] = p))
-          : (p = t[1]);
-        var f = p;
-        if (f) {
-          var y;
-          t[2] !== i
-            ? ((y = o("WAWebMsgGetters").getIsSentByMe(i.unsafe())),
-              (t[2] = i),
-              (t[3] = y))
-            : (y = t[3]);
+            (t[1] = _))
+          : (_ = t[1]);
+        var g = _;
+        if (g) {
           var C;
-          (t[4] !== f || t[5] !== y
-            ? ((C = c.jsx(r("WAWebNativeFlowPaymentInfoOrderDetailsHeader"), {
-                isSentByMe: y,
-                orderInfo: f,
-              })),
-              (t[4] = f),
-              (t[5] = y),
-              (t[6] = C))
-            : (C = t[6]),
-            (l = C));
+          t[2] !== i
+            ? ((C = o("WAWebMsgGetters").getIsSentByMe(i.unsafe())),
+              (t[2] = i),
+              (t[3] = C))
+            : (C = t[3]);
           var b;
-          t[7] !== i || t[8] !== f
-            ? ((b = h(f, i)), (t[7] = i), (t[8] = f), (t[9] = b))
-            : (b = t[9]);
+          (t[4] !== g || t[5] !== C
+            ? ((b = d.jsx(r("WAWebNativeFlowPaymentInfoOrderDetailsHeader"), {
+                isSentByMe: C,
+                orderInfo: g,
+              })),
+              (t[4] = g),
+              (t[5] = C),
+              (t[6] = b))
+            : (b = t[6]),
+            (l = b));
           var v;
-          (t[10] !== b ? ((v = [b]), (t[10] = b), (t[11] = v)) : (v = t[11]),
-            (u = v));
+          t[7] !== i || t[8] !== g
+            ? ((v = y(g, i)), (t[7] = i), (t[8] = g), (t[9] = v))
+            : (v = t[9]);
+          var S;
+          (t[10] !== v ? ((S = [v]), (t[10] = v), (t[11] = S)) : (S = t[11]),
+            (c = S));
         }
       } else if (
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
       )
         if (t[12] !== a || t[13] !== i) {
-          var S = o("WAWebOrderDetails").getOrderInfo(i),
-            R = S == null ? void 0 : S.referenceId,
-            L =
-              R != null &&
+          var R = o("WAWebOrderDetails").getOrderInfo(i),
+            L = R == null ? void 0 : R.referenceId,
+            E =
+              L != null &&
               o("WAWebOrderStatus").findOrderStatus(
                 o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
-                R,
+                L,
               ) === o("WAWebOrderStatus").OrderStatus.Pending,
-            E;
+            k;
           t[16] === Symbol.for("react.memo_cache_sentinel")
-            ? ((E = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-              (t[16] = E))
-            : (E = t[16]);
-          var k = c.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+            ? ((k = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+              (t[16] = k))
+            : (k = t[16]);
+          var I = d.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
               msg: i,
               displayType: a,
             }),
-            I;
-          (t[17] !== k
-            ? ((I = c.jsx("div", babelHelpers.extends({}, E, { children: k }))),
-              (t[17] = k),
-              (t[18] = I))
-            : (I = t[18]),
-            (l = I));
-          var T;
-          t[19] !== L
-            ? ((T = L
+            T;
+          (t[17] !== I
+            ? ((T = d.jsx("div", babelHelpers.extends({}, k, { children: I }))),
+              (t[17] = I),
+              (t[18] = T))
+            : (T = t[18]),
+            (l = T));
+          var D;
+          t[19] !== E
+            ? ((D = E
                 ? s._(/*BTDS*/ "Review and pay")
                 : s._(/*BTDS*/ "View details")),
-              (t[19] = L),
-              (t[20] = T))
-            : (T = t[20]);
-          var D;
-          (t[21] !== T
-            ? ((D = { label: T, onClick: g }), (t[21] = T), (t[22] = D))
-            : (D = t[22]),
-            (u = [D]));
-          var x = S == null ? void 0 : S.type;
+              (t[19] = E),
+              (t[20] = D))
+            : (D = t[20]);
+          var x;
+          (t[21] !== D
+            ? ((x = { label: D, onClick: h }), (t[21] = D), (t[22] = x))
+            : (x = t[22]),
+            (c = [x]));
+          var $ = R == null ? void 0 : R.type;
           if (!o("WAWebMsgGetters").getIsSentByMe(i.unsafe())) {
-            var $ = o("WAWebGetQuickPayAction").getQuickPayAction(i, x, !L);
-            $ && u.push($);
+            var P = o("WAWebGetQuickPayAction").getQuickPayAction(i, $, !E);
+            if (P != null) {
+              var N;
+              if (t[23] !== P) {
+                var M = P.menu,
+                  w = babelHelpers.objectWithoutPropertiesLoose(P, u);
+                ((N = w), (t[23] = P), (t[24] = N));
+              } else N = t[24];
+              c.push(N);
+            }
           }
-          ((t[12] = a), (t[13] = i), (t[14] = l), (t[15] = u));
-        } else ((l = t[14]), (u = t[15]));
+          ((t[12] = a), (t[13] = i), (t[14] = l), (t[15] = c));
+        } else ((l = t[14]), (c = t[15]));
       else if (
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var P;
-        t[23] === Symbol.for("react.memo_cache_sentinel")
-          ? ((P = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-            (t[23] = P))
-          : (P = t[23]);
-        var N;
-        (t[24] !== a || t[25] !== i
-          ? ((N = c.jsx(
+        var A;
+        t[25] === Symbol.for("react.memo_cache_sentinel")
+          ? ((A = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+            (t[25] = A))
+          : (A = t[25]);
+        var F;
+        (t[26] !== a || t[27] !== i
+          ? ((F = d.jsx(
               "div",
-              babelHelpers.extends({}, P, {
-                children: c.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+              babelHelpers.extends({}, A, {
+                children: d.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
                   msg: i,
                   displayType: a,
                 }),
               }),
             )),
-            (t[24] = a),
-            (t[25] = i),
-            (t[26] = N))
-          : (N = t[26]),
-          (l = N));
+            (t[26] = a),
+            (t[27] = i),
+            (t[28] = F))
+          : (F = t[28]),
+          (l = F));
       } else {
-        var M;
-        (t[27] !== i
-          ? ((M = r("isStringNullOrEmpty")(i.title)
+        var O;
+        (t[29] !== i
+          ? ((O = r("isStringNullOrEmpty")(i.title)
               ? null
-              : c.jsx(o("WAWebEmojiText.react").EmojiText, {
+              : d.jsx(o("WAWebEmojiText.react").EmojiText, {
                   text: i.title,
                   selectable: o("WAWebMsgModelPropUtils").isTrusted(i.unsafe()),
                   direction: o("WAWebFrontendMsgGetters").getDir(i.unsafe()),
@@ -178,70 +187,70 @@ __d(
                     o("WAWebFrontendMsgGetters").getRtl(i.unsafe()) !==
                     r("WAWebL10N").isRTL(),
                   inferLinesDirection: !0,
-                  xstyle: [d.marginBottom6, m.headerTitle],
+                  xstyle: [m.marginBottom6, p.headerTitle],
                 })),
-            (t[27] = i),
-            (t[28] = M))
-          : (M = t[28]),
-          (l = M));
-        var w;
-        if (t[29] !== i.nativeFlowButtons) {
-          var A;
-          ((w = (A = i.nativeFlowButtons) == null ? void 0 : A.map(_)),
-            (t[29] = i.nativeFlowButtons),
-            (t[30] = w));
-        } else w = t[30];
-        u = w;
+            (t[29] = i),
+            (t[30] = O))
+          : (O = t[30]),
+          (l = O));
+        var B;
+        if (t[31] !== i.nativeFlowButtons) {
+          var W;
+          ((B = (W = i.nativeFlowButtons) == null ? void 0 : W.map(f)),
+            (t[31] = i.nativeFlowButtons),
+            (t[32] = B));
+        } else B = t[32];
+        c = B;
       }
-      var F =
+      var q =
           i.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS,
-        O;
+        U;
       return (
-        t[31] !== u ||
-        t[32] !== n ||
-        t[33] !== a ||
-        t[34] !== l ||
-        t[35] !== i ||
-        t[36] !== F
-          ? ((O = c.jsx(r("WAWebInteractiveBubble.react"), {
+        t[33] !== c ||
+        t[34] !== n ||
+        t[35] !== a ||
+        t[36] !== l ||
+        t[37] !== i ||
+        t[38] !== q
+          ? ((U = d.jsx(r("WAWebInteractiveBubble.react"), {
               msg: i,
               displayAuthor: n,
-              displayFooter: F,
+              displayFooter: q,
               header: l,
               displayType: a,
-              actions: u,
+              actions: c,
             })),
-            (t[31] = u),
-            (t[32] = n),
-            (t[33] = a),
-            (t[34] = l),
-            (t[35] = i),
-            (t[36] = F),
-            (t[37] = O))
-          : (O = t[37]),
-        O
+            (t[33] = c),
+            (t[34] = n),
+            (t[35] = a),
+            (t[36] = l),
+            (t[37] = i),
+            (t[38] = q),
+            (t[39] = U))
+          : (U = t[39]),
+        U
       );
     }
-    function _(e) {
+    function f(e) {
       var t, n;
       return {
         label:
           (t = (n = e.buttonText) == null ? void 0 : n.displayText) != null
             ? t
             : "",
-        onClick: f,
+        onClick: g,
       };
     }
-    function f() {
+    function g() {
       return r("WAWebShowMessageActionFallbackErrorAction")();
     }
-    function g() {
+    function h() {
       return r("WAWebShowMessageActionFallbackErrorAction")({
         title: s._(/*BTDS*/ "Orders can't be viewed on {=m1}", [
           s._implicitParam(
             "=m1",
-            c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
+            d.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
               children: s._(/*BTDS*/ ""),
             }),
           ),
@@ -249,7 +258,7 @@ __d(
         body: s._(/*BTDS*/ "Use WhatsApp on your phone to view this order."),
       });
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = e.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Copy Pix key"),
@@ -284,23 +293,23 @@ __d(
             )
           ) {
             o("WAWebToastManager").ToastManager.open(
-              c.jsx(o("WAWebToast.react").Toast, {
+              d.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Couldn't copy Pix key"),
               }),
             );
             return;
           }
           (o("WAWebToastManager").ToastManager.open(
-            c.jsx(o("WAWebToast.react").Toast, {
+            d.jsx(o("WAWebToast.react").Toast, {
               msg: s._(/*BTDS*/ "Pix key copied"),
             }),
           ),
-            y(t));
+            C(t));
         },
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function y(t) {
+    function C(t) {
       var n;
       if (!o("WAWebMsgGetters").getIsSentByMe(t.unsafe())) {
         var a = r("WAWebPonyfillsCryptoRandomUUID")(),
@@ -377,7 +386,7 @@ __d(
           }));
       }
     }
-    l.default = p;
+    l.default = _;
   },
   226,
 );

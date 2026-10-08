@@ -159,9 +159,7 @@ __d(
                     }),
                   ),
             B = f.filehash;
-          o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-            B != null &&
-            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.put(B, C);
+          B != null && o("WAWebMediaInMemoryKeyCache").MediaKeyCache.put(B, C);
           var W = yield (m || (m = n("Promise"))).all([O, A]),
             q = W[0],
             U = W[1],
@@ -176,9 +174,7 @@ __d(
               body: D,
               fbid: null,
             };
-          o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-            B != null &&
-            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(B);
+          B != null && o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(B);
           var G = N;
           if (
             M != null &&

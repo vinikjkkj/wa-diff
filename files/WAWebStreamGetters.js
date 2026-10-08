@@ -51,9 +51,6 @@ __d(
         [p, _, f],
       );
     ((l.clearStreamGetterCacheFor = m),
-      (l.getInfo = p),
-      (l.getObscurity = _),
-      (l.getHasSynced = f),
       (l.getIsHardRefresh = g),
       (l.getNeedsUpdate = h),
       (l.getDisplayInfo = y));

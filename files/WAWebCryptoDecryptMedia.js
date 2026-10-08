@@ -81,7 +81,10 @@ __d(
                       if (!o("WACryptoUtils").arrayBuffersEqual(e, t))
                         throw new (o(
                           "WAWebMediaFileErrors",
-                        ).MediaDecryptionError)("decryptMedia: hmac mismatch");
+                        ).MediaDecryptionError)(
+                          "decryptMedia: " +
+                            o("WAWebMediaFileErrors").HMAC_MISMATCH_ERROR,
+                        );
                       d && (yield r("WAWebCommonTaskScheduler").yield());
                       var n = y.subarray(0, 0 - p);
                       return b

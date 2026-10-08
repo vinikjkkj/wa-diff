@@ -22,6 +22,7 @@ __d(
     "WAWebHandleMsgValidate",
     "WAWebLidMigrationUtils",
     "WAWebMaibaAiHubSettledProgressEdit",
+    "WAWebMessageEditBotGroupMetadata",
     "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
     "WAWebMessagingGatingUtils",
@@ -29,6 +30,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
+    "WAWebMsmsgMsgSecretCache",
     "WAWebNoop",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebThreadMetadataBulkJob",
@@ -38,6 +40,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "cr:375",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,22 +53,24 @@ __d(
       p,
       _,
       f,
-      g = (e = n("cr:375")) != null ? e : {},
-      h = g.ftsLightClient,
-      y = n("$InternalEnum").Mirrored(["Added", "Removed"]);
-    function C(e, t) {
-      return b.apply(this, arguments);
+      g,
+      h,
+      y = (e = n("cr:375")) != null ? e : {},
+      C = y.ftsLightClient,
+      b = n("$InternalEnum").Mirrored(["Added", "Removed"]);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if ((t === void 0 && (t = !1), e.length === 0)) return [];
           var a = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(
               r("compactMap")(e, function (e) {
                 return e.protocolMessageKey;
               }),
             ),
-            i = R(e, a),
+            i = yield (h || (h = n("Promise"))).all(E(e, a).map(W)),
             l = [],
             s = [],
             u = [];
@@ -97,16 +102,16 @@ __d(
                 ).validateAndProcessReportingTokenInfo({ renderableMsgs: [c] }),
                   m == null || m());
               }
-              (s.push(P(d, c)),
+              (s.push(M(d, c)),
                 o("WAWebThreadMsgUtils").isThreadMsg(c) && u.push(c));
             }
           }
-          yield L(l);
+          yield k(l);
           var p = s.filter(function (e) {
             return e.isLatest;
           });
           return (
-            yield v(s, p),
+            yield R(s, p),
             t &&
               (yield o(
                 "WAWebDBMarkFutureproofMessagesReparsed",
@@ -125,24 +130,25 @@ __d(
                 var t = e.protocolMsg;
                 return t;
               }),
-              (f || (f = n("Promise"))).resolve(),
+              h.resolve(),
               null,
             ),
             p
           );
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (e.length &&
-            (yield k(e),
-            T(
+            (yield T(e),
+            V(e),
+            x(
               e
                 .filter(function (e) {
                   return (
@@ -154,17 +160,17 @@ __d(
                   return e.parentMsg;
                 }),
             ),
-            yield O(e)),
+            yield G(e)),
             t.length &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "updateEditedMessagesAction",
                 { messageEdits: t },
               ));
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e, t) {
+    function E(e, t) {
       var n = [],
         a = [],
         i = [],
@@ -295,12 +301,12 @@ __d(
         g
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e.length &&
             (yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
               e,
@@ -310,15 +316,15 @@ __d(
               { storeReportingInfo: !0 },
             ));
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length) {
             var t = [],
               r = [];
@@ -372,7 +378,7 @@ __d(
                           m.push(
                             i.bulkCreateOrMerge(
                               u.map(function (e) {
-                                return W(e);
+                                return j(e);
                               }),
                             ),
                           ),
@@ -380,21 +386,21 @@ __d(
                       ) {
                         var p = o("WATimeUtils").unixTimeMs();
                         if (c.size) {
-                          var g = Array.from(c, function (e) {
+                          var _ = Array.from(c, function (e) {
                             return { id: e, unreadEditTimestampMs: p };
                           });
                           (o("WALogger")
                             .LOG(
-                              _ ||
-                                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                              f ||
+                                (f = babelHelpers.taggedTemplateLiteralLoose([
                                   "storeMessageEdits: bulkCreateOrMerge",
                                 ])),
                             )
                             .tags("missing-lid"),
-                            m.push(l.bulkCreateOrMerge(g)));
+                            m.push(l.bulkCreateOrMerge(_)));
                         }
                         if (d.size) {
-                          var h = Array.from(d.values(), function (e) {
+                          var g = Array.from(d.values(), function (e) {
                             return { threadId: e, unreadEditTimestampMs: p };
                           });
                           m.push(
@@ -402,12 +408,12 @@ __d(
                               "WAWebThreadMetadataBulkJob",
                             ).bulkUpdateThreadUnreadEditTimestampWithTable(
                               s,
-                              h,
+                              g,
                             ),
                           );
                         }
                       }
-                      yield (f || (f = n("Promise"))).all(m);
+                      yield (h || (h = n("Promise"))).all(m);
                     },
                   );
                   return function (e) {
@@ -420,10 +426,10 @@ __d(
               ).handleReportingInfosUpdateOnMessageEdit(r));
           }
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e) {
+    function x(e) {
       if (e.length) {
         var t = Array.from(
           new Set(
@@ -432,16 +438,16 @@ __d(
             }),
           ),
         );
-        (h == null || h.purge(t).catch(r("WAWebNoop")),
+        (C == null || C.purge(t).catch(r("WAWebNoop")),
           r("WAWeb-dexie").ignoreTransaction(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield h == null ? void 0 : h.addToIndexingTable(t),
-                h == null || h.index().catch(r("WAWebNoop")));
+              (yield C == null ? void 0 : C.addToIndexingTable(t),
+                C == null || C.index().catch(r("WAWebNoop")));
             }),
           ));
       }
     }
-    function D(e, t) {
+    function $(e, t) {
       return (
         (o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
           !o("WAWebUserPrefsMeUser").isMeAccount(t.from)) ||
@@ -450,43 +456,46 @@ __d(
         o("WAWebMessageEditGatingUtils").isCrossDeviceMessageEditingEnabled()
       );
     }
-    function x(e, t) {
+    function P(e, t) {
       if (o("WAWebMsgGetters").getIsSentByMe(e))
         return e.local === !0
-          ? D(e, t)
+          ? $(e, t)
             ? o("WAAckLevel").ACK.SENT
             : o("WAAckLevel").ACK.CLOCK
           : o("WAWebMsgKeyUtils").isNoteToSelf(e.id)
             ? o("WAAckLevel").ACK.READ
             : o("WAAckLevel").ACK.SENT;
     }
-    var $ = new Map();
-    function P(e, t) {
+    var N = new Map();
+    function M(e, t) {
       var n,
         a,
         i = r("nullthrows")(
           o("WAWebMessageEditUtils").getMsgEditType(e.type),
           "Unsupported message type for edits",
         ),
-        l = F(e, t, i);
+        l = B(e, t, i);
       o("WAWebMsgGetters").getIsSentByMe(e) &&
         t.count != null &&
         (l.count = t.count);
       var s =
           (n =
-            (a = $.get(e.id.toString())) != null
+            (a = N.get(e.id.toString())) != null
               ? a
               : e.latestEditSenderTimestampMs) != null
             ? n
             : 0,
         u = r("nullthrows")(t.latestEditSenderTimestampMs),
         c = u >= s;
-      if (i === o("WAWebMessageEditUtils").MsgEditType.EventEdit) {
+      if (
+        (u >= s && U(l, e, t),
+        i === o("WAWebMessageEditUtils").MsgEditType.EventEdit)
+      ) {
         var d = !!e.isEventCanceled,
           m = !!t.isEventCanceled;
         !d && m ? (c = !0) : d && !m && (c = !1);
       }
-      c && $.set(e.id.toString(), u);
+      c && N.set(e.id.toString(), u);
       var p;
       if (
         i !== o("WAWebMessageEditUtils").MsgEditType.EventEdit &&
@@ -496,7 +505,7 @@ __d(
           f = o("WAWebMsgGetters").getHasMentionOfMe(
             babelHelpers.extends({}, e, l),
           );
-        _ && !f ? (p = y.Removed) : !_ && f && (p = y.Added);
+        _ && !f ? (p = b.Removed) : !_ && f && (p = b.Added);
       }
       if (
         ((o("WAWebMsgGetters").getIsMetaBotResponse(e) ||
@@ -504,7 +513,7 @@ __d(
           e.botEditType != null) &&
           ((l.botEditType = t.botEditType),
           (l.botEditTargetId = t.botEditTargetId)),
-        N(e, t, l),
+        w(e, t, l),
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e))
       ) {
         var g = o("WAWebMsgGetters").getGroupHistoryIndividualMessageInfo(e);
@@ -521,13 +530,13 @@ __d(
         mentionOfMe: p,
       };
     }
-    function N(e, t, n) {
+    function w(e, t, n) {
       var r = o(
         "WAWebMaibaAiHubSettledProgressEdit",
       ).getMaibaAiHubSettledProgressEditViewMode(e, t);
       r != null && (n.viewMode = r);
     }
-    function M(e) {
+    function A(e) {
       return babelHelpers.extends(
         { aiThreadInfo: e.aiThreadInfo },
         e.botResponseId != null ? { botResponseId: e.botResponseId } : null,
@@ -543,7 +552,7 @@ __d(
         },
       );
     }
-    function w(e) {
+    function F(e) {
       var t;
       return {
         deprecatedMms3Url: e.deprecatedMms3Url,
@@ -571,7 +580,7 @@ __d(
         kind: "image",
       };
     }
-    function A(e) {
+    function O(e) {
       return {
         deprecatedMms3Url: e.deprecatedMms3Url,
         directPath: e.directPath,
@@ -600,13 +609,13 @@ __d(
         kind: "video",
       };
     }
-    function F(e, t, n) {
+    function B(e, t, n) {
       var r = babelHelpers.extends(
         {
           latestEditMsgKey: t.latestEditMsgKey,
           latestEditSenderTimestampMs: t.latestEditSenderTimestampMs,
           errorCode: t.errorCode,
-          ack: x(e, t),
+          ack: P(e, t),
           pendingReadReceipt: o("WAWebMsgGetters").getIsSentByMe(e)
             ? void 0
             : o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
@@ -624,7 +633,7 @@ __d(
             s,
             u,
             c = !!t.matchedText || !!t.description || !!t.title;
-          return babelHelpers.extends({}, r, M(t), {
+          return babelHelpers.extends({}, r, A(t), {
             subtype: c ? "url" : void 0,
             body: t.body,
             mentionedJidList: t.mentionedJidList,
@@ -669,7 +678,7 @@ __d(
         case o("WAWebMessageEditUtils").MsgEditType.PollEdit:
           return babelHelpers.extends({}, r, { pollName: t.pollName });
         case o("WAWebMessageEditUtils").MsgEditType.RichResponseEdit:
-          return babelHelpers.extends({}, r, M(t), {
+          return babelHelpers.extends({}, r, A(t), {
             richResponse: t.richResponse,
             unifiedResponse: t.unifiedResponse,
             unifiedResponseRawData: t.unifiedResponseRawData,
@@ -680,20 +689,115 @@ __d(
           var d = t.mimetype;
           if (d != null) {
             if (d.startsWith("image"))
-              return babelHelpers.extends({}, r, M(t), w(t), { subtype: null });
+              return babelHelpers.extends({}, r, A(t), F(t), { subtype: null });
             if (d.startsWith("video"))
-              return babelHelpers.extends({}, r, M(t), A(t), { subtype: null });
+              return babelHelpers.extends({}, r, A(t), O(t), { subtype: null });
           }
-          return babelHelpers.extends({}, r, M(t), { type: "loading_media" });
+          return babelHelpers.extends({}, r, A(t), { type: "loading_media" });
         }
       }
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            !e.id.remote.isGroup() ||
+            !o("WAWebMsgGetters").getIsSentByMeFromWeb(e)
+          )
+            return e;
+          try {
+            var t = yield o(
+                "WAWebMessageEditBotGroupMetadata",
+              ).getOwnEditBotGroupMetadata(e),
+              n = t.botGroupParticipant,
+              a = t.botGroupParticipants;
+            return babelHelpers.extends({}, e, {
+              botGroupParticipant: n != null ? n : null,
+              botGroupParticipants: a != null ? a : null,
+            });
+          } catch (t) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[message-edit] own edit BotGroupMetadata failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("message-edit-own-bot-group-metadata-failed"),
+              e
+            );
+          }
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    function U(e, t, n) {
+      var r, o;
+      if (t.id.remote.isGroup()) {
+        var a = n.botResponseTargetId != null;
+        (n.botGroupParticipants == null && !a) ||
+          ((e.botGroupParticipant =
+            (r = n.botGroupParticipant) != null ? r : null),
+          (e.botGroupParticipants =
+            (o = n.botGroupParticipants) != null ? o : null));
+      }
+    }
+    function V(e) {
+      e.forEach(function (e) {
+        var t = e.editedMsgData,
+          n = e.isLatest,
+          a = e.parentMsg;
+        if (!(!n || t.botGroupParticipants === void 0))
+          try {
+            H(a.id, t.botGroupParticipants, t.botGroupParticipant);
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[message-edit] bot group gossip cache update failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("message-edit-bot-group-gossip-cache-failed");
+          }
+      });
+    }
+    function H(e, t, n) {
+      var r = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(t, n);
+      [e, o("WAWebLidMigrationUtils").getAlternateMsgKey(e)].forEach(
+        function (e) {
+          if (e != null) {
+            if (r == null) {
+              o(
+                "WAWebMsmsgMsgSecretCache",
+              ).msmsgBotGroupGossipDataCache.deleteMsmsgBotGroupGossipDataFromCache(
+                e.toString(),
+              );
+              return;
+            }
+            o(
+              "WAWebMsmsgMsgSecretCache",
+            ).msmsgBotGroupGossipDataCache.addMsmsgBotGroupGossipDataToCache(
+              e.toString(),
+              r.participants,
+              r.isLegacySingular,
+            );
+          }
+        },
+      );
+    }
+    function G(e) {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
             n = new Map();
           for (var r of e) {
@@ -702,13 +806,13 @@ __d(
               l = i.id.remote.toString();
             if (a)
               switch (a) {
-                case y.Removed: {
+                case b.Removed: {
                   var s = i.id.toString(),
                     u = t.get(l);
                   (u || ((u = []), t.set(l, u)), u.push(s));
                   break;
                 }
-                case y.Added: {
+                case b.Added: {
                   var c = n.get(l);
                   c || ((c = []), n.set(l, c));
                   var d = { id: i.id.toString(), timestamp: i.t };
@@ -721,10 +825,10 @@ __d(
             n.size &&
               (yield o("WAWebApiChatUnreadMention").addUnreadMentionChat(n)));
         })),
-        B.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function W(e) {
+    function j(e) {
       var t = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
         n = e.rowId;
       return n == null ||
@@ -734,10 +838,10 @@ __d(
         ? t
         : babelHelpers.extends({}, t, { hasLink: n });
     }
-    ((l.EditedMentionOfMe = y),
-      (l.processEditProtocolMsgs = C),
-      (l.updateMessageEditsLocally = v),
-      (l.generateMessageEdit = P));
+    ((l.EditedMentionOfMe = b),
+      (l.processEditProtocolMsgs = v),
+      (l.updateMessageEditsLocally = R),
+      (l.generateMessageEdit = M));
   },
   98,
 );

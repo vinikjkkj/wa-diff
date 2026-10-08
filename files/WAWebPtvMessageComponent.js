@@ -225,7 +225,7 @@ __d(
           mediaData: u,
           displayType: l,
         });
-      (o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(d),
+      (o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(d.id),
         p(
           function () {
             o("WAWebDownloadVideoThumbnail").downloadVideoThumbnail({

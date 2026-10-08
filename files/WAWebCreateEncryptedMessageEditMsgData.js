@@ -245,6 +245,7 @@ __d(
               errorCode: e.errorCode,
               messageSecret: d,
               reportingTokenContentInfo: E,
+              botGroupParticipant: e.botGroupParticipant,
             },
           );
         })),

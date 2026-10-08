@@ -5,7 +5,8 @@ __d(
     "WABackoffUtils",
     "WALogger",
     "WAWebBuildConstants",
-    "WAWebMedia",
+    "WAWebManuallySetMedia",
+    "WAWebMediaVideoStreaming",
     "WAWebMsgCollection",
     "WAWebNetworkStatus",
     "WAWebSWBusActions",
@@ -82,7 +83,7 @@ __d(
       })();
     function d(e) {
       var t = o("WAWebMsgCollection").MsgCollection.get(e);
-      return t ? o("WAWebMedia").videoStreamingInfo(t) : null;
+      return t ? o("WAWebMediaVideoStreaming").videoStreamingInfo(t) : null;
     }
     function m(e) {
       return p.apply(this, arguments);
@@ -133,7 +134,7 @@ __d(
             : (_[i.toString()] = u = new c(l.size)),
             u.push(a.data),
             u.isComplete() &&
-              (o("WAWebMedia").manuallySetMedia({
+              (o("WAWebManuallySetMedia").manuallySetMedia({
                 msg: l,
                 media: u.serialize(),
                 rmrReason: o("WAWebWamEnumWebcRmrReasonCode")

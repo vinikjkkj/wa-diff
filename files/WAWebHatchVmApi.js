@@ -24,6 +24,77 @@ __d(
             o("WAWebHatchVmTransport").JarvisPaths.ARTIFACTS_LIST,
           );
         }),
+        (r.computerContext = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.COMPUTER_CONTEXT,
+            t,
+          );
+        }),
+        (r.computerScreenshot = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              var r,
+                o = yield this.$1.send({
+                  method: "GET",
+                  path: t,
+                  timeoutMs:
+                    (r = n == null ? void 0 : n.timeoutMs) != null ? r : e,
+                });
+              e: {
+                var a = o;
+                if (
+                  ((typeof a == "object" && a !== null) ||
+                    typeof a == "function") &&
+                  a.kind === "failure" &&
+                  "detail" in a
+                ) {
+                  var i = a.detail;
+                  return { detail: i, kind: "Failure" };
+                }
+                if (
+                  ((typeof a == "object" && a !== null) ||
+                    typeof a == "function") &&
+                  a.kind === "rejected" &&
+                  "detail" in a
+                ) {
+                  var l = a.detail;
+                  return { detail: l, kind: "Rejected" };
+                }
+                if (
+                  ((typeof a == "object" && a !== null) ||
+                    typeof a == "function") &&
+                  a.kind === "unreadable" &&
+                  "detail" in a
+                ) {
+                  var s = a.detail;
+                  return { detail: s, kind: "Unreadable" };
+                }
+                if (
+                  ((typeof a == "object" && a !== null) ||
+                    typeof a == "function") &&
+                  a.kind === "response" &&
+                  "body" in a &&
+                  "statusCode" in a
+                ) {
+                  var c = a.body,
+                    d = a.statusCode;
+                  return d < 200 || d >= 300
+                    ? u("VM returned HTTP " + d, d)
+                    : { kind: "Ok", value: c };
+                }
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    a,
+                );
+              }
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })()),
         (r.connectors = function (t, n) {
           return (
             t === void 0 && (t = []),

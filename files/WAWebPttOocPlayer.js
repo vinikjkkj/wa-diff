@@ -108,7 +108,7 @@ __d(
       );
     }
     function R(e) {
-      var t = o("react-compiler-runtime").c(51),
+      var t = o("react-compiler-runtime").c(48),
         n = e.msg,
         a = e.playbackController,
         i;
@@ -135,129 +135,113 @@ __d(
         C = _(!g.paused),
         v = C[0],
         S = C[1],
-        R = p(!1),
+        R = p(null),
         k;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
+      t[3] !== g.paused
         ? ((k = function () {
-            return (R.current = !1);
+            return S(!g.paused);
           }),
-          (t[3] = k))
-        : (k = t[3]);
+          (t[3] = g.paused),
+          (t[4] = k))
+        : (k = t[4]);
       var I = k,
         T;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
+      (t[5] !== I
         ? ((T = function () {
             I();
           }),
-          (t[4] = T))
-        : (T = t[4]);
+          (t[5] = I),
+          (t[6] = T))
+        : (T = t[6]),
+        o("useWAWebListener").useListener(g, "playing", T));
       var $;
-      (t[5] !== n ? (($ = [n]), (t[5] = n), (t[6] = $)) : ($ = t[6]), m(T, $));
-      var P;
-      t[7] !== g.paused
-        ? ((P = function () {
-            return S(!g.paused);
-          }),
-          (t[7] = g.paused),
-          (t[8] = P))
-        : (P = t[8]);
-      var N = P,
-        M;
-      (t[9] !== N
-        ? ((M = function () {
-            N();
-          }),
-          (t[9] = N),
-          (t[10] = M))
-        : (M = t[10]),
-        o("useWAWebListener").useListener(g, "playing", M));
-      var w;
-      (t[11] !== f || t[12] !== h || t[13] !== y || t[14] !== N
-        ? ((w = function () {
-            (N(),
+      (t[7] !== f || t[8] !== n || t[9] !== h || t[10] !== y || t[11] !== I
+        ? (($ = function () {
+            (I(),
               y &&
                 (h.markAsPlayedInOoc(),
-                R.current ||
-                  ((R.current = !0),
+                R.current !== n &&
+                  ((R.current = n),
                   o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.OOC_PLAYBACK,
                     r("nullthrows")(o("WAWebFrontendChatGetters").getKind(f)),
                   ))));
           }),
-          (t[11] = f),
-          (t[12] = h),
-          (t[13] = y),
-          (t[14] = N),
-          (t[15] = w))
-        : (w = t[15]),
-        o("useWAWebListener").useListener(g, "timeupdate", w),
-        o("useWAWebListener").useListener(g, "pause", N));
-      var A;
-      (t[16] !== y || t[17] !== N
-        ? ((A = function () {
-            (N(), y && I());
+          (t[7] = f),
+          (t[8] = n),
+          (t[9] = h),
+          (t[10] = y),
+          (t[11] = I),
+          (t[12] = $))
+        : ($ = t[12]),
+        o("useWAWebListener").useListener(g, "timeupdate", $),
+        o("useWAWebListener").useListener(g, "pause", I));
+      var P;
+      (t[13] !== y || t[14] !== I
+        ? ((P = function () {
+            (I(), y && (R.current = null));
           }),
-          (t[16] = y),
-          (t[17] = N),
-          (t[18] = A))
-        : (A = t[18]),
-        o("useWAWebListener").useListener(g, "ended", A));
-      var F;
-      t[19] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = [
+          (t[13] = y),
+          (t[14] = I),
+          (t[15] = P))
+        : (P = t[15]),
+        o("useWAWebListener").useListener(g, "ended", P));
+      var N;
+      t[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((N = [
             "status_viewer_open",
             "status_posting_flow",
             "open_lock_screen_modal",
           ]),
-          (t[19] = F))
-        : (F = t[19]);
-      var O;
-      (t[20] !== g
-        ? ((O = function () {
+          (t[16] = N))
+        : (N = t[16]);
+      var M;
+      (t[17] !== g
+        ? ((M = function () {
             g.pause();
           }),
-          (t[20] = g),
-          (t[21] = O))
-        : (O = t[21]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, F, O));
-      var B;
-      (t[22] !== g
-        ? ((B = function () {
+          (t[17] = g),
+          (t[18] = M))
+        : (M = t[18]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, N, M));
+      var w;
+      (t[19] !== g
+        ? ((w = function () {
             (g.pause(), o("WAWebPttPrefs").PttPrefs.closeOocPlayer());
           }),
-          (t[22] = g),
-          (t[23] = B))
-        : (B = t[23]),
-        o("useWAWebListener").useListener(f, "remove", B));
-      var W, q;
-      (t[24] !== u || t[25] !== g || t[26] !== c
-        ? ((W = function () {
+          (t[19] = g),
+          (t[20] = w))
+        : (w = t[20]),
+        o("useWAWebListener").useListener(f, "remove", w));
+      var A, F;
+      (t[21] !== u || t[22] !== g || t[23] !== c
+        ? ((A = function () {
             (u || c) &&
               (g.pause(), o("WAWebPttPrefs").PttPrefs.closeOocPlayer());
           }),
-          (q = [u, c, g]),
-          (t[24] = u),
-          (t[25] = g),
-          (t[26] = c),
-          (t[27] = W),
-          (t[28] = q))
-        : ((W = t[27]), (q = t[28])),
-        m(W, q));
-      var U;
-      t[29] !== g || t[30] !== v || t[31] !== h
-        ? ((U = function (t) {
+          (F = [u, c, g]),
+          (t[21] = u),
+          (t[22] = g),
+          (t[23] = c),
+          (t[24] = A),
+          (t[25] = F))
+        : ((A = t[24]), (F = t[25])),
+        m(A, F));
+      var O;
+      t[26] !== g || t[27] !== v || t[28] !== h
+        ? ((O = function (t) {
             (v ? (g.pause(), h.increaseOocPauseCount()) : g.play(),
               t.preventDefault());
           }),
-          (t[29] = g),
-          (t[30] = v),
-          (t[31] = h),
-          (t[32] = U))
-        : (U = t[32]);
-      var V = U,
-        H;
-      t[33] !== g || t[34] !== h
-        ? ((H = function (t) {
+          (t[26] = g),
+          (t[27] = v),
+          (t[28] = h),
+          (t[29] = O))
+        : (O = t[29]);
+      var B = O,
+        W;
+      t[30] !== g || t[31] !== h
+        ? ((W = function (t) {
             (g.pause(),
               o("WAWebPttPrefs").PttPrefs.closeOocPlayer(),
               o("WAWebPttPrefs").PttPrefs.setPlayingMessage(null),
@@ -265,14 +249,14 @@ __d(
               h.commit(!0),
               t.preventDefault());
           }),
-          (t[33] = g),
-          (t[34] = h),
-          (t[35] = H))
-        : (H = t[35]);
-      var G = H,
-        z;
-      t[36] !== f || t[37] !== n.id || t[38] !== h
-        ? ((z = function (t) {
+          (t[30] = g),
+          (t[31] = h),
+          (t[32] = W))
+        : (W = t[32]);
+      var q = W,
+        U;
+      t[33] !== f || t[34] !== n.id || t[35] !== h
+        ? ((U = function (t) {
             t.defaultPrevented ||
               (o("WAWebCmd").Cmd.openChatAt({
                 chat: f,
@@ -285,23 +269,23 @@ __d(
               }),
               h.increaseOocClickToChatCount());
           }),
-          (t[36] = f),
-          (t[37] = n.id),
-          (t[38] = h),
-          (t[39] = z))
-        : (z = t[39]);
-      var j = z,
-        K = y && !u && !c,
-        Q;
-      t[40] !== g ||
-      t[41] !== f ||
-      t[42] !== G ||
-      t[43] !== j ||
-      t[44] !== V ||
-      t[45] !== v ||
-      t[46] !== n ||
-      t[47] !== K
-        ? ((Q = K
+          (t[33] = f),
+          (t[34] = n.id),
+          (t[35] = h),
+          (t[36] = U))
+        : (U = t[36]);
+      var V = U,
+        H = y && !u && !c,
+        G;
+      t[37] !== g ||
+      t[38] !== f ||
+      t[39] !== q ||
+      t[40] !== V ||
+      t[41] !== B ||
+      t[42] !== v ||
+      t[43] !== n ||
+      t[44] !== H
+        ? ((G = H
             ? s.jsxs("div", {
                 className:
                   "x10l6tqk x12xzxwr x78zum5 xh8yej3 x1x0gksc x1xrx4lg xnj6ddq",
@@ -309,7 +293,7 @@ __d(
                   s.jsx("div", {
                     className: "xfvyar9 x5yr21d x78zum5 xl56j7k x6s0dn4",
                     children: s.jsx(r("WAWebPttPlayPauseButton.react"), {
-                      onConfirm: V,
+                      onConfirm: B,
                       paused: !v,
                       tabOrder: o("WAWebTabOrder").TAB_ORDER.PTT_OOC_BUTTON,
                       theme: "out-of-chat-playback",
@@ -321,7 +305,7 @@ __d(
                     children: s.jsxs(r("WAWebUnstyledButton.react"), {
                       dataTab: o("WAWebTabOrder").TAB_ORDER.PTT_OOC_BUTTON,
                       xstyle: b.senderButton,
-                      onClick: j,
+                      onClick: V,
                       children: [
                         s.jsx(E, { msg: n }),
                         s.jsx(L, { author: n.senderObj, chat: f }),
@@ -331,7 +315,7 @@ __d(
                   s.jsx("div", {
                     className: "xfvyar9 x5yr21d x78zum5 xl56j7k x6s0dn4",
                     children: s.jsx(r("WAWebPttCloseButton.react"), {
-                      onConfirm: G,
+                      onConfirm: q,
                       tabOrder: o("WAWebTabOrder").TAB_ORDER.PTT_OOC_BUTTON,
                       theme: "out-of-chat-playback",
                     }),
@@ -340,27 +324,27 @@ __d(
                 ],
               })
             : null),
-          (t[40] = g),
-          (t[41] = f),
-          (t[42] = G),
-          (t[43] = j),
-          (t[44] = V),
-          (t[45] = v),
-          (t[46] = n),
-          (t[47] = K),
-          (t[48] = Q))
-        : (Q = t[48]);
-      var X;
+          (t[37] = g),
+          (t[38] = f),
+          (t[39] = q),
+          (t[40] = V),
+          (t[41] = B),
+          (t[42] = v),
+          (t[43] = n),
+          (t[44] = H),
+          (t[45] = G))
+        : (G = t[45]);
+      var z;
       return (
-        t[49] !== Q
-          ? ((X = s.jsx(r("WAWebVelocityTransitionGroup"), {
+        t[46] !== G
+          ? ((z = s.jsx(r("WAWebVelocityTransitionGroup"), {
               transitionName: "ptt-out-of-chat",
-              children: Q,
+              children: G,
             })),
-            (t[49] = Q),
-            (t[50] = X))
-          : (X = t[50]),
-        X
+            (t[46] = G),
+            (t[47] = z))
+          : (z = t[47]),
+        z
       );
     }
     function L(e) {

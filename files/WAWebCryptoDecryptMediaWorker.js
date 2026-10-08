@@ -37,7 +37,7 @@ __d(
             m = yield o("WACryptoHmac").hmacSha256(l, d, e);
           if (!o("WACryptoUtils").arrayBuffersEqual(m, c))
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
-              "decryptMedia: hmac mismatch",
+              "decryptMedia: " + o("WAWebMediaFileErrors").HMAC_MISMATCH_ERROR,
             );
           var p = yield o("WACryptoAesCbc").aesCbcDecrypt(r, i, u);
           if (a != null) {

@@ -125,7 +125,7 @@ __d(
         (t.reset = function () {
           var e = this;
           ((this.$4 = !0),
-            this.$3 &&
+            this.$3 != null &&
               (o("MqttEnv").Env.clearTimeout(this.$3), (this.$3 = null)));
           var t = this.$1() * 1e3;
           t > 0 &&
@@ -134,7 +134,8 @@ __d(
             }, t));
         }),
         (t.cancel = function () {
-          this.$3 && (o("MqttEnv").Env.clearTimeout(this.$3), (this.$3 = null));
+          this.$3 != null &&
+            (o("MqttEnv").Env.clearTimeout(this.$3), (this.$3 = null));
         }),
         e
       );

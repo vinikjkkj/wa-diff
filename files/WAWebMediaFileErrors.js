@@ -60,7 +60,8 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
       m = "plaintext hash mismatch",
-      p = (function (e) {
+      p = "hmac mismatch",
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -71,7 +72,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      _ = (function (e) {
+      f = (function (e) {
         function t(t) {
           var n;
           return (
@@ -82,7 +83,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      f = (function (e) {
+      g = (function (e) {
         function t(t) {
           var n;
           return (
@@ -93,7 +94,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e),
-      g = (function (e) {
+      h = (function (e) {
         function t(t) {
           var n;
           return (
@@ -110,10 +111,11 @@ __d(
       (l.InvalidMediaCheckRepairFailedType = c),
       (l.MediaEncryptionError = d),
       (l.PLAINTEXT_HASH_MISMATCH_ERROR = m),
-      (l.MediaDecryptionError = p),
-      (l.MediaHashMismatch = _),
-      (l.MediaFileFailedLoad = f),
-      (l.MediaFileEmpty = g));
+      (l.HMAC_MISMATCH_ERROR = p),
+      (l.MediaDecryptionError = _),
+      (l.MediaHashMismatch = f),
+      (l.MediaFileFailedLoad = g),
+      (l.MediaFileEmpty = h));
   },
   98,
 );

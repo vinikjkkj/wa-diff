@@ -70,47 +70,12 @@ __d(
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
                       try {
-                        var t = o("WAWebWidFactory").createWid(
-                          e.botFbid + "@bot",
-                        );
-                        yield o(
-                          "WAWebPersistBotProfiles",
-                        ).mergeBotSupportFields(t, {
-                          creatorLid: e.creatorLid,
-                          hcaEntrypointId: e.hcaEntrypointId,
-                          name: e.name,
-                          product: e.product,
-                          isDeprecated: e.isDeprecated,
-                          isDeleted: !1,
-                          lastFetchedTimeMs: a,
-                        });
-                        var n = o(
-                          "WAWebPersistBotProfiles",
-                        ).setBotProfilePicUrls(
-                          t,
-                          e.profilePicThumbUrl,
-                          e.profilePicFullUrl,
-                        );
-                        n != null &&
-                          o("WAWebDBBulkPersistProfilePic")
-                            .persistProfilePicBatched(n)
-                            .catch(function (e) {
-                              o("WALogger")
-                                .ERROR(
-                                  s ||
-                                    (s =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[reconcileBotSupportFields] failed to persist a listed agent pic",
-                                      ])),
-                                )
-                                .catching(r("getErrorSafe")(e))
-                                .sendLogs("sbp-reconcile-persist-pic-error");
-                            });
+                        yield f(e, a);
                       } catch (e) {
                         o("WALogger")
                           .ERROR(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
                                 "[reconcileBotSupportFields] failed to upsert a listed agent",
                               ])),
                           )
@@ -140,8 +105,8 @@ __d(
                       } catch (e) {
                         o("WALogger")
                           .ERROR(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
                                 "[reconcileBotSupportFields] failed to tombstone a delisted agent",
                               ])),
                           )
@@ -162,7 +127,51 @@ __d(
         _.apply(this, arguments)
       );
     }
-    ((l.computeBotSupportTombstones = m), (l.reconcileBotSupportFields = p));
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebWidFactory").createWid(e.botFbid + "@bot");
+          yield o("WAWebPersistBotProfiles").mergeBotSupportFields(n, {
+            creatorLid: e.creatorLid,
+            hcaEntrypointId: e.hcaEntrypointId,
+            name: e.name,
+            product: e.product,
+            isDeprecated: e.isDeprecated,
+            isDeleted: !1,
+            lastFetchedTimeMs: t,
+          });
+          var a = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
+            n,
+            e.profilePicThumbUrl,
+            e.profilePicFullUrl,
+          );
+          return (
+            a != null &&
+              o("WAWebDBBulkPersistProfilePic")
+                .persistProfilePicBatched(a)
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[reconcileBotSupportFields] failed to persist a listed agent pic",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("sbp-reconcile-persist-pic-error");
+                }),
+            n
+          );
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    ((l.computeBotSupportTombstones = m),
+      (l.reconcileBotSupportFields = p),
+      (l.upsertListedAgentProfile = f));
   },
   98,
 );

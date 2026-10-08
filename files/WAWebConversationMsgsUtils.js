@@ -15,18 +15,17 @@ __d(
     "WAWebThreadMsgUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
+    var e, s;
+    function u(e) {
       var t;
       return (t = e.getBubbleElement == null ? void 0 : e.getBubbleElement()) !=
         null
         ? t
         : e.getContainerElement();
     }
-    function m(e) {
+    function c(e) {
       return e == null
         ? null
         : e.key != null
@@ -35,7 +34,7 @@ __d(
             })
           : e;
     }
-    function p(e) {
+    function d(e) {
       var t = e.msgLoadState;
       return {
         noEarlierMsgs: t.noEarlierMsgs,
@@ -46,7 +45,7 @@ __d(
         isRepairingMsgHistory: t.isRepairingMsgHistory,
       };
     }
-    function _(t, n, r, a) {
+    function m(t, n, r, a) {
       var i = o("WAWebThreadModelResolver").resolveThreadOrChat(t, a),
         l =
           r.noEarlierMsgs &&
@@ -78,11 +77,11 @@ __d(
         l
       );
     }
-    function f(e, t) {
+    function p(e, t) {
       var n = e.chat,
         r = e.focusCtx,
         a = e.msgCollection,
-        i = m(r) || g(e, t),
+        i = c(r) || _(e, t),
         l = i == null ? void 0 : i.msg,
         s = l == null ? void 0 : l.id;
       return {
@@ -96,65 +95,44 @@ __d(
         focusCtx: i,
       };
     }
-    function g(e, t) {
+    function _(e, t) {
       var n = e.chat,
-        a = e.focusCtx,
-        i = e.msgCollection,
-        l;
+        r = e.focusCtx,
+        a = e.msgCollection,
+        i;
       if (
-        (n.unreadCount ? (l = n.unreadCount) : (l = t), !((a && !h(e)) || !l))
+        (n.unreadCount ? (i = n.unreadCount) : (i = t), !((r && !f(e)) || !i))
       ) {
-        var d = i
+        var l = a
             .filter(function (e) {
               return o("WAWebMsgGetters").getIsUnreadType(e);
             })
             .reverse()
-            .slice(0, l),
-          m;
-        if (d.length === l)
-          (r("gkx")("26258") ||
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "unreadMsgs.length is: ",
-                  "",
-                ])),
-              d.length,
-            ),
-            (m = d[d.length - 1]));
-        else {
-          r("gkx")("26258") ||
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "insufficient unreadMsgs.length: ",
-                  "",
-                ])),
-              d.length,
-            );
-          return;
-        }
-        var p = n.unreadDividerOffset;
-        if (p > 0) {
-          var _ = i.filter(Boolean).reverse(),
-            f = _.indexOf(m);
-          _.slice(f + 1, f + p + 1).every(function (e) {
+            .slice(0, i),
+          u;
+        if (l.length === i) u = l[l.length - 1];
+        else return;
+        var c = n.unreadDividerOffset;
+        if (c > 0) {
+          var d = a.filter(Boolean).reverse(),
+            m = d.indexOf(u);
+          d.slice(m + 1, m + c + 1).every(function (e) {
             return !!o("WAWebFrontendMsgGetters").getAsRevoked(e);
           })
-            ? (m = _[f + p])
+            ? (u = d[m + c])
             : o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "invalid unreadDividerOffset: ",
                       "",
                     ])),
-                  p,
+                  c,
                 )
                 .sendLogs("invalid-unread-divider-offset", { sampling: 0.001 });
         }
         return {
-          msg: m,
+          msg: u,
           isUnreadDivider: o(
             "WAWebFrontendChatGetters",
           ).getShouldShowUnreadDivider(n),
@@ -162,14 +140,14 @@ __d(
         };
       }
     }
-    function h(e) {
+    function f(e) {
       var t = o("WAWebThreadModelResolver").resolveThreadOrChat(
         e.chat,
         e.threadId,
       );
       return t.msgs === e.msgCollection;
     }
-    function y(e) {
+    function g(e) {
       var t =
         o("WAWebContactGetters").getIsUser(e) ||
         o("WAWebContactGetters").getIsGroup(e) ||
@@ -182,7 +160,7 @@ __d(
             ) === !0
         : !1;
     }
-    function C(e) {
+    function h(e) {
       var t = e.msg,
         n = e.msgCollection,
         r = e.threadId;
@@ -196,15 +174,15 @@ __d(
             o("WAWebThreadMsgUtils").isMsgRootOfThread(t, r)
         : !1;
     }
-    ((l.getMessageAnchor = d),
-      (l.validateFocusCtx = m),
-      (l.getMsgLoadState = p),
-      (l.noEarlierMsgStateIsIncorrect = _),
-      (l.getInitialCursorAndFocusContext = f),
-      (l.getUnreadFocusCtx = g),
-      (l.isMostRecentCMC = h),
-      (l.isSimplifiedChatConversationMenuEnabled = y),
-      (l.isMsgVisibleInConversation = C));
+    ((l.getMessageAnchor = u),
+      (l.validateFocusCtx = c),
+      (l.getMsgLoadState = d),
+      (l.noEarlierMsgStateIsIncorrect = m),
+      (l.getInitialCursorAndFocusContext = p),
+      (l.getUnreadFocusCtx = _),
+      (l.isMostRecentCMC = f),
+      (l.isSimplifiedChatConversationMenuEnabled = g),
+      (l.isMsgVisibleInConversation = h));
   },
   98,
 );

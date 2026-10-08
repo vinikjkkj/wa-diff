@@ -83,9 +83,11 @@ __d(
                   to: t.S_WHATSAPP_NET,
                 },
                 t.wap("delete", { id: t.CUSTOM_STRING(e) }),
-              );
-            yield o("WADeprecatedSendIq").deprecatedSendIq(a, n);
+              ),
+              i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, n);
+            return i.success ? "deleted" : "failed";
           }
+          return "skipped_on_prod";
         })),
         _.apply(this, arguments)
       );

@@ -9,6 +9,7 @@ __d(
     "WAWebOrgAffiliationResolver",
     "WAWebOrgCollection",
     "WAWebOrgContactCollection",
+    "WAWebOrgDirectoryRepositoryState",
     "WAWebSchemaOrg",
     "WAWebUsernameTypes",
     "asyncToGeneratorRuntime",
@@ -22,63 +23,75 @@ __d(
       c,
       d,
       m,
-      p = new Set(),
-      _ = (m || (m = n("Promise"))).resolve(),
+      p = (m || (m = n("Promise"))).resolve(),
+      _ = null,
       f = null,
-      g = null,
-      h = new Map(),
-      y = new Map(),
-      C = he();
+      g = new Map(),
+      h = new Map();
+    function y() {
+      return o(
+        "WAWebOrgDirectoryRepositoryState",
+      ).getOrgDirectoryRepositorySnapshot();
+    }
+    function C(e) {
+      return o(
+        "WAWebOrgDirectoryRepositoryState",
+      ).subscribeToOrgDirectoryRepository(e);
+    }
     function b() {
-      return C;
-    }
-    function v(e) {
-      return (
-        p.add(e),
-        function () {
-          p.delete(e);
-        }
-      );
-    }
-    function S() {
-      if (g != null) return g;
       if (f != null) return f;
-      if (Z()) return (m || (m = n("Promise"))).resolve();
-      fe({ organizationsError: null, organizationsStatus: "loading" });
-      var e = Q(Y).finally(function () {
+      if (_ != null) return _;
+      if (Y()) return (m || (m = n("Promise"))).resolve();
+      o(
+        "WAWebOrgDirectoryRepositoryState",
+      ).updateOrgDirectoryRepositorySnapshot({
+        organizationsError: null,
+        organizationsStatus: "loading",
+      });
+      var e = j(Q).finally(function () {
+        _ === e && (_ = null);
+      });
+      return ((_ = e), e);
+    }
+    function v() {
+      if (f != null) return f;
+      o(
+        "WAWebOrgDirectoryRepositoryState",
+      ).updateOrgDirectoryRepositorySnapshot({
+        organizationsError: null,
+        organizationsStatus:
+          o(
+            "WAWebOrgDirectoryRepositoryState",
+          ).getOrgDirectoryRepositorySnapshot().organizations.length === 0
+            ? "loading"
+            : "refreshing",
+      });
+      var e = j(J).finally(function () {
         f === e && (f = null);
       });
       return ((f = e), e);
     }
-    function R() {
-      if (g != null) return g;
-      fe({
-        organizationsError: null,
-        organizationsStatus:
-          C.organizations.length === 0 ? "loading" : "refreshing",
-      });
-      var e = Q(ee).finally(function () {
-        g === e && (g = null);
-      });
-      return ((g = e), e);
-    }
-    function L(e) {
-      var t = y.get(e);
+    function S(e) {
+      var t = h.get(e);
       if (t != null) return t;
-      var n = h.get(e);
+      var n = g.get(e);
       if (n != null) return n;
-      _e(e, { error: null, status: "loading" });
-      var r = Q(function () {
-        return se(e);
+      me(e, { error: null, status: "loading" });
+      var r = j(function () {
+        return ie(e);
       }).finally(function () {
-        h.get(e) === r && h.delete(e);
+        g.get(e) === r && g.delete(e);
       });
-      return (h.set(e, r), r);
+      return (g.set(e, r), r);
     }
-    function E(e) {
-      var t = y.get(e);
+    function R(e) {
+      var t = h.get(e);
       if (t != null) return t;
-      if (C.memberDirectoryEnabledByOrgID.get(e) === !0) {
+      if (
+        o("WAWebOrgDirectoryRepositoryState")
+          .getOrgDirectoryRepositorySnapshot()
+          .memberDirectoryEnabledByOrgID.get(e) === !0
+      ) {
         var n,
           r,
           a =
@@ -87,36 +100,38 @@ __d(
             (((n = o("WAWebOrgCollection").OrgCollection.get(e)) == null
               ? void 0
               : n.directoryIsComplete) === !0 &&
-              ((r = C.directoryStateByOrgID.get(e)) == null
+              ((r = o("WAWebOrgDirectoryRepositoryState")
+                .getOrgDirectoryRepositorySnapshot()
+                .directoryStateByOrgID.get(e)) == null
                 ? void 0
                 : r.status) === "ready");
-        _e(e, { error: null, status: a ? "refreshing" : "loading" });
+        me(e, { error: null, status: a ? "refreshing" : "loading" });
       }
-      var i = Q(function () {
-        return ne(e);
+      var i = j(function () {
+        return ee(e);
       }).finally(function () {
-        y.get(e) === i && y.delete(e);
+        h.get(e) === i && h.delete(e);
       });
-      return (y.set(e, i), i);
+      return (h.set(e, i), i);
     }
-    function k(e, t) {
+    function L(e, t) {
       if ((t === void 0 && (t = !1), e === ""))
         return (m || (m = n("Promise"))).resolve(
-          K(r("err")("Missing organization ID"), !1),
+          z(r("err")("Missing organization ID"), !1),
         );
-      var o = y.get(e);
+      var o = h.get(e);
       return o != null
         ? o.then(function () {
-            return j(e);
+            return G(e);
           })
-        : I(e, t);
+        : E(e, t);
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function T() {
+    function k() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (
             !t &&
@@ -126,89 +141,97 @@ __d(
           ) {
             var r, a;
             if (
-              (yield L(e),
+              (yield S(e),
               ((r = o("WAWebOrgCollection").OrgCollection.get(e)) == null
                 ? void 0
                 : r.directoryIsComplete) === !0 &&
-                ((a = C.directoryStateByOrgID.get(e)) == null
+                ((a = o("WAWebOrgDirectoryRepositoryState")
+                  .getOrgDirectoryRepositorySnapshot()
+                  .directoryStateByOrgID.get(e)) == null
                   ? void 0
                   : a.status) === "ready")
             )
               return { status: "success" };
           }
-          return (yield E(e), j(e));
+          return (yield R(e), G(e));
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield D(e);
+          x(e, t);
         })),
         T.apply(this, arguments)
       );
     }
     function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield $(e);
-          P(e, t);
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
       return o("WAWebDBOrg").replaceOrgMembershipsForLids(e);
     }
-    function P(e, t) {
+    function x(e, t) {
       (e.forEach(function (e, t) {
         o("WAWebOrgContactCollection").OrgContactCollection.removeByLid(t);
       }),
         o("WAWebOrgContactCollection").OrgContactCollection.addRows(t));
     }
-    function N(e, t) {
+    function $(e, t) {
       return o("WAWebOrgAffiliationResolver").resolveOrgAffiliations(
         e,
         {
-          persistMemberships: $,
-          prepareJoinedOrganizations: G,
-          publishMemberships: P,
-          runOperation: Q,
+          persistMemberships: D,
+          prepareJoinedOrganizations: V,
+          publishMemberships: x,
+          runOperation: j,
         },
         t,
       );
     }
-    function M(e, t) {
-      return X(
+    function P(e, t) {
+      return K(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var n = yield o("WAWebOrgAdminGraphQL").updateOrgAdminSettings(e, t);
           return (
             yield o("WAWebOrgAdminOrgCache").writeCachedOrgAdminOrg(n),
-            w(n),
+            N(n),
             n
           );
         }),
       );
     }
-    function w(e) {
+    function N(e) {
       (e.isMemberDirectoryEnabled ||
         o("WAWebOrgContactCollection").OrgContactCollection.removeByOrgId(e.id),
         o("WAWebOrgCollection").OrgCollection.get(e.id) != null &&
-          o("WAWebOrgCollection").OrgCollection.addRows([le(e)]));
-      var t = new Map(C.memberDirectoryEnabledByOrgID);
+          o("WAWebOrgCollection").OrgCollection.addRows([ae(e)]));
+      var t = new Map(
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).getOrgDirectoryRepositorySnapshot().memberDirectoryEnabledByOrgID,
+      );
       (t.set(e.id, e.isMemberDirectoryEnabled),
-        fe({
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).updateOrgDirectoryRepositorySnapshot({
           memberDirectoryEnabledByOrgID: t,
           organizations: o("WAWebOrgCollection").OrgCollection.toArray(),
         }));
     }
-    function A(e, t, n) {
-      return X(function () {
-        return F(e, t, n);
+    function M(e, t, n) {
+      return K(function () {
+        return w(e, t, n);
       });
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function w(e, t, n) {
+      return A.apply(this, arguments);
     }
-    function O() {
+    function A() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = yield o("WAWebOrgAdminGraphQL").setOrgAdminMemberRole(
               e,
               t,
@@ -221,12 +244,14 @@ __d(
             if (l != null) {
               var c;
               (yield o("WAWebDBOrg").updateOrgMemberRole(e, t, l, i),
-                B(e, i),
+                F(e, i),
                 (c = o(
                   "WAWebOrgContactCollection",
                 ).OrgContactCollection.getByOrgIdAndLid(e, t)) == null ||
                   c.set({ role: l }),
-                fe({
+                o(
+                  "WAWebOrgDirectoryRepositoryState",
+                ).updateOrgDirectoryRepositorySnapshot({
                   organizations:
                     o("WAWebOrgCollection").OrgCollection.toArray(),
                 }));
@@ -243,31 +268,34 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("org-directory-member-role-reconciliation-failed"));
           }
-          return !u && C.memberDirectoryEnabledByOrgID.get(e) !== !0
+          return !u &&
+            o("WAWebOrgDirectoryRepositoryState")
+              .getOrgDirectoryRepositorySnapshot()
+              .memberDirectoryEnabledByOrgID.get(e) !== !0
             ? !1
-            : oe(e);
+            : ne(e);
         })),
-        O.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function B(e, t) {
+    function F(e, t) {
       var n = o("WAWebOrgCollection").OrgCollection.get(e);
       n == null ||
         t == null ||
         (n.memberCount !== t &&
           n.set({ directoryIsComplete: !1, memberCount: t }));
     }
-    function W(e, t) {
-      return X(function () {
-        return q(e, t);
+    function O(e, t) {
+      return K(function () {
+        return B(e, t);
       });
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function U() {
+    function W() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebOrgAdminGraphQL").removeOrgAdminMember(e, t),
             a = n.status === "success" ? n.memberCount : null,
             i = !0;
@@ -281,8 +309,10 @@ __d(
             ).OrgContactCollection.getByOrgIdAndLid(e, t);
             (l != null &&
               o("WAWebOrgContactCollection").OrgContactCollection.remove(l),
-              V(e, l != null, a),
-              fe({
+              q(e, l != null, a),
+              o(
+                "WAWebOrgDirectoryRepositoryState",
+              ).updateOrgDirectoryRepositorySnapshot({
                 organizations: o("WAWebOrgCollection").OrgCollection.toArray(),
               }));
           } catch (e) {
@@ -299,14 +329,17 @@ __d(
                   "org-directory-member-removal-reconciliation-failed",
                 ));
           }
-          return !i && C.memberDirectoryEnabledByOrgID.get(e) !== !0
+          return !i &&
+            o("WAWebOrgDirectoryRepositoryState")
+              .getOrgDirectoryRepositorySnapshot()
+              .memberDirectoryEnabledByOrgID.get(e) !== !0
             ? !1
-            : oe(e);
+            : ne(e);
         })),
-        U.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function V(e, t, n) {
+    function q(e, t, n) {
       var r = o("WAWebOrgCollection").OrgCollection.get(e);
       if (!(r == null || n == null)) {
         var a =
@@ -318,41 +351,56 @@ __d(
         r.set({ directoryIsComplete: !1, memberCount: n });
       }
     }
-    function H() {
-      ((_ = (m || (m = n("Promise"))).resolve()),
+    function U() {
+      ((p = (m || (m = n("Promise"))).resolve()),
+        (_ = null),
         (f = null),
-        (g = null),
+        (g = new Map()),
         (h = new Map()),
-        (y = new Map()),
         o("WAWebOrgAffiliationResolver").resetOrgAffiliationResolver(),
         o("WAWebOrgCollection").OrgCollection.reset(),
         o("WAWebOrgContactCollection").OrgContactCollection.reset(),
-        (C = he()),
-        ge());
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).resetOrgDirectoryRepositorySnapshot());
     }
-    function G() {
-      return z.apply(this, arguments);
+    function V() {
+      return H.apply(this, arguments);
     }
-    function z() {
+    function H() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           return (
-            yield S(),
-            C.orderedOrgIDs == null && (yield R()),
-            ((e = C.orderedOrgIDs) == null ? void 0 : e.length) === 0
+            yield b(),
+            o(
+              "WAWebOrgDirectoryRepositoryState",
+            ).getOrgDirectoryRepositorySnapshot().orderedOrgIDs == null &&
+              (yield v()),
+            ((e = o(
+              "WAWebOrgDirectoryRepositoryState",
+            ).getOrgDirectoryRepositorySnapshot().orderedOrgIDs) == null
+              ? void 0
+              : e.length) === 0
               ? "empty"
-              : C.orderedOrgIDs != null || C.organizations.length > 0
+              : o(
+                    "WAWebOrgDirectoryRepositoryState",
+                  ).getOrgDirectoryRepositorySnapshot().orderedOrgIDs != null ||
+                  o(
+                    "WAWebOrgDirectoryRepositoryState",
+                  ).getOrgDirectoryRepositorySnapshot().organizations.length > 0
                 ? "eligible"
                 : "unknown"
           );
         })),
-        z.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function j(e) {
+    function G(e) {
       var t,
-        n = C.directoryStateByOrgID.get(e),
+        n = o("WAWebOrgDirectoryRepositoryState")
+          .getOrgDirectoryRepositorySnapshot()
+          .directoryStateByOrgID.get(e),
         a = n == null ? void 0 : n.error;
       if (
         (n == null ? void 0 : n.status) === "ready" &&
@@ -365,43 +413,47 @@ __d(
         return a instanceof
           o("WAWebOrgAdminGraphQL").OrgAdminRosterTooLargeError
           ? { memberCount: a.memberCount, status: "roster_too_large" }
-          : K(a, !0);
-      var i = C.memberDirectoryEnabledByOrgID.get(e);
-      return K(
+          : z(a, !0);
+      var i = o("WAWebOrgDirectoryRepositoryState")
+        .getOrgDirectoryRepositorySnapshot()
+        .memberDirectoryEnabledByOrgID.get(e);
+      return z(
         r("err")(
           i === !1 ? "MEMBER_DIRECTORY_DISABLED" : "INCOMPLETE_DIRECTORY",
         ),
         i !== !1,
       );
     }
-    function K(e, t) {
+    function z(e, t) {
       return { error: e, retryable: t, status: "failed" };
     }
-    function Q(e) {
-      var t = _.then(e, e);
+    function j(e) {
+      var t = p.then(e, e);
       return (
-        (_ = t.then(
+        (p = t.then(
           function () {},
           function () {},
         )),
         t
       );
     }
-    function X(e) {
-      return ((f = null), (g = null), (h = new Map()), (y = new Map()), Q(e));
+    function K(e) {
+      return ((_ = null), (f = null), (g = new Map()), (h = new Map()), j(e));
     }
-    function Y() {
-      return J.apply(this, arguments);
+    function Q() {
+      return X.apply(this, arguments);
     }
-    function J() {
+    function X() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebDBOrg").getOrgs();
-            if (Z()) return;
+            if (Y()) return;
             (o("WAWebOrgCollection").OrgCollection.reset(),
               o("WAWebOrgCollection").OrgCollection.addRows(e),
-              fe({
+              o(
+                "WAWebOrgDirectoryRepositoryState",
+              ).updateOrgDirectoryRepositorySnapshot({
                 memberDirectoryEnabledByOrgID: new Map(
                   e.flatMap(function (e) {
                     return e.isMemberDirectoryEnabled == null
@@ -414,29 +466,35 @@ __d(
                 organizationsStatus: "ready",
               }));
           } catch (e) {
-            if (Z()) return;
-            fe({
+            if (Y()) return;
+            o(
+              "WAWebOrgDirectoryRepositoryState",
+            ).updateOrgDirectoryRepositorySnapshot({
               organizationsError: r("getErrorSafe")(e),
               organizationsStatus: "error",
             });
           }
         })),
-        J.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function Z() {
-      return C.orderedOrgIDs != null;
-    }
-    function ee() {
-      return te.apply(this, arguments);
-    }
-    function te() {
+    function Y() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).getOrgDirectoryRepositorySnapshot().orderedOrgIDs != null
+      );
+    }
+    function J() {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebOrgAdminGraphQL").loadOrgAdminOrgs();
             (yield o("WAWebOrgAdminOrgCache").writeCachedOrgAdminOrgs(e),
-              ie(e));
+              oe(e));
           } catch (e) {
             var t = r("getErrorSafe")(e);
             (o("WALogger")
@@ -450,20 +508,29 @@ __d(
               )
               .catching(t)
               .sendLogs("org-admin-orgs-load-failed"),
-              fe({ organizationsError: t, organizationsStatus: "error" }));
+              o(
+                "WAWebOrgDirectoryRepositoryState",
+              ).updateOrgDirectoryRepositorySnapshot({
+                organizationsError: t,
+                organizationsStatus: "error",
+              }));
           }
         })),
-        te.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function ne(e) {
-      return re.apply(this, arguments);
+    function ee(e) {
+      return te.apply(this, arguments);
     }
-    function re() {
+    function te() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (C.memberDirectoryEnabledByOrgID.get(e) !== !0) {
-            _e(e, { error: null, status: "ready" });
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o("WAWebOrgDirectoryRepositoryState")
+              .getOrgDirectoryRepositorySnapshot()
+              .memberDirectoryEnabledByOrgID.get(e) !== !0
+          ) {
+            me(e, { error: null, status: "ready" });
             return;
           }
           try {
@@ -479,18 +546,18 @@ __d(
               throw r("err")("INCOMPLETE_DIRECTORY");
             var s = a,
               u = i.flatMap(function (t) {
-                return me(e, t);
+                return ce(e, t);
               });
             if (u.length !== i.length) throw r("err")("INCOMPLETE_DIRECTORY");
             (yield o("WAWebDBOrg").replaceCompleteOrgRoster(e, u, s, !0),
-              ce(e, u),
+              se(e, u),
               o("WAWebOrgContactCollection").OrgContactCollection.removeByOrgId(
                 e,
               ),
               o("WAWebOrgContactCollection").OrgContactCollection.addRows(u),
               (t = o("WAWebOrgCollection").OrgCollection.get(e)) == null ||
                 t.set({ directoryIsComplete: !0, memberCount: s }),
-              _e(e, { error: null, status: "ready" }));
+              me(e, { error: null, status: "ready" }));
           } catch (t) {
             var c = r("getErrorSafe")(t);
             (o("WALogger")
@@ -504,26 +571,28 @@ __d(
               )
               .catching(c)
               .sendLogs("org-admin-directory-refresh-failed"),
-              _e(e, { error: c, status: "error" }));
+              me(e, { error: c, status: "error" }));
           }
+        })),
+        te.apply(this, arguments)
+      );
+    }
+    function ne(e) {
+      return re.apply(this, arguments);
+    }
+    function re() {
+      return (
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebOrgDirectoryRepositoryState")
+            .getOrgDirectoryRepositorySnapshot()
+            .memberDirectoryEnabledByOrgID.get(e) !== !0
+            ? !0
+            : (yield ee(e), G(e).status === "success");
         })),
         re.apply(this, arguments)
       );
     }
     function oe(e) {
-      return ae.apply(this, arguments);
-    }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return C.memberDirectoryEnabledByOrgID.get(e) !== !0
-            ? !0
-            : (yield ne(e), j(e).status === "success");
-        })),
-        ae.apply(this, arguments)
-      );
-    }
-    function ie(e) {
       var t,
         n = new Set(
           e.map(function (e) {
@@ -544,10 +613,12 @@ __d(
               e.id,
             );
         }));
-      var r = e.map(le);
+      var r = e.map(ae);
       (t.OrgCollection.reset(),
         t.OrgCollection.addRows(r),
-        fe({
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).updateOrgDirectoryRepositorySnapshot({
           memberDirectoryEnabledByOrgID: new Map(
             e.map(function (e) {
               return [e.id, e.isMemberDirectoryEnabled];
@@ -561,7 +632,7 @@ __d(
           organizationsStatus: "ready",
         }));
     }
-    function le(e) {
+    function ae(e) {
       var t,
         n,
         r = o("WAWebOrgCollection").OrgCollection.get(e.id),
@@ -589,24 +660,26 @@ __d(
         var l = r == null ? void 0 : r.memberCount,
           s = a.memberCount != null && a.memberCount !== l,
           u =
-            C.memberDirectoryEnabledByOrgID.get(e.id) !==
+            o("WAWebOrgDirectoryRepositoryState")
+              .getOrgDirectoryRepositorySnapshot()
+              .memberDirectoryEnabledByOrgID.get(e.id) !==
             e.isMemberDirectoryEnabled;
         a.directoryIsComplete = s || u ? !1 : i;
       }
       return a;
     }
-    function se(e) {
-      return ue.apply(this, arguments);
+    function ie(e) {
+      return le.apply(this, arguments);
     }
-    function ue() {
+    function le() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t,
               n,
               a = o("WAWebOrgCollection").OrgCollection.get(e);
             if ((a == null ? void 0 : a.directoryIsComplete) !== !0) {
-              de(e, { error: null, status: "ready" });
+              ue(e, { error: null, status: "ready" });
               return;
             }
             var i = yield o("WAWebOrgAdminOrgCache").readCachedOrgRoster(e);
@@ -615,11 +688,11 @@ __d(
                 ? void 0
                 : t.directoryIsComplete) !== !0
             ) {
-              de(e, { error: null, status: "ready" });
+              ue(e, { error: null, status: "ready" });
               return;
             }
             var l = i.flatMap(function (t) {
-                return me(e, t);
+                return ce(e, t);
               }),
               s =
                 (n = o("WAWebOrgCollection").OrgCollection.get(e)) == null
@@ -627,22 +700,22 @@ __d(
                   : n.memberCount;
             if (l.length !== i.length || (s != null && l.length !== s))
               throw r("err")("INCOMPLETE_CACHED_DIRECTORY");
-            (ce(e, l),
+            (se(e, l),
               o("WAWebOrgContactCollection").OrgContactCollection.removeByOrgId(
                 e,
               ),
               o("WAWebOrgContactCollection").OrgContactCollection.addRows(
-                l.sort(pe),
+                l.sort(de),
               ),
-              de(e, { error: null, status: "ready" }));
+              ue(e, { error: null, status: "ready" }));
           } catch (t) {
-            de(e, { error: r("getErrorSafe")(t), status: "error" });
+            ue(e, { error: r("getErrorSafe")(t), status: "error" });
           }
         })),
-        ue.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function ce(e, t) {
+    function se(e, t) {
       var n = new Set(
         t.map(function (e) {
           return e.lid;
@@ -658,12 +731,15 @@ __d(
           Array.from(n),
         ));
     }
-    function de(e, t) {
+    function ue(e, t) {
       var n;
-      ((n = C.directoryStateByOrgID.get(e)) == null ? void 0 : n.status) !==
-        "error" && _e(e, t);
+      ((n = o("WAWebOrgDirectoryRepositoryState")
+        .getOrgDirectoryRepositorySnapshot()
+        .directoryStateByOrgID.get(e)) == null
+        ? void 0
+        : n.status) !== "error" && me(e, t);
     }
-    function me(t, n) {
+    function ce(t, n) {
       var r,
         a = o("WAWebSchemaOrg").OrgMemberRole.cast(n.role);
       if (a == null)
@@ -682,7 +758,10 @@ __d(
         );
       var i = {
           lid: n.lid,
-          memberName: n.displayName,
+          memberName:
+            n.memberName == null || n.memberName === ""
+              ? n.displayName
+              : n.memberName,
           memberTag: (r = n.memberTag) != null ? r : "",
           orgId: t,
           role: a,
@@ -694,45 +773,34 @@ __d(
         [i]
       );
     }
-    function pe(e, t) {
+    function de(e, t) {
       var n = e.memberName.localeCompare(t.memberName);
       return n !== 0 ? n : e.lid.localeCompare(t.lid);
     }
-    function _e(e, t) {
-      var n = new Map(C.directoryStateByOrgID);
-      (n.set(e, t), fe({ directoryStateByOrgID: n }));
+    function me(e, t) {
+      var n = new Map(
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).getOrgDirectoryRepositorySnapshot().directoryStateByOrgID,
+      );
+      (n.set(e, t),
+        o(
+          "WAWebOrgDirectoryRepositoryState",
+        ).updateOrgDirectoryRepositorySnapshot({ directoryStateByOrgID: n }));
     }
-    function fe(e) {
-      ((C = babelHelpers.extends({}, C, e)), ge());
-    }
-    function ge() {
-      p.forEach(function (e) {
-        return e();
-      });
-    }
-    function he() {
-      return {
-        directoryStateByOrgID: new Map(),
-        memberDirectoryEnabledByOrgID: new Map(),
-        organizations: [],
-        organizationsError: null,
-        organizationsStatus: "idle",
-        orderedOrgIDs: null,
-      };
-    }
-    ((l.getOrgDirectoryRepositorySnapshot = b),
-      (l.subscribeToOrgDirectoryRepository = v),
-      (l.restoreCachedOrganizations = S),
-      (l.refreshOrganizations = R),
-      (l.restoreCachedOrgDirectory = L),
-      (l.refreshOrgDirectory = E),
-      (l.ensureFullRoster = k),
-      (l.applyOrgMembershipsForLids = D),
-      (l.resolveOrgAffiliations = N),
-      (l.saveOrganizationSettings = M),
-      (l.updateOrganizationMemberRole = A),
-      (l.removeOrganizationMember = W),
-      (l.resetOrgDirectoryRepository = H));
+    ((l.getOrgDirectoryRepositorySnapshot = y),
+      (l.subscribeToOrgDirectoryRepository = C),
+      (l.restoreCachedOrganizations = b),
+      (l.refreshOrganizations = v),
+      (l.restoreCachedOrgDirectory = S),
+      (l.refreshOrgDirectory = R),
+      (l.ensureFullRoster = L),
+      (l.applyOrgMembershipsForLids = I),
+      (l.resolveOrgAffiliations = $),
+      (l.saveOrganizationSettings = P),
+      (l.updateOrganizationMemberRole = M),
+      (l.removeOrganizationMember = O),
+      (l.resetOrgDirectoryRepository = U));
   },
   98,
 );

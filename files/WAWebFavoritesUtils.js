@@ -1,6 +1,7 @@
 __d(
   "WAWebFavoritesUtils",
   [
+    "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFavoriteCollection",
@@ -62,7 +63,14 @@ __d(
       );
     }
     function u(e) {
-      return (e === void 0 && (e = 3), s().slice(0, e));
+      return (
+        e === void 0 && (e = 3),
+        s()
+          .filter(function (e) {
+            return !o("WAWebBotUtils").isMetaAiBot(e.wid);
+          })
+          .slice(0, e)
+      );
     }
     ((l.getFavoriteChats = e),
       (l.getFavoriteItems = s),

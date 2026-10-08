@@ -331,6 +331,7 @@ __d(
         Food: "FOOD",
         Health: "HEALTH",
         Location: "LOCATION",
+        Night: "NIGHT",
         ShoeRunning: "SHOE_RUNNING",
         Shopping: "SHOPPING",
         Travel: "TRAVEL",

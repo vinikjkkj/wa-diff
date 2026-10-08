@@ -3,6 +3,7 @@ __d(
   [
     "WALongInt",
     "WAWebE2EProtoUtils",
+    "WAWebMessageEditBotGroupMetadata",
     "WAWebMessageEditUtils",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
@@ -141,6 +142,10 @@ __d(
           pollName: g,
           reportingTokenInfo: t.reportingTokenInfo,
         },
+        o("WAWebMessageEditBotGroupMetadata").getReceivedEditBotGroupMetadata(
+          t,
+          e,
+        ),
       );
     }
     l.protobufToPollEditDecryptedMsgData = e;

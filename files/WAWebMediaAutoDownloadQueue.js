@@ -5,8 +5,8 @@ __d(
     "WAConcurrentPriorityPromiseQueue",
     "WALogger",
     "WAWebDownloadProgressiveJpegThumbnail",
+    "WAWebDownloadStatusThumbnail",
     "WAWebDualUploadsAutoDownloadPolicy",
-    "WAWebMedia",
     "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaGatingUtils",
     "WAWebMsgGetters",
@@ -423,7 +423,9 @@ __d(
                   r = e.message;
                 yield this.$1.enqueue(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    yield o("WAWebMedia").downloadStatusThumbnail({ msg: r });
+                    yield o(
+                      "WAWebDownloadStatusThumbnail",
+                    ).downloadStatusThumbnail({ msg: r });
                   }),
                   { group: t, priority: -r.t },
                 );

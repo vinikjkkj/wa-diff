@@ -26,6 +26,7 @@ __d(
                 host: e.host,
                 nodeType: "secureCredentialRequest",
                 pageUrl: e.page_url,
+                requestId: e.request_id,
                 subtitle: e.subtitle,
                 title: e.title,
               }),

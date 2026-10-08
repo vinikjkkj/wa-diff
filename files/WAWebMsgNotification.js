@@ -2,13 +2,11 @@ __d(
   "WAWebMsgNotification",
   [
     "Promise",
-    "WAWebABProps",
     "WAWebBaseNotification",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBotBaseGating",
     "WAWebBotTypes",
     "WAWebBotUtils",
-    "WAWebChatGetters",
     "WAWebChatThreadLogging",
     "WAWebEnvironment",
     "WAWebFMXGatingUtils",
@@ -19,7 +17,6 @@ __d(
     "WAWebMediaUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebNewsletterTabPulseState",
     "WAWebNotificationController",
     "WAWebNotificationEngagementWamEvent",
     "WAWebNotificationHelpers",
@@ -284,17 +281,6 @@ __d(
           (a.getContextMenuItems = function () {
             var e;
             return (e = c == null ? void 0 : c(this.msg)) != null ? e : [];
-          }),
-          (a.playSound = function () {
-            (e.prototype.playSound.call(this), this.$WAMsgNotification$p_1());
-          }),
-          (a.$WAMsgNotification$p_1 = function () {
-            var e = o("WAWebFrontendMsgGetters").getChat(this.msg);
-            o("WAWebChatGetters").getIsNewsletter(e) &&
-              o("WAWebABProps").getABPropConfigValue(
-                "channels_pulse_on_unread_badge_enabled",
-              ) &&
-              r("WAWebNewsletterTabPulseState").triggerPulse();
           }),
           (a.getNotificationDeliveryWamEventData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

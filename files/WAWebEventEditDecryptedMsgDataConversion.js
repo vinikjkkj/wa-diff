@@ -5,6 +5,7 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebEventsParseEventCreationMessageProto",
     "WAWebEventsValidationError",
+    "WAWebMessageEditBotGroupMetadata",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebProcessBaseMsgInfo",
@@ -121,6 +122,10 @@ __d(
               : void 0,
           reportingTokenInfo: t.reportingTokenInfo,
         },
+        o("WAWebMessageEditBotGroupMetadata").getReceivedEditBotGroupMetadata(
+          t,
+          e,
+        ),
       );
     }
     l.protobufToEventEditDecryptedMsgData = e;

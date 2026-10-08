@@ -46,6 +46,7 @@ __d(
               return {
                 displayName: a.displayName,
                 lid: r.lid,
+                memberName: r.memberName === "" ? a.displayName : r.memberName,
                 memberTag: r.memberTag === "" ? null : r.memberTag,
                 phoneNumber: a.phoneNumber,
                 role: R(r.role),

@@ -10,6 +10,7 @@ __d(
     "WAWebCriticalEventWamEvent",
     "WAWebErrorBoundary.react",
     "WAWebGroupAgentNonInitiatorNux",
+    "WAWebHttpErrors",
     "WAWebLazyLoadedRetriable",
     "WAWebModalManager",
     "WAWebNullFunc",
@@ -114,7 +115,13 @@ __d(
                     fallback: o("WAWebNullFunc").returnNull,
                     name: "meta-ai-open-group-nux",
                     onError: a,
-                    children: m.jsx(r, { noticeId: e, onClosed: n }),
+                    children: m.jsx(r, {
+                      noticeId: e,
+                      onClosed: n,
+                      onLoadFailed: function () {
+                        h.add(e);
+                      },
+                    }),
                   }),
                 ),
                   t == null || t());
@@ -148,17 +155,21 @@ __d(
               )
               .sendLogs("meta-ai-open-group-nux-notice-load-failed");
           } catch (t) {
-            o("WALogger")
-              .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[MetaAiOpenGroupNux] notice ",
-                    " failed to load",
-                  ])),
-                e,
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("meta-ai-open-group-nux-notice-load-failed");
+            if (
+              (o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[MetaAiOpenGroupNux] notice ",
+                      " failed to load",
+                    ])),
+                  e,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("meta-ai-open-group-nux-notice-load-failed"),
+              t instanceof o("WAWebHttpErrors").HttpNetworkError)
+            )
+              return !1;
           }
           return (h.add(e), !1);
         })),

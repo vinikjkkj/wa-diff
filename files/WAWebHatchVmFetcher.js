@@ -5,11 +5,15 @@ __d(
     "use strict";
     var e,
       s,
-      u = 3e4,
-      c = "https://hatch-api.meta.ai/hatch/fetch_vms?notary_token=true",
-      d = 4294967295,
-      m = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
-    function p(t) {
+      u,
+      c = 3e4,
+      d = "https://hatch-api.meta.ai/hatch/fetch_vms?notary_token=true",
+      m = 1,
+      p = "https://hatch-api.meta.ai/hatch/lease_vm",
+      _ = "https://hatch-api.meta.ai/hatch/vm/wake",
+      f = 4294967295,
+      g = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
+    function h(t) {
       o("WALogger")
         .WARN(
           e ||
@@ -21,7 +25,7 @@ __d(
         )
         .sendLogs("hatch-vm-credentials-rejected-field");
     }
-    function _(e) {
+    function y(e) {
       o("WALogger")
         .WARN(
           s ||
@@ -33,11 +37,25 @@ __d(
         )
         .sendLogs("hatch-vm-credentials-request-failed");
     }
-    function f(e) {
-      var t = e.trim();
-      return m.test(t) ? t : null;
+    function C(e, t) {
+      o("WALogger")
+        .WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-vm-credentials: ",
+              " request failed reason=",
+              "",
+            ])),
+          e,
+          t,
+        )
+        .sendLogs("hatch-vm-credentials-control-failed");
     }
-    function g(e) {
+    function b(e) {
+      var t = e.trim();
+      return g.test(t) ? t : null;
+    }
+    function v(e) {
       var t;
       try {
         t = new URL(e);
@@ -48,14 +66,14 @@ __d(
         r = t.hostname.toLowerCase();
       if (!r.endsWith(n)) return null;
       var o = r.slice(0, -n.length);
-      return f(o);
+      return b(o);
     }
-    function h(e) {
+    function S(e) {
       if (typeof e != "string") return null;
       var t = e.trim();
       return t === "" ? null : t;
     }
-    function y(e, t) {
+    function R(e, t) {
       var n;
       if (e == null || typeof e != "object" || Array.isArray(e))
         return {
@@ -77,46 +95,46 @@ __d(
           field: "vm_ws_url",
           kind: "failure",
         };
-      var m = o.trim();
+      var d = o.trim();
       if (typeof s != "string" || s.trim() === "")
         return {
           detail: "VM entry omitted its auth token",
           field: "vm_auth_token",
           kind: "failure",
         };
-      var p = s.trim();
+      var m = s.trim();
       if (u == null || typeof u != "object" || Array.isArray(u))
         return {
           detail: "VM entry omitted its notary tokens",
           field: "vm_notary_tokens",
           kind: "failure",
         };
-      if (typeof c != "number" || !Number.isFinite(c) || c < 0 || c > d)
+      if (typeof c != "number" || !Number.isFinite(c) || c < 0 || c > f)
         return {
           detail: "VM entry had an invalid notary expiration",
           field: "notary_token_expiration_ts",
           kind: "failure",
         };
-      var _ = typeof i == "string" ? i.trim() : "",
-        y = _ !== "",
-        C = y ? f(_) : g(m),
-        b = (n = h(u["/v1/noise"])) != null ? n : h(u["/"]),
-        v = c * 1e3;
-      return C == null
+      var p = typeof i == "string" ? i.trim() : "",
+        _ = p !== "",
+        g = _ ? b(p) : v(d),
+        h = (n = S(u["/v1/noise"])) != null ? n : S(u["/"]),
+        y = c * 1e3;
+      return g == null
         ? {
-            detail: y
+            detail: _
               ? "VM entry had an invalid VM id"
               : "VM entry had an invalid gateway host",
-            field: y ? "vm_id" : "vm_ws_url",
+            field: _ ? "vm_id" : "vm_ws_url",
             kind: "failure",
           }
-        : b == null
+        : h == null
           ? {
               detail: "VM entry omitted its Noise notary token",
               field: "vm_notary_tokens",
               kind: "failure",
             }
-          : v <= t
+          : y <= t
             ? {
                 detail: "VM entry had an expired notary token",
                 field: "notary_token_expiration_ts",
@@ -124,18 +142,18 @@ __d(
               }
             : {
                 entry: {
-                  gatewayUrl: m,
+                  gatewayUrl: d,
                   isDefault: a,
-                  notaryExpiresAtMs: v,
-                  notaryToken: b,
+                  notaryExpiresAtMs: y,
+                  notaryToken: h,
                   state: l,
-                  vmAuthToken: p,
-                  vmId: C,
+                  vmAuthToken: m,
+                  vmId: g,
                 },
                 kind: "ok",
               };
     }
-    var C = (function () {
+    var L = (function () {
       function e(e, t) {
         (t === void 0 &&
           (t = function () {
@@ -154,11 +172,11 @@ __d(
             var n = new AbortController(),
               r = self.setTimeout(function () {
                 return n.abort();
-              }, u);
+              }, c);
             try {
               var o;
               try {
-                o = yield this.$1(c, {
+                o = yield this.$1(d, {
                   headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + t,
@@ -169,7 +187,7 @@ __d(
               } catch (e) {
                 var a = n.signal.aborted;
                 return (
-                  _(a ? "timeout" : "transport"),
+                  y(a ? "timeout" : "transport"),
                   {
                     detail: a
                       ? "VM credential request timed out"
@@ -200,7 +218,7 @@ __d(
               } catch (e) {
                 var l = n.signal.aborted;
                 return (
-                  _(l ? "timeout" : "not_json"),
+                  y(l ? "timeout" : "not_json"),
                   {
                     detail: l
                       ? "VM credential request timed out"
@@ -217,34 +235,35 @@ __d(
               var s = i.vm_list;
               if (!Array.isArray(s))
                 return (
-                  p("vm_list"),
+                  h("vm_list"),
                   {
                     detail: "VM credential response omitted vm_list",
                     kind: "failure",
                   }
                 );
-              var d = [],
+              if (s.length === 0) return { entries: [], kind: "ok" };
+              var u = [],
                 m = [],
-                f = new Set(),
-                g = this.$2();
-              for (var h of s) {
-                var C = y(h, g);
-                C.kind === "ok"
-                  ? d.push(C.entry)
-                  : (m.push(C.detail), f.add(C.field));
+                p = new Set(),
+                _ = this.$2();
+              for (var f of s) {
+                var g = R(f, _);
+                g.kind === "ok"
+                  ? u.push(g.entry)
+                  : (m.push(g.detail), p.add(g.field));
               }
-              for (var b of f) p(b);
-              if (d.length === 0) {
-                var v;
+              for (var C of p) h(C);
+              if (u.length === 0) {
+                var b;
                 return {
                   detail:
-                    (v = m[0]) != null
-                      ? v
+                    (b = m[0]) != null
+                      ? b
                       : "VM credential response contained no entries",
                   kind: "failure",
                 };
               }
-              return { entries: d, kind: "ok" };
+              return { entries: u, kind: "ok" };
             } finally {
               self.clearTimeout(r);
             }
@@ -254,10 +273,76 @@ __d(
           }
           return t;
         })()),
+        (t.lease = function (t) {
+          return this.$3(
+            p,
+            { hatchling_vm_type: m, notary_token: !0 },
+            t,
+            "lease",
+          );
+        }),
+        (t.wake = function (t, n) {
+          return this.$3(_, { retry_count: 0, vm_id: n }, t, "wake");
+        }),
+        (t.$3 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r) {
+              var o = n.trim();
+              if (o === "")
+                return { detail: "ABRA token is empty", kind: "failure" };
+              var a = new AbortController(),
+                i = self.setTimeout(function () {
+                  return a.abort();
+                }, c),
+                l;
+              try {
+                l = yield this.$1(e, {
+                  body: JSON.stringify(t),
+                  headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + o,
+                    "Content-Type": "application/json",
+                  },
+                  method: "POST",
+                  signal: a.signal,
+                });
+              } catch (e) {
+                var s = a.signal.aborted;
+                return (
+                  C(r, s ? "timeout" : "transport"),
+                  {
+                    detail: s
+                      ? "VM " + r + " request timed out"
+                      : "VM " + r + " request failed",
+                    kind: "failure",
+                  }
+                );
+              } finally {
+                self.clearTimeout(i);
+              }
+              if (l.status === 401)
+                return {
+                  detail: "ABRA token was refused for the VM " + r,
+                  kind: "unauthorized",
+                };
+              if (!l.ok) {
+                var u = "VM " + r + " request returned HTTP " + l.status;
+                return l.status === 404
+                  ? { detail: u, kind: "not_found" }
+                  : { detail: u, kind: "failure" };
+              }
+              return { kind: "ok" };
+            },
+          );
+          function t(t, n, r, o) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();
-    ((l.extractVmId = g), (l.WAWebHatchVmFetcher = C));
+    ((l.extractVmId = v), (l.WAWebHatchVmFetcher = L));
   },
   98,
 );

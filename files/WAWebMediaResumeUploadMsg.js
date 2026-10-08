@@ -41,7 +41,6 @@ __d(
       i.userUploadAttemptCount++;
       var l = i.filehash,
         u =
-          o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
           l != null &&
           (a = o("WAWebMediaInMemoryKeyCache").MediaKeyCache.get(l)) != null
             ? a
@@ -67,8 +66,7 @@ __d(
               function* (e) {
                 var n = e.mediaEntry;
                 if (
-                  (o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-                    l != null &&
+                  (l != null &&
                     o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(l),
                   !n)
                 )

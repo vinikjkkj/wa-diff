@@ -16,7 +16,9 @@ __d(
     "WAWebMessageMeta.react",
     "WAWebMessageSpacerText.react",
     "WAWebMessageTextBubble.react",
+    "WAWebMsgCollection",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebOrderCollection",
     "WAWebOrderDetailsActionCategory",
     "WAWebOrderDetailsActionsSmbWamEvent",
@@ -29,242 +31,288 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumOrderDetailsCreationAction",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "useWAWebConversationPanelCanCompose",
+    "useWAWebMsgValues",
     "useWAWebUIM",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t,
-        n = o("react-compiler-runtime").c(32),
-        a = e.displayAuthor,
-        i = e.msg,
-        l = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-        c = i.unsafe(),
-        d =
-          ((t = o("WAWebMsgGetters").getSender(c)) == null
-            ? void 0
-            : t.equals(l)) === !0,
-        m = r("useWAWebUIM")(),
-        p = r("useWAWebConversationPanelCanCompose")(
-          o("WAWebFrontendMsgGetters").getChat(c),
-        ),
-        _ = p[0],
-        f = function (t) {
-          if ((t && t.stopPropagation(), !!_)) {
-            new (o(
-              "WAWebOrderDetailsActionsSmbWamEvent",
-            ).OrderDetailsActionsSmbWamEvent)({
-              orderDetailsCreationAction: o(
-                "WAWebWamEnumOrderDetailsCreationAction",
-              ).ORDER_DETAILS_CREATION_ACTION.CLICK_VIEW_RECEIVED_CART,
-              actionCategory: String(
-                r("WAWebOrderDetailsActionCategory").RECEIVED_CART,
-              ),
-              orderDetailEntryPoint: String(r("WAWebBizEntryPoint").FROM_CART),
-              hasCatalog:
-                l != null &&
-                o("WAWebBusinessProfileUtils").hasCatalog(
-                  o(
-                    "WAWebBusinessProfileCollection",
-                  ).BusinessProfileCollection.get(l),
-                ),
-            }).commit();
-            var e = i.orderId,
-              n = i.sellerJid,
-              a = i.token;
-            if (e != null && n != null && a != null) {
-              if (
-                o("WAWebOrderGatingUtils").isBuyerOrderRevampEnabled() &&
-                i.status != null &&
-                i.status !==
-                  o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
-                    .INQUIRY
-              )
-                return;
-              var s = o(
-                "WAWebProductCatalogContext",
-              ).buildProductCatalogContext(
-                new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
-                o("WAWebContactUtils").getMaybeBizPlatformForLogging(n),
-                o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
-                  .CATALOG_ENTRY_POINT_ORDER_MESSAGE,
-              );
-              (o("WAWebOrderLogEvents").logOrderMessageClick({
-                catalogContext: s,
-                catalogOwnerJid: n,
-              }),
-                i.orderId != null &&
-                  (o("WAWebMessageLogQplEvents").qplStartOrderView(
-                    !!o("WAWebOrderCollection").OrderCollection.get(e),
-                  ),
-                  o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                    u.jsx(
-                      o("WAWebProductDetailsFlowLoadable")
-                        .ProductDetailsFlowLoadable,
-                      {
-                        chat: o("WAWebFrontendMsgGetters").getChat(c),
-                        orderMessage: i,
-                        orderId: e,
-                        token: a,
-                        userIsCartOwner: d,
-                        sellerJid: n,
-                      },
-                    ),
-                    { transition: "slide-left", uim: m, newDrawerContext: s },
-                  )));
-            }
-          }
-        },
-        g = o("WAWebEmojiText.react").EmojiText,
-        h = i.message,
-        y = o("WAWebFrontendMsgGetters").getRtl(c),
+      var t = o("react-compiler-runtime").c(44),
+        n = e.displayAuthor,
+        a = e.msgKey,
+        i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [
+            o("WAWebMsgGetters").getSender,
+            o("WAWebMsgGetters").getIsNewsletterMsg,
+            o("WAWebFrontendMsgGetters").getOrderStatus,
+            o("WAWebMsgGetters").getMessage,
+            o("WAWebFrontendMsgGetters").getRtl,
+            o("WAWebFrontendMsgGetters").getDir,
+          ]),
+          (t[0] = l))
+        : (l = t[0]);
+      var c = o("useWAWebMsgValues").useMsgValues(a, l),
+        d = c[0],
+        m = c[1],
+        p = c[2],
+        _ = c[3],
+        f = c[4],
+        g = c[5],
+        h = (d == null ? void 0 : d.equals(i)) === !0,
+        y = r("useWAWebUIM")(),
         C;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = r("WAWebL10N").isRTL()), (n[0] = C))
-        : (C = n[0]);
-      var b = y !== C,
-        v = o("WAWebFrontendMsgGetters").getDir(c),
-        S;
-      n[1] !== g || n[2] !== i.message || n[3] !== b || n[4] !== v
-        ? ((S = u.jsx(g, {
-            text: h,
-            dirMismatch: b,
-            direction: v,
-            inferLinesDirection: !0,
-          })),
-          (n[1] = g),
-          (n[2] = i.message),
-          (n[3] = b),
-          (n[4] = v),
-          (n[5] = S))
-        : (S = n[5]);
-      var R = S,
-        L;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = { className: "x10l6tqk xtijo5x x1ey2m1c" }), (n[6] = L))
-        : (L = n[6]);
-      var E;
-      n[7] !== i.id
-        ? ((E = u.jsx(
-            "div",
-            babelHelpers.extends({}, L, {
-              children: u.jsx(o("WAWebMessageMeta.react").Meta, {
-                msgKey: i.id,
-              }),
-            }),
+      if (t[1] !== m || t[2] !== a) {
+        var b = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(a, m),
+          v;
+        (t[4] !== a ? ((v = a.toString()), (t[4] = a), (t[5] = v)) : (v = t[5]),
+          (C = r("nullthrows")(
+            b,
+            "Order bubble " + v + " rendered without its chat",
           )),
-          (n[7] = i.id),
-          (n[8] = E))
-        : (E = n[8]);
+          (t[1] = m),
+          (t[2] = a),
+          (t[3] = C));
+      } else C = t[3];
+      var S = C,
+        R = r("useWAWebConversationPanelCanCompose")(S),
+        L = R[0],
+        E;
+      t[6] !== L ||
+      t[7] !== S ||
+      t[8] !== i ||
+      t[9] !== a ||
+      t[10] !== p ||
+      t[11] !== y ||
+      t[12] !== h
+        ? ((E = function (t) {
+            var e;
+            if ((t && t.stopPropagation(), !!L)) {
+              new (o(
+                "WAWebOrderDetailsActionsSmbWamEvent",
+              ).OrderDetailsActionsSmbWamEvent)({
+                orderDetailsCreationAction: o(
+                  "WAWebWamEnumOrderDetailsCreationAction",
+                ).ORDER_DETAILS_CREATION_ACTION.CLICK_VIEW_RECEIVED_CART,
+                actionCategory: String(
+                  r("WAWebOrderDetailsActionCategory").RECEIVED_CART,
+                ),
+                orderDetailEntryPoint: String(
+                  r("WAWebBizEntryPoint").FROM_CART,
+                ),
+                hasCatalog:
+                  i != null &&
+                  o("WAWebBusinessProfileUtils").hasCatalog(
+                    o(
+                      "WAWebBusinessProfileCollection",
+                    ).BusinessProfileCollection.get(i),
+                  ),
+              }).commit();
+              var n =
+                (e = o("WAWebMsgCollection").MsgCollection.get(a)) == null
+                  ? void 0
+                  : e.safe();
+              if (!(n == null || n.type !== o("WAWebMsgType").MSG_TYPE.ORDER)) {
+                var l = n.orderId,
+                  s = n.sellerJid,
+                  c = n.token;
+                if (l != null && s != null && c != null) {
+                  if (
+                    o("WAWebOrderGatingUtils").isBuyerOrderRevampEnabled() &&
+                    p != null &&
+                    p !==
+                      o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
+                        .INQUIRY
+                  )
+                    return;
+                  var d = o(
+                    "WAWebProductCatalogContext",
+                  ).buildProductCatalogContext(
+                    new (o(
+                      "WAWebProductCatalogSession",
+                    ).ProductCatalogSession)(),
+                    o("WAWebContactUtils").getMaybeBizPlatformForLogging(s),
+                    o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
+                      .CATALOG_ENTRY_POINT_ORDER_MESSAGE,
+                  );
+                  (o("WAWebOrderLogEvents").logOrderMessageClick({
+                    catalogContext: d,
+                    catalogOwnerJid: s,
+                  }),
+                    n.orderId != null &&
+                      (o("WAWebMessageLogQplEvents").qplStartOrderView(
+                        !!o("WAWebOrderCollection").OrderCollection.get(l),
+                      ),
+                      o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+                        u.jsx(
+                          o("WAWebProductDetailsFlowLoadable")
+                            .ProductDetailsFlowLoadable,
+                          {
+                            chat: S,
+                            orderMessage: n,
+                            orderId: l,
+                            token: c,
+                            userIsCartOwner: h,
+                            sellerJid: s,
+                          },
+                        ),
+                        {
+                          transition: "slide-left",
+                          uim: y,
+                          newDrawerContext: d,
+                        },
+                      )));
+                }
+              }
+            }
+          }),
+          (t[6] = L),
+          (t[7] = S),
+          (t[8] = i),
+          (t[9] = a),
+          (t[10] = p),
+          (t[11] = y),
+          (t[12] = h),
+          (t[13] = E))
+        : (E = t[13]);
       var k = E,
         I;
-      n[9] !== i.status
-        ? ((I = function () {
+      t[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = r("WAWebL10N").isRTL()), (t[14] = I))
+        : (I = t[14]);
+      var T = f !== I,
+        D;
+      t[15] !== g || t[16] !== _ || t[17] !== T
+        ? ((D = u.jsx(o("WAWebEmojiText.react").EmojiText, {
+            text: _,
+            dirMismatch: T,
+            direction: g,
+            inferLinesDirection: !0,
+          })),
+          (t[15] = g),
+          (t[16] = _),
+          (t[17] = T),
+          (t[18] = D))
+        : (D = t[18]);
+      var x = D,
+        $;
+      t[19] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = { className: "x10l6tqk xtijo5x x1ey2m1c" }), (t[19] = $))
+        : ($ = t[19]);
+      var P;
+      t[20] !== a
+        ? ((P = u.jsx(
+            "div",
+            babelHelpers.extends({}, $, {
+              children: u.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: a }),
+            }),
+          )),
+          (t[20] = a),
+          (t[21] = P))
+        : (P = t[21]);
+      var N = P,
+        M;
+      t[22] !== p
+        ? ((M = function () {
             return o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
-              ? i.status == null ||
-                  i.status ===
+              ? p == null ||
+                  p ===
                     o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
                       .INQUIRY
               : !0;
           }),
-          (n[9] = i.status),
-          (n[10] = I))
-        : (I = n[10]);
-      var T = I,
-        D;
-      n[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = o("WAWebOrderGatingUtils").isBuyerOrderRequestVariantEnabled()
+          (t[22] = p),
+          (t[23] = M))
+        : (M = t[23]);
+      var w = M,
+        A;
+      t[24] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = o("WAWebOrderGatingUtils").isBuyerOrderRequestVariantEnabled()
             ? s._(/*BTDS*/ "View details")
             : s._(/*BTDS*/ "View sent cart")),
-          (n[11] = D))
-        : (D = n[11]);
-      var x = D,
-        $;
-      n[12] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
+          (t[24] = A))
+        : (A = t[24]);
+      var F = A,
+        O;
+      t[25] === Symbol.for("react.memo_cache_sentinel")
+        ? ((O = o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
             ? s._(/*BTDS*/ "View order request")
             : s._(/*BTDS*/ "View received cart")),
-          (n[12] = $))
-        : ($ = n[12]);
-      var P = $,
-        N = d ? x : P,
-        M;
-      n[13] !== f || n[14] !== N
-        ? ((M = u.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
-            items: [{ label: N, testid: "view-cart-button", onClick: f }],
+          (t[25] = O))
+        : (O = t[25]);
+      var B = O,
+        W = h ? F : B,
+        q;
+      t[26] !== k || t[27] !== W
+        ? ((q = u.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
+            items: [{ label: W, testid: "view-cart-button", onClick: k }],
           })),
-          (n[13] = f),
-          (n[14] = N),
-          (n[15] = M))
-        : (M = n[15]);
-      var w = M,
-        A = i.id,
-        F;
-      n[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-          (n[16] = F))
-        : (F = n[16]);
-      var O;
-      n[17] !== c.id || n[18] !== f
-        ? ((O = u.jsx(
+          (t[26] = k),
+          (t[27] = W),
+          (t[28] = q))
+        : (q = t[28]);
+      var U = q,
+        V;
+      t[29] === Symbol.for("react.memo_cache_sentinel")
+        ? ((V = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+          (t[29] = V))
+        : (V = t[29]);
+      var H;
+      t[30] !== a || t[31] !== k
+        ? ((H = u.jsx(
             "div",
-            babelHelpers.extends({}, F, {
+            babelHelpers.extends({}, V, {
               children: u.jsx(o("WAWebBizOrderPreview.react").OrderPreview, {
-                msgKey: c.id,
-                onClick: f,
+                msgKey: a,
+                onClick: k,
               }),
             }),
           )),
-          (n[17] = c.id),
-          (n[18] = f),
-          (n[19] = O))
-        : (O = n[19]);
-      var B = c.id,
-        W = i.id,
-        q;
-      n[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((q = "x1m258z3 x12nagc"), (n[20] = q))
-        : (q = n[20]);
-      var U;
-      n[21] !== R || n[22] !== k || n[23] !== i.id || n[24] !== c.id
-        ? ((U = u.jsxs(r("WAWebMessageSpacerText.react"), {
-            msgKey: B,
-            "data-id": W,
-            className: q,
-            children: [R, k],
+          (t[30] = a),
+          (t[31] = k),
+          (t[32] = H))
+        : (H = t[32]);
+      var G;
+      t[33] === Symbol.for("react.memo_cache_sentinel")
+        ? ((G = "x1m258z3 x12nagc"), (t[33] = G))
+        : (G = t[33]);
+      var z;
+      t[34] !== x || t[35] !== N || t[36] !== a
+        ? ((z = u.jsxs(r("WAWebMessageSpacerText.react"), {
+            msgKey: a,
+            "data-id": a,
+            className: G,
+            children: [x, N],
           })),
-          (n[21] = R),
-          (n[22] = k),
-          (n[23] = i.id),
-          (n[24] = c.id),
-          (n[25] = U))
-        : (U = n[25]);
-      var V = _ && T() && w,
-        H;
+          (t[34] = x),
+          (t[35] = N),
+          (t[36] = a),
+          (t[37] = z))
+        : (z = t[37]);
+      var j = L && w() && U,
+        K;
       return (
-        n[26] !== a ||
-        n[27] !== i.id ||
-        n[28] !== O ||
-        n[29] !== U ||
-        n[30] !== V
-          ? ((H = u.jsxs(r("WAWebMessageTextBubble.react"), {
-              msgKey: A,
-              displayAuthor: a,
+        t[38] !== n || t[39] !== a || t[40] !== H || t[41] !== z || t[42] !== j
+          ? ((K = u.jsxs(r("WAWebMessageTextBubble.react"), {
+              msgKey: a,
+              displayAuthor: n,
               hideMeta: !0,
-              children: [O, U, V],
+              children: [H, z, j],
             })),
-            (n[26] = a),
-            (n[27] = i.id),
-            (n[28] = O),
-            (n[29] = U),
-            (n[30] = V),
-            (n[31] = H))
-          : (H = n[31]),
-        H
+            (t[38] = n),
+            (t[39] = a),
+            (t[40] = H),
+            (t[41] = z),
+            (t[42] = j),
+            (t[43] = K))
+          : (K = t[43]),
+        K
       );
     }
     l.default = c;

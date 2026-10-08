@@ -406,12 +406,12 @@ __d(
             t[2] !== n ||
             t[3] !== r ||
             t[4] !== a.mediaData ||
-            t[5] !== u ||
+            t[5] !== u.id ||
             t[6] !== i
               ? ((c = s.jsx(o("WAWebMessagePicture.react").ImageMessage, {
                   albumMsgs: r,
                   currentAlbumMessageIndex: n,
-                  msg: u,
+                  msgKey: u.id,
                   mediaData: a.mediaData,
                   trusted: i,
                   displayAuthor: !1,
@@ -421,7 +421,7 @@ __d(
                 (t[2] = n),
                 (t[3] = r),
                 (t[4] = a.mediaData),
-                (t[5] = u),
+                (t[5] = u.id),
                 (t[6] = i),
                 (t[7] = c))
               : (c = t[7]),

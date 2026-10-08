@@ -7,7 +7,7 @@ __d(
     "WAWebBotUtils",
     "WAWebDBUpdateMessageTable",
     "WAWebE2EProtoGenerator",
-    "WAWebGenerateBotMetadata",
+    "WAWebGenerateBotGroupMetadata",
     "WAWebGroupHistorySendGroupMsgJobUtils",
     "WAWebGroupMsgSendUtils",
     "WAWebLidMigrationUtils",
@@ -198,7 +198,7 @@ __d(
                       i,
                     )
                   : i,
-              V = o("WAWebGenerateBotMetadata").addGroupAgentBotMetadata(
+              V = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
                 o(
                   "WAWebRemoveQuotedAttachmentMediaFields",
                 ).isGroupWithAgentParticipant(I)

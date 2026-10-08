@@ -95,7 +95,6 @@ __d(
         : null;
     }
     ((l.LINK_BACKFILL_BATCH_SIZE = s),
-      (l.LINK_BACKFILL_MAX_SCANNED_ROWS_PER_CHAT = u),
       (l.backfillGroupAgentRichResponseLinkIndex = m),
       (l.resetGroupAgentRichResponseLinkBackfillForTests = p));
   },

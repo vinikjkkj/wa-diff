@@ -7,90 +7,92 @@ __d(
     "WAWebHatchUserJourneyWamEvent",
     "WAWebThreadJourneyLogger",
     "WAWebUnifiedSession",
+    "WAWebWamEnumFeatureEntryPoint",
     "WAWebWamEnumHatchActionType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      b(
+    var e;
+    function s(e) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
-    function s(e) {
-      b(
+    function u(e) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
-    function u(e) {
-      b(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+    function c(e) {
+      E(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
-    function c(e, t, n) {
-      b(
+    function d(e, t, n) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
-        babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: d(t) }),
+        babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: m(t) }),
       );
     }
-    function d(e) {
+    function m(e) {
       return e
         .map(function (e) {
           return e.trim() === "" ? "unknown" : e;
         })
         .join(", ");
     }
-    function m(e) {
-      b(
+    function p(e) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
-    function p(e, t) {
-      b(
+    function _(e, t) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
-    function _(e, t) {
-      b(
+    function f(e, t) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
-        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
-      );
-    }
-    function f(e, t) {
-      b(
-        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-          .HITL_CART_DETAILS_IMPRESSION,
-        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function g(e, t) {
-      b(
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-          .HITL_ORDER_SUMMARY_IMPRESSION,
-        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
+          .HITL_CART_DETAILS_IMPRESSION,
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function h(e, t) {
-      b(
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-          .HITL_WALLET_PICKER_IMPRESSION,
-        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
+          .HITL_ORDER_SUMMARY_IMPRESSION,
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function y(e, t) {
-      b(
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-          .HITL_WALLET_CARD_SELECTED,
-        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
+          .HITL_WALLET_PICKER_IMPRESSION,
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
-    function C(e, t, n) {
-      b(
+    function C(e, t) {
+      E(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+          .HITL_WALLET_CARD_SELECTED,
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
+      );
+    }
+    function b(e, t, n) {
+      E(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -98,13 +100,60 @@ __d(
         }),
       );
     }
-    function b(e, t) {
+    var v = {
+        card_impression: (e = o("WAWebWamEnumHatchActionType"))
+          .HATCH_ACTION_TYPE.SECURE_CREDENTIAL_CARD_IMPRESSION,
+        card_tap: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_CARD_TAP,
+        sheet_impression:
+          e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_SHEET_IMPRESSION,
+        save_tap: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_SAVE_TAP,
+        cancel_tap: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_CANCEL_TAP,
+        save_success: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_SAVE_SUCCESS,
+        setting_page_tap:
+          e.HATCH_ACTION_TYPE.SETTING_PAGE_SECURE_CREDENTIAL_TAP,
+        list_impression: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_LIST_IMPRESSION,
+        null_state_impression:
+          e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_NULL_STATE_IMPRESSION,
+        detail_impression:
+          e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_DETAIL_IMPRESSION,
+        edit_save_tap: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_EDIT_SAVE_TAP,
+        delete_tap: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_DELETE_TAP,
+        delete_confirm: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_DELETE_CONFIRM,
+        delete_cancel_tap:
+          e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_DELETE_CANCEL_TAP,
+        delete_success: e.HATCH_ACTION_TYPE.SECURE_CREDENTIAL_DELETE_SUCCESS,
+      },
+      S = {
+        chat: o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.CHAT,
+        settings: o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT
+          .SETTINGS,
+      };
+    function R(e, t) {
+      E(v[e], { featureEntryPoint: S[t] });
+    }
+    function L(e, t) {
+      E(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+          .SECURE_CREDENTIAL_SAVE_ERROR,
+        {
+          featureEntryPoint: S[t],
+          hatchUserJourneyMetadata: JSON.stringify({
+            secure_credential_failure_reason: e.reason,
+            secure_credential_failure_reason_raw: e.raw,
+          }),
+        },
+      );
+    }
+    function E(e, t) {
       var n, r, a, i, l;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var s = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({
+          featureEntryPoint: t == null ? void 0 : t.featureEntryPoint,
           hatchActionType: e,
+          hatchUserJourneyMetadata:
+            t == null ? void 0 : t.hatchUserJourneyMetadata,
           hitlIsMulti: t == null ? void 0 : t.hitlIsMulti,
           hitlLegalLink: t == null ? void 0 : t.hitlLegalLink,
           hitlTypes: t == null ? void 0 : t.hitlTypes,
@@ -131,12 +180,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : v(t == null ? void 0 : t.botEntryPoint),
+              : k(t == null ? void 0 : t.botEntryPoint),
         });
         s.commit();
       }
     }
-    function v(e) {
+    function k(e) {
       var t,
         n =
           e != null
@@ -154,18 +203,20 @@ __d(
             : void 0;
       }
     }
-    ((l.logHatchRequestWelcomeMsgSent = e),
-      (l.logHatchTapUnlinkButton = s),
-      (l.logHatchUnlinkSuccess = u),
-      (l.logHatchHitlBottomSheetImpression = c),
-      (l.logHatchHitlDetailImpression = m),
-      (l.logHatchHitlLegalLinkTap = p),
-      (l.logHatchHitlPaymentDetailsImpression = _),
-      (l.logHatchHitlCartDetailsImpression = f),
-      (l.logHatchHitlOrderSummaryImpression = g),
-      (l.logHatchHitlWalletPickerImpression = h),
-      (l.logHatchHitlWalletCardSelected = y),
-      (l.logHatchHitlDecisionTap = C));
+    ((l.logHatchRequestWelcomeMsgSent = s),
+      (l.logHatchTapUnlinkButton = u),
+      (l.logHatchUnlinkSuccess = c),
+      (l.logHatchHitlBottomSheetImpression = d),
+      (l.logHatchHitlDetailImpression = p),
+      (l.logHatchHitlLegalLinkTap = _),
+      (l.logHatchHitlPaymentDetailsImpression = f),
+      (l.logHatchHitlCartDetailsImpression = g),
+      (l.logHatchHitlOrderSummaryImpression = h),
+      (l.logHatchHitlWalletPickerImpression = y),
+      (l.logHatchHitlWalletCardSelected = C),
+      (l.logHatchHitlDecisionTap = b),
+      (l.logHatchSecureCredential = R),
+      (l.logHatchSecureCredentialSaveError = L));
   },
   98,
 );

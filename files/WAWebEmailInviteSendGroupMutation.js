@@ -3,6 +3,7 @@ __d(
   [
     "WAWebEmailInviteSendGroupMutation.graphql",
     "WAWebRelayClient",
+    "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -21,6 +22,7 @@ __d(
             {
               input: {
                 emails: [].concat(t),
+                inviter_name: o("WAWebUserPrefsGeneral").getPushname(),
                 source: "GROUP_INFO_PANEL",
                 target_id: e,
                 target_type: "GROUP",

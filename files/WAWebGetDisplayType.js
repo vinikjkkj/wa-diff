@@ -12,53 +12,66 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("WAWebFrontendMsgGetters").getChat(e),
-        n = t == null ? void 0 : t.groupMetadata;
+      var t = e == null ? void 0 : e.groupMetadata;
       return (
-        (n == null ? void 0 : n.isOpenBotGroup) === !0 ||
-        (n == null ? void 0 : n.isTeeBotGroup) === !0
+        (t == null ? void 0 : t.isOpenBotGroup) === !0 ||
+        (t == null ? void 0 : t.isTeeBotGroup) === !0
       );
     }
-    function s(t) {
-      if (t == null) return o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION;
+    function s(e) {
+      return e == null
+        ? o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION
+        : u({
+            botGroupParticipant: e.botGroupParticipant,
+            chat: o("WAWebFrontendMsgGetters").getChat(e),
+            isBotInvokeResponse:
+              o("WAWebMsgGetters").getIsMetaBotInvokeResponse(e),
+            isStatus: o("WAWebMsgGetters").getIsStatus(e),
+            msgKey: e.id,
+            type: e.type,
+          });
+    }
+    function u(t) {
       var n = t.botGroupParticipant,
-        r = o("WAWebMsgGetters").getIsMetaBotInvokeResponse(t),
-        a = o("WAWebBotGroupGatingUtils").isGroupBotMessage({
-          authorWid: t.id.participant,
+        r = t.chat,
+        a = t.isBotInvokeResponse,
+        i = t.isStatus,
+        l = t.msgKey,
+        s = t.type,
+        u = o("WAWebBotGroupGatingUtils").isGroupBotMessage({
+          authorWid: l.participant,
           botGroupParticipant: n,
-          chatWid: t.id.remote,
-          isBotInvoke: r === !0,
+          chatWid: l.remote,
+          isBotInvoke: a === !0,
         });
       if (
-        a ||
-        (e(t) &&
+        u ||
+        (e(r) &&
           (o(
             "WAWebBotGroupGatingUtils",
           ).isOpenGroupBotParticipantAddEnabled() ||
             o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()))
       )
         return o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION;
-      if (o("WAWebMsgGetters").getIsStatus(t))
-        return o("WAWebDisplayType").DISPLAY_TYPE.STATUS;
-      var i = o("WAWebFrontendMsgGetters").getChat(t),
-        l =
-          i != null && o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(i),
-        s =
+      if (i) return o("WAWebDisplayType").DISPLAY_TYPE.STATUS;
+      var c =
+          r != null && o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(r),
+        d =
           o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
-          i != null &&
-          o("WAWebChatGetters").getIsNewsletter(i),
-        u = t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE;
-      return r === !0
+          r != null &&
+          o("WAWebChatGetters").getIsNewsletter(r),
+        m = s === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE;
+      return a === !0
         ? o("WAWebDisplayType").DISPLAY_TYPE.BOT_INVOKE_RESPONSE
-        : u === !0
+        : m === !0
           ? o("WAWebDisplayType").DISPLAY_TYPE.MESSAGE_HISTORY_BUNDLE
-          : l === !0
+          : c === !0
             ? o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT
-            : s === !0
+            : d === !0
               ? o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER
               : o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION;
     }
-    l.getDisplayType = s;
+    ((l.getDisplayType = s), (l.getDisplayTypeFor = u));
   },
   98,
 );

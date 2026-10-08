@@ -1,6 +1,6 @@
 __d(
   "WAWebSignalCommonUtils",
-  ["WAByteBuffer", "WAWebSignalAddress", "err", "gkx"],
+  ["WAByteBuffer", "WAWebSignalAddress", "err"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (!(e.isUser() || e.isServer() || e.isPSA()))
@@ -44,13 +44,13 @@ __d(
       if (typeof e != "string" || !e.match(/.*\.\d+/)) {
         var t =
           "Invalid SignalLikeProtocolAddress string - regex does not match";
-        throw (r("gkx")("26258") || (t += " " + e), r("err")(t));
+        throw r("err")(t);
       }
       var n = e.split(".");
       if (n.length !== 2) {
         var o =
           "Invalid SignalLikeProtocolAddress string - wrong number of parts";
-        throw (r("gkx")("26258") || (o += " " + e), r("err")(o));
+        throw r("err")(o);
       }
       var a = "_deprecated",
         i = "_status",

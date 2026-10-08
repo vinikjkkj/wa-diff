@@ -23,7 +23,6 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebGetUserMediaErrors",
     "WAWebGuidePopup.react",
-    "WAWebMedia",
     "WAWebMediaCapture",
     "WAWebMediaCaptureStreamType",
     "WAWebMediaGetUploadOriginForChat",
@@ -34,6 +33,7 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebModalManager",
     "WAWebNoop",
+    "WAWebPrepRawMedia",
     "WAWebPresenceChatAction",
     "WAWebPresenceCollection",
     "WAWebPttAudioChannels",
@@ -756,7 +756,7 @@ __d(
                   );
                   var g;
                   try {
-                    ((g = o("WAWebMedia").prepRawMedia(_, {
+                    ((g = o("WAWebPrepRawMedia").prepRawMedia(_, {
                       isPtt: !0,
                       precomputedFields: {
                         duration: Math.floor(m.getDuration()),

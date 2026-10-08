@@ -28,7 +28,7 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t;
           try {
-            t = yield g();
+            t = yield y();
           } catch (t) {
             o("WALogger")
               .ERROR(
@@ -41,9 +41,20 @@ __d(
               .sendLogs("clear-call-log-collect-failed");
             return;
           }
+          yield g(t);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var a = b(t);
-            yield Array.from(a).reduce(
+            var t = S(e);
+            yield Array.from(t).reduce(
               function (e, t) {
                 var a = t[0],
                   i = t[1];
@@ -60,11 +71,11 @@ __d(
                         .ERROR(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "clearAllCallLogs: could not delete a chat's call log entries",
+                              "deleteCallLogMsgs: could not delete a chat's call log entries",
                             ])),
                         )
                         .catching(r("getErrorSafe")(e))
-                        .sendLogs("clear-call-log-chat-failed");
+                        .sendLogs("delete-call-log-chat-failed");
                     }
                   }),
                 );
@@ -81,18 +92,18 @@ __d(
               ));
           }
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g() {
-      return h(void 0, [], new Set(), 0);
-    }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
-    }
     function y() {
+      return C(void 0, [], new Set(), 0);
+    }
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = yield o("WAWebMsgQueryUtils").getVoipCallLogMsgs(m, e),
               i = a.filter(function (e) {
@@ -102,7 +113,7 @@ __d(
               i.forEach(function (e) {
                 return n.add(e.id.toString());
               }),
-              t.push.apply(t, i.filter(C)),
+              t.push.apply(t, i.filter(v)),
               i.length === 0
                 ? (e != null &&
                     !a.some(function (t) {
@@ -127,20 +138,20 @@ __d(
                       )
                       .sendLogs("clear-call-log-walk-capped"),
                     t)
-                  : h(a[a.length - 1].id, t, n, r + 1)
+                  : C(a[a.length - 1].id, t, n, r + 1)
             );
           },
         )),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
+    function v(e) {
       return (
         o("WAWebFrontendMsgGetters").getMaybeChat(e) != null &&
         o("WAWebVoipCallsTabCallInfoUtils").getShouldShowInCallsTabCallLog(e)
       );
     }
-    function b(e) {
+    function S(e) {
       var t = new Map();
       for (var n of e) {
         var r = o("WAWebFrontendMsgGetters").getMaybeChat(n);
@@ -151,7 +162,7 @@ __d(
       }
       return t;
     }
-    l.clearAllCallLogs = _;
+    ((l.clearAllCallLogs = _), (l.deleteCallLogMsgs = g));
   },
   98,
 );

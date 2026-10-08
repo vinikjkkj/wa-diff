@@ -1,8 +1,10 @@
 __d(
   "WAWebHatchVmConnection",
   [
+    "$InternalEnum",
     "Promise",
     "WALogger",
+    "WAWebHatchLinkedStatusManager",
     "WAWebHatchVmCredentials",
     "WAWebHatchVmSession",
     "asyncToGeneratorRuntime",
@@ -11,48 +13,70 @@ __d(
     "use strict";
     var e,
       s,
-      u = new Map(),
-      c = null;
-    function d() {
+      u,
+      c = new Map(),
+      d = n("$InternalEnum").Mirrored(["Linked", "Unlinked", "Unknown"]),
+      m = null,
+      p = 0,
+      _ = 0,
+      f = !1,
+      g = !1;
+    function h() {
+      E();
       var e = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
-      return e != null
-        ? (s || (s = n("Promise"))).resolve(e)
-        : (c == null &&
-            (c = m().finally(function () {
-              c = null;
-            })),
-          c);
+      if (e != null) return (u || (u = n("Promise"))).resolve(e);
+      if (m == null) {
+        var t = y().finally(function () {
+          m === t && (m = null);
+        });
+        m = t;
+      }
+      return m;
     }
-    function m() {
-      return p.apply(this, arguments);
+    function y() {
+      return C.apply(this, arguments);
     }
-    function p() {
+    function C() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = p;
+          _ = e;
+          var t = yield b(e);
+          return p !== e ? (_ === e && I(), null) : t;
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
             "WAWebHatchVmCredentials",
           ).waWebHatchVmCredentials.resolve();
-          if (e.kind !== "ok") return g("credentials", e.detail);
+          if (t.kind !== "ok") return L(e, "credentials", t.detail);
           try {
-            var t = yield _(e.credentials);
-            if (t != null) return g("channel", t);
-          } catch (e) {
-            return g("threw", e);
+            var n = yield S(t.credentials);
+            if (n != null) return L(e, "channel", n);
+          } catch (t) {
+            return L(e, "threw", t);
           }
           return o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
         })),
-        p.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function f() {
+    function R() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
             credentials: e,
-            trustedFingerprint: u.get(e.vmId),
+            trustedFingerprint: c.get(e.vmId),
           });
           if (t.kind !== "NeedsTrust")
             return t.kind === "Ready" ? null : t.detail;
@@ -61,7 +85,7 @@ __d(
             trustedFingerprint: t.fingerprint,
           });
           return (
-            n.kind === "Ready" && u.set(e.vmId, t.fingerprint),
+            n.kind === "Ready" && c.set(e.vmId, t.fingerprint),
             (function (e) {
               if (
                 ((typeof e == "object" && e !== null) ||
@@ -91,25 +115,67 @@ __d(
             })(n)
           );
         })),
-        f.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function g(t, n) {
+    function L(t, n, r) {
       return (
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "hatch-vm: connect failed reason=",
-                "",
-              ])),
-            t,
-          )
-          .sendLogs("hatch-vm-connect-failed"),
+        p === t &&
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-vm: connect failed reason=",
+                  "",
+                ])),
+              n,
+            )
+            .sendLogs("hatch-vm-connect-failed"),
         null
       );
     }
-    l.connectHatchVmApi = d;
+    function E() {
+      g ||
+        ((g = !0),
+        (f = k() !== d.Unlinked),
+        r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(function () {
+          var e = k();
+          if (e !== d.Unknown) {
+            var t = f;
+            ((f = e === d.Linked),
+              t &&
+                !f &&
+                (p++,
+                I(),
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-vm: cleared on unlink",
+                    ])),
+                )));
+          }
+        }));
+    }
+    function k() {
+      return (function (e) {
+        if (e === "linked") return d.Linked;
+        if (e === "unlinked") return d.Unlinked;
+        if (e == null) return d.Unknown;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(
+        r("WAWebHatchLinkedStatusManager").getLastConfirmedLinkedStatusState(),
+      );
+    }
+    function I() {
+      ((m = null),
+        o("WAWebHatchVmCredentials").waWebHatchVmCredentials.invalidate(),
+        o("WAWebHatchVmSession").waWebHatchVmSession.disconnect(),
+        c.clear());
+    }
+    l.connectHatchVmApi = h;
   },
   98,
 );

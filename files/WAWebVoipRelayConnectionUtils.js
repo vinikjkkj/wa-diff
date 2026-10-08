@@ -7,20 +7,18 @@ __d(
       s,
       u = 0,
       c = 2e4,
-      d = 250,
-      m = 1e4,
-      p = 10 * 1024,
-      _ = n("$InternalEnum").Mirrored([
+      d = 10 * 1024,
+      m = n("$InternalEnum").Mirrored([
         "None",
         "Connecting",
         "Open",
         "Closed",
         "Failed",
       ]);
-    function f(e, t) {
+    function p(e, t) {
       return e.includes(":") ? "[" + e + "]:" + t : e + ":" + t;
     }
-    function g() {
+    function _() {
       return {
         sentPackets: 0,
         receivedPackets: 0,
@@ -32,11 +30,11 @@ __d(
         droppedPackets: 0,
       };
     }
-    function h() {
+    function f() {
       return { packets: [], bufferedBytes: 0 };
     }
-    function y(e, t, n, r) {
-      if ((r === void 0 && (r = p), t.byteLength > r))
+    function g(e, t, n, r) {
+      if ((r === void 0 && (r = d), t.byteLength > r))
         return (n.droppedPackets++, !1);
       for (; e.packets.length > 0 && e.bufferedBytes + t.byteLength > r; ) {
         var o = e.packets.shift();
@@ -44,18 +42,18 @@ __d(
       }
       return (e.packets.push(t), (e.bufferedBytes += t.byteLength), !0);
     }
-    function C(e) {
+    function h(e) {
       var t = e.packets.shift();
       return t != null ? ((e.bufferedBytes -= t.byteLength), t) : null;
     }
-    function b(e) {
+    function y(e) {
       ((e.packets = []), (e.bufferedBytes = 0));
     }
-    function v(e) {
+    function C(e) {
       var t = new ArrayBuffer(e.byteLength);
       return (new Uint8Array(t).set(new Uint8Array(e)), t);
     }
-    function S(t, n) {
+    function b(t, n) {
       var r,
         a = new Map(),
         i = t.relay_key,
@@ -86,20 +84,20 @@ __d(
           );
           continue;
         }
-        var p = null;
+        var _ = null;
         d &&
           c != null &&
           m.auth_token_id != null &&
           m.auth_token_id >= 0 &&
           m.auth_token_id < c.length &&
-          (p = c[m.auth_token_id]);
-        for (var _ of m.addresses)
-          if (_.protocol === u) {
-            if (_.ipv4 != null && _.ipv4 !== "" && _.port != null) {
-              var g = _.ipv4,
-                h = _.port,
+          (_ = c[m.auth_token_id]);
+        for (var f of m.addresses)
+          if (f.protocol === u) {
+            if (f.ipv4 != null && f.ipv4 !== "" && f.port != null) {
+              var g = f.ipv4,
+                h = f.port,
                 y = n != null && n.portOverride ? n.portOverride(h) : h,
-                C = f(g, y),
+                C = p(g, y),
                 b = {
                   id: C,
                   relayId: m.relay_id,
@@ -108,7 +106,7 @@ __d(
                   originalPort: h,
                   isIPv6: !1,
                   token: l[m.token_id],
-                  authToken: p != null ? p : void 0,
+                  authToken: _ != null ? _ : void 0,
                   key: i,
                   name: m.relay_name,
                   enableEdgerayDtlsActiveMode:
@@ -117,11 +115,11 @@ __d(
                 };
               a.set(C, b);
             }
-            if (_.ipv6 != null && _.ipv6 !== "" && _.port_v6 != null) {
-              var v = _.ipv6,
-                S = _.port_v6,
+            if (f.ipv6 != null && f.ipv6 !== "" && f.port_v6 != null) {
+              var v = f.ipv6,
+                S = f.port_v6,
                 R = n != null && n.portOverride ? n.portOverride(S) : S,
-                L = f(v, R),
+                L = p(v, R),
                 E = {
                   id: L,
                   relayId: m.relay_id,
@@ -130,7 +128,7 @@ __d(
                   originalPort: S,
                   isIPv6: !0,
                   token: l[m.token_id],
-                  authToken: p != null ? p : void 0,
+                  authToken: _ != null ? _ : void 0,
                   key: i,
                   name: m.relay_name,
                   enableEdgerayDtlsActiveMode:
@@ -143,55 +141,55 @@ __d(
       }
       return a;
     }
-    function R() {
+    function v() {
       return o("WAWebUA").UA.isSafari ? 1 : 0;
     }
-    function L() {
+    function S() {
       return o("WAWebUA").UA.isFirefox ? 1 : 0;
     }
-    function E() {
-      return R() === 1 || L() === 1;
+    function R() {
+      return v() === 1 || S() === 1;
     }
-    var k = { negotiated: !0, id: 0, ordered: !1, maxRetransmits: 0 };
-    function I(e) {
+    var L = { negotiated: !0, id: 0, ordered: !1, maxRetransmits: 0 };
+    function E(e) {
       var t = e.match(/a=ice-ufrag:([^\r\n]+)/),
         n = e.match(/a=ice-pwd:([^\r\n]+)/);
       return t != null && n != null ? { ufrag: t[1], pwd: n[1] } : null;
     }
-    function T(e) {
+    function k(e) {
       var t = e.match(/a=fingerprint:(\S+)\s+([^\r\n]+)/);
       return t != null ? { algorithm: t[1], fingerprint: t[2] } : null;
     }
-    function D(e, t, n) {
+    function I(e, t, n) {
       var r = e.replace(/a=ice-ufrag:[^\r\n]+/g, "a=ice-ufrag:" + t);
       return ((r = r.replace(/a=ice-pwd:[^\r\n]+/g, "a=ice-pwd:" + n)), r);
     }
-    function x(e, t, n) {
+    function T(e, t, n) {
       return e.replace(
         /a=fingerprint:[^\r\n]+/g,
         "a=fingerprint:" + t + " " + n,
       );
     }
-    function $(e) {
+    function D(e) {
       var t = e.replace(/a=candidate:[^\r\n]+\r?\n/g, "");
       return ((t = t.replace(/a=end-of-candidates\r?\n?/g, "")), t);
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function N() {
+    function $() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return e instanceof ArrayBuffer
             ? e
             : e instanceof Blob
               ? yield e.arrayBuffer()
               : null;
         })),
-        N.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function M(e) {
+    function P(e) {
       var t = e.customSdp,
         n = e.ip,
         r = e.port,
@@ -202,10 +200,10 @@ __d(
           r +
           " typ host generation 0 network-cost 5",
         a = [o, "a=end-of-candidates"].join("\r\n"),
-        i = $(t);
+        i = D(t);
       return ((i += a + "\r\n"), i);
     }
-    function w(e, t) {
+    function N(e, t) {
       var n,
         r = t.enableEdgerayDtlsActiveMode
           ? "a=setup:active"
@@ -213,8 +211,8 @@ __d(
         o = e.replace(/a=setup:actpass/g, r),
         a = (n = t.authToken) != null ? n : t.token;
       return (
-        (o = D(o, a, t.key)),
-        (o = x(
+        (o = I(o, a, t.key)),
+        (o = T(
           o,
           "sha-256",
           "F9:CA:0C:98:A3:CC:71:D6:42:CE:5A:E2:53:D2:15:20:D3:1B:BA:D8:57:A4:F0:AF:BE:0B:FB:F3:6B:0C:A0:68",
@@ -224,50 +222,48 @@ __d(
           /a=max-message-size:[^\r\n]+/g,
           "a=max-message-size:1500",
         )),
-        (o = M({ customSdp: o, ip: t.ip, port: t.port.toString() })),
+        (o = P({ customSdp: o, ip: t.ip, port: t.port.toString() })),
         o
       );
     }
-    var A = n("$InternalEnum").Mirrored([
+    var M = n("$InternalEnum").Mirrored([
       "STUN_ALLOC",
       "STUN_BIND",
       "STUN_UNKNOWN",
       "NonSTUN",
     ]);
-    function F(e) {
-      if (e.byteLength < 2) return A.NonSTUN;
+    function w(e) {
+      if (e.byteLength < 2) return M.NonSTUN;
       var t = new Uint8Array(e),
         n = t[0],
         r = t[1];
       if ((n & 192) === 0) {
         var o = ((n & 63) << 8) | r;
-        return o === 1 ? A.STUN_BIND : o === 3 ? A.STUN_ALLOC : A.STUN_UNKNOWN;
+        return o === 1 ? M.STUN_BIND : o === 3 ? M.STUN_ALLOC : M.STUN_UNKNOWN;
       }
-      return A.NonSTUN;
+      return M.NonSTUN;
     }
     ((l.CONNECTION_TIMEOUT_MS = c),
-      (l.WEBTRANSPORT_SCTP_FALLBACK_TIMEOUT_MIN_MS = d),
-      (l.WEBTRANSPORT_SCTP_FALLBACK_TIMEOUT_MAX_MS = m),
-      (l.ConnectionState = _),
-      (l.getConnectionIdentifier = f),
-      (l.createEmptyConnectionStats = g),
-      (l.createPacketBuffer = h),
-      (l.bufferPacket = y),
-      (l.shiftPacket = C),
-      (l.clearPacketBuffer = b),
-      (l.copyArrayBuffer = v),
-      (l.extractRelayConnectionMap = S),
-      (l.isDcTransferDisabled = E),
-      (l.BASE_DATA_CHANNEL_OPTIONS = k),
-      (l.extractIceCredentials = I),
-      (l.extractDtlsFingerprint = T),
-      (l.replaceIceCredentials = D),
-      (l.replaceDtlsFingerprint = x),
-      (l.removeIceCandidates = $),
-      (l.dataToArrayBuffer = P),
-      (l.createAnswerSdp = w),
-      (l.PacketType = A),
-      (l.inspectPacketType = F));
+      (l.ConnectionState = m),
+      (l.getConnectionIdentifier = p),
+      (l.createEmptyConnectionStats = _),
+      (l.createPacketBuffer = f),
+      (l.bufferPacket = g),
+      (l.shiftPacket = h),
+      (l.clearPacketBuffer = y),
+      (l.copyArrayBuffer = C),
+      (l.extractRelayConnectionMap = b),
+      (l.isDcTransferDisabled = R),
+      (l.BASE_DATA_CHANNEL_OPTIONS = L),
+      (l.extractIceCredentials = E),
+      (l.extractDtlsFingerprint = k),
+      (l.replaceIceCredentials = I),
+      (l.replaceDtlsFingerprint = T),
+      (l.removeIceCandidates = D),
+      (l.dataToArrayBuffer = x),
+      (l.createAnswerSdp = N),
+      (l.PacketType = M),
+      (l.inspectPacketType = w));
   },
   98,
 );

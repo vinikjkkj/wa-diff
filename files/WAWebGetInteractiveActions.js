@@ -8,6 +8,7 @@ __d(
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBrAddPixKeyMessageGating",
     "WAWebBrAddPixKeyMessageOffer",
+    "WAWebBrOptionsToPayActions",
     "WAWebBrSavePartnerPixKeyFeature",
     "WAWebBrSenderPixKeyAttribution",
     "WAWebBrazilPaymentsGeoGating",
@@ -44,11 +45,11 @@ __d(
         u = n.interactiveType,
         c = n.nativeFlowName;
       if (!s) return null;
-      var g = [];
+      var _ = [];
       switch (u) {
         case r("WAWebInteractiveMessageType").SHOPS_STOREFRONT: {
-          var h = s;
-          g.push(f(h));
+          var f = s;
+          _.push(y(f));
           break;
         }
         case r("WAWebInteractiveMessageType").NATIVE_FLOW:
@@ -59,91 +60,57 @@ __d(
             if (
               c === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
             ) {
-              var y = o("WAWebOrderDetails").getOrderInfo(n);
-              if (!y) return null;
-              g.push(
+              var C = o("WAWebOrderDetails").getOrderInfo(n);
+              if (!C) return null;
+              _.push(
                 o(
                   "WAWebGetBrazilnteractiveActions",
-                ).getPaymentInfoOrderDetailsInteractiveAction(y, n),
+                ).getPaymentInfoOrderDetailsInteractiveAction(C, n),
               );
             } else if (
               c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
             ) {
-              var C,
-                b = o("WAWebOrderDetails").getOrderInfo(n);
-              if (!b) return null;
-              var v = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
-                S = o("WAWebOrderStatus").findOrderStatus(v, b.referenceId),
-                R = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
-                  chat: v,
+              var b,
+                v = o("WAWebOrderDetails").getOrderInfo(n);
+              if (!v) return null;
+              var S = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
+                R = o("WAWebOrderStatus").findOrderStatus(S, v.referenceId),
+                L = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
+                  chat: S,
                   msg: n,
-                  orderInfo: b,
-                  orderStatus: S,
+                  orderInfo: v,
+                  orderStatus: R,
                   uimContext: l,
                 });
-              R && g.push(R);
-              var L = S === o("WAWebOrderStatus").OrderStatus.Pending,
-                E = i == null;
+              L && _.push(L);
+              var E = R === o("WAWebOrderStatus").OrderStatus.Pending,
+                k = i == null;
               if (
-                (v.contact.isEnterprise ||
-                  ((C = v.contact) == null ? void 0 : C.isHosted) === !0) &&
-                o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(v)
+                (S.contact.isEnterprise ||
+                  ((b = S.contact) == null ? void 0 : b.isHosted) === !0) &&
+                o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(S)
               ) {
-                var k = [],
-                  I = 2;
-                (E
-                  ? (o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(
-                      b,
-                    ) &&
-                      k.push(
-                        o(
-                          "WAWebGetBrazilnteractiveActions",
-                        ).getCopyPixCodeInteractiveAction(b, n),
-                      ),
-                    o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(v) &&
-                      o("WAWebGetBrazilnteractiveActions").hasValidPaymentLink(
-                        b,
-                      ) &&
-                      k.push(
-                        o(
-                          "WAWebGetBrazilnteractiveActions",
-                        ).getOpenPaymentLinkInteractiveAction(b, n),
-                      ),
-                    k.length < I &&
-                      o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(v) &&
-                      o("WAWebGetBrazilnteractiveActions").hasValidBoletoCode(
-                        b,
-                      ) &&
-                      k.push(
-                        o(
-                          "WAWebGetBrazilnteractiveActions",
-                        ).getCopyBoletoCodeInteractiveAction(b, n),
-                      ),
-                    k.length < I &&
-                      o("WAWebGetBrazilnteractiveActions").hasValidCard(b) &&
-                      k.push(m()))
-                  : k.push(p(n, l, !0)),
-                  k.length === 0 && k.push(p(n, l, !L)),
-                  g.push.apply(g, k));
-              } else if (o("WAWebOrderStatus").isPaymentRequest(v, b)) {
-                var T = _(n, b);
-                T != null && g.push(T);
+                var I = k ? p(v, n, S) : [g(n, l, !0)];
+                I.length === 0 ? _.push(g(n, l, !E)) : _.push.apply(_, I);
+              } else if (o("WAWebOrderStatus").isPaymentRequest(S, v)) {
+                var T = h(n, v);
+                T != null && _.push(T);
               } else {
                 var D = null;
-                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(v) &&
-                  o("WAWebGetBrazilnteractiveActions").hasValidStaticPix(b) &&
+                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(S) &&
+                  o("WAWebGetBrazilnteractiveActions").hasValidStaticPix(v) &&
                   (D = o(
                     "WAWebGetBrazilnteractiveActions",
-                  ).getCopyPixStaticCodeInteractiveAction(n, b)),
-                  g.push(D != null ? D : p(n, l, !L)));
+                  ).getCopyPixStaticCodeInteractiveAction(n, v)),
+                  _.push(D != null ? D : g(n, l, !E)));
               }
               if (!o("WAWebMsgGetters").getIsSentByMe(n)) {
                 var x = o("WAWebGetQuickPayAction").getQuickPayAction(
                   n,
-                  b.type,
-                  !L,
+                  v.type,
+                  !E,
                 );
-                x && g.push(x);
+                x && _.push(x);
               }
             } else if (
               c ===
@@ -152,13 +119,13 @@ __d(
               var $ = o(
                 "WAWebGetMessageWithLinkAction",
               ).getOpenMessageWithLinkAction(n);
-              $ && g.push($);
+              $ && _.push($);
             } else if (
               c ===
               r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT
             ) {
               var P = d(n);
-              P && g.push(P);
+              P && _.push(P);
             }
             if (
               c != null &&
@@ -169,18 +136,14 @@ __d(
               var N = o(
                 "WAWebGetInteractiveCtaActions",
               ).getNativeFlowCtasFromInteractiveMsg(n);
-              N != null &&
-                g.push.apply(
-                  g,
-                  r("WAWebGetInteractiveActionsFromButtons")(N, n),
-                );
+              N != null && _.push.apply(_, m(N, n));
             }
           }
           break;
         case r("WAWebInteractiveMessageType").CAROUSEL:
           break;
       }
-      return g;
+      return _;
     }
     function d(e) {
       if (e.id.fromMe || !o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled())
@@ -202,7 +165,54 @@ __d(
             testid: "br_add_pix_key_message_action",
           };
     }
-    function m() {
+    function m(e, t) {
+      var n;
+      return (n = o(
+        "WAWebBrOptionsToPayActions",
+      ).getPaymentRequestOptionsToPayActions(e, t)) != null
+        ? n
+        : r("WAWebGetInteractiveActionsFromButtons")(e, t);
+    }
+    function p(e, t, n) {
+      var r;
+      return (r = o(
+        "WAWebBrOptionsToPayActions",
+      ).getOrderDetailsOptionsToPayActions(e, t, n)) != null
+        ? r
+        : _(e, t, n);
+    }
+    function _(e, t, n) {
+      var r = [],
+        a = 2;
+      return (
+        o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(e) &&
+          r.push(
+            o(
+              "WAWebGetBrazilnteractiveActions",
+            ).getCopyPixCodeInteractiveAction(e, t),
+          ),
+        o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(n) &&
+          o("WAWebGetBrazilnteractiveActions").hasValidPaymentLink(e) &&
+          r.push(
+            o(
+              "WAWebGetBrazilnteractiveActions",
+            ).getOpenPaymentLinkInteractiveAction(e, t),
+          ),
+        r.length < a &&
+          o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(n) &&
+          o("WAWebGetBrazilnteractiveActions").hasValidBoletoCode(e) &&
+          r.push(
+            o(
+              "WAWebGetBrazilnteractiveActions",
+            ).getCopyBoletoCodeInteractiveAction(e, t),
+          ),
+        r.length < a &&
+          o("WAWebGetBrazilnteractiveActions").hasValidCard(e) &&
+          r.push(f()),
+        r
+      );
+    }
+    function f() {
       return {
         label: s._(/*BTDS*/ "Pay with card"),
         onClick: function () {
@@ -222,7 +232,7 @@ __d(
         },
       };
     }
-    function p(e, t, n) {
+    function g(e, t, n) {
       var a = function () {
         return o("WAWebMsgGetters").getIsSentByMe(e) || n
           ? s._(/*BTDS*/ "View details")
@@ -263,14 +273,14 @@ __d(
         },
       };
     }
-    function _(e, t) {
+    function h(e, t) {
       return o("WAWebMsgGetters").getIsSentByMe(e)
         ? null
         : o(
             "WAWebGetBrazilnteractiveActions",
           ).getCopyPixStaticCodeInteractiveAction(e, t);
     }
-    function f(e) {
+    function y(e) {
       var t = e.id;
       return {
         label: s._(/*BTDS*/ "View shop"),

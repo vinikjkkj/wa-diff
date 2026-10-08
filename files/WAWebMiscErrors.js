@@ -8,24 +8,13 @@ __d(
           var n;
           return (
             (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "Offline"),
+            (n.name = "GaveUpRetry"),
             n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })((e = o("WACustomError")).CustomError),
       u = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "GaveUpRetry"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      c = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -37,7 +26,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      d = (function (e) {
+      c = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -49,7 +38,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      m = (function (e) {
+      d = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -61,7 +50,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      p = (function (e) {
+      m = (function (e) {
         function t(n) {
           var r;
           return (
@@ -72,8 +61,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    p.message = "Could not perform action.";
-    var _ = (function (e) {
+    m.message = "Could not perform action.";
+    var p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -84,7 +73,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      f = (function (e) {
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -96,14 +85,13 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    ((l.Offline = s),
-      (l.GaveUpRetry = u),
-      (l.DecodeWebpResultsError = c),
-      (l.EncodeWebpError = d),
-      (l.ModelCreateError = m),
-      (l.ActionError = p),
-      (l.Unmount = _),
-      (l.GoogleLensApiError = f));
+    ((l.GaveUpRetry = s),
+      (l.DecodeWebpResultsError = u),
+      (l.EncodeWebpError = c),
+      (l.ModelCreateError = d),
+      (l.ActionError = m),
+      (l.Unmount = p),
+      (l.GoogleLensApiError = _));
   },
   98,
 );
