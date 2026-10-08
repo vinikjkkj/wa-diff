@@ -3,21 +3,35 @@ __d(
   ["FBLogger", "GHLServerJSParse", "ServerJS", "err", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    function e(e, t) {
+      var n;
       if (e instanceof HTMLScriptElement) {
-        var t = e.dataset.contentLen;
-        if (!(e.dataset.processed || e.textContent.length.toString() !== t)) {
+        var a = e.dataset.contentLen;
+        if (!(e.dataset.processed || e.textContent.length.toString() !== a)) {
           e.dataset.processed = "1";
-          var n = null;
+          var i = (n = e.nonce) != null ? n : e.getAttribute("nonce");
+          if (i !== t) {
+            var l;
+            if (
+              (r("FBLogger")("serverjs_listener").mustfix(
+                "ServerJS payload nonce validation failed: %s v/s %s",
+                i,
+                t,
+              ),
+              ((l = window.Env) == null ? void 0 : l.sjsNonceEnforce) === !0)
+            )
+              return;
+          }
+          var s = null;
           try {
             if (
-              ((n = o("GHLServerJSParse").hydrateBootData(e.textContent)),
-              n == null)
+              ((s = o("GHLServerJSParse").hydrateBootData(e.textContent)),
+              s == null)
             )
               throw r("err")(
                 "ServerJS payload marked with data-sjs was parsed as null",
               );
-            new (r("ServerJS"))().handle(n);
+            new (r("ServerJS"))().handle(s);
           } catch (e) {
             r("FBLogger")("serverjs_listener")
               .catching(r("getErrorSafe")(e))
@@ -29,11 +43,16 @@ __d(
       }
     }
     function s() {
+      var n, r;
       if (t.document != null) {
-        var n = document.querySelectorAll(
-          "script[data-sjs]:not([data-processed])",
-        );
-        for (var r of n) e(r);
+        var o = document.querySelectorAll(
+            "script[data-sjs]:not([data-processed])",
+          ),
+          a =
+            (n = (r = window.Env) == null ? void 0 : r.sjsNonce) != null
+              ? n
+              : "undefined";
+        for (var i of o) e(i, a);
       }
     }
     l.process = s;

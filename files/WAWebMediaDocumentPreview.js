@@ -391,7 +391,7 @@ __d(
                 className: "x1n2onr6",
                 children: [
                   u.jsx(r("WAWebMediaThumbnail.react"), {
-                    msg: c.unsafe(),
+                    msgKey: c.id,
                     containerClassName: "xcbkimw x1n2onr6 xjzcg3w",
                     childClassName:
                       "x1agz8ms xiy17q3 x18d0r48 x5yr21d x10l6tqk xh8yej3",
@@ -475,7 +475,7 @@ __d(
             children: [
               S && !oe
                 ? u.jsx(r("WAWebMediaThumbnail.react"), {
-                    msg: c.unsafe(),
+                    msgKey: c.id,
                     containerClassName: "xpyat2d x1n2onr6 xh8yej3",
                     childClassName:
                       "x1agz8ms xiy17q3 x18d0r48 x5yr21d x10l6tqk xh8yej3",

@@ -30,6 +30,7 @@ __d(
     "WAWebVoipHandleNativeCallEventMediaHandlers",
     "WAWebVoipHardwareInfo",
     "WAWebVoipIncomingCallUiActionStore",
+    "WAWebVoipInitEventEmitter",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
@@ -450,7 +451,7 @@ __d(
                           ).handleUpdate1to1CallLog(t)
                         : e ===
                             o("WAWebVoipWaCallEnums").CallEvent.RelayListUpdate
-                          ? Ie(t)
+                          ? Te(t)
                           : e ===
                               o("WAWebVoipWaCallEnums").CallEvent
                                 .FieldstatsReady
@@ -988,7 +989,7 @@ __d(
             s = i.call_info,
             u = o("WAWebVoipLocalCallStateStore").getLocalCallState();
           (o("WAWebVoipLocalCallStateStore").setLocalCallState(l),
-            Re(u, l, s.callId));
+            Le(u, l, s.callId));
           var c =
             o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
             !o("WAWebVoipCallStateUtils").isCallTerminal(l);
@@ -1014,7 +1015,7 @@ __d(
               "WAWebVoipAppInBgWhenCallStartsStore",
             ).maybeRecordAppInBgWhenCallStarts(u, l),
             o("WAWebVoipCallStateUtils").isCallTerminal(l)
-              ? (Ce = null)
+              ? ((Ce = null), Re())
               : be(typeof s.callId == "string" ? s.callId : null),
             !o("WAWebVoipCallStateUtils").isCallTerminal(u) &&
               o("WAWebVoipCallStateUtils").isCallTerminal(l) &&
@@ -1041,7 +1042,7 @@ __d(
             ),
             o(
               "WAWebCallUserJourneyLogger",
-            ).CallUserJourneyLogger.setConnectedParticipants(Le(s)),
+            ).CallUserJourneyLogger.setConnectedParticipants(Ee(s)),
             o("WAWebVoipCallStateUtils").isCallTerminal(l) ||
               (o("WAWebVoipDtlsCertCallRegistration").syncDtlsCertCall(
                 s.callId,
@@ -1058,9 +1059,9 @@ __d(
             d &&
             !o("WAWebVoipGatingUtils").isWebTransportEnabled();
           if (
-            (ke(c, u, typeof s.callId == "string" ? s.callId : null),
+            (Ie(c, u, typeof s.callId == "string" ? s.callId : null),
             o("WAWebVoipWebTransportCallSummary").recordWtCallState(l),
-            Ee(c),
+            ke(c),
             o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
               (l === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
                 l === o("WAWebVoipWaCallEnums").CallState.AcceptReceived) &&
@@ -1241,7 +1242,7 @@ __d(
                     )
                     .catching(r("getErrorSafe")(e));
                 }),
-                xe().catch(function (e) {
+                $e().catch(function (e) {
                   var t = r("getErrorSafe")(e);
                   o("WALogger")
                     .WARN(
@@ -1336,7 +1337,12 @@ __d(
         Se.apply(this, arguments)
       );
     }
-    function Re(e, t, n) {
+    function Re() {
+      o(
+        "WAWebVoipInitEventEmitter",
+      ).VoipInitEventEmitter.clearVoipStackUnresponsive();
+    }
+    function Le(e, t, n) {
       if (o("WAWebVoipCallStateUtils").isCallTerminal(t)) {
         (o("WAWebVoipCallStateUtils").isCallTerminal(e) || Q++, (X = null));
         return;
@@ -1349,7 +1355,7 @@ __d(
           Q++,
         (X = n));
     }
-    function Le(e) {
+    function Ee(e) {
       var t = e.participants;
       return t == null
         ? null
@@ -1360,7 +1366,7 @@ __d(
             );
           }).length;
     }
-    function Ee(e) {
+    function ke(e) {
       e &&
         o(
           "WAWebVoipWebTransportConnectionManager",
@@ -1368,7 +1374,7 @@ __d(
           o("WAWebVoipGatingUtils").isWebTransportEnabled(),
         );
     }
-    function ke(e, t, n) {
+    function Ie(e, t, n) {
       if (e) {
         (o("WAWebVoipWebTransportCallSummary").resetWtCurrentCallActivity(
           n,
@@ -1383,12 +1389,12 @@ __d(
       n != null &&
         o("WAWebVoipWebTransportCallSummary").updateWtCurrentCallId(n);
     }
-    function Ie(e) {
-      return Te.apply(this, arguments);
+    function Te(e) {
+      return De.apply(this, arguments);
     }
-    function Te() {
+    function De() {
       return (
-        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (De = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           if (
             o("WAWebABProps").getABPropConfigValue(
@@ -1451,7 +1457,7 @@ __d(
                 )),
             (Z.cachedRelayListData = i),
             (Z.relayListReceived = !0),
-            xe().catch(function (e) {
+            $e().catch(function (e) {
               var t = r("getErrorSafe")(e);
               o("WALogger")
                 .WARN(
@@ -1465,10 +1471,10 @@ __d(
                 .catching(t);
             }));
         })),
-        Te.apply(this, arguments)
+        De.apply(this, arguments)
       );
     }
-    function De() {
+    function xe() {
       Z.initStarted &&
         (o("WALogger").LOG(
           f ||
@@ -1478,7 +1484,7 @@ __d(
         ),
         o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
         (Z.initStarted = !1),
-        xe().catch(function (e) {
+        $e().catch(function (e) {
           var t = r("getErrorSafe")(e);
           o("WALogger")
             .WARN(
@@ -1492,30 +1498,30 @@ __d(
             .catching(t);
         }));
     }
-    function xe() {
-      return $e.apply(this, arguments);
-    }
     function $e() {
+      return Pe.apply(this, arguments);
+    }
+    function Pe() {
       return (
-        ($e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!(Z.initStarted || !Z.callIsActive || !Z.relayListReceived)) {
             Z.initStarted = !0;
             try {
-              yield Pe();
+              yield Ne();
             } catch (e) {
               throw ((Z.initStarted = !1), e);
             }
           }
         })),
-        $e.apply(this, arguments)
+        Pe.apply(this, arguments)
       );
     }
-    function Pe() {
-      return Ne.apply(this, arguments);
-    }
     function Ne() {
+      return Me.apply(this, arguments);
+    }
+    function Me() {
       return (
-        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Me = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -1633,7 +1639,7 @@ __d(
             var f = Array.from(d, function (e) {
               return { urls: e };
             });
-            (o("WAWebVoipP2PConnectionManager").registerOnPeerIceRestart(De),
+            (o("WAWebVoipP2PConnectionManager").registerOnPeerIceRestart(xe),
               yield o("WAWebVoipP2PConnectionManager").initP2PConnection(
                 i,
                 s,
@@ -1642,7 +1648,7 @@ __d(
               ));
           }
         })),
-        Ne.apply(this, arguments)
+        Me.apply(this, arguments)
       );
     }
     ((l.requestStoredFieldstatsSend = o(

@@ -77,7 +77,7 @@ __d(
                     o("WAWebWidFactory").asUserWidOrThrow(l),
                     u,
                   ),
-              g({
+              h({
                 msgProtobuf: u,
                 msgRecord: e,
                 origin: r,
@@ -97,53 +97,54 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
-            i = e.msgProtobuf,
-            l = e.msgRecord,
-            s = e.params,
-            d = s.option,
-            m = s.participant,
-            p = s.to;
+            i,
+            l = e.msgProtobuf,
+            s = e.msgRecord,
+            d = e.params,
+            m = d.option,
+            p = d.participant,
+            _ = d.to;
           if (
             (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
               identityChanged: !1,
               sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-              wids: [m],
+              wids: [p],
             }),
-            d.type === c.AppStateSync)
+            m.type === c.AppStateSync)
           )
             return (u || (u = n("Promise"))).reject(
               r("err")(
                 "[messaging] createGroupDeviceMsgStanza: not expect for App State Sync message",
               ),
             );
-          var _ = l.data.id.remote;
-          if (!_.isGroup())
+          var f = s.data.id.remote;
+          if (!f.isGroup())
             return (u || (u = n("Promise"))).reject(
               r("err")(
                 "[messaging] createGroupDeviceMsgStanza: function called for non group WID",
               ),
             );
-          var f = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
-              _.toString(),
+          var y = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+              f.toString(),
             ),
-            h = yield o("WAWebGroupMsgSendUtils").getGroupData(
-              _.toString(),
-              f,
-              l,
+            C = yield o("WAWebGroupMsgSendUtils").getGroupData(
+              f.toString(),
+              y,
+              s,
             ),
-            y = (t = h.groupAgentParticipants) != null ? t : [],
-            C = y;
-          if (d.type === c.Retry && m.isBot()) {
-            var b = yield o(
+            b = (t = C.groupAgentParticipants) != null ? t : [],
+            v = b;
+          if (m.type === c.Retry && p.isBot()) {
+            var S = yield o(
               "WAWebResolveGroupAgentParticipants",
-            ).resolveGroupAgentFanoutForGroupSend(h);
+            ).resolveGroupAgentFanoutForGroupSend(C);
             if (
-              ((C = b.resolvedGroupAgentParticipants),
-              y.some(function (e) {
-                return e.equals(m);
+              ((v = S.resolvedGroupAgentParticipants),
+              b.some(function (e) {
+                return e.equals(p);
               }) &&
-                !C.some(function (e) {
-                  return e.equals(m);
+                !v.some(function (e) {
+                  return e.equals(p);
                 }))
             )
               return (u || (u = n("Promise"))).reject(
@@ -152,48 +153,52 @@ __d(
                 ),
               );
           }
-          var v =
-              d.type === c.Retry && (a = l.data.botGroupParticipants) != null
+          var R =
+              m.type === c.Retry &&
+              (a =
+                (i = s.data.botGroupParticipants) == null
+                  ? void 0
+                  : i.filter(g)) != null
                 ? a
-                : C,
-            S =
-              m.equals(o("WAWebBotUtils").META_BOT_FBID_WID) &&
+                : v,
+            L =
+              p.equals(o("WAWebBotUtils").META_BOT_FBID_WID) &&
               (yield o(
                 "WAWebResolveGroupAgentParticipants",
-              ).hasMuseNoticeGroupAgent(y)),
-            R = babelHelpers.extends({}, h, { groupAgentParticipants: C }),
-            L = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
+              ).hasMuseNoticeGroupAgent(b)),
+            E = babelHelpers.extends({}, C, { groupAgentParticipants: v }),
+            k = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
               o(
                 "WAWebRemoveQuotedAttachmentMediaFields",
-              ).isGroupWithAgentParticipant(h)
+              ).isGroupWithAgentParticipant(C)
                 ? o(
                     "WAWebRemoveQuotedAttachmentMediaFields",
-                  ).removeQuotedAttachmentMediaFields(i)
-                : i,
-              v,
+                  ).removeQuotedAttachmentMediaFields(l)
+                : l,
+              R,
             ),
-            E = o("WAWebUserPrefsMeUser").isMeAccount(m)
+            I = o("WAWebUserPrefsMeUser").isMeAccount(p)
               ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
-                  L,
-                  p,
+                  k,
+                  _,
                 )
-              : L;
+              : k;
           return (
             yield o("WAWebICDCMetaApi").populateICDCMeta(
-              o("WAWebWidFactory").asUserWidOrThrow(m),
-              E,
+              o("WAWebWidFactory").asUserWidOrThrow(p),
+              I,
             ),
-            g({
-              msgProtobuf: E,
-              msgRecord: l,
+            h({
+              msgProtobuf: I,
+              msgRecord: s,
               params: babelHelpers.extends(
                 {
                   type: "group",
-                  groupData: R,
-                  groupAgentPolicyParticipants: v,
-                  groupHasMuseAgent: S,
+                  groupData: E,
+                  groupAgentPolicyParticipants: R,
+                  groupHasMuseAgent: L,
                 },
-                s,
+                d,
               ),
             })
           );
@@ -202,11 +207,17 @@ __d(
       );
     }
     function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        !o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e) &&
+        !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             r,
             a,
@@ -488,7 +499,7 @@ __d(
             ae,
           );
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
     ((l.MsgType = c),

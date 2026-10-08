@@ -1281,11 +1281,14 @@ __d(
                     ),
                     -1
                   );
+                var l = o(
+                  "WAWebVoipLobbyEntryPointStore",
+                ).snapshotLobbyEntryPoint();
                 (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   n != null ? n : null,
                 ),
                   o("WAWebVoipCallIdProvider").resetPendingCallId());
-                var l = yield Se("previewCallLink", {
+                var s = yield Se("previewCallLink", {
                   token: e,
                   videoEnabled: t,
                   lobbyEntryType: n != null ? n : 0,
@@ -1293,17 +1296,19 @@ __d(
                   videoMuted: a != null ? a : !1,
                 });
                 return (
-                  l !== 0 &&
+                  s !== 0 &&
                     (o("WALogger").ERROR(
                       U ||
                         (U = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: previewCallLink: failed with status ",
                           "",
                         ])),
-                      String(l),
+                      String(s),
                     ),
-                    o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint()),
-                  Number(l)
+                    o("WAWebVoipLobbyEntryPointStore").restoreLobbyEntryPoint(
+                      l,
+                    )),
+                  Number(s)
                 );
               },
             );

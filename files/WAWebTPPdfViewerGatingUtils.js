@@ -77,6 +77,21 @@ __d(
     function v() {
       return e();
     }
+    function S() {
+      return !v() || h() !== "supported"
+        ? "control"
+        : (function (e) {
+            return e === 1
+              ? "open_in_acrobat"
+              : e === 2
+                ? "edit_in_acrobat"
+                : "control";
+          })(
+            o("WAWebABProps").getABPropConfigValue(
+              "wa_webtp_skip_sharer_confirmation_variant",
+            ),
+          );
+    }
     ((l.isWebTPThumbnailRendererEnabled = s),
       (l.isWebTPPdfViewerEnabled = u),
       (l.isWebTPPdfViewerEnabledForMimeType = c),
@@ -88,7 +103,8 @@ __d(
       (l.isWebTPPdfAnnotationsEnabled = y),
       (l.isAsyncPdfSendEnabled = C),
       (l.isPdfPreviewBeforeSendEnabled = b),
-      (l.isWebTPSharerSavePreferenceEnabled = v));
+      (l.isWebTPSharerSavePreferenceEnabled = v),
+      (l.getWebTPSkipSharerConfirmationVariant = S));
   },
   98,
 );

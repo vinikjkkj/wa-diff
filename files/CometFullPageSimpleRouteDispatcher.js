@@ -2,6 +2,7 @@ __d(
   "CometFullPageSimpleRouteDispatcher",
   [
     "CometRouterDispatcherContext",
+    "ExecutionEnvironment",
     "FBLogger",
     "buildCometRouterDispatcher",
     "goForceFullPageRedirectTo",
@@ -11,10 +12,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = e.useMemo;
-    function c() {
-      var e = {
+      s,
+      u = s || (s = o("react")),
+      c = s.useMemo;
+    function d() {
+      var t = {
         go: function (t, n) {
           r("goForceFullPageRedirectTo")(t);
         },
@@ -24,7 +26,8 @@ __d(
           );
         },
         goBack: function () {
-          window.history.back();
+          (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+            window.history.back();
         },
         goTo: function (t, n) {
           r("goForceFullPageRedirectTo")(t.url);
@@ -35,7 +38,8 @@ __d(
           );
         },
         popPushView: function () {
-          window.history.back();
+          (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+            window.history.back();
         },
         prefetchRouteDefinition: function () {},
         prefetchRouteQueries: function (t, n) {
@@ -46,20 +50,20 @@ __d(
         },
         preloadRouteCode: function (t, n) {},
       };
-      return new (o("buildCometRouterDispatcher").Dispatcher)(e);
+      return new (o("buildCometRouterDispatcher").Dispatcher)(t);
     }
-    function d(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.children,
         a;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = c()), (t[0] = a))
+        ? ((a = d()), (t[0] = a))
         : (a = t[0]);
       var i = a,
         l;
       return (
         t[1] !== n
-          ? ((l = s.jsx(r("CometRouterDispatcherContext").Provider, {
+          ? ((l = u.jsx(r("CometRouterDispatcherContext").Provider, {
               value: i,
               children: n,
             })),
@@ -69,7 +73,7 @@ __d(
         l
       );
     }
-    l.default = d;
+    l.default = m;
   },
   98,
 );

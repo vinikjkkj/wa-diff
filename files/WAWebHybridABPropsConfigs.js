@@ -39,6 +39,7 @@ __d(
       ai_group_call_start_call_notice_id: [31736, "string", "", ""],
       ai_group_call_version: [24652, "int", 0, 0],
       ai_groups_open_enabled: [22165, "bool", !1, !1],
+      ai_hatch_custom_connectors_enabled: [38808, "bool", !1, !1],
       ai_hatch_first_party_connectors_enabled: [38142, "bool", !1, !0],
       ai_hatch_gzip_encoding_enabled: [37777, "bool", !1, !0],
       ai_hatch_integration_bot_profile: [26190, "string", "", ""],

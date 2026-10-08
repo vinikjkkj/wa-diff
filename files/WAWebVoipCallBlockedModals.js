@@ -136,7 +136,15 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return c() ? !0 : d();
+          return c()
+            ? !0
+            : o(
+                  "WAWebVoipInitEventEmitter",
+                ).VoipInitEventEmitter.getIsVoipStackUnresponsive()
+              ? (o("WAWebCoreActionsODS").logCallInitBlockedStackUnresponsive(),
+                _(),
+                !0)
+              : d();
         })),
         g.apply(this, arguments)
       );

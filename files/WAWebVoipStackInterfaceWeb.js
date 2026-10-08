@@ -447,7 +447,8 @@ __d(
         startCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, a, i, s) {
-              o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!1);
+              (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!1),
+                o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint());
               var u = yield l;
               o("WAWebMLModelManager")
                 .initMLModelsForCall(u)
@@ -501,6 +502,9 @@ __d(
                 );
                 return;
               }
+              o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                p != null ? p : null,
+              );
               var f = yield l;
               o("WAWebMLModelManager")
                 .initMLModelsForCall(f)
@@ -603,6 +607,7 @@ __d(
         })(),
         rejectCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint();
             var e = yield l;
             try {
               e.rejectCall();
@@ -679,7 +684,11 @@ __d(
                 );
                 return;
               }
-              o("WAWebVoipCallIdProvider").resetPendingCallId();
+              (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                y != null ? y : null,
+                !g,
+              ),
+                o("WAWebVoipCallIdProvider").resetPendingCallId());
               var b = yield l,
                 v = new b.StringList();
               a.forEach(function (e) {
@@ -769,10 +778,21 @@ __d(
                   ),
                   -1
                 );
-              o("WAWebVoipCallIdProvider").resetPendingCallId();
-              var s = yield l;
+              var s = o(
+                "WAWebVoipLobbyEntryPointStore",
+              ).snapshotLobbyEntryPoint();
+              (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                n != null ? n : null,
+              ),
+                o("WAWebVoipCallIdProvider").resetPendingCallId());
+              var u = yield l.catch(function (e) {
+                throw (
+                  o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+                  e
+                );
+              });
               try {
-                var u = s.previewCallLink(
+                var c = u.previewCallLink(
                   e,
                   t,
                   n != null ? n : 0,
@@ -780,23 +800,27 @@ __d(
                   a != null ? a : !1,
                 );
                 return (
-                  u !== 0 &&
-                    o("WALogger")
+                  c !== 0 &&
+                    (o("WALogger")
                       .ERROR(
                         T ||
                           (T = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: previewCallLink: failed with status ",
                             "",
                           ])),
-                        u,
+                        c,
                       )
                       .sendLogs("voip-preview-call-link-failed"),
-                  u
+                    o("WAWebVoipLobbyEntryPointStore").restoreLobbyEntryPoint(
+                      s,
+                    )),
+                  c
                 );
               } catch (e) {
                 throw (
+                  o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    s,
+                    u,
                     e,
                   ),
                   e
@@ -859,11 +883,22 @@ __d(
                   ),
                   -1
                 );
-              o("WAWebVoipCallIdProvider").resetPendingCallId();
-              var s = yield l;
+              var s = o(
+                "WAWebVoipLobbyEntryPointStore",
+              ).snapshotLobbyEntryPoint();
+              (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                n != null ? n : null,
+              ),
+                o("WAWebVoipCallIdProvider").resetPendingCallId());
+              var u = yield l.catch(function (e) {
+                throw (
+                  o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+                  e
+                );
+              });
               try {
                 o("WAWebMLModelManager")
-                  .initMLModelsForCall(s)
+                  .initMLModelsForCall(u)
                   .catch(function (e) {
                     o("WALogger").WARN(
                       P ||
@@ -874,7 +909,7 @@ __d(
                       e,
                     );
                   });
-                var u = s.previewAndJoinCallLink(
+                var c = u.previewAndJoinCallLink(
                   e,
                   t,
                   n != null ? n : 0,
@@ -883,23 +918,27 @@ __d(
                   i != null ? i : "",
                 );
                 return (
-                  u !== 0 &&
-                    o("WALogger")
+                  c !== 0 &&
+                    (o("WALogger")
                       .ERROR(
                         N ||
                           (N = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: previewAndJoinCallLink: failed with status ",
                             "",
                           ])),
-                        u,
+                        c,
                       )
                       .sendLogs("voip-preview-and-join-call-link-failed"),
-                  u
+                    o("WAWebVoipLobbyEntryPointStore").restoreLobbyEntryPoint(
+                      s,
+                    )),
+                  c
                 );
               } catch (e) {
                 throw (
+                  o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    s,
+                    u,
                     e,
                   ),
                   e

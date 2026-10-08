@@ -253,6 +253,7 @@ __d(
             return {
               wid: this.chat.id,
               msgId: (e = this.msg) == null ? void 0 : e.id.toString(),
+              alwaysHighlightMsg: this.msg != null,
               onClick: r("WAWebNoop"),
               tag: this.buildKey(),
               doNotOpenChat: !1,

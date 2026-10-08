@@ -91,7 +91,7 @@ __d(
               grow: 0,
               align: "center",
               children: c.jsx(r("WAWebMediaThumbnail.react"), {
-                msg: e.msg.unsafe(),
+                msgKey: e.msg.id,
                 containerClassName: "xcbkimw x1n2onr6 x1dmp6jm",
                 thumbnailPlaceholder: c.jsx(
                   "div",

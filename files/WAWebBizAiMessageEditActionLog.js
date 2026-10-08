@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebBizAILargeScreensLogEvents",
     "WAWebBizAiMessageEditEducationState",
+    "WAWebMessageEditUtils",
     "WAWebMsgActionCapability",
     "getErrorSafe",
   ],
@@ -14,7 +15,10 @@ __d(
       try {
         if (!o("WAWebMsgActionCapability").shouldCoachAgentEdit(t)) return;
         o("WAWebBizAILargeScreensLogEvents").logClickBizAiMessageEditAction(
-          o("WAWebMsgActionCapability").shouldDeliverAgentEditToRecipient(t),
+          o("WAWebMessageEditUtils").isParentWithinEditUIWindow({
+            msgKey: t.id,
+            parentTsInSeconds: t.t,
+          }),
           o("WAWebBizAiMessageEditEducationState").hasViewedDiscoveryTooltip(),
         );
       } catch (t) {

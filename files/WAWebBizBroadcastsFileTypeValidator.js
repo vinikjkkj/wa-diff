@@ -20,7 +20,7 @@ __d(
       return n.test(e);
     }
     function d(e) {
-      return o("WAWebMimeTypes").getVideoMimes().split(",").includes(e);
+      return o("WAWebMimeTypes").EXTENDED_VIDEO_MIMES.split(",").includes(e);
     }
     ((l.getBBDocumentsAcceptTypesString = u),
       (l.isAttachmentImageMimeType = c),

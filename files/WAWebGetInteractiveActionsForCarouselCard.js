@@ -34,7 +34,11 @@ __d(
         if (p != null) {
           var _ = o(
             "WAWebGetInteractiveCtaActions",
-          ).nativeFlowButtonToCtaButton(p, m, void 0, e.nativeFlowName);
+          ).nativeFlowButtonToCtaButton({
+            button: p,
+            index: m,
+            messageNativeFlowName: e.nativeFlowName,
+          });
           _ != null && d.push(_);
         }
       }

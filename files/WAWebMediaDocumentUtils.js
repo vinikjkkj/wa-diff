@@ -497,7 +497,9 @@ __d(
                       e.id.toString(),
                     ),
                       q(d),
-                      yield o("WAWebFileSaver").FileSaver.downloadAsync(d));
+                      yield o("WAWebFileSaver").FileSaver.downloadAsync({
+                        msg: d,
+                      }));
                     break;
                   }
                   var m = n("cr:7565") != null && (l === !0 || i === !0);
@@ -550,9 +552,9 @@ __d(
                               e.id.toString(),
                             ),
                             q(d),
-                            yield o("WAWebFileSaver").FileSaver.downloadAsync(
-                              d,
-                            )));
+                            yield o("WAWebFileSaver").FileSaver.downloadAsync({
+                              msg: d,
+                            })));
                 }
                 break;
               case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:

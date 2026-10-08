@@ -4,12 +4,16 @@ __d(
   function (t, n, r, o, a, i) {
     var e,
       l = new WeakMap();
-    function s(e, t, n, r) {
-      var o = e.getBoundingClientRect(),
-        a = t.getBoundingClientRect();
-      return n === "x"
-        ? e.scrollLeft + (a.left - o.left) + r
-        : e.scrollTop + (a.top - o.top) + r;
+    function s(e) {
+      var t = e.axis,
+        n = e.container,
+        r = e.node,
+        o = e.offset,
+        a = n.getBoundingClientRect(),
+        i = r.getBoundingClientRect();
+      return t === "x"
+        ? n.scrollLeft + (i.left - a.left) + o
+        : n.scrollTop + (i.top - a.top) + o;
     }
     function u(t, r, o, a, i, l) {
       d(r);

@@ -689,8 +689,7 @@ __d(
               isBotRespOrInvocationRevoke: d,
               isOpenBotGroupSend: a,
               msg: l,
-              omitNonParticipantInvokedBot:
-                m === !0 && !o("WAWebMsgGetters").getIsRevoke(l),
+              omitNonParticipantInvokedBot: m === !0,
               shouldGateInvokedBot: u,
             }),
             _ = p[0];

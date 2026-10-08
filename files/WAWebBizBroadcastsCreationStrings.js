@@ -16,156 +16,159 @@ __d(
       return s._(/*BTDS*/ "Duplicate broadcast");
     }
     function m(e) {
-      return e ? s._(/*BTDS*/ "Sending...") : s._(/*BTDS*/ "Send now");
+      return e ? p() : s._(/*BTDS*/ "Send now");
     }
     function p() {
-      return s._(/*BTDS*/ "Audience");
+      return s._(/*BTDS*/ "Sending...");
     }
     function _() {
-      return s._(/*BTDS*/ "Choose audience");
+      return s._(/*BTDS*/ "Audience");
     }
     function f() {
-      return s._(/*BTDS*/ "Add audience");
+      return s._(/*BTDS*/ "Choose audience");
     }
     function g() {
-      return s._(/*BTDS*/ "Create audience");
+      return s._(/*BTDS*/ "Add audience");
     }
     function h() {
-      return s._(/*BTDS*/ "New audience");
+      return s._(/*BTDS*/ "Create audience");
     }
     function y() {
-      return s._(/*BTDS*/ "Import audience");
+      return s._(/*BTDS*/ "New audience");
     }
     function C() {
-      return s._(/*BTDS*/ "Existing audiences");
+      return s._(/*BTDS*/ "Import audience");
     }
     function b() {
-      return s._(/*BTDS*/ "Select who you want to reach with your broadcast.");
+      return s._(/*BTDS*/ "Existing audiences");
     }
     function v() {
+      return s._(/*BTDS*/ "Select who you want to reach with your broadcast.");
+    }
+    function S() {
       return s._(/*BTDS*/ "Selected audiences");
     }
-    function S(e) {
+    function R(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
         s._plural(e, "number"),
       ]);
     }
-    function R(e) {
+    function L(e) {
       return s._(
         /*BTDS*/ "{count} people are in multiple audiences, so they'll get this broadcast more than once.",
         [s._param("count", e)],
       );
     }
-    function L() {
+    function E() {
       return s._(/*BTDS*/ "Imported");
     }
-    function E() {
+    function k() {
       return s._(/*BTDS*/ "Audience imported");
     }
-    function k() {
+    function I() {
       return s._(/*BTDS*/ "Audience created");
     }
-    function I() {
-      return s._(/*BTDS*/ "Audience updated");
-    }
     function T() {
-      return s._(/*BTDS*/ "Message");
+      return s._(/*BTDS*/ "Audience updated");
     }
     function D() {
       return s._(/*BTDS*/ "Message");
     }
     function x() {
-      return s._(/*BTDS*/ "Attachment");
+      return s._(/*BTDS*/ "Message");
     }
     function $() {
+      return s._(/*BTDS*/ "Attachment");
+    }
+    function P() {
       return s._(
         /*BTDS*/ "Include an attachment to help your message stand out.",
       );
     }
-    function P() {
+    function N() {
       return s._(/*BTDS*/ "Optional");
     }
-    function N() {
+    function M() {
       return s._(/*BTDS*/ "Add attachment");
     }
-    function M() {
+    function w() {
       return s._(/*BTDS*/ "Edit media");
     }
-    function w() {
+    function A() {
       return s._(/*BTDS*/ "Remove media");
     }
-    function A() {
+    function F() {
       return s._(/*BTDS*/ "Camera");
     }
-    function F() {
+    function O() {
       return s._(/*BTDS*/ "Photos & videos");
     }
-    function O() {
+    function B() {
       return s._(/*BTDS*/ "Catalog");
     }
-    function B() {
+    function W() {
       return s._(/*BTDS*/ "Preview");
     }
-    function W() {
+    function q() {
       return s._(/*BTDS*/ "Your message will display here.");
     }
-    function q(e) {
+    function U(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} pages","_1":"1 page"}', [
         s._plural(e, "number"),
       ]);
     }
-    function U() {
+    function V() {
       return s._(/*BTDS*/ "Details");
     }
-    function V() {
+    function H() {
       return s._(/*BTDS*/ "Summary");
     }
-    function H() {
+    function G() {
       return s._(/*BTDS*/ "Total recipients");
     }
-    function G() {
+    function z() {
       return s._(/*BTDS*/ "Estimated cost");
     }
-    function z() {
+    function j() {
       return s._(/*BTDS*/ "Estimated tax");
     }
-    function j() {
+    function K() {
       return s._(/*BTDS*/ "Estimated total");
     }
-    function K() {
+    function Q() {
       return s._(/*BTDS*/ "Credits used");
     }
-    function Q() {
+    function X() {
       return s._(/*BTDS*/ "Available credits");
     }
-    function X() {
+    function Y() {
       return s._(/*BTDS*/ "Existing audiences");
     }
-    function Y(e) {
+    function J(e) {
       return s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
     }
-    function J() {
+    function Z() {
       return s._(/*BTDS*/ "Save");
     }
-    function Z() {
+    function ee() {
       return s._(/*BTDS*/ "Remove");
     }
-    function ee() {
+    function te() {
       return s._(/*BTDS*/ "Audience info");
     }
-    function te() {
+    function ne() {
       return s._(/*BTDS*/ "Continue without saving?");
     }
-    function ne() {
+    function re() {
       return s._(/*BTDS*/ "Your progress will be lost.");
     }
-    function re() {
+    function oe() {
       return s._(/*BTDS*/ "Continue");
     }
-    function oe() {
+    function ae() {
       return s._(/*BTDS*/ "Payment pending");
     }
-    function ae(e) {
+    function ie(e) {
       var t = e.broadcastJidIsNull,
         n = e.checkoutFailed,
         r = e.contactsCount,
@@ -192,7 +195,7 @@ __d(
                       [s._param("recipientLimit", d)],
                     )
                   : a
-                    ? oe()
+                    ? ae()
                     : c
                       ? s._(/*BTDS*/ "Message can't be empty")
                       : n
@@ -209,53 +212,54 @@ __d(
       (l.getCreateBroadcastDrawerTitle = c),
       (l.getDuplicateBroadcastDrawerTitle = d),
       (l.getSendNowButtonLabel = m),
-      (l.getAudienceSectionTitle = p),
-      (l.getChooseAudienceLabel = _),
-      (l.getAddAudienceLabel = f),
-      (l.getCreateAudienceLabel = g),
-      (l.getNewAudienceLabel = h),
-      (l.getImportAudienceLabel = y),
-      (l.getExistingAudiencesLabel = C),
-      (l.getAudienceSectionSubtitle = b),
-      (l.getSelectedAudiencesAriaLabel = v),
-      (l.getAudienceRecipientCountLabel = S),
-      (l.getOverlappingRecipientsWarning = R),
-      (l.getImportedLabel = L),
-      (l.getAudienceImportedToastLabel = E),
-      (l.getAudienceCreatedToastLabel = k),
-      (l.getAudienceUpdatedToastLabel = I),
-      (l.getMessageSectionTitle = T),
-      (l.getMessageTextFieldLabel = D),
-      (l.getAttachmentSectionTitle = x),
-      (l.getAttachmentSectionSubtitle = $),
-      (l.getOptionalLabel = P),
-      (l.getAddAttachmentButtonLabel = N),
-      (l.getEditMediaAriaLabel = M),
-      (l.getRemoveMediaAriaLabel = w),
-      (l.getAttachmentMenuCameraLabel = A),
-      (l.getAttachmentMenuPhotosVideosLabel = F),
-      (l.getDefaultCatalogLabel = O),
-      (l.getPreviewSectionTitle = B),
-      (l.getPreviewMessagePlaceholder = W),
-      (l.getDocumentPreviewPagesCount = q),
-      (l.getDetailsSectionTitle = U),
-      (l.getBillingSummarySectionTitle = V),
-      (l.getTotalRecipientsLabel = H),
-      (l.getEstimatedCostLabel = G),
-      (l.getEstimatedTaxLabel = z),
-      (l.getEstimatedTotalLabel = j),
-      (l.getCreditsUsedLabel = K),
-      (l.getAvailableCreditsLabel = Q),
-      (l.getExistingAudiencesDialogTitle = X),
-      (l.getExistingAudienceRecipientsLabel = Y),
-      (l.getExistingAudiencesSaveButtonLabel = J),
-      (l.getDocumentPreviewRemoveDocumentLabel = Z),
-      (l.getBroadcastAudienceInfoLabel = ee),
-      (l.getExitConfirmationTitle = te),
-      (l.getExitConfirmationBody = ne),
-      (l.getExitConfirmationContinueButton = re),
-      (l.getPaymentPendingDisabledReason = oe),
-      (l.getSendNowButtonDisabledReason = ae));
+      (l.getSendingBroadcastButtonLabel = p),
+      (l.getAudienceSectionTitle = _),
+      (l.getChooseAudienceLabel = f),
+      (l.getAddAudienceLabel = g),
+      (l.getCreateAudienceLabel = h),
+      (l.getNewAudienceLabel = y),
+      (l.getImportAudienceLabel = C),
+      (l.getExistingAudiencesLabel = b),
+      (l.getAudienceSectionSubtitle = v),
+      (l.getSelectedAudiencesAriaLabel = S),
+      (l.getAudienceRecipientCountLabel = R),
+      (l.getOverlappingRecipientsWarning = L),
+      (l.getImportedLabel = E),
+      (l.getAudienceImportedToastLabel = k),
+      (l.getAudienceCreatedToastLabel = I),
+      (l.getAudienceUpdatedToastLabel = T),
+      (l.getMessageSectionTitle = D),
+      (l.getMessageTextFieldLabel = x),
+      (l.getAttachmentSectionTitle = $),
+      (l.getAttachmentSectionSubtitle = P),
+      (l.getOptionalLabel = N),
+      (l.getAddAttachmentButtonLabel = M),
+      (l.getEditMediaAriaLabel = w),
+      (l.getRemoveMediaAriaLabel = A),
+      (l.getAttachmentMenuCameraLabel = F),
+      (l.getAttachmentMenuPhotosVideosLabel = O),
+      (l.getDefaultCatalogLabel = B),
+      (l.getPreviewSectionTitle = W),
+      (l.getPreviewMessagePlaceholder = q),
+      (l.getDocumentPreviewPagesCount = U),
+      (l.getDetailsSectionTitle = V),
+      (l.getBillingSummarySectionTitle = H),
+      (l.getTotalRecipientsLabel = G),
+      (l.getEstimatedCostLabel = z),
+      (l.getEstimatedTaxLabel = j),
+      (l.getEstimatedTotalLabel = K),
+      (l.getCreditsUsedLabel = Q),
+      (l.getAvailableCreditsLabel = X),
+      (l.getExistingAudiencesDialogTitle = Y),
+      (l.getExistingAudienceRecipientsLabel = J),
+      (l.getExistingAudiencesSaveButtonLabel = Z),
+      (l.getDocumentPreviewRemoveDocumentLabel = ee),
+      (l.getBroadcastAudienceInfoLabel = te),
+      (l.getExitConfirmationTitle = ne),
+      (l.getExitConfirmationBody = re),
+      (l.getExitConfirmationContinueButton = oe),
+      (l.getPaymentPendingDisabledReason = ae),
+      (l.getSendNowButtonDisabledReason = ie));
   },
   226,
 );

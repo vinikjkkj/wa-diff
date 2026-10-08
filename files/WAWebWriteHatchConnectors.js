@@ -44,11 +44,14 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebRequestHatchConnectors",
+          ).requestHatchWhatsAppSessionId();
           try {
-            var t = yield x(function (t) {
-              return t.connectorDisconnect(e);
+            var n = yield x(function (n) {
+              return n.connectorDisconnect(e, t);
             }, "disconnect");
-            if (o("WAWebHatchJsonReaders").readBool(t, "disconnected") !== !0)
+            if (o("WAWebHatchJsonReaders").readBool(n, "disconnected") !== !0)
               throw P("disconnect_refused");
           } catch (t) {
             if (yield _(e)) throw t;

@@ -3,6 +3,10 @@ __d(
   ["WAWebPrimaryFeaturesModel"],
   function (t, n, r, o, a, i, l) {
     function e() {
+      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+        .aiArtifactsFixedEnabled;
+    }
+    function s() {
       return {
         aiBotIntegrationEnabled: o("WAWebPrimaryFeaturesModel").PrimaryFeatures
           .aiBotIntegrationEnabled,
@@ -10,8 +14,11 @@ __d(
           .PrimaryFeatures.aiHatchIntegrationEnabled,
       };
     }
-    var s = "change:aiBotIntegrationEnabled change:aiHatchIntegrationEnabled";
-    ((l.getBotPrimaryFeatures = e), (l.BOT_PRIMARY_FEATURE_CHANGE_EVENTS = s));
+    var u =
+      "change:aiBotIntegrationEnabled change:aiHatchIntegrationEnabled change:aiArtifactsFixedEnabled";
+    ((l.isBotArtifactDownloadEnabled = e),
+      (l.getBotPrimaryFeatures = s),
+      (l.BOT_PRIMARY_FEATURE_CHANGE_EVENTS = u));
   },
   98,
 );

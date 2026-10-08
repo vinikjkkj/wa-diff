@@ -644,12 +644,12 @@ __d(
     }
     At.displayName = At.name + " [from " + i.id + "]";
     function Ft() {
-      return s._(/*BTDS*/ "Unlock your message limit");
+      return s._(/*BTDS*/ "Increase message limit");
     }
     Ft.displayName = Ft.name + " [from " + i.id + "]";
     function Ot() {
       return s._(
-        /*BTDS*/ "Complete these requirements to unlock your message limit.",
+        /*BTDS*/ "Complete these requirements to raise your daily limit.",
       );
     }
     Ot.displayName = Ot.name + " [from " + i.id + "]";
@@ -885,8 +885,8 @@ __d(
       (l.getDailyConversationsUsageLabel = Mt),
       (l.getUnlimitedDailyConversationsUsageLabel = wt),
       (l.getMessageLimitsUnavailableLabel = At),
-      (l.getUnlockMessageLimitLabel = Ft),
-      (l.getUnlockMessageLimitSublabel = Ot),
+      (l.getIncreaseMessageLimitLabel = Ft),
+      (l.getIncreaseMessageLimitSublabel = Ot),
       (l.getVerifyOnPhoneTitle = Bt),
       (l.getVerifyOnPhoneSubtitle = Wt),
       (l.getAdvancedToolsSettingsReloginNotice = qt),

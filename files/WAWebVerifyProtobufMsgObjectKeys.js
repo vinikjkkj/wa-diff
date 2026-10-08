@@ -391,6 +391,8 @@ __d(
                                                                                                                     e ===
                                                                                                                       "requestLocationMessage" ||
                                                                                                                     e ===
+                                                                                                                      "requestLocationUpdateMessage" ||
+                                                                                                                    e ===
                                                                                                                       "scheduledCallCreationMessage" ||
                                                                                                                     e ===
                                                                                                                       "scheduledCallEditMessage" ||

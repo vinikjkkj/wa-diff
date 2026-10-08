@@ -145,17 +145,24 @@ __d(
             { body: d({}) },
           );
         }),
-        (r.connectorConnectInfo = function (t) {
+        (r.connectorConnectInfo = function (t, n) {
           return this.request(
             "GET",
-            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT_INFO(t),
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT_INFO(t, n),
           );
         }),
-        (r.connectorDisconnect = function (t) {
+        (r.connectorDisconnect = function (t, n) {
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_DISCONNECT(t),
-            { body: d({}) },
+            { body: d(n == null ? {} : { session_id: n }) },
+          );
+        }),
+        (r.chats = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CHATS_LIST,
+            t,
           );
         }),
         (r.oauthCallback = function (t, n) {

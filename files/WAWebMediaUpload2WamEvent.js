@@ -4,6 +4,7 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumConnectionType",
     "WAWebWamEnumHttpProtocolVersionType",
+    "WAWebWamEnumMediaContainerType",
     "WAWebWamEnumMediaQuality",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMediaUploadModeType",
@@ -13,6 +14,8 @@ __d(
     "WAWebWamEnumOverallLastUploadRetryPhaseType",
     "WAWebWamEnumOverallMediaKeyReuseType",
     "WAWebWamEnumPairedMediaType",
+    "WAWebWamEnumStreamingAbandonReasonType",
+    "WAWebWamEnumStreamingUploadOutcomeType",
     "WAWebWamEnumUploadOriginType",
     "WAWebWamEnumUploadSourceType",
   ],
@@ -29,6 +32,10 @@ __d(
               connectionType: [
                 43,
                 o("WAWebWamEnumConnectionType").CONNECTION_TYPE,
+              ],
+              containerType: [
+                66,
+                o("WAWebWamEnumMediaContainerType").MEDIA_CONTAINER_TYPE,
               ],
               debugMediaException: [34, e.TYPES.STRING],
               debugMediaIp: [32, e.TYPES.STRING],
@@ -112,6 +119,16 @@ __d(
               resumeHttpCode: [20, e.TYPES.INTEGER],
               resumeIsReuse: [19, e.TYPES.BOOLEAN],
               resumeNetworkT: [18, e.TYPES.TIMER],
+              streamingAbandonReason: [
+                67,
+                o("WAWebWamEnumStreamingAbandonReasonType")
+                  .STREAMING_ABANDON_REASON_TYPE,
+              ],
+              streamingUploadOutcome: [
+                68,
+                o("WAWebWamEnumStreamingUploadOutcomeType")
+                  .STREAMING_UPLOAD_OUTCOME_TYPE,
+              ],
               uploadBytesTransferred: [27, e.TYPES.NUMBER],
               uploadConnectT: [22, e.TYPES.TIMER],
               uploadHttpCode: [25, e.TYPES.INTEGER],

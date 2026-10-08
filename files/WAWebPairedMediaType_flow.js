@@ -13,6 +13,8 @@ __d(
       ["HEVC_VIDEO_CHILD", "HEVC_VIDEO_CHILD"],
       ["AV1_VIDEO_PARENT", "AV1_VIDEO_PARENT"],
       ["AV1_VIDEO_CHILD", "AV1_VIDEO_CHILD"],
+      ["STREAMED_VIDEO_PARENT", "STREAMED_VIDEO_PARENT"],
+      ["STREAMED_VIDEO_CHILD", "STREAMED_VIDEO_CHILD"],
     ]);
     function l(t) {
       return e.get(t);

@@ -69,20 +69,19 @@ __d(
       v,
       S,
       R,
-      L,
-      E = L || (L = o("react")),
-      k = r("requireDeferred")("WAWebGetAdsRelayEnvironment").__setRef(
+      L = R || (R = o("react")),
+      E = r("requireDeferred")("WAWebGetAdsRelayEnvironment").__setRef(
         "WAWebDebugSmb",
       ),
-      I = r("requireDeferred")("WAWebShowBillingWizard").__setRef(
+      k = r("requireDeferred")("WAWebShowBillingWizard").__setRef(
         "WAWebDebugSmb",
       );
-    function T(e) {
-      return D.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.colorIndex,
             n = e.id,
             r = e.isActive,
@@ -101,16 +100,16 @@ __d(
               { merge: !0 },
             ));
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    T.doc = "create label";
-    function x(e) {
-      return $.apply(this, arguments);
+    I.doc = "create label";
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function $() {
+    function x() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.count,
             n = e.id,
             r = e.keywords,
@@ -125,16 +124,16 @@ __d(
               { merge: !0 },
             ));
         })),
-        $.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    x.doc = "create quick reply";
-    function P() {
-      return N.apply(this, arguments);
+    D.doc = "create quick reply";
+    function $() {
+      return P.apply(this, arguments);
     }
-    function N() {
+    function P() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = new Map([
               [
@@ -153,25 +152,25 @@ __d(
           ((o("WAWebConnModel").Conn.platform = n),
             yield o("WAWebMobilePlatforms").setMobilePlatform(n),
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[reload] toggleSMB",
                 ])),
             ),
             window.location.reload());
         })),
-        N.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((P.doc =
+    (($.doc =
       "Toggle between SMB (smba/smbi) and mobile (Android/iOS) platforms"),
-      (P.paramsToExecute = []));
-    function M(e) {
-      return w.apply(this, arguments);
+      ($.paramsToExecute = []));
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function w() {
+    function M() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWidFromWidLike(e).toString();
           return {
             row: yield o("WAWebApiBusinessProfile").getBusinessProfileRow(t),
@@ -180,48 +179,32 @@ __d(
             ),
           };
         })),
-        w.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    var A = {
-      delayBusinessProfileQuery: 0,
-      mockBusinessProfileQueryPayload: null,
-      mockBusinessProfileId: null,
-    };
-    function F(t) {
-      ((A.delayBusinessProfileQuery = t),
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "Business Profile query will be delayed by ",
-              " seconds",
-            ])),
-          t,
-        ));
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function O(e) {
-      return B.apply(this, arguments);
-    }
-    function B() {
+    function A() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.accessTokenMeta,
             r = e.paymentAccountID,
             a = e.wizardName,
-            i = yield (R || (R = n("Promise"))).all([I.load(), k.load()]),
+            i = yield (S || (S = n("Promise"))).all([k.load(), E.load()]),
             l = i[0],
             s = i[1],
-            u = yield s(t),
+            c = yield s(t),
             d = yield l({
-              relayEnvironment: u,
+              relayEnvironment: c,
               paymentAccountID: r,
               wizardName: a != null ? a : "ADD_PM",
               wizardPropsJSON: null,
               flowID: "debug",
               onCloseCb: function (t) {
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "Billing wizard return code: ",
                       "",
                     ])),
@@ -231,76 +214,76 @@ __d(
             });
           d();
         })),
-        B.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function W() {
-      return q.apply(this, arguments);
+    function F() {
+      return O.apply(this, arguments);
     }
-    function q() {
+    function O() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebOIDCFlow.react").launchOIDCFlow(),
             o("WAWebModalManager").ModalManager.open(
-              E.jsxs(o("WAWebModal.react").Modal, {
+              L.jsxs(o("WAWebModal.react").Modal, {
                 type: o("WAWebModal.react").ModalTheme.AutoWrap,
                 children: [
-                  E.jsx(o("WAWebOIDCFlow.react").OIDCEventListener, {}),
-                  E.jsx("div", {}),
+                  L.jsx(o("WAWebOIDCFlow.react").OIDCEventListener, {}),
+                  L.jsx("div", {}),
                 ],
               }),
             ));
         })),
-        q.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function U(e) {
+    function B(t) {
       return o("WAWebBizGetProfileShimlinksQuery")
-        .getProfileShimlinks(e)
-        .then(function (e) {
+        .getProfileShimlinks(t)
+        .then(function (t) {
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
                 "debug:bizFetchBusinessProfileShimlinks",
               ])),
           );
         });
     }
-    U.doc = "Fetch business profile shimlinks";
-    var V = function () {
+    B.doc = "Fetch business profile shimlinks";
+    var W = function () {
       o("WAWebModalManager").ModalManager.open(
-        E.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
+        L.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
           onExit: r("WAWebNoop"),
         }),
       );
     };
-    ((V.doc = "Opens the order request education modal"),
-      (V.paramsToExecute = []));
-    function H() {
+    ((W.doc = "Opens the order request education modal"),
+      (W.paramsToExecute = []));
+    function q() {
       o("WAWebBizOrderExpansionModal.react").openOrderExpansionModal(
         r("WAWebNoop"),
       );
     }
-    function G() {
+    function U() {
       o("WAWebModalManager").ModalManager.open(
-        E.jsx(r("WAWebBizOrderRequestManagementDrawer.react"), {
+        L.jsx(r("WAWebBizOrderRequestManagementDrawer.react"), {
           onBack: o("WAWebModalManager").closeModalManager,
         }),
       );
     }
-    function z(e) {
-      return j.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function j() {
+    function H() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebSchemaAgent")
               .getAgentTable()
               .bulkCreateOrReplace(e);
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "createOrReplaceAgent: ",
                   "",
                 ])),
@@ -308,8 +291,8 @@ __d(
             );
           } catch (e) {
             o("WALogger").WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "createOrReplaceAgent: error ",
                   "",
                 ])),
@@ -317,16 +300,16 @@ __d(
             );
           }
         })),
-        j.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function K() {
-      return Q.apply(this, arguments);
+    function G() {
+      return z.apply(this, arguments);
     }
-    function Q() {
+    function z() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield z([
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield V([
             { id: "1", name: "Agent1", deviceId: 1, isDeleted: !0 },
             { id: "11", name: "Vasily", deviceId: 2, isDeleted: !1 },
             { id: "111", name: "Max", deviceId: 3, isDeleted: !1 },
@@ -334,15 +317,15 @@ __d(
             { id: "11111", name: "Fabio", deviceId: 99, isDeleted: !1 },
           ]);
         })),
-        Q.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function X(e) {
-      return Y.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function Y() {
+    function K() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           e === void 0 && (e = 10);
           var n = o("WAWebAgentCollection")
@@ -369,8 +352,8 @@ __d(
               .getChatAssignmentTable()
               .bulkCreateOrReplace(r);
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "createOrReplaceAgent: ",
                   "",
                 ])),
@@ -378,8 +361,8 @@ __d(
             );
           } catch (e) {
             o("WALogger").WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "createOrReplaceAgent: error ",
                   "",
                 ])),
@@ -387,15 +370,15 @@ __d(
             );
           }
         })),
-        Y.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function J() {
-      return Z.apply(this, arguments);
+    function Q() {
+      return X.apply(this, arguments);
     }
-    function Z() {
+    function X() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = [
             {
               id: "WA_PREMIUM_1",
@@ -441,22 +424,22 @@ __d(
             .getSubscriptionTable()
             .bulkCreateOrReplace(e);
         })),
-        Z.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function ee(e) {
-      return te.apply(this, arguments);
+    function Y(e) {
+      return J.apply(this, arguments);
     }
-    function te() {
+    function J() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebPremiumMessageSchema")
               .getPremiumMessageTable()
               .bulkCreateOrReplace(e);
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "createPremiumMessage: ",
                   "",
                 ])),
@@ -464,8 +447,8 @@ __d(
             );
           } catch (e) {
             o("WALogger").WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "createPremiumMessage: error ",
                   "",
                 ])),
@@ -473,39 +456,39 @@ __d(
             );
           }
         })),
-        te.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
+    var Z = function () {
+      o("WAWebModalManager").ModalManager.open(
+        L.jsx(r("WAWebDOIntroPopup.react"), {}),
+      );
+    };
+    ((Z.doc = "Opens the DO Intro Popup"), (Z.paramsToExecute = []));
+    var ee = function () {
+      o("WAWebModalManager").ModalManager.open(
+        L.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
+      );
+    };
+    ((ee.doc = "Opens the SMB Lists Intro NUX Popup"),
+      (ee.paramsToExecute = []));
+    var te = function () {
+      o("WAWebModalManager").ModalManager.open(
+        L.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
+      );
+    };
+    ((te.doc = "Opens the Customer Manager Intro NUX Modal"),
+      (te.paramsToExecute = []));
     var ne = function () {
       o("WAWebModalManager").ModalManager.open(
-        E.jsx(r("WAWebDOIntroPopup.react"), {}),
+        L.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
       );
     };
-    ((ne.doc = "Opens the DO Intro Popup"), (ne.paramsToExecute = []));
+    ((ne.doc = "Opens the new contact info fields NUX Modal"),
+      (ne.paramsToExecute = []));
     var re = function () {
       o("WAWebModalManager").ModalManager.open(
-        E.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
-      );
-    };
-    ((re.doc = "Opens the SMB Lists Intro NUX Popup"),
-      (re.paramsToExecute = []));
-    var oe = function () {
-      o("WAWebModalManager").ModalManager.open(
-        E.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
-      );
-    };
-    ((oe.doc = "Opens the Customer Manager Intro NUX Modal"),
-      (oe.paramsToExecute = []));
-    var ae = function () {
-      o("WAWebModalManager").ModalManager.open(
-        E.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
-      );
-    };
-    ((ae.doc = "Opens the new contact info fields NUX Modal"),
-      (ae.paramsToExecute = []));
-    var ie = function () {
-      o("WAWebModalManager").ModalManager.open(
-        E.jsx(
+        L.jsx(
           r("WAWebSmbDataSharingOptInModalDialog")
             .SmbDataSharingOptInModalDialog,
           {
@@ -516,19 +499,19 @@ __d(
         ),
       );
     };
-    function le(e) {
-      return se.apply(this, arguments);
+    function oe(e) {
+      return ae.apply(this, arguments);
     }
-    function se() {
+    function ae() {
       return (
-        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {})),
-        se.apply(this, arguments)
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {})),
+        ae.apply(this, arguments)
       );
     }
-    le.doc = "send delete mutation";
-    var ue = function (t) {
+    oe.doc = "send delete mutation";
+    var ie = function (t) {
         o("WAWebModalManager").ModalManager.open(
-          E.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
+          L.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
             accountLid: t,
             entryPoint: o(
               "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
@@ -537,9 +520,9 @@ __d(
           }),
         );
       },
-      ce = function (t) {
+      le = function (t) {
         o("WAWebModalManager").ModalManager.open(
-          E.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
+          L.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
             accountLids: [t],
             entryPoint: o(
               "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
@@ -548,38 +531,38 @@ __d(
           }),
         );
       };
-    function de(e, t) {
-      return me.apply(this, arguments);
+    function se(e, t) {
+      return ue.apply(this, arguments);
     }
-    function me() {
+    function ue() {
       return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAJids").unsafeCoerceToChatJid(e);
           yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
         })),
-        me.apply(this, arguments)
+        ue.apply(this, arguments)
       );
     }
-    de.doc = "Add or update customer data for a contact";
-    function pe(e) {
-      return _e.apply(this, arguments);
+    se.doc = "Add or update customer data for a contact";
+    function ce(e) {
+      return de.apply(this, arguments);
     }
-    function _e() {
+    function de() {
       return (
-        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAJids").unsafeCoerceToChatJid(e);
           return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
         })),
-        _e.apply(this, arguments)
+        de.apply(this, arguments)
       );
     }
-    pe.doc = "Get customer data for a contact";
-    function fe() {
-      return ge.apply(this, arguments);
+    ce.doc = "Get customer data for a contact";
+    function me() {
+      return pe.apply(this, arguments);
     }
-    function ge() {
+    function pe() {
       return (
-        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebChatCollection")
             .ChatCollection.filter(function (e) {
               return r("WAWebWid").isUser(e.id);
@@ -587,8 +570,8 @@ __d(
             .slice(0, 10);
           if (e.length === 0) {
             o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[CustomerData] No user chats found to seed test data",
                 ])),
             );
@@ -623,8 +606,8 @@ __d(
               );
             }
           o("WALogger").LOG(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
                 "[CustomerData] Created ",
                 " contacts in DB and collection",
               ])),
@@ -637,14 +620,14 @@ __d(
             });
           if (u.length === 0) {
             o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "[CustomerData] No LID-based chats found to seed test data",
                 ])),
             );
             return;
           }
-          (yield (R || (R = n("Promise"))).all(
+          (yield (S || (S = n("Promise"))).all(
             u.map(function (e, t) {
               var n = o("WAJids").unsafeCoerceToChatJid(e.id.toString()),
                 r = l[t % l.length];
@@ -664,8 +647,8 @@ __d(
             }),
           ),
             o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "[CustomerData] seeded=",
                   " skipped=",
                   " samples=",
@@ -676,21 +659,21 @@ __d(
               JSON.stringify(s),
             ));
         })),
-        ge.apply(this, arguments)
+        pe.apply(this, arguments)
       );
     }
-    ((fe.doc =
+    ((me.doc =
       "Seed 10 customer management test records with distributed lead stages"),
-      (fe.paramsToExecute = []));
-    function he(e) {
-      return ye.apply(this, arguments);
+      (me.paramsToExecute = []));
+    function _e(e) {
+      return fe.apply(this, arguments);
     }
-    function ye() {
+    function fe() {
       return (
-        (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
-            v ||
-              (v = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "[DEBUG][SMB] fetching BP access token and session cookies",
               ])),
           );
@@ -699,8 +682,8 @@ __d(
           ).fetchBPAccessTokenAndSessionCookies(e);
           return (
             o("WALogger").LOG(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "[DEBUG][SMB] BP access token result: ",
                   "",
                 ])),
@@ -709,47 +692,45 @@ __d(
             t
           );
         })),
-        ye.apply(this, arguments)
+        fe.apply(this, arguments)
       );
     }
-    he.doc =
+    _e.doc =
       "Fetch SMB BP access token and session cookies via xwa_bp_access_token_and_session_cookies GQL endpoint";
-    var Ce = babelHelpers.extends(
+    var ge = babelHelpers.extends(
       {
-        createOrReplaceLabel: T,
-        createOrReplaceQuickReply: x,
-        getBusinessProfileFromDBById: M,
-        toggleSMB: P,
-        delayBusinessProfileQuery: F,
-        debugSmbConfigs: A,
-        showBillingWizard: O,
-        launchOIDCFlow: W,
+        createOrReplaceLabel: I,
+        createOrReplaceQuickReply: D,
+        getBusinessProfileFromDBById: N,
+        toggleSMB: $,
+        showBillingWizard: w,
+        launchOIDCFlow: F,
       },
       r("WAWebDebugPerCustomerDataSharing"),
       {
-        bizFetchBusinessProfileShimlinks: U,
-        openOrderRequestEducationModal: V,
-        openBizOrderExpansionModal: H,
-        openBizOrderRequestManagementModal: G,
-        createTestAgents: K,
-        assignChatsToAgents: X,
-        createSubscriptions: J,
-        createPremiumMessage: ee,
-        openDOIntroPopup: ne,
-        openSMBListsIntroPopup: re,
-        openCustomerManagerNuxModal: oe,
-        openContactInfoFieldsNuxModal: ae,
-        openSmbDataSharingDialog: ie,
-        syncQuickReplyDelete: le,
-        showPerCustomerDataSharingOptOutModal: ue,
-        showPerCustomerDataSharingOptInModal: ce,
-        addCustomerData: de,
-        getCustomerData: pe,
-        gen10CustomerManagementTestDataFromChats: fe,
-        fetchBPAccessTokenGQL: he,
+        bizFetchBusinessProfileShimlinks: B,
+        openOrderRequestEducationModal: W,
+        openBizOrderExpansionModal: q,
+        openBizOrderRequestManagementModal: U,
+        createTestAgents: G,
+        assignChatsToAgents: j,
+        createSubscriptions: Q,
+        createPremiumMessage: Y,
+        openDOIntroPopup: Z,
+        openSMBListsIntroPopup: ee,
+        openCustomerManagerNuxModal: te,
+        openContactInfoFieldsNuxModal: ne,
+        openSmbDataSharingDialog: re,
+        syncQuickReplyDelete: oe,
+        showPerCustomerDataSharingOptOutModal: ie,
+        showPerCustomerDataSharingOptInModal: le,
+        addCustomerData: se,
+        getCustomerData: ce,
+        gen10CustomerManagementTestDataFromChats: me,
+        fetchBPAccessTokenGQL: _e,
       },
     );
-    l.default = Ce;
+    l.default = ge;
   },
   98,
 );

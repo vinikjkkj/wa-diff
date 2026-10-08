@@ -157,15 +157,12 @@ __d(
             : !1;
     }
     function h(e) {
-      return e == null ||
-        !g(e) ||
-        !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled(e)
+      return e == null || !g(e)
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-              "channel_status_admin_insights_enabled",
-            )
-          ? !0
-          : u(
+            "channel_status_admin_insights_enabled",
+          ) ||
+            u(
               e,
               o("WAWebCommonNewsletterEnums").NewsletterCapability
                 .CHANNEL_STATUS_ADMIN_INSIGHTS,

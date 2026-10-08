@@ -9,6 +9,8 @@ __d(
       PURGE: 3,
       PAUSE: 4,
       FAIL: 5,
+      REFRESH_TOKEN: 6,
+      REFETCH_CERTS: 7,
     });
     i.WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE = e;
   },

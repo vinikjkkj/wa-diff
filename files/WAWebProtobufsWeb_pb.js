@@ -339,6 +339,7 @@ __d(
         EVENT_RESPONSE: 2,
         POLL_UPDATE: 3,
         PIN_IN_CHAT: 4,
+        REQUEST_LOCATION_UPDATE: 5,
       }),
       b = c({
         NOT_INJECTED: 0,

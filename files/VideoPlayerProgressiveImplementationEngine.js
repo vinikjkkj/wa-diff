@@ -298,7 +298,7 @@ __d(
                   M(v, "progressive_implementation_error_with_empty_src"));
               }
             }),
-              r("gkx")("26984") && v(t));
+              v(t));
             try {
               var R,
                 L = i.graphQLVideoDRMInfo,

@@ -2,15 +2,29 @@ __d(
   "WAWebDomScroll",
   ["Promise", "WATypeUtils", "WAWebVelocityAnimate", "err", "getScrollParent"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
+    var e,
+      s = new WeakMap();
+    function u(e, t, n) {
+      var r = { node: t };
+      return (
+        s.set(e, r),
+        n.finally(function () {
+          s.get(e) === r && s.delete(e);
+        })
+      );
+    }
+    function c(e) {
+      var t = s.get(e);
+      t != null && (s.delete(e), r("WAWebVelocityAnimate")(t.node, "stop"));
+    }
+    function d(e, t, n) {
       if (
         (t === void 0 && (t = !0),
         e.scrollIntoViewIfNeeded != null &&
           o("WATypeUtils").isFunction(e.scrollIntoViewIfNeeded))
       )
         return e.scrollIntoViewIfNeeded(t);
-      var r = m(n || e.parentNode),
+      var r = f(n || e.parentNode),
         a = window.getComputedStyle(r, null),
         i = parseInt(a.getPropertyValue("border-top-width"), 10),
         l = e.offsetTop - r.offsetTop < r.scrollTop,
@@ -31,9 +45,9 @@ __d(
         !(l || s)
       );
     }
-    function u(e, t, n) {
+    function m(e, t, n) {
       t === void 0 && (t = !0);
-      var r = m(n || e.parentNode),
+      var r = f(n || e.parentNode),
         o = window.getComputedStyle(r, null),
         a = parseInt(o.getPropertyValue("border-top-width"), 10),
         i = e.offsetTop - r.offsetTop < r.scrollTop,
@@ -53,7 +67,7 @@ __d(
         !(i || l)
       );
     }
-    function c(e) {
+    function p(e) {
       var t = e.getBoundingClientRect();
       return (
         t.top >= 0 &&
@@ -63,67 +77,80 @@ __d(
         t.right <= (window.innerWidth || document.documentElement.clientWidth)
       );
     }
-    function d(t, o, a) {
+    function _(t, o, a) {
       a === void 0 && (a = {});
-      var i = m(o || t.offsetParent),
+      var i = f(o || t.offsetParent),
         l = r("getScrollParent")(t, !1),
         s = i === l,
-        u = a.pos || "center",
-        d = a.duration != null && a.duration !== 0 ? a.duration : 1e3,
-        p = a.offset || 0,
-        _ = s ? t.offsetTop : i.offsetTop + t.offsetTop;
-      if (a.scrollIfNeeded === !0 && c(t))
+        d = a.pos || "center",
+        m = a.duration != null && a.duration !== 0 ? a.duration : 1e3,
+        _ = a.offset || 0,
+        g = s ? t.offsetTop : i.offsetTop + t.offsetTop;
+      if (a.scrollIfNeeded === !0 && p(t))
         return (e || (e = n("Promise"))).resolve();
-      var f = !!a.animate;
-      switch (u) {
+      var h = !!a.animate;
+      switch (d) {
         case "top":
-          return ((l.scrollTop = _ + p), (e || (e = n("Promise"))).resolve());
+          return ((l.scrollTop = g + _), (e || (e = n("Promise"))).resolve());
         case "bottom":
           return (
-            (l.scrollTop = _ + t.clientHeight - l.clientHeight),
+            (l.scrollTop = g + t.clientHeight - l.clientHeight),
             (e || (e = n("Promise"))).resolve()
           );
         case "center":
-          if (f) {
-            var g = s ? t : i;
-            (r("WAWebVelocityAnimate")(g, "stop"),
+          if (h) {
+            var y = s ? t : i;
+            (c(l),
+              r("WAWebVelocityAnimate")(y, "stop"),
               r("WAWebVelocityAnimate")(l, "stop"));
-            var h = (t.clientHeight - l.clientHeight) / 2;
+            var C = (t.clientHeight - l.clientHeight) / 2;
             return (
-              s || (h += t.offsetTop),
-              r("WAWebVelocityAnimate")(g, "scroll", {
-                duration: d,
-                container: l,
-                offset: h,
-                easing: a.easing,
-              })
+              s || (C += t.offsetTop),
+              u(
+                l,
+                y,
+                r("WAWebVelocityAnimate")(y, "scroll", {
+                  duration: m,
+                  container: l,
+                  offset: C,
+                  easing: a.easing,
+                }),
+              )
             );
           }
           return (
-            (l.scrollTop = _ + t.clientHeight / 2 - l.clientHeight / 2),
+            (l.scrollTop = g + t.clientHeight / 2 - l.clientHeight / 2),
             (e || (e = n("Promise"))).resolve()
           );
         case "offset":
-          return f
-            ? (r("WAWebVelocityAnimate")(t, "stop"),
+          return h
+            ? (c(l),
+              r("WAWebVelocityAnimate")(t, "stop"),
               r("WAWebVelocityAnimate")(l, "stop"),
-              r("WAWebVelocityAnimate")(t, "scroll", {
-                duration: d,
-                container: l,
-                offset: -p,
-                easing: a.easing,
-              }))
-            : ((l.scrollTop = _ - p), (e || (e = n("Promise"))).resolve());
+              u(
+                l,
+                t,
+                r("WAWebVelocityAnimate")(t, "scroll", {
+                  duration: m,
+                  container: l,
+                  offset: -_,
+                  easing: a.easing,
+                }),
+              ))
+            : ((l.scrollTop = g - _), (e || (e = n("Promise"))).resolve());
       }
       return (e || (e = n("Promise"))).resolve();
     }
-    function m(e) {
+    function f(e) {
       if (e != null && e.nodeType === Node.ELEMENT_NODE) return e;
       throw r("err")(
         "utils:DOM parent not defined or is not a valid HTMLElement",
       );
     }
-    ((l.scrollIntoViewIfNeeded = s), (l.scrollIntoView = u), (l.scrollAt = d));
+    ((l.stopAnimatedScroll = c),
+      (l.scrollIntoViewIfNeeded = d),
+      (l.scrollIntoView = m),
+      (l.scrollAt = _));
   },
   98,
 );

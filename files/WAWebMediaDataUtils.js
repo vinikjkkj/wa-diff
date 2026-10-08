@@ -398,31 +398,22 @@ __d(
                   E ? "video" : "audio",
                   v,
                 ),
-                $ = o("WAWebABProps").getABPropConfigValue(
-                  "transcode_and_repair_videos",
-                ),
-                P;
+                $;
               if (
                 (E
-                  ? $ === !0
-                    ? (P = yield o(
-                        "WAWebMediaAnalyzer",
-                      ).transcodeToMp4AndMp4RepairMux(v, !!i, x))
-                    : (P = yield o("WAWebMediaAnalyzer").checkAndRepair(
-                        v,
-                        !!i,
-                        x,
-                      ))
-                  : (P = yield o("WAWebMediaAnalyzer").checkAndRepairAudio(
+                  ? ($ = yield o(
+                      "WAWebMediaAnalyzer",
+                    ).transcodeToMp4AndMp4RepairMux(v, !!i, x))
+                  : ($ = yield o("WAWebMediaAnalyzer").checkAndRepairAudio(
                       v,
                       !!i,
                       x,
                     )),
-                P.success)
+                $.success)
               ) {
-                var N = P.value;
-                ((T = N[0]),
-                  (D = N[1]),
+                var P = $.value;
+                ((T = P[0]),
+                  (D = P[1]),
                   x.endSuccess(),
                   (R.transcoderAlgorithm = D
                     ? o("WAWebWamEnumVideoTranscoderAlgorithmType")
@@ -430,13 +421,13 @@ __d(
                         .WASM_MP4_CHECK_AND_REPAIR
                     : o("WAWebWamEnumVideoTranscoderAlgorithmType")
                         .VIDEO_TRANSCODER_ALGORITHM_TYPE.WEB_MEDIA_WORKER));
-              } else x.endFailWithError(P.error.error, P.error.errorDetail);
+              } else x.endFailWithError($.error.error, $.error.errorDetail);
             }
             if (I || (!T && L)) {
               R.transcoderAlgorithm = o(
                 "WAWebWamEnumVideoTranscoderAlgorithmType",
               ).VIDEO_TRANSCODER_ALGORITHM_TYPE.HYBRID_BRIDGE;
-              var M = yield n("cr:10296") == null
+              var N = yield n("cr:10296") == null
                 ? void 0
                 : n("cr:10296").transcodeVideo({
                     file: v,
@@ -445,10 +436,10 @@ __d(
                     setMediaPreview: g,
                     setMimeType: h,
                   });
-              if (M != null) {
-                var w = M[0],
-                  A = M[1];
-                ((v = w), (C = A), (T = { type: v.type, file: v, isGif: !1 }));
+              if (N != null) {
+                var M = N[0],
+                  w = N[1];
+                ((v = M), (C = w), (T = { type: v.type, file: v, isGif: !1 }));
               }
             }
             if ((R.markTranscoderT(), !T))
@@ -470,13 +461,13 @@ __d(
                   "WAWebMediaFileErrors",
                 ).InvalidMediaCheckRepairFailedType)()
               );
-            var F = T.type,
-              O = T.file;
-            R.set({ targetFileSize: O.size });
-            var B = i === !0 || T.isGif === !0;
+            var A = T.type,
+              F = T.file;
+            R.set({ targetFileSize: F.size });
+            var O = i === !0 || T.isGif === !0;
             e: {
-              var W = o("WAWebFileUtils").typeFromMimetype(F);
-              if (W === o("WAWebFileUtils").FILETYPE.VIDEO) {
+              var B = o("WAWebFileUtils").typeFromMimetype(A);
+              if (B === o("WAWebFileUtils").FILETYPE.VIDEO) {
                 if (l)
                   throw (
                     R.set({
@@ -501,14 +492,14 @@ __d(
                   transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
                     .VIDEO_TRANSCODER_RESULT_TYPE.SUCCEEDED,
                 });
-                var q = {
+                var W = {
                   type: o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO,
-                  mediaBlob: O,
-                  mimetype: F,
-                  isGif: B,
-                  gifAttribution: B ? m || 0 : void 0,
+                  mediaBlob: F,
+                  mimetype: A,
+                  isGif: O,
+                  gifAttribution: O ? m || 0 : void 0,
                   accessibilityLabel: a,
-                  size: O.size,
+                  size: F.size,
                 };
                 if (
                   _ &&
@@ -519,26 +510,26 @@ __d(
                   _.fullWidth !== 0 &&
                   !r("isStringNullOrEmpty")(_.preview)
                 ) {
-                  var U = _.duration;
+                  var q = _.duration;
                   return (
                     R.set({
                       sourceHeight: _.fullHeight,
                       sourceWidth: _.fullWidth,
-                      sourceDuration: U,
+                      sourceDuration: q,
                     }),
                     R.commit(),
-                    babelHelpers.extends({}, q, {
+                    babelHelpers.extends({}, W, {
                       fullWidth: _.fullWidth,
                       fullHeight: _.fullHeight,
                       preview: _.preview,
-                      duration: U == null ? void 0 : U.toString(),
+                      duration: q == null ? void 0 : q.toString(),
                     })
                   );
                 }
-                var V = yield o(
+                var U = yield o(
                     "WAWebImageUtils",
                   ).generateVideoThumbsAndDuration({
-                    file: O,
+                    file: F,
                     maxDimensions: [
                       o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
                       o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
@@ -546,59 +537,59 @@ __d(
                     debugHint: "processRawAudioVideo",
                     logContext: {
                       callsite: "PROCESS_RAW_AUDIO_VIDEO",
-                      mediaType: B ? "GIF" : "VIDEO",
+                      mediaType: O ? "GIF" : "VIDEO",
                     },
                   }),
-                  H = V.duration,
-                  G = V.thumbs,
-                  z = G[0],
-                  j = G[1],
-                  K = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
-                    r("WAWebURLUtils").parseDataURL(j.url).data,
+                  V = U.duration,
+                  H = U.thumbs,
+                  G = H[0],
+                  z = H[1],
+                  j = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+                    r("WAWebURLUtils").parseDataURL(z.url).data,
                   );
                 return (
                   R.set({
-                    sourceHeight: z.fullHeight,
-                    sourceWidth: z.fullWidth,
-                    sourceDuration: H,
+                    sourceHeight: G.fullHeight,
+                    sourceWidth: G.fullWidth,
+                    sourceDuration: V,
                   }),
                   R.commit(),
-                  babelHelpers.extends({}, q, {
-                    fullWidth: z.fullWidth,
-                    fullHeight: z.fullHeight,
-                    preview: r("WAWebURLUtils").parseDataURL(z.url).data,
-                    fullPreviewData: K,
-                    duration: H.toString(),
+                  babelHelpers.extends({}, W, {
+                    fullWidth: G.fullWidth,
+                    fullHeight: G.fullHeight,
+                    preview: r("WAWebURLUtils").parseDataURL(G.url).data,
+                    fullPreviewData: j,
+                    duration: V.toString(),
                   })
                 );
                 break e;
               }
-              if (W === o("WAWebFileUtils").FILETYPE.AUDIO) {
-                var Q,
-                  X,
+              if (B === o("WAWebFileUtils").FILETYPE.AUDIO) {
+                var K,
+                  Q,
+                  X =
+                    (K = _ == null ? void 0 : _.duration) != null
+                      ? K
+                      : yield o("WAWebFileUtils").getAudioDuration(F),
                   Y =
-                    (Q = _ == null ? void 0 : _.duration) != null
+                    (Q = _ == null ? void 0 : _.waveform) != null
                       ? Q
-                      : yield o("WAWebFileUtils").getAudioDuration(O),
-                  J =
-                    (X = _ == null ? void 0 : _.waveform) != null
-                      ? X
-                      : yield o("WAWebWaveformUtils").computeWaveform(O);
+                      : yield o("WAWebWaveformUtils").computeWaveform(F);
                 return {
                   type: l
                     ? o("WAWebMediaTypes").OUTWARD_TYPES.PTT
                     : o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO,
-                  mediaBlob: O,
-                  mimetype: F,
-                  duration: Y.toString(),
-                  waveform: J,
+                  mediaBlob: F,
+                  mimetype: A,
+                  duration: X.toString(),
+                  waveform: Y,
                 };
               }
               if (
-                W === o("WAWebFileUtils").FILETYPE.IMAGE ||
-                W === o("WAWebFileUtils").FILETYPE.DOCUMENT ||
-                W === o("WAWebFileUtils").FILETYPE.STICKER ||
-                W === o("WAWebFileUtils").FILETYPE.STICKER_PACK
+                B === o("WAWebFileUtils").FILETYPE.IMAGE ||
+                B === o("WAWebFileUtils").FILETYPE.DOCUMENT ||
+                B === o("WAWebFileUtils").FILETYPE.STICKER ||
+                B === o("WAWebFileUtils").FILETYPE.STICKER_PACK
               ) {
                 throw (
                   R.set({
@@ -614,13 +605,13 @@ __d(
                         ])),
                     )
                     .sendLogs("media-fault: audio/video became other"),
-                  r("err")("audio/video became " + F)
+                  r("err")("audio/video became " + A)
                 );
                 break e;
               }
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  W,
+                  B,
               );
             }
           } catch (e) {

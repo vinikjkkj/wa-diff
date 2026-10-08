@@ -10,6 +10,7 @@ __d(
     "WAWebWamEnumExpressPathDownloadState",
     "WAWebWamEnumHashVerificationFailureType",
     "WAWebWamEnumHttpProtocolVersionType",
+    "WAWebWamEnumMediaContainerType",
     "WAWebWamEnumMediaDownloadModeType",
     "WAWebWamEnumMediaDownloadResultType",
     "WAWebWamEnumMediaType",
@@ -34,6 +35,10 @@ __d(
               connectionType: [
                 31,
                 o("WAWebWamEnumConnectionType").CONNECTION_TYPE,
+              ],
+              containerType: [
+                75,
+                o("WAWebWamEnumMediaContainerType").MEDIA_CONTAINER_TYPE,
               ],
               daysSinceReceive: [46, e.TYPES.INTEGER],
               debugMediaException: [24, e.TYPES.STRING],

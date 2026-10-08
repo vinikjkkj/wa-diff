@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumWaffleLifecycleErrorActionType",
     "WAWebWamEnumWaffleLifecycleErrorCodeType",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
+    "WAWebWamEnumWaffleLifecyclePkiVersionType",
     "WAWebWamEnumWaffleLifecycleTraceActionType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
   ],
@@ -33,6 +34,11 @@ __d(
                 6,
                 o("WAWebWamEnumWaffleLifecycleLinkStateType")
                   .WAFFLE_LIFECYCLE_LINK_STATE_TYPE,
+              ],
+              waffleLifecyclePkiVersion: [
+                12,
+                o("WAWebWamEnumWaffleLifecyclePkiVersionType")
+                  .WAFFLE_LIFECYCLE_PKI_VERSION_TYPE,
               ],
               waffleLifecycleRetryCount: [7, e.TYPES.INTEGER],
               waffleLifecycleTraceAction: [

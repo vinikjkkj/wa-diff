@@ -4,9 +4,12 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum")({
       CSV: ".csv",
+      DOCX: ".docx",
+      HTML: ".html",
       JPG: ".jpg",
       JSON: ".json",
       MD: ".md",
+      PDF: ".pdf",
       PNG: ".png",
       TXT: ".txt",
       WEBP: ".webp",

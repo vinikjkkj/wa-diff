@@ -82,13 +82,17 @@ __d(
             }),
           };
     }
-    function _(e, t, n, r) {
-      var a = f(e, t, n, r, o("WAWebSearchMatchStrategies").wordBoundaryMatch);
-      return a == null
+    function _(e) {
+      var t = e.contact,
+        n = e.label,
+        r = e.numeric,
+        a = e.term,
+        i = f(t, a, r, n, o("WAWebSearchMatchStrategies").wordBoundaryMatch);
+      return i == null
         ? null
         : {
-            match: a.match,
-            results: a.results.map(function (e) {
+            match: i.match,
+            results: i.results.map(function (e) {
               return new (o(
                 "WAWebPrefixSearchMatchResult",
               ).WAWebPrefixSearchMatchResult)(e.startIndex, e.length);
@@ -215,9 +219,11 @@ __d(
       ) {
         var a,
           i = d(t);
-        return (a = _(e, i, n, r)) != null ? a : _(e, t, n, r);
+        return (a = _({ contact: e, label: r, numeric: n, term: i })) != null
+          ? a
+          : _({ contact: e, label: r, numeric: n, term: t });
       }
-      return _(e, t, n, r);
+      return _({ contact: e, label: r, numeric: n, term: t });
     }
     function C(e, t, n, r) {
       if (

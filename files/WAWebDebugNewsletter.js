@@ -676,6 +676,26 @@ __d(
           );
         return n;
       },
+      getLastChannelMessageId: function () {
+        var e,
+          t = o("WAWebDebugUtils").getSelectedChat();
+        if (t == null)
+          throw r("err")("getLastChannelMessageId: no selected chat");
+        var n = (e = t.msgs.last()) == null ? void 0 : e.id.id;
+        if (n == null)
+          throw r("err")("getLastChannelMessageId: latest message has no id");
+        return n;
+      },
+      getLastChannelMessageT: function () {
+        var e,
+          t = o("WAWebDebugUtils").getSelectedChat();
+        if (t == null)
+          throw r("err")("getLastChannelMessageT: no selected chat");
+        var n = (e = t.msgs.last()) == null ? void 0 : e.t;
+        if (n == null)
+          throw r("err")("getLastChannelMessageT: latest message has no t");
+        return n;
+      },
       addProfilePictureDeletionAlertForSelectedChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebDebugUtils").getSelectedChat();

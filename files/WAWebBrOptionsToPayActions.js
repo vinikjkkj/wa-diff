@@ -89,7 +89,11 @@ __d(
               function (n) {
                 return o(
                   "WAWebGetBrazilnteractiveActions",
-                ).getCopyBoletoCodeInteractiveAction(e, t, n);
+                ).getCopyBoletoCodeInteractiveAction({
+                  msg: t,
+                  orderInfo: e,
+                  surface: n,
+                });
               },
             )
           : null,

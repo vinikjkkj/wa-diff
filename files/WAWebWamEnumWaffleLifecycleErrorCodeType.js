@@ -12,6 +12,7 @@ __d(
       WF_STATE_MISMATCH: 6,
       WF_SUSPENDED: 7,
       UNKNOWN: 8,
+      PAYLOAD_ENC_DEC: 9,
     });
     i.WAFFLE_LIFECYCLE_ERROR_CODE_TYPE = e;
   },

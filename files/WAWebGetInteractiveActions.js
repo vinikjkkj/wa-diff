@@ -204,7 +204,7 @@ __d(
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
-            ).getCopyBoletoCodeInteractiveAction(e, t),
+            ).getCopyBoletoCodeInteractiveAction({ msg: t, orderInfo: e }),
           ),
         r.length < a &&
           o("WAWebGetBrazilnteractiveActions").hasValidCard(e) &&

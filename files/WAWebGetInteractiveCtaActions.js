@@ -36,7 +36,12 @@ __d(
           a = [];
         if (
           (e.interactivePayload.buttons.forEach(function (t, n) {
-            var r = u(t, n, e.t, e.nativeFlowName);
+            var r = u({
+              button: t,
+              index: n,
+              messageNativeFlowName: e.nativeFlowName,
+              timestamp: e.t,
+            });
             r != null && a.push(r);
           }),
           e.nativeFlowName ===
@@ -65,159 +70,163 @@ __d(
       }
       return null;
     }
-    function u(e, t, n, a) {
-      var i,
-        l,
-        u,
-        m = o(
+    function u(e) {
+      var t,
+        n,
+        a,
+        i = e.button,
+        l = e.index,
+        u = e.messageNativeFlowName,
+        m = e.timestamp,
+        p = o(
           "WAWebBizTemplateAndInteractiveMessagesUtils",
-        ).getNativeFlowNameByButtonName(e.name);
+        ).getNativeFlowNameByButtonName(i.name);
       if (
-        m == null ||
-        (m === r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP &&
-          a !== r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP)
+        p == null ||
+        (p === r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP &&
+          u !== r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP)
       )
         return null;
-      var p = (i = e.buttonParamsJson) != null ? i : "",
-        _;
+      var _ = (t = i.buttonParamsJson) != null ? t : "",
+        f;
       try {
-        _ = JSON.parse(p);
+        f = JSON.parse(_);
       } catch (e) {
         return null;
       }
-      var f =
-          _.catalog_product_id != null
+      var g =
+          f.catalog_product_id != null
             ? s._(/*BTDS*/ "View product")
             : s._(/*BTDS*/ "View catalog"),
-        g =
-          _.catalog_product_id != null
+        h =
+          f.catalog_product_id != null
             ? o("WAWebCatalogShortLinkUtils").createProductLink(
-                _.business_phone_number,
-                _.catalog_product_id,
+                f.business_phone_number,
+                f.catalog_product_id,
               )
             : o("WAWebCatalogShortLinkUtils").createCatalogLink(
-                _.business_phone_number,
+                f.business_phone_number,
               );
-      switch (m) {
+      switch (p) {
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_URL:
           return {
             name: "cta_url",
-            index: t,
+            index: l,
             data: {
-              label: (l = _.display_text) != null ? l : _.title,
-              url: o("WAWebMuseCtaLinkOverride").overrideCtaUrlIfNeeded(_.url),
-              merchantUrl: _.merchant_url,
+              label: (n = f.display_text) != null ? n : f.title,
+              url: o("WAWebMuseCtaLinkOverride").overrideCtaUrlIfNeeded(f.url),
+              merchantUrl: f.merchant_url,
             },
           };
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL:
           return {
             name: "cta_call",
-            index: t,
-            data: { label: _.display_text, selectionId: _.id },
+            index: l,
+            data: { label: f.display_text, selectionId: f.id },
           };
         case r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY:
           return {
             name: "quick_reply",
-            index: t,
+            index: l,
             data: {
-              label: (u = _.display_text) != null ? u : _.title,
-              selectionId: _.id,
-              disabled: _.disabled,
-              buttonParamsJson: p,
+              label: (a = f.display_text) != null ? a : f.title,
+              selectionId: f.id,
+              disabled: f.disabled,
+              buttonParamsJson: _,
             },
           };
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_CATALOG:
         case r("WAWebInteractiveMessagesNativeFlowName").CATALOG_MESSAGE:
           return {
             name: "cta_catalog",
-            index: t,
+            index: l,
             data: {
-              label: f.toString(),
-              catalogUrl: g,
-              businessPhoneNumber: _.business_phone_number,
-              catalogProductId: _.catalog_product_id,
+              label: g.toString(),
+              catalogUrl: h,
+              businessPhoneNumber: f.business_phone_number,
+              catalogProductId: f.catalog_product_id,
             },
           };
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_COPY_CODE:
           return {
             name: "cta_copy",
-            index: t,
-            data: { label: _.display_text, copyCode: _.copy_code },
+            index: l,
+            data: { label: f.display_text, copyCode: f.copy_code },
           };
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_APP:
           return {
             name: "cta_app",
-            index: t,
-            data: { label: _.display_text, url: _.url, buttonParamsJson: p },
+            index: l,
+            data: { label: f.display_text, url: f.url, buttonParamsJson: _ },
           };
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW:
           return o("WAWebGetGalaxyFlowCtaButton").getGalaxyFlowCtaButton(
-            p,
-            t,
-            n,
+            _,
+            l,
+            m,
           );
         case r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS: {
-          var h = o("WAWebOrderStatusButton").parseOrderStatusButton(e);
-          return h == null
-            ? null
-            : {
-                name: "order_status",
-                index: t,
-                data: { label: d(h).toString(), orderStatusButton: h },
-              };
-        }
-        case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER: {
-          var y = o("WAWebPaymentReminder").parsePaymentReminderButton(e);
+          var y = o("WAWebOrderStatusButton").parseOrderStatusButton(i);
           return y == null
             ? null
             : {
+                name: "order_status",
+                index: l,
+                data: { label: d(y).toString(), orderStatusButton: y },
+              };
+        }
+        case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER: {
+          var C = o("WAWebPaymentReminder").parsePaymentReminderButton(i);
+          return C == null
+            ? null
+            : {
                 name: "payment_reminder",
-                index: t,
+                index: l,
                 data: {
                   label: s._(/*BTDS*/ "Pay now").toString(),
-                  paymentReminderInfo: y,
+                  paymentReminderInfo: C,
                 },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION: {
-          var C = o("WAWebBookingConfirmation").parseBookingConfirmationButton(
-            e,
+          var b = o("WAWebBookingConfirmation").parseBookingConfirmationButton(
+            i,
           );
-          return C == null
+          return b == null
             ? null
             : {
                 name: "booking_confirmation",
-                index: t,
+                index: l,
                 data: {
                   label: s._(/*BTDS*/ "View details").toString(),
-                  bookingInfo: C,
+                  bookingInfo: b,
                 },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST: {
-          var b,
-            v = o("WAWebBrPaymentRequest").parsePaymentRequestButton(e);
-          return v == null
+          var v,
+            S = o("WAWebBrPaymentRequest").parsePaymentRequestButton(i);
+          return S == null
             ? null
             : {
                 name: "payment_request",
-                index: t,
+                index: l,
                 data: {
-                  label: (b = _.display_text) != null ? b : "",
-                  paymentRequestInfo: v,
+                  label: (v = f.display_text) != null ? v : "",
+                  paymentRequestInfo: S,
                 },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP: {
-          var S = o(
+          var R = o(
             "WAWebInAppSignupPrompt",
-          ).parseInAppSignupPromptButtonParams(p);
-          if (S == null) break;
-          var R = c().toString();
+          ).parseInAppSignupPromptButtonParams(_);
+          if (R == null) break;
+          var L = c().toString();
           return {
             name: "api_signup",
-            index: t,
-            data: { label: R, signupId: S.signupId },
+            index: l,
+            data: { label: L, signupId: R.signupId },
           };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT:
@@ -236,16 +245,16 @@ __d(
         case r("WAWebInteractiveMessagesNativeFlowName").A2UI_REPLY_ACTION:
           break;
         case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP: {
-          var L = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
-            e.buttonParamsJson,
+          var E = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
+            i.buttonParamsJson,
           );
-          if (L != null)
+          if (E != null)
             return {
               name: "cta_copy",
-              index: t,
+              index: l,
               data: {
                 label: s._(/*BTDS*/ "Copy code").toString(),
-                copyCode: L,
+                copyCode: E,
               },
             };
           break;

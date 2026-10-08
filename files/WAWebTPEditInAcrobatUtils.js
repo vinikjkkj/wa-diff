@@ -14,14 +14,16 @@ __d(
         n = e.mediaData,
         a = e.msg,
         i = e.onPreferenceSaved,
-        l = e.source;
-      (o("WAWebTPLoggingUtils").logEditInAcrobatClickEvent(t, l, n.filehash),
+        l = e.showSavePreferenceCheckbox,
+        u = e.source;
+      (o("WAWebTPLoggingUtils").logEditInAcrobatClickEvent(t, u, n.filehash),
         o("WAWebModalManager").ModalManager.openSupportModal(
           s.jsx(r("WAWebMediaEditPdfModal.react"), {
             msg: a,
             mediaData: n,
             hasUnsavedAnnotations: t,
             onPreferenceSaved: i,
+            showSavePreferenceCheckbox: l,
           }),
         ));
     }

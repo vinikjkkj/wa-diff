@@ -53,8 +53,23 @@ __d(
       var a = s(r.slice(d.length));
       return a == null ? null : "/fs/raw/" + a + o;
     }
-    var _ = Object.freeze({
+    var _ = /^[A-Za-z0-9\-_~]$/;
+    function f(e) {
+      var t = "";
+      for (var n of new TextEncoder().encode(e)) {
+        var r = String.fromCharCode(n);
+        t += _.test(r)
+          ? r
+          : "%" + n.toString(16).toUpperCase().padStart(2, "0");
+      }
+      return t;
+    }
+    var g = Object.freeze({
       ARTIFACTS_LIST: "/api/artifacts",
+      BROWSER_TASK: function (n, r) {
+        return "/api/browser-task/" + f(n) + "/" + r;
+      },
+      CHATS_LIST: "/api/chats/list?limit=100",
       COMPUTER_CONTEXT: "/api/computer/context",
       COMPUTER_SCREENSHOT: p,
       CONNECTOR_ACCOUNT_UNLINK: function (n, r) {
@@ -72,8 +87,13 @@ __d(
       CONNECTOR_ACCOUNTS_LINK: function (n) {
         return "/api/connectors/" + encodeURIComponent(n) + "/accounts/link";
       },
-      CONNECTOR_CONNECT_INFO: function (n) {
-        return "/connectors/" + encodeURIComponent(n) + "/connect/info";
+      CONNECTOR_CONNECT_INFO: function (n, r) {
+        return (
+          "/connectors/" +
+          encodeURIComponent(n) +
+          "/connect/info" +
+          (r == null ? "" : "?session_id=" + encodeURIComponent(r))
+        );
       },
       CONNECTOR_DISCONNECT: function (n) {
         return "/api/connectors/" + encodeURIComponent(n) + "/disconnect";
@@ -119,10 +139,10 @@ __d(
       CREDENTIALS_CATALOG_UPDATE: "/v1/credentials/catalog/update",
       OAUTH_CALLBACK: "/oauth/callback",
     });
-    function f(e) {
+    function h(e) {
       return e;
     }
-    ((i.JarvisPaths = _), (i.serializeJarvisPath = f));
+    ((i.JarvisPaths = g), (i.serializeJarvisPath = h));
   },
   66,
 );

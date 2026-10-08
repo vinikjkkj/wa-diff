@@ -247,27 +247,31 @@ __d(
         Icon: o("WAWebLaunchIcon.react").LaunchIcon,
       };
     }
-    function h(e, t, n) {
-      n === void 0 &&
-        (n = o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface
-          .INLINE_CTA);
-      var a = e.paymentSettings;
+    function h(e) {
+      var t = e.msg,
+        n = e.orderInfo,
+        a = e.surface,
+        i =
+          a === void 0
+            ? o("WAWebBrPaymentMethodSurface").BrPaymentMethodSurface.INLINE_CTA
+            : a,
+        l = n.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Copy boleto code"),
         onClick: function () {
-          var i =
-              a == null
+          var e =
+              l == null
                 ? void 0
-                : a.find(function (e) {
+                : l.find(function (e) {
                     return e[
                       o("WAWebBizOrderDetailsParams").PaymentSettingType.BOLETO
                     ];
                   }),
-            l = i
-              ? i[o("WAWebBizOrderDetailsParams").PaymentSettingType.BOLETO]
+            a = e
+              ? e[o("WAWebBizOrderDetailsParams").PaymentSettingType.BOLETO]
                   .digitable_line
               : null;
-          if (l == null) {
+          if (a == null) {
             o("WAWebToastManager").ToastManager.open(
               c.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Couldn't copy boleto code"),
@@ -280,9 +284,9 @@ __d(
             onSuccess: function () {
               (L(
                 t,
-                e,
-                o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
                 n,
+                o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
+                i,
               ).catch(r("WAWebNoop")),
                 o(
                   "WAWebBrLastUsedPaymentMethodStoreLazy",
@@ -292,7 +296,7 @@ __d(
                 ));
             },
             successMsg: s._(/*BTDS*/ "Boleto code copied"),
-            text: l,
+            text: a,
           });
         },
         Icon: r("WDSIconIcContentCopy.react"),

@@ -2,7 +2,6 @@ __d(
   "WAWebMimeTypes",
   [
     "WATypedArraysEqual",
-    "WAWebABProps",
     "WAWebMediaFileErrors",
     "WAWebMimeTypesBuildExtToMime",
     "file-type",
@@ -118,27 +117,20 @@ __d(
       _ = "*",
       f = "image/*",
       g = "video/mp4,video/3gpp,video/quicktime",
-      h = "video/mp4,video/3gpp,video/quicktime,video/webm,video/x-matroska";
-    function y() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "transcode_and_repair_videos",
-      ) === !0
-        ? h
-        : g;
-    }
-    var C = g,
-      b = "audio/wav,audio/mp3,audio/ogg,audio/aac,audio/mpeg",
-      v = r("WAWebMimeTypesBuildExtToMime")(),
-      S = r("filterObject")(d, function (e) {
+      h = "video/mp4,video/3gpp,video/quicktime,video/webm,video/x-matroska",
+      y = g,
+      C = "audio/wav,audio/mp3,audio/ogg,audio/aac,audio/mpeg",
+      b = r("WAWebMimeTypesBuildExtToMime")(),
+      v = r("filterObject")(d, function (e) {
         return (
           (e == null ? void 0 : e.msgType) === "document" &&
           e.canSend === !0 &&
           e.ext != null
         );
       });
-    function R(e, t, n) {
+    function S(e, t, n) {
       n === void 0 && (n = !1);
-      for (var r in S) {
+      for (var r in v) {
         var o = d[r];
         if (o != null) {
           var a = o.ext,
@@ -159,18 +151,18 @@ __d(
           ? e
           : "application/octet-stream";
     }
-    function L(e) {
+    function R(e) {
       var t,
         n = d[e];
       return n
         ? "." + ((t = n.ext) != null ? t : e.split("/")[1]).toLowerCase()
         : "";
     }
-    function E(e) {
+    function L(e) {
       var t = d[e];
       return t == null ? void 0 : t.previewType;
     }
-    function k(t, n) {
+    function E(t, n) {
       var a = n.subarray(0, e),
         i = r("file-type")(a);
       if (i) return i.mime;
@@ -180,15 +172,15 @@ __d(
         "unknown mime decrypt error for type:" + t,
       );
     }
-    var I = "audio/ogg";
+    var k = "audio/ogg";
+    function I(e) {
+      return e == null ? !1 : e.includes(k);
+    }
     function T(e) {
-      return e == null ? !1 : e.includes(I);
+      return L(e) === "pdf";
     }
     function D(e) {
-      return E(e) === "pdf";
-    }
-    function x(e) {
-      return E(e) === "html";
+      return L(e) === "html";
     }
     ((l.MIMETYPE_DETERMINING_LENGTH = e),
       (l.MSCFB_HEADER = s),
@@ -198,17 +190,17 @@ __d(
       (l.DOCUMENT_MIMETYPES = p),
       (l.DOC_MIMES = _),
       (l.IMAGE_MIMES = f),
-      (l.getVideoMimes = y),
-      (l.VIDEO_MIMES = C),
-      (l.AUDIO_MIMES = b),
-      (l.EXT_TO_MIME = v),
-      (l.isAllowedDocumentMimetype = R),
-      (l.getExtension = L),
-      (l.previewType = E),
-      (l.getMediaMimeType = k),
-      (l.isOpus = T),
-      (l.isPdfDocument = D),
-      (l.isHtmlDocument = x));
+      (l.EXTENDED_VIDEO_MIMES = h),
+      (l.VIDEO_MIMES = y),
+      (l.AUDIO_MIMES = C),
+      (l.EXT_TO_MIME = b),
+      (l.isAllowedDocumentMimetype = S),
+      (l.getExtension = R),
+      (l.previewType = L),
+      (l.getMediaMimeType = E),
+      (l.isOpus = I),
+      (l.isPdfDocument = T),
+      (l.isHtmlDocument = D));
   },
   98,
 );

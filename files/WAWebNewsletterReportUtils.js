@@ -30,7 +30,7 @@ __d(
           "value" in n
         ) {
           var r = n.value,
-            a = parseInt(r.errorSpamIqErrors.value, 10),
+            a = r.errorSpamIqErrors.value.code,
             i = r.errorSpamIqErrors.name;
           return (
             o("WALogger").WARN(
@@ -116,145 +116,160 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
+    function f(e, t, n, r) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = t.serverId;
-          if (a == null)
-            throw r("err")("reportNewsletterStatus failed: missing serverId");
-          var i = o("WAJids").toNewsletterJid(e.id.toJid()),
-            l = e.name,
-            u = o("WAWebReportSpamJob").getSpamMessageProtobuf(
-              o("WAWebOutgoingMessage").createOutgoingMsgModelProtobuf(
-                o("WAWebOutgoingMessage").OutgoingMessageOriginType.Report,
-                t,
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            var i = t.serverId;
+            if (i == null)
+              throw r("err")("reportNewsletterStatus failed: missing serverId");
+            var l = o("WAJids").toNewsletterJid(e.id.toJid()),
+              u = e.name,
+              c = o("WAWebReportSpamJob").getSpamMessageProtobuf(
+                o("WAWebOutgoingMessage").createOutgoingMsgModelProtobuf(
+                  o("WAWebOutgoingMessage").OutgoingMessageOriginType.Report,
+                  t,
+                ),
               ),
-            ),
-            c = o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, u)
-              .readByteArrayView(),
-            d = { plaintextElementValue: c },
-            m =
-              t.type === o("WAWebMsgType").MSG_TYPE.IMAGE
-                ? {
-                    statusNewsletterMedia: {
-                      plaintextMediatype: "image",
-                      newsletterPlaintextPayloadMixinArgs: d,
-                    },
-                  }
-                : t.type === o("WAWebMsgType").MSG_TYPE.VIDEO
+              d = o("encodeProtobuf")
+                .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, c)
+                .readByteArrayView(),
+              m = { plaintextElementValue: d },
+              p =
+                t.type === o("WAWebMsgType").MSG_TYPE.IMAGE
                   ? {
                       statusNewsletterMedia: {
-                        plaintextMediatype: "video",
-                        newsletterPlaintextPayloadMixinArgs: d,
+                        plaintextMediatype: "image",
+                        newsletterPlaintextPayloadMixinArgs: m,
                       },
                     }
-                  : {
-                      statusNewsletterText: {
-                        newsletterPlaintextPayloadMixinArgs: d,
+                  : t.type === o("WAWebMsgType").MSG_TYPE.VIDEO
+                    ? {
+                        statusNewsletterMedia: {
+                          plaintextMediatype: "video",
+                          newsletterPlaintextPayloadMixinArgs: m,
+                        },
+                      }
+                    : {
+                        statusNewsletterText: {
+                          newsletterPlaintextPayloadMixinArgs: m,
+                        },
                       },
-                    },
-            p = babelHelpers.extends(
-              { spamListSpamFlow: n, spamListJid: i },
-              l != null && l !== ""
-                ? { entitySubjectMixinArgs: { spamListSubject: l } }
-                : null,
-              {
-                reportableNewsletterStatusMixinArgs: {
-                  statusServerId: a,
-                  statusT: t.t,
-                  statusNewsletterTextOrMediaMixinGroupArgs: m,
+              _ = babelHelpers.extends(
+                { spamListSpamFlow: n, spamListWiTraceId: a, spamListJid: l },
+                u != null && u !== ""
+                  ? { entitySubjectMixinArgs: { spamListSubject: u } }
+                  : null,
+                {
+                  reportableNewsletterStatusMixinArgs: {
+                    statusServerId: i,
+                    statusT: t.t,
+                    statusNewsletterTextOrMediaMixinGroupArgs: p,
+                  },
                 },
-              },
-            ),
-            _ = yield o("WASmaxSpamStatusReportV2RPC").sendStatusReportV2RPC(p);
-          e: {
-            var f = _;
-            if (
-              ((typeof f == "object" && f !== null) ||
-                typeof f == "function") &&
-              f.name === "StatusReportV2ResponseError" &&
-              "value" in f
-            ) {
-              var g = f.value;
-              return (
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "reportNewsletterStatus: server error response",
-                    ])),
-                ),
-                { errorCode: 500, errorText: "newsletter status report failed" }
+              ),
+              f = yield o("WASmaxSpamStatusReportV2RPC").sendStatusReportV2RPC(
+                _,
               );
-              break e;
+            e: {
+              var g = f;
+              if (
+                ((typeof g == "object" && g !== null) ||
+                  typeof g == "function") &&
+                g.name === "StatusReportV2ResponseError" &&
+                "value" in g
+              ) {
+                var h = g.value,
+                  y =
+                    h
+                      .errorIQErrorInternalServerErrorOrBadRequestOrForbiddenOrRateOverlimitMixinGroup
+                      .value,
+                  C = y.code,
+                  b = y.text;
+                return (
+                  o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "reportNewsletterStatus: server error response ",
+                        "",
+                      ])),
+                    C,
+                  ),
+                  { errorCode: C, errorText: b }
+                );
+                break e;
+              }
+              if (
+                ((typeof g == "object" && g !== null) ||
+                  typeof g == "function") &&
+                g.name === "StatusReportV2ResponseSuccess" &&
+                "value" in g
+              ) {
+                var v = g.value;
+                return v;
+              }
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  g,
+              );
             }
-            if (
-              ((typeof f == "object" && f !== null) ||
-                typeof f == "function") &&
-              f.name === "StatusReportV2ResponseSuccess" &&
-              "value" in f
-            ) {
-              var h = f.value;
-              return h;
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                f,
-            );
-          }
-        })),
+          },
+        )),
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function h(e, t, n, r) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = yield p(t, e),
-            i,
-            l = yield (u || (u = n("Promise"))).all(
-              a.map(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var n =
-                        yield o("WAWebReportUtils").getMessageMixinArgs(t);
-                      return (
-                        n != null &&
-                          (i = babelHelpers.extends(
-                            {
-                              messageFrom: o("WAJids").toNewsletterJid(
-                                e.id.toJid(),
-                              ),
-                            },
-                            n,
-                          )),
-                        i
-                      );
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r, a) {
+            var i = yield p(t, e),
+              l,
+              s = yield (u || (u = n("Promise"))).all(
+                i.map(
+                  (function () {
+                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (t) {
+                        var n =
+                          yield o("WAWebReportUtils").getMessageMixinArgs(t);
+                        return (
+                          n != null &&
+                            (l = babelHelpers.extends(
+                              {
+                                messageFrom: o("WAJids").toNewsletterJid(
+                                  e.id.toJid(),
+                                ),
+                              },
+                              n,
+                            )),
+                          l
+                        );
+                      },
+                    );
+                    return function (e) {
+                      return t.apply(this, arguments);
+                    };
+                  })(),
+                ),
               ),
-            ),
-            s = {
-              spamListJid: o("WAJids").toNewsletterJid(e.id.toJid()),
-              spamListSpamFlow: r,
-              spamListSubject: e.name,
-              messageArgs: l.filter(Boolean),
-            },
-            d = yield o(
-              "WASmaxSpamNewsletterReportRPC",
-            ).sendNewsletterReportRPC(s);
-          return c(d);
-        })),
+              d = {
+                spamListJid: o("WAJids").toNewsletterJid(e.id.toJid()),
+                spamListSpamFlow: r,
+                spamListWiTraceId: a,
+                spamListSubject: e.name,
+                messageArgs: s.filter(Boolean),
+              },
+              m = yield o(
+                "WASmaxSpamNewsletterReportRPC",
+              ).sendNewsletterReportRPC(d);
+            return c(m);
+          },
+        )),
         y.apply(this, arguments)
       );
     }

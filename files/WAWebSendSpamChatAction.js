@@ -25,6 +25,7 @@ __d(
     "WAWebSendClearChatAction",
     "WAWebSmb1pdConversionSignalAction",
     "WAWebSpamConstants",
+    "WAWebSpamReportAttempt",
     "WAWebStateUtils",
     "WAWebToastManager",
     "gkx",
@@ -87,16 +88,16 @@ __d(
     function y(e, t) {
       return (
         t === void 0 && (t = o("WAWebSpamConstants").SpamFlow.MessageMenu),
-        E(o("WAWebStateUtils").unproxy(e), t)
+        I(o("WAWebStateUtils").unproxy(e), t)
       );
     }
     function C(e) {
       var t = e.chat,
         n = e.spamFlow;
-      return R(o("WAWebStateUtils").unproxy(t), n);
+      return E(o("WAWebStateUtils").unproxy(t), n);
     }
     function b(e, t) {
-      return L(o("WAWebStateUtils").unproxy(e), t);
+      return k(o("WAWebStateUtils").unproxy(e), t);
     }
     function v() {
       return {
@@ -116,96 +117,39 @@ __d(
         u = t.toastId,
         c = u === void 0 ? o("WAWebActionToast.react").genId() : u,
         d = t.msgType,
-        p = v(),
-        f = p.couldNotSendReportMsg,
-        g = p.reportSentMsgV2,
-        h = p.sendingReportMsg,
-        y = p.tryAgainMsg,
-        C = l != null ? o("WAWebStateUtils").unproxy(l) : l,
-        b = (a = C == null ? void 0 : C.promises) != null ? a : null;
-      if (b != null && b.sendSpamReport) return b.sendSpamReport;
-      var R;
-      if (
-        d === o("WAWebMsgType").MSG_TYPE.STATUS &&
-        s != null &&
-        !o("WAWebMsgGetters").getIsGroupStatus(s)
-      )
-        R = o("WAWebReportSpamJob")
-          .reportStatus(i, s)
-          .then(function (e) {
-            var t;
-            if ((e == null ? void 0 : e.errorCode) != null)
-              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                e.errorCode,
-                e.errorText,
-              );
-            if (
-              (e == null || (t = e.reportIdMixin) == null
-                ? void 0
-                : t.reportId) != null
-            )
-              return e.reportIdMixin.reportId;
-          });
-      else {
-        if (!b) return new (m || (m = n("Promise")))(r("WAWebNoop"));
-        s != null
-          ? (R = b.sendSpamReport =
-              o("WAWebReportSpamJob")
-                .reportSpam(o("WAWebFrontendMsgGetters").getChat(s), i, s)
-                .then(function (e) {
-                  var t;
-                  if ((e == null ? void 0 : e.errorCode) != null)
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      e.errorCode,
-                      e.errorText,
-                    );
-                  if (
-                    (e == null || (t = e.reportIdMixin) == null
-                      ? void 0
-                      : t.reportId) != null
-                  )
-                    return e.reportIdMixin.reportId;
-                }))
-          : C != null &&
-            (R = b.sendSpamReport =
-              o("WAWebReportSpamJob")
-                .reportSpam(C, i)
-                .then(function (e) {
-                  var t;
-                  if ((e == null ? void 0 : e.errorCode) != null)
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      e.errorCode,
-                      e.errorText,
-                    );
-                  if (
-                    (e == null || (t = e.reportIdMixin) == null
-                      ? void 0
-                      : t.reportId) != null
-                  )
-                    return e.reportIdMixin.reportId;
-                }));
-      }
-      if (!R) return new (m || (m = n("Promise")))(r("WAWebNoop"));
-      var L =
-        C != null
-          ? C
-          : s != null
-            ? o("WAWebFrontendMsgGetters").getChat(s)
-            : null;
+        p = t.attemptCount,
+        f = p === void 0 ? 1 : p,
+        g = v(),
+        h = g.couldNotSendReportMsg,
+        y = g.reportSentMsgV2,
+        C = g.sendingReportMsg,
+        b = g.tryAgainMsg,
+        L = l != null ? o("WAWebStateUtils").unproxy(l) : l,
+        E = (a = L == null ? void 0 : L.promises) != null ? a : null;
+      if (E != null && E.sendSpamReport) return E.sendSpamReport;
+      var k = R({ spamFlow: i, msg: s, msgType: d, chat: L });
+      if (k == null) return new (m || (m = n("Promise")))(r("WAWebNoop"));
+      var I = o("WAWebSpamReportAttempt").sendWithSpamReportLogging(i, f, k),
+        T =
+          L != null
+            ? L
+            : s != null
+              ? o("WAWebFrontendMsgGetters").getChat(s)
+              : null;
       t.skipCtwa1pdNbfSignal !== !0 &&
-        L != null &&
-        R.then(function () {
+        T != null &&
+        I.then(function () {
           return o(
             "WAWebSmb1pdConversionSignalAction",
-          ).log1pdReportConversionSignal(L);
+          ).log1pdReportConversionSignal(T);
         }).catch(r("WAWebNoop"));
-      var E = new (o("WAWebActionToast.react").ActionType)(h),
-        k = R.then(function (e) {
+      var D = new (o("WAWebActionToast.react").ActionType)(C),
+        x = I.then(function (e) {
           return e != null &&
             s != null &&
-            o("WAWebReportGatingUtils").isPostReportingAusOSAModalEnabled(C, s)
+            o("WAWebReportGatingUtils").isPostReportingAusOSAModalEnabled(L, s)
             ? null
-            : new (o("WAWebActionToast.react").ActionType)(g);
+            : new (o("WAWebActionToast.react").ActionType)(y);
         })
           .catch(
             o("WAFilteredCatch").filteredCatch(
@@ -213,11 +157,11 @@ __d(
               function (e) {
                 return !r("gkx")("26258") && e.statusCode === 548
                   ? new (o("WAWebActionToast.react").ActionType)(e.message)
-                  : new (o("WAWebActionToast.react").ActionType)(f);
+                  : new (o("WAWebActionToast.react").ActionType)(h);
               },
             ),
           )
-          .catch(function (t) {
+          .catch(function (n) {
             return (
               o("WALogger").WARN(
                 e ||
@@ -225,15 +169,17 @@ __d(
                     "reportSpam dropped",
                   ])),
               ),
-              new (o("WAWebActionToast.react").ActionType)(f, {
-                actionText: y,
+              new (o("WAWebActionToast.react").ActionType)(h, {
+                actionText: b,
                 actionHandler: function () {
                   return S({
-                    chat: C,
+                    chat: L,
                     spamFlow: i,
                     msg: s,
                     toastId: c,
                     msgType: d,
+                    skipCtwa1pdNbfSignal: t.skipCtwa1pdNbfSignal,
+                    attemptCount: f + 1,
                   });
                 },
               })
@@ -243,16 +189,52 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           _.jsx(o("WAWebActionToast.react").ActionToast, {
             id: c,
-            initialAction: E,
-            pendingAction: k,
+            initialAction: D,
+            pendingAction: x,
           }),
         ),
-        R.finally(function () {
-          b != null && b.sendSpamReport && (b.sendSpamReport = null);
+        I.finally(function () {
+          E != null && E.sendSpamReport && (E.sendSpamReport = null);
         })
       );
     }
-    function R(e, t) {
+    function R(e) {
+      var t = e.chat,
+        n = e.msg,
+        r = e.msgType,
+        a = e.spamFlow;
+      if (
+        r === o("WAWebMsgType").MSG_TYPE.STATUS &&
+        n != null &&
+        !o("WAWebMsgGetters").getIsGroupStatus(n)
+      )
+        return function (e) {
+          return o("WAWebReportSpamJob").reportStatus(a, n, e).then(L);
+        };
+      var i = t == null ? void 0 : t.promises;
+      if (t == null || i == null) return null;
+      var l = n != null ? o("WAWebFrontendMsgGetters").getChat(n) : t;
+      return function (e) {
+        var t = o("WAWebReportSpamJob")
+          .reportSpam(l, a, n != null ? n : void 0, e)
+          .then(L);
+        return ((i.sendSpamReport = t), t);
+      };
+    }
+    function L(e) {
+      var t;
+      if ((e == null ? void 0 : e.errorCode) != null)
+        throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+          e.errorCode,
+          e.errorText,
+        );
+      if (
+        (e == null || (t = e.reportIdMixin) == null ? void 0 : t.reportId) !=
+        null
+      )
+        return e.reportIdMixin.reportId;
+    }
+    function E(e, t) {
       var r = e.contact,
         a = e.promises;
       if (a.reportSpamBlockClear) return a.reportSpamBlockClear;
@@ -282,7 +264,7 @@ __d(
         a.reportSpamBlockClear
       );
     }
-    function L(e, t) {
+    function k(e, t) {
       var a = e.isReadOnly,
         i = e.promises;
       if (i.reportSpamExitClear) return i.reportSpamExitClear;
@@ -309,7 +291,7 @@ __d(
         i.reportSpamExitClear
       );
     }
-    function E(e, t) {
+    function I(e, t) {
       var n = e.senderObj,
         r = o("WAWebFrontendMsgGetters").getChat(e),
         a = r.promises;

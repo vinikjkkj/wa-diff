@@ -40,8 +40,13 @@ __d(
     function m(e, t, n, r) {
       var a,
         i,
-        l = function () {
-          o("WAWebAddEditPixFeature").openPixCredentialManagementModal(e, t, n);
+        l = function (a) {
+          o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
+            e,
+            t,
+            n,
+            a,
+          );
         },
         d = n == null ? void 0 : n.value;
       if (n == null || d == null || d === "" || c()) {
@@ -62,11 +67,10 @@ __d(
             .BrSavePartnerPixKeyModalLoadable,
           {
             bankId: n.bankId,
-            bankName: n.bankName,
             displayName: (i = n.name) != null ? i : "",
             onClose: o("WAWebModalManager").closeModalManager,
-            onOpenForm: function () {
-              (o("WAWebModalManager").ModalManager.close(), l());
+            onOpenForm: function (t) {
+              (o("WAWebModalManager").ModalManager.close(), l(t));
             },
             pixKey: p,
             pixKeyType: m,

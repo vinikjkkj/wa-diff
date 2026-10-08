@@ -11,16 +11,24 @@ __d(
     function u() {
       ((e = null), (l = !1));
     }
-    function c(t) {
+    function c() {
+      return { awaitsLobbyJoin: l, lobbyEntryPoint: e };
+    }
+    function d(t) {
+      ((e = t.lobbyEntryPoint), (l = t.awaitsLobbyJoin));
+    }
+    function m(t) {
       ((!l || !t) && (e = null), (l = !1));
     }
-    function d() {
+    function p() {
       return e;
     }
     ((i.setLobbyEntryPoint = s),
       (i.resetLobbyEntryPoint = u),
-      (i.resetLobbyEntryPointOnAccept = c),
-      (i.getCurrentLobbyEntryPoint = d));
+      (i.snapshotLobbyEntryPoint = c),
+      (i.restoreLobbyEntryPoint = d),
+      (i.resetLobbyEntryPointOnAccept = m),
+      (i.getCurrentLobbyEntryPoint = p));
   },
   66,
 );

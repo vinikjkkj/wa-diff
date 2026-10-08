@@ -21,11 +21,11 @@ __d(
                 : t.accept === e.IMAGE
                   ? o("WAWebMimeTypes").IMAGE_MIMES
                   : t.accept === e.VIDEO
-                    ? o("WAWebMimeTypes").getVideoMimes()
+                    ? o("WAWebMimeTypes").EXTENDED_VIDEO_MIMES
                     : t.accept === e.MEDIA
                       ? o("WAWebMimeTypes").IMAGE_MIMES +
                         "," +
-                        o("WAWebMimeTypes").getVideoMimes()
+                        o("WAWebMimeTypes").EXTENDED_VIDEO_MIMES
                       : (function () {
                           throw Error(
                             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

@@ -386,18 +386,22 @@ __d(
               n = t.mediaType,
               r = t.rawMimeType,
               a = t.requestId,
-              i = t.strictOggOpusValidationEnabled,
-              l = yield o(
+              i = t.strictMp4ValidationEnabled,
+              l = t.strictOggOpusValidationEnabled,
+              s = yield o(
                 "WAKaleidoscopeClassify",
-              ).kaleidoscopeClassifyByMediaType(e, n, r, i);
+              ).kaleidoscopeClassifyByMediaType(e, n, r, {
+                strictOggOpusValidationEnabled: l,
+                strictMp4ValidationEnabled: i,
+              });
             return p({
-              output: l.success
+              output: s.success
                 ? o("WAResultOrError").makeResult({
-                    mimetype: l.value.mimetype,
-                    extension: l.value.extension,
-                    score: l.value.score,
+                    mimetype: s.value.mimetype,
+                    extension: s.value.extension,
+                    score: s.value.score,
                   })
-                : l,
+                : s,
               input: e,
               requestId: a,
             });

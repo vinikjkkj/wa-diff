@@ -98,7 +98,7 @@ __d(
                 if (!a) {
                   var i,
                     l =
-                      n && n !== e.msgs.last()
+                      n && (t.alwaysHighlightMsg || n !== e.msgs.last())
                         ? o("WAWebChatMessageSearch").getSearchContext({
                             chat: e,
                             msgKey: n.id,
@@ -122,18 +122,19 @@ __d(
                       (s = e.groupMetadata) == null ? void 0 : s.parentGroup,
                     );
                   } else {
-                    var u = r("WAWebEnvironment").isWindows
-                      ? o("WAWebCmd").Cmd.openChatFromUnread({
-                          chat: e,
-                          chatEntryPoint: o("WAWebChatEntryPoint")
-                            .ChatEntryPoint.Notification,
-                        })
-                      : o("WAWebCmd").Cmd.openChatAt({
-                          chat: e,
-                          msgContext: l,
-                          chatEntryPoint: o("WAWebChatEntryPoint")
-                            .ChatEntryPoint.Notification,
-                        });
+                    var u =
+                      !r("WAWebEnvironment").isWindows || t.alwaysHighlightMsg
+                        ? o("WAWebCmd").Cmd.openChatAt({
+                            chat: e,
+                            msgContext: l,
+                            chatEntryPoint: o("WAWebChatEntryPoint")
+                              .ChatEntryPoint.Notification,
+                          })
+                        : o("WAWebCmd").Cmd.openChatFromUnread({
+                            chat: e,
+                            chatEntryPoint: o("WAWebChatEntryPoint")
+                              .ChatEntryPoint.Notification,
+                          });
                     u.then(function (t) {
                       t &&
                         o("WAWebComposeBoxActions").ComposeBoxActions.focus(e);
@@ -159,6 +160,7 @@ __d(
             (this.tag = c),
             (this.key = i),
             (this.$1 = s.onClick),
+            (this.alwaysHighlightMsg = s.alwaysHighlightMsg === !0),
             (this.canBlock = s.canBlock),
             (this.doNotOpenChat = s.doNotOpenChat),
             (this.isReplyable = s.isReplyable));

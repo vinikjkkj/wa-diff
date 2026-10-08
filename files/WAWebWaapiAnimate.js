@@ -346,12 +346,12 @@ __d(
       if (c == null || !o("WAWebUimUtils").isCrossWindowHTMLElement(d))
         return (e || (e = n("Promise"))).resolve(t);
       var m = (i = r.axis) != null ? i : "y",
-        p = o("WAWebWaapiAnimateScroll").computeScrollTarget(
-          d,
-          c,
-          m,
-          (l = r.offset) != null ? l : 0,
-        );
+        p = o("WAWebWaapiAnimateScroll").computeScrollTarget({
+          axis: m,
+          container: d,
+          node: c,
+          offset: (l = r.offset) != null ? l : 0,
+        });
       return o("WAWebWaapiAnimateScroll")
         .tweenScroll(
           c,

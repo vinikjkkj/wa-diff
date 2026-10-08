@@ -64,7 +64,6 @@ __d(
     }
     function h(t, n) {
       try {
-        if (o("WAWebWamFalcoABProps").isCriticalEvent(t.id)) return !1;
         m();
         var a = g(t);
         return a == null
@@ -90,6 +89,7 @@ __d(
                 o("WAWebWamFalcoGlobalFields").getCanonicalFieldsForFalco(),
                 a,
               ),
+              o("WAWebWamFalcoABProps").isCriticalEvent(t.id),
             );
       } catch (e) {
         return (

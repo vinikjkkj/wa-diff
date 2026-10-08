@@ -233,71 +233,78 @@ __d(
           var c = new Uint8Array(12);
           return (
             self.crypto.getRandomValues(c),
-            $(
-              a,
-              i,
-              t,
-              n,
-              l.identityKeyPair.pubKey,
-              l.identityKeyPair.privKey,
-              s,
-              u,
-              c,
-            )
+            $({
+              companionFinishIV: c,
+              companionFinishKdfSalt: u,
+              companionIdentityPrivate: l.identityKeyPair.privKey,
+              companionIdentityPublic: l.identityKeyPair.pubKey,
+              linkCodeKey: t,
+              linkCodePairingAdvRootSecret: s,
+              linkCodePairingCompanionADVEphemeralKeyPair: n,
+              linkCodePairingWrappedPrimaryEphemeralPub: a,
+              primaryIdentityPublic: i,
+            })
           );
         })),
         x.apply(this, arguments)
       );
     }
-    function $(e, t, n, r, o, a, i, l, s) {
+    function $(e) {
       return P.apply(this, arguments);
     }
     function P() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l, s, u, c) {
-            var d = new (o("WABinary").Binary)(e),
-              p = d.readByteArrayView(32),
-              f = d.readByteArrayView(16),
-              g = d.readByteArrayView(),
-              h = yield _(n, p),
-              C = yield m(function () {
-                return y(g, f, h);
-              }, "fail decrypt primary ephemeral pub");
-            if (C.byteLength === 0)
-              throw r("err")(
-                "alt pairing: linkCodePairingDecryptedPrimaryEphemeralPub is an empty buffer",
-              );
-            var b = yield m(function () {
-                return o("WAWebCryptoCurve25519").sharedSecret(C, a.privKey);
-              }, "fail generate ephemeral shared secret"),
-              v = yield L(b, u),
-              S = k(i, t, s),
-              R = yield I(v, c, S),
-              E = new (o("WABinary").Binary)();
-            (E.writeByteArray(u), E.writeByteArray(c), E.writeBuffer(R));
-            var T = yield m(function () {
-                return o("WAWebCryptoCurve25519").sharedSecret(t, l);
-              }, "fail generate identity shared secret"),
-              D = o("WAArrayBufferUtils").concatBuffers([
-                b,
-                T,
-                o("WAByteArray").uint8ArrayToBuffer(s),
-              ]),
-              x = yield o("WACryptoHkdf").extractWithSaltAndExpand(
-                D,
-                null,
-                "adv_secret",
-                32,
-              ),
-              $ = E.readBuffer();
-            return {
-              companionIdentityPublic: i,
-              linkCodePairingWrappedKeyBundle: $,
-              advSecret: x,
-            };
-          },
-        )),
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.companionFinishIV,
+            n = e.companionFinishKdfSalt,
+            a = e.companionIdentityPrivate,
+            i = e.companionIdentityPublic,
+            l = e.linkCodeKey,
+            s = e.linkCodePairingAdvRootSecret,
+            u = e.linkCodePairingCompanionADVEphemeralKeyPair,
+            c = e.linkCodePairingWrappedPrimaryEphemeralPub,
+            d = e.primaryIdentityPublic,
+            p = new (o("WABinary").Binary)(c),
+            f = p.readByteArrayView(32),
+            g = p.readByteArrayView(16),
+            h = p.readByteArrayView(),
+            C = yield _(l, f),
+            b = yield m(function () {
+              return y(h, g, C);
+            }, "fail decrypt primary ephemeral pub");
+          if (b.byteLength === 0)
+            throw r("err")(
+              "alt pairing: linkCodePairingDecryptedPrimaryEphemeralPub is an empty buffer",
+            );
+          var v = yield m(function () {
+              return o("WAWebCryptoCurve25519").sharedSecret(b, u.privKey);
+            }, "fail generate ephemeral shared secret"),
+            S = yield L(v, n),
+            R = k(i, d, s),
+            E = yield I(S, t, R),
+            T = new (o("WABinary").Binary)();
+          (T.writeByteArray(n), T.writeByteArray(t), T.writeBuffer(E));
+          var D = yield m(function () {
+              return o("WAWebCryptoCurve25519").sharedSecret(d, a);
+            }, "fail generate identity shared secret"),
+            x = o("WAArrayBufferUtils").concatBuffers([
+              v,
+              D,
+              o("WAByteArray").uint8ArrayToBuffer(s),
+            ]),
+            $ = yield o("WACryptoHkdf").extractWithSaltAndExpand(
+              x,
+              null,
+              "adv_secret",
+              32,
+            ),
+            P = T.readBuffer();
+          return {
+            companionIdentityPublic: i,
+            linkCodePairingWrappedKeyBundle: P,
+            advSecret: $,
+          };
+        })),
         P.apply(this, arguments)
       );
     }
