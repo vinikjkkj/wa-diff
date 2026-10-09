@@ -93,9 +93,8 @@ __d(
             if (
               t.length === 0 ||
               t.length >
-                o(
-                  "WAWebPollsGatingUtils",
-                ).getMaxPollOptionLengthForIncomingMessages()
+                o("WAWebPollsGatingUtils")
+                  .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES
             )
               throw new (o(
                 "WAWebPollsValidationError",

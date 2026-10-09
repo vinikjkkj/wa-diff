@@ -17,9 +17,8 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = (e = n("cr:37444")) != null ? e : [];
-    function m(e) {
+      c = (e = n("cr:37444")) != null ? e : [];
+    function d(e) {
       var t,
         n,
         a = o(
@@ -36,14 +35,14 @@ __d(
           : t.type) ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
       ) {
-        var l, c;
+        var l, d;
         if (
           e.editAttr !== o("WAWebWamEnumEditType").EDIT_TYPE.EDITED &&
           r("isStringNullOrEmpty")(
             (l =
-              e == null || (c = e.msgBotInfo) == null
+              e == null || (d = e.msgBotInfo) == null
                 ? void 0
-                : c.botEditType) != null
+                : d.botEditType) != null
               ? l
               : "",
           )
@@ -60,23 +59,23 @@ __d(
             null
           );
       }
-      var m = a.pluginsMatched,
-        f = [];
-      for (var g of d) {
-        var h = g(e);
-        if (h != null) {
-          var y;
-          (m.push(
-            h.msgData.type +
+      var p = a.pluginsMatched,
+        _ = [];
+      for (var f of c) {
+        var g = f(e);
+        if (g != null) {
+          var h;
+          (p.push(
+            g.msgData.type +
               ":" +
-              ((y = h.msgData.subtype) != null ? y : "null"),
+              ((h = g.msgData.subtype) != null ? h : "null"),
           ),
-            f.push(h),
-            i == null && (i = h));
+            _.push(g),
+            i == null && (i = g));
         }
       }
       if (
-        m.length === 0 &&
+        p.length === 0 &&
         i === void 0 &&
         (e == null ? void 0 : e.msgContext) === "relay" &&
         (e == null ||
@@ -93,10 +92,10 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_PROTOCOL_BUFFER,
         );
-      if (m.length > 1) {
-        var C = p(e.msgContext, m, f);
-        return C != null
-          ? (_(e.msgContext, m, f, C), C)
+      if (p.length > 1) {
+        var y = m(e.msgContext, p, _);
+        return y != null
+          ? y
           : (o("WALogger")
               .ERROR(
                 u ||
@@ -104,14 +103,14 @@ __d(
                     "parseProtoPlugins: Matched more than 1 plugin types ",
                     "",
                   ])),
-                m.join(","),
+                p.join(","),
               )
               .sendLogs("parse-protobuf-unexpected-plugin-match"),
             null);
       }
       return i;
     }
-    function p(e, t, n) {
+    function m(e, t, n) {
       if (
         (e !== "quoted" && e !== "history_quoted") ||
         t.length !== 2 ||
@@ -124,40 +123,7 @@ __d(
       });
       return a.length !== 1 || !r("gkx")("26022") ? null : a[0];
     }
-    function _(e, t, n, r) {
-      var a = n.find(function (e) {
-          return e !== r;
-        }),
-        i = a != null ? a.msgData : null,
-        l =
-          i != null && i.type === o("WAWebMsgType").MSG_TYPE.CHAT
-            ? i.body
-            : null;
-      o("WALogger")
-        .WARN(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "parseProtoPlugins: kept one of two matches for quoted message, matched: ",
-              ", kept: ",
-              ", dropped: ",
-              ", droppedTextEmpty: ",
-              ", msgContext: ",
-              "",
-            ])),
-          t.join(","),
-          f(r),
-          a != null ? f(a) : "none",
-          l == null ? "n/a" : String(l === ""),
-          e,
-        )
-        .sendLogs("parse-protobuf-quoted-kept-one-of-two", { sampling: 0.01 });
-    }
-    function f(e) {
-      var t,
-        n = e.msgData;
-      return n.type + ":" + ((t = n.subtype) != null ? t : "null");
-    }
-    l.parseProtobuf = m;
+    l.parseProtobuf = d;
   },
   98,
 );

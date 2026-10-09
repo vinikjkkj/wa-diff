@@ -5,7 +5,6 @@ __d(
     "WAJids",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebApiChat",
     "WAWebBotGroupGatingUtils",
@@ -47,13 +46,7 @@ __d(
       m,
       p = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID);
     function _(e) {
-      return e == null ||
-        e <= 0 ||
-        !o("WAWebABProps").getABPropConfigValue(
-          "web_read_self_watermark_send_store_ts",
-        )
-        ? null
-        : e;
+      return e == null || e <= 0 ? null : e;
     }
     function f(e, t) {
       return e.isNewsletter() ||

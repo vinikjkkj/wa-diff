@@ -170,23 +170,19 @@ __d(
     }
     q.displayName = q.name + " [from " + i.id + "]";
     function U() {
-      return s._(/*BTDS*/ "Audience deleted");
+      return s._(/*BTDS*/ "Processing your audience\u2026");
     }
     U.displayName = U.name + " [from " + i.id + "]";
     function V() {
-      return s._(/*BTDS*/ "Processing your audience\u2026");
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
     }
     V.displayName = V.name + " [from " + i.id + "]";
     function H() {
-      return s._(/*BTDS*/ "We'll update you when it's complete.");
-    }
-    H.displayName = H.name + " [from " + i.id + "]";
-    function G() {
       return s._(
         /*BTDS*/ "Your edits are processing. We'll update you when they're complete.",
       );
     }
-    ((G.displayName = G.name + " [from " + i.id + "]"),
+    ((H.displayName = H.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -219,10 +215,9 @@ __d(
       (l.getLoadingPaginationLabel = B),
       (l.getDeleteAudienceModalTitle = W),
       (l.getDeleteAudienceModalBody = q),
-      (l.getAudienceDeletedToastMessage = U),
-      (l.getAudienceProcessingTitle = V),
-      (l.getAudienceProcessingSubtitle = H),
-      (l.getAudienceEditsProcessingMessage = G));
+      (l.getAudienceProcessingTitle = U),
+      (l.getAudienceProcessingSubtitle = V),
+      (l.getAudienceEditsProcessingMessage = H));
   },
   226,
 );

@@ -100,13 +100,13 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e) {
             var r = e.msgs.last();
-            return o("WAWebMsgQueryUtils").getAllDocsMsgs(
-              t,
-              r == null ? void 0 : r.id,
-              "before",
-            );
+            return o("WAWebMsgQueryUtils").getAllDocsMsgs({
+              count: t,
+              direction: "before",
+              msgKey: r == null ? void 0 : r.id,
+            });
           }
-          return o("WAWebMsgQueryUtils").getAllDocsMsgs(n);
+          return o("WAWebMsgQueryUtils").getAllDocsMsgs({ count: n });
         })),
         h.apply(this, arguments)
       );

@@ -8,6 +8,8 @@ __d(
     "WAWebHatchApprovalDialog.react",
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchPayloadDebugStore",
+    "WAWebHatchSpacesDebug",
+    "WAWebHatchSpacesManager",
     "WDSDialogBridge",
     "react",
   ],
@@ -197,12 +199,30 @@ __d(
     }
     R.doc =
       "Inject a synthetic Hatch channel notification through the real decode -> bus -> banner pipeline: hatchInjectNotification({subjectId, deduplicationKey, title, body, notificationType, expiresAtMs, withApproval}). Every field is optional; both ids default to a fresh value per call, so repeated calls do not read as repeats of each other. Pass a deduplicationKey you have already used to see a repeat suppressed, or reuse a subjectId under a fresh key to see one approval re-raised. withApproval also injects a matching pending approval, so the banner has a card to open. Nothing appears if the banner is suppressed \u2014 the usual reasons are the Hatch chat being on screen, muted, archived or absent, notifications being off for it, and ai_hatch_approval_notification_enabled being off; `hatch-approval-notif:` console lines say which. notificationType other than 'approval_request' exercises the drop path; expiresAtMs: 1 exercises the expired path. Returns the subjectId.";
-    function L(e) {
+    function L() {
+      return o("WAWebHatchSpacesDebug").debugInjectHatchSpaces();
+    }
+    ((L.doc =
+      "Inject a synthetic Hatch Spaces snapshot through the real decode -> reduce -> manager pipeline. The Library that shows it needs ai_hatch_space_enabled (on dev-web, ?ai_hatch_space_enabled=true). The rows cover a favorite, a Space published on muse.ai, one built but never published, one that needs attention, one still building, and two never opened, so the catalog exercises every state and the full display order. One row declares an icon whose descriptor is synthetic, so it decodes but never downloads. A real snapshot replaces the injected catalog. Read the result with Debug.hatchSpaces(); call Debug.hatchInjectSpaces() again to replace the catalog. Returns the number of rows sent."),
+      (L.paramsToExecute = []));
+    function E() {
+      o("WAWebHatchSpacesDebug").debugClearHatchSpaces();
+    }
+    ((E.doc =
+      "Reset the Hatch Spaces catalog to its state before any snapshot"),
+      (E.paramsToExecute = []));
+    function k() {
+      return r("WAWebHatchSpacesManager").getCatalog();
+    }
+    ((k.doc =
+      "Report the Hatch Spaces catalog the client holds, in display order, with the icon descriptors each row can look itself up in"),
+      (k.paramsToExecute = []));
+    function I(e) {
       o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
     }
-    L.doc =
+    I.doc =
       "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
-    function E(e) {
+    function T(e) {
       e === void 0 && (e = !0);
       var t = e
         ? {
@@ -228,10 +248,10 @@ __d(
         t
       );
     }
-    ((E.doc =
+    ((T.doc =
       "hatchSetLinked registers a debug fetcher for later linked-status requests.\nhatchSetLinked(true) returns an ACTIVE paired status.\nhatchSetLinked(false) returns a status with hasChannel and isPaired set to false.\nThe debug fetcher updates the composer and disconnect button after the request resolves.\nA 515 or 516 stream-error reconnect replaces the debug fetcher with the server fetcher.\nRegistering the debug fetcher during an active request invalidates that response and starts a replacement request.\nCalling hatchSetLinked again replaces the debug fetcher with the new return value."),
-      (E.paramsToExecute = [!0]));
-    function k() {
+      (T.paramsToExecute = [!0]));
+    function D() {
       var e;
       return {
         isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
@@ -240,22 +260,25 @@ __d(
         status: e.getLinkedStatus(),
       };
     }
-    ((k.doc =
+    ((D.doc =
       "Report the latest Hatch linked-status fetch result and the last confirmed status."),
-      (k.paramsToExecute = []));
-    var I = {
+      (D.paramsToExecute = []));
+    var x = {
       hatchClearPayloads: h,
-      hatchLinkedStatus: k,
-      hatchSetLinked: E,
+      hatchClearSpaces: E,
+      hatchLinkedStatus: D,
+      hatchSetLinked: T,
       hatchInjectApproval: v,
       hatchInjectCheckout: S,
       hatchInjectNotification: R,
+      hatchInjectSpaces: L,
       hatchPayloads: g,
-      hatchResolveApproval: L,
+      hatchResolveApproval: I,
+      hatchSpaces: k,
       injectHatchApprovals: b,
       openHatchApprovalDialog: C,
     };
-    l.default = I;
+    l.default = x;
   },
   98,
 );

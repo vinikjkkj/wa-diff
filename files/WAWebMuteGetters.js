@@ -1,6 +1,6 @@
 __d(
   "WAWebMuteGetters",
-  ["WAWeb-moment", "WAWebGetters", "WAWebGettersCaches"],
+  ["WATimeUtils", "WAWebGetters", "WAWebGettersCaches"],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebGetters").createGetterFactories({
         createCache: o("WAWebGettersCaches").createMuteCache,
@@ -31,7 +31,11 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1];
-          return !n || !t ? !1 : t === h ? !0 : t > r("WAWeb-moment")().unix();
+          return !n || !t
+            ? !1
+            : t === h
+              ? !0
+              : t > o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
         },
         [_, f],
       );

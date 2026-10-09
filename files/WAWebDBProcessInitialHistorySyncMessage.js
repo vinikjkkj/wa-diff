@@ -45,118 +45,138 @@ __d(
       d,
       m,
       p,
-      _ = 1e9;
-    function f(e) {
-      return g.apply(this, arguments);
+      _,
+      f,
+      g,
+      h,
+      y = 1e9;
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function g() {
+    function b() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield o(
-            "WAWebDbEncryptionKey",
-          ).DbEncKeyStore.waitForFinalDbMsgEncKey();
-          var a = 0;
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          (o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][initial bootstrap] database record preparation started, ",
+                  "",
+                ])),
+              a,
+            )
+            .tags("history-sync"),
+            yield o(
+              "WAWebDbEncryptionKey",
+            ).DbEncKeyStore.waitForFinalDbMsgEncKey());
+          var i = 0;
           Object.keys(t).forEach(function (e) {
-            a += t[e].msgs.length;
+            i += t[e].msgs.length;
           });
-          var i = new Map(),
-            l = new Map();
+          var l = new Map(),
+            C = new Map();
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[history sync] start storing initial sync messages.",
               ])),
           );
-          var f = yield o("WAPromiseReduce").promiseReduce(
-              Object.keys(t),
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, n) {
-                    var a = e.nextRowId,
-                      l = C(t, n),
-                      c = yield h(t[n].chatInfo.unreadCount || 0, t[n].msgs),
-                      d = c.pendingUnreadIds,
-                      m = c.unreadMentions;
-                    m.length && i.set(n, m);
-                    for (var p = [], _ = l, f = 0; f < t[n].msgs.length; f++) {
-                      var g = t[n].msgs[f];
-                      try {
-                        var y = yield o(
-                          "WAWebDBEncryptMultipleMsgs",
-                        ).processAndEncryptSingleMsgRow(g);
-                        (a++,
-                          (_ =
-                            _ +
-                            1 +
-                            o(
-                              "WAWebDBGroupHistoryPreProcessor",
-                            ).getBumpIdCountForGroupJoin(g)),
-                          (g.isMdHistoryMsg = !0));
-                        var b = o("WAWebDBStoreMessage").addMsgMetadataToMsgRow(
-                          {
-                            msg: y[0],
-                            chatId: o("WAWebWidFactory")
-                              .createWid(n)
-                              .toString(),
-                            hasLink: o("WAWebLinkify").hasHttpLink(g),
-                            rowId: a,
-                            inChatMsgId: _,
-                            pendingReadReceipt: d.has(String(g.id)),
-                          },
-                        );
-                        p.push(b);
-                      } catch (e) {
-                        var v, S;
-                        if (
-                          e instanceof
-                          o("WAWebDBEncryptMultipleMsgs")
-                            .DroppingMsgRowDueToLogout
+          var b = yield o("WAPromiseReduce").promiseReduce(
+            Object.keys(t),
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e, n) {
+                  var a = e.nextRowId,
+                    i = R(t, n),
+                    s = yield v(t[n].chatInfo.unreadCount || 0, t[n].msgs),
+                    d = s.pendingUnreadIds,
+                    m = s.unreadMentions;
+                  m.length && l.set(n, m);
+                  for (var p = [], _ = i, f = 0; f < t[n].msgs.length; f++) {
+                    var g = t[n].msgs[f];
+                    try {
+                      var h = yield o(
+                        "WAWebDBEncryptMultipleMsgs",
+                      ).processAndEncryptSingleMsgRow(g);
+                      (a++,
+                        (_ =
+                          _ +
+                          1 +
+                          o(
+                            "WAWebDBGroupHistoryPreProcessor",
+                          ).getBumpIdCountForGroupJoin(g)),
+                        (g.isMdHistoryMsg = !0));
+                      var y = o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
+                        msg: h[0],
+                        chatId: o("WAWebWidFactory").createWid(n).toString(),
+                        hasLink: o("WAWebLinkify").hasHttpLink(g),
+                        rowId: a,
+                        inChatMsgId: _,
+                        pendingReadReceipt: d.has(String(g.id)),
+                      });
+                      p.push(y);
+                    } catch (e) {
+                      var C, b;
+                      if (
+                        e instanceof
+                        o("WAWebDBEncryptMultipleMsgs")
+                          .DroppingMsgRowDueToLogout
+                      )
+                        throw e;
+                      var S = r("getErrorSafe")(e);
+                      (o("WALogger")
+                        .WARN(
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                              "storeInitialSyncMessages failed for msg: ",
+                              " from ",
+                              "",
+                            ])),
+                          (C = g.id) == null ? void 0 : C.id,
+                          (b = g.id) == null ? void 0 : b.remote,
                         )
-                          throw e;
-                        var R = r("getErrorSafe")(e);
-                        (o("WALogger")
-                          .WARN(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "storeInitialSyncMessages failed for msg: ",
-                                " from ",
-                                "",
+                        .tags("message-store-optimized"),
+                        o("WALogger")
+                          .ERROR(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                                "storeInitialSyncMessages",
                               ])),
-                            (v = g.id) == null ? void 0 : v.id,
-                            (S = g.id) == null ? void 0 : S.remote,
                           )
-                          .tags("message-store-optimized"),
-                          o("WALogger")
-                            .ERROR(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
-                                  "storeInitialSyncMessages",
-                                ])),
-                            )
-                            .catching(R)
-                            .tags("message-store-optimized"));
-                      }
+                          .catching(S)
+                          .tags("message-store-optimized"));
                     }
-                    return { nextRowId: a, messages: e.messages.concat(p) };
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              { nextRowId: _ - a, messages: [] },
-            ),
-            g = [],
-            y = [],
-            b = [
+                  }
+                  return { nextRowId: a, messages: e.messages.concat(p) };
+                },
+              );
+              return function (t, n) {
+                return e.apply(this, arguments);
+              };
+            })(),
+            { nextRowId: y - i, messages: [] },
+          );
+          o("WALogger")
+            .LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][initial bootstrap] database record preparation completed, ",
+                  "",
+                ])),
+              a,
+            )
+            .tags("history-sync");
+          var S = [],
+            L = [],
+            E = [
               o("WAWebSchemaMessage")
                 .getMessageTable()
-                .bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(f.messages),
+                .bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY(b.messages),
             ];
           if (
-            (f.messages.forEach(function (e) {
+            (b.messages.forEach(function (e) {
               (e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-                b.push(
+                E.push(
                   o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
                     e.id.toString(),
                     {
@@ -172,44 +192,54 @@ __d(
                   ),
                 ),
                 e.associationType != null &&
-                  g.push({
+                  S.push({
                     msgKey: e.id.toString(),
                     parentMsgKey: e.parentMsgKey.toString(),
                     associationType: e.associationType,
                     msgKeyInternalId: e.internalId,
                   }),
-                o("WAWebThreadMsgUtils").isThreadMsg(e) && y.push(e));
+                o("WAWebThreadMsgUtils").isThreadMsg(e) && L.push(e));
             }),
-            g.length &&
-              b.push(
+            o("WALogger")
+              .LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][initial bootstrap] storage started, ",
+                    "",
+                  ])),
+                a,
+              )
+              .tags("history-sync"),
+            S.length &&
+              E.push(
                 o("WAWebSchemaMessageAssociation")
                   .getMessageAssociationTable()
-                  .bulkCreate(g),
+                  .bulkCreate(S),
               ),
-            y.length)
+            L.length)
           ) {
-            var v = o(
+            var k = o(
               "WAWebThreadCommonModelUtils",
-            ).getAggregatedThreadDetailUpdatesFromMessages(y);
-            (b.push(
+            ).getAggregatedThreadDetailUpdatesFromMessages(L);
+            (E.push(
               o(
                 "WAWebBulkCreateOrUpdateThreadsMetadata",
-              ).bulkCreateOrUpdateThreadsMetadata(v),
+              ).bulkCreateOrUpdateThreadsMetadata(k),
             ),
-              v.some(
+              k.some(
                 o("WAWebThreadCommonModelUtils")
                   .isAiThreadNonHistoricalMetaAiThread,
               ) &&
-                b.push(
+                E.push(
                   o(
                     "WAWebUserPrefsBot",
                   ).markMetaAIThreadMigrationStateAsComplete(),
                 ));
           }
           o("WAWebDBReportingTokenUtils").handleHistorySyncedReportingInfo(
-            f.messages,
+            b.messages,
           );
-          var S = o(
+          var I = o(
             "WAWebQuarantineDataStore",
           ).extractQuarantineDataFromMessages(
             (function* () {
@@ -220,38 +250,38 @@ __d(
             })(),
           );
           if (
-            (b.push(
+            (E.push(
               o("WAWebQuarantineDataStore").bulkCreateOrReplaceQuarantineData(
-                S,
+                I,
               ),
             ),
-            i.size)
+            l.size)
           )
             if (r("MetaConfig")._("470")) {
-              var R = Array.from(i.keys()),
-                L = yield o("WAWebSchemaChat").getChatTable().bulkGet(R),
-                E = new Map();
-              (L.forEach(function (e) {
+              var T = Array.from(l.keys()),
+                D = yield o("WAWebSchemaChat").getChatTable().bulkGet(T),
+                x = new Map();
+              (D.forEach(function (e) {
                 if (e && e.id) {
                   var t;
-                  E.set(
+                  x.set(
                     e.id.toString(),
                     (t = e.unreadMentionCount) != null ? t : 0,
                   );
                 }
               }),
-                i.forEach(function (e, t) {
+                l.forEach(function (e, t) {
                   var n,
-                    r = (n = E.get(t)) != null ? n : 0;
-                  r > 0 && l.set(t, Math.max(r - e.length, 0));
+                    r = (n = x.get(t)) != null ? n : 0;
+                  r > 0 && C.set(t, Math.max(r - e.length, 0));
                 }),
-                o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, l),
+                o("WAWebApiChatUnreadMention").addUnreadMentionChat(l, C),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateUnreadMentionsFromInitialHistorySync",
-                  { unreadMentionsToAdd: i, pendingUnreadMentionsMap: l },
+                  { unreadMentionsToAdd: l, pendingUnreadMentionsMap: C },
                 ));
             } else
-              (i.forEach(function (e, t) {
+              (l.forEach(function (e, t) {
                 var n,
                   a = o("WAWebChatCollection").ChatCollection.get(
                     o("WAWebWidFactory").createWid(t),
@@ -264,31 +294,31 @@ __d(
                       timestamp: n,
                     });
                   }),
-                  s = a == null ? void 0 : a.unreadMentionMetadata,
-                  u =
-                    (n = s == null ? void 0 : s.pendingUnreadMentionCount) !=
+                  l = a == null ? void 0 : a.unreadMentionMetadata,
+                  s =
+                    (n = l == null ? void 0 : l.pendingUnreadMentionCount) !=
                     null
                       ? n
                       : 0;
-                (s != null &&
-                  s.pendingUnreadMentionCount &&
-                  ((s.pendingUnreadMentionCount = Math.max(u - i.length, 0)),
-                  l.set(t, s.pendingUnreadMentionCount)),
-                  s == null ||
-                    s.addUnreadMentions(
+                (l != null &&
+                  l.pendingUnreadMentionCount &&
+                  ((l.pendingUnreadMentionCount = Math.max(s - i.length, 0)),
+                  C.set(t, l.pendingUnreadMentionCount)),
+                  l == null ||
+                    l.addUnreadMentions(
                       i,
                       o("WAWebGroupUnreadMessageType").UnreadMessageType
                         .HISTORYC_SYNC_CHUNK,
                     ));
               }),
-                o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, l));
-          return (p || (p = n("Promise")))
-            .all(b)
+                o("WAWebApiChatUnreadMention").addUnreadMentionChat(l, C));
+          return (h || (h = n("Promise")))
+            .all(E)
             .catch(function (e) {
               if (
                 (o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync] store initial msgs err (optimized) ",
                       "",
                     ])),
@@ -300,55 +330,67 @@ __d(
                 return (
                   o("WALogger")
                     .LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "[history sync] Retrying initial sync bulk add on error",
                         ])),
                     )
                     .tags("history-sync-initial-sync-optimized"),
                   o("WAWebSchemaMessage")
                     .getMessageTable()
-                    .bulkCreateOrMerge(f.messages)
+                    .bulkCreateOrMerge(b.messages)
                 );
               throw e;
             })
             .then(function () {
-              r("WAWeb-dexie").ignoreTransaction(function () {
-                o("WAWebSchemaFtsIndexingQueue")
-                  .getFtsIndexingQueueTable()
-                  .bulkCreateOrReplace(
-                    f.messages.map(function (e) {
-                      return { id: String(e.rowId) };
-                    }),
-                  )
-                  .then(function () {
-                    o("WAWebFtsClient").ftsClient.index().catch(r("WAWebNoop"));
-                  });
-              });
+              (o("WALogger")
+                .LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][initial bootstrap] storage completed, ",
+                      "",
+                    ])),
+                  a,
+                )
+                .tags("history-sync"),
+                r("WAWeb-dexie").ignoreTransaction(function () {
+                  o("WAWebSchemaFtsIndexingQueue")
+                    .getFtsIndexingQueueTable()
+                    .bulkCreateOrReplace(
+                      b.messages.map(function (e) {
+                        return { id: String(e.rowId) };
+                      }),
+                    )
+                    .then(function () {
+                      o("WAWebFtsClient")
+                        .ftsClient.index()
+                        .catch(r("WAWebNoop"));
+                    });
+                }));
             })
             .catch(function (e) {
               o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync] store initial msgs err (retry) ",
                     "",
                   ])),
                 e,
               );
-              var t = f.messages.map(function (e) {
+              var t = b.messages.map(function (e) {
                 return e.id.toString();
               });
             });
         })),
-        g.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function y() {
+    function S() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           for (
             var n = e, r = new Set(), a = [], i = t.length - 1;
             i >= 0 && !(n <= 0);
@@ -368,18 +410,18 @@ __d(
           }
           return { pendingUnreadIds: r, unreadMentions: a };
         })),
-        y.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function C(e, t) {
+    function R(e, t) {
       var n = r("sumBy")(e[t].msgs, function (e) {
         return o("WAWebDBGroupHistoryPreProcessor").getBumpIdCountForGroupJoin(
           e,
         );
       });
-      return _ - e[t].msgs.length - n;
+      return y - e[t].msgs.length - n;
     }
-    l.storeInitialSyncMessages = f;
+    l.storeInitialSyncMessages = C;
   },
   98,
 );

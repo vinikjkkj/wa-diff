@@ -2,7 +2,6 @@ __d(
   "WAWebVoipP2PConnectionManager",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpDataChannelThreadManager",
     "WAWebVoipSctpStatsInstrumentation",
@@ -754,18 +753,13 @@ __d(
               var c = ae,
                 d = le,
                 m = c + ":" + d,
-                p =
-                  o("WAWebABProps").getABPropConfigValue(
-                    "voip_enable_webrtc_stats_polling",
-                  ) === !0,
-                _ = u.transferChannel({
+                p = u.transferChannel({
                   channel: l,
                   connectionId: m,
-                  enableStats: p,
                   ip: c,
                   port: d,
                 });
-              _
+              p
                 ? ((ge = !0),
                   (he = !0),
                   (ye = m),
@@ -786,17 +780,17 @@ __d(
                   );
             }
             if ((ge || ut(l), e)) {
-              var f,
-                g = yield i.createOffer();
-              yield i.setLocalDescription(g);
-              var h = (f = g.sdp) != null ? f : "";
+              var _,
+                f = yield i.createOffer();
+              yield i.setLocalDescription(f);
+              var g = (_ = f.sdp) != null ? _ : "";
               if (
-                ((Me = h),
+                ((Me = g),
                 (Re = o("WAWebVoipRelayConnectionUtils").extractIceCredentials(
-                  h,
+                  g,
                 )),
                 (Le = o("WAWebVoipRelayConnectionUtils").extractDtlsFingerprint(
-                  h,
+                  g,
                 )),
                 Re == null || Le == null)
               ) {
@@ -815,8 +809,8 @@ __d(
                     "voip: [P2PConnectionManager] Caller offer created, local credentials extracted",
                   ])),
               );
-              var y = We;
-              if (y != null && Re != null && Le != null) {
+              var h = We;
+              if (h != null && Re != null && Le != null) {
                 o("WALogger").LOG(
                   J ||
                     (J = babelHelpers.taggedTemplateLiteralLoose([
@@ -824,7 +818,7 @@ __d(
                     ])),
                 );
                 try {
-                  y(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
+                  h(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -838,16 +832,16 @@ __d(
                 }
               }
             } else {
-              var C,
-                b = yield i.createOffer(),
-                v = (C = b.sdp) != null ? C : "";
+              var y,
+                C = yield i.createOffer(),
+                b = (y = C.sdp) != null ? y : "";
               if (
-                ((Me = v),
+                ((Me = b),
                 (Re = o("WAWebVoipRelayConnectionUtils").extractIceCredentials(
-                  v,
+                  b,
                 )),
                 (Le = o("WAWebVoipRelayConnectionUtils").extractDtlsFingerprint(
-                  v,
+                  b,
                 )),
                 Re == null || Le == null)
               ) {
@@ -868,10 +862,10 @@ __d(
                     "voip: [P2PConnectionManager] Callee template SDP generated, sending proactive credentials",
                   ])),
               );
-              var S = We;
-              if (S != null)
+              var v = We;
+              if (v != null)
                 try {
-                  S(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
+                  v(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(

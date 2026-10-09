@@ -66,6 +66,10 @@ __d(
             parentTsInSeconds: n.t,
             editTsInSeconds: r,
             msgKey: n.id,
+          }) ||
+          o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
+            msgKey: n.id,
+            msgType: n.type,
           })
             ? yield L(t, o("WAWebErrorType").SendFailureErrorCode.NoError)
             : (yield L(

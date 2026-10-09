@@ -2,6 +2,7 @@ __d(
   "WAWebLinkDeviceQplHelpLinkEvent",
   [
     "$InternalEnum",
+    "QuickPerformanceLogger",
     "WAWebAltDeviceLinkingApi",
     "WAWebEnvironment",
     "WAWebLinkDeviceExperience",
@@ -11,7 +12,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("$InternalEnum")({
+    var e,
+      s = n("$InternalEnum")({
         NEED_HELP_GETTING_STARTED: "need_help_getting_started",
         GET_STARTED: "get_started",
         LANDING_PROMO_GET_STARTED: "landing_promo_get_started",
@@ -49,44 +51,47 @@ __d(
         REG_WACOM_CONFIRMATION_WRONG_NUMBER_CLICKED:
           "reg_wacom_confirmation_wrong_number_clicked",
       }),
-      s = r("qpl")._(891430409, "3269");
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
+      u = r("qpl")._(891430409, "3269");
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, n, a, i) {
             try {
               if (!r("WAWebEnvironment").isWeb) return;
-              var i = {
+              var l = {
                   md_link_device_experience_id: o(
                     "WAWebLinkDeviceExperience",
-                  ).getWebCompanionLinkDeviceExperienceId(t),
+                  ).getWebCompanionLinkDeviceExperienceId(n),
                 },
-                l = {
-                  source_type: e,
+                s = {
+                  source_type: t,
                   code_type: o("WAWebAltDeviceLinkingApi").getPairingType(),
                 };
-              (n != null && (l.surface = n),
-                a != null &&
-                  ((i.android_tablet_detector_version = a.detectorVersion),
-                  (l.android_tablet_detection_source = a.detectionSource),
-                  (l.android_tablet_model_source = a.modelSource)));
-              var u = o("WAWebQplFlowWrapper").QPL.markerStart(s, {
-                annotations: { int: i, string: l },
+              (a != null && (s.surface = a),
+                i != null &&
+                  ((
+                    e || (e = r("QuickPerformanceLogger"))
+                  ).setAlwaysOnSampleRate(u, 1),
+                  (l.android_tablet_detector_version = i.detectorVersion),
+                  (s.android_tablet_detection_source = i.detectionSource),
+                  (s.android_tablet_model_source = i.modelSource)));
+              var c = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
+                annotations: { int: l, string: s },
               });
-              u.end(2);
+              c.end(2);
             } catch (e) {
-              o("WAWebQplFlowWrapper").QPL.markerEnd(s, 3);
+              o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3);
             }
           },
         )),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    ((l.WebcPairingScreenLinkType = e),
-      (l.WAWebLinkDeviceQplHelpLinkEvent = u));
+    ((l.WebcPairingScreenLinkType = s),
+      (l.WAWebLinkDeviceQplHelpLinkEvent = c));
   },
   98,
 );

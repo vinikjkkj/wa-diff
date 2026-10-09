@@ -8,6 +8,7 @@ __d(
       "GroupABProps",
       "DebugCommands",
       "HatchComputer",
+      "HatchBrowserViewer",
       "HatchPayloads",
       "HatchMuseAuth",
       "LabyrinthDebug",

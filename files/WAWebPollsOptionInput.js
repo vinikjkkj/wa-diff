@@ -65,7 +65,7 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(41),
+      var t = o("react-compiler-runtime").c(40),
         n = e.chat,
         a = e.checked,
         i = e.error,
@@ -129,55 +129,50 @@ __d(
           (t[10] = N))
         : ((P = t[9]), (N = t[10]));
       var M = i != null ? i : void 0,
-        w,
-        A;
+        w;
       t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((A = o(
-            "WAWebPollsGatingUtils",
-          ).getMaxPollOptionLengthForIncomingMessages()),
-          (w = o("WAWebPollsGatingUtils").getMaxPollOptionLength()),
-          (t[11] = w),
-          (t[12] = A))
-        : ((w = t[11]), (A = t[12]));
-      var F;
-      t[13] !== g
-        ? ((F = function (t) {
+        ? ((w = o("WAWebPollsGatingUtils").getMaxPollOptionLength()),
+          (t[11] = w))
+        : (w = t[11]);
+      var A;
+      t[12] !== g
+        ? ((A = function (t) {
             var e = t.text;
             return g(e);
           }),
-          (t[13] = g),
-          (t[14] = F))
-        : (F = t[14]);
-      var O =
+          (t[12] = g),
+          (t[13] = A))
+        : (A = t[13]);
+      var F =
           o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n) && !k
             ? "side"
             : "none",
-        B;
-      t[15] !== R
-        ? ((B = function (t) {
+        O;
+      t[14] !== R
+        ? ((O = function (t) {
             R(t);
           }),
-          (t[15] = R),
-          (t[16] = B))
+          (t[14] = R),
+          (t[15] = O))
+        : (O = t[15]);
+      var B;
+      t[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((B = o("WAWebSpoilerGating").isSpoilerSenderEnabled()), (t[16] = B))
         : (B = t[16]);
       var W;
-      t[17] === Symbol.for("react.memo_cache_sentinel")
-        ? ((W = o("WAWebSpoilerGating").isSpoilerSenderEnabled()), (t[17] = W))
-        : (W = t[17]);
-      var q;
-      t[18] !== _ ||
-      t[19] !== k ||
-      t[20] !== y ||
-      t[21] !== C ||
-      t[22] !== b ||
-      t[23] !== v ||
-      t[24] !== D ||
+      t[17] !== _ ||
+      t[18] !== k ||
+      t[19] !== y ||
+      t[20] !== C ||
+      t[21] !== b ||
+      t[22] !== v ||
+      t[23] !== D ||
+      t[24] !== A ||
       t[25] !== F ||
       t[26] !== O ||
-      t[27] !== B ||
-      t[28] !== M ||
-      t[29] !== E
-        ? ((q = u.jsx(
+      t[27] !== M ||
+      t[28] !== E
+        ? ((W = u.jsx(
             "div",
             babelHelpers.extends({}, P, {
               children: u.jsx(
@@ -187,19 +182,20 @@ __d(
                     emojiBtnPosition: "side",
                     error: M,
                     hideFloatingLabel: !0,
-                    maxCodeUnits: A,
+                    maxCodeUnits: o("WAWebPollsGatingUtils")
+                      .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES,
                     maxLength: w,
                     onBlur: C,
-                    onChange: F,
+                    onChange: A,
                     onDragThumbMouseDown: y,
                     onFocus: b,
                     onPhotoIconClick: v,
-                    photoBtnPosition: O,
+                    photoBtnPosition: F,
                     placeholder: D,
-                    ref: B,
+                    ref: O,
                     showDraggableIcon: k,
                     showRemaining: !0,
-                    spoilerEnabled: W,
+                    spoilerEnabled: B,
                     testid: E,
                     textFormatEnabled: !0,
                     value: _,
@@ -208,23 +204,23 @@ __d(
               ),
             }),
           )),
-          (t[18] = _),
-          (t[19] = k),
-          (t[20] = y),
-          (t[21] = C),
-          (t[22] = b),
-          (t[23] = v),
-          (t[24] = D),
+          (t[17] = _),
+          (t[18] = k),
+          (t[19] = y),
+          (t[20] = C),
+          (t[21] = b),
+          (t[22] = v),
+          (t[23] = D),
+          (t[24] = A),
           (t[25] = F),
           (t[26] = O),
-          (t[27] = B),
-          (t[28] = M),
-          (t[29] = E),
-          (t[30] = q))
-        : (q = t[30]);
-      var U;
-      t[31] !== m || t[32] !== k || t[33] !== h || t[34] !== y || t[35] !== S
-        ? ((U = k
+          (t[27] = M),
+          (t[28] = E),
+          (t[29] = W))
+        : (W = t[29]);
+      var q;
+      t[30] !== m || t[31] !== k || t[32] !== h || t[33] !== y || t[34] !== S
+        ? ((q = k
             ? u.jsxs(u.Fragment, {
                 children: [
                   u.jsx(p, { image: m, onClick: S, onDeletePhoto: h }),
@@ -237,26 +233,26 @@ __d(
                 ],
               })
             : null),
-          (t[31] = m),
-          (t[32] = k),
-          (t[33] = h),
-          (t[34] = y),
-          (t[35] = S),
-          (t[36] = U))
-        : (U = t[36]);
-      var V;
+          (t[30] = m),
+          (t[31] = k),
+          (t[32] = h),
+          (t[33] = y),
+          (t[34] = S),
+          (t[35] = q))
+        : (q = t[35]);
+      var U;
       return (
-        t[37] !== q || t[38] !== U || t[39] !== $
-          ? ((V = u.jsxs(
+        t[36] !== W || t[37] !== q || t[38] !== $
+          ? ((U = u.jsxs(
               "div",
-              babelHelpers.extends({}, x, { children: [$, q, U] }),
+              babelHelpers.extends({}, x, { children: [$, W, q] }),
             )),
+            (t[36] = W),
             (t[37] = q),
-            (t[38] = U),
-            (t[39] = $),
-            (t[40] = V))
-          : (V = t[40]),
-        V
+            (t[38] = $),
+            (t[39] = U))
+          : (U = t[39]),
+        U
       );
     }
     function p(e) {

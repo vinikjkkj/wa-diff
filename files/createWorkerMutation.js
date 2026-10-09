@@ -9,16 +9,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t = o("relay-runtime").getRequest(e);
-      if (t.params.operationKind !== "mutation")
+    function e(e, t) {
+      var a = o("relay-runtime").getRequest(e);
+      if (a.params.operationKind !== "mutation")
         throw r("FBLogger")("messenger_web").mustfixThrow(
           "createWorkerMutation: Expected mutation operation",
         );
-      var a = o("WorkerRelayNetwork").getWorkerNetworkExecute(),
-        i = (function () {
+      var i = t == null ? void 0 : t.headers,
+        l =
+          i == null
+            ? o("WorkerRelayNetwork").getWorkerNetworkExecute()
+            : o("WorkerRelayNetwork").getWorkerNetworkExecuteWithHeaders(i),
+        s = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = yield a;
+            var n = yield l;
             return o("executeGraphQLQuery")
               .executeGraphQLQuery(n, e, t)
               .then(function (e) {
@@ -40,7 +44,7 @@ __d(
             return t.apply(this, arguments);
           };
         })();
-      return [i];
+      return [s];
     }
     l.default = e;
   },

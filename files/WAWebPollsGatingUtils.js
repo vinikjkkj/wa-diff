@@ -21,9 +21,7 @@ __d(
         255,
       );
     }
-    function c() {
-      return 2500;
-    }
+    var c = 2500;
     function d() {
       return Math.min(
         o("WAWebABProps").getABPropConfigValue("poll_option_count"),
@@ -112,7 +110,7 @@ __d(
     ((l.getMaxPollNameLength = e),
       (l.MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES = s),
       (l.getMaxPollOptionLength = u),
-      (l.getMaxPollOptionLengthForIncomingMessages = c),
+      (l.MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES = c),
       (l.getMaxPollOptionCount = d),
       (l.isSingleOptionPollsSendingEnabled = m),
       (l.isPollCreatorEditReceivingEnabled = p),

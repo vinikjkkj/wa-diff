@@ -5,6 +5,7 @@ __d(
     "WABase64",
     "WALogger",
     "WAShiftTimer",
+    "WAWebCreateMediaBlobUrl",
     "WAWebFileUtils",
     "WAWebMediaBase64ImageMimetype",
     "err",
@@ -116,7 +117,7 @@ __d(
               );
             }
             return (
-              (this.$4 = window.URL.createObjectURL(
+              (this.$4 = o("WAWebCreateMediaBlobUrl").createMediaBlobUrl(
                 r("nullthrows")(this.blob, "unexpected empty blob"),
               )),
               this.$4

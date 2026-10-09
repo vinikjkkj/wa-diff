@@ -36,7 +36,11 @@ __d(
     }
     function d(t) {
       var n = f(t);
-      return n === e ? h : n === l ? S : R(n[0], n[1], n[2], n[3]);
+      return n === e
+        ? h
+        : n === l
+          ? S
+          : R({ p1x: n[0], p1y: n[1], p2x: n[2], p2y: n[3] });
     }
     var m = 16 / 1e3,
       p = 1 / 1e4;
@@ -112,24 +116,28 @@ __d(
     function S(e) {
       return 0.5 - Math.cos(e * Math.PI) / 2;
     }
-    function R(e, t, n, r) {
-      var o = 3 * e,
-        a = 3 * (n - e) - o,
-        i = 1 - o - a,
-        l = 3 * t,
-        s = 3 * (r - t) - l,
-        u = 1 - l - s,
-        c = function (t) {
-          return ((i * t + a) * t + o) * t;
-        },
+    function R(e) {
+      var t = e.p1x,
+        n = e.p1y,
+        r = e.p2x,
+        o = e.p2y,
+        a = 3 * t,
+        i = 3 * (r - t) - a,
+        l = 1 - a - i,
+        s = 3 * n,
+        u = 3 * (o - n) - s,
+        c = 1 - s - u,
         d = function (t) {
-          return ((u * t + s) * t + l) * t;
+          return ((l * t + i) * t + a) * t;
         },
         m = function (t) {
-          return (3 * i * t + 2 * a) * t + o;
+          return ((c * t + u) * t + s) * t;
+        },
+        p = function (t) {
+          return (3 * l * t + 2 * i) * t + a;
         };
       return function (e) {
-        return e <= 0 ? 0 : e >= 1 ? 1 : d(L(e, c, m));
+        return e <= 0 ? 0 : e >= 1 ? 1 : m(L(e, d, p));
       };
     }
     function L(e, t, n) {

@@ -200,7 +200,12 @@ __d(
           u ===
             o("WAWebWamEnumOppositeVisibleIdentificationType")
               .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.USERNAME;
-      return o("WAWebClock").Clock.createdByOnDateStr(e.creation, i, c, s);
+      return o("WAWebClock").Clock.createdByOnDateStr({
+        isMeOwner: i,
+        ownerName: s,
+        showOwnerName: c,
+        unixTime: e.creation,
+      });
     }
     function f(e) {
       var t = e.groupMetadata,

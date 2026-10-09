@@ -39,6 +39,10 @@ __d(
             !o("WAWebMessageEditUtils").isParentWithinEditUIWindow({
               msgKey: a.id,
               parentTsInSeconds: a.t,
+            }) &&
+            !o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
+              msgKey: a.id,
+              msgType: a.type,
             })
           )
             throw r("err")("Poll edit window has expired");

@@ -22,10 +22,16 @@ __d(
     function c() {
       return (
         s() &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
       );
     }
     function d() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
+      );
+    }
+    function m() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -36,8 +42,9 @@ __d(
     ((l.HATCH_PRIMARY_FEATURE = e),
       (l.isHatchIntegrationEnabledOnBackend = s),
       (l.isHatchApprovalNotificationEnabledOnBackend = u),
-      (l.isHatchConnectorsEnabledOnBackend = c),
-      (l.isHatchSecureCredentialsEnabledOnBackend = d));
+      (l.isHatchBrowserEnabledOnBackend = c),
+      (l.isHatchConnectorsEnabledOnBackend = d),
+      (l.isHatchSecureCredentialsEnabledOnBackend = m));
   },
   98,
 );

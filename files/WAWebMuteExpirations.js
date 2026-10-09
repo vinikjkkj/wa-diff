@@ -1,6 +1,6 @@
 __d(
   "WAWebMuteExpirations",
-  ["fbt", "WAWeb-moment", "WAWebClock"],
+  ["fbt", "WATimeUtils", "WAWebClock"],
   function (t, n, r, o, a, i, l, s) {
     var e = [
       {
@@ -31,7 +31,7 @@ __d(
     function c(e) {
       return e === Number.POSITIVE_INFINITY
         ? o("WAWebClock").MUTE_ALWAYS_EXPIRATION_SENTINEL
-        : e * 60 * 60 + r("WAWeb-moment")().unix();
+        : e * 60 * 60 + o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
     }
     ((l.ALL_MUTE_DURATIONS = e),
       (l.getDefaultMuteDuration = u),

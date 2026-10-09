@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebCoreActionsODS",
     "WAWebReleaseToEventLoop",
     "WAWebVoipDtlsCertAcquire",
@@ -175,9 +174,6 @@ __d(
       var g = d.transferChannel({
         channel: t,
         connectionId: r,
-        enableStats: o("WAWebABProps").getABPropConfigValue(
-          "voip_enable_webrtc_stats_polling",
-        ),
         ip: p,
         port: _,
       });

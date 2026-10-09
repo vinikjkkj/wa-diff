@@ -54,6 +54,10 @@ __d(
           parentTsInSeconds: o("WAWebMsgGetters").getT(n),
           editTsInSeconds: o("WAWebMsgGetters").getT(t),
           msgKey: n.id,
+        }) &&
+        !o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
+          msgKey: n.id,
+          msgType: n.type,
         })
       )
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(

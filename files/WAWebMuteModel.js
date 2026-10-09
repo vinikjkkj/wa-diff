@@ -4,7 +4,7 @@ __d(
     "fbt",
     "Promise",
     "WALogger",
-    "WAWeb-moment",
+    "WATimeUtils",
     "WAWebActionToast.react",
     "WAWebAlarm",
     "WAWebBaseModel",
@@ -151,7 +151,8 @@ __d(
                   t.id.toString(),
                 );
               else {
-                var e = v - r("WAWeb-moment")().unix();
+                var e =
+                  v - o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
                 (o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -343,7 +344,7 @@ __d(
               this.id.toString(),
             );
           else {
-            var i = a - r("WAWeb-moment")().unix();
+            var i = a - o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
             (o("WALogger").LOG(
               g ||
                 (g = babelHelpers.taggedTemplateLiteralLoose([

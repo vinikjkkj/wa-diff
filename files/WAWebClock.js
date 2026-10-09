@@ -408,16 +408,20 @@ __d(
                   s._param("time", a),
                 ]);
           }),
-          (a.createdByOnDateStr = function (t, n, r, o) {
-            var e = this.$ClockImpl$p_4(t);
-            return n
-              ? s._(/*BTDS*/ "Created by you on {date}", [s._param("date", e)])
+          (a.createdByOnDateStr = function (t) {
+            var e = t.isMeOwner,
+              n = t.ownerName,
+              r = t.showOwnerName,
+              o = t.unixTime,
+              a = this.$ClockImpl$p_4(o);
+            return e
+              ? s._(/*BTDS*/ "Created by you on {date}", [s._param("date", a)])
               : r
                 ? s._(/*BTDS*/ "Created by {name} on {date}", [
-                    s._param("name", o),
-                    s._param("date", e),
+                    s._param("name", n),
+                    s._param("date", a),
                   ])
-                : s._(/*BTDS*/ "Created on {date}", [s._param("date", e)]);
+                : s._(/*BTDS*/ "Created on {date}", [s._param("date", a)]);
           }),
           (a.groupCreatedStr = function (t, n, r) {
             if (t == null || isNaN(t))

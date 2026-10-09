@@ -159,7 +159,11 @@ __d(
             var M = I.value.errorGenerateWaEntAcUserErrors,
               w = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("generateWAEntACUser", M.name);
+              ).handleCommonWaffleIQError(
+                "generateWAEntACUser",
+                M.name,
+                k.version,
+              );
             (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(w, L),
               o("WALogger").ERROR(
                 m ||
@@ -274,7 +278,11 @@ __d(
             var k = d.value.errorGenerateAccessTokensErrors,
               I = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("generateAccessTokens", k.name);
+              ).handleCommonWaffleIQError(
+                "generateAccessTokens",
+                k.name,
+                u.version,
+              );
             (yield o("WAWebAccountLinkingAPI").handleRecoveryAction(I, E),
               o("WALogger").ERROR(
                 h ||
@@ -419,7 +427,7 @@ __d(
             var x = _.value.errorEncryptedPayloadRequestErrors,
               N = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("linkAction", x.name);
+              ).handleCommonWaffleIQError("linkAction", x.name, p.version);
             throw (
               yield o("WAWebAccountLinkingAPI").handleRecoveryAction(N, k),
               o("WALogger")

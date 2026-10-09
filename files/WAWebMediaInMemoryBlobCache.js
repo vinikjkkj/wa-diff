@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WALruCache",
     "WAThrottle",
+    "WAWebCreateMediaBlobUrl",
     "WAWebMediaStorage",
     "WAWebMediaTypes",
     "err",
@@ -23,13 +24,13 @@ __d(
             (this.getOrCreateURL = function (e) {
               var n = t.$3.get(e);
               if (n != null) return (t.touch(e), n);
-              var o = t.get(e);
-              if (!o)
+              var a = t.get(e);
+              if (!a)
                 throw r("err")(
                   "There is no blob matching filehash: " + e + ".",
                 );
-              var a = window.URL.createObjectURL(o);
-              return (t.$3.set(e, a), a);
+              var i = o("WAWebCreateMediaBlobUrl").createMediaBlobUrl(a);
+              return (t.$3.set(e, i), i);
             }),
             (this.revokeURL = function (e, n) {
               if (n != null) {

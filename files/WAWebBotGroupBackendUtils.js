@@ -197,8 +197,8 @@ __d(
               return !u.has(e);
             });
           if (
-            !I(l.participants) ||
-            I(c) ||
+            !k(l.participants) ||
+            k(c) ||
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
           )
             return null;
@@ -264,23 +264,18 @@ __d(
           return o("WAWebBotUtils").isWidGroupAgentFbidWid(t);
         })
         ? !1
-        : n.every(k);
+        : n.every(
+            o("WAWebBotGroupGatingUtils").isAgentListedInGroupInfoResponse,
+          );
     }
     function k(e) {
-      return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-        ? o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled()
-        : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-          ? o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
-          : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
-    }
-    function I(e) {
       return e.some(function (e) {
         return o("WAWebBotUtils").isWidGroupAgentFbidWid(
           o("WAWebWidFactory").createWid(e),
         );
       });
     }
-    function T(e) {
+    function I(e) {
       if (
         !o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
         !o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()
@@ -310,7 +305,7 @@ __d(
       (l.addBotGroupChangedToE2EEFSystemMsgIfRequired = C),
       (l.genE2EENoticeMsgAfterLastAgentRemoved = v),
       (l.addE2EESystemMsgAfterLastAgentRemovedIfRequired = R),
-      (l.injectBotParticipantState = T));
+      (l.injectBotParticipantState = I));
   },
   98,
 );

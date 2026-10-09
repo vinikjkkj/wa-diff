@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAPromiseQueue",
     "WAPromiseTimeout",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebEventsWaitForReadyForOffline",
@@ -59,9 +58,6 @@ __d(
               o(
                 "WAWebWaitForInitialChatsSynced",
               ).isWaitForInitialChatsSyncedPending() &&
-              !o("WAWebABProps").getABPropConfigValue(
-                "waweb_deprecate_initial_sync_ordering",
-              ) &&
               (yield o(
                 "WAWebWaitForInitialChatsSynced",
               ).waitForInitialChatsSynced()),

@@ -272,11 +272,7 @@ __d(
               M = r.map(function (e) {
                 return [e.enter, e.exit];
               }),
-              w = JSON.stringify({ 0: M, 50: M, 100: M }),
-              A =
-                o("WAWebABProps").getABPropConfigValue(
-                  "biz_vpv_dimensions_logging_enabled",
-                ) === !0;
+              w = JSON.stringify({ 0: M, 50: M, 100: M });
             new (o(
               "WAWebPaidMessageVpvImpressionWamEvent",
             ).PaidMessageVpvImpressionWamEvent)({
@@ -308,8 +304,8 @@ __d(
               urlUniqueCountInt: $,
               messageBodyType: v != null ? v : void 0,
               mmCarouselCardIndex: k != null ? k : void 0,
-              messageBubbleWidthPx: A && R != null ? R : void 0,
-              messageBubbleHeightPx: A && S != null ? S : void 0,
+              messageBubbleWidthPx: R != null ? R : void 0,
+              messageBubbleHeightPx: S != null ? S : void 0,
             }).commit();
           })();
         };

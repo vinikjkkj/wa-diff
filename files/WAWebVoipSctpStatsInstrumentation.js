@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebNoop",
     "WAWebVoipStatsTracker",
     "asyncToGeneratorRuntime",
@@ -45,36 +44,33 @@ __d(
           t,
         ),
         g.set(t, { getConnections: n, getDcThread: a }),
-        o("WAWebABProps").getABPropConfigValue(
-          "voip_enable_webrtc_stats_polling",
-        ) &&
-          (L ||
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpStats] WebRTC stats poll start (",
-                  "ms)",
-                ])),
-              S,
-            ),
-            (L = !0),
-            I()),
-          D.isPolling() ||
-            (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpStats] Starting RTT polling (interval: ",
-                  "ms)",
-                ])),
-              o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
-            ),
-            x().catch(r("WAWebNoop")),
-            D.startPolling({
-              intervalMs: o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
-              onInterval: function () {
-                x().catch(r("WAWebNoop"));
-              },
-            }))));
+        L ||
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpStats] WebRTC stats poll start (",
+                "ms)",
+              ])),
+            S,
+          ),
+          (L = !0),
+          I()),
+        D.isPolling() ||
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpStats] Starting RTT polling (interval: ",
+                "ms)",
+              ])),
+            o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
+          ),
+          x().catch(r("WAWebNoop")),
+          D.startPolling({
+            intervalMs: o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
+            onInterval: function () {
+              x().catch(r("WAWebNoop"));
+            },
+          })));
     }
     function b(e) {
       (g.delete(e), g.size === 0 && P());

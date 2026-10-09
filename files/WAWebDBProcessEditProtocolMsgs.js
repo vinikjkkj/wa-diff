@@ -193,24 +193,33 @@ __d(
             if (u.isForwarded === !0)
               return (i.length < 3 && i.push(u.id.toString()), !1);
             var d = r("nullthrows")(u.t),
-              m = r("nullthrows")(e.t);
-            if (
-              !o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
-                parentTsInSeconds: d,
-                editTsInSeconds: m,
-                msgKey: u.id,
-              })
-            )
-              return (l.length < 3 && l.push(u.id.toString()), !1);
-            var p = o("WAWebMsgGetters").getSender(u),
-              g = o("WAWebMsgGetters").getSender(e);
+              m = r("nullthrows")(e.t),
+              p =
+                o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
+                  parentTsInSeconds: d,
+                  editTsInSeconds: m,
+                  msgKey: u.id,
+                }) ||
+                o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
+                  msgKey: u.id,
+                  msgType: u.type,
+                }) ||
+                o(
+                  "WAWebMessageEditUtils",
+                ).shouldDeferMessageYourselfEditWindowCheck({
+                  msgKey: u.id,
+                  msgType: u.type,
+                });
+            if (!p) return (l.length < 3 && l.push(u.id.toString()), !1);
+            var g = o("WAWebMsgGetters").getSender(u),
+              h = o("WAWebMsgGetters").getSender(e);
             if (
               !o("WAWebMsgGetters").getIsNewsletterMsg(u) &&
-              (!p ||
-                !g ||
+              (!g ||
+                !h ||
                 !r("WAWebWid").equals.apply(
                   r("WAWebWid"),
-                  o("WAWebLidMigrationUtils").toCommonAddressingMode(p, g),
+                  o("WAWebLidMigrationUtils").toCommonAddressingMode(g, h),
                 ))
             )
               return (_.length < 3 && _.push(u.id.toString()), !1);
@@ -453,7 +462,12 @@ __d(
           !o("WAWebUserPrefsMeUser").isMeAccount(t.from)) ||
         e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ||
         e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
-        o("WAWebMessageEditGatingUtils").isCrossDeviceMessageEditingEnabled()
+        o("WAWebMessageEditGatingUtils").isCrossDeviceMessageEditingEnabled() ||
+        (t.local !== !0 &&
+          o("WAWebMessageEditUtils").isMessageYourselfEditExempt({
+            msgKey: e.id,
+            msgType: e.type,
+          }))
       );
     }
     function P(e, t) {

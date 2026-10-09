@@ -61,21 +61,22 @@ __d(
         ((t = e.id) == null || (t = t.remote) == null
           ? void 0
           : t.isSupportAgentBot()) === !0 ||
-        g((n = e.id) == null ? void 0 : n.remote, e.subtype)
+        h((n = e.id) == null ? void 0 : n.remote, e.subtype)
       )
         return d(e);
-      if (e.botGroupParticipant != null) return p(e);
+      if (e.botGroupParticipant != null) return _(e);
     }
     function d(t) {
       var n,
-        r = t.botPersonaId != null ? t.botPersonaId : void 0,
-        a = _(t),
-        i = t.aiThreadInfo != null ? e(t) : void 0,
-        l = S(t.botModeSelection, t.botModeOverride),
-        c = s(t),
-        d = v(t.type),
-        p = u(t),
-        g =
+        r,
+        a = t.botPersonaId != null ? t.botPersonaId : void 0,
+        i = f(t),
+        l = t.aiThreadInfo != null ? e(t) : void 0,
+        c = R(t.botModeSelection, t.botModeOverride),
+        d = s(t),
+        _ = S(t.type),
+        h = u(t),
+        y =
           t.unifiedResponseMutationMediaList != null
             ? o(
                 "WAWebBotUnifiedResponseMutationUtils",
@@ -83,31 +84,39 @@ __d(
                 t.unifiedResponseMutationMediaList,
               )
             : void 0,
-        h = m(t);
+        C = p(t);
       if (
-        !f(
-          [t.botGroupParticipant, r, a, l, c, d, p, g, h],
+        !g(
+          [t.botGroupParticipant, a, i, c, d, _, h, y, C],
           (n = t.id) == null ? void 0 : n.remote,
           t.subtype,
         )
       )
         return {
-          personaId: r,
-          invokerJid: a,
-          capabilityMetadata: t.id ? b(t.id.remote, t.subtype) : void 0,
-          botThreadInfo: i,
+          personaId: a,
+          invokerJid: i,
+          capabilityMetadata: t.id ? v(t.id.remote, t.subtype) : void 0,
+          botThreadInfo: l,
           botGroupMetadata: o(
             "WAWebGenerateBotGroupMetadata",
           ).generateBotGroupMetadata(t.botGroupParticipant),
-          botModeSelectionMetadata: l,
-          botMetricsMetadata: c,
-          botDocumentMessageMetadata: d,
-          aiMediaCollectionMetadata: p,
-          unifiedResponseMutation: g,
-          botLinkedAccountsMetadata: h,
+          botModeSelectionMetadata: c,
+          botMetricsMetadata: d,
+          botDocumentMessageMetadata: _,
+          aiMediaCollectionMetadata: h,
+          unifiedResponseMutation: y,
+          botLinkedAccountsMetadata: C,
+          timezone: m((r = t.id) == null ? void 0 : r.remote, t.subtype),
         };
     }
-    function m(e) {
+    function m(e, t) {
+      if (h(e, t)) {
+        var n = Intl.DateTimeFormat().resolvedOptions(),
+          r = n.timeZone;
+        return r != null && r !== "" ? r : void 0;
+      }
+    }
+    function p(e) {
       if (
         !(
           e.id == null ||
@@ -127,13 +136,13 @@ __d(
           };
       }
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebGenerateBotGroupMetadata").generateBotGroupMetadata(
         e.botGroupParticipant,
       );
       return t != null ? { botGroupMetadata: t } : void 0;
     }
-    function _(e) {
+    function f(e) {
       if (e.subtype === "bot_feedback") {
         var t;
         return (t = e.botTargetSenderJid) == null ? void 0 : t.toJid();
@@ -146,14 +155,14 @@ __d(
           : n.toJid();
       }
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       return (
         e.every(function (e) {
           return e == null;
-        }) && !g(t, n)
+        }) && !h(t, n)
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
@@ -161,7 +170,7 @@ __d(
         o("WAWebHatchBackendGating").isHatchIntegrationEnabledOnBackend()
       );
     }
-    function h(e, t) {
+    function y(e, t) {
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
@@ -171,17 +180,27 @@ __d(
         ).isHatchApprovalNotificationEnabledOnBackend()
       );
     }
-    function y(e, t) {
-      return !g(e, t) ||
-        !o("WAWebHatchBackendGating").isHatchConnectorsEnabledOnBackend()
-        ? []
-        : [
-            o("WAWebProtobufsAICommon.pb")
-              .BotCapabilityMetadata$BotCapabilityType
-              .HATCH_CONNECTOR_ACTION_CARD_ENABLED,
-          ];
-    }
     function C(e, t) {
+      return h(e, t)
+        ? [].concat(
+            o("WAWebHatchBackendGating").isHatchConnectorsEnabledOnBackend()
+              ? [
+                  o("WAWebProtobufsAICommon.pb")
+                    .BotCapabilityMetadata$BotCapabilityType
+                    .HATCH_CONNECTOR_ACTION_CARD_ENABLED,
+                ]
+              : [],
+            o("WAWebHatchBackendGating").isHatchBrowserEnabledOnBackend()
+              ? [
+                  o("WAWebProtobufsAICommon.pb")
+                    .BotCapabilityMetadata$BotCapabilityType
+                    .HATCH_BROWSER_TASK_CARD_ENABLED,
+                ]
+              : [],
+          )
+        : [];
+    }
+    function b(e, t) {
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
@@ -189,7 +208,7 @@ __d(
         o("WAWebHatchBackendGating").isHatchSecureCredentialsEnabledOnBackend()
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       var n,
         r = [
           (n = o("WAWebProtobufsAICommon.pb"))
@@ -351,15 +370,15 @@ __d(
                   .AI_SUBSCRIPTION_ENABLED,
               ]
             : [],
-          h(e, t)
+          y(e, t)
             ? [
                 o("WAWebProtobufsAICommon.pb")
                   .BotCapabilityMetadata$BotCapabilityType
                   .HATCH_NOTIFICATION_METADATA_EVENT_ENABLED,
               ]
             : [],
-          y(e, t),
-          C(e, t)
+          C(e, t),
+          b(e, t)
             ? [
                 o("WAWebProtobufsAICommon.pb")
                   .BotCapabilityMetadata$BotCapabilityType
@@ -369,7 +388,7 @@ __d(
         );
       return r.length === 0 ? void 0 : { capabilities: r };
     }
-    function v(e) {
+    function S(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -379,7 +398,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function S(e, t) {
+    function R(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -396,8 +415,8 @@ __d(
       (l.generateBotMetricsMetadata = s),
       (l.generateAiMediaCollectionMetadata = u),
       (l.generateBotMetadata = c),
-      (l.generateBotCapabilityMetadata = b),
-      (l.generateBotModeSelectionMetadata = S));
+      (l.generateBotCapabilityMetadata = v),
+      (l.generateBotModeSelectionMetadata = R));
   },
   98,
 );

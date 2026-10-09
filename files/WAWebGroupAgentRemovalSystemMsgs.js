@@ -124,6 +124,9 @@ __d(
               .filter(function (e) {
                 return (
                   o("WAWebBotUtils").isWidGroupAgentFbidWid(e) &&
+                  o(
+                    "WAWebBotGroupGatingUtils",
+                  ).isAgentListedInGroupInfoResponse(e) &&
                   !i.has(e.toString())
                 );
               })
@@ -135,7 +138,7 @@ __d(
             meta: {
               chatId: n,
               author: null,
-              ts: o("WATimeUtils").castToUnixTime(Date.now()),
+              ts: o("WATimeUtils").unixTime(),
               isLidAddressingMode: r,
             },
             action: {

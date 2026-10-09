@@ -48,16 +48,17 @@ __d(
       V = p("shouldDefaultGroupHistoryShareOn"),
       H = p("size"),
       G = p("support"),
-      z = p("terminated"),
-      j = p("uniqueShortNameMap"),
-      K = p("unjoinedSubgroups"),
-      Q = d("inviteCode"),
-      X = c(
+      z = p("suspended"),
+      j = p("terminated"),
+      K = p("uniqueShortNameMap"),
+      Q = p("unjoinedSubgroups"),
+      X = d("inviteCode"),
+      Y = c(
         function (t) {
           var n = t[0];
           return n ? "" + e + n : null;
         },
-        [Q],
+        [X],
       );
     ((l.clearFrontendGroupMetadataGetterCacheFor = m),
       (l.getAfterReadDuration = _),
@@ -92,11 +93,12 @@ __d(
       (l.getShouldDefaultGroupHistoryShareOn = V),
       (l.getSize = H),
       (l.getSupport = G),
-      (l.getTerminated = z),
-      (l.getUniqueShortNameMap = j),
-      (l.getUnjoinedSubgroups = K),
-      (l.getInviteCode = Q),
-      (l.getGroupInviteLink = X));
+      (l.getSuspended = z),
+      (l.getTerminated = j),
+      (l.getUniqueShortNameMap = K),
+      (l.getUnjoinedSubgroups = Q),
+      (l.getInviteCode = X),
+      (l.getGroupInviteLink = Y));
   },
   98,
 );

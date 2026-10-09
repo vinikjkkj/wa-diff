@@ -1,6 +1,7 @@
 __d(
   "WAWebMediaAnimatedStickerUrlProvider",
   [
+    "WAWebCreateMediaBlobUrl",
     "WAWebMediaDataGetters",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaTypes",
@@ -43,7 +44,7 @@ __d(
             );
           g.current = t;
           var n = new Blob([t], { type: t.type }),
-            a = window.URL.createObjectURL(n);
+            a = o("WAWebCreateMediaBlobUrl").createMediaBlobUrl(n);
           return a;
         }, []),
         C = _(function () {
@@ -67,7 +68,7 @@ __d(
             "Cannot call refreshBlob when the blob does not exist.",
           );
         var t = new Blob([e], { type: e.type }),
-          n = window.URL.createObjectURL(t);
+          n = o("WAWebCreateMediaBlobUrl").createMediaBlobUrl(t);
         (b != null && window.URL.revokeObjectURL(b), v(n));
       };
       return (

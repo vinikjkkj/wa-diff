@@ -85,9 +85,8 @@ __d(
           (a.transferChannel = function (t) {
             var e = t.channel,
               n = t.connectionId,
-              r = t.enableStats,
-              a = t.ip,
-              i = t.port;
+              r = t.ip,
+              a = t.port;
             if (!this.$4)
               return (
                 o("WALogger").WARN(
@@ -107,9 +106,8 @@ __d(
                     jsWorkerCmd: "transferDataChannel",
                     channel: e,
                     connectionId: n,
-                    ip: a,
-                    port: i,
-                    enableStats: r,
+                    ip: r,
+                    port: a,
                   },
                   [e],
                 ),

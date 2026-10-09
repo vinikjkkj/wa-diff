@@ -1,6 +1,13 @@
 __d(
   "WAWebMessageEditUtils",
-  ["$InternalEnum", "WATimeUtils", "WAWebABProps", "WAWebMsgType", "WAWebWid"],
+  [
+    "$InternalEnum",
+    "WATimeUtils",
+    "WAWebABProps",
+    "WAWebMsgKeyUtils",
+    "WAWebMsgType",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 2592e3;
@@ -46,7 +53,28 @@ __d(
           return null;
       }
     }
-    var p = [
+    function p(e) {
+      return (
+        o("WAWebMsgKeyUtils").isNoteToSelf(e) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "message_yourself_edit_window_is_forever_enabled",
+        ) === !0
+      );
+    }
+    function _(e) {
+      var t = e.msgKey,
+        n = e.msgType,
+        r = m(n);
+      return (
+        (r === d.TextEdit || r === d.CaptionEdit || r === d.PollEdit) && p(t)
+      );
+    }
+    function f(e) {
+      var t = e.msgKey,
+        n = e.msgType;
+      return n === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT && p(t);
+    }
+    var g = [
       (e = o("WAWebMsgType")).MSG_TYPE.CHAT,
       e.MSG_TYPE.IMAGE,
       e.MSG_TYPE.VIDEO,
@@ -56,17 +84,17 @@ __d(
       e.MSG_TYPE.RICH_RESPONSE,
       e.MSG_TYPE.LOADING_MEDIA,
     ];
-    function _(e) {
-      return !!p.includes(e);
+    function h(e) {
+      return !!g.includes(e);
     }
-    function f(e) {
+    function y(e) {
       var t = e.editTsInSeconds,
         n = e.msgKey,
         a = e.parentTsInSeconds,
         i = r("WAWebWid").isNewsletter(n.remote);
       return t != null ? t < a + u(i) : o("WATimeUtils").unixTime() < a + u(i);
     }
-    function g(e) {
+    function C(e) {
       var t = e.msgKey,
         n = e.parentTsInSeconds;
       return (
@@ -77,9 +105,11 @@ __d(
     ((l.getMessageEditProcessingWindowDurationSeconds = u),
       (l.MsgEditType = d),
       (l.getMsgEditType = m),
-      (l.msgTypeSupportsEditing = _),
-      (l.isParentWithinEditProcessingWindow = f),
-      (l.isParentWithinEditUIWindow = g));
+      (l.isMessageYourselfEditExempt = _),
+      (l.shouldDeferMessageYourselfEditWindowCheck = f),
+      (l.msgTypeSupportsEditing = h),
+      (l.isParentWithinEditProcessingWindow = y),
+      (l.isParentWithinEditUIWindow = C));
   },
   98,
 );

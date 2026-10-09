@@ -3,8 +3,8 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WATimeUtils",
     "WATypeUtils",
-    "WAWeb-moment",
     "WAWebChatMuteBridge",
     "WAWebNoop",
     "WAWebWid",
@@ -69,7 +69,7 @@ __d(
           t.id.toString(),
         );
       else {
-        var m = l - r("WAWeb-moment")().unix();
+        var m = l - o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([

@@ -1,8 +1,8 @@
 __d(
   "WAWebForwardedBotMessageUtils",
-  ["WAWebABProps", "WAWebUnifiedResponseUtils"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
+    function e(e) {
       return e === "download_consent_accepted"
         ? "normal"
         : e === "failed" &&
@@ -10,13 +10,7 @@ __d(
               "ai_rich_response_unknown_sender_verification_masking_enabled",
             )
           ? "masked"
-          : o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(n) &&
-              !t &&
-              o("WAWebABProps").getABPropConfigValue(
-                "ai_rich_response_unknown_sender_preview_enabled",
-              )
-            ? "preview"
-            : "normal";
+          : "normal";
     }
     l.getForwardedBotDisplayMode = e;
   },

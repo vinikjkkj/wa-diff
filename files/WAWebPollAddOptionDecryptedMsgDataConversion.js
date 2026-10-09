@@ -41,7 +41,8 @@ __d(
         c == null ||
         c.length === 0 ||
         c.length >
-          o("WAWebPollsGatingUtils").getMaxPollOptionLengthForIncomingMessages()
+          o("WAWebPollsGatingUtils")
+            .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES
       )
         throw new (o("WAWebPollsValidationError").PollAddOptionValidationError)(
           o("WAWebPollsValidationError").PollAddOptionValidationErrorCode

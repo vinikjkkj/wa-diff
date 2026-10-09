@@ -28,8 +28,12 @@ __d(
       c = 1,
       d = 1,
       m = Object.freeze(new e(0, 0));
-    function p(e, t, n, r) {
-      return e[n].toLowerCase() === t[r].toLowerCase() ? 0 : c;
+    function p(e) {
+      var t = e.dataCharIndex,
+        n = e.input,
+        r = e.query,
+        o = e.queryCharIndex;
+      return n[t].toLowerCase() === r[o].toLowerCase() ? 0 : c;
     }
     function _(t) {
       for (
@@ -60,10 +64,26 @@ __d(
         for (var L = 0; L < c; L++) {
           var E = g[L + 1].plus(1, s),
             k = h[L].plus(0, u),
-            I = g[L].plus(1, p(r, i, v, L)),
+            I = g[L].plus(
+              1,
+              p({ dataCharIndex: v, input: r, query: i, queryCharIndex: L }),
+            ),
             T = void 0;
           if (L > 0 && v > 0) {
-            var D = p(r, i, v, L - 1) + p(r, i, v - 1, L) + d;
+            var D =
+              p({
+                dataCharIndex: v,
+                input: r,
+                query: i,
+                queryCharIndex: L - 1,
+              }) +
+              p({
+                dataCharIndex: v - 1,
+                input: r,
+                query: i,
+                queryCharIndex: L,
+              }) +
+              d;
             T = f[L - 1].plus(2, D);
           } else T = new e(0, Number.MAX_SAFE_INTEGER);
           ((C[0] = E),

@@ -389,15 +389,6 @@ __d(
               n,
             );
           }),
-          (t.proMaxBidInfoClicked = function (t) {
-            o("WAWebBBBroadcastCreationLogs").proMaxBidInfoClicked(this.$1, t);
-          }),
-          (t.proCampaignBudgetInfoClicked = function (t) {
-            o("WAWebBBBroadcastCreationLogs").proCampaignBudgetInfoClicked(
-              this.$1,
-              t,
-            );
-          }),
           (t.proSendButtonViewed = function (t, n) {
             o("WAWebBBBroadcastCreationLogs").proSendButtonViewed(
               this.$1,

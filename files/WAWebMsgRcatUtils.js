@@ -48,12 +48,12 @@ __d(
                 )
               : t;
           if (i == null) return null;
-          var l = yield _(
-            e.id.id,
-            r,
-            o("WAWebWidToJid").widToUserJid(i),
-            o("WAWebWidToJid").widToUserJid(n),
-          );
+          var l = yield _({
+            fromJid: o("WAWebWidToJid").widToUserJid(i),
+            messageSecret: r,
+            stanzaId: e.id.id,
+            toJid: o("WAWebWidToJid").widToUserJid(n),
+          });
           return ((e.nonce = l), l);
         })),
         d.apply(this, arguments)
@@ -76,22 +76,24 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n, r) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield m({
-              fromJid: n,
-              messageSecret: t,
-              stanzaId: e,
-              toJid: r,
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.fromJid,
+            n = e.messageSecret,
+            r = e.stanzaId,
+            a = e.toJid,
+            i = yield m({
+              fromJid: t,
+              messageSecret: n,
+              stanzaId: r,
+              toJid: a,
             });
-            return o("WABase64").encodeB64UrlSafe(a, !0);
-          },
-        )),
+          return o("WABase64").encodeB64UrlSafe(i, !0);
+        })),
         f.apply(this, arguments)
       );
     }

@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WAWebBotGroupGatingUtils",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebContactCollection",
@@ -251,17 +250,13 @@ __d(
               .SYSTEM_MESSAGE_TYPE_TYPE.OFFICIAL_ACCOUNT_INFO,
           };
         case "group_transition_to_tee_bot_group":
-          return o(
-            "WAWebBotGroupGatingUtils",
-          ).isTEEGroupBotParticipantAddEnabled()
-            ? {
-                text: s._(
-                  /*BTDS*/ "A group member added Meta AI to this chat. It's secured with Private Processing, so WhatsApp and Meta can't see the chat. Group admins can remove Meta AI at any time.",
-                ),
-                enumType: o("WAWebWamEnumSystemMessageTypeType")
-                  .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
-              }
-            : { text: "" };
+          return {
+            text: s._(
+              /*BTDS*/ "A group member added Meta AI to this chat. It's secured with Private Processing, so WhatsApp and Meta can't see the chat. Group admins can remove Meta AI at any time.",
+            ),
+            enumType: o("WAWebWamEnumSystemMessageTypeType")
+              .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
+          };
         default:
           return { text: "" };
       }

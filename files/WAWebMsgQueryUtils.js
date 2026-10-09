@@ -111,23 +111,26 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = e != null ? e : o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
-            a = n === "after" ? "after" : "before",
-            i = yield o("WAWebDBMessageFindLocal").getAllDocsMessages({
-              chat: t == null ? void 0 : t.remote,
-              count: r,
-              direction: a,
-              msgKey: t,
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.count,
+            n = e.direction,
+            r = e.msgKey,
+            a = t != null ? t : o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
+            i = n === "after" ? "after" : "before",
+            l = yield o("WAWebDBMessageFindLocal").getAllDocsMessages({
+              chat: r == null ? void 0 : r.remote,
+              count: a,
+              direction: i,
+              msgKey: r,
             });
           return o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
             void 0,
-            i,
+            l,
             { add: "search" },
             "msgCollectionGetAllMedia",
           );

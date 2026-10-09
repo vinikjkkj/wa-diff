@@ -33,21 +33,32 @@ __d(
       d,
       m,
       p,
-      _ = !1,
-      f = !1,
-      g = 1e3,
-      h = 6e4 * 3;
-    function y() {
-      return C.apply(this, arguments);
+      _,
+      f,
+      g,
+      h = !1,
+      y = !1,
+      C = 1e3,
+      b = 6e4 * 3;
+    function v() {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger")
+            .LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][initial bootstrap] timeout fired",
+                ])),
+            )
+            .tags("history-sync");
           try {
             var e = o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
             (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[history-sync] historySyncStatus before logout: ",
                   "",
                 ])),
@@ -55,8 +66,8 @@ __d(
             ),
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "logout due to initial history sync timeout",
                     ])),
                 )
@@ -76,58 +87,58 @@ __d(
               o("WAWebLogoutReasonConstants").LogoutReason.HistorySyncTimeout,
             ));
         })),
-        C.apply(this, arguments)
-      );
-    }
-    function b() {
-      ((_ = !1), (f = !1));
-    }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          _ ||
-            f ||
-            (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
-              o("WAWebWamEnumMdLinkDeviceCompanionStage")
-                .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
-            ),
-            (_ = !0),
-            yield o("WAWebAdvSignatureApi").clearADVSecretKey(),
-            yield o("WAWebUserPrefsGeneral").resetLoginCounter(),
-            o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered());
-        })),
         S.apply(this, arguments)
       );
     }
     function R() {
-      return L.apply(this, arguments);
+      ((h = !1), (y = !1));
     }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!(_ || f)) {
-            ((f = !0),
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          h ||
+            y ||
+            (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
+              o("WAWebWamEnumMdLinkDeviceCompanionStage")
+                .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
+            ),
+            (h = !0),
+            yield o("WAWebAdvSignatureApi").clearADVSecretKey(),
+            yield o("WAWebUserPrefsGeneral").resetLoginCounter(),
+            o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered());
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!(h || y)) {
+            ((y = !0),
               o("WAWebMdSessionIdCache").clearMdSessionId(),
               yield o("WAWebAdvSignatureApi").clearADVSecretKey());
             var e = yield r("WAWebClearCredentials")(),
-              t = e || (yield E());
+              t = e || (yield T());
             o("WAWebReloadAfterLogout").reloadAfterLogout(t);
           }
         })),
-        L.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
+    function T() {
+      return D.apply(this, arguments);
     }
-    function k() {
+    function D() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            yield (p || (p = n("Promise"))).all([
+            yield (g || (g = n("Promise"))).all([
               o("WAWebModelStorage").destroy(),
               o("WAWebQplStorage").destroy(),
               o("WAWebWorkerStorage").destroy(),
@@ -137,15 +148,15 @@ __d(
               e instanceof Error
                 ? o("WALogger")
                     .WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "[storage] destroyPreLoginStorage failed",
                         ])),
                     )
                     .catching(e)
                 : o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[storage] destroyPreLoginStorage failed",
                       ])),
                   ),
@@ -154,51 +165,69 @@ __d(
           }
           return !1;
         })),
-        k.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function I() {
+    function x() {
       new (o("WAShiftTimer").ShiftTimer)(function () {
-        R();
-      }).onOrAfter(g);
+        k();
+      }).onOrAfter(C);
     }
-    var T;
-    function D() {
-      T == null &&
-        ((T = self.setTimeout(y, h)),
+    var $;
+    function P() {
+      $ == null &&
+        (($ = self.setTimeout(v, b)),
+        o("WALogger")
+          .LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[history sync][initial bootstrap] timeout armed for ",
+                "ms",
+              ])),
+            b,
+          )
+          .tags("history-sync"),
         o("WAWebBackendEventBus").BackendEventBus.onInitialChatHistorySynced(
           function () {
-            self.clearTimeout(T);
+            (self.clearTimeout($),
+              o("WALogger")
+                .LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][initial bootstrap] timeout cleared",
+                    ])),
+                )
+                .tags("history-sync"));
           },
         ));
     }
-    function x() {
-      var t = o("WATimeUtils").unixTimeMs();
+    function N() {
+      var e = o("WATimeUtils").unixTimeMs();
       (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
             "[history sync][reg] begin device pairing latency measurement",
           ])),
       ),
         o("WAWebBackendEventBus").BackendEventBus.onCriticalSyncDone(
           function () {
             o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync][reg] main screen unblocked in ",
                   "ms",
                 ])),
-              o("WATimeUtils").unixTimeMs() - t,
+              o("WATimeUtils").unixTimeMs() - e,
             );
           },
         ));
     }
-    ((l.resetCompanionReg = b),
-      (l.startLogin = v),
-      (l.startLogout = R),
-      (l.logoutAfterValidationFail = I),
-      (l.startInitialHistorySyncTimeout = D),
-      (l.initDevicePairingLatencyMeasurement = x));
+    ((l.resetCompanionReg = R),
+      (l.startLogin = L),
+      (l.startLogout = k),
+      (l.logoutAfterValidationFail = x),
+      (l.startInitialHistorySyncTimeout = P),
+      (l.initDevicePairingLatencyMeasurement = N));
   },
   98,
 );

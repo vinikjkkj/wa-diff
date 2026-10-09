@@ -35,9 +35,6 @@ __d(
     function h() {
       return s._(/*BTDS*/ "Undo");
     }
-    function y() {
-      return s._(/*BTDS*/ "Privacy screen is on. Click to turn off.");
-    }
     ((l.privacyScreenModeTitle = e),
       (l.privacyScreenModeDescription = u),
       (l.privacyScreenUpsellCta = c),
@@ -47,8 +44,7 @@ __d(
       (l.privacyModePresetStrong = _),
       (l.privacyModeToastEnabled = f),
       (l.privacyModeToastDisabled = g),
-      (l.privacyModeToastUndo = h),
-      (l.privacyModeIndicatorTooltip = y));
+      (l.privacyModeToastUndo = h));
   },
   226,
 );
