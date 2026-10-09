@@ -31,5 +31,10 @@
         "@vinikjkkj/wa-fetcher": "^0.2.0",
         "prettier": "^3.8.2",
         "wa-modules-loader": "^1.1.2"
+    },
+    "overrides": {
+        "get-uri": {
+            "basic-ftp": "6.2.1"
+        }
     }
 }
