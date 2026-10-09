@@ -254,69 +254,86 @@ __d(
                           n = m.__getFrameType(t);
                         switch (n) {
                           case o("DGWConstants").DgwFrameType
-                            .DgwFrameType_Drain: {
-                            var r,
-                              a = m.__getDrainReasonFromDrainFrame(t),
-                              i =
-                                o(
-                                  "DGWConstants",
-                                ).drainReasonToDrainReasonString(a);
+                            .DgwFrameType_Deauth: {
+                            var r;
                             ((r = e.$2) == null ||
                               r.logEvent(
                                 o("IDGWLoggingContext").DGWLoggingComponent
                                   .CODEC_COMPONENT,
-                                "Received Drain Frame from server",
-                                "DrainReason: " + i,
+                                "Received Deauth Frame from server",
                               ),
                               b.push(function () {
                                 var t;
                                 return (t = e.$3) == null
                                   ? void 0
-                                  : t.receivedDrainSignal(i);
+                                  : t.receivedDeauthSignal();
+                              }));
+                            break;
+                          }
+                          case o("DGWConstants").DgwFrameType
+                            .DgwFrameType_Drain: {
+                            var a,
+                              i = m.__getDrainReasonFromDrainFrame(t),
+                              l =
+                                o(
+                                  "DGWConstants",
+                                ).drainReasonToDrainReasonString(i);
+                            ((a = e.$2) == null ||
+                              a.logEvent(
+                                o("IDGWLoggingContext").DGWLoggingComponent
+                                  .CODEC_COMPONENT,
+                                "Received Drain Frame from server",
+                                "DrainReason: " + l,
+                              ),
+                              b.push(function () {
+                                var t;
+                                return (t = e.$3) == null
+                                  ? void 0
+                                  : t.receivedDrainSignal(l);
                               }));
                             break;
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_EstabStream: {
-                            var l = m.__getStreamIdFromStreamGroupFrame(t),
-                              s =
+                            var s = m.__getStreamIdFromStreamGroupFrame(t),
+                              u =
                                 m.__getEncodedParamsFromEstablishStreamFrame(t),
-                              u = new Uint8Array(
+                              c = new Uint8Array(
                                 m.HEAPU8.subarray(
-                                  s,
-                                  s +
+                                  u,
+                                  u +
                                     m.__getEncodedParamsSizeFromEstablishStreamFrame(
                                       t,
                                     ),
                                 ),
                               );
-                            (e.free(s),
+                            (e.free(u),
                               b.push(function () {
                                 var t;
                                 return (t = e.$3) == null
                                   ? void 0
                                   : t.onGroupedStreamEstablishStreamReceived(
-                                      l,
-                                      u,
+                                      s,
+                                      c,
                                     );
                               }));
                             break;
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_Data: {
-                            var c = m.__getStreamIdFromStreamGroupFrame(t),
-                              d = m.__getDataFromGroupedStreamDataFrame(t),
-                              p = new Uint8Array(
+                            var d = m.__getStreamIdFromStreamGroupFrame(t),
+                              p = m.__getDataFromGroupedStreamDataFrame(t),
+                              _ = new Uint8Array(
                                 m.HEAPU8.subarray(
-                                  d,
-                                  d +
+                                  p,
+                                  p +
                                     m.__getDataSizeFromGroupedStreamDataFrame(
                                       t,
                                     ),
                                 ),
                               );
-                            e.free(d);
-                            var _ =
+                            e.free(p);
+                            var f =
                               m.__getRequiresAckFromGroupedStreamDataFrame(t)
                                 ? m.__getAckIdFromGroupedStreamDataFrame(t)
                                 : null;
@@ -324,30 +341,30 @@ __d(
                               var t;
                               return (t = e.$3) == null
                                 ? void 0
-                                : t.onGroupedStreamDataReceived(c, p, _);
+                                : t.onGroupedStreamDataReceived(d, _, f);
                             });
                             break;
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_Ack: {
-                            var f = m.__getStreamIdFromStreamGroupFrame(t),
-                              g = m.__getAckIdFromGroupedStreamAckFrame(t);
+                            var g = m.__getStreamIdFromStreamGroupFrame(t),
+                              h = m.__getAckIdFromGroupedStreamAckFrame(t);
                             b.push(function () {
                               var t;
                               return (t = e.$3) == null
                                 ? void 0
-                                : t.onGroupedStreamAckReceived(f, g);
+                                : t.onGroupedStreamAckReceived(g, h);
                             });
                             break;
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_EndOfData: {
-                            var h = m.__getStreamIdFromStreamGroupFrame(t);
+                            var y = m.__getStreamIdFromStreamGroupFrame(t);
                             b.push(function () {
                               var t;
                               return (t = e.$3) == null
                                 ? void 0
-                                : t.onGroupedStreamEndOfDataReceived(h);
+                                : t.onGroupedStreamEndOfDataReceived(y);
                             });
                             break;
                           }

@@ -39,7 +39,7 @@ __d(
                 return [].concat(e);
               }),
             },
-            { escapeFormulae: /^\s*[=+\-@\t\r]/ },
+            { escapeFormulae: /^\s*(?:[=+@\t\r]|-(?!\d+(?:\.\d+)?$))/ },
           );
         })),
         u.apply(this, arguments)

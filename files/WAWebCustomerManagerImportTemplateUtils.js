@@ -19,8 +19,27 @@ __d(
       _ = s._(/*BTDS*/ "Source").toString(),
       f = s._(/*BTDS*/ "Notes").toString(),
       g = s._(/*BTDS*/ "Birthday").toString(),
-      h = s._(/*BTDS*/ "Last order").toString();
-    function y() {
+      h = s._(/*BTDS*/ "Last order").toString(),
+      y = {
+        acquisitionSource: ["Source", _, "Acquisition source"],
+        address: ["Address", m],
+        birthday: ["Birthday", g],
+        email: ["Email", d],
+        lastOrder: ["Last order", h],
+        leadStage: ["Lead stage", p],
+        note: ["Notes", f],
+        username: ["Username", c],
+      };
+    function C(e, t) {
+      return b(e.rawRow, t);
+    }
+    function b(e, t) {
+      return o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+        e,
+        y[t],
+      );
+    }
+    function v() {
       return s
         ._(
           /*BTDS*/ "For {Birthday column header} and {Last order column header}, use {recommended date format} (recommended). {month-first date format} (slashes) is month-first; {day-first date format} (hyphens) is day-first.",
@@ -46,7 +65,7 @@ __d(
         )
         .toString();
     }
-    function C() {
+    function S() {
       return s
         ._(
           /*BTDS*/ "For {Birthday column header} only, you can omit the year with {slash month-day format} or {hyphen month-day format}.",
@@ -66,7 +85,7 @@ __d(
         )
         .toString();
     }
-    var b = [
+    var R = [
       s._(/*BTDS*/ "Enter each customer's info on a separate row.").toString(),
       s
         ._(
@@ -86,12 +105,12 @@ __d(
       s
         ._(
           /*BTDS*/ "Lead stage must be one of: {lead stage values}. Leave it blank to import someone with no stage set.",
-          [s._param("lead stage values", k())],
+          [s._param("lead stage values", D())],
         )
         .toString(),
       s
         ._(/*BTDS*/ "Source must be one of: {source values}.", [
-          s._param("source values", I()),
+          s._param("source values", x()),
         ])
         .toString(),
       s
@@ -99,8 +118,8 @@ __d(
           /*BTDS*/ "Lead stage and Source ignore capitalization. Anyone already saved as a customer is skipped.",
         )
         .toString(),
-      y(),
-      C(),
+      v(),
+      S(),
       s
         ._(
           /*BTDS*/ "Put double quotes around any value containing a comma, as in the address below.",
@@ -112,21 +131,21 @@ __d(
         )
         .toString(),
     ];
-    function v(e) {
+    function L(e) {
       return '"' + e.replace(/\"/g, '""') + '"';
     }
-    var S = [
+    var E = [
         "Ada Lovelace",
         "4155550123",
         "ada",
         "ada@example.com",
-        v("12 Baker St, London"),
-        v(
+        L("12 Baker St, London"),
+        L(
           o("WAWebLeadStageNames")
             .getLeadStageName(o("WAWebLeadStage").LeadStage.QUALIFIED)
             .toString(),
         ),
-        v(
+        L(
           (e =
             (u = o(
               "WAWebCustomerProfileAcquisitionSourceNames",
@@ -143,7 +162,7 @@ __d(
         "04/15/1990",
         "2025-06-01",
       ].join(","),
-      R = [
+      k = [
         o("WAWebContactImportTemplateParsingUtils").FBT_NAME,
         o("WAWebContactImportTemplateParsingUtils").FBT_PHONE,
         c,
@@ -155,23 +174,23 @@ __d(
         g,
         h,
       ]
-        .map(v)
+        .map(L)
         .join(","),
-      L = b.map(v).join("\n") + "\n" + S + "\n\n" + R + "\n";
-    function E() {
+      I = R.map(L).join("\n") + "\n" + E + "\n\n" + k + "\n";
+    function T() {
       return {
         download: "customer_manager_import_template.csv",
-        href: "data:application/csv," + encodeURI(L),
+        href: "data:application/csv," + encodeURI(I),
       };
     }
-    function k() {
+    function D() {
       return o("WAWebLeadStage")
         .ALL_LEAD_STAGES.map(function (e) {
           return o("WAWebLeadStageNames").getLeadStageName(e).toString();
         })
         .join(", ");
     }
-    function I() {
+    function x() {
       var e = [];
       return (
         o(
@@ -193,9 +212,11 @@ __d(
       (l.FBT_NOTES = f),
       (l.FBT_BIRTHDAY = g),
       (l.FBT_LAST_ORDER = h),
-      (l.getCustomerManagerImportDateFormatInstruction = y),
-      (l.getCustomerManagerImportBirthdayFormatInstruction = C),
-      (l.getTemplateLinkProps = E));
+      (l.readCustomerManagerImportColumn = C),
+      (l.readCustomerManagerImportRawRowColumn = b),
+      (l.getCustomerManagerImportDateFormatInstruction = v),
+      (l.getCustomerManagerImportBirthdayFormatInstruction = S),
+      (l.getTemplateLinkProps = T));
   },
   226,
 );

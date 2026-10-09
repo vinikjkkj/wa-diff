@@ -1848,6 +1848,7 @@ __d(
       (l.getGifAttribution = me),
       (l.getCtwaContext = pe),
       (l.getThreadIds = _e),
+      (l.getMimetype = fe),
       (l.getFilehash = ge),
       (l.getDeprecatedMms3Url = he),
       (l.getWaveform = ye),

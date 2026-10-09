@@ -72,6 +72,7 @@ __d(
       CHATS_LIST: "/api/chats/list?limit=100",
       COMPUTER_CONTEXT: "/api/computer/context",
       COMPUTER_SCREENSHOT: p,
+      COMPUTER_SUBSCRIBE: "/api/computer/subscribe",
       CONNECTOR_ACCOUNT_UNLINK: function (n, r) {
         return (
           "/api/connectors/" +

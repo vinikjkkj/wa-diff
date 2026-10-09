@@ -4,6 +4,7 @@ __d(
     "DGWAuth",
     "DGWLoggingContext",
     "DGWStream",
+    "DGWWebSocketGating",
     "StreamGroup",
     "StreamGroupRegistry",
     "err",
@@ -50,16 +51,23 @@ __d(
           };
         }),
         (t.createStreamGroup = function (t, n) {
-          var e, a, i;
+          var e,
+            a,
+            i,
+            l = this;
           this.handleUserChecks((e = n.authType) != null ? e : this.$3);
-          var l = (a = n.authToken) != null ? a : this.$4,
-            s = r("justknobx")._("443")
+          var s = (a = n.authToken) != null ? a : this.$4,
+            u = r("justknobx")._("443")
               ? (i = n.authType) != null
                 ? i
                 : this.$3
               : this.$3;
-          l != null && s === o("DGWAuth").DGWAuth.GUEST && (n.authToken = l);
-          var u = this.$10(n.serviceId, n.loggingId);
+          s != null && u === o("DGWAuth").DGWAuth.GUEST && (n.authToken = s);
+          var c = this.$10(n.serviceId, n.loggingId),
+            d = function () {
+              o("DGWWebSocketGating").isDeauthBroadcastEnabled(Number(l.$1)) &&
+                l.$8.deauthAllStreamGroups();
+            };
           return new (o("StreamGroup").StreamGroup)(
             this.$1,
             this.$2,
@@ -70,7 +78,8 @@ __d(
             n,
             t,
             this.$8,
-            u,
+            c,
+            d,
           );
         }),
         (t.handleUserChecks = function (t) {

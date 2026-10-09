@@ -53,36 +53,37 @@ __d(
         },
       };
     }
-    function _(e, t) {
+    function _(e, t, n) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = (n = u[e]) == null ? void 0 : n[t];
-          return r != null
-            ? (o("WAWebWaffleLifecycleWamLogger").logErrorClassification({
-                errorAction: o(
-                  "WAWebWaffleLifecycleWamLogger",
-                ).mapIQErrorActionToWam(r),
-                errorCode: o(
-                  "WAWebWaffleLifecycleWamLogger",
-                ).mapIQErrorNameToWamCode(t),
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            a = (r = u[e]) == null ? void 0 : r[t];
+          if (a != null) {
+            var i;
+            return (
+              (i = o("WAWebWaffleLifecycleWamLogger")).logErrorClassification({
+                errorAction: i.mapIQErrorActionToWam(a),
+                errorCode: i.mapIQErrorNameToWamCode(t),
+                pkiVersion: i.mapPkiVersionToWam(n),
               }),
-              y(r))
-            : g(t);
+              y(a)
+            );
+          }
+          return g(t, n);
         })),
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield e === "IQErrorRequestTimeout" ||
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield e === "IQErrorRequestTimeout" ||
           e === "IQErrorRateOverlimit"
             ? (s || (s = n("Promise"))).resolve("retry")
             : e === "IQErrorNotAuthorized"
@@ -125,12 +126,15 @@ __d(
             o("WAWebWaffleLifecycleWamLogger").logErrorClassification({
               errorAction: o(
                 "WAWebWaffleLifecycleWamLogger",
-              ).mapIQErrorActionToWam(t),
+              ).mapIQErrorActionToWam(r),
               errorCode: o(
                 "WAWebWaffleLifecycleWamLogger",
               ).mapIQErrorNameToWamCode(e),
+              pkiVersion: o("WAWebWaffleLifecycleWamLogger").mapPkiVersionToWam(
+                t,
+              ),
             }),
-            y(t)
+            y(r)
           );
         })),
         h.apply(this, arguments)

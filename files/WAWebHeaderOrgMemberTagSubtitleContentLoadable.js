@@ -36,12 +36,12 @@ __d(
       });
     function f(e) {
       var t = o("react-compiler-runtime").c(7),
-        n = e.organizationLid,
+        n = e.orgMemberLid,
         r = e.presence,
         a = e.userSubtitle,
         i;
       t[0] !== n || t[1] !== r || t[2] !== a
-        ? ((i = s.jsx(_, { organizationLid: n, presence: r, userSubtitle: a })),
+        ? ((i = s.jsx(_, { orgMemberLid: n, presence: r, userSubtitle: a })),
           (t[0] = n),
           (t[1] = r),
           (t[2] = a),

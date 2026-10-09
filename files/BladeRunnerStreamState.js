@@ -1,6 +1,11 @@
 __d(
   "BladeRunnerStreamState",
-  ["BladeRunnerLogger", "BladeRunnerStreamStatus", "BladeRunnerTypes"],
+  [
+    "BladeRunnerLogger",
+    "BladeRunnerStreamStatus",
+    "BladeRunnerTypes",
+    "vulture",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -36,7 +41,7 @@ __d(
           return this.$2;
         }),
         (t.setLastStatus = function (t) {
-          this.$2 = t;
+          (r("vulture")("rTjD8lLHOubKx6Ssx2B9e5d2RUo="), (this.$2 = t));
         }),
         (t.onError = function () {
           this.$3 += 1;

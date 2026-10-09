@@ -6,6 +6,7 @@ __d(
     "WAWebWamEnumWaffleLifecycleErrorActionType",
     "WAWebWamEnumWaffleLifecycleErrorCodeType",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
+    "WAWebWamEnumWaffleLifecyclePkiVersionType",
     "WAWebWamEnumWaffleLifecycleTraceActionType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
   ],
@@ -45,8 +46,11 @@ __d(
                   : e === "IQErrorWFSuspended"
                     ? o("WAWebWamEnumWaffleLifecycleErrorCodeType")
                         .WAFFLE_LIFECYCLE_ERROR_CODE_TYPE.WF_SUSPENDED
-                    : o("WAWebWamEnumWaffleLifecycleErrorCodeType")
-                        .WAFFLE_LIFECYCLE_ERROR_CODE_TYPE.UNKNOWN;
+                    : e === "IQErrorPayloadEncDec"
+                      ? o("WAWebWamEnumWaffleLifecycleErrorCodeType")
+                          .WAFFLE_LIFECYCLE_ERROR_CODE_TYPE.PAYLOAD_ENC_DEC
+                      : o("WAWebWamEnumWaffleLifecycleErrorCodeType")
+                          .WAFFLE_LIFECYCLE_ERROR_CODE_TYPE.UNKNOWN;
     }
     function u(e) {
       return e === "retry"
@@ -55,35 +59,48 @@ __d(
         : e === "request_nonce"
           ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
               .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.REQUEST_NONCE
-          : e === "refresh_token" || e === "refetch_certs"
+          : e === "refresh_token"
             ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.NOT_APPLICABLE
-            : e === "purge"
+                .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.REFRESH_TOKEN
+            : e === "refetch_certs"
               ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                  .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
-              : e === "pause"
+                  .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.REFETCH_CERTS
+              : e === "purge"
                 ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                    .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PAUSE
-                : e === "server_purge"
+                    .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
+                : e === "pause"
                   ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                      .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
-                  : e === "server_pause"
+                      .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PAUSE
+                  : e === "server_purge"
                     ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                        .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PAUSE
-                    : e === "handled"
+                        .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
+                    : e === "server_pause"
                       ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                          .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
-                      : e === "fail"
+                          .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PAUSE
+                      : e === "handled"
                         ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                            .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.FAIL
-                        : (function () {
-                            throw Error(
-                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                e,
-                            );
-                          })();
+                            .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
+                        : e === "fail"
+                          ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
+                              .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.FAIL
+                          : (function () {
+                              throw Error(
+                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                  e,
+                              );
+                            })();
     }
     function c(e) {
+      return e === 1
+        ? o("WAWebWamEnumWaffleLifecyclePkiVersionType")
+            .WAFFLE_LIFECYCLE_PKI_VERSION_TYPE.V1
+        : e === 2
+          ? o("WAWebWamEnumWaffleLifecyclePkiVersionType")
+              .WAFFLE_LIFECYCLE_PKI_VERSION_TYPE.V2
+          : o("WAWebWamEnumWaffleLifecyclePkiVersionType")
+              .WAFFLE_LIFECYCLE_PKI_VERSION_TYPE.NOT_APPLICABLE;
+    }
+    function d(e) {
       var t = e.hasAccessToken,
         n = e.hasExistingRow,
         r = e.linkState,
@@ -100,7 +117,7 @@ __d(
         waffleLifecycleHasAccessToken: t,
       }).commit();
     }
-    function d(e) {
+    function m(e) {
       var t = e.traceAction,
         n = e.traceSource;
       new (o(
@@ -110,17 +127,18 @@ __d(
         waffleLifecycleTraceSource: n,
       }).commit();
     }
-    function m(e) {
+    function p(e) {
       var t = e.elapsedMs,
         n = e.errorAction,
         r = e.errorCode,
         a = e.hasAccessToken,
         i = e.linkState,
-        l = e.traceAction;
+        l = e.pkiVersion,
+        s = e.traceAction;
       new (o(
         "WAWebWaffleCompanionStateLifecycleWamEvent",
       ).WaffleCompanionStateLifecycleWamEvent)({
-        waffleLifecycleTraceAction: l,
+        waffleLifecycleTraceAction: s,
         waffleLifecycleTraceSource: o(
           "WAWebWamEnumWaffleLifecycleTraceSourceType",
         ).WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.REFRESH_TOKEN,
@@ -129,14 +147,16 @@ __d(
         waffleLifecycleElapsedMs: t,
         waffleLifecycleErrorCode: r,
         waffleLifecycleErrorAction: n,
+        waffleLifecyclePkiVersion: l,
       }).commit();
     }
-    function p(e) {
+    function _(e) {
       var t = e.elapsedMs,
         n = e.errorAction,
         r = e.errorCode,
         a = e.hasAccessToken,
-        i = e.linkState;
+        i = e.linkState,
+        l = e.pkiVersion;
       new (o(
         "WAWebWaffleCompanionStateLifecycleWamEvent",
       ).WaffleCompanionStateLifecycleWamEvent)({
@@ -151,9 +171,10 @@ __d(
         waffleLifecycleElapsedMs: t,
         waffleLifecycleErrorCode: r,
         waffleLifecycleErrorAction: n,
+        waffleLifecyclePkiVersion: l,
       }).commit();
     }
-    function _(e) {
+    function f(e) {
       var t = e.linkState,
         n = e.traceSource,
         r = e.unlinkType;
@@ -168,7 +189,7 @@ __d(
         waffleLifecycleUnlinkType: r,
       }).commit();
     }
-    function f(e) {
+    function g(e) {
       var t = e.linkState,
         n = e.traceSource,
         r = e.unlinkType;
@@ -183,10 +204,11 @@ __d(
         waffleLifecycleUnlinkType: r,
       }).commit();
     }
-    function g(e) {
+    function h(e) {
       var t = e.errorAction,
         n = e.errorCode,
-        r = e.retryCount;
+        r = e.pkiVersion,
+        a = e.retryCount;
       new (o(
         "WAWebWaffleCompanionStateLifecycleWamEvent",
       ).WaffleCompanionStateLifecycleWamEvent)({
@@ -198,19 +220,21 @@ __d(
         ).WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.ERROR_RETRY,
         waffleLifecycleErrorCode: n,
         waffleLifecycleErrorAction: t,
-        waffleLifecycleRetryCount: r,
+        waffleLifecycleRetryCount: a,
+        waffleLifecyclePkiVersion: r,
       }).commit();
     }
     ((l.mapLinkStateToWam = e),
       (l.mapIQErrorNameToWamCode = s),
       (l.mapIQErrorActionToWam = u),
-      (l.logSyncdReceived = c),
-      (l.logNonceFetch = d),
-      (l.logRefreshToken = m),
-      (l.logPing = p),
-      (l.logPurge = _),
-      (l.logNotification = f),
-      (l.logErrorClassification = g));
+      (l.mapPkiVersionToWam = c),
+      (l.logSyncdReceived = d),
+      (l.logNonceFetch = m),
+      (l.logRefreshToken = p),
+      (l.logPing = _),
+      (l.logPurge = f),
+      (l.logNotification = g),
+      (l.logErrorClassification = h));
   },
   98,
 );

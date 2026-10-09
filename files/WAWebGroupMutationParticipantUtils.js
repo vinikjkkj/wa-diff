@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(e, t, n) {
-      return d(
+      return m(
         o("WAWebWidFactory").asUserWidOrThrow(e.id),
         e.phoneNumber,
         e.username == null
@@ -21,7 +21,11 @@ __d(
         n,
       );
     }
-    function d(t, n, r, a, i) {
+    function d(e, t, n) {
+      var r = o("WAWebWidFactory").asUserWidOrThrow(e.id);
+      return r.isFbidBot() ? { phoneNumber: r } : c(e, t, n);
+    }
+    function m(t, n, r, a, i) {
       var l = t.isLid() ? n : t;
       if (
         o("WAWebABProps").getABPropConfigValue(
@@ -83,7 +87,8 @@ __d(
       return { phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(l) };
     }
     ((l.getGroupMutationParticipant = c),
-      (l.getGroupMutationParticipantFromIdentity = d));
+      (l.getGroupAddParticipant = d),
+      (l.getGroupMutationParticipantFromIdentity = m));
   },
   98,
 );

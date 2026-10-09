@@ -75,6 +75,16 @@ __d(
             birthdayIso: i.dob,
             etag: l,
             email: i.email,
+            fieldUpdates: o(
+              "WAWebCustomerManagerCustomerProfileDecoders",
+            ).toFieldUpdates(
+              i.last_updates.map(function (e) {
+                var t = e.field_name,
+                  n = e.source,
+                  r = e.ts;
+                return { fieldName: t, source: n != null ? n : null, ts: r };
+              }),
+            ),
             lastOrder: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toOptionalUnixTime(i.last_order_date),

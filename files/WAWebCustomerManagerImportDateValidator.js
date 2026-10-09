@@ -2,7 +2,6 @@ __d(
   "WAWebCustomerManagerImportDateValidator",
   [
     "WATimeUtils",
-    "WAWebContactImportTemplateParsingUtils",
     "WAWebContactImportTypedError",
     "WAWebCustomerManagerImportDateParsingUtils",
     "WAWebCustomerManagerImportTemplateUtils",
@@ -28,19 +27,17 @@ __d(
       var t = o(
           "WAWebCustomerManagerImportDateParsingUtils",
         ).parseCustomerManagerImportDate(
-          o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(e, [
-            "Birthday",
-            o("WAWebCustomerManagerImportTemplateUtils").FBT_BIRTHDAY,
-          ]),
+          o(
+            "WAWebCustomerManagerImportTemplateUtils",
+          ).readCustomerManagerImportRawRowColumn(e, "birthday"),
           "birthday",
         ),
         n = o(
           "WAWebCustomerManagerImportDateParsingUtils",
         ).parseCustomerManagerImportDate(
-          o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(e, [
-            "Last order",
-            o("WAWebCustomerManagerImportTemplateUtils").FBT_LAST_ORDER,
-          ]),
+          o(
+            "WAWebCustomerManagerImportTemplateUtils",
+          ).readCustomerManagerImportRawRowColumn(e, "lastOrder"),
           "lastOrder",
         );
       return t.type === "invalid" || u(n);

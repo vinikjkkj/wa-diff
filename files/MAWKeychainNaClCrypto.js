@@ -1,6 +1,6 @@
 __d(
   "MAWKeychainNaClCrypto",
-  ["MAWKeychainCrypto", "WABase64", "tweetnacl"],
+  ["MAWKeychainCrypto", "WABase64", "tweetnacl", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -16,15 +16,16 @@ __d(
       return (babelHelpers.inheritsLoose(t, e), t);
     })(babelHelpers.wrapNativeSuper(Error));
     function s(e, t, n) {
-      var r = new Uint8Array(n),
-        a = o("tweetnacl").randomBytes(o("tweetnacl").secretbox.nonceLength),
-        i = o("tweetnacl").secretbox(t, a, new Uint8Array(e)),
-        l = new Uint8Array(r.length + a.length + i.length);
+      r("vulture")("X1wZ98aPO9YEQT8P0wcOXAd3gcU=");
+      var a = new Uint8Array(n),
+        i = o("tweetnacl").randomBytes(o("tweetnacl").secretbox.nonceLength),
+        l = o("tweetnacl").secretbox(t, i, new Uint8Array(e)),
+        s = new Uint8Array(a.length + i.length + l.length);
       return (
-        l.set(r),
-        l.set(a, r.length),
-        l.set(i, r.length + a.length),
-        l.buffer
+        s.set(a),
+        s.set(i, a.length),
+        s.set(l, a.length + i.length),
+        s.buffer
       );
     }
     function u(e, t, n) {

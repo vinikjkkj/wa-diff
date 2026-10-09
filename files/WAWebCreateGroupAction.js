@@ -231,14 +231,11 @@ __d(
       );
     }
     function E(e) {
-      var t = o("WAWebWidFactory").asUserWidOrThrow(e.id);
-      return t.isFbidBot()
-        ? { phoneNumber: t }
-        : o("WAWebGroupMutationParticipantUtils").getGroupMutationParticipant(
-            e,
-            !0,
-            "createGroup",
-          );
+      return o("WAWebGroupMutationParticipantUtils").getGroupAddParticipant(
+        e,
+        !0,
+        "createGroup",
+      );
     }
     function k(t) {
       var a = t.createGroupArgs,

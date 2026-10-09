@@ -201,6 +201,10 @@ __d(
         "about-whatsapp-business": o("WAWebWamEnumTsSurface").TS_SURFACE
           .ABOUT_WHATSAPP_BUSINESS,
         "send-contacts": o("WAWebWamEnumTsSurface").TS_SURFACE.SEND_CONTACTS,
+        "connectors-hatch": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .CONNECTORS_HATCH,
+        "connector-detail-hatch": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .CONNECTOR_DETAIL_HATCH,
       },
       f,
       g = [];

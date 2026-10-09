@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebContactCollection",
-    "WAWebContactImportTemplateParsingUtils",
     "WAWebCustomerDataFieldSaver",
     "WAWebCustomerManagerCreateCustomerRecord",
     "WAWebCustomerManagerImportDateParsingUtils",
@@ -39,13 +38,9 @@ __d(
       return {
         acquisitionSource: L(e),
         address:
-          (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-            e.rawRow,
-            [
-              "Address",
-              o("WAWebCustomerManagerImportTemplateUtils").FBT_ADDRESS,
-            ],
-          )) != null
+          (t = o(
+            "WAWebCustomerManagerImportTemplateUtils",
+          ).readCustomerManagerImportColumn(e, "address")) != null
             ? t
             : "",
         birthday: S(e, "birthday"),
@@ -55,10 +50,9 @@ __d(
         lastName: e.lastName,
         leadStage: R(e),
         lastOrder: S(e, "lastOrder"),
-        note: o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-          e.rawRow,
-          ["Notes", o("WAWebCustomerManagerImportTemplateUtils").FBT_NOTES],
-        ),
+        note: o(
+          "WAWebCustomerManagerImportTemplateUtils",
+        ).readCustomerManagerImportColumn(e, "note"),
         phoneNumber: C(e),
         profileWid: n,
         username: b(e),
@@ -81,18 +75,16 @@ __d(
       return e.phone.replace(/\D/g, "");
     }
     function b(e) {
-      return o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-        e.rawRow,
-        ["Username", o("WAWebCustomerManagerImportTemplateUtils").FBT_USERNAME],
-      );
+      return o(
+        "WAWebCustomerManagerImportTemplateUtils",
+      ).readCustomerManagerImportColumn(e, "username");
     }
     function v(e) {
       var t,
         n =
-          (t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-            e.rawRow,
-            ["Email", o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL],
-          )) != null
+          (t = o(
+            "WAWebCustomerManagerImportTemplateUtils",
+          ).readCustomerManagerImportColumn(e, "email")) != null
             ? t
             : "";
       return o("WAWebCustomerManagerImportEmailWarnings").isValidImportEmail(n)
@@ -100,48 +92,27 @@ __d(
         : "";
     }
     function S(e, t) {
-      var n =
-          t === "birthday"
-            ? [
-                "Birthday",
-                o("WAWebCustomerManagerImportTemplateUtils").FBT_BIRTHDAY,
-              ]
-            : [
-                "Last order",
-                o("WAWebCustomerManagerImportTemplateUtils").FBT_LAST_ORDER,
-              ],
-        r = o(
-          "WAWebCustomerManagerImportDateParsingUtils",
-        ).parseCustomerManagerImportDate(
-          o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-            e.rawRow,
-            n,
-          ),
-          t,
-        );
-      return r.type === "valid" ? r.value : void 0;
+      return o(
+        "WAWebCustomerManagerImportDateParsingUtils",
+      ).readValidCustomerManagerImportDate(
+        o(
+          "WAWebCustomerManagerImportTemplateUtils",
+        ).readCustomerManagerImportColumn(e, t),
+        t,
+      );
     }
     function R(e) {
-      var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-        e.rawRow,
-        [
-          "Lead stage",
-          o("WAWebCustomerManagerImportTemplateUtils").FBT_LEAD_STAGE,
-        ],
-      );
+      var t = o(
+        "WAWebCustomerManagerImportTemplateUtils",
+      ).readCustomerManagerImportColumn(e, "leadStage");
       return t != null
         ? o("WAWebLeadStageNames").getLeadStageFromName(t)
         : null;
     }
     function L(e) {
-      var t = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-        e.rawRow,
-        [
-          "Source",
-          o("WAWebCustomerManagerImportTemplateUtils").FBT_ACQUISITION_SOURCE,
-          "Acquisition source",
-        ],
-      );
+      var t = o(
+        "WAWebCustomerManagerImportTemplateUtils",
+      ).readCustomerManagerImportColumn(e, "acquisitionSource");
       return t != null
         ? o(
             "WAWebCustomerProfileAcquisitionSourceNames",

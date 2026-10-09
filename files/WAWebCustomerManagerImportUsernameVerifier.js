@@ -2,7 +2,6 @@ __d(
   "WAWebCustomerManagerImportUsernameVerifier",
   [
     "WALogger",
-    "WAWebContactImportTemplateParsingUtils",
     "WAWebContactImportTypedError",
     "WAWebCustomerManagerImportTemplateUtils",
     "WAWebCustomerManagerUsernamesQuery",
@@ -105,13 +104,9 @@ __d(
           });
     }
     function m(t) {
-      var n = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-          t.rawRow,
-          [
-            "Username",
-            o("WAWebCustomerManagerImportTemplateUtils").FBT_USERNAME,
-          ],
-        ),
+      var n = o(
+          "WAWebCustomerManagerImportTemplateUtils",
+        ).readCustomerManagerImportColumn(t, "username"),
         a = t.lid;
       if (n == null || a == null) return null;
       try {

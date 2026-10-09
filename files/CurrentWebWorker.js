@@ -50,51 +50,52 @@ __d(
           };
         })),
       t.addEventListener("message", d));
-    var p = (a.exports = {
-      postMessage: function (t, n) {
-        var e = { type: "message", message: t };
-        return (n ? self.postMessage(e, n) : self.postMessage(e), p);
-      },
-      setChannelHandler: function (t) {
-        var e = t || n("emptyFunction"),
-          r = u === null;
-        return (
-          (u = e),
-          r &&
-            (c.forEach(function (e) {
-              return e();
-            }),
-            (c = [])),
-          p
-        );
-      },
-      setMessageHandler: function (r) {
-        var t = r || n("emptyFunction"),
-          o = e === null;
-        return (
-          (e = t),
-          o &&
-            (s.forEach(function (e) {
-              return e();
-            }),
-            (s = [])),
-          p
-        );
-      },
-      terminate: function () {
-        (m("terminate"), self.close());
-      },
-    });
-    p.areTransferablesSupported = n("memoize")(function () {
-      var e,
-        t = new ArrayBuffer(0);
-      try {
-        (self.postMessage({ type: "ignore", buffer: t }, [t]), (e = !0));
-      } catch (t) {
-        e = !1;
-      }
-      return e;
-    });
+    var p = n("memoize")(function () {
+        var e,
+          t = new ArrayBuffer(0);
+        try {
+          (self.postMessage({ type: "ignore", buffer: t }, [t]), (e = !0));
+        } catch (t) {
+          e = !1;
+        }
+        return e;
+      }),
+      _ = (a.exports = {
+        postMessage: function (t, n) {
+          var e = { type: "message", message: t };
+          return (n ? self.postMessage(e, n) : self.postMessage(e), _);
+        },
+        setChannelHandler: function (t) {
+          var e = t || n("emptyFunction"),
+            r = u === null;
+          return (
+            (u = e),
+            r &&
+              (c.forEach(function (e) {
+                return e();
+              }),
+              (c = [])),
+            _
+          );
+        },
+        setMessageHandler: function (r) {
+          var t = r || n("emptyFunction"),
+            o = e === null;
+          return (
+            (e = t),
+            o &&
+              (s.forEach(function (e) {
+                return e();
+              }),
+              (s = [])),
+            _
+          );
+        },
+        terminate: function () {
+          (m("terminate"), self.close());
+        },
+        areTransferablesSupported: p,
+      });
   },
   null,
 );

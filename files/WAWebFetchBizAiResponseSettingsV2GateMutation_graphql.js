@@ -13,7 +13,7 @@ __d(
             {
               kind: "Literal",
               name: "param",
-              value: "wa_biz_ai_audience_control_v2_enabled",
+              value: "wa_biz_ai_audience_control_v2_web_enabled",
             },
             {
               kind: "Literal",
@@ -42,7 +42,7 @@ __d(
             },
           ],
           storageKey:
-            'xfb_meta_ai_biz_agent_wa_fetch_qe_bool(default:false,log_exposures:true,param:"wa_biz_ai_audience_control_v2_enabled",universe:"wa_biz_ai_agents_general10")',
+            'xfb_meta_ai_biz_agent_wa_fetch_qe_bool(default:false,log_exposures:true,param:"wa_biz_ai_audience_control_v2_web_enabled",universe:"wa_biz_ai_agents_general10")',
         },
       ];
       return {

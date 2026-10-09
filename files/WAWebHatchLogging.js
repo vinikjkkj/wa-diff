@@ -7,6 +7,8 @@ __d(
     "WAWebHatchUserJourneyWamEvent",
     "WAWebThreadJourneyLogger",
     "WAWebUnifiedSession",
+    "WAWebWamEnumConnectorPermissionFlow",
+    "WAWebWamEnumConnectorType",
     "WAWebWamEnumFeatureEntryPoint",
     "WAWebWamEnumHatchActionType",
   ],
@@ -14,23 +16,23 @@ __d(
     "use strict";
     var e;
     function s(e) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function u(e) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function c(e) {
-      E(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      $(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function d(e, t, n) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: m(t) }),
@@ -44,55 +46,55 @@ __d(
         .join(", ");
     }
     function p(e) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function _(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function f(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function g(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_CART_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function h(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_ORDER_SUMMARY_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function y(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function C(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: m([e]) }),
       );
     }
     function b(e, t, n) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -129,10 +131,10 @@ __d(
           .SETTINGS,
       };
     function R(e, t) {
-      E(v[e], { featureEntryPoint: S[t] });
+      $(v[e], { featureEntryPoint: S[t] });
     }
     function L(e, t) {
-      E(
+      $(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .SECURE_CREDENTIAL_SAVE_ERROR,
         {
@@ -144,12 +146,93 @@ __d(
         },
       );
     }
-    function E(e, t) {
+    var E = {
+        connect_message_impression:
+          e.HATCH_ACTION_TYPE.CONNECTOR_CONNECT_MESSAGE_IMPRESSION,
+        connect_message_tapped:
+          e.HATCH_ACTION_TYPE.CONNECTOR_CONNECT_MESSAGE_TAPPED,
+        bottom_sheet_impression:
+          e.HATCH_ACTION_TYPE.CONNECTOR_BOTTOM_SHEET_IMPRESSION,
+        bottom_sheet_connect_tap:
+          e.HATCH_ACTION_TYPE.CONNECTOR_BOTTOM_SHEET_CONNECT_TAP,
+        cancel_tap: e.HATCH_ACTION_TYPE.CONNECTOR_CANCEL_TAP,
+        auth_web_start: e.HATCH_ACTION_TYPE.CONNECTOR_AUTH_WEB_START,
+        auth_success: e.HATCH_ACTION_TYPE.CONNECTOR_AUTH_SUCCESS,
+        auth_error: e.HATCH_ACTION_TYPE.CONNECTOR_AUTH_ERROR,
+        connectors_tap: e.HATCH_ACTION_TYPE.CONNECTORS_TAP,
+        connect_tap: e.HATCH_ACTION_TYPE.CONNECT_TAP,
+        add_account_tap: e.HATCH_ACTION_TYPE.CONNECTOR_ADD_ACCOUNT_TAP,
+        add_account_web_start:
+          e.HATCH_ACTION_TYPE.CONNECTOR_ADD_ACCOUNT_WEB_START,
+        add_account_success: e.HATCH_ACTION_TYPE.CONNECTOR_ADD_ACCOUNT_SUCCESS,
+        add_account_error: e.HATCH_ACTION_TYPE.CONNECTOR_ADD_ACCOUNT_ERROR,
+        search_tap: e.HATCH_ACTION_TYPE.CONNECTOR_SEARCH_TAP,
+        search_success: e.HATCH_ACTION_TYPE.CONNECTOR_SEARCH_SUCCESS,
+        permission_tap: e.HATCH_ACTION_TYPE.CONNECTOR_PERMISSION_TAP,
+        permission_web_start:
+          e.HATCH_ACTION_TYPE.CONNECTOR_PERMISSION_WEB_START,
+        permission_success: e.HATCH_ACTION_TYPE.CONNECTOR_PERMISSION_SUCCESS,
+        permission_error: e.HATCH_ACTION_TYPE.CONNECTOR_PERMISSION_ERROR,
+        permission_decision_tap:
+          e.HATCH_ACTION_TYPE.CONNECTOR_PERMISSION_DECISION_TAP,
+        permission_impression:
+          e.HATCH_ACTION_TYPE.CONNECTOR_PERMISSION_IMPRESSION,
+        legal_link_tap: e.HATCH_ACTION_TYPE.CONNECTOR_LEGAL_LINK_TAP,
+        disconnect_tap: e.HATCH_ACTION_TYPE.CONNECTOR_DISCONNECT_TAP,
+        disconnect_success: e.HATCH_ACTION_TYPE.CONNECTOR_DISCONNECT_SUCCESS,
+        disconnect_error: e.HATCH_ACTION_TYPE.CONNECTOR_DISCONNECT_ERROR,
+        disconnect_bottom_sheet_impression:
+          e.HATCH_ACTION_TYPE.CONNECTOR_DISCONNECT_BOTTOM_SHEET_IMPRESSION,
+        disconnect_confirm_tap:
+          e.HATCH_ACTION_TYPE.CONNECTOR_DISCONNECT_CONFIRM_TAP,
+        disconnect_cancel_tap:
+          e.HATCH_ACTION_TYPE.CONNECTOR_DISCONNECT_CANCEL_TAP,
+      },
+      k = {
+        web: o("WAWebWamEnumConnectorType").CONNECTOR_TYPE.WEB,
+        device: o("WAWebWamEnumConnectorType").CONNECTOR_TYPE.DEVICE,
+        custom: o("WAWebWamEnumConnectorType").CONNECTOR_TYPE.CUSTOM,
+      },
+      I = {
+        new_auth_needed: o("WAWebWamEnumConnectorPermissionFlow")
+          .CONNECTOR_PERMISSION_FLOW.NEW_AUTH_NEEDED,
+        device: o("WAWebWamEnumConnectorPermissionFlow")
+          .CONNECTOR_PERMISSION_FLOW.DEVICE,
+      };
+    function T(e, t) {
+      if (o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()) {
+        var n = t == null ? void 0 : t.connectorType,
+          r = t == null ? void 0 : t.permissionFlow;
+        $(E[e], {
+          connectorId: t == null ? void 0 : t.connectorId,
+          connectorPermissionDecisionType:
+            t == null ? void 0 : t.permissionDecisionType,
+          connectorPermissionFlow: r != null ? I[r] : void 0,
+          connectorPermissionType: t == null ? void 0 : t.permissionType,
+          connectorType: n != null ? k[n] : void 0,
+        });
+      }
+    }
+    var D = new Set();
+    function x(e, t) {
+      !o("WAWebHatchFrontendGating").isHatchConnectorsEnabled() ||
+        D.has(e) ||
+        (D.add(e), T("connect_message_impression", t));
+    }
+    function $(e, t) {
       var n, r, a, i, l;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var s = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({
+          connectorId: t == null ? void 0 : t.connectorId,
+          connectorPermissionDecisionType:
+            t == null ? void 0 : t.connectorPermissionDecisionType,
+          connectorPermissionFlow:
+            t == null ? void 0 : t.connectorPermissionFlow,
+          connectorPermissionType:
+            t == null ? void 0 : t.connectorPermissionType,
+          connectorType: t == null ? void 0 : t.connectorType,
           featureEntryPoint: t == null ? void 0 : t.featureEntryPoint,
           hatchActionType: e,
           hatchUserJourneyMetadata:
@@ -180,12 +263,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : k(t == null ? void 0 : t.botEntryPoint),
+              : P(t == null ? void 0 : t.botEntryPoint),
         });
         s.commit();
       }
     }
-    function k(e) {
+    function P(e) {
       var t,
         n =
           e != null
@@ -216,7 +299,9 @@ __d(
       (l.logHatchHitlWalletCardSelected = C),
       (l.logHatchHitlDecisionTap = b),
       (l.logHatchSecureCredential = R),
-      (l.logHatchSecureCredentialSaveError = L));
+      (l.logHatchSecureCredentialSaveError = L),
+      (l.logHatchConnector = T),
+      (l.logHatchConnectorCardImpression = x));
   },
   98,
 );

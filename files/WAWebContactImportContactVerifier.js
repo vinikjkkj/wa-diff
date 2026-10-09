@@ -27,7 +27,13 @@ __d(
               .withContext("interactive");
           (n.withBusinessProtocol === !0 && u.withBusinessProtocol(),
             n.withPictureProtocol === !0 && u.withPictureProtocol(),
-            u.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID));
+            n.includeVerifiedPhoneJid === !0
+              ? u
+                  .withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.PN)
+                  .withLidProtocol()
+              : u.withContactProtocol(
+                  o("WAWebUsync").USYNC_ADDRESSING_MODE.LID,
+                ));
           var c = self.performance.now();
           t.forEach(function (e) {
             u.withUser(new (o("WAWebUsyncUser").USyncUser)().withPhone(e));
@@ -112,29 +118,43 @@ __d(
                 withPictureProtocol: !0,
               }),
             ),
-            r = {},
-            a = 0;
+            a = {},
+            i = 0;
           return (
             n.list &&
               n.list.length > 0 &&
               n.list.forEach(function (e) {
-                var t, n;
+                var n, l;
                 if (!e.id) {
-                  a++;
+                  i++;
                   return;
                 }
-                var i = (t = e.contact) == null ? void 0 : t.content;
-                if (i != null) {
-                  var l = ((n = e.contact) == null ? void 0 : n.type) === "in";
-                  if (l) {
-                    var s = e.id.isLid()
-                      ? o("WAJids").toLidUserJid(e.id.user)
-                      : e.lid;
-                    r[i] = { isWhatsAppUser: !0, lid: s };
-                  } else r[i] = { isWhatsAppUser: !1 };
+                var s = (n = e.contact) == null ? void 0 : n.content;
+                if (s != null) {
+                  var u = ((l = e.contact) == null ? void 0 : l.type) === "in";
+                  if (u) {
+                    var c = e.id.isLid()
+                        ? o("WAJids").toLidUserJid(e.id.user)
+                        : e.lid,
+                      d =
+                        typeof c == "string" && r("WAWebWid").isStringLid(c)
+                          ? c
+                          : void 0,
+                      m = e.id.isLid() ? e.pn : e.id,
+                      p =
+                        t.includeVerifiedPhoneJid === !0 &&
+                        m != null &&
+                        !m.isLid()
+                          ? m.toJid()
+                          : null;
+                    a[s] = babelHelpers.extends(
+                      { isWhatsAppUser: !0, lid: d },
+                      p != null ? { verifiedPhoneJid: p } : {},
+                    );
+                  } else a[s] = { isWhatsAppUser: !1 };
                 }
               }),
-            a > 0 &&
+            i > 0 &&
               o("WALogger")
                 .WARN(
                   u ||
@@ -142,10 +162,10 @@ __d(
                       "[contact-verifier] verifyWhatsAppUsers: ",
                       " no id",
                     ])),
-                  a,
+                  i,
                 )
                 .sendLogs("business-broadcast-contact-verify-no-id"),
-            r
+            a
           );
         })),
         _.apply(this, arguments)

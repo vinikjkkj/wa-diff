@@ -389,7 +389,14 @@ __d(
                 r = a[n],
                 s = (r == null ? void 0 : r.isWhatsAppUser) === !0;
               if (s && (r == null ? void 0 : r.lid) != null) {
-                var u = babelHelpers.extends({}, t, { lid: r.lid });
+                var u = babelHelpers.extends(
+                  {},
+                  t,
+                  { lid: r.lid },
+                  r.verifiedPhoneJid != null
+                    ? { verifiedPhoneJid: r.verifiedPhoneJid }
+                    : {},
+                );
                 i.push(u);
               } else
                 l.push({

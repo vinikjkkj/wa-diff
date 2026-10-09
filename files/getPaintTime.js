@@ -6,6 +6,7 @@ __d(
     "performanceNow",
     "requestAnimationFrame",
     "setTimeout",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,7 +27,9 @@ __d(
         ((a = r("setTimeout")(function () {
           a = r("setTimeout")(function () {
             a = r("setTimeout")(function () {
-              (s(), t(null, (e || (e = r("performanceNow")))()));
+              (r("vulture")("AJkG1JRWT7CYcc3Uf2uiptoI53Q="),
+                s(),
+                t(null, (e || (e = r("performanceNow")))()));
             }, 100);
           }, 0);
         }, 16)),

@@ -4,14 +4,23 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      return s(o("WAWebHatchJsonReaders").readField(e, t));
+      return u(o("WAWebHatchJsonReaders").readField(e, t));
     }
-    function s(e) {
-      var t = u(o("WAWebHatchJsonReaders").readString(e, "media_type")),
-        n = c(e, "direct_path"),
-        r = c(e, "media_key_b64"),
-        a = c(e, "file_enc_sha256_b64"),
-        i = c(e, "file_sha256_b64");
+    function s(e, t) {
+      t === void 0 && (t = u);
+      var n = new Map();
+      if (e == null || typeof e != "object") return n;
+      for (var r of Object.keys(e))
+        o("WAWebHatchJsonReaders").isBlankText(r) ||
+          n.set(r, t(o("WAWebHatchJsonReaders").readField(e, r)));
+      return n;
+    }
+    function u(e) {
+      var t = c(o("WAWebHatchJsonReaders").readString(e, "media_type")),
+        n = d(e, "direct_path"),
+        r = d(e, "media_key_b64"),
+        a = d(e, "file_enc_sha256_b64"),
+        i = d(e, "file_sha256_b64");
       return t == null || n == null || r == null || a == null || i == null
         ? null
         : {
@@ -29,14 +38,16 @@ __d(
             ),
           };
     }
-    function u(e) {
+    function c(e) {
       return e === "image" || e === "video" ? e : null;
     }
-    function c(e, t) {
+    function d(e, t) {
       var n = o("WAWebHatchJsonReaders").readString(e, t);
       return n != null && n !== "" ? n : null;
     }
-    ((l.readSecureMediaField = e), (l.decodeHatchSecureMedia = s));
+    ((l.readSecureMediaField = e),
+      (l.decodeSecureMediaMap = s),
+      (l.decodeHatchSecureMedia = u));
   },
   98,
 );

@@ -100,9 +100,10 @@ __d(
                 : 0,
             }),
         (e || (e = r("ExecutionEnvironment"))).isInBrowser &&
-          (window.addEventListener("DOMContentLoaded", function () {
-            return I();
-          }),
+          ((e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+            window.addEventListener("DOMContentLoaded", function () {
+              return I();
+            }),
           E(I),
           E(function () {
             return T("lsModuleStateAfter");
@@ -182,11 +183,13 @@ __d(
       start: g,
     };
     function I() {
-      var e = document.getElementById("has-finished-comet-page") != null;
-      (y({ bool: { hasFinishedCometPage: e } }),
-        o("MWLogInteraction").addPointToInteractionTracing(
-          "has-finished-comet-page",
-        ));
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t = document.getElementById("has-finished-comet-page") != null;
+        (y({ bool: { hasFinishedCometPage: t } }),
+          o("MWLogInteraction").addPointToInteractionTracing(
+            "has-finished-comet-page",
+          ));
+      }
     }
     function T(e) {
       r("ifRequired")(

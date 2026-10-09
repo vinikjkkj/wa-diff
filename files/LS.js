@@ -29,6 +29,7 @@ __d(
     "isPromise",
     "qpl",
     "setTimeout",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -199,6 +200,7 @@ __d(
             s++
           )
             l[s - 1] = arguments[s];
+          r("vulture")("PbJ5di8ImxNZraVK-98rYbdGwK0=");
           var u;
           if (typeof n == "string") {
             if (((u = a[n + ".bs"] || a[n + ".nop"]), u == null))

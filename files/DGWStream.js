@@ -22,6 +22,7 @@ __d(
       "ESTABLISHMENT_ERROR",
       "ACK_TIMEOUT",
       "ACK_TRANSPORT_CLOSED",
+      "DEAUTH",
     ]);
     function l(t) {
       switch (t) {

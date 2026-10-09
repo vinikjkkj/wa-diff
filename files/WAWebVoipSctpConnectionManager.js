@@ -665,41 +665,30 @@ __d(
                 var l = i.isEarlyPacketRelayReconnect,
                   s = i.isWebTransportWarmStandby,
                   u = i.relayConnectionInfo;
-                if (
-                  !(
-                    t > 0 &&
-                    o("WAWebABProps").getABPropConfigValue(
-                      "web_voip_relay_setup_yield_ipv4_first",
-                    ) === !0 &&
-                    (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                    ue || pe !== r)
-                  )
-                ) {
-                  o("WALogger").LOG(
-                    U ||
-                      (U = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [SctpConnectionManager] Starting staggered connection ",
-                        "/",
-                        ": ",
-                        "",
-                      ])),
-                    t + 1,
-                    e.length,
-                    u.id,
-                  );
-                  var c = Ne(u.id);
-                  if ((Ee(u, a, l, s), t < e.length - 1)) {
-                    var d = new (ae || (ae = n("Promise")))(function (e) {
-                      window.setTimeout(
-                        e,
-                        o("WAWebVoipSctpConnectionManagerConstants")
-                          .PER_CONNECTION_STAGGER_DELAY_MS,
-                      );
-                    });
-                    yield ae.race([c, d]);
-                  }
-                  yield Be(e, t + 1, r, a);
+                o("WALogger").LOG(
+                  U ||
+                    (U = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [SctpConnectionManager] Starting staggered connection ",
+                      "/",
+                      ": ",
+                      "",
+                    ])),
+                  t + 1,
+                  e.length,
+                  u.id,
+                );
+                var c = Ne(u.id);
+                if ((Ee(u, a, l, s), t < e.length - 1)) {
+                  var d = new (ae || (ae = n("Promise")))(function (e) {
+                    window.setTimeout(
+                      e,
+                      o("WAWebVoipSctpConnectionManagerConstants")
+                        .PER_CONNECTION_STAGGER_DELAY_MS,
+                    );
+                  });
+                  yield ae.race([c, d]);
                 }
+                yield Be(e, t + 1, r, a);
               }
             }
           },

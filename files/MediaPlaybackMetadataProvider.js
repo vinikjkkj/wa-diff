@@ -31,8 +31,8 @@ __d(
           return "unknown";
       }
     }
-    function d(t, n, o, a, i) {
-      var l =
+    function d(t, n, o, a, i, l) {
+      var s =
         t.controlledState.error === o
           ? babelHelpers.extends({}, t, {
               controlledState: babelHelpers.extends({}, t.controlledState, {
@@ -41,15 +41,15 @@ __d(
             })
           : t;
       t.uncontrolledState.videoElementError != null &&
-        (l = babelHelpers.extends({}, l, {
-          uncontrolledState: babelHelpers.extends({}, l.uncontrolledState, {
+        (s = babelHelpers.extends({}, s, {
+          uncontrolledState: babelHelpers.extends({}, s.uncontrolledState, {
             videoElementError: {
               code: t.uncontrolledState.videoElementError.code,
               message: t.uncontrolledState.videoElementError.message,
             },
           }),
         }));
-      var s = n;
+      var u = n;
       {
         var d =
           typeof n.payload == "object" && n.payload != null ? n.payload : null;
@@ -59,7 +59,7 @@ __d(
             var t = d[e];
             t === o ? (m[e] = { $ref: "$.player.lastError" }) : (m[e] = t);
           }),
-            (s = babelHelpers.extends({}, n, { payload: m })));
+            (u = babelHelpers.extends({}, n, { payload: m })));
         }
       }
       var p = {
@@ -90,7 +90,7 @@ __d(
           videoID: i.videoFBID,
         },
         player: {
-          canPlayType: (e || (e = r("mapObject")))(p, u),
+          canPlayType: (e || (e = r("mapObject")))(p, l),
           dimensions: a.dimensions
             ? { height: a.dimensions.height, width: a.dimensions.width }
             : null,
@@ -111,35 +111,36 @@ __d(
           videoSource: void 0,
           viewabilityPercentage: t.uncontrolledState.viewabilityPercentage,
         },
-        playerStateMachine: { action: s, state: l },
+        playerStateMachine: { action: u, state: s },
       };
     }
-    function m(e) {
-      var t = e.action,
-        n = e.coreVideoPlayerMetaData,
-        r = e.loggingMetaData,
-        a = e.state,
-        i = e.videoPlayerError,
-        l = i.errorMessageFormat,
-        s = i.errorName,
-        u = i.errorType,
-        c = i.errorCode == null || i.errorCode === "" ? s : i.errorCode,
-        m = d(a, t, i, r, n),
-        p = {
-          code: c,
-          description: l,
-          domain: s,
-          error: s,
+    function m(e, t) {
+      var n = e.action,
+        r = e.coreVideoPlayerMetaData,
+        a = e.loggingMetaData,
+        i = e.state,
+        l = e.videoPlayerError;
+      t === void 0 && (t = u);
+      var s = l.errorMessageFormat,
+        c = l.errorName,
+        m = l.errorType,
+        p = l.errorCode == null || l.errorCode === "" ? c : l.errorCode,
+        _ = d(i, n, l, a, r, t),
+        f = {
+          code: p,
+          description: s,
+          domain: c,
+          error: c,
           type: String(
-            u != null
-              ? u
+            m != null
+              ? m
               : o(
                   "VideoPlayerImplementationErrorNormalization",
-                ).getErrorTypeFromErrorName(s, l),
+                ).getErrorTypeFromErrorName(c, s),
           ),
-          user_info: JSON.stringify(m),
+          user_info: JSON.stringify(_),
         };
-      return p;
+      return f;
     }
     function p(e, t, n, r) {
       var o,

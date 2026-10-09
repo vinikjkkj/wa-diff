@@ -20,6 +20,11 @@ __d(
           position: "x1n2onr6",
           $$css: !0,
         },
+        hybridPlusTitleBarClearance: {
+          boxSizing: "x9f619",
+          paddingTop: "x1sk1jro",
+          $$css: !0,
+        },
         mainUIContainer: {
           overflowX: "x6ikm8r",
           overflowY: "x10wlt62",

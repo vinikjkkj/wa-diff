@@ -1,6 +1,6 @@
 __d(
   "StreamGroupRegistry",
-  ["Random", "err"],
+  ["DGWBestEffortCallbacks", "DGWLoggingContext", "Random", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -22,6 +22,22 @@ __d(
           var e = this.$1.get(t);
           if (e == null) throw r("err")("No stream group transport");
           return e;
+        }),
+        (t.deauthAllStreamGroups = function () {
+          var e = Array.from(this.$1.values());
+          o("DGWBestEffortCallbacks").runCallbacksBestEffort(
+            e.map(function (e) {
+              return function () {
+                return e.deauth();
+              };
+            }),
+            function (e) {
+              o("DGWLoggingContext").DGWLoggingContext.bumpODSKey(
+                o("DGWLoggingContext").DGWLoggingComponent.RAW_CLIENT,
+                "deauth_broadcast_transport_error",
+              );
+            },
+          );
         }),
         (t.getNewStreamGroupId = function () {
           for (var e = o("Random").uint32(); this.$2.has(e); )

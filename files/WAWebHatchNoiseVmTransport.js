@@ -121,69 +121,76 @@ __d(
           });
         }),
         (a.openStream = function (t, n) {
-          var e = this;
+          var e,
+            r = this;
           if (this.$7) return null;
-          var r = this.$11();
-          if (r == null)
+          var a = this.$11();
+          if (a == null)
             return (this.$9("Noise stream ID space exhausted"), null);
-          var a = h(t.service),
-            i = {
+          var i = h(t.service),
+            l = {
               handlers: n,
+              isBodyEnded: t.body != null,
               isWritten: !1,
               queuedBytes: 0,
-              service: a,
+              service: i,
               statusCode: null,
             };
           return (
-            this.$5.set(r, i),
+            this.$5.set(a, l),
             this.$15(
-              a,
+              i,
               {
                 kind: "request",
-                streamId: r,
+                streamId: a,
                 value: {
-                  body: new Uint8Array(0),
-                  endBody: !1,
-                  headers: [b(this.$6)],
+                  body: (e = t.body) != null ? e : new Uint8Array(0),
+                  endBody: l.isBodyEnded,
+                  headers: b(this.$6, t),
                   path: o("WAWebHatchVmTransport").serializeJarvisPath(t.path),
                   verb: t.method,
                 },
               },
               function () {
-                return ((i.isWritten = e.$5.get(r) === i), i.isWritten);
+                return ((l.isWritten = r.$5.get(a) === l), l.isWritten);
               },
             ).catch(function () {
-              return e.$16(r, "Noise request send failed");
+              return r.$16(a, "Noise request send failed");
             }),
             {
               close: function () {
-                e.$5.get(r) === i &&
-                  (e.$5.delete(r),
-                  e
+                r.$5.get(a) === l &&
+                  (r.$5.delete(a),
+                  r
                     .$15(
-                      a,
+                      i,
                       {
                         kind: "reset",
-                        streamId: r,
+                        streamId: a,
                         value: { code: _, reason: "cancelled" },
                       },
                       function () {
-                        return i.isWritten;
+                        return l.isWritten;
                       },
                     )
                     .catch(function () {
-                      return e.$9("Noise reset send failed");
+                      return r.$9("Noise reset send failed");
                     }));
               },
-              write: function (n) {
-                return e.$17(r, i, n);
+              write: function (t) {
+                return r.$17(a, l, t);
               },
             }
           );
         }),
         (a.$17 = function (t, n, r) {
           var e = this;
-          if (this.$5.get(t) !== n || r.length > p - n.queuedBytes) return !1;
+          if (
+            this.$5.get(t) !== n ||
+            n.isBodyEnded ||
+            r.length > p - n.queuedBytes
+          )
+            return !1;
           var o = r.slice();
           return (
             (n.queuedBytes += o.length),
@@ -444,7 +451,8 @@ __d(
             }),
             o &&
               this.$5.get(t) === n &&
-              (this.$16(t, null), this.$12(t, n.service, _, "cancelled")));
+              (this.$16(t, null),
+              n.isBodyEnded || this.$12(t, n.service, _, "cancelled")));
         }),
         (a.$27 = function (n, a, i) {
           try {
@@ -545,14 +553,23 @@ __d(
       );
     })();
     function C(e, t) {
-      var n = [b(e)];
+      var n = [v(e)];
       return (
         t !== "GET" &&
           n.push({ key: "Content-Type", value: "application/json" }),
         n
       );
     }
-    function b(e) {
+    function b(e, t) {
+      var n = [v(e)];
+      return (
+        t.body != null &&
+          n.push({ key: "Content-Type", value: "application/json" }),
+        t.accept != null && n.push({ key: "Accept", value: t.accept }),
+        n
+      );
+    }
+    function v(e) {
       return { key: "Authorization", value: "Bearer " + e };
     }
     l.default = y;

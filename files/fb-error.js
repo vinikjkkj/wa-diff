@@ -294,7 +294,7 @@ __d(
       var t = e.getAllResponseHeaders();
       if (t != null && t.indexOf("X-FB-Debug") >= 0) {
         var n = e.getResponseHeader("X-FB-Debug");
-        n && V(n);
+        n != null && n !== "" && V(n);
       }
     }
     function G() {
@@ -826,22 +826,23 @@ __d(
               c.split("\n").slice(1).join("\n")));
         } catch (e) {}
         try {
-          var d = e.promise;
+          var d = e.promise,
+            m = d;
           o.stack =
             o.stack +
-            (d != null && typeof d.settledStack == "string"
-              ? "\n    at <promise_settled_stack_below>\n" + d.settledStack
+            (d != null && typeof m.settledStack == "string"
+              ? "\n    at <promise_settled_stack_below>\n" + m.settledStack
               : "") +
-            (d != null && typeof d.createdStack == "string"
-              ? "\n    at <promise_created_stack_below>\n" + d.createdStack
+            (d != null && typeof m.createdStack == "string"
+              ? "\n    at <promise_created_stack_below>\n" + m.createdStack
               : "");
         } catch (e) {}
         try {
-          var m = e.promise;
-          "__isPromiseWithTracing" in m &&
-            m.__isPromiseWithTracing === !0 &&
-            m.deferredError != null &&
-            (o.deferredSource = E(m.deferredError));
+          var p = e.promise;
+          "__isPromiseWithTracing" in p &&
+            p.__isPromiseWithTracing === !0 &&
+            p.deferredError != null &&
+            (o.deferredSource = E(p.deferredError));
         } catch (e) {}
         (t.reportError(o), e.preventDefault());
       }

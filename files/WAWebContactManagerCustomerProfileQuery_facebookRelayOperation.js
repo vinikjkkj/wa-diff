@@ -2,7 +2,7 @@ __d(
   "WAWebContactManagerCustomerProfileQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "38879305098350961";
+    a.exports = "28155766940789531";
   },
   null,
 );

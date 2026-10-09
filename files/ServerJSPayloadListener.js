@@ -25,7 +25,7 @@ __d(
           var s = null;
           try {
             if (
-              ((s = o("GHLServerJSParse").hydrateBootData(e.textContent)),
+              ((s = o("GHLServerJSParse").inflateBootPayload(e.textContent)),
               s == null)
             )
               throw r("err")(

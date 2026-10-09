@@ -84,6 +84,19 @@ __d(
                   r,
                 )));
         }),
+        (t.deauthCallbackError = function (t) {
+          (this.$3.logError(
+            o("IDGWLoggingContext").DGWLoggingComponent
+              .WEBSOCKET_TRANSPORT_COMPONENT,
+            "Deauth callback failed",
+            t,
+          ),
+            this.$3.bumpODSKey(
+              o("IDGWLoggingContext").DGWLoggingComponent
+                .WEBSOCKET_TRANSPORT_COMPONENT,
+              "deauth_callback_error",
+            ));
+        }),
         (t.transportEstablishmentFailure = function (t) {
           (this.$3.logError(
             o("IDGWLoggingContext").DGWLoggingComponent

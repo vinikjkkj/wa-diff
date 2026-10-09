@@ -3,16 +3,17 @@ __d(
   ["WAWebHatchVmTransport", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 1e4;
-    function s(e) {
+    var e = 1e4,
+      s = 3e4;
+    function u(e) {
       return e != null && typeof e == "object" && !Array.isArray(e);
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       return n === void 0
         ? { detail: e, kind: "Rejected", statusCode: t }
         : { detail: e, kind: "Rejected", statusCode: t, value: n };
     }
-    var c = (function () {
+    var d = (function () {
       function t(e) {
         this.$1 = e;
       }
@@ -77,11 +78,11 @@ __d(
                   "body" in a &&
                   "statusCode" in a
                 ) {
-                  var c = a.body,
+                  var u = a.body,
                     d = a.statusCode;
                   return d < 200 || d >= 300
-                    ? u("VM returned HTTP " + d, d)
-                    : { kind: "Ok", value: c };
+                    ? c("VM returned HTTP " + d, d)
+                    : { kind: "Ok", value: u };
                 }
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -125,7 +126,7 @@ __d(
           return this.request(
             "PATCH",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
-            { body: d({ connector: t, methods: n }), service: "sentinel" },
+            { body: m({ connector: t, methods: n }), service: "sentinel" },
           );
         }),
         (r.connectorResetPermissions = function (t) {
@@ -133,7 +134,7 @@ __d(
             "DELETE",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
             {
-              body: d({ reason: "settings_permissions_connector_reset" }),
+              body: m({ reason: "settings_permissions_connector_reset" }),
               service: "sentinel",
             },
           );
@@ -142,7 +143,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_SCOPE_LINK(t, n),
-            { body: d({}) },
+            { body: m({}) },
           );
         }),
         (r.connectorConnectInfo = function (t, n) {
@@ -155,7 +156,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_DISCONNECT(t),
-            { body: d(n == null ? {} : { session_id: n }) },
+            { body: m(n == null ? {} : { session_id: n }) },
           );
         }),
         (r.chats = function (t) {
@@ -170,7 +171,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.OAUTH_CALLBACK,
             {
-              body: d({ auth_intent: "connect", code: t, state: n }),
+              body: m({ auth_intent: "connect", code: t, state: n }),
               service: "authd",
             },
           );
@@ -195,14 +196,14 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CAPTURE,
-            { body: d(t), service: "authd" },
+            { body: m(t), service: "authd" },
           );
         }),
         (r.credentialUpdate = function (t) {
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_UPDATE,
-            { body: d(t), service: "authd" },
+            { body: m(t), service: "authd" },
           );
         }),
         (r.credentialDelete = function (t) {
@@ -210,7 +211,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_DELETE,
             {
-              body: d({ credential_type: "browser", id: t }),
+              body: m({ credential_type: "browser", id: t }),
               service: "authd",
             },
           );
@@ -226,7 +227,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_ACCOUNTS_LINK(t),
-            { body: d({}) },
+            { body: m({}) },
           );
         }),
         (r.connectorAccountUnlink = function (t, n) {
@@ -236,7 +237,37 @@ __d(
               t,
               n,
             ),
-            { body: d({}) },
+            { body: m({}) },
+          );
+        }),
+        (r.openEventSubscription = function (t, n) {
+          return this.$1.openStream(
+            {
+              accept: "application/x-ndjson",
+              body: m({}),
+              method: "POST",
+              path: t,
+            },
+            n,
+          );
+        }),
+        (r.browserTaskPost = function (t, n) {
+          return this.$1.send({
+            method: "POST",
+            path: o("WAWebHatchVmTransport").JarvisPaths.BROWSER_TASK(t, n),
+            timeoutMs: s,
+          });
+        }),
+        (r.openBrowserTaskAttach = function (t, n) {
+          return this.$1.openStream(
+            {
+              method: "POST",
+              path: o("WAWebHatchVmTransport").JarvisPaths.BROWSER_TASK(
+                t,
+                "websockify?mode=attach",
+              ),
+            },
+            n,
           );
         }),
         (r.request = (function () {
@@ -257,7 +288,7 @@ __d(
                 service: r == null ? void 0 : r.service,
                 timeoutMs: i,
               });
-              return m(
+              return p(
                 l,
                 (a = r == null ? void 0 : r.service) != null ? a : "daemon",
               );
@@ -271,10 +302,10 @@ __d(
         t
       );
     })();
-    function d(e) {
+    function m(e) {
       return new TextEncoder().encode(JSON.stringify(e));
     }
-    function m(e, t) {
+    function p(e, t) {
       e: {
         var n = e;
         if (
@@ -309,7 +340,7 @@ __d(
         ) {
           var i = n.body,
             l = n.statusCode;
-          return p(i, l, t);
+          return _(i, l, t);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -317,7 +348,7 @@ __d(
         );
       }
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       var r = t < 200 || t >= 300,
         o = n !== "daemon";
       if (o && !r && e.length === 0) return { kind: "Ok", value: null };
@@ -326,31 +357,31 @@ __d(
         a = JSON.parse(new TextDecoder().decode(e));
       } catch (e) {
         return r
-          ? u("VM returned HTTP " + t, t)
+          ? c("VM returned HTTP " + t, t)
           : { detail: "VM returned malformed JSON", kind: "Unreadable" };
       }
-      return !o && s(a) && typeof a.ok == "boolean"
-        ? _(a, t)
+      return !o && u(a) && typeof a.ok == "boolean"
+        ? f(a, t)
         : r
-          ? u("VM returned HTTP " + t, t)
+          ? c("VM returned HTTP " + t, t)
           : o
             ? { kind: "Ok", value: a }
             : { detail: "VM returned an invalid envelope", kind: "Unreadable" };
     }
-    function _(e, t) {
+    function f(e, t) {
       return e.ok !== !0
-        ? u(
+        ? c(
             typeof e.error == "string" ? e.error : "VM rejected the request",
             t,
             e.result,
           )
         : t < 200 || t >= 300
-          ? u("VM returned HTTP " + t, t, e.result)
+          ? c("VM returned HTTP " + t, t, e.result)
           : e.result === void 0
             ? { detail: "VM envelope omitted result", kind: "Unreadable" }
             : { kind: "Ok", value: e.result };
     }
-    l.WAWebHatchVmApi = c;
+    l.WAWebHatchVmApi = d;
   },
   98,
 );

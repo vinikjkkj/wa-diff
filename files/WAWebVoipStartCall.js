@@ -246,13 +246,13 @@ __d(
                     null));
           }
           return (
-            o("WAWebVoipGatingUtils").isAdaptiveSctpPrewarmV2Enabled() &&
+            o("WAWebVoipGatingUtils").isWebCallingUiEnabled() &&
               r("JSResourceForInteraction")("WAWebVoipSctpPrewarm")
                 .__setRef("WAWebVoipStartCall")
                 .load()
                 .then(
                   function (e) {
-                    e({ trigger: "outgoing_intent" });
+                    e();
                   },
                   function (e) {
                     o("WALogger")

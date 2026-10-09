@@ -38,20 +38,27 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e) {
+    function m(e, t) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
             "WAWebRequestHatchConnectors",
           ).requestHatchWhatsAppSessionId();
           try {
-            var n = yield x(function (n) {
-              return n.connectorDisconnect(e, t);
-            }, "disconnect");
-            if (o("WAWebHatchJsonReaders").readBool(n, "disconnected") !== !0)
+            var r = yield x(function (t) {
+              return t.connectorDisconnect(e, n);
+            }, "disconnect").then(
+              function (e) {
+                return (t == null || t(!0), e);
+              },
+              function (e) {
+                throw (t == null || t(!1), e);
+              },
+            );
+            if (o("WAWebHatchJsonReaders").readBool(r, "disconnected") !== !0)
               throw P("disconnect_refused");
           } catch (t) {
             if (yield _(e)) throw t;

@@ -64,6 +64,20 @@ __d(
       return o("WATimeUtils").castToUnixTime(t);
     }
     function _(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = n.fieldName,
+          o = n.source,
+          a = n.ts,
+          i = f(o);
+        r != null && i != null && t.set(r, { author: i, ts: m(a) });
+      }
+      return t;
+    }
+    function f(e) {
+      return e === "BIZAI" ? "AI" : e === "HUMAN" ? "HUMAN" : null;
+    }
+    function g(e) {
       var t, n;
       return e.fieldType === "TEXT"
         ? (t = e.textValue) != null
@@ -78,26 +92,26 @@ __d(
               ? String(e.numericValue)
               : ""
             : e.fieldType === "MONEY"
-              ? g(e)
+              ? y(e)
               : e.fieldType === "ENUM"
-                ? f(e)
+                ? h(e)
                 : "";
     }
-    function f(e) {
+    function h(e) {
       var t,
         n = e.enumLabels,
         r = e.enumOptionKey,
         o = e.enumOptionKeys;
       return r == null ? "" : (t = n[o.indexOf(r)]) != null ? t : "";
     }
-    function g(e) {
+    function y(e) {
       var t = e.currencyDecimalPlaces,
         n = e.moneyAmount;
       if (n == null || t == null) return "";
       var r = n < 0 ? "-" : "";
-      return "" + r + h(Math.abs(n), t);
+      return "" + r + C(Math.abs(n), t);
     }
-    function h(e, t) {
+    function C(e, t) {
       if (t <= 0) return String(e);
       var n = String(e).padStart(t + 1, "0");
       return n.slice(0, -t) + "." + n.slice(-t);
@@ -109,7 +123,8 @@ __d(
       (l.fromProfileAcquisitionSourceId = d),
       (l.toOptionalUnixTime = m),
       (l.latestUpdateTs = p),
-      (l.formatCustomFieldValue = _));
+      (l.toFieldUpdates = _),
+      (l.formatCustomFieldValue = g));
   },
   98,
 );

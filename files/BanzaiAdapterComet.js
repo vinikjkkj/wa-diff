@@ -22,6 +22,7 @@ __d(
     "gkx",
     "objectValues",
     "once",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -76,7 +77,8 @@ __d(
           return !1;
         },
         onUnload: function (t) {
-          o("Run").onAfterUnload(t);
+          (r("vulture")("KxOYlTFTaUVS_S60GlVvR2mm4Lg="),
+            o("Run").onAfterUnload(t));
         },
         preferredCompressionMethod: r("once")(function () {
           return "deflate";

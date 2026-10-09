@@ -409,6 +409,7 @@ __d(
         s = o(
           "VideoPlayerImplementationStateMachineLogger",
         ).createVideoPlayerImplementationStateMachineLogger({
+          collectCanPlayType: l && a.disableLogging !== !0,
           debugLogId: t,
           initialCoreVideoPlayerMetaData: n.coreVideoPlayerMetaData,
           initialLoggingMetaData: n.loggingMetaData,

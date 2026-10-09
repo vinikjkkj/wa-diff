@@ -15,27 +15,28 @@ __d(
         backoffFactor: Math.sqrt(2),
       },
       s = (function () {
-        function t(e, t, n, r, a, i, l, s, u, c) {
-          var d, m, p, _, f, g, h, y, C;
+        function t(e, t, n, r, a, i, l, s, u, c, d) {
+          var m, p, _, f, g, h, y, C, b;
           ((this.$2 = u), (this.$1 = u.getNewStreamGroupId()));
-          var b = (d = l.overrideUrl) != null ? d : a;
+          var v = (m = l.overrideUrl) != null ? m : a;
           ((this.$6 = null),
             (this.$3 = {
               appId: e,
               appVersion: t,
-              authType: (m = l.authType) != null ? m : n,
+              authType: (p = l.authType) != null ? p : n,
               deviceId: l.deviceId,
               dgwVersion: r,
               headers: l.streamGroupAppHeaders,
               tier:
-                (p = l.serviceTier) != null
-                  ? p
+                (_ = l.serviceTier) != null
+                  ? _
                   : o("DGWConstants").DEFAULT_SERVICE_TIER,
-              connectEndpoint: b,
+              connectEndpoint: v,
               fbId: i,
               loggingId: l.loggingId,
               serviceId: l.serviceId,
               streamGroupCallbacks: s,
+              onDeauthReceived: d,
               keepAliveMs: l.keepAliveMs,
               regionHint: l.regionHint,
               enableFirstStreamOnWsHandshake: !1,
@@ -48,23 +49,23 @@ __d(
             (this.streamGroupLoggingContext = this.$5(
               null,
               !1,
-              (_ = l.verboseLoggingEnabled) != null ? _ : !1,
+              (f = l.verboseLoggingEnabled) != null ? f : !1,
             )),
             (this.$7 = o("DGWUtils").DGWUtils.constructConnectUrl({
               appId: this.$3.appId,
               appVersion: this.$3.appVersion,
               authType: this.$3.authType,
-              deviceId: (f = this.$3.deviceId) != null ? f : void 0,
+              deviceId: (g = this.$3.deviceId) != null ? g : void 0,
               dgwVersion: this.$3.dgwVersion,
               fbId: this.$3.fbId,
               headers: babelHelpers.extends({}, this.$3.headers),
-              loggingId: (g = this.$3.loggingId) != null ? g : void 0,
+              loggingId: (h = this.$3.loggingId) != null ? h : void 0,
               tier: this.$3.tier,
               serviceId: this.$3.serviceId,
               endpoint: this.$3.connectEndpoint,
-              regionHint: (h = this.$3.regionHint) != null ? h : void 0,
-              trafficTracing: (y = this.$4.trafficTracing) != null ? y : void 0,
-              authToken: (C = this.$4.authToken) != null ? C : void 0,
+              regionHint: (y = this.$3.regionHint) != null ? y : void 0,
+              trafficTracing: (C = this.$4.trafficTracing) != null ? C : void 0,
+              authToken: (b = this.$4.authToken) != null ? b : void 0,
               requestedSubjectId: this.$3.requestedSubjectId,
             })));
         }

@@ -35,16 +35,28 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaCustomerData")
-            .getCustomerDataTable()
-            .bulkRemoveByIndex(["chatJid"], [e]);
+          return o("WAWebSchemaCustomerData").getCustomerDataTable().bulkGet(e);
         })),
         m.apply(this, arguments)
       );
     }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebSchemaCustomerData")
+            .getCustomerDataTable()
+            .bulkRemoveByIndex(["chatJid"], [e]);
+        })),
+        _.apply(this, arguments)
+      );
+    }
     ((l.addOrEditCustomerData = e),
       (l.getCustomerDataByChatJid = u),
-      (l.removeCustomerDataByChatJid = d));
+      (l.getCustomerDataByChatJids = d),
+      (l.removeCustomerDataByChatJid = p));
   },
   98,
 );

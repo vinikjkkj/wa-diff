@@ -135,6 +135,8 @@ __d(
         "aymt_india_cc_rapyd_deprecation_email",
       AYMT_STANDARD_BILLING_PROMOTIONAL_TIP:
         "aymt_standard_billing_promotional_tip",
+      AYMT_POSTPAY_UPGRADE_PROMOTIONAL_TIP:
+        "aymt_postpay_upgrade_promotional_tip",
       AYMT_RECURRING_UPI_AUTO_RELOAD_CHARGE_FAIL:
         "aymt_recurring_upi_auto_reload_charge_fail",
       AYMT_RECURRING_UPI_TURN_ON_AUTO_RELOAD_UPSELL:

@@ -8,10 +8,10 @@ __d(
         r = e.savedName;
       return r != null && r !== ""
         ? r
-        : n != null && n !== ""
-          ? n
-          : t != null && t !== ""
-            ? t
+        : t != null && t !== ""
+          ? t
+          : n != null && n !== ""
+            ? n
             : null;
     }
     i.resolveWAWebOrgMemberDisplayName = e;

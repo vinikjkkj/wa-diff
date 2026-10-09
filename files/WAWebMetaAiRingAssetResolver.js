@@ -1,43 +1,24 @@
 __d(
   "WAWebMetaAiRingAssetResolver",
-  [
-    "WAWebABProps",
-    "WDSIconWdsIcLogoMetaAi.react",
-    "WDSIconWdsIcMetaAiRing.react",
-    "bx",
-  ],
+  ["WDSIconWdsIcLogoMetaAi.react", "bx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return (
-        o("WAWebABProps").getABPropConfigValue("ai_genai_straw_hat") === !0
-      );
+      return r("WDSIconWdsIcLogoMetaAi.react");
     }
     function s() {
-      return e()
-        ? r("WDSIconWdsIcLogoMetaAi.react")
-        : r("WDSIconWdsIcMetaAiRing.react");
+      return r("bx").getURL(r("bx")("88729"));
     }
     function u() {
-      return e()
-        ? r("bx").getURL(r("bx")("88729"))
-        : r("bx").getURL(r("bx")("14943"));
+      return r("bx").getURL(r("bx")("88730"));
     }
     function c() {
-      return e()
-        ? r("bx").getURL(r("bx")("88730"))
-        : r("bx").getURL(r("bx")("10591"));
+      return r("bx").getURL(r("bx")("88730"));
     }
-    function d() {
-      return e()
-        ? r("bx").getURL(r("bx")("88730"))
-        : r("bx").getURL(r("bx")("88083"));
-    }
-    ((l.isAssetReplacementEnabled = e),
-      (l.getMetaAiRingIcon = s),
-      (l.getBotAssistantIconURL = u),
-      (l.getBotAssistantURL = c),
-      (l.getMetaAiProfileURL = d));
+    ((l.getMetaAiRingIcon = e),
+      (l.getBotAssistantIconURL = s),
+      (l.getBotAssistantURL = u),
+      (l.getMetaAiProfileURL = c));
   },
   98,
 );

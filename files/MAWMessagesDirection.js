@@ -1,11 +1,14 @@
 __d(
   "MAWMessagesDirection",
-  ["I64", "err"],
+  ["I64", "err", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
     function s(e) {
-      return r("err")("Unhandled direction: " + e);
+      return (
+        r("vulture")("aCLtK-QgWJXFnxzt8spuezEsZaw="),
+        r("err")("Unhandled direction: " + e)
+      );
     }
     function u(e, t) {
       return p(e, { asc: t.maxTimestampMs, desc: t.minTimestampMs });

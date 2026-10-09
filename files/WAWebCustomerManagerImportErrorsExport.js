@@ -49,7 +49,7 @@ __d(
               n.push(
                 o(
                   "WAWebCustomerManagerImportErrorMessage",
-                ).getCustomerManagerImportErrorLabel(e.errorType),
+                ).getCustomerManagerImportErrorLabelForItem(e),
               ),
               n
             );

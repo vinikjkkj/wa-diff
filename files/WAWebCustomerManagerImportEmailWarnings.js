@@ -1,10 +1,6 @@
 __d(
   "WAWebCustomerManagerImportEmailWarnings",
-  [
-    "$InternalEnum",
-    "WAWebContactImportTemplateParsingUtils",
-    "WAWebCustomerManagerImportTemplateUtils",
-  ],
+  ["$InternalEnum", "WAWebCustomerManagerImportTemplateUtils"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["INVALID_EMAIL"]),
       s =
@@ -29,10 +25,9 @@ __d(
       var r = [];
       return (
         t.forEach(function (t) {
-          var n = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
-            t.rawRow,
-            ["Email", o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL],
-          );
+          var n = o(
+            "WAWebCustomerManagerImportTemplateUtils",
+          ).readCustomerManagerImportColumn(t, "email");
           n == null ||
             m(n) ||
             r.push({ rowIndex: t.rowIndex, warningType: e.INVALID_EMAIL });

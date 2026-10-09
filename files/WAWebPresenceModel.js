@@ -25,7 +25,7 @@ __d(
     "WAWebGroupType",
     "WAWebLid1X1MigrationGating",
     "WAWebOrgGatingUtils",
-    "WAWebOrgLidEligibility",
+    "WAWebOrgMemberLidEligibility",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
     "WAWebPresenceGetters",
@@ -431,7 +431,7 @@ __d(
               S(this, a));
           else {
             var l =
-                o("WAWebOrgLidEligibility").getWAWebOrgLid(
+                o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(
                   i == null ? void 0 : i.id,
                 ) != null,
               s =

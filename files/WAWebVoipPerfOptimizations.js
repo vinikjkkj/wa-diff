@@ -11,7 +11,6 @@ __d(
       OPERATION_QUEUE_YIELD: 5,
       LOG_RING_BUFFER: 6,
       WORKLET_PRELOAD: 7,
-      SCTP_PREWARM: 8,
       WEBTRANSPORT_SEND_RING: 9,
       MAX_FLAG: 30,
     });

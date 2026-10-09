@@ -72,7 +72,7 @@ __d(
             l = e.passwordTtlSeconds,
             s = e.payloadKeyId,
             u = e.ttlSeconds,
-            c = m(u, i == null ? null : l);
+            c = _(u, i == null ? null : l);
           if (!(c <= 0)) {
             var d = Math.floor(Date.now() / 1e3);
             try {
@@ -124,11 +124,50 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(t, n) {
+    function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                ["account-linking"],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0],
+                        n = yield t.get(
+                          o("WAWebAccountLinkingConstants").AccountLinkKey,
+                        );
+                      n == null ||
+                        n.certFetchTimestamp == null ||
+                        (yield t.createOrReplace(
+                          babelHelpers.extends({}, n, {
+                            certFetchTimestamp: void 0,
+                          }),
+                        ));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              );
+          } catch (e) {}
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(t, n) {
       var r = t != null ? t : e;
       return n == null || n <= 0 ? r : Math.min(r, n);
     }
-    ((l.loadCertFromIDB = s), (l.saveCertToIDB = c));
+    ((l.loadCertFromIDB = s),
+      (l.saveCertToIDB = c),
+      (l.invalidateCertInIDB = m));
   },
   98,
 );

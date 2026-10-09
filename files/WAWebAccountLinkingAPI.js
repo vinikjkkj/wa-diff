@@ -613,6 +613,7 @@ __d(
               break e;
             }
             if (e === "refetch_certs") {
+              yield o("WAWebWaffleCertificateCache").invalidateCertInIDB();
               var r = t.nextBackoffMs();
               if (r == null) return !1;
               yield o("WAPromiseDelays").delayMs(r);
@@ -756,6 +757,9 @@ __d(
                     o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
                       elapsedMs: Date.now() - e,
                       hasAccessToken: !0,
+                      pkiVersion: o(
+                        "WAWebWaffleLifecycleWamLogger",
+                      ).mapPkiVersionToWam(d.version),
                       traceAction: o(
                         "WAWebWamEnumWaffleLifecycleTraceActionType",
                       ).WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE
@@ -776,29 +780,31 @@ __d(
                   ie(e));
               }
             } else {
-              var C = m.value.errorRefreshAccessTokensErrors,
-                S = yield o(
+              var C,
+                S = m.value.errorRefreshAccessTokensErrors,
+                R = yield o(
                   "WAWebWaffleIQErrorHandler",
-                ).handleCommonWaffleIQError("refreshAccessToken", C.name);
-              (o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
+                ).handleCommonWaffleIQError(
+                  "refreshAccessToken",
+                  S.name,
+                  d.version,
+                );
+              ((C = o("WAWebWaffleLifecycleWamLogger")).logRefreshToken({
                 elapsedMs: Date.now() - e,
-                errorAction: o(
-                  "WAWebWaffleLifecycleWamLogger",
-                ).mapIQErrorActionToWam(S),
-                errorCode: o(
-                  "WAWebWaffleLifecycleWamLogger",
-                ).mapIQErrorNameToWamCode(C.name),
+                errorAction: C.mapIQErrorActionToWam(R),
+                errorCode: C.mapIQErrorNameToWamCode(S.name),
+                pkiVersion: C.mapPkiVersionToWam(d.version),
                 traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
                   .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
               }),
-                yield ee(S, Y),
+                yield ee(R, Y),
                 o("WALogger").ERROR(
                   v ||
                     (v = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Refresh access token RPC failed: ",
                       "",
                     ])),
-                  C.name,
+                  S.name,
                 ));
             }
           } else ie(e);
@@ -848,30 +854,31 @@ __d(
                     o("WAWebWaffleLifecycleWamLogger").logPing({
                       elapsedMs: Date.now() - e,
                       hasAccessToken: !0,
+                      pkiVersion: o(
+                        "WAWebWaffleLifecycleWamLogger",
+                      ).mapPkiVersionToWam(i.version),
                     }));
                 } else {
-                  var u = l.value.errorWfPingErrors,
-                    c = yield o(
+                  var u,
+                    c = l.value.errorWfPingErrors,
+                    d = yield o(
                       "WAWebWaffleIQErrorHandler",
-                    ).handleCommonWaffleIQError("ping", u.name);
-                  (o("WAWebWaffleLifecycleWamLogger").logPing({
+                    ).handleCommonWaffleIQError("ping", c.name, i.version);
+                  ((u = o("WAWebWaffleLifecycleWamLogger")).logPing({
                     elapsedMs: Date.now() - e,
-                    errorAction: o(
-                      "WAWebWaffleLifecycleWamLogger",
-                    ).mapIQErrorActionToWam(c),
-                    errorCode: o(
-                      "WAWebWaffleLifecycleWamLogger",
-                    ).mapIQErrorNameToWamCode(u.name),
+                    errorAction: u.mapIQErrorActionToWam(d),
+                    errorCode: u.mapIQErrorNameToWamCode(c.name),
                     hasAccessToken: !0,
+                    pkiVersion: u.mapPkiVersionToWam(i.version),
                   }),
-                    yield ee(c, J),
+                    yield ee(d, J),
                     o("WALogger").ERROR(
                       S ||
                         (S = babelHelpers.taggedTemplateLiteralLoose([
                           "[WAFFLE] Ping failed: ",
                           "",
                         ])),
-                      u.name,
+                      c.name,
                     ));
                 }
               } else

@@ -239,9 +239,7 @@ __d(
           );
         }),
         (a.shouldShowBanner = function () {
-          return o(
-            "WAWebVoipGatingUtils",
-          ).isWinHybridPlusIncomingPopoutEnabled() ||
+          return o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() ||
             (o("WAWebNotificationHelpers").appIsActive() &&
               !o("WAWebVoipGatingUtils").isCallingEnabled()) ||
             !e.prototype.shouldShowBanner.call(this)

@@ -13,6 +13,7 @@ __d(
     "ReStoreOperationLock",
     "ReStoreTable",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -75,33 +76,34 @@ __d(
         },
       };
     }
-    function f(t, n, r, a, i, l) {
-      function s() {
-        var u,
-          c = t.table(r.name),
+    function f(t, n, a, i, l, s) {
+      r("vulture")("DJU-u07I8QZc9UEfiN9uF243Zrw=");
+      function u() {
+        var r,
+          c = t.table(a.name),
           d = c.keys(
             n,
-            a,
+            i,
             babelHelpers.extends(
               {},
               (e || (e = o("ReQLBounds"))).extendBounds(
-                l,
-                (a === void 0 ? r.primaryKeyIds : r.indexes[a]).length,
+                s,
+                (i === void 0 ? a.primaryKeyIds : a.indexes[i]).length,
               ),
-              { dir: i },
+              { dir: l },
             ),
           );
         return (
-          (u = {
+          (r = {
             next: function* (t, n) {
               return yield* d.next(n);
             },
           }),
-          (u[typeof Symbol == "function" ? Symbol.iterator : "@@iterator"] = s),
-          u
+          (r[typeof Symbol == "function" ? Symbol.iterator : "@@iterator"] = u),
+          r
         );
       }
-      return s();
+      return u();
     }
     function g(e, t, n, r, a, i, l) {
       var s = e.table(n),

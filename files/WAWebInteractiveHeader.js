@@ -250,12 +250,12 @@ __d(
           : n ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.DOCUMENT
-            ? u.jsx(r("WAWebMediaDocumentPreview"), { msg: s })
+            ? u.jsx(r("WAWebMediaDocumentPreview"), { msgKey: s.id })
             : n ===
                 o("WAWebInteractiveMessageHeaderMediaType")
                   .InteractiveMessageHeaderMediaType.VIDEO
               ? u.jsx(r("WAWebVideoPreview.react"), {
-                  msg: s,
+                  msgKey: s.id,
                   mediaData: s.mediaData,
                   displayType: e != null ? e : void 0,
                 })

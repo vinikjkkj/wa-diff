@@ -928,85 +928,88 @@ __d(
           W
         );
       }
-      function ee(e, t, o) {
-        var i =
-          e.controlledState.error === o
-            ? babelHelpers.extends({}, e, {
-                controlledState: babelHelpers.extends({}, e.controlledState, {
+      function ee(t, o, i) {
+        var l =
+          t.controlledState.error === i
+            ? babelHelpers.extends({}, t, {
+                controlledState: babelHelpers.extends({}, t.controlledState, {
                   error: { $ref: "$.player.lastError" },
                 }),
               })
-            : e;
-        e.uncontrolledState.videoElementError != null &&
-          (i = babelHelpers.extends({}, i, {
-            uncontrolledState: babelHelpers.extends({}, i.uncontrolledState, {
+            : t;
+        t.uncontrolledState.videoElementError != null &&
+          (l = babelHelpers.extends({}, l, {
+            uncontrolledState: babelHelpers.extends({}, l.uncontrolledState, {
               videoElementError: {
-                code: e.uncontrolledState.videoElementError.code,
-                message: e.uncontrolledState.videoElementError.message,
+                code: t.uncontrolledState.videoElementError.code,
+                message: t.uncontrolledState.videoElementError.message,
               },
             }),
           }));
-        var l = t;
+        var s = o;
         {
-          var s =
-            typeof t.payload == "object" && t.payload != null
-              ? t.payload
+          var u =
+            typeof o.payload == "object" && o.payload != null
+              ? o.payload
               : null;
-          if (s != null) {
-            var u = {};
-            (Object.keys(s).forEach(function (e) {
-              var t = s[e];
-              t === o ? (u[e] = { $ref: "$.player.lastError" }) : (u[e] = t);
+          if (u != null) {
+            var d = {};
+            (Object.keys(u).forEach(function (e) {
+              var t = u[e];
+              t === i ? (d[e] = { $ref: "$.player.lastError" }) : (d[e] = t);
             }),
-              (l = babelHelpers.extends({}, t, { payload: u })));
+              (s = babelHelpers.extends({}, o, { payload: d })));
           }
         }
         return {
           currentVideo: {
-            audioStreamId: e.uncontrolledState.audioRepresentationID,
+            audioStreamId: t.uncontrolledState.audioRepresentationID,
             dashAudioFormat: void 0,
             hasHD: void 0,
             hasRateLimit: void 0,
-            hasSubtitles: e.controlledState.captionsLoaded,
+            hasSubtitles: t.controlledState.captionsLoaded,
             isDrm: !!a.graphQLVideoDRMInfo,
             isHD: void 0,
             isLiveStream: a.isLiveStreaming,
             isRateLimited: void 0,
             liveManifestUrl: void 0,
-            projection: e.uncontrolledState.videoProjection,
+            projection: t.uncontrolledState.videoProjection,
             resourceUrl: void 0,
-            streamId: e.uncontrolledState.videoRepresentationID,
-            streamType: e.controlledState.streamingFormat,
+            streamId: t.uncontrolledState.videoRepresentationID,
+            streamType: t.controlledState.streamingFormat,
             tagHD: void 0,
             tagSD: void 0,
             videoID: a.videoFBID,
           },
           player: {
-            canPlayType: (c || (c = r("mapObject")))(r("VideoMimeTypes"), f),
+            canPlayType:
+              e.collectCanPlayType === !1
+                ? void 0
+                : (c || (c = r("mapObject")))(r("VideoMimeTypes"), f),
             dimensions: n.dimensions
               ? { height: n.dimensions.height, width: n.dimensions.width }
               : null,
-            droppedFrames: e.uncontrolledState.videoElementDroppedFrameCount,
+            droppedFrames: t.uncontrolledState.videoElementDroppedFrameCount,
             initializationTime: void 0,
             initializationTimestamp: void 0,
             inPlayStallCount: void 0,
             inPlayStallTime: void 0,
             interruptCount: void 0,
             interruptTime: void 0,
-            lastError: o,
+            lastError: i,
             loggedError:
-              _.lastLoggedError === o
+              _.lastLoggedError === i
                 ? { $ref: "$.player.lastError" }
                 : _.lastLoggedError,
             stallCount: _.stallCount,
             stallTime: _.stallDuration,
-            state: w(e),
-            totalFrames: e.uncontrolledState.videoElementTotalFrameCount,
-            version: e.playerVersion,
+            state: w(t),
+            totalFrames: t.uncontrolledState.videoElementTotalFrameCount,
+            version: t.playerVersion,
             videoSource: void 0,
-            viewabilityPercentage: e.uncontrolledState.viewabilityPercentage,
+            viewabilityPercentage: t.uncontrolledState.viewabilityPercentage,
           },
-          playerStateMachine: { action: l, state: i },
+          playerStateMachine: { action: s, state: l },
         };
       }
       function te(e) {

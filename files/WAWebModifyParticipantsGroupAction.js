@@ -129,7 +129,7 @@ __d(
               u.map(function (e) {
                 return o(
                   "WAWebGroupMutationParticipantUtils",
-                ).getGroupMutationParticipant(e, y, "addParticipants");
+                ).getGroupAddParticipant(e, y, "addParticipants");
               }),
               b,
             ),

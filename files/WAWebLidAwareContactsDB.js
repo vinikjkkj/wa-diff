@@ -10,6 +10,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -169,12 +170,39 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
+    function L(e, t) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            e.some(function (e) {
+              return r("WAWebWid").isStringLid(e);
+            })
+          )
+            throw r("err")("Expected phone contact keys");
+          var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+            .getContactTable()
+            .bulkGet(e, t);
+          if (
+            n.length !== e.length ||
+            n.some(function (t, n) {
+              return t != null && t.id !== e[n];
+            })
+          )
+            throw r("err")("Incomplete physical phone contact lookup");
+          return n;
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e, t, n) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
               e,
               t,
@@ -192,15 +220,15 @@ __d(
             i,
           ]);
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
               e,
               t,
@@ -218,15 +246,15 @@ __d(
             a,
           ]);
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function D() {
+    function $() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           a === void 0 && (a = "n/a");
           var i = self.performance.now();
           o("WALogger").LOG(
@@ -276,15 +304,15 @@ __d(
             );
           }
         })),
-        D.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = "n/a");
           var a = self.performance.now();
           o("WALogger").LOG(
@@ -334,25 +362,25 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P(e) {
+    function M(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .bulkRemove(e);
     }
-    function N(e) {
+    function w(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .remove(e);
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
             .getContactTable()
             .lessThan(e, t);
@@ -360,15 +388,15 @@ __d(
             n,
           );
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e, t, n) {
-      return F.apply(this, arguments);
+    function O(e, t, n) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
             .getContactTable()
             .greaterThan(e, t, n);
@@ -376,15 +404,15 @@ __d(
             r,
           );
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
             .getContactTable()
             .anyOf(e, t);
@@ -392,67 +420,68 @@ __d(
             n,
           );
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e) {
+    function U(e) {
       o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .setUpdateListener(e);
     }
-    function q() {
+    function V() {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .count();
     }
-    function U() {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .allPrimaryKeys();
-        })),
-        V.apply(this, arguments)
-      );
-    }
-    function H(e, t) {
+    function H() {
       return G.apply(this, arguments);
     }
     function G() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
             .getContactTable()
-            .equalsPrimaryKeys(e, t);
+            .allPrimaryKeys();
         })),
         G.apply(this, arguments)
       );
     }
-    var z = {
+    function z(e, t) {
+      return j.apply(this, arguments);
+    }
+    function j() {
+      return (
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+            .getContactTable()
+            .equalsPrimaryKeys(e, t);
+        })),
+        j.apply(this, arguments)
+      );
+    }
+    var K = {
       get: f,
       all: g,
-      allPrimaryKeys: U,
+      allPrimaryKeys: H,
       clear: y,
       equals: C,
-      equalsPrimaryKeys: H,
+      equalsPrimaryKeys: z,
       create: v,
       bulkGet: S,
-      merge: L,
-      createOrMerge: k,
-      bulkCreateOrMerge: T,
-      bulkMergeOnly: x,
-      bulkRemove: P,
-      remove: N,
-      lessThan: M,
-      greaterThan: A,
-      anyOf: O,
-      setUpdateListener: W,
-      count: q,
+      bulkGetPhysicalPhoneRows: L,
+      merge: k,
+      createOrMerge: T,
+      bulkCreateOrMerge: x,
+      bulkMergeOnly: P,
+      bulkRemove: M,
+      remove: w,
+      lessThan: A,
+      greaterThan: O,
+      anyOf: W,
+      setUpdateListener: U,
+      count: V,
     };
-    l.default = z;
+    l.default = K;
   },
   98,
 );

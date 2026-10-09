@@ -7,6 +7,8 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
     "WAWebListItemParentType",
+    "WAWebUsernameGatingUtils",
+    "WAWebUsernameTypes",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,47 +27,46 @@ __d(
         i,
         l,
         s = String(e.chatJid),
-        u = o("WAWebCustomerContactResolver").resolveCustomerContact(
+        d = o("WAWebCustomerContactResolver").resolveCustomerContact(
           o("WAWebWidFactory").createWid(s),
         ),
-        c = (r = t.get(s)) != null ? r : null,
-        d = Array.from(
+        m = (r = t.get(s)) != null ? r : null,
+        p = Array.from(
           new Set(
             [].concat(
               o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
                 s,
                 o("WAWebListItemParentType").LabelItemParentType.Chat,
               ),
-              (a = u == null ? void 0 : u.labels) != null ? a : [],
+              (a = d == null ? void 0 : d.labels) != null ? a : [],
               o("WAWebCustomerContactResolver").resolveCustomerLabelIds(s),
             ),
           ),
         ),
-        m = [];
-      for (var p of d) {
-        var _,
-          f =
-            (_ = o("WAWebLabelCollection").LabelCollection.get(p)) == null
+        _ = [];
+      for (var f of p) {
+        var g,
+          h =
+            (g = o("WAWebLabelCollection").LabelCollection.get(f)) == null
               ? void 0
-              : _.name;
-        f != null && m.push(f);
+              : g.name;
+        h != null && _.push(h);
       }
       return {
         displayName:
-          u != null ? o("WAWebFrontendContactGetters").getDisplayName(u) : "",
+          d != null ? o("WAWebFrontendContactGetters").getDisplayName(d) : "",
         phone:
-          u != null
-            ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(u)
-                .displayName
+          d != null
+            ? u(
+                o("WAWebFrontendContactGetters").getFormattedPhoneAndType(d)
+                  .displayName,
+              )
             : "",
-        username:
-          u != null
-            ? o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(u)
-            : "",
+        username: d != null ? c(d) : "",
         email: e.email,
         leadStage: e.leadStage,
         acquisitionSource: e.acquisitionSource,
-        notes: c,
+        notes: m,
         birthday: e.birthday,
         birthdayIso: e.birthdayIso,
         lastOrder: e.lastOrder,
@@ -79,12 +80,23 @@ __d(
             ? i
             : null,
         address: e.address,
-        altPhoneNumbers: e.altPhoneNumbers,
-        lists: m,
+        altPhoneNumbers:
+          e.altPhoneNumbers != null ? u(e.altPhoneNumbers) : null,
+        lists: _,
         createdAt: e.createdAt,
         modifiedAt: e.modifiedAt,
         customFieldValues: n,
       };
+    }
+    function u(e) {
+      return e.replace(/\+(?=\d)/g, "");
+    }
+    function c(e) {
+      var t = o("WAWebFrontendContactGetters").getUsername(e);
+      return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+        o("WAWebUsernameTypes").isPresentUsername(t)
+        ? o("WAWebUsernameTypes").serializeUsername(t)
+        : "";
     }
     l.buildCustomerExportRecords = e;
   },

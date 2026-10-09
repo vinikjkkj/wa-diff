@@ -7,7 +7,6 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebReleaseToEventLoop",
     "WAWebUserPrefsVoip",
-    "WAWebVoipPerfOptimizations",
     "WAWebVoipSctpPrewarmQpl",
     "asyncToGeneratorRuntime",
     "err",
@@ -20,48 +19,33 @@ __d(
       d,
       m = 5e3,
       p = 500,
-      _ = null;
-    function f(t) {
-      var r;
-      if (_ != null) return _;
-      var a =
-        (r = t == null ? void 0 : t.trigger) != null
-          ? r
-          : (t == null ? void 0 : t.force) === !0
-            ? "wt_fallback"
-            : "eager";
-      if (a === "outgoing_intent") {
-        var i = o("WAWebUserPrefsVoip").getSctpPrewarmSlowRecord();
-        if (i != null) {
-          var l =
-            i.ms === o("WAWebUserPrefsVoip").SCTP_PREWARM_FAILED_MS
-              ? "failed"
-              : "took " + i.ms + "ms";
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpPrewarm] skipped, last prewarm on this device ",
-                  "",
-                ])),
-              l,
-            ),
-            o("WAWebCoreActionsODS").logCallSctpPrewarmV2SkippedSlow(),
-            (_ = (d || (d = n("Promise"))).resolve()),
-            _
-          );
-        }
-        o("WAWebCoreActionsODS").logCallSctpPrewarmV2Run();
-      } else if (
-        a === "eager" &&
-        !o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-          o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.SCTP_PREWARM,
-        )
-      )
-        return (d || (d = n("Promise"))).resolve();
-      return ((_ = h(a)), _);
+      _ = "outgoing_intent",
+      f = null;
+    function g() {
+      if (f != null) return f;
+      var t = o("WAWebUserPrefsVoip").getSctpPrewarmSlowRecord();
+      if (t != null) {
+        var r =
+          t.ms === o("WAWebUserPrefsVoip").SCTP_PREWARM_FAILED_MS
+            ? "failed"
+            : "took " + t.ms + "ms";
+        return (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpPrewarm] skipped, last prewarm on this device ",
+                "",
+              ])),
+            r,
+          ),
+          o("WAWebCoreActionsODS").logCallSctpPrewarmV2SkippedSlow(),
+          (f = (d || (d = n("Promise"))).resolve()),
+          f
+        );
+      }
+      return (o("WAWebCoreActionsODS").logCallSctpPrewarmV2Run(), (f = y()), f);
     }
-    function g(e) {
+    function h(e) {
       if (e.iceGatheringState === "complete" && e.localDescription != null) {
         var t = e.localDescription,
           r = t.sdp,
@@ -82,67 +66,61 @@ __d(
         };
       });
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e === "outgoing_intent",
-            a = self.performance.now(),
-            i = 0,
-            l = a,
-            _ = o("WAWebVoipSctpPrewarmQpl").startVoipSctpPrewarmQpl(),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = self.performance.now(),
+            t = 0,
+            a = e,
+            i = o("WAWebVoipSctpPrewarmQpl").startVoipSctpPrewarmQpl(),
+            l = null,
             f = null,
             g = null,
-            h = null,
-            y = !1,
-            b = function () {
-              _.addAnnotations({
+            h = !1,
+            y = function () {
+              i.addAnnotations({
                 int: {
-                  prewarm_ms: Math.round(i),
-                  prewarm_wall_ms: Math.round(self.performance.now() - a),
+                  prewarm_ms: Math.round(t),
+                  prewarm_wall_ms: Math.round(self.performance.now() - e),
                 },
-                string: { trigger: e },
-                bool: { marked_slow: y },
+                string: { trigger: _ },
+                bool: { marked_slow: h },
               });
             };
           try {
             (o("WAWebAppTracker").AppTracker.mark(
               o("WAWebAppTracker").AppTrackerType.VoipSctpPrewarm,
             ),
-              t &&
-                (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                (l = self.performance.now())),
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+              (a = self.performance.now()),
+              (l = new RTCPeerConnection()),
+              (t += self.performance.now() - a),
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+              (a = self.performance.now()),
               (f = new RTCPeerConnection()),
-              t &&
-                ((i += self.performance.now() - l),
-                yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                (l = self.performance.now())),
-              (g = new RTCPeerConnection()),
               yield (d || (d = n("Promise"))).race([
-                C(f, g),
+                b(l, f),
                 new d(function (e, t) {
-                  h = window.setTimeout(function () {
+                  g = window.setTimeout(function () {
                     t(r("err")("SctpPrewarm timeout"));
                   }, m);
                 }),
               ]),
-              (i += self.performance.now() - l),
+              (t += self.performance.now() - a),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [SctpPrewarm] completed in ",
-                    "ms (",
-                    ")",
+                    "ms",
                   ])),
-                i.toFixed(1),
-                e,
+                t.toFixed(1),
               ),
-              t &&
-                i > p &&
-                ((y = !0),
-                o("WAWebUserPrefsVoip").markSctpPrewarmSlow(i),
+              t > p &&
+                ((h = !0),
+                o("WAWebUserPrefsVoip").markSctpPrewarmSlow(t),
                 o("WAWebCoreActionsODS").logCallSctpPrewarmV2MarkedSlow(),
                 o("WALogger").LOG(
                   u ||
@@ -150,49 +128,46 @@ __d(
                       "voip: [SctpPrewarm] slow on this device, disabled until next login",
                     ])),
                 )),
-              b(),
-              o("WAWebVoipSctpPrewarmQpl").endVoipSctpPrewarmQplSuccess(_));
-          } catch (n) {
-            ((i += self.performance.now() - l),
+              y(),
+              o("WAWebVoipSctpPrewarmQpl").endVoipSctpPrewarmQplSuccess(i));
+          } catch (e) {
+            ((t += self.performance.now() - a),
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [SctpPrewarm] failed after ",
-                    "ms (",
-                    "): ",
+                    "ms: ",
                     "",
                   ])),
-                i.toFixed(1),
-                e,
-                String(n),
+                t.toFixed(1),
+                String(e),
               ),
-              t &&
-                ((y = !0),
-                o("WAWebUserPrefsVoip").markSctpPrewarmSlow(
-                  o("WAWebUserPrefsVoip").SCTP_PREWARM_FAILED_MS,
-                ),
-                o("WAWebCoreActionsODS").logCallSctpPrewarmV2MarkedSlow()),
-              b(),
+              (h = !0),
+              o("WAWebUserPrefsVoip").markSctpPrewarmSlow(
+                o("WAWebUserPrefsVoip").SCTP_PREWARM_FAILED_MS,
+              ),
+              o("WAWebCoreActionsODS").logCallSctpPrewarmV2MarkedSlow(),
+              y(),
               o("WAWebVoipSctpPrewarmQpl").endVoipSctpPrewarmQplFail(
-                _,
+                i,
                 "prewarm_failed",
               ));
           } finally {
-            var v, S;
-            (h != null && window.clearTimeout(h),
-              (v = f) == null || v.close(),
-              (S = g) == null || S.close());
+            var C, v;
+            (g != null && window.clearTimeout(g),
+              (C = l) == null || C.close(),
+              (v = f) == null || v.close());
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = { negotiated: !0, id: 0, ordered: !1, maxRetransmits: 0 },
             o = e.createDataChannel("sctp-prewarm", r);
           t.createDataChannel("sctp-prewarm", r);
@@ -203,17 +178,17 @@ __d(
             }),
             i = yield e.createOffer();
           yield e.setLocalDescription(i);
-          var l = yield g(e);
+          var l = yield h(e);
           yield t.setRemoteDescription(l);
           var s = yield t.createAnswer();
           yield t.setLocalDescription(s);
-          var u = yield g(t);
+          var u = yield h(t);
           (yield e.setRemoteDescription(u), yield a);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    l.default = f;
+    l.default = g;
   },
   98,
 );

@@ -101,6 +101,7 @@ __d(
     ((l.supportedTosNoticeIds = m),
       (l.getMuseGroupTosNoticeIds = p),
       (l.getMuseGroupNonInitiatorNoticeId = _),
+      (l.getMuseGroupInitiatorNoticeId = f),
       (l.getMetaAiOpenGroupNoticeId = g),
       (l.getMetaAiTeeGroupNoticeId = h),
       (l.getBotAgentTosId = C),

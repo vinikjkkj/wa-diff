@@ -2,7 +2,7 @@ __d(
   "CometIXTFacebookCDSXfacUniversalTriggerRootQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "29261046466836786";
+    a.exports = "28621926824130875";
   },
   null,
 );

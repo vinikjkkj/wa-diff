@@ -14,6 +14,7 @@ __d(
       TRANSPORT_BAD_REQUEST: 7,
       TRANSPORT_DGW_SERVER_ERROR: 8,
       TRANSPORT_NORMAL_CLOSURE: 9,
+      TRANSPORT_DEAUTH: 10,
     });
     function l(t) {
       switch (t) {
@@ -37,6 +38,8 @@ __d(
           return "TRANSPORT_DGW_SERVER_ERROR";
         case e.TRANSPORT_NORMAL_CLOSURE:
           return "TRANSPORT_NORMAL_CLOSURE";
+        case e.TRANSPORT_DEAUTH:
+          return "TRANSPORT_DEAUTH";
       }
     }
     function s(t) {

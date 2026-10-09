@@ -74,21 +74,21 @@ __d(
         case "IMAGE":
           return null;
         case "SCROLL":
-          return r("qpl")._(891431964, "3274");
+          return r("qpl")._(802952254, "1042");
         case "LONG_ANIMATION_FRAME":
           return ((t = e.annotations.bool) == null
             ? void 0
             : t.isLoggingSample) === !0
-            ? r("qpl")._(891427004, "3275")
+            ? r("qpl")._(802951449, "2884")
             : null;
         case "LONGTASK":
           return null;
         case "TYPING":
-          return r("qpl")._(891422674, "918");
+          return r("qpl")._(802948194, "3732");
         case "RESPONSIVENESS":
           return null;
         case "INP":
-          return r("qpl")._(891431786, "3252");
+          return r("qpl")._(802947073, "3733");
       }
       return null;
     }

@@ -18,7 +18,7 @@ __d(
         ),
         error: o(
           "WAWebCustomerManagerImportErrorMessage",
-        ).getCustomerManagerImportErrorLabel(e.errorType),
+        ).getCustomerManagerImportErrorLabelForItem(e),
         leadStage: s(
           e.rowData,
           o("WAWebCustomerManagerImportTemplateUtils").FBT_LEAD_STAGE,

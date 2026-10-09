@@ -24,32 +24,26 @@ __d(
     function c() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("smb_core_biz_profile_preview")
-      );
-    }
-    function d() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_biz_profile_graphql_migration",
         )
       );
     }
-    function m() {
+    function d() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("wa_web_biz_profile_preload")
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_abprop_business_profile_refresh_linked_accounts_killswitch",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_profile_google_integration_enabled",
       );
@@ -57,12 +51,11 @@ __d(
     ((l.webBizProfileOptions = e),
       (l.businessProfileRefreshEnabled = s),
       (l.businessProfileRefreshV2Enabled = u),
-      (l.businessProfilePreviewEnabled = c),
-      (l.bizProfileGraphQLMigrationEnabled = d),
-      (l.isBizProfilePreloadEnabled = m),
-      (l.bizLinkedAccountsEnabled = p),
-      (l.getCatkitVersion = _),
-      (l.isGoogleProfileIntegrationEnabled = f));
+      (l.bizProfileGraphQLMigrationEnabled = c),
+      (l.isBizProfilePreloadEnabled = d),
+      (l.bizLinkedAccountsEnabled = m),
+      (l.getCatkitVersion = p),
+      (l.isGoogleProfileIntegrationEnabled = _));
   },
   98,
 );

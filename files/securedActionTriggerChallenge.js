@@ -2,6 +2,7 @@ __d(
   "securedActionTriggerChallenge",
   [
     "CometErrorOverlay",
+    "CometReauthChallengeListener",
     "CometRelayEnvironmentProvider",
     "CometThemeInfraBaseThemeGated.react",
     "CometThemeInfraUtils",
@@ -73,22 +74,29 @@ __d(
           o = e.onExit,
           a = e.onFailure,
           i = e.onSuccess,
-          l = t.challenge_type;
-        switch (l) {
+          l = e.onVerified,
+          s = t.challenge_type;
+        switch (s) {
           case "reauth":
-            return h(l, t, o, i);
+            return h(
+              s,
+              t,
+              o,
+              i,
+              t.retry_before_passkey_upsell === !0 ? l : void 0,
+            );
           default:
-            return y(l, t, o, i, r, a, n);
+            return y(s, t, o, i, r, a, n);
         }
       });
     }
-    function h(e, t, n, a) {
-      var i,
-        l,
-        s = o(
+    function h(e, t, n, a, i) {
+      var l,
+        s,
+        d = o(
           "securedActionChallengeToEntrypoints",
         ).securedActionChallengeToEntrypointsWithEncryptedContext(e);
-      if (s === null)
+      if (d === null)
         throw (
           n(),
           r("FBLogger")("secured_action").mustfixThrow(
@@ -97,12 +105,13 @@ __d(
           )
         );
       return u.jsx(c, {
-        encryptedContext: (i = t.encrypted_context) != null ? i : "",
-        entrypoint: _(s, t),
+        encryptedContext: (l = t.encrypted_context) != null ? l : "",
+        entrypoint: _(d, t),
         flow: "secured_action",
         onExit: n,
         onSuccess: a,
-        useXFAC: (l = t.use_xfac) != null ? l : !1,
+        onVerified: i,
+        useXFAC: (s = t.use_xfac) != null ? s : !1,
         xfacConfig: "XFAC_ORGANIC_SENSITIVE_ACTIONS",
       });
     }
@@ -166,19 +175,51 @@ __d(
         s = t.onFailure,
         c = t.onSuccess;
       return o("CometErrorOverlay").injectComponent(function (t) {
-        var d =
+        var d = null,
+          m = function () {
+            (d == null || d(), (d = null), t());
+          },
+          p =
             a == null
               ? null
               : function () {
-                  (a(), t());
+                  (a(), m());
                 },
-          m =
+          _ = !1,
+          f = function () {
+            _ || ((_ = !0), c());
+          },
+          g = {
+            onBack: p,
+            onCancel: function () {
+              i == null || i();
+            },
+            onExit: function () {
+              (_ || l(), m());
+            },
+            onFailure: function () {
+              s == null || s();
+            },
+            onSuccess: function () {
+              (f(), m());
+            },
+            onVerified: function () {
+              (f(),
+                d == null &&
+                  (d = o(
+                    "CometReauthChallengeListener",
+                  ).addReauthChallengeListener(function (e) {
+                    e === "challenged" && m();
+                  })));
+            },
+          },
+          h =
             o(
               "CometThemeInfraUtils",
             ).enableCometThemeInfraThemeInXMDSComponents() === !0 &&
             e != null &&
             r("CometThemeInfraBaseThemeGated.react") != null;
-        return m
+        return h
           ? u.jsx(r("CometRelayEnvironmentProvider"), {
               children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
                 children:
@@ -187,21 +228,7 @@ __d(
                   u.jsx(r("CometThemeInfraBaseThemeGated.react"), {
                     themes: e,
                     children: u.jsx(r("CometTransientDialogProvider.react"), {
-                      children: n({
-                        onBack: d,
-                        onCancel: function () {
-                          i == null || i();
-                        },
-                        onExit: function () {
-                          (l(), t());
-                        },
-                        onFailure: function () {
-                          s == null || s();
-                        },
-                        onSuccess: function () {
-                          (c(), t());
-                        },
-                      }),
+                      children: n(g),
                     }),
                   }),
               }),
@@ -209,21 +236,7 @@ __d(
           : u.jsx(r("CometRelayEnvironmentProvider"), {
               children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
                 children: u.jsx(r("CometTransientDialogProvider.react"), {
-                  children: n({
-                    onBack: d,
-                    onCancel: function () {
-                      i == null || i();
-                    },
-                    onExit: function () {
-                      (l(), t());
-                    },
-                    onFailure: function () {
-                      s == null || s();
-                    },
-                    onSuccess: function () {
-                      (c(), t());
-                    },
-                  }),
+                  children: n(g),
                 }),
               }),
             });

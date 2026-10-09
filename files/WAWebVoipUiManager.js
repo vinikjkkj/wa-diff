@@ -334,9 +334,7 @@ __d(
                       !o(
                         "WAWebVoipUiPopoutWindowPortalContainer.react",
                       ).getIsCallActiveInPopoutWindow() &&
-                      (o(
-                        "WAWebVoipGatingUtils",
-                      ).isWinHybridPlusOutgoingPopoutEnabled() ||
+                      (o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() ||
                         (t.isVideo === !0 &&
                           o("WAWebABProps").getABPropConfigValue(
                             "web_calling_auto_popout_video",
@@ -350,15 +348,11 @@ __d(
                           "",
                         ])),
                       String(
-                        o(
-                          "WAWebVoipGatingUtils",
-                        ).isWinHybridPlusOutgoingPopoutEnabled(),
+                        o("WAWebVoipGatingUtils").isWinHybridPlusEnabled(),
                       ),
                       String(t.isVideo === !0),
                     );
-                    var n = o(
-                      "WAWebVoipGatingUtils",
-                    ).isWinHybridPlusOutgoingPopoutEnabled();
+                    var n = o("WAWebVoipGatingUtils").isWinHybridPlusEnabled();
                     o("WAWebReleaseToEventLoop")
                       .releaseToEventLoop()
                       .then(function () {
@@ -370,9 +364,7 @@ __d(
             I =
               L &&
               !o("WAWebVoipCallStateUtils").isCallActive(E) &&
-              (o(
-                "WAWebVoipGatingUtils",
-              ).isWinHybridPlusIncomingPopoutEnabled() ||
+              (o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() ||
                 !o(
                   "WAWebMuteCollection",
                 ).MuteCollection.getGlobalCallNotifications());
@@ -409,9 +401,7 @@ __d(
               var M = !1,
                 w = function () {
                   var e =
-                    o(
-                      "WAWebVoipGatingUtils",
-                    ).isWinHybridPlusIncomingPopoutEnabled() &&
+                    o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() &&
                     o(
                       "WAWebVoipUiPopoutWindowPortalContainer.react",
                     ).getIsCallActiveInPopoutWindow();
@@ -521,7 +511,7 @@ __d(
     function ue() {
       if (
         !(
-          !o("WAWebVoipGatingUtils").isWinHybridPlusIncomingPopoutEnabled() ||
+          !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() ||
           !o(
             "WAWebVoipUiPopoutWindowPortalContainer.react",
           ).getIsCallActiveInPopoutWindow()
@@ -552,7 +542,7 @@ __d(
         }
     }
     function ce(e) {
-      !o("WAWebVoipGatingUtils").isWinHybridPlusIncomingPopoutEnabled() ||
+      !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() ||
         !o("WAWebVoipCallStateUtils").isCallIncoming(e) ||
         o(
           "WAWebVoipUiPopoutWindowPortalContainer.react",

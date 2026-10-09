@@ -2,17 +2,26 @@ __d(
   "WAWebBidiParagraphNode",
   [
     "Lexical",
+    "Locale",
+    "WABidi",
+    "WAWebABProps",
     "WAWebListBulletNode",
     "WAWebListNumberNode",
     "WAWebQuoteLineNode",
     "WDSBidiParagraphNode",
+    "WDSVars.stylex",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 40,
       s = 30,
       u = 14,
-      c = (function (t) {
+      c = o("Lexical").createState("waQuoteDirection", {
+        parse: function (t) {
+          return t === "ltr" || t === "rtl" ? t : null;
+        },
+      }),
+      d = (function (t) {
         function n() {
           return t.apply(this, arguments) || this;
         }
@@ -39,6 +48,26 @@ __d(
               "Deserialization of BidiParagraphNode is unsupported",
             );
           }),
+          (a.updateDOMDirection = function (n) {
+            var e = this.getQuoteDirection();
+            if (e == null) {
+              t.prototype.updateDOMDirection.call(this, n);
+              return;
+            }
+            n.dir = e;
+          }),
+          (a.getQuoteDirection = function () {
+            var e;
+            if (
+              !(
+                this.getQuoteLineNode() == null ||
+                !o("WAWebABProps").getABPropConfigValue(
+                  "expanded_formatting_multiline_quotes",
+                )
+              )
+            )
+              return (e = o("Lexical").$getState(this, c)) != null ? e : void 0;
+          }),
           (a.getTargetIndent = function () {
             return this.getNumberNode() || this.getBulletNode()
               ? s / e
@@ -64,6 +93,17 @@ __d(
               ? e
               : null;
           }),
+          (a.getQuoteBarDirection = function () {
+            var e, t;
+            return (e =
+              (t = this.getQuoteDirection()) != null
+                ? t
+                : o("WABidi").bidiDir(this.getTextContent())) != null
+              ? e
+              : o("Locale").isRTL()
+                ? "rtl"
+                : "ltr";
+          }),
           (a.updateDOMTextIndent = function (t) {
             ((t.style.textIndent = "0"),
               this.getBulletNode() && (t.style.textIndent = "-12px"));
@@ -87,9 +127,11 @@ __d(
                   (i == null ? void 0 : i.getNumberNode());
               (!l || l.getType() !== r.getType()) && (n = 4);
             }
-            (this.getQuoteLineNode() && ((e = 4), (n = 4)),
-              (t.style.marginTop = e + "px"),
-              (t.style.marginBottom = n + "px"));
+            if (this.getQuoteLineNode()) {
+              var s = m(this, t);
+              ((n = s.marginBottom), (e = s.marginTop));
+            }
+            ((t.style.marginTop = e + "px"), (t.style.marginBottom = n + "px"));
           }),
           (a.updateDOMQuoteBarHeight = function (t) {
             if (!this.getQuoteLineNode()) {
@@ -107,7 +149,57 @@ __d(
           n
         );
       })(o("WDSBidiParagraphNode").WDSBidiParagraphNode);
-    l.BidiParagraphNode = c;
+    function m(e, t) {
+      var n = o("WAWebABProps").getABPropConfigValue(
+          "expanded_formatting_multiline_quotes",
+        ),
+        r = n && _(e, e.getPreviousSibling()),
+        a = n && _(e, e.getNextSibling());
+      return (
+        p(t, "--wa-quote-bar-top-radius", r),
+        p(t, "--wa-quote-bar-bottom-radius", a),
+        { marginTop: r ? 0 : 4, marginBottom: a ? 0 : 4 }
+      );
+    }
+    function p(e, t, n) {
+      n
+        ? e.style.setProperty(t, o("WDSVars.stylex").WDSVars.borderRadiusNone)
+        : e.style.removeProperty(t);
+    }
+    function _(e, t) {
+      return (
+        t != null &&
+        t.getQuoteLineNode() != null &&
+        t.getQuoteBarDirection() === e.getQuoteBarDirection()
+      );
+    }
+    function f(e) {
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "expanded_formatting_multiline_quotes",
+        )
+      )
+        for (var t = e; t != null; ) {
+          for (var n, r = []; t instanceof d && t.getQuoteLineNode() != null; )
+            (r.push(t), (t = t.getNextSibling()));
+          (g(r), (t = (n = t) == null ? void 0 : n.getNextSibling()));
+        }
+    }
+    function g(e) {
+      var t = null;
+      for (var n of e) {
+        var r;
+        if (
+          ((t =
+            (r = o("WABidi").bidiDir(n.getTextContent())) != null ? r : null),
+          t != null)
+        )
+          break;
+      }
+      for (var a of e)
+        o("Lexical").$getState(a, c) !== t && o("Lexical").$setState(a, c, t);
+    }
+    ((l.BidiParagraphNode = d), (l.$setQuoteDirections = f));
   },
   98,
 );

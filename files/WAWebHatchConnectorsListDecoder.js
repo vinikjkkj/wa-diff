@@ -34,6 +34,8 @@ __d(
                 e,
                 "supports_multiple_accounts",
               ) === !0,
+            isCustom:
+              o("WAWebHatchJsonReaders").readBool(e, "is_custom") === !0,
             consent: p(e),
           };
     }

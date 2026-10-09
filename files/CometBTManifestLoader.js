@@ -13,6 +13,7 @@ __d(
     "err",
     "getErrorSafe",
     "promiseDone",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -85,11 +86,12 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
+            (r("vulture")("TONxYGLCkef91XeTupAsyKqTbrs="),
             !(
               !o("SiteData").manifest_origin ||
               o("SiteData").manifest_version_prefix == null ||
               o("SiteData").manifest_base_uri == null
-            )
+            ))
           ) {
             var n = e + "_" + t,
               a = "" + o("SiteData").manifest_version_prefix + e;

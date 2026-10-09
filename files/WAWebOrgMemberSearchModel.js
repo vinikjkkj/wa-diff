@@ -8,7 +8,7 @@ __d(
     "WAWebOrgCollection",
     "WAWebOrgContactCollection",
     "WAWebOrgDirectoryRepository",
-    "WAWebOrgMemberSearchGating",
+    "WAWebOrgGatingUtils",
     "WAWebPhoneNumberSearch",
     "WAWebSchemaOrg",
     "WAWebSearchUtils",
@@ -34,7 +34,10 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.trim();
           if (
-            !o("WAWebOrgMemberSearchGating").isOrgMemberSearchEnabled() ||
+            !(
+              o("WAWebOrgGatingUtils").isOrgHubEnabled() ||
+              o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled()
+            ) ||
             n.replace(/\s/g, "").length < m
           )
             return _;

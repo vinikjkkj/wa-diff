@@ -1,6 +1,7 @@
 __d(
   "StreamGroupWebSocketTransport",
   [
+    "DGWBestEffortCallbacks",
     "DGWConstants",
     "DGWExponentialBackoff",
     "DGWPinger",
@@ -41,31 +42,35 @@ __d(
         function t(e, n, a, i, l, s, u, c, d) {
           var m = this,
             p;
-          ((this.$18 = -1),
-            (this.$15 = l),
-            (this.$17 = this.__getStreamIdGenerator()),
+          ((this.$19 = -1),
+            (this.$16 = l),
+            (this.$18 = this.__getStreamIdGenerator()),
             (this.$5 = new Map()),
             (this.$6 = new Map()),
             (this.$7 = i.keepAliveMs),
             (this.$8 = !1),
             (this.$9 = !1),
+            (this.$10 = !1),
             (this.$3 = !0),
             (this.$4 = !1),
-            (this.$20 = !1),
             (this.$21 = !1),
-            (this.$13 = a),
-            (this.$11 = new TextEncoder()),
-            (this.$12 = new TextDecoder()),
-            (this.$14 = i));
+            (this.$22 = !1),
+            (this.$14 = a),
+            (this.$12 = new TextEncoder()),
+            (this.$13 = new TextDecoder()),
+            (this.$15 = i));
           var _ = {
             onDataReceived: function () {},
             handleAckReceived: function () {},
+            receivedDeauthSignal: function () {
+              m.$8 || m.$9 || ((m.$9 = !0), m.$15.onDeauthReceived());
+            },
             receivedDrainSignal: function (t) {
-              m.$9 ||
-                ((m.$9 = !0),
-                m.$15(),
-                m.$13.transportClosed(!0, ""),
-                m.$14.streamGroupCallbacks.onStreamGroupMustDrain(t),
+              m.$10 ||
+                ((m.$10 = !0),
+                m.$16(),
+                m.$14.transportClosed(!0, ""),
+                m.$15.streamGroupCallbacks.onStreamGroupMustDrain(t),
                 m.$5.forEach(function (e) {
                   e.__drainReceivedHook(t);
                 }),
@@ -78,7 +83,7 @@ __d(
                 var e = m.$5.get(t);
                 e == null || e.__dataReceivedHook(n, r);
               } else
-                m.$13.receivedFrameForInactiveStream(
+                m.$14.receivedFrameForInactiveStream(
                   "Data",
                   t,
                   "sendAckID: " + (r != null ? r : "null"),
@@ -89,7 +94,7 @@ __d(
                 var e = m.$5.get(t);
                 e == null || e.__ackReceivedHook(n);
               } else
-                m.$13.receivedFrameForInactiveStream(
+                m.$14.receivedFrameForInactiveStream(
                   "ACK",
                   t,
                   "ackId: " + (n != null ? n : "null"),
@@ -99,19 +104,19 @@ __d(
               if (m.$5.has(t)) {
                 var e = m.$5.get(t);
                 e == null || e.__endOfDataHook();
-              } else m.$13.receivedFrameForInactiveStream("EndOfData", t);
+              } else m.$14.receivedFrameForInactiveStream("EndOfData", t);
             },
             onGroupedStreamEstablishStreamReceived: function (t, n) {
               if (m.$6.has(t)) {
                 var e = m.$6.get(t);
                 m.$6.delete(t);
-                var r = JSON.parse(m.$12.decode(n));
+                var r = JSON.parse(m.$13.decode(n));
                 ((r.code === void 0 || r.code !== 200) &&
                   (e == null ||
                     e.abortStream(o("DGWStream").StreamError.ABNORMAL_CLOSURE)),
                   e == null || e.handleEstablishFrameReceived());
               } else
-                m.$13.receivedFrameForInactiveStream(
+                m.$14.receivedFrameForInactiveStream(
                   "EstablishStream",
                   t,
                   "EstablishStream received for non-inflight stream",
@@ -123,8 +128,8 @@ __d(
             },
             onPongReceived: function () {
               ((m.$3 = !1),
-                m.$21 || ((m.$21 = !0), m.__markerPoint("auth_success")),
-                m.$13.transportPongReceived(
+                m.$22 || ((m.$22 = !0), m.__markerPoint("auth_success")),
+                m.$14.transportPongReceived(
                   "readyState:" +
                     m.$1.readyState +
                     ", bufferedAmount:" +
@@ -133,21 +138,21 @@ __d(
             },
           };
           ((this.$2 = new (o("DGWUtils").DGWCodec)(s, _, i.dgwVersion)),
-            (this.$19 =
+            (this.$20 =
               Date.now() + (Math.round(o("Random").random() * 1e4) + 1e4)),
-            (this.$22 = s.getGlobalLogger()),
-            (this.$23 = (p = i.connectTimeoutMs) != null ? p : 2e4),
-            (this.$24 = s),
-            (this.$25 = d));
+            (this.$23 = s.getGlobalLogger()),
+            (this.$24 = (p = i.connectTimeoutMs) != null ? p : 2e4),
+            (this.$25 = s),
+            (this.$26 = d));
           var f = o("Run").onUnload(function () {
-            m.$22.tabClosed();
+            m.$23.tabClosed();
           });
           if (i.enableFirstStreamOnWsHandshake) {
             var g, h, y, C;
             if (u === void 0) throw r("err")("Missing grouped stream options");
             if (c === void 0)
               throw r("err")("Missing grouped stream callbacks");
-            var b = this.$17.getNextStreamId(),
+            var b = this.$18.getNextStreamId(),
               v = this.createEstablishStreamFrame(b, u),
               S = o("DGWUtils").DGWUtils.constructConnectUrl({
                 appId: i.appId,
@@ -175,11 +180,11 @@ __d(
             )
               return;
             var R =
-                this.$25 != null
-                  ? this.$25(u.loggingId, u.disableFalcoLogging)
+                this.$26 != null
+                  ? this.$26(u.loggingId, u.disableFalcoLogging)
                   : new (o("NoOpDGWLoggingContext").NoOpDGWLoggingContext)(),
               L = this.__createGroupedStream(b, c, u, R);
-            this.$16 = this.waitForEstablishStream(
+            this.$17 = this.waitForEstablishStream(
               b,
               L,
               u,
@@ -187,19 +192,19 @@ __d(
                 m.$5.set(b, e);
               },
               function () {
-                m.$17.putBackStreamId(b);
+                m.$18.putBackStreamId(b);
               },
             );
           } else this.$1 = n(e);
-          (this.$22.streamRequested(i.serviceId),
-            this.$24.qplMarkerStart(
+          (this.$23.streamRequested(i.serviceId),
+            this.$25.qplMarkerStart(
               o("IDGWLoggingContext").QPLEvent.STREAM_GROUP_TRANSPORT,
-              this.$19,
+              this.$20,
             ),
             this.__markerAnnotate({
               string: {
-                serviceId: this.$14.serviceId,
-                streamGroupId: this.$14.loggingId,
+                serviceId: this.$15.serviceId,
+                streamGroupId: this.$15.loggingId,
               },
             }));
         }
@@ -210,7 +215,7 @@ __d(
               return (this.$1.send(t), !0);
             } catch (e) {
               return (
-                this.$13.transportError(
+                this.$14.transportError(
                   "Failed to send over transport",
                   "readyState: " + this.$1.readyState,
                   r("getErrorSafe")(e).message,
@@ -221,41 +226,97 @@ __d(
           }),
           (a.close = function () {
             var e;
-            (this.$22.streamClosed(this.$14.serviceId),
+            (this.$23.streamClosed(this.$15.serviceId),
               this.__markerPoint("teardown"),
               (this.$8 = !0),
-              (e = this.$10) == null || e.cancel(),
+              (e = this.$11) == null || e.cancel(),
               (this.$1.onopen = function (e) {}),
               (this.$1.onmessage = function (e) {}),
               (this.$1.onerror = function (e) {}),
-              this.$15(),
+              this.$16(),
               this.$1.close());
           }),
           (a.onClose = function (t) {
             var e;
-            (this.$22.streamClosed(this.$14.serviceId),
+            (this.$23.streamClosed(this.$15.serviceId),
               this.__markerPoint("abort"),
               this.__markerAnnotate({ int: { abort_code: t } }),
               (this.$8 = !0),
-              (e = this.$10) == null || e.cancel(),
+              (e = this.$11) == null || e.cancel(),
               this.$1.close(t));
           }),
           (a.abort = function (t, n, r, o, a) {
-            this.$8 ||
-              (this.$22.streamClosed(this.$14.serviceId),
-              (this.$8 = !0),
-              this.$13.transportClosed(!1, o, a),
-              this.$5.forEach(function (e) {
-                e.__transportCloseHook(n);
-              }),
-              this.$6.forEach(function (e) {
-                e.abortStream(n);
-              }),
-              this.$14.streamGroupCallbacks.onStreamGroupError(t),
-              this.$5.clear(),
-              this.$6.clear(),
-              this.$15(),
-              this.onClose(r));
+            this.$27(t, n, r, o, a, !1);
+          }),
+          (a.deauth = function () {
+            this.$27(
+              o("DGWStreamGroupCallbacks").DGWStreamGroupError.TRANSPORT_DEAUTH,
+              o("DGWStream").StreamError.DEAUTH,
+              o("DGWConstants").WebsocketCloseCodes.GRACEFUL_CLOSE,
+              "DEAUTH",
+              void 0,
+              !0,
+            );
+          }),
+          (a.$27 = function (t, n, a, i, l, s) {
+            var e = this;
+            if (!this.$8)
+              if (
+                (this.$23.streamClosed(this.$15.serviceId),
+                (this.$8 = !0),
+                this.$14.transportClosed(!1, i, l),
+                !s)
+              )
+                (this.$5.forEach(function (t) {
+                  e.$28(t, n);
+                }),
+                  this.$6.forEach(function (t) {
+                    e.$29(t, n);
+                  }),
+                  this.$30(t),
+                  this.$5.clear(),
+                  this.$6.clear(),
+                  this.$16(),
+                  this.onClose(a));
+              else {
+                var u = Array.from(this.$5.values()),
+                  c = Array.from(this.$6.values());
+                (this.$5.clear(), this.$6.clear(), this.$16());
+                var d = [
+                    function () {
+                      return e.$30(t);
+                    },
+                  ].concat(
+                    u.map(function (t) {
+                      return function () {
+                        return e.$28(t, n);
+                      };
+                    }),
+                    c.map(function (t) {
+                      return function () {
+                        return e.$29(t, n);
+                      };
+                    }),
+                    [
+                      function () {
+                        return e.onClose(a);
+                      },
+                    ],
+                  ),
+                  m = function (n) {
+                    e.$14.deauthCallbackError(r("getErrorSafe")(n).message);
+                  };
+                o("DGWBestEffortCallbacks").runCallbacksBestEffort(d, m);
+              }
+          }),
+          (a.$30 = function (t) {
+            this.$15.streamGroupCallbacks.onStreamGroupError(t);
+          }),
+          (a.$28 = function (t, n) {
+            t.__transportCloseHook(n);
+          }),
+          (a.$29 = function (t, n) {
+            t.abortStream(n);
           }),
           (t.getTransportWithInitialStream = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -264,7 +325,7 @@ __d(
                 var u = new (o("DGWTransportEvents").DGWTransportEvents)(a);
                 u.transportEstablishmentPending();
                 var c = function () {
-                  return t.$26("", r, u, i, a, e, n, s);
+                  return t.$31("", r, u, i, a, e, n, s);
                 };
                 try {
                   var d = yield o(
@@ -277,7 +338,7 @@ __d(
                             "NoOpDGWLoggingContext",
                           ).NoOpDGWLoggingContext)(),
                     p =
-                      d.$16 != null ? d.$16 : d.establishGroupedStream(n, e, m);
+                      d.$17 != null ? d.$17 : d.establishGroupedStream(n, e, m);
                   return { transport: d, streamPromise: p };
                 } catch (e) {
                   throw e;
@@ -296,7 +357,7 @@ __d(
                 var s = new (o("DGWTransportEvents").DGWTransportEvents)(r);
                 s.transportEstablishmentPending();
                 var u = function () {
-                  return t.$26(e, n, s, a, r, void 0, void 0, l);
+                  return t.$31(e, n, s, a, r, void 0, void 0, l);
                 };
                 try {
                   return yield o(
@@ -322,8 +383,8 @@ __d(
                   p = this.__createGroupedStream(d, t, a, i);
                 (p.__markerAnnotate({
                   string: {
-                    serviceId: this.$14.serviceId,
-                    streamGroupId: this.$14.loggingId,
+                    serviceId: this.$15.serviceId,
+                    streamGroupId: this.$15.loggingId,
                     streamId: a.streamTraceId,
                   },
                 }),
@@ -336,7 +397,7 @@ __d(
                     c.$5.set(d, e);
                   },
                   function () {
-                    c.$17.putBackStreamId(d);
+                    c.$18.putBackStreamId(d);
                   },
                 );
                 if (l != null) {
@@ -397,7 +458,7 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, r, o, a, i) {
                 var l = this;
-                this.$13.streamEstablishmentPending(t, o.loggingId);
+                this.$14.streamEstablishmentPending(t, o.loggingId);
                 try {
                   var s = yield new (e || (e = n("Promise")))(function (e, n) {
                     l.$6.set(
@@ -409,13 +470,13 @@ __d(
                   });
                   return (
                     a(r),
-                    this.$13.streamEstablishmentSuccess(t, o.loggingId),
+                    this.$14.streamEstablishmentSuccess(t, o.loggingId),
                     s
                   );
                 } catch (e) {
                   throw (
                     i(),
-                    this.$13.streamEstablishmentTimeout(
+                    this.$14.streamEstablishmentTimeout(
                       "Stream establishment timeout. readyState: " +
                         this.$1.readyState,
                       t,
@@ -431,7 +492,7 @@ __d(
             }
             return r;
           })()),
-          (t.$26 = (function () {
+          (t.$31 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, n, a, i, l, s, u, c) {
                 var d = new t(
@@ -445,16 +506,16 @@ __d(
                   u,
                   c,
                 );
-                ((d.$1.onmessage = t.$27(d)),
+                ((d.$1.onmessage = t.$32(d)),
                   (d.$1.onopen = function () {
                     (d.__markerPoint("onopen"),
                       a.transportEstablished(e),
-                      d.$10 != null && d.$10.cancel(),
+                      d.$11 != null && d.$11.cancel(),
                       d.$7 != null &&
-                        (d.$10 = new (o("DGWPinger").DGWPinger)(
+                        (d.$11 = new (o("DGWPinger").DGWPinger)(
                           d.$7,
                           function () {
-                            d.$28();
+                            d.$33();
                           },
                           function () {
                             d.abort(
@@ -475,12 +536,12 @@ __d(
                   }),
                   (d.$1.onerror = function () {
                     (d.__markerPoint("onerror"),
-                      d.$13.transportError(
+                      d.$14.transportError(
                         "onerror",
                         "readyState: " + d.$1.readyState,
                       ));
                   }),
-                  (d.$1.onclose = t.$29(d)));
+                  (d.$1.onclose = t.$34(d)));
                 try {
                   return yield t.getTransportPromise(d);
                 } catch (f) {
@@ -493,7 +554,7 @@ __d(
                       (d.__markerPoint("internal_cert_priming_retry_attempt"),
                         a.internalCertPrimingRetryAttempt(p));
                       try {
-                        var _ = yield t.$26(e, n, a, i, l, s, u, c);
+                        var _ = yield t.$31(e, n, a, i, l, s, u, c);
                         return (
                           d.__markerPoint(
                             "internal_cert_priming_retry_success",
@@ -533,8 +594,8 @@ __d(
                   s = t.$1.onclose,
                   u = new (e || (e = n("Promise")))(function (e, n) {
                     a = window.setTimeout(function () {
-                      (t.$15(),
-                        t.$13.transportClosed(!1, "TIMEOUT"),
+                      (t.$16(),
+                        t.$14.transportClosed(!1, "TIMEOUT"),
                         t.__markerPoint("connect_timeout"),
                         t.close(),
                         n(
@@ -543,7 +604,7 @@ __d(
                               .TRANSPORT_ESTABLISHMENT_TIMEOUT,
                           ),
                         ));
-                    }, t.$23);
+                    }, t.$24);
                   }),
                   c = new e(function (e, n) {
                     ((t.$1.onerror = function () {
@@ -586,12 +647,12 @@ __d(
             }
             return a;
           })()),
-          (t.$27 = function (t) {
+          (t.$32 = function (t) {
             return function (e) {
               var n;
               if (t.$2 == null) {
                 var r;
-                (r = t.$13) == null ||
+                (r = t.$14) == null ||
                   r.transportError(
                     "Codec Not Ready",
                     "Received message before codec was initialized or after close",
@@ -599,12 +660,12 @@ __d(
                 return;
               }
               if (
-                (t.$20 || ((t.$20 = !0), t.__markerPoint("onmessage")),
-                (n = t.$10) == null || n.reset(),
+                (t.$21 || ((t.$21 = !0), t.__markerPoint("onmessage")),
+                (n = t.$11) == null || n.reset(),
                 !(e.data instanceof ArrayBuffer))
               ) {
                 var o;
-                (o = t.$13) == null ||
+                (o = t.$14) == null ||
                   o.transportError(
                     "Incorrect Data Protocol",
                     "Received " + typeof e.data + " instead of ArrayBuffer",
@@ -614,10 +675,10 @@ __d(
               (t.$2.append(new Uint8Array(e.data)), t.$2.processData());
             };
           }),
-          (t.$29 = function (t) {
+          (t.$34 = function (t) {
             return function (e) {
               var n,
-                r = t.$22.getGlobalState();
+                r = t.$23.getGlobalState();
               if (
                 (t.__markerPoint("onclose"),
                 t.__markerAnnotate({
@@ -634,26 +695,26 @@ __d(
                     ? o("IDGWLoggingContext").QPLResult.SUCCESS
                     : o("IDGWLoggingContext").QPLResult.FAIL,
                 ),
-                (n = t.$10) == null || n.cancel(),
+                (n = t.$11) == null || n.cancel(),
                 !(t.$8 === !0 || t.$4))
               ) {
                 if (
-                  (t.$22.streamClosed(t.$14.serviceId),
+                  (t.$23.streamClosed(t.$15.serviceId),
                   (t.$8 = !0),
                   t.$3 === !0)
                 ) {
-                  (t.$13.transportEstablishmentFailure(e),
+                  (t.$14.transportEstablishmentFailure(e),
                     t.$5.clear(),
-                    t.$15());
+                    t.$16());
                   return;
                 }
                 if (
-                  (t.$15(),
+                  (t.$16(),
                   (t.$3 = !0),
                   e.code !==
                     o("DGWConstants").WebsocketCloseCodes.GRACEFUL_CLOSE)
                 ) {
-                  t.$13.transportClosed(
+                  t.$14.transportClosed(
                     !1,
                     "Websocket connection failure with code: " +
                       e.code +
@@ -715,7 +776,7 @@ __d(
                         (i = o("DGWStream").StreamError.UNKNOWN_ERROR));
                       break;
                   }
-                  (t.$14.streamGroupCallbacks.onStreamGroupError(a),
+                  (t.$15.streamGroupCallbacks.onStreamGroupError(a),
                     t.$5.forEach(function (e) {
                       e.__transportCloseHook(i);
                     }),
@@ -723,8 +784,8 @@ __d(
                       e.abortStream(i);
                     }));
                 } else
-                  (t.$13.transportClosed(!0, ""),
-                    t.$14.streamGroupCallbacks.onStreamGroupTransportClose(),
+                  (t.$14.transportClosed(!0, ""),
+                    t.$15.streamGroupCallbacks.onStreamGroupTransportClose(),
                     t.$5.forEach(function (e) {
                       e.__transportCloseHook();
                     }),
@@ -738,16 +799,16 @@ __d(
               }
             };
           }),
-          (a.$28 = function () {
+          (a.$33 = function () {
             var e = this.$2.encodePing();
             if (e == null) throw r("err")("Failed to encode Ping Frame");
             var t = this.send(e);
-            ((this.$18 = this.$1.bufferedAmount),
-              this.$13.transportPingSent(
+            ((this.$19 = this.$1.bufferedAmount),
+              this.$14.transportPingSent(
                 "readyState:" +
                   this.$1.readyState +
                   ", bufferedAmount:" +
-                  this.$18 +
+                  this.$19 +
                   ", payloadSize:" +
                   (e == null ? void 0 : e.byteLength) +
                   ", sent:" +
@@ -758,10 +819,10 @@ __d(
             return this.$3 || this.$8 || this.$4;
           }),
           (a.streamEndCallback = function (t) {
-            (this.$5.delete(t), this.$6.delete(t), this.$17.putBackStreamId(t));
+            (this.$5.delete(t), this.$6.delete(t), this.$18.putBackStreamId(t));
           }),
           (a.canCreateGroupedStream = function () {
-            return this.$17.streamIdAvailable();
+            return this.$18.streamIdAvailable();
           }),
           (a.createEstablishStreamFrame = function (n, a) {
             var e = t.__prefixAppHeaders(a.groupedStreamHeaders);
@@ -770,21 +831,21 @@ __d(
                 a.streamTraceId);
             var i = this.$2.encodeEstablishStream(
               n,
-              new Uint8Array(this.$11.encode(JSON.stringify(e))),
+              new Uint8Array(this.$12.encode(JSON.stringify(e))),
             );
             if (i == null)
               throw (
-                this.$17.putBackStreamId(n),
+                this.$18.putBackStreamId(n),
                 r("err")("Failed to encode EstablishStreamFrame")
               );
             return i;
           }),
           (a.getStreamId = function () {
             try {
-              return this.$17.getNextStreamId();
+              return this.$18.getNextStreamId();
             } catch (e) {
               throw (
-                this.$13.ranOutOfStreamIds(
+                this.$14.ranOutOfStreamIds(
                   "inFlightGroupedStreamSize: " +
                     this.$6.size +
                     " groupedStreamSize: " +
@@ -812,24 +873,24 @@ __d(
             return new (o("StreamIdGenerator").StreamIdGeneratorImpl)();
           }),
           (a.__markerPoint = function (t) {
-            this.$24.qplMarkerPoint(
+            this.$25.qplMarkerPoint(
               o("IDGWLoggingContext").QPLEvent.STREAM_GROUP_TRANSPORT,
               t,
-              this.$19,
+              this.$20,
             );
           }),
           (a.__markerAnnotate = function (t) {
-            this.$24.qplMarkerAnnotate(
+            this.$25.qplMarkerAnnotate(
               o("IDGWLoggingContext").QPLEvent.STREAM_GROUP_TRANSPORT,
               t,
-              this.$19,
+              this.$20,
             );
           }),
           (a.__endMarker = function (t) {
-            this.$24.qplMarkerEnd(
+            this.$25.qplMarkerEnd(
               o("IDGWLoggingContext").QPLEvent.STREAM_GROUP_TRANSPORT,
               t,
-              this.$19,
+              this.$20,
             );
           }),
           t
