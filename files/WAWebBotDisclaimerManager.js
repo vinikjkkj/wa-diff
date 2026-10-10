@@ -33,7 +33,7 @@ __d(
       m = "TOS_DID_NOT_ACCEPT",
       p = "TOS_ACCEPTANCE_NOT_SUPPORTED";
     function _() {
-      var t = s._(/*BTDS*/ "Something went wrong, please try again.");
+      var t = s._(/*BTDS*/ "Something went wrong. Please try again.");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebActionToast.react").ActionToast, {
           initialAction: null,

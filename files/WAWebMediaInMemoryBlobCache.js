@@ -7,12 +7,14 @@ __d(
     "WAWebCreateMediaBlobUrl",
     "WAWebMediaStorage",
     "WAWebMediaTypes",
+    "WAWebMemoryPressureCacheRegistry",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 25e7,
-      u = (function () {
+      u = 50 * 1024 * 1024,
+      c = (function () {
         function t(e) {
           var t = this;
           if (
@@ -20,7 +22,14 @@ __d(
             (this.$3 = new Map()),
             (this.$4 = new Set()),
             (this.$5 = new Set()),
-            (this.$6 = !1),
+            (this.$6 = {
+              name: "media_blob",
+              unit: "bytes",
+              release: function () {
+                return t.trimUnusedTo(u);
+              },
+            }),
+            (this.$7 = !1),
             (this.getOrCreateURL = function (e) {
               var n = t.$3.get(e);
               if (n != null) return (t.touch(e), n);
@@ -41,7 +50,7 @@ __d(
                 (t.$3.delete(e), window.URL.revokeObjectURL(n));
               }
             }),
-            (this.$9 = o("WAThrottle").throttle(
+            (this.$10 = o("WAThrottle").throttle(
               function () {
                 (t.$4.forEach(function (e) {
                   var n = t.$3.get(e);
@@ -63,7 +72,7 @@ __d(
               },
               onEvict: function (n, r) {
                 (t.$3.has(n) &&
-                  t.$7(n) === 0 &&
+                  t.$8(n) === 0 &&
                   (t.revokeURL(n, t.$3.get(n)),
                   o("WAWebMediaStorage")
                     .getOrCreateMediaObject(n)
@@ -71,13 +80,13 @@ __d(
                       downloadStage: o("WAWebMediaTypes").DownloadStage.INIT,
                       progressiveStage: null,
                     })),
-                  (t.$6 = !0));
+                  (t.$7 = !0));
               },
               onPurge: function () {
-                t.$6 && ((t.$6 = !1), t.$8());
+                t.$7 && ((t.$7 = !1), t.$9());
               },
               shouldEvict: function (n, r) {
-                return t.$7(n) === 0;
+                return t.$8(n) === 0;
               },
             })));
         }
@@ -93,21 +102,25 @@ __d(
             this.get(t);
           }),
           (n.put = function (t, n) {
-            (this.$1.put(t, n), this.$8());
+            (this.$1.put(t, n),
+              o("WAWebMemoryPressureCacheRegistry").registerMemoryPressureCache(
+                this.$6,
+              ),
+              this.$9());
           }),
           (n.replace = function (t, n) {
             var e = this.$3.get(t);
-            (e != null && this.$7(t) === 0
+            (e != null && this.$8(t) === 0
               ? this.revokeURL(t, e)
               : this.$3.delete(t),
               this.put(t, n));
           }),
           (n.delete = function (t) {
-            (this.$1.delete(t), this.$8());
+            (this.$1.delete(t), this.$9());
           }),
           (n.clear = function () {
             var e = this;
-            (this.$9.flush(),
+            (this.$10.flush(),
               (this.$2 = {}),
               this.$3.forEach(function (t, n) {
                 e.revokeURL(n, t);
@@ -115,11 +128,15 @@ __d(
               this.$3.clear(),
               this.$1.clear());
           }),
+          (n.trimUnusedTo = function (t) {
+            var e = this.$1.getCurrentSize();
+            return (this.$1.trimTo(t), e - this.$1.getCurrentSize());
+          }),
           (n.increaseUsageCount = function (t) {
-            ((this.$2[t] = this.$7(t) + 1), this.$4.delete(t));
+            ((this.$2[t] = this.$8(t) + 1), this.$4.delete(t));
           }),
           (n.decreaseUsageCount = function (n) {
-            var t = this.$7(n);
+            var t = this.$8(n);
             if (t <= 0) {
               o("WALogger")
                 .ERROR(
@@ -134,12 +151,12 @@ __d(
             }
             ((this.$2[n] = t - 1),
               this.$2[n] === 0 &&
-                (delete this.$2[n], this.$4.add(n), this.$9()));
+                (delete this.$2[n], this.$4.add(n), this.$10()));
           }),
-          (n.$7 = function (t) {
+          (n.$8 = function (t) {
             return this.$2[t] || 0;
           }),
-          (n.$8 = function () {
+          (n.$9 = function () {
             this.$5.forEach(function (e) {
               return e();
             });
@@ -159,8 +176,8 @@ __d(
           t
         );
       })(),
-      c = new u();
-    ((l.InMemoryMediaBlobCacheImpl = u), (l.InMemoryMediaBlobCache = c));
+      d = new c();
+    ((l.InMemoryMediaBlobCacheImpl = c), (l.InMemoryMediaBlobCache = d));
   },
   98,
 );

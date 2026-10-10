@@ -16,139 +16,248 @@ __d(
       d = u.useRef,
       m = u.useState;
     function p(e) {
-      var t = e.items,
-        n = e.onReordered,
-        a = e.renderItem,
-        i = d(null),
-        l = r("useLazyRef")(function () {
-          return new Map();
-        }),
-        u = d(0),
-        c = m(),
+      var t = o("react-compiler-runtime").c(17),
+        n = e.items,
+        a = e.onReordered,
+        i = e.renderItem,
+        l = d(null),
+        u = r("useLazyRef")(_),
+        c = m(0),
         p = c[0],
-        g = c[1],
-        h = m(null),
-        y = h[0],
-        C = h[1],
-        b = m(null),
-        v = b[0],
-        S = b[1],
-        R = m(null),
-        L = R[0],
-        E = R[1],
-        k = L != null,
-        I =
-          L == null || v == null || p == null
-            ? t
-            : _({
-                items: L,
-                draggedItemKey: y,
+        y = c[1],
+        C = m(),
+        b = C[0],
+        v = C[1],
+        S = m(null),
+        R = S[0],
+        L = S[1],
+        E = m(null),
+        k = E[0],
+        I = E[1],
+        T = m(null),
+        D = T[0],
+        x = T[1],
+        $ = D != null,
+        P =
+          D == null || k == null || b == null
+            ? n
+            : g({
+                items: D,
+                draggedItemKey: R,
                 getItemHeight: function (t) {
                   var e, n;
-                  return (e = (n = p.get(t.key)) == null ? void 0 : n.height) !=
+                  return (e = (n = b.get(t.key)) == null ? void 0 : n.height) !=
                     null
                     ? e
                     : 0;
                 },
-                dragPosition: v,
+                dragPosition: k,
               }),
-        T = function (t) {
-          var e = i.current;
-          if (e == null) return null;
-          var n = l.current,
-            r = n.get(t);
-          if (r == null) return null;
-          var o = e.getBoundingClientRect().y,
-            a = r.getBoundingClientRect();
-          return { clientTop: a.top, startTop: a.top - o, height: a.height };
-        },
-        D = function () {
-          var e = new Map();
-          for (var n of t) e.set(n.key, T(n.key));
-          g(e);
-        },
-        x = function (t) {
-          var e = i.current;
-          if (e != null) {
-            var n = t.clientY - e.getBoundingClientRect().y;
-            S(n);
-          }
-        };
+        N;
+      t[0] !== u
+        ? ((N = function (t) {
+            var e = l.current;
+            if (e == null) return null;
+            var n = u.current,
+              r = n.get(t);
+            if (r == null) return null;
+            var o = e.getBoundingClientRect().y,
+              a = r.getBoundingClientRect();
+            return { clientTop: a.top, startTop: a.top - o, height: a.height };
+          }),
+          (t[0] = u),
+          (t[1] = N))
+        : (N = t[1]);
+      var M = N,
+        w;
+      t[2] !== n || t[3] !== M
+        ? ((w = function () {
+            var e = new Map();
+            for (var t of n) e.set(t.key, M(t.key));
+            v(e);
+          }),
+          (t[2] = n),
+          (t[3] = M),
+          (t[4] = w))
+        : (w = t[4]);
+      var A = w,
+        F;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((F = function (t) {
+            var e = l.current;
+            if (e != null) {
+              var n = t.clientY - e.getBoundingClientRect().y;
+              I(n);
+            }
+          }),
+          (t[5] = F))
+        : (F = t[5]);
+      var O = F;
       o("useWAWebListener").useListener(
-        y == null ? null : document,
+        R == null ? null : document,
         "mousemove",
-        x,
+        O,
       );
-      var $ = r("useWAWebDebouncedCallback")(function () {
-          (E(null), g(null));
-        }, 300),
-        P = function (n, r) {
-          var e;
-          if (L == null) {
-            var o = (e = T(n)) == null ? void 0 : e.clientTop;
-            o != null && ((u.current = o - r.clientY), D(), C(n), E(t));
-          }
-        };
+      var B;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((B = function () {
+            (x(null), v(null));
+          }),
+          (t[6] = B))
+        : (B = t[6]);
+      var W = r("useWAWebDebouncedCallback")(B, 300),
+        q;
+      t[7] !== n || t[8] !== D || t[9] !== A || t[10] !== M
+        ? ((q = function (t, r) {
+            var e;
+            if (D == null) {
+              var o = (e = M(t)) == null ? void 0 : e.clientTop;
+              o != null && (y(o - r.clientY), A(), L(t), x(n));
+            }
+          }),
+          (t[7] = n),
+          (t[8] = D),
+          (t[9] = A),
+          (t[10] = M),
+          (t[11] = q))
+        : (q = t[11]);
+      var U = q;
       (o("useWAWebListener").useListener(
-        y == null ? null : document,
+        R == null ? null : document,
         "mouseup",
         function (e) {
-          ($(), n(I), C(null), S(null));
+          (W(), a(P), L(null), I(null));
         },
       ),
-        f(y != null));
-      var N = null,
-        M = 0,
-        w = 0;
-      if (p != null) {
-        N = new Map();
-        var A = 0;
-        for (var F of I) {
-          var O = p.get(F.key);
-          if (O != null) {
-            var B = A;
-            (N.set(F.key, B), (M = B), (A += O.height));
+        h(R != null));
+      var V = null,
+        H = 0;
+      if (b != null) {
+        V = new Map();
+        var G = 0;
+        for (var z of P) {
+          var j = b.get(z.key);
+          if (j != null) {
+            var K = G;
+            (V.set(z.key, K), (H = K), (G = G + j.height));
           }
         }
       }
-      var W = (L != null ? L : t).map(function (e, t) {
-        var n = p == null ? void 0 : p.get(e.key),
-          o;
-        if (e.key === y && v != null) {
-          var i,
-            c = r("nullthrows")(n == null ? void 0 : n.startTop),
-            d = (i = u.current) != null ? i : 0,
-            m = Math.min(Math.max(w, v + d), M);
-          o = m - c;
-        } else {
-          var _,
-            f = n == null ? void 0 : n.startTop,
-            g = (_ = N) == null ? void 0 : _.get(e.key);
-          o = !k || g == null || f == null ? 0 : g - f;
-        }
-        return s.jsx(
-          "div",
-          {
-            ref: function (n) {
-              n == null ? l.current.delete(e.key) : l.current.set(e.key, n);
+      var Q;
+      t[12] !== u
+        ? ((Q = function (t, n) {
+            n == null ? u.current.delete(t) : u.current.set(t, n);
+          }),
+          (t[12] = u),
+          (t[13] = Q))
+        : (Q = t[13]);
+      var X = Q,
+        Y = (D != null ? D : n).map(function (e, t) {
+          var n = b == null ? void 0 : b.get(e.key),
+            o;
+          if (e.key === R && k != null) {
+            var a = r("nullthrows")(n == null ? void 0 : n.startTop),
+              l = Math.min(Math.max(0, k + p), H);
+            o = l - a;
+          } else {
+            var u,
+              c = n == null ? void 0 : n.startTop,
+              d = (u = V) == null ? void 0 : u.get(e.key);
+            o = !$ || d == null || c == null ? 0 : d - c;
+          }
+          return s.jsx(
+            f,
+            {
+              index: t,
+              isEasing: R !== e.key && $,
+              item: e,
+              onWrapperRef: X,
+              renderItem: i,
+              startDrag: U,
+              translateY: o,
             },
-            className: { 0: "xh8yej3", 1: "xh8yej3 x11xpdln x13dflua xz4gly6" }[
-              !!(y !== e.key && k) << 0
-            ],
-            style: { transform: "translateY(" + o + "px)" },
-            children: a({ item: e, startDrag: P, index: t }),
-          },
-          e.key,
-        );
-      });
-      return s.jsx("div", {
-        ref: i,
-        className: "x78zum5 xdt5ytf",
-        children: W,
-      });
+            e.key,
+          );
+        }),
+        J;
+      t[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((J = { className: "x78zum5 xdt5ytf" }), (t[14] = J))
+        : (J = t[14]);
+      var Z;
+      return (
+        t[15] !== Y
+          ? ((Z = s.jsx(
+              "div",
+              babelHelpers.extends({ ref: l }, J, { children: Y }),
+            )),
+            (t[15] = Y),
+            (t[16] = Z))
+          : (Z = t[16]),
+        Z
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e) {
+    function _() {
+      return new Map();
+    }
+    function f(e) {
+      var t = o("react-compiler-runtime").c(17),
+        n = e.index,
+        r = e.isEasing,
+        a = e.item,
+        i = e.onWrapperRef,
+        l = e.renderItem,
+        u = e.startDrag,
+        c = e.translateY,
+        d;
+      t[0] !== a.key || t[1] !== i
+        ? ((d = function (t) {
+            return i(a.key, t);
+          }),
+          (t[0] = a.key),
+          (t[1] = i),
+          (t[2] = d))
+        : (d = t[2]);
+      var m;
+      t[3] !== r
+        ? ((m = { 0: "xh8yej3", 1: "xh8yej3 x11xpdln x13dflua xz4gly6" }[
+            !!r << 0
+          ]),
+          (t[3] = r),
+          (t[4] = m))
+        : (m = t[4]);
+      var p = "translateY(" + c + "px)",
+        _;
+      t[5] !== p
+        ? ((_ = { transform: p }), (t[5] = p), (t[6] = _))
+        : (_ = t[6]);
+      var f;
+      t[7] !== n || t[8] !== a || t[9] !== l || t[10] !== u
+        ? ((f = l({ item: a, startDrag: u, index: n })),
+          (t[7] = n),
+          (t[8] = a),
+          (t[9] = l),
+          (t[10] = u),
+          (t[11] = f))
+        : (f = t[11]);
+      var g;
+      return (
+        t[12] !== d || t[13] !== m || t[14] !== _ || t[15] !== f
+          ? ((g = s.jsx("div", {
+              ref: d,
+              className: m,
+              style: _,
+              children: f,
+            })),
+            (t[12] = d),
+            (t[13] = m),
+            (t[14] = _),
+            (t[15] = f),
+            (t[16] = g))
+          : (g = t[16]),
+        g
+      );
+    }
+    function g(e) {
       var t = e.draggedItemKey,
         n = e.dragPosition,
         r = e.getItemHeight,
@@ -175,7 +284,7 @@ __d(
       }
       return (i.splice(c, 0, a), i);
     }
-    function f(e) {
+    function h(e) {
       var t = o("react-compiler-runtime").c(3),
         n,
         r;

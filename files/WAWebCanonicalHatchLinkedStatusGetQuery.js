@@ -1,33 +1,43 @@
 __d(
   "WAWebCanonicalHatchLinkedStatusGetQuery",
   [
+    "WAPromiseTimeout",
     "WAWebCanonicalHatchLinkedStatusGetQuery.graphql",
+    "WAWebGraphQLServerError",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s =
+      s = 32e3,
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebCanonicalHatchLinkedStatusGetQuery.graphql"));
-    function u() {
-      return c.apply(this, arguments);
-    }
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
             n,
             r,
             a,
-            i = yield o("WAWebRelayClient").fetchQuery(
-              s,
-              {},
-              { environmentType: "whatsapp_web" },
-            ),
+            i = yield o("WAPromiseTimeout")
+              .promiseTimeout(
+                o("WAWebRelayClient").fetchQuery(
+                  u,
+                  {},
+                  { environmentType: "whatsapp_web" },
+                ),
+                s,
+                "hatch linked status query timed out",
+              )
+              .catch(m),
             l =
               i == null || (e = i.wa_genai_hatch_channel_metadata) == null
                 ? void 0
@@ -41,10 +51,18 @@ __d(
                 channelFbid: (a = l.channel_fbid) != null ? a : null,
               };
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.fetchHatchLinkedStatus = u;
+    function m(e) {
+      throw e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+        ? r("err")(
+            "hatch linked status query failed: " +
+              o("WAWebGraphQLServerError").formatGraphQLServerError(e),
+          )
+        : e;
+    }
+    l.fetchHatchLinkedStatus = c;
   },
   98,
 );

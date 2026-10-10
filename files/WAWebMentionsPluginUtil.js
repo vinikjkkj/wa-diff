@@ -9,6 +9,10 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
+    "WAWebOrgGatingUtils",
+    "WAWebOrgMemberDisplayName",
+    "WAWebOrgMemberDisplayNameController",
+    "WAWebOrgMemberLidEligibility",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "isStringNullOrEmpty",
@@ -97,12 +101,14 @@ __d(
       !o("WAWebFrontendContactGetters").getIsMyContact(t) &&
         !r("isStringNullOrEmpty")(a) &&
         n.push(a.toLowerCase());
-      var i = o("WAWebUsernameTypes").serializeMaybeUsername(
+      var i = h(t);
+      i != null && n.push(i.toLowerCase());
+      var l = o("WAWebUsernameTypes").serializeMaybeUsername(
           o("WAWebFrontendContactGetters").getUsername(t),
         ),
-        l = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
+        s = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
       return (
-        !r("isStringNullOrEmpty")(i) && l && n.push(i.toLowerCase()),
+        !r("isStringNullOrEmpty")(l) && s && n.push(l.toLowerCase()),
         n.some(function (t) {
           return _(e, t);
         })
@@ -147,10 +153,32 @@ __d(
         return p(n, e);
       });
     }
+    function h(e) {
+      var t = o("WAWebContactGetters").getIsMe(e)
+        ? null
+        : o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(e.id);
+      if (t == null || !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled())
+        return null;
+      var n = o("WAWebOrgMemberDisplayNameController").getOrgMemberName(
+        t.user,
+        0,
+      );
+      return n == null
+        ? null
+        : o("WAWebOrgMemberDisplayName").resolveWAWebOrgMemberDisplayName({
+            isBusiness: o("WAWebContactGetters").getIsBusiness(e),
+            memberName: n,
+            pushName: o("WAWebContactGetters").getPushname(e),
+            savedName: o("WAWebContactGetters").getName(e),
+            verifiedLevel: o("WAWebContactGetters").getVerifiedLevel(e),
+            verifiedName: o("WAWebContactGetters").getVerifiedName(e),
+          });
+    }
     ((l.getUserResults = d),
       (l.getSubgroupResults = m),
       (l.getNonParticipantCandidates = f),
-      (l.filterContactsByQuery = g));
+      (l.filterContactsByQuery = g),
+      (l.getMentionOrgMemberDisplayName = h));
   },
   98,
 );

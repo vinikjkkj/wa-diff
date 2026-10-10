@@ -162,31 +162,47 @@ __d(
           ? void 0
           : t.configValue;
     }
-    function $() {
-      return Array.from(h.values());
+    function $(e) {
+      var t,
+        n = k(e, (t = E()) == null ? void 0 : t.get(e));
+      if (n != null) return { value: n, source: "url_override" };
+      var a = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        i = a[0],
+        l = a[2],
+        s = a[3],
+        u = y.resolveWasCalled() ? h.get(i) : null;
+      return r("gkx")("16539") &&
+        (u == null ? void 0 : u.overriddenConfigValue) != null
+        ? { value: u.overriddenConfigValue, source: "local_override" }
+        : (u == null ? void 0 : u.configValue) != null
+          ? { value: u.configValue, source: "server" }
+          : { value: l, source: "default" };
     }
     function P() {
+      return Array.from(h.values());
+    }
+    function N() {
       return h;
     }
-    var N = 256 * 1024;
-    function M(e, t, n) {
+    var M = 256 * 1024;
+    function w(e, t, n) {
       var r = v(e);
       return r == null ? !1 : t === R(r, n);
     }
-    function w(e, t) {
+    function A(e, t) {
       var n = {};
       return (
         Object.keys(e).forEach(function (r) {
           var o = e[r];
-          M(Number(r), o, t) || (n[r] = o);
+          w(Number(r), o, t) || (n[r] = o);
         }),
         n
       );
     }
-    function A() {
+    function F() {
       try {
         var e = C;
-        if (!r("justknobx")._("6120") || !B() || e == null || h.size === 0)
+        if (!r("justknobx")._("6120") || !W() || e == null || h.size === 0)
           return null;
         var t = r("gkx")("16539"),
           n = {};
@@ -198,10 +214,10 @@ __d(
           o != null && (n[String(r)] = o);
         }),
           I(n));
-        var a = w(n, e);
+        var a = A(n, e);
         if (Object.keys(a).length === 0) return null;
         var i = JSON.stringify(a);
-        return new Blob([i]).size > N
+        return new Blob([i]).size > M
           ? (o("WALogger")
               .ERROR(
                 c ||
@@ -209,7 +225,7 @@ __d(
                     "ABProps exceed ",
                     "B, skipping bug report attachment",
                   ])),
-                N,
+                M,
               )
               .sendLogs("abprops-bug-report-too-large"),
             null)
@@ -229,7 +245,7 @@ __d(
         );
       }
     }
-    function F(e) {
+    function O(e) {
       var t = !1;
       if (
         (e.forEach(function (e) {
@@ -244,7 +260,7 @@ __d(
         y.resolve(),
         !o("WAWebRuntimeEnvironmentUtils").isWorker())
       ) {
-        var n = P(),
+        var n = N(),
           r = Array.from(n.values()).map(function (e) {
             return { configCode: e.configCode, configValue: e.configValue };
           });
@@ -254,13 +270,13 @@ __d(
         });
       }
     }
-    function O() {
+    function B() {
       return y.promise;
     }
-    function B() {
+    function W() {
       return y.resolveWasCalled();
     }
-    function W() {
+    function q() {
       (h.clear(),
         o("WAWebABPropsGlobals").accessedConfigs.clear(),
         o("WAWebABPropsGlobals").exposureKeys.clear(),
@@ -271,14 +287,15 @@ __d(
       (l.recordABPropsServedDevDefaults = S),
       (l.initializeABPropsCache = L),
       (l.saveExposure = D),
-      (l.getAllABPropConfigs = $),
-      (l.getAllABPropsMap = P),
-      (l.MAX_BUG_REPORT_ABPROPS_BYTES = N),
-      (l.getABPropsJsonForBugReport = A),
-      (l.bulkCreateOrReplaceABPropConfigs = F),
-      (l.waitForABPropConfigsReady = O),
-      (l.isABPropConfigsReady = B),
-      (l.clearABPropConfigs = W));
+      (l.peekABPropConfigValue = $),
+      (l.getAllABPropConfigs = P),
+      (l.getAllABPropsMap = N),
+      (l.MAX_BUG_REPORT_ABPROPS_BYTES = M),
+      (l.getABPropsJsonForBugReport = F),
+      (l.bulkCreateOrReplaceABPropConfigs = O),
+      (l.waitForABPropConfigsReady = B),
+      (l.isABPropConfigsReady = W),
+      (l.clearABPropConfigs = q));
   },
   98,
 );

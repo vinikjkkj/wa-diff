@@ -5,7 +5,9 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
+    "WAWebHatchLinkedStatusManager",
     "WAWebPrimaryFeaturesModel",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -29,11 +31,26 @@ __d(
       );
     }
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!u()) return !1;
+          var e = yield r(
+            "WAWebHatchLinkedStatusManager",
+          ).fetchConfirmedLinkedStatusStateIfUnknown();
+          return e === "linked";
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m() {
       return (
         e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_ideas_enabled")
       );
     }
-    function d(t) {
+    function p(t) {
       return (
         t != null &&
         o("WAWebBotUtils").isHatchBot(t) &&
@@ -41,7 +58,7 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
       );
     }
-    function m() {
+    function _() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -49,12 +66,12 @@ __d(
         )
       );
     }
-    function p() {
+    function f() {
       return (
         e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
       );
     }
-    function _() {
+    function g() {
       return (
         e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
@@ -66,11 +83,12 @@ __d(
     ((l.isHatchIntegrationEnabled = e),
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
-      (l.isHatchIdeasEnabled = c),
-      (l.isHatchBrowserEnabled = d),
-      (l.isHatchSecureCredentialsEnabled = m),
-      (l.isHatchSpaceEnabled = p),
-      (l.isHatchManageSubscriptionEnabled = _));
+      (l.isHatchConnectorsEnabledForLoad = c),
+      (l.isHatchIdeasEnabled = m),
+      (l.isHatchBrowserEnabled = p),
+      (l.isHatchSecureCredentialsEnabled = _),
+      (l.isHatchSpaceEnabled = f),
+      (l.isHatchManageSubscriptionEnabled = g));
   },
   98,
 );

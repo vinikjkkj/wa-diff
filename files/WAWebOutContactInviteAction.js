@@ -296,7 +296,7 @@ __d(
               o("WAWebToastManager").ToastManager.open(
                 _.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
-                    /*BTDS*/ "Could not generate invite link. Sending with default link.",
+                    /*BTDS*/ "Couldn't generate invite link. Sending with default link.",
                   ),
                 }),
               ),

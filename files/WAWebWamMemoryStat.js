@@ -7,8 +7,8 @@ __d(
     "WAWebAppTracker",
     "WAWebBackendApi",
     "WAWebEnvironment",
-    "WAWebGettersMemoryPressure",
     "WAWebLidAwareContactsDB",
+    "WAWebMemoryPressureCacheClear",
     "WAWebMemoryStatWamEvent",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebSchemaChat",
@@ -154,9 +154,7 @@ __d(
                 ])),
               (e.usedJsHeapSize / 1024).toFixed(2),
             )),
-          o(
-            "WAWebGettersMemoryPressure",
-          ).maybeClearGetterCachesForMemoryPressure({
+          o("WAWebMemoryPressureCacheClear").maybeClearCachesForMemoryPressure({
             jsHeapSizeLimitMb: e.jsHeapSizeLimit,
             usedJsHeapSizeMb: e.usedJsHeapSize,
           })),

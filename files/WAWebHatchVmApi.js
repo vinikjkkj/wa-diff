@@ -146,10 +146,66 @@ __d(
             { body: m({}) },
           );
         }),
-        (r.connectorConnectInfo = function (t, n) {
+        (r.connectorConnectInfo = function (t, n, r) {
           return this.request(
             "GET",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT_INFO(t, n),
+            babelHelpers.extends({}, r, { responseShape: "flat-or-envelope" }),
+          );
+        }),
+        (r.foaAccounts = function (t, n) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.FOA_ACCOUNTS(t),
+            babelHelpers.extends({}, n, { responseShape: "flat-or-envelope" }),
+          );
+        }),
+        (r.foaAuthCallback = function (t, n, r) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.FOA_AUTH_CALLBACK,
+            babelHelpers.extends({}, r, {
+              body: m({ account_ids: Array.from(new Set(n)), provider: t }),
+              service: "authd",
+            }),
+          );
+        }),
+        (r.consentAuthCallback = function (t, n) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CONSENT_AUTH_CALLBACK,
+            babelHelpers.extends({}, n, {
+              allowEmptySuccess: !0,
+              body: m({ provider: t }),
+              responseShape: "flat-or-envelope",
+            }),
+          );
+        }),
+        (r.connectorConnect = function (t, n) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT(t),
+            babelHelpers.extends({}, n, {
+              body: m({}),
+              responseShape: "flat-or-envelope",
+            }),
+          );
+        }),
+        (r.messengerPinStatus = function (t) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.MESSENGER_PIN_STATUS,
+            babelHelpers.extends({}, t, { responseShape: "flat-or-envelope" }),
+          );
+        }),
+        (r.messengerUnlock = function (t, n) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.MESSENGER_UNLOCK,
+            babelHelpers.extends({}, n, {
+              body: m({ pin: t }),
+              responseShape: "flat-or-envelope",
+            }),
           );
         }),
         (r.connectorDisconnect = function (t, n) {
@@ -275,22 +331,27 @@ __d(
             function* (t, n, r) {
               var o,
                 a,
-                i = (o = r == null ? void 0 : r.timeoutMs) != null ? o : e;
-              if (!Number.isFinite(i) || i <= 0)
+                i,
+                l = (o = r == null ? void 0 : r.timeoutMs) != null ? o : e;
+              if (!Number.isFinite(l) || l <= 0)
                 return {
                   detail: "VM request timeout is invalid",
                   kind: "Failure",
                 };
-              var l = yield this.$1.send({
+              var s = yield this.$1.send({
                 body: r == null ? void 0 : r.body,
                 method: t,
                 path: n,
                 service: r == null ? void 0 : r.service,
-                timeoutMs: i,
+                timeoutMs: l,
               });
               return p(
-                l,
+                s,
                 (a = r == null ? void 0 : r.service) != null ? a : "daemon",
+                (i = r == null ? void 0 : r.responseShape) != null
+                  ? i
+                  : "service-default",
+                (r == null ? void 0 : r.allowEmptySuccess) === !0,
               );
             },
           );
@@ -305,81 +366,103 @@ __d(
     function m(e) {
       return new TextEncoder().encode(JSON.stringify(e));
     }
-    function p(e, t) {
+    function p(e, t, n, r) {
       e: {
-        var n = e;
+        var o = e;
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.kind === "failure" &&
-          "detail" in n
+          ((typeof o == "object" && o !== null) || typeof o == "function") &&
+          o.kind === "failure" &&
+          "detail" in o
         ) {
-          var r = n.detail;
-          return { detail: r, kind: "Failure" };
+          var a = o.detail;
+          return { detail: a, kind: "Failure" };
         }
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.kind === "rejected" &&
-          "detail" in n
+          ((typeof o == "object" && o !== null) || typeof o == "function") &&
+          o.kind === "rejected" &&
+          "detail" in o
         ) {
-          var o = n.detail;
-          return { detail: o, kind: "Rejected" };
+          var i = o.detail;
+          return { detail: i, kind: "Rejected" };
         }
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.kind === "unreadable" &&
-          "detail" in n
+          ((typeof o == "object" && o !== null) || typeof o == "function") &&
+          o.kind === "unreadable" &&
+          "detail" in o
         ) {
-          var a = n.detail;
-          return { detail: a, kind: "Unreadable" };
+          var l = o.detail;
+          return { detail: l, kind: "Unreadable" };
         }
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.kind === "response" &&
-          "body" in n &&
-          "statusCode" in n
+          ((typeof o == "object" && o !== null) || typeof o == "function") &&
+          o.kind === "response" &&
+          "body" in o &&
+          "statusCode" in o
         ) {
-          var i = n.body,
-            l = n.statusCode;
-          return _(i, l, t);
+          var s = o.body,
+            u = o.statusCode;
+          return _(s, u, t, n, r);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            n,
+            o,
         );
       }
     }
-    function _(e, t, n) {
-      var r = t < 200 || t >= 300,
-        o = n !== "daemon";
-      if (o && !r && e.length === 0) return { kind: "Ok", value: null };
-      var a;
+    function _(e, t, n, r, o) {
+      var a = t < 200 || t >= 300,
+        i = n !== "daemon";
+      if (g(e, a, i, o)) return { kind: "Ok", value: null };
+      var l;
       try {
-        a = JSON.parse(new TextDecoder().decode(e));
+        l = JSON.parse(new TextDecoder().decode(e));
       } catch (e) {
-        return r
+        return a
           ? c("VM returned HTTP " + t, t)
           : { detail: "VM returned malformed JSON", kind: "Unreadable" };
       }
-      return !o && u(a) && typeof a.ok == "boolean"
-        ? f(a, t)
-        : r
-          ? c("VM returned HTTP " + t, t)
-          : o
-            ? { kind: "Ok", value: a }
-            : { detail: "VM returned an invalid envelope", kind: "Unreadable" };
+      var s = i || r === "flat-or-envelope",
+        u = s ? l : void 0;
+      return h(l, i, r) ? y(l, t, u) : f(u, t, a);
     }
-    function f(e, t) {
-      return e.ok !== !0
-        ? c(
-            typeof e.error == "string" ? e.error : "VM rejected the request",
-            t,
-            e.result,
-          )
-        : t < 200 || t >= 300
-          ? c("VM returned HTTP " + t, t, e.result)
-          : e.result === void 0
-            ? { detail: "VM envelope omitted result", kind: "Unreadable" }
-            : { kind: "Ok", value: e.result };
+    function f(e, t, n) {
+      return n
+        ? c("VM returned HTTP " + t, t, e)
+        : e === void 0
+          ? { detail: "VM returned an invalid envelope", kind: "Unreadable" }
+          : { kind: "Ok", value: e };
+    }
+    function g(e, t, n, r) {
+      return !t && e.length === 0 && (n || r);
+    }
+    function h(e, t, n) {
+      var r;
+      return t || !u(e) || typeof e.ok != "boolean"
+        ? !1
+        : e.ok === !1 ||
+            n === "service-default" ||
+            e.result !== void 0 ||
+            typeof e.error == "string" ||
+            u((r = e.error) != null ? r : null);
+    }
+    function y(e, t, n) {
+      if (e.ok !== !0) {
+        var r;
+        return c(b((r = e.error) != null ? r : null), t, C(e, n));
+      }
+      return t < 200 || t >= 300
+        ? c("VM returned HTTP " + t, t, e.result)
+        : e.result === void 0
+          ? { detail: "VM envelope omitted result", kind: "Unreadable" }
+          : { kind: "Ok", value: e.result };
+    }
+    function C(e, t) {
+      return e.result === void 0 && e.error === void 0 ? t : e.result;
+    }
+    function b(e) {
+      if (typeof e == "string") return e;
+      var t = u(e) ? e.message : null;
+      return typeof t == "string" ? t : "VM rejected the request";
     }
     l.WAWebHatchVmApi = d;
   },

@@ -6,6 +6,7 @@ __d(
     "WAWebBrPaymentMethodKey",
     "WAWebBrPaymentMethodSurface",
     "WAWebBrPaymentRequest",
+    "WAWebBrPaymentSettingsUtils",
     "WAWebBrazilPaymentsGeoGating",
     "WAWebGetBrazilnteractiveActions",
     "WAWebGetInteractiveActionsFromButtons",
@@ -13,7 +14,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
-      if (o("WAWebGetBrazilnteractiveActions").hasValidCard(e)) return null;
+      if (o("WAWebBrPaymentSettingsUtils").hasValidCard(e)) return null;
       var r = o("WAWebBrOptionsToPayResolver").resolveOptionsToPay({
         candidates: d(e, t, n),
         hasUnusableServerOrdering:
@@ -56,7 +57,7 @@ __d(
     }
     function d(e, t, n) {
       return r("filterNulls")([
-        o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(e)
+        o("WAWebBrPaymentSettingsUtils").hasValidDynamicPix(e)
           ? p(
               o("WAWebBrPaymentMethodKey").getPixMethodKeyForServerOrdering(
                 o("WAWebBrPaymentMethodKey").getPixFlowType(e.paymentSettings),
@@ -65,24 +66,32 @@ __d(
               function (n) {
                 return o(
                   "WAWebGetBrazilnteractiveActions",
-                ).getCopyPixCodeInteractiveAction(e, t, n);
+                ).getCopyPixCodeInteractiveAction({
+                  msg: t,
+                  orderInfo: e,
+                  surface: n,
+                });
               },
             )
           : null,
         o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(n) &&
-        o("WAWebGetBrazilnteractiveActions").hasValidPaymentLink(e)
+        o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(e)
           ? p(
               o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.PAYMENT_LINK,
               "payment_link",
               function (n) {
                 return o(
                   "WAWebGetBrazilnteractiveActions",
-                ).getOpenPaymentLinkInteractiveAction(e, t, n);
+                ).getOpenPaymentLinkInteractiveAction({
+                  msg: t,
+                  orderInfo: e,
+                  surface: n,
+                });
               },
             )
           : null,
         o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(n) &&
-        o("WAWebGetBrazilnteractiveActions").hasValidBoletoCode(e)
+        o("WAWebBrPaymentSettingsUtils").hasValidBoletoCode(e)
           ? p(
               o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.BOLETO,
               "boleto",

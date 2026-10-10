@@ -9,6 +9,7 @@ __d(
     "WAWebBrAddPixKeyMessageGating",
     "WAWebBrAddPixKeyMessageOffer",
     "WAWebBrOptionsToPayActions",
+    "WAWebBrPaymentSettingsUtils",
     "WAWebBrSavePartnerPixKeyFeature",
     "WAWebBrSenderPixKeyAttribution",
     "WAWebBrazilPaymentsGeoGating",
@@ -98,7 +99,7 @@ __d(
               } else {
                 var D = null;
                 (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(S) &&
-                  o("WAWebGetBrazilnteractiveActions").hasValidStaticPix(v) &&
+                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(v) &&
                   (D = o(
                     "WAWebGetBrazilnteractiveActions",
                   ).getCopyPixStaticCodeInteractiveAction(n, v)),
@@ -185,29 +186,29 @@ __d(
       var r = [],
         a = 2;
       return (
-        o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(e) &&
+        o("WAWebBrPaymentSettingsUtils").hasValidDynamicPix(e) &&
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
-            ).getCopyPixCodeInteractiveAction(e, t),
+            ).getCopyPixCodeInteractiveAction({ msg: t, orderInfo: e }),
           ),
         o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(n) &&
-          o("WAWebGetBrazilnteractiveActions").hasValidPaymentLink(e) &&
+          o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(e) &&
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
-            ).getOpenPaymentLinkInteractiveAction(e, t),
+            ).getOpenPaymentLinkInteractiveAction({ msg: t, orderInfo: e }),
           ),
         r.length < a &&
           o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(n) &&
-          o("WAWebGetBrazilnteractiveActions").hasValidBoletoCode(e) &&
+          o("WAWebBrPaymentSettingsUtils").hasValidBoletoCode(e) &&
           r.push(
             o(
               "WAWebGetBrazilnteractiveActions",
             ).getCopyBoletoCodeInteractiveAction({ msg: t, orderInfo: e }),
           ),
         r.length < a &&
-          o("WAWebGetBrazilnteractiveActions").hasValidCard(e) &&
+          o("WAWebBrPaymentSettingsUtils").hasValidCard(e) &&
           r.push(f()),
         r
       );

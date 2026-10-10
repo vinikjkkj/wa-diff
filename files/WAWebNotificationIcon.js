@@ -29,10 +29,15 @@ __d(
       (o("WAWebCometRouterMetaManager").updateUnreadTitle(n),
         o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa() &&
           o("WAWebPwaDocumentMetadataUtils").setAppBadge(e),
-        _(e));
+        f(e));
     }
     var p;
-    function _(t) {
+    function _() {
+      var e;
+      ((p = null),
+        (e = document.getElementById("favicon")) == null || e.remove());
+    }
+    function f(t) {
       var n;
       if (!o("WAWebUA").UA.isSafari) {
         var a;
@@ -115,7 +120,7 @@ __d(
           });
       }
     }
-    l.setTitleAndIcon = m;
+    ((l.setTitleAndIcon = m), (l.clearIcon = _));
   },
   98,
 );

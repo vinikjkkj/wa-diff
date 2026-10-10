@@ -69,6 +69,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingModelUtils",
     "WAWebMedia",
+    "WAWebMemoryPressureCacheRegistry",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
@@ -110,8 +111,9 @@ __d(
       _,
       f,
       g,
-      h = 1e3,
-      y = (function (t) {
+      h,
+      y = 1e3,
+      C = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -801,6 +803,9 @@ __d(
                 this.getCollection().sort(),
                 this.deregisterExpiredViewOnceBulkMessages(this.msgs),
                 this.$ChatImpl$p_41(),
+                o(
+                  "WAWebMemoryPressureCacheRegistry",
+                ).registerMemoryPressureCache(L),
                 this.$ChatImpl$p_42());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
@@ -851,6 +856,18 @@ __d(
               (e.remove(n, { silent: !0 }, !0),
                 (e.msgLoadState.noEarlierMsgs = !1));
             }
+          }),
+          (i.trimMessagesForMemoryPressure = function () {
+            var e = this.msgs;
+            if (e.length <= 1 || this.active || R(e)) return 0;
+            var t = o("WAWebFrontendChatGetters").getPreviewMessage(this),
+              n = t != null ? e.indexOf(t) : -1,
+              r = n >= 0 ? n : e.length - 1;
+            return r <= 0
+              ? 0
+              : (e.remove(e.getModelsArray().slice(0, r), { silent: !0 }, !0),
+                (e.msgLoadState.noEarlierMsgs = !1),
+                r);
           }),
           (i.$ChatImpl$p_42 = function () {
             if (
@@ -1219,7 +1236,7 @@ __d(
                         var a = n && e.active;
                         a &&
                           ((t.isFadingOut = !0),
-                          yield o("WAPromiseDelays").delayMs(h));
+                          yield o("WAPromiseDelays").delayMs(y));
                         try {
                           yield o(
                             "WAWebDBEphemeralMessage",
@@ -1342,7 +1359,7 @@ __d(
               this.colorSchemeId != null ||
               this.stockWallpaperImageId != null;
             if (!o("WAWebChatThemeGatingUtils").isChatThemesEnabled() || !e)
-              return (g || (g = n("Promise"))).resolve();
+              return (h || (h = n("Promise"))).resolve();
             var t = this.chatThemeValue,
               r = this.wallpaperValue;
             return (
@@ -1561,9 +1578,40 @@ __d(
           a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((y.Proxy = "chat"), (y.idClass = r("WAWebWid")));
-    var C = o("WAWebBaseModel").defineModel(y);
-    l.Chat = C;
+    ((C.Proxy = "chat"), (C.idClass = r("WAWebWid")));
+    var b = o("WAWebBaseModel").defineModel(C);
+    function v() {
+      var e = 0;
+      for (var t of o("WAWebChatCollection").ChatCollection.getModelsArray())
+        e += S(t);
+      return e;
+    }
+    function S(e) {
+      try {
+        return e.trimMessagesForMemoryPressure();
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "[memory-pressure] trimming chat messages failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("memory-pressure-trim-chat-failed"),
+          0
+        );
+      }
+    }
+    function R(e) {
+      var t = e.msgLoadState;
+      return (
+        t.isLoadingEarlierMsgs || t.isLoadingRecentMsgs || t.isLoadingAroundMsgs
+      );
+    }
+    var L = { name: "inactive_chat_msgs", unit: "messages", release: v };
+    l.Chat = b;
   },
   226,
 );

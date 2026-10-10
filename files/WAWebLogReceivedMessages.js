@@ -20,6 +20,7 @@ __d(
     "WAWebExperienceIdWamFields",
     "WAWebGalaxyFlowWamLoggerUtils",
     "WAWebGatedMessageReceivedWamEvent",
+    "WAWebInAppSignupInfoStore",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebLidAwareContactsDB",
     "WAWebLidMigrationUtils",
@@ -61,14 +62,15 @@ __d(
       c,
       d,
       m,
-      p = "\uD83D\uDC9A";
-    function _(e) {
-      return f.apply(this, arguments);
+      p,
+      _ = "\uD83D\uDC9A";
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield (m || (m = n("Promise"))).all(
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield (p || (p = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -81,8 +83,8 @@ __d(
                         )
                         .catch(function (e) {
                           o("WALogger").WARN(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
                                 "error logging payment link message receive: ",
                                 "",
                               ])),
@@ -98,15 +100,15 @@ __d(
             ),
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a,
             i = e.clientReceivedTsMillis,
             l = e.isPq,
@@ -114,12 +116,12 @@ __d(
             u = e.msgProcessStartTsMillis,
             c = e.msgs,
             d = e.offline,
-            p = e.oppositeHasUsername,
+            m = e.oppositeHasUsername,
             _ = e.serverAddressingMode,
             f = e.sessionScope,
             g = e.tsMillis,
             h = o("WATimeUtils").unixTimeMs(),
-            y = yield (m || (m = n("Promise"))).all([
+            y = yield (p || (p = n("Promise"))).all([
               o("WAWebChatThreadLoggingUtils").getMeHasUsername(),
               o("WAWebChatThreadLoggingUtils").getMeHasUsernamePin(),
             ]),
@@ -131,7 +133,7 @@ __d(
               )) == null
                 ? void 0
                 : a.ephemeralDuration;
-          yield m.all(
+          yield p.all(
             c.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -143,22 +145,22 @@ __d(
                       a.isLid() &&
                         (c = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
                           .LID_CTWA);
-                      var m = t[n];
-                      m != null &&
-                        m.lidOriginType &&
+                      var p = t[n];
+                      p != null &&
+                        p.lidOriginType &&
                         (c =
-                          m.lidOriginType ===
+                          p.lidOriginType ===
                           o("WAWebUsernameTypes").LidOriginType.PNH_CTWA
                             ? o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
                                 .LID_CTWA
-                            : m.lidOriginType ===
+                            : p.lidOriginType ===
                                 o("WAWebUsernameTypes").LidOriginType.GENERAL
                               ? o("WAWebWamEnumChatOriginsType")
                                   .CHAT_ORIGINS_TYPE.OTHERS
                               : (function () {
                                   throw Error(
                                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                      m.lidOriginType,
+                                      p.lidOriginType,
                                   );
                                 })());
                       var y = yield o(
@@ -233,11 +235,11 @@ __d(
                           v != null &&
                             (R.receiverDefaultDisappearingDuration = v),
                           (R.isLid = a.isLid()),
-                          p != null &&
+                          m != null &&
                             o(
                               "WAWebUsernameGatingUtils",
                             ).usernameAdoptionAndEngagementMonitoringEnabled() &&
-                            (R.oppositeHasUsername = p));
+                            (R.oppositeHasUsername = m));
                       }
                       (o("WAWebMsgGetters").getIsRevoke(e) &&
                         (R.revokeType =
@@ -327,18 +329,18 @@ __d(
             ),
           );
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "getContactData: for ",
                 " msgs",
               ])),
@@ -377,37 +379,37 @@ __d(
                 { ids: n.map(o("WAWebWidFactory").createWid) },
               );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebApiBulkGetChats").bulkGetChats(
             e.map(function (e) {
               return e.from;
             }),
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map();
           for (var a of e)
             if (o("WAWebPaymentRequestWamLogger").isPaymentRequestMsg(a)) {
               var i = o("WAWebMsgGetters").getSender(a);
               i != null && t.set(i.toJid(), i);
             }
-          var l = yield (m || (m = n("Promise"))).all(
+          var l = yield (p || (p = n("Promise"))).all(
             Array.from(
               t,
               (function () {
@@ -421,8 +423,8 @@ __d(
                           return (
                             o("WALogger")
                               .WARN(
-                                d ||
-                                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                                m ||
+                                  (m = babelHelpers.taggedTemplateLiteralLoose([
                                     "[WAM:PAYMENT_REQUEST] sender business lookup failed",
                                   ])),
                               )
@@ -456,24 +458,24 @@ __d(
             "WAWebPaymentRequestWamLogger",
           ).logPaymentRequestReceivedWAMEvent(e, new Map(l.filter(Boolean)));
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (m || (m = n("Promise"))).all([b(e), y(e)]),
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield (p || (p = n("Promise"))).all([v(e), C(e)]),
             r = t[0],
             o = t[1];
           return { chatData: r, contactData: o };
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
+    function I(e, t) {
       for (var n of e) {
         var r = t.get(n.id.remote.toJid());
         r &&
@@ -494,17 +496,17 @@ __d(
               }).commit());
       }
     }
-    function I(e) {
+    function T(e) {
       return o("WAWebMsgGetters").getIsReaction(e)
         ? o("WAWebAddonProcessMsgsUtils").getParentMsgKey(e)
         : o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(e);
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n =
               (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e)) == null
@@ -512,15 +514,15 @@ __d(
                 : t.toString();
           if (n != null) return o("WAWebDBMsgUtils").getMsgByMsgKey(n);
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           if (
             o("WAWebMsgGetters").getType(e) ===
@@ -533,18 +535,18 @@ __d(
               chatId: e.id.remote,
             };
           }
-          var r = I(e);
+          var r = T(e);
           if (r !== "missing-stanza-id") {
             var a = yield o("WAWebDBMsgUtils").getMsgByMsgKey(r);
             if (
               (o("WAWebMsgGetters").getIsReply(e) &&
                 a == null &&
-                (a = yield T(r)),
+                (a = yield D(r)),
               a != null && o("WAWebMsgGetters").getIsGroupStatus(a))
             ) {
               var i = o("WAWebMsgGetters").getIsReply(e),
                 l =
-                  o("WAWebMsgGetters").getIsReaction(e) && e.reactionText === p;
+                  o("WAWebMsgGetters").getIsReaction(e) && e.reactionText === _;
               if (i || l) {
                 var s = o("WAWebMsgGetters").getIsSentByMe(a);
                 return {
@@ -559,7 +561,7 @@ __d(
               }
             }
           }
-          var u = P(e);
+          var u = N(e);
           return {
             activityType: e.id.fromMe ? "msgSend" : "msgReceive",
             ts: e.t,
@@ -587,10 +589,10 @@ __d(
               : void 0,
           };
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e) {
+    function N(e) {
       return (
         !e.id.fromMe &&
         (e.subtype === "message_edit" ||
@@ -602,58 +604,88 @@ __d(
         ) === !0
       );
     }
-    function N(e) {
-      for (var t of e)
-        if (
-          t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-          t.nativeFlowName ===
-            r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
-          !t.id.fromMe
-        ) {
-          var n,
-            a =
-              (n = t.interactivePayload) == null ||
-              (n = n.buttons) == null ||
-              (n = n[0]) == null
-                ? void 0
-                : n.buttonParamsJson;
-          if (a == null) {
-            o("WAWebSignupQPLLogger").confirmationMissingParams();
-            continue;
-          }
-          try {
-            var i = JSON.parse(a),
-              l = i.signup_id;
-            if (l == null) {
-              o("WAWebSignupQPLLogger").confirmationParseFailure(
-                "missing field 'signup_id'",
+    function M(t) {
+      var n = function () {
+          if (
+            i.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+            i.nativeFlowName ===
+              r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
+            !i.id.fromMe
+          ) {
+            var t,
+              n =
+                (t = i.interactivePayload) == null ||
+                (t = t.buttons) == null ||
+                (t = t[0]) == null
+                  ? void 0
+                  : t.buttonParamsJson;
+            if (n == null)
+              return (
+                o("WAWebSignupQPLLogger").confirmationMissingParams(),
+                w(i),
+                0
               );
-              continue;
+            try {
+              var a = JSON.parse(n),
+                l = a.signup_id;
+              if (l == null)
+                return (
+                  o("WAWebSignupQPLLogger").confirmationParseFailure(
+                    "missing field 'signup_id'",
+                  ),
+                  w(i),
+                  0
+                );
+              (o("WAWebSignupFlowLoggerLazy").logSignupOp({
+                operation: o("WAWebSignupFlowLoggerLazy")
+                  .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_CONFIRMATION_RECEIVED,
+                signupId: String(l),
+                businessWid: i.id.remote,
+              }),
+                o("WAWebSignupQPLLogger").confirmationSuccess(String(l)),
+                o("WAWebInAppSignupInfoStore")
+                  .stopPendingConfirmationTimer(String(l))
+                  .then(function (t) {
+                    t === "write_failed" &&
+                      o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[signup:confirmation] timer stop failed signupId=",
+                              "",
+                            ])),
+                          String(l),
+                        )
+                        .sendLogs("signup-stop-pending-confirmation-failed");
+                  }));
+            } catch (e) {
+              (o("WAWebSignupQPLLogger").confirmationParseFailure(e), w(i));
             }
-            (o("WAWebSignupFlowLoggerLazy").logSignupOp({
-              operation: o("WAWebSignupFlowLoggerLazy")
-                .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_CONFIRMATION_RECEIVED,
-              signupId: String(l),
-              businessWid: t.id.remote,
-            }),
-              o("WAWebSignupQPLLogger").confirmationSuccess(String(l)));
-          } catch (e) {
-            o("WAWebSignupQPLLogger").confirmationParseFailure(e);
           }
-        }
+        },
+        a;
+      for (var i of t) a = n();
     }
-    function M(e) {
-      (m || (m = n("Promise")))
+    function w(e) {
+      o("WAWebSignupFlowLoggerLazy").logSignupOp({
+        operation: o("WAWebSignupFlowLoggerLazy").SIGNUP_USER_JOURNEY_OPERATION
+          .SIGNUP_CONFIRMATION_PARSE_FAILURE,
+        signupId: "",
+        businessWid: e.id.remote,
+      });
+    }
+    function A(e) {
+      (p || (p = n("Promise")))
         .all(
           e
             .filter(
               o("WAWebChatThreadLoggingUtils").shouldIncrementMsgSendAndReceive,
             )
-            .map(x),
+            .map($),
         )
         .then(o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging);
     }
-    function w(e) {
+    function F(e) {
       e.filter(o("WAWebMsgGetters").getIsAuthenticationMessage).forEach(
         function (e) {
           o("WAWebBackendApi").frontendFireAndForget(
@@ -663,46 +695,46 @@ __d(
         },
       );
     }
-    function A(t) {
-      var r = t.msgs;
-      L(r)
-        .then(function (e) {
-          return (m || (m = n("Promise"))).all([
-            g(t, e.chatData, e.contactData),
-            k(r, e.contactData),
-            M(r),
-            w(r),
-            _(r),
+    function O(e) {
+      var t = e.msgs;
+      E(t)
+        .then(function (r) {
+          return (p || (p = n("Promise"))).all([
+            h(e, r.chatData, r.contactData),
+            I(t, r.contactData),
+            A(t),
+            F(t),
+            f(t),
             o(
               "WAWebGalaxyFlowWamLoggerUtils",
-            ).logStructuredMessageReceivedWAMEvent(r),
+            ).logStructuredMessageReceivedWAMEvent(t),
             o(
               "WAWebOrderDetailsReceivedWamLogger",
-            ).logOrderDetailsReceivedWAMEvent(r),
+            ).logOrderDetailsReceivedWAMEvent(t),
             o(
               "WAWebPaymentInfoReceivedWamLogger",
-            ).logPaymentInfoReceivedWAMEvent(r),
-            S(r),
+            ).logPaymentInfoReceivedWAMEvent(t),
+            R(t),
             o("WAWebQbmIncomingMessageLogger").logQbmIncomingMessages(
-              r,
-              e.chatData,
+              t,
+              r.chatData,
             ),
-            N(r),
-            o("WAWebUprReceivedWamLogger").logUprReceivedWAMEvent(r),
+            M(t),
+            o("WAWebUprReceivedWamLogger").logUprReceivedWAMEvent(t),
           ]);
         })
-        .catch(function (t) {
+        .catch(function (e) {
           o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "error logging received messages: ",
                 "",
               ])),
-            String(t),
+            String(e),
           );
         });
     }
-    function F(e) {
+    function B(e) {
       var t = e.chatWid,
         n = e.clientReceivedTsMillis,
         r = e.msgProcessStartTsMillis,
@@ -727,8 +759,8 @@ __d(
           l.commit());
       } catch (e) {
         o("WALogger").WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "error logging conditional-reveal message receive: ",
               "",
             ])),
@@ -736,8 +768,8 @@ __d(
         );
       }
     }
-    ((l.logReceivedMessagesInWAM = A),
-      (l.logConditionalRevealMessageReceive = F));
+    ((l.logReceivedMessagesInWAM = O),
+      (l.logConditionalRevealMessageReceive = B));
   },
   98,
 );

@@ -343,7 +343,7 @@ __d(
       return l === "allMedia"
         ? M(a, t, i)
         : l === "allLinks"
-          ? A(a, t, i)
+          ? A({ count: a, direction: i, msgKey: t })
           : l === "allDocs"
             ? O({ chat: r, count: a, direction: i, msgKey: t })
             : l === "url"
@@ -420,24 +420,26 @@ __d(
         w.apply(this, arguments)
       );
     }
-    function A(e, t, n, r) {
+    function A(e) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a,
-              i = yield $(e, t, n, r, [
-                (a = o("WAWebMsgType")).MESSAGE_TYPE_FLAGS.HAS_LINK,
-                a.MESSAGE_TYPE_FLAGS.MEDIA_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
-                a.MESSAGE_TYPE_FLAGS.DOC_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
-              ]);
-            return i.map(function (e) {
-              return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-            });
-          },
-        )),
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.count,
+            r = e.direction,
+            a = e.limitBoundary,
+            i = e.msgKey,
+            l = yield $(n, i, r, a, [
+              (t = o("WAWebMsgType")).MESSAGE_TYPE_FLAGS.HAS_LINK,
+              t.MESSAGE_TYPE_FLAGS.MEDIA_MSG | t.MESSAGE_TYPE_FLAGS.HAS_LINK,
+              t.MESSAGE_TYPE_FLAGS.DOC_MSG | t.MESSAGE_TYPE_FLAGS.HAS_LINK,
+            ]);
+          return l.map(function (e) {
+            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          });
+        })),
         F.apply(this, arguments)
       );
     }

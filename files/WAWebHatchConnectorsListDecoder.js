@@ -36,7 +36,7 @@ __d(
               ) === !0,
             isCustom:
               o("WAWebHatchJsonReaders").readBool(e, "is_custom") === !0,
-            consent: p(e),
+            consent: p(o("WAWebHatchJsonReaders").readObject(e, "consent")),
           };
     }
     function c(t) {
@@ -72,16 +72,16 @@ __d(
       })(o("WAWebHatchJsonReaders").readTrimmedString(e, "management_kind"));
     }
     function p(e) {
-      var t = o("WAWebHatchJsonReaders").readObject(
-        o("WAWebHatchJsonReaders").readObject(e, "consent"),
-        "hatch",
-      );
-      if (t == null) return null;
-      var n = _(t),
-        r = g(t);
-      return n.length === 0 && r.length === 0
+      var t,
+        n =
+          (t = o("WAWebHatchJsonReaders").readObject(e, "hatch")) != null
+            ? t
+            : e,
+        r = _(n),
+        a = g(n);
+      return r.length === 0 && a.length === 0
         ? null
-        : { bullets: n, footerParagraphs: r };
+        : { bullets: r, footerParagraphs: a };
     }
     function _(e) {
       var t = [];
@@ -133,7 +133,7 @@ __d(
       }
       return t;
     }
-    l.decodeHatchConnectorsList = s;
+    ((l.decodeHatchConnectorsList = s), (l.decodeHatchConnectConsent = p));
   },
   98,
 );

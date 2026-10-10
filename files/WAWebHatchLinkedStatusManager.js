@@ -1,12 +1,24 @@
 __d(
   "WAWebHatchLinkedStatusManager",
-  ["WALogger", "getErrorSafe"],
+  [
+    "Promise",
+    "WALogger",
+    "WAResolvable",
+    "WAWebLocalStorage",
+    "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u,
-      c = (function () {
+      c,
+      d,
+      m,
+      p = "hatch-linked-status",
+      _ = (function () {
         function t() {
           ((this.$1 = null),
             (this.$2 = "not_loaded"),
@@ -15,15 +27,16 @@ __d(
             (this.$5 = null),
             (this.$6 = 0),
             (this.$7 = null),
-            (this.$8 = !1));
+            (this.$8 = new (o("WAResolvable").Resolvable)()),
+            (this.$9 = !1));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.registerFetcher = function (t) {
+          (a.registerFetcher = function (t) {
             var e = this.$7 != null;
-            ((this.$5 = t), this.$9(), e && this.fetchAndUpdateStatus());
+            ((this.$5 = t), this.$10(), e && this.fetchAndUpdateStatus());
           }),
-          (n.subscribeToLinkedStatus = function (t) {
+          (a.subscribeToLinkedStatus = function (t) {
             var e = this;
             return (
               this.$4.push(t),
@@ -34,32 +47,46 @@ __d(
               }
             );
           }),
-          (n.getLinkedStatus = function () {
+          (a.getLinkedStatus = function () {
             return this.$1;
           }),
-          (n.getLinkedStatusState = function () {
+          (a.getLinkedStatusState = function () {
             return this.$2;
           }),
-          (n.getLastConfirmedLinkedStatusState = function () {
+          (a.getLastConfirmedLinkedStatusState = function () {
             return this.$3;
           }),
-          (n.isLinked = function () {
+          (a.isLinked = function () {
             return this.$3 === "linked";
           }),
-          (n.isUnlinked = function () {
+          (a.isUnlinked = function () {
             return this.$3 === "unlinked";
           }),
-          (n.markUnlinked = function () {
+          (a.fetchConfirmedLinkedStatusStateIfUnknown = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e,
+                t = (e = this.$3) != null ? e : h();
+              return t != null
+                ? t
+                : (this.$7 == null && this.fetchAndUpdateStatus(), this.$11());
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.markUnlinked = function () {
             ((this.$1 = null),
               (this.$2 = "unlinked"),
               (this.$3 = "unlinked"),
-              this.$9(),
-              this.$10());
+              g("unlinked"),
+              this.$10(),
+              this.$12());
           }),
-          (n.fetchAndUpdateStatus = function () {
+          (a.fetchAndUpdateStatus = function () {
             var t = this;
             if (this.$7 != null) {
-              this.$8 = !0;
+              this.$9 = !0;
               return;
             }
             var n = this.$5;
@@ -75,7 +102,7 @@ __d(
             var a = this.$6,
               i = n()
                 .then(function (e) {
-                  a === t.$6 && t.$11(e);
+                  a === t.$6 && t.$13(e);
                 })
                 .catch(function (e) {
                   a === t.$6 &&
@@ -88,54 +115,130 @@ __d(
                       )
                       .catching(r("getErrorSafe")(e))
                       .sendLogs("hatch-linked-status-fetch-fail"),
-                    t.$12());
+                    t.$14());
                 });
             ((this.$7 = i),
               i.then(function () {
                 t.$7 === i &&
                   ((t.$7 = null),
-                  t.$8 && ((t.$8 = !1), t.fetchAndUpdateStatus()));
+                  t.$9 && ((t.$9 = !1), t.fetchAndUpdateStatus()));
               }));
           }),
-          (n.__resetForTesting = function () {
+          (a.__resetForTesting = function () {
             ((this.$1 = null),
               (this.$2 = "not_loaded"),
               (this.$3 = null),
               (this.$4 = []),
               (this.$5 = null),
-              this.$9());
+              this.$10(),
+              r("WAWebLocalStorage") == null ||
+                r("WAWebLocalStorage").removeItem(p));
           }),
-          (n.$11 = function (t) {
-            var e = t != null && d(t) ? "linked" : "unlinked";
+          (a.$11 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this.$7;
+              return e == null || this.$3 != null
+                ? this.$3
+                : (yield (m || (m = n("Promise"))).race([e, this.$8.promise]),
+                  this.$11());
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$13 = function (t) {
+            var e = t != null && f(t) ? "linked" : "unlinked";
             ((this.$1 = t),
               (this.$2 = e),
               (this.$3 = e),
+              g(e),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[HatchLinkedStatusManager] fetched linked status",
                   ])),
               ),
-              this.$10());
+              this.$12());
           }),
-          (n.$12 = function () {
-            ((this.$2 = "failed"), this.$10());
+          (a.$14 = function () {
+            ((this.$2 = "failed"), this.$12());
           }),
-          (n.$9 = function () {
-            ((this.$6 += 1), (this.$7 = null), (this.$8 = !1));
+          (a.$10 = function () {
+            ((this.$6 += 1),
+              (this.$7 = null),
+              (this.$9 = !1),
+              this.$8.resolve(),
+              (this.$8 = new (o("WAResolvable").Resolvable)()));
           }),
-          (n.$10 = function () {
+          (a.$12 = function () {
             for (var e of [].concat(this.$4)) e(this.$1);
           }),
           t
         );
       })();
-    function d(e) {
+    function f(e) {
       return e.hasChannel && e.status === "ACTIVE" && e.isPaired;
     }
-    var m = new c(),
-      p = m;
-    l.default = p;
+    function g(e) {
+      try {
+        var t,
+          n =
+            (t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+              ? void 0
+              : t.toString();
+        n != null &&
+          (r("WAWebLocalStorage") == null ||
+            r("WAWebLocalStorage").setItem(
+              p,
+              JSON.stringify({ owner: n, state: e }),
+            ));
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[HatchLinkedStatusManager] storing the confirmed state failed",
+              ])),
+          )
+          .sendLogs("hatch-linked-status-store-failed", { sampling: 0.01 });
+      }
+    }
+    function h() {
+      try {
+        var e,
+          t =
+            (e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+              ? void 0
+              : e.toString(),
+          n =
+            r("WAWebLocalStorage") == null
+              ? void 0
+              : r("WAWebLocalStorage").getItem(p);
+        return t == null || n == null ? null : y(JSON.parse(n), t);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[HatchLinkedStatusManager] reading the confirmed state failed",
+                ])),
+            )
+            .sendLogs("hatch-linked-status-read-failed", { sampling: 0.01 }),
+          null
+        );
+      }
+    }
+    function y(e, t) {
+      if (e == null || typeof e != "object") return null;
+      var n = e.owner,
+        r = e.state;
+      return n === t && (r === "linked" || r === "unlinked") ? r : null;
+    }
+    var C = new _(),
+      b = C;
+    l.default = b;
   },
   98,
 );

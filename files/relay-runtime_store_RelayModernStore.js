@@ -52,10 +52,9 @@ __d(
             s,
             u,
             c,
-            d,
-            p;
-          ((this.$33 = function () {
-            r.$4 && (r.$4.next().done ? (r.$4 = null) : r.$5(r.$33));
+            d;
+          ((this.$32 = function () {
+            r.$4 && (r.$4.next().done ? (r.$4 = null) : r.$5(r.$32));
           }),
             (this.$1 = 0),
             (this.$2 = 0),
@@ -89,29 +88,25 @@ __d(
             (this.$17 = new Map()),
             (this.$19 = !1),
             (this.$15 = new m(function () {
-              return r.$28();
+              return r.$27();
             }, this)),
-            (this.$23 = t == null ? void 0 : t.resolverContext),
+            (this.$22 = t == null ? void 0 : t.resolverContext),
             (this.$20 = new (n("relay-runtime/store/RelayStoreSubscriptions"))(
               t == null ? void 0 : t.log,
               this.$15,
-              this.$23,
+              this.$22,
             )),
             (this.$21 = new Set()),
-            (this.$22 =
-              (c = t == null ? void 0 : t.shouldProcessClientComponents) != null
+            (this.$24 =
+              (c = t == null ? void 0 : t.treatMissingFieldsAsNull) != null
                 ? c
                 : !1),
             (this.$25 =
-              (d = t == null ? void 0 : t.treatMissingFieldsAsNull) != null
+              (d = t == null ? void 0 : t.deferDeduplicatedFields) != null
                 ? d
                 : !1),
-            (this.$26 =
-              (p = t == null ? void 0 : t.deferDeduplicatedFields) != null
-                ? p
-                : !1),
-            (this.$24 = t == null ? void 0 : t.actorIdentifier),
-            (this.$27 = null),
+            (this.$23 = t == null ? void 0 : t.actorIdentifier),
+            (this.$26 = null),
             v(this.$14));
         }
         var r = t.prototype;
@@ -123,7 +118,7 @@ __d(
           (r.getOperationLoader = function () {
             return this.$12;
           }),
-          (r.$28 = function () {
+          (r.$27 = function () {
             var e;
             return (e = this.$13) != null ? e : this.$14;
           }),
@@ -141,19 +136,19 @@ __d(
             }
           }),
           (r.experimental_batchUpdates = function (t) {
-            if (this.$27 != null)
+            if (this.$26 != null)
               throw new Error(
                 "RelayModernStore: Cannot batch updates while already batching updates.",
               );
             var e = this.__log;
             e != null && e({ name: "store.batch.start" });
             var n = { sourceOperations: [], invalidateStore: !1 };
-            this.$27 = n;
+            this.$26 = n;
             try {
               t();
             } finally {
-              ((this.$27 = null), this.notify(void 0, n.invalidateStore));
-              for (var r of n.sourceOperations) this.$29(r, this.$1, !1);
+              ((this.$26 = null), this.notify(void 0, n.invalidateStore));
+              for (var r of n.sourceOperations) this.$28(r, this.$1, !1);
               e != null &&
                 e({
                   name: "store.batch.complete",
@@ -183,7 +178,7 @@ __d(
               s,
               u,
               m = t.root,
-              p = this.$28(),
+              p = this.$27(),
               _ = this.$7,
               f =
                 (e =
@@ -222,7 +217,6 @@ __d(
                 y,
                 this.$12,
                 this.$6,
-                this.$22,
                 this.__log,
                 f,
               );
@@ -242,7 +236,7 @@ __d(
                         t.fetchTime != null &&
                         o != null &&
                         t.fetchTime <= Date.now() - o;
-                    a ? (e.$18 || e.$17.delete(n), e.scheduleGC()) : e.$30(n);
+                    a ? (e.$18 || e.$17.delete(n), e.scheduleGC()) : e.$29(n);
                   }
                 }
               },
@@ -272,7 +266,7 @@ __d(
                 t,
                 e,
                 this.$15,
-                this.$23,
+                this.$22,
               );
             return (
               e != null && e({ name: "store.lookup.end", selector: t }),
@@ -281,7 +275,7 @@ __d(
           }),
           (r.notify = function (t, r) {
             var e = this,
-              o = this.$27;
+              o = this.$26;
             if (o != null)
               return (
                 t != null && o.sourceOperations.push(t),
@@ -314,9 +308,9 @@ __d(
                 this.$10.size > 0 ||
                 r === !0) &&
                 this.$9.forEach(function (t) {
-                  e.$31(t, r === !0);
+                  e.$30(t, r === !0);
                 }),
-              t != null && this.$29(t, this.$1, !1),
+              t != null && this.$28(t, this.$1, !1),
               a != null &&
                 a({
                   name: "store.notify.complete",
@@ -332,7 +326,7 @@ __d(
               l
             );
           }),
-          (r.$29 = function (t, n, r) {
+          (r.$28 = function (t, n, r) {
             var e = t.request.identifier,
               o = this.$17.get(e);
             if (o != null) ((o.epoch = n), (o.fetchTime = Date.now()));
@@ -347,17 +341,17 @@ __d(
                 epoch: n,
                 fetchTime: Date.now(),
               };
-              (this.$17.set(e, a), this.$30(e));
+              (this.$17.set(e, a), this.$29(e));
             }
           }),
-          (r.$30 = function (t) {
+          (r.$29 = function (t) {
             if ((this.$16.push(t), this.$16.length > this.$3)) {
               var e = this.$16.shift();
               (e != null && !this.$18 && this.$17.delete(e), this.scheduleGC());
             }
           }),
           (r.publish = function (t, n) {
-            var e = this.$28();
+            var e = this.$27();
             S(e, t, this.$1 + 1, n, this.$21, this.$10);
             var r = this.__log;
             r != null &&
@@ -368,7 +362,7 @@ __d(
               });
           }),
           (r.publishWithDeferredNotify = function (t, n, r) {
-            (this.publish(t, r), (this.$8 = !0), this.$29(n, this.$1 + 1, !0));
+            (this.publish(t, r), (this.$8 = !0), this.$28(n, this.$1 + 1, !0));
           }),
           (r.subscribe = function (t, n) {
             return this.$20.subscribe(t, n);
@@ -427,7 +421,7 @@ __d(
               };
             return (this.$9.add(r), { dispose: o });
           }),
-          (r.$31 = function (t, n) {
+          (r.$30 = function (t, n) {
             var e = this,
               r = t.callback,
               o = t.invalidationState,
@@ -468,12 +462,12 @@ __d(
               this.$19 = !0;
               return;
             }
-            this.$4 || ((this.$4 = this.$32()), this.$5(this.$33));
+            this.$4 || ((this.$4 = this.$31()), this.$5(this.$32));
           }),
           (r.__gc = function () {
-            if (this.$13 == null) for (var e = this.$32(); !e.next().done; );
+            if (this.$13 == null) for (var e = this.$31(); !e.next().done; );
           }),
-          (r.$32 = function* () {
+          (r.$31 = function* () {
             if (!(this.$18 && this.$11 == null)) {
               var t = this.__log;
               e: for (;;) {
@@ -516,7 +510,6 @@ __d(
                       C,
                       o,
                       this.$12,
-                      this.$22,
                       b,
                     ),
                     yield,
@@ -553,10 +546,9 @@ __d(
               path: t,
               getDataID: this.$6,
               log: this.__log,
-              treatMissingFieldsAsNull: this.$25,
-              deferDeduplicatedFields: this.$26,
-              shouldProcessClientComponents: this.$22,
-              actorIdentifier: this.$24,
+              treatMissingFieldsAsNull: this.$24,
+              deferDeduplicatedFields: this.$25,
+              actorIdentifier: this.$23,
             };
           }),
           (r.__notifyUpdatedSubscribers = function (t) {

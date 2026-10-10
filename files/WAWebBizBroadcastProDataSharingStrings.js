@@ -45,37 +45,43 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C() {
-      return s._(/*BTDS*/ "Remove recipients from data sharing");
+      return s._(
+        /*BTDS*/ "This is taking longer than usual. Your change may still be saved.",
+      );
     }
     C.displayName = C.name + " [from " + i.id + "]";
     function b() {
+      return s._(/*BTDS*/ "Remove recipients from data sharing");
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v() {
       return s._(
         /*BTDS*/ "This prevents their activities from being shared with Meta and used to optimize the performance of business broadcasts in WhatsApp, Ads Manager, and Meta Business Suite campaigns.",
       );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v() {
-      return s._(/*BTDS*/ "Phone number");
-    }
     v.displayName = v.name + " [from " + i.id + "]";
     function S() {
-      return s._(/*BTDS*/ "Remove");
+      return s._(/*BTDS*/ "Phone number");
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R() {
-      return s._(/*BTDS*/ "This phone number isn't in your customer base.");
+      return s._(/*BTDS*/ "Remove");
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L() {
-      return s._(/*BTDS*/ "Something went wrong. Try again.");
+      return s._(/*BTDS*/ "This phone number isn't in your customer base.");
     }
     L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
+    function E() {
+      return s._(/*BTDS*/ "Something went wrong. Try again.");
+    }
+    E.displayName = E.name + " [from " + i.id + "]";
+    function k(e) {
       return s._(/*BTDS*/ "{phone number} has been removed from data sharing", [
         s._param("phone number", e),
       ]);
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"),
+    ((k.displayName = k.name + " [from " + i.id + "]"),
       (l.getDataSharingTitle = c),
       (l.getDataSharingEnabledLabel = d),
       (l.getDataSharingDisabledLabel = m),
@@ -85,13 +91,14 @@ __d(
       (l.getDataSharingLearnMoreAriaLabel = g),
       (l.getDataSharingSaveLabel = h),
       (l.getDataSharingSaveError = y),
-      (l.getRemoveFromDataSharingTitle = C),
-      (l.getRemoveFromDataSharingDescription = b),
-      (l.getRemoveFromDataSharingPhoneLabel = v),
-      (l.getRemoveFromDataSharingSubmitLabel = S),
-      (l.getRemoveFromDataSharingNotFoundError = R),
-      (l.getRemoveFromDataSharingGenericError = L),
-      (l.getRemoveFromDataSharingSuccessToast = E));
+      (l.getDataSharingSaveDelayedMessage = C),
+      (l.getRemoveFromDataSharingTitle = b),
+      (l.getRemoveFromDataSharingDescription = v),
+      (l.getRemoveFromDataSharingPhoneLabel = S),
+      (l.getRemoveFromDataSharingSubmitLabel = R),
+      (l.getRemoveFromDataSharingNotFoundError = L),
+      (l.getRemoveFromDataSharingGenericError = E),
+      (l.getRemoveFromDataSharingSuccessToast = k));
   },
   226,
 );

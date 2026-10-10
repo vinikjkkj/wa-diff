@@ -2,7 +2,6 @@ __d(
   "WAWebHistorySyncLidChatGating",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebLid1X1MigrationGating",
     "WAWebUserPrefsIndexedDBStorage",
     "asyncToGeneratorRuntime",
@@ -30,13 +29,9 @@ __d(
               .sendLogs("persist-force-history-lid-chat-called-twice");
             return;
           }
-          var t =
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() &&
-            o("WAWebABProps").getABPropConfigValue(
-              "web_force_lid_chats_in_history",
-            );
+          var t = o(
+            "WAWebLid1X1MigrationGating",
+          ).Lid1X1MigrationUtils.isLidMigrated();
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, t);
         })),
         d.apply(this, arguments)

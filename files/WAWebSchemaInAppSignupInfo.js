@@ -17,6 +17,8 @@ __d(
           n("isIasSubscriber"),
           n("iasOptinDs"),
           n("iasEntryPoint"),
+          n("pendingConfirmationSignupId"),
+          n("pendingConfirmationDeadlineMs"),
         ])
         .view(function (e) {
           return e;

@@ -506,20 +506,30 @@ __d(
                       },
                     ));
                 var l = X.signupId;
-                (l != null &&
+                if (
+                  l != null &&
                   re != null &&
-                  o("WAWebSignupGating").isSignupAGMEnabled() &&
+                  o("WAWebSignupGating").isSignupAGMEnabled()
+                ) {
+                  var s;
                   (o("WAWebSignupLoadingState").setSignupLoading(
                     e.id.toString(),
                     !0,
                   ),
-                  o(
-                    "WAWebInjectSignupGreetingMessage",
-                  ).injectSignupGreetingMessage(re, l)),
-                  o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
-                    te,
-                    !0,
-                  ));
+                    o(
+                      "WAWebInjectSignupGreetingMessage",
+                    ).injectSignupGreetingMessage(
+                      re,
+                      l,
+                      (s = X.conversionTuple) == null
+                        ? void 0
+                        : s.conversionSource,
+                    ));
+                }
+                o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
+                  te,
+                  !0,
+                );
               },
               me =
                 P != null

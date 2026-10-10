@@ -176,6 +176,18 @@ __d(
       );
     }
     function b(e) {
+      return new (o(
+        "CometComposedTextV2CustomNode.react",
+      ).CometComposedTextV2CustomNode)(
+        {
+          key: r("cometComposedTextV2NodeKey")(),
+          rendererArgs: e,
+          rendererKey: "browserTask",
+        },
+        r("CometComposedTextV2CustomNodeRenderer.react"),
+      );
+    }
+    function v(e) {
       return (
         e === void 0 && (e = 8),
         new (o(
@@ -186,7 +198,7 @@ __d(
         )
       );
     }
-    function v() {
+    function S() {
       return new (o(
         "CometComposedTextV2GridNode.react",
       ).CometComposedTextV2GridNode)(
@@ -194,7 +206,7 @@ __d(
         r("CometComposedTextV2GridNodeRenderer.react"),
       );
     }
-    function S() {
+    function R() {
       return new (o(
         "CometComposedTextV2GridNode.react",
       ).CometComposedTextV2GridNode)(
@@ -202,7 +214,7 @@ __d(
         r("CometComposedTextV2ImageGridNodeRenderer.react"),
       );
     }
-    function R(e, t) {
+    function L(e, t) {
       return new (o(
         "CometComposedTextV2CustomNode.react",
       ).CometComposedTextV2CustomNode)(
@@ -218,7 +230,7 @@ __d(
         r("CometComposedTextV2CustomNodeRenderer.react"),
       );
     }
-    function L(e, t, n, a) {
+    function E(e, t, n, a) {
       return new (o(
         "CometComposedTextV2LinkNode.react",
       ).CometComposedTextV2LinkNode)(
@@ -232,7 +244,7 @@ __d(
         r("CometComposedTextV2LinkNodeRenderer.react"),
       );
     }
-    function E(e) {
+    function k(e) {
       return new (o(
         "CometComposedTextV2MathNode.react",
       ).CometComposedTextV2MathNode)(
@@ -240,7 +252,7 @@ __d(
         r("CometComposedTextV2MathNodeRenderer.react"),
       );
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       return new (o(
         "CometComposedTextV2ContentViewerNode.react",
       ).CometComposedTextV2ContentViewerNode)(
@@ -253,7 +265,7 @@ __d(
         r("CometComposedTextV2ContentViewerNodeRenderer.react"),
       );
     }
-    function I() {
+    function T() {
       return new (o(
         "CometComposedTextV2NewLineNode.react",
       ).CometComposedTextV2NewLineNode)(
@@ -261,7 +273,7 @@ __d(
         r("CometComposedTextV2NewLineNodeRenderer.react"),
       );
     }
-    function T() {
+    function D() {
       return new (o(
         "CometComposedTextV2ParagraphNode.react",
       ).CometComposedTextV2ParagraphNode)(
@@ -269,7 +281,7 @@ __d(
         r("CometComposedTextV2ParagraphNodeRenderer.react"),
       );
     }
-    function D(e, t, n, a, i) {
+    function x(e, t, n, a, i) {
       return new (o(
         "CometComposedTextV2ProgressStatusNode.react",
       ).CometComposedTextV2ProgressStatusNode)(
@@ -284,7 +296,7 @@ __d(
         r("CometComposedTextV2ProgressStatusNodeRenderer.react"),
       );
     }
-    function x() {
+    function $() {
       return new (o(
         "CometComposedTextV2RootNode.react",
       ).CometComposedTextV2RootNode)(
@@ -292,7 +304,7 @@ __d(
         r("CometComposedTextV2RootNodeRenderer.react"),
       );
     }
-    function $(e, t, n) {
+    function P(e, t, n) {
       return (
         t === void 0 && (t = 0),
         new (o(
@@ -308,7 +320,7 @@ __d(
         )
       );
     }
-    function P() {
+    function N() {
       return new (o(
         "CometComposedTextV2ThematicBreakNode.react",
       ).CometComposedTextV2ThematicBreakNode)(
@@ -327,19 +339,20 @@ __d(
       (l.buildFileNode = h),
       (l.buildConnectorActionCardNode = y),
       (l.buildSecureCredentialRequestNode = C),
-      (l.buildHScrollNode = b),
-      (l.buildGridNode = v),
-      (l.buildImageGridNode = S),
-      (l.buildImageNode = R),
-      (l.buildLinkNode = L),
-      (l.buildMathNode = E),
-      (l.buildContentViewerNode = k),
-      (l.buildNewLineNode = I),
-      (l.buildParagraphNode = T),
-      (l.buildProgressStatusNode = D),
-      (l.buildRootNode = x),
-      (l.buildTextNode = $),
-      (l.buildThematicBreakNode = P));
+      (l.buildBrowserTaskNode = b),
+      (l.buildHScrollNode = v),
+      (l.buildGridNode = S),
+      (l.buildImageGridNode = R),
+      (l.buildImageNode = L),
+      (l.buildLinkNode = E),
+      (l.buildMathNode = k),
+      (l.buildContentViewerNode = I),
+      (l.buildNewLineNode = T),
+      (l.buildParagraphNode = D),
+      (l.buildProgressStatusNode = x),
+      (l.buildRootNode = $),
+      (l.buildTextNode = P),
+      (l.buildThematicBreakNode = N));
   },
   98,
 );

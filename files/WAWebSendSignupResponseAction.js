@@ -45,23 +45,26 @@ __d(
       h,
       y,
       C,
-      b = C || (C = o("react")),
-      v = 2e3;
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+      b,
+      v,
+      S,
+      R = S || (S = o("react")),
+      L = 2e3;
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          if (a === void 0) {
-            var i;
-            a = (i = n.signupContext) == null ? void 0 : i.signupId;
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (n === void 0) {
+            var a;
+            n = (a = t.signupContext) == null ? void 0 : a.signupId;
           }
-          if (a == null)
+          if (n == null)
             return (
               o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "sendSignupResponse: missing signupId",
                   ])),
               ),
@@ -71,40 +74,40 @@ __d(
             (o("WAWebSignupFlowLoggerLazy").logSignupOp({
               operation: o("WAWebSignupFlowLoggerLazy")
                 .SIGNUP_USER_JOURNEY_OPERATION.AGM_CTA_CLICKED,
-              signupId: a,
-              businessWid: t.id,
-              chatTimestamp: t.t,
+              signupId: n,
+              businessWid: e.id,
+              chatTimestamp: e.t,
             }),
-            n.signupCtaTapped === !0)
+            t.signupCtaTapped === !0)
           )
             return !1;
-          var l = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (l == null)
+          var i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (i == null)
             return (
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "sendSignupResponse: no meUser",
                   ])),
               ),
               !1
             );
-          var _ = l,
-            f = t.id,
-            g = { signup_id: a },
-            h;
+          var l = i,
+            g = e.id,
+            h = { signup_id: n },
+            y;
           try {
-            (o("WAWebSignupQPLLogger").userRequestStart(a),
-              (h = {
+            (o("WAWebSignupQPLLogger").userRequestStart(n),
+              (y = {
                 type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
                 kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
                 ack: o("WAWebAck").ACK.CLOCK,
-                to: f,
-                from: _,
+                to: g,
+                from: l,
                 id: yield new (r("WAWebMsgKey"))({
                   id: yield r("WAWebMsgKey").newId(),
-                  from: _,
-                  to: f,
+                  from: l,
+                  to: g,
                   participant: void 0,
                   selfDir: "out",
                 }),
@@ -114,7 +117,7 @@ __d(
                 interactivePayload: {
                   type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
                   name: r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP,
-                  paramsJson: JSON.stringify(g),
+                  paramsJson: JSON.stringify(h),
                   version: 1,
                 },
                 nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
@@ -129,147 +132,216 @@ __d(
                   : s._(/*BTDS*/ "Sign up")
                 ).toString(),
               }),
-              n.set({ signupCtaTapped: !0 }),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(n.id, {
+              t.set({ signupCtaTapped: !0 }),
+              o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, {
                 signupCtaTapped: !0,
               }),
               o("WAWebSignupFlowLoggerLazy").logSignupOp({
                 operation: o("WAWebSignupFlowLoggerLazy")
                   .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_REQUEST_SENT,
-                signupId: a,
-                businessWid: t.id,
-                chatTimestamp: t.t,
+                signupId: n,
+                businessWid: e.id,
+                chatTimestamp: e.t,
               }));
-            var y = o("WAWebWidToJid").widToUserJid(t.id),
-              C = yield r("JSResourceForInteraction")("WAWebOptOutUserJob")
+            var C = o("WAWebWidToJid").widToUserJid(e.id),
+              b = yield r("JSResourceForInteraction")("WAWebOptOutUserJob")
                 .__setRef("WAWebSendSignupResponseAction")
                 .load(),
-              b = C.signupUser;
-            o("WAWebSignupQPLLogger").userRequestIqStart(a);
-            var v = yield b(y, a);
+              v = b.signupUser;
+            o("WAWebSignupQPLLogger").userRequestIqStart(n);
+            var S = yield v(C, n);
             if (
-              (o("WAWebSignupQPLLogger").userRequestIqEnd(a),
-              v && v.errorCode != null)
+              (o("WAWebSignupQPLLogger").userRequestIqEnd(n),
+              S && S.errorCode != null)
             ) {
-              var S;
+              var R;
               return (
-                n.set({ signupCtaTapped: !1 }),
-                o("WAWebDBUpdateMessageTable").updateMessageTable(n.id, {
+                t.set({ signupCtaTapped: !1 }),
+                o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, {
                   signupCtaTapped: !1,
                 }),
-                k(),
+                P(),
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[signup:response] IQ error signupId=",
                         " errorCode=",
                         "",
                       ])),
-                    a,
-                    v.errorCode,
+                    n,
+                    S.errorCode,
                   )
                   .sendLogs("signup-response-iq-error"),
+                D(e, n),
                 o("WAWebSignupQPLLogger").userRequestFail(
-                  a,
-                  (S = v.errorKind) != null ? S : "server_error",
+                  n,
+                  (R = S.errorKind) != null ? R : "server_error",
                 ),
                 !1
               );
             }
             (yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(
-              v.listDhash,
+              S.listDhash,
             ),
               yield o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "updateOptOutListModelInCollection",
-                { targetWid: t.id, isBlocked: !1 },
+                { targetWid: e.id, isBlocked: !1 },
               ),
               o("WAWebInAppSignupInfoStore").saveOptinDate(
-                t.id.toString(),
+                e.id.toString(),
                 o("WAWebWamEnumSignupEntryPoint").SIGNUP_ENTRY_POINT
                   .CHAT_THREAD_BUSINESS,
               ));
-          } catch (e) {
+          } catch (a) {
             return (
-              n.set({ signupCtaTapped: !1 }),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(n.id, {
+              t.set({ signupCtaTapped: !1 }),
+              o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, {
                 signupCtaTapped: !1,
               }),
-              k(),
+              P(),
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[signup:response] IQ exception signupId=",
                       "",
                     ])),
-                  a,
+                  n,
                 )
-                .catching(r("getErrorSafe")(e))
+                .catching(r("getErrorSafe")(a))
                 .sendLogs("signup-response-iq-exception"),
-              o("WAWebSignupQPLLogger").userRequestFail(a, "delivery_failure"),
+              D(e, n),
+              o("WAWebSignupQPLLogger").userRequestFail(n, "delivery_failure"),
               !1
             );
           }
+          var L = !1;
           try {
-            var R = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
-              t,
-              h,
+            var E = yield o(
+              "WAWebInAppSignupInfoStore",
+            ).startPendingConfirmationTimer(e.id.toString(), n);
+            E === "write_failed" &&
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[signup:confirmation] timer start failed signupId=",
+                      "",
+                    ])),
+                  n,
+                )
+                .sendLogs("signup-start-pending-confirmation-failed");
+            var k = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+              e,
+              y,
             )[1];
-            return R.messageSendResult !==
+            return k.messageSendResult !==
               o("WAWebSendMsgResultAction").SendMsgResult.OK
               ? (o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[signup:response] send failed signupId=",
                         " result=",
                         "",
                       ])),
-                    a,
-                    R.messageSendResult,
+                    n,
+                    k.messageSendResult,
                   )
                   .sendLogs("signup-response-send-failed"),
+                D(e, n),
                 o("WAWebSignupQPLLogger").userRequestFail(
-                  a,
+                  n,
                   "delivery_failure",
                 ),
+                yield I(n),
                 !1)
-              : (L(o("WAWebStateUtils").unproxy(t)),
-                o("WAWebSignupQPLLogger").userRequestSuccess(a),
-                o("WAWebSignupQPLLogger").confirmationStart(a),
+              : ((L = !0),
+                x(o("WAWebStateUtils").unproxy(e)),
+                o("WAWebSignupQPLLogger").userRequestSuccess(n),
+                o("WAWebSignupQPLLogger").confirmationStart(n),
                 !0);
-          } catch (e) {
+          } catch (t) {
             return (
-              o("WAWebSignupQPLLogger").userRequestFail(a, "delivery_failure"),
+              D(e, n),
+              o("WAWebSignupQPLLogger").userRequestFail(n, "delivery_failure"),
               o("WALogger").WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "sendSignupResponse: send failure: ",
                     "",
                   ])),
-                e,
+                t,
               ),
+              L || (yield I(n)),
               !1
             );
           }
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebInAppSignupInfoStore",
+          ).stopPendingConfirmationTimer(e);
+          t === "write_failed" &&
+            o("WALogger")
+              .ERROR(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[signup:confirmation] rollback failed signupId=",
+                    "",
+                  ])),
+                e,
+              )
+              .sendLogs("signup-rollback-pending-confirmation-failed");
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D(t, n) {
+      try {
+        o("WAWebSignupFlowLoggerLazy").logSignupOp({
+          operation: o("WAWebSignupFlowLoggerLazy")
+            .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_REQUEST_FAILED,
+          signupId: n,
+          businessWid: t.id,
+          chatTimestamp: t.t,
+        });
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[signup:response] failed to log request failure signupId=",
+                "",
+              ])),
+            n,
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("signup-request-failed-log-failed");
+      }
+    }
+    function x(e) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             if (
-              (yield o("WAPromiseDelays").delayMs(v),
+              (yield o("WAPromiseDelays").delayMs(L),
               e.msgs == null || e.contact == null)
             )
               return;
-            var t = yield (y || (y = n("Promise"))).all([
+            var t = yield (v || (v = n("Promise"))).all([
                 r("JSResourceForInteraction")("WAWebPostSendOptOutSystemMsg")
                   .__setRef("WAWebSendSignupResponseAction")
                   .load(),
@@ -291,8 +363,8 @@ __d(
               .addMessages([{ msg: u }], !1)
               .catch(function () {
                 o("WALogger").ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[injectPostSendOptOutSystemMsg] Failed to add to cache",
                     ])),
                 );
@@ -303,45 +375,45 @@ __d(
                 handleSingleMsgOrigin: "postSendOptOutSystemMsg",
               }).catch(function () {
                 o("WALogger").ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[injectPostSendOptOutSystemMsg] handle sys msg failed",
                     ])),
                 );
               }),
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[injectPostSendOptOutSystemMsg] System message injected",
                   ])),
               ));
           } catch (e) {
             o("WALogger").ERROR(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "[injectPostSendOptOutSystemMsg] Failed",
                 ])),
             );
           }
         })),
-        E.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function k() {
+    function P() {
       o("WAWebToastManager").ToastManager.open(
-        b.jsx(o("WAWebToast.react").Toast, {
+        R.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Something went wrong. Try again."),
         }),
       );
     }
-    function I() {
+    function N() {
       o("WAWebToastManager").ToastManager.open(
-        b.jsx(o("WAWebToast.react").Toast, {
+        R.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "This link is no longer valid."),
         }),
       );
     }
-    ((l.sendSignupResponse = S), (l.showInvalidSignupLinkToast = I));
+    ((l.sendSignupResponse = E), (l.showInvalidSignupLinkToast = N));
   },
   226,
 );

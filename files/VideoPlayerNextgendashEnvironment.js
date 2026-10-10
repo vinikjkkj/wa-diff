@@ -125,6 +125,7 @@ __d(
         segmentStallRecoveryEnabled: !1,
         sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime: !1,
         skipPlayheadRestoreOnMediaElementChange: !1,
+        smartPlayerVideoDecodeCapabilities: null,
         startTimestampSec: 0,
         trackScrollPosition: !1,
         useExponentialBackoffRetryStrategy: !1,

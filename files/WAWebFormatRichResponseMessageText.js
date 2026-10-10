@@ -1,8 +1,13 @@
 __d(
   "WAWebFormatRichResponseMessageText",
   [
+    "fbt",
+    "WAWebBotUtils",
+    "WAWebContactCollection",
+    "WAWebContactGetters",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
+    "WAWebMsgGetters",
     "WAWebRichResponse.flow",
     "WAWebRichResponseMsgUtils",
     "WAWebRichResponseTableFragmentText.react",
@@ -11,38 +16,59 @@ __d(
     "WAWebUnifiedResponseUtils",
     "getPlainTextFromUnifiedResponse",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
-        n = o("WAWebFrontendMsgGetters").getAsRichResponse(t);
+        n = e.options,
+        a = o("WAWebFrontendMsgGetters").getAsRichResponse(t);
       if (
-        n != null &&
+        a != null &&
         o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(t)
-      ) {
-        var a = r("getPlainTextFromUnifiedResponse")(n.unifiedResponse);
-        return r("WAWebUnformatMsg")(t, a);
-      }
+      )
+        return u(
+          t,
+          r("getPlainTextFromUnifiedResponse")(a.unifiedResponse),
+          n.formatAsLastMsg === !0,
+        );
       if (
-        n == null ||
+        a == null ||
         o("WAWebRichResponseMsgUtils").isRichResponseMsgUnparsedAfterCompletion(
-          n,
+          a,
         )
       )
         return o("WAWebFormatUnknownMsg").formatUnknownMsgText(t);
-      var i = n.richResponse,
+      var i = a.richResponse,
         l = i.fragments,
-        u = i.parseState,
+        s = i.parseState,
         c = o("WAWebRichResponseMsgUtils")
           .getBundledRichResponseFragments(l)
           .map(function (e) {
-            return s(e, u);
+            return d(e, s);
           })
           .join("\n");
       return c.trim() === ""
         ? o("WAWebFormatUnknownMsg").formatUnknownMsgText(t)
         : r("WAWebUnformatMsg")(t, c);
     }
-    function s(e, t) {
+    function u(e, t, n) {
+      var o = t.trim() === "" && n ? c(e) : null;
+      return o == null
+        ? r("WAWebUnformatMsg")(e, t)
+        : s._(/*BTDS*/ "A message from {agent name}", [
+            s._param("agent name", o),
+          ]);
+    }
+    function c(e) {
+      if (
+        o("WAWebMsgGetters").getIsSentByMe(e) ||
+        !o("WAWebBotUtils").isHatchBot(e.id.remote)
+      )
+        return null;
+      var t = o("WAWebContactCollection").ContactCollection.get(e.id.remote),
+        n = t == null ? "" : o("WAWebContactGetters").getName(t);
+      return n === "" ? null : n;
+    }
+    function d(e, t) {
       switch (e.type) {
         case o("WAWebRichResponse.flow").RichResponseFragmentType.Text:
           return e.text;
@@ -60,5 +86,5 @@ __d(
     }
     l.default = e;
   },
-  98,
+  226,
 );

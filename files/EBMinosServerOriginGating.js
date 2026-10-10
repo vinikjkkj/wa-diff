@@ -3,7 +3,7 @@ __d(
   ["MinosServerOriginContentType", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Set([1, 2, 3, 4, 5, 6, 7, 8]);
+    var e = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
     function s() {
       return r("gkx")("10585");
     }
@@ -48,7 +48,17 @@ __d(
                     ? 7
                     : e.xmatMessagingLimitSharing != null
                       ? 8
-                      : null;
+                      : e.xmatChangeThreadName != null
+                        ? 9
+                        : e.xmatAddParticipants != null
+                          ? 10
+                          : e.xmatRemoveParticipant != null
+                            ? 11
+                            : e.xmatChangeThreadAdmins != null
+                              ? 12
+                              : e.xmatSetParticipantUpdateMode != null
+                                ? 13
+                                : null;
     }
     function p(e) {
       var t = m(e);

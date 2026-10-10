@@ -436,7 +436,7 @@ __d(
                 ) != null,
               s =
                 n != null &&
-                o("WAWebContactGetters").getIsDisplayNameApproved(n) &&
+                o("WAWebContactGetters").getShowAsMetaVerified(n) &&
                 n.verifiedName != null &&
                 n.verifiedName !== "",
               u = l && !s && o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled(),

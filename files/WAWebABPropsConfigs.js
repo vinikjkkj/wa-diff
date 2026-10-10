@@ -2269,6 +2269,9 @@ __d(
         !1,
         !0,
       ],
+      payments_receipt_and_state_copy_pix_key_p2m: [36796, "bool", !1, !1],
+      payments_receipt_and_state_copy_pix_key_p2p: [36791, "bool", !1, !1],
+      payments_receipt_and_state_details_kill_switch: [37686, "bool", !1, !1],
       payments_receipt_and_state_web_state_hide_kill_switch: [
         37818,
         "bool",

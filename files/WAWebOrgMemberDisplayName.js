@@ -1,20 +1,29 @@
 __d(
   "WAWebOrgMemberDisplayName",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebBusinessProfileTypes"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.memberName,
-        n = e.pushName,
-        r = e.savedName;
-      return r != null && r !== ""
-        ? r
-        : t != null && t !== ""
-          ? t
-          : n != null && n !== ""
-            ? n
-            : null;
+      var t = e.isBusiness,
+        n = t === void 0 ? !1 : t,
+        r = e.memberName,
+        a = e.pushName,
+        i = e.savedName,
+        l = e.verifiedLevel,
+        s = e.verifiedName;
+      return n &&
+        l === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
+        s != null &&
+        s !== ""
+        ? null
+        : i != null && i !== ""
+          ? i
+          : r != null && r !== ""
+            ? r
+            : a != null && a !== ""
+              ? a
+              : null;
     }
-    i.resolveWAWebOrgMemberDisplayName = e;
+    l.resolveWAWebOrgMemberDisplayName = e;
   },
-  66,
+  98,
 );

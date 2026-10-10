@@ -63,8 +63,12 @@ __d(
         o("WAWebVoipWaCallEnums").CallParticipantState.Connected
       );
     }
-    function s(t) {
-      return r("countWhere")(t, e);
+    function s(t, n) {
+      return n == null
+        ? r("countWhere")(t, e)
+        : r("countWhere")(t, function (t) {
+            return e(t) && n(t);
+          });
     }
     l.countMissedCalls = s;
   },

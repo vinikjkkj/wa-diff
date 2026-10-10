@@ -88,6 +88,9 @@ __d(
       CONNECTOR_ACCOUNTS_LINK: function (n) {
         return "/api/connectors/" + encodeURIComponent(n) + "/accounts/link";
       },
+      CONNECTOR_CONNECT: function (n) {
+        return "/connectors/" + encodeURIComponent(n) + "/connect";
+      },
       CONNECTOR_CONNECT_INFO: function (n, r) {
         return (
           "/connectors/" +
@@ -123,6 +126,7 @@ __d(
           ? "/api/connectors"
           : "/api/connectors?supports=" + n.map(encodeURIComponent).join(",");
       },
+      CONSENT_AUTH_CALLBACK: "/consent_auth/callback",
       CREDENTIALS_CAPTURE: "/v1/credentials/capture",
       CREDENTIALS_CATALOG: function (n) {
         return (
@@ -138,6 +142,12 @@ __d(
         );
       },
       CREDENTIALS_CATALOG_UPDATE: "/v1/credentials/catalog/update",
+      FOA_ACCOUNTS: function (n) {
+        return "/api/foa/accounts?app=" + encodeURIComponent(n);
+      },
+      FOA_AUTH_CALLBACK: "/api/foa_auth/callback",
+      MESSENGER_PIN_STATUS: "/api/messenger_companion/pin-status",
+      MESSENGER_UNLOCK: "/api/messenger_companion/unlock",
       OAUTH_CALLBACK: "/oauth/callback",
     });
     function h(e) {

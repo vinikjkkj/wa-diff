@@ -2,6 +2,8 @@ __d(
   "WAWebSignupMetadataFetcher",
   [
     "WALogger",
+    "WAWebGraphQLServerError",
+    "WAWebNetworkStatus",
     "WAWebSignupMetadataQuery",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -10,17 +12,39 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = null;
+      u = {
+        2494162: "phone_number_mismatch",
+        2494163: "signup_disabled",
+        2494164: "signup_not_found",
+      };
     function c(e) {
-      r("gkx")("26256") && (u = e);
+      if (!(e instanceof o("WAWebGraphQLServerError").GraphQLServerError))
+        return r("WAWebNetworkStatus").online
+          ? "unknown_error"
+          : "network_error";
+      for (var t of (n = (a = e.source) == null ? void 0 : a.errors) != null
+        ? n
+        : []) {
+        var n,
+          a,
+          i = t.code,
+          l = i == null ? null : u[i];
+        if (l != null) return l;
+      }
+      return "server_error";
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    var d = null;
+    function m(e) {
+      r("gkx")("26256") && (d = e);
     }
-    function m() {
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (r("gkx")("26256") && u != null) return u;
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (r("gkx")("26256") && d != null)
+            return { metadata: d, reason: null };
           try {
             var a = yield o(
               "WAWebSignupMetadataQuery",
@@ -36,33 +60,39 @@ __d(
                     t,
                   )
                   .sendLogs("signup-metadata-invalid-response"),
-                null)
+                { metadata: null, reason: "invalid_response" })
               : {
-                  signupId: a.id,
-                  signupMessage: a.signup_message,
-                  privacyPolicyUrl: a.privacy_policy_url,
+                  metadata: {
+                    signupId: a.id,
+                    signupMessage: a.signup_message,
+                    privacyPolicyUrl: a.privacy_policy_url,
+                  },
+                  reason: null,
                 };
           } catch (e) {
+            var i = c(e);
             return (
               o("WALogger")
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[signup:metadata] fetch failed signupId=",
+                      " reason=",
                       "",
                     ])),
                   t,
+                  i,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("signup-metadata-fetch-failed"),
-              null
+              { metadata: null, reason: i }
             );
           }
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.setSignupMetadataOverride = c), (l.fetchSignupMetadata = d));
+    ((l.setSignupMetadataOverride = m), (l.fetchSignupMetadata = p));
   },
   98,
 );

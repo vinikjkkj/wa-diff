@@ -22,83 +22,89 @@ __d(
       return o + t.slice(a);
     }
     function m(e) {
+      var t = /\S/.exec(e);
+      return t != null && (e[t.index] === "{" || e[t.index] === "[")
+        ? e.slice(0, t.index + 1) + "/*x*/" + e.slice(t.index + 1)
+        : "/*x*/" + e;
+    }
+    function p(e) {
       var t = null,
         n = window.Env,
         a = n != null && "v9k2mt7q" in n,
         i = n != null && "d3hf9km2" in n,
         l = n != null && "k8pq2mnb" in n,
         s = n != null && "n5tq2wjb" in n,
-        m = e;
-      l && m != null && (m = d(m, s));
-      var p =
+        p = e;
+      l && p != null && (p = d(p, s));
+      var _ =
           a &&
           (o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed() ||
             (i &&
               o(
                 "GHLDetectionUtilsPreludeSafe",
               ).isJSONParseBehaviorallyShimmed())),
-        _ = n != null && "c6mw9qtk" in n,
-        f = n != null && "j6dw4ztx" in n,
-        g = !1;
+        f = n != null && "c6mw9qtk" in n,
+        g = n != null && "j6dw4ztx" in n,
+        h = !1;
       if (
+        f &&
         _ &&
-        p &&
-        m != null &&
-        (!f || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
+        p != null &&
+        (!g || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
       )
         try {
-          var h = JSON.parse('{"q7z":' + m + "}");
-          h != null && h.q7z != null && ((t = h.q7z), (g = !0));
+          var y = JSON.parse('{"q7z":' + p + "}");
+          y != null && y.q7z != null && ((t = y.q7z), (h = !0));
         } catch (e) {
-          g = !1;
+          h = !1;
         }
       if (
-        !g &&
-        p &&
+        !h &&
+        _ &&
         n != null &&
         "x8kf2pw6" in n &&
-        m != null &&
-        (!f || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
+        p != null &&
+        (!g || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
       )
         try {
-          var y = JSON.parse("[" + m + "]");
-          Array.isArray(y) && y.length === 1 && ((t = y[0]), (g = !0));
+          var C = JSON.parse("[" + p + "]");
+          Array.isArray(C) && C.length === 1 && ((t = C[0]), (h = !0));
         } catch (e) {
-          g = !1;
+          h = !1;
         }
-      if (!g && p)
+      if (!h && _)
         try {
-          var C = o(
+          var b = o(
               "GHLDetectionUtilsPreludeSafe",
             ).isStringBehaviorallyShimmed(),
-            b = n != null && "r4wt7kmj" in n;
-          b && C && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var v = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
-            S = !1;
-          if (v != null)
+            v = n != null && "r4wt7kmj" in n;
+          v && b && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
+          var S = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
+            R = !1;
+          if (S != null)
             try {
-              ((t = v(m)), (S = !0));
+              ((t = S(p)), (R = !0));
             } catch (e) {
-              S = !1;
+              R = !1;
             }
-          S || (t = r("json5").fromSource("/*x*/" + m));
+          R || (t = r("json5").fromChunk(m(p)));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
             .mustfix("Failed to parse ServerJS payload using json5"),
-            (t = JSON.parse(m)));
+            (t = JSON.parse(p)));
         }
-      else g || (t = JSON.parse(m));
+      else h || (t = JSON.parse(p));
       return (
         l &&
           t != null &&
-          m.indexOf(c) !== -1 &&
+          p.indexOf(c) !== -1 &&
           o("GHLTypenameRestore").restoreTypenameValues(t, c, u),
-        t != null && o("GHLTypenameRestore").restoreAllTypenames(t, m),
+        t != null && o("GHLTypenameRestore").restoreAllTypenames(t, p),
         t
       );
     }
-    l.inflateBootPayload = m;
+    l.expandBootPayload = p;
   },
   98,
 );

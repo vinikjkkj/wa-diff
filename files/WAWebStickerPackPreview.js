@@ -14,6 +14,7 @@ __d(
     "WAWebMediaThumbnail.react",
     "WAWebMessageDeeperContainer.react",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebStateUtils",
     "WAWebStickerPackConstants",
     "WAWebStickerPackUtils",
@@ -53,35 +54,45 @@ __d(
         fixedTextHeight: { height: "xdiz9cm", $$css: !0 },
       };
     function _(e) {
-      var t = o("useWAWebMsgValues").useMsgValues(e.msg.id, [
+      var t,
+        n = e.msgKey,
+        a = o("useWAWebMsgValues").useMsgValues(n, [
           o("WAWebMsgGetters").getIsSentByMe,
+          o("WAWebFrontendMsgGetters").getStickers,
+          o("WAWebMsgGetters").getDescription,
+          o("WAWebMsgGetters").getFilename,
+          o("WAWebFrontendMsgGetters").getSafeMsg,
         ]),
-        n = t[0],
-        a = e.msg.stickers.length;
-      function i() {
-        return e.msg.description != null && e.msg.description !== ""
-          ? e.msg.description
-          : a >= 1
+        i = a[0],
+        l = a[1],
+        u = a[2],
+        _ = a[3],
+        g = a[4],
+        h = (t = l == null ? void 0 : l.length) != null ? t : 0;
+      function y() {
+        return u != null && u !== ""
+          ? u
+          : h >= 1
             ? s._(
                 /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
-                [s._plural(a, "stickerCount")],
+                [s._plural(h, "stickerCount")],
               )
             : "";
       }
       d(function () {
-        var t = e.msg;
-        r("isStringNullOrEmpty")(t.thumbnailDirectPath)
-          ? f(t)
-          : r("WAWebMediaDownloadMmsThumbnail")({
-              msg: o("WAWebStateUtils").unproxy(t),
-              chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
-              isPreload: !1,
-            });
+        g.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK &&
+          (r("isStringNullOrEmpty")(g.thumbnailDirectPath)
+            ? f(g)
+            : r("WAWebMediaDownloadMmsThumbnail")({
+                msg: o("WAWebStateUtils").unproxy(g),
+                chat: o("WAWebFrontendMsgGetters").getChat(g.unsafe()),
+                isPreload: !1,
+              }));
       }, []);
-      var l = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
+      var C = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
       return c.jsx(r("WAWebMessageDeeperContainer.react"), {
         xstyle: p.deepContainer,
-        outgoingMsg: n,
+        outgoingMsg: i,
         children: c.jsxs(o("WAWebFlex.react").FlexRow, {
           xstyle: m.paddingInlineEnd14,
           align: "start",
@@ -91,7 +102,7 @@ __d(
               grow: 0,
               align: "center",
               children: c.jsx(r("WAWebMediaThumbnail.react"), {
-                msgKey: e.msg.id,
+                msgKey: n,
                 containerClassName: "xcbkimw x1n2onr6 x1dmp6jm",
                 thumbnailPlaceholder: c.jsx(
                   "div",
@@ -125,8 +136,8 @@ __d(
                     isBotPluginLink: !1,
                     isCompose: !1,
                     isStatus: !1,
-                    title: e.msg.filename,
-                    titleDir: l,
+                    title: _,
+                    titleDir: C,
                     titleDirMismatch: !1,
                   }),
                 }),
@@ -138,7 +149,7 @@ __d(
                     isHighQualityLayout: !1,
                     isStatus: !1,
                     useTextLimit: !1,
-                    children: i(),
+                    children: y(),
                   }),
                 }),
               ],

@@ -86,7 +86,7 @@ __d(
                 return e.apply(this, arguments);
               };
             })();
-            return S(a, l(i));
+            return S(a, l(i), !1);
           }
           return (_ || (_ = n("Promise"))).resolve(null);
         })),
@@ -325,7 +325,7 @@ __d(
             };
           })(),
         ),
-        f = S(t, l),
+        f = S(t, l, !0),
         g = i
           ? f.then(i).then(function () {
               return f;
@@ -354,7 +354,7 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e, t) {
+    function S(e, t, r) {
       return e.addQueue
         .enqueue(t)
         .then(
@@ -362,28 +362,29 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n,
-                  r = t.msg,
-                  a = t.systemMsgs;
+                  a = t.msg,
+                  i = t.systemMsgs;
                 if (
-                  (o("WAWebAppTracker").AppTracker.start(
-                    o("WAWebAppTracker").AppTrackerType.SendMessage,
-                  ),
-                  (n = r.wamMessageSendPerfReporter) == null ||
+                  (r &&
+                    o("WAWebAppTracker").AppTracker.start(
+                      o("WAWebAppTracker").AppTrackerType.SendMessage,
+                    ),
+                  (n = a.wamMessageSendPerfReporter) == null ||
                     n.startRenderedStage(),
-                  a)
+                  i)
                 ) {
-                  var i = a.map(function (e) {
+                  var l = i.map(function (e) {
                     return new (o("WAWebMsgModel").Msg)(e);
                   });
-                  e.msgs.add(i);
+                  e.msgs.add(l);
                 }
-                var l = e.msgs.add(r)[0];
+                var s = e.msgs.add(a)[0];
                 return (
                   o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(
                     e,
-                    [l],
+                    [s],
                   ),
-                  l
+                  s
                 );
               },
             );

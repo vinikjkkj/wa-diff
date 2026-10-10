@@ -16,21 +16,7 @@ __d(
             n;
           ((this.$2 = new Map()),
             (this.purgeNow = function () {
-              for (
-                var e = t.$6.prev;
-                t.$4 > t.$3 && e !== t.$5;
-                e = e ? e.prev : null
-              ) {
-                if (e == null)
-                  throw r("err")(
-                    "The linked list is not constructed properly.",
-                  );
-                var n = e,
-                  o = n.key,
-                  a = n.value;
-                t.$9(o, a) && (t.delete(o), t.$10 && t.$10(o, a));
-              }
-              t.$8 && t.$8(t.$2);
+              t.$15(t.$3);
             }),
             (this.$3 = e.sizeLimit),
             (this.$7 = e.getSize),
@@ -126,6 +112,24 @@ __d(
               (this.$5.next = this.$6),
               (this.$6.prev = this.$5),
               this.$13 && this.$13());
+          }),
+          (n.trimTo = function (t) {
+            this.$15(t);
+          }),
+          (n.$15 = function (t) {
+            for (
+              var e = this.$6.prev;
+              this.$4 > t && e !== this.$5;
+              e = e ? e.prev : null
+            ) {
+              if (e == null)
+                throw r("err")("The linked list is not constructed properly.");
+              var n = e,
+                o = n.key,
+                a = n.value;
+              this.$9(o, a) && (this.delete(o), this.$10 && this.$10(o, a));
+            }
+            this.$8 && this.$8(this.$2);
           }),
           (n.schedulePurge = function () {
             this.$1.onOrBefore(1e3);

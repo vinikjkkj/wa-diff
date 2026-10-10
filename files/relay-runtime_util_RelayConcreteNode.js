@@ -7,7 +7,6 @@ __d(
       ACTOR_CHANGE: "ActorChange",
       CATCH_FIELD: "CatchField",
       CONDITION: "Condition",
-      CLIENT_COMPONENT: "ClientComponent",
       CLIENT_EDGE_TO_SERVER_OBJECT: "ClientEdgeToServerObject",
       CLIENT_EDGE_TO_CLIENT_OBJECT: "ClientEdgeToClientObject",
       CLIENT_EXTENSION: "ClientExtension",

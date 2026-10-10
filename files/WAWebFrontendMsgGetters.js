@@ -713,11 +713,12 @@ __d(
       ge = p("reporterJidList"),
       he = p("status"),
       ye = p("dashManifestUrl"),
-      Ce = p("replyButtons"),
-      be = p("pendingDeleteForMe", { default: !1 }),
-      ve = p("isFadingOut", { default: !1 }),
-      Se = p("botPluginType"),
-      Re = m(
+      Ce = p("stickers"),
+      be = p("replyButtons"),
+      ve = p("pendingDeleteForMe", { default: !1 }),
+      Se = p("isFadingOut", { default: !1 }),
+      Re = p("botPluginType"),
+      Le = m(
         function (e) {
           var t,
             n = e[0],
@@ -735,9 +736,9 @@ __d(
             ? n
             : null;
         },
-        [A, Se, pe],
+        [A, Re, pe],
       ),
-      Le = m(
+      Ee = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -749,7 +750,7 @@ __d(
         },
         [A, u.getType, u.getRichResponse],
       ),
-      Ee = m(
+      ke = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -757,7 +758,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      ke = m(
+      Ie = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -765,7 +766,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      Ie = m(
+      Te = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -773,9 +774,9 @@ __d(
             a = r != null;
           return t === o("WAWebMsgType").MSG_TYPE.CHAT && (n || a);
         },
-        [u.getType, Ee, ke],
+        [u.getType, ke, Ie],
       ),
-      Te = m(
+      De = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -807,14 +808,14 @@ __d(
           u.getType,
           u.getCtwaContext,
           u.getQuotedMsg,
-          Ie,
+          Te,
           u.getHasOriginatedFromNewsletter,
           u.getIsForwarded,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      De = m(
+      xe = m(
         function (e) {
           var t = e[0];
           if (t != null) {
@@ -827,7 +828,7 @@ __d(
         },
         [u.getBody],
       ),
-      xe = m(
+      $e = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -848,7 +849,7 @@ __d(
           pe,
         ],
       ),
-      $e = m(
+      Pe = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -856,7 +857,7 @@ __d(
         },
         [u.getIsNewsletterMsg, u.getSender],
       ),
-      Pe = m(
+      Ne = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -922,19 +923,20 @@ __d(
       (l.getReporterJidList = ge),
       (l.getOrderStatus = he),
       (l.getDashManifestUrl = ye),
-      (l.getReplyButtons = Ce),
-      (l.getPendingDeleteForMe = be),
-      (l.getIsFadingOut = ve),
-      (l.getAsBotPluginCarouselMsg = Re),
-      (l.getAsRichResponse = Le),
-      (l.getIsAnimatedEmoji = Ee),
-      (l.getIsSingleEmoji = ke),
-      (l.getIsTransparentMsgEmoji = Ie),
-      (l.getIsTransparentMsg = Te),
-      (l.getJSONAssetForAnimatedEmoji = De),
-      (l.getMsgSenderId = xe),
-      (l.getShouldDisplaySelf = $e),
-      (l.getSenderForReplyMsg = Pe));
+      (l.getStickers = Ce),
+      (l.getReplyButtons = be),
+      (l.getPendingDeleteForMe = ve),
+      (l.getIsFadingOut = Se),
+      (l.getAsBotPluginCarouselMsg = Le),
+      (l.getAsRichResponse = Ee),
+      (l.getIsAnimatedEmoji = ke),
+      (l.getIsSingleEmoji = Ie),
+      (l.getIsTransparentMsgEmoji = Te),
+      (l.getIsTransparentMsg = De),
+      (l.getJSONAssetForAnimatedEmoji = xe),
+      (l.getMsgSenderId = $e),
+      (l.getShouldDisplaySelf = Pe),
+      (l.getSenderForReplyMsg = Ne));
   },
   98,
 );

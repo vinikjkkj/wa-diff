@@ -33,9 +33,8 @@ __d(
             (o = e.relayFieldLogger) != null
               ? o
               : n("relay-runtime/store/defaultRelayFieldLogger")),
-          (this.$16 = e.shouldProcessClientComponents),
-          (this.$17 = (a = e.treatMissingFieldsAsNull) != null ? a : !1),
-          (this.$18 = (i = e.deferDeduplicatedFields) != null ? i : !1),
+          (this.$16 = (a = e.treatMissingFieldsAsNull) != null ? a : !1),
+          (this.$17 = (i = e.deferDeduplicatedFields) != null ? i : !1),
           (this.$8 = (s = e.isServer) != null ? s : !1),
           (this.$10 = (u = e.missingFieldHandlers) != null ? u : []),
           (this.$4 = e.createStoreForActor),
@@ -86,9 +85,9 @@ __d(
                   return n("relay-runtime/store/RelayRecordSource").create();
                 },
               })
-            : this.$19(t, r, this.$10);
+            : this.$18(t, r, this.$10);
         }),
-        (t.$19 = function (t, r, o) {
+        (t.$18 = function (t, r, o) {
           var e = this,
             a = new Map([
               [
@@ -116,7 +115,7 @@ __d(
               var t = s[0],
                 n = s[1];
               n.size() > 0 &&
-                e.$20(function () {
+                e.$19(function () {
                   var r = e.forActor(t).getPublishQueue();
                   (r.commitSource(n), r.run());
                 });
@@ -134,12 +133,12 @@ __d(
           var e = this,
             r = t.getPublishQueue(),
             o = function () {
-              e.$20(function () {
+              e.$19(function () {
                 (r.revertUpdate(n), r.run());
               });
             };
           return (
-            this.$20(function () {
+            this.$19(function () {
               (r.applyUpdate(n), r.run());
             }),
             { dispose: o }
@@ -147,18 +146,18 @@ __d(
         }),
         (t.revertUpdate = function (t, n) {
           var e = t.getPublishQueue();
-          this.$20(function () {
+          this.$19(function () {
             (e.revertUpdate(n), e.run());
           });
         }),
         (t.replaceUpdate = function (t, n, r) {
           var e = t.getPublishQueue();
-          this.$20(function () {
+          this.$19(function () {
             (e.revertUpdate(n), e.applyUpdate(r), e.run());
           });
         }),
         (t.applyMutation = function (t, r) {
-          var e = this.$21(t, {
+          var e = this.$20(t, {
             createSource: function () {
               return n("relay-runtime/network/RelayObservable").create(
                 function (e) {},
@@ -177,12 +176,12 @@ __d(
         }),
         (t.commitUpdate = function (t, n) {
           var e = t.getPublishQueue();
-          this.$20(function () {
+          this.$19(function () {
             (e.commitUpdate(n), e.run());
           });
         }),
         (t.commitPayload = function (t, r, o) {
-          this.$21(t, {
+          this.$20(t, {
             createSource: function () {
               return n("relay-runtime/network/RelayObservable").from({
                 data: o,
@@ -199,7 +198,7 @@ __d(
         }),
         (t.execute = function (t, n) {
           var e = n.operation;
-          return this.$21(t, {
+          return this.$20(t, {
             createSource: function () {
               return t
                 .getNetwork()
@@ -228,7 +227,7 @@ __d(
         (t.executeSubscription = function (t, n) {
           var e = n.operation,
             r = n.updater;
-          return this.$21(t, {
+          return this.$20(t, {
             createSource: function () {
               return t
                 .getNetwork()
@@ -254,7 +253,7 @@ __d(
             l;
           return (
             (r || o) && (l = { operation: e, response: r, updater: o }),
-            this.$21(t, {
+            this.$20(t, {
               createSource: function () {
                 return t
                   .getNetwork()
@@ -275,7 +274,7 @@ __d(
           );
         }),
         (t.executeWithSource = function (t, n) {
-          return this.$21(t, {
+          return this.$20(t, {
             createSource: function () {
               return n.source;
             },
@@ -292,7 +291,7 @@ __d(
         (t.isServer = function () {
           return this.$8;
         }),
-        (t.$21 = function (t, r) {
+        (t.$20 = function (t, r) {
           var e = this,
             o = r.createSource,
             a = r.isClientPayload,
@@ -314,14 +313,13 @@ __d(
                   return e.forActor(n).getPublishQueue();
                 },
                 scheduler: e.$15,
-                shouldProcessClientComponents: e.$16,
                 sink: r,
                 source: o(),
                 getStore: function (n) {
                   return e.forActor(n).getStore();
                 },
-                treatMissingFieldsAsNull: e.$17,
-                deferDeduplicatedFields: e.$18,
+                treatMissingFieldsAsNull: e.$16,
+                deferDeduplicatedFields: e.$17,
                 updater: s,
                 log: e.$9,
                 normalizeResponse: e.$11,
@@ -332,7 +330,7 @@ __d(
             },
           );
         }),
-        (t.$20 = function (t) {
+        (t.$19 = function (t) {
           var e = this.$15;
           e != null ? e.schedule(t) : t();
         }),

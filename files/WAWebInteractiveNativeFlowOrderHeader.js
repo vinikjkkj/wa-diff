@@ -2,10 +2,10 @@ __d(
   "WAWebInteractiveNativeFlowOrderHeader",
   [
     "WAWebABProps",
+    "WAWebBrPaymentSettingsUtils",
     "WAWebBrazilPaymentsGeoGating",
     "WAWebCurrencyUtils",
     "WAWebFrontendMsgGetters",
-    "WAWebGetBrazilnteractiveActions",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebInteractiveOrderQuotedMessage.react",
@@ -265,14 +265,14 @@ __d(
             u.marginStart4,
             r && u.iconDarkBackground,
           ];
-        (o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(t) &&
+        (o("WAWebBrPaymentSettingsUtils").hasValidDynamicPix(t) &&
           n.push(
             s.jsx(o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon, {
               iconXstyle: a,
             }),
           ),
           o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(e) &&
-            o("WAWebGetBrazilnteractiveActions").hasValidPaymentLink(t) &&
+            o("WAWebBrPaymentSettingsUtils").hasValidPaymentLink(t) &&
             n.push(
               s.jsx(o("WAWebPaymentVisaLogoIcon.react").PaymentVisaLogoIcon, {
                 iconXstyle: a,
@@ -284,7 +284,7 @@ __d(
               }),
             ),
           o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(e) &&
-            o("WAWebGetBrazilnteractiveActions").hasValidBoletoCode(t) &&
+            o("WAWebBrPaymentSettingsUtils").hasValidBoletoCode(t) &&
             n.push(
               s.jsx(
                 o("WAWebPaymentBoletoLogoIcon.react").PaymentBoletoLogoIcon,
@@ -299,7 +299,7 @@ __d(
           u.iconDarkBackground,
         ];
         o("WAWebOrderStatus").isSimplifiedOrder(t) &&
-          o("WAWebGetBrazilnteractiveActions").hasValidStaticPix(t) &&
+          o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(t) &&
           n.push(
             s.jsx(o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon, {
               iconXstyle: i,
