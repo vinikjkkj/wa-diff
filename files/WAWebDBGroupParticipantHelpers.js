@@ -383,39 +383,42 @@ __d(
         staleType: e.staleType,
       };
     }
-    function g(e, t, n) {
-      var r = e.admins,
-        a = e.participants,
-        i = t.map(function (e) {
+    function g(e) {
+      var t = e.action,
+        n = e.oldDBRecord,
+        r = e.participants,
+        a = n.admins,
+        i = n.participants,
+        l = r.map(function (e) {
           var t = e.id;
           return String(t);
         });
       if (
-        n ===
+        t ===
         o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.LINKED_GROUP_DEMOTE
       )
-        ((r = e.admins.filter(function (e) {
-          return !i.includes(e);
+        ((a = n.admins.filter(function (e) {
+          return !l.includes(e);
         })),
-          (a = r));
+          (i = a));
       else if (
-        n ===
+        t ===
         o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.LINKED_GROUP_PROMOTE
       ) {
-        var l = i.filter(function (t) {
-          return !e.admins.includes(t);
+        var s = l.filter(function (e) {
+          return !n.admins.includes(e);
         });
-        ((r = e.admins.concat(l)), (a = r));
+        ((a = n.admins.concat(s)), (i = a));
       }
       return {
-        groupId: e.groupId,
-        senderKey: e.senderKey,
-        participants: a,
-        pastParticipants: e.pastParticipants,
-        admins: r,
-        superAdmins: e.superAdmins,
-        rotateKey: e.rotateKey,
-        staleType: e.staleType,
+        groupId: n.groupId,
+        senderKey: n.senderKey,
+        participants: i,
+        pastParticipants: n.pastParticipants,
+        admins: a,
+        superAdmins: n.superAdmins,
+        rotateKey: n.rotateKey,
+        staleType: n.staleType,
       };
     }
     function h(e, t) {

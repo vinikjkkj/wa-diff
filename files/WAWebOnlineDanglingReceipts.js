@@ -24,16 +24,20 @@ __d(
       h = new Map(),
       y = null,
       C = 120 * 1e3;
-    function b(t, n, r, a) {
-      var i,
-        l =
-          (a == null ? void 0 : a.sendsGroupAgentDeliveryReceipt) === !0
+    function b(t) {
+      var n,
+        r = t.author,
+        a = t.externalId,
+        i = t.from,
+        l = t.options,
+        s =
+          (l == null ? void 0 : l.sendsGroupAgentDeliveryReceipt) === !0
             ? h
             : g;
-      l.has(t) || l.set(t, new Map());
-      var s = l.get(t);
-      ((s != null && s.has(n)) || s == null || s.set(n, []),
-        s == null || (i = s.get(n)) == null || i.push(r),
+      s.has(i) || s.set(i, new Map());
+      var u = s.get(i);
+      ((u != null && u.has(r)) || u == null || u.set(r, []),
+        u == null || (n = u.get(r)) == null || n.push(a),
         y == null &&
           (y = self.setTimeout(function () {
             (o("WALogger").LOG(

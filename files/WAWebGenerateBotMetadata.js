@@ -72,9 +72,9 @@ __d(
         a = t.botPersonaId != null ? t.botPersonaId : void 0,
         i = f(t),
         l = t.aiThreadInfo != null ? e(t) : void 0,
-        c = R(t.botModeSelection, t.botModeOverride),
+        c = L(t.botModeSelection, t.botModeOverride),
         d = s(t),
-        _ = S(t.type),
+        _ = R(t.type),
         h = u(t),
         y =
           t.unifiedResponseMutationMediaList != null
@@ -95,7 +95,7 @@ __d(
         return {
           personaId: a,
           invokerJid: i,
-          capabilityMetadata: t.id ? v(t.id.remote, t.subtype) : void 0,
+          capabilityMetadata: t.id ? S(t.id.remote, t.subtype) : void 0,
           botThreadInfo: l,
           botGroupMetadata: o(
             "WAWebGenerateBotGroupMetadata",
@@ -209,6 +209,14 @@ __d(
       );
     }
     function v(e, t) {
+      return (
+        e != null &&
+        o("WAWebBotUtils").isHatchBot(e) &&
+        t !== o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotRequestWelcome &&
+        o("WAWebHatchBackendGating").isHatchSpaceEnabledOnBackend()
+      );
+    }
+    function S(e, t) {
       var n,
         r = [
           (n = o("WAWebProtobufsAICommon.pb"))
@@ -385,10 +393,17 @@ __d(
                   .HATCH_SECURE_CREDENTIAL_CARD_ENABLED,
               ]
             : [],
+          v(e, t)
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .HATCH_ARTIFACT_CARD_ENABLED,
+              ]
+            : [],
         );
       return r.length === 0 ? void 0 : { capabilities: r };
     }
-    function S(e) {
+    function R(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -398,7 +413,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function R(e, t) {
+    function L(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -415,8 +430,8 @@ __d(
       (l.generateBotMetricsMetadata = s),
       (l.generateAiMediaCollectionMetadata = u),
       (l.generateBotMetadata = c),
-      (l.generateBotCapabilityMetadata = v),
-      (l.generateBotModeSelectionMetadata = R));
+      (l.generateBotCapabilityMetadata = S),
+      (l.generateBotModeSelectionMetadata = L));
   },
   98,
 );

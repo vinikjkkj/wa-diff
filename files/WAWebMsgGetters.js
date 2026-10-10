@@ -1853,6 +1853,7 @@ __d(
       (l.getDisappearingModeInitiatedByMe = ve),
       (l.getActiveBotMsgStreamingInProgress = Se),
       (l.getBizBotType = Re),
+      (l.getBotTargetSenderJid = Le),
       (l.getIsSupportAIMessage = Ee),
       (l.getLastBotEditBodyLength = ke),
       (l.getBotEditType = Ie),

@@ -20,20 +20,7 @@ __d(
         ? o("WAWebSpoilerFormatRegex").maskSpoilers(r, " ")
         : r;
     }
-    function u(e) {
-      var t = e.matchedText,
-        n = e.text;
-      if (t === "") return !1;
-      if (!o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(n)) return !0;
-      var r = o("WAWebSpoilerFormatRegex").maskSpoilers(n, " ");
-      return o("WAWebLinkify")
-        .findLinks(r)
-        .some(function (e) {
-          var n = r.slice(e.index, e.index + e.url.length);
-          return n === t;
-        });
-    }
-    ((l.findFirstPreviewEligibleWebLink = e), (l.isLinkPreviewEligible = u));
+    l.findFirstPreviewEligibleWebLink = e;
   },
   98,
 );

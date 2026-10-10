@@ -440,25 +440,25 @@ __d(
                                     .PARTICIPANT_OPERATION.LINKED_GROUP_PROMOTE:
                                     u = o(
                                       "WAWebDBGroupParticipantHelpers",
-                                    ).changeCommunityParticipantAdminInfo(
-                                      r,
-                                      s,
-                                      o("WAWebDBParticipantTypes")
+                                    ).changeCommunityParticipantAdminInfo({
+                                      action: o("WAWebDBParticipantTypes")
                                         .PARTICIPANT_OPERATION
                                         .LINKED_GROUP_PROMOTE,
-                                    );
+                                      oldDBRecord: r,
+                                      participants: s,
+                                    });
                                     break;
                                   case o("WAWebDBParticipantTypes")
                                     .PARTICIPANT_OPERATION.LINKED_GROUP_DEMOTE:
                                     u = o(
                                       "WAWebDBGroupParticipantHelpers",
-                                    ).changeCommunityParticipantAdminInfo(
-                                      r,
-                                      s,
-                                      o("WAWebDBParticipantTypes")
+                                    ).changeCommunityParticipantAdminInfo({
+                                      action: o("WAWebDBParticipantTypes")
                                         .PARTICIPANT_OPERATION
                                         .LINKED_GROUP_DEMOTE,
-                                    );
+                                      oldDBRecord: r,
+                                      participants: s,
+                                    });
                                     break;
                                   default:
                                     l.length < 3 && l.push(t.action);
@@ -536,24 +536,24 @@ __d(
                     return n.createOrReplace(
                       o(
                         "WAWebDBGroupParticipantHelpers",
-                      ).changeCommunityParticipantAdminInfo(
-                        a,
-                        s,
-                        o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
-                          .LINKED_GROUP_PROMOTE,
-                      ),
+                      ).changeCommunityParticipantAdminInfo({
+                        action: o("WAWebDBParticipantTypes")
+                          .PARTICIPANT_OPERATION.LINKED_GROUP_PROMOTE,
+                        oldDBRecord: a,
+                        participants: s,
+                      }),
                     );
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                     .LINKED_GROUP_DEMOTE:
                     return n.createOrReplace(
                       o(
                         "WAWebDBGroupParticipantHelpers",
-                      ).changeCommunityParticipantAdminInfo(
-                        a,
-                        s,
-                        o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
-                          .LINKED_GROUP_DEMOTE,
-                      ),
+                      ).changeCommunityParticipantAdminInfo({
+                        action: o("WAWebDBParticipantTypes")
+                          .PARTICIPANT_OPERATION.LINKED_GROUP_DEMOTE,
+                        oldDBRecord: a,
+                        participants: s,
+                      }),
                     );
                   default:
                     throw r("err")(

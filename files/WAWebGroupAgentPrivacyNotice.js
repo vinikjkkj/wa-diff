@@ -464,8 +464,7 @@ __d(
         t: l != null ? l : e.t,
       });
     }
-    ((l.genGroupAgentPrivacyNoticeMsg = g),
-      (l.genMetaAiGroupNoticeMsgs = C),
+    ((l.genMetaAiGroupNoticeMsgs = C),
       (l.genMetaAiGroupNoticeMsgsForAdd = b),
       (l.orderGroupAgentNoticesAndRows = S),
       (l.genGroupAgentNoticeMsgsForCreate = R),

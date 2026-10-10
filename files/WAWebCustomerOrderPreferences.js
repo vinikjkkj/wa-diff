@@ -23,8 +23,7 @@ __d(
         });
       return t.length > 0 ? t.join(" \u2022 ") : null;
     }
-    ((i.OrderPreferenceSlot = e),
-      (i.ORDER_PREFERENCE_SLOTS = l),
+    ((i.ORDER_PREFERENCE_SLOTS = l),
       (i.EMPTY_ORDER_PREFERENCES = s),
       (i.toOrderPreferences = u),
       (i.getOrderPreferencesDisplayText = c));

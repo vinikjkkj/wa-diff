@@ -155,8 +155,7 @@ __d(
         h.apply(this, arguments)
       );
     }
-    ((l.isAgentChangeInDeletedGroupChat = u),
-      (l.isBotGroupStateChangeInDeletedGroupChat = d),
+    ((l.isBotGroupStateChangeInDeletedGroupChat = d),
       (l.isAgentChangeInDeletedGroupChatForActions = f),
       (l.getPrevParticipantIdsForMetadataAgentRows = g));
   },

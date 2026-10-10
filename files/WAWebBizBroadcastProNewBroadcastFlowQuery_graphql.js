@@ -7,32 +7,119 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "id",
-          storageKey: null,
-        },
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "audienceId" },
+          {
+            defaultValue: null,
+            kind: "LocalArgument",
+            name: "fetchInitialAudience",
+          },
+          { defaultValue: null, kind: "LocalArgument", name: "first" },
+        ],
         t = {
           alias: null,
           args: null,
-          concreteType: "XFBMarketingMessageWhatsAppSubscriberPool",
-          kind: "LinkedField",
-          name: "default_subscriber_pool",
-          plural: !1,
-          selections: [e],
+          kind: "ScalarField",
+          name: "is_custom_param_restricted_for_first_party_paid_messaging",
           storageKey: null,
         },
         r = {
           alias: null,
           args: null,
           kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        o = {
+          condition: "fetchInitialAudience",
+          kind: "Condition",
+          passingValue: !0,
+          selections: [
+            {
+              alias: "initialAudience",
+              args: [
+                { kind: "Variable", name: "find", variableName: "audienceId" },
+                { kind: "Variable", name: "first", variableName: "first" },
+              ],
+              concreteType:
+                "WhatsAppBusinessAccountWaBbProCustomAudiencesConnection",
+              kind: "LinkedField",
+              name: "wa_bb_pro_custom_audiences",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType:
+                    "WhatsAppBusinessAccountWaBbProCustomAudiencesEdge",
+                  kind: "LinkedField",
+                  name: "edges",
+                  plural: !0,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "AdCustomAudience",
+                      kind: "LinkedField",
+                      name: "node",
+                      plural: !1,
+                      selections: [
+                        r,
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: "CustomAudienceOperationStatus",
+                          kind: "LinkedField",
+                          name: "operation_status",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "status_code",
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "subscriber_size",
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        a = {
+          alias: null,
+          args: null,
+          concreteType: "XFBMarketingMessageWhatsAppSubscriberPool",
+          kind: "LinkedField",
+          name: "default_subscriber_pool",
+          plural: !1,
+          selections: [r],
+          storageKey: null,
+        },
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
           name: "label",
           storageKey: null,
         },
-        o = [
-          r,
+        l = [
+          i,
           {
             alias: null,
             args: null,
@@ -50,7 +137,7 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizBroadcastProNewBroadcastFlowQuery",
@@ -63,11 +150,32 @@ __d(
             {
               alias: null,
               args: null,
+              concreteType: "Viewer",
+              kind: "LinkedField",
+              name: "viewer",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "WhatsAppBusinessAccount",
+                  kind: "LinkedField",
+                  name: "backing_waba",
+                  plural: !1,
+                  selections: [t, o],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
               concreteType: "XFBWhatsAppSMBBBPro",
               kind: "LinkedField",
               name: "xfb_whatsapp_bb_pro",
               plural: !1,
-              selections: [t],
+              selections: [a],
               storageKey: null,
             },
           ],
@@ -76,7 +184,7 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebBizBroadcastProNewBroadcastFlowQuery",
           selections: [
@@ -103,7 +211,9 @@ __d(
                       name: "audience_send_max_bid_amount",
                       storageKey: null,
                     },
-                    e,
+                    r,
+                    t,
+                    o,
                   ],
                   storageKey: null,
                 },
@@ -148,7 +258,7 @@ __d(
                           name: "__typename",
                           storageKey: null,
                         },
-                        e,
+                        r,
                       ],
                       storageKey: null,
                     },
@@ -175,7 +285,7 @@ __d(
                           name: "payment_section_details",
                           plural: !1,
                           selections: [
-                            r,
+                            i,
                             {
                               alias: null,
                               args: null,
@@ -209,7 +319,7 @@ __d(
                               kind: "LinkedField",
                               name: "primary_action",
                               plural: !1,
-                              selections: o,
+                              selections: l,
                               storageKey: null,
                             },
                           ],
@@ -231,7 +341,7 @@ __d(
                               kind: "LinkedField",
                               name: "action",
                               plural: !1,
-                              selections: o,
+                              selections: l,
                               storageKey: null,
                             },
                             {
@@ -267,7 +377,7 @@ __d(
                       storageKey:
                         'billing_info(specific_entrypoint:"WHATSAPP_SMB")',
                     },
-                    e,
+                    r,
                     {
                       alias: null,
                       args: null,
@@ -303,7 +413,7 @@ __d(
                   ],
                   storageKey: null,
                 },
-                t,
+                a,
               ],
               storageKey: null,
             },

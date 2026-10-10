@@ -113,12 +113,12 @@ __d(
               },
               g,
             );
-          (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts(
-            d,
-            l || d,
-            t,
-            { sendsGroupAgentDeliveryReceipt: c },
-          ),
+          (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts({
+            author: l || d,
+            externalId: t,
+            from: d,
+            options: { sendsGroupAgentDeliveryReceipt: c },
+          }),
             o("WADeprecatedSendIq").deprecatedCastStanza(h));
         })),
         d.apply(this, arguments)

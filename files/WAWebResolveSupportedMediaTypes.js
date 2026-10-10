@@ -32,10 +32,7 @@ __d(
     function d(e, t, n) {
       return o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(e, t, n);
     }
-    function m(e) {
-      return o("WAWebMediaGatingUtils").hasBotMediaSelectionLimit(e);
-    }
-    function p(e, t) {
+    function m(e, t) {
       return o("WAWebMediaGatingUtils").supportsMultipleUploads(e, t);
     }
     ((l.resolveSupportedMediaTypesForChat = e),
@@ -43,8 +40,7 @@ __d(
       (l.isBot3pMediaInputEnabled = u),
       (l.resolveBot3pMediaMode = c),
       (l.resolveMaxNumberSelectableMedia = d),
-      (l.resolveHasBotMediaSelectionLimit = m),
-      (l.resolveSupportsMultipleUploads = p));
+      (l.resolveSupportsMultipleUploads = m));
   },
   98,
 );
