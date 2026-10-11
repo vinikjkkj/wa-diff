@@ -274,6 +274,12 @@ __d(
           }
           (o("WAWebVoipQplHelpers").voipInitQplAddPoint(
             o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_START,
+            {
+              bool: {
+                wasm_load_focused: document.hasFocus(),
+                wasm_load_visible: !document.hidden,
+              },
+            },
           ),
             o("WAWebAppTracker").AppTracker.start(
               o("WAWebAppTracker").AppTrackerType.VoipWasmLoad,

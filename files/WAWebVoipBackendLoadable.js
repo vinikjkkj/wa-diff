@@ -6,6 +6,7 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
     "asyncToGeneratorRuntime",
@@ -57,7 +58,7 @@ __d(
             ),
             (p || (p = n("Promise"))).resolve()
           );
-        r = o("WAWebVoipGatingUtils").isDeferredVoipBootInitEnabled();
+        r = o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled();
       } catch (e) {
         return (C(e, "gate", t), y(t, !0));
       }
@@ -154,7 +155,7 @@ __d(
       var t;
       try {
         t = o(
-          "WAWebVoipGatingUtils",
+          "WAWebVoipBootInitDecision",
         ).isDeferredVoipBootEarlyModulePrefetchEnabled();
       } catch (t) {
         o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(

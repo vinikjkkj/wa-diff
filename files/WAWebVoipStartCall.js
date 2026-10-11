@@ -40,6 +40,7 @@ __d(
     "WAWebVoipCallIdProvider",
     "WAWebVoipCancelOutgoingCall",
     "WAWebVoipGatingUtils",
+    "WAWebVoipInitEventEmitter",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipOngoingCallJoinDevices",
     "WAWebVoipOutgoingCallConsent",
@@ -304,6 +305,9 @@ __d(
                   is_video: t,
                   is_hidden_at_start: u !== "visible",
                   socket_connected_at_start: o("WAComms").isSocketConnected(),
+                  voip_inited_at_start: o(
+                    "WAWebVoipInitEventEmitter",
+                  ).VoipInitEventEmitter.getIsVoipInited(),
                   was_hidden_within_30s: o(
                     "WAWebPageVisibilityRecency",
                   ).wasDocumentHiddenWithinMs(ue),

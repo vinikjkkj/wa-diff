@@ -11,6 +11,7 @@ __d(
       BUY_WITH_PRIME_DESTINATION_AUTOMATION:
         "buy_with_prime_destination_automation",
       CAG: "creative_asset_groups",
+      CATALOG_MULTI_TEMPLATE: "catalog_multi_template",
       CLO: "conversion_lead_optimization",
       COEXISTENCE_TEST_PRODUCT_A: "coexistence_test_product_a",
       COEXISTENCE_TEST_PRODUCT_B: "coexistence_test_product_b",

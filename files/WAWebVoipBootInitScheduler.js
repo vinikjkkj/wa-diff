@@ -9,6 +9,7 @@ __d(
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebUserPrefsMeUser",
     "WAWebVoipBackendLoadable",
+    "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
     "asyncToGeneratorRuntime",
@@ -33,29 +34,20 @@ __d(
       b,
       v,
       S,
-      R,
-      L,
-      E,
-      k = 5e3,
-      I = 1e4,
-      T = 0,
-      D = null,
-      x = null,
-      $ = null,
-      P = !1,
-      N = 0,
-      M = null,
-      w = "idle",
-      A = 0,
-      F = null,
-      O = 0;
-    function B(t) {
-      if ((t === void 0 && (t = !1), !ee())) {
+      R = 5e3,
+      L = 2147483647,
+      E = 0,
+      k = null,
+      I = null,
+      T = null,
+      D = "idle";
+    function x(t) {
+      if ((t === void 0 && (t = !1), !q())) {
         var n;
         try {
-          n = o("WAWebVoipGatingUtils").isDeferredVoipBootInitEnabled();
+          n = o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled();
         } catch (e) {
-          (j(e), J());
+          (M(e), B());
           return;
         }
         if (!n) {
@@ -70,13 +62,13 @@ __d(
                 );
               },
             ),
-            X());
+            F());
           return;
         }
         try {
           var r = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
           if (r == null) {
-            (Z(),
+            (W(),
               o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
                 function () {
                   o("WALogger").LOG(
@@ -89,7 +81,7 @@ __d(
               ));
             return;
           }
-          if (w !== "idle" && q(D, r)) {
+          if (D !== "idle" && P(k, r)) {
             o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WALogger").LOG(
@@ -98,17 +90,17 @@ __d(
                       "voip: [deferred-boot] schedule_ignored reason=already_scheduled state=",
                       "",
                     ])),
-                  w,
+                  D,
                 );
               },
             );
             return;
           }
-          (z(),
-            T++,
-            (D = r),
-            (w = "waiting_offline"),
-            (A = 0),
+          (N(),
+            E++,
+            (k = r),
+            (D = "waiting_offline"),
+            (T = Q()),
             o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WAWebCoreActionsODS").logCallVoipBootInitDeferred();
@@ -122,44 +114,29 @@ __d(
                       "voip: [deferred-boot] scheduled phase=offline_delivery generation=",
                       "",
                     ])),
-                  T,
+                  E,
                 );
               },
             ));
-          var a = T;
-          ge(a, r).catch(function (e) {
-            (j(e), oe(a, r));
+          var a = E;
+          Y(a, r).catch(function (e) {
+            (M(e), G(a, r));
           });
         } catch (e) {
-          (j(e), J());
+          (M(e), B());
         }
       }
     }
-    function W() {
-      (Z(), (N = 0));
+    function $() {
+      W();
     }
-    function q(e, t) {
+    function P(e, t) {
       return e == null || t == null ? e == null && t == null : e.equals(t);
     }
-    function U() {
-      x != null && (self.clearTimeout(x), (x = null));
+    function N() {
+      I != null && (self.clearTimeout(I), (I = null));
     }
-    function V() {
-      if ($ != null) {
-        var e = Reflect.get(window, "cancelIdleCallback");
-        (typeof e == "function" && e.call(window, $), ($ = null));
-      }
-    }
-    function H() {
-      M != null && (self.clearTimeout(M), (M = null));
-    }
-    function G() {
-      P && (document.removeEventListener("visibilitychange", _e), (P = !1));
-    }
-    function z() {
-      (U(), V(), H(), G(), (F = null));
-    }
-    function j(e) {
+    function M(e) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           o("WALogger")
@@ -174,18 +151,18 @@ __d(
         },
       );
     }
-    function K(e, t) {
-      return Q.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function Q() {
+    function A() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e == null ? "fail_open" : "deferred";
           o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
             function () {
               o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [deferred-boot] backend_load_start source=",
                     "",
                   ])),
@@ -195,12 +172,12 @@ __d(
           );
           var r = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
             a = r.WAWebVoipInit;
-          if (e != null && !ne(e.generation, e.lid)) {
+          if (e != null && !V(e.generation, e.lid)) {
             o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WALogger").LOG(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [deferred-boot] backend_ready ignored reason=stale_schedule",
                     ])),
                 );
@@ -208,13 +185,13 @@ __d(
             );
             return;
           }
-          if (!(e != null && te()) && !ee()) {
+          if (!(e != null && U()) && !q()) {
             var i = a.VoipInitEventEmitter.getIsVoipInited();
             (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [deferred-boot] init_dispatch trigger=prewarm source=",
                       " already_inited=",
                       "",
@@ -228,8 +205,8 @@ __d(
               o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
                 function () {
                   o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [deferred-boot] init_complete trigger=prewarm source=",
                         " inited=",
                         "",
@@ -241,29 +218,29 @@ __d(
               ));
           }
         })),
-        Q.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function X(e, t) {
+    function F(e, t) {
       (e === void 0 && (e = null),
-        K(e, t).catch(function (t) {
-          (Y(e), j(t));
+        w(e, t).catch(function (t) {
+          (O(e), M(t));
         }));
     }
-    function Y(e) {
-      if (!(e == null || e.generation !== T || D == null || !e.lid.equals(D)))
+    function O(e) {
+      if (!(e == null || e.generation !== E || k == null || !e.lid.equals(k)))
         try {
-          Z();
+          W();
         } catch (e) {
-          j(e);
+          M(e);
         }
     }
-    function J() {
-      var e = se("scheduler_error");
+    function B() {
+      var e = j("scheduler_error");
       try {
-        Z();
+        W();
       } catch (e) {
-        j(e);
+        M(e);
       }
       (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
@@ -272,21 +249,21 @@ __d(
           );
         },
       ),
-        X(null, e));
+        F(null, e));
     }
-    function Z() {
+    function W() {
       try {
-        z();
+        N();
       } finally {
-        (T++, (D = null), (w = "idle"), (A = 0));
+        (E++, (k = null), (T = null), (D = "idle"));
       }
     }
-    function ee() {
+    function q() {
       var e = !0;
       try {
         e = o("WAWebVoipGatingUtils").isVoipDownloadEnabled();
       } catch (e) {
-        j(e);
+        M(e);
       }
       if (e) return !1;
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
@@ -297,23 +274,23 @@ __d(
                 "voip: [deferred-boot] schedule_abandon reason=download_disabled state=",
                 "",
               ])),
-            w,
+            D,
           );
         },
       );
       try {
-        Z();
+        W();
       } catch (e) {
-        j(e);
+        M(e);
       }
       return !0;
     }
-    function te() {
+    function U() {
       var e = !0;
       try {
-        e = o("WAWebVoipGatingUtils").isDeferredVoipBootInitEnabled();
+        e = o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled();
       } catch (e) {
-        j(e);
+        M(e);
       }
       if (e) return !1;
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
@@ -324,19 +301,19 @@ __d(
                 "voip: [deferred-boot] schedule_abandon reason=deferred_gate_disabled state=",
                 "",
               ])),
-            w,
+            D,
           );
         },
       );
       try {
-        Z();
+        W();
       } catch (e) {
-        j(e);
+        M(e);
       }
       return !0;
     }
-    function ne(e, t) {
-      if (e !== T || D == null || !t.equals(D)) return !1;
+    function V(e, t) {
+      if (e !== E || k == null || !t.equals(k)) return !1;
       var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
       return n == null || !t.equals(n)
         ? (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
@@ -347,37 +324,37 @@ __d(
                     "voip: [deferred-boot] schedule_abandon reason=identity_changed state=",
                     "",
                   ])),
-                w,
+                D,
               );
             },
           ),
-          Z(),
+          W(),
           !1)
         : !0;
     }
-    function re(e, t, n) {
-      w === "idle" ||
-        w === "fired" ||
-        !ne(t, n) ||
-        ae(e, { generation: t, lid: n });
+    function H(e, t, n) {
+      D === "idle" ||
+        D === "fired" ||
+        !V(t, n) ||
+        z(e, { generation: t, lid: n });
     }
-    function oe(e, t) {
-      w === "idle" ||
-        w === "fired" ||
-        e !== T ||
-        D == null ||
-        !t.equals(D) ||
-        ae("scheduler_error", { generation: e, lid: t });
+    function G(e, t) {
+      D === "idle" ||
+        D === "fired" ||
+        e !== E ||
+        k == null ||
+        !t.equals(k) ||
+        z("scheduler_error", { generation: e, lid: t });
     }
-    function ae(e, t) {
-      if (!(t != null && te()) && !ee()) {
-        ((w = "fired"),
+    function z(e, t) {
+      if (!(t != null && U()) && !q()) {
+        ((D = "fired"),
           o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
             function () {
               o("WAWebCoreActionsODS").logCallVoipBootInitFireAttempt(e);
             },
           ));
-        var n = se(e);
+        var n = j(e);
         o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
           function () {
             var t;
@@ -385,215 +362,109 @@ __d(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [deferred-boot] fire reason=",
-                  " visible_wait_ms=",
+                  " wait_ms=",
                   "",
                 ])),
               e,
-              String((t = n.visibleWaitMs) != null ? t : "unavailable"),
+              String((t = n.waitMs) != null ? t : "unavailable"),
             );
           },
         );
         try {
-          z();
+          N();
         } catch (e) {
-          j(e);
+          M(e);
         }
-        X(t, n);
+        F(t, n);
       }
     }
-    function ie() {
-      return Math.max(0, N - A);
+    function j(e) {
+      var t = K();
+      return t == null ? { reason: e } : { reason: e, waitMs: t };
     }
-    function le() {
-      var e = F;
-      return A + (e == null ? 0 : Math.max(0, self.performance.now() - e));
+    function K() {
+      var e = T;
+      if (e == null) return null;
+      var t = Q();
+      return t == null ? null : Math.round(Math.max(0, t - e));
     }
-    function se(e) {
-      var t = ue();
-      return t == null ? { reason: e } : { reason: e, visibleWaitMs: t };
-    }
-    function ue() {
+    function Q() {
       try {
-        return Math.round(le());
+        return self.performance.now();
       } catch (e) {
-        return (j(e), null);
+        return (M(e), null);
       }
     }
-    function ce(e, t) {
-      var n = ie();
-      if (n === 0) {
-        re("deadline", e, t);
-        return;
-      }
-      x = self.setTimeout(function () {
-        ((x = null), re("deadline", e, t));
-      }, n);
-    }
-    function de(e, t, n) {
-      var r = Reflect.get(window, "requestIdleCallback");
-      if (typeof r == "function") {
-        var a = function (o) {
-          n === O &&
-            (($ = null),
-            !(o.didTimeout || document.hidden || w !== "armed" || !ne(e, t)) &&
-              re("quiet", e, t));
-        };
-        (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
-          function () {
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [deferred-boot] quiet_gate_wait min_continuous_visible_ms=",
-                  "",
-                ])),
-              I,
-            );
-          },
-        ),
-          (M = self.setTimeout(function () {
-            if (n === O) {
-              M = null;
-              try {
-                var i = F;
-                if (document.hidden || w !== "armed" || i == null || !ne(e, t))
-                  return;
-                (o(
-                  "WAWebVoipDeferredBootLogging",
-                ).safelyLogVoipDeferredBootEvent(function () {
-                  o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [deferred-boot] quiet_gate_armed continuous_visible_ms=",
-                        "",
-                      ])),
-                    Math.round(Math.max(0, self.performance.now() - i)),
-                  );
-                }),
-                  ($ = r.call(window, a)));
-              } catch (n) {
-                (j(n), oe(e, t));
-              }
-            }
-          }, I)));
-      }
-    }
-    function me(e, t) {
-      if (!(w !== "armed" || document.hidden)) {
-        ((F = self.performance.now()), O++);
-        var n = O;
-        (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
-          function () {
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [deferred-boot] visible_window_start remaining_ms=",
-                  "",
-                ])),
-              Math.round(ie()),
-            );
-          },
-        ),
-          ce(e, t),
-          w === "armed" && de(e, t, n));
-      }
-    }
-    function pe() {
-      var e = F;
-      e != null &&
-        ((A += Math.max(0, self.performance.now() - e)),
-        (F = null),
-        U(),
-        V(),
-        H(),
-        o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
-          function () {
-            o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [deferred-boot] visibility hidden visible_wait_ms=",
-                  " remaining_ms=",
-                  "",
-                ])),
-              Math.round(A),
-              Math.round(ie()),
-            );
-          },
-        ));
-    }
-    function _e() {
-      var e = D,
-        t = T;
-      if (!(w !== "armed" || e == null))
-        try {
-          if (!ne(t, e)) return;
-          document.hidden ? pe() : F == null && me(t, e);
-        } catch (n) {
-          (j(n), oe(t, e));
-        }
-    }
-    function fe(e, t) {
-      if (ne(e, t)) {
+    function X(e, t) {
+      if (V(e, t)) {
         var n = o("WAWebABProps").getABPropConfigValue(
           "web_voip_deferred_boot_init_max_delay_ms",
         );
         if (!Number.isFinite(n))
-          throw r("err")("invalid deferred boot max visible delay");
-        if (
-          ((N = Math.max(0, n)),
-          (A = 0),
-          (w = "armed"),
+          throw r("err")("invalid deferred boot max delay");
+        if (((D = "armed"), n <= 0)) {
           o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
             function () {
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [deferred-boot] armed max_visible_delay_ms=",
-                    " visibility=",
-                    "",
-                  ])),
-                N,
-                document.hidden ? "hidden" : "visible",
-              );
+              (o("WAWebCoreActionsODS").logCallVoipBootInitArmed("lazy"),
+                o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [deferred-boot] armed mode=lazy",
+                    ])),
+                ));
             },
-          ),
-          document.addEventListener("visibilitychange", _e),
-          (P = !0),
-          ie() === 0)
-        ) {
-          re("deadline", e, t);
+          );
           return;
         }
-        me(e, t);
+        (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+          function () {
+            (o("WAWebCoreActionsODS").logCallVoipBootInitArmed("deadline"),
+              o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [deferred-boot] armed mode=deadline max_delay_ms=",
+                    "",
+                  ])),
+                n,
+              ));
+          },
+        ),
+          (I = self.setTimeout(
+            function () {
+              ((I = null), H("deadline", e, t));
+            },
+            Math.min(n, L),
+          )));
       }
     }
-    function ge(e, t) {
-      return he.apply(this, arguments);
+    function Y(e, t) {
+      return J.apply(this, arguments);
     }
-    function he() {
+    function J() {
       return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = "complete";
           try {
             yield o("WAPromiseTimeout").promiseTimeout(
               o(
                 "WAWebEventsWaitForOfflineDeliveryEnd",
               ).waitForOfflineDeliveryEnd({ ignoreInit: !0 }),
-              k,
+              R,
             );
           } catch (r) {
-            if (!ne(e, t)) return;
+            if (!V(e, t)) return;
             if (!(r instanceof o("WACustomError").TimeoutError)) {
-              (j(r), oe(e, t));
+              (M(r), G(e, t));
               return;
             }
             n = "timeout";
           }
-          if (ne(e, t)) {
+          if (V(e, t)) {
             o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WALogger").LOG(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [deferred-boot] offline_delivery_wait_done outcome=",
                       "",
                     ])),
@@ -602,17 +473,17 @@ __d(
               },
             );
             try {
-              fe(e, t);
+              X(e, t);
             } catch (n) {
-              (j(n), oe(e, t));
+              (M(n), G(e, t));
             }
           }
         })),
-        he.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    ((l.scheduleDeferredVoipBootInit = B),
-      (l.resetVoipBootInitSchedulerForTesting = W));
+    ((l.scheduleDeferredVoipBootInit = x),
+      (l.resetVoipBootInitSchedulerForTesting = $));
   },
   98,
 );

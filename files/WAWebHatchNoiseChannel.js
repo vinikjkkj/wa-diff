@@ -3,9 +3,11 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBuildConstants",
     "WAWebHatchNoiseBytes",
     "WAWebHatchNoiseIngressUrl",
     "WAWebHatchNoiseXXInitiator",
+    "WAWebMobilePlatforms",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -15,8 +17,7 @@ __d(
       s,
       u = 3e4,
       c = 16,
-      d = "hatch-web",
-      m = (function () {
+      d = (function () {
         function t(e) {
           var t, n, r, a, i, l;
           ((this.$4 = null),
@@ -90,25 +91,27 @@ __d(
                     n(r),
                     o && t.close());
                 },
-                m = function (t) {
+                d = function (t) {
                   return s({ detail: t, status: "failed" }, !0);
                 },
                 p = [],
                 _ = function (t) {
                   t instanceof ArrayBuffer
                     ? p.length >= c
-                      ? m("Noise channel received too many early frames")
+                      ? d("Noise channel received too many early frames")
                       : p.push(t.slice(0))
-                    : m("Noise channel received non-binary data");
+                    : d("Noise channel received non-binary data");
                 };
-              if (((t.$8 = m), t.$13)) {
-                m("channel closed");
+              if (((t.$8 = d), t.$13)) {
+                d("channel closed");
                 return;
               }
               try {
                 var f = o("WAWebHatchNoiseIngressUrl").buildNoiseWsUrl(
                     babelHelpers.extends({}, r, {
-                      appId: d,
+                      appId: m(),
+                      appVersion: o("WAWebBuildConstants")
+                        .VERSION_BASE_WITH_WINDOWS_BUILD,
                       requestId: t.$6(),
                     }),
                   ),
@@ -118,17 +121,17 @@ __d(
                 ((t.$4 = h),
                   (g.binaryType = "arraybuffer"),
                   (l = t.$7(function () {
-                    return m("Noise handshake timed out");
+                    return d("Noise handshake timed out");
                   }, u)),
                   (g.onerror = function () {
-                    return m("Noise WebSocket failed");
+                    return d("Noise WebSocket failed");
                   }),
                   (g.onclose = function () {
-                    return m("Noise WebSocket closed during handshake");
+                    return d("Noise WebSocket closed during handshake");
                   }),
                   (g.onopen = function () {
                     t.$15(g, h).catch(function () {
-                      return m("Noise handshake failed");
+                      return d("Noise handshake failed");
                     });
                   }));
                 var y = !1;
@@ -142,7 +145,7 @@ __d(
                       .$16(g, h, n.data, p)
                       .then(function (n) {
                         if (t.$13) {
-                          m("channel closed");
+                          d("channel closed");
                           return;
                         }
                         (o("WALogger").LOG(
@@ -156,11 +159,11 @@ __d(
                           s({ status: "ready", transport: n }, !1));
                       })
                       .catch(function () {
-                        return m("Noise handshake failed");
+                        return d("Noise handshake failed");
                       }));
                 };
               } catch (e) {
-                m("Noise channel setup failed");
+                d("Noise channel setup failed");
               }
             });
           }),
@@ -318,7 +321,12 @@ __d(
           t
         );
       })();
-    ((l.HANDSHAKE_TIMEOUT_MS = u), (l.WAWebHatchNoiseChannel = m));
+    function m() {
+      return o("WAWebMobilePlatforms").isSMB()
+        ? (656096963291760).toString()
+        : (0x97e965c4439a).toString();
+    }
+    ((l.HANDSHAKE_TIMEOUT_MS = u), (l.WAWebHatchNoiseChannel = d));
   },
   98,
 );

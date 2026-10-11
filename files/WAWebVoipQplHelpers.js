@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipQplHelpers",
-  ["$InternalEnum", "WAWebQplFlow", "qpl"],
+  ["$InternalEnum", "WAWebBrowserApi", "WAWebQplFlow", "qpl"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -36,7 +36,7 @@ __d(
       });
       ((d = t),
         m != null && t.addAnnotations({ int: { pthread_hardening_level: m } }),
-        p != null && t.addAnnotations(v(p)));
+        p != null && t.addAnnotations(S(p)));
       var n = window.performance;
       return (
         n != null &&
@@ -44,21 +44,39 @@ __d(
         t
       );
     }
-    function f(e, t) {
+    function f(e) {
+      var t,
+        n = e.bootDecision,
+        r = e.isRetry;
+      (t = d) == null ||
+        t.addAnnotations({
+          bool: {
+            init_focused: document.hasFocus(),
+            init_visible: !document.hidden,
+            is_retry: r,
+          },
+          int: {
+            cpu_cores: o("WAWebBrowserApi").getNumCpu(),
+            device_memory_mb: o("WAWebBrowserApi").getMemClass(),
+          },
+          string: { boot_decision: n != null ? n : "unknown" },
+        });
+    }
+    function g(e, t) {
       var n;
       (n = d) == null || n.addPoint(e, t);
-    }
-    function g(e) {
-      var t;
-      (t = d) == null ||
-        t.addAnnotations({ bool: { using_dedicated_worker: e } });
     }
     function h(e) {
       var t;
       (t = d) == null ||
+        t.addAnnotations({ bool: { using_dedicated_worker: e } });
+    }
+    function y(e) {
+      var t;
+      (t = d) == null ||
         t.addAnnotations({ bool: { pre_init_worker_bootstrap: e } });
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       var r;
       (r = d) == null ||
         r.addAnnotations({
@@ -66,17 +84,17 @@ __d(
           bool: { is_webkit: n, is_dynamic_pool: t },
         });
     }
-    function C(e) {
+    function b(e) {
       var t;
       ((m = e),
         (t = d) == null ||
           t.addAnnotations({ int: { pthread_hardening_level: e } }));
     }
-    function b(e) {
-      var t;
-      ((p = e), (t = d) == null || t.addAnnotations(v(e)));
-    }
     function v(e) {
+      var t;
+      ((p = e), (t = d) == null || t.addAnnotations(S(e)));
+    }
+    function S(e) {
       return {
         bool: {
           content_addressed_wasm: e.isContentAddressed,
@@ -85,95 +103,96 @@ __d(
         },
       };
     }
-    function S(e) {
+    function R(e) {
       var t;
       ((t = d) == null || t.endSuccess(e), (d = null));
     }
-    function R(e, t) {
+    function L(e, t) {
       var n;
       ((n = d) == null || n.endFail(e, t), (d = null));
     }
-    var L = s._(891426543, "3400"),
-      E = 12e4,
-      k = e({
+    var E = s._(891426543, "3400"),
+      k = 12e4,
+      I = e({
         CALL_ENDING_HANDLER_START: "call_ending_handler_start",
         CALL_ENDING_HANDLER_END: "call_ending_handler_end",
         CLEANUP_START: "cleanup_start",
         CLEANUP_END: "cleanup_end",
       }),
-      I = null;
-    function T() {
-      I = o("WAWebQplFlow").startQplFlow(L, { timeoutInMs: E });
+      T = null;
+    function D() {
+      T = o("WAWebQplFlow").startQplFlow(E, { timeoutInMs: k });
     }
-    function D(e) {
+    function x(e) {
       var t;
-      (t = I) == null || t.addPoint(e);
+      (t = T) == null || t.addPoint(e);
     }
-    function x() {
+    function $() {
       var e;
-      ((e = I) == null || e.endSuccess(), (I = null));
+      ((e = T) == null || e.endSuccess(), (T = null));
     }
-    var $ = s._(891426840, "3404"),
-      P = 14400 * 1e3,
-      N = e({ PIP_OPENED: "pip_opened", POPOUT_OPENED: "popout_opened" }),
-      M = null;
-    function w(e) {
-      M = o("WAWebQplFlow").startQplFlow($, { timeoutInMs: P, annotations: e });
-    }
+    var P = s._(891426840, "3404"),
+      N = 14400 * 1e3,
+      M = e({ PIP_OPENED: "pip_opened", POPOUT_OPENED: "popout_opened" }),
+      w = null;
     function A(e) {
+      w = o("WAWebQplFlow").startQplFlow(P, { timeoutInMs: N, annotations: e });
+    }
+    function F(e) {
       var t;
-      (t = M) == null || t.addPoint(e);
+      (t = w) == null || t.addPoint(e);
     }
-    function F() {
+    function O() {
       var e;
-      ((e = M) == null || e.endSuccess(), (M = null));
+      ((e = w) == null || e.endSuccess(), (w = null));
     }
-    var O = s._(891424539, "3405"),
-      B = 12e4,
-      W = e({
+    var B = s._(891424539, "3405"),
+      W = 12e4,
+      q = e({
         POOL_GROWTH_START: "pool_growth_start",
         POOL_GROWTH_END: "pool_growth_end",
         EMERGENCY_ALLOC: "emergency_alloc",
         POOL_SHRINK: "pool_shrink",
       });
-    function q(e) {
-      return o("WAWebQplFlow").startQplFlow(O, {
-        timeoutInMs: B,
+    function U(e) {
+      return o("WAWebQplFlow").startQplFlow(B, {
+        timeoutInMs: W,
         annotations: e,
       });
     }
-    function U(e, t) {
+    function V(e, t) {
       e.addPoint(t);
     }
-    function V(e) {
+    function H(e) {
       e.endSuccess();
     }
-    function H(e, t) {
+    function G(e, t) {
       e.endFail(t);
     }
     ((l.VoipInitQplPoint = c),
       (l.startVoipInitQpl = _),
-      (l.voipInitQplAddPoint = f),
-      (l.voipInitQplAnnotateExecutionMode = g),
-      (l.voipInitQplAnnotateWorkerBootstrapMode = h),
-      (l.voipInitQplAnnotateThreadPool = y),
-      (l.voipInitQplAnnotatePthreadHardening = C),
-      (l.voipInitQplAnnotateWasmLoad = b),
-      (l.endVoipInitQplSuccess = S),
-      (l.endVoipInitQplFail = R),
-      (l.VoipEndCallQplPoint = k),
-      (l.startVoipEndCallQpl = T),
-      (l.voipEndCallQplAddPoint = D),
-      (l.endVoipEndCallQplSuccess = x),
-      (l.VoipUiLifecycleQplPoint = N),
-      (l.startVoipUiLifecycleQpl = w),
-      (l.voipUiLifecycleQplAddPoint = A),
-      (l.endVoipUiLifecycleQplSuccess = F),
-      (l.VoipWorkerSetupQplPoint = W),
-      (l.startVoipWorkerSetupQpl = q),
-      (l.voipWorkerSetupQplAddPoint = U),
-      (l.endVoipWorkerSetupQplSuccess = V),
-      (l.endVoipWorkerSetupQplFail = H));
+      (l.voipInitQplAnnotateStart = f),
+      (l.voipInitQplAddPoint = g),
+      (l.voipInitQplAnnotateExecutionMode = h),
+      (l.voipInitQplAnnotateWorkerBootstrapMode = y),
+      (l.voipInitQplAnnotateThreadPool = C),
+      (l.voipInitQplAnnotatePthreadHardening = b),
+      (l.voipInitQplAnnotateWasmLoad = v),
+      (l.endVoipInitQplSuccess = R),
+      (l.endVoipInitQplFail = L),
+      (l.VoipEndCallQplPoint = I),
+      (l.startVoipEndCallQpl = D),
+      (l.voipEndCallQplAddPoint = x),
+      (l.endVoipEndCallQplSuccess = $),
+      (l.VoipUiLifecycleQplPoint = M),
+      (l.startVoipUiLifecycleQpl = A),
+      (l.voipUiLifecycleQplAddPoint = F),
+      (l.endVoipUiLifecycleQplSuccess = O),
+      (l.VoipWorkerSetupQplPoint = q),
+      (l.startVoipWorkerSetupQpl = U),
+      (l.voipWorkerSetupQplAddPoint = V),
+      (l.endVoipWorkerSetupQplSuccess = H),
+      (l.endVoipWorkerSetupQplFail = G));
   },
   98,
 );

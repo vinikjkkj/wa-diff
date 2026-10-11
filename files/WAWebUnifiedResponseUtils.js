@@ -141,32 +141,43 @@ __d(
     function L(e) {
       return e == null
         ? !1
-        : k(e).some(function (e) {
-            return u(e.view_model).some(E);
+        : I(e).some(function (e) {
+            return u(e.view_model).some(k);
           });
     }
     function E(e) {
+      var t = 0;
+      for (var n of [].concat(
+        e.sections,
+        (r = e.footer_sections) != null ? r : [],
+      )) {
+        var r;
+        t += u(n.view_model).filter(k).length;
+      }
+      return t >= 2;
+    }
+    function k(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIMuseConnectorActionCardPrimitive"
       );
     }
-    function k(e) {
+    function I(e) {
       var t;
       return [].concat(
-        I(e),
-        ((t = e.nested_responses) != null ? t : []).flatMap(I),
+        T(e),
+        ((t = e.nested_responses) != null ? t : []).flatMap(T),
       );
     }
-    function I(e) {
+    function T(e) {
       var t, n, r;
       return [].concat(
         (t = e.sections) != null ? t : [],
         (n = e.footer_sections) != null ? n : [],
-        ((r = e.embedded_screens) != null ? r : []).flatMap(T),
+        ((r = e.embedded_screens) != null ? r : []).flatMap(D),
       );
     }
-    function T(e) {
+    function D(e) {
       var t;
       return ((t = e.content) != null ? t : []).flatMap(function (e) {
         if ("view_model" in e) return [e];
@@ -184,20 +195,20 @@ __d(
         return [];
       });
     }
-    function D(e) {
+    function x(e) {
       return e == null
         ? !1
-        : k(e).some(function (e) {
-            return u(e.view_model).some(x);
+        : I(e).some(function (e) {
+            return u(e.view_model).some($);
           });
     }
-    function x(e) {
+    function $(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAISecureCredentialRequestPrimitive"
       );
     }
-    function $(e) {
+    function P(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -215,20 +226,20 @@ __d(
         }
       return n;
     }
-    function P(e) {
+    function N(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
-    function N(e) {
+    function M(e) {
       var t = e.sections,
-        n = t.map(M),
+        n = t.map(w),
         r = new Map();
       n.forEach(function (e, t) {
         if (e != null) {
           var o = r.get(e.browser_task_id),
             a = o != null ? n[o] : null;
-          (a == null || w(e, a)) && r.set(e.browser_task_id, t);
+          (a == null || A(e, a)) && r.set(e.browser_task_id, t);
         }
       });
       var o = t.filter(function (e, t) {
@@ -239,7 +250,7 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { sections: o });
     }
-    function M(e) {
+    function w(e) {
       var t = u(e.view_model);
       return t.length !== 1
         ? null
@@ -255,36 +266,36 @@ __d(
             return null;
           })(t[0]);
     }
-    function w(e, t) {
+    function A(e, t) {
       var n,
         r,
         o = (n = e.version) != null ? n : 0,
         a = (r = t.version) != null ? r : 0;
-      return o !== a ? o > a : A(e) >= A(t);
+      return o !== a ? o > a : F(e) >= F(t);
     }
-    function A(e) {
+    function F(e) {
       var t,
         n = Number((t = e.updated_at_ms) != null ? t : 0);
       return Number.isFinite(n) ? n : 0;
     }
-    function F(e) {
-      var t;
-      if (e == null || O(e)) return !1;
-      var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
-      return n.length > 0 && n.every(B);
-    }
     function O(e) {
+      var t;
+      if (e == null || B(e)) return !1;
+      var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
+      return n.length > 0 && n.every(W);
+    }
+    function B(e) {
       var t, n;
       return (
         ((t = e.nested_responses) != null ? t : []).length > 0 ||
         ((n = e.embedded_screens) != null ? n : []).length > 0
       );
     }
-    function B(e) {
-      var t = u(e.view_model);
-      return t.length > 0 && t.every(W);
-    }
     function W(e) {
+      var t = u(e.view_model);
+      return t.length > 0 && t.every(q);
+    }
+    function q(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBotProgressStatusPrimitive" &&
@@ -304,13 +315,14 @@ __d(
       (l.buildUnifiedResponseFromRawData = S),
       (l.unifiedResponseHasMediaContent = R),
       (l.unifiedResponseHasConnectorActionCard = L),
-      (l.unifiedResponseHasSecureCredentialRequest = D),
-      (l.isSecureCredentialRequest = x),
-      (l.getMetaAiEmbeddedSources = $),
-      (l.stripEmbeddedScreens = P),
-      (l.highestVersionBrowserTasks = N),
-      (l.isSettledProgressStatusOnly = F),
-      (l.hasNestedOrEmbeddedContent = O));
+      (l.hasMultipleConnectorActionCards = E),
+      (l.unifiedResponseHasSecureCredentialRequest = x),
+      (l.isSecureCredentialRequest = $),
+      (l.getMetaAiEmbeddedSources = P),
+      (l.stripEmbeddedScreens = N),
+      (l.highestVersionBrowserTasks = M),
+      (l.isSettledProgressStatusOnly = O),
+      (l.hasNestedOrEmbeddedContent = B));
   },
   98,
 );

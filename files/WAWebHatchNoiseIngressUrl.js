@@ -20,6 +20,7 @@ __d(
         t.append("auth_token", e.abraToken),
         t.append("notary_token", e.notaryToken),
         t.append("app_id", e.appId),
+        t.append("app_version", e.appVersion),
         t.append("request_id", e.requestId),
         s + "?" + t.toString()
       );

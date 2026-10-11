@@ -6,6 +6,7 @@ __d(
     "WAWebABPropsCache",
     "WAWebBackendApi",
     "WAWebVoipBackendLoadable",
+    "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
     "WAWebVoipStackInterface",
@@ -48,11 +49,13 @@ __d(
             return;
           }
           var e = o("WAWebVoipGatingUtils").isCallingEnabled(),
-            t = e && o("WAWebVoipGatingUtils").isDeferredVoipBootInitEnabled(),
+            t =
+              e &&
+              o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled(),
             n =
               t &&
               o(
-                "WAWebVoipGatingUtils",
+                "WAWebVoipBootInitDecision",
               ).isDeferredVoipBootEarlyModulePrefetchEnabled(),
             a = e && !t;
           if (

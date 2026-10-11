@@ -10,6 +10,7 @@ __d(
     "WAWebChatMessageSearch",
     "WAWebCmd",
     "WAWebComposeBoxActions",
+    "WAWebDrawerManager",
     "WAWebEnvironment",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
@@ -21,6 +22,7 @@ __d(
     "WAWebMuteExpirations",
     "WAWebNewsletterCollection",
     "WAWebNoop",
+    "WAWebOpenLastActiveChatAction",
     "WAWebSendTextMsgChatAction",
     "WAWebSwNotificationBannerRegistry",
     "WAWebUserPrefsGeneral",
@@ -122,6 +124,10 @@ __d(
                       (s = e.groupMetadata) == null ? void 0 : s.parentGroup,
                     );
                   } else {
+                    (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+                      o(
+                        "WAWebOpenLastActiveChatAction",
+                      ).cancelPendingLastActiveChatRestore());
                     var u =
                       !r("WAWebEnvironment").isWindows || t.alwaysHighlightMsg
                         ? o("WAWebCmd").Cmd.openChatAt({
