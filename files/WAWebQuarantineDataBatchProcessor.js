@@ -17,34 +17,36 @@ __d(
               l = t.processBatch,
               s = (n = t.batchSize) != null ? n : 200,
               u = (r = t.maxCount) != null ? r : 1e3,
-              c = [],
-              d = new Set(),
-              m = u,
-              p = 0;
-            m > 0;
+              d = [],
+              m = new Set(),
+              p = new Set(),
+              _ = u,
+              f = 0;
+            _ > 0;
           ) {
-            var _ = s + d.size,
-              f = yield a(_);
-            if (f.length === 0) break;
-            var g = f.filter(function (e) {
-              return !d.has(e.msgId);
+            var g = s + p.size,
+              h = yield a(g);
+            if (h.length === 0) break;
+            var y = h.filter(function (e) {
+              return !p.has(e.msgId);
             });
-            if (g.length === 0) break;
-            var h = g.slice(0, m),
-              y = yield l(h);
-            (y.failedIds.forEach(function (e) {
-              return d.add(e);
+            if (y.length === 0) break;
+            var C = y.slice(0, _),
+              b = yield l(C);
+            (b.failedIds.forEach(function (e) {
+              return m.add(e);
             }),
-              y.processedIds.length > 0 &&
+              c(b, p),
+              b.processedIds.length > 0 &&
                 (yield o("WAWebQuarantineDataStore").bulkDeleteQuarantineData(
-                  y.processedIds,
+                  b.processedIds,
                 ),
-                c.push.apply(c, y.processedIds)),
-              (m -= h.length),
-              p++);
+                d.push.apply(d, b.processedIds)),
+              (_ -= C.length),
+              f++);
           }
           return (
-            p > 0 &&
+            f > 0 &&
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -55,15 +57,23 @@ __d(
                     "",
                   ])),
                 i,
-                p,
-                c.length,
-                d.size,
+                f,
+                d.length,
+                m.size,
               ),
-            c.length
+            d.length
           );
         })),
         u.apply(this, arguments)
       );
+    }
+    function c(e, t) {
+      var n;
+      []
+        .concat(e.failedIds, (n = e.retainedIds) != null ? n : [])
+        .forEach(function (e) {
+          return t.add(e);
+        });
     }
     l.processQuarantineDataInBatches = s;
   },

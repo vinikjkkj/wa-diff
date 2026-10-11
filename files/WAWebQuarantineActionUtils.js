@@ -289,39 +289,39 @@ __d(
       return D(t) > D(e) ? t : e;
     }
     function $(e, t) {
-      return P.apply(this, arguments);
+      var n, r;
+      t === void 0 && (t = 0);
+      var a = I(e),
+        i =
+          (n = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(e)) ==
+          null
+            ? void 0
+            : n.message,
+        l = (r = e.protocolMessage) == null ? void 0 : r.editedMessage,
+        s = o("WAWebFutureproofProtoUtils").hasGatedOffFutureproofWrapper(e);
+      return t >= u && (i != null || l != null || s)
+        ? x(a, _.QuarantineWithoutText)
+        : (t >= u ||
+            (i != null && (a = x(a, $(i, t + 1))),
+            s && (a = x(a, _.QuarantineWithoutText)),
+            l != null && (a = x(a, $(l, t + 1)))),
+          a);
     }
-    function P() {
+    function P(e, t) {
+      return N.apply(this, arguments);
+    }
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          if (e == null || !c() || !(yield f(t))) return _.NoQuarantine;
-          for (var r = I(e), a = e, i = 0; i < u; i++) {
-            var l = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
-              a,
-            );
-            if ((l == null ? void 0 : l.message) == null) break;
-            ((a = l.message), (r = x(r, I(a))));
-          }
-          return (
-            (((n = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
-              a,
-            )) == null
-              ? void 0
-              : n.message) != null ||
-              o("WAWebFutureproofProtoUtils").hasGatedOffFutureproofWrapper(
-                a,
-              )) &&
-              (r = x(r, _.QuarantineWithoutText)),
-            r
-          );
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return e == null || !c() || !(yield f(t)) ? _.NoQuarantine : $(e);
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    ((l.QuarantineAction = _),
+    ((l.MESSAGE_MAX_INSPECTION_DEPTH = u),
+      (l.QuarantineAction = _),
       (l.maybeGetQuarantineText = h),
-      (l.getQuarantineAction = $));
+      (l.getQuarantineAction = P));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipStartCall",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -44,13 +45,19 @@ __d(
             offerTime: s,
           }));
       },
-      startVoipCallByWid: function (t) {
-        var e = t.isVideo,
-          n = t.peerJid;
-        return o("WAWebVoipStartCall").startWAWebVoipCall(n, e, 0, 0, null, {
-          entryTrust: "user_gesture",
+      startVoipCallByWid: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.isVideo,
+            n = e.peerJid;
+          yield o("WAWebVoipStartCall").startWAWebVoipCall(n, t, 0, 0, null, {
+            entryTrust: "user_gesture",
+          });
         });
-      },
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       requestOpenChat: function (t) {
         var e = t.chatJid,
           n = o("WAWebWidFactory").createWid(String(e));

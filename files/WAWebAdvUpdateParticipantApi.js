@@ -11,82 +11,84 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r;
           try {
-            a = yield o("WAWebSchemaParticipant")
+            r = yield o("WAWebSchemaParticipant")
               .getParticipantTable()
-              .equals(["participants"], String(t));
-          } catch (t) {
+              .equals(["participants"], String(e));
+          } catch (e) {
             throw (
-              String(t).includes("Failed to read large IndexedDB value") &&
+              String(e).includes("Failed to read large IndexedDB value") &&
                 o("WALogger")
                   .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "updateGroupParticipantsInTransaction: error: ",
                         "",
                       ])),
-                    t,
+                    e,
                   )
                   .sendLogs("indexeddb-participant-read-large-value"),
-              t
+              e
             );
           }
-          var i = a.map(function (e) {
-            var a = e.rotateKey,
-              i = new Map(e.senderKey);
-            return (
-              r.forEach(function (e) {
-                var n,
-                  r = String(
-                    o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                      t.user,
-                      t.server,
-                      e,
-                    ),
-                  );
-                ((a = a || ((n = i.get(r)) != null ? n : !1)), i.delete(r));
-              }),
-              a &&
-                i.forEach(function (e, t) {
-                  return i.set(t, !1);
+          var a = _(r, "updateGroupParticipantsInTransaction").map(
+            function (r) {
+              var a = r.rotateKey,
+                i = new Map(r.senderKey);
+              return (
+                n.forEach(function (t) {
+                  var n,
+                    r = String(
+                      o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
+                        e.user,
+                        e.server,
+                        t,
+                      ),
+                    );
+                  ((a = a || ((n = i.get(r)) != null ? n : !1)), i.delete(r));
                 }),
-              n.forEach(function (e) {
-                i.set(
-                  String(
-                    o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                      t.user,
-                      t.server,
-                      e,
+                a &&
+                  i.forEach(function (e, t) {
+                    return i.set(t, !1);
+                  }),
+                t.forEach(function (t) {
+                  i.set(
+                    String(
+                      o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
+                        e.user,
+                        e.server,
+                        t,
+                      ),
                     ),
-                  ),
-                  !1,
-                );
-              }),
-              p({ added: n, oldRecord: e, removed: r, rotateKey: a, wid: t }),
-              babelHelpers.extends({}, e, { senderKey: i, rotateKey: a })
-            );
-          });
+                    !1,
+                  );
+                }),
+                f({ added: t, oldRecord: r, removed: n, rotateKey: a, wid: e }),
+                babelHelpers.extends({}, r, { senderKey: i, rotateKey: a })
+              );
+            },
+          );
           return o("WAWebSchemaParticipant")
             .getParticipantTable()
-            .bulkCreateOrReplace(i);
+            .bulkCreateOrReplace(a);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t;
             try {
@@ -103,8 +105,8 @@ __d(
                 String(e).includes("Failed to read large IndexedDB value") &&
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "bulkUpdateGroupParticipantsInTransaction: error: ",
                           "",
                         ])),
@@ -114,23 +116,24 @@ __d(
                 e
               );
             }
-            if (t.length !== 0) {
-              var n = new Map();
+            var n = _(t, "bulkUpdateGroupParticipantsInTransaction");
+            if (n.length !== 0) {
+              var r = new Map();
               e.forEach(function (e) {
-                n.set(String(e.wid), e);
+                r.set(String(e.wid), e);
               });
-              var r = t.map(function (e) {
+              var a = n.map(function (e) {
                 var t = e.rotateKey,
-                  r = new Map(e.senderKey);
+                  n = new Map(e.senderKey);
                 return (
                   e.participants.forEach(function (a) {
-                    var i = n.get(a);
+                    var i = r.get(a);
                     if (i) {
                       var l = i.added,
                         s = i.removed,
                         u = i.wid;
                       (s.forEach(function (e) {
-                        var n,
+                        var r,
                           a = String(
                             o(
                               "WAWebWidFactory",
@@ -140,15 +143,15 @@ __d(
                               e,
                             ),
                           );
-                        ((t = t || ((n = r.get(a)) != null ? n : !1)),
-                          r.delete(a));
+                        ((t = t || ((r = n.get(a)) != null ? r : !1)),
+                          n.delete(a));
                       }),
                         t &&
-                          r.forEach(function (e, t) {
-                            return r.set(t, !1);
+                          n.forEach(function (e, t) {
+                            return n.set(t, !1);
                           }),
                         l.forEach(function (e) {
-                          r.set(
+                          n.set(
                             String(
                               o(
                                 "WAWebWidFactory",
@@ -161,7 +164,7 @@ __d(
                             !1,
                           );
                         }),
-                        p({
+                        f({
                           added: l,
                           oldRecord: e,
                           removed: s,
@@ -170,19 +173,40 @@ __d(
                         }));
                     }
                   }),
-                  babelHelpers.extends({}, e, { senderKey: r, rotateKey: t })
+                  babelHelpers.extends({}, e, { senderKey: n, rotateKey: t })
                 );
               });
               return o("WAWebSchemaParticipant")
                 .getParticipantTable()
-                .bulkCreateOrReplace(r);
+                .bulkCreateOrReplace(a);
             }
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(t, n) {
+      var r = t.filter(Boolean);
+      return (
+        r.length !== t.length &&
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  ": participant query dropped ",
+                  " null records out of ",
+                  "",
+                ])),
+              n,
+              t.length - r.length,
+              t.length,
+            )
+            .sendLogs("participant-query-null-record"),
+        r
+      );
+    }
+    function f(e) {
       var t = e.added,
         n = e.oldRecord,
         r = e.removed,
@@ -205,8 +229,8 @@ __d(
           }));
       }
     }
-    ((l.updateGroupParticipantsInTransaction = u),
-      (l.bulkUpdateGroupParticipantsInTransaction = d));
+    ((l.updateGroupParticipantsInTransaction = c),
+      (l.bulkUpdateGroupParticipantsInTransaction = m));
   },
   98,
 );

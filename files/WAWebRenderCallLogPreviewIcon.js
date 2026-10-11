@@ -1,7 +1,7 @@
 __d(
   "WAWebRenderCallLogPreviewIcon",
   [
-    "WAWebCallLogEntryCell.react",
+    "WAWebCallLogIcon.react",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebFlex.react",
@@ -75,7 +75,7 @@ __d(
               xstyle: b,
               align: "center",
               justify: "center",
-              children: s.jsx(o("WAWebCallLogEntryCell.react").CallLogIcon, {
+              children: s.jsx(o("WAWebCallLogIcon.react").CallLogIcon, {
                 iconHeight: 16,
                 isMissedCall: C,
                 isVideoCall: l,

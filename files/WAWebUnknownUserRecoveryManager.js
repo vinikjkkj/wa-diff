@@ -25,7 +25,7 @@ __d(
       );
     function p(e, t) {
       if (
-        h(e, t) &&
+        y(e, t) &&
         o("WAWebUsernameGatingUtils").unknownUserRecoveryEnabled() &&
         o("WAWebABProps").getABPropConfigValue("mex_usync_username_query")
       ) {
@@ -38,22 +38,25 @@ __d(
               "unknown_user_usync_request_cool_down",
             ),
             r,
-          ) && (d.add(n), y(n, r));
+          ) && (d.add(n), C(n, r));
         }
       }
     }
     function _(e) {
-      return e.hasPn === !0 || e.hasUn === !0 || e.hasPush === !0;
+      return e.isLid() && d.has(e);
     }
     function f(e) {
+      return e.hasPn === !0 || e.hasUn === !0 || e.hasPush === !0;
+    }
+    function g(e) {
       return e.hasPn === !1 && e.hasUn === !1 && e.hasPush === !1;
     }
-    function g(e, t) {
+    function h(e, t) {
       return e.isLid()
-        ? _(t)
+        ? f(t)
           ? o("WAWebWamEnumUnknownUserRecoveryPath").UNKNOWN_USER_RECOVERY_PATH
               .LOCAL_HEAL
-          : f(t) &&
+          : g(t) &&
               o("WAWebUsernameGatingUtils").unknownUserRecoveryEnabled() &&
               o("WAWebABProps").getABPropConfigValue("mex_usync_username_query")
             ? o("WAWebWamEnumUnknownUserRecoveryPath")
@@ -63,15 +66,15 @@ __d(
         : o("WAWebWamEnumUnknownUserRecoveryPath").UNKNOWN_USER_RECOVERY_PATH
             .NONE;
     }
-    function h(e, t) {
+    function y(e, t) {
       return e.isLid() && t.hasUn === !1 && t.hasPn === !1;
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
             var a = yield m(t);
             a.errored
@@ -92,10 +95,12 @@ __d(
             d.delete(t);
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.maybeRecoverUnknownUser = p), (l.getUnknownUserRecoveryPath = g));
+    ((l.maybeRecoverUnknownUser = p),
+      (l.isUsyncRecoveryInFlight = _),
+      (l.getUnknownUserRecoveryPath = h));
   },
   98,
 );

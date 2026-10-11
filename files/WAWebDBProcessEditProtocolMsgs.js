@@ -41,6 +41,7 @@ __d(
     "compactMap",
     "cr:375",
     "getErrorSafe",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -64,13 +65,32 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if ((t === void 0 && (t = !1), e.length === 0)) return [];
+          t === void 0 && (t = !1);
+          var n = yield R(e, t),
+            r = n.latestMessageEdits;
+          return r;
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if ((t === void 0 && (t = !1), e.length === 0))
+            return {
+              latestMessageEdits: [],
+              processedProtocolMsgs: [],
+              consumedProtocolMsgs: [],
+            };
           var a = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(
               r("compactMap")(e, function (e) {
                 return e.protocolMessageKey;
               }),
             ),
-            i = yield (h || (h = n("Promise"))).all(E(e, a).map(W)),
+            i = yield (h || (h = n("Promise"))).all(I(e, a).map(V)),
             l = [],
             s = [],
             u = [];
@@ -83,8 +103,7 @@ __d(
           for (var c of i) {
             var d =
               c.protocolMessageKey && a.get(c.protocolMessageKey.toString());
-            if (!d || d.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-              l.push(c);
+            if (!d || T(d.type)) l.push(c);
             else {
               if (
                 o(
@@ -102,16 +121,16 @@ __d(
                 ).validateAndProcessReportingTokenInfo({ renderableMsgs: [c] }),
                   m == null || m());
               }
-              (s.push(M(d, c)),
+              (s.push(F(d, c)),
                 o("WAWebThreadMsgUtils").isThreadMsg(c) && u.push(c));
             }
           }
-          yield k(l);
+          yield D(l);
           var p = s.filter(function (e) {
             return e.isLatest;
           });
           return (
-            yield R(s, p),
+            yield E(s, p),
             t &&
               (yield o(
                 "WAWebDBMarkFutureproofMessagesReparsed",
@@ -133,22 +152,28 @@ __d(
               h.resolve(),
               null,
             ),
-            p
+            {
+              latestMessageEdits: p,
+              processedProtocolMsgs: i,
+              consumedProtocolMsgs: s.map(function (e) {
+                return e.protocolMsg;
+              }),
+            }
           );
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (e.length &&
-            (yield T(e),
-            V(e),
-            x(
+            (yield $(e),
+            z(e),
+            N(
               e
                 .filter(function (e) {
                   return (
@@ -160,17 +185,17 @@ __d(
                   return e.parentMsg;
                 }),
             ),
-            yield G(e)),
+            yield K(e)),
             t.length &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "updateEditedMessagesAction",
                 { messageEdits: t },
               ));
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function E(e, t) {
+    function I(e, t) {
       var n = [],
         a = [],
         i = [],
@@ -184,7 +209,7 @@ __d(
           if (u) {
             var c =
               o("WAWebMessageEditUtils").msgTypeSupportsEditing(u.type) ||
-              u.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT;
+              T(u.type);
             if (!c)
               return (
                 a.length < 3 && a.push({ id: u.id.toString(), type: u.type }),
@@ -310,12 +335,19 @@ __d(
         g
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
+    function T(e) {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        e === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT ||
+        (e === o("WAWebMsgType").MSG_TYPE.QUARANTINED &&
+          r("justknobx")._("572"))
+      );
+    }
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e.length &&
             (yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
               e,
@@ -325,15 +357,15 @@ __d(
               { storeReportingInfo: !0 },
             ));
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function D() {
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length) {
             var t = [],
               r = [];
@@ -387,7 +419,7 @@ __d(
                           m.push(
                             i.bulkCreateOrMerge(
                               u.map(function (e) {
-                                return j(e);
+                                return X(e);
                               }),
                             ),
                           ),
@@ -435,10 +467,10 @@ __d(
               ).handleReportingInfosUpdateOnMessageEdit(r));
           }
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function x(e) {
+    function N(e) {
       if (e.length) {
         var t = Array.from(
           new Set(
@@ -456,7 +488,7 @@ __d(
           ));
       }
     }
-    function $(e, t) {
+    function M(e, t) {
       return (
         (o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
           !o("WAWebUserPrefsMeUser").isMeAccount(t.from)) ||
@@ -470,31 +502,31 @@ __d(
           }))
       );
     }
-    function P(e, t) {
+    function w(e, t) {
       if (o("WAWebMsgGetters").getIsSentByMe(e))
         return e.local === !0
-          ? $(e, t)
+          ? M(e, t)
             ? o("WAAckLevel").ACK.SENT
             : o("WAAckLevel").ACK.CLOCK
           : o("WAWebMsgKeyUtils").isNoteToSelf(e.id)
             ? o("WAAckLevel").ACK.READ
             : o("WAAckLevel").ACK.SENT;
     }
-    var N = new Map();
-    function M(e, t) {
+    var A = new Map();
+    function F(e, t) {
       var n,
         a,
         i = r("nullthrows")(
           o("WAWebMessageEditUtils").getMsgEditType(e.type),
           "Unsupported message type for edits",
         ),
-        l = B(e, t, i);
+        l = U(e, t, i);
       o("WAWebMsgGetters").getIsSentByMe(e) &&
         t.count != null &&
         (l.count = t.count);
       var s =
           (n =
-            (a = N.get(e.id.toString())) != null
+            (a = A.get(e.id.toString())) != null
               ? a
               : e.latestEditSenderTimestampMs) != null
             ? n
@@ -502,14 +534,14 @@ __d(
         u = r("nullthrows")(t.latestEditSenderTimestampMs),
         c = u >= s;
       if (
-        (u >= s && U(l, e, t),
+        (u >= s && G(l, e, t),
         i === o("WAWebMessageEditUtils").MsgEditType.EventEdit)
       ) {
         var d = !!e.isEventCanceled,
           m = !!t.isEventCanceled;
         !d && m ? (c = !0) : d && !m && (c = !1);
       }
-      c && N.set(e.id.toString(), u);
+      c && A.set(e.id.toString(), u);
       var p;
       if (
         i !== o("WAWebMessageEditUtils").MsgEditType.EventEdit &&
@@ -527,7 +559,7 @@ __d(
           e.botEditType != null) &&
           ((l.botEditType = t.botEditType),
           (l.botEditTargetId = t.botEditTargetId)),
-        w(e, t, l),
+        O(e, t, l),
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e))
       ) {
         var g = o("WAWebMsgGetters").getGroupHistoryIndividualMessageInfo(e);
@@ -544,13 +576,13 @@ __d(
         mentionOfMe: p,
       };
     }
-    function w(e, t, n) {
+    function O(e, t, n) {
       var r = o(
         "WAWebMaibaAiHubSettledProgressEdit",
       ).getMaibaAiHubSettledProgressEditViewMode(e, t);
       r != null && (n.viewMode = r);
     }
-    function A(e) {
+    function B(e) {
       return babelHelpers.extends(
         { aiThreadInfo: e.aiThreadInfo },
         e.botResponseId != null ? { botResponseId: e.botResponseId } : null,
@@ -566,7 +598,7 @@ __d(
         },
       );
     }
-    function F(e) {
+    function W(e) {
       var t;
       return {
         deprecatedMms3Url: e.deprecatedMms3Url,
@@ -594,7 +626,7 @@ __d(
         kind: "image",
       };
     }
-    function O(e) {
+    function q(e) {
       return {
         deprecatedMms3Url: e.deprecatedMms3Url,
         directPath: e.directPath,
@@ -623,13 +655,13 @@ __d(
         kind: "video",
       };
     }
-    function B(e, t, n) {
+    function U(e, t, n) {
       var r = babelHelpers.extends(
         {
           latestEditMsgKey: t.latestEditMsgKey,
           latestEditSenderTimestampMs: t.latestEditSenderTimestampMs,
           errorCode: t.errorCode,
-          ack: P(e, t),
+          ack: w(e, t),
           pendingReadReceipt: o("WAWebMsgGetters").getIsSentByMe(e)
             ? void 0
             : o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
@@ -647,7 +679,7 @@ __d(
             s,
             u,
             c = !!t.matchedText || !!t.description || !!t.title;
-          return babelHelpers.extends({}, r, A(t), {
+          return babelHelpers.extends({}, r, B(t), {
             subtype: c ? "url" : void 0,
             body: t.body,
             mentionedJidList: t.mentionedJidList,
@@ -692,7 +724,7 @@ __d(
         case o("WAWebMessageEditUtils").MsgEditType.PollEdit:
           return babelHelpers.extends({}, r, { pollName: t.pollName });
         case o("WAWebMessageEditUtils").MsgEditType.RichResponseEdit:
-          return babelHelpers.extends({}, r, A(t), {
+          return babelHelpers.extends({}, r, B(t), {
             richResponse: t.richResponse,
             unifiedResponse: t.unifiedResponse,
             unifiedResponseRawData: t.unifiedResponseRawData,
@@ -703,20 +735,20 @@ __d(
           var d = t.mimetype;
           if (d != null) {
             if (d.startsWith("image"))
-              return babelHelpers.extends({}, r, A(t), F(t), { subtype: null });
+              return babelHelpers.extends({}, r, B(t), W(t), { subtype: null });
             if (d.startsWith("video"))
-              return babelHelpers.extends({}, r, A(t), O(t), { subtype: null });
+              return babelHelpers.extends({}, r, B(t), q(t), { subtype: null });
           }
-          return babelHelpers.extends({}, r, A(t), { type: "loading_media" });
+          return babelHelpers.extends({}, r, B(t), { type: "loading_media" });
         }
       }
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function q() {
+    function H() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !e.id.remote.isGroup() ||
             !o("WAWebMsgGetters").getIsSentByMeFromWeb(e)
@@ -747,10 +779,10 @@ __d(
             );
           }
         })),
-        q.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function U(e, t, n) {
+    function G(e, t, n) {
       var r, o;
       if (t.id.remote.isGroup()) {
         var a = n.botResponseTargetId != null;
@@ -761,14 +793,14 @@ __d(
             (o = n.botGroupParticipants) != null ? o : null));
       }
     }
-    function V(e) {
+    function z(e) {
       e.forEach(function (e) {
         var t = e.editedMsgData,
           n = e.isLatest,
           a = e.parentMsg;
         if (!(!n || t.botGroupParticipants === void 0))
           try {
-            H(a.id, t.botGroupParticipants, t.botGroupParticipant);
+            j(a.id, t.botGroupParticipants, t.botGroupParticipant);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -782,7 +814,7 @@ __d(
           }
       });
     }
-    function H(e, t, n) {
+    function j(e, t, n) {
       var r = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(t, n);
       [e, o("WAWebLidMigrationUtils").getAlternateMsgKey(e)].forEach(
         function (e) {
@@ -806,12 +838,12 @@ __d(
         },
       );
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function z() {
+    function Q() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map(),
             n = new Map();
           for (var r of e) {
@@ -839,10 +871,10 @@ __d(
             n.size &&
               (yield o("WAWebApiChatUnreadMention").addUnreadMentionChat(n)));
         })),
-        z.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function j(e) {
+    function X(e) {
       var t = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
         n = e.rowId;
       return n == null ||
@@ -854,8 +886,9 @@ __d(
     }
     ((l.EditedMentionOfMe = b),
       (l.processEditProtocolMsgs = v),
-      (l.updateMessageEditsLocally = R),
-      (l.generateMessageEdit = M));
+      (l.processEditProtocolMsgsWithOutcomes = R),
+      (l.updateMessageEditsLocally = E),
+      (l.generateMessageEdit = F));
   },
   98,
 );

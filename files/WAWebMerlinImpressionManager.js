@@ -4,6 +4,7 @@ __d(
     "MerlinImpressionManager",
     "Promise",
     "WAWebABProps",
+    "WAWebBizVpvPairFields",
     "WAWebChannelDiscoveryVisibilityTrackingWamEvent",
     "WAWebChannelMessageVisibilityTrackingWamEvent",
     "WAWebChatThreadLogging",
@@ -272,41 +273,43 @@ __d(
               M = r.map(function (e) {
                 return [e.enter, e.exit];
               }),
-              w = JSON.stringify({ 0: M, 50: M, 100: M });
-            new (o(
-              "WAWebPaidMessageVpvImpressionWamEvent",
-            ).PaidMessageVpvImpressionWamEvent)({
-              vpvJsonObject: w,
-              messageIdHmac: l != null ? l : void 0,
-              threadIdHmac: _ != null ? _ : void 0,
-              unifiedSessionId:
-                (t = o(
-                  "WAWebUnifiedSession",
-                ).UnifiedSessionManager.getSessionId()) != null
-                  ? t
-                  : void 0,
-              qbmFlag: I != null ? I : void 0,
-              contactType: f != null ? f : void 0,
-              hsmTagStr: h != null ? h : void 0,
-              readReceiptsEnabled: T,
-              chatsFolderType: m,
-              isMuted: b,
-              isBroadcastMessage: y,
-              isInsubContact: C,
-              deltaTime: P,
-              deltaTimeReceived: N,
-              messageFieldJsonArray: L,
-              submessageFieldJsonArray: x,
-              buttonValueJsonArray: c,
-              bodyUrlCountInt: s,
-              bodyUrlUniqueCountInt: u,
-              ctaUrlUniqueCountInt: g,
-              urlUniqueCountInt: $,
-              messageBodyType: v != null ? v : void 0,
-              mmCarouselCardIndex: k != null ? k : void 0,
-              messageBubbleWidthPx: R != null ? R : void 0,
-              messageBubbleHeightPx: S != null ? S : void 0,
-            }).commit();
+              w = JSON.stringify({ 0: M, 50: M, 100: M }),
+              A = new (o(
+                "WAWebPaidMessageVpvImpressionWamEvent",
+              ).PaidMessageVpvImpressionWamEvent)({
+                vpvJsonObject: w,
+                messageIdHmac: l != null ? l : void 0,
+                threadIdHmac: _ != null ? _ : void 0,
+                unifiedSessionId:
+                  (t = o(
+                    "WAWebUnifiedSession",
+                  ).UnifiedSessionManager.getSessionId()) != null
+                    ? t
+                    : void 0,
+                qbmFlag: I != null ? I : void 0,
+                contactType: f != null ? f : void 0,
+                hsmTagStr: h != null ? h : void 0,
+                readReceiptsEnabled: T,
+                chatsFolderType: m,
+                isMuted: b,
+                isBroadcastMessage: y,
+                isInsubContact: C,
+                deltaTime: P,
+                deltaTimeReceived: N,
+                messageFieldJsonArray: L,
+                submessageFieldJsonArray: x,
+                buttonValueJsonArray: c,
+                bodyUrlCountInt: s,
+                bodyUrlUniqueCountInt: u,
+                ctaUrlUniqueCountInt: g,
+                urlUniqueCountInt: $,
+                messageBodyType: v != null ? v : void 0,
+                mmCarouselCardIndex: k != null ? k : void 0,
+                messageBubbleWidthPx: R != null ? R : void 0,
+                messageBubbleHeightPx: S != null ? S : void 0,
+              });
+            (o("WAWebBizVpvPairFields").applyBizVpvPairFields(A, d),
+              A.commit());
           })();
         };
         o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, P);

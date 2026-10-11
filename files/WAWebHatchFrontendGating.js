@@ -80,6 +80,12 @@ __d(
         )
       );
     }
+    function h() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_activity_enabled")
+      );
+    }
     ((l.isHatchIntegrationEnabled = e),
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
@@ -88,7 +94,8 @@ __d(
       (l.isHatchBrowserEnabled = p),
       (l.isHatchSecureCredentialsEnabled = _),
       (l.isHatchSpaceEnabled = f),
-      (l.isHatchManageSubscriptionEnabled = g));
+      (l.isHatchManageSubscriptionEnabled = g),
+      (l.isHatchActivityEnabled = h));
   },
   98,
 );

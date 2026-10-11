@@ -36,9 +36,11 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = { deleteAssociatedMsgs: !0 });
           var a = t,
-            i = a.deleteAssociatedMsgs;
+            i = a.deleteAssociatedMsgs,
+            l = a.preserveQuarantineData,
+            p = l === void 0 ? !1 : l;
           if (e.length !== 0) {
-            var l = [];
+            var f = [];
             return o("WAWebModelStorageInitialize")
               .initializeWithoutGKs()
               .then(
@@ -47,22 +49,22 @@ __d(
                     n = [],
                     a = [];
                   if (i) {
-                    var s = yield o(
+                    var l = yield o(
                       "WAWebDBGetAssociatedMsgsByParentMsgKey",
                     ).bulkGetMessagesByParentMsgKey(
                       Array.from(e, function (e) {
                         return r("WAWebMsgKey").fromString(e);
                       }),
                     );
-                    s.forEach(function (e) {
+                    l.forEach(function (e) {
                       (a.push([e.msgKey, e.associationType]), t.add(e.msgKey));
                     });
                   }
-                  var u = Array.from(t);
+                  var s = Array.from(t);
                   return (
                     yield o("WAWebSchemaMessage")
                       .getMessageTable()
-                      .bulkGet(u, !1)
+                      .bulkGet(s, !1)
                       .then(function (e) {
                         e.forEach(function (e) {
                           (e == null ? void 0 : e.rowId) != null &&
@@ -79,7 +81,7 @@ __d(
                               null &&
                             r != null &&
                             o != null &&
-                            l.push({ internalId: o, targetId: r });
+                            f.push({ internalId: o, targetId: r });
                         });
                       }),
                     {
@@ -106,7 +108,7 @@ __d(
                                 "asyncToGeneratorRuntime",
                               ).asyncToGenerator(function* (e) {
                                 var i = Array.from(a),
-                                  d = [
+                                  l = [
                                     o("WAWebSchemaMessage")
                                       .getMessageTable()
                                       .bulkRemove(i),
@@ -121,15 +123,15 @@ __d(
                                           ],
                                         )),
                                   );
-                                  var p = o(
+                                  var d = o(
                                     "WAWebDBDeleteAssociatedMsgsByMsgKey",
                                   ).bulkDeleteMessagesByMsgKeyAndAssociationType(
                                     t,
                                   );
-                                  d.push(p);
+                                  l.push(d);
                                 }
                                 try {
-                                  l.length > 0 &&
+                                  f.length > 0 &&
                                     (o("WALogger").LOG(
                                       u ||
                                         (u =
@@ -141,9 +143,9 @@ __d(
                                     ),
                                     yield o(
                                       "WAWebDBStoreRevokeMsgs",
-                                    ).findAndDeleteAssociatedPluginMsg(l));
+                                    ).findAndDeleteAssociatedPluginMsg(f));
                                 } catch (e) {
-                                  var _ = r("getErrorSafe")(e);
+                                  var p = r("getErrorSafe")(e);
                                   o("WALogger")
                                     .ERROR(
                                       c ||
@@ -154,10 +156,10 @@ __d(
                                             ],
                                           )),
                                     )
-                                    .catching(_)
+                                    .catching(p)
                                     .sendLogs("Plugin carousel delete failed");
                                 }
-                                return (m || (m = n("Promise"))).all(d);
+                                return (m || (m = n("Promise"))).all(l);
                               });
                               return function (t) {
                                 return e.apply(this, arguments);
@@ -187,9 +189,7 @@ __d(
                 (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(t, {
                   removeWholeRow: !0,
                 }),
-                  o("WAWebQuarantineDataStore")
-                    .bulkDeleteQuarantineData(t)
-                    .catch(r("WAWebNoop")));
+                  h(t, p));
               })
               .catch(function (e) {
                 throw (
@@ -209,7 +209,13 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e) {
+    function h(e, t) {
+      t ||
+        o("WAWebQuarantineDataStore")
+          .bulkDeleteQuarantineData(e)
+          .catch(r("WAWebNoop"));
+    }
+    function y(e) {
       var t = [];
       for (var r of e)
         if (o("WAWebMsgGetters").getIsStatus(r)) {
@@ -221,7 +227,7 @@ __d(
         ? o("WAWebSchemaMessage").getMessageTable().bulkRemove(t)
         : (m || (m = n("Promise"))).resolve();
     }
-    ((l.removeMessagesFromHistory = f), (l.removeStatusMessage = h));
+    ((l.removeMessagesFromHistory = f), (l.removeStatusMessage = y));
   },
   98,
 );

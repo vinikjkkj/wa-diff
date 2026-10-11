@@ -93,7 +93,7 @@ __d(
             ])),
           r.malformedCount,
         ),
-        R(r.tasks, n));
+        R(r.tasks, n, "stream"));
     }
     function v(e) {
       return S.apply(this, arguments);
@@ -116,24 +116,26 @@ __d(
                 null
               );
             });
-          (t == null ? void 0 : t.kind) === "ok" && _ === e && R(t.tasks, e);
+          (t == null ? void 0 : t.kind) === "ok" &&
+            _ === e &&
+            R(t.tasks, e, "refresh");
         })),
         S.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      for (var n of e) {
+    function R(e, t, n) {
+      for (var r of e) {
         if (_ !== t) return;
-        var r = y(n.browserTaskID),
-          o = m.get(r);
-        if (!L(n.version, o == null ? void 0 : o.version)) {
-          var a = p.has(r) ? E(n) : n;
-          (m.set(r, a), k(r, a));
+        var o = y(r.browserTaskID),
+          a = m.get(o);
+        if (!L(r.version, a == null ? void 0 : a.version, n)) {
+          var i = p.has(o) ? E(r) : r;
+          (m.set(o, i), k(o, i));
         }
       }
     }
-    function L(e, t) {
-      return e != null && t != null && e < t;
+    function L(e, t, n) {
+      return t != null && (e == null ? n === "refresh" : e < t);
     }
     function E(e) {
       return babelHelpers.extends({}, e, {

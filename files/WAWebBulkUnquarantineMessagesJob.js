@@ -60,14 +60,28 @@ __d(
                 return f(e);
               }),
             ),
-            r = [],
-            o = [];
-          return (
-            e.forEach(function (e, n) {
-              t[n] ? r.push(e.msgId) : o.push(e.msgId);
-            }),
-            { processedIds: r, failedIds: o }
-          );
+            r = e
+              .filter(function (e, n) {
+                return t[n] === "processed";
+              })
+              .map(function (e) {
+                return e.msgId;
+              }),
+            o = e
+              .filter(function (e, n) {
+                return t[n] === "failed";
+              })
+              .map(function (e) {
+                return e.msgId;
+              }),
+            a = e
+              .filter(function (e, n) {
+                return t[n] === "retained";
+              })
+              .map(function (e) {
+                return e.msgId;
+              });
+          return { processedIds: r, failedIds: o, retainedIds: a };
         })),
         _.apply(this, arguments)
       );
@@ -79,14 +93,12 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = r("WAWebMsgKey").fromString(e.msgId);
-            return (
-              yield o("WAWebUnquarantineMessageJob").unquarantineMessageJob(
+            var t = r("WAWebMsgKey").fromString(e.msgId),
+              n = yield o("WAWebUnquarantineMessageJob").unquarantineMessageJob(
                 t,
                 e,
-              ),
-              !0
-            );
+              );
+            return h(n);
           } catch (t) {
             return (
               o("WALogger")
@@ -99,12 +111,15 @@ __d(
                   e.msgId,
                 )
                 .verbose(),
-              !1
+              "failed"
             );
           }
         })),
         g.apply(this, arguments)
       );
+    }
+    function h(e) {
+      return e ? "processed" : "retained";
     }
     l.bulkUnquarantineMessagesJob = d;
   },

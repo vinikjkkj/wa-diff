@@ -44,10 +44,26 @@ __d(
                   t[i],
                   a[i],
                 );
-              return a;
+              return t.map(function (e, t) {
+                return {
+                  isRecovering:
+                    o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
+                    o(
+                      "WAWebUnknownUserRecoveryManager",
+                    ).isUsyncRecoveryInFlight(e),
+                  presence: a[t],
+                };
+              });
             } catch (n) {
-              return t.map(function () {
-                return e;
+              return t.map(function (t) {
+                return {
+                  isRecovering:
+                    o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(t) ||
+                    o(
+                      "WAWebUnknownUserRecoveryManager",
+                    ).isUsyncRecoveryInFlight(t),
+                  presence: e,
+                };
               });
             }
           });
@@ -65,44 +81,40 @@ __d(
       ]);
     function c(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
-      if (o("WAWebUnknownUserDisplayedLogger").reserveUnknownUserEmission()) {
-        var r = u.has(e)
-          ? o("WAWebUnknownUserDisplayStore").recordDisplayForJid(t)
-          : null;
+      o("WAWebUnknownUserDisplayedLogger").unknownUserLoggingEnabled() &&
         s(t).then(
-          function (a) {
-            return o(
-              "WAWebUnknownUserDisplayedLogger",
-            ).commitUnknownUserDisplayed(
-              e,
-              t,
-              babelHelpers.extends(
-                {
-                  clientTsMs: n,
-                  isFirstDisplay: r == null ? void 0 : r.isFirstDisplay,
-                  durationInSecs: r == null ? void 0 : r.durationInSecs,
-                },
-                a,
-                {
-                  unknownUserRecoveryPath: o(
-                    "WAWebUnknownUserRecoveryManager",
-                  ).getUnknownUserRecoveryPath(t, a),
-                },
-              ),
-            );
+          function (r) {
+            var o = r.isRecovering,
+              a = r.presence;
+            o || d(e, t, n, a);
           },
           function () {
-            return o(
-              "WAWebUnknownUserDisplayedLogger",
-            ).commitUnknownUserDisplayed(e, t, {
-              clientTsMs: n,
-              isFirstDisplay: r == null ? void 0 : r.isFirstDisplay,
-              durationInSecs: r == null ? void 0 : r.durationInSecs,
-              unknownUserRecoveryPath: o("WAWebWamEnumUnknownUserRecoveryPath")
-                .UNKNOWN_USER_RECOVERY_PATH.NONE,
-            });
+            return d(e, t, n, null);
           },
         );
+    }
+    function d(e, t, n, r) {
+      if (o("WAWebUnknownUserDisplayedLogger").reserveUnknownUserEmission()) {
+        var a = u.has(e)
+          ? o("WAWebUnknownUserDisplayStore").recordDisplayForJid(t)
+          : null;
+        o("WAWebUnknownUserDisplayedLogger").commitUnknownUserDisplayed(e, t, {
+          clientTsMs: n,
+          isFirstDisplay: a == null ? void 0 : a.isFirstDisplay,
+          durationInSecs: a == null ? void 0 : a.durationInSecs,
+          hasUn: r == null ? void 0 : r.hasUn,
+          hasPn: r == null ? void 0 : r.hasPn,
+          hasPush: r == null ? void 0 : r.hasPush,
+          inDb: r == null ? void 0 : r.inDb,
+          unknownUserRecoveryPath:
+            r != null
+              ? o("WAWebUnknownUserRecoveryManager").getUnknownUserRecoveryPath(
+                  t,
+                  r,
+                )
+              : o("WAWebWamEnumUnknownUserRecoveryPath")
+                  .UNKNOWN_USER_RECOVERY_PATH.NONE,
+        });
       }
     }
     l.logUnknownUserDisplayed = c;

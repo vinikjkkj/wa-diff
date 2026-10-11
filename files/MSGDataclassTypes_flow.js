@@ -1149,6 +1149,8 @@ __d(
         MsgReelsList: "MSG_REELS_LIST",
         MsgSharedAlbum: "MSG_SHARED_ALBUM",
         MsgSocialCueMemories: "MSG_SOCIAL_CUE_MEMORIES",
+        MsgSocialCueMle: "MSG_SOCIAL_CUE_MLE",
+        MsgSocialCuePost: "MSG_SOCIAL_CUE_POST",
         MsgSupervisionInvite: "MSG_SUPERVISION_INVITE",
         None: "NONE",
         OcAvatarStaticSticker: "OC_AVATAR_STATIC_STICKER",

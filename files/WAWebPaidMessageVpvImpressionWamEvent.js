@@ -2,6 +2,7 @@ __d(
   "WAWebPaidMessageVpvImpressionWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumCapiPairBusinessChannelType",
     "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumContactType",
     "WAWebWamEnumMessageBodyTypeEnum",
@@ -17,6 +18,12 @@ __d(
               bodyUrlCountInt: [1, e.TYPES.INTEGER],
               bodyUrlUniqueCountInt: [2, e.TYPES.INTEGER],
               buttonValueJsonArray: [3, e.TYPES.STRING],
+              capiPairBusinessChannel: [
+                31,
+                o("WAWebWamEnumCapiPairBusinessChannelType")
+                  .CAPI_PAIR_BUSINESS_CHANNEL_TYPE,
+              ],
+              capiPairBusinessLid: [32, e.TYPES.STRING],
               chatsFolderType: [
                 4,
                 o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE,

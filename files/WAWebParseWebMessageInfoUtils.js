@@ -492,7 +492,10 @@ __d(
             ((t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),
               (t.subtype = "ephemeral"),
-              (t.author = t.templateParams[1]));
+              (t.author =
+                t.templateParams[1] instanceof r("WAWebWid")
+                  ? t.templateParams[1]
+                  : void 0));
             break;
           case l.PAYMENT_CIPHERTEXT:
             if (

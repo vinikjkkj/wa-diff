@@ -28,6 +28,7 @@ __d(
       "Starred",
       "ChatTheme",
       "HatchConnectors",
+      "HatchIdeas",
       "HatchSecureCredentials",
       "HatchWallet",
       "Kept",

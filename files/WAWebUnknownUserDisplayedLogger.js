@@ -36,15 +36,16 @@ __d(
       );
     }
     function p() {
-      if (
-        !o("WAWebABProps").getABPropConfigValue(
+      return (
+        o("WAWebABProps").getABPropConfigValue(
           "username_unknown_user_logging_enabled",
-        ) ||
-        !o(
+        ) &&
+        o(
           "WAWebUsernameGatingUtils",
         ).usernameAdoptionAndEngagementMonitoringEnabled()
-      )
-        return !1;
+      );
+    }
+    function _() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "unknown_user_wam_max_events_per_window",
       );
@@ -60,7 +61,7 @@ __d(
         a >= e ? !1 : (m({ count: a + 1, start: r }), !0)
       );
     }
-    function _(e) {
+    function f(e) {
       return e.isBot()
         ? "bot"
         : e.isLid()
@@ -69,7 +70,7 @@ __d(
             ? "group"
             : "pn";
     }
-    function f(e) {
+    function g(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "unknown_user_target_rid_logging",
@@ -82,7 +83,7 @@ __d(
           : t.user;
       }
     }
-    function g(t, n, r) {
+    function h(t, n, r) {
       var a, i, l, u, c, d, m, p;
       (o("WAWebCurrentUser").isEmployee()
         ? o("WALogger")
@@ -110,8 +111,8 @@ __d(
         ).UsernameUnknownUserDisplayedWamEvent)({
           unknownUserDisplayContext: t,
           clientTsMs: r.clientTsMs,
-          jidType: _(n),
-          unknownUserDisplayLid: (a = f(n)) != null ? a : void 0,
+          jidType: f(n),
+          unknownUserDisplayLid: (a = g(n)) != null ? a : void 0,
           isFirstDisplay: (i = r.isFirstDisplay) != null ? i : void 0,
           durationInSecs: (l = r.durationInSecs) != null ? l : void 0,
           hasUn: (u = r.hasUn) != null ? u : void 0,
@@ -123,8 +124,9 @@ __d(
         }).commit());
     }
     ((l.WINDOW_SECONDS = u),
-      (l.reserveUnknownUserEmission = p),
-      (l.commitUnknownUserDisplayed = g));
+      (l.unknownUserLoggingEnabled = p),
+      (l.reserveUnknownUserEmission = _),
+      (l.commitUnknownUserDisplayed = h));
   },
   98,
 );

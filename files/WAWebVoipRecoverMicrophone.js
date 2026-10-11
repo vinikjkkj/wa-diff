@@ -1,66 +1,95 @@
 __d(
   "WAWebVoipRecoverMicrophone",
   [
+    "Promise",
     "WALogger",
     "WAWebAudioDeviceManager",
+    "WAWebCallCollection",
     "WAWebCoreActionsODS",
     "WAWebMediaPermissionsUtils",
+    "WAWebNoop",
+    "WAWebUA",
     "WAWebVoipAudioCaptureAndPlayback",
+    "WAWebVoipDeviceAccessRecoveryGating",
+    "WAWebVoipDevicePermissionRequest",
+    "WAWebVoipMicrophoneRefusalState",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g;
+    function h(e) {
+      if (
+        !o("WAWebUA").UA.isWebkit ||
+        !o("WAWebVoipAudioCaptureAndPlayback").isCurrentAudioInputSilent()
+      )
+        return null;
+      var t = E(e);
+      return t == null ? null : k(t);
     }
-    function f() {
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.isCallCurrent,
-            n = e.onPermissionPrompt,
-            r = e.targetWindow;
-          if (!t()) return T("stale_call", "stale_call");
-          var o = yield k(
-            t,
-            r == null ? void 0 : r.navigator,
-            "permission query",
-          );
-          if (o == null) return T("stale_call", "stale_call");
-          var a = g(o);
-          if (a != null) return a;
-          var i = yield h({
-            initialPermissionState: o,
+            n = e.microphoneRequest,
+            r = e.onPermissionPrompt,
+            a = e.targetWindow;
+          if (!t()) return W("stale_call", "stale_call");
+          var i = o(
+              "WAWebVoipAudioCaptureAndPlayback",
+            ).isCurrentAudioInputSilent(),
+            l = yield O(
+              t,
+              a == null ? void 0 : a.navigator,
+              "permission query",
+            );
+          if (l == null) return W("stale_call", "stale_call");
+          var s = b(l);
+          if (s != null) return s;
+          var u = yield v({
+            initialPermissionState: l,
             isCallCurrent: t,
-            onPermissionPrompt: n,
-            targetWindow: r,
+            microphoneRequest: n,
+            onPermissionPrompt: r,
+            targetWindow: a,
           });
-          return i != null ? i : S(t, r);
+          return u != null
+            ? u
+            : i &&
+                o(
+                  "WAWebVoipAudioCaptureAndPlayback",
+                ).isCurrentAudioInputTrackLive()
+              ? W("ready", "reacquired")
+              : N(t, a);
         })),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function g(e) {
+    function b(e) {
       return e === "denied"
-        ? T("permission_denied", "permission_denied")
+        ? W("permission_denied", "permission_denied")
         : e !== "prompt" &&
             o("WAWebVoipAudioCaptureAndPlayback").isCurrentAudioInputTrackLive()
-          ? T("ready", "already_ready")
+          ? W("ready", "already_ready")
           : null;
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function y() {
+    function S() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.initialPermissionState,
             r = t.isCallCurrent,
-            a = t.onPermissionPrompt,
-            i = t.targetWindow;
-          if (n !== "granted") {
-            a == null || a();
-            var l = yield C(i);
+            a = t.microphoneRequest,
+            i = t.onPermissionPrompt,
+            l = t.targetWindow;
+          if (n !== "granted" || a != null) {
+            n !== "granted" && (i == null || i());
+            var d = yield R(l, r, a);
             if (!r())
               return (
                 o("WALogger").LOG(
@@ -69,18 +98,19 @@ __d(
                       "voip: [MicRecovery] active call changed during permission preflight",
                     ])),
                 ),
-                T("stale_call", "stale_call")
+                W("stale_call", "stale_call")
               );
-            if (l !== "granted") {
-              var d = yield L(
+            if (d !== "granted") {
+              var m = yield w(
                 r,
-                i == null ? void 0 : i.navigator,
-                l === "permission_denied",
+                l == null ? void 0 : l.navigator,
+                d === "permission_denied",
+                a != null,
               );
-              return D(d, "preflight_failed");
+              return q(m, "preflight_failed");
             }
           }
-          var m = yield o("WAWebAudioDeviceManager").selectAudioDevice(i, !0);
+          var p = yield o("WAWebAudioDeviceManager").selectAudioDevice(l, !0);
           if (!r())
             return (
               o("WALogger").LOG(
@@ -89,82 +119,153 @@ __d(
                     "voip: [MicRecovery] active call changed during device selection",
                   ])),
               ),
-              T("stale_call", "stale_call")
+              W("stale_call", "stale_call")
             );
-          if (m == null) {
+          if (p == null) {
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [MicRecovery] no microphone available after permission preflight",
                 ])),
             );
-            var p = yield L(r, i == null ? void 0 : i.navigator);
-            return D(p, "preflight_failed");
+            var _ = yield w(r, l == null ? void 0 : l.navigator);
+            return q(_, "preflight_failed");
           }
-          var _ = yield k(
+          var f = yield O(
             r,
-            i == null ? void 0 : i.navigator,
+            l == null ? void 0 : l.navigator,
             "post-preflight permission query",
           );
-          return _ == null
-            ? T("stale_call", "stale_call")
-            : _ === "denied"
-              ? T("permission_denied", "permission_denied")
-              : _ === "prompt"
+          return f == null
+            ? W("stale_call", "stale_call")
+            : f === "denied"
+              ? W("permission_denied", "permission_denied")
+              : f === "prompt"
                 ? (o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [MicRecovery] microphone permission remains prompt after preflight",
                       ])),
                   ),
-                  T("recovery_failed", "preflight_failed"))
+                  W("recovery_failed", "preflight_failed"))
                 : null;
         })),
-        y.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function R(e, t, n) {
+      return L.apply(this, arguments);
     }
-    function b() {
+    function L() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r =
-              (t =
-                e == null || (n = e.navigator) == null
-                  ? void 0
-                  : n.mediaDevices) != null
-                ? t
-                : navigator.mediaDevices;
-          if ((r == null ? void 0 : r.getUserMedia) == null) return "failed";
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            a = (r = n == null ? void 0 : n.take()) != null ? r : E(e);
+          if (a == null) return "failed";
+          var i = self.performance.now();
           try {
-            var o = yield r.getUserMedia({ audio: !0 });
-            return (
-              o.getTracks().forEach(function (e) {
-                return e.stop();
-              }),
-              "granted"
-            );
+            var l = yield a;
+            return (yield D(l, t), T(t, !1), "granted");
           } catch (e) {
-            return v(e) ? "permission_denied" : "failed";
+            var s;
+            return (
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [MicRecovery] microphone request failed after ",
+                    "ms: ",
+                    "",
+                  ])),
+                Math.round(self.performance.now() - i),
+                (s = P(e)) != null ? s : "unknown error",
+              ),
+              $(e) ? "permission_denied" : "failed"
+            );
           }
         })),
-        b.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function v(e) {
-      if (e == null || typeof e != "object" || !("name" in e)) return !1;
-      var t = e.name;
+    function E(e) {
+      var t,
+        n,
+        r =
+          (t =
+            e == null || (n = e.navigator) == null ? void 0 : n.mediaDevices) !=
+          null
+            ? t
+            : navigator.mediaDevices;
+      return (r == null ? void 0 : r.getUserMedia) == null
+        ? null
+        : r.getUserMedia({
+            audio: o(
+              "WAWebVoipDevicePermissionRequest",
+            ).getMicrophoneConstraints(),
+          });
+    }
+    function k(e) {
+      e.catch(r("WAWebNoop"));
+      var t = !1;
+      return {
+        release: function () {
+          t || e.then(I, r("WAWebNoop"));
+        },
+        take: function () {
+          return ((t = !0), e);
+        },
+      };
+    }
+    function I(e) {
+      e.getTracks().forEach(function (e) {
+        return e.stop();
+      });
+    }
+    function T(e, t) {
+      var n,
+        a = (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.id;
+      a == null ||
+        !e() ||
+        (t
+          ? o("WAWebVoipMicrophoneRefusalState").reportMicrophoneRefused(a)
+          : o("WAWebVoipMicrophoneRefusalState").clearMicrophoneRefused(a));
+    }
+    function D(e, t) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            o("WAWebVoipAudioCaptureAndPlayback").isCurrentAudioInputSilent()
+          ) {
+            yield o(
+              "WAWebVoipAudioCaptureAndPlayback",
+            ).adoptGrantedMicrophoneStream(
+              (g || (g = n("Promise"))).resolve(e),
+              t,
+            );
+            return;
+          }
+          I(e);
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      var t = P(e);
       return t === "NotAllowedError" || t === "PermissionDeniedError";
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function P(e) {
+      return e == null || typeof e != "object" || !("name" in e)
+        ? null
+        : String(e.name);
     }
-    function R() {
+    function N(e, t) {
+      return M.apply(this, arguments);
+    }
+    function M() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o(
             "WAWebVoipAudioCaptureAndPlayback",
           ).reacquireCurrentAudioInputDevice({
@@ -174,59 +275,87 @@ __d(
           if (!e())
             return (
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [MicRecovery] active call changed during microphone reacquisition",
                   ])),
               ),
-              T("stale_call", "stale_call")
+              W("stale_call", "stale_call")
             );
           if (!n) {
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [MicRecovery] microphone reacquisition failed",
                 ])),
             );
-            var r = yield L(e, t == null ? void 0 : t.navigator);
-            return D(r, "reacquire_failed");
+            var r = yield w(e, t == null ? void 0 : t.navigator);
+            return q(r, "reacquire_failed");
           }
-          return T("ready", "reacquired");
+          return W("ready", "reacquired");
         })),
-        R.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function w(e, t, n, r) {
+      return A.apply(this, arguments);
     }
-    function E() {
+    function A() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = !1);
-          var r = yield k(e, t, "failure classification");
-          return r == null
-            ? "stale_call"
-            : r === "denied" || (n && r === "unknown")
-              ? "permission_denied"
-              : "recovery_failed";
-        })),
-        E.apply(this, arguments)
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            (n === void 0 && (n = !1), r === void 0 && (r = !1));
+            var a = yield O(e, t, "failure classification");
+            if (a == null) return "stale_call";
+            n && a === "prompt" && T(e, !0);
+            var i = F(a, n, r);
+            return (
+              o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [MicRecovery] microphone recovery failed: ",
+                    " (permission ",
+                    ", refused ",
+                    ", in tap ",
+                    ")",
+                  ])),
+                i,
+                a,
+                String(n),
+                String(r),
+              ),
+              i
+            );
+          },
+        )),
+        A.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
+    function F(e, t, n) {
+      return e === "denied" ||
+        (t &&
+          (e === "unknown" ||
+            (!n &&
+              o(
+                "WAWebVoipDeviceAccessRecoveryGating",
+              ).isRefusalKeptUntilReload())))
+        ? "permission_denied"
+        : "recovery_failed";
     }
-    function I() {
+    function O(e, t, n) {
+      return B.apply(this, arguments);
+    }
+    function B() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield o(
             "WAWebMediaPermissionsUtils",
           ).queryMediaPermissionStateStrict("microphone", t);
           return e()
             ? r
             : (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [MicRecovery] active call changed during ",
                     "",
                   ])),
@@ -234,22 +363,22 @@ __d(
               ),
               null);
         })),
-        I.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function T(e, t) {
+    function W(e, t) {
       return (
         o("WAWebCoreActionsODS").logCallMicUnmutePreparationOutcome(t),
         e
       );
     }
-    function D(e, t) {
+    function q(e, t) {
       return e === "permission_denied"
-        ? T(e, "permission_denied")
+        ? W(e, "permission_denied")
         : e === "stale_call"
-          ? T(e, "stale_call")
+          ? W(e, "stale_call")
           : e === "recovery_failed"
-            ? T(e, t)
+            ? W(e, t)
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -257,7 +386,8 @@ __d(
                 );
               })();
     }
-    l.prepareMicrophoneForUnmute = _;
+    ((l.startMicrophoneRequestInGesture = h),
+      (l.prepareMicrophoneForUnmute = y));
   },
   98,
 );

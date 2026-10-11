@@ -915,7 +915,7 @@ __d(
             .catch(function (e) {
               r("clearTimeout")(qe);
               var t = D.current;
-              (t && t.logError(e),
+              (t && t.logError(r("getErrorSafe")(e)),
                 Ue(),
                 L.setLoggingToVPLAdditionalData("is_live_preview", Be(V)),
                 Pe.load(V));
